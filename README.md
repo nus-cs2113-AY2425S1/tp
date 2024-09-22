@@ -1,6 +1,6 @@
 # BuffBuddy 
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+BuffyBuddy is your go to workout tracker to help you stay on track with your goals. 
 
 ## Setting up in Intellij
 
