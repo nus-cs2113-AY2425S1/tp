@@ -1,13 +1,12 @@
-import java.util.Scanner;
+package WheresMyMoney;
+import WheresMyMoney.Ui;
 
 public class Main {
     /**
      * Main entry-point for the application
      */
     public static void main(String[] args) {
-        System.out.println("WheresMyMoney");
-        System.out.println("What is your name?");
-        Scanner in = new Scanner(System.in);
-        System.out.println("Hello " + in.nextLine());
+        Ui ui = new Ui();
+        ui.run();
     }
 }
