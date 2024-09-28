@@ -1,5 +1,4 @@
-package WheresMyMoney;
-import WheresMyMoney.Ui;
+package wheresmymoney;
 
 public class Main {
     /**

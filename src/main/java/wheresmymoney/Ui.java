@@ -1,4 +1,4 @@
-package WheresMyMoney;
+package wheresmymoney;
 import java.util.HashMap;
 import java.util.Scanner;
 

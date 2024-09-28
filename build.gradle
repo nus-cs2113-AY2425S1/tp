@@ -29,13 +29,11 @@ test {
 }
 
 application {
-    mainClass.set("WheresMyMoney.Main")
+    mainClass.set("wheresmymoney.Main")
 }
 
 shadowJar {
     archiveFileName = 'tp.jar'
-    //archiveBaseName.set("WheresMyMoney")
-    //archiveClassifier.set("")
 }
 
 checkstyle {

@@ -1,4 +1,4 @@
-package WheresMyMoney;
+package wheresmymoney;
 public class WheresMyMoneyException extends Exception {
     /**
      * Creates WheresMyMoneyException
