@@ -6,12 +6,12 @@ import java.util.List;
 public class ExpenseHandler {
     private List<Expense> expenses;
 
-    // Constructor
+
     public ExpenseHandler() {
         expenses = new ArrayList<>();
     }
 
-    // Getters
+
     public List<Expense> getList() {
         return expenses;
     }
@@ -28,7 +28,7 @@ public class ExpenseHandler {
         return expenses.indexOf(expense);
     }
 
-    // CRUD
+
     public void addExpense(Expense expense) {
         expenses.add(expense);
     }
