@@ -2,6 +2,22 @@
 
 This ReadME contains information about EasInternship, your one stop shop for all your internship searching requests.
 
+
+## Product Description
+This product aims to streamline the tracking of internship applications for the user, where the user is able to store key details of the internship as well as save and edit the status of the application. 
+
+**By using this tool, the user can:**
+
+**Store Important Internship Information:** Users can input and store key details such as the role, company, duration, required skills, application deadlines, and any additional notes.
+
+**Track Application Status:** Users can save the current status of their application (e.g., not applied, applied, interview scheduled, offer received) and update it as the application progresses.
+
+**Edit and Manage Internships:** Users have the ability to edit saved internships as needed, modify statuses, update deadlines, or remove outdated internships from the list.
+
+**Filter Internships by Key Criteria:** The user can filter the tracked internships by relevant skills, application status, or upcoming deadlines, allowing for better organization and prioritization.
+
+**Monitor Deadlines Easily:** The tool helps ensure users stay on top of their internship deadlines by flagging or sorting applications with approaching deadlines.
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 17 (use the exact version), update Intellij to the most recent version.
@@ -10,130 +26,17 @@ Prerequisites: JDK 17 (use the exact version), update Intellij to the most recen
 1. **Import the project _as a Gradle project_**, as described [here](https://se-education.org/guides/tutorials/intellijImportGradleProject.html).
 1. **Verify the setup**: After the importing is complete, locate the `src/main/java/seedu/duke/Duke.java` file, right-click it, and choose `Run Duke.main()`. If the setup is correct, you should see something like the below:
    ```
- CS2113 T10 Team 2
-Jaden Lim Jie Chen
-Tan Ting Hui
-Jai Vinod Kumar Rahul
-Man Kit Yu
-Features
-Search for Internship by default settings
-Search Command: search
-Searches the relevant websites (LinkedIn, Indeed, NUSTalentConnect) for roles related to Computer Engineering. This search does not take into account the user's skills and will return all results that have Computer Science / Engineering attached to them.
-User can click on embedded link within the role title to be directed to application website
+**CS2113 T10 Team 1**
 
-Format: search
+**Jaden Lim Jie Chen**
 
-Example Output
-Software Engineer Intern, Google
-Duration: 05/25 - 08/25
-Skills: Go, Python, Java, Communication Skills
-Deadline: 10/24
+**Tan Ting Hui**
 
-Autonomous Vehicle Embedded Software Engineer Intern
-	Duration: Not stated
-	Skills: Bash, Python, C++, ROS
-	Deadline: Not stated
+**Jai Vinod Kumar Rahul**
+
+**Man Kit Yu****
 
 
-Search for Internship by skills
-This feature builds upon the previous feature. It provides the additional functionality of being able to filter the search results by a certain subset of skills. It showcases the most relevant internships which contain all the skills mentioned by the user at the top. The remaining internships which contain a few of the skills mentioned by the user are displayed at the bottom.
-
-Format: search -skills {skill 1} {skill 2} {skill 3}
-
-Example inputs and outputs :-
-
-Input : search -skills {Python} 
-Output :
-
-Autonomous Vehicle Embedded Software Engineer Intern
-	Duration: 05/25 - 07/25
-	Skills: Bash, Python, C++, ROS
-	Deadline: 10/24
-
-Software Engineer Intern, Shopee
-Duration: 05/25 - 07/25
-Skills: Java, Python, SQL, Communication Skills
-	Deadline: 11/24
-
-Data Science Intern, Grab
-Duration: 05/25 - 06/25
-Skills: Python, Machine Learning, SQL, Data Analysis
-Deadline: 01/25
-
-Input : search -skills {Python} {SQL}
-Output :
-
-Software Engineer Intern, Shopee
-Duration: 05/25 - 07/25
-Skills: Java, Python, SQL, Communication Skills
-	Deadline: 11/24
-
-Data Science Intern, Grab
-Duration: 05/25 - 06/25
-Skills: Python, Machine Learning, SQL, Data Analysis
-Deadline: 01/25
-
-Autonomous Vehicle Embedded Software Engineer Intern
-	Duration: 05/25 - 07/25
-	Skills: Bash, Python, C++, ROS
-	Deadline: 10/24
-
-SQL Developer Internship, APSV Technologies
-Duration: 06/25 - 08/25
-Skills: SQL, Database management, Data Analysis
-Deadline: 02/25
-Search for Internship by duration
-This feature builds upon the first feature. It provides the additional functionality of being able to filter the search results by a certain date. It filters internships by date. All results within the boundaries provided will be listed.
-
-Format: search -from {MM/YY} -to {MM/YY}
-
-Input : search -from {05/25} -to {07/25} 
-Example Output :
-
-Autonomous Vehicle Embedded Software Engineer Intern
-Duration: 05/25 - 07/25
-Skills: Bash, Python, C++, ROS
-Deadline: 10/24
-
-Software Engineer Intern, Shopee
-Duration: 05/25 - 07/25
-Skills: Java, Python, SQL, Communication Skills
-Deadline: 11/24
-
-Data Science Intern, Grab
-Duration: 05/25 - 06/25
-Skills: Python, Machine Learning, SQL, Data Analysis
-Deadline: 01/25
-
-
-
-Help Command: help
-Shows the commands available for the user
-Describes the search function and that inputs are needed
-Other basic commands
-
-Format: /help
-
-Example Output
--location {location}: Modifies the search function to print listings for that specified location
-
--skills {skill 1} {skill 2}: Modifies the search function to only print listings which have specified those skills
-
-	/exit: terminates the programme
-
-Exit Command
-Terminates the program.
-
-Format: /exit
-Invalid Inputs
-Shows whenever an incomplete or invalid search call is performed. Output also shows what corrective action can be taken.
-
-Example Output:
-Please include a location if you are using the -location flag!
-
-Please include specific skills if you are using the -skills flag!
-
-I do not understand what flag you are using, consider typing /help to get a list of valid commands
 
 
 ## Build automation using Gradle
