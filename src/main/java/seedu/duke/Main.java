@@ -2,7 +2,7 @@ package seedu.duke;
 
 import seedu.duke.ui.Ui;
 
-public class Duke {
+public class Main {
     private static final Ui ui = new Ui();
 
     /**
