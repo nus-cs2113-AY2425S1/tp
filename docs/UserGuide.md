@@ -5,7 +5,7 @@ This product aims to streamline the tracking of internship applications for the 
 
 **By using this tool, the user can:**
 
-**Store Important Internship Information:** Users can input and store key details such as the role, company, duration, required skills, application deadlines, and any additional notes.
+**Store Important seedu.duke.Internship Information:** Users can input and store key details such as the role, company, duration, required skills, application deadlines, and any additional notes.
 
 **Track Application Status:** Users can save the current status of their application (e.g., not applied, applied, interview scheduled, offer received) and update it as the application progresses.
 
