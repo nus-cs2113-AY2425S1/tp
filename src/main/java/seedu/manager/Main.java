@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.manager;
 
 import seedu.manager.ui.Ui;
 
