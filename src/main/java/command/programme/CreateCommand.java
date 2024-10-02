@@ -15,7 +15,7 @@ public class CreateCommand extends Command {
 
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history){
-        String createdProgramme = insertProgramme(name, contents);
-        ui.showMsg("New programme created:\n" + createdProgramme);
+        Programme createdProgramme = insertProgramme(name, contents);
+        ui.showMsg("New programme created:\n" + Programme.toString());
     }
 }
