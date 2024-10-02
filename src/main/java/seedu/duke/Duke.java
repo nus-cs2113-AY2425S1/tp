@@ -7,7 +7,7 @@ import java.util.Scanner;
  * It manages the application's main loop, where user input is read, commands are parsed,
  * and the task list is displayed and updated accordingly.
  */
-public class EasInternship {
+public class Duke {
     /**
      * The main method initializes the UI, loads tasks from the storage, and continuously
      * prompts the user for commands to update and manipulate the task list until an
