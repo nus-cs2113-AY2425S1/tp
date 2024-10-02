@@ -25,8 +25,6 @@ public class Internship {
         this.endDate = (end == null || end.isEmpty())
                 ? YearMonth.parse("01/00", formatter)
                 : YearMonth.parse(end, formatter);
-//        this.skills = (skills == null || skills.isEmpty()) ? "" : skills;
-//        this.status = (status == null || status.isEmpty()) ? "Application Pending" : status;
         this.skills = "No Skills Entered";
         this.status = "Application Pending";
     }
