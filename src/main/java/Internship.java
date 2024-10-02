@@ -2,6 +2,8 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 public class Internship {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+
     private String id;
     private String role;
     private String company;
@@ -10,13 +12,17 @@ public class Internship {
     private String skills;
     private String status;
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+
 
     public Internship (String role, String company, String start, String end, String skills, String status) {
         this.role = role;
         this.company = company;
-        this.startDate = (start == null || start.isEmpty()) ? YearMonth.parse("01/00", formatter) : YearMonth.parse(start, formatter);
-        this.endDate = (end == null || end.isEmpty()) ? YearMonth.parse("01/00", formatter) : YearMonth.parse(end, formatter);
+        this.startDate = (start == null || start.isEmpty())
+                ? YearMonth.parse("01/00", formatter)
+                : YearMonth.parse(start, formatter);
+        this.endDate = (end == null || end.isEmpty())
+                ? YearMonth.parse("01/00", formatter)
+                : YearMonth.parse(end, formatter);
         this.skills = (skills == null || skills.isEmpty()) ? "" : skills;
         this.status = (status == null || status.isEmpty()) ? "Application Pending" : status;
     }
