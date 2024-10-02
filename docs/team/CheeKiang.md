@@ -1,4 +1,4 @@
-# John Doe - Project Portfolio Page
+# Ng Chee Kiang - Project Portfolio Page
 
 ## Overview
 
