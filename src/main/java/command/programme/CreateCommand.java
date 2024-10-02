@@ -4,7 +4,7 @@ import command.Command;
 import java.util.ArrayList;
 
 public class CreateCommand extends Command {
-
+    public static final String COMMAND_WORD = "create";
     private String name;
     private ArrayList<ArrayList<String>> contents;
 

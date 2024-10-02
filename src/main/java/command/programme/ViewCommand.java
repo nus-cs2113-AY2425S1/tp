@@ -2,6 +2,7 @@ package command.programme;
 import command.Command;
 
 public class ViewCommand extends Command {
+    public static final String COMMAND_WORD = "view";
 
     public ViewCommand(int progIndex){
         super(progIndex);
