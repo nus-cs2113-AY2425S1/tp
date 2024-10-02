@@ -1,11 +1,9 @@
+package seedu.duke;
+
 import java.util.ArrayList;
 
 public class InternshipList {
-    private ArrayList<Internship> internships;
-
-    public InternshipList() {
-        this.internships = new ArrayList<>();
-    }
+    public static ArrayList<Internship> internships;
 
     public void addInternship(Internship internship) {
         internship.setId(internships.size() + 1);
@@ -40,7 +38,7 @@ public class InternshipList {
     }
 
     // Method to list all internships
-    public void listAllInternships() {
+    public static void listAllInternships() {
         if (internships.isEmpty()) {
             System.out.println("No internships added.");
         } else {

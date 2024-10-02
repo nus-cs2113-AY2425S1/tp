@@ -1,3 +1,5 @@
+package seedu.duke;
+
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
@@ -14,7 +16,7 @@ public class Internship {
 
 
 
-    public Internship (String role, String company, String start, String end, String skills, String status) {
+    public Internship (String role, String company, String start, String end) {
         this.role = role;
         this.company = company;
         this.startDate = (start == null || start.isEmpty())
@@ -23,8 +25,10 @@ public class Internship {
         this.endDate = (end == null || end.isEmpty())
                 ? YearMonth.parse("01/00", formatter)
                 : YearMonth.parse(end, formatter);
-        this.skills = (skills == null || skills.isEmpty()) ? "" : skills;
-        this.status = (status == null || status.isEmpty()) ? "Application Pending" : status;
+//        this.skills = (skills == null || skills.isEmpty()) ? "" : skills;
+//        this.status = (status == null || status.isEmpty()) ? "Application Pending" : status;
+        this.skills = "No Skills Entered";
+        this.status = "Application Pending";
     }
 
     // Set ID based on the index of the internship in the list
