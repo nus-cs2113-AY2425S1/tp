@@ -23,6 +23,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         InternshipList internshipList = new InternshipList();
+        internshipList.addInternship(new Internship("Software Engineer", "Company A", "2024-01-01", "2024-01-31"));
         internshipList.listAllInternships();
         System.out.println("What is your name?");
 
