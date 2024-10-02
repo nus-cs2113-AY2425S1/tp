@@ -10,37 +10,37 @@ public class AddCommand implements Command {
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
-                case "-name":
-                    if (i + 1 < args.length) {
-                        role = args[++i];
-                    } else {
-                        System.out.println("Role not specified.");
-                    }
-                    break;
-                case "-company":
-                    if (i + 1 < args.length) {
-                        company = args[++i];
-                    } else {
-                        System.out.println("Company not specified.");
-                    }
-                    break;
-                case "-from":
-                    if (i + 1 < args.length) {
-                        startDate = args[++i];
-                    } else {
-                        System.out.println("Start date not specified.");
-                    }
-                    break;
-                case "-to":
-                    if (i + 1 < args.length) {
-                        endDate = args[++i];
-                    } else {
-                        System.out.println("End date not specified.");
-                    }
-                    break;
-                default:
-                    System.out.println("Unknown flag: " + args[i]);
-                    break;
+            case "-name":
+                if (i + 1 < args.length) {
+                    role = args[++i];
+                } else {
+                    System.out.println("Role not specified.");
+                }
+                break;
+            case "-company":
+                if (i + 1 < args.length) {
+                    company = args[++i];
+                } else {
+                    System.out.println("Company not specified.");
+                }
+                break;
+            case "-from":
+                if (i + 1 < args.length) {
+                    startDate = args[++i];
+                } else {
+                    System.out.println("Start date not specified.");
+                }
+                break;
+            case "-to":
+                if (i + 1 < args.length) {
+                    endDate = args[++i];
+                } else {
+                    System.out.println("End date not specified.");
+                }
+                break;
+            default:
+                System.out.println("Unknown flag: " + args[i]);
+                break;
             }
         }
 
