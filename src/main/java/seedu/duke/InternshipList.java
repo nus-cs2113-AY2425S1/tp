@@ -5,6 +5,11 @@ import java.util.ArrayList;
 public class InternshipList {
     public static ArrayList<Internship> internships;
 
+    // Constructor
+    public InternshipList() {
+        internships = new ArrayList<>();
+    }
+
     public void addInternship(Internship internship) {
         internship.setId(internships.size() + 1);
         internships.add(internship);
@@ -38,7 +43,7 @@ public class InternshipList {
     }
 
     // Method to list all internships
-    public static void listAllInternships() {
+    public void listAllInternships() {
         if (internships.isEmpty()) {
             System.out.println("No internships added.");
         } else {

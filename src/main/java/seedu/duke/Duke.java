@@ -22,7 +22,8 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        InternshipList.listAllInternships();
+        InternshipList internshipList = new InternshipList();
+        internshipList.listAllInternships();
         System.out.println("What is your name?");
 
         Scanner in = new Scanner(System.in);
