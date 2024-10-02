@@ -1,4 +1,4 @@
-# John Doe - Project Portfolio Page
+# Marcus Wong - Project Portfolio Page
 
 ## Overview
 
