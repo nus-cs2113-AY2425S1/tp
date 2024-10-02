@@ -2,6 +2,7 @@ package command.programme;
 import command.Command;
 
 public class StartCommand extends Command {
+    public static final String COMMAND_WORD = "start";
 
     public StartCommand(int startIndex){
         super(startIndex);

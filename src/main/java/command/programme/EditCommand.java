@@ -2,6 +2,7 @@ package command.programme;
 import command.Command;
 
 public class EditCommand extends Command {
+    public static final String COMMAND_WORD = "edit";
     private int dayIndex;
     private String editType; // create, update, or remove
     private int exerciseIndex;
