@@ -11,5 +11,10 @@ public class Duke {
             String input = in.nextLine().trim();
             if (input.startsWith("add category")) {
                 expenseTracker.addCategory(input);
+            } else if (input.equalsIgnoreCase("bye")) {
+                System.out.println("Goodbye! (｡•‿•｡) Hope to see you again soon!");
+                break;
+            }
+        }
     }
 }
