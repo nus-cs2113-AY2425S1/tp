@@ -1,4 +1,8 @@
 package command;
+import core.Ui;
+import programme.ProgrammeList;
+import core.History;
+
 
 public class HistoryCommand extends Command {
     public static final String COMMAND_WORD = "history";

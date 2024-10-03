@@ -1,4 +1,7 @@
 package command;
+import core.Ui;
+import programme.ProgrammeList;
+import core.History;
 
 public class InvalidCommand extends Command {
     @Override

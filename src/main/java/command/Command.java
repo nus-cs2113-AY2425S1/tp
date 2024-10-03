@@ -1,4 +1,7 @@
 package command;
+import core.Ui;
+import programme.ProgrammeList;
+import core.History;
 
 public abstract class Command {
     private int target;
