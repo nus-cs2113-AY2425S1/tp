@@ -1,4 +1,4 @@
-package commands;
+package seedu.duke.flashutils.commands;
 
 /**
  * Displays flashcards for specified flashcard set.

@@ -1,4 +1,4 @@
-package commands;
+package seedu.duke.flashutils.commands;
 
 /**
  * Removes flashcard from flashcard set.

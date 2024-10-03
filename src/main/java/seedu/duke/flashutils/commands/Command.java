@@ -1,4 +1,4 @@
-package commands;
+package seedu.duke.flashutils.commands;
 
 /**
  * Represents an executable command.

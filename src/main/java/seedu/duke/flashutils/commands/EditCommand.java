@@ -1,4 +1,4 @@
-package commands;
+package seedu.duke.flashutils.commands;
 
 /**
  * Updates information in an existing flashcard.

@@ -1,4 +1,4 @@
-package commands;
+package seedu.duke.flashutils.commands;
 
 /**
  * Starts a FlashBang session, where questions for each flashcard are displayed
