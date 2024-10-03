@@ -1,5 +1,8 @@
 package command.programme;
 import command.Command;
+import core.Ui;
+import programme.ProgrammeList;
+import core.History;
 
 public class EditCommand extends Command {
     //TODO - this task is more complicated than expected, ignore for now

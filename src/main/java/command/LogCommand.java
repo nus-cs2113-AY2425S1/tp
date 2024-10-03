@@ -1,11 +1,25 @@
 package command;
+import core.Ui;
+import programme.ProgrammeList;
+import programme.Day;
+import core.History;
 
 public class LogCommand extends Command {
     public static final String COMMAND_WORD = "log";
+    private String date;
+    private int progIndex;
+    private int dayIndex;
+
+    public LogCommand(int progIndex, int dayIndex, String date){
+        this.progIndex = progIndex;
+        this.dayIndex = dayIndex;
+        this.date = date;
+    }
+
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history){
-        Programme completed = pList.logActiveProgramme();
-        history.log(completed);
+        Day completed = pList.getDay(progIndex, dayIndex);
+        history.logDay(completed, date);
         ui.showMsg("Congrats! You've successfully completed:\n" + completed.toString());
     }
 }
