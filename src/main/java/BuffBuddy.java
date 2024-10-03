@@ -19,16 +19,16 @@ public class BuffBuddy {
     private final ProgrammeList pList;
     private final Parser commandParser;
 
-    public static void main(String[] args) {
-        new BuffBuddy(DEFAULT_FILE_PATH).run();
-    }
-
     public BuffBuddy(String filePath) {
         userInterface = new Ui();
         storage = new Storage(filePath);
         commandParser = new Parser();
         pList = new ProgrammeList();
         history = new History();
+    }
+
+    public static void main(String[] args) {
+        new BuffBuddy(DEFAULT_FILE_PATH).run();
     }
 
     public void run() {
