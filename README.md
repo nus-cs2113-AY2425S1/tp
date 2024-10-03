@@ -2,6 +2,22 @@
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
+
+## Product Description
+This product aims to streamline the tracking of internship applications for the user, where the user is able to store key details of the internship as well as save and edit the status of the application. 
+
+**By using this tool, the user can:**
+
+**Store Important seedu.duke.Internship Information:** Users can input and store key details such as the role, company, duration, required skills, application deadlines, and any additional notes.
+
+**Track Application Status:** Users can save the current status of their application (e.g., not applied, applied, interview scheduled, offer received) and update it as the application progresses.
+
+**Edit and Manage Internships:** Users have the ability to edit saved internships as needed, modify statuses, update deadlines, or remove outdated internships from the list.
+
+**Filter Internships by Key Criteria:** The user can filter the tracked internships by relevant skills, application status, or upcoming deadlines, allowing for better organization and prioritization.
+
+**Monitor Deadlines Easily:** The tool helps ensure users stay on top of their internship deadlines by flagging or sorting applications with approaching deadlines.
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 17 (use the exact version), update Intellij to the most recent version.
@@ -25,6 +41,18 @@ Prerequisites: JDK 17 (use the exact version), update Intellij to the most recen
    What is your name?
    ```
    Type some word and press enter to let the execution proceed to the end.
+**CS2113 T10 Team 1**
+
+**Jaden Lim Jie Chen**
+
+**Tan Ting Hui**
+
+**Jai Vinod Kumar Rahul**
+
+**Man Kit Yu****
+
+
+
 
 ## Build automation using Gradle
 
