@@ -1,4 +1,4 @@
-# Duke
+# MediTask
 
 {Give product intro here}
 
