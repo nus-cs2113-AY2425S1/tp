@@ -2,4 +2,4 @@
 
 Display |    Name    | Github Profile | Portfolio 
 --------|:----------:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | Yu Man Kit | [Github](https://github.com/Toby-Yu) | [Portfolio](docs/team/toby-yu.md)
+![](https://via.placeholder.com/100.png?text=Photo) | Yu Man Kit | [Github](https://github.com/Toby-Yu) | [Portfolio](toby-yu)
