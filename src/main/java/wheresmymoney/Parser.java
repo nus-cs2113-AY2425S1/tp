@@ -58,7 +58,8 @@ public class Parser{
      * @return Whether to continue running the program
      * @throws Exception If command fails to run
      */
-    public boolean commandMatching(HashMap<String, String> argumentsList, ExpenseList expenseList) throws WheresMyMoneyException {
+    public boolean commandMatching(HashMap<String, String> argumentsList, ExpenseList expenseList) 
+            throws WheresMyMoneyException {
         switch(argumentsList.get(Parser.ARGUMENT_COMMAND)){
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
