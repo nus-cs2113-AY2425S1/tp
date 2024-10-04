@@ -71,6 +71,9 @@ public class Parser{
             String description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
             expenseList.editExpense(index, category, price, description);
             break;
+        case "help":
+            Ui.displayHelp();
+            break;
         default:
             System.out.println("No valid command given!");
             break;
