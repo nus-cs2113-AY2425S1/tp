@@ -64,13 +64,12 @@ public class Parser{
             System.out.println("Bye. Hope to see you again soon!");
             return false;
         case "edit":
-            int index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN));
+            int index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;
             String category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
             float price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
             String description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
             expenseList.editExpense(index, category, price, description);
             break;
-
         default:
             System.out.println("No valid command given!");
             break;

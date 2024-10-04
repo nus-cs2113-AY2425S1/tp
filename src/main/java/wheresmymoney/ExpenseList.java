@@ -42,7 +42,6 @@ public class ExpenseList {
         expense.setCategory(category);
         expense.setPrice(price);
         expense.setDescription(description);
-        expenses.set(index, expense); // Not sure if this is necessary yet, need to check
     }
 
     public void deleteExpense(int i) {
