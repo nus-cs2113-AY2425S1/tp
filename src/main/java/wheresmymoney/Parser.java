@@ -4,6 +4,9 @@ import java.util.HashMap;
 public class Parser{
     public static final String ARGUMENT_COMMAND = "command";
     public static final String ARGUMENT_MAIN = "main";
+    public static final String ARGUMENT_CATEGORY = "category";
+    public static final String ARGUMENT_PRICE = "price";
+    public static final String ARGUMENT_DESCRIPTION = "description";
 
     /**
      * Parses the given user input into command arguments
@@ -34,7 +37,7 @@ public class Parser{
                 if (!currArgument.toString().isEmpty()){
                     argumentsList.put(currArgumentName, currArgument.toString().strip());
                 }
-                currArgumentName = lineArgs[i];
+                currArgumentName = lineArgs[i].replace("/", "");
                 currArgument.setLength(0);
             } else {
                 // Add on to existing argument
@@ -61,7 +64,8 @@ public class Parser{
             System.out.println("Bye. Hope to see you again soon!");
             return false;
         case "edit":
-            
+            int index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN));
+            String category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
             break;
         default:
             System.out.println("No valid command given!");
