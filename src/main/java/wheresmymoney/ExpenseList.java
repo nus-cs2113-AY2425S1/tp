@@ -37,6 +37,13 @@ public class ExpenseList {
         expenses.add(expense);
     }
 
+    /**
+     * Edit the details of an expense given its position in the list
+     * @param index index of Expense in the list that is to be edited
+     * @param category New category of expense
+     * @param price New price of expense
+     * @param description New description of expense
+     */
     public void editExpense(int index, String category, float price, String description) {
         Expense expense = expenses.get(index);
         expense.setCategory(category);
