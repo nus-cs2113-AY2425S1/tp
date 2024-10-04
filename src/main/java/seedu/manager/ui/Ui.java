@@ -1,16 +1,14 @@
 package seedu.manager.ui;
 
-import seedu.manager.common.Messages;
-
 /**
  * Represents the program's user interface
  */
 public class Ui {
-
+    public static final String WELCOME_MESSAGE = "Welcome to EventManagerCLI.";
     /**
      * Greets user upon program startup
      */
     public void greetUser() {
-        System.out.println(Messages.WELCOME_MESSAGE);
+        System.out.println(WELCOME_MESSAGE);
     }
 }
