@@ -15,23 +15,18 @@ public class Internship {
     private String status;
 
 
-
-    public Internship (String role, String company, String start, String end) {
+    public Internship(String role, String company, YearMonth start, YearMonth end) {
         this.role = role;
         this.company = company;
-        this.startDate = (start == null || start.isEmpty())
-                ? YearMonth.parse("01/00", formatter)
-                : YearMonth.parse(start, formatter);
-        this.endDate = (end == null || end.isEmpty())
-                ? YearMonth.parse("01/00", formatter)
-                : YearMonth.parse(end, formatter);
+        this.startDate = start;
+        this.endDate = end;
         this.skills = "No Skills Entered";
         this.status = "Application Pending";
     }
 
     // Set ID based on the index of the internship in the list
     public void setId(int index) {
-        this.id = String.format("%02d", index); // Format the index as 2-digit ID
+        this.id = String.format("%02d", index);
     }
 
     // Getters and Setters
@@ -76,7 +71,7 @@ public class Internship {
     }
 
     public void setSkills(String skills) {
-        this.skills = skills.equals("") ? "Not Stated" : skills;
+        this.skills = skills.isEmpty() ? "Not Stated" : skills;
     }
 
     public String getStatus() {
@@ -84,7 +79,7 @@ public class Internship {
     }
 
     public void setStatus(String status) {
-        this.status = status.equals("") ? "Pending" : status;
+        this.status = status.isEmpty() ? "Pending" : status;
     }
 
     // toString method for displaying the details
