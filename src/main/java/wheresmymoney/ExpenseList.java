@@ -15,15 +15,19 @@ public class ExpenseList {
     public List<Expense> getList() {
         return expenses;
     }
+
     public int getTotal() {
         return expenses.size();
     }
+
     public boolean isEmpty() {
         return expenses.isEmpty();
     }
+
     public Expense getExpenseAtIndex(int i) {
         return expenses.get(i);
     }
+    
     public int getIndexOf(Expense expense) {
         return expenses.indexOf(expense);
     }
@@ -32,6 +36,15 @@ public class ExpenseList {
     public void addExpense(Expense expense) {
         expenses.add(expense);
     }
+
+    public void editExpense(int index, String category, float price, String description) {
+        Expense expense = expenses.get(index);
+        expense.setCategory(category);
+        expense.setPrice(price);
+        expense.setDescription(description);
+        expenses.set(index, expense); // Not sure if this is necessary yet, need to check
+    }
+
     public void deleteExpense(int i) {
         expenses.remove(i);
     }

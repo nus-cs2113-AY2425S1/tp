@@ -66,7 +66,11 @@ public class Parser{
         case "edit":
             int index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN));
             String category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
+            float price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
+            String description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
+            expenseList.editExpense(index, category, price, description);
             break;
+
         default:
             System.out.println("No valid command given!");
             break;
