@@ -3,11 +3,11 @@ package wheresmymoney;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpenseHandler {
+public class ExpenseList {
     private List<Expense> expenses;
 
 
-    public ExpenseHandler() {
+    public ExpenseList() {
         expenses = new ArrayList<>();
     }
 
