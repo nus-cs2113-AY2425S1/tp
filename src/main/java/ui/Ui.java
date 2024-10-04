@@ -1,4 +1,4 @@
-package seedu.manager.ui;
+package ui;
 
 /**
  * Represents the program's user interface
