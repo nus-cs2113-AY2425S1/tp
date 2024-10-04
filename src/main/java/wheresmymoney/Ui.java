@@ -18,8 +18,9 @@ public class Ui {
 
     /**
      * Runs a loop where the user can enter commands, until they exit
+     * @param expenseList Object representing the list of expenses
      */
-    public void commandEntryLoop(){
+    public void commandEntryLoop(ExpenseList expenseList){
         // Command Entry
         String line;
         HashMap<String, String> argumentsList;
@@ -30,7 +31,7 @@ public class Ui {
             line = scanner.nextLine();
             argumentsList = parser.parseCommandToArguments(line);
             try {
-                isAskingInput = parser.commandMatching(argumentsList);
+                isAskingInput = parser.commandMatching(argumentsList, expenseList);
             } catch (WheresMyMoneyException e){
                 System.out.println(e.getMessage());
             }
@@ -40,9 +41,10 @@ public class Ui {
 
     /**
      * Runs the entire program
+     * @param expenseList Object representing the list of expenses
      */
-    public void run(){
+    public void run(ExpenseList expenseList){
         displayIntroText();
-        commandEntryLoop();
+        commandEntryLoop(expenseList);
     }
 }

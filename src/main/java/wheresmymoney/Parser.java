@@ -51,14 +51,18 @@ public class Parser{
     /**
      * Matches the argument list to a related command and runs said command
      * @param argumentsList List of arguments
+     * @param expenseList List of expenses
      * @return Whether to continue running the program
      * @throws Exception If command fails to run
      */
-    public boolean commandMatching(HashMap<String, String> argumentsList) throws WheresMyMoneyException {
+    public boolean commandMatching(HashMap<String, String> argumentsList, ExpenseList expenseList) throws WheresMyMoneyException {
         switch(argumentsList.get(Parser.ARGUMENT_COMMAND)){
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
             return false;
+        case "edit":
+            
+            break;
         default:
             System.out.println("No valid command given!");
             break;
