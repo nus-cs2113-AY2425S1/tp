@@ -6,6 +6,7 @@ public class Main {
      */
     public static void main(String[] args) {
         Ui ui = new Ui();
-        ui.run();
+        ExpenseList expenseList = new ExpenseList();
+        ui.run(expenseList);
     }
 }

@@ -4,6 +4,9 @@ import java.util.HashMap;
 public class Parser{
     public static final String ARGUMENT_COMMAND = "command";
     public static final String ARGUMENT_MAIN = "main";
+    public static final String ARGUMENT_CATEGORY = "category";
+    public static final String ARGUMENT_PRICE = "price";
+    public static final String ARGUMENT_DESCRIPTION = "description";
 
     /**
      * Parses the given user input into command arguments
@@ -34,7 +37,7 @@ public class Parser{
                 if (!currArgument.toString().isEmpty()){
                     argumentsList.put(currArgumentName, currArgument.toString().strip());
                 }
-                currArgumentName = lineArgs[i];
+                currArgumentName = lineArgs[i].replace("/", "");
                 currArgument.setLength(0);
             } else {
                 // Add on to existing argument
@@ -51,14 +54,23 @@ public class Parser{
     /**
      * Matches the argument list to a related command and runs said command
      * @param argumentsList List of arguments
+     * @param expenseList List of expenses
      * @return Whether to continue running the program
      * @throws Exception If command fails to run
      */
-    public boolean commandMatching(HashMap<String, String> argumentsList) throws WheresMyMoneyException {
+    public boolean commandMatching(HashMap<String, String> argumentsList, ExpenseList expenseList) 
+            throws WheresMyMoneyException {
         switch(argumentsList.get(Parser.ARGUMENT_COMMAND)){
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
             return false;
+        case "edit":
+            int index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;
+            String category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
+            float price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
+            String description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
+            expenseList.editExpense(index, category, price, description);
+            break;
         default:
             System.out.println("No valid command given!");
             break;
