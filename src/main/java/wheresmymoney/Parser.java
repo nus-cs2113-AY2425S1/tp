@@ -60,15 +60,23 @@ public class Parser{
      */
     public boolean commandMatching(HashMap<String, String> argumentsList, ExpenseList expenseList) 
             throws WheresMyMoneyException {
+        int index;
+        float price;
+        String description;
+        String category;
+        Expense expense;
         switch(argumentsList.get(Parser.ARGUMENT_COMMAND)){
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
             return false;
+        case "add":
+            expenseList.addExpense(argumentsList);
+            break;
         case "edit":
-            int index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;
-            String category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
-            float price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
-            String description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
+            index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;
+            category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
+            price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
+            description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
             expenseList.editExpense(index, category, price, description);
             break;
         case "help":

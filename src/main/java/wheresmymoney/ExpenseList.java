@@ -1,6 +1,7 @@
 package wheresmymoney;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ExpenseList {
@@ -35,6 +36,18 @@ public class ExpenseList {
 
     public void addExpense(Expense expense) {
         expenses.add(expense);
+    }
+
+    /**
+     * Add an expense to the end of the list
+     * @param argumentsList The list of arguments passed by Parser
+     */
+    public void addExpense(HashMap<String, String> argumentsList) {
+        float price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
+        String description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
+        String category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
+        Expense expense = new Expense(price, description, category);
+        addExpense(expense);
     }
 
     /**
