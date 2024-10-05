@@ -33,7 +33,14 @@ public class ExpenseList {
     }
 
 
-    public void addExpense(Expense expense) {
+    /**
+     * Add an expense to the end of the list
+     * @param price New price of expense
+     * @param description New description of expense
+     * @param category New category of expense
+     */
+    public void addExpense(float price, String description, String category) {
+        Expense expense = new Expense(price, description, category);
         expenses.add(expense);
     }
 
