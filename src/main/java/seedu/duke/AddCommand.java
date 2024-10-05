@@ -3,6 +3,11 @@ package seedu.duke;
 import java.time.YearMonth;
 
 public class AddCommand implements Command {
+    private final InternshipList internships;
+
+    public AddCommand(InternshipList internshipList) {
+        this.internships = internshipList;
+    }
     @Override
     public void execute(String[] args) {
         String role = "";
@@ -47,6 +52,7 @@ public class AddCommand implements Command {
         }
 
         Internship newInternship = new Internship(role, company, startDate, endDate);
+        internships.addInternship(newInternship);
         System.out.println("Internship added: " + newInternship);
     }
 
