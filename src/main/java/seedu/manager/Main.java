@@ -1,6 +1,6 @@
 package seedu.manager;
 
-import ui.Ui;
+import seedu.manager.ui.Ui;
 
 public class Main {
     private static final Ui ui = new Ui();
