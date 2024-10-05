@@ -64,13 +64,15 @@ public class Parser{
         float price;
         String description;
         String category;
-        Expense expense;
         switch(argumentsList.get(Parser.ARGUMENT_COMMAND)){
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
             return false;
         case "add":
-            expenseList.addExpense(argumentsList);
+            price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
+            description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
+            category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
+            expenseList.addExpense(price, description, category);
             break;
         case "edit":
             index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;

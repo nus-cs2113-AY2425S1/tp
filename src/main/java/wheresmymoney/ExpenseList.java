@@ -34,20 +34,15 @@ public class ExpenseList {
     }
 
 
-    public void addExpense(Expense expense) {
-        expenses.add(expense);
-    }
-
     /**
      * Add an expense to the end of the list
-     * @param argumentsList The list of arguments passed by Parser
+     * @param price New price of expense
+     * @param description New description of expense
+     * @param category New category of expense
      */
-    public void addExpense(HashMap<String, String> argumentsList) {
-        float price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
-        String description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
-        String category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
+    public void addExpense(float price, String description, String category) {
         Expense expense = new Expense(price, description, category);
-        addExpense(expense);
+        expenses.add(expense);
     }
 
     /**
