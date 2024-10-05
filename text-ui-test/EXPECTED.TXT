@@ -1,1 +1,3 @@
 Welcome to EventManagerCLI.
+Enter a command: hello world
+Thank you for using EventManagerCLI. Goodbye!
