@@ -2,16 +2,16 @@ package seedu.duke;
 
 public class DeleteCommand implements Command {
     private final InternshipList internships;
-    private int index;
+    private int id;
 
-    public DeleteCommand(InternshipList internshipList, int index) {
+    public DeleteCommand(InternshipList internshipList, int id) {
         this.internships = internshipList;
-        this.index = index;
+        this.id = id;
     }
     public void execute (String[] args) {
-        index = Integer.parseInt(args[1]);
-        int id = index - 1;
-        internships.removeInternship(id);
+        id = Integer.parseInt(args[1]);
+        int index = id - 1;
+        internships.removeInternship(index);
     }
 
     public String getUsage() {
