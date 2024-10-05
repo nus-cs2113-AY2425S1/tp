@@ -25,7 +25,7 @@ public class InternshipList {
         }
     }
 
-    // Private method to update the IDs after an addition/removal
+    // Private method to update the IDs after a removal
     private void updateIds() {
         for (int i = 0; i < internships.size(); i++) {
             internships.get(i).setId(i + 1); // ID is 1-based
