@@ -48,4 +48,3 @@ public abstract class Command {
     protected abstract String[] getMandatoryKeywords();
     protected abstract String[] getExtraKeywords();
 }
-
