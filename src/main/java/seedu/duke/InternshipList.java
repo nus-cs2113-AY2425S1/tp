@@ -70,8 +70,8 @@ public class InternshipList {
 
     // Method to list all internships sorted by start date, then end date
     public void listInternshipsSortedByDeadline() {
-        ArrayList<Internship> sortedList = new ArrayList<>(internships);
-        Collections.sort(sortedList, new Comparator<Internship>() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
+        Collections.sort(sortedInternships, new Comparator<Internship>() {
             @Override
             public int compare(Internship i1, Internship i2) {
                 // Compare start dates
@@ -85,7 +85,7 @@ public class InternshipList {
         });
 
         // Display the sorted list without changing IDs
-        for (Internship internship : sortedList) {
+        for (Internship internship : sortedInternships) {
             System.out.println(internship);
             System.out.println("---------------------------------");
         }
