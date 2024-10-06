@@ -36,17 +36,15 @@ public class Ui {
      * Gets input from the user, and prints that input back to the user
      */
     public void getCommand() {
-        System.out.print(COMMAND_PROMPT_MESSAGE);
-        String rawInput = this.userInput.nextLine();
-        Command command = parser.parseCommand(rawInput);
-        CommandOutput output = command.execute();
-        output.printMessage();
-    }
+        boolean isGettingCommands = true;
 
-    /**
-     * Prints a final message to the user before program shutdown
-     */
-    public void sayBye() {
-        System.out.println(GOODBYE_MESSAGE);
+        while (isGettingCommands) {
+            System.out.print(COMMAND_PROMPT_MESSAGE);
+            String rawInput = this.userInput.nextLine();
+            Command command = parser.parseCommand(rawInput);
+            CommandOutput output = command.execute();
+            output.printMessage();
+            isGettingCommands = !output.getCanExit();
+        }
     }
 }
