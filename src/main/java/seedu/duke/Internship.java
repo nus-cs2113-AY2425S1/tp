@@ -13,7 +13,7 @@ import java.util.List;
 public class Internship {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
 
-    private String id;
+    private int id;
     private String role;
     private String company;
     private YearMonth startDate;
@@ -44,7 +44,7 @@ public class Internship {
      * Sets ID based on the index of the internship in the list.
      */
     public void setId(int index) {
-        this.id = String.format("%02d", index);
+        this.id = index + 1;
     }
 
     /**
@@ -77,7 +77,7 @@ public class Internship {
     }
 
     // Getters and Setters
-    public String getId() {
+    public int getId() {
         return id;
     }
 
