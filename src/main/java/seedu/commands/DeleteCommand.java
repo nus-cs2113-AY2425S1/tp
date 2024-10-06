@@ -1,4 +1,6 @@
-package seedu.duke;
+package seedu.commands;
+
+import seedu.duke.InternshipList;
 
 public class DeleteCommand implements Command {
     private final InternshipList internships;
