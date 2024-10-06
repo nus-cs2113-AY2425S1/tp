@@ -1,6 +1,7 @@
 package seedu.commands;
 
 import seedu.duke.Internship;
+import seedu.duke.InternshipList;
 
 public class AddCommand implements Command {
     private final InternshipList internships;
