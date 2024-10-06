@@ -3,7 +3,7 @@ package seedu.manager.command;
 /**
  * Represents an executable echo command
  */
-public class EchoCommand extends Command{
+public class EchoCommand extends Command {
     private final String userInput;
 
     /**
