@@ -1,4 +1,27 @@
 {
+  "Chulalongkorn University": {
+    "courses": [
+      {
+        "pu_course_code": "ICE2190472",
+        "pu_course_name": "Netcentric Architecture",
+        "nus_course_code": "CS2105",
+        "nus_course_name": "Introduction to Computer Networks"
+      },
+      {
+        "pu_course_code": "ICSE2190479",
+        "pu_course_name": "Graphics Computing",
+        "nus_course_code": "CS3241",
+        "nus_course_name": "Computer Graphics"
+      },
+      {
+        "pu_course_code": "2603637",
+        "pu_course_name": "Machine Learning",
+        "nus_course_code": "CS3244",
+        "nus_course_name": "Machine Learning"
+      }
+    ]
+  },
+
   "The University of Melbourne": {
     "courses": [
       {
