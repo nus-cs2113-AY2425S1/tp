@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Ui {
     private static final String WELCOME_MESSAGE = "Welcome to EventManagerCLI.";
     private static final String COMMAND_PROMPT_MESSAGE = "Enter a command: ";
-    private static final String GOODBYE_MESSAGE = "Thank you for using EventManagerCLI. Goodbye!";
 
     private final Scanner userInput;
     private final Parser parser;
