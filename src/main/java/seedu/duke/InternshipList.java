@@ -42,6 +42,15 @@ public class InternshipList {
         }
     }
 
+    // Method to update the status of applications, might not be needed
+    public void updateStatus(int index, String status) {
+        if (index >= 0 && index < internships.size()) {
+            internships.get(index).setStatus(status);
+        } else {
+            System.out.println("Invalid index");
+        }
+    }
+
     // Method to list all internships
     public void listAllInternships() {
         if (internships.isEmpty()) {

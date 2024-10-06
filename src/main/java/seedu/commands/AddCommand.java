@@ -1,4 +1,6 @@
-package seedu.duke;
+package seedu.commands;
+
+import seedu.duke.Internship;
 
 public class AddCommand implements Command {
     @Override

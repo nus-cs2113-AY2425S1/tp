@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.commands;
 
 public interface Command {
     void execute(String[] args);
