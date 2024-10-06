@@ -1,7 +1,7 @@
-package parser;
+package seedu.manager.parser;
 
-import command.Command;
-import command.EchoCommand;
+import seedu.manager.command.Command;
+import seedu.manager.command.EchoCommand;
 
 /**
  * Represents the command parser for EventManagerCLI

@@ -1,4 +1,4 @@
-package command;
+package seedu.manager.command;
 
 /**
  * Represents an executable echo command

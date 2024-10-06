@@ -1,8 +1,9 @@
-package parser;
+package seedu.manager.parser;
 
-import command.Command;
-import command.EchoCommand;
+import seedu.manager.command.Command;
+import seedu.manager.command.EchoCommand;
 import org.junit.jupiter.api.Test;
+import seedu.manager.parser.Parser;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
