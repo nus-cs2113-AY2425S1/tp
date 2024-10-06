@@ -127,5 +127,154 @@
         "nus_course_name": "Computer Vision and Pattern Recognition"
       }
     ]
+  },
+
+  "The Australian National University": {
+    "courses": [
+      {
+        "pu_course_code": "COMP3670",
+        "pu_course_name": "Introduction to Machine Learning",
+        "nus_course_code": "CS3244",
+        "nus_course_name": "Machine Learning"
+      },
+      {
+        "pu_course_code": "COMP2610",
+        "pu_course_name": "Information Theory",
+        "nus_course_code": "CS3236",
+        "nus_course_name": "Introduction to Information Theory"
+      },
+      {
+        "pu_course_code": "COMP4300",
+        "pu_course_name": "Parallel System",
+        "nus_course_code": "CS3210",
+        "nus_course_name": "Parallel Computing"
+      },
+      {
+        "pu_course_code": "COMP4610",
+        "pu_course_name": "Computer Graphics",
+        "nus_course_code": "CS3241",
+        "nus_course_name": "Computer Graphics"
+      },
+      {
+        "pu_course_code": "COMP2410",
+        "pu_course_name": "Networked Information Systems",
+        "nus_course_code": "CS2105",
+        "nus_course_name": "Introduction to Computer Networks"
+      },
+      {
+        "pu_course_code": "COMP2400",
+        "pu_course_name": "Relational Databases",
+        "nus_course_code": "CS2102",
+        "nus_course_name": "Database Systems"
+      },
+      {
+        "pu_course_code": "COMP3620",
+        "pu_course_name": "Artificial Intelligence",
+        "nus_course_code": "CS3243",
+        "nus_course_name": "Introduction to Artificial Intelligence"
+      },
+      {
+        "pu_course_code": "ENGN4528",
+        "pu_course_name": "Computer Vision",
+        "nus_course_code": "CS4243",
+        "nus_course_name": "Compter Vision and Pattern Recognition"
+      },
+      {
+        "pu_course_code": "COMP3310",
+        "pu_course_name": "Computer Networks",
+        "nus_course_code": "CS2105",
+        "nus_course_name": "Introduction to Computer Networks"
+      },
+      {
+        "pu_course_code": "COMP2300",
+        "pu_course_name": "Computer Organisation and Program Execution",
+        "nus_course_code": "CS2109",
+        "nus_course_name": "Computer Organisation"
+      },
+      {
+        "pu_course_code": "COMP4620",
+        "pu_course_name": "Introduction to Statistical Machine Learning",
+        "nus_course_code": "CS3244",
+        "nus_course_name": "Machine Learning"
+      },
+      {
+        "pu_course_code": "COMP4650",
+        "pu_course_name": "Document Analysis",
+        "nus_course_code": "CS3245",
+        "nus_course_name": "Information Retrieval"
+      },
+      {
+        "pu_course_code": "COMP2400",
+        "pu_course_name": "Relational Databases",
+        "nus_course_code": "CS2102",
+        "nus_course_name": "Database Systems"
+      },
+      {
+        "pu_course_code": "COMP3620",
+        "pu_course_name": "Artificial Intelligence",
+        "nus_course_code": "CS3243",
+        "nus_course_name": "Introduction to Artificial Intelligence"
+      },
+      {
+        "pu_course_code": "ENGN4528",
+        "pu_course_name": "Computer Vision",
+        "nus_course_code": "CS4243",
+        "nus_course_name": "Compter Vision and Pattern Recognition"
+      },
+      {
+        "pu_course_code": "COMP3310",
+        "pu_course_name": "Computer Networks",
+        "nus_course_code": "CS2105",
+        "nus_course_name": "Introduction to Computer Networks"
+      },
+      {
+        "pu_course_code": "COMP2300",
+        "pu_course_name": "Computer Organisation and Program Execution",
+        "nus_course_code": "CS2109",
+        "nus_course_name": "Computer Organisation"
+      },
+      {
+        "pu_course_code": "COMP4620",
+        "pu_course_name": "Introduction to Statistical Machine Learning",
+        "nus_course_code": "CS3244",
+        "nus_course_name": "Machine Learning"
+      },
+      {
+        "pu_course_code": "ENGN3226",
+        "pu_course_name": "Digital Communications",
+        "nus_course_code": "EE3131C ",
+        "nus_course_name": "Communication Systems"
+      },
+      {
+        "pu_course_code": "ENGN4536",
+        "pu_course_name": "Wireless Communications ",
+        "nus_course_code": "EE3131C ",
+        "nus_course_name": "Communication Systems"
+      },
+      {
+        "pu_course_code": "ENGN3223 ",
+        "pu_course_name": "Control System ",
+        "nus_course_code": "EE3131C ",
+        "nus_course_name": "Communication Systems"
+      },
+      {
+        "pu_course_code": "ENGN3334 ",
+        "pu_course_name": "Semiconductors ",
+        "nus_course_code": "EE3431C ",
+        "nus_course_name": "Microelectronics Materials & Devices "
+      },
+      {
+        "pu_course_code": "ENGN3226",
+        "pu_course_name": "Digital Communications",
+        "nus_course_code": "EE4113 ",
+        "nus_course_name": "Digital Communications and Coding"
+      },
+      {
+        "pu_course_code": "ENGN4528 ",
+        "pu_course_name": "Computer Vision ",
+        "nus_course_code": "EE4212  ",
+        "nus_course_name": "Computer Vision"
+      }
+    ]
   }
 }
