@@ -1,7 +1,5 @@
 package seedu.duke;
 
-import java.time.YearMonth;
-
 public class AddCommand implements Command {
     @Override
     public void execute(String[] args) {

@@ -54,14 +54,14 @@ public class Internship {
      * @param userStatus user-inputted status.
      */
     public void updateStatus(String userStatus) {
-        List<String> STATUSES = Arrays.asList(
+        List<String> statuses = Arrays.asList(
                 "Application Pending",
                 "Application Completed",
                 "Accepted",
                 "Rejected"
         );
         try {
-            for (String status : STATUSES) {
+            for (String status : statuses) {
                 if (status.equalsIgnoreCase(userStatus)) {
                     this.status = status;
                     System.out.println(this);
