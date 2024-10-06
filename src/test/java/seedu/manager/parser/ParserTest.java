@@ -13,6 +13,7 @@ class ParserTest {
         Parser parser = new Parser();
         Command command = parser.parseCommand("Hello world!");
 
-        assertTrue(command instanceof EchoCommand);
+        assertInstanceOf(EchoCommand.class, command);
+    }
     }
 }
