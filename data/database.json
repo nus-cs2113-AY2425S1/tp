@@ -22,6 +22,113 @@
     ]
   },
 
+  "The University of Melbourne": {
+    "courses": [
+      {
+        "pu_course_code": "COMP30019",
+        "pu_course_name": "Graphics and Interaction",
+        "nus_course_code": "CS3241",
+        "nus_course_name": "Computer Graphics"
+      },
+      {
+        "pu_course_code": "INFO10003",
+        "pu_course_name": "Fundamentals of Interaction Design",
+        "nus_course_code": "CS3240",
+        "nus_course_name": "Interaction Design"
+      },
+      {
+        "pu_course_code": "COMP90054",
+        "pu_course_name": "AI Planning for Autonomy",
+        "nus_course_code": "CS4246",
+        "nus_course_name": "AI Planning and Decision Making"
+      },
+      {
+        "pu_course_code": "COMP30006",
+        "pu_course_name": "Information Security and Privacy",
+        "nus_course_code": "CS2107",
+        "nus_course_name": "Introduction to Information Security"
+      },
+      {
+        "pu_course_code": "COMP30027",
+        "pu_course_name": "Machine Learning",
+        "nus_course_code": "CS3244",
+        "nus_course_name": "Machine Learning"
+      },
+      {
+        "pu_course_code": "COMP30024",
+        "pu_course_name": "Artificial Intelligence",
+        "nus_course_code": "CS3243",
+        "nus_course_name": "Introduction to Artificial Intelligence"
+      },
+      {
+        "pu_course_code": "COMP90043",
+        "pu_course_name": "Cryptography and Security",
+        "nus_course_code": "CS3235",
+        "nus_course_name": "Computer Security"
+      },
+      {
+        "pu_course_code": "INFO20003",
+        "pu_course_name": "Database Systems",
+        "nus_course_code": "CS2102",
+        "nus_course_name": "Database Systems"
+      },
+      {
+        "pu_course_code": "COMP90007",
+        "pu_course_name": "Internet Technologies",
+        "nus_course_code": "CS2105",
+        "nus_course_name": "Introduction to Computer Networks"
+      },
+      {
+        "pu_course_code": "COMP90038",
+        "pu_course_name": "Algorithms and Complexity",
+        "nus_course_code": "CS3230",
+        "nus_course_name": "Design and Analysis of Algorithms"
+      },
+      {
+        "pu_course_code": "COMP90038",
+        "pu_course_name": "Algorithms and Complexity",
+        "nus_course_code": "CS4269",
+        "nus_course_name": "Fundamentals of Logic in Computer Science"
+      },
+      {
+        "pu_course_code": "COMP90050",
+        "pu_course_name": "Advanced Database Systems",
+        "nus_course_code": "CS3223",
+        "nus_course_name": "Database Systems Implementation"
+      },
+      {
+        "pu_course_code": "COMP90050",
+        "pu_course_name": "Advanced Database Systems",
+        "nus_course_code": "CS3223",
+        "nus_course_name": "Database Systems Implementation"
+      },
+      {
+        "pu_course_code": "COMP90024",
+        "pu_course_name": "Cluster and Cloud Computing",
+        "nus_course_code": "CS5224",
+        "nus_course_name": "Cloud Computing"
+      },
+      {
+        "pu_course_code": "COMP90024",
+        "pu_course_name": "Cluster and Cloud Computing",
+        "nus_course_code": "CS5224",
+        "nus_course_name": "Cloud Computing"
+      },
+      {
+        "pu_course_code": "SWEN90016",
+        "pu_course_name": "Software Processes and Management",
+        "nus_course_code": "CS4211",
+        "nus_course_name": "Formal Methods for Software Engineering"
+      },
+      {
+        "pu_course_code": "COMP90086",
+        "pu_course_name": "Computer Vision",
+        "nus_course_code": "CS4243",
+        "nus_course_name": "Computer Vision and Pattern Recognition"
+      }
+    ]
+  },
+
   "The Australian National University": {
     "courses": [
       {
