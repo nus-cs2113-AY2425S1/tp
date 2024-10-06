@@ -3,19 +3,25 @@ package seedu.commands;
 import seedu.duke.InternshipList;
 
 public class UpdateCommand implements Command {
+    private static final int INDEX_FIELD = 0;
+    private static final int INDEX_ID = 1;
+
     @Override
     public void execute(String[] args) {
-        final int INDEX_FIELD = 0;
         int internshipIndex = -1;
         String status = "";
         for (int i = 0; i < args.length; i++) {
             String[] words = args[i].split(" ");
             switch (words[INDEX_FIELD]) {
             case "id":
-                final int INDEX_ID = 1;
                 internshipIndex = Integer.parseInt(words[INDEX_ID]);
+                break;
             case "status":
                 status = args[i].replaceFirst("status", "").trim();
+                break;
+            default:
+                System.out.println("Unknown flag: " + words[INDEX_FIELD]);
+                break;
             }
         }
         InternshipList.internships.get(internshipIndex).updateStatus(status);
