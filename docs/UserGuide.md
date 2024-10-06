@@ -2,14 +2,20 @@
 
 ## Introduction
 
-{Give a product intro}
+EventManager CLI is a CLI application that allows organisers of small-scale events to track
+the participants and logistics of such events.
 
 ## Quick Start
 
-{Give steps to get started quickly}
-
 1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Down the latest version of `EventManagerCLI` from [here](http://link.to/duke).
+3. Open a new terminal in the folder that you put the JAR file in, and run the program with the  
+command ```java -jar EventManagerCLI.jar```.
+The following message would be printed:
+```
+Welcome to EventManagerCLI.
+Enter a command:
+```
 
 ## Features 
 
