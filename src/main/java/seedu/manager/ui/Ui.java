@@ -1,5 +1,9 @@
 package seedu.manager.ui;
 
+import seedu.manager.command.Command;
+import seedu.manager.command.CommandOutput;
+import seedu.manager.parser.Parser;
+
 import java.util.Scanner;
 
 /**
@@ -11,9 +15,14 @@ public class Ui {
     private static final String GOODBYE_MESSAGE = "Thank you for using EventManagerCLI. Goodbye!";
 
     private final Scanner userInput;
+    private final Parser parser;
 
+    /**
+     * Constructs a new Ui
+     */
     public Ui() {
         this.userInput = new Scanner(System.in);
+        this.parser = new Parser();
     }
 
     /**
@@ -29,7 +38,9 @@ public class Ui {
     public void getCommand() {
         System.out.print(COMMAND_PROMPT_MESSAGE);
         String rawInput = this.userInput.nextLine();
-        System.out.println(rawInput);
+        Command command = parser.parseCommand(rawInput);
+        CommandOutput output = command.execute();
+        output.printMessage();
     }
 
     /**

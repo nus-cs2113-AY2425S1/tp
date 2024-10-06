@@ -16,10 +16,10 @@ public class EchoCommand extends Command{
     }
 
     /**
-     * Executes echo command by printing user input
+     * Returns the command output, with the user input as the output message
      */
     @Override
-    public void execute() {
-        System.out.println(this.userInput);
+    public CommandOutput execute() {
+        return new CommandOutput(this.userInput, false);
     }
 }

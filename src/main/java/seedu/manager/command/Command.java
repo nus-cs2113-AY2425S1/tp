@@ -6,7 +6,7 @@ package seedu.manager.command;
 public abstract class Command {
 
     /**
-     * Handles the command execution
+     * Returns the output of the executable command
      */
-    public abstract void execute();
+    public abstract CommandOutput execute();
 }
