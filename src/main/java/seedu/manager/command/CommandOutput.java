@@ -31,7 +31,7 @@ public class CommandOutput {
      *
      * @return Whether the program can be exited from
      */
-    public boolean ifCanExit() {
+    public boolean getCanExit() {
         return canExit;
     }
 }
