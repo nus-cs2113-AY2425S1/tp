@@ -1,9 +1,11 @@
 package seedu.duke;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class InternshipList {
-    public static ArrayList<Internship> internships;
+    public ArrayList<Internship> internships;
 
     // Constructor
     public InternshipList() {
@@ -45,12 +47,16 @@ public class InternshipList {
     // Method to list all internships
     public void listAllInternships() {
         if (internships.isEmpty()) {
-            System.out.println("No internships added.");
+            System.out.println("No internships found.");
         } else {
             for (Internship internship : internships) {
                 System.out.println(internship);
                 System.out.println("---------------------------------");
             }
         }
+    }
+
+    public List<Internship> getAllInternships() {
+        return Collections.unmodifiableList(internships);
     }
 }
