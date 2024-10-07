@@ -2,10 +2,11 @@ package seedu.duke;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Comparator;
 
 public class InternshipList {
-    public static ArrayList<Internship> internships;
+    public ArrayList<Internship> internships;
 
     // Constructor
     public InternshipList() {
@@ -13,7 +14,7 @@ public class InternshipList {
     }
 
     public void addInternship(Internship internship) {
-        internship.setId(internships.size() + 1);
+        internship.setId(internships.size());
         internships.add(internship);
     }
 
@@ -30,7 +31,7 @@ public class InternshipList {
     // Private method to update the IDs after a removal
     private void updateIds() {
         for (int i = 0; i < internships.size(); i++) {
-            internships.get(i).setId(i + 1); // ID is 1-based
+            internships.get(i).setId(i);
         }
     }
 
@@ -56,13 +57,17 @@ public class InternshipList {
     // Method to list all internships
     public void listAllInternships() {
         if (internships.isEmpty()) {
-            System.out.println("No internships added.");
+            System.out.println("No internships found.");
         } else {
             for (Internship internship : internships) {
                 System.out.println(internship);
                 System.out.println("---------------------------------");
             }
         }
+    }
+
+    public List<Internship> getAllInternships() {
+        return Collections.unmodifiableList(internships);
     }
 
     // Method to list all internships in sorted order without modifying the IDs

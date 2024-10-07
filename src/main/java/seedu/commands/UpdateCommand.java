@@ -6,15 +6,21 @@ public class UpdateCommand implements Command {
     private static final int INDEX_FIELD = 0;
     private static final int INDEX_ID = 1;
 
+    private InternshipList internships;
+
+    public UpdateCommand(InternshipList internshipList) {
+        this.internships = internshipList;
+    }
+
     @Override
     public void execute(String[] args) {
-        int internshipIndex = -1;
+        int internshipId = -1;
         String status = "";
         for (int i = 0; i < args.length; i++) {
             String[] words = args[i].split(" ");
             switch (words[INDEX_FIELD]) {
             case "id":
-                internshipIndex = Integer.parseInt(words[INDEX_ID]);
+                internshipId = Integer.parseInt(words[INDEX_ID]);
                 break;
             case "status":
                 status = args[i].replaceFirst("status", "").trim();
@@ -24,7 +30,8 @@ public class UpdateCommand implements Command {
                 break;
             }
         }
-        InternshipList.internships.get(internshipIndex).updateStatus(status);
+        int internshipIndex = internshipId - 1;
+        internships.getInternship(internshipIndex).updateStatus(status);
     }
 
     public String getUsage() {

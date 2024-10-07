@@ -4,14 +4,12 @@ import seedu.duke.InternshipList;
 
 public class DeleteCommand implements Command {
     private final InternshipList internships;
-    private int id;
 
-    public DeleteCommand(InternshipList internshipList, int id) {
+    public DeleteCommand(InternshipList internshipList) {
         this.internships = internshipList;
-        this.id = id;
     }
     public void execute (String[] args) {
-        id = Integer.parseInt(args[1]);
+        int id = Integer.parseInt(args[1]);
         int index = id - 1;
         internships.removeInternship(index);
     }
