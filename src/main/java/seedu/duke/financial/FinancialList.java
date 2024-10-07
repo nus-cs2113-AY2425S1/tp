@@ -42,4 +42,7 @@ public class FinancialList {
         return entries.get(index);
     }
 
+    public int getEntryCount() {
+        return entries.size();
+    }
 }
