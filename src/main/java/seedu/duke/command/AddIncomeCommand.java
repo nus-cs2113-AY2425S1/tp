@@ -30,7 +30,7 @@ public class AddIncomeCommand extends Command {
     public void execute(FinancialList list) {
         Income income = new Income(amount, description);
         list.addEntry(income);
-        System.out.println("Great! I've added this income:");
+        System.out.println("OK! I've added this income:");
         System.out.println(income);
     }
 }
