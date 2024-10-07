@@ -32,9 +32,9 @@ public class Ui {
     }
 
     /**
-     * Gets input from the user, and prints that input back to the user
+     * Gets input from the user, and executes commands based on that input
      */
-    public void getCommand() {
+    public void getCommands() {
         boolean isGettingCommands = true;
 
         while (isGettingCommands) {
