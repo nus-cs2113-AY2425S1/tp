@@ -6,7 +6,11 @@ public class Parser {
     private Scanner scanner = new Scanner(System.in);
 
     public String getUserInput() {
-        return scanner.nextLine();
+        if (scanner.hasNextLine()) {
+            return scanner.nextLine();
+        } else {
+            return "";
+        }
     }
 
     public void processUserInput(String userInput) {
