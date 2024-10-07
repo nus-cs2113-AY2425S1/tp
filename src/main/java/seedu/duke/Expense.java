@@ -1,4 +1,4 @@
-package seedu.duke.financial;
+package seedu.duke;
 
 /**
  * Represents an expense transaction.
