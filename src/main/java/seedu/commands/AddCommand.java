@@ -1,6 +1,7 @@
-package seedu.duke;
+package seedu.commands;
 
-import java.time.YearMonth;
+import seedu.duke.Internship;
+import seedu.duke.InternshipList;
 
 public class AddCommand implements Command {
     private final InternshipList internships;
@@ -12,8 +13,8 @@ public class AddCommand implements Command {
     public void execute(String[] args) {
         String role = "";
         String company = "";
-        YearMonth startDate = YearMonth.parse("01/00");
-        YearMonth endDate = YearMonth.parse("01/00");
+        String startDate = "01/01";
+        String endDate = "01/01";
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -33,14 +34,14 @@ public class AddCommand implements Command {
                 break;
             case "-from":
                 if (i + 1 < args.length) {
-                    startDate = YearMonth.parse(args[++i]);
+                    startDate = args[++i];
                 } else {
                     System.out.println("Start date not specified.");
                 }
                 break;
             case "-to":
                 if (i + 1 < args.length) {
-                    endDate = YearMonth.parse(args[++i]);
+                    endDate = args[++i];
                 } else {
                     System.out.println("End date not specified.");
                 }

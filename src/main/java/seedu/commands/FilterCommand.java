@@ -1,4 +1,7 @@
-package seedu.duke;
+package seedu.commands;
+import seedu.duke.Internship;
+import seedu.duke.InternshipList;
+
 import java.util.HashMap;
 import java.util.Map;
 
