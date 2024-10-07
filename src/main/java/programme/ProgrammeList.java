@@ -1,6 +1,7 @@
 package programme;
 
 import java.util.ArrayList;
+import com.google.gson.Gson;
 
 public class ProgrammeList {
     public Programme insertProgramme(String name, ArrayList<ArrayList<ArrayList<String>>> contents) {
@@ -19,5 +20,15 @@ public class ProgrammeList {
     // if progIndex is null, assume they want to use the active programme instead
     public Day getDay(int progIndex, int dayIndex) {
         return new Day();
+    }
+
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
+    public static ProgrammeList fromJson(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, ProgrammeList.class);
     }
 }
