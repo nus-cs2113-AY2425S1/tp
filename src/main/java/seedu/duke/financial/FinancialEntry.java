@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.financial;
 
 /**
  * Abstract base class for all financial transactions (Income and Expense).
@@ -20,8 +20,7 @@ public abstract class FinancialEntry {
         this.amount = amount;
         this.type = type;
     }
-
-
+    
     /**
      * Returns the description of the transaction.
      *
