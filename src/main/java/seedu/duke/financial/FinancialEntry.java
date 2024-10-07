@@ -15,13 +15,12 @@ public abstract class FinancialEntry {
      * @param description A description of the transaction.
      * @param type The type of the transaction ("Income" or "Expense").
      */
-    public FinancialEntry(double amount, String type, String description) {
+    public FinancialEntry(double amount, String type, String description){
         this.description = description;
         this.amount = amount;
         this.type = type;
     }
-
-
+    
     /**
      * Returns the description of the transaction.
      *

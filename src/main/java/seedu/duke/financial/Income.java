@@ -4,7 +4,7 @@ package seedu.duke.financial;
  * Represents an income transaction.
  * An income increases the available balance.
  */
-public class Income extends FinancialEntry{
+public class Income extends FinancialEntry {
 
     /**
      * Constructs an Income object with the specified amount and description.
