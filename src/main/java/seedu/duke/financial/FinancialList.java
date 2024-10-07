@@ -37,4 +37,9 @@ public class FinancialList {
             System.out.println("OOPS!!! The entry does not exist.");
         }
     }
+
+    public FinancialEntry getEntry(int index) {
+        return entries.get(index);
+    }
+
 }
