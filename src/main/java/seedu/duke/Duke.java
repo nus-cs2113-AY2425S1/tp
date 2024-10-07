@@ -3,8 +3,6 @@ package seedu.duke;
 import seedu.duke.parser.Parser;
 import seedu.duke.ui.UI;
 
-import java.util.Scanner;
-
 public class Duke {
     /**
      * Main entry-point for the java.duke.Duke application.
