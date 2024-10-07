@@ -48,6 +48,41 @@ public class Internship {
     }
 
     /**
+     * Updates the internship field with the new value.
+     *
+     * @param field field to be updated.
+     * @param value new value to update field with.
+     */
+    public void updateField(String field, String value) {
+        switch (field) {
+        case "id":
+            setId(Integer.parseInt(value));
+            break;
+        case "status":
+            updateStatus(value);
+            break;
+        case "skills":
+            setSkills(value);
+            break;
+        case "role":
+            setRole(value);
+            break;
+        case "company":
+            setCompany(value);
+            break;
+        case "start":
+            setStartDate(value);
+            break;
+        case "end":
+            setEndDate(value);
+            break;
+        default:
+            System.out.println("Invalid field: " + field);
+        }
+        System.out.println(field + " updated: " + value);
+    }
+
+    /**
      * Updates the status of the Internship with a valid status.
      * Does not update with invalid statuses and will prompt for a valid status.
      *
@@ -64,7 +99,6 @@ public class Internship {
             for (String status : statuses) {
                 if (status.equalsIgnoreCase(userStatus)) {
                     this.status = status;
-                    System.out.println(this);
                     return;
                 }
             }
@@ -72,7 +106,7 @@ public class Internship {
         } catch (InvalidStatus e) {
             System.out.println("Status provided is not recognised:");
             System.out.println("Please provide one of the following:");
-            System.out.println("Application Pending\nApplication Completed\nAccepted\nRejected");
+            System.out.println("- Application Pending\n- Application Completed\n- Accepted\n- Rejected");
         }
     }
 

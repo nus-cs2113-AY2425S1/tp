@@ -6,10 +6,22 @@ public class UpdateCommand implements Command {
     private static final int INDEX_FIELD = 0;
     private static final int INDEX_ID = 1;
 
+    private static InternshipList internships;
+
+    public UpdateCommand(InternshipList internshipList) {
+        internships = internshipList;
+    }
+
+    /**
+     * Updates specific internship entries.
+     *
+     * @param args user input split by fields and the new values.
+     */
     @Override
     public void execute(String[] args) {
         int internshipIndex = -1;
-        String status = "";
+        String field = "";
+        String value = "";
         for (int i = 0; i < args.length; i++) {
             String[] words = args[i].split(" ");
             switch (words[INDEX_FIELD]) {
@@ -17,21 +29,27 @@ public class UpdateCommand implements Command {
                 internshipIndex = Integer.parseInt(words[INDEX_ID]);
                 break;
             case "status":
-                status = args[i].replaceFirst("status", "").trim();
+            case "skills":
+            case "role":
+            case "company":
+            case "end":
+                field = words[INDEX_FIELD];
+                value = words[INDEX_ID].replace(field, "").trim();
+                internships.getInternship(internshipIndex).updateField(field, value);
                 break;
             default:
                 System.out.println("Unknown flag: " + words[INDEX_FIELD]);
                 break;
             }
         }
-        InternshipList.internships.get(internshipIndex).updateStatus(status);
+        System.out.println(internships.toString());
     }
 
     public String getUsage() {
         return """
-                Usage: update -id {ID} -status {status}
+                Usage: update -id {ID} -{field} {status}
                 
-                Choose from the following statuses"
+                Choose from the following statuses:
                 - Application Pending
                 - Application Completed
                 - Accepted
