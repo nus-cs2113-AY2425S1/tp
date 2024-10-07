@@ -4,7 +4,7 @@ package seedu.manager.command;
  * Represents an executable menu command
  */
 public class MenuCommand extends Command {
-    private static final String COMMAND_WORD = "menu";
+    public static final String COMMAND_WORD = "menu";
     private static final String MENU_MESSAGE = "Here are the possible commands:\n\n"
             + "add -e EVENT_NAME -st START_TIME -et END_TIME -v VENUE -d DESCRIPTION: "
             + "Add an event to the event list.\n"
