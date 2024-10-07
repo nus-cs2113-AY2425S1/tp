@@ -1,7 +1,5 @@
 package seedu.duke;
 
-import seedu.commands.*;
-import java.time.YearMonth;
 import java.util.Scanner;
 
 /**

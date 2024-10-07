@@ -3,9 +3,10 @@ package seedu.commands;
 import seedu.duke.InternshipList;
 
 public class UpdateCommand implements Command {
-    private InternshipList internships;
     private static final int INDEX_FIELD = 0;
     private static final int INDEX_ID = 1;
+
+    private InternshipList internships;
 
     public UpdateCommand(InternshipList internshipList) {
         this.internships = internshipList;
