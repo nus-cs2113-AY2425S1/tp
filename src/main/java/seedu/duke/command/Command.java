@@ -1,4 +1,6 @@
-package seedu.duke;
+package seedu.duke.command;
+
+import seedu.duke.financial.FinancialList;
 
 /**
  * The abstract base class for all command types.
