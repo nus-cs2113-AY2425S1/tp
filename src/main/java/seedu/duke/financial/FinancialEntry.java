@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.financial;
 
 /**
  * Abstract base class for all financial transactions (Income and Expense).

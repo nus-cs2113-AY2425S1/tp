@@ -1,4 +1,7 @@
-package seedu.duke;
+package seedu.duke.command;
+
+import seedu.duke.financial.FinancialList;
+import seedu.duke.financial.Income;
 
 /**
  * Command to add an expense to the financial list.
