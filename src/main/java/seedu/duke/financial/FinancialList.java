@@ -39,6 +39,15 @@ public class FinancialList {
     }
 
     /**
+     * Returns the number of entries in the list.
+     *
+     * @return The number of entries in the list.
+     */
+    public int getEntryCount() {
+        return entries.size();
+    }
+
+    /**
      * Returns the financial entry at the specified index.
      *
      * @param index The index of the entry to be retrieved.
