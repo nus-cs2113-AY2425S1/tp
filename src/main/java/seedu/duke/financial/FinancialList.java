@@ -39,6 +39,21 @@ public class FinancialList {
     }
 
     /**
+     * Returns the financial entry at the specified index.
+     *
+     * @param index The index of the entry to be retrieved.
+     * @return The financial entry at the specified index.
+     */
+    public FinancialEntry getEntry(int index) {
+        if (index >= 0 && index < entries.size()) {
+            return entries.get(index);
+        } else {
+            System.out.println("OOPS!!! The entry does not exist.");
+            return null;
+        }
+    }
+
+    /**
      * edits an expense in the list by index.
      * @param index The index of the entry to be edited.
      * @param amount The new amount of the expense.
