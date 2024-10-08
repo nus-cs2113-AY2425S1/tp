@@ -22,7 +22,7 @@ public class Parser {
 
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-             return new AddCommand();
+            return new AddCommand();
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case MenuCommand.COMMAND_WORD:
