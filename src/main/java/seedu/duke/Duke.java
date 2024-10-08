@@ -39,8 +39,15 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         boolean isExit = false;
 
-        while (!isExit && scanner.hasNext()) {
+        while (!isExit) {
             System.out.print("Enter command: ");
+
+            // Check if there is a next line to avoid NoSuchElementException
+            if (!scanner.hasNextLine()) {
+                System.out.println("No input found. Exiting...");
+                break;  // Exit the loop if no input is available
+            }
+            
             String input = scanner.nextLine();
             String[] inputArgs = input.split("\\s+", 2);
             String commandWord = inputArgs[0].toLowerCase(); // Extract command word
