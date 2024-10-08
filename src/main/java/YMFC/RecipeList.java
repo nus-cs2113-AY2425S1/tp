@@ -1,8 +1,10 @@
+package YMFC;
+
 import java.util.ArrayList;
 
 public class RecipeList {
     private ArrayList<Recipe> recipes;
-    private static int counter;
+    private int counter;
 
     public RecipeList() {
         counter = 0;
