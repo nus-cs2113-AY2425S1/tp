@@ -1,6 +1,6 @@
-package seedu.duke.command;
+package seedu.exchangecoursemapper.command;
 
-import seedu.duke.exception.Exception;
+import seedu.exchangecoursemapper.exception.Exception;
 
 import javax.json.Json;
 import javax.json.JsonObject;

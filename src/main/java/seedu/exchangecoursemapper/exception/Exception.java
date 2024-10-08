@@ -1,4 +1,4 @@
-package seedu.duke.exception;
+package seedu.exchangecoursemapper.exception;
 
 public class Exception extends Throwable {
     public static String fileReadError() {

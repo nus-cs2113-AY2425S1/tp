@@ -1,4 +1,4 @@
-package seedu.duke.command;
+package seedu.exchangecoursemapper.command;
 
 public abstract class Command {
     public static final String FILE_PATH = "./data/database.json";

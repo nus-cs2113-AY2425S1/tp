@@ -1,5 +1,5 @@
-package seedu.duke.ui;
-import seedu.duke.parser.Parser;
+package seedu.exchangecoursemapper.ui;
+import seedu.exchangecoursemapper.parser.Parser;
 
 public class UI {
     public void displayGreeting() {

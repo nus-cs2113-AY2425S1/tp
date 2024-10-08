@@ -1,7 +1,7 @@
-package seedu.duke;
+package seedu.exchangecoursemapper;
 
-import seedu.duke.parser.Parser;
-import seedu.duke.ui.UI;
+import seedu.exchangecoursemapper.parser.Parser;
+import seedu.exchangecoursemapper.ui.UI;
 
 public class ExchangeCourseMapper {
     /**
