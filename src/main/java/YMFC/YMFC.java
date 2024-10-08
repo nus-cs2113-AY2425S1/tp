@@ -1,8 +1,8 @@
-package seedu.duke;
+package YMFC;
 
 import java.util.Scanner;
 
-public class Duke {
+public class YMFC {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
