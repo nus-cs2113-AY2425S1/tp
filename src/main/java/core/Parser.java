@@ -45,57 +45,42 @@ public class Parser {
     }
 
     private Command createCreateProgCommand(String argumentString) {
-        ArrayList<ArrayList<ArrayList<String>>> ProgRoutines = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<String>>> progRoutines = new ArrayList<>();
 
-        String[] days = argumentString.split("/d");
+        String[] days = argumentString.split(" /d");
         String progName = days[0].trim();
 
-        for (String day : days) {
-            String dayString = day.trim();
-            int dayIndex = 0;
+        for (int dayIndex = 1; dayIndex < days.length; dayIndex++) {
+            String dayString = days[dayIndex].trim();
 
-            String[] exercises = dayString.split("/e");
+            ArrayList<ArrayList<String>> dayExercises = new ArrayList<>();
+
+            String[] exercises = dayString.split(" /e");
             for (String exerciseDescription : exercises) {
-                int exerciseIndex = 0;
-                String exerciseString = exerciseDescription.trim();
+                if (exerciseDescription.trim().isEmpty()) {
+                    continue;
+                }
 
-                String[] exerciseArguments = parseArguments(exerciseString, " /n", " /s", " /r", " /w");
+                String[] exerciseArguments = parseArguments(exerciseDescription, " /n", " /s", " /r", " /w");
 
                 if (exerciseArguments.length != 4) {
-                    throw new IllegalArgumentException("Invalid event command. " +
-                            "Please provide a exercise name, set, rep and weight using '/n', '/s', '/r', '/w'.");
+                    throw new IllegalArgumentException("Invalid exercise command. Please provide a name, " +
+                            "set, rep, and weight using '/n', '/s', '/r', '/w'.");
                 }
 
-                if (exerciseArguments[0].trim().isEmpty()) {
-                    throw new IllegalArgumentException("Exercise name cannot be empty.");
-                }
-                String name = exerciseArguments[0].trim();
+                ArrayList<String> exerciseDetails = new ArrayList<>();
+                exerciseDetails.add(exerciseArguments[0].trim()); // name
+                exerciseDetails.add(exerciseArguments[1].trim()); // set
+                exerciseDetails.add(exerciseArguments[2].trim()); // rep
+                exerciseDetails.add(exerciseArguments[3].trim()); // weight
 
-                if (exerciseArguments[1].trim().isEmpty()) {
-                    throw new IllegalArgumentException("Set cannot be empty.");
-                }
-                String set = exerciseArguments[1].trim();
-
-                if (exerciseArguments[2].trim().isEmpty()) {
-                    throw new IllegalArgumentException("Rep cannot be empty.");
-                }
-                String rep = exerciseArguments[2].trim();
-
-                if (exerciseArguments[3].trim().isEmpty()) {
-                    throw new IllegalArgumentException("Weight cannot be empty.");
-                }
-                String weight = exerciseArguments[3].trim();
-
-                ProgRoutines.get(dayIndex).get(exerciseIndex).add(name);
-                ProgRoutines.get(dayIndex).get(exerciseIndex).add(set);
-                ProgRoutines.get(dayIndex).get(exerciseIndex).add(rep);
-                ProgRoutines.get(dayIndex).get(exerciseIndex).add(weight);
-                exerciseIndex++;
+                dayExercises.add(exerciseDetails);
             }
-            dayIndex++;
+            progRoutines.add(dayExercises);
         }
-        return new CreateCommand(progName, ProgRoutines);
+        return new CreateCommand(progName, progRoutines);
     }
+
 
     private Command createViewCommand(String argumentString) {
         int progIndex = parseTaskIndex(argumentString);
@@ -106,9 +91,9 @@ public class Parser {
         return new ListCommand();
     }
 
-    private Command createEditCommand(String argumentString) {
-        return new InvalidCommand();
-    }
+    //private Command createEditCommand(String argumentString) {
+    //return new InvalidCommand();
+    //}
 
     private Command createStartCommand(String argumentString) {
         int progIndex = parseTaskIndex(argumentString);
@@ -141,11 +126,11 @@ public class Parser {
         return new LogCommand(progIndex, dayIndex, date);
     }
 
-    private Command createActiveCommand(String argumentString) {
-        int progIndex = parseTaskIndex(argumentString);
-        //return new ActiveCommand(progIndex);
-        return new InvalidCommand();
-    }
+    //private Command createActiveCommand(String argumentString) {
+    //int progIndex = parseTaskIndex(argumentString);
+    //return new ActiveCommand(progIndex);
+    //return new InvalidCommand();
+    //}
 
     private Command createHistoryCommand() {
         return new HistoryCommand();
