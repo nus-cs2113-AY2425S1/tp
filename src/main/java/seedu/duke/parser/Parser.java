@@ -14,9 +14,8 @@ public class Parser {
     public void processUserInput(String userInput) {
         if (userInput.startsWith("list schools")) {
             new ListSchoolCommand().execute(userInput);
-        } // Add your parts here
-        else{
+        } else{
             System.out.println(userInput);
-        }
+        } // Add your parts here
     }
 }
