@@ -1,7 +1,15 @@
 package core;
 
-import command.*;
-import command.programme.*;
+import command.Command;
+import command.ExitCommand;
+import command.HistoryCommand;
+import command.LogCommand;
+import command.InvalidCommand;
+import command.programme.CreateCommand;
+import command.programme.ListCommand;
+import command.programme.StartCommand;
+//import command.programme.EditCommand;
+import command.programme.ViewCommand;
 
 import java.util.ArrayList;
 
@@ -10,8 +18,7 @@ public class Parser {
 
     public Command parse(String fullCommand) {
         if (fullCommand == null || fullCommand.trim().isEmpty()) {
-            // throw exception
-            System.out.println("Command cannot be empty. Please enter a valid command.");
+            throw new IllegalArgumentException("Command cannot be empty. Please enter a valid command.");
         }
 
         String[] inputArguments = fullCommand.split(" ", 3);
@@ -23,20 +30,18 @@ public class Parser {
             argumentString = inputArguments[2];
         }
 
-        System.out.println(commandString);
-
-        return switch (commandString) {
-            case CreateCommand.COMMAND_WORD -> createCreateProgCommand(argumentString);
-            case ViewCommand.COMMAND_WORD -> createViewCommand(argumentString);
-            case ListCommand.COMMAND_WORD -> createListCommand();
-            //case EditCommand.COMMAND_WORD -> createEditCommand(argumentString);
-            case StartCommand.COMMAND_WORD -> createStartCommand(argumentString);
-            case LogCommand.COMMAND_WORD -> createLogCommand(argumentString);
-            //case ActiveCommand.COMMAND_WORD -> createActiveCommand(argumentString);
-            case HistoryCommand.COMMAND_WORD -> createHistoryCommand();
-            case ExitCommand.COMMAND_WORD -> createExitCommand();
-            default -> createInvalidCommand();
-        };
+        switch (commandString) {
+        case CreateCommand.COMMAND_WORD: return createCreateProgCommand(argumentString);
+        case ViewCommand.COMMAND_WORD: return createViewCommand(argumentString);
+        case ListCommand.COMMAND_WORD: return createListCommand();
+        //case EditCommand.COMMAND_WORD: return createEditCommand(argumentString);
+        case StartCommand.COMMAND_WORD: return createStartCommand(argumentString);
+        case LogCommand.COMMAND_WORD: return createLogCommand(argumentString);
+        //case ActiveCommand.COMMAND_WORD: return createActiveCommand(argumentString);
+        case HistoryCommand.COMMAND_WORD: return createHistoryCommand();
+        case ExitCommand.COMMAND_WORD: return createExitCommand();
+        default: return createInvalidCommand();
+        }
     }
 
     private Command createCreateProgCommand(String argumentString) {
