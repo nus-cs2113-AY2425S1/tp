@@ -11,7 +11,7 @@ public class Day {
         this.exerciseList = exerciseList;
     }
 
-    public Day( ArrayList<Exercise> exerciseList) {
+    public Day(ArrayList<Exercise> exerciseList) {
         this.exerciseList = exerciseList;
     }
 
@@ -27,13 +27,24 @@ public class Day {
         exerciseList.remove(index - 1);
     }
 
-    @Override
-    public String toString() {
+    public String toString(boolean partOfProgramme) {
         StringBuilder str = new StringBuilder();
         str.append(dayName).append("\n");
-        for (Exercise exercise : exerciseList) {
-            str.append("       - ").append(exercise.toString()).append("\n");
+
+        if (partOfProgramme) {
+            for (Exercise exercise : exerciseList) {
+                str.append(exercise.toString()).append("\n");
+            }
+        }else {
+            for (Exercise exercise : exerciseList) {
+                str.append("       - ").append(exercise.toString()).append("\n");
+            }
         }
         return str.toString();
+    }
+
+    @Override
+    public String toString() {
+        return toString(false);  // By default, assume it is part of a larger structure
     }
 }

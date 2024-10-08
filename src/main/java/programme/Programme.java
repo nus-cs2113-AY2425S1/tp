@@ -20,14 +20,14 @@ public class Programme {
     }
 
 
-    public void insertDay(String dayName, ArrayList<Exercise> exercises) {
+    public void insertDay(String dayName, ArrayList<Exercise> exercises) {   // return day
         Day day = new Day(dayName, exercises);
         dayList.add(day);
         //saveTask();
         int dayCount = dayList.size();
 
-        System.out.println("Got it, I have inserted this program: " + dayName);
-        System.out.println("Program count: " + dayCount);
+//        System.out.println("Got it, I have inserted this program: " + dayName);
+//        System.out.println("Program count: " + dayCount);
     }
 
     public void deleteDay(int index){
