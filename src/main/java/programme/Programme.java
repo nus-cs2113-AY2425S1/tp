@@ -26,8 +26,6 @@ public class Programme {
         //saveTask();
         int dayCount = dayList.size();
 
-//        System.out.println("Got it, I have inserted this program: " + dayName);
-//        System.out.println("Program count: " + dayCount);
     }
 
     public void deleteDay(int index){

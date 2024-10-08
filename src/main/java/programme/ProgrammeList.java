@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class ProgrammeList {
 
     //private ArrayList<ArrayList<ArrayList<Exercise>>> programmeList;
-    private ArrayList<Programme> programmeList;
     int currentActiveProgramme;
+    private ArrayList<Programme> programmeList;
 
     public ProgrammeList() {
         programmeList = new ArrayList<>();
