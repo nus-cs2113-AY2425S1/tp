@@ -1,5 +1,9 @@
 package seedu.manager.event;
 
+/**
+ * The Event class represents an event with a name, time, and venue.
+ * It provides methods to access and modify the time and venue of the event.
+ */
 public class Event {
     private final String eventName;
     private String eventTime;
