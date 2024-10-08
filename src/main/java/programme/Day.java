@@ -19,6 +19,10 @@ public class Day {
         return dayName;
     }
 
+    public ArrayList<Exercise> getExerciseList() {
+        return exerciseList;
+    }
+
     public void insertExercise(Exercise exercise) {
         exerciseList.add(exercise);
     }
