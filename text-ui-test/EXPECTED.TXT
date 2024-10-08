@@ -2,7 +2,7 @@ Welcome to EventManagerCLI.
 Enter a command: hello world
 Enter a command: Here are the possible commands:
 
-add -e EVENT_NAME -st START_TIME -et END_TIME -v VENUE -d DESCRIPTION: Add an event to the event list.
+add -e EVENT_NAME: Add an event to the event list.
 list: List events.
 remove -e EVENT_NAME: Remove an event from the event list.
 add -p PARTICIPANT_NAME -e EVENT_NAME: Add a participant an event.
