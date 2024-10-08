@@ -75,7 +75,7 @@ public class Storage {
             writer.close();
             System.out.println("Saving done, Good Job!");
         } catch (IOException e) {
-            System.out.println("An error has occurred when saving data: " + e.getMessage())
+            System.out.println("An error has occurred when saving data: " + e.getMessage());
         }
     }
 
