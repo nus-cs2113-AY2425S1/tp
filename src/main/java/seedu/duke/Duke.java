@@ -4,7 +4,6 @@ import seedu.commands.AddCommand;
 import seedu.commands.Command;
 import seedu.commands.FilterCommand;
 import seedu.commands.DeleteCommand;
-import seedu.commands.InternshipFieldGetter;
 import seedu.commands.ListCommand;
 import seedu.commands.SortCommand;
 import seedu.commands.UpdateCommand;
