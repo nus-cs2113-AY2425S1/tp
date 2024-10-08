@@ -1,6 +1,6 @@
 package seedu.manager.event;
 
-public abstract class Event {
+public class Event {
     private final String eventName;
     private String eventTime;
     private String eventVenue;
@@ -24,5 +24,4 @@ public abstract class Event {
     public void setEventVenue(String eventVenue) {
         this.eventVenue = eventVenue;
     }
-
 }
