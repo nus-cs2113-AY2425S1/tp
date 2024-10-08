@@ -1,3 +1,5 @@
+package YMFC;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -22,7 +24,7 @@ public class Ui {
     private Scanner userInput;
 
     /**
-     * Constructor for a <code>Ui</code> object.
+     * Constructor for a <code>YMFC.Ui</code> object.
      * Overloads default constructor to initialise a scanner object reading user inputs.
      */
     public Ui() {

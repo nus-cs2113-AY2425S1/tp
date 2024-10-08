@@ -28,12 +28,14 @@ test {
     }
 }
 
+sourceSets.main.java.srcDirs = ['src/main/java']
+
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("YMFC.YMFC")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("YMFC")
     archiveClassifier.set("")
 }
 
