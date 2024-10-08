@@ -28,8 +28,10 @@ test {
     }
 }
 
+sourceSets.main.java.srcDirs = ['src/main/java']
+
 application {
-    mainClass.set("main.java.YMFC.YMFC")
+    mainClass.set("YMFC.YMFC")
 }
 
 shadowJar {
