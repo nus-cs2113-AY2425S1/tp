@@ -1,9 +1,12 @@
 package seedu.duke;
 
+/*
 import seedu.duke.Command.AddPatientCommand;
 import seedu.duke.Command.DelPatientCommand;
 import seedu.duke.Command.ListPatientCommand;
 import seedu.duke.Command.SelectPatientCommand;
+*/
+
 import seedu.duke.data.hospital.Patient;
 
 import java.util.ArrayList;

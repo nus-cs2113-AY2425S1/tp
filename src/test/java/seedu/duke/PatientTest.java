@@ -2,7 +2,7 @@ package seedu.duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import seedu.duke.Command.AddPatientCommand;
 import seedu.duke.Command.DelPatientCommand;
 import seedu.duke.Command.ListPatientCommand;
 import seedu.duke.Command.SelectPatientCommand;
-import seedu.duke.data.hospital.*;
+import seedu.duke.data.hospital.Patient;
 
 import java.util.ArrayList;
 import java.util.List;

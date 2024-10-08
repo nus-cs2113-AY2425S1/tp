@@ -1,8 +1,8 @@
 package seedu.duke.data.hospital;
-
+/*
 import java.util.ArrayList;
 import java.util.List;
-
+*/
 public class Patient {
     private String name;
     private int index;
