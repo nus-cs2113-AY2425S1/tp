@@ -3,7 +3,7 @@ package seedu.duke;
 import seedu.duke.parser.Parser;
 import seedu.duke.ui.UI;
 
-public class Duke {
+public class ExchangeCourseMapper {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
