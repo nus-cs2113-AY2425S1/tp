@@ -1,6 +1,8 @@
 package seedu.duke.ui;
 import seedu.duke.parser.Parser;
 
+import java.io.IOException;
+
 public class UI {
     public void displayGreeting() {
         String greetingMessage = "LOREM IPSUM";

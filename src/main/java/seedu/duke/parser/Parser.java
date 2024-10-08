@@ -1,5 +1,7 @@
 package seedu.duke.parser;
 
+import seedu.duke.command.ListSchoolCommand;
+
 import java.util.Scanner;
 
 public class Parser {
@@ -11,7 +13,7 @@ public class Parser {
 
     public void processUserInput(String userInput) {
         if (userInput.startsWith("list schools")) {
-            System.out.println(userInput);
+            new ListSchoolCommand().execute(userInput);
         } // Add your parts here
         else{
             System.out.println(userInput);
