@@ -3,7 +3,7 @@ package programme;
 import java.util.ArrayList;
 
 public class ProgrammeList {
-    public Programme insertProgramme(String name, ArrayList<ArrayList<ArrayList<String>>> contents) {
+    public Programme insertProgramme(String name, ArrayList<ArrayList<Exercise>> contents) {
         return new Programme();
     }
 
