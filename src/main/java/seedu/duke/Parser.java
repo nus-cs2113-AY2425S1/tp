@@ -1,8 +1,17 @@
 package seedu.duke;
 
-import seedu.commands.*;
+import seedu.commands.Command;
+import seedu.commands.AddCommand;
+import seedu.commands.DeleteCommand;
+import seedu.commands.FilterCommand;
+import seedu.commands.ListCommand;
+import seedu.commands.SortCommand;
+import seedu.commands.UpdateCommand;
 
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.function.Supplier;
 
 public class Parser {

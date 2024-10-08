@@ -1,13 +1,6 @@
 package seedu.duke;
 
-import seedu.commands.AddCommand;
 import seedu.commands.Command;
-import seedu.commands.FilterCommand;
-import seedu.commands.DeleteCommand;
-import seedu.commands.ListCommand;
-import seedu.commands.SortCommand;
-import seedu.commands.UpdateCommand;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
