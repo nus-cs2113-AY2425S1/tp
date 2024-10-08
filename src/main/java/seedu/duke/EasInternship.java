@@ -17,7 +17,7 @@ import java.util.Map;
  * It manages the application's main loop, where user input is read, commands are parsed,
  * and the task list is displayed and updated accordingly.
  */
-public class Duke {
+public class EasInternship {
     private static final Ui ui = new Ui();
     private static final InternshipList internshipList = new InternshipList();
     private static final Map<String, Command> commands = new HashMap<>();
@@ -39,7 +39,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         boolean isExit = false;
 
-        while (!isExit && scanner.hasNext()) {
+        while (!isExit) {
             System.out.print("Enter command: ");
             String input = scanner.nextLine();
             String[] inputArgs = input.split("\\s+", 2);
