@@ -1,4 +1,4 @@
-import javax.sound.midi.Receiver;
+package YMFC;
 
 public class Command {
     protected static boolean isBye;
