@@ -55,7 +55,7 @@ public class Parser {
 
             ArrayList<ArrayList<String>> dayExercises = new ArrayList<>();
 
-            String[] exercises = dayString.split(" /e");
+            String[] exercises = dayString.split("/e");
             for (String exerciseDescription : exercises) {
                 if (exerciseDescription.trim().isEmpty()) {
                     continue;
@@ -63,16 +63,16 @@ public class Parser {
 
                 String[] exerciseArguments = parseArguments(exerciseDescription, " /n", " /s", " /r", " /w");
 
-                if (exerciseArguments.length != 4) {
+                if (exerciseArguments.length != 5) {
                     throw new IllegalArgumentException("Invalid exercise command. Please provide a name, " +
                             "set, rep, and weight using '/n', '/s', '/r', '/w'.");
                 }
 
                 ArrayList<String> exerciseDetails = new ArrayList<>();
-                exerciseDetails.add(exerciseArguments[0].trim()); // name
-                exerciseDetails.add(exerciseArguments[1].trim()); // set
-                exerciseDetails.add(exerciseArguments[2].trim()); // rep
-                exerciseDetails.add(exerciseArguments[3].trim()); // weight
+                exerciseDetails.add(exerciseArguments[1].trim()); // name
+                exerciseDetails.add(exerciseArguments[2].trim()); // set
+                exerciseDetails.add(exerciseArguments[3].trim()); // rep
+                exerciseDetails.add(exerciseArguments[4].trim()); // weight
 
                 dayExercises.add(exerciseDetails);
             }

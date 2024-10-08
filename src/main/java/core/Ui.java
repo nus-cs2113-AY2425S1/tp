@@ -15,13 +15,7 @@ public class Ui {
     private static final int LINE_LENGTH = 50;
 
     private static final String GREETING = "Hello! I'm...";
-    private static final String LOGO = """
-                                      | _ )   _  _      / _|    / _|  | _ )   _  _    __| |   __| |   | || |\s
-                                      | _ \\  | +| |    |  _|   |  _|  | _ \\  | +| |  / _` |  / _` |    \\_, |\s
-                                      |___/   \\_,_|   _|_|_   _|_|_   |___/   \\_,_|  \\__,_|  \\__,_|   _|__/ \s
-                                    _|""\"""|_|""\"""|_|""\"""|_|""\"""|_|""\"""|_|""\"""|_|""\"""|_|""\"""|_| ""\""|\s
-                                    "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'\s
-                                    """;
+    private static final String LOGO = "BuffBuddy";
 
     private static final String PROMPT = "What can I do for you?";
 
