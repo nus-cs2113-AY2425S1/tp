@@ -8,9 +8,8 @@ import seedu.commands.ListCommand;
 import seedu.commands.SortCommand;
 import seedu.commands.UpdateCommand;
 
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The EasInternship class contains the main method which is the entry point for the application.
@@ -18,10 +17,6 @@ import java.util.Map;
  * and the task list is displayed and updated accordingly.
  */
 public class EasInternship {
-    private static final Ui ui = new Ui();
-    private static final InternshipList internshipList = new InternshipList();
-    private static final Map<String, Command> commands = new HashMap<>();
-
     /**
      * The main method initializes the UI and command handlers, and continuously
      * prompts the user for input until an exit command is given.
@@ -29,11 +24,11 @@ public class EasInternship {
      * @param args Command-line arguments (not used in this application)
      */
     public static void main(String[] args) {
+        Ui ui = new Ui();
+        InternshipList internshipList = new InternshipList();
+        Parser parser = new Parser();
 
         ui.showWelcome();
-
-        // Initialize command map
-        initializeCommands();
 
         // Main loop
         Scanner scanner = new Scanner(System.in);
@@ -42,39 +37,28 @@ public class EasInternship {
         while (!isExit) {
             System.out.print("Enter command: ");
             String input = scanner.nextLine();
-            String[] inputArgs = input.split("\\s+", 2);
-            String commandWord = inputArgs[0].toLowerCase(); // Extract command word
 
-            if (commandWord.equals("bye")) {
+            if (input.equals("exit")) {
                 ui.showGoodbye();
                 isExit = true;
                 continue;
             }
 
-            Command command = commands.get(commandWord);
+            Command command = parser.parseCommand(input);
+
             if (command == null) {
-                System.out.println("Unknown command: " + commandWord);
+                System.out.println("Unknown command: " + input);
                 continue;
             }
 
+            command.setInternshipList(internshipList);
+            ArrayList<String> commandArgs = parser.parseData(command, input);
+
             try {
-                String[] commandArgs = inputArgs.length > 1 ? inputArgs[1].split("\\s+") : new String[0];
                 command.execute(commandArgs);
             } catch (Exception e) {
                 System.out.println("Error executing command: " + e.getMessage());
             }
         }
-    }
-
-    /**
-     * Initializes the available commands and maps them to their respective handlers.
-     */
-    private static void initializeCommands() {
-        commands.put("add", new AddCommand(internshipList));
-        commands.put("del", new DeleteCommand(internshipList));
-        commands.put("update", new UpdateCommand(internshipList));
-        commands.put("sort", new SortCommand(internshipList));
-        commands.put("filter", new FilterCommand(internshipList));
-        commands.put("list", new ListCommand(internshipList)); // Custom command to list all internships
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class Internship {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
 
-    private int id;
+    private int id = -1;
     private String role;
     private String company;
     private YearMonth startDate;
