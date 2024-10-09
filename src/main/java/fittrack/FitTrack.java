@@ -1,4 +1,4 @@
-package FitTrack;
+package fittrack;
 
 import java.util.Scanner;
 
