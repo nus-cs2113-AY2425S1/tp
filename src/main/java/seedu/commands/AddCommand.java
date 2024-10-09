@@ -1,53 +1,51 @@
 package seedu.commands;
 
 import seedu.duke.Internship;
-import seedu.duke.InternshipList;
 
-public class AddCommand implements Command {
-    private final InternshipList internships;
+import java.util.ArrayList;
 
-    public AddCommand(InternshipList internshipList) {
-        this.internships = internshipList;
-    }
+public class AddCommand extends Command {
     @Override
-    public void execute(String[] args) {
+    public void execute(ArrayList<String> args) {
         String role = "";
         String company = "";
         String startDate = "01/01";
         String endDate = "01/01";
 
-        for (int i = 0; i < args.length; i++) {
-            switch (args[i]) {
-            case "-name":
-                if (i + 1 < args.length) {
-                    role = args[++i];
+        for (String arg : args) {
+            String[] words = arg.split(" ", 2);
+            String flag = words[0];
+            switch (flag) {
+            case "name":
+                if (words.length > 1) {
+                    role = words[INDEX_DATA];
                 } else {
                     System.out.println("Role not specified.");
                 }
                 break;
-            case "-company":
-                if (i + 1 < args.length) {
-                    company = args[++i];
+            case "company":
+                if (words.length > 1) {
+                    company = words[INDEX_DATA];
                 } else {
                     System.out.println("Company not specified.");
                 }
                 break;
-            case "-from":
-                if (i + 1 < args.length) {
-                    startDate = args[++i];
+            case "from":
+                if (words.length > 1) {
+                    startDate = words[INDEX_DATA];
                 } else {
                     System.out.println("Start date not specified.");
                 }
                 break;
-            case "-to":
-                if (i + 1 < args.length) {
-                    endDate = args[++i];
+            case "to":
+                if (words.length > 1) {
+                    endDate = words[INDEX_DATA];
                 } else {
                     System.out.println("End date not specified.");
                 }
                 break;
             default:
-                System.out.println("Unknown flag: " + args[i]);
+                System.out.println("Unknown flag: " + flag);
                 break;
             }
         }

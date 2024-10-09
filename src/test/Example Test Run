@@ -1,0 +1,94 @@
+__________________________________________________
+Hello! Welcome to EasInternship!
+Ready to rock some internships?? :)
+__________________________________________________
+
+Enter command: add -name engineer -company google
+Internship added: ID: 1	Status: Application Pending
+Role: engineer
+Company: google
+Duration: 01/01 to 01/01
+Skills: No Skills Entered
+Enter command: add -name doctor -company    -from 01/02 -to 01/06
+Company not specified.
+Internship added: ID: 2	Status: Application Pending
+Role: doctor
+Company:
+Duration: 01/02 to 01/06
+Skills: No Skills Entered
+Enter command: add -name research assistant -company A*STAR
+Internship added: ID: 3	Status: Application Pending
+Role: research assistant
+Company: A*STAR
+Duration: 01/01 to 01/01
+Skills: No Skills Entered
+Enter command: list
+ID: 1	Status: Application Pending
+Role: engineer
+Company: google
+Duration: 01/01 to 01/01
+Skills: No Skills Entered
+---------------------------------
+ID: 2	Status: Application Pending
+Role: doctor
+Company:
+Duration: 01/02 to 01/06
+Skills: No Skills Entered
+---------------------------------
+ID: 3	Status: Application Pending
+Role: research assistant
+Company: A*STAR
+Duration: 01/01 to 01/01
+Skills: No Skills Entered
+---------------------------------
+Enter command: sort -alphabet
+ID: 2	Status: Application Pending
+Role: doctor
+Company:
+Duration: 01/02 to 01/06
+Skills: No Skills Entered
+---------------------------------
+ID: 1	Status: Application Pending
+Role: engineer
+Company: google
+Duration: 01/01 to 01/01
+Skills: No Skills Entered
+---------------------------------
+ID: 3	Status: Application Pending
+Role: research assistant
+Company: A*STAR
+Duration: 01/01 to 01/01
+Skills: No Skills Entered
+---------------------------------
+Sorted internships by role alphabetically.
+Enter command: update 1 -status accepted
+ID: 1	Status: Accepted
+Role: engineer
+Company: google
+Duration: 01/01 to 01/01
+Skills: No Skills Entered
+Enter command: del 2
+Enter command: list
+ID: 1	Status: Accepted
+Role: engineer
+Company: google
+Duration: 01/01 to 01/01
+Skills: No Skills Entered
+---------------------------------
+ID: 2	Status: Application Pending
+Role: research assistant
+Company: A*STAR
+Duration: 01/01 to 01/01
+Skills: No Skills Entered
+---------------------------------
+Enter command: filter -company A*STAR
+ID: 2	Status: Application Pending
+Role: research assistant
+Company: A*STAR
+Duration: 01/01 to 01/01
+Skills: No Skills Entered
+---------------------------------
+Enter command: exit
+__________________________________________________
+Peace out! Have fun at the internship.
+__________________________________________________

@@ -14,7 +14,9 @@ public class InternshipList {
     }
 
     public void addInternship(Internship internship) {
-        internship.setId(internships.size());
+        if (internship.getId() == -1) {
+            internship.setId(internships.size());
+        }
         internships.add(internship);
     }
 

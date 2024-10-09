@@ -1,39 +1,24 @@
 package seedu.commands;
 
-import seedu.duke.InternshipList;
+import java.util.ArrayList;
 
-public class UpdateCommand implements Command {
-    private static final int INDEX_FIELD = 0;
-    private static final int INDEX_ID = 1;
-
-    private final InternshipList internships;
-
-    public UpdateCommand(InternshipList internshipList) {
-        this.internships = internshipList;
-    }
-
-    /**
-     * Updates specific internship entries.
-     *
-     * @param args user input split by fields and the new values.
-     */
+public class UpdateCommand extends Command {
     @Override
-    public void execute(String[] args) {
+    public void execute(ArrayList<String> args) {
+        int internshipId = Integer.parseInt(args.get(0));
+        args.remove(0);
         String field = "";
         String value = "";
-        int internshipId = -1;
         String status = "";
-        for (int i = 0; i < args.length; i++) {
-            String[] words = args[i].split(" ");
+        for (String arg : args) {
+            String[] words = arg.split(" ", 2);
             switch (words[INDEX_FIELD]) {
-            case "id":
-                internshipId = Integer.parseInt(words[INDEX_ID]);
-                break;
             case "status":
             case "skills":
             case "role":
             case "company":
             case "end":
+                status = words[INDEX_DATA].trim();
                 field = words[INDEX_FIELD];
                 value = words[INDEX_ID].replace(field, "").trim();
                 internships.getInternship(internshipId).updateField(field, value);
