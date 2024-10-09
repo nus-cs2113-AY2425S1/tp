@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import command.Command;
 import programme.Exercise;
 import core.Ui;
+import programme.Exercise;
 import programme.ProgrammeList;
 import programme.Programme;
 import core.History;
