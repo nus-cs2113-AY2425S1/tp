@@ -32,4 +32,5 @@ public class MediTask {
         // Initialize patient list
         List<Patient> patients = new ArrayList<>();
     }
+    
 }
