@@ -30,14 +30,14 @@ public class Storage {
             }
             FileWriter writer = new FileWriter(FILE_PATH);
             List<Internship> internships = internshipList.getAllInternships();
-            for (Internship internship : internships) {
-                writer.write(internship.getId() + " | "
-                        + internship.getRole() + " | "
-                        + internship.getCompany() + " | "
-                        + internship.getStartDate() + " | "
-                        + internship.getEndDate() + " | "
-                        + internship.getSkills() + " | "
-                        + internship.getStatus() + "\n");
+                for (Internship internship : internships) {
+                    writer.write(internship.getId() + " | "
+                            + internship.getRole() + " | "
+                            + internship.getCompany() + " | "
+                            + internship.getStartDate() + " | "
+                            + internship.getEndDate() + " | "
+                            + internship.getSkills() + " | "
+                            + internship.getStatus() + "\n");
             }
             writer.close();
         } catch (IOException e) {
