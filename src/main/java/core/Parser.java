@@ -8,8 +8,9 @@ import command.InvalidCommand;
 import command.programme.CreateCommand;
 import command.programme.ListCommand;
 import command.programme.StartCommand;
-import command.programme.edit.EditCommand;
 import command.programme.ViewCommand;
+
+
 import java.util.ArrayList;
 
 
@@ -54,7 +55,7 @@ public class Parser {
         case CreateCommand.COMMAND_WORD: return createCreateProgCommand(arguments);
         case ViewCommand.COMMAND_WORD: return createViewCommand(arguments);
         case ListCommand.COMMAND_WORD: return createListCommand();
-        case EditCommand.COMMAND_WORD: return createEditCommand(arguments);
+        case "edit": return createEditCommand(arguments);
         case StartCommand.COMMAND_WORD: return createStartCommand(arguments);
         default: return createInvalidCommand();
         }
@@ -99,7 +100,7 @@ public class Parser {
 
 
     private Command createViewCommand(String argumentString) {
-        int progIndex = parseTaskIndex(argumentString);
+        int progIndex = parseIndex(argumentString);
         return new ViewCommand(progIndex);
     }
 
@@ -108,7 +109,6 @@ public class Parser {
     }
 
     private Command createEditCommand(String argumentString) {
-        EditCommand editCommand = new EditCommand();
         String[] programmes = argumentString.trim().split("/p");
         for (String programme : programmes) {
             if (programme.trim().isEmpty()) {
@@ -116,7 +116,7 @@ public class Parser {
             }
 
             String[] progParts = programme.trim().split(" ",2);
-            int progIndex = parseTaskIndex(progParts[0]);
+            int progIndex = parseIndex(progParts[0]);
             String[] days = progParts[1].split("/d");
 
             for (String day : days ) {
@@ -125,7 +125,7 @@ public class Parser {
                 }
 
                 String[] dayParts = day.trim().split(" ", 2);
-                int dayIndex = parseTaskIndex(dayParts[0]);
+                int dayIndex = parseIndex(dayParts[0]);
                 String[] commandArray = dayParts[1].split("/");
                 int updatingExercise = -1;
                 for (String command : commandArray){
@@ -136,10 +136,10 @@ public class Parser {
                     String[] commandParts = command.trim().split(" ",2);
                     String commandFlag = commandParts[0].trim();
                     String commandArgs = commandParts[1].trim();
-
+                    System.out.println(commandArgs);
                     switch(commandFlag){
                     case "u":
-                        updatingExercise = parseTaskIndex(commandArgs);
+                        updatingExercise = parseIndex(commandArgs);
                         break;
                     case "w":
                         System.out.printf("Prog: %d Day: %d Exercise: %d Set Weight: %s %n",
@@ -155,13 +155,8 @@ public class Parser {
                         break;
                     case "x":
                         updatingExercise = -1;
-                        System.out.printf("Prog : %d Day: %d Exercise: %s Deleting %n",
+                        System.out.printf("Prog: %d Day: %d Exercise: %s Deleting %n",
                                 progIndex,dayIndex,commandArgs);
-                        break;
-                    case "a":
-                        updatingExercise = -1;
-                        System.out.printf("Prog : %d Day: %d Creating Exercise %s %n",
-                                progIndex, dayIndex, commandArgs);
                         break;
                     default:
                         throw new IllegalArgumentException("Invalid programme edit command.");
@@ -173,9 +168,27 @@ public class Parser {
         return new InvalidCommand();
     }
 
+//    private Exercise parseExercise(String exerciseString){
+//        String[] commandArray = exerciseString.split("/");
+//        String commandFlag = commandArray[0];
+//        String commandArgs = commandArray[1];
+//
+//        for (String command : commandArray){
+//            if (command.trim().isEmpty()) {
+//                continue;
+//            }
+//
+//            String[] commandParts = command.trim().split(" ",2);
+//            String commandFlag = commandParts[0].trim();
+//            String commandArgs = commandParts[1].trim();
+//
+//
+//            }
+//        }
+//    }
 
     private Command createStartCommand(String argumentString) {
-        int progIndex = parseTaskIndex(argumentString);
+        int progIndex = parseIndex(argumentString);
         return new StartCommand(progIndex);
     }
 
@@ -190,12 +203,12 @@ public class Parser {
         if (arguments[0].trim().isEmpty()) {
             throw new IllegalArgumentException("Programme index cannot be empty.");
         }
-        int progIndex = parseTaskIndex(arguments[0].trim());
+        int progIndex = parseIndex(arguments[0].trim());
 
         if (arguments[1].trim().isEmpty()) {
             throw new IllegalArgumentException("Day index cannot be empty.");
         }
-        int dayIndex = parseTaskIndex(arguments[1].trim());
+        int dayIndex = parseIndex(arguments[1].trim());
 
         if (arguments[2].trim().isEmpty()) {
             throw new IllegalArgumentException("Date cannot be empty.");
@@ -217,9 +230,9 @@ public class Parser {
         return new InvalidCommand();
     }
 
-    private int parseTaskIndex(String taskIndex) {
+    private int parseIndex(String indexString) {
         try {
-            int index = Integer.parseInt(taskIndex.trim()) - 1;
+            int index = Integer.parseInt(indexString.trim()) - 1;
             if (index < 0) {
                 throw new IllegalArgumentException("Task index must be a positive number.");
             }
