@@ -17,7 +17,7 @@ public class TaskCommandTest {
     }
 
     @Test
-    void testDeleteTask_TaskNotExist(){
+    void testDeleteTask_taskNotExist(){
         DeleteTaskCommand deleteTaskCommand = new DeleteTaskCommand(1);
         TaskList tasks = new TaskList();
         deleteTaskCommand.setData(tasks);
