@@ -81,8 +81,7 @@ public class Parser {
                 String[] exerciseArguments = parseArguments(exerciseDescription, " /n", " /s", " /r", " /w");
 
                 if (exerciseArguments.length != 5) {
-                    throw new IllegalArgumentException("Invalid exercise command. Please provide a name, " +
-                            "set, rep, and weight using '/n', '/s', '/r', '/w'.");
+                    throw new IllegalArgumentException("Invalid exercise command. Please provide a name, " + "set, rep, and weight using '/n', '/s', '/r', '/w'.");
                 }
 
                 ArrayList<String> exerciseDetails = new ArrayList<>();
@@ -108,84 +107,101 @@ public class Parser {
         return new ListCommand();
     }
 
-    private Command createEditCommand(String argumentString) {
-        String[] programmes = argumentString.trim().split("/p");
-        for (String programme : programmes) {
-            if (programme.trim().isEmpty()) {
+    private Command createEditCommand(String argumentString){
+        String[] args = argumentString.trim().split(" ");
+        int progIndex = -1;
+        int dayIndex = -1;
+        int exerciseIndex = -1;
+
+        String newName = "";
+        int newSets = -1;
+        int newReps = -1;
+        int newWeight = -1;
+        boolean isAdding = false;
+        boolean isEditing = false;
+
+        for (int i = 0 ; i < args.length ; i++){
+            if (args[i].trim().isEmpty()) {
                 continue;
             }
 
-            String[] progParts = programme.trim().split(" ",2);
-            int progIndex = parseIndex(progParts[0]);
-            String[] days = progParts[1].split("/d");
-
-            for (String day : days ) {
-                if (day.trim().isEmpty()) {
-                    continue;
-                }
-
-                String[] dayParts = day.trim().split(" ", 2);
-                int dayIndex = parseIndex(dayParts[0]);
-                String[] commandArray = dayParts[1].split("/");
-                int updatingExercise = -1;
-                for (String command : commandArray){
-                    if (command.trim().isEmpty()) {
-                        continue;
-                    }
-
-                    String[] commandParts = command.trim().split(" ",2);
-                    String commandFlag = commandParts[0].trim();
-                    String commandArgs = commandParts[1].trim();
-                    System.out.println(commandArgs);
-                    switch(commandFlag){
-                    case "u":
-                        updatingExercise = parseIndex(commandArgs);
-                        break;
-                    case "w":
-                        System.out.printf("Prog: %d Day: %d Exercise: %d Set Weight: %s %n",
-                                progIndex,dayIndex,updatingExercise,commandArgs);
-                        break;
-                    case "s":
-                        System.out.printf("Prog: %d Day: %d Exercise: %d Set Sets: %s %n",
-                                progIndex,dayIndex,updatingExercise,commandArgs);
-                        break;
-                    case "r":
-                        System.out.printf("Prog: %d Day: %d Exercise: %d Set Reps: %s %n",
-                                progIndex,dayIndex,updatingExercise,commandArgs);
-                        break;
-                    case "x":
-                        updatingExercise = -1;
-                        System.out.printf("Prog: %d Day: %d Exercise: %s Deleting %n",
-                                progIndex,dayIndex,commandArgs);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Invalid programme edit command.");
-                    }
-                }
-
+            String command = args[i].trim();
+            String value = "";
+            if (i + 1 < args.length && !args[i + 1].trim().isEmpty()) {
+                value = args[i + 1].trim();
             }
+            if (command.equals("/p") || command.equals("/d") || command.equals("/x") || command.equals("/u") || command.equals("/a")) {
+                if (isAdding) {
+                    System.out.printf("Adding exercise to Prog %d Day %d with n %s s %d r %d w %d %n", progIndex, dayIndex, newName, newSets, newReps, newWeight);
+                    isAdding = false;
+                }
+
+                if (isEditing) {
+                    System.out.printf("Editing exercise to Prog %d Day %d with n %s s %d r %d w %d %n", progIndex, dayIndex, newName, newSets, newReps, newWeight);
+                    isEditing = false;
+                }
+            }
+
+            switch (command) {
+
+            case "/p":
+                progIndex = parseIndex(value);
+                System.out.println(progIndex);
+                break;
+
+            case "/d":
+                dayIndex = parseIndex(value);
+                System.out.println(progIndex);
+                break;
+
+            case "/x":
+                exerciseIndex = parseIndex(value);
+                System.out.println(exerciseIndex);
+                break;
+
+            case "/u":
+                isEditing = true;
+                exerciseIndex = parseIndex(value);
+                System.out.println(exerciseIndex);
+                break;
+
+            case "/a":
+                isAdding = true;
+                break;
+
+            case "/n":
+                newName = value;
+                break;
+            case "/s":
+                newSets = Integer.parseInt(value);
+                break;
+            case "/r":
+                newReps = Integer.parseInt(value);
+                break;
+            case "/w":
+                newWeight = Integer.parseInt(value);
+                break;
+
+            default: break;
+            }
+
+
+
+            i++;
         }
+
+        if (isAdding) {
+            System.out.printf("Adding exercise to Prog %d Day %d with n %s s %d r %d %n", progIndex, dayIndex, newName, newSets, newReps, newWeight);
+            isAdding = false;
+        }
+
+        if (isEditing) {
+            System.out.printf("Editing exercise to Prog %d Day %d with n %s s %d r %d %n", progIndex, dayIndex, newName, newSets, newReps, newWeight);
+            isEditing = false;
+        }
+
         return new InvalidCommand();
     }
-
-//    private Exercise parseExercise(String exerciseString){
-//        String[] commandArray = exerciseString.split("/");
-//        String commandFlag = commandArray[0];
-//        String commandArgs = commandArray[1];
-//
-//        for (String command : commandArray){
-//            if (command.trim().isEmpty()) {
-//                continue;
-//            }
-//
-//            String[] commandParts = command.trim().split(" ",2);
-//            String commandFlag = commandParts[0].trim();
-//            String commandArgs = commandParts[1].trim();
-//
-//
-//            }
-//        }
-//    }
 
     private Command createStartCommand(String argumentString) {
         int progIndex = parseIndex(argumentString);
@@ -193,26 +209,17 @@ public class Parser {
     }
 
     private Command createLogCommand(String argumentString){
-        String[] arguments = parseArguments(argumentString, "/p", "/d", " DATE" );
+        String[] arguments = parseArguments(argumentString, "/p", "/d");
 
         if (arguments.length != 3) {
             throw new IllegalArgumentException("Invalid event command. " +
                     "Please provide a programme index, day index, and date using '/p' and '/d' and 'DATE'.");
         }
 
-        if (arguments[0].trim().isEmpty()) {
-            throw new IllegalArgumentException("Programme index cannot be empty.");
-        }
         int progIndex = parseIndex(arguments[0].trim());
-
-        if (arguments[1].trim().isEmpty()) {
-            throw new IllegalArgumentException("Day index cannot be empty.");
-        }
         int dayIndex = parseIndex(arguments[1].trim());
 
-        if (arguments[2].trim().isEmpty()) {
-            throw new IllegalArgumentException("Date cannot be empty.");
-        }
+
         String date = arguments[2].trim();
 
         return new LogCommand(progIndex, dayIndex, date);
