@@ -1,13 +1,9 @@
 package fittrack.parser;
+import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 import java.util.ArrayList;
 
-import static fittrack.messages.Messages.ADD_SESSION_COMMAND;
-import static fittrack.messages.Messages.DELETE_SESSION_COMMAND;
-import static fittrack.messages.Messages.EDIT_SESSION_COMMAND;
-import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
-import static fittrack.messages.Messages.SET_USER_COMMAND;
-import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
+import static fittrack.messages.Messages.*;
 import static fittrack.ui.Ui.printSessionList;
 import static fittrack.ui.Ui.printUnrecognizedInputMessage;
 
@@ -38,19 +34,23 @@ public class Parser {
                 user.setAge(sentence[1]);
                 break;
             case ADD_SESSION_COMMAND:
-                sessionList.add(new TrainingSession);
+                sessionList.add(new TrainingSession("" , description));
                 break;
-            case EDIT_SESSION_COMMAND:
-                sessionList(description).editSession();
+            case EDIT_EXERCISE_COMMAND:
+                sentence = description.split(" ", 3);
+                int sessionIndex = Integer.parseInt(sentence[0]);
+                int exerciseIndex = Integer.parseInt(sentence[1]);
+                int exerciseReps = Integer.parseInt(sentence[2]);
+                sessionList.get(sessionIndex).editExercise(exerciseIndex, exerciseReps);
                 break;
             case LIST_SESSIONS_COMMAND:
                 printSessionList(sessionList); // Print the list of sessions
                 break;
             case VIEW_SESSION_COMMAND:
-                sessionList(description).viewSession(); // Print the list of sessions
+                sessionList.get(Integer.parseInt(description)).viewSession(); // Print the list of sessions
                 break;
             case DELETE_SESSION_COMMAND:
-                sessionList.remove(description);
+                sessionList.remove(Integer.parseInt(description));
                 break;
             default:
                 printUnrecognizedInputMessage(); // Response to unrecognized inputs

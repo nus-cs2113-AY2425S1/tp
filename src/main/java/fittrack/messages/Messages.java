@@ -5,7 +5,7 @@ public class Messages {
 
     public static final String SET_USER_COMMAND = "set";
     public static final String ADD_SESSION_COMMAND = "add";
-    public static final String EDIT_SESSION_COMMAND = "edit";
+    public static final String EDIT_EXERCISE_COMMAND = "edit";
     public static final String LIST_SESSIONS_COMMAND = "list";
     public static final String VIEW_SESSION_COMMAND = "view";
     public static final String DELETE_SESSION_COMMAND = "delete";

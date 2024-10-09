@@ -1,5 +1,7 @@
 package fittrack.storage;
 
+import fittrack.trainingsession.TrainingSession;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

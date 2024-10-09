@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import fittrack.parser.Parser;
+import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 
 import static fittrack.messages.Messages.EXIT_COMMAND;
@@ -19,7 +20,7 @@ public class FitTrack {
      * Main entry-point for the FitTrack CLI application.
      */
     public static void main(String[] args) throws FileNotFoundException {
-        ArrayList<TrainingSessions> sessionList = new ArrayList<>();
+        ArrayList<TrainingSession> sessionList = new ArrayList<>();
 
         initialiseSaveFile();
         loadSaveFile(sessionList);
