@@ -10,13 +10,13 @@ public class Main {
     public static final String NAME = "uNivUSaver";
     public static final String HI_MESSAGE = "Hello, %s is willing to help!";
     public static final String INVALID_COMMAND_ERROR_MESSAGE = "Invalid command.";
-
+    public static Scanner scanner; // Scanner for reading user input
+    
     // Prefix for message formatting
     private static final String PREFIX = "\t";
     // Separator for message formatting
     private static final String SEPARATOR = "-------------------------------------";
 
-    private static Scanner scanner; // Scanner for reading user input
     private static Parser parser; //Parser to parse the commands
 
     private static boolean isRunning = true;
