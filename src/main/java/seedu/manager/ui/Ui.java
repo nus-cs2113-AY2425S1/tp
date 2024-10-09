@@ -40,5 +40,6 @@ public class Ui {
      */
     public void showOutputToUser(CommandOutput output){
         System.out.println(output.getMessage());
+        System.out.println();
     }
 }

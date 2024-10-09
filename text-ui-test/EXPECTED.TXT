@@ -1,5 +1,6 @@
 Welcome to EventManagerCLI.
 Enter a command: hello world
+
 Enter a command: Here are the possible commands:
 
 add -e EVENT_NAME: Add an event to the event list.
@@ -10,3 +11,4 @@ view -e EVENT_NAME: View the list of participants of an event.
 remove -p PARTICIPANT_NAME -e EVENT_NAME: Remove a participant from an event.
 
 Enter a command: Thank you for using EventManagerCLI. Goodbye!
+
