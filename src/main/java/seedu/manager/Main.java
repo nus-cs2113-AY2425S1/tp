@@ -15,6 +15,15 @@ public class Main {
      */
     public static void main(String[] args) {
         ui.greetUser();
+        runCommandLoop();
+    }
+
+    /**
+     * Run command loop to get command from users
+     * Parse the command and execute it
+     * The loop ends when ExitCommand is triggered
+     */
+    private static void runCommandLoop() {
         Command command;
         boolean isGettingCommands = true;
         while(isGettingCommands){
@@ -26,6 +35,5 @@ public class Main {
 
             isGettingCommands = !output.getCanExit();
         }
-        System.exit(0);
     }
 }
