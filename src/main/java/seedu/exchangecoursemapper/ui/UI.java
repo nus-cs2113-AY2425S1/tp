@@ -13,7 +13,7 @@ public class UI {
         System.out.println(banner);
         System.out.println(greetingMessage);
     }
-    
+
     /**
      * Runs the main chat loop of the application. It continuously takes user input
      * and processes it through the {@code Parser} until the user types "bye".

@@ -3,5 +3,5 @@
 |  |  |  |    ___|       |   ---|   -   |       |    ___|
 |________|_______|_______|______|_______|__|_|__|_______|
 
-Welcome to ExchangeCourseMapper! Plan your exchange courses easily.
+Welcome to ExchangeCourseMapper! The easiest way to plan your exchange courses.
 bye
