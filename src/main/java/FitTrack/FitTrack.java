@@ -1,8 +1,8 @@
-package seedu.duke;
+package FitTrack;
 
 import java.util.Scanner;
 
-public class Duke {
+public class FitTrack {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
