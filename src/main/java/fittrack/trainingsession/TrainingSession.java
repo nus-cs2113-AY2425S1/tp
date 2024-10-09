@@ -1,7 +1,7 @@
 package fittrack.trainingsession;
 
 import fittrack.exercisestation.*;
-
+import fittrack.user.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -23,13 +23,15 @@ public class TrainingSession{
 
     private LocalDateTime sessionDatetime;
     private String sessionDescription;
+    private User user;
 
     private ExerciseStation[] exerciseData = {new PullUpStation(), new ShuttleRunStation(), new SitAndReachStation(),
             new SitUpStation(), new StandingBroadJumpStation(), new WalkAndRunStation()};
 
-    public TrainingSession(String datetime, String sessionDescription){
+    public TrainingSession(String datetime, String sessionDescription, User user){
         this.sessionDatetime = LocalDateTime.parse(datetime + "-ss-ns");
         this.sessionDescription = sessionDescription;
+        this.user = user;
     }
 
     //Edits session data
@@ -55,6 +57,11 @@ public class TrainingSession{
         }
     }
 
+    public void printSessionDescription(){
+        System.out.print(this.sessionDescription + " | " +
+                this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+    }
+
     //Print out all exercise data, including the total points and award given
     public void viewSession(){
         int totalPoints = 0;
@@ -66,7 +73,7 @@ public class TrainingSession{
                 + System.lineSeparator());
 
         for(int i = 0; i < NUM_OF_EXERCISES; i++){
-            exercisePoint = exerciseData[i].getPoints();
+            exercisePoint = exerciseData[i].getPoints(user);
             totalPoints += exercisePoint;
             if(minPoint < exercisePoint){
                 minPoint = exercisePoint;
