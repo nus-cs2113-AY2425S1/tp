@@ -18,7 +18,8 @@ public class Storage {
 
     /**
      * Saves all the Internships in the InternshipList to a file.
-     * Internships are stored in a specific format, depending on the fields relevant to each internship (ID, Role, Company, Duration, Skills, Status).
+     * Internships are stored in a specific format, depending on the fields relevant to each internship
+     * (ID, Role, Company, Duration, Skills, Status).
      */
     public static void saveToFile(InternshipList internshipList) {
         try {
@@ -30,13 +31,13 @@ public class Storage {
             FileWriter writer = new FileWriter(FILE_PATH);
             List<Internship> internships = internshipList.getAllInternships();
             for (Internship internship : internships) {
-                writer.write(internship.getId() + " | "
-                + internship.getRole() + " | "
-                + internship.getCompany() + " | "
-                + internship.getStartDate() + " | "
-                + internship.getEndDate() + " | "
-                + internship.getSkills() + " | "
-                + internship.getStatus() + "\n");
+                    writer.write(internship.getId() + " | "
+                    + internship.getRole() + " | "
+                    + internship.getCompany() + " | "
+                    + internship.getStartDate() + " | "
+                    + internship.getEndDate() + " | "
+                    + internship.getSkills() + " | "
+                    + internship.getStatus() + "\n");
             }
             writer.close();
         } catch (IOException e) {
