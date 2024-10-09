@@ -49,7 +49,8 @@ public class BuffBuddy {
                 }
                 wrapWithLine(() -> command.execute(userInterface, pList, history));
             } catch (Exception exception) {
-                wrapWithLine(() -> userInterface.showError(exception));
+                wrapWithLine(()
+                        -> userInterface.showError(exception));
             }
         }
     }

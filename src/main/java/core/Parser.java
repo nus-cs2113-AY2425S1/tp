@@ -10,6 +10,7 @@ import command.programme.ListCommand;
 import command.programme.StartCommand;
 //import command.programme.EditCommand;
 import command.programme.ViewCommand;
+import programme.Exercise;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public class Parser {
     }
 
     private Command createCreateProgCommand(String argumentString) {
-        ArrayList<ArrayList<ArrayList<String>>> progRoutines = new ArrayList<>();
+        ArrayList<ArrayList<Exercise>> progRoutines = new ArrayList<>();
 
         String[] days = argumentString.split(" /d");
         String progName = days[0].trim();
@@ -53,7 +54,7 @@ public class Parser {
         for (int dayIndex = 1; dayIndex < days.length; dayIndex++) {
             String dayString = days[dayIndex].trim();
 
-            ArrayList<ArrayList<String>> dayExercises = new ArrayList<>();
+            ArrayList<Exercise> dayExercises = new ArrayList<>();
 
             String[] exercises = dayString.split("/e");
             for (String exerciseDescription : exercises) {
@@ -68,13 +69,13 @@ public class Parser {
                             "set, rep, and weight using '/n', '/s', '/r', '/w'.");
                 }
 
-                ArrayList<String> exerciseDetails = new ArrayList<>();
-                exerciseDetails.add(exerciseArguments[1].trim()); // name
-                exerciseDetails.add(exerciseArguments[2].trim()); // set
-                exerciseDetails.add(exerciseArguments[3].trim()); // rep
-                exerciseDetails.add(exerciseArguments[4].trim()); // weight
+                String name = exerciseArguments[1].trim();
+                int set = Integer.parseInt(exerciseArguments[2].trim());
+                int rep = Integer.parseInt(exerciseArguments[3].trim());
+                int weight = Integer.parseInt(exerciseArguments[4].trim());
+                Exercise exercise = new Exercise(set, rep, weight, name);
 
-                dayExercises.add(exerciseDetails);
+                dayExercises.add(exercise);
             }
             progRoutines.add(dayExercises);
         }
@@ -91,9 +92,9 @@ public class Parser {
         return new ListCommand();
     }
 
-    //private Command createEditCommand(String argumentString) {
-    //return new InvalidCommand();
-    //}
+//    private Command createEditCommand(String argumentString) {
+//    return new InvalidCommand();
+//    }
 
     private Command createStartCommand(String argumentString) {
         int progIndex = parseTaskIndex(argumentString);
