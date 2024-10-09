@@ -17,7 +17,22 @@ public class TestCommand extends Command {
     @Override
     public List<String> execute() {
         List<String> messages = new ArrayList<>();
-        messages.add("Test command executed.");
+
+        if (!isArgumentsValid()) {
+            messages.add(Command.LACK_ARGUMENTS_ERROR_MESSAGE);
+            return messages;
+        }
+
+        for (String key: COMMAND_MANDATORY_KEYWORDS) {
+            messages.add(key + " " + arguments.get(key));
+        }
+
+        for (String key: COMMAND_EXTRA_KEYWORDS) {
+            if (arguments.containsKey(key)) {
+                messages.add(key + " " + arguments.get(key));
+            }
+        }
+
         return messages;
     }
 
