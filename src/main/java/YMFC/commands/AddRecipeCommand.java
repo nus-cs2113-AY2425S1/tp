@@ -4,10 +4,10 @@ import YMFC.Recipe;
 import YMFC.RecipeList;
 import YMFC.Ui;
 
-public class addRecipeCommand extends Command {
+public class AddRecipeCommand extends Command {
     private Recipe recipe;
 
-    public addRecipeCommand(Recipe recipe) {
+    public AddRecipeCommand(Recipe recipe) {
         super();
         this.recipe = recipe;
     }
@@ -16,8 +16,8 @@ public class addRecipeCommand extends Command {
         addNewRecipe(recipes, recipe, ui);
     }
 
-    @Override
     public void addNewRecipe(RecipeList recipes, Recipe newRecipe, Ui ui) {
-
+        recipes.addRecipe(newRecipe);
+        ui.printAddedRecipe(newRecipe.toString(), recipes.getCounter());
     }
 }
