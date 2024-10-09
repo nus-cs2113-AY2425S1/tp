@@ -22,18 +22,14 @@ public class Parser {
     public static final String PROGRAMME_CMD = "prog";
 
     public Command parse(String fullCommand) {
-        if (fullCommand == null || fullCommand.trim().isEmpty()) {
-            throw new IllegalArgumentException("Command cannot be empty. Please enter a valid command.");
-        }
-
         String[] inputArguments = fullCommand.split(" ", 2);
 
-        if (inputArguments.length != 2) {
-            throw new IllegalArgumentException("Command cannot be empty. Please enter a valid command.");
-        }
-
         String commandString = inputArguments[0];
-        String argumentString = inputArguments[1];
+        String argumentString = "";
+
+        if (inputArguments.length > 1 ){
+            argumentString = inputArguments[1];
+        }
 
         switch (commandString) {
         case PROGRAMME_CMD: return parseProgammeCommands(argumentString);
