@@ -1,8 +1,8 @@
-package YMFC.commands;
+package ymfc.commands;
 
-import YMFC.Recipe;
-import YMFC.RecipeList;
-import YMFC.Ui;
+import ymfc.Recipe;
+import ymfc.RecipeList;
+import ymfc.Ui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ public class AddRecipeCommandTest {
     @BeforeEach
     void setUp() {
         emptyList = new RecipeList();
-        ui = new Ui();
+        ui = new Ui(System.in);
 
         // Sample ingredients and steps
         ArrayList<String> ingredients = new ArrayList<>();

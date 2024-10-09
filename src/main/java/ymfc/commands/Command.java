@@ -1,6 +1,5 @@
 package ymfc.commands;
 
-import ymfc.Recipe;
 import ymfc.RecipeList;
 import ymfc.Ui;
 

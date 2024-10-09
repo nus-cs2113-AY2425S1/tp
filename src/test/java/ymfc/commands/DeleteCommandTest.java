@@ -1,8 +1,8 @@
-package YMFC.commands;
+package ymfc.commands;
 
-import YMFC.Recipe;
-import YMFC.RecipeList;
-import YMFC.Ui;
+import ymfc.Recipe;
+import ymfc.RecipeList;
+import ymfc.Ui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ public class DeleteCommandTest {
     @BeforeEach
     void setUp() {
         recipeList = new RecipeList();
-        ui = new Ui();
+        ui = new Ui(System.in);
 
         // Add some sample recipes
         ArrayList<String> pastaIngredients = new ArrayList<>();
