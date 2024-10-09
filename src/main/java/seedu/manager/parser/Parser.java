@@ -5,6 +5,8 @@ import seedu.manager.command.AddCommand;
 import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.EchoCommand;
+import seedu.manager.command.ListCommand;
+
 
 /**
  * Represents the command parser for EventManagerCLI
@@ -23,6 +25,8 @@ public class Parser {
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
             return new AddCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case MenuCommand.COMMAND_WORD:
