@@ -1,7 +1,7 @@
-package seedu.duke.calculator;
+package fittrack.calculator;
 
-import seedu.duke.Gender;
-import seedu.duke.LookUpKey;
+import fittrack.enums.Gender;
+import fittrack.lookupkey.LookUpKey;
 
 import java.util.Comparator;
 import java.util.HashMap;

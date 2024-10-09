@@ -1,7 +1,7 @@
-package seedu.duke.calculator;
+package fittrack.calculator;
 
-import seedu.duke.Gender;
-import seedu.duke.LookUpKey;
+import fittrack.enums.Gender;
+import fittrack.lookupkey.LookUpKey;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -10,7 +10,7 @@ public abstract class Calculator {
 
     // Helper method to find the points based on performance in the given table
     protected static int getPointsFromTable(Map<LookUpKey, TreeMap<Integer, Integer>> pointsTable,
-            Gender gender, int age, int performance) {
+                                            Gender gender, int age, int performance) {
 
         LookUpKey key = new LookUpKey(gender, age);
         TreeMap<Integer, Integer> subTable = pointsTable.get(key);

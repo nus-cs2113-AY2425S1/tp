@@ -1,6 +1,6 @@
-package seedu.duke.exercisestation;
+package fittrack.exercisestation;
 
-import seedu.duke.Gender;
+import fittrack.enums.Gender;
 
 public abstract class ExerciseStation {
     protected int points;

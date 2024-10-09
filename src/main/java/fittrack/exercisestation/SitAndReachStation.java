@@ -1,7 +1,7 @@
-package seedu.duke.exercisestation;
+package fittrack.exercisestation;
 
-import seedu.duke.Gender;
-import seedu.duke.calculator.SitAndReachCalculator;
+import fittrack.calculator.SitAndReachCalculator;
+import fittrack.enums.Gender;
 
 public class SitAndReachStation extends ExerciseStation {
     private String Name = "Sit and Reach Station";

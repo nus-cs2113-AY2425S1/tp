@@ -1,4 +1,6 @@
-package seedu.duke;
+package fittrack.lookupkey;
+
+import fittrack.enums.Gender;
 
 import java.util.Objects;
 
