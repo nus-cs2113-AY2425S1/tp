@@ -1,9 +1,10 @@
 package seedu.manager.parser;
 
 import seedu.manager.command.Command;
-import seedu.manager.command.EchoCommand;
+import seedu.manager.command.AddCommand;
 import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
+import seedu.manager.command.EchoCommand;
 
 /**
  * Represents the command parser for EventManagerCLI
@@ -20,6 +21,8 @@ public class Parser {
         String commandWord = commandParts[0];
 
         switch (commandWord) {
+        case AddCommand.COMMAND_WORD:
+            return new AddCommand();
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case MenuCommand.COMMAND_WORD:
