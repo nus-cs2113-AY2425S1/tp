@@ -1,2 +1,7 @@
-LOREM IPSUM
+ ________ _______ _____   ______ _______ _______ _______
+|  |  |  |    ___|     |_|      |       |   |   |    ___|
+|  |  |  |    ___|       |   ---|   -   |       |    ___|
+|________|_______|_______|______|_______|__|_|__|_______|
+
+Welcome to ExchangeCourseMapper! Plan your exchange courses easily.
 bye
