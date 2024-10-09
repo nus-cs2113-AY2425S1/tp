@@ -33,13 +33,14 @@ public class Programme {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append(programmeName).append(":\n");
+        str.append(programmeName).append("\n\n");
+
         for (int i = 0; i < dayList.size(); i++) {
-            Day day = dayList.get(i);
-            str.append(String.format("  %d. %s%n", i + 1, day));
+            str.append("Day ").append(i+1).append(": ").append(dayList.get(i)).append("\n");
         }
+
         return str.toString();
     }
 }

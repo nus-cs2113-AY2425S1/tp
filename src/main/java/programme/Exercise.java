@@ -30,7 +30,7 @@ public class Exercise {
     }
 
     @Override
-    public String toString(){
-        return name + " - " + sets + " x " + reps + " X " + weight + " kgs ";
+    public String toString() {
+        return name + ": " + sets + " sets of " + reps + " reps - " + weight + " kg";
     }
 }
