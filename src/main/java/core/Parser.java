@@ -9,6 +9,8 @@ import command.programme.CreateCommand;
 import command.programme.ListCommand;
 import command.programme.StartCommand;
 import command.programme.ViewCommand;
+import programme.Day;
+import programme.Exercise;
 
 
 import java.util.ArrayList;
@@ -62,41 +64,113 @@ public class Parser {
     }
 
     private Command createCreateProgCommand(String argumentString) {
-        ArrayList<ArrayList<ArrayList<String>>> progRoutines = new ArrayList<>();
+        String[] progParts = argumentString.split("/d");
+        String progName = progParts[0].trim();
+        ArrayList<Day> days = new ArrayList<>();
 
-        String[] days = argumentString.split("/d");
-        String progName = days[0].trim();
+        for (int i = 1; i < progParts.length; i++) {
+            String dayString = progParts[i].trim();
+            String[] dayParts  = dayString.split("/e");
+            String dayName = dayParts[0].trim();
 
-        for (int dayIndex = 1; dayIndex < days.length; dayIndex++) {
-            String dayString = days[dayIndex].trim();
+            Day day = new Day(dayName);
 
-            ArrayList<ArrayList<String>> dayExercises = new ArrayList<>();
-
-            String[] exercises = dayString.split("/e");
-            for (String exerciseDescription : exercises) {
-                if (exerciseDescription.trim().isEmpty()) {
-                    continue;
-                }
-
-                String[] exerciseArguments = parseArguments(exerciseDescription, " /n", " /s", " /r", " /w");
-
-                if (exerciseArguments.length != 5) {
-                    throw new IllegalArgumentException("Invalid exercise command. Please provide a name, " + "set, rep, and weight using '/n', '/s', '/r', '/w'.");
-                }
-
-                ArrayList<String> exerciseDetails = new ArrayList<>();
-                exerciseDetails.add(exerciseArguments[1].trim()); // name
-                exerciseDetails.add(exerciseArguments[2].trim()); // set
-                exerciseDetails.add(exerciseArguments[3].trim()); // rep
-                exerciseDetails.add(exerciseArguments[4].trim()); // weight
-
-                dayExercises.add(exerciseDetails);
+            for (int j = 1; j < dayParts.length; j++) {
+                String exerciseString = dayParts[j].trim();
+                Exercise exercise = parseExercise(exerciseString);
+                day.insertExercise(exercise);
             }
-            progRoutines.add(dayExercises);
+
+            days.add(day);
         }
-        return new InvalidCommand();
+
+        return new CreateCommand(progName, days);
     }
 
+    private Exercise parseExercise(String exerciseString) {
+        String name = "";
+        int reps = -1;
+        int sets = -1;
+        int weight = -1;
+
+        String[] args = exerciseString.split(" ");
+
+        for (int i = 0; i < args.length; i+=2) {
+            String command = args[i];
+            String value = args[i+1];
+            switch (command) {
+            case "/n":
+                name = value;
+                break;
+            case "/s":
+                sets = Integer.parseInt(value);
+                break;
+            case "/r":
+                reps = Integer.parseInt(value);
+                break;
+            case "/w":
+                weight = Integer.parseInt(value);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid command flag " + command);
+            }
+        }
+
+        return new Exercise(sets, reps, weight, name);
+    }
+
+    private Command createEditCommand(String argumentString) {
+        // Regex: Split string by / except when followed by n, r, s, w
+        String[] args = argumentString.split("/(?![nrsw])");
+
+        int progIndex = -1;
+        int dayIndex = -1;
+        int exerciseIndex = -1;
+
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].trim().isEmpty()) {
+                continue;
+            }
+
+            String[] commandAndValue = args[i].trim().split(" ", 2);
+            String command = commandAndValue[0].trim();
+            String value = commandAndValue.length > 1 ? commandAndValue[1].trim() : "";
+
+            switch (command) {
+            case "p":
+                progIndex = parseIndex(value);
+                break;
+
+            case "d": // Day index
+                dayIndex = parseIndex(value);
+                break;
+
+            case "x": // Remove exercise at index
+                exerciseIndex = parseIndex(value);
+                System.out.println("Remove exercise index: " + exerciseIndex);
+                break;
+
+            case "u": // Update exercise (parse the value string to create a Exercise)
+                String[] updateParts = value.split(" ", 2);
+                exerciseIndex = parseIndex(updateParts[0]);
+                Exercise updated = parseExercise(updateParts[1]);
+                // The Exercise object in this case is used purely to update relevant fields
+                System.out.println("Updated exercise: " + updated);
+                break;
+
+            case "a": // Add new exercise (parse the value string to create a Exercise)
+                Exercise created = parseExercise(value);
+                System.out.println("Added exercise: " + created);
+                break;
+
+            default:
+                System.out.println("Unknown command: " + command);
+                break;
+            }
+        }
+
+        return new InvalidCommand();
+    }
 
     private Command createViewCommand(String argumentString) {
         int progIndex = parseIndex(argumentString);
@@ -105,102 +179,6 @@ public class Parser {
 
     private Command createListCommand() {
         return new ListCommand();
-    }
-
-    private Command createEditCommand(String argumentString){
-        String[] args = argumentString.trim().split(" ");
-        int progIndex = -1;
-        int dayIndex = -1;
-        int exerciseIndex = -1;
-
-        String newName = "";
-        int newSets = -1;
-        int newReps = -1;
-        int newWeight = -1;
-        boolean isAdding = false;
-        boolean isEditing = false;
-
-        for (int i = 0 ; i < args.length ; i++){
-            if (args[i].trim().isEmpty()) {
-                continue;
-            }
-
-            String command = args[i].trim();
-            String value = "";
-            if (i + 1 < args.length && !args[i + 1].trim().isEmpty()) {
-                value = args[i + 1].trim();
-            }
-            if (command.equals("/p") || command.equals("/d") || command.equals("/x") || command.equals("/u") || command.equals("/a")) {
-                if (isAdding) {
-                    System.out.printf("Adding exercise to Prog %d Day %d with n %s s %d r %d w %d %n", progIndex, dayIndex, newName, newSets, newReps, newWeight);
-                    isAdding = false;
-                }
-
-                if (isEditing) {
-                    System.out.printf("Editing exercise to Prog %d Day %d with n %s s %d r %d w %d %n", progIndex, dayIndex, newName, newSets, newReps, newWeight);
-                    isEditing = false;
-                }
-            }
-
-            switch (command) {
-
-            case "/p":
-                progIndex = parseIndex(value);
-                System.out.println(progIndex);
-                break;
-
-            case "/d":
-                dayIndex = parseIndex(value);
-                System.out.println(progIndex);
-                break;
-
-            case "/x":
-                exerciseIndex = parseIndex(value);
-                System.out.println(exerciseIndex);
-                break;
-
-            case "/u":
-                isEditing = true;
-                exerciseIndex = parseIndex(value);
-                System.out.println(exerciseIndex);
-                break;
-
-            case "/a":
-                isAdding = true;
-                break;
-
-            case "/n":
-                newName = value;
-                break;
-            case "/s":
-                newSets = Integer.parseInt(value);
-                break;
-            case "/r":
-                newReps = Integer.parseInt(value);
-                break;
-            case "/w":
-                newWeight = Integer.parseInt(value);
-                break;
-
-            default: break;
-            }
-
-
-
-            i++;
-        }
-
-        if (isAdding) {
-            System.out.printf("Adding exercise to Prog %d Day %d with n %s s %d r %d %n", progIndex, dayIndex, newName, newSets, newReps, newWeight);
-            isAdding = false;
-        }
-
-        if (isEditing) {
-            System.out.printf("Editing exercise to Prog %d Day %d with n %s s %d r %d %n", progIndex, dayIndex, newName, newSets, newReps, newWeight);
-            isEditing = false;
-        }
-
-        return new InvalidCommand();
     }
 
     private Command createStartCommand(String argumentString) {
