@@ -27,8 +27,8 @@ public class Main {
     private static void runCommandLoop() {
         Command command;
         boolean isGettingCommands = true;
-        while(isGettingCommands){
-            String userCommandText = ui.getCommands();
+        while (isGettingCommands){
+            String userCommandText = ui.getCommand();
             command = new Parser().parseCommand(userCommandText);
             command.setData(events);
             CommandOutput output = command.execute();

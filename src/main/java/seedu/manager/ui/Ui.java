@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Ui {
     private static final String WELCOME_MESSAGE = "Welcome to EventManagerCLI.";
     private static final String COMMAND_PROMPT_MESSAGE = "Enter a command: ";
+    private static final String SEPARATOR = "------------------------";
 
     private final Scanner userInput;
 
@@ -30,7 +31,7 @@ public class Ui {
     /**
      * Gets input from the user, and executes commands based on that input
      */
-    public String getCommands() {
+    public String getCommand() {
         System.out.print(COMMAND_PROMPT_MESSAGE);
         return this.userInput.nextLine();
     }
@@ -40,6 +41,6 @@ public class Ui {
      */
     public void showOutputToUser(CommandOutput output){
         System.out.println(output.getMessage());
-        System.out.println();
+        System.out.println(SEPARATOR);
     }
 }
