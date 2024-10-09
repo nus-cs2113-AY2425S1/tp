@@ -1,4 +1,4 @@
-package FitTrack.enums;
+package fittrack.enums;
 
 public enum Gender {
     MALE,
