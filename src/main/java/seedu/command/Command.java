@@ -62,4 +62,6 @@ public abstract class Command {
     // Abstract methods for subclasses to provide their keywords
     protected abstract String[] getMandatoryKeywords();
     protected abstract String[] getExtraKeywords();
+    protected abstract String getCommandWord();
+    protected abstract String getCommandGuide();
 }

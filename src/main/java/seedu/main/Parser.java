@@ -93,7 +93,7 @@ public class Parser {
             if (keyword.isEmpty()) {
                 continue;
             }
-            int index = argumentString.indexOf(keyword);
+            int index = argumentString.indexOf(keyword + " ");
             if (index != -1 && (keywordIndex == -1 || index < keywordIndex)) {
                 keywordIndex = index;
                 keywordFound = keyword;
