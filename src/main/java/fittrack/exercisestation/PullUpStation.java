@@ -2,6 +2,7 @@ package fittrack.exercisestation;
 
 import fittrack.calculator.PullUpCalculator;
 import fittrack.enums.Gender;
+import fittrack.user.User;
 
 public class PullUpStation extends ExerciseStation {
     private String Name = "Pull Up Station";
@@ -16,13 +17,14 @@ public class PullUpStation extends ExerciseStation {
         return reps;
     }
 
-    public void setReps(int reps) {
-        this.reps = reps;
+    @Override
+    public void setPerformance(int performanceResult) {
+        this.reps = performanceResult;
     }
 
     @Override
-    public int getPoints(Gender gender, int age) {
-        points = PullUpCalculator.calculatePoints(gender, age, reps);
+    public int getPoints(User user) {
+        points = PullUpCalculator.calculatePoints(user.gender, user.age, reps);
         return points;
     }
 

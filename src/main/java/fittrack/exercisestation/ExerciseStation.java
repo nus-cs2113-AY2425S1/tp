@@ -1,11 +1,12 @@
 package fittrack.exercisestation;
 
-import fittrack.enums.Gender;
+import fittrack.user.User;
 
 public abstract class ExerciseStation {
     protected int points;
 
-    public abstract int getPoints(Gender gender, int age);
+    public abstract void setPerformance(int performanceResult);
+    public abstract int getPoints(User user);
 
     public abstract String getName();
 

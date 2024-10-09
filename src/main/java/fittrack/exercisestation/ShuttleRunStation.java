@@ -1,6 +1,7 @@
 package fittrack.exercisestation;
 
 import fittrack.enums.Gender;
+import fittrack.user.User;
 
 public class ShuttleRunStation extends ExerciseStation {
     private String Name = "Shuttle Run Station";
@@ -15,12 +16,13 @@ public class ShuttleRunStation extends ExerciseStation {
         return time;
     }
 
-    public void setTime(int time) {
-        this.time = time;
+    @Override
+    public void setPerformance(int performanceResult) {
+        this.time = performanceResult;
     }
 
     @Override
-    public int getPoints(Gender gender, int age) {
+    public int getPoints(User user) {
         points = 1;  // Replace 1 with actual point calculation logic
         return points;
     }
