@@ -1,21 +1,45 @@
 package fittrack;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import fittrack.parser.Parser;
+import fittrack.user.User;
+
+import static fittrack.messages.Messages.EXIT_COMMAND;
+import static fittrack.storage.Storage.initialiseSaveFile;
+import static fittrack.storage.Storage.loadSaveFile;
+import static fittrack.ui.Ui.printExitMessage;
+import static fittrack.ui.Ui.printGreeting;
+import static fittrack.ui.Ui.printUser;
 
 public class FitTrack {
     /**
-     * Main entry-point for the java.duke.Duke application.
+     * Main entry-point for the FitTrack CLI application.
      */
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("What is your name?");
+    public static void main(String[] args) throws FileNotFoundException {
+        ArrayList<TrainingSessions> sessionList = new ArrayList<>();
 
-        Scanner in = new Scanner(System.in);
-        System.out.println("Hello " + in.nextLine());
+        initialiseSaveFile();
+        loadSaveFile(sessionList);
+
+        printGreeting();
+        Scanner scan = new Scanner(System.in);
+
+        String gender = scan.nextLine();
+        String age = scan.nextLine();
+        User user = new User(gender, age);
+        printUser(user);
+
+        String input = scan.nextLine();
+
+        // Until the exit command is entered, execute command then read user input
+        while (!input.equals(EXIT_COMMAND)) {
+            Parser.parse(user,input,sessionList);
+            input = scan.nextLine();
+        }
+
+        printExitMessage();
     }
 }
