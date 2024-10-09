@@ -1,5 +1,16 @@
 package seedu.duke;
 
+/*
+import seedu.duke.Command.AddPatientCommand;
+import seedu.duke.Command.DelPatientCommand;
+import seedu.duke.Command.ListPatientCommand;
+import seedu.duke.Command.SelectPatientCommand;
+*/
+
+import seedu.duke.data.hospital.Patient;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MediTask {
@@ -17,5 +28,8 @@ public class MediTask {
 
         Scanner in = new Scanner(System.in);
         System.out.println("Hello " + in.nextLine());
+
+        // Initialize patient list
+        List<Patient> patients = new ArrayList<>();
     }
 }
