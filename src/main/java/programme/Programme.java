@@ -16,32 +16,29 @@ public class Programme {
     }
 
     public Day getDay(int index) {
-        return dayList.get(index);  // This uses ArrayList.get()
+        return dayList.get(index);
     }
 
 
-    public void insertDay(String dayName, ArrayList<Exercise> exercises) {   // return day
+    public void insertDay(String dayName, ArrayList<Exercise> exercises) {
         Day day = new Day(dayName, exercises);
         dayList.add(day);
-        //saveTask();
-        int dayCount = dayList.size();
-
     }
 
     public void deleteDay(int index){
         if (dayList.size() < index){
-            System.out.println("invaid index");
+            System.out.println("invalid index");
         }
         dayList.remove(index - 1);
-        //saveTasks();
     }
 
     @Override
     public String toString(){
         StringBuilder str = new StringBuilder();
-        str.append(programmeName).append("\n");
-        for (Day day : dayList) {
-            str.append("       - ").append(day.toString()).append("\n");
+        str.append(programmeName).append(":\n");
+        for (int i = 0; i < dayList.size(); i++) {
+            Day day = dayList.get(i);
+            str.append(String.format("  %d. %s%n", i + 1, day));
         }
         return str.toString();
     }

@@ -4,29 +4,13 @@ public class Exercise {
     private int sets;
     private int reps;
     private int weight;
-    private String exerciseName;
+    private String name;
 
-    public Exercise(int sets, int reps, int weight, String exerciseName) {
+    public Exercise(int sets, int reps, int weight, String name) {
         this.sets = sets;
         this.reps = reps;
         this.weight = weight;
-        this.exerciseName = exerciseName;
-    }
-
-    public int getSets() {
-        return sets;
-    }
-
-    public int getReps() {
-        return reps;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public String getExerciseName() {
-        return exerciseName;
+        this.name = name;
     }
 
     public void setSets(int sets) {
@@ -41,12 +25,12 @@ public class Exercise {
         this.weight = weight;
     }
 
-    public void setExeciseName(String execiseName) {
-        this.exerciseName = execiseName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString(){
-        return exerciseName + " - " + sets + " x " + reps + " X " + weight + " kgs ";
+        return name + " - " + sets + " x " + reps + " X " + weight + " kgs ";
     }
 }

@@ -15,36 +15,24 @@ public class Day {
         this.exerciseList = exerciseList;
     }
 
-    public String getDayName() {
-        return dayName;
-    }
-
     public void insertExercise(Exercise exercise) {
         exerciseList.add(exercise);
     }
 
     public void deleteExercise(int index) {
-        exerciseList.remove(index - 1);
-    }
-
-    public String toString(boolean partOfProgramme) {
-        StringBuilder str = new StringBuilder();
-        str.append(dayName).append("\n");
-
-        if (partOfProgramme) {
-            for (Exercise exercise : exerciseList) {
-                str.append(exercise.toString()).append("\n");
-            }
-        }else {
-            for (Exercise exercise : exerciseList) {
-                str.append("       - ").append(exercise.toString()).append("\n");
-            }
-        }
-        return str.toString();
+        exerciseList.remove(index);
     }
 
     @Override
     public String toString() {
-        return toString(false);  // By default, assume it is part of a larger structure
+        StringBuilder result = new StringBuilder();
+        result.append(dayName).append(":\n");
+
+        for (int i = 0; i < exerciseList.size(); i++) {
+            Exercise exercise = exerciseList.get(i);
+            result.append(String.format("  %d. %s%n", i + 1, exercise));
+        }
+
+        return result.toString();
     }
 }

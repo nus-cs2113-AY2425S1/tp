@@ -21,7 +21,6 @@ public class ProgrammeList {
         Programme programmeToAdd = new Programme(programmeName, days);
         programmeList.add(programmeToAdd);
         return programmeToAdd;
-        //saveTask();
     }
 
     public Programme deleteProgram(int index){
@@ -31,7 +30,6 @@ public class ProgrammeList {
         Programme programmeToDelete = programmeList.get(index -1);
         programmeList.remove(index - 1);
         return programmeToDelete;
-        //saveTasks();
     }
 
     public Programme getProgramme(int index){
@@ -43,25 +41,26 @@ public class ProgrammeList {
         return programmeList.get(currentActiveProgramme);
     }
 
-    @Override
-    public String toString(){
-        StringBuilder str = new StringBuilder();
-        for (Programme programme : programmeList) {
-            str.append(programme.toString()).append("\n");
-        }
-        return str.toString();
-    }
-
-    // getDay receives progIndex, dayIndex and returns the specified Day object
-    // if progIndex is null, assume they want to use the active programme instead
-    public Day getDay(int progIndex, int dayIndex) {
+    public Day getDay(int dayIndex, int progIndex) {
         Programme progContent = programmeList.get(progIndex);
         return progContent.getDay(dayIndex);
     }
 
-    //if no progIndex is given
     public Day getDay(int dayIndex) {
         Programme progContent = programmeList.get(currentActiveProgramme);
         return progContent.getDay(dayIndex);
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < programmeList.size(); i++) {
+            if (i == currentActiveProgramme){
+                str.append("*");
+            }
+            Programme programme = programmeList.get(i);
+            str.append(programme.toString()).append("\n");
+        }
+        return str.toString();
     }
 }
