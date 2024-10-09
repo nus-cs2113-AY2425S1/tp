@@ -1,4 +1,4 @@
-# FitTrack
+# Duke
 
 {Give product intro here}
 
