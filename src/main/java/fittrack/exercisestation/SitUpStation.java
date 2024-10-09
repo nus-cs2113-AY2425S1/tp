@@ -1,7 +1,7 @@
-package seedu.duke.exercisestation;
+package fittrack.exercisestation;
 
-import seedu.duke.Gender;
-import seedu.duke.calculator.SitUpCalculator;
+import fittrack.calculator.SitUpCalculator;
+import fittrack.enums.Gender;
 
 public class SitUpStation extends ExerciseStation {
     private String Name = "Sit Up Station";

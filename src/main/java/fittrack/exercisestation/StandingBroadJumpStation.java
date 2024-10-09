@@ -1,7 +1,7 @@
-package seedu.duke.exercisestation;
+package fittrack.exercisestation;
 
-import seedu.duke.Gender;
-import seedu.duke.calculator.StandingBroadJumpCalculator;
+import fittrack.calculator.StandingBroadJumpCalculator;
+import fittrack.enums.Gender;
 
 public class StandingBroadJumpStation extends ExerciseStation {
     private String Name = "Standing Broad Jump Station";
