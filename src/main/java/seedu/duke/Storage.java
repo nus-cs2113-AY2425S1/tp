@@ -32,12 +32,12 @@ public class Storage {
             List<Internship> internships = internshipList.getAllInternships();
                 for (Internship internship : internships) {
                     writer.write(internship.getId() + " | "
-                    + internship.getRole() + " | "
-                    + internship.getCompany() + " | "
-                    + internship.getStartDate() + " | "
-                    + internship.getEndDate() + " | "
-                    + internship.getSkills() + " | "
-                    + internship.getStatus() + "\n");
+                      + internship.getRole() + " | "
+                      + internship.getCompany() + " | "
+                      + internship.getStartDate() + " | "
+                      + internship.getEndDate() + " | "
+                      + internship.getSkills() + " | "
+                      + internship.getStatus() + "\n");
                 }
             writer.close();
         } catch (IOException e) {
