@@ -19,10 +19,12 @@ public class CommandOutput {
     }
 
     /**
-     * Prints the message of the command output.
+     * Get the message attribute of CommandOutput
+     *
+     * @return the message of command output
      */
-    public void printMessage() {
-        System.out.println(this.message);
+    public String getMessage() {
+        return message;
     }
 
     /**

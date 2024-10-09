@@ -15,7 +15,6 @@ public class AddCommand extends Command {
      */
     @Override
     public CommandOutput execute() {
-
         return new CommandOutput(ADD_MESSAGE, false);
     }
 }

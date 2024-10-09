@@ -14,14 +14,12 @@ public class Ui {
     private static final String COMMAND_PROMPT_MESSAGE = "Enter a command: ";
 
     private final Scanner userInput;
-    private final Parser parser;
 
     /**
      * Constructs a new Ui
      */
     public Ui() {
         this.userInput = new Scanner(System.in);
-        this.parser = new Parser();
     }
 
     /**
@@ -34,16 +32,16 @@ public class Ui {
     /**
      * Gets input from the user, and executes commands based on that input
      */
-    public void getCommands() {
-        boolean isGettingCommands = true;
+    public String getCommands() {
+        System.out.print(COMMAND_PROMPT_MESSAGE);
+        return this.userInput.nextLine();
+    }
 
-        while (isGettingCommands) {
-            System.out.print(COMMAND_PROMPT_MESSAGE);
-            String rawInput = this.userInput.nextLine();
-            Command command = parser.parseCommand(rawInput);
-            CommandOutput output = command.execute();
-            output.printMessage();
-            isGettingCommands = !output.getCanExit();
-        }
+    /**
+     * show the output of command to the users.
+     */
+    public void showOutputToUser(CommandOutput output){
+        System.out.println(output.getMessage());
+        System.out.println();
     }
 }
