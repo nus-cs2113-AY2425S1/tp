@@ -4,25 +4,49 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.Internship;
 import seedu.duke.InternshipList;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UpdateCommandTest {
 
     @Test
-    void execute_validInput1_expectUpdated() {
+    void execute_validCompany1_expectUpdated() {
         InternshipList internshipList = new InternshipList();
         Internship internship = new Internship("Data", "ABC", "01/24", "06/24");
         internshipList.addInternship(internship);
 
         assertEquals(internship.getCompany(), "ABC");
 
-        UpdateCommand updateCommand = new UpdateCommand(internshipList);
-        String input = "update -id 0 -company XYZ";
-        String[] words = input.split("-");
-        updateCommand.execute(Arrays.copyOfRange(words, 1, words.length));
+        UpdateCommand updateCommand = new UpdateCommand();
+        updateCommand.setInternshipList(internshipList);
+
+        String[] parsedInputs = {"01", "company XYZ"};
+        ArrayList<String> arguments = new ArrayList<>(List.of(parsedInputs));
+
+        updateCommand.execute(arguments);
 
         assertEquals(internship.getCompany(), "XYZ");
+    }
+
+    @Test
+    void execute_validStatus1_expectUpdated() {
+        InternshipList internshipList = new InternshipList();
+        Internship internship = new Internship("Data", "ABC", "01/24", "06/24");
+        internshipList.addInternship(internship);
+
+        assertEquals(internship.getStatus(), "Application Pending");
+
+        UpdateCommand updateCommand = new UpdateCommand();
+        updateCommand.setInternshipList(internshipList);
+
+        String[] parsedInputs = {"01", "status application completed"};
+        ArrayList<String> arguments = new ArrayList<>(List.of(parsedInputs));
+
+        updateCommand.execute(arguments);
+
+        assertEquals(internship.getStatus(), "Application Completed");
     }
 }
