@@ -26,10 +26,10 @@ public class Internship {
      * Constructs an <code>Internship</code> instance with information provided.
      * Skills and Status fields are initialised with default values.
      *
-     * @param role description of role.
+     * @param role    description of role.
      * @param company company name.
-     * @param start start year/month.
-     * @param end end year/month.
+     * @param start   start year/month.
+     * @param end     end year/month.
      */
     public Internship(String role, String company, String start, String end) {
         this.role = role;
@@ -38,13 +38,6 @@ public class Internship {
         setEndDate(end);
         this.skills = "No Skills Entered";
         this.status = "Application Pending";
-    }
-
-    /**
-     * Sets ID based on the index of the internship in the list.
-     */
-    public void setId(int index) {
-        this.id = index + 1;
     }
 
     /**
@@ -89,12 +82,7 @@ public class Internship {
      * @param userStatus user-inputted status.
      */
     public void updateStatus(String userStatus) {
-        List<String> statuses = Arrays.asList(
-                "Application Pending",
-                "Application Completed",
-                "Accepted",
-                "Rejected"
-        );
+        List<String> statuses = Arrays.asList("Application Pending", "Application Completed", "Accepted", "Rejected");
         try {
             for (String status : statuses) {
                 if (status.equalsIgnoreCase(userStatus)) {
@@ -113,6 +101,13 @@ public class Internship {
     // Getters and Setters
     public int getId() {
         return id;
+    }
+
+    /**
+     * Sets ID based on the index of the internship in the list.
+     */
+    public void setId(int index) {
+        this.id = index + 1;
     }
 
     public String getRole() {
@@ -166,10 +161,7 @@ public class Internship {
     // toString method for displaying the details
     @Override
     public String toString() {
-        return "ID: " + id + "\tStatus: " + status + "\n" +
-                "Role: " + role + "\n" +
-                "Company: " + company + "\n" +
-                "Duration: " + getStartDate() + " to " + getEndDate() + "\n" +
-                "Skills: " + skills;
+        return "ID: " + id + "\tStatus: " + status + "\n" + "Role: " + role + "\n" + "Company: " + company + "\n" +
+                "Duration: " + getStartDate() + " to " + getEndDate() + "\n" + "Skills: " + skills;
     }
 }

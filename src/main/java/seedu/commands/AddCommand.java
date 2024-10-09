@@ -13,8 +13,8 @@ public class AddCommand implements Command {
     public void execute(String[] args) {
         String role = "";
         String company = "";
-        String startDate = "";
-        String endDate = "";
+        String startDate = "01/01";
+        String endDate = "01/01";
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
