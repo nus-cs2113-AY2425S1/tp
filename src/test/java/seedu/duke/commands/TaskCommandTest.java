@@ -37,8 +37,6 @@ public class TaskCommandTest {
         command2.setData(tasks);
         CommandResult commandResult = command2.execute();
         assertEquals("Task marked successfully: [X] Read book", commandResult.getFeedbackToUser());
-        
-   //     assertEquals("Task marked successfully: [X] Read book", commandResult2.getFeedbackToUser());
     }
 
     @Test

@@ -45,12 +45,7 @@ public class TaskList {
         }
         tasks.remove(index);
     }
-    /**
-     * Gets a task from the TaskList.
-     * @param index Index of the task to be retrieved.
-     * @return Task object.
-     * @throws TaskNotFoundException If the task is not in the TaskList.
-     */
+    
 
     public boolean contains(Task task) {
         return tasks.contains(task);
@@ -58,6 +53,12 @@ public class TaskList {
     public boolean contains(int index) {
         return index >= 0 && index < getSize();
     }
+    /**
+     * Gets a task from the TaskList.
+     * @param index Index of the task to be retrieved.
+     * @return Task object.
+     * @throws TaskNotFoundException If the task is not in the TaskList.
+     */
     public Task getTask(int index) throws TaskNotFoundException {
         if(!contains(index)) {
             throw new TaskNotFoundException();
