@@ -1,6 +1,9 @@
 package seedu.manager;
 
+import seedu.manager.command.Command;
+import seedu.manager.command.CommandOutput;
 import seedu.manager.event.EventList;
+import seedu.manager.parser.Parser;
 import seedu.manager.ui.Ui;
 
 public class Main {
@@ -12,6 +15,26 @@ public class Main {
      */
     public static void main(String[] args) {
         ui.greetUser();
-        ui.getCommands();
+        runCommandLoop();
+        System.exit(0);
+    }
+
+    /**
+     * Run command loop to get command from users
+     * Parse the command and execute it
+     * The loop ends when ExitCommand is triggered
+     */
+    private static void runCommandLoop() {
+        Command command;
+        boolean isGettingCommands = true;
+        while (isGettingCommands){
+            String userCommandText = ui.getCommand();
+            command = new Parser().parseCommand(userCommandText);
+            command.setData(events);
+            CommandOutput output = command.execute();
+            ui.showOutputToUser(output);
+
+            isGettingCommands = !output.getCanExit();
+        }
     }
 }
