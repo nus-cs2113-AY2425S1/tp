@@ -34,7 +34,7 @@ public class Parser {
                 user.setAge(sentence[1]);
                 break;
             case ADD_SESSION_COMMAND:
-                sessionList.add(new TrainingSession("" , description));
+                sessionList.add(new TrainingSession("" , description, user));
                 break;
             case EDIT_EXERCISE_COMMAND:
                 sentence = description.split(" ", 3);
