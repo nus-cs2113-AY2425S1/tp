@@ -36,10 +36,58 @@ class CommandTest {
     }
 
     @Test
-    public void execute_commandExecuted_expectedOutput() {
+    public void execute_commandExecutedWithTwoArguments_expectedOutput() {
+        // Prepare test arguments
+        Map<String, String> arguments = new HashMap<>();
+        arguments.put("arg1/", "value1");
+        arguments.put("arg2/", "value2");
+
+        // Set the arguments using the method
+        testCommand.setArguments(arguments);
+
         // Expected message list
         List<String> expectedMessages = new ArrayList<>();
-        expectedMessages.add("Test command executed.");
+        expectedMessages.add("arg1/ value1");
+        expectedMessages.add("arg2/ value2");
+
+        // Actual message list
+        List<String> actualMessages = testCommand.execute();
+
+        // Assert that the actual messages match the expected messages
+        assertEquals(expectedMessages, actualMessages);
+    }
+
+    @Test
+    public void execute_commandExecutedWithMandatoryArguments_expectedOutput() {
+        // Prepare test arguments
+        Map<String, String> arguments = new HashMap<>();
+        arguments.put("arg1/", "value1");
+
+        // Set the arguments using the method
+        testCommand.setArguments(arguments);
+
+        // Expected message list
+        List<String> expectedMessages = new ArrayList<>();
+        expectedMessages.add("arg1/ value1");
+
+        // Actual message list
+        List<String> actualMessages = testCommand.execute();
+
+        // Assert that the actual messages match the expected messages
+        assertEquals(expectedMessages, actualMessages);
+    }
+
+    @Test
+    public void execute_commandExecutedLackArgument_expectedOutput() {
+        // Prepare test arguments
+        Map<String, String> arguments = new HashMap<>();
+
+        // Set the arguments using the method
+        testCommand.setArguments(arguments);
+
+        // Expected message list
+        List<String> expectedMessages = new ArrayList<>();
+        expectedMessages.add(Command.LACK_ARGUMENTS_ERROR_MESSAGE);
 
         // Actual message list
         List<String> actualMessages = testCommand.execute();

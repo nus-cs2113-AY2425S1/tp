@@ -17,10 +17,21 @@ public abstract class Command {
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {}; // Keywords for arguments
     public static final String[] COMMAND_EXTRA_KEYWORDS = {}; // Keywords for arguments
 
+    public static final String LACK_ARGUMENTS_ERROR_MESSAGE = "Lack mandatory arguments.";
+
     protected Map<String, String> arguments = new HashMap<>(); // A map to hold command arguments
 
     // Abstract methods for subclasses to execute the command
     public abstract List<String> execute();
+
+    protected boolean isArgumentsValid () {
+        for (String key: getMandatoryKeywords()) {
+            if (!arguments.containsKey(key)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Sets the arguments for the command.
@@ -30,6 +41,10 @@ public abstract class Command {
      */
     public void setArguments(Map<String, String> arguments) {
         this.arguments = arguments;
+    }
+
+    public Map<String, String> getArguments() {
+        return arguments;
     }
 
     /**
