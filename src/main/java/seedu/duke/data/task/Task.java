@@ -1,7 +1,6 @@
 package seedu.duke.data.task;
 
 public class Task {
-    private String typeTask;
     private String description;
     private boolean isDone;
 
@@ -27,5 +26,14 @@ public class Task {
     @Override
     public String toString() {
         return (isDone ? "[X] " : "[ ] ") + description;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task) {
+            Task other = (Task) obj;
+            return description.equals(other.description);
+        }
+        return false;
     }
 }
