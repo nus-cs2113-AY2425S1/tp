@@ -3,11 +3,11 @@ package ymfc.commands;
 import ymfc.RecipeList;
 import ymfc.Ui;
 
-public class deleteCommand extends Command{
+public class DeleteCommand extends Command{
 
     private int index;
 
-    public deleteCommand(int index) {
+    public DeleteCommand(int index) {
         super();
         this.index = index;
     }

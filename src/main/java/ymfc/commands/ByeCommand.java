@@ -3,9 +3,9 @@ package ymfc.commands;
 import ymfc.RecipeList;
 import ymfc.Ui;
 
-public class byeCommand extends Command {
+public class ByeCommand extends Command {
 
-    public byeCommand() {
+    public ByeCommand() {
         super();
         setBye();
     }

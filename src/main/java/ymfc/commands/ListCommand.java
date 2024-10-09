@@ -3,9 +3,9 @@ package ymfc.commands;
 import ymfc.RecipeList;
 import ymfc.Ui;
 
-public class listCommand extends Command {
+public class ListCommand extends Command {
 
-    public listCommand() {
+    public ListCommand() {
         super();
     }
 
