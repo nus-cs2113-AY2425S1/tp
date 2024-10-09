@@ -1,32 +1,26 @@
 package seedu.commands;
 
-import seedu.duke.InternshipList;
+import java.util.ArrayList;
 
-public class SortCommand implements Command {
-    private final InternshipList internships;
-
-    public SortCommand(InternshipList internshipList) {
-        this.internships = internshipList;
-    }
-
+public class SortCommand extends Command {
     @Override
-    public void execute(String[] args) {
+    public void execute(ArrayList<String> args) {
         // Ensure that the args array contains at least one argument after "sort"
-        if (args.length == 0) {
+        if (args.size() == 0) {
             System.out.println("No sorting option provided. Listing internships by ID.");
             internships.listAllInternships(); // Default to listing by original order (ID)
             return;
         }
 
         // Check if the user requested to sort by alphabet or deadline
-        String sortOption = args[0].toLowerCase();
+        String sortOption = args.get(0).toLowerCase();
 
         switch (sortOption) {
-        case "-alphabet":
+        case "alphabet":
             internships.listInternshipsSortedByRole(); // Sort by role alphabetically
             System.out.println("Sorted internships by role alphabetically.");
             break;
-        case "-deadline":
+        case "deadline":
             internships.listInternshipsSortedByDeadline(); // Sort by deadline (start date, then end date)
             System.out.println("Sorted internships by start date, then end date.");
             break;

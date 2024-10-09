@@ -1,29 +1,18 @@
 package seedu.commands;
 
-import seedu.duke.InternshipList;
+import java.util.ArrayList;
 
-public class UpdateCommand implements Command {
-    private static final int INDEX_FIELD = 0;
-    private static final int INDEX_ID = 1;
-
-    private InternshipList internships;
-
-    public UpdateCommand(InternshipList internshipList) {
-        this.internships = internshipList;
-    }
-
+public class UpdateCommand extends Command {
     @Override
-    public void execute(String[] args) {
-        int internshipId = -1;
+    public void execute(ArrayList<String> args) {
+        int internshipId = Integer.parseInt(args.get(0));
+        args.remove(0);
         String status = "";
-        for (int i = 0; i < args.length; i++) {
-            String[] words = args[i].split(" ");
+        for (String arg : args) {
+            String[] words = arg.split(" ", 2);
             switch (words[INDEX_FIELD]) {
-            case "id":
-                internshipId = Integer.parseInt(words[INDEX_ID]);
-                break;
             case "status":
-                status = args[i].replaceFirst("status", "").trim();
+                status = words[INDEX_DATA].trim();
                 break;
             default:
                 System.out.println("Unknown flag: " + words[INDEX_FIELD]);
