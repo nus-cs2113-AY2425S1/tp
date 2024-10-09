@@ -6,7 +6,7 @@ public class UpdateCommand implements Command {
     private static final int INDEX_FIELD = 0;
     private static final int INDEX_ID = 1;
 
-    private InternshipList internships;
+    private final InternshipList internships;
 
     public UpdateCommand(InternshipList internshipList) {
         this.internships = internshipList;
@@ -36,7 +36,7 @@ public class UpdateCommand implements Command {
             case "end":
                 field = words[INDEX_FIELD];
                 value = words[INDEX_ID].replace(field, "").trim();
-                internships.getInternship(internshipIndex).updateField(field, value);
+                internships.getInternship(internshipId).updateField(field, value);
                 break;
             default:
                 System.out.println("Unknown flag: " + words[INDEX_FIELD]);

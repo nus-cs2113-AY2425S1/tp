@@ -48,7 +48,7 @@ public class InternshipList {
     // Method to update the status of applications, might not be needed
     public void updateStatus(int index, String status) {
         if (index >= 0 && index < internships.size()) {
-            internships.get(index).setStatus(status);
+            internships.get(index).updateStatus(status);
         } else {
             System.out.println("Invalid index");
         }
