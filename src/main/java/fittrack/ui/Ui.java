@@ -1,7 +1,9 @@
 package fittrack.ui;
 
+import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static fittrack.messages.Messages.EXIT_MESSAGE;
@@ -44,7 +46,7 @@ public class Ui {
      *
      * @param sessionList The list of training sessions to print.
      */
-    public static void printSessionList(List<TrainingSession> sessionList) {
+    public static void printSessionList(ArrayList<TrainingSession> sessionList) {
         beginSegment();
         if (sessionList.isEmpty()) {
             System.out.println(LIST_EMPTY_MESSAGE);
@@ -55,7 +57,7 @@ public class Ui {
         System.out.println(LIST_MESSAGE);
         while (index < sessionList.size()) {
             System.out.print(index + 1 + ". ");
-            sessionList.get(index).printTrainingSession();
+            sessionList.get(index).printSessionDescription();
             index++;
         }
         endSegment();
