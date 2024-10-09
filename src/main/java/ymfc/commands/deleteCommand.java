@@ -1,7 +1,7 @@
-package YMFC.commands;
+package ymfc.commands;
 
-import YMFC.RecipeList;
-import YMFC.Ui;
+import ymfc.RecipeList;
+import ymfc.Ui;
 
 public class deleteCommand extends Command{
 

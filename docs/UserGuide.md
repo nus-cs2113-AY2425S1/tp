@@ -35,7 +35,7 @@ Example of usage:
 
 **A**: {your answer here}
 
-## YMFC.Command Summary
+## ymfc.Command Summary
 
 {Give a 'cheat sheet' of commands here}
 

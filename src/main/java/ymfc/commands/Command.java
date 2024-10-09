@@ -1,8 +1,8 @@
-package YMFC.commands;
+package ymfc.commands;
 
-import YMFC.Recipe;
-import YMFC.RecipeList;
-import YMFC.Ui;
+import ymfc.Recipe;
+import ymfc.RecipeList;
+import ymfc.Ui;
 
 public abstract class Command {
     protected static boolean isBye;
