@@ -1,19 +1,13 @@
 package seedu.commands;
 
-import seedu.duke.InternshipList;
+import java.util.ArrayList;
 
 /**
  * Command to list all internships in the system.
  */
-public class ListCommand implements Command {
-    private final InternshipList internships;
-
-    public ListCommand(InternshipList internshipList) {
-        this.internships = internshipList;
-    }
-
+public class ListCommand extends Command {
     @Override
-    public void execute(String[] args) {
+    public void execute(ArrayList<String> args) {
         internships.listAllInternships();
     }
 
