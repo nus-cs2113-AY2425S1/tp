@@ -1,7 +1,6 @@
 package command.programme;
 import java.util.ArrayList;
 import command.Command;
-import programme.Exercise;
 import core.Ui;
 import programme.Day;
 import programme.ProgrammeList;
