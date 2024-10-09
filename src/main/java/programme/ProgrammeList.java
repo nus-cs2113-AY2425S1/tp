@@ -19,7 +19,7 @@ public class ProgrammeList {
 
     public Programme deleteProgram(int index){
         if (programmeList.size() < index){
-            System.out.println("invaid index");
+            System.out.println("invalid index");
         }
         Programme programmeToDelete = programmeList.get(index -1);
         programmeList.remove(index - 1);
@@ -35,7 +35,7 @@ public class ProgrammeList {
         return programmeList.get(currentActiveProgramme);
     }
 
-    public Day getDay(int dayIndex, int progIndex) {
+    public Day getDay(int progIndex, int dayIndex) {
         if (dayIndex  == -1) {
             dayIndex = currentActiveProgramme;
         }
@@ -47,12 +47,12 @@ public class ProgrammeList {
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < programmeList.size(); i++) {
+            str.append("\n\n");
             Programme programme = programmeList.get(i);
-            str.append(programme);
             if (i == currentActiveProgramme) {
-                str.append("   *Active*");
+                str.append("*Active* ");
             }
-            str.append("\n");
+            str.append(programme);
         }
         return str.toString();
     }

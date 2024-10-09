@@ -13,24 +13,28 @@ public class Exercise {
         this.name = name;
     }
 
-    public void setSets(int sets) {
-        this.sets = sets;
-    }
+    //Takes in an 'Update' Exercise object with the fields to be updated and assigns new values accordingly
+    //If the field is "null" (i.e. -1 or " "), ignore that field for the update.
+    public void updateExercise(Exercise update){
+        if (update.sets != -1){
+            sets = update.sets;
+        }
 
-    public void setReps(int reps) {
-        this.reps = reps;
-    }
+        if (update.reps != -1){
+            reps = update.reps;
+        }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
+        if (update.weight != -1){
+            weight = update.weight;
+        }
 
-    public void setName(String name) {
-        this.name = name;
+        if (!update.name.isEmpty()){
+            name = update.name;
+        }
     }
 
     @Override
     public String toString() {
-        return name + ": " + sets + " sets of " + reps + " reps - " + weight + " kg";
+        return name + ": " + sets + " sets of " + reps + " reps at " + weight + " kg";
     }
 }

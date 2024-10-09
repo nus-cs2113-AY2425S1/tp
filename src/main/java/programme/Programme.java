@@ -11,14 +11,9 @@ public class Programme {
         this.dayList = dayList;
     }
 
-    public Programme(ArrayList<Day> dayList) {
-        this.dayList = dayList;
-    }
-
     public Day getDay(int index) {
         return dayList.get(index);
     }
-
 
     public void insertDay(String dayName, ArrayList<Exercise> exercises) {
         Day day = new Day(dayName, exercises);
@@ -35,10 +30,10 @@ public class Programme {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append(programmeName).append("\n\n");
+        str.append(programmeName);
 
         for (int i = 0; i < dayList.size(); i++) {
-            str.append("Day ").append(i+1).append(": ").append(dayList.get(i)).append("\n");
+            str.append("\nDay ").append(i+1).append(": ").append(dayList.get(i));
         }
 
         return str.toString();

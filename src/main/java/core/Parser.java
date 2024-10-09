@@ -6,12 +6,13 @@ import command.HistoryCommand;
 import command.LogCommand;
 import command.InvalidCommand;
 import command.programme.CreateCommand;
+import command.programme.ViewCommand;
 import command.programme.ListCommand;
 import command.programme.StartCommand;
-import command.programme.ViewCommand;
+import command.programme.EditCommand;
+
 import programme.Day;
 import programme.Exercise;
-
 
 import java.util.ArrayList;
 
@@ -35,35 +36,35 @@ public class Parser {
         String argumentString = inputArguments[1];
 
         switch (commandString) {
-        case PROGRAMME_CMD: return parseProgCommands(argumentString);
-        case LogCommand.COMMAND_WORD: return createLogCommand(argumentString);
-        case HistoryCommand.COMMAND_WORD: return createHistoryCommand();
-        case ExitCommand.COMMAND_WORD: return createExitCommand();
-        default: return createInvalidCommand();
+        case PROGRAMME_CMD: return parseProgammeCommands(argumentString);
+        case LogCommand.COMMAND_WORD: return prepareLogCommand(argumentString);
+        case HistoryCommand.COMMAND_WORD: return new HistoryCommand();
+        case ExitCommand.COMMAND_WORD: return new ExitCommand();
+        default: return new InvalidCommand();
         }
     }
 
-    private Command parseProgCommands(String argumentString) {
+    private Command parseProgammeCommands(String argumentString) {
         String[] inputArguments = argumentString.split(" ", 2);
 
-        if (inputArguments.length != 2) {
-            throw new IllegalArgumentException("Command cannot be empty. Please enter a valid command.");
+        String subCommandString = inputArguments[0];
+        String arguments = "";
+
+        if (inputArguments.length > 1 ){
+            arguments = inputArguments[1];
         }
 
-        String subCommandString = inputArguments[0];
-        String arguments = inputArguments[1];
-
         switch (subCommandString) {
-        case CreateCommand.COMMAND_WORD: return createCreateProgCommand(arguments);
-        case ViewCommand.COMMAND_WORD: return createViewCommand(arguments);
-        case ListCommand.COMMAND_WORD: return createListCommand();
-        case "edit": return createEditCommand(arguments);
-        case StartCommand.COMMAND_WORD: return createStartCommand(arguments);
-        default: return createInvalidCommand();
+        case CreateCommand.COMMAND_WORD: return prepareCreateCommand(arguments);
+        case ViewCommand.COMMAND_WORD: return prepareViewCommand(arguments);
+        case ListCommand.COMMAND_WORD: return new ListCommand();
+        case "edit": return prepareEditCommand(arguments);
+        case StartCommand.COMMAND_WORD: return prepareStartCommand(arguments);
+        default: return new InvalidCommand();
         }
     }
 
-    private Command createCreateProgCommand(String argumentString) {
+    private Command prepareCreateCommand(String argumentString) {
         String[] progParts = argumentString.split("/d");
         String progName = progParts[0].trim();
         ArrayList<Day> days = new ArrayList<>();
@@ -85,6 +86,59 @@ public class Parser {
         }
 
         return new CreateCommand(progName, days);
+    }
+
+    private Command prepareEditCommand(String argumentString) {
+        // Regex: Split string by / except when followed by n, r, s, w
+        String[] args = argumentString.split("/(?![nrsw])");
+        EditCommand editCommand = new EditCommand();
+
+        int progIndex = -1;
+        int dayIndex = -1;
+        int exerciseIndex = -1;
+
+        for (String arg : args) {
+            if (arg.trim().isEmpty()) {
+                continue;
+            }
+
+            String[] commandAndValue = arg.trim().split(" ", 2);
+            String flag = commandAndValue[0].trim();
+            String value = commandAndValue.length > 1 ? commandAndValue[1].trim() : "";
+
+            switch (flag) {
+            case "p":
+                progIndex = parseIndex(value);
+                break;
+
+            case "d": // Day index
+                dayIndex = parseIndex(value);
+                break;
+
+            case "x": // Remove exercise at index
+                exerciseIndex = parseIndex(value);
+                editCommand.addDelete(progIndex, dayIndex, exerciseIndex);
+                break;
+
+            case "u": // Update exercise (parse the value string to create an Exercise)
+                String[] updateParts = value.split(" ", 2);
+                exerciseIndex = parseIndex(updateParts[0]);
+                Exercise updated = parseExercise(updateParts[1]);
+                editCommand.addEdit(progIndex, dayIndex, exerciseIndex, updated);
+                break;
+
+            case "a": // Add new exercise (parse the value string to create an Exercise)
+                Exercise created = parseExercise(value);
+                editCommand.addCreate(progIndex, dayIndex, created);
+                break;
+
+            default:
+                System.out.println("Unknown flag: " + flag);
+                break;
+            }
+        }
+
+        return editCommand;
     }
 
     private Exercise parseExercise(String exerciseString) {
@@ -119,74 +173,18 @@ public class Parser {
         return new Exercise(sets, reps, weight, name);
     }
 
-    private Command createEditCommand(String argumentString) {
-        // Regex: Split string by / except when followed by n, r, s, w
-        String[] args = argumentString.split("/(?![nrsw])");
 
-        int progIndex = -1;
-        int dayIndex = -1;
-        int exerciseIndex = -1;
-
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].trim().isEmpty()) {
-                continue;
-            }
-
-            String[] commandAndValue = args[i].trim().split(" ", 2);
-            String command = commandAndValue[0].trim();
-            String value = commandAndValue.length > 1 ? commandAndValue[1].trim() : "";
-
-            switch (command) {
-            case "p":
-                progIndex = parseIndex(value);
-                break;
-
-            case "d": // Day index
-                dayIndex = parseIndex(value);
-                break;
-
-            case "x": // Remove exercise at index
-                exerciseIndex = parseIndex(value);
-                System.out.println("Remove exercise index: " + exerciseIndex);
-                break;
-
-            case "u": // Update exercise (parse the value string to create a Exercise)
-                String[] updateParts = value.split(" ", 2);
-                exerciseIndex = parseIndex(updateParts[0]);
-                Exercise updated = parseExercise(updateParts[1]);
-                // The Exercise object in this case is used purely to update relevant fields
-                System.out.println("Updated exercise: " + updated);
-                break;
-
-            case "a": // Add new exercise (parse the value string to create a Exercise)
-                Exercise created = parseExercise(value);
-                System.out.println("Added exercise: " + created);
-                break;
-
-            default:
-                System.out.println("Unknown command: " + command);
-                break;
-            }
-        }
-
-        return new InvalidCommand();
-    }
-
-    private Command createViewCommand(String argumentString) {
+    private Command prepareViewCommand(String argumentString) {
         int progIndex = parseIndex(argumentString);
         return new ViewCommand(progIndex);
     }
 
-    private Command createListCommand() {
-        return new ListCommand();
-    }
-
-    private Command createStartCommand(String argumentString) {
+    private Command prepareStartCommand(String argumentString) {
         int progIndex = parseIndex(argumentString);
         return new StartCommand(progIndex);
     }
 
-    private Command createLogCommand(String argumentString){
+    private Command prepareLogCommand(String argumentString){
         String[] arguments = parseArguments(argumentString, "/p", "/d");
 
         if (arguments.length != 3) {
@@ -201,18 +199,6 @@ public class Parser {
         String date = arguments[2].trim();
 
         return new LogCommand(progIndex, dayIndex, date);
-    }
-
-    private Command createHistoryCommand() {
-        return new HistoryCommand();
-    }
-
-    private Command createExitCommand() {
-        return new ExitCommand();
-    }
-
-    private Command createInvalidCommand() {
-        return new InvalidCommand();
     }
 
     private int parseIndex(String indexString) {
