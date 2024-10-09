@@ -1,10 +1,11 @@
-package YMFC;
+package ymfc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 class DukeTest {
@@ -66,5 +67,17 @@ class RecipeTest {
         newSteps.add("Knead dough");
         recipe.setSteps(newSteps);
         assertEquals(newSteps, recipe.getSteps());
+    }
+}
+
+class UiTest {
+
+    @Test
+    void readCommand_validInput_returnInput() {
+        // Parse a test string into the Ui class
+        String testString = "Test String";
+        ByteArrayInputStream testInput = new ByteArrayInputStream(testString.getBytes());
+        Ui ui = new Ui(testInput);
+        assertEquals(testString, ui.readCommand());
     }
 }
