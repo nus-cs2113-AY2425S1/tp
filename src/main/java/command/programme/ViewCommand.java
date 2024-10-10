@@ -10,7 +10,8 @@ public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
     private int progId;
 
-    public ViewCommand(int progId) { this.progId = progId; }
+    public ViewCommand(int progId) {
+        this.progId = progId; }
 
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history){

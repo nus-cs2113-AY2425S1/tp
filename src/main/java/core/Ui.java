@@ -1,12 +1,6 @@
 package core;
 
-import com.google.gson.Gson;
-import programme.ProgrammeList;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.nio.file.Files;
 import java.util.Scanner;
 
 /**

@@ -30,7 +30,7 @@ public class Storage {
             // Extract the ProgrammeList JSON and deserialize it using the fromJson method
             JsonObject programmeListJson = jsonObject.getAsJsonObject("programmeList");
             ProgrammeList loadedProgrammeList = ProgrammeList.fromJson(programmeListJson.toString());
-            //programmeList.setProgrammes(loadedProgrammeList.getProgrammes());
+            //programmeList.insertProgramme(loadedProgrammeList.getProgrammes());
 
             // Extract the History JSON and deserialize it using the fromJson method
             JsonObject historyJson = jsonObject.getAsJsonObject("history");
