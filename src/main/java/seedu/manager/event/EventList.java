@@ -31,7 +31,7 @@ public class EventList  {
      */
     public ArrayList<Event> getList() {
         for (Event event : eventList) {
-            System.out.println(event);
+            System.out.println(event.getEventName());
         }
         return eventList;
     }
@@ -46,5 +46,15 @@ public class EventList  {
     public void addEvent(String eventName) {
         Event newEvent = new Event(eventName);
         eventList.add(newEvent);
+    }
+
+    public boolean removeEvent(String eventName) {
+        for (Event event : eventList) {
+            if (event.getEventName().equals(eventName)) { // Assuming Event has a getName() method
+                eventList.remove(event);
+                return true; // Event found and removed
+            }
+        }
+        return false; // Event not found
     }
 }
