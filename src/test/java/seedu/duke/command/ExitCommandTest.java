@@ -26,7 +26,9 @@ public class ExitCommandTest {
         // Restore the original System.out
         System.setOut(originalOut);
 
-        assertEquals("Bye! Hope to see you again soon!\n", outputStream.toString());
+        String expectedOutput = "Bye! Hope to see you again soon!\n" + System.lineSeparator();
+
+        assertEquals(expectedOutput, outputStream.toString());
     }
 
     @Test
