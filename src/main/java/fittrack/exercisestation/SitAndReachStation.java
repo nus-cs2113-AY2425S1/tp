@@ -32,4 +32,10 @@ public class SitAndReachStation extends ExerciseStation {
     public String getName() {
         return Name;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(length) + "cm" + " | " + Integer.toString(points);
+    }
+
 }

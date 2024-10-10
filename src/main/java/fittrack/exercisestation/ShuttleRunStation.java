@@ -31,4 +31,9 @@ public class ShuttleRunStation extends ExerciseStation {
     public String getName() {
         return Name;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(time) + " | " + Integer.toString(points);
+    }
 }
