@@ -14,10 +14,11 @@ public class SeeAllIncomesCommand extends Command {
     @Override
     public void execute(FinancialList list) {
         System.out.println("Here's a list of all recorded incomes:");
+        int incomeCount = 0;
         for (int i = 0; i < list.getEntryCount(); i++) {
             FinancialEntry entry = list.getEntry(i);
             if (entry instanceof Income) {
-                System.out.println((i + 1) + ". " + entry);
+                System.out.println((++incomeCount) + ". " + entry);
             }
         }
     }
