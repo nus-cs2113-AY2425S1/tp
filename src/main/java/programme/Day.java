@@ -3,48 +3,46 @@ package programme;
 import java.util.ArrayList;
 
 public class Day {
-    private String dayName;
-    private ArrayList<Exercise> exerciseList;
+    private String name;
+    private ArrayList<Exercise> exercises;
 
-    public Day(String dayName, ArrayList<Exercise> exerciseList) {
-        this.dayName = dayName;
-        this.exerciseList = exerciseList;
+    public Day(String name, ArrayList<Exercise> exercises) {
+        this.name = name;
+        this.exercises = exercises;
     }
 
-    public Day(ArrayList<Exercise> exerciseList) {
-        this.exerciseList = exerciseList;
+    public Day(String name){
+        this.name = name;
+        this.exercises = new ArrayList<>();
     }
 
-    public String getDayName() {
-        return dayName;
+    public Exercise updateExercise(int exerciseId, Exercise exercise){
+        Exercise toBeUpdated = exercises.get(exerciseId);
+        toBeUpdated.updateExercise(exercise);
+        exercises.set(exerciseId, toBeUpdated);
+        return toBeUpdated;
     }
 
     public void insertExercise(Exercise exercise) {
-        exerciseList.add(exercise);
+        exercises.add(exercise);
     }
 
-    public void deleteExercise(int index) {
-        exerciseList.remove(index - 1);
-    }
-
-    public String toString(boolean partOfProgramme) {
-        StringBuilder str = new StringBuilder();
-        str.append(dayName).append("\n");
-
-        if (partOfProgramme) {
-            for (Exercise exercise : exerciseList) {
-                str.append(exercise.toString()).append("\n");
-            }
-        }else {
-            for (Exercise exercise : exerciseList) {
-                str.append("       - ").append(exercise.toString()).append("\n");
-            }
-        }
-        return str.toString();
+    public Exercise deleteExercise(int index) {
+        Exercise toBeDeleted = exercises.get(index);
+        exercises.remove(index);
+        return toBeDeleted;
     }
 
     @Override
     public String toString() {
-        return toString(false);  // By default, assume it is part of a larger structure
+        StringBuilder result = new StringBuilder();
+        result.append(name).append("\n\n");
+
+        for (int i = 0; i < exercises.size(); i++) {
+            Exercise exercise = exercises.get(i);
+            result.append(String.format("%d. %s%n", i + 1, exercise));
+        }
+
+        return result.append("\n").toString();
     }
 }

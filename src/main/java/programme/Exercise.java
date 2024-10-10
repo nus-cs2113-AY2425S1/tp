@@ -4,49 +4,37 @@ public class Exercise {
     private int sets;
     private int reps;
     private int weight;
-    private String exerciseName;
+    private String name;
 
-    public Exercise(int sets, int reps, int weight, String exerciseName) {
+    public Exercise(int sets, int reps, int weight, String name) {
         this.sets = sets;
         this.reps = reps;
         this.weight = weight;
-        this.exerciseName = exerciseName;
+        this.name = name;
     }
 
-    public int getSets() {
-        return sets;
-    }
+    //Takes in an 'Update' Exercise object with the fields to be updated and assigns new values accordingly
+    //If the field is "null" (i.e. -1 or " "), ignore that field for the update.
+    public void updateExercise(Exercise update){
+        if (update.sets != -1){
+            sets = update.sets;
+        }
 
-    public int getReps() {
-        return reps;
-    }
+        if (update.reps != -1){
+            reps = update.reps;
+        }
 
-    public int getWeight() {
-        return weight;
-    }
+        if (update.weight != -1){
+            weight = update.weight;
+        }
 
-    public String getExerciseName() {
-        return exerciseName;
-    }
-
-    public void setSets(int sets) {
-        this.sets = sets;
-    }
-
-    public void setReps(int reps) {
-        this.reps = reps;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
-    public void setExeciseName(String execiseName) {
-        this.exerciseName = execiseName;
+        if (!update.name.isEmpty()){
+            name = update.name;
+        }
     }
 
     @Override
-    public String toString(){
-        return exerciseName + " - " + sets + " x " + reps + " X " + weight + " kgs ";
+    public String toString() {
+        return name + ": " + sets + " sets of " + reps + " reps at " + weight + " kg";
     }
 }
