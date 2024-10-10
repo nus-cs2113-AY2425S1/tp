@@ -15,17 +15,24 @@ public class FilterCoursesCommand extends Command {
     public static final String NUS_COURSE_CODE_KEY = "nus_course_code";
     public static final String PU_COURSE_CODE_KEY = "pu_course_code";
     public static final String LINE_SEPARATOR = "---------------------------------";
+    public static final String SPACE = " ";
 
     @Override
     public void execute(String userInput) {
         try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
             JsonObject jsonObject = jsonReader.readObject();
-            String[] userInputDetails = userInput.split(" ");
-            String courseToFind = userInputDetails[1];
+            String courseToFind = getNusCourseCode(userInput);
             displayMappableCourses(jsonObject, courseToFind.toLowerCase());
         } catch (IOException e) {
             System.err.println(Exception.fileReadError());
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println(Exception.courseSearchError());
         }
+    }
+
+    public String getNusCourseCode(String userInput) throws IndexOutOfBoundsException {
+        String[] userInputDetails = userInput.split(SPACE);
+        return userInputDetails[1];
     }
 
     public void displayMappableCourses(JsonObject jsonObject, String courseToFind) {
