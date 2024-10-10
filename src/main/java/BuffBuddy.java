@@ -1,6 +1,6 @@
 import command.Command;
 import core.History;
-import core.Parser;
+import parser.Parser;
 import core.Ui;
 import core.Storage;
 import programme.ProgrammeList;

@@ -1,46 +1,25 @@
-package core;
+package parser;
 
 import command.Command;
-import command.ExitCommand;
-import command.HistoryCommand;
-import command.LogCommand;
 import command.InvalidCommand;
+import programme.Day;
+import programme.Exercise;
+
 import command.programme.CreateCommand;
 import command.programme.ViewCommand;
 import command.programme.ListCommand;
 import command.programme.StartCommand;
 import command.programme.EditCommand;
 
-import programme.Day;
-import programme.Exercise;
-
 import java.util.ArrayList;
 
+import static parser.ParserUtils.parseIndex;
 
+public class ProgammeParser {
 
-public class Parser {
-    public static final String PROGRAMME_CMD = "prog";
+    public static final String COMMAND_WORD = "prog";
 
-    public Command parse(String fullCommand) {
-        String[] inputArguments = fullCommand.split(" ", 2);
-
-        String commandString = inputArguments[0];
-        String argumentString = "";
-
-        if (inputArguments.length > 1 ){
-            argumentString = inputArguments[1];
-        }
-
-        switch (commandString) {
-        case PROGRAMME_CMD: return parseProgammeCommands(argumentString);
-        case LogCommand.COMMAND_WORD: return prepareLogCommand(argumentString);
-        case HistoryCommand.COMMAND_WORD: return new HistoryCommand();
-        case ExitCommand.COMMAND_WORD: return new ExitCommand();
-        default: return new InvalidCommand();
-        }
-    }
-
-    private Command parseProgammeCommands(String argumentString) {
+    public Command parse(String argumentString) {
         String[] inputArguments = argumentString.split(" ", 2);
 
         String subCommandString = inputArguments[0];
@@ -54,7 +33,7 @@ public class Parser {
         case CreateCommand.COMMAND_WORD: return prepareCreateCommand(arguments);
         case ViewCommand.COMMAND_WORD: return prepareViewCommand(arguments);
         case ListCommand.COMMAND_WORD: return new ListCommand();
-        case "edit": return prepareEditCommand(arguments);
+        case EditCommand.COMMAND_WORD: return prepareEditCommand(arguments);
         case StartCommand.COMMAND_WORD: return prepareStartCommand(arguments);
         default: return new InvalidCommand();
         }
@@ -98,9 +77,9 @@ public class Parser {
                 continue;
             }
 
-            String[] commandAndValue = arg.trim().split(" ", 2);
-            String flag = commandAndValue[0].trim();
-            String value = commandAndValue.length > 1 ? commandAndValue[1].trim() : "";
+            String[] argParts = arg.trim().split(" ", 2);
+            String flag = argParts[0].trim();
+            String value = argParts.length > 1 ? argParts[1].trim() : "";
 
             switch (flag) {
             case "p":
@@ -143,26 +122,34 @@ public class Parser {
         int sets = -1;
         int weight = -1;
 
-        String[] args = exerciseString.split(" ");
+        String[] args = exerciseString.trim().split("/(?)");
 
-        for (int i = 0; i < args.length; i+=2) {
-            String command = args[i];
-            String value = args[i+1];
-            switch (command) {
-            case "/n":
+        for (int i = 1; i < args.length; i++) {
+
+            String[] argParts = args[i].split(" ");
+
+            if (argParts.length != 2){
+                throw new IllegalArgumentException("Invalid create exercise command: " + args[i]);
+            }
+
+            String flag = argParts[0].trim();
+            String value = argParts[1].trim();
+
+            switch (flag) {
+            case "n":
                 name = value;
                 break;
-            case "/s":
+            case "s":
                 sets = Integer.parseInt(value);
                 break;
-            case "/r":
+            case "r":
                 reps = Integer.parseInt(value);
                 break;
-            case "/w":
+            case "w":
                 weight = Integer.parseInt(value);
                 break;
             default:
-                throw new IllegalArgumentException("Invalid command flag " + command);
+                throw new IllegalArgumentException("Invalid command flag " + flag);
             }
         }
 
@@ -178,39 +165,5 @@ public class Parser {
     private Command prepareStartCommand(String argumentString) {
         int progIndex = parseIndex(argumentString);
         return new StartCommand(progIndex);
-    }
-
-    private Command prepareLogCommand(String argumentString){
-        String[] arguments = parseArguments(argumentString, "/p", "/d");
-
-        if (arguments.length != 3) {
-            throw new IllegalArgumentException("Invalid event command. " +
-                    "Please provide a programme index, day index, and date using '/p' and '/d' and 'DATE'.");
-        }
-
-        int progIndex = parseIndex(arguments[0].trim());
-        int dayIndex = parseIndex(arguments[1].trim());
-
-
-        String date = arguments[2].trim();
-
-        return new LogCommand(progIndex, dayIndex, date);
-    }
-
-    private int parseIndex(String indexString) {
-        try {
-            int index = Integer.parseInt(indexString.trim()) - 1;
-            if (index < 0) {
-                throw new IllegalArgumentException("Task index must be a positive number.");
-            }
-            return index;
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid task index. Please provide a valid number.");
-        }
-    }
-
-    private String[] parseArguments(String argumentString, String... delimiters) {
-        String delimiterPattern = String.join(" | ", delimiters);
-        return argumentString.split(delimiterPattern);
     }
 }
