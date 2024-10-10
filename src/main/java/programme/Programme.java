@@ -15,16 +15,17 @@ public class Programme {
         return dayList.get(index);
     }
 
-    public void insertDay(String dayName, ArrayList<Exercise> exercises) {
-        Day day = new Day(dayName, exercises);
+    public void insertDay(Day day) {
         dayList.add(day);
     }
 
-    public void deleteDay(int index){
+    public Day deleteDay(int index){
         if (dayList.size() < index){
             System.out.println("invalid index");
         }
-        dayList.remove(index - 1);
+        Day toBeDeleted = dayList.get(index);
+        dayList.remove(index);
+        return toBeDeleted;
     }
 
     @Override

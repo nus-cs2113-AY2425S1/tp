@@ -1,10 +1,10 @@
-package command.programme.exercise;
+package command.programme.edit;
 
 import programme.Day;
 import programme.Exercise;
 import programme.ProgrammeList;
 
-public class DeleteExerciseCommand  extends ExerciseCommand {
+public class DeleteExerciseCommand  extends EditSubCommand {
 
     private int exerciseId;
 

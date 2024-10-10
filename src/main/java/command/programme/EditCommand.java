@@ -1,12 +1,10 @@
 package command.programme;
 import command.Command;
-import command.programme.exercise.ExerciseCommand;
-import command.programme.exercise.CreateExerciseCommand;
-import command.programme.exercise.DeleteExerciseCommand;
-import command.programme.exercise.EditExerciseCommand;
 
+import command.programme.edit.*;
 import core.Ui;
 import programme.Exercise;
+import programme.Day;
 import programme.ProgrammeList;
 import core.History;
 
@@ -16,7 +14,7 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    private ArrayList<ExerciseCommand> subCommands;
+    private ArrayList<EditSubCommand> subCommands;
 
     public EditCommand(){
         subCommands = new ArrayList<>();
@@ -37,9 +35,19 @@ public class EditCommand extends Command {
         subCommands.add(c);
     }
 
+    public void addCreateDay(int progId, Day day){
+        CreateDayCommand c = new CreateDayCommand(progId, day);
+        subCommands.add(c);
+    }
+
+    public void addDeleteDay(int progId, int dayId){
+        DeleteDayCommand c = new DeleteDayCommand(progId, dayId);
+        subCommands.add(c);
+    }
+
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history){
-        for (ExerciseCommand c : subCommands){
+        for (EditSubCommand c : subCommands){
             String result =  c.execute(pList);
             ui.showMsg(result);
         }

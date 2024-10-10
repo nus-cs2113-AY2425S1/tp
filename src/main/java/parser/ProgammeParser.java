@@ -46,17 +46,7 @@ public class ProgammeParser {
 
         for (int i = 1; i < progParts.length; i++) {
             String dayString = progParts[i].trim();
-            String[] dayParts  = dayString.split("/e");
-            String dayName = dayParts[0].trim();
-
-            Day day = new Day(dayName);
-
-            for (int j = 1; j < dayParts.length; j++) {
-                String exerciseString = dayParts[j].trim();
-                Exercise exercise = parseExercise(exerciseString);
-                day.insertExercise(exercise);
-            }
-
+            Day day = parseDay(dayString);
             days.add(day);
         }
 
@@ -64,8 +54,8 @@ public class ProgammeParser {
     }
 
     private Command prepareEditCommand(String argumentString) {
-        // Regex: Split string by / except when followed by n, r, s, w
-        String[] args = argumentString.split("/(?![nrsw])");
+        // Regex: Split string by / except when followed by n, r, s, w, e
+        String[] args = argumentString.split("/(?![nrswe])");
         EditCommand editCommand = new EditCommand();
 
         int progIndex = -1;
@@ -95,6 +85,10 @@ public class ProgammeParser {
                 editCommand.addDelete(progIndex, dayIndex, exerciseIndex);
                 break;
 
+            case "xd":
+                editCommand.addDeleteDay(progIndex, dayIndex);
+                break;
+
             case "u": // Update exercise (parse the value string to create an Exercise)
                 String[] updateParts = value.split(" ", 2);
                 exerciseIndex = parseIndex(updateParts[0]);
@@ -107,6 +101,11 @@ public class ProgammeParser {
                 editCommand.addCreate(progIndex, dayIndex, created);
                 break;
 
+            case "ad":
+                Day day = parseDay(value);
+                editCommand.addCreateDay(progIndex, day);
+                break;
+
             default:
                 System.out.println("Unknown flag: " + flag);
                 break;
@@ -114,6 +113,21 @@ public class ProgammeParser {
         }
 
         return editCommand;
+    }
+
+    private Day parseDay(String dayString) {
+        String[] dayParts  = dayString.split("/e");
+        String dayName = dayParts[0].trim();
+
+        Day day = new Day(dayName);
+
+        for (int j = 1; j < dayParts.length; j++) {
+            String exerciseString = dayParts[j].trim();
+            Exercise exercise = parseExercise(exerciseString);
+            day.insertExercise(exercise);
+        }
+
+        return day;
     }
 
     private Exercise parseExercise(String exerciseString) {
@@ -155,7 +169,6 @@ public class ProgammeParser {
 
         return new Exercise(sets, reps, weight, name);
     }
-
 
     private Command prepareViewCommand(String argumentString) {
         int progIndex = parseIndex(argumentString);

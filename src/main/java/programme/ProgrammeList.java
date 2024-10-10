@@ -43,6 +43,14 @@ public class ProgrammeList {
         return progContent.getDay(dayIndex);
     }
 
+    public Day deleteDay(int progIndex, int dayIndex) {
+        return programmeList.get(progIndex).deleteDay(dayIndex);
+    }
+
+    public void insertDay(int progIndex, Day day){
+        programmeList.get(progIndex).insertDay(day);
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
