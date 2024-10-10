@@ -41,8 +41,8 @@ public class Storage {
                 } else {
                     // READING IN PROGRAMMELIST (pullout to Load ProgrammeList)
                     loadProgrammeList(line, programmeList);
-                    }
                 }
+            }
             scanner.close();
             System.out.println("Programmes and history have been loaded from: " + filePath);
         } catch (FileNotFoundException e) {
@@ -53,14 +53,14 @@ public class Storage {
     public void loadHistory(String line, History history) {
         Day day = Day.fromJson(line);
         if (day != null) {
-            history.logDay(day);
+            //history.logDay(day);
         }
     }
 
     public void loadProgrammeList (String line, ProgrammeList programmeList) {
         Programme programme = Programme.fromJson(line);
         if (programme != null) {
-            programmeList.addProgramme(programme);
+            //programmeList.addProgramme(programme);
         }
     }
 
