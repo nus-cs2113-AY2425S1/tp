@@ -1,7 +1,5 @@
 package programme;
 
-import com.google.gson.Gson;
-
 public class Exercise {
     private int sets;
     private int reps;
@@ -38,14 +36,5 @@ public class Exercise {
     @Override
     public String toString() {
         return name + ": " + sets + " sets of " + reps + " reps at " + weight + " kg";
-    }
-    public String toJson() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
-    }
-
-    public static Exercise fromJson(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, Exercise.class);
     }
 }

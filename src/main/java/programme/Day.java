@@ -2,8 +2,6 @@ package programme;
 
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
-
 public class Day {
     private String name;
     private ArrayList<Exercise> exercises;
@@ -48,13 +46,4 @@ public class Day {
         return result.append("\n").toString();
     }
 
-    public String toJson() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
-    }
-
-    public static Day fromJson(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, Day.class);
-    }
 }
