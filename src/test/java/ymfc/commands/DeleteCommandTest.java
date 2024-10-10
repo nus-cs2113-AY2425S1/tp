@@ -1,8 +1,8 @@
 package ymfc.commands;
 
-import ymfc.Recipe;
-import ymfc.RecipeList;
-import ymfc.Ui;
+import ymfc.recipe.Recipe;
+import ymfc.recipelist.RecipeList;
+import ymfc.ui.Ui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

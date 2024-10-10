@@ -1,4 +1,4 @@
-package ymfc;
+package ymfc.recipe;
 
 import java.util.ArrayList;
 
