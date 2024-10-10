@@ -33,4 +33,12 @@ class ParserTest {
 
         assertInstanceOf(MenuCommand.class, command);
     }
+
+    @Test
+    public void parseCommand_listWord_list() {
+        Parser parser = new Parser();
+        Command command = parser.parseCommand("list");
+
+        assertInstanceOf(MenuCommand.class, command);
+    }
 }

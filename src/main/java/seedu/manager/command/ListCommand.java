@@ -10,6 +10,7 @@ public class ListCommand extends Command {
      * @return The command output with a list message
      */
     public CommandOutput execute() {
+
         return new CommandOutput(LIST_MESSAGE, false);
     }
 }
