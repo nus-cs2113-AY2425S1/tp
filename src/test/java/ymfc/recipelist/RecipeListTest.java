@@ -43,7 +43,7 @@ public class RecipeListTest {
 
     @Test
     public void getRecipes_emptyRecipeList_returnEmptyArrayList() {
-        assertSame(new ArrayList<Recipe>(), new RecipeList().getRecipes());
+        assertEquals(new ArrayList<Recipe>(), new RecipeList().getRecipes());
     }
 
     @Test
