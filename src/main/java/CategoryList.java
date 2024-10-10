@@ -9,7 +9,7 @@ public class CategoryList {
         initializeDefaultCategories();
     }
 
-    // 初始化内置类别
+    // Initialize
     private void initializeDefaultCategories() {
         categories.add(new Category("Food"));
         categories.add(new Category("Entertainment"));
@@ -18,7 +18,7 @@ public class CategoryList {
         categories.add(new Category("Others"));
     }
 
-    // 添加自定义类别
+    // Add Category
     public void addCategory(String categoryName) {
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(categoryName)) {
@@ -30,7 +30,7 @@ public class CategoryList {
         System.out.println("Category '" + categoryName + "' added successfully.");
     }
 
-    // 删除类别
+    // Delete Category
     public void deleteCategory(String categoryName) {
         Category toDelete = null;
         for (Category category : categories) {
@@ -47,7 +47,7 @@ public class CategoryList {
         }
     }
 
-    // 列出所有类别
+    // List all the category
     public void listCategories() {
         System.out.println("Available categories:");
         for (int i = 0; i < categories.size(); i++) {
@@ -55,12 +55,12 @@ public class CategoryList {
         }
     }
 
-    // 获取类别列表
+    // Get category list
     public List<Category> getCategories() {
         return categories;
     }
 
-    // 交互式添加类别（便于用户在记账时方便选择和添加）
+
     public void interactiveAddCategory(String categoryName) {
         addCategory(categoryName);
 
