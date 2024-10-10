@@ -19,6 +19,7 @@ public class EasInternship {
     public static void main(String[] args) {
         Ui ui = new Ui();
         InternshipList internshipList = new InternshipList();
+        Storage.loadFromFile(internshipList);
         Parser parser = new Parser();
 
         ui.showWelcome();
@@ -32,6 +33,7 @@ public class EasInternship {
             String input = scanner.nextLine();
 
             if (input.equals("exit")) {
+                Storage.saveToFile(internshipList);
                 ui.showGoodbye();
                 isExit = true;
                 continue;
