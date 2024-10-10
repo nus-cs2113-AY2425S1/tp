@@ -72,7 +72,6 @@ public class Internship {
         default:
             System.out.println("Invalid field: " + field);
         }
-        System.out.println(field + " updated: " + value);
     }
 
     /**

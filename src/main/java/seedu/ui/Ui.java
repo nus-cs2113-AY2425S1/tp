@@ -1,12 +1,13 @@
-package seedu.duke;
+package seedu.ui;
 
 import java.util.Scanner;
 
+//@@author Ridiculouswifi
 /**
  * Class to facilitate program interactions with the user.
  */
 public class Ui {
-    private static final String DIVIDER = "__________________________________________________\n";
+    protected static final String DIVIDER = "__________________________________________________\n";
     private static Scanner scanner = new Scanner(System.in);
 
     private static final String MESSAGE_WELCOME = """
@@ -46,16 +47,23 @@ public class Ui {
     }
 
     /**
-     * Prints horizontal line to indicate the start of a chatbot response.
+     * Prints double horizontal line to indicate the start of a chatbot response.
      */
     public void printHeadDivider() {
-        System.out.print(DIVIDER);
+        System.out.print(DIVIDER + DIVIDER);
     }
 
     /**
-     * Prints horizontal line to indicate the end of a chatbot response.
+     * Prints double horizontal line to indicate the end of a chatbot response.
      */
     public void printTailDivider() {
-        System.out.println(DIVIDER);
+        System.out.println(DIVIDER + DIVIDER + "\n");
+    }
+
+    /**
+     * Prints horizontal line to indicate separation.
+     */
+    public void printDivider() {
+        System.out.print(DIVIDER);
     }
 }
