@@ -27,12 +27,11 @@ public class EasInternship {
         ui.showWelcome();
 
         // Main loop
-        Scanner scanner = new Scanner(System.in);
         boolean isExit = false;
 
         while (!isExit) {
             System.out.print("Enter command: ");
-            String input = scanner.nextLine();
+            String input = ui.readInput();
 
             if (input.equals("exit")) {
                 Storage.saveToFile(internshipList);
@@ -44,7 +43,7 @@ public class EasInternship {
             Command command = parser.parseCommand(input);
 
             if (command == null) {
-                System.out.println("Unknown command: " + input);
+                ui.showUnknownCommand(input);
                 continue;
             }
 
@@ -54,7 +53,7 @@ public class EasInternship {
             try {
                 command.execute(commandArgs);
             } catch (Exception e) {
-                System.out.println("Error executing command: " + e.getMessage());
+                ui.showErrorCommand(e.getMessage());
             }
         }
     }

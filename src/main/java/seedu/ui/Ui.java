@@ -47,6 +47,24 @@ public class Ui {
     }
 
     /**
+     * Prints when unknown command is given.
+     *
+     * @param input Command by user.
+     */
+    public void showUnknownCommand(String input) {
+        showOutput("Unknown command: " + input);
+    }
+
+    /**
+     * Prints when there is an error executing the commands.
+     *
+     * @param errorMessage  Message given by exception.
+     */
+    public void showErrorCommand(String errorMessage) {
+        showOutput("Error executing command: " + errorMessage);
+    }
+
+    /**
      * Prints double horizontal line to indicate the start of a chatbot response.
      */
     public void printHeadDivider() {
