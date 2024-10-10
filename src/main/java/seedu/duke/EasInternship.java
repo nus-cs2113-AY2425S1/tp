@@ -4,7 +4,6 @@ import seedu.commands.Command;
 import seedu.ui.Ui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The EasInternship class contains the main method which is the entry point for the application.
