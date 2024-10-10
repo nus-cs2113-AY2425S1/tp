@@ -1,6 +1,8 @@
 package fittrack.parser;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static fittrack.messages.Messages.*;
@@ -34,11 +36,11 @@ public class Parser {
                 user.setAge(sentence[1]);
                 break;
             case ADD_SESSION_COMMAND:
-                sessionList.add(new TrainingSession("" , description, user));
+                sessionList.add(new TrainingSession(LocalDateTime.now().toString() , description, user));
                 break;
             case EDIT_EXERCISE_COMMAND:
                 sentence = description.split(" ", 3);
-                int sessionIndex = Integer.parseInt(sentence[0]);
+                int sessionIndex = Integer.parseInt(sentence[0]) - 1;
                 int exerciseIndex = Integer.parseInt(sentence[1]);
                 int exerciseReps = Integer.parseInt(sentence[2]);
                 sessionList.get(sessionIndex).editExercise(exerciseIndex, exerciseReps);
@@ -47,10 +49,10 @@ public class Parser {
                 printSessionList(sessionList); // Print the list of sessions
                 break;
             case VIEW_SESSION_COMMAND:
-                sessionList.get(Integer.parseInt(description)).viewSession(); // Print the list of sessions
+                sessionList.get(Integer.parseInt(description)-1).viewSession(); // Print the list of sessions
                 break;
             case DELETE_SESSION_COMMAND:
-                sessionList.remove(Integer.parseInt(description));
+                sessionList.remove(Integer.parseInt(description)-1);
                 break;
             default:
                 printUnrecognizedInputMessage(); // Response to unrecognized inputs

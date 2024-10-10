@@ -29,7 +29,7 @@ public class TrainingSession{
             new SitUpStation(), new StandingBroadJumpStation(), new WalkAndRunStation()};
 
     public TrainingSession(String datetime, String sessionDescription, User user){
-        this.sessionDatetime = LocalDateTime.parse(datetime + "-ss-ns");
+        this.sessionDatetime = LocalDateTime.parse(datetime);
         this.sessionDescription = sessionDescription;
         this.user = user;
     }
@@ -38,7 +38,7 @@ public class TrainingSession{
     public void editExercise(int exerciseNum, int reps){
         exerciseData[exerciseNum].setPerformance(reps);
         System.out.print("Exercise edited! Here's your new input: " + System.lineSeparator() +
-                exerciseData[exerciseNum]);
+                exerciseData[exerciseNum] + System.lineSeparator());
     }
 
     //Returns string for award attained
@@ -58,7 +58,7 @@ public class TrainingSession{
     }
 
     public void printSessionDescription(){
-        System.out.print(this.sessionDescription + " | " +
+        System.out.println(this.sessionDescription + " | " +
                 this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
     }
 
@@ -83,6 +83,6 @@ public class TrainingSession{
         }
 
         System.out.print("Total points: " + totalPoints + System.lineSeparator() +
-                "Overall Award: " + award(minPoint, totalPoints));
+                "Overall Award: " + award(minPoint, totalPoints) + System.lineSeparator());
     }
 }
