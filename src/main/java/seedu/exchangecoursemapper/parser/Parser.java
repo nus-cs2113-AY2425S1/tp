@@ -7,12 +7,12 @@ import seedu.exchangecoursemapper.command.ListUniCoursesCommand;
 
 import java.util.Scanner;
 
-public class Parser {
-    public static final String LISTINGSCHOOLS = "list schools";
-    public static final String COMMANDS = "commands";
-    public static final String FILTER_COURSES = "filter";
-    public static final String SET = "set";
+import static seedu.exchangecoursemapper.constants.Commands.COMMANDS;
+import static seedu.exchangecoursemapper.constants.Commands.LISTINGSCHOOLS;
+import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES;
+import static seedu.exchangecoursemapper.constants.Commands.SET;
 
+public class Parser {
     private final Scanner scanner = new Scanner(System.in);
 
     public String getUserInput() {
