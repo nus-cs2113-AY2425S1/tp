@@ -2,6 +2,7 @@ package command.programme;
 import java.util.ArrayList;
 import command.Command;
 import core.Ui;
+import programme.Day;
 import programme.ProgrammeList;
 import programme.Programme;
 import core.History;
@@ -11,9 +12,9 @@ import core.History;
 public class CreateCommand extends Command {
     public static final String COMMAND_WORD = "create";
     private String name;
-    private ArrayList<ArrayList<ArrayList<String>>> contents;
+    private ArrayList<Day> contents;
 
-    public CreateCommand(String name, ArrayList<ArrayList<ArrayList<String>>> contents) {
+    public CreateCommand(String name, ArrayList<Day> contents) {
         this.name = name;
         this.contents = contents;
     }
