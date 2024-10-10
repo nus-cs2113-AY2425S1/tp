@@ -1,14 +1,13 @@
 package core;
 
-import programme.Day;
-import programme.Programme;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import programme.ProgrammeList;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Represents the storage system for saving and loading tasks.
@@ -22,87 +21,56 @@ public class Storage {
     }
 
     public void load(ProgrammeList programmeList, History history) {
-        File file = new File(filePath);
         try {
-            Scanner scanner = new Scanner(file);
-            boolean isHistorySection = false;
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
 
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine().trim();
+            // Parse the JSON content into a JsonObject
+            JsonObject jsonObject = JsonParser.parseString(content).getAsJsonObject();
 
-                if(line.equalsIgnoreCase("HISTORY")) {
-                    isHistorySection = true;
-                    continue;
-                }
+            // Extract the ProgrammeList JSON and deserialize it using the fromJson method
+            JsonObject programmeListJson = jsonObject.getAsJsonObject("programmeList");
+            ProgrammeList loadedProgrammeList = ProgrammeList.fromJson(programmeListJson.toString());
+            programmeList.setProgrammes(loadedProgrammeList.getProgrammes());
 
-                if(isHistorySection) {
-                    //Reading in HISTORY (can pull out to loadHistory)
-                    loadHistory(line, history);
-                } else {
-                    // READING IN PROGRAMMELIST (pullout to Load ProgrammeList)
-                    loadProgrammeList(line, programmeList);
-                }
-            }
-            scanner.close();
+            // Extract the History JSON and deserialize it using the fromJson method
+            JsonObject historyJson = jsonObject.getAsJsonObject("history");
+            History loadedHistory = History.fromJson(historyJson.toString());
+            history.setEntries(loadedHistory.getEntries());
+
             System.out.println("Programmes and history have been loaded from: " + filePath);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             System.out.println("Oh first time here? Welcome to a life of Fitness, lets start!");
-        }
-    }
-
-    public void loadHistory(String line, History history) {
-        Day day = Day.fromJson(line);
-        if (day != null) {
-            //history.logDay(day);
-        }
-    }
-
-    public void loadProgrammeList (String line, ProgrammeList programmeList) {
-        Programme programme = Programme.fromJson(line);
-        if (programme != null) {
-            //programmeList.addProgramme(programme);
         }
     }
 
 
     //SAVE
     public void save(ProgrammeList programmeList, History history) {
-        try {
-            FileWriter writer = new FileWriter(filePath);
-            saveProgrammeList(programmeList);
-            writer.write("HISTORY\n");
-            saveHistory(history);
-            writer.close();
+        try (FileWriter writer = new FileWriter(filePath)) {
+            // Create a string that starts with an opening brace for the combined JSON object
+            StringBuilder jsonBuilder = new StringBuilder();
+            jsonBuilder.append("{\n");
+
+            // Add the serialized ProgrammeList using its toJson method
+            jsonBuilder.append("\"programmeList\": ");
+            jsonBuilder.append(programmeList.toJson());
+            jsonBuilder.append(",\n"); // Add a comma between programmeList and history
+
+            // Add the serialized History using its toJson method
+            jsonBuilder.append("\"history\": ");
+            jsonBuilder.append(history.toJson());
+            jsonBuilder.append("\n"); // No trailing comma for the last entry
+
+            // Close the JSON object
+            jsonBuilder.append("}");
+
+            // Write the entire JSON string to the file
+            writer.write(jsonBuilder.toString());
+            writer.write("\n");
+
             System.out.println("Saving done, Good Job!");
         } catch (IOException e) {
             System.out.println("An error has occurred when saving data: " + e.getMessage());
-        }
-    }
-
-    //saveProgrammeList
-    public void saveProgrammeList(ProgrammeList programmeList) {
-        try {
-            FileWriter writer = new FileWriter(filePath); //overwrite the file
-            String programmeListJson = programmeList.toJson();
-            writer.write(programmeListJson);
-            writer.write("\n");
-            writer.close();
-            System.out.println("Programme List saved in your file");
-        } catch (IOException e) {
-            System.out.println("An error has occurred when saving Programme List: " + e.getMessage());
-        }
-    }
-
-    //saveHistory
-    public void saveHistory(History history) {
-        try {
-            FileWriter writer = new FileWriter(filePath, true); //append
-            String historyJson = history.toJson();
-            writer.write(historyJson);
-            writer.write("\n");
-            System.out.println("History saved in your file");
-        } catch (IOException e) {
-            System.out.println("An error has occurred when saving History: " + e.getMessage());
         }
     }
 }
