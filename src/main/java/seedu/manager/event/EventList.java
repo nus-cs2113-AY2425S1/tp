@@ -39,4 +39,12 @@ public class EventList  {
     public int getListSize() {
         return eventList.size();
     }
+
+    /**
+     * @param index The index of event in the list (0 based indexing)
+     * @return The specific event in the event list.
+     */
+    public Event getEvent(int index) {
+        return eventList.get(index);
+    }
 }
