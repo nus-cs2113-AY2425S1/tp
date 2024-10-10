@@ -21,8 +21,8 @@ public class ProgrammeList {
         if (programmeList.size() < index){
             System.out.println("invalid index");
         }
-        Programme programmeToDelete = programmeList.get(index -1);
-        programmeList.remove(index - 1);
+        Programme programmeToDelete = programmeList.get(index);
+        programmeList.remove(index);
         return programmeToDelete;
     }
 
