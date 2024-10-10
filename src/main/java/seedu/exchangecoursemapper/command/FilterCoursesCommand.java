@@ -10,13 +10,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Set;
 
-public class FilterCoursesCommand extends Command {
-    public static final String COURSES_ARRAY_LABEL = "courses";
-    public static final String NUS_COURSE_CODE_KEY = "nus_course_code";
-    public static final String PU_COURSE_CODE_KEY = "pu_course_code";
-    public static final String LINE_SEPARATOR = "---------------------------------";
-    public static final String SPACE = " ";
+import static seedu.exchangecoursemapper.constants.JsonKey.COURSES_ARRAY_LABEL;
+import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
+import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
+import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 
+public class FilterCoursesCommand extends Command {
     @Override
     public void execute(String userInput) {
         try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
