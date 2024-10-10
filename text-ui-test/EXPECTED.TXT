@@ -4,13 +4,4 @@
 |________|_______|_______|______|_______|__|_|__|_______|
 
 Welcome to ExchangeCourseMapper! The easiest way to plan your exchange courses.
-Partner University: Chulalongkorn University
-Partner University Course Code: ICSE2190479
----------------------------------
-Partner University: The University of Melbourne
-Partner University Course Code: COMP30019
----------------------------------
-Partner University: The Australian National University
-Partner University Course Code: COMP4610
----------------------------------
 bye
