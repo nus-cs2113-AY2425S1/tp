@@ -47,4 +47,8 @@ public class EventList  {
     public Event getEvent(int index) {
         return eventList.get(index);
     }
+
+    public void addEvent(Event event) {
+        eventList.add(event);
+    }
 }
