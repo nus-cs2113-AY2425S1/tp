@@ -40,6 +40,7 @@ public class Internship {
         this.status = "Application Pending";
     }
 
+    //@@author Ridiculouswifi
     /**
      * Updates the internship field with the new value.
      *
@@ -70,10 +71,11 @@ public class Internship {
             setEndDate(value);
             break;
         default:
-            System.out.println("Invalid field: " + field);
+            break;
         }
     }
 
+    //@@author Ridiculouswifi
     /**
      * Updates the status of the Internship with a valid status.
      * Does not update with invalid statuses and will prompt for a valid status.
@@ -91,9 +93,15 @@ public class Internship {
             }
             throw new InvalidStatus();
         } catch (InvalidStatus e) {
-            System.out.println("Status provided is not recognised:");
-            System.out.println("Please provide one of the following:");
-            System.out.println("- Application Pending\n- Application Completed\n- Accepted\n- Rejected");
+            String message = """
+                    Status provided is not recognised:
+                    Please provide one of the following:
+                    - Application Pending
+                    - Application Completed
+                    - Accepted
+                    - Rejected
+                    """;
+            System.out.println(message);
         }
     }
 
