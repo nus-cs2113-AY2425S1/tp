@@ -34,6 +34,7 @@ public class UpdateCommand extends Command {
                 break;
             }
         }
+        System.out.println("Internship Updated:");
         System.out.println(internships.getInternship(internshipIndex).toString());
     }
 
