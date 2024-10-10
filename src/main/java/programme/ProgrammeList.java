@@ -47,7 +47,6 @@ public class ProgrammeList {
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < programmeList.size(); i++) {
-            str.append("\n\n");
             Programme programme = programmeList.get(i);
             if (i == currentActiveProgramme) {
                 str.append("*Active* ");

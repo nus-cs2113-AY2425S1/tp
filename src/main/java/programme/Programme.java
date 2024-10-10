@@ -30,10 +30,10 @@ public class Programme {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append(programmeName);
+        str.append(programmeName).append("\n\n");
 
         for (int i = 0; i < dayList.size(); i++) {
-            str.append("\nDay ").append(i+1).append(": ").append(dayList.get(i));
+            str.append("Day ").append(i+1).append(": ").append(dayList.get(i));
         }
 
         return str.toString();

@@ -15,7 +15,16 @@ public class Ui {
     private static final int LINE_LENGTH = 50;
 
     private static final String GREETING = "Hello! I'm...";
-    private static final String LOGO = "BuffBuddy";
+    private static final String LOGO = """
+                  ____         __  __ ____            _     _      \s
+                 |  _ \\       / _|/ _|  _ \\          | |   | |     \s
+                 | |_) |_   _| |_| |_| |_) |_   _  __| | __| |_   _\s
+                 |  _ <| | | |  _|  _|  _ <| | | |/ _` |/ _` | | | |
+                 | |_) | |_| | | | | | |_) | |_| | (_| | (_| | |_| |
+                 |____/ \\__,_|_| |_| |____/ \\__,_|\\__,_|\\__,_|\\__, |
+                                                               __/ |
+                                                              |___/    \s
+            """;
 
     private static final String PROMPT = "What can I do for you?";
 
@@ -63,7 +72,8 @@ public class Ui {
      * @param msg the message to be displayed
      */
     public void showMsg(String msg) {
-        out.println(msg);
+        String strippedMsg = msg.replaceFirst("\\n+$", "");
+        out.println(strippedMsg);
     }
 
     /**

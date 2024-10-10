@@ -36,13 +36,13 @@ public class Day {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(name);
+        result.append(name).append("\n\n");
 
         for (int i = 0; i < exercises.size(); i++) {
             Exercise exercise = exercises.get(i);
-            result.append(String.format("%n%d. %s", i + 1, exercise));
+            result.append(String.format("%d. %s%n", i + 1, exercise));
         }
 
-        return result.toString();
+        return result.append("\n").toString();
     }
 }
