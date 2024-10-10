@@ -11,6 +11,11 @@ import java.io.IOException;
 import java.util.Set;
 
 public class FilterCoursesCommand extends Command {
+    public static final String COURSES_ARRAY_LABEL = "courses";
+    public static final String NUS_COURSE_CODE_KEY = "nus_course_code";
+    public static final String PU_COURSE_CODE_KEY = "pu_course_code";
+    public static final String LINE_SEPARATOR = "---------------------------------";
+
     @Override
     public void execute(String userInput) {
         try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
@@ -27,19 +32,18 @@ public class FilterCoursesCommand extends Command {
         Set<String> universityNames = jsonObject.keySet();
         boolean isCourseFound = false;
         for (String universityName : universityNames) {
-            JsonArray courses = jsonObject.getJsonObject(universityName).getJsonArray("courses");
+            JsonArray courses = jsonObject.getJsonObject(universityName).getJsonArray(COURSES_ARRAY_LABEL);
 
             for (int i = 0; i < courses.size(); i += 1) {
                 JsonObject course = courses.getJsonObject(i);
-                String nusCourseCode = course.getString("nus_course_code");
+                String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY);
 
-                // Check if the "nus_course_code" matches the input
+                // Check if the value in "nus_course_code" matches the input
                 if (nusCourseCode.toLowerCase().equals(courseToFind)) {
-                    String puCourseCode = course.getString("pu_course_code");
-                    // System.out.println("NUS Course Code: " + nusCourseCode);
+                    String puCourseCode = course.getString(PU_COURSE_CODE_KEY);
                     System.out.println("Partner University: " + universityName);
                     System.out.println("Partner University Course Code: " + puCourseCode);
-                    System.out.println("---------------------------------");
+                    System.out.println(LINE_SEPARATOR);
                     isCourseFound = true;
                 }
             }
