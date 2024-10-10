@@ -1,7 +1,7 @@
 package ymfc.commands;
 
-import ymfc.RecipeList;
-import ymfc.Ui;
+import ymfc.recipelist.RecipeList;
+import ymfc.ui.Ui;
 
 public abstract class Command {
     protected static boolean isBye;

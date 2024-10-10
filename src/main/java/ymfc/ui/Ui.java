@@ -1,4 +1,6 @@
-package ymfc;
+package ymfc.ui;
+
+import ymfc.recipe.Recipe;
 
 import java.io.InputStream;
 import java.util.Scanner;

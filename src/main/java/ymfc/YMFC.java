@@ -1,5 +1,7 @@
 package ymfc;
 
+import ymfc.ui.Ui;
+
 public class YMFC {
     /**
      * Main entry-point for the java.duke.Duke application.
