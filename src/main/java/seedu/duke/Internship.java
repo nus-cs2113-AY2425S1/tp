@@ -64,10 +64,10 @@ public class Internship {
         case "company":
             setCompany(value);
             break;
-        case "start":
+        case "from":
             setStartDate(value);
             break;
-        case "end":
+        case "to":
             setEndDate(value);
             break;
         default:

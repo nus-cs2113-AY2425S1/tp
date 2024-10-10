@@ -17,7 +17,7 @@ public class AddCommand extends Command {
             String[] words = arg.split(" ", 2);
             String flag = words[0];
             switch (flag) {
-            case "name":
+            case "role":
                 if (words.length > 1) {
                     role = words[INDEX_DATA];
                 } else {

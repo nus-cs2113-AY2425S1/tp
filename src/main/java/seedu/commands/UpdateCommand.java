@@ -22,7 +22,8 @@ public class UpdateCommand extends Command {
             case "skills":
             case "role":
             case "company":
-            case "end":
+            case "from":
+            case "to":
                 field = words[INDEX_FIELD];
                 value = words[INDEX_DATA].replace(field, "").trim();
                 internships.getInternship(internshipIndex).updateField(field, value);
