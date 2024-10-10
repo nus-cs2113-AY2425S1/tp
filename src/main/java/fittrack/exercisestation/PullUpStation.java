@@ -33,8 +33,8 @@ public class PullUpStation extends ExerciseStation {
         return Name;
     }
 
-    //@Override
-    //public String toString() {
-    //    return Integer.toString(reps) + " | " + Integer.toString(points);
-    //}
+    @Override
+    public String toString() {
+        return Integer.toString(reps) + " | " + Integer.toString(points);
+    }
 }

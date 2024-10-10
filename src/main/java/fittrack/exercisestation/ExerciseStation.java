@@ -10,6 +10,6 @@ public abstract class ExerciseStation {
 
     public abstract String getName();
 
-    //@Override
-    //public abstract String toString();
+    @Override
+    public abstract String toString();
 }
