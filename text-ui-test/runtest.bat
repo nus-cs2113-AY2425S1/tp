@@ -6,6 +6,7 @@ cd ..
 call gradlew clean shadowJar
 
 cd build\libs
+xcopy /E /I ..\..\data data
 for /f "tokens=*" %%a in (
     'dir /b *.jar'
 ) do (
