@@ -11,6 +11,7 @@ public class AddRecipeCommand extends Command {
         super();
         this.recipe = recipe;
     }
+
     @Override
     public void execute(RecipeList recipes, Ui ui) {
         addNewRecipe(recipes, recipe, ui);

@@ -20,6 +20,5 @@ public abstract class Command {
 
 
     public void execute(RecipeList recipes, Ui ui) {
-
     }
 }
