@@ -1,7 +1,5 @@
 package seedu.manager.command;
 
-import seedu.manager.event.EventList;
-
 /**
  * Represents an executable add command
  */

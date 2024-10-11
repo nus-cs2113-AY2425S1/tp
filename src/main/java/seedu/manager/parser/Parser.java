@@ -6,7 +6,6 @@ import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.EchoCommand;
 import seedu.manager.command.ListCommand;
-import seedu.manager.event.EventList;
 
 import java.util.Arrays;
 

@@ -5,7 +5,6 @@ import seedu.manager.command.Command;
 import seedu.manager.command.EchoCommand;
 import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
-import seedu.manager.event.EventList;
 import seedu.manager.command.ListCommand;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
