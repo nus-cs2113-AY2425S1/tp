@@ -8,7 +8,6 @@ import seedu.manager.command.MenuCommand;
 import seedu.manager.command.EchoCommand;
 import seedu.manager.command.ListCommand;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 

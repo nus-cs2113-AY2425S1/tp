@@ -2,7 +2,6 @@ package seedu.manager.command;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.manager.event.Event;
 import seedu.manager.event.EventList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

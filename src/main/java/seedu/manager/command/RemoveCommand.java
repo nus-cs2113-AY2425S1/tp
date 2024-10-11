@@ -1,7 +1,5 @@
 package seedu.manager.command;
 
-import seedu.manager.event.EventList;
-
 public class RemoveCommand extends Command {
     public static final String COMMAND_WORD = "remove";
     public static final String REMOVE_SUCCESS = "Event removed successfully";
