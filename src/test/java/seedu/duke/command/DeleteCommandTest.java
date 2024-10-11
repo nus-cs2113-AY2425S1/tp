@@ -51,12 +51,26 @@ class DeleteCommandTest {
     void execute_deleteEntry_expectEntryRemoved() {
         financialList.addEntry(new Expense(3.50, "lunch"));
         financialList.addEntry(new Income(3000.00, "salary"));
+        financialList.addEntry(new Expense(20.00, "movie ticket"));
 
-        deleteCommand = new DeleteCommand(1);  // Delete the first entry (index starts from 0)
+        deleteCommand = new DeleteCommand(1);  //Delete the first entry lunch
         deleteCommand.execute(financialList);
 
-        assertEquals(1, financialList.getEntryCount());  // Verify that the entry count is reduced
+        String output = outputStream.toString();
+        String expectedOutput = "Entry deleted." + System.lineSeparator();
+
+        // Verify the correct message is printed
+        assertEquals(expectedOutput, output);
+
+        // Verify the correct entry was deleted
+        assertEquals(2, financialList.getEntryCount());  // Two entries should remain
+
+        // Check the remaining entries by description to ensure the correct entry was deleted
+        assertEquals("salary", financialList.getEntry(0).getDescription());
+        assertEquals("movie ticket", financialList.getEntry(1).getDescription());
     }
+
+
 
     /**
      * Test the execute method of DeleteCommand with an invalid index.
