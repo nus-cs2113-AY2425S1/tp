@@ -1,3 +1,8 @@
+import seedu.category.Category;
+import seedu.category.CategoryList;
+import seedu.transaction.Transaction;
+import seedu.transaction.TransactionList;
+
 import java.util.Scanner;
 
 class Main {

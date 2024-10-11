@@ -3,6 +3,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import seedu.category.Category;
+import seedu.category.CategoryList;
+import seedu.transaction.Transaction;
+import seedu.transaction.TransactionList;
+
 import java.util.List;
 
 public class JUnitTest {

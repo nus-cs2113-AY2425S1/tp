@@ -1,7 +1,9 @@
+package seedu.transaction;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class TransactionList {
+public class TransactionList {
     private List<Transaction> transactions;
 
     public TransactionList() {

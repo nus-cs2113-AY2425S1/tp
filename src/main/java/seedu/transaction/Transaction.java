@@ -1,9 +1,12 @@
-class Transaction {
+package seedu.transaction;
+
+import seedu.category.Category;
+
+public class Transaction {
     private double amount;
     private String description;
     private String date;
     private Category category;
-
 
     public Transaction(double amount, String description, String date, Category category) {
         this.amount = amount;
@@ -20,6 +23,9 @@ class Transaction {
         return description;
     }
 
+    public String getType() {
+        return "";
+    }
     public String getDate() {
         return date;
     }
