@@ -1,7 +1,6 @@
 package wheresmymoney;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ExpenseList {
@@ -59,8 +58,10 @@ public class ExpenseList {
         expense.setDescription(description);
     }
 
-    public void deleteExpense(int i) {
-        expenses.remove(i);
+    public void deleteExpense(int index) throws WheresMyMoneyException {
+        if (index < 0 || index >= expenses.size()) {
+            throw new WheresMyMoneyException("Index out of range!");
+        }
+        expenses.remove(index);
     }
-
 }
