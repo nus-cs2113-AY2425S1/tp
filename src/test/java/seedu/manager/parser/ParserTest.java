@@ -15,7 +15,7 @@ class ParserTest {
     @Test
     public void parseCommand_nonEmptyString_echo() {
         Parser parser = new Parser();
-        Command command = parser.parseCommand("Hello world!", new EventList());
+        Command command = parser.parseCommand("Hello world!");
 
         assertInstanceOf(EchoCommand.class, command);
     }
@@ -23,7 +23,7 @@ class ParserTest {
     @Test
     public void parseCommand_exitWord_exit() {
         Parser parser = new Parser();
-        Command command = parser.parseCommand("exit" , new EventList());
+        Command command = parser.parseCommand("exit");
 
         assertInstanceOf(ExitCommand.class, command);
     }
@@ -31,7 +31,7 @@ class ParserTest {
     @Test
     public void parseCommand_menuWord_menu() {
         Parser parser = new Parser();
-        Command command = parser.parseCommand("menu" , new EventList());
+        Command command = parser.parseCommand("menu");
 
         assertInstanceOf(MenuCommand.class, command);
     }
@@ -39,7 +39,15 @@ class ParserTest {
     @Test
     public void parseCommand_listWord_list() {
         Parser parser = new Parser();
-        Command command = parser.parseCommand("list", new EventList());
+        Command command = parser.parseCommand("list");
+
+        assertInstanceOf(ListCommand.class, command);
+    }
+
+    @Test
+    public void parseCommand_addWord_add() {
+        Parser parser = new Parser();
+        Command command = parser.parseCommand("add");
 
         assertInstanceOf(ListCommand.class, command);
     }
