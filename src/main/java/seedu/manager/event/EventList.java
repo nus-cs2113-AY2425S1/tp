@@ -55,6 +55,10 @@ public class EventList  {
         Event newEvent = new Event(eventName);
         eventList.add(newEvent);
     }
+
+    public void addEvent(Event event) {
+        eventList.add(event);
+    }
     
     /**
      * @param index The index of event in the list (0 based indexing)
