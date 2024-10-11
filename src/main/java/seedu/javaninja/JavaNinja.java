@@ -1,6 +1,4 @@
-package seedu.duke;
-
-import java.util.Scanner;
+package seedu.javaninja;
 
 public class JavaNinja {
     /**
