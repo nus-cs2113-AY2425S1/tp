@@ -41,6 +41,14 @@ public class Ui {
         System.out.println("welcome to Meditask");
         showLine();
     }
+
+    /**
+     * Closes the scanner resource.
+     */
+    public void closeScanner() {
+        scanner.close();
+    }
+
 }
 
 
