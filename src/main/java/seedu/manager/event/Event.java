@@ -18,6 +18,19 @@ public class Event {
         this.eventName = eventName;
     }
 
+     /**
+     * Constructs an Event with the specified name, time, and venue.
+     *
+     * @param eventName  the name of the event
+     * @param eventTime  the time duration of the event
+     * @param eventVenue the venue of the event
+     */
+    public Event(String eventName, String eventTime, String eventVenue) {
+        this.eventName = eventName;
+        this.eventTime = eventTime;
+        this.eventVenue = eventVenue;
+    }
+
     /**
      * @return the event name
      */
