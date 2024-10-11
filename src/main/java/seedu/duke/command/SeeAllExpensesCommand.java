@@ -4,8 +4,6 @@ import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Expense;
 
-
-
 /**
  * The SeeAllExpensesCommand class is responsible for displaying all recorded expenses
  * from the provided FinancialList. It extends the Command class and overrides the 

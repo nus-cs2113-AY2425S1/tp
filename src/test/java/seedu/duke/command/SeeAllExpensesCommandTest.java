@@ -10,9 +10,22 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-
-
+/**
+ * Unit tests for the SeeAllExpensesCommand class.
+ * 
+ * This class tests the functionality of the SeeAllExpensesCommand, which is responsible for displaying all recorded expenses in the FinancialList.
+ * 
+ * The tests include:
+ * - Setting up and tearing down the test environment.
+ * - Testing the command execution when there are no expenses recorded.
+ * - Testing the command execution when there are expenses recorded.
+ * 
+ * Methods:
+ * - setUp(): Initializes the test environment before each test.
+ * - tearDown(): Restores the original System.out after each test.
+ * - execute_noExpenses_printsNoRecordedExpenses(): Verifies that the command correctly handles the case when there are no expenses.
+ * - execute_withExpenses_printsAllExpenses(): Verifies that the command correctly handles the case when there are expenses recorded.
+ */
 public class SeeAllExpensesCommandTest {
 
     private FinancialList financialList;
