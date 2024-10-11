@@ -1,7 +1,12 @@
 package command.programme;
 import command.Command;
 
-import command.programme.edit.*;
+import command.programme.edit.CreateDayCommand;
+import command.programme.edit.DeleteDayCommand;
+import command.programme.edit.EditSubCommand;
+import command.programme.edit.DeleteExerciseCommand;
+import command.programme.edit.EditExerciseCommand;
+import command.programme.edit.CreateExerciseCommand;
 import core.Ui;
 import programme.Exercise;
 import programme.Day;
@@ -14,7 +19,7 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    private ArrayList<EditSubCommand> subCommands;
+    private final ArrayList<EditSubCommand> subCommands;
 
     public EditCommand(){
         subCommands = new ArrayList<>();
