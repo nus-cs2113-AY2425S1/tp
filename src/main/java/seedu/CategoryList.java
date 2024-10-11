@@ -4,70 +4,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryList {
-    private List<Category> categories;
+    private final List<Category> categories;
 
     public CategoryList() {
         categories = new ArrayList<>();
-        initializeDefaultCategories();
-    }
-
-    // Initialize
-    private void initializeDefaultCategories() {
+        // Adding default categories
         categories.add(new Category("Food"));
-        categories.add(new Category("Entertainment"));
         categories.add(new Category("Transport"));
+        categories.add(new Category("Entertainment"));
         categories.add(new Category("Utilities"));
-        categories.add(new Category("Others"));
     }
 
-    // Add seedu.functions.Category
-    public void addCategory(String categoryName) {
-        for (Category category : categories) {
-            if (category.getName().equalsIgnoreCase(categoryName)) {
-                System.out.println("seedu.functions.Category '" + categoryName + "' already exists!");
-                return;
-            }
-        }
-        categories.add(new Category(categoryName));
-        System.out.println("seedu.functions.Category '" + categoryName + "' added successfully.");
+    public void addCategory(Category category) {
+        categories.add(category);
+        System.out.println("Category added: " + category);
     }
 
-    // Delete seedu.functions.Category
-    public void deleteCategory(String categoryName) {
-        Category toDelete = null;
-        for (Category category : categories) {
-            if (category.getName().equalsIgnoreCase(categoryName)) {
-                toDelete = category;
-                break;
-            }
-        }
-        if (toDelete != null) {
-            categories.remove(toDelete);
-            System.out.println("seedu.functions.Category '" + categoryName + "' deleted successfully.");
+    public void deleteCategory(int index) {
+        if (index >= 0 && index < categories.size()) {
+            Category removed = categories.remove(index);
+            System.out.println("Category removed: " + removed);
         } else {
-            System.out.println("seedu.functions.Category '" + categoryName + "' not found!");
+            System.out.println("Invalid category index!");
         }
     }
 
-    // List all the category
+    public Category getCategoryByName(String name) {
+        for (Category category : categories) {
+            if (category.getName().equals(name)) {
+                return category;
+            }
+        }
+        return null;
+    }
     public void listCategories() {
-        System.out.println("Available categories:");
+        System.out.println("All categories:");
         for (int i = 0; i < categories.size(); i++) {
-            System.out.println((i + 1) + ". " + categories.get(i).getName());
+            System.out.println((i + 1) + ". " + categories.get(i));
         }
     }
-
-    // Get category list
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-
-    public void interactiveAddCategory(String categoryName) {
-        addCategory(categoryName);
-
-    }
-
-
 }
-

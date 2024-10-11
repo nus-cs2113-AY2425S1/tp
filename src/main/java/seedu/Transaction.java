@@ -1,12 +1,13 @@
 package seedu;
 
-import seedu.functions.Category;
+import java.util.ArrayList;
+import java.util.List;
 
-class Transaction {
-    private double amount;
-    private String description;
-    private String date;
-    private seedu.functions.Category category;
+public class Transaction {
+    private final double amount;
+    private final String description;
+    private final String date;
+    private final Category category;
 
     public Transaction(double amount, String description, String date, Category category) {
         this.amount = amount;
@@ -33,7 +34,7 @@ class Transaction {
 
     @Override
     public String toString() {
-        return "seedu.functions.Transaction [amount=" + amount + ", description=" + description + ", date=" + date + ", category="
+        return "Transaction [amount=" + amount + ", description=" + description + ", date=" + date + ", category="
                 + category.getName() + "]";
     }
 }

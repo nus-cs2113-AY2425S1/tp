@@ -1,7 +1,11 @@
 package seedu;
 
+import java.util.ArrayList;
+import java.util.List;
+
+// Category class representing a category
 public class Category {
-    private String name;
+    private final String name;
 
     public Category(String name) {
         this.name = name;
@@ -9,5 +13,10 @@ public class Category {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Category: " + name;
     }
 }

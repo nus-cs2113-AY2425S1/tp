@@ -1,16 +1,16 @@
 package seedu.command;
 
-import java.util.List;
-import java.util.Map;
 import seedu.Category;
 import seedu.CategoryList;
+import seedu.Transaction;
+import seedu.TransactionList;
 
-
+import java.util.List;
 
 // Command class for adding a new category
 public class AddCategoryCommand extends Command {
     public static final String COMMAND_WORD = "add_category";
-    public static final String[] COMMAND_MANDATORY_KEYWORDS = { "name" };
+    public static final String[] COMMAND_MANDATORY_KEYWORDS = { "/cat" };
 
     private CategoryList categoryList;
 
@@ -18,20 +18,23 @@ public class AddCategoryCommand extends Command {
         this.categoryList = categoryList;
     }
 
+    public AddCategoryCommand() {
+        // Default constructor
+    }
+
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
         }
-        String categoryName = arguments.get("name");
+        String categoryName = arguments.get("/cat");
         Category category = new Category(categoryName);
-        categoryList.addCategory(String.valueOf(category));
+        categoryList.addCategory(category);
         return List.of("Category added: " + categoryName);
     }
-
     @Override
     protected String[] getMandatoryKeywords() {
-        return new String[0];
+        return COMMAND_MANDATORY_KEYWORDS;
     }
 
     @Override
@@ -41,11 +44,11 @@ public class AddCategoryCommand extends Command {
 
     @Override
     protected String getCommandWord() {
-        return "";
+        return COMMAND_WORD;
     }
 
     @Override
     protected String getCommandGuide() {
-        return "";
+        return "Adds a new category with the specified name.";
     }
 }
