@@ -16,8 +16,8 @@ public class ListCommandTest {
     public void setUp() {
         EventList eventList = new EventList();
 
-        eventList.addEvent(new Event("Event 1", "2024-10-10 10:00", "Venue A"));
-        eventList.addEvent(new Event("Event 2", "2024-11-11 12:00", "Venue B"));
+        eventList.addEvent("Event 1", "2024-10-10 10:00", "Venue A");
+        eventList.addEvent("Event 2", "2024-11-11 12:00", "Venue B");
 
         listCommand = new ListCommand();
         listCommand.setData(eventList);
