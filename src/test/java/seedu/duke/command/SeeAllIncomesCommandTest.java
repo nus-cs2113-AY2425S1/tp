@@ -1,5 +1,7 @@
 package seedu.duke.command;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
@@ -8,18 +10,29 @@ import seedu.duke.financial.Income;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SeeAllIncomesCommandTest {
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    private final PrintStream printStream = new PrintStream(outputStream);
-    private final FinancialList financialList = new FinancialList();
+    private final PrintStream originalOut = System.out;
+    private FinancialList financialList;
+    private SeeAllIncomesCommand testCommand;
+
+    @BeforeEach
+    void setUp() {
+        financialList = new FinancialList();
+        testCommand = new SeeAllIncomesCommand();
+        System.setOut(new PrintStream(outputStream));
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.setOut(originalOut);
+    }
 
     @Test
     void execute_mixedList_expectPrintedIncomes() {
-
-        System.setOut(printStream);
 
         financialList.addEntry(new Expense(3.50, "lunch"));
         financialList.addEntry(new Income(3000.00, "salary"));
@@ -28,8 +41,7 @@ class SeeAllIncomesCommandTest {
         financialList.addEntry(new Income(100.00, "allowance"));
         financialList.addEntry(new Income(15.00, "ang pow money"));
 
-        Command command = new SeeAllIncomesCommand();
-        command.execute(financialList);
+        testCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput = "Here's a list of all recorded incomes:" + System.lineSeparator() +
@@ -43,14 +55,11 @@ class SeeAllIncomesCommandTest {
     @Test
     void execute_onlyExpenseList_expectNothing() {
 
-        System.setOut(printStream);
-
         financialList.addEntry(new Expense(3.50, "lunch"));
         financialList.addEntry(new Expense(4.50, "dinner"));
         financialList.addEntry(new Expense(20.00, "movie ticket"));
 
-        Command command = new SeeAllIncomesCommand();
-        command.execute(financialList);
+        testCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput = "No recorded incomes found." + System.lineSeparator();
