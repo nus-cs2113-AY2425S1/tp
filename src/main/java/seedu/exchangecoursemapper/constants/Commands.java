@@ -6,4 +6,5 @@ public class Commands {
     public static final String COMMANDS = "commands";
     public static final String FILTER_COURSES = "filter";
     public static final String SET = "set";
+    public static final String ADD_COURSES = "add";
 }
