@@ -7,7 +7,11 @@ import command.LogCommand;
 import command.InvalidCommand;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import static parser.ParserUtils.parseIndex;
+
 
 
 public class Parser {
@@ -46,9 +50,14 @@ public class Parser {
 
         int progIndex = parseIndex(arguments[0].trim());
         int dayIndex = parseIndex(arguments[1].trim());
-
-        String date = arguments[2].trim();
+        LocalDateTime date = parseDate(arguments[2].trim());
 
         return new LogCommand(progIndex, dayIndex, date);
+    }
+
+
+    private LocalDateTime parseDate(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDateTime.parse(dateString, formatter);
     }
 }
