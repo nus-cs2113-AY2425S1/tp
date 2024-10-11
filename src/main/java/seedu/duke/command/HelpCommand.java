@@ -35,6 +35,6 @@ public class HelpCommand extends Command{
                 "7. help\n " +
                 "   - Shows a list of all valid commands\n" +
                 "--------------------------------------------\n";
-        System.out.println(helpMenu);
+        System.out.print(helpMenu);
     }
 }
