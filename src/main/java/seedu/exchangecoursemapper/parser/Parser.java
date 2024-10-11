@@ -4,14 +4,17 @@ import seedu.exchangecoursemapper.command.FilterCoursesCommand;
 import seedu.exchangecoursemapper.command.ListCommandsCommand;
 import seedu.exchangecoursemapper.command.ListSchoolCommand;
 import seedu.exchangecoursemapper.command.ListUniCoursesCommand;
+import seedu.exchangecoursemapper.command.AddCoursesCommand;
 
 import java.util.Scanner;
 
+import static seedu.exchangecoursemapper.constants.Commands.COMMANDS;
+import static seedu.exchangecoursemapper.constants.Commands.LISTINGSCHOOLS;
+import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES;
+import static seedu.exchangecoursemapper.constants.Commands.SET;
+import static seedu.exchangecoursemapper.constants.Commands.ADD_COURSES;
+
 public class Parser {
-    public static final String LISTINGSCHOOLS = "list schools";
-    public static final String COMMANDS = "commands";
-    public static final String FILTER_COURSES = "filter";
-    public static final String SET = "set";
 
     private final Scanner scanner = new Scanner(System.in);
 
@@ -26,6 +29,8 @@ public class Parser {
             new ListCommandsCommand().execute(userInput);
         } else if (userInput.startsWith(FILTER_COURSES)) {
             new FilterCoursesCommand().execute(userInput);
+        } else if (userInput.startsWith(ADD_COURSES)) {
+            new AddCoursesCommand().execute(userInput);
         } else if (userInput.startsWith(SET)) {
             new ListUniCoursesCommand().execute(userInput);
         } else { // Add your parts here
