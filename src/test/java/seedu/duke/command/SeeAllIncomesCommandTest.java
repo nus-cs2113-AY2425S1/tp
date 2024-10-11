@@ -12,6 +12,11 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for the SeeAllIncomesCommand.
+ * This class contains unit tests to verify the functionality of the SeeAllIncomesCommand
+ * when executed on a FinancialList containing various financial entries.
+ */
 class SeeAllIncomesCommandTest {
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -19,6 +24,11 @@ class SeeAllIncomesCommandTest {
     private FinancialList financialList;
     private SeeAllIncomesCommand testCommand;
 
+    /**
+     * Set up the test environment before each test.
+     * Initializes the FinancialList and SeeAllIncomesCommand instances,
+     * and redirects System.out to capture console output.
+     */
     @BeforeEach
     void setUp() {
         financialList = new FinancialList();
@@ -26,11 +36,20 @@ class SeeAllIncomesCommandTest {
         System.setOut(new PrintStream(outputStream));
     }
 
+    /**
+     * Clean up the test environment after each test.
+     * Restores the original System.out PrintStream.
+     */
     @AfterEach
     void tearDown() {
         System.setOut(originalOut);
     }
 
+    /**
+     * Test the execute method with a mixed list of incomes and expenses.
+     * Expects only income entries to be printed with index relative to
+     * income entries only.
+     */
     @Test
     void execute_mixedList_expectPrintedIncomes() {
 
@@ -52,6 +71,10 @@ class SeeAllIncomesCommandTest {
         assertEquals(expectedOutput, output);
     }
 
+    /**
+     * Test the execute method with a list containing only expenses.
+     * Expects a message indicating no incomes were found.
+     */
     @Test
     void execute_onlyExpenseList_expectNothing() {
 
