@@ -161,37 +161,37 @@ public class AppUi {
                 "--------------------------------------------\n";
 
         switch (command) {
-            case "list":
-                listEntries();
-                break;
+        case "list":
+            listEntries();
+            break;
 
-            case "expense":
-                addExpense(commandArguments);
-                break;
+        case "expense":
+            addExpense(commandArguments);
+            break;
 
-            case "income":
-                addIncome(commandArguments);
-                break;
+        case "income":
+            addIncome(commandArguments);
+            break;
 
-            case "edit":
-                editEntry(commandArguments);
-                break;
+        case "edit":
+            editEntry(commandArguments);
+            break;
 
-            case "delete":
-                deleteEntry(commandArguments);
-                break;
+        case "delete":
+            deleteEntry(commandArguments);
+            break;
 
-            case "help":
-                System.out.println(helpMenu);
-                break;
+        case "help":
+            System.out.println(helpMenu);
+            break;
 
-            case "exit":
-                System.out.println(goodByeMessage);
-                return false;
+        case "exit":
+            System.out.println(goodByeMessage);
+            return false;
 
-            default:
-                System.out.println(unrecognizedCommand);
-                break;
+        default:
+            System.out.println(unrecognizedCommand);
+            break;
         }
 
         return true;
