@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -39,6 +40,25 @@ class ExpenseListTest {
         ExpenseList expenseList = new ExpenseList();
         Expense expense = new Expense(0F, "", "");
         assertEquals(-1, expenseList.getIndexOf(expense));
+    }
+
+    @Test
+    public void addExpense_normalExpense_success() {
+        ExpenseList expenseList = new ExpenseList();
+        expenseList.addExpense(1.00f, "Ice Cream", "Food");
+        Expense expense = expenseList.getExpenseAtIndex(0);
+        assertEquals(1.00f, expense.getPrice());
+        assertEquals("Ice Cream", expense.getDescription());
+        assertEquals("Food", expense.getCategory());
+    }
+    @Test
+    public void addExpense_nullFieldsExpense_success() {
+        ExpenseList expenseList = new ExpenseList();
+        expenseList.addExpense(null, null, null);
+        Expense expense = expenseList.getExpenseAtIndex(0);
+        assertNull(expense.getPrice());
+        assertNull(expense.getDescription());
+        assertNull(expense.getCategory());
     }
 
     @Test
