@@ -1,10 +1,8 @@
 package seedu.duke.ui;
 
 import seedu.duke.command.*;
-import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
-import seedu.duke.financial.Income;
 import seedu.duke.parser.InputParser;
 
 import java.util.HashMap;
