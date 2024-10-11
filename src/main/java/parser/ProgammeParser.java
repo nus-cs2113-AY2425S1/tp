@@ -29,14 +29,14 @@ public class ProgammeParser {
             arguments = inputArguments[1];
         }
 
-        switch (subCommandString) {
-        case CreateCommand.COMMAND_WORD: return prepareCreateCommand(arguments);
-        case ViewCommand.COMMAND_WORD: return prepareViewCommand(arguments);
-        case ListCommand.COMMAND_WORD: return new ListCommand();
-        case EditCommand.COMMAND_WORD: return prepareEditCommand(arguments);
-        case StartCommand.COMMAND_WORD: return prepareStartCommand(arguments);
-        default: return new InvalidCommand();
-        }
+        return switch (subCommandString) {
+        case CreateCommand.COMMAND_WORD -> prepareCreateCommand(arguments);
+        case ViewCommand.COMMAND_WORD -> prepareViewCommand(arguments);
+        case ListCommand.COMMAND_WORD -> new ListCommand();
+        case EditCommand.COMMAND_WORD -> prepareEditCommand(arguments);
+        case StartCommand.COMMAND_WORD -> prepareStartCommand(arguments);
+        default -> new InvalidCommand();
+        };
     }
 
     private Command prepareCreateCommand(String argumentString) {
@@ -60,7 +60,7 @@ public class ProgammeParser {
 
         int progIndex = -1;
         int dayIndex = -1;
-        int exerciseIndex = -1;
+        int exerciseIndex;
 
         for (String arg : args) {
             if (arg.trim().isEmpty()) {

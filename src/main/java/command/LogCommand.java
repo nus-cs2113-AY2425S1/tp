@@ -6,9 +6,9 @@ import core.History;
 
 public class LogCommand extends Command {
     public static final String COMMAND_WORD = "log";
-    private String date;
-    private int progIndex;
-    private int dayIndex;
+    private final String date;
+    private final int progIndex;
+    private final int dayIndex;
 
     public LogCommand(int progIndex, int dayIndex, String date){
         this.progIndex = progIndex;

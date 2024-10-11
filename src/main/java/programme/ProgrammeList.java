@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ProgrammeList {
 
     int currentActiveProgramme;
-    private ArrayList<Programme> programmeList;
+    private final ArrayList<Programme> programmeList;
 
     public ProgrammeList() {
         programmeList = new ArrayList<>();

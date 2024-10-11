@@ -3,8 +3,8 @@ package programme;
 import java.util.ArrayList;
 
 public class Programme {
-    private String programmeName;
-    private ArrayList<Day> dayList;
+    private final String programmeName;
+    private final ArrayList<Day> dayList;
 
     public Programme(String programmeName, ArrayList<Day> dayList) {
         this.programmeName = programmeName;

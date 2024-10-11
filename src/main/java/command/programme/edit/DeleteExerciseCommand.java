@@ -6,7 +6,7 @@ import programme.ProgrammeList;
 
 public class DeleteExerciseCommand  extends EditSubCommand {
 
-    private int exerciseId;
+    private final int exerciseId;
 
     public DeleteExerciseCommand(int progId, int dayId, int exerciseId) {
         super(progId, dayId);

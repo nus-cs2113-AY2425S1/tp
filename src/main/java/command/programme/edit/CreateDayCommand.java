@@ -3,7 +3,7 @@ import programme.Day;
 import programme.ProgrammeList;
 
 public class CreateDayCommand  extends EditSubCommand{
-    private Day created;
+    private final Day created;
 
     public CreateDayCommand(int progId, Day day) {
         super(progId);

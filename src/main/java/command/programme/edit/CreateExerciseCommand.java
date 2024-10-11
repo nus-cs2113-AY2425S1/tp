@@ -6,7 +6,7 @@ import programme.ProgrammeList;
 
 public class CreateExerciseCommand  extends EditSubCommand {
 
-    private Exercise created;
+    private final Exercise created;
 
     public CreateExerciseCommand(int progId, int dayId, Exercise created) {
         super(progId,dayId);
