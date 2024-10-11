@@ -24,7 +24,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void testExecute() {
+    public void execute_twoEvents_success() {
         CommandOutput result = listCommand.execute();
 
         String expectedMessage = "There are 2 events in your list! Here are your scheduled events:\n"
