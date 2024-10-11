@@ -43,10 +43,19 @@ public class EventList  {
         return eventList.size();
     }
 
+    /**
+     * Adds a new event to the event list.
+     * 
+     * This method creates a new instance of the {@link Event} class with the specified
+     * event name and adds it to the {@code eventList}.
+     *
+     * @param eventName the name of the event to be added
+     */
     public void addEvent(String eventName) {
         Event newEvent = new Event(eventName);
         eventList.add(newEvent);
     }
+    
     /**
      * @param index The index of event in the list (0 based indexing)
      * @return The specific event in the event list.
