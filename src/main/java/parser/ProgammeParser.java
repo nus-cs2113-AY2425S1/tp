@@ -11,6 +11,7 @@ import command.programme.ListCommand;
 import command.programme.StartCommand;
 import command.programme.EditCommand;
 
+
 import java.util.ArrayList;
 
 import static parser.ParserUtils.parseIndex;
@@ -155,7 +156,6 @@ public class ProgammeParser {
 
         return new Exercise(sets, reps, weight, name);
     }
-
 
     private Command prepareViewCommand(String argumentString) {
         int progIndex = parseIndex(argumentString);
