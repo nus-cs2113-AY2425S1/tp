@@ -14,6 +14,63 @@ public class AppUi {
     }
 
     public boolean matchCommand(String command, HashMap<String, String> commandArguments) {
+        final String goodByeMessage = "--------------------------------------------\n" +
+                "Goodbye! Hope to see you again soon :)\n" +
+                "--------------------------------------------\n";
+
+        final String unrecognizedCommand = "--------------------------------------------\n" +
+                "Unrecognized command!\n" +
+                "Use the command \"help\" for a list of valid commands\n" +
+                "--------------------------------------------\n";
+
+        final String helpMenu = "--------------------------------------------\n" +
+                "List of commands:\n" +
+                "--------------------------------------------\n" +
+                "1. list - Shows a list of all logged transactions\n" +
+                "2. expense DESCRIPTION /a AMOUNT [/d DATE] - Adds a new expense\n" +
+                "3. income DESCRIPTION /a AMOUNT [/d DATE] - Adds a new income\n" +
+                "4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] - Edits the transaction at the specified INDEX\n" +
+                "5. delete INDEX - Deletes the transaction at the specified INDEX\n" +
+                "6. exit - Exits the program\n" +
+                "7. help - Shows a list of all valid commands\n" +
+                "--------------------------------------------\n";
+
+        switch (command) {
+            case "list":
+                for (int i = 0; i < financialList.getEntryCount(); i++) {
+                    System.out.println(financialList.getEntry(i).toString());
+                }
+                break;
+
+            case "expense":
+                System.out.println("expense");
+                break;
+
+            case "income":
+                System.out.println("income");
+                break;
+
+            case "edit":
+                System.out.println("edit");
+                break;
+
+            case "delete":
+                System.out.println("delete");
+                break;
+
+            case "help":
+                System.out.println(helpMenu);
+                break;
+
+            case "exit":
+                System.out.println(goodByeMessage);
+                return false;
+
+            default:
+                System.out.println(unrecognizedCommand);
+                break;
+        }
+
         return true;
     }
 
@@ -58,5 +115,6 @@ public class AppUi {
 
     public void run() {
         displayWelcomeMessage();
+        commandEntry();
     }
 }
