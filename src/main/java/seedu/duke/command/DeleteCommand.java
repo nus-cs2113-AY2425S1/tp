@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 
 /**
@@ -25,7 +26,11 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(FinancialList list) {
+        FinancialEntry entry = list.getEntry(index - 1);
         list.deleteEntry(index - 1);  // Index correction as list is 0-based
-        System.out.println("Entry deleted.");
+        System.out.println("--------------------------------------------");
+        System.out.println("Okay! The following entry has been deleted: ");
+        System.out.println(entry);
+        System.out.println("--------------------------------------------");
     }
 }
