@@ -55,6 +55,7 @@ public class CategoryList {
         }
     }
 
+
     // Get category list
     public List<Category> getCategories() {
         return categories;
