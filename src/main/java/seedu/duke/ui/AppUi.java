@@ -1,6 +1,11 @@
 package seedu.duke.ui;
 
-import seedu.duke.command.*;
+import seedu.duke.command.AddExpenseCommand;
+import seedu.duke.command.AddIncomeCommand;
+import seedu.duke.command.DeleteCommand;
+import seedu.duke.command.EditEntryCommand;
+import seedu.duke.command.SeeAllEntriesCommand;
+import seedu.duke.command.HelpCommand;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.parser.InputParser;
