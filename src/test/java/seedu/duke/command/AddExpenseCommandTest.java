@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.financial.FinancialList;
-import seedu.duke.financial.Expense;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
