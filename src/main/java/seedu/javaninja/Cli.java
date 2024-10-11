@@ -2,6 +2,7 @@ package seedu.javaninja;
 
 import java.util.Scanner;
 
+/* manages input by user */
 public class Cli {
     private QuizManager quizManager;
 
