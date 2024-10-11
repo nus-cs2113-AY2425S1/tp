@@ -46,13 +46,5 @@ public class EventList  {
     public void addEvent(String eventName) {
         Event newEvent = new Event(eventName);
         eventList.add(newEvent);
-      
-    /**
-     * @param index The index of event in the list (0 based indexing)
-     * @return The specific event in the event list.
-     */
-    public Event getEvent(int index) {
-        return eventList.get(index);
-    }
 
 }
