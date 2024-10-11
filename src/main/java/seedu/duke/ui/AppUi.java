@@ -25,6 +25,11 @@ public class AppUi {
         financialList = new FinancialList();
     }
 
+    /**
+     * Adds a financial entry to the financial list.
+     *
+     * @param entry The financial entry to be added.
+     */
     public void addEntry(FinancialEntry entry) {
         financialList.addEntry(entry);
 
@@ -35,6 +40,11 @@ public class AppUi {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Adds an expense entry to the financial list using the command arguments.
+     *
+     * @param commandArguments The parsed command arguments containing the expense details.
+     */
     public void addExpense(HashMap<String, String> commandArguments) {
         String description = commandArguments.get("argument");
         double amount = Double.parseDouble(commandArguments.get("/a"));
@@ -45,6 +55,11 @@ public class AppUi {
         addEntry(entry);
     }
 
+    /**
+     * Adds an income entry to the financial list using the command arguments.
+     *
+     * @param commandArguments The parsed command arguments containing the income details.
+     */
     public void addIncome(HashMap<String, String> commandArguments) {
         String description = commandArguments.get("argument");
         double amount = Double.parseDouble(commandArguments.get("/a"));
@@ -55,6 +70,11 @@ public class AppUi {
         addEntry(entry);
     }
 
+    /**
+     * Edits an existing financial entry at a specified index with new values.
+     *
+     * @param commandArguments The parsed command arguments containing the new details for the entry.
+     */
     public void editEntry(HashMap<String, String> commandArguments) {
         int index = Integer.parseInt(commandArguments.get("argument"));
 
@@ -75,6 +95,11 @@ public class AppUi {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Deletes an entry from the financial list based on the specified index.
+     *
+     * @param commandArguments The parsed command arguments containing the index of the entry to delete.
+     */
     public void deleteEntry(HashMap<String, String> commandArguments) {
         int index = Integer.parseInt(commandArguments.get("argument")) - 1;
         FinancialEntry entry = financialList.getEntry(index);
@@ -87,6 +112,9 @@ public class AppUi {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Lists all the financial entries in the financial list.
+     */
     public void listEntries() {
         System.out.println("--------------------------------------------");
         System.out.println("Here is the list of all logged transactions: ");
