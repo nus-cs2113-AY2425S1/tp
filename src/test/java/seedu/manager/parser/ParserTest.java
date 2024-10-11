@@ -7,6 +7,7 @@ import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.AddCommand;
+import seedu.manager.command.RemoveCommand;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
@@ -50,5 +51,13 @@ class ParserTest {
         Command command = parser.parseCommand("add");
 
         assertInstanceOf(AddCommand.class, command);
+    }
+
+    @Test
+    public void parseCommand_removeWord_add() {
+        Parser parser = new Parser();
+        Command command = parser.parseCommand("remove");
+
+        assertInstanceOf(RemoveCommand.class, command);
     }
 }
