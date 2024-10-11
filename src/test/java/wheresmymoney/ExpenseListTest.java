@@ -39,4 +39,11 @@ class ExpenseListTest {
         Expense expense = new Expense(0F, "", "");
         assertEquals(-1, expenseList.getIndexOf(expense));
     }
+
+    @Test
+    public void deleteExpense_emptyList_throwsWheresMyMoneyException() {
+        ExpenseList expenseList = new ExpenseList();
+        assertThrows(WheresMyMoneyException.class,
+                () -> expenseList.deleteExpense(1));
+    }
 }
