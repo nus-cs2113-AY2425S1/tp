@@ -2,10 +2,7 @@ package wheresmymoney;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ExpenseListTest {
 
@@ -39,6 +36,19 @@ class ExpenseListTest {
         ExpenseList expenseList = new ExpenseList();
         Expense expense = new Expense(0F, "", "");
         assertEquals(-1, expenseList.getIndexOf(expense));
+    }
+
+    @Test
+    public void addExpense_normalExpense_success() {
+        ExpenseList expenseList = new ExpenseList();
+        expenseList.addExpense(1.00f, "Ice Cream", "Food");
+        assertEquals(new Expense(1.00f, "Ice Cream", "Food"), expenseList.getExpenseAtIndex(0));
+    }
+    @Test
+    public void addExpense_nullFieldsExpense_success() {
+        ExpenseList expenseList = new ExpenseList();
+        expenseList.addExpense(null, null, null);
+        assertEquals(new Expense(null, null, null), expenseList.getExpenseAtIndex(0));
     }
 
     @Test
