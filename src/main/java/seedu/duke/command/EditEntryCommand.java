@@ -16,8 +16,11 @@ public class EditEntryCommand extends Command {
     @Override
     public void execute(FinancialList list) {
         list.editEntry(index, amount, description);
+        System.out.println("--------------------------------------------");
         System.out.println("Got it. I've edited this expense:");
         System.out.println(list.getEntry(index));
+        System.out.println("--------------------------------------------");
+
     }
 
 }
