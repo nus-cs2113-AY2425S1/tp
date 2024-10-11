@@ -15,30 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Test class for SeeAllExpensesCommand.
  * This class contains unit tests for the SeeAllExpensesCommand class, 
  * which is responsible for displaying all recorded expenses.
- * 
- * <p>It includes the following tests:
- * <ul>
- *   <li>execute_noExpenses_printsNoRecordedExpenses: 
- *      Verifies that the command correctly handles the case where there are no recorded expenses.</li>
- *   <li>execute_withExpenses_printsAllExpenses: 
- *      Verifies that the command correctly displays all recorded expenses when they are 
- *      present in the financial list.</li>
- * </ul>
- * 
- * <p>Setup and teardown methods are provided to initialize and clean up the test environment:
- * <ul>
- *   <li>setUp: Initializes the FinancialList and SeeAllExpensesCommand objects, 
- *      and redirects System.out to a ByteArrayOutputStream for capturing output.</li>
- *   <li>tearDown: Restores the original System.out after each test.</li>
- * </ul>
- * 
- * <p>Dependencies:
- * <ul>
- *   <li>FinancialList: A list that holds financial entries.</li>
- *   <li>SeeAllExpensesCommand: The command being tested.</li>
- *   <li>FinancialEntry: Represents a financial entry (e.g., an expense).</li>
- *   <li>Expense: A specific type of FinancialEntry representing an expense.</li>
- * </ul>
  */
 public class SeeAllExpensesCommandTest {
 
@@ -47,23 +23,43 @@ public class SeeAllExpensesCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
+    /**
+     * Sets up the test environment before each test method is executed.
+     * Initializes the financial list and the see all expenses command.
+     * Redirects the standard output to a PrintStream for capturing output.
+     */
     @BeforeEach
     public void setUp() {
         financialList = new FinancialList();
         seeAllExpensesCommand = new SeeAllExpensesCommand();
         System.setOut(new PrintStream(outContent));
     }
+    /**
+     * Restores the original standard output stream after each test.
+     */
     @AfterEach
     public void tearDown() {
         System.setOut(originalOut);
     }
 
+    /**
+     * Tests the execute method of SeeAllExpensesCommand when there are no expenses recorded.
+     * Verifies that the output message indicates no recorded expenses.
+     */
     @Test
     public void execute_noExpenses_printsNoRecordedExpenses() {
         seeAllExpensesCommand.execute(financialList);
         assertEquals("No recorded expenses found." + System.lineSeparator(), outContent.toString());
     }
 
+    /**
+     * Tests the execute method of SeeAllExpensesCommand when there are expenses in the financial list.
+     * 
+     * This test case verifies that the execute method correctly prints all the expenses in the financial list.
+     * It adds two expenses to the financial list and then calls the execute method.
+     * The expected output is a formatted string listing all the expenses.
+     * The test asserts that the actual output matches the expected output.
+     */
     @Test
     public void execute_withExpenses_printsAllExpenses() {
         FinancialEntry expense1 = new Expense(10.0, "food");
