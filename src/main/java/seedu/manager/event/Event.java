@@ -18,7 +18,7 @@ public class Event {
         this.eventName = eventName;
     }
 
-     /**
+    /**
      * Constructs an Event with the specified name, time, and venue.
      *
      * @param eventName  the name of the event
