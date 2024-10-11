@@ -6,7 +6,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static fittrack.messages.Messages.*;
+import static fittrack.ui.Ui.printAddedSession;
+import static fittrack.ui.Ui.printDeletedSession;
 import static fittrack.ui.Ui.printSessionList;
+import static fittrack.ui.Ui.printSessionView;
 import static fittrack.ui.Ui.printUnrecognizedInputMessage;
 
 public class Parser {
@@ -37,22 +40,26 @@ public class Parser {
                 break;
             case ADD_SESSION_COMMAND:
                 sessionList.add(new TrainingSession(LocalDateTime.now().toString() , description, user));
+                printAddedSession(sessionList);
                 break;
             case EDIT_EXERCISE_COMMAND:
                 sentence = description.split(" ", 3);
                 int sessionIndex = Integer.parseInt(sentence[0]) - 1;
                 int exerciseIndex = Integer.parseInt(sentence[1]);
-                int exerciseReps = Integer.parseInt(sentence[2]);
-                sessionList.get(sessionIndex).editExercise(exerciseIndex, exerciseReps);
+                int exerciseData = Integer.parseInt(sentence[2]);
+                sessionList.get(sessionIndex).editExercise(exerciseIndex, exerciseData);
                 break;
             case LIST_SESSIONS_COMMAND:
                 printSessionList(sessionList); // Print the list of sessions
                 break;
             case VIEW_SESSION_COMMAND:
-                sessionList.get(Integer.parseInt(description)-1).viewSession(); // Print the list of sessions
+                printSessionView(sessionList, Integer.parseInt(description)-1); // Print the list of sessions
                 break;
             case DELETE_SESSION_COMMAND:
-                sessionList.remove(Integer.parseInt(description)-1);
+                int indexToDelete = Integer.parseInt(description) - 1;
+                TrainingSession sessionToDelete = sessionList.get(indexToDelete);
+                sessionList.remove(indexToDelete);
+                printDeletedSession(sessionList, sessionToDelete);
                 break;
             default:
                 printUnrecognizedInputMessage(); // Response to unrecognized inputs

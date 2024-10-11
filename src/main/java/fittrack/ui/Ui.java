@@ -6,6 +6,8 @@ import fittrack.user.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import static fittrack.messages.Messages.ADD_SESSION_MESSAGE;
+import static fittrack.messages.Messages.DELETE_SESSION_MESSAGE;
 import static fittrack.messages.Messages.EXIT_MESSAGE;
 import static fittrack.messages.Messages.INIT_SENTENCE;
 import static fittrack.messages.Messages.INVALID_INPUT_MESSAGE;
@@ -41,6 +43,23 @@ public class Ui {
         endSegment();
     }
 
+    public static void printAddedSession(ArrayList<TrainingSession> sessionList) {
+        beginSegment();
+        System.out.print(ADD_SESSION_MESSAGE);
+        sessionList.get(sessionList.size()-1).printSessionDescription();
+        printSessionCount(sessionList);
+        endSegment();
+    }
+
+    public static void printDeletedSession(ArrayList<TrainingSession> sessionList, TrainingSession sessionToDelete) {
+        beginSegment();
+        System.out.print(DELETE_SESSION_MESSAGE);
+        sessionToDelete.printSessionDescription();
+        printSessionCount(sessionList);
+        endSegment();
+
+    }
+
     /**
      * Prints the list of training sessions.
      *
@@ -60,6 +79,13 @@ public class Ui {
             sessionList.get(index).printSessionDescription();
             index++;
         }
+        printSessionCount(sessionList);
+        endSegment();
+    }
+
+    public static void printSessionView(ArrayList<TrainingSession> sessionList, int index) {
+        beginSegment();
+        sessionList.get(index).viewSession();
         endSegment();
     }
 
@@ -69,7 +95,7 @@ public class Ui {
      * @param sessionList The list of training sessions.
      */
     public static void printSessionCount(List<TrainingSession> sessionList) {
-        System.out.println("Now you have " + sessionList.size() + " sessions in the list.");
+        System.out.println("There are " + sessionList.size() + " sessions in the list.");
     }
 
     /**
