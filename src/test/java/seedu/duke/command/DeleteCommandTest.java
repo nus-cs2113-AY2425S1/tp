@@ -71,8 +71,8 @@ class DeleteCommandTest {
         assertEquals(2, financialList.getEntryCount());  // Two entries should remain
 
         // Check the remaining entries by description to ensure the correct entry was deleted
-        assertEquals("lunch", financialList.getEntry(0).getDescription());  // First entry should still be "lunch"
-        assertEquals("movie ticket", financialList.getEntry(1).getDescription());  // Third entry should now be at index 1
+        assertEquals("lunch", financialList.getEntry(0).getDescription());
+        assertEquals("movie ticket", financialList.getEntry(1).getDescription());
     }
 
     /**
