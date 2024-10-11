@@ -144,13 +144,20 @@ public class AppUi {
         final String helpMenu = "--------------------------------------------\n" +
                 "List of commands:\n" +
                 "--------------------------------------------\n" +
-                "1. list - Shows a list of all logged transactions\n" +
-                "2. expense DESCRIPTION /a AMOUNT [/d DATE] - Adds a new expense\n" +
-                "3. income DESCRIPTION /a AMOUNT [/d DATE] - Adds a new income\n" +
-                "4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] - Edits the transaction at the specified INDEX\n" +
-                "5. delete INDEX - Deletes the transaction at the specified INDEX\n" +
-                "6. exit - Exits the program\n" +
-                "7. help - Shows a list of all valid commands\n" +
+                "1. list\n " +
+                "   - Shows a list of all logged transactions\n" +
+                "2. expense DESCRIPTION /a AMOUNT [/d DATE]\n " +
+                "   - Adds a new expense\n" +
+                "3. income DESCRIPTION /a AMOUNT [/d DATE]\n " +
+                "   - Adds a new income\n" +
+                "4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE]\n " +
+                "   - Edits the transaction at the specified INDEX\n" +
+                "5. delete INDEX\n " +
+                "   - Deletes the transaction at the specified INDEX\n" +
+                "6. exit\n " +
+                "   - Exits the program\n" +
+                "7. help\n " +
+                "   - Shows a list of all valid commands\n" +
                 "--------------------------------------------\n";
 
         switch (command) {
