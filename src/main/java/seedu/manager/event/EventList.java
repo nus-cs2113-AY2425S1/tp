@@ -41,8 +41,8 @@ public class EventList  {
      *
      * @param eventName the name of the event to be added
      */
-    public void addEvent(String eventName) {
-        Event newEvent = new Event(eventName);
+    public void addEvent(String eventName, String time, String venue) {
+        Event newEvent = new Event(eventName, time, venue);
         eventList.add(newEvent);
     }
 
