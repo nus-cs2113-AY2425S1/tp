@@ -20,16 +20,15 @@ public class Parser {
      * Returns a command based on the given user command string
      *
      * @param command The given command string from the user
-     * @param events Event list of existing events
      */
-    public Command parseCommand(String command, EventList events){
+    public Command parseCommand(String command){
         String[] commandParts = command.split(" ");
         String commandWord = commandParts[0];
         String description = String.join(" ", Arrays.copyOfRange(commandParts, 1, commandParts.length)).trim();
 
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            return new AddCommand(description, events);
+            return new AddCommand(description);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
         case ExitCommand.COMMAND_WORD:

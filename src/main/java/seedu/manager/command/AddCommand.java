@@ -7,13 +7,11 @@ import seedu.manager.event.EventList;
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
-    public static final String ADD_MESSAGE = "Event added successfully";
+    private static final String ADD_MESSAGE = "Event added successfully";
     protected String eventName;
-    protected EventList events;
 
-    public AddCommand(String desc, EventList events) {
+    public AddCommand(String desc) {
         this.eventName = desc;
-        this.events = events;
     }
 
     /**
@@ -22,8 +20,8 @@ public class AddCommand extends Command {
      * @return The command output with an add message
      */
     public CommandOutput execute() {
-        this.events.addEvent(this.eventName);
-        this.events.getList();
+        this.eventList.addEvent(this.eventName);
+        //this.eventList.getList();
         return new CommandOutput(ADD_MESSAGE, false);
     }
 }
