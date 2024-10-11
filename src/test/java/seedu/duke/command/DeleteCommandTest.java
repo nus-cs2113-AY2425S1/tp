@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Test class for the DeleteCommand.
  * This class contains unit tests to verify the functionality of the DeleteCommand
- * when removing an entry from the financial list.
+ * when removing an entry from the financial list using a 1-based index.
  */
 class DeleteCommandTest {
 
@@ -45,7 +45,9 @@ class DeleteCommandTest {
 
     /**
      * Test the execute method of DeleteCommand.
-     * Verifies that an entry is deleted from the financial list when a valid index is given.
+     * Verifies that an entry is deleted from the financial list when a valid 1-based index is given,
+     * and checks that the correct output is printed.
+     * Additionally, verifies that the correct entry was deleted by checking the remaining entries.
      */
     @Test
     void execute_deleteEntry_expectEntryRemoved() {
@@ -53,11 +55,14 @@ class DeleteCommandTest {
         financialList.addEntry(new Income(3000.00, "salary"));
         financialList.addEntry(new Expense(20.00, "movie ticket"));
 
-        deleteCommand = new DeleteCommand(1);  //Delete the first entry lunch
+        deleteCommand = new DeleteCommand(2);  // Delete the second entry (1-based index, "salary")
         deleteCommand.execute(financialList);
 
         String output = outputStream.toString();
-        String expectedOutput = "Entry deleted." + System.lineSeparator();
+        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+                "Okay! The following entry has been deleted: " + System.lineSeparator() +
+                "[Income] - salary $ 3000.0" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
 
         // Verify the correct message is printed
         assertEquals(expectedOutput, output);
@@ -66,21 +71,19 @@ class DeleteCommandTest {
         assertEquals(2, financialList.getEntryCount());  // Two entries should remain
 
         // Check the remaining entries by description to ensure the correct entry was deleted
-        assertEquals("salary", financialList.getEntry(0).getDescription());
-        assertEquals("movie ticket", financialList.getEntry(1).getDescription());
+        assertEquals("lunch", financialList.getEntry(0).getDescription());  // First entry should still be "lunch"
+        assertEquals("movie ticket", financialList.getEntry(1).getDescription());  // Third entry should now be at index 1
     }
 
-
-
     /**
-     * Test the execute method of DeleteCommand with an invalid index.
+     * Test the execute method of DeleteCommand with an invalid 1-based index.
      * Verifies that an error message is printed and no entry is deleted when an invalid index is given.
      */
     @Test
     void execute_invalidIndex_expectError() {
         financialList.addEntry(new Expense(3.50, "lunch"));
 
-        deleteCommand = new DeleteCommand(2);  // Invalid index
+        deleteCommand = new DeleteCommand(3);  // Invalid 1-based index
         deleteCommand.execute(financialList);
 
         String output = outputStream.toString();
