@@ -39,7 +39,7 @@ class ParserTest {
     @Test
     public void parseCommand_listWord_list() {
         Parser parser = new Parser();
-        Command command = parser.parseCommand("list");
+        Command command = parser.parseCommand("list", new EventList());
 
         assertInstanceOf(ListCommand.class, command);
     }
