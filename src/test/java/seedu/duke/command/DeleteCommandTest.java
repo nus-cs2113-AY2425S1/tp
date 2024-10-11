@@ -61,7 +61,7 @@ class DeleteCommandTest {
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Okay! The following entry has been deleted: " + System.lineSeparator() +
-                "[Income] - salary $ 3000.0" + System.lineSeparator() +
+                "[Income] - salary $ 3000.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Verify the correct message is printed
