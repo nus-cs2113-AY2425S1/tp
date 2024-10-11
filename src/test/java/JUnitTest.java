@@ -1,6 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
 import java.util.List;
 
 public class JUnitTest {
@@ -77,7 +76,8 @@ public class JUnitTest {
     public void testAddTransaction() {
         // Arrange
         TransactionList transactionList = new TransactionList();
-        Transaction transaction = new Transaction(100.0, "Groceries", "2024-10-10", new Category("Food"));
+        Transaction transaction = new Transaction(100.0, "Groceries", "2024-10-10"
+                    , new Category("Food"));
 
         // Act
         transactionList.addTransaction(transaction);
@@ -91,7 +91,8 @@ public class JUnitTest {
     public void testDeleteTransaction() {
         // Arrange
         TransactionList transactionList = new TransactionList();
-        Transaction transaction = new Transaction(50.0, "Taxi", "2024-10-11", new Category("Transport"));
+        Transaction transaction = new Transaction(50.0, "Taxi", "2024-10-11"
+                    , new Category("Transport"));
         transactionList.addTransaction(transaction);
         int initialSize = transactionList.getTransactions().size();
 
@@ -107,14 +108,16 @@ public class JUnitTest {
     public void testListTransactions() {
         // Arrange
         TransactionList transactionList = new TransactionList();
-        transactionList.addTransaction(new Transaction(20.0, "Coffee", "2024-10-09", new Category("Food")));
+        transactionList.addTransaction(new Transaction(20.0, "Coffee", "2024-10-09"
+                    , new Category("Food")));
 
         // Act
         List<Transaction> transactions = transactionList.getTransactions();
 
         // Assert
         assertNotNull(transactions, "The transaction list should not be null.");
-        assertTrue(transactions.size() > 0, "The transaction list should contain at least one transaction.");
+        assertTrue(transactions.size() > 0
+                    , "The transaction list should contain at least one transaction.");
     }
 
     @Test
@@ -130,21 +133,25 @@ public class JUnitTest {
 
         // Assert
         assertEquals(amount, transaction.getAmount(), "The transaction amount should match the input amount.");
-        assertEquals(description, transaction.getDescription(), "The transaction description should match the input description.");
+        assertEquals(description, transaction.getDescription()
+                    , "The transaction description should match the input description.");
         assertEquals(date, transaction.getDate(), "The transaction date should match the input date.");
-        assertEquals(category, transaction.getCategory(), "The transaction category should match the input category.");
+        assertEquals(category, transaction.getCategory()
+                    , "The transaction category should match the input category.");
     }
 
     @Test
     public void testTransactionToString() {
         // Arrange
-        Transaction transaction = new Transaction(75.0, "Movie", "2024-10-13", new Category("Entertainment"));
+        Transaction transaction = new Transaction(75.0, "Movie", "2024-10-13"
+                    , new Category("Entertainment"));
         String expectedString = "Transaction [amount=75.0, description=Movie, date=2024-10-13, category=Entertainment]";
 
         // Act
         String result = transaction.toString();
 
         // Assert
-        assertEquals(expectedString, result, "The toString() method should return the correct transaction details.");
+        assertEquals(expectedString, result
+                    , "The toString() method should return the correct transaction details.");
     }
 }
