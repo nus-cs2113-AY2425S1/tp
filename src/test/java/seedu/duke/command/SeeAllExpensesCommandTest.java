@@ -10,21 +10,35 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 /**
- * Unit tests for the SeeAllExpensesCommand class.
+ * Test class for SeeAllExpensesCommand.
+ * This class contains unit tests for the SeeAllExpensesCommand class, 
+ * which is responsible for displaying all recorded expenses.
  * 
- * This class tests the functionality of the SeeAllExpensesCommand, which is responsible for displaying all recorded expenses in the FinancialList.
+ * <p>It includes the following tests:
+ * <ul>
+ *   <li>execute_noExpenses_printsNoRecordedExpenses: 
+ *      Verifies that the command correctly handles the case where there are no recorded expenses.</li>
+ *   <li>execute_withExpenses_printsAllExpenses: 
+ *      Verifies that the command correctly displays all recorded expenses when they are 
+ *      present in the financial list.</li>
+ * </ul>
  * 
- * The tests include:
- * - Setting up and tearing down the test environment.
- * - Testing the command execution when there are no expenses recorded.
- * - Testing the command execution when there are expenses recorded.
+ * <p>Setup and teardown methods are provided to initialize and clean up the test environment:
+ * <ul>
+ *   <li>setUp: Initializes the FinancialList and SeeAllExpensesCommand objects, 
+ *      and redirects System.out to a ByteArrayOutputStream for capturing output.</li>
+ *   <li>tearDown: Restores the original System.out after each test.</li>
+ * </ul>
  * 
- * Methods:
- * - setUp(): Initializes the test environment before each test.
- * - tearDown(): Restores the original System.out after each test.
- * - execute_noExpenses_printsNoRecordedExpenses(): Verifies that the command correctly handles the case when there are no expenses.
- * - execute_withExpenses_printsAllExpenses(): Verifies that the command correctly handles the case when there are expenses recorded.
+ * <p>Dependencies:
+ * <ul>
+ *   <li>FinancialList: A list that holds financial entries.</li>
+ *   <li>SeeAllExpensesCommand: The command being tested.</li>
+ *   <li>FinancialEntry: Represents a financial entry (e.g., an expense).</li>
+ *   <li>Expense: A specific type of FinancialEntry representing an expense.</li>
+ * </ul>
  */
 public class SeeAllExpensesCommandTest {
 
