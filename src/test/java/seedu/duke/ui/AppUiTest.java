@@ -10,16 +10,27 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the {@link AppUi} class.
+ * These tests ensure that various commands are processed correctly by the {@code matchCommand} method.
+ */
 public class AppUiTest {
 
     private AppUi appUi;
 
+    /**
+     * Sets up the test environment by initializing the {@link AppUi} instance and its financial list.
+     */
     @BeforeEach
     void setUp() {
         appUi = new AppUi();
         appUi.financialList = new FinancialList();
     }
 
+    /**
+     * Tests the behavior of the "list" command.
+     * Ensures that the {@code matchCommand} method returns {@code true} and no exceptions are thrown.
+     */
     @Test
     void testMatchCommand_listCommand() {
         // Prepare command arguments for the "list" command
@@ -33,6 +44,10 @@ public class AppUiTest {
         assertTrue(result);
     }
 
+    /**
+     * Tests the behavior of the "expense" command.
+     * Ensures that an expense entry is added to the financial list and the method returns {@code true}.
+     */
     @Test
     void testMatchCommand_expenseCommand() {
         HashMap<String, String> commandArguments = new HashMap<>();
@@ -43,9 +58,13 @@ public class AppUiTest {
 
         // Validate that the result is true and that the financial list has an entry
         assertTrue(result);
-        assertEquals(1, appUi.financialList.getEntryCount());  // Ensure one entry is added
+        assertEquals(1, appUi.financialList.getEntryCount());
     }
 
+    /**
+     * Tests the behavior of the "income" command.
+     * Ensures that an income entry is added to the financial list and the method returns {@code true}.
+     */
     @Test
     void testMatchCommand_incomeCommand() {
         // Prepare command arguments for the "income" command
@@ -58,9 +77,13 @@ public class AppUiTest {
 
         // Validate that the result is true and that the financial list has an entry
         assertTrue(result);
-        assertEquals(1, appUi.financialList.getEntryCount());  // Ensure one entry is added
+        assertEquals(1, appUi.financialList.getEntryCount());
     }
 
+    /**
+     * Tests the behavior of the "edit" command.
+     * Ensures that an existing financial entry can be edited and the changes are applied correctly.
+     */
     @Test
     void testMatchCommand_editCommand() {
         // Add an entry first to edit it later
@@ -68,7 +91,7 @@ public class AppUiTest {
 
         // Prepare command arguments for the "edit" command
         HashMap<String, String> commandArguments = new HashMap<>();
-        commandArguments.put("argument", "0");  // Editing first entry
+        commandArguments.put("argument", "0");
         commandArguments.put("/a", "25.00");
         commandArguments.put("/des", "Edited Description");
 
@@ -82,6 +105,10 @@ public class AppUiTest {
         assertEquals("Edited Description", editedEntry.getDescription());
     }
 
+    /**
+     * Tests the behavior of the "delete" command.
+     * Ensures that an entry can be deleted from the financial list and the method returns {@code true}.
+     */
     @Test
     void testMatchCommand_deleteCommand() {
         // Add an entry first to delete it later
@@ -96,9 +123,13 @@ public class AppUiTest {
 
         // Validate that the entry is deleted
         assertTrue(result);
-        assertEquals(0, appUi.financialList.getEntryCount());  // Ensure no entries remain
+        assertEquals(0, appUi.financialList.getEntryCount());
     }
 
+    /**
+     * Tests the behavior of the "help" command.
+     * Ensures that the help menu is displayed and the method returns {@code true}.
+     */
     @Test
     void testMatchCommand_helpCommand() {
         // Prepare command arguments for the "help" command
@@ -111,6 +142,10 @@ public class AppUiTest {
         assertTrue(result);
     }
 
+    /**
+     * Tests the behavior of the "exit" command.
+     * Ensures that the method returns {@code false} to indicate that the program should exit.
+     */
     @Test
     void testMatchCommand_exitCommand() {
         // Prepare command arguments for the "exit" command
@@ -123,6 +158,10 @@ public class AppUiTest {
         assertFalse(result);
     }
 
+    /**
+     * Tests the behavior of an unrecognized command.
+     * Ensures that unrecognized commands are handled gracefully and the method returns {@code true}.
+     */
     @Test
     void testMatchCommand_unrecognizedCommand() {
         // Prepare command arguments for an unrecognized command
