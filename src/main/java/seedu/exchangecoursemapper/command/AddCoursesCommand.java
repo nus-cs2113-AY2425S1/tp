@@ -40,11 +40,11 @@ public class AddCoursesCommand extends Command {
     public String[] parseAddCommand(String input) {
         String lowerCaseInput = input.toLowerCase();
 
-        if (!lowerCaseInput.contains("/pu") || !lowerCaseInput.contains("/pucourse")) {
-            throw new IllegalArgumentException("Please provide all of the valid commands: /pu, /pucourse!");
+        if ((!lowerCaseInput.contains("/pu") || !lowerCaseInput.contains("/coursepu"))) {
+            throw new IllegalArgumentException("Please provide all of the valid commands: /pu, /coursepu!");
         }
 
-        String[] inputSubstrings = lowerCaseInput.split("/pucourse|/pu");
+        String[] inputSubstrings = lowerCaseInput.split("/coursepu|/pu");
 
         if (inputSubstrings.length < 3) {
             throw new IllegalArgumentException("Please provide a valid PU or PU's course code!");
