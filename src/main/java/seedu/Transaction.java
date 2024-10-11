@@ -1,8 +1,12 @@
+package seedu;
+
+import seedu.functions.Category;
+
 class Transaction {
     private double amount;
     private String description;
     private String date;
-    private Category category;
+    private seedu.functions.Category category;
 
     public Transaction(double amount, String description, String date, Category category) {
         this.amount = amount;
@@ -29,7 +33,7 @@ class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction [amount=" + amount + ", description=" + description + ", date=" + date + ", category="
+        return "seedu.functions.Transaction [amount=" + amount + ", description=" + description + ", date=" + date + ", category="
                 + category.getName() + "]";
     }
 }

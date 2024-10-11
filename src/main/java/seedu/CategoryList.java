@@ -1,3 +1,5 @@
+package seedu;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,19 +20,19 @@ public class CategoryList {
         categories.add(new Category("Others"));
     }
 
-    // Add Category
+    // Add seedu.functions.Category
     public void addCategory(String categoryName) {
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(categoryName)) {
-                System.out.println("Category '" + categoryName + "' already exists!");
+                System.out.println("seedu.functions.Category '" + categoryName + "' already exists!");
                 return;
             }
         }
         categories.add(new Category(categoryName));
-        System.out.println("Category '" + categoryName + "' added successfully.");
+        System.out.println("seedu.functions.Category '" + categoryName + "' added successfully.");
     }
 
-    // Delete Category
+    // Delete seedu.functions.Category
     public void deleteCategory(String categoryName) {
         Category toDelete = null;
         for (Category category : categories) {
@@ -41,9 +43,9 @@ public class CategoryList {
         }
         if (toDelete != null) {
             categories.remove(toDelete);
-            System.out.println("Category '" + categoryName + "' deleted successfully.");
+            System.out.println("seedu.functions.Category '" + categoryName + "' deleted successfully.");
         } else {
-            System.out.println("Category '" + categoryName + "' not found!");
+            System.out.println("seedu.functions.Category '" + categoryName + "' not found!");
         }
     }
 
