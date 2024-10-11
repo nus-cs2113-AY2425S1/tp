@@ -1,5 +1,11 @@
 package seedu.duke.ui;
 
+import seedu.duke.command.AddExpenseCommand;
+import seedu.duke.command.AddIncomeCommand;
+import seedu.duke.command.DeleteCommand;
+import seedu.duke.command.EditEntryCommand;
+import seedu.duke.command.SeeAllEntriesCommand;
+import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.parser.InputParser;
 
@@ -23,6 +29,82 @@ public class AppUi {
     }
 
     /**
+     * Adds a new expense entry to the financial list based on the provided command arguments.
+     *
+     * The method extracts the description and amount for the expense from the command arguments.
+     * An {@link AddExpenseCommand} is created and executed to add the expense to the financial list.
+     *
+     * @param commandArguments A map of parsed command arguments that contains the description of the expense
+     *                         and the amount ("/a").
+     */
+    public void addExpense(HashMap<String, String> commandArguments) {
+        String description = commandArguments.get("argument");
+        double amount = Double.parseDouble(commandArguments.get("/a"));
+
+        AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description);
+        addExpenseCommand.execute(financialList);
+    }
+
+    /**
+     * Adds a new income entry to the financial list based on the provided command arguments.
+     *
+     * The method extracts the description and amount for the income from the command arguments.
+     * An {@link AddIncomeCommand} is created and executed to add the income to the financial list.
+     *
+     * @param commandArguments A map of parsed command arguments that contains the description of the income
+     *                         and the amount ("/a").
+     */
+    public void addIncome(HashMap<String, String> commandArguments) {
+        String description = commandArguments.get("argument");
+        double amount = Double.parseDouble(commandArguments.get("/a"));
+
+        AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description);
+        addIncomeCommand.execute(financialList);
+
+    }
+
+    /**
+     * Edits an existing financial entry in the financial list based on the provided command arguments.
+     *
+     * The method extracts the index of the entry to be edited, as well as new values for the amount
+     * and description (if provided). If no new value is provided for amount or description, the
+     * existing values are retained. Finally, an {@link EditEntryCommand} is created and executed
+     * to apply the changes to the financial list.
+     *
+     * @param commandArguments A map of parsed command arguments that contains the entry index and
+     *                         optional new values for the amount ("/a") and description ("/des").
+     */
+    public void editEntry(HashMap<String, String> commandArguments) {
+        int index = Integer.parseInt(commandArguments.get("argument"));
+
+        FinancialEntry entry = financialList.getEntry(index);
+
+        String amountStr = commandArguments.get("/a");
+        double amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();
+
+        String description = commandArguments.getOrDefault("/des", entry.getDescription());
+
+        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description);
+        editEntryCommand.execute(financialList);
+    }
+
+    /**
+     * Deletes an existing entry from the financial list based on the provided command arguments.
+     *
+     * The method extracts the index of the entry to be deleted from the command arguments.
+     * A {@link DeleteCommand} is created and executed to remove the entry from the financial list.
+     *
+     * @param commandArguments A map of parsed command arguments that contains the index of the entry
+     *                         to be deleted.
+     */
+    public void deleteEntry(HashMap<String, String> commandArguments) {
+        int index = Integer.parseInt(commandArguments.get("argument"));
+
+        DeleteCommand deleteCommand = new DeleteCommand(index);
+        deleteCommand.execute(financialList);
+    }
+
+    /**
      * Matches a given command with its corresponding action.
      *
      * @param command          The command input by the user.
@@ -30,6 +112,69 @@ public class AppUi {
      * @return A boolean indicating whether the command was successful.
      */
     public boolean matchCommand(String command, HashMap<String, String> commandArguments) {
+        final String goodByeMessage = "--------------------------------------------\n" +
+                "Goodbye! Hope to see you again soon :)\n" +
+                "--------------------------------------------\n";
+
+        final String unrecognizedCommand = "--------------------------------------------\n" +
+                "Unrecognized command!\n" +
+                "Use the command \"help\" for a list of valid commands\n" +
+                "--------------------------------------------\n";
+
+        final String helpMenu = "--------------------------------------------\n" +
+                "List of commands:\n" +
+                "--------------------------------------------\n" +
+                "1. list\n " +
+                "   - Shows a list of all logged transactions\n" +
+                "2. expense DESCRIPTION /a AMOUNT [/d DATE]\n " +
+                "   - Adds a new expense\n" +
+                "3. income DESCRIPTION /a AMOUNT [/d DATE]\n " +
+                "   - Adds a new income\n" +
+                "4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE]\n " +
+                "   - Edits the transaction at the specified INDEX\n" +
+                "5. delete INDEX\n " +
+                "   - Deletes the transaction at the specified INDEX\n" +
+                "6. exit\n " +
+                "   - Exits the program\n" +
+                "7. help\n " +
+                "   - Shows a list of all valid commands\n" +
+                "--------------------------------------------\n";
+
+        switch (command) {
+        case "list":
+            SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand();
+            seeAllEntriesCommand.execute(financialList);
+            break;
+
+        case "expense":
+            addExpense(commandArguments);
+            break;
+
+        case "income":
+            addIncome(commandArguments);
+            break;
+
+        case "edit":
+            editEntry(commandArguments);
+            break;
+
+        case "delete":
+            deleteEntry(commandArguments);
+            break;
+
+        case "help":
+            System.out.println(helpMenu);
+            break;
+
+        case "exit":
+            System.out.println(goodByeMessage);
+            return false;
+
+        default:
+            System.out.println(unrecognizedCommand);
+            break;
+        }
+
         return true;
     }
 
@@ -86,5 +231,6 @@ public class AppUi {
      */
     public void run() {
         displayWelcomeMessage();
+        commandEntry();
     }
 }

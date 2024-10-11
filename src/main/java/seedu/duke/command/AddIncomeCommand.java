@@ -16,7 +16,7 @@ public class AddIncomeCommand extends Command {
      * @param amount The amount of the income.
      * @param description The description of the income.
      */
-    AddIncomeCommand(double amount, String description) {
+    public AddIncomeCommand(double amount, String description) {
         this.amount = amount;
         this.description = description;
     }
@@ -30,7 +30,10 @@ public class AddIncomeCommand extends Command {
     public void execute(FinancialList list) {
         Income income = new Income(amount, description);
         list.addEntry(income);
-        System.out.println("OK! I've added this income:");
+        System.out.println("--------------------------------------------");
+        System.out.println("Got it! I've added this income:");
         System.out.println(income);
+        System.out.println("--------------------------------------------");
+
     }
 }
