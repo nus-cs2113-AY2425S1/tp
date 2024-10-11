@@ -10,6 +10,15 @@ public class Event {
     private String eventVenue;
 
     /**
+     * Constructs an Event with the specified name.
+     *
+     * @param eventName the name of the event
+     */
+    public Event(String eventName) {
+        this.eventName = eventName;
+    }
+
+    /**
      * Constructs an Event with the specified name, time, and venue.
      *
      * @param eventName  the name of the event
@@ -28,18 +37,21 @@ public class Event {
     public String getEventName() {
         return eventName;
     }
+
     /**
      * @return the event time
      */
     public String getEventTime() {
         return eventTime;
     }
+
     /**
      * @return the event venue
      */
     public String getEventVenue() {
         return eventVenue;
     }
+
     /**
      * Sets a new time for the event.
      *
@@ -48,10 +60,11 @@ public class Event {
     public void setEventTime(String eventTime) {
         this.eventTime = eventTime;
     }
+
     /**
      * Sets a new venue for the event.
      *
-     * @param eventVenue the new event time
+     * @param eventVenue the new event venue
      */
     public void setEventVenue(String eventVenue) {
         this.eventVenue = eventVenue;

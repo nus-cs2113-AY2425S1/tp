@@ -30,6 +30,9 @@ public class EventList  {
      * @return The list of events.
      */
     public ArrayList<Event> getList() {
+        for (Event event : eventList) {
+            System.out.println(event);
+        }
         return eventList;
     }
 
@@ -41,6 +44,23 @@ public class EventList  {
     }
 
     /**
+     * Adds a new event to the event list.
+     * 
+     * This method creates a new instance of the {@link Event} class with the specified
+     * event name and adds it to the {@code eventList}.
+     *
+     * @param eventName the name of the event to be added
+     */
+    public void addEvent(String eventName) {
+        Event newEvent = new Event(eventName);
+        eventList.add(newEvent);
+    }
+
+    public void addEvent(Event event) {
+        eventList.add(event);
+    }
+    
+    /**
      * @param index The index of event in the list (0 based indexing)
      * @return The specific event in the event list.
      */
@@ -48,7 +68,4 @@ public class EventList  {
         return eventList.get(index);
     }
 
-    public void addEvent(Event event) {
-        eventList.add(event);
-    }
 }

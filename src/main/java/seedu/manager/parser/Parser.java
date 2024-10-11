@@ -7,6 +7,8 @@ import seedu.manager.command.MenuCommand;
 import seedu.manager.command.EchoCommand;
 import seedu.manager.command.ListCommand;
 
+import java.util.Arrays;
+
 
 /**
  * Represents the command parser for EventManagerCLI
@@ -19,12 +21,13 @@ public class Parser {
      * @param command The given command string from the user
      */
     public Command parseCommand(String command){
-        String[] commandParts = command.split(" ", 2);
+        String[] commandParts = command.split(" ");
         String commandWord = commandParts[0];
+        String description = String.join(" ", Arrays.copyOfRange(commandParts, 1, commandParts.length)).trim();
 
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            return new AddCommand();
+            return new AddCommand(description);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
         case ExitCommand.COMMAND_WORD:

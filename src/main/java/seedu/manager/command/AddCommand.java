@@ -5,16 +5,21 @@ package seedu.manager.command;
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
-    private static final String ADD_MESSAGE = "The following event has been added to the event list: %1$s";
+    private static final String ADD_MESSAGE = "Event added successfully";
+    protected String eventName;
+
+    public AddCommand(String desc) {
+        this.eventName = desc;
+    }
 
     /**
-     * Implement the adding command
-     * Returns a command output with a successful adding message
+     * Returns a command output with an add message
      *
-     * @return The command output with a successful adding message
+     * @return The command output with an add message
      */
-    @Override
     public CommandOutput execute() {
+        this.eventList.addEvent(this.eventName);
+        //this.eventList.getList();
         return new CommandOutput(ADD_MESSAGE, false);
     }
 }
