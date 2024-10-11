@@ -1,6 +1,9 @@
 package seedu.duke.ui;
 
+import seedu.duke.financial.Expense;
+import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.financial.Income;
 import seedu.duke.parser.InputParser;
 
 import java.util.HashMap;
@@ -11,6 +14,77 @@ public class AppUi {
 
     public AppUi() {
         financialList = new FinancialList();
+    }
+
+    public void addEntry(FinancialEntry entry) {
+        financialList.addEntry(entry);
+
+        System.out.println("--------------------------------------------");
+        System.out.println("Okay! I have added this entry: ");
+        System.out.println(entry);
+        System.out.printf("You currently have %d transactions logged\n", financialList.getEntryCount());
+        System.out.println("--------------------------------------------");
+    }
+
+    public void addExpense(HashMap<String, String> commandArguments) {
+        String description = commandArguments.get("argument");
+        double amount = Double.parseDouble(commandArguments.get("/a"));
+
+        // TODO: add date and exception handling
+
+        Expense entry = new Expense(amount, description);
+        addEntry(entry);
+    }
+
+    public void addIncome(HashMap<String, String> commandArguments) {
+        String description = commandArguments.get("argument");
+        double amount = Double.parseDouble(commandArguments.get("/a"));
+
+        // TODO: add date and exception handling
+
+        Income entry = new Income(amount, description);
+        addEntry(entry);
+    }
+
+    public void editEntry(HashMap<String, String> commandArguments) {
+        int index = Integer.parseInt(commandArguments.get("argument"));
+
+        FinancialEntry entry = financialList.getEntry(index);
+
+        String amountStr = commandArguments.get("/a");
+        double amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();
+
+        String description = commandArguments.getOrDefault("/des", entry.getDescription());
+
+        financialList.editEntry(index, amount, description);
+
+        System.out.println("--------------------------------------------");
+        System.out.println("Okay! I have edited this entry: ");
+        System.out.println(entry);
+        System.out.println("Edited entry: ");
+        System.out.println(financialList.getEntry(index));
+        System.out.println("--------------------------------------------");
+    }
+
+    public void deleteEntry(HashMap<String, String> commandArguments) {
+        int index = Integer.parseInt(commandArguments.get("argument")) - 1;
+        FinancialEntry entry = financialList.getEntry(index);
+
+        financialList.deleteEntry(index);
+
+        System.out.println("--------------------------------------------");
+        System.out.println("Okay! The following entry has been deleted: ");
+        System.out.println(entry);
+        System.out.println("--------------------------------------------");
+    }
+
+    public void listEntries() {
+        System.out.println("--------------------------------------------");
+        System.out.println("Here is the list of all logged transactions: ");
+        for (int i = 0; i < financialList.getEntryCount(); i++) {
+            System.out.println((i-1) + ". " + financialList.getEntry(i).toString());
+        }
+        System.out.println("--------------------------------------------");
     }
 
     public boolean matchCommand(String command, HashMap<String, String> commandArguments) {
@@ -37,25 +111,23 @@ public class AppUi {
 
         switch (command) {
             case "list":
-                for (int i = 0; i < financialList.getEntryCount(); i++) {
-                    System.out.println(financialList.getEntry(i).toString());
-                }
+                listEntries();
                 break;
 
             case "expense":
-                System.out.println("expense");
+                addExpense(commandArguments);
                 break;
 
             case "income":
-                System.out.println("income");
+                addIncome(commandArguments);
                 break;
 
             case "edit":
-                System.out.println("edit");
+                editEntry(commandArguments);
                 break;
 
             case "delete":
-                System.out.println("delete");
+                deleteEntry(commandArguments);
                 break;
 
             case "help":
