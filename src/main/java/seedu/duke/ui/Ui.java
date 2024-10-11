@@ -1,6 +1,5 @@
 package seedu.duke.ui;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 
 /**
