@@ -11,11 +11,11 @@ class Main {
 
         while (true) {
             System.out.println("\nChoose an option:");
-            System.out.println("1. Add seedu.functions.Category");
-            System.out.println("2. Delete seedu.functions.Category");
+            System.out.println("1. Add Category");
+            System.out.println("2. Delete Category");
             System.out.println("3. List Categories");
-            System.out.println("4. Add seedu.functions.Transaction");
-            System.out.println("5. Delete seedu.functions.Transaction");
+            System.out.println("4. Add Transaction");
+            System.out.println("5. Delete Transaction");
             System.out.println("6. List Transactions");
             System.out.println("7. Exit");
             int choice = scanner.nextInt();
@@ -73,5 +73,4 @@ class Main {
             }
         }
     }
-}
-*/
+}*/

@@ -4,6 +4,7 @@ import seedu.category.CategoryList;
 import seedu.command.Command;
 import seedu.command.HelpCommand;
 import seedu.command.TestCommand;
+import seedu.command.ViewCategoryCommand;
 import seedu.command.AddCategoryCommand;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Main {
     private static final String SEPARATOR = "-------------------------------------";
 
     private static Parser parser; //Parser to parse the commands
+    private static CategoryList categories; //Category list to store categories
 
     private static boolean isRunning = true;
 
@@ -57,6 +59,8 @@ public class Main {
         printMessage(String.format(HI_MESSAGE, NAME));
 
         parser = new Parser();
+        categories = new CategoryList();
+
         parser.registerCommands(new TestCommand());
 
         HelpCommand helpCommand = new HelpCommand();
@@ -64,6 +68,9 @@ public class Main {
 
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(new CategoryList());
         parser.registerCommands(addCategoryCommand);
+
+        ViewCategoryCommand viewCategoryCommand = new ViewCategoryCommand(categories);
+        parser.registerCommands(viewCategoryCommand);
 
         // Set command list for the help command
         helpCommand.setCommands(new ArrayList<>(parser.getCommands().values()));

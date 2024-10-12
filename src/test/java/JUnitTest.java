@@ -3,6 +3,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import seedu.category.Category;
+import seedu.category.CategoryList;
+import seedu.transaction.Transaction;
+import seedu.transaction.TransactionList;
+
 import java.util.List;
 
 public class JUnitTest {
@@ -37,9 +42,10 @@ public class JUnitTest {
         // Arrange
         CategoryList categoryList = new CategoryList();
         String newCategoryName = "Health";
+        Category newCategory = new Category(newCategoryName);
 
         // Act
-        categoryList.addCategory(newCategoryName);
+        categoryList.addCategory(newCategory);
         List<Category> categories = categoryList.getCategories();
 
         // Assert

@@ -4,43 +4,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryList {
-    private final List<Category> categories;
+    private List<Category> categories;
 
     public CategoryList() {
         categories = new ArrayList<>();
-        // Adding default categories
+        initializeDefaultCategories();
+    }
+
+    // Initialize
+    private void initializeDefaultCategories() {
         categories.add(new Category("Food"));
-        categories.add(new Category("Transport"));
         categories.add(new Category("Entertainment"));
+        categories.add(new Category("Transport"));
         categories.add(new Category("Utilities"));
+        categories.add(new Category("Others"));
     }
 
-    public void addCategory(Category category) {
-        categories.add(category);
-        System.out.println("Category added: " + category);
-    }
-
-    public void deleteCategory(int index) {
-        if (index >= 0 && index < categories.size()) {
-            Category removed = categories.remove(index);
-            System.out.println("Category removed: " + removed);
-        } else {
-            System.out.println("Invalid category index!");
-        }
-    }
-
-    public Category getCategoryByName(String name) {
-        for (Category category : categories) {
-            if (category.getName().equals(name)) {
-                return category;
+    // Add Category
+    public void addCategory(Category newCategory) {
+        for (Category category : this.categories) {
+            if (category.getName().equalsIgnoreCase(newCategory.getName())) {
+                System.out.println("Category '" + newCategory.getName() + "' already exists!");
+                return;
             }
         }
-        return null;
+        categories.add(newCategory);
+        System.out.println("Category '" + newCategory.getName() + "' added successfully.");
     }
-    public void listCategories() {
-        System.out.println("All categories:");
-        for (int i = 0; i < categories.size(); i++) {
-            System.out.println((i + 1) + ". " + categories.get(i));
+
+    // Delete Category
+    public void deleteCategory(String categoryName) {
+        Category toDelete = null;
+        for (Category category : categories) {
+            if (category.getName().equalsIgnoreCase(categoryName)) {
+                toDelete = category;
+                break;
+            }
+        }
+        if (toDelete != null) {
+            categories.remove(toDelete);
+            System.out.println("Category '" + categoryName + "' deleted successfully.");
+        } else {
+            System.out.println("Category '" + categoryName + "' not found!");
         }
     }
+
+    // List all the category
+    public void listCategories() {
+        System.out.println("Available categories:");
+        for (int i = 0; i < categories.size(); i++) {
+            System.out.println((i + 1) + ". " + categories.get(i).getName());
+        }
+    }
+
+
+    // Get category list
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+
+    public void interactiveAddCategory(String categoryName) {
+        Category newCategory = new Category(categoryName);
+        addCategory(newCategory);
+    }
+
+
 }
+

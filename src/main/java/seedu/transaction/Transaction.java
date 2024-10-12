@@ -23,6 +23,9 @@ public class Transaction {
         return description;
     }
 
+    public String getType() {
+        return "";
+    }
     public String getDate() {
         return date;
     }
