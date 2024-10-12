@@ -1,8 +1,10 @@
 package seedu.main;
 
+import seedu.category.CategoryList;
 import seedu.command.Command;
 import seedu.command.HelpCommand;
 import seedu.command.TestCommand;
+import seedu.command.AddCategoryCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,9 @@ public class Main {
 
         HelpCommand helpCommand = new HelpCommand();
         parser.registerCommands(helpCommand);
+
+        AddCategoryCommand addCategoryCommand = new AddCategoryCommand(new CategoryList());
+        parser.registerCommands(addCategoryCommand);
 
         // Set command list for the help command
         helpCommand.setCommands(new ArrayList<>(parser.getCommands().values()));
