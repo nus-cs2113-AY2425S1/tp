@@ -2,8 +2,8 @@ package seedu.manager.parser;
 
 import org.junit.jupiter.api.Test;
 import seedu.manager.command.Command;
-import seedu.manager.command.EchoCommand;
 import seedu.manager.command.ExitCommand;
+import seedu.manager.command.InvalidCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 
@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 class ParserTest {
 
     @Test
-    public void parseCommand_nonEmptyString_echo() {
+    public void parseCommand_invalidString_invalid() {
         Parser parser = new Parser();
         Command command = parser.parseCommand("Hello world!");
 
-        assertInstanceOf(EchoCommand.class, command);
+        assertInstanceOf(InvalidCommand.class, command);
     }
 
     @Test

@@ -4,7 +4,7 @@ package seedu.manager.command;
  * Represents an invalid command that cannot be executed
  */
 public class InvalidCommand extends Command {
-    private String errorMessage;
+    private final String errorMessage;
 
     /**
      * Constructs a new invalid command with a given error message
