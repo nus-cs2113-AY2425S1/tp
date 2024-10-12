@@ -16,7 +16,7 @@ public class AddCommandTest {
         eventList.addParticipantToEvent("Tom", "Event 1");
         eventList.addParticipantToEvent("Harry", "Event 1");
 
-        assertEquals(2, eventList.getEvent(1).getParticipantCount());
+        assertEquals(2, eventList.getEvent(0).getParticipantCount());
     }
 
     @Test
@@ -27,7 +27,7 @@ public class AddCommandTest {
         eventList.addParticipantToEvent("Tom", "Event 1");
         eventList.addParticipantToEvent("Harry", "Event 2");
 
-        assertEquals(1, eventList.getEvent(1).getParticipantCount());
+        assertEquals(1, eventList.getEvent(0).getParticipantCount());
     }
 }
 
