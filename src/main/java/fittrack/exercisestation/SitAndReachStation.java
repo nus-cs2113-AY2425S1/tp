@@ -1,11 +1,10 @@
 package fittrack.exercisestation;
 
 import fittrack.calculator.SitAndReachCalculator;
-import fittrack.enums.Gender;
 import fittrack.user.User;
 
 public class SitAndReachStation extends ExerciseStation {
-    private String Name = "Sit and Reach Station";
+    private String name = "Sit and Reach Station";
     private int length;
 
     public SitAndReachStation() {
@@ -30,7 +29,7 @@ public class SitAndReachStation extends ExerciseStation {
 
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     @Override

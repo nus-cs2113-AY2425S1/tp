@@ -1,11 +1,10 @@
 package fittrack.exercisestation;
 
 import fittrack.calculator.StandingBroadJumpCalculator;
-import fittrack.enums.Gender;
 import fittrack.user.User;
 
 public class StandingBroadJumpStation extends ExerciseStation {
-    private String Name = "Standing Broad Jump Station";
+    private String name = "Standing Broad Jump Station";
     private int distance;
 
     public StandingBroadJumpStation() {
@@ -30,7 +29,7 @@ public class StandingBroadJumpStation extends ExerciseStation {
 
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     @Override

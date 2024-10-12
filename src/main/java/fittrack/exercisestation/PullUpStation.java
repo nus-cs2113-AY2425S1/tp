@@ -1,11 +1,10 @@
 package fittrack.exercisestation;
 
 import fittrack.calculator.PullUpCalculator;
-import fittrack.enums.Gender;
 import fittrack.user.User;
 
 public class PullUpStation extends ExerciseStation {
-    private String Name = "Pull Up Station";
+    private String name = "Pull Up Station";
     private int reps;
 
     public PullUpStation() {
@@ -30,7 +29,7 @@ public class PullUpStation extends ExerciseStation {
 
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     @Override

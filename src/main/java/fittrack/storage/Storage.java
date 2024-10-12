@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Storage {
 
     public static final String SAVE_FILE = "data/saveFile.txt"; // Path to the save file
-    public static final File saveFile = new File(SAVE_FILE); // File object for the save file
+    public static final File SAVEFILE = new File(SAVE_FILE); // File object for the save file
 
     /**
      * Initializes the save file by creating the necessary directories and file if they do not exist.
@@ -55,7 +55,7 @@ public class Storage {
      * @throws FileNotFoundException If the save file is not found.
      */
     public static void loadSaveFile(ArrayList<TrainingSession> sessionList) throws FileNotFoundException {
-        Scanner s = new Scanner(saveFile); // Create a Scanner to read the save file
+        Scanner s = new Scanner(SAVEFILE); // Create a Scanner to read the save file
         while (s.hasNext()) {
             String line = s.nextLine(); // Read each line from the file
 
@@ -72,7 +72,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public static void updateSaveFile(ArrayList<TrainingSession> sessionList) throws IOException {
-        try (FileWriter fw = new FileWriter(saveFile)) {
+        try (FileWriter fw = new FileWriter(SAVEFILE)) {
             for (TrainingSession session : sessionList) {
                 fw.write(session.toString()); // Write the session to the file
                 fw.write(System.lineSeparator()); // Add a new line after each session
