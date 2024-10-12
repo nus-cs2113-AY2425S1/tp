@@ -1,5 +1,5 @@
 Welcome to EventManagerCLI.
-Enter a command: hello world
+Enter a command: Invalid command!
 ------------------------
 Enter a command: Here are the possible commands:
 
