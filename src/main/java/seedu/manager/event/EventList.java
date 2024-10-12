@@ -27,16 +27,6 @@ public class EventList  {
     }
 
     /**
-     * @return The list of events.
-     */
-    public ArrayList<Event> getList() {
-        for (Event event : eventList) {
-            System.out.println(event.getEventName());
-        }
-        return eventList;
-    }
-
-    /**
      * @return The size of the event list.
      */
     public int getListSize() {
@@ -54,11 +44,20 @@ public class EventList  {
     }
 
     /**
+     * @param index The index of event in the list (0 based indexing)
+     * @return The specific event in the event list.
+     */
+    public Event getEvent(int index) {
+        return eventList.get(index);
+    }
+
+    /**
      * Removes an event from the event list by its name.
      *
      * @param eventName The name of the event to be removed.
      * @return true if the event was found and removed; false otherwise.
      */
+
     public boolean removeEvent(String eventName) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
