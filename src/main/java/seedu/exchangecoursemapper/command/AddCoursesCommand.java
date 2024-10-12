@@ -31,12 +31,10 @@ public class AddCoursesCommand extends Command {
         String trimmedString = string.trim();
         String[] outputSubstrings = trimmedString.split(" ", 2);
 
-        //throws an error when there is no user input after the add command.
         if (outputSubstrings.length < 2 || outputSubstrings[1].trim().isEmpty()) {
             throw new IllegalArgumentException(Exception.noInputAfterAdd());
         }
 
-        //returns user inputs without the "add" command
         return outputSubstrings[1];
     }
 
@@ -45,7 +43,6 @@ public class AddCoursesCommand extends Command {
                 .replaceAll("(?i)/coursepu", "/coursepu")
                 .trim().replaceAll(" +", " ");
 
-        //throws an error when only one keyword is present
         if ((!input.contains("/pu") || !input.contains("/coursepu"))) {
             throw new IllegalArgumentException(Exception.missingKeyword());
         }

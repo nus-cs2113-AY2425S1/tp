@@ -45,7 +45,7 @@ public class Parser {
             new ListUniCoursesCommand().execute(input);
         } else if (command.equals(BYE)) {
             mapperUI.displayExitMessage();
-        } else { // Add your parts here
+        } else {
             System.out.println(INVALID_COMMAND_MESSAGE);
         }
     }
