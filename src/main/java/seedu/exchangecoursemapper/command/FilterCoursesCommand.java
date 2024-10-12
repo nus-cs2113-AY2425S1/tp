@@ -21,17 +21,16 @@ import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
 import static seedu.exchangecoursemapper.constants.Messages.FILTER_COURSES_LIMIT_MESSAGE;
 import static seedu.exchangecoursemapper.constants.Messages.NO_NUS_COURSE_CODE_INPUT_MESSAGE;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
-import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 import static seedu.exchangecoursemapper.constants.Regex.REPEATED_SPACES;
+import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 
 public class FilterCoursesCommand extends Command {
-
     @Override
     public void execute(String userInput) {
         try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
             JsonObject jsonObject = jsonReader.readObject();
             String courseToFind = getNusCourseCode(userInput);
-            displayMappableCourses(jsonObject, courseToFind);
+            displayMappableCourses(jsonObject, courseToFind.toLowerCase());
         } catch (IOException e) {
             System.err.println(Exception.fileReadError());
         } catch (ExchangeCourseMapperException e) {
