@@ -24,11 +24,10 @@ public class Parser {
     public Command parseCommand(String command){
         String[] commandParts = command.split(" ");
         String commandWord = commandParts[0];
-        String commandFlag = commandParts[1];
 
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            return parseAddCommand(command, commandFlag);
+            return parseAddCommand(command, commandParts);
         case RemoveCommand.COMMAND_WORD:
             return parseRemoveCommand(commandParts);
         case ListCommand.COMMAND_WORD:
@@ -44,30 +43,31 @@ public class Parser {
     }
 
     /**
-     * Parses the input string to create an {@link Command} based on the provided command flag.
+     * Parses the input string to create an {@link Command} based on the provided command parts.
      *
      * <p>
-     * If the command flag is {@code "-e"}, it splits the input string into parts
-     * to create an {@link AddCommand} for adding an event. If the command flag is
-     * {@code "-p"}, it creates an {@link AddCommand} for adding a participant to
-     * an event. If neither flag is matched, it returns an {@link EchoCommand}
-     * with the original input.
+     * This method checks the command flag extracted from the command parts. If the command
+     * flag is {@code "-e"}, it splits the input string into parts to create an
+     * {@link AddCommand} for adding an event. If the command flag is {@code "-p"},
+     * it creates an {@link AddCommand} for adding a participant to an event. If neither
+     * flag is matched, it returns an {@link EchoCommand} with the original input.
      * </p>
      *
-     * @param input      the input string containing the command details.
-     * @param commandFlag the flag indicating the type of command to parse
-     *                    (e.g., {@code "-e"} for event, {@code "-p"} for participant).
+     * @param input        the input string containing the command details.
+     * @param commandParts an array of strings representing the parsed command parts,
+     *                     where the second element is the command flag.
      * @return a {@link Command} object representing the parsed command.
      */
-    public Command parseAddCommand(String input, String commandFlag) {
-        String[] commandParts;
+    public Command parseAddCommand(String input, String[] commandParts) {
+        String commandFlag = commandParts[1];
+        String[] inputParts;
 
         if (commandFlag.equals("-e")) {
-            commandParts = input.split("(-e|-t|-v)");
-            return new AddCommand(commandParts[1], commandParts[2], commandParts[3]);
+            inputParts = input.split("(-e|-t|-v)");
+            return new AddCommand(inputParts[1], inputParts[2], inputParts[3]);
         } else if (commandFlag.equals("-p")) {
-            commandParts = input.split("(-p|-e)");
-            return new AddCommand(commandParts[1], commandParts[2]);
+            inputParts = input.split("(-p|-e)");
+            return new AddCommand(inputParts[1], inputParts[2]);
         }
 
         return new EchoCommand(input);
