@@ -16,7 +16,7 @@ public class Parser {
     private static final String INVALID_ADD_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            add -e EVENT_NAME
+            add -e EVENT_NAME -d DATE -v VENUE
             add -p PARTICIPANT_NAME -e EVENT_NAME
             """;
     private static final String INVALID_REMOVE_MESSAGE = """
