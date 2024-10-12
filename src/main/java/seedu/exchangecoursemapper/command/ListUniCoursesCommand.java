@@ -22,25 +22,25 @@ public class ListUniCoursesCommand extends Command {
     public void execute(String userInput) {
         try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
             JsonObject jsonObject = jsonReader.readObject();
-            String puName = getPuName(userInput);
-            getUniCourses(jsonObject, puName);
+            String puName = getPartnerUniversityName(userInput);
+            getUniversityCourses(jsonObject, puName);
         } catch (IOException e) {
             System.err.println(Exception.fileReadError());
         }
     }
 
-    public String getPuName (String userInput) {
+    public String getPartnerUniversityName(String userInput) {
         String puName = userInput.replaceFirst("set", "").trim();
 
         if (puName.isEmpty()) {
-            System.out.println("Please provide a University name.");
+            System.out.println(Exception.emptyUniversityName());
             System.out.println(LINE_SEPARATOR);
         }
 
         return puName;
     }
 
-    public void getUniCourses (JsonObject jsonObject, String puName) {
+    public void getUniversityCourses(JsonObject jsonObject, String puName) {
         String lowerCasePuName = puName.toLowerCase();
 
         Set<String> universityNames = jsonObject.keySet();
