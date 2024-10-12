@@ -5,7 +5,13 @@ import fittrack.user.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static fittrack.messages.Messages.*;
+
+import static fittrack.messages.Messages.ADD_SESSION_COMMAND;
+import static fittrack.messages.Messages.DELETE_SESSION_COMMAND;
+import static fittrack.messages.Messages.EDIT_EXERCISE_COMMAND;
+import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
+import static fittrack.messages.Messages.SET_USER_COMMAND;
+import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
 import static fittrack.ui.Ui.printAddedSession;
 import static fittrack.ui.Ui.printDeletedSession;
 import static fittrack.ui.Ui.printSessionList;
