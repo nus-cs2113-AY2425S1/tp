@@ -6,9 +6,10 @@ package seedu.manager.command;
  */
 public class RemoveCommand extends Command {
     public static final String COMMAND_WORD = "remove";
-    private static final String REMOVE_SUCCESS = "Event removed successfully";
-    private static final String REMOVE_FAILURE = "Event not found";
+    private static final String REMOVE_SUCCESS = "Removed successfully";
+    private static final String REMOVE_FAILURE = "Not found";
     protected String eventName;
+    protected String participantName;
 
     /**
      * Constructs a RemoveCommand object with the specified event name.
@@ -20,15 +21,39 @@ public class RemoveCommand extends Command {
     }
 
     /**
-     * Executes the command to remove the event from the event list.
-     * If the event is successfully removed, a success message is returned.
-     * Otherwise, a failure message is returned.
+     * Constructs a RemoveCommand object with the specified event name.
      *
-     * @return The command output with a remove message.
+     * @param eventName The name of the event the participant is to be removed from.
+     * @param participantName The name of the participant to be removed.
+     */
+    public RemoveCommand(String eventName, String participantName) {
+        this.eventName = eventName;
+        this.participantName = participantName;
+    }
+
+    /**
+     * Executes the command to remove an event or a participant from an event.
+     *
+     * <p>
+     * If no participant name is provided, this method attempts to remove the event
+     * specified by the event name. If a participant name is provided, it tries to
+     * remove that participant from the specified event. The result of the operation
+     * is indicated by the return value.
+     * </p>
+     *
+     * @return a {@link CommandOutput} object containing a message indicating
+     *     whether the removal was successful or failed.
      */
     @Override
     public CommandOutput execute() {
-        boolean isRemoved = this.eventList.removeEvent(eventName);
+        boolean isRemoved;
+
+        if (participantName == null) {
+            isRemoved = this.eventList.removeEvent(this.eventName);
+        } else {
+            isRemoved = this.eventList.removeParticipantFromEvent(this.participantName, this.eventName);
+        }
+
         if (isRemoved) {
             return new CommandOutput(REMOVE_SUCCESS, false);
         } else {
