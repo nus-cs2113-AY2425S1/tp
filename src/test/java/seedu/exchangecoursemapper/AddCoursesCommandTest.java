@@ -3,7 +3,10 @@ package seedu.exchangecoursemapper;
 import org.junit.jupiter.api.Test;
 import seedu.exchangecoursemapper.command.AddCoursesCommand;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 
 public class AddCoursesCommandTest {
 
