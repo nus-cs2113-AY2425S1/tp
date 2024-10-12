@@ -69,7 +69,6 @@ public class Parser {
         String time = parameters.get("-time");
         String venue = parameters.get("-venue");
 
-        // Create and return the AddCommand with parsed parameters
         return new AddCommand(eventName, time, venue);
     }
 
