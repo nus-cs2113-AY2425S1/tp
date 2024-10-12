@@ -1,12 +1,28 @@
 package seedu.duke;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-class DukeTest {
+class CategoryTest {
+
     @Test
-    public void sampleTest() {
-        assertTrue(true);
+    public void categoryConstructorSuccess() {
+        Category category = new Category("Entertainment");
+        assertEquals("Entertainment", category.getName());
+    }
+
+    @Test
+    public void categoryNameSuccess() {
+        Category category = new Category("Groceries");
+        assertEquals("Groceries", category.toString());
+    }
+
+    @Test
+    public void getNameSuccess() {
+        Category category = new Category("Transport");
+        assertNotNull(category.getName());
+        assertEquals("Transport", category.getName());
     }
 }
