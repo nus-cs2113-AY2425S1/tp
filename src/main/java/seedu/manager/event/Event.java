@@ -1,10 +1,13 @@
 package seedu.manager.event;
 
+import java.util.ArrayList;
+
 /**
  * The Event class represents an event with a name, time, and venue.
  * It provides methods to access and modify the time and venue of the event.
  */
 public class Event {
+    protected ArrayList<String> participantList;
     private final String eventName;
     private String eventTime;
     private String eventVenue;
@@ -16,6 +19,7 @@ public class Event {
      */
     public Event(String eventName) {
         this.eventName = eventName;
+        this.participantList = new ArrayList<>();
     }
 
     /**
@@ -29,6 +33,25 @@ public class Event {
         this.eventName = eventName;
         this.eventTime = eventTime;
         this.eventVenue = eventVenue;
+        this.participantList = new ArrayList<>();
+    }
+
+    /**
+     * Adds a participant to the participant list for the event.
+     *
+     * @param participantName the name of the participant to be added to the list.
+     */
+    public void addParticipant(String participantName) {
+        this.participantList.add(participantName);
+    }
+
+    /**
+     * Retrieves the number of participants in the participant list.
+     *
+     * @return the count of participants currently in the list.
+     */
+    public int getParticipantCount() {
+        return this.participantList.size();
     }
 
     /**
