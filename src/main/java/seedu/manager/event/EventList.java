@@ -35,14 +35,11 @@ public class EventList  {
 
     /**
      * Adds a new event to the event list.
-     * 
-     * This method creates a new instance of the {@link Event} class with the specified
-     * event name and adds it to the {@code eventList}.
      *
-     * @param eventName the name of the event to be added
+     * @param eventName The name of the event to be added.
      */
-    public void addEvent(String eventName, String time, String venue) {
-        Event newEvent = new Event(eventName, time, venue);
+    public void addEvent(String eventName) {
+        Event newEvent = new Event(eventName);
         eventList.add(newEvent);
     }
 
@@ -54,9 +51,16 @@ public class EventList  {
         return eventList.get(index);
     }
 
+    /**
+     * Removes an event from the event list by its name.
+     *
+     * @param eventName The name of the event to be removed.
+     * @return true if the event was found and removed; false otherwise.
+     */
+
     public boolean removeEvent(String eventName) {
         for (Event event : eventList) {
-            if (event.getEventName().equals(eventName)) { // Assuming Event has a getName() method
+            if (event.getEventName().equals(eventName)) {
                 eventList.remove(event);
                 return true; // Event found and removed
             }
