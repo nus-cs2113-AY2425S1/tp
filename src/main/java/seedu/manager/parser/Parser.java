@@ -68,18 +68,22 @@ public class Parser {
      * @return a {@link Command} object representing the parsed command.
      */
     public Command parseAddCommand(String input, String[] commandParts) {
-        String commandFlag = commandParts[1];
-        String[] inputParts;
+        try {
+            String commandFlag = commandParts[1];
+            String[] inputParts;
 
-        if (commandFlag.equals("-e")) {
-            inputParts = input.split("(-e|-t|-v)");
-            return new AddCommand(inputParts[1], inputParts[2], inputParts[3]);
-        } else if (commandFlag.equals("-p")) {
-            inputParts = input.split("(-p|-e)");
-            return new AddCommand(inputParts[1], inputParts[2]);
+            if (commandFlag.equals("-e")) {
+                inputParts = input.split("(-e|-t|-v)");
+                return new AddCommand(inputParts[1], inputParts[2], inputParts[3]);
+            } else if (commandFlag.equals("-p")) {
+                inputParts = input.split("(-p|-e)");
+                return new AddCommand(inputParts[1], inputParts[2]);
+            }
+
+            return new InvalidCommand(INVALID_ADD_MESSAGE);
+        } catch (IndexOutOfBoundsException exception) {
+            return new InvalidCommand(INVALID_ADD_MESSAGE);
         }
-
-        return new InvalidCommand(INVALID_ADD_MESSAGE);
     }
 
     /**
@@ -99,17 +103,21 @@ public class Parser {
      * @return a {@link Command} object representing the parsed command.
      */
     private Command parseRemoveCommand(String input, String[] commandParts) {
-        String commandFlag = commandParts[1];
-        String[] inputParts;
+        try {
+            String commandFlag = commandParts[1];
+            String[] inputParts;
 
-        if (commandFlag.equals("-e")) {
-            inputParts = input.split("-e");
-            return new RemoveCommand(inputParts[1]);
-        } else if (commandFlag.equals("-p")) {
-            inputParts = input.split("(-p|-e)");
-            return new RemoveCommand(inputParts[1], inputParts[2]);
+            if (commandFlag.equals("-e")) {
+                inputParts = input.split("-e");
+                return new RemoveCommand(inputParts[1]);
+            } else if (commandFlag.equals("-p")) {
+                inputParts = input.split("(-p|-e)");
+                return new RemoveCommand(inputParts[1], inputParts[2]);
+            }
+
+            return new InvalidCommand(INVALID_REMOVE_MESSAGE);
+        } catch (IndexOutOfBoundsException exception) {
+            return new InvalidCommand(INVALID_REMOVE_MESSAGE);
         }
-
-        return new InvalidCommand(INVALID_REMOVE_MESSAGE);
     }
 }
