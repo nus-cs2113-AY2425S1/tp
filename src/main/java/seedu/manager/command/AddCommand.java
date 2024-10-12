@@ -6,8 +6,8 @@ package seedu.manager.command;
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
-    private static final String ADD_E_MESSAGE = "Event added successfully";
-    private static final String ADD_P_MESSAGE = "Participant added successfully";
+    private static final String ADD_EVENT_MESSAGE = "Event added successfully";
+    private static final String ADD_PARTICIPANT_MESSAGE = "Participant added successfully";
     protected String eventName;
     protected String time;
     protected String venue;
@@ -55,10 +55,10 @@ public class AddCommand extends Command {
     public CommandOutput execute() {
         if (participantName == null) {
             this.eventList.addEvent(this.eventName, this.time, this.venue);
-            return new CommandOutput(ADD_E_MESSAGE, false);
+            return new CommandOutput(ADD_EVENT_MESSAGE, false);
         } else {
             this.eventList.addParticipantToEvent(this.participantName, this.eventName);
-            return new CommandOutput(ADD_P_MESSAGE, false);
+            return new CommandOutput(ADD_PARTICIPANT_MESSAGE, false);
         }
     }
 }

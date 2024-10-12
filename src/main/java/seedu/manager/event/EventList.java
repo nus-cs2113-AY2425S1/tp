@@ -95,7 +95,7 @@ public class EventList  {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
                 event.addParticipant(participantName);
-                break;
+                return;
             }
         }
     }
