@@ -32,15 +32,15 @@ public class Parser {
         String[] inputDetails = input.split(SPACE);
         String command = inputDetails[COMMAND_WORD_INDEX];
         if (input.equals(LISTINGSCHOOLS)) {
-            new ListSchoolCommand().execute(userInput);
+            new ListSchoolCommand().execute(input);
         } else if (command.equals(COMMANDS)) {
-            new ListCommandsCommand().execute(userInput);
+            new ListCommandsCommand().execute(input);
         } else if (command.equals(FILTER_COURSES)) {
-            new FilterCoursesCommand().execute(userInput);
+            new FilterCoursesCommand().execute(input);
         } else if (command.equals(ADD_COURSES)) {
-            new AddCoursesCommand().execute(userInput);
+            new AddCoursesCommand().execute(input);
         } else if (command.equals(SET)) {
-            new ListUniCoursesCommand().execute(userInput);
+            new ListUniCoursesCommand().execute(input);
         } else if (command.equals(BYE)) {
             System.out.println(BYE_MESSAGE);
         } else { // Add your parts here
