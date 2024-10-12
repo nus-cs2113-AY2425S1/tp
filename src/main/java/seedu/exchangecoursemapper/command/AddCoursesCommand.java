@@ -30,29 +30,34 @@ public class AddCoursesCommand extends Command {
         String trimmedString = string.trim();
         String[] outputSubstrings = trimmedString.split(" ", 2);
 
+        //throws an error when there is no user input after the add command.
         if (outputSubstrings.length < 2 || outputSubstrings[1].trim().isEmpty()) {
-            throw new IllegalArgumentException("Please provide a valid course name!");
+            throw new IllegalArgumentException("Please provide the nus course code, " +
+                    "name of partner university (PU) and the PU course code.");
         }
 
+        //returns user inputs without the "add" command
         return outputSubstrings[1];
     }
 
     public String[] parseAddCommand(String input) {
-        String lowerCaseInput = input.toLowerCase();
+        input = input.replaceAll("(?i)/pu", "/pu")
+                .replaceAll("(?i)/coursepu", "/coursepu")
+                .trim().replaceAll(" +", " ");
 
-        if ((!lowerCaseInput.contains("/pu") || !lowerCaseInput.contains("/coursepu"))) {
+        //throws an error when only one keyword is present
+        if ((!input.contains("/pu") || !input.contains("/coursepu"))) {
             throw new IllegalArgumentException("Please provide all of the valid commands: /pu, /coursepu!");
         }
 
-        String[] inputSubstrings = lowerCaseInput.split("/coursepu|/pu");
-
-        if (inputSubstrings.length < 3) {
-            throw new IllegalArgumentException("Please provide a valid PU or PU's course code!");
+        if (input.contains("/pu/coursepu") || input.contains("/coursepu/pu")){
+            throw new IllegalArgumentException("Commands shouldn't be adjacent to one another!");
         }
 
-        if (inputSubstrings[1].trim().isEmpty() || inputSubstrings[2].trim().isEmpty()
-                || inputSubstrings[0].trim().isEmpty()) {
-            throw new IllegalArgumentException("Do not leave the description empty!");
+        String[] inputSubstrings = input.split(" /coursepu | /pu ");
+
+        if (inputSubstrings.length < 3) {
+            throw new IllegalArgumentException("Please provide a valid NUS course code or PU or PU's course code!");
         }
 
         return inputSubstrings;
