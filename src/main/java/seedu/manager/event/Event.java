@@ -46,6 +46,15 @@ public class Event {
     }
 
     /**
+     * Retrieves the number of participants in the participant list.
+     *
+     * @return the count of participants currently in the list.
+     */
+    public int getParticipantCount() {
+        return this.participantList.size();
+    }
+
+    /**
      * @return the event name
      */
     public String getEventName() {

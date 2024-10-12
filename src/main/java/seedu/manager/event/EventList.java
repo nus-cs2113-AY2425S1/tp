@@ -47,11 +47,11 @@ public class EventList  {
     }
 
     /**
-     * @param index The index of event in the list (0 based indexing)
+     * @param index The index of event in the list
      * @return The specific event in the event list.
      */
     public Event getEvent(int index) {
-        return eventList.get(index);
+        return eventList.get(index - 1);
     }
 
     /**
