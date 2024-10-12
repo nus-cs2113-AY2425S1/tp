@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TestCommand extends Command {
     public static final String COMMAND_WORD = "test";
-    public static final String COMMAND_GUIDE = "test: A command for testing.";
+    public static final String COMMAND_GUIDE = "test arg1/ MANDADOTY arg2/ EXTRA: A command for testing.";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"arg1/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"arg2/"};
 
