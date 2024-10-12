@@ -83,8 +83,42 @@ public class ListUniCoursesCommandTest {
         assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
     }
 
+    @Test
+    public void execute_validInput_success() throws IOException {
+        String puName = "Chulalongkorn University";
+        listUniCoursesCommand.execute(puName);
+
+        String expectedOutput = """
+                ICE2190472: Netcentric Architecture
+                CS2105: Introduction to Computer Networks
+                -----------------------------------------------------
+                ICSE2190479: Graphics Computing
+                CS3241: Computer Graphics
+                -----------------------------------------------------
+                2603637: Machine Learning
+                CS3244: Machine Learning
+                -----------------------------------------------------
+                """;
+
+        String actualOutput = outputStreamCaptor.toString();
+        assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
+    }
+
+    @Test
+    public void execute_invalidUni_success() throws IOException {
+        String puName = "Invalid Uni";
+        listUniCoursesCommand.execute(puName);
+
+        String expectedOutput = """
+                University not found: Invalid Uni
+                -----------------------------------------------------
+                """;
+
+        String actualOutput = outputStreamCaptor.toString();
+        assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
+    }
+
     String normalizeLineEndings(String input) {
         return input.replaceAll("\\r\\n", "\n").replaceAll("\\r", "\n").trim();
     }
-
 }
