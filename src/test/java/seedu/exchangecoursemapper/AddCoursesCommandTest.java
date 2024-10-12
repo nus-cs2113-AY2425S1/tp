@@ -1,5 +1,6 @@
 package seedu.exchangecoursemapper;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.exchangecoursemapper.command.AddCoursesCommand;
 
@@ -10,7 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class AddCoursesCommandTest {
 
-    private final AddCoursesCommand addCoursesCommand = new AddCoursesCommand();
+    private AddCoursesCommand addCoursesCommand;
+
+    @BeforeEach
+    public void setUp() {
+        addCoursesCommand = new AddCoursesCommand();
+    }
 
     @Test
     void trimString_properInput_success() {
@@ -73,7 +79,8 @@ public class AddCoursesCommandTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             addCoursesCommand.parseAddCommand(input);
         });
-        assertEquals("Please provide a valid NUS course code or PU or PU's course code!", exception.getMessage());
+        assertEquals("Please provide a valid NUS course code or PU or PU's course code!"
+                , exception.getMessage());
     }
 
     @Test
@@ -82,7 +89,8 @@ public class AddCoursesCommandTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             addCoursesCommand.parseAddCommand(input);
         });
-        assertEquals("Please provide a valid NUS course code or PU or PU's course code!", exception.getMessage());
+        assertEquals("Please provide a valid NUS course code or PU or PU's course code!"
+                , exception.getMessage());
     }
 
     @Test
@@ -91,7 +99,8 @@ public class AddCoursesCommandTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             addCoursesCommand.parseAddCommand(input);
         });
-        assertEquals("Please provide a valid NUS course code or PU or PU's course code!", exception.getMessage());
+        assertEquals("Please provide a valid NUS course code or PU or PU's course code!"
+                , exception.getMessage());
     }
 
     @Test
