@@ -15,9 +15,11 @@ public class Duke {
                 } else if (input.equalsIgnoreCase("bye")) {
                     System.out.println("Goodbye! (｡•‿•｡) Hope to see you again soon!");
                     break;
+                } else {
+                    System.out.println("Invalid input! Try again."); // Provide feedback for invalid input
                 }
             } else {
-                System.out.println("Invalid input! Try again.");
+                System.out.println("No input received.");
                 break;
             }
         }
