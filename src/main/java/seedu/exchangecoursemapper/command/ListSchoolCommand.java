@@ -20,6 +20,8 @@ public class ListSchoolCommand extends Command {
         try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
             JsonObject jsonObject = jsonReader.readObject();
             logger.log(Level.INFO, "Successfully read JSON file");
+            assert jsonObject != null : "JSON object should not be null";
+            assert !jsonObject.isEmpty() : "JSON file is empty, no universities to display";
             displaySchoolList(jsonObject);
         } catch (IOException e) {
             logger.log(Level.WARNING, "Failed to read the file");
@@ -31,6 +33,7 @@ public class ListSchoolCommand extends Command {
     private static void displaySchoolList(JsonObject jsonObject) {
         Set<String> universityNames = jsonObject.keySet();
         for (String universityName : universityNames) {
+            assert universityName != null && !universityName.isEmpty();
             logger.log(Level.INFO, "Displaying university names ...");
             System.out.println(universityName);
         }
