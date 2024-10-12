@@ -46,6 +46,24 @@ public class Event {
     }
 
     /**
+     * Removes a participant from the participant list.
+     *
+     * <p>
+     * This method attempts to remove the specified participant from the list of
+     * participants associated with the event. It returns {@code true} if the
+     * participant was successfully removed, and {@code false} if the participant
+     * was not found in the list.
+     * </p>
+     *
+     * @param participantName the name of the participant to be removed from the list.
+     * @return {@code true} if the participant was successfully removed;
+     *         {@code false} if the participant was not found in the list.
+     */
+    public boolean removeParticipant(String participantName) {
+        return this.participantList.remove(participantName);
+    }
+
+    /**
      * Retrieves the number of participants in the participant list.
      *
      * @return the count of participants currently in the list.
