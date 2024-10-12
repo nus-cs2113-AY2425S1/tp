@@ -12,4 +12,21 @@ public class Exception extends Throwable {
     public static String emptyUniversityName() {
         return "Please provide a University name.";
     }
+
+    public static String noInputAfterAdd() {
+        return "Please provide the nus course code, " +
+                "name of partner university (PU) and the PU course code.";
+    }
+
+    public static String missingKeyword() {
+        return "Please provide all of the valid commands: /pu, /coursepu!";
+    }
+
+    public static String adjacentInputError() {
+        return "Commands shouldn't be adjacent to one another!";
+    }
+
+    public static String invalidCourseCodes() {
+        return "Please provide a valid NUS course code or PU or PU's course code!";
+    }
 }
