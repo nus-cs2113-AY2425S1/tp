@@ -5,11 +5,10 @@ import programme.Day;
 import com.google.gson.Gson;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
 
 public class History {
-    private HashMap<Date, Day> history;
+    private HashMap<LocalDateTime, Day> history;
 
     public void logDay(Day completed, LocalDateTime date) {
 
