@@ -21,6 +21,17 @@ public class RemoveCommand extends Command {
     }
 
     /**
+     * Constructs a RemoveCommand object with the specified event name.
+     *
+     * @param eventName The name of the event the participant is to be removed from.
+     * @param participantName The name of the participant to be removed.
+     */
+    public RemoveCommand(String eventName, String participantName) {
+        this.eventName = eventName;
+        this.participantName = participantName;
+    }
+
+    /**
      * Executes the command to remove an event or a participant from an event.
      *
      * <p>
@@ -31,7 +42,7 @@ public class RemoveCommand extends Command {
      * </p>
      *
      * @return a {@link CommandOutput} object containing a message indicating
-     * whether the removal was successful or failed.
+     *     whether the removal was successful or failed.
      */
     @Override
     public CommandOutput execute() {
