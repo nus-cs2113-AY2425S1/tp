@@ -27,16 +27,6 @@ public class EventList  {
     }
 
     /**
-     * @return The list of events.
-     */
-    public ArrayList<Event> getList() {
-        for (Event event : eventList) {
-            System.out.println(event);
-        }
-        return eventList;
-    }
-
-    /**
      * @return The size of the event list.
      */
     public int getListSize() {
@@ -51,15 +41,11 @@ public class EventList  {
      *
      * @param eventName the name of the event to be added
      */
-    public void addEvent(String eventName) {
-        Event newEvent = new Event(eventName);
+    public void addEvent(String eventName, String time, String venue) {
+        Event newEvent = new Event(eventName, time, venue);
         eventList.add(newEvent);
     }
 
-    public void addEvent(Event event) {
-        eventList.add(event);
-    }
-    
     /**
      * @param index The index of event in the list (0 based indexing)
      * @return The specific event in the event list.
@@ -68,4 +54,13 @@ public class EventList  {
         return eventList.get(index);
     }
 
+    public boolean removeEvent(String eventName) {
+        for (Event event : eventList) {
+            if (event.getEventName().equals(eventName)) { // Assuming Event has a getName() method
+                eventList.remove(event);
+                return true; // Event found and removed
+            }
+        }
+        return false; // Event not found
+    }
 }
