@@ -2,6 +2,7 @@ package seedu.command;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.category.Category;
 import seedu.category.CategoryList;
 
 import java.lang.reflect.Field;
@@ -24,7 +25,7 @@ class ViewCategoryCommandTest {
     void setCategoryList_newCategoryList_equalCategoryList() throws NoSuchFieldException, IllegalAccessException{
         // Expected list
         CategoryList temp = new CategoryList();
-        temp.addCategory("Category test");
+        temp.addCategory(new Category("Category test"));
 
         // Set category
         viewCategoryCommand.setCategoryList(temp);

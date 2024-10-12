@@ -42,9 +42,10 @@ public class JUnitTest {
         // Arrange
         CategoryList categoryList = new CategoryList();
         String newCategoryName = "Health";
+        Category newCategory = new Category(newCategoryName);
 
         // Act
-        categoryList.addCategory(newCategoryName);
+        categoryList.addCategory(newCategory);
         List<Category> categories = categoryList.getCategories();
 
         // Assert

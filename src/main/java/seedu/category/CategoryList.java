@@ -21,15 +21,15 @@ public class CategoryList {
     }
 
     // Add Category
-    public void addCategory(String categoryName) {
-        for (Category category : categories) {
-            if (category.getName().equalsIgnoreCase(categoryName)) {
-                System.out.println("Category '" + categoryName + "' already exists!");
+    public void addCategory(Category newCategory) {
+        for (Category category : this.categories) {
+            if (category.getName().equalsIgnoreCase(newCategory.getName())) {
+                System.out.println("Category '" + newCategory.getName() + "' already exists!");
                 return;
             }
         }
-        categories.add(new Category(categoryName));
-        System.out.println("Category '" + categoryName + "' added successfully.");
+        categories.add(newCategory);
+        System.out.println("Category '" + newCategory.getName() + "' added successfully.");
     }
 
     // Delete Category
@@ -65,8 +65,8 @@ public class CategoryList {
 
 
     public void interactiveAddCategory(String categoryName) {
-        addCategory(categoryName);
-
+        Category newCategory = new Category(categoryName);
+        addCategory(newCategory);
     }
 
 

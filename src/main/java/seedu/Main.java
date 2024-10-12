@@ -1,7 +1,5 @@
-import seedu.category.Category;
-import seedu.category.CategoryList;
-import seedu.transaction.Transaction;
-import seedu.transaction.TransactionList;
+/*
+package seedu.functions;
 
 import java.util.Scanner;
 
@@ -75,4 +73,4 @@ class Main {
             }
         }
     }
-}
+}*/
