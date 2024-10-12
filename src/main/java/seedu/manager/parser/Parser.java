@@ -8,9 +8,6 @@ import seedu.manager.command.MenuCommand;
 import seedu.manager.command.EchoCommand;
 import seedu.manager.command.ListCommand;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Represents the command parser for EventManagerCLI
  */
@@ -29,7 +26,7 @@ public class Parser {
         case AddCommand.COMMAND_WORD:
             return parseAddCommand(command, commandParts);
         case RemoveCommand.COMMAND_WORD:
-            return parseRemoveCommand(commandParts);
+            return parseRemoveCommand(command, commandParts);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
         case ExitCommand.COMMAND_WORD:
@@ -74,28 +71,33 @@ public class Parser {
     }
 
     /**
-     * Parses the 'remove' command and its arguments.
+     * Parses the input string to create a {@link Command} based on the provided command parts.
      *
-     * @param commandParts The split command input from the user.
-     * @return The RemoveCommand object with parsed event details.
+     * <p>
+     * This method checks the command flag extracted from the command parts. If the command
+     * flag is {@code "-e"}, it splits the input string to create a {@link RemoveCommand}
+     * for removing an event. If the command flag is {@code "-p"}, it creates a
+     * {@link RemoveCommand} for removing a participant from an event. If neither flag
+     * is matched, it returns an {@link EchoCommand} with the original input.
+     * </p>
+     *
+     * @param input        the input string containing the command details.
+     * @param commandParts an array of strings representing the parsed command parts,
+     *                     where the second element is the command flag.
+     * @return a {@link Command} object representing the parsed command.
      */
-    private Command parseRemoveCommand(String[] commandParts) {
-        Map<String, String> parameters = new HashMap<>();
-        String currentOption = null;
+    private Command parseRemoveCommand(String input, String[] commandParts) {
+        String commandFlag = commandParts[1];
+        String[] inputParts;
 
-        for (int i = 1; i < commandParts.length; i++) {
-            String part = commandParts[i];
-            if (part.startsWith("-")) {
-                currentOption = part;
-            } else if (currentOption != null) {
-                parameters.put(currentOption, part);
-                currentOption = null;
-            }
+        if (commandFlag.equals("-e")) {
+            inputParts = input.split("-e");
+            return new RemoveCommand(inputParts[1]);
+        } else if (commandFlag.equals("-p")) {
+            inputParts = input.split("(-p|-e)");
+            return new RemoveCommand(inputParts[1], inputParts[2]);
         }
 
-        // Extract event details from the parsed parameters
-        String eventName = parameters.get("-e"); // Must be present
-
-        return new RemoveCommand(eventName);
+        return new EchoCommand(input);
     }
 }

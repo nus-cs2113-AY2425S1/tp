@@ -99,4 +99,29 @@ public class EventList  {
             }
         }
     }
+
+    /**
+     * Removes a participant from a specified event.
+     *
+     * <p>
+     * This method searches for the event with the given name in the event list and
+     * attempts to remove the specified participant from that event. If the event is
+     * found and the participant is successfully removed, it returns {@code true}.
+     * If the event does not exist or the participant is not found, it returns
+     * {@code false}.
+     * </p>
+     *
+     * @param participantName the name of the participant to be removed from the event.
+     * @param eventName      the name of the event from which the participant will be removed.
+     * @return {@code true} if the participant was successfully removed;
+     *         {@code false} if the event does not exist or the participant was not found.
+     */
+    public boolean removeParticipantFromEvent(String participantName, String eventName) {
+        for (Event event : eventList) {
+            if (event.getEventName().equals(eventName)) {
+                return event.removeParticipant(participantName);
+            }
+        }
+        return false;
+    }
 }
