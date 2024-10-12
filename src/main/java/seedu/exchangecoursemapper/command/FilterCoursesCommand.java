@@ -15,14 +15,16 @@ import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
 import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
+import static seedu.exchangecoursemapper.constants.Regex.REPEATED_SPACES;
 
 public class FilterCoursesCommand extends Command {
+
     @Override
     public void execute(String userInput) {
         try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
             JsonObject jsonObject = jsonReader.readObject();
             String courseToFind = getNusCourseCode(userInput);
-            displayMappableCourses(jsonObject, courseToFind.toLowerCase());
+            displayMappableCourses(jsonObject, courseToFind);
         } catch (IOException e) {
             System.err.println(Exception.fileReadError());
         } catch (IndexOutOfBoundsException e) {
@@ -31,8 +33,12 @@ public class FilterCoursesCommand extends Command {
     }
 
     public String getNusCourseCode(String userInput) throws IndexOutOfBoundsException {
-        String[] userInputDetails = userInput.split(SPACE);
-        return userInputDetails[1];
+        String input = userInput.trim().replaceAll(REPEATED_SPACES, SPACE);
+        String[] inputDetails = userInput.split(SPACE);
+        if (inputDetails.length > 2) {
+            System.err.println(Exception.filterCourseLimitError());
+        }
+        return inputDetails[1];
     }
 
     public void displayMappableCourses(JsonObject jsonObject, String courseToFind) {
@@ -46,7 +52,7 @@ public class FilterCoursesCommand extends Command {
                 String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY);
 
                 // Check if the value in "nus_course_code" matches the input
-                if (nusCourseCode.toLowerCase().equals(courseToFind)) {
+                if (nusCourseCode.equalsIgnoreCase(courseToFind)) {
                     String puCourseCode = course.getString(PU_COURSE_CODE_KEY);
                     System.out.println("Partner University: " + universityName);
                     System.out.println("Partner University Course Code: " + puCourseCode);
