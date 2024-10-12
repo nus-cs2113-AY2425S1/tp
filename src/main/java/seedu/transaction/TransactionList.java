@@ -1,4 +1,4 @@
-package seedu;
+package seedu.transaction;
 
 import java.util.ArrayList;
 import java.util.List;

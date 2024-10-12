@@ -1,6 +1,6 @@
 package seedu.main;
 
-import seedu.CategoryList;
+import seedu.category.CategoryList;
 import seedu.command.Command;
 import seedu.command.HelpCommand;
 import seedu.command.TestCommand;

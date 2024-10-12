@@ -1,16 +1,16 @@
 package seedu.command;
 
-import seedu.Category;
-import seedu.CategoryList;
-import seedu.Transaction;
-import seedu.TransactionList;
+import seedu.category.Category;
+import seedu.category.CategoryList;
 
 import java.util.List;
 
 // Command class for adding a new category
 public class AddCategoryCommand extends Command {
-    public static final String COMMAND_WORD = "add_category";
-    public static final String[] COMMAND_MANDATORY_KEYWORDS = { "/cat" };
+    public static final String COMMAND_WORD = "add-category";
+    // A guide or description of the command
+    public static final String COMMAND_GUIDE = "add-category CATEGORY_NAME: Add a new category";
+    public static final String[] COMMAND_MANDATORY_KEYWORDS = { "" };
 
     private CategoryList categoryList;
 
@@ -27,7 +27,7 @@ public class AddCategoryCommand extends Command {
         if (!isArgumentsValid()) {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
         }
-        String categoryName = arguments.get("/cat");
+        String categoryName = arguments.get("");
         Category category = new Category(categoryName);
         categoryList.addCategory(category);
         return List.of("Category added: " + categoryName);
@@ -49,6 +49,6 @@ public class AddCategoryCommand extends Command {
 
     @Override
     protected String getCommandGuide() {
-        return "Adds a new category with the specified name.";
+        return COMMAND_GUIDE;
     }
 }

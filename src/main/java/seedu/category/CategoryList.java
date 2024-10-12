@@ -1,4 +1,4 @@
-package seedu;
+package seedu.category;
 
 import java.util.ArrayList;
 import java.util.List;

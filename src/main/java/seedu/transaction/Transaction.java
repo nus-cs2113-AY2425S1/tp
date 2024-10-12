@@ -1,7 +1,6 @@
-package seedu;
+package seedu.transaction;
 
-import java.util.ArrayList;
-import java.util.List;
+import seedu.category.Category;
 
 public class Transaction {
     private final double amount;

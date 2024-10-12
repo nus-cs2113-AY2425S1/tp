@@ -1,7 +1,4 @@
-package seedu;
-
-import java.util.ArrayList;
-import java.util.List;
+package seedu.category;
 
 // Category class representing a category
 public class Category {
