@@ -13,6 +13,11 @@ import static seedu.exchangecoursemapper.constants.Commands.LISTINGSCHOOLS;
 import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.SET;
 import static seedu.exchangecoursemapper.constants.Commands.ADD_COURSES;
+import static seedu.exchangecoursemapper.constants.Commands.BYE;
+import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
+import static seedu.exchangecoursemapper.constants.Messages.BYE_MESSAGE;
+import static seedu.exchangecoursemapper.constants.Messages.INVALID_COMMAND_MESSAGE;
+import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 
 public class Parser {
 
@@ -23,18 +28,23 @@ public class Parser {
     }
 
     public void processUserInput(String userInput) {
-        if (userInput.startsWith(LISTINGSCHOOLS)) {
-            new ListSchoolCommand().execute(userInput);
-        } else if (userInput.startsWith(COMMANDS)) {
-            new ListCommandsCommand().execute(userInput);
-        } else if (userInput.startsWith(FILTER_COURSES)) {
-            new FilterCoursesCommand().execute(userInput);
-        } else if (userInput.startsWith(ADD_COURSES)) {
-            new AddCoursesCommand().execute(userInput);
-        } else if (userInput.startsWith(SET)) {
-            new ListUniCoursesCommand().execute(userInput);
+        String input = userInput.trim();
+        String[] inputDetails = input.split(SPACE);
+        String command = inputDetails[COMMAND_WORD_INDEX];
+        if (input.equals(LISTINGSCHOOLS)) {
+            new ListSchoolCommand().execute(input);
+        } else if (command.equals(COMMANDS)) {
+            new ListCommandsCommand().execute(input);
+        } else if (command.equals(FILTER_COURSES)) {
+            new FilterCoursesCommand().execute(input);
+        } else if (command.equals(ADD_COURSES)) {
+            new AddCoursesCommand().execute(input);
+        } else if (command.equals(SET)) {
+            new ListUniCoursesCommand().execute(input);
+        } else if (command.equals(BYE)) {
+            System.out.println(BYE_MESSAGE);
         } else { // Add your parts here
-            System.out.println(userInput);
+            System.out.println(INVALID_COMMAND_MESSAGE);
         }
     }
 }
