@@ -48,9 +48,8 @@ public class AddCommand extends Command {
      * specified event in the event list.
      * </p>
      *
-     * @return a {@link CommandOutput} object containing a message about
-     * the result of the execution. The message indicates whether an event
-     * or participant was successfully added.
+     * @return a {@link CommandOutput} object containing a message about the result of the execution.
+     *     The message indicates whether an event or participant was successfully added.
      */
     @Override
     public CommandOutput execute() {

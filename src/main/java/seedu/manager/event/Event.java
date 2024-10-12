@@ -7,10 +7,10 @@ import java.util.ArrayList;
  * It provides methods to access and modify the time and venue of the event.
  */
 public class Event {
+    protected ArrayList<String> participantList;
     private final String eventName;
     private String eventTime;
     private String eventVenue;
-    protected ArrayList<String> participantList;
 
     /**
      * Constructs an Event with the specified name.

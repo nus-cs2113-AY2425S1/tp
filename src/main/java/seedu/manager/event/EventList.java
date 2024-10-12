@@ -43,16 +43,6 @@ public class EventList  {
         eventList.add(newEvent);
     }
 
-
-
-    /**
-     * @param index The index of event in the list (0 based indexing)
-     * @return The specific event in the event list.
-     */
-    public Event getEvent(int index) {
-        return eventList.get(index);
-    }
-
     /**
      * Adds a new event to the event list.
      *
@@ -68,6 +58,14 @@ public class EventList  {
     public void addEvent(String eventName, String time, String venue) {
         Event newEvent = new Event(eventName, time, venue);
         eventList.add(newEvent);
+    }
+
+    /**
+     * @param index The index of event in the list (0 based indexing)
+     * @return The specific event in the event list.
+     */
+    public Event getEvent(int index) {
+        return eventList.get(index);
     }
 
     /**
