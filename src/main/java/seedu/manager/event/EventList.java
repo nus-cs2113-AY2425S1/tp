@@ -54,6 +54,13 @@ public class EventList  {
         return eventList.get(index);
     }
 
+    /**
+     * Removes an event from the event list by its name.
+     *
+     * @param eventName the name of the event to be removed.
+     * @return {@code true} if the event was successfully removed;
+     *         {@code false} if no event with the specified name was found.
+     */
     public boolean removeEvent(String eventName) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) { // Assuming Event has a getName() method
@@ -62,5 +69,20 @@ public class EventList  {
             }
         }
         return false; // Event not found
+    }
+
+    /**
+     * Adds a participant to an existing event.
+     *
+     * @param participantName the name of the participant to be added.
+     * @param eventName the name of the event to which the participant will be added.
+     */
+    public void addParticipantToEvent(String participantName, String eventName) {
+        for (Event event : eventList) {
+            if (event.getEventName().equals(eventName)) {
+                event.addParticipant(participantName);
+                break;
+            }
+        }
     }
 }
