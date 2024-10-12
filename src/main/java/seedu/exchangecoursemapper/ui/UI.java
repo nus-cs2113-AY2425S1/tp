@@ -14,6 +14,11 @@ public class UI {
         System.out.println(greetingMessage);
     }
 
+    public void displayExitMessage() {
+        String exitMessage = "All the best in planning for your exchange, hope we helped!";
+        System.out.println(exitMessage);
+    }
+
     /**
      * Runs the main chat loop of the application. It continuously takes user input
      * and processes it through the {@code Parser} until the user types "bye".

@@ -5,6 +5,7 @@ import seedu.exchangecoursemapper.command.ListCommandsCommand;
 import seedu.exchangecoursemapper.command.ListSchoolCommand;
 import seedu.exchangecoursemapper.command.ListUniCoursesCommand;
 import seedu.exchangecoursemapper.command.AddCoursesCommand;
+import seedu.exchangecoursemapper.ui.UI;
 
 import java.util.Scanner;
 
@@ -15,13 +16,14 @@ import static seedu.exchangecoursemapper.constants.Commands.SET;
 import static seedu.exchangecoursemapper.constants.Commands.ADD_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
 import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
-import static seedu.exchangecoursemapper.constants.Messages.BYE_MESSAGE;
 import static seedu.exchangecoursemapper.constants.Messages.INVALID_COMMAND_MESSAGE;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 
 public class Parser {
 
     private final Scanner scanner = new Scanner(System.in);
+
+    UI mapperUI = new UI();
 
     public String getUserInput() {
         return scanner.nextLine();
@@ -42,7 +44,7 @@ public class Parser {
         } else if (command.equals(SET)) {
             new ListUniCoursesCommand().execute(input);
         } else if (command.equals(BYE)) {
-            System.out.println(BYE_MESSAGE);
+            mapperUI.displayExitMessage();
         } else { // Add your parts here
             System.out.println(INVALID_COMMAND_MESSAGE);
         }
