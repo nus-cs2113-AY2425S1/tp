@@ -1,6 +1,12 @@
 package fittrack.trainingsession;
 
-import fittrack.exercisestation.*;
+import fittrack.exercisestation.ExerciseStation;
+import fittrack.exercisestation.PullUpStation;
+import fittrack.exercisestation.ShuttleRunStation;
+import fittrack.exercisestation.SitAndReachStation;
+import fittrack.exercisestation.SitUpStation;
+import fittrack.exercisestation.StandingBroadJumpStation;
+import fittrack.exercisestation.WalkAndRunStation;
 import fittrack.user.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,44 +32,41 @@ public class TrainingSession{
     private User user;
 
     private ExerciseStation[] exerciseData = {new PullUpStation(), new ShuttleRunStation(), new SitAndReachStation(),
-            new SitUpStation(), new StandingBroadJumpStation(), new WalkAndRunStation()};
+        new SitUpStation(), new StandingBroadJumpStation(), new WalkAndRunStation()};
 
-    public TrainingSession(String datetime, String sessionDescription, User user){
+    public TrainingSession(String datetime, String sessionDescription, User user) {
         this.sessionDatetime = LocalDateTime.parse(datetime);
         this.sessionDescription = sessionDescription;
         this.user = user;
     }
 
     //Edits session data
-    public void editExercise(int exerciseNum, int reps){
+    public void editExercise(int exerciseNum, int reps) {
         exerciseData[exerciseNum].setPerformance(reps);
         System.out.print("Exercise edited! Here's your new input: " + System.lineSeparator() +
                 exerciseData[exerciseNum] + System.lineSeparator());
     }
 
     //Returns string for award attained
-    private String award(int minPoint, int totalPoints){
-        if(minPoint >= GOLD_GRADE && totalPoints >= GOLD_POINT){
+    private String award(int minPoint, int totalPoints) {
+        if(minPoint >= GOLD_GRADE && totalPoints >= GOLD_POINT) {
             return GOLD_STRING;
-        }
-        else if(minPoint >= SILVER_GRADE && totalPoints >= SILVER_POINT){
+        } else if(minPoint >= SILVER_GRADE && totalPoints >= SILVER_POINT) {
             return SILVER_STRING;
-        }
-        else if(minPoint >= BRONZE_GRADE && totalPoints >= BRONZE_POINT){
+        } else if(minPoint >= BRONZE_GRADE && totalPoints >= BRONZE_POINT) {
             return BRONZE_STRING;
-        }
-        else{
+        } else{
             return NO_AWARD;
         }
     }
 
-    public void printSessionDescription(){
+    public void printSessionDescription() {
         System.out.println(this.sessionDescription + " | " +
                 this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
     }
 
     //Print out all exercise data, including the total points and award given
-    public void viewSession(){
+    public void viewSession() {
         int totalPoints = 0;
         int minPoint = MAX_POINT;
         int exercisePoint;
@@ -72,10 +75,10 @@ public class TrainingSession{
                 "Training Datetime: " + this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
                 + System.lineSeparator());
 
-        for(int i = 0; i < NUM_OF_EXERCISES; i++){
+        for(int i = 0; i < NUM_OF_EXERCISES; i++) {
             exercisePoint = exerciseData[i].getPoints(user);
             totalPoints += exercisePoint;
-            if(minPoint < exercisePoint){
+            if(minPoint < exercisePoint) {
                 minPoint = exercisePoint;
             }
             System.out.print(exerciseData[i].getName() + " | " +

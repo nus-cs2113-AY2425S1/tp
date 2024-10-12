@@ -5,8 +5,17 @@ import fittrack.user.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static fittrack.messages.Messages.*;
+
+import static fittrack.messages.Messages.ADD_SESSION_COMMAND;
+import static fittrack.messages.Messages.DELETE_SESSION_COMMAND;
+import static fittrack.messages.Messages.EDIT_EXERCISE_COMMAND;
+import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
+import static fittrack.messages.Messages.SET_USER_COMMAND;
+import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
+import static fittrack.ui.Ui.printAddedSession;
+import static fittrack.ui.Ui.printDeletedSession;
 import static fittrack.ui.Ui.printSessionList;
+import static fittrack.ui.Ui.printSessionView;
 import static fittrack.ui.Ui.printUnrecognizedInputMessage;
 
 public class Parser {
@@ -30,33 +39,37 @@ public class Parser {
         }
 
         switch (command) {
-            case SET_USER_COMMAND:
-                sentence = description.split(" ", 2);
-                user.setGender(sentence[0]);
-                user.setAge(sentence[1]);
-                break;
-            case ADD_SESSION_COMMAND:
-                sessionList.add(new TrainingSession(LocalDateTime.now().toString() , description, user));
-                break;
-            case EDIT_EXERCISE_COMMAND:
-                sentence = description.split(" ", 3);
-                int sessionIndex = Integer.parseInt(sentence[0]) - 1;
-                int exerciseIndex = Integer.parseInt(sentence[1]);
-                int exerciseReps = Integer.parseInt(sentence[2]);
-                sessionList.get(sessionIndex).editExercise(exerciseIndex, exerciseReps);
-                break;
-            case LIST_SESSIONS_COMMAND:
-                printSessionList(sessionList); // Print the list of sessions
-                break;
-            case VIEW_SESSION_COMMAND:
-                sessionList.get(Integer.parseInt(description)-1).viewSession(); // Print the list of sessions
-                break;
-            case DELETE_SESSION_COMMAND:
-                sessionList.remove(Integer.parseInt(description)-1);
-                break;
-            default:
-                printUnrecognizedInputMessage(); // Response to unrecognized inputs
-                break;
+        case SET_USER_COMMAND:
+            sentence = description.split(" ", 2);
+            user.setGender(sentence[0]);
+            user.setAge(sentence[1]);
+            break;
+        case ADD_SESSION_COMMAND:
+            sessionList.add(new TrainingSession(LocalDateTime.now().toString() , description, user));
+            printAddedSession(sessionList);
+            break;
+        case EDIT_EXERCISE_COMMAND:
+            sentence = description.split(" ", 3);
+            int sessionIndex = Integer.parseInt(sentence[0]) - 1;
+            int exerciseIndex = Integer.parseInt(sentence[1]);
+            int exerciseData = Integer.parseInt(sentence[2]);
+            sessionList.get(sessionIndex).editExercise(exerciseIndex, exerciseData);
+            break;
+        case LIST_SESSIONS_COMMAND:
+            printSessionList(sessionList); // Print the list of sessions
+            break;
+        case VIEW_SESSION_COMMAND:
+            printSessionView(sessionList, Integer.parseInt(description)-1); // Print the list of sessions
+            break;
+        case DELETE_SESSION_COMMAND:
+            int indexToDelete = Integer.parseInt(description) - 1;
+            TrainingSession sessionToDelete = sessionList.get(indexToDelete);
+            sessionList.remove(indexToDelete);
+            printDeletedSession(sessionList, sessionToDelete);
+            break;
+        default:
+            printUnrecognizedInputMessage(); // Response to unrecognized inputs
+            break;
         }
     }
 }

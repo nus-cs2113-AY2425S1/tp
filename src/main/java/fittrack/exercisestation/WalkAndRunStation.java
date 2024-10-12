@@ -1,10 +1,9 @@
 package fittrack.exercisestation;
 
-import fittrack.enums.Gender;
 import fittrack.user.User;
 
 public class WalkAndRunStation extends ExerciseStation {
-    private String Name = "Walk and Run Station";
+    private String name = "Walk and Run Station";
     private int time;
 
     public WalkAndRunStation() {
@@ -29,7 +28,7 @@ public class WalkAndRunStation extends ExerciseStation {
 
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     @Override

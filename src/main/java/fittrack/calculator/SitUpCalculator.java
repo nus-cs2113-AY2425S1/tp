@@ -21,7 +21,7 @@ public class SitUpCalculator extends Calculator {
         maleAge12Table.put(22, 1);
         sitUpPointsTable.put(new LookUpKey(Gender.MALE, 12), maleAge12Table);
 
-        TreeMap<Integer, Integer> maleAge13Table = new TreeMap<>(Comparator.reverseOrder()); // Sorting in descending order
+        TreeMap<Integer, Integer> maleAge13Table = new TreeMap<>(Comparator.reverseOrder()); // Sort in descending order
         maleAge13Table.put(43, 5);
         maleAge13Table.put(38, 4);
         maleAge13Table.put(34, 3);
