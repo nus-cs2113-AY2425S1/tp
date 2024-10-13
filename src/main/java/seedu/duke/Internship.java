@@ -49,9 +49,6 @@ public class Internship {
      */
     public void updateField(String field, String value) {
         switch (field) {
-        case "id":
-            setId(Integer.parseInt(value));
-            break;
         case "status":
             updateStatus(value);
             break;
