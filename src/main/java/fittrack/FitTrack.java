@@ -8,6 +8,7 @@ import fittrack.parser.Parser;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 
+import static fittrack.logger.FitTrackLogger.setupLogger;
 import static fittrack.messages.Messages.EXIT_COMMAND;
 import static fittrack.storage.Storage.initialiseSaveFile;
 import static fittrack.storage.Storage.loadSaveFile;
@@ -20,6 +21,8 @@ public class FitTrack {
      * Main entry-point for the FitTrack CLI application.
      */
     public static void main(String[] args) throws FileNotFoundException {
+        setupLogger();
+
         Scanner scan = new Scanner(System.in);
         ArrayList<TrainingSession> sessionList = new ArrayList<>();
 
