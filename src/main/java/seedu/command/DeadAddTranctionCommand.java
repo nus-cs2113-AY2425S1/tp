@@ -1,3 +1,4 @@
+/*
 package seedu.command;
 
 import seedu.transaction.Transaction;
@@ -47,3 +48,4 @@ public class DeadAddTranctionCommand extends Command {
         return COMMAND_GUIDE;
     }
 }
+*/
