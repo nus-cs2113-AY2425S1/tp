@@ -5,33 +5,35 @@ import java.util.ArrayList;
 public class SortCommand extends Command {
     @Override
     public void execute(ArrayList<String> args) {
-        // Ensure that the args array contains at least one argument after "sort"
-        if (args.size() == 0) {
-            ui.showSortedInternships("none");
-            internships.listAllInternships(); // Default to listing by original order (ID)
+        // Check if no arguments are provided after "sort"
+        if (args.isEmpty()) {
+            ui.showSortedInternships("none");  // No valid sort option provided
+            internships.listAllInternships();  // Default to listing by ID
             return;
         }
 
-        // Check if the user requested to sort by alphabet or deadline
+        // Get the first argument, which should be the sort option
         String sortOption = args.get(0).toLowerCase();
 
+        // Handle valid sorting options
         switch (sortOption) {
         case "alphabet":
-            ui.showSortedInternships(sortOption);
-            internships.listInternshipsSortedByRole(); // Sort by role alphabetically
+            ui.showSortedInternships(sortOption);  // Show sorting message for alphabet
+            internships.listInternshipsSortedByRole();  // Sort by role alphabetically
             break;
         case "deadline":
-            ui.showSortedInternships(sortOption);
-            internships.listInternshipsSortedByDeadline(); // Sort by deadline (start date, then end date)
+            ui.showSortedInternships(sortOption);  // Show sorting message for deadline
+            internships.listInternshipsSortedByDeadline();  // Sort by start date, then end date
             break;
         default:
-            ui.showSortedInternships(sortOption);
-            internships.listAllInternships(); // Default to listing by original order (ID)
+            // Handle invalid sorting options
+            ui.showSortedInternships(sortOption);  // Show error message for invalid option
+            internships.listAllInternships();  // Default to listing by ID
         }
     }
 
     @Override
     public String getUsage() {
-        return "Usage: sort [-alphabet | -deadline]";
+        return "Usage: sort [alphabet | deadline]";
     }
 }
