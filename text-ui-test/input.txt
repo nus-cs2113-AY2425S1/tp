@@ -1,1 +1,7 @@
-James Gosling
+help
+add n/grilled cheese sandwich i/eggs i/sandwich i/cheese i/butter s1/add butter to hot pan s2/etc
+add n/ramen eggs i/eggs i/soya sauce s1/boil eggs for 6.5 min s2/cool eggs in ice bath
+list
+delete n/ramen eggs
+list
+bye
