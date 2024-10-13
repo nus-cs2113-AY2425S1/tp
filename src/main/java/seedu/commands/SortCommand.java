@@ -17,18 +17,18 @@ public class SortCommand extends Command {
 
         // Handle valid sorting options
         switch (sortOption) {
-            case "alphabet":
-                ui.showSortedInternships(sortOption);  // Show sorting message for alphabet
-                internships.listInternshipsSortedByRole();  // Sort by role alphabetically
-                break;
-            case "deadline":
-                ui.showSortedInternships(sortOption);  // Show sorting message for deadline
-                internships.listInternshipsSortedByDeadline();  // Sort by start date, then end date
-                break;
-            default:
-                // Handle invalid sorting options
-                ui.showSortedInternships(sortOption);  // Show error message for invalid option
-                internships.listAllInternships();  // Default to listing by ID
+        case "alphabet":
+            ui.showSortedInternships(sortOption);  // Show sorting message for alphabet
+            internships.listInternshipsSortedByRole();  // Sort by role alphabetically
+            break;
+        case "deadline":
+            ui.showSortedInternships(sortOption);  // Show sorting message for deadline
+            internships.listInternshipsSortedByDeadline();  // Sort by start date, then end date
+            break;
+        default:
+            // Handle invalid sorting options
+            ui.showSortedInternships(sortOption);  // Show error message for invalid option
+            internships.listAllInternships();  // Default to listing by ID
         }
     }
 
