@@ -52,6 +52,9 @@ public class Storage {
             LOGGER.info("Save file could not be created.");
             throw new RuntimeException(e);
         }
+
+        // Assert that the file exists after initialization
+        assert file.exists() : "Save file should exist after initialization";
     }
 
     /**
@@ -61,6 +64,9 @@ public class Storage {
      * @throws FileNotFoundException If the save file is not found.
      */
     public static void loadSaveFile(ArrayList<TrainingSession> sessionList) throws FileNotFoundException {
+        // Assert that the session list is not null before loading
+        assert sessionList != null : "Session list must not be null";
+
         Scanner s = new Scanner(SAVEFILE); // Create a Scanner to read the save file
         while (s.hasNext()) {
             String line = s.nextLine(); // Read each line from the file
@@ -68,6 +74,10 @@ public class Storage {
             // IMPLEMENT READ SAVE FILE HERE
 
         }
+
+        // Assert that the session list is populated after loading (if applicable)
+        assert !sessionList.isEmpty() : "Session list should be populated after loading";
+
         System.out.println("Save file successfully loaded.");
         LOGGER.info("Save file successfully loaded.");
     }
@@ -79,12 +89,20 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public static void updateSaveFile(ArrayList<TrainingSession> sessionList) throws IOException {
+        // Assert that the session list is not null before saving
+        assert sessionList != null : "Session list must not be null";
+
         try (FileWriter fw = new FileWriter(SAVEFILE)) {
             for (TrainingSession session : sessionList) {
+                // Assert that session objects are valid
+                assert session != null : "Training session must not be null";
                 fw.write(session.toString()); // Write the session to the file
                 fw.write(System.lineSeparator()); // Add a new line after each session
                 LOGGER.info("Save file successfully updated.");
             }
         }
+
+        // Assert that the file has been written to successfully
+        assert SAVEFILE.length() > 0 : "Save file should not be empty after update";
     }
 }

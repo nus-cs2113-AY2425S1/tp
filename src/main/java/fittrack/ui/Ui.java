@@ -37,6 +37,10 @@ public class Ui {
     }
 
     public static void printUser(User user) {
+        assert user != null : "User object must not be null";
+        assert user.getAge() > 0 : "User age must be greater than 0";
+        assert user.getGender() != null : "User gender must not be null";
+
         beginSegment();
         System.out.println("You are a " + user.getAge() + " year old "
                 + user.getGender().toString().toLowerCase() + ".");
@@ -44,28 +48,30 @@ public class Ui {
     }
 
     public static void printAddedSession(ArrayList<TrainingSession> sessionList) {
+        assert sessionList != null : "Session list must not be null";
+        assert !sessionList.isEmpty() : "Session list must not be empty";
+
         beginSegment();
         System.out.print(ADD_SESSION_MESSAGE);
-        sessionList.get(sessionList.size()-1).printSessionDescription();
+        sessionList.get(sessionList.size() - 1).printSessionDescription();
         printSessionCount(sessionList);
         endSegment();
     }
 
     public static void printDeletedSession(ArrayList<TrainingSession> sessionList, TrainingSession sessionToDelete) {
+        assert sessionList != null : "Session list must not be null";
+        assert sessionToDelete != null : "Session to delete must not be null";
+
         beginSegment();
         System.out.print(DELETE_SESSION_MESSAGE);
         sessionToDelete.printSessionDescription();
         printSessionCount(sessionList);
         endSegment();
-
     }
 
-    /**
-     * Prints the list of training sessions.
-     *
-     * @param sessionList The list of training sessions to print.
-     */
     public static void printSessionList(ArrayList<TrainingSession> sessionList) {
+        assert sessionList != null : "Session list must not be null";
+
         beginSegment();
         if (sessionList.isEmpty()) {
             System.out.println(LIST_EMPTY_MESSAGE);
@@ -84,35 +90,30 @@ public class Ui {
     }
 
     public static void printSessionView(ArrayList<TrainingSession> sessionList, int index) {
+        assert sessionList != null : "Session list must not be null";
+        assert index >= 0 && index < sessionList.size() : "Index is out of bounds";
+
         beginSegment();
         sessionList.get(index).viewSession();
         endSegment();
     }
 
-    /**
-     * Prints the current number of training sessions in the list.
-     *
-     * @param sessionList The list of training sessions.
-     */
     public static void printSessionCount(List<TrainingSession> sessionList) {
+        assert sessionList != null : "Session list must not be null";
+
         System.out.println("There are " + sessionList.size() + " sessions in the list.");
     }
 
-    /**
-     * Prints the message for unrecognized input.
-     */
     public static void printUnrecognizedInputMessage() {
         beginSegment();
         System.out.println(INVALID_INPUT_MESSAGE); // Print the unrecognized input message
         endSegment();
     }
 
-    /**
-     * Prints the exit message.
-     */
     public static void printExitMessage() {
         beginSegment();
         System.out.println(EXIT_MESSAGE); // Print the exit message
         endSegment();
     }
 }
+
