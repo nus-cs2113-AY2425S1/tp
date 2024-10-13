@@ -60,6 +60,11 @@ public class TrainingSession{
         }
     }
 
+    public String getSessionDescription() {
+        return (this.sessionDescription + " | " +
+                this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+    }
+
     public void printSessionDescription() {
         System.out.println(this.sessionDescription + " | " +
                 this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
