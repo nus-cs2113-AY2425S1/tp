@@ -1,6 +1,11 @@
-package ymfc;
+package ymfc.parser;
 
-import ymfc.commands.*;
+import ymfc.commands.AddRecipeCommand;
+import ymfc.commands.ByeCommand;
+import ymfc.commands.Command;
+import ymfc.commands.DeleteCommand;
+import ymfc.commands.HelpCommand;
+import ymfc.commands.ListCommand;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
 import ymfc.recipe.Recipe;
@@ -14,10 +19,10 @@ import java.util.stream.Collectors;
 /**
  * Parse user input commands
  */
-public interface Parser {
+public final class Parser {
     // First word <command> before the first white space, then all the arguments <args>
-    final static Pattern GENERIC_FORMAT = Pattern.compile("(?<command>\\S+)\\s+(?<args>.*)");
-    // final static Pattern ARGUMENTS_FORMAT = Pattern.compile("(?<args>[a-zA-Z][0-9]?/.*)*");
+    static final Pattern GENERIC_FORMAT = Pattern.compile("(?<command>\\S+)\\s+(?<args>.*)");
+    // static final Pattern ARGUMENTS_FORMAT = Pattern.compile("(?<args>[a-zA-Z][0-9]?/.*)*");
 
     /**
      * Parses user input commands and return a <code>Command</code> object
@@ -58,12 +63,12 @@ public interface Parser {
      */
     private static AddRecipeCommand getAddRecipeCommand(String args) throws InvalidArgumentException {
         final Pattern ADD_RECIPE_COMMAND_FORMAT =
+                // <n or N>/<String without forward slash>
                 Pattern.compile("(?<name>[nN]/[^/]+)"
-                        // <n or N>/<String without forward slash>
-                        + "(?<ingreds>(\\s+[iI]/[^/]+)+)"
                         // (<at least 1 whitespace><i or I>/<String without forward slash>) at least once
-                        + "(?<steps>(\\s+[sS][0-9]+/[^/]+)+)");
+                        + "(?<ingreds>(\\s+[iI]/[^/]+)+)"
                         // (<at least 1 whitespace><s or S><Number>/<String without forward slash>) at least once
+                        + "(?<steps>(\\s+[sS][0-9]+/[^/]+)+)");
         args = args.trim();
         Matcher m = ADD_RECIPE_COMMAND_FORMAT.matcher(args);
         if (!m.matches()) {
@@ -98,8 +103,6 @@ public interface Parser {
         }
         String name = m.group("name").trim().substring(2);
         return new DeleteCommand(0);
-//        return new DeleteCommand(name);
+        //        return new DeleteCommand(name);
     }
-
-
 }

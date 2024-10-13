@@ -39,9 +39,17 @@ public class Recipe {
     }
 
     public boolean equals(Recipe o) {
-        if (!name.equals(o.getName())) { return false; }
-        if (!ingredients.equals(o.getIngredients())) { return false; }
-        if (!steps.equals(o.getSteps())) { return false; }
+        if (!name.equals(o.getName())) {
+            return false;
+        }
+
+        if (!ingredients.equals(o.getIngredients())) {
+            return false;
+        }
+
+        if (!steps.equals(o.getSteps())) {
+            return false;
+        }
 
         return true;
     }
