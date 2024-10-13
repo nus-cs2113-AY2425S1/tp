@@ -9,6 +9,7 @@ import seedu.command.TestCommand;
 import seedu.command.ViewCategoryCommand;
 import seedu.command.HelpCommand;
 import seedu.command.Command;
+import seedu.transaction.TransactionList;
 
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class Main {
     // Singleton CategoryList for use across classes
     private static CategoryList categories; //Category list to store categories
 
+    // Singleton TransactionList for use across classes
+    private static TransactionList transactions;
 
     private static boolean isRunning = true;
 
@@ -67,6 +70,7 @@ public class Main {
 
         parser = new Parser();
         categories = new CategoryList();
+        transactions = new TransactionList();
 
         parser.registerCommands(new TestCommand());
 
@@ -82,6 +86,7 @@ public class Main {
 
         DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categories);
         parser.registerCommands(deleteCategoryCommand);
+
 
 
         // Set command list for the help command
