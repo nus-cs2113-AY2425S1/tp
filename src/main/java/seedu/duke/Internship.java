@@ -43,38 +43,6 @@ public class Internship {
 
     //@@author Ridiculouswifi
     /**
-     * Updates the internship field with the new value.
-     *
-     * @param field field to be updated.
-     * @param value new value to update field with.
-     */
-    public void updateField(String field, String value) {
-        switch (field) {
-        case "status":
-            updateStatus(value);
-            break;
-        case "skills":
-            setSkills(value);
-            break;
-        case "role":
-            setRole(value);
-            break;
-        case "company":
-            setCompany(value);
-            break;
-        case "from":
-            setStartDate(value);
-            break;
-        case "to":
-            setEndDate(value);
-            break;
-        default:
-            break;
-        }
-    }
-
-    //@@author Ridiculouswifi
-    /**
      * Updates the status of the Internship with a valid status.
      * Does not update with invalid statuses and will prompt for a valid status.
      *
