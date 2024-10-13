@@ -21,7 +21,9 @@ import java.util.stream.Collectors;
  */
 public final class Parser {
     // First word <command> before the first white space, then all the arguments <args>
-    static final Pattern GENERIC_FORMAT = Pattern.compile("(?<command>\\S+)\\s+(?<args>.*)");
+    // static final Pattern GENERIC_FORMAT = Pattern.compile("(?<command>\\S+)\\s+(?<args>.*)");
+    static final Pattern GENERIC_FORMAT = Pattern.compile("(?<command>\\S+)(\\s+(?<args>.*))?");
+
     // static final Pattern ARGUMENTS_FORMAT = Pattern.compile("(?<args>[a-zA-Z][0-9]?/.*)*");
 
     /**
@@ -31,14 +33,15 @@ public final class Parser {
      * @throws InvalidCommandException If command cannot be parsed
      * @throws InvalidArgumentException If command can be parsed but with invalid arguments
      */
-    static Command parseCommand(String commandString) throws InvalidCommandException, InvalidArgumentException {
+    public static Command parseCommand(String commandString) throws InvalidCommandException, InvalidArgumentException {
         Matcher m = GENERIC_FORMAT.matcher(commandString);
         if (!m.matches()) {
             throw new InvalidCommandException("Invalid command: " + commandString);
         }
 
         String command = m.group("command");
-        String args = m.group("args");
+        // String args = m.group("args");
+        String args = m.group("args") == null ? "" : m.group("args").trim();
         switch (command) {
         case "add":
             return getAddRecipeCommand(args);
@@ -102,7 +105,7 @@ public final class Parser {
             throw new InvalidArgumentException("Invalid argument(s): " + args);
         }
         String name = m.group("name").trim().substring(2);
-        return new DeleteCommand(0);
-        //        return new DeleteCommand(name);
+        // return new DeleteCommand(0);
+        return new DeleteCommand(name);
     }
 }

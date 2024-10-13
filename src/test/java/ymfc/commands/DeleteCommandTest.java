@@ -48,7 +48,7 @@ public class DeleteCommandTest {
         recipeList.addRecipe(pastaRecipe);
         recipeList.addRecipe(saladRecipe);
 
-        deleteCommand = new DeleteCommand(0);
+        deleteCommand = new DeleteCommand("Pasta");
     }
 
     @Test
