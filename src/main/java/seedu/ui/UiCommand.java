@@ -108,19 +108,31 @@ public class UiCommand extends Ui {
     public void showSortedInternships(String field) {
         printHeadDivider();
         switch (field) {
-        case "none":
-            System.out.println("No sorting option provided. Listing internships by ID.");
-            break;
-        case "alphabet":
-            System.out.println("Sorted internships by role alphabetically.");
-            break;
-        case "deadline":
-            System.out.println("Sorted internships by start date, then end date.");
-            break;
-        default:
-            System.out.println("Unknown or missing flag. Listing internships by ID.");
-            break;
+            case "none":
+                System.out.println("No sorting option provided. Listing internships by ID.");
+                break;
+            case "alphabet":
+                System.out.println("Sorted internships by role alphabetically.");
+                break;
+            case "deadline":
+                System.out.println("Sorted internships by start date, then end date.");
+                break;
+            default:
+                // Handling invalid sorting options
+                System.out.println("Error: Unknown or invalid sorting option: \"" + field + "\".");
+                System.out.println(getSortUsageMessage());
+                break;
         }
+        printTailDivider();
+    }
+
+    /**
+     * Prints the correct usage message for the sort command.
+     */
+    public String getSortUsageMessage() {
+        return "Usage: sort [alphabet | deadline]\n" +
+                "alphabet: Sort internships alphabetically by role.\n" +
+                "deadline: Sort internships by start date, then end date.";
     }
 
     public String getInvalidFlags() {
