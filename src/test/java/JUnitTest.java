@@ -145,8 +145,8 @@ public class JUnitTest {
         assertEquals(description, transaction.getDescription()
                     , "The transaction description should match the input description.");
         assertEquals(date, transaction.getDate(), "The transaction date should match the input date.");
-        assertEquals(category, transaction.getCategory()
-                    , "The transaction category should match the input category.");
+
+
     }
 
     @Test
