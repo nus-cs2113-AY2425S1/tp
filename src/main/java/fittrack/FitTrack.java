@@ -23,7 +23,7 @@ public class FitTrack {
      */
     public static void main(String[] args) throws FileNotFoundException {
         setupLogger();
-        LOGGER.info("User successfully logged in")
+        LOGGER.info("User successfully logged in");
 
         Scanner scan = new Scanner(System.in);
         ArrayList<TrainingSession> sessionList = new ArrayList<>();
