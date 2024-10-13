@@ -1,95 +1,48 @@
 package seedu.duke.parser;
-
-import java.util.Scanner;
+import static java.lang.Integer.parseInt;
 
 public class Parser {
-    //public static Command parse(String line, int state) {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
+    String line;
+    int state;
 
+    public Parser(String line, int state) {
+        this.line = line;
+        this.state = state;
+    }
 
+    public int parseCommand() {
         String[] parts = line.split(" ");
 
         switch (parts[0]) {
-
         case "add":
             try {
-                //return new AddPatientCommand(parts[1]);
+                return parseInt(parts[1]);
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(" ");
+                System.out.println("Non-Numerical Error");
             }
             break;
 
         case "list":
-            //if (state == 0) {
-            // return new ListPatientCommand();
-            //} else if (state == 1) {
-            //return new ListTaskCommand();
-            //}
+            if (state == 0) {
+                return 1;
+            } else if (state == 1) {
+                return 2;
+            }
             break;
 
-        case "delete":
+        case "delete", "select", "mark", "unmark":
             try {
-                int index = Integer.parseInt(line.substring("delete ".length())) - 1;
+                return parseInt(parts[1]) - 1;
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Number out-of-range");
             } catch (NumberFormatException e) {
                 System.out.println("Non-Numerical Error");
             }
-
-            // if (state == 0) {
-            // return new DelPatientCommand(index);
-            // } else if (state == 1) {
-            // return new DelTaskCommand(index);
-            // }
             break;
 
-        case "select":
-            try {
-                int index = Integer.parseInt(line.substring("select ".length())) - 1;
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Number out-of-range");
-            } catch (NumberFormatException e) {
-                System.out.println("Non-Numerical Error");
-            }
-
-            // if (state == 0) {
-            // return new SelectPatientCommand(index);
-            //}
-            break;
-
-        case "mark":
-            try {
-                int index = Integer.parseInt(line.substring("mark ".length())) - 1;
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Number out-of-range");
-            } catch (NumberFormatException e) {
-                System.out.println("Non-Numerical Error");
-            }
-
-            // if (state == 1) {
-            // return new markTaskCommand(index);
-            // }
-            break;
-
-        case "unmark":
-            try {
-                int index = Integer.parseInt(line.substring("unmark ".length())) - 1;
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Number out-of-range");
-            } catch (NumberFormatException e) {
-                System.out.println("Non-Numerical Error");
-            }
-
-            // if (state == 1) {
-            //  return new unmarkTaskCommand(index);
-            // }
-            break;
-
-        default: System.out.println("Unknown command");
+        default:
+            System.out.println("Unknown command");
         }
-        // return null;
+        return 0;
     }
-
 }
