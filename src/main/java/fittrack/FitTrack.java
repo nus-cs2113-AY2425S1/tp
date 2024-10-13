@@ -23,27 +23,54 @@ public class FitTrack {
     public static void main(String[] args) throws FileNotFoundException {
         setupLogger();
 
+        // Initialize scanner and session list
         Scanner scan = new Scanner(System.in);
         ArrayList<TrainingSession> sessionList = new ArrayList<>();
 
+        // Initialize and load the save file
         initialiseSaveFile();
         loadSaveFile(sessionList);
+
 
         // Set user gender and age
         printGreeting();
         String[] userInfo = scan.nextLine().split(" ", 2);
+
+        // Assert user info is valid
+        assert userInfo.length == 2 : "User info should contain both gender and age";
         String gender = userInfo[0];
         String age = userInfo[1];
+
+        // Assert that age is a valid integer
+        assert isNumeric(age) : "Age should be a valid integer";
+
         User user = new User(gender, age);
         printUser(user);
 
         String input = scan.nextLine();
+
         // Until the exit command is entered, execute command then read user input
         while (!input.equals(EXIT_COMMAND)) {
-            Parser.parse(user,input,sessionList);
+            assert !input.trim().isEmpty() : "User input should not be null or empty";
+            Parser.parse(user, input, sessionList);
             input = scan.nextLine();
         }
 
         printExitMessage();
+    }
+
+    /**
+     * Helper method to check if a string is numeric.
+     *
+     * @param str The string to check.
+     * @return true if the string is numeric, false otherwise.
+     */
+    public static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
