@@ -14,6 +14,7 @@ class Income extends Transaction {
 
     @Override
     public String toString() {
-        return "Income [amount=" + amount + ", description=" + description + ", date=" + DateTimeUtils.getDateTimeString(date) + "]";
+        return "Income [amount=" + amount + ", description=" + description + ", date="
+                + DateTimeUtils.getDateTimeString(date) + "]";
     }
 }

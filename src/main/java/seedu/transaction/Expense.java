@@ -3,7 +3,7 @@ package seedu.transaction;
 import seedu.category.Category;
 import seedu.utils.DateTimeUtils;
 
-class Expense extends Transaction {
+public class Expense extends Transaction {
     private final Category category;
 
     public Expense(double amount, String description, String date, Category category) {
