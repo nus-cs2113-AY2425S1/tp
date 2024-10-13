@@ -3,7 +3,12 @@ package seedu.main;
 import seedu.category.CategoryList;
 
 
-import seedu.command.*;
+import seedu.command.AddCategoryCommand;
+import seedu.command.DeleteCategoryCommand;
+import seedu.command.TestCommand;
+import seedu.command.ViewCategoryCommand;
+import seedu.command.HelpCommand;
+import seedu.command.Command;
 
 
 import java.util.ArrayList;
