@@ -49,6 +49,7 @@ public class Storage {
 
                 ProgrammeList loadedProgrammeList = ProgrammeList.fromJson(programmeListJson);
                 History loadedHistory = History.fromJson(historyJson);
+
                 dataWrapper.setProgrammeList(loadedProgrammeList);
                 dataWrapper.setHistory(loadedHistory);
 
@@ -62,10 +63,9 @@ public class Storage {
     }
 
     public void save(ProgrammeList programmeList, History history) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();;
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileWriter writer = new FileWriter(filePath)) {
-            // Create a new JsonObject to hold both programmeList and history
             JsonObject jsonObject = new JsonObject();
 
             // Add the serialized ProgrammeList to the JsonObject
