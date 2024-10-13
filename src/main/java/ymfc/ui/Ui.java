@@ -125,4 +125,11 @@ public class Ui {
                 (listCount <= 1 ? " recipe" : " recipes") + " in your list.");
         System.out.println(line);
     }
+
+
+    public void printHelp() {
+        System.out.println(line);
+        System.out.println("Commands: help, delete, add, list");
+        System.out.println(line);
+    }
 }
