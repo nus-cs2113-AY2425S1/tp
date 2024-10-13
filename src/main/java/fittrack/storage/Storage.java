@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static fittrack.logger.FitTrackLogger.LOGGER;
+
 public class Storage {
 
     public static final String SAVE_FILE = "data/saveFile.txt"; // Path to the save file
@@ -31,6 +33,7 @@ public class Storage {
                 Files.createDirectories(dirPath);
             } catch (IOException e) {
                 System.out.println("Directory could not be created");
+                LOGGER.info("SaveFile directory could not be created");
                 throw new RuntimeException(e);
             }
         }

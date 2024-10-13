@@ -27,5 +27,7 @@ public class FitTrackLogger {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error: Logger FileHandler not working ", e);
         }
+
+        LOGGER.info("Logger successfully initialized");
     }
 }
