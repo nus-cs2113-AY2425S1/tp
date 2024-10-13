@@ -42,6 +42,8 @@ public class UpdateCommand extends Command {
             ui.showEditedInternship(internships.getInternship(internshipIndex), "update");
         } catch (NumberFormatException e) {
             System.out.println("Invalid integer, please provide a valid internship ID");
+        } catch (IndexOutOfBoundsException e) {
+            // Exception message is already handled in InternshipList class
         }
     }
 

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
+//@@ Ridiculouswifi
 class UpdateCommandTest {
 
     InternshipList createList() {
@@ -54,7 +54,7 @@ class UpdateCommandTest {
     }
 
     @Test
-    void execute_invalidIndex1_expectThrow() {
+    void execute_nonNumberId_expectNoUpdate() {
         InternshipList internships = createList();
 
         assertEquals(internships.getInternship(0).getCompany(), "ABC");
@@ -63,6 +63,40 @@ class UpdateCommandTest {
         updateCommand.setInternshipList(internships);
 
         String[] parsedInputs = {"A1", "company XYZ"};
+        ArrayList<String> arguments = new ArrayList<>(List.of(parsedInputs));
+
+        updateCommand.execute(arguments);
+
+        assertEquals(internships.getInternship(0).getCompany(), "ABC");
+    }
+
+    @Test
+    void execute_emptyId_expectNoUpdate() {
+        InternshipList internships = createList();
+
+        assertEquals(internships.getInternship(0).getCompany(), "ABC");
+
+        UpdateCommand updateCommand = new UpdateCommand();
+        updateCommand.setInternshipList(internships);
+
+        String[] parsedInputs = {"", "company XYZ"};
+        ArrayList<String> arguments = new ArrayList<>(List.of(parsedInputs));
+
+        updateCommand.execute(arguments);
+
+        assertEquals(internships.getInternship(0).getCompany(), "ABC");
+    }
+
+    @Test
+    void execute_outOfBoundsIndex_expectNoUpdate() {
+        InternshipList internships = createList();
+
+        assertEquals(internships.getInternship(0).getCompany(), "ABC");
+
+        UpdateCommand updateCommand = new UpdateCommand();
+        updateCommand.setInternshipList(internships);
+
+        String[] parsedInputs = {"2", "company XYZ"};
         ArrayList<String> arguments = new ArrayList<>(List.of(parsedInputs));
 
         updateCommand.execute(arguments);

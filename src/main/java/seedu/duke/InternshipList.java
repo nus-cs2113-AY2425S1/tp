@@ -66,11 +66,12 @@ public class InternshipList {
      * @param field Specific attribute to update.
      * @param value Updated value
      */
-    public void updateField(int index, String field, String value) {
-        if (isWithinBounds(index)) {
+    public void updateField(int index, String field, String value) throws IndexOutOfBoundsException {
+        try {
             internships.get(index).updateField(field, value);
-        } else {
+        } catch (IndexOutOfBoundsException e) {
             ui.showInvalidIndex();
+            throw e;
         }
     }
 
