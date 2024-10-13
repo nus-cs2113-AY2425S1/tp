@@ -8,6 +8,7 @@ import fittrack.parser.Parser;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 
+import static fittrack.logger.FitTrackLogger.LOGGER;
 import static fittrack.logger.FitTrackLogger.setupLogger;
 import static fittrack.messages.Messages.EXIT_COMMAND;
 import static fittrack.storage.Storage.initialiseSaveFile;
@@ -22,6 +23,8 @@ public class FitTrack {
      */
     public static void main(String[] args) throws FileNotFoundException {
         setupLogger();
+        LOGGER.info("User successfully logged in")
+
         Scanner scan = new Scanner(System.in);
         ArrayList<TrainingSession> sessionList = new ArrayList<>();
 
