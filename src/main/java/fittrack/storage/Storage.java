@@ -32,7 +32,7 @@ public class Storage {
             try {
                 Files.createDirectories(dirPath);
             } catch (IOException e) {
-                System.out.println("Directory could not be created");
+                System.out.println("SaveFile directory could not be created");
                 LOGGER.info("SaveFile directory could not be created");
                 throw new RuntimeException(e);
             }
@@ -42,11 +42,14 @@ public class Storage {
         try {
             if (file.createNewFile()) {
                 System.out.println("No existing save file found. New save file created: " + file.getName());
+                LOGGER.info("No existing save file found. New save file created: " + file.getName());
             } else {
                 System.out.println("Accessing existing save file...");
+                LOGGER.info("Accessing existing save file...");
             }
         } catch (IOException e) {
             System.out.println("Save file could not be created.");
+            LOGGER.info("Save file could not be created.");
             throw new RuntimeException(e);
         }
     }
@@ -66,6 +69,7 @@ public class Storage {
 
         }
         System.out.println("Save file successfully loaded.");
+        LOGGER.info("Save file successfully loaded.");
     }
 
     /**
@@ -79,6 +83,7 @@ public class Storage {
             for (TrainingSession session : sessionList) {
                 fw.write(session.toString()); // Write the session to the file
                 fw.write(System.lineSeparator()); // Add a new line after each session
+                LOGGER.info("Save file successfully updated.");
             }
         }
     }

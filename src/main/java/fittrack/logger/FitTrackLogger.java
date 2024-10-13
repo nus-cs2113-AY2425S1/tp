@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class FitTrackLogger {
-    public final static Logger LOGGER = Logger.getLogger(FitTrackLogger.class.getName());
+    public static final Logger LOGGER = Logger.getLogger(FitTrackLogger.class.getName());
     public static void setupLogger() {
         // LEVELS: OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL
 

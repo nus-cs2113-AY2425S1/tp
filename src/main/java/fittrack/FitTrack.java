@@ -8,7 +8,6 @@ import fittrack.parser.Parser;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 
-import static fittrack.logger.FitTrackLogger.LOGGER;
 import static fittrack.logger.FitTrackLogger.setupLogger;
 import static fittrack.messages.Messages.EXIT_COMMAND;
 import static fittrack.storage.Storage.initialiseSaveFile;
