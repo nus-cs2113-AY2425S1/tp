@@ -1,5 +1,7 @@
 package seedu.commands;
 
+import seedu.exceptions.InvalidIndex;
+
 import java.util.ArrayList;
 
 //@@author Ridiculouswifi
@@ -30,7 +32,10 @@ public class UpdateCommand extends Command {
                 case "from":
                 case "to":
                     field = words[INDEX_FIELD];
-                    value = words[INDEX_DATA].replace(field, "").trim();
+                    if (!isValidValue(words)) {
+                        continue;
+                    }
+                    value = words[INDEX_DATA].trim();
                     internships.updateField(internshipIndex, field, value);
                     ui.addUpdatedField(field, value);
                     break;
@@ -42,8 +47,21 @@ public class UpdateCommand extends Command {
             ui.showEditedInternship(internships.getInternship(internshipIndex), "update");
         } catch (NumberFormatException e) {
             System.out.println("Invalid integer, please provide a valid internship ID");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (InvalidIndex e) {
             // Exception message is already handled in InternshipList class
+        }
+    }
+
+    private boolean isValidValue(String[] words) {
+        try {
+            String value = words[INDEX_DATA].trim();
+            if (value.isEmpty()) {
+                throw new IndexOutOfBoundsException();
+            }
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Field cannot be empty");
+            return false;
         }
     }
 

@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import seedu.exceptions.InvalidIndex;
 import seedu.ui.UiInternshipList;
 
 import java.util.ArrayList;
@@ -66,12 +67,12 @@ public class InternshipList {
      * @param field Specific attribute to update.
      * @param value Updated value
      */
-    public void updateField(int index, String field, String value) throws IndexOutOfBoundsException {
+    public void updateField(int index, String field, String value) throws InvalidIndex {
         try {
             internships.get(index).updateField(field, value);
         } catch (IndexOutOfBoundsException e) {
             ui.showInvalidIndex();
-            throw e;
+            throw new InvalidIndex();
         }
     }
 

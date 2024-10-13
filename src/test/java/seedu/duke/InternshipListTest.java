@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
+import seedu.exceptions.InvalidIndex;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,7 +11,7 @@ class InternshipListTest {
 
     //@@ Ridiculouswifi
     @Test
-    void updateStatus_validIndexStatus_expectUpdated() {
+    void updateStatus_validIndexStatus_expectUpdated() throws InvalidIndex {
         InternshipList internshipList = new InternshipList();
         Internship internship = new Internship("Data", "ABC", "01/24", "06/24");
         internshipList.addInternship(internship);
@@ -26,7 +27,7 @@ class InternshipListTest {
         Internship internship = new Internship("Data", "ABC", "01/24", "06/24");
         internshipList.addInternship(internship);
 
-        assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(InvalidIndex.class,
                 () -> internshipList.updateField(1, "status", "Application Completed"));
     }
 }

@@ -23,7 +23,7 @@ class UpdateCommandTest {
     void execute_validCompany1_expectUpdated() {
         InternshipList internships = createList();
 
-        assertEquals(internships.getInternship(0).getCompany(), "ABC");
+        assertEquals("ABC", internships.getInternship(0).getCompany());
 
         UpdateCommand updateCommand = new UpdateCommand();
         updateCommand.setInternshipList(internships);
@@ -33,14 +33,14 @@ class UpdateCommandTest {
 
         updateCommand.execute(arguments);
 
-        assertEquals(internships.getInternship(0).getCompany(), "XYZ");
+        assertEquals("XYZ", internships.getInternship(0).getCompany());
     }
 
     @Test
     void execute_validStatus1_expectUpdated() {
         InternshipList internships = createList();
 
-        assertEquals(internships.getInternship(0).getStatus(), "Application Pending");
+        assertEquals("Application Pending", internships.getInternship(0).getStatus());
 
         UpdateCommand updateCommand = new UpdateCommand();
         updateCommand.setInternshipList(internships);
@@ -50,14 +50,14 @@ class UpdateCommandTest {
 
         updateCommand.execute(arguments);
 
-        assertEquals(internships.getInternship(0).getStatus(), "Application Completed");
+        assertEquals("Application Completed", internships.getInternship(0).getStatus());
     }
 
     @Test
     void execute_nonNumberId_expectNoUpdate() {
         InternshipList internships = createList();
 
-        assertEquals(internships.getInternship(0).getCompany(), "ABC");
+        assertEquals("ABC", internships.getInternship(0).getCompany());
 
         UpdateCommand updateCommand = new UpdateCommand();
         updateCommand.setInternshipList(internships);
@@ -67,14 +67,14 @@ class UpdateCommandTest {
 
         updateCommand.execute(arguments);
 
-        assertEquals(internships.getInternship(0).getCompany(), "ABC");
+        assertEquals("ABC", internships.getInternship(0).getCompany());
     }
 
     @Test
     void execute_emptyId_expectNoUpdate() {
         InternshipList internships = createList();
 
-        assertEquals(internships.getInternship(0).getCompany(), "ABC");
+        assertEquals("ABC", internships.getInternship(0).getCompany());
 
         UpdateCommand updateCommand = new UpdateCommand();
         updateCommand.setInternshipList(internships);
@@ -84,14 +84,14 @@ class UpdateCommandTest {
 
         updateCommand.execute(arguments);
 
-        assertEquals(internships.getInternship(0).getCompany(), "ABC");
+        assertEquals("ABC", internships.getInternship(0).getCompany());
     }
 
     @Test
     void execute_outOfBoundsIndex_expectNoUpdate() {
         InternshipList internships = createList();
 
-        assertEquals(internships.getInternship(0).getCompany(), "ABC");
+        assertEquals("ABC", internships.getInternship(0).getCompany());
 
         UpdateCommand updateCommand = new UpdateCommand();
         updateCommand.setInternshipList(internships);
@@ -101,6 +101,41 @@ class UpdateCommandTest {
 
         updateCommand.execute(arguments);
 
-        assertEquals(internships.getInternship(0).getCompany(), "ABC");
+        assertEquals("ABC", internships.getInternship(0).getCompany());
+    }
+
+    @Test
+    void execute_emptyValue_expectNoUpdate() {
+        InternshipList internships = createList();
+
+        assertEquals("ABC", internships.getInternship(0).getCompany());
+
+        UpdateCommand updateCommand = new UpdateCommand();
+        updateCommand.setInternshipList(internships);
+
+        String[] parsedInputs = {"1", "company    "};
+        ArrayList<String> arguments = new ArrayList<>(List.of(parsedInputs));
+
+        updateCommand.execute(arguments);
+
+        assertEquals("ABC", internships.getInternship(0).getCompany());
+    }
+
+    @Test
+    void execute_oneValidoneInvalidValue_expectUpdateValidValue() {
+        InternshipList internships = createList();
+
+        assertEquals("ABC", internships.getInternship(0).getCompany());
+
+        UpdateCommand updateCommand = new UpdateCommand();
+        updateCommand.setInternshipList(internships);
+
+        String[] parsedInputs = {"1", "company    ", "role Engineer"};
+        ArrayList<String> arguments = new ArrayList<>(List.of(parsedInputs));
+
+        updateCommand.execute(arguments);
+
+        assertEquals("ABC", internships.getInternship(0).getCompany());
+        assertEquals("Engineer", internships.getInternship(0).getRole());
     }
 }
