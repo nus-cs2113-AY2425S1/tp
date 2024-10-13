@@ -17,7 +17,7 @@ public class YMFC {
         RecipeList recipeList = new RecipeList();
         boolean saidBye = false;
 
-        //ui.greet();
+        ui.greet();
         String userInput;
         while (!saidBye) {
             userInput = ui.readCommand();

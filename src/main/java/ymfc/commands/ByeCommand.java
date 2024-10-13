@@ -12,6 +12,6 @@ public class ByeCommand extends Command {
 
     @Override
     public void execute(RecipeList recipes, Ui ui) {
-        //ui.bidFarewell();
+        ui.bidFarewell();
     }
 }
