@@ -1,8 +1,6 @@
 package ymfc;
 
-import ymfc.commands.AddRecipeCommand;
-import ymfc.commands.Command;
-import ymfc.commands.DeleteCommand;
+import ymfc.commands.*;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
 import ymfc.recipe.Recipe;
@@ -28,15 +26,16 @@ public interface Parser {
         case "add":
             return getAddRecipeCommand(args);
         case "delete":
-            break;
+            return getDeleteCommand(args);
         case "list":
-            break;
+            return new ListCommand();
         case "help":
-            break;
+            return new HelpCommand();
+        case "bye":
+            return new ByeCommand();
         default:
             throw new InvalidCommandException("Invalid command: " + command);
         }
-        return null;
     }
 
     private static Command getAddRecipeCommand(String args) throws InvalidArgumentException {
@@ -61,4 +60,19 @@ public interface Parser {
                 .collect(Collectors.toCollection(ArrayList::new));
         return new AddRecipeCommand(new Recipe(name, ingreds, steps));
     }
+
+    private static Command getDeleteCommand(String args) throws InvalidArgumentException {
+        final Pattern DELETE_COMMAND_FORMAT =
+                Pattern.compile("(?<name>[nN]/[^/]+)");
+        args = args.trim();
+        Matcher m = DELETE_COMMAND_FORMAT.matcher(args);
+        if (!m.matches()) {
+            throw new InvalidArgumentException("Invalid argument(s): " + args);
+        }
+        String name = m.group("name").trim().substring(2);
+        return new DeleteCommand(0);
+//        return new DeleteCommand(name);
+    }
+
+
 }
