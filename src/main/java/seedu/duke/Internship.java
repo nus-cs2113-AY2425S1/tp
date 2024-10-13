@@ -4,6 +4,7 @@ import seedu.exceptions.InvalidStatus;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -134,7 +135,7 @@ public class Internship {
         return startDate.format(formatter); // Format as MM/yy
     }
 
-    public void setStartDate(String start) {
+    public void setStartDate(String start) throws DateTimeParseException {
         this.startDate = YearMonth.parse(start, formatter);
     }
 
@@ -142,7 +143,7 @@ public class Internship {
         return endDate.format(formatter); // Format as MM/yy
     }
 
-    public void setEndDate(String end) {
+    public void setEndDate(String end) throws DateTimeParseException {
         this.endDate = YearMonth.parse(end, formatter);
     }
 

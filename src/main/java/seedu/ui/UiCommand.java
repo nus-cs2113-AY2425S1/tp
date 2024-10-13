@@ -23,6 +23,9 @@ public class UiCommand extends Ui {
             message += "Internship added:\n";
             break;
         case "update":
+            if (getUpdatedFields().isEmpty()) {
+                message += "No Fields Updated\n";
+            }
             message += getUpdatedFields() + DIVIDER + "Internship updated:\n";
             break;
         default:

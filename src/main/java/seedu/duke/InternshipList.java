@@ -69,7 +69,28 @@ public class InternshipList {
      */
     public void updateField(int index, String field, String value) throws InvalidIndex {
         try {
-            internships.get(index).updateField(field, value);
+            switch (field) {
+            case "status":
+                internships.get(index).updateStatus(value);
+                break;
+            case "skills":
+                internships.get(index).setSkills(value);
+                break;
+            case "role":
+                internships.get(index).setRole(value);
+                break;
+            case "company":
+                internships.get(index).setCompany(value);
+                break;
+            case "from":
+                internships.get(index).setStartDate(value);
+                break;
+            case "to":
+                internships.get(index).setEndDate(value);
+                break;
+            default:
+                break;
+            }
         } catch (IndexOutOfBoundsException e) {
             ui.showInvalidIndex();
             throw new InvalidIndex();

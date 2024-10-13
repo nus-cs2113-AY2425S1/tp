@@ -3,11 +3,13 @@ package seedu.commands;
 import org.junit.jupiter.api.Test;
 import seedu.duke.Internship;
 import seedu.duke.InternshipList;
+import seedu.exceptions.InvalidIndex;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //@@ Ridiculouswifi
 class UpdateCommandTest {
@@ -137,5 +139,20 @@ class UpdateCommandTest {
 
         assertEquals("ABC", internships.getInternship(0).getCompany());
         assertEquals("Engineer", internships.getInternship(0).getRole());
+    }
+
+    @Test
+    void execute_invalidStartDate_expectNoUpdate() {
+        InternshipList internships = createList();
+
+        UpdateCommand updateCommand = new UpdateCommand();
+        updateCommand.setInternshipList(internships);
+
+        String[] parsedInputs = {"1", "from 20/20"};
+        ArrayList<String> arguments = new ArrayList<>(List.of(parsedInputs));
+
+        updateCommand.execute(arguments);
+
+        assertEquals("01/24", internships.getInternship(0).getStartDate());
     }
 }

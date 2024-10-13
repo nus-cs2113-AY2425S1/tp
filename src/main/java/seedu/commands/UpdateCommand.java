@@ -2,6 +2,7 @@ package seedu.commands;
 
 import seedu.exceptions.InvalidIndex;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 //@@author Ridiculouswifi
@@ -24,25 +25,7 @@ public class UpdateCommand extends Command {
 
             for (String arg : args) {
                 String[] words = arg.split(" ", 2);
-                switch (words[INDEX_FIELD]) {
-                case "status":
-                case "skills":
-                case "role":
-                case "company":
-                case "from":
-                case "to":
-                    field = words[INDEX_FIELD];
-                    if (!isValidValue(words)) {
-                        continue;
-                    }
-                    value = words[INDEX_DATA].trim();
-                    internships.updateField(internshipIndex, field, value);
-                    ui.addUpdatedField(field, value);
-                    break;
-                default:
-                    ui.addInvalidFlag(words[INDEX_FIELD]);
-                    break;
-                }
+                updateOneField(words, internshipIndex);
             }
             ui.showEditedInternship(internships.getInternship(internshipIndex), "update");
         } catch (NumberFormatException e) {
@@ -62,6 +45,32 @@ public class UpdateCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Field cannot be empty");
             return false;
+        }
+    }
+
+    private void updateOneField(String[] words, int internshipIndex) throws InvalidIndex {
+        try {
+            switch (words[INDEX_FIELD]) {
+            case "status":
+            case "skills":
+            case "role":
+            case "company":
+            case "from":
+            case "to":
+                String field = words[INDEX_FIELD];
+                if (!isValidValue(words)) {
+                    return;
+                }
+                String value = words[INDEX_DATA].trim();
+                internships.updateField(internshipIndex, field, value);
+                ui.addUpdatedField(field, value);
+                break;
+            default:
+                ui.addInvalidFlag(words[INDEX_FIELD]);
+                break;
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format");
         }
     }
 
