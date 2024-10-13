@@ -1,21 +1,24 @@
 package seedu.command;
 
-import seedu.category.Category;
 import seedu.category.CategoryList;
 
 import java.util.List;
 
 // Command class for adding a new category
-public class AddCategoryCommand extends Command {
-    public static final String COMMAND_WORD = "add-category";
+public class DeleteCategoryCommand extends Command {
+    public static final String COMMAND_WORD = "delete-category";
     // A guide or description of the command
-    public static final String COMMAND_GUIDE = "add-category CATEGORY_NAME: Add a new category";
+    public static final String COMMAND_GUIDE = "delete-category CATEGORY_NAME: Delete a new category";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = { "" };
 
     private CategoryList categoryList;
 
-    public AddCategoryCommand(CategoryList categoryList) {
+    public DeleteCategoryCommand(CategoryList categoryList) {
         this.categoryList = categoryList;
+    }
+
+    public DeleteCategoryCommand    () {
+        // Default constructor
     }
 
     @Override
@@ -24,9 +27,8 @@ public class AddCategoryCommand extends Command {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
         }
         String categoryName = arguments.get("");
-        Category category = new Category(categoryName);
-        categoryList.addCategory(category);
-        return List.of("Category added: " + categoryName);
+        categoryList.deleteCategory(categoryName);
+        return List.of("Category deleted: " + categoryName);
     }
     @Override
     protected String[] getMandatoryKeywords() {
