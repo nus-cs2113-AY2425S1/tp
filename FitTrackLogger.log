@@ -1,2 +1,6 @@
-Oct 13, 2024 11:20:25 AM fittrack.FitTrack main
-SEVERE: Logger Test SEVERE message
+Oct 13, 2024 11:40:18 AM fittrack.logger.FitTrackLogger setupLogger
+INFO: Logger successfully initialized
+Oct 13, 2024 11:40:18 AM fittrack.storage.Storage initialiseSaveFile
+INFO: Accessing existing save file...
+Oct 13, 2024 11:40:18 AM fittrack.storage.Storage loadSaveFile
+INFO: Save file successfully loaded.

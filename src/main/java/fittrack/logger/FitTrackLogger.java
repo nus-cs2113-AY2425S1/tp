@@ -17,12 +17,13 @@ public class FitTrackLogger {
         LOGGER.setLevel(Level.ALL);
 
         ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setLevel(Level.ALL);
+        consoleHandler.setLevel(Level.SEVERE);
         LOGGER.addHandler(consoleHandler);
 
         try {
             FileHandler fileHandler = new FileHandler("FitTrackLogger.log");
             fileHandler.setFormatter(new SimpleFormatter());
+            fileHandler.setLevel(Level.FINE);
             LOGGER.addHandler(fileHandler);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error: Logger FileHandler not working ", e);
