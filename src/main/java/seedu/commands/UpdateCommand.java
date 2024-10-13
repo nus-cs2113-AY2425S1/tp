@@ -2,6 +2,10 @@ package seedu.commands;
 
 import java.util.ArrayList;
 
+//@@author Ridiculouswifi
+/**
+ * Subclass of <code>Command</code> to handle updating <code>Internship</code> attributes
+ */
 public class UpdateCommand extends Command {
     @Override
     public void execute(ArrayList<String> args) {
@@ -9,8 +13,8 @@ public class UpdateCommand extends Command {
         int internshipIndex = internshipId - 1;
         args.remove(0);
 
-        String field = "";
-        String value = "";
+        String field;
+        String value;
 
         ui.clearInvalidFlags();
         ui.clearUpdatedFields();
@@ -26,7 +30,7 @@ public class UpdateCommand extends Command {
             case "to":
                 field = words[INDEX_FIELD];
                 value = words[INDEX_DATA].replace(field, "").trim();
-                internships.getInternship(internshipIndex).updateField(field, value);
+                internships.updateField(internshipIndex, field, value);
                 ui.addUpdatedField(field, value);
                 break;
             default:
@@ -39,7 +43,15 @@ public class UpdateCommand extends Command {
 
     public String getUsage() {
         return """
-                Usage: update -id {ID} -{field} {status}
+                Usage: update -id {ID} -{field} {new value}
+                
+                List of fields:
+                - status (refer to below for valid statuses)
+                - skills
+                - role
+                - company
+                - start (in MM/yy format)
+                - end (in MM/yy format)
                 
                 Choose from the following statuses:
                 - Application Pending
