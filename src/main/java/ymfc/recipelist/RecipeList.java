@@ -27,6 +27,7 @@ public class RecipeList {
     }
 
     public void removeRecipe(int id) {
+        assert counter > 0 : "List should not be empty when deleting recipe";
         recipes.remove(id);
         counter--;
     }
