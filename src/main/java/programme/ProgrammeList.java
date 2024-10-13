@@ -2,6 +2,7 @@ package programme;
 
 import java.util.ArrayList;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 public class ProgrammeList {
 
@@ -57,13 +58,13 @@ public class ProgrammeList {
         return str.toString();
     }
 
-    public String toJson() {
+    public JsonObject toJson() {
         Gson gson = new Gson();
-        return gson.toJson(this);
+        return gson.toJsonTree(this).getAsJsonObject();
     }
 
-    public static ProgrammeList fromJson(String json) {
+    public static ProgrammeList fromJson(JsonObject jsonObject) {
         Gson gson = new Gson();
-        return gson.fromJson(json, ProgrammeList.class);
+        return gson.fromJson(jsonObject, ProgrammeList.class);
     }
 }

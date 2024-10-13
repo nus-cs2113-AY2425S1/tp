@@ -1,13 +1,17 @@
 package core;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import programme.ProgrammeList;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import com.google.gson.Gson;
 
 /**
  * Represents the storage system for saving and loading tasks.
@@ -20,53 +24,56 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void load(ProgrammeList programmeList, History history) {
+    public void load(DataWrapper dataWrapper) {
         try {
-            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+            Path directoryPath = Paths.get("data");
+            Path filePath = directoryPath.resolve("data.json");
 
-            // Parse the JSON content into a JsonObject
-            JsonObject jsonObject = JsonParser.parseString(content).getAsJsonObject();
+            if (!Files.exists(directoryPath)) {
+                Files.createDirectory(directoryPath);
+            }
 
-            // Extract the ProgrammeList JSON and deserialize it using the fromJson method
-            JsonObject programmeListJson = jsonObject.getAsJsonObject("programmeList");
-            ProgrammeList loadedProgrammeList = ProgrammeList.fromJson(programmeListJson.toString());
-            //programmeList.insertProgramme(loadedProgrammeList.getProgrammes());
+            if (!Files.exists(filePath)) {
+                System.out.println("Oh first time here? Welcome to a life of Fitness, lets start!");
+                return;
+            }
 
-            // Extract the History JSON and deserialize it using the fromJson method
-            JsonObject historyJson = jsonObject.getAsJsonObject("history");
-            History loadedHistory = History.fromJson(historyJson.toString());
-            //history.setEntries(loadedHistory.getEntries());
+            try (Reader reader = Files.newBufferedReader(filePath)){
 
-            System.out.println("Programmes and history have been loaded from: " + filePath);
+                // Parse the JSON content into a JsonObject
+                JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+
+                // Extract the ProgrammeList JSON and deserialize it using the fromJson method
+                JsonObject programmeListJson = jsonObject.getAsJsonObject("programmeList");
+                JsonObject historyJson = jsonObject.getAsJsonObject("history");
+
+                ProgrammeList loadedProgrammeList = ProgrammeList.fromJson(programmeListJson);
+                History loadedHistory = History.fromJson(historyJson);
+                dataWrapper.setProgrammeList(loadedProgrammeList);
+                dataWrapper.setHistory(loadedHistory);
+
+                System.out.println("Programmes and history have been loaded from: " + filePath);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         } catch (Exception e) {
             System.out.println("Oh first time here? Welcome to a life of Fitness, lets start!");
         }
     }
 
-
-    //SAVE
     public void save(ProgrammeList programmeList, History history) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();;
+
         try (FileWriter writer = new FileWriter(filePath)) {
-            // Create a string that starts with an opening brace for the combined JSON object
-            StringBuilder jsonBuilder = new StringBuilder();
-            jsonBuilder.append("{\n");
+            // Create a new JsonObject to hold both programmeList and history
+            JsonObject jsonObject = new JsonObject();
 
-            // Add the serialized ProgrammeList using its toJson method
-            jsonBuilder.append("\"programmeList\": ");
-            jsonBuilder.append(programmeList.toJson());
-            jsonBuilder.append(",\n"); // Add a comma between programmeList and history
+            // Add the serialized ProgrammeList to the JsonObject
+            jsonObject.add("programmeList", programmeList.toJson());
+            jsonObject.add("history", history.toJson());
 
-            // Add the serialized History using its toJson method
-            jsonBuilder.append("\"history\": ");
-            jsonBuilder.append(history.toJson());
-            jsonBuilder.append("\n"); // No trailing comma for the last entry
-
-            // Close the JSON object
-            jsonBuilder.append("}");
-
-            // Write the entire JSON string to the file
-            writer.write(jsonBuilder.toString());
-            writer.write("\n");
+            // Use GSON to write the entire JsonObject to the file
+            gson.toJson(jsonObject, writer);
 
             System.out.println("Saving done, Good Job!");
         } catch (IOException e) {

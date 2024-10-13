@@ -1,5 +1,6 @@
 package core;
 
+import com.google.gson.JsonObject;
 import programme.Day;
 import com.google.gson.Gson;
 
@@ -8,14 +9,14 @@ public class History {
     }
 
     // Converts the History object to a JSON string
-    public String toJson() {
+    public JsonObject toJson() {
         Gson gson = new Gson();
-        return gson.toJson(this);
+        return gson.toJsonTree(this).getAsJsonObject();
     }
 
     // Creates a History object from a JSON string
-    public static History fromJson(String json) {
+    public static History fromJson(JsonObject jsonObject) {
         Gson gson = new Gson();
-        return gson.fromJson(json, History.class);
+        return gson.fromJson(jsonObject, History.class);
     }
 }
