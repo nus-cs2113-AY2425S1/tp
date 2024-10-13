@@ -1,11 +1,10 @@
 package seedu.main;
 
 import seedu.category.CategoryList;
-import seedu.command.Command;
-import seedu.command.HelpCommand;
-import seedu.command.TestCommand;
-import seedu.command.ViewCategoryCommand;
-import seedu.command.AddCategoryCommand;
+
+
+import seedu.command.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,10 @@ public class Main {
     private static final String SEPARATOR = "-------------------------------------";
 
     private static Parser parser; //Parser to parse the commands
+
+    // Singleton CategoryList for use across classes
     private static CategoryList categories; //Category list to store categories
+
 
     private static boolean isRunning = true;
 
@@ -66,11 +68,16 @@ public class Main {
         HelpCommand helpCommand = new HelpCommand();
         parser.registerCommands(helpCommand);
 
-        AddCategoryCommand addCategoryCommand = new AddCategoryCommand(new CategoryList());
+        AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categories);
         parser.registerCommands(addCategoryCommand);
+
 
         ViewCategoryCommand viewCategoryCommand = new ViewCategoryCommand(categories);
         parser.registerCommands(viewCategoryCommand);
+
+        DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categories);
+        parser.registerCommands(deleteCategoryCommand);
+
 
         // Set command list for the help command
         helpCommand.setCommands(new ArrayList<>(parser.getCommands().values()));
