@@ -53,4 +53,22 @@ public class Recipe {
 
         return true;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder recipeDetails = new StringBuilder();
+        recipeDetails.append("Recipe: ").append(name).append("\n");
+
+        recipeDetails.append("  Ingredients: ");
+        for (String ingredient : ingredients) {
+            recipeDetails.append("\n    - ").append(ingredient);
+        }
+
+        recipeDetails.append("\n  Steps: ");
+        for (int i = 0; i < steps.size(); i++) {
+            recipeDetails.append("\n    ").append(i + 1).append(". ").append(steps.get(i));
+        }
+
+        return recipeDetails.toString();
+    }
 }

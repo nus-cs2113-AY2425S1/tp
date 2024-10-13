@@ -32,6 +32,17 @@ public class RecipeList {
         counter--;
     }
 
+    public boolean removeRecipeByName(String name) {
+        for (int i = 0; i < recipes.size(); i++) {
+            if (recipes.get(i).getName().equalsIgnoreCase(name)) {
+                recipes.remove(i);
+                counter--;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getCounter() {
         return counter;
     }

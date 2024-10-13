@@ -5,17 +5,21 @@ import ymfc.ui.Ui;
 
 public class DeleteCommand extends Command{
 
-    private int index;
+    private String recipeName;
 
-    public DeleteCommand(int index) {
+    public DeleteCommand(String recipeName) {
         super();
-        this.index = index;
+        this.recipeName = recipeName;
     }
 
     @Override
     public void execute(RecipeList recipes, Ui ui) {
-        String recipeName = recipes.getRecipe(index).getName();
-        recipes.removeRecipe(index);
-        ui.printDeletedTask(recipeName, recipes.getCounter());
+
+        boolean isRemoved = recipes.removeRecipeByName(recipeName);
+        if (isRemoved) {
+            ui.printDeletedTask(recipeName, recipes.getCounter());
+        } else {
+            ui.printMessage(new String[]{"Recipe not found: " + recipeName});
+        }
     }
 }
