@@ -1,18 +1,18 @@
 package seedu.transaction;
 
-import seedu.category.Category;
+import java.time.LocalDateTime;
+import seedu.utils.DateTimeUtils;
 
-public class Transaction {
-    private final double amount;
-    private final String description;
-    private final String date;
-    private final Category category;
+// Abstract Transaction class
+public abstract class Transaction {
+    protected double amount;
+    protected String description;
+    protected LocalDateTime date;
 
-    public Transaction(double amount, String description, String date, Category category) {
+    public Transaction(double amount, String description, String date) {
         this.amount = amount;
         this.description = description;
-        this.date = date;
-        this.category = category;
+        this.date = DateTimeUtils.parseDateTime(date); // Using the parseDateTime method from DateTimeUtils
     }
 
     public double getAmount() {
@@ -23,20 +23,15 @@ public class Transaction {
         return description;
     }
 
-    public String getType() {
-        return "";
-    }
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
-    }
-
-    public Category getCategory() {
-        return category;
     }
 
     @Override
     public String toString() {
-        return "Transaction [amount=" + amount + ", description=" + description + ", date=" + date + ", category="
-                + category.getName() + "]";
+        return "Transaction [amount=" + amount + ", description=" + description + ", date="
+                + DateTimeUtils.getDateTimeString(date) + "]";
     }
+    public abstract String getTransactionType();
 }
+
