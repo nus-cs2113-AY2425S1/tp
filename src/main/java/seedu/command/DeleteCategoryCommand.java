@@ -1,6 +1,5 @@
 package seedu.command;
 
-import seedu.category.Category;
 import seedu.category.CategoryList;
 
 import java.util.List;
