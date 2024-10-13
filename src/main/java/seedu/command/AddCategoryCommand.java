@@ -18,10 +18,6 @@ public class AddCategoryCommand extends Command {
         this.categoryList = categoryList;
     }
 
-    public AddCategoryCommand() {
-        // Default constructor
-    }
-
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
