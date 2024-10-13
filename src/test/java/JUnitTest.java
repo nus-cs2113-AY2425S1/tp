@@ -88,7 +88,8 @@ public class JUnitTest {
     @Test
     public void testAddTransaction() {
         TransactionList transactionList = new TransactionList();
-        Transaction transaction = new Expense(100.0, "Groceries", "2024-10-10", new Category("Food"));
+        Transaction transaction = new Expense(100.0, "Groceries", "2024-10-10",
+                new Category("Food"));
 
         transactionList.addTransaction(transaction);
         List<Transaction> transactions = transactionList.getTransactions();
@@ -99,7 +100,8 @@ public class JUnitTest {
     @Test
     public void testDeleteTransaction() {
         TransactionList transactionList = new TransactionList();
-        Transaction transaction = new Expense(50.0, "Taxi", "2024-10-11", new Category("Transport"));
+        Transaction transaction = new Expense(50.0, "Taxi", "2024-10-11",
+                new Category("Transport"));
         transactionList.addTransaction(transaction);
         int initialSize = transactionList.getTransactions().size();
 
@@ -112,12 +114,14 @@ public class JUnitTest {
     @Test
     public void testListTransactions() {
         TransactionList transactionList = new TransactionList();
-        transactionList.addTransaction(new Expense(20.0, "Coffee", "2024-10-09", new Category("Food")));
+        transactionList.addTransaction(new Expense(20.0, "Coffee", "2024-10-09",
+                new Category("Food")));
 
         List<Transaction> transactions = transactionList.getTransactions();
 
         assertNotNull(transactions, "The transaction list should not be null.");
-        assertTrue(transactions.size() > 0, "The transaction list should contain at least one transaction.");
+        assertTrue(transactions.size() > 0, "The transaction list should contain at" +
+                " least one transaction.");
     }
 
     @Test
@@ -130,17 +134,22 @@ public class JUnitTest {
         Transaction transaction = new Expense(amount, description, date, category);
 
         assertEquals(amount, transaction.getAmount(), "The transaction amount should match the input amount.");
-        assertEquals(description, transaction.getDescription(), "The transaction description should match the input description.");
-        assertEquals(LocalDateTime.parse(date + " 2359", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")), transaction.getDate(), "The transaction date should match the input date.");
+        assertEquals(description, transaction.getDescription(), "The transaction description should match " +
+                "the input description.");
+        assertEquals(LocalDateTime.parse(date + " 2359", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
+                transaction.getDate(), "The transaction date should match the input date.");
     }
 
     @Test
     public void testTransactionToString() {
-        Transaction transaction = new Expense(75.0, "Movie", "2024-10-13", new Category("Entertainment"));
-        String expectedString = "Expense [amount=75.0, description=Movie, date=Sunday, 2024-10-13 11.59 PM, category=Entertainment]";
+        Transaction transaction = new Expense(75.0, "Movie", "2024-10-13",
+                new Category("Entertainment"));
+        String expectedString = "Expense [amount=75.0, description=Movie, date=Sunday, 2024-10-13 11.59 PM, " +
+                "category=Entertainment]";
 
         String result = transaction.toString();
 
-        assertEquals(expectedString, result, "The toString() method should return the correct transaction details.");
+        assertEquals(expectedString, result, "The toString() method should return the correct transaction " +
+                "details.");
     }
 }
