@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ViewCommandTest {
 
-    private Command viewCommand;
     private static EventList eventList = new EventList();
+    private Command viewCommand;
 
     @BeforeEach
     public void setUp() {
