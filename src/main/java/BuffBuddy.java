@@ -1,4 +1,5 @@
 import command.Command;
+import core.DataWrapper;
 import core.History;
 import parser.Parser;
 import core.Ui;
@@ -15,8 +16,9 @@ public class BuffBuddy {
     private static final String DEFAULT_FILE_PATH = "./data/data.json";
     private final Ui userInterface;
     private final Storage storage;
-    private final History history;
-    private final ProgrammeList pList;
+    private History history;
+    private final DataWrapper dataWrapper;
+    private ProgrammeList pList;
     private final Parser commandParser;
 
     public BuffBuddy(String filePath) {
@@ -25,6 +27,7 @@ public class BuffBuddy {
         commandParser = new Parser();
         pList = new ProgrammeList();
         history = new History();
+        dataWrapper = new DataWrapper(pList, history);
     }
 
     public static void main(String[] args) {
@@ -60,6 +63,12 @@ public class BuffBuddy {
         userInterface.showLine();
     }
 
-    private void loadTasks() {}
-    private void saveTasks() {}
+    private void loadTasks() {
+        storage.load(dataWrapper);
+        pList = dataWrapper.getProgrammeList();
+        history = dataWrapper.getHistory();
+    }
+    private void saveTasks() {
+        storage.save(pList, history);
+    }
 }

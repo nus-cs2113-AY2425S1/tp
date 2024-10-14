@@ -91,4 +91,5 @@ public class Ui {
     public void showFarewell() {
         out.println(FAREWELL);
     }
+
 }

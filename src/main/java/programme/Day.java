@@ -45,4 +45,5 @@ public class Day {
 
         return result.append("\n").toString();
     }
+
 }
