@@ -33,7 +33,6 @@ public class EventList  {
         return eventList.size();
     }
 
-
     /**
      * Adds a new event to the event list.
      *

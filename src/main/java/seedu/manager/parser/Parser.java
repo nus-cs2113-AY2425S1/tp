@@ -2,10 +2,10 @@ package seedu.manager.parser;
 
 import seedu.manager.command.Command;
 import seedu.manager.command.AddCommand;
+import seedu.manager.command.InvalidCommand;
 import seedu.manager.command.RemoveCommand;
 import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
-import seedu.manager.command.EchoCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.ViewCommand;
 
@@ -13,6 +13,17 @@ import seedu.manager.command.ViewCommand;
  * Represents the command parser for EventManagerCLI
  */
 public class Parser {
+    private static final String INVALID_COMMAND_MESSAGE = "Invalid command!";
+    private static final String INVALID_ADD_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            add -e EVENT_NAME -t TIME -v VENUE
+            add -p PARTICIPANT_NAME -e EVENT_NAME""";
+    private static final String INVALID_REMOVE_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            remove -e EVENT_NAME
+            remove -p PARTICIPANT_NAME -e EVENT_NAME""";
 
     /**
      * Returns a command based on the given user command string
@@ -38,7 +49,7 @@ public class Parser {
             return new ExitCommand();
 
         default:
-            return new EchoCommand(command);
+            return new InvalidCommand(INVALID_COMMAND_MESSAGE);
         }
     }
 
@@ -50,7 +61,7 @@ public class Parser {
      * flag is {@code "-e"}, it splits the input string into parts to create an
      * {@link AddCommand} for adding an event. If the command flag is {@code "-p"},
      * it creates an {@link AddCommand} for adding a participant to an event. If neither
-     * flag is matched, it returns an {@link EchoCommand} with the original input.
+     * flag is matched, it returns an {@link InvalidCommand} with an error message.
      * </p>
      *
      * @param input        the input string containing the command details.
@@ -59,18 +70,22 @@ public class Parser {
      * @return a {@link Command} object representing the parsed command.
      */
     public Command parseAddCommand(String input, String[] commandParts) {
-        String commandFlag = commandParts[1];
-        String[] inputParts;
+        try {
+            String commandFlag = commandParts[1];
+            String[] inputParts;
 
-        if (commandFlag.equals("-e")) {
-            inputParts = input.split("(-e|-t|-v)");
-            return new AddCommand(inputParts[1].trim(), inputParts[2].trim(), inputParts[3].trim());
-        } else if (commandFlag.equals("-p")) {
-            inputParts = input.split("(-p|-e)");
-            return new AddCommand(inputParts[1].trim(), inputParts[2].trim());
+            if (commandFlag.equals("-e")) {
+                inputParts = input.split("(-e|-t|-v)");
+                return new AddCommand(inputParts[1].trim(), inputParts[2].trim(), inputParts[3].trim());
+            } else if (commandFlag.equals("-p")) {
+                inputParts = input.split("(-p|-e)");
+                return new AddCommand(inputParts[1].trim(), inputParts[2].trim());
+            }
+
+            return new InvalidCommand(INVALID_ADD_MESSAGE);
+        } catch (IndexOutOfBoundsException exception) {
+            return new InvalidCommand(INVALID_ADD_MESSAGE);
         }
-
-        return new EchoCommand(input);
     }
 
     /**
@@ -81,7 +96,7 @@ public class Parser {
      * flag is {@code "-e"}, it splits the input string to create a {@link RemoveCommand}
      * for removing an event. If the command flag is {@code "-p"}, it creates a
      * {@link RemoveCommand} for removing a participant from an event. If neither flag
-     * is matched, it returns an {@link EchoCommand} with the original input.
+     * is matched, it returns an {@link InvalidCommand} with an error message.
      * </p>
      *
      * @param input        the input string containing the command details.
@@ -90,28 +105,32 @@ public class Parser {
      * @return a {@link Command} object representing the parsed command.
      */
     private Command parseRemoveCommand(String input, String[] commandParts) {
-        String commandFlag = commandParts[1];
-        String[] inputParts;
+        try {
+            String commandFlag = commandParts[1];
+            String[] inputParts;
 
-        if (commandFlag.equals("-e")) {
-            inputParts = input.split("-e");
-            return new RemoveCommand(inputParts[1].trim());
-        } else if (commandFlag.equals("-p")) {
-            inputParts = input.split("(-p|-e)");
-            return new RemoveCommand(inputParts[1].trim(), inputParts[2].trim());
+            if (commandFlag.equals("-e")) {
+                inputParts = input.split("-e");
+                return new RemoveCommand(inputParts[1].trim());
+            } else if (commandFlag.equals("-p")) {
+                inputParts = input.split("(-p|-e)");
+                return new RemoveCommand(inputParts[1].trim(), inputParts[2].trim());
+            }
+
+            return new InvalidCommand(INVALID_REMOVE_MESSAGE);
+        } catch (IndexOutOfBoundsException exception) {
+            return new InvalidCommand(INVALID_REMOVE_MESSAGE);
         }
-
-        return new EchoCommand(input);
     }
 
-    /**
-     * Parses the input string to create a {@link Command} based on the provided command parts.
+        /**
+         * Parses the input string to create a {@link Command} based on the provided command parts.
      *
      * <p>
      * This method checks the command flag extracted from the command parts. If the command
      * flag is {@code "-e"}, it splits the input string to create a {@link ViewCommand}
      * for viewing the participants in the event.
-     * Otherwise, it returns an {@link EchoCommand} with the original input.
+     * Otherwise, it returns an {@link InvalidCommand} with an error message.
      * </p>
      *
      * @param input        the input string containing the command details.
@@ -120,13 +139,17 @@ public class Parser {
      * @return a {@link Command} object representing the parsed command.
      */
     private Command parseViewCommand(String input, String[] commandParts) {
-        String commandFlag = commandParts[1];
+        try {
+            String commandFlag = commandParts[1];
 
-        if (commandFlag.equals("-e")) {
-            String [] inputParts = input.split("-e");
-            return new ViewCommand(inputParts[1].trim());
+            if (commandFlag.equals("-e")) {
+                String [] inputParts = input.split("-e");
+                return new ViewCommand(inputParts[1].trim());
+            }
+
+            return new InvalidCommand(INVALID_REMOVE_MESSAGE);
+        } catch (IndexOutOfBoundsException exception) {
+            return new InvalidCommand(INVALID_REMOVE_MESSAGE);
         }
-
-        return new EchoCommand(input);
     }
 }

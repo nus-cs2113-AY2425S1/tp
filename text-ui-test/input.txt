@@ -1,4 +1,7 @@
 hello world
 menu
 list
+add
+add -e dinner party -t 2024-10-10 -v Alice's House
+list
 exit
