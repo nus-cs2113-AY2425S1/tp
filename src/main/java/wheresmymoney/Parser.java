@@ -1,7 +1,5 @@
 package wheresmymoney;
-import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
 import java.util.HashMap;
-import java.util.List;
 
 public class Parser{
     public static final String ARGUMENT_COMMAND = "command";
@@ -12,6 +10,7 @@ public class Parser{
 
     /**
      * Parses the given user input into command arguments
+     *
      * @param line Line that a user inputs
      * @return HashMap of Arguments, mapping the argument to its value given
      */
@@ -20,7 +19,7 @@ public class Parser{
         String[] lineArgs = line.split(" ");
 
         // Command
-        if (lineArgs.length <= 0) {
+        if (lineArgs.length == 0) {
             argumentsList.put(Parser.ARGUMENT_COMMAND,"");
             return argumentsList;
         }
@@ -55,6 +54,7 @@ public class Parser{
 
     /**
      * Matches the argument list to a related command and runs said command
+     *
      * @param argumentsList List of arguments
      * @param expenseList List of expenses
      * @return Whether to continue running the program
@@ -89,13 +89,13 @@ public class Parser{
             break;
         case "list":
             category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
-            Expense[] ListToDisplay;
+            Expense[] expensesToDisplay;
             if (category == null) {
-                ListToDisplay = expenseList.getList().toArray(new Expense[0]);
+                expensesToDisplay = expenseList.getList().toArray(new Expense[0]);
             } else {
-                ListToDisplay = ExpenseList.getListByCategory(category);
+                expensesToDisplay = ExpenseList.listByCategory(category);
             }
-            Ui.displayExpenseList(ListToDisplay);
+            Ui.displayExpenseList(expensesToDisplay);
             break;
         case "help":
             Ui.displayHelp();
