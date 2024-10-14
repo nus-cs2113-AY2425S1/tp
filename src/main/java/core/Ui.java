@@ -63,7 +63,9 @@ public class Ui {
      * @param e the exception to be displayed
      */
     public void showError(Exception e) {
+        showLine();
         out.println(ERROR_HEADER + e.getMessage());
+        showLine();
     }
 
     /**
@@ -72,8 +74,10 @@ public class Ui {
      * @param msg the message to be displayed
      */
     public void showMsg(String msg) {
+        showLine();
         String strippedMsg = msg.replaceFirst("\\n+$", "");
         out.println(strippedMsg);
+        showLine();
     }
 
     /**
