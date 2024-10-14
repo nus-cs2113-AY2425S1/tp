@@ -79,7 +79,7 @@ public class Parser{
             category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
             price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
             description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
-            expenseList.editExpense(index, category, price, description);
+            expenseList.editExpense(index, price, description, category);
             break;
         case "delete":
             index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;
