@@ -21,9 +21,9 @@ class ViewExpenseCommandTest {
 
     private ViewExpenseCommand viewExpenseCommand;
     private TransactionList inputTransactionList;
-    Transaction item1;
-    Transaction item2;
-    Transaction item3;
+    private Transaction item1;
+    private Transaction item2;
+    private Transaction item3;
 
     @BeforeEach
     public void setUp() {
@@ -40,7 +40,7 @@ class ViewExpenseCommandTest {
     }
 
     @Test
-    void setTransactionList_newTransactionList_TransactionList()
+    void setTransactionList_newTransactionList_equalTransactionList()
             throws NoSuchFieldException, IllegalAccessException{
 
         // Set transactions
