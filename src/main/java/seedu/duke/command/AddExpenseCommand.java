@@ -30,7 +30,9 @@ public class AddExpenseCommand extends Command {
     public void execute(FinancialList list) {
         Expense expense = new Expense(amount, description);
         list.addEntry(expense);
-        System.out.println("Got it. I've added this expense:");
+        System.out.println("--------------------------------------------");
+        System.out.println("Got it! I've added this expense:");
         System.out.println(expense);
+        System.out.println("--------------------------------------------");
     }
 }

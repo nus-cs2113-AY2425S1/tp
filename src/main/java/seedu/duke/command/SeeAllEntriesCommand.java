@@ -12,10 +12,12 @@ public class SeeAllEntriesCommand extends Command {
 
     @Override
     public void execute(FinancialList list) {
+        System.out.println("--------------------------------------------");
         System.out.println("Here's a list of all recorded entries:");
         for (int i = 0; i < list.getEntryCount(); i++) {
             FinancialEntry entry = list.getEntry(i);
             System.out.println((i + 1) + ". " + entry);
         }
+        System.out.println("--------------------------------------------");
     }
 }

@@ -31,11 +31,7 @@ public class FinancialList {
      * @param index The index of the entry to be deleted.
      */
     public void deleteEntry(int index) {
-        if (index >= 0 && index < entries.size()) {
-            entries.remove(index);
-        } else {
-            System.out.println("OOPS!!! The entry does not exist.");
-        }
+        entries.remove(index);
     }
 
     /**
@@ -62,22 +58,20 @@ public class FinancialList {
         }
     }
 
+
     /**
-     * edits an expense in the list by index.
+     * Edits an existing financial entry in the list.
+     *
      * @param index The index of the entry to be edited.
-     * @param amount The new amount of the expense.
-     * @param description The new description of the expense.
+     * @param amount The new amount to be set for the entry.
+     * @param description The new description to be set for the entry.
+     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= entries.size()).
      */
-    public void editExpense(int index, double amount, String description) {
+    public void editEntry(int index, double amount, String description) {
         if (index >= 0 && index < entries.size()) {
             FinancialEntry entry = entries.get(index);
-            if (entry instanceof Expense) {
-                Expense expense = (Expense) entry;
-                expense.setAmount(amount);
-                expense.setDescription(description);
-            } else {
-                System.out.println("OOPS!!! The entry is not an expense.");
-            }
+            entry.setAmount(amount);
+            entry.setDescription(description);
         } else {
             System.out.println("OOPS!!! The entry does not exist.");
         }
