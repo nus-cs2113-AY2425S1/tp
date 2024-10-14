@@ -55,7 +55,7 @@ public class TransactionList {
     }
 
     // Method to get transactions of a specific category for expenses
-    public List<Expense> getExpensesByCategory(Category category) {
+    public List<Transaction> getExpensesByCategory(Category category) {
         return transactions.stream()
                 .filter(transaction -> transaction instanceof Expense)
                 .map(transaction -> (Expense) transaction)
