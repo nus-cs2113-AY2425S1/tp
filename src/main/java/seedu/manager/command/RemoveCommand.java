@@ -26,7 +26,7 @@ public class RemoveCommand extends Command {
      * @param eventName The name of the event the participant is to be removed from.
      * @param participantName The name of the participant to be removed.
      */
-    public RemoveCommand(String eventName, String participantName) {
+    public RemoveCommand(String participantName, String eventName) {
         this.eventName = eventName;
         this.participantName = participantName;
     }

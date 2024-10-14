@@ -122,6 +122,6 @@ public class Event {
      */
     @Override
     public String toString(){
-        return "Event name: " + eventName + "/ Event time: " + eventTime + "/ Event venue: " + eventVenue;
+        return "Event name: " + eventName + " / Event time: " + eventTime + " / Event venue: " + eventVenue;
     }
 }
