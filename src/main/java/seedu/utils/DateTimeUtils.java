@@ -24,7 +24,7 @@ public class DateTimeUtils {
      * @return A LocalDateTime representing the parsed date and time.
      * @throws RuntimeException If the date-time format is invalid.
      */
-    public static LocalDateTime parseDateTime(String datetime) throws RuntimeException {
+    public static LocalDateTime parseDateTime(String datetime) throws Exception {
         String[] datetimeParts = datetime.trim().split(" ", 2);
 
         // If only the date is provided, append time as "2359" (11:59 PM)
@@ -36,7 +36,7 @@ public class DateTimeUtils {
         try {
             result = LocalDateTime.parse(datetime, DATETIME_READ_FORMAT); // Parse the date-time string
         } catch (DateTimeParseException e) {
-            throw new RuntimeException(MESSAGE_INVALID_DATE_FORMAT); // Throw custom exception
+            throw new Exception(MESSAGE_INVALID_DATE_FORMAT); // Throw custom exception
         }
 
         return result;
