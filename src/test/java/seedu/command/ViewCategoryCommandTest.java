@@ -31,7 +31,7 @@ class ViewCategoryCommandTest {
         viewCategoryCommand.setCategoryList(temp);
 
 
-        Field categoriesField = ViewCategoryCommand.class.getDeclaredField("categories");
+        Field categoriesField = ViewCategoryCommand.class.getDeclaredField("categoryList");
         categoriesField.setAccessible(true); // Make private field accessible
         CategoryList commandCategoryList = (CategoryList) categoriesField.get(viewCategoryCommand);
 

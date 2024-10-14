@@ -13,24 +13,24 @@ public class ViewCategoryCommand extends Command{
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {}; // Keywords for arguments
     public static final String[] COMMAND_EXTRA_KEYWORDS = {}; // Keywords for arguments
 
-    private CategoryList categories = new CategoryList();
+    private CategoryList categoryList = new CategoryList();
 
     /**
      * Constructor sets the category list for the command.
      *
-     * @param categories the input category list
+     * @param categoryList the input category list
      */
-    public ViewCategoryCommand(CategoryList categories) {
-        setCategoryList(categories);
+    public ViewCategoryCommand(CategoryList categoryList) {
+        setCategoryList(categoryList);
     }
 
     /**
      * Sets the category list for the command.
      *
-     * @param categories the input category list
+     * @param categoryList the input category list
      */
-    public void setCategoryList(CategoryList categories) {
-        this.categories = categories;
+    public void setCategoryList(CategoryList categoryList) {
+        this.categoryList = categoryList;
     }
 
     /**
@@ -43,7 +43,7 @@ public class ViewCategoryCommand extends Command{
         List<String> messages = new ArrayList<>();
 
         int i = 1;
-        for (Category category: categories.getCategories()) {
+        for (Category category: categoryList.getCategories()) {
             messages.add(i + ". " + category.getName());
             i++;
         }
