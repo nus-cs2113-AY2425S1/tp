@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class ViewIncomeCommand extends Command {
     public static final String COMMAND_WORD = "view-income"; // The word associated with the command
-    public static final String COMMAND_GUIDE = "view-expense [f/ START_DATE] [t/ END_DATE]: "
+    public static final String COMMAND_GUIDE = "view-income [f/ START_DATE] [t/ END_DATE]: "
             + "View your income history"; // A guide or description of the command
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {}; // Keywords for arguments
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"f/", "t/"}; // Keywords for arguments
