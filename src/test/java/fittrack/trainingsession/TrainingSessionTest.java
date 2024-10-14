@@ -23,14 +23,14 @@ public class TrainingSessionTest {
 
     @Test
     public void editExercise_PullUpStation() {
-        new TrainingSession(testDescription, testDatetime, testUser).editExercise(1, 1);
+        new TrainingSession(testDatetime, testDescription, testUser).editExercise(1, 1);
         assertEquals("Exercise edited! Here's your new input: " + System.lineSeparator() +
                 1 + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void editExercise_ShuttleRunStation() {
-        new TrainingSession(testDescription, testDatetime, testUser).editExercise(2, 11);
+        new TrainingSession(testDatetime, testDescription, testUser).editExercise(2, 11);
         assertEquals("Exercise edited! Here's your new input: " + System.lineSeparator() +
                 11 + "s" + System.lineSeparator(), outContent.toString());
     }
@@ -38,18 +38,18 @@ public class TrainingSessionTest {
     @Test
     public void testGetSessionDescription(){
         assertEquals(testDescription,
-                new TrainingSession(testDescription, testDatetime, testUser).getSessionDescription());
+                new TrainingSession(testDatetime, testDescription, testUser).getSessionDescription());
     }
 
     @Test
     public void testPrintSessionDescription(){
-        new TrainingSession(testDescription, testDatetime, testUser);
+        new TrainingSession(testDatetime, testDescription, testUser);
         assertEquals(testDescription, outContent.toString());
     }
 
     @Test
     public void testViewSession(){
-        new TrainingSession(testDescription, testDatetime, testUser).viewSession();
+        new TrainingSession(testDatetime, testDescription, testUser).viewSession();
         assertEquals("Training Session: " + testDescription + System.lineSeparator() +
                 "Training Datetime: " + testDatetimeOutput + System.lineSeparator() +
                 "Pull Up Station | 0" + System.lineSeparator() +
