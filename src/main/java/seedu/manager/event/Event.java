@@ -93,6 +93,10 @@ public class Event {
         return eventVenue;
     }
 
+    public ArrayList<String> getParticipantList() {
+        return participantList;
+    }
+
     /**
      * Sets a new time for the event.
      *
