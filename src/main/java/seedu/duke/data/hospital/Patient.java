@@ -1,33 +1,34 @@
 package seedu.duke.data.hospital;
-/*
-import java.util.ArrayList;
-import java.util.List;
-*/
+
+import seedu.duke.data.task.TaskList;
+
 public class Patient {
     private String name;
-    private int index;
-    //private TaskList tasks;
+    private TaskList taskList;
 
     public Patient(String name, int index) {
         this.name = name;
-        this.index = index;
-        //this.tasks = new TaskList();
+        this.taskList = new TaskList();
     }
 
     public String getName() {
         return name;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getIndex() {
-        return index;
+    public TaskList getTaskList() {
+        return taskList;
     }
-    /*
-    public TaskList getTasks() {
-        return tasks;
+
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
     }
-    */
+
+    @Override
+    public String toString() {
+        return "Patient{name='" + name + "'}";
+    }
 }
