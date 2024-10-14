@@ -40,7 +40,7 @@ public class ListUniCoursesCommand extends Command {
         String puName = userInput.replaceFirst("set", "").trim();
 
         if (puName.isEmpty()) {
-            throw new IllegalArgumentException("Please provide a University name.");
+            throw new IllegalArgumentException(Exception.emptyUniversityName());
         }
 
         return puName;
