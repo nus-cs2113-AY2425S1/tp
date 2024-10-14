@@ -13,7 +13,7 @@ public class TrainingSessionTest {
     private final String testDescription = "Test Session Description";
     private final String testDatetime = "2024-10-01";
     private final String testDatetimeOutput = "01/10/2024 00:00";
-    private final User testUser = new User("M", "13");
+    private final User testUser = new User("MALE", "13");
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @BeforeEach
