@@ -12,6 +12,7 @@ public class QuizManager {
 
     public QuizManager() {
         this.topics = new ArrayList<>();
+        this.pastResults = new ArrayList<>();
         loadTopics();
     }
 
