@@ -1,6 +1,7 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.exception.Exception;
+import seedu.exchangecoursemapper.exception.UnknownUniversityException;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -26,21 +27,26 @@ public class ListUniCoursesCommand extends Command {
             getUniCourses(jsonObject, puName);
         } catch (IOException e) {
             System.err.println(Exception.fileReadError());
+        } catch (UnknownUniversityException e) {
+            System.err.println(e.getMessage());
+            System.out.println(LINE_SEPARATOR);
+        } catch (java.lang.Exception e) {
+            System.err.println(e.getMessage());
+            System.out.println(LINE_SEPARATOR);
         }
     }
 
-    public String getPuName (String userInput) {
+    public String getPuName (String userInput) throws java.lang.Exception {
         String puName = userInput.replaceFirst("set", "").trim();
 
         if (puName.isEmpty()) {
-            System.out.println("Please provide a University name.");
-            System.out.println(LINE_SEPARATOR);
+            throw new IllegalArgumentException("Please provide a University name.");
         }
 
         return puName;
     }
 
-    public void getUniCourses (JsonObject jsonObject, String puName) {
+    public void getUniCourses (JsonObject jsonObject, String puName) throws UnknownUniversityException {
         String lowerCasePuName = puName.toLowerCase();
 
         Set<String> universityNames = jsonObject.keySet();
@@ -52,6 +58,10 @@ public class ListUniCoursesCommand extends Command {
 
                 JsonObject universityObject = jsonObject.getJsonObject(universityName);
                 JsonArray courseArray = universityObject.getJsonArray("courses");
+
+                if (courseArray == null) {
+                    throw new IllegalArgumentException("No courses found for university: " + puName);
+                }
 
                 for (int i = 0; i < courseArray.size(); i++) {
                     JsonObject courseObject = courseArray.getJsonObject(i);
@@ -68,8 +78,7 @@ public class ListUniCoursesCommand extends Command {
             }
         }
         if (!found && (!puName.isEmpty())) {
-            System.out.println("University not found: " + puName);
-            System.out.println(LINE_SEPARATOR);
+            throw new UnknownUniversityException("University not found: " + puName);
         }
     }
 }
