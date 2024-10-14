@@ -33,15 +33,6 @@ public class EventList  {
         return eventList.size();
     }
 
-    /**
-     * Adds a new event to the event list.
-     *
-     * @param eventName The name of the event to be added.
-     */
-    public void addEvent(String eventName) {
-        Event newEvent = new Event(eventName);
-        eventList.add(newEvent);
-    }
 
     /**
      * Adds a new event to the event list.
