@@ -7,6 +7,7 @@ import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.EchoCommand;
 import seedu.manager.command.ListCommand;
+import seedu.manager.command.ViewCommand;
 
 /**
  * Represents the command parser for EventManagerCLI
@@ -29,10 +30,12 @@ public class Parser {
             return parseRemoveCommand(command, commandParts);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+        case ViewCommand.COMMAND_WORD:
+            return parseViewCommand(command, commandParts);
         case MenuCommand.COMMAND_WORD:
             return new MenuCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
         default:
             return new EchoCommand(command);
@@ -96,6 +99,32 @@ public class Parser {
         } else if (commandFlag.equals("-p")) {
             inputParts = input.split("(-p|-e)");
             return new RemoveCommand(inputParts[1], inputParts[2]);
+        }
+
+        return new EchoCommand(input);
+    }
+
+    /**
+     * Parses the input string to create a {@link Command} based on the provided command parts.
+     *
+     * <p>
+     * This method checks the command flag extracted from the command parts. If the command
+     * flag is {@code "-e"}, it splits the input string to create a {@link ViewCommand}
+     * for viewing the participants in the event.
+     * Otherwise, it returns an {@link EchoCommand} with the original input.
+     * </p>
+     *
+     * @param input        the input string containing the command details.
+     * @param commandParts an array of strings representing the parsed command parts,
+     *                     where the second element is the command flag.
+     * @return a {@link Command} object representing the parsed command.
+     */
+    private Command parseViewCommand(String input, String[] commandParts) {
+        String commandFlag = commandParts[1];
+
+        if (commandFlag.equals("-e")) {
+            String [] inputParts = input.split("-e");
+            return new  ViewCommand(inputParts[1].trim());
         }
 
         return new EchoCommand(input);
