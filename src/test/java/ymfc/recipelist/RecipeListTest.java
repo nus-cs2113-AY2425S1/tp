@@ -87,4 +87,20 @@ public class RecipeListTest {
         assertThrows(IndexOutOfBoundsException.class, () -> testRecipeList.removeRecipe(-1));
     }
 
+
+    @Test
+    public void removeRecipeByName_deletingMultipleRecipes_success() {
+        testRecipeList = new RecipeList();
+        testRecipeList.addRecipe(recipe1);
+        testRecipeList.addRecipe(recipe2);
+        testRecipeList.addRecipe(recipe3);
+
+        testRecipeList.removeRecipeByName(recipe2.getName());
+        assertEquals(2, testRecipeList.getCounter());
+        assertSame(recipe3, testRecipeList.getRecipe(1));
+
+        testRecipeList.removeRecipeByName(recipe1.getName());
+        assertEquals(1, testRecipeList.getCounter());
+        assertSame(recipe3, testRecipeList.getRecipe(0));
+    }
 }

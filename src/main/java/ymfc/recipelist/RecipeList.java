@@ -33,6 +33,8 @@ public class RecipeList {
     }
 
     public boolean removeRecipeByName(String name) {
+        assert counter > 0 : "List should not be empty when deleting recipe";
+        assert name != null : "Recipe name should not be null";
         for (int i = 0; i < recipes.size(); i++) {
             if (recipes.get(i).getName().equalsIgnoreCase(name)) {
                 recipes.remove(i);

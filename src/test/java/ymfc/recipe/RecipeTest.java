@@ -58,4 +58,42 @@ class RecipeTest {
         recipe.setSteps(newSteps);
         assertEquals(newSteps, recipe.getSteps());
     }
+
+    @Test
+    void toString_validIngredientsAndSteps_correctFormat() {
+
+        ArrayList<String> ingredients = new ArrayList<>();
+        ingredients.add("Flour");
+        ingredients.add("Eggs");
+        ingredients.add("Milk");
+        ingredients.add("Sugar");
+        ingredients.add("Baking powder");
+
+        ArrayList<String> steps = new ArrayList<>();
+        steps.add("Mix ingredients");
+        steps.add("Heat the pan");
+        steps.add("Pour batter");
+        steps.add("Flip the pancake");
+        steps.add("Serve hot");
+
+        Recipe recipe = new Recipe("Pancakes", ingredients, steps);
+
+        // Expected string representation
+        String expected = "Recipe: Pancakes" + System.lineSeparator() +
+                "  Ingredients: " + System.lineSeparator() +
+                "    - Flour" + System.lineSeparator() +
+                "    - Eggs" + System.lineSeparator() +
+                "    - Milk" + System.lineSeparator() +
+                "    - Sugar" + System.lineSeparator() +
+                "    - Baking powder" + System.lineSeparator() +
+                "  Steps: " + System.lineSeparator() +
+                "    1. Mix ingredients" + System.lineSeparator() +
+                "    2. Heat the pan" + System.lineSeparator() +
+                "    3. Pour batter" + System.lineSeparator() +
+                "    4. Flip the pancake" + System.lineSeparator() +
+                "    5. Serve hot";
+
+        // Assert the output of toString method matches expected
+        assertEquals(expected, recipe.toString());
+    }
 }
