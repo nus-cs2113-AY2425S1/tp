@@ -3,8 +3,9 @@ package seedu.duke.commands;
 import seedu.duke.data.hospital.Hospital;
 
 public class DeletePatientCommand extends HospitalCommand {
-    private int index;
     public static final String MESSAGE_PATIENT_NOT_FOUND = "Patient not found in the list!";
+
+    private int index;
 
     public DeletePatientCommand(int index) {
         this.index = index;
@@ -25,4 +26,3 @@ public class DeletePatientCommand extends HospitalCommand {
         }
     }
 }
-
