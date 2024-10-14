@@ -4,6 +4,7 @@ import seedu.exceptions.InvalidStatus;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,67 +43,20 @@ public class Internship {
 
     //@@author Ridiculouswifi
     /**
-     * Updates the internship field with the new value.
-     *
-     * @param field field to be updated.
-     * @param value new value to update field with.
-     */
-    public void updateField(String field, String value) {
-        switch (field) {
-        case "id":
-            setId(Integer.parseInt(value));
-            break;
-        case "status":
-            updateStatus(value);
-            break;
-        case "skills":
-            setSkills(value);
-            break;
-        case "role":
-            setRole(value);
-            break;
-        case "company":
-            setCompany(value);
-            break;
-        case "from":
-            setStartDate(value);
-            break;
-        case "to":
-            setEndDate(value);
-            break;
-        default:
-            break;
-        }
-    }
-
-    //@@author Ridiculouswifi
-    /**
      * Updates the status of the Internship with a valid status.
      * Does not update with invalid statuses and will prompt for a valid status.
      *
      * @param userStatus user-inputted status.
      */
-    public void updateStatus(String userStatus) {
+    public void updateStatus(String userStatus) throws InvalidStatus {
         List<String> statuses = Arrays.asList("Application Pending", "Application Completed", "Accepted", "Rejected");
-        try {
-            for (String status : statuses) {
-                if (status.equalsIgnoreCase(userStatus)) {
-                    this.status = status;
-                    return;
-                }
+        for (String status : statuses) {
+            if (status.equalsIgnoreCase(userStatus)) {
+                this.status = status;
+                return;
             }
-            throw new InvalidStatus();
-        } catch (InvalidStatus e) {
-            String message = """
-                    Status provided is not recognised:
-                    Please provide one of the following:
-                    - Application Pending
-                    - Application Completed
-                    - Accepted
-                    - Rejected
-                    """;
-            System.out.println(message);
         }
+        throw new InvalidStatus();
     }
 
     // Getters and Setters
@@ -137,7 +91,7 @@ public class Internship {
         return startDate.format(formatter); // Format as MM/yy
     }
 
-    public void setStartDate(String start) {
+    public void setStartDate(String start) throws DateTimeParseException {
         this.startDate = YearMonth.parse(start, formatter);
     }
 
@@ -145,7 +99,7 @@ public class Internship {
         return endDate.format(formatter); // Format as MM/yy
     }
 
-    public void setEndDate(String end) {
+    public void setEndDate(String end) throws DateTimeParseException {
         this.endDate = YearMonth.parse(end, formatter);
     }
 

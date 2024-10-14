@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidStatus;
 import seedu.ui.UiInternshipList;
 
 import java.util.ArrayList;
@@ -23,9 +25,17 @@ public class InternshipList {
         internships.add(internship);
     }
 
+    //@@ Ridiculouswifi
+    /**
+     * Returns whether the index given is within the boundaries of the list.
+     */
+    private boolean isWithinBounds(int index) {
+        return index >= 0 && index < internships.size();
+    }
+
     // Method to remove an internship by index (0-based)
     public void removeInternship(int index) {
-        if (index >= 0 && index < internships.size()) {
+        if (isWithinBounds(index)) {
             internships.remove(index);
             updateIds(); // Reassign IDs after removal
         } else {
@@ -42,7 +52,7 @@ public class InternshipList {
 
     // Method to get an internship by index
     public Internship getInternship(int index) {
-        if (index >= 0 && index < internships.size()) {
+        if (isWithinBounds(index)) {
             return internships.get(index);
         } else {
             ui.showInvalidIndex();
@@ -58,11 +68,33 @@ public class InternshipList {
      * @param field Specific attribute to update.
      * @param value Updated value
      */
-    public void updateField(int index, String field, String value) {
-        if (index >= 0 && index < internships.size()) {
-            internships.get(index).updateField(field, value);
-        } else {
+    public void updateField(int index, String field, String value) throws InvalidIndex, InvalidStatus {
+        try {
+            switch (field) {
+            case "status":
+                internships.get(index).updateStatus(value);
+                break;
+            case "skills":
+                internships.get(index).setSkills(value);
+                break;
+            case "role":
+                internships.get(index).setRole(value);
+                break;
+            case "company":
+                internships.get(index).setCompany(value);
+                break;
+            case "from":
+                internships.get(index).setStartDate(value);
+                break;
+            case "to":
+                internships.get(index).setEndDate(value);
+                break;
+            default:
+                break;
+            }
+        } catch (IndexOutOfBoundsException e) {
             ui.showInvalidIndex();
+            throw new InvalidIndex();
         }
     }
 
