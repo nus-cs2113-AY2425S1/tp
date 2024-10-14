@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Comparator;
 
+//@@author jadenlimjc
 public class InternshipList {
     private static final UiInternshipList ui = new UiInternshipList();
     public ArrayList<Internship> internships;
@@ -37,6 +38,7 @@ public class InternshipList {
     public void removeInternship(int index) {
         if (isWithinBounds(index)) {
             internships.remove(index);
+            ui.showDeletedInternship(index);
             updateIds(); // Reassign IDs after removal
         } else {
             ui.showInvalidIndex();

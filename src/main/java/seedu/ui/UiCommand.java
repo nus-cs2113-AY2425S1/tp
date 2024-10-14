@@ -109,12 +109,7 @@ public class UiCommand extends Ui {
         printTailDivider();
     }
 
-    /**
-     * Prints message to show internship of specified id has been deleted from <code>InternshipList</code>.
-     */
-    public void showDeletedInternship(int id) {
-        showOutput("Internship deleted: " + id);
-    }
+
 
     /**
      * Prints message to show no flags available to filter.
