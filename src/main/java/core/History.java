@@ -4,8 +4,19 @@ import com.google.gson.JsonObject;
 import programme.Day;
 import com.google.gson.Gson;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+
 public class History {
-    public void logDay(Day completed, String date) {
+    private HashMap<LocalDateTime, Day> history;
+
+    public void logDay(Day completed, LocalDateTime date) {
+
+    }
+
+    @Override
+    public String toString() {
+        return "History";
     }
 
     // Converts the History object to a JSON string
