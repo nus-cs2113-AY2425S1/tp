@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class DateTimeUtilsTest {
 
     @Test
-    void parseDateTime_validDateWithoutTime_successParseWithTimeAs2359() {
+    void parseDateTime_validDateWithoutTime_successParseWithTimeAs2359() throws Exception {
         // Expected datetime
         LocalDateTime expectedDateTime =
                 LocalDateTime.of(2024, 10, 23, 23, 59);
@@ -22,7 +22,7 @@ class DateTimeUtilsTest {
     }
 
     @Test
-    void parseDateTime_validDateWithTime_successParse() {
+    void parseDateTime_validDateWithTime_successParse() throws Exception {
         // Expected datetime
         LocalDateTime expectedDateTime =
                 LocalDateTime.of(2024, 10, 23, 10, 11);
