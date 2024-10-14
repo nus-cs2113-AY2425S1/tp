@@ -51,11 +51,11 @@ public class ExpenseList {
      * @param price New price of expense
      * @param description New description of expense
      */
-    public void editExpense(int index, String category, float price, String description) {
+    public void editExpense(int index, Float price, String description, String category) {
         Expense expense = expenses.get(index);
-        expense.setCategory(category);
         expense.setPrice(price);
         expense.setDescription(description);
+        expense.setCategory(category);
     }
 
     public void deleteExpense(int index) throws WheresMyMoneyException {
