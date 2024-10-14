@@ -1,4 +1,5 @@
 package wheresmymoney;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -14,6 +15,17 @@ public class Ui {
     public static void displayIntroText() {
         System.out.println("WheresMyMoney");
         System.out.println("What can I do for you?");
+    }
+
+    /**
+     * Displays list expenses as requested by user
+     */
+    public static void displayExpenseList(Expense[] expensesToPrint) {
+        for (Expense expense: expensesToPrint) {
+            System.out.println("Category: " + expense.category +
+                    " Description: " + expense.description +
+                    " Price: " + expense.price);
+        }
     }
 
     /**

@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseList {
-    private List<Expense> expenses;
-
+    private static List<Expense> expenses;
 
     public ExpenseList() {
         expenses = new ArrayList<>();
     }
-
 
     public List<Expense> getList() {
         return expenses;
@@ -63,5 +61,20 @@ public class ExpenseList {
             throw new WheresMyMoneyException("Index out of range!");
         }
         expenses.remove(index);
+    }
+
+    /**
+     * Returns the list of all expenses from the specified category
+     * @param category Category of expense
+     */
+    public static Expense[] getListByCategory(String category) {
+        Expense[] expenseArray = new Expense[0];
+        ArrayList<Expense> returnList = new ArrayList<>();
+        for (Expense expense: expenses) {
+            if (expense.category.equals(category)) {
+                returnList.add(expense);
+            }
+        }
+        return returnList.toArray(expenseArray);
     }
 }

@@ -1,5 +1,7 @@
 package wheresmymoney;
+import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
 import java.util.HashMap;
+import java.util.List;
 
 public class Parser{
     public static final String ARGUMENT_COMMAND = "command";
@@ -64,7 +66,7 @@ public class Parser{
         float price;
         String description;
         String category;
-        switch(argumentsList.get(Parser.ARGUMENT_COMMAND)){
+        switch(argumentsList.get(Parser.ARGUMENT_COMMAND)) {
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
             return false;
@@ -84,6 +86,16 @@ public class Parser{
         case "delete":
             index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;
             expenseList.deleteExpense(index);
+            break;
+        case "list":
+            category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
+            Expense[] ListToDisplay;
+            if (category == null) {
+                ListToDisplay = expenseList.getList().toArray(new Expense[0]);
+            } else {
+                ListToDisplay = ExpenseList.getListByCategory(category);
+            }
+            Ui.displayExpenseList(ListToDisplay);
             break;
         case "help":
             Ui.displayHelp();
