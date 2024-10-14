@@ -1,73 +1,70 @@
 package seedu.duke;
 
+import seedu.duke.data.hospital.Hospital;
+import seedu.duke.data.hospital.Patient;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.duke.Command.AddPatientCommand;
-import seedu.duke.Command.DelPatientCommand;
-import seedu.duke.Command.ListPatientCommand;
-import seedu.duke.Command.SelectPatientCommand;
-import seedu.duke.data.hospital.Patient;
-
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class PatientTest {
-    private List<Patient> patients;
-
-    @BeforeEach
-    public void setUp() {
-        patients = new ArrayList<>();
-    }
 
     @Test
-    public void testAddPatient() {
-        new AddPatientCommand("John", patients);
-        assertEquals(1, patients.size());
-        assertEquals("John", patients.get(0).getName());
+    public void testAddPatient() throws Hospital.PatientNotFoundException {
+        Hospital hospital = new Hospital();
+        hospital.addPatient("Alice");
+        assertEquals(1, hospital.getSize());
+        assertEquals("Alice", hospital.getPatient(0).getName());
     }
 
     @Test
     public void testDeletePatient() {
-        new AddPatientCommand("John", patients);
-        new AddPatientCommand("Jane", patients);
-        new DelPatientCommand(0, patients);
-        assertEquals(1, patients.size());
-        assertEquals("Jane", patients.get(0).getName());
+        Hospital hospital = new Hospital();
+        hospital.addPatient("Alice");
+        hospital.addPatient("Bob");
+        try {
+            hospital.deletePatient(0);
+            assertEquals(1, hospital.getSize());
+            assertEquals("Bob", hospital.getPatient(0).getName());
+        } catch (Hospital.PatientNotFoundException e) {
+            fail("PatientNotFoundException should not be thrown");
+        }
     }
 
     @Test
-    public void testDeletePatientOutOfBounds() {
-        new AddPatientCommand("John", patients);
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            new DelPatientCommand(5, patients);
+    public void testDeletePatientNotFound() {
+        Hospital hospital = new Hospital();
+        Exception exception = assertThrows(Hospital.PatientNotFoundException.class, () -> {
+            hospital.deletePatient(0);
         });
+        assertEquals("Patient not found in the list!", exception.getMessage());
     }
 
     @Test
-    public void testSelectPatient() {
-        new AddPatientCommand("John", patients);
-        new SelectPatientCommand(0, patients);
-        assertEquals("John", patients.get(0).getName());
+    public void testGetPatient() {
+        Hospital hospital = new Hospital();
+        hospital.addPatient("Alice");
+        try {
+            Patient patient = hospital.getPatient(0);
+            assertEquals("Alice", patient.getName());
+        } catch (Hospital.PatientNotFoundException e) {
+            fail("PatientNotFoundException should not be thrown");
+        }
     }
 
     @Test
-    public void testSelectPatientOutOfBounds() {
-        new AddPatientCommand("John", patients);
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            new SelectPatientCommand(5, patients);
+    public void testGetPatientNotFound() {
+        Hospital hospital = new Hospital();
+        Exception exception = assertThrows(Hospital.PatientNotFoundException.class, () -> {
+            hospital.getPatient(0);
         });
+        assertEquals("Patient not found in the list!", exception.getMessage());
     }
 
     @Test
-    public void testListPatients() {
-        new AddPatientCommand("John", patients);
-        new AddPatientCommand("Jane", patients);
-        ListPatientCommand listCommand = new ListPatientCommand(patients);
-        listCommand.execute();
-        assertEquals(2, patients.size());
+    public void testSetPatientName() {
+        Patient patient = new Patient("Alice", 1);
+        patient.setName("Bob");
+        assertEquals("Bob", patient.getName());
     }
 }
