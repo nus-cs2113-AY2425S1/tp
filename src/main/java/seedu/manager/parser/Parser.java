@@ -123,8 +123,8 @@ public class Parser {
         }
     }
 
-        /**
-         * Parses the input string to create a {@link Command} based on the provided command parts.
+    /**
+     * Parses the input string to create a {@link Command} based on the provided command parts.
      *
      * <p>
      * This method checks the command flag extracted from the command parts. If the command
