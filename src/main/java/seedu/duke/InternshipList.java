@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidStatus;
 import seedu.ui.UiInternshipList;
 
 import java.util.ArrayList;
@@ -12,14 +13,6 @@ public class InternshipList {
     private static final UiInternshipList ui = new UiInternshipList();
     public ArrayList<Internship> internships;
 
-    //@@ Ridiculouswifi
-    /**
-     * Returns whether the index given is within the boundaries of the list.
-     */
-    private boolean isWithinBounds(int index) {
-        return index >= 0 && index < internships.size();
-    }
-
     // Constructor
     public InternshipList() {
         internships = new ArrayList<>();
@@ -30,6 +23,14 @@ public class InternshipList {
             internship.setId(internships.size());
         }
         internships.add(internship);
+    }
+
+    //@@ Ridiculouswifi
+    /**
+     * Returns whether the index given is within the boundaries of the list.
+     */
+    private boolean isWithinBounds(int index) {
+        return index >= 0 && index < internships.size();
     }
 
     // Method to remove an internship by index (0-based)
@@ -67,7 +68,7 @@ public class InternshipList {
      * @param field Specific attribute to update.
      * @param value Updated value
      */
-    public void updateField(int index, String field, String value) throws InvalidIndex {
+    public void updateField(int index, String field, String value) throws InvalidIndex, InvalidStatus {
         try {
             switch (field) {
             case "status":

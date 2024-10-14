@@ -1,6 +1,7 @@
 package seedu.commands;
 
 import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidStatus;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -17,11 +18,9 @@ public class UpdateCommand extends Command {
             int internshipIndex = internshipId - 1;
             args.remove(0);
 
-            String field;
-            String value;
-
             ui.clearInvalidFlags();
             ui.clearUpdatedFields();
+            ui.clearInvalidFields();
 
             for (String arg : args) {
                 String[] words = arg.split(" ", 2);
@@ -49,6 +48,7 @@ public class UpdateCommand extends Command {
     }
 
     private void updateOneField(String[] words, int internshipIndex) throws InvalidIndex {
+        String field = words[INDEX_FIELD];
         try {
             switch (words[INDEX_FIELD]) {
             case "status":
@@ -57,7 +57,6 @@ public class UpdateCommand extends Command {
             case "company":
             case "from":
             case "to":
-                String field = words[INDEX_FIELD];
                 if (!isValidValue(words)) {
                     return;
                 }
@@ -70,7 +69,16 @@ public class UpdateCommand extends Command {
                 break;
             }
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format");
+            ui.addInvalidField(field, "Invalid date format");
+        } catch (InvalidStatus e) {
+            String message = """
+                    Status provided is not recognised:
+                    Please provide one of the following:
+                    - Application Pending
+                    - Application Completed
+                    - Accepted
+                    - Rejected""";
+            ui.addInvalidField(field, message);
         }
     }
 

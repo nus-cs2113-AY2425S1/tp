@@ -48,27 +48,15 @@ public class Internship {
      *
      * @param userStatus user-inputted status.
      */
-    public void updateStatus(String userStatus) {
+    public void updateStatus(String userStatus) throws InvalidStatus {
         List<String> statuses = Arrays.asList("Application Pending", "Application Completed", "Accepted", "Rejected");
-        try {
-            for (String status : statuses) {
-                if (status.equalsIgnoreCase(userStatus)) {
-                    this.status = status;
-                    return;
-                }
+        for (String status : statuses) {
+            if (status.equalsIgnoreCase(userStatus)) {
+                this.status = status;
+                return;
             }
-            throw new InvalidStatus();
-        } catch (InvalidStatus e) {
-            String message = """
-                    Status provided is not recognised:
-                    Please provide one of the following:
-                    - Application Pending
-                    - Application Completed
-                    - Accepted
-                    - Rejected
-                    """;
-            System.out.println(message);
         }
+        throw new InvalidStatus();
     }
 
     // Getters and Setters

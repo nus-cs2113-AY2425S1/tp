@@ -2,6 +2,7 @@ package seedu.duke;
 
 import org.junit.jupiter.api.Test;
 import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidStatus;
 
 import java.time.format.DateTimeParseException;
 
@@ -13,7 +14,7 @@ class InternshipListTest {
 
     //@@ Ridiculouswifi
     @Test
-    void updateField_validIndexStatus_expectUpdated() throws InvalidIndex {
+    void updateField_validIndexStatus_expectUpdated() throws InvalidIndex, InvalidStatus {
         InternshipList internshipList = new InternshipList();
         Internship internship = new Internship("Data", "ABC", "01/24", "06/24");
         internshipList.addInternship(internship);

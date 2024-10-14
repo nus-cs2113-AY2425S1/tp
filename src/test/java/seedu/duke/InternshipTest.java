@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
+import seedu.exceptions.InvalidStatus;
 
 import java.time.DateTimeException;
 
@@ -14,7 +15,7 @@ class InternshipTest {
 
     //@@ Ridiculouswifi
     @Test
-    void updateStatus_validStatus1_expectNormal() {
+    void updateStatus_validStatus1_expectNormal() throws InvalidStatus {
         internship.updateStatus("application completed");
 
         assertEquals("Application Completed", internship.getStatus());
@@ -22,7 +23,7 @@ class InternshipTest {
 
     //@@ Ridiculouswifi
     @Test
-    void updateStatus_validStatus2_expectNormal() {
+    void updateStatus_validStatus2_expectNormal() throws InvalidStatus {
         internship.updateStatus("accepted");
 
         assertEquals("Accepted", internship.getStatus());
@@ -30,7 +31,7 @@ class InternshipTest {
 
     //@@ Ridiculouswifi
     @Test
-    void updateStatus_invalidStatus_expectException() {
+    void updateStatus_invalidStatus_expectException() throws InvalidStatus {
         internship.updateStatus("interview pending");
 
         assertEquals("Application Pending", internship.getStatus());

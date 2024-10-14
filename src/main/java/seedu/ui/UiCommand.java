@@ -9,6 +9,7 @@ import seedu.duke.Internship;
 public class UiCommand extends Ui {
     private String invalidFlags;
     private String updatedFields;
+    private String invalidFields;
 
     /**
      * Prints newly added or updated internship and invalid flags (if any).
@@ -23,6 +24,9 @@ public class UiCommand extends Ui {
             message += "Internship added:\n";
             break;
         case "update":
+            if (!getInvalidFields().isEmpty()) {
+                message += getInvalidFields() + DIVIDER;
+            }
             if (getUpdatedFields().isEmpty()) {
                 message += "No Fields Updated\n";
             }
@@ -47,6 +51,13 @@ public class UiCommand extends Ui {
      */
     public void clearUpdatedFields() {
         setUpdatedFields("");
+    }
+
+    /**
+     * Resets <code>invalidFields</code> to empty <code>String</code>.
+     */
+    public void clearInvalidFields() {
+        setInvalidFields("");
     }
 
     public void addUpdatedField(String updatedField, String updatedValue) {
@@ -78,6 +89,15 @@ public class UiCommand extends Ui {
             break;
         }
         setInvalidFlags(newInvalidFlags);
+    }
+
+    /**
+     * Adds appropriate message to <code>invalidFields</code> for specified field.
+     */
+    public void addInvalidField(String field, String invalidMessage) {
+        String newInvalidFields = getInvalidFields();
+        newInvalidFields += field + ": " + invalidMessage + "\n";
+        setInvalidFields(newInvalidFields);
     }
 
     /**
@@ -152,5 +172,13 @@ public class UiCommand extends Ui {
 
     public void setUpdatedFields(String updatedFields) {
         this.updatedFields = updatedFields;
+    }
+
+    public String getInvalidFields() {
+        return invalidFields;
+    }
+
+    public void setInvalidFields(String invalidFields) {
+        this.invalidFields = invalidFields;
     }
 }
