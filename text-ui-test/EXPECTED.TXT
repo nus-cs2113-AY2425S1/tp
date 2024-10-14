@@ -22,12 +22,12 @@ Commands: help, delete, add, list
 	_____________________________________________________________________________
 	Okie dokie, one more recipe for me:
 	 Recipe: grilled cheese sandwich
-  Ingredients:
+  Ingredients: 
     - eggs
     - sandwich
     - cheese
     - butter
-  Steps:
+  Steps: 
     1. add butter to hot pan
     2. etc
 	You currently have 1 recipe in your list.
@@ -35,10 +35,10 @@ Commands: help, delete, add, list
 	_____________________________________________________________________________
 	Okie dokie, one more recipe for me:
 	 Recipe: ramen eggs
-  Ingredients:
+  Ingredients: 
     - eggs
     - soya sauce
-  Steps:
+  Steps: 
     1. boil eggs for 6.5 min
     2. cool eggs in ice bath
 	You currently have 2 recipes in your list.
@@ -46,20 +46,20 @@ Commands: help, delete, add, list
 	_____________________________________________________________________________
 	Here's everything in my collection so far:
 	1.Recipe: grilled cheese sandwich
-  Ingredients:
+  Ingredients: 
     - eggs
     - sandwich
     - cheese
     - butter
-  Steps:
+  Steps: 
     1. add butter to hot pan
     2. etc
 	_____________________________________________________________________________
 	2.Recipe: ramen eggs
-  Ingredients:
+  Ingredients: 
     - eggs
     - soya sauce
-  Steps:
+  Steps: 
     1. boil eggs for 6.5 min
     2. cool eggs in ice bath
 	_____________________________________________________________________________
@@ -72,12 +72,12 @@ Commands: help, delete, add, list
 	_____________________________________________________________________________
 	Here's everything in my collection so far:
 	1.Recipe: grilled cheese sandwich
-  Ingredients:
+  Ingredients: 
     - eggs
     - sandwich
     - cheese
     - butter
-  Steps:
+  Steps: 
     1. add butter to hot pan
     2. etc
 	_____________________________________________________________________________
