@@ -1,5 +1,6 @@
 Welcome to Java Ninja!
 'view' to view topics
 'select' to select a topic
+'review' to review the past result
 'quit' to exit the programme
 Goodbye!
