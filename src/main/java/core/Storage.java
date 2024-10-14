@@ -28,10 +28,7 @@ public class Storage {
         try {
             Path directoryPath = Paths.get("data");
             Path filePath = directoryPath.resolve("data.json");
-
-            if (!Files.exists(directoryPath)) {
-                Files.createDirectory(directoryPath);
-            }
+            createDirectoryIfNotExist(directoryPath);
 
             if (!Files.exists(filePath)) {
                 System.out.println("Oh first time here? Welcome to a life of Fitness, lets start!");
@@ -59,6 +56,12 @@ public class Storage {
             }
         } catch (Exception e) {
             System.out.println("Oh first time here? Welcome to a life of Fitness, lets start!");
+        }
+    }
+
+    public void createDirectoryIfNotExist(Path directoryPath) throws IOException {
+        if (!Files.exists(directoryPath)) {
+            Files.createDirectory(directoryPath);
         }
     }
 
