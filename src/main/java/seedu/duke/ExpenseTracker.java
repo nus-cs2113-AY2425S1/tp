@@ -8,6 +8,13 @@ public class ExpenseTracker {
 
     public ExpenseTracker() {
         this.categories = new ArrayList<>();
+        this.expenses = new ArrayList<>();
+    }
+
+    public void addExpense(String name, double amount, String category) {
+        Expense newExpense = new Expense(name, amount, category);
+        expenses.add(newExpense);
+        System.out.println("Added" + newExpense);
     }
 
     public void addCategory(String categoryName) {
