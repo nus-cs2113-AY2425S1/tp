@@ -1,4 +1,5 @@
 package wheresmymoney;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Parser{
@@ -89,9 +90,9 @@ public class Parser{
             break;
         case "list":
             category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
-            Expense[] expensesToDisplay;
+            ArrayList<Expense> expensesToDisplay;
             if (category == null) {
-                expensesToDisplay = expenseList.getList().toArray(new Expense[0]);
+                expensesToDisplay = expenseList.getList();
             } else {
                 expensesToDisplay = expenseList.listByCategory(category);
             }

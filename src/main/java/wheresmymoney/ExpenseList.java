@@ -1,16 +1,15 @@
 package wheresmymoney;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ExpenseList {
-    private List<Expense> expenses;
+    private ArrayList<Expense> expenses;
 
     public ExpenseList() {
         expenses = new ArrayList<>();
     }
 
-    public List<Expense> getList() {
+    public ArrayList<Expense> getList() {
         return expenses;
     }
 
@@ -70,14 +69,13 @@ public class ExpenseList {
      *
      * @param category Category of expense
      */
-    public Expense[] listByCategory(String category) {
-        Expense[] expenseArray = new Expense[0];
-        ArrayList<Expense> returnList = new ArrayList<>();
+    public ArrayList<Expense> listByCategory(String category) {
+        ArrayList<Expense> expensesFromCategory = new ArrayList<>();
         for (Expense expense: expenses) {
             if (expense.category.equals(category)) {
-                returnList.add(expense);
+                expensesFromCategory.add(expense);
             }
         }
-        return returnList.toArray(expenseArray);
+        return expensesFromCategory;
     }
 }

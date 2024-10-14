@@ -1,4 +1,6 @@
 package wheresmymoney;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -19,7 +21,7 @@ public class Ui {
     /**
      * Displays list expenses as requested by user
      */
-    public static void displayExpenseList(Expense[] expensesToPrint) {
+    public static void displayExpenseList(ArrayList<Expense> expensesToPrint) {
         for (Expense expense: expensesToPrint) {
             String category = "Category: " + expense.category;
             String description = " Description: " + expense.description;
