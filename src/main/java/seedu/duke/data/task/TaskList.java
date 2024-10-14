@@ -102,7 +102,7 @@ public class TaskList {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        /** Catch tasks is empty */
+        // Catch tasks is empty
         if (tasks.isEmpty()) {
             return "";
         }

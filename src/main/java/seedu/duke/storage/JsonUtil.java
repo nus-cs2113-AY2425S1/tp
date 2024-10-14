@@ -52,17 +52,8 @@ public class JsonUtil {
         return "";
     }
 
-    public static Hospital fromJson(String json) throws JsonMappingException, JsonProcessingException  {
-        // try {
-            return objectMapper.readValue(json, Hospital.class);
-        // } catch (JsonParseException e) {
-        //     System.err.println("Corrupted JSON data: " + e.getMessage());
-        // } catch (JsonMappingException e) {
-        //     System.err.println("Error mapping JSON to object: " + e.getMessage());
-        // } catch (IOException e) {
-        //     System.err.println("I/O error: " + e.getMessage());
-        // }
-        // return new Hospital();
+    public static Hospital fromJson(String json) throws JsonMappingException, JsonProcessingException {
+        return objectMapper.readValue(json, Hospital.class);
     }
 
 }

@@ -9,10 +9,10 @@ import seedu.duke.data.hospital.Hospital;
  * Represents a storage file.
  */
 public class StorageFile {
+    private static final String DEFAULT_STORAGE_FILEPATH = "data/hospital_data.json";
+
     /** The file path of the storage file. */
     private final String filePath;
-
-    private static final String DEFAULT_STORAGE_FILEPATH = "data/hospital_data.json";
 
     public StorageFile() {
         this(DEFAULT_STORAGE_FILEPATH);
@@ -31,7 +31,7 @@ public class StorageFile {
         File f = new File(filePath);
         if (!f.exists()) {
             try {
-                /** Create the file if it does not exist */
+                // Create the file if it does not exist
                 f.getParentFile().mkdirs();
                 f.createNewFile();
             } catch (IOException e) {
@@ -49,7 +49,6 @@ public class StorageFile {
     public Hospital load() {
         return JsonUtil.loadFromFile(getFilePath());
     }
-
 
     @Override
     public String toString() {
