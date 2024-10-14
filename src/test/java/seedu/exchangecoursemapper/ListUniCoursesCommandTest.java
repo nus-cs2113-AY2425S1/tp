@@ -2,17 +2,20 @@ package seedu.exchangecoursemapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.FileReader;
-import java.io.IOException;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import java.io.ByteArrayOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import seedu.exchangecoursemapper.command.ListUniCoursesCommand;
+import seedu.exchangecoursemapper.exception.UnknownUniversityException;
 
 public class ListUniCoursesCommandTest {
 
@@ -21,32 +24,36 @@ public class ListUniCoursesCommandTest {
 
     @BeforeEach
     void setUp () {
+        outputStreamCaptor.reset();
         System.setOut(new PrintStream(outputStreamCaptor));
+        System.setErr(new PrintStream(outputStreamCaptor));
         listUniCoursesCommand = new ListUniCoursesCommand();
     }
 
     @Test
-    public void getPartnerUniversityName_withValidInput_success() {
+    public void getPuName_withValidInput_success() throws Exception {
         String userInput = "set the university of western australia";
-        String puName = listUniCoursesCommand.getPartnerUniversityName(userInput);
+        String puName = listUniCoursesCommand.getPuName(userInput);
         assertEquals("the university of western australia", puName);
     }
 
     @Test
-    public void getPartnerUniversityName_withInvalidInput_success() {
+    public void getPuName_withInvalidInput_throwsException() {
         String userInput = "set";
-        String getPuNameOutput = listUniCoursesCommand.getPartnerUniversityName(userInput);
-        assertEquals("", getPuNameOutput);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> listUniCoursesCommand.getPuName(userInput));
+
+        assertEquals("Please provide a University name.", exception.getMessage());
     }
 
     @Test
-    public void getUniCourses_withValidUniversity_success() throws IOException {
+    public void getUniCourses_withValidUni_success() throws IOException, UnknownUniversityException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
         JsonObject jsonObject = jsonReader.readObject();
         jsonReader.close();
 
         String uniName = "Chulalongkorn University";
-        listUniCoursesCommand.getUniversityCourses(jsonObject, uniName);
+        listUniCoursesCommand.getUniCourses(jsonObject, uniName);
 
         String expectedOutput = """
                 ICE2190472: Netcentric Architecture
@@ -65,26 +72,22 @@ public class ListUniCoursesCommandTest {
     }
 
     @Test
-    public void getUniCourses_withInvalidUniversity_success() throws IOException {
+    public void getUniCourses_withInvalidUni_throwsException() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
         JsonObject jsonObject = jsonReader.readObject();
         jsonReader.close();
 
         String invalidUniName = "Invalid Uni";
 
-        listUniCoursesCommand.getUniversityCourses(jsonObject, invalidUniName);
+        UnknownUniversityException exception = assertThrows(UnknownUniversityException.class,
+                () -> listUniCoursesCommand.getUniCourses(jsonObject, invalidUniName));
 
-        String expectedOutput = """
-                University not found: Invalid Uni
-                -----------------------------------------------------
-                """;
 
-        String actualOutput = outputStreamCaptor.toString();
-        assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
+        assertEquals("University not found: Invalid Uni", exception.getMessage());
     }
 
     @Test
-    public void execute_validInput_success() throws IOException {
+    public void execute_validInput_success() {
         String puName = "Chulalongkorn University";
         listUniCoursesCommand.execute(puName);
 
@@ -105,14 +108,14 @@ public class ListUniCoursesCommandTest {
     }
 
     @Test
-    public void execute_invalidUni_success() throws IOException {
+    public void execute_invalidUni_displayError() {
         String puName = "Invalid Uni";
         listUniCoursesCommand.execute(puName);
 
         String expectedOutput = """
-                University not found: Invalid Uni
-                -----------------------------------------------------
-                """;
+            University not found: Invalid Uni
+            -----------------------------------------------------
+            """;
 
         String actualOutput = outputStreamCaptor.toString();
         assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
