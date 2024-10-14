@@ -10,6 +10,7 @@ import seedu.command.ViewCategoryCommand;
 import seedu.command.ViewExpenseCommand;
 import seedu.command.ViewIncomeCommand;
 import seedu.command.DeleteCategoryCommand;
+import seedu.command.HistoryCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +102,11 @@ public class Main {
         logger.log(Level.INFO, "Adding..." + ViewIncomeCommand.COMMAND_WORD);
         ViewIncomeCommand viewIncomeCommand = new ViewIncomeCommand(transactions);
         parser.registerCommands(viewIncomeCommand);
+
+        logger.log(Level.INFO, "Adding..." + HistoryCommand.COMMAND_WORD);
+        HistoryCommand historyCommand = new HistoryCommand(transactions);
+        parser.registerCommands(historyCommand);
+
 
         // Set command list for the help command
         logger.log(Level.INFO, "Setting command list for HelpCommand...");

@@ -51,4 +51,15 @@ public class DateTimeUtils {
     public static String getDateTimeString(LocalDateTime dateTime) {
         return dateTime.format(DATETIME_PRINT_FORMAT); // Format and return the date-time string
     }
+
+    /**
+     * Compares two LocalDateTime objects.
+     *
+     * @param dateTime1 The LocalDateTime to compare.
+     * @param dateTime2 The LocalDateTime to compare.
+     * @return false if dateTime1 is after dateTime2, true otherwise.
+     */
+    public static boolean compareDateTime(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+        return dateTime1.isBefore(dateTime2);
+    }
 }
