@@ -1,21 +1,42 @@
 package seedu.manager.command;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.manager.event.Event;
 import seedu.manager.event.EventList;
+import seedu.manager.parser.Parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ViewCommandTest {
+
+    private Command viewCommand;
+    private static EventList eventList = new EventList();
+
+    @BeforeEach
+    public void setUp() {
+        Command command;
+
+        command = new Parser().parseCommand("add -e Event 1 -t 2024-10-10 10:00 -v Venue A");
+        command.setData(eventList);
+        command.execute();
+
+        command = new Parser().parseCommand("add -p Tom -e Event 1");
+        command.setData(eventList);
+        command.execute();
+
+        viewCommand = new Parser().parseCommand("view -e Event 1");
+        viewCommand.setData(eventList);
+    }
+
     @Test
-    public void viewParticipant_success() {
-        EventList eventList = new EventList();
+    public void execute_twoEvents_success() {
+        CommandOutput result = viewCommand.execute();
 
-        eventList.addEvent("Event 1", "2024-10-10 10:00", "Venue A");
-        eventList.addParticipantToEvent("Tom", "Event 1");
+        String expectedMessage = "There are 1 participants in Event 1! Here are your participants:\n"
+                + "1. Tom\n";
 
-        Event event = eventList.getEvent(0);
-        assertEquals("Tom", event.getParticipantList().get(0));
-        assertEquals(1, event.getParticipantCount());
+        assertEquals(expectedMessage, result.getMessage());
+        assertFalse(result.getCanExit());
     }
 }
