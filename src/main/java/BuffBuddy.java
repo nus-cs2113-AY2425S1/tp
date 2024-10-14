@@ -30,6 +30,7 @@ public class BuffBuddy {
         dataWrapper = new DataWrapper(pList, history);
     }
 
+
     public static void main(String[] args) {
         new BuffBuddy(DEFAULT_FILE_PATH).run();
     }

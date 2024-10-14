@@ -1,22 +1,23 @@
 package core;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import programme.Day;
-import com.google.gson.Gson;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class History {
-    private HashMap<LocalDateTime, Day> history;
+    private HashMap<LocalDateTime, Day> history;  // HashMap to store Day with its respective date
 
-    public void logDay(Day completed, LocalDateTime date) {
-
+    // Constructor
+    public History() {
+        history = new HashMap<>();
     }
 
-    @Override
-    public String toString() {
-        return "History";
+    // Logs a completed day into the history with a given date
+    public void logDay(Day day, LocalDateTime date) {
+        history.put(date, day);  // Use HashMap to store or update the day with its date
     }
 
     // Converts the History object to a JSON string
@@ -29,5 +30,31 @@ public class History {
     public static History fromJson(JsonObject jsonObject) {
         Gson gson = new Gson();
         return gson.fromJson(jsonObject, History.class);
+    }
+
+    // Returns a formatted string representing the history
+    public String showHistory() {
+        StringBuilder historyString = new StringBuilder();
+
+        if (history.isEmpty()) {
+            return "No workout history available.";
+        }
+
+        // Iterate over the history HashMap
+        for (LocalDateTime date : history.keySet()) {
+            Day day = history.get(date);
+
+            // Format date and use Day's toString() method for exercise details
+            historyString.append("Day: ").append(day.toString())  // Use Day's toString()
+                    .append("Completed on: ").append(date.toString()).append("\n\n");
+        }
+
+        return historyString.toString();
+    }
+
+    // Standard toString method for History class
+    @Override
+    public String toString() {
+        return "History";
     }
 }
