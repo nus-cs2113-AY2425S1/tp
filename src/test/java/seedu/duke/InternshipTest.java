@@ -32,9 +32,7 @@ class InternshipTest {
     //@@ Ridiculouswifi
     @Test
     void updateStatus_invalidStatus_expectException() throws InvalidStatus {
-        internship.updateStatus("interview pending");
-
-        assertEquals("Application Pending", internship.getStatus());
+        assertThrows(InvalidStatus.class, () -> internship.updateStatus("interview pending"));
     }
 
     //@@ Ridiculouswifi
