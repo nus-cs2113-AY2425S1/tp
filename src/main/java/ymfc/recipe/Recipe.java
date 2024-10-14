@@ -71,4 +71,19 @@ public class Recipe {
 
         return recipeDetails.toString();
     }
+
+    public String toSaveString() {
+        StringBuilder recipeDetails = new StringBuilder();
+        recipeDetails.append("add n/").append(name).append(" ");
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            recipeDetails.append("i/").append(ingredients.get(i)).append(" ");
+        }
+
+        for (int i = 0; i < steps.size(); i++) {
+            recipeDetails.append("s").append(i+1).append("/").append(steps.get(i)).append(" ");
+        }
+
+        return recipeDetails.toString();
+    }
 }

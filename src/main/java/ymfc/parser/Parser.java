@@ -58,6 +58,15 @@ public final class Parser {
         }
     }
 
+    public static AddRecipeCommand parseLoadedCommand(String commandString) throws InvalidArgumentException {
+        Matcher m = GENERIC_FORMAT.matcher(commandString);
+        m.matches();
+
+        //String command = m.group("command");
+        String args = m.group("args") == null ? "" : m.group("args").trim();
+        return getAddRecipeCommand(args);
+    }
+
     /**
      * Parser for {@link AddRecipeCommand <code>AddRecipeCommand</code>}
      * @param args List of arguments as <code>String</code>

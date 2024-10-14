@@ -9,6 +9,7 @@ import ymfc.commands.AddRecipeCommand;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.recipe.Recipe;
 import ymfc.recipelist.RecipeList;
+import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ class ParserTest {
         try {
             AddRecipeCommand addCommand = (AddRecipeCommand) parseCommand(command);
             assert addCommand != null;
-            addCommand.execute(rList, ui);
+            addCommand.execute(rList, ui, new Storage("./data/recipes.txt"));
             assertTrue(recipe.equals(rList.getRecipe(rList.getCounter() - 1)));
         } catch (Exception e) {
             fail(e.getMessage());

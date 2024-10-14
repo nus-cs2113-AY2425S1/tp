@@ -106,6 +106,7 @@ public class Ui {
         System.out.println("\tHere's everything in my collection so far:");
         for (int i = 0; i < listCount; i++) {
             System.out.println("\t" + (i + 1) + "." + list.get(i));
+            System.out.println(line);
         }
         System.out.println(line);
     }
