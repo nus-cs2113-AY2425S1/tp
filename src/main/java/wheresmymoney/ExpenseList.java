@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseList {
-    private static List<Expense> expenses;
+    private List<Expense> expenses;
 
     public ExpenseList() {
         expenses = new ArrayList<>();
@@ -70,7 +70,7 @@ public class ExpenseList {
      *
      * @param category Category of expense
      */
-    public static Expense[] listByCategory(String category) {
+    public Expense[] listByCategory(String category) {
         Expense[] expenseArray = new Expense[0];
         ArrayList<Expense> returnList = new ArrayList<>();
         for (Expense expense: expenses) {

@@ -21,10 +21,10 @@ public class Ui {
      */
     public static void displayExpenseList(Expense[] expensesToPrint) {
         for (Expense expense: expensesToPrint) {
-            String Category = "Category: " + expense.category;
-            String Description = " Description: " + expense.description;
-            String Price = " Price: " + expense.price;
-            System.out.println(Category + Description + Price);
+            String category = "Category: " + expense.category;
+            String description = " Description: " + expense.description;
+            String price = " Price: " + expense.price;
+            System.out.println(category + description + price);
         }
     }
 

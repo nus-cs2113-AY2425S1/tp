@@ -93,7 +93,7 @@ public class Parser{
             if (category == null) {
                 expensesToDisplay = expenseList.getList().toArray(new Expense[0]);
             } else {
-                expensesToDisplay = ExpenseList.listByCategory(category);
+                expensesToDisplay = expenseList.listByCategory(category);
             }
             Ui.displayExpenseList(expensesToDisplay);
             break;
