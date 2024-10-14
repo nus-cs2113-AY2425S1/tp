@@ -12,6 +12,10 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
+/**
+ * Represents the storage system for saving and loading tasks.
+ * The <code>Storage</code> class handles reading from and writing to the file specified by the user.
+ */
 public class Storage {
     private final String path;
 
@@ -35,16 +39,18 @@ public class Storage {
         }
     }
 
-    public void save(ProgrammeList programmeList, History history) {
+    public void save(ProgrammeList programmeList, History history) throws IOException {
+        createDirIfNotExists();
+        createFileIfNotExists();
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonObject jsonObject = createJSON(programmeList, history);
 
         try (FileWriter writer = new FileWriter(path)) {
-            createDirIfNotExists();
-            createFileIfNotExists();
+
             gson.toJson(jsonObject, writer);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to save data due to: " + e.getMessage());
+            throw new IOException("Failed to save data due to: " + e.getMessage());
         }
     }
 
