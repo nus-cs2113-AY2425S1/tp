@@ -23,7 +23,7 @@ public class Parser {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    UI mapperUI = new UI();
+    private final UI mapperUI = new UI();
 
     public String getUserInput() {
         return scanner.nextLine();
