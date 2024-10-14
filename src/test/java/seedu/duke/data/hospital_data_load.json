@@ -1,26 +1,25 @@
 {
     "patients" : [ {
-      "name" : "Alice",
-      "tasksList" : {
+    "name" : "Alice",
+    "taskList" : {
         "tasks" : [ {
-          "description" : "Consultation",
-          "isDone" : false
+        "description" : "Consultation",
+        "isDone" : true
         }, {
-          "description" : "Medication",
-          "isDone" : false
+        "description" : "Medication",
+        "isDone" : false
         } ]
-      }
+    }
     }, {
-      "name" : "Bob",
-      "tasksList" : {
+    "name" : "Bob",
+    "taskList" : {
         "tasks" : [ {
-          "description" : "Surgery",
-          "isDone" : false
+        "description" : "Surgery",
+        "isDone" : false
         }, {
-          "description" : "Medication",
-          "isDone" : false
+        "description" : "Medication",
+        "isDone" : false
         } ]
-      }
-    } ],
-    "hospitalName" : "NUH"
-  }
+    }
+    } ]
+}
