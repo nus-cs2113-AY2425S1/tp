@@ -4,17 +4,19 @@ import seedu.category.Category;
 import seedu.transaction.Expense;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
+import seedu.utils.DateTimeUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ViewExpenseCommand extends Command {
     public static final String COMMAND_WORD = "view-expense"; // The word associated with the command
-    public static final String COMMAND_GUIDE = "view-expense [c/ CATEGORY]: "
-            + "View your expense history (optionally filtered by category)"; // A guide or description of the command
+    public static final String COMMAND_GUIDE = "view-expense [c/ CATEGORY] [f/ START DATE] [t/ END DATE]: "
+            + "View your expense history"; // A guide or description of the command
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {}; // Keywords for arguments
-    public static final String[] COMMAND_EXTRA_KEYWORDS = {"c/"}; // Keywords for arguments
+    public static final String[] COMMAND_EXTRA_KEYWORDS = {"c/", "f/", "t/"}; // Keywords for arguments
 
     public static final String EXPENSE_EMPTY_MESSAGE = "No expense to show!"; // Keywords for arguments
 
@@ -48,17 +50,42 @@ public class ViewExpenseCommand extends Command {
         List<String> messages = new ArrayList<>();
 
         String categoryName = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
-        Category tempCategory = new Category(categoryName);
+        String startDate = arguments.get(COMMAND_EXTRA_KEYWORDS[1]);
+        String endDate = arguments.get(COMMAND_EXTRA_KEYWORDS[2]);
 
         List<Transaction> temp;
 
+        temp = transactionList.getTransactions().stream()
+                .filter(transaction -> transaction instanceof Expense)
+                .collect(Collectors.toList());
+
         if (categoryName != null) {
+            Category tempCategory = new Category(categoryName);
             temp = transactionList.getExpensesByCategory(tempCategory);
-        } else {
-            temp = transactionList.getTransactions().stream()
-                    .filter(transaction -> transaction instanceof Expense)
-                    .collect(Collectors.toList());
         }
+        if (startDate != null) {
+            try {
+                LocalDateTime start = DateTimeUtils.parseDateTime(startDate);
+                temp = temp.stream()
+                        .filter((t) -> t.getDate().isAfter(start) || t.getDate().isEqual(start))
+                        .collect(Collectors.toList());
+            } catch (Exception e) {
+                messages.add(e.getMessage());
+                return messages;
+            }
+        }
+        if (endDate != null) {
+            try {
+                LocalDateTime end = DateTimeUtils.parseDateTime(endDate);
+                temp = temp.stream()
+                        .filter((t) -> t.getDate().isBefore(end) || t.getDate().isEqual(end))
+                        .collect(Collectors.toList());
+            } catch (Exception e) {
+                messages.add(e.getMessage());
+                return messages;
+            }
+        }
+
         if (temp.isEmpty()) {
             messages.add(EXPENSE_EMPTY_MESSAGE);
             return messages;
