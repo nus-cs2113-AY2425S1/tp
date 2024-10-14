@@ -5,14 +5,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TrainingSessionTest {
 
     private final String testDescription = "Test Session Description";
-    private final String testDatetime = "2024-10-01";
-    private final String testDatetimeOutput = "01/10/2024 00:00";
+    private final LocalDateTime testDatetime = LocalDateTime.now();
+    private final String testDatetimeString = testDatetime.toString();
+    private final String testDatetimeOutput = testDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     private final User testUser = new User("MALE", "13");
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
@@ -23,14 +26,14 @@ public class TrainingSessionTest {
 
     @Test
     public void editExercise_PullUpStation() {
-        new TrainingSession(testDatetime, testDescription, testUser).editExercise(1, 1);
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(1, 1);
         assertEquals("Exercise edited! Here's your new input: " + System.lineSeparator() +
                 1 + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void editExercise_ShuttleRunStation() {
-        new TrainingSession(testDatetime, testDescription, testUser).editExercise(2, 11);
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(2, 11);
         assertEquals("Exercise edited! Here's your new input: " + System.lineSeparator() +
                 11 + "s" + System.lineSeparator(), outContent.toString());
     }
@@ -38,18 +41,18 @@ public class TrainingSessionTest {
     @Test
     public void testGetSessionDescription(){
         assertEquals(testDescription,
-                new TrainingSession(testDatetime, testDescription, testUser).getSessionDescription());
+                new TrainingSession(testDatetimeString, testDescription, testUser).getSessionDescription());
     }
 
     @Test
     public void testPrintSessionDescription(){
-        new TrainingSession(testDatetime, testDescription, testUser);
+        new TrainingSession(testDatetimeString, testDescription, testUser);
         assertEquals(testDescription, outContent.toString());
     }
 
     @Test
     public void testViewSession(){
-        new TrainingSession(testDatetime, testDescription, testUser).viewSession();
+        new TrainingSession(testDatetimeString, testDescription, testUser).viewSession();
         assertEquals("Training Session: " + testDescription + System.lineSeparator() +
                 "Training Datetime: " + testDatetimeOutput + System.lineSeparator() +
                 "Pull Up Station | 0" + System.lineSeparator() +
