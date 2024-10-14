@@ -8,6 +8,7 @@ import seedu.command.AddCategoryCommand;
 import seedu.command.HelpCommand;
 import seedu.command.ViewCategoryCommand;
 import seedu.command.ViewExpenseCommand;
+import seedu.command.ViewIncomeCommand;
 import seedu.command.DeleteCategoryCommand;
 
 import java.util.ArrayList;
@@ -72,7 +73,6 @@ public class Main {
      */
     public static void start() {
         logger.log(Level.INFO, "Starting uNivUSaver...");
-        printMessage(String.format(HI_MESSAGE, NAME));
 
         parser = new Parser();
         categories = new CategoryList();
@@ -98,9 +98,15 @@ public class Main {
         ViewExpenseCommand viewExpenseCommand = new ViewExpenseCommand(transactions);
         parser.registerCommands(viewExpenseCommand);
 
+        logger.log(Level.INFO, "Adding..." + ViewIncomeCommand.COMMAND_WORD);
+        ViewIncomeCommand viewIncomeCommand = new ViewIncomeCommand(transactions);
+        parser.registerCommands(viewIncomeCommand);
+
         // Set command list for the help command
         logger.log(Level.INFO, "Setting command list for HelpCommand...");
         helpCommand.setCommands(new ArrayList<>(parser.getCommands().values()));
+
+        printMessage(String.format(HI_MESSAGE, NAME));
     }
 
     /**
