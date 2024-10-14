@@ -3,15 +3,24 @@ package seedu.duke.data.hospital;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonPropertyOrder({"patients"})
+@JsonRootName("hospital")
+// TODO: Add JsonInclude for null values
 public class Hospital {
     private List<Patient> patients;
 
+    @JsonCreator
     public Hospital() {
         this.patients = new ArrayList<>();
     }
 
     public void addPatient(String name) {
-        Patient newPatient = new Patient(name, patients.size() + 1);
+        Patient newPatient = new Patient(name);
         patients.add(newPatient);
     }
 
@@ -33,6 +42,7 @@ public class Hospital {
         return index >= 0 && index < getSize();
     }
 
+    @JsonIgnore
     public int getSize() {
         return patients.size();
     }

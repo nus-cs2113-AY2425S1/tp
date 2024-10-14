@@ -6,9 +6,25 @@ public class Patient {
     private String name;
     private TaskList taskList;
 
+    // Required for JSON deserialization
+    public Patient() {
+        this.name = "";
+        this.taskList = new TaskList();
+    }
+
+    public Patient(String name) {
+        this.name = name;
+        this.taskList = new TaskList();
+    }
+
     public Patient(String name, int index) {
         this.name = name;
         this.taskList = new TaskList();
+    }
+
+    public Patient(String name, TaskList taskList) {
+        this.name = name;
+        this.taskList = taskList;
     }
 
     public String getName() {
