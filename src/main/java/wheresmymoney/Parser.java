@@ -1,4 +1,5 @@
 package wheresmymoney;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Parser{
@@ -10,6 +11,7 @@ public class Parser{
 
     /**
      * Parses the given user input into command arguments
+     *
      * @param line Line that a user inputs
      * @return HashMap of Arguments, mapping the argument to its value given
      */
@@ -18,7 +20,7 @@ public class Parser{
         String[] lineArgs = line.split(" ");
 
         // Command
-        if (lineArgs.length <= 0) {
+        if (lineArgs.length == 0) {
             argumentsList.put(Parser.ARGUMENT_COMMAND,"");
             return argumentsList;
         }
@@ -53,6 +55,7 @@ public class Parser{
 
     /**
      * Matches the argument list to a related command and runs said command
+     *
      * @param argumentsList List of arguments
      * @param expenseList List of expenses
      * @return Whether to continue running the program
@@ -64,7 +67,7 @@ public class Parser{
         float price;
         String description;
         String category;
-        switch(argumentsList.get(Parser.ARGUMENT_COMMAND)){
+        switch(argumentsList.get(Parser.ARGUMENT_COMMAND)) {
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
             return false;
@@ -84,6 +87,16 @@ public class Parser{
         case "delete":
             index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;
             expenseList.deleteExpense(index);
+            break;
+        case "list":
+            category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
+            ArrayList<Expense> expensesToDisplay;
+            if (category == null) {
+                expensesToDisplay = expenseList.getList();
+            } else {
+                expensesToDisplay = expenseList.listByCategory(category);
+            }
+            Ui.displayExpenseList(expensesToDisplay);
             break;
         case "help":
             Ui.displayHelp();
