@@ -2,6 +2,10 @@ package seedu.manager.command;
 
 import seedu.manager.event.Event;
 
+/**
+ * Represents a command to view the list of participants in an event.
+ * The view command will search for an event by its name and display all its participants if found.
+ */
 public class ViewCommand extends Command{
     public static final String COMMAND_WORD = "view";
     private static final String VIEW_MESSAGE = "There are %d participants in %s! " +
