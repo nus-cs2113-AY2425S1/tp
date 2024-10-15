@@ -8,7 +8,6 @@ import seedu.duke.data.hospital.Patient;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 import seedu.duke.commands.Command;
-import seedu.duke.commands.SelectPatientCommand;
 
 
 public class MediTask {
@@ -20,7 +19,8 @@ public class MediTask {
         Ui ui = new Ui();
         Hospital hospital = new Hospital();
         ui.showWelcome();
-        State currentState = new State(StateType.MAIN_STATE); // Start in MAIN_STATE
+        // Start in MAIN_STATE
+        State currentState = new State(StateType.MAIN_STATE);
         HospitalCommand.setHospital(hospital);
 
         // variable to hold the selected patient
@@ -42,8 +42,10 @@ public class MediTask {
                     //handle patient selection
                     if (command instanceof seedu.duke.commands.SelectPatientCommand) {
                         try {
-                            int patientIndex = Integer.parseInt(commandInput.split(" ")[1]); // convert user input to index
-                            selectedPatient = hospital.getPatient(patientIndex); // Get selected patient
+                            // convert user input to index
+                            int patientIndex = Integer.parseInt(commandInput.split(" ")[1]);
+                            //get selected patient
+                            selectedPatient = hospital.getPatient(patientIndex);
                         } catch (Exception e) {
                             System.out.println("invalid patient selection.");
                         }
@@ -52,12 +54,14 @@ public class MediTask {
             } else if (currentState.getState() == StateType.TASK_STATE) {
                 //show task screen for the selected patient
                 if (selectedPatient != null) {
-                    ui.showTaskScreen(selectedPatient.getName()); //display selectedPatient name
+                    //display selectedPatient name
+                    ui.showTaskScreen(selectedPatient.getName());
                 }
                 String commandInput = ui.readCommand();
 
                 //parse and execute commands in TASK_STATE
-                Parser parser = new Parser(commandInput, currentState); //pass the State object
+                //pass the State object
+                Parser parser = new Parser(commandInput, currentState);
                 Command command = parser.parseCommand();
 
                 if (command != null) {

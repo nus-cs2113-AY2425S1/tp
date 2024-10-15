@@ -77,7 +77,7 @@ public class Parser {
         case "back":
             return new BackCommand(state); // Pass the global State object created in main to backcommand
 
-            default:
+        default:
             System.out.println("Unknown command");
         }
         return null;

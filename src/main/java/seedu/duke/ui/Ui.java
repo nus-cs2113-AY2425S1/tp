@@ -10,6 +10,12 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Constructs a Ui object and initializes the scanner for user input.
+     */
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
 
     public void showMainScreen() {
         showLine();
@@ -22,12 +28,7 @@ public class Ui {
         System.out.print("Input: ");
 
     }
-    /**
-     * Constructs a Ui object and initializes the scanner for user input.
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
+
 
     /**
      * Reads a command inputted by the user.
