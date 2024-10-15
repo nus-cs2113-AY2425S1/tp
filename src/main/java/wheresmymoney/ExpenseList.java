@@ -2,9 +2,11 @@ package wheresmymoney;
 
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 public class ExpenseList {
@@ -84,11 +86,32 @@ public class ExpenseList {
         return expensesFromCategory;
     }
 
+    /**
+     * Loads from a csv file into Expense List.
+     *
+     * @param filePath File Path to read csv
+     */
+    public void loadFromCsv(String filePath) throws Exception {
+        File file = new File(filePath);
+        FileReader reader = new FileReader(file);
+        CSVReader csvReader = new CSVReader(reader);
+
+        csvReader.readNext(); // Skip the header
+        String[] line;
+        while ((line = csvReader.readNext()) != null) {
+            addExpense(Float.parseFloat(line[2]), line[1], line[0]);
+        }
+
+        // closing writer connection
+        reader.close();
+    }
 
     /**
-     * Saves to a csv file
+     * Saves to a csv file.
+     *
+     * @param filePath File Path to save csv to
      */
-    public void saveToCSV(String filePath) throws IOException {
+    public void saveToCsv(String filePath) throws IOException {
         File file = new File(filePath);
 
         // create FileWriter object with file as parameter

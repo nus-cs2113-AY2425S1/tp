@@ -98,8 +98,11 @@ public class Parser{
             }
             Ui.displayExpenseList(expensesToDisplay);
             break;
+        case "load":
+            expenseList.loadFromCsv("./data.csv");
+            break;
         case "save":
-            expenseList.saveToCSV("./data.csv");
+            expenseList.saveToCsv("./data.csv");
             break;
         case "help":
             Ui.displayHelp();
