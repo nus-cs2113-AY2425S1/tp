@@ -44,7 +44,7 @@ public class Main {
      *
      * @param isRunning A boolean showing if the chatbot should continue running.
      */
-    public void setRunning(boolean isRunning) {
+    public static void setRunning(boolean isRunning) {
         Main.isRunning = isRunning;
     }
 
