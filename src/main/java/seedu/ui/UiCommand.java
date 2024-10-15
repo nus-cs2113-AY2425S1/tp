@@ -162,8 +162,10 @@ public class UiCommand extends Ui {
             System.out.println(command.getUsage());
             printDivider();
         }
-        printDivider();
-        System.out.println("\n");
+        System.out.println("""
+                exit
+                Usage: exit""");
+        printTailDivider();
     }
 
     public String getInvalidFlags() {
