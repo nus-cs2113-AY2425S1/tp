@@ -1,7 +1,5 @@
 package seedu.duke.data.state;
 
-import static seedu.duke.data.state.StateType.MAIN_STATE;
-
 public class State {
     private StateType state;
 

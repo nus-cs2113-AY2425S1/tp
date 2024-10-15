@@ -1,8 +1,9 @@
 package seedu.duke.common;
 
 public class Messages {
-    static final String LOGO = "";
-    public static final String MESSAGE_WELCOME = "";
-    public static final String MESSAGE_PROMPT = "MediTask : ";
-    public static final String MESSAGE_EXIT = "";
+    static final String LOGO = ""; // Package-private
+    public static final String MESSAGE_EXIT = ""; // Public
+    public static final String MESSAGE_WELCOME = ""; // Public
+    public static final String MESSAGE_PROMPT = "MediTask : "; // Public
 }
+
