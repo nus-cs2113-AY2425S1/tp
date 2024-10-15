@@ -47,7 +47,6 @@ public class Storage {
         JsonObject jsonObject = createJSON(programmeList, history);
 
         try (FileWriter writer = new FileWriter(path)) {
-
             gson.toJson(jsonObject, writer);
         } catch (IOException e) {
             throw new IOException("Failed to save data due to: " + e.getMessage());

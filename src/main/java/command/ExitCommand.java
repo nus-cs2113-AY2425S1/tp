@@ -1,8 +1,8 @@
 package command;
-import core.Ui;
-import programme.ProgrammeList;
-import core.History;
 
+
+import core.History;
+import programme.ProgrammeList;
 
 public class ExitCommand extends Command {
     public static final String COMMAND_WORD = "bye";
@@ -13,5 +13,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, ProgrammeList pList, History history){}
+    public String execute(ProgrammeList pList, History history){
+        return "";
+    }
 }

@@ -17,9 +17,10 @@ public class LogCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, ProgrammeList pList, History history){
+    public String execute(ProgrammeList pList, History history){
         Day completed = pList.getDay(progIndex, dayIndex);
         history.logDay(completed, date);
-        ui.showMsg("Congrats! You've successfully completed:\n" + completed.toString());
+        String result =  String.format("Congrats! You've successfully completed:%s%n",completed);
+        return result;
     }
 }

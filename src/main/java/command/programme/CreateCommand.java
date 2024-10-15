@@ -20,8 +20,8 @@ public class CreateCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, ProgrammeList pList, History history){
+    public String execute(ProgrammeList pList, History history){
         Programme created = pList.insertProgramme(name, contents);
-        ui.showMsg("New programme created:\n" + created.toString());
+        return String.format("New programme created:%s%n",created);
     }
 }

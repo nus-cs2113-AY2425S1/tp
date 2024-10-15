@@ -1,6 +1,5 @@
 package command.programme;
 import command.Command;
-import core.Ui;
 import programme.ProgrammeList;
 import programme.Programme;
 import core.History;
@@ -14,8 +13,8 @@ public class ViewCommand extends Command {
         this.progId = progId; }
 
     @Override
-    public void execute(Ui ui, ProgrammeList pList, History history){
+    public String execute(ProgrammeList pList, History history){
         Programme programme = pList.getProgramme(progId);
-        ui.showMsg("Viewing programme:\n" + programme.toString());
+        return String.format("Viewing programme:%s%n",programme);
     }
 }

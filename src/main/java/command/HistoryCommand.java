@@ -1,5 +1,4 @@
 package command;
-import core.Ui;
 import programme.ProgrammeList;
 import core.History;
 
@@ -7,7 +6,8 @@ import core.History;
 public class HistoryCommand extends Command {
     public static final String COMMAND_WORD = "history";
     @Override
-    public void execute(Ui ui, ProgrammeList pList, History history){
-        ui.showMsg("Your workout history: \n" + history.toString());
+    public String execute(ProgrammeList pList, History history){
+        String result = String.format("Your workout history: %s%n",history);
+        return result;
     }
 }

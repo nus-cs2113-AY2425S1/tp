@@ -1,5 +1,4 @@
 package command;
-import core.Ui;
 import programme.ProgrammeList;
 import core.History;
 
@@ -10,5 +9,5 @@ public abstract class Command {
         return false;
     }
 
-    public abstract void execute(Ui ui, ProgrammeList pList, History history);
+    public abstract String execute(ProgrammeList pList, History history);
 }
