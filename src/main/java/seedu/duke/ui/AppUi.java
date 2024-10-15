@@ -5,6 +5,8 @@ import seedu.duke.command.AddIncomeCommand;
 import seedu.duke.command.DeleteCommand;
 import seedu.duke.command.EditEntryCommand;
 import seedu.duke.command.SeeAllEntriesCommand;
+import seedu.duke.command.SeeAllExpensesCommand;
+import seedu.duke.command.SeeAllIncomesCommand;
 import seedu.duke.command.HelpCommand;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.financial.FinancialEntry;
@@ -107,6 +109,35 @@ public class AppUi {
     }
 
     /**
+     * This method helps execute the appropriate command based on the "argument"
+     * provided in the commandArguments HashMap. If the argument is "expense", it will
+     * execute the SeeAllExpensesCommand. If the argument is "income", it will execute
+     * the SeeAllIncomesCommand. If no argument or an unknown argument is provided,
+     * it defaults to executing SeeAllEntriesCommand to list all entries.
+     *
+     * @param commandArguments A HashMap containing the command argument with the key "argument".
+     *                         The value can be "expense", "income", or null/empty for listing all entries.
+     */
+    public void listHelper(HashMap<String, String> commandArguments) {
+        String type = commandArguments.get("argument");
+
+        if (type != null) {
+            if (type.equals("expense")) {
+                SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand();
+                seeAllExpensesCommand.execute(financialList);
+            } else if (type.equals("income")) {
+                SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand();
+                seeAllIncomesCommand.execute(financialList);
+            } else {
+                System.out.println("Unknown argument: " + type);
+            }
+        } else {
+            SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand();
+            seeAllEntriesCommand.execute(financialList);
+        }
+    }
+    
+    /**
      * Prints help menu when user inputs 'help' command.
      */
     public void printHelpMenu() {
@@ -131,8 +162,7 @@ public class AppUi {
 
         switch (command) {
         case "list":
-            SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand();
-            seeAllEntriesCommand.execute(financialList);
+            listHelper(commandArguments);
             break;
 
         case "expense":
