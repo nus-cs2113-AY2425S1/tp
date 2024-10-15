@@ -1,0 +1,10 @@
+Loops | Mcq | Which of the following is a loop structure in Java? | b | a) if-else | b) for | c) switch | d) try-catch
+Loops | Mcq | Which loop guarantees at least one iteration? | a | a) do-while | b) for | c) while | d) for-each
+Loops | Mcq | Which keyword is used to exit a loop early? | c | a) continue | b) return | c) break | d) stop
+Loops | Mcq | Which type of loop is used when the number of iterations is fixed? | b | a) while | b) for | c) do-while | d) foreach
+Loops | Mcq | What is the correct syntax for a for loop in Java? | a | a) for (int i = 0; i < 10; i++) | b) for (i = 0; i < 10; i++) | c) for int i : range(10) | d) foreach (int i in range(10))
+Loops | Mcq | Which of the following loop types can be infinite? | a | a) while | b) do-while | c) for | d) All of the above
+Loops | Mcq | Which of the following loops is suitable for iterating over a collection? | d | a) while | b) do-while | c) simple for | d) for-each
+Loops | Mcq | What happens if the condition in a for loop is omitted? | c | a) Compilation error | b) Infinite loop | c) The loop continues until it is explicitly broken | d) None of the above
+Loops | Mcq | Which keyword can be used to skip to the next iteration of a loop? | a | a) continue | b) skip | c) next | d) pass
+Loops | Mcq | What is the output of an infinite while loop without a condition? | b | a) Compilation error | b) Loop continues indefinitely | c) Loop runs once | d) None of the above
