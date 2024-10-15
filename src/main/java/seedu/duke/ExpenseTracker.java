@@ -5,6 +5,7 @@ import java.util.List;
 
 public class ExpenseTracker {
     private List<Category> categories;
+    private List expenses;
 
     public ExpenseTracker() {
         this.categories = new ArrayList<>();
