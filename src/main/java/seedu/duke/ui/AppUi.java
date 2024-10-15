@@ -134,7 +134,7 @@ public class AppUi {
             SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand();
             seeAllEntriesCommand.execute(financialList);
         }
-        }
+    }
     
     /**
      * Prints help menu when user inputs 'help' command.
