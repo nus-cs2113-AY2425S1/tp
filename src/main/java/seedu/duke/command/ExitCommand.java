@@ -4,12 +4,16 @@ import seedu.duke.financial.FinancialList;
 
 public class ExitCommand extends Command {
 
-    @Override
-    public void execute(FinancialList list) {
-        System.out.println("Bye! Hope to see you again soon!");
-    }
+    final String goodByeMessage = "--------------------------------------------\n" +
+                "Goodbye! Hope to see you again soon :)\n" +
+                "--------------------------------------------\n";
 
     @Override
+    public void execute(FinancialList list) {
+
+        System.out.println(goodByeMessage);
+    }
+
     public boolean isExit() {
         return true;
     }

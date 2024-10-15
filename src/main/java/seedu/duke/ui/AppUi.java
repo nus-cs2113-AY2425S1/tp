@@ -6,6 +6,7 @@ import seedu.duke.command.DeleteCommand;
 import seedu.duke.command.EditEntryCommand;
 import seedu.duke.command.SeeAllEntriesCommand;
 import seedu.duke.command.HelpCommand;
+import seedu.duke.command.ExitCommand;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.parser.InputParser;
@@ -113,6 +114,12 @@ public class AppUi {
         helpCommand.execute(financialList);
     }
 
+    public boolean exitCommand() {
+        ExitCommand exitCommand = new ExitCommand();
+        exitCommand.execute(financialList);
+        return !exitCommand.isExit();
+    }
+
     /**
      * Matches a given command with its corresponding action.
      *
@@ -121,9 +128,6 @@ public class AppUi {
      * @return A boolean indicating whether the command was successful.
      */
     public boolean matchCommand(String command, HashMap<String, String> commandArguments) {
-        final String goodByeMessage = "--------------------------------------------\n" +
-                "Goodbye! Hope to see you again soon :)\n" +
-                "--------------------------------------------\n";
 
         final String unrecognizedCommand = "--------------------------------------------\n" +
                 "Unrecognized command!\n" +
@@ -157,8 +161,9 @@ public class AppUi {
             break;
 
         case "exit":
-            System.out.println(goodByeMessage);
-            return false;
+            // System.out.println(goodByeMessage);
+            // return false;
+            return exitCommand();
 
         default:
             System.out.println(unrecognizedCommand);
