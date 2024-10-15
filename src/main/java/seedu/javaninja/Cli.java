@@ -2,11 +2,11 @@ package seedu.javaninja;
 
 import java.util.Scanner;
 
-/* manages input by user */
+/* Manages input by user */
 public class Cli {
     private QuizManager quizManager;
 
-    public Cli () {
+    public Cli() {
         quizManager = new QuizManager();
     }
 
@@ -15,6 +15,7 @@ public class Cli {
         System.out.println("'view' to view topics");
         System.out.println("'select' to select a topic");
         System.out.println("'review' to review the past result");
+        System.out.println("'help' for a list of commands");
         System.out.println("'quit' to exit the programme");
         Scanner scanner = new Scanner(System.in);
 
@@ -34,11 +35,24 @@ public class Cli {
                 String pastResults = quizManager.getPastResults();
                 System.out.println(pastResults);
                 break;
+            case "help":
+                printHelp();
+                break;
             default:
-                System.out.println("Invalid input");
+                System.out.println("Invalid input. Type 'help' for a list of commands.");
             }
             input = scanner.nextLine();
         }
         System.out.println("Goodbye!");
+    }
+
+    // Help message
+    private void printHelp() {
+        System.out.println("List of available commands:");
+        System.out.println("'view' - View available topics");
+        System.out.println("'select' - Type 'select' and hit Enter. Then type a topic name (e.g.\"Loops\")");
+        System.out.println("'review' - Review all your quiz results");
+        System.out.println("'help' - Show this help message");
+        System.out.println("'quit' - Exit the program");
     }
 }
