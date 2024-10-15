@@ -49,10 +49,14 @@ public class Duke {
 
             if (name == null || amount == 0) {
                 System.out.println("Invalid input! Please provide name and amount.");
+                return;
             }
+
+            expenseTracker.addExpense(name, amount, category);
 
         } catch (Exception e) {
             System.out.println("Error parsing the input. Please use correct format for add-expense commands.");
+            return;
         }
     }
 }

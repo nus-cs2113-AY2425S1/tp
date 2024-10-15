@@ -27,6 +27,6 @@ public class Expense {
 
     @Override
     public String toString() {
-        return "Expense: " + name + ", Amount: $" + amount + ", Category: " + getCategory();
+        return " Item: " + name + ", Amount: $" + amount + ", Category: " + getCategory();
     }
 }
