@@ -50,7 +50,7 @@ public class Cli {
     private void printHelp() {
         System.out.println("List of available commands:");
         System.out.println("'view' - View available topics");
-        System.out.println("'select' - Type 'select' and hit Enter. Then type the topic name (e.g.\"Loops\")");
+        System.out.println("'select' - Type 'select' and hit Enter. Then type a topic name (e.g.\"Loops\")");
         System.out.println("'review' - Review all your quiz results");
         System.out.println("'help' - Show this help message");
         System.out.println("'quit' - Exit the program");
