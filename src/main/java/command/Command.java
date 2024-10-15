@@ -6,7 +6,7 @@ import core.History;
 public abstract class Command {
     public Command(){}
 
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 

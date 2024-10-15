@@ -12,8 +12,6 @@ import java.time.format.DateTimeFormatter;
 
 import static parser.ParserUtils.parseIndex;
 
-
-
 public class Parser {
     private final ProgammeParser progParser;
 
@@ -41,17 +39,31 @@ public class Parser {
     }
 
     private Command prepareLogCommand(String argumentString){
-        String[] arguments = ParserUtils.parseArguments(argumentString, "/p", "/d");
+        int progIndex = -1;
+        int dayIndex = -1;
+        LocalDateTime date = LocalDateTime.now();
 
-        if (arguments.length != 3) {
-            throw new IllegalArgumentException("Invalid event command. " +
-                    "Please provide a programme index, day index, and date using '/p' and '/d' and 'DATE'.");
+        String[] arguments = argumentString.split(" (?=/[tdp])");
+
+        for (String arg : arguments) {
+            String[] argParts = arg.split(" ");
+            String flag = argParts[0];
+            String value = argParts[1];
+
+            switch (flag){
+            case "/p":
+                progIndex = parseIndex(value);
+                break;
+            case "/d":
+                dayIndex = parseIndex(value);
+                break;
+            case "/t":
+                date = parseDate(value);
+                break;
+            default:
+                throw new IllegalArgumentException("Flag command not recognized: " + flag);
+            }
         }
-
-        int progIndex = parseIndex(arguments[0].trim());
-        int dayIndex = parseIndex(arguments[1].trim());
-        LocalDateTime date = parseDate(arguments[2].trim());
-
         return new LogCommand(progIndex, dayIndex, date);
     }
 

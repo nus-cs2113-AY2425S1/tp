@@ -8,7 +8,7 @@ import programme.ProgrammeList;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
-    private int progId;
+    private final int progId;
 
     public DeleteCommand(int progId) {
         this.progId = progId;

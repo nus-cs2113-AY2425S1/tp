@@ -89,7 +89,7 @@ public class ProgammeParser {
                 break;
 
             case "xd":
-                editCommand.addDeleteDay(progIndex, dayIndex);
+                editCommand.addDeleteDay(progIndex, parseIndex(value));
                 break;
 
             case "u": // Update exercise (parse the value string to create an Exercise)
@@ -110,8 +110,7 @@ public class ProgammeParser {
                 break;
 
             default:
-                System.out.println("Unknown flag: " + flag);
-                break;
+                throw new IllegalArgumentException("Unknown flag: " + flag);
             }
         }
 

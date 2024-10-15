@@ -2,17 +2,17 @@ import com.google.gson.JsonObject;
 
 import command.Command;
 import core.History;
-import parser.Parser;
-import core.Ui;
 import core.Storage;
+import core.Ui;
+import parser.Parser;
 import programme.ProgrammeList;
 
 public class BuffBuddy {
     private static final String DEFAULT_FILE_PATH = "./data/data.json";
     private final Ui ui;
     private final Storage storage;
-    private History history;
-    private ProgrammeList pList;
+    private final History history;
+    private final ProgrammeList pList;
     private final Parser commandParser;
 
     public BuffBuddy(String filePath) {

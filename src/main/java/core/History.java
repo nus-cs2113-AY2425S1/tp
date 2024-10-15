@@ -1,14 +1,17 @@
 package core;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import programme.Day;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 public class History {
-    private HashMap<LocalDateTime, Day> history;  // HashMap to store Day with its respective date
+
+    private final HashMap<LocalDateTime, Day> history;  // HashMap to store Day with its respective date
 
     // Constructor
     public History() {
@@ -22,13 +25,18 @@ public class History {
 
     // Converts the History object to a JSON string
     public JsonObject toJson() {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new DateSerializer())
+                .create();
+
         return gson.toJsonTree(this).getAsJsonObject();
     }
 
     // Creates a History object from a JSON string
     public static History fromJson(JsonObject jsonObject) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new DateSerializer())
+                .create();
         return gson.fromJson(jsonObject, History.class);
     }
 
@@ -41,13 +49,12 @@ public class History {
             return "No workout history available.";
         }
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
         // Iterate over the history HashMap
         for (LocalDateTime date : history.keySet()) {
             Day day = history.get(date);
-
-            // Format date and use Day's toString() method for exercise details
-            historyString.append("Day: ").append(day.toString())  // Use Day's toString()
-                    .append("Completed on: ").append(date.toString()).append("\n\n");
+            historyString.append(String.format("Day: %s%nCompleted On:%s%n%n",day,date.format(formatter)));
         }
 
         return historyString.toString();
