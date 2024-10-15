@@ -25,6 +25,10 @@ public class Expense {
         return category != null ? category : "null";
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return " Item: " + name + ", Amount: $" + amount + ", Category: " + getCategory();
