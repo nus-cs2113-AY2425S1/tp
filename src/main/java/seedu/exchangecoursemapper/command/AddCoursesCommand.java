@@ -1,6 +1,7 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.storage.Storage;
+import seedu.exchangecoursemapper.exception.Exception;
 
 public class AddCoursesCommand extends Command {
 
@@ -30,13 +31,10 @@ public class AddCoursesCommand extends Command {
         String trimmedString = string.trim();
         String[] outputSubstrings = trimmedString.split(" ", 2);
 
-        //throws an error when there is no user input after the add command.
         if (outputSubstrings.length < 2 || outputSubstrings[1].trim().isEmpty()) {
-            throw new IllegalArgumentException("Please provide the nus course code, " +
-                    "name of partner university (PU) and the PU course code.");
+            throw new IllegalArgumentException(Exception.noInputAfterAdd());
         }
 
-        //returns user inputs without the "add" command
         return outputSubstrings[1];
     }
 
@@ -45,19 +43,18 @@ public class AddCoursesCommand extends Command {
                 .replaceAll("(?i)/coursepu", "/coursepu")
                 .trim().replaceAll(" +", " ");
 
-        //throws an error when only one keyword is present
         if ((!input.contains("/pu") || !input.contains("/coursepu"))) {
-            throw new IllegalArgumentException("Please provide all of the valid commands: /pu, /coursepu!");
+            throw new IllegalArgumentException(Exception.missingKeyword());
         }
 
         if (input.contains("/pu/coursepu") || input.contains("/coursepu/pu")){
-            throw new IllegalArgumentException("Commands shouldn't be adjacent to one another!");
+            throw new IllegalArgumentException(Exception.adjacentInputError());
         }
 
         String[] inputSubstrings = input.split(" /coursepu | /pu ");
 
         if (inputSubstrings.length < 3) {
-            throw new IllegalArgumentException("Please provide a valid NUS course code or PU or PU's course code!");
+            throw new IllegalArgumentException(Exception.invalidCourseCodes());
         }
 
         return inputSubstrings;
