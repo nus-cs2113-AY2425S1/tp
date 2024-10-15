@@ -33,7 +33,7 @@ public class SeeAllIncomesCommand extends Command {
             System.out.println("No recorded incomes found.");
         } else {
             System.out.println("Here's a list of all recorded incomes:");
-            System.out.print(incomeList);
+            System.out.println(incomeList);
         }
     }
 }
