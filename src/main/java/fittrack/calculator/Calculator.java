@@ -10,10 +10,10 @@ import java.util.TreeMap;
 
 public abstract class Calculator {
 
-    protected static final int ageRangeLowerStart = 12;
-    protected static final int ageRangeLowerEnd = 19;
-    protected static final int ageRangeUpperStart = 20;
-    protected static final int ageRangeUpperEnd = 24;
+    protected static final int AGE_RANGE_LOWER_START = 12;
+    protected static final int AGE_RANGE_LOWER_END = 19;
+    protected static final int AGE_RANGE_UPPER_START = 20;
+    protected static final int AGE_RANGE_UPPER_END = 24;
 
     // Utility method to find the points based on performance in the given table.
     protected static int getPointsFromTable(Map<LookUpKey, TreeMap<Integer, Integer>> pointsTable,
@@ -59,12 +59,12 @@ public abstract class Calculator {
     protected static void addAllTables(Map<LookUpKey, TreeMap<Integer, Integer>> pullUpTable,
                                        Gender gender, int[][][] ageTables) {
         // Add data for lower ages
-        for (int age = ageRangeLowerStart; age <= ageRangeLowerEnd; age++) {
-            addAgeSubTable(pullUpTable, gender, age, ageTables[age - ageRangeLowerStart]);
+        for (int age = AGE_RANGE_LOWER_START; age <= AGE_RANGE_LOWER_END; age++) {
+            addAgeSubTable(pullUpTable, gender, age, ageTables[age - AGE_RANGE_LOWER_START]);
         }
 
         // Add data for upper ages
-        for (int age = ageRangeUpperStart; age <= ageRangeUpperEnd; age++) {
+        for (int age = AGE_RANGE_UPPER_START; age <= AGE_RANGE_UPPER_END; age++) {
             addAgeSubTable(pullUpTable, gender, age, ageTables[ageTables.length - 1]); // Age 20-24 table
         }
     }
