@@ -3,16 +3,6 @@
 	Invalid command.
 	-------------------------------------
 	-------------------------------------
-	help: Print this guide.
-	add-category CATEGORY_NAME: Add a new category
-	view-category: View your category list
-	delete-category CATEGORY_NAME: Delete a new category
-	view-expense [c/ CATEGORY] [f/ START_DATE] [t/ END_DATE]: View your expense history
-	view-income [f/ START_DATE] [t/ END_DATE]: View your income history
-	history [f/ START_DATE] [t/ END_DATE]: View your transaction history
-	bye: End the chat.
-	-------------------------------------
-	-------------------------------------
 	1. Food
 	2. Entertainment
 	3. Transport

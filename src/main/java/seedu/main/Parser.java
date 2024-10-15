@@ -1,7 +1,6 @@
 package seedu.main;
 
 import seedu.command.Command;
-import seedu.command.HelpCommand;
 
 import java.util.Arrays;
 import java.util.HashMap;
