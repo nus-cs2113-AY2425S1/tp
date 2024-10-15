@@ -1,16 +1,12 @@
 package seedu.main;
 
 import seedu.category.CategoryList;
+import seedu.command.*;
 import seedu.transaction.TransactionList;
 
-import seedu.command.Command;
-import seedu.command.AddCategoryCommand;
-import seedu.command.HelpCommand;
-import seedu.command.ViewCategoryCommand;
-import seedu.command.ViewExpenseCommand;
-import seedu.command.ViewIncomeCommand;
-import seedu.command.DeleteCategoryCommand;
-import seedu.command.HistoryCommand;
+
+import seedu.transaction.TransactionList;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +84,11 @@ public class Main {
         parser.registerCommands(addCategoryCommand);
 
         logger.log(Level.INFO, "Adding..." + ViewCategoryCommand.COMMAND_WORD);
+
+        parser.registerCommands(new AddIncomeCommand(transactions, "", "", ""));
+        parser.registerCommands(new AddExpenseCommand(transactions, "", "", ""));
+
+
         ViewCategoryCommand viewCategoryCommand = new ViewCategoryCommand(categories);
         parser.registerCommands(viewCategoryCommand);
 
@@ -119,7 +120,7 @@ public class Main {
      * Main command processing loop that retrieves user commands, processes, and displays the results.
      * The loop continues until the application is stopped.
      */
-    private static void runCommandLoop() {
+    private static void runCommandLoop() throws Exception {
         while (isRunning) {
             String commandString = getUserInput();
             logger.log(Level.INFO, "Command line: " + commandString);
