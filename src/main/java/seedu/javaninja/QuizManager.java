@@ -1,22 +1,25 @@
 package seedu.javaninja;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 
 public class QuizManager {
     private static final String FILE_PATH = "./data/Questions.txt";
     private List<Topic> topics;
     private Quiz currentQuiz;
     private List<String> pastResults;
+    private Storage storage; // Storage for saving/loading results
 
     public QuizManager() {
         this.topics = new ArrayList<>();
         this.pastResults = new ArrayList<>();
+        this.storage = new Storage("data/results.txt"); // File path for saving results
         loadTopicsFromFile();
+        loadResultsFromFile();  // Load past results at startup
     }
 
     private void loadTopicsFromFile() {
@@ -80,6 +83,7 @@ public class QuizManager {
         int score = currentQuiz.getScore();
         String comment = generateComment(score);
         addPastResult(score, comment);
+        saveResultsToFile();  // Save results after quiz ends
     }
 
     public void printTopics() {
@@ -124,7 +128,7 @@ public class QuizManager {
 
     // Method to review past results
     public String getPastResults() {
-        if (pastResults == null || pastResults.isEmpty()) {
+        if (pastResults.isEmpty()) {
             return "No past results available. You haven't completed any quizzes yet.";
         }
 
@@ -134,5 +138,22 @@ public class QuizManager {
         }
         return results.toString();
     }
-}
 
+    // Save the past results using Storage
+    private void saveResultsToFile() {
+        try {
+            storage.saveResults(pastResults);
+        } catch (IOException e) {
+            System.out.println("Error saving results to file.");
+        }
+    }
+
+    // Load past results from the file using Storage
+    private void loadResultsFromFile() {
+        try {
+            pastResults = storage.loadResults();
+        } catch (IOException e) {
+            System.out.println("No past results found.");
+        }
+    }
+}
