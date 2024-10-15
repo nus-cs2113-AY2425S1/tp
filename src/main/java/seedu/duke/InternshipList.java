@@ -1,11 +1,17 @@
 package seedu.duke;
 
+import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidStatus;
+import seedu.ui.UiInternshipList;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Comparator;
 
+//@@author jadenlimjc
 public class InternshipList {
+    private static final UiInternshipList ui = new UiInternshipList();
     public ArrayList<Internship> internships;
 
     // Constructor
@@ -14,17 +20,28 @@ public class InternshipList {
     }
 
     public void addInternship(Internship internship) {
-        internship.setId(internships.size());
+        if (internship.getId() == -1) {
+            internship.setId(internships.size());
+        }
         internships.add(internship);
+    }
+
+    //@@ Ridiculouswifi
+    /**
+     * Returns whether the index given is within the boundaries of the list.
+     */
+    private boolean isWithinBounds(int index) {
+        return index >= 0 && index < internships.size();
     }
 
     // Method to remove an internship by index (0-based)
     public void removeInternship(int index) {
-        if (index >= 0 && index < internships.size()) {
+        if (isWithinBounds(index)) {
             internships.remove(index);
+            ui.showDeletedInternship(index);
             updateIds(); // Reassign IDs after removal
         } else {
-            System.out.println("Invalid index");
+            ui.showInvalidIndex();
         }
     }
 
@@ -37,32 +54,58 @@ public class InternshipList {
 
     // Method to get an internship by index
     public Internship getInternship(int index) {
-        if (index >= 0 && index < internships.size()) {
+        if (isWithinBounds(index)) {
             return internships.get(index);
         } else {
-            System.out.println("Invalid index");
+            ui.showInvalidIndex();
             return null;
         }
     }
 
-    // Method to update the status of applications, might not be needed
-    public void updateStatus(int index, String status) {
-        if (index >= 0 && index < internships.size()) {
-            internships.get(index).setStatus(status);
-        } else {
-            System.out.println("Invalid index");
+    //@@author Ridiculouswifi
+    /**
+     * Updates the specified field with new values.
+     *
+     * @param index <code>Internship</code> index in <code>InternshipList</code>.
+     * @param field Specific attribute to update.
+     * @param value Updated value
+     */
+    public void updateField(int index, String field, String value) throws InvalidIndex, InvalidStatus {
+        try {
+            switch (field) {
+            case "status":
+                internships.get(index).updateStatus(value);
+                break;
+            case "skills":
+                internships.get(index).setSkills(value);
+                break;
+            case "role":
+                internships.get(index).setRole(value);
+                break;
+            case "company":
+                internships.get(index).setCompany(value);
+                break;
+            case "from":
+                internships.get(index).setStartDate(value);
+                break;
+            case "to":
+                internships.get(index).setEndDate(value);
+                break;
+            default:
+                break;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            ui.showInvalidIndex();
+            throw new InvalidIndex();
         }
     }
 
     // Method to list all internships
     public void listAllInternships() {
         if (internships.isEmpty()) {
-            System.out.println("No internships found.");
+            ui.showEmptyInternshipList();
         } else {
-            for (Internship internship : internships) {
-                System.out.println(internship);
-                System.out.println("---------------------------------");
-            }
+            ui.showInternships(internships);
         }
     }
 
@@ -76,10 +119,7 @@ public class InternshipList {
         Collections.sort(sortedList, Comparator.comparing(Internship::getRole));
 
         // Display the sorted list without changing IDs
-        for (Internship internship : sortedList) {
-            System.out.println(internship);
-            System.out.println("---------------------------------");
-        }
+        ui.showInternships(sortedList);
     }
 
     // Method to list all internships sorted by start date, then end date
@@ -99,9 +139,6 @@ public class InternshipList {
         });
 
         // Display the sorted list without changing IDs
-        for (Internship internship : sortedInternships) {
-            System.out.println(internship);
-            System.out.println("---------------------------------");
-        }
+        ui.showInternships(sortedInternships);
     }
 }

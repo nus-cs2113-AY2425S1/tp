@@ -4,16 +4,18 @@ import seedu.exceptions.InvalidStatus;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Class to store the relevant information for an internship.
  */
+//@@author jadenlimjc
 public class Internship {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
 
-    private int id;
+    private int id = -1;
     private String role;
     private String company;
     private YearMonth startDate;
@@ -40,28 +42,22 @@ public class Internship {
         this.status = "Application Pending";
     }
 
+    //@@author Ridiculouswifi
     /**
      * Updates the status of the Internship with a valid status.
      * Does not update with invalid statuses and will prompt for a valid status.
      *
      * @param userStatus user-inputted status.
      */
-    public void updateStatus(String userStatus) {
+    public void updateStatus(String userStatus) throws InvalidStatus {
         List<String> statuses = Arrays.asList("Application Pending", "Application Completed", "Accepted", "Rejected");
-        try {
-            for (String status : statuses) {
-                if (status.equalsIgnoreCase(userStatus)) {
-                    this.status = status;
-                    System.out.println(this);
-                    return;
-                }
+        for (String status : statuses) {
+            if (status.equalsIgnoreCase(userStatus)) {
+                this.status = status;
+                return;
             }
-            throw new InvalidStatus();
-        } catch (InvalidStatus e) {
-            System.out.println("Status provided is not recognised:");
-            System.out.println("Please provide one of the following:");
-            System.out.println("Application Pending\nApplication Completed\nAccepted\nRejected");
         }
+        throw new InvalidStatus();
     }
 
     // Getters and Setters
@@ -96,7 +92,7 @@ public class Internship {
         return startDate.format(formatter); // Format as MM/yy
     }
 
-    public void setStartDate(String start) {
+    public void setStartDate(String start) throws DateTimeParseException {
         this.startDate = YearMonth.parse(start, formatter);
     }
 
@@ -104,7 +100,7 @@ public class Internship {
         return endDate.format(formatter); // Format as MM/yy
     }
 
-    public void setEndDate(String end) {
+    public void setEndDate(String end) throws DateTimeParseException {
         this.endDate = YearMonth.parse(end, formatter);
     }
 

@@ -1,43 +1,39 @@
 package seedu.commands;
 
-import seedu.duke.InternshipList;
+import java.util.ArrayList;
 
-public class SortCommand implements Command {
-    private final InternshipList internships;
-
-    public SortCommand(InternshipList internshipList) {
-        this.internships = internshipList;
-    }
-
+public class SortCommand extends Command {
     @Override
-    public void execute(String[] args) {
-        // Ensure that the args array contains at least one argument after "sort"
-        if (args.length == 0) {
-            System.out.println("No sorting option provided. Listing internships by ID.");
-            internships.listAllInternships(); // Default to listing by original order (ID)
+    public void execute(ArrayList<String> args) {
+        // Check if no arguments are provided after "sort"
+        if (args.isEmpty()) {
+            ui.showSortedInternships("none");  // No valid sort option provided
+            internships.listAllInternships();  // Default to listing by ID
             return;
         }
 
-        // Check if the user requested to sort by alphabet or deadline
-        String sortOption = args[0].toLowerCase();
+        // Get the first argument, which should be the sort option
+        String sortOption = args.get(0).toLowerCase();
 
+        // Handle valid sorting options
         switch (sortOption) {
-        case "-alphabet":
-            internships.listInternshipsSortedByRole(); // Sort by role alphabetically
-            System.out.println("Sorted internships by role alphabetically.");
+        case "alphabet":
+            ui.showSortedInternships(sortOption);  // Show sorting message for alphabet
+            internships.listInternshipsSortedByRole();  // Sort by role alphabetically
             break;
-        case "-deadline":
-            internships.listInternshipsSortedByDeadline(); // Sort by deadline (start date, then end date)
-            System.out.println("Sorted internships by start date, then end date.");
+        case "deadline":
+            ui.showSortedInternships(sortOption);  // Show sorting message for deadline
+            internships.listInternshipsSortedByDeadline();  // Sort by start date, then end date
             break;
         default:
-            System.out.println("Unknown or missing flag. Listing internships by ID.");
-            internships.listAllInternships(); // Default to listing by original order (ID)
+            // Handle invalid sorting options
+            ui.showSortedInternships(sortOption);  // Show error message for invalid option
+            internships.listAllInternships();  // Default to listing by ID
         }
     }
 
     @Override
     public String getUsage() {
-        return "Usage: sort [-alphabet | -deadline]";
+        return "Usage: sort [alphabet | deadline]";
     }
 }
