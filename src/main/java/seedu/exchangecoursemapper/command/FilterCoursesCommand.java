@@ -60,7 +60,6 @@ public class FilterCoursesCommand extends Command {
                 JsonObject course = courses.getJsonObject(i);
                 String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY);
 
-                // Check if the value in "nus_course_code" matches the input
                 if (nusCourseCode.equalsIgnoreCase(courseToFind)) {
                     String puCourseCode = course.getString(PU_COURSE_CODE_KEY);
                     System.out.println("Partner University: " + universityName);
