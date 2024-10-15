@@ -1,6 +1,11 @@
 package wheresmymoney;
 
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import com.opencsv.CSVWriter;
 
 public class ExpenseList {
     private ArrayList<Expense> expenses;
@@ -77,5 +82,35 @@ public class ExpenseList {
             }
         }
         return expensesFromCategory;
+    }
+
+
+    /**
+     * Saves to a csv file
+     */
+    public void saveToCSV(String filePath) throws IOException {
+        File file = new File(filePath);
+
+        // create FileWriter object with file as parameter
+        FileWriter outputfile = new FileWriter(file);
+
+        // create CSVWriter object filewriter object as parameter
+        CSVWriter writer = new CSVWriter(outputfile);
+
+        // adding header to csv
+        String[] header = { "Category", "Description", "Price" };
+        writer.writeNext(header);
+
+        for (Expense expense: expenses) {
+            String[] row = {
+                    expense.getCategory(),
+                    expense.getDescription(),
+                    expense.getPrice().toString()
+            };
+            writer.writeNext(row);
+        }
+
+        // closing writer connection
+        writer.close();
     }
 }

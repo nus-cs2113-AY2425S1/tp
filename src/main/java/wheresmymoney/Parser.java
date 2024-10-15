@@ -98,6 +98,9 @@ public class Parser{
             }
             Ui.displayExpenseList(expensesToDisplay);
             break;
+        case "save":
+            expenseList.saveToCSV("./data.csv");
+            break;
         case "help":
             Ui.displayHelp();
             break;
