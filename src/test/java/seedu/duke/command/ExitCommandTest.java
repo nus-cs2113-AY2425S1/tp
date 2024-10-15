@@ -2,7 +2,6 @@ package seedu.duke.command;
 
 import org.junit.jupiter.api.Test;
 import seedu.duke.financial.FinancialList;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 

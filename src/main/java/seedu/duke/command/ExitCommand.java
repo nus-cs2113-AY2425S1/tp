@@ -1,7 +1,5 @@
 package seedu.duke.command;
 
-import java.nio.file.FileAlreadyExistsException;
-
 import seedu.duke.financial.FinancialList;
 
 /**
