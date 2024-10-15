@@ -9,7 +9,7 @@ public abstract class Transaction {
     protected String description;
     protected LocalDateTime date;
 
-    public Transaction(double amount, String description, String date) {
+    public Transaction(double amount, String description, String date) throws Exception {
         this.amount = amount;
         this.description = description;
         this.date = DateTimeUtils.parseDateTime(date); // Using the parseDateTime method from DateTimeUtils

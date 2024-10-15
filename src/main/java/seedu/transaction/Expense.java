@@ -6,7 +6,7 @@ import seedu.utils.DateTimeUtils;
 public class Expense extends Transaction {
     private final Category category;
 
-    public Expense(double amount, String description, String date, Category category) {
+    public Expense(double amount, String description, String date, Category category) throws Exception {
         super(amount, description, date);
         this.category = category;
     }

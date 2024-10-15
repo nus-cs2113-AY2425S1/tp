@@ -23,7 +23,7 @@ public abstract class AddTransactionCommand extends Command {
 
     public abstract List<String> execute();
 
-    protected abstract Transaction createTransaction();
+    protected abstract Transaction createTransaction() throws Exception;
 
     protected abstract String[] getMandatoryKeywords();
     protected abstract String[] getExtraKeywords();

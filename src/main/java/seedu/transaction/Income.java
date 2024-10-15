@@ -3,7 +3,7 @@ package seedu.transaction;
 import seedu.utils.DateTimeUtils;
 
 public class Income extends Transaction {
-    public Income(double amount, String description, String date) {
+    public Income(double amount, String description, String date) throws Exception {
         super(amount, description, date);
     }
 

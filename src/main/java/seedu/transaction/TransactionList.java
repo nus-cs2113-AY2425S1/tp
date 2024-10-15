@@ -1,6 +1,7 @@
 package seedu.transaction;
 
 import seedu.category.Category;
+import seedu.utils.DateTimeUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +22,13 @@ public class TransactionList {
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
+        // Sort transactions by date after adding
+        // Sort transactions using the custom compareDdateTime method
+        transactions.sort((t1, t2) -> {
+            LocalDateTime dateTime1 = t1.getDate();
+            LocalDateTime dateTime2 = t2.getDate();
+            return DateTimeUtils.compareDateTime(dateTime1, dateTime2) ? -1 : 1;
+        });
         System.out.println("Transaction added: " + transaction);
     }
 
@@ -41,7 +49,6 @@ public class TransactionList {
     }
 
     public List<Transaction> getTransactions() {
-
         return transactions;
     }
 
@@ -55,7 +62,7 @@ public class TransactionList {
     }
 
     // Method to get transactions of a specific category for expenses
-    public List<Expense> getExpensesByCategory(Category category) {
+    public List<Transaction> getExpensesByCategory(Category category) {
         return transactions.stream()
                 .filter(transaction -> transaction instanceof Expense)
                 .map(transaction -> (Expense) transaction)

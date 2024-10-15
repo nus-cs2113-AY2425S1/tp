@@ -85,7 +85,7 @@ public class JUnitTest {
     }
 
     @Test
-    public void testAddTransaction() {
+    public void testAddTransaction() throws Exception {
         TransactionList transactionList = new TransactionList();
         Transaction transaction = new Expense(100.0, "Groceries", "2024-10-10",
                 new Category("Food"));
@@ -97,7 +97,7 @@ public class JUnitTest {
     }
 
     @Test
-    public void testDeleteTransaction() {
+    public void testDeleteTransaction() throws Exception {
         TransactionList transactionList = new TransactionList();
         Transaction transaction = new Expense(50.0, "Taxi", "2024-10-11",
                 new Category("Transport"));
@@ -111,7 +111,7 @@ public class JUnitTest {
     }
 
     @Test
-    public void testListTransactions() {
+    public void testListTransactions() throws Exception {
         TransactionList transactionList = new TransactionList();
         transactionList.addTransaction(new Expense(20.0, "Coffee", "2024-10-09",
                 new Category("Food")));
@@ -124,7 +124,7 @@ public class JUnitTest {
     }
 
     @Test
-    public void testTransactionCreation() {
+    public void testTransactionCreation() throws Exception {
         double amount = 150.0;
         String description = "Dinner";
         String date = "2024-10-12";
@@ -140,7 +140,7 @@ public class JUnitTest {
     }
 
     @Test
-    public void testTransactionToString() {
+    public void testTransactionToString() throws Exception {
         Transaction transaction = new Expense(75.0, "Movie", "2024-10-13",
                 new Category("Entertainment"));
         String expectedString = "Expense [amount=75.0, description=Movie, date=Sunday, 2024-10-13 11.59 PM, " +

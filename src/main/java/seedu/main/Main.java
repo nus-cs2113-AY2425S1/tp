@@ -1,16 +1,9 @@
 package seedu.main;
 
 import seedu.category.CategoryList;
+import seedu.command.*;
+import seedu.transaction.TransactionList;
 
-
-import seedu.command.AddCategoryCommand;
-import seedu.command.DeleteCategoryCommand;
-import seedu.command.TestCommand;
-import seedu.command.ViewCategoryCommand;
-import seedu.command.HelpCommand;
-import seedu.command.AddIncomeCommand;
-import seedu.command.AddExpenseCommand;
-import seedu.command.Command;
 
 import seedu.transaction.TransactionList;
 
@@ -18,13 +11,16 @@ import seedu.transaction.TransactionList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
     public static final String NAME = "uNivUSaver";
     public static final String HI_MESSAGE = "Hello, %s is willing to help!";
     public static final String INVALID_COMMAND_ERROR_MESSAGE = "Invalid command.";
     public static Scanner scanner; // Scanner for reading user input
-    
+    private static Logger logger = Logger.getLogger("Main");
+
     // Prefix for message formatting
     private static final String PREFIX = "\t";
     // Separator for message formatting
@@ -60,8 +56,12 @@ public class Main {
      * Starts the chatbot and enters the command processing loop.
      */
     public static void run() {
-        start();
-        runCommandLoop();
+        try {
+            start();
+            runCommandLoop();
+        } catch (Exception e) {
+            logger.log(Level.WARNING, e.getMessage());
+        }
     }
 
     /**
@@ -69,20 +69,21 @@ public class Main {
      * and sign up the Command objects.
      */
     public static void start() {
-        printMessage(String.format(HI_MESSAGE, NAME));
+        logger.log(Level.INFO, "Starting uNivUSaver...");
 
         parser = new Parser();
         categories = new CategoryList();
         transactions = new TransactionList();
 
-        parser.registerCommands(new TestCommand());
-
+        logger.log(Level.INFO, "Adding..." + HelpCommand.COMMAND_WORD);
         HelpCommand helpCommand = new HelpCommand();
         parser.registerCommands(helpCommand);
 
+        logger.log(Level.INFO, "Adding..." + AddCategoryCommand.COMMAND_WORD);
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categories);
         parser.registerCommands(addCategoryCommand);
 
+        logger.log(Level.INFO, "Adding..." + ViewCategoryCommand.COMMAND_WORD);
 
         parser.registerCommands(new AddIncomeCommand(transactions, "", "", ""));
         parser.registerCommands(new AddExpenseCommand(transactions, "", "", ""));
@@ -91,13 +92,28 @@ public class Main {
         ViewCategoryCommand viewCategoryCommand = new ViewCategoryCommand(categories);
         parser.registerCommands(viewCategoryCommand);
 
+        logger.log(Level.INFO, "Adding..." + DeleteCategoryCommand.COMMAND_WORD);
         DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categories);
         parser.registerCommands(deleteCategoryCommand);
 
+        logger.log(Level.INFO, "Adding..." + ViewExpenseCommand.COMMAND_WORD);
+        ViewExpenseCommand viewExpenseCommand = new ViewExpenseCommand(transactions);
+        parser.registerCommands(viewExpenseCommand);
+
+        logger.log(Level.INFO, "Adding..." + ViewIncomeCommand.COMMAND_WORD);
+        ViewIncomeCommand viewIncomeCommand = new ViewIncomeCommand(transactions);
+        parser.registerCommands(viewIncomeCommand);
+
+        logger.log(Level.INFO, "Adding..." + HistoryCommand.COMMAND_WORD);
+        HistoryCommand historyCommand = new HistoryCommand(transactions);
+        parser.registerCommands(historyCommand);
 
 
         // Set command list for the help command
+        logger.log(Level.INFO, "Setting command list for HelpCommand...");
         helpCommand.setCommands(new ArrayList<>(parser.getCommands().values()));
+
+        printMessage(String.format(HI_MESSAGE, NAME));
     }
 
     /**
@@ -107,12 +123,14 @@ public class Main {
     private static void runCommandLoop() {
         while (isRunning) {
             String commandString = getUserInput();
-            printMessage(commandString);
+            logger.log(Level.INFO, "Command line: " + commandString);
 
             Command command = parser.parseCommand(commandString);
 
             if (command == null){
-                printMessage(INVALID_COMMAND_ERROR_MESSAGE);
+                List<String> messages = new ArrayList<>();
+                messages.add(INVALID_COMMAND_ERROR_MESSAGE);
+                showCommandResult(messages);
                 continue;
             }
             List<String> messages = command.execute();

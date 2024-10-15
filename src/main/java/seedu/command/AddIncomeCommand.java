@@ -16,17 +16,19 @@ public class AddIncomeCommand extends AddTransactionCommand {
     }
 
     @Override
-    public List<String> execute() {
+    public List<String> execute() throws Exception {
+        System.out.println(amountString); // For testing
         if (!isArgumentsValid()) {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
         }
+
         amount = Double.parseDouble(amountString);
         transactions.addTransaction(createTransaction());
         return List.of("Income added successfully!");
     }
 
     @Override
-    protected Transaction createTransaction() {
+    protected Transaction createTransaction() throws Exception {
         return new Income(amount, description, date);
     }
 
