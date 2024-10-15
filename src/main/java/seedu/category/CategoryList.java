@@ -2,8 +2,11 @@ package seedu.category;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CategoryList {
+    private static Logger logger = Logger.getLogger("CategoryList");
     private List<Category> categories;
 
     public CategoryList() {
@@ -24,12 +27,12 @@ public class CategoryList {
     public void addCategory(Category newCategory) {
         for (Category category : this.categories) {
             if (category.getName().equalsIgnoreCase(newCategory.getName())) {
-                System.out.println("Category '" + newCategory.getName() + "' already exists!");
+                logger.log(Level.INFO, "Category '" + newCategory.getName() + "' already exists!");
                 return;
             }
         }
         categories.add(newCategory);
-        System.out.println("Category '" + newCategory.getName() + "' added successfully.");
+        logger.log(Level.INFO, "Category '" + newCategory.getName() + "' added successfully.");
     }
 
     // Delete Category
@@ -43,17 +46,9 @@ public class CategoryList {
         }
         if (toDelete != null) {
             categories.remove(toDelete);
-            System.out.println("Category '" + categoryName + "' deleted successfully.");
+            logger.log(Level.INFO, "Category '" + categoryName + "' deleted successfully.");
         } else {
-            System.out.println("Category '" + categoryName + "' not found!");
-        }
-    }
-
-    // List all the category
-    public void listCategories() {
-        System.out.println("Available categories:");
-        for (int i = 0; i < categories.size(); i++) {
-            System.out.println((i + 1) + ". " + categories.get(i).getName());
+            logger.log(Level.INFO, "Category '" + categoryName + "' not found!");
         }
     }
 

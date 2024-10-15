@@ -1,10 +1,14 @@
 package seedu.main;
 
 import seedu.command.Command;
+import seedu.command.HelpCommand;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The class {@code Parser} is responsible for parsing user commands into {@code Command} objects.
@@ -15,6 +19,7 @@ import java.util.Map;
  */
 public class Parser {
     /** Map that associates command words with their corresponding {@code Command} objects */
+    private static Logger logger = Logger.getLogger("Parser");
     private Map<String, Command> commands = new LinkedHashMap<>();
 
     /**
@@ -35,6 +40,10 @@ public class Parser {
         String commandWord = null;
         try {
             commandWord = (String) command.getClass().getField("COMMAND_WORD").get(null);
+
+            assert commandWord != null : "Command word should not be null.";
+
+            logger.log(Level.INFO, "Adding..." + commandWord);
             commands.put(commandWord, command);
         } catch (IllegalAccessException | NoSuchFieldException e) {
             // Ignored
@@ -48,6 +57,8 @@ public class Parser {
      * @return The {@code Command} associated with the command string, with assigned arguments.
      */
     public Command parseCommand(String commandString) {
+        assert commandString != null && !commandString.trim().isEmpty() : "Command string should not be null or empty.";
+
         String[] commandParts = commandString.split(" ", 2);
 
         Map<String, String> arguments = new HashMap<>();
@@ -61,8 +72,17 @@ public class Parser {
 
         if (command != null) {
             String[] keywords = command.getArgumentKeys();
+            logger.log(Level.INFO, "Extracting arguments...");
             // Recursively split the command arguments
             splitCommandRecursively(argumentString.trim(), keywords, arguments, "");
+
+            // Iterating through the map using entrySet()
+            for (Map.Entry<String, String> entry : arguments.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                logger.log(Level.INFO, key + ": " + value);
+            }
+
             command.setArguments(arguments);
         } else {
             return null;
