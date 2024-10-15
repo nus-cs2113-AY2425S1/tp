@@ -25,6 +25,7 @@ class AddCategoryCommandTest {
         // Assert
         assertEquals(6, categories.size(), "The category list should contain one category.");
         assertEquals("Sports", categories.get(5).getName(), "The category name should be 'Sports'.");
-        assertEquals("Category added: Sports", result.get(0), "The result message should confirm the category was added.");
+        assertEquals("Category added: Sports", result.get(0), "The result message should confirm the " +
+                "category was added.");
     }
 }
