@@ -1,4 +1,13 @@
 package seedu.duke.parser;
+import seedu.duke.commands.AddPatientCommand;
+import seedu.duke.commands.Command;
+import seedu.duke.commands.DeletePatientCommand;
+import seedu.duke.commands.ListPatientCommand;
+import seedu.duke.commands.ListTaskCommand;
+import seedu.duke.commands.SelectPatientCommand;
+import seedu.duke.commands.MarkTaskCommand;
+import seedu.duke.commands.UnmarkTaskCommand;
+
 import static java.lang.Integer.parseInt;
 
 public class Parser {
@@ -9,14 +18,13 @@ public class Parser {
         this.line = line;
         this.state = state;
     }
-
-    public int parseCommand() {
+    public Command parseCommand() {
         String[] parts = line.split(" ");
 
         switch (parts[0]) {
-        case "add":
+        case AddPatientCommand.COMMAND_WORD:
             try {
-                return parseInt(parts[1]);
+                return new AddPatientCommand(parts[1]);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Non-Numerical Error");
             }
@@ -24,18 +32,40 @@ public class Parser {
 
         case "list":
             if (state == 0) {
-                return 1;
+                return new ListPatientCommand();
             } else if (state == 1) {
-                return 2;
+                return new ListTaskCommand();
             }
             break;
 
-        case "delete", "select", "mark", "unmark":
-            try {
-                return parseInt(parts[1]) - 1;
+        case "delete":
+            try{
+                return new DeletePatientCommand(parseInt(parts[1]));
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Number out-of-range");
-            } catch (NumberFormatException e) {
+                System.out.println("Non-Numerical Error");
+            }
+            break;
+
+        case "select":
+            try{
+                return new SelectPatientCommand(parseInt(parts[1]));
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Non-Numerical Error");
+            }
+            break;
+
+        case "mark":
+            try{
+                return new MarkTaskCommand(parseInt(parts[1]));
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Non-Numerical Error");
+            }
+            break;
+
+        case "unmark":
+            try{
+                return new UnmarkTaskCommand(parseInt(parts[1]));
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println("Non-Numerical Error");
             }
             break;
@@ -43,6 +73,6 @@ public class Parser {
         default:
             System.out.println("Unknown command");
         }
-        return 0;
+        return null;
     }
 }
