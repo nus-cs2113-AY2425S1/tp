@@ -84,7 +84,7 @@ public class TrainingSession{
         for(int i = 0; i < NUM_OF_EXERCISES; i++) {
             exercisePoint = exerciseData[i].getPoints(user);
             totalPoints += exercisePoint;
-            if(minPoint < exercisePoint) {
+            if(minPoint > exercisePoint) {
                 minPoint = exercisePoint;
             }
             System.out.print(exerciseData[i].getName() + " | " +
