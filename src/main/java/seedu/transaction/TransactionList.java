@@ -6,9 +6,12 @@ import seedu.utils.DateTimeUtils;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class TransactionList {
+    private static Logger logger = Logger.getLogger("TransactionList");
     private final List<Transaction> transactions;
 
     public TransactionList() {
@@ -35,16 +38,9 @@ public class TransactionList {
     public void deleteTransaction(int index) {
         if (index >= 0 && index < transactions.size()) {
             Transaction removed = transactions.remove(index);
-            System.out.println("Transaction removed: " + removed);
+            logger.log(Level.INFO,"Transaction removed: " + removed);
         } else {
-            System.out.println("Invalid transaction index!");
-        }
-    }
-
-    public void listTransactions() {
-        System.out.println("All transactions:");
-        for (int i = 0; i < transactions.size(); i++) {
-            System.out.println((i + 1) + ". " + transactions.get(i));
+            logger.log(Level.INFO, "Invalid transaction index!");
         }
     }
 

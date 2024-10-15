@@ -16,4 +16,18 @@ java -jar %jarloc% < ..\..\text-ui-test\input.txt > ..\..\text-ui-test\ACTUAL.TX
 
 cd ..\..\text-ui-test
 
-FC ACTUAL.TXT EXPECTED.TXT >NUL && ECHO Test passed! || Echo Test failed!
+FC ACTUAL.TXT EXPECTED.TXT
+REM Check the result of the comparison
+IF ERRORLEVEL 1 (
+    echo ********** TEST FAILED **********
+    echo Updating EXPECTED.TXT with the new ACTUAL.TXT content.
+    echo.
+
+    REM Replace EXPECTED.TXT with ACTUAL.TXT
+    copy /y ACTUAL.TXT EXPECTED.TXT
+
+    echo Please review the changes if necessary.
+    exit /b 1
+) ELSE (
+    echo ********** TEST PASSED **********
+)

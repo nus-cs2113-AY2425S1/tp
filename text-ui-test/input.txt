@@ -1,1 +1,8 @@
 James Gosling
+help
+view-category
+add-category Cosmetic
+delete-category
+delete-category Food
+view-category
+bye
