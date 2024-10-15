@@ -55,6 +55,8 @@ public class FilterCommand extends Command {
 
     @Override
     public String getUsage() {
-        return "Usage: filter -name {Role name}";
+        return """
+                filter
+                Usage: filter -name {Role name}""";
     }
 }
