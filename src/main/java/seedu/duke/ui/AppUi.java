@@ -81,7 +81,7 @@ public class AppUi {
     public void editEntry(HashMap<String, String> commandArguments) {
         int index = Integer.parseInt(commandArguments.get("argument"));
 
-        FinancialEntry entry = financialList.getEntry(index);
+        FinancialEntry entry = financialList.getEntry(index - 1);
 
         String amountStr = commandArguments.get("/a");
         double amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();

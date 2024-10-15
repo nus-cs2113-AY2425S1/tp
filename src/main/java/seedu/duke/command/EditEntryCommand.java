@@ -15,12 +15,16 @@ public class EditEntryCommand extends Command {
 
     @Override
     public void execute(FinancialList list) {
-        list.editEntry(index, amount, description);
-        System.out.println("--------------------------------------------");
-        System.out.println("Got it. I've edited this expense:");
-        System.out.println(list.getEntry(index));
-        System.out.println("--------------------------------------------");
-
+        if (index >= 0 && index <= list.getEntryCount()) {
+            list.editEntry(index - 1, amount, description);
+            System.out.println("--------------------------------------------");
+            System.out.println("Got it. I've edited this expense:");
+            System.out.println(list.getEntry(index - 1));
+            System.out.println("--------------------------------------------");
+        } else {
+            System.out.println("OOPS!!! The entry does not exist.");
+            System.out.println(index);
+            System.out.println(list.getEntryCount());
+        }
     }
-
 }
