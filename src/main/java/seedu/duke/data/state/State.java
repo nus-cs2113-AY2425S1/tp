@@ -1,17 +1,18 @@
 package seedu.duke.data.state;
+import static seedu.duke.data.state.StateType.MAIN_STATE;
 
 public class State {
-    private int state;
+    private StateType state;
 
     public State(int state) {
-        this.state = state;
+        this.state = MAIN_STATE;
     }
 
-    public int getState() {
+    public StateType getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(StateType state) {
         this.state = state;
     }
 }

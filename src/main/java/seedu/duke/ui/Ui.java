@@ -2,6 +2,7 @@ package seedu.duke.ui;
 import java.util.Scanner;
 
 
+
 /**
  * The Ui class handles the user interface for the task management application.
  * It provides methods for displaying messages and interacting with the user.
@@ -9,6 +10,18 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
 
+
+    public void showMainScreen() {
+        showLine();
+        System.out.print("Meditask: ");
+    }
+
+    public void showTaskScreen(String patientName) {
+        showLine();
+        System.out.println("Patient: " + patientName);
+        System.out.print("Input: ");
+
+    }
     /**
      * Constructs a Ui object and initializes the scanner for user input.
      */
@@ -42,11 +55,12 @@ public class Ui {
     }
 
     /**
-     * Closes the scanner resource.
+     * Closes the scanner
      */
     public void closeScanner() {
         scanner.close();
     }
+
 
 }
 
