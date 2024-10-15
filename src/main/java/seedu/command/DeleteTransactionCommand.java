@@ -17,7 +17,7 @@ public class DeleteTransactionCommand extends Command {
     }
 
     @Override
-    public List<String> execute() throws Exception {
+    public List<String> execute() {
         if (!isArgumentsValid()) {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
         }
