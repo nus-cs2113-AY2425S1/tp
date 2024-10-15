@@ -5,6 +5,7 @@ import command.programme.exercise.CreateExerciseCommand;
 import command.programme.exercise.DeleteExerciseCommand;
 import command.programme.exercise.EditExerciseCommand;
 
+import core.Ui;
 import programme.Exercise;
 import programme.ProgrammeList;
 import core.History;
@@ -37,11 +38,10 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public String execute(ProgrammeList pList, History history){
-        StringBuilder result = new StringBuilder("Editing programme: \n");
+    public void execute(Ui ui, ProgrammeList pList, History history){
         for (ExerciseCommand c : subCommands){
-            result.append(c.execute(pList));
+            String result =  c.execute(pList);
+            ui.showMsg(result);
         }
-        return result.toString();
     }
 }

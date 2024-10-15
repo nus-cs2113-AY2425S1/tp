@@ -1,5 +1,6 @@
 package command.programme;
 import command.Command;
+import core.Ui;
 import programme.ProgrammeList;
 import programme.Programme;
 import core.History;
@@ -12,8 +13,8 @@ public class StartCommand extends Command {
         this.progId = progId; }
 
     @Override
-    public String execute( ProgrammeList pList, History history){
+    public void execute(Ui ui, ProgrammeList pList, History history){
         Programme startedProgramme = pList.startProgramme(progId);
-        return String.format("Ok! Started Programme:%s%n" + startedProgramme);
+        ui.showMsg("Ok! Started Programme:\n" + startedProgramme.toString());
     }
 }
