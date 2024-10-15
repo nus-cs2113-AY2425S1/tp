@@ -8,7 +8,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class WalkAndRunCalculator extends Calculator {
-    private static final Map<LookUpKey, TreeMap<Integer, Integer>> pullUpTable = new HashMap<>();
+    private static final Map<LookUpKey, TreeMap<Integer, Integer>> walkAndRunTable = new HashMap<>();
+    private static final boolean reverseOrder = false;
 
     static {
         initialiseMaleData();
@@ -17,7 +18,7 @@ public class WalkAndRunCalculator extends Calculator {
 
     public static int calculatePoints(Gender gender, int age, int reps) {
         reps *= 100;
-        return getPointsFromTable(pullUpTable, gender, age, reps, true);
+        return getPointsFromTable(walkAndRunTable, gender, age, reps, true);
     }
 
     // Shuttle Run time (in hundredths of seconds)
@@ -34,7 +35,7 @@ public class WalkAndRunCalculator extends Calculator {
                 {{621, 5}, {649, 4}, {719, 3}, {771, 2}, {840, 1}}, // Age 19
                 {{661, 5}, {681, 4}, {700, 3}, {730, 2}, {800, 1}}  // Age 20-24
         };
-        addAllTables(pullUpTable, Gender.FEMALE, ageTables);
+        addAllTables(walkAndRunTable, Gender.FEMALE, ageTables, reverseOrder);
     }
 
     private static void initialiseFemaleData() {
@@ -50,7 +51,7 @@ public class WalkAndRunCalculator extends Calculator {
                 {{801, 5}, {841, 4}, {901, 3}, {961, 2}, {1021, 1}}, // 19
                 {{801, 5}, {841, 4}, {901, 3}, {961, 2}, {1021, 1}}  // 20-24
         };
-        addAllTables(pullUpTable, Gender.FEMALE, ageTables);
+        addAllTables(walkAndRunTable, Gender.FEMALE, ageTables, reverseOrder);
     }
 }
 
