@@ -54,11 +54,11 @@ class HelpCommandTest {
                 "--------------------------------------------\n" +
                 "1. list\n " +
                 "   - Shows a list of all logged transactions\n" +
-                "2. expense DESCRIPTION /a AMOUNT [/d DATE]\n " +
+                "2. expense DESCRIPTION /a AMOUNT\n " +
                 "   - Adds a new expense\n" +
-                "3. income DESCRIPTION /a AMOUNT [/d DATE]\n " +
+                "3. income DESCRIPTION /a AMOUNT\n " +
                 "   - Adds a new income\n" +
-                "4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE]\n " +
+                "4. edit INDEX [/des DESCRIPTION] [/a AMOUNT]\n " +
                 "   - Edits the transaction at the specified INDEX\n" +
                 "5. delete INDEX\n " +
                 "   - Deletes the transaction at the specified INDEX\n" +
