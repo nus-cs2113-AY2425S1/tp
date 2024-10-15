@@ -1,5 +1,7 @@
 package seedu.duke.command;
 
+import java.nio.file.FileAlreadyExistsException;
+
 import seedu.duke.financial.FinancialList;
 
 /**
@@ -22,12 +24,12 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Indicates whether this command will terminate the program.
+     * Indicates whether the main loop should continue running.
      *
-     * @return true, as this command always exits the program.
+     * @return false, indicating that the loop should terminate.
      */
-    public boolean isExit() {
-        return true;
+    public boolean shouldContinueLoop() {
+        return false;
     }
 
 }

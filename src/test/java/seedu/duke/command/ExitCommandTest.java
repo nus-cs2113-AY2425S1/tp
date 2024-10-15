@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.financial.FinancialList;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -36,6 +38,6 @@ public class ExitCommandTest {
     @Test
     public void testIsExit() {
         ExitCommand exitCommand = new ExitCommand();
-        assertTrue(exitCommand.isExit());
+        assertFalse(exitCommand.shouldContinueLoop());
     }
 }

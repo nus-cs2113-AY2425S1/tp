@@ -114,16 +114,6 @@ public class AppUi {
         helpCommand.execute(financialList);
     }
 
-    /**
-     * Executes the exit command and returns the status of the application.
-     * 
-     * @return {@code true} if the application should continue running, {@code false} if it should exit.
-     */
-    public boolean exitCommand() {
-        ExitCommand exitCommand = new ExitCommand();
-        exitCommand.execute(financialList);
-        return !exitCommand.isExit();
-    }
 
     /**
      * Matches a given command with its corresponding action.
@@ -166,9 +156,9 @@ public class AppUi {
             break;
 
         case "exit":
-            // System.out.println(goodByeMessage);
-            // return false;
-            return exitCommand();
+            ExitCommand exitCommand = new ExitCommand();
+            exitCommand.execute(financialList);
+            return exitCommand.shouldContinueLoop();
 
         default:
             System.out.println(unrecognizedCommand);
