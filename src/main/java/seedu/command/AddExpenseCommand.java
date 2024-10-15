@@ -4,6 +4,9 @@ import seedu.category.Category;
 import seedu.transaction.Expense;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AddExpenseCommand extends AddTransactionCommand {
@@ -12,8 +15,8 @@ public class AddExpenseCommand extends AddTransactionCommand {
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/", "c/"};
 
-    public AddExpenseCommand(TransactionList transactions, String description, String amount, String date) {
-        super(transactions, description, amount, date);
+    public AddExpenseCommand(TransactionList transactions) {
+        super(transactions);
     }
 
     @Override
@@ -21,13 +24,49 @@ public class AddExpenseCommand extends AddTransactionCommand {
         if (!isArgumentsValid()) {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
         }
-        transactions.addTransaction(createTransaction());
+
+        // Handle missing description
+        String expenseName = arguments.get("");
+        if (expenseName == null || expenseName.isEmpty()) {
+            expenseName = "";
+        }
+
+        // Retrieve and parse amount
+        String amountString = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
+        double amount = Double.parseDouble(amountString);
+
+        // Handle missing date
+        String dateString = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
+        if (dateString == null || dateString.isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            dateString = LocalDateTime.now().format(formatter);
+        }
+
+        // Handle category
+        String categoryString = arguments.get(COMMAND_EXTRA_KEYWORDS[1]);
+        Category category = null;
+        if (categoryString != null && !categoryString.isEmpty()) {
+            category = new Category(categoryString);
+        }
+
+        Transaction transaction;
+        if (category != null) {
+            transaction = createTransaction(amount, expenseName, dateString, category);
+        } else {
+            transaction = createTransaction(amount, expenseName, dateString);
+        }
+        transactions.addTransaction(transaction);
+
         return List.of("Expense added successfully!");
     }
 
     @Override
-    protected Transaction createTransaction() throws Exception {
-        Category category = arguments.containsKey("c/") ? new Category(arguments.get("c/")) : null;
+    protected Transaction createTransaction(double amount, String description, String date) throws Exception {
+        return new Expense(amount, description, date);
+    }
+
+    protected Transaction createTransaction(double amount, String description,
+                                            String date, Category category) throws Exception {
         return new Expense(amount, description, date, category);
     }
 
