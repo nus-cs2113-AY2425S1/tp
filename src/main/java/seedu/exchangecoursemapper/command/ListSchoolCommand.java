@@ -1,6 +1,7 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.constants.Assertions;
+import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.exception.Exception;
 
 import javax.json.Json;
@@ -19,18 +20,18 @@ public class ListSchoolCommand extends Command {
 
     @Override
     public void execute(String userInput) {
-        logger.log(Level.INFO, "Executing ListSchoolCommand");
+        logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
         try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
             JsonObject jsonObject = jsonReader.readObject();
-            logger.log(Level.INFO, "Successfully read JSON file");
+            logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
             assert jsonObject != null : Assertions.NULL_JSON_FILE;
             assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
             displaySchoolList(jsonObject);
         } catch (IOException e) {
-            logger.log(Level.WARNING, "Failed to read the file");
+            logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
             System.err.println(Exception.fileReadError());
         }
-        logger.log(Level.INFO, "Execution of ListSchoolCommand complete");
+        logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
 
     private static void displaySchoolList(JsonObject jsonObject) {
@@ -38,7 +39,7 @@ public class ListSchoolCommand extends Command {
         System.out.println(LINE_SEPARATOR);
         for (String universityName : universityNames) {
             assert universityName != null && !universityName.isEmpty();
-            logger.log(Level.INFO, "Displaying university names ...");
+            logger.log(Level.INFO, Logs.LIST_SCHOOLS_NAMES);
             System.out.println(universityName);
         }
         System.out.println(LINE_SEPARATOR);
