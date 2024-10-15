@@ -4,7 +4,7 @@ import static seedu.duke.data.state.StateType.MAIN_STATE;
 public class State {
     private StateType state;
 
-    public State(int state) {
+    public State(StateType state) {
         this.state = MAIN_STATE;
     }
 

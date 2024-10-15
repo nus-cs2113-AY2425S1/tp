@@ -20,7 +20,7 @@ public class MediTask {
         Ui ui = new Ui();
         Hospital hospital = new Hospital();
         ui.showWelcome();
-        State currentState = new State(StateType.MAIN_STATE.ordinal()); // Start in MAIN_STATE
+        State currentState = new State(StateType.MAIN_STATE); // Start in MAIN_STATE
         HospitalCommand.setHospital(hospital);
 
         // variable to hold the selected patient
