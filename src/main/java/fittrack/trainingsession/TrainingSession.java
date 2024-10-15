@@ -43,7 +43,7 @@ public class TrainingSession{
     //Edits session data
     public void editExercise(int exerciseNum, int reps) {
         exerciseData[exerciseNum].setPerformance(reps);
-        System.out.print("Exercise edited! Here's your new input: " + System.lineSeparator() +
+        System.out.print("Exercise edited! Here's your new input: " +
                 exerciseData[exerciseNum] + System.lineSeparator());
     }
 
@@ -66,7 +66,7 @@ public class TrainingSession{
     }
 
     public void printSessionDescription() {
-        System.out.println(this.sessionDescription + " | " +
+        System.out.print(this.sessionDescription + " | " +
                 this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
     }
 

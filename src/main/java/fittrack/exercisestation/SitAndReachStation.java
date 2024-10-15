@@ -34,7 +34,7 @@ public class SitAndReachStation extends ExerciseStation {
 
     @Override
     public String toString() {
-        return Integer.toString(length) + "cm" + " | " + Integer.toString(points);
+        return "Distance: " + length + "cm | " + points + " points";
     }
 
 }

@@ -27,15 +27,15 @@ public class TrainingSessionTest {
     @Test
     public void editExercisePullUpStation() {
         new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(0, 1);
-        assertEquals("Exercise edited! Here's your new input: " + System.lineSeparator() +
-                1 + System.lineSeparator(), outContent.toString());
+        assertEquals("Exercise edited! Here's your new input: " +
+                "Reps: 1 | 0 points" + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void editExerciseShuttleRunStation() {
-        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(1, 11);
-        assertEquals("Exercise edited! Here's your new input: " + System.lineSeparator() +
-                11 + "s" + System.lineSeparator(), outContent.toString());
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(1, 110);
+        assertEquals("Exercise edited! Here's your new input: " +
+                "Time: 11seconds | 3 points" + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -55,12 +55,12 @@ public class TrainingSessionTest {
         new TrainingSession(testDatetimeString, testDescription, testUser).viewSession();
         assertEquals("Training Session: " + testDescription + System.lineSeparator() +
                 "Training Datetime: " + testDatetimeOutput + System.lineSeparator() +
-                "Pull Up Station | 0 | 0" + System.lineSeparator() +
-                "Shuttle Run Station | 0s | 0" + System.lineSeparator() +
-                "Sit and Reach Station | 0cm | 0" + System.lineSeparator() +
-                "Sit Up Station | 0 | 0" + System.lineSeparator() +
-                "Standing Broad Jump Station | 0cm | 0" + System.lineSeparator() +
-                "Walk and Run Station | 00:00 | 0" + System.lineSeparator() +
+                "Pull Up Station | Reps: 0 | 0 points" + System.lineSeparator() +
+                "Shuttle Run Station | Time: 0s | 0 points" + System.lineSeparator() +
+                "Sit and Reach Station | Distance: 0cm | 0 points" + System.lineSeparator() +
+                "Sit Up Station | Reps: 0 | 0 points" + System.lineSeparator() +
+                "Standing Broad Jump Station | 0cm | 0 points" + System.lineSeparator() +
+                "Walk and Run Station | Time: 00:00 | 0 points" + System.lineSeparator() +
                 "Total points: " + 0 + System.lineSeparator() +
                         "Overall Award: No award" + System.lineSeparator(),
                 outContent.toString());
