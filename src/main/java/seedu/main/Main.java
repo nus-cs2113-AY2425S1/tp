@@ -1,8 +1,6 @@
 package seedu.main;
 
 import seedu.category.CategoryList;
-import seedu.transaction.TransactionList;
-
 import seedu.command.AddCategoryCommand;
 import seedu.command.ByeCommand;
 import seedu.command.Command;
@@ -14,6 +12,7 @@ import seedu.command.ViewExpenseCommand;
 import seedu.command.ViewIncomeCommand;
 import seedu.command.AddIncomeCommand;
 import seedu.command.AddExpenseCommand;
+import seedu.transaction.TransactionList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +43,7 @@ public class Main {
     private static boolean isRunning = true;
 
     public static void main(String[] args) {
+        scanner = new Scanner(System.in);
         while (isRunning) {
             run();
         }
@@ -87,27 +87,36 @@ public class Main {
         categories = new CategoryList();
         transactions = new TransactionList();
 
+        logger.log(Level.INFO, "Adding..." + HelpCommand.COMMAND_WORD);
         HelpCommand helpCommand = new HelpCommand();
         parser.registerCommands(helpCommand);
 
+        logger.log(Level.INFO, "Adding..." + AddCategoryCommand.COMMAND_WORD);
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categories);
         parser.registerCommands(addCategoryCommand);
 
-        parser.registerCommands(new AddIncomeCommand(transactions, "", "", ""));
-        parser.registerCommands(new AddExpenseCommand(transactions, "", "", ""));
+        logger.log(Level.INFO, "Adding..." + ViewCategoryCommand.COMMAND_WORD);
+
+        parser.registerCommands(new AddIncomeCommand(transactions));
+        parser.registerCommands(new AddExpenseCommand(transactions));
+
 
         ViewCategoryCommand viewCategoryCommand = new ViewCategoryCommand(categories);
         parser.registerCommands(viewCategoryCommand);
 
+        logger.log(Level.INFO, "Adding..." + DeleteCategoryCommand.COMMAND_WORD);
         DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categories);
         parser.registerCommands(deleteCategoryCommand);
 
+        logger.log(Level.INFO, "Adding..." + ViewExpenseCommand.COMMAND_WORD);
         ViewExpenseCommand viewExpenseCommand = new ViewExpenseCommand(transactions);
         parser.registerCommands(viewExpenseCommand);
 
+        logger.log(Level.INFO, "Adding..." + ViewIncomeCommand.COMMAND_WORD);
         ViewIncomeCommand viewIncomeCommand = new ViewIncomeCommand(transactions);
         parser.registerCommands(viewIncomeCommand);
 
+        logger.log(Level.INFO, "Adding..." + HistoryCommand.COMMAND_WORD);
         HistoryCommand historyCommand = new HistoryCommand(transactions);
         parser.registerCommands(historyCommand);
 
