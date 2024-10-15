@@ -16,7 +16,7 @@ public class ShuttleRunCalculator extends Calculator {
 
     public static int calculatePoints(Gender gender, int age, int reps) {
         reps *= 10;
-        return getPointsFromTable(pullUpTable, gender, age, reps);
+        return getPointsFromTable(pullUpTable, gender, age, reps, true);
     }
 
     // Shuttle Run time (in hundredths of seconds)
@@ -28,27 +28,12 @@ public class ShuttleRunCalculator extends Calculator {
                 {{102, 5}, {104, 4}, {108, 3}, {112, 2}, {116, 1}}, // Age 14
                 {{102, 5}, {103, 4}, {105, 3}, {109, 2}, {113, 1}}, // Age 15
                 {{102, 5}, {103, 4}, {105, 3}, {107, 2}, {111, 1}}, // Age 16
-                {{102, 5}, {103, 4}, {105, 3}, {107, 2}, {109, 1}}, // Age 17-19
+                {{102, 5}, {103, 4}, {105, 3}, {107, 2}, {109, 1}}, // Age 17
+                {{102, 5}, {103, 4}, {105, 3}, {107, 2}, {109, 1}}, // Age 18
+                {{102, 5}, {103, 4}, {105, 3}, {107, 2}, {109, 1}}, // Age 19
                 {{104, 5}, {105, 4}, {107, 3}, {109, 2}, {111, 1}}  // Age 20-24
         };
-
-        // Specific ages corresponding to each table
-        int[] ages = {12, 13, 14, 15, 16};
-
-        // Add data for specific ages 12 to 16
-        for (int i = 0; i < ages.length; i++) {
-            addAgeSubTable(pullUpTable, Gender.MALE, ages[i], ageTables[i]);
-        }
-
-        // Add data for ages 17 to 19 using the same table for all
-        for (int age = 17; age <= 19; age++) {
-            addAgeSubTable(pullUpTable, Gender.MALE, age, ageTables[5]); // Age 17-19 table
-        }
-
-        // Add data for ages 18 to 24 using the same table for all
-        for (int age = 18; age <= 24; age++) {
-            addAgeSubTable(pullUpTable, Gender.MALE, age, ageTables[6]); // Age 20-24 table
-        }
+        addAllTables(pullUpTable, Gender.MALE, ageTables);
     }
 
     private static void initialiseFemaleData() {
@@ -64,18 +49,6 @@ public class ShuttleRunCalculator extends Calculator {
                 {{113, 5}, {115, 4}, {118, 3}, {121, 2}, {124, 1}}, // Age 19
                 {{116, 5}, {118, 4}, {121, 3}, {124, 2}, {127, 1}} // Age 20-24
         };
-
-        // Specific ages corresponding to each table
-        int[] ages = {12, 13, 14, 15, 16, 17, 18, 19};
-
-        // Add data for specific ages 12 to 19
-        for (int i = 0; i < ages.length; i++) {
-            addAgeSubTable(pullUpTable, Gender.FEMALE, ages[i], ageTables[i]);
-        }
-
-        // Add data for ages 18 to 24 using the same table for all
-        for (int age = 18; age <= 24; age++) {
-            addAgeSubTable(pullUpTable, Gender.FEMALE, age, ageTables[8]); // Age 20-24 table
-        }
+        addAllTables(pullUpTable, Gender.FEMALE, ageTables);
     }
 }

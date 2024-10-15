@@ -16,7 +16,7 @@ public class SitUpCalculator extends Calculator {
     }
 
     public static int calculatePoints(Gender gender, int age, int reps) {
-        return getPointsFromTable(sitUpTable, gender, age, reps);
+        return getPointsFromTable(sitUpTable, gender, age, reps, false);
     }
 
     protected static void initialiseMaleData() {
