@@ -151,17 +151,21 @@ public class AppUi {
                 "--------------------------------------------\n" +
                 "1. list\n " +
                 "   - Shows a list of all logged transactions\n" +
-                "2. expense DESCRIPTION /a AMOUNT [/d DATE]\n " +
+                "2. list expense\n " +
+                "   - Shows a list of all logged expenses\n" +
+                "3. list income\n " +
+                "   - Shows a list of all logged incomes\n" +
+                "4. expense DESCRIPTION /a AMOUNT [/d DATE]\n " +
                 "   - Adds a new expense\n" +
-                "3. income DESCRIPTION /a AMOUNT [/d DATE]\n " +
+                "5. income DESCRIPTION /a AMOUNT [/d DATE]\n " +
                 "   - Adds a new income\n" +
-                "4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE]\n " +
+                "6. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE]\n " +
                 "   - Edits the transaction at the specified INDEX\n" +
-                "5. delete INDEX\n " +
+                "7. delete INDEX\n " +
                 "   - Deletes the transaction at the specified INDEX\n" +
-                "6. exit\n " +
+                "8. exit\n " +
                 "   - Exits the program\n" +
-                "7. help\n " +
+                "9. help\n " +
                 "   - Shows a list of all valid commands\n" +
                 "--------------------------------------------\n";
 
