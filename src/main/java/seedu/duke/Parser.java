@@ -1,6 +1,13 @@
 package seedu.duke;
 
-import seedu.commands.*;
+import seedu.commands.Command;
+import seedu.commands.AddCommand;
+import seedu.commands.DeleteCommand;
+import seedu.commands.HelpCommand;
+import seedu.commands.ListCommand;
+import seedu.commands.UpdateCommand;
+import seedu.commands.SortCommand;
+import seedu.commands.FilterCommand;
 
 import java.util.Map;
 import java.util.HashMap;
