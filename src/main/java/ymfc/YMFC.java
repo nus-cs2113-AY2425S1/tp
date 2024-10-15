@@ -6,15 +6,13 @@ import java.util.logging.Level;
 
 import ymfc.parser.Parser;
 import ymfc.commands.Command;
-import ymfc.exception.InvalidArgumentException;
-import ymfc.exception.InvalidCommandException;
 import ymfc.recipelist.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
 public class YMFC {
-    private static final String saveFilePath = "./data/recipes.txt";
     public static Logger logger = Logger.getLogger(YMFC.class.getName());
+    private static final String saveFilePath = "./data/recipes.txt";
 
     /**
      * Main entry-point for the java.ymfc.YMFC application.
