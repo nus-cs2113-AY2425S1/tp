@@ -21,7 +21,7 @@ public class ViewTotalCommand extends Command {
 
 
     @Override
-    public List<String> execute() throws Exception {
+    public List<String> execute() {
         List<Transaction> transactions = transactionList.getTransactions();
         double totalIncome = transactions.stream()
                 .filter(t -> t instanceof Income)

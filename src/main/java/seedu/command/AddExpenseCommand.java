@@ -15,12 +15,14 @@ public class AddExpenseCommand extends AddTransactionCommand {
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/", "c/"};
 
+    public static final String ERROR_MESSAGE = "Error creating Income!";
+
     public AddExpenseCommand(TransactionList transactions) {
         super(transactions);
     }
 
     @Override
-    public List<String> execute() throws Exception {
+    public List<String> execute() {
         if (!isArgumentsValid()) {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
         }
@@ -51,9 +53,17 @@ public class AddExpenseCommand extends AddTransactionCommand {
 
         Transaction transaction;
         if (category != null) {
-            transaction = createTransaction(amount, expenseName, dateString, category);
+            try {
+                transaction = createTransaction(amount, expenseName, dateString, category);
+            } catch (Exception e) {
+                return List.of(ERROR_MESSAGE);
+            }
         } else {
-            transaction = createTransaction(amount, expenseName, dateString);
+            try {
+                transaction = createTransaction(amount, expenseName, dateString);
+            } catch (Exception e) {
+                return List.of(ERROR_MESSAGE);
+            }
         }
         transactions.addTransaction(transaction);
 
