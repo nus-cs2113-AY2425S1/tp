@@ -35,8 +35,13 @@ public class Ui {
      *
      * @return the user input as a String
      */
+
     public String readCommand() {
-        return scanner.nextLine();
+        if (scanner.hasNextLine()) {
+            return scanner.nextLine();
+        } else {
+            return ""; // Return empty string if no input is available
+        }
     }
 
     /**
