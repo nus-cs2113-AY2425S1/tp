@@ -4,13 +4,18 @@ import programme.ProgrammeList;
 import programme.Day;
 import core.History;
 
+import java.time.LocalDateTime;
+
+
 public class LogCommand extends Command {
     public static final String COMMAND_WORD = "log";
-    private final String date;
+  
     private final int progIndex;
     private final int dayIndex;
+    private final LocalDateTime date;
 
-    public LogCommand(int progIndex, int dayIndex, String date){
+
+    public LogCommand(int progIndex, int dayIndex, LocalDateTime date){
         this.progIndex = progIndex;
         this.dayIndex = dayIndex;
         this.date = date;

@@ -10,6 +10,8 @@ import command.programme.ViewCommand;
 import command.programme.ListCommand;
 import command.programme.StartCommand;
 import command.programme.EditCommand;
+import command.programme.DeleteCommand;
+
 
 import java.util.ArrayList;
 
@@ -35,6 +37,7 @@ public class ProgammeParser {
         case ListCommand.COMMAND_WORD -> new ListCommand();
         case EditCommand.COMMAND_WORD -> prepareEditCommand(arguments);
         case StartCommand.COMMAND_WORD -> prepareStartCommand(arguments);
+        case DeleteCommand.COMMAND_WORD ->  prepareDeleteCommand(arguments);    
         default -> new InvalidCommand();
         };
     }
@@ -178,5 +181,10 @@ public class ProgammeParser {
     private Command prepareStartCommand(String argumentString) {
         int progIndex = parseIndex(argumentString);
         return new StartCommand(progIndex);
+    }
+
+    private Command prepareDeleteCommand(String argumentString){
+        int progIndex = parseIndex(argumentString);
+        return new DeleteCommand(progIndex);
     }
 }

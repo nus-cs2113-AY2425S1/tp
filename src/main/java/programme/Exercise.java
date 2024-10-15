@@ -13,28 +13,24 @@ public class Exercise {
         this.name = name;
     }
 
-    //Takes in an 'Update' Exercise object with the fields to be updated and assigns new values accordingly
-    //If the field is "null" (i.e. -1 or " "), ignore that field for the update.
+    // Where the 'update' Exercise object has a non-null field, update current exercise to that value
     public void updateExercise(Exercise update){
-        if (update.sets != -1){
-            sets = update.sets;
-        }
+        sets = isNull(update.sets) ? sets : update.sets;
+        reps = isNull(update.reps) ? reps: update.reps;
+        weight = isNull(update.weight) ? weight : update.weight;
+        name = isNull(update.name) ? name : update.name;
+    }
 
-        if (update.reps != -1){
-            reps = update.reps;
-        }
+    private boolean isNull(int val){
+        return (val == -1);
+    }
 
-        if (update.weight != -1){
-            weight = update.weight;
-        }
-
-        if (!update.name.isEmpty()){
-            name = update.name;
-        }
+    private boolean isNull(String val){
+        return val.isEmpty();
     }
 
     @Override
     public String toString() {
-        return name + ": " + sets + " sets of " + reps + " reps at " + weight + " kg";
+        return name.replace("_"," ") + ": " + sets + " sets of " + reps + " reps at " + weight + " kg";
     }
 }
