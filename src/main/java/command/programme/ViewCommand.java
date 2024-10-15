@@ -1,9 +1,9 @@
 package command.programme;
 import command.Command;
-import core.History;
-import programme.ProgrammeList;
 import core.Ui;
+import programme.ProgrammeList;
 import programme.Programme;
+import core.History;
 
 
 public class ViewCommand extends Command {

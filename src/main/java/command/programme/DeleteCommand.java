@@ -2,9 +2,9 @@ package command.programme;
 
 import command.Command;
 import core.History;
+import core.Ui;
 import programme.Programme;
 import programme.ProgrammeList;
-import core.Ui;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";

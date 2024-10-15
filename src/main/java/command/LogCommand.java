@@ -1,12 +1,10 @@
 package command;
-import programme.ProgrammeList;
 import core.Ui;
-import core.History;
+import programme.ProgrammeList;
 import programme.Day;
+import core.History;
 
 import java.time.LocalDateTime;
-
-
 
 
 public class LogCommand extends Command {

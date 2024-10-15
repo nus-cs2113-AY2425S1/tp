@@ -1,7 +1,7 @@
 package command;
-import core.History;
-import programme.ProgrammeList;
 import core.Ui;
+import programme.ProgrammeList;
+import core.History;
 
 
 public class HistoryCommand extends Command {
