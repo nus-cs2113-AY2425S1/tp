@@ -19,6 +19,10 @@ public class TransactionList {
         initializeDefaultTransactions();
     }
 
+    public int size() {
+        return transactions.size();
+    }
+
     private void initializeDefaultTransactions() {
         // Optionally initialize with some default transactions if needed.
     }
