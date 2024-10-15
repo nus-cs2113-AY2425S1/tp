@@ -47,7 +47,8 @@ public class TrainingSessionTest {
     @Test
     public void testPrintSessionDescription(){
         new TrainingSession(testDatetimeString, testDescription, testUser).printSessionDescription();
-        assertEquals(testDescription + " | " + testDatetimeOutput, outContent.toString());
+        assertEquals(testDescription + " | " + testDatetimeOutput, outContent.toString()
+                + System.lineSeparator());
     }
 
     @Test

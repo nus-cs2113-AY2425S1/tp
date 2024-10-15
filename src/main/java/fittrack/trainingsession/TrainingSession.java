@@ -68,7 +68,7 @@ public class TrainingSession{
 
     public void printSessionDescription() {
         System.out.print(this.sessionDescription + " | " +
-                this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + System.lineSeparator());
     }
 
     //Print out all exercise data, including the total points and award given
