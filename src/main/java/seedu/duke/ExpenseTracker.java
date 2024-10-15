@@ -32,7 +32,7 @@ public class ExpenseTracker {
     }
 
     private void tagExpenseHelper(int expenseIndex, String categoryName) {
-        if (expenseIndex <= 0 || expenseIndex >= expenses.size()) {
+        if (expenseIndex < 0 || expenseIndex >= expenses.size()) {
             System.out.println("Invalid index");
             return;
         }
