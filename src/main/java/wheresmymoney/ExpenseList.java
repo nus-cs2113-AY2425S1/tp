@@ -1,6 +1,13 @@
 package wheresmymoney;
 
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 
 public class ExpenseList {
     private ArrayList<Expense> expenses;
@@ -77,5 +84,56 @@ public class ExpenseList {
             }
         }
         return expensesFromCategory;
+    }
+
+    /**
+     * Loads from a csv file into Expense List.
+     *
+     * @param filePath File Path to read csv
+     */
+    public void loadFromCsv(String filePath) throws Exception {
+        File file = new File(filePath);
+        FileReader reader = new FileReader(file);
+        CSVReader csvReader = new CSVReader(reader);
+
+        csvReader.readNext(); // Skip the header
+        String[] line;
+        while ((line = csvReader.readNext()) != null) {
+            addExpense(Float.parseFloat(line[2]), line[1], line[0]);
+        }
+
+        // closing writer connection
+        reader.close();
+    }
+
+    /**
+     * Saves to a csv file.
+     *
+     * @param filePath File Path to save csv to
+     */
+    public void saveToCsv(String filePath) throws IOException {
+        File file = new File(filePath);
+
+        // create FileWriter object with file as parameter
+        FileWriter outputfile = new FileWriter(file);
+
+        // create CSVWriter object filewriter object as parameter
+        CSVWriter writer = new CSVWriter(outputfile);
+
+        // adding header to csv
+        String[] header = { "Category", "Description", "Price" };
+        writer.writeNext(header);
+
+        for (Expense expense: expenses) {
+            String[] row = {
+                    expense.getCategory(),
+                    expense.getDescription(),
+                    expense.getPrice().toString()
+            };
+            writer.writeNext(row);
+        }
+
+        // closing writer connection
+        writer.close();
     }
 }
