@@ -85,8 +85,8 @@ public class Main {
 
         logger.log(Level.INFO, "Adding..." + ViewCategoryCommand.COMMAND_WORD);
 
-        parser.registerCommands(new AddIncomeCommand(transactions, "", "", ""));
-        parser.registerCommands(new AddExpenseCommand(transactions, "", "", ""));
+        parser.registerCommands(new AddIncomeCommand(transactions));
+        parser.registerCommands(new AddExpenseCommand(transactions));
 
 
         ViewCategoryCommand viewCategoryCommand = new ViewCategoryCommand(categories);

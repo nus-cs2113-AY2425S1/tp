@@ -3,6 +3,9 @@ package seedu.command;
 import seedu.transaction.Income;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AddIncomeCommand extends AddTransactionCommand {
@@ -11,24 +14,38 @@ public class AddIncomeCommand extends AddTransactionCommand {
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/"};
 
-    public AddIncomeCommand(TransactionList transactions, String description, String amount, String date) {
-        super(transactions, description, amount, date);
+    public AddIncomeCommand(TransactionList transactions) {
+        super(transactions);
     }
 
     @Override
     public List<String> execute() throws Exception{
-        System.out.println(amountString); // For testing
         if (!isArgumentsValid()) {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
         }
 
-        amount = Double.parseDouble(amountString);
-        transactions.addTransaction(createTransaction());
+        String incomeName = arguments.get("");
+        if (incomeName == null || incomeName.isEmpty()) {
+            incomeName = "";
+        }
+
+        String amountString = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
+
+        String dateString = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
+        if (dateString == null || dateString.isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            dateString = LocalDateTime.now().format(formatter);
+            System.out.println("current date: " + dateString + "\n");
+        }
+
+        double amount = Double.parseDouble(amountString);
+
+        transactions.addTransaction(createTransaction(amount, incomeName, dateString));
         return List.of("Income added successfully!");
     }
 
     @Override
-    protected Transaction createTransaction() throws Exception {
+    protected Transaction createTransaction(double amount, String description, String date) throws Exception {
         return new Income(amount, description, date);
     }
 
