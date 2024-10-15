@@ -37,9 +37,7 @@ public class Parser {
     }
 
     public ArrayList<String> parseData(Command command, String input) {
-        if (command instanceof ListCommand) {
-            return null;
-        } else if (command instanceof HelpCommand) {
+        if (command instanceof ListCommand || command instanceof HelpCommand) {
             return null;
         }
 
