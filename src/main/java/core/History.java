@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 public class History {
+
     private final HashMap<LocalDateTime, Day> history;  // HashMap to store Day with its respective date
 
     // Constructor
@@ -59,3 +60,4 @@ public class History {
         return historyString.toString();
     }
 }
+
