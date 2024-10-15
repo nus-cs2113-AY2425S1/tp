@@ -120,7 +120,7 @@ public class Main {
      * Main command processing loop that retrieves user commands, processes, and displays the results.
      * The loop continues until the application is stopped.
      */
-    private static void runCommandLoop() {
+    private static void runCommandLoop() throws Exception {
         while (isRunning) {
             String commandString = getUserInput();
             logger.log(Level.INFO, "Command line: " + commandString);

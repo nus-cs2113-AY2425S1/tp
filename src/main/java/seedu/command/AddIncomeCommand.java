@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AddIncomeCommand extends AddTransactionCommand {
     public static final String COMMAND_WORD = "add-income";
-    public static final String COMMAND_GUIDE = "add-income [DESCRIPTION] a/AMOUNT [d/DATE]";
+    public static final String COMMAND_GUIDE = "add-income [DESCRIPTION] [a/ AMOUNT] [d/ DATE]";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/"};
 
@@ -16,7 +16,7 @@ public class AddIncomeCommand extends AddTransactionCommand {
     }
 
     @Override
-    public List<String> execute() throws Exception {
+    public List<String> execute() throws Exception{
         System.out.println(amountString); // For testing
         if (!isArgumentsValid()) {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);

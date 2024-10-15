@@ -11,7 +11,7 @@ public class Expense extends Transaction {
         this.category = category;
     }
 
-    public Expense(double amount, String description, String date) {
+    public Expense(double amount, String description, String date) throws Exception {
         super(amount, description, date);
         this.category = null;
     }

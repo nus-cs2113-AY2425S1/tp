@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AddExpenseCommand extends AddTransactionCommand {
     public static final String COMMAND_WORD = "add-expense";
-    public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] a/AMOUNT [d/DATE] [c/CATEGORY]";
+    public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] [a/ AMOUNT] [d/ DATE] [c/ hCATEGORY]";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/", "c/"};
 
@@ -17,7 +17,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
     }
 
     @Override
-    public List<String> execute() {
+    public List<String> execute() throws Exception {
         if (!isArgumentsValid()) {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
         }
@@ -26,7 +26,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
     }
 
     @Override
-    protected Transaction createTransaction() {
+    protected Transaction createTransaction() throws Exception {
         Category category = arguments.containsKey("c/") ? new Category(arguments.get("c/")) : null;
         return new Expense(amount, description, date, category);
     }

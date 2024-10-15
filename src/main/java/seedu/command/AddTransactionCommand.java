@@ -18,10 +18,10 @@ public abstract class AddTransactionCommand extends Command {
         this.transactions = transactions;
         this.description = description;
         this.amountString = amount; // Store the amount as a string initially
-        this.date = date != null && !date.isEmpty() ? DateTimeUtils.parseDateTime(date).toString() : LocalDateTime.now().toString();
+        this.date = date != null && !date.isEmpty() ? date : LocalDateTime.now().toString();
     }
 
-    public abstract List<String> execute();
+    public abstract List<String> execute() throws Exception ;
 
     protected abstract Transaction createTransaction() throws Exception;
 
