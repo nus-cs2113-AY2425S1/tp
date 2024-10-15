@@ -59,4 +59,15 @@ public class Storage {
         }
         writer.close();
     }
+
+    /**
+     * Clears the file by overwriting it with an empty content.
+     * Useful for resetting test files between test runs.
+     * @throws IOException If there is an error clearing the file.
+     */
+    public void clearFile() throws IOException {
+        FileWriter writer = new FileWriter(filePath, false); // 'false' to overwrite the file
+        writer.write(""); // Clear file content
+        writer.close();
+    }
 }
