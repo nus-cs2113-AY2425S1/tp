@@ -82,7 +82,7 @@ public class JsonUtilTest {
     void serialize_success() {
         String jsonSerialize = JsonUtil.toJson(hospital).trim();
         assertNotNull(jsonSerialize);
-        // FIXME: Failed on Windows System
+        // TODO: Failed on Windows System
         // assertTrue(jsonSerialize.equals(hospitalJson.trim()));
     }
 
