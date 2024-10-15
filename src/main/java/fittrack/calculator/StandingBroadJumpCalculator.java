@@ -16,7 +16,7 @@ public class StandingBroadJumpCalculator extends Calculator {
     }
 
     public static int calculatePoints(Gender gender, int age, int distance) {
-        return getPointsFromTable(broadJumpTable, gender, age, distance);
+        return getPointsFromTable(broadJumpTable, gender, age, distance, false);
     }
 
     protected static void initialiseMaleData() {

@@ -9,17 +9,29 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public abstract class Calculator {
+
+    protected static final int ageRangeLowerStart = 12;
+    protected static final int ageRangeLowerEnd = 19;
+    protected static final int ageRangeUpperStart = 20;
+    protected static final int ageRangeUpperEnd = 24;
+
     // Utility method to find the points based on performance in the given table.
     protected static int getPointsFromTable(Map<LookUpKey, TreeMap<Integer, Integer>> pointsTable,
-            Gender gender, int age, int performance) {
+            Gender gender, int age, int performance, boolean reverseComparison) {
 
         try {
             LookUpKey key = new LookUpKey(gender, age);
             TreeMap<Integer, Integer> subTable = pointsTable.get(key);
 
             for (Map.Entry<Integer, Integer> entry : subTable.entrySet()) {
-                if (performance >= entry.getKey()) {
-                    return entry.getValue();
+                if (reverseComparison) {
+                    if (performance > entry.getValue()) {
+                        return entry.getKey();
+                    } else {
+                        if (performance >= entry.getKey()) {
+                            return entry.getValue();
+                        }
+                    }
                 }
             }
             return 0; // return 0 points as performance is below the minimum standard
@@ -41,6 +53,19 @@ public abstract class Calculator {
             pointsTable.put(new LookUpKey(gender, age), ageSubTable);
         } catch (InvalidAgeException e) {
             System.out.println(e.getMessage());;
+        }
+    }
+
+    protected static void addAllTables(Map<LookUpKey, TreeMap<Integer, Integer>> pullUpTable,
+                                       Gender gender, int[][][] ageTables) {
+        // Add data for lower ages
+        for (int age = ageRangeLowerStart; age <= ageRangeLowerEnd; age++) {
+            addAgeSubTable(pullUpTable, gender, age, ageTables[age - ageRangeLowerStart]);
+        }
+
+        // Add data for upper ages
+        for (int age = ageRangeUpperStart; age <= ageRangeUpperEnd; age++) {
+            addAgeSubTable(pullUpTable, gender, age, ageTables[ageTables.length - 1]); // Age 20-24 table
         }
     }
 }

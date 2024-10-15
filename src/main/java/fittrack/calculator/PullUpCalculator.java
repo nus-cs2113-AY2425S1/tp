@@ -16,7 +16,7 @@ public class PullUpCalculator extends Calculator {
     }
 
     public static int calculatePoints(Gender gender, int age, int reps) {
-        return getPointsFromTable(pullUpTable, gender, age, reps);
+        return getPointsFromTable(pullUpTable, gender, age, reps, false);
     }
 
     private static void initialiseMaleData() {

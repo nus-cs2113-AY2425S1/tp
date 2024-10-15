@@ -16,7 +16,7 @@ public class SitAndReachCalculator extends Calculator {
     }
 
     public static int calculatePoints(Gender gender, int age, int length) {
-        return getPointsFromTable(sitAndReachTable, gender, age, length);
+        return getPointsFromTable(sitAndReachTable, gender, age, length, false);
     }
 
     private static void initialiseMaleData() {
