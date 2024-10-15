@@ -71,7 +71,8 @@ public class SeeAllExpensesCommandTest {
 
         String expectedOutput = "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense1 + System.lineSeparator() +
-                "2. " + expense2 + System.lineSeparator();
+                "2. " + expense2 + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
 }
