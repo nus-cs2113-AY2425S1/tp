@@ -123,7 +123,7 @@ public class AppUiTest {
 
         // Prepare command arguments for the "edit" command
         HashMap<String, String> commandArguments = new HashMap<>();
-        commandArguments.put("argument", "0");
+        commandArguments.put("argument", "1");
         commandArguments.put("/a", "25.00");
         commandArguments.put("/des", "Edited Description");
 
