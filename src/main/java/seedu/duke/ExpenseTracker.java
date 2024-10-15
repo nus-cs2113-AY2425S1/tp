@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ExpenseTracker {
     private List<Category> categories;
-    private List expenses;
+    private List<Expense> expenses;
 
     public ExpenseTracker() {
         this.categories = new ArrayList<>();
@@ -29,5 +29,22 @@ public class ExpenseTracker {
         Category newCategory = new Category(trimmedCategoryName);
         categories.add(newCategory);
         System.out.println("Category '" + newCategory + "' added successfully.");
+    }
+
+    public void tagExpense(int expenseIndex, String categoryName) {
+        if (expenseIndex <= 0 || expenseIndex >= expenses.size()) {
+            System.out.println("Invalid index");
+            return;
+        }
+
+        for (Category category: categories) {
+            if (category.getName().equalsIgnoreCase(categoryName)) {
+                Expense expense = expenses.get(expenseIndex);
+                expense.setCategory(categoryName);
+                System.out.println("Tagged expense: " + expense);
+                return;
+            }
+        }
+        System.out.println("Category '" + categoryName + "' does not exist.");
     }
 }
