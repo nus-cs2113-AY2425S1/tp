@@ -98,7 +98,6 @@ public class UpdateCommand extends Command {
                 - Application Pending
                 - Application Completed
                 - Accepted
-                - Rejected
-                """;
+                - Rejected""";
     }
 }

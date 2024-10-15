@@ -18,9 +18,7 @@ public class HelpCommand extends Command {
         commands.add(new SortCommand());
         commands.add(new UpdateCommand());
 
-        for (Command command : commands) {
-            System.out.println(command.getUsage());
-        }
+        ui.showCommands(commands);
     }
 
     @Override
