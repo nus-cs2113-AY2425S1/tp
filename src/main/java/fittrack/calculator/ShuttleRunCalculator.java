@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class ShuttleRunCalculator extends Calculator {
-    private static final Map<LookUpKey, TreeMap<Integer, Integer>> pullUpTable = new HashMap<>();
+    private static final Map<LookUpKey, TreeMap<Integer, Integer>> shuttleRunTable = new HashMap<>();
     private static final boolean reverseOrder = false;
 
     static {
@@ -16,7 +16,7 @@ public class ShuttleRunCalculator extends Calculator {
     }
 
     public static int calculatePoints(Gender gender, int age, int reps) {
-        return getPointsFromTable(pullUpTable, gender, age, reps, true);
+        return getPointsFromTable(shuttleRunTable, gender, age, reps, true);
     }
 
     // Shuttle Run time (in hundredths of seconds)
@@ -33,10 +33,11 @@ public class ShuttleRunCalculator extends Calculator {
                 {{101, 5}, {103, 4}, {105, 3}, {107, 2}, {109, 1}}, // Age 19
                 {{103, 5}, {105, 4}, {107, 3}, {109, 2}, {111, 1}}  // Age 20-24
         };
-        addAllTables(pullUpTable, Gender.MALE, ageTables, reverseOrder);
+        addAllTables(shuttleRunTable, Gender.MALE, ageTables, reverseOrder);
     }
 
     private static void initialiseFemaleData() {
+
         // Age data arrays
         int[][][] ageTables = {
                 {{114, 5}, {119, 4}, {123, 3}, {127, 2}, {132, 1}}, // Age 12
@@ -49,6 +50,6 @@ public class ShuttleRunCalculator extends Calculator {
                 {{112, 5}, {115, 4}, {118, 3}, {121, 2}, {124, 1}}, // Age 19
                 {{115, 5}, {118, 4}, {121, 3}, {124, 2}, {127, 1}} // Age 20-24
         };
-        addAllTables(pullUpTable, Gender.FEMALE, ageTables, reverseOrder);
+        addAllTables(shuttleRunTable, Gender.FEMALE, ageTables, reverseOrder);
     }
 }
