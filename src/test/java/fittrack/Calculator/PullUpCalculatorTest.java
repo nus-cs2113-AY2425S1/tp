@@ -84,7 +84,7 @@ public class PullUpCalculatorTest {
         assertEquals(5, PullUpCalculator.calculatePoints(Gender.MALE, 17, 10),
                 "Expected 5 points for 10 reps for Male, age 16.");
         assertEquals(4, PullUpCalculator.calculatePoints(Gender.MALE, 17, 9),
-                "Expected 4 points for 9 reps for Male, age 16");
+                "Expected 4 points for 9 reps for Male, age 16.");
         assertEquals(4, PullUpCalculator.calculatePoints(Gender.MALE, 17, 8),
                 "Expected 4 points for 8 reps for Male, age 16.");
         assertEquals(0, PullUpCalculator.calculatePoints(Gender.MALE, 17, 0),

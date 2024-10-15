@@ -34,6 +34,6 @@ public class PullUpStation extends ExerciseStation {
 
     @Override
     public String toString() {
-        return Integer.toString(reps) + " | " + Integer.toString(points);
+        return "Reps: " + reps + " | " + points + " points";
     }
 }

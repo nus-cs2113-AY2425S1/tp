@@ -43,7 +43,8 @@ public class TrainingSession{
     //Edits session data
     public void editExercise(int exerciseNum, int reps) {
         exerciseData[exerciseNum].setPerformance(reps);
-        System.out.print("Exercise edited! Here's your new input: " + System.lineSeparator() +
+        exerciseData[exerciseNum].getPoints(user);
+        System.out.print("Exercise edited! Here's your new input: " +
                 exerciseData[exerciseNum] + System.lineSeparator());
     }
 
@@ -66,8 +67,8 @@ public class TrainingSession{
     }
 
     public void printSessionDescription() {
-        System.out.println(this.sessionDescription + " | " +
-                this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+        System.out.print(this.sessionDescription + " | " +
+                this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + System.lineSeparator());
     }
 
     //Print out all exercise data, including the total points and award given

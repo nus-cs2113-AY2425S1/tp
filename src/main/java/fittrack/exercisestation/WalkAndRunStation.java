@@ -33,6 +33,6 @@ public class WalkAndRunStation extends ExerciseStation {
 
     @Override
     public String toString() {
-        return Integer.toString(time) + " | " + Integer.toString(points);
+        return "Time: " + time + " | " + points + " points";
     }
 }
