@@ -81,7 +81,7 @@ public class AppUi {
     public void editEntry(HashMap<String, String> commandArguments) {
         int index = Integer.parseInt(commandArguments.get("argument"));
 
-        FinancialEntry entry = financialList.getEntry(index);
+        FinancialEntry entry = financialList.getEntry(index - 1);
 
         String amountStr = commandArguments.get("/a");
         double amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();
@@ -130,12 +130,13 @@ public class AppUi {
                 seeAllIncomesCommand.execute(financialList);
             } else {
                 System.out.println("Unknown argument: " + type);
+                System.out.println("--------------------------------------------");
             }
         } else {
             SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand();
             seeAllEntriesCommand.execute(financialList);
         }
-    }
+    } 
     
     /**
      * Prints help menu when user inputs 'help' command.
