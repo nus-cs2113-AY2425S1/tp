@@ -3,6 +3,10 @@ package seedu.commands;
 import java.util.ArrayList;
 
 //@@ Ridiculouswifi
+
+/**
+ * Subclass of <code>Command</code> to handle showing the usages for all commands available.
+ */
 public class HelpCommand extends Command {
     @Override
     public void execute(ArrayList<String> args) {
