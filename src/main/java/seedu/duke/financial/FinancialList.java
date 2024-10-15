@@ -31,11 +31,7 @@ public class FinancialList {
      * @param index The index of the entry to be deleted.
      */
     public void deleteEntry(int index) {
-        if (index >= 0 && index < entries.size()) {
-            entries.remove(index);
-        } else {
-            System.out.println("OOPS!!! The entry does not exist.");
-        }
+        entries.remove(index);
     }
 
     /**

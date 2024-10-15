@@ -26,11 +26,15 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(FinancialList list) {
-        FinancialEntry entry = list.getEntry(index - 1);
-        list.deleteEntry(index - 1);  // Index correction as list is 0-based
-        System.out.println("--------------------------------------------");
-        System.out.println("Okay! The following entry has been deleted: ");
-        System.out.println(entry);
-        System.out.println("--------------------------------------------");
+        if (index >= 0 && index < list.getEntryCount()) {
+            FinancialEntry entry = list.getEntry(index - 1);
+            list.deleteEntry(index - 1);  // Index correction as list is 0-based
+            System.out.println("--------------------------------------------");
+            System.out.println("Okay! The following entry has been deleted: ");
+            System.out.println(entry);
+            System.out.println("--------------------------------------------");
+        } else {
+            System.out.println("OOPS!!! The entry does not exist.");
+        }
     }
 }
