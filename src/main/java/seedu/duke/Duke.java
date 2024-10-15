@@ -10,7 +10,7 @@ public class Duke {
         while (true) {
             if (in.hasNextLine()) {
                 String input = in.nextLine().trim();
-                if (input.startWith("add-expense")) {
+                if (input.startsWith("add-expense")) {
                     addExpenseRequest(input, expenseTracker);
                 } else if (input.startsWith("add category")) {
                     expenseTracker.addCategory(input);
@@ -30,7 +30,7 @@ public class Duke {
 
     public static void addExpenseRequest(String input, ExpenseTracker expenseTracker) {
         try {
-            String[] parts = inputs.split(" ");
+            String[] parts = input.split(" ");
 
             String name = null;
             double amount = 0;
@@ -38,22 +38,21 @@ public class Duke {
 
 
             for (String part: parts) {
-                if (parts.startsWith("n/")) {
+                if (part.startsWith("n/")) {
                     name = part.substring(2).trim();
-                } else if (parts.startsWith("a/")) {
+                } else if (part.startsWith("a/")) {
                     amount = Double.parseDouble(part.substring(2).trim());
-                } else if (parts.startsWith("c/")) {
+                } else if (part.startsWith("c/")) {
                     category = part.substring(2).trim();
                 }
             }
 
             if (name == null || amount == 0) {
-                System.out.println("Invalid input! Please provide name and amount.")
+                System.out.println("Invalid input! Please provide name and amount.");
             }
 
-
         } catch (Exception e) {
-            System.out.println("Error parsing the input. Please use correct format for add-expense commands.")
+            System.out.println("Error parsing the input. Please use correct format for add-expense commands.");
         }
     }
 }
