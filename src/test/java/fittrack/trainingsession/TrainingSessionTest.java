@@ -35,7 +35,7 @@ public class TrainingSessionTest {
     public void editExerciseShuttleRunStation() {
         new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(1, 110);
         assertEquals("Exercise edited! Here's your new input: " +
-                "Time: 11seconds | 3 points" + System.lineSeparator(), outContent.toString());
+                "Time: 110s | 3 points" + System.lineSeparator(), outContent.toString());
     }
 
     @Test
@@ -56,13 +56,13 @@ public class TrainingSessionTest {
         assertEquals("Training Session: " + testDescription + System.lineSeparator() +
                 "Training Datetime: " + testDatetimeOutput + System.lineSeparator() +
                 "Pull Up Station | Reps: 0 | 0 points" + System.lineSeparator() +
-                "Shuttle Run Station | Time: 0s | 0 points" + System.lineSeparator() +
+                "Shuttle Run Station | Time: 500s | 0 points" + System.lineSeparator() +
                 "Sit and Reach Station | Distance: 0cm | 0 points" + System.lineSeparator() +
                 "Sit Up Station | Reps: 0 | 0 points" + System.lineSeparator() +
-                "Standing Broad Jump Station | 0cm | 0 points" + System.lineSeparator() +
-                "Walk and Run Station | Time: 00:00 | 0 points" + System.lineSeparator() +
-                "Total points: " + 0 + System.lineSeparator() +
-                        "Overall Award: No award" + System.lineSeparator(),
+                "Standing Broad Jump Station | Distance: 0cm | 0 points" + System.lineSeparator() +
+                "Walk and Run Station | Time: 0 | 1 points" + System.lineSeparator() +
+                "Total points: " + 1 + System.lineSeparator() +
+                        "Overall Award: No Award" + System.lineSeparator(),
                 outContent.toString());
     }
 }

@@ -43,6 +43,7 @@ public class TrainingSession{
     //Edits session data
     public void editExercise(int exerciseNum, int reps) {
         exerciseData[exerciseNum].setPerformance(reps);
+        exerciseData[exerciseNum].getPoints(user);
         System.out.print("Exercise edited! Here's your new input: " +
                 exerciseData[exerciseNum] + System.lineSeparator());
     }

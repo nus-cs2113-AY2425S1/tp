@@ -1,5 +1,6 @@
 package fittrack.exercisestation;
 
+import fittrack.calculator.ShuttleRunCalculator;
 import fittrack.user.User;
 
 public class ShuttleRunStation extends ExerciseStation {
@@ -7,7 +8,7 @@ public class ShuttleRunStation extends ExerciseStation {
     private int time;
 
     public ShuttleRunStation() {
-        time = 0;
+        time = 500;
         points = 0;
     }
 
@@ -22,7 +23,7 @@ public class ShuttleRunStation extends ExerciseStation {
 
     @Override
     public int getPoints(User user) {
-        points = 1;  // Replace 1 with actual point calculation logic
+        points = ShuttleRunCalculator.calculatePoints(user.gender, user.age, time);
         return points;
     }
 
@@ -33,6 +34,6 @@ public class ShuttleRunStation extends ExerciseStation {
 
     @Override
     public String toString() {
-        return "Time: " + time + "seconds | " + points + " points";
+        return "Time: " + time + "s | " + points + " points";
     }
 }
