@@ -1,6 +1,7 @@
 package seedu.main;
 
 import seedu.category.CategoryList;
+import seedu.transaction.TransactionList;
 
 import seedu.command.AddCategoryCommand;
 import seedu.command.ByeCommand;
@@ -11,7 +12,8 @@ import seedu.command.HistoryCommand;
 import seedu.command.ViewCategoryCommand;
 import seedu.command.ViewExpenseCommand;
 import seedu.command.ViewIncomeCommand;
-import seedu.transaction.TransactionList;
+import seedu.command.AddIncomeCommand;
+import seedu.command.AddExpenseCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +93,10 @@ public class Main {
 
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categories);
         parser.registerCommands(addCategoryCommand);
+
+        parser.registerCommands(new AddIncomeCommand(transactions, "", "", ""));
+        parser.registerCommands(new AddExpenseCommand(transactions, "", "", ""));
+
 
         ViewCategoryCommand viewCategoryCommand = new ViewCategoryCommand(categories);
         parser.registerCommands(viewCategoryCommand);
