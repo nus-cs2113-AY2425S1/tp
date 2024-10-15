@@ -31,7 +31,7 @@ public class ExpenseTracker {
         System.out.println("Category '" + newCategory + "' added successfully.");
     }
 
-    public void tagExpense(int expenseIndex, String categoryName) {
+    private void tagExpenseHelper(int expenseIndex, String categoryName) {
         if (expenseIndex <= 0 || expenseIndex >= expenses.size()) {
             System.out.println("Invalid index");
             return;
@@ -46,5 +46,27 @@ public class ExpenseTracker {
             }
         }
         System.out.println("Category '" + categoryName + "' does not exist.");
+    }
+
+    public void tagExpense(String input) {
+        try {
+            String[] parts = input.split(" ");
+            int expenseIndex = -1;
+            String category = null;
+            for (String part: parts) {
+                if (part.startsWith("e/")) {
+                    expenseIndex = Integer.parseInt(part.substring(2).trim()) - 1; // 1-based index
+                } else if (part.startsWith("c/")) {
+                    category = part.substring(2).trim();
+                }
+            }
+            if (expenseIndex < 0 || category == null) {
+                System.out.println("Invalid input! Please provide an expense index and category.");
+                return;
+            }
+            tagExpenseHelper(expenseIndex, category);
+        } catch (Exception e) {
+            System.out.println("Error parsing the input. Please use correct format for tag expense commands.");
+        }
     }
 }
