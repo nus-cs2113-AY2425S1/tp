@@ -1,0 +1,25 @@
+{
+    "patients" : [ {
+    "name" : "Alice",
+    "taskList" : {
+        "tasks" : [ {
+        "description" : "Consultation",
+        "isDone" : true
+        }, {
+        "description" : "Medication",
+        "isDone" : false
+        } ]
+    }
+    }, {
+    "name" : "Bob",
+    "taskList" : {
+        "tasks" : [ {
+        "description" : "Surgery",
+        "isDone" : false
+        }, {
+        "description" : "Medication",
+        "isDone" : false
+        } ]
+    }
+    } ]
+}

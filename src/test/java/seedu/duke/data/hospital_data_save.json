@@ -1,0 +1,13 @@
+{
+  "patients" : [ {
+    "name" : "Alice",
+    "taskList" : {
+      "tasks" : [ ]
+    }
+  }, {
+    "name" : "Bob",
+    "taskList" : {
+      "tasks" : [ ]
+    }
+  } ]
+}
