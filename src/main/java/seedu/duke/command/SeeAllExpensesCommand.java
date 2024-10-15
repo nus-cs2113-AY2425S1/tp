@@ -35,7 +35,8 @@ public class SeeAllExpensesCommand extends Command{
             System.out.println("No recorded expenses found.");
         } else {
             System.out.println("Here's a list of all recorded expenses:");
-            System.out.println(expenseList);
+            System.out.print(expenseList);
+            System.out.println("--------------------------------------------");
         }
     }
 

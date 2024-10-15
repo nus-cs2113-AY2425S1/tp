@@ -130,12 +130,13 @@ public class AppUi {
                 seeAllIncomesCommand.execute(financialList);
             } else {
                 System.out.println("Unknown argument: " + type);
+                System.out.println("--------------------------------------------");
             }
         } else {
             SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand();
             seeAllEntriesCommand.execute(financialList);
         }
-    }
+    } 
     
     /**
      * Prints help menu when user inputs 'help' command.
