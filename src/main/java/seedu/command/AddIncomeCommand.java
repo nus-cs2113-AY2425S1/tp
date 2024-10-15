@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AddIncomeCommand extends AddTransactionCommand {
     public static final String COMMAND_WORD = "add-income";
-    public static final String COMMAND_GUIDE = "add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]";
+    public static final String COMMAND_GUIDE = "add-income [DESCRIPTION] [a/ AMOUNT] [d/ DATE]";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/"};
 
