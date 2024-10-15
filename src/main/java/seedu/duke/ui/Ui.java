@@ -36,7 +36,7 @@ public class Ui {
      * @return the user input as a String
      */
     public String readCommand() {
-        return scanner.hasNextLine() ? scanner.nextLine() : ""; //to prevent NoSuchElementException
+        return scanner.nextLine();
     }
 
     /**
