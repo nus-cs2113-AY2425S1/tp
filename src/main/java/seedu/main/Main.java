@@ -8,7 +8,10 @@ import seedu.command.DeleteCategoryCommand;
 import seedu.command.TestCommand;
 import seedu.command.ViewCategoryCommand;
 import seedu.command.HelpCommand;
+import seedu.command.AddIncomeCommand;
+import seedu.command.AddExpenseCommand;
 import seedu.command.Command;
+
 import seedu.transaction.TransactionList;
 
 
@@ -79,6 +82,10 @@ public class Main {
 
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categories);
         parser.registerCommands(addCategoryCommand);
+
+
+        parser.registerCommands(new AddIncomeCommand(transactions, "", "", ""));
+        parser.registerCommands(new AddExpenseCommand(transactions, "", "", ""));
 
 
         ViewCategoryCommand viewCategoryCommand = new ViewCategoryCommand(categories);

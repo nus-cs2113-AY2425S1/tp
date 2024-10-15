@@ -11,6 +11,11 @@ public class Expense extends Transaction {
         this.category = category;
     }
 
+    public Expense(double amount, String description, String date) {
+        super(amount, description, date);
+        this.category = null;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -22,7 +27,8 @@ public class Expense extends Transaction {
 
     @Override
     public String toString() {
+        String categoryString = (category != null) ? ", category=" + category.getName() : "";
         return "Expense [amount=" + amount + ", description=" + description + ", date="
-                + DateTimeUtils.getDateTimeString(date) + ", category=" + category.getName() + "]";
+                + DateTimeUtils.getDateTimeString(date) + categoryString + "]";
     }
 }
