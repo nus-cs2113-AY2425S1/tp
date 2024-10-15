@@ -8,9 +8,11 @@ public class QuizManager {
     private List<Topic> topics;
     private Quiz currentQuiz;
     private QuizManager quizManager;
+    private List<String> pastResults;
 
     public QuizManager() {
         this.topics = new ArrayList<>();
+        this.pastResults = new ArrayList<>();
         loadTopics();
     }
 
@@ -36,6 +38,9 @@ public class QuizManager {
     public void startQuiz(Topic topic) {
         currentQuiz = new Quiz(topic);
         currentQuiz.start();
+        int score = currentQuiz.getScore();
+        String comment = generateComment(score);
+        addPastResult(score, comment);
     }
 
     public void printTopics() {
@@ -60,4 +65,34 @@ public class QuizManager {
         topics.remove(topic);
     }
 
+    // Add past results (score and comment)
+    private void addPastResult(int score, String comment) {
+        pastResults.add("Score: " + score + "%, Comment: " + comment);
+    }
+
+    // Generates a comment based on the quiz score
+    private String generateComment(int score) {
+        if (score >= 90) {
+            return "Excellent!";
+        } else if (score >= 70) {
+            return "Good job!";
+        } else if (score >= 50) {
+            return "Needs improvement.";
+        } else {
+            return "Better luck next time!";
+        }
+    }
+
+    // Method to review past results
+    public String getPastResults() {
+        if (pastResults == null || pastResults.isEmpty()) {
+            return "No past results available. You haven't completed any quizzes yet.";
+        }
+
+        StringBuilder results = new StringBuilder();
+        for (String result : pastResults) {
+            results.append(result).append("\n");
+        }
+        return results.toString();
+    }
 }

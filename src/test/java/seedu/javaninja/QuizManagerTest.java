@@ -38,5 +38,20 @@ class QuizManagerTest {
         assertEquals(1, quizManager.getTopicsCount());
     }
 
+    @Test
+    public void getPastResults_withResults_returnsCorrectResults() {
+        // Adding a topic and simulating a quiz
+        Topic topic = new Topic("Java Basics");
+        quizManager.addTopic(topic);
+        quizManager.startQuiz(topic);
+
+        // Check if the past results contain the quiz score and comment
+        String pastResults = quizManager.getPastResults();
+        // Assuming 0 score and corresponding comment for simplicity
+        String expectedResult = "Score: 0%, Comment: Better luck next time!\n";
+
+        assertEquals(expectedResult, pastResults);
+    }
+
 }
 
