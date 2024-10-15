@@ -4,7 +4,7 @@ import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 
 /**
- * Command to print all incomes recorded in the financial list.
+ * Command to print all entries recorded in the financial list.
  */
 public class SeeAllEntriesCommand extends Command {
 
