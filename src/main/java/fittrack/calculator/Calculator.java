@@ -24,14 +24,9 @@ public abstract class Calculator {
             TreeMap<Integer, Integer> subTable = pointsTable.get(key);
 
             for (Map.Entry<Integer, Integer> entry : subTable.entrySet()) {
-                if (reverseComparison) {
-                    if (performance > entry.getValue()) {
-                        return entry.getKey();
-                    } else {
-                        if (performance >= entry.getKey()) {
-                            return entry.getValue();
-                        }
-                    }
+                if ((reverseComparison && performance <= entry.getKey()) ||
+                        (!reverseComparison && performance >= entry.getKey())) {
+                    return entry.getValue();
                 }
             }
             return 0; // return 0 points as performance is below the minimum standard
@@ -43,8 +38,14 @@ public abstract class Calculator {
 
     // Utility method to add age sub-table for a specific gender
     protected static void addAgeSubTable(Map<LookUpKey, TreeMap<Integer, Integer>> pointsTable,
-                                         Gender gender, int age, int[][] points) {
-        TreeMap<Integer, Integer> ageSubTable = new TreeMap<>(Comparator.reverseOrder());
+                                         Gender gender, int age, int[][] points, boolean reverseOrder) {
+        TreeMap<Integer, Integer> ageSubTable;
+        if (reverseOrder){
+            ageSubTable = new TreeMap<>(Comparator.reverseOrder());
+        } else{
+            ageSubTable = new TreeMap<>();
+        }
+
         for (int[] point : points) {
             ageSubTable.put(point[0], point[1]);
         }
@@ -57,15 +58,15 @@ public abstract class Calculator {
     }
 
     protected static void addAllTables(Map<LookUpKey, TreeMap<Integer, Integer>> pullUpTable,
-                                       Gender gender, int[][][] ageTables) {
+                                       Gender gender, int[][][] ageTables, boolean reverseOrder) {
         // Add data for lower ages
         for (int age = AGE_RANGE_LOWER_START; age <= AGE_RANGE_LOWER_END; age++) {
-            addAgeSubTable(pullUpTable, gender, age, ageTables[age - AGE_RANGE_LOWER_START]);
+            addAgeSubTable(pullUpTable, gender, age, ageTables[age - AGE_RANGE_LOWER_START], reverseOrder);
         }
 
         // Add data for upper ages
         for (int age = AGE_RANGE_UPPER_START; age <= AGE_RANGE_UPPER_END; age++) {
-            addAgeSubTable(pullUpTable, gender, age, ageTables[ageTables.length - 1]); // Age 20-24 table
+            addAgeSubTable(pullUpTable, gender, age, ageTables[ageTables.length - 1], reverseOrder); // Age 20-24 table
         }
     }
 }
