@@ -1,6 +1,7 @@
 package fittrack.calculator;
 
 import fittrack.enums.Gender;
+import fittrack.exception.InvalidAgeException;
 import fittrack.lookupkey.LookUpKey;
 
 import java.util.Comparator;
@@ -11,15 +12,21 @@ public abstract class Calculator {
     // Utility method to find the points based on performance in the given table.
     protected static int getPointsFromTable(Map<LookUpKey, TreeMap<Integer, Integer>> pointsTable,
             Gender gender, int age, int performance) {
-        LookUpKey key = new LookUpKey(gender, age);
-        TreeMap<Integer, Integer> subTable = pointsTable.get(key);
 
-        for (Map.Entry<Integer, Integer> entry : subTable.entrySet()) {
-            if (performance >= entry.getKey()) {
-                return entry.getValue();
+        try {
+            LookUpKey key = new LookUpKey(gender, age);
+            TreeMap<Integer, Integer> subTable = pointsTable.get(key);
+
+            for (Map.Entry<Integer, Integer> entry : subTable.entrySet()) {
+                if (performance >= entry.getKey()) {
+                    return entry.getValue();
+                }
             }
+            return 0; // return 0 points as performance is below the minimum standard
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());
+            return 0; // return 0 points as invalid age is inputted
         }
-        return 0;
     }
 
     // Utility method to add age sub-table for a specific gender
@@ -29,6 +36,11 @@ public abstract class Calculator {
         for (int[] point : points) {
             ageSubTable.put(point[0], point[1]);
         }
-        pointsTable.put(new LookUpKey(gender, age), ageSubTable);
+
+        try {
+            pointsTable.put(new LookUpKey(gender, age), ageSubTable);
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());;
+        }
     }
 }
