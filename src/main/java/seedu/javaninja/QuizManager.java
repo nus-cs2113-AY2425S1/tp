@@ -6,10 +6,9 @@ import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Locale;
 
 public class QuizManager {
-    private final static String FILE_PATH = "./data/Questions.txt";
+    private static final String FILE_PATH = "./data/Questions.txt";
     private List<Topic> topics;
     private Quiz currentQuiz;
     private List<String> pastResults;
