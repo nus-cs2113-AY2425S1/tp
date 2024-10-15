@@ -85,12 +85,14 @@ public class Main {
         categories = new CategoryList();
         transactions = new TransactionList();
 
-        logger.log(Level.INFO, "Adding..." + HelpCommand.COMMAND_WORD);
         HelpCommand helpCommand = new HelpCommand();
         parser.registerCommands(helpCommand);
 
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categories);
         parser.registerCommands(addCategoryCommand);
+
+        parser.registerCommands(new AddIncomeCommand(transactions, "", "", ""));
+        parser.registerCommands(new AddExpenseCommand(transactions, "", "", ""));
 
         ViewCategoryCommand viewCategoryCommand = new ViewCategoryCommand(categories);
         parser.registerCommands(viewCategoryCommand);
