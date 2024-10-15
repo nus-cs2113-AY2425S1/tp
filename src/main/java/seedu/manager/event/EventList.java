@@ -1,6 +1,7 @@
 package seedu.manager.event;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 /**
@@ -59,6 +60,23 @@ public class EventList  {
     }
 
     /**
+     * Returns an event in the event list with a specified name.
+     * Returns null if the event is not found.
+     *
+     * @param eventName The specified name
+     * @return the event with a specified name, or null if the event is not found
+     */
+    public Optional<Event> getEventByName(String eventName) {
+        for (Event event : eventList) {
+            if (event.getEventName().equals(eventName)) {
+                return Optional.of(event);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    /**
      * Removes an event from the event list by its name.
      *
      * @param eventName the name of the event to be removed.
@@ -69,10 +87,10 @@ public class EventList  {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
                 eventList.remove(event);
-                return true; // Event found and removed
+                return true;
             }
         }
-        return false; // Event not found
+        return false;
     }
 
     /**
