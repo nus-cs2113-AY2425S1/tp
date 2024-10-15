@@ -5,6 +5,8 @@ import seedu.duke.command.AddIncomeCommand;
 import seedu.duke.command.DeleteCommand;
 import seedu.duke.command.EditEntryCommand;
 import seedu.duke.command.SeeAllEntriesCommand;
+import seedu.duke.command.SeeAllExpensesCommand;
+import seedu.duke.command.SeeAllIncomesCommand;
 import seedu.duke.command.HelpCommand;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
@@ -132,6 +134,7 @@ public class AppUi {
             SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand();
             seeAllEntriesCommand.execute(financialList);
         }
+        }
     
     /**
      * Prints help menu when user inputs 'help' command.
@@ -139,7 +142,6 @@ public class AppUi {
     public void printHelpMenu() {
         HelpCommand helpCommand = new HelpCommand();
         helpCommand.execute(financialList);
-
     }
 
     /**
