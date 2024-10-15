@@ -32,8 +32,9 @@ public class History {
         return gson.fromJson(jsonObject, History.class);
     }
 
-    // Returns a formatted string representing the history
-    public String showHistory() {
+    // Standard toString method for History class that represents the history
+    @Override
+    public String toString() {
         StringBuilder historyString = new StringBuilder();
 
         if (history.isEmpty()) {
@@ -51,10 +52,5 @@ public class History {
 
         return historyString.toString();
     }
-
-    // Standard toString method for History class
-    @Override
-    public String toString() {
-        return "History";
-    }
 }
+
