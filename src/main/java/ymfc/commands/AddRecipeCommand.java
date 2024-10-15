@@ -13,10 +13,12 @@ public class AddRecipeCommand extends Command {
     public AddRecipeCommand(Recipe recipe) {
         super();
         this.recipe = recipe;
+        assert recipe != null;
     }
 
     @Override
     public void execute(RecipeList recipes, Ui ui, Storage storage) {
+        assert recipes != null;
         addNewRecipe(recipes, recipe, ui, storage);
     }
 
@@ -26,7 +28,7 @@ public class AddRecipeCommand extends Command {
         try {
             storage.saveRecipes(recipes);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
 
         ui.printAddedRecipe(newRecipe.toString(), recipes.getCounter());

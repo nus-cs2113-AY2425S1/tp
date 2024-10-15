@@ -19,6 +19,5 @@ public abstract class Command {
         return isBye;
     }
 
-    public void execute(RecipeList recipes, Ui ui, Storage storage) {
-    }
+    public abstract void execute(RecipeList recipes, Ui ui, Storage storage);
 }
