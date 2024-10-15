@@ -12,6 +12,7 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(RecipeList recipes, Ui ui, Storage storage) {
+        assert recipes.getCounter() >= 0;
         ui.printList(recipes.getRecipes(), recipes.getCounter());
     }
 }
