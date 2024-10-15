@@ -35,7 +35,6 @@ public class AddIncomeCommand extends AddTransactionCommand {
         if (dateString == null || dateString.isEmpty()) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             dateString = LocalDateTime.now().format(formatter);
-            System.out.println("current date: " + dateString + "\n");
         }
 
         double amount = Double.parseDouble(amountString);
