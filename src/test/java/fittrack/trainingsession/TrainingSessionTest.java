@@ -25,14 +25,14 @@ public class TrainingSessionTest {
     }
 
     @Test
-    public void editExercise_PullUpStation() {
+    public void editExercisePullUpStation() {
         new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(0, 1);
         assertEquals("Exercise edited! Here's your new input: " + System.lineSeparator() +
                 1 + System.lineSeparator(), outContent.toString());
     }
 
     @Test
-    public void editExercise_ShuttleRunStation() {
+    public void editExerciseShuttleRunStation() {
         new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(1, 11);
         assertEquals("Exercise edited! Here's your new input: " + System.lineSeparator() +
                 11 + "s" + System.lineSeparator(), outContent.toString());
