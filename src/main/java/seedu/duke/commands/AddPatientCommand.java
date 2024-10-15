@@ -1,6 +1,7 @@
 package seedu.duke.commands;
 
 public class AddPatientCommand extends HospitalCommand {
+    public static final String COMMAND_WORD = "add";
     private String name;
 
     public AddPatientCommand(String name) {
