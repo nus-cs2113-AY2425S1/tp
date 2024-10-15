@@ -4,10 +4,6 @@ import seedu.category.CategoryList;
 import seedu.command.*;
 import seedu.transaction.TransactionList;
 
-
-import seedu.transaction.TransactionList;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -58,6 +54,11 @@ public class Main {
     public static void run() {
         try {
             start();
+
+            // Assert that categories and transactions are initialized
+            assert categories != null : "Categories should be initialized.";
+            assert transactions != null : "Transactions should be initialized.";
+
             runCommandLoop();
         } catch (Exception e) {
             logger.log(Level.WARNING, e.getMessage());
@@ -71,6 +72,7 @@ public class Main {
     public static void start() {
         logger.log(Level.INFO, "Starting uNivUSaver...");
 
+        scanner = new Scanner(System.in);
         parser = new Parser();
         categories = new CategoryList();
         transactions = new TransactionList();
@@ -107,6 +109,9 @@ public class Main {
         logger.log(Level.INFO, "Adding..." + HistoryCommand.COMMAND_WORD);
         HistoryCommand historyCommand = new HistoryCommand(transactions);
         parser.registerCommands(historyCommand);
+
+        ByeCommand byeCommand = new ByeCommand();
+        parser.registerCommands(byeCommand);
 
 
         // Set command list for the help command
