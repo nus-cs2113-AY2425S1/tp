@@ -1,5 +1,6 @@
 package seedu.exchangecoursemapper.command;
 
+import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.exception.Exception;
 
 import javax.json.Json;
@@ -22,8 +23,8 @@ public class ListSchoolCommand extends Command {
         try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
             JsonObject jsonObject = jsonReader.readObject();
             logger.log(Level.INFO, "Successfully read JSON file");
-            assert jsonObject != null : "JSON object should not be null";
-            assert !jsonObject.isEmpty() : "JSON file is empty, no universities to display";
+            assert jsonObject != null : Assertions.NULL_JSON_FILE;
+            assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
             displaySchoolList(jsonObject);
         } catch (IOException e) {
             logger.log(Level.WARNING, "Failed to read the file");
