@@ -5,12 +5,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import programme.ProgrammeList;
 
+import java.io.File;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import com.google.gson.Gson;
 
 /**
@@ -18,69 +17,73 @@ import com.google.gson.Gson;
  * The <code>Storage</code> class handles reading from and writing to the file specified by the user.
  */
 public class Storage {
-    private String filePath;
+    private final String path;
 
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String path) {
+        this.path = path;
     }
 
-    public void load(DataWrapper dataWrapper) {
-        try {
-            Path directoryPath = Paths.get("data");
-            Path filePath = directoryPath.resolve("data.json");
-            createDirectoryIfNotExist(directoryPath);
+    public JsonObject loadProgrammeList() {
+        return load().getAsJsonObject("programmeList");
+    }
 
-            if (!Files.exists(filePath)) {
-                System.out.println("Oh first time here? Welcome to a life of Fitness, lets start!");
-                return;
-            }
+    public JsonObject loadHistory() {
+        return load().getAsJsonObject("history");
+    }
 
-            try (Reader reader = Files.newBufferedReader(filePath)){
-
-                // Parse the JSON content into a JsonObject
-                JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
-
-                // Extract the ProgrammeList JSON and deserialize it using the fromJson method
-                JsonObject programmeListJson = jsonObject.getAsJsonObject("programmeList");
-                JsonObject historyJson = jsonObject.getAsJsonObject("history");
-
-                ProgrammeList loadedProgrammeList = ProgrammeList.fromJson(programmeListJson);
-                History loadedHistory = History.fromJson(historyJson);
-
-                dataWrapper.setProgrammeList(loadedProgrammeList);
-                dataWrapper.setHistory(loadedHistory);
-
-                System.out.println("Programmes and history have been loaded from: " + filePath);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } catch (Exception e) {
-            System.out.println("Oh first time here? Welcome to a life of Fitness, lets start!");
+    private JsonObject load() {
+        try (FileReader reader = new FileReader(path)){
+            return JsonParser.parseReader(reader).getAsJsonObject();
+        } catch(IOException e){
+            throw new RuntimeException("Failed to load data due to: " + e.getMessage());
         }
     }
 
-    public void createDirectoryIfNotExist(Path directoryPath) throws IOException {
-        if (!Files.exists(directoryPath)) {
-            Files.createDirectory(directoryPath);
-        }
-    }
+    public void save(ProgrammeList programmeList, History history) throws IOException {
+        createDirIfNotExists();
+        createFileIfNotExists();
 
-    public void save(ProgrammeList programmeList, History history) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jsonObject = createJSON(programmeList, history);
 
-        try (FileWriter writer = new FileWriter(filePath)) {
-            JsonObject jsonObject = new JsonObject();
-
-            // Add the serialized ProgrammeList to the JsonObject
-            jsonObject.add("programmeList", programmeList.toJson());
-            jsonObject.add("history", history.toJson());
-
-            // Use GSON to write the entire JsonObject to the file
+        try (FileWriter writer = new FileWriter(path)) {
             gson.toJson(jsonObject, writer);
-
-            System.out.println("Saving done, Good Job!");
         } catch (IOException e) {
-            System.out.println("An error has occurred when saving data: " + e.getMessage());
+            throw new IOException("Failed to save data due to: " + e.getMessage());
+        }
+    }
+
+    private JsonObject createJSON(ProgrammeList programmeList, History history) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.add("programmeList", programmeList.toJson());
+        jsonObject.add("history", history.toJson());
+        return jsonObject;
+    }
+
+    private void createDirIfNotExists() throws IOException {
+        File dir = new File(path).getParentFile();
+
+        if (dir == null || dir.exists()){
+            return;
+        }
+
+        boolean isSuccess = dir.mkdirs();
+
+        if (!isSuccess){
+            throw new IOException("Failed to create directory: " + dir.getAbsolutePath());
+        }
+    }
+
+    private void createFileIfNotExists() throws IOException {
+        File file = new File(path);
+        if (file.exists()) {
+            return;
+        }
+
+        boolean isSuccess = file.createNewFile();
+
+        if (!isSuccess) {
+            throw new IOException("Failed to create file: " + file.getAbsolutePath());
         }
     }
 }

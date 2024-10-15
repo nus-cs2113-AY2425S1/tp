@@ -1,33 +1,44 @@
+import com.google.gson.JsonObject;
+
 import command.Command;
-import core.DataWrapper;
 import core.History;
 import parser.Parser;
 import core.Ui;
 import core.Storage;
 import programme.ProgrammeList;
 
-
-/**
- * The Medea class serves as the main application interface,
- * managing the flow of the application, including command processing,
- * task loading, and saving tasks to storage.
- */
 public class BuffBuddy {
     private static final String DEFAULT_FILE_PATH = "./data/data.json";
-    private final Ui userInterface;
+    private final Ui ui;
     private final Storage storage;
     private History history;
-    private final DataWrapper dataWrapper;
     private ProgrammeList pList;
     private final Parser commandParser;
 
     public BuffBuddy(String filePath) {
-        userInterface = new Ui();
+        ui = new Ui();
         storage = new Storage(filePath);
         commandParser = new Parser();
-        pList = new ProgrammeList();
-        history = new History();
-        dataWrapper = new DataWrapper(pList, history);
+        pList = loadProgrammeList();
+        history = loadHistory();
+    }
+
+    private ProgrammeList loadProgrammeList() {
+        try {
+            JsonObject programmeListJson = storage.loadProgrammeList();
+            return ProgrammeList.fromJson(programmeListJson);
+        } catch (Exception e) {
+            return new ProgrammeList();
+        }
+    }
+
+    private History loadHistory() {
+        try {
+            JsonObject historyJson = storage.loadHistory();
+            return History.fromJson(historyJson);
+        } catch (Exception e) {
+            return new History();
+        }
     }
 
     public static void main(String[] args) {
@@ -35,40 +46,32 @@ public class BuffBuddy {
     }
 
     public void run() {
-        loadTasks();
-        userInterface.showWelcome();
+        ui.showWelcome();
         handleUserCommands();
-        userInterface.showFarewell();
-        saveTasks();
+        ui.showFarewell();
+        saveData();
     }
 
     private void handleUserCommands() {
         while (true) {
             try {
-                String fullCommand = userInterface.readCommand();
+                String fullCommand = ui.readCommand();
                 Command command = commandParser.parse(fullCommand);
                 if (command.isExit()) {
                     return;
                 }
-                wrapWithLine(() -> command.execute(userInterface, pList, history));
-            } catch (Exception exception) {
-                wrapWithLine(() -> userInterface.showError(exception));
+                command.execute(ui, pList, history);
+            } catch (Exception e) {
+                ui.showError(e);
             }
         }
     }
 
-    private void wrapWithLine(Runnable action) {
-        userInterface.showLine();
-        action.run();
-        userInterface.showLine();
-    }
-
-    private void loadTasks() {
-        storage.load(dataWrapper);
-        pList = dataWrapper.getProgrammeList();
-        history = dataWrapper.getHistory();
-    }
-    private void saveTasks() {
-        storage.save(pList, history);
+    private void saveData() {
+        try {
+            storage.save(pList, history);
+        } catch (Exception e) {
+            ui.showError(e);
+        }
     }
 }
