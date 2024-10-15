@@ -13,6 +13,8 @@ import seedu.command.ViewIncomeCommand;
 import seedu.command.AddIncomeCommand;
 import seedu.command.AddExpenseCommand;
 import seedu.command.DeleteTransactionCommand;
+import seedu.command.ViewTotalCommand;
+
 import seedu.transaction.TransactionList;
 
 import java.util.ArrayList;
@@ -120,6 +122,10 @@ public class Main {
         logger.log(Level.INFO, "Adding..." + ViewIncomeCommand.COMMAND_WORD);
         ViewIncomeCommand viewIncomeCommand = new ViewIncomeCommand(transactions);
         parser.registerCommands(viewIncomeCommand);
+
+        logger.log(Level.INFO, "Adding..." + ViewTotalCommand.COMMAND_WORD);
+        ViewTotalCommand viewTotalCommand = new ViewTotalCommand(transactions);
+        parser.registerCommands(viewTotalCommand);
 
         logger.log(Level.INFO, "Adding..." + HistoryCommand.COMMAND_WORD);
         HistoryCommand historyCommand = new HistoryCommand(transactions);
