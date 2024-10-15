@@ -114,6 +114,11 @@ public class AppUi {
         helpCommand.execute(financialList);
     }
 
+    /**
+     * Executes the exit command and returns the status of the application.
+     * 
+     * @return {@code true} if the application should continue running, {@code false} if it should exit.
+     */
     public boolean exitCommand() {
         ExitCommand exitCommand = new ExitCommand();
         exitCommand.execute(financialList);
