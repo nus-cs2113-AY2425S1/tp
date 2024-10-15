@@ -54,7 +54,7 @@ public final class Parser {
         case "bye":
             return new ByeCommand();
         default:
-            throw new InvalidCommandException("Invalid command: " + command);
+            throw new InvalidCommandException("Invalid command: " + command + "\ntype \"help\" for assistance");
         }
     }
 
@@ -84,7 +84,7 @@ public final class Parser {
         args = args.trim();
         Matcher m = ADD_RECIPE_COMMAND_FORMAT.matcher(args);
         if (!m.matches()) {
-            throw new InvalidArgumentException("Invalid argument(s): " + args);
+            throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + AddRecipeCommand.USAGE_EXAMPLE);
         }
 
         String name = m.group("name").trim().substring(2); // n/ or N/ are 2 chars
@@ -111,7 +111,7 @@ public final class Parser {
         args = args.trim();
         Matcher m = DELETE_COMMAND_FORMAT.matcher(args);
         if (!m.matches()) {
-            throw new InvalidArgumentException("Invalid argument(s): " + args);
+            throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + DeleteCommand.USAGE_EXAMPLE);
         }
         String name = m.group("name").trim().substring(2);
         // return new DeleteCommand(0);

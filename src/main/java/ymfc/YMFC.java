@@ -14,7 +14,7 @@ import ymfc.ui.Ui;
 
 public class YMFC {
     private static final String saveFilePath = "./data/recipes.txt";
-    private static Logger logger = Logger.getLogger(YMFC.class.getName());
+    public static Logger logger = Logger.getLogger(YMFC.class.getName());
 
     /**
      * Main entry-point for the java.ymfc.YMFC application.
@@ -49,15 +49,10 @@ public class YMFC {
                     saidBye = true;
                     logger.log(Level.INFO, "User said bye");
                 }
-            } catch (InvalidArgumentException | InvalidCommandException e) {
-                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                ui.printErrorMessage(e.getMessage());
             }
-
-
         }
-
         logger.log(Level.FINE, "Ending YMFC");
-
     }
-
 }

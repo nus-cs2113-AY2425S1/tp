@@ -4,6 +4,7 @@ import ymfc.recipelist.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
+
 public abstract class Command {
     protected static boolean isBye;
 
@@ -19,5 +20,5 @@ public abstract class Command {
         return isBye;
     }
 
-    public abstract void execute(RecipeList recipes, Ui ui, Storage storage);
+    public abstract void execute(RecipeList recipes, Ui ui, Storage storage) throws Exception;
 }
