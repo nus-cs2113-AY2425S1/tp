@@ -1,6 +1,7 @@
 package ymfc.commands;
 
 import ymfc.recipelist.RecipeList;
+import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
 public abstract class Command {
@@ -18,6 +19,6 @@ public abstract class Command {
         return isBye;
     }
 
-    public void execute(RecipeList recipes, Ui ui) {
+    public void execute(RecipeList recipes, Ui ui, Storage storage) {
     }
 }

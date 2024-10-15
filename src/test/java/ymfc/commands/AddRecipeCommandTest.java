@@ -2,6 +2,7 @@ package ymfc.commands;
 
 import ymfc.recipe.Recipe;
 import ymfc.recipelist.RecipeList;
+import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddRecipeCommandTest {
 
+    private Storage storage;
     private RecipeList emptyList;
     private Ui ui;
     private Recipe recipe;
@@ -21,6 +23,7 @@ public class AddRecipeCommandTest {
     void setUp() {
         emptyList = new RecipeList();
         ui = new Ui(System.in);
+        storage = new Storage("./data/recipes.txt");
 
         // Sample ingredients and steps
         ArrayList<String> ingredients = new ArrayList<>();
@@ -39,7 +42,7 @@ public class AddRecipeCommandTest {
 
     @Test
     void testAddNewRecipe() {
-        addRecipeCommand.execute(emptyList, ui);
+        addRecipeCommand.execute(emptyList, ui, storage);
 
         assertEquals(1, emptyList.getCounter());
         assertEquals(recipe, emptyList.getRecipe(0));

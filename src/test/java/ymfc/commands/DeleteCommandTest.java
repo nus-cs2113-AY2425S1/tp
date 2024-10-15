@@ -2,6 +2,7 @@ package ymfc.commands;
 
 import ymfc.recipe.Recipe;
 import ymfc.recipelist.RecipeList;
+import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeleteCommandTest {
+    private Storage storage;
     private RecipeList recipeList;
     private Ui ui;
     private DeleteCommand deleteCommand;
@@ -19,6 +21,7 @@ public class DeleteCommandTest {
     void setUp() {
         recipeList = new RecipeList();
         ui = new Ui(System.in);
+        storage = new Storage("./data/recipes.txt");
 
         // Add some sample recipes
         ArrayList<String> pastaIngredients = new ArrayList<>();
@@ -57,7 +60,7 @@ public class DeleteCommandTest {
         assertEquals(2, recipeList.getCounter());
 
         // Execute the DeleteCommand
-        deleteCommand.execute(recipeList, ui);
+        deleteCommand.execute(recipeList, ui, storage);
 
         // Assertions to verify the recipe was removed
         assertEquals(1, recipeList.getCounter());  // Ensure that a recipe was deleted
