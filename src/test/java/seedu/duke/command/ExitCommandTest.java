@@ -16,6 +16,10 @@ public class ExitCommandTest {
         ExitCommand exitCommand = new ExitCommand();
         FinancialList list = new FinancialList();
 
+        final String goodByeMessage = "--------------------------------------------\n" +
+                "Goodbye! Hope to see you again soon :)\n" +
+                "--------------------------------------------\n";
+
         // Capture the output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
@@ -26,7 +30,7 @@ public class ExitCommandTest {
         // Restore the original System.out
         System.setOut(originalOut);
 
-        assertEquals("--------------------------------------------\nGoodbye! Hope to see you again soon :)\n--------------------------------------------\n" + System.lineSeparator(), outputStream.toString());
+        assertEquals(goodByeMessage + System.lineSeparator(), outputStream.toString());
     }
 
     @Test
