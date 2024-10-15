@@ -65,7 +65,8 @@ public class AddExpenseCommand extends AddTransactionCommand {
         return new Expense(amount, description, date);
     }
 
-    protected Transaction createTransaction(double amount, String description, String date, Category category) throws Exception {
+    protected Transaction createTransaction(double amount, String description,
+                                            String date, Category category) throws Exception {
         return new Expense(amount, description, date, category);
     }
 

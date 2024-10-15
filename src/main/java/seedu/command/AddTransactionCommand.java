@@ -1,9 +1,7 @@
-// Abstract AddTransactionCommand
 package seedu.command;
 
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public abstract class AddTransactionCommand extends Command {
