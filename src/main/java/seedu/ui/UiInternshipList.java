@@ -35,4 +35,11 @@ public class UiInternshipList extends Ui {
     public void showInvalidIndex() {
         showOutput("Invalid index!\nPlease use list to find internship ID");
     }
+
+    /**
+     * Prints message to show internship of specified id has been deleted from <code>InternshipList</code>.
+     */
+    public void showDeletedInternship(int id) {
+        showOutput("Internship deleted: " + id);
+    }
 }

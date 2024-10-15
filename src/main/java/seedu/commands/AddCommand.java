@@ -4,6 +4,7 @@ import seedu.duke.Internship;
 
 import java.util.ArrayList;
 
+//@@author jadenlimjc
 public class AddCommand extends Command {
     @Override
     public void execute(ArrayList<String> args) {
@@ -58,6 +59,6 @@ public class AddCommand extends Command {
 
     @Override
     public String getUsage() {
-        return "Usage: add -name {Role name} -company {Company name} -from {start date} -to {end date}";
+        return "Usage: add -role {Role name} -company {Company name} -from {start date} -to {end date}";
     }
 }

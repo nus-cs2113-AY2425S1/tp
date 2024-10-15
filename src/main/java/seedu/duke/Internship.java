@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Class to store the relevant information for an internship.
  */
+//@@author jadenlimjc
 public class Internship {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
 
