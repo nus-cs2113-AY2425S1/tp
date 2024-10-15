@@ -9,9 +9,11 @@ import java.time.LocalDateTime;
 
 public class LogCommand extends Command {
     public static final String COMMAND_WORD = "log";
-    private LocalDateTime date;
-    private int progIndex;
-    private int dayIndex;
+  
+    private final int progIndex;
+    private final int dayIndex;
+    private final LocalDateTime date;
+
 
     public LogCommand(int progIndex, int dayIndex, LocalDateTime date){
         this.progIndex = progIndex;
