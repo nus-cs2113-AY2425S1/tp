@@ -35,7 +35,12 @@ public class AddExpenseCommand extends AddTransactionCommand {
 
         // Retrieve and parse amount
         String amountString = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
-        double amount = Double.parseDouble(amountString);
+        double amount;
+        try {
+            amount = Double.parseDouble(amountString);
+        } catch (NumberFormatException e) {
+            return List.of("Invalid amount");
+        }
 
         // Handle missing date
         String dateString = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
@@ -62,7 +67,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
             try {
                 transaction = createTransaction(amount, expenseName, dateString);
             } catch (Exception e) {
-                return List.of(ERROR_MESSAGE);
+                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
             }
         }
         transactions.addTransaction(transaction);

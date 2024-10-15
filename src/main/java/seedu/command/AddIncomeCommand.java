@@ -37,14 +37,17 @@ public class AddIncomeCommand extends AddTransactionCommand {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             dateString = LocalDateTime.now().format(formatter);
         }
-
-        double amount = Double.parseDouble(amountString);
-
+        double amount;
+        try {
+            amount = Double.parseDouble(amountString);
+        } catch (NumberFormatException e) {
+            return List.of("Invalid amount");
+        }
         try {
             transactions.addTransaction(createTransaction(amount, incomeName, dateString));
             return List.of("Income added successfully!");
         } catch (Exception e) {
-            return List.of(ERROR_MESSAGE);
+            return List.of(ERROR_MESSAGE + ": " + e.getMessage());
         }
 
     }

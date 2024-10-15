@@ -5,6 +5,7 @@ import seedu.transaction.Income;
 import seedu.transaction.Expense;
 import seedu.transaction.TransactionList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewTotalCommand extends Command {
@@ -34,10 +35,12 @@ public class ViewTotalCommand extends Command {
                 .sum();
 
         double netTotal = totalIncome - totalExpenses;
-        String result = String.format("Total Income: $%.2f\nTotal Expenses: $%.2f\nNet Total: $%.2f",
-                totalIncome, totalExpenses, netTotal);
 
-        return List.of(result);
+        List<String> messages = new ArrayList<>();
+        messages.add(String.format("Total Income: $%.2f", totalIncome));
+        messages.add(String.format("Total Expenses: $%.2f", totalExpenses));
+        messages.add(String.format("Net Total: $%.2f", netTotal));
+        return messages;
     }
 
     /**
