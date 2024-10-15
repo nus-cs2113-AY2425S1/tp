@@ -46,6 +46,7 @@ public class Cli {
         System.out.println("Goodbye!");
     }
 
+    // Help message
     private void printHelp() {
         System.out.println("List of available commands:");
         System.out.println("'view' - View available topics");
