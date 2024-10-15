@@ -7,17 +7,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PullUpCalculatorTest {
-   @Test
+    @Test
     public void testMaleAge12() {
         assertEquals(5, PullUpCalculator.calculatePoints(Gender.MALE, 12, 30),
                 "Expected 5 points for 30 reps for Male, age 12.");
         assertEquals(5, PullUpCalculator.calculatePoints(Gender.MALE, 12, 25),
                 "Expected 5 points for 25 reps for Male, age 12.");
-       assertEquals(4, PullUpCalculator.calculatePoints(Gender.MALE, 12, 24),
+        assertEquals(4, PullUpCalculator.calculatePoints(Gender.MALE, 12, 24),
                 "Expected 4 points for 24 reps for Male, age 12");
-       assertEquals(4, PullUpCalculator.calculatePoints(Gender.MALE, 12, 21),
+        assertEquals(4, PullUpCalculator.calculatePoints(Gender.MALE, 12, 21),
                 "Expected 4 points for 21 reps for Male, age 12.");
-       assertEquals(0, PullUpCalculator.calculatePoints(Gender.MALE, 12, 0),
+        assertEquals(0, PullUpCalculator.calculatePoints(Gender.MALE, 12, 0),
                "Expected 0 points for 0 reps for Male, age 12.");
     }
 
@@ -93,7 +93,7 @@ public class PullUpCalculatorTest {
 
     @Test
     public void testMaleAge18to24() {
-       for (int age = 18; age <= 24; age += 1) {
+        for (int age = 18; age <= 24; age += 1) {
             assertEquals(5, PullUpCalculator.calculatePoints(Gender.MALE, age, 15),
                     "Expected 5 points for 15 reps for Male, age" + age + ".");
             assertEquals(5, PullUpCalculator.calculatePoints(Gender.MALE, age, 11),
