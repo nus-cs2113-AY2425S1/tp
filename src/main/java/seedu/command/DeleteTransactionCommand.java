@@ -11,7 +11,8 @@ public class DeleteTransactionCommand extends Command {
     public static final String[] COMMAND_EXTRA_KEYWORDS = {};
 
     public static final String INVALID_INDEX_MESSAGE = "Invalid index format. Please enter a valid integer index.";
-
+    public static final String INDEX_OUT_OF_BOUND_MESSAGE = "Index out of bound. " +
+            "Please enter a valid integer index.";
 
     protected TransactionList transactions;
 
@@ -26,7 +27,7 @@ public class DeleteTransactionCommand extends Command {
         }
 
         String indexString = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
-        Integer index = Integer.parseInt(indexString);
+        int index;
         try {
             index = Integer.parseInt(indexString);
         } catch (NumberFormatException e) {
@@ -35,7 +36,7 @@ public class DeleteTransactionCommand extends Command {
 
         int transactionListSize = transactions.size();
         if (index < 1 || index > transactionListSize) {
-            return List.of(INVALID_INDEX_MESSAGE);
+            return List.of(INDEX_OUT_OF_BOUND_MESSAGE);
         }
 
         transactions.deleteTransaction(index-1);

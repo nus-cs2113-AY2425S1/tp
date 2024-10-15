@@ -90,44 +90,35 @@ public class Main {
         categories = new CategoryList();
         transactions = new TransactionList();
 
-        logger.log(Level.INFO, "Adding..." + HelpCommand.COMMAND_WORD);
         HelpCommand helpCommand = new HelpCommand();
         parser.registerCommands(helpCommand);
 
-        logger.log(Level.INFO, "Adding..." + AddCategoryCommand.COMMAND_WORD);
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categories);
         parser.registerCommands(addCategoryCommand);
 
-        logger.log(Level.INFO, "Adding..." + ViewCategoryCommand.COMMAND_WORD);
-
         parser.registerCommands(new AddIncomeCommand(transactions));
+
         parser.registerCommands(new AddExpenseCommand(transactions));
 
 
         ViewCategoryCommand viewCategoryCommand = new ViewCategoryCommand(categories);
         parser.registerCommands(viewCategoryCommand);
 
-        logger.log(Level.INFO, "Adding..." + DeleteCategoryCommand.COMMAND_WORD);
         DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categories);
         parser.registerCommands(deleteCategoryCommand);
 
-        logger.log(Level.INFO, "Adding..." + DeleteTransactionCommand.COMMAND_WORD);
         DeleteTransactionCommand deleteTransactionCommand = new DeleteTransactionCommand(transactions);
         parser.registerCommands(deleteTransactionCommand);
 
-        logger.log(Level.INFO, "Adding..." + ViewExpenseCommand.COMMAND_WORD);
         ViewExpenseCommand viewExpenseCommand = new ViewExpenseCommand(transactions);
         parser.registerCommands(viewExpenseCommand);
 
-        logger.log(Level.INFO, "Adding..." + ViewIncomeCommand.COMMAND_WORD);
         ViewIncomeCommand viewIncomeCommand = new ViewIncomeCommand(transactions);
         parser.registerCommands(viewIncomeCommand);
 
-        logger.log(Level.INFO, "Adding..." + ViewTotalCommand.COMMAND_WORD);
         ViewTotalCommand viewTotalCommand = new ViewTotalCommand(transactions);
         parser.registerCommands(viewTotalCommand);
 
-        logger.log(Level.INFO, "Adding..." + HistoryCommand.COMMAND_WORD);
         HistoryCommand historyCommand = new HistoryCommand(transactions);
         parser.registerCommands(historyCommand);
 
