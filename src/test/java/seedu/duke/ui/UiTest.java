@@ -59,8 +59,7 @@ class UiTest {
         ui.showWelcome();
 
         String expectedOutput = "____________________________________________________________\n" +
-                "welcome to Meditask\n" +
-                "____________________________________________________________";
+                "Welcome to Meditask!";
 
         // Normalize line endings and compare
         String actualOutput = outContent.toString().trim().replace("\r\n", "\n");
