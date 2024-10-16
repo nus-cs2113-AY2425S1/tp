@@ -34,6 +34,16 @@ public class ExpenseTracker {
         System.out.println("Category '" + newCategory + "' added successfully.");
     }
 
+    public void deleteExpense(int expenseIndex) {
+        if (expenseIndex < 0 || expenseIndex >= expenses.size()) {
+            System.out.println("Invalid index. Unable to delete expense.");
+            return;
+        }
+        Expense removedExpense = expenses.remove(expenseIndex);
+        System.out.println("Deleted expense: " + removedExpense);
+    }
+
+
     private void tagExpenseHelper(int expenseIndex, String categoryName) {
         if (expenseIndex < 0 || expenseIndex >= expenses.size()) {
             System.out.println("Invalid index");
