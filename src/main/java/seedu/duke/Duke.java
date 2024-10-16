@@ -14,6 +14,8 @@ public class Duke {
                     addExpenseRequest(input, expenseTracker);
                 } else if (input.startsWith("add category")) {
                     expenseTracker.addCategory(input);
+                }else if (input.startsWith("delete-expense")) {
+                    deleteExpenseRequest(input, expenseTracker);
                 } else if (input.startsWith("tag expense")) {
                     expenseTracker.tagExpense(input);
                 } else if (input.equalsIgnoreCase("bye")) {
@@ -34,6 +36,7 @@ public class Duke {
             }
         }
     }
+
 
     public static void addExpenseRequest(String input, ExpenseTracker expenseTracker) {
         try {
@@ -94,6 +97,23 @@ public class Duke {
             System.out.println("Error parsing the input. Please use correct format for add-expense commands.");
         }
     }
+
+    public static void deleteExpenseRequest(String input, ExpenseTracker expenseTracker) {
+        try {
+            String[] parts = input.split(" ");
+            if (parts.length < 2 || !parts[1].startsWith("e/")) {
+                System.out.println("Invalid input! Please provide an expense index to delete.");
+                return;
+            }
+            int expenseIndex = Integer.parseInt(parts[1].substring(2).trim()) - 1; // 1-based index
+            expenseTracker.deleteExpense(expenseIndex);
+        } catch (NumberFormatException e) {
+            System.out.println("Error parsing the expense index. Please use correct format for delete-expense commands.");
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
+    }
+
 
 
 }
