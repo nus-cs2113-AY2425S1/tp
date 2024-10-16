@@ -38,7 +38,7 @@ public class InternshipList {
     public void removeInternship(int index) {
         if (isWithinBounds(index)) {
             internships.remove(index);
-            ui.showDeletedInternship(index);
+            ui.showDeletedInternship(index + 1);
             updateIds(); // Reassign IDs after removal
         } else {
             ui.showInvalidIndex();
