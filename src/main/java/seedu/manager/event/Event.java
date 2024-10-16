@@ -93,6 +93,10 @@ public class Event {
         return eventVenue;
     }
 
+    public ArrayList<String> getParticipantList() {
+        return participantList;
+    }
+
     /**
      * Sets a new time for the event.
      *
@@ -118,6 +122,6 @@ public class Event {
      */
     @Override
     public String toString(){
-        return "Event name: " + eventName + "/ Event time: " + eventTime + "/ Event venue: " + eventVenue;
+        return "Event name: " + eventName + " / Event time: " + eventTime + " / Event venue: " + eventVenue;
     }
 }
