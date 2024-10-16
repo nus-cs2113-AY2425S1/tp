@@ -1,2 +1,2 @@
-add category groceries
+add-category groceries
 bye
