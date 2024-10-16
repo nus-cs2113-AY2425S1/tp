@@ -7,22 +7,31 @@ import seedu.duke.commands.ListTaskCommand;
 import seedu.duke.commands.SelectPatientCommand;
 import seedu.duke.commands.MarkTaskCommand;
 import seedu.duke.commands.UnmarkTaskCommand;
+import seedu.duke.data.state.State;
+import seedu.duke.data.state.StateType;
+import seedu.duke.commands.BackCommand;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import static java.lang.Integer.parseInt;
 
 public class Parser {
     private static final Logger logger = Logger.getLogger("Parser");
     String line;
-    int state;
+    State state;
 
-    public Parser(String line, int state) {
+    public Parser(String line, State state) {
         this.line = line;
         this.state = state;
         logger.log(Level.INFO, "Starting Parser Class...");
         assert state == 0 || state == 1 : "state should be 0 or 1";
     }
     public Command parseCommand() {
+        if (line == null || line.isEmpty()){
+            System.out.println("Command is empty");
+            return null;
+        }
         String[] parts = line.split(" ");
 
         switch (parts[0]) {
@@ -36,9 +45,9 @@ public class Parser {
             break;
 
         case "list":
-            if (state == 0) {
+            if (state.getState() == StateType.MAIN_STATE) {
                 return new ListPatientCommand();
-            } else if (state == 1) {
+            } else if (state.getState() == StateType.TASK_STATE) {
                 return new ListTaskCommand();
             }
             break;
@@ -57,7 +66,7 @@ public class Parser {
 
         case "select":
             try{
-                return new SelectPatientCommand(parseInt(parts[1]));
+                return new SelectPatientCommand(parseInt(parts[1]), state);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Out-of-bounds Error");
                 logger.log(Level.WARNING, "Select Command Error: Out-of-bounds Error");
@@ -89,6 +98,14 @@ public class Parser {
                 System.out.println("Non-Numerical Error");
                 logger.log(Level.WARNING, "Select Command Error: Non-Numerical Error");
             }
+            break;
+
+        case "back":
+            return new BackCommand(state); // Pass the global State object created in main to backcommand
+
+        case "exit":
+            System.out.println("Exiting program...");
+            System.exit(0);  // Terminates the program gracefully
             break;
 
         default:
