@@ -18,8 +18,6 @@ import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES_MAX_A
 import static seedu.exchangecoursemapper.constants.JsonKey.COURSES_ARRAY_LABEL;
 import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
 import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
-import static seedu.exchangecoursemapper.constants.Messages.FILTER_COURSES_LIMIT_MESSAGE;
-import static seedu.exchangecoursemapper.constants.Messages.NO_NUS_COURSE_CODE_INPUT_MESSAGE;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 import static seedu.exchangecoursemapper.constants.Regex.REPEATED_SPACES;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
@@ -33,19 +31,17 @@ public class FilterCoursesCommand extends Command {
             displayMappableCourses(jsonObject, courseToFind.toLowerCase());
         } catch (IOException e) {
             System.err.println(Exception.fileReadError());
-        } catch (ExchangeCourseMapperException e) {
-            System.out.println(e.getMessage());
         }
     }
 
-    public String getNusCourseCode(String userInput) throws ExchangeCourseMapperException {
+    public String getNusCourseCode(String userInput) {
         String input = userInput.trim().replaceAll(REPEATED_SPACES, SPACE);
         String[] inputDetails = input.split(SPACE);
         if (inputDetails.length == COMMAND_WORD_INDEX + ZERO_INDEX_OFFSET) {
-            throw new ExchangeCourseMapperException(NO_NUS_COURSE_CODE_INPUT_MESSAGE);
+            throw new IllegalArgumentException(Exception.missingNusCourseCode());
         }
         if (inputDetails.length > FILTER_COURSES_MAX_ARGS) {
-            throw new ExchangeCourseMapperException(FILTER_COURSES_LIMIT_MESSAGE);
+            throw new IllegalArgumentException(Exception.filterCoursesLimitExceeded());
         }
         return inputDetails[1];
     }
