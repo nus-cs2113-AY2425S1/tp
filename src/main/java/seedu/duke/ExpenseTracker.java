@@ -64,6 +64,10 @@ public class ExpenseTracker {
             }
         }
         String trimmedCategoryName = categoryName.substring("add category".length()).trim();
+        if (trimmedCategoryName.isEmpty()) {
+            System.out.println("Category name is empty!");
+            return;
+        }
         Category newCategory = new Category(trimmedCategoryName);
         categories.add(newCategory);
         System.out.println("Category '" + newCategory + "' added successfully.");
@@ -199,7 +203,7 @@ public class ExpenseTracker {
         // Calculate remaining budget, and display as needed
         for (String category: budgets.keySet()) {
             Budget budget = budgets.get(category);
-            double totalExpense = totalExpensesToCategory.get(category);
+            double totalExpense = totalExpensesToCategory.getOrDefault(category, 0.0);
             double remainingBudget = budget.getLimit() - totalExpense;
 
             if (remainingBudget >= 0) {

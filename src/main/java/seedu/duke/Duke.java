@@ -12,11 +12,11 @@ public class Duke {
                 String input = in.nextLine().trim();
                 if (input.startsWith("add-expense")) {
                     addExpenseRequest(input, expenseTracker);
-                } else if (input.startsWith("add category")) {
+                } else if (input.startsWith("add-category")) {
                     expenseTracker.addCategory(input);
                 }else if (input.startsWith("delete-expense")) {
                     deleteExpenseRequest(input, expenseTracker);
-                } else if (input.startsWith("tag expense")) {
+                } else if (input.startsWith("tag-expense")) {
                     expenseTracker.tagExpense(input);
                 } else if (input.equalsIgnoreCase("bye")) {
                     System.out.println("Goodbye! (｡•‿•｡) Hope to see you again soon!");
