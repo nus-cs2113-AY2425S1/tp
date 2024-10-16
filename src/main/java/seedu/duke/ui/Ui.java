@@ -56,8 +56,7 @@ public class Ui {
      */
     public void showWelcome() {
         showLine();
-        System.out.println("welcome to Meditask");
-        showLine();
+        System.out.println("Welcome to Meditask!");
     }
 
     /**

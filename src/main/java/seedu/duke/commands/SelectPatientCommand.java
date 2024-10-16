@@ -4,30 +4,44 @@ import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 
-public class SelectPatientCommand extends HospitalCommand {
-    public static final String MESSAGE_PATIENT_NOT_FOUND = "Patient not found in the list!";
-    private State state; // to hold reference to the global state object
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+public class SelectPatientCommand extends HospitalCommand {
+    public static final String COMMAND_WORD = "select";
+    public static final String MESSAGE_SUCCESS = "Selected patient: %1$s";
+    public static final String MESSAGE_PATIENT_NOT_FOUND = "Patient not found in the list!";
+
+    private static final Logger logger = Logger.getLogger(SelectPatientCommand.class.getName());
+
+    private State state; // To hold reference to the global state object
     private int index;
 
-    public SelectPatientCommand(int index, State state) {
-        this.index = index;
-        this.state = state;  // store the global State object reference
+    static {
+        logger.setLevel(Level.SEVERE);
     }
+
+    public SelectPatientCommand(int index, State state) {
+        this.index = index - 1;
+        this.state = state;
+    }
+
     @Override
     public CommandResult execute() {
+        assert index >= 0 : "Index should be non-negative";
+        assert state != null : "State object should not be null";
+        assert hospital != null : "Hospital object should not be null";
+
         try {
             String patientName = hospital.getPatient(index).getName();
-            String resultMessage = "selected Patient: " + patientName;
-
-            // Change the global state to TASK_STATE
+            String resultMessage = String.format(MESSAGE_SUCCESS, patientName);
             state.setState(StateType.TASK_STATE);
             System.out.println(resultMessage);
             return new CommandResult(resultMessage);
         } catch (Hospital.PatientNotFoundException e) {
-            String resultMessage = MESSAGE_PATIENT_NOT_FOUND;
-            System.out.println(resultMessage);
-            return new CommandResult(resultMessage);
+            logger.log(Level.SEVERE, "Attempted to select a patient at an invalid index: {0}", index);
+            System.out.println(MESSAGE_PATIENT_NOT_FOUND);
+            return new CommandResult(MESSAGE_PATIENT_NOT_FOUND);
         }
     }
 }
