@@ -23,6 +23,10 @@ public class Parser {
         this.state = state;
     }
     public Command parseCommand() {
+        if (line == null || line.isEmpty()){
+            System.out.println("Command is empty");
+            return null;
+        }
         String[] parts = line.split(" ");
 
         switch (parts[0]) {
