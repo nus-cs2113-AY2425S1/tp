@@ -29,12 +29,13 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("fittrack.FitTrack")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
-    archiveClassifier.set("")
+    archiveFileName = 'fittrack.jar'
+    //archiveBaseName.set("duke")
+    //archiveClassifier.set("")
 }
 
 checkstyle {
