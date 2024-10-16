@@ -96,7 +96,7 @@ public class Parser{
             } else {
                 expensesToDisplay = expenseList.listByCategory(category);
             }
-            Ui.displayExpenseList(expensesToDisplay);
+            Ui.displayExpenseList(expensesToDisplay, expenseList);
             break;
         case "load":
             expenseList.loadFromCsv("./data.csv");

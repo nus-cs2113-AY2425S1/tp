@@ -20,12 +20,13 @@ public class Ui {
     /**
      * Displays list expenses as requested by user
      */
-    public static void displayExpenseList(ArrayList<Expense> expensesToPrint) {
+    public static void displayExpenseList(ArrayList<Expense> expensesToPrint, ExpenseList expenseList) {
         for (Expense expense: expensesToPrint) {
-            String category = "Category: " + expense.category;
-            String description = " Description: " + expense.description;
-            String price = " Price: " + expense.price;
-            System.out.println(category + description + price);
+            String index = expenseList.getIndexOf(expense) + 1 + ". ";
+            String category = "CATEGORY: " + expense.category;
+            String description = "   DESCRIPTION: " + expense.description;
+            String price = "   PRICE: " + expense.price;
+            System.out.println(index + category + description + price);
         }
     }
 
