@@ -21,17 +21,17 @@ public class UpdateCommand extends Command {
             }
             args.remove(0);
 
-            ui.clearInvalidFlags();
-            ui.clearUpdatedFields();
-            ui.clearInvalidFields();
+            uiCommand.clearInvalidFlags();
+            uiCommand.clearUpdatedFields();
+            uiCommand.clearInvalidFields();
 
             for (String arg : args) {
                 String[] words = arg.split(" ", 2);
                 updateOneField(words, internshipIndex);
             }
-            ui.showEditedInternship(internships.getInternship(internshipIndex), "update");
+            uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
         } catch (NumberFormatException e) {
-            ui.showOutput("Invalid integer, please provide a valid internship ID");
+            uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
         } catch (InvalidIndex e) {
             // Exception message is already handled in InternshipList class
         }
@@ -45,7 +45,7 @@ public class UpdateCommand extends Command {
             }
             return true;
         } catch (IndexOutOfBoundsException e) {
-            ui.addInvalidField(words[INDEX_FIELD], "Field cannot be empty");
+            uiCommand.addInvalidField(words[INDEX_FIELD], "Field cannot be empty");
             return false;
         }
     }
@@ -65,14 +65,14 @@ public class UpdateCommand extends Command {
                 }
                 String value = words[INDEX_DATA].trim();
                 internships.updateField(internshipIndex, field, value);
-                ui.addUpdatedField(field, value);
+                uiCommand.addUpdatedField(field, value);
                 break;
             default:
-                ui.addInvalidFlag(words[INDEX_FIELD]);
+                uiCommand.addInvalidFlag(words[INDEX_FIELD]);
                 break;
             }
         } catch (DateTimeParseException e) {
-            ui.addInvalidField(field, "Invalid date format");
+            uiCommand.addInvalidField(field, "Invalid date format");
         } catch (InvalidStatus e) {
             String message = """
                     Status provided is not recognised:
@@ -81,7 +81,7 @@ public class UpdateCommand extends Command {
                     - Application Completed
                     - Accepted
                     - Rejected""";
-            ui.addInvalidField(field, message);
+            uiCommand.addInvalidField(field, message);
         }
     }
 

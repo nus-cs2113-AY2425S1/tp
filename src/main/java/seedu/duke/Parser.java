@@ -8,6 +8,7 @@ import seedu.commands.ListCommand;
 import seedu.commands.UpdateCommand;
 import seedu.commands.SortCommand;
 import seedu.commands.FilterCommand;
+import seedu.ui.Ui;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.function.Supplier;
 
 public class Parser {
+    private static final Ui ui = new Ui();
     private Map<String, Supplier<Command>> commands = new HashMap<>();
 
     public Parser() {
@@ -84,11 +86,20 @@ public class Parser {
     }
 
     private ArrayList<String> parseUpdateCommandData(String inputData) {
-        String id = inputData.split(" ", 2)[0];
-        String fields = inputData.split(" ", 2)[1];
-        ArrayList<String> commandArgs = parseFlagData(fields);
-        commandArgs.add(0, id);
-        return commandArgs;
+        String[] splitArray = inputData.split(" ", 2);
+        String id = splitArray[0];
+        try {
+            String fields = splitArray[1];
+            if (fields.isBlank()) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+            ArrayList<String> commandArgs = parseFlagData(fields);
+            commandArgs.add(0, id);
+            return commandArgs;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showEmptyFlags();
+            return null;
+        }
     }
 
     private ArrayList<String> parseSortCommandData(String inputData) {
