@@ -113,6 +113,10 @@ public class InternshipList {
         return Collections.unmodifiableList(internships);
     }
 
+    public int getSize() {
+        return internships.size();
+    }
+
     // Method to list all internships in sorted order without modifying the IDs
     public void listInternshipsSortedByRole() {
         ArrayList<Internship> sortedList = new ArrayList<>(internships);

@@ -51,6 +51,17 @@ public class AddCommand extends Command {
                 break;
             }
         }
+        // Error handling: Abort if role or company are missing
+        if (role.isEmpty()) {
+            ui.addInvalidFlag("role");
+        }
+        if (company.isEmpty()) {
+            ui.addInvalidFlag("company");
+        }
+        if (!ui.getInvalidFlags().isEmpty()) {
+            ui.printInvalidFlags();
+            return;
+        }
 
         Internship newInternship = new Internship(role, company, startDate, endDate);
         internships.addInternship(newInternship);
