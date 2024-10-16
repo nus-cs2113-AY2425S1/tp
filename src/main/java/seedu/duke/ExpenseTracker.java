@@ -2,10 +2,15 @@ package seedu.duke;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class ExpenseTracker {
     private List<Category> categories;
     private List<Expense> expenses;
+    private Map<String, Budget> budgets = new HashMap<>();
+
 
     public ExpenseTracker() {
         this.categories = new ArrayList<>();
