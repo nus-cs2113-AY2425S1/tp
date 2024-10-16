@@ -81,6 +81,11 @@ public class Parser {
         case "back":
             return new BackCommand(state); // Pass the global State object created in main to backcommand
 
+        case "exit":
+            System.out.println("Exiting program...");
+            System.exit(0);  // Terminates the program gracefully
+            break;
+
         default:
             System.out.println("Unknown command");
         }
