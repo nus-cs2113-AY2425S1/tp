@@ -18,6 +18,11 @@ import static java.lang.Integer.parseInt;
 
 public class Parser {
     private static final Logger logger = Logger.getLogger("Parser");
+
+    static {
+        logger.setLevel(Level.SEVERE); // Only show warnings and errors
+    }
+
     String line;
     State state;
 
@@ -25,7 +30,8 @@ public class Parser {
         this.line = line;
         this.state = state;
         logger.log(Level.INFO, "Starting Parser Class...");
-        assert state == 0 || state == 1 : "state should be 0 or 1";
+        assert state.getState() == StateType.MAIN_STATE
+                || state.getState() == StateType.TASK_STATE : "state should be 0 or 1";
     }
     public Command parseCommand() {
         if (line == null || line.isEmpty()){
