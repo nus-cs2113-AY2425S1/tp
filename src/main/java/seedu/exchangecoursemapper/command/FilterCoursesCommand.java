@@ -85,13 +85,17 @@ public class FilterCoursesCommand extends Command {
             String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY);
 
             if (nusCourseCode.equalsIgnoreCase(courseToFind)) {
-                String puCourseCode = course.getString(PU_COURSE_CODE_KEY);
-                System.out.println("Partner University: " + universityName);
-                System.out.println("Partner University Course Code: " + puCourseCode);
-                System.out.println(LINE_SEPARATOR);
+                printMappableCourse(universityName, course);
                 isCourseFound = true;
             }
         }
         return isCourseFound;
+    }
+
+    public void printMappableCourse(String universityName, JsonObject course) {
+        String puCourseCode = course.getString(PU_COURSE_CODE_KEY);
+        System.out.println("Partner University: " + universityName);
+        System.out.println("Partner University Course Code: " + puCourseCode);
+        System.out.println(LINE_SEPARATOR);
     }
 }
