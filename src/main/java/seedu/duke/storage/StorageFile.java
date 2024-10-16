@@ -21,10 +21,12 @@ public class StorageFile {
 
     public StorageFile(String filePath) {
         this.filePath = filePath;
+        assert filePath != null : "File path cannot be null";
         checkFileFound(filePath);
     }
 
     public String getFilePath() {
+        assert filePath != null : "File path cannot be null";
         return filePath;
     }
 
@@ -36,6 +38,7 @@ public class StorageFile {
                 // Create the file if it does not exist
                 f.getParentFile().mkdirs();
                 f.createNewFile();
+                assert f.exists() : "File should exist after creation";
                 logger.log(System.Logger.Level.INFO, "File created successfully: " + filePath);
             } catch (IOException e) {
                 // TODO: Update error handler
@@ -47,6 +50,7 @@ public class StorageFile {
     }
 
     public void save(Hospital hospital) {
+        assert hospital != null : "Hospital cannot be null";
         logger.log(System.Logger.Level.INFO, "Going to save data to file: " + filePath);
         JsonUtil.saveToFile(hospital, filePath);
     }
