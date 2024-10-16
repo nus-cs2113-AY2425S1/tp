@@ -132,4 +132,47 @@ public class ExpenseTracker {
             System.out.println("Set budget for category '" + category + "' to $" + limit);
         }
     }
+
+
+    public void viewBudget() {
+        if (budgets.isEmpty()) {
+            System.out.println("No budgets set for any category.");
+            return;
+        }
+
+        // mapping total expenses for a category to each category
+        Map<String, Double> totalExpensesToCategory = new HashMap<>();
+        for (Expense expense: expenses) {
+            String category = expense.getCategory();
+            if (totalExpensesToCategory.containsKey(category)) {
+                totalExpensesToCategory.put(category, totalExpensesToCategory.get(category) + expense.getAmount());
+            } else {
+                totalExpensesToCategory.put(category, expense.getAmount());
+            }
+        }
+
+        // Calculate remaining budget, and display as needed
+        for (String category: budgets.keySet()) {
+            Budget budget = budgets.get(category);
+            double totalExpense = totalExpensesToCategory.get(category);
+            double remainingBudget = budget.getLimit() - totalExpense;
+
+            if (remainingBudget >= 0) {
+                System.out.println(category + ": $" + totalExpense + " spent, $" + remainingBudget + " remaining");
+            } else {
+                Double positive = Math.abs(remainingBudget);
+                System.out.println(category + ": $" + totalExpense + " spent, Over budget by $" + positive);
+            }
+        }
+
+        // if no budget set for certain category
+        for (String category: totalExpensesToCategory.keySet()) {
+            if (!budgets.containsKey(category)) {
+                System.out.println(category + ": No budget set");
+            }
+        }
+
+    }
+
+
 }
