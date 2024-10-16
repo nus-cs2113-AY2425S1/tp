@@ -57,8 +57,7 @@ public class FilterCommand extends Command {
             }
 
             filteredInternships.listAllInternships();
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             uiCommand.showOutput(words[INDEX_FIELD] + " field cannot be empty");
         }
     }
