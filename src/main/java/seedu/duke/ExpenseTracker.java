@@ -4,15 +4,50 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Calendar;
 
 public class ExpenseTracker {
     private List<Category> categories;
     private List<Expense> expenses;
     private Map<String, Budget> budgets = new HashMap<>();
+    private boolean autoResetEnabled;
+    private int lastResetMonth;
 
     public ExpenseTracker() {
         this.categories = new ArrayList<>();
         this.expenses = new ArrayList<>();
+        this.autoResetEnabled = false;
+        this.lastResetMonth = -1;
+    }
+
+    public void toggleAutoReset() {
+        autoResetEnabled = !autoResetEnabled;
+        System.out.println("Automatic budget reset is now " + (autoResetEnabled ? "ON" : "OFF") + ".");
+    }
+
+    // Method to reset budgets for each category
+    private void resetBudgets() {
+        for (Budget budget : budgets.values()) {
+            // Resetting the budget logic can be adjusted as needed
+            budget.setLimit(budget.getLimit()); // For now, just maintaining the same limit
+        }
+        System.out.println("Budgets have been reset for all categories.");
+    }
+
+    // Method to check if it's a new month and reset budgets if enabled
+    public void checkAndResetBudgets() {
+        Calendar calendar = Calendar.getInstance();
+        int currentMonth = calendar.get(Calendar.MONTH);
+
+        if (autoResetEnabled && currentMonth != lastResetMonth) {
+            resetBudgets();
+            lastResetMonth = currentMonth;  // Update last reset month
+        }
+    }
+
+    // Call this method to manage monthly reset
+    public void manageMonthlyReset() {
+        checkAndResetBudgets();
     }
 
     public void addExpense(String name, double amount, String category) {

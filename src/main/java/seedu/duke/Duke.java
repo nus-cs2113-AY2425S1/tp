@@ -27,6 +27,8 @@ public class Duke {
                     setBudgetLimitRequest(input, expenseTracker);
                 } else if (input.startsWith("view-expenses")) {
                     expenseTracker.viewExpensesByCategory();
+                } else if (input.equalsIgnoreCase("toggle-reset")) {
+                    expenseTracker.toggleAutoReset();
                 } else {
                     System.out.println("Invalid input! Try again."); // Provide feedback for invalid input
                 }
