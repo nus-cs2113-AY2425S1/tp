@@ -4,6 +4,7 @@ import seedu.duke.Internship;
 
 import java.util.ArrayList;
 
+//@@author jadenlimjc
 public class AddCommand extends Command {
     @Override
     public void execute(ArrayList<String> args) {
@@ -50,6 +51,17 @@ public class AddCommand extends Command {
                 break;
             }
         }
+        // Error handling: Abort if role or company are missing
+        if (role.isEmpty()) {
+            ui.addInvalidFlag("role");
+        }
+        if (company.isEmpty()) {
+            ui.addInvalidFlag("company");
+        }
+        if (!ui.getInvalidFlags().isEmpty()) {
+            ui.printInvalidFlags();
+            return;
+        }
 
         Internship newInternship = new Internship(role, company, startDate, endDate);
         internships.addInternship(newInternship);
@@ -58,6 +70,8 @@ public class AddCommand extends Command {
 
     @Override
     public String getUsage() {
-        return "Usage: add -name {Role name} -company {Company name} -from {start date} -to {end date}";
+        return """
+                add
+                Usage: add -role {Role name} -company {Company name} -from {start date} -to {end date}""";
     }
 }

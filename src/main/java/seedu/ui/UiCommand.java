@@ -1,6 +1,9 @@
 package seedu.ui;
 
+import seedu.commands.Command;
 import seedu.duke.Internship;
+
+import java.util.ArrayList;
 
 //@@author Ridiculouswifi
 /**
@@ -72,11 +75,11 @@ public class UiCommand extends Ui {
     public void addInvalidFlag(String flag) {
         String newInvalidFlags = getInvalidFlags();
         switch (flag) {
-        case "name":
-            newInvalidFlags += "Role not specified." + "\n";
+        case "role":
+            newInvalidFlags += "Role not specified. Internship not added." + "\n";
             break;
         case "company":
-            newInvalidFlags += "Company not specified." + "\n";
+            newInvalidFlags += "Company not specified. Internship not added." + "\n";
             break;
         case "from":
             newInvalidFlags += "Start date not specified." + "\n";
@@ -109,12 +112,7 @@ public class UiCommand extends Ui {
         printTailDivider();
     }
 
-    /**
-     * Prints message to show internship of specified id has been deleted from <code>InternshipList</code>.
-     */
-    public void showDeletedInternship(int id) {
-        showOutput("Internship deleted: " + id);
-    }
+
 
     /**
      * Prints message to show no flags available to filter.
@@ -156,6 +154,18 @@ public class UiCommand extends Ui {
         return "Usage: sort [alphabet | deadline]\n" +
                 "alphabet: Sort internships alphabetically by role.\n" +
                 "deadline: Sort internships by start date, then end date.";
+    }
+
+    public void showCommands(ArrayList<Command> commands) {
+        printHeadDivider();
+        for (Command command : commands) {
+            System.out.println(command.getUsage());
+            printDivider();
+        }
+        System.out.println("""
+                exit
+                Usage: exit""");
+        printTailDivider();
     }
 
     public String getInvalidFlags() {

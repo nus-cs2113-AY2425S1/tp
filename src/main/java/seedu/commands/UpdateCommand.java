@@ -84,6 +84,7 @@ public class UpdateCommand extends Command {
 
     public String getUsage() {
         return """
+                update
                 Usage: update {ID} -{field} {new value}
                 
                 List of fields:
@@ -98,7 +99,6 @@ public class UpdateCommand extends Command {
                 - Application Pending
                 - Application Completed
                 - Accepted
-                - Rejected
-                """;
+                - Rejected""";
     }
 }
