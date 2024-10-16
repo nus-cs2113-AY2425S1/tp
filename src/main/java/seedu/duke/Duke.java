@@ -19,7 +19,7 @@ public class Duke {
                 } else if (input.startsWith("tag-expense")) {
                     expenseTracker.tagExpense(input);
                 } else if (input.equalsIgnoreCase("bye")) {
-                    System.out.println("Goodbye! (｡•‿•｡) Hope to see you again soon!");
+                    System.out.println("Goodbye! :> Hope to see you again soon!");
                     break;
                 } else if (input.equalsIgnoreCase("view-budget")) {
                     expenseTracker.viewBudget();
