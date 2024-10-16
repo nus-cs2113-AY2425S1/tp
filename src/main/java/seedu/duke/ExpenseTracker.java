@@ -1,23 +1,28 @@
 package seedu.duke;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 public class ExpenseTracker {
     private List<Category> categories;
     private List<Expense> expenses;
     private Map<String, Budget> budgets = new HashMap<>();
+
     public ExpenseTracker() {
         this.categories = new ArrayList<>();
         this.expenses = new ArrayList<>();
     }
+
     public void addExpense(String name, double amount, String category) {
         Expense newExpense = new Expense(name, amount, category);
         expenses.add(newExpense);
         System.out.println("Added" + newExpense);
     }
+
     public void addCategory(String categoryName) {
-        for (Category category: categories) {
+        for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(categoryName)) {
                 System.out.println("Category '" + categoryName + "' already exists!");
                 return;
@@ -28,12 +33,13 @@ public class ExpenseTracker {
         categories.add(newCategory);
         System.out.println("Category '" + newCategory + "' added successfully.");
     }
+
     private void tagExpenseHelper(int expenseIndex, String categoryName) {
         if (expenseIndex < 0 || expenseIndex >= expenses.size()) {
             System.out.println("Invalid index");
             return;
         }
-        for (Category category: categories) {
+        for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(categoryName)) {
                 Expense expense = expenses.get(expenseIndex);
                 expense.setCategory(categoryName);
@@ -43,12 +49,13 @@ public class ExpenseTracker {
         }
         System.out.println("Category '" + categoryName + "' does not exist.");
     }
+
     public void tagExpense(String input) {
         try {
             String[] parts = input.split(" ");
             int expenseIndex = -1;
             String category = null;
-            for (String part: parts) {
+            for (String part : parts) {
                 if (part.startsWith("e/")) {
                     expenseIndex = Integer.parseInt(part.substring(2).trim()) - 1; // 1-based index
                 } else if (part.startsWith("c/")) {
@@ -64,6 +71,7 @@ public class ExpenseTracker {
             System.out.println("Error parsing the input. Please use correct format for tag expense commands.");
         }
     }
+
     /**
      * Displays all expenses grouped by their respective categories.
      *
@@ -82,9 +90,9 @@ public class ExpenseTracker {
             return;
         }
         System.out.println("Expenses grouped by categories:");
-// Create a map to group expenses by their category
+        // Create a map to group expenses by their category
         Map<String, List<Expense>> expensesByCategory = new HashMap<>();
-// Populate the map
+        // Populate the map
         for (Expense expense : expenses) {
             String category = expense.getCategory();
             if (!expensesByCategory.containsKey(category)) {
@@ -92,7 +100,7 @@ public class ExpenseTracker {
             }
             expensesByCategory.get(category).add(expense);
         }
-// Display the expenses grouped by category
+        // Display the expenses grouped by category
         for (String category : expensesByCategory.keySet()) {
             System.out.println("Category: " + category);
             List<Expense> categoryExpenses = expensesByCategory.get(category);
@@ -101,6 +109,7 @@ public class ExpenseTracker {
             }
         }
     }
+
     /**
      * Sets a budget limit for a specific category.
      *
