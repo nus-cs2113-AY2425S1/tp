@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e13690d-ce95-4f80-b7a4-35dca1b3e083" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Budget.class" beforeDir="false" afterPath="$PROJECT_DIR$/Budget.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Budget.java" beforeDir="false" afterPath="$PROJECT_DIR$/Budget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/Category.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Duke.class" beforeDir="false" afterPath="$PROJECT_DIR$/Duke.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Expense.class" beforeDir="false" afterPath="$PROJECT_DIR$/Expense.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExpenseTracker.class" beforeDir="false" afterPath="$PROJECT_DIR$/ExpenseTracker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpenseTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpenseTracker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +65,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
