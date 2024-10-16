@@ -12,6 +12,8 @@ public class AddCommand extends Command {
         String company = "";
         String startDate = "01/01";
         String endDate = "01/01";
+        boolean hasRole = false;
+        boolean hasCompany = false;
 
         ui.clearInvalidFlags();
         for (String arg : args) {
@@ -19,6 +21,7 @@ public class AddCommand extends Command {
             String flag = words[0];
             switch (flag) {
             case "role":
+                hasRole = true;
                 if (words.length > 1) {
                     role = words[INDEX_DATA];
                 } else {
@@ -26,6 +29,7 @@ public class AddCommand extends Command {
                 }
                 break;
             case "company":
+                hasCompany = true;
                 if (words.length > 1) {
                     company = words[INDEX_DATA];
                 } else {
@@ -50,12 +54,14 @@ public class AddCommand extends Command {
                 ui.addInvalidFlag(flag);
                 break;
             }
+
         }
-        // Error handling: Abort if role or company are missing
-        if (role.isEmpty()) {
+
+        if (!hasRole) {
             ui.addInvalidFlag("role");
         }
-        if (company.isEmpty()) {
+
+        if (!hasCompany) {
             ui.addInvalidFlag("company");
         }
         if (!ui.getInvalidFlags().isEmpty()) {

@@ -73,10 +73,10 @@ public class UiCommand extends Ui {
         String newInvalidFlags = getInvalidFlags();
         switch (flag) {
         case "role":
-            newInvalidFlags += "Role not specified. Internship not added." + "\n";
+            newInvalidFlags += "Role not specified." + "\n";
             break;
         case "company":
-            newInvalidFlags += "Company not specified. Internship not added." + "\n";
+            newInvalidFlags += "Company not specified." + "\n";
             break;
         case "from":
             newInvalidFlags += "Start date not specified." + "\n";
