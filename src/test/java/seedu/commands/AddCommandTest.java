@@ -6,11 +6,11 @@ import seedu.duke.InternshipList;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@ author jadenlimjc
 public class AddCommandTest {
+
     InternshipList internships;
     AddCommand addCommand;
 
@@ -47,7 +47,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_validArguments_InternshipAdded() {
+    public void execute_validArguments_internshipAdded() {
         createList();
         ArrayList<String> args = new ArrayList<>();
         args.add("role Software Engineer");
