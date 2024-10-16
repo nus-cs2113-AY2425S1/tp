@@ -12,13 +12,19 @@ public class Duke {
                 String input = in.nextLine().trim();
                 if (input.startsWith("add-expense")) {
                     addExpenseRequest(input, expenseTracker);
-                } else if (input.startsWith("add category")) {
+                } else if (input.startsWith("add-category")) {
                     expenseTracker.addCategory(input);
-                } else if (input.startsWith("tag expense")) {
+                } else if (input.startsWith("tag-expense")) {
                     expenseTracker.tagExpense(input);
                 } else if (input.equalsIgnoreCase("bye")) {
                     System.out.println("Goodbye! (｡•‿•｡) Hope to see you again soon!");
                     break;
+                } else if (input.equalsIgnoreCase("view-budget")) {
+                    expenseTracker.viewBudget();
+                } else if (input.startsWith("set-budget")) {
+                    setBudgetLimitRequest(input, expenseTracker);
+                } else if (input.startsWith("view-expenses")) {
+                    expenseTracker.viewExpensesByCategory();
                 } else {
                     System.out.println("Invalid input! Try again."); // Provide feedback for invalid input
                 }
@@ -49,7 +55,7 @@ public class Duke {
             }
 
             if (name == null || amount == 0) {
-                System.out.println("Invalid input! Please provide name and amount.");
+                System.out.println("Invalid input! Please provide category and limit.");
                 return;
             }
 
@@ -60,4 +66,34 @@ public class Duke {
             return;
         }
     }
+
+    public static void setBudgetLimitRequest(String input, ExpenseTracker expenseTracker) {
+        try {
+            String[] parts = input.split(" ");
+
+            double limit = 0;
+            String category = null;
+
+
+            for (String part: parts) {
+                if (part.startsWith("c/")) {
+                    category = part.substring(2).trim();
+                } else if (part.startsWith("l/")) {
+                    limit = Double.parseDouble(part.substring(2).trim());
+                }
+            }
+
+            if (category == null || limit == 0) {
+                System.out.println("Invalid input! Please provide name and amount.");
+                return;
+            }
+
+            expenseTracker.setBudgetLimit(category, limit);
+
+        } catch (Exception e) {
+            System.out.println("Error parsing the input. Please use correct format for add-expense commands.");
+        }
+    }
+
+
 }
