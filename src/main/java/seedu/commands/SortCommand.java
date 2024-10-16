@@ -34,6 +34,8 @@ public class SortCommand extends Command {
 
     @Override
     public String getUsage() {
-        return "Usage: sort [alphabet | deadline]";
+        return """
+                sort
+                Usage: sort [alphabet | deadline]""";
     }
 }

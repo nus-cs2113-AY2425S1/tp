@@ -12,6 +12,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public String getUsage() {
-        return "Usage: del {ID}";
+        return """
+                delete
+                Usage: del {ID}""";
     }
 }

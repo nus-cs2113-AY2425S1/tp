@@ -70,6 +70,8 @@ public class AddCommand extends Command {
 
     @Override
     public String getUsage() {
-        return "Usage: add -role {Role name} -company {Company name} -from {start date} -to {end date}";
+        return """
+                add
+                Usage: add -role {Role name} -company {Company name} -from {start date} -to {end date}""";
     }
 }
