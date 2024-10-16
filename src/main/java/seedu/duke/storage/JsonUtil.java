@@ -36,7 +36,10 @@ public class JsonUtil {
     public static Hospital loadFromFile(String filePath) {
         try {
             Hospital hospital = objectMapper.readValue(new File(filePath), Hospital.class);
+
+            assert hospital != null : "Hospital object cannot be null";
             logger.log(Level.INFO, "Data loaded successfully from: " + filePath);
+
             return hospital;
         } catch (JsonParseException e) {
             logger.log(Level.ERROR, "Corrupted JSON data: " + e.getMessage());
@@ -57,7 +60,10 @@ public class JsonUtil {
         logger.log(Level.INFO, "Converting object to JSON");
         try {
             String hospitalJson = objectMapper.writeValueAsString(hospital);
+
             logger.log(Level.INFO, "Object converted to JSON successfully");
+            assert hospitalJson != null : "JSON string cannot be null";
+
             return hospitalJson;
         } catch (IOException e) {
             logger.log(Level.ERROR, "Failed to convert object to JSON: " + e.getMessage());
