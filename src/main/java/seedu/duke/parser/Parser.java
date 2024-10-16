@@ -11,16 +11,21 @@ import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 import seedu.duke.commands.BackCommand;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.lang.Integer.parseInt;
 
 public class Parser {
+    private static final Logger logger = Logger.getLogger("Parser");
     String line;
     State state;
 
     public Parser(String line, State state) {
         this.line = line;
         this.state = state;
+        logger.log(Level.INFO, "Starting Parser Class...");
+        assert state == 0 || state == 1 : "state should be 0 or 1";
     }
     public Command parseCommand() {
         if (line == null || line.isEmpty()){
@@ -33,8 +38,9 @@ public class Parser {
         case AddPatientCommand.COMMAND_WORD:
             try {
                 return new AddPatientCommand(parts[1]);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Non-Numerical Error");
+                logger.log(Level.WARNING, "Add Patient Command Error: Non-Numerical Error");
             }
             break;
 
@@ -50,7 +56,11 @@ public class Parser {
             try{
                 return new DeletePatientCommand(parseInt(parts[1]));
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Non-Numerical Error");
+                System.out.println("Out-of-bounds Error");
+                logger.log(Level.WARNING, "Delete Patient Command Error: Out-of-bounds Error");
+            } catch (NumberFormatException e){
+                System.out.println("Non-Numeric Error");
+                logger.log(Level.WARNING, "Delete Patient Command Error: Non-Numerical Error");
             }
             break;
 
@@ -58,7 +68,11 @@ public class Parser {
             try{
                 return new SelectPatientCommand(parseInt(parts[1]), state);
             } catch (IndexOutOfBoundsException e) {
+                System.out.println("Out-of-bounds Error");
+                logger.log(Level.WARNING, "Select Command Error: Out-of-bounds Error");
+            } catch (NumberFormatException e) {
                 System.out.println("Non-Numerical Error");
+                logger.log(Level.WARNING, "Select Command Error: Non-Numerical Error");
             }
             break;
 
@@ -66,7 +80,11 @@ public class Parser {
             try{
                 return new MarkTaskCommand(parseInt(parts[1]));
             } catch (IndexOutOfBoundsException e) {
+                System.out.println("Out-of-bounds Error");
+                logger.log(Level.WARNING, "Mark Command Error: Out-of-bounds Error");
+            } catch (NumberFormatException e) {
                 System.out.println("Non-Numerical Error");
+                logger.log(Level.WARNING, "Mark Command Error: Non-Numerical Error");
             }
             break;
 
@@ -74,7 +92,11 @@ public class Parser {
             try{
                 return new UnmarkTaskCommand(parseInt(parts[1]));
             } catch (IndexOutOfBoundsException e) {
+                System.out.println("Out-of-bounds Error");
+                logger.log(Level.WARNING, "Select Command Error: Out-of-bounds Error");
+            } catch (NumberFormatException e) {
                 System.out.println("Non-Numerical Error");
+                logger.log(Level.WARNING, "Select Command Error: Non-Numerical Error");
             }
             break;
 
@@ -88,6 +110,7 @@ public class Parser {
 
         default:
             System.out.println("Unknown command");
+            logger.log(Level.WARNING, "Parser Command Error: No such command!");
         }
         return null;
     }
