@@ -11,7 +11,6 @@ import javax.json.JsonReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Set;
-import java.util.logging.Filter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,6 +31,7 @@ public class FilterCoursesCommand extends Command {
 
     @Override
     public void execute(String userInput) {
+        logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
         try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
             JsonObject jsonObject = jsonReader.readObject();
             logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
@@ -40,17 +40,21 @@ public class FilterCoursesCommand extends Command {
             String courseToFind = getNusCourseCode(userInput);
             displayMappableCourses(jsonObject, courseToFind.toLowerCase());
         } catch (IOException e) {
+            logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
             System.err.println(Exception.fileReadError());
         }
+        logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
 
     public String getNusCourseCode(String userInput) {
         String input = userInput.trim().replaceAll(REPEATED_SPACES, SPACE);
         String[] inputDetails = input.split(SPACE);
         if (inputDetails.length == COMMAND_WORD_INDEX + ZERO_INDEX_OFFSET) {
+            logger.log(Level.WARNING, Logs.NO_NUS_COURSE_CODE_FILTER);
             throw new IllegalArgumentException(Exception.missingNusCourseCode());
         }
         if (inputDetails.length > FILTER_COURSES_MAX_ARGS) {
+            logger.log(Level.WARNING, Logs.FILTER_COURSES_LIMIT);
             throw new IllegalArgumentException(Exception.filterCoursesLimitExceeded());
         }
         assert inputDetails[1] != null : Assertions.NO_NUS_COURSE_CODE_PARSED;
@@ -64,6 +68,7 @@ public class FilterCoursesCommand extends Command {
             assert universityName != null && !universityName.isEmpty();
             JsonArray courses = jsonObject.getJsonObject(universityName).getJsonArray(COURSES_ARRAY_LABEL);
             int numberOfCourses = courses.size();
+            logger.log(Level.INFO, Logs.LIST_MAPPABLE_COURSES);
             isCourseFound = isCourseFound(courseToFind, universityName, numberOfCourses, courses, isCourseFound);
         }
 
