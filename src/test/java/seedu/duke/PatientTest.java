@@ -56,14 +56,14 @@ class PatientTest {
     public void testGetPatientNotFound() {
         Hospital hospital = new Hospital();
         Exception exception = assertThrows(Hospital.PatientNotFoundException.class, () -> {
-            hospital.getPatient(0);
+            hospital.getPatient(1);
         });
         assertEquals("Patient not found in the list!", exception.getMessage());
     }
 
     @Test
     public void testSetPatientName() {
-        Patient patient = new Patient("Alice", 1);
+        Patient patient = new Patient("Alice", 0);
         patient.setName("Bob");
         assertEquals("Bob", patient.getName());
     }
