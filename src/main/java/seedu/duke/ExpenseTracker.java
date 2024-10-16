@@ -160,14 +160,15 @@ public class ExpenseTracker {
             if (remainingBudget >= 0) {
                 System.out.println(category + ": $" + totalExpense + " spent, $" + remainingBudget + " remaining");
             } else {
-                System.out.println(category + ": $" + totalExpense + " spent, Over budget by $" + Math.abs(remainingBudget));
+                Double positive = Math.abs(remainingBudget);
+                System.out.println(category + ": $" + totalExpense + " spent, Over budget by $" + positive);
             }
         }
 
-    // if no budget set for certain category
+        // if no budget set for certain category
         for (String category: totalExpensesToCategory.keySet()) {
             if (!budgets.containsKey(category)) {
-            System.out.println(category + ": No budget set");
+                System.out.println(category + ": No budget set");
             }
         }
 
