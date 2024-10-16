@@ -16,6 +16,7 @@ public class ShuttleRunCalculator extends Calculator {
     }
 
     public static int calculatePoints(Gender gender, int age, int reps) {
+        assert ((age >= AGE_RANGE_LOWER_START) && (age <= AGE_RANGE_UPPER_END));
         return getPointsFromTable(shuttleRunTable, gender, age, reps, true);
     }
 

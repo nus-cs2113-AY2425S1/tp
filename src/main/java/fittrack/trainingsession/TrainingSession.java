@@ -42,6 +42,7 @@ public class TrainingSession{
 
     //Edits session data
     public void editExercise(int exerciseNum, int reps) {
+        assert exerciseNum >= 0 && exerciseNum <= 5;
         exerciseData[exerciseNum].setPerformance(reps);
         exerciseData[exerciseNum].getPoints(user);
         System.out.print("Exercise edited! Here's your new input: " +
@@ -84,7 +85,7 @@ public class TrainingSession{
         for(int i = 0; i < NUM_OF_EXERCISES; i++) {
             exercisePoint = exerciseData[i].getPoints(user);
             totalPoints += exercisePoint;
-            if(minPoint < exercisePoint) {
+            if(minPoint > exercisePoint) {
                 minPoint = exercisePoint;
             }
             System.out.print(exerciseData[i].getName() + " | " +
