@@ -30,8 +30,12 @@ public class InternshipList {
     /**
      * Returns whether the index given is within the boundaries of the list.
      */
-    private boolean isWithinBounds(int index) {
-        return index >= 0 && index < internships.size();
+    public boolean isWithinBounds(int index) {
+        if (index >= 0 && index < internships.size()) {
+            return true;
+        }
+        ui.showInvalidIndex();
+        return false;
     }
 
     // Method to remove an internship by index (0-based)
@@ -40,8 +44,6 @@ public class InternshipList {
             internships.remove(index);
             ui.showDeletedInternship(index + 1);
             updateIds(); // Reassign IDs after removal
-        } else {
-            ui.showInvalidIndex();
         }
     }
 
@@ -56,10 +58,8 @@ public class InternshipList {
     public Internship getInternship(int index) {
         if (isWithinBounds(index)) {
             return internships.get(index);
-        } else {
-            ui.showInvalidIndex();
-            return null;
         }
+        return null;
     }
 
     //@@author Ridiculouswifi
