@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+import static seedu.exchangecoursemapper.constants.Assertions;
 import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
 import static seedu.exchangecoursemapper.constants.Commands.ZERO_INDEX_OFFSET;
 import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES_MAX_ARGS;
@@ -53,7 +54,7 @@ public class FilterCoursesCommand extends Command {
         if (inputDetails.length > FILTER_COURSES_MAX_ARGS) {
             throw new IllegalArgumentException(Exception.filterCoursesLimitExceeded());
         }
-        assert inputDetails[1] != null : "Nus course code should not be null";
+        assert inputDetails[1] != null : Assertions.NO_NUS_COURSE_CODE_PARSED;
         return inputDetails[1];
     }
 
@@ -76,7 +77,7 @@ public class FilterCoursesCommand extends Command {
                                          JsonArray courses, boolean isCourseFound) {
         for (int i = 0; i < numberOfCourses; i += 1) {
             JsonObject course = courses.getJsonObject(i);
-            assert course != null : "Course information should not be null";
+            assert course != null : Assertions.NO_COURSE_INFORMATION;
             String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY);
 
             if (nusCourseCode.equalsIgnoreCase(courseToFind)) {
