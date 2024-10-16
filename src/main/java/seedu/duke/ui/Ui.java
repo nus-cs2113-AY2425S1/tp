@@ -40,7 +40,7 @@ public class Ui {
         if (scanner.hasNextLine()) {
             return scanner.nextLine();
         } else {
-            return ""; // Return empty string if no input is available
+            return null;
         }
     }
 
