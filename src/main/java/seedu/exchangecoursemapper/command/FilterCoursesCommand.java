@@ -40,7 +40,7 @@ public class FilterCoursesCommand extends Command {
 
     public String getNusCourseCode(String userInput) throws ExchangeCourseMapperException {
         String input = userInput.trim().replaceAll(REPEATED_SPACES, SPACE);
-        String[] inputDetails = userInput.split(SPACE);
+        String[] inputDetails = input.split(SPACE);
         if (inputDetails.length == COMMAND_WORD_INDEX + ZERO_INDEX_OFFSET) {
             throw new ExchangeCourseMapperException(NO_NUS_COURSE_CODE_INPUT_MESSAGE);
         }
