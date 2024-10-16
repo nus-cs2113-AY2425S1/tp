@@ -16,6 +16,9 @@ public class UpdateCommand extends Command {
         try {
             int internshipId = Integer.parseInt(args.get(0));
             int internshipIndex = internshipId - 1;
+            if (!internships.isWithinBounds(internshipIndex)) {
+                throw new InvalidIndex();
+            }
             args.remove(0);
 
             ui.clearInvalidFlags();
@@ -28,7 +31,7 @@ public class UpdateCommand extends Command {
             }
             ui.showEditedInternship(internships.getInternship(internshipIndex), "update");
         } catch (NumberFormatException e) {
-            System.out.println("Invalid integer, please provide a valid internship ID");
+            ui.showOutput("Invalid integer, please provide a valid internship ID");
         } catch (InvalidIndex e) {
             // Exception message is already handled in InternshipList class
         }
@@ -42,7 +45,7 @@ public class UpdateCommand extends Command {
             }
             return true;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Field cannot be empty");
+            ui.addInvalidField(words[INDEX_FIELD], "Field cannot be empty");
             return false;
         }
     }
@@ -84,6 +87,7 @@ public class UpdateCommand extends Command {
 
     public String getUsage() {
         return """
+                update
                 Usage: update {ID} -{field} {new value}
                 
                 List of fields:
@@ -98,7 +102,6 @@ public class UpdateCommand extends Command {
                 - Application Pending
                 - Application Completed
                 - Accepted
-                - Rejected
-                """;
+                - Rejected""";
     }
 }

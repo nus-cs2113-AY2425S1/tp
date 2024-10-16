@@ -3,10 +3,11 @@ package seedu.duke;
 import seedu.commands.Command;
 import seedu.commands.AddCommand;
 import seedu.commands.DeleteCommand;
-import seedu.commands.FilterCommand;
+import seedu.commands.HelpCommand;
 import seedu.commands.ListCommand;
-import seedu.commands.SortCommand;
 import seedu.commands.UpdateCommand;
+import seedu.commands.SortCommand;
+import seedu.commands.FilterCommand;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class Parser {
         commands.put("sort", SortCommand::new);
         commands.put("filter", FilterCommand::new);
         commands.put("list", ListCommand::new);
+        commands.put("help", HelpCommand::new);
     }
 
     public Command parseCommand(String input) {
@@ -42,7 +44,7 @@ public class Parser {
     }
 
     public ArrayList<String> parseData(Command command, String input) {
-        if (command instanceof ListCommand) {
+        if (command instanceof ListCommand || command instanceof HelpCommand) {
             return null;
         }
 
@@ -96,4 +98,5 @@ public class Parser {
     private ArrayList<String> parseFilterCommandData(String inputData) {
         return parseFlagData(inputData);
     }
+
 }
