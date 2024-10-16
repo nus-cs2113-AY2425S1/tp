@@ -39,6 +39,7 @@ public abstract class Calculator {
     // Utility method to add age sub-table for a specific gender
     protected static void addAgeSubTable(Map<LookUpKey, TreeMap<Integer, Integer>> pointsTable,
                                          Gender gender, int age, int[][] points, boolean reverseOrder) {
+        assert age >= 12 && age <= 24 : "Age should be within 12 and 24 during table initialisation"; //
         TreeMap<Integer, Integer> ageSubTable;
         if (reverseOrder){
             ageSubTable = new TreeMap<>(Comparator.reverseOrder());
@@ -47,6 +48,8 @@ public abstract class Calculator {
         }
 
         for (int[] point : points) {
+            assert point[0] >= 0 : "Performance metric cannot be negative";
+            assert point[1] >= 0 : "Points should never be negative";
             ageSubTable.put(point[0], point[1]);
         }
 

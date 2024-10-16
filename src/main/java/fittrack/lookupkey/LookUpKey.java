@@ -13,6 +13,7 @@ public class LookUpKey {
         if (age < 12 || age > 24) {
             throw new InvalidAgeException("Age must be between 12 and 24 inclusive.");
         }
+        assert gender != null : "Gender should not be null. It is either MALE or FEMALE";
         this.gender = gender;
         this.age = age;
     }
