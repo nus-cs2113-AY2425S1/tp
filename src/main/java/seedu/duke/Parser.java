@@ -47,23 +47,27 @@ public class Parser {
 
     public ArrayList<String> parseData(Command command, String input) {
         if (command instanceof ListCommand || command instanceof HelpCommand) {
-            return null;
+            return new ArrayList<>();
         }
 
-        String inputData = input.split(" ", 2)[1];
-
-        if (command instanceof AddCommand) {
-            return parseAddCommandData(inputData);
-        } else if (command instanceof DeleteCommand) {
-            return parseDeleteCommandData(inputData);
-        } else if (command instanceof UpdateCommand) {
-            return parseUpdateCommandData(inputData);
-        } else if (command instanceof SortCommand) {
-            return parseSortCommandData(inputData);
-        } else if (command instanceof FilterCommand) {
-            return parseFilterCommandData(inputData);
-        } else {
-            throw new IllegalArgumentException("Unknown command type");
+        try {
+            String inputData = input.split(" ", 2)[1];
+            if (command instanceof AddCommand) {
+                return parseAddCommandData(inputData);
+            } else if (command instanceof DeleteCommand) {
+                return parseDeleteCommandData(inputData);
+            } else if (command instanceof UpdateCommand) {
+                return parseUpdateCommandData(inputData);
+            } else if (command instanceof SortCommand) {
+                return parseSortCommandData(inputData);
+            } else if (command instanceof FilterCommand) {
+                return parseFilterCommandData(inputData);
+            } else {
+                throw new IllegalArgumentException("Unknown command type");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showOutput("Please input some ID or flag following the command");
+            return null;
         }
     }
 
