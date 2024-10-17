@@ -29,4 +29,12 @@ public class Exception extends Throwable {
     public static String invalidCourseCodes() {
         return "Please provide a valid NUS course code or PU or PU's course code!";
     }
+
+    public static String missingNusCourseCode() {
+        return "Please provide the course code you would like to search for.";
+    }
+
+    public static String filterCoursesLimitExceeded() {
+        return "Please note that we can only filter for only one NUS Course!";
+    }
 }

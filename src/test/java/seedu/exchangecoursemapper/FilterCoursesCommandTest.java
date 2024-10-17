@@ -37,7 +37,7 @@ public class FilterCoursesCommandTest {
     @Test
     public void getNusCourseCode_inputWithNoCourseCode_expectException() {
         String userInput = "filter";
-        ExchangeCourseMapperException e = assertThrows(ExchangeCourseMapperException.class, () -> {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             filterCoursesCommand.getNusCourseCode(userInput);
         });
         assertEquals("Please provide the course code you would like to search for.", e.getMessage());
@@ -156,10 +156,11 @@ public class FilterCoursesCommandTest {
     @Test
     public void execute_twoNusCourseCodes_expectException() {
         String userInput = "filter CS3241 Ee2026";
-        filterCoursesCommand.execute(userInput);
-        String actualOutput = outputStreamCaptor.toString();
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            filterCoursesCommand.execute(userInput);
+        });
         assertEquals("Please note that we can only filter for only one NUS Course!",
-                normalizeLineEndings(actualOutput));
+                e.getMessage());
     }
 
     String normalizeLineEndings(String input) {
