@@ -2,6 +2,7 @@ package seedu.duke.storage;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.System.Logger.Level;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,6 +16,7 @@ import seedu.duke.data.hospital.Hospital;
  * Represents a utility class for JSON operations.
  */
 public class JsonUtil {
+    private static System.Logger logger = System.getLogger("JsonUtil");
 
     private static final ObjectMapper objectMapper = new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT) // Readable format // print
@@ -25,35 +27,64 @@ public class JsonUtil {
             objectMapper.writeValue(new File(filePath), hospital);
         } catch (IOException e) {
             // TODO: Update error handler (yes I am lazy)
+            logger.log(Level.ERROR, "Failed to save data to file: " + e.getMessage());
             System.err.println("Failed to save data to file: " + e.getMessage());
         }
-
+        logger.log(Level.INFO, "Data saved successfully at: " + filePath);
     }
 
     public static Hospital loadFromFile(String filePath) {
         try {
-            return objectMapper.readValue(new File(filePath), Hospital.class);
+            Hospital hospital = objectMapper.readValue(new File(filePath), Hospital.class);
+
+            assert hospital != null : "Hospital object cannot be null";
+            logger.log(Level.INFO, "Data loaded successfully from: " + filePath);
+
+            return hospital;
         } catch (JsonParseException e) {
+            logger.log(Level.ERROR, "Corrupted JSON data: " + e.getMessage());
             System.err.println("Corrupted JSON data: " + e.getMessage());
         } catch (JsonMappingException e) {
+            logger.log(Level.ERROR, "Error mapping JSON to object: " + e.getMessage());
             System.err.println("Error mapping JSON to object: " + e.getMessage());
         } catch (IOException e) {
+            logger.log(Level.ERROR, "I/O error: " + e.getMessage());
             System.err.println("I/O error: " + e.getMessage());
         }
+
+        logger.log(Level.INFO, "Failed to load data from: " + filePath);
         return new Hospital();
     }
 
     public static String toJson(Hospital hospital) {
+        logger.log(Level.INFO, "Converting object to JSON");
         try {
-            return objectMapper.writeValueAsString(hospital);
+            String hospitalJson = objectMapper.writeValueAsString(hospital);
+
+            logger.log(Level.INFO, "Object converted to JSON successfully");
+            assert hospitalJson != null : "JSON string cannot be null";
+
+            return hospitalJson;
         } catch (IOException e) {
+            logger.log(Level.ERROR, "Failed to convert object to JSON: " + e.getMessage());
             System.err.println("Failed to convert object to JSON: " + e.getMessage());
         }
+
+        logger.log(Level.INFO, "Object conversion to JSON failed");
         return "";
     }
 
     public static Hospital fromJson(String json) throws JsonMappingException, JsonProcessingException {
-        return objectMapper.readValue(json, Hospital.class);
+        logger.log(Level.INFO, "Converting JSON to object");
+        Hospital hospital = objectMapper.readValue(json, Hospital.class);
+
+        if (hospital == null) {
+            logger.log(Level.ERROR, "Failed to convert JSON to object");
+            return new Hospital();
+        }
+
+        logger.log(Level.INFO, "JSON converted to object successfully");
+        return hospital;
     }
 
 }
