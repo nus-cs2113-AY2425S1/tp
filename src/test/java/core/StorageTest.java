@@ -47,6 +47,8 @@ public class StorageTest {
 
     @Test
     public void testLoad_nonemptyFile_returnsLists() throws Exception {
+        Files.createDirectories(Path.of("./test"));
+
         String jsonData = "{\"programmeList\":{\"currentActiveProgramme\":0,\"programmeList\":[{\"programmeName\"" +
                 ":\"Starter\",\"dayList\":[]}]},\"history\":{\"history\":{}}}";
 
