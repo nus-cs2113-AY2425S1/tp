@@ -18,6 +18,10 @@ import static seedu.exchangecoursemapper.constants.Commands.SET;
 import static seedu.exchangecoursemapper.constants.Commands.ADD_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
 import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
+import static seedu.exchangecoursemapper.constants.Logs.RECEIVED_INPUT;
+import static seedu.exchangecoursemapper.constants.Logs.NULL_INPUT;
+import static seedu.exchangecoursemapper.constants.Logs.EMPTY_INPUT_DETAILS;
+import static seedu.exchangecoursemapper.constants.Logs.INVALID_INPUT;
 import static seedu.exchangecoursemapper.constants.Messages.INVALID_COMMAND_MESSAGE;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 
@@ -35,16 +39,16 @@ public class Parser {
 
     public void processUserInput(String userInput) {
         // Assert that userInput is not null
-        assert userInput != null : "User input should not be null";
+        assert userInput != null : NULL_INPUT;
 
         String input = userInput.trim();
         String[] inputDetails = input.split(SPACE);
 
         // Log user input
-        logger.log(Level.INFO, "User input received: {0}", input);
+        logger.log(Level.INFO, RECEIVED_INPUT, input);
 
         // Assert that inputDetails array is not empty
-        assert inputDetails.length > 0 : "Input details should not be empty after splitting";
+        assert inputDetails.length > 0 : EMPTY_INPUT_DETAILS;
 
         String command = inputDetails[COMMAND_WORD_INDEX];
 
@@ -61,7 +65,7 @@ public class Parser {
         } else if (command.equals(BYE)) {
             mapperUI.displayExitMessage();
         } else {
-            logger.log(Level.WARNING, "Invalid command: {0}", command);
+            logger.log(Level.WARNING, INVALID_INPUT, command);
             System.out.println(INVALID_COMMAND_MESSAGE);
         }
     }
