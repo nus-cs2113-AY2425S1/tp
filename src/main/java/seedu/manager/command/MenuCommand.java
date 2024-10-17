@@ -27,6 +27,6 @@ public class MenuCommand extends Command {
      */
     @Override
     public void execute() {
-       this.message = MENU_MESSAGE;
+        this.message = MENU_MESSAGE;
     }
 }

@@ -1,6 +1,5 @@
 package seedu.manager.parser;
 
-import seedu.manager.Main;
 import seedu.manager.command.Command;
 import seedu.manager.command.AddCommand;
 import seedu.manager.command.InvalidCommand;
@@ -12,7 +11,6 @@ import seedu.manager.command.ViewCommand;
 
 import java.util.logging.Logger;
 
-import static java.util.logging.Level.INFO;
 import static java.util.logging.Level.WARNING;
 
 /**
