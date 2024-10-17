@@ -1,9 +1,9 @@
 package seedu.duke.commands;
 
-import seedu.duke.data.hospital.Hospital;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import seedu.duke.data.hospital.Hospital;
 
 public class DeletePatientCommand extends HospitalCommand {
     public static final String COMMAND_WORD = "delete";
@@ -25,7 +25,7 @@ public class DeletePatientCommand extends HospitalCommand {
     @Override
     public CommandResult execute() {
         assert index >= 0 : "Index should be non-negative";
-
+        
         try {
             String patientName = hospital.getPatient(index).getName();
             hospital.deletePatient(index);

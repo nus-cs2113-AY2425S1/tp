@@ -53,6 +53,9 @@ public class Task {
         return (isDone ? "[X] " : "[ ] ") + description;
     }
 
+    /**
+     * Returns true if both tasks have the same description.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Task) {

@@ -33,7 +33,7 @@ public class TaskCommandTest {
         command.setData(tasks);
         command.execute();
 
-        MarkTaskCommand command2 = new MarkTaskCommand(0);
+        MarkTaskCommand command2 = new MarkTaskCommand(1);
         command2.setData(tasks);
         CommandResult commandResult = command2.execute();
         assertEquals("Task marked successfully: [X] Read book", commandResult.getFeedbackToUser());
@@ -63,4 +63,5 @@ public class TaskCommandTest {
         CommandResult commandResult = command2.execute();
         assertEquals(AddTaskCommand.MESSAGE_DUPLICATE_TASK, commandResult.getFeedbackToUser());
     }
+    
 }

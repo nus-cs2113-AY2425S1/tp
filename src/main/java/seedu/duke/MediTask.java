@@ -67,8 +67,8 @@ public class MediTask {
                 //pass the State object
                 Parser parser = new Parser(commandInput, currentState);
                 Command command = parser.parseCommand();
-                command.setData(selectedPatient.getTaskList());
                 if (command != null) {
+                    command.setData(selectedPatient.getTaskList());
                     CommandResult result =  command.execute();
                     ui.showToUser(result.getFeedbackToUser());
                 }
