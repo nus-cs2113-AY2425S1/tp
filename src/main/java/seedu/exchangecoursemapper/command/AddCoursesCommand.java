@@ -10,8 +10,9 @@ import java.util.logging.Logger;
 
 public class AddCoursesCommand extends Command {
 
-    Storage storage = new Storage();
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
+    
+    Storage storage = new Storage();
 
     @Override
     public void execute(String userInput) {
