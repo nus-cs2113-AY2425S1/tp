@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 
 public class AddCoursesCommand extends Command {
-    
+
     Storage storage = new Storage();
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
 
@@ -20,6 +20,7 @@ public class AddCoursesCommand extends Command {
             logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);
             String[] descriptionSubstrings = parseAddCommand(description);
 
+            assert descriptionSubstrings.length == 3: "Parsed input have missing fields.";
             logger.log(Level.INFO, Logs.EXTRACT_COURSES);
             String nusCourse = descriptionSubstrings[0].trim();
             String pu = descriptionSubstrings[1].trim();
@@ -40,6 +41,8 @@ public class AddCoursesCommand extends Command {
 
     public String trimString(String string) {
         String trimmedString = string.trim();
+
+        assert !trimmedString.isEmpty(): "NUS course code, PU and PU course code are missing.";
         String[] outputSubstrings = trimmedString.split(" ", 2);
 
         if (outputSubstrings.length < 2 || outputSubstrings[1].trim().isEmpty()) {
@@ -57,12 +60,16 @@ public class AddCoursesCommand extends Command {
                 .replaceAll("(?i)/coursepu", "/coursepu")
                 .trim().replaceAll(" +", " ");
 
+        assert (input.contains("/pu") && input.contains("/coursepu")) :
+                "Missing keywords: '/coursepu' or '/pu'. ";
         if ((!input.contains("/pu") || !input.contains("/coursepu"))) {
             logger.log(Level.WARNING, Logs.MISSING_KEYWORDS);
             throw new IllegalArgumentException(Exception.missingKeyword());
         }
 
-        if (input.contains("/pu/coursepu") || input.contains("/coursepu/pu")){
+        assert !(input.contains("/pu/coursepu") || input.contains("/coursepu/pu")) :
+                "Adjacent keywords with no description of the PU course code or PU.";
+        if (input.contains("/pu/coursepu") || input.contains("/coursepu/pu")) {
             logger.log(Level.WARNING, Logs.ADJACENT_KEYWORDS);
             throw new IllegalArgumentException(Exception.adjacentInputError());
         }
