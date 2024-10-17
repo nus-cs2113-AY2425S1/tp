@@ -43,7 +43,7 @@ public class MediTask {
                     if (command instanceof seedu.duke.commands.SelectPatientCommand) {
                         try {
                             // convert user input to index
-                            int patientIndex = Integer.parseInt(commandInput.split(" ")[1]);
+                            int patientIndex = Integer.parseInt(commandInput.split(" ")[1])-1;
                             //get selected patient
                             selectedPatient = hospital.getPatient(patientIndex);
                         } catch (Exception e) {
