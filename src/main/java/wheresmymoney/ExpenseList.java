@@ -1,15 +1,18 @@
 package wheresmymoney;
 
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 public class ExpenseList {
+    private static Logger logger = Logger.getLogger("Bar");
     private ArrayList<Expense> expenses;
 
     public ExpenseList() {
@@ -57,11 +60,18 @@ public class ExpenseList {
      * @param price New price of expense
      * @param description New description of expense
      */
-    public void editExpense(int index, Float price, String description, String category) {
-        Expense expense = expenses.get(index);
-        expense.setPrice(price);
-        expense.setDescription(description);
-        expense.setCategory(category);
+    public void editExpense(int index, Float price, String description, String category) throws WheresMyMoneyException {
+        try {
+            logger.log(Level.INFO, "Attempting to edit expense.");
+            Expense expense = expenses.get(index);
+            expense.setPrice(price);
+            expense.setDescription(description);
+            expense.setCategory(category);
+            logger.log(Level.INFO, "Successfully edited expense.");
+        } catch (WheresMyMoneyException e) {
+            logger.log(Level.INFO, "Failure when editing expense.");
+            throw new WheresMyMoneyException(e.getMessage());
+        }
     }
 
     public void deleteExpense(int index) throws WheresMyMoneyException {

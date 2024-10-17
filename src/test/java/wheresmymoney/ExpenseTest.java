@@ -3,6 +3,7 @@ package wheresmymoney;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ExpenseTest {
     
@@ -29,23 +30,23 @@ class ExpenseTest {
     }
 
     @Test
-    public void setPrice_nullInput_priceIsNull() {
+    public void setPrice_nullInput_throwsWheresMyMoneyException() {
         Expense expense = new Expense(0.0F, "desc", "category");
-        expense.setPrice(null);
-        assertNull(expense.getPrice());
+        assertThrows(WheresMyMoneyException.class,
+                () -> expense.setPrice(null));
     }
 
     @Test
-    public void setDescription_nullInput_descIsNull() {
+    public void setDescription_nullInput_throwsWheresMyMoneyException() {
         Expense expense = new Expense(0.0F, "desc", "category");
-        expense.setDescription(null);
-        assertNull(expense.getDescription());
+        assertThrows(WheresMyMoneyException.class,
+                () -> expense.setDescription(null));
     }
 
     @Test
-    public void setCategory_nullInput_categoryIsNull() {
+    public void setCategory_nullInput_throwsWheresMyMoneyException() {
         Expense expense = new Expense(0.0F, "desc", "category");
-        expense.setCategory(null);
-        assertNull(expense.getCategory());
+        assertThrows(WheresMyMoneyException.class,
+                () -> expense.setCategory(null));
     }
 }
