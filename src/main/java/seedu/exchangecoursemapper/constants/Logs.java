@@ -9,4 +9,8 @@ public class Logs {
     public static final String LIST_MAPPABLE_COURSES = "Displaying mappable PU courses ...";
     public static final String NO_NUS_COURSE_CODE_FILTER = "No NUS course code provided to filter";
     public static final String FILTER_COURSES_LIMIT = "More than one NUS course code provided to filter";
+    public static final String RECEIVED_INPUT = "User input received: {0}";
+    public static final String INVALID_INPUT = "Invalid command: {0}";
+    public static final String EMPTY_INPUT_DETAILS = "Input details should not be empty after splitting";
+    public static final String NULL_INPUT= "User input should not be null";
 }
