@@ -2,6 +2,7 @@ package seedu.duke.command;
 
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import java.util.logging.*;
 
 /**
  * Command to add an expense to the financial list.
@@ -9,6 +10,8 @@ import seedu.duke.financial.Income;
 public class AddIncomeCommand extends Command {
     private double amount;
     private String description;
+
+    private static Logger logger = Logger.getLogger("Income");
 
     /**
      * Constructs an AddIncomeCommand with the specified amount and description.
@@ -35,6 +38,7 @@ public class AddIncomeCommand extends Command {
         System.out.println("Got it! I've added this income:");
         System.out.println(income);
         System.out.println("--------------------------------------------");
+        logger.log(Level.INFO, "Income added to list: " + income);
 
     }
 }
