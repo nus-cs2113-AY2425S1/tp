@@ -27,6 +27,10 @@ public class Ui {
 
     }
 
+    public void showToUser(String message) {
+        System.out.println(message);
+    }
+
 
     /**
      * Reads a command inputted by the user.
