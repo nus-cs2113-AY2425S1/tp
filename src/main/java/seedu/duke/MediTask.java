@@ -1,14 +1,14 @@
 package seedu.duke;
 
+import seedu.duke.commands.Command;
 import seedu.duke.commands.HospitalCommand;
+import seedu.duke.commands.TaskCommand;
 import seedu.duke.data.hospital.Hospital;
-import seedu.duke.ui.Ui;
-import seedu.duke.parser.Parser;
 import seedu.duke.data.hospital.Patient;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
-import seedu.duke.commands.Command;
-
+import seedu.duke.parser.Parser;
+import seedu.duke.ui.Ui;
 
 public class MediTask {
     /**
@@ -43,10 +43,11 @@ public class MediTask {
                     if (command instanceof seedu.duke.commands.SelectPatientCommand) {
                         try {
                             // convert user input to index
-                            int patientIndex = Integer.parseInt(commandInput.split(" ")[1]);
+                            int patientIndex = Integer.parseInt(commandInput.split(" ")[1]) - 1;
                             //get selected patient
                             selectedPatient = hospital.getPatient(patientIndex);
                         } catch (Exception e) {
+                            System.out.println(e.getMessage());
                             System.out.println("invalid patient selection.");
                         }
                     }
@@ -62,11 +63,10 @@ public class MediTask {
                 //parse and execute commands in TASK_STATE
                 //pass the State object
                 Parser parser = new Parser(commandInput, currentState);
-                Command command = parser.parseCommand();
-
+                TaskCommand command = (TaskCommand) parser.parseCommand();
+                command.setData(selectedPatient.getTaskList());
                 if (command != null) {
                     command.execute();
-
                 }
             }
         }
