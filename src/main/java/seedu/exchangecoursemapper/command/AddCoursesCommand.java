@@ -1,5 +1,6 @@
 package seedu.exchangecoursemapper.command;
 
+import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.exception.Exception;
 import java.util.logging.Level;
@@ -7,26 +8,27 @@ import java.util.logging.Logger;
 
 
 public class AddCoursesCommand extends Command {
-
+    
     Storage storage = new Storage();
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
 
     @Override
     public void execute(String userInput) {
         try {
-            logger.log(Level.INFO, "Trim spaces and remove 'add' command. ");
+            logger.log(Level.INFO, Logs.TRIM_STRING);
             String description = trimString(userInput);
-            logger.log(Level.INFO, "Check user input and split it into substrings");
+            logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);
             String[] descriptionSubstrings = parseAddCommand(description);
 
-            logger.log(Level.INFO, "Extract from NUS course code, PU and PU course code from array.");
+            logger.log(Level.INFO, Logs.EXTRACT_COURSES);
             String nusCourse = descriptionSubstrings[0].trim();
             String pu = descriptionSubstrings[1].trim();
             String puCourse = descriptionSubstrings[2].trim();
 
-            logger.log(Level.INFO,"Format output");
+
+            logger.log(Level.INFO, Logs.FORMAT);
             String courseToStore = nusCourse + " | " + pu + " | " + puCourse;
-            logger.log(Level.INFO, "Adding course to storage: " + courseToStore);
+            logger.log(Level.INFO, Logs.ADD_TO_STORAGE + courseToStore);
             storage.addCourse(courseToStore);
 
             printAddMessage(courseToStore);
@@ -41,11 +43,11 @@ public class AddCoursesCommand extends Command {
         String[] outputSubstrings = trimmedString.split(" ", 2);
 
         if (outputSubstrings.length < 2 || outputSubstrings[1].trim().isEmpty()) {
-            logger.log(Level.WARNING, "No input after add keyword.");
+            logger.log(Level.WARNING, Logs.MISSING_INPUT_AFTER_KEYWORD);
             throw new IllegalArgumentException(Exception.noInputAfterAdd());
         }
 
-        logger.log(Level.INFO, "Return trimmed input without 'add' command");
+        logger.log(Level.INFO, Logs.RETURN_TRIMMED_INPUT);
         return outputSubstrings[1];
     }
 
@@ -56,19 +58,19 @@ public class AddCoursesCommand extends Command {
                 .trim().replaceAll(" +", " ");
 
         if ((!input.contains("/pu") || !input.contains("/coursepu"))) {
-            logger.log(Level.WARNING, "Missing /pu or /coursepu keyword.");
+            logger.log(Level.WARNING, Logs.MISSING_KEYWORDS);
             throw new IllegalArgumentException(Exception.missingKeyword());
         }
 
         if (input.contains("/pu/coursepu") || input.contains("/coursepu/pu")){
-            logger.log(Level.WARNING, "Concurrent keywords.");
+            logger.log(Level.WARNING, Logs.ADJACENT_KEYWORDS);
             throw new IllegalArgumentException(Exception.adjacentInputError());
         }
 
         String[] inputSubstrings = input.split(" /coursepu | /pu ");
 
         if (inputSubstrings.length < 3) {
-            logger.log(Level.WARNING, "Invalid course code or partner university.");
+            logger.log(Level.WARNING, Logs.INVALID_COURSE_CODE);
             throw new IllegalArgumentException(Exception.invalidCourseCodes());
         }
 

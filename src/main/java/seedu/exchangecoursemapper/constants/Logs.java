@@ -21,4 +21,14 @@ public class Logs {
     public static final String INVALID_INPUT = "Invalid command: {0}";
     public static final String EMPTY_INPUT_DETAILS = "Input details should not be empty after splitting";
     public static final String NULL_INPUT= "User input should not be null";
+    public static final String TRIM_STRING = "Trim spaces and remove 'add' command.";
+    public static final String PARSE_ADD_COMMANDS = "Check user input and split it into substrings.";
+    public static final String EXTRACT_COURSES = "Extract from NUS course code, PU and PU course code from array.";
+    public static final String FORMAT = "Format output";
+    public static final String ADD_TO_STORAGE = "Adding course to storage: ";
+    public static final String MISSING_KEYWORDS = "Missing /pu or /coursepu keyword.";
+    public static final String ADJACENT_KEYWORDS = "Adjacent keywords.";
+    public static final String INVALID_COURSE_CODE = "Invalid course code or partner university.";
+    public static final String MISSING_INPUT_AFTER_KEYWORD = "No input after add keyword.";
+    public static final String RETURN_TRIMMED_INPUT = "Return trimmed input without 'add' command";
 }
