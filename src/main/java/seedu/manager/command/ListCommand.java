@@ -19,6 +19,7 @@ public class ListCommand extends Command {
     public void execute() {
         StringBuilder outputMessage = new StringBuilder(String.format(LIST_MESSAGE, eventList.getListSize()) + "\n");
         for (int i = 0; i < eventList.getListSize(); i++) {
+            assert eventList.getEvent(i) != null : "Event at index " + i + " should not be null.";
             outputMessage.append(String.format("%d. %s\n", i + 1, eventList.getEvent(i).toString()));
         }
 

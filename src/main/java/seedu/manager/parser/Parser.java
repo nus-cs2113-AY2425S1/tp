@@ -117,6 +117,7 @@ public class Parser {
      * @return a {@link Command} object representing the parsed command.
      */
     private Command parseRemoveCommand(String input, String[] commandParts) {
+        assert commandParts[0].equalsIgnoreCase(RemoveCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
             String[] inputParts;
@@ -153,6 +154,7 @@ public class Parser {
      * @return a {@link Command} object representing the parsed command.
      */
     private Command parseViewCommand(String input, String[] commandParts) {
+        assert commandParts[0].equalsIgnoreCase(ViewCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
 
