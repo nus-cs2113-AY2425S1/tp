@@ -31,10 +31,10 @@ public class Main {
             String userCommandText = ui.getCommand();
             command = new Parser().parseCommand(userCommandText);
             command.setData(events);
-            CommandOutput output = command.execute();
-            ui.showOutputToUser(output);
+            command.execute();
+            ui.showOutputToUser(command);
 
-            isGettingCommands = !output.getCanExit();
+            isGettingCommands = !command.getCanExit();
         }
     }
 }
