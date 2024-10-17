@@ -57,14 +57,14 @@ public class ExpenseList {
      * @param price New price of expense
      * @param description New description of expense
      */
-    public void editExpense(int index, Float price, String description, String category) {
+    public void editExpense(int index, Float price, String description, String category) throws WheresMyMoneyException {
         try {
             Expense expense = expenses.get(index);
             expense.setPrice(price);
             expense.setDescription(description);
             expense.setCategory(category);
         } catch (WheresMyMoneyException e) {
-            System.out.println(e.getMessage());
+            throw new WheresMyMoneyException(e.getMessage());
         }
     }
 

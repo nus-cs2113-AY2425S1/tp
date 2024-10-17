@@ -78,14 +78,11 @@ class ExpenseListTest {
     }
 
     @Test
-    public void editExpense_changeAllToNull_success() {
+    public void editExpense_changeAllToNull_throwsWheresMyMoneyException() {
         ExpenseList expenseList = new ExpenseList();
         expenseList.addExpense(1.00f, "Ice Cream", "Food");
-        expenseList.editExpense(0, null, null, null);
-        Expense expense = expenseList.getExpenseAtIndex(0);
-        assertNull(expense.getPrice());
-        assertNull(expense.getDescription());
-        assertNull(expense.getCategory());
+        assertThrows(WheresMyMoneyException.class,
+                () -> expenseList.editExpense(0, null, null, null));
     }
 
     @Test
