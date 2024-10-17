@@ -49,22 +49,16 @@ public class Parser {
         String command = inputDetails[COMMAND_WORD_INDEX];
 
         if (input.equals(LISTINGSCHOOLS)) {
-            logger.log(Level.INFO, "Executing ListSchoolCommand");
             new ListSchoolCommand().execute(input);
         } else if (command.equals(COMMANDS)) {
-            logger.log(Level.INFO, "Executing ListCommandsCommand");
             new ListCommandsCommand().execute(input);
         } else if (command.equals(FILTER_COURSES)) {
-            logger.log(Level.INFO, "Executing FilterCoursesCommand");
             new FilterCoursesCommand().execute(input);
         } else if (command.equals(ADD_COURSES)) {
-            logger.log(Level.INFO, "Executing AddCoursesCommand");
             new AddCoursesCommand().execute(input);
         } else if (command.equals(SET)) {
-            logger.log(Level.INFO, "Executing ListUniCoursesCommand");
             new ListUniCoursesCommand().execute(input);
         } else if (command.equals(BYE)) {
-            logger.log(Level.INFO, "Executing displayExitMessage");
             mapperUI.displayExitMessage();
         } else {
             logger.log(Level.WARNING, "Invalid command: {0}", command);
