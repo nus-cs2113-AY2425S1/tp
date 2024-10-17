@@ -12,16 +12,15 @@ public class InvalidCommand extends Command {
      * @param errorMessage The specified error message
      */
     public InvalidCommand(String errorMessage) {
+        super(false);
         this.errorMessage = errorMessage;
     }
 
     /**
-     * Returns a new command output with the error message
-     *
-     * @return A command output with the error message
+     * Executes the invalid command
      */
     @Override
-    public CommandOutput execute() {
-        return new CommandOutput(this.errorMessage, false);
+    public void execute() {
+        this.message = this.errorMessage;
     }
 }
