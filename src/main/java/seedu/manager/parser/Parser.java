@@ -74,6 +74,7 @@ public class Parser {
      * @return a {@link Command} object representing the parsed command.
      */
     public Command parseAddCommand(String input, String[] commandParts) {
+        assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
             String[] inputParts;
