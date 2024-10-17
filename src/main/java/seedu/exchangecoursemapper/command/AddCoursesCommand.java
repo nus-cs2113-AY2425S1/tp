@@ -3,6 +3,7 @@ package seedu.exchangecoursemapper.command;
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.exception.Exception;
+import seedu.exchangecoursemapper.constants.Assertions;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +21,7 @@ public class AddCoursesCommand extends Command {
             logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);
             String[] descriptionSubstrings = parseAddCommand(description);
 
-            assert descriptionSubstrings.length == 3: "Parsed input have missing fields.";
+            assert descriptionSubstrings.length == 3: Assertions.MISSING_FIELDS;
             logger.log(Level.INFO, Logs.EXTRACT_COURSES);
             String nusCourse = descriptionSubstrings[0].trim();
             String pu = descriptionSubstrings[1].trim();
@@ -42,7 +43,7 @@ public class AddCoursesCommand extends Command {
     public String trimString(String string) {
         String trimmedString = string.trim();
 
-        assert !trimmedString.isEmpty(): "NUS course code, PU and PU course code are missing.";
+        assert !trimmedString.isEmpty(): Assertions.MISSING_USER_INPUT;
         String[] outputSubstrings = trimmedString.split(" ", 2);
 
         if (outputSubstrings.length < 2 || outputSubstrings[1].trim().isEmpty()) {
@@ -61,14 +62,14 @@ public class AddCoursesCommand extends Command {
                 .trim().replaceAll(" +", " ");
 
         assert (input.contains("/pu") && input.contains("/coursepu")) :
-                "Missing keywords: '/coursepu' or '/pu'. ";
+                Assertions.MISSING_KEYWORDS_ADD_COMMAND;
         if ((!input.contains("/pu") || !input.contains("/coursepu"))) {
             logger.log(Level.WARNING, Logs.MISSING_KEYWORDS);
             throw new IllegalArgumentException(Exception.missingKeyword());
         }
 
         assert !(input.contains("/pu/coursepu") || input.contains("/coursepu/pu")) :
-                "Adjacent keywords with no description of the PU course code or PU.";
+                Assertions.ADJACENT_KEYWORDS;
         if (input.contains("/pu/coursepu") || input.contains("/coursepu/pu")) {
             logger.log(Level.WARNING, Logs.ADJACENT_KEYWORDS);
             throw new IllegalArgumentException(Exception.adjacentInputError());
