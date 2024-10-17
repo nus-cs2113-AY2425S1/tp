@@ -16,12 +16,17 @@ public class MenuCommand extends Command {
             remove -p PARTICIPANT_NAME -e EVENT_NAME: Remove a participant from an event.""";
 
     /**
-     * Returns a command output with the menu message
-     *
-     * @return The command output with the menu message
+     * Constructs a new MenuCommand
+     */
+    public MenuCommand() {
+        super(false);
+    }
+
+    /**
+     * Executes the menu command
      */
     @Override
-    public CommandOutput execute() {
-        return new CommandOutput(MENU_MESSAGE, false);
+    public void execute() {
+        this.message = MENU_MESSAGE;
     }
 }

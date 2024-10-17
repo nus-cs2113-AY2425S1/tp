@@ -21,6 +21,7 @@ public class AddCommand extends Command {
      * @param venue The venue of the event to be added.
      */
     public AddCommand(String eventName, String time, String venue) {
+        super(false);
         this.eventName = eventName;
         this.time = time;
         this.venue = venue;
@@ -35,6 +36,7 @@ public class AddCommand extends Command {
      *                       or the event to be created if no participant name is provided.
      */
     public AddCommand(String participantName, String eventName) {
+        super(false);
         this.participantName = participantName;
         this.eventName = eventName;
     }
@@ -47,18 +49,15 @@ public class AddCommand extends Command {
      * If a participant name is provided, it will add the participant to the
      * specified event in the event list.
      * </p>
-     *
-     * @return a {@link CommandOutput} object containing a message about the result of the execution.
-     *     The message indicates whether an event or participant was successfully added.
      */
     @Override
-    public CommandOutput execute() {
+    public void execute() {
         if (participantName == null) {
             this.eventList.addEvent(this.eventName, this.time, this.venue);
-            return new CommandOutput(ADD_EVENT_MESSAGE, false);
+            this.message = ADD_EVENT_MESSAGE;
         } else {
             this.eventList.addParticipantToEvent(this.participantName, this.eventName);
-            return new CommandOutput(ADD_PARTICIPANT_MESSAGE, false);
+            this.message = ADD_PARTICIPANT_MESSAGE;
         }
     }
 }

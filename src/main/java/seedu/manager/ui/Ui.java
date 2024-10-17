@@ -1,6 +1,6 @@
 package seedu.manager.ui;
 
-import seedu.manager.command.CommandOutput;
+import seedu.manager.command.Command;
 
 import java.util.Scanner;
 
@@ -37,10 +37,10 @@ public class Ui {
     }
 
     /**
-     * show the output of command to the users.
+     * show the output message a of command to the users.
      */
-    public void showOutputToUser(CommandOutput output){
-        System.out.println(output.getMessage());
+    public void showOutputToUser(Command command){
+        System.out.println(command.getMessage());
         System.out.println(SEPARATOR);
     }
 }

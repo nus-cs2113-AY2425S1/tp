@@ -27,16 +27,15 @@ public class ViewCommandTest {
 
         viewCommand = new Parser().parseCommand("view -e Event 1");
         viewCommand.setData(eventList);
+        viewCommand.execute();
     }
 
     @Test
     public void execute_twoEvents_success() {
-        CommandOutput result = viewCommand.execute();
-
         String expectedMessage = "There are 1 participants in Event 1! Here are your participants:\n"
                 + "1. Tom\n";
 
-        assertEquals(expectedMessage, result.getMessage());
-        assertFalse(result.getCanExit());
+        assertEquals(expectedMessage, viewCommand.getMessage());
+        assertFalse(viewCommand.getCanExit());
     }
 }

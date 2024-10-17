@@ -8,11 +8,16 @@ public class ExitCommand extends Command {
     private static final String EXIT_MESSAGE = "Thank you for using EventManagerCLI. Goodbye!";
 
     /**
-     * Returns a command output with an exit message
-     *
-     * @return The command output with an exit message
+     * Constructs a new ExitCommand
      */
-    public CommandOutput execute() {
-        return new CommandOutput(EXIT_MESSAGE, true);
+    public ExitCommand() {
+        super(true);
+    }
+
+    /**
+     * Executes the exit command
+     */
+    public void execute() {
+        this.message = EXIT_MESSAGE;
     }
 }
