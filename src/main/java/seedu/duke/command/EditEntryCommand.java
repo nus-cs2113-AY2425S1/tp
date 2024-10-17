@@ -40,7 +40,7 @@ public class EditEntryCommand extends Command {
     private int index;
     private double amount;
     private String description;
-    private static final Logger logger = Logger.getLogger(AddExpenseCommand.class.getName());
+    private static final Logger logger = Logger.getLogger(EditEntryCommand.class.getName());
 
     /**
      * Constructs an EditEntryCommand with the specified index, amount, and description.
