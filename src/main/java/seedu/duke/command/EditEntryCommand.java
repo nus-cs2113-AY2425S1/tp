@@ -11,6 +11,9 @@ public class EditEntryCommand extends Command {
         this.index = index;
         this.amount = amount;
         this.description = description;
+
+        assert amount >= 0 : "Amount should be non-negative";
+        assert description !=null && !description.isEmpty() : "Description should not be empty";
     }
 
     @Override
