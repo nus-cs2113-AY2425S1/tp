@@ -9,6 +9,7 @@ import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.ViewCommand;
 
+
 /**
  * Represents the command parser for EventManagerCLI
  */
