@@ -17,4 +17,8 @@ public class Logs {
     public static final String NO_COURSES_FOUND = "No course found for PU";
     public static final String LISTING_COURSES = "Listing courses ...";
     public static final String COURSE_DETAILS = "Printing course details ...";
+    public static final String RECEIVED_INPUT = "User input received: {0}";
+    public static final String INVALID_INPUT = "Invalid command: {0}";
+    public static final String EMPTY_INPUT_DETAILS = "Input details should not be empty after splitting";
+    public static final String NULL_INPUT= "User input should not be null";
 }
