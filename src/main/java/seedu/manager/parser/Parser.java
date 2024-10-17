@@ -86,9 +86,13 @@ public class Parser {
 
             if (commandFlag.equals("-e")) {
                 inputParts = input.split("(-e|-t|-v)");
+                logger.info("Creating AddCommand for event with details: " +
+                        inputParts[1].trim() + ", " + inputParts[2].trim() + ", " + inputParts[3].trim());
                 return new AddCommand(inputParts[1].trim(), inputParts[2].trim(), inputParts[3].trim());
             } else if (commandFlag.equals("-p")) {
                 inputParts = input.split("(-p|-e)");
+                logger.info("Creating AddCommand for participant with details: " +
+                        inputParts[1].trim() + ", " + inputParts[2].trim());
                 return new AddCommand(inputParts[1].trim(), inputParts[2].trim());
             }
 
