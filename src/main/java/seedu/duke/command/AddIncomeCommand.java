@@ -26,14 +26,17 @@ public class AddIncomeCommand extends Command {
 
     /**
      * Executes the command by adding the income to the provided financial list.
+     * Assertion error if entry is not added.
+     * Logs the added income entry at INFO level.
      *
      * @param list The financial list where the income will be added.
      */
     @Override
     public void execute(FinancialList list) {
         Income income = new Income(amount, description);
+        int preEntryCount = list.getEntryCount();
         list.addEntry(income);
-        assert list.getEntryCount() > 0: "Income not added";
+        assert list.getEntryCount() == preEntryCount + 1 : "Income not added";
         System.out.println("--------------------------------------------");
         System.out.println("Got it! I've added this income:");
         System.out.println(income);
