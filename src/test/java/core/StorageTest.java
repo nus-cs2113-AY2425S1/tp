@@ -15,22 +15,22 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class StorageTest {
-    private final String TEST_FILE_PATH = "./test/test_data.json";
+    private final String testFilePath = "./test/test_data.json";
     private Storage storage;
 
     @BeforeEach
     public void setup() {
-        storage = new Storage(TEST_FILE_PATH);
+        storage = new Storage(testFilePath);
     }
 
     @AfterEach
     public void deleteAfterTest() throws Exception {
-        Files.deleteIfExists(Path.of(TEST_FILE_PATH));
+        Files.deleteIfExists(Path.of(testFilePath));
     }
 
     @Test
     public void testLoad_emptyFile_returnsEmptyList() throws Exception {
-        Files.createFile(Path.of(TEST_FILE_PATH));
+        Files.createFile(Path.of(testFilePath));
 
         JsonObject loadedProgrammeList = storage.loadProgrammeList();
         assertNotNull(loadedProgrammeList);
@@ -46,7 +46,7 @@ public class StorageTest {
     public void testLoad_nonemptyFile_returnsLists() throws Exception {
         String jsonData = "{\"programmeList\":{\"currentActiveProgramme\":0,\"programmeList\":[{\"programmeName\":\"Starter\",\"dayList\":[]}]},\"history\":{\"history\":{}}}";
 
-        Files.write(Path.of(TEST_FILE_PATH), jsonData.getBytes());
+        Files.write(Path.of(testFilePath), jsonData.getBytes());
 
         JsonObject loadedProgrammeList = storage.loadProgrammeList();
         assertNotNull(loadedProgrammeList);
@@ -77,10 +77,10 @@ public class StorageTest {
 
         storage.save(mockProgrammeList, mockHistory);
 
-        File savedFile = new File(TEST_FILE_PATH);
+        File savedFile = new File(testFilePath);
         assertTrue(savedFile.exists(), "File should be created after saving");
 
-        String savedContent = Files.readString(Path.of(TEST_FILE_PATH));
+        String savedContent = Files.readString(Path.of(testFilePath));
         assertTrue(savedContent.contains("programmeList"), "File content should include programme list");
         assertTrue(savedContent.contains("history"), "File content should include history");
     }
