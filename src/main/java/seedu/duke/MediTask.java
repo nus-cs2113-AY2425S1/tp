@@ -1,8 +1,8 @@
 package seedu.duke;
 
 import seedu.duke.commands.Command;
+import seedu.duke.commands.CommandResult;
 import seedu.duke.commands.HospitalCommand;
-import seedu.duke.commands.TaskCommand;
 import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.hospital.Patient;
 import seedu.duke.data.state.State;
@@ -21,6 +21,7 @@ public class MediTask {
         ui.showWelcome();
         // Start in MAIN_STATE
         State currentState = new State(StateType.MAIN_STATE);
+        assert currentState != null : "Current state should not be null.";
         HospitalCommand.setHospital(hospital);
 
         // variable to hold the selected patient
@@ -44,10 +45,11 @@ public class MediTask {
                         try {
                             // convert user input to index
                             int patientIndex = Integer.parseInt(commandInput.split(" ")[1]) - 1;
+                            //check if patient index fall within the number of patients in the hospital
+                            assert patientIndex >= 0 && patientIndex < hospital.getSize() : "Invalid patient index.";
                             //get selected patient
                             selectedPatient = hospital.getPatient(patientIndex);
                         } catch (Exception e) {
-                            System.out.println(e.getMessage());
                             System.out.println("invalid patient selection.");
                         }
                     }
@@ -55,6 +57,7 @@ public class MediTask {
             } else if (currentState.getState() == StateType.TASK_STATE) {
                 //show task screen for the selected patient
                 if (selectedPatient != null) {
+                    assert selectedPatient != null : "A patient must be selected in TASK_STATE.";
                     //display selectedPatient name
                     ui.showTaskScreen(selectedPatient.getName());
                 }
@@ -63,10 +66,11 @@ public class MediTask {
                 //parse and execute commands in TASK_STATE
                 //pass the State object
                 Parser parser = new Parser(commandInput, currentState);
-                TaskCommand command = (TaskCommand) parser.parseCommand();
+                Command command = parser.parseCommand();
                 command.setData(selectedPatient.getTaskList());
                 if (command != null) {
-                    command.execute();
+                    CommandResult result =  command.execute();
+                    ui.showToUser(result.getFeedbackToUser());
                 }
             }
         }

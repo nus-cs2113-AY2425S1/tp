@@ -2,7 +2,7 @@ package seedu.duke.commands;
 
 import seedu.duke.data.task.TaskList;
 
-public class DeleteTaskCommand extends TaskCommand {
+public class DeleteTaskCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_SUCCESS = "Task deleted successfully!";
     public static final String MESSAGE_TASK_NOT_FOUND = "Task not found in the list!";

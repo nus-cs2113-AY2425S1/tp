@@ -22,7 +22,7 @@ public class TaskCommandTest {
         TaskList tasks = new TaskList();
         deleteTaskCommand.setData(tasks);
         CommandResult commandResult = deleteTaskCommand.execute();
-        assertEquals(deleteTaskCommand.MESSAGE_TASK_NOT_FOUND, commandResult.getFeedbackToUser());
+        assertEquals(DeleteTaskCommand.MESSAGE_TASK_NOT_FOUND, commandResult.getFeedbackToUser());
     }
 
     @Test
