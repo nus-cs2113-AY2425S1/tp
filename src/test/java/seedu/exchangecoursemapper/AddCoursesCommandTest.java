@@ -112,3 +112,4 @@ public class AddCoursesCommandTest {
         assertArrayEquals(expected, inputSubstrings);
     }
 }
+

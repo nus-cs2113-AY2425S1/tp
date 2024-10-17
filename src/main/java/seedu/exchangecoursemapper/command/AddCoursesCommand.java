@@ -67,7 +67,7 @@ public class AddCoursesCommand extends Command {
             logger.log(Level.WARNING, Logs.MISSING_KEYWORDS);
             throw new IllegalArgumentException(Exception.missingKeyword());
         }
-        
+
         if (input.contains("/pu/coursepu") || input.contains("/coursepu/pu")) {
             logger.log(Level.WARNING, Logs.ADJACENT_KEYWORDS);
             throw new IllegalArgumentException(Exception.adjacentInputError());
