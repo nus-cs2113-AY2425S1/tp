@@ -37,10 +37,10 @@ import java.util.logging.Logger;
  * @see FinancialList
  */
 public class EditEntryCommand extends Command {
+    private static final Logger logger = Logger.getLogger(EditEntryCommand.class.getName());
     private int index;
     private double amount;
     private String description;
-    private static final Logger logger = Logger.getLogger(EditEntryCommand.class.getName());
 
     /**
      * Constructs an EditEntryCommand with the specified index, amount, and description.
@@ -64,10 +64,6 @@ public class EditEntryCommand extends Command {
      *
      * @param list The financial list containing the entries.
      * @throws IllegalArgumentException if the financial list is null.
-     * 
-     * The method checks if the provided index is within the valid range of the list.
-     * If valid, it updates the entry at the specified index with the new amount and description,
-     * and logs the changes. If the index is invalid, it prints an error message and logs a warning.
      */
     @Override
     public void execute(FinancialList list) {
