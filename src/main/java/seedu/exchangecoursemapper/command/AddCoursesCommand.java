@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public class AddCoursesCommand extends Command {
 
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
-    
+
     Storage storage = new Storage();
 
     @Override
@@ -62,15 +62,12 @@ public class AddCoursesCommand extends Command {
                 .replaceAll("(?i)/coursepu", "/coursepu")
                 .trim().replaceAll(" +", " ");
 
-        assert (input.contains("/pu") && input.contains("/coursepu")) :
-                Assertions.MISSING_KEYWORDS_ADD_COMMAND;
+
         if ((!input.contains("/pu") || !input.contains("/coursepu"))) {
             logger.log(Level.WARNING, Logs.MISSING_KEYWORDS);
             throw new IllegalArgumentException(Exception.missingKeyword());
         }
-
-        assert !(input.contains("/pu/coursepu") || input.contains("/coursepu/pu")) :
-                Assertions.ADJACENT_KEYWORDS;
+        
         if (input.contains("/pu/coursepu") || input.contains("/coursepu/pu")) {
             logger.log(Level.WARNING, Logs.ADJACENT_KEYWORDS);
             throw new IllegalArgumentException(Exception.adjacentInputError());
