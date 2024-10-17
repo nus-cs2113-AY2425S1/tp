@@ -30,6 +30,7 @@ public class AddIncomeCommand extends Command {
     public void execute(FinancialList list) {
         Income income = new Income(amount, description);
         list.addEntry(income);
+        assert list.getEntryCount() > 0: "Income not added";
         System.out.println("--------------------------------------------");
         System.out.println("Got it! I've added this income:");
         System.out.println(income);
