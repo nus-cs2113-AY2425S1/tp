@@ -1,15 +1,17 @@
 package seedu.duke.parser;
-import seedu.duke.commands.AddPatientCommand;
 import seedu.duke.commands.Command;
-import seedu.duke.commands.DeletePatientCommand;
-import seedu.duke.commands.ListPatientCommand;
-import seedu.duke.commands.ListTaskCommand;
-import seedu.duke.commands.SelectPatientCommand;
-import seedu.duke.commands.MarkTaskCommand;
 import seedu.duke.commands.UnmarkTaskCommand;
+import seedu.duke.commands.MarkTaskCommand;
+import seedu.duke.commands.SelectPatientCommand;
+import seedu.duke.commands.AddPatientCommand;
+import seedu.duke.commands.AddTaskCommand;
+import seedu.duke.commands.BackCommand;
+import seedu.duke.commands.DeletePatientCommand;
+import seedu.duke.commands.ListTaskCommand;
+import seedu.duke.commands.DeleteTaskCommand;
+import seedu.duke.commands.ListPatientCommand;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
-import seedu.duke.commands.BackCommand;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,12 +43,16 @@ public class Parser {
         String[] parts = line.split(" ");
 
         switch (parts[0]) {
-        case AddPatientCommand.COMMAND_WORD:
+        case "add":
             try {
-                return new AddPatientCommand(parts[1]);
+                if(state.getState() == StateType.MAIN_STATE){
+                    return new AddPatientCommand(parts[1]);
+                } else if (state.getState() == StateType.TASK_STATE){
+                    return new AddTaskCommand(parts[1]);
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Non-Numerical Error");
-                logger.log(Level.WARNING, "Add Patient Command Error: Non-Numerical Error");
+                logger.log(Level.WARNING, "Add Command Error: Non-Numerical Error");
             }
             break;
 
@@ -60,19 +66,25 @@ public class Parser {
 
         case "delete":
             try{
-                return new DeletePatientCommand(parseInt(parts[1]));
+                if(state.getState() == StateType.MAIN_STATE){
+                    return new DeletePatientCommand(parseInt(parts[1]));
+                } else if (state.getState() == StateType.TASK_STATE){
+                    return new DeleteTaskCommand(parseInt(parts[1]));
+                }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Out-of-bounds Error");
-                logger.log(Level.WARNING, "Delete Patient Command Error: Out-of-bounds Error");
+                logger.log(Level.WARNING, "Delete Command Error: Out-of-bounds Error");
             } catch (NumberFormatException e){
                 System.out.println("Non-Numeric Error");
-                logger.log(Level.WARNING, "Delete Patient Command Error: Non-Numerical Error");
+                logger.log(Level.WARNING, "Delete Command Error: Non-Numerical Error");
             }
             break;
 
         case "select":
             try{
-                return new SelectPatientCommand(parseInt(parts[1]), state);
+                if(state.getState() == StateType.MAIN_STATE){
+                    return new SelectPatientCommand(parseInt(parts[1]), state);
+                }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Out-of-bounds Error");
                 logger.log(Level.WARNING, "Select Command Error: Out-of-bounds Error");
@@ -84,7 +96,9 @@ public class Parser {
 
         case "mark":
             try{
-                return new MarkTaskCommand(parseInt(parts[1]));
+                if(state.getState() == StateType.TASK_STATE){
+                    return new MarkTaskCommand(parseInt(parts[1]));
+                }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Out-of-bounds Error");
                 logger.log(Level.WARNING, "Mark Command Error: Out-of-bounds Error");
@@ -96,7 +110,9 @@ public class Parser {
 
         case "unmark":
             try{
-                return new UnmarkTaskCommand(parseInt(parts[1]));
+                if(state.getState() == StateType.TASK_STATE) {
+                    return new UnmarkTaskCommand(parseInt(parts[1]));
+                }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Out-of-bounds Error");
                 logger.log(Level.WARNING, "Select Command Error: Out-of-bounds Error");
