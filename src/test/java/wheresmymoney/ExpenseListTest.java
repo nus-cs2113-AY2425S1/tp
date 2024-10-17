@@ -67,7 +67,7 @@ class ExpenseListTest {
     }
 
     @Test
-    public void editExpense_changePriceAndDescriptionAndCategory_success() {
+    public void editExpense_changePriceAndDescriptionAndCategory_success() throws WheresMyMoneyException {
         ExpenseList expenseList = new ExpenseList();
         expenseList.addExpense(1.00f, "Ice Cream", "Food");
         expenseList.editExpense(0, 4.50f, "Taxi", "Transport");
