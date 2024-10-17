@@ -5,12 +5,51 @@ import seedu.duke.financial.FinancialList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * The EditEntryCommand class is responsible for editing an existing entry in the financial list.
+ * It extends the Command class and provides functionality to update the amount and description
+ * of a specified entry.
+ * 
+ * <p>Usage example:
+ * <pre>
+ *     FinancialList list = new FinancialList();
+ *     EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries");
+ *     command.execute(list);
+ * </pre>
+ * </p>
+ * 
+ * <p>Class Invariants:
+ * <ul>
+ *     <li>The amount must be non-negative.</li>
+ *     <li>The description must not be null or empty.</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>Logging:
+ * <ul>
+ *     <li>Logs a severe message if the financial list is null.</li>
+ *     <li>Logs an info message when an entry is successfully edited.</li>
+ *     <li>Logs a warning message if the specified index is invalid.</li>
+ * </ul>
+ * </p>
+ * 
+ * @see Command
+ * @see FinancialList
+ */
 public class EditEntryCommand extends Command {
     private int index;
     private double amount;
     private String description;
     private static final Logger logger = Logger.getLogger(AddExpenseCommand.class.getName());
 
+    /**
+     * Constructs an EditEntryCommand with the specified index, amount, and description.
+     *
+     * @param index       The index of the entry to be edited.
+     * @param amount      The new amount for the entry. Must be non-negative.
+     * @param description The new description for the entry. Must not be null or empty.
+     * @throws IllegalArgumentException if amount is negative or description is null/empty.
+     */
     public EditEntryCommand(int index, double amount, String description) {
         this.index = index;
         this.amount = amount;
@@ -20,6 +59,16 @@ public class EditEntryCommand extends Command {
         assert description !=null && !description.isEmpty() : "Description should not be empty";
     }
 
+    /**
+     * Executes the command to edit an entry in the financial list.
+     *
+     * @param list The financial list containing the entries.
+     * @throws IllegalArgumentException if the financial list is null.
+     * 
+     * The method checks if the provided index is within the valid range of the list.
+     * If valid, it updates the entry at the specified index with the new amount and description,
+     * and logs the changes. If the index is invalid, it prints an error message and logs a warning.
+     */
     @Override
     public void execute(FinancialList list) {
         if (list == null) {
