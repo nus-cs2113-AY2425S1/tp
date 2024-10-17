@@ -25,16 +25,30 @@ public class Storage {
     }
 
     public JsonObject loadProgrammeList() {
-        return load().getAsJsonObject("programmeList");
+        JsonObject jsonObject = load();
+        if(jsonObject == null || !jsonObject.isJsonObject()) {
+            return new JsonObject();
+        }
+
+        return jsonObject.getAsJsonObject("programmeList");
     }
 
     public JsonObject loadHistory() {
-        return load().getAsJsonObject("history");
+        JsonObject jsonObject = load();
+        if(jsonObject == null || !jsonObject.isJsonObject()) {
+            return new JsonObject();
+        }
+        return jsonObject.getAsJsonObject("history");
     }
 
     private JsonObject load() {
         try (FileReader reader = new FileReader(path)){
-            return JsonParser.parseReader(reader).getAsJsonObject();
+
+            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+            if(jsonObject == null || !jsonObject.isJsonObject()) {
+                return new JsonObject();
+            }
+            return jsonObject;
         } catch(IOException e){
             throw new RuntimeException("Failed to load data due to: " + e.getMessage());
         }
