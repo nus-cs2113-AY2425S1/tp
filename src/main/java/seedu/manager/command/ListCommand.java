@@ -7,16 +7,21 @@ public class ListCommand extends Command {
             "Here are your scheduled events:";
 
     /**
-     * Returns a command output with a list message
-     *
-     * @return The command output with a list message
+     * Constructs a new ListCommand
      */
-    public CommandOutput execute() {
+    public ListCommand() {
+        super(false);
+    }
+
+    /**
+     * Executes the ListCommand by getting a list of all events
+     */
+    public void execute() {
         StringBuilder outputMessage = new StringBuilder(String.format(LIST_MESSAGE, eventList.getListSize()) + "\n");
         for (int i = 0; i < eventList.getListSize(); i++) {
             outputMessage.append(String.format("%d. %s\n", i + 1, eventList.getEvent(i).toString()));
         }
 
-        return new CommandOutput(outputMessage.toString(), false);
+        this.message = outputMessage.toString();
     }
 }

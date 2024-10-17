@@ -22,15 +22,14 @@ public class ViewCommand extends Command {
      * @param eventName The name of the event to be viewed.
      */
     public ViewCommand(String eventName) {
+        super(false);
         this.eventName = eventName;
     }
 
     /**
-     * Returns a command output with a view message
-     *
-     * @return The command output with a view message
+     * Executes the command to view the participants for an event.
      */
-    public CommandOutput execute() {
+    public void execute() {
         Optional<Event> eventToView = eventList.getEventByName(this.eventName);
 
         if (eventToView.isPresent()) {
@@ -42,9 +41,9 @@ public class ViewCommand extends Command {
                 count++;
             }
 
-            return new CommandOutput(outputMessage.toString(), false);
+            this.message = outputMessage.toString();
         } else {
-            return new CommandOutput(INVALID_EVENT_MESSAGE, false);
+            this.message = INVALID_EVENT_MESSAGE;
         }
     }
 }
