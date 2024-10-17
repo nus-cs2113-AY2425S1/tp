@@ -1,7 +1,6 @@
 package seedu.manager;
 
 import seedu.manager.command.Command;
-import seedu.manager.command.CommandOutput;
 import seedu.manager.event.EventList;
 import seedu.manager.parser.Parser;
 import seedu.manager.ui.Ui;

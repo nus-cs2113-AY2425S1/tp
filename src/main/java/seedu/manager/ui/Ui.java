@@ -1,7 +1,6 @@
 package seedu.manager.ui;
 
 import seedu.manager.command.Command;
-import seedu.manager.command.CommandOutput;
 
 import java.util.Scanner;
 

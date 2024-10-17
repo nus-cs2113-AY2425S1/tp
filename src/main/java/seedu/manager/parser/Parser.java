@@ -1,5 +1,6 @@
 package seedu.manager.parser;
 
+import seedu.manager.Main;
 import seedu.manager.command.Command;
 import seedu.manager.command.AddCommand;
 import seedu.manager.command.InvalidCommand;
@@ -9,10 +10,16 @@ import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.ViewCommand;
 
+import java.util.logging.Logger;
+
+import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.WARNING;
+
 /**
  * Represents the command parser for EventManagerCLI
  */
 public class Parser {
+    private static final Logger logger = Logger.getLogger(Parser.class.getName());
     private static final String INVALID_COMMAND_MESSAGE = "Invalid command!";
     private static final String INVALID_ADD_MESSAGE = """
             Invalid command!
@@ -87,8 +94,10 @@ public class Parser {
                 return new AddCommand(inputParts[1].trim(), inputParts[2].trim());
             }
 
+            logger.log(WARNING,"Invalid command format");
             return new InvalidCommand(INVALID_ADD_MESSAGE);
         } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING,"Invalid command format");
             return new InvalidCommand(INVALID_ADD_MESSAGE);
         }
     }
@@ -122,8 +131,10 @@ public class Parser {
                 return new RemoveCommand(inputParts[1].trim(), inputParts[2].trim());
             }
 
+            logger.log(WARNING,"Invalid command format");
             return new InvalidCommand(INVALID_REMOVE_MESSAGE);
         } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING,"Invalid command format");
             return new InvalidCommand(INVALID_REMOVE_MESSAGE);
         }
     }
@@ -152,8 +163,10 @@ public class Parser {
                 return new ViewCommand(inputParts[1].trim());
             }
 
+            logger.log(WARNING,"Invalid command format");
             return new InvalidCommand(INVALID_VIEW_MESSAGE);
         } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING,"Invalid command format");
             return new InvalidCommand(INVALID_VIEW_MESSAGE);
         }
     }
