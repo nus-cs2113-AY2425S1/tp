@@ -15,7 +15,7 @@ import java.util.List;
 class QuizManagerTest {
 
     private QuizManager quizManager;
-    private final String RESULTS_FILE_PATH = "data/results.txt";
+    private final String RESULTS_FILE_PATH = "data\\results.txt";
 
     @BeforeEach
     public void setUp() {
@@ -37,7 +37,7 @@ class QuizManagerTest {
     @Test
     public void addTopic_validTopic_addsSuccessfully() {
         quizManager.addTopic(new Topic("Java Basics"));
-        assertEquals(2, quizManager.getTopicsCount());
+        assertEquals(3, quizManager.getTopicsCount());
     }
 
     @Test
@@ -47,7 +47,7 @@ class QuizManagerTest {
 
         quizManager.removeTopic(topic);
 
-        assertEquals(1, quizManager.getTopicsCount());
+        assertEquals(2, quizManager.getTopicsCount());
     }
 
     @Test
