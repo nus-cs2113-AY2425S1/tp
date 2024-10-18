@@ -10,6 +10,7 @@ public class Quiz {
     private Scanner scanner;
 
     public Quiz(Topic topic) {
+        assert topic != null : "Topic must not be null";
         this.topic = topic;
         this.currentQuestionIndex = 0;
         this.correctAnswers = 0;
@@ -17,6 +18,8 @@ public class Quiz {
     }
 
     public void start() {
+        assert topic.getQuestions() != null && !topic.getQuestions().isEmpty()
+            : "Quiz must have questions";
         List<Question> questions = topic.getQuestions();
 
         while (currentQuestionIndex < questions.size()) {
@@ -33,6 +36,7 @@ public class Quiz {
     }
 
     public void answerQuestion (String answer) {
+        assert currentQuestionIndex < topic.getQuestions().size() : "Question index out of bounds";
         Question currentQuestion = topic.getQuestions().get(currentQuestionIndex);
         if (currentQuestion.checkAnswer(answer)) {
             System.out.println("Correct!");
