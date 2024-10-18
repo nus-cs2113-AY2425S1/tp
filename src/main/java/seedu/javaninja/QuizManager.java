@@ -19,7 +19,7 @@ public class QuizManager {
     public QuizManager() {
         this.topics = new ArrayList<>();
         this.pastResults = new ArrayList<>();
-        this.storage = new Storage("data/results.txt");
+        this.storage = new Storage("data\\results.txt");
         loadTopicsFromFile();
         loadResultsFromFile();
     }
