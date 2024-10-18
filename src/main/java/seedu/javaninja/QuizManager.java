@@ -65,7 +65,7 @@ public class QuizManager {
                 topic.addQuestion(new Mcq(questionText, correctAnswer, options));
                 break;
             default:
-                System.out.println("Invalid question type");
+            System.out.println("Invalid question type");
         }
     }
 
