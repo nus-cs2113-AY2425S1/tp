@@ -83,16 +83,29 @@ class QuizManagerTest {
 
     @Test
     public void saveResults_savesToFileCorrectly() throws IOException {
-        // Add a topic, complete a quiz and check if the results are saved
+        // Add a topic with at least one question
         Topic topic = new Topic("Java Basics");
+        topic.addQuestion(new Mcq("What is Java?",
+            "a",
+            List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
         quizManager.addTopic(topic);
-        quizManager.startQuiz(topic);  // Simulates completing a quiz
 
-        // Load saved results from file and check content
-        String savedResults = Files.readString(Path.of(RESULTS_FILE_PATH));
-        String expectedSavedResults = "Score: 0%, Comment: Better luck next time!\n";
+        String simulatedUserInput = "b\n";
+        InputStream originalSystemIn = System.in;
 
-        assertEquals(expectedSavedResults, savedResults);
+        try {
+            ByteArrayInputStream simulatedInput = new ByteArrayInputStream(simulatedUserInput.getBytes());
+            System.setIn(simulatedInput);
+
+            quizManager.startQuiz(topic);
+
+            String savedResults = Files.readString(Path.of(RESULTS_FILE_PATH));
+            String expectedSavedResults = "Score: 0%, Comment: Better luck next time!\n";
+
+            assertEquals(expectedSavedResults, savedResults);
+        } finally {
+            System.setIn(originalSystemIn);
+        }
     }
 
     @Test
