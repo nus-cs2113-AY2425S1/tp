@@ -59,15 +59,15 @@ public class QuizManager {
 
         Topic topic = getOrCreateTopic(topicName);
         switch (questionType) {
-            case "Mcq":
-                List<String> options = new ArrayList<>();
-                for (int i = 4; i < parts.length; i++) {
-                    options.add(parts[i]);
-                }
-                topic.addQuestion(new Mcq(questionText, correctAnswer, options));
-                break;
-            default:
-                logger.warning("Invalid question type: " + questionType);
+        case "Mcq":
+            List<String> options = new ArrayList<>();
+            for (int i = 4; i < parts.length; i++) {
+                options.add(parts[i]);
+            }
+            topic.addQuestion(new Mcq(questionText, correctAnswer, options));
+            break;
+        default:
+            logger.warning("Invalid question type: " + questionType);
         }
     }
 
