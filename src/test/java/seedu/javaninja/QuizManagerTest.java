@@ -19,12 +19,12 @@ class QuizManagerTest {
 
     @BeforeEach
     public void setUp() {
-        // Clean up results file before each test
         File file = new File(RESULTS_FILE_PATH);
         if (file.exists()) {
             file.delete();
         }
         quizManager = new QuizManager();
+        quizManager.addTopic(new Topic("Default Topic"));
     }
 
     @Test
@@ -37,8 +37,7 @@ class QuizManagerTest {
     @Test
     public void addTopic_validTopic_addsSuccessfully() {
         quizManager.addTopic(new Topic("Java Basics"));
-
-        assertEquals(2, quizManager.getTopicsCount());  // 1 default + 1 added
+        assertEquals(3, quizManager.getTopicsCount());
     }
 
     @Test
@@ -46,11 +45,9 @@ class QuizManagerTest {
         Topic topic = new Topic("Java Basics");
         quizManager.addTopic(topic);
 
-        // Remove the topic
         quizManager.removeTopic(topic);
 
-        // Check if the topic was successfully removed
-        assertEquals(1, quizManager.getTopicsCount());
+        assertEquals(2, quizManager.getTopicsCount());
     }
 
     @Test
