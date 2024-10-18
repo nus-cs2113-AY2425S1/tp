@@ -46,6 +46,7 @@ public class AddCoursesCommandTest {
                 "name of partner university (PU) and the PU course code.", exception.getMessage());
     }
 
+
     @Test
     void parseAddCommand_oneCommandOnly_exceptionThrown() {
         String input = "/pu";
@@ -111,3 +112,4 @@ public class AddCoursesCommandTest {
         assertArrayEquals(expected, inputSubstrings);
     }
 }
+
