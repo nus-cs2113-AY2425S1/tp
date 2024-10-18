@@ -57,7 +57,9 @@ class QuizManagerTest {
     public void getPastResults_withResults_returnsCorrectResults() {
         // Adding a topic and simulating a quiz
         Topic topic = new Topic("Java Basics");
-        topic.addQuestion(new Mcq("What is Java?", "a", List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
+        topic.addQuestion(new Mcq("What is Java?",
+            "a",
+            List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
 
         quizManager.addTopic(topic);
         String simulatedUserInput = "b\n";
