@@ -50,8 +50,6 @@ public class QuizManager {
     public void parseTopic(String line) {
         String[] parts = line.split("\\|");
 
-        assert parts.length >= 4 : "Invalid line format, expected at least 4 parts";
-
         String topicName = parts[0].trim();
         String questionType = parts[1].trim();
         String questionText = parts[2].trim();
@@ -67,7 +65,7 @@ public class QuizManager {
                 topic.addQuestion(new Mcq(questionText, correctAnswer, options));
                 break;
             default:
-                logger.warning("Invalid question type: " + questionType);
+                System.out.println("Invalid question type");
         }
     }
 
