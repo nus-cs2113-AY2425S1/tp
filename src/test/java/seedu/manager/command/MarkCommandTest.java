@@ -16,18 +16,29 @@ class MarkCommandTest {
     }
 
     @Test
-    public void execute_eventPresent_success() {
-        MarkCommand command = new MarkCommand("Event 1");
+    public void execute_eventPresentMarkDone_success() {
+        String expectedMessage = "Event marked as done";
+        MarkCommand command = new MarkCommand("Event 1", true);
         command.setData(eventList);
         command.execute();
-        assertEquals("Event marked as done", command.getMessage());
+        assertEquals(expectedMessage, command.getMessage());
+    }
+
+    @Test
+    public void execute_eventPresentMarkNotDone_success() {
+        String expectedMessage = "Event marked not done";
+        MarkCommand command = new MarkCommand("Event 1", false);
+        command.setData(eventList);
+        command.execute();
+        assertEquals(expectedMessage, command.getMessage());
     }
 
     @Test
     public void execute_eventAbsent_failure() {
-        MarkCommand command = new MarkCommand("Event 2");
+        String expectedMessage = "Event not found!";
+        MarkCommand command = new MarkCommand("Event 2", true);
         command.setData(eventList);
         command.execute();
-        assertEquals("Event not found!", command.getMessage());
+        assertEquals(expectedMessage, command.getMessage());
     }
 }
