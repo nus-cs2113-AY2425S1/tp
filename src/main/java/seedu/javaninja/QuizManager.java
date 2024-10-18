@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.util.logging.Logger;
 
 public class QuizManager {
-    private static final String FILE_PATH = ".\\data\\Questions.txt";
+    private static final String FILE_PATH = "./data/Questions.txt";
     private static final Logger logger = Logger.getLogger(QuizManager.class.getName());
     private List<Topic> topics;
     private Quiz currentQuiz;
@@ -19,7 +19,7 @@ public class QuizManager {
     public QuizManager() {
         this.topics = new ArrayList<>();
         this.pastResults = new ArrayList<>();
-        this.storage = new Storage("data\\results.txt");
+        this.storage = new Storage("data/results.txt");
         loadTopicsFromFile();
         loadResultsFromFile();
     }

@@ -15,7 +15,7 @@ import java.util.List;
 class QuizManagerTest {
 
     private QuizManager quizManager;
-    private final String RESULTS_FILE_PATH = "data\\results.txt";
+    private final String RESULTS_FILE_PATH = "data/results.txt";
 
     @BeforeEach
     public void setUp() {
