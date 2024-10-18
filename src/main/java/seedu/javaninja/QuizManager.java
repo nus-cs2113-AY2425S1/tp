@@ -10,11 +10,11 @@ import java.util.logging.Logger;
 
 public class QuizManager {
     private static final String FILE_PATH = "./data/Questions.txt";
+    private static final Logger logger = Logger.getLogger(QuizManager.class.getName());
     private List<Topic> topics;
     private Quiz currentQuiz;
     private List<String> pastResults;
     private Storage storage;
-    private static final Logger logger = Logger.getLogger(QuizManager.class.getName());
 
     public QuizManager() {
         this.topics = new ArrayList<>();
