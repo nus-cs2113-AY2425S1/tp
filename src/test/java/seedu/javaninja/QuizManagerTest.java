@@ -15,12 +15,12 @@ import java.util.List;
 class QuizManagerTest {
 
     private QuizManager quizManager;
-    private final String resultsFilePath = "data/results.txt";
+    private final String RESULTS_FILE_PATH = "data/results.txt";
 
     @BeforeEach
     public void setUp() {
         // Clean up results file before each test
-        File file = new File(resultsFilePath);
+        File file = new File(RESULTS_FILE_PATH);
         if (file.exists()) {
             file.delete();
         }
@@ -99,7 +99,7 @@ class QuizManagerTest {
 
             quizManager.startQuiz(topic);
 
-            String savedResults = Files.readString(Path.of(resultsFilePath));
+            String savedResults = Files.readString(Path.of(RESULTS_FILE_PATH));
             String expectedSavedResults = "Score: 0%, Comment: Better luck next time!\n";
 
             assertEquals(expectedSavedResults, savedResults);
@@ -112,7 +112,7 @@ class QuizManagerTest {
     public void loadResultsFromFile_correctlyLoadsResults() throws IOException {
         // Simulate a previous result saved in the file
         String previousResult = "Score: 80%, Comment: Good job!\n";
-        Files.writeString(Path.of(resultsFilePath), previousResult);
+        Files.writeString(Path.of(RESULTS_FILE_PATH), previousResult);
 
         // Reload the QuizManager to simulate restarting the program
         quizManager = new QuizManager();
