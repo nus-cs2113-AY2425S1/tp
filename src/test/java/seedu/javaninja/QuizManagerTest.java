@@ -4,10 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 class QuizManagerTest {
 
@@ -54,14 +57,26 @@ class QuizManagerTest {
     public void getPastResults_withResults_returnsCorrectResults() {
         // Adding a topic and simulating a quiz
         Topic topic = new Topic("Java Basics");
+        topic.addQuestion(new Mcq("What is Java?", "a", List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
+
         quizManager.addTopic(topic);
-        quizManager.startQuiz(topic);
+        String simulatedUserInput = "b\n";
+        InputStream originalSystemIn = System.in;
 
-        // Check if the past results contain the quiz score and comment
-        String pastResults = quizManager.getPastResults();
-        String expectedResult = "Score: 0%, Comment: Better luck next time!\n";
+        try {
+            ByteArrayInputStream simulatedInput = new ByteArrayInputStream(simulatedUserInput.getBytes());
+            System.setIn(simulatedInput);
 
-        assertEquals(expectedResult, pastResults);
+            quizManager.startQuiz(topic);
+
+            // Check if the past results contain the quiz score and comment
+            String pastResults = quizManager.getPastResults();
+            String expectedResult = "Score: 0%, Comment: Better luck next time!\n";
+
+            assertEquals(expectedResult, pastResults);
+        } finally {
+            System.setIn(originalSystemIn);
+        }
     }
 
     @Test
