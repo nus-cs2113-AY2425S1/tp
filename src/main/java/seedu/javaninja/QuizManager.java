@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.logging.Logger;
 
 public class QuizManager {
     private static final String FILE_PATH = "./data/Questions.txt";
+    private static final Logger logger = Logger.getLogger(QuizManager.class.getName());
     private List<Topic> topics;
     private Quiz currentQuiz;
     private List<String> pastResults;
@@ -55,15 +57,15 @@ public class QuizManager {
 
         Topic topic = getOrCreateTopic(topicName);
         switch (questionType) {
-        case "Mcq":
-            List<String> options = new ArrayList<>();
-            for (int i = 4; i < parts.length; i++) {
-                options.add(parts[i]);
-            }
-            topic.addQuestion(new Mcq(questionText, correctAnswer, options));
-            break;
-        default:
-            System.out.println("Invalid question type");
+            case "Mcq":
+                List<String> options = new ArrayList<>();
+                for (int i = 4; i < parts.length; i++) {
+                    options.add(parts[i]);
+                }
+                topic.addQuestion(new Mcq(questionText, correctAnswer, options));
+                break;
+            default:
+                System.out.println("Invalid question type");
         }
     }
 
@@ -93,27 +95,22 @@ public class QuizManager {
         }
     }
 
-    // Adds a new topic to the list of topics
     public void addTopic(Topic topic) {
         topics.add(topic);
     }
 
-    // Returns the current number of topics
     public int getTopicsCount() {
         return topics.size();
     }
 
-    // Removes an existing topic from the list
     public void removeTopic(Topic topic) {
         topics.remove(topic);
     }
 
-    // Add past results (score and comment)
     private void addPastResult(int score, String comment) {
         pastResults.add("Score: " + score + "%, Comment: " + comment);
     }
 
-    // Generates a comment based on the quiz score
     private String generateComment(int score) {
         if (score >= 90) {
             return "Excellent!";
@@ -126,7 +123,6 @@ public class QuizManager {
         }
     }
 
-    // Method to review past results
     public String getPastResults() {
         if (pastResults.isEmpty()) {
             return "No past results available. You haven't completed any quizzes yet.";
@@ -139,7 +135,6 @@ public class QuizManager {
         return results.toString();
     }
 
-    // Save the past results using Storage
     private void saveResultsToFile() {
         try {
             storage.saveResults(pastResults);
@@ -148,7 +143,6 @@ public class QuizManager {
         }
     }
 
-    // Load past results from the file using Storage
     private void loadResultsFromFile() {
         try {
             pastResults = storage.loadResults();
