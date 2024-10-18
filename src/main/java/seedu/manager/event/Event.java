@@ -147,6 +147,7 @@ public class Event {
      */
     @Override
     public String toString(){
-        return "Event name: " + eventName + " / Event time: " + eventTime + " / Event venue: " + eventVenue;
+        return String.format("Event name: %s / Event time: %s / Event venue: %s / Done: %c", eventName, eventTime,
+                eventVenue, markIfDone());
     }
 }
