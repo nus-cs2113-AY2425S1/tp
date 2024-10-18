@@ -87,3 +87,4 @@ public class HistoryTest {
         assertEquals(expectedOutput, history.toString());
     }
 }
+

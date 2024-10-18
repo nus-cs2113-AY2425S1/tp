@@ -148,3 +148,5 @@ Deletes the programme at the given index.
 | **View History**       | Displays the history of completed workouts                  | `history`                                                                       | `history`                                                       |
 | **Delete Program**     | Deletes a program by its index                              | `prog delete INDEX`                                                             | `prog delete 1`                                                 |
 | **Set Active Program** | Changes the active program to a new one                     | `prog active INDEX`                                                             | `prog active 2`                                                 |
+
+
