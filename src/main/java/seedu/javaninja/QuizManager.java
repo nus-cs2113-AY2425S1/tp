@@ -50,6 +50,8 @@ public class QuizManager {
     public void parseTopic(String line) {
         String[] parts = line.split("\\|");
 
+        assert parts.length >= 4 : "Invalid line format, expected at least 4 parts";
+
         String topicName = parts[0].trim();
         String questionType = parts[1].trim();
         String questionText = parts[2].trim();
@@ -65,7 +67,7 @@ public class QuizManager {
                 topic.addQuestion(new Mcq(questionText, correctAnswer, options));
                 break;
             default:
-            System.out.println("Invalid question type");
+                logger.warning("Invalid question type: " + questionType);
         }
     }
 
@@ -99,10 +101,6 @@ public class QuizManager {
         assert topic != null : "Topic should not be null";
         logger.info("Adding topic: " + topic.getName());
         topics.add(topic);
-    }
-
-    public int getTopicsCount() {
-        return topics.size();
     }
 
     public void removeTopic(Topic topic) {
