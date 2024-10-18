@@ -15,16 +15,16 @@ import java.util.List;
 class QuizManagerTest {
 
     private QuizManager quizManager;
-    private final String resultsFilePath = "data/results.txt";
+    private final String RESULTS_FILE_PATH = "data/results.txt";
 
     @BeforeEach
     public void setUp() {
-        // Clean up results file before each test
-        File file = new File(resultsFilePath);
+        File file = new File(RESULTS_FILE_PATH);
         if (file.exists()) {
             file.delete();
         }
         quizManager = new QuizManager();
+        quizManager.addTopic(new Topic("Default Topic"));
     }
 
     @Test
@@ -37,8 +37,7 @@ class QuizManagerTest {
     @Test
     public void addTopic_validTopic_addsSuccessfully() {
         quizManager.addTopic(new Topic("Java Basics"));
-
-        assertEquals(2, quizManager.getTopicsCount());  // 1 default + 1 added
+        assertEquals(3, quizManager.getTopicsCount());
     }
 
     @Test
@@ -46,11 +45,9 @@ class QuizManagerTest {
         Topic topic = new Topic("Java Basics");
         quizManager.addTopic(topic);
 
-        // Remove the topic
         quizManager.removeTopic(topic);
 
-        // Check if the topic was successfully removed
-        assertEquals(1, quizManager.getTopicsCount());
+        assertEquals(2, quizManager.getTopicsCount());
     }
 
     @Test
@@ -99,7 +96,7 @@ class QuizManagerTest {
 
             quizManager.startQuiz(topic);
 
-            String savedResults = Files.readString(Path.of(resultsFilePath));
+            String savedResults = Files.readString(Path.of(RESULTS_FILE_PATH));
             String expectedSavedResults = "Score: 0%, Comment: Better luck next time!\n";
 
             assertEquals(expectedSavedResults, savedResults);
@@ -112,7 +109,7 @@ class QuizManagerTest {
     public void loadResultsFromFile_correctlyLoadsResults() throws IOException {
         // Simulate a previous result saved in the file
         String previousResult = "Score: 80%, Comment: Good job!\n";
-        Files.writeString(Path.of(resultsFilePath), previousResult);
+        Files.writeString(Path.of(RESULTS_FILE_PATH), previousResult);
 
         // Reload the QuizManager to simulate restarting the program
         quizManager = new QuizManager();
