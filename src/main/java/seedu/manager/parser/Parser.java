@@ -191,9 +191,8 @@ public class Parser {
      * <p>
      * This method checks the command flag extracted from the command parts. If the command
      * flag is {@code "-e"}, it splits the input string to create a {@link MarkCommand}
-     * to mark an event done or undone. If the command flag is {@code "-p"}, it creates a
-     * {@link RemoveCommand} for removing a participant from an event. Otherwise, it returns
-     * an {@link InvalidCommand} with an error message.
+     * to mark an event done or undone. Otherwise, it returns an {@link InvalidCommand}
+     * with an error message.
      * </p>
      *
      * @param input        the input string containing the command details.
