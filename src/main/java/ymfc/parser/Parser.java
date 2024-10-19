@@ -75,12 +75,17 @@ public final class Parser {
      */
     private static AddRecipeCommand getAddRecipeCommand(String args) throws InvalidArgumentException {
         final Pattern ADD_RECIPE_COMMAND_FORMAT =
-                // <n or N>/<String without forward slash>
+                // Match name: n/ or N/ followed by any characters except '/'
                 Pattern.compile("(?<name>[nN]/[^/]+)"
-                        // (<at least 1 whitespace><i or I>/<String without forward slash>) at least once
+                        // Match ingredients: at least one i/ or I/ followed by any characters except '/'
                         + "(?<ingreds>(\\s+[iI]/[^/]+)+)"
-                        // (<at least 1 whitespace><s or S><Number>/<String without forward slash>) at least once
-                        + "(?<steps>(\\s+[sS][0-9]+/[^/]+)+)");
+                        // Match steps: at least one sX/ or SX/ (X is a number) followed by any characters except '/'
+                        + "(?<steps>(\\s+[sS][0-9]+/[^/]+)+)"
+                        // Match optional cuisine: c/ or C/ followed by any characters except '/'
+                        + "(\\s+(?<cuisine>[cC]/[^/]+))?"
+                        // Match optional time taken: t/ or T/ followed by digits
+                        + "(\\s+(?<time>[tT]/[0-9]+))?");
+
         args = args.trim();
         Matcher m = ADD_RECIPE_COMMAND_FORMAT.matcher(args);
         if (!m.matches()) {
@@ -96,6 +101,26 @@ public final class Parser {
         ArrayList<String> steps = Arrays.stream(stepString.split("\\s+[sS][0-9]+/"))
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.toCollection(ArrayList::new));
+
+        String cuisine = m.group("cuisine") != null ? m.group("cuisine").trim().substring(2) : null;
+        String timeTakenString = m.group("time");
+
+        Integer timeTaken = null;
+
+        if (timeTakenString != null) {
+            try {
+                timeTaken = Integer.parseInt(timeTakenString.trim().substring(2));
+                if (timeTaken <= 0) {
+                    throw new InvalidArgumentException("Invalid time: " + timeTakenString);
+                }
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Invalid time: " + timeTakenString);
+            }
+        }
+
+        if (cuisine != null && timeTaken != null) {
+            return new AddRecipeCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
+        }
         return new AddRecipeCommand(new Recipe(name, ingreds, steps));
     }
 

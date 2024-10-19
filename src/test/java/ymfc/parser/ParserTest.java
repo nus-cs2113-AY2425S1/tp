@@ -78,6 +78,42 @@ class ParserTest {
                                 new ArrayList<>(Arrays.asList("fry fish and chips"))
                         ),
                         "add n/Fish & Chips i/fish i/potatoes s1/fry fish and chips"
+                ),
+
+                arguments( // Recipe with cuisine and time
+                        new Recipe("Spicy Wings",
+                                new ArrayList<>(Arrays.asList("chicken wings 5pcs", "5 tbsp hot sauce", "butter")),
+                                new ArrayList<>(Arrays.asList("mix ingredients")),
+                                "Asian", 15
+                        ),
+                        "add n/Spicy Wings i/chicken wings 5pcs i/5 tbsp hot sauce i/butter" +
+                                " s1/mix ingredients c/Asian t/15"
+                ),
+
+                arguments( // Recipe with cuisine
+                        new Recipe("Niku udon",
+                                new ArrayList<>(Arrays.asList("udon noodle", "bonito flakes")),
+                                new ArrayList<>(Arrays.asList("add bonito flakes to boiling water",
+                                        "boil for 12 minutes", "add cooked noodles and serve")),
+                                "Japanese"
+                        ),
+                        "add n/Niku udon i/udon noodle i/bonito flakes s1/add bonito flakes to boiling water" +
+                                " s2/boil for 12 minutes s3/add cooked noodles and serve c/Japanese"
+                ),
+
+                arguments( // Recipe with time
+                        new Recipe("Carbonara",
+                                new ArrayList<>(Arrays.asList("spaghetti", "eggs", "parmesan cheese", "pancetta")),
+                                new ArrayList<>(Arrays.asList("boil spaghetti",
+                                        "whisk eggs and cheese together",
+                                        "fry pancetta until crispy",
+                                        "mix spaghetti with pancetta and egg mixture")),
+                                null, // No cuisine provided
+                                20 // Example time in minutes
+                        ),
+                        "add n/Carbonara i/spaghetti i/eggs i/parmesan cheese i/pancetta " +
+                                "s1/boil spaghetti s2/whisk eggs and cheese together " +
+                                "s3/fry pancetta until crispy s4/mix spaghetti with pancetta and egg mixture t/20"
                 )
         );
     }
@@ -113,7 +149,20 @@ class ParserTest {
         "add n/  Porridge  i/ oats  i/milk s1 / cook oats",                             // Whitespace before slash
         "add nPorridge i oats i milk s1 cook oats",                                     // No slashes
         "add n//Omelette i/eggs// s1/fry/",                                             // Too many slashes
-        "add n/RamenEggs i/eggsi/soya sauce i/water s1/boil eggss2/eggs in ice bath"    // Missing spaces
+        "add n/RamenEggs i/eggsi/soya sauce i/water s1/boil eggss2/eggs in ice bath",    // Missing spaces
+
+        // Test cases for invalid cuisine and time
+        "add n/Spicy Wings i/chicken wings 5pcs c/Asian",                               // Missing steps and time
+        "add n/Grilled Vegetable Salad i/zucchini i/bell pepper c/Mediterranean t/10",  // Missing steps
+        "add n/Spicy Wings c/Asian t/15",                                               // Missing ingredients and steps
+        "add n/Salad i/lettuce i/tomato c/Healthy",                                     // Missing steps
+        "add n/Pasta i/pasta i/sauce s1/cook pasta c/Italian t/abc",                    // Invalid time format
+        "add n/Smoothie i/banana i/yogurt blend all ingredients c/Fruit t/5",           // Missing steps
+        "add n/Breakfast c/English",                                                    // Missing ingredients and steps
+        "add n/Omelette i/eggs c/Breakfast s1/fry t/-10",                               // Invalid time (negative)
+        "add n/Pancakes i/flour i/milk s1/mix c/Breakfast t/",                          // Missing time
+        "add n/Sandwich i/bread i/ham s1/spread butter c/Quick t/0"                     // Invalid time (zero)
+
     })
     void parseCommand_addRecipeCommand_invalidArgumentsExceptionThrown(String command) {
         assertThrows(InvalidArgumentException.class, () -> parseCommand(command));
