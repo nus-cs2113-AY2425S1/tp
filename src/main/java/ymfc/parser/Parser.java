@@ -120,8 +120,13 @@ public final class Parser {
 
         if (cuisine != null && timeTaken != null) {
             return new AddRecipeCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
+        } else if (cuisine != null){
+            return new AddRecipeCommand(new Recipe(name, ingreds, steps, cuisine));
+        } else if (timeTaken != null) {
+            return new AddRecipeCommand(new Recipe(name, ingreds, steps, timeTaken));
+        } else {
+            return new AddRecipeCommand(new Recipe(name, ingreds, steps));
         }
-        return new AddRecipeCommand(new Recipe(name, ingreds, steps));
     }
 
     /**
