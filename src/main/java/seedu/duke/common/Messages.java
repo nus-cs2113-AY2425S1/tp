@@ -22,7 +22,7 @@ public class Messages {
                         """;;
 
     // Messages
-    public static final String MESSAGE_PROMPT = Colors.ANSI_GREEN + "  " + Colors.ANSI_RESET;
+    public static final String MESSAGE_PROMPT = Colors.ANSI_GREEN + "> " + Colors.ANSI_RESET;
     public static final String MESSAGE_BREAKLINE = Colors.ANSI_BLACK
             + "────────────────────────────────────────────────────────────" + Colors.ANSI_RESET;
     public static final String MESSAGE_MAIN_PROMPT = Messages.APPLICATION_NAME + " " + Messages.MESSAGE_PROMPT;
