@@ -17,7 +17,7 @@ import seedu.duke.data.hospital.Hospital;
  * Represents a utility class for JSON operations.
  */
 public class JsonUtil {
-    private static Logger logger = Logger.getLogger("JsonUtil");
+    private static final Logger logger = Logger.getLogger("JsonUtil");
 
     static {
         logger.setLevel(Level.SEVERE); // Only show warnings and errors
@@ -27,15 +27,26 @@ public class JsonUtil {
             .enable(SerializationFeature.INDENT_OUTPUT) // Readable format // print
             .findAndRegisterModules(); // Automatically register additional modules (future use);
 
+    public static void saveToFile(String filePath) {
+        try {
+            objectMapper.writeValue(new File(filePath), new Hospital());
+        } catch (IOException e) {
+            // TODO: Update error handler (yes I am lazy)
+            logger.log(Level.WARNING, "Failed to save data to file: {0}", e.getMessage());
+            System.err.println("Failed to save data to file: " + e.getMessage());
+        }
+        logger.log(Level.INFO, "Data saved successfully at: {0}", filePath);
+    }
+
     public static void saveToFile(Hospital hospital, String filePath) {
         try {
             objectMapper.writeValue(new File(filePath), hospital);
         } catch (IOException e) {
             // TODO: Update error handler (yes I am lazy)
-            logger.log(Level.WARNING, "Failed to save data to file: " + e.getMessage());
+            logger.log(Level.WARNING, "Failed to save data to file: {0}", e.getMessage());
             System.err.println("Failed to save data to file: " + e.getMessage());
         }
-        logger.log(Level.INFO, "Data saved successfully at: " + filePath);
+        logger.log(Level.INFO, "Data saved successfully at: {0}", filePath);
     }
 
     public static Hospital loadFromFile(String filePath) {
@@ -43,21 +54,21 @@ public class JsonUtil {
             Hospital hospital = objectMapper.readValue(new File(filePath), Hospital.class);
 
             assert hospital != null : "Hospital object cannot be null";
-            logger.log(Level.INFO, "Data loaded successfully from: " + filePath);
+            logger.log(Level.INFO, "Data loaded successfully from: {0}", filePath);
 
             return hospital;
         } catch (JsonParseException e) {
-            logger.log(Level.WARNING, "Corrupted JSON data: " + e.getMessage());
+            logger.log(Level.WARNING, "Corrupted JSON data: {0}", e.getMessage());
             System.err.println("Corrupted JSON data: " + e.getMessage());
         } catch (JsonMappingException e) {
-            logger.log(Level.WARNING, "Error mapping JSON to object: " + e.getMessage());
+            logger.log(Level.WARNING, "Error mapping JSON to object: {0}", e.getMessage());
             System.err.println("Error mapping JSON to object: " + e.getMessage());
         } catch (IOException e) {
-            logger.log(Level.WARNING, "I/O error: " + e.getMessage());
+            logger.log(Level.WARNING, "I/O error: {0}", e.getMessage());
             System.err.println("I/O error: " + e.getMessage());
         }
 
-        logger.log(Level.INFO, "Failed to load data from: " + filePath);
+        logger.log(Level.INFO, "Failed to load data from: {0}", filePath);
         return new Hospital();
     }
 
@@ -71,7 +82,7 @@ public class JsonUtil {
 
             return hospitalJson;
         } catch (IOException e) {
-            logger.log(Level.WARNING, "Failed to convert object to JSON: " + e.getMessage());
+            logger.log(Level.WARNING, "Failed to convert object to JSON: {0}", e.getMessage());
             System.err.println("Failed to convert object to JSON: " + e.getMessage());
         }
 

@@ -12,7 +12,7 @@ import seedu.duke.data.hospital.Hospital;
  */
 public class StorageFile {
     private static final String DEFAULT_STORAGE_FILEPATH = "data/hospital_data.json";
-    private static Logger logger = Logger.getLogger("StorageFile");
+    private static final Logger logger = Logger.getLogger("StorageFile");
 
     static {
         logger.setLevel(Level.SEVERE); // Only show warnings and errors
@@ -39,17 +39,20 @@ public class StorageFile {
     private void checkFileFound(String filePath) {
         File f = new File(filePath);
         if (!f.exists()) {
-            logger.log(Level.INFO, "File not found, creating new file: " + filePath);
+            logger.log(Level.INFO, "File not found, creating new file: {0}", filePath);
             try {
                 // Create the file if it does not exist
                 f.getParentFile().mkdirs();
                 f.createNewFile();
                 assert f.exists() : "File should exist after creation";
-                logger.log(Level.INFO, "File created successfully: " + filePath);
+
+                JsonUtil.saveToFile(filePath);
+
+                logger.log(Level.INFO, "File created successfully: {0}", filePath);
             } catch (IOException e) {
                 // TODO: Update error handler
                 System.out.println("Error creating file: " + e.getMessage());
-                logger.log(Level.WARNING, "Error creating file: " + e.getMessage());
+                logger.log(Level.WARNING, "Error creating file: {0}", e.getMessage());
                 System.exit(0);
             }
         }
@@ -57,12 +60,12 @@ public class StorageFile {
 
     public void save(Hospital hospital) {
         assert hospital != null : "Hospital cannot be null";
-        logger.log(Level.INFO, "Going to save data to file: " + filePath);
+        logger.log(Level.INFO, "Going to save data to file: {0}", filePath);
         JsonUtil.saveToFile(hospital, filePath);
     }
 
     public Hospital load() {
-        logger.log(Level.INFO, "Going to load data from file: " + filePath);
+        logger.log(Level.INFO, "Going to load data from file: {0}", filePath);
         return JsonUtil.loadFromFile(getFilePath());
     }
 
