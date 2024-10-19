@@ -24,7 +24,10 @@
   }, {
     "name" : "Cathy",
     "taskList" : {
-      "tasks" : [ ]
+      "tasks" : [ {
+        "description" : "Update Report",
+        "isDone" : false
+      } ]
     }
   } ]
 }

@@ -1,13 +1,12 @@
 package seedu.duke.ui;
 
-import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 class UiTest {
 
@@ -17,14 +16,14 @@ class UiTest {
      */
     @Test
     public void readCommand_validInput_returnsCorrectCommand() {
-        String input = "sample command\n";  // stimulate user input
+        String input = "sample command\n"; // stimulate user input
         ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
         Ui ui = new Ui();
         String command = ui.readCommand();
 
-        assertEquals("sample command", command);  // Verify the input is read correctly
+        assertEquals("sample command", command); // Verify the input is read correctly
     }
 
     /**
@@ -34,16 +33,17 @@ class UiTest {
     @Test
     public void showLine_printsCorrectLine() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));  // Capture console output
+        System.setOut(new PrintStream(outContent)); // Capture console output
 
         Ui ui = new Ui();
         ui.showLine();
 
-        String expectedLine = "____________________________________________________________";
+        String expectedLine = Colors.ANSI_BLACK
+                + "────────────────────────────────────────────────────────────" + Colors.ANSI_RESET;
 
         // Normalize line endings and compare
-        String actualOutput = outContent.toString().trim().replace("\r\n", "\n");
-        assertEquals(expectedLine, actualOutput);  // check the printed line is correct
+        String actualOutput = outContent.toString().trim();
+        assertEquals(expectedLine.trim(), actualOutput); // check the printed line is correct
     }
 
     /**
@@ -53,17 +53,33 @@ class UiTest {
     @Test
     public void showWelcome_displaysWelcomeMessage_correctly() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));  // Capture console output
+        System.setOut(new PrintStream(outContent)); // Capture console output
 
         Ui ui = new Ui();
         ui.showWelcome();
 
-        String expectedOutput = "____________________________________________________________\n" +
-                "Welcome to Meditask!";
+        String expectedLogoOutput = """
+                      _____
+                     [IIIII]
+                     )"\"\""\"(
+                    /       \\
+                   /         \\
+                   |`-.....-'|
+                   | MediTask|
+                 _ |`-.....-'|     _
+                (\\)`-.__.__.(I) _(/)
+                  (I)  (/)(I)(\\)
+                     (I)        Task management for medical professionals
+                            """;
+
+        String expectedOutput = Colors.ANSI_BLACK
+                + "────────────────────────────────────────────────────────────" + Colors.ANSI_RESET + "\n      "
+                + expectedLogoOutput.trim() + "\n\nWelcome to " + Colors.ANSI_YELLOW + "MediTask" + Colors.ANSI_RESET
+                + "!";
 
         // Normalize line endings and compare
         String actualOutput = outContent.toString().trim().replace("\r\n", "\n");
-        assertEquals(expectedOutput, actualOutput);  // check the welcome message is correct
+        assertEquals(expectedOutput.trim(), actualOutput); // check the welcome message is correct
     }
 
     /**
@@ -73,7 +89,6 @@ class UiTest {
     @Test
     public void closeScanner_noExceptions_closesCorrectly() {
         Ui ui = new Ui();
-        assertDoesNotThrow(() -> ui.closeScanner());  // check that no exception is thrown when closing the scanner
+        assertDoesNotThrow(() -> ui.closeScanner()); // check that no exception is thrown when closing the scanner
     }
 }
-

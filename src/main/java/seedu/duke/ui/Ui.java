@@ -1,6 +1,8 @@
 package seedu.duke.ui;
 import java.util.Scanner;
 
+import seedu.duke.common.Messages;
+
 /**
  * The Ui class handles the user interface for the task management application.
  * It provides methods for displaying messages and interacting with the user.
@@ -17,14 +19,13 @@ public class Ui {
 
     public void showMainScreen() {
         showLine();
-        System.out.print("Meditask: ");
+        System.out.print(Messages.MESSAGE_MAIN_PROMPT);
     }
 
     public void showTaskScreen(String patientName) {
         showLine();
         System.out.println("Patient: " + patientName);
-        System.out.print("Input: ");
-
+        System.out.print(Messages.MESSAGE_MAIN_PROMPT);
     }
 
     public void showToUser(String message) {
@@ -51,7 +52,7 @@ public class Ui {
      * Displays a horizontal line to the console.
      */
     public void showLine() {
-        System.out.println("____________________________________________________________");
+        System.out.println(Messages.MESSAGE_BREAKLINE);
     }
 
     /**
@@ -59,7 +60,8 @@ public class Ui {
      */
     public void showWelcome() {
         showLine();
-        System.out.println("Welcome to Meditask!");
+        System.out.println(Messages.LOGO);
+        System.out.println(Messages.MESSAGE_WELCOME);
     }
 
     /**
@@ -70,7 +72,3 @@ public class Ui {
     }
 
 }
-
-
-
-
