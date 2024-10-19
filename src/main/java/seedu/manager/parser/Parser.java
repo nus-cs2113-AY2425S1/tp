@@ -3,6 +3,7 @@ package seedu.manager.parser;
 import seedu.manager.command.Command;
 import seedu.manager.command.AddCommand;
 import seedu.manager.command.InvalidCommand;
+import seedu.manager.command.MarkCommand;
 import seedu.manager.command.RemoveCommand;
 import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
@@ -33,6 +34,14 @@ public class Parser {
             Invalid command!
             Please enter your commands in the following format:
             view -e EVENT_NAME""";
+    private static final String INVALID_MARK_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            mark -e EVENT -s STATUS""";
+    private static final String INVALID_EVENT_STATUS_MESSAGE = """
+            Invalid event status!
+            Please set the event status as either "done" or "undone"
+            """;
 
     /**
      * Returns a command based on the given user command string
@@ -56,7 +65,8 @@ public class Parser {
             return new MenuCommand();
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
-
+        case MarkCommand.COMMAND_WORD:
+            return parseMarkCommand(command, commandParts);
         default:
             return new InvalidCommand(INVALID_COMMAND_MESSAGE);
         }
@@ -172,6 +182,60 @@ public class Parser {
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING,"Invalid command format");
             return new InvalidCommand(INVALID_VIEW_MESSAGE);
+        }
+    }
+
+    /**
+     * Parses the input string to create a {@link Command} based on the provided command parts.
+     *
+     * <p>
+     * This method checks the command flag extracted from the command parts. If the command
+     * flag is {@code "-e"}, it splits the input string to create a {@link MarkCommand}
+     * to mark an event done or undone. If the command flag is {@code "-p"}, it creates a
+     * {@link RemoveCommand} for removing a participant from an event. Otherwise, it returns
+     * an {@link InvalidCommand} with an error message.
+     * </p>
+     *
+     * @param input        the input string containing the command details.
+     * @param commandParts an array of strings representing the parsed command parts,
+     *                     where the second element is the command flag.
+     * @return a {@link Command} object representing the parsed command.
+     */
+    private Command parseMarkCommand(String input, String[] commandParts) {
+        assert commandParts[0].equalsIgnoreCase(MarkCommand.COMMAND_WORD);
+        try {
+            String commandFlag = commandParts[1];
+
+            if (commandFlag.equalsIgnoreCase("-e")) {
+                String[] inputParts = input.split("-e|-s");
+                return getMarkEventCommand(inputParts[1].trim(), inputParts[2].trim());
+            }
+
+            logger.log(WARNING,"Invalid command format");
+            return new InvalidCommand(INVALID_MARK_MESSAGE);
+        } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING,"Invalid command format");
+            return new InvalidCommand(INVALID_MARK_MESSAGE);
+        }
+    }
+
+    /**
+     * Returns a {@link MarkCommand} with a given event name and status, or an
+     * {@link InvalidCommand} if the status is invalid
+     *
+     * @param eventName the given event name
+     * @param status the given event status
+     * @return a MarkCommand with a given event name and status, or an
+     *     InvalidCommand if the status is invalid
+     */
+    private Command getMarkEventCommand(String eventName, String status) {
+        if (status.equalsIgnoreCase("done")) {
+            return new MarkCommand(eventName, true);
+        } else if (status.equalsIgnoreCase("undone")) {
+            return new MarkCommand(eventName, false);
+        } else {
+            logger.log(WARNING,"Invalid status keyword");
+            return new InvalidCommand(INVALID_EVENT_STATUS_MESSAGE);
         }
     }
 }

@@ -13,7 +13,8 @@ public class MenuCommand extends Command {
             remove -e EVENT_NAME: Remove an event from the event list.
             add -p PARTICIPANT_NAME -e EVENT_NAME: Add a participant to an event.
             view -e EVENT_NAME: View the list of participants of an event.
-            remove -p PARTICIPANT_NAME -e EVENT_NAME: Remove a participant from an event.""";
+            remove -p PARTICIPANT_NAME -e EVENT_NAME: Remove a participant from an event.
+            mark -e EVENT -s STATUS: Mark an event as done or not done""";
 
     /**
      * Constructs a new MenuCommand
