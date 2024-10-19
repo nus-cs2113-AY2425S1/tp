@@ -4,4 +4,7 @@ list
 add
 add -e dinner party -t 2024-10-10 -v Alice's House
 list
+mark -e dinner party -s done
+list
+mark -e Saturday brunch -s done
 exit
