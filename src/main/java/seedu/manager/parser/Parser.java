@@ -23,17 +23,17 @@ public class Parser {
     private static final String INVALID_ADD_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            add -e EVENT_NAME -t TIME -v VENUE
-            add -p PARTICIPANT_NAME -e EVENT_NAME""";
+            add -e EVENT -t TIME -v VENUE
+            add -p PARTICIPANT -e EVENT""";
     private static final String INVALID_REMOVE_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            remove -e EVENT_NAME
-            remove -p PARTICIPANT_NAME -e EVENT_NAME""";
+            remove -e EVENT
+            remove -p PARTICIPANT -e EVENT""";
     private static final String INVALID_VIEW_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            view -e EVENT_NAME""";
+            view -e EVENT""";
     private static final String INVALID_MARK_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:

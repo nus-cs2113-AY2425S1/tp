@@ -25,12 +25,12 @@ Shows a list of all valid user commands in the program.
 ```
 Here are the possible commands:
 
-add -e EVENT_NAME -t TIME -v VENUE: Add an event to the event list.
+add -e EVENT -t TIME -v VENUE: Add an event to the event list.
 list: List events.
-remove -e EVENT_NAME: Remove an event from the event list.
-add -p PARTICIPANT_NAME -e EVENT_NAME: Add a participant to an event.
-view -e EVENT_NAME: View the list of participants of an event.
-remove -p PARTICIPANT_NAME -e EVENT_NAME: Remove a participant from an event.
+remove -e EVENT: Remove an event from the event list.
+add -p PARTICIPANT -e EVENT: Add a participant to an event.
+view -e EVENT: View the list of participants of an event.
+remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
 ```
 
 Format: `menu`
@@ -44,8 +44,8 @@ Format: `list`
 Adds an event to the event list, or a participant to an event.
 
 Format:  
-* `add -e EVENT_NAME -t TIME -v VENUE` for adding an event to the events list.
-* `add -p PARTICIPANT_NAME -e EVENT_NAME` for adding a participant to an event.
+* `add -e EVENT -t TIME -v VENUE` for adding an event to the events list.
+* `add -p PARTICIPANT -e EVENT` for adding a participant to an event.
 
 Examples:
 * `add -e Origami workshop -t Mon 1600-1800 -v Building A` adds an event with name `Origami workshop`,  
@@ -56,8 +56,8 @@ time `Mon 1600-1800` and venue `Building A` to the events list.
 Removes an event from the event list, or a participant from an event.
 
 Format:
-* `remove -e EVENT_NAME` for removing an event from the event list.
-* `remove -p PARTICIPANT_NAME -e EVENT_NAME` for removing a participant from an event.
+* `remove -e EVENT` for removing an event from the event list.
+* `remove -p PARTICIPANT -e EVENT` for removing a participant from an event.
 
 Examples:
 * `remove -e Origami workshop` removes the event `Origami workshop` from the event list.
@@ -66,7 +66,7 @@ Examples:
 ### View all participants for an event: `view`
 Shows a list of all participants for an event.
 
-Format: `view -e EVENT_NAME`
+Format: `view -e EVENT`
 
 Examples:
 * `view -e Origami workshop` shows a list of all participants for the event `Origami workshop`.
@@ -80,8 +80,8 @@ Format: `exit`
 
 * View all commands: `view`
 * List all events: `list`
-* Add event: `add -e EVENT_NAME -t TIME -v VENUE`
-* Add participant to an event: `add -p PARTICIPANT_NAME -e EVENT_NAME`
-* Remove event: `remove -e EVENT_NAME`
-* Remove participant from an event: `remove -p PARTICIPANT_NAME -e EVENT_NAME`
-* View all participants for an event: `view -e EVENT_NAME`
+* Add event: `add -e EVENT -t TIME -v VENUE`
+* Add participant to an event: `add -p PARTICIPANT -e EVENT`
+* Remove event: `remove -e EVENT`
+* Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
+* View all participants for an event: `view -e EVENT`
