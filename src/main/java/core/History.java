@@ -2,12 +2,16 @@ package core;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonDeserializer;
 import programme.Day;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Map;
 
 public class History {
 
@@ -27,9 +31,16 @@ public class History {
     public JsonObject toJson() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new DateSerializer())
+                .setPrettyPrinting()
                 .create();
+        JsonObject historyJson = new JsonObject();
+        for (LocalDate date : history.keySet()) {
+            Day day = history.get(date);
+            // Add each entry in the HashMap to the JsonObject, using the date as the key
+            historyJson.add(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), gson.toJsonTree(day));
+        }
 
-        return gson.toJsonTree(this).getAsJsonObject();
+        return historyJson;
     }
 
     // Creates a History object from a JSON string
@@ -37,7 +48,19 @@ public class History {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new DateSerializer())
                 .create();
-        return gson.fromJson(jsonObject, History.class);
+        History history = new History();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        // Iterate through the JSON keys (dates) and deserialize them as LocalDate and Day objects
+        for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+            LocalDate date = LocalDate.parse(entry.getKey(), formatter);  // Convert key to LocalDate
+            System.out.println(date);
+            Day day = gson.fromJson(entry.getValue(), Day.class);  // Deserialize the Day object
+            System.out.println(day);
+            history.history.put(date, day);  // Add to the HashMap
+        }
+
+        return history;
     }
 
     // Standard toString method for History class that represents the history

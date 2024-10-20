@@ -6,20 +6,21 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSerializer;
 import com.google.gson.JsonDeserializationContext;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class DateSerializer implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
+public class DateSerializer implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @Override
-    public JsonElement serialize(LocalDateTime src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
         return new JsonPrimitive(src.format(formatter));  
     }
 
     @Override
-    public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
-        return LocalDateTime.parse(json.getAsString(), formatter); 
+    public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
+        System.out.println("enter deseralize");
+        return LocalDate.parse(json.getAsString(), formatter);
     }
 }
