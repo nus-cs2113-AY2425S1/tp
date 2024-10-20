@@ -16,7 +16,7 @@ public class ListCommand extends Command {
         assert pList != null : "Programme list must not be null";
         assert ui != null : "Ui must not be null";
         String result = String.format("Listing programmes: %n%s", pList);
-        ui.showMsg(result);
+        ui.showMessage(result);
         logger.log(Level.INFO, "ListCommand executed successfully.");
     }
 }

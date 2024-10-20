@@ -104,7 +104,7 @@ public class EditCommand extends Command {
 
         for (EditSubCommand c : subCommands) {
             String result = c.execute(pList);
-            ui.showMsg(result);
+            ui.showMessage(result);
             logger.log(Level.INFO, "SubCommand executed: {0}", result);
         }
 

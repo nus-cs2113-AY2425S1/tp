@@ -45,6 +45,6 @@ public class HistoryCommandTest {
 
         historyCommand.execute(mockUi, mockPList, mockHistory);
 
-        verify(mockUi).showMsg(anyString());
+        verify(mockUi).showMessage(anyString());
     }
 }

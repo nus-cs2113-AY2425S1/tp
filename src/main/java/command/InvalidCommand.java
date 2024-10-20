@@ -12,7 +12,7 @@ public class InvalidCommand extends Command {
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history){
         assert ui != null : "Ui must not be null";
-        ui.showMsg("Invalid command.");
+        ui.showMessage("Invalid command.");
         logger.log(Level.INFO, "InvalidCommand executed successfully.");
     }
 }

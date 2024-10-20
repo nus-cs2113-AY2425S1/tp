@@ -29,7 +29,7 @@ public class CreateCommand extends Command {
         Programme created = pList.insertProgramme(name, contents);
         assert created != null : "programme must be created";
         String result = String.format("New programme created: %n%s",created);
-        ui.showMsg(result);
+        ui.showMessage(result);
         logger.log(Level.INFO, "CreateCommand executed successfully.");
     }
 }

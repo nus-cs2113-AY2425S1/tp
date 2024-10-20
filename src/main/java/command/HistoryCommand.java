@@ -16,7 +16,7 @@ public class HistoryCommand extends Command {
         assert history != null : "History must not be null";
         assert ui != null: "Ui must not be null";
         String result = String.format("Your workout history: %s%n",history);
-        ui.showMsg(result);
+        ui.showMessage(result);
         logger.log(Level.INFO, "HistoryCommand executed successfully.");
     }
 }

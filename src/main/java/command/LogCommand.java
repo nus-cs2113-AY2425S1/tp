@@ -55,7 +55,7 @@ public class LogCommand extends Command {
         history.logDay(completed, date);
 
         String result =  String.format("Congrats! You've successfully completed:%n%s",completed);
-        ui.showMsg(result);
+        ui.showMessage(result);
 
         logger.log(Level.INFO, "LogCommand executed successfully for day: {0}", completed);
     }

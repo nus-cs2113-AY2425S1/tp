@@ -26,7 +26,7 @@ public class StartCommand extends Command {
         Programme started = pList.startProgramme(progId);
         assert started != null : "Programme must not be null";
         String result = String.format("Ok! Started Programme: %n%s",started);
-        ui.showMsg(result);
+        ui.showMessage(result);
         logger.log(Level.INFO, "StartCommand executed successfully.");
     }
 }
