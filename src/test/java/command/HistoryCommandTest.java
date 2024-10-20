@@ -14,13 +14,13 @@ import static org.mockito.Mockito.verify;
 
 public class HistoryCommandTest {
     @Test
-    public void testIsExit_ReturnsFalse() {
+    public void testIsExit_returnsFalse() {
         HistoryCommand historyCommand = new HistoryCommand();
         assertFalse(historyCommand.isExit());
     }
 
     @Test
-    public void testExecute_DoesNotThrowException() {
+    public void testExecute_doesNotThrowException() {
         Ui mockUi = mock(Ui.class);
         ProgrammeList mockPList = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);
@@ -31,7 +31,7 @@ public class HistoryCommandTest {
     }
 
     @Test
-    public void testExecute_ShowsHistoryWithData() {
+    public void testExecute_showsHistoryWithData() {
         Ui mockUi = mock(Ui.class);
         ProgrammeList mockPList = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);

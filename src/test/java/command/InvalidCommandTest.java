@@ -13,13 +13,13 @@ import static org.mockito.Mockito.verify;
 
 public class InvalidCommandTest {
     @Test
-    public void testIsExit_ReturnsFalse() {
+    public void testIsExit_returnsFalse() {
         InvalidCommand invalidCommand = new InvalidCommand();
         assertFalse(invalidCommand.isExit());
     }
 
     @Test
-    public void testExecute_ShowsInvalidCommandMessage() {
+    public void testExecute_showsInvalidCommandMessage() {
         Ui mockUi = mock(Ui.class);
         ProgrammeList mockPList = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);

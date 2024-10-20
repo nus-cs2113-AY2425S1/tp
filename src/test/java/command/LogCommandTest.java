@@ -16,13 +16,13 @@ import java.time.LocalDate;
 
 public class LogCommandTest {
     @Test
-    public void testIsExit_ReturnsFalse() {
+    public void testIsExit_returnsFalse() {
         LogCommand logCommand = new LogCommand(0,0, LocalDate.now());
         assertFalse(logCommand.isExit());
     }
 
     @Test
-    public void testExecute_LogsDayIntoHistory() {
+    public void testExecute_logsDayIntoHistory() {
         Ui mockUi = mock(Ui.class);
         ProgrammeList mockPList = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);

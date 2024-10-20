@@ -11,13 +11,13 @@ import static org.mockito.Mockito.mock;
 
 public class ExitCommandTest {
     @Test
-    public void testIsExit_ReturnsTrue() {
+    public void testIsExit_returnsTrue() {
         ExitCommand exitCommand = new ExitCommand();
         assertTrue(exitCommand.isExit());
     }
 
     @Test
-    public void testExecute_DoesNotThrowException() {
+    public void testExecute_doesNotThrowException() {
         Ui mockUi = mock(Ui.class);
         ProgrammeList mockPList = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);
