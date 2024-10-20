@@ -29,6 +29,6 @@ public class InvalidCommandTest {
         invalidCommand.execute(mockUi, mockPList, mockHistory);
 
         //just checked the Ui.showMsg is called, the string input does not matter
-        verify(mockUi).showMsg(anyString());
+        verify(mockUi).showMessage(anyString());
     }
 }
