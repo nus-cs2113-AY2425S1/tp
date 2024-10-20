@@ -1,7 +1,5 @@
 package seedu.exchangecoursemapper.command;
 
-import seedu.exchangecoursemapper.constants.Logs;
-
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
