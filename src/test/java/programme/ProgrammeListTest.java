@@ -3,8 +3,8 @@ package programme;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -38,7 +38,7 @@ public class ProgrammeListTest {
     }
 
     @Test
-    void testDeleteProgramme_ValidIndex() {
+    void testDeleteProgrammeValidIndex() {
         Programme deletedProgramme = programmeList.deleteProgram(0);
 
         assertEquals("Programme 1", deletedProgramme.toString());
@@ -46,7 +46,7 @@ public class ProgrammeListTest {
     }
 
     @Test
-    void testDeleteProgramme_InvalidIndex() {
+    void testDeleteProgrammeInvalidIndex() {
         Programme deletedProgramme = programmeList.deleteProgram(5);
 
         assertNull(deletedProgramme);

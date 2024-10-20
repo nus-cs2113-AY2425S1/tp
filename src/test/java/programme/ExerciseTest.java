@@ -3,7 +3,7 @@ package programme;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ExerciseTest {
 
@@ -16,7 +16,7 @@ class ExerciseTest {
     }
 
     @Test
-    void testUpdateExercise_AllFieldsNonNull() {
+    void testUpdateExerciseAllFieldsNonNull() {
         // Create a mock Exercise object for updating
         Exercise mockUpdate = mock(Exercise.class);
 
@@ -34,7 +34,7 @@ class ExerciseTest {
     }
 
     @Test
-    void testUpdateExercise_OnlySomeFieldsNonNull() {
+    void testUpdateExerciseOnlySomeFieldsNonNull() {
         // Create a mock Exercise object for updating
         Exercise mockUpdate = mock(Exercise.class);
 

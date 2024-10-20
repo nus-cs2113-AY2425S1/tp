@@ -3,7 +3,8 @@ package programme;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -43,7 +44,7 @@ public class ProgrammeTest {
     }
 
     @Test
-    void testDeleteDay_ValidIndex(){
+    void testDeleteDayValidIndex(){
         Day mockDayToDelete = programme.deleteDay(0);
 
         assertEquals(mockDay1, mockDayToDelete);
@@ -51,7 +52,7 @@ public class ProgrammeTest {
     }
 
     @Test
-    void testDeleteDay_InvalidIndex() {
+    void testDeleteDayInvalidIndex() {
         Day deletedDay = programme.deleteDay(5);
 
         assertNull(deletedDay);
