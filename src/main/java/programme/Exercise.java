@@ -68,3 +68,4 @@ public class Exercise {
         return Objects.hash(sets, reps, weight, name);
     }
 }
+
