@@ -2,7 +2,7 @@ package seedu.duke;
 
 import seedu.duke.ui.AppUi;
 
-public class FinanceBuddy {
+public class    FinanceBuddy {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
