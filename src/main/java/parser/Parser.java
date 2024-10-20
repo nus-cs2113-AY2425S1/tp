@@ -8,11 +8,14 @@ import command.InvalidCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import static parser.IndexParser.parseIndex;
 
 public class Parser {
     private final ProgCommandParser progParser;
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     public Parser(){
         this.progParser = new ProgCommandParser();
@@ -32,6 +35,9 @@ public class Parser {
             argumentString = inputArguments[1];
         }
 
+        logger.log(Level.INFO, "Parsed command: {0}, with arguments: {1}",
+                new Object[]{commandString, argumentString});
+
         return switch (commandString) {
         case ProgCommandParser.COMMAND_WORD -> progParser.parse(argumentString);
         case LogCommand.COMMAND_WORD -> prepareLogCommand(argumentString);
@@ -42,6 +48,8 @@ public class Parser {
     }
 
     private Command prepareLogCommand(String argumentString){
+        assert argumentString != null : "Argument string must not be null";
+
         int progIndex = -1;
         int dayIndex = -1;
         LocalDate date = LocalDate.now();
@@ -81,11 +89,16 @@ public class Parser {
                 throw new IllegalArgumentException("Flag command not recognized: " + flag);
             }
         }
+        logger.log(Level.INFO, "LogCommand prepared with Programme index: {0}, Day index: {1}, Date: {2}",
+                new Object[]{progIndex, dayIndex, date});
+
         return new LogCommand(progIndex, dayIndex, date);
     }
 
 
     private LocalDate parseDate(String dateString) {
+        assert dateString != null && !dateString.trim().isEmpty() : "Date string must not be null or empty";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(dateString, formatter);
     }
