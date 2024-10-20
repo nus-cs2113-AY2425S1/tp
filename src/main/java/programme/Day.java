@@ -6,6 +6,12 @@ public class Day {
     private final String name;
     private final ArrayList<Exercise> exercises;
 
+    public Day(String name, ArrayList<Exercise> exercises) {
+        this.name = name;
+        this.exercises = exercises;
+    }
+
+
     public Day(String name){
         this.name = name;
         this.exercises = new ArrayList<>();
