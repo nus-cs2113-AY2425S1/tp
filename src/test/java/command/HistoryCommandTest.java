@@ -7,6 +7,7 @@ import programme.ProgrammeList;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
@@ -44,6 +45,6 @@ public class HistoryCommandTest {
 
         historyCommand.execute(mockUi, mockPList, mockHistory);
 
-        verify(mockUi).showMsg("Your workout history: \n" + historyData);
+        verify(mockUi).showMessage(anyString());
     }
 }

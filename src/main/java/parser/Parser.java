@@ -6,20 +6,23 @@ import command.HistoryCommand;
 import command.LogCommand;
 import command.InvalidCommand;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static parser.ParserUtils.parseIndex;
+import static parser.IndexParser.parseIndex;
 
 public class Parser {
-    private final ProgammeParser progParser;
+    private final ProgCommandParser progParser;
 
     public Parser(){
-        this.progParser = new ProgammeParser();
+        this.progParser = new ProgCommandParser();
     }
 
     public Command parse(String fullCommand) {
+        if (fullCommand == null || fullCommand.trim().isEmpty()) {
+            throw new IllegalArgumentException("Command cannot be empty. Please enter a valid command.");
+        }
+
         String[] inputArguments = fullCommand.trim().split(" ", 2);
 
         String commandString = inputArguments[0];
@@ -30,7 +33,7 @@ public class Parser {
         }
 
         return switch (commandString) {
-        case ProgammeParser.COMMAND_WORD -> progParser.parse(argumentString);
+        case ProgCommandParser.COMMAND_WORD -> progParser.parse(argumentString);
         case LogCommand.COMMAND_WORD -> prepareLogCommand(argumentString);
         case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
         case ExitCommand.COMMAND_WORD -> new ExitCommand();
@@ -43,22 +46,36 @@ public class Parser {
         int dayIndex = -1;
         LocalDate date = LocalDate.now();
 
-        String[] arguments = argumentString.split(" (?=/[tdp])");
+        String[] arguments = argumentString.split(" (?=/)");
+        if (arguments.length < 3) {
+            throw new IllegalArgumentException("Please provide all log flags.");
+        }
 
         for (String arg : arguments) {
             String[] argParts = arg.split(" ");
             String flag = argParts[0];
-            String value = argParts[1];
 
             switch (flag){
             case "/p":
-                progIndex = parseIndex(value);
+                if (argParts[1] == null || argParts[1].trim().isEmpty()) {
+                    throw new IllegalArgumentException("Programme index cannot be empty. Please enter valid index.");
+                }
+
+                progIndex = parseIndex(argParts[1]);
                 break;
             case "/d":
-                dayIndex = parseIndex(value);
+                if (argParts[1] == null || argParts[1].trim().isEmpty()) {
+                    throw new IllegalArgumentException("Day index cannot be empty. Please enter valid index.");
+                }
+
+                dayIndex = parseIndex(argParts[1]);
                 break;
             case "/t":
-                date = parseDate(value);
+                if (argParts[1] == null || argParts[1].trim().isEmpty()) {
+                    throw new IllegalArgumentException("Date cannot be empty. Please enter valid date.");
+                }
+
+                date = parseDate(argParts[1]);
                 break;
             default:
                 throw new IllegalArgumentException("Flag command not recognized: " + flag);
@@ -69,7 +86,8 @@ public class Parser {
 
 
     private LocalDate parseDate(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(dateString, formatter);
     }
 }
+

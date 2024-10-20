@@ -5,7 +5,7 @@ package command.programme.edit;
 import programme.ProgrammeList;
 
 public abstract class EditSubCommand {
-    protected int progId;
+    protected final int progId;
     protected int dayId;
 
     public EditSubCommand(int progId, int dayId){

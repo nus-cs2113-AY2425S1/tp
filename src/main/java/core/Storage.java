@@ -41,11 +41,11 @@ public class Storage {
 
     private JsonObject load() {
         try (FileReader reader = new FileReader(path)){
-            JsonElement elememt = JsonParser.parseReader(reader);
-            if(elememt == null || elememt.isJsonNull()) {
+            JsonElement element = JsonParser.parseReader(reader);
+            if(element == null || element.isJsonNull()) {
                 return new JsonObject();
             }
-            return elememt.getAsJsonObject();
+            return element.getAsJsonObject();
         } catch(IOException e){
             throw new RuntimeException("Failed to load data due to: " + e.getMessage());
         }

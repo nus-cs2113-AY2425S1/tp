@@ -1,8 +1,12 @@
 package parser;
 
-public class ParserUtils {
+public class IndexParser {
 
     public static int parseIndex(String indexString) {
+        if (indexString.isEmpty()){
+            throw new IllegalArgumentException("Index was not provided.");
+        }
+
         try {
             int index = Integer.parseInt(indexString.trim()) - 1;
             if (index < 0) {

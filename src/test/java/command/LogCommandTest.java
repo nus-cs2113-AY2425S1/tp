@@ -41,6 +41,6 @@ public class LogCommandTest {
 
         verify(mockPList).getDay(progIndex, dayIndex);
         verify(mockHistory).logDay(mockDay, date);
-        verify(mockUi).showMsg(anyString());
+        verify(mockUi).showMessage(anyString());
     }
 }
