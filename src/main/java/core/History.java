@@ -52,9 +52,7 @@ public class History {
         // Iterate through the JSON keys (dates) and deserialize them as LocalDate and Day objects
         for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
             LocalDate date = LocalDate.parse(entry.getKey(), formatter);  // Convert key to LocalDate
-            System.out.println(date);
             Day day = gson.fromJson(entry.getValue(), Day.class);  // Deserialize the Day object
-            System.out.println(day);
             history.history.put(date, day);  // Add to the HashMap
         }
 

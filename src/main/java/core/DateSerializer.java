@@ -20,7 +20,6 @@ public class DateSerializer implements JsonSerializer<LocalDate>, JsonDeserializ
 
     @Override
     public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
-        System.out.println("enter deseralize");
         return LocalDate.parse(json.getAsString(), formatter);
     }
 }
