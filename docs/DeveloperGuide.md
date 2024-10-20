@@ -28,7 +28,9 @@
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+1. Access to a computer with Java 17 installed and a functional CLI
+2. A CEG Student in NUS planning to map out mainly BT/IS/EE/CS/CG-coded courses
+{TODO: Add more} 
 
 ## Glossary
 
