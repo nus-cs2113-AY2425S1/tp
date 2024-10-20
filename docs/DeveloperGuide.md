@@ -20,10 +20,11 @@
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+|Version| As a ...     | I want to ...                                                   | So that I can ...                                |
+|--------|--------------|-----------------------------------------------------------------|--------------------------------------------------|
+|v1.0| CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions     |
+|v2.0| CEG student  | obtain the email address of the partner university              | send an email should I have any queries          |
+|v2.0| CEG student  | obtain the contact number of the partner university             | call the number should I have any urgent queries |
 
 ## Non-Functional Requirements
 
