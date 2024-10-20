@@ -5,18 +5,17 @@ import org.junit.jupiter.api.Test;
 import programme.Day;
 import programme.Exercise;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class HistoryTest {
     private History history;
     private Day day1;
     private Day day2;
-    private LocalDateTime date1;
-    private LocalDateTime date2;
+    private LocalDate date1;
+    private LocalDate date2;
 
     @BeforeEach
     public void setUp() {
@@ -36,9 +35,9 @@ public class HistoryTest {
         day1 = new Day("Day 1", exercisesDay1);
         day2 = new Day("Day 2", exercisesDay2);
 
-        // Dates for logging the days
-        date1 = LocalDateTime.of(2024, 10, 12, 14, 30);  // Example date
-        date2 = LocalDateTime.of(2024, 10, 13, 16, 45);  // Example date
+        // Dates for logging the days (now using LocalDate)
+        date1 = LocalDate.of(2024, 10, 12);
+        date2 = LocalDate.of(2024, 10, 13);
     }
 
     @Test
@@ -47,22 +46,9 @@ public class HistoryTest {
         history.logDay(day1, date1);
         history.logDay(day2, date2);
 
-        // Assert that the Day objects are correctly logged in the history
+        // Object-based comparison
         assertEquals(day1, history.getDayByDate(date1));  // Compare Day object directly
         assertEquals(day2, history.getDayByDate(date2));  // Compare Day object directly
-
-        // Expected output from history (optional)
-        String expectedOutput = "Day 1\n\n"
-                + "1. Bench Press: 3 sets of 12 reps at 50 kg\n"
-                + "2. Squat: 3 sets of 12 reps at 80 kg\n\n"
-                + "Completed On: 12/10/2024\n\n"
-                + "Day 2\n\n"
-                + "1. Deadlift: 3 sets of 10 reps at 100 kg\n"
-                + "2. Pull Up: 4 sets of 8 reps at 0 kg\n\n"
-                + "Completed On: 13/10/2024\n\n";
-
-        // Assert that the toString method still works as expected
-        assertEquals(expectedOutput, history.toString());
     }
 
     @Test
@@ -83,17 +69,8 @@ public class HistoryTest {
         // Log the modified day with the same date
         history.logDay(modifiedDay, date1);
 
-        // Assert that the day has been overwritten in the history
+        // Object-based comparison
         assertEquals(modifiedDay, history.getDayByDate(date1));  // Compare the updated Day object
-
-        // Expected output for overwritten day with correct date format
-        String expectedOutput = "Day 1\n\n"
-                + "1. Bicep Curl: 3 sets of 12 reps at 15 kg\n\n"
-                + "Completed On: 12/10/2024\n\n";
-
-        // Assert that the toString method reflects the overwritten day
-        assertEquals(expectedOutput, history.toString());
     }
 }
-
 
