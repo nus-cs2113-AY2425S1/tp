@@ -98,6 +98,7 @@ public class EditCommand extends Command {
     public void execute(Ui ui, ProgrammeList pList, History history) {
         assert pList != null : "ProgrammeList must not be null";
         assert history != null : "History must not be null";
+        assert ui != null : "UI must not be null";
 
         logger.log(Level.INFO, "Executing EditCommand with {0} subCommands", subCommands.size());
 

@@ -25,6 +25,7 @@ public class CreateCommand extends Command {
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history){
         assert pList != null : "Programme list must not be null";
+        assert ui != null : "UI must not be null";
         Programme created = pList.insertProgramme(name, contents);
         assert created != null : "programme must be created";
         String result = String.format("New programme created:%s%n",created);

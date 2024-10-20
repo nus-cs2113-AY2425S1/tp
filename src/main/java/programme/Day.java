@@ -12,7 +12,6 @@ public class Day {
         this.exercises = exercises;
     }
 
-
     public Day(String name){
         this.name = name;
         this.exercises = new ArrayList<>();

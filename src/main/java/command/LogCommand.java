@@ -46,6 +46,7 @@ public class LogCommand extends Command {
 
         assert pList != null : "ProgrammeList must not be null";
         assert history != null : "History must not be null";
+        assert ui != null : "UI must not be null";
 
         Day completed = pList.getDay(progIndex, dayIndex);
 
