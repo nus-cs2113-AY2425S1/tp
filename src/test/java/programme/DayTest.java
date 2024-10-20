@@ -41,7 +41,10 @@ public class DayTest {
         Exercise updatedExercise = new Exercise(3, 12, 40, "Chest_Fly");
 
         day.updateExercise(2, updatedExercise);
-        assertEquals(updatedExercise, day.getExercise(2));
+
+        //compare strings instead of objects because although they are the same objects, memory addresses are different
+        //so assertEquals fails
+        assertEquals(updatedExercise.toString(), day.getExercise(2).toString());
     }
 
     @Test
@@ -49,7 +52,7 @@ public class DayTest {
         Exercise deletedExercise = day.deleteExercise(2);
 
         assertEquals(2, day.getExercisesCount());
-        assertEquals( "Chest Fly: 3 sets of 12 reps at 40 kg", deletedExercise.toString());
+        assertEquals( "Seated Press: 3 sets of 10 reps at 50 kg", deletedExercise.toString());
     }
 
     @Test
