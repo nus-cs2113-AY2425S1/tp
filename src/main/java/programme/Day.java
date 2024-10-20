@@ -16,6 +16,14 @@ public class Day {
         this.exercises = new ArrayList<>();
     }
 
+    public int getExercisesCount() {
+        return exercises.size();
+    }
+
+    public Exercise getExercise(int index) {
+        return exercises.get(index);
+    }
+
     public Exercise updateExercise(int exerciseId, Exercise exercise){
         Exercise toBeUpdated = exercises.get(exerciseId);
         toBeUpdated.updateExercise(exercise);
