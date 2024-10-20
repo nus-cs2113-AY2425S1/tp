@@ -45,6 +45,8 @@ checkstyle {
     toolVersion = '10.2'
 }
 
-run{
+run {
     standardInput = System.in
+    enableAssertions = true
+    jvmArgs = ["-ea"]  // Explicitly enable assertions in the JVM
 }
