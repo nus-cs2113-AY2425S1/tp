@@ -27,16 +27,13 @@ public class ListUniCoursesCommand extends Command {
     @Override
     public void execute(String userInput) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
-        try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
-            JsonObject jsonObject = jsonReader.readObject();
+        try {
+            JsonObject jsonObject = super.createJsonObject();
             logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
             assert jsonObject != null : Assertions.NULL_JSON_FILE;
             assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
             String puName = getPuName(userInput);
             getUniCourses(jsonObject, puName);
-        } catch (IOException e) {
-            logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
-            System.err.println(Exception.fileReadError());
         } catch (UnknownUniversityException e) {
             logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, e.getMessage());
             System.err.println(e.getMessage());

@@ -21,16 +21,11 @@ public class ListSchoolCommand extends Command {
     @Override
     public void execute(String userInput) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
-        try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
-            JsonObject jsonObject = jsonReader.readObject();
-            logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
-            assert jsonObject != null : Assertions.NULL_JSON_FILE;
-            assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
-            displaySchoolList(jsonObject);
-        } catch (IOException e) {
-            logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
-            System.err.println(Exception.fileReadError());
-        }
+        JsonObject jsonObject = super.createJsonObject();
+        logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
+        assert jsonObject != null : Assertions.NULL_JSON_FILE;
+        assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+        displaySchoolList(jsonObject);
         logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
 

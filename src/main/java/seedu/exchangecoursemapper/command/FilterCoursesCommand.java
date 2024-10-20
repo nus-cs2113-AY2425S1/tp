@@ -10,6 +10,7 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,17 +33,12 @@ public class FilterCoursesCommand extends Command {
     @Override
     public void execute(String userInput) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
-        try (JsonReader jsonReader = Json.createReader(new FileReader(FILE_PATH))) {
-            JsonObject jsonObject = jsonReader.readObject();
-            logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
-            assert jsonObject != null : Assertions.NULL_JSON_FILE;
-            assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
-            String courseToFind = getNusCourseCode(userInput);
-            displayMappableCourses(jsonObject, courseToFind.toLowerCase());
-        } catch (IOException e) {
-            logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
-            System.err.println(Exception.fileReadError());
-        }
+        JsonObject jsonObject = super.createJsonObject();
+        logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
+        assert jsonObject != null : Assertions.NULL_JSON_FILE;
+        assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+        String courseToFind = getNusCourseCode(userInput);
+        displayMappableCourses(jsonObject, courseToFind.toLowerCase());
         logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
 
