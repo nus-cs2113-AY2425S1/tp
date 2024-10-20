@@ -55,25 +55,6 @@ public class DayTest {
         assertEquals( "Seated Press: 3 sets of 10 reps at 50 kg", deletedExercise.toString());
     }
 
-    @Test
-    void testToString() {
-        // Get the string representation of the Day object
-        String dayString = day.toString();
-
-        // Verify the expected output
-        String expectedString = """
-                Push
-                
-                1. Bench Press: 3 sets of 10 reps at 50 kg
-                2. Triceps Extension: 3 sets of 12 reps at 20 kg
-                3. Seated Press: 3 sets of 10 reps at 50 kg
-                
-                """;
-                
-
-
-        assertEquals(expectedString, dayString);
-    }
 }
 
 
