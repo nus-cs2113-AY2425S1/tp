@@ -1,7 +1,6 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.constants.Logs;
-import seedu.exchangecoursemapper.exception.Exception;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -14,7 +13,6 @@ import java.util.logging.Logger;
 public abstract class Command {
     private static final Logger logger = Logger.getLogger(Command.class.getName());
     public static final String FILE_PATH = "/database.json";
-    public abstract void execute(String userInput);
 
     public JsonObject createJsonObject() throws IOException {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
@@ -25,4 +23,6 @@ public abstract class Command {
         JsonReader jsonReader = Json.createReader(inputStream);
         return jsonReader.readObject();
     }
+
+    public abstract void execute(String userInput);
 }
