@@ -13,6 +13,10 @@ public class ProgrammeList {
         programmeList = new ArrayList<>();
     }
 
+    public int getProgrammeListSize(){
+        return programmeList.size();
+    }
+
     public Programme insertProgramme(String programmeName, ArrayList<Day> days) {
         Programme programmeToAdd = new Programme(programmeName, days);
         programmeList.add(programmeToAdd);

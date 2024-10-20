@@ -19,6 +19,10 @@ public class Programme {
         dayList.add(day);
     }
 
+    public int getDayCount() {
+        return dayList.size();
+    }
+
     public Day deleteDay(int index){
         if (dayList.size() < index){
             System.out.println("invalid index");

@@ -1,5 +1,6 @@
 package programme;
 
+
 public class Exercise {
     private int sets;
     private int reps;
@@ -11,6 +12,22 @@ public class Exercise {
         this.reps = reps;
         this.weight = weight;
         this.name = name;
+    }
+
+    public int getSets() {
+        return sets;
+    }
+
+    public int getReps() {
+        return reps;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public String getName() {
+        return name;
     }
 
     // Where the 'update' Exercise object has a non-null field, update current exercise to that value
