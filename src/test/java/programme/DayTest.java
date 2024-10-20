@@ -40,15 +40,15 @@ public class DayTest {
     void testUpdateExercises() {
         Exercise updatedExercise = new Exercise(3, 12, 40, "Chest_Fly");
 
-        day.updateExercise(3, updatedExercise);
-        assertEquals(updatedExercise, day.getExercise(3));
+        day.updateExercise(2, updatedExercise);
+        assertEquals(updatedExercise, day.getExercise(2));
     }
 
     @Test
     void testDeleteExercise() {
-        Exercise deletedExercise = day.deleteExercise(3);
+        Exercise deletedExercise = day.deleteExercise(2);
 
-        assertEquals(3, day.getExercisesCount());
+        assertEquals(2, day.getExercisesCount());
         assertEquals( "Chest Fly: 3 sets of 12 reps at 40 kg", deletedExercise.toString());
     }
 
@@ -59,7 +59,7 @@ public class DayTest {
 
         // Verify the expected output
         String expectedString = """
-                Monday
+                Push
                 
                 1. Bench Press: 3 sets of 10 reps at 50 kg
                 2. Triceps Extension: 3 sets of 12 reps at 20 kg

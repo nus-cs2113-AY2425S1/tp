@@ -31,6 +31,7 @@ public class ProgrammeListTest {
 
         // Stub the getDay(0) behavior for mockProgramme1
         when(mockProgramme1.getDay(0)).thenReturn(mockDay1);
+        when(mockProgramme1.deleteDay(0)).thenReturn(mockDay1);
 
         // Insert mock Programmes into ProgrammeList
         ArrayList<Day> days1 = new ArrayList<>();

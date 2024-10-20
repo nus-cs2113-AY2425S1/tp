@@ -43,7 +43,7 @@ public class Exercise {
     }
 
     private boolean isNull(String val){
-        return val.isEmpty() || val.equals("null");
+        return val == null || val.isEmpty() || val.equals("null");
     }
 
     @Override
