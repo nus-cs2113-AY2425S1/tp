@@ -15,6 +15,22 @@ public class Exercise {
         this.name = name;
     }
 
+    public int getReps() {
+        return reps;
+    }
+
+    public int getSets() {
+        return sets;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     // Where the 'update' Exercise object has a non-null field, update current exercise to that value
     public void updateExercise(Exercise update) {
         sets = isNull(update.sets) ? sets : update.sets;
@@ -28,7 +44,7 @@ public class Exercise {
     }
 
     private boolean isNull(String val) {
-        return val.isEmpty();
+        return val == null || val.isEmpty();
     }
 
     @Override
@@ -52,5 +68,3 @@ public class Exercise {
         return Objects.hash(sets, reps, weight, name);
     }
 }
-
-
