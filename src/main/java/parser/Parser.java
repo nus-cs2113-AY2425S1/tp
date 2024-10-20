@@ -7,8 +7,6 @@ import command.LogCommand;
 import command.InvalidCommand;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import static parser.IndexParser.parseIndex;
@@ -46,7 +44,7 @@ public class Parser {
     private Command prepareLogCommand(String argumentString){
         int progIndex = -1;
         int dayIndex = -1;
-        LocalDateTime dateTime = LocalDateTime.now();
+        LocalDate date = LocalDate.now();
 
         String[] arguments = argumentString.split(" (?=/)");
         if (arguments.length < 3) {
@@ -77,21 +75,19 @@ public class Parser {
                     throw new IllegalArgumentException("Date cannot be empty. Please enter valid date.");
                 }
 
-                dateTime = parseDateTime(argParts[1]);
+                date = parseDate(argParts[1]);
                 break;
             default:
                 throw new IllegalArgumentException("Flag command not recognized: " + flag);
             }
         }
-        return new LogCommand(progIndex, dayIndex, dateTime);
+        return new LogCommand(progIndex, dayIndex, date);
     }
 
 
-    private LocalDateTime parseDateTime(String dateString) {
+    private LocalDate parseDate(String dateString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate localDate = LocalDate.parse(dateString, formatter);
-        LocalTime currentTime = LocalTime.now();
-
-        return LocalDateTime.of(localDate, currentTime);
+        return LocalDate.parse(dateString, formatter);
     }
 }
+
