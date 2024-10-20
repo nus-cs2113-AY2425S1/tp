@@ -11,24 +11,25 @@ import java.util.ArrayList;
  */
 public class Ui {
     private String line = "\t_____________________________________________________________________________";
-    private String logo = "                 (\\\n" +
-            "                  \\ \\\n" +
-            "              __    \\/ ___,.-------..__        __\n" +
-            "             //\\\\ _,-'\\\\               `'--._ //\\\\\n" +
-            "             \\\\ ;'      \\\\                   `: //\n" +
-            "              `(          \\\\                   )'\n" +
-            "                :.          \\\\,----,         ,;\n" +
-            "                 `.`--.___   (    /  ___.--','\n" +
-            "                   `.     ``-----'-''     ,'\n" +
-            "                      -.               ,-\n" +
-            "                         `-._______.-'\n";
-
+    private String logo = "                 (\\" + System.lineSeparator() +
+            "                  \\ \\" + System.lineSeparator() +
+            "              __    \\/ ___,.-------..__        __" + System.lineSeparator() +
+            "             //\\\\ _,-'\\\\               `'--._ //\\\\" + System.lineSeparator() +
+            "             \\\\ ;'      \\\\                   `: //" + System.lineSeparator() +
+            "              `(          \\\\                   )'" + System.lineSeparator() +
+            "                :.          \\\\,----,         ,;" + System.lineSeparator() +
+            "                 `.`--.___   (    /  ___.--','" + System.lineSeparator() +
+            "                   `.     ``-----'-''     ,'" + System.lineSeparator() +
+            "                      -.               ,-" + System.lineSeparator() +
+            "                         `-._______.-'" + System.lineSeparator();
 
     private Scanner userInput;
 
     /**
      * Constructor for a <code>YMFC.Ui</code> object.
      * Overloads default constructor to initialise a scanner object reading user inputs.
+     *
+     * @param input InputStream for the Ui class to read commands from
      */
     public Ui(InputStream input) {
         this.userInput = new Scanner(input);
@@ -59,11 +60,17 @@ public class Ui {
 
     /**
      * Return user input as a string when user hit enter key.
+     * Users are re-prompted if they enter an empty command.
      *
      * @return String representing what user typed into the program
      */
     public String readCommand() {
-        return userInput.nextLine();
+        String commandRead = "";
+        while (commandRead.isEmpty()) {
+            commandRead = userInput.nextLine().trim();
+        }
+        assert !commandRead.isEmpty() : "User input is empty";
+        return commandRead;
     }
 
     /**
