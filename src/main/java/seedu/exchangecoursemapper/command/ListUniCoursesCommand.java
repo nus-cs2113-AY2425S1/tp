@@ -7,6 +7,7 @@ import seedu.exchangecoursemapper.exception.UnknownUniversityException;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import java.io.IOException;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,9 @@ public class ListUniCoursesCommand extends Command {
             assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
             String puName = getPuName(userInput);
             getUniCourses(jsonObject, puName);
+        } catch (IOException e) {
+            logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
+            System.err.println(Exception.fileReadError());
         } catch (UnknownUniversityException e) {
             logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, e.getMessage());
             System.err.println(e.getMessage());

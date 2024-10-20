@@ -2,8 +2,10 @@ package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
+import seedu.exchangecoursemapper.exception.Exception;
 
 import javax.json.JsonObject;
+import java.io.IOException;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,11 +18,16 @@ public class ListSchoolCommand extends Command {
     @Override
     public void execute(String userInput) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
-        JsonObject jsonObject = super.createJsonObject();
-        logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
-        assert jsonObject != null : Assertions.NULL_JSON_FILE;
-        assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
-        displaySchoolList(jsonObject);
+        try {
+            JsonObject jsonObject = super.createJsonObject();
+            logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
+            assert jsonObject != null : Assertions.NULL_JSON_FILE;
+            assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+            displaySchoolList(jsonObject);
+        } catch (IOException e) {
+            logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
+            System.err.println(Exception.fileReadError());
+        }
         logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
 
