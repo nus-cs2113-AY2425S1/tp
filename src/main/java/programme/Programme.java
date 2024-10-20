@@ -19,9 +19,14 @@ public class Programme {
         dayList.add(day);
     }
 
+    public int getDayCount() {
+        return dayList.size();
+    }
+
     public Day deleteDay(int index){
-        if (dayList.size() < index){
-            System.out.println("invalid index");
+        if (index < 0 || index >= dayList.size()) {
+            System.out.println("Invalid index");
+            return null; // Return null if the index is invalid
         }
         Day toBeDeleted = dayList.get(index);
         dayList.remove(index);
@@ -34,7 +39,7 @@ public class Programme {
         str.append(programmeName).append("\n\n");
 
         for (int i = 0; i < dayList.size(); i++) {
-            str.append("Day ").append(i+1).append(": ").append(dayList.get(i));
+            str.append("Day ").append(i+1).append(": ").append(dayList.get(i)).append("\n");
         }
 
         return str.toString();

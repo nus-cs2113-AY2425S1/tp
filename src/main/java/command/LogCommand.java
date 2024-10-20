@@ -4,9 +4,11 @@ import programme.ProgrammeList;
 import programme.Day;
 import core.History;
 
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 
 public class LogCommand extends Command {
@@ -15,9 +17,10 @@ public class LogCommand extends Command {
 
     private final int progIndex;
     private final int dayIndex;
-    private final LocalDateTime date;
+    private final LocalDate date;
 
-    public LogCommand(int progIndex, int dayIndex, LocalDateTime date){
+
+    public LogCommand(int progIndex, int dayIndex, LocalDate date){
         assert progIndex >= 0 : "Program index must be non-negative";
         assert dayIndex >= 0 : "Day index must be non-negative";
         assert date != null : "Date must not be null";
@@ -25,6 +28,7 @@ public class LogCommand extends Command {
         this.progIndex = progIndex;
         this.dayIndex = dayIndex;
         this.date = date;
+      
         logger.log(
                 Level.INFO,
                 "LogCommand initialized with progIndex: {0}, dayIndex: {1}, date: {2}",
