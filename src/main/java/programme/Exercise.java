@@ -14,15 +14,15 @@ public class Exercise {
         this.name = name;
     }
 
-    public int getSets() {
-        return sets;
-    }
-
     public int getReps() {
         return reps;
     }
 
-    public int getWeight() {
+    public int getSets(){
+        return sets;
+    }
+
+    public int getWeight(){
         return weight;
     }
 
@@ -43,7 +43,7 @@ public class Exercise {
     }
 
     private boolean isNull(String val){
-        return val.isEmpty();
+        return val.isEmpty() || val.equals("null");
     }
 
     @Override

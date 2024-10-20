@@ -24,9 +24,11 @@ public class ProgrammeList {
     }
 
     public Programme deleteProgram(int index){
-        if (programmeList.size() < index){
+        if (index < 0 || index >= programmeList.size()) {
             System.out.println("invalid index");
+            return null; // Return null if the index is invalid
         }
+
         Programme programmeToDelete = programmeList.get(index);
         programmeList.remove(index);
         return programmeToDelete;
@@ -65,7 +67,7 @@ public class ProgrammeList {
             if (i == currentActiveProgramme) {
                 str.append("*Active* ");
             }
-            str.append(programme);
+            str.append(programme).append("\n");
         }
         return str.toString();
     }

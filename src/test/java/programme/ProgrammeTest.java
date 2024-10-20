@@ -48,7 +48,7 @@ public class ProgrammeTest {
         Day mockDayToDelete = programme.deleteDay(0);
 
         assertEquals(mockDay1, mockDayToDelete);
-        assertEquals(2, programme.getDayCount());
+        assertEquals(1, programme.getDayCount());
     }
 
     @Test

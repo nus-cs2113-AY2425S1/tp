@@ -52,3 +52,5 @@ class ExerciseTest {
         assertEquals("Bench Press: 3 sets of 12 reps at 40 kg", exercise.toString());
     }
 }
+
+

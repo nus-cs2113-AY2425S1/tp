@@ -38,7 +38,7 @@ public class Programme {
         str.append(programmeName).append("\n\n");
 
         for (int i = 0; i < dayList.size(); i++) {
-            str.append("Day ").append(i+1).append(": ").append(dayList.get(i));
+            str.append("Day ").append(i+1).append(": ").append(dayList.get(i)).append("\n");
         }
 
         return str.toString();

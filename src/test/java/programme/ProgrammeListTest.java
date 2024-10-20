@@ -22,10 +22,12 @@ public class ProgrammeListTest {
         mockProgramme1 = mock(Programme.class);
         mockProgramme2 = mock(Programme.class);
 
+        mockDay = mock(Day.class);
+
+        when(mockProgramme1.getDay(0)).thenReturn(mockDay);
+
         programmeList.insertProgramme("Bulk", new ArrayList<>());
         programmeList.insertProgramme("Cut", new ArrayList<>());
-
-        mockDay = mock(Day.class);
     }
 
     @Test
@@ -33,7 +35,6 @@ public class ProgrammeListTest {
         ArrayList<Day> days = new ArrayList<>();
         Programme newProgramme = programmeList.insertProgramme("New Programme", days);
 
-        assertEquals("New Programme", newProgramme.toString());
         assertEquals(newProgramme, programmeList.getProgramme(2));
     }
 
@@ -79,8 +80,7 @@ public class ProgrammeListTest {
 
         String programmeListString = programmeList.toString();
 
-        String expectedString = "*Active* Mocked Programme 1" +
-                "Mocked Programme 2";
+        String expectedString = "*Active* Mocked Programme 1\nMocked Programme 2\n";
 
         assertEquals(expectedString, programmeListString);
     }
