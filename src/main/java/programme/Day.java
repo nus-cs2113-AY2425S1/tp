@@ -25,7 +25,7 @@ public class Day {
         return exercises.get(index);
     }
 
-    public Exercise updateExercise(int exerciseId, Exercise exercise){
+    public Exercise updateExercise(int exerciseId, Exercise exercise) {
         Exercise toBeUpdated = exercises.get(exerciseId);
         toBeUpdated.updateExercise(exercise);
         exercises.set(exerciseId, toBeUpdated);
@@ -54,10 +54,15 @@ public class Day {
 
         return result.append("\n").toString();
     }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Day day = (Day) o;
         return Objects.equals(name, day.name) &&
                 Objects.equals(exercises, day.exercises);
@@ -68,5 +73,4 @@ public class Day {
         return Objects.hash(name, exercises);
     }
 }
-
 
