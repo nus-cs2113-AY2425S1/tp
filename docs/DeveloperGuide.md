@@ -5,7 +5,11 @@
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 ## Design & implementation
-
+{TODO: Class Diagram}
+{TODO: Object Diagram}
+### List Schools Command
+### Obtain Partner University Email
+### Obtain Partner University Contact Number
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 
