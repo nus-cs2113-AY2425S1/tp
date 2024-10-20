@@ -8,34 +8,43 @@ import programme.Day;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class History {
 
-    private final HashMap<LocalDate, Day> history;  // HashMap to store Day with its respective date
+    // LinkedHashMap to store Day with its respective date in the order of insertion
+    private final LinkedHashMap<LocalDate, Day> history;  // Use LocalDate and LinkedHashMap to preserve insertion order
 
     // Constructor
     public History() {
-        history = new HashMap<>();
+        history = new LinkedHashMap<>();
     }
 
     // Logs a completed day into the history with a given date
     public void logDay(Day day, LocalDate date) {
-        history.put(date, day);  // Use HashMap to store or update the day with its date
+        history.put(date, day);  // This will overwrite if a day with the same date exists
+    }
+
+    // Get a specific Day object by date (used for test comparisons)
+    public Day getDayByDate(LocalDate date) {
+        return history.get(date);
     }
 
     // Converts the History object to a JSON string
     public JsonObject toJson() {
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new DateSerializer())
+                .registerTypeAdapter(LocalDate.class, new DateSerializer())  // Custom serializer for LocalDate
                 .setPrettyPrinting()
                 .create();
+
         JsonObject historyJson = new JsonObject();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         for (LocalDate date : history.keySet()) {
             Day day = history.get(date);
-            // Add each entry in the HashMap to the JsonObject, using the date as the key
-            historyJson.add(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), gson.toJsonTree(day));
+            // Add each entry in the LinkedHashMap to the JsonObject, using the date as the key
+            historyJson.add(date.format(formatter), gson.toJsonTree(day));
         }
 
         return historyJson;
@@ -44,7 +53,7 @@ public class History {
     // Creates a History object from a JSON string
     public static History fromJson(JsonObject jsonObject) {
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new DateSerializer())
+                .registerTypeAdapter(LocalDate.class, new DateSerializer())  // Custom deserializer for LocalDate
                 .create();
         History history = new History();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -53,7 +62,7 @@ public class History {
         for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
             LocalDate date = LocalDate.parse(entry.getKey(), formatter);  // Convert key to LocalDate
             Day day = gson.fromJson(entry.getValue(), Day.class);  // Deserialize the Day object
-            history.history.put(date, day);  // Add to the HashMap
+            history.history.put(date, day);  // Add to the LinkedHashMap
         }
 
         return history;
@@ -70,10 +79,15 @@ public class History {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        // Iterate over the history HashMap
+        // Iterate over the history LinkedHashMap in insertion order
         for (LocalDate date : history.keySet()) {
             Day day = history.get(date);
-            historyString.append(String.format("Day: %s%nCompleted On:%s%n%n",day,date.format(formatter)));
+
+            // Use the Day class's toString directly
+            historyString.append(day.toString());
+
+            // Append the formatted date at the end
+            historyString.append(String.format("Completed On: %s%n%n", date.format(formatter)));
         }
 
         return historyString.toString();
