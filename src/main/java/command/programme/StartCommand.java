@@ -16,6 +16,6 @@ public class StartCommand extends Command {
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history){
         Programme startedProgramme = pList.startProgramme(progId);
-        ui.showMsg("Ok! Started Programme:\n" + startedProgramme.toString());
+        ui.showMessage("Ok! Started Programme:\n" + startedProgramme.toString());
     }
 }
