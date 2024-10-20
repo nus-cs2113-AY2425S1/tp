@@ -72,7 +72,8 @@ public class ProgrammeTest {
                 My Programme
                 
                 Day 1: Mocked Day 1
-                Day 2: Mocked Day 2""";
+                Day 2: Mocked Day 2
+                """;
 
         assertEquals(expectedString, programmeString);
     }

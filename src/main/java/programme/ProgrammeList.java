@@ -13,6 +13,10 @@ public class ProgrammeList {
         programmeList = new ArrayList<>();
     }
 
+    public ArrayList<Programme> getProgrammeList() {
+        return programmeList;
+    }
+
     public int getProgrammeListSize(){
         return programmeList.size();
     }

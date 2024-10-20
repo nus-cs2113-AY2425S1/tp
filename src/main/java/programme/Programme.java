@@ -24,8 +24,9 @@ public class Programme {
     }
 
     public Day deleteDay(int index){
-        if (dayList.size() < index){
-            System.out.println("invalid index");
+        if (index < 0 || index >= dayList.size()) {
+            System.out.println("Invalid index");
+            return null; // Return null if the index is invalid
         }
         Day toBeDeleted = dayList.get(index);
         dayList.remove(index);
