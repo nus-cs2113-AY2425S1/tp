@@ -5,7 +5,7 @@ import command.ExitCommand;
 import command.HistoryCommand;
 import command.LogCommand;
 import command.InvalidCommand;
-
+import command.WeeklySummaryCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +15,7 @@ import static parser.ParserUtils.parseIndex;
 public class Parser {
     private final ProgammeParser progParser;
 
-    public Parser(){
+    public Parser() {
         this.progParser = new ProgammeParser();
     }
 
@@ -25,20 +25,21 @@ public class Parser {
         String commandString = inputArguments[0];
         String argumentString = "";
 
-        if (inputArguments.length > 1 ){
+        if (inputArguments.length > 1) {
             argumentString = inputArguments[1];
         }
 
         return switch (commandString) {
-        case ProgammeParser.COMMAND_WORD -> progParser.parse(argumentString);
-        case LogCommand.COMMAND_WORD -> prepareLogCommand(argumentString);
-        case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
-        case ExitCommand.COMMAND_WORD -> new ExitCommand();
-        default -> new InvalidCommand();
+            case ProgammeParser.COMMAND_WORD -> progParser.parse(argumentString);
+            case LogCommand.COMMAND_WORD -> prepareLogCommand(argumentString);
+            case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
+            case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();  // Added support for weeklysummary command
+            case ExitCommand.COMMAND_WORD -> new ExitCommand();
+            default -> new InvalidCommand();
         };
     }
 
-    private Command prepareLogCommand(String argumentString){
+    private Command prepareLogCommand(String argumentString) {
         int progIndex = -1;
         int dayIndex = -1;
         LocalDate date = LocalDate.now();
@@ -50,7 +51,7 @@ public class Parser {
             String flag = argParts[0];
             String value = argParts[1];
 
-            switch (flag){
+            switch (flag) {
             case "/p":
                 progIndex = parseIndex(value);
                 break;
@@ -66,7 +67,6 @@ public class Parser {
         }
         return new LogCommand(progIndex, dayIndex, date);
     }
-
 
     private LocalDate parseDate(String dateString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

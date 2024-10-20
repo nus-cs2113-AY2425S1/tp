@@ -8,7 +8,10 @@ import programme.Day;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class History {
@@ -68,6 +71,32 @@ public class History {
         return history;
     }
 
+    // Method to summarize weekly workout activity
+    public String getWeeklySummary() {
+        if (history.isEmpty()) {
+            return "No workout history available.";
+        }
+
+        HashMap<Integer, Integer> weeklySummary = new HashMap<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        // Iterate through history to summarize weekly activities
+        for (LocalDate date : history.keySet()) {
+            Day day = history.get(date);
+            int weekOfYear = date.get(WeekFields.of(Locale.getDefault()).weekOfYear());
+
+            // Increment the count of workouts for this week
+            weeklySummary.put(weekOfYear, weeklySummary.getOrDefault(weekOfYear, 0) + day.getExercisesCount());
+        }
+
+        StringBuilder summary = new StringBuilder();
+        for (int week : weeklySummary.keySet()) {
+            summary.append(String.format("Week %d: %d exercises logged.%n", week, weeklySummary.get(week)));
+        }
+
+        return summary.toString();
+    }
+
     // Standard toString method for History class that represents the history
     @Override
     public String toString() {
@@ -93,4 +122,3 @@ public class History {
         return historyString.toString();
     }
 }
-
