@@ -68,3 +68,5 @@ public class Day {
         return Objects.hash(name, exercises);
     }
 }
+
+
