@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import programme.Day;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 public class History {
 
+    private static final Logger logger = Logger.getLogger(History.class.getName());
     // LinkedHashMap to store Day with its respective date in the order of insertion
     private final LinkedHashMap<LocalDate, Day> history;  // Use LocalDate and LinkedHashMap to preserve insertion order
 
@@ -46,7 +49,7 @@ public class History {
             // Add each entry in the LinkedHashMap to the JsonObject, using the date as the key
             historyJson.add(date.format(formatter), gson.toJsonTree(day));
         }
-
+        logger.log(Level.INFO, "History converted to Json for saving.");
         return historyJson;
     }
 
@@ -64,7 +67,7 @@ public class History {
             Day day = gson.fromJson(entry.getValue(), Day.class);  // Deserialize the Day object
             history.history.put(date, day);  // Add to the LinkedHashMap
         }
-
+        logger.log(Level.INFO, "historyJson converted from Json for loading.");
         return history;
     }
 
