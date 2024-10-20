@@ -1,13 +1,18 @@
 package programme;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import core.History;
 
 public class ProgrammeList {
 
     int currentActiveProgramme;
     private final ArrayList<Programme> programmeList;
+    private final static Logger logger = Logger.getLogger(ProgrammeList.class.getName());
 
     public ProgrammeList() {
         programmeList = new ArrayList<>();
@@ -78,11 +83,13 @@ public class ProgrammeList {
 
     public JsonObject toJson() {
         Gson gson = new Gson();
+        logger.log(Level.INFO, "Programme list converted to Json for saving.");
         return gson.toJsonTree(this).getAsJsonObject();
     }
 
     public static ProgrammeList fromJson(JsonObject jsonObject) {
         Gson gson = new Gson();
+        logger.log(Level.INFO, "Programme list converted from Json for loading.");
         return gson.fromJson(jsonObject, ProgrammeList.class);
     }
 }
