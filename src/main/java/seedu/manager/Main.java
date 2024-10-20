@@ -1,7 +1,6 @@
 package seedu.manager;
 
 import seedu.manager.command.Command;
-import seedu.manager.command.CommandOutput;
 import seedu.manager.event.EventList;
 import seedu.manager.parser.Parser;
 import seedu.manager.ui.Ui;
@@ -31,10 +30,10 @@ public class Main {
             String userCommandText = ui.getCommand();
             command = new Parser().parseCommand(userCommandText);
             command.setData(events);
-            CommandOutput output = command.execute();
-            ui.showOutputToUser(output);
+            command.execute();
+            ui.showOutputToUser(command);
 
-            isGettingCommands = !output.getCanExit();
+            isGettingCommands = !command.getCanExit();
         }
     }
 }
