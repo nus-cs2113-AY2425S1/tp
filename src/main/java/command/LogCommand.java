@@ -25,6 +25,6 @@ public class LogCommand extends Command {
         Day completed = pList.getDay(progIndex, dayIndex);
         history.logDay(completed, date);
         String result =  String.format("Congrats! You've successfully completed:%s%n",completed);
-        ui.showMsg(result);
+        ui.showMessage(result);
     }
 }

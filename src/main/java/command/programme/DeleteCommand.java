@@ -17,6 +17,6 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history){
         Programme programme = pList.deleteProgram(progId);
-        ui.showMsg("Deleted programme:\n" + programme);
+        ui.showMessage("Deleted programme:\n" + programme);
     }
 }

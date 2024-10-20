@@ -17,6 +17,6 @@ public class ViewCommand extends Command {
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history){
         Programme programme = pList.getProgramme(progId);
-        ui.showMsg("Viewing programme:\n" + programme.toString());
+        ui.showMessage("Viewing programme:\n" + programme.toString());
     }
 }

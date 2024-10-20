@@ -12,12 +12,11 @@ import command.programme.StartCommand;
 import command.programme.EditCommand;
 import command.programme.DeleteCommand;
 
-
 import java.util.ArrayList;
 
-import static parser.ParserUtils.parseIndex;
+import static parser.IndexParser.parseIndex;
 
-public class ProgammeParser {
+public class ProgCommandParser {
 
     public static final String COMMAND_WORD = "prog";
 
@@ -37,23 +36,9 @@ public class ProgammeParser {
         case ListCommand.COMMAND_WORD -> new ListCommand();
         case EditCommand.COMMAND_WORD -> prepareEditCommand(arguments);
         case StartCommand.COMMAND_WORD -> prepareStartCommand(arguments);
-        case DeleteCommand.COMMAND_WORD ->  prepareDeleteCommand(arguments);    
+        case DeleteCommand.COMMAND_WORD ->  prepareDeleteCommand(arguments);
         default -> new InvalidCommand();
         };
-    }
-
-    private Command prepareCreateCommand(String argumentString) {
-        String[] progParts = argumentString.split("/d");
-        String progName = progParts[0].trim();
-        ArrayList<Day> days = new ArrayList<>();
-
-        for (int i = 1; i < progParts.length; i++) {
-            String dayString = progParts[i].trim();
-            Day day = parseDay(dayString);
-            days.add(day);
-        }
-
-        return new CreateCommand(progName, days);
     }
 
     private Command prepareEditCommand(String argumentString) {
@@ -117,6 +102,23 @@ public class ProgammeParser {
         return editCommand;
     }
 
+    private Command prepareCreateCommand(String argumentString) {
+        ArrayList<Day> days = new ArrayList<>();
+        String[] progParts = argumentString.split("/d");
+        String progName = progParts[0].trim();
+        if (progName.isEmpty()) {
+            throw new IllegalArgumentException("Programme name cannot be empty. Please enter a name.");
+        }
+
+        for (int i = 1; i < progParts.length; i++) {
+            String dayString = progParts[i].trim();
+            Day day = parseDay(dayString);
+            days.add(day);
+        }
+
+        return new CreateCommand(progName, days);
+    }
+
     private Day parseDay(String dayString) {
         String[] dayParts  = dayString.split("/e");
         String dayName = dayParts[0].trim();
@@ -140,8 +142,12 @@ public class ProgammeParser {
 
         String[] args = exerciseString.trim().split("/(?)");
 
-        for (int i = 1; i < args.length; i++) {
+        if (args.length < 5) {
+            throw new IllegalArgumentException("Missing exercise arguments. Please provide exercise " +
+                    "name, set, rep and weight.");
+        }
 
+        for (int i = 1; i < args.length; i++) {
             String[] argParts = args[i].split(" ");
 
             if (argParts.length != 2){
@@ -156,13 +162,25 @@ public class ProgammeParser {
                 name = value;
                 break;
             case "s":
-                sets = Integer.parseInt(value);
+                try {
+                    sets = Integer.parseInt(value);
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("Invalid sets value. It must be an integer.");
+                }
                 break;
             case "r":
-                reps = Integer.parseInt(value);
+                try {
+                    reps = Integer.parseInt(value);
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("Invalid reps value. It must be an integer.");
+                }
                 break;
             case "w":
-                weight = Integer.parseInt(value);
+                try {
+                    weight = Integer.parseInt(value);
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("Invalid weight value. It must be an integer.");
+                }
                 break;
             default:
                 throw new IllegalArgumentException("Invalid command flag " + flag);

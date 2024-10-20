@@ -1,6 +1,6 @@
 package parser;
 
-public class ParserUtils {
+public class IndexParser {
 
     public static int parseIndex(String indexString) {
         try {

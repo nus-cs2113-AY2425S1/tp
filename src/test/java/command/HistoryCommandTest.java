@@ -44,6 +44,6 @@ public class HistoryCommandTest {
 
         historyCommand.execute(mockUi, mockPList, mockHistory);
 
-        verify(mockUi).showMsg("Your workout history: \n" + historyData);
+        verify(mockUi).showMessage("Your workout history: \n" + historyData);
     }
 }

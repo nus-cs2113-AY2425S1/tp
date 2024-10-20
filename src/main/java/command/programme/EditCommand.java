@@ -54,7 +54,7 @@ public class EditCommand extends Command {
     public void execute(Ui ui, ProgrammeList pList, History history){
         for (EditSubCommand c : subCommands){
             String result =  c.execute(pList);
-            ui.showMsg(result);
+            ui.showMessage(result);
         }
     }
 }
