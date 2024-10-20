@@ -68,6 +68,7 @@ public class DayTest {
                 2. Triceps Extension: 3 sets of 12 reps at 20 kg
                 3. Seated Press: 3 sets of 10 reps at 50 kg
                 
+                
                 """;
 
         assertEquals(expectedString, dayString);
