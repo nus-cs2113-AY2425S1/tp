@@ -45,7 +45,7 @@ public class AppUi {
     public void addExpense(HashMap<String, String> commandArguments) {
         String description = commandArguments.get("argument");
         double amount = Double.parseDouble(commandArguments.get("/a"));
-        String date = commandArguments.get("/d");
+        String date = commandArguments.get("/dt");
 
         try {
             AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description, date);
@@ -67,7 +67,7 @@ public class AppUi {
     public void addIncome(HashMap<String, String> commandArguments) {
         String description = commandArguments.get("argument");
         double amount = Double.parseDouble(commandArguments.get("/a"));
-        String date = commandArguments.get("/d");
+        String date = commandArguments.get("/dt");
 
         try {
             AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date);
