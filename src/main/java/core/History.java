@@ -24,6 +24,11 @@ public class History {
         history.put(date, day);  // This will overwrite if a day with the same date exists
     }
 
+    // Get a specific Day object by date (used for test comparisons)
+    public Day getDayByDate(LocalDateTime date) {
+        return history.get(date);
+    }
+
     // Converts the History object to a JSON string
     public JsonObject toJson() {
         Gson gson = new GsonBuilder()
@@ -52,7 +57,7 @@ public class History {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        // Iterate over the history HashMap
+        // Iterate over the history LinkedHashMap in insertion order
         for (LocalDateTime date : history.keySet()) {
             Day day = history.get(date);
 
@@ -65,7 +70,7 @@ public class History {
 
         return historyString.toString();
     }
-
 }
+
 
 
