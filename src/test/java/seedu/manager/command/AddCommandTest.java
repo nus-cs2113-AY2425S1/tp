@@ -8,6 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AddCommandTest {
 
     @Test
+    public void add_event_success() {
+        EventList eventList = new EventList();
+
+        eventList.addEvent("Event 1", "2024-20-10 21:00", "Venue A");
+        assertEquals(1, eventList.getListSize());
+    }
+
+    @Test
     public void add_twoParticipant_success() {
         EventList eventList = new EventList();
 
