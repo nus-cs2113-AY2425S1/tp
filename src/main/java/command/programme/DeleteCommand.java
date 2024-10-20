@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
         assert ui != null : "UI must not be null";
         Programme programme = pList.deleteProgram(progId);
         assert programme != null : "Programme with ID " + progId + " not found";
-        String result = String.format("Deleted programme:%s%n",programme);
+        String result = String.format("Deleted programme: %n%s",programme);
         ui.showMsg(result);
         logger.log(Level.INFO, "DeleteCommand executed successfully.");
     }

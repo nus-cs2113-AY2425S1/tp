@@ -26,7 +26,7 @@ public class ViewCommand extends Command {
         assert ui != null: "Ui must not be null";
         Programme programme = pList.getProgramme(progId);
         assert programme != null : "Programme must not be null";
-        String result = String.format("Viewing programme:%s%n",programme);
+        String result = String.format("Viewing programme: %n%s",programme);
         ui.showMsg(result);
         logger.log(Level.INFO, "ViewCommand executed successfully.");
     }

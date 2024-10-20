@@ -28,7 +28,7 @@ public class CreateCommand extends Command {
         assert ui != null : "UI must not be null";
         Programme created = pList.insertProgramme(name, contents);
         assert created != null : "programme must be created";
-        String result = String.format("New programme created:%s%n",created);
+        String result = String.format("New programme created: %n%s",created);
         ui.showMsg(result);
         logger.log(Level.INFO, "CreateCommand executed successfully.");
     }
