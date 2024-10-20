@@ -4,13 +4,8 @@ import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.exception.Exception;
 
-import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
