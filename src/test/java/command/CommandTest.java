@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 
 public class CommandTest {
     @Test
-    public void testIsExitReturnFalse() {
+    public void testIsExit_ReturnFalse() {
         Command command = new TestCommand();
         assertFalse(command.isExit());
     }
