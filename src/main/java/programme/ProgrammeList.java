@@ -6,13 +6,12 @@ import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import core.History;
 
 public class ProgrammeList {
 
+    private static final Logger logger = Logger.getLogger(ProgrammeList.class.getName());
     int currentActiveProgramme;
     private final ArrayList<Programme> programmeList;
-    private final static Logger logger = Logger.getLogger(ProgrammeList.class.getName());
 
     public ProgrammeList() {
         programmeList = new ArrayList<>();

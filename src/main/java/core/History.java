@@ -15,9 +15,9 @@ import java.util.Map;
 
 public class History {
 
+    private static final Logger logger = Logger.getLogger(History.class.getName());
     // LinkedHashMap to store Day with its respective date in the order of insertion
     private final LinkedHashMap<LocalDate, Day> history;  // Use LocalDate and LinkedHashMap to preserve insertion order
-    private final static Logger logger = Logger.getLogger(History.class.getName());
 
     // Constructor
     public History() {
