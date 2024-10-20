@@ -4,7 +4,7 @@ import programme.ProgrammeList;
 import programme.Day;
 import core.History;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 
 public class LogCommand extends Command {
@@ -12,9 +12,9 @@ public class LogCommand extends Command {
 
     private final int progIndex;
     private final int dayIndex;
-    private final LocalDateTime date;
+    private final LocalDate date;
 
-    public LogCommand(int progIndex, int dayIndex, LocalDateTime date){
+    public LogCommand(int progIndex, int dayIndex, LocalDate date){
         this.progIndex = progIndex;
         this.dayIndex = dayIndex;
         this.date = date;
