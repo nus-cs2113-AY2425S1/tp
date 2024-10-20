@@ -69,7 +69,7 @@ public class DayTest {
                 3. Seated Press: 3 sets of 10 reps at 50 kg
                 
                 
-                """;
+                """.trim();
 
         assertEquals(expectedString, dayString);
     }
