@@ -8,6 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RemoveCommandTest {
 
     @Test
+    public void remove_event_success() {
+        EventList eventList = new EventList();
+
+        eventList.addEvent("Event 1", "2024-20-10 21:00", "Venue A");
+        eventList.addEvent("Event 2", "2024-20-10 21:00", "Venue B");
+        eventList.removeEvent("Event 2");
+        assertEquals(1, eventList.getListSize());
+    }
+    
+    @Test
     public void remove_oneParticipant_success() {
         EventList eventList = new EventList();
 
