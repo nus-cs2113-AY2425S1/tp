@@ -5,6 +5,7 @@ import seedu.manager.command.AddCommand;
 import seedu.manager.command.Command;
 import seedu.manager.command.ExitCommand;
 import seedu.manager.command.InvalidCommand;
+import seedu.manager.command.MarkCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.RemoveCommand;
@@ -73,6 +74,30 @@ class ParserTest {
     public void removeCommand_removeNoParameter_invalid() {
         Parser parser = new Parser();
         Command command = parser.parseCommand("remove");
+
+        assertInstanceOf(InvalidCommand.class, command);
+    }
+
+    @Test
+    public void parseCommand_markEvent_mark() {
+        Parser parser = new Parser();
+        Command command = parser.parseCommand("mark -e event -s done");
+
+        assertInstanceOf(MarkCommand.class, command);
+    }
+
+    @Test
+    public void parseCommand_markEventNoStatus_invalid() {
+        Parser parser = new Parser();
+        Command command = parser.parseCommand("mark -e event");
+
+        assertInstanceOf(InvalidCommand.class, command);
+    }
+
+    @Test
+    public void parseCommand_markEventInvalidStatus_invalid() {
+        Parser parser = new Parser();
+        Command command = parser.parseCommand("mark -e event -s yes");
 
         assertInstanceOf(InvalidCommand.class, command);
     }
