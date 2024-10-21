@@ -1,18 +1,28 @@
 package programme;
 
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Exercise {
     private int sets;
     private int reps;
     private int weight;
     private String name;
+    private final Logger logger = Logger.getLogger(Exercise.class.getName());
 
     public Exercise(int sets, int reps, int weight, String name) {
+        assert sets >= 0 : "Sets cannot be negative";
+        assert reps >= 0 : "Reps cannot be negative";
+        assert weight >= 0 : "Weight cannot be negative";
+        assert name != null && !name.isEmpty() : "Name cannot be null or empty";
+
         this.sets = sets;
         this.reps = reps;
         this.weight = weight;
         this.name = name;
+
+        logger.log(Level.INFO, "Exercise created: {0}", this);
     }
 
     public int getReps() {
@@ -34,15 +44,19 @@ public class Exercise {
     // Where the 'update' Exercise object has a non-null field, update current exercise to that value
     public void updateExercise(Exercise update) {
         if (!isNull(update.sets)) {
+            logger.log(Level.INFO, "Updating sets from {0} to {1}", new Object[]{sets, update.sets});
             sets = update.sets;
         }
         if (!isNull(update.reps)) {
+            logger.log(Level.INFO, "Updating reps from {0} to {1}", new Object[]{reps, update.reps});
             reps = update.reps;
         }
         if (!isNull(update.weight)) {
+            logger.log(Level.INFO, "Updating weight from {0} to {1}", new Object[]{weight, update.weight});
             weight = update.weight;
         }
         if (!isNull(update.name)) {
+            logger.log(Level.INFO, "Updating name from {0} to {1}", new Object[]{name, update.name});
             name = update.name;
         }
     }
