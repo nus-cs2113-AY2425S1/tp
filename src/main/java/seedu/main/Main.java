@@ -19,6 +19,7 @@ import seedu.transaction.TransactionList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +29,7 @@ public class Main {
     public static final String HI_MESSAGE = "Hello, %s is willing to help!";
     public static final String INVALID_COMMAND_ERROR_MESSAGE = "Invalid command.";
     public static Scanner scanner; // Scanner for reading user input
-    private static Logger logger = Logger.getLogger("Main");
+    private static final Logger logger = Logger.getLogger("Main");
 
     // Prefix for message formatting
     private static final String PREFIX = "\t";
@@ -67,11 +68,6 @@ public class Main {
     public static void run() {
         try {
             start();
-
-            // Assert that categories and transactions are initialized
-            assert categories != null : "Categories should be initialized.";
-            assert transactions != null : "Transactions should be initialized.";
-
             runCommandLoop();
         } catch (Exception e) {
             logger.log(Level.WARNING, e.getMessage());
@@ -90,47 +86,39 @@ public class Main {
         categories = new CategoryList();
         transactions = new TransactionList();
 
+        setupCommands();
+
+        printMessage(String.format(HI_MESSAGE, NAME));
+    }
+
+    /**
+     * Signs up the Command objects.
+     */
+    private static void setupCommands() {
+        assert categories != null : "Categories should be initialized.";
+        assert transactions != null : "Transactions should be initialized.";
+
         HelpCommand helpCommand = new HelpCommand();
         parser.registerCommands(helpCommand);
 
-        AddCategoryCommand addCategoryCommand = new AddCategoryCommand(categories);
-        parser.registerCommands(addCategoryCommand);
-
+        parser.registerCommands(new AddCategoryCommand(categories));
         parser.registerCommands(new AddIncomeCommand(transactions));
-
         parser.registerCommands(new AddExpenseCommand(transactions));
 
+        parser.registerCommands(new DeleteCategoryCommand(categories));
+        parser.registerCommands(new DeleteTransactionCommand(transactions));
 
-        ViewCategoryCommand viewCategoryCommand = new ViewCategoryCommand(categories);
-        parser.registerCommands(viewCategoryCommand);
+        parser.registerCommands(new ViewCategoryCommand(categories));
+        parser.registerCommands(new ViewExpenseCommand(transactions));
+        parser.registerCommands(new ViewIncomeCommand(transactions));
+        parser.registerCommands(new ViewTotalCommand(transactions));
+        parser.registerCommands(new HistoryCommand(transactions));
 
-        DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categories);
-        parser.registerCommands(deleteCategoryCommand);
-
-        DeleteTransactionCommand deleteTransactionCommand = new DeleteTransactionCommand(transactions);
-        parser.registerCommands(deleteTransactionCommand);
-
-        ViewExpenseCommand viewExpenseCommand = new ViewExpenseCommand(transactions);
-        parser.registerCommands(viewExpenseCommand);
-
-        ViewIncomeCommand viewIncomeCommand = new ViewIncomeCommand(transactions);
-        parser.registerCommands(viewIncomeCommand);
-
-        ViewTotalCommand viewTotalCommand = new ViewTotalCommand(transactions);
-        parser.registerCommands(viewTotalCommand);
-
-        HistoryCommand historyCommand = new HistoryCommand(transactions);
-        parser.registerCommands(historyCommand);
-
-        ByeCommand byeCommand = new ByeCommand();
-        parser.registerCommands(byeCommand);
-
+        parser.registerCommands(new ByeCommand());
 
         // Set command list for the help command
         logger.log(Level.INFO, "Setting command list for HelpCommand...");
         helpCommand.setCommands(new ArrayList<>(parser.getCommands().values()));
-
-        printMessage(String.format(HI_MESSAGE, NAME));
     }
 
     /**
@@ -140,16 +128,22 @@ public class Main {
     private static void runCommandLoop() throws Exception {
         while (isRunning) {
             String commandString = getUserInput();
-            logger.log(Level.INFO, "Command line: " + commandString);
+            String[] commandParts = commandString.split(" ", 2);
 
-            Command command = parser.parseCommand(commandString);
+            Command command = parser.parseCommand(commandParts[0]);
 
-            if (command == null){
+            if (command == null) {
                 List<String> messages = new ArrayList<>();
                 messages.add(INVALID_COMMAND_ERROR_MESSAGE);
                 showCommandResult(messages);
                 continue;
             }
+
+            if (commandParts.length == 2) {
+                Map<String, String> arguments = parser.extractArguments(command, commandParts[1]);
+                command.setArguments(arguments);
+            }
+
             List<String> messages = command.execute();
             showCommandResult(messages);
         }

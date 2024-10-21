@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class Parser {
     /** Map that associates command words with their corresponding {@code Command} objects */
-    private static Logger logger = Logger.getLogger("Parser");
+    private static final Logger logger = Logger.getLogger("Parser");
     private Map<String, Command> commands = new LinkedHashMap<>();
 
     /**
@@ -52,42 +52,33 @@ public class Parser {
     /**
      * Parses a command string into a {@code Command} and assign its arguments.
      *
-     * @param commandString The command string entered by the user.
-     * @return The {@code Command} associated with the command string, with assigned arguments.
+     * @param commandPart The first word of thẻ command string entered by the user.
+     * @return The {@code Command} associated with the command string.
      */
-    public Command parseCommand(String commandString) {
-        assert commandString != null && !commandString.trim().isEmpty() : "Command string should not be null or empty.";
+    public Command parseCommand(String commandPart) {
+        assert commandPart != null && !commandPart.trim().isEmpty() : "Command string should not be null or empty.";
 
-        String[] commandParts = commandString.split(" ", 2);
+        return commands.get(commandPart);
+    }
+
+    public Map<String, String> extractArguments (Command command, String argumentString) {
+        assert command != null: "Command should not be null or empty.";
 
         Map<String, String> arguments = new HashMap<>();
 
-        Command command = commands.get(commandParts[0]);
+        String[] keywords = command.getArgumentKeys();
+        logger.log(Level.INFO, "Extracting arguments...");
 
-        String argumentString = "";
-        if (commandParts.length == 2) {
-            argumentString = commandParts[1];
+        // Recursively split the command arguments
+        splitCommandRecursively(argumentString.trim(), keywords, arguments, "");
+
+        // Iterating through the map using entrySet()
+        for (Map.Entry<String, String> entry : arguments.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            logger.log(Level.INFO, key + ": " + value);
         }
-
-        if (command != null) {
-            String[] keywords = command.getArgumentKeys();
-            logger.log(Level.INFO, "Extracting arguments...");
-            // Recursively split the command arguments
-            splitCommandRecursively(argumentString.trim(), keywords, arguments, "");
-
-            // Iterating through the map using entrySet()
-            for (Map.Entry<String, String> entry : arguments.entrySet()) {
-                String key = entry.getKey();
-                String value = entry.getValue();
-                logger.log(Level.INFO, key + ": " + value);
-            }
-
-            command.setArguments(arguments);
-        } else {
-            return null;
-        }
-
-        return command;
+        return arguments;
     }
 
     /**
