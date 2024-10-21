@@ -1,11 +1,12 @@
 package ymfc.parser;
 
+import ymfc.commands.Command;
 import ymfc.commands.AddRecipeCommand;
 import ymfc.commands.ByeCommand;
-import ymfc.commands.Command;
 import ymfc.commands.DeleteCommand;
 import ymfc.commands.HelpCommand;
 import ymfc.commands.ListCommand;
+import ymfc.commands.SortCommand;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
 import ymfc.recipe.Recipe;
@@ -53,6 +54,8 @@ public final class Parser {
             return new HelpCommand();
         case "bye":
             return new ByeCommand();
+        case "sort":
+            return getSortCommand(args);
         default:
             throw new InvalidCommandException("Invalid command: " + command + "\ntype \"help\" for assistance");
         }
@@ -148,5 +151,22 @@ public final class Parser {
         String name = m.group("name").trim().substring(2);
         // return new DeleteCommand(0);
         return new DeleteCommand(name);
+    }
+
+    private static SortCommand getSortCommand(String args) throws InvalidArgumentException {
+        final Pattern sortCommandFormat  =
+                Pattern.compile("(?<name>[sS]/[^/]+)");
+        args = args.trim();
+        Matcher m = sortCommandFormat .matcher(args);
+        if (!m.matches()) {
+            throw new InvalidArgumentException("Invalid argument: " + args + "\n" + SortCommand.USAGE_EXAMPLE);
+        }
+        String name = m.group("name").trim().substring(2);
+
+        if (!name.equals("name") && !name.equals("time")) {
+            throw new InvalidArgumentException("Invalid argument: " + args + "\n" + SortCommand.USAGE_EXAMPLE);
+        }
+
+        return new SortCommand(name);
     }
 }
