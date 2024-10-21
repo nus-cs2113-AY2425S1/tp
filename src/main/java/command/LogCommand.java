@@ -59,4 +59,16 @@ public class LogCommand extends Command {
 
         logger.log(Level.INFO, "LogCommand executed successfully for day: {0}", completed);
     }
+
+    public int getProgrammeIndex() {
+        return progIndex;
+    }
+
+    public int getDayIndex() {
+        return dayIndex;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
 }

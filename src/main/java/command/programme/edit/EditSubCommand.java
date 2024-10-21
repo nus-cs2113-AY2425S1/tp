@@ -17,5 +17,9 @@ public abstract class EditSubCommand {
         this.progId = progId;
     }
 
+    public int getDayId() {
+        return dayId;
+    }
+
     public abstract String execute(ProgrammeList pList);
 }

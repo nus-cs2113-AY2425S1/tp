@@ -30,6 +30,10 @@ public class Day {
         logger.log(Level.INFO, "Day created with empty exercise list: {0}", this);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getExercisesCount() {
         logger.log(Level.INFO, "Number of exercises: {0}", exercises.size());
         return exercises.size();

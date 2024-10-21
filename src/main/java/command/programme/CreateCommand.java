@@ -32,4 +32,13 @@ public class CreateCommand extends Command {
         ui.showMessage(result);
         logger.log(Level.INFO, "CreateCommand executed successfully.");
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<Day> getDays() {
+        return contents;
+    }
 }
+

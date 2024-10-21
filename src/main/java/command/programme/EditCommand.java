@@ -32,6 +32,10 @@ public class EditCommand extends Command {
         logger.log(Level.INFO, "EditCommand initialized with empty subCommands");
     }
 
+    public ArrayList<EditSubCommand> getSubCommands() {
+        return subCommands;
+    }
+
     public void addCreate(int progId, int dayId, Exercise created) {
         assert progId >= 0 : "Program ID must be non-negative";
         assert dayId >= 0 : "Day ID must be non-negative";
