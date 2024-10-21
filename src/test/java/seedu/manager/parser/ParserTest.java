@@ -105,6 +105,6 @@ class ParserTest {
         String commandString = "mark -e event -s yes";
 
         assertThrows(InvalidCommandException.class,() -> {
-                parser.parseCommand(commandString);});
+            parser.parseCommand(commandString);});
     }
 }
