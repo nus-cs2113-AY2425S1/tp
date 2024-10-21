@@ -33,21 +33,21 @@ public class ParserTest {
     }
 
     @Test
-    public void testParse_nullInput_throwsException() {
+    public void testParse_nullInput() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> parser.parse(null));
 
         assertEquals("Command cannot be empty. Please enter a valid command.", exception.getMessage());
     }
 
     @Test
-    public void testParse_emptyCommand_throwsException() {
+    public void testParse_emptyCommand() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> parser.parse("  "));
 
         assertEquals("Command cannot be empty. Please enter a valid command.", exception.getMessage());
     }
 
     @Test
-    public void testParse_unknownCommand_returnsInvalidCommand() {
+    public void testParse_unknownCommand() {
         Command command = parser.parse("unknownCommand");
 
         assertInstanceOf(InvalidCommand.class, command, "Expected InvalidCommand for unknown command");
@@ -63,21 +63,21 @@ public class ParserTest {
     }
 
     @Test
-    public void testParse_historyCommand_returnsHistoryCommand() {
+    public void testParse_historyCommand() {
         Command command = parser.parse("history");
 
         assertInstanceOf(HistoryCommand.class, command, "Expected HistoryCommand");
     }
 
     @Test
-    public void testParse_exitCommand_returnsExitCommand() {
+    public void testParse_exitCommand() {
         Command command = parser.parse("bye");
 
         assertInstanceOf(ExitCommand.class, command, "Expected ExitCommand");
     }
 
     @Test
-    public void testPrepareLogCommand_validArguments_returnsLogCommand() {
+    public void testPrepareLogCommand_validArguments() {
         // Test valid log command with correct flags
         String fullCommand = "log /p 2 /d 3 /t 21-12-2023";
         Command command = parser.parse(fullCommand);
@@ -91,7 +91,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testPrepareLogCommand_missingFlags_throwsException() {
+    public void testPrepareLogCommand_missingFlags() {
         // Test when not all flags are provided
         String fullCommand = "log /p 2 /d 3"; // Missing /t flag
 
@@ -101,7 +101,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testPrepareLogCommand_invalidProgrammeIndex_throwsException() {
+    public void testPrepareLogCommand_invalidProgrammeIndex() {
         // Test when programme index is invalid
         String fullCommand = "log /p abc /d 3 /t 21-12-2023";
 
@@ -111,7 +111,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testPrepareLogCommand_invalidDayIndex_throwsException() {
+    public void testPrepareLogCommand_invalidDayIndex() {
         // Test when day index is invalid
         String fullCommand = "log /p 2 /d abc /t 21-12-2023";
 
@@ -121,7 +121,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testPrepareLogCommand_invalidDateFormat_throwsException() {
+    public void testPrepareLogCommand_invalidDateFormat() {
         // Test when the date format is invalid
         String fullCommand = "log /p 2 /d 3 /t 21-2023-12";
 
@@ -131,7 +131,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testPrepareLogCommand_emptyProgrammeIndex_throwsException() {
+    public void testPrepareLogCommand_emptyProgrammeIndex() {
         // Test when the programme index is empty
         String fullCommand = "log /p  /d 3 /t 21-12-2023";
 
@@ -141,7 +141,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testPrepareLogCommand_emptyDayIndex_throwsException() {
+    public void testPrepareLogCommand_emptyDayIndex() {
         // Test when the day index is empty
         String fullCommand = "log /p 2 /d  /t 21-12-2023";
 
@@ -151,7 +151,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testPrepareLogCommand_emptyDate_throwsException() {
+    public void testPrepareLogCommand_emptyDate() {
         // Test when the date is empty
         String fullCommand = "log /p 2 /d 3 /t  ";
 
@@ -161,7 +161,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testPrepareLogCommand_invalidFlag_throwsException() {
+    public void testPrepareLogCommand_invalidFlag() {
         // Test with an unrecognized flag
         String fullCommand = "log /x 2 /d 3 /t 21-12-2023";
 

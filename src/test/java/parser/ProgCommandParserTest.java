@@ -65,7 +65,7 @@ public class ProgCommandParserTest {
     }
 
     @Test
-    public void testPrepareCreateCommand_validInput_SingleExercise() {
+    public void testPrepareCreateCommand_validInputSingleExercise() {
         String argumentString = "MyProgram /d Day1 /e /n Squat /s 3 /r 10 /w 100";
         Command command = parser.parse("create " + argumentString);
 
@@ -86,7 +86,7 @@ public class ProgCommandParserTest {
     }
 
     @Test
-    public void testPrepareCreateCommand_validInput_multipleExercises() {
+    public void testPrepareCreateCommand_validInputMultipleExercises() {
         String argumentString = "MyProgram /d Day1 /e /n Squat /s 3 /r 10 /w 100 /e " +
                 "/n BenchPress /s 4 /r 8 /w 80";
         Command command = parser.parse("create " + argumentString);
@@ -206,7 +206,7 @@ public class ProgCommandParserTest {
     }
 
     @Test
-    public void testPrepareEditCommand_unknownFlag_throwsException() {
+    public void testPrepareEditCommand_unknownFlag() {
         String argumentString = "/p 1 /d 1 /z 1";
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
                 parser.parse("edit " + argumentString));
