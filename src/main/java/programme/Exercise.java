@@ -13,11 +13,6 @@ public class Exercise {
     private String name;
 
     public Exercise(int sets, int reps, int weight, String name) {
-        assert sets >= 0 : "Sets cannot be negative";
-        assert reps >= 0 : "Reps cannot be negative";
-        assert weight >= 0 : "Weight cannot be negative";
-        assert name != null && !name.isEmpty() : "Name cannot be null or empty";
-
         this.sets = sets;
         this.reps = reps;
         this.weight = weight;
