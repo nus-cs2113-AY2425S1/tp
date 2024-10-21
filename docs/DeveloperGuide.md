@@ -1,7 +1,7 @@
 # Developer Guide
 
 ## Acknowledgements
-- The command parser is adapted from [Dan Linh's iP](https://github.com/DanLinhHuynh-Niwashi/ip/tree/master/src/main/java/niwa/parser) code, with changes to get on well with the current project 
+- The `Parser` is adapted from [Dan Linh's iP](https://github.com/DanLinhHuynh-Niwashi/ip/tree/master/src/main/java/niwa/parser) code, with changes to get on well with the current project 
 
 ## Design & implementation
 ### Command Parser
@@ -20,14 +20,18 @@ The `Parser` class is responsible for interpreting user commands and extracting 
   - **Process**:
     - Retrieves the `COMMAND_WORD` field from the `Command` object
     - Adds the word and the command to the `commands` map.
-  - **Sequence diagram**:
+    
+    ![register_command](./diagrams/parser/register-command-sequence.png)
+    
 2. **parseCommand(String commandPart): Command**
   - **Parameters**: 
     - `commandPart`: A string representing the command word entered by the user.
   - **Returns**: The corresponding `Command` object or `null` if the command is not found.
   - **Process**: 
     - Retrieves the associated `Command` object from the `commands` map, using the provided commandPart.
-  - **Sequence diagram**:
+
+  ![parse_command](./diagrams/parser/parse-command-sequence.png)
+  
 3. **extractArguments(Command command, String argumentString): Map<String, String>**
   - **Parameters**: 
     - `command`: The `Command` object for which arguments are to be extracted.
@@ -37,7 +41,9 @@ The `Parser` class is responsible for interpreting user commands and extracting 
     - Initializes an empty map for arguments
     - Retrieves the expected argument keys from the command
     - Invokes `splitCommandRecursively` to populate the arguments map.
-  - **Sequence diagram**:
+  
+  ![extract_arguments](./diagrams/parser/extract-arguments-sequence.png)
+  
 4. **splitCommandRecursively(String argumentString, String[] keywords, Map<String, String> arguments, String prevKeyword): void**
   - **Parameters**: 
     - `argumentString`: The string containing the arguments to be split.
