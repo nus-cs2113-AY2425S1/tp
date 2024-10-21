@@ -1,0 +1,82 @@
+@startuml
+participant "Main" as Main
+activate Main
+
+create "helpCommand:HelpCommand" as HelpCommand
+Main -> HelpCommand: new HelpCommand()
+activate HelpCommand
+HelpCommand --> Main: helpCommand:HelpCommand
+deactivate HelpCommand
+
+participant "parser:Parser" as Parser
+Main -> Parser: registerCommand(helpCommand)
+activate Parser
+
+participant "commands:LinkedHashMap" as CommandMap
+
+Parser -> HelpCommand: getClass()
+HelpCommand --> Parser: HelpCommand: class
+
+Parser -> HelpCommand: getField("COMMAND_WORD")
+alt Field found
+    HelpCommand --> Parser: commandWord: String
+    Parser -> CommandMap: put(commandWord, helpCommand)
+    activate CommandMap
+
+    CommandMap --> Parser: success
+
+    deactivate CommandMap
+else Field not found
+    Parser -> Parser: // Field access ignored
+end
+
+Parser --> Main: return
+deactivate Parser
+@enduml
+
+@startuml
+participant "Main" as Main
+activate Main
+
+participant "parser:Parser" as Parser
+Main -> Parser: parseCommand(commandWord:String)
+activate Parser
+
+Parser -> "commands: LinkedHashMap" as CommandMap: get(commandPart)
+activate CommandMap
+alt Command found
+    CommandMap --> Parser: command: Command
+else Command not found
+    CommandMap --> Parser: null
+    deactivate CommandMap
+end
+
+Parser --> Main: command:Command or null
+deactivate Parser
+@enduml
+
+@startuml
+participant "Main" as Main
+activate Main
+
+participant "parser:Parser" as Parser
+Main -> Parser: extractArguments(command, argumentString)
+activate Parser
+
+participant "command:Command" as Command
+Parser -> Command: getArgumentKeys()
+activate Command
+Command --> Parser: keywords: String[]
+deactivate Command
+
+Parser -> Parser: splitCommandRecursively(argumentString, keywords, arguments, firstKeyWord="")
+activate Parser
+Parser --> Parser
+deactivate Parser
+
+Parser --> Main: arguments:Map<String,String>
+deactivate Parser
+@enduml
+
+
+
