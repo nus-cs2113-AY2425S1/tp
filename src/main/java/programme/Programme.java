@@ -5,10 +5,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Programme {
+    private static final Logger logger = Logger.getLogger(Programme.class.getName());
+
     private final String programmeName;
     private final ArrayList<Day> dayList;
-
-    private final Logger logger = Logger.getLogger(Programme.class.getName());
 
     public Programme(String programmeName, ArrayList<Day> dayList) {
         assert programmeName != null && !programmeName.isEmpty() : "Programme name cannot be null or empty";

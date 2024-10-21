@@ -6,10 +6,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Day {
+    private static final Logger logger = Logger.getLogger(Day.class.getName());
+
     private final String name;
     private final ArrayList<Exercise> exercises;
-
-    private final Logger logger = Logger.getLogger(Day.class.getName());
 
     public Day(String name, ArrayList<Exercise> exercises) {
         assert name != null && !name.isEmpty() : "Name cannot be null or empty";

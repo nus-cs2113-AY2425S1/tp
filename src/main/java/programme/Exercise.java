@@ -5,11 +5,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Exercise {
+    private static final Logger logger = Logger.getLogger(Exercise.class.getName());
+
     private int sets;
     private int reps;
     private int weight;
     private String name;
-    private final Logger logger = Logger.getLogger(Exercise.class.getName());
 
     public Exercise(int sets, int reps, int weight, String name) {
         assert sets >= 0 : "Sets cannot be negative";
