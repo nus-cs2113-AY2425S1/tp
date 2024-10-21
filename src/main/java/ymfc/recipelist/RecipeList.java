@@ -3,6 +3,7 @@ package ymfc.recipelist;
 import ymfc.recipe.Recipe;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class RecipeList {
     private ArrayList<Recipe> recipes;
@@ -47,6 +48,14 @@ public class RecipeList {
 
     public int getCounter() {
         return counter;
+    }
+
+    public void sortAlphabetically() {
+        recipes.sort(Comparator.comparing(Recipe::getName, String.CASE_INSENSITIVE_ORDER));
+    }
+
+    public void sortByTimeTaken() {
+        recipes.sort(Comparator.comparing(Recipe::getTimeTaken));
     }
 
 }
