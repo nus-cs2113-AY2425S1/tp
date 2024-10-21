@@ -35,7 +35,7 @@ public class Day {
         return exercises.size();
     }
 
-    public Exercise getExercise(int index) throws IndexOutOfBoundsException {
+    public Exercise getExercise(int index){
         if (index < 0 || index >= exercises.size()) {
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for exercise list.");
         }
