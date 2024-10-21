@@ -65,8 +65,8 @@ public class Event {
      *         {@code false} if the participant was not found in the list.
      */
     public boolean removeParticipant(String participantName) {
-        Participant participant = new Participant(participantName);
-        return this.participantList.remove(participant);
+        return this.participantList.removeIf((participant) ->
+                (participant.getName().equalsIgnoreCase(participantName)));
     }
 
     /**
