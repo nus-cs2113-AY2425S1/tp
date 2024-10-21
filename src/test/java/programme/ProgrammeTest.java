@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -53,10 +53,10 @@ public class ProgrammeTest {
 
     @Test
     void testDeleteDayInvalidIndex() {
-        Day deletedDay = programme.deleteDay(5);
+        // Verify that an invalid index throws an IndexOutOfBoundsException
+        assertThrows(IndexOutOfBoundsException.class, () -> {programme.deleteDay(5);});
 
-        assertNull(deletedDay);
-
+        // Verify that the size of the day list remains unchanged
         assertEquals(2, programme.getDayCount());
     }
 
