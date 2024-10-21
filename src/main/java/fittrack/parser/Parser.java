@@ -59,8 +59,8 @@ public class Parser {
             sentence = description.split(" ", 3);
             assert sentence.length == 3 : "Edit exercise command requires exactly 3 arguments";
             int sessionIndex = Integer.parseInt(sentence[0]) - 1;
-            int exerciseIndex = Integer.parseInt(sentence[1]);
-            int exerciseData = Integer.parseInt(sentence[2]);
+            String exerciseIndex = sentence[1];
+            String exerciseData = sentence[2];
             assert sessionIndex >= 0 && sessionIndex < sessionList.size() : "Session index out of bounds";
             sessionList.get(sessionIndex).editExercise(exerciseIndex, exerciseData);
             break;
