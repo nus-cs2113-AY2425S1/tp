@@ -17,6 +17,10 @@ public class Day {
         this.exercises = new ArrayList<>();
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getExercisesCount() {
         return exercises.size();
     }

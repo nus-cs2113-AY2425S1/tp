@@ -8,6 +8,7 @@ import command.InvalidCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -19,6 +20,10 @@ public class Parser {
 
     public Parser(){
         this.progParser = new ProgCommandParser();
+    }
+
+    public Parser(ProgCommandParser progParser) {
+        this.progParser = progParser;
     }
 
     public Command parse(String fullCommand) {
@@ -63,26 +68,18 @@ public class Parser {
             String[] argParts = arg.split(" ");
             String flag = argParts[0];
 
+            if (argParts.length < 2) {
+                throw new IllegalArgumentException("Flag " + flag + " is missing a value.");
+            }
+
             switch (flag){
             case "/p":
-                if (argParts[1] == null || argParts[1].trim().isEmpty()) {
-                    throw new IllegalArgumentException("Programme index cannot be empty. Please enter valid index.");
-                }
-
                 progIndex = parseIndex(argParts[1]);
                 break;
             case "/d":
-                if (argParts[1] == null || argParts[1].trim().isEmpty()) {
-                    throw new IllegalArgumentException("Day index cannot be empty. Please enter valid index.");
-                }
-
                 dayIndex = parseIndex(argParts[1]);
                 break;
             case "/t":
-                if (argParts[1] == null || argParts[1].trim().isEmpty()) {
-                    throw new IllegalArgumentException("Date cannot be empty. Please enter valid date.");
-                }
-
                 date = parseDate(argParts[1]);
                 break;
             default:
@@ -95,12 +92,17 @@ public class Parser {
         return new LogCommand(progIndex, dayIndex, date);
     }
 
-
     private LocalDate parseDate(String dateString) {
         assert dateString != null && !dateString.trim().isEmpty() : "Date string must not be null or empty";
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return LocalDate.parse(dateString, formatter);
+        try {
+            return LocalDate.parse(dateString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Expected format: dd-MM-yyyy. " +
+                    "Error: " + e.getParsedString(), e);
+        }
     }
 }
+
 

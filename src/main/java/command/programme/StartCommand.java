@@ -19,6 +19,10 @@ public class StartCommand extends Command {
         assert progId >= 0 : "progId must not be negative";
     }
 
+    public int getProgId() {
+        return progId;
+    }
+
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history){
         assert pList != null : "Programme list must not be null";

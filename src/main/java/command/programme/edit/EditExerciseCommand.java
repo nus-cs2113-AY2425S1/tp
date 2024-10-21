@@ -16,6 +16,10 @@ public class EditExerciseCommand  extends EditSubCommand {
         this.update = update;
     }
 
+    public Exercise getUpdate() {
+        return update;
+    }
+
     public String execute(ProgrammeList pList) {
         Day day = pList.getDay(progId, dayId);
         Exercise updated = day.updateExercise(exerciseId, update);
