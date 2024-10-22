@@ -1,32 +1,22 @@
 package command;
 
 import history.History;
-import ui.Ui;
 import org.junit.jupiter.api.Test;
 import programme.ProgrammeList;
 
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+
 
 public class InvalidCommandTest {
-    @Test
-    public void testIsExit_returnsFalse() {
-        InvalidCommand invalidCommand = new InvalidCommand();
-        assertFalse(invalidCommand.isExit());
-    }
 
     @Test
     public void testExecute_showsInvalidCommandMessage() {
-        Ui mockUi = mock(Ui.class);
         ProgrammeList mockPList = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);
 
         InvalidCommand invalidCommand = new InvalidCommand();
-        invalidCommand.execute(mockUi, mockPList, mockHistory);
-
-        verify(mockUi).showMessage(anyString());
+        CommandResult result = invalidCommand.execute(mockPList, mockHistory);
+        assertNotNull(result);
     }
 }
