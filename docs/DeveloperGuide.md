@@ -8,6 +8,15 @@
 {TODO: Class Diagram}
 {TODO: Object Diagram}
 ### List Schools Command
+
+#### Overview
+This command is responsible for displaying and retrieving the full list of university
+from `database.json` file. It helps the users to identify the possible choices in South East Asia
+and Oceania.
+
+#### How the feature is implemented
+
+
 ### Obtain Partner University Email
 ### Obtain Partner University Contact Number
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
