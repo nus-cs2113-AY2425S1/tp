@@ -20,3 +20,4 @@ public class HistoryCommand extends Command {
         logger.log(Level.INFO, "HistoryCommand executed successfully.");
     }
 }
+
