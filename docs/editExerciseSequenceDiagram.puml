@@ -1,0 +1,14 @@
+@startuml
+
+actor Parser as parser
+participant "TrainingSession" as ts
+participant "ExerciseStation" as es
+
+parser -> ts: editExercise(Exercise, reps)
+ts -> ts: processReps(Exercise, reps)
+ts -> es: setPerformance(actualReps)
+ts -> es: getPoints(user)
+es --> ts: points
+ts -> parser: print("Exercise edited! Here's your new input: ...")
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+
+actor Parser as parser
+participant "TrainingSession" as ts
+participant "ExerciseStation" as es
+
+parser -> ts: viewSession()
+ts -> ts: print("Training Session details")
+ts -> ts: initialise totalPoints = 0, minPoint = MAX_POINT
+
+loop for each exerciseStation
+    ts -> es: getPoints(user)
+    es --> ts: points
+    ts -> ts: add points to totalPoints
+    ts -> ts: update minPoint if necessary
+    ts -> ts: print exercise details
+end
+
+ts -> ts: award(minPoint, totalPoints)
+ts --> parser: print("Total points, Overall Award")
+
+@enduml
