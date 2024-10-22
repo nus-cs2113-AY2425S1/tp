@@ -1,15 +1,12 @@
 package command;
-import core.Ui;
 import programme.ProgrammeList;
 import programme.Day;
-import core.History;
-
+import history.History;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
 
 public class LogCommand extends Command {
     public static final String COMMAND_WORD = "log";
@@ -37,7 +34,7 @@ public class LogCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui,ProgrammeList pList, History history){
+    public CommandResult execute(ProgrammeList pList, History history){
         logger.log(
                 Level.INFO,
                 "Executing LogCommand with progIndex: {0}, dayIndex: {1}, date: {2}",
@@ -46,7 +43,6 @@ public class LogCommand extends Command {
 
         assert pList != null : "ProgrammeList must not be null";
         assert history != null : "History must not be null";
-        assert ui != null : "UI must not be null";
 
         Day completed = pList.getDay(progIndex, dayIndex);
 
@@ -55,9 +51,26 @@ public class LogCommand extends Command {
         history.logDay(completed, date);
 
         String result =  String.format("Congrats! You've successfully completed:%n%s",completed);
-        ui.showMessage(result);
 
         logger.log(Level.INFO, "LogCommand executed successfully for day: {0}", completed);
+        return new CommandResult(result);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o){
+            return true;
+        }
+
+        if (!(o instanceof LogCommand that)){
+            return false;
+        }
+
+        boolean isProgIndexEqual =  (progIndex == that.progIndex);
+        boolean isDayIndexEqual = (dayIndex == that.dayIndex);
+        boolean isDateEqual = Objects.equals(date, that.date);
+
+        return (isProgIndexEqual && isDayIndexEqual && isDateEqual);
     }
 
     public int getProgrammeIndex() {

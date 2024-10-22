@@ -4,11 +4,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import command.Command;
-import core.Ui;
+import command.CommandResult;
 import programme.Day;
 import programme.ProgrammeList;
 import programme.Programme;
-import core.History;
+import history.History;
 
 public class CreateCommand extends Command {
     public static final String COMMAND_WORD = "create";
@@ -23,15 +23,18 @@ public class CreateCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, ProgrammeList pList, History history){
+    public CommandResult execute(ProgrammeList pList, History history){
         assert pList != null : "Programme list must not be null";
-        assert ui != null : "UI must not be null";
+
         Programme created = pList.insertProgramme(name, contents);
         assert created != null : "programme must be created";
         String result = String.format("New programme created: %n%s",created);
-        ui.showMessage(result);
+
         logger.log(Level.INFO, "CreateCommand executed successfully.");
+
+        return new CommandResult(result);
     }
+
 
     public String getName() {
         return name;

@@ -1,13 +1,11 @@
 package command;
 
-import core.History;
-import core.Ui;
+import history.History;
 import org.junit.jupiter.api.Test;
 import programme.Day;
 import programme.ProgrammeList;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
@@ -15,15 +13,9 @@ import static org.mockito.Mockito.verify;
 import java.time.LocalDate;
 
 public class LogCommandTest {
-    @Test
-    public void testIsExit_returnsFalse() {
-        LogCommand logCommand = new LogCommand(0,0, LocalDate.now());
-        assertFalse(logCommand.isExit());
-    }
 
     @Test
     public void testExecute_logsDayIntoHistory() {
-        Ui mockUi = mock(Ui.class);
         ProgrammeList mockPList = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);
         Day mockDay = mock(Day.class);
@@ -37,10 +29,10 @@ public class LogCommandTest {
 
         LogCommand logCommand = new LogCommand(progIndex, dayIndex, date);
 
-        logCommand.execute(mockUi, mockPList, mockHistory);
+        CommandResult result = logCommand.execute(mockPList, mockHistory);
 
         verify(mockPList).getDay(progIndex, dayIndex);
         verify(mockHistory).logDay(mockDay, date);
-        verify(mockUi).showMessage(anyString());
+        assertNotNull(result);
     }
 }

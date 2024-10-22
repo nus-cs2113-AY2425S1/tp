@@ -4,6 +4,8 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static common.Utils.isNull;
+
 public class Exercise {
     private static final Logger logger = Logger.getLogger(Exercise.class.getName());
 
@@ -55,14 +57,6 @@ public class Exercise {
             logger.log(Level.INFO, "Updating name from {0} to {1}", new Object[]{name, update.name});
             name = update.name;
         }
-    }
-
-    private boolean isNull(int val) {
-        return val == -1;
-    }
-
-    private boolean isNull(String val) {
-        return val == null || val.isEmpty();
     }
 
     @Override
