@@ -2,6 +2,8 @@ package wheresmymoney;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -103,6 +105,33 @@ class ExpenseListTest {
         ExpenseList expenseList = new ExpenseList();
         assertThrows(WheresMyMoneyException.class,
                 () -> expenseList.deleteExpense(1));
+    }
+
+    @Test
+    public void listByCategory_normalListByCategory_success() {
+        ExpenseList expenseList = new ExpenseList();
+        Expense[] sampleArray = {};
+        Expense expense = new Expense(1.00f, "Ice Cream", "Food");
+        expenseList.addExpense(1.00f, "Ice Cream", "Food");
+        expenseList.addExpense(4.50f, "Taxi", "Transport");
+        assertEquals(1, expenseList.listByCategory("Food").size());
+        assertEquals(expense.getDescription(), expenseList.listByCategory("Food").toArray(sampleArray)[0].getDescription());
+    }
+
+    @Test
+    public void listByCategory_emptyListByCategory_success() {
+        ExpenseList expenseList = new ExpenseList();
+        ArrayList<Expense> testArrayList = new ArrayList<>();
+        assertEquals(testArrayList, expenseList.listByCategory("Food"));
+    }
+
+    @Test
+    public void listByCategory_noMatchForCategory_success() {
+        ExpenseList expenseList = new ExpenseList();
+        ArrayList<Expense> testArrayList = new ArrayList<>();
+        expenseList.addExpense(1.00f, "Ice Cream", "Food");
+        expenseList.addExpense(4.50f, "Taxi", "Transport");
+        assertEquals(testArrayList, expenseList.listByCategory("Travel"));
     }
 
 }
