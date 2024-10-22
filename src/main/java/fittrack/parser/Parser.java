@@ -9,14 +9,17 @@ import java.util.ArrayList;
 import static fittrack.messages.Messages.ADD_SESSION_COMMAND;
 import static fittrack.messages.Messages.DELETE_SESSION_COMMAND;
 import static fittrack.messages.Messages.EDIT_EXERCISE_COMMAND;
+import static fittrack.messages.Messages.HELP_COMMAND;
 import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
 import static fittrack.messages.Messages.SET_USER_COMMAND;
 import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
 import static fittrack.ui.Ui.printAddedSession;
 import static fittrack.ui.Ui.printDeletedSession;
+import static fittrack.ui.Ui.printHelp;
 import static fittrack.ui.Ui.printSessionList;
 import static fittrack.ui.Ui.printSessionView;
 import static fittrack.ui.Ui.printUnrecognizedInputMessage;
+import static fittrack.ui.Ui.printUser;
 
 public class Parser {
 
@@ -49,6 +52,10 @@ public class Parser {
             sentence = description.split(" ", 2);
             user.setGender(sentence[0]);
             user.setAge(sentence[1]);
+            printUser(user);
+            break;
+        case HELP_COMMAND:
+            printHelp();
             break;
         case ADD_SESSION_COMMAND:
             assert !description.isEmpty() : "Session description must not be empty";
@@ -64,6 +71,7 @@ public class Parser {
             String exerciseData = sentence[2];
             assert sessionIndex >= 0 && sessionIndex < sessionList.size() : "Session index out of bounds";
             sessionList.get(sessionIndex).editExercise(exerciseIndex, exerciseData);
+            printSessionView(sessionList, sessionIndex);
             break;
         case LIST_SESSIONS_COMMAND:
             printSessionList(sessionList); // Print the list of sessions
@@ -86,4 +94,3 @@ public class Parser {
         }
     }
 }
-

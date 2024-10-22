@@ -14,6 +14,7 @@ import static fittrack.storage.Storage.initialiseSaveFile;
 import static fittrack.storage.Storage.loadSaveFile;
 import static fittrack.ui.Ui.printExitMessage;
 import static fittrack.ui.Ui.printGreeting;
+import static fittrack.ui.Ui.printHelp;
 import static fittrack.ui.Ui.printUser;
 
 public class FitTrack {
@@ -46,6 +47,7 @@ public class FitTrack {
 
         User user = new User(gender, age);
         printUser(user);
+        printHelp();
 
         String input = scan.nextLine();
 

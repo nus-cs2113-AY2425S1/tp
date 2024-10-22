@@ -9,6 +9,7 @@ import java.util.List;
 import static fittrack.messages.Messages.ADD_SESSION_MESSAGE;
 import static fittrack.messages.Messages.DELETE_SESSION_MESSAGE;
 import static fittrack.messages.Messages.EXIT_MESSAGE;
+import static fittrack.messages.Messages.HELP_MESSAGE;
 import static fittrack.messages.Messages.INIT_SENTENCE;
 import static fittrack.messages.Messages.INVALID_INPUT_MESSAGE;
 import static fittrack.messages.Messages.LIST_EMPTY_MESSAGE;
@@ -47,12 +48,19 @@ public class Ui {
         endSegment();
     }
 
+    public static void printHelp() {
+        beginSegment();
+        System.out.println(HELP_MESSAGE);
+        endSegment();
+    }
+
     public static void printAddedSession(ArrayList<TrainingSession> sessionList) {
         assert sessionList != null : "Session list must not be null";
         assert !sessionList.isEmpty() : "Session list must not be empty";
 
         beginSegment();
-        System.out.print(ADD_SESSION_MESSAGE);
+        System.out.println(ADD_SESSION_MESSAGE);
+        System.out.print(sessionList.size() + ". ");
         sessionList.get(sessionList.size() - 1).printSessionDescription();
         printSessionCount(sessionList);
         endSegment();
