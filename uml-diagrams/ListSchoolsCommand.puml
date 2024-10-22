@@ -1,7 +1,10 @@
 @startuml
+
+hide footbox
+
 actor CEG_Student
-participant ListSchoolCommand
-participant Command
+participant ":ListSchoolCommand" as ListSchoolCommand
+participant ":Command" as Command
 
 CEG_Student -> ListSchoolCommand: execute (userInput:String)
 activate ListSchoolCommand
