@@ -46,14 +46,21 @@ public class Parser {
                 new Object[]{commandString, argumentString});
 
         return switch (commandString) {
-            case ProgCommandParser.COMMAND_WORD -> progParser.parse(argumentString);  // Keeping correct parser name
-            case LogCommand.COMMAND_WORD -> prepareLogCommand(argumentString);
-            case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
-            case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();  // Support for weekly summary command
-            case PersonalBestCommand.COMMAND_WORD -> preparePersonalBestCommand(argumentString);  // Support for personal bests command
-            case ExitCommand.COMMAND_WORD -> new ExitCommand();
-            default -> new InvalidCommand();
-        };
+    case ProgCommandParser.COMMAND_WORD:
+        return progParser.parse(argumentString);  // Keeping correct parser name
+    case LogCommand.COMMAND_WORD:
+        return prepareLogCommand(argumentString);
+    case HistoryCommand.COMMAND_WORD:
+        return new HistoryCommand();
+    case WeeklySummaryCommand.COMMAND_WORD:
+        return new WeeklySummaryCommand();  // Support for weekly summary command
+    case PersonalBestCommand.COMMAND_WORD:
+        return preparePersonalBestCommand(argumentString);  // Support for personal bests command
+    case ExitCommand.COMMAND_WORD:
+        return new ExitCommand();
+    default:
+        return new InvalidCommand();
+};
     }
 
     // Personal best command with exercise name
