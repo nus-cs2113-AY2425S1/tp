@@ -9,7 +9,6 @@ import command.InvalidCommand;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -58,21 +57,22 @@ public class Parser {
 
         FlagParser flagParser = new FlagParser(argumentString);
 
-        int progIndex = Optional.ofNullable(flagParser.getFlagValue("/p"))
-                .map(value -> parseIndex(value, "Invalid programme index."))
-                .orElse(-1);
+        int progIndex = -1;
+        int dayIndex = -1;
+        LocalDate date = LocalDate.now();
 
-        int dayIndex = Optional.ofNullable(flagParser.getFlagValue("/d"))
-                .map(value -> parseIndex(value, "Invalid day index."))
-                .orElse(-1);
-
-        LocalDate date = Optional.ofNullable(flagParser.getFlagValue("/t"))
-                .map(this::parseDate)
-                .orElse(LocalDate.now());
+        if (flagParser.hasFlag("/p")) {
+            progIndex = parseIndex(flagParser.getFlagValue("/p"), "Invalid programme index.");
+        }
+        if (flagParser.hasFlag("/d")) {
+            dayIndex = parseIndex(flagParser.getFlagValue("/d"), "Invalid day index.");
+        }
+        if (flagParser.hasFlag("/t")) {
+            date = parseDate(flagParser.getFlagValue("/t"));
+        }
 
         logger.log(Level.INFO, "LogCommand prepared with Programme index: {0}, Day index: {1}, Date: {2}",
                 new Object[]{progIndex, dayIndex, date});
-
         return new LogCommand(progIndex, dayIndex, date);
     }
 

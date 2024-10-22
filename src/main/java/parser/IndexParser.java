@@ -20,7 +20,6 @@ public class IndexParser {
                 throw new IllegalArgumentException(errorMessage + "It must be a positive number.");
             }
             logger.log(Level.INFO, "Successfully parsed index: {0}", index);
-
             return index;
 
         } catch (NumberFormatException e) {

@@ -13,7 +13,6 @@ import command.programme.EditCommand;
 import command.programme.DeleteCommand;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -55,47 +54,44 @@ public class ProgCommandParser {
         FlagParser flagParser = new FlagParser(argumentString);
         EditCommand editCommand = new EditCommand();
 
-        final int progIndex = Optional.ofNullable(flagParser.getFlagValue("/p"))
-                .map(value -> parseIndex(value, "Invalid programme index."))
-                .orElse(-1);
+        int progIndex = -1;
+        int dayIndex = -1;
 
-        final int dayIndex = Optional.ofNullable(flagParser.getFlagValue("/d"))
-                .map(value -> parseIndex(value, "Invalid day index."))
-                .orElseGet(() -> Optional.ofNullable(flagParser.getFlagValue("/xd"))
-                        .map(value -> parseIndex(value, "Invalid day index in /xd flag."))
-                        .orElse(-1));
+        if (flagParser.hasFlag("/p")) {
+            progIndex = parseIndex(flagParser.getFlagValue("/p"), "Invalid programme index.");
+        }
 
-        Optional.ofNullable(flagParser.getFlagValue("/ad"))
-                .ifPresent(value -> {
-                    Day day = parseDay(value);
-                    editCommand.addCreateDay(progIndex, day);
-                });
+        if (flagParser.hasFlag("/d")) {
+            dayIndex = parseIndex(flagParser.getFlagValue("/d"), "Invalid day index.");
+        } else if (flagParser.hasFlag("/xd")) {
+            dayIndex = parseIndex(flagParser.getFlagValue("/xd"), "Invalid day index in /xd flag.");
+        }
 
-        Optional.ofNullable(flagParser.getFlagValue("/a"))
-                .ifPresent(value -> {
-                    Exercise created = parseExercise(value);
-                    editCommand.addCreate(progIndex, dayIndex, created);
-                });
+        if (flagParser.hasFlag("/ad")) {
+            Day day = parseDay(flagParser.getFlagValue("/ad"));
+            editCommand.addCreateDay(progIndex, day);
+        }
 
-        String flagValue = flagParser.getFlagValue("/xd");
-        if (flagValue != null) {
+        if (flagParser.hasFlag("/a")) {
+            Exercise created = parseExercise(flagParser.getFlagValue("/a"));
+            editCommand.addCreate(progIndex, dayIndex, created);
+        }
+
+        if (flagParser.hasFlag("/xd")) {
             editCommand.addDeleteDay(progIndex, dayIndex);
         }
 
-        Optional.ofNullable(flagParser.getFlagValue("/x"))
-                .ifPresent(value -> {
-                    int exerciseIndex = parseIndex(value, "Invalid exercise index for deletion.");
-                    editCommand.addDelete(progIndex, dayIndex, exerciseIndex);
-                });
+        if (flagParser.hasFlag("/x")) {
+            int exerciseIndex = parseIndex(flagParser.getFlagValue("/x"), "Invalid exercise index for deletion.");
+            editCommand.addDelete(progIndex, dayIndex, exerciseIndex);
+        }
 
-        Optional.ofNullable(flagParser.getFlagValue("/u"))
-                .ifPresent(value -> {
-                    String[] updateParts = value.split(" ", 2);
-                    int exerciseIndex = parseIndex(updateParts[0], "Invalid exercise index for update.");
-                    Exercise updated = parseExercise(updateParts[1]);
-                    editCommand.addEdit(progIndex, dayIndex, exerciseIndex, updated);
-                });
-
+        if (flagParser.hasFlag("/u")) {
+            String[] updateParts = flagParser.getFlagValue("/u").split(" ", 2);
+            int exerciseIndex = parseIndex(updateParts[0], "Invalid exercise index for update.");
+            Exercise updated = parseExercise(updateParts[1]);
+            editCommand.addEdit(progIndex, dayIndex, exerciseIndex, updated);
+        }
 
         logger.log(Level.INFO, "EditCommand prepared successfully");
         return editCommand;
@@ -126,8 +122,10 @@ public class ProgCommandParser {
 
         String[] dayParts  = dayString.split("/e");
         String dayName = dayParts[0].trim();
+        if (dayName.isEmpty()) {
+            throw new IllegalArgumentException("Day name cannot be empty. Please enter a valid day name.");
+        }
 
-        //if day name empty then throw error??? or leave it for multi line typing
         Day day = new Day(dayName);
 
         for (int j = 1; j < dayParts.length; j++) {
@@ -140,7 +138,6 @@ public class ProgCommandParser {
         return day;
     }
 
-    //check for invalid flags???
     private Exercise parseExercise(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -173,6 +170,8 @@ public class ProgCommandParser {
         assert argumentString != null : "Argument string must not be null";
 
         int progIndex = parseIndex(argumentString, "Invalid programme index. ");
+
+        logger.log(Level.INFO, "ViewCommand prepared successfully");
         return new ViewCommand(progIndex);
     }
 
@@ -180,6 +179,8 @@ public class ProgCommandParser {
         assert argumentString != null : "Argument string must not be null";
 
         int progIndex = parseIndex(argumentString, "Invalid programme index. ");
+
+        logger.log(Level.INFO, "StartCommand prepared successfully");
         return new StartCommand(progIndex);
     }
 
@@ -187,6 +188,8 @@ public class ProgCommandParser {
         assert argumentString != null : "Argument string must not be null";
 
         int progIndex = parseIndex(argumentString, "Invalid programme index. ");
+
+        logger.log(Level.INFO, "DeleteCommand prepared successfully");
         return new DeleteCommand(progIndex);
     }
 }
