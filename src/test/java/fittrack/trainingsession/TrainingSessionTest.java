@@ -39,10 +39,24 @@ public class TrainingSessionTest {
     }
 
     @Test
-    public void editWalkAndRunStation() {
+    public void editWalkAndRunStation1() {
         new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(5, "11:30");
         assertEquals("Exercise edited! Here's your new input: " +
                 "Time: 11:30 | 5 points" + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    public void editWalkAndRunStation2() {
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(5, "08:30");
+        assertEquals("Exercise edited! Here's your new input: " +
+                "Time: 08:30 | 5 points" + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    public void editWalkAndRunStation3() {
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(5, "11:03");
+        assertEquals("Exercise edited! Here's your new input: " +
+                "Time: 11:03 | 5 points" + System.lineSeparator(), outContent.toString());
     }
 
     @Test
