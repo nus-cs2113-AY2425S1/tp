@@ -1,0 +1,14 @@
+@startuml
+actor CEG_Student
+participant ListSchoolCommand
+participant Command
+participant JsonObject
+
+CEG_Student -> ListSchoolCommand: execute(userInput)
+ListSchoolCommand -> Command: createJsonObject()
+Command -> JsonObject: Read JSON file
+JsonObject --> Command: JsonObject
+Command -> ListSchoolCommand: return JsonObject
+ListSchoolCommand -> ListSchoolCommand: displaySchoolList(JsonObject)
+ListSchoolCommand -> CEG_Student: Print list of university names
+@enduml

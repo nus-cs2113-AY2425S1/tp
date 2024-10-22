@@ -7,6 +7,7 @@
 ## Design & implementation
 {TODO: Class Diagram}
 {TODO: Object Diagram}
+
 ### List Schools Command
 
 #### Overview
@@ -22,6 +23,7 @@ and Oceania.
 * The `displaySchoolList` method will iterate over the keys of the database which contians the University
   names, upon acquiring the keys, they will be printed over the CLI.
 * There are also assertions and logging in place for error handling.
+* Line Separator is used to ensure readability and ease of use for users.  
 
 #### Why it is implemented that way
 * The `execute` method is essential and unique to every command class so inheritance was used. 
@@ -30,11 +32,11 @@ and Oceania.
 * Logging and assertions helps the team of developers to follow through the command execution.
 
 #### Alternatives considered
-* Reading of the `database.json` was tricky and other libraries were considered
+* Reading of the `database.json` was tricky and other libraries were considered.
 * Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure 
-  readability 
+  readability.
 
-
+#### Sequence Diagram
 
 
 ### Obtain Partner University Email
