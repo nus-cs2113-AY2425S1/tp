@@ -12,6 +12,12 @@ public class SeeAllEntriesCommand extends Command {
     private LocalDate start;
     private LocalDate end;
 
+    /**
+     * Constructor for SeeAllEntriesCommand.
+     *
+     * @param start Start date of all entries to be listed, null if no start date to be specified.
+     * @param end End date of all entries to be listed, null if no end date to be specified.
+     */
     public SeeAllEntriesCommand(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;
@@ -27,6 +33,11 @@ public class SeeAllEntriesCommand extends Command {
         return (end == null || entry.getDate().isBefore(end)) && (start == null || entry.getDate().isAfter(start));
     }
 
+    /**
+     * Executes the SeeAllEntriesCommand, listing out all entries.
+     *
+     * @param list The financial list on which the command will operate.
+     */
     @Override
     public void execute(FinancialList list) {
         System.out.println("--------------------------------------------");

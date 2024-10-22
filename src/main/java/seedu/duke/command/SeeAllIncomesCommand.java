@@ -28,6 +28,7 @@ public class SeeAllIncomesCommand extends Command {
         return entry instanceof Income && (end == null || entry.getDate().isBefore(end))
                 && (start == null || entry.getDate().isAfter(start));
     }
+
     /**
      * Executes the command to display all recorded incomes in the financial list.
      * Iterates through the financial list and collects all entries that are instances of Income.
