@@ -13,6 +13,7 @@ import command.programme.EditCommand;
 import command.programme.DeleteCommand;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,64 +52,50 @@ public class ProgCommandParser {
     private Command prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        // Regex: Split string by / except when followed by n, r, s, w, e
-        String[] args = argumentString.split("/(?![nrswe])");
+        FlagParser flagParser = new FlagParser(argumentString);
         EditCommand editCommand = new EditCommand();
 
-        int progIndex = -1;
-        int dayIndex = -1;
-        int exerciseIndex;
+        final int progIndex = Optional.ofNullable(flagParser.getFlagValue("/p"))
+                .map(value -> parseIndex(value, "Invalid programme index."))
+                .orElse(-1);
 
-        for (String arg : args) {
-            if (arg.trim().isEmpty()) {
-                continue;
-            }
+        final int dayIndex = Optional.ofNullable(flagParser.getFlagValue("/d"))
+                .map(value -> parseIndex(value, "Invalid day index."))
+                .orElseGet(() -> Optional.ofNullable(flagParser.getFlagValue("/xd"))
+                        .map(value -> parseIndex(value, "Invalid day index in /xd flag."))
+                        .orElse(-1));
 
-            String[] argParts = arg.trim().split(" ", 2);
-            String flag = argParts[0].trim();
-            String value = argParts.length > 1 ? argParts[1].trim() : "";
+        Optional.ofNullable(flagParser.getFlagValue("/ad"))
+                .ifPresent(value -> {
+                    Day day = parseDay(value);
+                    editCommand.addCreateDay(progIndex, day);
+                });
 
-            logger.log(Level.INFO, "Processing flag: {0} with value: {1}", new Object[]{flag, value});
+        Optional.ofNullable(flagParser.getFlagValue("/a"))
+                .ifPresent(value -> {
+                    Exercise created = parseExercise(value);
+                    editCommand.addCreate(progIndex, dayIndex, created);
+                });
 
-            switch (flag) {
-            case "p":
-                progIndex = parseIndex(value);
-                break;
-
-            case "d": // Day index
-                dayIndex = parseIndex(value);
-                break;
-
-            case "x": // Remove exercise at index
-                exerciseIndex = parseIndex(value);
-                editCommand.addDelete(progIndex, dayIndex, exerciseIndex);
-                break;
-
-            case "xd":
-                editCommand.addDeleteDay(progIndex, parseIndex(value));
-                break;
-
-            case "u": // Update exercise (parse the value string to create an Exercise)
-                String[] updateParts = value.split(" ", 2);
-                exerciseIndex = parseIndex(updateParts[0]);
-                Exercise updated = parseExercise(updateParts[1]);
-                editCommand.addEdit(progIndex, dayIndex, exerciseIndex, updated);
-                break;
-
-            case "a": // Add new exercise (parse the value string to create an Exercise)
-                Exercise created = parseExercise(value);
-                editCommand.addCreate(progIndex, dayIndex, created);
-                break;
-
-            case "ad":
-                Day day = parseDay(value);
-                editCommand.addCreateDay(progIndex, day);
-                break;
-
-            default:
-                throw new IllegalArgumentException("Unknown flag: " + flag);
-            }
+        String flagValue = flagParser.getFlagValue("/xd");
+        if (flagValue != null) {
+            editCommand.addDeleteDay(progIndex, dayIndex);
         }
+
+        Optional.ofNullable(flagParser.getFlagValue("/x"))
+                .ifPresent(value -> {
+                    int exerciseIndex = parseIndex(value, "Invalid exercise index for deletion.");
+                    editCommand.addDelete(progIndex, dayIndex, exerciseIndex);
+                });
+
+        Optional.ofNullable(flagParser.getFlagValue("/u"))
+                .ifPresent(value -> {
+                    String[] updateParts = value.split(" ", 2);
+                    int exerciseIndex = parseIndex(updateParts[0], "Invalid exercise index for update.");
+                    Exercise updated = parseExercise(updateParts[1]);
+                    editCommand.addEdit(progIndex, dayIndex, exerciseIndex, updated);
+                });
+
 
         logger.log(Level.INFO, "EditCommand prepared successfully");
         return editCommand;
@@ -121,7 +108,7 @@ public class ProgCommandParser {
         String[] progParts = argumentString.split("/d");
         String progName = progParts[0].trim();
         if (progName.isEmpty()) {
-            throw new IllegalArgumentException("Programme name cannot be empty. Please enter a name.");
+            throw new IllegalArgumentException("Programme name cannot be empty. Please enter a valid programme name.");
         }
 
         for (int i = 1; i < progParts.length; i++) {
@@ -140,6 +127,7 @@ public class ProgCommandParser {
         String[] dayParts  = dayString.split("/e");
         String dayName = dayParts[0].trim();
 
+        //if day name empty then throw error??? or leave it for multi line typing
         Day day = new Day(dayName);
 
         for (int j = 1; j < dayParts.length; j++) {
@@ -152,83 +140,53 @@ public class ProgCommandParser {
         return day;
     }
 
-    private Exercise parseExercise(String exerciseString) {
-        assert exerciseString != null : "Exercise string must not be null";
+    //check for invalid flags???
+    private Exercise parseExercise(String argumentString) {
+        assert argumentString != null : "Argument string must not be null";
 
-        String name = "";
-        int reps = -1;
-        int sets = -1;
-        int weight = -1;
+        FlagParser flagParser = new FlagParser(argumentString);
+        String[] requiredFlags = {"/n", "/s", "/r", "/w"};
+        validateRequiredFlags(flagParser, requiredFlags);
 
-        String[] args = exerciseString.trim().split("/(?)");
+        String name = flagParser.getFlagValue("/n");
+        int sets = parseIndex(flagParser.getFlagValue("/s"), "Invalid sets value. ");
+        int reps = parseIndex(flagParser.getFlagValue("/r"), "Invalid reps value. ");
+        int weight = parseIndex(flagParser.getFlagValue("/s"), "Invalid weight value. ");
 
-        if (args.length < 5) {
-            throw new IllegalArgumentException("Missing exercise arguments. Please provide exercise " +
-                    "name, set, rep and weight.");
-        }
+        logger.log(Level.INFO, "Parsed exercise successfully with name: {0}, set: {1}, rep: {2}" +
+                " weight: {3}", new Object[]{name, sets, reps, weight});
 
-        for (int i = 1; i < args.length; i++) {
-            String[] argParts = args[i].split(" ");
-
-            if (argParts.length != 2){
-                throw new IllegalArgumentException("Invalid create exercise command: " + args[i]);
-            }
-
-            String flag = argParts[0].trim();
-            String value = argParts[1].trim();
-
-            switch (flag) {
-            case "n":
-                name = value;
-                break;
-            case "s":
-                try {
-                    sets = Integer.parseInt(value);
-                } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Invalid sets value. It must be an integer.");
-                }
-                break;
-            case "r":
-                try {
-                    reps = Integer.parseInt(value);
-                } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Invalid reps value. It must be an integer.");
-                }
-                break;
-            case "w":
-                try {
-                    weight = Integer.parseInt(value);
-                } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Invalid weight value. It must be an integer.");
-                }
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid command flag " + flag);
-            }
-        }
-
-        logger.log(Level.INFO, "Parsed exercise successfully: {0}", name);
         return new Exercise(sets, reps, weight, name);
+    }
+
+    private void validateRequiredFlags(FlagParser flagParser, String[] requiredFlags) {
+        assert requiredFlags != null : "Required flags string must not be null";
+
+        for (String flag : requiredFlags) {
+            if (!flagParser.hasFlag(flag)) {
+                throw new IllegalArgumentException("Required flag: " + flag + "is missing. Please provide the flag.");
+            }
+        }
     }
 
     private Command prepareViewCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        int progIndex = parseIndex(argumentString);
+        int progIndex = parseIndex(argumentString, "Invalid programme index. ");
         return new ViewCommand(progIndex);
     }
 
     private Command prepareStartCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        int progIndex = parseIndex(argumentString);
+        int progIndex = parseIndex(argumentString, "Invalid programme index. ");
         return new StartCommand(progIndex);
     }
 
     private Command prepareDeleteCommand(String argumentString){
         assert argumentString != null : "Argument string must not be null";
 
-        int progIndex = parseIndex(argumentString);
+        int progIndex = parseIndex(argumentString, "Invalid programme index. ");
         return new DeleteCommand(progIndex);
     }
 }

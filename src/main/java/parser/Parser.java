@@ -9,6 +9,7 @@ import command.InvalidCommand;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -52,40 +53,23 @@ public class Parser {
         };
     }
 
-    private Command prepareLogCommand(String argumentString){
+    private Command prepareLogCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        int progIndex = -1;
-        int dayIndex = -1;
-        LocalDate date = LocalDate.now();
+        FlagParser flagParser = new FlagParser(argumentString);
 
-        String[] arguments = argumentString.split(" (?=/)");
-        if (arguments.length < 3) {
-            throw new IllegalArgumentException("Please provide all log flags.");
-        }
+        int progIndex = Optional.ofNullable(flagParser.getFlagValue("/p"))
+                .map(value -> parseIndex(value, "Invalid programme index."))
+                .orElse(-1);
 
-        for (String arg : arguments) {
-            String[] argParts = arg.split(" ");
-            String flag = argParts[0];
+        int dayIndex = Optional.ofNullable(flagParser.getFlagValue("/d"))
+                .map(value -> parseIndex(value, "Invalid day index."))
+                .orElse(-1);
 
-            if (argParts.length < 2) {
-                throw new IllegalArgumentException("Flag " + flag + " is missing a value.");
-            }
+        LocalDate date = Optional.ofNullable(flagParser.getFlagValue("/t"))
+                .map(this::parseDate)
+                .orElse(LocalDate.now());
 
-            switch (flag){
-            case "/p":
-                progIndex = parseIndex(argParts[1]);
-                break;
-            case "/d":
-                dayIndex = parseIndex(argParts[1]);
-                break;
-            case "/t":
-                date = parseDate(argParts[1]);
-                break;
-            default:
-                throw new IllegalArgumentException("Flag command not recognized: " + flag);
-            }
-        }
         logger.log(Level.INFO, "LogCommand prepared with Programme index: {0}, Day index: {1}, Date: {2}",
                 new Object[]{progIndex, dayIndex, date});
 
@@ -93,7 +77,11 @@ public class Parser {
     }
 
     private LocalDate parseDate(String dateString) {
-        assert dateString != null && !dateString.trim().isEmpty() : "Date string must not be null or empty";
+        assert dateString != null: "Date string must not be null";
+
+        if (dateString.trim().isEmpty()) {
+            throw new IllegalArgumentException("Date cannot be empty. Please provide a valid date.");
+        }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
