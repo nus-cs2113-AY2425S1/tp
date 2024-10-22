@@ -13,7 +13,7 @@ public class WeeklySummaryCommand extends Command {
         String weeklySummary = history.getWeeklySummary();
 
         // Display the weekly summary using the Ui class
-        ui.showMsg("Your weekly workout summary: \n" + weeklySummary);
+        ui.showMessage("Your weekly workout summary: \n" + weeklySummary);
     }
 }
 
