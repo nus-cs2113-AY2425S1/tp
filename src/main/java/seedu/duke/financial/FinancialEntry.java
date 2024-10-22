@@ -71,6 +71,23 @@ public abstract class FinancialEntry {
     }
 
     /**
+     * Returns the date of the transaction.
+     *
+     * @return The transaction date.
+     */
+    public LocalDate getDate() {
+        return date;
+    }
+
+    /**
+     * Updates the date of the transaction.
+     *
+     * @param newDate The new date.
+     */
+    public void setDate(LocalDate newDate) {
+        this.date = newDate;
+    }
+    /**
      * Returns a string representation of the financial entry.
      * Subclasses (Income, Expense) must implement this.
      *
