@@ -10,20 +10,20 @@ class ParticipantTest {
     public void setPresent_setTrue_present() {
         Participant participant = new Participant("Participant");
         participant.setPresent(true);
-        assertEquals("present", participant.markIfPresent());
+        assertEquals("X", participant.markIfPresent());
     }
 
     @Test
     public void setPresent_setFalse_notPresent() {
         Participant participant = new Participant("Participant");
         participant.setPresent(false);
-        assertEquals("not present", participant.markIfPresent());
+        assertEquals(" ", participant.markIfPresent());
     }
 
     @Test
     public void toString_setTrue_present() {
         Participant participant = new Participant("Participant");
         participant.setPresent(true);
-        assertEquals("Participant (status: present)", participant.toString());
+        assertEquals("Participant [X]", participant.toString());
     }
 }

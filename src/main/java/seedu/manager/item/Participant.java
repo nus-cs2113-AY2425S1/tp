@@ -38,12 +38,12 @@ public class Participant {
     }
 
     /**
-     * Returns "present" if isPresent is true, "not present" otherwise.
+     * Returns "X" if isPresent is true, " " otherwise.
      *
-     * @return "present" if isPresent is true, "not present" otherwise.
+     * @return "X" if isPresent is true, " " otherwise.
      */
     public String markIfPresent() {
-        return (this.isPresent) ? "present" : "not present";
+        return (this.isPresent) ? "X" : " ";
     }
 
     /**
@@ -53,6 +53,6 @@ public class Participant {
      */
     @Override
     public String toString() {
-        return String.format("%s (status: %s)", this.name, this.markIfPresent());
+        return String.format("%s [%s]", this.name, this.markIfPresent());
     }
 }
