@@ -3,12 +3,10 @@ import programme.ProgrammeList;
 import programme.Day;
 import history.History;
 
-
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
 
 public class LogCommand extends Command {
     public static final String COMMAND_WORD = "log";
@@ -56,6 +54,17 @@ public class LogCommand extends Command {
 
         logger.log(Level.INFO, "LogCommand executed successfully for day: {0}", completed);
         return new CommandResult(result);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LogCommand that = (LogCommand) o;
+        boolean isProgIndexEqual =  (progIndex == that.progIndex);
+        boolean isDayIndexEqual = (dayIndex == that.dayIndex);
+        boolean isDateEqual = Objects.equals(date, that.date);
+        return (isProgIndexEqual && isDayIndexEqual && isDateEqual);
     }
 
     public int getProgrammeIndex() {
