@@ -13,6 +13,10 @@ public class CreateExerciseCommand  extends EditSubCommand {
         this.created = created;
     }
 
+    public Exercise getCreated() {
+        return created;
+    }
+
     public String execute(ProgrammeList pList) {
         Day day = pList.getDay(progId, dayId);
         day.insertExercise(created);

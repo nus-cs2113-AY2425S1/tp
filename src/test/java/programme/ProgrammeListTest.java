@@ -5,8 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -71,11 +72,10 @@ public class ProgrammeListTest {
 
     @Test
     void testDeleteProgrammeInvalidIndex() {
-        // Attempt to delete at an invalid index
-        Programme deletedProgramme = programmeList.deleteProgram(5);
+        // Verify that an invalid index throws an IndexOutOfBoundsException
+        assertThrows(IndexOutOfBoundsException.class, () -> programmeList.deleteProgram(5));
 
-        // Verify that deletion returns null and size remains unchanged
-        assertNull(deletedProgramme);
+        // Verify that the size remains unchanged
         assertEquals(2, programmeList.getProgrammeListSize());
     }
 
