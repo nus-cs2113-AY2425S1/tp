@@ -1,7 +1,7 @@
 package command;
-import core.Ui;
+import ui.Ui;
 import programme.ProgrammeList;
-import core.History;
+import history.History;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

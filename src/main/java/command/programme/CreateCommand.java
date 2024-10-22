@@ -4,11 +4,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import command.Command;
-import core.Ui;
+import ui.Ui;
 import programme.Day;
 import programme.ProgrammeList;
 import programme.Programme;
-import core.History;
+import history.History;
 
 public class CreateCommand extends Command {
     public static final String COMMAND_WORD = "create";

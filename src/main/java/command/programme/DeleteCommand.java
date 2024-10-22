@@ -1,8 +1,8 @@
 package command.programme;
 
 import command.Command;
-import core.History;
-import core.Ui;
+import history.History;
+import ui.Ui;
 import programme.Programme;
 import programme.ProgrammeList;
 

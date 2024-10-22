@@ -13,8 +13,8 @@ import programme.Exercise;
 import programme.Day;
 import programme.ProgrammeList;
 
-import core.History;
-import core.Ui;
+import history.History;
+import ui.Ui;
 
 import java.util.ArrayList;
 import java.util.logging.Level;

@@ -1,8 +1,8 @@
 package command;
-import core.Ui;
+import ui.Ui;
 import programme.ProgrammeList;
 import programme.Day;
-import core.History;
+import history.History;
 
 
 import java.time.LocalDate;

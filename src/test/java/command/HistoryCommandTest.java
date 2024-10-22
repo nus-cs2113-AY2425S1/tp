@@ -1,7 +1,7 @@
 package command;
 
-import core.History;
-import core.Ui;
+import history.History;
+import ui.Ui;
 import org.junit.jupiter.api.Test;
 import programme.ProgrammeList;
 

@@ -1,9 +1,9 @@
 import com.google.gson.JsonObject;
 
 import command.Command;
-import core.History;
-import core.Storage;
-import core.Ui;
+import history.History;
+import storage.Storage;
+import ui.Ui;
 import parser.Parser;
 import programme.ProgrammeList;
 

@@ -1,10 +1,9 @@
 package command;
-import core.Ui;
+import ui.Ui;
 import programme.ProgrammeList;
-import core.History;
+import history.History;
 
 public abstract class Command {
-
     public Command(){}
 
     public boolean isExit() {
