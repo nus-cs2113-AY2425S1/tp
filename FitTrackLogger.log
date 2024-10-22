@@ -1,6 +1,6 @@
-Oct 15, 2024 9:11:30 PM fittrack.logger.FitTrackLogger setupLogger
+Oct 22, 2024 6:38:31 PM fittrack.logger.FitTrackLogger setupLogger
 INFO: Logger successfully initialized
-Oct 15, 2024 9:11:30 PM fittrack.storage.Storage initialiseSaveFile
+Oct 22, 2024 6:38:31 PM fittrack.storage.Storage initialiseSaveFile
 INFO: Accessing existing save file...
-Oct 15, 2024 9:11:30 PM fittrack.storage.Storage loadSaveFile
+Oct 22, 2024 6:38:31 PM fittrack.storage.Storage loadSaveFile
 INFO: Save file successfully loaded.
