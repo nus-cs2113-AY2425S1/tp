@@ -16,7 +16,7 @@ public class Income extends FinancialEntry {
      * @param description A description of the income.
      */
     public Income(double amount, String description, LocalDate date) {
-        super(amount, description, "Income", date);
+        super(amount, description, date);
     }
 
     /**
