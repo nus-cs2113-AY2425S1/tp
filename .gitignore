@@ -15,13 +15,3 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
-src/main/java/Category.java
-src/main/java/CategoryList.java
-src/main/java/Main.java
-src/main/java/Transaction.java
-src/main/java/TransactionList.java
-src/main/java/seedu/Category.java
-src/main/java/seedu/CategoryList.java
-src/main/java/seedu/Transaction.java
-src/main/java/seedu/TransactionList.java
-src/main/java/seedu/command/AddTranctionCommand.java
