@@ -23,11 +23,18 @@ and Oceania.
   names, upon acquiring the keys, they will be printed over the CLI.
 * There are also assertions and logging in place for error handling.
 
-#### Why it is implemented that way.
+#### Why it is implemented that way
 * The `execute` method is essential and unique to every command class so inheritance was used. 
 * Every method in the class remains maintainable and has one responsibility this allows easy debugging and
   refactoring.
 * Logging and assertions helps the team of developers to follow through the command execution.
+
+#### Alternatives considered
+* Reading of the `database.json` was tricky and other libraries were considered
+* Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure 
+  readability 
+
+
 
 
 ### Obtain Partner University Email
