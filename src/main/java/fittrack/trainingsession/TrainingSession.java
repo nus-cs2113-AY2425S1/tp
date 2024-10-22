@@ -40,10 +40,25 @@ public class TrainingSession{
         this.user = user;
     }
 
+    private int processReps(int exerciseNum, String reps){
+        if(exerciseNum == 1) {
+            reps = reps.replace("\\.", "");
+            return Integer.parseInt(reps);
+        } else if(exerciseNum == 5) {
+            String[] minutesSeconds = reps.split(":");
+            int minutesInSeconds = Integer.parseInt(minutesSeconds[0])*60;
+            int seconds = Integer.parseInt(minutesSeconds[1]);
+            return minutesInSeconds + seconds;
+        } else{
+            return Integer.parseInt(reps);
+        }
+    }
+
     //Edits session data
-    public void editExercise(int exerciseNum, int reps) {
+    public void editExercise(int exerciseNum, String reps) {
         assert exerciseNum >= 0 && exerciseNum <= 5;
-        exerciseData[exerciseNum].setPerformance(reps);
+        int actualReps = processReps(exerciseNum, reps);
+        exerciseData[exerciseNum].setPerformance(actualReps);
         exerciseData[exerciseNum].getPoints(user);
         System.out.print("Exercise edited! Here's your new input: " +
                 exerciseData[exerciseNum] + System.lineSeparator());
