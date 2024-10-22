@@ -66,6 +66,27 @@ class AddExpenseCommandTest {
     }
 
     /**
+     * Test the execute method of AddExpenseCommand without a date.
+     * Verifies that the expense is added to the financial list with the current system date.
+     */
+    @Test
+    void execute_addExpenseWithoutDate_expectAddedToFinancialListWithCurrentDate() throws FinanceBuddyException {
+        // Use current system date
+        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", "");
+        addExpenseCommand.execute(financialList);
+
+        String output = outputStream.toString();
+        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+                "Got it! I've added this expense:" + System.lineSeparator() +
+                "[Expense] - lunch $ 30.00 (on " + currentDate + ")" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+
+        assertEquals(1, financialList.getEntryCount()); 
+        assertEquals(expectedOutput, output);
+    }
+
+    /**
      * Test adding multiple expenses to the financial list.
      * Verifies that all expenses are added correctly and that the output is printed for each.
      */
