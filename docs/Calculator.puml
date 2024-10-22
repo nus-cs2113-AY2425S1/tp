@@ -1,27 +1,71 @@
 @startuml
-'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+' Abstract class
+abstract class Calculator {
+    - static final int AGE_RANGE_LOWER_START : int
+    - static final int AGE_RANGE_LOWER_END : int
+    - static final int AGE_RANGE_UPPER_START : int
+    - static final int AGE_RANGE_UPPER_END : int
+    + static getPointsFromTable(Map<LookUpKey, TreeMap<Integer, Integer>>, Gender, int, int, boolean) : int
+    + static addAgeSubTable(Map<LookUpKey, TreeMap<Integer, Integer>>, Gender, int, int[][], boolean) : void
+    + static addAllTables(Map<LookUpKey, TreeMap<Integer, Integer>>, Gender, int[][][], boolean) : void
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+' Derived classes
+class PullUpCalculator {
+    - static final Map<LookUpKey, TreeMap<Integer, Integer>> pullUpTable
+    - static final boolean reverseOrder
+    + static calculatePoints(Gender, int, int) : int
+    + static initialiseMaleData() : void
+    + static initialiseFemaleData() : void
 }
+
+class ShuttleRunCalculator {
+    - static final Map<LookUpKey, TreeMap<Integer, Integer>> shuttleRunTable
+    - static final boolean reverseOrder
+    + static calculatePoints(Gender, int, int) : int
+    + static initialiseMaleData() : void
+    + static initialiseFemaleData() : void
+}
+
+class SitAndReachCalculator {
+    - static final Map<LookUpKey, TreeMap<Integer, Integer>> sitAndReachTable
+    - static final boolean reverseOrder
+    + static calculatePoints(Gender, int, int) : int
+    + static initialiseMaleData() : void
+    + static initialiseFemaleData() : void
+}
+
+class SitUpCalculator {
+    - static final Map<LookUpKey, TreeMap<Integer, Integer>> sitUpTable
+    - static final boolean reverseOrder
+    + static calculatePoints(Gender, int, int) : int
+    + static initialiseMaleData() : void
+    + static initialiseFemaleData() : void
+}
+
+class StandingBroadJumpCalculator {
+    - static final Map<LookUpKey, TreeMap<Integer, Integer>> broadJumpTable
+    - static final boolean reverseOrder
+    + static calculatePoints(Gender, int, int) : int
+    + static initialiseMaleData() : void
+    + static initialiseFemaleData() : void
+}
+
+class WalkAndRunCalculator {
+    - static final Map<LookUpKey, TreeMap<Integer, Integer>> walkAndRunTable
+    - static final boolean reverseOrder
+    + static calculatePoints(Gender, int, int) : int
+    + static initialiseMaleData() : void
+    + static initialiseFemaleData() : void
+}
+
+' Relationships
+Calculator <|-- PullUpCalculator
+Calculator <|-- ShuttleRunCalculator
+Calculator <|-- SitAndReachCalculator
+Calculator <|-- SitUpCalculator
+Calculator <|-- StandingBroadJumpCalculator
+Calculator <|-- WalkAndRunCalculator
 
 @enduml
