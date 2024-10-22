@@ -5,7 +5,7 @@ import seedu.manager.command.AddCommand;
 import seedu.manager.command.Command;
 import seedu.manager.command.ExitCommand;
 import seedu.manager.command.InvalidCommand;
-import seedu.manager.command.MarkCommand;
+import seedu.manager.command.MarkEventCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.RemoveCommand;
@@ -83,7 +83,7 @@ class ParserTest {
         Parser parser = new Parser();
         Command command = parser.parseCommand("mark -e event -s done");
 
-        assertInstanceOf(MarkCommand.class, command);
+        assertInstanceOf(MarkEventCommand.class, command);
     }
 
     @Test

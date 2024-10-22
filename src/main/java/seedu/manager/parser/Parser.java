@@ -4,6 +4,7 @@ import seedu.manager.command.Command;
 import seedu.manager.command.AddCommand;
 import seedu.manager.command.InvalidCommand;
 import seedu.manager.command.MarkCommand;
+import seedu.manager.command.MarkEventCommand;
 import seedu.manager.command.RemoveCommand;
 import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
@@ -229,9 +230,9 @@ public class Parser {
      */
     private Command getMarkEventCommand(String eventName, String status) {
         if (status.equalsIgnoreCase("done")) {
-            return new MarkCommand(eventName, true);
+            return new MarkEventCommand(eventName, true);
         } else if (status.equalsIgnoreCase("undone")) {
-            return new MarkCommand(eventName, false);
+            return new MarkEventCommand(eventName, false);
         } else {
             logger.log(WARNING,"Invalid status keyword");
             return new InvalidCommand(INVALID_EVENT_STATUS_MESSAGE);
