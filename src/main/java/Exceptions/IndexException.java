@@ -5,3 +5,4 @@ public class IndexException extends BuffBuddyException {
         super(message);
     }
 }
+
