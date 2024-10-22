@@ -5,3 +5,4 @@ public class NullDayException extends RuntimeException {
         super(message);
     }
 }
+
