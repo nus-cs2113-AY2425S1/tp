@@ -14,7 +14,7 @@ public class TrainingSessionTest {
 
     private final String testDescription = "Test Session Description";
     private final LocalDateTime testDatetime = LocalDateTime.now();
-    private final String testDatetimeString = testDatetime.toString();
+    private final LocalDateTime testDatetimeString = testDatetime;
     private final String testDatetimeOutput = testDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     private final User testUser = new User("MALE", "13");
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
