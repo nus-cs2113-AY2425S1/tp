@@ -20,9 +20,6 @@ It manages high level functionalities by coordinating the `FitTrackLogger`, `Sto
 - **TrainingSession** represents a single training session, including exercises and metadata (like date and description).
 - **Exercise** represents different types of exercises available in the application, like pull-ups or shuttle runs.
 
-
-
-
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ### Edit Exercise Feature
@@ -54,11 +51,6 @@ Additionally, the state diagram below shows the end state of the `editExercise` 
 `editExercise(Exercise.PULL_UP, 1)`:
 
 ![TrainingSessionEditState.png](TrainingSessionEditState.png)
-
-
-
-
-
 
 ## Product scope
 ### Target user profile
