@@ -5,3 +5,4 @@ public class BuffBuddyException extends Exception {
         super(message);
     }
 }
+
