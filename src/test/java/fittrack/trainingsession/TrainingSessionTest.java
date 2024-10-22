@@ -33,7 +33,7 @@ public class TrainingSessionTest {
 
     @Test
     public void editExerciseShuttleRunStation() {
-        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(1, "11.00");
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(1, "11.0");
         assertEquals("Exercise edited! Here's your new input: " +
                 "Time: 110s | 3 points" + System.lineSeparator(), outContent.toString());
     }

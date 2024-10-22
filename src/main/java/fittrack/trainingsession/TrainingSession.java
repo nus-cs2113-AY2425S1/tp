@@ -42,7 +42,7 @@ public class TrainingSession{
 
     private int processReps(int exerciseNum, String reps){
         if(exerciseNum == 1) {
-            reps = reps.replace("\\.", "");
+            reps = reps.replace(".", "");
             return Integer.parseInt(reps);
         } else if(exerciseNum == 5) {
             String[] minutesSeconds = reps.split(":");
