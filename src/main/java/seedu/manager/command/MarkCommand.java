@@ -1,9 +1,5 @@
 package seedu.manager.command;
 
-import seedu.manager.event.Event;
-
-import java.util.Optional;
-
 /**
  * Represents an executable mark command
  */

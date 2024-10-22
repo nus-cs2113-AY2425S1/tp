@@ -85,12 +85,11 @@ public class Event {
      *
      * @param participantName the name of the participant.
      * @return the participant in the participant list with participantName, or null if
-     * no such participant exists.
+     *     no such participant exists.
      */
     private Optional<Participant> getParticipantByName(String participantName) {
         for (Participant participant : this.participantList) {
-            if (participant.getName().equalsIgnoreCase(participantName))
-            {
+            if (participant.getName().equalsIgnoreCase(participantName)) {
                 return Optional.of(participant);
             }
         }
@@ -171,7 +170,7 @@ public class Event {
      * @param participantName the name of the participant.
      * @param isPresent true if the participant is to be marked present, false if he is to be marked absent.
      * @return {@code true} if the participant with participantName has been marked present or absent,
-     * {@code false} otherwise.
+     *     {@code false} otherwise.
      */
     public boolean markParticipant(String participantName, boolean isPresent) {
         Optional<Participant> participant = getParticipantByName(participantName);
