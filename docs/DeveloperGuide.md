@@ -15,6 +15,14 @@ from `database.json` file. It helps the users to identify the possible choices i
 and Oceania.
 
 #### How the feature is implemented
+* The `ListSchoolCommand` class extends `Command` class where it overrides the `execute` method for
+  custom behaviour.
+* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
+  superclass.
+* The `displaySchoolList` method will iterate over the keys of the database which contians the University
+  names, upon acquiring the keys, they will be printed over the CLI.
+* There are also assertions and logging in place for error handling.
+
 
 
 ### Obtain Partner University Email
