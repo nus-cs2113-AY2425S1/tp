@@ -92,5 +92,64 @@ class SeeAllEntriesCommandTest {
 
         assertEquals(expectedOutput, output);
     }
+
+    @Test
+    void execute_listBeforeCertainDate_expectSomeEntries() {
+        testCommand = new SeeAllEntriesCommand(null, LocalDate.of(24, 10, 10));
+        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 23)));
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 11, 2)));
+        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 9, 1)));
+        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 1)));
+        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 10, 10)));
+
+        testCommand.execute(financialList);
+
+        String output = outputStream.toString();
+        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+                "Here's a list of all recorded entries:" + System.lineSeparator() +
+                "1. [Expense] - dinner $ 4.50 (on 01/09/24)" + System.lineSeparator() +
+                "2. [Expense] - movie ticket $ 20.00 (on 01/10/24)" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, output);
+    }
+
+    @Test
+    void execute_listAfterCertainDate_expectSomeEntries() {
+        testCommand = new SeeAllEntriesCommand(LocalDate.of(24, 10, 10), null);
+        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 23)));
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 11, 2)));
+        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 9, 1)));
+        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 1)));
+        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 10, 10)));
+
+        testCommand.execute(financialList);
+
+        String output = outputStream.toString();
+        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+                "Here's a list of all recorded entries:" + System.lineSeparator() +
+                "1. [Expense] - lunch $ 3.50 (on 23/10/24)" + System.lineSeparator() +
+                "2. [Income] - salary $ 3000.00 (on 02/11/24)" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, output);
+    }
+
+    @Test
+    void execute_listBeforeAndAfterCertainDate_expectSomeEntries() {
+        testCommand = new SeeAllEntriesCommand(LocalDate.of(24, 10, 10), LocalDate.of(24, 11, 1));
+        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 23)));
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 11, 2)));
+        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 9, 1)));
+        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 1)));
+        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 10, 10)));
+
+        testCommand.execute(financialList);
+
+        String output = outputStream.toString();
+        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+                "Here's a list of all recorded entries:" + System.lineSeparator() +
+                "1. [Expense] - lunch $ 3.50 (on 23/10/24)" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, output);
+    }
 }
 
