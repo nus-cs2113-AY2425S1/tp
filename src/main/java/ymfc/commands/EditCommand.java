@@ -53,14 +53,13 @@ public class EditCommand extends Command {
 
         String recipeName = recipe.getName();
         boolean isEdited = recipes.editRecipe(recipeName, recipe);
-        if (isEdited) {
-            try {
-                storage.saveRecipes(recipes);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        } else {
-            throw new InvalidArgumentException("Boohoo too bad homie");
+        if (!isEdited) {
+            throw new InvalidArgumentException("You want me to edit a non-existent recipe? How about no.");
+        }
+        try {
+            storage.saveRecipes(recipes);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
