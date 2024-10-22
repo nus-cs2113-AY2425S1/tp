@@ -74,7 +74,7 @@ public class ProgCommandParser {
 
         if (flagParser.hasFlag("/a")) {
             Exercise created = parseExercise(flagParser.getFlagValue("/a"));
-            editCommand.addCreate(progIndex, dayIndex, created);
+            editCommand.addCreateExercise(progIndex, dayIndex, created);
         }
 
         if (flagParser.hasFlag("/xd")) {
@@ -83,14 +83,14 @@ public class ProgCommandParser {
 
         if (flagParser.hasFlag("/x")) {
             int exerciseIndex = parseIndex(flagParser.getFlagValue("/x"), "Invalid exercise index for deletion.");
-            editCommand.addDelete(progIndex, dayIndex, exerciseIndex);
+            editCommand.addDeleteExercise(progIndex, dayIndex, exerciseIndex);
         }
 
         if (flagParser.hasFlag("/u")) {
             String[] updateParts = flagParser.getFlagValue("/u").split(" ", 2);
             int exerciseIndex = parseIndex(updateParts[0], "Invalid exercise index for update.");
             Exercise updated = parseExercise(updateParts[1]);
-            editCommand.addEdit(progIndex, dayIndex, exerciseIndex, updated);
+            editCommand.addEditExercise(progIndex, dayIndex, exerciseIndex, updated);
         }
 
         logger.log(Level.INFO, "EditCommand prepared successfully");
@@ -104,7 +104,7 @@ public class ProgCommandParser {
         String[] progParts = argumentString.split("/d");
         String progName = progParts[0].trim();
         if (progName.isEmpty()) {
-            throw new IllegalArgumentException("Programme name cannot be empty. Please enter a valid programme name.");
+            throw new IllegalArgumentException("Programme name cannot be empty. Please enter a name.");
         }
 
         for (int i = 1; i < progParts.length; i++) {

@@ -54,7 +54,7 @@ public class ProgrammeTest {
     @Test
     void testDeleteDayInvalidIndex() {
         // Verify that an invalid index throws an IndexOutOfBoundsException
-        assertThrows(IndexOutOfBoundsException.class, () -> {programme.deleteDay(5);});
+        assertThrows(IndexOutOfBoundsException.class, () -> programme.deleteDay(5));
 
         // Verify that the size of the day list remains unchanged
         assertEquals(2, programme.getDayCount());
