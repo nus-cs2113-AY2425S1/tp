@@ -85,19 +85,20 @@ public class Parser {
             }
 
             switch (flag) {
-                case "/p":
-                    progIndex = parseIndex(argParts[1]);
-                    break;
-                case "/d":
-                    dayIndex = parseIndex(argParts[1]);
-                    break;
-                case "/t":
-                    date = parseDate(argParts[1]);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Flag command not recognized: " + flag);
+            case "/p":
+                progIndex = parseIndex(argParts[1]);
+                break;
+            case "/d":
+                dayIndex = parseIndex(argParts[1]);
+                break;
+            case "/t":
+                date = parseDate(argParts[1]);
+                break;
+            default:
+                throw new IllegalArgumentException("Flag command not recognized: " + flag);
             }
         }
+        
         logger.log(Level.INFO, "LogCommand prepared with Programme index: {0}, Day index: {1}, Date: {2}",
                 new Object[]{progIndex, dayIndex, date});
 
