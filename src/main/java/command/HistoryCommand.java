@@ -11,3 +11,4 @@ public class HistoryCommand extends Command {
         ui.showMsg("Your workout history: \n" + history.toString());
     }
 }
+

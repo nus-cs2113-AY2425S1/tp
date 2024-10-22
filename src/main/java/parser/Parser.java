@@ -6,6 +6,7 @@ import command.HistoryCommand;
 import command.LogCommand;
 import command.InvalidCommand;
 import command.WeeklySummaryCommand;
+import command.PersonalBestCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -33,10 +34,19 @@ public class Parser {
             case ProgammeParser.COMMAND_WORD -> progParser.parse(argumentString);
             case LogCommand.COMMAND_WORD -> prepareLogCommand(argumentString);
             case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
-            case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();  // Added support for weeklysummary command
+            case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();  // Support for weekly summary command
+            case PersonalBestCommand.COMMAND_WORD -> preparePersonalBestCommand(argumentString);  // Support for personal bests command
             case ExitCommand.COMMAND_WORD -> new ExitCommand();
             default -> new InvalidCommand();
         };
+    }
+
+    // Personal best command with exercise name
+    private Command preparePersonalBestCommand(String argumentString) {
+        // Trim the argument string, which may contain the exercise name
+        String exerciseName = argumentString.trim();
+        // Return the PersonalBestCommand, passing in the exercise name (or empty string if none is provided)
+        return new PersonalBestCommand(exerciseName.isEmpty() ? null : exerciseName);  // Handle null if exercise is not specified
     }
 
     private Command prepareLogCommand(String argumentString) {
@@ -73,3 +83,4 @@ public class Parser {
         return LocalDate.parse(dateString, formatter);
     }
 }
+

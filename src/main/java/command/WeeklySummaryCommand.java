@@ -5,7 +5,7 @@ import programme.ProgrammeList;
 import core.History;
 
 public class WeeklySummaryCommand extends Command {
-    public static final String COMMAND_WORD = "weekly summary";
+    public static final String COMMAND_WORD = "weekly_summary";
 
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history) {
@@ -16,3 +16,4 @@ public class WeeklySummaryCommand extends Command {
         ui.showMsg("Your weekly workout summary: \n" + weeklySummary);
     }
 }
+
