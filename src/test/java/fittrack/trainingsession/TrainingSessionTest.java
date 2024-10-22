@@ -35,14 +35,14 @@ public class TrainingSessionTest {
     public void editExerciseShuttleRunStation() {
         new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(1, "11.0");
         assertEquals("Exercise edited! Here's your new input: " +
-                "Time: 110s | 3 points" + System.lineSeparator(), outContent.toString());
+                "Time: 11.0s | 3 points" + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void editWalkAndRunStation() {
         new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(5, "11:30");
         assertEquals("Exercise edited! Here's your new input: " +
-                "Time: 690 | 5 points" + System.lineSeparator(), outContent.toString());
+                "Time: 11:30 | 5 points" + System.lineSeparator(), outContent.toString());
     }
 
     @Test
