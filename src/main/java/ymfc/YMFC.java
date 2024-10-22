@@ -4,15 +4,15 @@ import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+import ymfc.list.IngredientList;
 import ymfc.parser.Parser;
 import ymfc.commands.Command;
-import ymfc.recipelist.RecipeList;
+import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
 public class YMFC {
     public static Logger logger = Logger.getLogger(YMFC.class.getName());
-    private static final String saveFilePath = "./data/recipes.txt";
 
     /**
      * Main entry-point for the java.ymfc.YMFC application.
@@ -21,14 +21,16 @@ public class YMFC {
 
         Ui ui = new Ui(System.in);
         RecipeList recipeList = new RecipeList();
-        Storage storage = new Storage(saveFilePath);
+        IngredientList ingredientList = new IngredientList();
+        Storage storage = new Storage();
         boolean saidBye = false;
 
         logger.log(Level.FINE, "Starting YMFC");
         ui.greet();
 
         try {
-            storage.loadRecipes(recipeList, ui, storage);
+            storage.loadRecipes(recipeList, ingredientList, ui, storage);
+            storage.loadIngredients(recipeList, ingredientList, ui, storage);
             logger.log(Level.INFO, "Save file found");
         } catch (FileNotFoundException e) {
             logger.log(Level.INFO, "No save file found");
@@ -41,7 +43,7 @@ public class YMFC {
 
             try {
                 Command command = Parser.parseCommand(userInput);
-                command.execute(recipeList, ui, storage);
+                command.execute(recipeList, ingredientList, ui, storage);
 
                 if (command.isBye()) {
                     saidBye = true;

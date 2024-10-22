@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import ymfc.commands.AddRecipeCommand;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.recipe.Recipe;
-import ymfc.recipelist.RecipeList;
+import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 

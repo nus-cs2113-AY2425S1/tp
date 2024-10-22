@@ -1,7 +1,7 @@
 package ymfc.commands;
 
 import ymfc.recipe.Recipe;
-import ymfc.recipelist.RecipeList;
+import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package ymfc.recipelist;
+package ymfc.list;
 
 import ymfc.recipe.Recipe;
 

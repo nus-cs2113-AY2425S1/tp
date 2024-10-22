@@ -1,6 +1,7 @@
 package ymfc.commands;
 
-import ymfc.recipelist.RecipeList;
+import ymfc.list.IngredientList;
+import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
@@ -25,7 +26,7 @@ public class SortCommand extends Command{
     }
 
 
-    public void execute(RecipeList recipes, Ui ui, Storage storage) {
+    public void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) {
         logger.log(Level.FINEST, "Executing SortCommand");
 
         if (listBy.equals("name")) {

@@ -1,5 +1,6 @@
 package ymfc.ui;
 
+import ymfc.recipe.Ingredient;
 import ymfc.recipe.Recipe;
 
 import java.io.InputStream;
@@ -115,6 +116,16 @@ public class Ui {
     public void printList(ArrayList<Recipe> list, int listCount) {
         System.out.println(line);
         System.out.println("\tHere's everything in my collection so far:");
+        for (int i = 0; i < listCount; i++) {
+            System.out.println("\t" + (i + 1) + "." + list.get(i));
+            System.out.println(line);
+        }
+        System.out.println(line);
+    }
+
+    public void printIngredientList(ArrayList<Ingredient> list, int listCount) {
+        System.out.println(line);
+        System.out.println("\tHere's all the ingredients you currently have: ");
         for (int i = 0; i < listCount; i++) {
             System.out.println("\t" + (i + 1) + "." + list.get(i));
             System.out.println(line);

@@ -1,6 +1,7 @@
 package ymfc.commands;
 
-import ymfc.recipelist.RecipeList;
+import ymfc.list.IngredientList;
+import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
@@ -32,8 +33,8 @@ public class ListCommand extends Command {
      * @param ui The {@code Ui} used to display the list of recipes.
      * @param storage The {@code Storage}, not used in this method.
      */
-    public void execute(RecipeList recipes, Ui ui, Storage storage) {
-        logger.log(Level.FINEST, "Executing HelpCommand");
+    public void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) {
+        logger.log(Level.FINEST, "Executing ListCommand");
 
         assert recipes.getCounter() >= 0;
         ui.printList(recipes.getRecipes(), recipes.getCounter());

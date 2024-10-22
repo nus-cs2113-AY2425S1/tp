@@ -1,7 +1,8 @@
 package ymfc.commands;
 
 import ymfc.recipe.Recipe;
-import ymfc.recipelist.RecipeList;
+import ymfc.list.IngredientList;
+import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
@@ -46,7 +47,7 @@ public class AddRecipeCommand extends Command {
      * @param storage The {@code Storage} for saving the updated {@code RecipeList} to persistent storage.
      * @throws IOException If an error occurs while saving the recipe list.
      */
-    public void execute(RecipeList recipes, Ui ui, Storage storage) throws IOException {
+    public void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) throws IOException {
         logger.log(Level.FINEST, "Executing AddRecipeCommand");
 
         assert recipes != null;

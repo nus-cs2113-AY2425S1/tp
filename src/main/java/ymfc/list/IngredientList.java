@@ -1,23 +1,22 @@
-package ymfc.recipelist;
+package ymfc.list;
 
 import ymfc.recipe.Ingredient;
-import ymfc.recipe.Recipe;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Ingredients {
+public class IngredientList {
     ArrayList<Ingredient> ingredients = new ArrayList<>();
 
-    public Ingredients() {
+    public IngredientList() {
         this.ingredients = new ArrayList<>();
     }
 
-    public void addRecipe(Ingredient ingredient){
+    public void addIngredient(Ingredient ingredient){
         this.ingredients.add(ingredient);
     }
 
-    public ArrayList<Ingredient> getRecipes() {
+    public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 
@@ -25,12 +24,12 @@ public class Ingredients {
         return ingredients.get(id);
     }
 
-    public void removeRecipe(int id) {
-        assert !ingredients.isEmpty() : "List should not be empty when deleting ingredient";
-        ingredients.remove(id);
-    }
+//    public void removeIngredient(int id) {
+//        assert !ingredients.isEmpty() : "List should not be empty when deleting ingredient";
+//        ingredients.remove(id);
+//    }
 
-    public boolean removeRecipeByName(String name) {
+    public boolean removeIngredientByName(String name) {
         assert !ingredients.isEmpty() : "List should not be empty when deleting ingredient";
         assert name != null : "Ingredient name should not be null";
         for (int i = 0; i < ingredients.size(); i++) {
