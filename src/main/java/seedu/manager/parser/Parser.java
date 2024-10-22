@@ -2,7 +2,6 @@ package seedu.manager.parser;
 
 import seedu.manager.command.Command;
 import seedu.manager.command.AddCommand;
-import seedu.manager.command.InvalidCommand;
 import seedu.manager.command.MarkCommand;
 import seedu.manager.command.MarkEventCommand;
 import seedu.manager.command.RemoveCommand;
@@ -10,6 +9,7 @@ import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.ViewCommand;
+import seedu.manager.exception.InvalidCommandException;
 
 import java.util.logging.Logger;
 
@@ -45,11 +45,12 @@ public class Parser {
             """;
 
     /**
-     * Returns a command based on the given user command string
+     * Returns a command based on the given user command string.
      *
-     * @param command The given command string from the user
+     * @param command The given command string from the user.
+     * @throws InvalidCommandException if the given command string cannot be parsed to a valid command.
      */
-    public Command parseCommand(String command){
+    public Command parseCommand(String command) throws InvalidCommandException {
         String[] commandParts = command.split(" ");
         String commandWord = commandParts[0];
 
@@ -69,7 +70,7 @@ public class Parser {
         case MarkCommand.COMMAND_WORD:
             return parseMarkCommand(command, commandParts);
         default:
-            return new InvalidCommand(INVALID_COMMAND_MESSAGE);
+            throw new InvalidCommandException(INVALID_COMMAND_MESSAGE);
         }
     }
 
@@ -81,15 +82,16 @@ public class Parser {
      * flag is {@code "-e"}, it splits the input string into parts to create an
      * {@link AddCommand} for adding an event. If the command flag is {@code "-p"},
      * it creates an {@link AddCommand} for adding a participant to an event. If neither
-     * flag is matched, it returns an {@link InvalidCommand} with an error message.
+     * flag is matched, it throws a {@link InvalidCommandException} with an error message.
      * </p>
      *
      * @param input        the input string containing the command details.
      * @param commandParts an array of strings representing the parsed command parts,
      *                     where the second element is the command flag.
      * @return a {@link Command} object representing the parsed command.
+     * @throws InvalidCommandException if the flags are not matched in the command parts.
      */
-    public Command parseAddCommand(String input, String[] commandParts) {
+    public Command parseAddCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
@@ -108,10 +110,10 @@ public class Parser {
             }
 
             logger.log(WARNING,"Invalid command format");
-            return new InvalidCommand(INVALID_ADD_MESSAGE);
+            throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING,"Invalid command format");
-            return new InvalidCommand(INVALID_ADD_MESSAGE);
+            throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         }
     }
 
@@ -123,15 +125,16 @@ public class Parser {
      * flag is {@code "-e"}, it splits the input string to create a {@link RemoveCommand}
      * for removing an event. If the command flag is {@code "-p"}, it creates a
      * {@link RemoveCommand} for removing a participant from an event. If neither flag
-     * is matched, it returns an {@link InvalidCommand} with an error message.
+     * is matched, it throws an {@link InvalidCommandException} with an error message.
      * </p>
      *
      * @param input        the input string containing the command details.
      * @param commandParts an array of strings representing the parsed command parts,
      *                     where the second element is the command flag.
      * @return a {@link Command} object representing the parsed command.
+     * @throws InvalidCommandException if the flags are not matched in the command parts.
      */
-    private Command parseRemoveCommand(String input, String[] commandParts) {
+    private Command parseRemoveCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(RemoveCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
@@ -146,10 +149,10 @@ public class Parser {
             }
 
             logger.log(WARNING,"Invalid command format");
-            return new InvalidCommand(INVALID_REMOVE_MESSAGE);
+            throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING,"Invalid command format");
-            return new InvalidCommand(INVALID_REMOVE_MESSAGE);
+            throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
         }
     }
 
@@ -160,15 +163,16 @@ public class Parser {
      * This method checks the command flag extracted from the command parts. If the command
      * flag is {@code "-e"}, it splits the input string to create a {@link ViewCommand}
      * for viewing the participants in the event.
-     * Otherwise, it returns an {@link InvalidCommand} with an error message.
+     * Otherwise, it throws an {@link InvalidCommandException} with an error message.
      * </p>
      *
      * @param input        the input string containing the command details.
      * @param commandParts an array of strings representing the parsed command parts,
      *                     where the second element is the command flag.
      * @return a {@link Command} object representing the parsed command.
+     * @throws InvalidCommandException if the flag is not matched.
      */
-    private Command parseViewCommand(String input, String[] commandParts) {
+    private Command parseViewCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(ViewCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
@@ -179,10 +183,10 @@ public class Parser {
             }
 
             logger.log(WARNING,"Invalid command format");
-            return new InvalidCommand(INVALID_VIEW_MESSAGE);
+            throw new InvalidCommandException(INVALID_VIEW_MESSAGE);
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING,"Invalid command format");
-            return new InvalidCommand(INVALID_VIEW_MESSAGE);
+            throw new InvalidCommandException(INVALID_VIEW_MESSAGE);
         }
     }
 
@@ -192,7 +196,7 @@ public class Parser {
      * <p>
      * This method checks the command flag extracted from the command parts. If the command
      * flag is {@code "-e"}, it splits the input string to create a {@link MarkCommand}
-     * to mark an event done or undone. Otherwise, it returns an {@link InvalidCommand}
+     * to mark an event done or undone. Otherwise, it throws an {@link InvalidCommandException}
      * with an error message.
      * </p>
      *
@@ -200,8 +204,9 @@ public class Parser {
      * @param commandParts an array of strings representing the parsed command parts,
      *                     where the second element is the command flag.
      * @return a {@link Command} object representing the parsed command.
+     * @throws InvalidCommandException if the flag is not matched.
      */
-    private Command parseMarkCommand(String input, String[] commandParts) {
+    private Command parseMarkCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(MarkCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
@@ -212,30 +217,30 @@ public class Parser {
             }
 
             logger.log(WARNING,"Invalid command format");
-            return new InvalidCommand(INVALID_MARK_MESSAGE);
+            throw new InvalidCommandException(INVALID_MARK_MESSAGE);
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING,"Invalid command format");
-            return new InvalidCommand(INVALID_MARK_MESSAGE);
+            throw new InvalidCommandException(INVALID_MARK_MESSAGE);
         }
     }
 
     /**
-     * Returns a {@link MarkCommand} with a given event name and status, or an
-     * {@link InvalidCommand} if the status is invalid
+     * Returns a {@link MarkCommand} with a given event name and status. If the given status is invalid,
+     * throws an {@link InvalidCommandException}.
      *
-     * @param eventName the given event name
-     * @param status the given event status
-     * @return a MarkCommand with a given event name and status, or an
-     *     InvalidCommand if the status is invalid
+     * @param eventName the given event name.
+     * @param status the given event status.
+     * @return a MarkCommand with a given event name and status
+     * @throws InvalidCommandException if the given status is invalid.
      */
-    private Command getMarkEventCommand(String eventName, String status) {
+    private Command getMarkEventCommand(String eventName, String status) throws InvalidCommandException {
         if (status.equalsIgnoreCase("done")) {
             return new MarkEventCommand(eventName, true);
         } else if (status.equalsIgnoreCase("undone")) {
             return new MarkEventCommand(eventName, false);
         } else {
             logger.log(WARNING,"Invalid status keyword");
-            return new InvalidCommand(INVALID_EVENT_STATUS_MESSAGE);
+            throw new InvalidCommandException(INVALID_EVENT_STATUS_MESSAGE);
         }
     }
 }
