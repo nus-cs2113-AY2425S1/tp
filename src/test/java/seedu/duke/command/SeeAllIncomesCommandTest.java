@@ -94,6 +94,9 @@ class SeeAllIncomesCommandTest {
         assertEquals(expectedOutput, output);
     }
 
+    /**
+     * Test the execute method, specifying that only Incomes before 10/10/24 should be printed.
+     */
     @Test
     void execute_mixedListBeforeCertainDate_expectPrintedIncomes() {
         testCommand = new SeeAllIncomesCommand(null, LocalDate.of(24, 10, 10));
@@ -117,6 +120,9 @@ class SeeAllIncomesCommandTest {
         assertEquals(expectedOutput, output);
     }
 
+    /**
+     * Test the execute method, specifying that only Incomes after 10/10/24 should be printed.
+     */
     @Test
     void execute_mixedListAfterCertainDate_expectPrintedIncomes() {
         testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 10, 10), null);
@@ -139,6 +145,10 @@ class SeeAllIncomesCommandTest {
         assertEquals(expectedOutput, output);
     }
 
+    /**
+     * Test the execute method, specifying that only Incomes
+     * between 20/9/2024 and 10/10/24 exclusive should be printed.
+     */
     @Test
     void execute_mixedListBeforeAndAfterCertainDate_expectPrintedIncomes() {
         testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 9, 20), LocalDate.of(24, 10, 10));
