@@ -5,7 +5,10 @@ import history.History;
 import storage.Storage;
 import programme.ProgrammeList;
 
-/* Data Manager acts as an adapter layer between the Storage and BuffBuddy classes, translating between JSON and objects */
+/*
+    Data Manager acts as an adapter layer between the Storage and BuffBuddy classes,
+    translating between JSON and objects
+*/
 public class DataManager {
 
     private final Storage storage;
