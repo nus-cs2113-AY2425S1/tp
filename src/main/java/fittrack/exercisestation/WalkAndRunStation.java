@@ -16,7 +16,9 @@ public class WalkAndRunStation extends ExerciseStation {
         if(time == INVALID_TIME) {
             return "NA";
         }
-        return Integer.toString(time);
+        int minutes = time / 60;
+        int seconds = time % 60;
+        return minutes + ":" + seconds;
     }
 
     @Override

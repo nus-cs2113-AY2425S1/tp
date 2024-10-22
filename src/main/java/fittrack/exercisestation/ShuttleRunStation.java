@@ -16,7 +16,9 @@ public class ShuttleRunStation extends ExerciseStation {
         if(time == INVALID_TIME) {
             return "NA";
         }
-        return time + "s";
+        String timeString = Integer.toString(time);
+        return timeString.substring(0, timeString.length() - 1) + "." +
+                timeString.substring(timeString.length() - 1) + "s";
     }
 
     @Override
