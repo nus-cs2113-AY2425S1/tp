@@ -5,6 +5,7 @@ import seedu.exchangecoursemapper.command.ListCommandsCommand;
 import seedu.exchangecoursemapper.command.ListSchoolCommand;
 import seedu.exchangecoursemapper.command.ListUniCoursesCommand;
 import seedu.exchangecoursemapper.command.AddCoursesCommand;
+import seedu.exchangecoursemapper.command.HelpCommand;
 import seedu.exchangecoursemapper.ui.UI;
 
 import java.util.Scanner;
@@ -18,6 +19,7 @@ import static seedu.exchangecoursemapper.constants.Commands.SET;
 import static seedu.exchangecoursemapper.constants.Commands.ADD_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
 import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
+import static seedu.exchangecoursemapper.constants.Commands.HELP;
 import static seedu.exchangecoursemapper.constants.Logs.RECEIVED_INPUT;
 import static seedu.exchangecoursemapper.constants.Logs.NULL_INPUT;
 import static seedu.exchangecoursemapper.constants.Logs.EMPTY_INPUT_DETAILS;
@@ -62,6 +64,8 @@ public class Parser {
             new AddCoursesCommand().execute(input);
         } else if (command.equals(SET)) {
             new ListUniCoursesCommand().execute(input);
+        } else if (command.equals(HELP)) {
+            new HelpCommand().execute(input);
         } else if (command.equals(BYE)) {
             mapperUI.displayExitMessage();
         } else {
