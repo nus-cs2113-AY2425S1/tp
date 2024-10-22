@@ -1,15 +1,16 @@
 package command;
-import core.Ui;
 import programme.ProgrammeList;
-import core.History;
+import history.History;
 
 public abstract class Command {
-
     public Command(){}
 
-    public boolean isExit() {
-        return false;
-    }
+    public abstract CommandResult execute(ProgrammeList pList, History history);
 
-    public abstract void execute(Ui ui, ProgrammeList pList, History history);
+    @Override
+    public boolean equals(Object other) {
+        boolean isSameObject = (this == other);
+        boolean isSameClass = (getClass() != other.getClass());
+        return (isSameObject || isSameClass);
+    }
 }

@@ -81,7 +81,7 @@ public class ProgCommandParser {
 
             case "x": // Remove exercise at index
                 exerciseIndex = parseIndex(value);
-                editCommand.addDelete(progIndex, dayIndex, exerciseIndex);
+                editCommand.addDeleteExercise(progIndex, dayIndex, exerciseIndex);
                 break;
 
             case "xd":
@@ -92,12 +92,12 @@ public class ProgCommandParser {
                 String[] updateParts = value.split(" ", 2);
                 exerciseIndex = parseIndex(updateParts[0]);
                 Exercise updated = parseExercise(updateParts[1]);
-                editCommand.addEdit(progIndex, dayIndex, exerciseIndex, updated);
+                editCommand.addEditExercise(progIndex, dayIndex, exerciseIndex, updated);
                 break;
 
             case "a": // Add new exercise (parse the value string to create an Exercise)
                 Exercise created = parseExercise(value);
-                editCommand.addCreate(progIndex, dayIndex, created);
+                editCommand.addCreateExercise(progIndex, dayIndex, created);
                 break;
 
             case "ad":

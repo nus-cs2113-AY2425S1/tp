@@ -1,6 +1,6 @@
 package command.programme;
-import command.Command;
 
+import command.CommandResult;
 import command.programme.edit.CreateDayCommand;
 import command.programme.edit.DeleteDayCommand;
 import command.programme.edit.EditSubCommand;
@@ -13,14 +13,13 @@ import programme.Exercise;
 import programme.Day;
 import programme.ProgrammeList;
 
-import core.History;
-import core.Ui;
+import history.History;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EditCommand extends Command {
+public class EditCommand extends ProgrammeCommand {
 
     public static final String COMMAND_WORD = "edit";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
@@ -36,7 +35,7 @@ public class EditCommand extends Command {
         return subCommands;
     }
 
-    public void addCreate(int progId, int dayId, Exercise created) {
+    public void addCreateExercise(int progId, int dayId, Exercise created) {
         assert progId >= 0 : "Program ID must be non-negative";
         assert dayId >= 0 : "Day ID must be non-negative";
         assert created != null : "Created exercise must not be null";
@@ -48,7 +47,7 @@ public class EditCommand extends Command {
                 new Object[]{progId, dayId, created});
     }
 
-    public void addDelete(int progId, int dayId, int exerciseId) {
+    public void addDeleteExercise(int progId, int dayId, int exerciseId) {
         assert progId >= 0 : "Program ID must be non-negative";
         assert dayId >= 0 : "Day ID must be non-negative";
         assert exerciseId >= 0 : "Exercise ID must be non-negative";
@@ -60,7 +59,7 @@ public class EditCommand extends Command {
                 new Object[]{progId, dayId, exerciseId});
     }
 
-    public void addEdit(int progId, int dayId, int exerciseId, Exercise updated) {
+    public void addEditExercise(int progId, int dayId, int exerciseId, Exercise updated) {
         assert progId >= 0 : "Program ID must be non-negative";
         assert dayId >= 0 : "Day ID must be non-negative";
         assert exerciseId >= 0 : "Exercise ID must be non-negative";
@@ -99,19 +98,21 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, ProgrammeList pList, History history) {
+    public CommandResult execute(ProgrammeList pList, History history) {
         assert pList != null : "ProgrammeList must not be null";
         assert history != null : "History must not be null";
-        assert ui != null : "UI must not be null";
+        StringBuilder result = new StringBuilder();
 
         logger.log(Level.INFO, "Executing EditCommand with {0} subCommands", subCommands.size());
 
         for (EditSubCommand c : subCommands) {
-            String result = c.execute(pList);
-            ui.showMessage(result);
+            String subResult = c.execute(pList);
+            result.append(subResult);
             logger.log(Level.INFO, "SubCommand executed: {0}", result);
         }
 
         logger.log(Level.INFO, "EditCommand execution completed");
+
+        return new CommandResult(result.toString());
     }
 }
