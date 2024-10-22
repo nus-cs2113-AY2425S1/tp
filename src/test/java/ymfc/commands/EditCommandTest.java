@@ -49,15 +49,15 @@ public class EditCommandTest {
         newSteps.add("drink water");
 
         edittedRecipe = new Recipe("instant noodles", ingredients, newSteps);
-        editCommand = new EditCommand(recipe);
+        editCommand = new EditCommand(edittedRecipe);
     }
 
     @Test
     void testEditRecipe() throws IOException, InvalidArgumentException {
         addRecipeCommand.execute(emptyList, ui, storage);
 
-        //assertEquals(1, emptyList.getCounter());
-        //assertEquals(recipe, emptyList.getRecipe(0));
+        assertEquals(1, emptyList.getCounter());
+        assertEquals(recipe, emptyList.getRecipe(0));
 
         editCommand.execute(emptyList, ui, storage);
         assertEquals(1, emptyList.getCounter());
