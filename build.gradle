@@ -30,7 +30,6 @@ test {
 
 application {
     mainClass.set("seedu.duke.Duke")
-    applicationDefaultJvmArgs = ["-ea"]
 }
 
 shadowJar {
@@ -44,4 +43,5 @@ checkstyle {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
