@@ -52,6 +52,32 @@ Additionally, the state diagram below shows the end state of the `editExercise` 
 
 ![TrainingSessionEditState.png](TrainingSessionEditState.png)
 
+### Points Calculation Feature
+
+The **points calculation feature** is a significant part of the `ExerciseStation` system. It allows for the calculation
+of user-specific points based on their performance in various exercises (e.g., pull-ups, sit-ups). This process 
+involves interaction between the `ExerciseStation` and the `Calculator` classes, ensuring that the correct points are
+assigned based on predefined lookup tables.
+
+#### 1. Class Interaction Overview
+
+Each `ExerciseStation` subclass (e.g., `PullUpStation`, `SitUpStation`) has its own implementation of the `getPoints()` 
+method. The main responsibility of this method is to invoke the `calculatePoints()` function from the 
+respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), which holds the points calculation logic.
+
+![getPointsSequenceDiagram.png](getPointsSequenceDiagram.png)
+##### Sequence of Events:
+
+1. **User Inputs Performance**: The user’s performance (e.g., number of pull-ups) is passed to the
+   `setPerformance()` method in the exercise station.
+
+2. **Invoke Points Calculation**: Once the performance is set, the `getPoints()` method is called. 
+   This method interacts with the calculator class (e.g., `PullUpCalculator`) to compute the points.
+
+3. **Calculator Logic**: The calculator class uses a lookup table, which maps the user's performance 
+   to points based on their age and gender. The points are returned to the exercise station, where they are stored.
+
+
 ## Product scope
 ### Target user profile
 
