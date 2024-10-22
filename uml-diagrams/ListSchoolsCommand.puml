@@ -2,7 +2,6 @@
 actor CEG_Student
 participant ListSchoolCommand
 participant Command
-participant JsonObject
 
 CEG_Student -> ListSchoolCommand: execute(userInput)
 activate ListSchoolCommand
@@ -10,22 +9,16 @@ activate ListSchoolCommand
 ListSchoolCommand -> Command: createJsonObject()
 activate Command
 
-Command -> JsonObject: Read JSON file
-activate JsonObject
-
-JsonObject --> Command: JsonObject
-deactivate JsonObject
-
 Command --> ListSchoolCommand: JsonObject
 deactivate Command
 
 ListSchoolCommand -> ListSchoolCommand: displaySchoolList(JsonObject)
 activate ListSchoolCommand
 
-ListSchoolCommand --> ListSchoolCommand
+ListSchoolCommand --> ListSchoolCommand: List of school names
 deactivate ListSchoolCommand
 
 
-ListSchoolCommand --> CEG_Student: Print list of university names
+ListSchoolCommand --> CEG_Student: Print results
 deactivate ListSchoolCommand
 @enduml

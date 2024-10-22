@@ -20,7 +20,7 @@ and Oceania.
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
-* The `displaySchoolList` method will iterate over the keys of the database which contians the University
+* The `displaySchoolList()` method will iterate over the keys of the database which contians the University
   names, upon acquiring the keys, they will be printed over the CLI.
 * There are also assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.  
