@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class ListCommandTest {
+public class DeleteCommandTest {
     @Test
     public void testIsExit_returnsFalse() {
-        ListCommand listCommand = new ListCommand();
-        assertFalse(listCommand.isExit());
+        DeleteCommand deleteCommand = new DeleteCommand(0);
+        assertFalse(deleteCommand.isExit());
     }
 }
