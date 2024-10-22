@@ -36,8 +36,8 @@ and Oceania.
 * Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure 
   readability.
 
-#### Sequence Diagram
-
+#### Sequence Diagram on PlantUML
+![List School Command Sequence Diagram](../uml-images/ListSchoolsCommand.png)
 
 ### Obtain Partner University Email
 ### Obtain Partner University Contact Number
