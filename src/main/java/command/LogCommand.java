@@ -58,12 +58,18 @@ public class LogCommand extends Command {
 
     @Override
     public boolean equals(Object o){
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LogCommand that = (LogCommand) o;
+        if (this == o){
+            return true;
+        }
+
+        if (!(o instanceof LogCommand that)){
+            return false;
+        }
+
         boolean isProgIndexEqual =  (progIndex == that.progIndex);
         boolean isDayIndexEqual = (dayIndex == that.dayIndex);
         boolean isDateEqual = Objects.equals(date, that.date);
+
         return (isProgIndexEqual && isDayIndexEqual && isDateEqual);
     }
 

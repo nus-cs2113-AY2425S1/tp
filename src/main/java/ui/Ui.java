@@ -83,7 +83,7 @@ public class Ui {
     }
 
     public void showMessage(CommandResult result){
-        showMessage(result.getMessage());
+        showMessage(result.message());
     }
 
     /**

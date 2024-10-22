@@ -23,4 +23,19 @@ public abstract class ProgrammeCommand extends Command {
     public int getProgId() {
         return progId;
     }
+
+    @Override
+    public boolean equals(Object other){
+        if (this == other){
+            return true;
+        }
+
+        if (!(other instanceof ProgrammeCommand that)){
+            return false;
+        }
+
+        boolean isProgIndexEqual = this.progId == that.progId;
+        boolean isDayIndexEqual = this.dayId == that.dayId;
+        return isProgIndexEqual && isDayIndexEqual;
+    }
 }

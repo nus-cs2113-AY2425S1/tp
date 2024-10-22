@@ -35,7 +35,7 @@ public class EditCommand extends ProgrammeCommand {
         return subCommands;
     }
 
-    public void addCreate(int progId, int dayId, Exercise created) {
+    public void addCreateExercise(int progId, int dayId, Exercise created) {
         assert progId >= 0 : "Program ID must be non-negative";
         assert dayId >= 0 : "Day ID must be non-negative";
         assert created != null : "Created exercise must not be null";
@@ -47,7 +47,7 @@ public class EditCommand extends ProgrammeCommand {
                 new Object[]{progId, dayId, created});
     }
 
-    public void addDelete(int progId, int dayId, int exerciseId) {
+    public void addDeleteExercise(int progId, int dayId, int exerciseId) {
         assert progId >= 0 : "Program ID must be non-negative";
         assert dayId >= 0 : "Day ID must be non-negative";
         assert exerciseId >= 0 : "Exercise ID must be non-negative";
@@ -59,7 +59,7 @@ public class EditCommand extends ProgrammeCommand {
                 new Object[]{progId, dayId, exerciseId});
     }
 
-    public void addEdit(int progId, int dayId, int exerciseId, Exercise updated) {
+    public void addEditExercise(int progId, int dayId, int exerciseId, Exercise updated) {
         assert progId >= 0 : "Program ID must be non-negative";
         assert dayId >= 0 : "Day ID must be non-negative";
         assert exerciseId >= 0 : "Exercise ID must be non-negative";
