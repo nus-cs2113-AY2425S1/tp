@@ -1,11 +1,8 @@
 package seedu.javaninja;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.logging.Logger;
 
 public class QuizManager {
@@ -15,6 +12,7 @@ public class QuizManager {
     private Quiz currentQuiz;
     private List<String> pastResults;
     private Storage storage;
+;
 
     public QuizManager() {
         this.topics = new ArrayList<>();
@@ -66,12 +64,17 @@ public class QuizManager {
             }
             topic.addQuestion(new Mcq(questionText, correctAnswer, options));
             break;
+        case "Flashcard":
+            topic.addQuestion(new Flashcard(questionText, correctAnswer));
+            break;
         default:
             logger.warning("Invalid question type: " + questionType);
         }
     }
 
-    public void selectTopic(String topicName) {
+    public void selectTopic(String input) {
+        String topicName = input.split(" ")[1];
+
         for (Topic topic : topics) {
             if (topic.getName().equals(topicName)) {
                 startQuiz(topic);
@@ -154,6 +157,40 @@ public class QuizManager {
             pastResults = storage.loadResults();
         } catch (IOException e) {
             logger.warning("No past results found.");
+        }
+    }
+
+    public void addQuestionByUser(String input) throws IOException {
+
+        if (input.startsWith("add Flashcard")) {
+            String[] parts = input.split("/q|/a");
+            if (parts.length < 3) {
+                System.out.println("Invalid command format. Please provide both question and answer.");
+                return;
+            }
+
+            String questionText = parts[1].trim();
+            String correctAnswer = parts[2].trim();
+
+            Topic topic = getOrCreateTopic("Flashcards");
+            topic.addQuestion(new Flashcard(questionText, correctAnswer));
+            logger.info("Added new Flashcard question.");
+
+            // Save the new question to the file
+            String questionLine = "Flashcards | Flashcard | " + questionText + " | " + correctAnswer;
+            saveQuestionToFile(questionLine);
+        } else {
+            logger.warning("Invalid command: " + input);
+        }
+    }
+
+    public void saveQuestionToFile(String questionLine) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
+            writer.write(questionLine);
+            writer.newLine();
+            logger.info("Question saved to file: " + FILE_PATH);
+        } catch (IOException e) {
+            logger.severe("Error saving question to file: " + e.getMessage());
         }
     }
 }

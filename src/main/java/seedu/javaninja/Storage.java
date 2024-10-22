@@ -1,5 +1,6 @@
 package seedu.javaninja;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,6 +21,8 @@ public class Storage {
             directory.mkdirs();
         }
     }
+
+
 
     /**
      * Loads quiz results from the file.
