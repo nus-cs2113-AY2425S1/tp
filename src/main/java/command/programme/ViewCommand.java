@@ -1,6 +1,7 @@
 package command.programme;
 import command.Command;
-import ui.Ui;
+import command.CommandResult;
+
 import programme.ProgrammeList;
 import programme.Programme;
 import history.History;
@@ -25,13 +26,13 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, ProgrammeList pList, History history){
+    public CommandResult execute(ProgrammeList pList, History history){
         assert pList != null : "ProgrammeList must not be null";
-        assert ui != null: "Ui must not be null";
+
         Programme programme = pList.getProgramme(progId);
         assert programme != null : "Programme must not be null";
         String result = String.format("Viewing programme: %n%s",programme);
-        ui.showMessage(result);
         logger.log(Level.INFO, "ViewCommand executed successfully.");
+        return new CommandResult(result);
     }
 }

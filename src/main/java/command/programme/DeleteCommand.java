@@ -1,8 +1,8 @@
 package command.programme;
 
 import command.Command;
+import command.CommandResult;
 import history.History;
-import ui.Ui;
 import programme.Programme;
 import programme.ProgrammeList;
 
@@ -25,13 +25,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, ProgrammeList pList, History history){
+    public CommandResult execute(ProgrammeList pList, History history){
         assert pList != null : "Programme list must not be null";
-        assert ui != null : "UI must not be null";
+
         Programme programme = pList.deleteProgram(progId);
         assert programme != null : "Programme with ID " + progId + " not found";
         String result = String.format("Deleted programme: %n%s",programme);
-        ui.showMessage(result);
+
         logger.log(Level.INFO, "DeleteCommand executed successfully.");
+
+        return new CommandResult(result);
     }
 }

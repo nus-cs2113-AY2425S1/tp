@@ -1,6 +1,6 @@
 package command.programme;
 import command.Command;
-import ui.Ui;
+import command.CommandResult;
 import programme.ProgrammeList;
 import programme.Programme;
 import history.History;
@@ -24,13 +24,15 @@ public class StartCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, ProgrammeList pList, History history){
+    public CommandResult execute(ProgrammeList pList, History history){
         assert pList != null : "Programme list must not be null";
-        assert ui != null : "UI must not be null";
+
         Programme started = pList.startProgramme(progId);
         assert started != null : "Programme must not be null";
         String result = String.format("Ok! Started Programme: %n%s",started);
-        ui.showMessage(result);
+
         logger.log(Level.INFO, "StartCommand executed successfully.");
+
+        return new CommandResult(result);
     }
 }

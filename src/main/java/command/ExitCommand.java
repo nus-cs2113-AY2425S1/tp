@@ -1,5 +1,4 @@
 package command;
-import ui.Ui;
 import programme.ProgrammeList;
 import history.History;
 
@@ -12,12 +11,8 @@ public class ExitCommand extends Command {
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Override
-    public boolean isExit(){
-        return true;
-    }
-
-    @Override
-    public void execute(Ui ui, ProgrammeList pList, History history){
+    public CommandResult execute(ProgrammeList pList, History history){
         logger.log(Level.INFO, "ExitCommand executed.");
+        return new CommandResult("Exiting BuffBuddy...");
     }
 }

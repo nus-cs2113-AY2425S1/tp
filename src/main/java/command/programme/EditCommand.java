@@ -1,6 +1,7 @@
 package command.programme;
 import command.Command;
 
+import command.CommandResult;
 import command.programme.edit.CreateDayCommand;
 import command.programme.edit.DeleteDayCommand;
 import command.programme.edit.EditSubCommand;
@@ -14,7 +15,6 @@ import programme.Day;
 import programme.ProgrammeList;
 
 import history.History;
-import ui.Ui;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -99,19 +99,21 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, ProgrammeList pList, History history) {
+    public CommandResult execute(ProgrammeList pList, History history) {
         assert pList != null : "ProgrammeList must not be null";
         assert history != null : "History must not be null";
-        assert ui != null : "UI must not be null";
+        StringBuilder result = new StringBuilder();
 
         logger.log(Level.INFO, "Executing EditCommand with {0} subCommands", subCommands.size());
 
         for (EditSubCommand c : subCommands) {
-            String result = c.execute(pList);
-            ui.showMessage(result);
+            String subResult = c.execute(pList);
+            result.append(subResult);
             logger.log(Level.INFO, "SubCommand executed: {0}", result);
         }
 
         logger.log(Level.INFO, "EditCommand execution completed");
+
+        return new CommandResult(result.toString());
     }
 }

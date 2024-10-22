@@ -1,5 +1,4 @@
 package command;
-import ui.Ui;
 import programme.ProgrammeList;
 import programme.Day;
 import history.History;
@@ -37,7 +36,7 @@ public class LogCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui,ProgrammeList pList, History history){
+    public CommandResult execute(ProgrammeList pList, History history){
         logger.log(
                 Level.INFO,
                 "Executing LogCommand with progIndex: {0}, dayIndex: {1}, date: {2}",
@@ -46,7 +45,6 @@ public class LogCommand extends Command {
 
         assert pList != null : "ProgrammeList must not be null";
         assert history != null : "History must not be null";
-        assert ui != null : "UI must not be null";
 
         Day completed = pList.getDay(progIndex, dayIndex);
 
@@ -55,9 +53,9 @@ public class LogCommand extends Command {
         history.logDay(completed, date);
 
         String result =  String.format("Congrats! You've successfully completed:%n%s",completed);
-        ui.showMessage(result);
 
         logger.log(Level.INFO, "LogCommand executed successfully for day: {0}", completed);
+        return new CommandResult(result);
     }
 
     public int getProgrammeIndex() {
