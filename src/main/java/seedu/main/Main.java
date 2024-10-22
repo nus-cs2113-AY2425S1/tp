@@ -14,6 +14,7 @@ import seedu.command.AddIncomeCommand;
 import seedu.command.AddExpenseCommand;
 import seedu.command.DeleteTransactionCommand;
 import seedu.command.ViewTotalCommand;
+import seedu.command.KeywordsSearchCommand;
 
 import seedu.transaction.TransactionList;
 
@@ -114,7 +115,12 @@ public class Main {
         parser.registerCommands(new ViewTotalCommand(transactions));
         parser.registerCommands(new HistoryCommand(transactions));
 
+
+        KeywordsSearchCommand keywordsSearchCommand = new KeywordsSearchCommand(transactions);
+        parser.registerCommands(keywordsSearchCommand);
+
         parser.registerCommands(new ByeCommand());
+
 
         // Set command list for the help command
         logger.log(Level.INFO, "Setting command list for HelpCommand...");
