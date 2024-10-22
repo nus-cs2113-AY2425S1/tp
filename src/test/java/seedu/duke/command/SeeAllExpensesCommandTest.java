@@ -6,8 +6,12 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.financial.Income;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -31,7 +35,6 @@ public class SeeAllExpensesCommandTest {
     @BeforeEach
     public void setUp() {
         financialList = new FinancialList();
-        seeAllExpensesCommand = new SeeAllExpensesCommand();
         System.setOut(new PrintStream(outContent));
     }
     /**
@@ -48,29 +51,40 @@ public class SeeAllExpensesCommandTest {
      */
     @Test
     public void execute_noExpenses_printsNoRecordedExpenses() {
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24,10,22));
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24,10,22));
+        financialList.addEntry(income1);
+        financialList.addEntry(income2);
+        seeAllExpensesCommand = new SeeAllExpensesCommand(null, null);
         seeAllExpensesCommand.execute(financialList);
-        assertEquals("No recorded expenses found." + System.lineSeparator() +
-            "--------------------------------------------" + System.lineSeparator(), outContent.toString());
+        assertEquals("--------------------------------------------" + System.lineSeparator() +
+                "No recorded expenses found." + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator(), outContent.toString());
     }
 
     /**
      * Tests the execute method of SeeAllExpensesCommand when there are expenses in the financial list.
-     * 
      * This test case verifies that the execute method correctly prints all the expenses in the financial list.
-     * It adds two expenses to the financial list and then calls the execute method.
+     * It adds two expenses and two incomes to the financial list and then calls the execute method.
      * The expected output is a formatted string listing all the expenses.
      * The test asserts that the actual output matches the expected output.
      */
     @Test
     public void execute_withExpenses_printsAllExpenses() {
-        FinancialEntry expense1 = new Expense(10.0, "food");
-        FinancialEntry expense2 = new Expense(5.0, "transport");
+        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24,10,22));
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24,10,22));
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24,10,22));
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24,10,22));
         financialList.addEntry(expense1);
         financialList.addEntry(expense2);
+        financialList.addEntry(income1);
+        financialList.addEntry(income2);
 
+        seeAllExpensesCommand = new SeeAllExpensesCommand(null, null);
         seeAllExpensesCommand.execute(financialList);
 
-        String expectedOutput = "Here's a list of all recorded expenses:" + System.lineSeparator() +
+        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+                "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense1 + System.lineSeparator() +
                 "2. " + expense2 + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
