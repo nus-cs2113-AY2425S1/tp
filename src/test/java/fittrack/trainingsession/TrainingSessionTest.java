@@ -1,5 +1,6 @@
 package fittrack.trainingsession;
 
+import fittrack.enums.Exercise;
 import fittrack.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,35 +27,39 @@ public class TrainingSessionTest {
 
     @Test
     public void editExercisePullUpStation() {
-        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(0, "1");
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(Exercise.PULL_UP, "1");
         assertEquals("Exercise edited! Here's your new input: " +
                 "Reps: 1 | 0 points" + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void editExerciseShuttleRunStation() {
-        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(1, "11.0");
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(Exercise.SHUTTLE_RUN,
+                "11.0");
         assertEquals("Exercise edited! Here's your new input: " +
                 "Time: 11.0s | 3 points" + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void editWalkAndRunStation1() {
-        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(5, "11:30");
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(Exercise.WALK_AND_RUN,
+                "11:30");
         assertEquals("Exercise edited! Here's your new input: " +
                 "Time: 11:30 | 5 points" + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void editWalkAndRunStation2() {
-        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(5, "08:30");
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(Exercise.WALK_AND_RUN,
+                "08:30");
         assertEquals("Exercise edited! Here's your new input: " +
                 "Time: 08:30 | 5 points" + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void editWalkAndRunStation3() {
-        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(5, "11:03");
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(Exercise.WALK_AND_RUN,
+                "11:03");
         assertEquals("Exercise edited! Here's your new input: " +
                 "Time: 11:03 | 5 points" + System.lineSeparator(), outContent.toString());
     }
