@@ -3,7 +3,7 @@ actor CEG_Student
 participant ListSchoolCommand
 participant Command
 
-CEG_Student -> ListSchoolCommand: execute(userInput)
+CEG_Student -> ListSchoolCommand: execute (userInput:String)
 activate ListSchoolCommand
 
 ListSchoolCommand -> Command: createJsonObject()
@@ -12,12 +12,12 @@ activate Command
 Command --> ListSchoolCommand: JsonObject
 deactivate Command
 
-ListSchoolCommand -> ListSchoolCommand: displaySchoolList(JsonObject)
+ListSchoolCommand -> ListSchoolCommand: displaySchoolList (jsonObject:JsonObject)
 activate ListSchoolCommand
 
-ListSchoolCommand --> ListSchoolCommand: List of school names
+ListSchoolCommand --> ListSchoolCommand
 deactivate ListSchoolCommand
 
-ListSchoolCommand --> CEG_Student: Print results
+ListSchoolCommand --> CEG_Student
 deactivate ListSchoolCommand
 @enduml
