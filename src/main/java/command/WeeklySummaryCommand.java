@@ -5,7 +5,7 @@ import programme.ProgrammeList;
 import core.History;
 
 public class WeeklySummaryCommand extends Command {
-    public static final String COMMAND_WORD = "weekly_summary";
+    public static final String COMMAND_WORD = "weeklysummary";
 
     @Override
     public void execute(Ui ui, ProgrammeList pList, History history) {

@@ -9,11 +9,13 @@ import programme.Exercise;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+
 
 public class History {
 
@@ -73,29 +75,39 @@ public class History {
     }
 
     // Method to summarize weekly workout activity
+
+
     public String getWeeklySummary() {
         if (history.isEmpty()) {
             return "No workout history available.";
         }
 
-        HashMap<Integer, Integer> weeklySummary = new HashMap<>();
+        StringBuilder weeklySummary = new StringBuilder();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        // Iterate through history to summarize weekly activities
-        for (LocalDate date : history.keySet()) {
-            Day day = history.get(date);
-            int weekOfYear = date.get(WeekFields.of(Locale.getDefault()).weekOfYear());
+        LocalDate today = LocalDate.now();
+        LocalDate oneWeekAgo = today.minus(7, ChronoUnit.DAYS);
 
-            // Increment the count of workouts for this week
-            weeklySummary.put(weekOfYear, weeklySummary.getOrDefault(weekOfYear, 0) + day.getExercisesCount());
+        int totalExercises = 0;
+
+        // Iterate through history for the last week only
+        for (Map.Entry<LocalDate, Day> entry : history.entrySet()) {
+            LocalDate date = entry.getKey();
+            Day day = entry.getValue();
+
+            if (!date.isBefore(oneWeekAgo) && !date.isAfter(today)) {
+                // Similar formatting to the history view
+                weeklySummary.append(day.toString());
+                weeklySummary.append(String.format("Completed On: %s%n%n", date.format(formatter)));
+                totalExercises += day.getExercisesCount();
+            }
         }
 
-        StringBuilder summary = new StringBuilder();
-        for (int week : weeklySummary.keySet()) {
-            summary.append(String.format("Week %d: %d exercises logged.%n", week, weeklySummary.get(week)));
+        if (totalExercises == 0) {
+            return "No workout history available for the past week.";
         }
 
-        return summary.toString();
+        return weeklySummary.toString();
     }
 
     // Method to find the personal bests for each exercise
