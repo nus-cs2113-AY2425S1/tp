@@ -1,0 +1,44 @@
+@startuml
+
+class TrainingSession {
+    - LocalDateTime sessionDatetime
+    - String sessionDescription
+    - User user
+    - Map<Exercise, ExerciseStation> exerciseStations
+
+    + TrainingSession(LocalDateTime datetime, String sessionDescription, User user)
+    + editExercise(Exercise exerciseType, String reps): void
+    + getSessionDescription(): String
+    + printSessionDescription(): void
+    + viewSession(): void
+}
+
+class User
+class Exercise {
+    <<enum>>
+}
+
+class ExerciseStation {
+    + setPerformance(int performance): void
+    + getPoints(User user): int
+    + getName(): String
+}
+
+class PullUpStation
+class ShuttleRunStation
+class SitAndReachStation
+class SitUpStation
+class StandingBroadJumpStation
+class WalkAndRunStation
+
+TrainingSession "1" -- "1" User
+TrainingSession "1" -- "*" ExerciseStation
+ExerciseStation <|-- PullUpStation
+ExerciseStation <|-- ShuttleRunStation
+ExerciseStation <|-- SitAndReachStation
+ExerciseStation <|-- SitUpStation
+ExerciseStation <|-- StandingBroadJumpStation
+ExerciseStation <|-- WalkAndRunStation
+TrainingSession "1" -- "*" Exercise
+
+@enduml
