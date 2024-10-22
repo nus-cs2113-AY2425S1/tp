@@ -6,37 +6,40 @@ import java.util.Scanner;
 /* Manages input by user */
 public class Cli {
     private QuizManager quizManager;
+    private Scanner scanner;
 
     public Cli() {
         quizManager = new QuizManager();
+        scanner = new Scanner(System.in);
     }
 
     public void start() throws IOException {
         System.out.println("Welcome to Java Ninja!");
         System.out.println("'view' to view topics");
-        System.out.println("'select' to select a topic");
-        System.out.println("'review' to review the past result");
+        System.out.println("'select [topic]' to select a topic");
+        System.out.println("'review' to review past results");
         System.out.println("'help' for a list of commands");
-        System.out.println("'quit' to exit the programme");
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("'quit' to exit the program");
 
-        String input = scanner.nextLine();
         while (true) {
+            System.out.print("> ");
+            String input = scanner.nextLine().trim();
             String command = processCommand(input);
+
             if (command.equals("quit")) {
                 break;
             }
+
             switch (command) {
             case "view":
                 quizManager.printTopics();
                 break;
             case "select":
-                quizManager.selectTopic(input);
+                selectTopic(input);
                 break;
             case "review":
                 System.out.println("Reviewing your past results:");
-                String pastResults = quizManager.getPastResults();
-                System.out.println(pastResults);
+                System.out.println(quizManager.getPastResults());
                 break;
             case "help":
                 printHelp();
@@ -47,9 +50,18 @@ public class Cli {
             default:
                 System.out.println("Invalid input. Type 'help' for a list of commands.");
             }
-            input = scanner.nextLine();
         }
         System.out.println("Goodbye!");
+        scanner.close();
+    }
+
+    private void selectTopic(String input) {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2) {
+            System.out.println("Please specify a topic to select.");
+        } else {
+            quizManager.selectTopic(parts[1], scanner);
+        }
     }
 
     public String processCommand(String input) {
@@ -60,7 +72,7 @@ public class Cli {
     private void printHelp() {
         System.out.println("List of available commands:");
         System.out.println("'view' - View available topics");
-        System.out.println("'select' - Type 'select' and hit Enter. Then type a topic name (e.g.\"Loops\")");
+        System.out.println("'select [topic]' - Start a quiz on a specific topic");
         System.out.println("'review' - Review all your quiz results");
         System.out.println("'help' - Show this help message");
         System.out.println("'quit' - Exit the program");

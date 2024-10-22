@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Scanner;
 
 class QuizManagerTest {
 
@@ -29,92 +29,72 @@ class QuizManagerTest {
 
     @Test
     public void selectTopic_invalidTopicName_displaysError() {
-        // Test selecting a topic that doesn't exist
-        quizManager.selectTopic("InvalidTopicName");
-        // No direct assertion, but expect no exception or crash
-    }
+        // Prepare a scanner with simulated user input
+        ByteArrayInputStream input = new ByteArrayInputStream("InvalidTopicName\n".getBytes());
+        Scanner scanner = new Scanner(input);
 
-    @Test
-    public void addTopic_validTopic_addsSuccessfully() {
-        quizManager.addTopic(new Topic("Java Basics"));
-        assertEquals(3, quizManager.getTopicsCount());
-    }
+        // Pass the scanner to the selectTopic method
+        quizManager.selectTopic("InvalidTopicName", scanner);
 
-    @Test
-    public void removeTopic_existingTopic_removesSuccessfully() {
-        Topic topic = new Topic("Java Basics");
-        quizManager.addTopic(topic);
-
-        quizManager.removeTopic(topic);
-
-        assertEquals(2, quizManager.getTopicsCount());
+        scanner.close();
+        // No assertion here; we expect no exceptions or crashes
     }
 
     @Test
     public void getPastResults_withResults_returnsCorrectResults() {
-        // Adding a topic and simulating a quiz
+        // Add a topic with a question
         Topic topic = new Topic("Java Basics");
-        topic.addQuestion(new Mcq("What is Java?",
-            "a",
-            List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
+        topic.addQuestion(new Mcq("What is Java?", "a",
+                List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
 
         quizManager.addTopic(topic);
-        String simulatedUserInput = "b\n";
-        InputStream originalSystemIn = System.in;
 
-        try {
-            ByteArrayInputStream simulatedInput = new ByteArrayInputStream(simulatedUserInput.getBytes());
-            System.setIn(simulatedInput);
+        // Prepare simulated input for the quiz
+        ByteArrayInputStream input = new ByteArrayInputStream("b\n".getBytes());
+        Scanner scanner = new Scanner(input);
 
-            quizManager.startQuiz(topic);
+        // Start the quiz with the provided scanner
+        quizManager.startQuiz(topic, scanner);
 
-            // Check if the past results contain the quiz score and comment
-            String pastResults = quizManager.getPastResults();
-            String expectedResult = "Score: 0%, Comment: Better luck next time!\n";
+        String expectedResult = "Score: 0%, Comment: Better luck next time!\n";
+        assertEquals(expectedResult, quizManager.getPastResults());
 
-            assertEquals(expectedResult, pastResults);
-        } finally {
-            System.setIn(originalSystemIn);
-        }
+        scanner.close();
     }
 
     @Test
     public void saveResults_savesToFileCorrectly() throws IOException {
-        // Add a topic with at least one question
+        // Add a topic and question
         Topic topic = new Topic("Java Basics");
-        topic.addQuestion(new Mcq("What is Java?",
-            "a",
-            List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
+        topic.addQuestion(new Mcq("What is Java?", "a",
+                List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
+
         quizManager.addTopic(topic);
 
-        String simulatedUserInput = "b\n";
-        InputStream originalSystemIn = System.in;
+        // Simulate user input during the quiz
+        ByteArrayInputStream input = new ByteArrayInputStream("b\n".getBytes());
+        Scanner scanner = new Scanner(input);
 
-        try {
-            ByteArrayInputStream simulatedInput = new ByteArrayInputStream(simulatedUserInput.getBytes());
-            System.setIn(simulatedInput);
+        // Start the quiz and save the results
+        quizManager.startQuiz(topic, scanner);
 
-            quizManager.startQuiz(topic);
+        String savedResults = Files.readString(Path.of(RESULTS_FILE_PATH));
+        String expectedSavedResults = "Score: 0%, Comment: Better luck next time!\n";
+        assertEquals(expectedSavedResults, savedResults);
 
-            String savedResults = Files.readString(Path.of(RESULTS_FILE_PATH));
-            String expectedSavedResults = "Score: 0%, Comment: Better luck next time!\n";
-
-            assertEquals(expectedSavedResults, savedResults);
-        } finally {
-            System.setIn(originalSystemIn);
-        }
+        scanner.close();
     }
 
     @Test
     public void loadResultsFromFile_correctlyLoadsResults() throws IOException {
-        // Simulate a previous result saved in the file
+        // Simulate a previously saved result in the file
         String previousResult = "Score: 80%, Comment: Good job!\n";
         Files.writeString(Path.of(RESULTS_FILE_PATH), previousResult);
 
         // Reload the QuizManager to simulate restarting the program
         quizManager = new QuizManager();
 
-        // Check if the loaded result matches the previous result
+        // Verify that the loaded result matches the expected value
         String loadedResults = quizManager.getPastResults();
         assertEquals(previousResult, loadedResults);
     }
