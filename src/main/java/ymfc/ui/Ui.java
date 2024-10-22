@@ -115,11 +115,20 @@ public class Ui {
     public void printList(ArrayList<Recipe> list, int listCount) {
         System.out.println(line);
         System.out.println("\tHere's everything in my collection so far:");
+        printListWithOrder(list, listCount);
+        System.out.println(line);
+    }
+
+    /**
+     * Display list of recipes with order of each recipe
+     * @param list ArrayList of recipes to be displayed
+     * @param listCount Integer representing total number of recipes in <code>list</code>
+     */
+    private void printListWithOrder(ArrayList<Recipe> list, int listCount) {
         for (int i = 0; i < listCount; i++) {
             System.out.println("\t" + (i + 1) + "." + list.get(i));
             System.out.println(line);
         }
-        System.out.println(line);
     }
 
     /**
@@ -138,10 +147,17 @@ public class Ui {
         System.out.println(line);
     }
 
-
     public void printHelp() {
         System.out.println(line);
         System.out.println("Commands: help, delete, add, list");
+        System.out.println(line);
+    }
+
+    public void printFind(ArrayList<Recipe> list, int listCount) {
+        System.out.println(line);
+        System.out.println("\tHere's everything that I've found so far:");
+        printListWithOrder(list, listCount);
+        System.out.println("\tTotal: " + listCount + " recipes found!");
         System.out.println(line);
     }
 }
