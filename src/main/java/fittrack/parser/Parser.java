@@ -5,7 +5,6 @@ import fittrack.user.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Map;
 
 
 import static fittrack.enums.Exercise.PULL_UP;
