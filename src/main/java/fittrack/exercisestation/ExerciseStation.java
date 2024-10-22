@@ -6,6 +6,8 @@ public abstract class ExerciseStation {
 
     static final int INVALID_TIME = -1;
     static final int DEFAULT_POINT = 0;
+    static final int TIME_DIVISOR = 60;
+    static final int DOUBLE_DIGIT = 10;
 
     protected int points;
 

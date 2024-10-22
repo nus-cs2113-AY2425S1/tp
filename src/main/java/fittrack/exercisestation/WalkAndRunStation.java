@@ -12,13 +12,20 @@ public class WalkAndRunStation extends ExerciseStation {
         this.points = DEFAULT_POINT;
     }
 
+    private String appendZero(int time){
+        if(time < DOUBLE_DIGIT) {
+            return "0";
+        }
+        return "";
+    }
+
     public String getTime() {
         if(time == INVALID_TIME) {
             return "NA";
         }
-        int minutes = time / 60;
-        int seconds = time % 60;
-        return minutes + ":" + seconds;
+        int minutes = time / TIME_DIVISOR;
+        int seconds = time % TIME_DIVISOR;
+        return appendZero(minutes) + minutes + ":" + appendZero(seconds) + seconds;
     }
 
     @Override
