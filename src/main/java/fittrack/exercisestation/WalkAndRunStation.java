@@ -1,5 +1,6 @@
 package fittrack.exercisestation;
 
+import fittrack.calculator.WalkAndRunCalculator;
 import fittrack.user.User;
 
 public class WalkAndRunStation extends ExerciseStation {
@@ -7,12 +8,15 @@ public class WalkAndRunStation extends ExerciseStation {
     private int time;
 
     public WalkAndRunStation() {
-        this.time = 0;
-        this.points = 0;
+        this.time = INVALID_TIME;
+        this.points = DEFAULT_POINT;
     }
 
-    public double getTime() {
-        return time;
+    public String getTime() {
+        if(time == INVALID_TIME) {
+            return "NA";
+        }
+        return Integer.toString(time);
     }
 
     @Override
@@ -22,7 +26,10 @@ public class WalkAndRunStation extends ExerciseStation {
 
     @Override
     public int getPoints(User user) {
-        points = 1;  // Replace with actual point calculation logic
+        if(time == INVALID_TIME) {
+            return DEFAULT_POINT;
+        }
+        points = WalkAndRunCalculator.calculatePoints(user.gender, user.age, time);
         return points;
     }
 
@@ -33,6 +40,6 @@ public class WalkAndRunStation extends ExerciseStation {
 
     @Override
     public String toString() {
-        return "Time: " + time + " | " + points + " points";
+        return "Time: " + getTime() + " | " + points + " points";
     }
 }
