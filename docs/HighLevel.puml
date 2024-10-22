@@ -1,0 +1,84 @@
+@startuml
+' Use right-angle straight lines for relationships
+skinparam linetype ortho
+
+' Define classes
+class FitTrack {
+    +main(String[] args)
+}
+
+class Parser {
+    +parse(User user, String input, ArrayList<TrainingSession> sessionList)
+    +getExercise(String exerciseAcronym) : Exercise
+}
+
+class Ui {
+    +printGreeting()
+    +printUser(User user)
+    +printHelp()
+    +printAddedSession(ArrayList<TrainingSession> sessionList)
+    +printDeletedSession(ArrayList<TrainingSession> sessionList, TrainingSession sessionToDelete)
+    +printSessionList(ArrayList<TrainingSession> sessionList)
+    +printSessionView(ArrayList<TrainingSession> sessionList, int index)
+    +printUnrecognizedInputMessage()
+}
+
+class Storage {
+    +initialiseSaveFile()
+    +loadSaveFile(ArrayList<TrainingSession> sessionList)
+    +updateSaveFile(ArrayList<TrainingSession> sessionList)
+}
+
+class TrainingSession {
+    -LocalDateTime sessionDateTime
+    -String description
+    -User user
+    +editExercise(Exercise exercise, String data)
+    +printSessionDescription()
+    +viewSession()
+}
+
+class User {
+    -String gender
+    -int age
+    +setGender(String gender)
+    +setAge(int age)
+    +getGender() : String
+    +getAge() : int
+}
+
+enum Exercise {
+    PULL_UP
+    SHUTTLE_RUN
+    SIT_AND_REACH
+    SIT_UP
+    STANDING_BROAD_JUMP
+    WALK_AND_RUN
+}
+
+class FitTrackLogger {
+    +setupLogger()
+}
+
+' Define relationships with right-angle arrows
+FitTrack --> Parser : uses
+FitTrack --> Ui : uses
+FitTrack --> Storage : uses
+FitTrack --> User : manipulates
+FitTrack --> FitTrackLogger : uses
+
+Parser --> TrainingSession : manipulates
+Parser --> Exercise : gets
+Parser --> User : manipulates
+Parser --> Ui : uses
+
+Ui -> User : displays info
+Ui ---> TrainingSession : displays sessions
+
+Storage --> TrainingSession : manages
+Storage --> FitTrackLogger : uses
+
+TrainingSession --> User : belongs to
+TrainingSession --> Exercise : contains
+
+@enduml
