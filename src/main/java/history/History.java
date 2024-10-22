@@ -11,7 +11,6 @@ import java.util.logging.Level;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -86,7 +85,7 @@ public class History {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         LocalDate today = LocalDate.now();
-        LocalDate oneWeekAgo = today.minus(7, ChronoUnit.DAYS);
+        LocalDate oneWeekAgo = today.minusDays(7);
 
         int totalExercises = 0;
 
@@ -144,7 +143,7 @@ public class History {
             for (int i = 0; i < exercisesCount; i++) {
                 Exercise exercise = day.getExercise(i);
 
-                // If the exercise name matches and it has a higher weight than the current best, update the best
+                // If the exercise name matches, and it has a higher weight than the current best, update the best
                 if (exercise.getName().equalsIgnoreCase(exerciseName)) {
                     if (personalBest == null || isBetter(exercise, personalBest)) {
                         personalBest = exercise;
@@ -154,7 +153,7 @@ public class History {
         }
 
         if (personalBest != null) {
-            return "Personal best for " + exerciseName + ": " + personalBest.toString();
+            return "Personal best for " + exerciseName + ": " + personalBest;
         } else {
             return "No personal best found for " + exerciseName;
         }
