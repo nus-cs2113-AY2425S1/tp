@@ -12,8 +12,10 @@ import seedu.duke.command.ExitCommand;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.parser.DateParser;
 import seedu.duke.parser.InputParser;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Scanner;
 
