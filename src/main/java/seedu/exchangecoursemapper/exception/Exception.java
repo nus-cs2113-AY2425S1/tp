@@ -37,4 +37,8 @@ public class Exception extends Throwable {
     public static String filterCoursesLimitExceeded() {
         return "Please note that we can only filter for only one NUS Course!";
     }
+
+    public static String invalidCommand() {
+        return "Invalid command. \nPlease check the commands available by typing commands.";
+    }
 }

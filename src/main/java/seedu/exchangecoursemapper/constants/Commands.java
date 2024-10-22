@@ -11,4 +11,5 @@ public class Commands {
     public static final int COMMAND_WORD_INDEX = 0;
     public static final int FILTER_COURSES_MAX_ARGS = 2;
     public static final int ZERO_INDEX_OFFSET = 1;
+    public static final String HELP = "help";
 }
