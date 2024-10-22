@@ -1,8 +1,14 @@
 package seedu.javaninja;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class QuizManager {
@@ -12,7 +18,6 @@ public class QuizManager {
     private Quiz currentQuiz;
     private List<String> pastResults;
     private Storage storage;
-;
 
     public QuizManager() {
         this.topics = new ArrayList<>();
@@ -24,10 +29,16 @@ public class QuizManager {
 
     private void loadTopicsFromFile() {
         File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            logger.warning("Questions file not found. No topics loaded.");
+            return;
+        }
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                parseTopic(line);
+                if (!line.trim().isEmpty()) {
+                    parseTopic(line);
+                }
             }
         } catch (IOException e) {
             logger.severe("Error reading file: " + e.getMessage());
@@ -47,8 +58,10 @@ public class QuizManager {
 
     public void parseTopic(String line) {
         String[] parts = line.split("\\|");
-
-        assert parts.length >= 4 : "Invalid line format, expected at least 4 parts";
+        if (parts.length < 4) {
+            logger.warning("Invalid line format: " + line);
+            return;
+        }
 
         String topicName = parts[0].trim();
         String questionType = parts[1].trim();
@@ -60,7 +73,7 @@ public class QuizManager {
         case "Mcq":
             List<String> options = new ArrayList<>();
             for (int i = 4; i < parts.length; i++) {
-                options.add(parts[i]);
+                options.add(parts[i].trim());
             }
             topic.addQuestion(new Mcq(questionText, correctAnswer, options));
             break;
@@ -72,20 +85,23 @@ public class QuizManager {
         }
     }
 
-    public void selectTopic(String input) {
-        String topicName = input.split(" ")[1];
+    public void selectTopic(String topicName, Scanner scanner) {
+        if (topicName == null || topicName.trim().isEmpty()) {
+            logger.warning("Invalid input. Please provide a topic name.");
+            return;
+        }
 
         for (Topic topic : topics) {
-            if (topic.getName().equals(topicName)) {
-                startQuiz(topic);
+            if (topic.getName().equalsIgnoreCase(topicName.trim())) {
+                startQuiz(topic, scanner);
                 return;
             }
         }
         logger.warning("No such topic: " + topicName);
     }
 
-    public void startQuiz(Topic topic) {
-        currentQuiz = new Quiz(topic);
+    public void startQuiz(Topic topic, Scanner scanner) {
+        currentQuiz = new Quiz(topic, scanner);
         currentQuiz.start();
         int score = currentQuiz.getScore();
         String comment = generateComment(score);
@@ -94,16 +110,25 @@ public class QuizManager {
     }
 
     public void printTopics() {
-        logger.info("Listing all available topics.");
-        for (Topic topic : topics) {
-            System.out.println(topic.getName());
+        if (topics.isEmpty()) {
+            System.out.println("No topics available.");
+        } else {
+            logger.info("Listing all available topics:");
+            topics.forEach(topic -> System.out.println(topic.getName()));
         }
     }
 
     public void addTopic(Topic topic) {
-        assert topic != null : "Topic should not be null";
-        logger.info("Adding topic: " + topic.getName());
-        topics.add(topic);
+        if (topic == null) {
+            logger.warning("Cannot add a null topic.");
+            return;
+        }
+        if (!topics.contains(topic)) {
+            topics.add(topic);
+            logger.info("Added topic: " + topic.getName());
+        } else {
+            logger.warning("Topic already exists: " + topic.getName());
+        }
     }
 
     public int getTopicsCount() {
@@ -111,9 +136,15 @@ public class QuizManager {
     }
 
     public void removeTopic(Topic topic) {
-        assert topic != null : "Topic should not be null";
-        logger.info("Removing topic: " + topic.getName());
-        topics.remove(topic);
+        if (topic == null) {
+            logger.warning("Cannot remove a null topic.");
+            return;
+        }
+        if (topics.remove(topic)) {
+            logger.info("Removed topic: " + topic.getName());
+        } else {
+            logger.warning("Topic not found: " + topic.getName());
+        }
     }
 
     private void addPastResult(int score, String comment) {
@@ -138,9 +169,7 @@ public class QuizManager {
         }
 
         StringBuilder results = new StringBuilder();
-        for (String result : pastResults) {
-            results.append(result).append("\n");
-        }
+        pastResults.forEach(result -> results.append(result).append("\n"));
         return results.toString();
     }
 
@@ -161,7 +190,6 @@ public class QuizManager {
     }
 
     public void addQuestionByUser(String input) throws IOException {
-
         if (input.startsWith("add Flashcard")) {
             String[] parts = input.split("/q|/a");
             if (parts.length < 3) {
@@ -176,7 +204,6 @@ public class QuizManager {
             topic.addQuestion(new Flashcard(questionText, correctAnswer));
             logger.info("Added new Flashcard question.");
 
-            // Save the new question to the file
             String questionLine = "Flashcards | Flashcard | " + questionText + " | " + correctAnswer;
             saveQuestionToFile(questionLine);
         } else {
