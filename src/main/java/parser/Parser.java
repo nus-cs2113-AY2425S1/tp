@@ -46,20 +46,20 @@ public class Parser {
                 new Object[]{commandString, argumentString});
 
         switch (commandString) {
-            case ProgCommandParser.COMMAND_WORD:
-                return progParser.parse(argumentString);
-            case LogCommand.COMMAND_WORD:
-                return prepareLogCommand(argumentString);
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
-            case WeeklySummaryCommand.COMMAND_WORD:
-                return new WeeklySummaryCommand();  // Support for weekly summary command
-            case PersonalBestCommand.COMMAND_WORD:
-                return preparePersonalBestCommand(argumentString);  // Support for personal bests command
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
-            default:
-                return new InvalidCommand();
+        case ProgCommandParser.COMMAND_WORD:
+            return progParser.parse(argumentString);
+        case LogCommand.COMMAND_WORD:
+            return prepareLogCommand(argumentString);
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
+        case WeeklySummaryCommand.COMMAND_WORD:
+            return new WeeklySummaryCommand();  // Support for weekly summary command
+        case PersonalBestCommand.COMMAND_WORD:
+            return preparePersonalBestCommand(argumentString);  // Support for personal bests command
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+        default:
+            return new InvalidCommand();
         }
     }
 
@@ -94,17 +94,17 @@ public class Parser {
             }
 
             switch (flag) {
-                case "/p":
-                    progIndex = parseIndex(argParts[1]);
-                    break;
-                case "/d":
-                    dayIndex = parseIndex(argParts[1]);
-                    break;
-                case "/t":
-                    date = parseDate(argParts[1]);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Flag command not recognized: " + flag);
+            case "/p":
+                progIndex = parseIndex(argParts[1]);
+                break;
+            case "/d":
+                dayIndex = parseIndex(argParts[1]);
+                break;
+            case "/t":
+                date = parseDate(argParts[1]);
+                break;
+            default:
+                throw new IllegalArgumentException("Flag command not recognized: " + flag);
             }
         }
 
