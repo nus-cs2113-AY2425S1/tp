@@ -1,6 +1,7 @@
-package core;
+package storage;
 
 import com.google.gson.JsonObject;
+import history.History;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
