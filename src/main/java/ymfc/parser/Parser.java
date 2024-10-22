@@ -8,6 +8,7 @@ import ymfc.commands.EditCommand;
 import ymfc.commands.HelpCommand;
 import ymfc.commands.ListCommand;
 import ymfc.commands.SortCommand;
+import ymfc.commands.FindCommand;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
 import ymfc.recipe.Recipe;
@@ -59,6 +60,8 @@ public final class Parser {
             return getSortCommand(args);
         case "edit":
             return getEditCommand(args);
+        case "find":
+            return getFindCommand(args);
         default:
             throw new InvalidCommandException("Invalid command: " + command + "\ntype \"help\" for assistance");
         }
@@ -233,5 +236,32 @@ public final class Parser {
         } else {
             return new EditCommand(new Recipe(name, ingreds, steps));
         }
+    }
+
+    private static Command getFindCommand(String args) throws InvalidArgumentException {
+        final Pattern findCommandPattern =
+                // Options to feed into findCommand, could be null
+                // Length of 1 to 3, consist of only "nNiIsS", must ends with /
+                Pattern.compile("(?<options>[nNiIsS]{1,3}/)?" +
+                        // Query command
+                        "(?<query>[^/]+)");
+        args = args.trim();
+        Matcher m = findCommandPattern.matcher(args);
+        if (!m.matches()) {
+            throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + FindCommand.USAGE_EXAMPLE);
+        }
+
+        String query = m.group("query");
+        String options = m.group("options");
+        if (options == null) {
+            return new FindCommand(query); // Default case, no option provided
+        }
+
+        options = options.trim();
+        return new FindCommand(query,
+                options.contains("n") | options.contains("n"),
+                options.contains("i") | options.contains("I"),
+                options.contains("s") | options.contains("S")
+        );
     }
 }
