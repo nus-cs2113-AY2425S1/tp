@@ -39,6 +39,13 @@ public class TrainingSessionTest {
     }
 
     @Test
+    public void editWalkAndRunStation() {
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(5, "11:30");
+        assertEquals("Exercise edited! Here's your new input: " +
+                "Time: 690 | 5 points" + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
     public void testGetSessionDescription(){
         assertEquals(testDescription + " | " + testDatetimeOutput,
                 new TrainingSession(testDatetimeString, testDescription, testUser).getSessionDescription());
