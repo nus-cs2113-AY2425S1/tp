@@ -1,5 +1,7 @@
 package ui;
 
+import command.CommandResult;
+
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -78,6 +80,10 @@ public class Ui {
         String strippedMsg = msg.replaceFirst("\\n+$", "");
         out.println(strippedMsg);
         showLine();
+    }
+
+    public void showMessage(CommandResult result){
+        showMessage(result.getMessage());
     }
 
     /**
