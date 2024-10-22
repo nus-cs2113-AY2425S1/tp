@@ -4,7 +4,7 @@ import programme.Day;
 import programme.Exercise;
 import programme.ProgrammeList;
 
-public class DeleteExerciseCommand  extends EditSubCommand {
+public class DeleteExerciseCommand extends EditSubCommand {
 
     private final int exerciseId;
 
@@ -13,6 +13,11 @@ public class DeleteExerciseCommand  extends EditSubCommand {
         this.exerciseId = exerciseId;
     }
 
+    public int getExerciseId() {
+        return exerciseId;
+    }
+
+    @Override
     public String execute(ProgrammeList pList) {
         Day day = pList.getDay(progId, dayId);
         Exercise deleted = day.deleteExercise(exerciseId);
