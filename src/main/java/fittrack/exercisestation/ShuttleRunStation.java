@@ -8,12 +8,15 @@ public class ShuttleRunStation extends ExerciseStation {
     private int time;
 
     public ShuttleRunStation() {
-        time = 500;
-        points = 0;
+        time = INVALID_TIME;
+        points = DEFAULT_POINT;
     }
 
-    public int getTime() {
-        return time;
+    public String getTime() {
+        if(time == INVALID_TIME) {
+            return "NA";
+        }
+        return time + "s";
     }
 
     @Override
@@ -23,6 +26,9 @@ public class ShuttleRunStation extends ExerciseStation {
 
     @Override
     public int getPoints(User user) {
+        if(time == INVALID_TIME) {
+            return DEFAULT_POINT;
+        }
         points = ShuttleRunCalculator.calculatePoints(user.gender, user.age, time);
         return points;
     }
@@ -34,6 +40,6 @@ public class ShuttleRunStation extends ExerciseStation {
 
     @Override
     public String toString() {
-        return "Time: " + time + "s | " + points + " points";
+        return "Time: " + getTime() + " | " + points + " points";
     }
 }
