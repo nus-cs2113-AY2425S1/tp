@@ -188,7 +188,11 @@ public class AppUi {
 
         switch (command) {
         case "list":
-            listHelper(commandArguments);
+            try {
+                listHelper(commandArguments);
+            } catch (FinanceBuddyException e) {
+                System.out.println(e.getMessage());
+            }
             break;
 
         case "expense":
