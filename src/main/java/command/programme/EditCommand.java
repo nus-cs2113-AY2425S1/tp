@@ -1,5 +1,4 @@
 package command.programme;
-import command.Command;
 
 import command.CommandResult;
 import command.programme.edit.CreateDayCommand;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EditCommand extends Command {
+public class EditCommand extends ProgrammeCommand {
 
     public static final String COMMAND_WORD = "edit";
     private final Logger logger = Logger.getLogger(this.getClass().getName());

@@ -1,5 +1,5 @@
 package command.programme;
-import command.Command;
+
 import command.CommandResult;
 import programme.ProgrammeList;
 import history.History;
@@ -7,7 +7,7 @@ import history.History;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ListCommand extends Command {
+public class ListCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "list";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 

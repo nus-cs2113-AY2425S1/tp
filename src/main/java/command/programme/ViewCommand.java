@@ -1,5 +1,5 @@
 package command.programme;
-import command.Command;
+
 import command.CommandResult;
 
 import programme.ProgrammeList;
@@ -10,19 +10,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class ViewCommand extends Command {
+public class ViewCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "view";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private final int progId;
-
     public ViewCommand(int progId) {
-        this.progId = progId;
-        assert progId >= 0 : "progId must not be negative";
-    }
-
-    public int getProgId() {
-        return progId;
+        super(progId);
     }
 
     @Override

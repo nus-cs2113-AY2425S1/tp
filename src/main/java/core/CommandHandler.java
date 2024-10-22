@@ -27,7 +27,8 @@ public class CommandHandler {
 
                 if (command instanceof ExitCommand){
                     isRunning = false;
-                };
+                }
+
             } catch(Exception e){
                 ui.showError(e);
             }

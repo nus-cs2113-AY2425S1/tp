@@ -1,5 +1,5 @@
 package command.programme;
-import command.Command;
+
 import command.CommandResult;
 import programme.ProgrammeList;
 import programme.Programme;
@@ -8,19 +8,12 @@ import history.History;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class StartCommand extends Command {
+public class StartCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "start";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private final int progId;
-
     public StartCommand(int progId) {
-        this.progId = progId;
-        assert progId >= 0 : "progId must not be negative";
-    }
-
-    public int getProgId() {
-        return progId;
+        super(progId);
     }
 
     @Override
