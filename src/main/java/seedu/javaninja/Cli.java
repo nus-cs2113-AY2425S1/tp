@@ -1,5 +1,6 @@
 package seedu.javaninja;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /* Manages input by user */
@@ -10,7 +11,7 @@ public class Cli {
         quizManager = new QuizManager();
     }
 
-    public void start() {
+    public void start() throws IOException {
         System.out.println("Welcome to Java Ninja!");
         System.out.println("'view' to view topics");
         System.out.println("'select' to select a topic");
@@ -20,15 +21,17 @@ public class Cli {
         Scanner scanner = new Scanner(System.in);
 
         String input = scanner.nextLine();
-        while (!input.equalsIgnoreCase("quit")) {
-            switch (input.toLowerCase()) {
+        while (true) {
+            String command = processCommand(input);
+            if (command.equals("quit")) {
+                break;
+            }
+            switch (command) {
             case "view":
                 quizManager.printTopics();
                 break;
             case "select":
-                System.out.println("Enter topic name: ");
-                String topicName = scanner.nextLine();
-                quizManager.selectTopic(topicName);
+                quizManager.selectTopic(input);
                 break;
             case "review":
                 System.out.println("Reviewing your past results:");
@@ -38,12 +41,19 @@ public class Cli {
             case "help":
                 printHelp();
                 break;
+            case "add":
+                quizManager.addQuestionByUser(input);
+                break;
             default:
                 System.out.println("Invalid input. Type 'help' for a list of commands.");
             }
             input = scanner.nextLine();
         }
         System.out.println("Goodbye!");
+    }
+
+    public String processCommand(String input) {
+        return input.split(" ")[0].toLowerCase();
     }
 
     // Help message
