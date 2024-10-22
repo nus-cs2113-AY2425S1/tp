@@ -94,12 +94,69 @@ class SeeAllIncomesCommandTest {
         assertEquals(expectedOutput, output);
     }
 
+    @Test
+    void execute_mixedListBeforeCertainDate_expectPrintedIncomes() {
+        testCommand = new SeeAllIncomesCommand(null, LocalDate.of(24, 10, 10));
+        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10)));
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1)));
+        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 10, 10)));
+        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 10)));
+        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 11, 2)));
+        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(24, 9, 12)));
 
         testCommand.execute(financialList);
 
         String output = outputStream.toString();
-        String expectedOutput = "No recorded incomes found." + System.lineSeparator() +
-            "--------------------------------------------" + System.lineSeparator();
+        String expectedOutput =
+                "--------------------------------------------" + System.lineSeparator() +
+                "Here's a list of all recorded incomes:" + System.lineSeparator() +
+                "1. [Income] - salary $ 3000.00 (on 01/10/24)" + System.lineSeparator() +
+                "2. [Income] - ang pow money $ 15.00 (on 12/09/24)" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+
+        assertEquals(expectedOutput, output);
+    }
+
+    @Test
+    void execute_mixedListAfterCertainDate_expectPrintedIncomes() {
+        testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 10, 10), null);
+        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10)));
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1)));
+        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 10, 10)));
+        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 10)));
+        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 11, 2)));
+        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(24, 9, 12)));
+
+        testCommand.execute(financialList);
+
+        String output = outputStream.toString();
+        String expectedOutput =
+                "--------------------------------------------" + System.lineSeparator() +
+                "Here's a list of all recorded incomes:" + System.lineSeparator() +
+                "1. [Income] - allowance $ 100.00 (on 02/11/24)" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+
+        assertEquals(expectedOutput, output);
+    }
+
+    @Test
+    void execute_mixedListBeforeAndAfterCertainDate_expectPrintedIncomes() {
+        testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 9, 20), LocalDate.of(24, 10, 10));
+        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10)));
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1)));
+        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 10, 10)));
+        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 10)));
+        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 11, 2)));
+        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(24, 9, 12)));
+
+        testCommand.execute(financialList);
+
+        String output = outputStream.toString();
+        String expectedOutput =
+                "--------------------------------------------" + System.lineSeparator() +
+                "Here's a list of all recorded incomes:" + System.lineSeparator() +
+                "1. [Income] - salary $ 3000.00 (on 01/10/24)" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
     }
