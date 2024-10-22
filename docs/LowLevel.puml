@@ -1,0 +1,87 @@
+@startuml
+
+' Abstract class
+abstract class ExerciseStation {
+    + setPerformance(int performanceResult)
+    + getPoints(User user)
+    + getName() : String
+    + toString() : String
+    - points : int
+}
+
+' Classes that extend ExerciseStation
+class PullUpStation {
+    - name : String = "Pull Up Station"
+    - reps : int
+    + PullUpStation()
+    + getReps() : int
+    + setPerformance(int performanceResult)
+    + getPoints(User user) : int
+    + getName() : String
+    + toString() : String
+}
+
+class ShuttleRunStation {
+    - name : String = "Shuttle Run Station"
+    - time : int
+    + ShuttleRunStation()
+    + getTime() : String
+    + setPerformance(int performanceResult)
+    + getPoints(User user) : int
+    + getName() : String
+    + toString() : String
+}
+
+class SitAndReachStation {
+    - name : String = "Sit and Reach Station"
+    - length : int
+    + SitAndReachStation()
+    + getLength() : int
+    + setPerformance(int performanceResult)
+    + getPoints(User user) : int
+    + getName() : String
+    + toString() : String
+}
+
+class SitUpStation {
+    - name : String = "Sit Up Station"
+    - reps : int
+    + SitUpStation()
+    + getReps() : int
+    + setPerformance(int performanceResult)
+    + getPoints(User user) : int
+    + getName() : String
+    + toString() : String
+}
+
+class StandingBroadJumpStation {
+    - name : String = "Standing Broad Jump Station"
+    - distance : int
+    + StandingBroadJumpStation()
+    + getDistance() : int
+    + setPerformance(int performanceResult)
+    + getPoints(User user) : int
+    + getName() : String
+    + toString() : String
+}
+
+class WalkAndRunStation {
+    - name : String = "Walk and Run Station"
+    - time : int
+    + WalkAndRunStation()
+    + getTime() : String
+    + setPerformance(int performanceResult)
+    + getPoints(User user) : int
+    + getName() : String
+    + toString() : String
+}
+
+' Relationship between ExerciseStation and its subclasses
+ExerciseStation <|-- PullUpStation
+ExerciseStation <|-- ShuttleRunStation
+ExerciseStation <|-- SitAndReachStation
+ExerciseStation <|-- SitUpStation
+ExerciseStation <|-- StandingBroadJumpStation
+ExerciseStation <|-- WalkAndRunStation
+
+@enduml

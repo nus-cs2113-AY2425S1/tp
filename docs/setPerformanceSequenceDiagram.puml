@@ -1,0 +1,13 @@
+@startuml
+TrainingSession -> PullUpStation : setPerformance(reps)
+activate PullUpStation
+
+PullUpStation -> PullUpCalculator : calculatePoints(user.gender, user.age, reps)
+activate PullUpCalculator
+
+PullUpCalculator --> PullUpStation : return calculated points
+deactivate PullUpCalculator
+
+PullUpStation --> TrainingSession : return
+deactivate PullUpStation
+@enduml
