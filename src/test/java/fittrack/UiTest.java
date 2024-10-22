@@ -51,7 +51,7 @@ public class UiTest {
     public void testPrintAddedSession() {
         User user = new User(Gender.MALE.toString(), "12");
         ArrayList<TrainingSession> sessions = new ArrayList<>();
-        TrainingSession session = new TrainingSession(LocalDateTime.now().toString(), "test1", user);
+        TrainingSession session = new TrainingSession(LocalDateTime.now(), "test1", user);
         sessions.add(session);
         Ui.printAddedSession(sessions);
         assertEquals(SEPARATOR + System.lineSeparator() + ADD_SESSION_MESSAGE + session.getSessionDescription()
@@ -63,7 +63,7 @@ public class UiTest {
     public void testPrintDeletedSession() {
         User user = new User(Gender.MALE.toString(), "12");
         ArrayList<TrainingSession> sessions = new ArrayList<>();
-        TrainingSession session = new TrainingSession(LocalDateTime.now().toString(), "test1", user);
+        TrainingSession session = new TrainingSession(LocalDateTime.now(), "test1", user);
         sessions.add(session);
         Ui.printDeletedSession(sessions, session);
         assertEquals(SEPARATOR + System.lineSeparator() + DELETE_SESSION_MESSAGE + session.getSessionDescription()
@@ -83,7 +83,7 @@ public class UiTest {
     public void testPrintSessionListNonEmpty() {
         User user = new User(Gender.MALE.toString(), "12");
         ArrayList<TrainingSession> sessions = new ArrayList<>();
-        TrainingSession session = new TrainingSession(LocalDateTime.now().toString(), "test1", user);
+        TrainingSession session = new TrainingSession(LocalDateTime.now(), "test1", user);
         sessions.add(session);
         Ui.printSessionList(sessions);
         assertEquals(SEPARATOR + System.lineSeparator() + LIST_MESSAGE + System.lineSeparator() + "1. "
