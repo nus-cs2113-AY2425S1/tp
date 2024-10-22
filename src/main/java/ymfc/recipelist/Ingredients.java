@@ -36,7 +36,7 @@ public class Ingredients {
         for (int i = 0; i < ingredients.size(); i++) {
             if (ingredients.get(i).getName().equalsIgnoreCase(name)) {
                 ingredients.remove(i);
-i                return true;
+                return true;
             }
         }
         return false;
