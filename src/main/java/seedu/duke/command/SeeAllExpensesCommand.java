@@ -54,7 +54,7 @@ public class SeeAllExpensesCommand extends Command{
         }
 
         if (expenseCount == 0) {
-            System.out.println("No entries found.");
+            System.out.println("No recorded expenses found.");
             System.out.println("--------------------------------------------");
             return;
         }
