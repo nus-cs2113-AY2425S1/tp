@@ -16,12 +16,16 @@ activate JsonObject
 JsonObject --> Command: JsonObject
 deactivate JsonObject
 
-Command -> ListSchoolCommand: return JsonObject
+Command --> ListSchoolCommand: JsonObject
 deactivate Command
 
 ListSchoolCommand -> ListSchoolCommand: displaySchoolList(JsonObject)
 activate ListSchoolCommand
 
-ListSchoolCommand -> CEG_Student: Print list of university names
+ListSchoolCommand --> ListSchoolCommand
+deactivate ListSchoolCommand
+
+
+ListSchoolCommand --> CEG_Student: Print list of university names
 deactivate ListSchoolCommand
 @enduml
