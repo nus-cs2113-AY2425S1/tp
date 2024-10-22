@@ -1,5 +1,6 @@
 package fittrack.trainingsession;
 
+import fittrack.enums.Exercise;
 import fittrack.exercisestation.ExerciseStation;
 import fittrack.exercisestation.PullUpStation;
 import fittrack.exercisestation.ShuttleRunStation;
@@ -10,6 +11,8 @@ import fittrack.exercisestation.WalkAndRunStation;
 import fittrack.user.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class TrainingSession{
 
@@ -31,37 +34,47 @@ public class TrainingSession{
     private String sessionDescription;
     private User user;
 
-    private ExerciseStation[] exerciseData = {new PullUpStation(), new ShuttleRunStation(), new SitAndReachStation(),
-        new SitUpStation(), new StandingBroadJumpStation(), new WalkAndRunStation()};
+    private Map<Exercise, ExerciseStation> exerciseStations = new EnumMap<>(Exercise.class);
 
     public TrainingSession(LocalDateTime datetime, String sessionDescription, User user) {
         this.sessionDatetime = datetime;
         this.sessionDescription = sessionDescription;
         this.user = user;
+        initialiseExerciseStations();
     }
 
-    private int processReps(int exerciseNum, String reps){
-        if(exerciseNum == 1) {
+    private void initialiseExerciseStations(){
+        exerciseStations.put(Exercise.PULL_UP, new PullUpStation());
+        exerciseStations.put(Exercise.SHUTTLE_RUN, new ShuttleRunStation());
+        exerciseStations.put(Exercise.SIT_AND_REACH, new SitAndReachStation());
+        exerciseStations.put(Exercise.SIT_UP, new SitUpStation());
+        exerciseStations.put(Exercise.STANDING_BROAD_JUMP, new StandingBroadJumpStation());
+        exerciseStations.put(Exercise.WALK_AND_RUN, new WalkAndRunStation());
+    }
+
+    private int processReps(Exercise exerciseType, String reps){
+        switch (exerciseType) {
+        case SHUTTLE_RUN:
             reps = reps.replace(".", "");
             return Integer.parseInt(reps);
-        } else if(exerciseNum == 5) {
+        case WALK_AND_RUN:
             String[] minutesSeconds = reps.split(":");
-            int minutesInSeconds = Integer.parseInt(minutesSeconds[0])*60;
+            int minutesInSeconds = Integer.parseInt(minutesSeconds[0]) * 60;
             int seconds = Integer.parseInt(minutesSeconds[1]);
             return minutesInSeconds + seconds;
-        } else{
+        default:
             return Integer.parseInt(reps);
         }
     }
 
     //Edits session data
-    public void editExercise(int exerciseNum, String reps) {
-        assert exerciseNum >= 0 && exerciseNum <= 5;
-        int actualReps = processReps(exerciseNum, reps);
-        exerciseData[exerciseNum].setPerformance(actualReps);
-        exerciseData[exerciseNum].getPoints(user);
+    public void editExercise(Exercise exerciseType, String reps) {
+        int actualReps = processReps(exerciseType, reps);
+        ExerciseStation currentExercise = exerciseStations.get(exerciseType);
+        currentExercise.setPerformance(actualReps);
+        currentExercise.getPoints(user);
         System.out.print("Exercise edited! Here's your new input: " +
-                exerciseData[exerciseNum] + System.lineSeparator());
+                currentExercise + System.lineSeparator());
     }
 
     //Returns string for award attained
@@ -97,14 +110,14 @@ public class TrainingSession{
                 "Training Datetime: " + this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
                 + System.lineSeparator());
 
-        for(int i = 0; i < NUM_OF_EXERCISES; i++) {
-            exercisePoint = exerciseData[i].getPoints(user);
+        for(ExerciseStation exercise : exerciseStations.values()) {
+            exercisePoint = exercise.getPoints(user);
             totalPoints += exercisePoint;
             if(minPoint > exercisePoint) {
                 minPoint = exercisePoint;
             }
-            System.out.print(exerciseData[i].getName() + " | " +
-                    exerciseData[i] + System.lineSeparator());
+            System.out.print(exercise.getName() + " | " +
+                    exercise + System.lineSeparator());
         }
 
         System.out.print("Total points: " + totalPoints + System.lineSeparator() +
