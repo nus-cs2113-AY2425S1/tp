@@ -1,6 +1,9 @@
 package seedu.duke;
 
 import java.text.DecimalFormat;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 
 public class Expense {
     private String name;
@@ -30,12 +33,13 @@ public class Expense {
     }
 
     public String formatAmount() {
+        BigDecimal roundedAmount = BigDecimal.valueOf(amount).setScale(2, RoundingMode.HALF_UP);
         DecimalFormat wholeNumberFormat = new DecimalFormat("$#");
         DecimalFormat decimalFormat = new DecimalFormat("$#.00");
-        if (amount % 1 == 0) {
-            return wholeNumberFormat.format(amount);
+        if (roundedAmount.stripTrailingZeros().scale() <= 0) {
+            return wholeNumberFormat.format(roundedAmount);
         } else {
-            return decimalFormat.format(amount);
+            return decimalFormat.format(roundedAmount);
         }
     }
 
