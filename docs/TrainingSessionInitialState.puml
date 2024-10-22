@@ -1,0 +1,59 @@
+@startuml
+
+class TrainingSession {
+    - exerciseStations: EnumMap<Exercise, ExerciseStation>
+}
+
+class ExerciseStation {
+    - reps: int = 0
+    - points: int = 0
+}
+
+class PullUpStation {
+    - reps: int = 0
+    - points: int = 0
+}
+
+class ShuttleRunStation {
+    - time: int = -1
+    - points: int = 0
+}
+
+class SitAndReachStation {
+    - reps: int = 0
+    - points: int = 0
+}
+
+class SitUpStation {
+    - reps: int = 0
+    - points: int = 0
+}
+
+class StandingBroadJumpStation {
+    - reps: int = 0
+    - points: int = 0
+}
+
+class WalkAndRunStation {
+    - time: int = -1
+    - points: int = 0
+}
+
+enum Exercise {
+    PULL_UP,
+    SHUTTLE_RUN,
+    SIT_AND_REACH,
+    SIT_UP,
+    STANDING_BROAD_JUMP,
+    WALK_AND_RUN
+}
+
+' Creating instances of the ExerciseStation subclasses
+TrainingSession --> PullUpStation : exerciseStations
+TrainingSession --> ShuttleRunStation : exerciseStations
+TrainingSession --> SitAndReachStation : exerciseStations
+TrainingSession --> SitUpStation : exerciseStations
+TrainingSession --> StandingBroadJumpStation : exerciseStations
+TrainingSession --> WalkAndRunStation : exerciseStations
+
+@enduml
