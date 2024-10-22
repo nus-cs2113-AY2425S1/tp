@@ -34,8 +34,8 @@ public class TrainingSession{
     private ExerciseStation[] exerciseData = {new PullUpStation(), new ShuttleRunStation(), new SitAndReachStation(),
         new SitUpStation(), new StandingBroadJumpStation(), new WalkAndRunStation()};
 
-    public TrainingSession(String datetime, String sessionDescription, User user) {
-        this.sessionDatetime = LocalDateTime.parse(datetime);
+    public TrainingSession(LocalDateTime datetime, String sessionDescription, User user) {
+        this.sessionDatetime = datetime;
         this.sessionDescription = sessionDescription;
         this.user = user;
     }
