@@ -6,6 +6,16 @@
 
 ## Design & implementation
 
+User Component
+
+Storage Component
+
+FitTrack Component
+
+Parser Component
+
+Ui Component
+
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 

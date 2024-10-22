@@ -12,6 +12,12 @@ public class Messages {
     public static final String EDIT_EXERCISE_COMMAND = "edit";
     public static final String DELETE_SESSION_COMMAND = "delete";
     public static final String EXIT_COMMAND = "exit";
+    public static final String PULL_UP_ACRONYM = "PU";
+    public static final String SHUTTLE_RUN_ACRONYM = "SR";
+    public static final String SIT_AND_REACH_ACRONYM = "SAR";
+    public static final String SIT_UP_ACRONYM = "SU";
+    public static final String STANDING_BROAD_JUMP_ACRONYM = "SBJ";
+    public static final String WALK_AND_RUN_ACRONYM = "WAR";
 
     public static final String INIT_SENTENCE = "Hello! I'm FitTrack."
             + System.lineSeparator() + "Please input your gender and age:";
