@@ -8,14 +8,14 @@
 {TODO: Class Diagram}
 {TODO: Object Diagram}
 
-### List Schools Command
+### 1. List Schools Command
 
-#### Overview
+#### Overview:
 This command is responsible for displaying and retrieving the full list of university
 from `database.json` file. It helps the users to identify the possible choices in South East Asia
 and Oceania.
 
-#### How the feature is implemented
+#### How the feature is implemented:
 * The `ListSchoolCommand` class extends `Command` class where it overrides the `execute` method for
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
@@ -25,22 +25,22 @@ and Oceania.
 * There are also assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.  
 
-#### Why it is implemented that way
+#### Why it is implemented that way:
 * The `execute` method is essential and unique to every command class so inheritance was used. 
 * Every method in the class remains maintainable and has one responsibility this allows easy debugging and
   refactoring.
 * Logging and assertions helps the team of developers to follow through the command execution.
 
-#### Alternatives considered
+#### Alternatives considered:
 * Reading of the `database.json` was tricky and other libraries were considered.
 * Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure 
   readability.
 
-#### Sequence Diagram on PlantUML
+#### Sequence Diagram on PlantUML:
 ![List School Command Sequence Diagram](../uml-images/ListSchoolsCommand.png)
 
-### Obtain Partner University Email
-### Obtain Partner University Contact Number
+### 2. Obtain Partner University Email
+### 3. Obtain Partner University Contact Number
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 
