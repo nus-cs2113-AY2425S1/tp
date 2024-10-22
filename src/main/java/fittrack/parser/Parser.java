@@ -52,14 +52,15 @@ public class Parser {
             break;
         case ADD_SESSION_COMMAND:
             assert !description.isEmpty() : "Session description must not be empty";
-            sessionList.add(new TrainingSession(LocalDateTime.now().toString(), description, user));
+            LocalDateTime currentTime = LocalDateTime.now();
+            sessionList.add(new TrainingSession(currentTime, description, user));
             printAddedSession(sessionList);
             break;
         case EDIT_EXERCISE_COMMAND:
             sentence = description.split(" ", 3);
             assert sentence.length == 3 : "Edit exercise command requires exactly 3 arguments";
             int sessionIndex = Integer.parseInt(sentence[0]) - 1;
-            String exerciseIndex = sentence[1];
+            int exerciseIndex = Integer.parseInt(sentence[1]);
             String exerciseData = sentence[2];
             assert sessionIndex >= 0 && sessionIndex < sessionList.size() : "Session index out of bounds";
             sessionList.get(sessionIndex).editExercise(exerciseIndex, exerciseData);
