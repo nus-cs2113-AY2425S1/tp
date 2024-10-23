@@ -64,4 +64,20 @@ public class TaskCommandTest {
         assertEquals(AddTaskCommand.MESSAGE_DUPLICATE_TASK, commandResult.getFeedbackToUser());
     }
     
+    @Test
+    void testFindTask(){
+        TaskList tasks = new TaskList();
+        AddTaskCommand command = new AddTaskCommand("Read book");
+        command.setData(tasks);
+        command.execute();
+        
+        AddTaskCommand command2 = new AddTaskCommand("Meomeo");
+        command2.setData(tasks);
+        command2.execute();
+
+        FindTaskCommand findTaskCommand = new FindTaskCommand("meo");
+        findTaskCommand.setData(tasks);
+        CommandResult commandResult = findTaskCommand.execute();
+        assertEquals("Here are the matching tasks in your list: \n1. [ ] Meomeo\n", commandResult.getFeedbackToUser());
+    }
 }

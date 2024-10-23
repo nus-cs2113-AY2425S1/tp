@@ -90,12 +90,15 @@ public class TaskList {
         setCompletionRate(calCompletionRate());
     }
 
-    public TaskList findTasks(String keyword) throws DuplicateTaskException {
-        TaskList matchingTasks = new TaskList();
+    public ArrayList<Task> findTasks(String keyword) throws TaskNotFoundException {
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
-                matchingTasks.addTask(task);
+                matchingTasks.add(task);
             }
+        }
+        if (matchingTasks.isEmpty()) {
+            throw new TaskNotFoundException();
         }
         return matchingTasks;
     }
