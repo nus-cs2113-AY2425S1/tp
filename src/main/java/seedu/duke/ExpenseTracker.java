@@ -98,15 +98,16 @@ public class ExpenseTracker {
             System.out.println("Invalid index");
             return;
         }
+        String formattedCategoryName = formatInput(categoryName.trim());
         for (Category category : categories) {
-            if (category.getName().equalsIgnoreCase(categoryName)) {
+            if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
                 Expense expense = expenses.get(expenseIndex);
-                expense.setCategory(categoryName);
+                expense.setCategory(formattedCategoryName);
                 System.out.println("Tagged expense: " + expense);
                 return;
             }
         }
-        System.out.println("Category '" + categoryName + "' does not exist.");
+        System.out.println("Category '" + formattedCategoryName + "' does not exist.");
     }
 
     public void tagExpense(String input) {
