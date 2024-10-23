@@ -41,6 +41,14 @@ class ExpenseTest {
         Expense expense = new Expense("Movie", 12.5, null);
         assertEquals(" Item: Movie, Amount: $12.50, Category: null", expense.toString());
     }
+
+    @Test
+    public void setCategorySuccess() {
+        Category category = new Category("Entertainment");
+        Expense expense = new Expense("Movie", 12.5, null);
+        expense.setCategory(category);
+        assertEquals("Entertainment", expense.getCategory().getName());
+    }
 }
 
 class CategoryTest {
