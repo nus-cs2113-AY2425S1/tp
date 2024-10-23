@@ -68,6 +68,7 @@ public class ExpenseList {
         try {
             logger.log(Level.INFO, "Attempting to edit expense.");
             Expense expense = expenses.get(index);
+            assert (expense != null);
             expense.setPrice(price);
             expense.setDescription(description);
             expense.setCategory(category);
