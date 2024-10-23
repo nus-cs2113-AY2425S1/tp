@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
-import seedu.duke.parser.DateParser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
