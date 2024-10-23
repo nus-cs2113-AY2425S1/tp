@@ -12,6 +12,8 @@ public class Expense {
         this.category = category;
     }
 
+    public Expense() {}
+
     
     public Float getPrice() {
         return price;
