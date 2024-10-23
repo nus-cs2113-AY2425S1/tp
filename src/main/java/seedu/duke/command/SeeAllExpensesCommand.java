@@ -7,12 +7,17 @@ import seedu.duke.financial.Income;
 
 import java.time.LocalDate;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * The SeeAllExpensesCommand class is responsible for displaying all recorded expenses
  * from the provided FinancialList. It extends the Command class and overrides the 
  * execute method to perform this functionality.
  */
 public class SeeAllExpensesCommand extends Command{
+    private static final Logger logger = Logger.getLogger(SeeAllExpensesCommand.class.getName());
+  
     private LocalDate start;
     private LocalDate end;
 
@@ -42,6 +47,12 @@ public class SeeAllExpensesCommand extends Command{
      */
     @Override
     public void execute(FinancialList list) {
+        if (list == null) {
+            logger.log(Level.SEVERE, "Financial list is null");
+            assert list != null : "Financial list cannot be null";
+            throw new IllegalArgumentException("Financial list cannot be null");
+        }
+
         System.out.println("--------------------------------------------");
         String expenseList = "";
         int expenseCount = 0;

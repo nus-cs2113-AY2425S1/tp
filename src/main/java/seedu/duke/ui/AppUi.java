@@ -50,11 +50,12 @@ public class AppUi {
         String date = commandArguments.get("/dt");
 
         try {
-            AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description, date);
-            addIncomeCommand.execute(financialList);
+            AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date);
+            addExpenseCommand.execute(financialList);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());  // Display error message when invalid date is provided
         }
+
     }
 
     /**
@@ -72,8 +73,8 @@ public class AppUi {
         String date = commandArguments.get("/dt");
 
         try {
-            AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date);
-            addExpenseCommand.execute(financialList);
+            AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description, date);
+            addIncomeCommand.execute(financialList);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());  // Display error message when invalid date is provided
         }
