@@ -76,19 +76,19 @@ public class DataAdapter {
         return jsonObject;
     }
 
-    public JsonObject programmeListToJson(ProgrammeList programmeList) {
+    private JsonObject programmeListToJson(ProgrammeList programmeList) {
         Gson gson = new Gson();
         logger.log(Level.INFO, "Programme list converted to Json for saving.");
         return gson.toJsonTree(programmeList).getAsJsonObject();
     }
 
-    public static ProgrammeList programmeListFromJson(JsonObject jsonObject) {
+    private static ProgrammeList programmeListFromJson(JsonObject jsonObject) {
         Gson gson = new Gson();
         logger.log(Level.INFO, "Programme list converted from Json for loading.");
         return gson.fromJson(jsonObject, ProgrammeList.class);
     }
 
-    public JsonObject historyToJson(History history) {
+    private JsonObject historyToJson(History history) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new DateSerializer())  // Custom serializer for LocalDate
                 .setPrettyPrinting()
@@ -106,8 +106,7 @@ public class DataAdapter {
         return historyJson;
     }
 
-    // Creates a History object from a JSON string
-    public static History historyFromJson(JsonObject jsonObject) {
+    private static History historyFromJson(JsonObject jsonObject) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new DateSerializer())  // Custom deserializer for LocalDate
                 .create();
