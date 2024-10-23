@@ -14,6 +14,20 @@ class ExpenseTest {
         assertEquals(12.50, expense.getAmount());
         assertEquals(category, expense.getCategory());
     }
+
+    @Test
+    public void formatAmountWholeNumber() {
+        Category category = new Category("Groceries");
+        Expense expense = new Expense("Apple", 3.0, category);
+        assertEquals("$3", expense.formatAmount());
+    }
+
+    @Test
+    public void formatAmountDecimalNumber() {
+        Category category = new Category("Groceries");
+        Expense expense = new Expense("Banana", 2.75, category);
+        assertEquals("$2.75", expense.formatAmount());
+    }
 }
 
 class CategoryTest {
