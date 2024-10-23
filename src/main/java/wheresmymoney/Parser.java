@@ -22,13 +22,12 @@ public class Parser {
     public static final String ARGUMENT_PRICE = "price";
     public static final String ARGUMENT_DESCRIPTION = "description";
 
-    private static Logger logger = Logger.getLogger("Foo");
     /**
      * Gets command from words.
      * @param words String list of arguments
      * @return command word
      */
-    private String getCommandFromWords(String[] words){
+    private static String getCommandFromWords(String[] words){
         // Command
         if (words.length == 0) {
             return "";
@@ -42,7 +41,7 @@ public class Parser {
      * @param argumentsMap Arguments Mapping
      * @param words String list of arguments
      */
-    private void packCommandToExistingArgumentsMap(HashMap<String, String> argumentsMap, String[] words) {
+    private static void packCommandToExistingArgumentsMap(HashMap<String, String> argumentsMap, String[] words) {
         argumentsMap.put(Parser.ARGUMENT_COMMAND,getCommandFromWords(words));
     }
 
@@ -51,7 +50,7 @@ public class Parser {
      * @param argumentsMap Arguments Mapping
      * @param words String list of arguments
      */
-    private void packFollowingArgumentsToExistingArgumentsMap(HashMap<String, String> argumentsMap, String[] words) {
+    private static void packFollowingArgumentsToExistingArgumentsMap(HashMap<String, String> argumentsMap, String[] words) {
         // Arguments
         String currArgumentName = Parser.ARGUMENT_MAIN;
         StringBuilder currArgument = new StringBuilder();
@@ -82,7 +81,7 @@ public class Parser {
      * Packs words into a new argument map.
      * @param words String list of arguments/words
      */
-    private HashMap<String, String> packWordsToArgumentsMap(String[] words) {
+    private static HashMap<String, String> packWordsToArgumentsMap(String[] words) {
         HashMap<String, String> argumentsList = new HashMap<>();
         packCommandToExistingArgumentsMap(argumentsList, words);
         packFollowingArgumentsToExistingArgumentsMap(argumentsList, words);
@@ -94,8 +93,8 @@ public class Parser {
      * @param line Line that a user inputs
      * @return HashMap of Arguments, mapping the argument to its value given
      */
-    public HashMap<String, String> parseLineToArgumentsMap(String line) {
-        logger.log(Level.INFO, "Parsing Line: " + line);
+    public static HashMap<String, String> parseLineToArgumentsMap(String line) {
+        Logging.log(Level.INFO, "Parsing Line: " + line);
         String[] words = line.split(" ");
         return packWordsToArgumentsMap(words);
     }
@@ -107,7 +106,7 @@ public class Parser {
      * @return Whether to continue running the program
      * @throws wheresmymoney.exception.WheresMyMoneyException If command fails to run
      */
-    public Command commandMatching(HashMap<String, String> argumentsMap)
+    public static Command commandMatching(HashMap<String, String> argumentsMap)
             throws WheresMyMoneyException {
         switch(argumentsMap.get(Parser.ARGUMENT_COMMAND)) {
         case "bye":
@@ -131,7 +130,7 @@ public class Parser {
         }
     }
 
-    public Command parseInputToCommand(String line) throws WheresMyMoneyException {
+    public static Command parseInputToCommand(String line) throws WheresMyMoneyException {
         return commandMatching(parseLineToArgumentsMap(line));
     }
 }

@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -16,7 +15,6 @@ import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 public class ExpenseList {
-    private static Logger logger = Logger.getLogger("Bar");
     private ArrayList<Expense> expenses;
 
     public ExpenseList() {
@@ -52,12 +50,12 @@ public class ExpenseList {
      * @param category New category of expense
      */
     public void addExpense(Float price, String description, String category) {
-        logger.log(Level.INFO,
+        Logging.log(Level.INFO,
                 String.format("Adding expense with parameters: %f, %s, %s", price, description, category));
         Expense expense = new Expense(price, description, category);
         assert (expense != null);
         expenses.add(expense);
-        logger.log(Level.INFO, "Successfully added expense.");
+        Logging.log(Level.INFO, "Successfully added expense.");
     }
 
     /**
@@ -70,15 +68,15 @@ public class ExpenseList {
      */
     public void editExpense(int index, Float price, String description, String category) throws WheresMyMoneyException {
         try {
-            logger.log(Level.INFO, "Attempting to edit expense.");
+            Logging.log(Level.INFO, "Attempting to edit expense.");
             Expense expense = expenses.get(index);
             assert (expense != null);
             expense.setPrice(price);
             expense.setDescription(description);
             expense.setCategory(category);
-            logger.log(Level.INFO, "Successfully edited expense.");
+            Logging.log(Level.INFO, "Successfully edited expense.");
         } catch (WheresMyMoneyException e) {
-            logger.log(Level.INFO, "Failure when editing expense.");
+            Logging.log(Level.INFO, "Failure when editing expense.");
             throw new WheresMyMoneyException(e.getMessage());
         }
     }
@@ -99,7 +97,7 @@ public class ExpenseList {
         ArrayList<Expense> expensesFromCategory = new ArrayList<>();
         for (Expense expense: expenses) {
             if (expense.category.equals(category)) {
-                logger.log(Level.INFO, "Found matching expense: " + expense.description);
+                Logging.log(Level.INFO, "Found matching expense: " + expense.description);
                 expensesFromCategory.add(expense);
             }
         }

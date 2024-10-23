@@ -3,7 +3,6 @@ package wheresmymoney.command;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 public class SaveCommand extends Command {

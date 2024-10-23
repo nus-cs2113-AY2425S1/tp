@@ -3,7 +3,6 @@ package wheresmymoney;
 import wheresmymoney.command.Command;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.util.HashMap;
 
 public class Main {
     /**
@@ -11,15 +10,14 @@ public class Main {
      */
     public static void main(String[] args) {
         ExpenseList expenseList = new ExpenseList();
-        Parser parser = new Parser();
-
         Ui.displayIntroText();
+        Logging.getInstance(); // Initialise at the start
 
         boolean isExit = false;
         while (!isExit){
             try {
                 String line = Ui.getCommand();
-                Command command = parser.parseInputToCommand(line);
+                Command command = Parser.parseInputToCommand(line);
                 command.execute(expenseList);
                 isExit = command.isExit();
             } catch (WheresMyMoneyException e){

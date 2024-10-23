@@ -3,6 +3,7 @@ package wheresmymoney.command;
 import wheresmymoney.Parser;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Ui;
+import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
@@ -15,9 +16,13 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
-        float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
-        String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
-        String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
-        expenseList.addExpense(price, description, category);
+        try {
+            float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
+            String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
+            String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
+            expenseList.addExpense(price, description, category);
+        }catch(NullPointerException | NumberFormatException e){
+            throw new InvalidInputException("Invalid Arguments");
+        }
     }
 }

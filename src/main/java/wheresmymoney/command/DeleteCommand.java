@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
         try {
             int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
             expenseList.deleteExpense(index);
-        } catch (NumberFormatException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments.");
         }
     }
