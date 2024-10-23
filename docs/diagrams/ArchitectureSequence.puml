@@ -1,0 +1,50 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+Participant ":Main" as main
+Participant ":Ui" as ui
+Participant ":Parser" as parser
+Participant ":XYZCommand" as command
+
+main -> ui : getCommand()
+activate ui
+ui --> main : UserCommandText: String
+deactivate ui
+
+create parser
+main -> parser : Parser()
+activate parser
+parser --> main : :Parser
+deactivate parser
+
+main -> parser : parseCommand(UserCommandText: String)
+activate parser
+
+create command
+parser -> command : XYZCommand()
+activate command
+command --> parser : :XYZCommand
+deactivate command
+
+parser --> main : command:XYZCommand
+deactivate parser
+destroy parser
+
+main -> command : execute()
+activate command
+command --> main
+deactivate command
+
+main -> ui : showOutputToUser(command: Command)
+activate ui
+
+ui -> command : getMessage()
+activate command
+
+command --> ui : :String
+deactivate command
+
+ui --> main
+deactivate ui
+
+@enduml
