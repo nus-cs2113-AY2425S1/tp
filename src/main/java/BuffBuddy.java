@@ -1,5 +1,5 @@
 import core.CommandHandler;
-import core.DataManager;
+import core.DataAdapter;
 
 import history.History;
 import ui.Ui;
@@ -11,15 +11,15 @@ public class BuffBuddy {
 
     private final History history;
     private final ProgrammeList programmes;
-    private final DataManager dataManager;
+    private final DataAdapter dataAdapter;
     private final CommandHandler commandHandler;
 
 
     public BuffBuddy(String filePath) {
         ui = new Ui();
-        dataManager = new DataManager(filePath);
-        programmes = dataManager.loadProgrammeList();
-        history = dataManager.loadHistory();
+        dataAdapter = new DataAdapter(filePath);
+        programmes = dataAdapter.loadProgrammeList();
+        history = dataAdapter.loadHistory();
         commandHandler = new CommandHandler();
     }
 
@@ -31,6 +31,6 @@ public class BuffBuddy {
         ui.showWelcome();
         commandHandler.run(ui, programmes, history);
         ui.showFarewell();
-        dataManager.saveData(programmes, history);
+        dataAdapter.saveData(programmes, history);
     }
 }
