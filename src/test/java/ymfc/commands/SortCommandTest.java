@@ -1,6 +1,7 @@
 package ymfc.commands;
 
-import ymfc.recipelist.RecipeList;
+import ymfc.list.IngredientList;
+import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 import ymfc.recipe.Recipe;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class SortCommandTest {
     private Storage storage;
     private RecipeList recipeList;
+    private IngredientList ingredientList;
     private RecipeList nameSortedRecipeList;
     private RecipeList timeSortedRecipeList;
     private Ui ui;
@@ -27,7 +29,7 @@ public class SortCommandTest {
         nameSortedRecipeList = new RecipeList();
         timeSortedRecipeList = new RecipeList();
         ui = new Ui(System.in);
-        storage = new Storage("./data/recipes.txt");
+        storage = new Storage();
 
         // Add some sample recipes
         ArrayList<String> pastaIngredients = new ArrayList<>();
@@ -97,13 +99,13 @@ public class SortCommandTest {
 
         assertNotEquals(nameSortedRecipeList.getRecipes(), recipeList.getRecipes());
         // Execute the SortCommand to sort by name
-        sortByNameCommand.execute(recipeList, ui, storage);
+        sortByNameCommand.execute(recipeList, ingredientList, ui, storage);
         // Assertion to verify that recipes were sorted by name
         assertEquals(nameSortedRecipeList.getRecipes(), recipeList.getRecipes());
 
         assertNotEquals(timeSortedRecipeList.getRecipes(), recipeList.getRecipes());
         // Execute the SortCommand to sort by time
-        sortByTimeCommand.execute(recipeList, ui, storage);
+        sortByTimeCommand.execute(recipeList, ingredientList, ui, storage);
         // Assertion to verify that recipes were sorted by time
         assertEquals(timeSortedRecipeList.getRecipes(), recipeList.getRecipes());
     }

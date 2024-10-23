@@ -131,8 +131,8 @@ public class Recipe {
         StringBuilder recipeDetails = new StringBuilder();
         recipeDetails.append("add n/").append(name).append(" ");
 
-        for (int i = 0; i < ingredients.size(); i++) {
-            recipeDetails.append("i/").append(ingredients.get(i)).append(" ");
+        for (String ingredient : ingredients) {
+            recipeDetails.append("i/").append(ingredient).append(" ");
         }
 
         for (int i = 0; i < steps.size(); i++) {
