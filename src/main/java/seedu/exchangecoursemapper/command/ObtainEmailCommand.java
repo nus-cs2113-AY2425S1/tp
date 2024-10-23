@@ -19,7 +19,6 @@ public class ObtainEmailCommand extends Command {
             } else {
                 System.out.println("Error: Unknown university - " + schoolName);
             }
-
         } catch (IOException e) {
             System.err.println(Exception.fileReadError());
         } catch (IllegalArgumentException e) {
@@ -47,9 +46,9 @@ public class ObtainEmailCommand extends Command {
         }
     }
 
-    private String findMatchingSchool(JsonObject jsonObject, String schoolNameLower) {
+    private String findMatchingSchool(JsonObject jsonObject, String schoolName) {
         for (String key : jsonObject.keySet()) {
-            if (key.toLowerCase().equals(schoolNameLower)) {
+            if (key.toLowerCase().equals(schoolName)) {
                 return key;
             }
         }
