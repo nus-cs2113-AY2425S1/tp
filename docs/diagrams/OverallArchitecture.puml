@@ -4,8 +4,8 @@
 class Main {
 }
 
-Main --> "1" Ui : ui
-Main --> "1" EventList : events
+Main --> Ui
+Main --> EventList
 Main ..> Parser
 Main ..> Command
 

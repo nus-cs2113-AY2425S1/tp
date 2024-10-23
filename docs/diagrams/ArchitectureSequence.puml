@@ -4,11 +4,12 @@
 Participant ":Main" as main
 Participant ":Ui" as ui
 Participant ":Parser" as parser
-Participant ":XYZCommand" as command
+Participant ":AddCommand" as command
+Participant ":EventList" as eventList
 
 main -> ui : getCommand()
 activate ui
-ui --> main : UserCommandText: String
+ui --> main : "add -e event -t 1200 -v venue"
 deactivate ui
 
 create parser
@@ -17,21 +18,32 @@ activate parser
 parser --> main : :Parser
 deactivate parser
 
-main -> parser : parseCommand(UserCommandText: String)
+main -> parser : parseCommand("add -e event -t 1200 -v venue")
 activate parser
 
 create command
-parser -> command : XYZCommand()
+parser -> command : AddCommand("event", "1200", "venue")
 activate command
-command --> parser : :XYZCommand
+command --> parser : :AddCommand
 deactivate command
 
-parser --> main : command:XYZCommand
+parser --> main : command:AddCommand
 deactivate parser
 destroy parser
 
+main -> command : setData(events:EventList)
+activate command
+command --> main
+deactivate command
+
 main -> command : execute()
 activate command
+
+command -> eventList : addEvent("event", "1200", "venue")
+activate eventList
+eventList --> command
+deactivate eventList
+
 command --> main
 deactivate command
 
