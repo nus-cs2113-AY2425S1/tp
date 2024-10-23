@@ -37,4 +37,22 @@ public class ObtainEmailCommand extends Command {
 
         return inputParts[0].trim();
     }
+
+    private void handleEmail(JsonObject schoolInfo, String schoolName) {
+        String email = schoolInfo.getString("email", null);
+        if (email != null) {
+            System.out.println("Email for " + schoolName + ": " + email);
+        } else {
+            System.out.println("Email not available for " + schoolName);
+        }
+    }
+
+    private String findMatchingSchool(JsonObject jsonObject, String schoolNameLower) {
+        for (String key : jsonObject.keySet()) {
+            if (key.toLowerCase().equals(schoolNameLower)) {
+                return key;
+            }
+        }
+        return null;
+    }
 }
