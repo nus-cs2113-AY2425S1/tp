@@ -54,14 +54,14 @@ public class Task {
                 throw new EmptyTaskDescription();
             }
             switch (type.toLowerCase()) {
-                case "todo":
-                    return new Todo(args[0]);
-                case "deadline":
-                    return new Deadline(args[0], args[1]);
-                case "repeat":
-                    return new Repeat(args[0], args[1]);
-                default:
-                    throw new UnknownTaskType(type);
+            case "todo":
+                return new Todo(args[0]);
+            case "deadline":
+                return new Deadline(args[0], args[1]);
+            case "repeat":
+                return new Repeat(args[0], args[1]);
+            default:
+                throw new UnknownTaskType(type);
             }
         }
         catch (ArrayIndexOutOfBoundsException e){

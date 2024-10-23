@@ -92,7 +92,7 @@ public class TaskList {
     }
 
     public ArrayList<Task> findTasks(String keyword) throws TaskNotFoundException {
-        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
                 matchingTasks.add(task);
