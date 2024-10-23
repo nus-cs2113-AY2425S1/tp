@@ -3,6 +3,9 @@ package seedu.duke.command;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Expense;
+import seedu.duke.financial.Income;
+
+import java.time.LocalDate;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +17,25 @@ import java.util.logging.Logger;
  */
 public class SeeAllExpensesCommand extends Command{
     private static final Logger logger = Logger.getLogger(SeeAllExpensesCommand.class.getName());
-    public SeeAllExpensesCommand() {}
+  
+    private LocalDate start;
+    private LocalDate end;
+
+    public SeeAllExpensesCommand(LocalDate start, LocalDate end) {
+        this.start = start;
+        this.end = end;
+    }
+
+    /**
+     * Method to determine if an entry should be listed out based on its date and if it is an expense.
+     *
+     * @param entry Financial Entry to analyze.
+     * @return true if entry should be listed out, false otherwise.
+     */
+    private boolean shouldBeIncluded(FinancialEntry entry) {
+        return entry instanceof Expense && (end == null || entry.getDate().isBefore(end))
+                && (start == null || entry.getDate().isAfter(start));
+    }
 
     /**
      * Executes the command to display all recorded expenses in the financial list.
@@ -31,22 +52,25 @@ public class SeeAllExpensesCommand extends Command{
             assert list != null : "Financial list cannot be null";
             throw new IllegalArgumentException("Financial list cannot be null");
         }
+
+        System.out.println("--------------------------------------------");
         String expenseList = "";
         int expenseCount = 0;
+
         for (int i = 0; i < list.getEntryCount(); i++) {
             FinancialEntry entry = list.getEntry(i);
-            if (entry instanceof Expense) {
+            if (shouldBeIncluded(entry)) {
                 expenseList += ((++expenseCount) + ". " + entry + System.lineSeparator());
             }
         }
+
         if (expenseCount == 0) {
             System.out.println("No recorded expenses found.");
             System.out.println("--------------------------------------------");
-        } else {
-            System.out.println("Here's a list of all recorded expenses:");
-            System.out.print(expenseList);
-            System.out.println("--------------------------------------------");
+            return;
         }
+        System.out.println("Here's a list of all recorded expenses:");
+        System.out.print(expenseList);
+        System.out.println("--------------------------------------------");
     }
-
 }
