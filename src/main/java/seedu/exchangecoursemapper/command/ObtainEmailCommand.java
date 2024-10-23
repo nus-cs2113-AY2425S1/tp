@@ -1,10 +1,29 @@
 package seedu.exchangecoursemapper.command;
 
-import java.io.FileReader;
-import java.io.IOException;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
+import seedu.exchangecoursemapper.exception.Exception;
 
-public class ObtainEmailCommand {
+import java.io.IOException;
+import javax.json.JsonObject;
+
+public class ObtainEmailCommand extends Command {
+    @Override
+    public void execute(String userInput) {
+        try  {
+            JsonObject jsonObject = super.createJsonObject();
+            String schoolName = getSchoolName(userInput).toLowerCase();
+            String matchingSchool = findMatchingSchool(jsonObject, schoolName);
+
+            if (matchingSchool != null) {
+                JsonObject schoolInfo = jsonObject.getJsonObject(matchingSchool);
+                handleEmail(schoolInfo, matchingSchool);
+            } else {
+                System.out.println("Error: Unknown university - " + schoolName);
+            }
+
+        } catch (IOException e) {
+            System.err.println(Exception.fileReadError());
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 }
