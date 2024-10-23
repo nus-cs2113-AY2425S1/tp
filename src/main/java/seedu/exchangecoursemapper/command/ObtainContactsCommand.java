@@ -25,7 +25,7 @@ public class ObtainContactsCommand extends Command {
                 JsonObject schoolInfo = jsonObject.getJsonObject(matchingSchool);
                 handleContactType(schoolInfo, matchingSchool, contactType);
             } else {
-                System.out.println("Error: Unknown university - " + schoolName);
+                System.out.println("Unknown university - " + schoolName);
             }
         } catch (IOException e) {
             System.err.println(Exception.fileReadError());
@@ -45,7 +45,7 @@ public class ObtainContactsCommand extends Command {
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
 
         if (inputParts.length != 2) {
-            throw new IllegalArgumentException("Invalid input format");
+            throw new IllegalArgumentException(Exception.invalidInputFormat());
         }
         return inputParts[1].trim();
     }
@@ -69,7 +69,7 @@ public class ObtainContactsCommand extends Command {
             }
             break;
         default:
-            System.out.println("Invalid contact type.");
+            System.out.println(Exception.invalidContactType());
         }
     }
 
