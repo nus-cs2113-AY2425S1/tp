@@ -11,6 +11,7 @@ public class FlagParser {
 
     private final Map<String, String> parsedFlags = new HashMap<>();
 
+
     public FlagParser(String argumentString) {
         if (argumentString != null && !argumentString.trim().isEmpty()) {
             parse(argumentString);

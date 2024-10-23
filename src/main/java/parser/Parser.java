@@ -21,7 +21,7 @@ public class Parser {
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     public Parser() {
-        this.progParser = new ProgCommandParser();  // Using the correct name from master branch
+        this.progParser = new ProgCommandParser();
     }
 
     public Parser(ProgCommandParser progParser) {
@@ -45,32 +45,23 @@ public class Parser {
         logger.log(Level.INFO, "Parsed command: {0}, with arguments: {1}",
                 new Object[]{commandString, argumentString});
 
-        switch (commandString) {
-        case ProgCommandParser.COMMAND_WORD:
-            return progParser.parse(argumentString);
-        case LogCommand.COMMAND_WORD:
-            return prepareLogCommand(argumentString);
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
-        case WeeklySummaryCommand.COMMAND_WORD:
-            return new WeeklySummaryCommand();  // Support for weekly summary command
-        case PersonalBestCommand.COMMAND_WORD:
-            return preparePersonalBestCommand(argumentString);  // Support for personal bests command
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-        default:
-            return new InvalidCommand();
-        }
+        return switch (commandString) {
+        case ProgCommandParser.COMMAND_WORD -> progParser.parse(argumentString);
+        case LogCommand.COMMAND_WORD -> prepareLogCommand(argumentString);
+        case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
+        case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();
+        case PersonalBestCommand.COMMAND_WORD -> preparePersonalBestCommand(argumentString);
+        case ExitCommand.COMMAND_WORD -> new ExitCommand();
+        default -> new InvalidCommand();
+        };
     }
 
-    // Personal best command with exercise name
     private Command preparePersonalBestCommand(String argumentString) {
-        // Trim the argument string, which may contain the exercise name
         String exerciseName = argumentString.trim();
-        // Return the PersonalBestCommand, passing in the exercise name (or empty string if none is provided)
+
         return new PersonalBestCommand(
                 exerciseName.isEmpty() ? null : exerciseName
-        );  // Handle null if exercise is not specified
+        );
     }
 
     private Command prepareLogCommand(String argumentString) {
