@@ -60,9 +60,9 @@ public class ExpenseList {
      * Edit the details of an expense given its position in the list
      *
      * @param index index of Expense in the list that is to be edited
-     * @param category New category of expense
      * @param price New price of expense
      * @param description New description of expense
+     * @param category New category of expense
      */
     public void editExpense(int index, Float price, String description, String category) throws WheresMyMoneyException {
         try {
