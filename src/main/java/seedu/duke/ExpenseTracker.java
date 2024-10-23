@@ -56,6 +56,13 @@ public class ExpenseTracker {
         System.out.println("Added" + newExpense);
     }
 
+    private String formatInput(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    }
+
     public void addCategory(String categoryName) {
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(categoryName)) {
