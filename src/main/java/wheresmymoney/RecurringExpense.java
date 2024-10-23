@@ -1,26 +1,26 @@
 package wheresmymoney;
 
 public class RecurringExpense extends Expense {
-    protected String lastUpdated;
+    protected String lastAddedDate;
     protected String frequency;
 
     public RecurringExpense(Float price, String description, String category, 
-            String lastUpdated, String frequency) {
+            String lastAddedDate, String frequency) {
         super(price, description, category);
-        this.lastUpdated = lastUpdated;
+        this.lastAddedDate = lastAddedDate;
         this.frequency = frequency;
     }
 
-    public String getLastUpdated() {
-        return this.lastUpdated;
+    public String getlastAddedDate() {
+        return this.lastAddedDate;
     }
 
     public String getFrequency() {
         return this.frequency;
     }
 
-    public void setLastUpdated(String date) {
-        this.lastUpdated = date;
+    public void setlastAddedDate(String date) {
+        this.lastAddedDate = date;
     }
 
     public void setFrequency(String frequency) {
