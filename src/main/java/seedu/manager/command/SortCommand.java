@@ -1,10 +1,6 @@
 package seedu.manager.command;
 
-import seedu.manager.event.Event;
 import seedu.manager.event.EventList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a command to sort the events in different ways.
@@ -17,11 +13,20 @@ public class SortCommand extends Command {
 
     protected String keyword;
 
+    /**
+     * Constructs a new SortCommand with the given keyword
+     *
+     * @param keyword the keyword of sorting
+     */
     public SortCommand(String keyword) {
         super(false);
         this.keyword = keyword;
     }
 
+    /**
+     * Executes a sort command by sorting events in different ways,
+     * depending on the keyword.
+     */
     @Override
     public void execute() {
         StringBuilder outputMessage = new StringBuilder();

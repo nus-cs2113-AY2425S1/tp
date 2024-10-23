@@ -256,6 +256,21 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string to create a {@link Command} based on the provided command parts.
+     *
+     * <p>
+     * This method checks the command flag extracted from the command parts. If the command
+     * flag is {@code "-by"}, it splits the input string to create a {@link SortCommand}
+     * Otherwise, it throws an {@link InvalidCommandException} with an error message.
+     * </p>
+     *
+     * @param input        the input string containing the command details.
+     * @param commandParts an array of strings representing the parsed command parts,
+     *                     where the second element is the command flag.
+     * @return a {@link Command} object representing the parsed command.
+     * @throws InvalidCommandException if the flag is not matched.
+     */
     private Command parseSortCommand(String input, String[] commandParts) throws InvalidCommandException{
         assert commandParts[0].equalsIgnoreCase(SortCommand.COMMAND_WORD);
         try {
