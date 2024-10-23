@@ -8,8 +8,10 @@ import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.ViewCommand;
+import seedu.manager.command.SortCommand;
 import seedu.manager.exception.InvalidCommandException;
 
+import java.util.Set;
 import java.util.logging.Logger;
 
 import static java.util.logging.Level.WARNING;
@@ -42,6 +44,15 @@ public class Parser {
             Invalid event status!
             Please set the event status as either "done" or "undone"
             """;
+    private static final String INVALID_SORT_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            sort -e EVENT -by name/time/priority
+            """;
+    private static final String INVALID_SORT_KEYWORD_MESSAGE = """
+            Invalid sort keyword!
+            Please set the sort keyword as either "name"/"time"/"priority"
+            """;
 
     /**
      * Returns a command based on the given user command string.
@@ -68,6 +79,8 @@ public class Parser {
             return new ExitCommand();
         case MarkCommand.COMMAND_WORD:
             return parseMarkCommand(command, commandParts);
+        case SortCommand.COMMAND_WORD:
+            return parseSortCommand(command, commandParts);
         default:
             throw new InvalidCommandException(INVALID_COMMAND_MESSAGE);
         }
@@ -240,6 +253,28 @@ public class Parser {
         } else {
             logger.log(WARNING,"Invalid status keyword");
             throw new InvalidCommandException(INVALID_EVENT_STATUS_MESSAGE);
+        }
+    }
+
+    private Command parseSortCommand(String input, String[] commandParts) throws InvalidCommandException{
+        assert commandParts[0].equalsIgnoreCase(SortCommand.COMMAND_WORD);
+        try {
+            String[] inputParts = input.split("-by", 2);
+            if (inputParts.length < 2) {
+                throw new InvalidCommandException(INVALID_SORT_MESSAGE);
+            }
+
+            String keyword = inputParts[1].trim();
+            System.out.println(keyword);
+            Set<String> validKeywords = Set.of("name", "time", "priority");
+            if (validKeywords.contains(keyword.toLowerCase())) {
+                return new SortCommand(keyword);
+            }
+            throw new InvalidCommandException(INVALID_SORT_KEYWORD_MESSAGE);
+
+        } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING, "Invalid command format");
+            throw new InvalidCommandException(INVALID_SORT_MESSAGE);
         }
     }
 }
