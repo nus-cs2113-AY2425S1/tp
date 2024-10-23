@@ -1,7 +1,6 @@
 package ymfc.commands;
 
-import ymfc.recipe.Ingredient;
-import ymfc.recipe.Recipe;
+import ymfc.ingredient.Ingredient;
 import ymfc.list.IngredientList;
 import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
@@ -41,7 +40,7 @@ public class AddIngredientCommand extends Command {
 
         storage.saveIngredients(ingredients);
 
-        ui.printAddedRecipe(newIngredient.toString(), ingredients.getCounter());
+//        ui.printAddedRecipe(newIngredient.toString(), ingredients.getCounter());
     }
 
     public void addLoadedIngredient(IngredientList ingredients) {

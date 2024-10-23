@@ -1,6 +1,6 @@
 package ymfc.list;
 
-import ymfc.recipe.Ingredient;
+import ymfc.ingredient.Ingredient;
 
 import java.util.ArrayList;
 import java.util.Comparator;

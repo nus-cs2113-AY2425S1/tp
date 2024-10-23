@@ -1,14 +1,9 @@
 package ymfc.parser;
 
-import ymfc.commands.Command;
-import ymfc.commands.AddRecipeCommand;
-import ymfc.commands.ByeCommand;
-import ymfc.commands.DeleteCommand;
-import ymfc.commands.HelpCommand;
-import ymfc.commands.ListCommand;
-import ymfc.commands.SortCommand;
+import ymfc.commands.*;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
+import ymfc.ingredient.Ingredient;
 import ymfc.recipe.Recipe;
 
 import java.util.ArrayList;
@@ -56,18 +51,23 @@ public final class Parser {
             return new ByeCommand();
         case "sort":
             return getSortCommand(args);
+        case "new":
+            return getAddIngredientCommand(args);
         default:
             throw new InvalidCommandException("Invalid command: " + command + "\ntype \"help\" for assistance");
         }
     }
 
-    public static AddRecipeCommand parseLoadedCommand(String commandString) throws InvalidArgumentException {
-        Matcher m = GENERIC_FORMAT.matcher(commandString);
-        m.matches();
+    private static AddIngredientCommand getAddIngredientCommand(String args) throws InvalidArgumentException {
+        final Pattern addIngredientCommandFormat = Pattern.compile("(?<name>[nN]/[^/]+)");
+        args = args.trim();
+        Matcher m = addIngredientCommandFormat.matcher(args);
+        if (!m.matches()) {
+            throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + AddRecipeCommand.USAGE_EXAMPLE);
+        }
 
-        //String command = m.group("command");
-        String args = m.group("args") == null ? "" : m.group("args").trim();
-        return getAddRecipeCommand(args);
+        String name = m.group("name").trim().substring(2); // n/ or N/ are 2 chars
+        return new AddIngredientCommand(new Ingredient(name));
     }
 
     /**
@@ -144,7 +144,7 @@ public final class Parser {
         final Pattern deleteCommandFormat  =
                 Pattern.compile("(?<name>[nN]/[^/]+)");
         args = args.trim();
-        Matcher m = deleteCommandFormat .matcher(args);
+        Matcher m = deleteCommandFormat.matcher(args);
         if (!m.matches()) {
             throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + DeleteCommand.USAGE_EXAMPLE);
         }

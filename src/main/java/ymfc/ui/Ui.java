@@ -1,6 +1,6 @@
 package ymfc.ui;
 
-import ymfc.recipe.Ingredient;
+import ymfc.ingredient.Ingredient;
 import ymfc.recipe.Recipe;
 
 import java.io.InputStream;

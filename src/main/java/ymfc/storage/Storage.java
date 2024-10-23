@@ -5,6 +5,7 @@ import ymfc.commands.AddRecipeCommand;
 import ymfc.commands.ListCommand;
 import ymfc.commands.ListIngredientsCommand;
 import ymfc.exception.InvalidArgumentException;
+import ymfc.exception.InvalidCommandException;
 import ymfc.parser.Parser;
 import ymfc.list.IngredientList;
 import ymfc.list.RecipeList;
@@ -18,7 +19,7 @@ import java.util.Scanner;
 
 public class Storage {
     private static final String saveRecipeFilePath = "./data/recipes.txt";
-    private static final String saveIngredientFilePath = "./data/recipes.txt";
+    private static final String saveIngredientFilePath = "./data/ingredients.txt";
 
     public Storage() {
     }
@@ -57,7 +58,8 @@ public class Storage {
         writer.close();
     }
 
-    public void loadRecipes(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) throws FileNotFoundException {
+    public void loadRecipes(RecipeList recipes, IngredientList ingredients,
+                            Ui ui, Storage storage) throws FileNotFoundException {
         File tasksFile = new File(saveRecipeFilePath);
         Scanner reader = new Scanner(tasksFile);
         boolean isEmpty = true;
@@ -66,28 +68,7 @@ public class Storage {
             isEmpty = false;
             try {
                 addRecipe(recipes, line);
-            } catch (InvalidArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        if (isEmpty) {
-            return;
-        }
-        ListIngredientsCommand c = new ListIngredientsCommand();
-        c.execute(recipes, ingredients, ui, storage);
-    }
-
-    public void loadIngredients(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) throws FileNotFoundException {
-        File tasksFile = new File(saveIngredientFilePath);
-        Scanner reader = new Scanner(tasksFile);
-        boolean isEmpty = true;
-        while (reader.hasNext()) {
-            String line = reader.nextLine();
-            isEmpty = false;
-            try {
-                addIngredient(ingredients, line);
-            } catch (InvalidArgumentException e) {
+            } catch (InvalidArgumentException | InvalidCommandException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -99,13 +80,35 @@ public class Storage {
         c.execute(recipes, ingredients, ui, storage);
     }
 
-    private void addRecipe(RecipeList recipes, String line) throws InvalidArgumentException {
-        AddRecipeCommand command = Parser.parseLoadedCommand(line);
+    public void loadIngredients(RecipeList recipes, IngredientList ingredients,
+                                Ui ui, Storage storage) throws FileNotFoundException {
+        File tasksFile = new File(saveIngredientFilePath);
+        Scanner reader = new Scanner(tasksFile);
+        boolean isEmpty = true;
+        while (reader.hasNext()) {
+            String line = reader.nextLine();
+            isEmpty = false;
+            try {
+                addIngredient(ingredients, line);
+            } catch (InvalidArgumentException | InvalidCommandException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        if (isEmpty) {
+            return;
+        }
+        ListIngredientsCommand c = new ListIngredientsCommand();
+        c.execute(recipes, ingredients, ui, storage);
+    }
+
+    private void addRecipe(RecipeList recipes, String line) throws InvalidArgumentException, InvalidCommandException {
+        AddRecipeCommand command = (AddRecipeCommand) Parser.parseCommand(line);
         command.addLoadedRecipe(recipes);
     }
 
-    private void addIngredient(IngredientList ingredients, String line) throws InvalidArgumentException {
-        AddIngredientCommand command = Parser.parseLoadedCommand(line);
+    private void addIngredient(IngredientList ingredients, String line) throws InvalidArgumentException, InvalidCommandException {
+        AddIngredientCommand command = (AddIngredientCommand) Parser.parseCommand(line);
         command.addLoadedIngredient(ingredients);
     }
 }
