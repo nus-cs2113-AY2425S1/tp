@@ -64,18 +64,20 @@ public class ExpenseTracker {
     }
 
     public void addCategory(String categoryName) {
-        for (Category category : categories) {
-            if (category.getName().equalsIgnoreCase(categoryName)) {
-                System.out.println("Category '" + categoryName + "' already exists!");
-                return;
-            }
-        }
         String trimmedCategoryName = categoryName.substring("add category".length()).trim();
         if (trimmedCategoryName.isEmpty()) {
             System.out.println("Category name is empty!");
             return;
         }
-        Category newCategory = new Category(trimmedCategoryName);
+
+        String formattedCategoryName = formatInput(trimmedCategoryName.trim());
+        for (Category category : categories) {
+            if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
+                System.out.println("Category '" + formattedCategoryName + "' already exists!");
+                return;
+            }
+        }
+        Category newCategory = new Category(formattedCategoryName);
         categories.add(newCategory);
         System.out.println("Category '" + newCategory + "' added successfully.");
     }
