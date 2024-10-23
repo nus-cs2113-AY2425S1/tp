@@ -2,7 +2,8 @@ package wheresmymoney.command;
 
 import wheresmymoney.Parser;
 import wheresmymoney.ExpenseList;
-import wheresmymoney.WheresMyMoneyException;
+import wheresmymoney.Ui;
+import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
 
@@ -18,10 +19,5 @@ public class AddCommand extends Command {
         String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
         String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
         expenseList.addExpense(price, description, category);
-    }
-
-    @Override
-    public String getHelp() {
-        return "";
     }
 }

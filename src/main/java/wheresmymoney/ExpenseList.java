@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import wheresmymoney.exception.WheresMyMoneyException;
 
 public class ExpenseList {
     private static Logger logger = Logger.getLogger("Bar");

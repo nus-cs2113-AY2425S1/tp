@@ -1,7 +1,7 @@
 package wheresmymoney.command;
 
 import wheresmymoney.ExpenseList;
-import wheresmymoney.WheresMyMoneyException;
+import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
 
@@ -18,10 +18,5 @@ public class LoadCommand extends Command {
         } catch (Exception e) {
             throw new WheresMyMoneyException("Load Failed");
         }
-    }
-
-    @Override
-    public String getHelp() {
-        return "";
     }
 }

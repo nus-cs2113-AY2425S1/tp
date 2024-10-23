@@ -1,7 +1,7 @@
 package wheresmymoney.command;
 
 import wheresmymoney.ExpenseList;
-import wheresmymoney.WheresMyMoneyException;
+import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
 
@@ -12,5 +12,7 @@ public abstract class Command {
         this.argumentsMap = argumentsMap;
     }
     public abstract void execute(ExpenseList expenseList) throws WheresMyMoneyException;
-    public abstract String getHelp();
+    public boolean isExit(){
+        return false;
+    }
 }

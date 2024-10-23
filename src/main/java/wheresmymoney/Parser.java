@@ -1,10 +1,14 @@
 package wheresmymoney;
 import wheresmymoney.command.AddCommand;
+import wheresmymoney.command.ByeCommand;
+import wheresmymoney.command.Command;
 import wheresmymoney.command.DeleteCommand;
 import wheresmymoney.command.EditCommand;
+import wheresmymoney.command.HelpCommand;
 import wheresmymoney.command.ListCommand;
 import wheresmymoney.command.LoadCommand;
 import wheresmymoney.command.SaveCommand;
+import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -59,7 +63,7 @@ public class Parser {
                 if (!currArgument.toString().isEmpty()){
                     argumentsMap.put(currArgumentName, currArgument.toString().strip());
                 }
-                currArgumentName = words[i];
+                currArgumentName = words[i].replace("/", "");
                 currArgument.setLength(0);
             } else {
                 // Add on to existing argument
@@ -89,8 +93,8 @@ public class Parser {
      * @param line Line that a user inputs
      * @return HashMap of Arguments, mapping the argument to its value given
      */
-    public HashMap<String, String> parseCommandToArgumentsMap(String line) {
-        logger.log(Level.INFO, "Parsing command: " + line);
+    public HashMap<String, String> parseLineToArgumentsMap(String line) {
+        logger.log(Level.INFO, "Parsing Line: " + line);
         String[] words = line.split(" ");
         return packWordsToArgumentsMap(words);
     }
@@ -99,40 +103,34 @@ public class Parser {
      * Matches the argument list to a related command and runs said command
      *
      * @param argumentsMap List of arguments
-     * @param expenseList List of expenses
      * @return Whether to continue running the program
-     * @throws WheresMyMoneyException If command fails to run
+     * @throws wheresmymoney.exception.WheresMyMoneyException If command fails to run
      */
-    public boolean commandMatching(HashMap<String, String> argumentsMap, ExpenseList expenseList)
+    public Command commandMatching(HashMap<String, String> argumentsMap)
             throws WheresMyMoneyException {
         switch(argumentsMap.get(Parser.ARGUMENT_COMMAND)) {
         case "bye":
-            System.out.println("Bye. Hope to see you again soon!");
-            return false;
+            return new ByeCommand(argumentsMap);
         case "add":
-            new AddCommand(argumentsMap).execute(expenseList);
-            break;
+            return new AddCommand(argumentsMap);
         case "edit":
-            new EditCommand(argumentsMap).execute(expenseList);
-            break;
+            return new EditCommand(argumentsMap);
         case "delete":
-            new DeleteCommand(argumentsMap).execute(expenseList);
-            break;
+            return new DeleteCommand(argumentsMap);
         case "list":
-            new ListCommand(argumentsMap).execute(expenseList);
-            break;
+            return new ListCommand(argumentsMap);
         case "load":
-            new LoadCommand(argumentsMap).execute(expenseList);
-            break;
+            return new LoadCommand(argumentsMap);
         case "save":
-            new SaveCommand(argumentsMap).execute(expenseList);
-            break;
+            return new SaveCommand(argumentsMap);
         case "help":
-            Ui.displayHelp();
-            break;
+            return new HelpCommand(argumentsMap);
         default:
             throw new WheresMyMoneyException("No valid command given!");
         }
-        return true;
+    }
+
+    public Command parseInputToCommand(String line) throws WheresMyMoneyException {
+        return commandMatching(parseLineToArgumentsMap(line));
     }
 }
