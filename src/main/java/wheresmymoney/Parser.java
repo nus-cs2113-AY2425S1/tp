@@ -1,4 +1,5 @@
 package wheresmymoney;
+
 import wheresmymoney.command.AddCommand;
 import wheresmymoney.command.ByeCommand;
 import wheresmymoney.command.Command;
@@ -13,7 +14,6 @@ import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Parser {
     public static final String ARGUMENT_COMMAND = "command";
@@ -50,7 +50,8 @@ public class Parser {
      * @param argumentsMap Arguments Mapping
      * @param words String list of arguments
      */
-    private static void packFollowingArgumentsToExistingArgumentsMap(HashMap<String, String> argumentsMap, String[] words) {
+    private static void packFollowingArgumentsToExistingArgumentsMap(HashMap<String, String> argumentsMap,
+                                                                     String[] words) {
         // Arguments
         String currArgumentName = Parser.ARGUMENT_MAIN;
         StringBuilder currArgument = new StringBuilder();

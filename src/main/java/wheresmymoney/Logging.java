@@ -8,11 +8,11 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Logging {
+    private static final String LOGGER_NAME = "WheresMyMoney";
+    private static final String LOG_FILE_PATH = "./MyLogFile.log";
     private static Logging loggingInstance = null;
 
     private final Logger logger;
-    private final String LOGGER_NAME = "WheresMyMoney";
-    private final String LOG_FILE_PATH = "./MyLogFile.log";
 
     private Logging(){
         logger = Logger.getLogger(LOGGER_NAME);

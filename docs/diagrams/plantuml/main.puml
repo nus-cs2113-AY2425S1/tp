@@ -8,7 +8,7 @@ class Ui
 class Expense
 class ExpenseList
 
-Main "1" -d-> "1" Ui
+Main "1" -d-> "1" Parser
 Main "1" -d-> "1" ExpenseList
 Ui "1" -d-> "1" Parser
 ExpenseList "1" -d-> "*" Expense

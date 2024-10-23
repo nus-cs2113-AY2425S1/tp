@@ -1,8 +1,8 @@
 package wheresmymoney.command;
 
 import wheresmymoney.Expense;
-import wheresmymoney.Parser;
 import wheresmymoney.ExpenseList;
+import wheresmymoney.Parser;
 import wheresmymoney.Ui;
 import wheresmymoney.exception.WheresMyMoneyException;
 

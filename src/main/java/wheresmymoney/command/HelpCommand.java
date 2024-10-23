@@ -1,12 +1,9 @@
 package wheresmymoney.command;
 
-import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
-import wheresmymoney.Parser;
 import wheresmymoney.Ui;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HelpCommand extends Command {
