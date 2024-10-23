@@ -12,18 +12,23 @@
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+The target user:
+* has a need to organise a large number of events
+* organises small-scale events, such that he is able to handle all matters on his own
+* prefers typing to mouse interactions
+* is comfortable using a command-line interface
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+The user is able to organise and manage his events more quickly and efficiently than with a mouse/GUI app
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ... | I want to ...            | So that I can ...                                      |
+|---------|----------|--------------------------|--------------------------------------------------------|
+| v1.0    | new user | see usage instructions   | refer to them when I forget how to use the application |
+| v2.0    | user     | mark events as completed | easily track all past events                           |
+| v2.0    | user     | mark participants present| know exactly who signed up but did not attend the event|
 
 ## Non-Functional Requirements
 
