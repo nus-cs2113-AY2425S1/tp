@@ -28,6 +28,19 @@ class ExpenseTest {
         Expense expense = new Expense("Banana", 2.75, category);
         assertEquals("$2.75", expense.formatAmount());
     }
+
+    @Test
+    public void inputWithCategory() {
+        Category category = new Category("Entertainment");
+        Expense expense = new Expense("Movie", 12.5, category);
+        assertEquals(" Item: Movie, Amount: $12.50, Category: Entertainment", expense.toString());
+    }
+
+    @Test
+    public void inputWithoutCategory() {
+        Expense expense = new Expense("Movie", 12.5, null);
+        assertEquals(" Item: Movie, Amount: $12.50, Category: null", expense.toString());
+    }
 }
 
 class CategoryTest {
