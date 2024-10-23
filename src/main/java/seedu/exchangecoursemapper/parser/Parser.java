@@ -1,10 +1,6 @@
 package seedu.exchangecoursemapper.parser;
 
-import seedu.exchangecoursemapper.command.FilterCoursesCommand;
-import seedu.exchangecoursemapper.command.ListCommandsCommand;
-import seedu.exchangecoursemapper.command.ListSchoolCommand;
-import seedu.exchangecoursemapper.command.ListUniCoursesCommand;
-import seedu.exchangecoursemapper.command.AddCoursesCommand;
+import seedu.exchangecoursemapper.command.*;
 import seedu.exchangecoursemapper.ui.UI;
 
 import java.util.Scanner;
@@ -64,7 +60,7 @@ public class Parser {
         } else if (command.equals(SET)) {
             new ListUniCoursesCommand().execute(input);
         } else if (command.equals(OBTAIN)) {
-            new ListUniCoursesCommand().execute(input);
+            new ObtainEmailCommand().execute(input);
         } else if (command.equals(BYE)) {
             mapperUI.displayExitMessage();
         } else {
