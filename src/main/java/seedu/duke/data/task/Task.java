@@ -48,7 +48,7 @@ public class Task {
     public void markAsUndone() {
         isDone = false;
     }
-    public static Task createTask(String type, String... args) throws MissingTaskArgument, EmptyTaskDescription {
+    public static Task createTask(String type, String... args) throws MissingTaskArgument, EmptyTaskDescription, UnknownTaskType {
         try{
             if(args[0].isEmpty() || args[0].isBlank()) {
                 throw new EmptyTaskDescription();
@@ -61,11 +61,16 @@ public class Task {
                 case "repeat":
                     return new Repeat(args[0], args[1]);
                 default:
-                    throw new IllegalArgumentException("Unknown task type: " + type);
+                    throw new UnknownTaskType(type);
             }
         }
         catch (ArrayIndexOutOfBoundsException e){
             throw new MissingTaskArgument(type);
+        }
+    }
+    public static class UnknownTaskType extends Exception {
+        public UnknownTaskType(String type) {
+            super("Unknown task type: " + type);
         }
     }
     public static class MissingTaskArgument extends Exception {

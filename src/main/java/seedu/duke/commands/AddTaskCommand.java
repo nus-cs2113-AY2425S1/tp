@@ -42,7 +42,7 @@ public class AddTaskCommand extends Command {
         } catch (TaskList.DuplicateTaskException e) {
             logger.log(Level.SEVERE, "Duplicate task detected: {0}", toAdd);
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        } catch (IllegalArgumentException e) {
+        } catch (Task.UnknownTaskType e) {
             logger.log(Level.SEVERE, "Invalid task type: {0}", taskType);
             return new CommandResult(e.getMessage());
         } catch (Task.EmptyTaskDescription e){

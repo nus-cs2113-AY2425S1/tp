@@ -44,6 +44,15 @@ public class TaskCommandTest {
     }
 
     @Test
+    void testAddTask_unknownTaskType(){
+        AddTaskCommand addTaskCommand = new AddTaskCommand("random", "Read book");
+        TaskList tasks = new TaskList();
+        addTaskCommand.setData(tasks);
+        CommandResult commandResult = addTaskCommand.execute();
+        assertEquals("Unknown task type: random", commandResult.getFeedbackToUser());
+    }
+
+    @Test
     void testDeleteTask_taskNotExist(){
         DeleteTaskCommand deleteTaskCommand = new DeleteTaskCommand(1);
         TaskList tasks = new TaskList();
