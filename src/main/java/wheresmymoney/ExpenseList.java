@@ -12,8 +12,8 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 public class ExpenseList {
-    private static Logger logger = Logger.getLogger("Bar");
-    private ArrayList<Expense> expenses;
+    protected static Logger logger = Logger.getLogger("Bar");
+    protected ArrayList<Expense> expenses;
 
     public ExpenseList() {
         expenses = new ArrayList<>();
