@@ -49,7 +49,7 @@ public class Ingredient {
 
     public String toSaveString() {
 
-        String ingredientDetails = "add n/" + name + " " +
+        String ingredientDetails = "new n/" + name + " " +
                 "q/" + quantity + " ";
 
         return ingredientDetails;

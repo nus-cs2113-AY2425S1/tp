@@ -1,5 +1,6 @@
 package ymfc.storage;
 
+import ymfc.commands.AddIngredientCommand;
 import ymfc.commands.AddRecipeCommand;
 import ymfc.commands.ListCommand;
 import ymfc.commands.ListIngredientsCommand;
@@ -104,6 +105,7 @@ public class Storage {
     }
 
     private void addIngredient(IngredientList ingredients, String line) throws InvalidArgumentException {
-
+        AddIngredientCommand command = Parser.parseLoadedCommand(line);
+        command.addLoadedIngredient(ingredients);
     }
 }

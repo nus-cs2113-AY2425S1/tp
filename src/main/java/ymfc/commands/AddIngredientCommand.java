@@ -1,5 +1,6 @@
 package ymfc.commands;
 
+import ymfc.recipe.Ingredient;
 import ymfc.recipe.Recipe;
 import ymfc.list.IngredientList;
 import ymfc.list.RecipeList;
@@ -15,35 +16,35 @@ public class AddIngredientCommand extends Command {
 
     public static final String USAGE_EXAMPLE = """
             Use example:
-            \tadd n/instant noodles i/magi mee i/water s1/boil water s2/add magi mee s3/wait 5 min
+            \tnew n/carrot q/2
             """;
 
-    private Recipe recipe;
+    private Ingredient ingredient;
 
-    public AddIngredientCommand(Recipe recipe) {
+    public AddIngredientCommand(Ingredient ingredient) {
         super();
 
-        logger.log(Level.FINEST, "Creating AddRecipeCommand");
-        this.recipe = recipe;
-        assert recipe != null;
+        logger.log(Level.FINEST, "Creating AddIngredientCommand");
+        this.ingredient = ingredient;
+        assert ingredient != null;
     }
 
     public void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) throws IOException {
-        logger.log(Level.FINEST, "Executing AddRecipeCommand");
+        logger.log(Level.FINEST, "Executing AddIngredientCommand");
 
-        assert recipes != null;
-        addNewRecipe(recipes, recipe, ui, storage);
+        assert ingredients != null;
+        addNewIngredient(ingredients, ingredient, ui, storage);
     }
 
-    public void addNewRecipe(RecipeList recipes, Recipe newRecipe, Ui ui, Storage storage) throws IOException {
-        recipes.addRecipe(newRecipe);
+    public void addNewIngredient(IngredientList ingredients, Ingredient newIngredient, Ui ui, Storage storage) throws IOException {
+        ingredients.addIngredient(newIngredient);
 
-        storage.saveRecipes(recipes);
+        storage.saveIngredients(ingredients);
 
-        ui.printAddedRecipe(newRecipe.toString(), recipes.getCounter());
+        ui.printAddedRecipe(newIngredient.toString(), ingredients.getCounter());
     }
 
-    public void addLoadedRecipe(RecipeList recipes) {
-        recipes.addRecipe(recipe);
+    public void addLoadedIngredient(IngredientList ingredients) {
+        ingredients.addIngredient(ingredient);
     }
 }
