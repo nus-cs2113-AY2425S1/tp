@@ -1,3 +1,14 @@
+Loops | TrueFalse | Java is a programming language. | true
+Loops | TrueFalse | A while loop will execute at least once. | false
+Loops | TrueFalse | A for loop is used when the number of iterations is known. | true
+Loops | TrueFalse | A do-while loop will execute its body before checking the condition. | true
+Loops | TrueFalse | A for-each loop is primarily used for iterating over collections. | true
+Loops | TrueFalse | A while loop is best used when the number of iterations is known. | false
+Loops | TrueFalse | A break statement can be used to exit a loop early. | true
+Loops | TrueFalse | A continue statement skips the current iteration of a loop. | true
+Loops | TrueFalse | A do-while loop will never execute if the condition is false initially. | false
+Loops | TrueFalse | Infinite loops can only be created using a while loop. | false
+Loops | TrueFalse | You can nest loops inside one another in Java. | true
 Loops | Mcq | Which of the following is a loop structure in Java? | b | a) if-else | b) for | c) switch | d) try-catch
 Loops | Mcq | Which loop guarantees at least one iteration? | a | a) do-while | b) for | c) while | d) for-each
 Loops | Mcq | Which keyword is used to exit a loop early? | c | a) continue | b) return | c) break | d) stop

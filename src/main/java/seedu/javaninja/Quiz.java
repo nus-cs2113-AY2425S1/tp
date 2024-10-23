@@ -30,11 +30,25 @@ public class Quiz {
             assert currentQuestion != null : "Current question must not be null";
 
             System.out.println(currentQuestion.text);
-            currentQuestion.printOptions();
-            System.out.print("Enter your answer: ");
-            String answer = scanner.nextLine().trim();
 
-            answerQuestion(answer);
+            if (currentQuestion instanceof Mcq) {
+                currentQuestion.printOptions();
+            } else if (currentQuestion instanceof TrueFalse) {
+                System.out.println("Please answer with 'true' or 'false'.");
+            }
+
+            boolean validInput = false;
+            while (!validInput) {
+                System.out.print("Enter your answer: ");
+                String answer = scanner.nextLine().trim();
+                try {
+                    answerQuestion(answer);
+                    validInput = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
             currentQuestionIndex++;
         }
 

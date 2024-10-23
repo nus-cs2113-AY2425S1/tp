@@ -11,6 +11,10 @@ public abstract class Question {
         this.correctAnswer = answer;
     }
 
+    public String getText() {
+        return this.text;
+    }
+
     public abstract boolean checkAnswer(String answer);
 
     public abstract void printOptions();

@@ -69,6 +69,7 @@ public class QuizManager {
         String correctAnswer = parts[3].trim();
 
         Topic topic = getOrCreateTopic(topicName);
+
         switch (questionType) {
         case "Mcq":
             List<String> options = new ArrayList<>();
@@ -76,6 +77,10 @@ public class QuizManager {
                 options.add(parts[i].trim());
             }
             topic.addQuestion(new Mcq(questionText, correctAnswer, options));
+            break;
+        case "TrueFalse":
+            boolean correctAnswerBoolean = Boolean.parseBoolean(correctAnswer);
+            topic.addQuestion(new TrueFalse(questionText, correctAnswerBoolean));
             break;
         case "Flashcard":
             topic.addQuestion(new Flashcard(questionText, correctAnswer));
@@ -205,6 +210,22 @@ public class QuizManager {
             logger.info("Added new Flashcard question.");
 
             String questionLine = "Flashcards | Flashcard | " + questionText + " | " + correctAnswer;
+            saveQuestionToFile(questionLine);
+        } else if (input.startsWith("add TrueFalse")) {
+            String[] parts = input.split("/q|/a");
+            if (parts.length < 3) {
+                System.out.println("Invalid command format. Please provide both question and answer.");
+                return;
+            }
+
+            String questionText = parts[1].trim();
+            boolean correctAnswer = Boolean.parseBoolean(parts[2].trim());
+
+            Topic topic = getOrCreateTopic("TrueFalse");
+            topic.addQuestion(new TrueFalse(questionText, correctAnswer));
+            logger.info("Added new TrueFalse question.");
+
+            String questionLine = "TrueFalse | TrueFalse | " + questionText + " | " + correctAnswer;
             saveQuestionToFile(questionLine);
         } else {
             logger.warning("Invalid command: " + input);
