@@ -1,8 +1,11 @@
 package wheresmymoney;
 import wheresmymoney.command.AddCommand;
-import wheresmymoney.command.Command;
+import wheresmymoney.command.DeleteCommand;
+import wheresmymoney.command.EditCommand;
+import wheresmymoney.command.ListCommand;
+import wheresmymoney.command.LoadCommand;
+import wheresmymoney.command.SaveCommand;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,55 +71,37 @@ public class Parser {
      * @param argumentsList List of arguments
      * @param expenseList List of expenses
      * @return Whether to continue running the program
-     * @throws Exception If command fails to run
+     * @throws WheresMyMoneyException If command fails to run
      */
     public boolean commandMatching(HashMap<String, String> argumentsList, ExpenseList expenseList) 
-            throws Exception {
-        int index;
-        float price;
-        String description;
-        String category;
+            throws WheresMyMoneyException {
         switch(argumentsList.get(Parser.ARGUMENT_COMMAND)) {
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
             return false;
         case "add":
-            Command command = new AddCommand(argumentsList);
-            command.execute(expenseList);
+            new AddCommand(argumentsList).execute(expenseList);
             break;
         case "edit":
-            index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;
-            category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
-            price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
-            description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
-            expenseList.editExpense(index, price, description, category);
+            new EditCommand(argumentsList).execute(expenseList);
             break;
         case "delete":
-            index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;
-            expenseList.deleteExpense(index);
+            new DeleteCommand(argumentsList).execute(expenseList);
             break;
         case "list":
-            category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
-            ArrayList<Expense> expensesToDisplay;
-            if (category == null) {
-                expensesToDisplay = expenseList.getList();
-            } else {
-                expensesToDisplay = expenseList.listByCategory(category);
-            }
-            Ui.displayExpenseList(expensesToDisplay, expenseList);
+            new ListCommand(argumentsList).execute(expenseList);
             break;
         case "load":
-            expenseList.loadFromCsv("./data.csv");
+            new LoadCommand(argumentsList).execute(expenseList);
             break;
         case "save":
-            expenseList.saveToCsv("./data.csv");
+            new SaveCommand(argumentsList).execute(expenseList);
             break;
         case "help":
             Ui.displayHelp();
             break;
         default:
-            System.out.println("No valid command given!");
-            break;
+            throw new WheresMyMoneyException("No valid command given!");
         }
         return true;
     }
