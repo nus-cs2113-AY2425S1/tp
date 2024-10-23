@@ -35,12 +35,13 @@ public class AddIngredientCommand extends Command {
         addNewIngredient(ingredients, ingredient, ui, storage);
     }
 
-    public void addNewIngredient(IngredientList ingredients, Ingredient newIngredient, Ui ui, Storage storage) throws IOException {
+    public void addNewIngredient(IngredientList ingredients, Ingredient newIngredient,
+                                 Ui ui, Storage storage) throws IOException {
         ingredients.addIngredient(newIngredient);
 
         storage.saveIngredients(ingredients);
 
-//        ui.printAddedRecipe(newIngredient.toString(), ingredients.getCounter());
+        //ui.printAddedRecipe(newIngredient.toString(), ingredients.getCounter());
     }
 
     public void addLoadedIngredient(IngredientList ingredients) {

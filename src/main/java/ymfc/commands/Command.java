@@ -48,5 +48,6 @@ public abstract class Command {
      * @param storage The {@code Storage} object for handling data persistence.
      * @throws Exception if the command execution encounters an error.
      */
-    public abstract void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) throws Exception;
+    public abstract void execute(RecipeList recipes, IngredientList ingredients,
+                                 Ui ui, Storage storage) throws Exception;
 }

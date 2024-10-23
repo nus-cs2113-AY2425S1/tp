@@ -107,7 +107,8 @@ public class Storage {
         command.addLoadedRecipe(recipes);
     }
 
-    private void addIngredient(IngredientList ingredients, String line) throws InvalidArgumentException, InvalidCommandException {
+    private void addIngredient(IngredientList ingredients, String line)
+            throws InvalidArgumentException, InvalidCommandException {
         AddIngredientCommand command = (AddIngredientCommand) Parser.parseCommand(line);
         command.addLoadedIngredient(ingredients);
     }

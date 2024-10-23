@@ -24,10 +24,10 @@ public class IngredientList {
         return ingredients.get(id);
     }
 
-//    public void removeIngredient(int id) {
-//        assert !ingredients.isEmpty() : "List should not be empty when deleting ingredient";
-//        ingredients.remove(id);
-//    }
+    /*public void removeIngredient(int id) {
+        assert !ingredients.isEmpty() : "List should not be empty when deleting ingredient";
+        ingredients.remove(id);
+    }*/
 
     public boolean removeIngredientByName(String name) {
         assert !ingredients.isEmpty() : "List should not be empty when deleting ingredient";
