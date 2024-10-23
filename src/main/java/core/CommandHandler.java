@@ -4,17 +4,17 @@ import command.Command;
 import command.CommandResult;
 import command.ExitCommand;
 import history.History;
-import parser.Parser;
+import parser.CommandParser;
 import programme.ProgrammeList;
 import ui.Ui;
 
 public class CommandHandler {
     private boolean isRunning;
-    private final Parser parser;
+    private final CommandParser parser;
 
     public CommandHandler(){
         this.isRunning = true;
-        this.parser = new Parser();
+        this.parser = new CommandParser();
     }
 
     public void run(Ui ui, ProgrammeList programmes, History history){
