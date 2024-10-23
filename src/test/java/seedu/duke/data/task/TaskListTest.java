@@ -30,7 +30,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testGetCompletionRate_EmptyTaskList() {
+    public void testGetCompletionRate_emptyTaskList() {
         System.out.println("calCompletionRate");
         TaskList instance = new TaskList();
         String expResult = "100.00%";
