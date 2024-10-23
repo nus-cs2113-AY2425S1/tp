@@ -16,7 +16,7 @@ SpendSwift is designed for budget-conscious individuals who want a simple, effic
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+SpendSwift eliminates the complexity of traditional budgeting tools by offering a fast, text-based solution. The program is built for users who prefer typing over visual interfaces, providing an efficient way to manage expenses, set budgets, and categorize spending. It streamlines the process, making it easier to stay organized and in control of finances.
 
 ## User Stories
 
