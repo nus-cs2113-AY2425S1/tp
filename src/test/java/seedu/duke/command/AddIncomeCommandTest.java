@@ -3,10 +3,13 @@ package seedu.duke.command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -46,15 +49,16 @@ class AddIncomeCommandTest {
      * Verifies that the income is added to the financial list and that the correct output is printed.
      */
     @Test
-    void execute_addExpense_expectAddedToFinancialList() {
-        addIncomeCommand = new AddIncomeCommand(500.0, "allowance");
+    void execute_addExpense_expectAddedToFinancialList() throws FinanceBuddyException {
+        String specificDate = "14/10/24";
+        addIncomeCommand = new AddIncomeCommand(500.0, "allowance", specificDate);
         addIncomeCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this income:" + System.lineSeparator() +
-                "[Income] - allowance $ 500.00" + System.lineSeparator() +
+                "[Income] - allowance $ 500.00 (on "+ specificDate + ")" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(1, financialList.getEntryCount());  // Verify the entry count
@@ -67,26 +71,29 @@ class AddIncomeCommandTest {
      * Verifies that all incomes are added correctly and that the output is printed for each.
      */
     @Test
-    void execute_addMultipleExpenses_expectAllAddedToFinancialList() {
-        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment");
+    void execute_addMultipleExpenses_expectAllAddedToFinancialList() throws FinanceBuddyException {
+        String specificDate = "21/12/24";
+        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", specificDate);
         addIncomeCommand.execute(financialList);
 
-        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money");
+        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money",null);
         addIncomeCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this income:" + System.lineSeparator() +
-                "[Income] - Cost of Living payment $ 400.00" + System.lineSeparator() +
+                "[Income] - Cost of Living payment $ 400.00 (on "+ specificDate + ")" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this income:" + System.lineSeparator() +
-                "[Income] - friend return money $ 10.50" + System.lineSeparator() +
+                "[Income] - friend return money $ 10.50 (on " + currentDate + ")" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(2, financialList.getEntryCount());  // Verify the entry count
         assertEquals(expectedOutput, output);  // Verify the printed output for both
     }
+
 }
 

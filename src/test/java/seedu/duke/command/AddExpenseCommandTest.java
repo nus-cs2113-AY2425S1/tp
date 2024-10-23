@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class for the AddExpenseCommand.
@@ -58,7 +59,7 @@ class AddExpenseCommandTest {
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this expense:" + System.lineSeparator() +
-                "[Expense] - groceries $ 50.00" + System.lineSeparator() +
+                "[Expense] - groceries $ 50.00 (on "+ specificDate + ")" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(1, financialList.getEntryCount());  // Verify the entry count
@@ -73,7 +74,7 @@ class AddExpenseCommandTest {
     void execute_addExpenseWithoutDate_expectAddedToFinancialListWithCurrentDate() throws FinanceBuddyException {
         // Use current system date
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", "");
+        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", null);
         addExpenseCommand.execute(financialList);
 
         String output = outputStream.toString();
@@ -96,7 +97,7 @@ class AddExpenseCommandTest {
         String specificDate = "12/10/24";
 
         // Add first expense without a specific date
-        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", "");
+        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", null);
         addExpenseCommand.execute(financialList);
 
         // Add second expense with a specific date
@@ -116,4 +117,22 @@ class AddExpenseCommandTest {
         assertEquals(2, financialList.getEntryCount());
         assertEquals(expectedOutput, output);
     }
+
+    /**
+     * Test the execute method of AddExpenseCommand with an empty date string.
+     * Verifies that the command prints an error message when an empty date is provided.
+     */
+    @Test
+    void execute_addExpenseWithEmptyDate_expectErrorMessage() {
+        String emptyDate = "";  // Empty date string
+
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addExpenseCommand = new AddExpenseCommand(50.00, "shopping", emptyDate);
+            addExpenseCommand.execute(financialList);
+        });
+
+        // Verify the error message
+        assertEquals("Invalid date format. Please use 'dd/MM/yy'.", exception.getMessage());
+    }
+
 }
