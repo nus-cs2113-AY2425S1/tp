@@ -77,4 +77,6 @@ public abstract class FinancialEntry {
      * @return A string representation of the financial entry.
      */
     public abstract String toString();
+
+    public abstract String toStorageString();
 }
