@@ -66,8 +66,7 @@ public class Task {
             default:
                 throw new UnknownTaskType(type);
             }
-        }
-        catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e){
             throw new MissingTaskArgument(type);
         }
     }
