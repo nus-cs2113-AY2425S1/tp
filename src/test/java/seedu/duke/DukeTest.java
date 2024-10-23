@@ -5,8 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-class CategoryTest {
+class ExpenseTest {
+    @Test
+    public void expenseConstructor() {
+        Category category = new Category("Food");
+        Expense expense = new Expense("Lunch", 12.50, category);
+        assertEquals("Lunch", expense.getName());
+        assertEquals(12.50, expense.getAmount());
+        assertEquals(category, expense.getCategory());
+    }
+}
 
+class CategoryTest {
     @Test
     public void categoryConstructorSuccess() {
         Category category = new Category("Entertainment");
