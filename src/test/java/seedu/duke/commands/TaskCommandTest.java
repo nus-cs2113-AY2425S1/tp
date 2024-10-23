@@ -40,7 +40,9 @@ public class TaskCommandTest {
         TaskList tasks = new TaskList();
         addTaskCommand.setData(tasks);
         CommandResult commandResult = addTaskCommand.execute();
-        assertEquals("Missing arguments for task type: deadline\nThe required arguments for task type: deadline are: description, due date", commandResult.getFeedbackToUser());
+        assertEquals("Missing arguments for task type: deadline\n" + 
+            "The required arguments for task type: deadline are: description, due date", 
+            commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -85,7 +87,8 @@ public class TaskCommandTest {
         ListTaskCommand listTaskCommand = new ListTaskCommand();
         listTaskCommand.setData(tasks);
         CommandResult commandResult = listTaskCommand.execute();
-        assertEquals("Here are the tasks in your list!\n1. [T][ ] Read book\n", commandResult.getFeedbackToUser());
+        assertEquals("Here are the tasks in your list!\n1. [T][ ] Read book\n", 
+            commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -118,6 +121,8 @@ public class TaskCommandTest {
         FindTaskCommand findTaskCommand = new FindTaskCommand("meo");
         findTaskCommand.setData(tasks);
         CommandResult commandResult = findTaskCommand.execute();
-        assertEquals("Here are the matching tasks in your list: \n1. [T][ ] Meomeo\n2. [R][ ] Meomeomeomeo (repeat: every 2 days)\n", commandResult.getFeedbackToUser());
+        assertEquals("Here are the matching tasks in your list: " + 
+            "\n1. [T][ ] Meomeo\n2. [R][ ] Meomeomeomeo (repeat: every 2 days)\n", 
+            commandResult.getFeedbackToUser());
     }
 }
