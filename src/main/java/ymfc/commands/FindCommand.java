@@ -1,7 +1,8 @@
 package ymfc.commands;
 
+import ymfc.list.IngredientList;
 import ymfc.recipe.Recipe;
-import ymfc.recipelist.RecipeList;
+import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
@@ -40,7 +41,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(RecipeList recipes, Ui ui, Storage storage) throws Exception {
+    public void execute(RecipeList recipes, IngredientList ingredientList, Ui ui, Storage storage) throws Exception {
         logger.log(Level.FINEST, "Executing FindCommand");
         ArrayList<Recipe> results = recipes.getRecipes()
                 .stream()
