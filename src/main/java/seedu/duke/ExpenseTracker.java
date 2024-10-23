@@ -260,10 +260,12 @@ public class ExpenseTracker {
             double remainingBudget = budget.getLimit() - totalExpense;
 
             if (remainingBudget >= 0) {
-                System.out.println(category + ": " + formatDecimal(totalExpense) + " spent, " + formatDecimal(remainingBudget) + " remaining");
+                System.out.println(category + ": " + formatDecimal(totalExpense) + " spent, " +
+                        formatDecimal(remainingBudget) + " remaining");
             } else {
                 Double positive = Math.abs(remainingBudget);
-                System.out.println(category + ": " + formatDecimal(totalExpense) + " spent, Over budget by " + formatDecimal(positive));
+                System.out.println(category + ": " + formatDecimal(totalExpense) + " spent, " +
+                        "Over budget by " + formatDecimal(positive));
             }
         }
 
