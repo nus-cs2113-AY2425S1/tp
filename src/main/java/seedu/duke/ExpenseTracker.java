@@ -50,25 +50,35 @@ public class ExpenseTracker {
         checkAndResetBudgets();
     }
 
+    private String formatInput(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    }
+
     public void addExpense(String name, double amount, String category) {
-        Expense newExpense = new Expense(name, amount, category);
+        String formattedCategoryName = formatInput(category.trim());
+        Expense newExpense = new Expense(name, amount, formattedCategoryName);
         expenses.add(newExpense);
         System.out.println("Added" + newExpense);
     }
 
     public void addCategory(String categoryName) {
-        for (Category category : categories) {
-            if (category.getName().equalsIgnoreCase(categoryName)) {
-                System.out.println("Category '" + categoryName + "' already exists!");
-                return;
-            }
-        }
         String trimmedCategoryName = categoryName.substring("add category".length()).trim();
         if (trimmedCategoryName.isEmpty()) {
             System.out.println("Category name is empty!");
             return;
         }
-        Category newCategory = new Category(trimmedCategoryName);
+
+        String formattedCategoryName = formatInput(trimmedCategoryName.trim());
+        for (Category category : categories) {
+            if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
+                System.out.println("Category '" + formattedCategoryName + "' already exists!");
+                return;
+            }
+        }
+        Category newCategory = new Category(formattedCategoryName);
         categories.add(newCategory);
         System.out.println("Category '" + newCategory + "' added successfully.");
     }
@@ -88,15 +98,16 @@ public class ExpenseTracker {
             System.out.println("Invalid index");
             return;
         }
+        String formattedCategoryName = formatInput(categoryName.trim());
         for (Category category : categories) {
-            if (category.getName().equalsIgnoreCase(categoryName)) {
+            if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
                 Expense expense = expenses.get(expenseIndex);
-                expense.setCategory(categoryName);
+                expense.setCategory(formattedCategoryName);
                 System.out.println("Tagged expense: " + expense);
                 return;
             }
         }
-        System.out.println("Category '" + categoryName + "' does not exist.");
+        System.out.println("Category '" + formattedCategoryName + "' does not exist.");
     }
 
     public void tagExpense(String input) {
