@@ -43,6 +43,29 @@ public class ObtainEmailCommand extends Command {
         return inputParts[1].trim();
     }
 
+    private void handleContactType(JsonObject schoolInfo, String schoolName, String contactType) {
+        switch (contactType) {
+        case "email":
+            String email = schoolInfo.getString("email", null);
+            if (email != null) {
+                System.out.println("Email for " + schoolName + ": " + email);
+            } else {
+                System.out.println("Email not available for " + schoolName);
+            }
+            break;
+        case "number":
+            String number = schoolInfo.getString("number", null);
+            if (number != null) {
+                System.out.println("Phone number for " + schoolName + ": " + number);
+            } else {
+                System.out.println("Phone number not available for " + schoolName);
+            }
+            break;
+        default:
+            System.out.println("Invalid contact type. Please use 'email' or 'number'.");
+        }
+    }
+
     private String findMatchingSchool(JsonObject jsonObject, String schoolName) {
         for (String key : jsonObject.keySet()) {
             if (key.toLowerCase().equals(schoolName)) {
