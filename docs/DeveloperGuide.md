@@ -12,7 +12,7 @@
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+SpendSwift is designed for budget-conscious individuals who want a simple, efficient way to track expenses and manage budgets. These users prefer typing commands to quickly input and review financial data, avoiding complex visual interfaces. They value minimalism, functionality, and speed in managing their finances.
 
 ### Value proposition
 
