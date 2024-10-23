@@ -113,7 +113,6 @@ public class UiCommand extends Ui {
     }
 
 
-
     /**
      * Prints message to show no flags available to filter.
      */
@@ -121,6 +120,7 @@ public class UiCommand extends Ui {
         showOutput("Insufficient arguments! Please include a flag to filter by.");
     }
 
+    //@@author Toby-Yu
     /**
      * Prints message indicating how internships are sorted.
      *
@@ -156,6 +156,7 @@ public class UiCommand extends Ui {
                 "deadline: Sort internships by start date (year first), then end date.";
     }
 
+    //@@author Ridiculouswifi
     public void showCommands(ArrayList<Command> commands) {
         printHeadDivider();
         for (Command command : commands) {

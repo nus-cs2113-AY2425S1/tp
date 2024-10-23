@@ -117,6 +117,7 @@ public class InternshipList {
         return internships.size();
     }
 
+    //@@author Toby-Yu
     // Method to list all internships in sorted order by role (case-insensitive)
     public void listInternshipsSortedByRole() {
         ArrayList<Internship> sortedList = new ArrayList<>(internships);
