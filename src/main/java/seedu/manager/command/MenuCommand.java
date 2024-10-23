@@ -1,5 +1,6 @@
 package seedu.manager.command;
 
+//@@author glenn-chew
 /**
  * Represents an executable menu command
  */
