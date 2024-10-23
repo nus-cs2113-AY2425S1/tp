@@ -1,6 +1,7 @@
 package wheresmymoney;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +11,8 @@ import java.util.logging.Logger;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
+import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 public class ExpenseList {
@@ -108,19 +111,25 @@ public class ExpenseList {
      *
      * @param filePath File Path to read csv
      */
-    public void loadFromCsv(String filePath) throws Exception {
-        File file = new File(filePath);
-        FileReader reader = new FileReader(file);
-        CSVReader csvReader = new CSVReader(reader);
+    public void loadFromCsv(String filePath) throws StorageException {
+        try {
+            File file = new File(filePath);
+            FileReader reader = new FileReader(file);
+            CSVReader csvReader = new CSVReader(reader);
 
-        csvReader.readNext(); // Skip the header
-        String[] line;
-        while ((line = csvReader.readNext()) != null) {
-            addExpense(Float.parseFloat(line[2]), line[1], line[0]);
+            csvReader.readNext(); // Skip the header
+            String[] line;
+            while ((line = csvReader.readNext()) != null) {
+                addExpense(Float.parseFloat(line[2]), line[1], line[0]);
+            }
+
+            // closing writer connection
+            reader.close();
+        } catch (IOException ex) {
+            throw new StorageException("Unable to read file!");
+        } catch (CsvValidationException e){
+            throw new StorageException("File not in the correct format!");
         }
-
-        // closing writer connection
-        reader.close();
     }
 
     /**
@@ -128,14 +137,20 @@ public class ExpenseList {
      *
      * @param filePath File Path to save csv to
      */
-    public void saveToCsv(String filePath) throws IOException {
+    public void saveToCsv(String filePath) throws StorageException {
         File file = new File(filePath);
 
         // create FileWriter object with file as parameter
-        FileWriter outputfile = new FileWriter(file);
+        FileWriter outFile;
+        try{
+            outFile = new FileWriter(file);
+        } catch (IOException e) {
+            throw new StorageException("Unable to save to file!");
+        }
+
 
         // create CSVWriter object filewriter object as parameter
-        CSVWriter writer = new CSVWriter(outputfile);
+        CSVWriter writer = new CSVWriter(outFile);
 
         // adding header to csv
         String[] header = { "Category", "Description", "Price" };
@@ -151,6 +166,10 @@ public class ExpenseList {
         }
 
         // closing writer connection
-        writer.close();
+        try{
+            writer.close();
+        } catch (IOException e) {
+            throw new StorageException("Unable to save to file!");
+        }
     }
 }

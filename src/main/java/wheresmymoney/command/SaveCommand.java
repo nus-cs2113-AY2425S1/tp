@@ -3,6 +3,7 @@ package wheresmymoney.command;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.exception.WheresMyMoneyException;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class SaveCommand extends Command {
@@ -13,10 +14,6 @@ public class SaveCommand extends Command {
 
     @Override
     public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
-        try {
-            expenseList.saveToCsv("./data.csv");
-        } catch (Exception e) {
-            throw new WheresMyMoneyException("Save Failed");
-        }
+        expenseList.saveToCsv("./data.csv");
     }
 }

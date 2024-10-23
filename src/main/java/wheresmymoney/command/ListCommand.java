@@ -15,19 +15,16 @@ public class ListCommand extends Command {
         super(argumentsMap);
     }
 
-    /**
-     * Displays list expenses as requested by user
-     */
-    @Override
-    public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
+    private ArrayList<Expense> getExpensesToDisplay(ExpenseList expenseList) {
         String listCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
-        ArrayList<Expense> expensesToDisplay;
         if (listCategory == null) {
-            expensesToDisplay = expenseList.getList();
+            return expenseList.getList();
         } else {
-            expensesToDisplay = expenseList.listByCategory(listCategory);
+            return expenseList.listByCategory(listCategory);
         }
+    }
 
+    private void displayExpenses(ArrayList<Expense> expensesToDisplay, ExpenseList expenseList) {
         for (Expense expense: expensesToDisplay) {
             String index = expenseList.getIndexOf(expense) + 1 + ". ";
             String category = "CATEGORY: " + expense.getCategory();
@@ -35,5 +32,14 @@ public class ListCommand extends Command {
             String price = "   PRICE: " + expense.getPrice();
             Ui.displayMessage(index + category + description + price);
         }
+    }
+
+    /**
+     * Displays list expenses as requested by user
+     */
+    @Override
+    public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
+        ArrayList<Expense> expensesToDisplay = getExpensesToDisplay(expenseList);
+        displayExpenses(expensesToDisplay, expenseList);
     }
 }

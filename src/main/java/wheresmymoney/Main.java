@@ -22,7 +22,7 @@ public class Main {
                 Command command = parser.parseInputToCommand(line);
                 command.execute(expenseList);
                 isExit = command.isExit();
-            } catch (Exception e){
+            } catch (WheresMyMoneyException e){
                 Ui.displayMessage(e.getMessage());
             }
         }

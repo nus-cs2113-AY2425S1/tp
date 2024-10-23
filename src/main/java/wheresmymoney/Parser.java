@@ -8,6 +8,7 @@ import wheresmymoney.command.HelpCommand;
 import wheresmymoney.command.ListCommand;
 import wheresmymoney.command.LoadCommand;
 import wheresmymoney.command.SaveCommand;
+import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
@@ -126,7 +127,7 @@ public class Parser {
         case "help":
             return new HelpCommand(argumentsMap);
         default:
-            throw new WheresMyMoneyException("No valid command given!");
+            throw new InvalidInputException("No valid command given!");
         }
     }
 
