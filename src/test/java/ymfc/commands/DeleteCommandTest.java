@@ -1,6 +1,7 @@
 package ymfc.commands;
 
 import ymfc.exception.InvalidArgumentException;
+import ymfc.list.IngredientList;
 import ymfc.recipe.Recipe;
 import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
@@ -17,12 +18,14 @@ public class DeleteCommandTest {
     private RecipeList recipeList;
     private Ui ui;
     private DeleteCommand deleteCommand;
+    private IngredientList ingredientList;
 
     @BeforeEach
     void setUp() {
         recipeList = new RecipeList();
+        ingredientList = new IngredientList();
         ui = new Ui(System.in);
-        storage = new Storage("./data/recipes.txt");
+        storage = new Storage();
 
         // Add some sample recipes
         ArrayList<String> pastaIngredients = new ArrayList<>();
@@ -61,7 +64,7 @@ public class DeleteCommandTest {
         assertEquals(2, recipeList.getCounter());
 
         // Execute the DeleteCommand
-        deleteCommand.execute(recipeList, ui, storage);
+        deleteCommand.execute(recipeList, ingredientList, ui, storage);
 
         // Assertions to verify the recipe was removed
         assertEquals(1, recipeList.getCounter());  // Ensure that a recipe was deleted

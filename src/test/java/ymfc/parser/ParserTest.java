@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import ymfc.commands.AddRecipeCommand;
 import ymfc.exception.InvalidArgumentException;
+import ymfc.list.IngredientList;
 import ymfc.recipe.Recipe;
 import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
@@ -123,11 +124,12 @@ class ParserTest {
     @MethodSource("parseCommand_addRecipeCommandSuccess_data")
     void parseCommand_addRecipeCommand_success(Recipe recipe, String command) {
         RecipeList rList = new RecipeList();
+        IngredientList iList = new IngredientList();
         Ui ui = new Ui(System.in);
         try {
             AddRecipeCommand addCommand = (AddRecipeCommand) parseCommand(command);
             assert addCommand != null;
-            addCommand.execute(rList, ui, new Storage("./data/recipes.txt"));
+            addCommand.execute(rList, iList, ui, new Storage());
             assertTrue(recipe.equals(rList.getRecipe(rList.getCounter() - 1)));
         } catch (Exception e) {
             fail(e.getMessage());

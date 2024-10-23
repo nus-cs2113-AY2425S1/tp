@@ -1,5 +1,6 @@
 package ymfc.commands;
 
+import ymfc.list.IngredientList;
 import ymfc.recipe.Recipe;
 import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
@@ -19,12 +20,14 @@ public class AddRecipeCommandTest {
     private Ui ui;
     private Recipe recipe;
     private AddRecipeCommand addRecipeCommand;
+    private IngredientList ingredientList;
 
     @BeforeEach
     void setUp() {
         emptyList = new RecipeList();
+        ingredientList = new IngredientList();
         ui = new Ui(System.in);
-        storage = new Storage("./data/recipes.txt");
+        storage = new Storage();
 
         // Sample ingredients and steps
         ArrayList<String> ingredients = new ArrayList<>();
@@ -43,7 +46,7 @@ public class AddRecipeCommandTest {
 
     @Test
     void testAddNewRecipe() throws IOException {
-        addRecipeCommand.execute(emptyList, ui, storage);
+        addRecipeCommand.execute(emptyList, ingredientList, ui, storage);
 
         assertEquals(1, emptyList.getCounter());
         assertEquals(recipe, emptyList.getRecipe(0));
