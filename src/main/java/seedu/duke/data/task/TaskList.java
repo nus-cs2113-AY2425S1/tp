@@ -31,6 +31,7 @@ public class TaskList {
 
     public double calCompletionRate() {
         int done = 0;
+        double rate = 0;
         for (Task task : tasks) {
             if (task.isDone()) {
                 done++;
@@ -38,11 +39,11 @@ public class TaskList {
         }
 
         if(getSize() == 0) {
-            completionRate = 1.0;
+            rate = 1.0;
         } else {
-            completionRate = (double) done / getSize();   
+            rate = (double) done / getSize();   
         } 
-        return completionRate;
+        return rate;
     }
 
     public String getCompletionRate() {

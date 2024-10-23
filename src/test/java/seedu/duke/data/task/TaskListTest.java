@@ -15,10 +15,10 @@ public class TaskListTest {
     public void testGetCompletionRate() {
         System.out.println("calCompletionRate");
         TaskList instance = new TaskList();
-        AddTaskCommand command = new AddTaskCommand("Read book");
+        AddTaskCommand command = new AddTaskCommand("todo", "Read book");
         command.setData(instance);
         command.execute();
-        AddTaskCommand command2 = new AddTaskCommand("close book");  
+        AddTaskCommand command2 = new AddTaskCommand("todo", "close book");  
         command2.setData(instance);
         command2.execute();
         MarkTaskCommand command3 = new MarkTaskCommand(1);
