@@ -1,12 +1,12 @@
 package seedu.duke;
 public class Budget {
-    private String category; // Private to prevent unauthorized access or changes
+    private Category category; // Private to prevent unauthorized access or changes
     private double limit;// Private to control modifications to the budget
-    public Budget(String category, double limit) {
+    public Budget(Category category, double limit) {
         this.category = category;
         this.limit = limit;
     }
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
     public double getLimit() {
