@@ -57,9 +57,21 @@ public class ExpenseTracker {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
-    public void addExpense(String name, double amount, String category) {
-        String formattedCategoryName = formatInput(category.trim());
-        Expense newExpense = new Expense(name, amount, formattedCategoryName);
+    public void addExpense(String name, double amount, String categoryName) {
+        String formattedCategoryName = formatInput(categoryName.trim());
+        Category existingCategory = null;
+        for (Category category : categories) {
+            if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
+                existingCategory = category;
+                break;
+            }
+        }
+        if (existingCategory == null) {
+            existingCategory = new Category(formattedCategoryName);
+            categories.add(existingCategory);
+            System.out.println("Category '" + formattedCategoryName + "' added successfully.");
+        }
+        Expense newExpense = new Expense(name, amount, existingCategory);
         expenses.add(newExpense);
         System.out.println("Added" + newExpense);
     }
@@ -102,7 +114,7 @@ public class ExpenseTracker {
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
                 Expense expense = expenses.get(expenseIndex);
-                expense.setCategory(formattedCategoryName);
+                expense.setCategory(category);
                 System.out.println("Tagged expense: " + expense);
                 return;
             }
@@ -151,17 +163,17 @@ public class ExpenseTracker {
         }
         System.out.println("Expenses grouped by categories:");
         // Create a map to group expenses by their category
-        Map<String, List<Expense>> expensesByCategory = new HashMap<>();
+        Map<Category, List<Expense>> expensesByCategory = new HashMap<>();
         // Populate the map
         for (Expense expense : expenses) {
-            String category = expense.getCategory();
+            Category category = expense.getCategory();
             if (!expensesByCategory.containsKey(category)) {
                 expensesByCategory.put(category, new ArrayList<>());
             }
             expensesByCategory.get(category).add(expense);
         }
         // Display the expenses grouped by category
-        for (String category : expensesByCategory.keySet()) {
+        for (Category category : expensesByCategory.keySet()) {
             System.out.println("Category: " + category);
             List<Expense> categoryExpenses = expensesByCategory.get(category);
             for (Expense expense : categoryExpenses) {
@@ -201,9 +213,9 @@ public class ExpenseTracker {
         }
 
         // mapping total expenses for a category to each category
-        Map<String, Double> totalExpensesToCategory = new HashMap<>();
+        Map<Category, Double> totalExpensesToCategory = new HashMap<>();
         for (Expense expense: expenses) {
-            String category = expense.getCategory();
+            Category category = expense.getCategory();
             if (totalExpensesToCategory.containsKey(category)) {
                 totalExpensesToCategory.put(category, totalExpensesToCategory.get(category) + expense.getAmount());
             } else {
@@ -226,7 +238,7 @@ public class ExpenseTracker {
         }
 
         // if no budget set for certain category
-        for (String category: totalExpensesToCategory.keySet()) {
+        for (Category category: totalExpensesToCategory.keySet()) {
             if (!budgets.containsKey(category)) {
                 System.out.println(category + ": No budget set");
             }

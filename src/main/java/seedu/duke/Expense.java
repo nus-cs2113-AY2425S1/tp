@@ -4,13 +4,12 @@ import java.text.DecimalFormat;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-
 public class Expense {
     private String name;
     private double amount;
-    private String category;
+    private Category category;
 
-    public Expense(String name, double amount, String category) {
+    public Expense(String name, double amount, Category category) {
         this.name = name;
         this.amount = amount;
         this.category = category;
@@ -24,11 +23,11 @@ public class Expense {
         return amount;
     }
 
-    public String getCategory() {
-        return category != null ? category : "null";
+    public Category getCategory() {
+        return category != null ? category : null;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
