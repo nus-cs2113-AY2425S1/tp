@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StorageTest {
     private final String testFilePath = "./test/test_data.json";
-    private Storage storage;
+    private FileManager fileManager;
 
     @BeforeEach
     public void setup() {
-        storage = new Storage(testFilePath);
+        fileManager = new FileManager(testFilePath);
     }
 
     @AfterEach
@@ -33,7 +33,7 @@ public class StorageTest {
         programmeList.addProperty("day1", "exercise1");
         mockJsonObject.add("programmeList", programmeList);
 
-        JsonObject result = storage.loadProgrammeList();
+        JsonObject result = fileManager.loadProgrammeList();
 
         assertNotNull(result);
         assertTrue(result.has("day1"));
@@ -45,7 +45,7 @@ public class StorageTest {
         JsonObject mockJsonObject = new JsonObject();
         mockJsonObject.addProperty("history", "someHistory");
 
-        JsonObject result = storage.loadProgrammeList();
+        JsonObject result = fileManager.loadProgrammeList();
 
         assertNotNull(result);
         assertEquals(0, result.size());
@@ -53,7 +53,7 @@ public class StorageTest {
 
     @Test
     public void testLoadProgrammeList_emptyList() throws Exception {
-        JsonObject result = storage.loadProgrammeList();
+        JsonObject result = fileManager.loadProgrammeList();
 
         assertNotNull(result);
         assertEquals(0, result.size());
@@ -66,7 +66,7 @@ public class StorageTest {
         history.addProperty("24/12/2024", "Day1");
         mockJsonObject.add("History", history);
 
-        JsonObject result = storage.loadHistory();
+        JsonObject result = fileManager.loadHistory();
 
         assertNotNull(result);
         assertTrue(result.has("Day1"));
@@ -78,7 +78,7 @@ public class StorageTest {
         JsonObject mockJsonObject = new JsonObject();
         mockJsonObject.addProperty("ProgrammeList", "Exercise 1");
 
-        JsonObject result = storage.loadHistory();
+        JsonObject result = fileManager.loadHistory();
 
         assertNotNull(result);
         assertEquals(0, result.size());
@@ -86,7 +86,7 @@ public class StorageTest {
 
     @Test
     public void testLoadHistory_emptyHistory() throws Exception {
-        JsonObject result = storage.loadHistory();
+        JsonObject result = fileManager.loadHistory();
 
         assertNotNull(result);
         assertEquals(0, result.size());
