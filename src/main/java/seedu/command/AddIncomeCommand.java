@@ -41,7 +41,7 @@ public class AddIncomeCommand extends AddTransactionCommand {
         try {
             amount = Double.parseDouble(amountString);
         } catch (NumberFormatException e) {
-            return List.of("Invalid amount");
+            return List.of( ERROR_MESSAGE + ": " + "Invalid Amount");
         }
         try {
             transactions.addTransaction(createTransaction(amount, incomeName, dateString));
