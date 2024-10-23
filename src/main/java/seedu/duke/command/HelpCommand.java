@@ -19,9 +19,10 @@ public class HelpCommand extends Command{
         String helpMenu = "--------------------------------------------\n" +
                 "List of commands:\n" +
                 "--------------------------------------------\n" +
-                "1. list [income|expense]\n " +
+                "1. list [income|expense] [/from START_DATE] [/to END_DATE]\n " +
                 "   - Shows a list of logged transactions\n" +
                 "    - Optional: Specify 'income' or 'expense' to filter the list\n" +
+                "    - Optional: Specify start/end date to only list transactions before/after specified dates\n" +
                 "2. expense DESCRIPTION /a AMOUNT\n " +
                 "   - Adds a new expense\n" +
                 "3. income DESCRIPTION /a AMOUNT\n " +

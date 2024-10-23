@@ -12,11 +12,11 @@ import seedu.duke.command.ExitCommand;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.parser.DateParser;
 import seedu.duke.parser.InputParser;
 
 import seedu.duke.storage.Storage;
 import java.time.LocalDate;
-
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -50,7 +50,7 @@ public class AppUi {
     public void addExpense(HashMap<String, String> commandArguments) {
         String description = commandArguments.get("argument");
         double amount = Double.parseDouble(commandArguments.get("/a"));
-        String date = commandArguments.get("/dt");
+        String date = commandArguments.get("/d");
 
         try {
             AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date);
@@ -73,7 +73,7 @@ public class AppUi {
     public void addIncome(HashMap<String, String> commandArguments) {
         String description = commandArguments.get("argument");
         double amount = Double.parseDouble(commandArguments.get("/a"));
-        String date = commandArguments.get("/dt");
+        String date = commandArguments.get("/d");
 
         try {
             AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description, date);
@@ -138,22 +138,31 @@ public class AppUi {
      * @param commandArguments A HashMap containing the command argument with the key "argument".
      *                         The value can be "expense", "income", or null/empty for listing all entries.
      */
-    public void listHelper(HashMap<String, String> commandArguments) {
+    public void listHelper(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String type = commandArguments.get("argument");
+        String start = commandArguments.get("/from");
+        String end = commandArguments.get("/to");
+
+        if ((start != null && start.isBlank()) || (end != null && end.isBlank())) {
+            throw new FinanceBuddyException("Please enter a valid start/end date");
+        }
+
+        LocalDate startDate = start != null ? DateParser.parse(commandArguments.get("/from")) : null;
+        LocalDate endDate = end != null ? DateParser.parse(commandArguments.get("/to")) : null;
 
         if (type != null) {
             if (type.equals("expense")) {
-                SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand();
+                SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(startDate, endDate);
                 seeAllExpensesCommand.execute(financialList);
             } else if (type.equals("income")) {
-                SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand();
+                SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(startDate, endDate);
                 seeAllIncomesCommand.execute(financialList);
             } else {
                 System.out.println("Unknown argument: " + type);
                 System.out.println("--------------------------------------------");
             }
         } else {
-            SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand();
+            SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(startDate, endDate);
             seeAllEntriesCommand.execute(financialList);
         }
     } 
@@ -183,7 +192,11 @@ public class AppUi {
 
         switch (command) {
         case "list":
-            listHelper(commandArguments);
+            try {
+                listHelper(commandArguments);
+            } catch (FinanceBuddyException e) {
+                System.out.println(e.getMessage());
+            }
             break;
 
         case "expense":
