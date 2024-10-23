@@ -39,7 +39,6 @@ public class Duke {
         }
     }
 
-
     public static void addExpenseRequest(String input, ExpenseTracker expenseTracker) {
         try {
             String[] parts = input.split(" ");
