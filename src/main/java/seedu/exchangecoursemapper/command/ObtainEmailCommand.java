@@ -26,4 +26,15 @@ public class ObtainEmailCommand extends Command {
             System.err.println(e.getMessage());
         }
     }
+
+    private String getSchoolName(String userInput) {
+        String inputWithoutCommand = userInput.substring(userInput.indexOf(" ") + 1).trim();
+        String[] inputParts = inputWithoutCommand.split(" /");
+
+        if (inputParts.length != 2 || !inputParts[1].equalsIgnoreCase("email")) {
+            throw new IllegalArgumentException("Invalid input format.");
+        }
+
+        return inputParts[0].trim();
+    }
 }
