@@ -280,6 +280,8 @@ public class AppUi {
         // create a new storage object
         this.mainStorage = new Storage();
 
+        financialList = mainStorage.loadFromFile();
+
         commandEntry();
     }
 }
