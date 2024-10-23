@@ -19,7 +19,9 @@
         "nus_course_code": "CS3244",
         "nus_course_name": "Machine Learning"
       }
-    ]
+    ],
+    "email": "int.off@chula.ac.th",
+    "number": "+66 2 218 2000"
   },
 
   "The University of Melbourne": {
@@ -126,7 +128,9 @@
         "nus_course_code": "CS4243",
         "nus_course_name": "Computer Vision and Pattern Recognition"
       }
-    ]
+    ],
+    "email": "unimelb-support@unimelb.edu.au",
+    "number": "+61 3 9035 5511"
   },
 
   "The Australian National University": {
@@ -275,7 +279,9 @@
         "nus_course_code": "EE4212  ",
         "nus_course_name": "Computer Vision"
       }
-    ]
+    ],
+    "email": "student@anu.edu.au",
+    "number": "+61 2 6125 7257"
   },
 
   "Victoria University of Wellington": {
@@ -358,7 +364,9 @@
         "nus_course_code": "CS5231",
         "nus_course_name": "Systems Security"
       }
-    ]
+    ],
+    "email": "email info@vuw.ac.nz",
+    "number": "+64 4 472 1000"
   },
 
   "The University of Western Australia": {
@@ -501,6 +509,8 @@
         "nus_course_code": "CS3237",
         "nus_course_name": "Introduction to Internet of Things"
       }
-    ]
+    ],
+    "email": "uwa-albany@uwa.edu.au",
+    "number": "+61 2 9852 5656"
   }
 }
