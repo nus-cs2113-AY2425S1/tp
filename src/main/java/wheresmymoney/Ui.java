@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Ui {
-    public Parser parser;
+    public Parser commandParser;
     public Ui(){
-        parser = new Parser();
+        commandParser = new Parser();
     }
 
     /**
@@ -85,9 +85,9 @@ public class Ui {
         while (isAskingInput){
             System.out.print("> ");
             line = scanner.nextLine();
-            argumentsList = parser.parseCommandToArguments(line);
+            argumentsList = commandParser.parseCommandToArguments(line);
             try {
-                isAskingInput = parser.commandMatching(argumentsList, expenseList);
+                isAskingInput = commandParser.commandMatching(argumentsList, expenseList);
             } catch (Exception e){
                 System.out.println(e.getMessage());
             }

@@ -1,10 +1,13 @@
 package wheresmymoney;
+import wheresmymoney.command.AddCommand;
+import wheresmymoney.command.Command;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Parser{
+public class Parser {
     public static final String ARGUMENT_COMMAND = "command";
     public static final String ARGUMENT_MAIN = "main";
     public static final String ARGUMENT_CATEGORY = "category";
@@ -78,10 +81,8 @@ public class Parser{
             System.out.println("Bye. Hope to see you again soon!");
             return false;
         case "add":
-            price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
-            description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
-            category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
-            expenseList.addExpense(price, description, category);
+            Command command = new AddCommand(argumentsList);
+            command.execute(expenseList);
             break;
         case "edit":
             index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;
