@@ -36,8 +36,17 @@ public class TaskList {
                 done++;
             }
         }
-        completionRate = (double) done / getSize();
+        
+        if(getSize() == 0) {
+            completionRate = 1.0;
+        } else {
+            completionRate = (double) done / getSize();   
+        } 
         return completionRate;
+    }
+
+    public String getCompletionRate() {
+        return String.format("%.2f", completionRate * 100) + "%";
     }
 
     public void addTask(String description) {
@@ -72,7 +81,7 @@ public class TaskList {
         tasks.remove(index);
         setCompletionRate(calCompletionRate());;
     }
-    
+
     public void deleteTask(Task task) throws TaskNotFoundException {
         if(!contains(task)) {
             throw new TaskNotFoundException();

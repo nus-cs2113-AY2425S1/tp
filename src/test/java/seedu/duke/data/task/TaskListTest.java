@@ -27,8 +27,9 @@ public class TaskListTest {
         MarkTaskCommand command3 = new MarkTaskCommand(1);
         command3.setData(instance);
         command3.execute();
-        double expResult = 0.5;
-        double result = instance.calCompletionRate();
-        assertEquals(expResult, result, 0);
+        String expResult = "50.00%";
+        String result = instance.getCompletionRate();
+        assertEquals(expResult, result);
+        
     }
 }
