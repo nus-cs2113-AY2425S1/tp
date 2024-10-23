@@ -46,6 +46,24 @@ public class RecipeList {
         return false;
     }
 
+    public boolean editRecipe(String name, Recipe editedRecipe) {
+        assert counter > 0 : "List should not be empty when editing recipe";
+        assert name != null : "Recipe name should not be null";
+        // Find the index of the recipe to edit
+        int index = -1;
+        for (int i = 0; i < recipes.size(); i++) {
+            if (recipes.get(i).getName().equalsIgnoreCase(name)) {
+                index = i;
+            }
+        }
+        // If index not found, return false, else edit the recipe based on index found
+        if (index == -1) {
+            return false;
+        }
+        recipes.set(index, editedRecipe);
+        return true;
+    }
+
     public int getCounter() {
         return counter;
     }

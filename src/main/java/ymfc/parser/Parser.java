@@ -1,6 +1,14 @@
 package ymfc.parser;
 
-import ymfc.commands.*;
+import ymfc.commands.AddRecipeCommand;
+import ymfc.commands.ByeCommand;
+import ymfc.commands.Command;
+import ymfc.commands.DeleteCommand;
+import ymfc.commands.EditCommand;
+import ymfc.commands.HelpCommand;
+import ymfc.commands.ListCommand;
+import ymfc.commands.SortCommand;
+import ymfc.commands.FindCommand;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
 import ymfc.ingredient.Ingredient;
@@ -53,6 +61,10 @@ public final class Parser {
             return getSortCommand(args);
         case "new":
             return getAddIngredientCommand(args);
+        case "edit":
+            return getEditCommand(args);
+        case "find":
+            return getFindCommand(args);
         default:
             throw new InvalidCommandException("Invalid command: " + command + "\ntype \"help\" for assistance");
         }
@@ -168,5 +180,94 @@ public final class Parser {
         }
 
         return new SortCommand(name);
+    }
+
+    /**
+     * Parser for {@link EditCommand <code>EditCommand</code>}
+     * @param args List of arguments as <code>String</code>
+     * @return <code>EditCommand</code> object, waiting to be executed
+     * @throws InvalidArgumentException If invalid format of arguments is found
+     */
+    private static EditCommand getEditCommand(String args) throws InvalidArgumentException {
+        final Pattern editCommandFormat =
+                // <e or E>/<String without forward slash>
+                Pattern.compile("(?<name>[eE]/[^/]+)"
+                        // Match ingredients: at least one i/ or I/ followed by any characters except '/'
+                        + "(?<ingreds>(\\s+[iI]/[^/]+)+)"
+                        // Match steps: at least one sX/ or SX/ (X is a number) followed by any characters except '/'
+                        + "(?<steps>(\\s+[sS][0-9]+/[^/]+)+)"
+                        // Match optional cuisine: c/ or C/ followed by any characters except '/'
+                        + "(\\s+(?<cuisine>[cC]/[^/]+))?"
+                        // Match optional time taken: t/ or T/ followed by digits
+                        + "(\\s+(?<time>[tT]/[0-9]+))?");
+
+        args = args.trim();
+        Matcher m = editCommandFormat.matcher(args);
+        if (!m.matches()) {
+            throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + EditCommand.USAGE_EXAMPLE);
+        }
+
+        String name = m.group("name").trim().substring(2); // e/ or E/ are 2 chars
+        String ingredString = m.group("ingreds");
+        String stepString = m.group("steps");
+        ArrayList<String> ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> steps = Arrays.stream(stepString.split("\\s+[sS][0-9]+/"))
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        String cuisine = m.group("cuisine") != null ? m.group("cuisine").trim().substring(2) : null;
+        String timeTakenString = m.group("time");
+
+        Integer timeTaken = null;
+
+        if (timeTakenString != null) {
+            try {
+                timeTaken = Integer.parseInt(timeTakenString.trim().substring(2));
+                if (timeTaken <= 0) {
+                    throw new InvalidArgumentException("Invalid time: " + timeTakenString);
+                }
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Invalid time: " + timeTakenString);
+            }
+        }
+
+        if (cuisine != null && timeTaken != null) {
+            return new EditCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
+        } else if (cuisine != null){
+            return new EditCommand(new Recipe(name, ingreds, steps, cuisine));
+        } else if (timeTaken != null) {
+            return new EditCommand(new Recipe(name, ingreds, steps, timeTaken));
+        } else {
+            return new EditCommand(new Recipe(name, ingreds, steps));
+        }
+    }
+
+    private static Command getFindCommand(String args) throws InvalidArgumentException {
+        final Pattern findCommandPattern =
+                // Options to feed into findCommand, could be null
+                // Length of 1 to 3, consist of only "nNiIsS", must ends with /
+                Pattern.compile("(?<options>[nNiIsS]{1,3}/)?" +
+                        // Query command
+                        "(?<query>[^/]+)");
+        args = args.trim();
+        Matcher m = findCommandPattern.matcher(args);
+        if (!m.matches()) {
+            throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + FindCommand.USAGE_EXAMPLE);
+        }
+
+        String query = m.group("query");
+        String options = m.group("options");
+        if (options == null) {
+            return new FindCommand(query); // Default case, no option provided
+        }
+
+        options = options.trim();
+        return new FindCommand(query,
+                options.contains("n") | options.contains("n"),
+                options.contains("i") | options.contains("I"),
+                options.contains("s") | options.contains("S")
+        );
     }
 }

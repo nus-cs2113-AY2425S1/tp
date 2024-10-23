@@ -170,5 +170,17 @@ class ParserTest {
         assertThrows(InvalidArgumentException.class, () -> parseCommand(command));
     }
 
-
+    @ParameterizedTest
+    @DisplayName("parseCommand_findCommand_invalidArgumentsExceptionThrown")
+    @ValueSource(strings = {
+        "find nNIsS/query",     // Invalid options (more than 3 characters)
+        "find nX/query",        // Invalid options (contains an invalid character)
+        "find nNi/",            // Invalid query (empty query after `/`)
+        "find nNi/foo/bar",     // Invalid query (contains `/` in query part)
+        "find /foo",            // Invalid query (no options, but query starts with `/`)
+        "find nNi/"             // Missing query (no query provided after `/`)
+    })
+    void parseCommand_findCommand_invalidArgumentsExceptionThrown(String command) {
+        assertThrows(InvalidArgumentException.class, () -> parseCommand(command));
+    }
 }
