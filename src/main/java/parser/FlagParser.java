@@ -57,4 +57,14 @@ public class FlagParser {
         logger.log(Level.INFO, "Flag {0} presence: {1}", new Object[]{flag, hasFlag});
         return hasFlag;
     }
+
+    public void validateRequiredFlags(FlagParser flagParser, String[] requiredFlags) {
+        assert requiredFlags != null : "Required flags string must not be null";
+
+        for (String flag : requiredFlags) {
+            if (!flagParser.hasFlag(flag)) {
+                throw new IllegalArgumentException("Required flag: " + flag + "is missing. Please provide the flag.");
+            }
+        }
+    }
 }

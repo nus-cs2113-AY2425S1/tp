@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static parser.IndexParser.parseIndex;
+import static parser.ParserUtils.parseDay;
+import static parser.ParserUtils.parseExercise;
+import static parser.ParserUtils.parseIndex;
 
 public class ProgCommandParser {
     public static final String COMMAND_WORD = "prog";
@@ -117,55 +119,6 @@ public class ProgCommandParser {
         return new CreateCommand(progName, days);
     }
 
-    private Day parseDay(String dayString) {
-        assert dayString != null : "Day string must not be null";
-
-        String[] dayParts  = dayString.split("/e");
-        String dayName = dayParts[0].trim();
-        if (dayName.isEmpty()) {
-            throw new IllegalArgumentException("Day name cannot be empty. Please enter a valid day name.");
-        }
-
-        Day day = new Day(dayName);
-
-        for (int j = 1; j < dayParts.length; j++) {
-            String exerciseString = dayParts[j].trim();
-            Exercise exercise = parseExercise(exerciseString);
-            day.insertExercise(exercise);
-        }
-
-        logger.log(Level.INFO, "Parsed day successfully: {0}", dayName);
-        return day;
-    }
-
-    private Exercise parseExercise(String argumentString) {
-        assert argumentString != null : "Argument string must not be null";
-
-        FlagParser flagParser = new FlagParser(argumentString);
-        String[] requiredFlags = {"/n", "/s", "/r", "/w"};
-        validateRequiredFlags(flagParser, requiredFlags);
-
-        String name = flagParser.getFlagValue("/n");
-        int sets = parseIndex(flagParser.getFlagValue("/s"), "Invalid sets value. ");
-        int reps = parseIndex(flagParser.getFlagValue("/r"), "Invalid reps value. ");
-        int weight = parseIndex(flagParser.getFlagValue("/s"), "Invalid weight value. ");
-
-        logger.log(Level.INFO, "Parsed exercise successfully with name: {0}, set: {1}, rep: {2}" +
-                " weight: {3}", new Object[]{name, sets, reps, weight});
-
-        return new Exercise(sets, reps, weight, name);
-    }
-
-    private void validateRequiredFlags(FlagParser flagParser, String[] requiredFlags) {
-        assert requiredFlags != null : "Required flags string must not be null";
-
-        for (String flag : requiredFlags) {
-            if (!flagParser.hasFlag(flag)) {
-                throw new IllegalArgumentException("Required flag: " + flag + "is missing. Please provide the flag.");
-            }
-        }
-    }
-
     private Command prepareViewCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -193,3 +146,4 @@ public class ProgCommandParser {
         return new DeleteCommand(progIndex);
     }
 }
+

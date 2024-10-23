@@ -9,22 +9,21 @@ import command.WeeklySummaryCommand;
 import command.PersonalBestCommand;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-import static parser.IndexParser.parseIndex;
+import static parser.ParserUtils.parseIndex;
+import static parser.ParserUtils.parseDate;
 
-public class Parser {
+public class CommandParser {
     private final ProgCommandParser progParser;
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public Parser() {
+    public CommandParser() {
         this.progParser = new ProgCommandParser();
     }
 
-    public Parser(ProgCommandParser progParser) {
+    public CommandParser(ProgCommandParser progParser) {
         this.progParser = progParser;
     }
 
@@ -87,18 +86,6 @@ public class Parser {
                 new Object[]{progIndex, dayIndex, date});
 
         return new LogCommand(progIndex, dayIndex, date);
-    }
-
-    private LocalDate parseDate(String dateString) {
-        assert dateString != null && !dateString.trim().isEmpty() : "Date string must not be null or empty";
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        try {
-            return LocalDate.parse(dateString, formatter);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date format. Expected format: dd-MM-yyyy. " +
-                    "Error: " + e.getParsedString(), e);
-        }
     }
 }
 
