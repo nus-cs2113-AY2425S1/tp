@@ -57,9 +57,21 @@ public class ExpenseTracker {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
-    public void addExpense(String name, double amount, String category) {
-        String formattedCategoryName = formatInput(category.trim());
-        Expense newExpense = new Expense(name, amount, formattedCategoryName);
+    public void addExpense(String name, double amount, String categoryName) {
+        String formattedCategoryName = formatInput(categoryName.trim());
+        Category existingCategory = null;
+        for (Category category : categories) {
+            if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
+                existingCategory = category;
+                break;
+            }
+        }
+        if (existingCategory == null) {
+            existingCategory = new Category(formattedCategoryName);
+            categories.add(existingCategory);
+            System.out.println("Category '" + formattedCategoryName + "' added successfully.");
+        }
+        Expense newExpense = new Expense(name, amount, existingCategory);
         expenses.add(newExpense);
         System.out.println("Added" + newExpense);
     }
@@ -102,7 +114,7 @@ public class ExpenseTracker {
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
                 Expense expense = expenses.get(expenseIndex);
-                expense.setCategory(formattedCategoryName);
+                expense.setCategory(category);
                 System.out.println("Tagged expense: " + expense);
                 return;
             }
