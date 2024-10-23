@@ -1,9 +1,11 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.constants.Logs;
+import seedu.exchangecoursemapper.courses.Course;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.constants.Assertions;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,8 +32,7 @@ public class AddCoursesCommand extends Command {
 
 
             logger.log(Level.INFO, Logs.FORMAT);
-            String courseToStore = nusCourse + " | " + pu + " | " + puCourse;
-            logger.log(Level.INFO, Logs.ADD_TO_STORAGE + courseToStore);
+            Course courseToStore = new Course(puCourse, nusCourse, pu);
             storage.addCourse(courseToStore);
 
             printAddMessage(courseToStore);
@@ -83,7 +84,7 @@ public class AddCoursesCommand extends Command {
         return inputSubstrings;
     }
 
-    public void printAddMessage(String addCourse) {
-        System.out.println("You have successfully added the course: " + addCourse);
+    public void printAddMessage(Course addCourse) {
+        System.out.println("You have successfully added the course: " + addCourse.formatOutput());
     }
 }
