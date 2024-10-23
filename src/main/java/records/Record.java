@@ -1,14 +1,12 @@
 package records;
 
-import meal.Meal;
-
-import java.util.ArrayList;
+import meal.MealList;
 
 public class Record {
-    private ArrayList<Meal> mealList;
+    private MealList mealList;
 
     public Record() {
-        mealList = new ArrayList<>();
+        mealList = new MealList();
     }
 
 }
