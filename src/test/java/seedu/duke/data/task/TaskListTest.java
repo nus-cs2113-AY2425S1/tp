@@ -8,14 +8,11 @@ import seedu.duke.commands.MarkTaskCommand;
  
 public class TaskListTest {
 
-     public TaskListTest() {
-    }
-
     /**
-     * Test of calCompletionRate method, of class TaskList.
+     * Test of getCompletionRate method, of class TaskList.
      */
     @Test
-    public void testCalCompletionRate() {
+    public void testGetCompletionRate() {
         System.out.println("calCompletionRate");
         TaskList instance = new TaskList();
         AddTaskCommand command = new AddTaskCommand("Read book");
@@ -29,7 +26,15 @@ public class TaskListTest {
         command3.execute();
         String expResult = "50.00%";
         String result = instance.getCompletionRate();
-        assertEquals(expResult, result);
-        
+        assertEquals(expResult, result);   
+    }
+
+    @Test
+    public void testGetCompletionRate_EmptyTaskList() {
+        System.out.println("calCompletionRate");
+        TaskList instance = new TaskList();
+        String expResult = "100.00%";
+        String result = instance.getCompletionRate();
+        assertEquals(expResult, result);   
     }
 }

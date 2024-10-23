@@ -12,7 +12,7 @@ public class TaskList {
      */
     public TaskList() {
         tasks = new ArrayList<>();
-        completionRate = 0;
+        completionRate = 1.0;
     }
 
     /**
@@ -22,7 +22,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
-        setCompletionRate(calCompletionRate());
+        this.completionRate = calCompletionRate();
     }
     
     public void setCompletionRate(double completionRate) {
@@ -36,7 +36,7 @@ public class TaskList {
                 done++;
             }
         }
-        
+
         if(getSize() == 0) {
             completionRate = 1.0;
         } else {
@@ -52,7 +52,7 @@ public class TaskList {
     public void addTask(String description) {
         Task task = new Task(description);
         tasks.add(task);
-        setCompletionRate(calCompletionRate());;
+        setCompletionRate(calCompletionRate());
     }
 
     /**
@@ -79,7 +79,7 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
         tasks.remove(index);
-        setCompletionRate(calCompletionRate());;
+        setCompletionRate(calCompletionRate());
     }
 
     public void deleteTask(Task task) throws TaskNotFoundException {
@@ -87,7 +87,7 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
         tasks.remove(task);
-        setCompletionRate(calCompletionRate());;
+        setCompletionRate(calCompletionRate());
     }
 
     public TaskList findTasks(String keyword) throws DuplicateTaskException {
@@ -131,7 +131,7 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
         tasks.get(index).markAsDone();
-        setCompletionRate(calCompletionRate());;
+        setCompletionRate(calCompletionRate());
     }
 
     public void markAsUndone(int index) throws TaskNotFoundException {
@@ -139,7 +139,7 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
         tasks.get(index).markAsUndone();
-        setCompletionRate(calCompletionRate());;
+        setCompletionRate(calCompletionRate());
     }
 
     public ArrayList<Task> getTasks() {
