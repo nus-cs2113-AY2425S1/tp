@@ -1,0 +1,18 @@
+@startuml
+actor User
+User -> UI : Inputs 'addPatient John Doe'
+UI -> Logic : Passes input to Logic
+Logic -> Parser : parseCommand("addPatient John Doe")
+Parser -> Logic : Returns AddPatientCommand
+Logic -> AddPatientCommand : execute()
+AddPatientCommand -> Model : isDuplicatePatient(name)
+alt Duplicate Patient
+    AddPatientCommand -> Logger : Log duplicate patient error
+    AddPatientCommand -> UI : Display error message
+else No Duplicate
+    AddPatientCommand -> Model : addPatient(name)
+    Model -> Storage : saveHospitalData()
+    AddPatientCommand -> UI : Display success message
+end
+@enduml
+
