@@ -50,17 +50,18 @@ public class ExpenseTracker {
         checkAndResetBudgets();
     }
 
-    public void addExpense(String name, double amount, String category) {
-        Expense newExpense = new Expense(name, amount, category);
-        expenses.add(newExpense);
-        System.out.println("Added" + newExpense);
-    }
-
     private String formatInput(String input) {
         if (input == null || input.isEmpty()) {
             return input;
         }
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    }
+
+    public void addExpense(String name, double amount, String category) {
+        String formattedCategoryName = formatInput(category.trim());
+        Expense newExpense = new Expense(name, amount, formattedCategoryName);
+        expenses.add(newExpense);
+        System.out.println("Added" + newExpense);
     }
 
     public void addCategory(String categoryName) {
