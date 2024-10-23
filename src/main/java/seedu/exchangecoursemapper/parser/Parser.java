@@ -60,7 +60,7 @@ public class Parser {
         } else if (command.equals(SET)) {
             new ListUniCoursesCommand().execute(input);
         } else if (command.equals(OBTAIN)) {
-            new ObtainEmailCommand().execute(input);
+            new ObtainContactsCommand().execute(input);
         } else if (command.equals(BYE)) {
             mapperUI.displayExitMessage();
         } else {

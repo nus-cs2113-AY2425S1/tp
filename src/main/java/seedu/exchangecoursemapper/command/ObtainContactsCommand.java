@@ -5,7 +5,7 @@ import seedu.exchangecoursemapper.exception.Exception;
 import java.io.IOException;
 import javax.json.JsonObject;
 
-public class ObtainEmailCommand extends Command {
+public class ObtainContactsCommand extends Command {
     @Override
     public void execute(String userInput) {
         try  {
