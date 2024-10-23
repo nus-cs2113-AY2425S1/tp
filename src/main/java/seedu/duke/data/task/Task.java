@@ -48,7 +48,10 @@ public class Task {
     public void markAsUndone() {
         isDone = false;
     }
-    public static Task createTask(String type, String... args) throws MissingTaskArgument, EmptyTaskDescription, UnknownTaskType {
+    public static Task createTask(
+        String type, 
+        String... args
+    ) throws MissingTaskArgument, EmptyTaskDescription, UnknownTaskType {
         try{
             if(args[0].isEmpty() || args[0].isBlank()) {
                 throw new EmptyTaskDescription();
