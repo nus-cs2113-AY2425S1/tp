@@ -110,13 +110,12 @@ class ExpenseListTest {
     @Test
     public void listByCategory_normalListByCategory_success() {
         ExpenseList expenseList = new ExpenseList();
-        Expense[] sampleArray = {};
         Expense expense = new Expense(1.00f, "Ice Cream", "Food");
         expenseList.addExpense(1.00f, "Ice Cream", "Food");
         expenseList.addExpense(4.50f, "Taxi", "Transport");
         assertEquals(1, expenseList.listByCategory("Food").size());
         assertEquals(expense.getDescription(),
-                expenseList.listByCategory("Food").toArray(sampleArray)[0].getDescription());
+                expenseList.listByCategory("Food").get(0).getDescription());
     }
 
     @Test
