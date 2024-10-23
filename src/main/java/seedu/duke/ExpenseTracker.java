@@ -1,5 +1,8 @@
 package seedu.duke;
 
+import java.text.DecimalFormat;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -182,6 +185,18 @@ public class ExpenseTracker {
         }
     }
 
+    private String formatDecimal(double value) {
+        BigDecimal roundedValue = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP);
+        DecimalFormat wholeNumberFormat = new DecimalFormat("$#");
+        DecimalFormat decimalFormat = new DecimalFormat("$#.00");
+        if (roundedValue.stripTrailingZeros().scale() <= 0) {
+            return wholeNumberFormat.format(roundedValue);
+        } else {
+            return decimalFormat.format(roundedValue);
+        }
+    }
+
+
     /**
      * Sets a budget limit for a specific category.
      *
@@ -197,7 +212,6 @@ public class ExpenseTracker {
     public void setBudgetLimit(String categoryName, double limit) {
         String formattedCategoryName = formatInput(categoryName.trim());
 
-        // Step 2: Search for the category object
         Category existingCategory = null;
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
@@ -213,11 +227,11 @@ public class ExpenseTracker {
 
         if (budgets.containsKey(existingCategory)) {
             budgets.get(existingCategory).setLimit(limit);
-            System.out.println("Updated budget for category '" + existingCategory + "' to $" + limit);
+            System.out.println("Updated budget for category '" + existingCategory + "' to " + formatDecimal(limit));
         } else {
             Budget newBudget = new Budget(existingCategory, limit);
             budgets.put(existingCategory, newBudget);
-            System.out.println("Set budget for category '" + existingCategory + "' to $" + limit);
+            System.out.println("Set budget for category '" + existingCategory + "' to " + formatDecimal(limit));
         }
     }
 
@@ -246,10 +260,10 @@ public class ExpenseTracker {
             double remainingBudget = budget.getLimit() - totalExpense;
 
             if (remainingBudget >= 0) {
-                System.out.println(category + ": $" + totalExpense + " spent, $" + remainingBudget + " remaining");
+                System.out.println(category + ": " + formatDecimal(totalExpense) + " spent, " + formatDecimal(remainingBudget) + " remaining");
             } else {
                 Double positive = Math.abs(remainingBudget);
-                System.out.println(category + ": $" + totalExpense + " spent, Over budget by $" + positive);
+                System.out.println(category + ": " + formatDecimal(totalExpense) + " spent, Over budget by " + formatDecimal(positive));
             }
         }
 
