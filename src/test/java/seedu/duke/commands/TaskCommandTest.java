@@ -40,7 +40,7 @@ public class TaskCommandTest {
         TaskList tasks = new TaskList();
         addTaskCommand.setData(tasks);
         CommandResult commandResult = addTaskCommand.execute();
-        assertEquals("Missing arguments for task type: deadline", commandResult.getFeedbackToUser());
+        assertEquals("Missing arguments for task type: deadline\nThe required arguments for task type: deadline are: description, due date", commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class TaskCommandTest {
     @Test
     void testMarkTask() {
         TaskList tasks = new TaskList();
-        AddTaskCommand command = new AddTaskCommand("Read book");
+        AddTaskCommand command = new AddTaskCommand("todo", "Read book");
 
         command.setData(tasks);
         command.execute();
@@ -72,29 +72,29 @@ public class TaskCommandTest {
         MarkTaskCommand command2 = new MarkTaskCommand(1);
         command2.setData(tasks);
         CommandResult commandResult = command2.execute();
-        assertEquals("Task marked successfully: [X] Read book", commandResult.getFeedbackToUser());
+        assertEquals("Task marked successfully: [T][X] Read book", commandResult.getFeedbackToUser());
     }
 
     @Test
     void testPrintTask(){
         TaskList tasks = new TaskList();
-        AddTaskCommand command = new AddTaskCommand("Read book");
+        AddTaskCommand command = new AddTaskCommand("todo", "Read book");
         command.setData(tasks);
         command.execute();
 
         ListTaskCommand listTaskCommand = new ListTaskCommand();
         listTaskCommand.setData(tasks);
         CommandResult commandResult = listTaskCommand.execute();
-        assertEquals("Here are the tasks in your list!\n1. [ ] Read book\n", commandResult.getFeedbackToUser());
+        assertEquals("Here are the tasks in your list!\n1. [T][ ] Read book\n", commandResult.getFeedbackToUser());
     }
 
     @Test
     void testDuplicateTask(){
         TaskList tasks = new TaskList();
-        AddTaskCommand command = new AddTaskCommand("Read book");
+        AddTaskCommand command = new AddTaskCommand("deadline", "Read book", "2pm");
         command.setData(tasks);
         command.execute();
-        AddTaskCommand command2 = new AddTaskCommand("Read book");
+        AddTaskCommand command2 = new AddTaskCommand("todo","Read book");
         command2.setData(tasks);
         CommandResult commandResult = command2.execute();
         assertEquals(AddTaskCommand.MESSAGE_DUPLICATE_TASK, commandResult.getFeedbackToUser());
@@ -103,17 +103,21 @@ public class TaskCommandTest {
     @Test
     void testFindTask(){
         TaskList tasks = new TaskList();
-        AddTaskCommand command = new AddTaskCommand("Read book");
+        AddTaskCommand command = new AddTaskCommand("deadline", "Read book", "2pm");
         command.setData(tasks);
         command.execute();
         
-        AddTaskCommand command2 = new AddTaskCommand("Meomeo");
+        AddTaskCommand command2 = new AddTaskCommand("todo", "Meomeo");
         command2.setData(tasks);
         command2.execute();
+
+        AddTaskCommand command3 = new AddTaskCommand("repeat", "Meomeomeomeo", "2 days");
+        command3.setData(tasks);
+        command3.execute();
 
         FindTaskCommand findTaskCommand = new FindTaskCommand("meo");
         findTaskCommand.setData(tasks);
         CommandResult commandResult = findTaskCommand.execute();
-        assertEquals("Here are the matching tasks in your list: \n1. [ ] Meomeo\n", commandResult.getFeedbackToUser());
+        assertEquals("Here are the matching tasks in your list: \n1. [T][ ] Meomeo\n2. [R][ ] Meomeomeomeo (repeat: every 2 days)\n", commandResult.getFeedbackToUser());
     }
 }

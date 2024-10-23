@@ -78,9 +78,32 @@ public class Task {
     }
     public static class MissingTaskArgument extends Exception {
         public MissingTaskArgument(String type) {
-            super("Missing arguments for task type: " + type);
+            super(createErrorMessage(type));
+        }
+    
+        private static String createErrorMessage(String type) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Missing arguments for task type: ").append(type).append("\n");
+            sb.append("The required arguments for task type: ").append(type).append(" are: ");
+            switch (type.toLowerCase()) {
+            case "todo":
+                sb.append("description");
+                break;
+            case "deadline":
+                sb.append("description, due date");
+                break;
+            case "repeat":
+                sb.append("description, repeat interval");
+                break;
+            default:
+                sb.append("unknown");
+                break;
+            }
+            return sb.toString();
         }
     }
+    
+
     public static class EmptyTaskDescription extends Exception {
         public EmptyTaskDescription() {
             super("Task description cannot be empty");
