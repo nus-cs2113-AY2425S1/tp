@@ -6,11 +6,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
+    private double completionRate;
     /**
      * Creates a TaskList object with an empty ArrayList of tasks.
      */
     public TaskList() {
         tasks = new ArrayList<>();
+        completionRate = 0;
     }
 
     /**
@@ -20,11 +22,28 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+        setCompletionRate(calCompletionRate());
+    }
+    
+    public void setCompletionRate(double completionRate) {
+        this.completionRate = completionRate;
+    }
+
+    public double calCompletionRate() {
+        int done = 0;
+        for (Task task : tasks) {
+            if (task.isDone()) {
+                done++;
+            }
+        }
+        completionRate = (double) done / getSize();
+        return completionRate;
     }
 
     public void addTask(String description) {
         Task task = new Task(description);
         tasks.add(task);
+        setCompletionRate(calCompletionRate());;
     }
 
     /**
@@ -51,8 +70,26 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
         tasks.remove(index);
+        setCompletionRate(calCompletionRate());;
+    }
+    
+    public void deleteTask(Task task) throws TaskNotFoundException {
+        if(!contains(task)) {
+            throw new TaskNotFoundException();
+        }
+        tasks.remove(task);
+        setCompletionRate(calCompletionRate());;
     }
 
+    public TaskList findTasks(String keyword) throws DuplicateTaskException {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
+    }
 
     public boolean contains(Task task) {
         return tasks.contains(task);
@@ -85,6 +122,7 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
         tasks.get(index).markAsDone();
+        setCompletionRate(calCompletionRate());;
     }
 
     public void markAsUndone(int index) throws TaskNotFoundException {
@@ -92,6 +130,7 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
         tasks.get(index).markAsUndone();
+        setCompletionRate(calCompletionRate());;
     }
 
     public ArrayList<Task> getTasks() {
@@ -116,6 +155,8 @@ public class TaskList {
     public void printList() {
         System.out.println(this);
     }
+
+
 
     public static class TaskNotFoundException extends Exception {
         public TaskNotFoundException() {
