@@ -4,12 +4,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.time.LocalDate;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import seedu.duke.command.EditEntryCommand;
 import seedu.duke.financial.Expense;
-import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
 
 public class Storage {
+    private static final Logger logger = Logger.getLogger(Storage.class.getName());
     public static final String STORAGE_FILE_PATH = "data/FinancialList.txt";
 
     public Storage() {
@@ -50,6 +54,7 @@ public class Storage {
                 fileWritter.write(entry.toStorageString() + "\n");
             }
             fileWritter.close();
+            logger.log(Level.INFO, "Updated file with " + theList.getEntryCount() + " entries.");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,19 +79,23 @@ public class Storage {
         try {
             File file = getStorageFile();
             java.util.Scanner sc = new java.util.Scanner(file);
+            Integer loadedExpenseCount = 0;
+            Integer loadedIncomeCount = 0;
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 // parse the line and add the task to the list
                 if (line.charAt(0) == 'E') {
                     String[] tokens = line.split(" \\| ");
                     theList.addEntry(parseExpense(tokens));
-                    System.out.println("Expense added from file");
+                    loadedExpenseCount++;
                 } else if (line.charAt(0) == 'I') {
                     String[] tokens = line.split(" \\| ");
                     theList.addEntry(parseIncome(tokens));
-                    System.out.println("Income added from file");
+                    loadedIncomeCount++;
                 }
             }
+            sc.close();
+            logger.log(Level.INFO, "Loaded " + loadedExpenseCount + " expenses and " + loadedIncomeCount + " incomes from file.");
             return theList;
         } catch (Exception e) {
             e.printStackTrace();

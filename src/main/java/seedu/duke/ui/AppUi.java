@@ -277,11 +277,10 @@ public class AppUi {
     public void run() {
         displayWelcomeMessage();
 
-        // create a new storage object
+        // create a new storage object and load the financial list from the file
         this.mainStorage = new Storage();
-
         financialList = mainStorage.loadFromFile();
-
+        
         commandEntry();
     }
 }
