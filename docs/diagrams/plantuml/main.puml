@@ -1,0 +1,18 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class Main
+class Parser
+class Ui
+class Expense
+class ExpenseList
+
+Main "1" -d-> "1" Ui
+Main "1" -d-> "1" ExpenseList
+Ui "1" -d-> "1" Parser
+ExpenseList "1" -d-> "*" Expense
+
+Ui -[dashed]-> ExpenseList
+Parser -[dashed]-> ExpenseList
+@enduml
