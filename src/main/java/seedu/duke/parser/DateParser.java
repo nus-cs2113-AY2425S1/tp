@@ -20,7 +20,7 @@ public class DateParser {
      * @throws FinanceBuddyException if the string is not in the expected format.
      */
     public static LocalDate parse(String dateStr) throws FinanceBuddyException {
-        if (dateStr == null || dateStr.isEmpty()) {
+        if (dateStr == null) {
             return LocalDate.now();  // Use current date if no date is provided
         }
         try {

@@ -53,7 +53,7 @@ public class AddExpenseCommand extends Command {
         System.out.println("Got it! I've added this expense:");
         System.out.println(expense);
         System.out.println("--------------------------------------------");
-        logger.log(Level.INFO, "Income added to list: " + expense);
+        logger.log(Level.INFO, "Expense added to list: " + expense);
 
     }
 }

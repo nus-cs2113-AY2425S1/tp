@@ -8,7 +8,6 @@ import java.time.LocalDate;
 public abstract class FinancialEntry {
     protected String description;
     protected double amount;
-    protected String type;
     protected LocalDate date;
 
     /**
@@ -16,12 +15,11 @@ public abstract class FinancialEntry {
      *
      * @param amount The amount of the transaction.
      * @param description A description of the transaction.
-     * @param type The type of the transaction ("Income" or "Expense").
+     * @param date The date of the transaction (dd/mm/yy).
      */
-    public FinancialEntry(double amount, String description, String type, LocalDate date){
+    public FinancialEntry(double amount, String description, LocalDate date){
         this.description = description;
         this.amount = amount;
-        this.type = type;
         this.date = date;
     }
     
@@ -61,14 +59,6 @@ public abstract class FinancialEntry {
         this.amount = newAmount;
     }
 
-    /**
-     * Returns the type of the transaction.
-     *
-     * @return "Income" or "Expense".
-     */
-    public String getType() {
-        return type;
-    }
 
     /**
      * Returns the date of the transaction.
@@ -87,6 +77,7 @@ public abstract class FinancialEntry {
     public void setDate(LocalDate newDate) {
         this.date = newDate;
     }
+  
     /**
      * Returns a string representation of the financial entry.
      * Subclasses (Income, Expense) must implement this.
