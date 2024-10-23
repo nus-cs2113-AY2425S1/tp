@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 public class SaveCommand extends Command {
 
-    public SaveCommand(HashMap<String, String> argumentsList) {
-        super(argumentsList);
+    public SaveCommand(HashMap<String, String> argumentsMap) {
+        super(argumentsMap);
     }
 
     @Override

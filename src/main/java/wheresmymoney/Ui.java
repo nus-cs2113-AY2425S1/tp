@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Ui {
-    public Parser commandParser;
+    public Parser parser;
     public Ui(){
-        commandParser = new Parser();
+        parser = new Parser();
     }
 
     /**
@@ -79,15 +79,15 @@ public class Ui {
     public void commandEntryLoop(ExpenseList expenseList) {
         // Command Entry
         String line;
-        HashMap<String, String> argumentsList;
+        HashMap<String, String> argumentsMap;
         Scanner scanner = new Scanner(System.in);
         boolean isAskingInput = true;
         while (isAskingInput){
             System.out.print("> ");
             line = scanner.nextLine();
-            argumentsList = commandParser.parseCommandToArguments(line);
+            argumentsMap = parser.parseCommandToArgumentsMap(line);
             try {
-                isAskingInput = commandParser.commandMatching(argumentsList, expenseList);
+                isAskingInput = parser.commandMatching(argumentsMap, expenseList);
             } catch (Exception e){
                 System.out.println(e.getMessage());
             }

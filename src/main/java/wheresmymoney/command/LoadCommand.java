@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 public class LoadCommand extends Command {
 
-    public LoadCommand(HashMap<String, String> argumentsList) {
-        super(argumentsList);
+    public LoadCommand(HashMap<String, String> argumentsMap) {
+        super(argumentsMap);
     }
 
     @Override

@@ -11,13 +11,13 @@ import java.util.HashMap;
 
 public class ListCommand extends Command {
 
-    public ListCommand(HashMap<String, String> argumentsList) {
-        super(argumentsList);
+    public ListCommand(HashMap<String, String> argumentsMap) {
+        super(argumentsMap);
     }
 
     @Override
     public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
-        String category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
+        String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
         ArrayList<Expense> expensesToDisplay;
         if (category == null) {
             expensesToDisplay = expenseList.getList();

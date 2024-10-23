@@ -8,16 +8,16 @@ import java.util.HashMap;
 
 public class EditCommand extends Command {
 
-    public EditCommand(HashMap<String, String> argumentsList) {
-        super(argumentsList);
+    public EditCommand(HashMap<String, String> argumentsMap) {
+        super(argumentsMap);
     }
 
     @Override
     public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
-        int index = Integer.parseInt(argumentsList.get(Parser.ARGUMENT_MAIN)) - 1;
-        String category = argumentsList.get(Parser.ARGUMENT_CATEGORY);
-        float price = Float.parseFloat(argumentsList.get(Parser.ARGUMENT_PRICE));
-        String description = argumentsList.get(Parser.ARGUMENT_DESCRIPTION);
+        int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
+        String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
+        float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
+        String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
         expenseList.editExpense(index, price, description, category);
     }
 
