@@ -163,17 +163,17 @@ public class ExpenseTracker {
         }
         System.out.println("Expenses grouped by categories:");
         // Create a map to group expenses by their category
-        Map<String, List<Expense>> expensesByCategory = new HashMap<>();
+        Map<Category, List<Expense>> expensesByCategory = new HashMap<>();
         // Populate the map
         for (Expense expense : expenses) {
-            String category = expense.getCategory();
+            Category category = expense.getCategory();
             if (!expensesByCategory.containsKey(category)) {
                 expensesByCategory.put(category, new ArrayList<>());
             }
             expensesByCategory.get(category).add(expense);
         }
         // Display the expenses grouped by category
-        for (String category : expensesByCategory.keySet()) {
+        for (Category category : expensesByCategory.keySet()) {
             System.out.println("Category: " + category);
             List<Expense> categoryExpenses = expensesByCategory.get(category);
             for (Expense expense : categoryExpenses) {
@@ -213,9 +213,9 @@ public class ExpenseTracker {
         }
 
         // mapping total expenses for a category to each category
-        Map<String, Double> totalExpensesToCategory = new HashMap<>();
+        Map<Category, Double> totalExpensesToCategory = new HashMap<>();
         for (Expense expense: expenses) {
-            String category = expense.getCategory();
+            Category category = expense.getCategory();
             if (totalExpensesToCategory.containsKey(category)) {
                 totalExpensesToCategory.put(category, totalExpensesToCategory.get(category) + expense.getAmount());
             } else {
@@ -238,7 +238,7 @@ public class ExpenseTracker {
         }
 
         // if no budget set for certain category
-        for (String category: totalExpensesToCategory.keySet()) {
+        for (Category category: totalExpensesToCategory.keySet()) {
             if (!budgets.containsKey(category)) {
                 System.out.println(category + ": No budget set");
             }
