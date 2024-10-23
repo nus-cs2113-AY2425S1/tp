@@ -8,9 +8,6 @@ import com.google.gson.JsonParser;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-import history.History;
-import programme.ProgrammeList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -64,38 +61,19 @@ public class Storage {
         }
     }
 
-    public void save(ProgrammeList programmeList, History history) throws IOException {
+    public void save(JsonObject data) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         createDirIfNotExists();
         createFileIfNotExists();
 
-        assert programmeList != null : "programmeList must not be null";
-        assert history != null : "history must not be null";
-
-        JsonObject jsonObject = createJSON(programmeList, history);
-        logger.info("JsonObject containing programme list and history created.");
-
         try (FileWriter writer = new FileWriter(path)) {
-            gson.toJson(jsonObject, writer);
+            gson.toJson(data, writer);
             logger.info("Data successfully saved to file.");
         } catch (IOException e) {
             logger.log(Level.WARNING, "Failed to save data to file: " + path, e);
             throw new IOException("Failed to save data due to: " + e.getMessage());
         }
-    }
-
-    private JsonObject createJSON(ProgrammeList programmeList, History history) {
-        JsonObject jsonObject = new JsonObject();
-
-        assert programmeList != null : "programmeList must not be null";
-        assert history != null : "history must not be null";
-
-        jsonObject.add("programmeList", programmeList.toJson());
-        logger.info("Programme list converted to JsonObject.");
-        jsonObject.add("history", history.toJson());
-        logger.info("History converted to JsonObject.");
-        return jsonObject;
     }
 
     private void createDirIfNotExists() throws IOException {
