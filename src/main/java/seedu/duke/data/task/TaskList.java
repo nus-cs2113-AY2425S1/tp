@@ -66,6 +66,7 @@ public class TaskList {
             throw new DuplicateTaskException();
         }
         tasks.add(task);
+        setCompletionRate(calCompletionRate());
     }
 
     /**
@@ -167,8 +168,6 @@ public class TaskList {
     public void printList() {
         System.out.println(this);
     }
-
-
 
     public static class TaskNotFoundException extends Exception {
         public TaskNotFoundException() {

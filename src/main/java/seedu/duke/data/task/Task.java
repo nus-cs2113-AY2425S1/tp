@@ -48,6 +48,38 @@ public class Task {
     public void markAsUndone() {
         isDone = false;
     }
+    public static Task createTask(String type, String... args) throws MissingTaskArgument, EmptyTaskDescription {
+        try{
+            if(args[0].isEmpty() || args[0].isBlank()) {
+                throw new EmptyTaskDescription();
+            }
+            switch (type.toLowerCase()) {
+                case "todo":
+                    return new Todo(args[0]);
+                case "deadline":
+                    return new Deadline(args[0], args[1]);
+                case "repeat":
+                    return new Repeat(args[0], args[1]);
+                default:
+                    throw new IllegalArgumentException("Unknown task type: " + type);
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            throw new MissingTaskArgument(type);
+        }
+    }
+    public static class MissingTaskArgument extends Exception {
+        public MissingTaskArgument(String type) {
+            super("Missing arguments for task type: " + type);
+        }
+    }
+    public static class EmptyTaskDescription extends Exception {
+        public EmptyTaskDescription() {
+            super("Task description cannot be empty");
+        }
+    }
+    
+
     @Override
     public String toString() {
         return (isDone ? "[X] " : "[ ] ") + description;

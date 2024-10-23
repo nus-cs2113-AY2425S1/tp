@@ -7,13 +7,40 @@ import seedu.duke.data.task.TaskList;
 
 public class TaskCommandTest {
     @Test
-    void testAddTask() {
-        AddTaskCommand addTaskCommand = new AddTaskCommand("Read book");
+    void testAddTodo() {
+        AddTaskCommand addTaskCommand = new AddTaskCommand("todo", "Read book");
         TaskList tasks = new TaskList();
         addTaskCommand.setData(tasks);
         CommandResult commandResult = addTaskCommand.execute();
         
-        assertEquals("New task added: [ ] Read book", commandResult.getFeedbackToUser());
+        assertEquals("New task added: [T][ ] Read book", commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    void testAddRepeat(){
+        AddTaskCommand addTaskCommand = new AddTaskCommand("repeat", "Read book", "2 days");
+        TaskList tasks = new TaskList();
+        addTaskCommand.setData(tasks);
+        CommandResult commandResult = addTaskCommand.execute();
+        assertEquals("New task added: [R][ ] Read book (repeat: every 2 days)", commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    void testAddTask_noDescription(){
+        AddTaskCommand addTaskCommand = new AddTaskCommand("deadline", "");
+        TaskList tasks = new TaskList();
+        addTaskCommand.setData(tasks);
+        CommandResult commandResult = addTaskCommand.execute();
+        assertEquals("Task description cannot be empty", commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    void testAddTask_missingArguments(){
+        AddTaskCommand addTaskCommand = new AddTaskCommand("deadline");
+        TaskList tasks = new TaskList();
+        addTaskCommand.setData(tasks);
+        CommandResult commandResult = addTaskCommand.execute();
+        assertEquals("Missing arguments for task type: deadline", commandResult.getFeedbackToUser());
     }
 
     @Test
