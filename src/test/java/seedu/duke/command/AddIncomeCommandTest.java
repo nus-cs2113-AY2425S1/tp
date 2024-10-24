@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.financial.Income;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -46,10 +47,13 @@ class AddIncomeCommandTest {
 
     /**
      * Test the execute method of AddIncomeCommand.
-     * Verifies that the income is added to the financial list and that the correct output is printed.
+     * Verifies that the income is added to the financial list and that the correct output is printed
+     * when a specific date is provided.
+     *
+     * @throws FinanceBuddyException if the date is invalid or other issues occur while adding the income
      */
     @Test
-    void execute_addExpense_expectAddedToFinancialList() throws FinanceBuddyException {
+    void execute_addIncome_expectAddedToFinancialList() throws FinanceBuddyException {
         String specificDate = "14/10/24";
         addIncomeCommand = new AddIncomeCommand(500.0, "allowance", specificDate);
         addIncomeCommand.execute(financialList);
@@ -62,22 +66,29 @@ class AddIncomeCommandTest {
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(1, financialList.getEntryCount());  // Verify the entry count
+        Income addedIncome = (Income) financialList.getEntry(0);
+        assertEquals(500.0, addedIncome.getAmount());
+        assertEquals("allowance", addedIncome.getDescription());
+        assertEquals(LocalDate.of(2024, 10, 14), addedIncome.getDate());
         assertEquals(expectedOutput, output);  // Verify the printed output
     }
 
 
     /**
      * Test adding multiple incomes to the financial list.
-     * Verifies that all incomes are added correctly and that the output is printed for each.
+     * Verifies that all incomes are added correctly, both with and without specific dates,
+     * and that the output is printed for each.
+     *
+     * @throws FinanceBuddyException if any issues occur while adding the incomes
      */
     @Test
-    void execute_addMultipleExpenses_expectAllAddedToFinancialList() throws FinanceBuddyException {
+    void execute_addMultipleIncome_expectAllAddedToFinancialList() throws FinanceBuddyException {
         String specificDate = "21/12/24";
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
         addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", specificDate);
         addIncomeCommand.execute(financialList);
 
-        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money",null);
+        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money", null);
         addIncomeCommand.execute(financialList);
 
         String output = outputStream.toString();
@@ -92,6 +103,15 @@ class AddIncomeCommandTest {
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(2, financialList.getEntryCount());  // Verify the entry count
+        Income firstIncome = (Income) financialList.getEntry(0); //Assert first income index
+        assertEquals(400.0, firstIncome.getAmount());
+        assertEquals("Cost of Living payment", firstIncome.getDescription());
+        assertEquals(LocalDate.of(2024, 12, 21), firstIncome.getDate());
+        Income secondIncome = (Income) financialList.getEntry(1); //Assert second income index
+        assertEquals(10.50, secondIncome.getAmount());
+        assertEquals("friend return money", secondIncome.getDescription());
+        assertEquals(LocalDate.now(), secondIncome.getDate());
+
         assertEquals(expectedOutput, output);  // Verify the printed output for both
     }
 

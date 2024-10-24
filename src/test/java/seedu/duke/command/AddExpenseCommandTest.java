@@ -4,13 +4,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,7 +48,10 @@ class AddExpenseCommandTest {
 
     /**
      * Test the execute method of AddExpenseCommand.
-     * Verifies that the expense is added to the financial list and that the correct output is printed.
+     * Verifies that an expense is added to the financial list and the correct output is printed
+     * when a specific date is provided.
+     *
+     * @throws FinanceBuddyException if the date is invalid or other issues occur while adding the expense
      */
     @Test
     void execute_addExpense_expectAddedToFinancialList() throws FinanceBuddyException {
@@ -62,13 +65,19 @@ class AddExpenseCommandTest {
                 "[Expense] - groceries $ 50.00 (on "+ specificDate + ")" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
-        assertEquals(1, financialList.getEntryCount());  // Verify the entry count
-        assertEquals(expectedOutput, output);  // Verify the printed output
+        assertEquals(1, financialList.getEntryCount());
+        Expense addedExpense = (Expense) financialList.getEntry(0);
+        assertEquals(50.00, addedExpense.getAmount());
+        assertEquals("groceries", addedExpense.getDescription());
+        assertEquals(LocalDate.of(2024, 10, 14), addedExpense.getDate());
+        assertEquals(expectedOutput, output);
     }
 
     /**
-     * Test the execute method of AddExpenseCommand without a date.
+     * Test the execute method of AddExpenseCommand without providing a date.
      * Verifies that the expense is added to the financial list with the current system date.
+     *
+     * @throws FinanceBuddyException if any issues occur while adding the expense
      */
     @Test
     void execute_addExpenseWithoutDate_expectAddedToFinancialListWithCurrentDate() throws FinanceBuddyException {
@@ -83,13 +92,20 @@ class AddExpenseCommandTest {
                 "[Expense] - lunch $ 30.00 (on " + currentDate + ")" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
-        assertEquals(1, financialList.getEntryCount()); 
+        assertEquals(1, financialList.getEntryCount());
+        Expense addedExpense = (Expense) financialList.getEntry(0);
+        assertEquals(30.00, addedExpense.getAmount());
+        assertEquals("lunch", addedExpense.getDescription());
+        assertEquals(LocalDate.now(), addedExpense.getDate());
         assertEquals(expectedOutput, output);
     }
 
     /**
      * Test adding multiple expenses to the financial list.
-     * Verifies that all expenses are added correctly and that the output is printed for each.
+     * Verifies that all expenses are added correctly, both with and without specific dates,
+     * and that the output is printed for each.
+     *
+     * @throws FinanceBuddyException if any issues occur while adding the expenses
      */
     @Test
     void execute_addMultipleExpenses_expectAllAddedToFinancialList() throws FinanceBuddyException {
@@ -115,12 +131,21 @@ class AddExpenseCommandTest {
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(2, financialList.getEntryCount());
+        Expense firstExpense = (Expense) financialList.getEntry(0);
+        assertEquals(30.00, firstExpense.getAmount());
+        assertEquals("lunch", firstExpense.getDescription());
+        assertEquals(LocalDate.now(), firstExpense.getDate());
+        Expense secondExpense = (Expense) financialList.getEntry(1);
+        assertEquals(100.00, secondExpense.getAmount());
+        assertEquals("electronics", secondExpense.getDescription());
+        assertEquals(LocalDate.of(2024, 10, 12), secondExpense.getDate());
         assertEquals(expectedOutput, output);
     }
 
     /**
+     /**
      * Test the execute method of AddExpenseCommand with an empty date string.
-     * Verifies that the command prints an error message when an empty date is provided.
+     * Verifies that a FinanceBuddyException is thrown when an empty date string is provided.
      */
     @Test
     void execute_addExpenseWithEmptyDate_expectErrorMessage() {

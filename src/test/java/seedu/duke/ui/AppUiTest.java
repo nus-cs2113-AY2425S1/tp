@@ -54,6 +54,10 @@ public class AppUiTest {
         assertTrue(result);
     }
 
+    /**
+     * Tests the behavior of the "seeAllExpenses" command.
+     * Verifies that all expenses are displayed and that the output matches the expected format.
+     */
     @Test
     void testMatchCommand_seeAllExpensesCommand() {
         LocalDate date1 = LocalDate.of(2024, 12, 29);

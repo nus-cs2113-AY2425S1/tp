@@ -32,7 +32,7 @@ class DateParserTest {
 
     /**
      * Test parsing an empty date string.
-     * Verifies that the current system date is returned when an empty date string is provided.
+     * Verifies that a FinanceBuddyException is thrown when an empty date string is provided.
      */
     @Test
     void parse_emptyDate_expectException() {
@@ -72,7 +72,7 @@ class DateParserTest {
 
     /**
      * Test parsing another invalid date string.
-     * Verifies that a FinanceBuddyException is thrown when a non-date string is provided.
+     * Verifies that a FinanceBuddyException is thrown when a completely invalid string is provided.
      */
     @Test
     void parse_invalidDateString_expectException() {
