@@ -2,17 +2,12 @@ package parser.command;
 
 import command.Command;
 import command.InvalidCommand;
+import command.programme.*;
 import parser.FlagParser;
 import programme.Day;
 import programme.Exercise;
 
-import command.programme.CreateCommand;
-import command.programme.ViewCommand;
-import command.programme.ListCommand;
-import command.programme.StartCommand;
-import command.programme.EditCommand;
-import command.programme.DeleteCommand;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,9 +43,11 @@ public class ProgCommandFactory {
         case EditCommand.COMMAND_WORD -> prepareEditCommand(arguments);
         case StartCommand.COMMAND_WORD -> prepareStartCommand(arguments);
         case DeleteCommand.COMMAND_WORD ->  prepareDeleteCommand(arguments);
+        case LogCommand.COMMAND_WORD -> prepareLogCommand(arguments);
         default -> new InvalidCommand();
         };
     }
+
     private Command prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -159,6 +156,21 @@ public class ProgCommandFactory {
 
         logger.log(Level.INFO, "DeleteCommand prepared successfully");
         return new DeleteCommand(progIndex);
+    }
+
+    private Command prepareLogCommand(String argumentString) {
+        FlagParser flagParser = new FlagParser(argumentString);
+
+        flagParser.validateRequiredFlags("/d");
+
+        LocalDate date = flagParser.getDateByFlag("/t");
+        int progIndex = flagParser.getIndexByFlag("/p");
+        int dayIndex = flagParser.getIndexByFlag("/d");
+
+        logger.log(Level.INFO, "LogCommand prepared with Date: {0}, Programme index: {1}, Day index: {2}",
+                new Object[]{progIndex, dayIndex, date});
+
+        return new LogCommand(progIndex, dayIndex, date);
     }
 
     private  Day parseDay(String dayString) {

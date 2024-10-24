@@ -27,24 +27,8 @@ public class CommandFactory {
     public Command createCommand(String commandString, String argumentString) {
         return switch (commandString) {
         case ProgCommandFactory.COMMAND_WORD -> progFactory.parse(argumentString);
-        case LogCommand.COMMAND_WORD -> prepareLogCommand(argumentString);
         case ExitCommand.COMMAND_WORD -> new ExitCommand();
         default -> new InvalidCommand();
         };
-    }
-
-    private Command prepareLogCommand(String argumentString) {
-        FlagParser flagParser = new FlagParser(argumentString);
-
-        flagParser.validateRequiredFlags("/d");
-
-        int progIndex = flagParser.getIndexByFlag("/p");
-        int dayIndex = flagParser.getIndexByFlag("/d");
-        LocalDate date = flagParser.getDateByFlag("/t");
-
-        logger.log(Level.INFO, "LogCommand prepared with Programme index: {0}, Day index: {1}, Date: {2}",
-                new Object[]{progIndex, dayIndex, date});
-
-        return new LogCommand(progIndex, dayIndex, date);
     }
 }
