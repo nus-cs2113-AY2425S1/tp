@@ -1,31 +1,18 @@
 package fittrack.parser;
-import fittrack.enums.Exercise;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-
-import static fittrack.enums.Exercise.PULL_UP;
-import static fittrack.enums.Exercise.SHUTTLE_RUN;
-import static fittrack.enums.Exercise.SIT_AND_REACH;
-import static fittrack.enums.Exercise.SIT_UP;
-import static fittrack.enums.Exercise.STANDING_BROAD_JUMP;
-import static fittrack.enums.Exercise.WALK_AND_RUN;
+import static fittrack.enums.Exercise.fromUserInput;
 import static fittrack.messages.Messages.ADD_SESSION_COMMAND;
 import static fittrack.messages.Messages.DELETE_SESSION_COMMAND;
 import static fittrack.messages.Messages.EDIT_EXERCISE_COMMAND;
 import static fittrack.messages.Messages.HELP_COMMAND;
 import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
-import static fittrack.messages.Messages.PULL_UP_ACRONYM;
 import static fittrack.messages.Messages.SET_USER_COMMAND;
-import static fittrack.messages.Messages.SHUTTLE_RUN_ACRONYM;
-import static fittrack.messages.Messages.SIT_AND_REACH_ACRONYM;
-import static fittrack.messages.Messages.SIT_UP_ACRONYM;
-import static fittrack.messages.Messages.STANDING_BROAD_JUMP_ACRONYM;
 import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
-import static fittrack.messages.Messages.WALK_AND_RUN_ACRONYM;
 import static fittrack.ui.Ui.printAddedSession;
 import static fittrack.ui.Ui.printDeletedSession;
 import static fittrack.ui.Ui.printHelp;
@@ -85,7 +72,12 @@ public class Parser {
             String exerciseAcronym = sentence[1];
             String exerciseData = sentence[2];
             assert sessionIndex >= 0 && sessionIndex < sessionList.size() : "Session index out of bounds";
-            sessionList.get(sessionIndex).editExercise(getExercise(exerciseAcronym), exerciseData);
+            try {
+                sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             printSessionView(sessionList, sessionIndex);
             break;
         case LIST_SESSIONS_COMMAND:
@@ -106,26 +98,6 @@ public class Parser {
         default:
             printUnrecognizedInputMessage(); // Response to unrecognized inputs
             break;
-        }
-    }
-
-    public static Exercise getExercise(String exerciseAcronym) {
-        switch (exerciseAcronym) {
-        case PULL_UP_ACRONYM:
-            return(PULL_UP);
-        case SHUTTLE_RUN_ACRONYM:
-            return(SHUTTLE_RUN);
-        case SIT_AND_REACH_ACRONYM:
-            return(SIT_AND_REACH);
-        case SIT_UP_ACRONYM:
-            return(SIT_UP);
-        case STANDING_BROAD_JUMP_ACRONYM:
-            return(STANDING_BROAD_JUMP);
-        case WALK_AND_RUN_ACRONYM:
-            return(WALK_AND_RUN);
-        default:
-            // Unrecognized input, throw exception
-            return(null);
         }
     }
 }

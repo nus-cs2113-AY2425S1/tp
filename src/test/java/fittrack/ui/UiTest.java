@@ -1,8 +1,7 @@
-package fittrack;
+package fittrack.ui;
 
 import fittrack.enums.Gender;
 import fittrack.trainingsession.TrainingSession;
-import fittrack.ui.Ui;
 import fittrack.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
