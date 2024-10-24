@@ -73,7 +73,7 @@ public class HistoryTest {
         //history.getRecordByDate(date1).logDay(modifiedDay);
 
         // Object-based comparison
-        //assertEquals(modifiedDay, history.getRecordByDate(date1).getDayFromRecord());  // Compare the updated Day object
+        //assertEquals(modifiedDay, history.getRecordByDate(date1).getDayFromRecord());
     }
 }
 
