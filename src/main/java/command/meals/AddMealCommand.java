@@ -5,6 +5,7 @@ import history.History;
 import meal.Meal;
 import java.time.LocalDate;
 import dailyrecord.DailyRecord;
+import meal.MealList;
 
 public class AddMealCommand extends MealCommand {
 
@@ -17,7 +18,12 @@ public class AddMealCommand extends MealCommand {
     }
 
     public CommandResult execute(History history) {
+        assert history != null;
         DailyRecord dailyRecord = history.getRecordByDate(date);
+        if(dailyRecord == null) {
+            dailyRecord = new DailyRecord(new MealList());
+        }
+        assert dailyRecord != null;
         dailyRecord.addMealToRecord(mealToAdd);
 
         return new CommandResult(mealToAdd + " has been added");

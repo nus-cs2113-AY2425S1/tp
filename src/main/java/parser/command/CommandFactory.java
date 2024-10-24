@@ -1,7 +1,7 @@
 package parser.command;
 
 import command.Command;
-import command.LogCommand;
+import command.programme.LogCommand;
 import command.ExitCommand;
 import command.InvalidCommand;
 import parser.FlagParser;
