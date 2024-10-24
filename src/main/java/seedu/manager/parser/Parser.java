@@ -10,8 +10,10 @@ import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.ViewCommand;
+import seedu.manager.command.SortCommand;
 import seedu.manager.exception.InvalidCommandException;
 
+import java.util.Set;
 import java.util.logging.Logger;
 
 import static java.util.logging.Level.WARNING;
@@ -49,6 +51,15 @@ public class Parser {
             Invalid participant status!
             Please set the event status as either "present" or "absent"
             """;
+    private static final String INVALID_SORT_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            sort -e EVENT -by name/time/priority
+            """;
+    private static final String INVALID_SORT_KEYWORD_MESSAGE = """
+            Invalid sort keyword!
+            Please set the sort keyword as either "name"/"time"/"priority"
+            """;
 
     /**
      * Returns a command based on the given user command string.
@@ -75,6 +86,8 @@ public class Parser {
             return new ExitCommand();
         case MarkCommand.COMMAND_WORD:
             return parseMarkCommand(command, commandParts);
+        case SortCommand.COMMAND_WORD:
+            return parseSortCommand(command, commandParts);
         default:
             throw new InvalidCommandException(INVALID_COMMAND_MESSAGE);
         }
@@ -271,8 +284,45 @@ public class Parser {
         } else if (status.equalsIgnoreCase("absent")) {
             return new MarkParticipantCommand(participantName, eventName, false);
         } else {
-            logger.log(WARNING,"Invalid status keyword");
+            logger.log(WARNING, "Invalid status keyword");
             throw new InvalidCommandException(INVALID_PARTICIPANT_STATUS_MESSAGE);
+        }
+    }
+
+    /**
+     * Parses the input string to create a {@link Command} based on the provided command parts.
+     *
+     * <p>
+     * This method checks the command flag extracted from the command parts. If the command
+     * flag is {@code "-by"}, it splits the input string to create a {@link SortCommand}
+     * Otherwise, it throws an {@link InvalidCommandException} with an error message.
+     * </p>
+     *
+     * @param input        the input string containing the command details.
+     * @param commandParts an array of strings representing the parsed command parts,
+     *                     where the second element is the command flag.
+     * @return a {@link Command} object representing the parsed command.
+     * @throws InvalidCommandException if the flag is not matched.
+     */
+    private Command parseSortCommand(String input, String[] commandParts) throws InvalidCommandException{
+        assert commandParts[0].equalsIgnoreCase(SortCommand.COMMAND_WORD);
+        try {
+            String[] inputParts = input.split("-by", 2);
+            if (inputParts.length < 2) {
+                throw new InvalidCommandException(INVALID_SORT_MESSAGE);
+            }
+
+            String keyword = inputParts[1].trim();
+            System.out.println(keyword);
+            Set<String> validKeywords = Set.of("name", "time", "priority");
+            if (validKeywords.contains(keyword.toLowerCase())) {
+                return new SortCommand(keyword);
+            }
+            throw new InvalidCommandException(INVALID_SORT_KEYWORD_MESSAGE);
+
+        } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING, "Invalid command format");
+            throw new InvalidCommandException(INVALID_SORT_MESSAGE);
         }
     }
 }

@@ -1,6 +1,7 @@
 package seedu.manager.event;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Optional;
 
 
@@ -12,19 +13,19 @@ public class EventList  {
     private final ArrayList<Event> eventList;
 
     /**
-     * Constructor that initializes EventList with a given list of event.
-     *
-     * @param eventList The initial list of tasks.
-     */
-    public EventList(ArrayList<Event> eventList) {
-        this.eventList = eventList;
-    }
-
-    /**
      * Default constructor that initializes an empty event list.
      */
     public EventList(){
         eventList = new ArrayList<>();
+    }
+
+    /**
+     * Constructor that initializes EventList with a given list of event.
+     *
+     * @param otherEventList The initial list of tasks.
+     */
+    public EventList(EventList otherEventList) {
+        this.eventList = new ArrayList<>(otherEventList.eventList);
     }
 
     /**
@@ -73,7 +74,6 @@ public class EventList  {
                 return Optional.of(event);
             }
         }
-
         return Optional.empty();
     }
 
@@ -111,7 +111,6 @@ public class EventList  {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -138,5 +137,12 @@ public class EventList  {
             }
         }
         return false;
+    }
+
+    /**
+     * Sort the event list by name, alphabetically.
+     */
+    public void sortByName(){
+        eventList.sort(Comparator.comparing(Event::getEventName));
     }
 }
