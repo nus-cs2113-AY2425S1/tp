@@ -8,6 +8,7 @@ import wheresmymoney.command.EditCommand;
 import wheresmymoney.command.HelpCommand;
 import wheresmymoney.command.ListCommand;
 import wheresmymoney.command.LoadCommand;
+import wheresmymoney.command.RecurCommand;
 import wheresmymoney.command.SaveCommand;
 import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
@@ -21,6 +22,9 @@ public class Parser {
     public static final String ARGUMENT_CATEGORY = "category";
     public static final String ARGUMENT_PRICE = "price";
     public static final String ARGUMENT_DESCRIPTION = "description";
+    public static final String ARGUMENT_DATE = "date";
+    public static final String ARGUMENT_FREQUENCY = "frequency";
+
 
     /**
      * Gets command from words.
@@ -126,6 +130,8 @@ public class Parser {
             return new SaveCommand(argumentsMap);
         case "help":
             return new HelpCommand(argumentsMap);
+        case "recur":
+            return new RecurCommand(argumentsMap);
         default:
             throw new InvalidInputException("No valid command given!");
         }
