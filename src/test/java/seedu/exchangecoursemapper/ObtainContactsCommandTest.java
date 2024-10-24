@@ -69,6 +69,18 @@ public class ObtainContactsCommandTest {
     }
 
     @Test
+    public void execute_invalidInputFormat_throwsException() {
+        // Simulate invalid user input (missing contact type)
+        String userInput = " ";
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            obtainContactsCommand.getContactType(userInput);
+        });
+
+        assertEquals("Invalid input format", exception.getMessage());
+    }
+
+    @Test
     public void execute_invalidContactType_displaysError() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
         JsonObject jsonObject = jsonReader.readObject();
