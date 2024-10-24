@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /*
-    Data Manager acts as an adapter layer between the Storage and BuffBuddy classes,
+    Storage acts as an adapter layer between the FileManager and BuffBuddy classes,
     translating between JSON and objects
 */
 public class Storage {

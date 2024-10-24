@@ -14,8 +14,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * Represents the storage system for saving and loading tasks.
- * The <code>Storage</code> class handles reading from and writing to the file specified by the user.
+ * Represents the FileManager system for saving and loading tasks.
+ * The <code>FileManager</code> class handles reading from and writing to the file specified by the user.
  */
 public class FileManager {
     private final String path;

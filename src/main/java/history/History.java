@@ -35,6 +35,10 @@ public class History {
         return history.get(date);
     }
 
+    public int getHistorySize() {
+        return history.size();
+    }
+
     // Method to summarize weekly workout activity
     public String getWeeklySummary() {
         if (history.isEmpty()) {
