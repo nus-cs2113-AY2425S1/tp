@@ -28,7 +28,7 @@ public class Parser {
     // Initialize map with suppliers
     private void initializeCommands() {
         commands.put("add", AddCommand::new);
-        commands.put("del", DeleteCommand::new);
+        commands.put("delete", DeleteCommand::new);
         commands.put("update", UpdateCommand::new);
         commands.put("sort", SortCommand::new);
         commands.put("filter", FilterCommand::new);
