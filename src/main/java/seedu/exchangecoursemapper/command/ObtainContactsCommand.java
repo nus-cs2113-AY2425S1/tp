@@ -1,13 +1,13 @@
 package seedu.exchangecoursemapper.command;
 
+import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.exception.Exception;
+
+import javax.json.JsonObject;
+import java.io.IOException;
 
 import static seedu.exchangecoursemapper.constants.Regex.BACKSLASH;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
-
-
-import java.io.IOException;
-import javax.json.JsonObject;
 
 public class ObtainContactsCommand extends Command {
     public static final String EMAIL = "email";
@@ -15,8 +15,10 @@ public class ObtainContactsCommand extends Command {
 
     @Override
     public void execute(String userInput) {
-        try  {
+        try {
             JsonObject jsonObject = super.createJsonObject();
+            assert jsonObject != null : Assertions.NULL_JSON_FILE;
+            assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
             String schoolName = getSchoolName(userInput).toLowerCase();
             String contactType = getContactType(userInput);
             String matchingSchool = findMatchingSchool(jsonObject, schoolName);
@@ -32,6 +34,7 @@ public class ObtainContactsCommand extends Command {
     public String getSchoolName(String userInput) {
         String inputWithoutCommand = userInput.substring(userInput.indexOf(SPACE) + 1).trim();
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
+        assert inputParts.length > 0 : Assertions.EMPTY_SCHOOL_NAME;
         return inputParts[0].trim();
     }
 
@@ -61,6 +64,8 @@ public class ObtainContactsCommand extends Command {
     }
 
     public String findMatchingSchool(JsonObject jsonObject, String schoolName) {
+        assert jsonObject != null : "JsonObject is not be null";
+        assert schoolName != null : "School name is not be null";
         for (String key : jsonObject.keySet()) {
             if (key.toLowerCase().equals(schoolName)) {
                 return key;
