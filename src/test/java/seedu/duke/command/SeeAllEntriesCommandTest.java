@@ -53,12 +53,12 @@ class SeeAllEntriesCommandTest {
     @Test
     void execute_mixedList_expectPrintedList() {
         testCommand = new SeeAllEntriesCommand(null, null);
-        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.now()));
-        financialList.addEntry(new Income(3000.00, "salary", LocalDate.now()));
-        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.now()));
-        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.now()));
-        financialList.addEntry(new Income(100.00, "allowance", LocalDate.now()));
-        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.now()));
+        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24,10,22)));
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24,10,22)));
+        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24,10,22)));
+        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24,10,22)));
+        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24,10,22)));
+        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(24,10,22)));
 
         testCommand.execute(financialList);
 
