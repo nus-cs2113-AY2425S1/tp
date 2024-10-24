@@ -122,6 +122,7 @@ public class ExpenseList {
 
             // closing writer connection
             reader.close();
+            csvReader.close();
         } catch (IOException ex) {
             throw new StorageException("Unable to read file!");
         } catch (CsvValidationException e){
