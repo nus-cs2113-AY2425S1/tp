@@ -11,7 +11,6 @@
 ## Setting up, getting started
 Refer to the guide for 'Setting up and getting started.'
 
-
 ---
 
 ## Design
