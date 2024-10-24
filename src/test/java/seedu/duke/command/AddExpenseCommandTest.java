@@ -142,7 +142,7 @@ class AddExpenseCommandTest {
         assertEquals(expectedOutput, output);
     }
 
-     /**
+    /**
      * Test the execute method of AddExpenseCommand with an empty date string.
      * Verifies that a FinanceBuddyException is thrown when an empty date string is provided.
      */
