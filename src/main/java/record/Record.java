@@ -46,6 +46,18 @@ public class Record {
         logger.info("Record initialised with meal list");
     }
 
+    public Day getDayFromRecord() {
+        return day;
+    }
+
+    public MealList getMealList() {
+        return mealList;
+    }
+
+    public Water getWater() {
+        return water;
+    }
+
     public void updateDay(Day newDay) { //this replaces any current day recorded
         assert day != null;
 
