@@ -111,7 +111,7 @@ public class DailyRecord {
     public String toString() {
         StringBuilder result = new StringBuilder();
 
-        if (day.getExercisesCount() > 0) {
+        if (day != null && day.getExercisesCount() > 0) {
             result.append("Day: ").append(day.toString()).append("\n");
         } else {
             result.append("Day: No record.\n");

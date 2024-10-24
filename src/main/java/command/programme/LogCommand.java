@@ -6,6 +6,7 @@ import programme.Day;
 import history.History;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +54,9 @@ public class LogCommand extends ProgrammeCommand {
         assert completed != null : "Completed Day must not be null";
 
         DailyRecord dailyRecord = history.getRecordByDate(date);
+        if(dailyRecord == null) {
+            dailyRecord = new DailyRecord(completed);
+        }
 
         assert dailyRecord != null : "DailyRecord must not be null";
 
