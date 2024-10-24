@@ -68,6 +68,7 @@ public class ExpenseList {
         try {
             logger.log(Level.INFO, "Attempting to edit expense.");
             Expense expense = expenses.get(index);
+            assert (expense != null);
             expense.setPrice(price);
             expense.setDescription(description);
             expense.setCategory(category);
@@ -94,6 +95,7 @@ public class ExpenseList {
         ArrayList<Expense> expensesFromCategory = new ArrayList<>();
         for (Expense expense: expenses) {
             if (expense.category.equals(category)) {
+                logger.log(Level.INFO, "Found matching expense: " + expense.description);
                 expensesFromCategory.add(expense);
             }
         }
