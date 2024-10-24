@@ -1,6 +1,7 @@
 package wheresmymoney.command;
 
 import wheresmymoney.ExpenseList;
+import wheresmymoney.Parser;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -15,7 +16,15 @@ public abstract class Command {
     
     public abstract void execute(ExpenseList expenseList, RecurringExpenseList recurringExpenseList) 
             throws WheresMyMoneyException;
-    public boolean isExit(){
+
+    public boolean isExit() {
+        return false;
+    }
+
+    public boolean isRecur() {
+        if (argumentsMap.containsKey(Parser.ARGUMENT_RECUR)) {
+            return true;
+        }
         return false;
     }
 }

@@ -16,11 +16,6 @@ public class SaveCommand extends Command {
     }
 
     /**
-     * Function to implement abstract method of Command class. Do not use
-     */
-    public void execute(ExpenseList expenseList) {}
-
-    /**
      * Saves data of expenses and recurring expenses to csv
      * 
      * @param expenseList

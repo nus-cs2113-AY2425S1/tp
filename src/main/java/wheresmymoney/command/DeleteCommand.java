@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
             throws WheresMyMoneyException {
         try {
             int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
-            if (argumentsMap.containsKey(Parser.ARGUMENT_RECUR)) {
+            if (this.isRecur()) {
                 recurringExpenseList.deleteExpense(index);
             } else {
                 expenseList.deleteExpense(index);

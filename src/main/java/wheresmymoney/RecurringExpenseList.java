@@ -20,6 +20,10 @@ public class RecurringExpenseList extends ExpenseList {
         recurringExpenses = new ArrayList<>();
     }
 
+    public ArrayList<RecurringExpense> getRecurringExpenseList() {
+        return recurringExpenses;
+    }
+
     /**
      * Add a recurring expense to the end of the list
      *
@@ -32,8 +36,10 @@ public class RecurringExpenseList extends ExpenseList {
     public void addRecurringExpense(Float price, String description, String category, 
             String lastAddedDate, String frequency) {
         Logging.log(Level.INFO,
-                String.format("Adding recurring expense with parameters: %f, %s, %s", price, description, category));
-        RecurringExpense recurringExpense = new RecurringExpense(price, description, category, lastAddedDate, frequency);
+                String.format("Adding recurring expense with parameters: %f, %s, %s, %s, %s", 
+                price, description, category, lastAddedDate, frequency));
+        RecurringExpense recurringExpense = new RecurringExpense(price, description, category, 
+                lastAddedDate, frequency);
         assert (recurringExpense != null);
         recurringExpenses.add(recurringExpense);
         Logging.log(Level.INFO, "Successfully added recurring expense.");
@@ -72,8 +78,8 @@ public class RecurringExpenseList extends ExpenseList {
      *
      * @param category Category of expense
      */
-    public ArrayList<Expense> listByCategory(String category) {
-        ArrayList<Expense> recurringExpensesFromCategory = new ArrayList<>();
+    public ArrayList<RecurringExpense> listByCategoryForRecurring (String category) {
+        ArrayList<RecurringExpense> recurringExpensesFromCategory = new ArrayList<>();
         for (RecurringExpense recurringExpense: recurringExpenses) {
             if (recurringExpense.category.equals(category)) {
                 Logging.log(Level.INFO, "Found matching recurring expense: " + recurringExpense.description);
@@ -97,7 +103,7 @@ public class RecurringExpenseList extends ExpenseList {
             csvReader.readNext(); // Skip the header
             String[] line;
             while ((line = csvReader.readNext()) != null) {
-                addExpense(Float.parseFloat(line[2]), line[1], line[0]);
+                addRecurringExpense(Float.parseFloat(line[2]), line[1], line[0], line[3], line[4]);
             }
 
             // closing writer connection
@@ -131,14 +137,16 @@ public class RecurringExpenseList extends ExpenseList {
         CSVWriter writer = new CSVWriter(outFile);
 
         // adding header to csv
-        String[] header = { "Category", "Description", "Price" };
+        String[] header = { "Category", "Description", "Price", "LastAddedDate", "Frequency" };
         writer.writeNext(header);
 
-        for (Expense expense: expenses) {
+        for (RecurringExpense recurringExpense: recurringExpenses) {
             String[] row = {
-                    expense.getCategory(),
-                    expense.getDescription(),
-                    expense.getPrice().toString()
+                recurringExpense.getCategory(),
+                recurringExpense.getDescription(),
+                recurringExpense.getPrice().toString(),
+                recurringExpense.getlastAddedDate(),
+                recurringExpense.getFrequency()
             };
             writer.writeNext(row);
         }

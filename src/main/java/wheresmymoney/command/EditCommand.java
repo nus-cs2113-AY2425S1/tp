@@ -28,7 +28,7 @@ public class EditCommand extends Command {
             String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
             float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
-            if (argumentsMap.containsKey(Parser.ARGUMENT_RECUR)) {
+            if (this.isRecur()) {
                 String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE);
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
                 recurringExpenseList.editRecurringExpense(index, price, description, category, lastAddedDate, frequency);
