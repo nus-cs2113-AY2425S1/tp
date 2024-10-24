@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 import static common.Utils.NULL_INTEGER;
 
 public class ProgrammeList {
@@ -144,15 +141,4 @@ public class ProgrammeList {
         return str.toString();
     }
 
-    public JsonObject toJson() {
-        Gson gson = new Gson();
-        logger.log(Level.INFO, "Programme list converted to Json for saving.");
-        return gson.toJsonTree(this).getAsJsonObject();
-    }
-
-    public static ProgrammeList fromJson(JsonObject jsonObject) {
-        Gson gson = new Gson();
-        logger.log(Level.INFO, "Programme list converted from Json for loading.");
-        return gson.fromJson(jsonObject, ProgrammeList.class);
-    }
 }

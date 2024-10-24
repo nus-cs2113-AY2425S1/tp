@@ -1,7 +1,7 @@
 import command.Command;
 import command.CommandResult;
 import command.ExitCommand;
-import core.DataManager;
+import storage.Storage;
 
 import history.History;
 import parser.Parser;
@@ -14,16 +14,16 @@ public class BuffBuddy {
 
     private final History history;
     private final ProgrammeList programmes;
-    private final DataManager dataManager;
+    private final Storage storage;
     private final Parser parser;
     private boolean isRunning;
 
 
     public BuffBuddy(String filePath) {
         ui = new Ui();
-        dataManager = new DataManager(filePath);
-        programmes = dataManager.loadProgrammeList();
-        history = dataManager.loadHistory();
+        storage = new Storage(filePath);
+        programmes = storage.loadProgrammeList();
+        history = storage.loadHistory();
         parser = new Parser();
         isRunning = true;
     }
@@ -36,7 +36,7 @@ public class BuffBuddy {
         ui.showWelcome();
         handleCommands();
         ui.showFarewell();
-        dataManager.saveData(programmes, history);
+        storage.saveData(programmes, history);
     }
 
     private void handleCommands() {
