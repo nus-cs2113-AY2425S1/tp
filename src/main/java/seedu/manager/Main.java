@@ -5,17 +5,24 @@ import seedu.manager.event.EventList;
 import seedu.manager.exception.InvalidCommandException;
 import seedu.manager.parser.Parser;
 import seedu.manager.ui.Ui;
+import seedu.manager.storage.Storage;
+
+import java.io.IOException;
 
 public class Main {
     private static final Ui ui = new Ui();
     private static EventList events = new EventList();
+    private static final String filePath = "events.txt";
+    private static final Storage storage = new Storage(filePath);
 
     /**
      * Main entry-point for the EventManagerCLI application.
      */
     public static void main(String[] args) {
         ui.greetUser();
+        loadData();
         runCommandLoop();
+        saveData();
         System.exit(0);
     }
 
@@ -39,6 +46,30 @@ public class Main {
             } catch (InvalidCommandException exception) {
                 ui.showErrorMessageToUser(exception);
             }
+        }
+    }
+
+    /**
+     * Loads events from file and handles exceptions.
+     */
+    private static void loadData() {
+        try {
+            storage.loadEvents(events); // Load events using storage instance
+            ui.showMessage("Events loaded successfully.");
+        } catch (IOException e) {
+            ui.showErrorMessageToUser(e); // Use showErrorMessageToUser
+        }
+    }
+
+    /**
+     * Saves events to file and handles exceptions.
+     */
+    private static void saveData() {
+        try {
+            storage.saveEvents(events); // Save events using storage instance
+            ui.showMessage("Events saved successfully.");
+        } catch (IOException e) {
+            ui.showErrorMessageToUser(e); // Use showErrorMessageToUser
         }
     }
 }
