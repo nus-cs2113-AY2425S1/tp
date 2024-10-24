@@ -17,7 +17,7 @@ public class DeleteMealCommand extends MealCommand {
 
     public CommandResult execute(History history) {
         DailyRecord dailyRecord = history.getRecordByDate(date);
-        dailyRecord.deleteMealFromMealList(indexMealToDelete);
+        dailyRecord.deleteMealFromRecord(indexMealToDelete);
 
         return new CommandResult(indexMealToDelete + " has been added");
     }

@@ -18,7 +18,7 @@ public class AddMealCommand extends MealCommand {
 
     public CommandResult execute(History history) {
         DailyRecord dailyRecord = history.getRecordByDate(date);
-        dailyRecord.addMealList(mealToAdd);
+        dailyRecord.addMealToRecord(mealToAdd);
 
         return new CommandResult(mealToAdd + " has been added");
     }

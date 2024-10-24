@@ -13,14 +13,6 @@ public abstract class MealCommand extends Command {
 
     public MealCommand(){}
 
-    // Helper method to get the meal list from history
-    protected MealList getMealList(History history, LocalDate date) {
-        DailyRecord dailyRecord = history.getRecordByDate(date);
-        MealList meals = new MealList();
-        meals = dailyRecord.getMealList();
-        return meals;
-    }
-
     public abstract CommandResult execute(History history);
 
     @Override
