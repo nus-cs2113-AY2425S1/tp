@@ -40,6 +40,13 @@ public class Patient {
         return tag;
     }
 
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getFormattedTag() {
+        return (tag != null && !tag.isEmpty()) ? " [" + tag + "]" : "";
+    }
 
     public String getName() {
         return name;

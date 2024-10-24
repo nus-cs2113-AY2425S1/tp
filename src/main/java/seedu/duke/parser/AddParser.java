@@ -12,8 +12,6 @@ public class AddParser implements CommandParser{
             String[] parts = line.split(" t/");
             String patientName = parts[0].substring("add ".length()).trim();
             String tag = null;
-
-
             //if tag is provided
             if (parts.length > 1) {
                 tag = parts[1].trim();  // only 1 tag is expected
