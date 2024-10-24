@@ -36,6 +36,13 @@ public class EventList  {
     }
 
     /**
+     * @return The event list
+     */
+    public ArrayList<Event> getList() {
+        return this.eventList;
+    }
+
+    /**
      * Adds a new event to the event list.
      *
      * <p>

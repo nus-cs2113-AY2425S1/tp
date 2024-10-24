@@ -1,4 +1,6 @@
 Welcome to EventManagerCLI.
+Error loading events from file: events.txt.
+------------------------
 Enter a command: Invalid command!
 ------------------------
 Enter a command: Here are the possible commands:
@@ -49,4 +51,6 @@ Successfully sort events by name!
 
 ------------------------
 Enter a command: Thank you for using EventManagerCLI. Goodbye!
+------------------------
+Events saved successfully.
 ------------------------
