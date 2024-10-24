@@ -48,6 +48,10 @@ public class FlagParser {
         aliasMap.put("/removeEx", "/x");
         aliasMap.put("/createDay", "/ad");
         aliasMap.put("/removeDay", "/xd");
+
+        aliasMap.put("/mealName", "/m");
+        aliasMap.put("/mealCalories", "/c");
+        aliasMap.put("/mealIndex", "/mi");
     }
 
     private void parse(String argumentString) {

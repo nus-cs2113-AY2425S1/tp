@@ -7,6 +7,7 @@ import water.Water;
 import java.util.Date;
 
 public class AddWaterCommand extends WaterCommand {
+    public static final String COMMAND_WORD = "add water";
 
     protected float waterToAdd;
     protected Date date;
