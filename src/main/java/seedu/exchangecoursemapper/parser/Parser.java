@@ -1,6 +1,13 @@
 package seedu.exchangecoursemapper.parser;
 
-import seedu.exchangecoursemapper.command.*;
+import seedu.exchangecoursemapper.command.FilterCoursesCommand;
+import seedu.exchangecoursemapper.command.ListCommandsCommand;
+import seedu.exchangecoursemapper.command.ListSchoolCommand;
+import seedu.exchangecoursemapper.command.ListUniCoursesCommand;
+import seedu.exchangecoursemapper.command.AddCoursesCommand;
+import seedu.exchangecoursemapper.command.DeleteCoursesCommand;
+import seedu.exchangecoursemapper.command.ObtainContactsCommand;
+import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
 
 import java.util.Scanner;
@@ -12,6 +19,7 @@ import static seedu.exchangecoursemapper.constants.Commands.LISTINGSCHOOLS;
 import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.SET;
 import static seedu.exchangecoursemapper.constants.Commands.ADD_COURSES;
+import static seedu.exchangecoursemapper.constants.Commands.DELETE_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
 import static seedu.exchangecoursemapper.constants.Commands.OBTAIN;
 import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
@@ -34,7 +42,7 @@ public class Parser {
         return scanner.nextLine();
     }
 
-    public void processUserInput(String userInput) {
+    public void processUserInput(String userInput, Storage storage) {
         // Assert that userInput is not null
         assert userInput != null : NULL_INPUT;
 
@@ -56,7 +64,9 @@ public class Parser {
         } else if (command.equals(FILTER_COURSES)) {
             new FilterCoursesCommand().execute(input);
         } else if (command.equals(ADD_COURSES)) {
-            new AddCoursesCommand().execute(input);
+            new AddCoursesCommand().execute(input, storage);
+        } else if (command.equals(DELETE_COURSES)) {
+            new DeleteCoursesCommand().execute(input, storage);
         } else if (command.equals(SET)) {
             new ListUniCoursesCommand().execute(input);
         } else if (command.equals(OBTAIN)) {
