@@ -47,11 +47,11 @@ public class Storage {
         }
     }
 
-    public void saveData(ProgrammeList pList, History history) {
+    public void saveData(ProgrammeList programmeList, History history) {
         assert pList != null : "programmeList must not be null";
         assert history != null : "history must not be null";
 
-        JsonObject jsonObject = createJSON(pList, history);
+        JsonObject jsonObject = createJSON(programmeList, history);
         logger.info("JsonObject containing programme list and history created.");
 
         try{
