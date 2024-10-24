@@ -20,13 +20,8 @@ public class ObtainContactsCommand extends Command {
             String schoolName = getSchoolName(userInput).toLowerCase();
             String contactType = getContactType(userInput);
             String matchingSchool = findMatchingSchool(jsonObject, schoolName);
-
-            if (matchingSchool != null) {
-                JsonObject schoolInfo = jsonObject.getJsonObject(matchingSchool);
-                handleContactType(schoolInfo, matchingSchool, contactType);
-            } else {
-                System.out.println("Unknown university - " + schoolName);
-            }
+            JsonObject schoolInfo = jsonObject.getJsonObject(matchingSchool);
+            handleContactType(schoolInfo, matchingSchool, contactType);
         } catch (IOException e) {
             System.err.println(Exception.fileReadError());
         } catch (IllegalArgumentException e) {
@@ -34,13 +29,13 @@ public class ObtainContactsCommand extends Command {
         }
     }
 
-    private String getSchoolName(String userInput) {
+    public String getSchoolName(String userInput) {
         String inputWithoutCommand = userInput.substring(userInput.indexOf(SPACE) + 1).trim();
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
         return inputParts[0].trim();
     }
 
-    private String getContactType(String userInput) {
+    public String getContactType(String userInput) {
         String inputWithoutCommand = userInput.substring(userInput.indexOf(SPACE) + 1).trim();
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
 
@@ -50,35 +45,28 @@ public class ObtainContactsCommand extends Command {
         return inputParts[1].trim();
     }
 
-    private void handleContactType(JsonObject schoolInfo, String schoolName, String contactType) {
+    public void handleContactType(JsonObject schoolInfo, String schoolName, String contactType) {
         switch (contactType) {
         case EMAIL:
             String email = schoolInfo.getString(EMAIL);
-            if (email != null) {
-                System.out.println("Email for " + schoolName + ": " + email);
-            } else {
-                System.out.println("Email not available for " + schoolName);
-            }
+            System.out.println("Email for " + schoolName + ": " + email);
             break;
         case NUMBER:
             String number = schoolInfo.getString(NUMBER);
-            if (number != null) {
-                System.out.println("Phone number for " + schoolName + ": " + number);
-            } else {
-                System.out.println("Phone number not available for " + schoolName);
-            }
+            System.out.println("Phone number for " + schoolName + ": " + number);
             break;
         default:
             System.out.println(Exception.invalidContactType());
         }
     }
 
-    private String findMatchingSchool(JsonObject jsonObject, String schoolName) {
+    public String findMatchingSchool(JsonObject jsonObject, String schoolName) {
         for (String key : jsonObject.keySet()) {
             if (key.toLowerCase().equals(schoolName)) {
                 return key;
             }
         }
+        System.out.println("Unknown university - " + schoolName);
         return null;
     }
 }
