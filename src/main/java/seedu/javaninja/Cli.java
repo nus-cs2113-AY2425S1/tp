@@ -20,6 +20,7 @@ public class Cli {
         System.out.println("'review' to review past results");
         System.out.println("'help' for a list of commands");
         System.out.println("'quit' to exit the program");
+        System.out.println("'exit' to exit the quiz, activate only while doing the quiz");
 
         while (true) {
             System.out.print("> ");
