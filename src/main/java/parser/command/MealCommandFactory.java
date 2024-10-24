@@ -25,6 +25,7 @@ public class MealCommandFactory {
         return switch (subCommandString) {
         case AddMealCommand.COMMAND_WORD -> prepareAddCommand(arguments);
         case DeleteMealCommand.COMMAND_WORD -> prepareDeleteCommand(arguments);
+        case ViewMealCommand.COMMAND_WORD -> prepareViewCommand(arguments);
         default -> new InvalidCommand();
         };
     }
