@@ -5,6 +5,7 @@ import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 
 public class AddDeadlineParser implements CommandParser {
+
     @Override
     public Command execute(String line, State state) {
         if (state.getState() == StateType.TASK_STATE) {
