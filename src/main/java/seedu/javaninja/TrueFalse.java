@@ -5,11 +5,14 @@ public class TrueFalse extends Question {
 
     public TrueFalse(String questionText, boolean correctAnswer) {
         super(questionText, Boolean.toString(correctAnswer));
+        assert questionText != null && !questionText.trim().isEmpty() : "Question text must not be null or empty";
         this.correctAnswer = correctAnswer;
     }
 
     @Override
     public boolean checkAnswer(String userAnswer) {
+        assert userAnswer != null && !userAnswer.trim().isEmpty() : "User answer must not be null or empty";
+
         boolean userAnswerBoolean;
         if (userAnswer.equalsIgnoreCase("true")) {
             userAnswerBoolean = true;
@@ -18,6 +21,8 @@ public class TrueFalse extends Question {
         } else {
             throw new IllegalArgumentException("Invalid input! Please enter 'true' or 'false'.");
         }
+
+        assert (userAnswerBoolean == true || userAnswerBoolean == false) : "Invalid user answer";
         return userAnswerBoolean == this.correctAnswer;
     }
 
@@ -29,6 +34,7 @@ public class TrueFalse extends Question {
 
     @Override
     public String toString() {
+        assert this.getText() != null : "Question text should not be null";
         return this.getText() + " (True/False)";
     }
 }
