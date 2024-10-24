@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 
 public class AddWaterCommand extends WaterCommand {
+    public static final String COMMAND_WORD = "add";
 
     protected float waterToAdd;
     protected LocalDate date;

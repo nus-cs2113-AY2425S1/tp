@@ -8,6 +8,7 @@ import meal.MealList;
 import java.time.LocalDate;
 
 public class DeleteMealCommand extends MealCommand {
+    public static final String COMMAND_WORD = "delete";
 
     protected final int indexMealToDelete;
     protected final LocalDate date;
@@ -27,8 +28,10 @@ public class DeleteMealCommand extends MealCommand {
         }
         assert dailyRecord != null;
         dailyRecord.deleteMealFromRecord(indexMealToDelete);
+        MealList meals = getMealList(history);
+        String mealToDeleteName = meals.deleteMeal(indexMealToDelete).toString();
 
-        return new CommandResult(indexMealToDelete + " has been added");
+        return new CommandResult( mealToDeleteName + " has been deleted");
     }
 
 }

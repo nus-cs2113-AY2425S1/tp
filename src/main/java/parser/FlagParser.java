@@ -14,7 +14,7 @@ import static parser.ParserUtils.parseIndex;
 
 /*
     FlagParser simplifies parsing flagged argument strings
-    From a argument string, creates a hashamp of flag -> value
+    From an argument string, creates a hashmap of flag -> value
     These values can then be retrieved in Integer, Date, String or Index formats
 */
 public class FlagParser {
@@ -48,6 +48,10 @@ public class FlagParser {
         aliasMap.put("/removeEx", "/x");
         aliasMap.put("/createDay", "/ad");
         aliasMap.put("/removeDay", "/xd");
+
+        aliasMap.put("/mealName", "/n");
+        aliasMap.put("/mealCalories", "/c");
+        aliasMap.put("/mealIndex", "/m");
     }
 
     private void parse(String argumentString) {

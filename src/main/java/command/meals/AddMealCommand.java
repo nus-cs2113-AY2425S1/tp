@@ -8,6 +8,7 @@ import dailyrecord.DailyRecord;
 import meal.MealList;
 
 public class AddMealCommand extends MealCommand {
+    public static final String COMMAND_WORD = "add";
 
     protected final Meal mealToAdd;
     protected final LocalDate date;
@@ -26,6 +27,6 @@ public class AddMealCommand extends MealCommand {
         assert dailyRecord != null;
         dailyRecord.addMealToRecord(mealToAdd);
 
-        return new CommandResult(mealToAdd + " has been added");
+        return new CommandResult(mealToAdd.toString() + " has been added");
     }
 }
