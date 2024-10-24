@@ -14,6 +14,10 @@ public class FilterCommand extends Command {
         this.filteredInternships = new InternshipList();
     }
 
+    public InternshipList getFilteredInternships() {
+        return filteredInternships;
+    }
+
     @Override
     public void execute(ArrayList<String> args) {
         if (args.isEmpty()) {
@@ -66,6 +70,6 @@ public class FilterCommand extends Command {
     public String getUsage() {
         return """
                 filter
-                Usage: filter -name {Role name}""";
+                Usage: filter -{flag} {field data}""";
     }
 }

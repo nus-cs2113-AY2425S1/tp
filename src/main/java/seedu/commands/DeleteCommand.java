@@ -18,6 +18,6 @@ public class DeleteCommand extends Command {
     public String getUsage() {
         return """
                 delete
-                Usage: del {ID}""";
+                Usage: delete {ID}""";
     }
 }

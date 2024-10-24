@@ -2,6 +2,7 @@ package seedu.commands;
 
 import java.util.ArrayList;
 
+//@@author Toby-Yu
 /**
  * Command to list all internships in the system.
  */
