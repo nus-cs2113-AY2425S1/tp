@@ -6,7 +6,13 @@
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+MediTask uses the Parser class to parse the user command. Parser class will extract the
+(i) Relevant command
+(ii) User input string (based on command)
+
+These two parameters will be passed back to MediTask, which will then run the relevant Command classes.
+
+
 
 
 ## Product scope
