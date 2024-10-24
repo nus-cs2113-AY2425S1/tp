@@ -17,7 +17,7 @@ class MarkParticipantCommandTest {
     }
 
     @Test
-    public void execute_validParticipantMarkPresent_success() {
+    public void execute_validParticipantMarkTrue_success() {
         String expectedMessage = "Participant marked present.";
 
         MarkParticipantCommand command = new MarkParticipantCommand("John Doe",
@@ -28,7 +28,7 @@ class MarkParticipantCommandTest {
     }
 
     @Test
-    public void execute_validParticipantMarkAbsent_success() {
+    public void execute_validParticipantMarkFalse_success() {
         String expectedMessage = "Participant marked absent.";
 
         MarkParticipantCommand command = new MarkParticipantCommand("John Doe",
@@ -39,7 +39,7 @@ class MarkParticipantCommandTest {
     }
 
     @Test
-    public void execute_invalidParticipantMarkAbsent_failure() {
+    public void execute_invalidParticipant_failure() {
         String expectedMessage = "Participant not found!";
 
         MarkParticipantCommand command = new MarkParticipantCommand("Jane Doe",
@@ -50,7 +50,7 @@ class MarkParticipantCommandTest {
     }
 
     @Test
-    public void execute_invalidEventMarkAbsent_failure() {
+    public void execute_invalidEvent_failure() {
         String expectedMessage = "Event not found!";
 
         MarkParticipantCommand command = new MarkParticipantCommand("Jane Doe",
