@@ -1,4 +1,6 @@
-package command;
+package command.programme;
+import command.Command;
+import command.CommandResult;
 import programme.ProgrammeList;
 import programme.Day;
 import history.History;

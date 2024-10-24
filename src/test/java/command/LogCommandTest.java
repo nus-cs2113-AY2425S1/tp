@@ -1,5 +1,6 @@
 package command;
 
+import command.programme.LogCommand;
 import history.History;
 import org.junit.jupiter.api.Test;
 import programme.Day;
