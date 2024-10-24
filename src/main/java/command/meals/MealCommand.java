@@ -15,7 +15,7 @@ public abstract class MealCommand extends Command {
         this.meal = meal;
     }
 
-    public MealCommand(){};
+    public MealCommand(){}
 
     // Helper method to get the meal list from history
     protected MealList getMealList(History history) {

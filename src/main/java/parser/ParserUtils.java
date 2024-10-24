@@ -70,8 +70,6 @@ public class ParserUtils {
         assert argumentString != null : "Argument string must not be null";
 
         FlagParser flagParser = new FlagParser(argumentString);
-        String[] requiredFlags = {"/n", "/s", "/r", "/w"};
-        flagParser.validateRequiredFlags(flagParser, requiredFlags);
 
         String name = flagParser.getFlagValue("/n");
         int sets = parseIndex(flagParser.getFlagValue("/s"));
