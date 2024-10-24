@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static common.Utils.NULL_INTEGER;
+
 public class LogCommand extends Command {
     public static final String COMMAND_WORD = "log";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
@@ -18,7 +20,7 @@ public class LogCommand extends Command {
 
 
     public LogCommand(int progIndex, int dayIndex, LocalDate date){
-        assert progIndex >= 0 : "Program index must be non-negative";
+        assert progIndex == NULL_INTEGER || progIndex >= 0 : "Program index must be valid";
         assert dayIndex >= 0 : "Day index must be non-negative";
         assert date != null : "Date must not be null";
 
@@ -66,19 +68,12 @@ public class LogCommand extends Command {
             return false;
         }
 
+        logger.log(Level.WARNING,"LogCommand this: {0}, that: {1}", new Object[]{this.progIndex, that.progIndex});
         boolean isProgIndexEqual =  (progIndex == that.progIndex);
         boolean isDayIndexEqual = (dayIndex == that.dayIndex);
         boolean isDateEqual = Objects.equals(date, that.date);
 
         return (isProgIndexEqual && isDayIndexEqual && isDateEqual);
-    }
-
-    public int getProgrammeIndex() {
-        return progIndex;
-    }
-
-    public int getDayIndex() {
-        return dayIndex;
     }
 
     public LocalDate getDate() {

@@ -84,7 +84,7 @@ public class Day {
         StringBuilder result = new StringBuilder();
         result.append(name).append("\n\n");
 
-        for (int i = 0; i < exercises.size(); i++) {
+        for (int i = 0; i <      exercises.size(); i++) {
             Exercise exercise = exercises.get(i);
             result.append(String.format("%d. %s%n", i + 1, exercise));
         }

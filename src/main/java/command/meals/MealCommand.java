@@ -8,7 +8,7 @@ import programme.ProgrammeList;
 
 public abstract class MealCommand extends Command {
 
-    public MealCommand(){};
+    public MealCommand(){}
 
     // Helper method to get the meal list from history
     protected MealList getMealList(History history) {
