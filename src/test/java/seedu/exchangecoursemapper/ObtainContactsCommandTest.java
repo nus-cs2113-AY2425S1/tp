@@ -67,4 +67,18 @@ public class ObtainContactsCommandTest {
         String expectedOutput = "Phone number for Chulalongkorn University: +66 2 218 2000\n";
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
+
+    @Test
+    public void execute_invalidContactType_displaysError() throws IOException {
+        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
+        JsonObject jsonObject = jsonReader.readObject();
+        jsonReader.close();
+
+        // Simulate user input with an invalid contact type (e.g., fax)
+        String userInput = "obtain Chulalongkorn University /fax";
+        obtainContactsCommand.execute(userInput);
+
+        String expectedOutput = Exception.invalidContactType();
+        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+    }
 }
