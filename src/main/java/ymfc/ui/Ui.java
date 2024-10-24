@@ -11,8 +11,9 @@ import java.util.ArrayList;
  * A class representing the user interface for interacting with the user.
  */
 public class Ui {
-    private final String LINE = "\t_____________________________________________________________________________";
-    private final String LOGO = "                 (\\" + System.lineSeparator() +
+    private static final String LINE = "\t_________________________________________" +
+            "_________________________________________";
+    private static final String LOGO = "                 (\\" + System.lineSeparator() +
             "                  \\ \\" + System.lineSeparator() +
             "              __    \\/ ___,.-------..__        __" + System.lineSeparator() +
             "             //\\\\ _,-'\\\\               `'--._ //\\\\" + System.lineSeparator() +
@@ -28,7 +29,7 @@ public class Ui {
             "This is all the things you can do with me:\n"
             + "0. help                              -  Lists out all the available commands and their usage\n"
             + LINE
-            + "The following commands is for working with your recipes list\n"
+            + "\nThe following commands is for working with your recipes list\n"
             + "1. list                              -  Lists out all the existing recipes\n"
             + "2. add n/name i/ingredients s1/step  -  Adds a new recipe.\n"
             + "\t add more ingredients using more i/ tags\n"
@@ -45,12 +46,12 @@ public class Ui {
             + "\t add more steps using more sx/ tags, where x starts from 1 and increases one by one\n"
             + "9. bye                               -  Ends the program\n"
             + LINE
-            + "The following commands is for working with your ingredients list\n"
+            + "\nThe following commands is for working with your ingredients list\n"
             + "1. new n/ingredient                  - Add a new ingredient to your list\n"
             //+ "2. list                            - Lists out all your current ingredients\n"
             //+ "3. delete n/ingredient                  - Delete an existing ingredient from your list\n"
             + LINE
-            + "Got it? Let's get back to cooking.\n";
+            + "\nGot it? Let's get back to cooking.\n";
 
     private Scanner userInput;
 
