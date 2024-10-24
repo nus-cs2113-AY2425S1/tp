@@ -3,9 +3,9 @@ package command.meals;
 import command.CommandResult;
 import history.History;
 import meal.Meal;
-import meal.MealList;
-
 import java.time.LocalDate;
+import dailyrecord.DailyRecord;
+import meal.MealList;
 
 public class AddMealCommand extends MealCommand {
     public static final String COMMAND_WORD = "add";
@@ -19,7 +19,13 @@ public class AddMealCommand extends MealCommand {
     }
 
     public CommandResult execute(History history) {
-        MealList meals = getMealList(history);
+        assert history != null;
+        DailyRecord dailyRecord = history.getRecordByDate(date);
+        if(dailyRecord == null) {
+            dailyRecord = new DailyRecord(new MealList());
+        }
+        assert dailyRecord != null;
+        dailyRecord.addMealToRecord(mealToAdd);
 
         return new CommandResult(mealToAdd.toString() + " has been added");
     }
