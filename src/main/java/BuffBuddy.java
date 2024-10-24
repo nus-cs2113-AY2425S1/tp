@@ -4,7 +4,7 @@ import command.ExitCommand;
 import core.DataManager;
 
 import history.History;
-import parser.CommandParser;
+import parser.Parser;
 import ui.Ui;
 import programme.ProgrammeList;
 
@@ -15,7 +15,7 @@ public class BuffBuddy {
     private final History history;
     private final ProgrammeList programmes;
     private final DataManager dataManager;
-    private final CommandParser parser;
+    private final Parser parser;
     private boolean isRunning;
 
 
@@ -24,7 +24,7 @@ public class BuffBuddy {
         dataManager = new DataManager(filePath);
         programmes = dataManager.loadProgrammeList();
         history = dataManager.loadHistory();
-        parser = new CommandParser();
+        parser = new Parser();
         isRunning = true;
     }
 

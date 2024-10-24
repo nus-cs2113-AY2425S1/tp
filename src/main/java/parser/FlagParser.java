@@ -1,4 +1,4 @@
-package parser.util;
+package parser;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -8,10 +8,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static common.Utils.NULL_INTEGER;
-import static parser.util.StringParser.parseDate;
-import static parser.util.StringParser.parseInteger;
-import static parser.util.StringParser.parseIndex;
+import static parser.ParserUtils.parseDate;
+import static parser.ParserUtils.parseInteger;
+import static parser.ParserUtils.parseIndex;
 
+/*
+    FlagParser simplifies parsing flagged argument strings
+    From a argument string, creates a hashamp of flag -> value
+    These values can then be retrieved in Integer, Date, String or Index formats
+*/
 public class FlagParser {
     private final Logger logger = Logger.getLogger(FlagParser.class.getName());
     private final Map<String, String> parsedFlags = new HashMap<>();
@@ -70,6 +75,28 @@ public class FlagParser {
             return aliasMap.get(flag);
         }
         return flag;
+    }
+
+    private boolean hasFlag(String flag) {
+        assert flag != null && !flag.isEmpty() : "Flag must not be null or empty";
+
+        flag = resolveAlias(flag);
+        boolean hasFlag = parsedFlags.containsKey(flag);
+
+        logger.log(Level.INFO, "Flag {0} presence: {1}", new Object[]{flag, hasFlag});
+        return hasFlag;
+    }
+
+
+    public void validateRequiredFlags(String... requiredFlags) {
+        assert requiredFlags != null : "Required flags string must not be null";
+
+        for (String flag : requiredFlags) {
+            flag = resolveAlias(flag);
+            if (!hasFlag(flag)) {
+                throw new IllegalArgumentException("Required flag: " + flag + "is missing. Please provide the flag.");
+            }
+        }
     }
 
     public String getStringByFlag(String flag) {

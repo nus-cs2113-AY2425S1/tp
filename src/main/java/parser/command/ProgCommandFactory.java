@@ -1,8 +1,8 @@
-package parser.subcommand;
+package parser.command;
 
 import command.Command;
 import command.InvalidCommand;
-import parser.util.FlagParser;
+import parser.FlagParser;
 import programme.Day;
 import programme.Exercise;
 
@@ -17,23 +17,26 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static parser.util.StringParser.parseIndex;
+import static parser.ParserUtils.parseIndex;
+import static parser.ParserUtils.splitArguments;
 
-public class ProgCommandParser {
+
+/*
+    ProgCommandFactory is a factory class that creates all programme related commands
+    This class also contains helper functions i.e. parseDay, parseExercise
+    that are common to programme related commands.
+ */
+
+public class ProgCommandFactory {
     public static final String COMMAND_WORD = "prog";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     public Command parse(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        String[] inputArguments = argumentString.split(" ", 2);
-
+        String[] inputArguments = splitArguments(argumentString);
         String subCommandString = inputArguments[0];
-        String arguments = "";
-
-        if (inputArguments.length > 1 ){
-            arguments = inputArguments[1];
-        }
+        String arguments = inputArguments[1];
 
         logger.log(Level.INFO, "Parsed sub-command: {0}, with arguments: {1}",
                 new Object[]{subCommandString, arguments});

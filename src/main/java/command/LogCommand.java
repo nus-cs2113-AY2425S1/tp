@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static common.Utils.NULL_INTEGER;
+
 public class LogCommand extends Command {
     public static final String COMMAND_WORD = "log";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
@@ -18,7 +20,7 @@ public class LogCommand extends Command {
 
 
     public LogCommand(int progIndex, int dayIndex, LocalDate date){
-        assert progIndex >= 0 : "Program index must be non-negative";
+        assert progIndex == NULL_INTEGER || progIndex >= 0 : "Program index must be valid";
         assert dayIndex >= 0 : "Day index must be non-negative";
         assert date != null : "Date must not be null";
 

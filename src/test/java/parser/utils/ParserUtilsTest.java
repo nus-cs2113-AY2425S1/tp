@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static parser.util.StringParser.parseIndex;
+import static parser.ParserUtils.parseIndex;
 
-public class StringParserTest {
+public class ParserUtilsTest {
 
     @Test
     public void testParseIndex_validInput() {

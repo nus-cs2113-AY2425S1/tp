@@ -2,7 +2,6 @@ package parser;
 
 import command.Command;
 import command.ExitCommand;
-import command.HistoryCommand;
 import command.LogCommand;
 import command.InvalidCommand;
 
@@ -16,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class CommandParserTest {
+public class ParserTest {
 
-    private CommandParser parser;
+    private Parser parser;
 
     @BeforeEach
     public void setUp() {
-        parser = new CommandParser();
+        parser = new Parser();
     }
 
     @Test
@@ -45,12 +44,6 @@ public class CommandParserTest {
     public void testParse_progCommand() {
         Command command = parser.parse("prog someArgument");
         assertInstanceOf(Command.class, command, "Expected valid command");
-    }
-
-    @Test
-    public void testParse_historyCommand() {
-        Command command = parser.parse("history");
-        assertInstanceOf(HistoryCommand.class, command, "Expected HistoryCommand");
     }
 
     @Test
@@ -78,7 +71,7 @@ public class CommandParserTest {
 
     @Test
     public void testPrepareLogCommand_missingFlags() {
-        String fullCommand = "log /p 2 /d 3";
+        String fullCommand = "log /p 2";
 
         assertThrows(IllegalArgumentException.class, () -> parser.parse(fullCommand));
     }
@@ -131,13 +124,5 @@ public class CommandParserTest {
 
         assertThrows(IllegalArgumentException.class, () -> parser.parse(fullCommand));
 
-    }
-
-    @Test
-    public void testPrepareLogCommand_invalidFlag() {
-        // Test with an unrecognized flag
-        String fullCommand = "log /x 2 /d 3 /t 21-12-2023";
-
-        assertThrows(IllegalArgumentException.class, () -> parser.parse(fullCommand));
     }
 }
