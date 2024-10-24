@@ -1,5 +1,6 @@
 package seedu.manager.event;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
@@ -47,7 +48,7 @@ public class EventList  {
      * @param time      the time of the event.
      * @param venue     the venue where the event will take place.
      */
-    public void addEvent(String eventName, String time, String venue) {
+    public void addEvent(String eventName, LocalDateTime time, String venue) {
         Event newEvent = new Event(eventName, time, venue);
         eventList.add(newEvent);
     }
@@ -141,5 +142,12 @@ public class EventList  {
      */
     public void sortByName(){
         eventList.sort(Comparator.comparing(Event::getEventName));
+    }
+
+    /**
+     *  Sort the event list by time in chronological order
+     */
+    public void sortByTime() {
+        eventList.sort(Comparator.comparing(Event::getEventTime));
     }
 }
