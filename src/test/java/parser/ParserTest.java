@@ -113,7 +113,7 @@ public class ParserTest {
         // Test when the day index is empty
         String fullCommand = "log /p 2 /d  /t 21-12-2023";
 
-         assertThrows(IllegalArgumentException.class, () -> parser.parse(fullCommand));
+        assertThrows(IllegalArgumentException.class, () -> parser.parse(fullCommand));
 
     }
 
