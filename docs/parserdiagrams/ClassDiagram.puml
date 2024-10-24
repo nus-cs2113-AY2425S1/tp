@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "seedu.duke.parser" {
+    class Parser {
+        - String line
+        - State state
+        + Parser(String, State)
+        + Command parseCommand()
+    }
+}
+
+package "seedu.duke.commands" {
+    interface Command
+    class UnmarkTaskCommand implements Command
+    class MarkTaskCommand implements Command
+    class SelectPatientCommand implements Command
+    class AddPatientCommand implements Command
+    class AddTaskCommand implements Command
+    class BackCommand implements Command
+    class DeletePatientCommand implements Command
+    class ListTaskCommand implements Command
+    class DeleteTaskCommand implements Command
+    class ListPatientCommand implements Command
+}
+
+package "seedu.duke.data.state" {
+    class State {
+        + StateType getState()
+    }
+
+    enum StateType {
+        MAIN_STATE
+        TASK_STATE
+    }
+}
+
+Parser --> Command : uses
+Parser --> State : has
+Parser --> StateType : uses
+Parser --> AddPatientCommand : creates
+Parser --> AddTaskCommand : creates
+Parser --> ListPatientCommand : creates
+Parser --> ListTaskCommand : creates
+Parser --> DeletePatientCommand : creates
+Parser --> DeleteTaskCommand : creates
+Parser --> SelectPatientCommand : creates
+Parser --> MarkTaskCommand : creates
+Parser --> UnmarkTaskCommand : creates
+Parser --> BackCommand : creates
+
+@enduml

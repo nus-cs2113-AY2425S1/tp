@@ -1,0 +1,82 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor User
+participant Parser
+participant State
+participant AddPatientCommand
+participant AddTaskCommand
+participant ListPatientCommand
+participant ListTaskCommand
+participant DeletePatientCommand
+participant DeleteTaskCommand
+participant SelectPatientCommand
+participant MarkTaskCommand
+participant UnmarkTaskCommand
+participant BackCommand
+
+User -> Parser: Input command
+Parser -> State: Get state (MAIN_STATE or TASK_STATE)
+
+alt Command "add"
+    Parser -> State: Check if state is MAIN_STATE
+    Parser -> AddPatientCommand: Create AddPatientCommand with patientName
+    Parser --> User: Return AddPatientCommand
+else Command "add" (TASK_STATE)
+    Parser -> State: Check if state is TASK_STATE
+    Parser -> AddTaskCommand: Create AddTaskCommand with taskName
+    Parser --> User: Return AddTaskCommand
+end
+
+alt Command "list"
+    Parser -> State: Check if state is MAIN_STATE
+    Parser -> ListPatientCommand: Create ListPatientCommand
+    Parser --> User: Return ListPatientCommand
+else Command "list" (TASK_STATE)
+    Parser -> State: Check if state is TASK_STATE
+    Parser -> ListTaskCommand: Create ListTaskCommand
+    Parser --> User: Return ListTaskCommand
+end
+
+alt Command "delete"
+    Parser -> State: Check if state is MAIN_STATE
+    Parser -> DeletePatientCommand: Create DeletePatientCommand with index
+    Parser --> User: Return DeletePatientCommand
+else Command "delete" (TASK_STATE)
+    Parser -> State: Check if state is TASK_STATE
+    Parser -> DeleteTaskCommand: Create DeleteTaskCommand with index
+    Parser --> User: Return DeleteTaskCommand
+end
+
+alt Command "select"
+    Parser -> State: Check if state is MAIN_STATE
+    Parser -> SelectPatientCommand: Create SelectPatientCommand with index
+    Parser --> User: Return SelectPatientCommand
+end
+
+alt Command "mark"
+    Parser -> State: Check if state is TASK_STATE
+    Parser -> MarkTaskCommand: Create MarkTaskCommand with index
+    Parser --> User: Return MarkTaskCommand
+end
+
+alt Command "unmark"
+    Parser -> State: Check if state is TASK_STATE
+    Parser -> UnmarkTaskCommand: Create UnmarkTaskCommand with index
+    Parser --> User: Return UnmarkTaskCommand
+end
+
+alt Command "back"
+    Parser -> BackCommand: Create BackCommand with state
+    Parser --> User: Return BackCommand
+end
+
+alt Command "exit"
+    Parser -> User: Exiting program...
+    User -> System: System.exit(0)
+end
+
+alt Unknown command
+    Parser -> User: Print "Unknown command"
+end
+@enduml
