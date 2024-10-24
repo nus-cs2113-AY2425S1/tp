@@ -1,6 +1,6 @@
-package command;
+package command.programme;
 
-import command.programme.LogCommand;
+import command.CommandResult;
 import history.History;
 import org.junit.jupiter.api.Test;
 import programme.Day;
@@ -33,7 +33,7 @@ public class LogCommandTest {
         CommandResult result = logCommand.execute(mockPList, mockHistory);
 
         verify(mockPList).getDay(progIndex, dayIndex);
-        verify(mockHistory).logDay(mockDay, date);
+        verify(mockHistory).getRecordByDate(date).logDay(mockDay);
         assertNotNull(result);
     }
 }
