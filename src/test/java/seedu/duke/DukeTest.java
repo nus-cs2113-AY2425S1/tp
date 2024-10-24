@@ -78,4 +78,19 @@ class BudgetTest {
         assertEquals(100, budget.getLimit());
         assertEquals(category, budget.getCategory());
     }
+
+    @Test
+    public void setPositiveLimit() {
+        Category category = new Category("Transport");
+        Budget budget = new Budget(category, 50);
+        budget.setLimit(75);
+        assertEquals(75, budget.getLimit());
+    }
+
+    @Test
+    public void setNegativeLimit() {
+        Category category = new Category("Utilities");
+        Budget budget = new Budget(category, 100);
+        assertThrows(IllegalArgumentException.class, () -> budget.setLimit(-50));
+    }
 }
