@@ -19,9 +19,9 @@ public class DeleteMealCommand extends MealCommand {
 
     public CommandResult execute(History history) {
         MealList meals = getMealList(history);
-        String mealToDeleteName = meals.deleteMeal(indexMealToDelete).getName();
+        String mealToDeleteName = meals.deleteMeal(indexMealToDelete).toString();
 
-        return new CommandResult( mealToDeleteName+ " has been deleted");
+        return new CommandResult( mealToDeleteName + " has been deleted");
     }
 
 }
