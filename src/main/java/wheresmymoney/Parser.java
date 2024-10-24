@@ -8,7 +8,6 @@ import wheresmymoney.command.EditCommand;
 import wheresmymoney.command.HelpCommand;
 import wheresmymoney.command.ListCommand;
 import wheresmymoney.command.LoadCommand;
-import wheresmymoney.command.RecurCommand;
 import wheresmymoney.command.SaveCommand;
 import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
@@ -66,9 +65,8 @@ public class Parser {
             }
             if (words[i].charAt(0) == '/') {
                 // New argument
-                if (!currArgument.toString().isEmpty()){
-                    argumentsMap.put(currArgumentName, currArgument.toString().strip());
-                }
+                argumentsMap.put(currArgumentName, currArgument.toString().strip());
+                
                 currArgumentName = words[i].replace("/", "");
                 currArgument.setLength(0);
             } else {
@@ -78,7 +76,9 @@ public class Parser {
         }
 
         // Add last command
-        if (!currArgument.toString().isEmpty()) {
+        if (!argumentsMap.containsKey(currArgumentName) && !currArgument.toString().isEmpty()) {
+            argumentsMap.put(currArgumentName, currArgument.toString().strip());
+        } else if (!argumentsMap.containsKey(currArgumentName) && currArgument.toString().isEmpty()) {
             argumentsMap.put(currArgumentName, currArgument.toString().strip());
         }
     }
@@ -131,8 +131,6 @@ public class Parser {
             return new SaveCommand(argumentsMap);
         case "help":
             return new HelpCommand(argumentsMap);
-        case "recur":
-            return new RecurCommand(argumentsMap);
         default:
             throw new InvalidInputException("No valid command given!");
         }
