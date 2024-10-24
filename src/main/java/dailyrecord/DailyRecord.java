@@ -58,7 +58,7 @@ public class DailyRecord {
         return water;
     }
 
-    public void updateDay(Day newDay) { //this replaces any current day recorded
+    public void logDay(Day newDay) { //this replaces any current day recorded
         assert day != null;
 
         this.day = newDay;
