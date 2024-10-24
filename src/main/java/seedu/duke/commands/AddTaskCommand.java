@@ -11,14 +11,14 @@ public class AddTaskCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
     
-    public static final Logger logger = Logger.getLogger(AddTaskCommand.class.getName());
+    public static final Logger LOGGER = Logger.getLogger(AddTaskCommand.class.getName());
 
     private String taskType;
     private String[] args;
     private Task toAdd = null;
 
     static {
-        logger.setLevel(Level.SEVERE); // Only show warnings and errors
+        LOGGER.setLevel(Level.SEVERE); // Only show warnings and errors
     }
 
     public AddTaskCommand(String taskType, String... parameters) {
@@ -40,16 +40,16 @@ public class AddTaskCommand extends Command {
             tasks.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (TaskList.DuplicateTaskException e) {
-            logger.log(Level.SEVERE, "Duplicate task detected: {0}", toAdd);
+            LOGGER.log(Level.SEVERE, "Duplicate task detected: {0}", toAdd);
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (Task.UnknownTaskType e) {
-            logger.log(Level.SEVERE, "Invalid task type: {0}", taskType);
+            LOGGER.log(Level.SEVERE, "Invalid task type: {0}", taskType);
             return new CommandResult(e.getMessage());
         } catch (Task.EmptyTaskDescription e){
-            logger.log(Level.SEVERE, "Empty task description");
+            LOGGER.log(Level.SEVERE, "Empty task description");
             return new CommandResult(e.getMessage());
         } catch (Task.MissingTaskArgument e) {
-            logger.log(Level.SEVERE, "Missing task argument for type: {0}", taskType);
+            LOGGER.log(Level.SEVERE, "Missing task argument for type: {0}", taskType);
             return new CommandResult(e.getMessage());
         }
     }

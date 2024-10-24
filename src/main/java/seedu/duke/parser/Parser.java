@@ -13,6 +13,22 @@ public class Parser {
         String[] parts = line.split(" ");
 
         switch(parts[0]){
+        case "todo":
+            try{
+                return new AddTodoParser().execute(line, state);
+            } catch (NumberFormatException e) {
+                System.out.println("Number format exception");
+            }
+            break;
+
+        case "Deadline":
+            try{
+                return new AddDeadlineParser().execute(line, state);
+            } catch (NumberFormatException e) {
+                System.out.println("Number format exception");
+            }
+            break;
+
         case "add":
             try{
                 return new AddParser().execute(line, state);
@@ -64,6 +80,14 @@ public class Parser {
         case "back":
             try{
                 return new BackParser().execute(line, state);
+            } catch (NumberFormatException e) {
+                System.out.println("Number format exception");
+            }
+            break;
+
+        case "find":
+            try{
+                return new FindParser().execute(line, state);
             } catch (NumberFormatException e) {
                 System.out.println("Number format exception");
             }
