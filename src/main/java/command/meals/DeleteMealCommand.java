@@ -28,7 +28,7 @@ public class DeleteMealCommand extends MealCommand {
         }
         assert dailyRecord != null;
         dailyRecord.deleteMealFromRecord(indexMealToDelete);
-        MealList meals = getMealList(history);
+        MealList meals = dailyRecord.getMealList();
         String mealToDeleteName = meals.deleteMeal(indexMealToDelete).toString();
 
         return new CommandResult( mealToDeleteName + " has been deleted");
