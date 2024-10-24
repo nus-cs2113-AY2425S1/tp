@@ -9,7 +9,8 @@ remove -e EVENT: Remove an event from the event list.
 add -p PARTICIPANT -e EVENT: Add a participant to an event.
 view -e EVENT: View the list of participants of an event.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
-mark -e EVENT -s STATUS: Mark an event as done or not done
+mark -e EVENT -s STATUS: Mark an event as done or not done.
+sort -by KEYWORD: Sorts events by name/time/priority.
 ------------------------
 Enter a command: There are 0 events in your list! Here are your scheduled events:
 
@@ -37,6 +38,14 @@ Enter a command: Participant added successfully
 ------------------------
 Enter a command: There are 1 participants in dinner party! Here are your participants:
 1. Mary [ ]
+
+------------------------
+Enter a command: Event added successfully
+------------------------
+Enter a command: name
+Successfully sort events by name!
+1. Event name: anniversary celebration / Event time: 2024-10-23 / Event venue: hotel / Done: N
+2. Event name: dinner party / Event time: 2024-10-10 / Event venue: Alice's House / Done: Y
 
 ------------------------
 Enter a command: Thank you for using EventManagerCLI. Goodbye!

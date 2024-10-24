@@ -9,4 +9,6 @@ list
 mark -e Saturday brunch -s done
 add -p Mary -e dinner party
 view -e dinner party
+add -e anniversary celebration -t 2024-10-23 -v hotel
+sort -by name
 exit
