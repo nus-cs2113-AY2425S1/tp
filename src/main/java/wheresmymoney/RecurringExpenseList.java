@@ -1,14 +1,17 @@
 package wheresmymoney;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
+import wheresmymoney.exception.StorageException;
+import wheresmymoney.exception.WheresMyMoneyException;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
-
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 
 public class RecurringExpenseList extends ExpenseList {
     private ArrayList<RecurringExpense> recurringExpenses;
@@ -26,14 +29,14 @@ public class RecurringExpenseList extends ExpenseList {
      * @param lastAddedDate Date of when the expense was last updated
      * @param frequency Frequency of recurring expense
      */
-    public void addExpense(Float price, String description, String category, 
+    public void addRecurringExpense(Float price, String description, String category, 
             String lastAddedDate, String frequency) {
-        logger.log(Level.INFO,
+        Logging.log(Level.INFO,
                 String.format("Adding recurring expense with parameters: %f, %s, %s", price, description, category));
         RecurringExpense recurringExpense = new RecurringExpense(price, description, category, lastAddedDate, frequency);
         assert (recurringExpense != null);
         recurringExpenses.add(recurringExpense);
-        logger.log(Level.INFO, "Successfully added recurring expense.");
+        Logging.log(Level.INFO, "Successfully added recurring expense.");
     }
 
     /**
@@ -46,10 +49,10 @@ public class RecurringExpenseList extends ExpenseList {
      * @param lastAddedDate New start date of recurring expense
      * @param frequency New frequency of recurring expense
      */
-    public void editExpense(int index, Float price, String description, String category, 
+    public void editRecurringExpense(int index, Float price, String description, String category, 
             String lastAddedDate, String frequency) throws WheresMyMoneyException {
         try {
-            logger.log(Level.INFO, "Attempting to edit recurring expense.");
+            Logging.log(Level.INFO, "Attempting to edit recurring expense.");
             RecurringExpense recurringExpense = recurringExpenses.get(index);
             assert (recurringExpense != null);
             recurringExpense.setPrice(price);
@@ -57,23 +60,23 @@ public class RecurringExpenseList extends ExpenseList {
             recurringExpense.setCategory(category);
             recurringExpense.setlastAddedDate(lastAddedDate);
             recurringExpense.setFrequency(frequency);
-            logger.log(Level.INFO, "Successfully edited recurring expense.");
+            Logging.log(Level.INFO, "Successfully edited recurring expense.");
         } catch (WheresMyMoneyException e) {
-            logger.log(Level.INFO, "Failure when editing recurring expense.");
+            Logging.log(Level.INFO, "Failure when editing recurring expense.");
             throw new WheresMyMoneyException(e.getMessage());
         }
     }
     
     /**
-     * Returns the list of all recurringExpenses from the specified category
+     * Returns the list of all recurring expenses from the specified category
      *
      * @param category Category of expense
      */
     public ArrayList<Expense> listByCategory(String category) {
         ArrayList<Expense> recurringExpensesFromCategory = new ArrayList<>();
-        for (Expense recurringExpense: recurringExpenses) {
+        for (RecurringExpense recurringExpense: recurringExpenses) {
             if (recurringExpense.category.equals(category)) {
-                logger.log(Level.INFO, "Found matching expense: " + recurringExpense.description);
+                Logging.log(Level.INFO, "Found matching recurring expense: " + recurringExpense.description);
                 recurringExpensesFromCategory.add(recurringExpense);
             }
         }
@@ -85,19 +88,26 @@ public class RecurringExpenseList extends ExpenseList {
      *
      * @param filePath File Path to read csv
      */
-    public void loadFromCsv(String filePath) throws Exception {
-        File file = new File(filePath);
-        FileReader reader = new FileReader(file);
-        CSVReader csvReader = new CSVReader(reader);
+    public void loadFromCsv(String filePath) throws StorageException {
+        try {
+            File file = new File(filePath);
+            FileReader reader = new FileReader(file);
+            CSVReader csvReader = new CSVReader(reader);
 
-        csvReader.readNext(); // Skip the header
-        String[] line;
-        while ((line = csvReader.readNext()) != null) {
-            addExpense(Float.parseFloat(line[2]), line[1], line[0]);
+            csvReader.readNext(); // Skip the header
+            String[] line;
+            while ((line = csvReader.readNext()) != null) {
+                addExpense(Float.parseFloat(line[2]), line[1], line[0]);
+            }
+
+            // closing writer connection
+            reader.close();
+            csvReader.close();
+        } catch (IOException ex) {
+            throw new StorageException("Unable to read file!");
+        } catch (CsvValidationException e){
+            throw new StorageException("File not in the correct format!");
         }
-
-        // closing writer connection
-        reader.close();
     }
 
     /**
@@ -105,29 +115,39 @@ public class RecurringExpenseList extends ExpenseList {
      *
      * @param filePath File Path to save csv to
      */
-    public void saveToCsv(String filePath) throws IOException {
+    public void saveToCsv(String filePath) throws StorageException {
         File file = new File(filePath);
 
         // create FileWriter object with file as parameter
-        FileWriter outputfile = new FileWriter(file);
+        FileWriter outFile;
+        try{
+            outFile = new FileWriter(file);
+        } catch (IOException e) {
+            throw new StorageException("Unable to save to file!");
+        }
+
 
         // create CSVWriter object filewriter object as parameter
-        CSVWriter writer = new CSVWriter(outputfile);
+        CSVWriter writer = new CSVWriter(outFile);
 
         // adding header to csv
         String[] header = { "Category", "Description", "Price" };
         writer.writeNext(header);
 
-        for (Expense recurringExpense: recurringExpenses) {
+        for (Expense expense: expenses) {
             String[] row = {
-                    recurringExpense.getCategory(),
-                    recurringExpense.getDescription(),
-                    recurringExpense.getPrice().toString()
+                    expense.getCategory(),
+                    expense.getDescription(),
+                    expense.getPrice().toString()
             };
             writer.writeNext(row);
         }
 
         // closing writer connection
-        writer.close();
+        try{
+            writer.close();
+        } catch (IOException e) {
+            throw new StorageException("Unable to save to file!");
+        }
     }
 }

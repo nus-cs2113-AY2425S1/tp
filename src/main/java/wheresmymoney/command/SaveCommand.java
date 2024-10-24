@@ -8,7 +8,8 @@ import java.util.HashMap;
 
 public class SaveCommand extends Command {
 
-    private String FILE_PATH = "./data.csv"; 
+    private String EXPENSES_FILE_PATH = "./expenses_data.csv";
+    private String RECURRING_EXPENSES_FILE_PATH = "./recurring_expenses_data.csv"; 
 
     public SaveCommand(HashMap<String, String> argumentsMap) {
         super(argumentsMap);
@@ -28,7 +29,7 @@ public class SaveCommand extends Command {
      */
     public void execute(ExpenseList expenseList, RecurringExpenseList recurringExpenseList) 
             throws WheresMyMoneyException {
-        expenseList.saveToCsv(this.FILE_PATH);
-        recurringExpenseList.saveToCsv(this.FILE_PATH);
+        expenseList.saveToCsv(this.EXPENSES_FILE_PATH);
+        recurringExpenseList.saveToCsv(this.RECURRING_EXPENSES_FILE_PATH);
     }
 }
