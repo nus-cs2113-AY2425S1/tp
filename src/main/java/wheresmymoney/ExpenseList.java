@@ -1,18 +1,19 @@
 package wheresmymoney;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
+import wheresmymoney.exception.StorageException;
+import wheresmymoney.exception.WheresMyMoneyException;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 
 public class ExpenseList {
-    protected static Logger logger = Logger.getLogger("Bar");
     private ArrayList<Expense> expenses;
 
     public ExpenseList() {
@@ -48,12 +49,12 @@ public class ExpenseList {
      * @param category New category of expense
      */
     public void addExpense(Float price, String description, String category) {
-        logger.log(Level.INFO,
+        Logging.log(Level.INFO,
                 String.format("Adding expense with parameters: %f, %s, %s", price, description, category));
         Expense expense = new Expense(price, description, category);
         assert (expense != null);
         expenses.add(expense);
-        logger.log(Level.INFO, "Successfully added expense.");
+        Logging.log(Level.INFO, "Successfully added expense.");
     }
 
     /**
@@ -66,15 +67,15 @@ public class ExpenseList {
      */
     public void editExpense(int index, Float price, String description, String category) throws WheresMyMoneyException {
         try {
-            logger.log(Level.INFO, "Attempting to edit expense.");
+            Logging.log(Level.INFO, "Attempting to edit expense.");
             Expense expense = expenses.get(index);
             assert (expense != null);
             expense.setPrice(price);
             expense.setDescription(description);
             expense.setCategory(category);
-            logger.log(Level.INFO, "Successfully edited expense.");
+            Logging.log(Level.INFO, "Successfully edited expense.");
         } catch (WheresMyMoneyException e) {
-            logger.log(Level.INFO, "Failure when editing expense.");
+            Logging.log(Level.INFO, "Failure when editing expense.");
             throw new WheresMyMoneyException(e.getMessage());
         }
     }
@@ -95,7 +96,7 @@ public class ExpenseList {
         ArrayList<Expense> expensesFromCategory = new ArrayList<>();
         for (Expense expense: expenses) {
             if (expense.category.equals(category)) {
-                logger.log(Level.INFO, "Found matching expense: " + expense.description);
+                Logging.log(Level.INFO, "Found matching expense: " + expense.description);
                 expensesFromCategory.add(expense);
             }
         }
@@ -107,19 +108,25 @@ public class ExpenseList {
      *
      * @param filePath File Path to read csv
      */
-    public void loadFromCsv(String filePath) throws Exception {
-        File file = new File(filePath);
-        FileReader reader = new FileReader(file);
-        CSVReader csvReader = new CSVReader(reader);
+    public void loadFromCsv(String filePath) throws StorageException {
+        try {
+            File file = new File(filePath);
+            FileReader reader = new FileReader(file);
+            CSVReader csvReader = new CSVReader(reader);
 
-        csvReader.readNext(); // Skip the header
-        String[] line;
-        while ((line = csvReader.readNext()) != null) {
-            addExpense(Float.parseFloat(line[2]), line[1], line[0]);
+            csvReader.readNext(); // Skip the header
+            String[] line;
+            while ((line = csvReader.readNext()) != null) {
+                addExpense(Float.parseFloat(line[2]), line[1], line[0]);
+            }
+
+            // closing writer connection
+            reader.close();
+        } catch (IOException ex) {
+            throw new StorageException("Unable to read file!");
+        } catch (CsvValidationException e){
+            throw new StorageException("File not in the correct format!");
         }
-
-        // closing writer connection
-        reader.close();
     }
 
     /**
@@ -127,14 +134,20 @@ public class ExpenseList {
      *
      * @param filePath File Path to save csv to
      */
-    public void saveToCsv(String filePath) throws IOException {
+    public void saveToCsv(String filePath) throws StorageException {
         File file = new File(filePath);
 
         // create FileWriter object with file as parameter
-        FileWriter outputfile = new FileWriter(file);
+        FileWriter outFile;
+        try{
+            outFile = new FileWriter(file);
+        } catch (IOException e) {
+            throw new StorageException("Unable to save to file!");
+        }
+
 
         // create CSVWriter object filewriter object as parameter
-        CSVWriter writer = new CSVWriter(outputfile);
+        CSVWriter writer = new CSVWriter(outFile);
 
         // adding header to csv
         String[] header = { "Category", "Description", "Price" };
@@ -150,6 +163,10 @@ public class ExpenseList {
         }
 
         // closing writer connection
-        writer.close();
+        try{
+            writer.close();
+        } catch (IOException e) {
+            throw new StorageException("Unable to save to file!");
+        }
     }
 }

@@ -1,0 +1,25 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class "{abstract}\nCommand" {
+    +argumentsMap: HashMap<String, String>
+    +Command(HashMap<String, String>)
+    +execute(ExpenseList) {abstract}
+    +isExit(): boolean
+}
+
+
+together {
+    class AddCommand
+    class EditCommand
+    class ListCommand
+    class DeleteCommand
+}
+
+AddCommand -up-|> "{abstract}\nCommand"
+EditCommand-up-|> "{abstract}\nCommand"
+ListCommand -up-|> "{abstract}\nCommand"
+DeleteCommand -up-|> "{abstract}\nCommand"
+
+@enduml

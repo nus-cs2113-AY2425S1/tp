@@ -1,6 +1,7 @@
 package wheresmymoney;
 
 import org.junit.jupiter.api.Test;
+import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.ArrayList;
 

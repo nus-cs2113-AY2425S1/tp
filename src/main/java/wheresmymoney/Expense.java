@@ -1,5 +1,7 @@
 package wheresmymoney;
 
+import wheresmymoney.exception.WheresMyMoneyException;
+
 public class Expense {
     protected Float price;
     protected String description;

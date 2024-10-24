@@ -1,0 +1,37 @@
+@startuml
+actor User
+participant ":Ui"
+participant ":Main"
+participant ":Parser"
+participant ":Command"
+
+activate ":Main"
+
+":Main" -> ":Ui": getUserInput()
+activate ":Ui"
+":Ui" -> User
+User --> ":Ui": "delete 1"
+":Ui" --> ":Main": line
+deactivate ":Ui"
+
+":Main" -> ":Parser" : parseInputToCommand()
+activate ":Parser"
+":Parser" -> ":Command": Command(argumentsMap)
+activate ":Command"
+":Parser" <-- ":Command": Command
+deactivate ":Command"
+":Main" <-- ":Parser" : Command
+deactivate ":Parser"
+
+
+":Main" -> ":Command": execute(ExpenseList)
+activate ":Command"
+deactivate ":Command"
+
+
+":Main" -> ":Command": isExit()
+activate ":Command"
+":Main" <-- ":Command": boolean
+deactivate ":Command"
+
+@enduml

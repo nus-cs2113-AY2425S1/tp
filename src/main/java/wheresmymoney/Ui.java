@@ -1,40 +1,62 @@
 package wheresmymoney;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.Scanner;
 
+
 public class Ui {
-    public Parser parser;
-    public Ui(){
-        parser = new Parser();
+    private static final Scanner scanner = new Scanner(System.in);
+
+    /**
+     * Displays a message.
+     *
+     * @param message The message to display.
+     */
+    public static void displayMessage(String message) {
+        System.out.println(message);
+    }
+
+    /**
+     * Reads the user input.
+     *
+     * @return The user input as a String.
+     */
+    public static String getUserInput() {
+        if (!scanner.hasNextLine()) {
+            System.exit(0);
+        }
+        return scanner.nextLine();
+    }
+
+    public static void close(){
+        scanner.close();
     }
 
     /**
      * Displays an Introductory message to the user
      */
     public static void displayIntroText() {
+<<<<<<< HEAD
         System.out.println("WheresMyMoney");
         System.out.println("What can I do for you? If this is your first time " +
                 "using this programme and you would like a quick guide, use " +
                 "the \"guide\" command");
+=======
+        displayMessage("WheresMyMoney");
+        displayMessage("What can I do for you?");
+>>>>>>> master
     }
 
     /**
-     * Displays list expenses as requested by user
+     * Displays the text prompting for a command
      */
-    public static void displayExpenseList(ArrayList<Expense> expensesToPrint, ExpenseList expenseList) {
-        for (Expense expense: expensesToPrint) {
-            String index = expenseList.getIndexOf(expense) + 1 + ". ";
-            String category = "CATEGORY: " + expense.category;
-            String description = "   DESCRIPTION: " + expense.description;
-            String price = "   PRICE: " + expense.price;
-            System.out.println(index + category + description + price);
-        }
+    public static void displayCommandPrompt() {
+        System.out.print("> ");
     }
 
     /**
-     * Displays list of all commands and its format and usage
+     * Gets a command from the user
      */
+<<<<<<< HEAD
     public static void displayHelp() {
         System.out.println("Here are the list of commands");
         System.out.println("Take note that any words in SCREAMING_SNAKE_CASE is a parameter");
@@ -129,5 +151,10 @@ public class Ui {
     public void run(ExpenseList expenseList){
         displayIntroText();
         commandEntryLoop(expenseList);
+=======
+    public static String getCommand(){
+        Ui.displayCommandPrompt();
+        return Ui.getUserInput();
+>>>>>>> master
     }
 }
