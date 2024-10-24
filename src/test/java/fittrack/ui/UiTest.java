@@ -12,7 +12,7 @@ import static fittrack.messages.Messages.EXIT_MESSAGE;
 import static fittrack.messages.Messages.INIT_SENTENCE;
 import static fittrack.messages.Messages.INVALID_INPUT_MESSAGE;
 import static fittrack.messages.Messages.LIST_EMPTY_MESSAGE;
-import static fittrack.messages.Messages.LIST_MESSAGE;
+import static fittrack.messages.Messages.LIST_SESSION_MESSAGE;
 import static fittrack.messages.Messages.SEPARATOR;
 
 import java.io.ByteArrayOutputStream;
@@ -86,7 +86,7 @@ public class UiTest {
         TrainingSession session = new TrainingSession(LocalDateTime.now(), "test1", user);
         sessions.add(session);
         Ui.printSessionList(sessions);
-        assertEquals(SEPARATOR + System.lineSeparator() + LIST_MESSAGE + System.lineSeparator() + "1. "
+        assertEquals(SEPARATOR + System.lineSeparator() + LIST_SESSION_MESSAGE + System.lineSeparator() + "1. "
                 + session.getSessionDescription() + System.lineSeparator() + "There are 1 sessions in the list."
                 + System.lineSeparator() + SEPARATOR + System.lineSeparator()
                 + System.lineSeparator(), outputStreamCaptor.toString());
