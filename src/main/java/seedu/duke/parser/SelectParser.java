@@ -5,9 +5,6 @@ import seedu.duke.commands.SelectPatientCommand;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import static java.lang.Integer.parseInt;
 
 public class SelectParser implements CommandParser{

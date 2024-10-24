@@ -5,8 +5,6 @@ import seedu.duke.commands.DeletePatientCommand;
 import seedu.duke.commands.DeleteTaskCommand;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
-
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.lang.Integer.parseInt;
