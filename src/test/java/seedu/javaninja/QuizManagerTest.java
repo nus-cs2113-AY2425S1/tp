@@ -98,4 +98,48 @@ class QuizManagerTest {
         String loadedResults = quizManager.getPastResults();
         assertEquals(previousResult, loadedResults);
     }
+
+    @Test
+    public void startQuiz_withTrueFalseQuestion_correctlyHandlesTrueFalse() {
+        // Add a topic with a TrueFalse question
+        Topic topic = new Topic("General Knowledge");
+        topic.addQuestion(new TrueFalse("The Earth is flat.", false));
+
+        quizManager.addTopic(topic);
+
+        // Prepare simulated input for the quiz (answering "false")
+        ByteArrayInputStream input = new ByteArrayInputStream("false\n".getBytes());
+        Scanner scanner = new Scanner(input);
+
+        // Start the quiz and validate results
+        quizManager.startQuiz(topic, scanner);
+
+        String expectedResult = "Score: 100%, Comment: Excellent!\n";
+        assertEquals(expectedResult, quizManager.getPastResults());
+
+        scanner.close();
+    }
+
+    @Test
+    public void startQuiz_withInvalidTrueFalseAnswer_throwsException() {
+        // Add a topic with a TrueFalse question
+        Topic topic = new Topic("General Knowledge");
+        topic.addQuestion(new TrueFalse("The Earth is flat.", false));
+
+        quizManager.addTopic(topic);
+
+        // Prepare simulated input for the quiz (answering "yes", then "false" after invalid input)
+        ByteArrayInputStream input = new ByteArrayInputStream("yes\nfalse\n".getBytes());
+        Scanner scanner = new Scanner(input);
+
+        // Start the quiz and validate the exception for invalid input
+        try {
+            quizManager.startQuiz(topic, scanner);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Invalid input! Please enter 'true' or 'false'.", e.getMessage());
+        }
+
+        scanner.close();
+    }
+
 }
