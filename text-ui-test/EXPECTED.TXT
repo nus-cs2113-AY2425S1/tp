@@ -1,5 +1,5 @@
 Welcome to EventManagerCLI.
-Error loading events from file: events.txt. events.txt
+Error loading events from file: events.txt.
 ------------------------
 Enter a command: Invalid command!
 ------------------------
