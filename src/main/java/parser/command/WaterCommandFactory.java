@@ -32,6 +32,8 @@ public class WaterCommandFactory {
     public Command prepareAddCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
+        flagParser.validateRequiredFlags("/w", "/t");
+
         float water = flagParser.getFloatByFlag("w");
         LocalDate date = flagParser.getDateByFlag("/t");
 
@@ -41,6 +43,8 @@ public class WaterCommandFactory {
     public Command prepareDeleteCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
+        flagParser.validateRequiredFlags("/w", "/t");
+
         int waterIndexToDelete = flagParser.getIntegerByFlag("w");
         LocalDate date = flagParser.getDateByFlag("/t");
 
@@ -49,6 +53,8 @@ public class WaterCommandFactory {
 
     public Command prepareViewCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
+
+        flagParser.validateRequiredFlags("/t");
 
         LocalDate date = flagParser.getDateByFlag("/t");
 
