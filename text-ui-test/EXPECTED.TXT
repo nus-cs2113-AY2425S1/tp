@@ -9,7 +9,8 @@ remove -e EVENT: Remove an event from the event list.
 add -p PARTICIPANT -e EVENT: Add a participant to an event.
 view -e EVENT: View the list of participants of an event.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
-mark -e EVENT -s STATUS: Mark an event as done or not done
+mark -e EVENT -s STATUS: Mark an event as done or not done.
+mark -p PARTICPANT -e EVENT -s STATUS: Mark a participant as present or absent.
 ------------------------
 Enter a command: There are 0 events in your list! Here are your scheduled events:
 
