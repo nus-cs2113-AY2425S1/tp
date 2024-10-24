@@ -32,8 +32,10 @@ public class Storage {
     public ProgrammeList loadProgrammeList() {
         try {
             JsonObject programmeListJson = fileManager.loadProgrammeList();
+            logger.info("Loading programmeList");
             return programmeListFromJson(programmeListJson);
         } catch (Exception e) {
+            logger.info("No programme list found, empty list initialised");
             return new ProgrammeList();
         }
     }
@@ -41,8 +43,10 @@ public class Storage {
     public History loadHistory() {
         try {
             JsonObject historyJson = fileManager.loadHistory();
+            logger.info("Loading history");
             return historyFromJson(historyJson);
         } catch (Exception e) {
+            logger.info("No history found, empty history initialised");
             return new History();
         }
     }
