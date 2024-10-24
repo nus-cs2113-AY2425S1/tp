@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+package "Storage" {
+    class StorageFile {
+        +StorageFile()
+        +StorageFile(String)
+        +getFilePath(): String
+        +save(Hospital): void
+        +load(): Hospital
+        +toString(): String
+        -checkFileFound(String): void
+        {static} -logger: Logger
+        {static} -DEFAULT_STORAGE_FILEPATH: String
+        -filePath: String
+    }
+
+    class JsonUtil {
+        {static} +saveToFile(String): void
+        {static} +saveToFile(Hospital, String): void
+        {static} +loadFromFile(String): Hospital
+        {static} +toJson(Hospital): String
+        {static} +fromJson(String): Hospital
+        {static} -logger: Logger
+        {static} -objectMapper: ObjectMapper
+    }
+}
+
+package "hospital" {
+    class Hospital {
+        // TODO: Get from Hospital class
+    }
+}
+
+StorageFile o-- "1" Hospital
+StorageFile ..> "uses" JsonUtil
+
+@enduml
