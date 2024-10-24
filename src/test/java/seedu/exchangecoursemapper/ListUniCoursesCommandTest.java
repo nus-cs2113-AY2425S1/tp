@@ -10,6 +10,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,12 +23,16 @@ public class ListUniCoursesCommandTest {
 
     private ListUniCoursesCommand listUniCoursesCommand;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
+    
     @BeforeEach
     void setUp () {
         outputStreamCaptor.reset();
         System.setOut(new PrintStream(outputStreamCaptor));
         System.setErr(new PrintStream(outputStreamCaptor));
+
+        Logger logger = Logger.getLogger(ListUniCoursesCommand.class.getName());
+        logger.setLevel(Level.OFF);
+
         listUniCoursesCommand = new ListUniCoursesCommand();
     }
 
