@@ -114,4 +114,11 @@ class BudgetTest {
         Budget budget = new Budget(category, 55.555);
         assertEquals("$55.56", budget.formatLimit(55.555));
     }
+
+    @Test
+    public void budgetOutput() {
+        Category category = new Category("Entertainment");
+        Budget budget = new Budget(category, 200);
+        assertEquals("Budget for category 'Entertainment' is $200", budget.toString());
+    }
 }
