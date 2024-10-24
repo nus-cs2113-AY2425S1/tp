@@ -18,10 +18,12 @@ import java.util.logging.Logger;
  */
 public class CommandFactory {
     private final ProgCommandFactory progFactory;
+    private final MealCommandFactory mealFactory;
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     public CommandFactory() {
         this.progFactory = new ProgCommandFactory();  // Dependency injection for better testability
+        this.mealFactory = new MealCommandFactory();
     }
 
     public Command createCommand(String commandString, String argumentString) {
@@ -29,6 +31,7 @@ public class CommandFactory {
         case ProgCommandFactory.COMMAND_WORD -> progFactory.parse(argumentString);
         case LogCommand.COMMAND_WORD -> prepareLogCommand(argumentString);
         case ExitCommand.COMMAND_WORD -> new ExitCommand();
+        case MealCommandFactory.COMMAND_WORD -> mealFactory.parse(argumentString);
         default -> new InvalidCommand();
         };
     }
