@@ -4,7 +4,6 @@ import command.CommandResult;
 import dailyrecord.DailyRecord;
 import history.History;
 import meal.MealList;
-import water.Water;
 
 import java.time.LocalDate;
 

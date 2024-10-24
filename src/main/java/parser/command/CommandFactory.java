@@ -1,13 +1,9 @@
 package parser.command;
 
 import command.Command;
-import command.programme.LogCommand;
 import command.ExitCommand;
 import command.InvalidCommand;
-import parser.FlagParser;
 
-import java.time.LocalDate;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /*
@@ -28,6 +24,7 @@ public class CommandFactory {
         return switch (commandString) {
         case ProgCommandFactory.COMMAND_WORD -> progFactory.parse(argumentString);
         case ExitCommand.COMMAND_WORD -> new ExitCommand();
+
         default -> new InvalidCommand();
         };
     }

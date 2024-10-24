@@ -50,8 +50,8 @@ public class HistoryTest {
         dailyrecord2.logDay(day2);
 
         // Object-based comparison
-        assertEquals(day1, history.getRecordByDate(date1).getDayFromRecord());  // Compare Day object directly
-        assertEquals(day2, history.getRecordByDate(date2).getDayFromRecord());  // Compare Day object directly
+        assertEquals(day1, history.getRecordByDate(date1).getDayFromRecord());
+        assertEquals(day2, history.getRecordByDate(date2).getDayFromRecord());
     }
 
     @Test

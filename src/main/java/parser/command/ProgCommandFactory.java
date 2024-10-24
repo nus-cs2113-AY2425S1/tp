@@ -2,7 +2,14 @@ package parser.command;
 
 import command.Command;
 import command.InvalidCommand;
-import command.programme.*;
+import command.programme.CreateCommand;
+import command.programme.ViewCommand;
+import command.programme.ListCommand;
+import command.programme.EditCommand;
+import command.programme.StartCommand;
+import command.programme.DeleteCommand;
+import command.programme.LogCommand;
+
 import parser.FlagParser;
 import programme.Day;
 import programme.Exercise;

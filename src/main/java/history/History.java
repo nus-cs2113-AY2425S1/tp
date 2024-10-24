@@ -14,7 +14,7 @@ public class History {
 
     private static final Logger logger = Logger.getLogger(History.class.getName());
     // LinkedHashMap to store Day with its respective date in the order of insertion
-    private final LinkedHashMap<LocalDate, DailyRecord> history;  // Use LocalDate and LinkedHashMap to preserve insertion order
+    private final LinkedHashMap<LocalDate, DailyRecord> history;
 
     // Constructor
     public History() {
@@ -74,11 +74,11 @@ public class History {
 
     // Method to find the personal bests for each exercise
     public Map<String, Exercise> getPersonalBests() {
-        Map<String, Exercise> personalBests = new LinkedHashMap<>();  // Changed to LinkedHashMap to preserve order
+        Map<String, Exercise> personalBests = new LinkedHashMap<>();
 
         // Iterate through all the logged days
         for (DailyRecord dailyRecord : history.values()) {
-            int exercisesCount = dailyRecord.getDayFromRecord().getExercisesCount();  // Get the number of exercises for the day
+            int exercisesCount = dailyRecord.getDayFromRecord().getExercisesCount();
 
             // Iterate over each exercise using the existing getExercise method
             for (int i = 0; i < exercisesCount; i++) {

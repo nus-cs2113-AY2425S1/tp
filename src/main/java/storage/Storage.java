@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import dailyrecord.DailyRecord;
 import history.DateSerializer;
 import history.History;
-import programme.Day;
 import programme.ProgrammeList;
 
 import java.time.LocalDate;
@@ -99,11 +99,11 @@ public class Storage {
 
         JsonObject historyJson = new JsonObject();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LinkedHashMap<LocalDate, Day> historyMap = history.getHistory(); //To access the Hashmap
+        LinkedHashMap<LocalDate, DailyRecord> historyMap = history.getHistory(); //To access the Hashmap
 
         for (LocalDate date : historyMap.keySet()) {
-            Day day = historyMap.get(date);
-            historyJson.add(date.format(formatter), gson.toJsonTree(day));
+            DailyRecord dailyRecord = historyMap.get(date);
+            historyJson.add(date.format(formatter), gson.toJsonTree(dailyRecord));
         }
         logger.log(Level.INFO, "History converted to Json for saving.");
         return historyJson;
@@ -115,13 +115,13 @@ public class Storage {
                 .create();
         History history = new History();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LinkedHashMap<LocalDate, Day> historyMap = history.getHistory(); //To access the Hashmap
+        LinkedHashMap<LocalDate, DailyRecord> historyMap = history.getHistory(); //To access the Hashmap
 
 
         for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
             LocalDate date = LocalDate.parse(entry.getKey(), formatter);
-            Day day = gson.fromJson(entry.getValue(), Day.class);
-            historyMap.put(date, day);
+            DailyRecord dailyRecord = gson.fromJson(entry.getValue(), DailyRecord.class);
+            historyMap.put(date, dailyRecord);
         }
         logger.log(Level.INFO, "historyJson converted from Json for loading.");
         return history;
