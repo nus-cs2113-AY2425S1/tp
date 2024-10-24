@@ -59,6 +59,7 @@ public class EventList  {
         return eventList.get(index);
     }
 
+    //@@author jemehgoh
     /**
      * Returns an event in the event list with a specified name.
      * Returns null if the event is not found.
@@ -76,6 +77,7 @@ public class EventList  {
         return Optional.empty();
     }
 
+    //@@author KuanHsienn
     /**
      * Removes an event from the event list by its name.
      *
@@ -93,6 +95,7 @@ public class EventList  {
         return false;
     }
 
+    //@@author LTK-1606
     /**
      * Returns true if a participant can be added to a specified event,
      * returns false otherwise.

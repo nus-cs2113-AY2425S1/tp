@@ -4,6 +4,7 @@ import seedu.manager.command.Command;
 import seedu.manager.command.AddCommand;
 import seedu.manager.command.MarkCommand;
 import seedu.manager.command.MarkEventCommand;
+import seedu.manager.command.MarkParticipantCommand;
 import seedu.manager.command.RemoveCommand;
 import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
@@ -156,6 +157,7 @@ public class Parser {
         }
     }
 
+    //@@author glenn-chew
     /**
      * Parses the input string to create a {@link Command} based on the provided command parts.
      *
@@ -190,6 +192,7 @@ public class Parser {
         }
     }
 
+    //@@author jemehgoh
     /**
      * Parses the input string to create a {@link Command} based on the provided command parts.
      *
@@ -214,6 +217,9 @@ public class Parser {
             if (commandFlag.equalsIgnoreCase("-e")) {
                 String[] inputParts = input.split("-e|-s");
                 return getMarkEventCommand(inputParts[1].trim(), inputParts[2].trim());
+            } else if (commandFlag.equalsIgnoreCase("-p")) {
+                String[] inputParts = input.split("-p|-e|-s");
+                return getMarkParticipantCommand(inputParts[1].trim(), inputParts[2].trim(), inputParts[3].trim());
             }
 
             logger.log(WARNING,"Invalid command format");
@@ -225,8 +231,8 @@ public class Parser {
     }
 
     /**
-     * Returns a {@link MarkCommand} with a given event name and status. If the given status is invalid,
-     * throws an {@link InvalidCommandException}.
+     * Returns a {@link MarkEventCommand} with a given event name and status. If the given status is invalid,
+     *     throws an {@link InvalidCommandException}.
      *
      * @param eventName the given event name.
      * @param status the given event status.
@@ -238,6 +244,27 @@ public class Parser {
             return new MarkEventCommand(eventName, true);
         } else if (status.equalsIgnoreCase("undone")) {
             return new MarkEventCommand(eventName, false);
+        } else {
+            logger.log(WARNING,"Invalid status keyword");
+            throw new InvalidCommandException(INVALID_EVENT_STATUS_MESSAGE);
+        }
+    }
+
+    /**
+     * Returns a {@link MarkCommand} with a given participant name, event name and status. If the given status is
+     *     invalid, throws an {@link InvalidCommandException}.
+     *
+     * @param participantName the given participant name.
+     * @param eventName the given event name.
+     * @param status the given event status.
+     * @return a MarkCommand with a given event name and status
+     * @throws InvalidCommandException if the given status is invalid.
+     */
+    private Command getMarkParticipantCommand(String participantName, String eventName, String status) {
+        if (status.equalsIgnoreCase("present")) {
+            return new MarkParticipantCommand(participantName, eventName, true);
+        } else if (status.equalsIgnoreCase("absent")) {
+            return new MarkParticipantCommand(participantName, eventName, false);
         } else {
             logger.log(WARNING,"Invalid status keyword");
             throw new InvalidCommandException(INVALID_EVENT_STATUS_MESSAGE);

@@ -4,6 +4,7 @@ import seedu.manager.event.Event;
 
 import java.util.Optional;
 
+//@@author jemehgoh
 /**
  * Represents an executable mark command for marking events.
  */

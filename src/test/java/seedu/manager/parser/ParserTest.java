@@ -5,6 +5,7 @@ import seedu.manager.command.AddCommand;
 import seedu.manager.command.Command;
 import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MarkEventCommand;
+import seedu.manager.command.MarkParticipantCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.RemoveCommand;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ParserTest {
 
     @Test
-    public void parseCommand_invalidString_invalid() {
+    public void parseCommand_invalidString_throwsException() {
         Parser parser = new Parser();
         String commandString = "Hello world!";
 
@@ -91,7 +92,7 @@ class ParserTest {
     }
 
     @Test
-    public void parseCommand_markEventNoStatus_invalid() {
+    public void parseCommand_markEventNoStatus_throwsException() {
         Parser parser = new Parser();
         String commandString = "mark -e event";
 
@@ -100,9 +101,54 @@ class ParserTest {
     }
 
     @Test
-    public void parseCommand_markEventInvalidStatus_invalid() {
+    public void parseCommand_markEventInvalidStatus_throwsException() {
         Parser parser = new Parser();
         String commandString = "mark -e event -s yes";
+
+        assertThrows(InvalidCommandException.class,() -> {
+            parser.parseCommand(commandString);});
+    }
+
+    @Test
+    public void parseCommand_markParticipantPresent_mark() {
+        Parser parser = new Parser();
+        String commandString = "mark -p John Doe -e event -s present";
+        Command command = parser.parseCommand(commandString);
+
+        assertInstanceOf(MarkParticipantCommand.class, command);
+    }
+
+    @Test
+    public void parseCommand_markParticipantAbsent_mark() {
+        Parser parser = new Parser();
+        String commandString = "mark -p John Doe -e event -s absent";
+        Command command = parser.parseCommand(commandString);
+
+        assertInstanceOf(MarkParticipantCommand.class, command);
+    }
+
+    @Test
+    public void parseCommand_markParticipantNoStatus_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "mark -p John Doe -e event";
+
+        assertThrows(InvalidCommandException.class,() -> {
+            parser.parseCommand(commandString);});
+    }
+
+    @Test
+    public void parseCommand_markParticipantInvalidStatus_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "mark -p John Doe -e event -s done";
+
+        assertThrows(InvalidCommandException.class,() -> {
+            parser.parseCommand(commandString);});
+    }
+
+    @Test
+    public void parseCommand_markInvalidFlags_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "mark -s done";
 
         assertThrows(InvalidCommandException.class,() -> {
             parser.parseCommand(commandString);});
