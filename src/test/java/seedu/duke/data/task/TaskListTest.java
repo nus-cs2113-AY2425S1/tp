@@ -25,7 +25,7 @@ public class TaskListTest {
         command3.setData(instance);
         command3.execute();
         String expResult = "50.00%";
-        String result = instance.getCompletionRate();
+        String result = instance.completionRatePercentageToString();
         assertEquals(expResult, result);   
     }
 
@@ -34,7 +34,7 @@ public class TaskListTest {
         System.out.println("calCompletionRate");
         TaskList instance = new TaskList();
         String expResult = "100.00%";
-        String result = instance.getCompletionRate();
+        String result = instance.completionRatePercentageToString();
         assertEquals(expResult, result);   
     }
 }
