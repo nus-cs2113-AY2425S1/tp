@@ -1,10 +1,13 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.constants.Assertions;
+import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.exception.Exception;
 
 import javax.json.JsonObject;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static seedu.exchangecoursemapper.constants.Regex.BACKSLASH;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
@@ -12,11 +15,14 @@ import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 public class ObtainContactsCommand extends Command {
     public static final String EMAIL = "email";
     public static final String NUMBER = "number";
+    private static final Logger logger = Logger.getLogger(ObtainContactsCommand.class.getName());
 
     @Override
     public void execute(String userInput) {
+        logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
         try {
             JsonObject jsonObject = super.createJsonObject();
+            logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
             assert jsonObject != null : Assertions.NULL_JSON_FILE;
             assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
             String schoolName = getSchoolName(userInput).toLowerCase();
@@ -25,10 +31,12 @@ public class ObtainContactsCommand extends Command {
             JsonObject schoolInfo = jsonObject.getJsonObject(matchingSchool);
             handleContactType(schoolInfo, matchingSchool, contactType);
         } catch (IOException e) {
+            logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
             System.err.println(Exception.fileReadError());
         } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
+            logger.log(Level.WARNING, e.getMessage());
         }
+        logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
 
     public String getSchoolName(String userInput) {
@@ -59,6 +67,7 @@ public class ObtainContactsCommand extends Command {
             System.out.println("Phone number for " + schoolName + ": " + number);
             break;
         default:
+            logger.warning("Invalid contact type requested: " + contactType);
             System.out.println(Exception.invalidContactType());
         }
     }
