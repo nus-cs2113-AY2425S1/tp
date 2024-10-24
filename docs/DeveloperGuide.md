@@ -127,7 +127,7 @@ The application can provide summaries and statistical insights to spending habit
 | v2.0    | frugal user | be alerted when I exceed spending limits for each category and month           | control my spending                                                |
 | v2.0    | user        | visualise my spending in the form of graphs                                    | better conceptualise and understand spending trends and patterns   |
 | v2.0    | user        | detailed statistical information about my spending (such as mean, median etc.) | better quantify and understand spending trends and patterns        |
-
+| v2.0    | user        | add recurring expenses                                                         | automate expense tracking and make it more convenient              |
 
 ## Non-Functional Requirements
 
