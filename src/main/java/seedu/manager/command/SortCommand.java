@@ -41,6 +41,7 @@ public class SortCommand extends Command {
         case "time":
             sortedEventList.sortByTime();
             outputMessage.append(SORT_BY_TIME_MESSAGE + "\n");
+            break;
         case "priority":
             break;
         default:
