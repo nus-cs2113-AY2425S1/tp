@@ -56,14 +56,14 @@ public class StorageTest {
                     "Meeting,2024-10-25 10:00,Conference Room\n" +
                             "Workshop,2024-10-26 14:00,Main Hall\n"
             );
-        } catch (IOException e) {
-            fail("Failed to set up the test data file: " + e.getMessage());
+        } catch (IOException exception) {
+            fail("Failed to set up the test data file: " + exception.getMessage());
         }
 
         try {
             storage.loadEvents(eventList);
-        } catch (IOException e) {
-            fail("Exception should not be thrown when loading events: " + e.getMessage());
+        } catch (IOException exception) {
+            fail("Exception should not be thrown when loading events: " + exception.getMessage());
         }
 
         assertEquals(2, eventList.getList().size());
@@ -86,8 +86,8 @@ public class StorageTest {
 
         try {
             storage.saveEvents(eventList);
-        } catch (IOException e) {
-            fail("Exception should not be thrown when saving events: " + e.getMessage());
+        } catch (IOException exception) {
+            fail("Exception should not be thrown when saving events: " + exception.getMessage());
         }
 
         File file = new File(TEST_FILE_PATH);
@@ -98,8 +98,8 @@ public class StorageTest {
             String expectedContent = "Meeting,2024-10-25 10:00,Conference Room\n"
                     + "Workshop,2024-10-26 14:00,Main Hall\n";
             assertEquals(expectedContent, content, "The file content does not match the expected output.");
-        } catch (IOException e) {
-            fail("Exception should not be thrown when reading the saved file: " + e.getMessage());
+        } catch (IOException exception) {
+            fail("Exception should not be thrown when reading the saved file: " + exception.getMessage());
         }
     }
 

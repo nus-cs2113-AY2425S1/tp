@@ -37,7 +37,7 @@ public class Storage {
                 writer.write(event.getEventName() + "," + event.getEventTime() + ","
                         + event.getEventVenue() + "\n"); // Save event details in CSV format
             }
-        } catch (IOException e) {
+        } catch (IOException exception) {
             throw new IOException("Error saving events to file: " + filePath);
         }
     }
@@ -58,7 +58,7 @@ public class Storage {
                     events.addEvent(eventName, time, venue);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException exception) {
             throw new IOException("Error loading events from file: " + filePath + ".");
         }
     }
