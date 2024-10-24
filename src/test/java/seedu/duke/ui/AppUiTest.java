@@ -7,6 +7,8 @@ import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -23,6 +25,7 @@ public class AppUiTest {
 
     private AppUi appUi;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     /**
      * Sets up the test environment by initializing the {@link AppUi} instance and its financial list.
@@ -51,12 +54,19 @@ public class AppUiTest {
         assertTrue(result);
     }
 
+    /**
+     * Tests the behavior of the "seeAllExpenses" command.
+     * Verifies that all expenses are displayed and that the output matches the expected format.
+     */
     @Test
     void testMatchCommand_seeAllExpensesCommand() {
+        LocalDate date1 = LocalDate.of(2024, 12, 29);
+        LocalDate date2 = LocalDate.of(2024, 10, 14);
+
         // add an expense to the financial list
-        appUi.financialList.addEntry(new Expense(100, "Lunch"));
+        appUi.financialList.addEntry(new Expense(100, "Lunch", date1));
         // add an income to the financial list
-        appUi.financialList.addEntry(new Income(100, "Salary"));
+        appUi.financialList.addEntry(new Income(100, "Salary", date2));
 
         // Prepare command arguments for the "seeAllExpenses" command
         HashMap<String, String> commandArguments = new HashMap<>();
@@ -67,9 +77,10 @@ public class AppUiTest {
 
         String output = outputStream.toString();
 
-        String expectedOutput = 
+        String expectedOutput =
+                "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. [Expense] - Lunch $ 100.00" + System.lineSeparator() +
+                "1. [Expense] - Lunch $ 100.00 (on " + date1.format(pattern) + ")" + System.lineSeparator()  +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Validate that the expected output is equal to the actual output
@@ -118,8 +129,10 @@ public class AppUiTest {
      */
     @Test
     void testMatchCommand_editCommand() {
+        LocalDate date1 = LocalDate.of(2024, 12, 17);
+
         // Add an entry first to edit it later
-        appUi.financialList.addEntry(new Expense(100, "Initial Entry"));
+        appUi.financialList.addEntry(new Expense(100, "Initial Entry", date1));
 
         // Prepare command arguments for the "edit" command
         HashMap<String, String> commandArguments = new HashMap<>();
@@ -143,8 +156,9 @@ public class AppUiTest {
      */
     @Test
     void testMatchCommand_deleteCommand() {
+        LocalDate date1 = LocalDate.of(2024, 9, 4);
         // Add an entry first to delete it later
-        appUi.financialList.addEntry(new Expense(100, "Entry to delete"));
+        appUi.financialList.addEntry(new Expense(100, "Entry to delete", date1));
 
         // Prepare command arguments for the "delete" command
         HashMap<String, String> commandArguments = new HashMap<>();

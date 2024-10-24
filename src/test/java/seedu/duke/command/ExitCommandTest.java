@@ -12,6 +12,10 @@ import java.io.PrintStream;
 
 public class ExitCommandTest {
 
+    /**
+     * Test the execute method of ExitCommand.
+     * Verifies that the goodbye message is printed correctly when the command is executed.
+     */
     @Test
     public void testExecute() {
         ExitCommand exitCommand = new ExitCommand();
@@ -34,6 +38,10 @@ public class ExitCommandTest {
         assertEquals(goodByeMessage + System.lineSeparator(), outputStream.toString());
     }
 
+    /**
+     * Test that the shouldContinueLoop method returns false,
+     * which means the program should exit.
+     */
     @Test
     public void testIsExit() {
         ExitCommand exitCommand = new ExitCommand();
