@@ -39,4 +39,32 @@ public class ObtainContactsCommandTest {
         String actualOutput = outputStreamCaptor.toString().trim();
         assertEquals(expectedOutput, actualOutput);
     }
+
+    @Test
+    public void execute_validEmail_success() throws IOException {
+        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
+        JsonObject jsonObject = jsonReader.readObject();
+        jsonReader.close();
+
+        // Simulate valid user input for email of Chulalongkorn University
+        String userInput = "obtain Chulalongkorn University /email";
+        obtainContactsCommand.execute(userInput);
+
+        String expectedOutput = "Email for Chulalongkorn University: int.off@chula.ac.th\n";
+        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    public void execute_validNumber_success() throws IOException {
+        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
+        JsonObject jsonObject = jsonReader.readObject();
+        jsonReader.close();
+
+        // Simulate valid user input for number of Chulalongkorn University
+        String userInput = "obtain Chulalongkorn University /number";
+        obtainContactsCommand.execute(userInput);
+
+        String expectedOutput = "Phone number for Chulalongkorn University: +66 2 218 2000\n";
+        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+    }
 }
