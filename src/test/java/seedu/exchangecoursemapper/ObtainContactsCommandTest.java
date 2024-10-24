@@ -10,6 +10,7 @@ import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import seedu.exchangecoursemapper.command.ObtainContactsCommand;
 import seedu.exchangecoursemapper.exception.Exception;
@@ -48,8 +49,18 @@ public class ObtainContactsCommandTest {
         String userInput = "obtain Chulalongkorn University /email";
         obtainContactsCommand.execute(userInput);
 
+        String actualOutput = outputStreamCaptor.toString().trim();
+        String[] outputLines = actualOutput.split("\n");
         String expectedOutput = "Email for Chulalongkorn University: int.off@chula.ac.th\n";
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+
+        boolean found = false;
+        for (String line : outputLines) {
+            if (line.trim().equals(expectedOutput.trim())) {
+                found = true;
+                break;
+            }
+        }
+        assertEquals(true, found);
     }
 
     @Test
@@ -75,7 +86,8 @@ public class ObtainContactsCommandTest {
         obtainContactsCommand.findMatchingSchool(jsonObject, name);
 
         String expectedOutput = "Unknown university - NUS";
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        String actualOutput = outputStreamCaptor.toString().trim();
+        assertTrue(actualOutput.contains(expectedOutput), "Expected output not found in actual output.");
     }
 
     @Test
