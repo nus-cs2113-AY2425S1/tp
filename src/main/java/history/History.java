@@ -25,9 +25,8 @@ public class History {
         return history;
     }
 
-    // Logs a completed day into the history with a given date
-    public void logDay(DailyRecord dailyRecord, LocalDate date) {
-        history.put(date, dailyRecord);  // This will overwrite if a day with the same date exists
+    public void logRecord(LocalDate date, DailyRecord record) {
+        history.put(date, record);
     }
 
     // Get a specific Day object by date (used for test comparisons)

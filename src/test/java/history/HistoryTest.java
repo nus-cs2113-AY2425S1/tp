@@ -1,5 +1,6 @@
 package history;
 
+import dailyrecord.DailyRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import programme.Day;
@@ -43,7 +44,9 @@ public class HistoryTest {
     @Test
     public void testLogDayAndToString() {
         // Log the days into history
-        history.logDay(day1, date1);
+        DailyRecord dailyrecord1 = history.getRecordByDate(date1);
+        DailyRecord dailyrecord2 = history.getRecordByDate(date1);
+        dailyrecord1.logDay(day1);
         history.logDay(day2, date2);
 
         // Object-based comparison
