@@ -43,6 +43,13 @@ public class Quiz {
             while (!validInput) {
                 System.out.print("Enter your answer: ");
                 String answer = scanner.nextLine().trim();
+
+                // Check if the user wants to exit the quiz
+                if (answer.equalsIgnoreCase("exit")) {
+                    System.out.println("Exiting the quiz. Returning to main menu...");
+                    return;  // Exit the quiz early without quitting the entire application
+                }
+
                 try {
                     answerQuestion(answer);
                     validInput = true;
