@@ -21,13 +21,12 @@ public class DeleteMealCommand extends MealCommand {
 
     public CommandResult execute(History history) {
         assert history != null;
+
         DailyRecord dailyRecord = history.getRecordByDate(date);
         if(dailyRecord == null) {
             dailyRecord = new DailyRecord(new MealList());
         }
-
         assert dailyRecord != null;
-
         dailyRecord.deleteMealFromRecord(indexMealToDelete);
 
         return new CommandResult(indexMealToDelete + " has been added");

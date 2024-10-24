@@ -22,6 +22,7 @@ public class AddWaterCommand extends WaterCommand {
 
     public CommandResult execute(History history) {
         assert history != null;
+
         DailyRecord dailyRecord = history.getRecordByDate(date);
         if(dailyRecord == null) {
             dailyRecord = new DailyRecord(new Water());
