@@ -22,6 +22,7 @@ public class Parser {
     public static final String ARGUMENT_CATEGORY = "category";
     public static final String ARGUMENT_PRICE = "price";
     public static final String ARGUMENT_DESCRIPTION = "description";
+    public static final String ARGUMENT_RECUR = "recur";
     public static final String ARGUMENT_DATE = "date";
     public static final String ARGUMENT_FREQUENCY = "frequency";
 
