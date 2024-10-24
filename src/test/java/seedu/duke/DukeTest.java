@@ -1,9 +1,7 @@
 package seedu.duke;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ExpenseTest {
     @Test
@@ -43,7 +41,7 @@ class ExpenseTest {
     }
 
     @Test
-    public void setCategorySuccess() {
+    public void setCategory() {
         Category category = new Category("Entertainment");
         Expense expense = new Expense("Movie", 12.5, null);
         expense.setCategory(category);
@@ -53,21 +51,31 @@ class ExpenseTest {
 
 class CategoryTest {
     @Test
-    public void categoryConstructorSuccess() {
+    public void categoryConstructor() {
         Category category = new Category("Entertainment");
         assertEquals("Entertainment", category.getName());
     }
 
     @Test
-    public void categoryNameSuccess() {
+    public void categoryName() {
         Category category = new Category("Groceries");
         assertEquals("Groceries", category.toString());
     }
 
     @Test
-    public void getNameSuccess() {
+    public void getName() {
         Category category = new Category("Transport");
         assertNotNull(category.getName());
         assertEquals("Transport", category.getName());
+    }
+}
+
+class BudgetTest {
+    @Test
+    public void budgetConstructor() {
+        Category category = new Category("Food");
+        Budget budget = new Budget(category, 100);
+        assertEquals(100, budget.getLimit());
+        assertEquals(category, budget.getCategory());
     }
 }
