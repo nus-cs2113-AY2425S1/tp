@@ -23,10 +23,6 @@ public class CommandParser {
         this.progParser = new ProgCommandParser();
     }
 
-    public CommandParser(ProgCommandParser progParser) {
-        this.progParser = progParser;
-    }
-
     public Command parse(String fullCommand) {
         if (fullCommand == null || fullCommand.trim().isEmpty()) {
             throw new IllegalArgumentException("Command cannot be empty. Please enter a valid command.");
@@ -73,10 +69,10 @@ public class CommandParser {
         LocalDate date = LocalDate.now();
 
         if (flagParser.hasFlag("/p")) {
-            progIndex = parseIndex(flagParser.getFlagValue("/p"), "Invalid programme index.");
+            progIndex = parseIndex(flagParser.getFlagValue("/p"));
         }
         if (flagParser.hasFlag("/d")) {
-            dayIndex = parseIndex(flagParser.getFlagValue("/d"), "Invalid day index.");
+            dayIndex = parseIndex(flagParser.getFlagValue("/d"));
         }
         if (flagParser.hasFlag("/t")) {
             date = parseDate(flagParser.getFlagValue("/t"));

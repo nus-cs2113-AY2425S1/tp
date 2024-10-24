@@ -12,9 +12,9 @@ import java.util.logging.Logger;
 public class ParserUtils {
     private static final Logger logger = Logger.getLogger(ParserUtils.class.getName());
 
-    public static int parseIndex(String indexString, String errorMessage) {
+    public static int parseIndex(String indexString) {
         assert indexString != null : "Input indexString must not be null";
-        assert errorMessage != null : "Input errorMessage must not be null";
+        String errorMessage = "Unable to parse: " + indexString + ". Reason:";
 
         if (indexString.isEmpty()){
             throw new IllegalArgumentException(errorMessage + "Value was not provided.");
@@ -74,9 +74,9 @@ public class ParserUtils {
         flagParser.validateRequiredFlags(flagParser, requiredFlags);
 
         String name = flagParser.getFlagValue("/n");
-        int sets = parseIndex(flagParser.getFlagValue("/s"), "Invalid sets value. ");
-        int reps = parseIndex(flagParser.getFlagValue("/r"), "Invalid reps value. ");
-        int weight = parseIndex(flagParser.getFlagValue("/s"), "Invalid weight value. ");
+        int sets = parseIndex(flagParser.getFlagValue("/s"));
+        int reps = parseIndex(flagParser.getFlagValue("/r"));
+        int weight = parseIndex(flagParser.getFlagValue("/s"));
 
         logger.log(Level.INFO, "Parsed exercise successfully with name: {0}, set: {1}, rep: {2}" +
                 " weight: {3}", new Object[]{name, sets, reps, weight});
