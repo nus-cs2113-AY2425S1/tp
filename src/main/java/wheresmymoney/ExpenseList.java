@@ -13,7 +13,7 @@ import com.opencsv.CSVWriter;
 
 public class ExpenseList {
     protected static Logger logger = Logger.getLogger("Bar");
-    protected ArrayList<Expense> expenses;
+    private ArrayList<Expense> expenses;
 
     public ExpenseList() {
         expenses = new ArrayList<>();
