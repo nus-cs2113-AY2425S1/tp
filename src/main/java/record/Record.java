@@ -3,10 +3,8 @@ package record;
 import meal.Meal;
 import meal.MealList;
 import programme.Day;
-import storage.Storage;
 import water.Water;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Record {
@@ -19,7 +17,6 @@ public class Record {
         day = new Day("Empty Day"); //This will be replaced when a Day is recorded
         this.mealList = new MealList();
         this.water = new Water();
-
     }
 
     public Record(Day day) {
@@ -28,14 +25,16 @@ public class Record {
         mealList = new MealList();
         water = new Water();
         this.day = day;
+        logger.info("Record initialised with day: " + day);
     }
 
     public Record(Water water) {
-
         assert water != null;
+
         mealList = new MealList();
         this.water = water;
         day = new Day("Empty Day"); //This will be replaced when a Day is recorded
+        logger.info("Record initialised with water list");
     }
 
     public Record(MealList mealList) {
@@ -44,21 +43,28 @@ public class Record {
         this.mealList = mealList;
         water = new Water();
         day = new Day("Empty Day"); //This will be replaced when a Day is recorded
+        logger.info("Record initialised with meal list");
     }
 
     public void updateDay(Day newDay) { //this replaces any current day recorded
         assert day != null;
+
         this.day = newDay;
+        logger.info("Day updated: " + day);
     }
 
     public void updateMealList(Meal meal) {
         assert meal != null;
+
         mealList.addMeal(meal);
+        logger.info("meal added: " + meal);
     }
 
     public void updateWater(float toAddWater) {
         assert toAddWater > 0;
+
         water.addWater(toAddWater);
+        logger.info("Water added: " + toAddWater);
     }
 
     public int getCaloriesFromMeal() {
@@ -66,6 +72,7 @@ public class Record {
         for (Meal meal : mealList.getMeals()) {
             caloriesMeal += meal.getCalories();
         }
+        logger.info("Calories from meals caluated: " + caloriesMeal);
         return caloriesMeal;
     }
 
@@ -74,6 +81,7 @@ public class Record {
         for (Float waterAmount : water.getWaterList()) {
             totalWater += waterAmount;
         }
+        logger.info("total water: " + totalWater);
         return totalWater;
     }
 
