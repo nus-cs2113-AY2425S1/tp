@@ -10,14 +10,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class AddCoursesCommand extends Command {
+public class AddCoursesCommand extends PersonalTrackerCommand {
 
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
 
-    Storage storage = new Storage();
-
     @Override
-    public void execute(String userInput) {
+    public void execute(String userInput, Storage storage) {
         try {
             logger.log(Level.INFO, Logs.TRIM_STRING);
             String description = trimString(userInput);

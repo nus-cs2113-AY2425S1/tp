@@ -37,4 +37,12 @@ public class Exception extends Throwable {
     public static String filterCoursesLimitExceeded() {
         return "Please note that we can only filter for only one NUS Course!";
     }
+
+    public static String noInputAfterDelete() {
+        return "Please provide the index of the course plan you would like to delete.";
+    }
+
+    public static String invalidCourseListIndex() {
+        return "Please provide a valid index of the course plan you would like to delete.";
+    }
 }
