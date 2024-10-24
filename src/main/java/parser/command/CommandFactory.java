@@ -2,6 +2,7 @@ package parser.command;
 
 import command.Command;
 import command.ExitCommand;
+import command.HistoryCommand;
 import command.InvalidCommand;
 
 import java.util.logging.Logger;
@@ -26,6 +27,7 @@ public class CommandFactory {
         return switch (commandString) {
         case ProgCommandFactory.COMMAND_WORD -> progFactory.parse(argumentString);
         case ExitCommand.COMMAND_WORD -> new ExitCommand();
+        case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
         case MealCommandFactory.COMMAND_WORD -> mealFactory.parse(argumentString);
         default -> new InvalidCommand();
         };
