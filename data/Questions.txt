@@ -19,3 +19,16 @@ Loops | Mcq | Which of the following loops is suitable for iterating over a coll
 Loops | Mcq | What happens if the condition in a for loop is omitted? | c | a) Compilation error | b) Infinite loop | c) The loop continues until it is explicitly broken | d) None of the above
 Loops | Mcq | Which keyword can be used to skip to the next iteration of a loop? | a | a) continue | b) skip | c) next | d) pass
 Loops | Mcq | What is the output of an infinite while loop without a condition? | b | a) Compilation error | b) Loop continues indefinitely | c) Loop runs once | d) None of the above
+FITB | FillInTheBlank | The keyword used to declare a method that does not return a value is `____`. | void
+FITB | FillInTheBlank | The `____` keyword is used to create a new object in Java. | new
+FITB | FillInTheBlank | In Java, the method that runs when the program starts is called `____`. | main
+FITB | FillInTheBlank | The access modifier `____` allows visibility within the same package and subclasses. | protected
+FITB | FillInTheBlank | The `____` statement is used to terminate the execution of a method and return a value. | return
+FITB | FillInTheBlank | To compare two strings in Java, you use the `____` method. | equals
+FITB | FillInTheBlank | In Java, arrays have a fixed `____` once they are initialized. | size
+FITB | FillInTheBlank | A `____` is a block of code that can be called with a set of arguments and performs a specific task. | method
+FITB | FillInTheBlank | The `____` keyword is used to inherit properties and methods from another class. | extends
+FITB | FillInTheBlank | The keyword `____` is used to implement an interface in a class. | implements
+FITB | FillInTheBlank | The keyword used to define a class is `____`. | class
+FITB | FillInTheBlank | A constructor in Java is used to create an instance of a `____`. | object
+FITB | FillInTheBlank | The keyword used to declare a constant in Java is ___ | final

@@ -35,6 +35,8 @@ public class Quiz {
                 currentQuestion.printOptions();
             } else if (currentQuestion instanceof TrueFalse) {
                 System.out.println("Please answer with 'true' or 'false'.");
+            } else if (currentQuestion instanceof FillInTheBlank) {
+                System.out.println("Please fill in the blank with the correct answer.");
             }
 
             boolean validInput = false;
