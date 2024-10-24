@@ -65,25 +65,29 @@ public class DailyRecord {
         logger.info("Day updated: " + day);
     }
 
-    public void addMealList(Meal meal) {
+    public void addMealToRecord(Meal meal) {
         assert meal != null;
 
         mealList.addMeal(meal);
         logger.info("meal added: " + meal);
     }
 
-    public void deleteMealFromMealList(int index) {
+    public void deleteMealFromRecord(int index) {
         assert index > 0;
 
         mealList.deleteMeal(index);
         logger.info("meal deleted, index: " + index);
     }
 
-    public void updateWater(float toAddWater) {
+    public void addWaterToRecord(float toAddWater) {
         assert toAddWater > 0;
 
         water.addWater(toAddWater);
         logger.info("Water added: " + toAddWater);
+    }
+
+    public void removeWaterfromRecord(int index) {
+        water.getWaterList().remove(index);
     }
 
     public int getCaloriesFromMeal() {
