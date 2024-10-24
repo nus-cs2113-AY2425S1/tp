@@ -76,8 +76,8 @@ public class Storage {
         if (isEmpty) {
             return;
         }
-        ListCommand c = new ListCommand();
-        c.execute(recipes, ingredients, ui, storage);
+        ListCommand lister = new ListCommand();
+        lister.execute(recipes, ingredients, ui, storage);
     }
 
     public void loadIngredients(RecipeList recipes, IngredientList ingredients,
@@ -98,8 +98,8 @@ public class Storage {
         if (isEmpty) {
             return;
         }
-        ListIngredientsCommand c = new ListIngredientsCommand();
-        c.execute(recipes, ingredients, ui, storage);
+        ListIngredientsCommand lister = new ListIngredientsCommand();
+        lister.execute(recipes, ingredients, ui, storage);
     }
 
     private void addRecipe(RecipeList recipes, String line) throws InvalidArgumentException, InvalidCommandException {

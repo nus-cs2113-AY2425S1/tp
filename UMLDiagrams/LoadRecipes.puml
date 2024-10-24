@@ -1,0 +1,106 @@
+@startuml
+!include Style.puml
+
+hide footbox
+skinparam guillemet false
+skinparam sequenceReferenceBackgroundColor COLOR_YELLOW
+skinparam sequenceReferenceHeaderBackgroundColor COLOR_RED
+skinparam ParticipantBackGroundColor COLOR_LIGHTBLUE
+skinparam {
+    SequenceGroupBackgroundColor COLOR_LIGHTRED
+}
+
+box Loading Saved Recipes COLOR_PURPLE_BLUE
+participant "YMFC" as YMFC <<class>>
+participant ":Storage" as Storage
+participant ":File" as File
+participant ":Scanner" as Scanner
+participant "Parser" as Parser <<class>>
+participant ":AddRecipeCommand" as AddRecipeCommand
+participant ":ListCommand" as ListCommand
+end box
+
+create Storage
+YMFC -> Storage : Storage()
+activate Storage
+Storage --> YMFC : :storage
+deactivate Storage
+
+YMFC -> Storage : loadRecipes(recipes, ...)
+activate Storage
+
+create File
+Storage -> File : File(saveRecipePath)
+activate File
+File --> Storage : :tasksFile
+deactivate File
+
+create Scanner
+Storage -> Scanner : Scanner(tasksFile)
+activate Scanner
+Scanner --> Storage : :reader
+deactivate Scanner
+
+loop COLOR_GREEN until reader.hasNext() == false
+    Storage -> Scanner : nextLine()
+    activate Scanner
+    Scanner --> Storage : line
+    deactivate Scanner
+
+    Storage -> Storage : addRecipe(recipes, line)
+    activate Storage
+    Storage -> Parser : parseCommand(line)
+    activate Parser
+    ref over Parser
+        Read in recipe
+        details from line
+    end ref
+
+    create AddRecipeCommand
+    Parser -> AddRecipeCommand : AddRecipeCommand(..)
+    activate AddRecipeCommand
+    AddRecipeCommand --> Parser : :command
+    deactivate AddRecipeCommand
+
+    Parser --> Storage : :command
+    deactivate Parser
+
+    Storage -> AddRecipeCommand : addLoadedRecipe(recipes)
+    activate AddRecipeCommand
+    ref over AddRecipeCommand
+        Store loaded recipe
+        into recipes ArrayList
+    end ref
+    AddRecipeCommand --> Storage
+    deactivate AddRecipeCommand
+
+    Storage --> Storage
+    destroy AddRecipeCommand
+    deactivate Storage
+
+end
+
+destroy File
+destroy Scanner
+
+create ListCommand
+Storage -> ListCommand : ListCommand()
+activate ListCommand
+ListCommand --> Storage : :lister
+deactivate ListCommand
+
+Storage -> ListCommand : execute(recipes, ...)
+activate ListCommand
+ref over ListCommand
+    Prints to the CLI
+    all the loaded recipes
+end ref
+ListCommand -->Storage
+deactivate ListCommand
+
+destroy ListCommand
+
+Storage --> YMFC
+deactivate Storage
+
+@enduml

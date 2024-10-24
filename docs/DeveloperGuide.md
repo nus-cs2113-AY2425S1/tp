@@ -17,12 +17,20 @@
 ### Command Classes
 
 ### Parser Class
-
+ 
 ### Storage Class
 The Storage class
 - saves the User's added recipes to a .txt file
+  - The following Sequence diagram shows how the saveRecipes() method in the Storage class
+  saves all the created recipes into the .txt file
+![saveRecipes.png](saveRecipesSequenceDiagram.png)
 - reads the .txt save file to load in past saved recipes when app is launched
-- depends on some classes in the Parser class
+  - The following Sequence diagram shows how the loadRecipes() method in the Storage class
+    loads in past saved recipes from the .txt file when the app is first launched
+  ![loadRecipes.png](loadRecipesSequenceDiagram.png)
+
+The Storage class also saves and loads the list of user's available ingredients to another .txt save file
+The mechanisms with which it does so is highly similar to the 2 sequence diagrams above
 
 ## Product scope
 ### Target user profile
