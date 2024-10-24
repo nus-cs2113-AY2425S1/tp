@@ -85,6 +85,9 @@ public class QuizManager {
         case "Flashcard":
             topic.addQuestion(new Flashcard(questionText, correctAnswer));
             break;
+        case "FillInTheBlank":
+            topic.addQuestion(new FillInTheBlank(questionText, correctAnswer));
+            break;
         default:
             logger.warning("Invalid question type: " + questionType);
         }
@@ -227,6 +230,25 @@ public class QuizManager {
 
             String questionLine = "TrueFalse | TrueFalse | " + questionText + " | " + correctAnswer;
             saveQuestionToFile(questionLine);
+        } else if (input.startsWith("add FITB")) {
+            String[] parts = input.split("/q|/a");
+            if (parts.length < 3) {
+                System.out.println("Invalid command format. Please provide both question and answer.");
+                return;
+            }
+
+            String questionText = parts[1].trim();
+            String correctAnswer = parts[2].trim();
+
+            // Create or get the "FillInTheBlanks" topic
+            Topic topic = getOrCreateTopic("FillInTheBlanks");
+            topic.addQuestion(new FillInTheBlank(questionText, correctAnswer));
+            logger.info("Added new FillInTheBlank question.");
+
+            // Format for saving to Questions.txt
+            String questionLine = "FITB | FillInTheBlank | " + questionText + " | " + correctAnswer;
+            saveQuestionToFile(questionLine);
+
         } else {
             logger.warning("Invalid command: " + input);
         }

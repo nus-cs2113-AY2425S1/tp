@@ -5,4 +5,5 @@ Welcome to Java Ninja!
 'review' to review the past result
 'help' for a list of commands
 'quit' to exit the programme
-Available Topics: 
+Loops
+FITB

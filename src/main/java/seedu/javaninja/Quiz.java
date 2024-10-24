@@ -35,12 +35,21 @@ public class Quiz {
                 currentQuestion.printOptions();
             } else if (currentQuestion instanceof TrueFalse) {
                 System.out.println("Please answer with 'true' or 'false'.");
+            } else if (currentQuestion instanceof FillInTheBlank) {
+                System.out.println("Please fill in the blank with the correct answer.");
             }
 
             boolean validInput = false;
             while (!validInput) {
                 System.out.print("Enter your answer: ");
                 String answer = scanner.nextLine().trim();
+
+                // Check if the user wants to exit the quiz
+                if (answer.equalsIgnoreCase("exit")) {
+                    System.out.println("Exiting the quiz. Returning to main menu...");
+                    return;  // Exit the quiz early without quitting the entire application
+                }
+
                 try {
                     answerQuestion(answer);
                     validInput = true;
