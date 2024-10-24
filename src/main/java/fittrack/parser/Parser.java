@@ -1,23 +1,26 @@
 package fittrack.parser;
 import fittrack.trainingsession.TrainingSession;
+import fittrack.reminder.Reminder;
 import fittrack.user.User;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static fittrack.enums.Exercise.fromUserInput;
-import static fittrack.messages.Messages.ADD_SESSION_COMMAND;
-import static fittrack.messages.Messages.DELETE_SESSION_COMMAND;
-import static fittrack.messages.Messages.EDIT_EXERCISE_COMMAND;
-import static fittrack.messages.Messages.HELP_COMMAND;
-import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
-import static fittrack.messages.Messages.SET_USER_COMMAND;
-import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
+import static fittrack.messages.Messages.*;
 import static fittrack.ui.Ui.printAddedSession;
 import static fittrack.ui.Ui.printDeletedSession;
 import static fittrack.ui.Ui.printHelp;
 import static fittrack.ui.Ui.printSessionList;
 import static fittrack.ui.Ui.printSessionView;
+import static fittrack.ui.Ui.printAddedReminder;
+import static fittrack.ui.Ui.printDeletedReminder;
+import static fittrack.ui.Ui.printReminderList;
+
 import static fittrack.ui.Ui.printUnrecognizedInputMessage;
 import static fittrack.ui.Ui.printUser;
 
@@ -31,8 +34,10 @@ public class Parser {
      * @param user The user object to be manipulated based on the command.
      * @param input The input string entered by the user.
      * @param sessionList The list of sessions to be manipulated based on the command.
+     * @param reminderList The list of reminders to be manipulated based on the command.
      */
-    public static void parse(User user, String input, ArrayList<TrainingSession> sessionList) {
+    public static void parse(User user, String input, ArrayList<TrainingSession> sessionList,
+                             ArrayList<Reminder> reminderList) {
         assert input != null : "Input must not be null";
         assert user != null : "User object must not be null";
         assert sessionList != null : "Session list must not be null";
@@ -67,6 +72,7 @@ public class Parser {
             break;
         case EDIT_EXERCISE_COMMAND:
             sentence = description.split(" ", 3);
+            System.out.println(sentence[0]);
             assert sentence.length == 3 : "Edit exercise command requires exactly 3 arguments";
             int sessionIndex = Integer.parseInt(sentence[0]) - 1;
             String exerciseAcronym = sentence[1];
@@ -95,9 +101,57 @@ public class Parser {
             sessionList.remove(indexToDelete);
             printDeletedSession(sessionList, sessionToDelete);
             break;
+        case ADD_REMINDER_COMMAND:
+            sentence = description.split(" ", 2);
+
+            String inputDeadline = sentence[1];
+            description = sentence[0];
+
+            assert !description.isEmpty() : "Reminder description must not be empty";
+            assert !Objects.equals(inputDeadline, "") : "Reminder deadline must not be empty";
+            LocalDateTime deadline = parseReminderDeadline(inputDeadline);
+            reminderList.add(new Reminder(description, deadline, user));
+            printAddedReminder(reminderList);
+            break;
+        case DELETE_REMINDER_COMMAND:
+            int reminderIndexToDelete = Integer.parseInt(description) - 1;
+            assert reminderIndexToDelete >= 0 && reminderIndexToDelete < reminderList.size() : "Delete reminder index " +
+                    "out of bounds";
+            Reminder reminderToDelete = reminderList.get(reminderIndexToDelete);
+            reminderList.remove(reminderIndexToDelete);
+            printDeletedReminder(reminderList, reminderToDelete);
+            break;
+            case LIST_REMINDER_COMMAND:
+                printReminderList(reminderList);
+                break;
         default:
             printUnrecognizedInputMessage(); // Response to unrecognized inputs
             break;
+        }
+    }
+
+    /** Parses user input indicating the deadline of a {@code reminder} object.
+     * Throws an exception if user-input String is inappropriate or ill-formatted.
+     *
+     * @param inputDeadline A string input by the user. Intended format is DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.
+     * @return A {@code LocalDateTime} object indicating reminder deadline
+     * @throws IllegalArgumentException
+     */
+    static LocalDateTime parseReminderDeadline(String inputDeadline) throws IllegalArgumentException {
+        try {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+            // Try to parse with time (dd/MM/yyyy HH:mm:ss)
+            try {
+                return LocalDateTime.parse(inputDeadline, dateTimeFormatter);
+            } catch (DateTimeParseException e) {
+                // If failed, try to parse without time (HH:mm:ss)
+                LocalDate date = LocalDate.parse(inputDeadline, dateFormatter);
+                return date.atStartOfDay();
+            }
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
         }
     }
 }
