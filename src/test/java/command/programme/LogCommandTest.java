@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import programme.Day;
 import programme.ProgrammeList;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+//import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
+//import static org.mockito.Mockito.verify;
 
 import java.time.LocalDate;
 
