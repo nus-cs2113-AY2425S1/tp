@@ -1,5 +1,6 @@
 package seedu.exchangecoursemapper.ui;
 import seedu.exchangecoursemapper.parser.Parser;
+import seedu.exchangecoursemapper.storage.Storage;
 
 public class UI {
     public void displayGreeting() {
@@ -25,11 +26,11 @@ public class UI {
      *
      * @param parser The {@code Parser} object that processes user input.
      */
-    public void runChat(Parser parser) {
+    public void runChat(Parser parser, Storage storage) {
         String userInput;
         do {
             userInput = parser.getUserInput();
-            parser.processUserInput(userInput);
+            parser.processUserInput(userInput, storage);
         } while (!userInput.equalsIgnoreCase("bye"));
     }
 }
