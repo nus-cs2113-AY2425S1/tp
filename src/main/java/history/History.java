@@ -1,8 +1,7 @@
 package history;
 
-import programme.Day;
 import programme.Exercise;
-import record.Record;
+import dailyrecord.DailyRecord;
 import java.util.logging.Logger;
 
 import java.time.LocalDate;
@@ -15,24 +14,24 @@ public class History {
 
     private static final Logger logger = Logger.getLogger(History.class.getName());
     // LinkedHashMap to store Day with its respective date in the order of insertion
-    private final LinkedHashMap<LocalDate, Record> history;  // Use LocalDate and LinkedHashMap to preserve insertion order
+    private final LinkedHashMap<LocalDate, DailyRecord> history;  // Use LocalDate and LinkedHashMap to preserve insertion order
 
     // Constructor
     public History() {
         history = new LinkedHashMap<>();
     }
 
-    public LinkedHashMap<LocalDate, Record> getHistory() {
+    public LinkedHashMap<LocalDate, DailyRecord> getHistory() {
         return history;
     }
 
     // Logs a completed day into the history with a given date
-    public void logDay(Record record, LocalDate date) {
-        history.put(date, record);  // This will overwrite if a day with the same date exists
+    public void logDay(DailyRecord dailyRecord, LocalDate date) {
+        history.put(date, dailyRecord);  // This will overwrite if a day with the same date exists
     }
 
     // Get a specific Day object by date (used for test comparisons)
-    public Record getRecordByDate(LocalDate date) {
+    public DailyRecord getRecordByDate(LocalDate date) {
         return history.get(date);
     }
 
@@ -55,15 +54,15 @@ public class History {
         int totalExercises = 0;
 
         // Iterate through history for the last week only
-        for (Map.Entry<LocalDate, Record> entry : history.entrySet()) {
+        for (Map.Entry<LocalDate, DailyRecord> entry : history.entrySet()) {
             LocalDate date = entry.getKey();
-            Record record = entry.getValue();
+            DailyRecord dailyRecord = entry.getValue();
 
             if (!date.isBefore(oneWeekAgo) && !date.isAfter(today)) {
                 // Similar formatting to the history view
-                weeklySummary.append(record.getDayFromRecord().toString());
+                weeklySummary.append(dailyRecord.getDayFromRecord().toString());
                 weeklySummary.append(String.format("Completed On: %s%n%n", date.format(formatter)));
-                totalExercises += record.getDayFromRecord().getExercisesCount();
+                totalExercises += dailyRecord.getDayFromRecord().getExercisesCount();
             }
         }
 
@@ -79,12 +78,12 @@ public class History {
         Map<String, Exercise> personalBests = new LinkedHashMap<>();  // Changed to LinkedHashMap to preserve order
 
         // Iterate through all the logged days
-        for (Record record : history.values()) {
-            int exercisesCount = record.getDayFromRecord().getExercisesCount();  // Get the number of exercises for the day
+        for (DailyRecord dailyRecord : history.values()) {
+            int exercisesCount = dailyRecord.getDayFromRecord().getExercisesCount();  // Get the number of exercises for the day
 
             // Iterate over each exercise using the existing getExercise method
             for (int i = 0; i < exercisesCount; i++) {
-                Exercise exercise = record.getDayFromRecord().getExercise(i);
+                Exercise exercise = dailyRecord.getDayFromRecord().getExercise(i);
                 String exerciseName = exercise.getName();
 
                 // If this exercise is not in the map or the new exercise has a higher weight
@@ -101,12 +100,12 @@ public class History {
         Exercise personalBest = null;
 
         // Iterate through all logged days to find the best result for the specific exercise
-        for (Record record : history.values()) {
-            int exercisesCount = record.getDayFromRecord().getExercisesCount();
+        for (DailyRecord dailyRecord : history.values()) {
+            int exercisesCount = dailyRecord.getDayFromRecord().getExercisesCount();
 
             // Iterate over exercises in the day
             for (int i = 0; i < exercisesCount; i++) {
-                Exercise exercise = record.getDayFromRecord().getExercise(i);
+                Exercise exercise = dailyRecord.getDayFromRecord().getExercise(i);
 
                 // If the exercise name matches, and it has a higher weight than the current best, update the best
                 if (exercise.getName().equalsIgnoreCase(exerciseName)) {
@@ -142,10 +141,10 @@ public class History {
 
         // Iterate over the history LinkedHashMap in insertion order
         for (LocalDate date : history.keySet()) {
-            Record record = history.get(date);
+            DailyRecord dailyRecord = history.get(date);
 
             // Use the Day class's toString directly
-            historyString.append(record.toString());
+            historyString.append(dailyRecord.toString());
 
             // Append the formatted date at the end
             historyString.append(String.format("Completed On: %s%n%n", date.format(formatter)));

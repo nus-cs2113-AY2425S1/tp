@@ -1,4 +1,4 @@
-package record;
+package dailyrecord;
 
 import meal.Meal;
 import meal.MealList;
@@ -7,19 +7,19 @@ import water.Water;
 
 import java.util.logging.Logger;
 
-public class Record {
+public class DailyRecord {
     private static final Logger logger = Logger.getLogger(Record.class.getName());
     private Day day;
     private MealList mealList;
     private Water water;
 
-    public Record() { //should not be called
+    public DailyRecord() { //should not be called
         day = new Day("Empty Day"); //This will be replaced when a Day is recorded
         this.mealList = new MealList();
         this.water = new Water();
     }
 
-    public Record(Day day) {
+    public DailyRecord(Day day) {
         assert day != null;
 
         mealList = new MealList();
@@ -28,7 +28,7 @@ public class Record {
         logger.info("Record initialised with day: " + day);
     }
 
-    public Record(Water water) {
+    public DailyRecord(Water water) {
         assert water != null;
 
         mealList = new MealList();
@@ -37,7 +37,7 @@ public class Record {
         logger.info("Record initialised with water list");
     }
 
-    public Record(MealList mealList) {
+    public DailyRecord(MealList mealList) {
         assert mealList != null;
 
         this.mealList = mealList;
@@ -65,11 +65,18 @@ public class Record {
         logger.info("Day updated: " + day);
     }
 
-    public void updateMealList(Meal meal) {
+    public void addMealList(Meal meal) {
         assert meal != null;
 
         mealList.addMeal(meal);
         logger.info("meal added: " + meal);
+    }
+
+    public void deleteMealFromMealList(int index) {
+        assert index > 0;
+
+        mealList.deleteMeal(index);
+        logger.info("meal deleted, index: " + index);
     }
 
     public void updateWater(float toAddWater) {
