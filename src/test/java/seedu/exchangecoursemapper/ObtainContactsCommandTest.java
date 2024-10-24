@@ -26,4 +26,17 @@ public class ObtainContactsCommandTest {
         System.setErr(new PrintStream(outputStreamCaptor));
         obtainContactsCommand = new ObtainContactsCommand();
     }
+
+    @Test
+    public void fileReadError_failure() {
+        String expectedOutput = "Error reading the file.";
+        try {
+            JsonReader jsonReader = Json.createReader(new FileReader("./data/fake.json")); // This should throw FileNotFoundException
+            jsonReader.close();
+        } catch (FileNotFoundException e) {
+            System.err.println(Exception.fileReadError());
+        }
+        String actualOutput = outputStreamCaptor.toString().trim();
+        assertEquals(expectedOutput, actualOutput);
+    }
 }
