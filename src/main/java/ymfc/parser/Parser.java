@@ -27,10 +27,7 @@ import java.util.stream.Collectors;
  */
 public final class Parser {
     // First word <command> before the first white space, then all the arguments <args>
-    // static final Pattern GENERIC_FORMAT = Pattern.compile("(?<command>\\S+)\\s+(?<args>.*)");
     static final Pattern GENERIC_FORMAT = Pattern.compile("(?<command>\\S+)(\\s+(?<args>.*))?");
-
-    // static final Pattern ARGUMENTS_FORMAT = Pattern.compile("(?<args>[a-zA-Z][0-9]?/.*)*");
 
     /**
      * Parses user input commands and return a <code>Command</code> object
@@ -46,7 +43,6 @@ public final class Parser {
         }
 
         String command = m.group("command");
-        // String args = m.group("args");
         String args = m.group("args") == null ? "" : m.group("args").trim();
         switch (command) {
         case "add":
@@ -74,10 +70,10 @@ public final class Parser {
 
     private static AddIngredientCommand getAddIngredientCommand(String args) throws InvalidArgumentException {
         final Pattern addIngredientCommandFormat = Pattern.compile("(?<name>[nN]/[^/]+)");
-        args = args.trim();
-        Matcher m = addIngredientCommandFormat.matcher(args);
+        String input = args.trim();
+        Matcher m = addIngredientCommandFormat.matcher(input);
         if (!m.matches()) {
-            throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + AddRecipeCommand.USAGE_EXAMPLE);
+            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + AddRecipeCommand.USAGE_EXAMPLE);
         }
 
         String name = m.group("name").trim().substring(2); // n/ or N/ are 2 chars
@@ -92,7 +88,6 @@ public final class Parser {
      */
     private static AddRecipeCommand getAddRecipeCommand(String args) throws InvalidArgumentException {
 
-
         final Pattern addRecipeCommandFormat =
                 // <n or N>/<String without forward slash>
                 Pattern.compile("(?<name>[nN]/[^/]+)"
@@ -105,10 +100,10 @@ public final class Parser {
                         // Match optional time taken: t/ or T/ followed by digits
                         + "(\\s+(?<time>[tT]/[0-9]+))?");
 
-        args = args.trim();
-        Matcher m = addRecipeCommandFormat.matcher(args);
+        String input = args.trim();
+        Matcher m = addRecipeCommandFormat.matcher(input);
         if (!m.matches()) {
-            throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + AddRecipeCommand.USAGE_EXAMPLE);
+            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + AddRecipeCommand.USAGE_EXAMPLE);
         }
 
         String name = m.group("name").trim().substring(2); // n/ or N/ are 2 chars
@@ -122,6 +117,12 @@ public final class Parser {
                 .collect(Collectors.toCollection(ArrayList::new));
 
         String cuisine = m.group("cuisine") != null ? m.group("cuisine").trim().substring(2) : null;
+        Integer timeTaken = getTimeTakenInteger(m);
+
+        return new AddRecipeCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
+    }
+
+    private static Integer getTimeTakenInteger(Matcher m) throws InvalidArgumentException {
         String timeTakenString = m.group("time");
 
         Integer timeTaken = null;
@@ -136,16 +137,7 @@ public final class Parser {
                 throw new InvalidArgumentException("Invalid time: " + timeTakenString);
             }
         }
-
-        if (cuisine != null && timeTaken != null) {
-            return new AddRecipeCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
-        } else if (cuisine != null){
-            return new AddRecipeCommand(new Recipe(name, ingreds, steps, cuisine));
-        } else if (timeTaken != null) {
-            return new AddRecipeCommand(new Recipe(name, ingreds, steps, timeTaken));
-        } else {
-            return new AddRecipeCommand(new Recipe(name, ingreds, steps));
-        }
+        return timeTaken;
     }
 
     /**
@@ -157,28 +149,27 @@ public final class Parser {
     private static DeleteCommand getDeleteCommand(String args) throws InvalidArgumentException {
         final Pattern deleteCommandFormat  =
                 Pattern.compile("(?<name>[nN]/[^/]+)");
-        args = args.trim();
-        Matcher m = deleteCommandFormat.matcher(args);
+        String input = args.trim();
+        Matcher m = deleteCommandFormat.matcher(input);
         if (!m.matches()) {
-            throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + DeleteCommand.USAGE_EXAMPLE);
+            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + DeleteCommand.USAGE_EXAMPLE);
         }
         String name = m.group("name").trim().substring(2);
-        // return new DeleteCommand(0);
         return new DeleteCommand(name);
     }
 
     private static SortCommand getSortCommand(String args) throws InvalidArgumentException {
         final Pattern sortCommandFormat  =
                 Pattern.compile("(?<name>[sS]/[^/]+)");
-        args = args.trim();
-        Matcher m = sortCommandFormat .matcher(args);
+        String input = args.trim();
+        Matcher m = sortCommandFormat.matcher(input);
         if (!m.matches()) {
-            throw new InvalidArgumentException("Invalid argument: " + args + "\n" + SortCommand.USAGE_EXAMPLE);
+            throw new InvalidArgumentException("Invalid argument: " + input + "\n" + SortCommand.USAGE_EXAMPLE);
         }
         String name = m.group("name").trim().substring(2);
 
         if (!name.equals("name") && !name.equals("time")) {
-            throw new InvalidArgumentException("Invalid argument: " + args + "\n" + SortCommand.USAGE_EXAMPLE);
+            throw new InvalidArgumentException("Invalid argument: " + input + "\n" + SortCommand.USAGE_EXAMPLE);
         }
 
         return new SortCommand(name);
@@ -203,10 +194,10 @@ public final class Parser {
                         // Match optional time taken: t/ or T/ followed by digits
                         + "(\\s+(?<time>[tT]/[0-9]+))?");
 
-        args = args.trim();
-        Matcher m = editCommandFormat.matcher(args);
+        String input = args.trim();
+        Matcher m = editCommandFormat.matcher(input);
         if (!m.matches()) {
-            throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + EditCommand.USAGE_EXAMPLE);
+            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + EditCommand.USAGE_EXAMPLE);
         }
 
         String name = m.group("name").trim().substring(2); // e/ or E/ are 2 chars
@@ -220,30 +211,10 @@ public final class Parser {
                 .collect(Collectors.toCollection(ArrayList::new));
 
         String cuisine = m.group("cuisine") != null ? m.group("cuisine").trim().substring(2) : null;
-        String timeTakenString = m.group("time");
+        Integer timeTaken = getTimeTakenInteger(m);
 
-        Integer timeTaken = null;
+        return new EditCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
 
-        if (timeTakenString != null) {
-            try {
-                timeTaken = Integer.parseInt(timeTakenString.trim().substring(2));
-                if (timeTaken <= 0) {
-                    throw new InvalidArgumentException("Invalid time: " + timeTakenString);
-                }
-            } catch (NumberFormatException e) {
-                throw new InvalidArgumentException("Invalid time: " + timeTakenString);
-            }
-        }
-
-        if (cuisine != null && timeTaken != null) {
-            return new EditCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
-        } else if (cuisine != null){
-            return new EditCommand(new Recipe(name, ingreds, steps, cuisine));
-        } else if (timeTaken != null) {
-            return new EditCommand(new Recipe(name, ingreds, steps, timeTaken));
-        } else {
-            return new EditCommand(new Recipe(name, ingreds, steps));
-        }
     }
 
     private static Command getFindCommand(String args) throws InvalidArgumentException {
@@ -253,10 +224,10 @@ public final class Parser {
                 Pattern.compile("(?<options>[nNiIsS]{1,3}/)?" +
                         // Query command
                         "(?<query>[^/]+)");
-        args = args.trim();
-        Matcher m = findCommandPattern.matcher(args);
+        String input = args.trim();
+        Matcher m = findCommandPattern.matcher(input);
         if (!m.matches()) {
-            throw new InvalidArgumentException("Invalid argument(s): " + args + "\n" + FindCommand.USAGE_EXAMPLE);
+            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + FindCommand.USAGE_EXAMPLE);
         }
 
         String query = m.group("query");
