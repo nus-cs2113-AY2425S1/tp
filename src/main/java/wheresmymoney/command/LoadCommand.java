@@ -22,6 +22,7 @@ public class LoadCommand extends Command {
 
     /**
      * Loads expenses and recurring expenses from csv
+     * 
      * @param expenseList
      * @param recurringExpenseList
      * @throws WheresMyMoneyException
