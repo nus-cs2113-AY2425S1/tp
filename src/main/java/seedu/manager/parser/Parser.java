@@ -39,10 +39,15 @@ public class Parser {
     private static final String INVALID_MARK_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            mark -e EVENT -s STATUS""";
+            mark -e EVENT -s STATUS
+            mark -p PARTICIPANT -e EVENT -s STATUS""";
     private static final String INVALID_EVENT_STATUS_MESSAGE = """
             Invalid event status!
             Please set the event status as either "done" or "undone"
+            """;
+    private static final String INVALID_PARTICIPANT_STATUS_MESSAGE = """
+            Invalid participant status!
+            Please set the event status as either "present" or "absent"
             """;
 
     /**
@@ -267,7 +272,7 @@ public class Parser {
             return new MarkParticipantCommand(participantName, eventName, false);
         } else {
             logger.log(WARNING,"Invalid status keyword");
-            throw new InvalidCommandException(INVALID_EVENT_STATUS_MESSAGE);
+            throw new InvalidCommandException(INVALID_PARTICIPANT_STATUS_MESSAGE);
         }
     }
 }
