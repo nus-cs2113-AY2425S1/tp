@@ -36,13 +36,13 @@ public class ParserUtils {
     public static float parseFloat(String floatString) {
         assert floatString != null : "floatString must not be null";
 
-        floatString = floatString.trim();
+        String trimmedFloatString = floatString.trim();
 
-        if (floatString.isEmpty()) {
+        if (trimmedFloatString.isEmpty()) {
             throw new IllegalArgumentException("floatString is empty.");
         }
         try {
-            return Float.parseFloat(floatString);
+            return Float.parseFloat(trimmedFloatString);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("floatString is not a valid float.");
         }
