@@ -15,7 +15,7 @@ public class MenuCommand extends Command {
             view -e EVENT: View the list of participants of an event.
             remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
             mark -e EVENT -s STATUS: Mark an event as done or not done.
-            sort -by name/time/priority.""";
+            sort -by KEYWORD: Sorts events by name/time/priority.""";
     /**
      * Constructs a new MenuCommand
      */
