@@ -47,11 +47,11 @@ public class HistoryTest {
         DailyRecord dailyrecord1 = history.getRecordByDate(date1);
         DailyRecord dailyrecord2 = history.getRecordByDate(date1);
         dailyrecord1.logDay(day1);
-        history.logDay(day2, date2);
+        dailyrecord2.logDay(day2);
 
         // Object-based comparison
-        assertEquals(day1, history.getDayByDate(date1));  // Compare Day object directly
-        assertEquals(day2, history.getDayByDate(date2));  // Compare Day object directly
+        assertEquals(day1, history.getRecordByDate(date1).getDayFromRecord());  // Compare Day object directly
+        assertEquals(day2, history.getRecordByDate(date2).getDayFromRecord());  // Compare Day object directly
     }
 
     @Test
@@ -63,17 +63,17 @@ public class HistoryTest {
     @Test
     public void testOverwriteDay() {
         // Log day1 with date1, then log another day with the same date to overwrite
-        history.logDay(day1, date1);
+        history.getRecordByDate(date1).logDay(day1);
 
         // Modify day1 with a different exercise
         Day modifiedDay = new Day("Day 1");
         modifiedDay.insertExercise(new Exercise(3, 12, 15, "Bicep_Curl"));
 
         // Log the modified day with the same date
-        history.logDay(modifiedDay, date1);
+        history.getRecordByDate(date1).logDay(modifiedDay);
 
         // Object-based comparison
-        assertEquals(modifiedDay, history.getDayByDate(date1));  // Compare the updated Day object
+        assertEquals(modifiedDay, history.getRecordByDate(date1).getDayFromRecord());  // Compare the updated Day object
     }
 }
 
