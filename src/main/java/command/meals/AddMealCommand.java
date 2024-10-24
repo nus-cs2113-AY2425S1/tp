@@ -3,22 +3,22 @@ package command.meals;
 import command.CommandResult;
 import history.History;
 import meal.Meal;
-import meal.MealList;
-import java.util.Date;
+import java.time.LocalDate;
+import dailyrecord.DailyRecord;
 
 public class AddMealCommand extends MealCommand {
 
     protected final Meal mealToAdd;
-    protected final Date date;
+    protected final LocalDate date;
 
-    public AddMealCommand(Meal meal, Date date) {
+    public AddMealCommand(Meal meal, LocalDate date) {
         this.mealToAdd = meal;
         this.date = date;
     }
 
     public CommandResult execute(History history) {
-        MealList meals = getMealList(history);
-        meals.addMeal(mealToAdd);
+        DailyRecord dailyRecord = history.getRecordByDate(date);
+        dailyRecord.addMealList(mealToAdd);
 
         return new CommandResult(mealToAdd + " has been added");
     }

@@ -5,16 +5,19 @@ import command.CommandResult;
 import history.History;
 import meal.MealList;
 import programme.ProgrammeList;
+import dailyrecord.DailyRecord;
+
+import java.time.LocalDate;
 
 public abstract class MealCommand extends Command {
 
     public MealCommand(){}
 
     // Helper method to get the meal list from history
-    protected MealList getMealList(History history) {
-        // Record record = history.get(date);
+    protected MealList getMealList(History history, LocalDate date) {
+        DailyRecord dailyRecord = history.getRecordByDate(date);
         MealList meals = new MealList();
-        // meals = record.getMealList();
+        meals = dailyRecord.getMealList();
         return meals;
     }
 

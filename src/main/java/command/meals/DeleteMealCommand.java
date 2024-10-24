@@ -1,23 +1,23 @@
 package command.meals;
 
 import command.CommandResult;
+import dailyrecord.DailyRecord;
 import history.History;
-import meal.MealList;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class DeleteMealCommand extends MealCommand {
 
     protected final int indexMealToDelete;
-    protected final Date date;
+    protected final LocalDate date;
 
-    public DeleteMealCommand(int index, Date date) {
+    public DeleteMealCommand(int index, LocalDate date) {
         this.indexMealToDelete = index;
         this.date = date;
     }
 
     public CommandResult execute(History history) {
-        MealList meals = getMealList(history);
-        meals.deleteMeal(indexMealToDelete);
+        DailyRecord dailyRecord = history.getRecordByDate(date);
+        dailyRecord.deleteMealFromMealList(indexMealToDelete);
 
         return new CommandResult(indexMealToDelete + " has been added");
     }
