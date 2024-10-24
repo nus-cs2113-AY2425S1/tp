@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class ParserTest {
+public class CommandParserTest {
 
     private CommandParser parser;
 

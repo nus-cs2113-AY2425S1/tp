@@ -1,4 +1,4 @@
-package parser;
+package parser.utils;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static parser.util.StringParser.parseIndex;
 
-public class IndexParserTest {
+public class StringParserTest {
 
     @Test
     public void testParseIndex_validInput() {
