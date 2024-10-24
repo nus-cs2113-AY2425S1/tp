@@ -8,6 +8,21 @@
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+### Architecture
+
+#### Main components of the architecture
+`YMFC` (consisting of `YMFC` class) is in charge of app launch and shut down. 
+- At app launch, it initialises the other components in the correct sequence, and connects them up with each other.
+
+The bulk of the app's work is done by the following components:
+- `UI`: The UI of the App. It handles user interaction, including reading commands and displaying responses.
+- `Storage`: Reads data from, and writes data to, the hard disk. Responsible for loading and saving both recipes and ingredients.
+- `Parser`: The command parser. It interprets user inputs, turning them into `Command` objects that are executed by the app. 
+- `Command`: Represents actions that the user can perform, such as adding, deleting or listing recipes and ingredients.
+- `RecipeList` and `IngredientList`: These manage collections of recipes and ingredients, respectively. 
+
+Todo: Add sequence diagram to illustrate application start up flow and command execution flow. 
+
 ### Ui Class
 
 ### Recipe Class
