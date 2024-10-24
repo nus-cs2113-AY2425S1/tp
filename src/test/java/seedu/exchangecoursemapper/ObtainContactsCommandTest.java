@@ -31,7 +31,7 @@ public class ObtainContactsCommandTest {
     public void fileReadError_failure() {
         String expectedOutput = "Error reading the file.";
         try {
-            JsonReader jsonReader = Json.createReader(new FileReader("./data/fake.json")); // This should throw FileNotFoundException
+            JsonReader jsonReader = Json.createReader(new FileReader("./data/fake.json"));
             jsonReader.close();
         } catch (FileNotFoundException e) {
             System.err.println(Exception.fileReadError());
@@ -43,10 +43,8 @@ public class ObtainContactsCommandTest {
     @Test
     public void execute_validEmail_success() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
-        JsonObject jsonObject = jsonReader.readObject();
         jsonReader.close();
 
-        // Simulate valid user input for email of Chulalongkorn University
         String userInput = "obtain Chulalongkorn University /email";
         obtainContactsCommand.execute(userInput);
 
@@ -57,10 +55,8 @@ public class ObtainContactsCommandTest {
     @Test
     public void execute_validNumber_success() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
-        JsonObject jsonObject = jsonReader.readObject();
         jsonReader.close();
 
-        // Simulate valid user input for number of Chulalongkorn University
         String userInput = "obtain Chulalongkorn University /number";
         obtainContactsCommand.execute(userInput);
 
@@ -74,7 +70,6 @@ public class ObtainContactsCommandTest {
         JsonObject jsonObject = jsonReader.readObject();
         jsonReader.close();
 
-        // Simulate user input with an invalid university name
         String userInput = "NUS";
         String name = obtainContactsCommand.getSchoolName(userInput);
         obtainContactsCommand.findMatchingSchool(jsonObject, name);
@@ -85,7 +80,6 @@ public class ObtainContactsCommandTest {
 
     @Test
     public void execute_invalidInputFormat_throwsException() {
-        // Simulate invalid user input (missing contact type)
         String userInput = " ";
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -98,10 +92,8 @@ public class ObtainContactsCommandTest {
     @Test
     public void execute_invalidContactType_displaysError() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
-        JsonObject jsonObject = jsonReader.readObject();
         jsonReader.close();
 
-        // Simulate user input with an invalid contact type (e.g., fax)
         String userInput = "obtain Chulalongkorn University /fax";
         obtainContactsCommand.execute(userInput);
 
