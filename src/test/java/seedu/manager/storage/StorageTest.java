@@ -38,7 +38,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testLoadEvents_FileNotExists() {
+    public void testLoadEventsFileNotExists() {
         Storage nonExistentFileStorage = new Storage(NON_EXISTENT_FILE_PATH);
 
         IOException exception = assertThrows(IOException.class, () -> {
