@@ -1,9 +1,8 @@
-Error reading file
 Welcome to Java Ninja!
 'view' to view topics
-'select' to select a topic
-'review' to review the past result
+'select [topic]' to select a topic
+'review' to review past results
 'help' for a list of commands
-'quit' to exit the programme
-Loops
-FITB
+'quit' to exit the program
+'exit' to exit the quiz, activate only while doing the quiz
+> Goodbye!
