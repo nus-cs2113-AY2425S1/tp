@@ -3,17 +3,10 @@ package command.meals;
 import command.Command;
 import command.CommandResult;
 import history.History;
-import meal.Meal;
 import meal.MealList;
 import programme.ProgrammeList;
 
 public abstract class MealCommand extends Command {
-
-    protected Meal meal;
-
-    public MealCommand(Meal meal) {
-        this.meal = meal;
-    }
 
     public MealCommand(){};
 

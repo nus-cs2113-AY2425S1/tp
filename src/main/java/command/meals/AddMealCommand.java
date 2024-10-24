@@ -12,7 +12,6 @@ public class AddMealCommand extends MealCommand {
     protected final Date date;
 
     public AddMealCommand(Meal meal, Date date) {
-        super(meal);
         this.mealToAdd = meal;
         this.date = date;
     }

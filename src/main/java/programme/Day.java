@@ -11,6 +11,15 @@ public class Day {
     private final String name;
     private final ArrayList<Exercise> exercises;
 
+    public Day(String name){
+        assert name != null && !name.isEmpty() : "Name cannot be null or empty";
+
+        this.name = name;
+        this.exercises = new ArrayList<>();
+
+        logger.log(Level.INFO, "Day created with empty exercise list: {0}", this);
+    }
+
     public Day(String name, ArrayList<Exercise> exercises) {
         assert name != null && !name.isEmpty() : "Name cannot be null or empty";
         assert exercises != null : "Exercises list cannot be null";
@@ -19,15 +28,6 @@ public class Day {
         this.name = name;
 
         logger.log(Level.INFO, "Day created: {0}", this);
-    }
-
-    public Day(String name){
-        assert name != null && !name.isEmpty() : "Name cannot be null or empty";
-
-        this.name = name;
-        this.exercises = new ArrayList<>();
-
-        logger.log(Level.INFO, "Day created with empty exercise list: {0}", this);
     }
 
     public String getName() {
@@ -78,6 +78,7 @@ public class Day {
         return toBeDeleted;
     }
 
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -89,6 +90,11 @@ public class Day {
         }
 
         return result.append("\n").toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, exercises);
     }
 
     @Override
@@ -104,9 +110,6 @@ public class Day {
                 Objects.equals(exercises, day.exercises);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, exercises);
-    }
+
 }
 
