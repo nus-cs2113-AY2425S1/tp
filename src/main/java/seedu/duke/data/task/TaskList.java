@@ -71,6 +71,7 @@ public class TaskList {
             throw new DuplicateTaskException();
         }
         tasks.add(task);
+        setCompletionRate(calCompletionRate());
     }
 
     /**
@@ -95,12 +96,15 @@ public class TaskList {
         setCompletionRate(calCompletionRate());
     }
 
-    public TaskList findTasks(String keyword) throws DuplicateTaskException {
-        TaskList matchingTasks = new TaskList();
+    public ArrayList<Task> findTasks(String keyword) throws TaskNotFoundException {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
-                matchingTasks.addTask(task);
+                matchingTasks.add(task);
             }
+        }
+        if (matchingTasks.isEmpty()) {
+            throw new TaskNotFoundException();
         }
         return matchingTasks;
     }
@@ -169,8 +173,6 @@ public class TaskList {
     public void printList() {
         System.out.println(this);
     }
-
-
 
     public static class TaskNotFoundException extends Exception {
         public TaskNotFoundException() {

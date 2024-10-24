@@ -1,0 +1,35 @@
+@startuml
+actor User
+User -> UI : Inputs 'add John Doe'
+activate UI
+
+UI -> Logic : Passes input to Logic
+activate Logic
+
+Logic -> Parser : parseCommand("add John Doe")
+activate Parser
+
+alt State is MAIN_STATE
+    Parser -> AddPatientCommand : new AddPatientCommand("John Doe")
+    activate AddPatientCommand
+
+    AddPatientCommand -> Model : isDuplicatePatient("John Doe")
+    activate Model
+    Model --> AddPatientCommand : Returns false (if no duplicate)
+    deactivate Model
+
+    AddPatientCommand -> Model : addPatient("John Doe")
+    deactivate AddPatientCommand
+    Model -> Storage : saveHospitalData()
+    activate Storage
+    deactivate Storage
+
+    AddPatientCommand -> UI : Display success message
+else State is not MAIN_STATE
+    Parser -> UI : Display error message
+end
+
+deactivate Parser
+deactivate Logic
+deactivate UI
+@enduml
