@@ -2,11 +2,9 @@ package command.meals;
 
 import command.CommandResult;
 import history.History;
-import meal.Meal;
 import meal.MealList;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class DeleteMealCommand extends MealCommand {
     public static final String COMMAND_WORD = "delete";
