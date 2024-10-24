@@ -1,20 +1,13 @@
 package fittrack.ui;
 
+import fittrack.reminder.Reminder;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static fittrack.messages.Messages.ADD_SESSION_MESSAGE;
-import static fittrack.messages.Messages.DELETE_SESSION_MESSAGE;
-import static fittrack.messages.Messages.EXIT_MESSAGE;
-import static fittrack.messages.Messages.HELP_MESSAGE;
-import static fittrack.messages.Messages.INIT_SENTENCE;
-import static fittrack.messages.Messages.INVALID_INPUT_MESSAGE;
-import static fittrack.messages.Messages.LIST_EMPTY_MESSAGE;
-import static fittrack.messages.Messages.LIST_MESSAGE;
-import static fittrack.messages.Messages.SEPARATOR;
+import static fittrack.messages.Messages.*;
 
 public class Ui {
     /**
@@ -87,7 +80,7 @@ public class Ui {
             return;
         }
         int index = 0;
-        System.out.println(LIST_MESSAGE);
+        System.out.println(LIST_SESSION_MESSAGE);
         while (index < sessionList.size()) {
             System.out.print(index + 1 + ". ");
             sessionList.get(index).printSessionDescription();
@@ -111,6 +104,58 @@ public class Ui {
 
         System.out.println("There are " + sessionList.size() + " sessions in the list.");
     }
+
+    private static void printReminderCount(ArrayList<Reminder> reminderList) {
+        assert reminderList != null : "Reminder list must not be null";
+
+        System.out.println("There are " + reminderList.size() + " reminders in the list.");
+    }
+
+    public static void printAddedReminder(ArrayList<Reminder> reminderList) {
+        assert reminderList != null : "Reminder list must not be null";
+        assert !reminderList.isEmpty() : "Reminder list must not be empty";
+
+        beginSegment();
+        System.out.println(ADD_REMINDER_MESSAGE);
+        System.out.print(reminderList.size() + ". ");
+        reminderList.get(reminderList.size() - 1).printReminderDescription();
+        printReminderCount(reminderList);
+        endSegment();
+    }
+
+
+
+    public static void printDeletedReminder(ArrayList<Reminder> reminderList, Reminder reminderToDelete) {
+        assert reminderList != null : "Session list must not be null";
+        assert reminderToDelete != null : "Session to delete must not be null";
+
+        beginSegment();
+        System.out.print(DELETE_SESSION_MESSAGE);
+        reminderToDelete.printReminderDescription();
+        printReminderCount(reminderList);
+        endSegment();
+    }
+
+    public static void printReminderList(ArrayList<Reminder> reminderList) {
+        assert reminderList != null : "Reminder list must not be null";
+
+        beginSegment();
+        if (reminderList.isEmpty()) {
+            System.out.println(LIST_EMPTY_MESSAGE);
+            endSegment();
+            return;
+        }
+        int index = 0;
+        System.out.println(LIST_REMINDER_MESSAGE);
+        while (index < reminderList.size()) {
+            System.out.print(index + 1 + ". ");
+            reminderList.get(index).printReminderDescription();
+            index++;
+        }
+        printReminderCount(reminderList);
+        endSegment();
+    }
+
 
     public static void printUnrecognizedInputMessage() {
         beginSegment();
