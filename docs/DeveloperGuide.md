@@ -6,7 +6,6 @@
     - [Table of Contents](#table-of-contents)
     - [Acknowledgements](#acknowledgements)
     - [Design \& Implementation](#design--implementation)
-        - [UI and Parser](#ui-and-parser)
     - [User Stories](#user-stories)
     - [Product scope](#product-scope)
         - [Target user profile](#target-user-profile)
@@ -32,9 +31,75 @@ WheresMyMoney uses the following tools for development:
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+
+Design and Implementation has been broken down into various sections, each tagged for ease of reference:
+
+- [UI and Parser](#ui-and-parser)
+- [Commands](#commands)
 
 ### UI and Parser
+
+<u>Overview</u>
+
+The Ui class handles I/O operations such as displaying messages and reading user input.
+The Parser parses user input and returns the relevant Command Object. 
+Both these classes are important for allowing the User to interact with the application.
+
+<u>Methods</u>
+
+The `Ui` class has the following key methods:
+
+| Method           | Description                   |
+|------------------|-------------------------------|
+| `displayMessage` | Displays a message (`String`) |
+| `getUserInput`   | Reads User Input              |
+
+The Parser class has the following key method:
+
+| Method                 | Description                                               |
+|------------------------|-----------------------------------------------------------|
+| `parseInputToCommand`  | Parses a given user input and returns the related Command |
+
+<u>Design Considerations</u>
+
+Low-level I/O operations (eg. stdio) are consolidated in the Ui class such that we can easily switch the I/O methods by 
+modifying only the Ui class. This would make it easier to port the application to other platforms if needed.
+
+Ui class is used as part of exception handling for displaying of error messages to the user for feedback.
+
+### Commands
+
+#### Overview
+
+The abstract Command class has been implemented to introduce an additional layer of abstraction between I/O and command execution, allowing for separation of handling command keywords and executing commands.
+
+
+<u>Implementation Details</u>
+
+The following diagram is an inheritance diagram for Command and its children classes. 
+This has been heavily simplified and only shows the key commands.
+
+![CommandInheritance.png](diagrams%2Fimages%2FCommandInheritance.png)
+
+
+The following diagram is a sequence diagram for execution of Command.
+
+![CommandExecutionSequence.png](diagrams%2Fimages%2FCommandExecutionSequence.png)
+
+### Exceptions and Logging
+
+<u>Overview</u>
+
+The program implements Exception handling and Logging with the WheresMyMoneyException and Logging classes.
+
+<u>Implementation Details</u>
+
+WheresMyMoneyException has various children classes, such as `StorageException` and `InvalidInputException`. 
+These children classes are meant to provide more information on the error to the developer (beyond the message) such 
+that exception handling in the program could be better targetted in the future.
+
+The Logging class is implemented as a Singleton for ease of use. 
+Developers can log down certain actions in the program by simply calling the relevant class method `log(Level, String)`. 
 
 
 ## Product scope
@@ -50,14 +115,19 @@ The application can provide summaries and statistical insights to spending habit
 
 ## User Stories
 
-| Version | As a ... | I want to ...             | So that I can ...                                                  |
-|---------|----------|---------------------------|--------------------------------------------------------------------|
-| v1.0    | user     | add expenses              | track how much money I have spent so far                           |
-| v1.0    | user     | delete expenses           | clear wrong expenses to ensure expense tracking is accurate        |
-| v1.0    | user     | edit expenses             | correct inaccurate expenses to ensure expense tracking is accurate |
-| v1.0    | user     | list expenses             | track my spending                                                  |
-| v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application             |
-
+| Version | As a ...    | I want to ...                                                                  | So that I can ...                                                  |
+|---------|-------------|--------------------------------------------------------------------------------|--------------------------------------------------------------------|
+| v1.0    | user        | add expenses                                                                   | track how much money I have spent so far                           |
+| v1.0    | user        | delete expenses                                                                | clear wrong expenses to ensure expense tracking is accurate        |
+| v1.0    | user        | edit expenses                                                                  | correct inaccurate expenses to ensure expense tracking is accurate |
+| v1.0    | user        | list expenses                                                                  | track my spending                                                  |
+| v1.0    | new user    | see usage instructions                                                         | refer to them when I forget how to use the application             |
+| v2.0    | user        | save and load my expenses from a file                                          | retain memory of past expenses from past runs of the program       |
+| v2.0    | frugal user | set spending limits for each category and month                                | control my spending                                                |
+| v2.0    | frugal user | be alerted when I exceed spending limits for each category and month           | control my spending                                                |
+| v2.0    | user        | visualise my spending in the form of graphs                                    | better conceptualise and understand spending trends and patterns   |
+| v2.0    | user        | detailed statistical information about my spending (such as mean, median etc.) | better quantify and understand spending trends and patterns        |
+| v2.0    | user        | add recurring expenses                                                         | automate expense tracking and make it more convenient              |
 
 ## Non-Functional Requirements
 
