@@ -2,12 +2,14 @@
   "patients" : [ {
     "name" : "Alice",
     "taskList" : {
-      "tasks" : [ ]
+      "tasks" : [ ],
+      "completionRate" : "100.00%"
     }
   }, {
     "name" : "Bob",
     "taskList" : {
-      "tasks" : [ ]
+      "tasks" : [ ],
+      "completionRate" : "100.00%"
     }
   } ]
 }

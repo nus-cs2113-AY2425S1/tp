@@ -13,12 +13,12 @@ public class FindTaskCommand extends Command{
     public static final String MESSAGE_SUCCESS = "Here are the matching tasks in your list: \n%1$s";
     public static final String MESSAGE_NO_MATCH = "There are no matching tasks in your list.";
 
-    public static final Logger logger = Logger.getLogger(FindTaskCommand.class.getName());
+    public static final Logger LOGGER = Logger.getLogger(FindTaskCommand.class.getName());
     
     private final String keyword;
 
     static {
-        logger.setLevel(Level.SEVERE); // Only show warnings and errors
+        LOGGER.setLevel(Level.SEVERE); // Only show warnings and errors
     }
     public FindTaskCommand(String keyword) {
         this.keyword = keyword;
@@ -32,7 +32,7 @@ public class FindTaskCommand extends Command{
             ArrayList<Task> foundTasks = tasks.findTasks(keyword);
             return new CommandResult(String.format(MESSAGE_SUCCESS, foundListToString(foundTasks)));
         } catch (TaskList.TaskNotFoundException e) {
-            logger.log(Level.SEVERE, "No matching tasks found: {0}", keyword);
+            LOGGER.log(Level.SEVERE, "No matching tasks found: {0}", keyword);
             return new CommandResult(MESSAGE_NO_MATCH);
         } 
     }
