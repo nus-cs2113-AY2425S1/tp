@@ -69,6 +69,21 @@ public class ObtainContactsCommandTest {
     }
 
     @Test
+    public void execute_invalidUniversity_displaysError() throws IOException {
+        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
+        JsonObject jsonObject = jsonReader.readObject();
+        jsonReader.close();
+
+        // Simulate user input with an invalid university name
+        String userInput = "NUS";
+        String name = obtainContactsCommand.getSchoolName(userInput);
+        obtainContactsCommand.findMatchingSchool(jsonObject, name);
+
+        String expectedOutput = "Unknown university - NUS";
+        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+    }
+
+    @Test
     public void execute_invalidInputFormat_throwsException() {
         // Simulate invalid user input (missing contact type)
         String userInput = " ";
