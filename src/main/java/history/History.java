@@ -133,7 +133,7 @@ public class History {
         StringBuilder historyString = new StringBuilder();
 
         if (history.isEmpty()) {
-            return "No workout history available.";
+            return "No history available.";
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -142,7 +142,6 @@ public class History {
         for (LocalDate date : history.keySet()) {
             DailyRecord dailyRecord = history.get(date);
 
-            // Use the Day class's toString directly
             historyString.append(dailyRecord.toString());
 
             // Append the formatted date at the end

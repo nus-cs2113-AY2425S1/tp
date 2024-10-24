@@ -14,7 +14,7 @@ public class HistoryCommand extends Command {
     public CommandResult execute(ProgrammeList pList, History history){
         assert history != null : "History must not be null";
 
-        String result = String.format("Your workout history: %s%n", history.toString());
+        String result = String.format("Your workout history: %s%n", history);
         logger.log(Level.INFO, "HistoryCommand executed successfully.");
         return new CommandResult(result);
     }
