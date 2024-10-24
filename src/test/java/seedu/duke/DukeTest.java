@@ -93,4 +93,25 @@ class BudgetTest {
         Budget budget = new Budget(category, 100);
         assertThrows(IllegalArgumentException.class, () -> budget.setLimit(-50));
     }
+
+    @Test
+    public void formatWholeNumberLimit() {
+        Category category = new Category("Groceries");
+        Budget budget = new Budget(category, 100);
+        assertEquals("$100", budget.formatLimit(100));
+    }
+
+    @Test
+    public void formatDecimalLimit() {
+        Category category = new Category("Groceries");
+        Budget budget = new Budget(category, 99.99);
+        assertEquals("$99.99", budget.formatLimit(99.99));
+    }
+
+    @Test
+    public void formatMoreThan2DPLimit() {
+        Category category = new Category("Groceries");
+        Budget budget = new Budget(category, 55.555);
+        assertEquals("$55.56", budget.formatLimit(55.555));
+    }
 }
