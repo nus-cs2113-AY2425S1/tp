@@ -1,7 +1,8 @@
-package parser;
+package parser.command;
 
 import command.Command;
 import command.InvalidCommand;
+import parser.FlagParser;
 import programme.Day;
 import programme.Exercise;
 
@@ -16,23 +17,26 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static parser.IndexParser.parseIndex;
+import static parser.ParserUtils.parseIndex;
+import static parser.ParserUtils.splitArguments;
 
-public class ProgCommandParser {
+
+/*
+    ProgCommandFactory is a factory class that creates all programme related commands
+    This class also contains helper functions i.e. parseDay, parseExercise
+    that are common to programme related commands.
+ */
+
+public class ProgCommandFactory {
     public static final String COMMAND_WORD = "prog";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     public Command parse(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        String[] inputArguments = argumentString.split(" ", 2);
-
+        String[] inputArguments = splitArguments(argumentString);
         String subCommandString = inputArguments[0];
-        String arguments = "";
-
-        if (inputArguments.length > 1 ){
-            arguments = inputArguments[1];
-        }
+        String arguments = inputArguments[1];
 
         logger.log(Level.INFO, "Parsed sub-command: {0}, with arguments: {1}",
                 new Object[]{subCommandString, arguments});
@@ -47,11 +51,9 @@ public class ProgCommandParser {
         default -> new InvalidCommand();
         };
     }
-
     private Command prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        // Regex: Split string by / except when followed by n, r, s, w, e
         String[] args = argumentString.split("/(?![nrswe])");
         EditCommand editCommand = new EditCommand();
 
@@ -109,8 +111,6 @@ public class ProgCommandParser {
                 throw new IllegalArgumentException("Unknown flag: " + flag);
             }
         }
-
-        logger.log(Level.INFO, "EditCommand prepared successfully");
         return editCommand;
     }
 
@@ -134,11 +134,41 @@ public class ProgCommandParser {
         return new CreateCommand(progName, days);
     }
 
-    private Day parseDay(String dayString) {
+    private Command prepareViewCommand(String argumentString) {
+        assert argumentString != null : "Argument string must not be null";
+
+        int progIndex = parseIndex(argumentString);
+
+        logger.log(Level.INFO, "ViewCommand prepared successfully");
+        return new ViewCommand(progIndex);
+    }
+
+    private Command prepareStartCommand(String argumentString) {
+        assert argumentString != null : "Argument string must not be null";
+
+        int progIndex = parseIndex(argumentString);
+
+        logger.log(Level.INFO, "StartCommand prepared successfully");
+        return new StartCommand(progIndex);
+    }
+
+    private Command prepareDeleteCommand(String argumentString){
+        assert argumentString != null : "Argument string must not be null";
+
+        int progIndex = parseIndex(argumentString);
+
+        logger.log(Level.INFO, "DeleteCommand prepared successfully");
+        return new DeleteCommand(progIndex);
+    }
+
+    private  Day parseDay(String dayString) {
         assert dayString != null : "Day string must not be null";
 
         String[] dayParts  = dayString.split("/e");
         String dayName = dayParts[0].trim();
+        if (dayName.isEmpty()) {
+            throw new IllegalArgumentException("Day name cannot be empty. Please enter a valid day name.");
+        }
 
         Day day = new Day(dayName);
 
@@ -152,83 +182,20 @@ public class ProgCommandParser {
         return day;
     }
 
-    private Exercise parseExercise(String exerciseString) {
-        assert exerciseString != null : "Exercise string must not be null";
+    private Exercise parseExercise(String argumentString) {
+        assert argumentString != null : "Argument string must not be null";
 
-        String name = "";
-        int reps = -1;
-        int sets = -1;
-        int weight = -1;
+        FlagParser flagParser = new FlagParser(argumentString);
 
-        String[] args = exerciseString.trim().split("/(?)");
+        String name = flagParser.getStringByFlag("/n");
+        int sets = flagParser.getIntegerByFlag("/s");
+        int reps = flagParser.getIntegerByFlag("/r");
+        int weight = flagParser.getIntegerByFlag("/w");
 
-        if (args.length < 5) {
-            throw new IllegalArgumentException("Missing exercise arguments. Please provide exercise " +
-                    "name, set, rep and weight.");
-        }
+        logger.log(Level.INFO, "Parsed exercise successfully with name: {0}, set: {1}, rep: {2}" +
+                " weight: {3}", new Object[]{name, sets, reps, weight});
 
-        for (int i = 1; i < args.length; i++) {
-            String[] argParts = args[i].split(" ");
-
-            if (argParts.length != 2){
-                throw new IllegalArgumentException("Invalid create exercise command: " + args[i]);
-            }
-
-            String flag = argParts[0].trim();
-            String value = argParts[1].trim();
-
-            switch (flag) {
-            case "n":
-                name = value;
-                break;
-            case "s":
-                try {
-                    sets = Integer.parseInt(value);
-                } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Invalid sets value. It must be an integer.");
-                }
-                break;
-            case "r":
-                try {
-                    reps = Integer.parseInt(value);
-                } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Invalid reps value. It must be an integer.");
-                }
-                break;
-            case "w":
-                try {
-                    weight = Integer.parseInt(value);
-                } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Invalid weight value. It must be an integer.");
-                }
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid command flag " + flag);
-            }
-        }
-
-        logger.log(Level.INFO, "Parsed exercise successfully: {0}", name);
         return new Exercise(sets, reps, weight, name);
     }
-
-    private Command prepareViewCommand(String argumentString) {
-        assert argumentString != null : "Argument string must not be null";
-
-        int progIndex = parseIndex(argumentString);
-        return new ViewCommand(progIndex);
-    }
-
-    private Command prepareStartCommand(String argumentString) {
-        assert argumentString != null : "Argument string must not be null";
-
-        int progIndex = parseIndex(argumentString);
-        return new StartCommand(progIndex);
-    }
-
-    private Command prepareDeleteCommand(String argumentString){
-        assert argumentString != null : "Argument string must not be null";
-
-        int progIndex = parseIndex(argumentString);
-        return new DeleteCommand(progIndex);
-    }
 }
+

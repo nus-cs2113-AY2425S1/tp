@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static common.Utils.NULL_INTEGER;
+
 public class ProgrammeList {
 
     private static final Logger logger = Logger.getLogger(ProgrammeList.class.getName());
@@ -32,6 +34,10 @@ public class ProgrammeList {
     }
 
     public Programme deleteProgram(int index){
+        if (index == NULL_INTEGER){
+            index = currentActiveProgramme;
+        }
+
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for deleteProgram()", index);
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for programme list.");
@@ -44,6 +50,10 @@ public class ProgrammeList {
     }
 
     public Programme getProgramme(int index){
+        if (index == NULL_INTEGER){
+            index = currentActiveProgramme;
+        }
+
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for getProgramme()", index);
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for programme list.");
@@ -66,6 +76,10 @@ public class ProgrammeList {
     }
 
     public Day getDay(int progIndex, int dayIndex) {
+        if (progIndex == NULL_INTEGER){
+            progIndex = currentActiveProgramme;
+        }
+
         if (progIndex < 0 || progIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid programme index: {0} for getDay()", progIndex);
             throw new IndexOutOfBoundsException("Programme index " + progIndex + " is out of bounds.");
@@ -84,6 +98,10 @@ public class ProgrammeList {
     }
 
     public Day deleteDay(int progIndex, int dayIndex) {
+        if (progIndex == NULL_INTEGER){
+            progIndex = currentActiveProgramme;
+        }
+
         if (progIndex < 0 || progIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid programme index: {0} for deleteDay()", progIndex);
             throw new IndexOutOfBoundsException("Programme index " + progIndex + " is out of bounds.");
@@ -95,6 +113,10 @@ public class ProgrammeList {
     }
 
     public void insertDay(int progIndex, Day day){
+        if (progIndex == NULL_INTEGER){
+            progIndex = currentActiveProgramme;
+        }
+
         if (progIndex < 0 || progIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid programme index: {0} for insertDay()", progIndex);
             throw new IndexOutOfBoundsException("Programme index " + progIndex + " is out of bounds.");
