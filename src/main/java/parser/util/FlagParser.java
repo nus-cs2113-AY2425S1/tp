@@ -1,17 +1,21 @@
-package parser;
+package parser.util;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FlagParser {
-    private static final Logger logger = Logger.getLogger(FlagParser.class.getName());
+import static common.Utils.NULL_INTEGER;
+import static parser.util.StringParser.parseDate;
+import static parser.util.StringParser.parseInteger;
+import static parser.util.StringParser.parseIndex;
 
+public class FlagParser {
+    private final Logger logger = Logger.getLogger(FlagParser.class.getName());
     private final Map<String, String> parsedFlags = new HashMap<>();
     private final Map<String, String> aliasMap = new HashMap<>();
-
 
     public FlagParser(String argumentString) {
         initializeAliasMap();
@@ -47,20 +51,17 @@ public class FlagParser {
         String[] args = argumentString.trim().split(" (?=/)");
         for (String arg : args) {
             String[] argParts = arg.split(" ", 2);
+
+            if (argParts.length < 2) {
+                throw new IllegalArgumentException("Please provide a valid value.");
+            }
+
             String flag = argParts[0].trim();
-            String value = "";
+            String value = argParts[1].trim();
 
-            if (argParts.length > 1) {
-                value = argParts[1].trim();
-            }
-
-            if (value.isEmpty()) {
-                throw new IllegalArgumentException("Argument " + flag + " is empty. Please provide a valid value.");
-            } else {
-                flag = resolveAlias(flag);
-                logger.log(Level.INFO, "Parsed flag: {0} with value: {1}", new Object[]{flag, value});
-                parsedFlags.put(flag, value);
-            }
+            flag = resolveAlias(flag);
+            logger.log(Level.INFO, "Parsed flag: {0} with value: {1}", new Object[]{flag, value});
+            parsedFlags.put(flag, value);
         }
     }
 
@@ -71,34 +72,41 @@ public class FlagParser {
         return flag;
     }
 
-    public String getFlagValue(String flag) {
+    public String getStringByFlag(String flag) {
         assert flag != null && !flag.isEmpty() : "Flag must not be null or empty";
 
         flag = resolveAlias(flag);
-        String value = parsedFlags.get(flag);
 
-        logger.log(Level.INFO, "Successfully retrieved value for flag {0}: {1}", new Object[]{flag, value});
-        return value;
-    }
-
-    public boolean hasFlag(String flag) {
-        assert flag != null && !flag.isEmpty() : "Flag must not be null or empty";
-
-        flag = resolveAlias(flag);
-        boolean hasFlag = parsedFlags.containsKey(flag);
-
-        logger.log(Level.INFO, "Flag {0} presence: {1}", new Object[]{flag, hasFlag});
-        return hasFlag;
-    }
-
-    public void validateRequiredFlags(FlagParser flagParser, String[] requiredFlags) {
-        assert requiredFlags != null : "Required flags string must not be null";
-
-        for (String flag : requiredFlags) {
-            flag = resolveAlias(flag);
-            if (!flagParser.hasFlag(flag)) {
-                throw new IllegalArgumentException("Required flag: " + flag + "is missing. Please provide the flag.");
-            }
+        if (!parsedFlags.containsKey(flag)) {
+            return null;
         }
+
+        String value = parsedFlags.get(flag);
+        logger.log(Level.INFO, "Successfully retrieved value for flag {0}: {1}", new Object[]{flag, value});
+        return value.trim();
+    }
+
+    public int getIndexByFlag(String flag) {
+        String indexString = getStringByFlag(flag);
+        if (indexString == null) {
+            return NULL_INTEGER;
+        }
+        return parseIndex(indexString);
+    }
+
+    public int getIntegerByFlag(String flag){
+        String intString = getStringByFlag(flag);
+        if (intString == null) {
+            return NULL_INTEGER;
+        }
+        return parseInteger(intString);
+    }
+
+    public LocalDate getDateByFlag(String flag){
+        String dateString = getStringByFlag(flag);
+        if (dateString == null) {
+            return LocalDate.now();
+        }
+        return parseDate(dateString);
     }
 }

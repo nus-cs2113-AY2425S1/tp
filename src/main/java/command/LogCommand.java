@@ -66,19 +66,12 @@ public class LogCommand extends Command {
             return false;
         }
 
+        logger.log(Level.WARNING,"LogCommand this: {0}, that: {1}", new Object[]{this.progIndex, that.progIndex});
         boolean isProgIndexEqual =  (progIndex == that.progIndex);
         boolean isDayIndexEqual = (dayIndex == that.dayIndex);
         boolean isDateEqual = Objects.equals(date, that.date);
 
         return (isProgIndexEqual && isDayIndexEqual && isDateEqual);
-    }
-
-    public int getProgrammeIndex() {
-        return progIndex;
-    }
-
-    public int getDayIndex() {
-        return dayIndex;
     }
 
     public LocalDate getDate() {

@@ -1,7 +1,8 @@
-package parser;
+package parser.subcommand;
 
 import command.Command;
 import command.InvalidCommand;
+import parser.util.FlagParser;
 import programme.Day;
 import programme.Exercise;
 
@@ -16,9 +17,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static parser.ParserUtils.parseDay;
-import static parser.ParserUtils.parseExercise;
-import static parser.ParserUtils.parseIndex;
+import static parser.util.StringParser.parseIndex;
 
 public class ProgCommandParser {
     public static final String COMMAND_WORD = "prog";
@@ -111,6 +110,7 @@ public class ProgCommandParser {
         }
         return editCommand;
     }
+
     private Command prepareCreateCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -156,6 +156,43 @@ public class ProgCommandParser {
 
         logger.log(Level.INFO, "DeleteCommand prepared successfully");
         return new DeleteCommand(progIndex);
+    }
+
+    private  Day parseDay(String dayString) {
+        assert dayString != null : "Day string must not be null";
+
+        String[] dayParts  = dayString.split("/e");
+        String dayName = dayParts[0].trim();
+        if (dayName.isEmpty()) {
+            throw new IllegalArgumentException("Day name cannot be empty. Please enter a valid day name.");
+        }
+
+        Day day = new Day(dayName);
+
+        for (int j = 1; j < dayParts.length; j++) {
+            String exerciseString = dayParts[j].trim();
+            Exercise exercise = parseExercise(exerciseString);
+            day.insertExercise(exercise);
+        }
+
+        logger.log(Level.INFO, "Parsed day successfully: {0}", dayName);
+        return day;
+    }
+
+    private Exercise parseExercise(String argumentString) {
+        assert argumentString != null : "Argument string must not be null";
+
+        FlagParser flagParser = new FlagParser(argumentString);
+
+        String name = flagParser.getStringByFlag("/n");
+        int sets = flagParser.getIntegerByFlag("/s");
+        int reps = flagParser.getIntegerByFlag("/r");
+        int weight = flagParser.getIntegerByFlag("/w");
+
+        logger.log(Level.INFO, "Parsed exercise successfully with name: {0}, set: {1}, rep: {2}" +
+                " weight: {3}", new Object[]{name, sets, reps, weight});
+
+        return new Exercise(sets, reps, weight, name);
     }
 }
 
