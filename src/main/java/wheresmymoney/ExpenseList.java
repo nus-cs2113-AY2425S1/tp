@@ -32,9 +32,9 @@ public class ExpenseList {
         return expenses.isEmpty();
     }
 
-    public Expense getExpenseAtIndex(int i) throws WheresMyMoneyException {
+    public Expense getExpenseAtIndex(int index) throws WheresMyMoneyException {
         try {
-            return expenses.get(i);
+            return expenses.get(index);
         } catch (IndexOutOfBoundsException e) {
             throw new WheresMyMoneyException("Index is out of bounds.");
         }
