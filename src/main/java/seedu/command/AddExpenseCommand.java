@@ -15,7 +15,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/", "c/"};
 
-    public static final String ERROR_MESSAGE = "Error creating Income!";
+    public static final String ERROR_MESSAGE = "Error creating Expense!";
 
     public AddExpenseCommand(TransactionList transactions) {
         super(transactions);
@@ -39,7 +39,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
         try {
             amount = Double.parseDouble(amountString);
         } catch (NumberFormatException e) {
-            return List.of("Invalid amount");
+            return List.of(ERROR_MESSAGE + ": " + "Invalid amount");
         }
 
         // Handle missing date
@@ -61,7 +61,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
             try {
                 transaction = createTransaction(amount, expenseName, dateString, category);
             } catch (Exception e) {
-                return List.of(ERROR_MESSAGE);
+                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
             }
         } else {
             try {
