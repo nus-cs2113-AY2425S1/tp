@@ -4,6 +4,7 @@ import ymfc.commands.AddIngredientCommand;
 import ymfc.commands.AddRecipeCommand;
 import ymfc.commands.ListCommand;
 import ymfc.commands.ListIngredientsCommand;
+import ymfc.exception.EmptyListException;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
 import ymfc.parser.Parser;
@@ -68,8 +69,8 @@ public class Storage {
             isEmpty = false;
             try {
                 addRecipe(recipes, line);
-            } catch (InvalidArgumentException | InvalidCommandException e) {
-                System.out.println(e.getMessage());
+            } catch (InvalidArgumentException | InvalidCommandException | EmptyListException exception) {
+                System.out.println(exception.getMessage());
             }
         }
 
@@ -89,9 +90,9 @@ public class Storage {
             String line = reader.nextLine();
             isEmpty = false;
             try {
-                addIngredient(ingredients, line);
-            } catch (InvalidArgumentException | InvalidCommandException e) {
-                System.out.println(e.getMessage());
+                addIngredient(recipes, ingredients, line);
+            } catch (InvalidArgumentException | InvalidCommandException | EmptyListException exception) {
+                System.out.println(exception.getMessage());
             }
         }
 
@@ -102,14 +103,15 @@ public class Storage {
         lister.execute(recipes, ingredients, ui, storage);
     }
 
-    private void addRecipe(RecipeList recipes, String line) throws InvalidArgumentException, InvalidCommandException {
-        AddRecipeCommand command = (AddRecipeCommand) Parser.parseCommand(line);
+    private void addRecipe(RecipeList recipes, String line)
+            throws InvalidArgumentException, InvalidCommandException, EmptyListException {
+        AddRecipeCommand command = (AddRecipeCommand) Parser.parseCommand(line, recipes);
         command.addLoadedRecipe(recipes);
     }
 
-    private void addIngredient(IngredientList ingredients, String line)
-            throws InvalidArgumentException, InvalidCommandException {
-        AddIngredientCommand command = (AddIngredientCommand) Parser.parseCommand(line);
+    private void addIngredient(RecipeList recipes, IngredientList ingredients, String line)
+            throws InvalidArgumentException, InvalidCommandException, EmptyListException {
+        AddIngredientCommand command = (AddIngredientCommand) Parser.parseCommand(line, recipes);
         command.addLoadedIngredient(ingredients);
     }
 }

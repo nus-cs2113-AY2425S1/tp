@@ -30,7 +30,7 @@ public class Ui {
             + "0. help                              -  Lists out all the available commands and their usage\n"
             + LINE
             + "\nThe following commands is for working with your recipes list\n"
-            + "1. list                              -  Lists out all the existing recipes\n"
+            + "1. listR                             -  Lists out all the existing recipes\n"
             + "2. add n/name i/ingredients s1/step  -  Adds a new recipe.\n"
             + "\t add more ingredients using more i/ tags\n"
             + "\t add more steps using more sx/ tags, where x starts from 1 and increases one by one\n"
@@ -44,11 +44,12 @@ public class Ui {
             + "6. edit e/name i/ingredients s1/step -  Edit an existing recipe's steps and ingredients\n"
             + "\t add more ingredients using more i/ tags\n"
             + "\t add more steps using more sx/ tags, where x starts from 1 and increases one by one\n"
-            + "9. bye                               -  Ends the program\n"
+            + "7. delete n/name                     - Deletes the recipe of that name\n"
+            + "8. bye                               -  Ends the program\n"
             + LINE
             + "\nThe following commands is for working with your ingredients list\n"
             + "1. new n/ingredient                  - Add a new ingredient to your list\n"
-            //+ "2. list                            - Lists out all your current ingredients\n"
+            + "2. listI                             - Lists out all your current ingredients\n"
             //+ "3. delete n/ingredient                  - Delete an existing ingredient from your list\n"
             + LINE
             + "\nGot it? Let's get back to cooking.\n";
@@ -137,6 +138,22 @@ public class Ui {
     }
 
     /**
+     * Display a newly added ingredient.
+     *
+     * @param addedIngredient Ingredient that has been added
+     * @param listCount Number of ingredients currently in the list
+     */
+    public void printAddedIngredient(String addedIngredient, int listCount) {
+        System.out.println(LINE);
+        System.out.println("\tI'll add that to your inventory:");
+        System.out.println("\t " +  addedIngredient);
+        // Conditional operator to pluralize "ingredient" when listCount above 1
+        System.out.println("\tYou currently have " + listCount +
+                (listCount <= 1 ? " ingredient" : " ingredients") + " in your inventory.");
+        System.out.println(LINE);
+    }
+
+    /**
      * Display the entire list of recipe.
      *
      * @param list ArrayList of recipes to be displayed
@@ -199,5 +216,13 @@ public class Ui {
         printListWithOrder(list, listCount);
         System.out.println("\tTotal: " + listCount + " recipes found!");
         System.out.println(LINE);
+    }
+
+    public String getLine() {
+        return LINE;
+    }
+
+    public String getListOfCommands() {
+        return listOfCommands;
     }
 }

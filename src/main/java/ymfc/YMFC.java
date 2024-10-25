@@ -42,15 +42,15 @@ public class YMFC {
             userInput = ui.readCommand();
 
             try {
-                Command command = Parser.parseCommand(userInput);
+                Command command = Parser.parseCommand(userInput, recipeList);
                 command.execute(recipeList, ingredientList, ui, storage);
 
                 if (command.isBye()) {
                     saidBye = true;
                     logger.log(Level.INFO, "User said bye");
                 }
-            } catch (Exception e) {
-                ui.printErrorMessage(e.getMessage());
+            } catch (Exception exception) {
+                ui.printErrorMessage(exception.getMessage());
             }
         }
         logger.log(Level.FINE, "Ending YMFC");

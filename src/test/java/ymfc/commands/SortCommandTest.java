@@ -67,9 +67,9 @@ public class SortCommandTest {
         applePieIngredients.add("Apple");
         applePieIngredients.add("Pie");
         ArrayList<String> applePieSteps = new ArrayList<>();
-        applePieSteps.add("Chop veggies.");
-        applePieSteps.add("Add pasta.");
-        applePieSteps.add("Toss with dressing.");
+        applePieSteps.add("Chop apples.");
+        applePieSteps.add("Put apples in pie.");
+        applePieSteps.add("Bake pie.");
 
         Recipe applePieRecipe = new Recipe("apple pie", applePieIngredients, applePieSteps, 3);
 
