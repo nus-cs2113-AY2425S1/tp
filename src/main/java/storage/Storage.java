@@ -98,7 +98,7 @@ public class Storage {
                 .create();
 
         JsonObject historyJson = new JsonObject();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LinkedHashMap<LocalDate, DailyRecord> historyMap = history.getHistory(); //To access the Hashmap
 
         for (LocalDate date : historyMap.keySet()) {
@@ -114,7 +114,7 @@ public class Storage {
                 .registerTypeAdapter(LocalDate.class, new DateSerializer())  // Custom deserializer for LocalDate
                 .create();
         History history = new History();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LinkedHashMap<LocalDate, DailyRecord> historyMap = history.getHistory(); //To access the Hashmap
 
 
