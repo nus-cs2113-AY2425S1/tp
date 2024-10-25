@@ -87,6 +87,8 @@ public class SeeAllExpensesCommandTest {
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense1 + System.lineSeparator() +
                 "2. " + expense2 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total expense: $ 15.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -111,6 +113,8 @@ public class SeeAllExpensesCommandTest {
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense2 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total expense: $ 5.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -135,6 +139,8 @@ public class SeeAllExpensesCommandTest {
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense1 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total expense: $ 10.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -162,6 +168,8 @@ public class SeeAllExpensesCommandTest {
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense3 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total expense: $ 15.50" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
