@@ -20,10 +20,15 @@
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ... | I want to ...                                  | So that I can ...                                  |
+|---------|----------|------------------------------------------------|----------------------------------------------------|
+| v1.0    | user     | delete a fitness routine if I no longer use it | ensure my routines remain relevant and organized.  |
+| v1.0    | user     | edit my existing fitness routine               | further customize my routines after making them.   |
+| v2.0    | user     | view a summary of my weekly workout activity   | measure my overall progress.                       |
+| v2.0    | user     | track my personal bests for each exercise      | see improvements over time.                        |
+| v2.0    | user     | log my body measurements                       | track calories burned/intake/gains more accurately |
+
+
 
 ## Non-Functional Requirements
 
