@@ -13,6 +13,7 @@ import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_LIST_SCH
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_COMMANDS;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_ADD;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_BYE;
+import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_OBTAIN;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
 public class HelpCommand extends Command {
@@ -46,6 +47,7 @@ public class HelpCommand extends Command {
         case "add":
         case "commands":
         case "bye":
+        case "obtain":
             return command;
         default:
             logger.log(Level.WARNING, Logs.INVALID_COMMAND + command);
@@ -74,6 +76,9 @@ public class HelpCommand extends Command {
             break;
         case "bye":
             System.out.println(COMMAND_BYE);
+            break;
+        case "obtain":
+            System.out.println(COMMAND_OBTAIN);
             break;
         default:
             logger.log(Level.SEVERE, Logs.INVALID_COMMAND + command);

@@ -23,4 +23,10 @@ public class HelpMessages {
             "add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE>\n" +
             "e.g. add CS2040 /pu The university of western australia /coursepu CITS2200";
     public static final String COMMAND_BYE = "To exit the program.";
+    public static final String COMMAND_OBTAIN = "The obtain function allows users to obtain information of Partner\n" +
+            "Universities such as PU's email and PU's contact number.\n" +
+            "To format to use this feature is shown below:\n" +
+            "1. obtain <SCHOOL_NAME> /email - To obtain PU's email\n" +
+            "2. obtain <SCHOOL_NAME> /number - To obtain PU's contact number\n" +
+            "e.g. obtain the university of western australia /number";
 }
