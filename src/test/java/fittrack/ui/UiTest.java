@@ -42,8 +42,9 @@ public class UiTest {
     public void testPrintUser() {
         User user = new User(Gender.MALE.toString(), "12");
         Ui.printUser(user);
-        assertEquals(SEPARATOR + System.lineSeparator() + "You are a 12 year old male." + System.lineSeparator()
-                + SEPARATOR + System.lineSeparator() + System.lineSeparator(), outputStreamCaptor.toString());
+        assertEquals(SEPARATOR + System.lineSeparator() + "You are a 12 year old male."
+                + System.lineSeparator() + SEPARATOR + System.lineSeparator() + System.lineSeparator(),
+                outputStreamCaptor.toString());
     }
 
     @Test
@@ -66,17 +67,18 @@ public class UiTest {
         TrainingSession session = new TrainingSession(LocalDateTime.now(), "test1", user);
         sessions.add(session);
         Ui.printDeletedSession(sessions, session);
-        assertEquals(SEPARATOR + System.lineSeparator() + DELETE_SESSION_MESSAGE + session.getSessionDescription()
-                + System.lineSeparator() + "There are 1 sessions in the list." + System.lineSeparator()
-                + SEPARATOR + System.lineSeparator() + System.lineSeparator(), outputStreamCaptor.toString());
+        assertEquals(SEPARATOR + System.lineSeparator() + DELETE_SESSION_MESSAGE
+                + session.getSessionDescription() + System.lineSeparator() + "There are 1 sessions in the list."
+                + System.lineSeparator() + SEPARATOR + System.lineSeparator() + System.lineSeparator(),
+                outputStreamCaptor.toString());
     }
 
     @Test
     public void testPrintSessionListEmpty() {
         ArrayList<TrainingSession> sessions = new ArrayList<>();
         Ui.printSessionList(sessions);
-        assertEquals(SEPARATOR + System.lineSeparator() + LIST_SESSION_EMPTY_MESSAGE + System.lineSeparator() + SEPARATOR
-                + System.lineSeparator()+ System.lineSeparator(), outputStreamCaptor.toString());
+        assertEquals(SEPARATOR + System.lineSeparator() + LIST_SESSION_EMPTY_MESSAGE + System.lineSeparator()
+                + SEPARATOR + System.lineSeparator()+ System.lineSeparator(), outputStreamCaptor.toString());
     }
 
     @Test

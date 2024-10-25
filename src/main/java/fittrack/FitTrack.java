@@ -13,7 +13,12 @@ import static fittrack.logger.FitTrackLogger.setupLogger;
 import static fittrack.messages.Messages.EXIT_COMMAND;
 import static fittrack.storage.Storage.initialiseSaveFile;
 import static fittrack.storage.Storage.loadSaveFile;
-import static fittrack.ui.Ui.*;
+import static fittrack.ui.Ui.printExitMessage;
+import static fittrack.ui.Ui.printGreeting;
+import static fittrack.ui.Ui.printHelp;
+import static fittrack.ui.Ui.printUpcomingReminders;
+import static fittrack.ui.Ui.printUser;
+
 
 public class FitTrack {
     /**

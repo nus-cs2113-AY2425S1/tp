@@ -7,7 +7,21 @@ import fittrack.user.User;
 import java.util.ArrayList;
 import java.util.List;
 
-import static fittrack.messages.Messages.*;
+
+import static fittrack.messages.Messages.ADD_REMINDER_MESSAGE;
+import static fittrack.messages.Messages.ADD_SESSION_MESSAGE;
+import static fittrack.messages.Messages.DELETE_REMINDER_MESSAGE;
+import static fittrack.messages.Messages.DELETE_SESSION_MESSAGE;
+import static fittrack.messages.Messages.EXIT_MESSAGE;
+import static fittrack.messages.Messages.HELP_MESSAGE;
+import static fittrack.messages.Messages.INIT_SENTENCE;
+import static fittrack.messages.Messages.INVALID_INPUT_MESSAGE;
+import static fittrack.messages.Messages.LIST_REMINDER_EMPTY_MESSAGE;
+import static fittrack.messages.Messages.LIST_REMINDER_MESSAGE;
+import static fittrack.messages.Messages.LIST_SESSION_EMPTY_MESSAGE;
+import static fittrack.messages.Messages.LIST_SESSION_MESSAGE;
+import static fittrack.messages.Messages.NO_UPCOMING_REMINDERS;
+import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.reminder.Reminder.findUpcomingReminders;
 
 
