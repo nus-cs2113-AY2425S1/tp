@@ -19,6 +19,35 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
 
+    private static boolean isValidCourseMapping(String nusCourseInput, String puCourseInput, JsonArray courses) {
+        for (int i = 0; i < courses.size(); i++) {
+            JsonObject course = courses.getJsonObject(i);
+            String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
+            String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY).toLowerCase();
+
+            if (puCourseCode.equals(puCourseInput)
+                    && nusCourseCode.equals(nusCourseInput)) {
+                return true;
+            }
+        }
+
+        System.out.println("Invalid course mapping!");
+        return false;
+    }
+
+    private static JsonArray getPUCourseList(String pu, JsonObject jsonObject) {
+        JsonArray courses;
+        String matchPu = jsonObject.keySet().stream().filter(key -> key.equalsIgnoreCase(pu)).findFirst().orElse(null);
+
+        if (matchPu != null) {
+            courses = jsonObject.getJsonObject(matchPu).getJsonArray(COURSES_ARRAY_LABEL);
+        } else {
+            System.out.println("Invalid university input");
+            return null;
+        }
+        return courses;
+    }
+
     @Override
     public void execute(String userInput, Storage storage) {
         try {
@@ -30,11 +59,12 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
             assert descriptionSubstrings.length == 3 : Assertions.MISSING_FIELDS;
             logger.log(Level.INFO, Logs.EXTRACT_COURSES);
-            String nusCourse = descriptionSubstrings[0].trim();
-            String pu = descriptionSubstrings[1].trim();
-            String puCourse = descriptionSubstrings[2].trim();
-            boolean isValidInput = isValidInput(nusCourse, pu, puCourse, jsonObject);
+            String nusCourse = descriptionSubstrings[0].trim().toLowerCase();
+            String pu = descriptionSubstrings[1].trim().toLowerCase();
+            String puCourse = descriptionSubstrings[2].trim().toLowerCase();
+
             logger.log(Level.INFO, Logs.FORMAT);
+            boolean isValidInput = isValidInput(nusCourse, pu, puCourse, jsonObject);
 
             if (isValidInput) {
                 Course courseToStore = new Course(puCourse, nusCourse, pu);
@@ -66,8 +96,10 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
     public String[] parseAddCommand(String input) {
 
-        input = input.replaceAll("(?i)/pu", "/pu").replaceAll("(?i)/coursepu", "/coursepu").trim().replaceAll(" +", " ");
-
+        input = input.replaceAll("(?i)/pu", "/pu").
+                replaceAll("(?i)/coursepu", "/coursepu")
+                .trim()
+                .replaceAll(" +", " ");
 
         if ((!input.contains("/pu") || !input.contains("/coursepu"))) {
             logger.log(Level.WARNING, Logs.MISSING_KEYWORDS);
@@ -94,32 +126,10 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
     }
 
     public boolean isValidInput(String nusCourseInput, String pu, String puCourseInput, JsonObject jsonObject) {
-        JsonArray courses;
-
-        String matchPu = jsonObject.keySet().stream()
-                .filter(key -> key.equalsIgnoreCase(pu))
-                .findFirst()
-                .orElse(null);
-
-        if (matchPu != null) {
-            courses = jsonObject.getJsonObject(matchPu).getJsonArray(COURSES_ARRAY_LABEL);
-        } else {
-            System.out.println("Invalid university input");
+        JsonArray courses = getPUCourseList(pu, jsonObject);
+        if (courses == null) {
             return false;
         }
-
-        for (int i = 0; i < courses.size(); i++) {
-            JsonObject course = courses.getJsonObject(i);
-            String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
-            String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY).toLowerCase();
-
-            if (puCourseCode.equals(puCourseInput.toLowerCase()) &&
-                    nusCourseCode.equals(nusCourseInput.toLowerCase())) {
-                return true;
-            }
-        }
-
-        System.out.println("Invalid course mapping!");
-        return false;
+        return isValidCourseMapping(nusCourseInput, puCourseInput, courses);
     }
 }
