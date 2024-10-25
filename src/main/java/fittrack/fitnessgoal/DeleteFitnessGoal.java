@@ -3,6 +3,7 @@ package fittrack.fitnessgoal;
 import fittrack.user.User;
 
 public class DeleteFitnessGoal {
+
   private final String goalDescription;
 
   public DeleteFitnessGoal(String goalDescription) {
@@ -10,7 +11,8 @@ public class DeleteFitnessGoal {
   }
 
   public void deleteGoal(User user) {
-    boolean deleted = user.deleteGoal(goalDescription); // Assume this method is updated in User to find and delete by description
+    boolean deleted = user.deleteGoal(
+        goalDescription); // Assume this method is updated in User to find and delete by description
     if (deleted) {
       System.out.println("Deleted goal: " + goalDescription);
     } else {

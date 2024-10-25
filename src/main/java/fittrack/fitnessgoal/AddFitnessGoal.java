@@ -4,6 +4,7 @@ import fittrack.user.User;
 import java.time.LocalDateTime;
 
 public class AddFitnessGoal {
+
   private final Goal goal;
 
   public AddFitnessGoal(String description, LocalDateTime deadline) {

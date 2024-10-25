@@ -64,19 +64,23 @@ public class Parser {
       }
     }
   }
+
   private static void printAddedGoal(ArrayList<Goal> goalList) {
     if (goalList.isEmpty()) {
       System.out.println("No goals available.");
     } else {
       Goal lastGoal = goalList.get(goalList.size() - 1); // Get the last added goal
-      System.out.println("Goal added: " + lastGoal.getDescription()); // Assuming Goal has a method getDescription()
+      System.out.println("Goal added: "
+          + lastGoal.getDescription()); // Assuming Goal has a method getDescription()
       if (lastGoal.getDeadline() != null) {
-        System.out.println("Deadline: " + lastGoal.getDeadline().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+        System.out.println("Deadline: " + lastGoal.getDeadline()
+            .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
       } else {
         System.out.println("No deadline set.");
       }
     }
   }
+
   private static void printDeletedGoal(ArrayList<Goal> goalList, String goalDescription) {
     System.out.println("Deleted goal: " + goalDescription);
     if (goalList.isEmpty()) {
@@ -98,7 +102,6 @@ public class Parser {
     String[] sentence = {input, input};
     String command = input;
     String description = "";
-
 
     // Split the input into command and description if applicable
     if (input.contains(" ")) {
@@ -202,7 +205,8 @@ public class Parser {
           }
 
           // Create a Goal object instead of adding the description directly
-          Goal newGoal = new Goal(goalDescription, goalDeadline); // Assuming Goal constructor takes description and deadline
+          Goal newGoal = new Goal(goalDescription,
+              goalDeadline); // Assuming Goal constructor takes description and deadline
           goalList.add(newGoal); // Add the Goal object to the goalList
           printAddedGoal(goalList); // Print added goal
         } else {
@@ -210,10 +214,10 @@ public class Parser {
         }
         break;
 
-
       case "delete goal":
         int goalIndexToDelete = Integer.parseInt(description) - 1;
-        assert goalIndexToDelete >= 0 && goalIndexToDelete < goalList.size() : "Delete goal index out of bounds";
+        assert goalIndexToDelete >= 0
+            && goalIndexToDelete < goalList.size() : "Delete goal index out of bounds";
 
         // Get the Goal object instead of a String
         Goal goalToDelete = goalList.get(goalIndexToDelete);
@@ -222,9 +226,9 @@ public class Parser {
         goalList.remove(goalIndexToDelete);
 
         // Use the goal's description for the print statement
-        printDeletedGoal(goalList, goalToDelete.getDescription()); // Assuming you have a method that takes a String
+        printDeletedGoal(goalList,
+            goalToDelete.getDescription()); // Assuming you have a method that takes a String
         break;
-
 
       default:
         printUnrecognizedInputMessage(); // Response to unrecognized inputs
@@ -232,7 +236,8 @@ public class Parser {
     }
   }
 
-  private static LocalDateTime parseGoalDeadline(String inputDeadline) throws IllegalArgumentException {
+  private static LocalDateTime parseGoalDeadline(String inputDeadline)
+      throws IllegalArgumentException {
     try {
       DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
       DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -246,7 +251,8 @@ public class Parser {
         return date.atStartOfDay();
       }
     } catch (DateTimeParseException e) {
-      throw new IllegalArgumentException("Invalid date format. Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
+      throw new IllegalArgumentException(
+          "Invalid date format. Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
     }
   }
 

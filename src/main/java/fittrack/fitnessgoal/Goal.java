@@ -3,6 +3,7 @@ package fittrack.fitnessgoal;
 import java.time.LocalDateTime;
 
 public class Goal {
+
   private String description;
   private LocalDateTime deadline;
 
