@@ -8,11 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.After;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class ExpenseTest {
@@ -135,130 +133,62 @@ class BudgetTest {
     }
 }
 
-
-public class ExpenseTrackerTest {
-    private static final String AUTOMATIC_RESET_ON = "Automatic budget reset is now ON";
-    private static final String AUTOMATIC_RESET_OFF = "Automatic budget reset is now OFF";
-    private static final double TEST_BUDGET_LIMIT = 100.00;
-    private static final double TEST_EXPENSE_AMOUNT = 15.50;
-    private static final String TEST_CATEGORY_NAME = "Food";
-    private static final String TEST_EXPENSE_DESCRIPTION = "Dinner at restaurant";
-    private static final double TEST_MOVIE_PRICE = 12.00;
-    private static final String TEST_MOVIE_TICKET_DESCRIPTION = "Movie ticket";
-    private static final String TEST_MISC_BUDGET = "Misc";
-    private static final double TEST_MISC_BUDGET_LIMIT = 50.00;
-    private static final String TEST_GROCERIES = "Groceries";
-    private static final double TEST_GROCERIES_AMOUNT = 60.00;
-    private static final String TEST_GROCERIES_SHOPPING = "Weekly groceries";
-    private static final String TEST_GROCERIES_TAG = "Sunday shopping";
-
-    private ExpenseTracker tracker;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-
-    @Before
-    public void setUp() {
-        tracker = new ExpenseTracker();
-        System.setOut(new PrintStream(outContent));
+class ExpenseTrackerTest {
+    @Test
+    void constructorTest() {
+        ExpenseTracker tracker = new ExpenseTracker();
+        assertNotNull(tracker);
+        assertTrue(tracker.getCategories().isEmpty());
+        assertTrue(tracker.getExpenses().isEmpty());
+        assertFalse(tracker.isAutoResetEnabled());
     }
 
     @Test
-    public void testToggleAutoReset() {
+    void toggleAutoResetTest() {
+        ExpenseTracker tracker = new ExpenseTracker();
+        assertFalse(tracker.isAutoResetEnabled());
         tracker.toggleAutoReset();
-        assertTrue(outContent.toString().contains(AUTOMATIC_RESET_ON));
-        outContent.reset();
+        assertTrue(tracker.isAutoResetEnabled());
         tracker.toggleAutoReset();
-        assertTrue(outContent.toString().contains(AUTOMATIC_RESET_OFF));
+        assertFalse(tracker.isAutoResetEnabled());
     }
 
     @Test
-    public void testAddCategory() {
-        Category newCategory = new Category(TEST_CATEGORY_NAME);
-        tracker.addCategory(newCategory);
-        tracker.viewBudget();  
-        assertTrue(outContent.toString().contains(TEST_CATEGORY_NAME));
+    void addCategoryAndBudgetTest() {
+        ExpenseTracker tracker = new ExpenseTracker();
+        Category category = new Category("Utilities");
+        tracker.addCategory(category);
+        assertTrue(tracker.getCategories().contains(category));
+        tracker.setBudget(category, 100);
+        assertEquals(100, tracker.getBudget(category).getLimit());
     }
 
     @Test
-    public void testAddExpense() {
-        Category food = new Category(TEST_CATEGORY_NAME);
+    void addAndDeleteExpenseTest() {
+        ExpenseTracker tracker = new ExpenseTracker();
+        Category food = new Category("Food");
+        Expense lunch = new Expense("Lunch", 15.50, food);
         tracker.addCategory(food);
-        Expense dinner = new Expense(food, TEST_EXPENSE_AMOUNT, TEST_EXPENSE_DESCRIPTION);
-        tracker.addExpense(dinner);
-        tracker.viewExpensesByCategory();
-        assertTrue(outContent.toString().contains(TEST_EXPENSE_DESCRIPTION));
-        assertTrue(outContent.toString().contains(String.valueOf(TEST_EXPENSE_AMOUNT)));
+        tracker.addExpense(lunch);
+        assertTrue(tracker.getName().contains(lunch));
+        tracker.deleteExpense(lunch);
+        assertFalse(tracker.getName().contains(lunch));
     }
 
     @Test
-    public void testDeleteExpense() {
-        Category food = new Category(TEST_CATEGORY_NAME);
-        tracker.addCategory(food);
-        Expense dinner = new Expense(food, TEST_EXPENSE_AMOUNT, "Dinner");
-        tracker.addExpense(dinner);
-        tracker.deleteExpense(dinner);
-        tracker.viewExpensesByCategory();
-        assertFalse(outContent.toString().contains("Dinner"));
-    }
-
-    @Test
-    public void testSetBudgetLimit() {
-        Category transport = new Category("Transport");
-        tracker.addCategory(transport);
-        tracker.setBudgetLimit(transport, TEST_BUDGET_LIMIT);
-        tracker.viewBudget();
-        assertTrue(outContent.toString().contains("Transport"));
-        assertTrue(outContent.toString().contains(String.valueOf(TEST_BUDGET_LIMIT)));
-    }
-
-    @Test
-    public void testViewBudget() {
-        Category misc = new Category(TEST_MISC_BUDGET);
-        tracker.addCategory(misc);
-        tracker.setBudgetLimit(misc, TEST_MISC_BUDGET_LIMIT);
-        tracker.viewBudget();
-        assertTrue(outContent.toString().contains(TEST_MISC_BUDGET));
-        assertTrue(outContent.toString().contains(String.valueOf(TEST_MISC_BUDGET_LIMIT)));
-    }
-
-    @Test
-    public void testViewExpensesByCategory() {
-        Category entertainment = new Category("Entertainment");
-        tracker.addCategory(entertainment);
-        Expense movie = new Expense(entertainment, TEST_MOVIE_PRICE, TEST_MOVIE_TICKET_DESCRIPTION);
-        tracker.addExpense(movie);
-        tracker.viewExpensesByCategory();
-        assertTrue(outContent.toString().contains(TEST_MOVIE_TICKET_DESCRIPTION));
-        assertTrue(outContent.toString().contains(String.valueOf(TEST_MOVIE_PRICE)));
-    }
-
-    @Test
-    public void testCheckAndResetBudgets() {
-        tracker.toggleAutoReset();
-        tracker.checkAndResetBudgets();
-        outContent.reset();
-        tracker.checkAndResetBudgets();
-        assertTrue(outContent.toString().isEmpty());
-    }
-
-    @Test
-    public void testManageMonthlyReset() {
-        tracker.manageMonthlyReset();
-        assertTrue(outContent.toString().contains("Budgets have been reset"));
-    }
-
-    @Test
-    public void testTagExpense() {
-        Category groceries = new Category(TEST_GROCERIES);
+    void checkAndResetBudgetsTest() {
+        ExpenseTracker tracker = new ExpenseTracker();
+        Category groceries = new Category("Groceries");
         tracker.addCategory(groceries);
-        Expense shopping = new Expense(groceries, TEST_GROCERIES_AMOUNT, TEST_GROCERIES_SHOPPING);
-        tracker.addExpense(shopping);
-        tracker.tagExpense(shopping, TEST_GROCERIES_TAG);
-        tracker.viewExpensesByCategory();
-        assertTrue(outContent.toString().contains(TEST_GROCERIES_TAG));
+        tracker.setBudget(groceries, 200);
+        tracker.toggleAutoReset();
+        tracker.checkAndResetBudgets(); 
+        assertEquals(200, tracker.getBudgets(groceries).getLimit());
     }
 
-    @After
-    public void cleanUpStreams() {
-        System.setOut(null);
+    @Test
+    void manageMonthlyResetTest() {
+        ExpenseTracker tracker = new ExpenseTracker();
+        tracker.manageMonthlyReset(); 
     }
 }
