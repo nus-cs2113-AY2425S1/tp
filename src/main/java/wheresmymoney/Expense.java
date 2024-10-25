@@ -1,7 +1,5 @@
 package wheresmymoney;
 
-import java.time.LocalDate;
-
 import wheresmymoney.exception.WheresMyMoneyException;
 
 public class Expense {
@@ -60,6 +58,8 @@ public class Expense {
     public void setDateAdded(String dateAdded) throws WheresMyMoneyException {
         if (dateAdded == null) {
             throw new WheresMyMoneyException("Expense's date added shouldn't be null.");
+        } else if (!DateUtils.isInDateFormat(dateAdded)) {
+            throw new WheresMyMoneyException("Expense's date added is not in recognised format.");
         }
         this.dateAdded = dateAdded;
         assert this.dateAdded != null : "Expense's date added shouldn't be null.";
