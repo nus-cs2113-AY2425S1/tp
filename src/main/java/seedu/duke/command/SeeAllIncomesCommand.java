@@ -12,15 +12,31 @@ public class SeeAllIncomesCommand extends SeeAllEntriesCommand {
     protected final String ENTRIES_LISTED_MESSAGE = "Here's a list of all recorded incomes:";
     protected final String NO_ENTRIES_MESSAGE = "No incomes found.";
 
+    /**
+     * Constructor for SeeAllIncomesCommand.
+     *
+     * @param start Start date of all entries to be listed, null if no start date to be specified.
+     * @param end End date of all entries to be listed, null if no end date to be specified.
+     */
     public SeeAllIncomesCommand(LocalDate start, LocalDate end) {
         super(start, end);
     }
 
+    /**
+     * Method to return message when no entries are to be listed as a String.
+     *
+     * @return Message when no entries are to be listed.
+     */
     @Override
     protected String getNoEntriesMessage() {
         return this.NO_ENTRIES_MESSAGE;
     }
 
+    /**
+     * Method to return header when there are entries to be listed as a String.
+     *
+     * @return Header when there are entries to be listed.
+     */
     @Override
     protected String getEntriesListedMessage() {
         return this.ENTRIES_LISTED_MESSAGE;

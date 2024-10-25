@@ -30,10 +30,20 @@ public class SeeAllEntriesCommand extends Command {
         this.end = end;
     }
 
+    /**
+     * Method to return message when no entries are to be listed as a String.
+     *
+     * @return Message when no entries are to be listed.
+     */
     protected String getNoEntriesMessage() {
         return this.NO_ENTRIES_MESSAGE;
     }
 
+    /**
+     * Method to return header when there are entries to be listed as a String.
+     *
+     * @return Header when there are entries to be listed.
+     */
     protected String getEntriesListedMessage() {
         return this.ENTRIES_LISTED_MESSAGE;
     }
