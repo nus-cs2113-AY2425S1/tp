@@ -24,7 +24,8 @@ public class ListCommand extends Command {
         }
     }
 
-    private void displayExpenses(ArrayList<Expense> expensesToDisplay, ExpenseList expenseList) {
+    private void displayExpenses(ArrayList<Expense> expensesToDisplay, ExpenseList expenseList)
+            throws WheresMyMoneyException {
         for (Expense expense: expensesToDisplay) {
             String index = expenseList.getIndexOf(expense) + 1 + ". ";
             String category = "CATEGORY: " + expense.getCategory();
