@@ -38,6 +38,10 @@ public class Exception extends Throwable {
         return "Please note that we can only filter for only one NUS Course!";
     }
 
+    public static String invalidCommand() {
+        return "Invalid command. \nPlease check the commands available by typing commands.";
+    }
+
     public static String noInputAfterDelete() {
         return "Please provide the index of the course plan you would like to delete.";
     }
@@ -45,4 +49,13 @@ public class Exception extends Throwable {
     public static String invalidCourseListIndex() {
         return "Please provide a valid index of the course plan you would like to delete.";
     }
+
+    public static String invalidContactType() {
+        return "Invalid contact type.";
+    }
+
+    public static String invalidInputFormat() {
+        return "Invalid input format";
+    }
+
 }
