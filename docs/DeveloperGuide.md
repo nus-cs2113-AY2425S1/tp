@@ -8,6 +8,35 @@
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+---
+
+### FinancialList Component
+
+#### Overview
+
+The `FinancialList` class is responsible for storing and managing all financial entries in the application,
+including both `Expense` and `Income`. The `FinancialEntry` class acts as the base class, with `Expense` and `Income` 
+classes extending it to represent specific types of transactions.
+
+#### Class Structure
+
+The `FinancialList` class contains the following attributes:
+- entries: A list of FinancialEntry objects representing all stored transactions.
+
+The `FinancialEntry` class contains the following attributes:
+- **description**: A string describing the transaction.
+- **amount**: A double representing the amount of the transaction.
+- **date**: A LocalDate object representing the date of the transaction.
+
+The Expense and Income classes extend FinancialEntry, each maintaining the base attributes while
+adding context to the type of financial entry.
+
+### Implementation Details
+
+#### FinancialList Class Diagram
+- The FinancialList stores and manages FinancialEntry objects, including Expense and Income.
+---
+
 ### Commands
 
 #### Overview
