@@ -29,14 +29,7 @@ public class DeleteMealCommand extends MealCommand {
 
         logger.log(Level.INFO, "Attempting to delete meal at index: {0}", indexMealToDelete);
 
-        String mealToDeleteName;
-        try {
-            mealToDeleteName = meals.deleteMeal(indexMealToDelete).toString();
-            logger.log(Level.INFO, "Successfully deleted meal: {0}", mealToDeleteName);
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Invalid index for deletion: {0}", indexMealToDelete);
-            throw new IndexOutOfBoundsException("Index " + indexMealToDelete + " is out of bounds for the meal list.");
-        }
+        String mealToDeleteName =  meals.deleteMeal(indexMealToDelete).toString();
 
         return new CommandResult(mealToDeleteName + " has been deleted");
     }
