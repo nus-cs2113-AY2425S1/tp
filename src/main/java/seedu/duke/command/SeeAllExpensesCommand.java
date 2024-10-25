@@ -11,8 +11,8 @@ import java.time.LocalDate;
  * execute method to perform this functionality.
  */
 public class SeeAllExpensesCommand extends SeeAllEntriesCommand{
-    protected final String ENTRIES_LISTED_MESSAGE = "Here's a list of all recorded expenses:";
-    protected final String NO_ENTRIES_MESSAGE = "No expenses found.";
+    protected final String entriesListedMessage = "Here's a list of all recorded expenses:";
+    protected final String noEntriesMessage = "No expenses found.";
 
     /**
      * Constructor for SeeAllExpensesCommand.
@@ -31,7 +31,7 @@ public class SeeAllExpensesCommand extends SeeAllEntriesCommand{
      */
     @Override
     protected String getNoEntriesMessage() {
-        return this.NO_ENTRIES_MESSAGE;
+        return this.noEntriesMessage;
     }
 
     /**
@@ -41,7 +41,7 @@ public class SeeAllExpensesCommand extends SeeAllEntriesCommand{
      */
     @Override
     protected String getEntriesListedMessage() {
-        return this.ENTRIES_LISTED_MESSAGE;
+        return this.entriesListedMessage;
     }
     /**
      * Method to determine if an entry should be listed out based on its date and if it is an expense.

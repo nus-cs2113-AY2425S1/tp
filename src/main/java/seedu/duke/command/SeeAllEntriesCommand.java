@@ -11,10 +11,10 @@ import java.util.logging.Logger;
  * Command to print all entries recorded in the financial list.
  */
 public class SeeAllEntriesCommand extends Command {
-    protected final String ENTRIES_LISTED_MESSAGE = "Here's a list of all recorded entries:";
     protected static final String LINE_SEPARATOR = "--------------------------------------------";
-    protected static final Logger logger = Logger.getLogger(SeeAllExpensesCommand.class.getName());
-    protected final String NO_ENTRIES_MESSAGE = "No entries found.";
+    protected static Logger logger = Logger.getLogger(SeeAllExpensesCommand.class.getName());
+    protected final String entriesListedMessage = "Here's a list of all recorded entries:";
+    protected final String noEntriesMessage = "No entries found.";
 
     protected LocalDate start;
     protected LocalDate end;
@@ -36,7 +36,7 @@ public class SeeAllEntriesCommand extends Command {
      * @return Message when no entries are to be listed.
      */
     protected String getNoEntriesMessage() {
-        return this.NO_ENTRIES_MESSAGE;
+        return this.noEntriesMessage;
     }
 
     /**
@@ -45,8 +45,9 @@ public class SeeAllEntriesCommand extends Command {
      * @return Header when there are entries to be listed.
      */
     protected String getEntriesListedMessage() {
-        return this.ENTRIES_LISTED_MESSAGE;
+        return this.entriesListedMessage;
     }
+
     /**
      * Method to determine if an entry should be listed out based on its date.
      *

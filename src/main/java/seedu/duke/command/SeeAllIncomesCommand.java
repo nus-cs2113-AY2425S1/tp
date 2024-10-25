@@ -9,8 +9,8 @@ import java.time.LocalDate;
  * Command to print all incomes recorded in the financial list.
  */
 public class SeeAllIncomesCommand extends SeeAllEntriesCommand {
-    protected final String ENTRIES_LISTED_MESSAGE = "Here's a list of all recorded incomes:";
-    protected final String NO_ENTRIES_MESSAGE = "No incomes found.";
+    protected final String entriesListedMessage = "Here's a list of all recorded incomes:";
+    protected final String noEntriesMessage = "No incomes found.";
 
     /**
      * Constructor for SeeAllIncomesCommand.
@@ -29,7 +29,7 @@ public class SeeAllIncomesCommand extends SeeAllEntriesCommand {
      */
     @Override
     protected String getNoEntriesMessage() {
-        return this.NO_ENTRIES_MESSAGE;
+        return this.noEntriesMessage;
     }
 
     /**
@@ -39,7 +39,7 @@ public class SeeAllIncomesCommand extends SeeAllEntriesCommand {
      */
     @Override
     protected String getEntriesListedMessage() {
-        return this.ENTRIES_LISTED_MESSAGE;
+        return this.entriesListedMessage;
     }
 
     /**
