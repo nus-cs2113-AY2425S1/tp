@@ -3,9 +3,11 @@ package seedu.duke;
 import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.hospital.Patient;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PatientTest {
 
@@ -15,6 +17,14 @@ class PatientTest {
         hospital.addPatient("Alice");
         assertEquals(1, hospital.getSize());
         assertEquals("Alice", hospital.getPatient(0).getName());
+    }
+
+    @Test
+    public void testAddDuplicatePatient() {
+        Hospital hospital = new Hospital();
+        hospital.addPatient("Alice");
+        boolean isDuplicate = hospital.isDuplicatePatient("Alice");
+        assertTrue(isDuplicate);
     }
 
     @Test
@@ -66,5 +76,21 @@ class PatientTest {
         Patient patient = new Patient("Alice", 0);
         patient.setName("Bob");
         assertEquals("Bob", patient.getName());
+    }
+
+    // Test Case: Searching for patients (case-insensitive search)
+    @Test
+    public void testFindPatientCaseInsensitive() {
+        Hospital hospital = new Hospital();
+        hospital.addPatient("Alice");
+        hospital.addPatient("bob");
+
+        // Find with lower case
+        assertTrue(hospital.findPatients("alice").size() == 1);
+        assertEquals("Alice", hospital.findPatients("alice").get(0).getName());
+
+        // Find with upper case
+        assertTrue(hospital.findPatients("BOB").size() == 1);
+        assertEquals("bob", hospital.findPatients("BOB").get(0).getName());
     }
 }

@@ -99,6 +99,16 @@ public class Hospital {
         return false;
     }
 
+    public ArrayList<Patient> findPatients(String keyword) {
+        ArrayList<Patient> matchingPatients = new ArrayList<>();
+        for (Patient patient : patients) {
+            if (patient.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingPatients.add(patient);
+            }
+        }
+        return matchingPatients;
+    }
+
     public static class PatientNotFoundException extends Exception {
         public PatientNotFoundException() {
             super("Patient not found in the list!");
