@@ -39,6 +39,8 @@ public class Main {
 
     private static Parser parser; //Parser to parse the commands
 
+    private static UI ui;
+
     // Singleton CategoryList for use across classes
     private static CategoryList categories; //Category list to store categories
 
@@ -48,7 +50,6 @@ public class Main {
     private static boolean isRunning = true;
 
     public static void main(String[] args) {
-        scanner = new Scanner(System.in);
         while (isRunning) {
             run();
         }
@@ -81,15 +82,14 @@ public class Main {
      */
     public static void start() {
         logger.log(Level.INFO, "Starting uNivUSaver...");
-
-        scanner = new Scanner(System.in);
+        ui = new UI();
         parser = new Parser();
         categories = new CategoryList();
         transactions = new TransactionList();
 
         setupCommands();
 
-        printMessage(String.format(HI_MESSAGE, NAME));
+        ui.printMessage(String.format(HI_MESSAGE, NAME));
     }
 
     /**
@@ -133,7 +133,7 @@ public class Main {
      */
     private static void runCommandLoop() throws Exception {
         while (isRunning) {
-            String commandString = getUserInput();
+            String commandString = ui.getUserInput();
             String[] commandParts = commandString.split(" ", 2);
 
             Command command = parser.parseCommand(commandParts[0]);
@@ -141,7 +141,7 @@ public class Main {
             if (command == null) {
                 List<String> messages = new ArrayList<>();
                 messages.add(INVALID_COMMAND_ERROR_MESSAGE);
-                showCommandResult(messages);
+                ui.showCommandResult(messages);
                 continue;
             }
 
@@ -151,77 +151,7 @@ public class Main {
             }
 
             List<String> messages = command.execute();
-            showCommandResult(messages);
+            ui.showCommandResult(messages);
         }
-    }
-
-    /**
-     * Gets the input entered by the user.
-     *
-     * @return The input entered by the user as a string.
-     */
-    public static String getUserInput() {
-        if (scanner.hasNextLine()) {
-            String input = scanner.nextLine();
-
-            // Silently consume all ignored lines (empty commands)
-            while (input.trim().isEmpty()) {
-                input = scanner.nextLine();
-            }
-            return input;
-        }
-        return "";
-    }
-
-    /**
-     * Prints a single message to the console.
-     *
-     * @param message The message to be printed.
-     */
-    public static void printMessage(String message) {
-        System.out.println(PREFIX + message);
-    }
-
-    /**
-     * Prints a message to the console without a new line at the end.
-     *
-     * @param message The message to be printed.
-     */
-    public static void printMiddleMessage(String message) {
-        System.out.print(PREFIX + message);
-    }
-
-    /**
-     * Prints multiple messages to the console, each as a separate line.
-     *
-     * @param messages The list of messages to print.
-     */
-    public static void printMessages(List<String> messages) {
-        messages.forEach(Main::printMessage);
-    }
-
-    /**
-     * Prints multiple messages to the console, each as a separate line.
-     *
-     * @param messages The messages to print, provided as a variable-length argument list.
-     */
-    public static void printMessages(String... messages) {
-        for (String m : messages) {
-            printMessage(m);
-        }
-    }
-
-    /**
-     * Displays the result of a command execution
-     *
-     * @param results a list of Strings containing feedback.
-     */
-    public static void showCommandResult(List<String> results) {
-        if (results == null) {
-            return;
-        }
-        printMessage(SEPARATOR); // Print a separator
-        printMessages(results); // Print feedback to user
-        printMessage(SEPARATOR); // Print another separator
     }
 }
