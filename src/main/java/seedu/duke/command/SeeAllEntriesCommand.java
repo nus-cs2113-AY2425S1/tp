@@ -1,7 +1,9 @@
 package seedu.duke.command;
 
+import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.financial.Income;
 
 import java.time.LocalDate;
 
@@ -43,11 +45,17 @@ public class SeeAllEntriesCommand extends Command {
         System.out.println("--------------------------------------------");
         String entryList = "";
         int entryCount = 0;
+        double cashflow = 0;
 
         for (int i = 0; i < list.getEntryCount(); i++) {
             FinancialEntry entry = list.getEntry(i);
             if (shouldBeIncluded(entry)) {
                 entryList += (++entryCount) + ". " + entry + System.lineSeparator();
+                if (entry instanceof Income) {
+                    cashflow += entry.getAmount();
+                } else if (entry instanceof Expense) {
+                    cashflow -= entry.getAmount();
+                }
             }
         }
 
@@ -58,6 +66,9 @@ public class SeeAllEntriesCommand extends Command {
         }
         System.out.println("Here's a list of all recorded entries:");
         System.out.print(entryList);
+        System.out.println();
+        String cashflowString = String.format("%.2f", cashflow);
+        System.out.println("Net cashflow: $ " + cashflowString);
         System.out.println("--------------------------------------------");
     }
 }

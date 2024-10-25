@@ -55,11 +55,13 @@ public class SeeAllExpensesCommand extends Command{
         System.out.println("--------------------------------------------");
         String expenseList = "";
         int expenseCount = 0;
+        double cashflow = 0;
 
         for (int i = 0; i < list.getEntryCount(); i++) {
             FinancialEntry entry = list.getEntry(i);
             if (shouldBeIncluded(entry)) {
                 expenseList += ((++expenseCount) + ". " + entry + System.lineSeparator());
+                cashflow += entry.getAmount();
             }
         }
 
@@ -70,6 +72,9 @@ public class SeeAllExpensesCommand extends Command{
         }
         System.out.println("Here's a list of all recorded expenses:");
         System.out.print(expenseList);
+        System.out.println();
+        String cashflowString = String.format("%.2f", cashflow);
+        System.out.println("Total expense: $ " + cashflowString);
         System.out.println("--------------------------------------------");
     }
 }

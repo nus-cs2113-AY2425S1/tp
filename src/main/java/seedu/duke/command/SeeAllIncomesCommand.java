@@ -42,11 +42,13 @@ public class SeeAllIncomesCommand extends Command {
         System.out.println("--------------------------------------------");
         String incomeList = "";
         int incomeCount = 0;
+        double cashflow = 0;
 
         for (int i = 0; i < list.getEntryCount(); i++) {
             FinancialEntry entry = list.getEntry(i);
             if (shouldBeIncluded(entry)) {
                 incomeList += ((++incomeCount) + ". " + entry + System.lineSeparator());
+                cashflow += entry.getAmount();
             }
         }
 
@@ -57,6 +59,9 @@ public class SeeAllIncomesCommand extends Command {
         }
         System.out.println("Here's a list of all recorded incomes:");
         System.out.print(incomeList);
+        System.out.println();
+        String cashflowString = String.format("%.2f", cashflow);
+        System.out.println("Total income: $ " + cashflowString);
         System.out.println("--------------------------------------------");
     }
 }
