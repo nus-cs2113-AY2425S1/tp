@@ -41,11 +41,11 @@ public class ExpenseList {
     }
     
     public int getIndexOf(Expense expense) throws WheresMyMoneyException {
-        int i = expenses.indexOf(expense);
-        if (i == -1) {
+        int index = expenses.indexOf(expense);
+        if (index == -1) {
             throw new WheresMyMoneyException("Expense not in list.");
         }
-        return i;
+        return index;
     }
 
     /**

@@ -15,7 +15,7 @@ public class Expense {
         this.setDescription(description);
         this.setCategory(category);
         if (dateAdded.isEmpty()) {
-            this.setDateAdded(DateUtils.dateFormatToString(DateUtils.getLocalDateNow()));
+            this.setDateAdded(DateUtils.dateFormatToString(DateUtils.getCurrentDate()));
         } else {
             this.setDateAdded(dateAdded);
         }

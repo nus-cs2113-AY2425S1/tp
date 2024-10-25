@@ -21,7 +21,7 @@ public class DateUtils {
     public static LocalDate getCurrentDate() {
         return LocalDate.now();
     }
-    public static LocalDate stringToDateFormat(String dateAsString) throws WheresMyMoneyException {
+    public static LocalDate stringToDate(String dateAsString) throws WheresMyMoneyException {
         try {
             return LocalDate.parse(dateAsString, formatter);
         } catch (DateTimeParseException e) {
