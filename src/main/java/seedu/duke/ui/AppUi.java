@@ -234,16 +234,21 @@ public class AppUi {
      * It runs in a loop until the input signifies to stop accepting commands.
      */
     public void commandEntry() {
-        HashMap<String, String> commandArguments;
+        HashMap<String, String> commandArguments = null;
         String input;
         Scanner scanner = new Scanner(System.in);
+        String command = null;
 
         boolean isAcceptingInput = true;
 
         while (isAcceptingInput) {
             input = scanner.nextLine();
-            commandArguments = InputParser.parseCommands(input);
-            String command = commandArguments.get(InputParser.COMMAND);
+            try {
+                commandArguments = InputParser.parseCommands(input);
+                command = commandArguments.get(InputParser.COMMAND);
+            } catch (FinanceBuddyException e) {
+                System.out.println(e.getMessage());
+            }
 
             try {
                 isAcceptingInput = matchCommand(command, commandArguments);
