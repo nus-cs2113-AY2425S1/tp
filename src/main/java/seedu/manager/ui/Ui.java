@@ -39,7 +39,7 @@ public class Ui {
 
     //@@author MatchaRRR
     /**
-     * show the output message of a command to the users.
+     * Shows the output message of a command to the users.
      */
     public void showOutputToUser(Command command) {
         System.out.println(command.getMessage());
@@ -52,6 +52,17 @@ public class Ui {
      */
     public void showErrorMessageToUser(Exception exception) {
         System.out.println(exception.getMessage());
+        System.out.println(SEPARATOR);
+    }
+
+    //@@author KuanHsienn
+    /**
+     * Shows a message to the user.
+     *
+     * @param message The message to display to the user.
+     */
+    public void showMessage(String message) {
+        System.out.println(message);
         System.out.println(SEPARATOR);
     }
 }
