@@ -1,11 +1,11 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-Participant ":Main" as main
-Participant ":Ui" as ui
-Participant ":Parser" as parser
-Participant ":AddCommand" as command
-Participant ":EventList" as eventList
+Participant "Main" as main
+Participant "Ui" as ui
+Participant "Parser" as parser
+Participant "Command" as command
+Participant "EventList" as eventList
 
 main -> ui : getCommand()
 activate ui
