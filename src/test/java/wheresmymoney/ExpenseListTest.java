@@ -110,30 +110,36 @@ class ExpenseListTest {
     }
 
     @Test
-    public void listByCategory_normalListByCategory_success() {
+    public void listByCategory_validListByCategory_success() {
         ExpenseList expenseList = new ExpenseList();
-        Expense expense = new Expense(1.00f, "Ice Cream", "Food");
-        expenseList.addExpense(1.00f, "Ice Cream", "Food");
-        expenseList.addExpense(4.50f, "Taxi", "Transport");
-        assertEquals(1, expenseList.listByCategory("Food").size());
-        assertEquals(expense.getDescription(),
-                expenseList.listByCategory("Food").get(0).getDescription());
+        try {
+            expenseList.addExpense(0.01F, "desc1", "cat1");
+            expenseList.addExpense(0.02F, "desc2", "cat2");
+            assertEquals(1, expenseList.listByCategory("cat1").size());
+            Expense expenseToFindInList = new Expense(0.03F, "desc1", "cat1");
+            Expense expenseOfSameCategory = expenseList.listByCategory("cat1").get(0);
+            assertEquals(expenseToFindInList.getDescription(), expenseOfSameCategory.getDescription());
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when Expenses' parameters are valid.");
+        }
     }
-
     @Test
     public void listByCategory_emptyListByCategory_success() {
         ExpenseList expenseList = new ExpenseList();
         ArrayList<Expense> testArrayList = new ArrayList<>();
-        assertEquals(testArrayList, expenseList.listByCategory("Food"));
+        assertEquals(testArrayList, expenseList.listByCategory("cat"));
     }
-
     @Test
     public void listByCategory_noMatchForCategory_success() {
         ExpenseList expenseList = new ExpenseList();
         ArrayList<Expense> testArrayList = new ArrayList<>();
-        expenseList.addExpense(1.00f, "Ice Cream", "Food");
-        expenseList.addExpense(4.50f, "Taxi", "Transport");
-        assertEquals(testArrayList, expenseList.listByCategory("Travel"));
+        try {
+            expenseList.addExpense(0.01F, "desc1", "cat1");
+            expenseList.addExpense(0.02F, "desc2", "cat2");
+            assertEquals(testArrayList, expenseList.listByCategory("cat"));
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when Expenses' parameters are valid.");
+        }
     }
 
 }
