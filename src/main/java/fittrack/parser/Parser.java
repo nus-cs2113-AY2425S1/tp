@@ -12,18 +12,8 @@ import java.util.Objects;
 
 import static fittrack.enums.Exercise.fromUserInput;
 import static fittrack.messages.Messages.*;
-import static fittrack.ui.Ui.printAddedSession;
-import static fittrack.ui.Ui.printDeletedSession;
-import static fittrack.ui.Ui.printHelp;
-import static fittrack.ui.Ui.printSessionList;
-import static fittrack.ui.Ui.printSessionView;
-import static fittrack.ui.Ui.printAddedReminder;
-import static fittrack.ui.Ui.printDeletedReminder;
-import static fittrack.ui.Ui.printReminderList;
-
-import static fittrack.ui.Ui.printUnrecognizedInputMessage;
-import static fittrack.ui.Ui.printUser;
-
+import static fittrack.ui.Ui.*;
+import static fittrack.ui.Ui.printReminderCount;
 
 
 public class Parser {

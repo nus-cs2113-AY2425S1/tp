@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static fittrack.messages.Messages.*;
+import static fittrack.reminder.Reminder.findUpcomingReminders;
+
 
 public class Ui {
     /**
@@ -75,7 +77,7 @@ public class Ui {
 
         beginSegment();
         if (sessionList.isEmpty()) {
-            System.out.println(LIST_EMPTY_MESSAGE);
+            System.out.println(LIST_SESSION_EMPTY_MESSAGE);
             endSegment();
             return;
         }
@@ -105,10 +107,10 @@ public class Ui {
         System.out.println("There are " + sessionList.size() + " sessions in the list.");
     }
 
-    private static void printReminderCount(ArrayList<Reminder> reminderList) {
+    public static void printReminderCount(ArrayList<Reminder> reminderList) {
         assert reminderList != null : "Reminder list must not be null";
 
-        System.out.println("There are " + reminderList.size() + " reminders in the list.");
+        System.out.println("There are " + reminderList.size() + " reminders in your list.");
     }
 
     public static void printAddedReminder(ArrayList<Reminder> reminderList) {
@@ -123,14 +125,41 @@ public class Ui {
         endSegment();
     }
 
+    /**
+     * Called at program initialisation. Prints a list of upcoming reminders due in the next week.
+     *
+     * @param reminderList The list of all reminders.
+     * @throws IllegalArgumentException if the reminder list is null.
+     */
 
+    public static void printUpcomingReminders(ArrayList<Reminder> reminderList) {
+        assert reminderList != null : "Reminder list must not be null";
+        ArrayList<Reminder> upcomingReminders = findUpcomingReminders(reminderList);
+
+        if (reminderList.isEmpty()) {
+            System.out.println(LIST_REMINDER_EMPTY_MESSAGE);
+            System.out.println(NO_UPCOMING_REMINDERS);
+            endSegment();
+            return;
+        }
+
+        System.out.println("There are " + upcomingReminders.size() + " reminders due in the next week:");
+        int index = 0;
+        while (index < upcomingReminders.size()) {
+            System.out.print(index + 1 + ". ");
+            reminderList.get(index).printReminderDescription();
+            index++;
+        }
+        System.out.println("You have " + reminderList.size() + " reminders in total. View them with 'list-remind'.");
+        endSegment();
+    }
 
     public static void printDeletedReminder(ArrayList<Reminder> reminderList, Reminder reminderToDelete) {
         assert reminderList != null : "Session list must not be null";
         assert reminderToDelete != null : "Session to delete must not be null";
 
         beginSegment();
-        System.out.print(DELETE_SESSION_MESSAGE);
+        System.out.print(DELETE_REMINDER_MESSAGE);
         reminderToDelete.printReminderDescription();
         printReminderCount(reminderList);
         endSegment();
@@ -141,7 +170,7 @@ public class Ui {
 
         beginSegment();
         if (reminderList.isEmpty()) {
-            System.out.println(LIST_EMPTY_MESSAGE);
+            System.out.println(LIST_SESSION_EMPTY_MESSAGE);
             endSegment();
             return;
         }
@@ -155,7 +184,6 @@ public class Ui {
         printReminderCount(reminderList);
         endSegment();
     }
-
 
     public static void printUnrecognizedInputMessage() {
         beginSegment();

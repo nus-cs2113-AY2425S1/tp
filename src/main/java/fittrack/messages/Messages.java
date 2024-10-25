@@ -38,13 +38,15 @@ public class Messages {
             + System.lineSeparator() + "delete-remind (reminder index)                                   delete-remind 1"
             + System.lineSeparator() + "exit                                                             exit";
     public static final String LIST_SESSION_MESSAGE = "Here are your training sessions:";
-    public static final String LIST_EMPTY_MESSAGE = "Your list is currently empty.";
+    public static final String LIST_SESSION_EMPTY_MESSAGE = "Your session list is currently empty.";
     public static final String ADD_SESSION_MESSAGE = "Got it. I've added a new training session:";
     public static final String DELETE_SESSION_MESSAGE = "Got it. I've deleted this training session:";
 
     public static final String LIST_REMINDER_MESSAGE = "Here are your reminders:";
+    public static final String LIST_REMINDER_EMPTY_MESSAGE = "Your reminder list is currently empty.";
     public static final String ADD_REMINDER_MESSAGE = "Got it. I've added a new reminder";
     public static final String DELETE_REMINDER_MESSAGE = "Got it. I've deleted this reminder:";
+    public static final String NO_UPCOMING_REMINDERS = "There are no reminders due in the next week.";
 
     public static final String NONNUMERICAL_INDEX_MESSAGE = "Please provide a valid numerical index.";
     public static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Sorry, but that index is not within the list.";

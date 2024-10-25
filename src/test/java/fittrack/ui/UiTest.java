@@ -11,7 +11,7 @@ import static fittrack.messages.Messages.DELETE_SESSION_MESSAGE;
 import static fittrack.messages.Messages.EXIT_MESSAGE;
 import static fittrack.messages.Messages.INIT_SENTENCE;
 import static fittrack.messages.Messages.INVALID_INPUT_MESSAGE;
-import static fittrack.messages.Messages.LIST_EMPTY_MESSAGE;
+import static fittrack.messages.Messages.LIST_SESSION_EMPTY_MESSAGE;
 import static fittrack.messages.Messages.LIST_SESSION_MESSAGE;
 import static fittrack.messages.Messages.SEPARATOR;
 
@@ -75,7 +75,7 @@ public class UiTest {
     public void testPrintSessionListEmpty() {
         ArrayList<TrainingSession> sessions = new ArrayList<>();
         Ui.printSessionList(sessions);
-        assertEquals(SEPARATOR + System.lineSeparator() + LIST_EMPTY_MESSAGE + System.lineSeparator() + SEPARATOR
+        assertEquals(SEPARATOR + System.lineSeparator() + LIST_SESSION_EMPTY_MESSAGE + System.lineSeparator() + SEPARATOR
                 + System.lineSeparator()+ System.lineSeparator(), outputStreamCaptor.toString());
     }
 

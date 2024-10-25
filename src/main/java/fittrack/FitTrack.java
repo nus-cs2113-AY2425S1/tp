@@ -13,10 +13,7 @@ import static fittrack.logger.FitTrackLogger.setupLogger;
 import static fittrack.messages.Messages.EXIT_COMMAND;
 import static fittrack.storage.Storage.initialiseSaveFile;
 import static fittrack.storage.Storage.loadSaveFile;
-import static fittrack.ui.Ui.printExitMessage;
-import static fittrack.ui.Ui.printGreeting;
-import static fittrack.ui.Ui.printHelp;
-import static fittrack.ui.Ui.printUser;
+import static fittrack.ui.Ui.*;
 
 public class FitTrack {
     /**
@@ -49,6 +46,9 @@ public class FitTrack {
         User user = new User(gender, age);
         printUser(user);
         printHelp();
+
+        // Inform users of upcoming reminders
+        printUpcomingReminders(reminderList);
 
         String input = scan.nextLine();
 
