@@ -1,5 +1,6 @@
 package fittrack.storage;
 
+import fittrack.fitnessgoal.Goal;
 import fittrack.trainingsession.TrainingSession;
 
 import java.io.File;
@@ -105,4 +106,30 @@ public class Storage {
         // Assert that the file has been written to successfully
         assert SAVEFILE.length() > 0 : "Save file should not be empty after update";
     }
+
+    public static void updateGoalsFile(ArrayList<Goal> goals) throws IOException {
+        try (FileWriter fw = new FileWriter(SAVEFILE, true)) {
+            fw.write("Goals:\n");
+            for (Goal goal : goals) {
+                fw.write(goal.toString() + "\n"); // Save each goal's string representation
+            }
+            LOGGER.info("Goals successfully updated in save file.");
+        }
+    }
+
+    public static void loadSaveFile(ArrayList<TrainingSession> sessionList, ArrayList<String> goalList) throws FileNotFoundException {
+        Scanner s = new Scanner(SAVEFILE);
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            if (line.startsWith("Goals:")) {
+                while (s.hasNext() && !(line = s.nextLine()).isEmpty()) {
+                    goalList.add(line);
+                }
+            }
+            // Continue with other data loading
+        }
+        System.out.println("Save file successfully loaded.");
+        LOGGER.info("Save file successfully loaded.");
+    }
+
 }

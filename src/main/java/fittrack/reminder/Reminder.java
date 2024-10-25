@@ -10,7 +10,7 @@ public class Reminder {
 
     private final LocalDateTime reminderDeadline;
     private final String reminderDescription;
-    private final User User;
+    private final fittrack.user.User User;
 
     public Reminder(String description, LocalDateTime deadline, User user) {
         this.reminderDescription = description;

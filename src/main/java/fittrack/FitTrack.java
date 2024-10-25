@@ -1,5 +1,6 @@
 package fittrack;
 
+import fittrack.fitnessgoal.Goal;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,6 +9,8 @@ import fittrack.parser.Parser;
 import fittrack.reminder.Reminder;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
+import fittrack.fitnessgoal.AddFitnessGoal;
+import fittrack.fitnessgoal.DeleteFitnessGoal;
 
 import static fittrack.logger.FitTrackLogger.setupLogger;
 import static fittrack.messages.Messages.EXIT_COMMAND;
@@ -20,6 +23,7 @@ import static fittrack.ui.Ui.printUpcomingReminders;
 import static fittrack.ui.Ui.printUser;
 
 
+
 public class FitTrack {
     /**
      * Main entry-point for the FitTrack CLI application.
@@ -27,10 +31,12 @@ public class FitTrack {
     public static void main(String[] args) throws FileNotFoundException {
         setupLogger();
 
-        // Initialize scanner and session / reminder list
+        // Initialize scanner and session / reminder / goal list
         Scanner scan = new Scanner(System.in);
         ArrayList<TrainingSession> sessionList = new ArrayList<>();
         ArrayList<Reminder> reminderList = new ArrayList<>();
+        ArrayList<Goal> goalList = new ArrayList<>();
+
 
         // Initialize and load the save file
         initialiseSaveFile();
@@ -60,13 +66,12 @@ public class FitTrack {
         // Until the exit command is entered, execute command then read user input
         while (!input.equals(EXIT_COMMAND)) {
             assert !input.trim().isEmpty() : "User input should not be null or empty";
-            Parser.parse(user, input, sessionList, reminderList);
+            Parser.parse(user, input, sessionList, reminderList, goalList);
             input = scan.nextLine();
+
+            printExitMessage();
         }
-
-        printExitMessage();
     }
-
     /**
      * Helper method to check if a string is numeric.
      *
