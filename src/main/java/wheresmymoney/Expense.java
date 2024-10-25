@@ -1,11 +1,14 @@
 package wheresmymoney;
 
+import java.time.LocalDate;
+
 import wheresmymoney.exception.WheresMyMoneyException;
 
 public class Expense {
     protected Float price;
     protected String description;
     protected String category;
+    protected LocalDate dateAdded;
 
 
     public Expense(Float price, String description, String category) {
