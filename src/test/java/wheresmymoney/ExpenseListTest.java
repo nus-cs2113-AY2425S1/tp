@@ -91,18 +91,17 @@ class ExpenseListTest {
     }
 
     @Test
-    public void deleteExpense_normalList_reduceListSize() {
+    public void deleteExpense_nonemptyList_reduceListSize() {
         ExpenseList expenseList = new ExpenseList();
-        expenseList.addExpense(1.00f, "Ice Cream", "Food");
-        assertEquals(1,  expenseList.getTotal());
         try {
+            expenseList.addExpense(0.01F, "desc", "cat");
+            assertEquals(1,  expenseList.getTotal());
             expenseList.deleteExpense(0);
+            assertEquals(0, expenseList.getTotal());
         } catch (WheresMyMoneyException e) {
-            fail();
+            fail("Exception thrown when Expense parameters and list index are valid.");
         }
-        assertEquals(0,  expenseList.getTotal());
     }
-
     @Test
     public void deleteExpense_emptyList_throwsWheresMyMoneyException() {
         ExpenseList expenseList = new ExpenseList();
