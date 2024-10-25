@@ -19,36 +19,49 @@ class ExpenseListTest {
         ExpenseList expenseList = new ExpenseList();
         assertNotNull(expenseList);
     }
-
     @Test
-    public void getTotal_emptyExpenseList_totalIsZero() {
-        ExpenseList expenseList = new ExpenseList();
-        assertEquals(0, expenseList.getTotal());
+    public void getTotal_expenseList_correctTotal() {
+        try {
+            ExpenseList expenseList = new ExpenseList();
+            assertEquals(0, expenseList.getTotal());
+            expenseList.addExpense(0.0F, "desc", "category", "25-10-2024");
+            assertEquals(1, expenseList.getTotal());
+            expenseList.deleteExpense(0);
+            assertEquals(0, expenseList.getTotal());
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when Expense parameters and list index are valid.");
+        }
+    }
+    @Test
+    public void isEmpty_expenseList_correctBoolean() {
+        try {
+            ExpenseList expenseList = new ExpenseList();
+            assertTrue(expenseList.isEmpty());
+            expenseList.addExpense(0.0F, "desc", "category", "25-10-2024");
+            assertFalse(expenseList.isEmpty());
+            expenseList.deleteExpense(0);
+            assertTrue(expenseList.isEmpty());
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when Expense parameters and list index are valid.");
+        }
     }
 
     @Test
-    public void isEmpty_emptyExpenseList_returnTrue() {
+    public void getExpenseAtIndex_indexIsOutOfBounds_throwsWheresMyMoneyException() {
         ExpenseList expenseList = new ExpenseList();
-        assertEquals(true, expenseList.isEmpty());
-    }
-
-    @Test
-    public void getExpenseAtIndex_indexIsOutOfBounds_throwsIndexOutOfBoundsException() {
-        ExpenseList expenseList = new ExpenseList();
-        assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(WheresMyMoneyException.class,
                 () -> expenseList.getExpenseAtIndex(-1));
-        assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(WheresMyMoneyException.class,
                 () -> expenseList.getExpenseAtIndex(0));
-        assertThrows(IndexOutOfBoundsException.class,
+        assertThrows(WheresMyMoneyException.class,
                 () -> expenseList.getExpenseAtIndex(1));
     }
-
     @Test
-    public void getIndexOf_expenseNotInList_indexIsMinusOne() {
+    public void getIndexOf_expenseNotInList_throwsWheresMyMoneyException() {
         ExpenseList expenseList = new ExpenseList();
         assertThrows(WheresMyMoneyException.class,
                 () -> expenseList.getIndexOf(
-                        new Expense(0F, "dummy", "dummy", "25-10-2024")));
+                        new Expense(0.0F, "desc", "category", "25-10-2024")));
     }
 
     @Test
