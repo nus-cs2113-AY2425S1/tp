@@ -106,7 +106,6 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         }
 
         JsonArray courses = jsonObject.getJsonObject(pu).getJsonArray(COURSES_ARRAY_LABEL);
-
         for (int i = 0; i < courses.size(); i++) {
             JsonObject course = courses.getJsonObject(i);
             String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
