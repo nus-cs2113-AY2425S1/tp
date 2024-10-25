@@ -37,7 +37,7 @@ public class ListUniCoursesCommandTest {
     }
 
     @Test
-    public void getPuName_withValidInput_success() throws Exception {
+    public void getPuName_withValidInput_success() {
         String userInput = "set the university of western australia";
         String puName = listUniCoursesCommand.getPuName(userInput);
         assertEquals("the university of western australia", puName);
@@ -94,8 +94,8 @@ public class ListUniCoursesCommandTest {
 
     @Test
     public void execute_validInput_success() {
-        String puName = "Chulalongkorn University";
-        listUniCoursesCommand.execute(puName);
+        String userInput = "set Chulalongkorn University";
+        listUniCoursesCommand.execute(userInput);
 
         String expectedOutput = """
                 ICE2190472: Netcentric Architecture
@@ -115,8 +115,8 @@ public class ListUniCoursesCommandTest {
 
     @Test
     public void execute_invalidUni_displayError() {
-        String puName = "Invalid Uni";
-        listUniCoursesCommand.execute(puName);
+        String userInput = "set Invalid Uni";
+        listUniCoursesCommand.execute(userInput);
 
         String expectedOutput = """
             University not found: Invalid Uni
