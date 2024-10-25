@@ -25,7 +25,6 @@ public class Logs {
     public static final String PARSE_ADD_COMMANDS = "Check user input and split it into substrings.";
     public static final String EXTRACT_COURSES = "Extract from NUS course code, PU and PU course code from array.";
     public static final String FORMAT = "Format output";
-    public static final String ADD_TO_STORAGE = "Adding course to storage: ";
     public static final String MISSING_KEYWORDS = "Missing /pu or /coursepu keyword.";
     public static final String ADJACENT_KEYWORDS = "Adjacent keywords.";
     public static final String INVALID_COURSE_CODE = "Invalid course code or partner university.";
@@ -34,4 +33,5 @@ public class Logs {
     public static final String COMMAND_PARSED = "Command parsed successfully";
     public static final String INVALID_COMMAND = "Command is invalid.";
     public static final String EXECUTION_FAILED = "Command execution failed unexpectedly.";
+    public static final String ADD_NEW_COURSE_MAPPING = "Please add a new course mapping!";
 }

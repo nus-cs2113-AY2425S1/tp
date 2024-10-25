@@ -12,8 +12,14 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static seedu.exchangecoursemapper.constants.JsonKey.*;
-
+import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_NAME_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.COURSES_ARRAY_LABEL;
+import static seedu.exchangecoursemapper.constants.Logs.ADD_NEW_COURSE_MAPPING;
+import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
+import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
 
 public class AddCoursesCommand extends PersonalTrackerCommand {
 
@@ -38,7 +44,9 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
     }
 
     private static void displayAvailableMappings(JsonArray courses,String pu) {
-        System.out.println("The available mappings for " + pu + " are :");
+        System.out.println("The available mappings for " + pu + " are:");
+        System.out.println(LINE_SEPARATOR);
+
         for (int i = 0; i < courses.size(); i++) {
             JsonObject course = courses.getJsonObject(i);
             String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
@@ -46,19 +54,27 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
             String nusCourseName = course.getString(NUS_COURSE_NAME_KEY).toLowerCase();
             String puCourseName = course.getString(PU_COURSE_NAME_KEY).toLowerCase();
 
-            System.out.println();
-            System.out.println(nusCourseCode + " " + nusCourseName + " | " + puCourseCode + " " + puCourseName);
+            System.out.println(nusCourseCode + " " + nusCourseName + " | "
+                    + puCourseCode + " " + puCourseName + System.lineSeparator());
         }
+        System.out.println(LINE_SEPARATOR);
     }
 
     private static JsonArray getPUCourseList(String pu, JsonObject jsonObject) {
         JsonArray courses;
-        String matchPu = jsonObject.keySet().stream().filter(key -> key.equalsIgnoreCase(pu)).findFirst().orElse(null);
+        String matchPu = jsonObject.keySet()
+                .stream()
+                .filter(key -> key.equalsIgnoreCase(pu))
+                .findFirst()
+                .orElse(null);
 
         if (matchPu != null) {
             courses = jsonObject.getJsonObject(matchPu).getJsonArray(COURSES_ARRAY_LABEL);
         } else {
             System.out.println("Invalid university input!");
+            System.out.println(LINE_SEPARATOR);
+            System.out.println(LIST_RELEVANT_PU);
+            System.out.println(LINE_SEPARATOR);
             return null;
         }
         return courses;
@@ -87,7 +103,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
                 storage.addCourse(courseToStore);
                 printAddMessage(courseToStore);
             } else {
-                System.out.println("Please add a new course mapping!");
+                System.out.println(ADD_NEW_COURSE_MAPPING);
             }
 
         } catch (IllegalArgumentException | IOException e) {
