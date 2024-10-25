@@ -133,7 +133,7 @@ public class History {
         StringBuilder historyString = new StringBuilder();
 
 
- \       if (history.isEmpty()) {
+        if (history.isEmpty()) {
             return "No history available.";
         }
 
