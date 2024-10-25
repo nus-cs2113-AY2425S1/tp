@@ -1,0 +1,41 @@
+@startuml
+hide footbox
+
+actor CEG_Student
+participant ":FilterCoursesCommand" as FilterCoursesCommand
+participant ":Command" as Command
+
+CEG_Student -> FilterCoursesCommand: execute (userInput:String)
+activate FilterCoursesCommand
+
+FilterCoursesCommand -> Command: createJsonObject()
+activate Command
+
+opt inputStream is null
+    Command -> Command: throw new IOException()
+end
+
+Command --> FilterCoursesCommand: JsonObject
+deactivate Command
+
+FilterCoursesCommand -> FilterCoursesCommand: getNusCourseCode(userInput: String)
+activate FilterCoursesCommand
+return courseToFind : String
+
+FilterCoursesCommand -> FilterCoursesCommand: displayMappableCourses(jsonObject : JsonObject, courseToFind : String)
+activate FilterCoursesCommand
+
+loop for each universityName in universityNames
+        loop for each course in courses
+            opt course == courseToFind
+                FilterCoursesCommand -> FilterCoursesCommand: Print PU and PU course code
+            end
+        end
+end
+
+FilterCoursesCommand --> FilterCoursesCommand
+deactivate FilterCoursesCommand
+
+FilterCoursesCommand --> CEG_Student
+deactivate FilterCoursesCommand
+@enduml
