@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AddIncomeCommandTest {
 
     @Test
-    public void execute_addIncomeWithAllValidFields_success() {
+    public void execute_addIncomeAllValidFields_success() {
         TransactionList transactionList = new TransactionList();
         AddIncomeCommand command = new AddIncomeCommand(transactionList);
 
@@ -22,7 +22,7 @@ class AddIncomeCommandTest {
     }
 
     @Test
-    public void execute_addIncomeWithInvalidDate_exceptionThrown() {
+    public void execute_addIncomeInvalidDate_exceptionThrown() {
         TransactionList transactionList = new TransactionList();
         AddIncomeCommand command = new AddIncomeCommand(transactionList);
 
@@ -33,7 +33,7 @@ class AddIncomeCommandTest {
     }
 
     @Test
-    public void execute_addIncomeWithInvalidAmount_exceptionThrown() {
+    public void execute_addIncomeInvalidAmount_exceptionThrown() {
         TransactionList transactionList = new TransactionList();
         AddIncomeCommand command = new AddIncomeCommand(transactionList);
 
@@ -44,7 +44,7 @@ class AddIncomeCommandTest {
     }
 
     @Test
-    public void execute_addIncomeWithNoAmount_exceptionThrown() {
+    public void execute_addIncomeNoAmount_exceptionThrown() {
         TransactionList transactionList = new TransactionList();
         AddIncomeCommand command = new AddIncomeCommand(transactionList);
 
@@ -55,7 +55,7 @@ class AddIncomeCommandTest {
     }
 
     @Test
-    public void execute_addIncomeWithNoDescription_success() {
+    public void execute_addIncomeNoDescription_success() {
         TransactionList transactionList = new TransactionList();
         AddIncomeCommand command = new AddIncomeCommand(transactionList);
 
