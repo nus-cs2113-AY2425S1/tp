@@ -22,8 +22,11 @@
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+|v1.0|user|	view their logged workout entry for a specific day	|see what they have done previously|
+|v1.0|user|	delete a workout entry| 	remove mistakenly created logs|
+|v2.0|user| log my body measurements (e.g., weight, body fat) |track calories burned/intake more accurately/ track GAINS|
+|v2.0|nutrition-focused user|track calories burned during my workout	align my fitness routine with my dietary goals|
+|v2.0|user|View body measurements over time|see the progress of their body	Weekly logging of weight|
 
 ## Non-Functional Requirements
 
