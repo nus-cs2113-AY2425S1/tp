@@ -8,7 +8,7 @@ import water.Water;
 import java.util.logging.Logger;
 
 public class DailyRecord {
-    private static final Logger logger = Logger.getLogger(Record.class.getName());
+    private static final Logger logger = Logger.getLogger(DailyRecord.class.getName());
     private Day day;
     private MealList mealList;
     private Water water;
@@ -65,37 +65,12 @@ public class DailyRecord {
         logger.info("Day updated: " + day);
     }
 
-    public void addMealToRecord(Meal meal) {
-        assert meal != null;
-
-        mealList.addMeal(meal);
-        logger.info("meal added: " + meal);
-    }
-
-    public void deleteMealFromRecord(int index) {
-        assert index > 0;
-
-        mealList.deleteMeal(index);
-        logger.info("meal deleted, index: " + index);
-    }
-
-    public void addWaterToRecord(float toAddWater) {
-        assert toAddWater > 0;
-
-        water.addWater(toAddWater);
-        logger.info("Water added: " + toAddWater);
-    }
-
-    public void removeWaterfromRecord(int index) {
-        water.getWaterList().remove(index);
-    }
-
     public int getCaloriesFromMeal() {
         int caloriesMeal = 0;
         for (Meal meal : mealList.getMeals()) {
             caloriesMeal += meal.getCalories();
         }
-        logger.info("Calories from meals caluated: " + caloriesMeal);
+        logger.info("Calories from meals calculated: " + caloriesMeal);
         return caloriesMeal;
     }
 
