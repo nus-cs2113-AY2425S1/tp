@@ -2,6 +2,7 @@ package seedu.duke.ui;
 import java.util.Scanner;
 
 import seedu.duke.common.Messages;
+import seedu.duke.data.hospital.Patient;
 
 /**
  * The Ui class handles the user interface for the task management application.
@@ -22,13 +23,9 @@ public class Ui {
         System.out.print(Messages.MESSAGE_MAIN_PROMPT);
     }
 
-    public void showTaskScreen(String patientName, String patientTag) {
-        String tagFormatted = "";
-        if (patientTag != null) {
-            tagFormatted = " [" + patientTag + "]";
-        }
+    public void showTaskScreen(Patient patient) {
         showLine();
-        System.out.println("Patient: " + patientName + tagFormatted);
+        System.out.println("Patient: " + patient.getName() + patient.getFormattedTag());
         System.out.print(Messages.MESSAGE_MAIN_PROMPT);
     }
 

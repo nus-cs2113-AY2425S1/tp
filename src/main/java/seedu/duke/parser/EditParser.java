@@ -15,14 +15,15 @@ public class EditParser implements CommandParser {
             return null;
         }
 
-        //example input: "edit 1 t/newTag"
+        //example input: "edit 1 /tag <newTag>"
         String[] parts = line.split(" ");
 
-        if (parts.length < 3 || !parts[2].startsWith("t/")) { //ensure proper format. edit must have t/.
-            System.out.println("Invalid command format. Specify the tag using t/TAG.");
+        if (parts.length < 3 || !parts[2].startsWith("/tag")) { //ensure proper format. edit must have t/.
+            System.out.println("Invalid command format. Specify the tag using /tag <newTag>.");
             return null;
         }
 
+        //pass the patient index (2nd part of the command)
         int index;
         try {
             index = Integer.parseInt(parts[1]);
@@ -31,7 +32,7 @@ public class EditParser implements CommandParser {
             return null;
         }
         // combine everything after 't/' to be 1 tag
-        String newTag = line.substring(line.indexOf("t/") + 2).trim();
+        String newTag = line.substring(line.indexOf("/tag") + 4).trim();
 
         return new EditPatientCommand(index, newTag);
     }

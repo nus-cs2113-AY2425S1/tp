@@ -9,7 +9,7 @@ public class AddParser implements CommandParser{
     @Override
     public Command execute(String line, State state) {
         if (state.getState() == StateType.MAIN_STATE) {
-            String[] parts = line.split(" t/");
+            String[] parts = line.split(" /tag ");
             String patientName = parts[0].substring("add ".length()).trim();
             String tag = null;
             //if tag is provided
