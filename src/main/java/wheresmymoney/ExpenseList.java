@@ -124,15 +124,17 @@ public class ExpenseList {
             File file = new File(filePath);
             FileReader reader = new FileReader(file);
             CSVReader csvReader = new CSVReader(reader);
-
+            
             csvReader.readNext(); // Skip the header
             String[] line;
             while ((line = csvReader.readNext()) != null) {
                 addExpense(Float.parseFloat(line[2]), line[1], line[0], line[3]);
             }
-
+            
             // closing writer connection
             reader.close();
+        } catch (WheresMyMoneyException exc) {
+            throw new StorageException("An expense's price, description, category and/or date added is missing");
         } catch (IOException ex) {
             throw new StorageException("Unable to read file!");
         } catch (CsvValidationException e){
