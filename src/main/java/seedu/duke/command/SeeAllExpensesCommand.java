@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Expense;
@@ -45,7 +46,7 @@ public class SeeAllExpensesCommand extends Command{
      * @param list The financial list containing financial entries.
      */
     @Override
-    public void execute(FinancialList list) {
+    public void execute(FinancialList list) throws FinanceBuddyException {
         if (list == null) {
             logger.log(Level.SEVERE, "Financial list is null");
             assert list != null : "Financial list cannot be null";

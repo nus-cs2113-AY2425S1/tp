@@ -147,8 +147,13 @@ public class AppUi {
      * @param commandArguments A map of parsed command arguments that contains the index of the entry
      *                         to be deleted.
      */
-    public void deleteEntry(HashMap<String, String> commandArguments) {
-        int index = Integer.parseInt(commandArguments.get("argument"));
+    public void deleteEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
+        int index = 0;
+        try {
+            index = Integer.parseInt(commandArguments.get("argument"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+        }
 
         DeleteCommand deleteCommand = new DeleteCommand(index);
         deleteCommand.execute(financialList);
