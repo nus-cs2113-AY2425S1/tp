@@ -18,7 +18,7 @@ public class ExpenseTrackerTest {
     @Test
     public void addExpenseWithExistingCategory() {
         ExpenseTracker tracker = new ExpenseTracker();
-        tracker.addCategory("Groceries");
+        tracker.addCategory("add-category Groceries");
         tracker.addExpense("Apple", 2.0, "Groceries");
         tracker.addExpense("Banana", 1.5, "Groceries");
 
@@ -63,7 +63,7 @@ public class ExpenseTrackerTest {
         ExpenseTracker tracker = new ExpenseTracker();
         tracker.addCategory("Food");
         tracker.setBudgetLimit("Food", 9000);
-        Category foodCategory = new Category("food");
+        Category foodCategory = new Category("add-category food");
 
 
         assertNotNull(tracker.getBudgets().get(foodCategory));
@@ -73,8 +73,8 @@ public class ExpenseTrackerTest {
     @Test
     public void addCategoryExists() {
         ExpenseTracker tracker = new ExpenseTracker();
-        tracker.addCategory("Bro");
-        tracker.addCategory("Bro");
+        tracker.addCategory("add-category Bro");
+        tracker.addCategory("add-category Bro");
 
         assertEquals(1, tracker.getCategories().size());
 
