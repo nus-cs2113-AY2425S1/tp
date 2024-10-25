@@ -23,22 +23,6 @@ public class Exercise {
         logger.log(Level.INFO, "Exercise created: {0}", this);
     }
 
-    public int getReps() {
-        return reps;
-    }
-
-    public int getSets() {
-        return sets;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     // Where the 'update' Exercise object has a non-null field, update current exercise to that value
     public void updateExercise(Exercise update) {
         if (!isNull(update.sets)) {
@@ -57,6 +41,22 @@ public class Exercise {
             logger.log(Level.INFO, "Updating name from {0} to {1}", new Object[]{name, update.name});
             name = update.name;
         }
+    }
+
+    public int getReps() {
+        return reps;
+    }
+
+    public int getSets() {
+        return sets;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

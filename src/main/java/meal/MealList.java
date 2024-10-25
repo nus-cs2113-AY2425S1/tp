@@ -22,6 +22,19 @@ public class MealList {
         return meals;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder output = new StringBuilder();
+        int count = 1;
+
+        for (Meal meal : meals) {
+            output.append(count).append(": ").append(meal.getName()).append("\n");
+            count++;
+        }
+
+        return output.toString();
+    }
+
 }
 
 

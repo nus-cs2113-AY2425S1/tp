@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import static common.Utils.NULL_INTEGER;
 
 public class ProgrammeList {
 
@@ -35,6 +34,10 @@ public class ProgrammeList {
     }
 
     public Programme deleteProgram(int index){
+        if (index == NULL_INTEGER){
+            index = currentActiveProgramme;
+        }
+
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for deleteProgram()", index);
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for programme list.");
@@ -47,6 +50,10 @@ public class ProgrammeList {
     }
 
     public Programme getProgramme(int index){
+        if (index == NULL_INTEGER){
+            index = currentActiveProgramme;
+        }
+
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for getProgramme()", index);
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for programme list.");
@@ -69,6 +76,10 @@ public class ProgrammeList {
     }
 
     public Day getDay(int progIndex, int dayIndex) {
+        if (progIndex == NULL_INTEGER){
+            progIndex = currentActiveProgramme;
+        }
+
         if (progIndex < 0 || progIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid programme index: {0} for getDay()", progIndex);
             throw new IndexOutOfBoundsException("Programme index " + progIndex + " is out of bounds.");
@@ -87,6 +98,10 @@ public class ProgrammeList {
     }
 
     public Day deleteDay(int progIndex, int dayIndex) {
+        if (progIndex == NULL_INTEGER){
+            progIndex = currentActiveProgramme;
+        }
+
         if (progIndex < 0 || progIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid programme index: {0} for deleteDay()", progIndex);
             throw new IndexOutOfBoundsException("Programme index " + progIndex + " is out of bounds.");
@@ -98,6 +113,10 @@ public class ProgrammeList {
     }
 
     public void insertDay(int progIndex, Day day){
+        if (progIndex == NULL_INTEGER){
+            progIndex = currentActiveProgramme;
+        }
+
         if (progIndex < 0 || progIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid programme index: {0} for insertDay()", progIndex);
             throw new IndexOutOfBoundsException("Programme index " + progIndex + " is out of bounds.");
@@ -122,15 +141,4 @@ public class ProgrammeList {
         return str.toString();
     }
 
-    public JsonObject toJson() {
-        Gson gson = new Gson();
-        logger.log(Level.INFO, "Programme list converted to Json for saving.");
-        return gson.toJsonTree(this).getAsJsonObject();
-    }
-
-    public static ProgrammeList fromJson(JsonObject jsonObject) {
-        Gson gson = new Gson();
-        logger.log(Level.INFO, "Programme list converted from Json for loading.");
-        return gson.fromJson(jsonObject, ProgrammeList.class);
-    }
 }
