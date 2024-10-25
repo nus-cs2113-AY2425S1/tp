@@ -44,7 +44,7 @@ public class ParserUtils {
     public static LocalDate parseDate(String dateString) {
         assert dateString != null && !dateString.trim().isEmpty() : "Date string must not be null or empty";
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
             return LocalDate.parse(dateString, formatter);
         } catch (DateTimeParseException e) {

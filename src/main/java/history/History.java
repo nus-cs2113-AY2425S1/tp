@@ -45,7 +45,7 @@ public class History {
         }
 
         StringBuilder weeklySummary = new StringBuilder();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         LocalDate today = LocalDate.now();
         LocalDate oneWeekAgo = today.minusDays(7);
@@ -132,11 +132,12 @@ public class History {
     public String toString() {
         StringBuilder historyString = new StringBuilder();
 
-        if (history.isEmpty()) {
+
+ \       if (history.isEmpty()) {
             return "No history available.";
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         // Iterate over the history LinkedHashMap in insertion order
         for (LocalDate date : history.keySet()) {
