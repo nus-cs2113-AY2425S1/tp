@@ -7,9 +7,14 @@ import history.History;
 import programme.ProgrammeList;
 import water.Water;
 
+import java.time.LocalDate;
+
 public abstract class WaterCommand extends Command {
 
-    public WaterCommand() {
+    protected LocalDate date;
+
+    public WaterCommand(LocalDate date) {
+        this.date = date;
     }
 
     public abstract CommandResult execute(History history);
@@ -21,9 +26,10 @@ public abstract class WaterCommand extends Command {
 
     public Water getWaterList(History history) {
         DailyRecord record = history.getRecordByDate(date);
-        Water waterList = new Water();
-        // waterList = record.getWaterList();
-        return waterList;
+        if(record == null) {
+            record = new DailyRecord(new Water());
+        }
+        return record.getWater();
     }
 
 }

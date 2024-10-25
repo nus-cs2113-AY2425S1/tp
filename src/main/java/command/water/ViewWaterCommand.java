@@ -9,10 +9,8 @@ import java.time.LocalDate;
 public class ViewWaterCommand extends WaterCommand {
     public static final String COMMAND_WORD = "view";
 
-    protected final LocalDate date;
-
     public ViewWaterCommand(LocalDate date) {
-        this.date = date;
+        super(date);
     }
 
     public CommandResult execute(History history) {
