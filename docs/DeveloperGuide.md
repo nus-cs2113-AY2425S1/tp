@@ -32,7 +32,7 @@ another in the scenario when the command `add -e event -t 1200 -v venue` is exec
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### list feature[TBD]
+### List feature[TBD]
 
 The `list` feature allows users to view all scheduled events in the system. 
 It is implemented in the `ListCommand` class, which extends the base `Command` class and formats the output to display all events. 
