@@ -45,8 +45,9 @@ class ExpenseListTest {
     @Test
     public void getIndexOf_expenseNotInList_indexIsMinusOne() {
         ExpenseList expenseList = new ExpenseList();
-        Expense expense = new Expense(0F, "", "");
-        assertEquals(-1, expenseList.getIndexOf(expense));
+        assertThrows(WheresMyMoneyException.class,
+                () -> expenseList.getIndexOf(
+                        new Expense(0F, "dummy", "dummy", "25-10-2024")));
     }
 
     @Test
