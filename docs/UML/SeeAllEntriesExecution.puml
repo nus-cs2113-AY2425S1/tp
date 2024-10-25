@@ -1,0 +1,43 @@
+@startuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+
+participant "SeeAllEntriesCommand" as cmd
+participant "FinancialList" as list
+participant "FinancialEntry" as entry
+
+
+-> cmd : execute()
+activate cmd
+
+cmd -> list : getEntryCount()
+activate list
+return entryCount
+
+loop i < entryCount
+    cmd -> list : getEntry(i)
+    activate list
+    return entry
+
+    cmd -> cmd : shouldBeIncluded(entry)
+    activate cmd
+    return includeDecision
+
+    opt entry should be included
+        cmd -> cmd : increment entryCount
+        cmd -> entry : toString()
+        activate entry
+        return entryString
+        cmd -> cmd : append to entryList
+    end
+end
+
+alt entryCount == 0
+    <-- cmd : print no entry message
+else entryCount > 0
+    <-- cmd: print entryList
+end
+
+deactivate cmd
+@enduml

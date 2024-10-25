@@ -50,14 +50,35 @@ The diagram below shows the inheritance of the `Command` class.
 #### Listing Entries
 Overview
 
-The list entries feature is facilitated by `SeeAllEntriesCommand`.
+The list entries feature is facilitated by the `SeeAllEntriesCommand` class.
+Similarly, classes `SeeAllExpensesCommand` and `SeeAllIncomesCommand` facilitate 
+listing out expenses and incomes respectively.
 
-When the user inputs `list [income|expense] [/from START_DATE] [/to END_DATE]`, the following logic is carried out.
-![pic](UML/SeeAllEntriesOverview.png)
+The user invokes the command to list entries by entering the following command:
+```list [income|expense] [/from START_DATE] [/to END_DATE]```.
 
-The interaction between `SeeAllEntriesCommand` with the `FinancialList` is as follows:
+This is parsed by the InputParser, returning a HashMap `commandArgumets`, containing the following optional arguments:
+- `argument`: Represents the type of Financial Entries to be printed. Can take 3 possible values:
+  - `expense`: List only Expenses
+  - `income`: List only Incomes
+  - `null`: List both Expenses and Incomes
+- `/from`: Represents the starting date from which Financial Entries should be listed. If value is `null`,
+there is no defined starting date.
+- `/to`: Represents the ending date by which Financial Entries should be listed. If value is `null`,
+  there is no defined ending date.
+
+`CommandHandler` invokes the `listHelper` method to create and execute the command to list the financial entries
+according to the following logic.
+
+{add in diagram}
+
+The interaction between the command classes and the `FinancialList` is as follows,
+using `SeeAllEntriesCommand` as an example:
 
 ![pic](UML/SeeAllEntriesExecution.png)
+
+The `shouldBeIncluded()` method marks Financial Entries as "should be included" if their
+dates fall between the start and end dates passed into the command object.
 
 `SeeAllExpensesCommand` and `SeeAllIncomesCommand` interact with the `FinancialList` in a 
 similar manner, with the only difference being that the `shouldBeIncluded()` methods of
