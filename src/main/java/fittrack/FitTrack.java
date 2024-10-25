@@ -22,7 +22,7 @@ import java.util.Scanner;
 
 public class FitTrack {
 
-  /**
+  /**                
    * Main entry-point for the FitTrack CLI application.
    */
   public static void main(String[] args) throws FileNotFoundException {
