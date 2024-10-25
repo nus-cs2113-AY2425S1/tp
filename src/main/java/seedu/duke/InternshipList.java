@@ -19,6 +19,10 @@ public class InternshipList {
         internships = new ArrayList<>();
     }
 
+    public InternshipList(ArrayList<Internship> internships) {
+        this.internships = internships;
+    }
+
     public void addInternship(Internship internship) {
         if (internship.getId() == -1) {
             internship.setId(internships.size());

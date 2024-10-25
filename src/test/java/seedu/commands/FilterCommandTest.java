@@ -30,18 +30,6 @@ public class FilterCommandTest {
     }
 
     @Test
-    void execute_tooManyFlags_abortsFiltering() {
-        createList();
-        ArrayList<String> args = new ArrayList<>();
-        args.add("role Software Engineer");
-        args.add("company Google");
-
-        filterCommand.execute(args);
-
-        assertEquals(0, filterCommand.getFilteredInternships().getSize());
-    }
-
-    @Test
     void execute_invalidFlag_abortsFiltering() {
         createList();
         ArrayList<String> args = new ArrayList<>();
@@ -103,5 +91,22 @@ public class FilterCommandTest {
 
         assertEquals(1, filterCommand.getFilteredInternships().getSize());
         assertEquals("01/24", filterCommand.getFilteredInternships().getInternship(0).getStartDate());
+    }
+
+    @Test
+    void execute_validMultipleFlags_internshipFiltered() {
+        createList();
+        internships.addInternship(new Internship("Software Engineer", "Google", "01/24", "08/24"));
+        internships.addInternship(new Internship("Data Scientist", "Meta", "02/24", "07/24"));
+        internships.addInternship(new Internship("Software Engineer", "Meta", "04/24", "09/24"));
+        ArrayList<String> args = new ArrayList<>();
+        args.add("role Software Engineer");
+        args.add("company Meta");
+
+        filterCommand.execute(args);
+
+        assertEquals(1, filterCommand.getFilteredInternships().getSize());
+        assertEquals("Software Engineer", filterCommand.getFilteredInternships().getInternship(0).getRole());
+        assertEquals("Meta", filterCommand.getFilteredInternships().getInternship(0).getCompany());
     }
 }
