@@ -24,6 +24,10 @@ public class RecurringExpenseList extends ExpenseList {
         return recurringExpenses;
     }
 
+    public int getIndexOf(RecurringExpense expense) {
+        return recurringExpenses.indexOf(expense);
+    }
+
     /**
      * Add a recurring expense to the end of the list
      *
