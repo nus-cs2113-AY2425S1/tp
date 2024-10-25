@@ -12,22 +12,22 @@ class ExpenseTest {
     }
 
     @Test
-    public void Expense_nullPrice_throwsWheresMyMoneyException() {
+    public void createExpense_nullPrice_throwsWheresMyMoneyException() {
         assertThrows(WheresMyMoneyException.class,
             () -> new Expense(null, "desc", "category", "25-10-2024"));
     }
     @Test
-    public void Expense_nullDescription_throwsWheresMyMoneyException() {
+    public void createExpense_nullDescription_throwsWheresMyMoneyException() {
         assertThrows(WheresMyMoneyException.class,
             () -> new Expense(0.0F, null, "category", "25-10-2024"));
     }
     @Test
-    public void Expense_nullCategory_throwsWheresMyMoneyException() {
+    public void createExpense_nullCategory_throwsWheresMyMoneyException() {
         assertThrows(WheresMyMoneyException.class,
             () -> new Expense(0.0F, "desc", null, "25-10-2024"));
     }
     @Test
-    public void Expense_nullDateAdded_throwsWheresMyMoneyException() {
+    public void createExpense_nullDateAdded_throwsWheresMyMoneyException() {
         assertThrows(WheresMyMoneyException.class,
             () -> new Expense(0.0F, "desc", "category", null));
     }
