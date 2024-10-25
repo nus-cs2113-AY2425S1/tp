@@ -169,17 +169,7 @@ class ParserTest {
 
     })
     void parseCommand_addRecipeCommand_invalidArgumentsExceptionThrown(String command) {
-        RecipeList recipes = new RecipeList();
-
-        ArrayList<String> pastaIngredients = new ArrayList<>();
-        pastaIngredients.add("Pasta");
-        ArrayList<String> pastaSteps = new ArrayList<>();
-        pastaSteps.add("Boil pasta in water.");
-
-        Recipe pastaRecipe = new Recipe("Pasta", pastaIngredients, pastaSteps, 2);
-        recipes.addRecipe(pastaRecipe);
-
-        assertThrows(InvalidArgumentException.class, () -> parseCommand(command, recipes));
+        assertThrows(InvalidArgumentException.class, () -> parseCommand(command, new RecipeList()));
     }
 
     @ParameterizedTest

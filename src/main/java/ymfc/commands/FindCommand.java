@@ -56,7 +56,7 @@ public class FindCommand extends Command {
                 )
                 .collect(Collectors.toCollection(ArrayList::new));
         numMatches = results.size();
-        ui.printFind(results, results.size());
+        ui.printFind(results, numMatches);
         logger.log(Level.FINEST, "FindCommand successfully executed");
     }
 
