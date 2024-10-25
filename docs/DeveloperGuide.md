@@ -39,8 +39,22 @@ and Oceania.
 #### Sequence Diagram on PlantUML:
 ![List School Command Sequence Diagram](../uml-images/ListSchoolsCommand.png)
 
-### 2. Obtain Partner University Email
-### 3. Obtain Partner University Contact Number
+### 2. Obtain Partner University Email and Contact Number
+
+#### Overview:
+
+
+#### How the feature is implemented:
+
+
+#### Why it is implemented that way:
+
+
+#### Alternatives considered:
+
+
+#### Sequence Diagram on PlantUML:
+
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 
