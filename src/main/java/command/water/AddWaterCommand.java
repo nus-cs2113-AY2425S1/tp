@@ -1,6 +1,7 @@
 package command.water;
 
 import command.CommandResult;
+import dailyrecord.DailyRecord;
 import history.History;
 import water.Water;
 
@@ -13,6 +14,9 @@ public class AddWaterCommand extends WaterCommand {
     protected LocalDate date;
 
     public AddWaterCommand(float waterToAdd, LocalDate date) {
+    public AddWaterCommand(float waterToAdd, LocalDate date) {
+        assert waterToAdd > 0;
+        assert date != null;
         this.waterToAdd = waterToAdd;
         this.date = date;
     }

@@ -1,6 +1,7 @@
 package command.meals;
 
 import command.CommandResult;
+import dailyrecord.DailyRecord;
 import history.History;
 import meal.MealList;
 
@@ -13,12 +14,21 @@ public class DeleteMealCommand extends MealCommand {
     protected final LocalDate date;
 
     public DeleteMealCommand(int index, LocalDate date) {
+        assert index >= 0;
         this.indexMealToDelete = index;
         this.date = date;
     }
 
     public CommandResult execute(History history) {
-        MealList meals = getMealList(history);
+        assert history != null;
+
+        DailyRecord dailyRecord = history.getRecordByDate(date);
+        if(dailyRecord == null) {
+            dailyRecord = new DailyRecord(new MealList());
+        }
+        assert dailyRecord != null;
+        dailyRecord.deleteMealFromRecord(indexMealToDelete);
+        MealList meals = dailyRecord.getMealList();
         String mealToDeleteName = meals.deleteMeal(indexMealToDelete).toString();
 
         return new CommandResult( mealToDeleteName + " has been deleted");
