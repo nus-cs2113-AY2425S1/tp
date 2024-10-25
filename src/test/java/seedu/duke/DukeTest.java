@@ -7,6 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.After;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 
 class ExpenseTest {
     @Test
@@ -128,66 +135,130 @@ class BudgetTest {
     }
 }
 
-class ExpenseTrackerTest {
 
-    @Test
-    public void testSetBudgetLimit_NewCategory() {
-        ExpenseTracker tracker = new ExpenseTracker();
-        tracker.setBudgetLimit("groceries", 200.0);
+public class ExpenseTrackerTest {
+    private static final String AUTOMATIC_RESET_ON = "Automatic budget reset is now ON";
+    private static final String AUTOMATIC_RESET_OFF = "Automatic budget reset is now OFF";
+    private static final double TEST_BUDGET_LIMIT = 100.00;
+    private static final double TEST_EXPENSE_AMOUNT = 15.50;
+    private static final String TEST_CATEGORY_NAME = "Food";
+    private static final String TEST_EXPENSE_DESCRIPTION = "Dinner at restaurant";
+    private static final double TEST_MOVIE_PRICE = 12.00;
+    private static final String TEST_MOVIE_TICKET_DESCRIPTION = "Movie ticket";
+    private static final String TEST_MISC_BUDGET = "Misc";
+    private static final double TEST_MISC_BUDGET_LIMIT = 50.00;
+    private static final String TEST_GROCERIES = "Groceries";
+    private static final double TEST_GROCERIES_AMOUNT = 60.00;
+    private static final String TEST_GROCERIES_SHOPPING = "Weekly groceries";
+    private static final String TEST_GROCERIES_TAG = "Sunday shopping";
 
-        Map<String, Budget> budgets = tracker.getBudgets();
-        Budget groceriesBudget = budgets.get("groceries");
+    private ExpenseTracker tracker;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
-        assertNotNull(groceriesBudget, 
-                "The budget for groceries should not be null.");
-        assertEquals(200.0, groceriesBudget.getLimit(), 
-                "The budget limit for groceries should be 200.0.");
+    @Before
+    public void setUp() {
+        tracker = new ExpenseTracker();
+        System.setOut(new PrintStream(outContent));
     }
 
     @Test
-    public void testSetBudgetLimit_UpdateCategory() {
-        ExpenseTracker tracker = new ExpenseTracker();
-        tracker.setBudgetLimit("groceries", 200.0);
-        tracker.setBudgetLimit("groceries", 300.0);
+    public void testToggleAutoReset() {
+        tracker.toggleAutoReset();
+        assertTrue(outContent.toString().contains(AUTOMATIC_RESET_ON));
+        outContent.reset();
+        tracker.toggleAutoReset();
+        assertTrue(outContent.toString().contains(AUTOMATIC_RESET_OFF));
+    }
 
-        Map<String, Budget> budgets = tracker.getBudgets();
-        Budget groceriesBudget = budgets.get("groceries");
-
-        assertNotNull(groceriesBudget, 
-                "The budget for groceries should not be null.");
-        assertEquals(300.0, groceriesBudget.getLimit(), 
-                "The updated budget limit for groceries should be 300.0.");
+    @Test
+    public void testAddCategory() {
+        Category newCategory = new Category(TEST_CATEGORY_NAME);
+        tracker.addCategory(newCategory);
+        tracker.viewBudget();  
+        assertTrue(outContent.toString().contains(TEST_CATEGORY_NAME));
     }
 
     @Test
     public void testAddExpense() {
-        ExpenseTracker tracker = new ExpenseTracker();
-        tracker.setBudgetLimit("groceries", 200.0);
-        tracker.addExpense("Milk", 50.0, "groceries");
-
-        List<Expense> expenses = tracker.getExpenses();
-
-        assertEquals(1, expenses.size(), "There should be 1 expense recorded.");
-        Expense milkExpense = expenses.get(0);
-        assertEquals("Milk", milkExpense.getName(), 
-                "The expense name should be Milk.");
-        assertEquals(50.0, milkExpense.getAmount(), 
-                "The expense amount should be 50.0.");
-        assertEquals("groceries", milkExpense.getCategory(), 
-                "The expense category should be groceries.");
+        Category food = new Category(TEST_CATEGORY_NAME);
+        tracker.addCategory(food);
+        Expense dinner = new Expense(food, TEST_EXPENSE_AMOUNT, TEST_EXPENSE_DESCRIPTION);
+        tracker.addExpense(dinner);
+        tracker.viewExpensesByCategory();
+        assertTrue(outContent.toString().contains(TEST_EXPENSE_DESCRIPTION));
+        assertTrue(outContent.toString().contains(String.valueOf(TEST_EXPENSE_AMOUNT)));
     }
 
     @Test
-    public void testExceedBudgetWarning() {
-        ExpenseTracker tracker = new ExpenseTracker();
-        tracker.setBudgetLimit("groceries", 100.0);
-        tracker.addExpense("Eggs", 50.0, "groceries");
-        tracker.addExpense("Cheese", 60.0, "groceries");
+    public void testDeleteExpense() {
+        Category food = new Category(TEST_CATEGORY_NAME);
+        tracker.addCategory(food);
+        Expense dinner = new Expense(food, TEST_EXPENSE_AMOUNT, "Dinner");
+        tracker.addExpense(dinner);
+        tracker.deleteExpense(dinner);
+        tracker.viewExpensesByCategory();
+        assertFalse(outContent.toString().contains("Dinner"));
+    }
 
-        double totalExpenses = tracker.getTotalExpenseForCategory("groceries");
-        Budget groceriesBudget = tracker.getBudgets().get("groceries");
+    @Test
+    public void testSetBudgetLimit() {
+        Category transport = new Category("Transport");
+        tracker.addCategory(transport);
+        tracker.setBudgetLimit(transport, TEST_BUDGET_LIMIT);
+        tracker.viewBudget();
+        assertTrue(outContent.toString().contains("Transport"));
+        assertTrue(outContent.toString().contains(String.valueOf(TEST_BUDGET_LIMIT)));
+    }
 
-        assertTrue(totalExpenses > groceriesBudget.getLimit(), 
-                "The total expenses for groceries should exceed the budget limit.");
+    @Test
+    public void testViewBudget() {
+        Category misc = new Category(TEST_MISC_BUDGET);
+        tracker.addCategory(misc);
+        tracker.setBudgetLimit(misc, TEST_MISC_BUDGET_LIMIT);
+        tracker.viewBudget();
+        assertTrue(outContent.toString().contains(TEST_MISC_BUDGET));
+        assertTrue(outContent.toString().contains(String.valueOf(TEST_MISC_BUDGET_LIMIT)));
+    }
+
+    @Test
+    public void testViewExpensesByCategory() {
+        Category entertainment = new Category("Entertainment");
+        tracker.addCategory(entertainment);
+        Expense movie = new Expense(entertainment, TEST_MOVIE_PRICE, TEST_MOVIE_TICKET_DESCRIPTION);
+        tracker.addExpense(movie);
+        tracker.viewExpensesByCategory();
+        assertTrue(outContent.toString().contains(TEST_MOVIE_TICKET_DESCRIPTION));
+        assertTrue(outContent.toString().contains(String.valueOf(TEST_MOVIE_PRICE)));
+    }
+
+    @Test
+    public void testCheckAndResetBudgets() {
+        tracker.toggleAutoReset();
+        tracker.checkAndResetBudgets();
+        outContent.reset();
+        tracker.checkAndResetBudgets();
+        assertTrue(outContent.toString().isEmpty());
+    }
+
+    @Test
+    public void testManageMonthlyReset() {
+        tracker.manageMonthlyReset();
+        assertTrue(outContent.toString().contains("Budgets have been reset"));
+    }
+
+    @Test
+    public void testTagExpense() {
+        Category groceries = new Category(TEST_GROCERIES);
+        tracker.addCategory(groceries);
+        Expense shopping = new Expense(groceries, TEST_GROCERIES_AMOUNT, TEST_GROCERIES_SHOPPING);
+        tracker.addExpense(shopping);
+        tracker.tagExpense(shopping, TEST_GROCERIES_TAG);
+        tracker.viewExpensesByCategory();
+        assertTrue(outContent.toString().contains(TEST_GROCERIES_TAG));
+    }
+
+    @After
+    public void cleanUpStreams() {
+        System.setOut(null);
     }
 }
