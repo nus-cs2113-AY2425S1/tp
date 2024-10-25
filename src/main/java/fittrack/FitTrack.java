@@ -22,6 +22,7 @@ import static fittrack.ui.Ui.printUser;
 
 
 public class FitTrack {
+
   /**
    * Main entry-point for the FitTrack CLI application.
    */
@@ -68,7 +69,7 @@ public class FitTrack {
 
     printExitMessage();
   }
-
+}
   /**
    * Helper method to check if a string is numeric.
    *
