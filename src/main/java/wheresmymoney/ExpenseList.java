@@ -32,14 +32,21 @@ public class ExpenseList {
         return expenses.isEmpty();
     }
 
-    public Expense getExpenseAtIndex(int i) {
-        return expenses.get(i);
+    public Expense getExpenseAtIndex(int i) throws WheresMyMoneyException {
+        try {
+            return expenses.get(i);
+        } catch (IndexOutOfBoundsException e) {
+            throw new WheresMyMoneyException("Index is out of bounds.");
+        }
     }
     
-    public int getIndexOf(Expense expense) {
-        return expenses.indexOf(expense);
+    public int getIndexOf(Expense expense) throws WheresMyMoneyException {
+        int i = expenses.indexOf(expense);
+        if (i == -1) {
+            throw new WheresMyMoneyException("Expense not in list.");
+        }
+        return i;
     }
-
 
     /**
      * Add an expense to the end of the list
@@ -71,7 +78,7 @@ public class ExpenseList {
             throws WheresMyMoneyException {
         try {
             Logging.log(Level.INFO, "Attempting to edit expense.");
-            Expense expense = expenses.get(index);
+            Expense expense = getExpenseAtIndex(index);
             assert (expense != null);
             expense.setPrice(price);
             expense.setDescription(description);
