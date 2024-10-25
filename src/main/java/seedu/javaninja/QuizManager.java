@@ -27,23 +27,7 @@ public class QuizManager {
         loadResultsFromFile();
     }
 
-    private void loadTopicsFromFile() {
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            logger.warning("Questions file not found. No topics loaded.");
-            return;
-        }
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (!line.trim().isEmpty()) {
-                    parseTopic(line);
-                }
-            }
-        } catch (IOException e) {
-            logger.severe("Error reading file: " + e.getMessage());
-        }
-    }
+
 
     private Topic getOrCreateTopic(String topicName) {
         for (Topic topic : topics) {
@@ -247,10 +231,28 @@ public class QuizManager {
 
             // Format for saving to Questions.txt
             String questionLine = "FITB | FillInTheBlank | " + questionText + " | " + correctAnswer;
-            saveQuestionToFile(questionLine);
+            storage.saveQuestionToFile(questionLine);
 
         } else {
             logger.warning("Invalid command: " + input);
+        }
+    }
+
+    public void loadTopicsFromFile() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            logger.warning("Questions file not found. No topics loaded.");
+            return;
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    parseTopic(line);
+                }
+            }
+        } catch (IOException e) {
+            logger.severe("Error reading file: " + e.getMessage());
         }
     }
 
@@ -263,4 +265,6 @@ public class QuizManager {
             logger.severe("Error saving question to file: " + e.getMessage());
         }
     }
+
+
 }
