@@ -43,8 +43,8 @@ import seedu.duke.financial.Income;
  * </ul>
  */
 public class Storage {
-    private static final Logger logger = Logger.getLogger(Storage.class.getName());
     public static final String STORAGE_FILE_PATH = "data/FinancialList.txt";
+    private static final Logger logger = Logger.getLogger(Storage.class.getName());
 
     public Storage() {
     }

@@ -2,7 +2,7 @@ package seedu.duke;
 
 import seedu.duke.ui.AppUi;
 
-import seedu.duke.storage.Storage;;
+import seedu.duke.storage.Storage;
 
 public class FinanceBuddy {
     /**
