@@ -23,7 +23,7 @@ public class ListUniCoursesCommandTest {
 
     private ListUniCoursesCommand listUniCoursesCommand;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-    
+
     @BeforeEach
     void setUp () {
         outputStreamCaptor.reset();
