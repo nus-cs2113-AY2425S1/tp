@@ -6,8 +6,15 @@ import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.constants.Assertions;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.json.JsonObject;
+import javax.json.JsonArray;
+
+import static seedu.exchangecoursemapper.constants.JsonKey.COURSES_ARRAY_LABEL;
+import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
 
 
 public class AddCoursesCommand extends PersonalTrackerCommand {
@@ -17,6 +24,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
     @Override
     public void execute(String userInput, Storage storage) {
         try {
+            JsonObject jsonObject = super.createJsonObject();      //to add to isValidInputChecker
             logger.log(Level.INFO, Logs.TRIM_STRING);
             String description = trimString(userInput);
             logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);
@@ -27,6 +35,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
             String nusCourse = descriptionSubstrings[0].trim();
             String pu = descriptionSubstrings[1].trim();
             String puCourse = descriptionSubstrings[2].trim();
+            isValidInput(nusCourse,pu,puCourse,jsonObject);
 
 
             logger.log(Level.INFO, Logs.FORMAT);
@@ -35,7 +44,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
             printAddMessage(courseToStore);
 
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IOException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -84,5 +93,36 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
     public void printAddMessage(Course addCourse) {
         System.out.println("You have successfully added the course: " + addCourse.formatOutput());
+    }
+
+    public boolean isValidInput(String nusCourseInput, String pu, String puCourseInput, JsonObject jsonObject){
+
+        boolean isPuValid = jsonObject.keySet().stream()
+                .anyMatch(key -> key.equalsIgnoreCase(pu));
+
+        if (!isPuValid){
+            System.out.println("Invalid University Input. The relevant universities are ");
+            return false;
+        }
+
+        JsonArray courses = jsonObject.getJsonObject(pu).getJsonArray(COURSES_ARRAY_LABEL);
+
+        for (int i = 0; i < courses.size(); i++) {
+            JsonObject course = courses.getJsonObject(i);
+            String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
+            String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY).toLowerCase();
+
+            if (!nusCourseInput.equals(nusCourseCode)){
+                System.out.println("Invalid partner university course code!");
+                return false;
+            }
+
+            if (!puCourseInput.equals(puCourseCode)){
+                System.out.println("Invalid nus course code!");
+                return false;
+            }
+        }
+
+        return true;
     }
 }
