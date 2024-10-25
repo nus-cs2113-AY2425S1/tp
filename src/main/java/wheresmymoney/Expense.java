@@ -9,16 +9,19 @@ public class Expense {
     protected String dateAdded;
 
     
+    public Expense(Float price, String description, String category)
+            throws WheresMyMoneyException {
+        this.setPrice(price);
+        this.setDescription(description);
+        this.setCategory(category);
+        this.dateAdded = DateUtils.dateFormatToString(DateUtils.getCurrentDate());
+    }
     public Expense(Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
         this.setPrice(price);
         this.setDescription(description);
         this.setCategory(category);
-        if (dateAdded.isEmpty()) {
-            this.setDateAdded(DateUtils.dateFormatToString(DateUtils.getCurrentDate()));
-        } else {
-            this.setDateAdded(dateAdded);
-        }
+        this.setDateAdded(dateAdded);
     }
     
     public Float getPrice() {
