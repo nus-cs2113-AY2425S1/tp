@@ -4,7 +4,7 @@
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-## Design & implementation
+## Design
 
 <img src = "images/ArchitectureDiagram.png">
 
@@ -26,6 +26,40 @@ The application comprises the following components:
 
 The above *Sequence Diagram* shows how the different components of the system interact with one
 another in the scenario when the command `add -e event -t 1200 -v venue` is executed.
+
+
+## Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+### list feature[TBD]
+
+The `list` feature allows users to view all scheduled events in the system. 
+It is implemented in the `ListCommand` class, which extends the base `Command` class and formats the output to display all events. 
+Internally, the `list` operation does not modify any data but simply retrieves and displays the information from `EventList`.
+
+The `ListCommand` class performs the following key operations:
+
+* ListCommand#execute() — Generates a formatted message displaying all events in the list.
+
+These operations are accessible through the `Command` and can be invoked when the list command is entered by the user.
+
+Given below is an example usage scenario and the behavior of the list feature at each step:
+
+1. User Command Input:
+The user enters the command `list` to view all scheduled events.
+
+2. Command Recognition:
+The `COMMAND_WORD` is set to "list", enabling the system to recognize the command input and invoke `ListCommand`.
+
+3. Execution of ListCommand#execute():
+The `execute()` method retrieves each event from `eventList` and appends it to a formatted output message.
+It uses the `String.format` method with `LIST_MESSAGE` to include the total number of events in the message header.
+Events are appended to `outputMessage` with numbered formatting for readability.
+
+4. Output Generation:
+The method stores the generated `outputMessage` in `this.message`, ready for display.
+
 
 ## Product scope
 ### Target user profile
