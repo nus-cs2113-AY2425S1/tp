@@ -8,6 +8,22 @@
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+### Commands
+
+#### Overview
+
+The abstract class `Command` has been implemented to introduce an additional layer
+of abstraction between the `AppUi` class and command execution,
+allowing for separation of handling command keywords and executing commands.
+
+The diagram below shows the inheritance of the `Command` class.
+
+### Exceptions and Logging
+
+An exception class `FinanceBuddyException` is thrown when users use the product wrongly.
+Exceptions are caught at the nearest instance that they occur.
+
+*Insert code snippet here.*
 
 ## Product scope
 ### Target user profile
