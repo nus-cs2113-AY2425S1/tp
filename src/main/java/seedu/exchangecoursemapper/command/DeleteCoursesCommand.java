@@ -24,6 +24,9 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
         if (descriptionSubstrings.length < 2 || descriptionSubstrings[1].trim().isEmpty()) {
             throw new IllegalArgumentException(Exception.noInputAfterDelete());
         }
+        if (descriptionSubstrings.length > 2) {
+            throw new IllegalArgumentException(Exception.deleteCoursesLimitExceeded());
+        }
         return descriptionSubstrings;
     }
 
