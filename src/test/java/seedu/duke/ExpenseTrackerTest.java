@@ -61,14 +61,19 @@ public class ExpenseTrackerTest {
     @Test
     public void retrieveBudget() {
         ExpenseTracker tracker = new ExpenseTracker();
-        tracker.addCategory("Food");
+
+        tracker.addCategory("add-category Food");
+
         tracker.setBudgetLimit("Food", 9000);
-        Category foodCategory = new Category("add-category food");
+        
+        Category foodCategory = tracker.getCategories().get(0);
 
-
-        assertNotNull(tracker.getBudgets().get(foodCategory));
-        assertEquals(9000, tracker.getBudgets().get(foodCategory));
+        Budget foodBudget = tracker.getBudgets().get(foodCategory);
+        assertNotNull(foodBudget, "Budget should not be null for 'Food' category.");
+        assertEquals(9000, foodBudget.getLimit(), 0.01);
     }
+
+
 
     @Test
     public void addCategoryExists() {
