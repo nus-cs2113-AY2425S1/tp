@@ -3,6 +3,7 @@ package seedu.duke.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -114,7 +115,8 @@ public class Storage {
         try {
             double amount = Double.parseDouble(tokens[1]);
             String description = tokens[2];
-            LocalDate date = LocalDate.parse(tokens[3]);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+            LocalDate date = LocalDate.parse(tokens[3], formatter);
             assert amount >= 0 : "Amount should be non-negative";
             assert description != null && !description.isEmpty() : "Description should not be empty";
             return new Expense(amount, description, date);
@@ -142,7 +144,8 @@ public class Storage {
         try{
             double amount = Double.parseDouble(tokens[1]);
             String description = tokens[2];
-            LocalDate date = LocalDate.parse(tokens[3]);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+            LocalDate date = LocalDate.parse(tokens[3], formatter);
             assert amount >= 0 : "Amount should be non-negative";
             assert description != null && !description.isEmpty() : "Description should not be empty";
             return new Income(amount, description, date);
