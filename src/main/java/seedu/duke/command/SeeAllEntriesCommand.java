@@ -30,13 +30,20 @@ public class SeeAllEntriesCommand extends Command {
         this.end = end;
     }
 
+    protected String getNoEntriesMessage() {
+        return this.NO_ENTRIES_MESSAGE;
+    }
+
+    protected String getEntriesListedMessage() {
+        return this.ENTRIES_LISTED_MESSAGE;
+    }
     /**
      * Method to determine if an entry should be listed out based on its date.
      *
      * @param entry Financial Entry to analyze.
      * @return true if entry should be listed out, false otherwise.
      */
-    private boolean shouldBeIncluded(FinancialEntry entry) {
+    protected boolean shouldBeIncluded(FinancialEntry entry) {
         return (end == null || entry.getDate().isBefore(end)) && (start == null || entry.getDate().isAfter(start));
     }
 
@@ -47,30 +54,31 @@ public class SeeAllEntriesCommand extends Command {
      */
     @Override
     public void execute(FinancialList list) {
-        System.out.println("--------------------------------------------");
         if (list == null) {
             logger.log(Level.SEVERE, "Financial list is null");
             assert list != null : "Financial list cannot be null";
             throw new IllegalArgumentException("Financial list cannot be null");
         }
 
+        System.out.println(LINE_SEPARATOR);
+
         String entryList = "";
         int entryCount = 0;
 
         for (int i = 0; i < list.getEntryCount(); i++) {
             FinancialEntry entry = list.getEntry(i);
-            if (shouldBeIncluded(entry)) {
+            if (this.shouldBeIncluded(entry)) {
                 entryList += (++entryCount) + ". " + entry + System.lineSeparator();
             }
         }
 
         if (entryCount == 0) {
-            System.out.println("No entries found.");
-            System.out.println("--------------------------------------------");
+            System.out.println(this.getNoEntriesMessage());
+            System.out.println(LINE_SEPARATOR);
             return;
         }
-        System.out.println("Here's a list of all recorded entries:");
+        System.out.println(this.getEntriesListedMessage());
         System.out.print(entryList);
-        System.out.println("--------------------------------------------");
+        System.out.println(LINE_SEPARATOR);
     }
 }
