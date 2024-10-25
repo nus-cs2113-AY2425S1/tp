@@ -15,6 +15,7 @@ The *Architecture Diagram* given above provides the high-level design of the app
 The application comprises the following components:
 * `Main`, which handles program startup and shutdown, and also interactions between other components.
 * `UI`, which handles user input and showing messages to the user.
+* `Storage`, which handles the loading and saving of data upon program startup and shutdown.
 * `Parser`, which converts user input into commands.
 * `Command`, which are executed to modify the data stored in the program.
 * `EventList`, which stores the program's data.

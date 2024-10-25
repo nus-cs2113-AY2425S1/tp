@@ -5,6 +5,7 @@ class Main {
 }
 
 Main --> Ui
+Main --> Storage
 Main --> EventList
 Main ..> Parser
 Main ..> Command
@@ -18,6 +19,11 @@ class Parser {
 }
 
 Parser ..> Command
+
+class Storage {
+}
+
+Storage ..> EventList
 
 abstract class Command {
 }
