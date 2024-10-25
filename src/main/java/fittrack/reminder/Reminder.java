@@ -28,8 +28,7 @@ public class Reminder {
      * Finds and returns a list of reminders from the main reminder list that occur within the next week.
      *
      * @param mainReminderList The main list of reminders to be checked.
-     * @return {@code upcomingReminderList}, a {@code ArrayList<Reminder>} containing reminders that occur within the
-     * next week from now.
+     * @return {@code upcomingReminderList} Containing reminders that occur within the next week from now.
      */
     public static ArrayList<Reminder> findUpcomingReminders(ArrayList<Reminder> mainReminderList) {
         LocalDateTime now = LocalDateTime.now();

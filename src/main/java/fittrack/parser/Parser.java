@@ -104,8 +104,8 @@ public class Parser {
             break;
         case DELETE_REMINDER_COMMAND:
             int reminderIndexToDelete = Integer.parseInt(description) - 1;
-            assert reminderIndexToDelete >= 0 && reminderIndexToDelete < reminderList.size() : "Delete reminder index " +
-                    "out of bounds";
+            assert reminderIndexToDelete >= 0 && reminderIndexToDelete < reminderList.size() : "Delete reminder index "
+                    + "out of bounds";
             Reminder reminderToDelete = reminderList.get(reminderIndexToDelete);
             reminderList.remove(reminderIndexToDelete);
             printDeletedReminder(reminderList, reminderToDelete);
@@ -123,7 +123,8 @@ public class Parser {
         }
     }
 
-    /** Parses user input indicating the deadline of a {@code reminder} object.
+    /**
+     * Parses user input indicating the deadline of a {@code reminder} object.
      * Throws an exception if user-input String is inappropriate or ill-formatted.
      *
      * @param inputDeadline A string input by the user. Intended format is DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.

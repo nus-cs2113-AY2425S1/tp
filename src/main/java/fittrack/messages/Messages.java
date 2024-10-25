@@ -36,8 +36,10 @@ public class Messages {
             + System.lineSeparator() + "remind (Event / Task) (deadline)                                 remind " +
             "NAPFA DD/MM/YYYY"
             + System.lineSeparator() + "list-remind                                                      list-remind "
-            + System.lineSeparator() + "delete-remind (reminder index)                                   delete-remind 1"
-            + System.lineSeparator() + "upcoming-remind                                                  upcoming-remind"
+            + System.lineSeparator() + "delete-remind (reminder index)                                   delete-remind"
+            + "1"
+            + System.lineSeparator() + "upcoming-remind                                                  "+
+            "upcoming-remind"
             + System.lineSeparator() + "exit                                                             exit";
     public static final String LIST_SESSION_MESSAGE = "Here are your training sessions:";
     public static final String LIST_SESSION_EMPTY_MESSAGE = "Your session list is currently empty.";
