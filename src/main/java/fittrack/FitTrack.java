@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import fittrack.parser.Parser;
+import fittrack.reminder.Reminder;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 
@@ -15,7 +16,9 @@ import static fittrack.storage.Storage.loadSaveFile;
 import static fittrack.ui.Ui.printExitMessage;
 import static fittrack.ui.Ui.printGreeting;
 import static fittrack.ui.Ui.printHelp;
+import static fittrack.ui.Ui.printUpcomingReminders;
 import static fittrack.ui.Ui.printUser;
+
 
 public class FitTrack {
     /**
@@ -24,14 +27,14 @@ public class FitTrack {
     public static void main(String[] args) throws FileNotFoundException {
         setupLogger();
 
-        // Initialize scanner and session list
+        // Initialize scanner and session / reminder list
         Scanner scan = new Scanner(System.in);
         ArrayList<TrainingSession> sessionList = new ArrayList<>();
+        ArrayList<Reminder> reminderList = new ArrayList<>();
 
         // Initialize and load the save file
         initialiseSaveFile();
         loadSaveFile(sessionList);
-
 
         // Set user gender and age
         printGreeting();
@@ -49,12 +52,15 @@ public class FitTrack {
         printUser(user);
         printHelp();
 
+        // Inform users of upcoming reminders
+        printUpcomingReminders(reminderList);
+
         String input = scan.nextLine();
 
         // Until the exit command is entered, execute command then read user input
         while (!input.equals(EXIT_COMMAND)) {
             assert !input.trim().isEmpty() : "User input should not be null or empty";
-            Parser.parse(user, input, sessionList);
+            Parser.parse(user, input, sessionList, reminderList);
             input = scan.nextLine();
         }
 
