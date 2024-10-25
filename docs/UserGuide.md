@@ -71,6 +71,28 @@ Format: `view -e EVENT`
 Examples:
 * `view -e Origami workshop` shows a list of all participants for the event `Origami workshop`.
 
+### Mark an event as done: `mark`
+Marks an event in the event list as done or not done.
+
+Format: `mark -e EVENT -s STATUS`
+* The status parameter must be either `done` (to mark done) or `undone` (to mark not done).
+
+Examples:
+* `mark -e Origami workshop -s done` marks the event `Origami workshop` as done.
+* `mark -e Origami workshop -s undone` marks the event `Origami workshop` as not done.
+
+### Marks a participant as present: `mark`
+Marks a participant for an event as present or absent.
+
+Format: `mark -p PARTICIPANT -e EVENT -s STATUS`
+* The status parameter must be either `present` (to mark present) or `absent` (to mark absent).
+
+Examples:
+* `mark -p John Tan -e Origami workshop -s done` marks the participant `John Tan` in the `Origami workshop`  
+event as present.
+* `mark -p John Tan -e Origami workshop -s undone` marks the participant `John Tan` in the `Origami workshop`   
+event as absent.
+
 ### Exiting the program: `exit`
 Exits the program.
 
@@ -85,3 +107,5 @@ Format: `exit`
 * Remove event: `remove -e EVENT`
 * Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
 * View all participants for an event: `view -e EVENT`
+* Mark an event as done: `mark -e EVENT -s STATUS`
+* Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
