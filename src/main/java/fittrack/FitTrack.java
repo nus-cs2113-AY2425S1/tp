@@ -26,6 +26,21 @@ public class FitTrack {
   /**
    * Main entry-point for the FitTrack CLI application.
    */
+  /**
+   * Helper method to check if a string is numeric.
+   *
+   * @param str The string to check.
+   * @return true if the string is numeric, false otherwise.
+   */
+  public static boolean isNumeric(String str) {
+    try {
+      Integer.parseInt(str);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
+    }
+  }
+
   public static void main(String[] args) throws FileNotFoundException {
     setupLogger();
 
@@ -69,19 +84,4 @@ public class FitTrack {
 
     printExitMessage();
   }
-}
-  /**
-   * Helper method to check if a string is numeric.
-   *
-   * @param str The string to check.
-   * @return true if the string is numeric, false otherwise.
-   */
-  public static boolean isNumeric(String str) {
-    try {
-      Integer.parseInt(str);
-      return true;
-    } catch (NumberFormatException e) {
-      return false;
-    }
   }
-}
