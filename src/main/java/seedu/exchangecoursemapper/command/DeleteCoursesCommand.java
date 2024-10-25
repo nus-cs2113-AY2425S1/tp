@@ -6,6 +6,8 @@ import seedu.exchangecoursemapper.exception.Exception;
 
 import static seedu.exchangecoursemapper.constants.Commands.PLAN_INDEX_TO_DELETE;
 import static seedu.exchangecoursemapper.constants.Commands.ZERO_INDEX_OFFSET;
+import static seedu.exchangecoursemapper.constants.Regex.REPEATED_SPACES;
+import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 
 public class DeleteCoursesCommand extends PersonalTrackerCommand {
     @Override
@@ -19,8 +21,8 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
     }
 
     public String[] parseDeleteCommand(String userInput) {
-        String input = userInput.trim().replaceAll(" +", " ");
-        String[] descriptionSubstrings = input.split(" ");
+        String input = userInput.trim().replaceAll(REPEATED_SPACES, SPACE);
+        String[] descriptionSubstrings = input.split(SPACE);
         if (descriptionSubstrings.length < 2 || descriptionSubstrings[1].trim().isEmpty()) {
             throw new IllegalArgumentException(Exception.noInputAfterDelete());
         }
