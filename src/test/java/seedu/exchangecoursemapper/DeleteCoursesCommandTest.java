@@ -25,7 +25,7 @@ public class DeleteCoursesCommandTest {
         deleteCoursesCommand = new DeleteCoursesCommand();
         addCoursesCommand = new AddCoursesCommand();
         storage = new Storage();
-        addCoursesCommand.execute("add cs2102 /pu the university of melbourne /coursepu INFO20003", storage);
+        addCoursesCommand.execute("add cs2102 /pu the university of melbourne /coursepu info20003", storage);
         // Clear the output capture after add command
         outputStreamCaptor.reset();
     }
@@ -62,7 +62,7 @@ public class DeleteCoursesCommandTest {
         String[] descriptionSubstrings = new String[] {"delete", "1"};
         deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
         String expectedOutput = "You have deleted the course from your plan: " +
-                "cs2102 | the university of melbourne | INFO20003";
+                "cs2102 | the university of melbourne | info20003";
         String actualOutput = outputStreamCaptor.toString();
         assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
     }
@@ -102,7 +102,7 @@ public class DeleteCoursesCommandTest {
         String userInput = "delete 1";
         deleteCoursesCommand.execute(userInput, storage);
         String expectedOutput = "You have deleted the course from your plan: " +
-                "cs2102 | the university of melbourne | INFO20003";
+                "cs2102 | the university of melbourne | info20003";
         String actualOutput = outputStreamCaptor.toString();
         assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
     }
