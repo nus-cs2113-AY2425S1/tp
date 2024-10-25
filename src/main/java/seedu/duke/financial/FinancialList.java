@@ -49,13 +49,15 @@ public class FinancialList {
      * @param index The index of the entry to be retrieved.
      * @return The financial entry at the specified index.
      */
-    public FinancialEntry getEntry(int index) {
-        if (index >= 0 && index <= entries.size()) {
-            return entries.get(index);
-        } else {
-            System.out.println("OOPS!!! The entry does not exist.");
-            return null;
-        }
+    public FinancialEntry getEntry(int index) { // IndexOutOfBounds handled by method caller
+//        if (index >= 0 && index <= entries.size()) {
+//            return entries.get(index);
+//        } else {
+//            System.out.println("OOPS!!! The entry does not exist.");
+//            return null;
+//        }
+
+        return entries.get(index);
     }
 
 

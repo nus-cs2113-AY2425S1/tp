@@ -106,16 +106,31 @@ public class AppUi {
      * @param commandArguments A map of parsed command arguments that contains the entry index and
      *                         optional new values for the amount ("/a") and description ("/des").
      */
-    public void editEntry(HashMap<String, String> commandArguments) {
-        int index = Integer.parseInt(commandArguments.get("argument"));
+    public void editEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
+        int index = 0;
+        try {
+            index = Integer.parseInt(commandArguments.get("argument"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+        }
 
         assert index > 0 : "Index of entry to edit must be greater than 0";
         assert index <= financialList.getEntryCount() : "Index of entry to edit must be within the list size";
 
-        FinancialEntry entry = financialList.getEntry(index - 1);
+        FinancialEntry entry = null;
+        try {
+            entry = financialList.getEntry(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+        }
 
         String amountStr = commandArguments.get("/a");
-        double amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();
+        double amount = 0;
+        try {
+            amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+        }
 
         String description = commandArguments.getOrDefault("/des", entry.getDescription());
 
