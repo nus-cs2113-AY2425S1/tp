@@ -1,6 +1,7 @@
 package command.meals;
 
 import command.CommandResult;
+import dailyrecord.DailyRecord;
 import history.History;
 import meal.MealList;
 
@@ -16,7 +17,8 @@ public class ViewMealCommand extends MealCommand {
     }
 
     public CommandResult execute(History history) {
-        MealList meals = getMealList(history);
+        DailyRecord dailyRecord = history.getRecordByDate(date);
+        MealList meals = dailyRecord.getMealList();
         return new CommandResult(meals.toString());
     }
 

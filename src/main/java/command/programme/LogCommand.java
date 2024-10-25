@@ -1,4 +1,6 @@
-package command;
+package command.programme;
+import command.CommandResult;
+import dailyrecord.DailyRecord;
 import programme.ProgrammeList;
 import programme.Day;
 import history.History;
@@ -10,7 +12,7 @@ import java.util.logging.Logger;
 
 import static common.Utils.NULL_INTEGER;
 
-public class LogCommand extends Command {
+public class LogCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "log";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -50,7 +52,14 @@ public class LogCommand extends Command {
 
         assert completed != null : "Completed Day must not be null";
 
-        history.logDay(completed, date);
+        DailyRecord dailyRecord = history.getRecordByDate(date);
+        if(dailyRecord == null) {
+            dailyRecord = new DailyRecord(completed);
+        }
+
+        assert dailyRecord != null : "DailyRecord must not be null";
+
+        dailyRecord.logDay(completed);
 
         String result =  String.format("Congrats! You've successfully completed:%n%s",completed);
 
