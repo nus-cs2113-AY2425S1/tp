@@ -20,10 +20,12 @@ import static seedu.exchangecoursemapper.constants.JsonKey.COURSES_ARRAY_LABEL;
 import static seedu.exchangecoursemapper.constants.Logs.ADD_NEW_COURSE_MAPPING;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
+import static seedu.exchangecoursemapper.constants.Logs.INVALID_UNIVERSITY_INPUT;
 
 public class AddCoursesCommand extends PersonalTrackerCommand {
 
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
+
 
     private static boolean isValidCourseMapping(String nusCourseInput, String puCourseInput,
                                                 JsonArray courses, String pu) {
@@ -71,7 +73,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         if (matchPu != null) {
             courses = jsonObject.getJsonObject(matchPu).getJsonArray(COURSES_ARRAY_LABEL);
         } else {
-            System.out.println("Invalid university input!");
+            System.out.println(INVALID_UNIVERSITY_INPUT);
             System.out.println(LINE_SEPARATOR);
             System.out.println(LIST_RELEVANT_PU);
             System.out.println(LINE_SEPARATOR);
@@ -83,7 +85,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
     @Override
     public void execute(String userInput, Storage storage) {
         try {
-            JsonObject jsonObject = super.createJsonObject();      //to add to isValidInputChecker
+            JsonObject jsonObject = super.createJsonObject();
             logger.log(Level.INFO, Logs.TRIM_STRING);
             String description = trimString(userInput);
             logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);
@@ -157,7 +159,8 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         System.out.println("You have successfully added the course: " + addCourse.formatOutput());
     }
 
-    public boolean isValidInput(String nusCourseInput, String pu, String puCourseInput, JsonObject jsonObject) {
+    public boolean isValidInput(String nusCourseInput, String pu,
+                                String puCourseInput, JsonObject jsonObject) {
         JsonArray courses = getPUCourseList(pu, jsonObject);
         if (courses == null) {
             return false;

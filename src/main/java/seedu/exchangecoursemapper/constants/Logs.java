@@ -34,4 +34,5 @@ public class Logs {
     public static final String INVALID_COMMAND = "Command is invalid.";
     public static final String EXECUTION_FAILED = "Command execution failed unexpectedly.";
     public static final String ADD_NEW_COURSE_MAPPING = "Please add a new course mapping!";
+    public static final String INVALID_UNIVERSITY_INPUT = "Invalid university input!";
 }
