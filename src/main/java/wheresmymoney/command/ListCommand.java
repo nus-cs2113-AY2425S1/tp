@@ -29,7 +29,6 @@ public class ListCommand extends Command {
     private ArrayList<RecurringExpense> getRecurringExpensesToDisplay(RecurringExpenseList recurringExpenseList) {
         String listCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
         if (listCategory == null) {
-            System.out.println(recurringExpenseList.getRecurringExpenseList());
             return recurringExpenseList.getRecurringExpenseList();
         } else {
             return recurringExpenseList.listByCategoryForRecurring(listCategory);

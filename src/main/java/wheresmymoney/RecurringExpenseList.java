@@ -76,6 +76,18 @@ public class RecurringExpenseList extends ExpenseList {
             throw new WheresMyMoneyException(e.getMessage());
         }
     }
+
+    /**
+     * Delete a recurring expense
+     * 
+     * @param index Index of recurring expense in the ArrayList
+     */
+    public void deleteExpense(int index) throws WheresMyMoneyException {
+        if (index < 0 || index >= recurringExpenses.size()) {
+            throw new WheresMyMoneyException("Index out of range!");
+        }
+        recurringExpenses.remove(index);
+    }
     
     /**
      * Returns the list of all recurring expenses from the specified category
