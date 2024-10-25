@@ -48,10 +48,12 @@ public class ExpenseList {
      * @param description New description of expense
      * @param category New category of expense
      */
-    public void addExpense(Float price, String description, String category) {
+    public void addExpense(Float price, String description, String category, String dateAdded)
+            throws WheresMyMoneyException {
         Logging.log(Level.INFO,
-                String.format("Adding expense with parameters: %f, %s, %s", price, description, category));
-        Expense expense = new Expense(price, description, category);
+                String.format("Adding expense with parameters: %f, %s, %s, %s",
+                        price, description, category, dateAdded));
+        Expense expense = new Expense(price, description, category, dateAdded);
         assert (expense != null);
         expenses.add(expense);
         Logging.log(Level.INFO, "Successfully added expense.");
