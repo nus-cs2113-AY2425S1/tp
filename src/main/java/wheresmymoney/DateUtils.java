@@ -18,13 +18,13 @@ public class DateUtils {
             return false;
         }
     }
-    public static LocalDate getLocalDateNow() {
+    public static LocalDate getCurrentDate() {
         return LocalDate.now();
     }
     public static LocalDate stringToDateFormat(String dateAsString) throws WheresMyMoneyException {
-        if (isInDateFormat(dateAsString)) {
+        try {
             return LocalDate.parse(dateAsString, formatter);
-        } else {
+        } catch (DateTimeParseException e) {
             throw new WheresMyMoneyException("Date string is not in the correct format: " + DATE_FORMAT);
         }
     }
