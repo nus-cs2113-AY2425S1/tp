@@ -19,7 +19,8 @@ public class AddCommand extends Command {
             float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
             String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
-            expenseList.addExpense(price, description, category);
+            String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE_ADDED);
+            expenseList.addExpense(price, description, category, dateAdded);
         }catch(NullPointerException | NumberFormatException e){
             throw new InvalidInputException("Invalid Arguments");
         }
