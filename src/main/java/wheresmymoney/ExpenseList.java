@@ -67,7 +67,8 @@ public class ExpenseList {
      * @param price New price of expense
      * @param description New description of expense
      */
-    public void editExpense(int index, Float price, String description, String category) throws WheresMyMoneyException {
+    public void editExpense(int index, Float price, String description, String category, String dateAdded)
+            throws WheresMyMoneyException {
         try {
             Logging.log(Level.INFO, "Attempting to edit expense.");
             Expense expense = expenses.get(index);
@@ -75,6 +76,7 @@ public class ExpenseList {
             expense.setPrice(price);
             expense.setDescription(description);
             expense.setCategory(category);
+            expense.setDateAdded(dateAdded);
             Logging.log(Level.INFO, "Successfully edited expense.");
         } catch (WheresMyMoneyException e) {
             Logging.log(Level.INFO, "Failure when editing expense.");
