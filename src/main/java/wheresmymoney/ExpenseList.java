@@ -106,8 +106,8 @@ public class ExpenseList {
     public ArrayList<Expense> listByCategory(String category) {
         ArrayList<Expense> expensesFromCategory = new ArrayList<>();
         for (Expense expense: expenses) {
-            if (expense.category.equals(category)) {
-                Logging.log(Level.INFO, "Found matching expense: " + expense.description);
+            if (expense.getCategory().equals(category)) {
+                Logging.log(Level.INFO, "Found matching expense: " + expense.getDescription());
                 expensesFromCategory.add(expense);
             }
         }
