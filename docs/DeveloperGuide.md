@@ -2,10 +2,10 @@
 
 ## Acknowledgements
 
-### Third Party Library Used
-
 ### Database
 * Adapted from NUS EduRec, data was collected manually as a collective effort from the team.
+
+### Third Party Library Used
 
 #### 'org.glassfish:javax.json:1.1.4'
 * https://mvnrepository.com/artifact/org.glassfish/javax.json/1.1.4
