@@ -38,9 +38,10 @@ public class SeeAllExpensesCommand extends Command{
 
     /**
      * Executes the command to display all recorded expenses in the financial list.
-     * Iterates through the financial list and collects all entries that are instances of Expense.
+     * Iterates through the financial list and collects all entries
+     * that are instances of Expense and within the date range.
      * If no expenses are found, it prints a message indicating no recorded expenses.
-     * Otherwise, it prints a list of all recorded expenses.
+     * Otherwise, it prints a list of all recorded expenses, and the total amount of expenses.
      *
      * @param list The financial list containing financial entries.
      */

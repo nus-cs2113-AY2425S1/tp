@@ -36,7 +36,10 @@ public class SeeAllEntriesCommand extends Command {
     }
 
     /**
-     * Executes the SeeAllEntriesCommand, listing out all entries.
+     * Executes the command to display all recorded entries in the financial list.
+     * Iterates through the financial list and collects all entries that are within the date range.
+     * If no entries are found, it prints a message indicating no recorded entries.
+     * Otherwise, it prints a list of all recorded entries, and the net cashflow.
      *
      * @param list The financial list on which the command will operate.
      */

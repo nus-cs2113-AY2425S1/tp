@@ -31,9 +31,10 @@ public class SeeAllIncomesCommand extends Command {
 
     /**
      * Executes the command to display all recorded incomes in the financial list.
-     * Iterates through the financial list and collects all entries that are instances of Income.
+     * Iterates through the financial list and collects all entries
+     * that are instances of Income, and within date range.
      * If no incomes are found, it prints a message indicating no recorded incomes.
-     * Otherwise, it prints a list of all recorded incomes.
+     * Otherwise, it prints a list of all recorded incomes, and the total amount of incomes.
      *
      * @param list The financial list containing financial entries.
      */
