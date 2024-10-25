@@ -9,6 +9,8 @@ import seedu.duke.financial.Income;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,6 +25,7 @@ class DeleteCommandTest {
     private final PrintStream originalOut = System.out;
     private FinancialList financialList;
     private DeleteCommand deleteCommand;
+    private DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     /**
      * Set up the test environment before each test.
@@ -51,9 +54,13 @@ class DeleteCommandTest {
      */
     @Test
     void execute_deleteEntry_expectEntryRemoved() {
-        financialList.addEntry(new Expense(3.50, "lunch"));
-        financialList.addEntry(new Income(3000.00, "salary"));
-        financialList.addEntry(new Expense(20.00, "movie ticket"));
+        LocalDate date1 = LocalDate.of(2024, 10, 10);
+        LocalDate date2 = LocalDate.of(2024, 10, 14);
+        LocalDate date3 = LocalDate.of(2024, 10, 16);
+
+        financialList.addEntry(new Expense(3.50, "lunch", date1));
+        financialList.addEntry(new Income(3000.00, "salary", date2));
+        financialList.addEntry(new Expense(20.00, "movie ticket", date3));
 
         deleteCommand = new DeleteCommand(2);  // Delete the second entry (1-based index, "salary")
         deleteCommand.execute(financialList);
@@ -61,7 +68,7 @@ class DeleteCommandTest {
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Okay! The following entry has been deleted: " + System.lineSeparator() +
-                "[Income] - salary $ 3000.00" + System.lineSeparator() +
+                "[Income] - salary $ 3000.00 (on " + date2.format(pattern) + ")" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Verify the correct message is printed
@@ -83,9 +90,12 @@ class DeleteCommandTest {
      */
     @Test
     void execute_deleteLastEntry_expectEntryRemoved() {
-        financialList.addEntry(new Expense(3.50, "lunch"));
-        financialList.addEntry(new Income(3000.00, "salary"));
-        financialList.addEntry(new Expense(20.00, "movie ticket"));
+        LocalDate date1 = LocalDate.of(2024, 12, 29);
+        LocalDate date2 = LocalDate.of(2024, 10, 14);
+        LocalDate date3 = LocalDate.of(2024, 10, 16);
+        financialList.addEntry(new Expense(3.50, "lunch", date1));
+        financialList.addEntry(new Income(3000.00, "salary", date2));
+        financialList.addEntry(new Expense(20.00, "movie ticket", date3));
 
         deleteCommand = new DeleteCommand(3);  // Delete the 3rd entry
         deleteCommand.execute(financialList);
@@ -93,7 +103,7 @@ class DeleteCommandTest {
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Okay! The following entry has been deleted: " + System.lineSeparator() +
-                "[Expense] - movie ticket $ 20.00" + System.lineSeparator() +
+                "[Expense] - movie ticket $ 20.00 (on " + date3.format(pattern) + ")" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Verify the correct message is printed
@@ -113,9 +123,10 @@ class DeleteCommandTest {
      */
     @Test
     void execute_invalidIndex_expectError() {
-        financialList.addEntry(new Expense(3.50, "lunch"));
+        LocalDate date1 = LocalDate.of(2024, 10, 10);
 
-        deleteCommand = new DeleteCommand(3);  // Invalid 1-based index
+        financialList.addEntry(new Expense(3.50, "lunch", date1));
+        deleteCommand = new DeleteCommand(3);
         deleteCommand.execute(financialList);
 
         String output = outputStream.toString();
@@ -131,7 +142,8 @@ class DeleteCommandTest {
      */
     @Test
     void execute_deleteOnlyEntry_expectEntryRemoved() {
-        financialList.addEntry(new Expense(50.00, "groceries"));  // Add one expense
+        LocalDate date1 = LocalDate.of(2024, 4, 1);
+        financialList.addEntry(new Expense(50.00, "groceries", date1));  // Add one expense
 
         deleteCommand = new DeleteCommand(1);  // Delete the only entry (1-based index)
         deleteCommand.execute(financialList);
@@ -139,7 +151,7 @@ class DeleteCommandTest {
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Okay! The following entry has been deleted: " + System.lineSeparator() +
-                "[Expense] - groceries $ 50.00" + System.lineSeparator() +
+                "[Expense] - groceries $ 50.00 (on " + date1.format(pattern) + ")" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Verify the correct message is printed
