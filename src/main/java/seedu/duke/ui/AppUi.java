@@ -284,9 +284,11 @@ public class AppUi {
         System.out.println(welcomeMessage);
     }
 
-    public void setStorage(Storage storage) {
+    public void setStorage(Storage storage, boolean loadFromFile) {
         this.mainStorage = storage;
-        financialList = mainStorage.loadFromFile();
+        if (loadFromFile) {
+            this.financialList = mainStorage.loadFromFile();
+        }
     }
 
     /**

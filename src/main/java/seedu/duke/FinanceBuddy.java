@@ -11,7 +11,7 @@ public class FinanceBuddy {
     public static void main(String[] args) {
         AppUi ui = new AppUi();
         Storage storage = new Storage();
-        ui.setStorage(storage);
+        ui.setStorage(storage, true);
         ui.run();
     }
 }

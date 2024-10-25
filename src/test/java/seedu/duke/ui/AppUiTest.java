@@ -6,6 +6,7 @@ import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.storage.Storage;
 
 import java.util.HashMap;
 import java.io.ByteArrayOutputStream;
@@ -30,7 +31,9 @@ public class AppUiTest {
     @BeforeEach
     void setUp() {
         appUi = new AppUi();
-        appUi.financialList = new FinancialList();
+        Storage storage = new Storage();
+        appUi.setStorage(storage, false);
+        // appUi.financialList = new FinancialList();
         System.setOut(new PrintStream(outputStream));
     }
 
