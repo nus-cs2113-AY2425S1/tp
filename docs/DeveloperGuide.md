@@ -49,11 +49,11 @@ university. It helps users to reach out to the partner universities for any enqu
 exchange opportunities.
 
 #### How the feature is implemented:
-* The `ObtainContactsCommand` class extends `Command` class where it overrides the `execute` method for
+* The `ObtainContactsCommand` class extends `Command` class where it overrides the `execute()` method for
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
-* The `getSchoolName` and `getContactType` methods are used to parse the user input, extracting the requested 
+* The `getSchoolName()` and `getContactType()` methods are used to parse the user input, extracting the requested 
   university name and contact type (email or phone number).
 * After parsing, the `findMatchingSchool()` method identifies the correct university entry within the JSON data.
 * The `handleContactType()` method retrieves and prints the requested contact information based on the input, 
@@ -69,7 +69,9 @@ exchange opportunities.
 * Logging and assertions helps the team of developers to follow through the command execution.
 
 #### Alternatives considered:
-
+* Reading of the `database.json` was tricky and other libraries were considered.
+* Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
+  readability.
 
 #### Sequence Diagram on PlantUML:
 
@@ -95,7 +97,7 @@ exchange opportunities.
 
 ## Non-Functional Requirements
 
-1. Access to a computer with Java 17 installed and a functional CLI
+1. Access to a computer with Java 17 installed and an IDE that supports Java programming
 2. A CEG Student in NUS planning to map out mainly BT/IS/EE/CS/CG-coded courses
 {TODO: Add more} 
 
