@@ -8,7 +8,7 @@
 
 <img src = "images/ArchitectureDiagram.png">
 
-The *Architecture Diagram* given above provides the high-level design of the application.
+The above _Architecture Diagram_ provides the high-level design of the application.
 
 ### Main components
 
@@ -25,9 +25,18 @@ The application comprises the following components:
 
 <img src = "images/ArchitectureSequenceDiagram.png">
 
-The above *Sequence Diagram* shows how the different components of the system interact with one
+The above _Sequence Diagram_ shows how the different components of the system interact with one
 another in the scenario when the command `add -e event -t 1200 -v venue` is executed.
 
+### UI component
+
+<img src = "images/UiClassDiagram.png">
+
+The `UI` component comprises an Ui class, as shown in the above _Class Diagram_.
+
+The `UI` does the following:
+* Take in command input from the user and pass the input to `Main`.
+* Show output messages from `Command` to the user after command execution.
 
 ## Implementation
 
