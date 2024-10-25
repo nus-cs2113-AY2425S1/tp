@@ -42,7 +42,9 @@ and Oceania.
 ### 2. Obtain Partner University Email and Contact Number
 
 #### Overview:
-
+The command is responsible to retrieve the email contact and contact number data for a specified partner
+university. It helps users to reach out to the partner universities for any enquiries about programs or
+exchange opportunities.
 
 #### How the feature is implemented:
 
