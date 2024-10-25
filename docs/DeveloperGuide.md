@@ -25,6 +25,15 @@ Exceptions are caught at the nearest instance that they occur.
 
 *Insert code snippet here.*
 
+### Storage
+The `Storage` class has been implemented to store the `FinancialList` into a file. 
+In that case, user can restore his/her progress even if they have terminate the program.
+
+The function `updateStorage` should be called whenever the `FinancialList` in an `AppUi` object. 
+It will overide the file with the up-to-date `FinancialList` that has been converted to string.
+
+*more guid coming up*
+
 ## Product scope
 ### Target user profile
 
