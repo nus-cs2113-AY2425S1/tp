@@ -13,7 +13,6 @@ import java.util.Objects;
 import static fittrack.enums.Exercise.fromUserInput;
 import static fittrack.messages.Messages.*;
 import static fittrack.ui.Ui.*;
-import static fittrack.ui.Ui.printReminderCount;
 
 
 public class Parser {
@@ -111,9 +110,13 @@ public class Parser {
             reminderList.remove(reminderIndexToDelete);
             printDeletedReminder(reminderList, reminderToDelete);
             break;
-            case LIST_REMINDER_COMMAND:
-                printReminderList(reminderList);
-                break;
+        case LIST_REMINDER_COMMAND:
+            printReminderList(reminderList);
+            break;
+        case LIST_UPCOMING_REMINDER_COMMAND:
+            beginSegment();
+            printUpcomingReminders(reminderList);
+            break;
         default:
             printUnrecognizedInputMessage(); // Response to unrecognized inputs
             break;

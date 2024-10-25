@@ -134,7 +134,6 @@ public class Ui {
 
     public static void printUpcomingReminders(ArrayList<Reminder> reminderList) {
         assert reminderList != null : "Reminder list must not be null";
-        ArrayList<Reminder> upcomingReminders = findUpcomingReminders(reminderList);
 
         if (reminderList.isEmpty()) {
             System.out.println(LIST_REMINDER_EMPTY_MESSAGE);
@@ -143,11 +142,14 @@ public class Ui {
             return;
         }
 
+        ArrayList<Reminder> upcomingReminders = findUpcomingReminders(reminderList);
         System.out.println("There are " + upcomingReminders.size() + " reminders due in the next week:");
+
+        // Print upcoming reminders
         int index = 0;
         while (index < upcomingReminders.size()) {
             System.out.print(index + 1 + ". ");
-            reminderList.get(index).printReminderDescription();
+            upcomingReminders.get(index).printReminderDescription();
             index++;
         }
         System.out.println("You have " + reminderList.size() + " reminders in total. View them with 'list-remind'.");

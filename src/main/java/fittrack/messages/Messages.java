@@ -14,6 +14,7 @@ public class Messages {
     public static final String ADD_REMINDER_COMMAND = "remind";
     public static final String DELETE_REMINDER_COMMAND = "delete-remind";
     public static final String LIST_REMINDER_COMMAND = "list-remind";
+    public static final String LIST_UPCOMING_REMINDER_COMMAND = "upcoming-remind";
     public static final String EXIT_COMMAND = "exit";
     public static final String PULL_UP_ACRONYM = "PU";
     public static final String SHUTTLE_RUN_ACRONYM = "SR";
@@ -36,6 +37,7 @@ public class Messages {
             "NAPFA DD/MM/YYYY"
             + System.lineSeparator() + "list-remind                                                      list-remind "
             + System.lineSeparator() + "delete-remind (reminder index)                                   delete-remind 1"
+            + System.lineSeparator() + "upcoming-remind                                                  upcoming-remind"
             + System.lineSeparator() + "exit                                                             exit";
     public static final String LIST_SESSION_MESSAGE = "Here are your training sessions:";
     public static final String LIST_SESSION_EMPTY_MESSAGE = "Your session list is currently empty.";
