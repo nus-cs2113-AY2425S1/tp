@@ -160,7 +160,7 @@ class ExpenseTrackerTest {
         tracker.addCategory(category);
         assertTrue(tracker.getCategories().contains(category));
         tracker.setBudget(category, 100);
-        assertEquals(100, tracker.getBudget(category).getLimit());
+        assertEquals(100, tracker.getBudgets(category).getLimit());
     }
 
     @Test
