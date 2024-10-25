@@ -57,8 +57,8 @@ public class DeleteCommand extends Command {
             ui.printDeletedTask(recipeName, recipes.getCounter());
             try {
                 storage.saveRecipes(recipes);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+            } catch (IOException exception) {
+                System.out.println(exception.getMessage());
             }
         } else {
             throw new InvalidArgumentException("Recipe not found: " + recipeName);

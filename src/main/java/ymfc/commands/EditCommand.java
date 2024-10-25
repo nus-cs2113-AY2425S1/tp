@@ -60,8 +60,8 @@ public class EditCommand extends Command {
         }
         try {
             storage.saveRecipes(recipes);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        } catch (IOException exception) {
+            System.out.println(exception.getMessage());
         }
     }
 }

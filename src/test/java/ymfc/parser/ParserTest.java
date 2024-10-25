@@ -7,6 +7,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import ymfc.commands.AddRecipeCommand;
 import ymfc.exception.InvalidArgumentException;
+import ymfc.exception.EmptyListException;
+import ymfc.exception.InvalidCommandException;
 import ymfc.list.IngredientList;
 import ymfc.recipe.Recipe;
 import ymfc.list.RecipeList;
@@ -127,7 +129,7 @@ class ParserTest {
         IngredientList iList = new IngredientList();
         Ui ui = new Ui(System.in);
         try {
-            AddRecipeCommand addCommand = (AddRecipeCommand) parseCommand(command);
+            AddRecipeCommand addCommand = (AddRecipeCommand) parseCommand(command, rList);
             assert addCommand != null;
             addCommand.execute(rList, iList, ui, new Storage());
             assertTrue(recipe.equals(rList.getRecipe(rList.getCounter() - 1)));
@@ -167,7 +169,7 @@ class ParserTest {
 
     })
     void parseCommand_addRecipeCommand_invalidArgumentsExceptionThrown(String command) {
-        assertThrows(InvalidArgumentException.class, () -> parseCommand(command));
+        assertThrows(InvalidArgumentException.class, () -> parseCommand(command, new RecipeList()));
     }
 
     @ParameterizedTest
@@ -181,6 +183,73 @@ class ParserTest {
         "find nNi/"             // Missing query (no query provided after `/`)
     })
     void parseCommand_findCommand_invalidArgumentsExceptionThrown(String command) {
-        assertThrows(InvalidArgumentException.class, () -> parseCommand(command));
+        RecipeList recipes = new RecipeList();
+
+        ArrayList<String> pastaIngredients = new ArrayList<>();
+        pastaIngredients.add("Pasta");
+        ArrayList<String> pastaSteps = new ArrayList<>();
+        pastaSteps.add("Boil pasta in water.");
+
+        Recipe pastaRecipe = new Recipe("Pasta", pastaIngredients, pastaSteps, 2);
+        recipes.addRecipe(pastaRecipe);
+
+        assertThrows(InvalidArgumentException.class, () -> parseCommand(command, recipes));
+    }
+
+    @ParameterizedTest
+    @DisplayName("parseCommand_findCommand_emptyListExceptionThrown")
+    @ValueSource(strings = {
+        "find i/query"     // Valid command but empty list
+    })
+    void parseCommand_findCommand_emptyListExceptionThrown(String command) {
+        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList()));
+    }
+
+    @ParameterizedTest
+    @DisplayName("parseCommand_deleteCommand_emptyListExceptionThrown")
+    @ValueSource(strings = {
+        "delete n/query"     // Valid command but empty list
+    })
+    void parseCommand_deleteCommand_emptyListExceptionThrown(String command) {
+        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList()));
+    }
+
+    @ParameterizedTest
+    @DisplayName("parseCommand_listCommand_emptyListExceptionThrown")
+    @ValueSource(strings = {
+        "listR"     // Valid command but empty list
+    })
+    void parseCommand_listCommand_emptyListExceptionThrown(String command) {
+        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList()));
+    }
+
+    @ParameterizedTest
+    @DisplayName("parseCommand_sortCommand_emptyListExceptionThrown")
+    @ValueSource(strings = {
+        "sort s/name",     // Valid command but empty list
+        "sort s/time"      // Valid command but empty list
+    })
+    void parseCommand_sortCommand_emptyListExceptionThrown(String command) {
+        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList()));
+    }
+
+    @ParameterizedTest
+    @DisplayName("parseCommand_editCommand_emptyListExceptionThrown")
+    @ValueSource(strings = {
+        "edit e/name i/ingredients s1/step"     // Valid command but empty list
+    })
+    void parseCommand_editCommand_emptyListExceptionThrown(String command) {
+        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList()));
+    }
+
+    @ParameterizedTest
+    @DisplayName("parseCommand_invalidCommand_invalidCommandExceptionThrown")
+    @ValueSource(strings = {
+        "ooga booga",           // Invalid command
+        "TEST TEST TEST",       // Invalid command
+        "command"               // Invalid command
+    })
+    void parseCommand_invalidCommand_invalidCommandExceptionThrown(String command) {
+        assertThrows(InvalidCommandException.class, () -> parseCommand(command, new RecipeList()));
     }
 }

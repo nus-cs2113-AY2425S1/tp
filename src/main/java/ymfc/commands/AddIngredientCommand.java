@@ -41,7 +41,7 @@ public class AddIngredientCommand extends Command {
 
         storage.saveIngredients(ingredients);
 
-        //ui.printAddedRecipe(newIngredient.toString(), ingredients.getCounter());
+        ui.printAddedIngredient(newIngredient.toString(), ingredients.getCounter());
     }
 
     public void addLoadedIngredient(IngredientList ingredients) {

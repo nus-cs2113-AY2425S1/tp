@@ -27,6 +27,7 @@ public class FindCommand extends Command {
     private boolean isByName = true;
     private boolean isByIngredient = false;
     private boolean isByStep = false;
+    private int numMatches = 0;
 
 
     public FindCommand(String query) {
@@ -40,6 +41,10 @@ public class FindCommand extends Command {
         this.isByStep = isByStep;
     }
 
+    public int getNumMatches() {
+        return numMatches;
+    }
+
     @Override
     public void execute(RecipeList recipes, IngredientList ingredientList, Ui ui, Storage storage) throws Exception {
         logger.log(Level.FINEST, "Executing FindCommand");
@@ -50,7 +55,8 @@ public class FindCommand extends Command {
                         isFoundInSteps(recipe)
                 )
                 .collect(Collectors.toCollection(ArrayList::new));
-        ui.printFind(results, results.size());
+        numMatches = results.size();
+        ui.printFind(results, numMatches);
         logger.log(Level.FINEST, "FindCommand successfully executed");
     }
 

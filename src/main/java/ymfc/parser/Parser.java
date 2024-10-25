@@ -1,5 +1,6 @@
 package ymfc.parser;
 
+import ymfc.commands.Command;
 import ymfc.commands.AddRecipeCommand;
 import ymfc.commands.AddIngredientCommand;
 import ymfc.commands.ByeCommand;
@@ -8,12 +9,15 @@ import ymfc.commands.EditCommand;
 import ymfc.commands.FindCommand;
 import ymfc.commands.HelpCommand;
 import ymfc.commands.ListCommand;
+import ymfc.commands.ListIngredientsCommand;
 import ymfc.commands.SortCommand;
-import ymfc.commands.Command;
 
+import ymfc.exception.EmptyListException;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
+
 import ymfc.ingredient.Ingredient;
+import ymfc.list.RecipeList;
 import ymfc.recipe.Recipe;
 
 import java.util.ArrayList;
@@ -36,7 +40,8 @@ public final class Parser {
      * @throws InvalidCommandException If command cannot be parsed
      * @throws InvalidArgumentException If command can be parsed but with invalid arguments
      */
-    public static Command parseCommand(String commandString) throws InvalidCommandException, InvalidArgumentException {
+    public static Command parseCommand(String commandString, RecipeList recipes)
+            throws InvalidCommandException, InvalidArgumentException, EmptyListException {
         Matcher m = GENERIC_FORMAT.matcher(commandString);
         if (!m.matches()) {
             throw new InvalidCommandException("Invalid command: " + commandString);
@@ -44,24 +49,44 @@ public final class Parser {
 
         String command = m.group("command");
         String args = m.group("args") == null ? "" : m.group("args").trim();
+
+        int numRecipes = recipes.getCounter();
+
         switch (command) {
         case "add":
             return getAddRecipeCommand(args);
         case "delete":
+            if (numRecipes <= 0) {
+                throw new EmptyListException("You can't remove something from nothing!");
+            }
             return getDeleteCommand(args);
-        case "list":
+        case "listR":
+            if (numRecipes <= 0) {
+                throw new EmptyListException("Your recipe list is empty!");
+            }
             return new ListCommand();
+        case "listI":
+            return new ListIngredientsCommand();
         case "help":
             return new HelpCommand();
         case "bye":
             return new ByeCommand();
         case "sort":
+            if (numRecipes <= 0) {
+                throw new EmptyListException("There is nothing to sort!");
+            }
             return getSortCommand(args);
         case "new":
             return getAddIngredientCommand(args);
         case "edit":
+            if (numRecipes <= 0) {
+                throw new EmptyListException("There is nothing to edit!");
+            }
             return getEditCommand(args);
         case "find":
+            if (numRecipes <= 0) {
+                throw new EmptyListException("There is nothing to find!");
+            }
             return getFindCommand(args);
         default:
             throw new InvalidCommandException("Invalid command: " + command + "\ntype \"help\" for assistance");
@@ -133,7 +158,7 @@ public final class Parser {
                 if (timeTaken <= 0) {
                     throw new InvalidArgumentException("Invalid time: " + timeTakenString);
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException exception) {
                 throw new InvalidArgumentException("Invalid time: " + timeTakenString);
             }
         }
