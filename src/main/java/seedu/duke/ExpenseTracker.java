@@ -13,13 +13,13 @@ public class ExpenseTracker {
     private List<Category> categories;
     private List<Expense> expenses;
     private Map<Category, Budget> budgets = new HashMap<>();
-    private boolean autoResetEnabled;
+    private boolean isautoResetEnabled;
     private int lastResetMonth;
 
     public ExpenseTracker() {
         this.categories = new ArrayList<>();
         this.expenses = new ArrayList<>();
-        this.autoResetEnabled = false;
+        this.isautoResetEnabled = false;
         this.lastResetMonth = -1;
     }
 
@@ -37,8 +37,8 @@ public class ExpenseTracker {
     }
 
     public void toggleAutoReset() {
-        autoResetEnabled = !autoResetEnabled;
-        System.out.println("Automatic budget reset is now " + (autoResetEnabled ? "ON" : "OFF") + ".");
+        isautoResetEnabled = !isautoResetEnabled;
+        System.out.println("Automatic budget reset is now " + (isautoResetEnabled ? "ON" : "OFF") + ".");
     }
 
     // Method to reset budgets for each category
@@ -55,7 +55,7 @@ public class ExpenseTracker {
         Calendar calendar = Calendar.getInstance();
         int currentMonth = calendar.get(Calendar.MONTH);
 
-        if (autoResetEnabled && currentMonth != lastResetMonth) {
+        if (isautoResetEnabled && currentMonth != lastResetMonth) {
             resetBudgets();
             lastResetMonth = currentMonth;  // Update last reset month
         }
