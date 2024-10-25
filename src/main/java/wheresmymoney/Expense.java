@@ -8,7 +8,7 @@ public class Expense {
     protected Float price;
     protected String description;
     protected String category;
-    protected LocalDate dateAdded;
+    protected String dateAdded;
 
 
     public Expense(Float price, String description, String category) {
@@ -27,7 +27,7 @@ public class Expense {
     public String getCategory() {
         return category;
     }
-    public LocalDate getDateAdded() {
+    public String getDateAdded() {
         return dateAdded;
     }
     
@@ -52,7 +52,7 @@ public class Expense {
         this.category = category;
         assert this.category != null : "Expense's category shouldn't be null.";
     }
-    public void setDateAdded(LocalDate dateAdded) throws WheresMyMoneyException {
+    public void setDateAdded(String dateAdded) throws WheresMyMoneyException {
         if (dateAdded == null) {
             throw new WheresMyMoneyException("Expense's date added shouldn't be null.");
         }
