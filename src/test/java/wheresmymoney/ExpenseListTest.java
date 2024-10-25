@@ -65,34 +65,44 @@ class ExpenseListTest {
     }
 
     @Test
-    public void addExpense_normalExpense_success() {
+    public void addExpense_validExpenseWithDateSpecified_success() {
         ExpenseList expenseList = new ExpenseList();
-        expenseList.addExpense(1.00f, "Ice Cream", "Food");
-        Expense expense = expenseList.getExpenseAtIndex(0);
-        assertEquals(1.00f, expense.getPrice());
-        assertEquals("Ice Cream", expense.getDescription());
-        assertEquals("Food", expense.getCategory());
+        try {
+            expenseList.addExpense(0.01F, "desc", "cat", "25-10-2024");
+            Expense expense = expenseList.getExpenseAtIndex(0);
+            assertEquals(0.01F, expense.getPrice());
+            assertEquals("desc", expense.getDescription());
+            assertEquals("cat", expense.getCategory());
+            assertEquals("25-10-2024", expense.getDateAdded());
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when all expense parameters are valid.");
+        }
     }
-
     @Test
-    public void addExpense_nullFieldsExpense_success() {
+    public void addExpense_validExpenseWithDateUnspecified_success() {
         ExpenseList expenseList = new ExpenseList();
-        expenseList.addExpense(null, null, null);
-        Expense expense = expenseList.getExpenseAtIndex(0);
-        assertNull(expense.getPrice());
-        assertNull(expense.getDescription());
-        assertNull(expense.getCategory());
+        try {
+            expenseList.addExpense(0.01F, "desc", "cat");
+            Expense expense = expenseList.getExpenseAtIndex(0);
+            assertEquals(0.01F, expense.getPrice());
+            assertEquals("desc", expense.getDescription());
+            assertEquals("cat", expense.getCategory());
+            assertEquals(DateUtils.dateFormatToString(DateUtils.getCurrentDate()), expense.getDateAdded());
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when all expense parameters are valid.");
+        }
     }
-
     @Test
-    public void editExpense_changePriceAndDescriptionAndCategory_success() throws WheresMyMoneyException {
+    public void addExpense_invalidExpenseParameters_throwsWheresMyMoneyException() {
         ExpenseList expenseList = new ExpenseList();
-        expenseList.addExpense(1.00f, "Ice Cream", "Food");
-        expenseList.editExpense(0, 4.50f, "Taxi", "Transport");
-        Expense expense = expenseList.getExpenseAtIndex(0);
-        assertEquals(4.50f, expense.getPrice());
-        assertEquals("Taxi", expense.getDescription());
-        assertEquals("Transport", expense.getCategory());
+        assertThrows(WheresMyMoneyException.class,
+                () -> expenseList.addExpense(null, "desc", "category", "25-10-2024"));
+        assertThrows(WheresMyMoneyException.class,
+                () -> expenseList.addExpense(0.0F, null, "category", "25-10-2024"));
+        assertThrows(WheresMyMoneyException.class,
+                () -> expenseList.addExpense(0.0F, "desc", null, "25-10-2024"));
+        assertThrows(WheresMyMoneyException.class,
+                () -> expenseList.addExpense(0.0F, "desc", "category", null));
     }
 
     @Test
