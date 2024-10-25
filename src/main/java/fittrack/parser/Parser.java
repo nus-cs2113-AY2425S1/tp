@@ -1,14 +1,9 @@
 package fittrack.parser;
-
-import fittrack.fitnessgoal.AddFitnessGoal;
-import fittrack.fitnessgoal.DeleteFitnessGoal;
 import fittrack.fitnessgoal.Goal;
-import fittrack.storage.Storage;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.reminder.Reminder;
 import fittrack.user.User;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -48,16 +43,16 @@ public class Parser {
   /**
    * Parses the user's input and calls the corresponding method based on the command.
    *
-   * @param user         The user object to be manipulated based on the command.
-   * @param input        The input string entered by the user.
-   * @param sessionList  The list of sessions to be manipulated based on the command.
+   * @param user The user object to be manipulated based on the command.
+   * @param input The input string entered by the user.
+   * @param sessionList The list of sessions to be manipulated based on the command.
    * @param reminderList The list of reminders to be manipulated based on the command.
    */
-
   private static void printGoalList(ArrayList<String> goalList) {
-    if (goalList.isEmpty()) {
+    if (goalList.isEmpty()){
       System.out.println("Your goals list is currently empty.");
-    } else {
+    }
+    else {
       System.out.println("Your goals:");
       for (int i = 0; i < goalList.size(); i++) {
         System.out.println((i + 1) + ". " + goalList.get(i));
@@ -67,15 +62,15 @@ public class Parser {
 
   private static void printAddedGoal(ArrayList<Goal> goalList) {
     if (goalList.isEmpty()) {
-      System.out.println("No goals available.");
-    } else {
+      System.out.println("Your goals list is currently empty.");
+    }
+    else {
       Goal lastGoal = goalList.get(goalList.size() - 1); // Get the last added goal
-      System.out.println("Goal added: "
-          + lastGoal.getDescription()); // Assuming Goal has a method getDescription()
+      System.out.println("Goal added: " + lastGoal.getDescription());
       if (lastGoal.getDeadline() != null) {
-        System.out.println("Deadline: " + lastGoal.getDeadline()
-            .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
-      } else {
+        System.out.println("Deadline: " + lastGoal.getDeadline().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+      }
+      else {
         System.out.println("No deadline set.");
       }
     }
@@ -85,7 +80,8 @@ public class Parser {
     System.out.println("Deleted goal: " + goalDescription);
     if (goalList.isEmpty()) {
       System.out.println("Your goals list is now empty.");
-    } else {
+    }
+    else {
       System.out.println("Current goals:");
       for (int i = 0; i < goalList.size(); i++) {
         System.out.println((i + 1) + ". " + goalList.get(i).getDescription());
@@ -203,8 +199,6 @@ public class Parser {
               return;
             }
           }
-
-          // Create a Goal object instead of adding the description directly
           Goal newGoal = new Goal(goalDescription,
               goalDeadline); // Assuming Goal constructor takes description and deadline
           goalList.add(newGoal); // Add the Goal object to the goalList
@@ -213,56 +207,42 @@ public class Parser {
           System.out.println("Please specify a goal to add.");
         }
         break;
-
       case "delete goal":
         int goalIndexToDelete = Integer.parseInt(description) - 1;
         assert goalIndexToDelete >= 0
             && goalIndexToDelete < goalList.size() : "Delete goal index out of bounds";
-
-        // Get the Goal object instead of a String
         Goal goalToDelete = goalList.get(goalIndexToDelete);
-
-        // Remove the goal from the list
         goalList.remove(goalIndexToDelete);
-
-        // Use the goal's description for the print statement
         printDeletedGoal(goalList,
-            goalToDelete.getDescription()); // Assuming you have a method that takes a String
-        break;
-
-      default:
-        printUnrecognizedInputMessage(); // Response to unrecognized inputs
+            goalToDelete.getDescription());
         break;
     }
   }
 
-  private static LocalDateTime parseGoalDeadline(String inputDeadline)
+      private static LocalDateTime parseGoalDeadline(String inputDeadline)
       throws IllegalArgumentException {
-    try {
-      DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
-      // Try parsing with time (dd/MM/yyyy HH:mm:ss)
-      try {
-        return LocalDateTime.parse(inputDeadline, dateTimeFormatter);
-      } catch (DateTimeParseException e) {
-        // If failed, try to parse without time (dd/MM/yyyy)
-        LocalDate date = LocalDate.parse(inputDeadline, dateFormatter);
-        return date.atStartOfDay();
-      }
-    } catch (DateTimeParseException e) {
-      throw new IllegalArgumentException(
-          "Invalid date format. Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
+        try {
+          DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+          DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+          try {
+            return LocalDateTime.parse(inputDeadline, dateTimeFormatter);
+          }
+          catch (DateTimeParseException e) {
+            LocalDate date = LocalDate.parse(inputDeadline, dateFormatter);
+            return date.atStartOfDay();
+          }
+        }
+        catch (DateTimeParseException e) {
+          throw new IllegalArgumentException(
+              "Invalid date format. Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
     }
   }
-
 
   /**
-   * Parses user input indicating the deadline of a {@code reminder} object. Throws an exception if
-   * user-input String is inappropriate or ill-formatted.
+   * Parses user input indicating the deadline of a {@code reminder} object.
+   * Throws an exception if user-input String is inappropriate or ill-formatted.
    *
-   * @param inputDeadline A string input by the user. Intended format is DD/MM/YYYY or DD/MM/YYYY
-   *                      HH:mm:ss.
+   * @param inputDeadline A string input by the user. Intended format is DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.
    * @return A {@code LocalDateTime} object indicating reminder deadline
    * @throws IllegalArgumentException
    */
@@ -280,9 +260,7 @@ public class Parser {
         return date.atStartOfDay();
       }
     } catch (DateTimeParseException e) {
-      throw new IllegalArgumentException(
-          "Invalid date format. Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
+      throw new IllegalArgumentException("Invalid date format. Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
     }
   }
 }
-

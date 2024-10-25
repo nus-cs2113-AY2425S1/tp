@@ -64,8 +64,7 @@ public class Storage {
    * @param sessionList The list to populate with sessions from the save file.
    * @throws FileNotFoundException If the save file is not found.
    */
-  public static void loadSaveFile(ArrayList<TrainingSession> sessionList)
-      throws FileNotFoundException {
+  public static void loadSaveFile(ArrayList<TrainingSession> sessionList) throws FileNotFoundException {
     // Assert that the session list is not null before loading
     assert sessionList != null : "Session list must not be null";
 
@@ -107,17 +106,14 @@ public class Storage {
     // Assert that the file has been written to successfully
     assert SAVEFILE.length() > 0 : "Save file should not be empty after update";
   }
-
   public static void updateGoalsFile(ArrayList<Goal> goals) throws IOException {
     try (FileWriter fw = new FileWriter(SAVEFILE, true)) {
       fw.write("Goals:\n");
       for (Goal goal : goals) {
-        fw.write(goal.toString() + "\n"); // Save each goal's string representation
+        fw.write(goal.toString() + "\n");
       }
-      LOGGER.info("Goals successfully updated in save file.");
     }
   }
-
   public static void loadSaveFile(ArrayList<TrainingSession> sessionList,
       ArrayList<String> goalList) throws FileNotFoundException {
     Scanner s = new Scanner(SAVEFILE);
@@ -128,10 +124,8 @@ public class Storage {
           goalList.add(line);
         }
       }
-      // Continue with other data loading
     }
     System.out.println("Save file successfully loaded.");
     LOGGER.info("Save file successfully loaded.");
   }
-
 }

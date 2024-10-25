@@ -1,11 +1,9 @@
 package fittrack.fitnessgoal;
-
 import java.time.LocalDateTime;
-
 public class Goal {
 
-  private String description;
-  private LocalDateTime deadline;
+  private final String description;
+  private final LocalDateTime deadline;
 
   // Constructor
   public Goal(String description, LocalDateTime deadline) {

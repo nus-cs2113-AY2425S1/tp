@@ -10,7 +10,7 @@ public class Reminder {
 
     private final LocalDateTime reminderDeadline;
     private final String reminderDescription;
-    private final fittrack.user.User User;
+    private final User User;
 
     public Reminder(String description, LocalDateTime deadline, User user) {
         this.reminderDescription = description;
@@ -21,7 +21,7 @@ public class Reminder {
 
     public void printReminderDescription() {
         System.out.print(this.reminderDescription + " | " +
-                this.reminderDeadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + System.lineSeparator());
+            this.reminderDeadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + System.lineSeparator());
     }
 
     /**
