@@ -13,6 +13,7 @@ The *Architecture Diagram* given above provides the high-level design of the app
 ### Main components
 
 The application comprises the following components:
+
 * `Main`, which handles program startup and shutdown, and also interactions between other components.
 * `UI`, which handles user input and showing messages to the user.
 * `Storage`, which handles the loading and saving of data upon program startup and shutdown.
@@ -31,6 +32,7 @@ another in the scenario when the command `add -e event -t 1200 -v venue` is exec
 ### Target user profile
 
 The target user:
+
 * has a need to organise a large number of events
 * organises small-scale events, such that he is able to handle all matters on his own
 * prefers typing to mouse interactions
