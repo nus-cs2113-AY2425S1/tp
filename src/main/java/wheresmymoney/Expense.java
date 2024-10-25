@@ -10,13 +10,18 @@ public class Expense {
     protected String category;
     protected String dateAdded;
 
-
-    public Expense(Float price, String description, String category) {
-        this.price = price;
-        this.description = description;
-        this.category = category;
+    
+    public Expense(Float price, String description, String category, String dateAdded)
+            throws WheresMyMoneyException {
+        this.setPrice(price);
+        this.setDescription(description);
+        this.setCategory(category);
+        if (dateAdded.isEmpty()) {
+            this.setDateAdded(DateUtils.dateFormatToString(DateUtils.getLocalDateNow()));
+        } else {
+            this.setDateAdded(dateAdded);
+        }
     }
-
     
     public Float getPrice() {
         return price;
