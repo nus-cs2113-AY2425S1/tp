@@ -27,16 +27,7 @@ public class DeleteWaterCommand extends WaterCommand {
     public CommandResult execute(History history) {
         Water water = getWaterList(history);
 
-        float waterToBeDeleted;
-        try {
-            waterToBeDeleted = water.deleteWater(indexWaterToDelete);
-            logger.log(Level.INFO, "Deleted {0} liters of water at index {1} for date: {2}",
-                    new Object[]{waterToBeDeleted, indexWaterToDelete, date});
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Invalid index for deletion: {0}", indexWaterToDelete);
-            throw new IndexOutOfBoundsException("Index " + indexWaterToDelete
-                    + " is out of bounds for the water list.");
-        }
+        float waterToBeDeleted = waterToBeDeleted = water.deleteWater(indexWaterToDelete);
 
         return new CommandResult(waterToBeDeleted + " liters of water has been deleted");
     }
