@@ -46,22 +46,19 @@ public class Parser {
     }
 
     public void processUserInput(String userInput, Storage storage) {
-        // Assert that userInput is not null
         assert userInput != null : NULL_INPUT;
 
         String input = userInput.trim();
         String[] inputDetails = input.split(SPACE);
 
-        // Log user input
         logger.log(Level.INFO, RECEIVED_INPUT, input);
 
-        // Assert that inputDetails array is not empty
         assert inputDetails.length > 0 : EMPTY_INPUT_DETAILS;
 
         String command = inputDetails[COMMAND_WORD_INDEX];
 
-        if (input.equals()) {
-            new ListSchoolCommand().execute(input);
+        if (input.equals(LISTINGSCHOOLS)) {
+             ListSchoolCommand().execute(input);
         } else if (command.equals(COMMANDS)) {
             new ListCommandsCommand().execute(input);
         } else if (command.equals(FILTER_COURSES)) {
