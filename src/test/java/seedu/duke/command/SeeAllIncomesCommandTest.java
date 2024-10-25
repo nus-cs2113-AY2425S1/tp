@@ -88,7 +88,7 @@ class SeeAllIncomesCommandTest {
 
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
-                "No recorded incomes found." + System.lineSeparator() +
+                "No incomes found." + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
