@@ -18,6 +18,9 @@ public class DateUtils {
             return false;
         }
     }
+    public static LocalDate getLocalDateNow() {
+        return LocalDate.now();
+    }
     public static LocalDate stringToDateFormat(String dateAsString) throws WheresMyMoneyException {
         if (isInDateFormat(dateAsString)) {
             return LocalDate.parse(dateAsString, formatter);
