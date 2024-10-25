@@ -38,6 +38,10 @@ public class Exception extends Throwable {
         return "Please note that we can only filter for only one NUS Course!";
     }
 
+    public static String invalidCommand() {
+        return "Invalid command. \nPlease check the commands available by typing commands.";
+    }
+
     public static String noInputAfterDelete() {
         return "Please provide the index of the course plan you would like to delete.";
     }

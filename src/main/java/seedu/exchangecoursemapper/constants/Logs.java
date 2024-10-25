@@ -31,4 +31,7 @@ public class Logs {
     public static final String INVALID_COURSE_CODE = "Invalid course code or partner university.";
     public static final String MISSING_INPUT_AFTER_KEYWORD = "No input after add keyword.";
     public static final String RETURN_TRIMMED_INPUT = "Return trimmed input without 'add' command";
+    public static final String COMMAND_PARSED = "Command parsed successfully";
+    public static final String INVALID_COMMAND = "Command is invalid.";
+    public static final String EXECUTION_FAILED = "Command execution failed unexpectedly.";
 }
