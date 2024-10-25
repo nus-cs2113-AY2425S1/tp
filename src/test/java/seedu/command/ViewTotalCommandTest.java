@@ -9,9 +9,8 @@ import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
 
 import java.util.List;
-import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ViewTotalCommandTest {
 
@@ -37,7 +36,7 @@ class ViewTotalCommandTest {
     }
 
     @Test
-    public void execute_ViewTotalNoTransactions() {
+    public void execute_viewTotalNoTransactions() {
         TransactionList emptyTransactionList = new TransactionList();
         viewTotalCommand = new ViewTotalCommand(emptyTransactionList);
 
@@ -49,7 +48,7 @@ class ViewTotalCommandTest {
     }
 
     @Test
-    public void execute_ViewTotalAllTransactions() {
+    public void execute_viewTotalAllTransactions() {
         viewTotalCommand = new ViewTotalCommand(inputTransactionList);
         List<String> result = viewTotalCommand.execute();
 

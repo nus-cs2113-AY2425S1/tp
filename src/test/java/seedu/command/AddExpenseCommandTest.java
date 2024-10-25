@@ -6,7 +6,7 @@ import seedu.transaction.TransactionList;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddExpenseCommandTest {
 
@@ -22,7 +22,7 @@ class AddExpenseCommandTest {
     }
 
     @Test
-    public void execute_addExpenseAllValidFields_noCategory_success() {
+    public void execute_addExpenseAllValidFieldsNoCategory_success() {
         TransactionList transactionList = new TransactionList();
         AddExpenseCommand command = new AddExpenseCommand(transactionList);
 
