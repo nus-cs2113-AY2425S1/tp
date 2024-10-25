@@ -16,6 +16,13 @@ public class ExpenseTracker {
     private boolean autoResetEnabled;
     private int lastResetMonth;
 
+    public ExpenseTracker() {
+        this.categories = new ArrayList<>();
+        this.expenses = new ArrayList<>();
+        this.autoResetEnabled = false;
+        this.lastResetMonth = -1;
+    }
+
     // For testing purposes
     public List<Expense> getExpenses() {
         return expenses;
@@ -27,13 +34,6 @@ public class ExpenseTracker {
 
     public Map<Category, Budget> getBudgets() {
         return budgets;
-    }
-
-    public ExpenseTracker() {
-        this.categories = new ArrayList<>();
-        this.expenses = new ArrayList<>();
-        this.autoResetEnabled = false;
-        this.lastResetMonth = -1;
     }
 
     public void toggleAutoReset() {
