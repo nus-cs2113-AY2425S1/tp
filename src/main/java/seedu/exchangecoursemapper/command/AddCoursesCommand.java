@@ -19,7 +19,8 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
 
-    private static boolean isValidCourseMapping(String nusCourseInput, String puCourseInput, JsonArray courses) {
+    private static boolean isValidCourseMapping(String nusCourseInput, String puCourseInput,
+                                                JsonArray courses, String pu) {
         for (int i = 0; i < courses.size(); i++) {
             JsonObject course = courses.getJsonObject(i);
             String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
@@ -32,7 +33,22 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         }
 
         System.out.println("Invalid course mapping!");
+        displayAvailableMappings(courses,pu);
         return false;
+    }
+
+    private static void displayAvailableMappings(JsonArray courses,String pu) {
+        System.out.println("The available mappings for " + pu + " are :");
+        for (int i = 0; i < courses.size(); i++) {
+            JsonObject course = courses.getJsonObject(i);
+            String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
+            String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY).toLowerCase();
+            String nusCourseName = course.getString(NUS_COURSE_NAME_KEY).toLowerCase();
+            String puCourseName = course.getString(PU_COURSE_NAME_KEY).toLowerCase();
+
+            System.out.println();
+            System.out.println(nusCourseCode + " " + nusCourseName + " | " + puCourseCode + " " + puCourseName);
+        }
     }
 
     private static JsonArray getPUCourseList(String pu, JsonObject jsonObject) {
@@ -42,7 +58,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         if (matchPu != null) {
             courses = jsonObject.getJsonObject(matchPu).getJsonArray(COURSES_ARRAY_LABEL);
         } else {
-            System.out.println("Invalid university input");
+            System.out.println("Invalid university input!");
             return null;
         }
         return courses;
@@ -130,6 +146,6 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         if (courses == null) {
             return false;
         }
-        return isValidCourseMapping(nusCourseInput, puCourseInput, courses);
+        return isValidCourseMapping(nusCourseInput, puCourseInput, courses,pu);
     }
 }
