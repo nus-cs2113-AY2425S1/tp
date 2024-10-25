@@ -15,7 +15,9 @@ import seedu.duke.financial.FinancialList;
 import seedu.duke.parser.DateParser;
 import seedu.duke.parser.InputParser;
 
+import seedu.duke.storage.Storage;
 import java.time.LocalDate;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -26,6 +28,7 @@ import java.util.Scanner;
  */
 public class AppUi {
     public FinancialList financialList;
+    public Storage mainStorage;
 
     /**
      * Constructor to initialize the AppUi object.
@@ -198,18 +201,22 @@ public class AppUi {
 
         case "expense":
             addExpense(commandArguments);
+            this.mainStorage.update(financialList);
             break;
 
         case "income":
             addIncome(commandArguments);
+            this.mainStorage.update(financialList);
             break;
 
         case "edit":
             editEntry(commandArguments);
+            this.mainStorage.update(financialList);
             break;
 
         case "delete":
             deleteEntry(commandArguments);
+            this.mainStorage.update(financialList);
             break;
 
         case "help":
@@ -277,8 +284,17 @@ public class AppUi {
         System.out.println(welcomeMessage);
     }
 
+    public void setStorage(Storage storage, boolean loadFromFile) {
+        this.mainStorage = storage;
+        if (loadFromFile) {
+            this.financialList = mainStorage.loadFromFile();
+        }
+    }
+
     /**
-     * Runs the application, starting with displaying the welcome message.
+     * Runs the main application logic.
+     * Displays the welcome message, initializes the storage object,
+     * and starts the command entry process.
      */
     public void run() {
         displayWelcomeMessage();
