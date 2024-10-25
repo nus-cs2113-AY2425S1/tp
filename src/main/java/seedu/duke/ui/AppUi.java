@@ -42,11 +42,18 @@ public class AppUi {
      * An {@link AddExpenseCommand} is created and executed to add the expense to the financial list.
      *
      * @param commandArguments A map of parsed command arguments that contains the description of the expense
-     *                         and the amount ("/a") and the date/time ("/dt")
+     *                         and the amount ("/a") and the date ("/d")
      */
-    public void addExpense(HashMap<String, String> commandArguments) {
+    public void addExpense(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String description = commandArguments.get("argument");
-        double amount = Double.parseDouble(commandArguments.get("/a"));
+        double amount = 0;
+        try {
+            amount = Double.parseDouble(commandArguments.get("/a"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+        } catch (NullPointerException e) {
+            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments empty or blank.");
+        }
         String date = commandArguments.get("/d");
 
         try {
@@ -67,9 +74,16 @@ public class AppUi {
      * @param commandArguments A map of parsed command arguments that contains the description of the income
      *                         and the amount ("/a").
      */
-    public void addIncome(HashMap<String, String> commandArguments) {
+    public void addIncome(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String description = commandArguments.get("argument");
-        double amount = Double.parseDouble(commandArguments.get("/a"));
+        double amount = 0;
+        try {
+            amount = Double.parseDouble(commandArguments.get("/a"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+        } catch (NullPointerException e) {
+            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments empty or blank.");
+        }
         String date = commandArguments.get("/d");
 
         try {
@@ -180,7 +194,7 @@ public class AppUi {
      * @param commandArguments A map of arguments parsed from the user's input.
      * @return A boolean indicating whether the command was successful.
      */
-    public boolean matchCommand(String command, HashMap<String, String> commandArguments) {
+    public boolean matchCommand(String command, HashMap<String, String> commandArguments) throws FinanceBuddyException {
 
         final String unrecognizedCommand = "--------------------------------------------\n" +
                 "Unrecognized command!\n" +
@@ -189,11 +203,7 @@ public class AppUi {
 
         switch (command) {
         case "list":
-            try {
-                listHelper(commandArguments);
-            } catch (FinanceBuddyException e) {
-                System.out.println(e.getMessage());
-            }
+            listHelper(commandArguments);
             break;
 
         case "expense":
@@ -252,7 +262,7 @@ public class AppUi {
 
             try {
                 isAcceptingInput = matchCommand(command, commandArguments);
-            } catch (Exception e) {
+            } catch (FinanceBuddyException e) {
                 System.out.println(e.getMessage());
             }
         }
