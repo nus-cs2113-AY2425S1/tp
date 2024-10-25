@@ -11,10 +11,10 @@ import java.util.logging.Logger;
 
 import static seedu.exchangecoursemapper.constants.Regex.BACKSLASH;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
+import static seedu.exchangecoursemapper.constants.JsonKey.EMAIL_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.NUMBER_KEY;
 
 public class ObtainContactsCommand extends Command {
-    public static final String EMAIL = "email";
-    public static final String NUMBER = "number";
     private static final Logger logger = Logger.getLogger(ObtainContactsCommand.class.getName());
 
     @Override
@@ -58,12 +58,12 @@ public class ObtainContactsCommand extends Command {
 
     public void handleContactType(JsonObject schoolInfo, String schoolName, String contactType) {
         switch (contactType) {
-        case EMAIL:
-            String email = schoolInfo.getString(EMAIL);
+        case EMAIL_KEY:
+            String email = schoolInfo.getString(EMAIL_KEY);
             System.out.println("Email for " + schoolName + ": " + email);
             break;
-        case NUMBER:
-            String number = schoolInfo.getString(NUMBER);
+        case NUMBER_KEY:
+            String number = schoolInfo.getString(NUMBER_KEY);
             System.out.println("Phone number for " + schoolName + ": " + number);
             break;
         default:
