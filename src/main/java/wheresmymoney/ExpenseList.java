@@ -117,7 +117,7 @@ public class ExpenseList {
             csvReader.readNext(); // Skip the header
             String[] line;
             while ((line = csvReader.readNext()) != null) {
-                addExpense(Float.parseFloat(line[2]), line[1], line[0]);
+                addExpense(Float.parseFloat(line[2]), line[1], line[0], line[3]);
             }
 
             // closing writer connection
@@ -150,14 +150,15 @@ public class ExpenseList {
         CSVWriter writer = new CSVWriter(outFile);
 
         // adding header to csv
-        String[] header = { "Category", "Description", "Price" };
+        String[] header = { "Category", "Description", "Price", "Date Added" };
         writer.writeNext(header);
 
         for (Expense expense: expenses) {
             String[] row = {
                     expense.getCategory(),
                     expense.getDescription(),
-                    expense.getPrice().toString()
+                    expense.getPrice().toString(),
+                    expense.getDateAdded()
             };
             writer.writeNext(row);
         }
