@@ -11,7 +11,7 @@
 ### 1. List Schools Command
 
 #### Overview:
-This command is responsible for displaying and retrieving the full list of university
+This command is responsible for displaying and retrieving the full list of universities
 from `database.json` file. It helps the users to identify the possible choices in South East Asia
 and Oceania.
 
@@ -20,7 +20,7 @@ and Oceania.
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
-* The `displaySchoolList()` method will iterate over the keys of the database which contians the University
+* The `displaySchoolList()` method will iterate over the keys of the database which contains the University
   names, upon acquiring the keys, they will be printed over the CLI.
 * There are also assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.  
@@ -47,7 +47,16 @@ university. It helps users to reach out to the partner universities for any enqu
 exchange opportunities.
 
 #### How the feature is implemented:
-
+* The `ObtainContactsCommand` class extends `Command` class where it overrides the `execute` method for
+  custom behaviour.
+* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
+  superclass.
+* The `getSchoolName` and `getContactType` methods are used to parse the user input, extracting the requested 
+  university name and contact type (email or phone number).
+* After parsing, the `findMatchingSchool()` method identifies the correct university entry within the JSON data.
+* The `handleContactType()` method retrieves and prints the requested contact information based on the input, 
+  displaying either the university’s email address or phone number.
+* There are also assertions and logging in place for error handling.
 
 #### Why it is implemented that way:
 
