@@ -17,7 +17,7 @@ import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Scanner;              
 
 
 public class FitTrack {
