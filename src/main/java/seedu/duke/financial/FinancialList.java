@@ -68,7 +68,7 @@ public class FinancialList {
      * @param description The new description to be set for the entry.
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= entries.size()).
      */
-    public void editEntry(int index, double amount, String description) {
+    public void editEntry(int index, double amount, String description) throws FinanceBuddyException {
         FinancialEntry entry = entries.get(index);
         entry.setAmount(amount);
         entry.setDescription(description);

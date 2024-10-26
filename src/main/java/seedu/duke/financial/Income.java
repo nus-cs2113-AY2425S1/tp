@@ -1,5 +1,7 @@
 package seedu.duke.financial;
 
+import seedu.duke.exception.FinanceBuddyException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -15,7 +17,7 @@ public class Income extends FinancialEntry {
      * @param amount The amount of the income.
      * @param description A description of the income.
      */
-    public Income(double amount, String description, LocalDate date) {
+    public Income(double amount, String description, LocalDate date) throws FinanceBuddyException {
         super(amount, description, date);
     }
 
