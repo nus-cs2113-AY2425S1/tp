@@ -33,7 +33,7 @@ public class MealCommandFactory {
     public Command prepareAddCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
-        flagParser.validateRequiredFlags("/n", "/c", "/t");
+        flagParser.validateRequiredFlags("/n", "/c");
 
         String mealName = flagParser.getStringByFlag("/n");
         int mealCalories = flagParser.getIntegerByFlag("/c");
@@ -47,7 +47,7 @@ public class MealCommandFactory {
     public Command prepareDeleteCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
-        flagParser.validateRequiredFlags("/m", "/t");
+        flagParser.validateRequiredFlags("/m");
 
         int mealIndexToDelete = flagParser.getIndexByFlag("/m");
         LocalDate date = flagParser.getDateByFlag("/t");
