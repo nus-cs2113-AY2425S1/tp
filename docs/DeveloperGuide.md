@@ -128,9 +128,9 @@ exchange opportunities.
 | Version | As a ...     | I want to ...                                                   | So that I can ...                                |
 |---------|--------------|-----------------------------------------------------------------|--------------------------------------------------|
 | v1.0    | CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions     |
-| v2.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                |
-| v2.0    | CEG student  | obtain the email address of the partner university              | send an email should I have any queries          |
-| v2.0    | CEG student  | obtain the contact number of the partner university             | call the number should I have any urgent queries |
+| v1.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                |
+| v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries          |
+| v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries |
 
 ## Non-Functional Requirements
 
