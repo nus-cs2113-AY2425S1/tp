@@ -15,5 +15,8 @@ public class Assertions {
     public static final String ADJACENT_KEYWORDS = "Adjacent keywords with no description " +
             "of the PU course code or PU.";
     public static final String NULL_INPUT = "Input should not be null.";
+    public static final String EMPTY_SCHOOL_NAME = "No school name found";
+    public static final String NULL_JSON_OBJECT = "JsonObject is not be null";
+    public static final String NULL_SCHOOL_NAME = "School name is not be null";
 }
 
