@@ -1,6 +1,7 @@
 package seedu.duke.commands;
 
 import seedu.duke.data.hospital.Hospital;
+import seedu.duke.data.hospital.Patient;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 
@@ -34,8 +35,11 @@ public class SelectPatientCommand extends HospitalCommand {
 
         try {
             String patientName = hospital.getPatient(index).getName();
-            String resultMessage = String.format(MESSAGE_SUCCESS, patientName);
+            String patientTag = hospital.getPatient(index).getTag();
+            Patient p = hospital.getPatient(index);
+            String resultMessage = String.format(MESSAGE_SUCCESS, p.getName() + p.getFormattedTag());
             state.setState(StateType.TASK_STATE);
+            logger.log(Level.INFO, "System is now in TASK_STATE for patient: {0}", patientName);
             System.out.println(resultMessage);
             return new CommandResult(resultMessage);
         } catch (Hospital.PatientNotFoundException e) {
