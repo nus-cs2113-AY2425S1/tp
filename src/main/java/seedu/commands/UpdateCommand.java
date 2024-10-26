@@ -1,5 +1,9 @@
 package seedu.commands;
 
+import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidStatus;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 //@@author Ridiculouswifi
@@ -9,38 +13,82 @@ import java.util.ArrayList;
 public class UpdateCommand extends Command {
     @Override
     public void execute(ArrayList<String> args) {
-        int internshipId = Integer.parseInt(args.get(0));
-        int internshipIndex = internshipId - 1;
-        args.remove(0);
+        try {
+            int internshipId = Integer.parseInt(args.get(0));
+            int internshipIndex = internshipId - 1;
+            if (!internships.isWithinBounds(internshipIndex)) {
+                throw new InvalidIndex();
+            }
+            args.remove(0);
 
-        String field;
-        String value;
+            uiCommand.clearInvalidFlags();
+            uiCommand.clearUpdatedFields();
+            uiCommand.clearInvalidFields();
 
-        for (String arg : args) {
-            String[] words = arg.split(" ", 2);
+            for (String arg : args) {
+                String[] words = arg.split(" ", 2);
+                updateOneField(words, internshipIndex);
+            }
+            uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
+        } catch (NumberFormatException e) {
+            uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
+        } catch (InvalidIndex e) {
+            // Exception message is already handled in InternshipList class
+        }
+    }
+
+    private boolean isValidValue(String[] words) {
+        try {
+            String value = words[INDEX_DATA].trim();
+            if (value.isEmpty()) {
+                throw new IndexOutOfBoundsException();
+            }
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            uiCommand.addInvalidField(words[INDEX_FIELD], "Field cannot be empty");
+            return false;
+        }
+    }
+
+    private void updateOneField(String[] words, int internshipIndex) throws InvalidIndex {
+        String field = words[INDEX_FIELD];
+        try {
             switch (words[INDEX_FIELD]) {
             case "status":
             case "skills":
             case "role":
             case "company":
-            case "start":
-            case "end":
-                field = words[INDEX_FIELD];
-                value = words[INDEX_DATA].replace(field, "").trim();
+            case "from":
+            case "to":
+                if (!isValidValue(words)) {
+                    return;
+                }
+                String value = words[INDEX_DATA].trim();
                 internships.updateField(internshipIndex, field, value);
+                uiCommand.addUpdatedField(field, value);
                 break;
             default:
-                System.out.println("Unknown flag: " + words[INDEX_FIELD]);
+                uiCommand.addInvalidFlag(words[INDEX_FIELD]);
                 break;
             }
+        } catch (DateTimeParseException e) {
+            uiCommand.addInvalidField(field, "Invalid date format");
+        } catch (InvalidStatus e) {
+            String message = """
+                    Status provided is not recognised:
+                    Please provide one of the following:
+                    - Application Pending
+                    - Application Completed
+                    - Accepted
+                    - Rejected""";
+            uiCommand.addInvalidField(field, message);
         }
-        System.out.println("Internship Updated:");
-        System.out.println(internships.getInternship(internshipIndex).toString());
     }
 
     public String getUsage() {
         return """
-                Usage: update -id {ID} -{field} {new value}
+                update
+                Usage: update {ID} -{field} {new value}
                 
                 List of fields:
                 - status (refer to below for valid statuses)
@@ -54,7 +102,6 @@ public class UpdateCommand extends Command {
                 - Application Pending
                 - Application Completed
                 - Accepted
-                - Rejected
-                """;
+                - Rejected""";
     }
 }

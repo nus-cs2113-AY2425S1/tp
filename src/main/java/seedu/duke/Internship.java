@@ -4,12 +4,14 @@ import seedu.exceptions.InvalidStatus;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Class to store the relevant information for an internship.
  */
+//@@author jadenlimjc
 public class Internship {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
 
@@ -40,62 +42,22 @@ public class Internship {
         this.status = "Application Pending";
     }
 
-    /**
-     * Updates the internship field with the new value.
-     *
-     * @param field field to be updated.
-     * @param value new value to update field with.
-     */
-    public void updateField(String field, String value) {
-        switch (field) {
-        case "id":
-            setId(Integer.parseInt(value));
-            break;
-        case "status":
-            updateStatus(value);
-            break;
-        case "skills":
-            setSkills(value);
-            break;
-        case "role":
-            setRole(value);
-            break;
-        case "company":
-            setCompany(value);
-            break;
-        case "start":
-            setStartDate(value);
-            break;
-        case "end":
-            setEndDate(value);
-            break;
-        default:
-            System.out.println("Invalid field: " + field);
-        }
-        System.out.println(field + " updated: " + value);
-    }
-
+    //@@author Ridiculouswifi
     /**
      * Updates the status of the Internship with a valid status.
      * Does not update with invalid statuses and will prompt for a valid status.
      *
      * @param userStatus user-inputted status.
      */
-    public void updateStatus(String userStatus) {
+    public void updateStatus(String userStatus) throws InvalidStatus {
         List<String> statuses = Arrays.asList("Application Pending", "Application Completed", "Accepted", "Rejected");
-        try {
-            for (String status : statuses) {
-                if (status.equalsIgnoreCase(userStatus)) {
-                    this.status = status;
-                    return;
-                }
+        for (String status : statuses) {
+            if (status.equalsIgnoreCase(userStatus)) {
+                this.status = status;
+                return;
             }
-            throw new InvalidStatus();
-        } catch (InvalidStatus e) {
-            System.out.println("Status provided is not recognised:");
-            System.out.println("Please provide one of the following:");
-            System.out.println("- Application Pending\n- Application Completed\n- Accepted\n- Rejected");
         }
+        throw new InvalidStatus();
     }
 
     // Getters and Setters
@@ -130,7 +92,7 @@ public class Internship {
         return startDate.format(formatter); // Format as MM/yy
     }
 
-    public void setStartDate(String start) {
+    public void setStartDate(String start) throws DateTimeParseException {
         this.startDate = YearMonth.parse(start, formatter);
     }
 
@@ -138,7 +100,7 @@ public class Internship {
         return endDate.format(formatter); // Format as MM/yy
     }
 
-    public void setEndDate(String end) {
+    public void setEndDate(String end) throws DateTimeParseException {
         this.endDate = YearMonth.parse(end, formatter);
     }
 

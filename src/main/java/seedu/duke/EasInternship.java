@@ -1,9 +1,11 @@
 package seedu.duke;
 
 import seedu.commands.Command;
-import java.util.ArrayList;
-import java.util.Scanner;
+import seedu.ui.Ui;
 
+import java.util.ArrayList;
+
+//@@author Toby-Yu
 /**
  * The EasInternship class contains the main method which is the entry point for the application.
  * It manages the application's main loop, where user input is read, commands are parsed,
@@ -25,12 +27,11 @@ public class EasInternship {
         ui.showWelcome();
 
         // Main loop
-        Scanner scanner = new Scanner(System.in);
         boolean isExit = false;
 
         while (!isExit) {
             System.out.print("Enter command: ");
-            String input = scanner.nextLine();
+            String input = ui.readInput();
 
             if (input.equals("exit")) {
                 Storage.saveToFile(internshipList);
@@ -42,17 +43,21 @@ public class EasInternship {
             Command command = parser.parseCommand(input);
 
             if (command == null) {
-                System.out.println("Unknown command: " + input);
+                ui.showUnknownCommand(input);
                 continue;
             }
 
             command.setInternshipList(internshipList);
             ArrayList<String> commandArgs = parser.parseData(command, input);
 
+            if (commandArgs == null) {
+                continue;
+            }
+
             try {
                 command.execute(commandArgs);
             } catch (Exception e) {
-                System.out.println("Error executing command: " + e.getMessage());
+                ui.showErrorCommand(e.getMessage());
             }
         }
     }

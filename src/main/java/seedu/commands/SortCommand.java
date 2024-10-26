@@ -2,36 +2,44 @@ package seedu.commands;
 
 import java.util.ArrayList;
 
+//@@author Toby-Yu
 public class SortCommand extends Command {
+
+    // Execute method for the SortCommand
     @Override
     public void execute(ArrayList<String> args) {
-        // Ensure that the args array contains at least one argument after "sort"
-        if (args.size() == 0) {
-            System.out.println("No sorting option provided. Listing internships by ID.");
-            internships.listAllInternships(); // Default to listing by original order (ID)
+        // Check if no arguments are provided after "sort"
+        if (args.isEmpty()) {
+            uiCommand.showSortedInternships("none");  // No valid sort option provided
+            internships.listAllInternships();  // Default to listing by ID
             return;
         }
 
-        // Check if the user requested to sort by alphabet or deadline
+        // Get the first argument, which should be the sort option
         String sortOption = args.get(0).toLowerCase();
 
+        // Handle valid sorting options
         switch (sortOption) {
         case "alphabet":
-            internships.listInternshipsSortedByRole(); // Sort by role alphabetically
-            System.out.println("Sorted internships by role alphabetically.");
+            uiCommand.showSortedInternships(sortOption);  // Show sorting message for alphabet
+            internships.listInternshipsSortedByRole();  // Sort by role alphabetically (case-insensitive)
             break;
         case "deadline":
-            internships.listInternshipsSortedByDeadline(); // Sort by deadline (start date, then end date)
-            System.out.println("Sorted internships by start date, then end date.");
+            uiCommand.showSortedInternships(sortOption);  // Show sorting message for deadline
+            internships.listInternshipsSortedByDeadline();  // Sort by start date, then end date (year first)
             break;
         default:
-            System.out.println("Unknown or missing flag. Listing internships by ID.");
-            internships.listAllInternships(); // Default to listing by original order (ID)
+            // Handle invalid sorting options
+            uiCommand.showOutput("Invalid field");  // Show error message for invalid option
+            System.out.println(uiCommand.getSortUsageMessage());  // Show correct usage message
+            internships.listAllInternships();  // Default to listing by ID
         }
     }
 
     @Override
     public String getUsage() {
-        return "Usage: sort [-alphabet | -deadline]";
+        return """
+                sort
+                Usage: sort [alphabet | deadline]""";
     }
 }

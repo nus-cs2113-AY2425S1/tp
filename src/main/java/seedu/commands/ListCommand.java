@@ -2,6 +2,7 @@ package seedu.commands;
 
 import java.util.ArrayList;
 
+//@@author Toby-Yu
 /**
  * Command to list all internships in the system.
  */
@@ -13,6 +14,8 @@ public class ListCommand extends Command {
 
     @Override
     public String getUsage() {
-        return "Usage: list";
+        return """
+                list
+                Usage: list""";
     }
 }
