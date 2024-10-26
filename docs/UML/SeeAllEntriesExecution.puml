@@ -9,34 +9,29 @@ participant "FinancialEntry" as entry
 
 
 -> cmd : execute()
-activate cmd
 
 cmd -> list : getEntryCount()
-activate list
 return entryCount
 
 loop i < entryCount
     cmd -> list : getEntry(i)
-    activate list
     return entry
 
     cmd -> cmd : shouldBeIncluded(entry)
-    activate cmd
-    return includeDecision
 
     opt entry should be included
         cmd -> cmd : increment entryCount
         cmd -> entry : toString()
-        activate entry
         return entryString
         cmd -> cmd : append to entryList
+        cmd -> cmd : add/substract amount from net cashflow
     end
 end
 
 alt entryCount == 0
     <-- cmd : print no entry message
 else entryCount > 0
-    <-- cmd: print entryList
+    <-- cmd: print entryList with net cashflow
 end
 
 deactivate cmd
