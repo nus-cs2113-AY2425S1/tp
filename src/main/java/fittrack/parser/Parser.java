@@ -1,4 +1,5 @@
 package fittrack.parser;
+import fittrack.fitnessgoal.Goal;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.reminder.Reminder;
 import fittrack.user.User;
@@ -47,11 +48,52 @@ public class Parser {
      * @param sessionList The list of sessions to be manipulated based on the command.
      * @param reminderList The list of reminders to be manipulated based on the command.
      */
+
+    private static void printGoalList(ArrayList<String> goalList) {
+        if (goalList.isEmpty()){
+            System.out.println("Your goals list is currently empty.");
+        } else {
+            System.out.println("Your goals:");
+            for (int i = 0; i < goalList.size(); i++) {
+                System.out.println((i + 1) + ". " + goalList.get(i));
+            }
+        }
+    }
+
+    private static void printAddedGoal(ArrayList<Goal> goalList) {
+        if (goalList.isEmpty()) {
+            System.out.println("Your goals list is currently empty.");
+        } else {
+            Goal lastGoal = goalList.get(goalList.size() - 1); // Get the last added goal
+            System.out.println("Goal added: " + lastGoal.getDescription());
+            if (lastGoal.getDeadline() != null) {
+                System.out.println("Deadline: " +
+                    lastGoal.getDeadline().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            } else {
+                System.out.println("No deadline set.");
+            }
+        }
+    }
+
+    private static void printDeletedGoal(ArrayList<Goal> goalList, String goalDescription) {
+        System.out.println("Deleted goal: " + goalDescription);
+        if (goalList.isEmpty()) {
+            System.out.println("Your goals list is now empty.");
+        } else {
+            System.out.println("Current goals:");
+            for (int i = 0; i < goalList.size(); i++) {
+                System.out.println((i + 1) + ". " + goalList.get(i).getDescription());
+            }
+        }
+    }
+
     public static void parse(User user, String input, ArrayList<TrainingSession> sessionList,
-                             ArrayList<Reminder> reminderList) {
+                             ArrayList<Reminder> reminderList, ArrayList<Goal> goalList) {
         assert input != null : "Input must not be null";
         assert user != null : "User object must not be null";
         assert sessionList != null : "Session list must not be null";
+        assert goalList != null : "Goal list must not be null";
+
 
         String[] sentence = {input, input};
         String command = input;
@@ -139,9 +181,74 @@ public class Parser {
             beginSegment();
             printUpcomingReminders(reminderList);
             break;
+
+        case "add-goal":  // use "add-goal" consistently in input and command handling
+            if (!description.isEmpty()) {
+                String[] goalParts = description.split(" ", 2);
+                String goalDescription = goalParts[0];
+                LocalDateTime goalDeadline = null;
+
+                if (goalParts.length > 1) {
+                    String goalDeadlineInput = goalParts[1];
+                    try {
+                        goalDeadline = parseGoalDeadline(goalDeadlineInput);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid date format: " + e.getMessage());
+                        return;
+                    }
+                }
+                Goal newGoal = new Goal(goalDescription, goalDeadline);
+                goalList.add(newGoal);
+                printAddedGoal(goalList);
+            } else {
+                System.out.println("Please specify a goal to add.");
+            }
+            break;
+
+        case "delete-goal":
+            try {
+                int index = Integer.parseInt(description) - 1;
+                if (index >= 0 && index < goalList.size()) {
+                    goalList.remove(index);
+                    System.out.println("Goal at index " + (index + 1) + " has been removed.");
+                } else {
+                    System.out.println("Invalid goal index.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please specify a valid index to delete.");
+            }
+            break;
+
+        case "list-goal":
+            if (goalList.isEmpty()) {
+                System.out.println("No goals to display.");
+            } else {
+                System.out.println("Goals:");
+                for (int i = 0; i < goalList.size(); i++) {
+                    System.out.println((i + 1) + ". " + goalList.get(i));
+                }
+            }
+            break;
+
         default:
             printUnrecognizedInputMessage(); // Response to unrecognized inputs
             break;
+        }
+    }
+
+    private static LocalDateTime parseGoalDeadline(String inputDeadline)
+            throws IllegalArgumentException {
+        try {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            try {
+                return LocalDateTime.parse(inputDeadline, dateTimeFormatter);
+            } catch (DateTimeParseException e) {
+                LocalDate date = LocalDate.parse(inputDeadline, dateFormatter);
+                return date.atStartOfDay();
+            }
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
         }
     }
 

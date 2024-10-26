@@ -18,6 +18,8 @@ import static fittrack.ui.Ui.printGreeting;
 import static fittrack.ui.Ui.printHelp;
 import static fittrack.ui.Ui.printUpcomingReminders;
 import static fittrack.ui.Ui.printUser;
+import fittrack.fitnessgoal.Goal;
+
 
 
 public class FitTrack {
@@ -31,6 +33,8 @@ public class FitTrack {
         Scanner scan = new Scanner(System.in);
         ArrayList<TrainingSession> sessionList = new ArrayList<>();
         ArrayList<Reminder> reminderList = new ArrayList<>();
+        ArrayList<Goal> goalList = new ArrayList<>();
+
 
         // Initialize and load the save file
         initialiseSaveFile();
@@ -60,7 +64,7 @@ public class FitTrack {
         // Until the exit command is entered, execute command then read user input
         while (!input.equals(EXIT_COMMAND)) {
             assert !input.trim().isEmpty() : "User input should not be null or empty";
-            Parser.parse(user, input, sessionList, reminderList);
+            Parser.parse(user, input, sessionList, reminderList, goalList);
             input = scan.nextLine();
         }
 
