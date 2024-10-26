@@ -3,6 +3,7 @@ package seedu.duke.command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
@@ -51,7 +52,7 @@ class SeeAllIncomesCommandTest {
      * income entries only.
      */
     @Test
-    void execute_mixedList_expectPrintedIncomes() {
+    void execute_mixedList_expectPrintedIncomes() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(null, null);
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24,10,22)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24,10,22)));
@@ -80,7 +81,7 @@ class SeeAllIncomesCommandTest {
      * Expects a message indicating no incomes were found.
      */
     @Test
-    void execute_onlyExpenseList_expectNothing() {
+    void execute_onlyExpenseList_expectNothing() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(null, null);
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.now()));
         financialList.addEntry(new Expense(4.50, "dinner", LocalDate.now()));
@@ -100,7 +101,7 @@ class SeeAllIncomesCommandTest {
      * Test the execute method, specifying that only Incomes before 10/10/24 should be printed.
      */
     @Test
-    void execute_mixedListBeforeCertainDate_expectPrintedIncomes() {
+    void execute_mixedListBeforeCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(null, LocalDate.of(24, 10, 10));
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1)));
@@ -128,7 +129,7 @@ class SeeAllIncomesCommandTest {
      * Test the execute method, specifying that only Incomes after 10/10/24 should be printed.
      */
     @Test
-    void execute_mixedListAfterCertainDate_expectPrintedIncomes() {
+    void execute_mixedListAfterCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 10, 10), null);
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1)));
@@ -156,7 +157,7 @@ class SeeAllIncomesCommandTest {
      * between 20/9/2024 and 10/10/24 exclusive should be printed.
      */
     @Test
-    void execute_mixedListBeforeAndAfterCertainDate_expectPrintedIncomes() {
+    void execute_mixedListBeforeAndAfterCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 9, 20), LocalDate.of(24, 10, 10));
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1)));

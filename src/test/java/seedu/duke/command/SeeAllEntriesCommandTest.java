@@ -3,6 +3,7 @@ package seedu.duke.command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
@@ -50,7 +51,7 @@ class SeeAllEntriesCommandTest {
      * Expects all entries to be printed with indexes.
      */
     @Test
-    void execute_mixedList_expectPrintedList() {
+    void execute_mixedList_expectPrintedList() throws FinanceBuddyException {
         testCommand = new SeeAllEntriesCommand(null, null);
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24,10,22)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24,10,22)));
@@ -82,7 +83,7 @@ class SeeAllEntriesCommandTest {
      * Expects a message indicating no entries were found.
      */
     @Test
-    void execute_emptyList_expectNothing() {
+    void execute_emptyList_expectNothing() throws FinanceBuddyException {
         testCommand = new SeeAllEntriesCommand(null, null);
         testCommand.execute(financialList);
 
@@ -95,7 +96,7 @@ class SeeAllEntriesCommandTest {
     }
 
     @Test
-    void execute_listBeforeCertainDate_expectSomeEntries() {
+    void execute_listBeforeCertainDate_expectSomeEntries() throws FinanceBuddyException {
         testCommand = new SeeAllEntriesCommand(null, LocalDate.of(24, 10, 10));
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 23)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 11, 2)));
@@ -117,7 +118,7 @@ class SeeAllEntriesCommandTest {
     }
 
     @Test
-    void execute_listAfterCertainDate_expectSomeEntries() {
+    void execute_listAfterCertainDate_expectSomeEntries() throws FinanceBuddyException {
         testCommand = new SeeAllEntriesCommand(LocalDate.of(24, 10, 10), null);
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 23)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 11, 2)));
@@ -139,7 +140,7 @@ class SeeAllEntriesCommandTest {
     }
 
     @Test
-    void execute_listBeforeAndAfterCertainDate_expectSomeEntries() {
+    void execute_listBeforeAndAfterCertainDate_expectSomeEntries() throws FinanceBuddyException {
         testCommand = new SeeAllEntriesCommand(LocalDate.of(24, 10, 10), LocalDate.of(24, 11, 1));
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 23)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 11, 2)));
