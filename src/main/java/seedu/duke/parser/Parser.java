@@ -1,17 +1,17 @@
 package seedu.duke.parser;
 
-import seedu.duke.commands.Command;
-import seedu.duke.data.state.State;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import seedu.duke.commands.Command;
+import seedu.duke.data.state.State;
 
 public class Parser {
     private static final Logger LOGGER = Logger.getLogger("Parser");
 
     public Command parseCommand(String line, State state){
         if (line == null || line.isEmpty()){
-            System.out.println("Command is empty");
+            // System.out.println("Command is empty");
             return null;
         }
         String[] parts = line.split(" ");
@@ -128,7 +128,7 @@ public class Parser {
             break;
 
         default:
-            System.out.println("Unknown command");
+            // System.out.println("Unknown command");
             LOGGER.log(Level.WARNING, "Unknown Command Error");
         }
         return null;
