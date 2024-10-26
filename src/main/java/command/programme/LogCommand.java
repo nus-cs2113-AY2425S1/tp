@@ -60,6 +60,7 @@ public class LogCommand extends ProgrammeCommand {
         assert dailyRecord != null : "DailyRecord must not be null";
 
         dailyRecord.logDay(completed);
+        history.logRecord(date, dailyRecord);
 
         String result =  String.format("Congrats! You've successfully completed:%n%s",completed);
 

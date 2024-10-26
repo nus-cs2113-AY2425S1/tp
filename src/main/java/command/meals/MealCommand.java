@@ -31,6 +31,7 @@ public abstract class MealCommand extends Command {
         DailyRecord record = history.getRecordByDate(date);
         if (record == null) {
             record = new DailyRecord(new MealList());
+            history.logRecord(date, record);
             logger.log(Level.INFO, "No DailyRecord found for date {0}, creating a new one.", date);
         }
 
