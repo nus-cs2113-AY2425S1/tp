@@ -17,13 +17,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static seedu.exchangecoursemapper.constants.Commands.COMMANDS;
-import static seedu.exchangecoursemapper.constants.Commands.LISTINGSCHOOLS;
 import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.SET;
 import static seedu.exchangecoursemapper.constants.Commands.ADD_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.DELETE_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
 import static seedu.exchangecoursemapper.constants.Commands.OBTAIN;
+import static seedu.exchangecoursemapper.constants.Commands.LISTINGSCHOOLS;
 import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
 import static seedu.exchangecoursemapper.constants.Commands.HELP;
 import static seedu.exchangecoursemapper.constants.Logs.RECEIVED_INPUT;
@@ -46,22 +46,19 @@ public class Parser {
     }
 
     public void processUserInput(String userInput, Storage storage) {
-        // Assert that userInput is not null
         assert userInput != null : NULL_INPUT;
 
         String input = userInput.trim();
         String[] inputDetails = input.split(SPACE);
 
-        // Log user input
         logger.log(Level.INFO, RECEIVED_INPUT, input);
 
-        // Assert that inputDetails array is not empty
         assert inputDetails.length > 0 : EMPTY_INPUT_DETAILS;
 
         String command = inputDetails[COMMAND_WORD_INDEX];
 
         if (input.equals(LISTINGSCHOOLS)) {
-            new ListSchoolCommand().execute(input);
+             new ListSchoolCommand().execute(input);
         } else if (command.equals(COMMANDS)) {
             new ListCommandsCommand().execute(input);
         } else if (command.equals(FILTER_COURSES)) {
