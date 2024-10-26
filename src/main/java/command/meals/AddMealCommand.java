@@ -7,7 +7,6 @@ import meal.Meal;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import meal.MealList;
 
 public class AddMealCommand extends MealCommand {
     public static final String COMMAND_WORD = "add";
