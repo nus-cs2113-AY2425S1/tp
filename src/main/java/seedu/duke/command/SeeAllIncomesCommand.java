@@ -12,6 +12,7 @@ import java.time.LocalDate;
 public class SeeAllIncomesCommand extends SeeAllEntriesCommand {
     protected final String entriesListedMessage = "Here's a list of all recorded incomes:";
     protected final String noEntriesMessage = "No incomes found.";
+    protected final String cashflowHeader = "Total income: $ ";
 
     /**
      * Constructor for SeeAllIncomesCommand.
@@ -41,6 +42,16 @@ public class SeeAllIncomesCommand extends SeeAllEntriesCommand {
     @Override
     protected String getEntriesListedMessage() {
         return this.entriesListedMessage;
+    }
+
+    /**
+     * Method to return header when displaying cashflow.
+     *
+     * @return Header for cashflow display.
+     */
+    @Override
+    protected String getCashflowHeader() {
+        return this.cashflowHeader;
     }
 
     /**

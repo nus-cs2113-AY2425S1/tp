@@ -18,6 +18,7 @@ public class SeeAllEntriesCommand extends Command {
     protected static Logger logger = Logger.getLogger(SeeAllExpensesCommand.class.getName());
     protected final String entriesListedMessage = "Here's a list of all recorded entries:";
     protected final String noEntriesMessage = "No entries found.";
+    protected final String cashflowHeader = "Net cashflow: $ ";
 
     protected LocalDate start;
     protected LocalDate end;
@@ -49,6 +50,25 @@ public class SeeAllEntriesCommand extends Command {
      */
     protected String getEntriesListedMessage() {
         return this.entriesListedMessage;
+    }
+
+    /**
+     * Method to return header when displaying cashflow.
+     *
+     * @return Header for cashflow display.
+     */
+    protected String getCashflowHeader() {
+        return this.cashflowHeader;
+    }
+
+    /**
+     * Method to express cashflow as a String for printing.
+     *
+     * @param cashflow Net cashflow to be printed.
+     * @return String of cashflow as a 2d.p. decimal number.
+     */
+    protected String getCashflowString(double cashflow) {
+        return String.format("%.2f", cashflow);
     }
 
     /**
@@ -104,8 +124,8 @@ public class SeeAllEntriesCommand extends Command {
         System.out.println(this.getEntriesListedMessage());
         System.out.print(entryList);
         System.out.println();
-        String cashflowString = String.format("%.2f", cashflow);
-        System.out.println("Net cashflow: $ " + cashflowString);
+        String cashflowString = this.getCashflowString(cashflow);
+        System.out.println(this.getCashflowHeader() + cashflowString);
         System.out.println(LINE_SEPARATOR);
     }
 }

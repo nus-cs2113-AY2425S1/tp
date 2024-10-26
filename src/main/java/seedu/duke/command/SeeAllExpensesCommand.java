@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class SeeAllExpensesCommand extends SeeAllEntriesCommand{
     protected final String entriesListedMessage = "Here's a list of all recorded expenses:";
     protected final String noEntriesMessage = "No expenses found.";
+    protected final String cashflowHeader = "Total expense: $ ";
 
     /**
      * Constructor for SeeAllExpensesCommand.
@@ -44,6 +45,29 @@ public class SeeAllExpensesCommand extends SeeAllEntriesCommand{
     protected String getEntriesListedMessage() {
         return this.entriesListedMessage;
     }
+
+    /**
+     * Method to return header when displaying cashflow.
+     *
+     * @return Header for cashflow display.
+     */
+    @Override
+    protected String getCashflowHeader() {
+        return this.cashflowHeader;
+    }
+
+    /**
+     * Method to express total expense as a String for printing.
+     * Method name is kept as getCashflowString to allow for use in super.execute().
+     *
+     * @param cashflow Total expense to be printed.
+     * @return String of cashflow as a 2d.p. decimal number.
+     */
+    @Override
+    protected String getCashflowString(double cashflow) {
+        return String.format("%.2f", -cashflow);
+    }
+
     /**
      * Method to determine if an entry should be listed out based on its date and if it is an expense.
      *
