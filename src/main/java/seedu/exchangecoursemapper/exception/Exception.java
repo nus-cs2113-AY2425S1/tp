@@ -46,6 +46,10 @@ public class Exception extends Throwable {
         return "Please provide the index of the course plan you would like to delete.";
     }
 
+    public static String deleteCoursesLimitExceeded() {
+        return "Please provide a just one index of the course plan you would like to delete.";
+    }
+
     public static String invalidCourseListIndex() {
         return "Please provide a valid index of the course plan you would like to delete.";
     }
