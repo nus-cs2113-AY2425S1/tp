@@ -28,7 +28,7 @@ class ViewIncomeCommandTest {
     private Transaction item4;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         TransactionList transactionList = new TransactionList();
         viewIncomeCommand = new ViewIncomeCommand(transactionList);
 

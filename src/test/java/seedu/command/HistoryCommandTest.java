@@ -30,7 +30,7 @@ class HistoryCommandTest {
     private Transaction item5;
     private Transaction item6;
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         TransactionList transactionList = new TransactionList();
 
         historyCommand = new HistoryCommand(transactionList);
