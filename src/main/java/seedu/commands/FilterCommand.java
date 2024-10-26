@@ -7,10 +7,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.function.BiPredicate;
+
 public class FilterCommand extends Command {
     Map<String, InternshipFieldGetter> fieldGetters = new HashMap<>();
     private ArrayList<Internship> internshipList = new ArrayList<>();
     private InternshipList filteredInternships;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+    boolean functionComplete = false; // For testing purposes
 
     public FilterCommand() {
         // Map flags to getter methods using lambdas
@@ -26,7 +32,7 @@ public class FilterCommand extends Command {
 
     @Override
     public void execute(ArrayList<String> args) {
-
+        assert internships != null: "Internship list should always be set before a command can be executed";
         internshipList = new ArrayList<>(internships.getAllInternships());
         filteredInternships = new InternshipList(internshipList);
 
@@ -44,6 +50,7 @@ public class FilterCommand extends Command {
             }
         }
 
+        functionComplete = true;
         filteredInternships.listAllInternships();
     }
 
@@ -51,7 +58,6 @@ public class FilterCommand extends Command {
         String flag = words[INDEX_FIELD];
         // Retrieve the corresponding getter method based on the flag
         InternshipFieldGetter getter = fieldGetters.get(flag);
-        ArrayList<Internship> internshipListIterator = new ArrayList<>(internshipList);
 
         if (getter == null) {
             uiCommand.clearInvalidFlags();
@@ -64,13 +70,64 @@ public class FilterCommand extends Command {
             uiCommand.showOutput(words[INDEX_FIELD] + " field cannot be empty");
             throw new IllegalArgumentException();
         }
-        String searchTerm = words[INDEX_DATA];
 
+        String searchTerm = words[INDEX_DATA];
+        BiPredicate<YearMonth, YearMonth> dateComparator = null;
+
+        switch (flag) {
+        case "role":
+        case "company":
+            filterByRoleAndCompany(getter, searchTerm);
+            return;
+
+        case "from":
+            dateComparator = YearMonth::isBefore;
+            break;
+
+        case "to":
+            dateComparator = YearMonth::isAfter;
+            break;
+
+        default:
+            assert false: "Should never be able to reach this statement if all flags are accounted for";
+        }
+
+        if (isValidDate(flag, searchTerm)) {
+            filterByDate(getter, searchTerm, dateComparator);
+        }
+    }
+
+    private boolean isValidDate(String flag, String searchTerm) {
+        if (!searchTerm.matches("\\d{2}/\\d{2}")) {
+            uiCommand.showOutput("Please enter a valid date for the " + flag + " flag");
+            throw new IllegalArgumentException();
+        }
+        return true;
+    }
+
+    private void filterByRoleAndCompany(InternshipFieldGetter getter, String searchTerm) {
+        ArrayList<Internship> internshipListIterator = new ArrayList<>(internshipList);
         // Iterate over the internships and apply the getter for comparison
         for (Internship internship : internshipListIterator) {
             String fieldValue = getter.getField(internship); // Dynamically calls getRole(), getCompany(),
             // etc.
-            if (!fieldValue.equalsIgnoreCase(searchTerm)) {
+            boolean isEqualToSearchTerm = fieldValue.equalsIgnoreCase(searchTerm);
+            if (!isEqualToSearchTerm) {
+                internshipList.remove(internship);
+            }
+        }
+    }
+
+    private void filterByDate(InternshipFieldGetter getter, String searchTerm,
+                              BiPredicate<YearMonth, YearMonth> dateComparator) {
+        assert dateComparator != null : "dateComparator should not be null in filterByDate method";
+
+        ArrayList<Internship> internshipListIterator = new ArrayList<>(internshipList);
+        for (Internship internship : internshipListIterator) {
+            String fieldValue = getter.getField(internship); // Dynamically calls getRole(), getCompany(), etc.
+            YearMonth fieldDate = YearMonth.parse(fieldValue, formatter);
+            YearMonth searchDate = YearMonth.parse(searchTerm, formatter);
+            if (dateComparator.test(fieldDate, searchDate)) {
                 internshipList.remove(internship);
             }
         }
