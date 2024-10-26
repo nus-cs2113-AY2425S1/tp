@@ -41,18 +41,18 @@ loop for each key in jsonObject.keySet()
 end
 
 opt matchingSchool == null
-    ObtainContactsCommand -> User: Display "Unknown university - " + schoolName
+    ObtainContactsCommand --> User: Display "Unknown university - " + schoolName
 end
 
 ObtainContactsCommand -> ObtainContactsCommand: handleContactType(schoolInfo: JsonObject, matchingSchool: String, contactType: String)
 activate ObtainContactsCommand
 
 alt contactType == EMAIL_KEY
-    ObtainContactsCommand -> User: Display Email for matchingSchool
+    ObtainContactsCommand --> User: Display Email for matchingSchool
 else contactType == NUMBER_KEY
-    ObtainContactsCommand -> User: Display Phone Number for matchingSchool
+    ObtainContactsCommand --> User: Display Phone Number for matchingSchool
 else Invalid contactType
-    ObtainContactsCommand -> User: Display Invalid Contact Type Message
+    ObtainContactsCommand --> User: Display Invalid Contact Type Message
 end
 
 
