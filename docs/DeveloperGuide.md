@@ -35,8 +35,26 @@ another in the scenario when the command `add -e event -t 1200 -v venue` is exec
 The `UI` component comprises an Ui class, as shown in the above _Class Diagram_.
 
 The `UI` does the following:
+
 * Take in command input from the user and pass the input to `Main`.
 * Show output messages from `Command` to the user after command execution.
+
+### Command component
+
+The `Command` component and its component classes are shown in the below _Class Diagram_:
+
+<img src = "images/CommandClassDiagram.png">
+
+These component classes comprise an abstract `Command` class and multiple `XYZCommand` classes for each command.
+
+The `Command` component does the following:
+
+* Handle the execution of the user command through interactions with `Event`.
+* Provides a command output message to `Ui` after the command execution.
+
+The interactions between `Command` and other commands in the system is shown in the following _Sequence Diagram_:
+
+<img src = "images/CommandSequenceDiagram.png">
 
 ## Implementation
 
