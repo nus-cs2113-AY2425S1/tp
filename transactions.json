@@ -3,69 +3,6 @@
     "type": "income",
     "amount": 100.0,
     "description": "a",
-    "dateTimeString": "2002-01-01"
-  },
-  {
-    "type": "expense",
-    "category": {
-      "name": "abc"
-    },
-    "amount": 100.0,
-    "description": "a",
-    "dateTimeString": "2002-01-01"
-  },
-  {
-    "type": "expense",
-    "category": {
-      "name": "example"
-    },
-    "amount": 100.0,
-    "description": "a",
-    "dateTimeString": "2002-01-01 1234"
-  },
-  {
-    "type": "income",
-    "amount": 100.0,
-    "description": "a",
-    "dateTimeString": "2002-01-01"
-  },
-  {
-    "type": "income",
-    "amount": 100.0,
-    "description": "a",
-    "dateTimeString": "2002-01-01"
-  },
-  {
-    "type": "expense",
-    "category": {
-      "name": "abc"
-    },
-    "amount": 100.0,
-    "description": "a",
-    "dateTimeString": "2002-01-01"
-  },
-  {
-    "type": "expense",
-    "category": {
-      "name": "abc"
-    },
-    "amount": 100.0,
-    "description": "a",
-    "dateTimeString": "2002-01-01"
-  },
-  {
-    "type": "income",
-    "amount": 100.0,
-    "description": "a",
-    "dateTimeString": "2002-01-01 1234"
-  },
-  {
-    "type": "expense",
-    "category": {
-      "name": "a"
-    },
-    "amount": 100.0,
-    "description": "a",
     "dateTimeString": "2001-01-01"
   }
 ]
