@@ -38,6 +38,7 @@ class ViewCategoryCommandTest {
 
         // Verify the result
         assertEquals(temp, commandCategoryList);
+        temp.deleteCategory("Category test");
     }
 
     @Test
