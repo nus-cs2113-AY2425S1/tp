@@ -12,6 +12,7 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonArray;
 
 public class Storage {
     // In Storage class
@@ -65,6 +66,28 @@ public class Storage {
             saveToJson(updatedJson);
         } catch (IOException e) {
             System.err.println("Failed to add course to myList.json");
+        }
+    }
+
+    public void deleteCourse(int index) {
+        try {
+            JsonObject jsonObject = loadFromJson();
+            JsonArray coursesArray = jsonObject.getJsonArray("courses");
+            JsonArrayBuilder updatedCourses = Json.createArrayBuilder();
+
+            for (int i = 0; i < coursesArray.size(); i++) {
+                if (i != index) {
+                    updatedCourses.add(coursesArray.getJsonObject(i));
+                }
+            }
+
+            JsonObject updatedJson = Json.createObjectBuilder()
+                    .add("courses", updatedCourses)
+                    .build();
+
+            saveToJson(updatedJson);
+        } catch (IOException e) {
+            System.err.println("Failed to delete course from myList.json");
         }
     }
 
