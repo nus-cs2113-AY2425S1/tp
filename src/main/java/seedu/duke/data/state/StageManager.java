@@ -39,12 +39,12 @@ public class StageManager {
     public CommandResult runState(String commandInput, Command command, Hospital hospital) throws UnknownStateFound {
         try {
             switch (currentState.getState()) {
-                case MAIN_STATE:
-                    return runMainState(commandInput, command, hospital);
-                case TASK_STATE:
-                    return runTaskState(commandInput, command, hospital);
-                default:
-                    throw new UnknownStateFound("StageManager does not recognize the current state.");
+            case MAIN_STATE:
+                return runMainState(commandInput, command, hospital);
+            case TASK_STATE:
+                return runTaskState(commandInput, command, hospital);
+            default:
+                throw new UnknownStateFound("StageManager does not recognize the current state.");
             }
         } catch (InvalidCommandException e) {
             return new CommandResult(e.getMessage());
