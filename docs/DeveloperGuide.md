@@ -48,11 +48,13 @@ allowing for separation of handling command keywords and executing commands.
 The diagram below shows the inheritance of the `Command` class.
 
 #### Listing Entries
-Overview
+__Overview__
 
 The list entries feature is facilitated by the `SeeAllEntriesCommand` class.
 Similarly, classes `SeeAllExpensesCommand` and `SeeAllIncomesCommand` facilitate 
 listing out expenses and incomes respectively.
+
+__Implementation__
 
 The user invokes the command to list entries by entering the following command:
 ```list [income|expense] [/from START_DATE] [/to END_DATE]```.
@@ -75,7 +77,7 @@ according to the following logic.
 The interaction between the command classes and the `FinancialList` is as follows,
 using `SeeAllEntriesCommand` as an example:
 
-![pic](UML/SeeAllEntriesExecution.png)
+{add diagram}
 
 The `shouldBeIncluded()` method marks Financial Entries as "should be included" if their
 dates fall between the start and end dates passed into the command object.
@@ -83,6 +85,12 @@ dates fall between the start and end dates passed into the command object.
 `SeeAllExpensesCommand` and `SeeAllIncomesCommand` interact with the `FinancialList` in a 
 similar manner, with the only difference being that the `shouldBeIncluded()` methods of
 `SeeAllExpensesCommand` and `SeeAllIncomesCommand` only mark `Expenses` and `Incomes` as "should be included".
+
+__Design Considerations__
+
+Given that the logic for `SeeAllEntriesCommand`, `SeeAllExpensesCommand` and `SeeAllIncomesCommand` are very similar 
+with the only difference being the criteria for printing the entries, we made `SeeAllExpensesCommand` and 
+`SeeAllIncomesCommand` inherit `SeeAllEntriesCommand` to reduce the amount of duplicated code written.
 
 ### Exceptions and Logging
 
