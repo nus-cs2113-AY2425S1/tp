@@ -73,8 +73,8 @@ public class ObtainContactsCommand extends Command {
     }
 
     public String findMatchingSchool(JsonObject jsonObject, String schoolName) {
-        assert jsonObject != null : "JsonObject is not be null";
-        assert schoolName != null : "School name is not be null";
+        assert jsonObject != null : Assertions.NULL_JSON_OBJECT;
+        assert schoolName != null : Assertions.NULL_SCHOOL_NAME;
         for (String key : jsonObject.keySet()) {
             if (key.toLowerCase().equals(schoolName)) {
                 return key;
