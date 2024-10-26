@@ -111,9 +111,21 @@ public class JsonUtil {
 
     }
 
-    public static Hospital fromJson(String json) throws JsonMappingException, JsonProcessingException {
+    public static Hospital fromJson(String json) throws StorageOperationException {
         logger.log(Level.INFO, "Converting JSON to object");
-        Hospital hospital = objectMapper.readValue(json, Hospital.class);
+        Hospital hospital = null;
+
+        try {
+            hospital = objectMapper.readValue(json, Hospital.class);
+        } catch (JsonMappingException e) {
+            logger.log(Level.WARNING, "Error mapping JSON to object: {0}", e.getMessage());
+            throw new StorageOperationException("Error mapping JSON to object: " + e.getMessage());
+        } catch (JsonProcessingException e) {
+            logger.log(Level.WARNING, "Json Processing Exception Caught. Failed to convert JSON to object: {0}",
+                    e.getMessage());
+            throw new StorageOperationException(
+                    "Json Processing Exception Caught. Failed to convert JSON to object: " + e.getMessage());
+        }
 
         if (hospital == null) {
             logger.log(Level.WARNING, "Failed to convert JSON to object");

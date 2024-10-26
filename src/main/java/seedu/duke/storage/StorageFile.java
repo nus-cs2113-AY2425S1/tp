@@ -50,7 +50,7 @@ public class StorageFile {
                 f.createNewFile();
                 assert f.exists() : "File should exist after creation";
 
-                JsonUtil.saveToFile(filePath);
+                JsonUtil.saveToFile(filePath); // Save an initial hospital to the file
 
                 logger.log(Level.INFO, "File created successfully: {0}", filePath);
             } catch (IOException e) {
