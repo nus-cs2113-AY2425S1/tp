@@ -2,9 +2,7 @@ package command.meals;
 
 import command.Command;
 import command.CommandResult;
-import dailyrecord.DailyRecord;
 import history.History;
-import meal.MealList;
 import programme.ProgrammeList;
 
 import java.time.LocalDate;
@@ -23,21 +21,6 @@ public abstract class MealCommand extends Command {
         this.date = date;
 
         logger.log(Level.INFO, "MealCommand initialized with date: {0}", date);
-    }
-
-    public MealList getMealList(History history) {
-        logger.log(Level.INFO, "Retrieving MealList for date: {0}", date);
-
-        DailyRecord record = history.getRecordByDate(date);
-        if (record == null) {
-            record = new DailyRecord(new MealList());
-            logger.log(Level.INFO, "No DailyRecord found for date {0}, creating a new one.", date);
-        }
-
-        MealList mealList = record.getMealList();
-        logger.log(Level.INFO, "Retrieved MealList: {0}", mealList);
-
-        return mealList;
     }
 
     public abstract CommandResult execute(History history);

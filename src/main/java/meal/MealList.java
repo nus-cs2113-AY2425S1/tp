@@ -44,7 +44,7 @@ public class MealList {
         int count = 1;
 
         for (Meal meal : meals) {
-            output.append(count).append(": ").append(meal.getName()).append("\n");
+            output.append(count).append(": ").append(meal).append("\n");
             count++;
         }
 

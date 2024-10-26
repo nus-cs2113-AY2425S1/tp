@@ -1,8 +1,8 @@
 package command.meals;
 
 import command.CommandResult;
+import dailyrecord.DailyRecord;
 import history.History;
-import meal.MealList;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,12 +25,10 @@ public class DeleteMealCommand extends MealCommand {
     }
 
     public CommandResult execute(History history) {
-        MealList meals = getMealList(history);
+        DailyRecord dailyRecord = history.getRecordByDate(date);
+        assert dailyRecord != null : "Daily record not found";
+        dailyRecord.deleteMealFromRecord(indexMealToDelete);
 
-        logger.log(Level.INFO, "Attempting to delete meal at index: {0}", indexMealToDelete);
-
-        String mealToDeleteName =  meals.deleteMeal(indexMealToDelete).toString();
-
-        return new CommandResult(mealToDeleteName + " has been deleted");
+        return new CommandResult("Meal index: " + indexMealToDelete + " has been deleted");
     }
 }
