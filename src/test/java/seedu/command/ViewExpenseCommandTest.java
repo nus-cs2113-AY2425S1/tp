@@ -31,6 +31,10 @@ class ViewExpenseCommandTest {
     public void setUp() throws Exception {
         TransactionList transactionList = new TransactionList();
         viewExpenseCommand = new ViewExpenseCommand(transactionList);
+        while(transactionList.size() != 0)
+        {
+            transactionList.deleteTransaction(0);
+        }
 
         inputTransactionList = new TransactionList();
         item1 = new Expense(300, "", "2024-01-15", new Category("Other"));

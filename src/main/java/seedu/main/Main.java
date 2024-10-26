@@ -88,7 +88,7 @@ public class Main {
 
         scanner = new Scanner(System.in);
         parser = new Parser();
-        storage = new Storage(); // This line is actually unnecessary since methods are static
+        storage = new Storage();
         categories = new CategoryList();
         transactions = new TransactionList();
 

@@ -31,6 +31,10 @@ class ViewIncomeCommandTest {
     public void setUp() throws Exception {
         TransactionList transactionList = new TransactionList();
         viewIncomeCommand = new ViewIncomeCommand(transactionList);
+        while(transactionList.size() != 0)
+        {
+            transactionList.deleteTransaction(0);
+        }
 
         inputTransactionList = new TransactionList();
         item1 = new Income(300, "", "2024-01-15");

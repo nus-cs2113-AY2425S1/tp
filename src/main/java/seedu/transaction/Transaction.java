@@ -46,9 +46,9 @@ public abstract class Transaction {
             return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         } catch (DateTimeParseException e) {
             try {
-                // Try parsing as LocalDate and convert to LocalDateTime at start of day
+                // Try parsing as LocalDate and convert to LocalDateTime at 23:59 of the day
                 LocalDate date = LocalDate.parse(dateTimeString, DateTimeFormatter.ISO_LOCAL_DATE);
-                return date.atStartOfDay();
+                return date.atTime(23, 59); // Sets time to 23:59
             } catch (DateTimeParseException ex) {
                 // Handle invalid date format
                 System.err.println("Invalid date format: " + dateTimeString);
