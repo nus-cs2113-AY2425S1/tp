@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.hospital.Hospital.PatientNotFoundException;
 import seedu.duke.data.task.TaskList.TaskNotFoundException;
+import seedu.duke.storage.exception.StorageOperationException;
 
 public class StorageFileTest {
 
@@ -52,7 +53,8 @@ public class StorageFileTest {
     }
 
     @Test
-    public void loadFromFile_success() throws TaskNotFoundException, PatientNotFoundException {
+    public void loadFromFile_success()
+            throws TaskNotFoundException, PatientNotFoundException, StorageOperationException {
         Hospital loadHospital = JsonUtil.loadFromFile(filePath);
 
         assertEquals("Alice", loadHospital.getPatient(0).getName());
@@ -65,7 +67,7 @@ public class StorageFileTest {
     }
 
     @Test
-    public void saveToFile_success() {
+    public void saveToFile_success() throws StorageOperationException {
         String pathToSave = "src/test/java/seedu/duke/data/hospital_data_save.json";
         File file = new File(pathToSave);
         // check if file exists

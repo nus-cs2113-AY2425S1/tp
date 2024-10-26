@@ -36,11 +36,13 @@ public class JsonUtil {
         } catch (StreamWriteException e) {
             logger.log(Level.WARNING, "Json Stream Write Exception Caught. Failed to save data to file: {0}",
                     e.getMessage());
-            throw new StorageOperationException("Json Stream Write Exception Caught. Failed to save data to file: " + e.getMessage());
+            throw new StorageOperationException(
+                    "Json Stream Write Exception Caught. Failed to save data to file: " + e.getMessage());
         } catch (DatabindException e) {
             logger.log(Level.WARNING, "Json Data Bind Exception Caught. Failed to save data to file: {0}",
                     e.getMessage());
-            throw new StorageOperationException("Json Data Bind Exception Caught. Failed to save data to file: " + e.getMessage());
+            throw new StorageOperationException(
+                    "Json Data Bind Exception Caught. Failed to save data to file: " + e.getMessage());
         } catch (IOException e) {
             logger.log(Level.WARNING, "I/O Exception Caught. Failed to save data to file: {0}", e.getMessage());
             throw new StorageOperationException("I/O Exception Caught. Failed to save data to file: " + e.getMessage());
@@ -55,11 +57,13 @@ public class JsonUtil {
         } catch (StreamWriteException e) {
             logger.log(Level.WARNING, "Json Stream Write Exception Caught. Failed to save data to file: {0}",
                     e.getMessage());
-            throw new StorageOperationException("Json Stream Write Exception Caught. Failed to save data to file: " + e.getMessage());
+            throw new StorageOperationException(
+                    "Json Stream Write Exception Caught. Failed to save data to file: " + e.getMessage());
         } catch (DatabindException e) {
             logger.log(Level.WARNING, "Json Data Bind Exception Caught. Failed to save data to file: {0}",
                     e.getMessage());
-            throw new StorageOperationException("Json Data Bind Exception Caught. Failed to save data to file: " + e.getMessage());
+            throw new StorageOperationException(
+                    "Json Data Bind Exception Caught. Failed to save data to file: " + e.getMessage());
         } catch (IOException e) {
             logger.log(Level.WARNING, "I/O Exception Caught. Failed to save data to file: {0}", e.getMessage());
             throw new StorageOperationException("I/O Exception Caught. Failed to save data to file: " + e.getMessage());
@@ -99,8 +103,10 @@ public class JsonUtil {
 
             return hospitalJson;
         } catch (JsonProcessingException e) {
-            logger.log(Level.WARNING, "Json Processing Exception Caught. Failed to convert object to JSON: {0}", e.getMessage());
-            throw new StorageOperationException("Json Processing Exception Caught. Failed to convert object to JSON: " + e.getMessage());
+            logger.log(Level.WARNING, "Json Processing Exception Caught. Failed to convert object to JSON: {0}",
+                    e.getMessage());
+            throw new StorageOperationException(
+                    "Json Processing Exception Caught. Failed to convert object to JSON: " + e.getMessage());
         }
 
     }

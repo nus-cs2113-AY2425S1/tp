@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.hospital.Hospital.PatientNotFoundException;
 import seedu.duke.data.task.TaskList.TaskNotFoundException;
+import seedu.duke.storage.exception.StorageOperationException;
 
 public class JsonUtilTest {
 
@@ -79,7 +80,7 @@ public class JsonUtilTest {
     }
 
     @Test
-    void serialize_success() {
+    void serialize_success() throws StorageOperationException {
         String jsonSerialize = JsonUtil.toJson(hospital).trim();
         assertNotNull(jsonSerialize);
         // TODO: Failed on Windows System
