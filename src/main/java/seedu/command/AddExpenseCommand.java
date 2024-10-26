@@ -1,6 +1,7 @@
 package seedu.command;
 
 import seedu.category.Category;
+import seedu.datastorage.Storage;
 import seedu.transaction.Expense;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
@@ -71,7 +72,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
             }
         }
         transactions.addTransaction(transaction);
-
+        Storage.saveTransaction(transactions.getTransactions());
         return List.of("Expense added successfully!");
     }
 

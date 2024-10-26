@@ -31,7 +31,6 @@ public class Main {
     public static final String HI_MESSAGE = "Hello, %s is willing to help!";
     public static final String INVALID_COMMAND_ERROR_MESSAGE = "Invalid command.";
     public static Scanner scanner; // Scanner for reading user input
-    public static Storage storage;
     private static final Logger logger = Logger.getLogger("Main");
 
     // Prefix for message formatting
@@ -88,9 +87,13 @@ public class Main {
 
         scanner = new Scanner(System.in);
         parser = new Parser();
-        storage = new Storage();
+
         categories = new CategoryList();
+        categories.setCategories(Storage.loadCategories());
+        Storage.saveCategory(categories.getCategories()); //Save categories in case of initialization
+
         transactions = new TransactionList();
+        transactions.setTransactions(Storage.loadTransactions());
 
         setupCommands();
 

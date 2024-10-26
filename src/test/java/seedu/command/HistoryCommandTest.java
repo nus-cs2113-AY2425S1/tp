@@ -33,12 +33,6 @@ class HistoryCommandTest {
     public void setUp() throws Exception {
         TransactionList transactionList = new TransactionList();
 
-        // Ensure the transactionList is cleared before each test
-        while(transactionList.size() != 0)
-        {
-            transactionList.deleteTransaction(0);
-        }
-
         historyCommand = new HistoryCommand(transactionList);
 
         inputTransactionList = new TransactionList();

@@ -1,5 +1,6 @@
 package seedu.command;
 
+import seedu.datastorage.Storage;
 import seedu.transaction.Income;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
@@ -45,6 +46,9 @@ public class AddIncomeCommand extends AddTransactionCommand {
         }
         try {
             transactions.addTransaction(createTransaction(amount, incomeName, dateString));
+
+            Storage.saveTransaction(transactions.getTransactions());
+
             return List.of("Income added successfully!");
         } catch (Exception e) {
             return List.of(ERROR_MESSAGE + ": " + e.getMessage());

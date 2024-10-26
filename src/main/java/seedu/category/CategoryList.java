@@ -8,24 +8,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CategoryList {
-    private static Logger logger = Logger.getLogger("CategoryList");
+    private static final Logger logger = Logger.getLogger("CategoryList");
     private ArrayList<Category> categories;
 
     public CategoryList() {
-        categories = Storage.loadCategories();
+        categories = new ArrayList<>();
+    }
+
+    public void setCategories(ArrayList<Category> categories) {
+        this.categories = categories;
         if (categories.isEmpty()) {
             initializeDefaultCategories();
         }
     }
 
     // Initialize
-    private void initializeDefaultCategories() {
+    public void initializeDefaultCategories() {
         categories.add(new Category("Food"));
         categories.add(new Category("Entertainment"));
         categories.add(new Category("Transport"));
         categories.add(new Category("Utilities"));
         categories.add(new Category("Others"));
-        Storage.saveCategory(categories);
     }
 
     // Add Category
@@ -39,7 +42,6 @@ public class CategoryList {
         }
         categories.add(newCategory);
         logger.log(Level.INFO, "Category '" + newCategory.getName() + "' added successfully.");
-        Storage.saveCategory(categories);
         return newCategory;
     }
 
@@ -58,13 +60,12 @@ public class CategoryList {
         } else {
             logger.log(Level.INFO, "Category '" + categoryName + "' not found!");
         }
-        Storage.saveCategory(categories);
         return toDelete;
     }
 
 
     // Get category list
-    public List<Category> getCategories() {
+    public ArrayList<Category> getCategories() {
         return categories;
     }
 
@@ -72,7 +73,6 @@ public class CategoryList {
     public void interactiveAddCategory(String categoryName) {
         Category newCategory = new Category(categoryName);
         addCategory(newCategory);
-        Storage.saveCategory(categories);
     }
 
 
