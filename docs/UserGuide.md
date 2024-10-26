@@ -16,6 +16,7 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 - **EXERCISE**: An exercise defined by a name, rep, set, and weight.
 - **DAY**: A ‘workout day’ is a collection of exercises to be done together.
 - **PROGRAMME**: A programme is a collection of workout days.
+- **DAILYRECORD** A daily record is a class containing day, water array and meal list objects.
 
 ---
 
@@ -57,11 +58,13 @@ Displays the detailed workout routine of the selected program. If no index is pr
 
 Example: `prog view 1`
 
+```
 Program: Starter
 
 Day 1: Chest Press [3x12 30kg], Squat [3x12 50kg]
 
 Day 2: Squat [3x12 10kg]
+```
 
 ---
 
@@ -71,10 +74,11 @@ Command: `prog list`
 Lists all workout programs with their index and name.
 
 Example: `prog list`
-
+```
 1: Starter  --  ACTIVE
 
 2: Full Body
+```
 
 ---
 
@@ -87,8 +91,10 @@ Command: `prog edit /p PROG_INDEX /d DAY [command] INDEX [args]`
 `Args`: A set of flags to update for that specific exercise. (e.g., /w WEIGHT to update weight, /r REPS, and /s SETS in any order).
 
 Example behaviour: `prog edit /p 1 /d 1 /u 1 /w 30`
+```
 
 Update Exercise 1 of Day 1 of Prog 1 - Weight set to 30.
+```
 
 ---
 
@@ -100,19 +106,21 @@ Sets given programme as the ‘active programme’, which other commands will de
 ---
 
 ### 6. Log a Workout
-Command: `log /p PROGRAMME_INDEX /d DAY_INDEX /t DATE`  
-Date in form of dd/MM/yyyy
+Command: `prog log /t DATE /p PROGRAMME_INDEX /d DAY_INDEX`  
+- Date in form of `dd-MM-yyyy`
 
 Log a workout as if each exercise was performed correctly.
 
-Example: `log`
+Example: `prog log /t 12-12-2024 /p 1 /d 1`
 
-Marking Day 2 as Done!
+```
+Marking Day 1 as Done!
 
 You’ve completed:
 Starter Programme  
 Workout 1  
 Deadlift [3x10 100kg], Bench [3x12 30kg].
+```
 
 ---
 
