@@ -48,20 +48,49 @@ allowing for separation of handling command keywords and executing commands.
 The diagram below shows the inheritance of the `Command` class.
 
 #### Listing Entries
-Overview
+__Overview__
 
-The list entries feature is facilitated by `SeeAllEntriesCommand`.
+The list entries feature is facilitated by the `SeeAllEntriesCommand` class.
+Similarly, classes `SeeAllExpensesCommand` and `SeeAllIncomesCommand` facilitate 
+listing out expenses and incomes respectively.
 
-When the user inputs `list [income|expense] [/from START_DATE] [/to END_DATE]`, the following logic is carried out.
-![pic](UML/SeeAllEntriesOverview.png)
+__Implementation__
 
-The interaction between `SeeAllEntriesCommand` with the `FinancialList` is as follows:
+The user invokes the command to list entries by entering the following command:
+```list [income|expense] [/from START_DATE] [/to END_DATE]```.
 
-![pic](UML/SeeAllEntriesExecution.png)
+This is parsed by the InputParser, returning a HashMap `commandArgumets`, containing the following optional arguments:
+- `argument`: Represents the type of Financial Entries to be printed. Can take 3 possible values:
+  - `expense`: List only Expenses
+  - `income`: List only Incomes
+  - `null`: List both Expenses and Incomes
+- `/from`: Represents the starting date from which Financial Entries should be listed. If value is `null`,
+there is no defined starting date.
+- `/to`: Represents the ending date by which Financial Entries should be listed. If value is `null`,
+  there is no defined ending date.
+
+`CommandHandler` invokes the `listHelper` method to create and execute the command to list the financial entries
+according to the following logic.
+
+{add in diagram}
+
+The interaction between the command classes and the `FinancialList` is as follows,
+using `SeeAllEntriesCommand` as an example:
+
+{add diagram}
+
+The `shouldBeIncluded()` method marks Financial Entries as "should be included" if their
+dates fall between the start and end dates passed into the command object.
 
 `SeeAllExpensesCommand` and `SeeAllIncomesCommand` interact with the `FinancialList` in a 
 similar manner, with the only difference being that the `shouldBeIncluded()` methods of
 `SeeAllExpensesCommand` and `SeeAllIncomesCommand` only mark `Expenses` and `Incomes` as "should be included".
+
+__Design Considerations__
+
+Given that the logic for `SeeAllEntriesCommand`, `SeeAllExpensesCommand` and `SeeAllIncomesCommand` are very similar 
+with the only difference being the criteria for printing the entries, we made `SeeAllExpensesCommand` and 
+`SeeAllIncomesCommand` inherit `SeeAllEntriesCommand` to reduce the amount of duplicated code written.
 
 ### Exceptions and Logging
 
@@ -80,20 +109,39 @@ It will overide the file with the up-to-date `FinancialList` that has been conve
 *more guid coming up*
 
 ## Product scope
-### Target user profile
-
-{Describe the target user profile}
+### Target user profile:
+- University student who wants to manage their limited finances
+- unsure of how to manage his finances, wants to learn
+- busy with academics and CCAs, wants to manage finances quickly
+- prefer desktop apps over other types
+- can type fast
+- prefers typing to mouse interactions
+- is reasonably comfortable using CLI apps
 
 ### Value proposition
-
-{Describe the value proposition: what problem does it solve?}
+Finance Buddy allows our target user profile to keep track of their income/expenditures
+faster than a typical mouse/GUI driven app
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ...                       | I want to ...                                                                       | So that I can ...                                              |
+|---------|--------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| v1.0    | new user                       | see usage instructions                                                              | remember how to use the app in case I forget the commands      |
+| v1.0    | user                           | record my daily expenses                                                            | keep track on how much I spend and what I spend on             |
+| v1.0    | user                           | delete my logging records                                                           | remove a wrong record                                          |
+| v1.0    | user                           | edit my logs                                                                        | edit a wrong record                                            |
+| v1.0    | user                           | see my cash flows                                                                   | have an overview of my cash flow                               |
+| v2.0    | user                           | view my expenditure over the last X days                                            | see how much money I spent recently                            |
+| v2.0    | user                           | keep a log of my data                                                               | retain memory of past transactions in previous runs of the app |
+| v2.0    | user                           | set a monthly budget for myself                                                     | ensure that I am saving enough money                           |
+| v2.0    | user                           | be alerted when I exceed my allocated budget                                        | know when I spend too much money                               |
+| v2.0    | user                           | categorise my spendings                                                             | know my spending across different areas                        |
+| v2.0    | user                           | view my expenditure over different categories                                       | see where I spend the most                                     |
+| v2.0    | user new to financial planning | get suggested budget allocations according to income, expenses, and financial goals | have realistic financial budgets                               |
+| v2.0    | user                           | have reports or summaries of my spending trends                                     | make better financial decisions in the future                  |
+| v2.0    | busy user                      | log my finances in the shortest possible time                                       | have more time for other activities                            |
+| v2.0    | busy user                      | visualize my overall cash flow (inflows and outflows) across all accounts           | see my total financial health at a glance                      |
+| v2.1    | busy user                      | use shortcuts to log frequent and similar expenses                                  | save time logging expenses                                     |
 
 ## Non-Functional Requirements
 

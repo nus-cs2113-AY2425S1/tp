@@ -1,0 +1,59 @@
+@startuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+participant "CommandHandler" as app
+participant "commandArguments" as map
+participant "DateParser" as parser
+participant "SeeAllExpensesCommand" as expense
+participant "SeeAllIncomesCommand" as income
+participant "SeeAllEntriesCommand" as all
+participant "FinancialList" as list
+
+' Get values from HashMap
+app -> map : get("argument")
+map --> app : type
+app -> map : get("/from")
+map --> app : start
+app -> map : get("/to")
+map --> app : end
+
+' Check for blank dates
+alt start != null && start.isBlank() || end != null && end.isBlank()
+    app -> app : throw FinanceBuddyException
+end
+
+' Parse dates
+alt start != null
+    app -> parser : parse(start)
+    parser --> app : startDate
+    else
+        app -> app : startDate = null
+end
+
+alt end != null
+    app -> parser : parse(end)
+    parser --> app : endDate
+    else
+        app -> app : endDate = null
+end
+
+' Command execution based on type
+alt type != null
+    alt type equals "expense"
+        app -> expense ** : new(startDate, endDate)
+        app -> expense : execute(financialList)
+        expense -> list : interact
+    else type equals "income"
+        app -> income ** : new(startDate, endDate)
+        app -> income : execute(financialList)
+        income -> list : interact
+    else unknown type
+        app -> app : print "Unknown argument"
+    end
+else type == null
+    app -> all ** : new(startDate, endDate)
+    app -> all : execute(financialList)
+    all -> list : interact
+end
+@enduml
