@@ -55,7 +55,7 @@ public class AppUi {
         } catch (NumberFormatException e) {
             throw new FinanceBuddyException("Invalid amount. Please use a number.");
         } catch (NullPointerException e) {
-            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments empty or blank.");
+            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
         }
         String date = commandArguments.get("/d");
 
@@ -85,7 +85,7 @@ public class AppUi {
         } catch (NumberFormatException e) {
             throw new FinanceBuddyException("Invalid amount. Please use a number.");
         } catch (NullPointerException e) {
-            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments empty or blank.");
+            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
         }
         String date = commandArguments.get("/d");
 
