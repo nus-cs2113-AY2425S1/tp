@@ -13,7 +13,7 @@ public class DailyRecord {
     private final MealList mealList;
     private final Water water;
 
-    public DailyRecord() { //should not be called
+    public DailyRecord() {
         day = new Day("Empty Day"); //This will be replaced when a Day is recorded
         this.mealList = new MealList();
         this.water = new Water();
@@ -63,6 +63,31 @@ public class DailyRecord {
 
         this.day = newDay;
         logger.info("Day updated: " + day);
+    }
+
+    public void addMealToRecord(Meal meal) {
+        assert meal != null;
+
+        mealList.addMeal(meal);
+        logger.info("meal added: " + meal);
+    }
+
+    public void deleteMealFromRecord(int index) {
+        assert index > 0;
+
+        mealList.deleteMeal(index);
+        logger.info("meal deleted, index: " + index);
+    }
+
+    public void addWaterToRecord(float toAddWater) {
+        assert toAddWater > 0;
+
+        water.addWater(toAddWater);
+        logger.info("Water added: " + toAddWater);
+    }
+
+    public void removeWaterfromRecord(int index) {
+        water.deleteWater(index);
     }
 
     public int getCaloriesFromMeal() {

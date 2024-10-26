@@ -1,7 +1,9 @@
 package command.water;
 
 import command.CommandResult;
+import dailyrecord.DailyRecord;
 import history.History;
+import meal.MealList;
 import water.Water;
 
 import java.time.LocalDate;
@@ -19,12 +21,11 @@ public class ViewWaterCommand extends WaterCommand {
     }
 
     public CommandResult execute(History history) {
-        Water waterList = getWaterList(history);
-        if (waterList == null || waterList.isEmpty()) {
-            return new CommandResult("No record");
-        }
+        DailyRecord dailyRecord = history.getRecordByDate(date);
+        assert dailyRecord != null : "Daily record not found";
+        Water water = dailyRecord.getWater();
 
-        logger.log(Level.INFO, "Retrieved Water record for date: {0}, Water: {1}", new Object[]{date, waterList});
-        return new CommandResult(waterList.toString());
+        logger.log(Level.INFO, "Retrieved Water record for date: {0}, Water: {1}", new Object[]{date, water});
+        return new CommandResult(water.toString());
     }
 }

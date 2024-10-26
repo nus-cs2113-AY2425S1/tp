@@ -25,17 +25,6 @@ public abstract class MealCommand extends Command {
         logger.log(Level.INFO, "MealCommand initialized with date: {0}", date);
     }
 
-    public MealList getMealList(History history) {
-        logger.log(Level.INFO, "Retrieving MealList for date: {0}", date);
-
-        DailyRecord record = history.getRecordByDate(date);
-
-        MealList mealList = record.getMealList();
-        logger.log(Level.INFO, "Retrieved MealList: {0}", mealList);
-
-        return mealList;
-    }
-
     public abstract CommandResult execute(History history);
 
     @Override

@@ -31,15 +31,4 @@ public abstract class WaterCommand extends Command {
         logger.log(Level.INFO, "Executing WaterCommand with ProgrammeList and History.");
         return execute(history);
     }
-
-    public Water getWaterList(History history) {
-        logger.log(Level.INFO, "Retrieving Water record for date: {0}", date);
-
-        DailyRecord record = history.getRecordByDate(date);
-
-        Water water = record.getWater();
-        logger.log(Level.INFO, "Retrieved Water: {0}", water);
-
-        return water;
-    }
 }

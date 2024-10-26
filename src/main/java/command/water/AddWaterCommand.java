@@ -1,6 +1,7 @@
 package command.water;
 
 import command.CommandResult;
+import dailyrecord.DailyRecord;
 import history.History;
 import water.Water;
 
@@ -25,8 +26,9 @@ public class AddWaterCommand extends WaterCommand {
     }
 
     public CommandResult execute(History history) {
-        Water water = getWaterList(history);
-        water.addWater(waterToAdd);
+        DailyRecord dailyRecord = history.getRecordByDate(date);
+        assert dailyRecord != null : "Daily record not found";
+        dailyRecord.addWaterToRecord(waterToAdd);
         logger.log(Level.INFO, "{0} liters of water added for date: {1}",
                 new Object[]{waterToAdd, date});
 

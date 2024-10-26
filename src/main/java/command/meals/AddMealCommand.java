@@ -1,6 +1,7 @@
 package command.meals;
 
 import command.CommandResult;
+import dailyrecord.DailyRecord;
 import history.History;
 import meal.Meal;
 import java.time.LocalDate;
@@ -27,9 +28,9 @@ public class AddMealCommand extends MealCommand {
     }
 
     public CommandResult execute(History history) {
-        MealList meals = getMealList(history);
-
-        meals.addMeal(mealToAdd);
+        DailyRecord dailyRecord = history.getRecordByDate(date);
+        assert dailyRecord != null : "Daily record not found";
+        dailyRecord.addMealToRecord(mealToAdd);
         logger.log(Level.INFO, "Meal added: {0}", mealToAdd);
 
         return new CommandResult(mealToAdd.toString() + " has been added");
