@@ -28,11 +28,10 @@ class ViewExpenseCommandTest {
     private Transaction item4;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         TransactionList transactionList = new TransactionList();
         viewExpenseCommand = new ViewExpenseCommand(transactionList);
-        while(transactionList.size() != 0)
-        {
+        while(transactionList.size() != 0) {
             transactionList.deleteTransaction(0);
         }
 

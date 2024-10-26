@@ -30,12 +30,11 @@ class HistoryCommandTest {
     private Transaction item5;
     private Transaction item6;
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         TransactionList transactionList = new TransactionList();
 
         // Ensure the transactionList is cleared before each test
-        while(transactionList.size() != 0)
-        {
+        while(transactionList.size() != 0) {
             transactionList.deleteTransaction(0);
         }
 
