@@ -1,116 +1,96 @@
 package seedu.exchangecoursemapper.storage;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.FileReader;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.exchangecoursemapper.courses.Course;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonWriter;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonArray;
-
 public class Storage {
-    // In Storage class
-    public static final String MYLIST_FILE_PATH = "/myList.json";
+    public static final String MYLIST_FILE_PATH = "./data/myList.json";
 
-    // Constructor
     public Storage() {
         initializeMyList();
     }
 
     private void initializeMyList() {
-        try (InputStream inputStream = getClass().getResourceAsStream(MYLIST_FILE_PATH)) {
-            if (inputStream == null) {
-                JsonObject emptyList = Json.createObjectBuilder().add("courses", Json.createArrayBuilder()).build();
-                saveToJson(emptyList);
+        Path path = Paths.get(MYLIST_FILE_PATH);
+        try {
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
             }
         } catch (IOException e) {
             System.err.println("Failed to initialize myList.json");
         }
     }
 
-    private void saveToJson(JsonObject jsonObject) throws IOException {
-        try (OutputStream os = new FileOutputStream(MYLIST_FILE_PATH)) {
-            JsonWriter writer = Json.createWriter(os);
-            writer.writeObject(jsonObject);
-        }
-    }
-
-    private JsonObject loadFromJson() throws IOException {
-        try (InputStream is = new FileInputStream(MYLIST_FILE_PATH)) {
-            JsonReader reader = Json.createReader(is);
-            return reader.readObject();
-        }
-    }
-
     public void addCourse(Course course) {
-        try {
-            JsonObject jsonObject = loadFromJson();
-            JsonArrayBuilder coursesArray = Json.createArrayBuilder(jsonObject.getJsonArray("courses"));
-            JsonObject newCourse = Json.createObjectBuilder()
-                    .add("NUS Course", course.getNusCourseCode())
-                    .add("PU", course.getPartnerUniversity())
-                    .add("PU Course", course.getPuCourseCode())
-                    .build();
-            coursesArray.add(newCourse);
-
-            JsonObject updatedJson = Json.createObjectBuilder()
-                    .add("courses", coursesArray)
-                    .build();
-
-            saveToJson(updatedJson);
+        String courseEntry = formatCourseEntry(course);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(MYLIST_FILE_PATH, true))) {
+            writer.write(courseEntry);
+            writer.newLine(); // Add newline for each course
         } catch (IOException e) {
             System.err.println("Failed to add course to myList.json");
         }
     }
 
     public void deleteCourse(int index) {
-        try {
-            JsonObject jsonObject = loadFromJson();
-            JsonArray coursesArray = jsonObject.getJsonArray("courses");
-            JsonArrayBuilder updatedCourses = Json.createArrayBuilder();
-
-            for (int i = 0; i < coursesArray.size(); i++) {
-                if (i != index) {
-                    updatedCourses.add(coursesArray.getJsonObject(i));
-                }
-            }
-
-            JsonObject updatedJson = Json.createObjectBuilder()
-                    .add("courses", updatedCourses)
-                    .build();
-
-            saveToJson(updatedJson);
-        } catch (IOException e) {
-            System.err.println("Failed to delete course from myList.json");
+        List<String> allCourses = loadAllCourses();
+        if (index < 0 || index >= allCourses.size()) {
+            System.err.println("Invalid index: " + index);
+            return;
         }
+
+        allCourses.remove(index); // Remove the specified course
+        saveAllCourses(allCourses); // Rewrite the file without the removed course
     }
 
     public Course getCourse(int index) {
-        try {
-            JsonObject jsonObject = loadFromJson();
-            JsonArray coursesArray = jsonObject.getJsonArray("courses");
+        List<String> allCourses = loadAllCourses();
+        if (index < 0 || index >= allCourses.size()) {
+            throw new IndexOutOfBoundsException("Course index out of bounds");
+        }
 
-            if (index < 0 || index >= coursesArray.size()) {
-                throw new IndexOutOfBoundsException("Course index out of bounds");
+        String[] parts = allCourses.get(index).split(" \\| ");
+        return new Course(parts[2], parts[0], parts[1]);
+    }
+
+    private List<String> loadAllCourses() {
+        List<String> courses = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(MYLIST_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                courses.add(line);
             }
-
-            JsonObject courseObject = coursesArray.getJsonObject(index);
-            return new Course(
-                    courseObject.getString("PU Course"),
-                    courseObject.getString("NUS Course"),
-                    courseObject.getString("PU")
-            );
         } catch (IOException e) {
-            System.err.println("Failed to get course from myList.json");
-            return null;
+            System.err.println("Failed to load courses from myList.json");
+        }
+        return courses;
+    }
+
+    private void saveAllCourses(List<String> courses) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(MYLIST_FILE_PATH))) {
+            for (String course : courses) {
+                writer.write(course);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to save courses to myList.json");
         }
     }
 
-
+    private String formatCourseEntry(Course course) {
+        return course.getNusCourseCode() + " | " + course.getPartnerUniversity() + " | " + course.getPuCourseCode();
+    }
 }
+
