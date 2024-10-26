@@ -31,7 +31,8 @@ public class ListCommand extends Command {
             String category = "CATEGORY: " + expense.getCategory();
             String description = "   DESCRIPTION: " + expense.getDescription();
             String price = "   PRICE: " + expense.getPrice();
-            Ui.displayMessage(index + category + description + price);
+            String dateAdded = " DATE ADDED: " + expense.getDateAdded();
+            Ui.displayMessage(index + category + description + price + dateAdded);
         }
     }
 
