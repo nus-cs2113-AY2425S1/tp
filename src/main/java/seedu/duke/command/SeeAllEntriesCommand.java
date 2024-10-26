@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 
@@ -39,7 +40,7 @@ public class SeeAllEntriesCommand extends Command {
      * @param list The financial list on which the command will operate.
      */
     @Override
-    public void execute(FinancialList list) {
+    public void execute(FinancialList list) throws FinanceBuddyException {
         System.out.println("--------------------------------------------");
         String entryList = "";
         int entryCount = 0;
