@@ -14,9 +14,11 @@ import java.util.function.BiPredicate;
 public class FilterCommand extends Command {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
     private final Map<String, InternshipFieldGetter> fieldGetters = new HashMap<>();
+
+    public boolean functionComplete = false; // For testing purposes
+    
     private ArrayList<Internship> internshipList;
     private InternshipList filteredInternships;
-    boolean functionComplete = false; // For testing purposes
 
     public FilterCommand() {
         // Map flags to getter methods using lambdas
