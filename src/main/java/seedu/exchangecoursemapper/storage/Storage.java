@@ -91,4 +91,26 @@ public class Storage {
         }
     }
 
+    public Course getCourse(int index) {
+        try {
+            JsonObject jsonObject = loadFromJson();
+            JsonArray coursesArray = jsonObject.getJsonArray("courses");
+
+            if (index < 0 || index >= coursesArray.size()) {
+                throw new IndexOutOfBoundsException("Course index out of bounds");
+            }
+
+            JsonObject courseObject = coursesArray.getJsonObject(index);
+            return new Course(
+                    courseObject.getString("PU Course"),
+                    courseObject.getString("NUS Course"),
+                    courseObject.getString("PU")
+            );
+        } catch (IOException e) {
+            System.err.println("Failed to get course from myList.json");
+            return null;
+        }
+    }
+
+
 }
