@@ -40,7 +40,7 @@ loop for each key in jsonObject.keySet()
     end
 end
 
-alt matchingSchool == null
+opt matchingSchool == null
     ObtainContactsCommand -> User: Display "Unknown university - " + schoolName
 end
 
