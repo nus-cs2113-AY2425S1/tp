@@ -1,6 +1,5 @@
 package seedu.exchangecoursemapper.storage;
 
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
@@ -12,6 +11,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
+import javax.json.JsonArrayBuilder;
 
 public class Storage {
     // In Storage class
@@ -46,4 +46,26 @@ public class Storage {
             return reader.readObject();
         }
     }
+
+    public void addCourse(Course course) {
+        try {
+            JsonObject jsonObject = loadFromJson();
+            JsonArrayBuilder coursesArray = Json.createArrayBuilder(jsonObject.getJsonArray("courses"));
+            JsonObject newCourse = Json.createObjectBuilder()
+                    .add("NUS Course", course.getNusCourseCode())
+                    .add("PU", course.getPartnerUniversity())
+                    .add("PU Course", course.getPuCourseCode())
+                    .build();
+            coursesArray.add(newCourse);
+
+            JsonObject updatedJson = Json.createObjectBuilder()
+                    .add("courses", coursesArray)
+                    .build();
+
+            saveToJson(updatedJson);
+        } catch (IOException e) {
+            System.err.println("Failed to add course to myList.json");
+        }
+    }
+
 }
