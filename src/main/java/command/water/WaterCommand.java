@@ -36,11 +36,6 @@ public abstract class WaterCommand extends Command {
         logger.log(Level.INFO, "Retrieving Water record for date: {0}", date);
 
         DailyRecord record = history.getRecordByDate(date);
-        if (record == null) {
-            record = new DailyRecord(new Water());
-            history.logRecord(date, record);
-            logger.log(Level.INFO, "No DailyRecord found for date {0}, creating a new one.", date);
-        }
 
         Water water = record.getWater();
         logger.log(Level.INFO, "Retrieved Water: {0}", water);

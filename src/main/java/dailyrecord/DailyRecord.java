@@ -10,8 +10,8 @@ import java.util.logging.Logger;
 public class DailyRecord {
     private static final Logger logger = Logger.getLogger(DailyRecord.class.getName());
     private Day day;
-    private MealList mealList;
-    private Water water;
+    private final MealList mealList;
+    private final Water water;
 
     public DailyRecord() { //should not be called
         day = new Day("Empty Day"); //This will be replaced when a Day is recorded
@@ -20,7 +20,7 @@ public class DailyRecord {
     }
 
     public DailyRecord(Day day) {
-        assert day != null;
+        assert day != null : "day must not be null";
 
         mealList = new MealList();
         water = new Water();
@@ -29,7 +29,7 @@ public class DailyRecord {
     }
 
     public DailyRecord(Water water) {
-        assert water != null;
+        assert water != null : "water must not be null";
 
         mealList = new MealList();
         this.water = water;
@@ -38,7 +38,7 @@ public class DailyRecord {
     }
 
     public DailyRecord(MealList mealList) {
-        assert mealList != null;
+        assert mealList != null : "mealList must not be null";
 
         this.mealList = mealList;
         water = new Water();
@@ -59,7 +59,7 @@ public class DailyRecord {
     }
 
     public void logDay(Day newDay) { //this replaces any current day recorded
-        assert day != null;
+        assert day != null : "day must not be null";
 
         this.day = newDay;
         logger.info("Day updated: " + day);
@@ -68,6 +68,7 @@ public class DailyRecord {
     public int getCaloriesFromMeal() {
         int caloriesMeal = 0;
         for (Meal meal : mealList.getMeals()) {
+            assert meal != null : "meal must not be null";
             caloriesMeal += meal.getCalories();
         }
         logger.info("Calories from meals calculated: " + caloriesMeal);
@@ -77,6 +78,7 @@ public class DailyRecord {
     public float getTotalWaterIntake() {
         float totalWater = 0;
         for (Float waterAmount : water.getWaterList()) {
+            assert waterAmount != null : "water must not be null";
             totalWater += waterAmount;
         }
         logger.info("total water: " + totalWater);

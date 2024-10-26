@@ -21,6 +21,10 @@ public class Water {
         logger.log(Level.INFO, "{0} liters of water added. Current list: {1}", new Object[]{water, waterList});
     }
 
+    public boolean isEmpty() {
+        return waterList.isEmpty();
+    }
+
     public float deleteWater(int index) {
         if (index < 0 || index >= waterList.size()) {
             logger.log(Level.WARNING, "Invalid index for deletion: {0}", index);

@@ -29,11 +29,6 @@ public abstract class MealCommand extends Command {
         logger.log(Level.INFO, "Retrieving MealList for date: {0}", date);
 
         DailyRecord record = history.getRecordByDate(date);
-        if (record == null) {
-            record = new DailyRecord(new MealList());
-            history.logRecord(date, record);
-            logger.log(Level.INFO, "No DailyRecord found for date {0}, creating a new one.", date);
-        }
 
         MealList mealList = record.getMealList();
         logger.log(Level.INFO, "Retrieved MealList: {0}", mealList);

@@ -31,7 +31,12 @@ public class History {
 
     // Get a specific Day object by date (used for test comparisons)
     public DailyRecord getRecordByDate(LocalDate date) {
-        return history.get(date);
+        DailyRecord record = history.get(date);
+        if (record == null) {
+            record = new DailyRecord();
+            logRecord(date, record);
+        }
+        return record;
     }
 
     public int getHistorySize() {

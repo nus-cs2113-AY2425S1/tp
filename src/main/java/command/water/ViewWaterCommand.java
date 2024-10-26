@@ -20,7 +20,7 @@ public class ViewWaterCommand extends WaterCommand {
 
     public CommandResult execute(History history) {
         Water waterList = getWaterList(history);
-        if (waterList == null || waterList.getWaterList().isEmpty()) {
+        if (waterList == null || waterList.isEmpty()) {
             return new CommandResult("No record");
         }
 
