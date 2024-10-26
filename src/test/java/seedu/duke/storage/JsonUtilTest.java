@@ -18,6 +18,7 @@ public class JsonUtilTest {
 
     String hospitalJson;
     String hospitalJsonInvalid;
+    String jsonInvalid;
     private final Hospital hospital = new Hospital();
 
     @BeforeEach
@@ -77,6 +78,9 @@ public class JsonUtilTest {
                         }
                     ]
                 """;
+        jsonInvalid = """
+                {
+                """;
     }
 
     @Test
@@ -89,7 +93,8 @@ public class JsonUtilTest {
 
     @Test
     void deserialize_success()
-            throws JsonMappingException, JsonProcessingException, TaskNotFoundException, PatientNotFoundException {
+            throws JsonMappingException, JsonProcessingException, TaskNotFoundException, PatientNotFoundException,
+            StorageOperationException {
         Hospital hospitalDeserialized = JsonUtil.fromJson(hospitalJson);
         assertNotNull(hospitalDeserialized);
         assertEquals(hospital.getPatients().size(),
@@ -106,8 +111,26 @@ public class JsonUtilTest {
     }
 
     @Test
-    void deserialize_invalidJsonFormat_exceptionThrown() {
-        assertThrows(JsonMappingException.class, () -> JsonUtil.fromJson(hospitalJsonInvalid));
+    void deserialize_invalidJsonFormat_exceptionExpection() {
+
+        assertThrows(StorageOperationException.class, () -> JsonUtil.fromJson(hospitalJsonInvalid));
+        assertThrows(StorageOperationException.class, () -> JsonUtil.fromJson(jsonInvalid));
+    }
+
+    @Test
+    void saveToFile_invalidFilePath_exceptionExpection() {
+        assertThrows(StorageOperationException.class, () -> JsonUtil.saveToFile("invalid/file/path"));
+        assertThrows(StorageOperationException.class, () -> JsonUtil.saveToFile(hospital, "invalid/file/path"));
+    }
+
+    @Test
+    void loadFromFile_invalidFilePath_exceptionExpection() {
+        assertThrows(StorageOperationException.class, () -> JsonUtil.loadFromFile("invalid/file/path"));
+    }
+
+    @Test
+    void loadFromFile_invalidJsonFormat_exceptionExpection() {
+        assertThrows(StorageOperationException.class, () -> JsonUtil.loadFromFile("data/json_invalid.json"));
     }
 
 }

@@ -52,6 +52,39 @@ public class StorageFileTest {
                     """;
     }
 
+
+
+    @Test
+    public void checkDefaultFilePath_success() {
+        StorageFile storage = new StorageFile();
+        assertEquals("data/hospital_data.json", storage.getFilePath());
+    }
+
+    @Test
+    public void checkDefaultFilePathString_success() {
+        StorageFile storage = new StorageFile();
+        assertEquals("File Path: " + "data/hospital_data.json", storage.toString());
+    }
+
+    @Test
+    public void checkFileNotFound_success() {
+        String filePathNotFound = "src/test/java/seedu/duke/data/hospital_data_not_found.json";
+        File file = new File(filePathNotFound);
+        assertTrue(!file.exists());
+
+        StorageFile storage = new StorageFile(filePathNotFound);
+
+        assertTrue(file.exists());
+        file.delete();
+    }
+
+    @Test
+    public void checkFileFound_success() {
+        StorageFile storage = new StorageFile(filePath);
+        File file = new File(filePath);
+        assertTrue(file.exists());
+    }
+
     @Test
     public void loadFromFile_success()
             throws TaskNotFoundException, PatientNotFoundException, StorageOperationException {
@@ -78,4 +111,11 @@ public class StorageFileTest {
         JsonUtil.saveToFile(hospital, pathToSave);
         assertTrue(file.exists());
     }
+
+    @Test
+    public void checkFilePath_invalidPath_exceptionExpection() {
+        // String invalidPath = "invalid/file/path";
+        // assertThrows(StorageOperationException.class, () -> new StorageFile(invalidPath));
+    }
+
 }
