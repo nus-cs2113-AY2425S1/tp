@@ -1,0 +1,63 @@
+@startuml
+hide footbox
+
+actor User
+participant ":ObtainContactsCommand" as ObtainContactsCommand
+participant ":Command" as Command
+participant "JsonObject" as JsonObject
+
+User -> ObtainContactsCommand: execute(userInput: String)
+activate ObtainContactsCommand
+
+ObtainContactsCommand -> Command: createJsonObject()
+activate Command
+
+opt inputStream is null
+    Command -> Command: throw new IOException()
+end
+
+Command --> ObtainContactsCommand: JsonObject jsonObject
+
+ObtainContactsCommand -> ObtainContactsCommand: getSchoolName(userInput: String)
+activate ObtainContactsCommand
+return schoolName: String
+
+ObtainContactsCommand -> ObtainContactsCommand: getContactType(userInput: String)
+activate ObtainContactsCommand
+
+alt inputParts.length != 2
+    ObtainContactsCommand -> ObtainContactsCommand: throw new IllegalArgumentException(Exception.invalidInputFormat())
+else
+    return contactType: String
+end
+
+ObtainContactsCommand -> ObtainContactsCommand: findMatchingSchool(jsonObject: JsonObject, schoolName: String)
+activate ObtainContactsCommand
+
+loop for each key in jsonObject.keySet()
+    opt key.toLowerCase() == schoolName
+        return matchingSchool: String
+    end
+end
+
+alt matchingSchool == null
+    ObtainContactsCommand -> User: Display "Unknown university - " + schoolName
+end
+
+ObtainContactsCommand -> ObtainContactsCommand: handleContactType(schoolInfo: JsonObject, matchingSchool: String, contactType: String)
+activate ObtainContactsCommand
+
+alt contactType == EMAIL_KEY
+    ObtainContactsCommand -> User: Display Email for matchingSchool
+else contactType == NUMBER_KEY
+    ObtainContactsCommand -> User: Display Phone Number for matchingSchool
+else Invalid contactType
+    ObtainContactsCommand -> User: Display Invalid Contact Type Message
+end
+
+ObtainContactsCommand --> ObtainContactsCommand
+ObtainContactsCommand --> User
+
+deactivate ObtainContactsCommand
+
+@enduml

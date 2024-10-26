@@ -110,7 +110,7 @@ exchange opportunities.
   readability.
 
 #### Sequence Diagram on PlantUML:
-
+![Filter Courses Sequence Diagram](../uml-images/ObtainContactsCommand.png)
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 
