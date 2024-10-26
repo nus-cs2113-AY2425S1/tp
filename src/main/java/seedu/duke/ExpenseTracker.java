@@ -41,7 +41,13 @@ public class ExpenseTracker {
         System.out.println("Automatic budget reset is now " + (isautoResetEnabled ? "ON" : "OFF") + ".");
     }
 
-    // Method to reset budgets for each category
+    /**
+     * Resets the budget limits for all categories.
+     *
+     * This method iterates over all budgets in the tracker and resets each budget's
+     * limit as per the current configuration. By default, it maintains the same limit
+     * for each budget, but the reset logic can be adjusted if needed.
+     */
     private void resetBudgets() {
         for (Budget budget : budgets.values()) {
             // Resetting the budget logic can be adjusted as needed
@@ -50,7 +56,13 @@ public class ExpenseTracker {
         System.out.println("Budgets have been reset for all categories.");
     }
 
-    // Method to check if it's a new month and reset budgets if enabled
+    /**
+     * Checks if it is a new month and resets budgets if auto-reset is enabled.
+     *
+     * This method uses the current month to determine if a monthly budget reset
+     * should occur. If auto-reset is enabled and the month has changed since the
+     * last reset, it triggers a reset of all budgets and updates the last reset month.
+     */
     public void checkAndResetBudgets() {
         Calendar calendar = Calendar.getInstance();
         int currentMonth = calendar.get(Calendar.MONTH);
@@ -61,10 +73,17 @@ public class ExpenseTracker {
         }
     }
 
-    // Call this method to manage monthly reset
+    /**
+     * Manages the monthly budget reset process.
+     *
+     * This method is intended to be called periodically to ensure budgets are reset
+     * at the start of a new month if necessary. It delegates the actual reset logic
+     * to the checkAndResetBudgets method, which handles auto-reset checks.
+     */
     public void manageMonthlyReset() {
         checkAndResetBudgets();
     }
+
 
     private String formatInput(String input) {
         if (input == null || input.isEmpty()) {
@@ -111,6 +130,16 @@ public class ExpenseTracker {
         System.out.println("Category '" + newCategory + "' added successfully.");
     }
 
+    /**
+     * Deletes an expense at the specified index in the expense list.
+     *
+     * This method checks if the provided index is within the valid range of the
+     * expense list. If the index is invalid (out of bounds), an error message is displayed.
+     * If the index is valid, it removes the expense at the specified index and
+     * displays a message confirming the deletion.
+     *
+     * @param expenseIndex the 0-based index of the expense to delete
+     */
     public void deleteExpense(int expenseIndex) {
         if (expenseIndex < 0 || expenseIndex >= expenses.size()) {
             System.out.println("Invalid index. Unable to delete expense.");
@@ -119,7 +148,6 @@ public class ExpenseTracker {
         Expense removedExpense = expenses.remove(expenseIndex);
         System.out.println("Deleted expense: " + removedExpense);
     }
-
 
     private void tagExpenseHelper(int expenseIndex, String categoryName) {
         if (expenseIndex < 0 || expenseIndex >= expenses.size()) {
