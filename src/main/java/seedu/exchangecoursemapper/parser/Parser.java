@@ -48,7 +48,8 @@ public class Parser {
     public void processUserInput(String userInput, Storage storage) {
         assert userInput != null : NULL_INPUT;
 
-
+        String input = userInput.trim();
+        String[] inputDetails = input.split(SPACE);
 
         logger.log(Level.INFO, RECEIVED_INPUT, input);
 
