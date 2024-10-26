@@ -29,4 +29,9 @@ public class Income extends FinancialEntry {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
         return String.format("[Income] - %s $ %.2f (on %s)", description, amount, date.format(pattern));
     }
+
+    public String toStorageString() {
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+        return String.format("I | %.2f | %s | %s", amount, description, date.format(pattern));
+    }
 }

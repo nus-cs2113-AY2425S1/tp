@@ -29,4 +29,9 @@ public class Expense extends FinancialEntry {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
         return String.format("[Expense] - %s $ %.2f (on %s)", description, amount, date.format(pattern));
     }
+
+    public String toStorageString() {
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+        return String.format("E | %.2f | %s | %s", amount, description, date.format(pattern));
+    }
 }

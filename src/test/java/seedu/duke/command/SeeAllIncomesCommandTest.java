@@ -68,6 +68,8 @@ class SeeAllIncomesCommandTest {
                 "1. [Income] - salary $ 3000.00 (on 22/10/24)" + System.lineSeparator() +
                 "2. [Income] - allowance $ 100.00 (on 22/10/24)" + System.lineSeparator() +
                 "3. [Income] - ang pow money $ 15.00 (on 22/10/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total income: $ 3115.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
@@ -88,7 +90,7 @@ class SeeAllIncomesCommandTest {
 
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
-                "No recorded incomes found." + System.lineSeparator() +
+                "No incomes found." + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
@@ -115,6 +117,8 @@ class SeeAllIncomesCommandTest {
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
                 "1. [Income] - salary $ 3000.00 (on 01/10/24)" + System.lineSeparator() +
                 "2. [Income] - ang pow money $ 15.00 (on 12/09/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total income: $ 3015.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
@@ -140,6 +144,8 @@ class SeeAllIncomesCommandTest {
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
                 "1. [Income] - allowance $ 100.00 (on 02/11/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total income: $ 100.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
@@ -166,6 +172,8 @@ class SeeAllIncomesCommandTest {
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
                 "1. [Income] - salary $ 3000.00 (on 01/10/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total income: $ 3000.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);

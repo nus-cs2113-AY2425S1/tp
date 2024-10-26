@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
-import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.storage.Storage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -33,7 +33,9 @@ public class AppUiTest {
     @BeforeEach
     void setUp() {
         appUi = new AppUi();
-        appUi.financialList = new FinancialList();
+        Storage storage = new Storage();
+        appUi.setStorage(storage, false);
+        // appUi.financialList = new FinancialList();
         System.setOut(new PrintStream(outputStream));
     }
 
@@ -81,6 +83,8 @@ public class AppUiTest {
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. [Expense] - Lunch $ 100.00 (on " + date1.format(pattern) + ")" + System.lineSeparator()  +
+                System.lineSeparator() +
+                "Total expense: $ 100.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Validate that the expected output is equal to the actual output

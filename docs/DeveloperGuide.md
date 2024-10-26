@@ -8,6 +8,76 @@
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+---
+
+### FinancialList Component
+
+#### Overview
+
+The `FinancialList` class is responsible for storing and managing all financial entries in the application,
+including both `Expense` and `Income`. The `FinancialEntry` class acts as the base class, with `Expense` and `Income` 
+classes extending it to represent specific types of transactions.
+
+#### Class Structure
+
+The `FinancialList` class contains the following attributes:
+- entries: A list of FinancialEntry objects representing all stored transactions.
+
+The `FinancialEntry` class contains the following attributes:
+- **description**: A string describing the transaction.
+- **amount**: A double representing the amount of the transaction.
+- **date**: A LocalDate object representing the date of the transaction.
+
+The Expense and Income classes extend FinancialEntry, each maintaining the base attributes while
+adding context to the type of financial entry.
+
+### Implementation Details
+
+#### FinancialList Class Diagram
+- The FinancialList stores and manages FinancialEntry objects, including Expense and Income.
+---
+
+### Commands
+
+#### Overview
+
+The abstract class `Command` has been implemented to introduce an additional layer
+of abstraction between the `AppUi` class and command execution,
+allowing for separation of handling command keywords and executing commands.
+
+The diagram below shows the inheritance of the `Command` class.
+
+#### Listing Entries
+Overview
+
+The list entries feature is facilitated by `SeeAllEntriesCommand`.
+
+When the user inputs `list [income|expense] [/from START_DATE] [/to END_DATE]`, the following logic is carried out.
+![pic](UML/SeeAllEntriesOverview.png)
+
+The interaction between `SeeAllEntriesCommand` with the `FinancialList` is as follows:
+
+![pic](UML/SeeAllEntriesExecution.png)
+
+`SeeAllExpensesCommand` and `SeeAllIncomesCommand` interact with the `FinancialList` in a 
+similar manner, with the only difference being that the `shouldBeIncluded()` methods of
+`SeeAllExpensesCommand` and `SeeAllIncomesCommand` only mark `Expenses` and `Incomes` as "should be included".
+
+### Exceptions and Logging
+
+An exception class `FinanceBuddyException` is thrown when users use the product wrongly.
+Exceptions are caught at the nearest instance that they occur.
+
+*Insert code snippet here.*
+
+### Storage
+The `Storage` class has been implemented to store the `FinancialList` into a file. 
+In that case, user can restore his/her progress even if they have terminate the program.
+
+The function `updateStorage` should be called whenever the `FinancialList` in an `AppUi` object. 
+It will overide the file with the up-to-date `FinancialList` that has been converted to string.
+
+*more guid coming up*
 
 ## Product scope
 ### Target user profile

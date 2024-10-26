@@ -2,28 +2,70 @@ package seedu.duke.command;
 
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialEntry;
-import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Expense;
 
 import java.time.LocalDate;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * The SeeAllExpensesCommand class is responsible for displaying all recorded expenses
  * from the provided FinancialList. It extends the Command class and overrides the 
  * execute method to perform this functionality.
  */
-public class SeeAllExpensesCommand extends Command{
-    private static final Logger logger = Logger.getLogger(SeeAllExpensesCommand.class.getName());
-  
-    private LocalDate start;
-    private LocalDate end;
+public class SeeAllExpensesCommand extends SeeAllEntriesCommand{
+    protected final String entriesListedMessage = "Here's a list of all recorded expenses:";
+    protected final String noEntriesMessage = "No expenses found.";
+    protected final String cashflowHeader = "Total expense: $ ";
 
+    /**
+     * Constructor for SeeAllExpensesCommand.
+     *
+     * @param start Start date of all entries to be listed, null if no start date to be specified.
+     * @param end End date of all entries to be listed, null if no end date to be specified.
+     */
     public SeeAllExpensesCommand(LocalDate start, LocalDate end) {
-        this.start = start;
-        this.end = end;
+        super(start, end);
+    }
+
+    /**
+     * Method to return message when no entries are to be listed as a String.
+     *
+     * @return Message when no entries are to be listed.
+     */
+    @Override
+    protected String getNoEntriesMessage() {
+        return this.noEntriesMessage;
+    }
+
+    /**
+     * Method to return header when there are entries to be listed as a String.
+     *
+     * @return Header when there are entries to be listed.
+     */
+    @Override
+    protected String getEntriesListedMessage() {
+        return this.entriesListedMessage;
+    }
+
+    /**
+     * Method to return header when displaying cashflow.
+     *
+     * @return Header for cashflow display.
+     */
+    @Override
+    protected String getCashflowHeader() {
+        return this.cashflowHeader;
+    }
+
+    /**
+     * Method to express total expense as a String for printing.
+     * Method name is kept as getCashflowString to allow for use in super.execute().
+     *
+     * @param cashflow Total expense to be printed.
+     * @return String of cashflow as a 2d.p. decimal number.
+     */
+    @Override
+    protected String getCashflowString(double cashflow) {
+        return String.format("%.2f", -cashflow);
     }
 
     /**
@@ -32,45 +74,9 @@ public class SeeAllExpensesCommand extends Command{
      * @param entry Financial Entry to analyze.
      * @return true if entry should be listed out, false otherwise.
      */
-    private boolean shouldBeIncluded(FinancialEntry entry) {
+    @Override
+    protected boolean shouldBeIncluded(FinancialEntry entry) {
         return entry instanceof Expense && (end == null || entry.getDate().isBefore(end))
                 && (start == null || entry.getDate().isAfter(start));
-    }
-
-    /**
-     * Executes the command to display all recorded expenses in the financial list.
-     * Iterates through the financial list and collects all entries that are instances of Expense.
-     * If no expenses are found, it prints a message indicating no recorded expenses.
-     * Otherwise, it prints a list of all recorded expenses.
-     *
-     * @param list The financial list containing financial entries.
-     */
-    @Override
-    public void execute(FinancialList list) throws FinanceBuddyException {
-        if (list == null) {
-            logger.log(Level.SEVERE, "Financial list is null");
-            assert list != null : "Financial list cannot be null";
-            throw new IllegalArgumentException("Financial list cannot be null");
-        }
-
-        System.out.println("--------------------------------------------");
-        String expenseList = "";
-        int expenseCount = 0;
-
-        for (int i = 0; i < list.getEntryCount(); i++) {
-            FinancialEntry entry = list.getEntry(i);
-            if (shouldBeIncluded(entry)) {
-                expenseList += ((++expenseCount) + ". " + entry + System.lineSeparator());
-            }
-        }
-
-        if (expenseCount == 0) {
-            System.out.println("No recorded expenses found.");
-            System.out.println("--------------------------------------------");
-            return;
-        }
-        System.out.println("Here's a list of all recorded expenses:");
-        System.out.print(expenseList);
-        System.out.println("--------------------------------------------");
     }
 }
