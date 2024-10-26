@@ -55,7 +55,10 @@ else Invalid contactType
     ObtainContactsCommand -> User: Display Invalid Contact Type Message
 end
 
+
 ObtainContactsCommand --> ObtainContactsCommand
+deactivate ObtainContactsCommand
+
 ObtainContactsCommand --> User
 
 deactivate ObtainContactsCommand
