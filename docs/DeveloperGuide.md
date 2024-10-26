@@ -51,10 +51,16 @@ BuffBuddy is a fitness tracking app that help you track workout, meals, water to
 
 
 ## Non-Functional Requirements
+
+
+
+
 {Give non-functional requirements}
 
 ## Glossary
+
 * *glossary item* - Definition
 
 ## Instructions for manual testing
+
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
