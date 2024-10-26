@@ -12,11 +12,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.function.BiPredicate;
 
 public class FilterCommand extends Command {
+    public boolean functionComplete = false; // For testing purposes
+
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
     private final Map<String, InternshipFieldGetter> fieldGetters = new HashMap<>();
 
-    public boolean functionComplete = false; // For testing purposes
-    
     private ArrayList<Internship> internshipList;
     private InternshipList filteredInternships;
 
