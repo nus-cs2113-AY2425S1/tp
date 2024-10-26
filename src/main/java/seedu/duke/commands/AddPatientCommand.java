@@ -39,7 +39,7 @@ public class AddPatientCommand extends HospitalCommand {
         } else {
             resultMessage = String.format(MESSAGE_SUCCESS, name);
         }
-        System.out.println(resultMessage);
+        // System.out.println(resultMessage);
 
         return new CommandResult(resultMessage);
     }

@@ -25,16 +25,16 @@ public class DeletePatientCommand extends HospitalCommand {
     @Override
     public CommandResult execute() {
         assert index >= 0 : "Index should be non-negative";
-        
+
         try {
             String patientName = hospital.getPatient(index).getName();
             hospital.deletePatient(index);
             String resultMessage = String.format(MESSAGE_SUCCESS, patientName);
-            System.out.println(resultMessage);
+            // System.out.println(resultMessage);
             return new CommandResult(resultMessage);
         } catch (Hospital.PatientNotFoundException e) {
             logger.log(Level.SEVERE, "Attempted to delete a patient at an invalid index: {0}", index);
-            System.out.println(MESSAGE_PATIENT_NOT_FOUND);
+            // System.out.println(MESSAGE_PATIENT_NOT_FOUND);
             return new CommandResult(MESSAGE_PATIENT_NOT_FOUND);
         }
     }
