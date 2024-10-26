@@ -18,20 +18,18 @@ public class MediTask {
     public static void main(String[] args) {
 
         Ui ui = new Ui();
-        Hospital hospital = new Hospital();
         StorageFile storage = new StorageFile();
+        Hospital hospital = storage.load(); // Load data from file
 
         ui.showWelcome();
-        // Start in MAIN_STATE
+
+        // Start in main state
         State currentState = new State(StateType.MAIN_STATE);
         assert currentState != null : "Current state should not be null.";
 
-        // Load data from file
-        hospital = storage.load();
-
         HospitalCommand.setHospital(hospital);
 
-        // variable to hold the selected patient
+        // Variable to hold the selected patient
         Patient selectedPatient = null;
 
         while (true) {
