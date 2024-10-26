@@ -51,7 +51,7 @@ public class Parser {
         }
 
         try {
-            String inputData = input.split(" ", 2)[1];
+            String inputData = input.trim().split(" ", 2)[1];
             if (command instanceof AddCommand) {
                 return parseAddCommandData(inputData);
             } else if (command instanceof DeleteCommand) {
@@ -91,8 +91,9 @@ public class Parser {
 
     private ArrayList<String> parseUpdateCommandData(String inputData) {
         String[] splitArray = inputData.split(" ", 2);
-        String id = splitArray[0];
         try {
+            String id = splitArray[0];
+            Integer.parseInt(id);
             String fields = splitArray[1];
             if (fields.isBlank()) {
                 throw new ArrayIndexOutOfBoundsException();
@@ -102,6 +103,9 @@ public class Parser {
             return commandArgs;
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showEmptyFlags();
+            return null;
+        } catch (NumberFormatException e) {
+            ui.showOutput("Please input some ID for the command");
             return null;
         }
     }
