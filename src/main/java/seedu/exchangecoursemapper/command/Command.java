@@ -17,6 +17,4 @@ public abstract class Command {
         JsonReader jsonReader = Json.createReader(inputStream);
         return jsonReader.readObject();
     }
-
-    public abstract void execute(String userInput);
 }
