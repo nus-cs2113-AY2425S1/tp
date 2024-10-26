@@ -1,28 +1,31 @@
 package seedu.exchangecoursemapper.storage;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import seedu.exchangecoursemapper.courses.Course;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+
 public class Storage {
-    // For our personal tracker
-    private ArrayList<Course> savedCourses = new ArrayList<>();
+    // In Storage class
+    public static final String MYLIST_FILE_PATH = "/myList.json";
 
-
-    /**
-     * Returns the Course stored at the specified index in the saved courses list.
-     *
-     * @param listIndex Index of the Course to get from the saved courses list.
-     * @return The course stored at listIndex.
-     */
-    public Course getCourse(int listIndex) {
-        return savedCourses.get(listIndex);
+    // Constructor
+    public Storage() {
+        initializeMyList();
     }
 
-    public void addCourse(Course course) {
-        savedCourses.add(course);
+    private void initializeMyList() {
+        try (InputStream inputStream = getClass().getResourceAsStream(MYLIST_FILE_PATH)) {
+            if (inputStream == null) {
+                JsonObject emptyList = Json.createObjectBuilder().add("courses", Json.createArrayBuilder()).build();
+                saveToJson(emptyList);
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to initialize myList.json");
+        }
     }
 
-    public void deleteCourse(int listIndex) {
-        savedCourses.remove(listIndex);
-    }
 }
