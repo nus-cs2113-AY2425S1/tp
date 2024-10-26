@@ -47,6 +47,22 @@ allowing for separation of handling command keywords and executing commands.
 
 The diagram below shows the inheritance of the `Command` class.
 
+#### Listing Entries
+Overview
+
+The list entries feature is facilitated by `SeeAllEntriesCommand`.
+
+When the user inputs `list [income|expense] [/from START_DATE] [/to END_DATE]`, the following logic is carried out.
+![pic](UML/SeeAllEntriesOverview.png)
+
+The interaction between `SeeAllEntriesCommand` with the `FinancialList` is as follows:
+
+![pic](UML/SeeAllEntriesExecution.png)
+
+`SeeAllExpensesCommand` and `SeeAllIncomesCommand` interact with the `FinancialList` in a 
+similar manner, with the only difference being that the `shouldBeIncluded()` methods of
+`SeeAllExpensesCommand` and `SeeAllIncomesCommand` only mark `Expenses` and `Incomes` as "should be included".
+
 ### Exceptions and Logging
 
 An exception class `FinanceBuddyException` is thrown when users use the product wrongly.

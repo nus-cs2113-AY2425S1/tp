@@ -70,6 +70,8 @@ class SeeAllEntriesCommandTest {
                 "4. [Expense] - movie ticket $ 20.00 (on 22/10/24)" + System.lineSeparator() +
                 "5. [Income] - allowance $ 100.00 (on 22/10/24)" + System.lineSeparator() +
                 "6. [Income] - ang pow money $ 15.00 (on 22/10/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Net cashflow: $ 3087.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
@@ -108,6 +110,8 @@ class SeeAllEntriesCommandTest {
                 "Here's a list of all recorded entries:" + System.lineSeparator() +
                 "1. [Expense] - dinner $ 4.50 (on 01/09/24)" + System.lineSeparator() +
                 "2. [Expense] - movie ticket $ 20.00 (on 01/10/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Net cashflow: $ -24.50" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, output);
     }
@@ -128,6 +132,8 @@ class SeeAllEntriesCommandTest {
                 "Here's a list of all recorded entries:" + System.lineSeparator() +
                 "1. [Expense] - lunch $ 3.50 (on 23/10/24)" + System.lineSeparator() +
                 "2. [Income] - salary $ 3000.00 (on 02/11/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Net cashflow: $ 2996.50" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, output);
     }
@@ -147,6 +153,8 @@ class SeeAllEntriesCommandTest {
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded entries:" + System.lineSeparator() +
                 "1. [Expense] - lunch $ 3.50 (on 23/10/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Net cashflow: $ -3.50" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, output);
     }

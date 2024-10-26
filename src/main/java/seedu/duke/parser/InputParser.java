@@ -1,4 +1,6 @@
 package seedu.duke.parser;
+import seedu.duke.exception.FinanceBuddyException;
+
 import java.util.HashMap;
 
 /**
@@ -17,7 +19,7 @@ public class InputParser {
      * @param input The raw input string from the user.
      * @return A HashMap containing the parsed command and its arguments.
      */
-    public static HashMap<String, String> parseCommands(String input) {
+    public static HashMap<String, String> parseCommands(String input) throws FinanceBuddyException {
         HashMap<String, String> commandArguments = new HashMap<>();
         String[] splitInput = input.split(" ");
 
@@ -39,7 +41,11 @@ public class InputParser {
 
             if (arg.startsWith("/")) {
                 if (!argumentDescription.isEmpty()) {
-                    commandArguments.put(argumentDescription, argument.toString().strip());
+                    try {
+                        commandArguments.put(argumentDescription, argument.toString().strip());
+                    } catch (NullPointerException e) {
+                        throw new FinanceBuddyException("'/' command cannot be empty");
+                    }
                 }
 
                 argumentDescription = arg;
@@ -51,7 +57,11 @@ public class InputParser {
 
         // add last argument
         if (!argument.isEmpty()) {
-            commandArguments.put(argumentDescription, argument.toString().strip());
+            try {
+                commandArguments.put(argumentDescription, argument.toString().strip());
+            } catch (NullPointerException e) {
+                throw new FinanceBuddyException("argument cannot be empty or blank");
+            }
         }
 
         return commandArguments;

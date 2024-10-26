@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.Expense;
 
