@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static seedu.main.Main.storage;
-
 public class ViewIncomeCommand extends Command {
     public static final String COMMAND_WORD = "view-income"; // The word associated with the command
     public static final String COMMAND_GUIDE = "view-income [f/ START_DATE] [t/ END_DATE]: "

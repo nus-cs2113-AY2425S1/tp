@@ -32,6 +32,7 @@ class HistoryCommandTest {
     @BeforeEach
     public void setUp() throws Exception {
         TransactionList transactionList = new TransactionList();
+        
         historyCommand = new HistoryCommand(transactionList);
 
         inputTransactionList = new TransactionList();
