@@ -1,7 +1,9 @@
 package seedu.transaction;
 
 import seedu.category.Category;
+import seedu.datastorage.Storage;
 import seedu.utils.DateTimeUtils;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,13 +16,16 @@ import java.util.stream.Collectors;
 
 public class TransactionList {
     private static final Logger logger = Logger.getLogger("TransactionList");
-    private final List<Transaction> transactions;
+    private final ArrayList<Transaction> transactions;
     private final Map<String, List<Transaction>> invertedIndex;
 
     public TransactionList() {
-        transactions = new ArrayList<>();
+        transactions = Storage.loadTransactions();
         invertedIndex = new HashMap<>();
-        initializeDefaultTransactions();
+        // Rebuild inverted index from loaded transactions
+        for (Transaction transaction : transactions) {
+            updateInvertedIndex(transaction, true);
+        }
     }
 
     public int size() {
@@ -36,12 +41,15 @@ public class TransactionList {
         updateInvertedIndex(transaction, true);
         // Sort transactions by date after adding
         // Sort transactions using the custom compareDateTime method
+        logger.log(Level.INFO,"Transaction added: " + transaction);
+        Storage.saveTransaction(transactions);
         transactions.sort((t1, t2) -> {
             LocalDateTime dateTime1 = t1.getDate();
             LocalDateTime dateTime2 = t2.getDate();
             return DateTimeUtils.compareDateTime(dateTime1, dateTime2) ? -1 : 1;
         });
-        logger.log(Level.INFO,"Transaction added: " + transaction);
+
+
     }
 
     public Transaction deleteTransaction(int index) {
@@ -51,9 +59,11 @@ public class TransactionList {
             Transaction removed = transactions.remove(index);
 
             logger.log(Level.INFO,"Transaction removed: " + removed);
+            Storage.saveTransaction(transactions);
             return removed;
         } else {
             logger.log(Level.INFO, "Invalid transaction index!");
+            Storage.saveTransaction(transactions);
             return null;
         }
     }

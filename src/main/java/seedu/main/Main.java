@@ -16,6 +16,7 @@ import seedu.command.DeleteTransactionCommand;
 import seedu.command.ViewTotalCommand;
 import seedu.command.KeywordsSearchCommand;
 
+import seedu.datastorage.Storage;
 import seedu.transaction.TransactionList;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class Main {
     public static final String HI_MESSAGE = "Hello, %s is willing to help!";
     public static final String INVALID_COMMAND_ERROR_MESSAGE = "Invalid command.";
     public static Scanner scanner; // Scanner for reading user input
+    public static Storage storage;
     private static final Logger logger = Logger.getLogger("Main");
 
     // Prefix for message formatting
@@ -46,6 +48,8 @@ public class Main {
     private static TransactionList transactions;
 
     private static boolean isRunning = true;
+
+
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
@@ -84,6 +88,7 @@ public class Main {
 
         scanner = new Scanner(System.in);
         parser = new Parser();
+        storage = new Storage(); // This line is actually unnecessary since methods are static
         categories = new CategoryList();
         transactions = new TransactionList();
 

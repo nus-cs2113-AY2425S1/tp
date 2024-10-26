@@ -1,5 +1,7 @@
 package seedu.category;
 
+import seedu.datastorage.Storage;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -7,11 +9,13 @@ import java.util.logging.Logger;
 
 public class CategoryList {
     private static Logger logger = Logger.getLogger("CategoryList");
-    private List<Category> categories;
+    private ArrayList<Category> categories;
 
     public CategoryList() {
-        categories = new ArrayList<>();
-        initializeDefaultCategories();
+        categories = Storage.loadCategories();
+        if (categories.isEmpty()) {
+            initializeDefaultCategories();
+        }
     }
 
     // Initialize
@@ -21,6 +25,7 @@ public class CategoryList {
         categories.add(new Category("Transport"));
         categories.add(new Category("Utilities"));
         categories.add(new Category("Others"));
+        Storage.saveCategory(categories);
     }
 
     // Add Category
@@ -28,11 +33,13 @@ public class CategoryList {
         for (Category category : this.categories) {
             if (category.getName().equalsIgnoreCase(newCategory.getName())) {
                 logger.log(Level.INFO, "Category '" + newCategory.getName() + "' already exists!");
+                Storage.saveCategory(categories);
                 return null;
             }
         }
         categories.add(newCategory);
         logger.log(Level.INFO, "Category '" + newCategory.getName() + "' added successfully.");
+        Storage.saveCategory(categories);
         return newCategory;
     }
 
@@ -51,6 +58,7 @@ public class CategoryList {
         } else {
             logger.log(Level.INFO, "Category '" + categoryName + "' not found!");
         }
+        Storage.saveCategory(categories);
         return toDelete;
     }
 
@@ -64,6 +72,7 @@ public class CategoryList {
     public void interactiveAddCategory(String categoryName) {
         Category newCategory = new Category(categoryName);
         addCategory(newCategory);
+        Storage.saveCategory(categories);
     }
 
 
