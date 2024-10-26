@@ -191,7 +191,7 @@ public class ExpenseList {
         }
 
         // closing writer connection
-        try{
+        try {
             writer.close();
         } catch (IOException e) {
             throw new StorageException("Unable to save to file!");

@@ -19,7 +19,7 @@ public class AddCommand extends Command {
             float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
             String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
-            if (argumentsMap.containsKey(Parser.ARGUMENT_CATEGORY)) {
+            if (argumentsMap.containsKey(Parser.ARGUMENT_DATE_ADDED)) {
                 String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE_ADDED);
                 expenseList.addExpense(price, description, category, dateAdded);
             } else {
