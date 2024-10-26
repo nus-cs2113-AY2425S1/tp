@@ -17,6 +17,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class Hospital {
     private static final Logger logger = Logger.getLogger(Hospital.class.getName());
     private List<Patient> patients;
+    @JsonIgnore
+    private Patient selectedPatient;
 
     static {
         logger.setLevel(Level.SEVERE); // Only show warnings and errors
@@ -25,6 +27,7 @@ public class Hospital {
     @JsonCreator
     public Hospital() {
         this.patients = new ArrayList<>();
+        this.selectedPatient = null;
         logger.log(Level.INFO, "Hospital initialized with an empty patient list.");
         assert patients != null : "Patients list should not be null after initialization";
     }
@@ -63,6 +66,7 @@ public class Hospital {
         logger.log(Level.INFO, "Patient deleted successfully at index: {0}", index);
     }
 
+
     public Patient getPatient(int index) throws PatientNotFoundException {
         assert index >= 0 : "Index should not be negative";
         logger.log(Level.INFO, "Getting patient at index: {0}", index);
@@ -73,6 +77,23 @@ public class Hospital {
         }
 
         return patients.get(index);
+    }
+
+    public void setSelectedPatient(int index) throws PatientNotFoundException {
+        assert index >= 0 : "Index should not be negative";
+        logger.log(Level.INFO, "Setting selected patient at index: {0}", index);
+
+        if (!isValidIndex(index)) {
+            logger.log(Level.WARNING, "Invalid index provided for setting selected patient: {0}", index);
+            throw new PatientNotFoundException();
+        }
+
+        selectedPatient = patients.get(index);
+        logger.log(Level.INFO, "Selected patient set successfully at index: {0}", index);
+    }
+
+    public Patient getSelectedPatient() {
+        return selectedPatient;
     }
 
     public boolean isValidIndex(int index) {
