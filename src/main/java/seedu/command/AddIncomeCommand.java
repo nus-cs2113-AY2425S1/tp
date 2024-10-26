@@ -4,6 +4,7 @@ import seedu.datastorage.Storage;
 import seedu.transaction.Income;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
+import seedu.utils.DateTimeUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -37,7 +38,14 @@ public class AddIncomeCommand extends AddTransactionCommand {
         if (dateString == null || dateString.isEmpty()) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             dateString = LocalDateTime.now().format(formatter);
+        } else {
+            try {
+                DateTimeUtils.parseDateTime(dateString);
+            } catch (Exception e) {
+                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
+            }
         }
+
         double amount;
         try {
             amount = Double.parseDouble(amountString);

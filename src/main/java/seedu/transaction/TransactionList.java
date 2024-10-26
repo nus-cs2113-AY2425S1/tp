@@ -1,7 +1,6 @@
 package seedu.transaction;
 
 import seedu.category.Category;
-import seedu.datastorage.Storage;
 import seedu.utils.DateTimeUtils;
 
 
