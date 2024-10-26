@@ -1,6 +1,9 @@
 package seedu.ui;
 
+import seedu.commands.Command;
 import seedu.duke.Internship;
+
+import java.util.ArrayList;
 
 //@@author Ridiculouswifi
 /**
@@ -9,6 +12,7 @@ import seedu.duke.Internship;
 public class UiCommand extends Ui {
     private String invalidFlags;
     private String updatedFields;
+    private String invalidFields;
 
     /**
      * Prints newly added or updated internship and invalid flags (if any).
@@ -23,6 +27,12 @@ public class UiCommand extends Ui {
             message += "Internship added:\n";
             break;
         case "update":
+            if (!getInvalidFields().isEmpty()) {
+                message += getInvalidFields() + DIVIDER;
+            }
+            if (getUpdatedFields().isEmpty()) {
+                message += "No Fields Updated\n";
+            }
             message += getUpdatedFields() + DIVIDER + "Internship updated:\n";
             break;
         default:
@@ -46,6 +56,13 @@ public class UiCommand extends Ui {
         setUpdatedFields("");
     }
 
+    /**
+     * Resets <code>invalidFields</code> to empty <code>String</code>.
+     */
+    public void clearInvalidFields() {
+        setInvalidFields("");
+    }
+
     public void addUpdatedField(String updatedField, String updatedValue) {
         String newUpdatedFields = getUpdatedFields();
         newUpdatedFields += updatedField + " updated: " + updatedValue + "\n";
@@ -58,7 +75,7 @@ public class UiCommand extends Ui {
     public void addInvalidFlag(String flag) {
         String newInvalidFlags = getInvalidFlags();
         switch (flag) {
-        case "name":
+        case "role":
             newInvalidFlags += "Role not specified." + "\n";
             break;
         case "company":
@@ -78,6 +95,15 @@ public class UiCommand extends Ui {
     }
 
     /**
+     * Adds appropriate message to <code>invalidFields</code> for specified field.
+     */
+    public void addInvalidField(String field, String invalidMessage) {
+        String newInvalidFields = getInvalidFields();
+        newInvalidFields += field + ": " + invalidMessage + "\n";
+        setInvalidFields(newInvalidFields);
+    }
+
+    /**
      * Prints invalid flags of a command.
      */
     public void printInvalidFlags() {
@@ -86,12 +112,6 @@ public class UiCommand extends Ui {
         printTailDivider();
     }
 
-    /**
-     * Prints message to show internship of specified id has been deleted from <code>InternshipList</code>.
-     */
-    public void showDeletedInternship(int id) {
-        showOutput("Internship deleted: " + id);
-    }
 
     /**
      * Prints message to show no flags available to filter.
@@ -100,6 +120,7 @@ public class UiCommand extends Ui {
         showOutput("Insufficient arguments! Please include a flag to filter by.");
     }
 
+    //@@author Toby-Yu
     /**
      * Prints message indicating how internships are sorted.
      *
@@ -112,15 +133,40 @@ public class UiCommand extends Ui {
             System.out.println("No sorting option provided. Listing internships by ID.");
             break;
         case "alphabet":
-            System.out.println("Sorted internships by role alphabetically.");
+            System.out.println("Sorted internships by role alphabetically (case-insensitive).");
             break;
         case "deadline":
-            System.out.println("Sorted internships by start date, then end date.");
+            System.out.println("Sorted internships by start date (year first), then end date.");
             break;
         default:
-            System.out.println("Unknown or missing flag. Listing internships by ID.");
+            // Handling invalid sorting options
+            System.out.println("Error: Unknown or invalid sorting option: \"" + field + "\".");
+            System.out.println(getSortUsageMessage());
             break;
         }
+        printTailDivider();
+    }
+
+    /**
+     * Prints the correct usage message for the sort command.
+     */
+    public String getSortUsageMessage() {
+        return "Usage: sort [alphabet | deadline]\n" +
+                "alphabet: Sort internships alphabetically by role (case-insensitive).\n" +
+                "deadline: Sort internships by start date (year first), then end date.";
+    }
+
+    //@@author Ridiculouswifi
+    public void showCommands(ArrayList<Command> commands) {
+        printHeadDivider();
+        for (Command command : commands) {
+            System.out.println(command.getUsage());
+            printDivider();
+        }
+        System.out.println("""
+                exit
+                Usage: exit""");
+        printTailDivider();
     }
 
     public String getInvalidFlags() {
@@ -137,5 +183,13 @@ public class UiCommand extends Ui {
 
     public void setUpdatedFields(String updatedFields) {
         this.updatedFields = updatedFields;
+    }
+
+    public String getInvalidFields() {
+        return invalidFields;
+    }
+
+    public void setInvalidFields(String invalidFields) {
+        this.invalidFields = invalidFields;
     }
 }

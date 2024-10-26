@@ -5,6 +5,7 @@ import seedu.ui.Ui;
 
 import java.util.ArrayList;
 
+//@@author Toby-Yu
 /**
  * The EasInternship class contains the main method which is the entry point for the application.
  * It manages the application's main loop, where user input is read, commands are parsed,
@@ -48,6 +49,10 @@ public class EasInternship {
 
             command.setInternshipList(internshipList);
             ArrayList<String> commandArgs = parser.parseData(command, input);
+
+            if (commandArgs == null) {
+                continue;
+            }
 
             try {
                 command.execute(commandArgs);
