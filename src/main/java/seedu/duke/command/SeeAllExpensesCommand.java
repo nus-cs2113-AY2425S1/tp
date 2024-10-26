@@ -39,9 +39,10 @@ public class SeeAllExpensesCommand extends Command{
 
     /**
      * Executes the command to display all recorded expenses in the financial list.
-     * Iterates through the financial list and collects all entries that are instances of Expense.
+     * Iterates through the financial list and collects all entries
+     * that are instances of Expense and within the date range.
      * If no expenses are found, it prints a message indicating no recorded expenses.
-     * Otherwise, it prints a list of all recorded expenses.
+     * Otherwise, it prints a list of all recorded expenses, and the total amount of expenses.
      *
      * @param list The financial list containing financial entries.
      */
@@ -56,11 +57,13 @@ public class SeeAllExpensesCommand extends Command{
         System.out.println("--------------------------------------------");
         String expenseList = "";
         int expenseCount = 0;
+        double cashflow = 0;
 
         for (int i = 0; i < list.getEntryCount(); i++) {
             FinancialEntry entry = list.getEntry(i);
             if (shouldBeIncluded(entry)) {
                 expenseList += ((++expenseCount) + ". " + entry + System.lineSeparator());
+                cashflow += entry.getAmount();
             }
         }
 
@@ -71,6 +74,9 @@ public class SeeAllExpensesCommand extends Command{
         }
         System.out.println("Here's a list of all recorded expenses:");
         System.out.print(expenseList);
+        System.out.println();
+        String cashflowString = String.format("%.2f", cashflow);
+        System.out.println("Total expense: $ " + cashflowString);
         System.out.println("--------------------------------------------");
     }
 }
