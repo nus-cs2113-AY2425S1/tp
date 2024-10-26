@@ -18,14 +18,14 @@ public class Ui {
 
     private static final String GREETING = "Hello! I'm...";
     private static final String LOGO = """
-                  ____         __  __ ____            _     _      \s
-                 |  _ \\       / _|/ _|  _ \\          | |   | |     \s
-                 | |_) |_   _| |_| |_| |_) |_   _  __| | __| |_   _\s
+                  ____         __  __ ____            _     _      \n
+                 |  _ \\       / _|/ _|  _ \\          | |   | |     \n
+                 | |_) |_   _| |_| |_| |_) |_   _  __| | __| |_   _\n
                  |  _ <| | | |  _|  _|  _ <| | | |/ _` |/ _` | | | |
                  | |_) | |_| | | | | | |_) | |_| | (_| | (_| | |_| |
                  |____/ \\__,_|_| |_| |____/ \\__,_|\\__,_|\\__,_|\\__, |
                                                                __/ |
-                                                              |___/    \s
+                                                              |___/    \n
             """;
 
     private static final String PROMPT = "What can I do for you?";
