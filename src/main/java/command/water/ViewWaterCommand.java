@@ -20,6 +20,9 @@ public class ViewWaterCommand extends WaterCommand {
 
     public CommandResult execute(History history) {
         Water waterList = getWaterList(history);
+        if (waterList == null || waterList.getWaterList().isEmpty()) {
+            return new CommandResult("No record");
+        }
 
         logger.log(Level.INFO, "Retrieved Water record for date: {0}, Water: {1}", new Object[]{date, waterList});
         return new CommandResult(waterList.toString());

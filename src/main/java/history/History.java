@@ -131,7 +131,8 @@ public class History {
     @Override
     public String toString() {
         StringBuilder historyString = new StringBuilder();
-
+        int count = 0;
+        int size = history.size();
 
         if (history.isEmpty()) {
             return "No history available.";
@@ -139,14 +140,16 @@ public class History {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-        // Iterate over the history LinkedHashMap in insertion order
+
         for (LocalDate date : history.keySet()) {
-            DailyRecord dailyRecord = history.get(date);
-
-            historyString.append(dailyRecord.toString());
-
-            // Append the formatted date at the end
+            historyString.append("\n");
             historyString.append(String.format("Completed On: %s%n%n", date.format(formatter)));
+            DailyRecord dailyRecord = history.get(date);
+            historyString.append(dailyRecord.toString());
+            count++;
+            if (count < size) {
+                historyString.append("\n\n==============\n"); //give spacing btw the daily records
+            }
         }
 
         return historyString.toString();

@@ -82,14 +82,14 @@ public class Day {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(name).append("\n\n");
+        result.append("Name: ").append(name).append("\n");
 
         for (int i = 0; i <      exercises.size(); i++) {
             Exercise exercise = exercises.get(i);
             result.append(String.format("%d. %s%n", i + 1, exercise));
         }
 
-        return result.append("\n").toString();
+        return result.toString();
     }
 
     @Override

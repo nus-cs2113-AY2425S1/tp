@@ -37,5 +37,55 @@
       }
     ]
   },
-  "history": {}
+  "history": {
+    "12-12-2024": {
+      "day": {
+        "name": "ONE",
+        "exercises": [
+          {
+            "sets": 3,
+            "reps": 12,
+            "weight": 30,
+            "name": "Bench_Press"
+          },
+          {
+            "sets": 3,
+            "reps": 12,
+            "weight": 50,
+            "name": "Squat"
+          }
+        ]
+      },
+      "mealList": {
+        "meals": [
+          {
+            "calories": 100,
+            "name": "pasta"
+          }
+        ]
+      },
+      "water": {
+        "waterList": []
+      }
+    },
+    "13-12-2024": {
+      "day": {
+        "name": "TWO",
+        "exercises": [
+          {
+            "sets": 3,
+            "reps": 12,
+            "weight": 10,
+            "name": "Bicep_Curl"
+          }
+        ]
+      },
+      "mealList": {
+        "meals": []
+      },
+      "water": {
+        "waterList": []
+      }
+    }
+  }
 }
