@@ -57,7 +57,7 @@ public class FlagParser {
         aliasMap.put("/mealCalories", "/c");
         aliasMap.put("/mealIndex", "/m");
 
-        aliasMap.put("/waterAmount", "/l");
+        aliasMap.put("/waterAmount", "/v");
         aliasMap.put("/waterIndex", "/w");
     }
 
