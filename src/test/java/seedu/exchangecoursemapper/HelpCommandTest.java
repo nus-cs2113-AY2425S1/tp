@@ -35,57 +35,57 @@ public class HelpCommandTest {
     @Test
     public void getCommand_withSetCommand_expectSet() {
         String userInput = "help set";
-        String CommandResult = helpCommand.getCommand(userInput);
+        String commandResult = helpCommand.getCommand(userInput);
         String expectedOutput = "set";
-        assertEquals(expectedOutput, CommandResult);
+        assertEquals(expectedOutput, commandResult);
     }
 
     @Test
     public void getCommand_withFilterCommand_expectFilter() {
         String userInput = "help filter";
-        String CommandResult = helpCommand.getCommand(userInput);
+        String commandResult = helpCommand.getCommand(userInput);
         String expectedOutput = "filter";
-        assertEquals(expectedOutput, CommandResult);
+        assertEquals(expectedOutput, commandResult);
     }
 
     @Test
     public void getCommand_withListSchoolsCommand_expectListSchools() {
         String userInput = "help list schools";
-        String CommandResult = helpCommand.getCommand(userInput);
+        String commandResult = helpCommand.getCommand(userInput);
         String expectedOutput = "list schools";
-        assertEquals(expectedOutput, CommandResult);
+        assertEquals(expectedOutput, commandResult);
     }
 
     @Test
     public void getCommand_withAddCommand_expectAdd() {
         String userInput = "help add";
-        String CommandResult = helpCommand.getCommand(userInput);
+        String commandResult = helpCommand.getCommand(userInput);
         String expectedOutput = "add";
-        assertEquals(expectedOutput, CommandResult);
+        assertEquals(expectedOutput, commandResult);
     }
 
     @Test
     public void getCommand_withCommandsCommand_expectCommands() {
         String userInput = "help commands";
-        String CommandResult = helpCommand.getCommand(userInput);
+        String commandResult = helpCommand.getCommand(userInput);
         String expectedOutput = "commands";
-        assertEquals(expectedOutput, CommandResult);
+        assertEquals(expectedOutput, commandResult);
     }
 
     @Test
     public void getCommand_withByeCommand_expectBye() {
         String userInput = "help bye";
-        String CommandResult = helpCommand.getCommand(userInput);
+        String commandResult = helpCommand.getCommand(userInput);
         String expectedOutput = "bye";
-        assertEquals(expectedOutput, CommandResult);
+        assertEquals(expectedOutput, commandResult);
     }
 
     @Test
     public void getCommand_withObtainCommand_expectObtain() {
         String userInput = "help obtain";
-        String CommandResult = helpCommand.getCommand(userInput);
+        String commandResult = helpCommand.getCommand(userInput);
         String expectedOutput = "obtain";
-        assertEquals(expectedOutput, CommandResult);
+        assertEquals(expectedOutput, commandResult);
     }
 
     @Test
