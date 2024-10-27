@@ -59,7 +59,7 @@ class StorageTest {
     @Test
     void deleteCourse_validIndex_courseDeletedSuccessfully() {
         Course course1 = new Course("INFO20003", "CS2102", "The University of Melbourne");
-        Course course2 = new Course("2603637", "CS3244", "Chulalongkorn University");
+        Course course2 = new Course("COMP3670", "CS3244", "The Australian National University");
         storage.addCourse(course1);
         storage.addCourse(course2);
 
@@ -67,7 +67,7 @@ class StorageTest {
         storage.deleteCourse(0);
         List<String> courses = storage.loadAllCourses();
         assertEquals(1, courses.size());
-        assertEquals("CS3244 | Chulalongkorn University | 2603637", courses.get(0));
+        assertEquals("CS3244 | The Australian National University | COMP3670", courses.get(0));
     }
 
     @Test
