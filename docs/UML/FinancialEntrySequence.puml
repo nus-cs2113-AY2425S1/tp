@@ -1,0 +1,16 @@
+@startuml
+actor User
+participant AppUi
+participant InputParser
+participant AddCommand
+participant FinancialList
+participant FinancialEntry
+
+User -> AppUi: enters "add expense 50 groceries 10/27/2023"
+AppUi -> InputParser: parse("add expense 50 groceries 10/27/2023")
+InputParser -> AddCommand: create AddCommand with parsed details
+AddCommand -> FinancialEntry: create new Expense(50, "groceries", date)
+AddCommand -> FinancialList: addEntry(Expense)
+FinancialList -> entries: add Expense to entries list
+AddCommand -> AppUi: display "Expense added successfully!"
+@enduml

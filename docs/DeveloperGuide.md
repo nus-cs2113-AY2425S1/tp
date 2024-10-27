@@ -9,158 +9,142 @@
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ---
-### Ui and Parser Component
+### FinancialList and FinancialEntry
+__Overview__
 
-#### Overview
-The `AppUi` class is responsible for managing user interactions in the FinanceBuddy application. It captures user inputs, 
-processes commands, and displays messages. This class serves as the central point for handling commands like adding or 
-editing entries, showing help, and exiting the application.
+Managing financial entries through two main components:
 
-The `InputParser` class acts as an intermediary between the User's input and the application in order to parse the User's command
-inputs into a format understandable by the application for processing.
+- **FinancialList**: A centralized data structure that stores and manages entries. It provides CRUD (Create, Read, Update, Delete) operations to handle financial records, such as adding new entries and modifying or retrieving existing ones.
+- **FinancialEntry**: An abstract base class representing a generic financial record. Subclasses include `Income` and `Expense`, which inherit shared attributes like `amount`, `description`, and `date`. Each subclass has specific characteristics that distinguish income from expenses.
 
-The `DateParser` class is responsible for parsing date strings into a standard format for processing by the application.
+__Implementation__
+- **Class Diagram**: Displays the relationship between `FinancialList`, `FinancialEntry`, `Income`, and `Expense`. It highlights `FinancialList` as the main container managing `FinancialEntry` objects.
+  - {Input Class diagram}
+- **Sequence Diagram**: Illustrates the process of adding a new entry, from parsing user input to creating and adding the entry to `FinancialList`.
+  - {input sequence Diagram}
 
-#### Class Structure
-The `AppUi` class contains the following attributes:
-- financialList: a new FinancialList object which stores the list of financial entries, including expenses and income.
-- storage: a new Storage object which manages the saving and loading of financial data to and from persistent storage
+#### FinancialList Components
+__Overview__
 
+The `FinancialList` component is the main data structure responsible for managing all financial entries, specifically `Income` and `Expense`.
+It provides methods to **add**, **edit**, **delete**, and **retrieve** entries, serving as the application’s primary entry manager.
 
-### Implementation Details
+__Class Structure__
 
-#### Ui Class Diagram
+- **Attributes**:
+  - `entries`: `ArrayList<FinancialEntry>` — Stores both `Income` and `Expense` instances.
 
-#### Parser Class Diagram
+__Implementation Details__
+
+*Class Diagram*: Show `FinancialList` managing `FinancialEntry` objects (`Income` and `Expense` subclasses).
+
+{input diagram here }
+
+__Constructor__
+
+The `FinancialList` constructor initializes an empty list of entries to support CRUD operations. Key Arguments: None
+
+__Methods__
+
+- **addEntry(FinancialEntry entry)**: Adds a `FinancialEntry` object to `entries`.
+- **deleteEntry(int index)**: Removes an entry at a specified index.
+- **editEntry(int index, double amount, String description)**: Updates the `amount` and `description` of a specified entry.
+- **getEntry(int index)**: Retrieves an entry by index.
+- **getEntryCount()**: Returns the total count of entries.
+
+__Usage Example__
+
+```
+FinancialList financialList = new FinancialList();
+Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27));
+Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28));
+
+financialList.addEntry(income);
+financialList.addEntry(expense);
+
+// Edit an entry
+financialList.editEntry(1, 55.00, "Groceries & Snacks");
+
+// Retrieve an entry
+FinancialEntry entry = financialList.getEntry(0);
+System.out.println("Description: " + entry.getDescription());
+```
+
+### Design Considerations
+
+- **Future Budget Management**: `FinancialList` could incorporate a `budget` attribute and `checkBudget()` method to monitor expenses and alert users when limits are exceeded.
+- **Scalability**: By using `FinancialEntry` as a base class, `FinancialList` can easily manage new types of entries (e.g., `Investment` or `Loan`), ensuring the design is open to future extensions.
 
 ---
-### Logic Component
+#### FinancialEntry Component
+__Overview__
 
-#### Overview
+`FinancialEntry` is an abstract base class that represents a generic financial record.
+It defines shared attributes such as `amount`, `description`, and `date`, which are common across both `Income` and `Expense`.
+`Income` and `Expense` inherit these properties and methods, each adding specific functionality related to its type.
 
-#### Class Structure
+__Implementation__
 
-### Implementation Details
+The class diagram above shows `FinancialEntry` as the base class with `Income` and `Expense` as specific implementations.
+{input diagram here}
 
-#### Logic Class Diagram
----
+__Class Structure__
+- **Attributes**:
+  - `amount`: `double` — Represents the monetary value of the entry.
+  - `date`: `LocalDate` — The date associated with the transaction.
+  - `description`: `String` — A description identifying the entry.
 
-### FinancialList Component
+__Constructor__
 
-#### Overview
+The `FinancialEntry` constructor initializes `amount`, `description`, and `date`.
 
-The `FinancialList` class is responsible for storing and managing all financial entries in the application,
-including both `Expense` and `Income`. The `FinancialEntry` class acts as the base class, with `Expense` and `Income` 
-classes extending it to represent specific types of transactions.
+- **Key Arguments**:
+  - `double amount`: Monetary value for the entry.
+  - `String description`: Description or label for the entry.
+  - `LocalDate date`: Date of the entry.
 
-#### Class Structure
+__Methods__
 
-The `FinancialList` class contains the following attributes:
-- entries: A list of FinancialEntry objects representing all stored transactions.
+- **Core Methods** (inherited by both `Income` and `Expense`):
+  - `getAmount()`, `getDescription()`, `getDate()`: Accessor methods for each attribute.
+  - `setAmount(double newAmount)`, `setDescription(String newDescription)`, `setDate(LocalDate newDate)`: Mutator methods for updating values.
 
-The `FinancialEntry` class contains the following attributes:
-- **description**: A string describing the transaction.
-- **amount**: A double representing the amount of the transaction.
-- **date**: A LocalDate object representing the date of the transaction.
+- **Custom Methods for Income and Expense**:
+  - **toString()**:
+    - `Income`: Returns formatted string as `[Income] - description $amount (on date)`.
+    - `Expense`: Returns formatted string as `[Expense] - description $amount (on date)`.
+  - **toStorageString()**:
+    - `Income`: Formats as `"I | amount | description | date"` for storage.
+    - `Expense`: Formats as `"E | amount | description | date"` for storage.
 
-The Expense and Income classes extend FinancialEntry, each maintaining the base attributes while
-adding context to the type of financial entry.
+__Usage Example__
 
-### Implementation Details
+The following code segment demonstrates the creation of `Income` and `Expense` entries:
+```
+Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27));
+Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28));
 
-#### FinancialList Class Diagram
-- The FinancialList stores and manages FinancialEntry objects, including Expense and Income.
+System.out.println(income.toString());
+System.out.println(expense.toString());
+```
+
+__Design Considerations__
+- **Future Extension**: Additional fields could be added to `Income` and `Expense` for more specific details, such as a `source` for `Income` or a `category` for `Expense`.
+- **Abstract Base Class**: The design decision to make `FinancialEntry` abstract enables extensibility, allowing for new types of financial records without modifying `FinancialList` or existing subclasses.
+
 ---
 
 ### Commands
 
-<ins>Overview</ins>
+#### Overview
 
 The abstract class `Command` has been implemented to introduce an additional layer
-of abstraction between the `CommandHandler` class and command execution,
+of abstraction between the `AppUi` class and command execution,
 allowing for separation of handling command keywords and executing commands.
 
-The diagram below shows the inheritance of the `Command` class. The diagram is only meant to show
-the hierarchy of classes and have been greatly simplified.
+The diagram below shows the inheritance of the `Command` class.
 
-{Insert diagram here}
-
-<ins>Constructor</ins>
-
-The `Command` constructor updates the attributes based on the input arguments.
-
-<ins>Methods</ins>
-
-The abstract `Command` class and its related children classes have the following method:
-
-- *execute*: Effect the command based on the corresponding child class.
-
-### Adding Entries
-
-<ins>Overview</ins>
-
-The feature to add entries is facilitated by the abstract class `AddEntryCommand`.
-The `AddExpenseCommand` and `AddIncomeCommand` classes extend from the `AddEntryCommand`,
-and are used to add expenses and incomes respectively.
-
-<ins>Class Structure</ins>
-
-The `AddEntryCommand` class has the following attributes:
-- *amount*: An object representing the amount of money in the transaction.
-- *description*: An object representing the description of the transaction.
-- *date*: An object representing the date on which the transaction occurred.
-
-The `AddExpenseCommand` and `AddIncomeCommand` classes inherit all attributes
-from the `AddEntryCommand` class and have no additional attributes.
-
-The `AddExpenseCommand` and `AddIncomeCommand` classes have the following method:
-- *execute*
-
-<ins>Implementation</ins>
-
-The user invokes the command to add entries by entering the following commands:
-- `expense [DESCRIPTION] /a AMOUNT [/d DATE]` for adding an expense
-- `income [DESCRIPTION] /a AMOUNT [/d DATE]` for adding an income
-
-This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
-following arguments:
-- `argument`: Represents the description of the entry. The value can be left blank.
-- `/a`: Represents the amount of money in the transaction. This is a compulsory argument.
-- `/d`: Represents the date on which the transaction occurred. If this argument is not used,
-  the current date is used. An exception occurs if this argument is used but the value is left blank.
-
-### Editing Entries
-
-<ins>Overview</ins>
-
-The feature to add entries is facilitated by the `EditEntryCommand`. Both `Income` and `Expense`
-can be edited using this one class.
-
-<ins>Class Structure</ins>
-
-The `EditEntryCommand` class has the following attributes:
-- *index*: An object representing the index of the entry in the full financial list.
-- *amount*: An object representing the amount of money used in the transaction.
-- *description*: An object representing the description of the transaction.
-- *date*: An object representing the date on which the transaction occurred.
-
-The `EditEntryCommand` class has the following method:
-- *execute*
-
-<ins>Implementation</ins>
-
-The user invokes the command to add entries by entering the following command:
-`edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE]`.
-
-This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
-following arguments:
-- `argument`: Represents the index of the entry in the full financial list.
-  This is a compulsory argument.
-- `/des`: Represents the description of the transaction. This is an optional argument.
-- `/a`: Represents the amount of money used in the transaction. This is an optional argument.
-- `/d`: Represents the date on which the transaction occurred. This is an optional argument.
-
-### Listing Entries
+#### Listing Entries
 __Overview__
 
 The list entries feature is facilitated by the `SeeAllEntriesCommand` class.
@@ -209,6 +193,8 @@ with the only difference being the criteria for printing the entries, we made `S
 
 An exception class `FinanceBuddyException` is thrown when users use the product wrongly.
 Exceptions are caught at the nearest instance that they occur.
+
+*Insert code snippet here.*
 
 ### Storage
 
@@ -283,10 +269,6 @@ faster than a typical mouse/GUI driven app
 * *Income* - A subclass of FinancialEntry that represents a financial inflow or income received by the user.
 * *FinancialList* - A class responsible for storing and managing all financial entries, including both expenses and incomes, allowing for the organization and manipulation of financial data.
 
-## Instructions for Testing
+## Instructions for manual testing
 
-### Manual Testing
-View the [User Guide](UserGuide.md) for the list of UI commands and their related use case and expected outputs.
-
-### JUnit Testing
-JUnit tests are written in the subdirectory `test` and serve to test key methods in the application.
+{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
