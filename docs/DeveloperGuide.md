@@ -11,18 +11,7 @@
 ## Setting up, getting started
 Refer to the guide for 'Setting up and getting started.'
 
----
-
-## Design
-
-{This section can be used to discuss overall system architecture or any relevant design decisions. Since you're focusing on the implementation, this section can be omitted or kept brief.}
-
----
-
-## Implementation
-
 ### **AddPatientCommand**
-
 #### Implementation
 
 The add patient feature allows users to add a new patient to the hospital system. This is facilitated by the `AddPatientCommand`, which handles the logic of adding a patient and updating the system’s state and storage.
@@ -41,6 +30,43 @@ The following sequence diagram illustrates how the `AddPatientCommand` is execut
 - **If Condition**: The command checks if the patient already exists before adding the patient.
 - **Logging**: If a duplicate is detected, an error is logged.
 
+### **AddTaskCommand**
+#### Implementation
+
+The add Task feature allows users to add different types of task to a patient's records. This is facilitated by the `AddTaskCommand`, which handles the logic of adding a task and updating the system’s state and storage.
+There are three possible types of tasks - Todo, Deadline and Repeat.
+
+1. **User Input**:
+* **Todo**: The user enters the `todo` command followed by tag details (e.g., /tag).
+* **Deadline**: The user enters the `deadline` command followed by the deadline (e.g., /by) and tag details (e.g., /tag).
+* * **Repeat**: The user enters the `repeat` command followed by the recurring basis (e.g., /every) and tag details (e.g., /tag).
+2. **Command Parsing**: 
+* **Todo Task**: The `Parser` parses the input and creates an `AddTodoParser` object.
+* **Deadline Task**: The `Parser` parses the input and creates an `AddDeadlineParser` object.
+* **Repeat Task**: The `Parser` parses the input and creates an `AddRepeatParser` object.
+3. **Execution**: The `AddTaskCommand` adds the task.
+4. **Storage Update**: The updated patient's data, now containing the new task, is saved to storage.
+
+#### Sequence Diagram
+
+The following sequence diagram illustrates how the `AddPatientCommand` is executed:
+
+![](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddPatientSequenceDiagram.png)
+
+### **FindCommand**
+#### Implementation
+
+The find feature allows users to find the name of a patient, or the name of a task. This is facilitated by the `FindPatientCommand` and `FindTaskCommand`.
+
+1. **User Input**: The user enters the `find` command followed by keywords
+2. **Command Parsing**: The `Parser` parses the input and creates a `FindParser` object.
+3. **Execution**: The `FindPatientCommand` or `FindTaskCommand` searches for the task.
+
+#### Sequence Diagram
+
+The following sequence diagram illustrates how the `AddPatientCommand` is executed:
+
+![](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddPatientSequenceDiagram.png)
 
 ### **State Switching Feature**
 #### Implementation
