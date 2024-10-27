@@ -17,7 +17,6 @@ public class History {
         history = new LinkedHashMap<>();
     }
 
-    // Get a specific Day object by date (used for test comparisons)
     public DailyRecord getRecordByDate(LocalDate date) {
         DailyRecord record = history.get(date);
         if (record == null) {
@@ -31,7 +30,6 @@ public class History {
         return history;
     }
 
-    // Method to summarize weekly workout activity
     public String getWeeklyWorkoutSummary() {
         if (history.isEmpty()) {
             return "No workout history available.";
@@ -69,8 +67,27 @@ public class History {
         return history.size();
     }
 
-    // Method to find the personal bests for each exercise
-    public Map<String, Exercise> getPersonalBests() {
+    // Returns a preformatted string of personal bests for all exercises
+    public String getFormattedPersonalBests() {
+        Map<String, Exercise> personalBests = getPersonalBestsMap();
+
+        if (personalBests.isEmpty()) {
+            return "No personal bests found.";
+        }
+
+        StringBuilder bestsMessage = new StringBuilder("Personal bests for all exercises:\n");
+        for (Map.Entry<String, Exercise> entry : personalBests.entrySet()) {
+            bestsMessage.append(entry.getKey())
+                    .append(": ")
+                    .append(entry.getValue().toString())
+                    .append("\n");
+        }
+
+        return bestsMessage.toString();
+    }
+
+    // Helper method to generate a map of personal bests for each exercise
+    private Map<String, Exercise> getPersonalBestsMap() {
         Map<String, Exercise> personalBests = new LinkedHashMap<>();
 
         for (DailyRecord dailyRecord : history.values()) {
@@ -92,7 +109,7 @@ public class History {
         return current.getWeight() > best.getWeight();
     }
 
-    // Method to get personal best for a specific exercise
+    // Returns a formatted string for the personal best of a specified exercise
     public String getPersonalBestForExercise(String exerciseName) {
         Exercise personalBest = null;
 
@@ -110,11 +127,9 @@ public class History {
             }
         }
 
-        if (personalBest != null) {
-            return "Personal best for " + exerciseName + ": " + personalBest;
-        } else {
-            return "No personal best found for " + exerciseName;
-        }
+        return personalBest != null
+                ? "Personal best for " + exerciseName + ": " + personalBest
+                : "No personal best found for " + exerciseName;
     }
 
     @Override
@@ -143,5 +158,4 @@ public class History {
         return historyString.toString();
     }
 }
-
 
