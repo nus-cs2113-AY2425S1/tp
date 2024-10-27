@@ -48,19 +48,23 @@ public class Parser {
             String inputData = input.trim().split(" ", 2)[1];
             if (command instanceof AddCommand) {
                 return parseAddCommandData(inputData);
-            } else if (command instanceof DeleteCommand) {
-                return parseDeleteCommandData(inputData);
-            } else if (command instanceof UpdateCommand) {
-                return parseUpdateCommandData(inputData);
-            } else if (command instanceof SortCommand) {
-                return parseSortCommandData(inputData);
-            } else if (command instanceof FilterCommand) {
-                return parseFilterCommandData(inputData);
-            } else if (command instanceof RemoveCommand) {
-                return parseUpdateCommandData(inputData);
-            } else {
-                throw new IllegalArgumentException("Unknown command type");
             }
+            if (command instanceof DeleteCommand) {
+                return parseDeleteCommandData(inputData);
+            }
+            if (command instanceof UpdateCommand) {
+                return parseUpdateCommandData(inputData);
+            }
+            if (command instanceof SortCommand) {
+                return parseSortCommandData(inputData);
+            }
+            if (command instanceof FilterCommand) {
+                return parseFilterCommandData(inputData);
+            }
+            if (command instanceof RemoveCommand) {
+                return parseUpdateCommandData(inputData);
+            }
+            throw new IllegalArgumentException("Unknown command type");
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showOutput("Please input some ID or flag following the command");
             return null;
