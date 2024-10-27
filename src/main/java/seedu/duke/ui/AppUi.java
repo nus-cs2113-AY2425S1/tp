@@ -1,22 +1,12 @@
 package seedu.duke.ui;
 
-import seedu.duke.command.AddExpenseCommand;
-import seedu.duke.command.AddIncomeCommand;
-import seedu.duke.command.DeleteCommand;
-import seedu.duke.command.EditEntryCommand;
-import seedu.duke.command.SeeAllEntriesCommand;
-import seedu.duke.command.SeeAllExpensesCommand;
-import seedu.duke.command.HelpCommand;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.exception.FinanceBuddyException;
-import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
-import seedu.duke.parser.DateParser;
 import seedu.duke.logic.Logic;
 import seedu.duke.parser.InputParser;
 
 import seedu.duke.storage.Storage;
-import java.time.LocalDate;
 
 import java.util.HashMap;
 import java.util.Scanner;
