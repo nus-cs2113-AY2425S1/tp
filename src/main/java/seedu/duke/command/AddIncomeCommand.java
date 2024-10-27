@@ -39,7 +39,7 @@ public class AddIncomeCommand extends Command {
      * @param list The financial list where the income will be added.
      */
     @Override
-    public void execute(FinancialList list) {
+    public void execute(FinancialList list) throws FinanceBuddyException {
         Income income = new Income(amount, description, date);
         int preEntryCount = list.getEntryCount();
         list.addEntry(income);

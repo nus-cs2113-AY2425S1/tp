@@ -3,6 +3,7 @@ package seedu.duke.command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
@@ -51,7 +52,7 @@ class SeeAllIncomesCommandTest {
      * income entries only.
      */
     @Test
-    void execute_mixedList_expectPrintedIncomes() {
+    void execute_mixedList_expectPrintedIncomes() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(null, null);
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24,10,22)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24,10,22)));
@@ -68,6 +69,8 @@ class SeeAllIncomesCommandTest {
                 "1. [Income] - salary $ 3000.00 (on 22/10/24)" + System.lineSeparator() +
                 "2. [Income] - allowance $ 100.00 (on 22/10/24)" + System.lineSeparator() +
                 "3. [Income] - ang pow money $ 15.00 (on 22/10/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total income: $ 3115.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
@@ -78,7 +81,7 @@ class SeeAllIncomesCommandTest {
      * Expects a message indicating no incomes were found.
      */
     @Test
-    void execute_onlyExpenseList_expectNothing() {
+    void execute_onlyExpenseList_expectNothing() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(null, null);
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.now()));
         financialList.addEntry(new Expense(4.50, "dinner", LocalDate.now()));
@@ -88,7 +91,7 @@ class SeeAllIncomesCommandTest {
 
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
-                "No recorded incomes found." + System.lineSeparator() +
+                "No incomes found." + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
@@ -98,7 +101,7 @@ class SeeAllIncomesCommandTest {
      * Test the execute method, specifying that only Incomes before 10/10/24 should be printed.
      */
     @Test
-    void execute_mixedListBeforeCertainDate_expectPrintedIncomes() {
+    void execute_mixedListBeforeCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(null, LocalDate.of(24, 10, 10));
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1)));
@@ -115,6 +118,8 @@ class SeeAllIncomesCommandTest {
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
                 "1. [Income] - salary $ 3000.00 (on 01/10/24)" + System.lineSeparator() +
                 "2. [Income] - ang pow money $ 15.00 (on 12/09/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total income: $ 3015.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
@@ -124,7 +129,7 @@ class SeeAllIncomesCommandTest {
      * Test the execute method, specifying that only Incomes after 10/10/24 should be printed.
      */
     @Test
-    void execute_mixedListAfterCertainDate_expectPrintedIncomes() {
+    void execute_mixedListAfterCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 10, 10), null);
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1)));
@@ -140,6 +145,8 @@ class SeeAllIncomesCommandTest {
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
                 "1. [Income] - allowance $ 100.00 (on 02/11/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total income: $ 100.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
@@ -150,7 +157,7 @@ class SeeAllIncomesCommandTest {
      * between 20/9/2024 and 10/10/24 exclusive should be printed.
      */
     @Test
-    void execute_mixedListBeforeAndAfterCertainDate_expectPrintedIncomes() {
+    void execute_mixedListBeforeAndAfterCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 9, 20), LocalDate.of(24, 10, 10));
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1)));
@@ -166,6 +173,8 @@ class SeeAllIncomesCommandTest {
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
                 "1. [Income] - salary $ 3000.00 (on 01/10/24)" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total income: $ 3000.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);

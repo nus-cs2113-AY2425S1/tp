@@ -1,5 +1,7 @@
 package seedu.duke.financial;
 
+import seedu.duke.exception.FinanceBuddyException;
+
 import java.time.LocalDate;
 
 /**
@@ -17,7 +19,10 @@ public abstract class FinancialEntry {
      * @param description A description of the transaction.
      * @param date The date of the transaction (dd/mm/yy).
      */
-    public FinancialEntry(double amount, String description, LocalDate date){
+    public FinancialEntry(double amount, String description, LocalDate date) throws FinanceBuddyException {
+        if (amount < 0.01) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
+        }
         this.description = description;
         this.amount = amount;
         this.date = date;
@@ -55,7 +60,10 @@ public abstract class FinancialEntry {
      *
      * @param newAmount The new amount.
      */
-    public void setAmount(double newAmount) {
+    public void setAmount(double newAmount) throws FinanceBuddyException {
+        if (amount < 0.01) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
+        }
         this.amount = newAmount;
     }
 
@@ -85,4 +93,6 @@ public abstract class FinancialEntry {
      * @return A string representation of the financial entry.
      */
     public abstract String toString();
+
+    public abstract String toStorageString();
 }

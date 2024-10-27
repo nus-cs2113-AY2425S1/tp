@@ -15,7 +15,9 @@ import seedu.duke.financial.FinancialList;
 import seedu.duke.parser.DateParser;
 import seedu.duke.parser.InputParser;
 
+import seedu.duke.storage.Storage;
 import java.time.LocalDate;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -26,6 +28,7 @@ import java.util.Scanner;
  */
 public class AppUi {
     public FinancialList financialList;
+    public Storage mainStorage;
 
     /**
      * Constructor to initialize the AppUi object.
@@ -42,11 +45,18 @@ public class AppUi {
      * An {@link AddExpenseCommand} is created and executed to add the expense to the financial list.
      *
      * @param commandArguments A map of parsed command arguments that contains the description of the expense
-     *                         and the amount ("/a") and the date/time ("/dt")
+     *                         and the amount ("/a") and the date ("/d")
      */
-    public void addExpense(HashMap<String, String> commandArguments) {
+    public void addExpense(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String description = commandArguments.get("argument");
-        double amount = Double.parseDouble(commandArguments.get("/a"));
+        double amount = 0;
+        try {
+            amount = Double.parseDouble(commandArguments.get("/a"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+        } catch (NullPointerException e) {
+            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
+        }
         String date = commandArguments.get("/d");
 
         try {
@@ -67,9 +77,16 @@ public class AppUi {
      * @param commandArguments A map of parsed command arguments that contains the description of the income
      *                         and the amount ("/a").
      */
-    public void addIncome(HashMap<String, String> commandArguments) {
+    public void addIncome(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String description = commandArguments.get("argument");
-        double amount = Double.parseDouble(commandArguments.get("/a"));
+        double amount = 0;
+        try {
+            amount = Double.parseDouble(commandArguments.get("/a"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+        } catch (NullPointerException e) {
+            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
+        }
         String date = commandArguments.get("/d");
 
         try {
@@ -92,16 +109,31 @@ public class AppUi {
      * @param commandArguments A map of parsed command arguments that contains the entry index and
      *                         optional new values for the amount ("/a") and description ("/des").
      */
-    public void editEntry(HashMap<String, String> commandArguments) {
-        int index = Integer.parseInt(commandArguments.get("argument"));
+    public void editEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
+        int index = 0;
+        try {
+            index = Integer.parseInt(commandArguments.get("argument"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+        }
 
         assert index > 0 : "Index of entry to edit must be greater than 0";
         assert index <= financialList.getEntryCount() : "Index of entry to edit must be within the list size";
 
-        FinancialEntry entry = financialList.getEntry(index - 1);
+        FinancialEntry entry = null;
+        try {
+            entry = financialList.getEntry(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+        }
 
         String amountStr = commandArguments.get("/a");
-        double amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();
+        double amount = 0;
+        try {
+            amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+        }
 
         String description = commandArguments.getOrDefault("/des", entry.getDescription());
 
@@ -118,8 +150,13 @@ public class AppUi {
      * @param commandArguments A map of parsed command arguments that contains the index of the entry
      *                         to be deleted.
      */
-    public void deleteEntry(HashMap<String, String> commandArguments) {
-        int index = Integer.parseInt(commandArguments.get("argument"));
+    public void deleteEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
+        int index = 0;
+        try {
+            index = Integer.parseInt(commandArguments.get("argument"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+        }
 
         DeleteCommand deleteCommand = new DeleteCommand(index);
         deleteCommand.execute(financialList);
@@ -180,7 +217,7 @@ public class AppUi {
      * @param commandArguments A map of arguments parsed from the user's input.
      * @return A boolean indicating whether the command was successful.
      */
-    public boolean matchCommand(String command, HashMap<String, String> commandArguments) {
+    public boolean matchCommand(String command, HashMap<String, String> commandArguments) throws FinanceBuddyException {
 
         final String unrecognizedCommand = "--------------------------------------------\n" +
                 "Unrecognized command!\n" +
@@ -189,27 +226,27 @@ public class AppUi {
 
         switch (command) {
         case "list":
-            try {
-                listHelper(commandArguments);
-            } catch (FinanceBuddyException e) {
-                System.out.println(e.getMessage());
-            }
+            listHelper(commandArguments);
             break;
 
         case "expense":
             addExpense(commandArguments);
+            this.mainStorage.update(financialList);
             break;
 
         case "income":
             addIncome(commandArguments);
+            this.mainStorage.update(financialList);
             break;
 
         case "edit":
             editEntry(commandArguments);
+            this.mainStorage.update(financialList);
             break;
 
         case "delete":
             deleteEntry(commandArguments);
+            this.mainStorage.update(financialList);
             break;
 
         case "help":
@@ -234,20 +271,25 @@ public class AppUi {
      * It runs in a loop until the input signifies to stop accepting commands.
      */
     public void commandEntry() {
-        HashMap<String, String> commandArguments;
+        HashMap<String, String> commandArguments = null;
         String input;
         Scanner scanner = new Scanner(System.in);
+        String command = null;
 
         boolean isAcceptingInput = true;
 
         while (isAcceptingInput) {
             input = scanner.nextLine();
-            commandArguments = InputParser.parseCommands(input);
-            String command = commandArguments.get(InputParser.COMMAND);
+            try {
+                commandArguments = InputParser.parseCommands(input);
+                command = commandArguments.get(InputParser.COMMAND);
+            } catch (FinanceBuddyException e) {
+                System.out.println(e.getMessage());
+            }
 
             try {
                 isAcceptingInput = matchCommand(command, commandArguments);
-            } catch (Exception e) {
+            } catch (FinanceBuddyException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -277,8 +319,17 @@ public class AppUi {
         System.out.println(welcomeMessage);
     }
 
+    public void setStorage(Storage storage, boolean loadFromFile) {
+        this.mainStorage = storage;
+        if (loadFromFile) {
+            this.financialList = mainStorage.loadFromFile();
+        }
+    }
+
     /**
-     * Runs the application, starting with displaying the welcome message.
+     * Runs the main application logic.
+     * Displays the welcome message, initializes the storage object,
+     * and starts the command entry process.
      */
     public void run() {
         displayWelcomeMessage();

@@ -2,10 +2,11 @@ package seedu.duke.ui;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
-import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.storage.Storage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -33,7 +34,9 @@ public class AppUiTest {
     @BeforeEach
     void setUp() {
         appUi = new AppUi();
-        appUi.financialList = new FinancialList();
+        Storage storage = new Storage();
+        appUi.setStorage(storage, false);
+        // appUi.financialList = new FinancialList();
         System.setOut(new PrintStream(outputStream));
     }
 
@@ -42,7 +45,7 @@ public class AppUiTest {
      * Ensures that the {@code matchCommand} method returns {@code true} and no exceptions are thrown.
      */
     @Test
-    void testMatchCommand_listCommand() {
+    void testMatchCommand_listCommand() throws FinanceBuddyException {
         // Prepare command arguments for the "list" command
         HashMap<String, String> commandArguments = new HashMap<>();
         commandArguments.put("command", "list");
@@ -59,7 +62,7 @@ public class AppUiTest {
      * Verifies that all expenses are displayed and that the output matches the expected format.
      */
     @Test
-    void testMatchCommand_seeAllExpensesCommand() {
+    void testMatchCommand_seeAllExpensesCommand() throws FinanceBuddyException {
         LocalDate date1 = LocalDate.of(2024, 12, 29);
         LocalDate date2 = LocalDate.of(2024, 10, 14);
 
@@ -81,6 +84,8 @@ public class AppUiTest {
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. [Expense] - Lunch $ 100.00 (on " + date1.format(pattern) + ")" + System.lineSeparator()  +
+                System.lineSeparator() +
+                "Total expense: $ 100.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Validate that the expected output is equal to the actual output
@@ -92,7 +97,7 @@ public class AppUiTest {
      * Ensures that an expense entry is added to the financial list and the method returns {@code true}.
      */
     @Test
-    void testMatchCommand_expenseCommand() {
+    void testMatchCommand_expenseCommand() throws FinanceBuddyException {
         HashMap<String, String> commandArguments = new HashMap<>();
         commandArguments.put("argument", "Lunch");
         commandArguments.put("/a", "12.00");
@@ -109,7 +114,7 @@ public class AppUiTest {
      * Ensures that an income entry is added to the financial list and the method returns {@code true}.
      */
     @Test
-    void testMatchCommand_incomeCommand() {
+    void testMatchCommand_incomeCommand() throws FinanceBuddyException {
         // Prepare command arguments for the "income" command
         HashMap<String, String> commandArguments = new HashMap<>();
         commandArguments.put("argument", "Salary");
@@ -128,7 +133,7 @@ public class AppUiTest {
      * Ensures that an existing financial entry can be edited and the changes are applied correctly.
      */
     @Test
-    void testMatchCommand_editCommand() {
+    void testMatchCommand_editCommand() throws FinanceBuddyException {
         LocalDate date1 = LocalDate.of(2024, 12, 17);
 
         // Add an entry first to edit it later
@@ -155,7 +160,7 @@ public class AppUiTest {
      * Ensures that an entry can be deleted from the financial list and the method returns {@code true}.
      */
     @Test
-    void testMatchCommand_deleteCommand() {
+    void testMatchCommand_deleteCommand() throws FinanceBuddyException {
         LocalDate date1 = LocalDate.of(2024, 9, 4);
         // Add an entry first to delete it later
         appUi.financialList.addEntry(new Expense(100, "Entry to delete", date1));
@@ -177,7 +182,7 @@ public class AppUiTest {
      * Ensures that the help menu is displayed and the method returns {@code true}.
      */
     @Test
-    void testMatchCommand_helpCommand() {
+    void testMatchCommand_helpCommand() throws FinanceBuddyException {
         // Prepare command arguments for the "help" command
         HashMap<String, String> commandArguments = new HashMap<>();
 
@@ -193,7 +198,7 @@ public class AppUiTest {
      * Ensures that the method returns {@code false} to indicate that the program should exit.
      */
     @Test
-    void testMatchCommand_exitCommand() {
+    void testMatchCommand_exitCommand() throws FinanceBuddyException {
         // Prepare command arguments for the "exit" command
         HashMap<String, String> commandArguments = new HashMap<>();
 
@@ -209,7 +214,7 @@ public class AppUiTest {
      * Ensures that unrecognized commands are handled gracefully and the method returns {@code true}.
      */
     @Test
-    void testMatchCommand_unrecognizedCommand() {
+    void testMatchCommand_unrecognizedCommand() throws FinanceBuddyException {
         // Prepare command arguments for an unrecognized command
         HashMap<String, String> commandArguments = new HashMap<>();
 

@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialList;
 
 import java.util.logging.Level;
@@ -63,13 +64,13 @@ public class EditEntryCommand extends Command {
      * Executes the command to edit an entry in the financial list.
      *
      * @param list The financial list containing the entries.
-     * @throws IllegalArgumentException if the financial list is null.
+     * @throws FinanceBuddyException if the financial list is null.
      */
     @Override
-    public void execute(FinancialList list) {
+    public void execute(FinancialList list) throws FinanceBuddyException {
         if (list == null) {
             logger.log(Level.SEVERE, "Financial list is null");
-            throw new IllegalArgumentException("Financial list cannot be null");
+            throw new FinanceBuddyException("Financial list cannot be null");
         }
         if (index >= 0 && index <= list.getEntryCount()) {
             list.editEntry(index - 1, amount, description);

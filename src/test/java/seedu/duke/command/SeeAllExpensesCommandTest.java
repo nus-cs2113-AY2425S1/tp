@@ -3,6 +3,7 @@ package seedu.duke.command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
@@ -50,7 +51,7 @@ public class SeeAllExpensesCommandTest {
      * Verifies that the output message indicates no recorded expenses.
      */
     @Test
-    public void execute_noExpenses_printsNoRecordedExpenses() {
+    public void execute_noExpenses_printsNoRecordedExpenses() throws FinanceBuddyException {
         FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24,10,22));
         FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24,10,22));
         financialList.addEntry(income1);
@@ -58,7 +59,7 @@ public class SeeAllExpensesCommandTest {
         seeAllExpensesCommand = new SeeAllExpensesCommand(null, null);
         seeAllExpensesCommand.execute(financialList);
         assertEquals("--------------------------------------------" + System.lineSeparator() +
-                "No recorded expenses found." + System.lineSeparator() +
+                "No expenses found." + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator(), outContent.toString());
     }
 
@@ -70,7 +71,7 @@ public class SeeAllExpensesCommandTest {
      * The test asserts that the actual output matches the expected output.
      */
     @Test
-    public void execute_withExpenses_printsAllExpenses() {
+    public void execute_withExpenses_printsAllExpenses() throws FinanceBuddyException {
         FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24,10,22));
         FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24,10,22));
         FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24,10,22));
@@ -87,6 +88,8 @@ public class SeeAllExpensesCommandTest {
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense1 + System.lineSeparator() +
                 "2. " + expense2 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total expense: $ 15.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -95,7 +98,7 @@ public class SeeAllExpensesCommandTest {
      * Test the execute method, specifying that only Expenses before 20/10/24 should be printed.
      */
     @Test
-    public void execute_beforeDate_printSomeExpenses() {
+    public void execute_beforeDate_printSomeExpenses() throws FinanceBuddyException {
         FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24,10,22));
         FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24,10,12));
         FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24,10,22));
@@ -111,6 +114,8 @@ public class SeeAllExpensesCommandTest {
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense2 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total expense: $ 5.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -119,7 +124,7 @@ public class SeeAllExpensesCommandTest {
      * Test the execute method, specifying that only Expenses after 20/10/24 should be printed.
      */
     @Test
-    public void execute_afterDate_printSomeExpenses() {
+    public void execute_afterDate_printSomeExpenses() throws FinanceBuddyException {
         FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24,10,22));
         FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24,10,12));
         FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24,10,22));
@@ -135,6 +140,8 @@ public class SeeAllExpensesCommandTest {
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense1 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total expense: $ 10.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -144,7 +151,7 @@ public class SeeAllExpensesCommandTest {
      * between 15/10/24 and 21/10/24 exclusive should be printed.
      */
     @Test
-    public void execute_beforeAndAfterDate_printSomeExpenses() {
+    public void execute_beforeAndAfterDate_printSomeExpenses() throws FinanceBuddyException {
         FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24,10,22));
         FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24,10,12));
         FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24,10,22));
@@ -162,6 +169,8 @@ public class SeeAllExpensesCommandTest {
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense3 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total expense: $ 15.50" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }

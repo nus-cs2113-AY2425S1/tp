@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialList;
 
 /**
@@ -13,6 +14,6 @@ public abstract class Command {
      *
      * @param list The financial list on which the command will operate.
      */
-    public abstract void execute(FinancialList list);
+    public abstract void execute(FinancialList list) throws FinanceBuddyException;
 
 }
