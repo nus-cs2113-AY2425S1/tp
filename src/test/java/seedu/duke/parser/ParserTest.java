@@ -14,6 +14,59 @@ public class ParserTest {
         State mainState = new State(StateType.MAIN_STATE);
         Command returnedCommand = new AddParser().execute("add Tom", mainState);
         assertEquals(true, returnedCommand != null);
+
+        boolean thrown = false;
+        try{
+            new AddParser().execute("Invalid command", mainState);
+        } catch(Exception e){
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void parseCommandTodo() {
+        State taskState = new State(StateType.TASK_STATE);
+        Command returnedCommand = new AddTodoParser().execute("todo CS2113", taskState);
+        assertEquals(true, returnedCommand != null);
+
+        boolean thrown = false;
+        try{
+            new AddTodoParser().execute("Invalid command", taskState);
+        } catch(Exception e){
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void parseCommandDeadline() {
+        State taskState = new State(StateType.TASK_STATE);
+        Command returnedCommand = new AddDeadlineParser().execute("deadline CS2113", taskState);
+        assertEquals(true, returnedCommand != null);
+
+        boolean thrown = false;
+        try{
+            new AddDeadlineParser().execute("Invalid command", taskState);
+        } catch(Exception e){
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void parseCommandRepeat() {
+        State taskState = new State(StateType.TASK_STATE);
+        Command returnedCommand = new AddRepeatParser().execute("repeat Tom", taskState);
+        assertEquals(true, returnedCommand != null);
+
+        boolean thrown = false;
+        try{
+            new AddDeadlineParser().execute("Invalid command", taskState);
+        } catch(Exception e){
+            thrown = true;
+        }
+        assertTrue(thrown);
     }
 
     @Test
@@ -23,7 +76,7 @@ public class ParserTest {
         assertNotNull(returnedCommand);
 
         State taskState = new State(StateType.TASK_STATE);
-        Command returnedCommand1 = new ListParser().execute("list", mainState);
+        Command returnedCommand1 = new ListParser().execute("list", taskState);
         assertNotNull(returnedCommand1);
     }
 
@@ -85,5 +138,38 @@ public class ParserTest {
             thrown = true;
         }
         assertTrue(thrown);
+    }
+
+    @Test
+    public void parseCommandBack() {
+        State taskState = new State(StateType.TASK_STATE);
+        Command returnedCommand = new BackParser().execute("back",taskState);
+        assertEquals(true, returnedCommand != null);
+    }
+
+    @Test
+    public void parseCommandFind() {
+        State taskState = new State(StateType.TASK_STATE);
+        Command returnedCommand = new FindParser().execute("find key",taskState);
+        assertEquals(true, returnedCommand != null);
+
+        State mainState = new State(StateType.MAIN_STATE);
+        Command returnedCommand1 = new FindParser().execute("find key",mainState);
+        assertEquals(true, returnedCommand1 != null);
+
+        boolean thrown = false;
+        try{
+            new FindParser().execute("Invalid command",taskState);
+        } catch(Exception e){
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void parseCommandExit() {
+        State taskState = new State(StateType.TASK_STATE);
+        Command returnedCommand = new ExitParser().execute("exit",taskState);
+        assertEquals(true, returnedCommand != null);
     }
 }
