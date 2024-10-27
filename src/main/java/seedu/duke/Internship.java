@@ -118,8 +118,8 @@ public class Internship {
         for (String skill: skills) {
             skillList += ", " + skill;
         }
-        int INDEX_START = 2;
-        return skillList.trim().substring(INDEX_START);
+        int indexStart = 2;
+        return skillList.trim().substring(indexStart);
     }
 
     //@@author Ridiculouswifi
@@ -129,7 +129,7 @@ public class Internship {
      * @param skills    List of skills, individual skills are separated by commas.
      */
     public void setSkills(String skills) {
-        if (skills.isEmpty()) {
+        if (skills.trim().isEmpty()) {
             return;
         }
         String[] skillArray = skills.split(",");
