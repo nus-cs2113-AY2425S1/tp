@@ -41,7 +41,8 @@ public class InternshipList {
     // Method to remove an internship by index (0-based)
     public void removeInternship(int index) {
         if (isWithinBounds(index)) {
-            internships.remove(index);
+            Internship internship = internships.remove(index);
+            internship.clearDeadlines();
             ui.showDeletedInternship(index + 1);
             updateIds(); // Reassign IDs after removal
         }
@@ -100,6 +101,8 @@ public class InternshipList {
         }
     }
 
+    //@@author jadenlimjc
+
     // Method to list all internships
     public void listAllInternships() {
         if (internships.isEmpty()) {
@@ -129,8 +132,9 @@ public class InternshipList {
         ui.showInternships(sortedList);
     }
 
+    //@@author jadenlimjc
     // Method to list all internships sorted by start date (year first), then end date
-    public void listInternshipsSortedByDeadline() {
+    public void listInternshipsSortedByDuration() {
         ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
 
         Collections.sort(sortedInternships, (i1, i2) -> {
@@ -162,4 +166,30 @@ public class InternshipList {
         }
         return Integer.compare(month1, month2);
     }
+
+
+    // Method to list all internships sorted by start date (year first), then end date
+    public void listInternshipsSortedByDeadline() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
+
+        sortedInternships.sort((i1, i2) -> {
+            Deadline earliestDeadline1 = i1.getEarliestDeadline();
+            Deadline earliestDeadline2 = i2.getEarliestDeadline();
+
+            // Place internships with no deadlines last
+            if (earliestDeadline1 == null && earliestDeadline2 == null) {
+                return 0; // Both have no deadlines, so they are considered equal
+            } else if (earliestDeadline1 == null) {
+                return 1; // i1 has no deadline, so it goes after i2
+            } else if (earliestDeadline2 == null) {
+                return -1; // i2 has no deadline, so it goes after i1
+            }
+            return compareYearMonth(earliestDeadline1.getDate(), earliestDeadline2.getDate());
+        });
+        ui.showInternships(sortedInternships);
+    }
+
+
+
+
 }

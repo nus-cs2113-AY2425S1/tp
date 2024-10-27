@@ -24,9 +24,13 @@ public class SortCommand extends Command {
             uiCommand.showSortedInternships(sortOption);  // Show sorting message for alphabet
             internships.listInternshipsSortedByRole();  // Sort by role alphabetically (case-insensitive)
             break;
-        case "deadline":
+        case "duration":
             uiCommand.showSortedInternships(sortOption);  // Show sorting message for deadline
-            internships.listInternshipsSortedByDeadline();  // Sort by start date, then end date (year first)
+            internships.listInternshipsSortedByDuration();  // Sort by start date, then end date (year first)
+            break;
+        case "deadline":
+            uiCommand.showSortedInternships(sortOption);
+            internships.listInternshipsSortedByDeadline();
             break;
         default:
             // Handle invalid sorting options

@@ -5,8 +5,12 @@ import seedu.exceptions.InvalidStatus;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Comparator;
+
 
 /**
  * Class to store the relevant information for an internship.
@@ -20,6 +24,7 @@ public class Internship {
     private String company;
     private YearMonth startDate;
     private YearMonth endDate;
+    private List<Deadline> deadlines;
     private String skills;
     private String status;
 
@@ -38,6 +43,7 @@ public class Internship {
         this.company = company;
         setStartDate(start);
         setEndDate(end);
+        this.deadlines = new ArrayList<>();
         this.skills = "No Skills Entered";
         this.status = "Application Pending";
     }
@@ -66,10 +72,15 @@ public class Internship {
     }
 
     /**
-     * Sets ID based on the index of the internship in the list.
+     * Sets ID based on the index of the internship in the list and updates all associated deadlines.
+     *
+     * @param index the new zero-based ID for the internship.
      */
     public void setId(int index) {
         this.id = index + 1;
+        for (Deadline deadline : deadlines) {
+            deadline.setInternshipId(id);
+        }
     }
 
     public String getRole() {
@@ -87,7 +98,6 @@ public class Internship {
     public void setCompany(String company) {
         this.company = company;
     }
-
     public String getStartDate() {
         return startDate.format(formatter); // Format as MM/yy
     }
@@ -102,6 +112,53 @@ public class Internship {
 
     public void setEndDate(String end) throws DateTimeParseException {
         this.endDate = YearMonth.parse(end, formatter);
+    }
+
+    /**
+     * Adds a new deadline for this internship.
+     *
+     * @param description description of the deadline (e.g., "Application", "Interview").
+     * @param date        deadline date in MM/yy format.
+     */
+
+    public void addDeadline(String description, String date) throws DateTimeParseException{
+        deadlines.add(new Deadline(this.id, description, date));
+    }
+
+    /**
+     * Removes a deadline by its description.
+     *
+     * @param description description of the deadline to remove.
+     */
+
+    public void removeDeadline(String description){
+        deadlines.removeIf(deadline -> deadline.getDescription().equalsIgnoreCase(description));
+    }
+
+    /**
+     * Clears all deadlines when the internship is deleted.
+     */
+    public void clearDeadlines() {
+        deadlines.clear();
+    }
+
+    public List<Deadline> getDeadlines() {
+        return deadlines.isEmpty() ? Collections.emptyList() : deadlines;
+    }
+    public Deadline getEarliestDeadline() {
+        return getDeadlines().stream()
+                .min(Comparator.comparing(Deadline::getDate)).orElse(null);
+    }
+
+    public String getFormattedDeadlines() {
+        if (deadlines.isEmpty()) {
+            return "No deadlines set.";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (Deadline deadline : deadlines) {
+            builder.append(deadline).append("\n");
+        }
+        return builder.toString().trim();
     }
 
     public String getSkills() {
@@ -123,7 +180,8 @@ public class Internship {
     // toString method for displaying the details
     @Override
     public String toString() {
-        return "ID: " + id + "\tStatus: " + status + "\n" + "Role: " + role + "\n" + "Company: " + company + "\n" +
-                "Duration: " + getStartDate() + " to " + getEndDate() + "\n" + "Skills: " + skills;
+        return "ID: " + id + "\t\t\tStatus: " + status + "\n" + "Role: " + role + "\n" + "Company: " + company + "\n" +
+                "Duration: " + getStartDate() + " to " + getEndDate()  + "\n" + "Skills: " + skills + " \n" +
+                "Deadlines:\n" + getFormattedDeadlines() + "\n";
     }
 }
