@@ -1,42 +1,81 @@
 package seedu.duke.command;
 
 import seedu.duke.financial.FinancialEntry;
-import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Expense;
+
+import java.time.LocalDate;
 
 /**
  * The SeeAllExpensesCommand class is responsible for displaying all recorded expenses
  * from the provided FinancialList. It extends the Command class and overrides the 
  * execute method to perform this functionality.
  */
-public class SeeAllExpensesCommand extends Command{
-
-    public SeeAllExpensesCommand() {}
+public class SeeAllExpensesCommand extends SeeAllEntriesCommand{
+    protected final String entriesListedMessage = "Here's a list of all recorded expenses:";
+    protected final String noEntriesMessage = "No expenses found.";
+    protected final String cashflowHeader = "Total expense: $ ";
 
     /**
-     * Executes the command to display all recorded expenses in the financial list.
-     * Iterates through the financial list and collects all entries that are instances of Expense.
-     * If no expenses are found, it prints a message indicating no recorded expenses.
-     * Otherwise, it prints a list of all recorded expenses.
+     * Constructor for SeeAllExpensesCommand.
      *
-     * @param list The financial list containing financial entries.
+     * @param start Start date of all entries to be listed, null if no start date to be specified.
+     * @param end End date of all entries to be listed, null if no end date to be specified.
      */
-    @Override
-    public void execute(FinancialList list) {
-        String expenseList = "";
-        int expenseCount = 0;
-        for (int i = 0; i < list.getEntryCount(); i++) {
-            FinancialEntry entry = list.getEntry(i);
-            if (entry instanceof Expense) {
-                expenseList += ((++expenseCount) + ". " + entry + System.lineSeparator());
-            }
-        }
-        if (expenseCount == 0) {
-            System.out.println("No recorded expenses found.");
-        } else {
-            System.out.println("Here's a list of all recorded expenses:");
-            System.out.print(expenseList);
-        }
+    public SeeAllExpensesCommand(LocalDate start, LocalDate end) {
+        super(start, end);
     }
 
+    /**
+     * Method to return message when no entries are to be listed as a String.
+     *
+     * @return Message when no entries are to be listed.
+     */
+    @Override
+    protected String getNoEntriesMessage() {
+        return this.noEntriesMessage;
+    }
+
+    /**
+     * Method to return header when there are entries to be listed as a String.
+     *
+     * @return Header when there are entries to be listed.
+     */
+    @Override
+    protected String getEntriesListedMessage() {
+        return this.entriesListedMessage;
+    }
+
+    /**
+     * Method to return header when displaying cashflow.
+     *
+     * @return Header for cashflow display.
+     */
+    @Override
+    protected String getCashflowHeader() {
+        return this.cashflowHeader;
+    }
+
+    /**
+     * Method to express total expense as a String for printing.
+     * Method name is kept as getCashflowString to allow for use in super.execute().
+     *
+     * @param cashflow Total expense to be printed.
+     * @return String of cashflow as a 2d.p. decimal number.
+     */
+    @Override
+    protected String getCashflowString(double cashflow) {
+        return String.format("%.2f", -cashflow);
+    }
+
+    /**
+     * Method to determine if an entry should be listed out based on its date and if it is an expense.
+     *
+     * @param entry Financial Entry to analyze.
+     * @return true if entry should be listed out, false otherwise.
+     */
+    @Override
+    protected boolean shouldBeIncluded(FinancialEntry entry) {
+        return entry instanceof Expense && (end == null || entry.getDate().isBefore(end))
+                && (start == null || entry.getDate().isAfter(start));
+    }
 }

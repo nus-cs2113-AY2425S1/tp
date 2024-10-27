@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialList;
 
 /**
@@ -13,14 +14,6 @@ public abstract class Command {
      *
      * @param list The financial list on which the command will operate.
      */
-    public abstract void execute(FinancialList list);
+    public abstract void execute(FinancialList list) throws FinanceBuddyException;
 
-    /**
-     * Determines if the command will terminate the application.
-     *
-     * @return false by default, as most commands do not terminate the application.
-     */
-    public boolean isExit() {
-        return false;
-    }
 }

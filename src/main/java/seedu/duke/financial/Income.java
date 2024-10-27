@@ -1,5 +1,10 @@
 package seedu.duke.financial;
 
+import seedu.duke.exception.FinanceBuddyException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an income transaction.
  * An income increases the available balance.
@@ -12,8 +17,8 @@ public class Income extends FinancialEntry {
      * @param amount The amount of the income.
      * @param description A description of the income.
      */
-    public Income(double amount, String description) {
-        super(amount, description, "Income");
+    public Income(double amount, String description, LocalDate date) throws FinanceBuddyException {
+        super(amount, description, date);
     }
 
     /**
@@ -23,6 +28,12 @@ public class Income extends FinancialEntry {
      */
     @Override
     public String toString() {
-        return "[Income] - " + description + " $ " + String.format("%.2f", amount);
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+        return String.format("[Income] - %s $ %.2f (on %s)", description, amount, date.format(pattern));
+    }
+
+    public String toStorageString() {
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+        return String.format("I | %.2f | %s | %s", amount, description, date.format(pattern));
     }
 }

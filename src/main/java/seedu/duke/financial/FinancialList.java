@@ -1,5 +1,7 @@
 package seedu.duke.financial;
 
+import seedu.duke.exception.FinanceBuddyException;
+
 import java.util.ArrayList;
 
 /**
@@ -49,12 +51,11 @@ public class FinancialList {
      * @param index The index of the entry to be retrieved.
      * @return The financial entry at the specified index.
      */
-    public FinancialEntry getEntry(int index) {
-        if (index >= 0 && index < entries.size()) {
+    public FinancialEntry getEntry(int index) throws FinanceBuddyException {
+        try {
             return entries.get(index);
-        } else {
-            System.out.println("OOPS!!! The entry does not exist.");
-            return null;
+        } catch (IndexOutOfBoundsException e) {
+            throw new FinanceBuddyException("Invalid entry. Please provide an index with a valid entry.");
         }
     }
 
@@ -67,13 +68,9 @@ public class FinancialList {
      * @param description The new description to be set for the entry.
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= entries.size()).
      */
-    public void editEntry(int index, double amount, String description) {
-        if (index >= 0 && index < entries.size()) {
-            FinancialEntry entry = entries.get(index);
-            entry.setAmount(amount);
-            entry.setDescription(description);
-        } else {
-            System.out.println("OOPS!!! The entry does not exist.");
-        }
+    public void editEntry(int index, double amount, String description) throws FinanceBuddyException {
+        FinancialEntry entry = entries.get(index);
+        entry.setAmount(amount);
+        entry.setDescription(description);
     }
 }
