@@ -16,6 +16,7 @@ import seedu.command.DeleteTransactionCommand;
 import seedu.command.ViewTotalCommand;
 import seedu.command.KeywordsSearchCommand;
 
+import seedu.datastorage.Storage;
 import seedu.transaction.TransactionList;
 
 import java.util.ArrayList;
@@ -48,6 +49,8 @@ public class Main {
     private static TransactionList transactions;
 
     private static boolean isRunning = true;
+
+
 
     public static void main(String[] args) {
         while (isRunning) {
@@ -84,8 +87,13 @@ public class Main {
         logger.log(Level.INFO, "Starting uNivUSaver...");
         ui = new UI();
         parser = new Parser();
+
         categories = new CategoryList();
+        categories.setCategories(Storage.loadCategories());
+        Storage.saveCategory(categories.getCategories()); //Save categories in case of initialization
+
         transactions = new TransactionList();
+        transactions.setTransactions(Storage.loadTransactions());
 
         setupCommands();
 

@@ -25,7 +25,7 @@ class DeleteCategoryCommandTest {
         List<Category> categories = categoryList.getCategories();
 
         // Assert
-        assertEquals(5, categories.size(), "The category list should be empty after deletion.");
+        assertEquals(0, categories.size(), "The category list should be empty after deletion.");
         assertEquals("Category deleted: Sports", result.get(0), "The result message should confirm " +
                 "the category was deleted.");
     }

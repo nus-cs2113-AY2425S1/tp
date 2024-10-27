@@ -2,6 +2,7 @@ package seedu.command;
 
 import seedu.category.Category;
 import seedu.category.CategoryList;
+import seedu.datastorage.Storage;
 
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class DeleteCategoryCommand extends Command {
         if(temp == null){
             return List.of("Category not found.");
         }
+
+        Storage.saveCategory(categoryList.getCategories());
         return List.of("Category deleted: " + categoryName);
     }
     @Override

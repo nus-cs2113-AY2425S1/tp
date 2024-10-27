@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class HistoryCommand extends Command{
     public static final String COMMAND_WORD = "history"; // The word associated with the command
     public static final String COMMAND_GUIDE = "history [f/ START_DATE] [t/ END_DATE]: "

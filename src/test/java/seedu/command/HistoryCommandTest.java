@@ -18,6 +18,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
+
 class HistoryCommandTest {
 
     private HistoryCommand historyCommand;
@@ -29,8 +30,9 @@ class HistoryCommandTest {
     private Transaction item5;
     private Transaction item6;
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         TransactionList transactionList = new TransactionList();
+
         historyCommand = new HistoryCommand(transactionList);
 
         inputTransactionList = new TransactionList();

@@ -1,23 +1,34 @@
 package seedu.transaction;
 
 import seedu.category.Category;
-import seedu.utils.DateTimeUtils;
 
+// Expense class extending Transaction
 public class Expense extends Transaction {
-    private final Category category;
+    private Category category;
 
-    public Expense(double amount, String description, String date, Category category) throws Exception {
-        super(amount, description, date);
+    // Default constructor required for Gson deserialization
+    public Expense() {
+        super();
+    }
+
+    // Constructor with category
+    public Expense(double amount, String description, String dateTimeString, Category category) {
+        super(amount, description, dateTimeString);
         this.category = category;
     }
 
-    public Expense(double amount, String description, String date) throws Exception {
-        super(amount, description, date);
+    // Constructor without category
+    public Expense(double amount, String description, String dateTimeString) {
+        super(amount, description, dateTimeString);
         this.category = new Category("");
     }
 
     public Category getCategory() {
         return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
@@ -29,6 +40,6 @@ public class Expense extends Transaction {
     public String toString() {
         String categoryString = (category != null) ? ", category=" + category.getName() : "";
         return "Expense [amount=" + amount + ", description=" + description + ", date="
-                + DateTimeUtils.getDateTimeString(date) + categoryString + "]";
+                + dateTimeString + categoryString + "]";
     }
 }

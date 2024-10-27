@@ -2,6 +2,7 @@ package seedu.command;
 
 import seedu.category.Category;
 import seedu.category.CategoryList;
+import seedu.datastorage.Storage;
 
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class AddCategoryCommand extends Command {
         if(temp == null){
             return List.of("Duplicated category.");
         }
+
+        Storage.saveCategory(categoryList.getCategories());
         return List.of("Category added: " + categoryName);
     }
     @Override

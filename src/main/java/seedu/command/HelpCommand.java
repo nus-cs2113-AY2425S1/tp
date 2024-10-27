@@ -1,6 +1,5 @@
 package seedu.command;
 
-import seedu.main.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,6 @@ public class HelpCommand extends Command{
     public List<String> execute() {
         List<String> messages = new ArrayList<>();
 
-        Parser parser = new Parser();
         for (Command command: commands) {
             messages.add(command.getCommandGuide());
         }

@@ -3,6 +3,7 @@ package seedu.transaction;
 import seedu.category.Category;
 import seedu.utils.DateTimeUtils;
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,21 +15,24 @@ import java.util.stream.Collectors;
 
 public class TransactionList {
     private static final Logger logger = Logger.getLogger("TransactionList");
-    private final List<Transaction> transactions;
+    private ArrayList<Transaction> transactions;
     private final Map<String, List<Transaction>> invertedIndex;
 
     public TransactionList() {
         transactions = new ArrayList<>();
         invertedIndex = new HashMap<>();
-        initializeDefaultTransactions();
     }
 
     public int size() {
         return transactions.size();
     }
 
-    private void initializeDefaultTransactions() {
-        // Optionally initialize with some default transactions if needed.
+    public void setTransactions(ArrayList<Transaction> transactions) {
+        this.transactions = transactions;
+        // Rebuild inverted index from loaded transactions
+        for (Transaction transaction : transactions) {
+            updateInvertedIndex(transaction, true);
+        }
     }
 
     public void addTransaction(Transaction transaction) {
@@ -36,12 +40,15 @@ public class TransactionList {
         updateInvertedIndex(transaction, true);
         // Sort transactions by date after adding
         // Sort transactions using the custom compareDateTime method
+        logger.log(Level.INFO,"Transaction added: " + transaction);
+
         transactions.sort((t1, t2) -> {
             LocalDateTime dateTime1 = t1.getDate();
             LocalDateTime dateTime2 = t2.getDate();
             return DateTimeUtils.compareDateTime(dateTime1, dateTime2) ? -1 : 1;
         });
-        logger.log(Level.INFO,"Transaction added: " + transaction);
+
+
     }
 
     public Transaction deleteTransaction(int index) {
@@ -58,7 +65,7 @@ public class TransactionList {
         }
     }
 
-    public List<Transaction> getTransactions() {
+    public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
 

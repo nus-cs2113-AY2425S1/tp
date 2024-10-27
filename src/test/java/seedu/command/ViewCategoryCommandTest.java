@@ -18,6 +18,7 @@ class ViewCategoryCommandTest {
     @BeforeEach
     public void setUp() {
         categories = new CategoryList();
+        categories.initializeDefaultCategories();
         viewCategoryCommand = new ViewCategoryCommand(categories);
     }
 
@@ -37,6 +38,7 @@ class ViewCategoryCommandTest {
 
         // Verify the result
         assertEquals(temp, commandCategoryList);
+        temp.deleteCategory("Category test");
     }
 
     @Test

@@ -1,21 +1,28 @@
 package seedu.category;
 
+import seedu.datastorage.Storage;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CategoryList {
-    private static Logger logger = Logger.getLogger("CategoryList");
-    private List<Category> categories;
+    private static final Logger logger = Logger.getLogger("CategoryList");
+    private ArrayList<Category> categories;
 
     public CategoryList() {
         categories = new ArrayList<>();
-        initializeDefaultCategories();
+    }
+
+    public void setCategories(ArrayList<Category> categories) {
+        this.categories = categories;
+        if (categories.isEmpty()) {
+            initializeDefaultCategories();
+        }
     }
 
     // Initialize
-    private void initializeDefaultCategories() {
+    public void initializeDefaultCategories() {
         categories.add(new Category("Food"));
         categories.add(new Category("Entertainment"));
         categories.add(new Category("Transport"));
@@ -28,6 +35,7 @@ public class CategoryList {
         for (Category category : this.categories) {
             if (category.getName().equalsIgnoreCase(newCategory.getName())) {
                 logger.log(Level.INFO, "Category '" + newCategory.getName() + "' already exists!");
+                Storage.saveCategory(categories);
                 return null;
             }
         }
@@ -56,7 +64,7 @@ public class CategoryList {
 
 
     // Get category list
-    public List<Category> getCategories() {
+    public ArrayList<Category> getCategories() {
         return categories;
     }
 
