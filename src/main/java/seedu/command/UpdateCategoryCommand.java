@@ -19,7 +19,7 @@ public class UpdateCategoryCommand extends Command {
     public List<String> execute() {
         boolean isUpdated = transactionEditor.updateCategory(transactionIndex, newCategory);
         if (isUpdated) {
-            return List.of("Category updated successfully for transaction at index " + transactionIndex);
+            return List.of("Category updated successfully for transaction at index " +  transactionIndex);
         } else {
             return List.of("Failed to update category. Please check the transaction index.");
         }
