@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 public class ListPatientCommand extends HospitalCommand {
     public static final String COMMAND_WORD = "list";
-    public static final String MESSAGE_LIST_SUCCESS = "Here are the patients in your list!";
+    public static final String MESSAGE_LIST_SUCCESS = "End of your patients list!";
     public static final String MESSAGE_EMPTY_LIST = "The patient list is currently empty!";
 
     private static final Logger logger = Logger.getLogger(ListPatientCommand.class.getName());
@@ -23,7 +23,6 @@ public class ListPatientCommand extends HospitalCommand {
 
         if (hospital.getSize() == 0) {
             logger.log(Level.WARNING, "Attempted to list patients, but the list is empty.");
-            System.out.println(MESSAGE_EMPTY_LIST);
             return new CommandResult(MESSAGE_EMPTY_LIST);
         }
 

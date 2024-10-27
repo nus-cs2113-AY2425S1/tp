@@ -1,5 +1,6 @@
 package seedu.duke.common;
 
+import seedu.duke.MediTask;
 import seedu.duke.ui.Colors;
 
 public class Messages {
@@ -19,7 +20,7 @@ public class Messages {
             (\\)`-.__.__.(I) _(/)
               (I)  (/)(I)(\\)
                  (I)        Task management for medical professionals
-                        """;;
+                        """ + MediTask.VERSION + "\n";
 
     // Messages
     public static final String MESSAGE_PROMPT = Colors.ANSI_GREEN + "> " + Colors.ANSI_RESET;

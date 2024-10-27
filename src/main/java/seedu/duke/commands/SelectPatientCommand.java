@@ -1,12 +1,12 @@
 package seedu.duke.commands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.hospital.Patient;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SelectPatientCommand extends HospitalCommand {
     public static final String COMMAND_WORD = "select";
@@ -40,11 +40,11 @@ public class SelectPatientCommand extends HospitalCommand {
             String resultMessage = String.format(MESSAGE_SUCCESS, p.getName() + p.getFormattedTag());
             state.setState(StateType.TASK_STATE);
             logger.log(Level.INFO, "System is now in TASK_STATE for patient: {0}", patientName);
-            System.out.println(resultMessage);
+            // System.out.println(resultMessage);
             return new CommandResult(resultMessage);
         } catch (Hospital.PatientNotFoundException e) {
             logger.log(Level.SEVERE, "Attempted to select a patient at an invalid index: {0}", index);
-            System.out.println(MESSAGE_PATIENT_NOT_FOUND);
+            // System.out.println(MESSAGE_PATIENT_NOT_FOUND);
             return new CommandResult(MESSAGE_PATIENT_NOT_FOUND);
         }
     }

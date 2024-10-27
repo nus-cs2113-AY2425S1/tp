@@ -1,5 +1,7 @@
 package seedu.duke.data.hospital;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import seedu.duke.data.task.TaskList;
 
 public class Patient {
@@ -44,6 +46,7 @@ public class Patient {
         this.tag = tag;
     }
 
+    @JsonIgnore
     public String getFormattedTag() {
         return (tag != null && !tag.isEmpty()) ? " [" + tag + "]" : "";
     }

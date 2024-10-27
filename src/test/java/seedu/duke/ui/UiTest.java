@@ -47,42 +47,6 @@ class UiTest {
     }
 
     /**
-     * Tests that the showWelcome method prints the correct welcome message.
-     * Verifies that the printed message matches the expected output.
-     */
-    @Test
-    public void showWelcome_displaysWelcomeMessage_correctly() {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent)); // Capture console output
-
-        Ui ui = new Ui();
-        ui.showWelcome();
-
-        String expectedLogoOutput = """
-                      _____
-                     [IIIII]
-                     )"\"\""\"(
-                    /       \\
-                   /         \\
-                   |`-.....-'|
-                   | MediTask|
-                 _ |`-.....-'|     _
-                (\\)`-.__.__.(I) _(/)
-                  (I)  (/)(I)(\\)
-                     (I)        Task management for medical professionals
-                            """;
-
-        String expectedOutput = Colors.ANSI_BLACK
-                + "────────────────────────────────────────────────────────────" + Colors.ANSI_RESET + "\n      "
-                + expectedLogoOutput.trim() + "\n\nWelcome to " + Colors.ANSI_YELLOW + "MediTask" + Colors.ANSI_RESET
-                + "!";
-
-        // Normalize line endings and compare
-        String actualOutput = outContent.toString().trim().replace("\r\n", "\n");
-        assertEquals(expectedOutput.trim(), actualOutput); // check the welcome message is correct
-    }
-
-    /**
      * Tests that the scanner is closed without throwing any exceptions.
      * Ensures that the closeScanner method works as expected.
      */

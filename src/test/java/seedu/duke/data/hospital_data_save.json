@@ -3,13 +3,15 @@
     "name" : "Alice",
     "taskList" : {
       "tasks" : [ ],
-      "completionRate" : "100.00%"
-    }
+      "completionRate" : 1.0
+    },
+    "tag" : null
   }, {
     "name" : "Bob",
     "taskList" : {
       "tasks" : [ ],
-      "completionRate" : "100.00%"
-    }
+      "completionRate" : 1.0
+    },
+    "tag" : null
   } ]
 }
