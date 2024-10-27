@@ -90,6 +90,9 @@ public class ExpenseList {
      */
     public void editExpense(int index, Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
+        if (!DateUtils.isInDateFormat(dateAdded)){
+            throw new WheresMyMoneyException("Invalid date format" + DateUtils.DATE_FORMAT);
+        }
         try {
             Logging.log(Level.INFO, "Attempting to edit expense.");
             Expense expense = getExpenseAtIndex(index);
@@ -97,7 +100,7 @@ public class ExpenseList {
             expense.setPrice(price);
             expense.setDescription(description);
             expense.setCategory(category);
-            expense.setDateAdded(dateAdded);
+            expense.setDateAdded(DateUtils.stringToDate(dateAdded));
             Logging.log(Level.INFO, "Successfully edited expense.");
         } catch (WheresMyMoneyException e) {
             Logging.log(Level.INFO, "Failure when editing expense.");
@@ -196,7 +199,7 @@ public class ExpenseList {
                     expense.getCategory(),
                     expense.getDescription(),
                     expense.getPrice().toString(),
-                    expense.getDateAdded()
+                    DateUtils.dateFormatToString(expense.getDateAdded())
             };
             writer.writeNext(row);
         }
