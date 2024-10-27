@@ -63,9 +63,21 @@ public class UiCommand extends Ui {
         setInvalidFields("");
     }
 
-    public void addUpdatedField(String updatedField, String updatedValue) {
+    public void addUpdatedField(String updatedField, String updatedValue, String type) {
         String newUpdatedFields = getUpdatedFields();
-        newUpdatedFields += updatedField + " updated: " + updatedValue + "\n";
+        newUpdatedFields += updatedField;
+        switch (type) {
+        case "update":
+            newUpdatedFields += " updated: ";
+            break;
+        case "remove":
+            newUpdatedFields += " removed: ";
+            break;
+        default:
+            assert false: "All valid types should be handled in individual switch cases.";
+            break;
+        }
+        newUpdatedFields += updatedValue + "\n";
         setUpdatedFields(newUpdatedFields);
     }
 

@@ -92,6 +92,23 @@ public class InternshipList {
                 internships.get(index).setEndDate(value);
                 break;
             default:
+                assert false: "All valid fields should we handled in individual cases";
+                break;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            ui.showInvalidIndex();
+            throw new InvalidIndex();
+        }
+    }
+
+    public void removeField(int index, String field, String value) throws InvalidIndex {
+        try {
+            switch (field) {
+            case "skills":
+                internships.get(index).setSkills(value);
+                break;
+            default:
+                assert false: "All valid fields should we handled in individual cases";
                 break;
             }
         } catch (IndexOutOfBoundsException e) {

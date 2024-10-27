@@ -1,13 +1,6 @@
 package seedu.duke;
 
-import seedu.commands.Command;
-import seedu.commands.AddCommand;
-import seedu.commands.DeleteCommand;
-import seedu.commands.HelpCommand;
-import seedu.commands.ListCommand;
-import seedu.commands.UpdateCommand;
-import seedu.commands.SortCommand;
-import seedu.commands.FilterCommand;
+import seedu.commands.*;
 import seedu.ui.Ui;
 
 import java.util.Map;
@@ -34,6 +27,7 @@ public class Parser {
         commands.put("filter", FilterCommand::new);
         commands.put("list", ListCommand::new);
         commands.put("help", HelpCommand::new);
+        commands.put("remove", RemoveCommand::new);
     }
 
     public Command parseCommand(String input) {
@@ -62,6 +56,8 @@ public class Parser {
                 return parseSortCommandData(inputData);
             } else if (command instanceof FilterCommand) {
                 return parseFilterCommandData(inputData);
+            } else if (command instanceof RemoveCommand) {
+                return parseUpdateCommandData(inputData);
             } else {
                 throw new IllegalArgumentException("Unknown command type");
             }
