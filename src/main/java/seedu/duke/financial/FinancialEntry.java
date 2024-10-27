@@ -54,6 +54,15 @@ public abstract class FinancialEntry {
     public void setDate(String newDate) {
         this.date = LocalDate.parse(newDate);
     }
+    
+        /**
+     * Updates the date of the transaction.
+     *
+     * @param newDate The new date.
+     */
+    public void setDate(LocalDate newDate) {
+        this.date = newDate;
+    }
 
     /**
      * Returns the amount of the transaction.
@@ -86,15 +95,6 @@ public abstract class FinancialEntry {
         return date;
     }
 
-    /**
-     * Updates the date of the transaction.
-     *
-     * @param newDate The new date.
-     */
-    public void setDate(LocalDate newDate) {
-        this.date = newDate;
-    }
-  
     /**
      * Returns a string representation of the financial entry.
      * Subclasses (Income, Expense) must implement this.
