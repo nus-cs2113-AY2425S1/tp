@@ -137,7 +137,7 @@ public class Parser {
             logger.log(WARNING,"Invalid command format");
             throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         } catch (DateTimeParseException exception) {
-            logger.log(WARNING,"test");
+            logger.log(WARNING,"Invalid date-time format");
             throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
         }
     }
