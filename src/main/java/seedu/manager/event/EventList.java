@@ -145,7 +145,7 @@ public class EventList  {
     }
 
     /**
-     *  Sort the event list by time in chronological order
+     *  Sort the event list by time in chronological order.
      */
     public void sortByTime() {
         eventList.sort(Comparator.comparing(Event::getEventTime));
