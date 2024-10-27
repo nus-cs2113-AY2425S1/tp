@@ -21,6 +21,7 @@ public class Parser {
     public static final String ARGUMENT_CATEGORY = "category";
     public static final String ARGUMENT_PRICE = "price";
     public static final String ARGUMENT_DESCRIPTION = "description";
+    public static final String ARGUMENT_DATE_ADDED = "dateAdded";
 
     /**
      * Gets command from words.
