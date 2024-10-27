@@ -20,18 +20,25 @@ import seedu.exchangecoursemapper.courses.Course;
 public class Storage {
     public static final String MYLIST_FILE_PATH = "./data/myList.json";
     private static final Logger logger = Logger.getLogger(Storage.class.getName());
+    private final String filePath;
+
 
     public Storage() {
+        this(MYLIST_FILE_PATH);
+    }
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
         initializeMyList();
     }
 
     private void initializeMyList() {
-        Path path = Paths.get(MYLIST_FILE_PATH);
+        Path path = Paths.get(filePath);
         try {
             if (!Files.exists(path)) {
                 Files.createDirectories(path.getParent());
                 Files.createFile(path);
-                logger.log(Level.INFO, "Initialized myList.json at {0}", MYLIST_FILE_PATH);
+                logger.log(Level.INFO, "Initialized myList.json at {0}", filePath);
             }
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Failed to initialize myList.json", e);
@@ -41,7 +48,7 @@ public class Storage {
     public void addCourse(Course course) {
         assert course != null : "Course cannot be null";
         String courseEntry = formatCourseEntry(course);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(MYLIST_FILE_PATH, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(courseEntry);
             writer.newLine();
             logger.log(Level.INFO, "Successfully added course to myList.json: {0}", courseEntry);
@@ -76,9 +83,9 @@ public class Storage {
         return new Course(parts[2], parts[0], parts[1]);
     }
 
-    private List<String> loadAllCourses() {
+    public List<String> loadAllCourses() {
         List<String> courses = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(MYLIST_FILE_PATH))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 courses.add(line);
@@ -92,7 +99,7 @@ public class Storage {
 
     private void saveAllCourses(List<String> courses) {
         assert courses != null : "Course list to save should not be null";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(MYLIST_FILE_PATH))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (String course : courses) {
                 writer.write(course);
                 writer.newLine();
@@ -112,4 +119,3 @@ public class Storage {
         return formattedEntry;
     }
 }
-
