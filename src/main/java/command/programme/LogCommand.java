@@ -1,6 +1,6 @@
 package command.programme;
 import command.CommandResult;
-import dailyrecord.DailyRecord;
+import daily.record.DailyRecord;
 import programme.ProgrammeList;
 import programme.Day;
 import history.History;
