@@ -58,7 +58,7 @@ public class Parser {
         String command = inputDetails[COMMAND_WORD_INDEX];
 
         if (input.equals(LISTINGSCHOOLS)) {
-             new ListSchoolCommand().execute(input);
+            new ListSchoolCommand().execute(input);
         } else if (command.equals(FILTER_COURSES)) {
             new FilterCoursesCommand().execute(input);
         } else if (command.equals(COMMANDS)) {
