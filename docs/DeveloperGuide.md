@@ -117,11 +117,16 @@ exchange opportunities.
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+* CEG students keen to go for SEP and need a clear and organised UI to see course mappings
+* CEG students who want to plan their schools and courses to take 
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+* CEG students can use ExchangeCourseMapper to expedite their for course mapping process by listing universities 
+  and specific courses with their subject codes
+* CEG students can easily filter by either NUS-coded modules or partner universities (PU) to quickly identify relevant course options.
+* CEG students can easily load and save the saved courses in a data file for safekeeping
+* The CLI interface provides an efficient experience for users focused on planning their SEP with precision.
 
 ## User Stories
 
