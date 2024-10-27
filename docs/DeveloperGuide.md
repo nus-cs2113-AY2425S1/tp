@@ -111,6 +111,36 @@ exchange opportunities.
 
 #### Sequence Diagram on PlantUML:
 ![Filter Courses Sequence Diagram](../uml-images/ObtainContactsCommand.png)
+
+### 4. List University Courses Command
+
+#### Overview
+
+This command is responsible for listing out all the mappable partner university’s (PU) courses and NUS courses. 
+This allows users to plan their course mapping as it lists out all the possible courses they can map in a specified
+partner university.
+
+#### How the feature is implemented:
+* The `ListUniCoursesCommand` class extends the `Command` class where it overrides the execute method for custom 
+behaviour.
+* The command first reads a JSON file to obtain the JsonObject containing the names of all the partner universities.
+* The getPuName method then parses and extracts the PU name from the input (with the format of `set [PU_NAME]`.
+* Next, the extracted PU name is passed into the `getUniCourses()` method which will search for the specified PU in the
+JsonObject with `findUniversityName()`.
+* If the university is not found, an exception `UnknownUniversityException` will be thrown.
+* If the PU is found, the `listCourses()` will be called. Then `getUniversityObject()` and `getCourseArray()` methods
+will be called to get the JsonObject containing the PU and the JsonArray containing the list of courses it offers.
+* The two object will be passed into `iterateCourses()` method to iterate through the JsonArray `courseArray` which
+contains the list of courses.
+* It then prints out the course details such as PU course code and NUS course code through the `printCourseDetails()`
+method.
+* Assertions and logging are used for error handling.
+
+#### Sequence on PlantUML:
+![ListUniCourseCommand sequence diagram](../uml-images/ListUniCoursesCommand.png)
+
+
+
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 
@@ -134,6 +164,7 @@ exchange opportunities.
 |---------|--------------|-----------------------------------------------------------------|--------------------------------------------------|
 | v1.0    | CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions     |
 | v1.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                |
+| v1.0    | CEG student  | key in the school I want to go for exchange                     | view the available course offered by the school  |
 | v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries          |
 | v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries |
 
