@@ -32,7 +32,7 @@ SpendSwift eliminates the complexity of traditional budgeting tools by offering 
 
 ## Non-Functional Requirements
 
-{## 1. Responsiveness
+## 1. Responsiveness
 - **Requirement**: The system should respond to user commands within 2 seconds.
 - **Rationale**: Ensures efficient interaction and enhances user satisfaction.
 
@@ -54,7 +54,7 @@ SpendSwift eliminates the complexity of traditional budgeting tools by offering 
 
 ## 6. Accessibility
 - **Requirement**: The chat interface should be simple and intuitive.
-- **Rationale**: Ensures that all users can effectively interact with the system without extensive training.}
+- **Rationale**: Ensures that all users can effectively interact with the system without extensive training.
 
 ## Glossary
 
