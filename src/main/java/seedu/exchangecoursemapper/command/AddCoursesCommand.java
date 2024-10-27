@@ -12,22 +12,27 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_NAME_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.COURSES_ARRAY_LABEL;
+import static seedu.exchangecoursemapper.constants.JsonKey.*;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
 
 
 public class AddCoursesCommand extends PersonalTrackerCommand {
 
+    public static final String RETRIEVE_COURSE_LIST = "Retrieve course list for partner university";
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
-
+    public static final String EMPTY_COURSE_INPUT = "NUS or Partner University course input cannot be null.";
+    public static final String NO_COURSES_AVAILABLE = "No courses available for the partner university: ";
 
     private static boolean isValidCourseMapping(String nusCourseInput, String puCourseInput,
                                                 JsonArray courses, String pu) {
+
+        if (nusCourseInput.isEmpty() || puCourseInput.isEmpty()) {
+            throw new IllegalArgumentException(EMPTY_COURSE_INPUT);
+        }
+        if (courses == null || courses.isEmpty()) {
+            throw new IllegalArgumentException(NO_COURSES_AVAILABLE + pu);
+        }
 
         for (int i = 0; i < courses.size(); i++) {
             logger.log(Level.INFO, Logs.FIND_COURSE_MAPPING);
@@ -41,11 +46,11 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         }
 
         System.out.println("Invalid course mapping!");
-        displayAvailableMappings(courses,pu);
+        displayAvailableMappings(courses, pu);
         return false;
     }
 
-    private static void displayAvailableMappings(JsonArray courses,String pu) {
+    private static void displayAvailableMappings(JsonArray courses, String pu) {
         System.out.println("The available mappings for " + pu + " are:");
         System.out.println(LINE_SEPARATOR);
 
@@ -56,8 +61,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
             String nusCourseName = course.getString(NUS_COURSE_NAME_KEY).toLowerCase();
             String puCourseName = course.getString(PU_COURSE_NAME_KEY).toLowerCase();
 
-            System.out.println(nusCourseCode + " " + nusCourseName + " | "
-                    + puCourseCode + " " + puCourseName + System.lineSeparator());
+            System.out.println(nusCourseCode + " " + nusCourseName + " | " + puCourseCode + " " + puCourseName + System.lineSeparator());
         }
         System.out.println(LINE_SEPARATOR);
     }
@@ -65,14 +69,11 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
     private static JsonArray getPUCourseList(String pu, JsonObject jsonObject) {
         JsonArray courses;
         logger.log(Level.INFO, Logs.FIND_PARTNER_UNIVERSITY);
-        String matchPu = jsonObject.keySet()
-                .stream()
-                .filter(key -> key.equalsIgnoreCase(pu))
-                .findFirst()
-                .orElse(null);
+        String matchPu = jsonObject.keySet().stream().filter(key -> key.equalsIgnoreCase(pu)).findFirst().orElse(null);
 
         logger.log(Level.INFO, Logs.UNIVERSITY_FOUND);
         if (matchPu != null) {
+            logger.log(Level.INFO, RETRIEVE_COURSE_LIST);
             courses = jsonObject.getJsonObject(matchPu).getJsonArray(COURSES_ARRAY_LABEL);
         } else {
             logger.log(Level.INFO, Logs.INVALID_UNIVERSITY_INPUT);
@@ -82,7 +83,8 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
             System.out.println(LINE_SEPARATOR);
             System.out.println(LIST_RELEVANT_PU);
             System.out.println(LINE_SEPARATOR);
-            return null;
+
+            throw new IllegalArgumentException(Logs.INVALID_UNIVERSITY_INPUT);
         }
         return courses;
     }
@@ -141,10 +143,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
     public String[] parseAddCommand(String input) {
 
-        input = input.replaceAll("(?i)/pu", "/pu").
-                replaceAll("(?i)/coursepu", "/coursepu")
-                .trim()
-                .replaceAll(" +", " ");
+        input = input.replaceAll("(?i)/pu", "/pu").replaceAll("(?i)/coursepu", "/coursepu").trim().replaceAll(" +", " ");
 
         if ((!input.contains("/pu") || !input.contains("/coursepu"))) {
             logger.log(Level.WARNING, Logs.MISSING_KEYWORDS);
@@ -170,8 +169,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         System.out.println("You have successfully added the course: " + addCourse.formatOutput());
     }
 
-    public boolean isValidInput(String nusCourseInput, String pu,
-                                String puCourseInput, JsonObject jsonObject) {
+    public boolean isValidInput(String nusCourseInput, String pu, String puCourseInput, JsonObject jsonObject) {
 
         assert nusCourseInput != null : "NUS course should not be empty";
         assert pu != null : "Partner university should not be empty";
@@ -183,10 +181,10 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
         if (courses == null) {
             logger.log(Level.WARNING, Logs.INVALID_UNIVERSITY_INPUT);
-            return false;
+            throw new IllegalArgumentException(Logs.INVALID_UNIVERSITY_INPUT);
         }
 
         logger.log(Level.INFO, Logs.CHECK_COURSE_MAPPING);
-        return isValidCourseMapping(nusCourseInput, puCourseInput, courses,pu);
+        return isValidCourseMapping(nusCourseInput, puCourseInput, courses, pu);
     }
 }
