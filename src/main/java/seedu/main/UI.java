@@ -2,6 +2,7 @@ package seedu.main;
 
 import java.util.List;
 import java.util.Scanner;
+import seedu.transaction.TransactionList;
 
 /**
  * The class {@code UI} is responsible for handling user interactions with {@code Niwa} chatbot.
@@ -23,6 +24,16 @@ public class UI {
             scanner = new Scanner(System.in);
         }
     }
+
+    public void printWelcomeMessage() {
+        printMessage("Welcome back! Remember to record your spending today so you can track your spending accurately.");
+        double todaySpending = TransactionList.getTodaySpending();
+        String reminder = "Reminder: Please check if your spending is within your budget!";
+        printMessage("Welcome back! Today's total spending: $" + todaySpending);
+        printMessage(reminder);
+    }
+
+
 
     /**
      * Gets the input entered by the user.
