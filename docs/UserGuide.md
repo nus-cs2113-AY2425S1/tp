@@ -67,64 +67,57 @@ Skills: Not Stated
 
 ## Update Command: `update`
 
-This feature allows you to update any field of an internship application. For example, when updating the status of an internship application, you can mark the status as ‘application pending’, ‘application completed’, ‘accepted’, ‘rejected’ etc.
+Updates any field of an Internship entry.
 
-The default status for any internship that is stored in the database is ‘application pending’.
+Valid Fields:<br>
+- `role`
+- `company`
+- `status`
+- `from`
+- `to`
+- `skills`
+
+Valid Statuses for `status` flag:<br>
+- Application Pending (Default Status)
+- Application Completed
+- Accepted
+- Rejected
 
 **Format:**
-`update {ID} {-field} {updated information}`
+`update {ID} -{field} {updated information}`
 
-**Example:**
+**Examples:**
 
 `update 02 -status application completed`
 
 ```
-ID: 02								 **Status**
-Role: Embedded Software Engineer Intern    		application completed
+ID: 02                                       Status
+Role: Embedded Software Engineer Intern      application completed
 Company: Continental
 Duration: 05/25 to 08/25
 Skills: Not Stated
 ```
 
-`Update 02 -status interview scheduled`
+`update 02 -company Venti`
 
 ```
-ID: 02								 Status
-Role: Embedded Software Engineer Intern    		interview scheduled
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: Not Stated
-```
-
-`Update 02 -company Venti`
-
-```
-ID: 02								 Status
-Role: Embedded Software Engineer Intern    		interview scheduled
+ID: 02                                       Status
+Role: Embedded Software Engineer Intern      application completed
 Company: Venti
 Duration: 05/25 to 08/25
 Skills: Not Stated
 ```
 
-`Update 02 -duration /from 04/25`
+`update 02 -from 04/25 -skills Python`
 
 ```
-ID: 02								 Status
-Role: Embedded Software Engineer Intern    		interview scheduled
+ID: 02                                       Status
+Role: Embedded Software Engineer Intern      application completed
 Company: Venti
 Duration: 04/25 to 08/25
-Skills: Not Stated
+Skills: Python
 ```
 
-`update 02 -skills Python SQL`
-
-```
-ID: 02								 Status
-Role: Embedded Software Engineer Intern    		interview scheduled
-Company: Venti
-Duration: 04/25 to 08/25
-Skills: Python, SQL
-```
 ## Sort Command
 `sort`
 
