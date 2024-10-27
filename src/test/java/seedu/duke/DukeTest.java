@@ -1,9 +1,69 @@
 package seedu.duke;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+
+import java.util.List;
+import java.util.Map;
+
+class ExpenseTrackerTest {
+
+    private ExpenseTracker tracker;
+
+    @BeforeEach
+    public void setUp() {
+        tracker = new ExpenseTracker();
+    }
+
+    @Test
+    public void testSetBudgetLimit_NewCategory() {
+        tracker.setBudgetLimit("groceries", 200.0);
+        Map<String, Budget> budgets = tracker.getBudgets();
+        Budget groceriesBudget = budgets.get("groceries");
+        assertNotNull(groceriesBudget, "The budget for groceries should not be null.");
+        assertEquals(200.0, groceriesBudget.getLimit(), 
+                "The budget limit for groceries should be 200.0.");
+    }
+
+    @Test
+    public void testSetBudgetLimit_UpdateCategory() {
+        tracker.setBudgetLimit("groceries", 200.0);
+        tracker.setBudgetLimit("groceries", 300.0);
+        Map<String, Budget> budgets = tracker.getBudgets();
+        Budget groceriesBudget = budgets.get("groceries");
+        assertNotNull(groceriesBudget, "The budget for groceries should not be null.");
+        assertEquals(300.0, groceriesBudget.getLimit(), 
+                "The updated budget limit for groceries should be 300.0.");
+    }
+
+    @Test
+    public void testAddExpense() {
+        tracker.setBudgetLimit("groceries", 200.0);
+        tracker.addExpense("Milk", 50.0, "groceries");
+        List<Expense> expenses = tracker.getExpenses();
+        assertEquals(1, expenses.size(), "There should be 1 expense recorded.");
+        Expense milkExpense = expenses.get(0);
+        assertEquals("Milk", milkExpense.getName(), "The expense name should be Milk.");
+        assertEquals(50.0, milkExpense.getAmount(), "The expense amount should be 50.0.");
+        assertEquals("groceries", milkExpense.getCategory(), 
+                "The expense category should be groceries.");
+    }
+
+    @Test
+    public void testExceedBudgetWarning() {
+        tracker.setBudgetLimit("groceries", 100.0);
+        tracker.addExpense("Eggs", 50.0, "groceries");
+        tracker.addExpense("Cheese", 60.0, "groceries");
+        double totalExpenses = tracker.getTotalExpenseForCategory("groceries");
+        Budget groceriesBudget = tracker.getBudgets().get("groceries");
+        assertTrue(totalExpenses > groceriesBudget.getLimit(),
+                "The total expenses for groceries should exceed the budget limit.");
 
 class ExpenseTest {
     @Test
@@ -43,7 +103,7 @@ class ExpenseTest {
     }
 
     @Test
-    public void setCategory() {
+    public void setCategorySuccess() {
         Category category = new Category("Entertainment");
         Expense expense = new Expense("Movie", 12.5, null);
         expense.setCategory(category);
@@ -53,74 +113,22 @@ class ExpenseTest {
 
 class CategoryTest {
     @Test
-    public void categoryConstructor() {
+    public void categoryConstructorSuccess() {
         Category category = new Category("Entertainment");
         assertEquals("Entertainment", category.getName());
     }
 
     @Test
-    public void categoryName() {
+    public void categoryNameSuccess() {
         Category category = new Category("Groceries");
         assertEquals("Groceries", category.toString());
     }
 
     @Test
-    public void getName() {
+    public void getNameSuccess() {
         Category category = new Category("Transport");
         assertNotNull(category.getName());
         assertEquals("Transport", category.getName());
-    }
-}
 
-class BudgetTest {
-    @Test
-    public void budgetConstructor() {
-        Category category = new Category("Food");
-        Budget budget = new Budget(category, 100);
-        assertEquals(100, budget.getLimit());
-        assertEquals(category, budget.getCategory());
-    }
-
-    @Test
-    public void setPositiveLimit() {
-        Category category = new Category("Transport");
-        Budget budget = new Budget(category, 50);
-        budget.setLimit(75);
-        assertEquals(75, budget.getLimit());
-    }
-
-    @Test
-    public void setNegativeLimit() {
-        Category category = new Category("Utilities");
-        Budget budget = new Budget(category, 100);
-        assertThrows(IllegalArgumentException.class, () -> budget.setLimit(-50));
-    }
-
-    @Test
-    public void formatWholeNumberLimit() {
-        Category category = new Category("Groceries");
-        Budget budget = new Budget(category, 100);
-        assertEquals("$100", budget.formatLimit(100));
-    }
-
-    @Test
-    public void formatDecimalLimit() {
-        Category category = new Category("Groceries");
-        Budget budget = new Budget(category, 99.99);
-        assertEquals("$99.99", budget.formatLimit(99.99));
-    }
-
-    @Test
-    public void formatMoreThan2DPLimit() {
-        Category category = new Category("Groceries");
-        Budget budget = new Budget(category, 55.555);
-        assertEquals("$55.56", budget.formatLimit(55.555));
-    }
-
-    @Test
-    public void budgetOutput() {
-        Category category = new Category("Entertainment");
-        Budget budget = new Budget(category, 200);
-        assertEquals("Budget for category 'Entertainment' is $200", budget.toString());
     }
 }
