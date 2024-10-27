@@ -4,6 +4,7 @@ import seedu.duke.commands.Command;
 import seedu.duke.commands.MarkTaskCommand;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
+import seedu.duke.parser.parserutils.Index;
 
 import static java.lang.Integer.parseInt;
 
@@ -11,8 +12,8 @@ public class MarkParser implements CommandParser{
     @Override
     public Command execute(String line, State state) {
         if(state.getState() == StateType.TASK_STATE) {
-            String[] parts = line.split(" ");
-            return new MarkTaskCommand(parseInt(parts[1]));
+            int id = parseInt(new Index().extract(line));
+            return new MarkTaskCommand(id);
         }
         return null;
     }

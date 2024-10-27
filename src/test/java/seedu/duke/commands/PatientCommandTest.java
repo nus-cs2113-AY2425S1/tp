@@ -109,7 +109,7 @@ class PatientCommandTest {
         listPatientCommand.setHospital(hospital);
         CommandResult result = listPatientCommand.execute();
 
-        String expectedOutput = "Here are the patients in your list!";
+        String expectedOutput = "End of your patients list!";
         assertEquals(expectedOutput, result.getFeedbackToUser());
     }
 

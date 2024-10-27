@@ -20,29 +20,37 @@ public class Parser {
         case "todo":
             try{
                 return new AddTodoParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Todo Command Error: Non-Numerical Error");
+            }
+            break;
+
+        case "deadline":
+            try{
+                return new AddDeadlineParser().execute(line, state);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("The input cannot be empty");
+                LOGGER.log(Level.WARNING, "Deadline Command Error: Non-Numerical Error");
 
             }
             break;
 
-        case "Deadline":
+        case "repeat":
             try{
-                return new AddDeadlineParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
-                LOGGER.log(Level.WARNING, "Deadline Command Error: Non-Numerical Error");
-
+                return new AddRepeatParser().execute(line, state);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("The input cannot be empty");
+                LOGGER.log(Level.WARNING, "Repeat Command Error: Non-Numerical Error");
             }
             break;
 
         case "add":
             try{
                 return new AddParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
-                LOGGER.log(Level.WARNING, "Add Command Error: Non-Numerical Error");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("The input cannot be empty");
+                LOGGER.log(Level.WARNING, "Add Command Error: Empty field");
             }
             break;
 
@@ -58,8 +66,8 @@ public class Parser {
         case "delete":
             try{
                 return new DeleteParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Delete Command Error: Non-Numerical Error");
             }
             break;
@@ -67,8 +75,8 @@ public class Parser {
         case "select":
             try{
                 return new SelectParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Select Command Error: Non-Numerical Error");
             }
             break;
@@ -76,8 +84,8 @@ public class Parser {
         case "mark":
             try{
                 return new MarkParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Mark Command Error: Non-Numerical Error");
             }
             break;
@@ -85,8 +93,8 @@ public class Parser {
         case "unmark":
             try{
                 return new UnmarkParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Unmark Command Error: Non-Numerical Error");
             }
             break;
@@ -103,8 +111,8 @@ public class Parser {
         case "find":
             try{
                 return new FindParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Find Command Error: Non-Numerical Error");
             }
             break;
@@ -118,18 +126,8 @@ public class Parser {
             }
             break;
 
-        case "edit":
-            try {
-                return new EditParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
-                LOGGER.log(Level.WARNING, "Edit Command Error: Non-Numerical Error");
-            }
-            break;
-
         default:
-            // System.out.println("Unknown command");
-            LOGGER.log(Level.WARNING, "Unknown Command Error");
+            LOGGER.log(Level.WARNING, "The user did not enter a valid command");
         }
         return null;
     }
