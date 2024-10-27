@@ -1,0 +1,27 @@
+@startuml
+abstract class FinancialEntry {
+    - double amount
+    - LocalDate date
+    - String description
+    + getAmount() : double
+    + getDescription() : String
+    + getDate() : LocalDate
+    + setAmount(double newAmount)
+    + setDescription(String newDescription)
+    + setDate(LocalDate newDate)
+}
+
+class Income {
+    + toString() : String
+    + toStorageString() : String
+}
+
+class Expense {
+    + toString() : String
+    + toStorageString() : String
+}
+
+FinancialEntry <|-- Income
+FinancialEntry <|-- Expense
+
+@enduml
