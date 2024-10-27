@@ -4,7 +4,6 @@ hide footbox
 actor User
 participant ":ObtainContactsCommand" as ObtainContactsCommand
 participant ":Command" as Command
-participant "JsonObject" as JsonObject
 
 User -> ObtainContactsCommand: execute(userInput: String)
 activate ObtainContactsCommand
@@ -17,6 +16,7 @@ opt inputStream is null
 end
 
 Command --> ObtainContactsCommand: JsonObject jsonObject
+deactivate Command
 
 ObtainContactsCommand -> ObtainContactsCommand: getSchoolName(userInput: String)
 activate ObtainContactsCommand
