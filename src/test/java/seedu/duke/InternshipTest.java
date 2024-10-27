@@ -2,6 +2,7 @@ package seedu.duke;
 
 import org.junit.jupiter.api.Test;
 import seedu.exceptions.InvalidStatus;
+import seedu.exceptions.MissingValue;
 
 import java.time.DateTimeException;
 
@@ -57,7 +58,7 @@ class InternshipTest {
 
     //@@author Ridiculouswifi
     @Test
-    void setSkill_oneValidSkill_expectUpdated() {
+    void setSkills_oneValidSkill_expectUpdated() {
         assertEquals("", internship.getSkills());
 
         internship.setSkills("Java");
@@ -67,7 +68,7 @@ class InternshipTest {
 
     //@@author Ridiculouswifi
     @Test
-    void setSkill_twoValidSkill_expectUpdated() {
+    void setSkills_twoValidSkill_expectUpdated() {
         internship.setSkills("Java,   Python");
 
         assertEquals("Java, Python", internship.getSkills());
@@ -75,9 +76,35 @@ class InternshipTest {
 
     //@@author Ridiculouswifi
     @Test
-    void setSkill_emptyInput_expectNoUpdate() {
+    void setSkills_emptyInput_expectNoUpdate() {
         internship.setSkills("     ");
 
         assertEquals("", internship.getSkills());
+    }
+
+    //@@author Ridiculouswifi
+    @Test
+    void removeSkill_validSkill_expectUpdated() throws MissingValue {
+        internship.setSkills("Java, Python");
+        internship.removeSkill("Java");
+
+        assertEquals("Python", internship.getSkills());
+    }
+
+    //@@author Ridiculouswifi
+    @Test
+    void removeSkill_skillWithWhiteSpace_expectUpdated() throws MissingValue {
+        internship.setSkills("Java, Python");
+        internship.removeSkill("     Python     ");
+
+        assertEquals("Java", internship.getSkills());
+    }
+
+    //@@author Ridiculouswifi
+    @Test
+    void removeSkill_invalidSkill_expectException() {
+        internship.setSkills("Java, Python");
+
+        assertThrows(MissingValue.class, () -> internship.removeSkill("C++"));
     }
 }

@@ -145,7 +145,7 @@ public class Internship {
      * @throws MissingValue     skill is not found within <code>skills</code> field.
      */
     public void removeSkill(String skill) throws MissingValue {
-        if (!this.skills.remove(skill)) {
+        if (!this.skills.remove(skill.trim())) {
             throw new MissingValue();
         }
     }
