@@ -1,9 +1,11 @@
 package seedu.command;
 
 import seedu.category.Category;
+import seedu.datastorage.Storage;
 import seedu.transaction.Expense;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
+import seedu.utils.DateTimeUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,6 +49,12 @@ public class AddExpenseCommand extends AddTransactionCommand {
         if (dateString == null || dateString.isEmpty()) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             dateString = LocalDateTime.now().format(formatter);
+        } else {
+            try {
+                DateTimeUtils.parseDateTime(dateString);
+            } catch (Exception e) {
+                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
+            }
         }
 
         // Handle category
@@ -71,7 +79,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
             }
         }
         transactions.addTransaction(transaction);
-
+        Storage.saveTransaction(transactions.getTransactions());
         return List.of("Expense added successfully!");
     }
 

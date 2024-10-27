@@ -1,7 +1,6 @@
 package seedu.transaction;
 
 import seedu.category.Category;
-import seedu.datastorage.Storage;
 import seedu.utils.DateTimeUtils;
 
 
@@ -16,24 +15,24 @@ import java.util.stream.Collectors;
 
 public class TransactionList {
     private static final Logger logger = Logger.getLogger("TransactionList");
-    private final ArrayList<Transaction> transactions;
+    private ArrayList<Transaction> transactions;
     private final Map<String, List<Transaction>> invertedIndex;
 
     public TransactionList() {
-        transactions = Storage.loadTransactions();
+        transactions = new ArrayList<>();
         invertedIndex = new HashMap<>();
-        // Rebuild inverted index from loaded transactions
-        for (Transaction transaction : transactions) {
-            updateInvertedIndex(transaction, true);
-        }
     }
 
     public int size() {
         return transactions.size();
     }
 
-    private void initializeDefaultTransactions() {
-        // Optionally initialize with some default transactions if needed.
+    public void setTransactions(ArrayList<Transaction> transactions) {
+        this.transactions = transactions;
+        // Rebuild inverted index from loaded transactions
+        for (Transaction transaction : transactions) {
+            updateInvertedIndex(transaction, true);
+        }
     }
 
     public void addTransaction(Transaction transaction) {
@@ -42,7 +41,7 @@ public class TransactionList {
         // Sort transactions by date after adding
         // Sort transactions using the custom compareDateTime method
         logger.log(Level.INFO,"Transaction added: " + transaction);
-        Storage.saveTransaction(transactions);
+
         transactions.sort((t1, t2) -> {
             LocalDateTime dateTime1 = t1.getDate();
             LocalDateTime dateTime2 = t2.getDate();
@@ -59,16 +58,14 @@ public class TransactionList {
             Transaction removed = transactions.remove(index);
 
             logger.log(Level.INFO,"Transaction removed: " + removed);
-            Storage.saveTransaction(transactions);
             return removed;
         } else {
             logger.log(Level.INFO, "Invalid transaction index!");
-            Storage.saveTransaction(transactions);
             return null;
         }
     }
 
-    public List<Transaction> getTransactions() {
+    public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
 

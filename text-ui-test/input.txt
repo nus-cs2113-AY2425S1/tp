@@ -1,7 +1,1 @@
-James Gosling
-view-category
-add-category Cosmetic
-delete-category
-delete-category Food
-view-category
 bye

@@ -18,7 +18,7 @@ class ViewCategoryCommandTest {
     @BeforeEach
     public void setUp() {
         categories = new CategoryList();
-        categories.deleteCategory("Category test");
+        categories.initializeDefaultCategories();
         viewCategoryCommand = new ViewCategoryCommand(categories);
     }
 

@@ -1,5 +1,6 @@
 package seedu.command;
 
+import seedu.datastorage.Storage;
 import seedu.transaction.TransactionList;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class DeleteTransactionCommand extends Command {
         }
 
         transactions.deleteTransaction(index-1);
+        Storage.saveTransaction(transactions.getTransactions());
         return List.of("Transaction deleted successfully!");
     }
 
