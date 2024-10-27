@@ -71,6 +71,40 @@ Example of usage:
 `add n/Grilled Cheese Sandwhich i/bread i/cheese slice i/butter s1/heat pan with butter s2/grill bread on pan,
 and add cheese on top s3/remove from grill after 3 minutes`
 
+Expected Outcome:
+````
+__________________________________________________________________________________
+Okie dokie, one more recipe for me:
+Recipe: Ramen Eggs
+Ingredients:
+- eggs
+- soya sauce
+- water
+Steps:
+1. boil eggs for 6.5 min
+2. cool eggs in ice bath
+Cuisine: Japanese
+Time taken: 4
+You currently have 1 recipes in your list.
+__________________________________________________________________________________
+````
+
+````
+__________________________________________________________________________________
+Okie dokie, one more recipe for me:
+Recipe: Grilled Cheese Sandwhich
+Ingredients: 
+  - bread
+  - cheese slice
+  - butter
+Steps: 
+  1. heat pan with butter
+  2. grill bread on pan, and add cheese on top
+  3. remove from grill after 3 minutes
+  You currently have 2 recipes in your list.
+__________________________________________________________________________________
+````
+
 ### Listing out Existing Recipes
 
 Format: `listR`
