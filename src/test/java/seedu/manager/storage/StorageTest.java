@@ -72,12 +72,12 @@ public class StorageTest {
 
         Event firstEvent = eventList.getList().get(0);
         assertEquals("Meeting", firstEvent.getEventName());
-        assertEquals("2024-10-25 10:00", firstEvent.getEventTime());
+        assertEquals("2024-10-25 10:00", firstEvent.getEventTimeString());
         assertEquals("Conference Room", firstEvent.getEventVenue());
 
         Event secondEvent = eventList.getList().get(1);
         assertEquals("Workshop", secondEvent.getEventName());
-        assertEquals("2024-10-26 14:00", secondEvent.getEventTime());
+        assertEquals("2024-10-26 14:00", secondEvent.getEventTimeString());
         assertEquals("Main Hall", secondEvent.getEventVenue());
     }
 
