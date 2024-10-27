@@ -25,12 +25,10 @@ public class Internship {
     private String company;
     private YearMonth startDate;
     private YearMonth endDate;
-
-    private List<Deadline> deadlines;
-
-    private ArrayList<String> skills;
-
     private String status;
+
+    private ArrayList<Deadline> deadlines;
+    private ArrayList<String> skills;
 
 
     /**
@@ -128,9 +126,8 @@ public class Internship {
      * @param description description of the deadline (e.g., "Application", "Interview").
      * @param date        deadline date in MM/yy format.
      */
-
     public void addDeadline(String description, String date) throws DateTimeParseException{
-        deadlines.add(new Deadline(this.id, description, date));
+        deadlines.add(new Deadline(getId(), description, date));
     }
 
     /**
@@ -138,7 +135,6 @@ public class Internship {
      *
      * @param description description of the deadline to remove.
      */
-
     public void removeDeadline(String description){
         deadlines.removeIf(deadline -> deadline.getDescription().equalsIgnoreCase(description));
     }
@@ -150,9 +146,11 @@ public class Internship {
         deadlines.clear();
     }
 
-    public List<Deadline> getDeadlines() {
-        return deadlines.isEmpty() ? Collections.emptyList() : deadlines;
+    public ArrayList<Deadline> getDeadlines() {
+        return this.deadlines;
     }
+
+    // Not sure how to use yet
     public Deadline getEarliestDeadline() {
         return getDeadlines().stream()
                 .min(Comparator.comparing(Deadline::getDate)).orElse(null);
@@ -164,7 +162,7 @@ public class Internship {
         }
         StringBuilder builder = new StringBuilder();
         for (Deadline deadline : deadlines) {
-            builder.append(deadline).append("\n");
+            builder.append(deadline.toString()).append("\n");
         }
         return builder.toString().trim();
     }
@@ -233,6 +231,5 @@ public class Internship {
         return "ID: " + id + "\tStatus: " + status + "\n" + "Role: " + role + "\n" + "Company: " + company + "\n" +
                 "Duration: " + getStartDate() + " to " + getEndDate() + "\n" + "Skills: " + skillsField + " \n" +
                 "Deadlines:\n" + getFormattedDeadlines() + "\n";
-
     }
 }
