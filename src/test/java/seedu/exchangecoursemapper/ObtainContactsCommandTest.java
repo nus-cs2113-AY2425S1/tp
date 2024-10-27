@@ -45,7 +45,7 @@ public class ObtainContactsCommandTest {
         String actualOutput = outputStreamCaptor.toString().trim();
         assertEquals(expectedOutput, actualOutput);
     }
-/*
+    /*
     @Test
     public void execute_validEmail_success() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
@@ -79,7 +79,7 @@ public class ObtainContactsCommandTest {
         String expectedOutput = "Phone number for Chulalongkorn University: +66 2 218 2000\n";
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
-*/
+    */
     @Test
     public void execute_invalidUniversity_displaysError() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
@@ -105,7 +105,7 @@ public class ObtainContactsCommandTest {
 
         assertEquals("Invalid input format", exception.getMessage());
     }
-/*
+    /*
     @Test
     public void execute_invalidContactType_displaysError() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));

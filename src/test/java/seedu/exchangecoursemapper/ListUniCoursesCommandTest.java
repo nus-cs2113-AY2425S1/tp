@@ -51,7 +51,7 @@ public class ListUniCoursesCommandTest {
 
         assertEquals("Please provide a University name.", exception.getMessage());
     }
-/*
+    /*
     @Test
     public void getUniCourses_withValidUni_success() throws IOException, UnknownUniversityException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
@@ -76,7 +76,7 @@ public class ListUniCoursesCommandTest {
         String actualOutput = outputStreamCaptor.toString();
         assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
     }
-*/
+    */
     @Test
     public void getUniCourses_withInvalidUni_throwsException() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
@@ -91,7 +91,7 @@ public class ListUniCoursesCommandTest {
 
         assertEquals("University not found: Invalid Uni", exception.getMessage());
     }
-/*
+    /*
     @Test
     public void execute_validInput_success() {
         String userInput = "set Chulalongkorn University";
