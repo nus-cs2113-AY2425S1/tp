@@ -8,7 +8,7 @@ import java.time.LocalDate;
 /**
  * Command to add an expense to the financial list.
  */
-abstract public class AddEntryCommand extends Command {
+public abstract class AddEntryCommand extends Command {
 
     protected double amount;
     protected String description;
