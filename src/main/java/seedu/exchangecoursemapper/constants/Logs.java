@@ -43,4 +43,9 @@ public class Logs {
     public static final String DISPLAY_PARTNER_UNIVERSITIES = "Display available partner universities";
     public static final String FIND_PARTNER_UNIVERSITY = "Find partner university in Json file";
     public static final String RETRIEVE_COURSE_LIST = "Retrieve course list for partner university";
+
+    // Delete Course
+    public static final String DELETE_COURSE_MAPPING = "Deleting course mapping from storage..";
+    public static final String RETURN_PARSED_DELETE_COMMAND = "Returning separated user input...";
+    public static final String GET_COURSE_TO_DELETE = "Obtaining information on the course to be deleted.";
 }
