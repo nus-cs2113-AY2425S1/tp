@@ -62,4 +62,12 @@ public class Exception extends Throwable {
         return "Invalid input format";
     }
 
+    public static String emptyCourse(){
+        return "NUS or Partner University course input cannot be empty.";
+    }
+
+    public static String noCourseAvailable(String pu) {
+        return "No courses available for the partner university: " + pu;
+    }
+
 }

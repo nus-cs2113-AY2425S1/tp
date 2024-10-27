@@ -5,87 +5,31 @@ import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.courses.Course;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.storage.Storage;
+import seedu.exchangecoursemapper.parser.CourseValidator;
 
-import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_NAME_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.COURSES_ARRAY_LABEL;
-import static seedu.exchangecoursemapper.constants.Logs.ADD_NEW_COURSE_MAPPING;
-import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
-import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
-import static seedu.exchangecoursemapper.constants.Logs.INVALID_UNIVERSITY_INPUT;
 
 public class AddCoursesCommand extends PersonalTrackerCommand {
 
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
+    private CourseValidator courseValidator;
 
-
-    private static boolean isValidCourseMapping(String nusCourseInput, String puCourseInput,
-                                                JsonArray courses, String pu) {
-        for (int i = 0; i < courses.size(); i++) {
-            JsonObject course = courses.getJsonObject(i);
-            String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
-            String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY).toLowerCase();
-
-            if (puCourseCode.equals(puCourseInput)
-                    && nusCourseCode.equals(nusCourseInput)) {
-                return true;
-            }
-        }
-
-        System.out.println("Invalid course mapping!");
-        displayAvailableMappings(courses,pu);
-        return false;
-    }
-
-    private static void displayAvailableMappings(JsonArray courses,String pu) {
-        System.out.println("The available mappings for " + pu + " are:");
-        System.out.println(LINE_SEPARATOR);
-
-        for (int i = 0; i < courses.size(); i++) {
-            JsonObject course = courses.getJsonObject(i);
-            String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
-            String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY).toLowerCase();
-            String nusCourseName = course.getString(NUS_COURSE_NAME_KEY).toLowerCase();
-            String puCourseName = course.getString(PU_COURSE_NAME_KEY).toLowerCase();
-
-            System.out.println(nusCourseCode + " " + nusCourseName + " | "
-                    + puCourseCode + " " + puCourseName + System.lineSeparator());
-        }
-        System.out.println(LINE_SEPARATOR);
-    }
-
-    private static JsonArray getPUCourseList(String pu, JsonObject jsonObject) {
-        JsonArray courses;
-        String matchPu = jsonObject.keySet()
-                .stream()
-                .filter(key -> key.equalsIgnoreCase(pu))
-                .findFirst()
-                .orElse(null);
-
-        if (matchPu != null) {
-            courses = jsonObject.getJsonObject(matchPu).getJsonArray(COURSES_ARRAY_LABEL);
-        } else {
-            System.out.println(INVALID_UNIVERSITY_INPUT);
-            System.out.println(LINE_SEPARATOR);
-            System.out.println(LIST_RELEVANT_PU);
-            System.out.println(LINE_SEPARATOR);
-            return null;
-        }
-        return courses;
+    public AddCoursesCommand() {
+        courseValidator = new CourseValidator();
     }
 
     @Override
     public void execute(String userInput, Storage storage) {
         try {
             JsonObject jsonObject = super.createJsonObject();
+            logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
+            assert jsonObject != null : Assertions.NULL_JSON_FILE;
+            assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+
             logger.log(Level.INFO, Logs.TRIM_STRING);
             String description = trimString(userInput);
             logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);
@@ -98,17 +42,19 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
             String puCourse = descriptionSubstrings[2].trim().toLowerCase();
 
             logger.log(Level.INFO, Logs.FORMAT);
-            boolean isValidInput = isValidInput(nusCourse, pu, puCourse, jsonObject);
+            boolean isValidInput = courseValidator.isValidInput(nusCourse, pu, puCourse, jsonObject);
 
             if (isValidInput) {
+                logger.log(Level.INFO, Logs.ADD_APPROVED_MAPPING);
                 Course courseToStore = new Course(puCourse, nusCourse, pu);
                 storage.addCourse(courseToStore);
                 printAddMessage(courseToStore);
             } else {
-                System.out.println(ADD_NEW_COURSE_MAPPING);
+                System.out.println(Logs.ADD_NEW_COURSE_MAPPING);
             }
 
         } catch (IllegalArgumentException | IOException e) {
+            logger.log(Level.WARNING, e.getMessage());
             System.out.println(e.getMessage());
         }
     }
@@ -130,8 +76,8 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
     public String[] parseAddCommand(String input) {
 
-        input = input.replaceAll("(?i)/pu", "/pu").
-                replaceAll("(?i)/coursepu", "/coursepu")
+        input = input.replaceAll("(?i)/pu", "/pu")
+                .replaceAll("(?i)/coursepu", "/coursepu")
                 .trim()
                 .replaceAll(" +", " ");
 
@@ -159,12 +105,4 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         System.out.println("You have successfully added the course: " + addCourse.formatOutput());
     }
 
-    public boolean isValidInput(String nusCourseInput, String pu,
-                                String puCourseInput, JsonObject jsonObject) {
-        JsonArray courses = getPUCourseList(pu, jsonObject);
-        if (courses == null) {
-            return false;
-        }
-        return isValidCourseMapping(nusCourseInput, puCourseInput, courses,pu);
-    }
 }
