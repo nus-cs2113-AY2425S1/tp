@@ -28,18 +28,18 @@ This product aims to streamline the tracking of internship applications for the 
 
 # Features
 
-## Add Command
-`add`
+## Add Command: `add`
 
-Adds internship to the list of internships currently being tracked by the user. The information added is automatically saved to a .txt file. Each internship you add is assigned a unique ID for editing purposes, which is generated based on the order in which these internships were created and stored.
+Adds a new internship entry to the list of internships currently being tracked by the user. 
+Each internship is assigned a unique ID, serving as the reference for functions that call specific Internship entries
+(e.g. `update`, `delete`).
 
 
-This function can be expanded upon to add different features to each internship.
 
-**Format:**
+**Format:** `add -role {Role name} -company {Company name} -from {date} -to {date}`
 
-`add -name {Role name} -company {Company name} // compulsory params`<br>
-`-from {date} -to {date}  // additional params`
+- `role` and `company` are compulsory flags.
+- `from` and `to` are optional and will be replaced with `01/01` when left empty.
 
 **Example Input 1:**
 `add -name Software Engineer Intern -company Google`
@@ -49,8 +49,8 @@ This function can be expanded upon to add different features to each internship.
 ID: 01
 Role: Software Engineer Intern
 Company: Google
-Duration: Not Stated
-Skills: Not Stated 
+Duration: 01/01 to 01/01
+Skills: Not Stated   
 ```
 
 **Example Input 2:**
@@ -65,8 +65,7 @@ Duration: 05/25 to 08/25
 Skills: Not Stated
 ```
 
-## Update Command
-`update`
+## Update Command: `update`
 
 This feature allows you to update any field of an internship application. For example, when updating the status of an internship application, you can mark the status as ‘application pending’, ‘application completed’, ‘accepted’, ‘rejected’ etc.
 
