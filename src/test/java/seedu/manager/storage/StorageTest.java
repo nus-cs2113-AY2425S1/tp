@@ -14,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class StorageTest {
@@ -81,8 +83,11 @@ public class StorageTest {
 
     @Test
     public void testSaveEvents() {
-        eventList.addEvent("Meeting", "2024-10-25 10:00", "Conference Room");
-        eventList.addEvent("Workshop", "2024-10-26 14:00", "Main Hall");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        eventList.addEvent("Meeting", LocalDateTime.parse("2024-10-25 10:00", formatter),
+                "Conference Room");
+        eventList.addEvent("Workshop", LocalDateTime.parse("2024-10-26 14:00", formatter),
+                "Main Hall");
 
         try {
             storage.saveEvents(eventList);
