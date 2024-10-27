@@ -20,7 +20,7 @@ public class CourseValidator {
 
     private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
 
-    private static boolean isValidCourseMapping(String nusCourseInput, String puCourseInput,
+    public boolean isValidCourseMapping(String nusCourseInput, String puCourseInput,
                                                 JsonArray courses, String pu) {
 
         if (nusCourseInput.isEmpty() || puCourseInput.isEmpty()) {
@@ -36,7 +36,7 @@ public class CourseValidator {
             String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
             String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY).toLowerCase();
 
-            if (puCourseCode.equals(puCourseInput) && nusCourseCode.equals(nusCourseInput)) {
+            if (puCourseCode.equals(puCourseInput.toLowerCase()) && nusCourseCode.equals(nusCourseInput.toLowerCase())) {
                 return true;
             }
         }
@@ -46,7 +46,7 @@ public class CourseValidator {
         return false;
     }
 
-    private static void displayAvailableMappings(JsonArray courses, String pu) {
+    private void displayAvailableMappings(JsonArray courses, String pu) {
         System.out.println("The available mappings for " + pu + " are:");
         System.out.println(LINE_SEPARATOR);
 
@@ -63,7 +63,7 @@ public class CourseValidator {
         System.out.println(LINE_SEPARATOR);
     }
 
-    private static JsonArray getPUCourseList(String pu, JsonObject jsonObject) {
+    public JsonArray getPUCourseList(String pu, JsonObject jsonObject) {
         JsonArray courses;
         logger.log(Level.INFO, Logs.FIND_PARTNER_UNIVERSITY);
         String matchPu = jsonObject.keySet().stream().filter(key -> key.equalsIgnoreCase(pu)).findFirst().orElse(null);
@@ -73,17 +73,20 @@ public class CourseValidator {
             logger.log(Level.INFO, Logs.RETRIEVE_COURSE_LIST);
             courses = jsonObject.getJsonObject(matchPu).getJsonArray(COURSES_ARRAY_LABEL);
         } else {
-            logger.log(Level.INFO, Logs.INVALID_UNIVERSITY_INPUT);
-            System.out.println(Logs.INVALID_UNIVERSITY_INPUT);
-
-            logger.log(Level.INFO, Logs.DISPLAY_PARTNER_UNIVERSITIES);
-            System.out.println(LINE_SEPARATOR);
-            System.out.println(LIST_RELEVANT_PU);
-            System.out.println(LINE_SEPARATOR);
-
+            displayPartnerUniversities();
             throw new IllegalArgumentException(Logs.INVALID_UNIVERSITY_INPUT);
         }
         return courses;
+    }
+
+    private void displayPartnerUniversities() {
+        logger.log(Level.INFO, Logs.INVALID_UNIVERSITY_INPUT);
+        System.out.println(Logs.INVALID_UNIVERSITY_INPUT);
+
+        logger.log(Level.INFO, Logs.DISPLAY_PARTNER_UNIVERSITIES);
+        System.out.println(LINE_SEPARATOR);
+        System.out.println(LIST_RELEVANT_PU);
+        System.out.println(LINE_SEPARATOR);
     }
 
     public boolean isValidInput(String nusCourseInput, String pu, String puCourseInput, JsonObject jsonObject) {
@@ -95,11 +98,6 @@ public class CourseValidator {
 
         logger.log(Level.INFO, Logs.CHECK_UNIVERSITY);
         JsonArray courses = getPUCourseList(pu, jsonObject);
-
-        if (courses == null) {
-            logger.log(Level.WARNING, Logs.INVALID_UNIVERSITY_INPUT);
-            throw new IllegalArgumentException(Logs.INVALID_UNIVERSITY_INPUT);
-        }
 
         logger.log(Level.INFO, Logs.CHECK_COURSE_MAPPING);
         return isValidCourseMapping(nusCourseInput, puCourseInput, courses, pu);
