@@ -36,3 +36,5 @@ public class ListPersonalBestsCommand extends Command {
         return new CommandResult(bestsMessage.toString());
     }
 }
+
+

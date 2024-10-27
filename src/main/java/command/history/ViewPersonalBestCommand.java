@@ -43,3 +43,4 @@ public class ViewPersonalBestCommand extends Command {
         return new CommandResult(bestsMessage.toString());
     }
 }
+

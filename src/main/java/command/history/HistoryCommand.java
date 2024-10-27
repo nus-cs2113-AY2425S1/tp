@@ -1,24 +1,27 @@
 package command.history;
+
 import command.Command;
 import command.CommandResult;
-import programme.ProgrammeList;
 import history.History;
+import programme.ProgrammeList;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-
+/**
+ * Represents a command to show the full history or perform history-related operations.
+ */
 public class HistoryCommand extends Command {
     public static final String COMMAND_WORD = "history";
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Override
-    public CommandResult execute(ProgrammeList pList, History history){
-        assert history != null : "History must not be null";
+    public CommandResult execute(ProgrammeList pList, History history) {
+        // Ensure history is available
+        if (history.getHistory().isEmpty()) {
+            return new CommandResult("No history available.");
+        }
 
-        String result = String.format("Your workout history: %s%n", history);
-        logger.log(Level.INFO, "HistoryCommand executed successfully.");
-        return new CommandResult(result);
+        // Display the entire history
+        return new CommandResult(history.toString());
     }
 }
+
+
 
