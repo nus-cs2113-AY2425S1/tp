@@ -196,7 +196,7 @@ public class Event {
      *
      * @return eventTime as a formated {@link String} object.
      */
-    public String formatEventTime() {
+    public String getEventTimeString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return formatter.format(eventTime);
     }
@@ -209,7 +209,7 @@ public class Event {
      */
     @Override
     public String toString(){
-        String eventTimeString = formatEventTime();
+        String eventTimeString = getEventTimeString();
         return String.format("Event name: %s / Event time: %s / Event venue: %s / Done: %c",
                 eventName, eventTimeString, eventVenue, markIfDone());
     }
