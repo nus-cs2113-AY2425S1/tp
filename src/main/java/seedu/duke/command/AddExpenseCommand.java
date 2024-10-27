@@ -39,7 +39,7 @@ public class AddExpenseCommand extends Command {
      * @param list The financial list where the expense will be added.
      */
     @Override
-    public void execute(FinancialList list) {
+    public void execute(FinancialList list) throws FinanceBuddyException {
         if (list == null) {
             logger.log(Level.SEVERE, "Financial list is null");
             throw new IllegalArgumentException("Financial list cannot be null");

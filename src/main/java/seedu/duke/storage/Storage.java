@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
@@ -111,7 +112,7 @@ public class Storage {
      * @throws NumberFormatException if the amount cannot be parsed as a double.
      * @throws DateTimeParseException if the date cannot be parsed as a LocalDate.
      */
-    public Expense parseExpense(String[] tokens) {
+    public Expense parseExpense(String[] tokens) throws FinanceBuddyException {
         try {
             double amount = Double.parseDouble(tokens[1]);
             String description = tokens[2];
@@ -140,7 +141,7 @@ public class Storage {
      * @throws NumberFormatException if tokens[1] cannot be parsed as a double.
      * @throws DateTimeParseException if tokens[3] cannot be parsed as a LocalDate.
      */
-    public Income parseIncome(String[] tokens) {
+    public Income parseIncome(String[] tokens) throws FinanceBuddyException {
         try{
             double amount = Double.parseDouble(tokens[1]);
             String description = tokens[2];
