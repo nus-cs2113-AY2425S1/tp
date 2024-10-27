@@ -3,7 +3,6 @@ package parser.command.factory;
 import command.Command;
 import command.ExitCommand;
 import command.InvalidCommand;
-import java.util.logging.Logger;
 
 /*
     CommandFactory is a factory class that creates different commands
