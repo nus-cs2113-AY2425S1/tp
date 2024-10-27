@@ -1,16 +1,19 @@
-package command;
+package command.history;
 
+import command.Command;
+import command.CommandResult;
 import programme.ProgrammeList;
 import history.History;
 import java.util.Map;
 import programme.Exercise;
 
-public class PersonalBestCommand extends Command {
-    public static final String COMMAND_WORD = "pb";
+public class ViewPersonalBestCommand extends Command {
+    // New command format for specific exercise personal best
+    public static final String COMMAND_WORD = "pb_exercise";
 
     private final String exerciseName;  // Store the exercise name (could be null if user wants all personal bests)
 
-    public PersonalBestCommand(String exerciseName) {
+    public ViewPersonalBestCommand(String exerciseName) {
         this.exerciseName = exerciseName;  // Initialize with the exercise name
     }
 
@@ -40,5 +43,3 @@ public class PersonalBestCommand extends Command {
         return new CommandResult(bestsMessage.toString());
     }
 }
-
-

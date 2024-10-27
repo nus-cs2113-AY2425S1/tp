@@ -1,9 +1,11 @@
-package command;
+package command.history;
+import command.Command;
+import command.CommandResult;
 import programme.ProgrammeList;
 import history.History;
 
 public class WeeklySummaryCommand extends Command {
-    public static final String COMMAND_WORD = "weeklysummary";
+    public static final String COMMAND_WORD = "wk";
 
     @Override
     public CommandResult execute(ProgrammeList pList, History history) {
