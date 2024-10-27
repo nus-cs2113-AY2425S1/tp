@@ -3,20 +3,15 @@ package seedu.duke.command;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.exception.FinanceBuddyException;
-import seedu.duke.parser.DateParser;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.time.LocalDate;
 
 /**
  * Command to add an expense to the financial list.
  */
-public class AddExpenseCommand extends Command {
+public class AddExpenseCommand extends AddEntryCommand {
     private static final Logger logger = Logger.getLogger(AddExpenseCommand.class.getName());
-    private double amount;
-    private String description;
-    private LocalDate date;
 
     /**
      * Constructs an AddExpenseCommand with the specified amount and description.
@@ -25,12 +20,9 @@ public class AddExpenseCommand extends Command {
      * @param description The description of the expense.
      */
     public AddExpenseCommand(double amount, String description, String date) throws FinanceBuddyException {
+        super(amount, description, date);
         assert amount > 0 : "Amount should be positive";
         assert description != null && !description.isEmpty() : "Description should not be null or empty";
-
-        this.amount = amount;
-        this.description = description;
-        this.date = DateParser.parse(date);
     }
 
     /**
