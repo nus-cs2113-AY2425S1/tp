@@ -105,7 +105,9 @@ public class Storage {
 
     private String formatCourseEntry(Course course) {
         assert course != null : "Course cannot be null";
-        String formattedEntry = course.getNusCourseCode() + " | " + course.getPartnerUniversity() + " | " + course.getPuCourseCode();
+        String formattedEntry = course.getNusCourseCode() + " | "
+                + course.getPartnerUniversity() + " | "
+                + course.getPuCourseCode();
         logger.log(Level.INFO, "Formatted course entry: {0}", formattedEntry);
         return formattedEntry;
     }
