@@ -20,8 +20,8 @@ public abstract class FinancialEntry {
      * @param date The date of the transaction (dd/mm/yy).
      */
     public FinancialEntry(double amount, String description, LocalDate date) throws FinanceBuddyException {
-        if (amount < 0) {
-            throw new FinanceBuddyException("Invalid amount. Amount must be a positive number.");
+        if (amount < 0.01) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
         }
         this.description = description;
         this.amount = amount;
@@ -61,8 +61,8 @@ public abstract class FinancialEntry {
      * @param newAmount The new amount.
      */
     public void setAmount(double newAmount) throws FinanceBuddyException {
-        if (amount < 0) {
-            throw new FinanceBuddyException("Invalid amount. Amount must be a positive number.");
+        if (amount < 0.01) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
         }
         this.amount = newAmount;
     }
