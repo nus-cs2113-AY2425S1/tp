@@ -31,21 +31,25 @@ public class Parser {
             Invalid command!
             Please enter your commands in the following format:
             add -e EVENT -t TIME -v VENUE
-            add -p PARTICIPANT -e EVENT""";
+            add -p PARTICIPANT -e EVENT
+            """;
     private static final String INVALID_REMOVE_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
             remove -e EVENT
-            remove -p PARTICIPANT -e EVENT""";
+            remove -p PARTICIPANT -e EVENT
+            """;
     private static final String INVALID_VIEW_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            view -e EVENT""";
+            view -e EVENT
+            """;
     private static final String INVALID_MARK_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
             mark -e EVENT -s STATUS
-            mark -p PARTICIPANT -e EVENT -s STATUS""";
+            mark -p PARTICIPANT -e EVENT -s STATUS
+            """;
     private static final String INVALID_EVENT_STATUS_MESSAGE = """
             Invalid event status!
             Please set the event status as either "done" or "undone"
