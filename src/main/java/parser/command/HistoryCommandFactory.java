@@ -17,7 +17,8 @@ public class HistoryCommandFactory {
         assert argumentString != null : "Argument string must not be null";
 
         // If argumentString is empty, set subCommandString to HistoryCommand.COMMAND_WORD
-        String[] inputArguments = splitArguments(argumentString.isEmpty() ? HistoryCommand.COMMAND_WORD : argumentString);
+        String defaultCommand = argumentString.isEmpty() ? HistoryCommand.COMMAND_WORD : argumentString;
+        String[] inputArguments = splitArguments(defaultCommand);
         String subCommandString = inputArguments[0];
         String arguments = inputArguments.length > 1 ? inputArguments[1] : "";
 
