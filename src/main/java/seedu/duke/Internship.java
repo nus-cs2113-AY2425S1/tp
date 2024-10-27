@@ -105,6 +105,11 @@ public class Internship {
         this.endDate = YearMonth.parse(end, formatter);
     }
 
+    //@@author Ridiculouswifi
+
+    /**
+     * Returns all skills stored in `skills` field as a combined String.
+     */
     public String getSkills() {
         String skillList = "";
         if (this.skills.isEmpty()) {
@@ -117,6 +122,12 @@ public class Internship {
         return skillList.trim().substring(INDEX_START);
     }
 
+    //@@author Ridiculouswifi
+    /**
+     * Adds the input to the skills field.
+     *
+     * @param skills    List of skills, individual skills are separated by commas.
+     */
     public void setSkills(String skills) {
         if (skills.isEmpty()) {
             return;
