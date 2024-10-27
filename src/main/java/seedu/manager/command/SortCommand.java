@@ -9,8 +9,8 @@ import seedu.manager.event.EventList;
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
-    private static final String SORT_BY_NAME_MESSAGE = "Successfully sort events by name!";
-    private static final String SORT_BY_TIME_MESSAGE = "Successfully sort events by time!";
+    private static final String SORT_BY_NAME_MESSAGE = "Events successfully sorted by name!";
+    private static final String SORT_BY_TIME_MESSAGE = "Events successfully sorted by time!";
 
     protected String keyword;
 
