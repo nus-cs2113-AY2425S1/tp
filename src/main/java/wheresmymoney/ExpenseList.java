@@ -128,6 +128,17 @@ public class ExpenseList {
         return expensesFromCategory;
     }
 
+    public ArrayList<Expense> listByFilter(String category, String from, String to) {
+        ArrayList<Expense> expensesByFilter = new ArrayList<>();
+        for (Expense expense: expenses) {
+            if (true) {    // TODO edit condition
+                Logging.log(Level.INFO, "Found matching expense: " + expense.getDescription());
+                expensesByFilter.add(expense);
+            }
+        }
+        return expensesByFilter;
+    }
+
     /**
      * Loads from a csv file into Expense List.
      *

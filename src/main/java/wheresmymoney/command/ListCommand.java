@@ -15,13 +15,20 @@ public class ListCommand extends Command {
         super(argumentsMap);
     }
 
-    private ArrayList<Expense> getExpensesToDisplay(ExpenseList expenseList) {
+    private ArrayList<Expense> getExpensesToDisplayDeprecated(ExpenseList expenseList) {
         String listCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
         if (listCategory == null) {
             return expenseList.getList();
         } else {
             return expenseList.listByCategory(listCategory);
         }
+    }
+
+    private ArrayList<Expense> getExpensesToDisplay(ExpenseList expenseList) {
+        String listCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
+        String from = argumentsMap.get(Parser.ARGUMENT_FROM);
+        String to = argumentsMap.get(Parser.ARGUMENT_TO);
+        return expenseList.listByFilter(listCategory, from, to);
     }
 
     private void displayExpenses(ArrayList<Expense> expensesToDisplay, ExpenseList expenseList)
