@@ -78,6 +78,9 @@ public class Recipe {
     }
 
     public Integer getTimeTaken() {
+        if (timeTaken == null) {
+            return 0;
+        }
         return timeTaken;
     }
 

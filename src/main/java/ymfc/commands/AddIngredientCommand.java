@@ -15,7 +15,7 @@ public class AddIngredientCommand extends Command {
 
     public static final String USAGE_EXAMPLE = """
             Use example:
-            \tnew n/carrot q/2
+            \tnew n/carrot
             """;
 
     private Ingredient ingredient;
