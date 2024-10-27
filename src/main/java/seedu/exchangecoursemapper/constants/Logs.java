@@ -42,4 +42,5 @@ public class Logs {
             "PU course code and NUS course code";
     public static final String DISPLAY_PARTNER_UNIVERSITIES = "Display available partner universities";
     public static final String FIND_PARTNER_UNIVERSITY = "Find partner university in Json file";
+    public static final String RETRIEVE_COURSE_LIST = "Retrieve course list for partner university";
 }
