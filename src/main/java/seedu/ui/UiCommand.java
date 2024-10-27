@@ -79,6 +79,12 @@ public class UiCommand extends Ui {
         setUpdatedFields(newUpdatedFields);
     }
 
+    public void addCreatedField(String createdField, String createdValue) {
+        String newCreatedFields = getUpdatedFields();
+        newCreatedFields += createdField + " created: " + createdValue + "\n";
+        setUpdatedFields(newCreatedFields);
+    }
+
     /**
      * Adds appropriate message to <code>invalidFlags</code> for specified flag.
      */
@@ -96,6 +102,12 @@ public class UiCommand extends Ui {
             break;
         case "to":
             newInvalidFlags += "End date not specified." + "\n";
+            break;
+        case "deadline":
+            newInvalidFlags += "Deadline description flag not specified." + "\n";
+            break;
+        case "date":
+            newInvalidFlags += "Deadline date flag not specified." + "\n";
             break;
         default:
             newInvalidFlags += "Unknown flag: " + flag + "\n";
@@ -202,4 +214,7 @@ public class UiCommand extends Ui {
     public void setInvalidFields(String invalidFields) {
         this.invalidFields = invalidFields;
     }
+
+
+
 }
