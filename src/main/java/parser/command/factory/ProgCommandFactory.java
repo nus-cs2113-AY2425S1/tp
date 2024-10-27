@@ -62,7 +62,7 @@ public class ProgCommandFactory {
 
     private Command prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
-        FlagParser flagParser = new FlagParser(argumentString);
+        FlagParser flagParser = new FlagParser(argumentString, "/n", "/r","/s","/w","/e");
     
         if (flagParser.hasFlag("/u")) {
             return prepareEditExerciseCommand(flagParser);
