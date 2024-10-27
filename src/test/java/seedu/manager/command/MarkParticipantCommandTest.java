@@ -16,7 +16,7 @@ class MarkParticipantCommandTest {
     @BeforeEach
     public void testSetUp() {
         eventList = new EventList();
-        eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-10 1600", formatter),
+        eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-10 16:00", formatter),
                 "Venue 1");
         eventList.addParticipantToEvent("John Doe", "Event 1");
     }
