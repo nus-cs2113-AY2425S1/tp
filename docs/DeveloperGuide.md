@@ -140,8 +140,8 @@ and South-East Asian universities. This command hence helps the users to keep tr
 * Throughout the code, exceptions, assertions and logging are in place for better error handling. 
 * Line Separator is used to ensure readability and ease of use for users.
 
-#### Sequence Diagram on PlantUML:
-//TO ADD DIAGRAM
+#### Sequence Diagram on PlantUML
+![Add Courses Sequence Diagram](../uml-images/AddCoursesCommand.png)
 
 ## Product scope
 ### Target user profile
