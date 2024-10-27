@@ -137,7 +137,9 @@ public class AppUi {
 
         String description = commandArguments.getOrDefault("/des", entry.getDescription());
 
-        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description);
+        String dateStr = commandArguments.getOrDefault("/d", entry.getDate().toString());
+
+        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, dateStr);
         editEntryCommand.execute(financialList);
     }
 

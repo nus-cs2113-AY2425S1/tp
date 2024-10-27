@@ -42,6 +42,15 @@ public abstract class FinancialEntry {
     }
 
     /**
+     * Updates the date of the transaction.
+     *
+     * @param newDate The new date.
+     */
+    public void setDate(String newDate) {
+        this.date = LocalDate.parse(newDate);
+    }
+
+    /**
      * Returns the amount of the transaction.
      *
      * @return The transaction amount.

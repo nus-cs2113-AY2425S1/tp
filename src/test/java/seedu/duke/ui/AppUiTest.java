@@ -144,6 +144,7 @@ public class AppUiTest {
         commandArguments.put("argument", "1");
         commandArguments.put("/a", "25.00");
         commandArguments.put("/des", "Edited Description");
+        commandArguments.put("/d", "11/11/11");
 
         // Execute the command
         boolean result = appUi.matchCommand("edit", commandArguments);
@@ -153,6 +154,7 @@ public class AppUiTest {
         FinancialEntry editedEntry = appUi.financialList.getEntry(0);
         assertEquals(25.00, editedEntry.getAmount());
         assertEquals("Edited Description", editedEntry.getDescription());
+        assertEquals(LocalDate.of(2011, 11, 11), editedEntry.getDate());
     }
 
     /**

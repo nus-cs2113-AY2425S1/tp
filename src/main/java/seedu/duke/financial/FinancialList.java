@@ -4,6 +4,8 @@ import seedu.duke.exception.FinanceBuddyException;
 
 import java.util.ArrayList;
 
+import java.time.LocalDate;
+
 /**
  * Represents the list of financial entries (income and expenses).
  * Provides methods for adding, deleting, and viewing entries.
@@ -66,11 +68,13 @@ public class FinancialList {
      * @param index The index of the entry to be edited.
      * @param amount The new amount to be set for the entry.
      * @param description The new description to be set for the entry.
+     * @param date The new date to be set for the entry.
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= entries.size()).
      */
-    public void editEntry(int index, double amount, String description) {
+    public void editEntry(int index, double amount, String description, LocalDate date) {
         FinancialEntry entry = entries.get(index);
         entry.setAmount(amount);
         entry.setDescription(description);
+        entry.setDate(date);
     }
 }

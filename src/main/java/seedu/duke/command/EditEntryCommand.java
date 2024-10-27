@@ -2,10 +2,12 @@ package seedu.duke.command;
 
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.parser.DateParser;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import java.time.LocalDate;
 /**
  * The EditEntryCommand class is responsible for editing an existing entry in the financial list.
  * It extends the Command class and provides functionality to update the amount and description
@@ -42,6 +44,7 @@ public class EditEntryCommand extends Command {
     private int index;
     private double amount;
     private String description;
+    private LocalDate date;
 
     /**
      * Constructs an EditEntryCommand with the specified index, amount, and description.
@@ -49,12 +52,19 @@ public class EditEntryCommand extends Command {
      * @param index       The index of the entry to be edited.
      * @param amount      The new amount for the entry. Must be non-negative.
      * @param description The new description for the entry. Must not be null or empty.
+     * @param date The new date for the entry.
      * @throws IllegalArgumentException if amount is negative or description is null/empty.
      */
-    public EditEntryCommand(int index, double amount, String description) {
+    public EditEntryCommand(int index, double amount, String description, String date) {
         this.index = index;
         this.amount = amount;
         this.description = description;
+        try {
+            this.date = DateParser.parse(date);
+        } catch (FinanceBuddyException e) {
+            logger.log(Level.SEVERE, "Error parsing date: " + date, e);
+            throw new IllegalArgumentException("Invalid date format: " + date, e);
+        }
 
         assert amount >= 0 : "Amount should be non-negative";
         assert description !=null && !description.isEmpty() : "Description should not be empty";
@@ -73,7 +83,7 @@ public class EditEntryCommand extends Command {
             throw new FinanceBuddyException("Financial list cannot be null");
         }
         if (index >= 0 && index <= list.getEntryCount()) {
-            list.editEntry(index - 1, amount, description);
+            list.editEntry(index - 1, amount, description, date);
             assert list.getEntry(index - 1).getAmount() == amount : "Amount should be updated";
             assert list.getEntry(index - 1).getDescription().equals(description) : "Description should be updated";
             System.out.println("--------------------------------------------");
