@@ -32,7 +32,29 @@ SpendSwift eliminates the complexity of traditional budgeting tools by offering 
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+{## 1. Responsiveness
+- **Requirement**: The system should respond to user commands within 2 seconds.
+- **Rationale**: Ensures efficient interaction and enhances user satisfaction.
+
+## 2. Data Integrity
+- **Requirement**: The system must maintain accurate tracking and updating of financial entries.
+- **Rationale**: Prevents discrepancies in financial reporting, ensuring reliability.
+
+## 3. User Error Handling
+- **Requirement**: The system should provide clear error messages and support easy correction of user inputs.
+- **Rationale**: Facilitates management of entries and reduces user frustration.
+
+## 4. Customizability
+- **Requirement**: Users should be able to easily add and modify expense categories.
+- **Rationale**: Allows users to tailor the system to their specific needs.
+
+## 5. Automated Tasks
+- **Requirement**: Support automated budget resets at the start of each month.
+- **Rationale**: Minimizes user effort in maintaining accurate monthly tracking.
+
+## 6. Accessibility
+- **Requirement**: The chat interface should be simple and intuitive.
+- **Rationale**: Ensures that all users can effectively interact with the system without extensive training.}
 
 ## Glossary
 
