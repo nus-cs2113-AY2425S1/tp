@@ -32,7 +32,6 @@ SpendSwift eliminates the complexity of traditional budgeting tools by offering 
 
 
 
-
 # Non-Functional Requirements
 
 | ID | Requirement | Description | Rationale |
