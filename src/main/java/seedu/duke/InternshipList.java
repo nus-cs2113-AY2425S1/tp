@@ -2,6 +2,7 @@ package seedu.duke;
 
 import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.InvalidStatus;
+import seedu.exceptions.MissingValue;
 import seedu.ui.UiInternshipList;
 
 import java.util.ArrayList;
@@ -101,11 +102,11 @@ public class InternshipList {
         }
     }
 
-    public void removeField(int index, String field, String value) throws InvalidIndex {
+    public void removeField(int index, String field, String value) throws InvalidIndex, MissingValue {
         try {
             switch (field) {
             case "skills":
-                internships.get(index).setSkills(value);
+                internships.get(index).removeSkill(value);
                 break;
             default:
                 assert false: "All valid fields should we handled in individual cases";

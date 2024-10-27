@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import seedu.exceptions.InvalidStatus;
+import seedu.exceptions.MissingValue;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -106,9 +107,8 @@ public class Internship {
     }
 
     //@@author Ridiculouswifi
-
     /**
-     * Returns all skills stored in `skills` field as a combined String.
+     * Returns all skills stored in <code>skills</code> field as a combined String.
      */
     public String getSkills() {
         String skillList = "";
@@ -124,7 +124,7 @@ public class Internship {
 
     //@@author Ridiculouswifi
     /**
-     * Adds the input to the skills field.
+     * Adds the inputs to the skills field.
      *
      * @param skills    List of skills, individual skills are separated by commas.
      */
@@ -135,6 +135,18 @@ public class Internship {
         String[] skillArray = skills.split(",");
         for (String skill: skillArray) {
             this.skills.add(skill.trim());
+        }
+    }
+
+    //@@author Ridiculouswifi
+    /**
+     * Removes the input from the <code>skills</code> field.
+     *
+     * @throws MissingValue     skill is not found within <code>skills</code> field.
+     */
+    public void removeSkill(String skill) throws MissingValue {
+        if (!this.skills.remove(skill)) {
+            throw new MissingValue();
         }
     }
 
