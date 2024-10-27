@@ -47,10 +47,12 @@ public class MediTask {
     private void start() {
         ui = new Ui();
         storage = new StorageFile();
-        hospital = storage.load(); // Load data from file
+
         stageManager = new StateManager(); // Initialize the stage manager
 
         ui.showWelcome();
+
+        hospital = storage.load(); // Load data from file
 
         HospitalCommand.setHospital(hospital);
     }
