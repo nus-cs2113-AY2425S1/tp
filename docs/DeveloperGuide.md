@@ -56,7 +56,7 @@ and Oceania.
 
 #### Overview:
 This command is responsible for displaying and retrieving the full list of mappable courses from the partner 
-universities to a user specified NUS course from `database.json` file. It helps the users to identify the whether
+universities to a user specified NUS course from `database.json` file. It helps the users to identify whether
 that NUS course is suitable to be mapped overseas in South East Asia and Oceania.
 
 #### How the feature is implemented:
