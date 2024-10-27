@@ -19,25 +19,39 @@ opt inputStream is null
     Command -> Command: throw new IOException()
 end
 
-Command --> AddCoursesCommand: JsonObject
+Command --> AddCoursesCommand: jsonObject:JsonObject
 deactivate Command
 
 AddCoursesCommand -> AddCoursesCommand:trimString(userInput: String)
 activate AddCoursesCommand
+opt no input after 'add' command
+AddCoursesCommand -> AddCoursesCommand: throw IllegalArgumentException
+end
 return description: String
 
-AddCoursesCommand -> AddCoursesCommand:parseAddCommand(description: String)
+AddCoursesCommand -> AddCoursesCommand:parseAddCommand(input: String)
 activate AddCoursesCommand
+opt !input.contains("/pu") || !input.contains("/coursepu")
+AddCoursesCommand -> AddCoursesCommand: throw IllegalArgumentException
+end
+opt input.contains("/pu/coursepu") || input.contains("/coursepu/pu")
+AddCoursesCommand -> AddCoursesCommand: throw IllegalArgumentException
+end
+opt inputSubstrings.length < 3
+AddCoursesCommand -> AddCoursesCommand: throw IllegalArgumentException
+end
 return descriptionSubstring: String[]
 
-AddCoursesCommand -> CourseValidator:isValidInput(nusCourse: String, pu: String, puCourse: String, jsonObject: JsonObject)
+
+
+AddCoursesCommand -> CourseValidator:isValidInput(nusCourseInput: String, pu: String, puCourseInput: String, jsonObject: JsonObject)
 activate CourseValidator
 
 CourseValidator -> CourseValidator:getPUCourseList
 activate CourseValidator
 
 alt matchPu != null
-CourseValidator -> CourseValidator: get JsonArray for PU
+CourseValidator -> CourseValidator: get JsonArray for Partner University
 else
 CourseValidator -> CourseValidator:displayPartnerUniversities()
 activate CourseValidator
@@ -45,6 +59,7 @@ deactivate
 CourseValidator -> CourseValidator: throw IllegalArgumentException
 end
 return courses: JsonArray
+
 
 CourseValidator -> CourseValidator: isValidCourseMapping
 activate CourseValidator
@@ -62,17 +77,22 @@ CourseValidator -> CourseValidator:get puCourseCode from JsonArray
 CourseValidator -> CourseValidator:get nusCourseCode from JsonArray
 
 opt puCourseCode == puCourseCodeInput && nusCourseCode == nusCourseCodeInput
-    CourseValidator --> AddCoursesCommand: true
+    CourseValidator --> AddCoursesCommand: true: Boolean
+end
 end
   CourseValidator --> CourseValidator: displayAvailableMappings()
-  CourseValidator --> AddCoursesCommand: false
+  CourseValidator --> AddCoursesCommand: false: Boolean
+  deactivate
 
 alt isValidInput
+AddCoursesCommand -> Course: new Course(String puCourse, String nusCourse, String pu)
+activate Course
+Course --> AddCoursesCommand : returns Course
+deactivate
 AddCoursesCommand -> Storage :addCourse(courseToStore)
 AddCoursesCommand -> AddCoursesCommand: printAddMessage(courseToStore)
 else
 AddCoursesCommand -> AddCoursesCommand: print
 end
-
 
 @enduml
