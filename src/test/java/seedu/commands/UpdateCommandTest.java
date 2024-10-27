@@ -9,12 +9,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//@@ Ridiculouswifi
+//@@author Ridiculouswifi
 class UpdateCommandTest {
 
     InternshipList internships;
     UpdateCommand updateCommand;
 
+    //@@author Ridiculouswifi
     void createList() {
         internships = new InternshipList();
         Internship internship = new Internship("Data", "ABC", "01/24", "06/24");
@@ -24,6 +25,7 @@ class UpdateCommandTest {
         updateCommand.setInternshipList(internships);
     }
 
+    //@@author Ridiculouswifi
     @Test
     void execute_validCompany1_expectUpdated() {
         createList();
@@ -38,6 +40,7 @@ class UpdateCommandTest {
         assertEquals("XYZ", internships.getInternship(0).getCompany());
     }
 
+    //@@author Ridiculouswifi
     @Test
     void execute_validStatus1_expectUpdated() {
         createList();
@@ -52,6 +55,7 @@ class UpdateCommandTest {
         assertEquals("Application Completed", internships.getInternship(0).getStatus());
     }
 
+    //@@author Ridiculouswifi
     @Test
     void execute_invalidStatus_expectNoUpdate() {
         createList();
@@ -64,6 +68,7 @@ class UpdateCommandTest {
         assertEquals("Application Pending", internships.getInternship(0).getStatus());
     }
 
+    //@@author Ridiculouswifi
     @Test
     void execute_nonNumberId_expectNoUpdate() {
         createList();
@@ -78,6 +83,7 @@ class UpdateCommandTest {
         assertEquals("ABC", internships.getInternship(0).getCompany());
     }
 
+    //@@author Ridiculouswifi
     @Test
     void execute_emptyId_expectNoUpdate() {
         createList();
@@ -92,6 +98,7 @@ class UpdateCommandTest {
         assertEquals("ABC", internships.getInternship(0).getCompany());
     }
 
+    //@@author Ridiculouswifi
     @Test
     void execute_outOfBoundsIndex_expectNoUpdate() {
         createList();
@@ -106,6 +113,7 @@ class UpdateCommandTest {
         assertEquals("ABC", internships.getInternship(0).getCompany());
     }
 
+    //@@author Ridiculouswifi
     @Test
     void execute_emptyValue_expectNoUpdate() {
         createList();
@@ -120,8 +128,9 @@ class UpdateCommandTest {
         assertEquals("ABC", internships.getInternship(0).getCompany());
     }
 
+    //@@author Ridiculouswifi
     @Test
-    void execute_oneValidoneInvalidValue_expectUpdateValidValue() {
+    void execute_oneValidOneInvalidValue_expectUpdateValidValue() {
         createList();
 
         assertEquals("ABC", internships.getInternship(0).getCompany());
@@ -135,6 +144,7 @@ class UpdateCommandTest {
         assertEquals("Engineer", internships.getInternship(0).getRole());
     }
 
+    //@@author Ridiculouswifi
     @Test
     void execute_invalidStartDate_expectNoUpdate() {
         createList();

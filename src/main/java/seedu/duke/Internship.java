@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import seedu.exceptions.InvalidStatus;
+import seedu.exceptions.MissingValue;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -24,8 +25,11 @@ public class Internship {
     private String company;
     private YearMonth startDate;
     private YearMonth endDate;
+
     private List<Deadline> deadlines;
-    private String skills;
+
+    private ArrayList<String> skills;
+
     private String status;
 
 
@@ -43,8 +47,11 @@ public class Internship {
         this.company = company;
         setStartDate(start);
         setEndDate(end);
+
         this.deadlines = new ArrayList<>();
-        this.skills = "No Skills Entered";
+
+        this.skills = new ArrayList<>();
+
         this.status = "Application Pending";
     }
 
@@ -114,6 +121,7 @@ public class Internship {
         this.endDate = YearMonth.parse(end, formatter);
     }
 
+
     /**
      * Adds a new deadline for this internship.
      *
@@ -161,12 +169,50 @@ public class Internship {
         return builder.toString().trim();
     }
 
+
+    //@@author Ridiculouswifi
+    /**
+     * Returns all skills stored in <code>skills</code> field as a combined String.
+     */
+
     public String getSkills() {
-        return skills;
+        String skillList = "";
+        if (this.skills.isEmpty()) {
+            return skillList;
+        }
+        for (String skill: skills) {
+            skillList += ", " + skill;
+        }
+        int indexStart = 2;
+        return skillList.trim().substring(indexStart);
     }
 
+    //@@author Ridiculouswifi
+    /**
+     * Adds the inputs to the skills field.
+     *
+     * @param skills    List of skills, individual skills are separated by commas.
+     */
     public void setSkills(String skills) {
-        this.skills = skills.isEmpty() ? "Not Stated" : skills;
+        if (skills.trim().isEmpty()) {
+            return;
+        }
+        String[] skillArray = skills.split(",");
+        for (String skill: skillArray) {
+            this.skills.add(skill.trim());
+        }
+    }
+
+    //@@author Ridiculouswifi
+    /**
+     * Removes the input from the <code>skills</code> field.
+     *
+     * @throws MissingValue     skill is not found within <code>skills</code> field.
+     */
+    public void removeSkill(String skill) throws MissingValue {
+        if (!this.skills.remove(skill.trim())) {
+            throw new MissingValue();
+        }
     }
 
     public String getStatus() {
@@ -180,8 +226,13 @@ public class Internship {
     // toString method for displaying the details
     @Override
     public String toString() {
-        return "ID: " + id + "\t\t\tStatus: " + status + "\n" + "Role: " + role + "\n" + "Company: " + company + "\n" +
-                "Duration: " + getStartDate() + " to " + getEndDate()  + "\n" + "Skills: " + skills + " \n" +
+        String skillsField = getSkills();
+        if (skillsField.isEmpty()) {
+            skillsField = "No Skills Entered";
+        }
+        return "ID: " + id + "\tStatus: " + status + "\n" + "Role: " + role + "\n" + "Company: " + company + "\n" +
+                "Duration: " + getStartDate() + " to " + getEndDate() + "\n" + "Skills: " + skillsField + " \n" +
                 "Deadlines:\n" + getFormattedDeadlines() + "\n";
+
     }
 }

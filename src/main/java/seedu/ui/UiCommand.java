@@ -24,22 +24,20 @@ public class UiCommand extends Ui {
         }
         switch (action) {
         case "add":
-            message += "Internship added:\n";
+            message += "Internship added:\n" + internship.toString();
             break;
         case "update":
-            if (!getInvalidFields().isEmpty()) {
-                message += getInvalidFields() + DIVIDER;
-            }
             if (getUpdatedFields().isEmpty()) {
-                message += "No Fields Updated\n";
+                message += "No Fields Updated";
+            } else {
+                message += getUpdatedFields() + DIVIDER + "Internship updated:\n" + internship.toString();
             }
-            message += getUpdatedFields() + DIVIDER + "Internship updated:\n";
             break;
         default:
-            message += "Internship edited:\n";
+            assert false: "All available actions should be covered in individual cases";
             break;
         }
-        showOutput(message + internship.toString());
+        showOutput(message);
     }
 
     /**
@@ -63,9 +61,21 @@ public class UiCommand extends Ui {
         setInvalidFields("");
     }
 
-    public void addUpdatedField(String updatedField, String updatedValue) {
+    public void addUpdatedField(String updatedField, String updatedValue, String type) {
         String newUpdatedFields = getUpdatedFields();
-        newUpdatedFields += updatedField + " updated: " + updatedValue + "\n";
+        newUpdatedFields += updatedField;
+        switch (type) {
+        case "update":
+            newUpdatedFields += " updated: ";
+            break;
+        case "remove":
+            newUpdatedFields += " removed: ";
+            break;
+        default:
+            assert false: "All valid types should be handled in individual switch cases.";
+            break;
+        }
+        newUpdatedFields += updatedValue + "\n";
         setUpdatedFields(newUpdatedFields);
     }
 
