@@ -3,6 +3,8 @@ package seedu.duke.parser;
 import org.junit.jupiter.api.Test;
 import seedu.duke.data.exception.DateParseException;
 import seedu.duke.parser.parserutils.DateFormat;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -49,8 +51,12 @@ public class DateFormatTest {
     @Test
     public void parseDateFormat_validDayName() throws DateParseException {
         String result = DateFormat.validateAndParseToStandardFormat("Monday");
-        LocalDate nextMonday = LocalDate.now().with(java.time.DayOfWeek.MONDAY);
-        String expected = nextMonday.format(STANDARD_DATE_FORMAT) + " 23:59";
+
+        LocalDate today = LocalDate.now();
+        int daysUntilMonday = (DayOfWeek.MONDAY.getValue() - today.getDayOfWeek().getValue() + 7) % 7;
+        LocalDate nextOrTodayMonday = today.plusDays(daysUntilMonday);
+
+        String expected = nextOrTodayMonday.format(STANDARD_DATE_FORMAT) + " 23:59";
         assertEquals(expected, result);
     }
 

@@ -168,7 +168,7 @@ public class DateFormat {
     private static LocalDate calculateNextOccurrenceOfDay(DayOfWeek targetDay) {
         LocalDate today = LocalDate.now();
         int daysUntilNext = (targetDay.getValue() - today.getDayOfWeek().getValue() + 7) % 7;
-        return today.plusDays(daysUntilNext == 0 ? 0 : daysUntilNext);
+        return today.plusDays(daysUntilNext);
     }
 
     /**
