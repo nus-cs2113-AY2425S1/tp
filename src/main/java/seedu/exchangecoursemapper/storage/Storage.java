@@ -12,11 +12,14 @@ import java.nio.file.Paths;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.exchangecoursemapper.courses.Course;
 
 public class Storage {
     public static final String MYLIST_FILE_PATH = "./data/myList.json";
+    private static final Logger logger = Logger.getLogger(Storage.class.getName());
 
     public Storage() {
         initializeMyList();
@@ -28,31 +31,35 @@ public class Storage {
             if (!Files.exists(path)) {
                 Files.createDirectories(path.getParent());
                 Files.createFile(path);
+                logger.log(Level.INFO, "Initialized myList.json at {0}", MYLIST_FILE_PATH);
             }
         } catch (IOException e) {
-            System.err.println("Failed to initialize myList.json");
+            logger.log(Level.SEVERE, "Failed to initialize myList.json", e);
         }
     }
 
     public void addCourse(Course course) {
+        assert course != null : "Course cannot be null";
         String courseEntry = formatCourseEntry(course);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(MYLIST_FILE_PATH, true))) {
             writer.write(courseEntry);
-            writer.newLine(); // Add newline for each course
+            writer.newLine();
+            logger.log(Level.INFO, "Successfully added course to myList.json: {0}", courseEntry);
         } catch (IOException e) {
-            System.err.println("Failed to add course to myList.json");
+            logger.log(Level.SEVERE, "Failed to add course to myList.json", e);
         }
     }
 
     public void deleteCourse(int index) {
         List<String> allCourses = loadAllCourses();
         if (index < 0 || index >= allCourses.size()) {
-            System.err.println("Invalid index: " + index);
+            logger.log(Level.WARNING, "Invalid index for deletion: {0}", index);
             return;
         }
 
-        allCourses.remove(index); // Remove the specified course
-        saveAllCourses(allCourses); // Rewrite the file without the removed course
+        allCourses.remove(index);
+        logger.log(Level.INFO, "Deleted course at index {0} from myList.json", index);
+        saveAllCourses(allCourses);
     }
 
     public Course getCourse(int index) {
@@ -61,7 +68,11 @@ public class Storage {
             throw new IndexOutOfBoundsException("Course index out of bounds");
         }
 
-        String[] parts = allCourses.get(index).split(" \\| ");
+        String courseLine = allCourses.get(index);
+        logger.log(Level.INFO, "Retrieved course at index {0}: {1}", new Object[]{index, courseLine});
+
+        String[] parts = courseLine.split(" \\| ");
+        assert parts.length == 3 : "Course entry must contain exactly 3 parts";
         return new Course(parts[2], parts[0], parts[1]);
     }
 
@@ -72,25 +83,31 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 courses.add(line);
             }
+            logger.log(Level.INFO, "Loaded all courses from myList.json, total courses: {0}", courses.size());
         } catch (IOException e) {
-            System.err.println("Failed to load courses from myList.json");
+            logger.log(Level.SEVERE, "Failed to load courses from myList.json", e);
         }
         return courses;
     }
 
     private void saveAllCourses(List<String> courses) {
+        assert courses != null : "Course list to save should not be null";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(MYLIST_FILE_PATH))) {
             for (String course : courses) {
                 writer.write(course);
                 writer.newLine();
             }
+            logger.log(Level.INFO, "Saved all courses to myList.json, total courses: {0}", courses.size());
         } catch (IOException e) {
-            System.err.println("Failed to save courses to myList.json");
+            logger.log(Level.SEVERE, "Failed to save courses to myList.json", e);
         }
     }
 
     private String formatCourseEntry(Course course) {
-        return course.getNusCourseCode() + " | " + course.getPartnerUniversity() + " | " + course.getPuCourseCode();
+        assert course != null : "Course cannot be null";
+        String formattedEntry = course.getNusCourseCode() + " | " + course.getPartnerUniversity() + " | " + course.getPuCourseCode();
+        logger.log(Level.INFO, "Formatted course entry: {0}", formattedEntry);
+        return formattedEntry;
     }
 }
 
