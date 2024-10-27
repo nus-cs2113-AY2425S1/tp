@@ -1,0 +1,37 @@
+@startuml
+class FinancialList {
+    - ArrayList<FinancialEntry> entries
+    + addEntry(FinancialEntry entry)
+    + deleteEntry(int index)
+    + editEntry(int index, double amount, String description)
+    + getEntry(int index) : FinancialEntry
+    + getEntryCount() : int
+}
+
+abstract class FinancialEntry {
+    - double amount
+    - LocalDate date
+    - String description
+    + getAmount() : double
+    + getDescription() : String
+    + getDate() : LocalDate
+    + setAmount(double newAmount)
+    + setDescription(String newDescription)
+    + setDate(LocalDate newDate)
+}
+
+class Income {
+    + toString() : String
+    + toStorageString() : String
+}
+
+class Expense {
+    + toString() : String
+    + toStorageString() : String
+}
+
+FinancialList "1" --> "*" FinancialEntry : manages
+FinancialEntry <|-- Income
+FinancialEntry <|-- Expense
+
+@enduml
