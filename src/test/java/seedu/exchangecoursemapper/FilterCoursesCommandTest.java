@@ -1,3 +1,4 @@
+/*
 package seedu.exchangecoursemapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,7 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-/*
+
 public class FilterCoursesCommandTest {
 
     private FilterCoursesCommand filterCoursesCommand;
