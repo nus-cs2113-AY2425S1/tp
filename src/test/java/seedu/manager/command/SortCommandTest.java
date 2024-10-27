@@ -34,7 +34,7 @@ public class SortCommandTest {
         sortCommand.execute();
 
         String expectedMessage = """
-                Successfully sort events by name!
+                Events successfully sorted by name!
                 1. Event name: A-Event / Event time: 2023-10-23 21:00 / Event venue: Venue A / Done: N
                 2. Event name: B-Event / Event time: 2024-10-23 21:05 / Event venue: Venue B / Done: N
                 3. Event name: C-Event / Event time: 2024-10-23 21:00 / Event venue: Venue C / Done: N
@@ -51,7 +51,7 @@ public class SortCommandTest {
         sortCommand.execute();
 
         String expectedMessage = """
-                Successfully sort events by time!
+                Events successfully sorted by time!
                 1. Event name: A-Event / Event time: 2023-10-23 21:00 / Event venue: Venue A / Done: N
                 2. Event name: C-Event / Event time: 2024-10-23 21:00 / Event venue: Venue C / Done: N
                 3. Event name: B-Event / Event time: 2024-10-23 21:05 / Event venue: Venue B / Done: N
