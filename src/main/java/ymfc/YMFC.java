@@ -42,7 +42,7 @@ public class YMFC {
             userInput = ui.readCommand();
 
             try {
-                Command command = Parser.parseCommand(userInput, recipeList);
+                Command command = Parser.parseCommand(userInput, recipeList, ingredientList);
                 command.execute(recipeList, ingredientList, ui, storage);
 
                 if (command.isBye()) {

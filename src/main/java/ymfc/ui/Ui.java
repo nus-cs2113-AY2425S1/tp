@@ -182,8 +182,7 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("\tHere's all the ingredients you currently have: ");
         for (int i = 0; i < listCount; i++) {
-            System.out.println("\t" + (i + 1) + "." + list.get(i));
-            System.out.println(LINE);
+            System.out.println("\t" + (i + 1) + ". " + list.get(i));
         }
         System.out.println(LINE);
     }
@@ -216,6 +215,20 @@ public class Ui {
         printListWithOrder(list, listCount);
         System.out.println("\tTotal: " + listCount + " recipes found!");
         System.out.println(LINE);
+    }
+
+    public void printFindIngred(ArrayList<Ingredient> list, int listCount) {
+        System.out.println(LINE);
+        System.out.println("\tHere's everything that I've found so far:");
+        printIngredListWithOrder(list, listCount);
+        System.out.println("\tTotal: " + listCount + " ingredients found!");
+        System.out.println(LINE);
+    }
+
+    private void printIngredListWithOrder(ArrayList<Ingredient> list, int listCount) {
+        for (int i = 0; i < listCount; i++) {
+            System.out.println("\t" + (i + 1) + ". " + list.get(i));
+        }
     }
 
     public String getLine() {

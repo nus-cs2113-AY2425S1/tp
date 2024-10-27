@@ -68,7 +68,7 @@ public class Storage {
             String line = reader.nextLine();
             isEmpty = false;
             try {
-                addRecipe(recipes, line);
+                addRecipe(recipes, ingredients, line);
             } catch (InvalidArgumentException | InvalidCommandException | EmptyListException exception) {
                 System.out.println(exception.getMessage());
             }
@@ -103,15 +103,15 @@ public class Storage {
         lister.execute(recipes, ingredients, ui, storage);
     }
 
-    private void addRecipe(RecipeList recipes, String line)
+    private void addRecipe(RecipeList recipes, IngredientList ingredients, String line)
             throws InvalidArgumentException, InvalidCommandException, EmptyListException {
-        AddRecipeCommand command = (AddRecipeCommand) Parser.parseCommand(line, recipes);
+        AddRecipeCommand command = (AddRecipeCommand) Parser.parseCommand(line, recipes, ingredients);
         command.addLoadedRecipe(recipes);
     }
 
     private void addIngredient(RecipeList recipes, IngredientList ingredients, String line)
             throws InvalidArgumentException, InvalidCommandException, EmptyListException {
-        AddIngredientCommand command = (AddIngredientCommand) Parser.parseCommand(line, recipes);
+        AddIngredientCommand command = (AddIngredientCommand) Parser.parseCommand(line, recipes, ingredients);
         command.addLoadedIngredient(ingredients);
     }
 }
