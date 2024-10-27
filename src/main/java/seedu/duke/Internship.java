@@ -1,14 +1,15 @@
 package seedu.duke;
 
+import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Comparator;
 
@@ -18,7 +19,8 @@ import java.util.Comparator;
  */
 //@@author jadenlimjc
 public class Internship {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+    private static final DateTimeFormatter FORMATTER_MONTH_YEAR = DateTimeFormatter.ofPattern("MM/yy");
+    private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     private int id = -1;
     private String role;
@@ -104,19 +106,19 @@ public class Internship {
         this.company = company;
     }
     public String getStartDate() {
-        return startDate.format(formatter); // Format as MM/yy
+        return startDate.format(FORMATTER_MONTH_YEAR); // Format as MM/yy
     }
 
     public void setStartDate(String start) throws DateTimeParseException {
-        this.startDate = YearMonth.parse(start, formatter);
+        this.startDate = YearMonth.parse(start, FORMATTER_MONTH_YEAR);
     }
 
     public String getEndDate() {
-        return endDate.format(formatter); // Format as MM/yy
+        return endDate.format(FORMATTER_MONTH_YEAR); // Format as MM/yy
     }
 
     public void setEndDate(String end) throws DateTimeParseException {
-        this.endDate = YearMonth.parse(end, formatter);
+        this.endDate = YearMonth.parse(end, FORMATTER_MONTH_YEAR);
     }
 
 
@@ -144,6 +146,64 @@ public class Internship {
      */
     public void clearDeadlines() {
         deadlines.clear();
+    }
+
+    //@@author Ridiculouswifi
+
+    /**
+     * Updates the deadlines of the <code>Internship</code> class.
+     * If no deadline has the same description, a new deadline entry is created.
+     *
+     * @param value             <code>String</code> with description and deadline.
+     * @throws InvalidDeadline  Either description is empty or there is no parsable date.
+     */
+    public void updateDeadline(String value) throws InvalidDeadline {
+        String[] words = value.split(" ");
+        String description = "";
+        String date = "";
+        boolean hasFoundDate = false;
+
+        for (String word : words) {
+            String trimmedWord = word.trim();
+            if (isValidDate(trimmedWord)) {
+                date = trimmedWord;
+                hasFoundDate = true;
+            } else {
+                description += trimmedWord + " ";
+            }
+        }
+
+        if (description.trim().isEmpty() || date.trim().isEmpty()) {
+            throw new InvalidDeadline();
+        }
+
+        int deadlineIndex = getDeadlineIndex(description.trim());
+        assert deadlineIndex >= -1 : "The index must be -1 minimally";
+        if (deadlineIndex != -1) {
+            deadlines.get(deadlineIndex).setDate(date);
+        } else {
+            deadlines.add(new Deadline(getId(), description.trim(), date));
+        }
+    }
+
+    //@@author Ridiculouswifi
+    protected boolean isValidDate(String date) {
+        try {
+            LocalDate.parse(date, FORMATTER_DATE);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    //@@author Ridiculouswifi
+    protected int getDeadlineIndex(String description) {
+        for (int i = 0; i < deadlines.size(); i++) {
+            if (deadlines.get(i).getDescription().equalsIgnoreCase(description)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public ArrayList<Deadline> getDeadlines() {

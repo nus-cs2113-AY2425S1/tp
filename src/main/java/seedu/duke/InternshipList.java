@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
@@ -93,6 +94,8 @@ public class InternshipList {
             case "to":
                 internships.get(index).setEndDate(value);
                 break;
+            case "deadline":
+                internships.get(index).updateDeadline(value);
             default:
                 assert false: "All valid fields should we handled in individual cases";
                 break;
@@ -100,6 +103,8 @@ public class InternshipList {
         } catch (IndexOutOfBoundsException e) {
             ui.showInvalidIndex();
             throw new InvalidIndex();
+        } catch (InvalidDeadline e) {
+            //Hihi
         }
     }
 
