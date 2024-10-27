@@ -223,13 +223,46 @@ following arguments:
 - `/d`: Represents the date on which the transaction occurred. This is an optional argument.
 
 ### Listing Entries
-__Overview__
+<ins>Overview</ins>
 
 The list entries feature is facilitated by the `SeeAllEntriesCommand` class.
-Similarly, classes `SeeAllExpensesCommand` and `SeeAllIncomesCommand` facilitate 
-listing out expenses and incomes respectively.
+The classes `SeeAllExpensesCommand` and `SeeAllIncomesCommand` extend from `SeeAllEntriesCommand` 
+and facilitate listing out expenses and incomes respectively.
 
-__Implementation__
+<ins>Class Structure</ins>
+
+The `SeeAllEntriesCommand` class has the following attributes:
+
+- _start_: The starting date from which Financial Entries are to be listed. `null` if there is no starting date.
+- _end_: The ending date up to which Financial Entries should be listed. `null` if there is no ending date.
+- _entriesListedMessage_: String constant containing message when there are entries to be listed.
+- _noEntriesMessage_: String constant containing message when there are no entries to be listed.
+- _cashflowHeader_: String constant containing header to be printed when displaying total cashflow.
+
+The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit these attributes from `SeeAllEntriesCommand`,
+with _entriesListedMessage_, _noEntriesMessage_ and _cashflowHeader_ overwritten to contain customized messages for
+each respective command.
+
+The `SeeAllEntriesCommand` class has the following methods:
+
+- `execute`
+- Getters:
+  - `getEntriesListedMessage`
+  - `getNoEntriesMessage`
+  - `getCashflowHeader`
+- `getCashflowString`: takes in the net cashflow as a double and returns it as a String for printing.
+- `shouldBeIncluded`: determines if an entry in the Financial list should be listed out.
+
+The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit all of the aforementioned methods, overriding
+the following methods:
+
+- The getters to print their customized messages/headers
+- `shouldBeIncluded` to further filter out incomes/expenses respectively
+
+Additionally, in the `SeeAllExpensesCommand` class, the `getCashflowString` method is overridden to negate the
+net cashflow input into the method to give a positive number for total Expenses.
+
+<ins>Implementation</ins>
 
 The user invokes the command to list entries by entering the following command:
 ```list [income|expense] [/from START_DATE] [/to END_DATE]```.
@@ -253,13 +286,6 @@ The interaction between the command classes and the `FinancialList` is as follow
 using `SeeAllEntriesCommand` as an example:
 
 {add diagram}
-
-The `shouldBeIncluded()` method marks Financial Entries as "should be included" if their
-dates fall between the start and end dates passed into the command object.
-
-`SeeAllExpensesCommand` and `SeeAllIncomesCommand` interact with the `FinancialList` in a 
-similar manner, with the only difference being that the `shouldBeIncluded()` methods of
-`SeeAllExpensesCommand` and `SeeAllIncomesCommand` only mark `Expenses` and `Incomes` as "should be included".
 
 __Design Considerations__
 
