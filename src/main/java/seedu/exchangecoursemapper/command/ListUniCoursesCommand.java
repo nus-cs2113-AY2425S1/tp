@@ -21,6 +21,14 @@ import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 public class ListUniCoursesCommand extends Command {
     private static final Logger logger = Logger.getLogger(ListUniCoursesCommand.class.getName());
 
+    /**
+     * Executes the command to retrieve and list courses for a specified PU based on user input.
+     * This method reads a JSON file to create a JSON Object, then retrieves
+     * the PU name from user input and then list out all the relevant course details
+     * from that specified university.
+     *
+     * @param userInput A string containing the input from the user.
+     */
     @Override
     public void execute(String userInput) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
@@ -41,6 +49,12 @@ public class ListUniCoursesCommand extends Command {
         }
     }
 
+    /**
+     * Returns a string containing the name of the partner university.
+     *
+     * @param userInput A string containing an input from the user.
+     * @return A string containing the name of a partner university.
+     */
     public String getPuName (String userInput) {
         assert userInput != null : Assertions.EMPTY_USER_INPUT;
 
@@ -55,6 +69,16 @@ public class ListUniCoursesCommand extends Command {
         return puName;
     }
 
+    /**
+     * Retrieves and list out the courses offered by the specified partner university.
+     * This method searches for the specified university within the provided JsonObject.
+     * If the university is found, it will list out the courses it offers.
+     * If not, it will throw an exception.
+     *
+     * @param jsonObject The {@link JsonObject} containing the details of all university.
+     * @param puName The name of partner university in interest.
+     * @throws UnknownUniversityException If the university is not found within the JsonObject.
+     */
     public void getUniCourses (JsonObject jsonObject, String puName) throws UnknownUniversityException {
         assert jsonObject != null : Assertions.NULL_JSON_FILE;
         assert puName != null : Assertions.EMPTY_PU_NAME;
@@ -72,6 +96,14 @@ public class ListUniCoursesCommand extends Command {
         }
     }
 
+    /**
+     * Searches for a university name in the set of universities in the data and returns it.
+     * If no match is found, it returns null.
+     *
+     * @param universityNames A set of university names in the data.
+     * @param lowerCasePuName The lower case name of the university to be searched for.
+     * @return The matching university name.
+     */
     private String findUniversityName(Set<String> universityNames, String lowerCasePuName) {
         for (String universityName : universityNames) {
             assert universityName != null && !universityName.isEmpty();
@@ -83,11 +115,25 @@ public class ListUniCoursesCommand extends Command {
         return null;
     }
 
+    /**
+     * Throws an exception if the university is unknown.
+     *
+     * @param puName The name of the partner university.
+     * @throws UnknownUniversityException An exception to be thrown when the given puName is not in the database.
+     */
     private void handleUnknownUniversity(String puName) throws UnknownUniversityException {
         logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, puName);
         throw new UnknownUniversityException("University not found: " + puName);
     }
 
+    /**
+     * Lists the courses offered by a specific university.
+     * This method retrieves the university object and its courses.
+     * It then iterates through the courses and prints their details.
+     *
+     * @param jsonObject A {@link JsonObject} containing the details of all universities.
+     * @param universityName The name of the university whose courses are to be listed.
+     */
     private void listCourses(JsonObject jsonObject, String universityName) {
         JsonObject universityObject = getUniversityObject(jsonObject, universityName);
         JsonArray courseArray = getCourseArray(universityObject, universityName);
@@ -96,12 +142,28 @@ public class ListUniCoursesCommand extends Command {
         iterateCourses(courseArray);
     }
 
+    /**
+     * Retrieves the university object from the provided JSON object.
+     *
+     * @param jsonObject A {@link JsonObject} containing all the universities.
+     * @param universityName The name of the university whose object is to be retrieved.
+     * @return A {@link JsonObject} representing the specific university.
+     */
     private JsonObject getUniversityObject(JsonObject jsonObject, String universityName) {
         JsonObject universityObject = jsonObject.getJsonObject(universityName);
         assert universityObject != null : Assertions.NULL_UNIVERSITY_OBJECT;
         return universityObject;
     }
 
+    /**
+     * Returns a course array from the given universityObject.
+     * This method fetches the {@link JsonArray} of courses from the {@link JsonObject}
+     * universityObject representing the university.
+     *
+     * @param universityObject A {@link JsonObject} that represents the university containing a list of courses.
+     * @param universityName The name of the university.
+     * @return A {@link JsonArray} containing the courses offered by the university.
+     */
     private JsonArray getCourseArray(JsonObject universityObject, String universityName) {
         JsonArray courseArray = universityObject.getJsonArray("courses");
         if (courseArray == null) {
@@ -111,6 +173,11 @@ public class ListUniCoursesCommand extends Command {
         return courseArray;
     }
 
+    /**
+     * Iterates through the courses offered by PU and prints the course details.
+     *
+     * @param courseArray A {@link JsonArray} that contains a list of courses as JsonObjects.
+     */
     private void iterateCourses(JsonArray courseArray) {
         for (int i = 0; i < courseArray.size(); i++) {
             JsonObject courseObject = courseArray.getJsonObject(i);
@@ -118,7 +185,19 @@ public class ListUniCoursesCommand extends Command {
             printCourseDetails(courseObject);
         }
     }
-    
+
+    /**
+     * Prints course details of the specified partner university and NUS.
+     * The information printed are:
+     * <ul>
+     *     <li>PU course code</li>
+     *     <li>PU course name</li>
+     *     <li>NUS course code</li>
+     *     <li>NUS course name</li>
+     * </ul>
+     *
+     * @param courseObject A {@link JsonObject} that contains the courses details.
+     */
     private void printCourseDetails(JsonObject courseObject) {
         String puCourseCode = courseObject.getString(PU_COURSE_CODE_KEY);
         String puCourseName = courseObject.getString(PU_COURSE_NAME_KEY);
