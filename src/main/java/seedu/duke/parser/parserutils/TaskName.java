@@ -1,4 +1,4 @@
-package seedu.duke.parser.parserUtils;
+package seedu.duke.parser.parserutils;
 
 public class TaskName implements StringExtraction{
     @Override

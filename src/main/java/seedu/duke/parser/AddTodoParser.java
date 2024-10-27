@@ -4,8 +4,8 @@ import seedu.duke.commands.AddTaskCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
-import seedu.duke.parser.parserUtils.TaskName;
-import seedu.duke.parser.parserUtils.Tag;
+import seedu.duke.parser.parserutils.TaskName;
+import seedu.duke.parser.parserutils.Tag;
 
 public class AddTodoParser implements CommandParser {
     @Override

@@ -1,4 +1,4 @@
-package seedu.duke.parser.parserUtils;
+package seedu.duke.parser.parserutils;
 
 public interface StringExtraction {
     String extract(String input);

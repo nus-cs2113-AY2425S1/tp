@@ -5,7 +5,7 @@ import seedu.duke.commands.FindPatientCommand;
 import seedu.duke.commands.FindTaskCommand;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
-import seedu.duke.parser.parserUtils.Find;
+import seedu.duke.parser.parserutils.Find;
 
 public class FindParser implements CommandParser{
     @Override

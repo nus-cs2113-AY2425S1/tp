@@ -4,9 +4,8 @@ import seedu.duke.commands.AddPatientCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.data.state.StateType;
 import seedu.duke.data.state.State;
-import seedu.duke.parser.parserUtils.PatientName;
-import seedu.duke.parser.parserUtils.TaskName;
-import seedu.duke.parser.parserUtils.Tag;
+import seedu.duke.parser.parserutils.PatientName;
+import seedu.duke.parser.parserutils.Tag;
 
 public class AddParser implements CommandParser{
     @Override

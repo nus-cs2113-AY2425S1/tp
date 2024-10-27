@@ -4,7 +4,7 @@ import seedu.duke.commands.Command;
 import seedu.duke.commands.UnmarkTaskCommand;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
-import seedu.duke.parser.parserUtils.Index;
+import seedu.duke.parser.parserutils.Index;
 
 import static java.lang.Integer.parseInt;
 
