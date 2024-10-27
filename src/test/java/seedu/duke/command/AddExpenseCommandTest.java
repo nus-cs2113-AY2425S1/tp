@@ -159,4 +159,38 @@ class AddExpenseCommandTest {
         assertEquals("Invalid date format. Please use 'dd/MM/yy'.", exception.getMessage());
     }
 
+    /**
+     * Test the execute method of AddExpenseCommand with a negative amount.
+     * Verifies that an AssertionError is thrown, and no entries are added to financiallist.
+     */
+    @Test
+    void execute_addExpenseWithNegativeAmount_expectErrorMessage() {
+
+        AssertionError error = assertThrows(AssertionError.class, () -> {
+            addExpenseCommand = new AddExpenseCommand(-15.20, "grab", null);
+            addExpenseCommand.execute(financialList);
+        });
+
+        // Verify the error message
+        assertEquals("Amount should be positive", error.getMessage());
+        assertEquals(0, financialList.getEntryCount());
+    }
+
+    /**
+     * Test the execute method of AddExpenseCommand with a very small amount.
+     * Verifies that a FinanceBuddyException is thrown, and no entries are added to financiallist.
+     */
+    @Test
+    void execute_addExpenseWithVerySmallAmount_expectErrorMessage() {
+
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addExpenseCommand = new AddExpenseCommand(0.0001, "random", null);
+            addExpenseCommand.execute(financialList);
+        });
+
+        // Verify the error message
+        assertEquals("Invalid amount. Amount must be $0.01 or greater.", exception.getMessage());
+        assertEquals(0, financialList.getEntryCount());
+    }
+
 }
