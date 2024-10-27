@@ -4,6 +4,7 @@ import seedu.category.Category;
 import seedu.utils.DateTimeUtils;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class TransactionList {
     private static final Logger logger = Logger.getLogger("TransactionList");
-    private ArrayList<Transaction> transactions;
+    private static ArrayList<Transaction> transactions;
     private final Map<String, List<Transaction>> invertedIndex;
 
     public TransactionList() {
@@ -104,6 +105,29 @@ public class TransactionList {
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
+
+    //get the spending of today
+    public static double getTodaySpending() {
+        LocalDate today = LocalDate.now();
+        return transactions.stream()
+                .filter(t -> t instanceof Expense && t.getDate().toLocalDate().isEqual(today))
+                .mapToDouble(Transaction::getAmount)
+                .sum();
+    }
+
+
+    public boolean updateCategory(int index, Category newCategory) {
+        if (index >= 0 && index < transactions.size()) {
+            Transaction transaction = transactions.get(index);
+            if (transaction instanceof Expense) {
+                ((Expense) transaction).setCategory(newCategory);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 
     // Update the invertedIndex upon addition or deletion of event
