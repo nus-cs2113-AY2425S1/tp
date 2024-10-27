@@ -16,7 +16,7 @@ class EditEntryCommandTest {
     private FinancialList financialList;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws FinanceBuddyException {
         financialList = new FinancialList();
         financialList.addEntry(new Expense(100.0, "Initial Entry", LocalDate.now()));
     }
