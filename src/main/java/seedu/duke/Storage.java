@@ -57,7 +57,7 @@ public class Storage {
                         + internship.getEndDate() + " | "
                         + internship.getSkills() + " | "
                         + internship.getStatus() + " | "
-                        + deadlinesBuilder.toString() + "\n");
+                        + deadlinesBuilder + "\n");
             }
             writer.close();
         } catch (IOException e) {
