@@ -8,9 +8,12 @@ import seedu.duke.command.SeeAllEntriesCommand;
 import seedu.duke.command.SeeAllExpensesCommand;
 import seedu.duke.command.SeeAllIncomesCommand;
 import seedu.duke.command.HelpCommand;
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.parser.DateParser;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Logic {
@@ -28,14 +31,27 @@ public class Logic {
      * An {@link AddExpenseCommand} is created and executed to add the expense to the financial list.
      *
      * @param commandArguments A map of parsed command arguments that contains the description of the expense
-     *                         and the amount ("/a").
+     *                         and the amount ("/a") and the date ("/d")
      */
-    public void addExpense(HashMap<String, String> commandArguments) {
+    public void addExpense(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String description = commandArguments.get("argument");
-        double amount = Double.parseDouble(commandArguments.get("/a"));
+        double amount = 0;
+        try {
+            amount = Double.parseDouble(commandArguments.get("/a"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+        } catch (NullPointerException e) {
+            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
+        }
+        String date = commandArguments.get("/d");
 
-        AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description);
-        addExpenseCommand.execute(financialList);
+        try {
+            AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date);
+            addExpenseCommand.execute(financialList);
+        } catch (FinanceBuddyException e) {
+            System.out.println(e.getMessage());  // Display error message when invalid date is provided
+        }
+
     }
 
     /**
@@ -47,12 +63,24 @@ public class Logic {
      * @param commandArguments A map of parsed command arguments that contains the description of the income
      *                         and the amount ("/a").
      */
-    public void addIncome(HashMap<String, String> commandArguments) {
+    public void addIncome(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String description = commandArguments.get("argument");
-        double amount = Double.parseDouble(commandArguments.get("/a"));
+        double amount = 0;
+        try {
+            amount = Double.parseDouble(commandArguments.get("/a"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+        } catch (NullPointerException e) {
+            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
+        }
+        String date = commandArguments.get("/d");
 
-        AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description);
-        addIncomeCommand.execute(financialList);
+        try {
+            AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description, date);
+            addIncomeCommand.execute(financialList);
+        } catch (FinanceBuddyException e) {
+            System.out.println(e.getMessage());  // Display error message when invalid date is provided
+        }
 
     }
 
@@ -67,13 +95,31 @@ public class Logic {
      * @param commandArguments A map of parsed command arguments that contains the entry index and
      *                         optional new values for the amount ("/a") and description ("/des").
      */
-    public void editEntry(HashMap<String, String> commandArguments) {
-        int index = Integer.parseInt(commandArguments.get("argument"));
+    public void editEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
+        int index = 0;
+        try {
+            index = Integer.parseInt(commandArguments.get("argument"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+        }
 
-        FinancialEntry entry = financialList.getEntry(index);
+        assert index > 0 : "Index of entry to edit must be greater than 0";
+        assert index <= financialList.getEntryCount() : "Index of entry to edit must be within the list size";
+
+        FinancialEntry entry = null;
+        try {
+            entry = financialList.getEntry(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+        }
 
         String amountStr = commandArguments.get("/a");
-        double amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();
+        double amount = 0;
+        try {
+            amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+        }
 
         String description = commandArguments.getOrDefault("/des", entry.getDescription());
 
@@ -90,8 +136,13 @@ public class Logic {
      * @param commandArguments A map of parsed command arguments that contains the index of the entry
      *                         to be deleted.
      */
-    public void deleteEntry(HashMap<String, String> commandArguments) {
-        int index = Integer.parseInt(commandArguments.get("argument"));
+    public void deleteEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
+        int index = 0;
+        try {
+            index = Integer.parseInt(commandArguments.get("argument"));
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+        }
 
         DeleteCommand deleteCommand = new DeleteCommand(index);
         deleteCommand.execute(financialList);
@@ -107,21 +158,31 @@ public class Logic {
      * @param commandArguments A HashMap containing the command argument with the key "argument".
      *                         The value can be "expense", "income", or null/empty for listing all entries.
      */
-    public void listHelper(HashMap<String, String> commandArguments) {
+    public void listHelper(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String type = commandArguments.get("argument");
+        String start = commandArguments.get("/from");
+        String end = commandArguments.get("/to");
+
+        if ((start != null && start.isBlank()) || (end != null && end.isBlank())) {
+            throw new FinanceBuddyException("Please enter a valid start/end date");
+        }
+
+        LocalDate startDate = start != null ? DateParser.parse(commandArguments.get("/from")) : null;
+        LocalDate endDate = end != null ? DateParser.parse(commandArguments.get("/to")) : null;
 
         if (type != null) {
             if (type.equals("expense")) {
-                SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand();
+                SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(startDate, endDate);
                 seeAllExpensesCommand.execute(financialList);
             } else if (type.equals("income")) {
-                SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand();
+                SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(startDate, endDate);
                 seeAllIncomesCommand.execute(financialList);
             } else {
                 System.out.println("Unknown argument: " + type);
+                System.out.println("--------------------------------------------");
             }
         } else {
-            SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand();
+            SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(startDate, endDate);
             seeAllEntriesCommand.execute(financialList);
         }
     }
@@ -133,4 +194,5 @@ public class Logic {
         HelpCommand helpCommand = new HelpCommand();
         helpCommand.execute(financialList);
     }
+
 }
