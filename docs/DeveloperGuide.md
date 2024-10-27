@@ -99,28 +99,33 @@ The abstract `Command` class and its related children classes have the following
 
 <ins>Overview</ins>
 
-The feature to add entries is facilitated by the `AddExpenseCommand` and `AddIncomeCommand`
-classes.
+The feature to add entries is facilitated by the abstract class `AddEntryCommand`.
+The `AddExpenseCommand` and `AddIncomeCommand` classes extend from the `AddEntryCommand`,
+and are used to add expenses and incomes respectively.
 
 <ins>Class Structure</ins>
 
-The `AddExpenseCommand` class has the following attributes:
-- *amount*: An object representing the amount of money used in the transaction.
+The `AddEntryCommand` class has the following attributes:
+- *amount*: An object representing the amount of money in the transaction.
 - *description*: An object representing the description of the transaction.
 - *date*: An object representing the date on which the transaction occurred.
 
-The `AddEntryCommand` class has the following method:
+The `AddExpenseCommand` and `AddIncomeCommand` classes inherit all attributes
+from the `AddEntryCommand` class and have no additional attributes.
+
+The `AddExpenseCommand` and `AddIncomeCommand` classes have the following method:
 - *execute*
 
 <ins>Implementation</ins>
 
-The user invokes the command to add entries by entering the following command:
-`income [DESCRIPTION] /a AMOUNT [/d DATE]`.
+The user invokes the command to add entries by entering the following commands:
+- `expense [DESCRIPTION] /a AMOUNT [/d DATE]` for adding an expense
+- `income [DESCRIPTION] /a AMOUNT [/d DATE]` for adding an income
 
 This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
 following arguments:
 - `argument`: Represents the description of the entry. The value can be left blank.
-- `/a`: Represents the amount of money used in the transaction. This is a compulsory argument.
+- `/a`: Represents the amount of money in the transaction. This is a compulsory argument.
 - `/d`: Represents the date on which the transaction occurred. If this argument is not used,
   the current date is used. An exception occurs if this argument is used but the value is left blank.
 
