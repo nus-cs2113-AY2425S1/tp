@@ -27,7 +27,7 @@ public class InternshipList {
         internships.add(internship);
     }
 
-    //@@ Ridiculouswifi
+    //@@author Ridiculouswifi
     /**
      * Returns whether the index given is within the boundaries of the list.
      */
