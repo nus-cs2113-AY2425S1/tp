@@ -1,5 +1,6 @@
 package command;
 
+import command.history.HistoryCommand;
 import history.History;
 import org.junit.jupiter.api.Test;
 import programme.ProgrammeList;

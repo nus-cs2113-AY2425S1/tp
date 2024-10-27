@@ -2,7 +2,7 @@
 //
 //import command.Command;
 //import command.ExitCommand;
-//import command.HistoryCommand;
+//import command.history.HistoryCommand;
 //import command.LogCommand;
 //import command.InvalidCommand;
 //
