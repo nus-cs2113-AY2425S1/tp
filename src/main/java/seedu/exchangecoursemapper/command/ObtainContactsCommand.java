@@ -54,6 +54,7 @@ public class ObtainContactsCommand extends Command {
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
 
         if (inputParts.length != 2) {
+            System.out.println(Exception.invalidInputFormat());
             throw new IllegalArgumentException(Exception.invalidInputFormat());
         }
         return inputParts[1].trim();
