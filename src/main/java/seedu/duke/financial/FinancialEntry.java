@@ -55,7 +55,7 @@ public abstract class FinancialEntry {
         this.date = LocalDate.parse(newDate);
     }
     
-        /**
+    /**
      * Updates the date of the transaction.
      *
      * @param newDate The new date.
