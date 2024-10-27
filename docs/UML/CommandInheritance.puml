@@ -1,0 +1,44 @@
+@startuml
+
+abstract class Command {
+    {abstract}+execute() : void
+}
+
+class SeeAllEntriesCommand {
+}
+
+class SeeAllExpensesCommand {
+}
+
+class SeeAllIncomesCommand {
+}
+
+class AddExpenseCommand {
+}
+
+class AddIncomeCommand {
+}
+
+class DeleteCommand {
+}
+
+class EditEntryCommand {
+}
+
+class ExitCommand {
+}
+
+class HelpCommand {
+}
+
+Command <|-- SeeAllEntriesCommand
+SeeAllEntriesCommand <|-- SeeAllExpensesCommand
+SeeAllEntriesCommand <|-- SeeAllIncomesCommand
+Command <|-- AddExpenseCommand
+Command <|-- AddIncomeCommand
+Command <|-- DeleteCommand
+Command <|-- EditEntryCommand
+Command <|-- ExitCommand
+Command <|-- HelpCommand
+
+@enduml
