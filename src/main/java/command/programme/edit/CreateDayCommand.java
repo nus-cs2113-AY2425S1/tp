@@ -1,8 +1,9 @@
 package command.programme.edit;
+import command.CommandResult;
 import programme.Day;
 import programme.ProgrammeList;
 
-public class CreateDayCommand  extends EditSubCommand{
+public class CreateDayCommand  extends EditCommand {
     private final Day created;
 
     public CreateDayCommand(int progId, Day day) {
@@ -11,8 +12,9 @@ public class CreateDayCommand  extends EditSubCommand{
     }
 
     @Override
-    public String execute(ProgrammeList pList) {
-        pList.insertDay(progId, created);
-        return String.format("Created: %s%n",created.toString());
+    public CommandResult execute(ProgrammeList programmes) {
+        programmes.insertDay(progId, created);
+        String result = String.format("Created: %s%n",created.toString());
+        return new CommandResult(result);
     }
 }

@@ -15,7 +15,7 @@ public class PersonalBestCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ProgrammeList pList, History history) {
+    public CommandResult execute(ProgrammeList programmes, History history) {
         // If an exercise name is specified, get personal best for that exercise
         if (exerciseName != null && !exerciseName.isEmpty()) {
             String personalBest = history.getPersonalBestForExercise(exerciseName);

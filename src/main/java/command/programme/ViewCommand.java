@@ -19,10 +19,10 @@ public class ViewCommand extends ProgrammeCommand {
     }
 
     @Override
-    public CommandResult execute(ProgrammeList pList, History history){
-        assert pList != null : "ProgrammeList must not be null";
+    public CommandResult execute(ProgrammeList programmes, History history){
+        assert programmes != null : "ProgrammeList must not be null";
 
-        Programme programme = pList.getProgramme(progId);
+        Programme programme = programmes.getProgramme(progId);
         assert programme != null : "Programme must not be null";
         String result = String.format("Viewing programme: %n%s",programme);
         logger.log(Level.INFO, "ViewCommand executed successfully.");

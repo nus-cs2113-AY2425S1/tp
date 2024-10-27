@@ -17,7 +17,7 @@ public class LogCommandTest {
 
     @Test
     public void testExecute_logsDayIntoHistory() {
-        ProgrammeList mockPList = mock(ProgrammeList.class);
+        ProgrammeList mockprogrammes = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);
         Day mockDay = mock(Day.class);
 
@@ -26,13 +26,13 @@ public class LogCommandTest {
         LocalDate date = LocalDate.of(2024, 12, 12);
 
         // Mock ProgrammeList behavior to return the mock Day when getDay() is called
-        when(mockPList.getDay(progIndex, dayIndex)).thenReturn(mockDay);
+        when(mockprogrammes.getDay(progIndex, dayIndex)).thenReturn(mockDay);
 
         LogCommand logCommand = new LogCommand(progIndex, dayIndex, date);
 
-        CommandResult result = logCommand.execute(mockPList, mockHistory);
+        CommandResult result = logCommand.execute(mockprogrammes, mockHistory);
 
-        //verify(mockPList).getDay(progIndex, dayIndex);
+        //verify(mockprogrammes).getDay(progIndex, dayIndex);
         //verify(mockHistory).getRecordByDate(date).logDay(mockDay);
         //assertNotNull(result);
     }

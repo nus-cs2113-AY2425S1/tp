@@ -14,17 +14,17 @@ public class HistoryCommandTest {
 
     @Test
     public void testExecute_doesNotThrowException() {
-        ProgrammeList mockPList = mock(ProgrammeList.class);
+        ProgrammeList mockprogrammes = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);
 
         HistoryCommand historyCommand = new HistoryCommand();
 
-        assertDoesNotThrow(() -> historyCommand.execute(mockPList, mockHistory));
+        assertDoesNotThrow(() -> historyCommand.execute(mockprogrammes, mockHistory));
     }
 
     @Test
     public void testExecute_showsHistoryWithData() {
-        ProgrammeList mockPList = mock(ProgrammeList.class);
+        ProgrammeList mockprogrammes = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);
 
         //Mock a history Data
@@ -33,7 +33,7 @@ public class HistoryCommandTest {
 
         HistoryCommand historyCommand = new HistoryCommand();
 
-        CommandResult result = historyCommand.execute(mockPList, mockHistory);
+        CommandResult result = historyCommand.execute(mockprogrammes, mockHistory);
 
         assertNotNull(result);
     }
