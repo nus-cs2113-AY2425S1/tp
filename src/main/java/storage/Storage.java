@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dailyrecord.DailyRecord;
-import history.DateSerializer;
 import history.History;
 import programme.ProgrammeList;
 

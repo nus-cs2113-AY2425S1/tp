@@ -1,4 +1,4 @@
-package history;
+package storage;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
