@@ -21,7 +21,11 @@ The bulk of the app's work is done by the following components:
 - `Command`: Represents actions that the user can perform, such as adding, deleting or listing recipes and ingredients.
 - `RecipeList` and `IngredientList`: These manage collections of recipes and ingredients, respectively. 
 
-Todo: Add sequence diagram to illustrate application start up flow and command execution flow. 
+
+### How the architecture components interact with each other
+The sequence diagram below shows how the components interact with each other when the application is launched.
+
+![applicationStartUp.png](ApplicationStartUpSequenceDiagram.png)
 
 ### Ui Class
 
