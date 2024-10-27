@@ -1,0 +1,78 @@
+@startuml
+hide footbox
+
+actor CEG_Student
+participant ":AddCoursesCommand" as AddCoursesCommand
+participant ":CourseValidator" as CourseValidator
+participant ":Command" as Command
+participant ":Course" as Course
+participant ":Storage" as Storage
+
+
+CEG_Student -> AddCoursesCommand: execute (userInput:String, storage:Storage)
+activate AddCoursesCommand
+
+AddCoursesCommand -> Command: createJsonObject()
+activate Command
+
+opt inputStream is null
+    Command -> Command: throw new IOException()
+end
+
+Command --> AddCoursesCommand: JsonObject
+deactivate Command
+
+AddCoursesCommand -> AddCoursesCommand:trimString(userInput: String)
+activate AddCoursesCommand
+return description: String
+
+AddCoursesCommand -> AddCoursesCommand:parseAddCommand(description: String)
+activate AddCoursesCommand
+return descriptionSubstring: String[]
+
+AddCoursesCommand -> CourseValidator:isValidInput(nusCourse: String, pu: String, puCourse: String, jsonObject: JsonObject)
+activate CourseValidator
+
+CourseValidator -> CourseValidator:getPUCourseList
+activate CourseValidator
+
+alt matchPu != null
+CourseValidator -> CourseValidator: get JsonArray for PU
+else
+CourseValidator -> CourseValidator:displayPartnerUniversities()
+activate CourseValidator
+deactivate
+CourseValidator -> CourseValidator: throw IllegalArgumentException
+end
+return courses: JsonArray
+
+CourseValidator -> CourseValidator: isValidCourseMapping
+activate CourseValidator
+
+opt nusCourseInput.isEmpty() || puCourseInput.isEmpty()
+    CourseValidator -> CourseValidator: throw new IllegalArgumentException()
+end
+opt courses == null || courses.isEmpty()
+    CourseValidator -> CourseValidator: throw new IllegalArgumentException()
+end
+
+loop for each course in courses JsonArray
+CourseValidator -> CourseValidator:getJsonObject(course)
+CourseValidator -> CourseValidator:get puCourseCode from JsonArray
+CourseValidator -> CourseValidator:get nusCourseCode from JsonArray
+
+opt puCourseCode == puCourseCodeInput && nusCourseCode == nusCourseCodeInput
+    CourseValidator --> AddCoursesCommand: true
+end
+  CourseValidator --> CourseValidator: displayAvailableMappings()
+  CourseValidator --> AddCoursesCommand: false
+
+alt isValidInput
+AddCoursesCommand -> Storage :addCourse(courseToStore)
+AddCoursesCommand -> AddCoursesCommand: printAddMessage(courseToStore)
+else
+AddCoursesCommand -> AddCoursesCommand: print
+end
+
+
+@enduml
