@@ -173,7 +173,7 @@ public class Ui {
      */
     private void printListWithOrder(ArrayList<Recipe> list, int listCount) {
         for (int i = 0; i < listCount; i++) {
-            System.out.println("\t" + (i + 1) + "." + list.get(i));
+            System.out.println((i + 1) + "." + list.get(i));
             System.out.println(LINE);
         }
     }
