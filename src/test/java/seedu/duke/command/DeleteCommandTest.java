@@ -124,7 +124,7 @@ class DeleteCommandTest {
      * Verifies that an error message is printed and no entry is deleted when an invalid index is given.
      */
     @Test
-    void execute_invalidIndex_expectError() {
+    void execute_invalidIndex_expectError() throws FinanceBuddyException {
         LocalDate date1 = LocalDate.of(2024, 10, 10);
 
         financialList.addEntry(new Expense(3.50, "lunch", date1));
