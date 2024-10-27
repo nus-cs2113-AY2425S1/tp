@@ -58,14 +58,14 @@ public class ObtainContactsCommandTest {
         String[] outputLines = actualOutput.split("\n");
         String expectedOutput = "Email for Chulalongkorn University: int.off@chula.ac.th\n";
 
-        boolean found = false;
+        boolean isFound = false;
         for (String line : outputLines) {
             if (line.trim().equals(expectedOutput.trim())) {
-                found = true;
+                isFound = true;
                 break;
             }
         }
-        assertEquals(true, found);
+        assertEquals(true, isFound);
     }
 
     @Test
