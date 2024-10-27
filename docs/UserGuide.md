@@ -18,10 +18,13 @@ This product aims to streamline the tracking of internship applications for the 
 
 ## Quick Start
 
-{Give steps to get started quickly}
-
 1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Down the latest version of `.jar` file from [here]().
+3. Copy the file to the home folder of your Internship Tracker.
+4. Open the terminal, `cd` into the folder with the `.jar` file and use `java -jar easInternship.jar` 
+   command to run the application.
+5. Type the command to the CLI and press `Enter` to execute it.
+6. Refer to the [Features](#features) section below for details of each command.
 
 # Features
 
@@ -35,8 +38,8 @@ This function can be expanded upon to add different features to each internship.
 
 **Format:**
 
-`add -name {Role name} -company {Company name} // default param`
-`-duration /from {start date} /to {end date} // additional params`
+`add -name {Role name} -company {Company name} // compulsory params`<br>
+`-from {date} -to {date}  // additional params`
 
 **Example Input 1:**
 `add -name Software Engineer Intern -company Google`
@@ -51,7 +54,7 @@ Skills: Not Stated
 ```
 
 **Example Input 2:**
-`add -name Embedded Software Engineer Intern -company Continental -duration /from 05/25 /to 08/25`
+`add -name Embedded Software Engineer Intern -company Continental -from 05/25 -to 08/25`
 
 **Example Output 2:**
 ```
