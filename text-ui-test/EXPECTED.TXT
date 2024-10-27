@@ -27,11 +27,11 @@ The following commands is for working with your recipes list
 	 add more steps using more sx/ tags, where x starts from 1 and increases one by one
 3. sort s/name                       -  Sorts the recipes alphabetically by name
 4. sort s/time                       -  Sorts the recipes by time, from least to most
-5. find KEYWORDS                     -  Finds all recipes that 
-	 find name             = find in name
-	 find i/keyword        = find in ingredients
-	 find ns/keyword       = find in name or steps
-	 find nis/keyword      = find in name or ingredients or steps
+5. find KEYWORDS                     -  Looks for the keyword in recipes' 
+	 find name             = name
+	 find i/keyword        = ingredients
+	 find ns/keyword       = name or steps
+	 find nis/keyword      = name or ingredients or steps
 6. edit e/name i/ingredients s1/step -  Edit an existing recipe's steps and ingredients
 	 add more ingredients using more i/ tags
 	 add more steps using more sx/ tags, where x starts from 1 and increases one by one
