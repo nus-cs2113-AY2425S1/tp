@@ -36,7 +36,8 @@ public class CourseValidator {
             String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
             String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY).toLowerCase();
 
-            if (puCourseCode.equals(puCourseInput.toLowerCase()) && nusCourseCode.equals(nusCourseInput.toLowerCase())) {
+            if (puCourseCode.equals(puCourseInput.toLowerCase())
+                    && nusCourseCode.equals(nusCourseInput.toLowerCase())) {
                 return true;
             }
         }
@@ -66,7 +67,12 @@ public class CourseValidator {
     public JsonArray getPUCourseList(String pu, JsonObject jsonObject) {
         JsonArray courses;
         logger.log(Level.INFO, Logs.FIND_PARTNER_UNIVERSITY);
-        String matchPu = jsonObject.keySet().stream().filter(key -> key.equalsIgnoreCase(pu)).findFirst().orElse(null);
+        String matchPu = jsonObject
+                .keySet()
+                .stream()
+                .filter(key -> key.equalsIgnoreCase(pu))
+                .findFirst()
+                .orElse(null);
 
         logger.log(Level.INFO, Logs.UNIVERSITY_FOUND);
         if (matchPu != null) {

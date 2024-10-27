@@ -10,7 +10,10 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.exchangecoursemapper.constants.JsonKey.COURSES_ARRAY_LABEL;
 
 
@@ -51,7 +54,12 @@ public class CourseValidatorTest {
     @Test
     void getPUCourseList_universityAvailable_success() {
         String pu = "the university of melbourne";
-        String matchPu = jsonObject.keySet().stream().filter(key -> key.equalsIgnoreCase(pu)).findFirst().orElse(null);
+        String matchPu = jsonObject.keySet()
+                .stream()
+                .filter(key -> key.equalsIgnoreCase(pu))
+                .findFirst()
+                .orElse(null);
+
         JsonArray successCourseList = jsonObject.getJsonObject(matchPu).getJsonArray(COURSES_ARRAY_LABEL);
         JsonArray puCourseList = courseValidator.getPUCourseList(pu,jsonObject);
         assertEquals(successCourseList,puCourseList);
@@ -71,7 +79,8 @@ public class CourseValidatorTest {
         String pu = "The University of Melbourne";
         String puCourseInput = "info21992";
         JsonArray courses = courseValidator.getPUCourseList(pu,jsonObject);
-        boolean isValidCourseMapping = courseValidator.isValidCourseMapping(nusCourseInput,puCourseInput,courses,pu);
+        boolean isValidCourseMapping = courseValidator.isValidCourseMapping
+                (nusCourseInput,puCourseInput,courses,pu);
         assertFalse(isValidCourseMapping);
     }
 
@@ -81,7 +90,8 @@ public class CourseValidatorTest {
         String pu = "The University of Melbourne";
         String puCourseInput = "info20003";
         JsonArray courses = courseValidator.getPUCourseList(pu,jsonObject);
-        boolean isValidCourseMapping = courseValidator.isValidCourseMapping(nusCourseInput,puCourseInput,courses,pu);
+        boolean isValidCourseMapping = courseValidator.isValidCourseMapping
+                (nusCourseInput,puCourseInput,courses,pu);
         assertFalse(isValidCourseMapping);
     }
 
@@ -91,7 +101,8 @@ public class CourseValidatorTest {
         String pu = "The University of Melbourne";
         String puCourseInput = "info20003";
         JsonArray courses = courseValidator.getPUCourseList(pu,jsonObject);
-        boolean isValidCourseMapping = courseValidator.isValidCourseMapping(nusCourseInput,puCourseInput,courses,pu);
+        boolean isValidCourseMapping = courseValidator.isValidCourseMapping
+                (nusCourseInput,puCourseInput,courses,pu);
         assertTrue(isValidCourseMapping);
     }
 }

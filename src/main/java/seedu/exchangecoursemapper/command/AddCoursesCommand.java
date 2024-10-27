@@ -76,7 +76,10 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
     public String[] parseAddCommand(String input) {
 
-        input = input.replaceAll("(?i)/pu", "/pu").replaceAll("(?i)/coursepu", "/coursepu").trim().replaceAll(" +", " ");
+        input = input.replaceAll("(?i)/pu", "/pu")
+                .replaceAll("(?i)/coursepu", "/coursepu")
+                .trim()
+                .replaceAll(" +", " ");
 
         if ((!input.contains("/pu") || !input.contains("/coursepu"))) {
             logger.log(Level.WARNING, Logs.MISSING_KEYWORDS);
