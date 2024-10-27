@@ -5,6 +5,7 @@ import seedu.exceptions.InvalidStatus;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Internship {
     private String company;
     private YearMonth startDate;
     private YearMonth endDate;
-    private String skills;
+    private ArrayList<String> skills;
     private String status;
 
 
@@ -38,7 +39,7 @@ public class Internship {
         this.company = company;
         setStartDate(start);
         setEndDate(end);
-        this.skills = "No Skills Entered";
+        this.skills = new ArrayList<>();
         this.status = "Application Pending";
     }
 
@@ -105,11 +106,25 @@ public class Internship {
     }
 
     public String getSkills() {
-        return skills;
+        String skillList = "";
+        if (this.skills.isEmpty()) {
+            return skillList;
+        }
+        for (String skill: skills) {
+            skillList += ", " + skill;
+        }
+        int INDEX_START = 2;
+        return skillList.trim().substring(INDEX_START);
     }
 
     public void setSkills(String skills) {
-        this.skills = skills.isEmpty() ? "Not Stated" : skills;
+        if (skills.isEmpty()) {
+            return;
+        }
+        String[] skillArray = skills.split(",");
+        for (String skill: skillArray) {
+            this.skills.add(skill.trim());
+        }
     }
 
     public String getStatus() {
@@ -123,7 +138,11 @@ public class Internship {
     // toString method for displaying the details
     @Override
     public String toString() {
+        String skillsField = getSkills();
+        if (skillsField.isEmpty()) {
+            skillsField = "No Skills Entered";
+        }
         return "ID: " + id + "\tStatus: " + status + "\n" + "Role: " + role + "\n" + "Company: " + company + "\n" +
-                "Duration: " + getStartDate() + " to " + getEndDate() + "\n" + "Skills: " + skills;
+                "Duration: " + getStartDate() + " to " + getEndDate() + "\n" + "Skills: " + skillsField;
     }
 }
