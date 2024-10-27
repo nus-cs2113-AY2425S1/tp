@@ -164,7 +164,7 @@ public class Event {
     @Override
     public String toString(){
         String eventTimeString = formatEventTime();
-        return String.format("Event name: %s / Event time: %s / Event venue: %s / Done: %c", eventName, eventTimeString,
-                eventVenue, markIfDone());
+        return String.format("Event name: %s / Event time: %s / Event venue: %s / Done: %c",
+                eventName, eventTimeString, eventVenue, markIfDone());
     }
 }
