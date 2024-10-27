@@ -61,47 +61,73 @@ public class ListUniCoursesCommand extends Command {
 
         String lowerCasePuName = puName.toLowerCase();
         Set<String> universityNames = jsonObject.keySet();
-        boolean found = false;
 
         logger.log(Level.INFO, Logs.SEARCH_UNIVERSITY, puName);
+        String universityName = findUniversityName(universityNames, lowerCasePuName);
 
+        if (universityName == null) {
+            handleUnknownUniversity(puName);
+        } else {
+            listCourses(jsonObject, universityName);
+        }
+    }
+
+    private String findUniversityName(Set<String> universityNames, String lowerCasePuName) {
         for (String universityName : universityNames) {
             assert universityName != null && !universityName.isEmpty();
             if (universityName.toLowerCase().equals(lowerCasePuName)) {
-                found = true;
-                JsonObject universityObject = jsonObject.getJsonObject(universityName);
-
                 logger.log(Level.INFO, Logs.UNIVERSITY_FOUND, universityName);
-                assert universityObject != null : Assertions.NULL_UNIVERSITY_OBJECT;
-
-                JsonArray courseArray = universityObject.getJsonArray("courses");
-
-                if (courseArray == null) {
-                    logger.log(Level.WARNING, Logs.NO_COURSES_FOUND);
-                    throw new IllegalArgumentException("No courses found for university: " + puName);
-                }
-
-                logger.log(Level.INFO, Logs.LISTING_COURSES);
-                for (int i = 0; i < courseArray.size(); i++) {
-                    JsonObject courseObject = courseArray.getJsonObject(i);
-                    assert courseObject != null : Assertions.NO_COURSE_OBJECT;
-
-                    String puCourseCode = courseObject.getString(PU_COURSE_CODE_KEY);
-                    String puCourseName = courseObject.getString(PU_COURSE_NAME_KEY);
-                    String nusCourseCode = courseObject.getString(NUS_COURSE_CODE_KEY);
-                    String nusCourseName = courseObject.getString(NUS_COURSE_NAME_KEY);
-
-                    logger.log(Level.INFO, Logs.COURSE_DETAILS);
-                    System.out.println(puCourseCode + ": " + puCourseName);
-                    System.out.println(nusCourseCode + ": " + nusCourseName);
-                    System.out.println(LINE_SEPARATOR);
-                }
-                break;
+                return universityName;
             }
         }
-        if (!found && (!puName.isEmpty())) {
-            logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, puName);
-            throw new UnknownUniversityException("University not found: " + puName);
+        return null;
+    }
+
+    private void handleUnknownUniversity(String puName) throws UnknownUniversityException {
+        logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, puName);
+        throw new UnknownUniversityException("University not found: " + puName);
+    }
+
+    private void listCourses(JsonObject jsonObject, String universityName) {
+        JsonObject universityObject = getUniversityObject(jsonObject, universityName);
+        JsonArray courseArray = getCourseArray(universityObject, universityName);
+
+        logger.log(Level.INFO, Logs.LISTING_COURSES);
+        iterateCourses(courseArray);
+    }
+
+    private JsonObject getUniversityObject(JsonObject jsonObject, String universityName) {
+        JsonObject universityObject = jsonObject.getJsonObject(universityName);
+        assert universityObject != null : Assertions.NULL_UNIVERSITY_OBJECT;
+        return universityObject;
+    }
+
+    private JsonArray getCourseArray(JsonObject universityObject, String universityName) {
+        JsonArray courseArray = universityObject.getJsonArray("courses");
+        if (courseArray == null) {
+            logger.log(Level.WARNING, Logs.NO_COURSES_FOUND);
+            throw new IllegalArgumentException("No courses found for university: " + universityName);
+        }
+        return courseArray;
+    }
+
+    private void iterateCourses(JsonArray courseArray) {
+        for (int i = 0; i < courseArray.size(); i++) {
+            JsonObject courseObject = courseArray.getJsonObject(i);
+            assert courseObject != null : Assertions.NO_COURSE_OBJECT;
+            printCourseDetails(courseObject);
         }
     }
+    
+    private void printCourseDetails(JsonObject courseObject) {
+        String puCourseCode = courseObject.getString(PU_COURSE_CODE_KEY);
+        String puCourseName = courseObject.getString(PU_COURSE_NAME_KEY);
+        String nusCourseCode = courseObject.getString(NUS_COURSE_CODE_KEY);
+        String nusCourseName = courseObject.getString(NUS_COURSE_NAME_KEY);
+
+        System.out.println(puCourseCode + ": " + puCourseName);
+        System.out.println(nusCourseCode + ": " + nusCourseName);
+        System.out.println(LINE_SEPARATOR);
+    }
+
 }
