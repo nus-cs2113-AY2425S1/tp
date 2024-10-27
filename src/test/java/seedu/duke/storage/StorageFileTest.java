@@ -86,9 +86,9 @@ public class StorageFileTest {
     }
 
     @Test
-    public void loadFromFile_success()
-            throws TaskNotFoundException, PatientNotFoundException, StorageOperationException {
-        Hospital loadHospital = JsonUtil.loadFromFile(filePath);
+    public void loadFromFile_success() throws TaskNotFoundException, PatientNotFoundException {
+        StorageFile storage = new StorageFile(filePath);
+        Hospital loadHospital = storage.load();
 
         assertEquals("Alice", loadHospital.getPatient(0).getName());
         assertEquals("Bob", loadHospital.getPatient(1).getName());
@@ -102,13 +102,15 @@ public class StorageFileTest {
     @Test
     public void saveToFile_success() throws StorageOperationException {
         String pathToSave = "src/test/java/seedu/duke/data/hospital_data_save.json";
+        StorageFile storage = new StorageFile(pathToSave);
+
         File file = new File(pathToSave);
         // check if file exists
         if (file.exists()) {
             file.delete();
         }
 
-        JsonUtil.saveToFile(hospital, pathToSave);
+        storage.save(hospital);
         assertTrue(file.exists());
     }
 
