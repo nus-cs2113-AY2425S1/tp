@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import seedu.exchangecoursemapper.courses.Course;
 import seedu.exchangecoursemapper.storage.Storage;
 
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -35,7 +34,7 @@ class StorageTest {
     }
 
     @Test
-    void testAddCourse() {
+    void addCourse_validCourse_courseAddedSuccessfully() {
         Course course = new Course("INFO20003", "CS2102", "The University of Melbourne");
         storage.addCourse(course);
 
@@ -46,7 +45,7 @@ class StorageTest {
     }
 
     @Test
-    void testGetCourse() {
+    void getCourse_validIndex_correctCourseReturned() {
         Course course = new Course("INFO20003", "CS2102", "The University of Melbourne");
         storage.addCourse(course);
 
@@ -58,7 +57,7 @@ class StorageTest {
     }
 
     @Test
-    void testDeleteCourse() {
+    void deleteCourse_validIndex_courseDeletedSuccessfully() {
         Course course1 = new Course("INFO20003", "CS2102", "The University of Melbourne");
         Course course2 = new Course("2603637", "CS3244", "Chulalongkorn University");
         storage.addCourse(course1);
@@ -72,17 +71,16 @@ class StorageTest {
     }
 
     @Test
-    void testInvalidGetCourseIndex() {
+    void getCourse_invalidIndex_throwsIndexOutOfBoundsException() {
         // Verify exception is thrown for invalid index
         assertThrows(IndexOutOfBoundsException.class, () -> storage.getCourse(0));
     }
 
     @Test
-    void testInitializeMyList() throws Exception {
+    void initializeMyList_nonexistentFile_createsNewFile() throws Exception {
         // Check if file is created if it doesn’t exist
         Files.deleteIfExists(Path.of(TEST_FILE_PATH)); // Ensure the file does not exist initially
         storage = new Storage(TEST_FILE_PATH);
         assertTrue(Files.exists(Paths.get(TEST_FILE_PATH)));
     }
 }
-
