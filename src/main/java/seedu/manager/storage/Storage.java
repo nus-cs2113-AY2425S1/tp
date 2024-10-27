@@ -36,8 +36,10 @@ public class Storage {
      */
     public void saveEvents(EventList events) throws IOException {
         try (FileWriter writer = new FileWriter(filePath)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             for (Event event : events.getList()) {
-                writer.write(event.getEventName() + "," + event.getEventTime() + ","
+                String eventTimeString = formatter.format(event.getEventTime());
+                writer.write(event.getEventName() + "," + eventTimeString + ","
                         + event.getEventVenue() + "\n"); // Save event details in CSV format
             }
         } catch (IOException exception) {
