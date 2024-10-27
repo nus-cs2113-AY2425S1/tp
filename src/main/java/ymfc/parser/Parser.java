@@ -98,7 +98,8 @@ public final class Parser {
         String input = args.trim();
         Matcher m = addIngredientCommandFormat.matcher(input);
         if (!m.matches()) {
-            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + AddIngredientCommand.USAGE_EXAMPLE);
+            throw new InvalidArgumentException("Invalid argument(s): " + input
+                    + "\n" + AddIngredientCommand.USAGE_EXAMPLE);
         }
 
         String name = m.group("name").trim().substring(2); // n/ or N/ are 2 chars
