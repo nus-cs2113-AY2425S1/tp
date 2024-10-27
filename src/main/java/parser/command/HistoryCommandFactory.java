@@ -30,10 +30,6 @@ public class HistoryCommandFactory {
         };
     }
 
-    private Command prepareListPersonalBestsCommand() {
-        return new ListPersonalBestsCommand();
-    }
-
     private Command prepareWeeklySummaryCommand() {
         return new WeeklySummaryCommand();
     }
@@ -45,6 +41,10 @@ public class HistoryCommandFactory {
         String exerciseName = flagParser.getStringByFlag("/e");
 
         return new ViewPersonalBestCommand(exerciseName);
+    }
+
+    private Command prepareListPersonalBestsCommand() {
+        return new ListPersonalBestsCommand();
     }
 }
 
