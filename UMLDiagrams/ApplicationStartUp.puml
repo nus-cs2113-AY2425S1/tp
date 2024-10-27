@@ -39,11 +39,29 @@ activate IL
 IL --> Main
 deactivate IL
 
+create S
+Main -> S: Storage()
+activate S
+S --> Main
+deactivate S
 
 ref over Main, P
-    Construct Storage,
-    load in ingredients and recipes
-    from hard disk
+Load in ingredients and recipes
+from hard disk
 end ref
+
+loop COLOR_PURPLE_BLUE until command.isBye()
+    ref over Main, P
+    Receive user input and process command
+    end ref
+end
+
+destroy S
+destroy UI
+destroy IL
+destroy RL
+destroy P
+
+
 
 @enduml

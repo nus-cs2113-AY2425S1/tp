@@ -23,9 +23,9 @@ The bulk of the app's work is done by the following components:
 
 
 ### How the architecture components interact with each other
-The sequence diagram below shows how the components interact with each other when the application is first launched.
+The sequence diagram below shows how the components interact with each other when the application is launched.
 
-![ApplicationStartUp.png](ApplicationStartUp.png)
+![applicationStartUp.png](ApplicationStartUpSequenceDiagram.png)
 
 ### Ui Class
 
