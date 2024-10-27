@@ -9,32 +9,129 @@
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ---
+### FinancialList and FinancialEntry
+__Overview__
 
-### FinancialList Component
+Managing financial entries through two main components:
 
-#### Overview
+- **FinancialList**: A centralized data structure that stores and manages entries. It provides CRUD (Create, Read, Update, Delete) operations to handle financial records, such as adding new entries and modifying or retrieving existing ones.
+- **FinancialEntry**: An abstract base class representing a generic financial record. Subclasses include `Income` and `Expense`, which inherit shared attributes like `amount`, `description`, and `date`. Each subclass has specific characteristics that distinguish income from expenses.
 
-The `FinancialList` class is responsible for storing and managing all financial entries in the application,
-including both `Expense` and `Income`. The `FinancialEntry` class acts as the base class, with `Expense` and `Income` 
-classes extending it to represent specific types of transactions.
+__Implementation__
+- **Class Diagram**: Displays the relationship between `FinancialList`, `FinancialEntry`, `Income`, and `Expense`. It highlights `FinancialList` as the main container managing `FinancialEntry` objects.
+  - {Input Class diagram}
+- **Sequence Diagram**: Illustrates the process of adding a new entry, from parsing user input to creating and adding the entry to `FinancialList`.
+  - {input sequence Diagram}
 
-#### Class Structure
+#### FinancialList Components
+__Overview__
 
-The `FinancialList` class contains the following attributes:
-- entries: A list of FinancialEntry objects representing all stored transactions.
+The `FinancialList` component is the main data structure responsible for managing all financial entries, specifically `Income` and `Expense`.
+It provides methods to **add**, **edit**, **delete**, and **retrieve** entries, serving as the application’s primary entry manager.
 
-The `FinancialEntry` class contains the following attributes:
-- **description**: A string describing the transaction.
-- **amount**: A double representing the amount of the transaction.
-- **date**: A LocalDate object representing the date of the transaction.
+__Class Structure__
 
-The Expense and Income classes extend FinancialEntry, each maintaining the base attributes while
-adding context to the type of financial entry.
+- **Attributes**:
+  - `entries`: `ArrayList<FinancialEntry>` — Stores both `Income` and `Expense` instances.
 
-### Implementation Details
+__Implementation Details__
 
-#### FinancialList Class Diagram
-- The FinancialList stores and manages FinancialEntry objects, including Expense and Income.
+*Class Diagram*: Show `FinancialList` managing `FinancialEntry` objects (`Income` and `Expense` subclasses).
+
+{input diagram here }
+
+__Constructor__
+
+The `FinancialList` constructor initializes an empty list of entries to support CRUD operations. Key Arguments: None
+
+__Methods__
+
+- **addEntry(FinancialEntry entry)**: Adds a `FinancialEntry` object to `entries`.
+- **deleteEntry(int index)**: Removes an entry at a specified index.
+- **editEntry(int index, double amount, String description)**: Updates the `amount` and `description` of a specified entry.
+- **getEntry(int index)**: Retrieves an entry by index.
+- **getEntryCount()**: Returns the total count of entries.
+
+__Usage Example__
+
+```
+FinancialList financialList = new FinancialList();
+Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27));
+Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28));
+
+financialList.addEntry(income);
+financialList.addEntry(expense);
+
+// Edit an entry
+financialList.editEntry(1, 55.00, "Groceries & Snacks");
+
+// Retrieve an entry
+FinancialEntry entry = financialList.getEntry(0);
+System.out.println("Description: " + entry.getDescription());
+```
+
+### Design Considerations
+
+- **Future Budget Management**: `FinancialList` could incorporate a `budget` attribute and `checkBudget()` method to monitor expenses and alert users when limits are exceeded.
+- **Scalability**: By using `FinancialEntry` as a base class, `FinancialList` can easily manage new types of entries (e.g., `Investment` or `Loan`), ensuring the design is open to future extensions.
+
+---
+#### FinancialEntry Component
+__Overview__
+
+`FinancialEntry` is an abstract base class that represents a generic financial record.
+It defines shared attributes such as `amount`, `description`, and `date`, which are common across both `Income` and `Expense`.
+`Income` and `Expense` inherit these properties and methods, each adding specific functionality related to its type.
+
+__Implementation__
+
+The class diagram above shows `FinancialEntry` as the base class with `Income` and `Expense` as specific implementations.
+{input diagram here}
+
+__Class Structure__
+- **Attributes**:
+  - `amount`: `double` — Represents the monetary value of the entry.
+  - `date`: `LocalDate` — The date associated with the transaction.
+  - `description`: `String` — A description identifying the entry.
+
+__Constructor__
+
+The `FinancialEntry` constructor initializes `amount`, `description`, and `date`.
+
+- **Key Arguments**:
+  - `double amount`: Monetary value for the entry.
+  - `String description`: Description or label for the entry.
+  - `LocalDate date`: Date of the entry.
+
+__Methods__
+
+- **Core Methods** (inherited by both `Income` and `Expense`):
+  - `getAmount()`, `getDescription()`, `getDate()`: Accessor methods for each attribute.
+  - `setAmount(double newAmount)`, `setDescription(String newDescription)`, `setDate(LocalDate newDate)`: Mutator methods for updating values.
+
+- **Custom Methods for Income and Expense**:
+  - **toString()**:
+    - `Income`: Returns formatted string as `[Income] - description $amount (on date)`.
+    - `Expense`: Returns formatted string as `[Expense] - description $amount (on date)`.
+  - **toStorageString()**:
+    - `Income`: Formats as `"I | amount | description | date"` for storage.
+    - `Expense`: Formats as `"E | amount | description | date"` for storage.
+
+__Usage Example__
+
+The following code segment demonstrates the creation of `Income` and `Expense` entries:
+```
+Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27));
+Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28));
+
+System.out.println(income.toString());
+System.out.println(expense.toString());
+```
+
+__Design Considerations__
+- **Future Extension**: Additional fields could be added to `Income` and `Expense` for more specific details, such as a `source` for `Income` or a `category` for `Expense`.
+- **Abstract Base Class**: The design decision to make `FinancialEntry` abstract enables extensibility, allowing for new types of financial records without modifying `FinancialList` or existing subclasses.
+
 ---
 
 ### Commands
