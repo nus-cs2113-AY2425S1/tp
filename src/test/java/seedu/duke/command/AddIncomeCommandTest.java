@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class for the AddIncomeCommand.
@@ -113,6 +114,40 @@ class AddIncomeCommandTest {
         assertEquals(LocalDate.now(), secondIncome.getDate());
 
         assertEquals(expectedOutput, output);  // Verify the printed output for both
+    }
+
+    /**
+     * Test the execute method of AddIncomeCommand with a negative amount.
+     * Verifies that a FinanceBuddyException is thrown, and no entries are added to financiallist.
+     */
+    @Test
+    void execute_addIncomeWithNegativeAmount_expectErrorMessage() {
+
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addIncomeCommand = new AddIncomeCommand(-15.20, "grab", null);
+            addIncomeCommand.execute(financialList);
+        });
+
+        // Verify the error message
+        assertEquals("Invalid amount. Amount must be $0.01 or greater.", exception.getMessage());
+        assertEquals(0, financialList.getEntryCount());
+    }
+
+    /**
+     * Test the execute method of AddIncomeCommand with a very small amount.
+     * Verifies that a FinanceBuddyException is thrown, and no entries are added to financiallist.
+     */
+    @Test
+    void execute_addIncomeWithVerySmallAmount_expectErrorMessage() {
+
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addIncomeCommand = new AddIncomeCommand(0.0001, "random", null);
+            addIncomeCommand.execute(financialList);
+        });
+
+        // Verify the error message
+        assertEquals("Invalid amount. Amount must be $0.01 or greater.", exception.getMessage());
+        assertEquals(0, financialList.getEntryCount());
     }
 
 }
