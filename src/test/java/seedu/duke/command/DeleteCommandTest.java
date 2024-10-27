@@ -3,6 +3,7 @@ package seedu.duke.command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.Income;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class for the DeleteCommand.
@@ -53,7 +55,7 @@ class DeleteCommandTest {
      * Additionally, verifies that the correct entry was deleted by checking the remaining entries.
      */
     @Test
-    void execute_deleteEntry_expectEntryRemoved() {
+    void execute_deleteEntry_expectEntryRemoved() throws FinanceBuddyException {
         LocalDate date1 = LocalDate.of(2024, 10, 10);
         LocalDate date2 = LocalDate.of(2024, 10, 14);
         LocalDate date3 = LocalDate.of(2024, 10, 16);
@@ -89,7 +91,7 @@ class DeleteCommandTest {
      * Additionally, verifies that the correct entry was deleted by checking the remaining entries.
      */
     @Test
-    void execute_deleteLastEntry_expectEntryRemoved() {
+    void execute_deleteLastEntry_expectEntryRemoved() throws FinanceBuddyException {
         LocalDate date1 = LocalDate.of(2024, 12, 29);
         LocalDate date2 = LocalDate.of(2024, 10, 14);
         LocalDate date3 = LocalDate.of(2024, 10, 16);
@@ -127,12 +129,11 @@ class DeleteCommandTest {
 
         financialList.addEntry(new Expense(3.50, "lunch", date1));
         deleteCommand = new DeleteCommand(3);
-        deleteCommand.execute(financialList);
 
-        String output = outputStream.toString();
-        String expectedOutput = "OOPS!!! The entry does not exist." + System.lineSeparator();
+        assertThrows(AssertionError.class, () -> {
+            deleteCommand.execute(financialList);
+        });
 
-        assertEquals(expectedOutput, output);  // Verify the error message
         assertEquals(1, financialList.getEntryCount());  // Verify that no entry was deleted
     }
 
@@ -141,7 +142,7 @@ class DeleteCommandTest {
      * Verifies that the last remaining entry is deleted successfully.
      */
     @Test
-    void execute_deleteOnlyEntry_expectEntryRemoved() {
+    void execute_deleteOnlyEntry_expectEntryRemoved() throws FinanceBuddyException {
         LocalDate date1 = LocalDate.of(2024, 4, 1);
         financialList.addEntry(new Expense(50.00, "groceries", date1));  // Add one expense
 
