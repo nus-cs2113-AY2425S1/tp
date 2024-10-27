@@ -4,6 +4,7 @@ import seedu.manager.command.Command;
 
 import java.util.Scanner;
 
+//@@author jemehgoh
 /**
  * Represents the program's user interface
  */
@@ -36,19 +37,32 @@ public class Ui {
         return this.userInput.nextLine();
     }
 
+    //@@author MatchaRRR
     /**
-     * show the output message of a command to the users.
+     * Shows the output message of a command to the users.
      */
     public void showOutputToUser(Command command) {
         System.out.println(command.getMessage());
         System.out.println(SEPARATOR);
     }
 
+    //@@author jemehgoh
     /**
      * Shows the error message of an exception to the user.
      */
     public void showErrorMessageToUser(Exception exception) {
         System.out.println(exception.getMessage());
+        System.out.println(SEPARATOR);
+    }
+
+    //@@author KuanHsienn
+    /**
+     * Shows a message to the user.
+     *
+     * @param message The message to display to the user.
+     */
+    public void showMessage(String message) {
+        System.out.println(message);
         System.out.println(SEPARATOR);
     }
 }

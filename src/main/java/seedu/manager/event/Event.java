@@ -5,7 +5,9 @@ import seedu.manager.item.Participant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Optional;
 
+//@@author MatchaRRR
 /**
  * The Event class represents an event with a name, time, and venue.
  * It provides methods to access and modify the time and venue of the event.
@@ -42,6 +44,7 @@ public class Event {
         this.isDone = false;
     }
 
+    //@@author LTK-1606
     /**
      * Adds a participant to the participant list for the event.
      *
@@ -80,6 +83,26 @@ public class Event {
         return this.participantList.size();
     }
 
+    //@@author jemehgoh
+    /**
+     * Returns the participant in the participant list with the given name.
+     * If the participant is not in the participant list, returns null.
+     *
+     * @param participantName the name of the participant.
+     * @return the participant in the participant list with participantName, or null if
+     *     no such participant exists.
+     */
+    private Optional<Participant> getParticipantByName(String participantName) {
+        for (Participant participant : this.participantList) {
+            if (participant.getName().equalsIgnoreCase(participantName)) {
+                return Optional.of(participant);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    //@@author MatchaRRR
     /**
      * @return the event name
      */
@@ -130,6 +153,7 @@ public class Event {
         this.eventVenue = eventVenue;
     }
 
+    //@@author jemehgoh
     /**
      * Sets if the event is done or not done
      *
@@ -147,6 +171,27 @@ public class Event {
     }
 
     /**
+     * Returns true if the participant with the given name can be marked present or absent.
+     * Returns false otherwise.
+     *
+     * @param participantName the name of the participant.
+     * @param isPresent true if the participant is to be marked present, false if he is to be marked absent.
+     * @return {@code true} if the participant with participantName has been marked present or absent,
+     *     {@code false} otherwise.
+     */
+    public boolean markParticipant(String participantName, boolean isPresent) {
+        Optional<Participant> participant = getParticipantByName(participantName);
+
+        if (participant.isEmpty()) {
+            return false;
+        }
+
+        participant.get().setPresent(isPresent);
+        return true;
+    }
+
+    //@@author glenn-chew
+    /**
      * Formats eventTime to a string in "yyyy-MM-dd HH:mm" format
      *
      * @return eventTime as a formated {@link String} object.
@@ -156,6 +201,7 @@ public class Event {
         return formatter.format(eventTime);
     }
 
+    //@@author MatchaRRR
     /**
      * Returns a string representation of the event, indicating its name, time and venue.
      *
