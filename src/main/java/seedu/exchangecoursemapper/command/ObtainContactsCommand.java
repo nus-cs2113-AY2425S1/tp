@@ -29,6 +29,9 @@ public class ObtainContactsCommand extends Command {
             String contactType = getContactType(userInput);
             String matchingSchool = findMatchingSchool(jsonObject, schoolName);
             JsonObject schoolInfo = jsonObject.getJsonObject(matchingSchool);
+            if (schoolInfo == null) {
+                return;
+            }
             handleContactType(schoolInfo, matchingSchool, contactType);
         } catch (IOException e) {
             logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
@@ -81,6 +84,6 @@ public class ObtainContactsCommand extends Command {
             }
         }
         System.out.println("Unknown university - " + schoolName);
-        return null;
+        return schoolName;
     }
 }

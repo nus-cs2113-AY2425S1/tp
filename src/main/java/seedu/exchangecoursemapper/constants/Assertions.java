@@ -19,4 +19,3 @@ public class Assertions {
     public static final String NULL_JSON_OBJECT = "JsonObject is not be null";
     public static final String NULL_SCHOOL_NAME = "School name is not be null";
 }
-

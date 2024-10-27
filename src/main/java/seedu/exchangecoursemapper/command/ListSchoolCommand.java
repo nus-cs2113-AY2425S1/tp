@@ -1,8 +1,8 @@
 package seedu.exchangecoursemapper.command;
 
+import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
-import seedu.exchangecoursemapper.exception.Exception;
 
 import javax.json.JsonObject;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class ListSchoolCommand extends Command {
             displaySchoolList(jsonObject);
         } catch (IOException e) {
             logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
-            System.err.println(Exception.fileReadError());
+            System.out.println(Exception.fileReadError());
         }
         logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }

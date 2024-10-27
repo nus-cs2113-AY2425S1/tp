@@ -2,6 +2,17 @@
 
 ## Acknowledgements
 
+### Database
+* Adapted from NUS EduRec, data was collected manually as a collective effort from the team.
+
+### Third Party Library Used
+
+#### 'org.glassfish:javax.json:1.1.4'
+* https://mvnrepository.com/artifact/org.glassfish/javax.json/1.1.4
+
+#### 'javax.json:javax.json-api:1.1.4'
+* https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4
+
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 ## Design & implementation
@@ -29,6 +40,8 @@ and Oceania.
 * The `execute` method is essential and unique to every command class so inheritance was used. 
 * Every method in the class remains maintainable and has one responsibility this allows easy debugging and
   refactoring.
+* By using inheritance, new command classes can easily extend the functionality of existing ones
+  which reducing redundancy in the code
 * Logging and assertions helps the team of developers to follow through the command execution.
 
 #### Alternatives considered:
@@ -43,7 +56,7 @@ and Oceania.
 
 #### Overview:
 This command is responsible for displaying and retrieving the full list of mappable courses from the partner 
-universities to a user specified NUS course from `database.json` file. It helps the users to identify the whether
+universities to a user specified NUS course from `database.json` file. It helps the users to identify whether
 that NUS course is suitable to be mapped overseas in South East Asia and Oceania.
 
 #### How the feature is implemented:
@@ -64,32 +77,69 @@ that NUS course is suitable to be mapped overseas in South East Asia and Oceania
 #### Sequence Diagram on PlantUML:
 ![Filter Courses Sequence Diagram](../uml-images/FilterCoursesCommand.png)
 
-### 2. Obtain Partner University Email
-### 3. Obtain Partner University Contact Number
+### 3. Obtain Partner University Email and Contact Number Command
+
+#### Overview:
+The command is responsible to retrieve the email contact and contact number data for a specified partner
+university. It helps users to reach out to the partner universities for any enquiries about programs or
+exchange opportunities.
+
+#### How the feature is implemented:
+* The `ObtainContactsCommand` class extends `Command` class where it overrides the `execute()` method for
+  custom behaviour.
+* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
+  superclass.
+* The `getSchoolName()` and `getContactType()` methods are used to parse the user input, extracting the requested 
+  university name and contact type (email or phone number).
+* After parsing, the `findMatchingSchool()` method identifies the correct university entry within the JSON data.
+* The `handleContactType()` method retrieves and prints the requested contact information based on the input, 
+  displaying either the university’s email address or phone number.
+* There are also assertions and logging in place for error handling.
+
+#### Why it is implemented that way:
+* The `execute` method is essential and unique to every command class so inheritance was used.
+* Every method in the class remains maintainable and has one responsibility this allows easy debugging and
+  refactoring.
+* By using inheritance, new command classes can easily extend the functionality of existing ones 
+  which reducing redundancy in the code
+* Logging and assertions helps the team of developers to follow through the command execution.
+
+#### Alternatives considered:
+* Reading of the `database.json` was tricky and other libraries were considered.
+* Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
+  readability.
+
+#### Sequence Diagram on PlantUML:
+![Filter Courses Sequence Diagram](../uml-images/ObtainContactsCommand.png)
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+* CEG students keen to go for SEP and need a clear and organised UI to see course mappings
+* CEG students who want to plan their schools and courses to take 
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+* CEG students can use ExchangeCourseMapper to expedite their for course mapping process by listing universities 
+  and specific courses with their subject codes
+* CEG students can easily filter by either NUS-coded modules or partner universities (PU) to quickly identify relevant course options.
+* CEG students can easily load and save the saved courses in a data file for safekeeping
+* The CLI interface provides an efficient experience for users focused on planning their SEP with precision.
 
 ## User Stories
 
 | Version | As a ...     | I want to ...                                                   | So that I can ...                                |
 |---------|--------------|-----------------------------------------------------------------|--------------------------------------------------|
 | v1.0    | CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions     |
-| v2.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                |
-| v2.0    | CEG student  | obtain the email address of the partner university              | send an email should I have any queries          |
-| v2.0    | CEG student  | obtain the contact number of the partner university             | call the number should I have any urgent queries |
+| v1.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                |
+| v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries          |
+| v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries |
 
 ## Non-Functional Requirements
 
-1. Access to a computer with Java 17 installed and a functional CLI
+1. Access to a computer with Java 17 installed and an IDE that supports Java programming
 2. A CEG Student in NUS planning to map out mainly BT/IS/EE/CS/CG-coded courses
 {TODO: Add more} 
 
