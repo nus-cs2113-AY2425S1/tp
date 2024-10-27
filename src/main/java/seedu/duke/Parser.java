@@ -3,11 +3,13 @@ package seedu.duke;
 import seedu.commands.Command;
 import seedu.commands.AddCommand;
 import seedu.commands.DeleteCommand;
-import seedu.commands.HelpCommand;
-import seedu.commands.ListCommand;
 import seedu.commands.UpdateCommand;
 import seedu.commands.SortCommand;
 import seedu.commands.FilterCommand;
+import seedu.commands.ListCommand;
+import seedu.commands.HelpCommand;
+import seedu.commands.RemoveCommand;
+
 import seedu.ui.Ui;
 
 import java.util.Map;
@@ -34,6 +36,7 @@ public class Parser {
         commands.put("filter", FilterCommand::new);
         commands.put("list", ListCommand::new);
         commands.put("help", HelpCommand::new);
+        commands.put("remove", RemoveCommand::new);
     }
 
     public Command parseCommand(String input) {
@@ -51,20 +54,26 @@ public class Parser {
         }
 
         try {
-            String inputData = input.split(" ", 2)[1];
+            String inputData = input.trim().split(" ", 2)[1];
             if (command instanceof AddCommand) {
                 return parseAddCommandData(inputData);
-            } else if (command instanceof DeleteCommand) {
-                return parseDeleteCommandData(inputData);
-            } else if (command instanceof UpdateCommand) {
-                return parseUpdateCommandData(inputData);
-            } else if (command instanceof SortCommand) {
-                return parseSortCommandData(inputData);
-            } else if (command instanceof FilterCommand) {
-                return parseFilterCommandData(inputData);
-            } else {
-                throw new IllegalArgumentException("Unknown command type");
             }
+            if (command instanceof DeleteCommand) {
+                return parseDeleteCommandData(inputData);
+            }
+            if (command instanceof UpdateCommand) {
+                return parseUpdateCommandData(inputData);
+            }
+            if (command instanceof SortCommand) {
+                return parseSortCommandData(inputData);
+            }
+            if (command instanceof FilterCommand) {
+                return parseFilterCommandData(inputData);
+            }
+            if (command instanceof RemoveCommand) {
+                return parseUpdateCommandData(inputData);
+            }
+            throw new IllegalArgumentException("Unknown command type");
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showOutput("Please input some ID or flag following the command");
             return null;
@@ -91,8 +100,9 @@ public class Parser {
 
     private ArrayList<String> parseUpdateCommandData(String inputData) {
         String[] splitArray = inputData.split(" ", 2);
-        String id = splitArray[0];
         try {
+            String id = splitArray[0];
+            Integer.parseInt(id);
             String fields = splitArray[1];
             if (fields.isBlank()) {
                 throw new ArrayIndexOutOfBoundsException();
@@ -102,6 +112,9 @@ public class Parser {
             return commandArgs;
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showEmptyFlags();
+            return null;
+        } catch (NumberFormatException e) {
+            ui.showOutput("Please input some ID for the command");
             return null;
         }
     }

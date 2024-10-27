@@ -37,7 +37,7 @@ public class UpdateCommand extends Command {
         }
     }
 
-    private boolean isValidValue(String[] words) {
+    protected boolean isValidValue(String[] words) {
         try {
             String value = words[INDEX_DATA].trim();
             if (value.isEmpty()) {
@@ -50,10 +50,10 @@ public class UpdateCommand extends Command {
         }
     }
 
-    private void updateOneField(String[] words, int internshipIndex) throws InvalidIndex {
+    protected void updateOneField(String[] words, int internshipIndex) throws InvalidIndex {
         String field = words[INDEX_FIELD];
         try {
-            switch (words[INDEX_FIELD]) {
+            switch (field) {
             case "status":
             case "skills":
             case "role":
@@ -65,10 +65,10 @@ public class UpdateCommand extends Command {
                 }
                 String value = words[INDEX_DATA].trim();
                 internships.updateField(internshipIndex, field, value);
-                uiCommand.addUpdatedField(field, value);
+                uiCommand.addUpdatedField(field, value, "update");
                 break;
             default:
-                uiCommand.addInvalidFlag(words[INDEX_FIELD]);
+                uiCommand.addInvalidFlag(field);
                 break;
             }
         } catch (DateTimeParseException e) {
