@@ -1,3 +1,6 @@
+/*
+package seedu.functions;
+
 import java.util.Scanner;
 
 class Main {
@@ -70,4 +73,4 @@ class Main {
             }
         }
     }
-}
+}*/
