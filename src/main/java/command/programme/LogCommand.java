@@ -1,6 +1,6 @@
 package command.programme;
 import command.CommandResult;
-import daily.record.DailyRecord;
+import history.DailyRecord;
 import programme.ProgrammeList;
 import programme.Day;
 import history.History;
@@ -53,10 +53,6 @@ public class LogCommand extends ProgrammeCommand {
         assert completed != null : "Completed Day must not be null";
 
         DailyRecord dailyRecord = history.getRecordByDate(date);
-        if(dailyRecord == null) {
-            dailyRecord = new DailyRecord(completed);
-        }
-
         dailyRecord.logDay(completed);
         history.logRecord(date, dailyRecord);
 
