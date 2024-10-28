@@ -1,3 +1,4 @@
+//@@author glenda-1506
 package seedu.duke;
 
 import java.text.DecimalFormat;
@@ -15,14 +16,13 @@ public class ExpenseTracker {
     private Map<Category, Budget> budgets = new HashMap<>();
     private boolean isautoResetEnabled;
     private int lastResetMonth;
-
+    //@@author kq2003
     public ExpenseTracker() {
         this.categories = new ArrayList<>();
         this.expenses = new ArrayList<>();
         this.isautoResetEnabled = false;
         this.lastResetMonth = -1;
     }
-
     // For testing purposes
     public List<Expense> getExpenses() {
         return expenses;
@@ -40,7 +40,7 @@ public class ExpenseTracker {
         isautoResetEnabled = !isautoResetEnabled;
         System.out.println("Automatic budget reset is now " + (isautoResetEnabled ? "ON" : "OFF") + ".");
     }
-
+    //@@author AdiMangalam
     /**
      * Resets the budget limits for all categories.
      *
@@ -91,7 +91,7 @@ public class ExpenseTracker {
         }
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
-
+    //@@author kq2003
     public void addExpense(String name, double amount, String categoryName) {
         String formattedCategoryName = formatInput(categoryName.trim());
         Category existingCategory = null;
@@ -110,7 +110,7 @@ public class ExpenseTracker {
         expenses.add(newExpense);
         System.out.println("Added" + newExpense);
     }
-
+    //@@author glenda-1506
     public void addCategory(String categoryName) {
         String trimmedCategoryName = categoryName.substring("add category".length()).trim();
         if (trimmedCategoryName.isEmpty()) {
@@ -129,7 +129,7 @@ public class ExpenseTracker {
         categories.add(newCategory);
         System.out.println("Category '" + newCategory + "' added successfully.");
     }
-
+    //@@author AdiMangalam
     /**
      * Deletes an expense at the specified index in the expense list.
      *
@@ -140,6 +140,7 @@ public class ExpenseTracker {
      *
      * @param expenseIndex the 0-based index of the expense to delete
      */
+    
     public void deleteExpense(int expenseIndex) {
         if (expenseIndex < 0 || expenseIndex >= expenses.size()) {
             System.out.println("Invalid index. Unable to delete expense.");
@@ -148,7 +149,7 @@ public class ExpenseTracker {
         Expense removedExpense = expenses.remove(expenseIndex);
         System.out.println("Deleted expense: " + removedExpense);
     }
-
+    //@@author glenda-1506
     private void tagExpenseHelper(int expenseIndex, String categoryName) {
         if (expenseIndex < 0 || expenseIndex >= expenses.size()) {
             System.out.println("Invalid index");
@@ -187,7 +188,7 @@ public class ExpenseTracker {
             System.out.println("Error parsing the input. Please use correct format for tag expense commands.");
         }
     }
-
+    //@@author MayfairMI6
     /**
      * Displays all expenses grouped by their respective categories.
      *
@@ -197,8 +198,6 @@ public class ExpenseTracker {
      *
      * Each category is displayed once with its associated expenses listed under it.
      *
-     * Assumes that the Expense class has a getCategory() method and that categories
-     * are stored as strings.
      */
     public void viewExpensesByCategory() {
         if (expenses.isEmpty()) {
@@ -225,7 +224,7 @@ public class ExpenseTracker {
             }
         }
     }
-
+    //@@author glenda-1506
     private String formatDecimal(double value) {
         BigDecimal roundedValue = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP);
         DecimalFormat wholeNumberFormat = new DecimalFormat("$#");
@@ -236,8 +235,7 @@ public class ExpenseTracker {
             return decimalFormat.format(roundedValue);
         }
     }
-
-
+    //@@author MayFairMI6
     /**
      * Sets a budget limit for a specific category.
      *
@@ -275,8 +273,7 @@ public class ExpenseTracker {
             System.out.println("Set budget for category '" + existingCategory + "' to " + formatDecimal(limit));
         }
     }
-
-
+    //@@author kq2003
     public void viewBudget() {
         if (budgets.isEmpty()) {
             System.out.println("No budgets set for any category.");
