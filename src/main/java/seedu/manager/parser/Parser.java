@@ -356,6 +356,22 @@ public class Parser {
         }
     }
 
+    //@author LTK-1606
+    /**
+     * Parses the input command to create a {@code FindCommand} object.
+     * <p>
+     * This method checks if the input contains the required flags (-e for event and -p for person).
+     * It splits the input into parts based on these flags and validates the resulting segments.
+     * If valid, it constructs and returns a new {@code FindCommand} with the specified event name
+     * and participant name. If the command format is invalid or the required flags are missing,
+     * an {@code InvalidCommandException} is thrown.
+     * </p>
+     *
+     * @param input the full command input string to be parsed
+     * @param commandParts the parts of the command, typically split by whitespace
+     * @return a {@code FindCommand} object with the parsed event and person names
+     * @throws InvalidCommandException if the command is missing required flags or has an invalid format
+     */
     private Command parseFindCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(FindCommand.COMMAND_WORD);
         try {

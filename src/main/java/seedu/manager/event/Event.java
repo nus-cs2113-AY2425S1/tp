@@ -94,7 +94,7 @@ public class Event {
      */
     private Optional<Participant> getParticipantByName(String participantName) {
         for (Participant participant : this.participantList) {
-            if (participant.getName().toLowerCase().contains(participantName.trim().toLowerCase())) {
+            if (participant.getName().equalsIgnoreCase(participantName)) {
                 return Optional.of(participant);
             }
         }
@@ -190,6 +190,18 @@ public class Event {
         return true;
     }
 
+    //@author LTK-1606
+    /**
+     * Finds participants in the event whose names contain the specified person name.
+     * <p>
+     * This method iterates through the list of participants and checks if their names
+     * contain the given {@code personName}, ignoring case and leading/trailing spaces.
+     * If a match is found, the participant is added to the result list.
+     * </p>
+     *
+     * @param personName the name or part of the name of the participant to search for
+     * @return a list of {@code Participant} objects whose names contain the specified {@code personName}
+     */
     public ArrayList<Participant> findParticipants(String personName) {
         ArrayList<Participant> participants = new ArrayList<>();
         for (Participant participant : this.participantList) {

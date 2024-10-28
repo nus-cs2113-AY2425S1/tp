@@ -6,6 +6,11 @@ import seedu.manager.item.Participant;
 import java.util.ArrayList;
 import java.util.Optional;
 
+//@author LTK-1606
+/**
+ * Represents a command to sort the events in different ways.
+ * The sort command will store the sorting keyword.
+ */
 public class FindCommand extends Command{
     public static final String COMMAND_WORD = "find";
 
@@ -17,12 +22,31 @@ public class FindCommand extends Command{
     protected String eventName;
     protected Optional<Event> event;
 
+    /**
+     * Creates a {@code FindCommand} to find participants by event and person name.
+     *
+     * @param eventName the name of the event to search for participants
+     * @param personName the name of the participant to search for within the event
+     */
     public FindCommand(String eventName, String personName) {
         super(false);
         this.eventName = eventName;
         this.personName = personName;
     }
 
+    /**
+     * Executes the command to find participants in the specified event by the given person name.
+     * <p>
+     * This method retrieves the event corresponding to the provided {@code eventName} and
+     * searches for participants with the specified {@code personName}. It builds an output message
+     * containing either the list of found participants or an appropriate failure message if
+     * the event is not found or no participants match the criteria.
+     * </p>
+     *
+     * <p>
+     * The output message is stored in the {@code message} field of the command for later retrieval.
+     * </p>
+     */
     @Override
     public void execute() {
         StringBuilder outputMessage = new StringBuilder();
