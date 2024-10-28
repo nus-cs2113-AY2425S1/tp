@@ -2,6 +2,7 @@ package seedu.duke.financial;
 
 import seedu.duke.exception.FinanceBuddyException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -18,13 +19,29 @@ public class FinancialList {
         entries = new ArrayList<>();
     }
 
+    private boolean shouldDecrementIndex(FinancialEntry entry, int insertIndex) {
+        assert insertIndex >= 0 : "Negative Index entered.";
+        if (insertIndex == 0){
+            return false;
+        }
+        assert insertIndex <= entries.size() : "Index out of bounds.";
+        LocalDate dateOfPreviousEntry = entries.get(insertIndex - 1).getDate();
+        //return true if previous entry has a later date than entry to be inserted
+        return dateOfPreviousEntry.isAfter(entry.getDate());
+    }
+
     /**
-     * Adds a new financial entry to the list.
+     * Adds a new financial entry to the list in ascending order of date.
      *
      * @param entry The financial entry (income or expense) to be added.
      */
     public void addEntry(FinancialEntry entry) {
-        entries.add(entry);
+        int insertIndex = entries.size();
+        while (shouldDecrementIndex(entry, insertIndex)) {
+            insertIndex--;
+        }
+        assert insertIndex >= 0 && insertIndex <= entries.size(): "Invalid insertion index";
+        entries.add(insertIndex, entry);
     }
 
     /**
