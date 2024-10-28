@@ -40,8 +40,10 @@ Design and Implementation has been broken down into various sections, each tagge
 
 - [UI and Parser](#ui-and-parser)
 - [Commands](#commands)
+- [Storage](#storage)
 - [Expense and Expense List](#expense-and-expense-list)
 - [Date and Time Handling](#date-and-time-handling)
+- [Exceptions and Logging](#exceptions-and-logging)
 
 ### UI and Parser
 
@@ -91,6 +93,20 @@ This has been heavily simplified and only shows the key commands.
 The following diagram is a sequence diagram for execution of Command.
 
 ![CommandExecutionSequence.png](diagrams%2Fimages%2FCommandExecutionSequence.png)
+
+### Storage
+
+<u>Overview</u>
+
+Majority of the storage handling occurs in the ExpenseList class. 
+This is to keep the storage tightly coupled with the expense data and ensures that when the expense list is updated,
+the storage format is updated accordingly.
+
+OpenCSV is used for the storage format to allow for reliable handling of CSV files. 
+The CSV file format was used to allow expenses to be easily exported/ imported to and from other programs (like Excel).
+
+In the future, if the state expands to be greater than an ExpenseList, it would be better for a separate class to be
+created for solely handling Storage. 
 
 ### Expense and Expense List
 
