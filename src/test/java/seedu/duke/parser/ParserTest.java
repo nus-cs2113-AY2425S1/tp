@@ -50,7 +50,7 @@ public class ParserTest {
     @Test
     public void parseCommandDeadline() {
         State taskState = new State(StateType.TASK_STATE);
-        Command returnedCommand = new AddDeadlineParser().execute("deadline CS2113 /by deadline", taskState);
+        Command returnedCommand = new AddDeadlineParser().execute("deadline CS2113 /by 2359", taskState);
         assertEquals(true, returnedCommand != null);
 
         State mainState = new State(StateType.MAIN_STATE);
