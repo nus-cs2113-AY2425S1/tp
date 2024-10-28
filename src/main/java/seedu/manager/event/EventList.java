@@ -63,6 +63,11 @@ public class EventList  {
         eventList.add(newEvent);
     }
 
+    /**
+     * Adds an event to the event list.
+     *
+     * @param event the event to be added to the list
+     */
     public void addEvent(Event event) {
         eventList.add(event);
     }
@@ -169,12 +174,18 @@ public class EventList  {
     }
 
     /**
-     *  Sort the event list by priority level from most to least important.
+     *  Sort the event list by priority level from highest to lowest priority.
      */
     public void sortByPriority() {
         eventList.sort(Comparator.comparing(Event::getEventPriority));
     }
 
+    /**
+     * Filters events in the event list by the specified priority level.
+     *
+     * @param priority the priority level to filter events by
+     * @return an {@code EventList} containing only events with the specified priority
+     */
     public EventList filterByPriority(Priority priority) {
         EventList filteredList = new EventList();
 

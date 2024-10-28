@@ -1,6 +1,5 @@
 package seedu.manager.parser;
 
-
 import seedu.manager.command.AddCommand;
 import seedu.manager.command.Command;
 import seedu.manager.command.ExitCommand;
@@ -366,6 +365,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string and command parts to create a {@code FilterCommand} object.
+     * <p>
+     * This method verifies that the first part of {@code commandParts} matches the expected filter command
+     * and then checks if a valid flag is provided. The filter flag should be one of <code>"-e"</code>,
+     * <code>"-t"</code>, or <code>"-u"</code>, representing different filter types.
+     * If the flag is valid and additional input is provided, a new {@code FilterCommand} is created.
+     * <p>
+     * If the input format is incorrect, or an invalid flag is provided,
+     * this method throws an {@code InvalidCommandException}.
+     *
+     * @param input        the full user input string
+     * @param commandParts the split parts of the command, with the first element expected to be the filter command word
+     * @return a {@code FilterCommand} object initialized with the specified flag and filter criteria
+     * @throws InvalidCommandException if the command format is invalid or an invalid flag is provided
+     */
     private Command parseFilterCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
 
