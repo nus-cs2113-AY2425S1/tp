@@ -91,7 +91,7 @@ The following diagram is a sequence diagram for execution of Command.
 
 <u>Overview</u>
 
-The `Expense` class represents an individual expense with a price, description and a category.
+The `Expense` class represents an individual expense with a price, description, category and the date added.
 
 The `ExpenseList` class manages a collection of `Expense` objects. 
 It allows for the addition, editing and deletion of expenses.
@@ -170,7 +170,8 @@ The application can provide summaries and statistical insights to spending habit
 
 ## Glossary
 
-* *Expense* - Payment made for various purposes. It has a price, category and description.
+* *Expense* - Payment made for various purposes. It has a price, category, description and the date added.
+
 
 ## Instructions for Testing
 
