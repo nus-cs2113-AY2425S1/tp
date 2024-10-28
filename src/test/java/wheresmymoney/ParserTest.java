@@ -34,10 +34,24 @@ class ParserTest {
         } catch (WheresMyMoneyException e) {
             assert(false);
         }
-        System.out.println(argumentsMap);
         assertEquals(argumentsMap.keySet().size(), 2);
         assert(argumentsMap.containsKey(Parser.ARGUMENT_COMMAND));
         assertEquals(argumentsMap.get(Parser.ARGUMENT_COMMAND), "command");
+        assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "");
+    }
+
+    @Test
+    public void parseLineToArgumentsMap_commandWithLeadingForwardSlash_command() {
+        String inputLine = "/command   ";
+        HashMap<String, String> argumentsMap = null;
+        try {
+            argumentsMap = Parser.parseLineToArgumentsMap(inputLine);
+        } catch (WheresMyMoneyException e) {
+            assert(false);
+        }
+        assertEquals(argumentsMap.keySet().size(), 2);
+        assert(argumentsMap.containsKey(Parser.ARGUMENT_COMMAND));
+        assertEquals(argumentsMap.get(Parser.ARGUMENT_COMMAND), "/command");
         assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "");
     }
 
@@ -126,5 +140,29 @@ class ParserTest {
         assertEquals(argumentsMap.get(Parser.ARGUMENT_COMMAND), "command");
         assertEquals(argumentsMap.get("extra"), "");
         assertEquals(argumentsMap.get("extra2"), "");
+    }
+
+    @Test
+    public void parseLineToArgumentsMap_commandArgumentWithForwardSlashHandling_forwardSlashHandled() {
+        HashMap<String, String> argumentsMap = null;
+        try {
+            argumentsMap = Parser.parseLineToArgumentsMap("command /argument /value");
+            assertEquals(argumentsMap.get("argument"), "");
+            assertEquals(argumentsMap.get("value"), "");
+
+            argumentsMap = Parser.parseLineToArgumentsMap("command /argument \\/value");
+            assertEquals(argumentsMap.get("argument"), "/value");
+
+            argumentsMap = Parser.parseLineToArgumentsMap("command /argument value\\/value");
+            assertEquals(argumentsMap.get("argument"), "value/value");
+
+            argumentsMap = Parser.parseLineToArgumentsMap("command /argument value/value");
+            assertEquals(argumentsMap.get("argument"), "value/value");
+
+            argumentsMap = Parser.parseLineToArgumentsMap("command /argument/param value");
+            assertEquals(argumentsMap.get("argument/param"), "value");
+        } catch (WheresMyMoneyException e) {
+            assert(false);
+        }
     }
 }

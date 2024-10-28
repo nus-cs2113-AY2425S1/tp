@@ -65,8 +65,9 @@ public class Parser {
                 if (argumentsMap.containsKey(currArgumentName)) {
                     throw new InvalidInputException("Duplicate arguments or Invalid Arguments (eg. /command, /main");
                 }
-                argumentsMap.put(currArgumentName, currArgument.toString().strip());
-                currArgumentName = words[i].replace("/", "");
+                argumentsMap.put(currArgumentName,
+                        currArgument.toString().replace("\\/", "/").strip());
+                currArgumentName = words[i].replaceFirst("/", "");
                 currArgument.setLength(0);
             } else {
                 // Add on to existing argument
@@ -78,7 +79,7 @@ public class Parser {
         if (argumentsMap.containsKey(currArgumentName)) {
             throw new InvalidInputException("Duplicate arguments or Invalid Arguments (eg. /command, /main");
         }
-        argumentsMap.put(currArgumentName, currArgument.toString().strip());
+        argumentsMap.put(currArgumentName, currArgument.toString().replace("\\/", "/").strip());
     }
 
     /**

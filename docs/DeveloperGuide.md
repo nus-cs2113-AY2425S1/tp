@@ -62,18 +62,28 @@ The Parser class has the following key method:
 | `parseInputToCommand`  | Parses a given user input and returns the related Command |
 
 
-The Parser also has some considerations such as
-1. Restricted arguments which should not be used by other developers in their commands. These include
-   1. `/command` -> used for the main command keyword
-   2. `/main` -> used for the main text argument right after the command keyword
-3. Any duplicate arguments will throw an InvalidInputException
-
 <u>Design Considerations</u>
 
 Low-level I/O operations (eg. stdio) are consolidated in the Ui class such that we can easily switch the I/O methods by 
 modifying only the Ui class. This would make it easier to port the application to other platforms if needed.
 
 Ui class is used as part of exception handling for displaying of error messages to the user for feedback.
+
+The Parser also has some considerations such as
+1. Restricted arguments which should not be used by other developers in their commands. These include
+    1. `/command` -> used for the main command keyword
+    2. `/main` -> used for the main text argument right after the command keyword
+3. Any duplicate arguments will throw an InvalidInputException
+4. All `/` in the argument values should be escaped
+    1. Examples
+       1. `command /argument \/value` -> `argument`: `/value`
+       2. `command /argument value\/value` -> `argument`:`value/value`
+       3. `command /argument value/value` -> `argument`:`value/value` (this is accepted for now, but not recommended)
+       4. `command /argument value\\/value` -> `argument`:`value\/value`
+    5. `/` don't need to be escaped for
+       1. commands -> eg. `/command /argument value1` -> the command is `/command`
+           1. It is discouraged to do so, but the option is left for potential expandability
+       2. arguments -> eg. `command /argument/param value` -> the argument name is `/argument/param`
 
 ### Commands
 
