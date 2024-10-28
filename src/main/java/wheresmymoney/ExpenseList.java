@@ -32,26 +32,49 @@ public class ExpenseList {
         return expenses.isEmpty();
     }
 
-    public Expense getExpenseAtIndex(int i) {
-        return expenses.get(i);
+    public Expense getExpenseAtIndex(int index) throws WheresMyMoneyException {
+        try {
+            return expenses.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new WheresMyMoneyException("Index is out of bounds.");
+        }
     }
     
-    public int getIndexOf(Expense expense) {
-        return expenses.indexOf(expense);
+    public int getIndexOf(Expense expense) throws WheresMyMoneyException {
+        int index = expenses.indexOf(expense);
+        if (index == -1) {
+            throw new WheresMyMoneyException("Expense not in list.");
+        }
+        return index;
     }
 
-
     /**
-     * Add an expense to the end of the list
+     * Add an expense with an unspecified date to the end of the list
      *
      * @param price New price of expense
      * @param description New description of expense
      * @param category New category of expense
      */
-    public void addExpense(Float price, String description, String category) {
+    public void addExpense(Float price, String description, String category) throws WheresMyMoneyException {
         Logging.log(Level.INFO,
                 String.format("Adding expense with parameters: %f, %s, %s", price, description, category));
         Expense expense = new Expense(price, description, category);
+        expenses.add(expense);
+        Logging.log(Level.INFO, "Successfully added expense.");
+    }
+    /**
+     * Add an expense with a specified date to the end of the list
+     *
+     * @param price New price of expense
+     * @param description New description of expense
+     * @param category New category of expense
+     */
+    public void addExpense(Float price, String description, String category, String dateAdded)
+            throws WheresMyMoneyException {
+        Logging.log(Level.INFO,
+                String.format("Adding expense with parameters: %f, %s, %s, %s",
+                        price, description, category, dateAdded));
+        Expense expense = new Expense(price, description, category, dateAdded);
         assert (expense != null);
         expenses.add(expense);
         Logging.log(Level.INFO, "Successfully added expense.");
@@ -65,14 +88,16 @@ public class ExpenseList {
      * @param description New description of expense
      * @param category New category of expense
      */
-    public void editExpense(int index, Float price, String description, String category) throws WheresMyMoneyException {
+    public void editExpense(int index, Float price, String description, String category, String dateAdded)
+            throws WheresMyMoneyException {
         try {
             Logging.log(Level.INFO, "Attempting to edit expense.");
-            Expense expense = expenses.get(index);
+            Expense expense = getExpenseAtIndex(index);
             assert (expense != null);
             expense.setPrice(price);
             expense.setDescription(description);
             expense.setCategory(category);
+            expense.setDateAdded(dateAdded);
             Logging.log(Level.INFO, "Successfully edited expense.");
         } catch (WheresMyMoneyException e) {
             Logging.log(Level.INFO, "Failure when editing expense.");
@@ -95,8 +120,8 @@ public class ExpenseList {
     public ArrayList<Expense> listByCategory(String category) {
         ArrayList<Expense> expensesFromCategory = new ArrayList<>();
         for (Expense expense: expenses) {
-            if (expense.category.equals(category)) {
-                Logging.log(Level.INFO, "Found matching expense: " + expense.description);
+            if (expense.getCategory().equals(category)) {
+                Logging.log(Level.INFO, "Found matching expense: " + expense.getDescription());
                 expensesFromCategory.add(expense);
             }
         }
@@ -113,16 +138,18 @@ public class ExpenseList {
             File file = new File(filePath);
             FileReader reader = new FileReader(file);
             CSVReader csvReader = new CSVReader(reader);
-
+            
             csvReader.readNext(); // Skip the header
             String[] line;
             while ((line = csvReader.readNext()) != null) {
-                addExpense(Float.parseFloat(line[2]), line[1], line[0]);
+                addExpense(Float.parseFloat(line[2]), line[1], line[0], line[3]);
             }
-
+            
             // closing writer connection
             reader.close();
             csvReader.close();
+        } catch (WheresMyMoneyException exc) {
+            throw new StorageException("An expense's price, description, category and/or date added is missing");
         } catch (IOException ex) {
             throw new StorageException("Unable to read file!");
         } catch (CsvValidationException e){
@@ -151,20 +178,21 @@ public class ExpenseList {
         CSVWriter writer = new CSVWriter(outFile);
 
         // adding header to csv
-        String[] header = { "Category", "Description", "Price" };
+        String[] header = { "Category", "Description", "Price", "Date Added" };
         writer.writeNext(header);
 
         for (Expense expense: expenses) {
             String[] row = {
                     expense.getCategory(),
                     expense.getDescription(),
-                    expense.getPrice().toString()
+                    expense.getPrice().toString(),
+                    expense.getDateAdded()
             };
             writer.writeNext(row);
         }
 
         // closing writer connection
-        try{
+        try {
             writer.close();
         } catch (IOException e) {
             throw new StorageException("Unable to save to file!");

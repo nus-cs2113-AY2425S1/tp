@@ -35,13 +35,15 @@ public class ListCommand extends Command {
         }
     }
 
-    private void displayExpenses(ArrayList<Expense> expensesToDisplay, ExpenseList expenseList) {
+    private void displayExpenses(ArrayList<Expense> expensesToDisplay, ExpenseList expenseList)
+            throws WheresMyMoneyException {
         for (Expense expense: expensesToDisplay) {
             String index = expenseList.getIndexOf(expense) + 1 + ". ";
             String category = "CATEGORY: " + expense.getCategory();
-            String description = "   DESCRIPTION: " + expense.getDescription();
-            String price = "   PRICE: " + expense.getPrice();
-            Ui.displayMessage(index + category + description + price);
+            String description = "DESCRIPTION: " + expense.getDescription();
+            String price = "PRICE: " + expense.getPrice();
+            String dateAdded = "DATE ADDED: " + expense.getDateAdded();
+            Ui.displayMessage(index + category + ", " + description + ", " + price + ", " + dateAdded);
         }
     }
 

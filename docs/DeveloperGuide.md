@@ -36,6 +36,7 @@ Design and Implementation has been broken down into various sections, each tagge
 
 - [UI and Parser](#ui-and-parser)
 - [Commands](#commands)
+- [Expense and Expense List](#expense-and-expense-list)
 
 ### UI and Parser
 
@@ -85,6 +86,27 @@ This has been heavily simplified and only shows the key commands.
 The following diagram is a sequence diagram for execution of Command.
 
 ![CommandExecutionSequence.png](diagrams%2Fimages%2FCommandExecutionSequence.png)
+
+### Expense and Expense List
+
+<u>Overview</u>
+
+The `Expense` class represents an individual expense with a price, description and a category.
+
+The `ExpenseList` class manages a collection of `Expense` objects. 
+It allows for the addition, editing and deletion of expenses.
+
+<u>Methods</u>
+
+The `Expense` class has no notable key methods.
+
+The `ExpenseList` class has the following key methods: 
+
+|     Method      |            Description            |
+|:---------------:|:---------------------------------:|
+|  `addExpense`   |    Adds an expense to the list    |
+| `deleteExpense` | Removes an expense from the list  |
+|  `editExpense`  |   Edits an expense in the list    |
 
 ### Exceptions and Logging
 

@@ -26,14 +26,20 @@ public class AddCommand extends Command {
             float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
             String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
-            if (this.isRecur()) {
-                String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE);
+            if (argumentsMap.containsKey(Parser.ARGUMENT_DATE_ADDED) && !this.isRecur()) {
+                String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE_ADDED);
+                expenseList.addExpense(price, description, category, dateAdded);
+            } else if (!argumentsMap.containsKey(Parser.ARGUMENT_DATE_ADDED) && !this.isRecur()) {
+                expenseList.addExpense(price, description, category);
+            } else if (argumentsMap.containsKey(Parser.ARGUMENT_DATE_ADDED) && this.isRecur()) {
+                String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE_ADDED);
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
                 recurringExpenseList.addRecurringExpense(price, description, category, lastAddedDate, frequency);
             } else {
-                expenseList.addExpense(price, description, category);
+                String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
+                recurringExpenseList.addRecurringExpense(price, description, category, frequency);
             }
-        }catch(NullPointerException | NumberFormatException e) {
+        } catch(NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments");
         }
     }
