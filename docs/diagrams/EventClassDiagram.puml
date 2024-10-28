@@ -11,12 +11,12 @@ rectangle Main
 rectangle Command COMMAND_COLOUR
 rectangle Storage STORAGE_COLOUR
 
-EventList *--> Event
-Event *--> Participant
+EventList *--> "*" Event : event
+Event *--> "*" Participant : participant
 
 Main .> EventList
 EventList <. Storage
 EventList <.. Command
-Command ..> Event
+Command .> Event
 
 @enduml
