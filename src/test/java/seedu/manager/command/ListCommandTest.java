@@ -2,6 +2,7 @@ package seedu.manager.command;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 
 import java.time.LocalDateTime;
@@ -20,9 +21,9 @@ public class ListCommandTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-10 10:00", formatter),
-                "Venue A");
+                "Venue A", Priority.HIGH);
         eventList.addEvent("Event 2", LocalDateTime.parse("2024-11-11 12:00", formatter),
-                "Venue B");
+                "Venue B", Priority.MEDIUM);
 
         listCommand = new ListCommand();
         listCommand.setData(eventList);

@@ -11,6 +11,7 @@ import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.ViewCommand;
 import seedu.manager.command.SortCommand;
+import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.InvalidCommandException;
 
 import java.time.LocalDateTime;
@@ -30,7 +31,7 @@ public class Parser {
     private static final String INVALID_ADD_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            add -e EVENT -t TIME -v VENUE
+            add -e EVENT -t TIME -v VENUE -u PRIORITY
             add -p PARTICIPANT -e EVENT
             """;
     private static final String INVALID_REMOVE_MESSAGE = """
@@ -71,6 +72,11 @@ public class Parser {
             Invalid date-time format!
             Please use the following format for event time:
             YYYY-MM-DD HH:mm
+            """;
+    private static final String INVALID_PRIORITY_MESSAGE = """
+            Invalid priority level status!
+            Please use the following format for priority level:
+            high/medium/low
             """;
 
     /**
@@ -129,12 +135,13 @@ public class Parser {
             String[] inputParts;
 
             if (commandFlag.equals("-e")) {
-                inputParts = input.split("(-e|-t|-v)");
+                inputParts = input.split("(-e|-t|-v|-u)");
                 logger.info("Creating AddCommand for event with details: " +
                         inputParts[1].trim() + ", " + inputParts[2].trim() + ", " + inputParts[3].trim());
                 LocalDateTime eventTime = LocalDateTime.parse(inputParts[2].trim(),
                         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                return new AddCommand(inputParts[1].trim(), eventTime, inputParts[3].trim());
+                Priority eventPriority = Priority.valueOf(inputParts[4].trim().toUpperCase());
+                return new AddCommand(inputParts[1].trim(), eventTime, inputParts[3].trim(), eventPriority);
             } else if (commandFlag.equals("-p")) {
                 inputParts = input.split("(-p|-e)");
                 logger.info("Creating AddCommand for participant with details: " +
@@ -150,6 +157,9 @@ public class Parser {
         } catch (DateTimeParseException exception) {
             logger.log(WARNING,"Invalid date-time format");
             throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
+        } catch (IllegalArgumentException exception) {
+            logger.log(WARNING,"Invalid priority level status");
+            throw new InvalidCommandException(INVALID_PRIORITY_MESSAGE);
         }
     }
 

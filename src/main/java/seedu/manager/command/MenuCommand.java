@@ -9,7 +9,7 @@ public class MenuCommand extends Command {
     private static final String MENU_MESSAGE = """
             Here are the possible commands:
            
-            add -e EVENT -t TIME -v VENUE: Add an event to the event list.
+            add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
             list: List events.
             remove -e EVENT: Remove an event from the event list.
             add -p PARTICIPANT -e EVENT: Add a participant to an event.

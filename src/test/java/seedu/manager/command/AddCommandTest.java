@@ -1,6 +1,7 @@
 package seedu.manager.command;
 
 import org.junit.jupiter.api.Test;
+import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ public class AddCommandTest {
 
         eventList.addEvent("Event 1",
                 LocalDateTime.parse("2024-10-20 21:00", formatter),
-                "Venue A");
+                "Venue A", Priority.HIGH);
         assertEquals(1, eventList.getListSize());
     }
 
@@ -28,7 +29,7 @@ public class AddCommandTest {
 
         eventList.addEvent("Event 1",
                 LocalDateTime.parse("2024-10-10 10:00", formatter),
-                "Venue A");
+                "Venue A", Priority.HIGH);
         eventList.addParticipantToEvent("Tom", "Event 1");
         eventList.addParticipantToEvent("Harry", "Event 1");
 
@@ -41,7 +42,7 @@ public class AddCommandTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-10 10:00", formatter),
-                "Venue A");
+                "Venue A", Priority.HIGH);
         eventList.addParticipantToEvent("Tom", "Event 1");
         eventList.addParticipantToEvent("Harry", "Event 2");
 

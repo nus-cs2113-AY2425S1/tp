@@ -1,5 +1,7 @@
 package seedu.manager.command;
 
+import seedu.manager.enumeration.Priority;
+
 import java.time.LocalDateTime;
 
 //@@author KuanHsienn
@@ -15,6 +17,7 @@ public class AddCommand extends Command {
     protected String eventName;
     protected LocalDateTime time;
     protected String venue;
+    protected Priority priority;
     protected String participantName;
 
     /**
@@ -23,12 +26,14 @@ public class AddCommand extends Command {
      * @param eventName The name of the event to be added.
      * @param time The time of the event to be added.
      * @param venue The venue of the event to be added.
+     * @param priority The priority level of the event to be added
      */
-    public AddCommand(String eventName, LocalDateTime time, String venue) {
+    public AddCommand(String eventName, LocalDateTime time, String venue, Priority priority) {
         super(false);
         this.eventName = eventName;
         this.time = time;
         this.venue = venue;
+        this.priority = priority;
     }
 
     //@@author LTK-1606
@@ -59,7 +64,7 @@ public class AddCommand extends Command {
     @Override
     public void execute() {
         if (participantName == null) {
-            this.eventList.addEvent(this.eventName, this.time, this.venue);
+            this.eventList.addEvent(this.eventName, this.time, this.venue, this.priority);
             this.message = ADD_EVENT_MESSAGE;
         } else {
             boolean isAdded = this.eventList.addParticipantToEvent(this.participantName, this.eventName);

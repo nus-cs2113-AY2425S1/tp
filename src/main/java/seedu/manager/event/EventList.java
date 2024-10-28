@@ -1,5 +1,7 @@
 package seedu.manager.event;
 
+import seedu.manager.enumeration.Priority;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -54,9 +56,10 @@ public class EventList  {
      * @param eventName the name of the event to be added.
      * @param time      the time of the event.
      * @param venue     the venue where the event will take place.
+     * @param priority the priority level of the event
      */
-    public void addEvent(String eventName, LocalDateTime time, String venue) {
-        Event newEvent = new Event(eventName, time, venue);
+    public void addEvent(String eventName, LocalDateTime time, String venue, Priority priority) {
+        Event newEvent = new Event(eventName, time, venue, priority);
         eventList.add(newEvent);
     }
 
