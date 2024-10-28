@@ -37,6 +37,7 @@ Design and Implementation has been broken down into various sections, each tagge
 - [UI and Parser](#ui-and-parser)
 - [Commands](#commands)
 - [Expense and Expense List](#expense-and-expense-list)
+- [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 
 ### UI and Parser
 
