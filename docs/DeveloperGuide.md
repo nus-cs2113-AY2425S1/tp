@@ -39,6 +39,7 @@ Design and Implementation has been broken down into various sections, each tagge
 - [UI and Parser](#ui-and-parser)
 - [Commands](#commands)
 - [Expense and Expense List](#expense-and-expense-list)
+- [Date and Time Handling](#date-and-time-handling)
 
 ### UI and Parser
 
