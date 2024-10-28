@@ -3,6 +3,7 @@ package seedu.commands;
 import seedu.duke.InternshipList;
 import seedu.duke.Internship;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -94,17 +95,7 @@ public class FilterCommand extends Command {
             assert false: "Should never be able to reach this statement if all flags are accounted for";
         }
 
-        if (isValidDate(flag, searchTerm)) {
-            filterByDate(getter, searchTerm, dateComparator);
-        }
-    }
-
-    private boolean isValidDate(String flag, String searchTerm) {
-        if (!searchTerm.matches("\\d{2}/\\d{2}")) {
-            uiCommand.showOutput("Please enter a valid date for the " + flag + " flag");
-            throw new IllegalArgumentException();
-        }
-        return true;
+        filterByDate(getter, searchTerm, dateComparator);
     }
 
     private void filterByRoleAndCompany(InternshipFieldGetter getter, String searchTerm) {
@@ -127,11 +118,25 @@ public class FilterCommand extends Command {
         ArrayList<Internship> internshipListIterator = new ArrayList<>(internshipList);
         for (Internship internship : internshipListIterator) {
             String fieldValue = getter.getField(internship); // Dynamically calls getRole(), getCompany(), etc.
-            YearMonth fieldDate = YearMonth.parse(fieldValue, formatter);
-            YearMonth searchDate = YearMonth.parse(searchTerm, formatter);
+            YearMonth fieldDate = parseDate(fieldValue);
+            assert fieldDate != null : "fieldValue should always be a valid date";
+            YearMonth searchDate = parseDate(searchTerm);
+            if (searchDate == null) {
+                String outputString = searchTerm + " is not a valid date\n" + "Please enter a date in the MM/yy format";
+                uiCommand.showOutput(outputString);
+                throw new IllegalArgumentException();
+            }
             if (dateComparator.test(fieldDate, searchDate)) {
                 internshipList.remove(internship);
             }
+        }
+    }
+
+    private YearMonth parseDate(String stringDate) {
+        try {
+            return YearMonth.parse(stringDate, formatter);
+        } catch (DateTimeParseException e) {
+            return null;
         }
     }
 
