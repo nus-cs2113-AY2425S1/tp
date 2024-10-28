@@ -6,6 +6,7 @@
 - [Quick Start](#quick-start)
 - [Features](#features-)
 - [FAQ](#faq)
+- [Others](#others)
 - [Command Summary](#command-summary)
 
 ---
@@ -107,6 +108,12 @@ Format: `load`
 **Q**: How do I transfer my data to another computer? 
 
 **A**: You can save your expenses to a `.csv` file, which you can then transfer and load on another computer 
+
+## Others
+
+When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`
+
+eg. `<command> /argument \/value` -> `argument`: `/value` 
 
 ---
 

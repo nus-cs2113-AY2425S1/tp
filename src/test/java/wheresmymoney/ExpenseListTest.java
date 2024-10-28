@@ -181,6 +181,10 @@ class ExpenseListTest {
             fail("Exception thrown when Expense parameters and list index are valid.");
         }
     }
+
+    /**
+     * Tests the invalid deletion of an expense from an empty expense list.
+     */
     @Test
     public void deleteExpense_emptyList_throwsWheresMyMoneyException() {
         ExpenseList expenseList = new ExpenseList();
