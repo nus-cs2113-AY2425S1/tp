@@ -18,6 +18,8 @@
 
 <div style="page-break-after: always;"></div>
 
+---
+
 ## Acknowledgements
 
 WheresMyMoney uses the following libraries
@@ -133,6 +135,7 @@ that exception handling in the program could be better targetted in the future.
 The Logging class is implemented as a Singleton for ease of use. 
 Developers can log down certain actions in the program by simply calling the relevant class method `log(Level, String)`. 
 
+---
 
 ## Product scope
 
@@ -144,6 +147,8 @@ Our target user profile is frugal and tech-savvy university students.
 
 The application will track how much a user is spending and what they are spending it on. 
 The application can provide summaries and statistical insights to spending habits, optimised for people who prefer a CLI.
+
+---
 
 ## User Stories
 
@@ -168,10 +173,13 @@ The application can provide summaries and statistical insights to spending habit
 3. Project Scope Constraints: Data storage is only to be performed locally.
 4. Quality Requirements: The application should be able to be used effectively by a novice with little experience with CLIs.
 
+---
+
 ## Glossary
 
 * *Expense* - Payment made for various purposes. It has a price, category, description and the date added.
 
+---
 
 ## Instructions for Testing
 
