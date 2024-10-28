@@ -14,6 +14,7 @@ public class DateSerializer implements JsonSerializer<LocalDate>, JsonDeserializ
 
     @Override
     public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
+        assert src != null;
         return new JsonPrimitive(src.format(formatter));  
     }
 
