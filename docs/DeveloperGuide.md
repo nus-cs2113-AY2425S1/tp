@@ -4,63 +4,69 @@
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-## Design & implementation
+# Design & Implementation
 
 ## Category
 
-**Purpose**: Represents a category for expenses.
+### **Purpose**
+Represents a category for expenses.
 
-**Operations**:
+### **Operations**
 - `getName()`: Returns the category name.
 - `toString()`: Provides the string representation of the category.
 
 ## Expense
 
-**Purpose**: Represents an individual expense within the system.
+### **Purpose**
+Represents an individual expense within the system.
 
-**Operations**:
+### **Operations**
 - `getName()`, `getAmount()`: Retrieve the expense's name and amount.
 - `getCategory()`, `setCategory(Category)`: Manage the expense's category association.
 - `formatAmount()`: Formats the expense amount for display.
 
 ## Budget
 
-**Purpose**: Handle monetary constraints per category.
+### **Purpose**
+Handle monetary constraints per category.
 
-**Operations**:
+### **Operations**
 - `setLimit(double)`: Ensures limits are non-negative.
 - `formatLimit(double)`: Formats the budget limit for display.
 
 ## ExpenseTracker
 
-**Purpose**: Track and manage expenses and categories.
+### **Purpose**
+Track and manage expenses and categories.
 
-**Operations**:
-- **Adding Expenses and Categories**
-  - `addExpense`: Adds an expense after verifying or creating the necessary category.
-  - `addCategory`: Adds a new category if it does not exist.
+### **Operations**
+#### Adding Expenses and Categories
+- `addExpense`: Adds an expense after verifying or creating the necessary category.
+- `addCategory`: Adds a new category if it does not exist.
 
-- **Monthly Budget Reset Functionality**
-  - `toggleAutoReset`: Toggles automatic budget resets on or off.
-  - `checkAndResetBudgets`: Checks for a new month and triggers budget resets if enabled.
-  - `resetBudgets`: Resets all budgets to their predefined limits.
+#### Monthly Budget Reset Functionality
+- `toggleAutoReset`: Toggles automatic budget resets on or off.
+- `checkAndResetBudgets`: Checks for a new month and triggers budget resets if enabled.
+- `resetBudgets`: Resets all budgets to their predefined limits.
 
-- **Viewing and Organizing Data**
-  - `viewExpensesByCategory`: Displays expenses organized by categories.
-  - `viewBudget`: Displays budget limits and current expenditures for each category.
+#### Viewing and Organizing Data
+- `viewExpensesByCategory`: Displays expenses organized by categories.
+- `viewBudget`: Displays budget limits and current expenditures for each category.
 
-- **Modifying Data**
-  - `deleteExpense`: Deletes an expense based on its index.
-  - `tagExpense`: Reassigns an expense to a different category based on user input.
+#### Modifying Data
+- `deleteExpense`: Deletes an expense based on its index.
+- `tagExpense`: Reassigns an expense to a different category based on user input.
 
 ## Duke
 
-**Purpose**: Interface for command-line interactions.
+### **Purpose**
+Interface for command-line interactions.
 
-**Main flow**:
+### **Main flow**
 - The system starts and displays a greeting.
 - Continuously processes user commands until "bye".
 - Directly invokes methods from ExpenseTracker based on input.
+
 
 
 ## Product scope
