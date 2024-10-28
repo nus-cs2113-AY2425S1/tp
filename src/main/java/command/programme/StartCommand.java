@@ -17,10 +17,10 @@ public class StartCommand extends ProgrammeCommand {
     }
 
     @Override
-    public CommandResult execute(ProgrammeList pList, History history){
-        assert pList != null : "Programme list must not be null";
+    public CommandResult execute(ProgrammeList programmes, History history){
+        assert programmes != null : "Programme list must not be null";
 
-        Programme started = pList.startProgramme(progId);
+        Programme started = programmes.startProgramme(progId);
         assert started != null : "Programme must not be null";
         String result = String.format("Ok! Started Programme: %n%s",started);
 

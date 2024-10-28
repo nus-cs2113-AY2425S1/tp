@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Override
-    public CommandResult execute(ProgrammeList pList, History history){
+    public CommandResult execute(ProgrammeList programmes, History history){
         logger.log(Level.INFO, "ExitCommand executed.");
         return new CommandResult("Exiting BuffBuddy...");
     }

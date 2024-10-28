@@ -21,10 +21,12 @@ public class BuffBuddy {
 
     public BuffBuddy(String filePath) {
         ui = new Ui();
+        parser = new Parser();
         storage = new Storage(filePath);
+
         programmes = storage.loadProgrammeList();
         history = storage.loadHistory();
-        parser = new Parser();
+
         isRunning = true;
     }
 
@@ -34,26 +36,26 @@ public class BuffBuddy {
 
     public void run() {
         ui.showWelcome();
-        handleCommands();
+        while (isRunning) {
+            handleCommand();
+        }
         ui.showFarewell();
         storage.saveData(programmes, history);
     }
 
-    private void handleCommands() {
-        while (isRunning) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command command = parser.parse(fullCommand);
-                CommandResult result = command.execute(programmes, history);
-                ui.showMessage(result);
+    private void handleCommand() {
+        try {
+            String fullCommand = ui.readCommand();
+            Command command = parser.parse(fullCommand);
+            CommandResult result = command.execute(programmes, history);
+            ui.showMessage(result);
 
-                if (command instanceof ExitCommand) {
-                    isRunning = false;
-                }
-
-            } catch (Exception e) {
-                ui.showError(e);
+            if (command instanceof ExitCommand) {
+                isRunning = false;
             }
+
+        } catch (Exception e) {
+            ui.showError(e);
         }
     }
 }

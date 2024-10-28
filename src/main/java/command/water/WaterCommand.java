@@ -25,7 +25,7 @@ public abstract class WaterCommand extends Command {
     public abstract CommandResult execute(History history);
 
     @Override
-    public CommandResult execute(ProgrammeList pList, History history) {
+    public CommandResult execute(ProgrammeList programmes, History history) {
         logger.log(Level.INFO, "Executing WaterCommand with ProgrammeList and History.");
         return execute(history);
     }

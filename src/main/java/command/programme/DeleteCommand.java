@@ -17,10 +17,10 @@ public class DeleteCommand extends ProgrammeCommand {
     }
 
     @Override
-    public CommandResult execute(ProgrammeList pList, History history){
-        assert pList != null : "Programme list must not be null";
+    public CommandResult execute(ProgrammeList programmes, History history){
+        assert programmes != null : "Programme list must not be null";
 
-        Programme programme = pList.deleteProgram(progId);
+        Programme programme = programmes.deleteProgram(progId);
         assert programme != null : "Programme with ID " + progId + " not found";
         String result = String.format("Deleted programme: %n%s",programme);
 

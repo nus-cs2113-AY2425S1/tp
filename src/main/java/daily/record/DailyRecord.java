@@ -1,4 +1,4 @@
-package dailyrecord;
+package daily.record;
 
 import meal.Meal;
 import meal.MealList;
@@ -120,14 +120,14 @@ public class DailyRecord {
         }
 
         if (!mealList.getMeals().isEmpty()) {
-            result.append("Meals: \n").append(mealList.toString()).append("\n");
+            result.append("Meals: \n").append(mealList).append("\n");
             result.append("Total Calories from Meals: ").append(getCaloriesFromMeal()).append(" kcal\n\n");
         } else {
             result.append("Meals: No record.\n\n");
         }
 
         if (!water.getWaterList().isEmpty()) {
-            result.append("Water Intake: \n").append(water.toString()).append("\n");
+            result.append("Water Intake: \n").append(water).append("\n");
             result.append("Total Water Intake: ").append(getTotalWaterIntake()).append(" liters");
         } else {
             result.append("Water Intake: No record.");

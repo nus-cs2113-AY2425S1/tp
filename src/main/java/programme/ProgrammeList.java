@@ -85,10 +85,6 @@ public class ProgrammeList {
             throw new IndexOutOfBoundsException("Programme index " + progIndex + " is out of bounds.");
         }
 
-        if (dayIndex  == -1) {
-            dayIndex = currentActiveProgramme;
-        }
-
         Programme progContent = programmeList.get(progIndex);
         Day day = progContent.getDay(dayIndex);
         logger.log(Level.INFO, "Retrieved day from programme index {0}, day index {1}: {2}",

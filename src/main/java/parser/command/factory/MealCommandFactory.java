@@ -1,18 +1,19 @@
-package parser.command;
+package parser.command.factory;
 
 import command.Command;
 import command.InvalidCommand;
-import command.water.AddWaterCommand;
-import command.water.DeleteWaterCommand;
-import command.water.ViewWaterCommand;
+import command.meals.AddMealCommand;
+import command.meals.DeleteMealCommand;
+import command.meals.ViewMealCommand;
+import meal.Meal;
 import parser.FlagParser;
 
 import java.time.LocalDate;
 
 import static parser.ParserUtils.splitArguments;
 
-public class WaterCommandFactory {
-    public static final String COMMAND_WORD = "water";
+public class MealCommandFactory {
+    public static final String COMMAND_WORD = "meal";
 
     public Command parse(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -22,9 +23,9 @@ public class WaterCommandFactory {
         String arguments = inputArguments[1];
 
         return switch (subCommandString) {
-        case AddWaterCommand.COMMAND_WORD -> prepareAddCommand(arguments);
-        case DeleteWaterCommand.COMMAND_WORD -> prepareDeleteCommand(arguments);
-        case ViewWaterCommand.COMMAND_WORD -> prepareViewCommand(arguments);
+        case AddMealCommand.COMMAND_WORD -> prepareAddCommand(arguments);
+        case DeleteMealCommand.COMMAND_WORD -> prepareDeleteCommand(arguments);
+        case ViewMealCommand.COMMAND_WORD -> prepareViewCommand(arguments);
         default -> new InvalidCommand();
         };
     }
@@ -32,23 +33,26 @@ public class WaterCommandFactory {
     public Command prepareAddCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
-        flagParser.validateRequiredFlags("/v");
+        flagParser.validateRequiredFlags("/n", "/c");
 
-        float water = flagParser.getFloatByFlag("/v");
+        String mealName = flagParser.getStringByFlag("/n");
+        int mealCalories = flagParser.getIntegerByFlag("/c");
         LocalDate date = flagParser.getDateByFlag("/t");
 
-        return new AddWaterCommand(water, date);
+        Meal mealToAdd = new Meal(mealName, mealCalories);
+
+        return new AddMealCommand(mealToAdd, date);
     }
 
     public Command prepareDeleteCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
-        flagParser.validateRequiredFlags("/w");
+        flagParser.validateRequiredFlags("/m");
 
-        int waterIndexToDelete = flagParser.getIndexByFlag("/w");
+        int mealIndexToDelete = flagParser.getIndexByFlag("/m");
         LocalDate date = flagParser.getDateByFlag("/t");
 
-        return new DeleteWaterCommand(waterIndexToDelete, date);
+        return new DeleteMealCommand(mealIndexToDelete, date);
     }
 
     public Command prepareViewCommand(String argumentString) {
@@ -58,6 +62,6 @@ public class WaterCommandFactory {
 
         LocalDate date = flagParser.getDateByFlag("/t");
 
-        return new ViewWaterCommand(date);
+        return new ViewMealCommand(date);
     }
 }
