@@ -232,7 +232,6 @@ public class QuizManager {
             // Format for saving to Questions.txt
             String questionLine = "FITB | FillInTheBlank | " + questionText + " | " + correctAnswer;
             storage.saveQuestionToFile(questionLine);
-
         } else {
             logger.warning("Invalid command: " + input);
         }
