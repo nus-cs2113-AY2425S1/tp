@@ -210,7 +210,7 @@ public class ProgCommandFactory {
         int sets = flagParser.getIntegerByFlag("/s");
         int reps = flagParser.getIntegerByFlag("/r");
         int weight = flagParser.getIntegerByFlag("/w");
-        int calories = flagParser.getIndexByFlag("/c");
+        int calories = flagParser.getIntegerByFlag("/c");
 
         logger.log(Level.INFO, "Parsed exercise successfully with name: {0}, set: {1}, rep: {2}" +
                 " weight: {3}", new Object[]{name, sets, reps, weight});
