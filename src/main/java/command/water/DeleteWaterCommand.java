@@ -27,7 +27,7 @@ public class DeleteWaterCommand extends WaterCommand {
     public CommandResult execute(History history) {
         DailyRecord dailyRecord = history.getRecordByDate(date);
         assert dailyRecord != null : "Daily record not found";
-        dailyRecord.removeWaterfromRecord(indexWaterToDelete);
+        dailyRecord.removeWaterFromRecord(indexWaterToDelete);
 
         return new CommandResult("Water index : " + indexWaterToDelete + " liters of water has been deleted");
     }

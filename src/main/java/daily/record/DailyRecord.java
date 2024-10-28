@@ -73,20 +73,20 @@ public class DailyRecord {
     }
 
     public void deleteMealFromRecord(int index) {
-        assert index > 0;
+        assert index >= 0;
 
         mealList.deleteMeal(index);
         logger.info("meal deleted, index: " + index);
     }
 
     public void addWaterToRecord(float toAddWater) {
-        assert toAddWater > 0;
+        assert toAddWater >= 0;
 
         water.addWater(toAddWater);
         logger.info("Water added: " + toAddWater);
     }
 
-    public void removeWaterfromRecord(int index) {
+    public void removeWaterFromRecord(int index) {
         water.deleteWater(index);
     }
 
@@ -113,24 +113,27 @@ public class DailyRecord {
     public String toString() {
         StringBuilder result = new StringBuilder();
 
+        result.append("Day: \n");
         if (day != null && day.getExercisesCount() > 0) {
-            result.append("Day: \n").append(day.toString()).append("\n");
+            result.append(day.toString()).append("\n");
         } else {
-            result.append("Day: No record.\n\n");
+            result.append("No Day.\n\n");
         }
 
+        result.append("Meals: \n");
         if (!mealList.getMeals().isEmpty()) {
-            result.append("Meals: \n").append(mealList).append("\n");
+            result.append(mealList).append("\n");
             result.append("Total Calories from Meals: ").append(getCaloriesFromMeal()).append(" kcal\n\n");
         } else {
-            result.append("Meals: No record.\n\n");
+            result.append("No Meals.\n\n");
         }
 
+        result.append("Water Intake: \n");
         if (!water.getWaterList().isEmpty()) {
-            result.append("Water Intake: \n").append(water).append("\n");
+            result.append(water).append("\n");
             result.append("Total Water Intake: ").append(getTotalWaterIntake()).append(" liters");
         } else {
-            result.append("Water Intake: No record.");
+            result.append("No Water.");
         }
 
         return result.toString();

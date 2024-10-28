@@ -14,6 +14,14 @@ public class MealList {
         logger.log(Level.INFO, "MealList created with an empty list.");
     }
 
+    public boolean isEmpty() {
+        return meals.isEmpty();
+    }
+
+    public int getSize() {
+        return meals.size();
+    }
+
     public void addMeal(Meal meal) {
         assert meal != null : "Meal cannot be null";
         meals.add(meal);
