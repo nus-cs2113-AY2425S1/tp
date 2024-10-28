@@ -108,11 +108,11 @@ public class Parser {
     }
 
     /**
-     * Matches the argument list to a related command and runs said command
+     * Matches the argument list to a related command
      *
      * @param argumentsMap List of arguments
-     * @return Whether to continue running the program
-     * @throws wheresmymoney.exception.WheresMyMoneyException If command fails to run
+     * @return Command to run with the respective configurations
+     * @throws WheresMyMoneyException If no valid command can be matched
      */
     public static Command commandMatching(HashMap<String, String> argumentsMap)
             throws WheresMyMoneyException {
@@ -138,6 +138,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a line to a related command
+     *
+     * @param line Line that a user inputs
+     * @return Command to run with the respective configurations
+     * @throws WheresMyMoneyException If no valid command can be matched
+     */
     public static Command parseInputToCommand(String line) throws WheresMyMoneyException {
         return commandMatching(parseLineToArgumentsMap(line));
     }
