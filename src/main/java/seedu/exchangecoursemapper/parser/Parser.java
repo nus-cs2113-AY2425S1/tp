@@ -24,7 +24,7 @@ import static seedu.exchangecoursemapper.constants.Commands.ADD_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.DELETE_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
 import static seedu.exchangecoursemapper.constants.Commands.OBTAIN;
-import static seedu.exchangecoursemapper.constants.Commands.LISTINGSCHOOLS;
+import static seedu.exchangecoursemapper.constants.Commands.LISTING_SCHOOLS;
 import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
 import static seedu.exchangecoursemapper.constants.Commands.HELP;
 import static seedu.exchangecoursemapper.constants.Commands.LIST_MAPPED;
@@ -59,7 +59,7 @@ public class Parser {
 
         String command = inputDetails[COMMAND_WORD_INDEX];
 
-        if (input.equals(LISTINGSCHOOLS)) {
+        if (input.equals(LISTING_SCHOOLS)) {
             new ListSchoolCommand().execute(input);
         } else if (command.equals(FILTER_COURSES)) {
             new FilterCoursesCommand().execute(input);
@@ -76,7 +76,7 @@ public class Parser {
         } else if (command.equals(OBTAIN)) {
             new ObtainContactsCommand().execute(input);
         } else if (input.equals(LIST_MAPPED)) {
-            new ListPersonalTrackerCommand(storage).execute(input);
+            new ListPersonalTrackerCommand().execute(input, storage);
         } else if (command.equals(BYE)) {
             mapperUI.displayExitMessage();
         } else {

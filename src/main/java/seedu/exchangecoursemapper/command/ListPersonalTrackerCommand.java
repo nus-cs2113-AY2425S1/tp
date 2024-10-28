@@ -6,16 +6,10 @@ import java.util.List;
 
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
-public class ListPersonalTrackerCommand extends CheckInformationCommand {
-
-    private final Storage storage;
-
-    public ListPersonalTrackerCommand(Storage storage) {
-        this.storage = storage;
-    }
+public class ListPersonalTrackerCommand extends PersonalTrackerCommand {
 
     @Override
-    public void execute(String userInput) {
+    public void execute(String userInput, Storage storage) {
         List<String> mappedModules = storage.loadAllCourses();
 
         if (mappedModules.isEmpty()) {

@@ -6,9 +6,9 @@ import javax.json.JsonReader;
 import java.io.IOException;
 import java.io.InputStream;
 
-public abstract class Command {
-    protected static final String FILE_PATH = "/database.json";
+import static seedu.exchangecoursemapper.constants.Commands.FILE_PATH;
 
+public abstract class Command {
     public JsonObject createJsonObject() throws IOException {
         InputStream inputStream = getClass().getResourceAsStream(FILE_PATH);
         if (inputStream == null) {
