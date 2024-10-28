@@ -55,25 +55,25 @@ public class QuizManager {
         Topic topic = getOrCreateTopic(topicName);
 
         switch (questionType) {
-            case "Mcq":
-                List<String> options = new ArrayList<>();
-                for (int i = 4; i < parts.length; i++) {
-                    options.add(parts[i].trim());
-                }
-                topic.addQuestion(new Mcq(questionText, correctAnswer, options));
-                break;
-            case "TrueFalse":
-                boolean correctAnswerBoolean = Boolean.parseBoolean(correctAnswer);
-                topic.addQuestion(new TrueFalse(questionText, correctAnswerBoolean));
-                break;
-            case "Flashcard":
-                topic.addQuestion(new Flashcard(questionText, correctAnswer));
-                break;
-            case "FillInTheBlank":
-                topic.addQuestion(new FillInTheBlank(questionText, correctAnswer));
-                break;
-            default:
-                logger.warning("Invalid question type: " + questionType);
+        case "Mcq":
+            List<String> options = new ArrayList<>();
+            for (int i = 4; i < parts.length; i++) {
+                options.add(parts[i].trim());
+            }
+            topic.addQuestion(new Mcq(questionText, correctAnswer, options));
+            break;
+        case "TrueFalse":
+            boolean correctAnswerBoolean = Boolean.parseBoolean(correctAnswer);
+            topic.addQuestion(new TrueFalse(questionText, correctAnswerBoolean));
+            break;
+        case "Flashcard":
+            topic.addQuestion(new Flashcard(questionText, correctAnswer));
+            break;
+        case "FillInTheBlank":
+            topic.addQuestion(new FillInTheBlank(questionText, correctAnswer));
+            break;
+        default:
+            logger.warning("Invalid question type: " + questionType);
         }
     }
 
