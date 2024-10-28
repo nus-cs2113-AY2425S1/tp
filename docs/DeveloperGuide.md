@@ -100,7 +100,7 @@ It allows for the addition, editing and deletion of expenses.
 
 <u>Methods</u>
 
-The `Expense` class has no notable key methods.
+The `Expense` class has no notable methods.
 
 The `ExpenseList` class has the following key methods: 
 
