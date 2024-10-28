@@ -150,7 +150,6 @@ public class InternshipList {
         ui.showInternships(sortedList);
     }
 
-    //@@author jadenlimjc
     // Method to list all internships sorted by start date (year first), then end date
     public void listInternshipsSortedByDuration() {
         ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
