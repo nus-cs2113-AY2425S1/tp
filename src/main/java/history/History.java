@@ -65,6 +65,13 @@ public class History {
         history.put(date, record);
     }
 
+    public DailyRecord deleteRecord(LocalDate date) {
+        if (!history.containsKey(date)) {
+            return null;
+        }
+        return history.remove(date);
+    }
+
     public int getHistorySize() {
         return history.size();
     }

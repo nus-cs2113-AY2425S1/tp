@@ -53,10 +53,6 @@ public class LogCommand extends ProgrammeCommand {
         assert completed != null : "Completed Day must not be null";
 
         DailyRecord dailyRecord = history.getRecordByDate(date);
-        if(dailyRecord == null) {
-            dailyRecord = new DailyRecord(completed);
-        }
-
         dailyRecord.logDay(completed);
         history.logRecord(date, dailyRecord);
 
