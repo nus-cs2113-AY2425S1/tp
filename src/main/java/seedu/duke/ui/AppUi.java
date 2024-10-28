@@ -2,17 +2,32 @@ package seedu.duke.ui;
 
 import java.util.Scanner;
 
+/**
+ * The AppUi class handles all user interactions for the FinanceBuddy application.
+ * It manages displaying messages and receiving user input.
+ */
 public class AppUi {
     private final Scanner scanner;
 
+    /**
+     * Constructs an AppUi instance and initializes the Scanner for user input.
+     */
     public AppUi() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Gets the user's input from the console.
+     *
+     * @return A string representing the user's input.
+     */
     public String getUserInput() {
         return scanner.nextLine();
     }
 
+    /**
+     * Displays the welcome message and application logo when FinanceBuddy starts.
+     */
     public void displayWelcomeMessage() {
         final String logo = " ______  _                                   ____              _      _        \n" +
                 "|  ____|(_)                                 |  _ \\            | |    | |       \n" +
@@ -32,6 +47,10 @@ public class AppUi {
         System.out.println(welcomeMessage);
     }
 
+    /**
+     * Displays a message indicating that an unrecognized command was entered.
+     * Suggests using the "help" command to list valid commands.
+     */
     public void showUnknownCommandMessage() {
         final String unrecognizedCommand = "--------------------------------------------\n" +
                 "Unrecognized command!\n" +
@@ -40,6 +59,11 @@ public class AppUi {
         System.out.println(unrecognizedCommand);
     }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message The error message to be displayed.
+     */
     public void showErrorMessage(String message) {
         System.out.println("Error: " + message);
     }

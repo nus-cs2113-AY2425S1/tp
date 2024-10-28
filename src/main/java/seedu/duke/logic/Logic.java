@@ -19,11 +19,24 @@ import seedu.duke.ui.AppUi;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+/**
+ * The Logic class handles the core functionalities of FinanceBuddy, including
+ * adding, editing, and deleting financial entries, and providing help and exit options.
+ * It uses command objects to execute operations on the financial list.
+ */
 public class Logic {
     public final FinancialList financialList;
     private final Storage storage;
     private final AppUi ui;
 
+    /**
+     * Constructor for the Logic class.
+     * Initializes the logic with the provided financial list, storage, and UI.
+     *
+     * @param financialList The financial list used to store financial entries.
+     * @param storage       The storage used to load and save financial data.
+     * @param ui            The UI component to interact with the user.
+     */
     public Logic(FinancialList financialList, Storage storage, AppUi ui) {
         this.financialList = financialList;
         this.storage = storage;
@@ -201,6 +214,14 @@ public class Logic {
         helpCommand.execute(financialList);
     }
 
+    /**
+     * Matches and executes a command based on the user input.
+     *
+     * @param command          The command string parsed from user input.
+     * @param commandArguments The arguments for the command.
+     * @return A boolean indicating if the application should continue running.
+     * @throws FinanceBuddyException if the command execution encounters an error.
+     */
     public boolean matchCommand(String command, HashMap<String, String> commandArguments) throws FinanceBuddyException {
         switch (command) {
             case "list":
@@ -233,7 +254,7 @@ public class Logic {
                 ui.showUnknownCommandMessage();
                 break;
         }
-        return true; // Continue the loop by default
+        return true;
     }
 
 }
