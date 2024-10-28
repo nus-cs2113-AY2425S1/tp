@@ -10,24 +10,23 @@ It can also keep track of what ingredients you have on hand, and recommend recip
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
-2. Download the latest version of `YMFC` from [INSERT RELEASE LINK HERE](https://github.com/AY2425S1-CS2113-W13-1/tp).
-3. Open a command terminal window.
+2. Download the latest version of `YMFC` from [here](https://github.com/AY2425S1-CS2113-W13-1/tp/releases).
+3. Open a command line terminal (`Terminal` on Linux and MacOS, `Command Prompt` on Windows).
 4. Navigate to the directory where YMFC.jar is saved at.
    - You can use the `cd` command to navigate to the proper directory.
-5. Type in `java -jar YMFC.jar` in the command terminal window to launch YMFC.
+5. Type in `java -jar YMFC.jar` in the command line terminal to launch YMFC. 
+6. Use commands listed in the [Features](#features).
+7. Type `bye` to exit YMFC.
 
 ## Features
 
-### Usage
-* YMFC keeps 2 separate lists. Their contents are accessed and modified using seperate commands.
-  * The cookbook list stores your Recipes.
-  * The inventory list stores your available Ingredients.
-* YMFC stores your data locally, in 2 .txt files
-  * Each .txt file stores each of your list (Recipes and Ingredients)
-  * The .txt save files are located at `[JAR File Location]/data/recipes.txt` 
-and `[JAR File Location]/data/ingredients.txt`
+### Auto-Save Databases
+* YMFC keeps 2 separate databases, stored locally in 2 text files.
+  * The cookbook database stores your Recipes, located at `[JAR File Location]/data/recipes.txt`.
+  * The inventory database stores your available Ingredients, located at `[JAR File Location]/data/ingredients.txt`.
+* YMFC loads your recipes and ingredients from these 2 databases when launched
+* If the databases don't yet exist, YMFC will create them automatically
 * Your recipes and ingredients are saved automatically every time they are added, edited or removed
-* You recipes and ingredients are automatically loaded in every time you launch YMFC
 
 ### Input Formatting Guide
 * If the command format is in uppercase letters, then it means it is to be substituted for the user's desired phrase
@@ -131,7 +130,26 @@ Looks through the stored recipes to find those with matching names/steps/ingredi
 
 Example of usage:
 
-**TODO:** Give Examples of usage
+`find i/eggs`
+
+Expected Outcome:
+````
+__________________________________________________________________________________
+Here's everything that I've found so far:
+1.Recipe: Ramen Eggs
+  Ingredients: 
+    - eggs
+    - soya sauce
+    - water
+  Steps: 
+    1. boil eggs for 6.5 min
+    2. cool eggs in ice bath
+  Cuisine: Japanese
+  Time taken: 4
+__________________________________________________________________________________
+Total: 1 recipes found!
+__________________________________________________________________________________
+````
 
 ### Editing an existing Recipe
 
@@ -140,16 +158,37 @@ Format: `edit e/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`
 Will find the recipe of the entered name and change its details to the newly entered parameters
 * The name of the recipe cannot be changed, only it's details (ingredients, steps, cuisine, time)
 
-**TODO:** Verify its use and give examples of its usage
+Example of usage:
+
+`edit e/Grilled Cheese Sandwhich i/bread i/mayonaise i/cheese slice i/butter s1/heat pan with butter 
+s2/spread mayonaise on outside of bread s3/grill bread on pan, and add cheese on top 
+s4/remove from grill after 3 minutes`
+
+Expected Outcome:
+````
+
+````
+**TODO:** Finalise edit command
 
 ### Deleting an existing Recipe
 
 Format: `delete n/NAME`
 
-Will find the recipe of the entered name and delete it from YMFC
+Will find the recipe of the entered name and delete it from YMFC, name must be exact
 * This action is not reversible
 
-**TODO** Verify that the name does not have to be exactly matching, and can just be pieces
+Example of usage:
+
+`delete n/Ramen Eggs`
+
+Expected Outcome:
+````
+__________________________________________________________________________________
+Aww, I shall begrudgingly let go of this recipe:
+  Ramen Eggs
+You currently have 1 recipe in your list.
+__________________________________________________________________________________
+````
 
 ## Features and Command - Inventory for Ingredients
 
@@ -159,6 +198,19 @@ Format: `new n/INGREDIENT`
 
 Adds a new ingredient to your inventory list
 * Ingredients can only be added one at a time
+
+Example of usage:
+
+`new n/Eggs`
+
+Expected Outcome:
+````
+__________________________________________________________________________________
+I'll add that to your inventory:
+ Eggs
+You currently have 1 ingredient in your inventory.
+__________________________________________________________________________________
+````
 
 ### Listing out Existing Ingredients
 
@@ -174,20 +226,24 @@ Lists out all of your available ingredients in your inventory
 **A**: Copy the data folder containing recipes.txt and ingredients.txt,
 and paste it in your other computer in the same directory where YMFC.jar is located
 
+**Q**: Can I edit the .txt files directly?
+
+**A**: Yes, but you must ensure that the format of how recipes and ingredients are saved is followed.
+
 ## YMFC.Command Summary
 
-* `help`                              -  Lists out all the available commands and their usage.
-* `bye`                               -  Ends the program
-* `listR`                             -  Lists out all the existing recipes.
-* `add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`  -  Adds a new recipe.
-* `sort s/name`                       -  Sorts the recipes alphabetically by name
-* `sort s/time`                       -  Sorts the recipes by time, from least to most
-* `find KEYWORDS`                     -  Looks for the KEYWORDS in
+* `help`                              -  List out all the available commands and their usage.
+* `bye`                               -  Terminate the program
+* `listR`                             -  List out all the existing recipes.
+* `add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`  -  Add a new recipe.
+* `sort s/name`                       -  Sort the recipes alphabetically by name
+* `sort s/time`                       -  Sort the recipes by time, from least to most
+* `find KEYWORDS`                     -  Look for the KEYWORDS in
   * `find KEYWORDS`          = name
   * `find i/KEYWORDS`        = ingredients
   * `find ns/KEYWORDS`       = name or steps
   * `find nis/KEYWORDS`      = name or ingredients or steps
 * `edit e/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]` -  Edit an existing recipe
-* `delete n/NAME`                     - Deletes the recipe of that name
+* `delete n/NAME`                     - Delete the recipe of that name
 * `new n/INGREDIENT`                  - Add a new ingredient to your list
-* `listI`                             - Lists out all your current ingredients
+* `listI`                             - List out all your current ingredients
