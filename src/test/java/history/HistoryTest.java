@@ -24,13 +24,13 @@ public class HistoryTest {
 
         // Create exercises for Day 1
         ArrayList<Exercise> exercisesDay1 = new ArrayList<>();
-        exercisesDay1.add(new Exercise(3, 12, 50, "Bench_Press"));
-        exercisesDay1.add(new Exercise(3, 12, 80, "Squat"));
+        exercisesDay1.add(new Exercise(3, 12, 50, 160,"Bench_Press"));
+        exercisesDay1.add(new Exercise(3, 12, 80, 200,"Squat"));
 
         // Create exercises for Day 2
         ArrayList<Exercise> exercisesDay2 = new ArrayList<>();
-        exercisesDay2.add(new Exercise(3, 10, 100, "Deadlift"));
-        exercisesDay2.add(new Exercise(4, 8, 0, "Pull_Up"));  // No weight for Pull_Up
+        exercisesDay2.add(new Exercise(3, 10, 100, 200,"Deadlift"));
+        exercisesDay2.add(new Exercise(4, 8, 0, 100,"Pull_Up"));  // No weight for Pull_Up
 
         // Create Day objects
         day1 = new Day("Day 1", exercisesDay1);

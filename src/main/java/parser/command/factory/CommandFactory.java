@@ -26,10 +26,9 @@ public class CommandFactory {
     public Command createCommand(String commandString, String argumentString) {
         return switch (commandString) {
         case ProgCommandFactory.COMMAND_WORD -> progFactory.parse(argumentString);
-        case ExitCommand.COMMAND_WORD -> new ExitCommand();
-        case HistoryCommandFactory.COMMAND_WORD -> historyFactory.parse(argumentString);  // Route to historyFactory
         case MealCommandFactory.COMMAND_WORD -> mealFactory.parse(argumentString);
         case WaterCommandFactory.COMMAND_WORD -> waterFactory.parse(argumentString);
+        case ExitCommand.COMMAND_WORD -> new ExitCommand();
         default -> new InvalidCommand();
         };
     }
