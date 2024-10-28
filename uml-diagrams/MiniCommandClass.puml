@@ -1,0 +1,17 @@
+@startuml
+
+skinparam componentStyle rectangle
+
+component PersonalTrackerCommand <<abstract>>
+component CheckInformationCommand <<abstract>>
+component ListSchoolsCommand
+component DeleteCoursesCommand
+component Command <<abstract>>
+
+PersonalTrackerCommand -up-|> Command
+CheckInformationCommand -up-|> Command
+
+ListSchoolsCommand -up-|> CheckInformationCommand
+DeleteCoursesCommand -up-|> PersonalTrackerCommand
+
+@enduml

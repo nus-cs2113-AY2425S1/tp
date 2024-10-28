@@ -51,18 +51,19 @@ where the user issues the command `delete 1`.
 The `UI`, `Parser` and `Storage` components (also shown in the diagram above),
 * defines its API in a class with the same name as the Package
 
-The `Command` component (also shown in the diagram above),
+The `Command` component,
 * defines its API in an `abstract` class with the same name as the Component.
 * further splits them into `CheckInformationCommand` and `PersonalTrackerCommand` as child classes
 * further split them into the various commands
 
 For example, the `Command` component defines its API in the `Command.java` abstract class and extends its functionality using the 
-`PersonalTrackerCommand.java` class. Other components interact with a given component through its interface rather than the concrete class 
+`PersonalTrackerCommand.java` and `CheckInformationCommand` class. Other components such as `ListSchoolsCommand` and `DeleteCoursesCommand`  
+interact with a given component through its interface rather than the concrete class 
 (reason: to prevent outside component’s being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-TODO: MINI CLASS DIAGRAM
+![Sequence Diagram](../uml-images/MiniCommandClass.png)
 
-The sections below give more details of each component.
+**The sections below give more details of each component.**
 
 ### Class Diagrams
 {TODO: Class Diagram}

@@ -3,7 +3,8 @@
 skinparam componentStyle rectangle
 
 actor User
-database JsonFile #lightblue
+database myList #lightblue
+database database #lightblue
 
 component UI #green
 component Parser #red
@@ -21,7 +22,7 @@ Main -up-> Storage
 Command -down-> Storage
 Parser -right-> Command
 
-
-Storage -right.-> JsonFile
+Command -right.-> database
+Storage -right.-> myList
 
 @enduml
