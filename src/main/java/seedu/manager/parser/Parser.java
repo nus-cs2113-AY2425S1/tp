@@ -11,6 +11,7 @@ import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.ViewCommand;
 import seedu.manager.command.SortCommand;
+import seedu.manager.command.FindCommand;
 import seedu.manager.exception.InvalidCommandException;
 
 import java.time.LocalDateTime;
@@ -72,6 +73,15 @@ public class Parser {
             Please use the following format for event time:
             YYYY-MM-DD HH:mm
             """;
+    private static final String INVALID_FIND_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            find -e EVENT -p NAME
+            """;
+    private static final String INVALID_FIND_FLAG_MESSAGE = """
+            Invalid find flag!
+            Please set the find flag using "-e" and "-p""
+            """;
 
     /**
      * Returns a command based on the given user command string.
@@ -100,6 +110,8 @@ public class Parser {
             return parseMarkCommand(command, commandParts);
         case SortCommand.COMMAND_WORD:
             return parseSortCommand(command, commandParts);
+        case FindCommand.COMMAND_WORD:
+            return parseFindCommand(command, commandParts);
         default:
             throw new InvalidCommandException(INVALID_COMMAND_MESSAGE);
         }
@@ -341,6 +353,25 @@ public class Parser {
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING, "Invalid command format");
             throw new InvalidCommandException(INVALID_SORT_MESSAGE);
+        }
+    }
+
+    private Command parseFindCommand(String input, String[] commandParts) throws InvalidCommandException {
+        assert commandParts[0].equalsIgnoreCase(FindCommand.COMMAND_WORD);
+        try {
+            if (!input.contains("-e") || !input.contains("-p")) {
+                throw new InvalidCommandException(INVALID_FIND_FLAG_MESSAGE);
+            }
+
+            String[] inputParts = input.split("\\s*(-e|-p)\\s*");
+            if (inputParts.length < 3 || inputParts[1].isBlank()) {
+                throw new InvalidCommandException(INVALID_FIND_MESSAGE);
+            }
+
+            return new FindCommand(inputParts[1].trim(), inputParts[2].trim());
+        } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING,"Invalid command format");
+            throw new InvalidCommandException(INVALID_FIND_MESSAGE);
         }
     }
 }

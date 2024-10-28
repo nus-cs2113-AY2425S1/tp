@@ -153,4 +153,23 @@ class ParserTest {
         assertThrows(InvalidCommandException.class,() -> {
             parser.parseCommand(commandString);});
     }
+
+    @Test
+    public void parseCommand_findCommandFlags_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "find -s event 1 -p doe";
+
+        assertThrows(InvalidCommandException.class,() -> {
+            parser.parseCommand(commandString);});
+    }
+
+    @Test
+    public void parseCommand_findCommandInvalidInput_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "find -e -p doe";
+
+        assertThrows(InvalidCommandException.class,() -> {
+            parser.parseCommand(commandString);});
+    }
+
 }

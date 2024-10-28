@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class FindCommand extends Command{
+    public static final String COMMAND_WORD = "find";
+
     private static final String FIND_SUCCESS_MESSAGE = "Person(s) found!";
     private static final String FIND_EVENT_FAILURE_MESSAGE = "Event not found!";
     private static final String FIND_FAILURE_MESSAGE = "Person not found!";
