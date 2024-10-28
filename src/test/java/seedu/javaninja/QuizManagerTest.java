@@ -15,11 +15,11 @@ import java.util.Scanner;
 class QuizManagerTest {
 
     private QuizManager quizManager;
-    private final String RESULTS_FILE_PATH = "data/results.txt";
+    private final String resultsFilePath = "data/results.txt";
 
     @BeforeEach
     public void setUp() {
-        File file = new File(RESULTS_FILE_PATH);
+        File file = new File(resultsFilePath);
         if (file.exists()) {
             file.delete();
         }
@@ -33,8 +33,8 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("InvalidTopicName\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        // Pass the scanner to the selectTopic method
-        quizManager.selectTopic("InvalidTopicName", scanner);
+        // Pass the scanner to the selectTopic method, including a default timer of 10 seconds
+        quizManager.selectTopic("InvalidTopicName", scanner, 10);
 
         scanner.close();
         // No assertion here; we expect no exceptions or crashes
@@ -53,8 +53,7 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("b\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        // Start the quiz with the provided scanner
-        quizManager.startQuiz(topic, scanner);
+        quizManager.startQuiz(topic, scanner, 10);
 
         String expectedResult = "Score: 0%, Comment: Better luck next time!\n";
         assertEquals(expectedResult, quizManager.getPastResults());
@@ -75,10 +74,9 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("b\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        // Start the quiz and save the results
-        quizManager.startQuiz(topic, scanner);
+        quizManager.startQuiz(topic, scanner, 10);
 
-        String savedResults = Files.readString(Path.of(RESULTS_FILE_PATH));
+        String savedResults = Files.readString(Path.of(resultsFilePath));
         String expectedSavedResults = "Score: 0%, Comment: Better luck next time!\n";
         assertEquals(expectedSavedResults, savedResults);
 
@@ -89,7 +87,7 @@ class QuizManagerTest {
     public void loadResultsFromFile_correctlyLoadsResults() throws IOException {
         // Simulate a previously saved result in the file
         String previousResult = "Score: 80%, Comment: Good job!\n";
-        Files.writeString(Path.of(RESULTS_FILE_PATH), previousResult);
+        Files.writeString(Path.of(resultsFilePath), previousResult);
 
         // Reload the QuizManager to simulate restarting the program
         quizManager = new QuizManager();
@@ -111,8 +109,7 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("false\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        // Start the quiz and validate results
-        quizManager.startQuiz(topic, scanner);
+        quizManager.startQuiz(topic, scanner, 10);
 
         String expectedResult = "Score: 100%, Comment: Excellent!\n";
         assertEquals(expectedResult, quizManager.getPastResults());
@@ -132,14 +129,12 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("yes\nfalse\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        // Start the quiz and validate the exception for invalid input
         try {
-            quizManager.startQuiz(topic, scanner);
+            quizManager.startQuiz(topic, scanner, 10);
         } catch (IllegalArgumentException e) {
             assertEquals("Invalid input! Please enter 'true' or 'false'.", e.getMessage());
         }
 
         scanner.close();
     }
-
 }
