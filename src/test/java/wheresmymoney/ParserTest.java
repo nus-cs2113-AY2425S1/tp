@@ -10,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParserTest {
+    /**
+     * Tests the parsing of a command into an arguments map.
+     */
     @Test
     public void parseLineToArgumentsMap_commandOnly_command() {
         String inputLine = "command";
@@ -25,6 +28,9 @@ class ParserTest {
         assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "");
     }
 
+    /**
+     * Tests the parsing of a command with leading and trailing spaces into an arguments map.
+     */
     @Test
     public void parseLineToArgumentsMap_commandWithLeadingTrailingWhitespace_command() {
         String inputLine = "  command   ";
@@ -40,6 +46,9 @@ class ParserTest {
         assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "");
     }
 
+    /**
+     * Tests the parsing of a command with a leading forward slash into an arguments map.
+     */
     @Test
     public void parseLineToArgumentsMap_commandWithLeadingForwardSlash_command() {
         String inputLine = "/command   ";
@@ -55,6 +64,9 @@ class ParserTest {
         assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "");
     }
 
+    /**
+     * Tests the parsing of a line with a main argument into an arguments map.
+     */
     @Test
     public void parseLineToArgumentsMap_commandWithMainArgument_arguments() {
         String inputLine = "command main";
@@ -69,6 +81,10 @@ class ParserTest {
         assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "main");
     }
 
+    /**
+     * Tests the parsing of a line with a main argument into an arguments map.
+     * Extra spaces between the command and main argument should be ignored.
+     */
     @Test
     public void parseLineToArgumentsMap_commandWithExtraSpaceAndMainArgument_arguments() {
         String inputLine = "command   main";
@@ -83,6 +99,9 @@ class ParserTest {
         assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "main");
     }
 
+    /**
+     * Tests the parsing of a line with a custom argument into an arguments map.
+     */
     @Test
     public void parseLineToArgumentsMap_commandWithCustomArgument_arguments() {
         String inputLine = "command /custom value";
@@ -98,6 +117,10 @@ class ParserTest {
         assertEquals(argumentsMap.get("custom"), "value");
     }
 
+    /**
+     * Tests the parsing of a line with a custom argument into an arguments map.
+     * The value of the argument is split among various strings
+     */
     @Test
     public void parseLineToArgumentsMap_commandWithCustomArgumentAndWhitespaceValue_arguments() {
         String inputLine = "command /custom value abc";
@@ -113,6 +136,9 @@ class ParserTest {
         assertEquals(argumentsMap.get("custom"), "value abc");
     }
 
+    /**
+     * Tests the parsing of a line with various custom arguments into an arguments map.
+     */
     @Test
     public void parseLineToArgumentsMap_commandWithRestrictedArguments_arguments() {
         String inputLine = "command main /command value1 /main value2 /extra extra";
@@ -120,15 +146,21 @@ class ParserTest {
                 ()->Parser.parseLineToArgumentsMap(inputLine));
     }
 
+    /**
+     * Tests the parsing of a line with duplicate arguments. This should be considered invalid input.
+     */
     @Test
-    public void parseLineToArgumentsMap_commandWithDuplicateArguments_chooseFirstArgument() {
+    public void parseLineToArgumentsMap_commandWithDuplicateArguments_invalidInputException() {
         String inputLine = "command main /extra extra1 /extra extra2";
         assertThrows(InvalidInputException.class,
                 ()->Parser.parseLineToArgumentsMap(inputLine));
     }
 
+    /**
+     * Tests the parsing of a line with arguments that do not have values. The arguments should still be mapped.
+     */
     @Test
-    public void parseLineToArgumentsMap_commandArgumentWithoutValue_chooseFirstArgument() {
+    public void parseLineToArgumentsMap_commandArgumentWithoutValue_parseBoth() {
         String inputLine = "command main /extra /extra2";
         HashMap<String, String> argumentsMap = null;
         try {
@@ -142,6 +174,10 @@ class ParserTest {
         assertEquals(argumentsMap.get("extra2"), "");
     }
 
+    /**
+     * Tests the parsing of a line with various forward slash escapes.
+     * The escape sequences should be replaced accordingly.
+     */
     @Test
     public void parseLineToArgumentsMap_commandArgumentWithForwardSlashHandling_forwardSlashHandled() {
         HashMap<String, String> argumentsMap = null;
