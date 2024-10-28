@@ -6,7 +6,17 @@
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+The simplified UML class diagram below provides an overview of the classes and their interactions with each other. 
+
+![Overall Archi](UML/overallArchi.png)
+
+In the above diagram, Command and FinancialEntry are representative of the subclasses of 
+the `Command` and `FinancialEntry` classes, which are elaborated on in their respective sections.
+
+The high-level overview of the program is shown in the diagram below as well.
+
+![Overall Flow](UML/overallFlow.png)
+
 
 ---
 ### FinancialList and FinancialEntry
