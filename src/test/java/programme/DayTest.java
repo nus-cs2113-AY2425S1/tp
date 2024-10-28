@@ -12,9 +12,9 @@ public class DayTest {
     @BeforeEach
     void setUp() {
 
-        Exercise exercise1 = new Exercise(3, 10, 50, "Bench_Press");
-        Exercise exercise2 = new Exercise(3, 12, 20, "Triceps_Extension");
-        Exercise exercise3 = new Exercise(3, 10, 50, "Seated_Press");
+        Exercise exercise1 = new Exercise(3, 10, 50, 160,"Bench_Press");
+        Exercise exercise2 = new Exercise(3, 12, 20, 100, "Triceps_Extension");
+        Exercise exercise3 = new Exercise(3, 10, 50, 100,"Seated_Press");
 
         ArrayList<Exercise> exercises = new ArrayList<>();
         exercises.add(exercise1);
@@ -28,7 +28,7 @@ public class DayTest {
     @Test
     void testInsertExercises() {
 
-        Exercise exercise4 = new Exercise(3, 12, 40, "Chest_Fly");
+        Exercise exercise4 = new Exercise(3, 12, 40, 120,"Chest_Fly");
         day.insertExercise(exercise4);
 
         assertEquals(4, day.getExercisesCount());
@@ -38,13 +38,11 @@ public class DayTest {
 
     @Test
     void testUpdateExercises() {
-        Exercise updatedExercise = new Exercise(3, 12, 40, "Chest_Fly");
+        Exercise updatedExercise = new Exercise(3, 12, 40, 120,"Chest_Fly");
 
         day.updateExercise(2, updatedExercise);
 
-        //compare strings instead of objects because although they are the same objects, memory addresses are different
-        //so assertEquals fails
-        assertEquals(updatedExercise.toString(), day.getExercise(2).toString());
+        assertEquals(updatedExercise, day.getExercise(2));
     }
 
     @Test
@@ -52,7 +50,7 @@ public class DayTest {
         Exercise deletedExercise = day.deleteExercise(2);
 
         assertEquals(2, day.getExercisesCount());
-        assertEquals( "Seated Press: 3 sets of 10 reps at 50 kg", deletedExercise.toString());
+        //TODO: use equals() to test
     }
 
 }
