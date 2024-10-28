@@ -1,3 +1,5 @@
+package daily.record;
+
 import history.DailyRecord;
 import meal.Meal;
 import meal.MealList;
