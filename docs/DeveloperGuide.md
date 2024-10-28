@@ -8,7 +8,7 @@
 
 <img src = "images/ArchitectureDiagram.png">
 
-The above _Architecture Diagram_ provides the high-level design of the application.
+The above **Architecture Diagram** provides the high-level design of the application.
 
 ### Main components
 
@@ -25,14 +25,14 @@ The application comprises the following components:
 
 <img src = "images/ArchitectureSequenceDiagram.png">
 
-The above _Sequence Diagram_ shows how the different components of the system interact with one
+The above **Sequence Diagram** shows how the different components of the system interact with one
 another in the scenario when the command `add -e event -t 1200 -v venue` is executed.
 
 ### UI component
 
 <img src = "images/UiClassDiagram.png">
 
-The `UI` component comprises an Ui class, as shown in the above _Class Diagram_.
+The `UI` component comprises an Ui class, as shown in the above **Class Diagram**.
 
 The `UI` does the following:
 
@@ -41,7 +41,7 @@ The `UI` does the following:
 
 ### Command component
 
-The `Command` component and its component classes are shown in the below _Class Diagram_:
+The `Command` component and its component classes are shown in the below **Class Diagram**:
 
 <img src = "images/CommandClassDiagram.png">
 
@@ -56,7 +56,7 @@ The interactions between `Command` and other commands in the system is shown in 
 
 ### Event component
 
-The `Event` component and its component classes are shown in the below _Class Diagram_:
+The `Event` component and its component classes are shown in the below **Class Diagram**:
 
 <img src = "images/EventClassDiagram.png">
 
@@ -113,15 +113,21 @@ The user is able to organise and manage his events more quickly and efficiently 
 
 ## User Stories
 
-| Version | As a ... | I want to ...            | So that I can ...                                      |
-|---------|----------|--------------------------|--------------------------------------------------------|
-| v1.0    | new user | see usage instructions   | refer to them when I forget how to use the application |
-| v2.0    | user     | mark events as completed | easily track all past events                           |
-| v2.0    | user     | mark participants present| know exactly who signed up but did not attend the event|
+| Version | As a ... | I want to ...                                                   | So that I can ...                                                                         |
+|---------|----------|-----------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| v1.0    | new user | see the list of commands                                        | know how to format my input                                                               |
+| v1.0    | user     | add new events                                                  | manage future events                                                                      |
+| v1.0    | user     | remove events from the events list                              | maintain the event list with events that are relevant and current                         |
+| v1.0    | user     | list all current events                                         | know which events are currently ongoing                                                   |
+| v1.0    | user     | add participants to a specific event                            | ensure all relevant individuals are included in that event's participant list efficiently |
+| v1.0    | user     | remove participants who are no longer coming to specific events | efficiently keep the participant list for that event up-to-date and relevant              |
+| v1.0    | user     | view the participant list of an event                           | know who is involved                                                                      |
+| v2.0    | user     | mark events as completed                                        | easily track all past events                                                              |
+| v2.0    | user     | mark participants present                                       | know exactly who signed up but did not attend the event                                   |
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+* Should work for any **mainstream OS** as long as Java 17 is installed.
 
 ## Glossary
 
