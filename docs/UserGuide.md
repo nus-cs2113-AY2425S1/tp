@@ -1,8 +1,20 @@
 # WheresMyMoney User Guide
 
+
+## Table of Contents
+- [Introduction](#introduction)
+- [Quick Start](#quick-start)
+- [Features](#features-)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
+
+---
+
 ## Introduction
 
 WheresMyMoney allows you to keep track of your spending habits and trends with various supporting tools and functionalities.
+
+---
 
 ## Quick Start
 
@@ -11,6 +23,7 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 3. Copy the file to the folder you want to use as the home folder for your expenses
 4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar tp.jar` command to run the application.
 
+---
 
 ## Features 
 
@@ -87,12 +100,15 @@ Loads all expenses from a csv file `./data.csv`.
 
 Format: `load`
 
+---
 
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
 
 **A**: You can save your expenses to a `.csv` file, which you can then transfer and load on another computer 
+
+---
 
 ## Command Summary
 
