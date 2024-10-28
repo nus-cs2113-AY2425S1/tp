@@ -1,4 +1,4 @@
-//@@author {glenda-1506}
+//@@author glenda-1506
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
