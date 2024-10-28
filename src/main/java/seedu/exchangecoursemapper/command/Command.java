@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public abstract class Command {
-    protected static final String FILE_PATH = "/path/to/file.json";  // Replace with actual path
+    protected static final String FILE_PATH = "/database.json";
 
     public JsonObject createJsonObject() throws IOException {
         InputStream inputStream = getClass().getResourceAsStream(FILE_PATH);
