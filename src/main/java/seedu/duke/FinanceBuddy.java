@@ -16,7 +16,7 @@ public class FinanceBuddy {
         Storage storage = new Storage();
 
         FinancialList financialList = storage.loadFromFile();
-        Logic logic = new Logic(financialList);
+        Logic logic = new Logic(financialList, storage, ui);
 
         ui.displayWelcomeMessage();
 
@@ -30,38 +30,7 @@ public class FinanceBuddy {
                 commandArguments = InputParser.parseCommands(userInput);
                 command = commandArguments.get(InputParser.COMMAND);
 
-                switch (command) {
-                case "list":
-                    logic.listHelper(commandArguments);
-                    break;
-                case "expense":
-                    logic.addExpense(commandArguments);
-                    storage.update(financialList);
-                    break;
-                case "income":
-                    logic.addIncome(commandArguments);
-                    storage.update(financialList);
-                    break;
-                case "edit":
-                    logic.editEntry(commandArguments);
-                    storage.update(financialList);
-                    break;
-                case "delete":
-                    logic.deleteEntry(commandArguments);
-                    storage.update(financialList);
-                    break;
-                case "help":
-                    logic.printHelpMenu();
-                    break;
-                case "exit":
-                    ExitCommand exitCommand = new ExitCommand();
-                    exitCommand.execute(financialList);
-                    isRunning = exitCommand.shouldContinueLoop();
-                    return;
-                default:
-                    ui.showUnknownCommandMessage();
-                    break;
-                }
+                isRunning = logic.matchCommand(command, commandArguments);
             } catch (FinanceBuddyException e) {
                 ui.showErrorMessage(e.getMessage());
             }

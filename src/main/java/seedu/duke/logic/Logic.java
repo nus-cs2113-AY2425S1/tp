@@ -8,20 +8,26 @@ import seedu.duke.command.SeeAllEntriesCommand;
 import seedu.duke.command.SeeAllExpensesCommand;
 import seedu.duke.command.SeeAllIncomesCommand;
 import seedu.duke.command.HelpCommand;
+import seedu.duke.command.ExitCommand;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.parser.DateParser;
+import seedu.duke.storage.Storage;
+import seedu.duke.ui.AppUi;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Logic {
     private final FinancialList financialList;
+    private final Storage storage;
+    private final AppUi ui;
 
-    // Constructor that accepts financialList as a parameter
-    public Logic(FinancialList financialList) {
+    public Logic(FinancialList financialList, Storage storage, AppUi ui) {
         this.financialList = financialList;
+        this.storage = storage;
+        this.ui = ui;
     }
 
     /**
@@ -193,6 +199,41 @@ public class Logic {
     public void printHelpMenu() {
         HelpCommand helpCommand = new HelpCommand();
         helpCommand.execute(financialList);
+    }
+
+    public boolean matchCommand(String command, HashMap<String, String> commandArguments) throws FinanceBuddyException {
+        switch (command) {
+            case "list":
+                listHelper(commandArguments);
+                break;
+            case "expense":
+                addExpense(commandArguments);
+                storage.update(financialList);
+                break;
+            case "income":
+                addIncome(commandArguments);
+                storage.update(financialList);
+                break;
+            case "edit":
+                editEntry(commandArguments);
+                storage.update(financialList);
+                break;
+            case "delete":
+                deleteEntry(commandArguments);
+                storage.update(financialList);
+                break;
+            case "help":
+                printHelpMenu();
+                break;
+            case "exit":
+                ExitCommand exitCommand = new ExitCommand();
+                exitCommand.execute(financialList);
+                return exitCommand.shouldContinueLoop();
+            default:
+                ui.showUnknownCommandMessage();
+                break;
+        }
+        return true; // Continue the loop by default
     }
 
 }
