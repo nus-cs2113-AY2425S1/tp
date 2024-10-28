@@ -112,27 +112,31 @@ public class DailyRecord {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
+        int caloriesBurnt = day.getTotalCaloriesBurnt();
+        int caloriesGained = getCaloriesFromMeal();
 
         if (day != null && day.getExercisesCount() > 0) {
-            result.append("Day: \n").append(day.toString()).append("\n");
+            result.append("Day: \n").append(day).append("\n");
+            result.append("Total Calories burnt: ").append(caloriesBurnt).append(" kcal\n\n");
         } else {
             result.append("Day: No record.\n\n");
         }
 
         if (!mealList.getMeals().isEmpty()) {
-            result.append("Meals: \n").append(mealList.toString()).append("\n");
-            result.append("Total Calories from Meals: ").append(getCaloriesFromMeal()).append(" kcal\n\n");
+            result.append("Meals: \n").append(mealList).append("\n");
+            result.append("Total Calories from Meals: ").append(caloriesGained).append(" kcal\n\n");
         } else {
             result.append("Meals: No record.\n\n");
         }
 
         if (!water.getWaterList().isEmpty()) {
             result.append("Water Intake: ").append(water.toString()).append("\n");
-            result.append("Total Water Intake: ").append(getTotalWaterIntake()).append(" liters");
+            result.append("Total Water Intake: ").append(getTotalWaterIntake()).append(" liters\n\n");
         } else {
-            result.append("Water Intake: No record.");
+            result.append("Water Intake: No record.\n\n");
         }
 
+        result.append("Caloric Balance: ").append(caloriesGained - caloriesBurnt).append(" kcal");
         return result.toString();
     }
 }

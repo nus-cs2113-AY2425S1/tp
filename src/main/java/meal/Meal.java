@@ -17,7 +17,7 @@ public class Meal {
         this.name = name;
         this.calories = calories;
 
-        logger.log(Level.INFO, "Meal created: {0} with {1} Kcal", new Object[]{name, calories});
+        logger.log(Level.INFO, "Meal created: {0} with {1} kcal", new Object[]{name, calories});
     }
 
     public int getCalories() {
@@ -30,6 +30,6 @@ public class Meal {
 
     @Override
     public String toString() {
-        return name + " | " + calories + "Kcal";
+        return name + " | " + calories + "kcal";
     }
 }

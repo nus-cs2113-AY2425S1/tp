@@ -57,6 +57,10 @@ public class Exercise {
         return name;
     }
 
+    public int getCalories() {
+        return calories;
+    }
+
     @Override
     public String toString() {
         return String.format("%s: %d sets of %d at %d | Burnt %d cals", name, sets, reps, weight, calories);
