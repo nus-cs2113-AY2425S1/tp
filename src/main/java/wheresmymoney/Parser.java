@@ -46,27 +46,30 @@ public class Parser {
         argumentsMap.put(Parser.ARGUMENT_COMMAND,getCommandFromWords(words));
     }
 
+    private static void packArgumentToExistingArgumentsMap(HashMap<String, String> argumentsMap,
+            String currArgumentName, String currArgument) throws InvalidInputException {
+        if (argumentsMap.containsKey(currArgumentName)) {
+            throw new InvalidInputException("Duplicate arguments or Invalid Arguments (eg. /command, /main");
+        }
+        argumentsMap.put(currArgumentName, currArgument.replace("\\/", "/").strip());
+    }
     /**
      * Packs following arguments from words into an existing argument map.
      * @param argumentsMap Arguments Mapping
      * @param words String list of arguments
      */
     private static void packFollowingArgumentsToExistingArgumentsMap(HashMap<String, String> argumentsMap,
-                                                                     String[] words) throws WheresMyMoneyException {
+                                                                     String[] words) throws InvalidInputException {
         // Arguments
         String currArgumentName = Parser.ARGUMENT_MAIN;
         StringBuilder currArgument = new StringBuilder();
         for (int i = 1; i < words.length; i++) {
-            if (words[i].isEmpty()) { // Should be redundant but just in case
+            if (words[i].isEmpty()) { // Skip empty values/ duplicate spaces
                 continue;
             }
             if (words[i].charAt(0) == '/') {
                 // New argument
-                if (argumentsMap.containsKey(currArgumentName)) {
-                    throw new InvalidInputException("Duplicate arguments or Invalid Arguments (eg. /command, /main");
-                }
-                argumentsMap.put(currArgumentName,
-                        currArgument.toString().replace("\\/", "/").strip());
+                packArgumentToExistingArgumentsMap(argumentsMap, currArgumentName, currArgument.toString());
                 currArgumentName = words[i].replaceFirst("/", "");
                 currArgument.setLength(0);
             } else {
@@ -76,10 +79,7 @@ public class Parser {
         }
 
         // Add last command
-        if (argumentsMap.containsKey(currArgumentName)) {
-            throw new InvalidInputException("Duplicate arguments or Invalid Arguments (eg. /command, /main");
-        }
-        argumentsMap.put(currArgumentName, currArgument.toString().replace("\\/", "/").strip());
+        packArgumentToExistingArgumentsMap(argumentsMap, currArgumentName, currArgument.toString());
     }
 
     /**
