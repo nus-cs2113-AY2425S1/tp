@@ -1,7 +1,7 @@
 package history;
 
 import programme.Exercise;
-import daily.record.DailyRecord;
+
 import java.util.logging.Logger;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

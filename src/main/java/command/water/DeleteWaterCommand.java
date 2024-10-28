@@ -1,7 +1,7 @@
 package command.water;
 
 import command.CommandResult;
-import daily.record.DailyRecord;
+import history.DailyRecord;
 import history.History;
 
 import java.time.LocalDate;
