@@ -18,7 +18,7 @@ import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
 import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
-public class ListUniCoursesCommand extends Command {
+public class ListUniCoursesCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ListUniCoursesCommand.class.getName());
 
     /**

@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
-public class ListSchoolCommand extends Command {
+public class ListSchoolCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ListSchoolCommand.class.getName());
 
     @Override

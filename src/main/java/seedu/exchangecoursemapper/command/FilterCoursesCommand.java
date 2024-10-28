@@ -23,7 +23,7 @@ import static seedu.exchangecoursemapper.constants.Messages.NO_MAPPABLE_COURSES_
 import static seedu.exchangecoursemapper.constants.Regex.REPEATED_SPACES;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 
-public class FilterCoursesCommand extends Command {
+public class FilterCoursesCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(FilterCoursesCommand.class.getName());
 
     @Override
