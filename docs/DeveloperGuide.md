@@ -9,6 +9,41 @@
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ---
+### Ui and Parser Component
+
+#### Overview
+The `AppUi` class is responsible for managing user interactions in the FinanceBuddy application. It captures user inputs, 
+processes commands, and displays messages. This class serves as the central point for handling commands like adding or 
+editing entries, showing help, and exiting the application.
+
+The `InputParser` class acts as an intermediary between the User's input and the application in order to parse the User's command
+inputs into a format understandable by the application for processing.
+
+The `DateParser` class is responsible for parsing date strings into a standard format for processing by the application.
+
+#### Class Structure
+The `AppUi` class contains the following attributes:
+- financialList: a new FinancialList object which stores the list of financial entries, including expenses and income.
+- storage: a new Storage object which manages the saving and loading of financial data to and from persistent storage
+
+
+### Implementation Details
+
+#### Ui Class Diagram
+
+#### Parser Class Diagram
+
+---
+### Logic Component
+
+#### Overview
+
+#### Class Structure
+
+### Implementation Details
+
+#### Logic Class Diagram
+---
 
 ### FinancialList Component
 
@@ -172,6 +207,10 @@ faster than a typical mouse/GUI driven app
 * *Income* - A subclass of FinancialEntry that represents a financial inflow or income received by the user.
 * *FinancialList* - A class responsible for storing and managing all financial entries, including both expenses and incomes, allowing for the organization and manipulation of financial data.
 
-## Instructions for manual testing
+## Instructions for Testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Manual Testing
+View the [User Guide](UserGuide.md) for the list of UI commands and their related use case and expected outputs.
+
+### JUnit Testing
+JUnit tests are written in the subdirectory `test` and serve to test key methods in the application.
