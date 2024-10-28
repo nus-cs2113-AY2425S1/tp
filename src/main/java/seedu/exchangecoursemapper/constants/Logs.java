@@ -35,4 +35,17 @@ public class Logs {
     public static final String EXECUTION_FAILED = "Command execution failed unexpectedly.";
     public static final String ADD_NEW_COURSE_MAPPING = "Please add a new course mapping!";
     public static final String INVALID_UNIVERSITY_INPUT = "Invalid university input!";
+    public static final String ADD_APPROVED_MAPPING = "Add approved mapping into storage.";
+    public static final String CHECK_UNIVERSITY = "Check user university input";
+    public static final String CHECK_COURSE_MAPPING = "Check user NUS course and PU course mapping";
+    public static final String FIND_COURSE_MAPPING = "Loop through course jsonObject to find the same " +
+            "PU course code and NUS course code";
+    public static final String DISPLAY_PARTNER_UNIVERSITIES = "Display available partner universities";
+    public static final String FIND_PARTNER_UNIVERSITY = "Find partner university in Json file";
+    public static final String RETRIEVE_COURSE_LIST = "Retrieve course list for partner university";
+
+    // Delete Course
+    public static final String DELETE_COURSE_MAPPING = "Deleting course mapping from storage..";
+    public static final String RETURN_PARSED_DELETE_COMMAND = "Returning separated user input...";
+    public static final String GET_COURSE_TO_DELETE = "Obtaining information on the course to be deleted.";
 }

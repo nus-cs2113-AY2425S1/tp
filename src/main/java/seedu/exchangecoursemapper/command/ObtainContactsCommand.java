@@ -14,7 +14,7 @@ import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 import static seedu.exchangecoursemapper.constants.JsonKey.EMAIL_KEY;
 import static seedu.exchangecoursemapper.constants.JsonKey.NUMBER_KEY;
 
-public class ObtainContactsCommand extends Command {
+public class ObtainContactsCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ObtainContactsCommand.class.getName());
 
     @Override
@@ -54,6 +54,7 @@ public class ObtainContactsCommand extends Command {
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
 
         if (inputParts.length != 2) {
+            System.out.println(Exception.invalidInputFormat());
             throw new IllegalArgumentException(Exception.invalidInputFormat());
         }
         return inputParts[1].trim();
