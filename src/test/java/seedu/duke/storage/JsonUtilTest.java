@@ -37,24 +37,34 @@ public class JsonUtilTest {
                 {
                   "patients" : [ {
                     "name" : "Alice",
+                    "tag" : null,
                     "taskList" : {
+                      "completionRate" : 0.0,
                       "tasks" : [ {
+                        "type" : "deadline",
                         "description" : "Consultation",
-                        "isDone" : true
+                        "isDone" : true,
+                        "by" : "28-Oct-2024 23:59"
                       }, {
+                        "type" : "repeat",
                         "description" : "Medication",
+                        "repeat" : "week",
                         "isDone" : false
                       } ]
                     }
                   }, {
                     "name" : "Bob",
+                    "tag" : null,
                     "taskList" : {
                       "tasks" : [ {
+                        "type" : "todo",
                         "description" : "Surgery",
                         "isDone" : false
                       }, {
+                        "type" : "repeat",
                         "description" : "Medication",
-                        "isDone" : false
+                        "isDone" : false,
+                        "repeat" : "week"
                       } ]
                     }
                   } ]
@@ -109,6 +119,24 @@ public class JsonUtilTest {
                 hospitalDeserialized.getPatient(1).getTaskList().getTask(0).getDescription());
 
     }
+
+    @Test
+    void loadFromFile_success() throws StorageOperationException, PatientNotFoundException, TaskNotFoundException {
+
+        Hospital hospitalDeserialized = JsonUtil.loadFromFile("src/test/java/seedu/duke/data/hospital_data.json");
+        assertNotNull(hospitalDeserialized);
+        assertEquals(hospital.getPatients().size(),
+                hospitalDeserialized.getPatients().size());
+        assertEquals(hospital.getPatient(0).getName(),
+                hospitalDeserialized.getPatient(0).getName());
+        assertEquals(hospital.getPatient(1).getName(),
+                hospitalDeserialized.getPatient(1).getName());
+        assertEquals(hospital.getPatient(0).getTaskList().getTask(0).getDescription(),
+                hospitalDeserialized.getPatient(0).getTaskList().getTask(0).getDescription());
+        assertEquals(hospital.getPatient(1).getTaskList().getTask(0).getDescription(),
+                hospitalDeserialized.getPatient(1).getTaskList().getTask(0).getDescription());
+    }
+
 
     @Test
     void deserialize_invalidJsonFormat_exceptionExpection() {

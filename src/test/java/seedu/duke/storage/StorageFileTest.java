@@ -52,8 +52,6 @@ public class StorageFileTest {
                     """;
     }
 
-
-
     @Test
     public void checkDefaultFilePath_success() {
         StorageFile storage = new StorageFile();
@@ -115,9 +113,24 @@ public class StorageFileTest {
     }
 
     @Test
-    public void checkFilePath_invalidPath_exceptionExpection() {
-        // String invalidPath = "invalid/file/path";
-        // assertThrows(StorageOperationException.class, () -> new StorageFile(invalidPath));
+    public void backupFile_success() {
+        String filePath = "src/test/java/seedu/duke/data/hospital_data.json";
+        String backupFilePath = "src/test/java/seedu/duke/data/hospital_data_backup.json";
+        StorageBackup storageBackup = new StorageBackup(backupFilePath);
+
+        File file = new File(backupFilePath);
+        // check if file exists
+        if (file.exists()) {
+            file.delete();
+        }
+
+        storageBackup.createBackupFile(filePath);
+        assertTrue(file.exists());
+
+        // Delete the file after testing
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
 }
