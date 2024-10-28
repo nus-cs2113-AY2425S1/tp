@@ -59,7 +59,7 @@ public class ExpenseTrackerTest {
 
         tracker.viewExpensesByCategory();
     }
- //@@author AdiMangalam
+    //@@author AdiMangalam
     @Test
     public void addCategoryExists() {
         ExpenseTracker tracker = new ExpenseTracker();
