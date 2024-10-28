@@ -34,10 +34,13 @@ class QuizManagerTest {
         Scanner scanner = new Scanner(input);
 
         // Pass the scanner to the selectTopic method, including a default timer of 10 seconds
-        quizManager.selectTopic("InvalidTopicName", scanner, 10);
+        quizManager.selectTopic("InvalidTopicName", scanner, 10, 2);
 
         scanner.close();
-        // No assertion here; we expect no exceptions or crashes
+        
+        // Assert that past results remain empty since no valid quiz was selected
+        assertEquals("No past results available. You haven't completed any quizzes yet.", quizManager.getPastResults());
+
     }
 
     @Test
@@ -53,7 +56,7 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("b\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        quizManager.startQuiz(topic, scanner, 10);
+        quizManager.startQuiz(topic, scanner, 10, 5);
 
         String expectedResult = "Score: 0%, Comment: Better luck next time!\n";
         assertEquals(expectedResult, quizManager.getPastResults());
@@ -74,7 +77,7 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("b\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        quizManager.startQuiz(topic, scanner, 10);
+        quizManager.startQuiz(topic, scanner, 10, 5);
 
         String savedResults = Files.readString(Path.of(resultsFilePath));
         String expectedSavedResults = "Score: 0%, Comment: Better luck next time!\n";
@@ -109,7 +112,7 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("false\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        quizManager.startQuiz(topic, scanner, 10);
+        quizManager.startQuiz(topic, scanner, 10, 5);
 
         String expectedResult = "Score: 100%, Comment: Excellent!\n";
         assertEquals(expectedResult, quizManager.getPastResults());
@@ -130,7 +133,7 @@ class QuizManagerTest {
         Scanner scanner = new Scanner(input);
 
         try {
-            quizManager.startQuiz(topic, scanner, 10);
+            quizManager.startQuiz(topic, scanner, 10, 5);
         } catch (IllegalArgumentException e) {
             assertEquals("Invalid input! Please enter 'true' or 'false'.", e.getMessage());
         }
