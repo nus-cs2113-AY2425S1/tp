@@ -22,6 +22,9 @@ public class UiCommand extends Ui {
         if (!getInvalidFlags().isEmpty()) {
             message += getInvalidFlags() + DIVIDER;
         }
+        if (!getInvalidFields().isEmpty()) {
+            message += getInvalidFields() + DIVIDER;
+        }
         switch (action) {
         case "add":
             message += "Internship added:\n" + internship.toString();

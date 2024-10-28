@@ -149,7 +149,6 @@ public class Internship {
     }
 
     //@@author Ridiculouswifi
-
     /**
      * Updates the deadlines of the <code>Internship</code> class.
      * If no deadline has the same description, a new deadline entry is created.
@@ -222,7 +221,7 @@ public class Internship {
         }
         StringBuilder builder = new StringBuilder();
         for (Deadline deadline : deadlines) {
-            builder.append(deadline.toString()).append("\n");
+            builder.append("\t").append(deadline.toString()).append("\n");
         }
         return builder.toString().trim();
     }
@@ -290,6 +289,6 @@ public class Internship {
         }
         return "ID: " + id + "\tStatus: " + status + "\n" + "Role: " + role + "\n" + "Company: " + company + "\n" +
                 "Duration: " + getStartDate() + " to " + getEndDate() + "\n" + "Skills: " + skillsField + " \n" +
-                "Deadlines:\n" + getFormattedDeadlines() + "\n";
+                "Deadlines:\n\t" + getFormattedDeadlines();
     }
 }
