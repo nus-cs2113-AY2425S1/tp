@@ -28,38 +28,50 @@ public class CompareMappedCommand extends CheckInformationCommand {
 
         String university1 = inputs[1].trim();
         String university2 = inputs[2].trim();
-
         List<String> allModules = storage.loadAllCourses();
 
-        // Filter mappings for each university
-        List<String> uni1Modules = allModules.stream()
-                .filter(module -> module.contains(" | " + university1 + " | "))
-                .toList();
+        List<String> uni1Modules = filterModulesByUniversity(allModules, university1);
+        List<String> uni2Modules = filterModulesByUniversity(allModules, university2);
 
-        List<String> uni2Modules = allModules.stream()
-                .filter(module -> module.contains(" | " + university2 + " | "))
-                .toList();
+        Set<String> uni1CourseCodes = extractCourseCodes(uni1Modules);
+        Set<String> uni2CourseCodes = extractCourseCodes(uni2Modules);
 
-        // Extract course codes for comparison
-        Set<String> uni1CourseCodes = uni1Modules.stream()
+        Set<String> commonCourseCodes = getCommonCourseCodes(uni1CourseCodes, uni2CourseCodes);
+        Set<String> uni1UniqueCourseCodes = getUniqueCourseCodes(uni1CourseCodes, commonCourseCodes);
+        Set<String> uni2UniqueCourseCodes = getUniqueCourseCodes(uni2CourseCodes, commonCourseCodes);
+
+        displayComparisonResults(university1, university2, commonCourseCodes, uni1Modules, uni2Modules,
+                uni1UniqueCourseCodes, uni2UniqueCourseCodes);
+    }
+
+    private List<String> filterModulesByUniversity(List<String> modules, String university) {
+        return modules.stream()
+                .filter(module -> module.contains(" | " + university + " | "))
+                .toList();
+    }
+
+    private Set<String> extractCourseCodes(List<String> modules) {
+        return modules.stream()
                 .map(module -> module.split(" \\| ")[0])  // Extract NUS course code
                 .collect(Collectors.toSet());
+    }
 
-        Set<String> uni2CourseCodes = uni2Modules.stream()
-                .map(module -> module.split(" \\| ")[0])  // Extract NUS course code
-                .collect(Collectors.toSet());
+    private Set<String> getCommonCourseCodes(Set<String> codes1, Set<String> codes2) {
+        Set<String> commonCodes = new HashSet<>(codes1);
+        commonCodes.retainAll(codes2);
+        return commonCodes;
+    }
 
-        // Identify common and unique course codes
-        Set<String> commonCourseCodes = new HashSet<>(uni1CourseCodes);
-        commonCourseCodes.retainAll(uni2CourseCodes);
+    private Set<String> getUniqueCourseCodes(Set<String> allCodes, Set<String> commonCodes) {
+        Set<String> uniqueCodes = new HashSet<>(allCodes);
+        uniqueCodes.removeAll(commonCodes);
+        return uniqueCodes;
+    }
 
-        Set<String> uni1UniqueCourseCodes = new HashSet<>(uni1CourseCodes);
-        uni1UniqueCourseCodes.removeAll(commonCourseCodes);
+    private void displayComparisonResults(String university1, String university2, Set<String> commonCourseCodes,
+                                          List<String> uni1Modules, List<String> uni2Modules,
+                                          Set<String> uni1UniqueCourseCodes, Set<String> uni2UniqueCourseCodes) {
 
-        Set<String> uni2UniqueCourseCodes = new HashSet<>(uni2CourseCodes);
-        uni2UniqueCourseCodes.removeAll(commonCourseCodes);
-
-        // Display results
         System.out.println("Comparison of Course Mappings between " + university1 + " and " + university2 + ":");
 
         System.out.println("\nCommon Mappings:");
@@ -80,18 +92,17 @@ public class CompareMappedCommand extends CheckInformationCommand {
         System.out.println(LINE_SEPARATOR);
 
         printUniqueMappings(university1, uni1Modules, uni1UniqueCourseCodes);
-
         printUniqueMappings(university2, uni2Modules, uni2UniqueCourseCodes);
     }
 
-    private void printUniqueMappings(String university1, List<String> uni1Modules, Set<String> uni1UniqueCourseCodes) {
-        System.out.println("\nUnique to " + university1 + ":");
+    private void printUniqueMappings(String university, List<String> modules, Set<String> uniqueCourseCodes) {
+        System.out.println("\nUnique to " + university + ":");
         System.out.println(LINE_SEPARATOR);
-        if (uni1UniqueCourseCodes.isEmpty()) {
-            System.out.println("No unique mappings for " + university1);
+        if (uniqueCourseCodes.isEmpty()) {
+            System.out.println("No unique mappings for " + university);
         } else {
-            for (String courseCode : uni1UniqueCourseCodes) {
-                uni1Modules.stream()
+            for (String courseCode : uniqueCourseCodes) {
+                modules.stream()
                         .filter(module -> module.startsWith(courseCode + " | "))
                         .forEach(System.out::println);
             }
