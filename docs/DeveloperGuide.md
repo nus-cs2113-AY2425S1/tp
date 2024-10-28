@@ -31,7 +31,9 @@ WheresMyMoney uses the following tools for development:
 1. [JUnit](https://junit.org/junit5/) - Used for testing.
 2. [Gradle](https://gradle.org/) - Used for build automation.
 
-## Design & implementation
+---
+
+## Design & Implementation
 
 
 Design and Implementation has been broken down into various sections, each tagged for ease of reference:
@@ -111,15 +113,28 @@ The `ExpenseList` class has the following key methods:
 | `deleteExpense` | Removes an expense from the list  |
 |  `editExpense`  |   Edits an expense in the list    |
 
-The following diagram is a class diagram for Expense and ExpenseList:
+<u>Design Considerations</u>
+
+The setters in `Expense` class checks for null and blank.
+The `Expense` constructors also do, as they use those setters.
+
+The nontrivial methods in `ExpenseList` class contain some sort of exception handling. 
+
+<u>Implementation Details</u>
+
+The following diagram is a UML class diagram for `Expense` and `ExpenseList`:
 
 ![ExpenseAndExpenseList.png](/docs/diagrams/images/ExpenseAndExpenseList.png "UML Class Diagram for Expense and ExpenseList")
 
 ### Date and Time Handling
 
-The `DateUtils` class provides utility methods to handle date formatting, validation and conversion.
+The `DateUtils` class provides utility methods to handle date formatting, validation and conversion. 
 
 The `DateUtils` class has no notable methods.
+
+<u>Implementation Details</u>
+
+The `DateUtils` class is implemented as a Singleton as its methods are common to all other classes that require it.
 
 ### Exceptions and Logging
 
