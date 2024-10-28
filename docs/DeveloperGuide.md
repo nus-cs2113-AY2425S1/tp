@@ -6,7 +6,48 @@
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+## Category
+
+**Purpose**: Represents a category for expenses.
+
+**Operations**:
+- `getName()`: Returns the category name.
+- `toString()`: Provides the string representation of the category.
+
+## Expense
+
+**Purpose**: Represents an individual expense within the system.
+
+**Operations**:
+- `getName()`, `getAmount()`: Retrieve the expense's name and amount.
+- `getCategory()`, `setCategory(Category)`: Manage the expense's category association.
+- `formatAmount()`: Formats the expense amount for display.
+
+## Budget
+
+**Purpose**: Handle monetary constraints per category.
+
+**Operations**:
+- `setLimit(double)`: Ensures limits are non-negative.
+- `formatLimit(double)`: Formats the budget limit for display.
+
+## ExpenseTracker
+
+**Purpose**: Track and manage expenses and categories.
+
+**Operations**:
+- `addExpense(String, double, String)`: Adds a new expense.
+- `deleteExpense(int)`: Removes an expense by index.
+- `viewExpensesByCategory()`: Groups and displays expenses by category.
+
+## Duke
+
+**Purpose**: Interface for command-line interactions.
+
+**Main flow**:
+- The system starts and displays a greeting.
+- Continuously processes user commands until "bye".
+- Directly invokes methods from ExpenseTracker based on input.
 
 
 ## Product scope
