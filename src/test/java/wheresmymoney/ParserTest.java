@@ -19,9 +19,10 @@ class ParserTest {
         } catch (WheresMyMoneyException e) {
             assert(false);
         }
-        assertEquals(argumentsMap.keySet().size(), 1);
+        assertEquals(argumentsMap.keySet().size(), 2);
         assert(argumentsMap.containsKey(Parser.ARGUMENT_COMMAND));
         assertEquals(argumentsMap.get(Parser.ARGUMENT_COMMAND), "command");
+        assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "");
     }
 
     @Test
@@ -33,9 +34,11 @@ class ParserTest {
         } catch (WheresMyMoneyException e) {
             assert(false);
         }
-        assertEquals(argumentsMap.keySet().size(), 1);
+        System.out.println(argumentsMap);
+        assertEquals(argumentsMap.keySet().size(), 2);
         assert(argumentsMap.containsKey(Parser.ARGUMENT_COMMAND));
         assertEquals(argumentsMap.get(Parser.ARGUMENT_COMMAND), "command");
+        assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "");
     }
 
     @Test
@@ -75,8 +78,9 @@ class ParserTest {
         } catch (WheresMyMoneyException e) {
             assert(false);
         }
-        assertEquals(argumentsMap.keySet().size(), 2);
+        assertEquals(argumentsMap.keySet().size(), 3);
         assertEquals(argumentsMap.get(Parser.ARGUMENT_COMMAND), "command");
+        assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "");
         assertEquals(argumentsMap.get("custom"), "value");
     }
 
@@ -89,8 +93,9 @@ class ParserTest {
         } catch (WheresMyMoneyException e) {
             assert(false);
         }
-        assertEquals(argumentsMap.keySet().size(), 2);
+        assertEquals(argumentsMap.keySet().size(), 3);
         assertEquals(argumentsMap.get(Parser.ARGUMENT_COMMAND), "command");
+        assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "");
         assertEquals(argumentsMap.get("custom"), "value abc");
     }
 
@@ -102,10 +107,24 @@ class ParserTest {
     }
 
     @Test
-    public void parseLineToArgumentsMap_commandWithDuplicateArguments_chooseFirstArgument()
-            throws WheresMyMoneyException {
+    public void parseLineToArgumentsMap_commandWithDuplicateArguments_chooseFirstArgument() {
         String inputLine = "command main /extra extra1 /extra extra2";
         assertThrows(InvalidInputException.class,
                 ()->Parser.parseLineToArgumentsMap(inputLine));
+    }
+
+    @Test
+    public void parseLineToArgumentsMap_commandArgumentWithoutValue_chooseFirstArgument() {
+        String inputLine = "command main /extra /extra2";
+        HashMap<String, String> argumentsMap = null;
+        try {
+            argumentsMap = Parser.parseLineToArgumentsMap(inputLine);
+        } catch (WheresMyMoneyException e) {
+            assert(false);
+        }
+        assertEquals(argumentsMap.keySet().size(), 4);
+        assertEquals(argumentsMap.get(Parser.ARGUMENT_COMMAND), "command");
+        assertEquals(argumentsMap.get("extra"), "");
+        assertEquals(argumentsMap.get("extra2"), "");
     }
 }
