@@ -28,6 +28,12 @@ public class ExpenseTracker {
         return expenses;
     }
 
+    // For testing purposes
+    public int getLastResetMonth() {
+        return lastResetMonth;
+    }
+
+
     public List<Category> getCategories() {
         return categories;
     }
