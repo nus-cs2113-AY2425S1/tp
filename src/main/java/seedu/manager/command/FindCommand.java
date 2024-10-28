@@ -24,24 +24,26 @@ public class FindCommand extends Command{
     @Override
     public void execute() {
         StringBuilder outputMessage = new StringBuilder();
-        ArrayList<Participant> participantsFound = new ArrayList<>();
+        ArrayList<Participant> participantsFound;
 
         event = eventList.getEventByName(this.eventName);
         if (event.isPresent()) {
             participantsFound = event.get().findParticipants(personName);
+
+            if (!participantsFound.isEmpty()) {
+                outputMessage.append(FIND_SUCCESS_MESSAGE + "\n");
+
+                // print out the list of people.
+                for (int i = 0; i < participantsFound.size(); i++) {
+                    outputMessage.append(String.format("%d. %s\n", i + 1, participantsFound.get(i).toString()));
+                }
+
+            } else {
+                outputMessage.append(FIND_FAILURE_MESSAGE);
+            }
+
         } else {
             outputMessage.append(FIND_EVENT_FAILURE_MESSAGE);
-        }
-
-        if (!participantsFound.isEmpty()) {
-            outputMessage.append(FIND_SUCCESS_MESSAGE + "\n");
-        } else {
-            outputMessage.append(FIND_FAILURE_MESSAGE);
-        }
-
-        // print out the list of people.
-        for (int i = 0; i < participantsFound.size(); i++) {
-            outputMessage.append(String.format("%d. %s\n", i + 1, participantsFound.get(i).toString()));
         }
 
         this.message = outputMessage.toString();
