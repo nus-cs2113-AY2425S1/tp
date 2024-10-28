@@ -1,16 +1,18 @@
 package seedu.manager.parser;
 
-import seedu.manager.command.Command;
+
 import seedu.manager.command.AddCommand;
+import seedu.manager.command.Command;
+import seedu.manager.command.ExitCommand;
+import seedu.manager.command.FilterCommand;
+import seedu.manager.command.ListCommand;
 import seedu.manager.command.MarkCommand;
 import seedu.manager.command.MarkEventCommand;
 import seedu.manager.command.MarkParticipantCommand;
-import seedu.manager.command.RemoveCommand;
-import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
-import seedu.manager.command.ListCommand;
-import seedu.manager.command.ViewCommand;
+import seedu.manager.command.RemoveCommand;
 import seedu.manager.command.SortCommand;
+import seedu.manager.command.ViewCommand;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.InvalidCommandException;
 
@@ -78,6 +80,15 @@ public class Parser {
             Please use the following format for priority level:
             high/medium/low
             """;
+    private static final String INVALID_FILTER_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            filter -e/-t/-u FILTER_DESCRIPTION
+            """;
+    private static final String INVALID_FILTER_FLAG_MESSAGE = """
+            Invalid filter flag!
+            Please set the filter flag as either "-e/-t/-u"
+            """;
 
     /**
      * Returns a command based on the given user command string.
@@ -106,6 +117,8 @@ public class Parser {
             return parseMarkCommand(command, commandParts);
         case SortCommand.COMMAND_WORD:
             return parseSortCommand(command, commandParts);
+        case FilterCommand.COMMAND_WORD:
+            return parseFilterCommand(command, commandParts);
         default:
             throw new InvalidCommandException(INVALID_COMMAND_MESSAGE);
         }
@@ -352,4 +365,25 @@ public class Parser {
             throw new InvalidCommandException(INVALID_SORT_MESSAGE);
         }
     }
+
+    private Command parseFilterCommand(String input, String[] commandParts) throws InvalidCommandException {
+        assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
+
+        try {
+            String[] inputParts = input.split("(-e|-t|-u)");
+            if (inputParts.length < 2) {
+                throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
+            }
+
+            Set<String> validFlags = Set.of("-e", "-t", "-u");
+            if (validFlags.contains(commandParts[1].trim().toLowerCase())) {
+                return new FilterCommand(commandParts[1].trim().toLowerCase(), inputParts[1].trim());
+            }
+            throw new InvalidCommandException(INVALID_FILTER_FLAG_MESSAGE);
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(WARNING,"Invalid command format");
+            throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
+        }
+    }
+
 }

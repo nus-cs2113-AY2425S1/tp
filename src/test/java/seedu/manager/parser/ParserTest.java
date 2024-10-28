@@ -174,4 +174,13 @@ class ParserTest {
             parser.parseCommand(commandString);});
     }
 
+    @Test
+    public void parseCommand_filterEventsInvalidFlag_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "filter -s high";
+
+        assertThrows(InvalidCommandException.class, () -> {
+            parser.parseCommand(commandString);});
+    }
+
 }

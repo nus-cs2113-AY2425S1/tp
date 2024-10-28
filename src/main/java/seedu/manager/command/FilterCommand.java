@@ -8,12 +8,12 @@ public class FilterCommand extends Command {
 
     private static final String FILTER_BY_PRIORITY_MESSAGE = "Events successfully filtered by priority!";
 
-    protected String keyword;
+    protected String flag;
     protected String filterWord;
 
-    public FilterCommand(String keyword, String filterWord) {
+    public FilterCommand(String flag, String filterWord) {
         super(false);
-        this.keyword = keyword;
+        this.flag = flag;
         this.filterWord = filterWord;
     }
 
@@ -22,7 +22,7 @@ public class FilterCommand extends Command {
         StringBuilder outputMessage = new StringBuilder();
         EventList filteredEvents = new EventList();
 
-        switch (keyword) {
+        switch (flag) {
         case "-e":
             break;
         case "-t":
