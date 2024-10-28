@@ -17,13 +17,17 @@ public class ListCommand extends Command {
         super(argumentsMap);
     }
 
-    private ArrayList<Expense> getExpensesToDisplay(ExpenseList expenseList) {
+    /**
+     * Get a list of expenses based on various filter metrics
+     *
+     * @param expenseList ExpenseList to be filtered by category, a start date and an end date
+     */
+
+    private ArrayList<Expense> getExpensesToDisplay(ExpenseList expenseList) throws WheresMyMoneyException {
         String listCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
-        if (listCategory == null) {
-            return expenseList.getList();
-        } else {
-            return expenseList.listByCategory(listCategory);
-        }
+        String from = argumentsMap.get(Parser.ARGUMENT_FROM);
+        String to = argumentsMap.get(Parser.ARGUMENT_TO);
+        return expenseList.listByFilter(listCategory, from, to);
     }
 
     private ArrayList<RecurringExpense> getRecurringExpensesToDisplay(RecurringExpenseList recurringExpenseList) {
@@ -37,6 +41,10 @@ public class ListCommand extends Command {
 
     private void displayExpenses(ArrayList<Expense> expensesToDisplay, ExpenseList expenseList)
             throws WheresMyMoneyException {
+        if (expensesToDisplay.isEmpty()) {
+            Ui.displayMessage("No matching expenses were found!");
+            return;
+        }
         for (Expense expense: expensesToDisplay) {
             String index = expenseList.getIndexOf(expense) + 1 + ". ";
             String category = "CATEGORY: " + expense.getCategory();

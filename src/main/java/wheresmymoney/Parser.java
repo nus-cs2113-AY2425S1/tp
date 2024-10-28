@@ -24,6 +24,8 @@ public class Parser {
     public static final String ARGUMENT_RECUR = "recur";
     public static final String ARGUMENT_DATE = "date";
     public static final String ARGUMENT_FREQUENCY = "frequency";
+    public static final String ARGUMENT_FROM = "from";
+    public static final String ARGUMENT_TO = "to";
 
 
     /**

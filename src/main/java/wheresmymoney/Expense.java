@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import wheresmymoney.exception.WheresMyMoneyException;
 
+import java.time.LocalDate;
+
 public class Expense {
 
     protected Float price;
@@ -22,10 +24,13 @@ public class Expense {
 
     public Expense(Float price, String description, String category, LocalDate dateAdded)
             throws WheresMyMoneyException {
+        if (!DateUtils.isInDateFormat(dateAdded)){
+            throw new WheresMyMoneyException("Invalid date format" + DateUtils.DATE_FORMAT);
+        }
         this.setPrice(price);
         this.setDescription(description);
         this.setCategory(category);
-        this.setDateAdded(dateAdded);
+        this.setDateAdded(DateUtils.stringToDate(dateAdded));
     }
 
     public Expense() {}
