@@ -46,8 +46,8 @@ public class ExpenseFilter {
         return true;
     }
 
-    public static ArrayList<Expense> filterExpenses
-            (ArrayList<Expense> expenses, String category, String from, String to) throws WheresMyMoneyException {
+    public static ArrayList<Expense> filterExpenses(ArrayList<Expense> expenses, String category,
+                                                    String from, String to) throws WheresMyMoneyException {
         ArrayList<Expense> expenseByFilter = new ArrayList<>();
         for (Expense expense : expenses) {
             if (isFiltered(expense, category, from, to)) {
@@ -57,4 +57,5 @@ public class ExpenseFilter {
         }
         return expenseByFilter;
     }
+
 }
