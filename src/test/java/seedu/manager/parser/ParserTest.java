@@ -153,4 +153,25 @@ class ParserTest {
         assertThrows(InvalidCommandException.class,() -> {
             parser.parseCommand(commandString);});
     }
+
+    @Test
+    public void parseCommand_sortEventsInvalidFlags_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "sort by name";
+
+
+        assertThrows(InvalidCommandException.class,() -> {
+            parser.parseCommand(commandString);});
+    }
+
+    @Test
+    public void parseCommand_sortEventsInvalidInput_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "sort -by fun";
+
+
+        assertThrows(InvalidCommandException.class, () -> {
+            parser.parseCommand(commandString);});
+    }
+
 }

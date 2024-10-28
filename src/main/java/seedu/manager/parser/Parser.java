@@ -341,7 +341,6 @@ public class Parser {
             }
 
             String keyword = inputParts[1].trim();
-            System.out.println(keyword);
             Set<String> validKeywords = Set.of("name", "time", "priority");
             if (validKeywords.contains(keyword.toLowerCase())) {
                 return new SortCommand(keyword);
