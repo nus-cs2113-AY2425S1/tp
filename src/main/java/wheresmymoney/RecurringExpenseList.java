@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
+import java.time.LocalDate;
 
 public class RecurringExpenseList extends ExpenseList {
     private ArrayList<RecurringExpense> recurringExpenses;
@@ -125,6 +126,21 @@ public class RecurringExpenseList extends ExpenseList {
             // closing writer connection
             reader.close();
             csvReader.close();
+
+            LocalDate currentDate = LocalDate.now();
+            for (RecurringExpense recurringExpense: recurringExpenses) {
+                String frequency = recurringExpense.getFrequency();
+                LocalDate lastAddedDate = LocalDate.parse(recurringExpense.getlastAddedDate());
+                switch (frequency) {
+                case "daily":
+                    
+                    break;
+                case "weekly":
+                    break;
+                case "monthly":
+                    break;
+                }
+            }
         } catch (IOException ex) {
             throw new StorageException("Unable to read file!");
         } catch (CsvValidationException e){
