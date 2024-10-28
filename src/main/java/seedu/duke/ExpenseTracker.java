@@ -91,7 +91,21 @@ public class ExpenseTracker {
         }
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
+
+
     //@@author kq2003
+    /**
+     * Adds a new expense with the specified name, amount, and category.
+     *
+     * It checks if the specified category exists in the tracker. If it does not exist,
+     * the method creates a new category with the specified name and adds it to the list of categories.
+     * Then, it creates a new expense with the given name, amount, and category and adds it to the list of expenses.
+     * A message is displayed to confirm the addition of the expense and, if applicable, the new category.
+     *
+     * @param name:         The name of the expense item.
+     * @param amount:       The amount of the expense.
+     * @param categoryName: The name of the category to which the expense belongs.
+     */
     public void addExpense(String name, double amount, String categoryName) {
         String formattedCategoryName = formatInput(categoryName.trim());
         Category existingCategory = null;
@@ -274,6 +288,14 @@ public class ExpenseTracker {
         }
     }
     //@@author kq2003
+    /**
+     * Displays the current budget status for each category.
+     *
+     * This method checks if each category has a budget set, calculates the total expenses for that category,
+     * and shows the remaining budget. If the total expenses exceed the budget limit, it displays the amount
+     * over budget. Categories with expenses but no budget set are also displayed.
+     * If no budgets are set, a message is shown indicating the absence of budgets.
+     */
     public void viewBudget() {
         if (budgets.isEmpty()) {
             System.out.println("No budgets set for any category.");
