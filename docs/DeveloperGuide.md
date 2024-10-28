@@ -70,7 +70,7 @@ An alternative approach considered was to store `correctAnswer` as a `String` (`
 
 #### UML Class Diagram
 
-![TrueFalse Class Diagram](docs/UML/TrueFalseClassDiagram.png)
+![TrueFalse Class Diagram](https://github.com/Lucky-Yuan00/tp/blob/jinlin-dev/docs/UML/TrueFalseClassDiagram.png?raw=true)
 
 The class diagram above shows the structure of the `TrueFalse` class, including its attributes and methods, and its inheritance relationship with the `Question` superclass.
 
