@@ -31,7 +31,7 @@ public class ListSchoolCommand extends CheckInformationCommand {
         logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
 
-    private static void displaySchoolList(JsonObject jsonObject) {
+    public static void displaySchoolList(JsonObject jsonObject) {
         Set<String> universityNames = jsonObject.keySet();
         System.out.println(LINE_SEPARATOR);
         for (String universityName : universityNames) {

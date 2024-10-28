@@ -45,18 +45,18 @@ public class ObtainContactsCommandTest {
         String actualOutput = outputStreamCaptor.toString().trim();
         assertEquals(expectedOutput, actualOutput);
     }
-    /*
+
     @Test
     public void execute_validEmail_success() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
         jsonReader.close();
 
-        String userInput = "obtain Chulalongkorn University /email";
+        String userInput = "obtain The University of Melbourne /email";
         obtainContactsCommand.execute(userInput);
 
         String actualOutput = outputStreamCaptor.toString().trim();
         String[] outputLines = actualOutput.split("\n");
-        String expectedOutput = "Email for Chulalongkorn University: int.off@chula.ac.th\n";
+        String expectedOutput = "Email for The University of Melbourne: unimelb-support@unimelb.edu.au\n";
 
         boolean isFound = false;
         for (String line : outputLines) {
@@ -73,13 +73,23 @@ public class ObtainContactsCommandTest {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
         jsonReader.close();
 
-        String userInput = "obtain Chulalongkorn University /number";
+        String userInput = "obtain The University of Melbourne /number";
         obtainContactsCommand.execute(userInput);
 
-        String expectedOutput = "Phone number for Chulalongkorn University: +66 2 218 2000\n";
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        String actualOutput = outputStreamCaptor.toString().trim();
+        String expectedPhoneNumber = "Phone number for The University of Melbourne: +61 3 9035 5511";
+        String[] outputLines = actualOutput.split("\n");
+
+        boolean isPhoneNumberFound = false;
+        for (String line : outputLines) {
+            if (line.contains(expectedPhoneNumber)) {
+                isPhoneNumberFound = true;
+                break;
+            }
+        }
+        assertEquals(true, isPhoneNumberFound);
     }
-    */
+
     @Test
     public void execute_invalidUniversity_displaysError() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
@@ -105,17 +115,18 @@ public class ObtainContactsCommandTest {
 
         assertEquals("Invalid input format", exception.getMessage());
     }
-    /*
+
     @Test
     public void execute_invalidContactType_displaysError() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
         jsonReader.close();
 
-        String userInput = "obtain Chulalongkorn University /fax";
+        String userInput = "obtain The University of Melbourne /fax";
         obtainContactsCommand.execute(userInput);
 
+        String actualOutput = outputStreamCaptor.toString().trim();
         String expectedOutput = Exception.invalidContactType();
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+
+        assertTrue(actualOutput.contains(expectedOutput), "Does not match the actual output.");
     }
-    */
 }
