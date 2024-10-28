@@ -97,7 +97,7 @@ public class Parser {
      */
     public static HashMap<String, String> parseLineToArgumentsMap(String line) {
         Logging.log(Level.INFO, "Parsing Line: " + line);
-        String[] words = line.split(" ");
+        String[] words = line.trim().split(" ");
         return packWordsToArgumentsMap(words);
     }
 
