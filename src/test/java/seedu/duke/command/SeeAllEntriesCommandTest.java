@@ -95,6 +95,9 @@ class SeeAllEntriesCommandTest {
         assertEquals(expectedOutput, output);
     }
 
+    /**
+     * Test the execute method, specifying that only Entries up to 10/10/24 inclusive should be printed.
+     */
     @Test
     void execute_listBeforeCertainDate_expectSomeEntries() throws FinanceBuddyException {
         testCommand = new SeeAllEntriesCommand(null, LocalDate.of(24, 10, 10));
@@ -111,12 +114,16 @@ class SeeAllEntriesCommandTest {
                 "Here's a list of all recorded entries:" + System.lineSeparator() +
                 "1. [Expense] - dinner $ 4.50 (on 01/09/24)" + System.lineSeparator() +
                 "2. [Expense] - movie ticket $ 20.00 (on 01/10/24)" + System.lineSeparator() +
+                "3. [Income] - allowance $ 100.00 (on 10/10/24)" + System.lineSeparator() +
                 System.lineSeparator() +
-                "Net cashflow: $ -24.50" + System.lineSeparator() +
+                "Net cashflow: $ 75.50" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, output);
     }
 
+    /**
+     * Test the execute method, specifying that only Entries starting from 10/10/24 inclusive should be printed.
+     */
     @Test
     void execute_listAfterCertainDate_expectSomeEntries() throws FinanceBuddyException {
         testCommand = new SeeAllEntriesCommand(LocalDate.of(24, 10, 10), null);
@@ -131,14 +138,19 @@ class SeeAllEntriesCommandTest {
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded entries:" + System.lineSeparator() +
-                "1. [Expense] - lunch $ 3.50 (on 23/10/24)" + System.lineSeparator() +
-                "2. [Income] - salary $ 3000.00 (on 02/11/24)" + System.lineSeparator() +
+                "1. [Income] - allowance $ 100.00 (on 10/10/24)" + System.lineSeparator() +
+                "2. [Expense] - lunch $ 3.50 (on 23/10/24)" + System.lineSeparator() +
+                "3. [Income] - salary $ 3000.00 (on 02/11/24)" + System.lineSeparator() +
                 System.lineSeparator() +
-                "Net cashflow: $ 2996.50" + System.lineSeparator() +
+                "Net cashflow: $ 3096.50" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, output);
     }
 
+    /**
+     * Test the execute method, specifying that only Entries
+     * between 20/9/2024 and 10/10/24 inclusive should be printed.
+     */
     @Test
     void execute_listBeforeAndAfterCertainDate_expectSomeEntries() throws FinanceBuddyException {
         testCommand = new SeeAllEntriesCommand(LocalDate.of(24, 10, 10), LocalDate.of(24, 11, 1));
@@ -153,9 +165,10 @@ class SeeAllEntriesCommandTest {
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded entries:" + System.lineSeparator() +
-                "1. [Expense] - lunch $ 3.50 (on 23/10/24)" + System.lineSeparator() +
+                "1. [Income] - allowance $ 100.00 (on 10/10/24)" + System.lineSeparator() +
+                "2. [Expense] - lunch $ 3.50 (on 23/10/24)" + System.lineSeparator() +
                 System.lineSeparator() +
-                "Net cashflow: $ -3.50" + System.lineSeparator() +
+                "Net cashflow: $ 96.50" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, output);
     }

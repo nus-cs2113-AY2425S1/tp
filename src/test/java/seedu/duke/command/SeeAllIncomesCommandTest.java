@@ -98,13 +98,13 @@ class SeeAllIncomesCommandTest {
     }
 
     /**
-     * Test the execute method, specifying that only Incomes before 10/10/24 should be printed.
+     * Test the execute method, specifying that only Incomes up to 10/10/24 inclusive should be printed.
      */
     @Test
     void execute_mixedListBeforeCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(null, LocalDate.of(24, 10, 10));
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10)));
-        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1)));
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 11, 2)));
@@ -117,7 +117,7 @@ class SeeAllIncomesCommandTest {
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
                 "1. [Income] - ang pow money $ 15.00 (on 12/09/24)" + System.lineSeparator() +
-                "2. [Income] - salary $ 3000.00 (on 01/10/24)" + System.lineSeparator() +
+                "2. [Income] - salary $ 3000.00 (on 10/10/24)" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total income: $ 3015.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
@@ -126,13 +126,13 @@ class SeeAllIncomesCommandTest {
     }
 
     /**
-     * Test the execute method, specifying that only Incomes after 10/10/24 should be printed.
+     * Test the execute method, specifying that only Incomes starting from 10/10/24 inclusive should be printed.
      */
     @Test
     void execute_mixedListAfterCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 10, 10), null);
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10)));
-        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1)));
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 11, 2)));
@@ -144,9 +144,10 @@ class SeeAllIncomesCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
-                "1. [Income] - allowance $ 100.00 (on 02/11/24)" + System.lineSeparator() +
+                "1. [Income] - salary $ 3000.00 (on 10/10/24)" + System.lineSeparator() +
+                "2. [Income] - allowance $ 100.00 (on 02/11/24)" + System.lineSeparator() +
                 System.lineSeparator() +
-                "Total income: $ 100.00" + System.lineSeparator() +
+                "Total income: $ 3100.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
@@ -154,7 +155,7 @@ class SeeAllIncomesCommandTest {
 
     /**
      * Test the execute method, specifying that only Incomes
-     * between 20/9/2024 and 10/10/24 exclusive should be printed.
+     * between 20/9/2024 and 10/10/24 inclusive should be printed.
      */
     @Test
     void execute_mixedListBeforeAndAfterCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
@@ -165,6 +166,8 @@ class SeeAllIncomesCommandTest {
         financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 10)));
         financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 11, 2)));
         financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(24, 9, 12)));
+        financialList.addEntry(new Income(200.00, "PT money", LocalDate.of(24, 10, 10)));
+        financialList.addEntry(new Income(100.00, "Tuition pay", LocalDate.of(24, 9, 20)));
 
         testCommand.execute(financialList);
 
@@ -172,9 +175,11 @@ class SeeAllIncomesCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
-                "1. [Income] - salary $ 3000.00 (on 01/10/24)" + System.lineSeparator() +
+                "1. [Income] - Tuition pay $ 100.00 (on 20/09/24)" + System.lineSeparator() +
+                "2. [Income] - salary $ 3000.00 (on 01/10/24)" + System.lineSeparator() +
+                "3. [Income] - PT money $ 200.00 (on 10/10/24)" + System.lineSeparator() +
                 System.lineSeparator() +
-                "Total income: $ 3000.00" + System.lineSeparator() +
+                "Total income: $ 3300.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(expectedOutput, output);
