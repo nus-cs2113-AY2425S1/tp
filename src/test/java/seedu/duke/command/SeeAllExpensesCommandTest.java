@@ -86,8 +86,8 @@ public class SeeAllExpensesCommandTest {
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. " + expense1 + System.lineSeparator() +
-                "2. " + expense2 + System.lineSeparator() +
+                "1. " + expense2 + System.lineSeparator() +
+                "2. " + expense1 + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total expense: $ 15.00" + System.lineSeparator() +
                 System.lineSeparator() +
