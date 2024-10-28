@@ -4,6 +4,7 @@ import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
 import seedu.duke.exception.FinanceBuddyException;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 public class AddIncomeCommand extends AddEntryCommand {
 
     private static Logger logger = Logger.getLogger("Income");
+    private final Income.Category category;
 
     /**
      * Constructs an AddIncomeCommand with the specified amount and description.
@@ -20,8 +22,10 @@ public class AddIncomeCommand extends AddEntryCommand {
      * @param amount The amount of the income.
      * @param description The description of the income.
      */
-    public AddIncomeCommand(double amount, String description, String date) throws FinanceBuddyException{
+    public AddIncomeCommand(double amount, String description, String date, Income.Category category) throws FinanceBuddyException{
         super(amount, description, date);
+        this.category = category;
+
     }
 
     /**
@@ -33,9 +37,11 @@ public class AddIncomeCommand extends AddEntryCommand {
      */
     @Override
     public void execute(FinancialList list) throws FinanceBuddyException {
-        Income income = new Income(amount, description, date);
+        Income income = new Income(amount, description, date, category);
         int preEntryCount = list.getEntryCount();
         list.addEntry(income);
+        Map<Income.Category, Double> incomeTotals = list.getTotalIncomeByCategory();
+        incomeTotals.put(category, incomeTotals.getOrDefault(category, 0.0) + amount);
         assert list.getEntryCount() == preEntryCount + 1 : "Income not added";
         System.out.println("--------------------------------------------");
         System.out.println("Got it! I've added this income:");
