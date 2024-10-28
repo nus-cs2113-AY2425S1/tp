@@ -33,7 +33,7 @@ public class SortCommand extends Command {
 
         // Handle valid sorting options
         switch (sortOption) {
-        case "alphabet":
+        case "role":
             uiCommand.showSortedInternships(sortOption);  // Show sorting message for alphabet
             internships.listInternshipsSortedByRole();  // Sort by role alphabetically (case-insensitive)
             break;
@@ -65,7 +65,7 @@ public class SortCommand extends Command {
     public String getUsage() {
         return """
                 sort
-                Usage: sort [alphabet | deadline | duration | skills | status]
+                Usage: sort [role | deadline | duration | skills | status]
                 alphabet: Sort internships alphabetically by role (case-insensitive).
                 deadline: Sort internships by start date (year first), then end date.
                 duration: Sort internships by internship duration.
