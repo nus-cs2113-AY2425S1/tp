@@ -124,6 +124,9 @@ public class Event {
         return eventVenue;
     }
 
+    /**
+     * @return the event's participant list
+     */
     public ArrayList<Participant> getParticipantList() {
         return participantList;
     }
@@ -151,6 +154,15 @@ public class Event {
      */
     public void setEventVenue(String eventVenue) {
         this.eventVenue = eventVenue;
+    }
+
+    /**
+     * Sets a participant for the event.
+     *
+     * @param participantList the new participant list
+     */
+    public void setParticipantList(ArrayList<Participant> participantList) {
+        this.participantList = participantList;
     }
 
     //@@author jemehgoh
