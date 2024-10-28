@@ -33,7 +33,7 @@ class ListCommandsCommand extends CheckInformationCommand {
 class ListSchoolCommand extends CheckInformationCommand {
     -logger: Logger {static}
     +execute(input: String): void
-    +displaySchoolList(jsonObject: JsonObject)
+    +displaySchoolList(jsonObject: JsonObject) {static}
 }
 
 class ListUniCoursesCommand extends CheckInformationCommand {
