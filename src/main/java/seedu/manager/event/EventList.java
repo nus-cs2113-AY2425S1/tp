@@ -163,4 +163,11 @@ public class EventList  {
     public void sortByTime() {
         eventList.sort(Comparator.comparing(Event::getEventTime));
     }
+
+    /**
+     *  Sort the event list by priority level from most to least important.
+     */
+    public void sortByPriority() {
+        eventList.sort(Comparator.comparing(Event::getEventPriority));
+    }
 }
