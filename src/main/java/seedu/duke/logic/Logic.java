@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Logic {
-    private final FinancialList financialList;
+    public final FinancialList financialList;
     private final Storage storage;
     private final AppUi ui;
 
