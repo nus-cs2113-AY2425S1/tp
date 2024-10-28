@@ -12,13 +12,31 @@ import java.time.format.DateTimeFormatter;
 public class Expense extends FinancialEntry {
 
     /**
+     * Enum for predefined expense categories.
+     */
+    public enum Category {
+        FOOD, TRANSPORT, ENTERTAINMENT, UTILITIES, OTHER, UNCATEGORIZED;
+    }
+
+    private Category category;
+
+    /**
      * Constructs an Expense object with the specified amount and description.
      *
      * @param amount The amount of the expense.
      * @param description A description of the expense.
      */
-    public Expense(double amount, String description, LocalDate date) throws FinanceBuddyException {
+    public Expense(double amount, String description, LocalDate date, Category category) throws FinanceBuddyException {
         super(amount, description, date);
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     /**
@@ -29,11 +47,11 @@ public class Expense extends FinancialEntry {
     @Override
     public String toString() {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
-        return String.format("[Expense] - %s $ %.2f (on %s)", description, amount, date.format(pattern));
+        return String.format("[Expense] - %s $ %.2f (on %s) [%s]", description, amount, date.format(pattern),category);
     }
 
     public String toStorageString() {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
-        return String.format("E | %.2f | %s | %s", amount, description, date.format(pattern));
+        return String.format("E | %.2f | %s | %s | %s", amount, description, date.format(pattern),category);
     }
 }

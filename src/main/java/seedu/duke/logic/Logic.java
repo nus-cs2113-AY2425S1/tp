@@ -10,8 +10,10 @@ import seedu.duke.command.SeeAllIncomesCommand;
 import seedu.duke.command.HelpCommand;
 import seedu.duke.command.ExitCommand;
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.financial.Income;
 import seedu.duke.parser.DateParser;
 import seedu.duke.storage.Storage;
 import seedu.duke.ui.AppUi;
@@ -45,16 +47,17 @@ public class Logic {
 
     /**
      * Adds a new expense entry to the financial list based on the provided command arguments.
-     *
+     * <p>
      * The method extracts the description and amount for the expense from the command arguments.
      * An {@link AddExpenseCommand} is created and executed to add the expense to the financial list.
      *
      * @param commandArguments A map of parsed command arguments that contains the description of the expense
-     *                         and the amount ("/a") and the date ("/d")
+     *                         and the amount ("/a") and the date ("/d") and category ("/c") of the expense
      */
     public void addExpense(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String description = commandArguments.get("argument");
         double amount = 0;
+        Expense.Category category = Expense.Category.OTHER;
         try {
             amount = Double.parseDouble(commandArguments.get("/a"));
         } catch (NumberFormatException e) {
@@ -65,7 +68,8 @@ public class Logic {
         String date = commandArguments.get("/d");
 
         try {
-            AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date);
+            category = parseExpenseCategory(commandArguments.get("/c"));
+            AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date, category);
             addExpenseCommand.execute(financialList);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());  // Display error message when invalid date is provided
@@ -75,7 +79,7 @@ public class Logic {
 
     /**
      * Adds a new income entry to the financial list based on the provided command arguments.
-     *
+     * <p>
      * The method extracts the description and amount for the income from the command arguments.
      * An {@link AddIncomeCommand} is created and executed to add the income to the financial list.
      *
@@ -85,6 +89,9 @@ public class Logic {
     public void addIncome(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String description = commandArguments.get("argument");
         double amount = 0;
+        Income.Category category = Income.Category.OTHER;
+        ;
+
         try {
             amount = Double.parseDouble(commandArguments.get("/a"));
         } catch (NumberFormatException e) {
@@ -93,9 +100,11 @@ public class Logic {
             throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
         }
         String date = commandArguments.get("/d");
+        String categoryInput = commandArguments.get("/c");
 
         try {
-            AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description, date);
+            category = parseIncomeCategory(categoryInput);
+            AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description, date, category);
             addIncomeCommand.execute(financialList);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());  // Display error message when invalid date is provided
@@ -105,7 +114,7 @@ public class Logic {
 
     /**
      * Edits an existing financial entry in the financial list based on the provided command arguments.
-     *
+     * <p>
      * The method extracts the index of the entry to be edited, as well as new values for the amount
      * and description (if provided). If no new value is provided for amount or description, the
      * existing values are retained. Finally, an {@link EditEntryCommand} is created and executed
@@ -148,7 +157,7 @@ public class Logic {
 
     /**
      * Deletes an existing entry from the financial list based on the provided command arguments.
-     *
+     * <p>
      * The method extracts the index of the entry to be deleted from the command arguments.
      * A {@link DeleteCommand} is created and executed to remove the entry from the financial list.
      *
@@ -257,4 +266,41 @@ public class Logic {
         return true;
     }
 
+    /**
+     * Parses and validates the expense category argument.
+     *
+     * @param categoryStr The category as a string.
+     * @return The corresponding Expense.Category enum, defaulting to UNCATEGORIZED if no category was given
+     */
+    private Expense.Category parseExpenseCategory(String categoryStr) {
+        if (categoryStr == null || categoryStr.trim().isEmpty()) {
+            return Expense.Category.UNCATEGORIZED;
+        } else {
+            try {
+                return Expense.Category.valueOf(categoryStr.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid category: " + categoryStr + ". Defaulting to OTHER.");
+                return Expense.Category.OTHER;
+            }
+        }
+    }
+
+    /**
+     * Parses and validates the income category argument.
+     *
+     * @param categoryStr The category as a string.
+     * @return The corresponding Income.Category enum, defaulting to UNCATEGORIZED if no category was given.
+     */
+    private Income.Category parseIncomeCategory(String categoryStr) {
+        if (categoryStr == null || categoryStr.trim().isEmpty()) {
+            return Income.Category.UNCATEGORIZED;
+        } else {
+            try {
+                return Income.Category.valueOf(categoryStr.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid category: " + categoryStr + ". Defaulting to OTHER.");
+                return Income.Category.OTHER;
+            }
+        }
+    }
 }
