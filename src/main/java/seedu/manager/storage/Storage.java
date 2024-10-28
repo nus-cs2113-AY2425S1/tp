@@ -41,7 +41,8 @@ public class Storage {
             for (Event event : events.getList()) {
                 String eventTimeString = formatter.format(event.getEventTime());
                 writer.write(event.getEventName() + "," + eventTimeString + ","
-                        + event.getEventVenue() + "," + event.getEventPriority() + "\n"); // Save event details in CSV format
+                        + event.getEventVenue() + ","
+                        + event.getEventPriority() + "\n"); // Save event details in CSV format
             }
         } catch (IOException exception) {
             throw new IOException("Error saving events to file: " + filePath);
