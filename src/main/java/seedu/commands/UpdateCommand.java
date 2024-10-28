@@ -2,6 +2,7 @@ package seedu.commands;
 
 import seedu.duke.Deadline;
 import seedu.duke.Internship;
+import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.InvalidStatus;
 
@@ -28,6 +29,8 @@ public class UpdateCommand extends Command {
             uiCommand.clearInvalidFlags();
             uiCommand.clearUpdatedFields();
             uiCommand.clearInvalidFields();
+
+            /*
             if (args.get(0).startsWith("deadline")) {
                 String trimmedDescription = args.get(0).substring(args.get(0).indexOf(" ") + 1).trim();
                 String trimmedDate = args.size() > 1 ? args.get(1).substring(args.get(1).indexOf(" ") + 1) : "";
@@ -41,7 +44,11 @@ public class UpdateCommand extends Command {
                     updateOneField(words, internshipIndex);
                 }
             }
-
+            */
+            for (String arg : args) {
+                String[] words = arg.split(" ", 2);
+                updateOneField(words, internshipIndex);
+            }
 
             uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
         } catch (NumberFormatException e) {
@@ -74,6 +81,7 @@ public class UpdateCommand extends Command {
             case "company":
             case "from":
             case "to":
+            case "deadline":
                 if (!isValidValue(words)) {
                     return;
                 }
@@ -87,6 +95,8 @@ public class UpdateCommand extends Command {
             }
         } catch (DateTimeParseException e) {
             uiCommand.addInvalidField(field, "Invalid date format");
+        } catch (InvalidDeadline e) {
+            uiCommand.addInvalidField(field, "Either description or date is missing.");
         } catch (InvalidStatus e) {
             String message = """
                     Status provided is not recognised:
