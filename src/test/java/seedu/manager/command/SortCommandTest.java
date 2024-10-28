@@ -34,13 +34,13 @@ public class SortCommandTest {
         sortCommand.setData(eventList);
         sortCommand.execute();
 
-        String expectedMessage = "Events successfully sorted by name!" +
+        String expectedMessage = "Events successfully sorted by name!\n" +
                 "1. Event name: A-Event / Event time: 2023-10-23 21:00 / Event venue: Venue A /" +
-                " Event Priority: LOW / Done: N" +
+                " Event Priority: LOW / Done: N\n" +
                 "2. Event name: B-Event / Event time: 2024-10-23 21:05 / Event venue: Venue B /" +
-                "Event Priority: MEDIUM / Done: N" +
+                " Event Priority: MEDIUM / Done: N\n" +
                 "3. Event name: C-Event / Event time: 2024-10-23 21:00 / Event venue: Venue C /" +
-                "Event Priority: HIGH / Done: N";
+                " Event Priority: HIGH / Done: N\n";
 
         assertEquals(expectedMessage, sortCommand.getMessage());
         assertFalse(sortCommand.getCanExit());
@@ -52,13 +52,13 @@ public class SortCommandTest {
         sortCommand.setData(eventList);
         sortCommand.execute();
 
-        String expectedMessage = "Events successfully sorted by time!" +
+        String expectedMessage = "Events successfully sorted by time!\n" +
                 "1. Event name: A-Event / Event time: 2023-10-23 21:00 / Event venue: Venue A /" +
-                "Event Priority: LOW / Done: N" +
+                " Event Priority: LOW / Done: N\n" +
                 "2. Event name: C-Event / Event time: 2024-10-23 21:00 / Event venue: Venue C /" +
-                "Event Priority: HIGH / Done: N" +
+                " Event Priority: HIGH / Done: N\n" +
                 "3. Event name: B-Event / Event time: 2024-10-23 21:05 / Event venue: Venue B /" +
-                "Event Priority: MEDIUM / Done: N";
+                " Event Priority: MEDIUM / Done: N\n";
         assertEquals(expectedMessage, sortCommand.getMessage());
         assertFalse(sortCommand.getCanExit());
     }
@@ -69,13 +69,13 @@ public class SortCommandTest {
         sortCommand.setData(eventList);
         sortCommand.execute();
 
-        String expectedMessage = "Events successfully sorted by priority level!" +
+        String expectedMessage = "Events successfully sorted by priority level!\n" +
                 "1. Event name: C-Event / Event time: 2024-10-23 21:00 / Event venue: Venue C /" +
-                "Event Priority: HIGH / Done: N" +
+                " Event Priority: HIGH / Done: N\n" +
                 "2. Event name: B-Event / Event time: 2024-10-23 21:05 / Event venue: Venue B /" +
-                "Event Priority: MEDIUM / Done: N" +
+                " Event Priority: MEDIUM / Done: N\n" +
                 "3. Event name: A-Event / Event time: 2023-10-23 21:00 / Event venue: Venue A /" +
-                "Event Priority: LOW / Done: N";
+                " Event Priority: LOW / Done: N\n";
         assertEquals(expectedMessage, sortCommand.getMessage());
         assertFalse(sortCommand.getCanExit());
     }
