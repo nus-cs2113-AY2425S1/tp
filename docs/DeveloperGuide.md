@@ -36,9 +36,22 @@
 **Purpose**: Track and manage expenses and categories.
 
 **Operations**:
-- `addExpense(String, double, String)`: Adds a new expense.
-- `deleteExpense(int)`: Removes an expense by index.
-- `viewExpensesByCategory()`: Groups and displays expenses by category.
+- **Adding Expenses and Categories**
+  - `addExpense`: Adds an expense after verifying or creating the necessary category.
+  - `addCategory`: Adds a new category if it does not exist.
+
+- **Monthly Budget Reset Functionality**
+  - `toggleAutoReset`: Toggles automatic budget resets on or off.
+  - `checkAndResetBudgets`: Checks for a new month and triggers budget resets if enabled.
+  - `resetBudgets`: Resets all budgets to their predefined limits.
+
+- **Viewing and Organizing Data**
+  - `viewExpensesByCategory`: Displays expenses organized by categories.
+  - `viewBudget`: Displays budget limits and current expenditures for each category.
+
+- **Modifying Data**
+  - `deleteExpense`: Deletes an expense based on its index.
+  - `tagExpense`: Reassigns an expense to a different category based on user input.
 
 ## Duke
 
