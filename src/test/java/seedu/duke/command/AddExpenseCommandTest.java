@@ -143,6 +143,61 @@ class AddExpenseCommandTest {
     }
 
     /**
+     * Test adding multiple expenses to the financial list, not in order of date.
+     * Verifies that all expenses are added correctly and sorted by date within the list.
+     *
+     * @throws FinanceBuddyException if any issues occur while adding the expenses
+     */
+    @Test
+    void execute_addMultipleExpensesNotInDateOrder_expectSortedByDate() throws FinanceBuddyException {
+        //String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+        String dateOne = "15/10/24";
+        String dateTwo = "12/10/24";
+        String dateThree = "13/10/24";
+
+        // Add first expense
+        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", dateOne);
+        addExpenseCommand.execute(financialList);
+
+        // Add second expense
+        addExpenseCommand = new AddExpenseCommand(100.00, "electronics", dateTwo);
+        addExpenseCommand.execute(financialList);
+
+        // Add third expense
+        addExpenseCommand = new AddExpenseCommand(50.00, "feast", dateThree);
+        addExpenseCommand.execute(financialList);
+
+        String output = outputStream.toString();
+        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+                "Got it! I've added this expense:" + System.lineSeparator() +
+                "[Expense] - lunch $ 30.00 (on " + dateOne + ")" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "Got it! I've added this expense:" + System.lineSeparator() +
+                "[Expense] - electronics $ 100.00 (on " + dateTwo + ")" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "Got it! I've added this expense:" + System.lineSeparator() +
+                "[Expense] - feast $ 50.00 (on " + dateThree + ")" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+
+        assertEquals(3, financialList.getEntryCount());
+        Expense firstExpense = (Expense) financialList.getEntry(0);
+        assertEquals(100.00, firstExpense.getAmount());
+        assertEquals("electronics", firstExpense.getDescription());
+        assertEquals(LocalDate.of(2024, 10, 12), firstExpense.getDate());
+        Expense secondExpense = (Expense) financialList.getEntry(1);
+        assertEquals(50.00, secondExpense.getAmount());
+        assertEquals("feast", secondExpense.getDescription());
+        assertEquals(LocalDate.of(2024, 10, 13), secondExpense.getDate());
+        Expense thirdExpense = (Expense) financialList.getEntry(2);
+        assertEquals(30.00, thirdExpense.getAmount());
+        assertEquals("lunch", thirdExpense.getDescription());
+        assertEquals(LocalDate.of(2024, 10, 15), thirdExpense.getDate());
+        assertEquals(expectedOutput, output);
+    }
+
+    /**
      * Test the execute method of AddExpenseCommand with an empty date string.
      * Verifies that a FinanceBuddyException is thrown when an empty date string is provided.
      */
