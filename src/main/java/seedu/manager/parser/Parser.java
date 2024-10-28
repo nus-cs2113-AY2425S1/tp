@@ -352,6 +352,20 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input command to create a {@code CopyCommand} object.
+     * <p>
+     * This method checks if the command input starts with the specified command word
+     * and then removes it from the input. It splits the remaining input at the '>' character
+     * to separate the source and destination parts. If the split does not yield exactly
+     * two parts, an {@code InvalidCommandException} is thrown.
+     * </p>
+     *
+     * @param input the full command input string to be parsed
+     * @param commandParts the parts of the command, typically split by whitespace
+     * @return a {@code CopyCommand} object with the parsed source and destination
+     * @throws InvalidCommandException if the command is missing required parts or has an invalid format
+     */
     private Command parseCopyCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(CopyCommand.COMMAND_WORD);
 

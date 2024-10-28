@@ -6,6 +6,10 @@ import seedu.manager.item.Participant;
 import java.util.ArrayList;
 import java.util.Optional;
 
+//@author LTK-1606
+/**
+ * Represents a command to copy the participant list from one event to another.
+ */
 public class CopyCommand extends Command {
     public static final String COMMAND_WORD = "copy";
 
@@ -16,12 +20,27 @@ public class CopyCommand extends Command {
     protected String copyTo;
     protected String copyFrom;
 
+    /**
+     * Creates a {@code CopyCommand} object with specified source and destination event names.
+     *
+     * @param copyFrom the name of the event from which participants will be copied
+     * @param copyTo the name of the event to which participants will be copied
+     */
     public CopyCommand(String copyFrom, String copyTo) {
         super(false);
         this.copyFrom = copyFrom;
         this.copyTo = copyTo;
     }
 
+    /**
+     * Executes the copy command to transfer participants from one event to another.
+     * <p>
+     * This method retrieves the events specified by {@code copyFrom} and {@code copyTo}.
+     * If both events are found, it checks if the source event has participants. If it does,
+     * those participants are copied to the destination event. Appropriate messages are generated
+     * based on the outcome of the operation. If either event is not found, an error message is returned.
+     * </p>
+     */
     @Override
     public void execute() {
         StringBuilder outputMessage = new StringBuilder();
