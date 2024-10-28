@@ -2,6 +2,15 @@ package wheresmymoney;
 
 import wheresmymoney.exception.WheresMyMoneyException;
 
+/**
+ * The {@code Expense} class represents an individual expense
+ * with a price, description, category and date added.
+ *
+ * <p>
+ * The class ensures that all required fields are set and validated upon creation and
+ * modification to prevent invalid data entry.
+ * </p>
+ */
 public class Expense {
     protected Float price;
     protected String description;
