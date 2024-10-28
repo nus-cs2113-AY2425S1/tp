@@ -90,7 +90,6 @@ public class SeeAllEntriesCommand extends Command {
      * @param list The financial list on which the command will operate.
      */
     @Override
-
     public void execute(FinancialList list) throws FinanceBuddyException {
         if (list == null) {
             logger.log(Level.SEVERE, "Financial list is null");
