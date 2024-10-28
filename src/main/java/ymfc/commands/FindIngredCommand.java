@@ -31,7 +31,7 @@ public class FindIngredCommand extends Command {
     }
 
     public void execute(RecipeList recipes, IngredientList ingredientList, Ui ui, Storage storage) throws Exception {
-        logger.log(Level.FINEST, "Executing FindIngreCommand");
+        logger.log(Level.FINEST, "Executing FindIngredCommand");
         ArrayList<Ingredient> results = ingredientList.getIngredients()
                 .stream()
                 .filter((Ingredient ingredient) -> isQueryFoundInName(ingredient)
@@ -39,7 +39,7 @@ public class FindIngredCommand extends Command {
                 .collect(Collectors.toCollection(ArrayList::new));
         numMatches = results.size();
         ui.printFindIngred(results, numMatches);
-        logger.log(Level.FINEST, "FindCommand successfully executed");
+        logger.log(Level.FINEST, "FindIngredCommand successfully executed");
     }
 
     private boolean isQueryFoundInName(Ingredient ingredient) {
