@@ -6,11 +6,23 @@ import java.time.format.DateTimeParseException;
 
 import wheresmymoney.exception.WheresMyMoneyException;
 
+/**
+ * Utility class for handling date formatting, validation, and conversion.
+ * <p>
+ * The {@code DateUtils} class provides static methods to work with dates in the
+ * {@code dd-MM-yyyy} format. It includes methods for validating date strings,
+ * converting between strings and {@code LocalDate} objects,
+ * and retrieving the current date.
+ * </p>
+ */
 public class DateUtils {
     public static final String DATE_FORMAT = "dd-MM-yyyy";
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
     
-    public static boolean isInDateFormat(String dateAsString) {
+    public static boolean isInDateFormat(String dateAsString) throws WheresMyMoneyException {
+        if (dateAsString == null)  {
+            throw new WheresMyMoneyException("Null date was provided.");
+        }
         try {
             LocalDate.parse(dateAsString, formatter);
             return true;

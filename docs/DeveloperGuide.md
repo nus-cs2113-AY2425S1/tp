@@ -6,10 +6,10 @@
     - [Table of Contents](#table-of-contents)
     - [Acknowledgements](#acknowledgements)
     - [Design \& Implementation](#design--implementation)
+    - [Product Scope](#product-scope)
+        - [Target User Profile](#target-user-profile)
+        - [Value Proposition](#value-proposition)
     - [User Stories](#user-stories)
-    - [Product scope](#product-scope)
-        - [Target user profile](#target-user-profile)
-        - [Value proposition](#value-proposition)
     - [Non-Functional Requirements](#non-functional-requirements)
     - [Glossary](#glossary)
     - [Instructions for Testing](#instructions-for-testing)
@@ -17,6 +17,8 @@
         - [JUnit Testing](#junit-testing)
 
 <div style="page-break-after: always;"></div>
+
+---
 
 ## Acknowledgements
 
@@ -29,7 +31,9 @@ WheresMyMoney uses the following tools for development:
 1. [JUnit](https://junit.org/junit5/) - Used for testing.
 2. [Gradle](https://gradle.org/) - Used for build automation.
 
-## Design & implementation
+---
+
+## Design & Implementation
 
 
 Design and Implementation has been broken down into various sections, each tagged for ease of reference:
@@ -37,6 +41,7 @@ Design and Implementation has been broken down into various sections, each tagge
 - [UI and Parser](#ui-and-parser)
 - [Commands](#commands)
 - [Expense and Expense List](#expense-and-expense-list)
+- [Date and Time Handling](#date-and-time-handling)
 
 ### UI and Parser
 
@@ -108,14 +113,14 @@ The following diagram is a sequence diagram for execution of Command.
 
 <u>Overview</u>
 
-The `Expense` class represents an individual expense with a price, description and a category.
+The `Expense` class represents an individual expense with a price, description, category and the date added.
 
 The `ExpenseList` class manages a collection of `Expense` objects. 
 It allows for the addition, editing and deletion of expenses.
 
 <u>Methods</u>
 
-The `Expense` class has no notable key methods.
+The `Expense` class has no notable methods.
 
 The `ExpenseList` class has the following key methods: 
 
@@ -124,6 +129,29 @@ The `ExpenseList` class has the following key methods:
 |  `addExpense`   |    Adds an expense to the list    |
 | `deleteExpense` | Removes an expense from the list  |
 |  `editExpense`  |   Edits an expense in the list    |
+
+<u>Design Considerations</u>
+
+The setters in `Expense` class checks for null and blank.
+The `Expense` constructors also do, as they use those setters.
+
+The nontrivial methods in `ExpenseList` class contain some sort of exception handling. 
+
+<u>Implementation Details</u>
+
+The following diagram is a UML class diagram for `Expense` and `ExpenseList`:
+
+![ExpenseAndExpenseList.png](/docs/diagrams/images/ExpenseAndExpenseList.png "UML Class Diagram for Expense and ExpenseList")
+
+### Date and Time Handling
+
+The `DateUtils` class provides utility methods to handle date formatting, validation and conversion. 
+
+The `DateUtils` class has no notable methods.
+
+<u>Implementation Details</u>
+
+The `DateUtils` class is implemented as a Singleton as its methods are common to all other classes that require it.
 
 ### Exceptions and Logging
 
@@ -140,6 +168,7 @@ that exception handling in the program could be better targetted in the future.
 The Logging class is implemented as a Singleton for ease of use. 
 Developers can log down certain actions in the program by simply calling the relevant class method `log(Level, String)`. 
 
+---
 
 ## Product scope
 
@@ -151,6 +180,8 @@ Our target user profile is frugal and tech-savvy university students.
 
 The application will track how much a user is spending and what they are spending it on. 
 The application can provide summaries and statistical insights to spending habits, optimised for people who prefer a CLI.
+
+---
 
 ## User Stories
 
@@ -175,9 +206,13 @@ The application can provide summaries and statistical insights to spending habit
 3. Project Scope Constraints: Data storage is only to be performed locally.
 4. Quality Requirements: The application should be able to be used effectively by a novice with little experience with CLIs.
 
+---
+
 ## Glossary
 
-* *Expense* - Payment made for various purposes. It has a price, category and description.
+* *Expense* - Payment made for various purposes. It has a price, category, description and the date added.
+
+---
 
 ## Instructions for Testing
 
