@@ -94,7 +94,7 @@ public class Event {
      */
     private Optional<Participant> getParticipantByName(String participantName) {
         for (Participant participant : this.participantList) {
-            if (participant.getName().equalsIgnoreCase(participantName)) {
+            if (participant.getName().toLowerCase().contains(participantName.trim().toLowerCase())) {
                 return Optional.of(participant);
             }
         }
@@ -188,6 +188,16 @@ public class Event {
 
         participant.get().setPresent(isPresent);
         return true;
+    }
+
+    public ArrayList<Participant> findParticipants(String personName) {
+        ArrayList<Participant> participants = new ArrayList<>();
+        for (Participant participant : this.participantList) {
+            if (participant.getName().toLowerCase().contains(personName.trim().toLowerCase())) {
+                participants.add(participant);
+            }
+        }
+        return participants;
     }
 
     //@@author glenn-chew
