@@ -2,9 +2,6 @@ package seedu.javaninja;
 
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /* Manages input by user */
 public class Cli {
