@@ -91,7 +91,7 @@ public class ExpenseList {
     public void editExpense(int index, Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
         if (!DateUtils.isInDateFormat(dateAdded)){
-            throw new WheresMyMoneyException("Invalid date format" + DateUtils.DATE_FORMAT);
+            throw new WheresMyMoneyException("Invalid date format " + DateUtils.DATE_FORMAT);
         }
         try {
             Logging.log(Level.INFO, "Attempting to edit expense.");
@@ -131,15 +131,9 @@ public class ExpenseList {
         return expensesFromCategory;
     }
 
-    public ArrayList<Expense> listByFilter(String category, String from, String to) {
-        ArrayList<Expense> expensesByFilter = new ArrayList<>();
-        for (Expense expense: expenses) {
-            if (true) {    // TODO edit condition
-                Logging.log(Level.INFO, "Found matching expense: " + expense.getDescription());
-                expensesByFilter.add(expense);
-            }
-        }
-        return expensesByFilter;
+    public ArrayList<Expense> listByFilter(String category, String from, String to)
+            throws WheresMyMoneyException {
+        return ExpenseFilter.filterExpenses(expenses, category, from, to);
     }
 
     /**
