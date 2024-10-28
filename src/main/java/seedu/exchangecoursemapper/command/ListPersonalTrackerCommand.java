@@ -6,7 +6,7 @@ import java.util.List;
 
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
-public class ListPersonalTrackerCommand extends Command {
+public class ListPersonalTrackerCommand extends CheckInformationCommand {
 
     private final Storage storage;
 

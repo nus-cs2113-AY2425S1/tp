@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import static seedu.exchangecoursemapper.constants.Messages.COMMANDS_LIST;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
-public class ListCommandsCommand extends Command {
+public class ListCommandsCommand extends CheckInformationCommand {
 
     private static final Logger logger = Logger.getLogger(ListCommandsCommand.class.getName());
 
