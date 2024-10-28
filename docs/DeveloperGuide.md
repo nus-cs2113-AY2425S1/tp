@@ -111,6 +111,13 @@ The `ExpenseList` class has the following key methods:
 The following diagram is a class diagram for Expense and ExpenseList:
 
 ![ExpenseAndExpenseList.png](/docs/diagrams/images/ExpenseAndExpenseList.png "UML Class Diagram for Expense and ExpenseList")
+
+### Date and Time Handling
+
+The `DateUtils` class provides utility methods to handle date formatting, validation and conversion.
+
+The `DateUtils` class has no notable methods.
+
 ### Exceptions and Logging
 
 <u>Overview</u>
