@@ -1,11 +1,11 @@
-package command.programme;
-import org.junit.jupiter.api.Test;
-
-
-public class LogCommandTest {
-
-    @Test
-    public void testExecute_logsDayIntoHistory() {
+//package command.programme;
+//import org.junit.jupiter.api.Test;
+//
+//
+//public class LogCommandTest {
+//
+//    @Test
+//    public void testExecute_logsDayIntoHistory() {
 //        ProgrammeList mockprogrammes = mock(ProgrammeList.class);
 //        History mockHistory = mock(History.class);
 //        Day mockDay = mock(Day.class);
@@ -20,9 +20,9 @@ public class LogCommandTest {
 //        LogCommand logCommand = new LogCommand(progIndex, dayIndex, date);
 //
 //        CommandResult result = logCommand.execute(mockprogrammes, mockHistory);
-
-        //verify(mockprogrammes).getDay(progIndex, dayIndex);
-        //verify(mockHistory).getRecordByDate(date).logDay(mockDay);
-        //assertNotNull(result);
-    }
-}
+//
+//        verify(mockprogrammes).getDay(progIndex, dayIndex);
+//        verify(mockHistory).getRecordByDate(date).logDay(mockDay);
+//        assertNotNull(result);
+//    }
+//}
