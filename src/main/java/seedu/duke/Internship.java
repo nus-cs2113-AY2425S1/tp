@@ -209,12 +209,13 @@ public class Internship {
         return this.deadlines;
     }
 
-    // Not sure how to use yet
+    //@@author jadenlimjc
     public Deadline getEarliestDeadline() {
         return getDeadlines().stream()
                 .min(Comparator.comparing(Deadline::getDate)).orElse(null);
     }
 
+    //@@author jadenlimjc
     public String getFormattedDeadlines() {
         if (deadlines.isEmpty()) {
             return "No deadlines set.";

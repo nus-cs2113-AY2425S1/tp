@@ -109,7 +109,7 @@ public class UpdateCommand extends Command {
         }
     }
     //@@author jadenlimjc
-
+    /*
     private boolean isValidDeadline(String description, String date) throws DateTimeParseException {
         if (description.isEmpty()) {
             uiCommand.addInvalidFlag("deadline");
@@ -148,9 +148,8 @@ public class UpdateCommand extends Command {
             uiCommand.addCreatedField("Deadline", description);
         }
     }
-
-
-
+     */
+    
     public String getUsage() {
         return """
                 update
