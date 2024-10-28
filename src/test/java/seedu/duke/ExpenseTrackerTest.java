@@ -1,4 +1,4 @@
-//@@author {kq2003}
+//@@author kq2003
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
