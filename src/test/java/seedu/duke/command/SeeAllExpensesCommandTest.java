@@ -118,6 +118,8 @@ public class SeeAllExpensesCommandTest {
                 "1. " + expense2 + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total expense: $ 5.00" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Highest Expense Category: TRANSPORT ($5.00)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -144,6 +146,8 @@ public class SeeAllExpensesCommandTest {
                 "1. " + expense1 + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total expense: $ 10.00" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Highest Expense Category: FOOD ($10.00)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -173,6 +177,8 @@ public class SeeAllExpensesCommandTest {
                 "1. " + expense3 + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total expense: $ 15.50" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Highest Expense Category: FOOD ($15.50)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
