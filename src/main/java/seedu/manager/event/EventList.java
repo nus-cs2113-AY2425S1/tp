@@ -63,6 +63,10 @@ public class EventList  {
         eventList.add(newEvent);
     }
 
+    public void addEvent(Event event) {
+        eventList.add(event);
+    }
+
     /**
      * @param index The index of event in the list (0 based indexing)
      * @return The specific event in the event list.
@@ -169,5 +173,17 @@ public class EventList  {
      */
     public void sortByPriority() {
         eventList.sort(Comparator.comparing(Event::getEventPriority));
+    }
+
+    public EventList filterByPriority(Priority priority) {
+        EventList filteredList = new EventList();
+
+        for (Event event : eventList) {
+            if (event.getEventPriority() == priority) {
+                filteredList.addEvent(event);
+            }
+        }
+
+        return filteredList;
     }
 }
