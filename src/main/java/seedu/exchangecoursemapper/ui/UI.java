@@ -1,6 +1,10 @@
 package seedu.exchangecoursemapper.ui;
+
 import seedu.exchangecoursemapper.parser.Parser;
 import seedu.exchangecoursemapper.storage.Storage;
+
+import static seedu.exchangecoursemapper.constants.Commands.BYE;
+
 
 public class UI {
     public void displayGreeting() {
@@ -31,6 +35,6 @@ public class UI {
         do {
             userInput = parser.getUserInput();
             parser.processUserInput(userInput, storage);
-        } while (!userInput.equalsIgnoreCase("bye"));
+        } while (!userInput.equalsIgnoreCase(BYE));
     }
 }
