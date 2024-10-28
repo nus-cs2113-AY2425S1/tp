@@ -1,0 +1,27 @@
+@startuml
+
+skinparam componentStyle rectangle
+
+actor User
+database JsonFile #lightblue
+
+component UI #green
+component Parser #red
+component Main #gray
+component Storage #pink
+component Command #gold
+
+User -down.-> UI
+Parser -down-> UI
+
+Main -left-> Parser
+Main -left-> UI
+Main -right-> Storage
+
+Command -down-> Storage
+Parser -right-> Command
+
+
+Storage -down.-> JsonFile
+
+@enduml

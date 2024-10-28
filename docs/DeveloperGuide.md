@@ -17,7 +17,8 @@
 ## Design
 
 ### Architecture
-**{TOOO: Architecture Diagram}**
+![List School Command Sequence Diagram](../uml-images/ArchitectureDiagram.png)
+
 
 The **Architecture Diagram** given above explains the high-level design of the App.
 
