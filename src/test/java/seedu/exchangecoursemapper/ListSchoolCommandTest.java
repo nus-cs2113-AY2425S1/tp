@@ -3,7 +3,6 @@ package seedu.exchangecoursemapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.exchangecoursemapper.command.ListSchoolCommand;
-import seedu.exchangecoursemapper.command.ObtainContactsCommand;
 
 import javax.json.Json;
 import javax.json.JsonObject;
