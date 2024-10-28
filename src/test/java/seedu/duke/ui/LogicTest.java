@@ -37,7 +37,7 @@ public class LogicTest {
     void setUp() {
         AppUi appUi = new AppUi();
         Storage storage = new Storage();
-        FinancialList financialList = storage.loadFromFile();
+        FinancialList financialList = new FinancialList();
         logic = new Logic(financialList, storage, appUi);
         System.setOut(new PrintStream(outputStream));
     }
