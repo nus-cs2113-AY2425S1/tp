@@ -18,4 +18,18 @@ public class Assertions {
     public static final String EMPTY_SCHOOL_NAME = "No school name found";
     public static final String NULL_JSON_OBJECT = "JsonObject is not be null";
     public static final String NULL_SCHOOL_NAME = "School name is not be null";
+    public static final String NULL_STORAGE = "Storage cannot be null";
+    public static final String NULL_LIST = "Mapped modules list should not be null";
+
+    // CompareMappedCommand assertions
+    public static final String UNIVERSITY1_NOT_NULL = "University 1 name should not be null";
+    public static final String UNIVERSITY2_NOT_NULL = "University 2 name should not be null";
+    public static final String COMMON_CODES_NOT_NULL = "Common course codes set should not be null";
+    public static final String UNI1_MODULES_NOT_NULL = "University 1 modules list should not be null";
+    public static final String UNI2_MODULES_NOT_NULL = "University 2 modules list should not be null";
+    public static final String UNI1_UNIQUE_CODES_NOT_NULL = "University 1 unique course codes should not be null";
+    public static final String UNI2_UNIQUE_CODES_NOT_NULL = "University 2 unique course codes should not be null";
+    public static final String UNI_MODULES_NOT_NULL = "University 1 modules list should not be null";
+    public static final String UNIVERSITY_NOT_NULL = "University name should not be null";
+    public static final String UNIQUE_CODES_NOT_NULL = "Unique course codes set should not be null";
 }
