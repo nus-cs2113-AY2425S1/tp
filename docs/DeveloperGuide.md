@@ -108,6 +108,15 @@ The `ExpenseList` class has the following key methods:
 | `deleteExpense` | Removes an expense from the list  |
 |  `editExpense`  |   Edits an expense in the list    |
 
+### Recurring Expense and Recurring Expense List
+
+<u>Overview</u>
+
+The `RecurringExpense` class represents an indivual recurring expense with a price, description, category, last date added and a frequency.
+
+The `RecurringExpenseList` class manages a collection of `RecurringExpense` objects.
+It allows for addition, editing and deletion of expenses.
+
 ### Exceptions and Logging
 
 <u>Overview</u>
