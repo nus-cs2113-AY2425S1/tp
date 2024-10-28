@@ -1,16 +1,17 @@
 package seedu.manager.parser;
 
-import seedu.manager.command.Command;
 import seedu.manager.command.AddCommand;
+import seedu.manager.command.Command;
+import seedu.manager.command.CopyCommand;
+import seedu.manager.command.ExitCommand;
+import seedu.manager.command.ListCommand;
 import seedu.manager.command.MarkCommand;
 import seedu.manager.command.MarkEventCommand;
 import seedu.manager.command.MarkParticipantCommand;
-import seedu.manager.command.RemoveCommand;
-import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
-import seedu.manager.command.ListCommand;
-import seedu.manager.command.ViewCommand;
+import seedu.manager.command.RemoveCommand;
 import seedu.manager.command.SortCommand;
+import seedu.manager.command.ViewCommand;
 import seedu.manager.exception.InvalidCommandException;
 
 import java.time.LocalDateTime;
@@ -72,6 +73,11 @@ public class Parser {
             Please use the following format for event time:
             YYYY-MM-DD HH:mm
             """;
+    private static final String INVALID_COPY_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            copy FROM_EVENT > TO_EVENT
+            """;
 
     /**
      * Returns a command based on the given user command string.
@@ -100,6 +106,8 @@ public class Parser {
             return parseMarkCommand(command, commandParts);
         case SortCommand.COMMAND_WORD:
             return parseSortCommand(command, commandParts);
+        case CopyCommand.COMMAND_WORD:
+            return parseCopyCommand(command, commandParts);
         default:
             throw new InvalidCommandException(INVALID_COMMAND_MESSAGE);
         }
@@ -343,4 +351,24 @@ public class Parser {
             throw new InvalidCommandException(INVALID_SORT_MESSAGE);
         }
     }
+
+    private Command parseCopyCommand(String input, String[] commandParts) throws InvalidCommandException {
+        assert commandParts[0].equalsIgnoreCase(CopyCommand.COMMAND_WORD);
+
+        try {
+            String commandInput = input.replaceFirst("^" + commandParts[0] + "\\s*", "");
+            String[] inputParts = commandInput.split(">");
+
+            if (inputParts.length != 2) {
+                throw new InvalidCommandException(INVALID_COPY_MESSAGE);
+            }
+
+            return new CopyCommand(inputParts[0].trim(), inputParts[1].trim());
+
+        } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING,"Invalid command format");
+            throw new InvalidCommandException(INVALID_COPY_MESSAGE);
+        }
+    }
+
 }

@@ -28,7 +28,7 @@ public class CopyCommandTest {
 
     @Test
     public void execute_copyCommand_success(){
-        CopyCommand copyCommand = new CopyCommand("Event 2", "Event 1");
+        CopyCommand copyCommand = new CopyCommand("Event 1", "Event 2");
 
         copyCommand.setData(eventList);
         copyCommand.execute();
@@ -54,7 +54,7 @@ public class CopyCommandTest {
 
     @Test
     public void execute_copyCommand_participantListEmpty(){
-        CopyCommand copyCommand = new CopyCommand("Event 1", "Event 2");
+        CopyCommand copyCommand = new CopyCommand("Event 2", "Event 1");
 
         copyCommand.setData(eventList);
         copyCommand.execute();

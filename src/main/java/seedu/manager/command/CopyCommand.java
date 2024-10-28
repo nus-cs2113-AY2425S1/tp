@@ -16,10 +16,10 @@ public class CopyCommand extends Command {
     protected String copyTo;
     protected String copyFrom;
 
-    public CopyCommand(String copyTo, String copyFrom) {
+    public CopyCommand(String copyFrom, String copyTo) {
         super(false);
-        this.copyTo = copyTo;
         this.copyFrom = copyFrom;
+        this.copyTo = copyTo;
     }
 
     @Override
