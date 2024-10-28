@@ -224,35 +224,35 @@ public class Logic {
      */
     public boolean matchCommand(String command, HashMap<String, String> commandArguments) throws FinanceBuddyException {
         switch (command) {
-            case "list":
-                listHelper(commandArguments);
-                break;
-            case "expense":
-                addExpense(commandArguments);
-                storage.update(financialList);
-                break;
-            case "income":
-                addIncome(commandArguments);
-                storage.update(financialList);
-                break;
-            case "edit":
-                editEntry(commandArguments);
-                storage.update(financialList);
-                break;
-            case "delete":
-                deleteEntry(commandArguments);
-                storage.update(financialList);
-                break;
-            case "help":
-                printHelpMenu();
-                break;
-            case "exit":
-                ExitCommand exitCommand = new ExitCommand();
-                exitCommand.execute(financialList);
-                return exitCommand.shouldContinueLoop();
-            default:
-                ui.showUnknownCommandMessage();
-                break;
+        case "list":
+            listHelper(commandArguments);
+            break;
+        case "expense":
+            addExpense(commandArguments);
+            storage.update(financialList);
+            break;
+        case "income":
+            addIncome(commandArguments);
+            storage.update(financialList);
+            break;
+        case "edit":
+            editEntry(commandArguments);
+            storage.update(financialList);
+            break;
+        case "delete":
+            deleteEntry(commandArguments);
+            storage.update(financialList);
+            break;
+        case "help":
+            printHelpMenu();
+            break;
+        case "exit":
+            ExitCommand exitCommand = new ExitCommand();
+            exitCommand.execute(financialList);
+            return exitCommand.shouldContinueLoop();
+        default:
+            ui.showUnknownCommandMessage();
+            break;
         }
         return true;
     }
