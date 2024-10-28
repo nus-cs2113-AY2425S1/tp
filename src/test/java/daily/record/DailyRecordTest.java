@@ -25,31 +25,25 @@ import static org.mockito.Mockito.when;
 public class DailyRecordTest {
     private DailyRecord dailyRecord;
     private Day validDay;
-    private MealList validMeal;
     private Meal meal1;
     private Meal meal2;
-    private Water validWaterList;
 
     @BeforeEach
     public void setUp() {
         validDay = new Day("validDay");
-        validDay.insertExercise(new Exercise(3, 12, 50, "Bench_Press"));
-        validDay.insertExercise(new Exercise(3, 12, 80, "Squat"));
+        validDay.insertExercise(new Exercise(3, 12, 50, 120,"Bench_Press"));
+        validDay.insertExercise(new Exercise(3, 12, 80, 200, "Squat"));
 
         meal1 = new Meal("potato", 100);
         meal2 = new Meal("pasta", 900);
-
-        validWaterList = new Water();
-        validWaterList.addWater(100.0f);
-        validWaterList.addWater(400.0f);
     }
 
     @AfterEach
     public void tearDown() {
         dailyRecord = null;
         validDay = null;
-        validMeal = null;
-        validWaterList = null;
+        meal1 = null;
+        meal2 = null;
     }
 
     @Test
@@ -202,8 +196,8 @@ public class DailyRecordTest {
     @Test
     public void getMealList_afterAddMeal() {
         dailyRecord = new DailyRecord();
-        dailyRecord.addMealToRecord(meal2);
         dailyRecord.addMealToRecord(meal1);
+        dailyRecord.addMealToRecord(meal2);
         MealList mealList = dailyRecord.getMealList();
         assertEquals("potato" , mealList.getMeals().get(0).getName());
         assertEquals("pasta", mealList.getMeals().get(1).getName());
@@ -278,7 +272,7 @@ public class DailyRecordTest {
     }
 
     @Test
-    public void toString_callsGetTotalWaterl() {
+    public void toString_callsGetTotalWater() {
         dailyRecord = new DailyRecord();
         dailyRecord.addWaterToRecord(100.0f);
         dailyRecord.addWaterToRecord(400.0f);
