@@ -21,6 +21,7 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Project settings
 data/hospital_data.json
+data/hospital_backup_*.json
 
 # Neovim settings
 .classpath

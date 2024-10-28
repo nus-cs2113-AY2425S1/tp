@@ -35,7 +35,7 @@ public class StorageBackup {
         try {
             Files.copy(new File(filePath).toPath(), backupFile.toPath());
             System.out.println("Backup file created: " + backupFileName);
-            System.out.println("New Data has been created.");
+            System.out.println("Empty Data has been created.");
 
         } catch (IOException e) {
             System.out.println("Error creating backup file: " + e.getMessage());
