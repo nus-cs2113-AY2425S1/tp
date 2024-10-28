@@ -5,9 +5,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Calendar;
 
+/**
+ * Unit tests for the ExpenseTracker class.
+ */
 public class ExpenseTrackerTest {
 
+    /**
+     * Tests adding expense with a new category.
+     */
     @Test
     public void addExpenseWithNewCategory() {
         ExpenseTracker tracker = new ExpenseTracker();
@@ -17,6 +24,10 @@ public class ExpenseTrackerTest {
         assertEquals("Food", tracker.getCategories().get(0).getName());
     }
 
+
+    /**
+     * Tests adding multiple expenses to an existing category.
+     */
     @Test
     public void addExpenseWithExistingCategory() {
         ExpenseTracker tracker = new ExpenseTracker();
@@ -28,6 +39,10 @@ public class ExpenseTrackerTest {
         assertEquals(2, tracker.getExpenses().size());
     }
 
+
+    /**
+     * Tests deleting expense with a valid index.
+     */
     @Test
     public void deleteExpenseValid() {
         ExpenseTracker tracker = new ExpenseTracker();
@@ -39,6 +54,10 @@ public class ExpenseTrackerTest {
         assertEquals("Dinner", tracker.getExpenses().get(0).getName());
     }
 
+
+    /**
+     * Tests deleting expense with an invalid index.
+     */
     @Test
     public void deleteExpenseInvalid() {
         ExpenseTracker tracker = new ExpenseTracker();
@@ -50,15 +69,56 @@ public class ExpenseTrackerTest {
         assertEquals(1, tracker.getExpenses().size());
     }
 
+    /**
+     * Simulate a month advancement, and check if budget for a deducted category is being reset.
+     */
+    //@@author kq2003
     @Test
-    public void viewExpensesByCategory() {
+    public void monthlyBudgetResetsToInitialAmountInNewMonth() {
         ExpenseTracker tracker = new ExpenseTracker();
-        tracker.addExpense("Lunch", 37, "Food");
-        tracker.addExpense("Movie", 20000, "Entertainment");
-        tracker.addExpense("Apple", 2.0, "Groceries");
+        tracker.addCategory("add-category Streaming Services");
+        tracker.setBudgetLimit("Streaming Services", 300);
+        tracker.addExpense("YouTube Premium", 50, "Streaming Services");
 
-        tracker.viewExpensesByCategory();
+        Category streamingCategory = tracker.getCategories().get(0);
+        Budget streamingBudget = tracker.getBudgets().get(streamingCategory);
+        assertEquals(250, streamingBudget.getLimit() - tracker.getExpenses().get(0).getAmount());
+
+        tracker.toggleAutoReset();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 1);
+        tracker.manageMonthlyReset();
+
+        assertEquals(300, streamingBudget.getLimit());
     }
+
+    /**
+     * Check if budget doesn't reset in the same month.
+     */
+    @Test
+    public void budgetDoesNotResetWithinSameMonth() {
+        ExpenseTracker tracker = new ExpenseTracker();
+        tracker.addCategory("add-category sports");
+        tracker.setBudgetLimit("sports", 500);
+        tracker.addExpense("baseball mat", 100, "sports");
+
+        Category sportsCategory = tracker.getCategories().get(0);
+        Budget sportsBudget = tracker.getBudgets().get(sportsCategory);
+        assertEquals(400, sportsBudget.getLimit() - tracker.getExpenses().get(0).getAmount());
+
+        tracker.toggleAutoReset();
+        tracker.manageMonthlyReset();
+        assertEquals(400, sportsBudget.getLimit() - tracker.getExpenses().get(0).getAmount());
+    }
+
+
+
+
+
+
+
+
     //@@author AdiMangalam
     @Test
     public void addCategoryExists() {
@@ -145,6 +205,7 @@ public class ExpenseTrackerTest {
 
         assertEquals(0, tracker.getCategories().size(), "Should not add an empty category.");
     }
+
 
 }
 
