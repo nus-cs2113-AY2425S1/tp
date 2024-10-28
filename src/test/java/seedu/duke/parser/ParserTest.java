@@ -215,7 +215,7 @@ public class ParserTest {
         Command returnedCommand1 = new Parser().parseCommand("todo task",taskState);
         assertEquals(true, returnedCommand1 != null);
 
-        Command returnedCommand2 = new Parser().parseCommand("deadline task",taskState);
+        Command returnedCommand2 = new Parser().parseCommand("deadline task /by 2359",taskState);
         assertEquals(true, returnedCommand2 != null);
 
         Command returnedCommand3 = new Parser().parseCommand("repeat task",taskState);
