@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
+import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.logic.Logic;
 import seedu.duke.storage.Storage;
 
 import java.time.LocalDate;
@@ -19,12 +21,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Unit tests for the {@link AppUi} class.
+ * Unit tests for the {@link Logic} class.
  * These tests ensure that various commands are processed correctly by the {@code matchCommand} method.
  */
-public class AppUiTest {
+public class LogicTest {
 
-    private AppUi appUi;
+    private Logic logic;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
 
@@ -33,10 +35,10 @@ public class AppUiTest {
      */
     @BeforeEach
     void setUp() {
-        appUi = new AppUi();
+        AppUi appUi = new AppUi();
         Storage storage = new Storage();
-        appUi.setStorage(storage, false);
-        // appUi.financialList = new FinancialList();
+        FinancialList financialList = storage.loadFromFile();
+        logic = new Logic(financialList, storage, appUi);
         System.setOut(new PrintStream(outputStream));
     }
 
@@ -51,7 +53,7 @@ public class AppUiTest {
         commandArguments.put("command", "list");
 
         // Execute the command
-        boolean result = appUi.matchCommand("list", commandArguments);
+        boolean result = logic.matchCommand("list", commandArguments);
 
         // Validate that the result is true and no exceptions are thrown
         assertTrue(result);
@@ -67,16 +69,16 @@ public class AppUiTest {
         LocalDate date2 = LocalDate.of(2024, 10, 14);
 
         // add an expense to the financial list
-        appUi.financialList.addEntry(new Expense(100, "Lunch", date1));
+        logic.financialList.addEntry(new Expense(100, "Lunch", date1));
         // add an income to the financial list
-        appUi.financialList.addEntry(new Income(100, "Salary", date2));
+        logic.financialList.addEntry(new Income(100, "Salary", date2));
 
         // Prepare command arguments for the "seeAllExpenses" command
         HashMap<String, String> commandArguments = new HashMap<>();
         commandArguments.put("argument", "expense");
 
         // Execute the command
-        appUi.matchCommand("list", commandArguments);
+        logic.matchCommand("list", commandArguments);
 
         String output = outputStream.toString();
 
@@ -102,11 +104,11 @@ public class AppUiTest {
         commandArguments.put("argument", "Lunch");
         commandArguments.put("/a", "12.00");
 
-        boolean result = appUi.matchCommand("expense", commandArguments);
+        boolean result = logic.matchCommand("expense", commandArguments);
 
         // Validate that the result is true and that the financial list has an entry
         assertTrue(result);
-        assertEquals(1, appUi.financialList.getEntryCount());
+        assertEquals(1, logic.financialList.getEntryCount());
     }
 
     /**
@@ -121,11 +123,11 @@ public class AppUiTest {
         commandArguments.put("/a", "2500.00");
 
         // Execute the command
-        boolean result = appUi.matchCommand("income", commandArguments);
+        boolean result = logic.matchCommand("income", commandArguments);
 
         // Validate that the result is true and that the financial list has an entry
         assertTrue(result);
-        assertEquals(1, appUi.financialList.getEntryCount());
+        assertEquals(1, logic.financialList.getEntryCount());
     }
 
     /**
@@ -137,7 +139,7 @@ public class AppUiTest {
         LocalDate date1 = LocalDate.of(2024, 12, 17);
 
         // Add an entry first to edit it later
-        appUi.financialList.addEntry(new Expense(100, "Initial Entry", date1));
+        logic.financialList.addEntry(new Expense(100, "Initial Entry", date1));
 
         // Prepare command arguments for the "edit" command
         HashMap<String, String> commandArguments = new HashMap<>();
@@ -146,11 +148,11 @@ public class AppUiTest {
         commandArguments.put("/des", "Edited Description");
 
         // Execute the command
-        boolean result = appUi.matchCommand("edit", commandArguments);
+        boolean result = logic.matchCommand("edit", commandArguments);
 
         // Validate that the entry is edited
         assertTrue(result);
-        FinancialEntry editedEntry = appUi.financialList.getEntry(0);
+        FinancialEntry editedEntry = logic.financialList.getEntry(0);
         assertEquals(25.00, editedEntry.getAmount());
         assertEquals("Edited Description", editedEntry.getDescription());
     }
@@ -163,18 +165,18 @@ public class AppUiTest {
     void testMatchCommand_deleteCommand() throws FinanceBuddyException {
         LocalDate date1 = LocalDate.of(2024, 9, 4);
         // Add an entry first to delete it later
-        appUi.financialList.addEntry(new Expense(100, "Entry to delete", date1));
+        logic.financialList.addEntry(new Expense(100, "Entry to delete", date1));
 
         // Prepare command arguments for the "delete" command
         HashMap<String, String> commandArguments = new HashMap<>();
         commandArguments.put("argument", "1");  // Deleting first entry
 
         // Execute the command
-        boolean result = appUi.matchCommand("delete", commandArguments);
+        boolean result = logic.matchCommand("delete", commandArguments);
 
         // Validate that the entry is deleted
         assertTrue(result);
-        assertEquals(0, appUi.financialList.getEntryCount());
+        assertEquals(0, logic.financialList.getEntryCount());
     }
 
     /**
@@ -187,7 +189,7 @@ public class AppUiTest {
         HashMap<String, String> commandArguments = new HashMap<>();
 
         // Execute the command
-        boolean result = appUi.matchCommand("help", commandArguments);
+        boolean result = logic.matchCommand("help", commandArguments);
 
         // Validate that the result is true (help does not modify the financial list)
         assertTrue(result);
@@ -203,7 +205,7 @@ public class AppUiTest {
         HashMap<String, String> commandArguments = new HashMap<>();
 
         // Execute the command
-        boolean result = appUi.matchCommand("exit", commandArguments);
+        boolean result = logic.matchCommand("exit", commandArguments);
 
         // Validate that the result is false (indicating the program should exit)
         assertFalse(result);
@@ -219,7 +221,7 @@ public class AppUiTest {
         HashMap<String, String> commandArguments = new HashMap<>();
 
         // Execute the command
-        boolean result = appUi.matchCommand("unknownCommand", commandArguments);
+        boolean result = logic.matchCommand("unknownCommand", commandArguments);
 
         // Validate that an unrecognized command does not cause errors and returns true
         assertTrue(result);
