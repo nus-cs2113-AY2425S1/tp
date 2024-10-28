@@ -16,15 +16,14 @@ public class ExpenseTracker {
     private Map<Category, Budget> budgets = new HashMap<>();
     private boolean isautoResetEnabled;
     private int lastResetMonth;
- //@@author kq2003
+//@@author kq2003
     public ExpenseTracker() {
         this.categories = new ArrayList<>();
         this.expenses = new ArrayList<>();
         this.isautoResetEnabled = false;
         this.lastResetMonth = -1;
     }
-   
-    // For testing purposes
+// For testing purposes
     public List<Expense> getExpenses() {
         return expenses;
     }
@@ -36,12 +35,12 @@ public class ExpenseTracker {
     public Map<Category, Budget> getBudgets() {
         return budgets;
     }
-//@@author
+
     public void toggleAutoReset() {
         isautoResetEnabled = !isautoResetEnabled;
         System.out.println("Automatic budget reset is now " + (isautoResetEnabled ? "ON" : "OFF") + ".");
     }
-    //@@author AdiMangalam
+//@@author AdiMangalam
     /**
      * Resets the budget limits for all categories.
      *
@@ -92,7 +91,7 @@ public class ExpenseTracker {
         }
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
- //@@author kq2003
+//@@author kq2003
     public void addExpense(String name, double amount, String categoryName) {
         String formattedCategoryName = formatInput(categoryName.trim());
         Category existingCategory = null;
@@ -130,7 +129,7 @@ public class ExpenseTracker {
         categories.add(newCategory);
         System.out.println("Category '" + newCategory + "' added successfully.");
     }
-    //@@author AdiMangalam
+//@@author AdiMangalam
     /**
      * Deletes an expense at the specified index in the expense list.
      *
@@ -236,8 +235,7 @@ public class ExpenseTracker {
             return decimalFormat.format(roundedValue);
         }
     }
-
-
+//@@author MayFairMI6
     /**
      * Sets a budget limit for a specific category.
      *
@@ -275,8 +273,7 @@ public class ExpenseTracker {
             System.out.println("Set budget for category '" + existingCategory + "' to " + formatDecimal(limit));
         }
     }
-
-    //@@author kq2003
+//@@author kq2003
     public void viewBudget() {
         if (budgets.isEmpty()) {
             System.out.println("No budgets set for any category.");
