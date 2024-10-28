@@ -73,7 +73,10 @@ public class Cli {
                 seconds = minutes * 60;  // Convert minutes to seconds
             }
 
-            quizManager.selectTopic(parts[1], scanner, seconds);
+            System.out.print("Enter the number of questions you want to attempt: ");
+            int questionLimit = Integer.parseInt(scanner.nextLine().trim());
+
+            quizManager.selectTopic(parts[1], scanner, seconds, questionLimit);
         }
     }
 
