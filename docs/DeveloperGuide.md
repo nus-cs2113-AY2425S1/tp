@@ -17,8 +17,7 @@
 ## Design
 
 ### Architecture
-![List School Command Sequence Diagram](../uml-images/ArchitectureDiagram.png)
-
+![Sequence Diagram](../uml-images/ArchitectureDiagram.png)
 
 The **Architecture Diagram** given above explains the high-level design of the App.
 
@@ -26,7 +25,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-`ExchangeCourseMapper` class is responsible for the app launch and shut down.
+`ExchangeCourseMapper` class (referred to as `Main` in diagram) is responsible for the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -47,18 +46,18 @@ Only some of the commands will need all 4 main components for example the Delete
 The Sequence Diagram below shows how the components interact with each other for the scenario 
 where the user issues the command `delete 1`.
 
-{TODO SEQUENCE DIAGRAM}
+![Sequence Diagram](../uml-images/DesignSequenceDiagram.png)
 
 The `UI`, `Parser` and `Storage` components (also shown in the diagram above),
 * defines its API in a class with the same name as the Package
 
 The `Command` component (also shown in the diagram above),
 * defines its API in an `abstract` class with the same name as the Component.
-* further splits them into 'CheckInformationCommand' and 'PersonalTrackerCommand' as child classes
+* further splits them into `CheckInformationCommand` and `PersonalTrackerCommand` as child classes
 * further split them into the various commands
 
 For example, the `Command` component defines its API in the `Command.java` abstract class and extends its functionality using the 
-PersonalTrackerCommand.java class. Other components interact with a given component through its interface rather than the concrete class 
+`PersonalTrackerCommand.java` class. Other components interact with a given component through its interface rather than the concrete class 
 (reason: to prevent outside component’s being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
 TODO: MINI CLASS DIAGRAM

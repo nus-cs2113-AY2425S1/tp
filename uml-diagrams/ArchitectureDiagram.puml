@@ -12,16 +12,16 @@ component Storage #pink
 component Command #gold
 
 User -down.-> UI
-Parser -down-> UI
+UI -right-> Parser
 
-Main -left-> Parser
-Main -left-> UI
-Main -right-> Storage
+Main -down-> Parser
+Main -down-> UI
+Main -up-> Storage
 
 Command -down-> Storage
 Parser -right-> Command
 
 
-Storage -down.-> JsonFile
+Storage -right.-> JsonFile
 
 @enduml
