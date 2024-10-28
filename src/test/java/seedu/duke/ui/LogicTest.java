@@ -2,6 +2,7 @@ package seedu.duke.ui;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.command.AddExpenseCommand;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
@@ -69,9 +70,9 @@ public class LogicTest {
         LocalDate date2 = LocalDate.of(2024, 10, 14);
 
         // add an expense to the financial list
-        logic.financialList.addEntry(new Expense(100, "Lunch", date1));
+        logic.financialList.addEntry(new Expense(100, "Lunch", date1, Expense.Category.FOOD));
         // add an income to the financial list
-        logic.financialList.addEntry(new Income(100, "Salary", date2));
+        logic.financialList.addEntry(new Income(100, "Salary", date2, Income.Category.SALARY));
 
         // Prepare command arguments for the "seeAllExpenses" command
         HashMap<String, String> commandArguments = new HashMap<>();
@@ -139,7 +140,7 @@ public class LogicTest {
         LocalDate date1 = LocalDate.of(2024, 12, 17);
 
         // Add an entry first to edit it later
-        logic.financialList.addEntry(new Expense(100, "Initial Entry", date1));
+        logic.financialList.addEntry(new Expense(100, "Initial Entry", date1, Expense.Category.UNCATEGORIZED));
 
         // Prepare command arguments for the "edit" command
         HashMap<String, String> commandArguments = new HashMap<>();
@@ -165,7 +166,7 @@ public class LogicTest {
     void testMatchCommand_deleteCommand() throws FinanceBuddyException {
         LocalDate date1 = LocalDate.of(2024, 9, 4);
         // Add an entry first to delete it later
-        logic.financialList.addEntry(new Expense(100, "Entry to delete", date1));
+        logic.financialList.addEntry(new Expense(100, "Entry to delete", date1, Expense.Category.UNCATEGORIZED));
 
         // Prepare command arguments for the "delete" command
         HashMap<String, String> commandArguments = new HashMap<>();
@@ -226,4 +227,5 @@ public class LogicTest {
         // Validate that an unrecognized command does not cause errors and returns true
         assertTrue(result);
     }
+
 }

@@ -55,14 +55,14 @@ class AddIncomeCommandTest {
     @Test
     void execute_addIncome_expectAddedToFinancialList() throws FinanceBuddyException {
         String specificDate = "14/10/24";
-        addIncomeCommand = new AddIncomeCommand(500.0, "allowance", specificDate);
+        addIncomeCommand = new AddIncomeCommand(500.0, "allowance", specificDate, Income.Category.SALARY);
         addIncomeCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this income:" + System.lineSeparator() +
-                "[Income] - allowance $ 500.00 (on "+ specificDate + ")" + System.lineSeparator() +
+                "[Income] - allowance $ 500.00 (on " + specificDate + ") [SALARY]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(1, financialList.getEntryCount());  // Verify the entry count
@@ -70,6 +70,7 @@ class AddIncomeCommandTest {
         assertEquals(500.0, addedIncome.getAmount());
         assertEquals("allowance", addedIncome.getDescription());
         assertEquals(LocalDate.of(2024, 10, 14), addedIncome.getDate());
+        assertEquals(Income.Category.SALARY, addedIncome.getCategory());
         assertEquals(expectedOutput, output);  // Verify the printed output
     }
 
@@ -84,21 +85,21 @@ class AddIncomeCommandTest {
     void execute_addMultipleIncome_expectAllAddedToFinancialList() throws FinanceBuddyException {
         String earlierDate = "21/12/24";
         String laterDate = "23/12/24";
-        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", earlierDate);
+        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", earlierDate, Income.Category.GIFT);
         addIncomeCommand.execute(financialList);
 
-        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money", laterDate);
+        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money", laterDate, Income.Category.OTHER);
         addIncomeCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this income:" + System.lineSeparator() +
-                "[Income] - Cost of Living payment $ 400.00 (on "+ earlierDate + ")" + System.lineSeparator() +
+                "[Income] - Cost of Living payment $ 400.00 (on "+ earlierDate + ") [GIFT]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this income:" + System.lineSeparator() +
-                "[Income] - friend return money $ 10.50 (on " + laterDate + ")" + System.lineSeparator() +
+                "[Income] - friend return money $ 10.50 (on " + laterDate + ") [OTHER]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(2, financialList.getEntryCount());  // Verify the entry count
@@ -106,10 +107,12 @@ class AddIncomeCommandTest {
         assertEquals(400.0, firstIncome.getAmount());
         assertEquals("Cost of Living payment", firstIncome.getDescription());
         assertEquals(LocalDate.of(2024, 12, 21), firstIncome.getDate());
+        assertEquals(Income.Category.GIFT, firstIncome.getCategory());
         Income secondIncome = (Income) financialList.getEntry(1); //Assert second income index
         assertEquals(10.50, secondIncome.getAmount());
         assertEquals("friend return money", secondIncome.getDescription());
         assertEquals(LocalDate.of(2024,12,23), secondIncome.getDate());
+        assertEquals(Income.Category.OTHER, secondIncome.getCategory());
 
         assertEquals(expectedOutput, output);  // Verify the printed output for both
     }
@@ -126,28 +129,28 @@ class AddIncomeCommandTest {
         String dateTwo = "23/12/24";
         String dateThree = "11/11/24";
 
-        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", dateOne);
+        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", dateOne, Income.Category.GIFT);
         addIncomeCommand.execute(financialList);
 
-        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money", dateTwo);
+        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money", dateTwo, Income.Category.OTHER);
         addIncomeCommand.execute(financialList);
 
-        addIncomeCommand = new AddIncomeCommand(5.00, "rebate", dateThree);
+        addIncomeCommand = new AddIncomeCommand(5.00, "rebate", dateThree, Income.Category.OTHER);
         addIncomeCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                         "Got it! I've added this income:" + System.lineSeparator() +
-                        "[Income] - Cost of Living payment $ 400.00 (on "+ dateOne + ")" + System.lineSeparator() +
+                        "[Income] - Cost of Living payment $ 400.00 (on "+ dateOne + ") [GIFT]" + System.lineSeparator() +
                         "--------------------------------------------" + System.lineSeparator() +
                         "--------------------------------------------" + System.lineSeparator() +
                         "Got it! I've added this income:" + System.lineSeparator() +
-                        "[Income] - friend return money $ 10.50 (on " + dateTwo + ")" + System.lineSeparator() +
+                        "[Income] - friend return money $ 10.50 (on " + dateTwo + ") [OTHER]" + System.lineSeparator() +
                         "--------------------------------------------" + System.lineSeparator() +
                         "--------------------------------------------" + System.lineSeparator() +
                         "Got it! I've added this income:" + System.lineSeparator() +
-                        "[Income] - rebate $ 5.00 (on " + dateThree + ")" + System.lineSeparator() +
+                        "[Income] - rebate $ 5.00 (on " + dateThree + ") [OTHER]" + System.lineSeparator() +
                         "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(3, financialList.getEntryCount());  // Verify the entry count
@@ -155,14 +158,17 @@ class AddIncomeCommandTest {
         assertEquals(5.0, firstIncome.getAmount());
         assertEquals("rebate", firstIncome.getDescription());
         assertEquals(LocalDate.of(2024, 11, 11), firstIncome.getDate());
+        assertEquals(Income.Category.OTHER, firstIncome.getCategory());
         Income secondIncome = (Income) financialList.getEntry(1); //Assert first income index
         assertEquals(400.0, secondIncome.getAmount());
         assertEquals("Cost of Living payment", secondIncome.getDescription());
         assertEquals(LocalDate.of(2024, 12, 21), secondIncome.getDate());
+        assertEquals(Income.Category.GIFT, secondIncome.getCategory());
         Income thirdIncome = (Income) financialList.getEntry(2); //Assert second income index
         assertEquals(10.50, thirdIncome.getAmount());
         assertEquals("friend return money", thirdIncome.getDescription());
         assertEquals(LocalDate.of(2024,12,23), thirdIncome.getDate());
+        assertEquals(Income.Category.OTHER, thirdIncome.getCategory());
 
         assertEquals(expectedOutput, output);  // Verify the printed output for both
     }
@@ -175,7 +181,7 @@ class AddIncomeCommandTest {
     void execute_addIncomeWithNegativeAmount_expectErrorMessage() {
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addIncomeCommand = new AddIncomeCommand(-15.20, "grab", null);
+            addIncomeCommand = new AddIncomeCommand(-15.20, "grab", null, Income.Category.UNCATEGORIZED);
             addIncomeCommand.execute(financialList);
         });
 
@@ -192,7 +198,7 @@ class AddIncomeCommandTest {
     void execute_addIncomeWithVerySmallAmount_expectErrorMessage() {
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addIncomeCommand = new AddIncomeCommand(0.0001, "random", null);
+            addIncomeCommand = new AddIncomeCommand(0.0001, "random", null, Income.Category.UNCATEGORIZED);
             addIncomeCommand.execute(financialList);
         });
 
