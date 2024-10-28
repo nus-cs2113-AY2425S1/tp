@@ -14,10 +14,16 @@
 * https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+## Design
 
-## Design & implementation
+### Architecture
+{TODO: Architecture Diagram}
+
+### Class Diagrams
 {TODO: Class Diagram}
 {TODO: Object Diagram}
+
+## Implementation
 
 ### 1. List Schools Command
 

@@ -16,7 +16,7 @@ import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_BYE;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_OBTAIN;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
-public class HelpCommand extends Command {
+public class HelpCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(HelpCommand.class.getName());
 
     @Override

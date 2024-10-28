@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
-public class ListSchoolCommand extends Command {
+public class ListSchoolCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ListSchoolCommand.class.getName());
 
     @Override
@@ -31,7 +31,7 @@ public class ListSchoolCommand extends Command {
         logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
 
-    private static void displaySchoolList(JsonObject jsonObject) {
+    public static void displaySchoolList(JsonObject jsonObject) {
         Set<String> universityNames = jsonObject.keySet();
         System.out.println(LINE_SEPARATOR);
         for (String universityName : universityNames) {

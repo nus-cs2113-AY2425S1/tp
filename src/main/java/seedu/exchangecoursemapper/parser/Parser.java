@@ -8,6 +8,8 @@ import seedu.exchangecoursemapper.command.AddCoursesCommand;
 import seedu.exchangecoursemapper.command.HelpCommand;
 import seedu.exchangecoursemapper.command.DeleteCoursesCommand;
 import seedu.exchangecoursemapper.command.ObtainContactsCommand;
+import seedu.exchangecoursemapper.command.ListPersonalTrackerCommand;
+import seedu.exchangecoursemapper.command.CompareMappedCommand;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
 
@@ -26,6 +28,8 @@ import static seedu.exchangecoursemapper.constants.Commands.OBTAIN;
 import static seedu.exchangecoursemapper.constants.Commands.LISTINGSCHOOLS;
 import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
 import static seedu.exchangecoursemapper.constants.Commands.HELP;
+import static seedu.exchangecoursemapper.constants.Commands.LIST_MAPPED;
+import static seedu.exchangecoursemapper.constants.Commands.COMPARE_PU;
 import static seedu.exchangecoursemapper.constants.Logs.RECEIVED_INPUT;
 import static seedu.exchangecoursemapper.constants.Logs.NULL_INPUT;
 import static seedu.exchangecoursemapper.constants.Logs.EMPTY_INPUT_DETAILS;
@@ -48,7 +52,7 @@ public class Parser {
     public void processUserInput(String userInput, Storage storage) {
         assert userInput != null : NULL_INPUT;
 
-        String input = userInput.trim();
+        String input = userInput.trim().toLowerCase();
         String[] inputDetails = input.split(SPACE);
 
         logger.log(Level.INFO, RECEIVED_INPUT, input);
@@ -73,6 +77,10 @@ public class Parser {
             new HelpCommand().execute(input);
         } else if (command.equals(OBTAIN)) {
             new ObtainContactsCommand().execute(input);
+        } else if (input.equals(LIST_MAPPED)) {
+            new ListPersonalTrackerCommand(storage).execute(input);
+        } else if (command.equals(COMPARE_PU)) {
+            new CompareMappedCommand(storage).execute(userInput);
         } else if (command.equals(BYE)) {
             mapperUI.displayExitMessage();
         } else {
