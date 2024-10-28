@@ -48,6 +48,7 @@ public class HelpCommand extends CheckInformationCommand {
         case "commands":
         case "bye":
         case "obtain":
+            // Fallthrough is intentional between the cases
             return command;
         default:
             logger.log(Level.WARNING, Logs.INVALID_COMMAND + command);
