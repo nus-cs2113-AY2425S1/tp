@@ -3,10 +3,12 @@ package wheresmymoney.command;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
 import wheresmymoney.RecurringExpenseList;
+import wheresmymoney.DateUtils;
 import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
+import java.time.LocalDate;
 
 public class AddCommand extends Command {
 
@@ -26,13 +28,14 @@ public class AddCommand extends Command {
             float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
             String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
-            if (argumentsMap.containsKey(Parser.ARGUMENT_DATE_ADDED) && !this.isRecur()) {
-                String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE_ADDED);
+            boolean isContainDateKey = argumentsMap.containsKey(Parser.ARGUMENT_DATE);
+            if (isContainDateKey && !this.isRecur()) {
+                LocalDate dateAdded = DateUtils.stringToDate(argumentsMap.get(Parser.ARGUMENT_DATE));
                 expenseList.addExpense(price, description, category, dateAdded);
-            } else if (!argumentsMap.containsKey(Parser.ARGUMENT_DATE_ADDED) && !this.isRecur()) {
+            } else if (!isContainDateKey && !this.isRecur()) {
                 expenseList.addExpense(price, description, category);
-            } else if (argumentsMap.containsKey(Parser.ARGUMENT_DATE_ADDED) && this.isRecur()) {
-                String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE_ADDED);
+            } else if (isContainDateKey && this.isRecur()) {
+                String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE);
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
                 recurringExpenseList.addRecurringExpense(price, description, category, lastAddedDate, frequency);
             } else {

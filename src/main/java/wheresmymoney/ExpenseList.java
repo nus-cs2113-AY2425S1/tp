@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
+import java.time.LocalDate;
 
 public class ExpenseList {
     private ArrayList<Expense> expenses;
@@ -69,7 +70,7 @@ public class ExpenseList {
      * @param description New description of expense
      * @param category New category of expense
      */
-    public void addExpense(Float price, String description, String category, String dateAdded)
+    public void addExpense(Float price, String description, String category, LocalDate dateAdded)
             throws WheresMyMoneyException {
         Logging.log(Level.INFO,
                 String.format("Adding expense with parameters: %f, %s, %s, %s",
