@@ -18,4 +18,6 @@ public class Assertions {
     public static final String EMPTY_SCHOOL_NAME = "No school name found";
     public static final String NULL_JSON_OBJECT = "JsonObject is not be null";
     public static final String NULL_SCHOOL_NAME = "School name is not be null";
+    public static final String NULL_STORAGE = "Storage cannot be null";
+    public static final String NULL_LIST = "Mapped modules list should not be null";
 }
