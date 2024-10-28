@@ -1,4 +1,6 @@
 @startuml
+skinparam classAttributeIconSize 0
+hide circle
 
 class Expense {
     #price: Float
@@ -25,6 +27,6 @@ class ExpenseList {
     +listByCategory(category: String): ArrayList<Expense>
 }
 
-ExpenseList "0.1 " -d-> " * " Expense : contains
+ExpenseList " 0.1 " -d-> " * " Expense : " contains "
 
 @enduml
