@@ -11,12 +11,14 @@ import ymfc.commands.HelpCommand;
 import ymfc.commands.ListCommand;
 import ymfc.commands.ListIngredientsCommand;
 import ymfc.commands.SortCommand;
+import ymfc.commands.FindIngredCommand;
 
 import ymfc.exception.EmptyListException;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
 
 import ymfc.ingredient.Ingredient;
+import ymfc.list.IngredientList;
 import ymfc.list.RecipeList;
 import ymfc.recipe.Recipe;
 
@@ -40,7 +42,7 @@ public final class Parser {
      * @throws InvalidCommandException If command cannot be parsed
      * @throws InvalidArgumentException If command can be parsed but with invalid arguments
      */
-    public static Command parseCommand(String commandString, RecipeList recipes)
+    public static Command parseCommand(String commandString, RecipeList recipes, IngredientList ingredients)
             throws InvalidCommandException, InvalidArgumentException, EmptyListException {
         Matcher m = GENERIC_FORMAT.matcher(commandString);
         if (!m.matches()) {
@@ -51,6 +53,7 @@ public final class Parser {
         String args = m.group("args") == null ? "" : m.group("args").trim();
 
         int numRecipes = recipes.getCounter();
+        int numIngredients = ingredients.getCounter();
 
         switch (command) {
         case "add":
@@ -88,6 +91,11 @@ public final class Parser {
                 throw new EmptyListException("There is nothing to find!");
             }
             return getFindCommand(args);
+        case "findI":
+            if (numIngredients <= 0) {
+                throw new EmptyListException("There are no ingredients to find!");
+            }
+            return getFindIngredCommand(args);
         default:
             throw new InvalidCommandException("Invalid command: " + command + "\ntype \"help\" for assistance");
         }
@@ -269,4 +277,20 @@ public final class Parser {
                 options.contains("s") | options.contains("S")
         );
     }
+
+    private static Command getFindIngredCommand(String args) throws InvalidArgumentException {
+        final Pattern findCommandPattern = Pattern.compile("^(?<query>.+)$");
+
+        String input = args.trim();
+        Matcher m = findCommandPattern.matcher(input);
+        if (!m.matches()) {
+            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" +
+                    FindIngredCommand.USAGE_EXAMPLE);
+        }
+
+        String query = m.group("query").trim();
+        return new FindIngredCommand(query); // No options, only the query is needed
+    }
+
+
 }

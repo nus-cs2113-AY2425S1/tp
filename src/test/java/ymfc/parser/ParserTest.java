@@ -129,7 +129,7 @@ class ParserTest {
         IngredientList iList = new IngredientList();
         Ui ui = new Ui(System.in);
         try {
-            AddRecipeCommand addCommand = (AddRecipeCommand) parseCommand(command, rList);
+            AddRecipeCommand addCommand = (AddRecipeCommand) parseCommand(command, rList, iList);
             assert addCommand != null;
             addCommand.execute(rList, iList, ui, new Storage());
             assertTrue(recipe.equals(rList.getRecipe(rList.getCounter() - 1)));
@@ -169,7 +169,8 @@ class ParserTest {
 
     })
     void parseCommand_addRecipeCommand_invalidArgumentsExceptionThrown(String command) {
-        assertThrows(InvalidArgumentException.class, () -> parseCommand(command, new RecipeList()));
+        assertThrows(InvalidArgumentException.class, () -> parseCommand(command, new RecipeList(),
+                new IngredientList()));
     }
 
     @ParameterizedTest
@@ -184,6 +185,7 @@ class ParserTest {
     })
     void parseCommand_findCommand_invalidArgumentsExceptionThrown(String command) {
         RecipeList recipes = new RecipeList();
+        IngredientList ingredients = new IngredientList();
 
         ArrayList<String> pastaIngredients = new ArrayList<>();
         pastaIngredients.add("Pasta");
@@ -193,7 +195,7 @@ class ParserTest {
         Recipe pastaRecipe = new Recipe("Pasta", pastaIngredients, pastaSteps, 2);
         recipes.addRecipe(pastaRecipe);
 
-        assertThrows(InvalidArgumentException.class, () -> parseCommand(command, recipes));
+        assertThrows(InvalidArgumentException.class, () -> parseCommand(command, recipes, ingredients));
     }
 
     @ParameterizedTest
@@ -202,7 +204,7 @@ class ParserTest {
         "find i/query"     // Valid command but empty list
     })
     void parseCommand_findCommand_emptyListExceptionThrown(String command) {
-        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList()));
+        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList(), new IngredientList()));
     }
 
     @ParameterizedTest
@@ -211,7 +213,7 @@ class ParserTest {
         "delete n/query"     // Valid command but empty list
     })
     void parseCommand_deleteCommand_emptyListExceptionThrown(String command) {
-        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList()));
+        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList(), new IngredientList()));
     }
 
     @ParameterizedTest
@@ -220,7 +222,7 @@ class ParserTest {
         "listR"     // Valid command but empty list
     })
     void parseCommand_listCommand_emptyListExceptionThrown(String command) {
-        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList()));
+        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList(), new IngredientList()));
     }
 
     @ParameterizedTest
@@ -230,7 +232,7 @@ class ParserTest {
         "sort s/time"      // Valid command but empty list
     })
     void parseCommand_sortCommand_emptyListExceptionThrown(String command) {
-        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList()));
+        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList(), new IngredientList()));
     }
 
     @ParameterizedTest
@@ -239,7 +241,7 @@ class ParserTest {
         "edit e/name i/ingredients s1/step"     // Valid command but empty list
     })
     void parseCommand_editCommand_emptyListExceptionThrown(String command) {
-        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList()));
+        assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList(), new IngredientList()));
     }
 
     @ParameterizedTest
@@ -250,6 +252,7 @@ class ParserTest {
         "command"               // Invalid command
     })
     void parseCommand_invalidCommand_invalidCommandExceptionThrown(String command) {
-        assertThrows(InvalidCommandException.class, () -> parseCommand(command, new RecipeList()));
+        assertThrows(InvalidCommandException.class,
+                () -> parseCommand(command, new RecipeList(), new IngredientList()));
     }
 }
