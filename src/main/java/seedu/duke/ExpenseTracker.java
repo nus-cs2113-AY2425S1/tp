@@ -40,7 +40,7 @@ public class ExpenseTracker {
         isautoResetEnabled = !isautoResetEnabled;
         System.out.println("Automatic budget reset is now " + (isautoResetEnabled ? "ON" : "OFF") + ".");
     }
-     //@@author AdiMangalam
+    //@@author AdiMangalam
     /**
      * Resets the budget limits for all categories.
      *
@@ -129,7 +129,7 @@ public class ExpenseTracker {
         categories.add(newCategory);
         System.out.println("Category '" + newCategory + "' added successfully.");
     }
-     //@@author AdiMangalam
+    //@@author AdiMangalam
     /**
      * Deletes an expense at the specified index in the expense list.
      *
@@ -188,7 +188,7 @@ public class ExpenseTracker {
             System.out.println("Error parsing the input. Please use correct format for tag expense commands.");
         }
     }
-     //@@author MayfairMI6
+    //@@author MayfairMI6
     /**
      * Displays all expenses grouped by their respective categories.
      *
@@ -235,7 +235,7 @@ public class ExpenseTracker {
             return decimalFormat.format(roundedValue);
         }
     }
-     //@@author MayFairMI6
+    //@@author MayFairMI6
     /**
      * Sets a budget limit for a specific category.
      *
