@@ -1,10 +1,11 @@
 package command.programme.edit;
 
+import command.CommandResult;
 import programme.Day;
 import programme.Exercise;
 import programme.ProgrammeList;
 
-public class CreateExerciseCommand  extends EditSubCommand {
+public class CreateExerciseCommand  extends EditCommand {
 
     private final Exercise created;
 
@@ -13,13 +14,10 @@ public class CreateExerciseCommand  extends EditSubCommand {
         this.created = created;
     }
 
-    public Exercise getCreated() {
-        return created;
-    }
-
-    public String execute(ProgrammeList pList) {
-        Day day = pList.getDay(progId, dayId);
+    public CommandResult execute(ProgrammeList programmes) {
+        Day day = programmes.getDay(progId, dayId);
         day.insertExercise(created);
-        return String.format("Created new exercise: %s%n", created);
+        String result = String.format("Created new exercise: %s%n", created);
+        return new CommandResult(result);
     }
 }

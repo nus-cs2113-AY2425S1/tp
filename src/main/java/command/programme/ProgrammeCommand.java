@@ -1,5 +1,4 @@
 package command.programme;
-
 import command.Command;
 
 public abstract class ProgrammeCommand extends Command {
@@ -19,10 +18,6 @@ public abstract class ProgrammeCommand extends Command {
     }
 
     public ProgrammeCommand(){}
-
-    public int getProgId() {
-        return progId;
-    }
 
     @Override
     public boolean equals(Object other){

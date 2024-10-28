@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 public class Water {
 
     private static final Logger logger = Logger.getLogger(Water.class.getName());
-    private ArrayList<Float> waterList;
+    private final ArrayList<Float> waterList;
 
     public Water() {
         waterList = new ArrayList<>();

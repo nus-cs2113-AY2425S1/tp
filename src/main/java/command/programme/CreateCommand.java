@@ -3,14 +3,13 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import command.Command;
 import command.CommandResult;
 import programme.Day;
 import programme.ProgrammeList;
 import programme.Programme;
 import history.History;
 
-public class CreateCommand extends Command {
+public class CreateCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "create";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -23,10 +22,10 @@ public class CreateCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ProgrammeList pList, History history){
-        assert pList != null : "Programme list must not be null";
+    public CommandResult execute(ProgrammeList programmes, History history){
+        assert programmes != null : "Programme list must not be null";
 
-        Programme created = pList.insertProgramme(name, contents);
+        Programme created = programmes.insertProgramme(name, contents);
         assert created != null : "programme must be created";
         String result = String.format("New programme created: %n%s",created);
 
@@ -40,8 +39,5 @@ public class CreateCommand extends Command {
         return name;
     }
 
-    public ArrayList<Day> getDays() {
-        return contents;
-    }
 }
 

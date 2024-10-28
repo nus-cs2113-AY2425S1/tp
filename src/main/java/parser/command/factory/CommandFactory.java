@@ -1,9 +1,8 @@
-package parser.command;
+package parser.command.factory;
 
 import command.Command;
 import command.ExitCommand;
 import command.InvalidCommand;
-import java.util.logging.Logger;
 
 /*
     CommandFactory is a factory class that creates different commands
@@ -16,10 +15,9 @@ public class CommandFactory {
     private final MealCommandFactory mealFactory;
     private final WaterCommandFactory waterFactory;
     private final HistoryCommandFactory historyFactory;
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     public CommandFactory() {
-        this.progFactory = new ProgCommandFactory();  // Dependency injection for better testability
+        this.progFactory = new ProgCommandFactory();
         this.mealFactory = new MealCommandFactory();
         this.waterFactory = new WaterCommandFactory();
         this.historyFactory = new HistoryCommandFactory();  // Add HistoryCommandFactory
@@ -36,4 +34,3 @@ public class CommandFactory {
         };
     }
 }
-
