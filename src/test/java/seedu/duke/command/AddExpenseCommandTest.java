@@ -56,13 +56,14 @@ class AddExpenseCommandTest {
     @Test
     void execute_addExpense_expectAddedToFinancialList() throws FinanceBuddyException {
         String specificDate = "14/10/24";
-        addExpenseCommand = new AddExpenseCommand(50.00, "groceries", specificDate);
+        Expense.Category category = Expense.Category.FOOD;
+        addExpenseCommand = new AddExpenseCommand(50.00, "groceries", specificDate, category);
         addExpenseCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this expense:" + System.lineSeparator() +
-                "[Expense] - groceries $ 50.00 (on "+ specificDate + ")" + System.lineSeparator() +
+                "[Expense] - groceries $ 50.00 (on 14/10/24) [FOOD]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(1, financialList.getEntryCount());
@@ -83,13 +84,13 @@ class AddExpenseCommandTest {
     void execute_addExpenseWithoutDate_expectAddedToFinancialListWithCurrentDate() throws FinanceBuddyException {
         // Use current system date
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", null);
+        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", null, Expense.Category.UNCATEGORIZED);
         addExpenseCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this expense:" + System.lineSeparator() +
-                "[Expense] - lunch $ 30.00 (on " + currentDate + ")" + System.lineSeparator() +
+                "[Expense] - lunch $ 30.00 (on " + currentDate + ") [UNCATEGORIZED]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(1, financialList.getEntryCount());
@@ -113,21 +114,21 @@ class AddExpenseCommandTest {
         String laterDate = "12/10/24";
 
         // Add first expense without a specific date
-        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", earlierDate);
+        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", earlierDate, Expense.Category.FOOD);
         addExpenseCommand.execute(financialList);
 
         // Add second expense with a specific date
-        addExpenseCommand = new AddExpenseCommand(100.00, "electronics", laterDate);
+        addExpenseCommand = new AddExpenseCommand(100.00, "electronics", laterDate, Expense.Category.UTILITIES);
         addExpenseCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this expense:" + System.lineSeparator() +
-                "[Expense] - lunch $ 30.00 (on " + earlierDate + ")" + System.lineSeparator() +
+                "[Expense] - lunch $ 30.00 (on " + earlierDate + ") [FOOD]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this expense:" + System.lineSeparator() +
-                "[Expense] - electronics $ 100.00 (on " + laterDate + ")" + System.lineSeparator() +
+                "[Expense] - electronics $ 100.00 (on " + laterDate + ") [UTILITIES]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(2, financialList.getEntryCount());
@@ -156,29 +157,29 @@ class AddExpenseCommandTest {
         String dateThree = "13/10/24";
 
         // Add first expense
-        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", dateOne);
+        addExpenseCommand = new AddExpenseCommand(30.00, "lunch", dateOne, Expense.Category.FOOD);
         addExpenseCommand.execute(financialList);
 
         // Add second expense
-        addExpenseCommand = new AddExpenseCommand(100.00, "electronics", dateTwo);
+        addExpenseCommand = new AddExpenseCommand(100.00, "electronics", dateTwo, Expense.Category.UTILITIES);
         addExpenseCommand.execute(financialList);
 
         // Add third expense
-        addExpenseCommand = new AddExpenseCommand(50.00, "feast", dateThree);
+        addExpenseCommand = new AddExpenseCommand(50.00, "feast", dateThree, Expense.Category.FOOD);
         addExpenseCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this expense:" + System.lineSeparator() +
-                "[Expense] - lunch $ 30.00 (on " + dateOne + ")" + System.lineSeparator() +
+                "[Expense] - lunch $ 30.00 (on " + dateOne + ") [FOOD]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this expense:" + System.lineSeparator() +
-                "[Expense] - electronics $ 100.00 (on " + dateTwo + ")" + System.lineSeparator() +
+                "[Expense] - electronics $ 100.00 (on " + dateTwo + ") [UTILITIES]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this expense:" + System.lineSeparator() +
-                "[Expense] - feast $ 50.00 (on " + dateThree + ")" + System.lineSeparator() +
+                "[Expense] - feast $ 50.00 (on " + dateThree + ") [FOOD]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(3, financialList.getEntryCount());
@@ -206,7 +207,7 @@ class AddExpenseCommandTest {
         String emptyDate = "";  // Empty date string
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addExpenseCommand = new AddExpenseCommand(50.00, "shopping", emptyDate);
+            addExpenseCommand = new AddExpenseCommand(50.00, "shopping", emptyDate , Expense.Category.ENTERTAINMENT);
             addExpenseCommand.execute(financialList);
         });
 
@@ -222,7 +223,7 @@ class AddExpenseCommandTest {
     void execute_addExpenseWithNegativeAmount_expectErrorMessage() {
 
         AssertionError error = assertThrows(AssertionError.class, () -> {
-            addExpenseCommand = new AddExpenseCommand(-15.20, "grab", null);
+            addExpenseCommand = new AddExpenseCommand(-15.20, "grab", null, Expense.Category.TRANSPORT);
             addExpenseCommand.execute(financialList);
         });
 
@@ -239,7 +240,7 @@ class AddExpenseCommandTest {
     void execute_addExpenseWithVerySmallAmount_expectErrorMessage() {
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addExpenseCommand = new AddExpenseCommand(0.0001, "random", null);
+            addExpenseCommand = new AddExpenseCommand(0.0001, "random", null, Expense.Category.OTHER);
             addExpenseCommand.execute(financialList);
         });
 
@@ -247,5 +248,6 @@ class AddExpenseCommandTest {
         assertEquals("Invalid amount. Amount must be $0.01 or greater.", exception.getMessage());
         assertEquals(0, financialList.getEntryCount());
     }
+
 
 }
