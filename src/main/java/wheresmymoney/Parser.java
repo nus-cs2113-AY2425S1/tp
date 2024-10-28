@@ -27,6 +27,7 @@ public class Parser {
 
     /**
      * Gets command from words.
+     *
      * @param words String list of arguments
      * @return command word
      */
@@ -41,6 +42,7 @@ public class Parser {
 
     /**
      * Packs command from words into an existing argument map.
+     *
      * @param argumentsMap Arguments Mapping
      * @param words String list of arguments
      */
@@ -57,6 +59,7 @@ public class Parser {
     }
     /**
      * Packs following arguments from words into an existing argument map.
+     *
      * @param argumentsMap Arguments Mapping
      * @param words String list of arguments
      */
@@ -87,6 +90,7 @@ public class Parser {
 
     /**
      * Packs words into a new argument map.
+     *
      * @param words String list of arguments/words
      */
     private static HashMap<String, String> packWordsToArgumentsMap(String[] words) throws WheresMyMoneyException {
@@ -98,6 +102,7 @@ public class Parser {
 
     /**
      * Parses the given user input into command arguments.
+     *
      * @param line Line that a user inputs
      * @return HashMap of Arguments, mapping the argument to its value given
      */
