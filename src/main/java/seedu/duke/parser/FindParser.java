@@ -13,10 +13,9 @@ public class FindParser implements CommandParser{
         if (state.getState() == StateType.MAIN_STATE) {
             String toFind = new Find().extract(line);
             return new FindPatientCommand(toFind);
-        } else if (state.getState() == StateType.TASK_STATE) {
+        } else {
             String toFind = new Find().extract(line);
             return new FindTaskCommand(toFind);
         }
-        return null;
     }
 }

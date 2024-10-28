@@ -10,10 +10,6 @@ public class Parser {
     private static final Logger LOGGER = Logger.getLogger("Parser");
 
     public Command parseCommand(String line, State state){
-        if (line == null || line.isEmpty()){
-            // System.out.println("Command is empty");
-            return null;
-        }
         String[] parts = line.split(" ");
 
         switch(parts[0]){
@@ -55,13 +51,7 @@ public class Parser {
             break;
 
         case "list":
-            try{
-                return new ListParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
-                LOGGER.log(Level.WARNING, "List Command Error: Non-Numerical Error");
-            }
-            break;
+            return new ListParser().execute(line, state);
 
         case "delete":
             try{
@@ -100,13 +90,7 @@ public class Parser {
             break;
 
         case "back":
-            try{
-                return new BackParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
-                LOGGER.log(Level.WARNING, "Back Command Error: Non-Numerical Error");
-            }
-            break;
+            return new BackParser().execute(line, state);
 
         case "find":
             try{
@@ -118,16 +102,11 @@ public class Parser {
             break;
 
         case "exit":
-            try{
-                return new ExitParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
-                LOGGER.log(Level.WARNING, "Exit Command Error: Non-Numerical Error");
-            }
-            break;
+            return new ExitParser().execute(line, state);
 
         default:
             LOGGER.log(Level.WARNING, "The user did not enter a valid command");
+            return null;
         }
         return null;
     }
