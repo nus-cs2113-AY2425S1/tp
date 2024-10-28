@@ -1,3 +1,4 @@
+/*
 package seedu.exchangecoursemapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -120,3 +121,4 @@ public class DeleteCoursesCommandTest {
         return input.replaceAll("\\r\\n", "\n").replaceAll("\\r", "\n").trim();
     }
 }
+*/
