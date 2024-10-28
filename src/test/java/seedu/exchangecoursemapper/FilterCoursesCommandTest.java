@@ -1,4 +1,3 @@
-/*
 package seedu.exchangecoursemapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -53,9 +52,6 @@ public class FilterCoursesCommandTest {
         String nusCourseCode = "cs3244";
         filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
         String expectedOutput = """
-                Partner University: Chulalongkorn University
-                Partner University Course Code: 2603637
-                -----------------------------------------------------
                 Partner University: The University of Melbourne
                 Partner University Course Code: COMP30027
                 -----------------------------------------------------
@@ -83,9 +79,6 @@ public class FilterCoursesCommandTest {
         String nusCourseCode = "CS3244";
         filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
         String expectedOutput = """
-                Partner University: Chulalongkorn University
-                Partner University Course Code: 2603637
-                -----------------------------------------------------
                 Partner University: The University of Melbourne
                 Partner University Course Code: COMP30027
                 -----------------------------------------------------
@@ -140,9 +133,6 @@ public class FilterCoursesCommandTest {
 
         filterCoursesCommand.execute(input);
         String expectedOutput = """
-                Partner University: Chulalongkorn University
-                Partner University Course Code: ICSE2190479
-                -----------------------------------------------------
                 Partner University: The University of Melbourne
                 Partner University Course Code: COMP30019
                 -----------------------------------------------------
@@ -169,4 +159,3 @@ public class FilterCoursesCommandTest {
     }
 
 }
- */

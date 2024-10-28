@@ -1,4 +1,3 @@
-/*
 package seedu.exchangecoursemapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -70,14 +69,13 @@ public class DeleteCoursesCommandTest {
 
     @Test
     public void deleteCourse_inputWithPositiveInvalidIndex_expectException() {
-        String[] descriptionSubstrings = new String[]{"delete", "10"};
+        String[] descriptionSubstrings = new String[]{"delete", "1000"};
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
         });
         assertEquals("Please provide a valid index of the course plan you would like to delete.",
                 e.getMessage());
     }
-
 
     @Test
     public void deleteCourse_inputWithZeroIndex_expectException() {
@@ -111,7 +109,7 @@ public class DeleteCoursesCommandTest {
 
     @Test
     public void execute_inputWithInvalidIndex_expectErrorMessgae() {
-        String userInput = "delete 10";
+        String userInput = "delete 1000";
         deleteCoursesCommand.execute(userInput, storage);
         String actualOutput = outputStreamCaptor.toString();
         assertEquals("Please provide a valid index of the course plan you would like to delete.",
@@ -122,4 +120,3 @@ public class DeleteCoursesCommandTest {
         return input.replaceAll("\\r\\n", "\n").replaceAll("\\r", "\n").trim();
     }
 }
-*/
