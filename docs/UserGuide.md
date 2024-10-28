@@ -1,5 +1,28 @@
 # User Guide
 
+----------------------------------
+## Table of Content
+- [Introduction](#introduction)
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Auto-Save Databases](#auto-save-databases)
+  - [Input Formatting Guide](#input-formatting-guide)
+  - [Getting Help](#getting-help)
+  - [Exiting YMFC](#exiting-ymfc)
+- [Features and Command - CookBook for Recipes](#features-and-command---cookbook-for-recipes)
+  - [Adding a New Recipe](#adding-a-new-recipe)
+  - [Listing out Existing Recipes](#listing-out-existing-recipes)
+  - [Sorting Recipes by Recipe Name](#sorting-recipes-by-recipe-name)
+  - [Sorting Recipes by Time Taken](#sorting-recipes-by-time-taken)
+  - [Searching for specific Recipes](#searching-for-specific-recipes)
+  - [Editing an existing Recipe](#editing-an-existing-recipe)
+  - [Deleting an existing Recipe](#deleting-an-existing-recipe)
+- [Features and Command - Inventory for Ingredients](#features-and-command---inventory-for-ingredients)
+  - [Adding a New Ingredient](#adding-a-new-ingredient)
+  - [Listing out Existing Ingredients](#listing-out-existing-ingredients)
+- [FAQ](#faq)
+- [YMFC.Command Summary](#ymfccommand-summary)
+----------------------------------
 ## Introduction
 
 Your Mother's Favourite Cookbook (YMFC) is a desktop app for managing recipes, designed for use through the
@@ -11,7 +34,7 @@ It can also keep track of what ingredients you have on hand, and recommend recip
 
 1. Ensure that you have Java 17 or above installed.
 2. Download the latest version of `YMFC` from [here](https://github.com/AY2425S1-CS2113-W13-1/tp/releases).
-3. Open a command line terminal (`Terminal` on Linux and MacOS, `Command Prompt` on Windows).
+3. Open a command line terminal (`Terminal` on Linux and macOS, `Command Prompt` on Windows).
 4. Navigate to the directory where YMFC.jar is saved at.
    - You can use the `cd` command to navigate to the proper directory.
 5. Type in `java -jar YMFC.jar` in the command line terminal to launch YMFC. 
@@ -124,9 +147,21 @@ Sorts all the stored recipes by time taken, from lowest to highest
 
 ### Searching for specific Recipes
 
-Format: `find KEYWORDS`, `find i/KEYWORD`, `find ns/KEYWORD`, `find nis/KEYWORD`
+Format: `find [OPTIONS/]KEYWORDS`
 
-Looks through the stored recipes to find those with matching names/steps/ingredients
+Looks through the stored recipes to find those with matching names/steps/ingredients.
+* `KEYWORDS` can't be blank, and is case-sensitive.
+* `OPTIONS` could be any combination of "n" (by recipe name), "i" (by ingredients) and "s" (by steps).
+  * For example, if you want to find "egg" recipes based on recipe names and ingredients: `find ni/egg`
+> [!TIP]
+> If `OPTIONS` were not provided, the command will find recipes based on recipe name by default.
+> * E.g: `find ramen`
+* More examples:
+  1) `find i/egg`: Find recipes which have the ingredients consist of "egg".
+  2) `find ns/spaghetti`: Find recipes which have "spaghetti" in name or steps.
+  3) `find sn/spaghetti`: Same results as (ii).
+  4) `find nis/tomato`: Find recipes which have "tomato" anywhere.
+  5) `find isn/tomato`: Same results as (iv).
 
 Example of usage:
 
@@ -232,18 +267,16 @@ and paste it in your other computer in the same directory where YMFC.jar is loca
 
 ## YMFC.Command Summary
 
-* `help`                              -  List out all the available commands and their usage.
-* `bye`                               -  Terminate the program
-* `listR`                             -  List out all the existing recipes.
-* `add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`  -  Add a new recipe.
-* `sort s/name`                       -  Sort the recipes alphabetically by name
-* `sort s/time`                       -  Sort the recipes by time, from least to most
-* `find KEYWORDS`                     -  Look for the KEYWORDS in
-  * `find KEYWORDS`          = name
-  * `find i/KEYWORDS`        = ingredients
-  * `find ns/KEYWORDS`       = name or steps
-  * `find nis/KEYWORDS`      = name or ingredients or steps
-* `edit e/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]` -  Edit an existing recipe
-* `delete n/NAME`                     - Delete the recipe of that name
-* `new n/INGREDIENT`                  - Add a new ingredient to your list
-* `listI`                             - List out all your current ingredients
+| Command                                                         | Usage                                                                                                     |
+|-----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| `help`                                                          | List out all the available commands and their usage                                                       |
+| `bye`                                                           | Terminate the program                                                                                     |
+| `listR`                                                         | List out all the existing recipes                                                                         |
+| `add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`  | Add a new recipe                                                                                          |
+| `sort s/name`                                                   | Sort the recipes alphabetically by name                                                                   |
+| `sort s/time`                                                   | Sort the recipes by time, from least to most                                                              |
+| `find [OPTIONS/]KEYWORDS`                                       | Look for the KEYWORDS in sections of recipes (provided by `OPTIONS`)<br/>(Find in recipe name by default) |
+| `edit e/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]` | Edit an existing recipe                                                                                   |
+| `delete n/NAME`                                                 | Delete the recipe of that name                                                                            |
+| `new n/INGREDIENT`                                              | Add a new ingredient to your list                                                                         |
+| `listI`                                                         | List out all your current ingredients                                                                     |
