@@ -14,11 +14,13 @@ public class CommandFactory {
     private final ProgCommandFactory progFactory;
     private final MealCommandFactory mealFactory;
     private final WaterCommandFactory waterFactory;
+    private final HistoryCommandFactory historyFactory;
 
     public CommandFactory() {
         this.progFactory = new ProgCommandFactory();  // Dependency injection for better testability
         this.mealFactory = new MealCommandFactory();
         this.waterFactory = new WaterCommandFactory();
+        this.historyFactory = new HistoryCommandFactory();  // Add HistoryCommandFactory
     }
 
     public Command createCommand(String commandString, String argumentString) {
