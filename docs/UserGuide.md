@@ -28,7 +28,6 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 
 ## Features 
 
-
 ### Add an expense: `add`
 
 Use the add command to add an expense
