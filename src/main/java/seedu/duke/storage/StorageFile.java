@@ -69,6 +69,7 @@ public class StorageFile {
             JsonUtil.saveToFile(hospital, filePath);
         } catch (StorageOperationException e) {
             ui.showToUser(e.getMessage());
+
         }
     }
 
@@ -78,6 +79,7 @@ public class StorageFile {
             return JsonUtil.loadFromFile(getFilePath());
         } catch (StorageOperationException e) {
             ui.showToUser("File is Corrupted! " + e.getMessage());
+            StorageBackup.createBackupFile(filePath); // Create a backup file
             return new Hospital(); // Return an empty hospital
         }
     }
