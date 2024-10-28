@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Command to sort internships by different fields: alphabetically by role, by duration, by earliest deadline,
  * by the first skill in the skills list, or by status alphabetically.
- * 
+ *
  * Usage:
  * - `sort -alphabet`: Sort internships alphabetically by role (case-insensitive).
  * - `sort -duration`: Sort internships by start date (year first), then end date.

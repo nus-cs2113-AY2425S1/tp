@@ -214,7 +214,7 @@ public class InternshipList {
         // Sort by the first skill alphabetically
         Collections.sort(sortedList, Comparator.comparing(internship -> {
             String firstSkill = internship.getFirstSkill();
-            return firstSkill.isEmpty() ? "No skills" : firstSkill.toLowerCase();  // Sort internships with no skills last
+            return firstSkill.isEmpty() ? "No skills" : firstSkill.toLowerCase();// Sort internships with no skills last
         }));
 
         // Display the sorted list without changing IDs
