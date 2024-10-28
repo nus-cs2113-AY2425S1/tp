@@ -206,7 +206,7 @@ public class ParserTest {
     }
 
     @Test
-    public void Parser(){
+    public void parser(){
         State mainState = new State(StateType.MAIN_STATE);
         State taskState = new State(StateType.TASK_STATE);
         Command returnedCommand = new Parser().parseCommand("add Tom",mainState);
