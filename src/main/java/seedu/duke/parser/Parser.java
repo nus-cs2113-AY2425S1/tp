@@ -5,7 +5,11 @@ import java.util.logging.Logger;
 
 import seedu.duke.commands.Command;
 import seedu.duke.data.state.State;
-
+/**
+ * Parses user input commands and executes the corresponding actions in the application.
+ * This class handles various commands such as adding tasks, deleting tasks, marking tasks,
+ * and managing the application's state.
+ */
 public class Parser {
     private static final Logger LOGGER = Logger.getLogger("Parser");
 
@@ -13,11 +17,15 @@ public class Parser {
         LOGGER.setLevel(Level.SEVERE);
     }
 
+    /**
+     * Parses a command line input and executes the corresponding command based on the current state.
+     *
+     * @param line  The input command line as a string.
+     * @param state The current state of the application, which influences command execution.
+     * @return The command object representing the executed command, or {@code null} if the command is invalid
+     *         or the input is empty.
+     */
     public Command parseCommand(String line, State state){
-        if (line == null || line.isEmpty()){
-            // System.out.println("Command is empty");
-            return null;
-        }
         String[] parts = line.split(" ");
 
         switch(parts[0]){
@@ -59,13 +67,7 @@ public class Parser {
             break;
 
         case "list":
-            try{
-                return new ListParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
-                LOGGER.log(Level.WARNING, "List Command Error: Non-Numerical Error");
-            }
-            break;
+            return new ListParser().execute(line, state);
 
         case "delete":
             try{
@@ -104,13 +106,7 @@ public class Parser {
             break;
 
         case "back":
-            try{
-                return new BackParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
-                LOGGER.log(Level.WARNING, "Back Command Error: Non-Numerical Error");
-            }
-            break;
+            return new BackParser().execute(line, state);
 
         case "find":
             try{
@@ -122,16 +118,11 @@ public class Parser {
             break;
 
         case "exit":
-            try{
-                return new ExitParser().execute(line, state);
-            } catch (NumberFormatException e) {
-                System.out.println("Number format exception");
-                LOGGER.log(Level.WARNING, "Exit Command Error: Non-Numerical Error");
-            }
-            break;
+            return new ExitParser().execute(line, state);
 
         default:
             LOGGER.log(Level.WARNING, "The user did not enter a valid command");
+            return null;
         }
         return null;
     }
