@@ -124,7 +124,7 @@ The nontrivial methods in `ExpenseList` class contain some sort of exception han
 
 The following diagram is a UML class diagram for `Expense` and `ExpenseList`:
 
-![ExpenseAndExpenseList.png](/docs/diagrams/images/ExpenseAndExpenseList.png "UML Class Diagram for Expense and ExpenseList")
+![ExpenseAndExpenseList.png](diagrams%2Fimages%2FExpenseAndExpenseList.png "UML Class Diagram for Expense and ExpenseList")
 
 ### Date and Time Handling
 
