@@ -77,7 +77,7 @@ public class StorageFile {
         try {
             return JsonUtil.loadFromFile(getFilePath());
         } catch (StorageOperationException e) {
-            ui.showToUser(e.getMessage());
+            ui.showToUser("File is Corrupted! " + e.getMessage());
             return new Hospital(); // Return an empty hospital
         }
     }
