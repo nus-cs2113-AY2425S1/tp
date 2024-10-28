@@ -19,7 +19,7 @@ The application comprises the following components:
 * `Storage`, which handles the loading and saving of data upon program startup and shutdown.
 * `Parser`, which converts user input into commands.
 * `Command`, which are executed to modify the data stored in the program.
-* `EventList`, which stores the program's data.
+* `Event`, which stores the program's data.
 
 ### Interactions between components
 
@@ -45,8 +45,6 @@ The `Command` component and its component classes are shown in the below _Class 
 
 <img src = "images/CommandClassDiagram.png">
 
-These component classes comprise an abstract `Command` class and multiple `XYZCommand` classes for each command.
-
 The `Command` component does the following:
 
 * Handle the execution of the user command through interactions with `Event`.
@@ -55,6 +53,16 @@ The `Command` component does the following:
 The interactions between `Command` and other commands in the system is shown in the following _Sequence Diagram_:
 
 <img src = "images/CommandSequenceDiagram.png">
+
+### Event component
+
+The `Event` component and its component classes are shown in the below _Class Diagram_:
+
+<img src = "images/EventClassDiagram.png">
+
+The `Event` component does the following:
+* Handle the addition, removal and marking of events stored in `EventList`.
+* Add, remove and mark participants for a specific `Event` in `EventList`.
 
 ## Implementation
 
