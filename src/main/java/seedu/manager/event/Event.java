@@ -81,25 +81,6 @@ public class Event {
         return this.participantList.size();
     }
 
-    //@@author jemehgoh
-    /**
-     * Returns the participant in the participant list with the given name.
-     * If the participant is not in the participant list, returns null.
-     *
-     * @param participantName the name of the participant.
-     * @return the participant in the participant list with participantName, or null if
-     *     no such participant exists.
-     */
-    private Optional<Participant> getParticipantByName(String participantName) {
-        for (Participant participant : this.participantList) {
-            if (participant.getName().equalsIgnoreCase(participantName)) {
-                return Optional.of(participant);
-            }
-        }
-
-        return Optional.empty();
-    }
-
     //@@author MatchaRRR
     /**
      * @return the event name
@@ -170,22 +151,16 @@ public class Event {
 
     /**
      * Returns true if the participant with the given name can be marked present or absent.
-     * Returns false otherwise.
+     *         Returns false otherwise.
      *
-     * @param participantName the name of the participant.
-     * @param isPresent true if the participant is to be marked present, false if he is to be marked absent.
+     * @param participantName the participant name.
+     * @param isPresent true if participant is to be marked present, false if he is to be marked absent.
      * @return {@code true} if the participant with participantName has been marked present or absent,
-     *     {@code false} otherwise.
+     *         {@code false} otherwise.
      */
-    public boolean markParticipant(String participantName, boolean isPresent) {
+    public boolean markParticipantByName(String participantName, boolean isPresent) {
         Optional<Participant> participant = getParticipantByName(participantName);
-
-        if (participant.isEmpty()) {
-            return false;
-        }
-
-        participant.get().setPresent(isPresent);
-        return true;
+        return markParticipant(participant, isPresent);
     }
 
     //@@author MatchaRRR
@@ -198,5 +173,41 @@ public class Event {
     public String toString(){
         return String.format("Event name: %s / Event time: %s / Event venue: %s / Done: %c", eventName, eventTime,
                 eventVenue, markIfDone());
+    }
+
+    /**
+     * Returns the participant in the participant list with the given name.
+     * If the participant is not in the participant list, returns null.
+     *
+     * @param participantName the name of the participant.
+     * @return the participant in the participant list with participantName, or null if
+     *     no such participant exists.
+     */
+    private Optional<Participant> getParticipantByName(String participantName) {
+        for (Participant participant : participantList) {
+            if (participant.getName().equalsIgnoreCase(participantName)) {
+                return Optional.of(participant);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    //@@author jemehgoh
+    /**
+     * Returns true if the given participant can be marked present or absent. Returns false otherwise.
+     *
+     * @param participant the participant.
+     * @param isPresent true if participant is to be marked present, false if he is to be marked absent.
+     * @return {@code true} if the participant with participantName has been marked present or absent,
+     *     {@code false} otherwise.
+     */
+    private boolean markParticipant(Optional<Participant> participant, boolean isPresent) {
+        if (participant.isEmpty()) {
+            return false;
+        }
+
+        participant.get().setPresent(isPresent);
+        return true;
     }
 }
