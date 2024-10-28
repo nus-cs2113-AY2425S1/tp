@@ -58,7 +58,7 @@ public class ProgCommandFactory {
     private Command prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        String[] args = argumentString.split("/(?![nrswe])");
+        String[] args = argumentString.split("/(?![nrswec])");
         EditCommand editCommand = new EditCommand();
 
         int progIndex = -1;
@@ -210,11 +210,12 @@ public class ProgCommandFactory {
         int sets = flagParser.getIntegerByFlag("/s");
         int reps = flagParser.getIntegerByFlag("/r");
         int weight = flagParser.getIntegerByFlag("/w");
+        int calories = flagParser.getIndexByFlag("/c");
 
         logger.log(Level.INFO, "Parsed exercise successfully with name: {0}, set: {1}, rep: {2}" +
                 " weight: {3}", new Object[]{name, sets, reps, weight});
 
-        return new Exercise(sets, reps, weight, name);
+        return new Exercise(sets, reps, weight, calories, name);
     }
 }
 
