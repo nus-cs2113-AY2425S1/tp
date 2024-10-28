@@ -24,17 +24,16 @@ public class ExpenseFilter {
      * Check if an expense is a match with the given filter criteria
      * If a criteria is null, that field is considered a match
      *
-     * @return true if all criteria are either null or matched
-     *
      * @param expense the expense under check
      * @param category The filter category
      * @param startDate Expense's dateAdded must not be before this date
      * @param endDate Expense's dateAdded must not be after this date
+     *
+     * @return true if all criteria are either null or matched
      */
 
     public static boolean isFiltered(Expense expense, String category, String startDate, String endDate)
             throws WheresMyMoneyException {
-
         if (category != null && !expense.getCategory().equals(category)) {
             return false;
         }
