@@ -1,12 +1,9 @@
 package seedu.commands;
 
-import seedu.duke.Deadline;
-import seedu.duke.Internship;
 import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.InvalidStatus;
 
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -149,7 +146,7 @@ public class UpdateCommand extends Command {
         }
     }
      */
-    
+
     public String getUsage() {
         return """
                 update
