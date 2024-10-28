@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 public class Parser {
     private static final Ui ui = new Ui();
-    private Map<String, Supplier<Command>> commands = new HashMap<>();
+    private final Map<String, Supplier<Command>> commands = new HashMap<>();
 
     public Parser() {
         // Initialize command map

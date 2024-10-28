@@ -26,9 +26,9 @@ public class Internship {
     private YearMonth startDate;
     private YearMonth endDate;
 
-    private List<Deadline> deadlines;
+    private final List<Deadline> deadlines;
 
-    private ArrayList<String> skills;
+    private final ArrayList<String> skills;
 
     private String status;
 

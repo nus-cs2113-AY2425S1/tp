@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FilterCommand extends Command {
-    private InternshipList filteredInternships;
+    private final InternshipList filteredInternships;
 
     public FilterCommand() {
         this.filteredInternships = new InternshipList();

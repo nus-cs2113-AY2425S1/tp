@@ -45,7 +45,17 @@ The logic component is handled by the `Parser` and `Command` classes. The `Parse
 
 ### 1.4 Model Component
 
-The model component includes the `InternshipList`, which stores the list of internships or tasks that the user manages. It provides methods for retrieving, adding, and removing internships from the list.
+The model component includes the `Internship`, `InternshipList`, `Deadline` and `DeadlineList` classes.
+
+`Internship`: Represents the individual internship entries.
+
+`InternshipList`: Manages a collection of Internship objects, providing methods for adding, retrieving, updating, sorting and removing internships.
+
+`Deadline`: Represents each individual deadline associated with an internship, holding data specific to that deadline (description, date).
+
+`DeadlineList`: Manages a collection of Deadline objects for a specific internship, providing methods to add, retrieve, or remove deadlines associated with that internship.
+
+Each `Internship` object contains a `DeadlineList`, providing methods to add, retrieve or remove deadlines associated with that internship.
 
 ### 1.5 Storage Component
 
@@ -98,6 +108,58 @@ The `EasInternship` class serves as the entry point of the application. It manag
 If the user inputs an unknown command or a command fails during execution, the `Ui` class displays an appropriate error message. This ensures that the application can continue running despite errors in user input.
 
 ---
+
+### Add Command Implementation
+
+#### Overview:
+The `AddCommand` class is responsible for adding internship listings to the Internship List. It extends the `Command` class, providing the add functionality as part of the command execution framework.
+
+#### Design:
+- The `AddCommand` class processes user input to determine what fields to add to the new internship listing.
+- If no arguments or invalid arguments are given, it prompts the user with an error message indicating which fields are erroneous.
+
+#### Key Methods:
+- `execute(ArrayList<String> args)`: Handles addition logic based on the inputs provided. If the user provides an appropriate "role" and "company", the internship is added to the listing. Otherwise, the user is prompted with which fields are missing. The user also can input start and end dates of the internship during the addition.
+- **`getUsage()`**: Returns a string showing the correct usage of the `add` command and the expected input.
+
+#### Example Usage Scenario:
+- The user enters `add -role Software Engineer -company Google`, and the execute method adds the internship to the InternshipList The start and end dates are defaulted to 01/01.
+
+
+- The user enters `add -role Software Engineer -company Facebook -from 10/24 -to 06/25`, and the execute method adds the internship with the specified dates to the InternshipList.
+
+
+- The user enters `add -role Software Engineer`. The execute method detects that no company has been specified and adds `company` to the list of invalid flags. uiCommand is then called and prints an error statement of all invalid flags detected.
+
+#### Sequence Diagram:
+
+The following sequence diagram shows how the `AddCommand` is executed:
+![AddCommandSequenceDiagram](images/addcommand.png)
+
+### Delete Command Implementation
+
+#### Overview: 
+The `DeleteCommand` class is responsible for deleting internship listings from the Internship List. It extends the `Command` class, providing the delete functionality as part of the command execution framework.
+
+#### Design:
+- The `DeleteCommand` class processes user input to determine which `Internship` to remove from the `InternshipList`.
+- If no arguments or invalid arguments are given, it prompts the user with an error message indicating which fields are erroneous.
+
+#### Key Methods:
+- `execute(ArrayList<String> args)` : Handles deletion logic based on the inputs provided. If the user provides an appropriate `internshipID`, the `Internship` is deleted from the `InternshipList`. Otherwise, if an inappropriate or no `internshipID` is specified, the user is prompted that the `internshipID` is invalid.
+
+
+- `getUsage()`: Returns a string showing the correct usage of the `delete` command and the expected input.
+
+#### Example Usage Scenario:
+- The user enters `delete 1`. The execute method removes the `Internship` from the `InternshipList` if the `internshipID` is valid.
+- The user enters `delete -1`. The execute method detects that the `internshipID` is invalid. uiCommand is called and prints an output `Invalid integer, please provide a valid internship ID`.
+
+#### Sequence Diagram
+The following sequence diagram shows how the `DeleteCommand` is executed:
+![DeleteCommandSequenceDiagram](images/deletecommand.png)
+
+
 
 ### SortCommand Implementation
 

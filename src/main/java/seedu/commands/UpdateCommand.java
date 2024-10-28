@@ -128,7 +128,7 @@ public class UpdateCommand extends Command {
             if (deadline.getDescription().equalsIgnoreCase(description)) {
                 deadline.setDate(date);
                 deadlineFound = true;
-                uiCommand.addUpdatedField(deadline.getDescription(), deadline.getDate());
+                uiCommand.addUpdatedField(deadline.getDescription(), deadline.getDate(), "update");
                 break;
             }
         }
