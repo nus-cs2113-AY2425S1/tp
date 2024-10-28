@@ -49,7 +49,7 @@ loop COLOR_GREEN until reader.hasNext() == false
 
     Storage -> Storage : addRecipe(recipes, line)
     activate Storage
-    Storage -> Parser : parseCommand(line)
+    Storage -> Parser : parseCommand(line, ...)
     activate Parser
     ref over Parser
         Read in recipe
