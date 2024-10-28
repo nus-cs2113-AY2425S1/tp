@@ -2,6 +2,9 @@ package seedu.javaninja;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /* Manages input by user */
 public class Cli {
@@ -61,7 +64,19 @@ public class Cli {
         if (parts.length < 2) {
             System.out.println("Please specify a topic to select.");
         } else {
-            quizManager.selectTopic(parts[1], scanner);
+            System.out.println("Set a time limit for the quiz.");
+            System.out.print("Enter the number of minutes (or 0 if you want to set seconds): ");
+            int minutes = Integer.parseInt(scanner.nextLine().trim());
+
+            int seconds = 0;
+            if (minutes == 0) {
+                System.out.print("Enter the number of seconds: ");
+                seconds = Integer.parseInt(scanner.nextLine().trim());
+            } else {
+                seconds = minutes * 60;  // Convert minutes to seconds
+            }
+
+            quizManager.selectTopic(parts[1], scanner, seconds);
         }
     }
 

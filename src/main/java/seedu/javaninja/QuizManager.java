@@ -77,7 +77,7 @@ public class QuizManager {
         }
     }
 
-    public void selectTopic(String topicName, Scanner scanner) {
+    public void selectTopic(String topicName, Scanner scanner, int timeLimitInSeconds) {
         if (topicName == null || topicName.trim().isEmpty()) {
             logger.warning("Invalid input. Please provide a topic name.");
             return;
@@ -85,16 +85,16 @@ public class QuizManager {
 
         for (Topic topic : topics) {
             if (topic.getName().equalsIgnoreCase(topicName.trim())) {
-                startQuiz(topic, scanner);
+                startQuiz(topic, scanner, timeLimitInSeconds);
                 return;
             }
         }
         logger.warning("No such topic: " + topicName);
     }
 
-    public void startQuiz(Topic topic, Scanner scanner) {
+    public void startQuiz(Topic topic, Scanner scanner, int timeLimitInSeconds) {
         currentQuiz = new Quiz(topic, scanner);
-        currentQuiz.start();
+        currentQuiz.start(timeLimitInSeconds);
         int score = currentQuiz.getScore();
         String comment = generateComment(score);
         addPastResult(score, comment);

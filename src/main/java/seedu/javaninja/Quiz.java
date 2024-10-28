@@ -2,12 +2,17 @@ package seedu.javaninja;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Quiz {
     private Topic topic;
     private int currentQuestionIndex;
     private int correctAnswers;
     private Scanner scanner;
+    private Timer timer;
+    private AtomicBoolean timeUp;
 
     public Quiz(Topic topic, Scanner scanner) {
         assert topic != null : "Topic must not be null";
@@ -18,14 +23,18 @@ public class Quiz {
         this.correctAnswers = 0;
     }
 
-    public void start() {
+    public void start(int timeLimitInSeconds) {
         List<Question> questions = topic.getQuestions();
+        startTimer(timeLimitInSeconds);
 
         if (questions.isEmpty()) {
             throw new IllegalStateException("Cannot start a quiz with no questions.");
         }
 
         while (currentQuestionIndex < questions.size()) {
+            if (timeUp.get()) {
+                break;
+            }
             Question currentQuestion = questions.get(currentQuestionIndex);
             assert currentQuestion != null : "Current question must not be null";
 
@@ -44,6 +53,10 @@ public class Quiz {
                 System.out.print("Enter your answer: ");
                 String answer = scanner.nextLine().trim();
 
+                if (timeUp.get()) {  // Check if the time is up
+                    break;
+                }
+
                 // Check if the user wants to exit the quiz
                 if (answer.equalsIgnoreCase("exit")) {
                     System.out.println("Exiting the quiz. Returning to main menu...");
@@ -61,7 +74,22 @@ public class Quiz {
             currentQuestionIndex++;
         }
 
+        timer.cancel();
         System.out.println("Quiz finished. Your score is: " + getScore() + "%");
+    }
+
+    public void startTimer(int seconds) {
+        timer = new Timer();
+        timeUp = new AtomicBoolean(false);
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeUp.set(true);
+                System.out.println("\nTime's up! The quiz is ending now.");
+                timer.cancel();  // Stop the timer
+            }
+        }, seconds * 1000);  // Convert seconds to milliseconds
     }
 
     public void answerQuestion(String answer) {
