@@ -37,12 +37,17 @@ public class Parser {
     }
 
     public Command parseCommand(String input) {
-        String inputCommand = input.split(" ")[0];
-        if (commands.containsKey(inputCommand)) {
-            Supplier<Command> commandSupplier = commands.get(inputCommand);
-            return commandSupplier.get();
+        String[] inputArgs = input.trim().split(" ", 2);
+
+        String inputCommand = inputArgs[0];
+
+        if (!commands.containsKey(inputCommand)) {
+            ui.showUnknownCommand(inputCommand);
+            return null;
         }
-        return null;
+
+        Supplier<Command> commandSupplier = commands.get(inputCommand);
+        return commandSupplier.get();
     }
 
     public ArrayList<String> parseData(Command command, String input) {
@@ -50,25 +55,36 @@ public class Parser {
             return new ArrayList<>();
         }
 
-        try {
-            String inputData = input.split(" ", 2)[1];
-            if (command instanceof AddCommand) {
-                return parseAddCommandData(inputData);
-            } else if (command instanceof DeleteCommand) {
-                return parseDeleteCommandData(inputData);
-            } else if (command instanceof UpdateCommand) {
-                return parseUpdateCommandData(inputData);
-            } else if (command instanceof SortCommand) {
-                return parseSortCommandData(inputData);
-            } else if (command instanceof FilterCommand) {
-                return parseFilterCommandData(inputData);
-            } else {
-                throw new IllegalArgumentException("Unknown command type");
+        String[] inputArgs = input.trim().split(" ", 2);
+
+        if (inputArgs.length < 2) {
+            if (!(command instanceof SortCommand)) {
+                ui.showOutput("Please input some ID or flag following the command");
+                return null;
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showOutput("Please input some ID or flag following the command");
-            return null;
+            return new ArrayList<>();
         }
+
+        String inputData = inputArgs[1];
+
+        if (command instanceof AddCommand) {
+            return parseAddCommandData(inputData);
+        }
+        if (command instanceof DeleteCommand) {
+            return parseDeleteCommandData(inputData);
+        }
+        if (command instanceof UpdateCommand) {
+            return parseUpdateCommandData(inputData);
+        }
+        if (command instanceof SortCommand) {
+            return parseSortCommandData(inputData);
+        }
+        if (command instanceof FilterCommand) {
+            return parseFilterCommandData(inputData);
+        }
+
+        assert false : "Should never be able to reach this statement if all commands are accounted for";
+        return null;
     }
 
     private ArrayList<String> parseFlagData(String inputData) {
@@ -85,7 +101,7 @@ public class Parser {
     private ArrayList<String> parseDeleteCommandData(String inputData) {
         ArrayList<String> commandArgs = new ArrayList<>();
         commandArgs.add(inputData);
-        commandArgs.set(0, commandArgs.get(0).trim());
+        commandArgs.set(0, inputData.trim());
         return commandArgs;
     }
 
