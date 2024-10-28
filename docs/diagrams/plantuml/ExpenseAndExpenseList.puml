@@ -4,22 +4,22 @@ class Expense {
     #price: Float
     #description: String
     #category: String
-    #dateAdded: String
+    #dateAdded: LocalDate
     +Expense(price: Float, description: String, category: String): Expense
-    +Expense(price: Float, description: String, category: String, dateAdded: String): Expense
+    +Expense(price: Float, description: String, category: String, dateAdded: LocalDate): Expense
     +getPrice(): Float
     +getDescription(): String
     +getCategory(): String
-    +getDateAdded(): String
+    +getDateAdded(): LocalDate
     +setPrice(price: Float): void
     +setDescription(description: String): void
     +setCategory(String, category): void
-    +setDateAdded(dateAdded: String): void
+    +setDateAdded(dateAdded: LocalDate): void
 }
 
 class ExpenseList {
     +addExpense(price: Float, description: String, category: String): void
-    +addExpense(price: Float, description: String, category: String, dateAdded: String): void
+    +addExpense(price: Float, description: String, category: String, dateAdded: LocalDate): void
     +editExpenses(index: int): void
     +deleteExpense(index: int): void
     +listByCategory(category: String): ArrayList<Expense>
