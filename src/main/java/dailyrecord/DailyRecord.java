@@ -90,7 +90,7 @@ public class DailyRecord {
         water.deleteWater(index);
     }
 
-    public int getCaloriesFromMeal() {
+    private int getCaloriesFromMeal() {
         int caloriesMeal = 0;
         for (Meal meal : mealList.getMeals()) {
             assert meal != null : "meal must not be null";
@@ -100,7 +100,7 @@ public class DailyRecord {
         return caloriesMeal;
     }
 
-    public float getTotalWaterIntake() {
+    private float getTotalWaterIntake() {
         float totalWater = 0;
         for (Float waterAmount : water.getWaterList()) {
             assert waterAmount != null : "water must not be null";
@@ -127,7 +127,7 @@ public class DailyRecord {
         }
 
         if (!water.getWaterList().isEmpty()) {
-            result.append("Water Intake: ").append(water.toString()).append("\n");
+            result.append("Water Intake: \n").append(water.toString()).append("\n");
             result.append("Total Water Intake: ").append(getTotalWaterIntake()).append(" liters");
         } else {
             result.append("Water Intake: No record.");

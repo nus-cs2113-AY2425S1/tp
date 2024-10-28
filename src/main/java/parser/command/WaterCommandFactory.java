@@ -32,7 +32,7 @@ public class WaterCommandFactory {
     public Command prepareAddCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
-        flagParser.validateRequiredFlags("/w");
+        flagParser.validateRequiredFlags("/v");
 
         float water = flagParser.getFloatByFlag("/v");
         LocalDate date = flagParser.getDateByFlag("/t");
