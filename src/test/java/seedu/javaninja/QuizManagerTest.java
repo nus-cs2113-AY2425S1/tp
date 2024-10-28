@@ -33,8 +33,8 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("InvalidTopicName\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        // Pass the scanner to the selectTopic method
-        quizManager.selectTopic("InvalidTopicName", scanner);
+        // Pass the scanner to the selectTopic method, including a default timer of 60 seconds
+        quizManager.selectTopic("InvalidTopicName", scanner, 60);
 
         scanner.close();
         // No assertion here; we expect no exceptions or crashes
@@ -53,8 +53,8 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("b\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        // Start the quiz with the provided scanner
-        quizManager.startQuiz(topic, scanner);
+        // Start the quiz with a 120-second time limit
+        quizManager.startQuiz(topic, scanner, 120);
 
         String expectedResult = "Score: 0%, Comment: Better luck next time!\n";
         assertEquals(expectedResult, quizManager.getPastResults());
@@ -75,8 +75,8 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("b\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        // Start the quiz and save the results
-        quizManager.startQuiz(topic, scanner);
+        // Start the quiz with a 120-second time limit and save the results
+        quizManager.startQuiz(topic, scanner, 120);
 
         String savedResults = Files.readString(Path.of(RESULTS_FILE_PATH));
         String expectedSavedResults = "Score: 0%, Comment: Better luck next time!\n";
@@ -111,8 +111,8 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("false\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        // Start the quiz and validate results
-        quizManager.startQuiz(topic, scanner);
+        // Start the quiz with a 60-second time limit and validate results
+        quizManager.startQuiz(topic, scanner, 60);
 
         String expectedResult = "Score: 100%, Comment: Excellent!\n";
         assertEquals(expectedResult, quizManager.getPastResults());
@@ -132,14 +132,13 @@ class QuizManagerTest {
         ByteArrayInputStream input = new ByteArrayInputStream("yes\nfalse\n".getBytes());
         Scanner scanner = new Scanner(input);
 
-        // Start the quiz and validate the exception for invalid input
+        // Start the quiz with a 60-second time limit and validate the exception for invalid input
         try {
-            quizManager.startQuiz(topic, scanner);
+            quizManager.startQuiz(topic, scanner, 60);
         } catch (IllegalArgumentException e) {
             assertEquals("Invalid input! Please enter 'true' or 'false'.", e.getMessage());
         }
 
         scanner.close();
     }
-
 }
