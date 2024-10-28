@@ -75,7 +75,7 @@ public class DailyRecordTest {
     public void logDay_nullDay() {
         dailyRecord = new DailyRecord();
         assertNotNull(dailyRecord.getDayFromRecord());
-        assertEquals("Empty Day", dailyRecord.getDayFromRecord().getName());
+        assertEquals(0, dailyRecord.getDayFromRecord().getExercisesCount());
     }
 
     @Test
@@ -168,7 +168,7 @@ public class DailyRecordTest {
     public void getDayFromRecord_initialDay() {
         dailyRecord = new DailyRecord();
         assertNotNull(dailyRecord.getDayFromRecord());
-        assertEquals("Empty Day", dailyRecord.getDayFromRecord().getName());
+        assertEquals(0, dailyRecord.getDayFromRecord().getExercisesCount());
     }
 
     @Test
