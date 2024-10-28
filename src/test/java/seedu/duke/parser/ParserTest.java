@@ -8,7 +8,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Test class for testing the behavior of different parsers in the application.
+ * It verifies the correct parsing of commands based on the input and current state.
+ */
+
 public class ParserTest {
+    /**
+     * Tests the parsing of an "add" command.
+     * Verifies that valid add commands return non-null commands in the main state,
+     * null commands in the task state, and throws an exception for invalid input.
+     */
     @Test
     public void parseCommandAdd() {
         State mainState = new State(StateType.MAIN_STATE);
@@ -27,6 +37,12 @@ public class ParserTest {
         }
         assertTrue(thrown);
     }
+
+    /**
+     * Tests the parsing of a "todo" command.
+     * Verifies that valid todo commands return non-null commands in the task state,
+     * null commands in the main state, and throws an exception for invalid input.
+     */
 
     @Test
     public void parseCommandTodo() {
@@ -47,6 +63,12 @@ public class ParserTest {
         assertTrue(thrown);
     }
 
+    /**
+     * Tests the parsing of a "deadline" command.
+     * Verifies that valid deadline commands return non-null commands in the task state,
+     * null commands in the main state, and throws an exception for invalid input.
+     */
+
     @Test
     public void parseCommandDeadline() {
         State taskState = new State(StateType.TASK_STATE);
@@ -65,6 +87,12 @@ public class ParserTest {
         }
         assertTrue(thrown);
     }
+
+    /**
+     * Tests the parsing of a "repeat" command.
+     * Verifies that valid repeat commands return non-null commands in the task state,
+     * null commands in the main state, and throws an exception for invalid input.
+     */
 
     @Test
     public void parseCommandRepeat() {
@@ -85,6 +113,11 @@ public class ParserTest {
         assertTrue(thrown);
     }
 
+    /**
+     * Tests the parsing of a "list" command.
+     * Verifies that valid list commands return non-null commands in both main and task states.
+     */
+
     @Test
     public void parseCommandList() {
         State mainState = new State(StateType.MAIN_STATE);
@@ -95,6 +128,12 @@ public class ParserTest {
         Command returnedCommand1 = new ListParser().execute("list", taskState);
         assertNotNull(returnedCommand1);
     }
+
+    /**
+     * Tests the parsing of a "delete" command.
+     * Verifies that valid delete commands return non-null commands in both main and task states
+     * and throws an exception for invalid input.
+     */
 
     @Test
     public void parseCommandDel() {
@@ -115,6 +154,12 @@ public class ParserTest {
         assertTrue(thrown);
     }
 
+    /**
+     * Tests the parsing of a "select" command.
+     * Verifies that valid select commands return non-null commands in the main state,
+     * null commands in the task state, and throws an exception for invalid input.
+     */
+
     @Test
     public void parseCommandSelect() {
         State mainState = new State(StateType.MAIN_STATE);
@@ -133,6 +178,12 @@ public class ParserTest {
         }
         assertTrue(thrown);
     }
+
+    /**
+     * Tests the parsing of a "mark" command.
+     * Verifies that valid mark commands return non-null commands in the task state,
+     * null commands in the main state, and throws an exception for invalid input.
+     */
 
     @Test
     public void parseCommandMark() {
@@ -153,6 +204,12 @@ public class ParserTest {
         assertTrue(thrown);
     }
 
+    /**
+     * Tests the parsing of an "unmark" command.
+     * Verifies that valid unmark commands return non-null commands in the task state,
+     * null commands in the main state, and throws an exception for invalid input.
+     */
+
     @Test
     public void parseCommandUnmark() {
         State taskState = new State(StateType.TASK_STATE);
@@ -172,12 +229,23 @@ public class ParserTest {
         assertTrue(thrown);
     }
 
+    /**
+     * Tests the parsing of a "back" command.
+     * Verifies that a valid back command returns a non-null command in the task state.
+     */
+
     @Test
     public void parseCommandBack() {
         State taskState = new State(StateType.TASK_STATE);
         Command returnedCommand = new BackParser().execute("back",taskState);
         assertEquals(true, returnedCommand != null);
     }
+
+    /**
+     * Tests the parsing of a "find" command.
+     * Verifies that valid find commands return non-null commands in both task and main states
+     * and throws an exception for invalid input.
+     */
 
     @Test
     public void parseCommandFind() {
@@ -198,12 +266,22 @@ public class ParserTest {
         assertTrue(thrown);
     }
 
+    /**
+     * Tests the parsing of an "exit" command.
+     * Verifies that a valid exit command returns a non-null command in the task state.
+     */
+
     @Test
     public void parseCommandExit() {
         State taskState = new State(StateType.TASK_STATE);
         Command returnedCommand = new ExitParser().execute("exit",taskState);
         assertEquals(true, returnedCommand != null);
     }
+
+    /**
+     * Tests the overall parsing behavior of the main parser.
+     * Verifies the parsing and execution of various commands in different states.
+     */
 
     @Test
     public void parser(){
