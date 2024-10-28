@@ -61,6 +61,25 @@ public class Storage {
     }
 
     /**
+     * Saves a single question line to the file.
+     * @param questionLine The question line to save.
+     * @throws IOException If there is an error writing to the file.
+     */
+    public void saveQuestionToFile(String questionLine) throws IOException {
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Append the question line to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(questionLine);
+            writer.newLine();
+        }
+    }
+
+    /**
      * Clears the file by overwriting it with an empty content.
      * Useful for resetting test files between test runs.
      * @throws IOException If there is an error clearing the file.
