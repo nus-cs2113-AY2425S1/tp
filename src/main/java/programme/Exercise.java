@@ -43,14 +43,6 @@ public class Exercise {
         }
     }
 
-    public int getReps() {
-        return reps;
-    }
-
-    public int getSets() {
-        return sets;
-    }
-
     public int getWeight() {
         return weight;
     }
