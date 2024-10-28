@@ -120,7 +120,6 @@ public class InternshipList {
     }
 
     //@@author jadenlimjc
-
     // Method to list all internships
     public void listAllInternships() {
         if (internships.isEmpty()) {
