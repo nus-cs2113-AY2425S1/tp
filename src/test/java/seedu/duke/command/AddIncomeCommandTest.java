@@ -10,7 +10,6 @@ import seedu.duke.financial.Income;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -77,30 +76,29 @@ class AddIncomeCommandTest {
 
     /**
      * Test adding multiple incomes to the financial list.
-     * Verifies that all incomes are added correctly, both with and without specific dates,
-     * and that the output is printed for each.
+     * Verifies that all incomes are added correctly and that the output is printed for each.
      *
      * @throws FinanceBuddyException if any issues occur while adding the incomes
      */
     @Test
     void execute_addMultipleIncome_expectAllAddedToFinancialList() throws FinanceBuddyException {
-        String specificDate = "21/12/24";
-        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", specificDate);
+        String earlierDate = "21/12/24";
+        String laterDate = "23/12/24";
+        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", earlierDate);
         addIncomeCommand.execute(financialList);
 
-        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money", null);
+        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money", laterDate);
         addIncomeCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this income:" + System.lineSeparator() +
-                "[Income] - Cost of Living payment $ 400.00 (on "+ specificDate + ")" + System.lineSeparator() +
+                "[Income] - Cost of Living payment $ 400.00 (on "+ earlierDate + ")" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this income:" + System.lineSeparator() +
-                "[Income] - friend return money $ 10.50 (on " + currentDate + ")" + System.lineSeparator() +
+                "[Income] - friend return money $ 10.50 (on " + laterDate + ")" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(2, financialList.getEntryCount());  // Verify the entry count
@@ -111,7 +109,7 @@ class AddIncomeCommandTest {
         Income secondIncome = (Income) financialList.getEntry(1); //Assert second income index
         assertEquals(10.50, secondIncome.getAmount());
         assertEquals("friend return money", secondIncome.getDescription());
-        assertEquals(LocalDate.now(), secondIncome.getDate());
+        assertEquals(LocalDate.of(2024,12,23), secondIncome.getDate());
 
         assertEquals(expectedOutput, output);  // Verify the printed output for both
     }
@@ -151,4 +149,3 @@ class AddIncomeCommandTest {
     }
 
 }
-

@@ -116,8 +116,8 @@ class SeeAllIncomesCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
-                "1. [Income] - salary $ 3000.00 (on 01/10/24)" + System.lineSeparator() +
-                "2. [Income] - ang pow money $ 15.00 (on 12/09/24)" + System.lineSeparator() +
+                "1. [Income] - ang pow money $ 15.00 (on 12/09/24)" + System.lineSeparator() +
+                "2. [Income] - salary $ 3000.00 (on 01/10/24)" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total income: $ 3015.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();

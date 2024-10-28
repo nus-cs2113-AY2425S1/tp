@@ -92,9 +92,10 @@ class DeleteCommandTest {
      */
     @Test
     void execute_deleteLastEntry_expectEntryRemoved() throws FinanceBuddyException {
-        LocalDate date1 = LocalDate.of(2024, 12, 29);
-        LocalDate date2 = LocalDate.of(2024, 10, 14);
-        LocalDate date3 = LocalDate.of(2024, 10, 16);
+        LocalDate date1 = LocalDate.of(2024, 10, 14);
+        LocalDate date2 = LocalDate.of(2024, 10, 16);
+        LocalDate date3 = LocalDate.of(2024, 12, 29);
+
         financialList.addEntry(new Expense(3.50, "lunch", date1));
         financialList.addEntry(new Income(3000.00, "salary", date2));
         financialList.addEntry(new Expense(20.00, "movie ticket", date3));
