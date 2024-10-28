@@ -1,4 +1,0 @@
-1 | ABC | XYZ | 01/01 | 01/01 |  | Application Pending
-2 | software engineer | abs | 01/01 | 03/24 | python, c++, backend | Application Completed
-3 | lawyer | lolo pte ltd | 04/23 | 01/01 | source, terry | Application Completed
-4 | Technician | Nokia | 12/22 | 12/30 | java | Application Pending
