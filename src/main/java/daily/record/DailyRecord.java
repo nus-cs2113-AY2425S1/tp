@@ -1,4 +1,4 @@
-package dailyrecord;
+package daily.record;
 
 import meal.Meal;
 import meal.MealList;

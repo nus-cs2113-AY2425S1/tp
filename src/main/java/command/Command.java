@@ -5,7 +5,7 @@ import history.History;
 public abstract class Command {
     public Command(){}
 
-    public abstract CommandResult execute(ProgrammeList pList, History history);
+    public abstract CommandResult execute(ProgrammeList programmes, History history);
 
     @Override
     public boolean equals(Object other) {

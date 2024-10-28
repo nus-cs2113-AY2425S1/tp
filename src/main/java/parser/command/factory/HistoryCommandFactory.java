@@ -1,4 +1,4 @@
-package parser.command;
+package parser.command.factory;
 
 import command.Command;
 import command.history.HistoryCommand;

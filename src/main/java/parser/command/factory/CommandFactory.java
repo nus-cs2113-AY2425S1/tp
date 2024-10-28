@@ -1,4 +1,4 @@
-package parser.command;
+package parser.command.factory;
 
 import command.Command;
 import command.ExitCommand;
@@ -17,7 +17,7 @@ public class CommandFactory {
     private final HistoryCommandFactory historyFactory;
 
     public CommandFactory() {
-        this.progFactory = new ProgCommandFactory();  // Dependency injection for better testability
+        this.progFactory = new ProgCommandFactory();
         this.mealFactory = new MealCommandFactory();
         this.waterFactory = new WaterCommandFactory();
         this.historyFactory = new HistoryCommandFactory();  // Add HistoryCommandFactory
@@ -33,4 +33,3 @@ public class CommandFactory {
         };
     }
 }
-
