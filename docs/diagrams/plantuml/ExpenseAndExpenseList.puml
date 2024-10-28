@@ -1,0 +1,30 @@
+@startuml
+
+class Expense {
+    #price: Float
+    #description: String
+    #category: String
+    #dateAdded: String
+    +Expense(price: Float, description: String, category: String): Expense
+    +Expense(price: Float, description: String, category: String, dateAdded: String): Expense
+    +getPrice(): Float
+    +getDescription(): String
+    +getCategory(): String
+    +getDateAdded(): String
+    +setPrice(price: Float): void
+    +setDescription(description: String): void
+    +setCategory(String, category): void
+    +setDateAdded(dateAdded: String): void
+}
+
+class ExpenseList {
+    +addExpense(price: Float, description: String, category: String): void
+    +addExpense(price: Float, description: String, category: String, dateAdded: String): void
+    +editExpenses(index: int): void
+    +deleteExpense(index: int): void
+    +listByCategory(category: String): ArrayList<Expense>
+}
+
+ExpenseList "0.1 " -d-> " * " Expense : contains
+
+@enduml

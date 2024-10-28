@@ -108,6 +108,9 @@ The `ExpenseList` class has the following key methods:
 | `deleteExpense` | Removes an expense from the list  |
 |  `editExpense`  |   Edits an expense in the list    |
 
+The following diagram is a class diagram for Expense and ExpenseList:
+
+![ExpenseAndExpenseList.png](/docs/diagrams/images/ExpenseAndExpenseList.png "UML Class Diagram for Expense and ExpenseList")
 ### Exceptions and Logging
 
 <u>Overview</u>
