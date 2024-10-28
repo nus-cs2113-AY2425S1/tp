@@ -67,6 +67,7 @@ public class Parser {
         StringBuilder currArgument = new StringBuilder();
         for (int i = 1; i < words.length; i++) {
             if (words[i].isEmpty()) { // Skip empty values/ duplicate spaces
+                currArgument.append(" ");
                 continue;
             }
             if (words[i].charAt(0) == '/') {

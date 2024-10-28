@@ -85,10 +85,11 @@ The Parser also has some considerations such as
        2. `command /argument value\/value` -> `argument`:`value/value`
        3. `command /argument value/value` -> `argument`:`value/value` (this is accepted for now, but not recommended)
        4. `command /argument value\\/value` -> `argument`:`value\/value`
-    5. `/` don't need to be escaped for
+   2. `/` don't need to be escaped for
        1. commands -> eg. `/command /argument value1` -> the command is `/command`
            1. It is discouraged to do so, but the option is left for potential expandability
        2. arguments -> eg. `command /argument/param value` -> the argument name is `argument/param`
+    3. Leading and Trailing spaces are ignored, but additional spaces within values (eg. `main  value`) are counted 
 
 ### Commands
 

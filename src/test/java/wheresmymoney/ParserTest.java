@@ -84,10 +84,11 @@ class ParserTest {
     /**
      * Tests the parsing of a line with a main argument into an arguments map.
      * Extra spaces between the command and main argument should be ignored.
+     * Spaces within the argument value should be counted.
      */
     @Test
     public void parseLineToArgumentsMap_commandWithExtraSpaceAndMainArgument_arguments() {
-        String inputLine = "command   main";
+        String inputLine = "command   main  value";
         HashMap<String, String> argumentsMap = null;
         try {
             argumentsMap = Parser.parseLineToArgumentsMap(inputLine);
@@ -96,7 +97,7 @@ class ParserTest {
         }
         assertEquals(argumentsMap.keySet().size(), 2);
         assertEquals(argumentsMap.get(Parser.ARGUMENT_COMMAND), "command");
-        assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "main");
+        assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "main  value");
     }
 
     /**
@@ -119,7 +120,7 @@ class ParserTest {
 
     /**
      * Tests the parsing of a line with a custom argument into an arguments map.
-     * The value of the argument is split among various strings
+     * The value of the argument is split among various strings.
      */
     @Test
     public void parseLineToArgumentsMap_commandWithCustomArgumentAndWhitespaceValue_arguments() {
@@ -134,6 +135,25 @@ class ParserTest {
         assertEquals(argumentsMap.get(Parser.ARGUMENT_COMMAND), "command");
         assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "");
         assertEquals(argumentsMap.get("custom"), "value abc");
+    }
+
+    /**
+     * Tests the parsing of a line with a custom argument into an arguments map.
+     * The value of the argument is split among various strings.
+     */
+    @Test
+    public void parseLineToArgumentsMap_commandWithCustomArgumentAndMultipleWhitespaceValue_arguments() {
+        String inputLine = "command /custom value  abc";
+        HashMap<String, String> argumentsMap = null;
+        try {
+            argumentsMap = Parser.parseLineToArgumentsMap(inputLine);
+        } catch (WheresMyMoneyException e) {
+            assert(false);
+        }
+        assertEquals(argumentsMap.keySet().size(), 3);
+        assertEquals(argumentsMap.get(Parser.ARGUMENT_COMMAND), "command");
+        assertEquals(argumentsMap.get(Parser.ARGUMENT_MAIN), "");
+        assertEquals(argumentsMap.get("custom"), "value  abc");
     }
 
     /**
