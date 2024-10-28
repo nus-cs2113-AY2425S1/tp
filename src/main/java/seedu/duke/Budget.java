@@ -1,12 +1,14 @@
 package seedu.duke;
+
 //@@author glenda-1506
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+
 //@@author MayFairMI6
 public class Budget {
     private Category category; // Private to prevent unauthorized access or changes
-    private double limit;// Private to control modifications to the budget
+    private double limit; // Private to control modifications to the budget
 
     public Budget(Category category, double limit) {
         this.category = category;
@@ -27,7 +29,8 @@ public class Budget {
         }
         this.limit = limit;
     }
-//@@author glenda-1506
+
+    //@@author glenda-1506
     public String formatLimit(double limit) {
         BigDecimal roundedLimit = BigDecimal.valueOf(limit).setScale(2, RoundingMode.HALF_UP);
         DecimalFormat wholeNumberFormat = new DecimalFormat("$#");
