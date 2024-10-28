@@ -52,7 +52,7 @@ public class Parser {
      * @param words String list of arguments
      */
     private static void packFollowingArgumentsToExistingArgumentsMap(HashMap<String, String> argumentsMap,
-                                                                     String[] words) {
+                                                                     String[] words) throws WheresMyMoneyException {
         // Arguments
         String currArgumentName = Parser.ARGUMENT_MAIN;
         StringBuilder currArgument = new StringBuilder();
@@ -62,7 +62,10 @@ public class Parser {
             }
             if (words[i].charAt(0) == '/') {
                 // New argument
-                if (!currArgument.toString().isEmpty() && !argumentsMap.containsKey(currArgumentName)) {
+                if (argumentsMap.containsKey(currArgumentName)) {
+                    throw new InvalidInputException("Duplicate arguments or Invalid Arguments (eg. /command, /main");
+                }
+                if (!currArgument.toString().isEmpty()) {
                     argumentsMap.put(currArgumentName, currArgument.toString().strip());
                 }
                 currArgumentName = words[i].replace("/", "");
@@ -74,6 +77,9 @@ public class Parser {
         }
 
         // Add last command
+        if (argumentsMap.containsKey(currArgumentName)) {
+            throw new InvalidInputException("Duplicate arguments or Invalid Arguments (eg. /command, /main");
+        }
         if (!currArgument.toString().isEmpty()) {
             argumentsMap.put(currArgumentName, currArgument.toString().strip());
         }
@@ -83,7 +89,7 @@ public class Parser {
      * Packs words into a new argument map.
      * @param words String list of arguments/words
      */
-    private static HashMap<String, String> packWordsToArgumentsMap(String[] words) {
+    private static HashMap<String, String> packWordsToArgumentsMap(String[] words) throws WheresMyMoneyException {
         HashMap<String, String> argumentsList = new HashMap<>();
         packFollowingArgumentsToExistingArgumentsMap(argumentsList, words);
         packCommandToExistingArgumentsMap(argumentsList, words);
@@ -95,7 +101,7 @@ public class Parser {
      * @param line Line that a user inputs
      * @return HashMap of Arguments, mapping the argument to its value given
      */
-    public static HashMap<String, String> parseLineToArgumentsMap(String line) {
+    public static HashMap<String, String> parseLineToArgumentsMap(String line) throws WheresMyMoneyException {
         Logging.log(Level.INFO, "Parsing Line: " + line);
         String[] words = line.trim().split(" ");
         return packWordsToArgumentsMap(words);
