@@ -78,6 +78,14 @@ public class Day {
         return toBeDeleted;
     }
 
+    public int getTotalCaloriesBurnt(){
+        int totalCalories = 0;
+        for (Exercise exercise : exercises) {
+            totalCalories += exercise.getCalories();
+        }
+        return totalCalories;
+    }
+
 
     @Override
     public String toString() {

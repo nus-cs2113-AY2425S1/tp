@@ -1,4 +1,4 @@
-package daily.record;
+package history;
 
 import meal.Meal;
 import meal.MealList;
@@ -17,33 +17,6 @@ public class DailyRecord {
         day = new Day("Empty Day"); //This will be replaced when a Day is recorded
         this.mealList = new MealList();
         this.water = new Water();
-    }
-
-    public DailyRecord(Day day) {
-        assert day != null : "day must not be null";
-
-        mealList = new MealList();
-        water = new Water();
-        this.day = day;
-        logger.info("Record initialised with day: " + day);
-    }
-
-    public DailyRecord(Water water) {
-        assert water != null : "water must not be null";
-
-        mealList = new MealList();
-        this.water = water;
-        day = new Day("Empty Day"); //This will be replaced when a Day is recorded
-        logger.info("Record initialised with water list");
-    }
-
-    public DailyRecord(MealList mealList) {
-        assert mealList != null : "mealList must not be null";
-
-        this.mealList = mealList;
-        water = new Water();
-        day = new Day("Empty Day"); //This will be replaced when a Day is recorded
-        logger.info("Record initialised with meal list");
     }
 
     public Day getDayFromRecord() {
@@ -112,10 +85,13 @@ public class DailyRecord {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
+        int caloriesBurnt = day.getTotalCaloriesBurnt();
+        int caloriesGained = getCaloriesFromMeal();
 
         result.append("Day: \n");
         if (day != null && day.getExercisesCount() > 0) {
             result.append(day.toString()).append("\n");
+            result.append("Total Calories burnt: ").append(caloriesBurnt).append(" kcal\n\n");
         } else {
             result.append("No Day.\n\n");
         }
@@ -123,7 +99,7 @@ public class DailyRecord {
         result.append("Meals: \n");
         if (!mealList.getMeals().isEmpty()) {
             result.append(mealList).append("\n");
-            result.append("Total Calories from Meals: ").append(getCaloriesFromMeal()).append(" kcal\n\n");
+            result.append("Total Calories from Meals: ").append(caloriesGained).append(" kcal\n\n");
         } else {
             result.append("No Meals.\n\n");
         }
@@ -133,9 +109,10 @@ public class DailyRecord {
             result.append(water).append("\n");
             result.append("Total Water Intake: ").append(getTotalWaterIntake()).append(" liters");
         } else {
-            result.append("No Water.");
+            result.append("No Water.\n\n");
         }
 
+        result.append("Caloric Balance: ").append(caloriesGained - caloriesBurnt).append(" kcal");
         return result.toString();
     }
 }

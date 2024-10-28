@@ -62,31 +62,31 @@ public class ProgCommandFactory {
 
     private Command prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
-        FlagParser flagParser = new FlagParser(argumentString, "/n", "/r","/s","/w","/e");
-    
+        FlagParser flagParser = new FlagParser(argumentString, "/n", "/r","/s","/w","/e","/c");
+
         if (flagParser.hasFlag("/u")) {
             return prepareEditExerciseCommand(flagParser);
         }
-        
+
         if (flagParser.hasFlag("/a")) {
             return prepareCreateExerciseCommand(flagParser);
         }
-    
+
         if (flagParser.hasFlag("/x")) {
             return prepareDeleteExerciseCommand(flagParser);
         }
-    
+
         if (flagParser.hasFlag("/ad")) {
             return prepareCreateDayCommand(flagParser);
         }
-    
+
         if (flagParser.hasFlag("/xd")) {
             return prepareDeleteDayCommand(flagParser);
         }
 
         return new InvalidCommand();
     }
-    
+
     private EditExerciseCommand prepareEditExerciseCommand(FlagParser flagParser) {
         flagParser.validateRequiredFlags("/d");
         String editString = flagParser.getStringByFlag("/u");
@@ -94,9 +94,9 @@ public class ProgCommandFactory {
         String[] editParts = splitArguments(editString);
         int exerciseIndex = parseIndex(editParts[0]);
         String exerciseString = editParts[1];
-    
+
         return new EditExerciseCommand(
-            flagParser.getIndexByFlag("/p"), 
+            flagParser.getIndexByFlag("/p"),
             flagParser.getIndexByFlag("/d"),
             exerciseIndex,
             parseExercise(exerciseString)
@@ -107,8 +107,8 @@ public class ProgCommandFactory {
         flagParser.validateRequiredFlags("/d");
         String exerciseString = flagParser.getStringByFlag("/a");
         return new CreateExerciseCommand(
-            flagParser.getIndexByFlag("/p"), 
-            flagParser.getIndexByFlag("/d"), 
+            flagParser.getIndexByFlag("/p"),
+            flagParser.getIndexByFlag("/d"),
             parseExercise(exerciseString)
         );
     }
@@ -116,28 +116,27 @@ public class ProgCommandFactory {
     private DeleteExerciseCommand prepareDeleteExerciseCommand(FlagParser flagParser) {
         flagParser.validateRequiredFlags("/d", "/x");
         return new DeleteExerciseCommand(
-            flagParser.getIndexByFlag("/p"), 
-            flagParser.getIndexByFlag("/d"),
-            flagParser.getIndexByFlag("/x")
-        );
-    }
-    
-    private CreateDayCommand prepareCreateDayCommand(FlagParser flagParser) {
-        String dayString = flagParser.getStringByFlag("/ad");
-        return new CreateDayCommand(
-            flagParser.getIndexByFlag("/p"), 
-            parseDay(dayString)
-        );
-    }
-    
-    private DeleteDayCommand prepareDeleteDayCommand(FlagParser flagParser) {
-        flagParser.validateRequiredFlags("/xd");
-        return new DeleteDayCommand(
-            flagParser.getIndexByFlag("/p"), 
-            flagParser.getIndexByFlag("/xd")
+                flagParser.getIndexByFlag("/p"),
+                flagParser.getIndexByFlag("/d"),
+                flagParser.getIndexByFlag("/x")
         );
     }
 
+    private CreateDayCommand prepareCreateDayCommand(FlagParser flagParser) {
+        String dayString = flagParser.getStringByFlag("/ad");
+        return new CreateDayCommand(
+                flagParser.getIndexByFlag("/p"),
+                parseDay(dayString)
+        );
+    }
+
+    private DeleteDayCommand prepareDeleteDayCommand(FlagParser flagParser) {
+        flagParser.validateRequiredFlags("/xd");
+        return new DeleteDayCommand(
+                flagParser.getIndexByFlag("/p"),
+                flagParser.getIndexByFlag("/xd")
+        );
+    }
     private Command prepareCreateCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -230,11 +229,12 @@ public class ProgCommandFactory {
         int sets = flagParser.getIntegerByFlag("/s");
         int reps = flagParser.getIntegerByFlag("/r");
         int weight = flagParser.getIntegerByFlag("/w");
+        int calories = flagParser.getIntegerByFlag("/c");
 
         logger.log(Level.INFO, "Parsed exercise successfully with name: {0}, set: {1}, rep: {2}" +
                 " weight: {3}", new Object[]{name, sets, reps, weight});
 
-        return new Exercise(sets, reps, weight, name);
+        return new Exercise(sets, reps, weight, calories, name);
     }
 }
 

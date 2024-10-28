@@ -36,7 +36,7 @@ public class ViewPersonalBestCommand extends Command {
         for (Map.Entry<String, Exercise> entry : personalBests.entrySet()) {
             bestsMessage.append(entry.getKey())
                     .append(": ")
-                    .append(entry.getValue().toString())
+                    .append(entry.getValue())
                     .append("\n");
         }
 
