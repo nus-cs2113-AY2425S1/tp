@@ -83,12 +83,13 @@ public class LogicTest {
 
         String output = outputStream.toString();
 
-        String expectedOutput =
-                "--------------------------------------------" + System.lineSeparator() +
+        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. [Expense] - Lunch $ 100.00 (on " + date1.format(pattern) + ")" + System.lineSeparator()  +
+                "1. [Expense] - Lunch $ 100.00 (on " + date1.format(pattern) + ") [FOOD]" + System.lineSeparator()  +
                 System.lineSeparator() +
                 "Total expense: $ 100.00" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Highest Expense Category: FOOD ($100.00)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Validate that the expected output is equal to the actual output
