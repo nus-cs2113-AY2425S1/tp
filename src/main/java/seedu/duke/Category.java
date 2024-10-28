@@ -6,7 +6,7 @@ public class Category extends ExpenseTracker {
     public Category(String name) {
         this.name = name;
     }
-
+//@@ author glenda-1506
     public String getName() {
         return name;
     }
