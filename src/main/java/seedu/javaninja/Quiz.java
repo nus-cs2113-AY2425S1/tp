@@ -23,7 +23,7 @@ public class Quiz {
         this.correctAnswers = 0;
     }
 
-    public void start(int timeLimitInSeconds) {
+    public void start(int timeLimitInSeconds, int questionLimit) {
         List<Question> questions = topic.getQuestions();
         startTimer(timeLimitInSeconds);
 
@@ -31,7 +31,7 @@ public class Quiz {
             throw new IllegalStateException("Cannot start a quiz with no questions.");
         }
 
-        while (currentQuestionIndex < questions.size()) {
+        while (currentQuestionIndex < questions.size() && currentQuestionIndex < questionLimit) {
             if (timeUp.get()) {
                 break;
             }
