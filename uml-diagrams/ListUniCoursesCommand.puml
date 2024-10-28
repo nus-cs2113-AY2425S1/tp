@@ -33,21 +33,26 @@ activate ListUniCoursesCommand
 
 ListUniCoursesCommand -> ListUniCoursesCommand : findUniversityName(...)
 activate ListUniCoursesCommand
-return universityName : String
+loop for each universityName in universityNames
+    opt universityName.toLowerCase().equals(lowerCasePuName)
+    return universityName : String
+    end
+end
 
 alt universityName == null
-ListUniCoursesCommand -> ListUniCoursesCommand : handleUnknownUniversity(...)
-activate ListUniCoursesCommand
-return
-    else
-    ListUniCoursesCommand -> ListUniCoursesCommand : listCourses(...)
+    ListUniCoursesCommand -> ListUniCoursesCommand : handleUnknownUniversity(...)
     activate ListUniCoursesCommand
-    loop for courseArray.size()
-    ListUniCoursesCommand -> ListUniCoursesCommand : print course details
+    return
+        else else
+        ListUniCoursesCommand -> ListUniCoursesCommand : listCourses(...)
+        activate ListUniCoursesCommand
+            loop for courseArray.size()
+            ListUniCoursesCommand -> ListUniCoursesCommand : print course details
+            end
+        return
     end
 return
-end
-return
+
 ListUniCoursesCommand --> CEG_Student
 deactivate ListUniCoursesCommand
 

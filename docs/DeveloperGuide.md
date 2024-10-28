@@ -127,10 +127,10 @@ This allows users to plan their course mapping as it lists out all the possible 
 partner university.
 
 #### How the feature is implemented:
-* The `ListUniCoursesCommand` class extends the `Command` class where it overrides the execute method for custom 
-behaviour.
+* The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method 
+for custom behaviour.
 * The command first reads a JSON file to obtain the JsonObject containing the names of all the partner universities.
-* The getPuName method then parses and extracts the PU name from the input (with the format of `set [PU_NAME]`.
+* The getPuName method then parses and extracts the PU name from the input (with the format of `set [PU_NAME]`).
 * Next, the extracted PU name is passed into the `getUniCourses()` method which will search for the specified PU in the
 JsonObject with `findUniversityName()`.
 * If the university is not found, an exception `UnknownUniversityException` will be thrown.
