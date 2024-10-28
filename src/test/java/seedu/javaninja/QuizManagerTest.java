@@ -37,7 +37,10 @@ class QuizManagerTest {
         quizManager.selectTopic("InvalidTopicName", scanner, 10, 2);
 
         scanner.close();
-        // No assertion here; we expect no exceptions or crashes
+        
+        // Assert that past results remain empty since no valid quiz was selected
+        assertEquals("No past results available. You haven't completed any quizzes yet.", quizManager.getPastResults());
+
     }
 
     @Test
