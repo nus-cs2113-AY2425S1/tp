@@ -61,6 +61,13 @@ The Parser class has the following key method:
 |------------------------|-----------------------------------------------------------|
 | `parseInputToCommand`  | Parses a given user input and returns the related Command |
 
+
+The Parser also has some considerations such as
+1. Restricted arguments which should not be used by other developers in their commands. These include
+   1. `/command` -> used for the main command keyword
+   2. `/main` -> used for the main text argument right after the command keyword
+3. The 1st instance of the argument is chosen, not the last
+
 <u>Design Considerations</u>
 
 Low-level I/O operations (eg. stdio) are consolidated in the Ui class such that we can easily switch the I/O methods by 

@@ -62,7 +62,7 @@ public class Parser {
             }
             if (words[i].charAt(0) == '/') {
                 // New argument
-                if (!currArgument.toString().isEmpty()){
+                if (!currArgument.toString().isEmpty() && !argumentsMap.containsKey(currArgumentName)) {
                     argumentsMap.put(currArgumentName, currArgument.toString().strip());
                 }
                 currArgumentName = words[i].replace("/", "");
@@ -85,8 +85,8 @@ public class Parser {
      */
     private static HashMap<String, String> packWordsToArgumentsMap(String[] words) {
         HashMap<String, String> argumentsList = new HashMap<>();
-        packCommandToExistingArgumentsMap(argumentsList, words);
         packFollowingArgumentsToExistingArgumentsMap(argumentsList, words);
+        packCommandToExistingArgumentsMap(argumentsList, words);
         return argumentsList;
     }
 
