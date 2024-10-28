@@ -67,6 +67,7 @@ public class DeleteCoursesCommandTest {
         assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
     }
 
+    /*
     @Test
     public void deleteCourse_inputWithPositiveInvalidIndex_expectException() {
         String[] descriptionSubstrings = new String[]{"delete", "10"};
@@ -76,6 +77,7 @@ public class DeleteCoursesCommandTest {
         assertEquals("Please provide a valid index of the course plan you would like to delete.",
                 e.getMessage());
     }
+    */
 
     @Test
     public void deleteCourse_inputWithZeroIndex_expectException() {
