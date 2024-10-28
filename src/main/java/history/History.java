@@ -1,7 +1,7 @@
 package history;
 
 import programme.Exercise;
-import dailyrecord.DailyRecord;
+
 import java.util.logging.Logger;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -61,6 +61,13 @@ public class History {
 
     public void logRecord(LocalDate date, DailyRecord record) {
         history.put(date, record);
+    }
+
+    public DailyRecord deleteRecord(LocalDate date) {
+        if (!history.containsKey(date)) {
+            return null;
+        }
+        return history.remove(date);
     }
 
     public int getHistorySize() {

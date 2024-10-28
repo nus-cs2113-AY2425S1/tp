@@ -8,13 +8,11 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static common.Utils.NULL_FLOAT;
-import static common.Utils.NULL_INTEGER;
-import static parser.ParserUtils.parseFloat;
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.parseInteger;
+import static parser.ParserUtils.parseFloat;
 import static parser.ParserUtils.parseDate;
-
+import static parser.ParserUtils.splitArguments;
 
 /*
     FlagParser simplifies parsing flagged argument strings
@@ -25,8 +23,16 @@ public class FlagParser {
     private final Logger logger = Logger.getLogger(FlagParser.class.getName());
     private final Map<String, String> parsedFlags = new HashMap<>();
     private final Map<String, String> aliasMap = new HashMap<>();
+    private String splitBy = " (?=/)";
 
-    public FlagParser(String argumentString) {
+    public FlagParser(String argumentString, String... ignoredFlags) {
+        if (ignoredFlags.length > 0){
+            StringBuilder splitBy = new StringBuilder("(?=/(?![");
+            for (String flag: ignoredFlags) {
+                splitBy.append(flag.charAt(1));
+            }
+            this.splitBy = splitBy.append("]\\b))").toString();
+        }
         initializeAliasMap();
         if (argumentString != null && !argumentString.trim().isEmpty()) {
             parse(argumentString);
@@ -64,13 +70,9 @@ public class FlagParser {
     private void parse(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        String[] args = argumentString.trim().split(" (?=/)");
+        String[] args = argumentString.trim().split(this.splitBy);
         for (String arg : args) {
-            String[] argParts = arg.split(" ", 2);
-
-            if (argParts.length < 2) {
-                throw new IllegalArgumentException("Please provide a valid value.");
-            }
+            String[] argParts = splitArguments(arg);
 
             String flag = argParts[0].trim();
             String value = argParts[1].trim();
@@ -88,7 +90,7 @@ public class FlagParser {
         return flag;
     }
 
-    private boolean hasFlag(String flag) {
+    public boolean hasFlag(String flag) {
         assert flag != null && !flag.isEmpty() : "Flag must not be null or empty";
 
         flag = resolveAlias(flag);
@@ -126,33 +128,21 @@ public class FlagParser {
 
     public int getIndexByFlag(String flag) {
         String indexString = getStringByFlag(flag);
-        if (indexString == null) {
-            return NULL_INTEGER;
-        }
         return parseIndex(indexString);
     }
 
     public int getIntegerByFlag(String flag){
         String intString = getStringByFlag(flag);
-        if (intString == null) {
-            return NULL_INTEGER;
-        }
         return parseInteger(intString);
     }
 
     public float getFloatByFlag(String flag) {
         String floatString = getStringByFlag(flag);
-        if (floatString == null) {
-            return NULL_FLOAT;
-        }
         return parseFloat(floatString);
     }
 
     public LocalDate getDateByFlag(String flag){
         String dateString = getStringByFlag(flag);
-        if (dateString == null) {
-            return LocalDate.now();
-        }
         return parseDate(dateString);
     }
 }

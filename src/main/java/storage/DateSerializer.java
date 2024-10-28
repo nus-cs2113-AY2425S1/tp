@@ -1,4 +1,4 @@
-package history;
+package storage;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
@@ -14,6 +14,7 @@ public class DateSerializer implements JsonSerializer<LocalDate>, JsonDeserializ
 
     @Override
     public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
+        assert src != null;
         return new JsonPrimitive(src.format(formatter));  
     }
 

@@ -1,4 +1,4 @@
-package dailyrecord;
+package history;
 
 import meal.Meal;
 import meal.MealList;
@@ -17,33 +17,6 @@ public class DailyRecord {
         day = new Day("Empty Day"); //This will be replaced when a Day is recorded
         this.mealList = new MealList();
         this.water = new Water();
-    }
-
-    public DailyRecord(Day day) {
-        assert day != null : "day must not be null";
-
-        mealList = new MealList();
-        water = new Water();
-        this.day = day;
-        logger.info("Record initialised with day: " + day);
-    }
-
-    public DailyRecord(Water water) {
-        assert water != null : "water must not be null";
-
-        mealList = new MealList();
-        this.water = water;
-        day = new Day("Empty Day"); //This will be replaced when a Day is recorded
-        logger.info("Record initialised with water list");
-    }
-
-    public DailyRecord(MealList mealList) {
-        assert mealList != null : "mealList must not be null";
-
-        this.mealList = mealList;
-        water = new Water();
-        day = new Day("Empty Day"); //This will be replaced when a Day is recorded
-        logger.info("Record initialised with meal list");
     }
 
     public Day getDayFromRecord() {
@@ -72,25 +45,25 @@ public class DailyRecord {
         logger.info("meal added: " + meal);
     }
 
-    public void deleteMealFromRecord(int index) {
-        assert index > 0;
+    public Meal deleteMealFromRecord(int index) {
+        assert index >= 0;
 
-        mealList.deleteMeal(index);
         logger.info("meal deleted, index: " + index);
+        return mealList.deleteMeal(index);
     }
 
     public void addWaterToRecord(float toAddWater) {
-        assert toAddWater > 0;
+        assert toAddWater >= 0;
 
         water.addWater(toAddWater);
         logger.info("Water added: " + toAddWater);
     }
 
-    public void removeWaterfromRecord(int index) {
-        water.deleteWater(index);
+    public float removeWaterFromRecord(int index) {
+        return water.deleteWater(index);
     }
 
-    public int getCaloriesFromMeal() {
+    private int getCaloriesFromMeal() {
         int caloriesMeal = 0;
         for (Meal meal : mealList.getMeals()) {
             assert meal != null : "meal must not be null";
@@ -100,7 +73,7 @@ public class DailyRecord {
         return caloriesMeal;
     }
 
-    public float getTotalWaterIntake() {
+    private float getTotalWaterIntake() {
         float totalWater = 0;
         for (Float waterAmount : water.getWaterList()) {
             assert waterAmount != null : "water must not be null";
@@ -112,27 +85,34 @@ public class DailyRecord {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
+        int caloriesBurnt = day.getTotalCaloriesBurnt();
+        int caloriesGained = getCaloriesFromMeal();
 
+        result.append("Day: \n");
         if (day != null && day.getExercisesCount() > 0) {
-            result.append("Day: \n").append(day.toString()).append("\n");
+            result.append(day.toString()).append("\n");
+            result.append("Total Calories burnt: ").append(caloriesBurnt).append(" kcal\n\n");
         } else {
-            result.append("Day: No record.\n\n");
+            result.append("No Day.\n\n");
         }
 
+        result.append("Meals: \n");
         if (!mealList.getMeals().isEmpty()) {
-            result.append("Meals: \n").append(mealList.toString()).append("\n");
-            result.append("Total Calories from Meals: ").append(getCaloriesFromMeal()).append(" kcal\n\n");
+            result.append(mealList).append("\n");
+            result.append("Total Calories from Meals: ").append(caloriesGained).append(" kcal\n\n");
         } else {
-            result.append("Meals: No record.\n\n");
+            result.append("No Meals.\n\n");
         }
 
+        result.append("Water Intake: \n");
         if (!water.getWaterList().isEmpty()) {
-            result.append("Water Intake: ").append(water.toString()).append("\n");
+            result.append(water).append("\n");
             result.append("Total Water Intake: ").append(getTotalWaterIntake()).append(" liters");
         } else {
-            result.append("Water Intake: No record.");
+            result.append("No Water.\n\n");
         }
 
+        result.append("Caloric Balance: ").append(caloriesGained - caloriesBurnt).append(" kcal");
         return result.toString();
     }
 }

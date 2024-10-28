@@ -4,6 +4,8 @@ import command.Command;
 import command.CommandResult;
 import programme.ProgrammeList;
 import history.History;
+import java.util.Map;
+import programme.Exercise;
 
 public class ViewPersonalBestCommand extends Command {
     public static final String COMMAND_WORD = "pb_exercise";
@@ -22,8 +24,12 @@ public class ViewPersonalBestCommand extends Command {
             return new CommandResult(personalBest);
         }
 
-        // If no specific exercise is specified, prompt the user to specify one
-        return new CommandResult("Please specify an exercise to view its personal best.");
+        // If no specific exercise is specified, display all personal bests or prompt the user if empty
+        String allPersonalBests = history.getFormattedPersonalBests();
+        if (allPersonalBests.isEmpty()) {
+            return new CommandResult("Please specify an exercise to view its personal best.");
+        }
+
+        return new CommandResult(allPersonalBests);
     }
 }
-

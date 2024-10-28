@@ -4,8 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import dailyrecord.DailyRecord;
-import history.DateSerializer;
+import history.DailyRecord;
 import history.History;
 import programme.ProgrammeList;
 
@@ -85,7 +84,7 @@ public class Storage {
         return gson.toJsonTree(programmeList).getAsJsonObject();
     }
 
-    private static ProgrammeList programmeListFromJson(JsonObject jsonObject) {
+    private ProgrammeList programmeListFromJson(JsonObject jsonObject) {
         Gson gson = new Gson();
         logger.log(Level.INFO, "Programme list converted from Json for loading.");
         return gson.fromJson(jsonObject, ProgrammeList.class);
@@ -109,7 +108,7 @@ public class Storage {
         return historyJson;
     }
 
-    private static History historyFromJson(JsonObject jsonObject) {
+    private History historyFromJson(JsonObject jsonObject) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new DateSerializer())  // Custom deserializer for LocalDate
                 .create();

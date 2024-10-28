@@ -1,7 +1,7 @@
 package command.water;
 
 import command.CommandResult;
-import dailyrecord.DailyRecord;
+import history.DailyRecord;
 import history.History;
 import water.Water;
 

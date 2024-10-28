@@ -1,7 +1,7 @@
 package command.water;
 
 import command.CommandResult;
-import dailyrecord.DailyRecord;
+import history.DailyRecord;
 import history.History;
 
 import java.time.LocalDate;
@@ -27,8 +27,8 @@ public class DeleteWaterCommand extends WaterCommand {
     public CommandResult execute(History history) {
         DailyRecord dailyRecord = history.getRecordByDate(date);
         assert dailyRecord != null : "Daily record not found";
-        dailyRecord.removeWaterfromRecord(indexWaterToDelete);
+        float deletedWater = dailyRecord.removeWaterFromRecord(indexWaterToDelete);
 
-        return new CommandResult("Water index : " + indexWaterToDelete + " liters of water has been deleted");
+        return new CommandResult(deletedWater + " liters of water has been deleted");
     }
 }

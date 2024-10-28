@@ -1,7 +1,7 @@
 package parser;
 
 import command.Command;
-import parser.command.CommandFactory;
+import parser.command.factory.CommandFactory;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;

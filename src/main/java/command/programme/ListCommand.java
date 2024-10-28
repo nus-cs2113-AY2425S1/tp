@@ -12,10 +12,10 @@ public class ListCommand extends ProgrammeCommand {
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Override
-    public CommandResult execute(ProgrammeList pList, History history){
-        assert pList != null : "Programme list must not be null";
+    public CommandResult execute(ProgrammeList programmes, History history){
+        assert programmes != null : "Programme list must not be null";
 
-        String result = String.format("Listing programmes: %n%s", pList);
+        String result = String.format("Listing programmes: %n%s", programmes);
 
         logger.log(Level.INFO, "ListCommand executed successfully.");
 

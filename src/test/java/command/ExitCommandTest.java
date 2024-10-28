@@ -11,11 +11,11 @@ public class ExitCommandTest {
 
     @Test
     public void testExecute_doesNotThrowException() {
-        ProgrammeList mockPList = mock(ProgrammeList.class);
+        ProgrammeList mockprogrammes = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);
 
         ExitCommand exitCommand = new ExitCommand();
 
-        assertDoesNotThrow(() -> exitCommand.execute(mockPList, mockHistory));
+        assertDoesNotThrow(() -> exitCommand.execute(mockprogrammes, mockHistory));
     }
 }

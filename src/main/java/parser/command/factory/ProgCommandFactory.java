@@ -1,11 +1,16 @@
-package parser.command;
+package parser.command.factory;
 
 import command.Command;
 import command.InvalidCommand;
 import command.programme.CreateCommand;
 import command.programme.ViewCommand;
+import command.programme.edit.EditCommand;
+import command.programme.edit.EditExerciseCommand;
+import command.programme.edit.CreateExerciseCommand;
+import command.programme.edit.DeleteExerciseCommand;
+import command.programme.edit.CreateDayCommand;
+import command.programme.edit.DeleteDayCommand;
 import command.programme.ListCommand;
-import command.programme.EditCommand;
 import command.programme.StartCommand;
 import command.programme.DeleteCommand;
 import command.programme.LogCommand;
@@ -57,67 +62,81 @@ public class ProgCommandFactory {
 
     private Command prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
+        FlagParser flagParser = new FlagParser(argumentString, "/n", "/r","/s","/w","/e","/c");
 
-        String[] args = argumentString.split("/(?![nrswe])");
-        EditCommand editCommand = new EditCommand();
-
-        int progIndex = -1;
-        int dayIndex = -1;
-        int exerciseIndex;
-
-        for (String arg : args) {
-            if (arg.trim().isEmpty()) {
-                continue;
-            }
-
-            String[] argParts = arg.trim().split(" ", 2);
-            String flag = argParts[0].trim();
-            String value = argParts.length > 1 ? argParts[1].trim() : "";
-
-            logger.log(Level.INFO, "Processing flag: {0} with value: {1}", new Object[]{flag, value});
-
-            switch (flag) {
-            case "p":
-                progIndex = parseIndex(value);
-                break;
-
-            case "d": // Day index
-                dayIndex = parseIndex(value);
-                break;
-
-            case "x": // Remove exercise at index
-                exerciseIndex = parseIndex(value);
-                editCommand.addDeleteExercise(progIndex, dayIndex, exerciseIndex);
-                break;
-
-            case "xd":
-                editCommand.addDeleteDay(progIndex, parseIndex(value));
-                break;
-
-            case "u": // Update exercise (parse the value string to create an Exercise)
-                String[] updateParts = value.split(" ", 2);
-                exerciseIndex = parseIndex(updateParts[0]);
-                Exercise updated = parseExercise(updateParts[1]);
-                editCommand.addEditExercise(progIndex, dayIndex, exerciseIndex, updated);
-                break;
-
-            case "a": // Add new exercise (parse the value string to create an Exercise)
-                Exercise created = parseExercise(value);
-                editCommand.addCreateExercise(progIndex, dayIndex, created);
-                break;
-
-            case "ad":
-                Day day = parseDay(value);
-                editCommand.addCreateDay(progIndex, day);
-                break;
-
-            default:
-                throw new IllegalArgumentException("Unknown flag: " + flag);
-            }
+        if (flagParser.hasFlag("/u")) {
+            return prepareEditExerciseCommand(flagParser);
         }
-        return editCommand;
+
+        if (flagParser.hasFlag("/a")) {
+            return prepareCreateExerciseCommand(flagParser);
+        }
+
+        if (flagParser.hasFlag("/x")) {
+            return prepareDeleteExerciseCommand(flagParser);
+        }
+
+        if (flagParser.hasFlag("/ad")) {
+            return prepareCreateDayCommand(flagParser);
+        }
+
+        if (flagParser.hasFlag("/xd")) {
+            return prepareDeleteDayCommand(flagParser);
+        }
+
+        return new InvalidCommand();
     }
 
+    private EditExerciseCommand prepareEditExerciseCommand(FlagParser flagParser) {
+        flagParser.validateRequiredFlags("/d");
+        String editString = flagParser.getStringByFlag("/u");
+
+        String[] editParts = splitArguments(editString);
+        int exerciseIndex = parseIndex(editParts[0]);
+        String exerciseString = editParts[1];
+
+        return new EditExerciseCommand(
+            flagParser.getIndexByFlag("/p"),
+            flagParser.getIndexByFlag("/d"),
+            exerciseIndex,
+            parseExercise(exerciseString)
+        );
+    }
+
+    private CreateExerciseCommand prepareCreateExerciseCommand(FlagParser flagParser) {
+        flagParser.validateRequiredFlags("/d");
+        String exerciseString = flagParser.getStringByFlag("/a");
+        return new CreateExerciseCommand(
+            flagParser.getIndexByFlag("/p"),
+            flagParser.getIndexByFlag("/d"),
+            parseExercise(exerciseString)
+        );
+    }
+
+    private DeleteExerciseCommand prepareDeleteExerciseCommand(FlagParser flagParser) {
+        flagParser.validateRequiredFlags("/d", "/x");
+        return new DeleteExerciseCommand(
+                flagParser.getIndexByFlag("/p"),
+                flagParser.getIndexByFlag("/d"),
+                flagParser.getIndexByFlag("/x")
+        );
+    }
+
+    private CreateDayCommand prepareCreateDayCommand(FlagParser flagParser) {
+        String dayString = flagParser.getStringByFlag("/ad");
+        return new CreateDayCommand(
+                flagParser.getIndexByFlag("/p"),
+                parseDay(dayString)
+        );
+    }
+
+    private DeleteDayCommand prepareDeleteDayCommand(FlagParser flagParser) {
+        flagParser.validateRequiredFlags("/xd");
+        return new DeleteDayCommand(
+                flagParser.getIndexByFlag("/p"),
+                flagParser.getIndexByFlag("/xd")
+        );
+    }
     private Command prepareCreateCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -210,11 +229,12 @@ public class ProgCommandFactory {
         int sets = flagParser.getIntegerByFlag("/s");
         int reps = flagParser.getIntegerByFlag("/r");
         int weight = flagParser.getIntegerByFlag("/w");
+        int calories = flagParser.getIntegerByFlag("/c");
 
         logger.log(Level.INFO, "Parsed exercise successfully with name: {0}, set: {1}, rep: {2}" +
                 " weight: {3}", new Object[]{name, sets, reps, weight});
 
-        return new Exercise(sets, reps, weight, name);
+        return new Exercise(sets, reps, weight, calories, name);
     }
 }
 

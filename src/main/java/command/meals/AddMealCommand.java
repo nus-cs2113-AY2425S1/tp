@@ -1,7 +1,7 @@
 package command.meals;
 
 import command.CommandResult;
-import dailyrecord.DailyRecord;
+import history.DailyRecord;
 import history.History;
 import meal.Meal;
 import java.time.LocalDate;
@@ -18,7 +18,6 @@ public class AddMealCommand extends MealCommand {
         super(date);
 
         assert meal != null : "Meal cannot be null";
-        assert date != null : "Date cannot be null";
 
         this.mealToAdd = meal;
 

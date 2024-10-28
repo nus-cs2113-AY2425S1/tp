@@ -12,11 +12,11 @@ public class InvalidCommandTest {
 
     @Test
     public void testExecute_showsInvalidCommandMessage() {
-        ProgrammeList mockPList = mock(ProgrammeList.class);
+        ProgrammeList mockprogrammes = mock(ProgrammeList.class);
         History mockHistory = mock(History.class);
 
         InvalidCommand invalidCommand = new InvalidCommand();
-        CommandResult result = invalidCommand.execute(mockPList, mockHistory);
+        CommandResult result = invalidCommand.execute(mockprogrammes, mockHistory);
         assertNotNull(result);
     }
 }

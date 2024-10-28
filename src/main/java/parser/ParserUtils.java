@@ -4,8 +4,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import static common.Utils.DATE_FORMAT;
+import static common.Utils.NULL_INTEGER;
+import static common.Utils.NULL_FLOAT;
+
+
 /*
-    PaserUtils is a utility class containing common methods used across all parsing functions
+    ParserUtils is a utility class containing common methods used across all parsing functions
  */
 
 public class ParserUtils {
@@ -18,29 +23,38 @@ public class ParserUtils {
         return new String[]{command, args};
     }
 
-    public static int parseInteger(String intString){
-        assert intString != null : "intString must not be null";
+    private static String trimInput(String argumentString) {
+        assert argumentString != null : "Argument string must not be null";
+        String trimmedString = argumentString.trim();
 
-        intString = intString.trim();
-
-        if (intString.isEmpty()){
+        if (trimmedString.isEmpty()){
             throw new IllegalArgumentException("intString is empty.");
         }
+
+        return trimmedString;
+    }
+
+    public static int parseInteger(String intString){
+        if (intString == null) {
+            return NULL_INTEGER;
+        }
+
+        String trimmedIntString = trimInput(intString);
+
         try{
-            return Integer.parseInt(intString);
+            return Integer.parseInt(trimmedIntString);
         } catch (NumberFormatException e){
             throw new IllegalArgumentException("intString is not an integer.");
         }
     }
 
     public static float parseFloat(String floatString) {
-        assert floatString != null : "floatString must not be null";
-
-        String trimmedFloatString = floatString.trim();
-
-        if (trimmedFloatString.isEmpty()) {
-            throw new IllegalArgumentException("floatString is empty.");
+        if (floatString == null) {
+            return NULL_FLOAT;
         }
+
+        String trimmedFloatString = trimInput(floatString);
+
         try {
             return Float.parseFloat(trimmedFloatString);
         } catch (NumberFormatException e) {
@@ -49,6 +63,10 @@ public class ParserUtils {
     }
 
     public static int parseIndex(String indexString) {
+        if (indexString == null) {
+            return NULL_INTEGER;
+        }
+
         int index = parseInteger(indexString) - 1;
         if (index < 0){
             throw new IllegalArgumentException("index must not be negative.");
@@ -57,11 +75,15 @@ public class ParserUtils {
     }
 
     public static LocalDate parseDate(String dateString) {
-        assert dateString != null && !dateString.trim().isEmpty() : "Date string must not be null or empty";
+        if (dateString == null) {
+            return LocalDate.now();
+        }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String trimmedDateString = trimInput(dateString);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+
         try {
-            return LocalDate.parse(dateString, formatter);
+            return LocalDate.parse(trimmedDateString, formatter);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Invalid date format. Expected format: dd-MM-yyyy. " +
                     "Error: " + e.getParsedString(), e);

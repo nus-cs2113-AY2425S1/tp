@@ -1,13 +1,17 @@
-package parser.command;
+package parser.command.factory;
 
 import command.Command;
 import command.history.HistoryCommand;
 import command.history.ViewPersonalBestCommand;
 import command.history.ListPersonalBestsCommand;
 import command.history.WeeklySummaryCommand;
+import command.history.DeleteRecordCommand;
 import command.InvalidCommand;
 import parser.FlagParser;
 
+import java.time.LocalDate;
+
+import static parser.ParserUtils.parseDate;
 import static parser.ParserUtils.splitArguments;
 
 public class HistoryCommandFactory {
@@ -27,6 +31,7 @@ public class HistoryCommandFactory {
         case ListPersonalBestsCommand.COMMAND_WORD -> prepareListPersonalBestsCommand();
         case WeeklySummaryCommand.COMMAND_WORD -> prepareWeeklySummaryCommand();
         case ViewPersonalBestCommand.COMMAND_WORD -> prepareViewPersonalBestCommand(arguments);
+        case DeleteRecordCommand.COMMAND_WORD -> prepareDeleteRecordCommand(arguments);
         default -> new InvalidCommand();
         };
     }
@@ -46,6 +51,11 @@ public class HistoryCommandFactory {
 
     private Command prepareListPersonalBestsCommand() {
         return new ListPersonalBestsCommand();
+    }
+
+    private Command prepareDeleteRecordCommand(String argumentString) {
+        LocalDate toDelete = parseDate(argumentString);
+        return new DeleteRecordCommand(toDelete);
     }
 }
 
