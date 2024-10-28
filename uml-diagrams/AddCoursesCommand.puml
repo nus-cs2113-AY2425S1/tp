@@ -24,25 +24,11 @@ deactivate Command
 
 AddCoursesCommand -> AddCoursesCommand:trimString(userInput: String)
 activate AddCoursesCommand
-opt no input after 'add' command
-AddCoursesCommand -> AddCoursesCommand: throw IllegalArgumentException
-end
 return description: String
 
 AddCoursesCommand -> AddCoursesCommand:parseAddCommand(input: String)
 activate AddCoursesCommand
-opt !input.contains("/pu") || !input.contains("/coursepu")
-AddCoursesCommand -> AddCoursesCommand: throw IllegalArgumentException
-end
-opt input.contains("/pu/coursepu") || input.contains("/coursepu/pu")
-AddCoursesCommand -> AddCoursesCommand: throw IllegalArgumentException
-end
-opt inputSubstrings.length < 3
-AddCoursesCommand -> AddCoursesCommand: throw IllegalArgumentException
-end
 return descriptionSubstring: String[]
-
-
 
 AddCoursesCommand -> CourseValidator:isValidInput(nusCourseInput: String, pu: String, puCourseInput: String, jsonObject: JsonObject)
 activate CourseValidator
@@ -64,12 +50,6 @@ return courses: JsonArray
 CourseValidator -> CourseValidator: isValidCourseMapping
 activate CourseValidator
 
-opt nusCourseInput.isEmpty() || puCourseInput.isEmpty()
-    CourseValidator -> CourseValidator: throw new IllegalArgumentException()
-end
-opt courses == null || courses.isEmpty()
-    CourseValidator -> CourseValidator: throw new IllegalArgumentException()
-end
 
 loop for each course in courses JsonArray
 CourseValidator -> CourseValidator:getJsonObject(course)
@@ -83,6 +63,7 @@ end
   CourseValidator --> CourseValidator: displayAvailableMappings()
   CourseValidator --> AddCoursesCommand: false: Boolean
   deactivate
+deactivate
 
 alt isValidInput
 AddCoursesCommand -> Course: new Course(String puCourse, String nusCourse, String pu)
@@ -94,5 +75,6 @@ AddCoursesCommand -> AddCoursesCommand: printAddMessage(courseToStore)
 else
 AddCoursesCommand -> AddCoursesCommand: print
 end
+deactivate
 
 @enduml
