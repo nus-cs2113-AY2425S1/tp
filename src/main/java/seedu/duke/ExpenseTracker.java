@@ -102,9 +102,9 @@ public class ExpenseTracker {
      * Then, it creates a new expense with the given name, amount, and category and adds it to the list of expenses.
      * A message is displayed to confirm the addition of the expense and, if applicable, the new category.
      *
-     * @param name:         The name of the expense item.
-     * @param amount:       The amount of the expense.
-     * @param categoryName: The name of the category to which the expense belongs.
+     * @param name         The name of the expense item.
+     * @param amount       The amount of the expense.
+     * @param categoryName The name of the category to which the expense belongs.
      */
     public void addExpense(String name, double amount, String categoryName) {
         String formattedCategoryName = formatInput(categoryName.trim());

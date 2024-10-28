@@ -17,9 +17,9 @@ public class Expense {
     /**
      * Constructs an Expense object with the specified name, amount, and category.
      *
-     * @param name: The name of the expense item.
-     * @param name: The amount of the expense.
-     * @param category: The category associated with the expense.
+     * @param name The name of the expense item.
+     * @param name The amount of the expense.
+     * @param category The category associated with the expense.
      */
     public Expense(String name, double amount, Category category) {
         this.name = name;
@@ -69,7 +69,7 @@ public class Expense {
     /**
      * Returns a string representation of the expense, including name, formatted amount, and category.
      *
-     * @returN a string describing the expense.
+     * @return a string describing the expense.
      */
     @Override
     public String toString() {
