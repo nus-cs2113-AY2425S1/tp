@@ -73,7 +73,7 @@ class ExpenseListTest {
             assertEquals(0.01F, expense.getPrice());
             assertEquals("desc", expense.getDescription());
             assertEquals("cat", expense.getCategory());
-            assertEquals("25-10-2024", expense.getDateAdded());
+            assertEquals("25-10-2024", DateUtils.dateFormatToString(expense.getDateAdded()));
         } catch (WheresMyMoneyException e) {
             fail("Exception thrown when all expense parameters are valid.");
         }
@@ -87,7 +87,7 @@ class ExpenseListTest {
             assertEquals(0.01F, expense.getPrice());
             assertEquals("desc", expense.getDescription());
             assertEquals("cat", expense.getCategory());
-            assertEquals(DateUtils.dateFormatToString(DateUtils.getCurrentDate()), expense.getDateAdded());
+            assertEquals(DateUtils.getCurrentDate(), expense.getDateAdded());
         } catch (WheresMyMoneyException e) {
             fail("Exception thrown when all expense parameters are valid.");
         }
@@ -115,7 +115,7 @@ class ExpenseListTest {
             assertEquals(0.02F, expense.getPrice());
             assertEquals("desc2", expense.getDescription());
             assertEquals("cat2", expense.getCategory());
-            assertEquals("26-10-2024", expense.getDateAdded());
+            assertEquals("26-10-2024", DateUtils.dateFormatToString(expense.getDateAdded()));
         } catch (WheresMyMoneyException e) {
             fail("Exception thrown when edit parameters are valid.");
         }
@@ -181,6 +181,10 @@ class ExpenseListTest {
             fail("Exception thrown when Expense parameters and list index are valid.");
         }
     }
+
+    /**
+     * Tests the invalid deletion of an expense from an empty expense list.
+     */
     @Test
     public void deleteExpense_emptyList_throwsWheresMyMoneyException() {
         ExpenseList expenseList = new ExpenseList();
