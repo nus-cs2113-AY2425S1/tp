@@ -43,4 +43,5 @@ public class AddPatientCommand extends HospitalCommand {
 
         return new CommandResult(resultMessage);
     }
+
 }

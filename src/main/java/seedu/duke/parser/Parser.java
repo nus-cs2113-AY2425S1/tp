@@ -9,6 +9,10 @@ import seedu.duke.data.state.State;
 public class Parser {
     private static final Logger LOGGER = Logger.getLogger("Parser");
 
+    static {
+        LOGGER.setLevel(Level.SEVERE);
+    }
+
     public Command parseCommand(String line, State state){
         if (line == null || line.isEmpty()){
             // System.out.println("Command is empty");
