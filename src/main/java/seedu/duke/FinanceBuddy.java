@@ -6,11 +6,22 @@ import seedu.duke.logic.Logic;
 import seedu.duke.parser.InputParser;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.exception.FinanceBuddyException;
-import seedu.duke.command.ExitCommand;
 
 import java.util.HashMap;
 
+/**
+ * Main class for the FinanceBuddy application.
+ * Initializes the user interface, storage, logic, and financial list,
+ * then starts the main command processing loop.
+ */
 public class FinanceBuddy {
+
+    /**
+     * The main entry point for the FinanceBuddy application.
+     * Initializes components, loads saved data, and enters a loop to process user commands.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         AppUi ui = new AppUi();
         Storage storage = new Storage();
