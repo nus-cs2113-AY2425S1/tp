@@ -30,7 +30,9 @@ public class SortCommand extends Command {
             break;
         default:
             // Handle invalid sorting options
-            uiCommand.showOutput("Invalid field");  // Show error message for invalid option
+            uiCommand.clearInvalidFlags();
+            uiCommand.addInvalidFlag(sortOption);
+            uiCommand.printInvalidFlags();
             System.out.println(uiCommand.getSortUsageMessage());  // Show correct usage message
             internships.listAllInternships();  // Default to listing by ID
         }
