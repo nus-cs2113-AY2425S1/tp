@@ -72,11 +72,11 @@ public class DailyRecord {
         logger.info("meal added: " + meal);
     }
 
-    public void deleteMealFromRecord(int index) {
+    public Meal deleteMealFromRecord(int index) {
         assert index >= 0;
 
-        mealList.deleteMeal(index);
         logger.info("meal deleted, index: " + index);
+        return mealList.deleteMeal(index);
     }
 
     public void addWaterToRecord(float toAddWater) {
@@ -86,8 +86,8 @@ public class DailyRecord {
         logger.info("Water added: " + toAddWater);
     }
 
-    public void removeWaterFromRecord(int index) {
-        water.deleteWater(index);
+    public float removeWaterFromRecord(int index) {
+        return water.deleteWater(index);
     }
 
     private int getCaloriesFromMeal() {
