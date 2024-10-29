@@ -66,7 +66,7 @@ The Ingredientlist class represents a list of any non-negative integer number of
 This class handles the addition, deletion and editing of ingredients.
 Shown below is a class diagram detailing how it interacts with the Ingredient class.
 
-![ingredientClasses.png](img/ClassDiagrams/img.png)
+![ingredientClasses.png](img/ClassDiagrams/ingredientsClassDiagram.png)
 
 
 ### Command Classes
