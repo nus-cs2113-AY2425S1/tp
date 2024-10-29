@@ -2,7 +2,8 @@ package command.programme.edit;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class EditCommandTest {
 
@@ -22,7 +23,9 @@ class EditCommandTest {
     // Edge case for constructor with exerciseId: Negative exercise ID
     @Test
     void constructor_withNegativeExerciseId_throwsAssertionError() {
-        assertThrows(AssertionError.class, () -> new TestEditCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID));
+        assertThrows(AssertionError.class, () ->
+                new TestEditCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID)
+        );
     }
 
     // Happy path for constructor without exerciseId

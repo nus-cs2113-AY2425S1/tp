@@ -9,7 +9,9 @@ import programme.ProgrammeList;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DeleteExerciseCommandTest {
 
@@ -53,25 +55,33 @@ class DeleteExerciseCommandTest {
     // Edge case for constructor: Negative programme ID
     @Test
     void constructor_throwsAssertionErrorIfProgrammeIdIsNegative() {
-        assertThrows(AssertionError.class, () -> new DeleteExerciseCommand(INVALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID));
+        assertThrows(AssertionError.class, () ->
+                new DeleteExerciseCommand(INVALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID)
+        );
     }
 
     // Edge case for constructor: Negative day ID
     @Test
     void constructor_throwsAssertionErrorIfDayIdIsNegative() {
-        assertThrows(AssertionError.class, () -> new DeleteExerciseCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID, VALID_EXERCISE_ID));
+        assertThrows(AssertionError.class, () ->
+                new DeleteExerciseCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID, VALID_EXERCISE_ID)
+        );
     }
 
     // Edge case for constructor: Negative exercise ID
     @Test
     void constructor_throwsAssertionErrorIfExerciseIdIsNegative() {
-        assertThrows(AssertionError.class, () -> new DeleteExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID));
+        assertThrows(AssertionError.class, () ->
+                new DeleteExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID)
+        );
     }
 
     // Test for execute method: successfully deletes exercise and returns success message
     @Test
     void execute_deletesExerciseFromDay_returnsSuccessMessage() {
-        String expectedMessage = String.format(DeleteExerciseCommand.SUCCESS_MESSAGE_FORMAT, VALID_EXERCISE_ID, exercise);
+        String expectedMessage = String.format(
+                DeleteExerciseCommand.SUCCESS_MESSAGE_FORMAT, VALID_EXERCISE_ID, exercise
+        );
         CommandResult expectedResult = new CommandResult(expectedMessage);
 
         CommandResult actualResult = command.execute(programmeList);
@@ -87,21 +97,27 @@ class DeleteExerciseCommandTest {
     // Edge case for execute: Nonexistent programme ID
     @Test
     void execute_throwsIndexOutOfBoundsIfProgrammeIdDoesNotExist() {
-        DeleteExerciseCommand invalidCommand = new DeleteExerciseCommand(OUT_OF_RANGE_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID);
+        DeleteExerciseCommand invalidCommand = new DeleteExerciseCommand(
+                OUT_OF_RANGE_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID
+        );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
     }
 
     // Edge case for execute: Nonexistent day ID within existing programme
     @Test
     void execute_throwsIndexOutOfBoundsIfDayIdDoesNotExist() {
-        DeleteExerciseCommand invalidCommand = new DeleteExerciseCommand(VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID, VALID_EXERCISE_ID);
+        DeleteExerciseCommand invalidCommand = new DeleteExerciseCommand(
+                VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID, VALID_EXERCISE_ID
+        );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
     }
 
     // Edge case for execute: Nonexistent exercise ID within existing day
     @Test
     void execute_handlesNonexistentExerciseIdGracefully() {
-        DeleteExerciseCommand invalidCommand = new DeleteExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, OUT_OF_RANGE_EXERCISE_ID);
+        DeleteExerciseCommand invalidCommand = new DeleteExerciseCommand(
+                VALID_PROGRAMME_ID, VALID_DAY_ID, OUT_OF_RANGE_EXERCISE_ID
+        );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
     }
 }
