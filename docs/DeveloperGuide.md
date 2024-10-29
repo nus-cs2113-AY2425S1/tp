@@ -10,6 +10,11 @@
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ### Architecture
+![ArchitectureDiagram.png](img/ClassDiagrams/ArchitectureDiagram.png)
+
+The **_Architecture Diagram_** given above explains the high-level design of the App.
+
+Given below is a quick overview of main components and how they interact with each other.
 
 #### Main components of the architecture
 `YMFC` (consisting of `YMFC` class) is in charge of app launch and shut down. 
@@ -75,11 +80,14 @@ and recommend random recipes that closely match the criteria.
 
 ## User Stories
 
-| Version | As a ...      | I want to ...                       | So that I can ...                                          |
-|---------|---------------|-------------------------------------|------------------------------------------------------------|
-| v1.0    | new user      | see list of available commands      | refer to them when I forget how to use the application     |
-| v1.0    | constant user | see list of all my added recipes    | glance at all my recipes in one go                         |
-| v2.0    | user          | sort my recipes by preparation time | find a recipe that I can cook within my current time limit |
+| Version | As a ...      | I want to ...                                    | So that I can ...                                         |
+|---------|---------------|--------------------------------------------------|-----------------------------------------------------------|
+| v1.0    | new user      | see list of available commands                   | refer to them when I forget how to use the application    |
+| v1.0    | constant user | see list of all my added recipes                 | glance at all my recipes in one go                        |
+| v1.0    | picky user    | remove recipes from database                     | remove recipes that do not fit my changing tastebuds      |
+| v1.0    | busy user     | store information about my recipes in a database | have a tool to organise my recipes                        |
+| v2.0    | user          | sort my recipes by preparation time              | find a recipe that I can cook within my current time limit |
+
 
 
 ## Non-Functional Requirements
