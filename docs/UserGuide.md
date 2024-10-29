@@ -113,31 +113,15 @@ i have reeeemoved the taskkk:
 YAYYYY!!! Only 2 task(s) left in ur list!
 ```
 
-### 8. Finding a Task: `find`
-**Purpose**: Find a task from your list based on a keyword that matches the task description.
 
-**Format**: `find [keyword]`
 
-**Example**: `find homework`
+| Command  | Format                                                       | Example        |
+|----------|--------------------------------------------------------------|----------------|
+| **help** | `help`                                                       | `help`         |
+| **set**  | `set GENDER AGE`                                             | `set male 12`  |
+| **add**  | `add SESSION_NAME`                                           | `add session1` |
+| **list** | `list`                                                       | `list`         |
+| **view** | `view SESSION_INDEX`                                         | `view 1`       |
+| **edit** | `edit SESSION_INDEX EXERCISE_INDEX REPETITION/TIME DURATION` | `edit 1 2 45`  |
+| **exit** | `exit`                                                       | `exit`         |
 
-**Expected Output**:
-```
-here's all ur matches:
-1.[D][ ] homework (by: Oct 2 2025)
-2.[E][ ] do homework (from: Oct 2 2025 to: Oct 3 2025)
-```
-
-### 9. Exiting the Program: `bye`
-
-**Purpose**: Exit the chatbot.
-
-**Format**: `bye`
-
-**Expected Output**:
-```
-Bye. Hope to see you again soon!
-```
-
-### Saving the Data
-Jeff automatically saves your tasks to a text file located in the `data` folder.
-> **Note**: Do not manually edit the text file, as incorrect formatting may cause data loss.
