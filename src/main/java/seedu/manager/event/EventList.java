@@ -1,5 +1,6 @@
 package seedu.manager.event;
 
+import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.DuplicateDataException;
 
 import java.time.LocalDateTime;
@@ -58,13 +59,15 @@ public class EventList  {
      * @param eventName the name of the event to be added.
      * @param time      the time of the event.
      * @param venue     the venue where the event will take place.
+     * @param priority the priority level of the event
      * @throws DuplicateDataException if an event with eventName is present in the event list.
      */
-    public void addEvent(String eventName, LocalDateTime time, String venue) throws DuplicateDataException {
+    public void addEvent(String eventName, LocalDateTime time,
+                         String venue, Priority priority) throws DuplicateDataException{
         if (getEventByName(eventName).isPresent()) {
             throw new DuplicateDataException(DUPLICATE_EVENT_MESSAGE);
         }
-        Event newEvent = new Event(eventName, time, venue);
+        Event newEvent = new Event(eventName, time, venue, priority);
         eventList.add(newEvent);
     }
 
@@ -167,5 +170,12 @@ public class EventList  {
      */
     public void sortByTime() {
         eventList.sort(Comparator.comparing(Event::getEventTime));
+    }
+
+    /**
+     *  Sort the event list by priority level from most to least important.
+     */
+    public void sortByPriority() {
+        eventList.sort(Comparator.comparing(Event::getEventPriority));
     }
 }
