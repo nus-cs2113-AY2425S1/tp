@@ -27,7 +27,7 @@ The high-level overview of the program is shown in the diagram below as well.
 
 The Ui component, `AppUi` manages user interactions by displaying messages and receiving input. 
 
-The Parser component, comprising `DateParser` and `InputParser`, handles input parsing to interpret commands and dates entered bythe user accurately
+The Parser component, comprising `DateParser` and `InputParser`, handles input parsing to interpret commands and dates entered by the user accurately
 
 <ins>Implementation</ins>
 
@@ -132,11 +132,11 @@ The Logic constructor initializes `FinancialList`, `AppUi`, and `Storage` compon
 <ins>Methods</ins>
 
 - **executeCommand(String userInput)**: Parses and executes the command from `userInput`.
-- **addExpense(double amount, String description, LocalDate date)**: Adds a new `Expense` to `FinancialList`.
-- **addIncome(double amount, String description, LocalDate date)**: Adds a new `Income` to `FinancialList`.
+- **addExpense(double amount, String description, LocalDate date)**: Adds a new `Expense` to `FinancialList` specified or default category.
+- **addIncome(double amount, String description, LocalDate date)**: Adds a new `Income` to `FinancialList` specified or default category.
 - **deleteEntry(int index)**: Removes an entry at a given index.
-- **editEntry(int index, double amount, String description)**: Updates an entry's amount and description.
-- **seeAllEntries()**: Displays all entries in `FinancialList`
+- **editEntry(int index, double amount, String description)**: Updates an entry's amount, description, date and category.
+- **seeAllEntries()**: Displays all entries in `FinancialList`.
 
 <ins>Usage Example</ins>
 
@@ -162,7 +162,7 @@ logic.seeAllEntries();
 Managing financial entries through two main components:
 
 - **FinancialList**: A centralized data structure that stores and manages entries. It provides CRUD (Create, Read, Update, Delete) operations to handle financial records, such as adding new entries and modifying or retrieving existing ones.
-- **FinancialEntry**: An abstract base class representing a generic financial record. Subclasses include `Income` and `Expense`, which inherit shared attributes like `amount`, `description`, and `date`. Each subclass has specific characteristics that distinguish income from expenses.
+- **FinancialEntry**: An abstract base class representing a generic financial record. Subclasses include `Income` and `Expense`, which inherit shared attributes like `amount`, `description`, and `date`. Each with specific characteristics and categories that distinguish income from expenses.
 
 <ins>Implementation</ins>
 - **Class Diagram**: Displays the relationship between `FinancialList`, `FinancialEntry`, `Income`, and `Expense`. It highlights `FinancialList` as the main container managing `FinancialEntry` objects.
@@ -198,13 +198,16 @@ The `FinancialList` constructor initializes an empty list of entries to support 
 - **editEntry(int index, double amount, String description)**: Updates the `amount` and `description` of a specified entry.
 - **getEntry(int index)**: Retrieves an entry by index.
 - **getEntryCount()**: Returns the total count of entries.
+- **getTotalExpenseByCategory()**: Calculates the total amount per expense category.
+- **getHighestExpenseCategory()**: Retrieves the highest expense category and amount.
+
 
 <ins>Usage Example</ins>
 
 ```
 FinancialList financialList = new FinancialList();
-Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27));
-Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28));
+Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27), Income.Category.SALARY);
+Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28), Expense.Category.FOOD);
 
 financialList.addEntry(income);
 financialList.addEntry(expense);
@@ -240,43 +243,45 @@ The class diagram above shows `FinancialEntry` as the base class with `Income` a
   - `amount`: `double` — Represents the monetary value of the entry.
   - `date`: `LocalDate` — The date associated with the transaction.
   - `description`: `String` — A description identifying the entry.
+  - `category`: An `Enum` - A value representing either Income.Category or Expense.Category, specifying the type of each entry.
 
 <ins>Class Structure</ins>
 
-The `FinancialEntry` constructor initializes `amount`, `description`, and `date`.
+The `FinancialEntry` constructor initializes `amount`, `description`, `date` and the subclasses setting their specific category. .
 
 - **Key Arguments**:
   - `double amount`: Monetary value for the entry.
   - `String description`: Description or label for the entry.
   - `LocalDate date`: Date of the entry.
+  - `Enum<?> category`: Represents the specific category for either income or expense.
+
 
 <ins>Methods</ins>
 
 - **Core Methods** (inherited by both `Income` and `Expense`):
-  - `getAmount()`, `getDescription()`, `getDate()`: Accessor methods for each attribute.
-  - `setAmount(double newAmount)`, `setDescription(String newDescription)`, `setDate(LocalDate newDate)`: Mutator methods for updating values.
+  - `getAmount()`, `getDescription()`, `getDate()`, `getCategory()`: Accessor methods for each attribute.
+  - `setAmount(double newAmount)`, `setDescription(String newDescription)`, `setDate(LocalDate newDate)`, `setCategory(Enum<?> category)`: Mutator methods for updating values.
 
 - **Custom Methods for Income and Expense**:
   - **toString()**:
-    - `Income`: Returns formatted string as `[Income] - description $amount (on date)`.
-    - `Expense`: Returns formatted string as `[Expense] - description $amount (on date)`.
+    - `Income`: Returns formatted string as `[Income] - description $amount (on date) [category]`.
+    - `Expense`: Returns formatted string as `[Expense] - description $amount (on date) [category]`.
   - **toStorageString()**:
-    - `Income`: Formats as `"I | amount | description | date"` for storage.
-    - `Expense`: Formats as `"E | amount | description | date"` for storage.
+    - `Income`: Formats as `"I | amount | description | date | category"` for storage.
+    - `Expense`: Formats as `"E | amount | description | date" | category` for storage.
 
 <ins>Usage Example</ins>
 
 The following code segment demonstrates the creation of `Income` and `Expense` entries:
 ```
-Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27));
-Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28));
+Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27), Income.Category.SALARY);
+Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28),  Expense.Category.FOOD);
 
 System.out.println(income.toString());
 System.out.println(expense.toString());
 ```
 
 <ins>Design Considerations</ins>
-- **Future Extension**: Additional fields could be added to `Income` and `Expense` for more specific details, such as a `source` for `Income` or a `category` for `Expense`.
 - **Abstract Base Class**: The design decision to make `FinancialEntry` abstract enables extensibility, allowing for new types of financial records without modifying `FinancialList` or existing subclasses.
 
 ---
@@ -318,6 +323,7 @@ The `AddEntryCommand` class has the following attributes:
 - *amount*: An object representing the amount of money in the transaction.
 - *description*: An object representing the description of the transaction.
 - *date*: An object representing the date on which the transaction occurred.
+- *category*: Specifies the category of the entry for income or expense.
 
 The `AddExpenseCommand` and `AddIncomeCommand` classes inherit all attributes
 from the `AddEntryCommand` class and have no additional attributes.
@@ -328,8 +334,8 @@ The `AddExpenseCommand` and `AddIncomeCommand` classes have the following method
 <ins>Implementation</ins>
 
 The user invokes the command to add entries by entering the following commands:
-- `expense [DESCRIPTION] /a AMOUNT [/d DATE]` for adding an expense
-- `income [DESCRIPTION] /a AMOUNT [/d DATE]` for adding an income
+- `expense [DESCRIPTION] /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an expense
+- `income [DESCRIPTION] /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an income
 
 This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
 following arguments:
@@ -337,6 +343,35 @@ following arguments:
 - `/a`: Represents the amount of money in the transaction. This is a compulsory argument.
 - `/d`: Represents the date on which the transaction occurred. If this argument is not used,
   the current date is used. An exception occurs if this argument is used but the value is left blank.
+- `/c`: Category of the transaction, defaulting to UNCATEGORIZED if unspecified or invalid.
+
+### Deleting Entries
+
+<ins>Overview</ins>
+
+The feature to delete entries is facilitated by the `DeleteCommand`. Both `Income` and `Expense`
+entries can be deleted using this single command.
+
+<ins>Class Structure</ins>
+
+The `DeleteCommand` class has the following attribute:
+- *index*: An integer representing the position of the entry in the financial list that is to be deleted.
+
+The `DeleteCommand` class has the following method:
+- *execute*: Removes the specified entry from the `FinancialList`.
+
+<ins>Implementation</ins>
+
+The user invokes the command to delete entries by entering the following command:
+`delete INDEX`.
+
+This command is parsed by the `InputParser`, returning a HashMap `commandArguments` containing the
+following argument:
+- `argument`: Represents the index of the entry in the financial list to be deleted.
+  This is a compulsory argument.
+
+When executed, the `DeleteCommand` removes the entry at the specified index from the `FinancialList`,
+updating the list and storage.
 
 ### Editing Entries
 
@@ -352,6 +387,7 @@ The `EditEntryCommand` class has the following attributes:
 - *amount*: An object representing the amount of money used in the transaction.
 - *description*: An object representing the description of the transaction.
 - *date*: An object representing the date on which the transaction occurred.
+- *category*: New category of the transaction.
 
 The `EditEntryCommand` class has the following method:
 - *execute*
@@ -359,7 +395,7 @@ The `EditEntryCommand` class has the following method:
 <ins>Implementation</ins>
 
 The user invokes the command to add entries by entering the following command:
-`edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE]`.
+`edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`.
 
 This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
 following arguments:
@@ -368,6 +404,7 @@ following arguments:
 - `/des`: Represents the description of the transaction. This is an optional argument.
 - `/a`: Represents the amount of money used in the transaction. This is an optional argument.
 - `/d`: Represents the date on which the transaction occurred. This is an optional argument.
+- `/c`: Represents the category used in the transaction. If an invalid category is provided, the entry will default to UNCATEGORIZED. This is an optional argument.
 
 ### Listing Entries
 <ins>Overview</ins>
@@ -394,7 +431,7 @@ expenses/income amount during that interval.
 - `getHighestCategoryInfo`: retrieves the category with the highest expenses/income within the stipulated date range
 and the amount of expense/income in that category.
 
-The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit all of the aforementioned methods, overriding
+The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit all the aforementioned methods, overriding
 the following methods:
 
 - `shouldBeIncluded` to further filter out incomes/expenses respectively
@@ -461,20 +498,24 @@ Logging is handled by the `Logger` class.
 <ins>Overview</ins>
 
 The `Storage` class has been implemented to store the `FinancialList` into a file. 
-Also it's responsible for restoring users' progress even if they have terminate the program using the saved file.
+Also, it's responsible for restoring users' progress even if they have terminated the program using the saved file.
 
 <ins>Implementation Details</ins>
 
 The function `updateStorage` should be called whenever the `FinancialList` in an `AppUi` object. 
-It will overide the `data/FinancialList.txt` file with the up-to-date `FinancialList` that has been converted to string.
+It will override the `data/FinancialList.txt` file with the up-to-date `FinancialList` that has been converted to string.
 Note: if the `data/FinancialList.txt` file doesn't exist, the program should generate one.
 
 The storage format of an `Expense` or `Income`, handled by `toStorageString()` method is different from the format generate by `toString()` method for CLS display.
 
 EX:
-For an Income with description "Lunch", amount "10.90" and date "2024/10/25":
-The `toString()` method will return as `[Income] - Lunch $ 10.90 (on 25/10/24)`
-And the `toStorageString()` method will return as `I | 10.90 | Lunch | 25/10/24`
+For an `Income` entry with description "Lunch," amount "10.90," date "2024/10/25," and category `FOOD`:
+- The `toString()` method returns `[Income] - Lunch $10.90 (on 25/10/24) [FOOD]`
+- The `toStorageString()` method returns `I | 10.90 | Lunch | 25/10/24 | FOOD`
+
+For an `Expense` entry with description "Transport," amount "5.00," date "2024/10/25," and category `TRANSPORT`:
+- The `toString()` method returns `[Expense] - Transport $5.00 (on 25/10/24) [TRANSPORT]`
+- The `toStorageString()` method returns `E | 5.00 | Transport | 25/10/24 | TRANSPORT`
 
 ## Product scope
 
