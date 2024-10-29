@@ -106,12 +106,15 @@ public class FinancialList {
      * @param index The index of the entry to be edited.
      * @param amount The new amount to be set for the entry.
      * @param description The new description to be set for the entry.
+     * @param date The new date to be set for the entry.
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= entries.size()).
      */
-    public void editEntry(int index, double amount, String description) throws FinanceBuddyException {
+    public void editEntry(int index, double amount, String description, LocalDate date) throws FinanceBuddyException{
+
         FinancialEntry entry = entries.get(index);
         entry.setAmount(amount);
         entry.setDescription(description);
+        entry.setDate(date);
     }
 
     /**
