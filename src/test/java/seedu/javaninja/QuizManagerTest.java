@@ -55,11 +55,11 @@ class QuizManagerTest {
         quizManager.addTopic(topic);
 
         // Prepare simulated input for the quiz
-        ByteArrayInputStream input = new ByteArrayInputStream("b\n".getBytes());
+        ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nb\n".getBytes());
         Scanner scanner = new Scanner(input);
 
         // Start the quiz with the provided scanner
-        quizManager.startQuiz(topic);
+        quizManager.startQuiz(topic, scanner);
 
         String expectedResult = "Score: 0%, Comment: Better luck next time!\n";
         assertEquals(expectedResult, quizManager.getPastResults());
@@ -82,7 +82,7 @@ class QuizManagerTest {
         Scanner scanner = new Scanner(input);
 
         // Start the quiz and save the results
-        quizManager.startQuiz(topic);
+        quizManager.startQuiz(topic, scanner);
 
         String savedResults = Files.readString(Path.of(resultsFilePath));
         String expectedSavedResults = "Score: 0%, Comment: Better luck next time!\n";
@@ -114,11 +114,11 @@ class QuizManagerTest {
         quizManager.addTopic(topic);
 
         // Prepare simulated input for the quiz (answering "false")
-        ByteArrayInputStream input = new ByteArrayInputStream("false\n".getBytes());
+        ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nfalse\n".getBytes());
         Scanner scanner = new Scanner(input);
 
         // Start the quiz and validate results
-        quizManager.startQuiz(topic);
+        quizManager.startQuiz(topic, scanner);
 
         String expectedResult = "Score: 100%, Comment: Excellent!\n";
         assertEquals(expectedResult, quizManager.getPastResults());
@@ -135,11 +135,11 @@ class QuizManagerTest {
         quizManager.addTopic(topic);
 
         // Prepare simulated input for the quiz (answering "yes", then "false" after invalid input)
-        ByteArrayInputStream input = new ByteArrayInputStream("yes\nfalse\n".getBytes());
+        ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nyes\nfalse\n".getBytes());
         Scanner scanner = new Scanner(input);
 
         try {
-            quizManager.startQuiz(topic);
+            quizManager.startQuiz(topic, scanner);
 
         } catch (IllegalArgumentException e) {
             assertEquals("Invalid input! Please enter 'true' or 'false'.", e.getMessage());
