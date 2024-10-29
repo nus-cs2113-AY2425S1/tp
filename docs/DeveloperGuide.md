@@ -66,7 +66,7 @@ The Ingredientlist class represents a list of any non-negative integer number of
 This class handles the addition, deletion and editing of ingredients.
 Shown below is a class diagram detailing how it interacts with the Ingredient class.
 
-![img.png](img/ClassDiagrams/ingredientsClassDiagram.png)
+![ingredientClasses.png](img/ClassDiagrams/img.png)
 
 
 ### Command Classes
@@ -88,8 +88,6 @@ The Storage class
 - reads the .txt save file to load in past saved recipes when app is launched
   - The following Sequence diagram shows how the loadRecipes() method in the Storage class
     loads in past saved recipes from the .txt file when the app is first launched
-
-![img.png](img/SequenceDiagrams/loadRecipesSequenceDiagram.png)
 
 
 The Storage class also saves and loads the list of user's available ingredients to another .txt save file

@@ -30,6 +30,6 @@ package "ymfc.list" {
     hide IngredientList circle
 }
 
-IngredientList "\n1  "  --downo " *  " Ingredient : contains >
+IngredientList "\n1  IngredientList"  o--down " * Ingredients " Ingredient : contains >
 
 @enduml
