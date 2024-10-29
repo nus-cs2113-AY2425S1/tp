@@ -80,6 +80,7 @@ public class Parser {
             Invalid command!
             Please enter your commands in the following format:
             copy FROM_EVENT > TO_EVENT
+            """;
     private static final String INVALID_PRIORITY_MESSAGE = """
             Invalid priority level status!
             Please use the following format for priority level:
