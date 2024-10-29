@@ -33,7 +33,7 @@ public class CategoryData {
         this.currExpenditure -= price;
     }
     public boolean isNearingLimit() {
-        return maxExpenditure - currExpenditure <= 10F; // dummy alert
+        return 0.8 * maxExpenditure <= currExpenditure; 
     }
     public boolean hasExceededLimit() {
         return currExpenditure > maxExpenditure;
