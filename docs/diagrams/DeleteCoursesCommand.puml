@@ -1,0 +1,44 @@
+@startuml
+hide footbox
+
+actor User
+participant ":DeleteCoursesCommand" as DeleteCoursesCommand
+participant ":Integer" as Integer
+participant ":Storage" as Storage
+participant ":UI" as UI
+
+User -> DeleteCoursesCommand: execute (userInput:String)
+activate DeleteCoursesCommand
+
+DeleteCoursesCommand -> DeleteCoursesCommand: parseDeleteCommand(userInput: String)
+activate DeleteCoursesCommand
+opt No NUS course code input
+    DeleteCoursesCommand->DeleteCoursesCommand: throw IllegalArgumentException()
+end
+opt More than one NUS course code input
+    DeleteCoursesCommand->DeleteCoursesCommand: throw IllegalArgumentException()
+end
+return descriptionSubstrings : String[]
+
+DeleteCoursesCommand -> DeleteCoursesCommand: deleteCourse(descriptionSubstrings : String[], Storage storage)
+activate DeleteCoursesCommand
+
+DeleteCoursesCommand -> Integer: parseInt(descriptionSubstrings[1] : String)
+activate Integer
+return listIndex : int
+
+DeleteCoursesCommand -> Storage: getCourse(listIndex : int)
+Storage --> DeleteCoursesCommand: courseToDelete : Course
+DeleteCoursesCommand -> Storage: deleteCourse(listIndex : int)
+
+DeleteCoursesCommand -> UI: printDeleteMessage(courseToDelete: Course)
+activate UI
+UI --> DeleteCoursesCommand: display deletion message
+deactivate UI
+
+DeleteCoursesCommand --> DeleteCoursesCommand
+deactivate DeleteCoursesCommand
+
+DeleteCoursesCommand --> User
+deactivate DeleteCoursesCommand
+@enduml
