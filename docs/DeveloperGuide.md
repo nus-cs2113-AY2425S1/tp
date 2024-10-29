@@ -65,7 +65,7 @@ The method stores the generated `outputMessage` in `this.message`, ready for dis
 The mark/unmark feature allows users to mark events as done or not done. The feature comprises `MarkEventCommand`, which 
 extends `Command`. This class performs one operation, which marks a specified event as done or not done.
 
-The above operation is implemented as `MarkEventCommand#execute()`. This then overrides the `Command#execute()` operation in `Command`,
+The above operation is implemented as `MarkEventCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
 #### Feature implementation
@@ -74,7 +74,7 @@ Given below is an example usage scenario for the mark/unmark mechanism, and how 
 
 1. The user adds an event `Event 1` to the event list. The mark status for `Event 1` is initially `false` or not done.
 
-2. The user enters the command `mark -e Event 1 -s done` to mark `Event 1` as done. The `MarkEventCommand` calls `MarkEventCommand#execute`,
+2. The user enters the command `mark -e Event 1 -s done` to mark `Event 1` as done. `MarkEventCommand` calls `MarkEventCommand#execute`,
 in which it gets the event `Event 1` from the event list, and sets its mark status to `true` or done.
 
 3. The user then enters the command `mark -e Event 1 -s undone` to mark `Event 1` as not done. The `MarkEventCommand` again calls `MarkEventCommand#execute`,
@@ -83,6 +83,14 @@ in which it gets the event `Event 1` from the event list, and sets its mark stat
 The interactions between components during the execution of the `mark` command are show in the **Sequence Diagram** below:
 
 <img src = "images/MarkEventSequenceDiagram.png">
+
+Upon execution of the command, the output message of `MarkEventCommand` is set to inform the user if the event has been marked done or not done,
+or if the operation was unsuccessful (e.g. if the event specified is not present in the event list).
+
+The user determines if an event is to be marked done or not done through the status parameter (indicated by the `-s` flag) in the `mark` command.
+The `Parser` then checks this parameter for two values, `done` or `undone`, and constructs the `MarkEventCommand` accordingly.
+If the parameter value is `done`, the `MarkEventCommand` will set the event as done, and will do otherwise if the parameter value is `undone`.
+Any other values entered for the status parameter will be treated as invalid.
 
 ## Product scope
 ### Target user profile
