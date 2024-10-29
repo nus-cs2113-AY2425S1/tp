@@ -55,7 +55,9 @@ public class SortCommand extends Command {
             break;
         default:
             // Handle invalid sorting options
-            uiCommand.showOutput("Error: Unknown or invalid sorting option: \"" + sortOption + "\".");
+            uiCommand.clearInvalidFlags();
+            uiCommand.addInvalidFlag(sortOption);
+            uiCommand.printInvalidFlags();
             System.out.println(uiCommand.getSortUsageMessage());  // Show correct usage message
             internships.listAllInternships();  // Default to listing by ID
         }
