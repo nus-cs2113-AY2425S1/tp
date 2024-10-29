@@ -9,6 +9,8 @@
 ![Add Expense Sequence Diagram](diagrams/AddExpense.png)
 #### add-category
 ![Add Category Sequence Diagram](diagrams/AddCategory.png)
+#### delete-expense
+![Delete Expense Sequence Diagram](diagrams/DeleteExpense.png)
 
 ### Category
 #### Purpose
