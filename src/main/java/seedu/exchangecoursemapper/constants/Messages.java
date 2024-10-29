@@ -27,7 +27,8 @@ public class Messages {
                     """;
 
     // CompareMappedCommand messages
-    public static final String INVALID_INPUT_FORMAT = "Please provide two universities in the format: compare pu/<University 1> pu/<University 2>";
+    public static final String INVALID_INPUT_FORMAT = "Please provide two universities in the format:  " +
+            "compare pu/<University 1> pu/<University 2>";
     public static final String COMPARISON_RESULTS_HEADER = "Comparison of Course Mappings between ";
     public static final String COMMON_MAPPINGS_HEADER = "Common Mappings:";
     public static final String NO_COMMON_MAPPINGS = "No common mappings found.";

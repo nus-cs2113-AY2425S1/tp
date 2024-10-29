@@ -1,7 +1,5 @@
 package seedu.exchangecoursemapper.constants;
 
-import seedu.exchangecoursemapper.command.CompareMappedCommand;
-
 public class Logs {
     public static final String EXECUTING_COMMAND  = "Executing command";
     public static final String SUCCESS_READ_JSON_FILE = "Successfully read JSON file";
