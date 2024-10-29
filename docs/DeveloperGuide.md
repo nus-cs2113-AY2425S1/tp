@@ -6,7 +6,7 @@
 
 ## Design & implementation
 
-# High Level Functionalities - Zackermax
+# High Level Functionalities
 ![HighLevel.png](HighLevel.png)
 
 **FitTrack** is the main class and entry point of the application.  

@@ -1,39 +1,43 @@
 @startuml
 ' Use right-angle straight lines for relationships
 skinparam linetype ortho
+hide circle
+skinparam classAttributeIconSize 0
+skinparam classBackgroundColor White
+skinparam classBorderColor Black
 
 ' Define classes
 class FitTrack {
-    +main(String[] args)
+    +main()
 }
 
 class Parser {
-    +parse(User user, String input, ArrayList<TrainingSession> sessionList)
-    +getExercise(String exerciseAcronym) : Exercise
+    +parse()
+    +getExercise()
 }
 
 class Ui {
     +printGreeting()
-    +printUser(User user)
+    +printUser()
     +printHelp()
-    +printAddedSession(ArrayList<TrainingSession> sessionList)
-    +printDeletedSession(ArrayList<TrainingSession> sessionList, TrainingSession sessionToDelete)
-    +printSessionList(ArrayList<TrainingSession> sessionList)
-    +printSessionView(ArrayList<TrainingSession> sessionList, int index)
+    +printAddedSession()
+    +printDeletedSession()
+    +printSessionList()
+    +printSessionView()
     +printUnrecognizedInputMessage()
 }
 
 class Storage {
     +initialiseSaveFile()
-    +loadSaveFile(ArrayList<TrainingSession> sessionList)
-    +updateSaveFile(ArrayList<TrainingSession> sessionList)
+    +loadSaveFile()
+    +updateSaveFile()
 }
 
 class TrainingSession {
     -LocalDateTime sessionDateTime
     -String description
     -User user
-    +editExercise(Exercise exercise, String data)
+    +editExercise()
     +printSessionDescription()
     +viewSession()
 }
@@ -41,13 +45,13 @@ class TrainingSession {
 class User {
     -String gender
     -int age
-    +setGender(String gender)
-    +setAge(int age)
-    +getGender() : String
-    +getAge() : int
+    +setGender()
+    +setAge()
+    +getGender()
+    +getAge()
 }
 
-enum Exercise {
+enum Exercise <<enumeration>> {
     PULL_UP
     SHUTTLE_RUN
     SIT_AND_REACH
@@ -61,24 +65,24 @@ class FitTrackLogger {
 }
 
 ' Define relationships with right-angle arrows
-FitTrack --> Parser : uses
-FitTrack --> Ui : uses
-FitTrack --> Storage : uses
-FitTrack --> User : manipulates
-FitTrack --> FitTrackLogger : uses
+FitTrack "1" --> "1" Parser : uses
+FitTrack "1" --> "1" Ui : uses
+FitTrack "1" --> "1" Storage : uses
+FitTrack "1" --> "1" User : manipulates
+FitTrack "1" --> "1" FitTrackLogger : uses
 
-Parser --> TrainingSession : manipulates
-Parser --> Exercise : gets
-Parser --> User : manipulates
-Parser --> Ui : uses
+Parser "1" --> "*" TrainingSession : manipulates
+Parser "1" --> Exercise : gets
+Parser "1" --> "1" User : manipulates
+Parser "1" --> "1" Ui : uses
 
-Ui -> User : displays info
-Ui ---> TrainingSession : displays sessions
+Ui "1" -> "1" User : displays
+Ui "1" --> "*" TrainingSession : displays
 
-Storage --> TrainingSession : manages
-Storage --> FitTrackLogger : uses
+Storage "1" --> "*" TrainingSession : manages
+Storage "1" --> "1" FitTrackLogger : uses
 
-TrainingSession --> User : belongs to
-TrainingSession --> Exercise : contains
+TrainingSession "*" ---> "1" User : belongs to
+TrainingSession "*" --> Exercise : contains
 
 @enduml
