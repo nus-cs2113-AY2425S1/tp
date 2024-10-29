@@ -18,6 +18,7 @@ import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
 import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_COURSE_CODE_HEADER;
+import static seedu.exchangecoursemapper.constants.Messages.DELETE_COURSE_PLAN_HEADER;
 
 public class UI {
     private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
@@ -99,6 +100,15 @@ public class UI {
                     + " " + puCourseName + System.lineSeparator());
         }
         System.out.println(LINE_SEPARATOR);
+    }
+
+    /**
+     * Prints delete course success statement.
+     *
+     * @param deleteCourse a Course object that contains details of the course to e deleted from the Personal Tracker
+     */
+    public void printDeleteMessage(Course deleteCourse) {
+        System.out.println(DELETE_COURSE_PLAN_HEADER + deleteCourse.formatOutput());
     }
 
     /**

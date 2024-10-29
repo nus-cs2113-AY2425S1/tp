@@ -13,6 +13,9 @@ public class Messages {
     public static final String PARTNER_UNIVERSITY_HEADER = "Partner University: ";
     public static final String PARTNER_UNIVERSITY_COURSE_CODE_HEADER = "Partner University Course Code: ";
 
+    /* Messages for DeleteCoursesCommand */
+    public static final String DELETE_COURSE_PLAN_HEADER = "You have deleted the course from your plan: ";
+
     public static final String LIST_RELEVANT_PU = "The relevant universities are (non-case sensitive):\n" +
             "1. Chulalongkorn University\n" +
             "2. The University of Melbourne\n" +
