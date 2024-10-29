@@ -2,8 +2,6 @@ package seedu.duke.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-
-import seedu.duke.data.hospital.Patient;
 import seedu.duke.data.task.TaskList;
 
 public class TaskCommandTest {
