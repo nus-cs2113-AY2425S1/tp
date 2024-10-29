@@ -58,6 +58,21 @@ Example:
 - `add-expense n/Coffee a/5.50 c/Food`
 - `add-expense n/Book a/12.00`
 
+### Delete an Expense: delete-expense
+This command removes an existing expense from the record.
+
+Format:
+`delete-expense e/INDEX`
+
+- `INDEX`
+  - The index number of the expense, as shown in the expense list.
+  - The index refers to the index number shown in the displayed person list.
+  - The index must be a positive integer 1, 2, 3, ...
+  - This parameter is required.
+
+Example:
+- `delete-expense e/3`
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
