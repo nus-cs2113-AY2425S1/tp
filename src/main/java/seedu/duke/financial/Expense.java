@@ -25,10 +25,23 @@ public class Expense extends FinancialEntry {
      *
      * @param amount The amount of the expense.
      * @param description A description of the expense.
+     * @param date The date the expense occurred.
+     * @param category The category of the expense.
      */
     public Expense(double amount, String description, LocalDate date, Category category) throws FinanceBuddyException {
         super(amount, description, date);
         this.category = category;
+    }
+
+    /**
+     * Constructs an Expense object with the specified amount and description.
+     *
+     * @param amount The amount of the expense.
+     * @param description A description of the expense.
+     * @param date The date the expense occurred.
+     */
+    public Expense(double amount, String description, LocalDate date) throws FinanceBuddyException {
+        super(amount, description, date);
     }
 
     public Category getCategory() {

@@ -151,7 +151,9 @@ public class Logic {
 
         String description = commandArguments.getOrDefault("/des", entry.getDescription());
 
-        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description);
+        String date = commandArguments.getOrDefault("/d", entry.getDate().toString());
+
+        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date);
         editEntryCommand.execute(financialList);
     }
 
