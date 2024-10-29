@@ -129,7 +129,8 @@ public class Task {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Task other) {
+        if (obj instanceof Task) {
+            Task other = (Task) obj;
             return description.equals(other.description);
         }
         return false;

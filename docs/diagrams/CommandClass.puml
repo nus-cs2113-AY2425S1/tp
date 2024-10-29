@@ -1,0 +1,55 @@
+@startuml
+abstract class Command {
+    - TaskList tasks
+    + setData(TaskList tasks)
+    + execute(): CommandResult
+}
+
+class CommandResult {
+    - feedbackToUser: String
+    + CommandResult(feedbackToUser: String)
+    + getFeedbackToUser(): String
+}
+
+'Patient-Related Commands
+class AddPatientCommand
+class DeletePatientCommand
+class FindPatientCommand
+class ListPatientCommand
+class SelectPatientCommand
+
+'Task-Related Commands
+class AddTaskCommand
+class DeleteTaskCommand
+class FindTaskCommand
+class ListTaskCommand
+class MarkTaskCommand
+class UnmarkTaskCommand
+
+'Other Master Commands
+class BackCommand
+class ExitCommand
+class HospitalCommand
+
+'Relationships
+
+Command ..> CommandResult
+
+Command <|-- AddPatientCommand
+Command <|-- DeletePatientCommand
+Command <|-- FindPatientCommand
+Command <|-- ListPatientCommand
+Command <|-- SelectPatientCommand
+
+Command <|-- AddTaskCommand
+Command <|-- DeleteTaskCommand
+Command <|-- FindTaskCommand
+Command <|-- ListTaskCommand
+Command <|-- MarkTaskCommand
+Command <|-- UnmarkTaskCommand
+
+Command <|-- BackCommand
+Command <|-- ExitCommand
+Command <|-- HospitalCommand
+
+@enduml
