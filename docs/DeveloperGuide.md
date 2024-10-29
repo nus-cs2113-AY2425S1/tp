@@ -7,13 +7,71 @@ We used these third party library
 - Gson
 - Mockito
 
-## Design & implementation
+## Design
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
-###Storage
+### DailyRecord component
+API: `DailyRecord.java`
+![Diagram for DailyRecord Component](./images/DailyRecord_API_UML.jpg)
+The `DailyRecord` component,
+- **Tracks daily workout, meals, and water intake:** The `DailyRecord` class maintains a log of the day’s activities, meals consumed, 
+and water intake. It provides methods to add, update, and retrieve each of these records.
+- **Encapsulates multiple data types:** `DailyRecord` works with various objects such as `Day` (for recording the workout programme), 
+`MealList` (for managing a list of meals consumed), and `Water` (for tracking daily water intake). These components are stored and managed 
+together within a single daily record.
+- **Enables modification and deletion:** The class provides methods for adding meals and water to the record, updating the workout for the 
+day, and removing items such as meals or water entries. Each modification is logged for traceability.
+- **Calculates key daily statistics:** `DailyRecord` is capable of calculating the total calories burned from the recorded `Day` and the 
+calories gained from the `MealList`. It can also sum the total water intake for the day.
+- **Provides a comprehensive summary:** The class’s `toString()` method generates a detailed summary of the day’s activities, including 
+calories burned, meals eaten, water consumed, and the caloric balance, making it easy to retrieve and display all relevant information in a readable format.
 
-###FileManager 
+
+### Storage component
+API: `Storage.java`
+![Diagram for Storage Component](./images/Storage_API_UML.jpg)
+The `Storage` component, 
+- **Handles the saving and loading of both `ProgrammeList` and `History` data in JSON format:** The `Storage` component is responsible 
+for serializing `ProgrammeList` and `History` objects into JSON format and passing them on to `FileManager`, as well as getting the 
+data in Json format from `FileManager` and deserializing it into the appropriate objects when needed.
+- **Serves as an adapter between `FileManager` and `BuffBuddy` classes:** `Storage` acts as an intermediary, translating between the JSON 
+data handled by `FileManager` and the objects in the `BuffBuddy` application, ensuring seamless conversion between formats.
+- **Relies on `ProgrammeList` and `History` from the Model component:** Since the `Storage` component is tasked with saving and retrieving 
+the `ProgrammeList` and `History` objects, it ensures the data is accurately represented and stored.
+- **Utilizes custom serializers:** To properly handle date formats and other specific needs, Storage makes use of custom serializers for 
+objects like LocalDate from the `DateSerilazer` class, ensuring that these objects are correctly serialized to and deserialized from JSON.
+
+
+### FileManager
+API: `FileManager.java`
+![Diagram for FileManager Component](./images/FileManager_API_UML.jpg)
+The `FileManager` component, 
+- **Manages the saving and loading of data:** The `FileManager` class is responsible for reading data from and writing data to the file 
+specified by the user. It ensures that both the `ProgrammeList` and `History` data are stored in JSON format, and retrieves them when needed.
+- **Handles file creation and directory management:** Before saving data, `FileManager` checks whether the necessary directories and 
+files exist. If they do not, it creates them to ensure data can be stored correctly.
+- **Leverages JSON for data structure:** `FileManager` uses `Gson` to serialize and deserialize JSON data, making it easy to work with 
+structured data. It also ensures the data is formatted in a readable way using pretty printing for clarity.
+- **Performs error handling and logging:** `FileManager` employs detailed logging to track the progress of saving and loading operations. 
+If any issues arise during file operations (e.g., missing files, failed directory creation), they are logged, and exceptions are thrown to handle errors gracefully.
+
+---
+
+## Implementation
+This section describes some noteworthy details on how certain features are implemented.
+
+### Save/Load feature
+
+--- 
+
+# Documentation, logging, testing, configuration, dev-ops
+- Documentation guide (add link for these)
+- Testing guide
+- Logging guide
+
+--- 
+
+# Appendix: Requirements
 
 ## Product scope
 BuffBuddy is a fitness tracking app that help you track workout, meals, water to aid you in achieving your body goals.
@@ -50,13 +108,9 @@ BuffBuddy is a fitness tracking app that help you track workout, meals, water to
 | v2.0    | user                   | set weekly/monthly exercise goals                       | to be accountable and motivate myself to stay on track |
 
 
-
+## Use cases
 
 ## Non-Functional Requirements
-
-
-
-
 {Give non-functional requirements}
 
 ## Glossary
