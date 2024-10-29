@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Recipe {
 
-    public String name;
-    public ArrayList<String> ingredients;
-    public ArrayList<String> steps;
+    private String name;
+    private ArrayList<String> ingredients;
+    private ArrayList<String> steps;
 
     // Optional attributes
-    public String cuisine;
-    public Integer timeTaken;
+    private String cuisine;
+    private Integer timeTaken;
 
     public Recipe(String name, ArrayList<String> ingredients, ArrayList<String> steps) {
         this.name = name;
