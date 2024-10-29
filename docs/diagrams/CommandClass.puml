@@ -85,4 +85,15 @@ class ListPersonalTrackerCommand extends CheckInformationCommand {
     +execute(input: String): void
 }
 
+ListPersonalTrackerCommand --> "storage 1" Storage
+Storage : +loadAllCourses(): void
+
+AddCoursesCommand --> "courseValidator 1" CourseValidator
+CourseValidator : +isValidInput(...): boolean
+AddCoursesCommand ..> UI
+UI : +printAddMessage(): void
+
+DeleteCoursesCommand ..> UI
+UI : +printDeleteMessage(): void
+
 @enduml
