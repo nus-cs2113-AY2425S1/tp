@@ -38,7 +38,7 @@ public class Parser {
         commands.put("list", ListCommand::new);
         commands.put("help", HelpCommand::new);
         commands.put("remove", RemoveCommand::new);
-        commands.put("fav", FavouriteCommand::new);
+        commands.put("favourite", FavouriteCommand::new);
     }
 
     public Command parseCommand(String input) {

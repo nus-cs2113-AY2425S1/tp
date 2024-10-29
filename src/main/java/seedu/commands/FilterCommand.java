@@ -28,7 +28,7 @@ public class FilterCommand extends Command {
         fieldGetters.put("company", Internship::getCompany);
         fieldGetters.put("from", Internship::getStartDate);
         fieldGetters.put("to", Internship::getEndDate);
-        fieldGetters.put("fav", Internship::getFavourite);
+        fieldGetters.put("favourite", Internship::getFavourite);
     }
 
     public InternshipList getFilteredInternships() {
@@ -86,7 +86,7 @@ public class FilterCommand extends Command {
             filterByRoleAndCompany(getter, searchTerm);
             return;
 
-        case "fav":
+        case "favourite":
             filterByFavouriteInternships(searchTerm);
             return;
 
