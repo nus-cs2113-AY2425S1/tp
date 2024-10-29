@@ -14,6 +14,7 @@ remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
 mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
 sort -by KEYWORD: Sorts events by name/time/priority.
+find -e EVENT -p NAME: Finds all participants with specified name in an event.
 ------------------------
 Enter a command: There are 0 events in your list! Here are your scheduled events:
 
