@@ -53,15 +53,23 @@ The model component includes the `Internship`, `InternshipList`, `Deadline` and 
 
 `Deadline`: Represents each individual deadline associated with an internship, holding data specific to that deadline (description, date).
 
-`DeadlineList`: Manages a collection of Deadline objects for a specific internship, providing methods to add, retrieve, or remove deadlines associated with that internship.
+Each `Internship` object contains a `Deadline` list, and has methods to add, retrieve or remove deadlines associated with that internship.
 
-Each `Internship` object contains a `DeadlineList`, providing methods to add, retrieve or remove deadlines associated with that internship.
+This is represented with the class diagram below:
+
+![](UML/Internship-Model_Component.png)
 
 ### 1.5 Storage Component
 
 The storage component is responsible for saving the current state of the `InternshipList` to a file and loading it back when the application is restarted. This ensures that users' progress is preserved between sessions.
+The data from the internshipList is saved into a .txt file.
 
----
+There are two main functions, `loadFromFile` and `saveFromFile`.
+
+The following sequence diagrams depict how the Storage Functions work.
+![](UML/loadFromFile.png)
+![](UML/saveToFile.png)
+
 
 ## 2. Implementation
 
@@ -134,7 +142,7 @@ The `AddCommand` class is responsible for adding internship listings to the Inte
 #### Sequence Diagram:
 
 The following sequence diagram shows how the `AddCommand` is executed:
-![AddCommandSequenceDiagram](images/addcommand.png)
+![AddCommandSequenceDiagram](UML/AddCommand_Sequence_Diagram.png)
 
 ### Delete Command Implementation
 
@@ -157,7 +165,7 @@ The `DeleteCommand` class is responsible for deleting internship listings from t
 
 #### Sequence Diagram
 The following sequence diagram shows how the `DeleteCommand` is executed:
-![DeleteCommandSequenceDiagram](images/deletecommand.png)
+![DeleteCommandSequenceDiagram](UML/DeleteCommand_Sequence_Diagram.png)
 
 
 
@@ -189,13 +197,7 @@ The `SortCommand` class is responsible for sorting the internship listings based
 
 #### Sequence Diagram:
 The following sequence diagram shows how the `SortCommand` is executed:
-
-```plaintext
-User -> System: sort alphabet
-System -> SortCommand: execute("alphabet")
-SortCommand -> InternshipList: listInternshipsSortedByRole()
-InternshipList -> UI: showSortedInternshipsByRole()
-```
+![](UML/loadFromFile.png)
 
 ### Product scope
 ### Target user profile

@@ -160,8 +160,11 @@ public class UiCommand extends Ui {
         case "alphabet":
             System.out.println("Sorted internships by role alphabetically (case-insensitive).");
             break;
-        case "deadline":
+        case "duration":
             System.out.println("Sorted internships by start date (year first), then end date.");
+            break;
+        case "deadline":
+            System.out.println("Sorted internships by deadline.");
             break;
         default:
             // Handling invalid sorting options
