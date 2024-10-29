@@ -113,7 +113,7 @@ __Implementation Details__
 
 __Constructor__
 
-The Logic constructor initializes `FinancialList`, `AppUi`, and `Storage` components to support all operations.
+TThe Logic constructor initializes key components (FinancialList, AppUi, and Storage) to facilitate CRUD operations and manage interactions with users and stored data. 
 
 __Methods__
 
@@ -483,6 +483,7 @@ faster than a typical mouse/GUI driven app
 ### Manual Testing
 
 View the [User Guide](UserGuide.md) for the list of UI commands and their related use case and expected outcomes.
+{Currently the link to the User Guide is not up yet}
 
 ### JUnit Testing
 
