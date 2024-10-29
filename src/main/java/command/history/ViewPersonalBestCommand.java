@@ -4,8 +4,8 @@ import command.Command;
 import command.CommandResult;
 import programme.ProgrammeList;
 import history.History;
-import java.util.Map;
 import programme.Exercise;
+import java.util.Map;
 
 public class ViewPersonalBestCommand extends Command {
     // New command format for specific exercise personal best
