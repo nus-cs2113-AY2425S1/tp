@@ -7,7 +7,7 @@ MediTask is a handy-guide for nurses to coordinate their tasks according to pati
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+1. Down the latest version of `MediTask` from [here](http://link.to/duke).
 
 ## Features
 ### Adding a patient: `add`
@@ -31,7 +31,7 @@ Format: `repeat TODO_NAME /every RECUR_BASIS /tag TAG_NAME`
 Finds an existing item in the list of task items.
 Format: `find KEYWORD`
 
-Example of usage: 
+Example of usage:
 
 `todo n/Write the rest of the User Guide d/next week`
 
@@ -39,7 +39,7 @@ Example of usage:
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+**Q**: How do I transfer my data to another computer?
 
 **A**: {your answer here}
 
