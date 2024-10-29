@@ -45,7 +45,7 @@ public class Storage {
     /**
      * Saves the quiz results to the file.
      * @param lines The list of data to save.
-     * @param //filepath The filepath of which it should save into.
+     * @param filePath The filepath of which it should save into.
      * @param append Check if it should rewrite data in the file or not
      * @throws IOException If there is an error writing to the file.
      */

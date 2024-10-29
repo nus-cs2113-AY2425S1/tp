@@ -1,6 +1,9 @@
 package seedu.javaninja;
 
-import seedu.javaninja.question.*;
+import seedu.javaninja.question.Mcq;
+import seedu.javaninja.question.TrueFalse;
+import seedu.javaninja.question.Flashcard;
+import seedu.javaninja.question.FillInTheBlank;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,12 +16,13 @@ public class QuizManager {
     private static final String QUESTIONS_FILE_PATH = "./data/Questions.txt";
     private static final String RESULTS_FILE_PATH = "./data/results.txt";
     private static final Logger logger = Logger.getLogger(QuizManager.class.getName());
+
+    public Scanner scanner;
     private List<Topic> topics;
     private Quiz currentQuiz;
     private List<String> pastResults;
     private Storage results;
     private Storage questions;
-    public Scanner scanner;
 
     public QuizManager() {
         this.topics = new ArrayList<>();
@@ -26,17 +30,6 @@ public class QuizManager {
         this.results = new Storage(RESULTS_FILE_PATH);
         this.questions = new Storage(QUESTIONS_FILE_PATH);
         loadDataFromFile();
-    }
-
-    private Topic getOrCreateTopic(String topicName) {
-        for (Topic topic : topics) {
-            if (topic.getName().equalsIgnoreCase(topicName)) {
-                return topic;
-            }
-        }
-        Topic newTopic = new Topic(topicName);
-        topics.add(newTopic);
-        return newTopic;
     }
 
     public void parseTopic(String line) {
@@ -144,22 +137,6 @@ public class QuizManager {
         }
     }
 
-    private void addPastResult(int score, String comment) {
-        pastResults.add("Score: " + score + "%, Comment: " + comment);
-    }
-
-    private String generateComment(int score) {
-        if (score >= 90) {
-            return "Excellent!";
-        } else if (score >= 70) {
-            return "Good job!";
-        } else if (score >= 50) {
-            return "Needs improvement.";
-        } else {
-            return "Better luck next time!";
-        }
-    }
-
     public String getPastResults() {
         if (pastResults.isEmpty()) {
             return "No past results available. You haven't completed any quizzes yet.";
@@ -220,4 +197,30 @@ public class QuizManager {
         }
     }
 
+    private Topic getOrCreateTopic(String topicName) {
+        for (Topic topic : topics) {
+            if (topic.getName().equalsIgnoreCase(topicName)) {
+                return topic;
+            }
+        }
+        Topic newTopic = new Topic(topicName);
+        topics.add(newTopic);
+        return newTopic;
+    }
+
+    private void addPastResult(int score, String comment) {
+        pastResults.add("Score: " + score + "%, Comment: " + comment);
+    }
+
+    private String generateComment(int score) {
+        if (score >= 90) {
+            return "Excellent!";
+        } else if (score >= 70) {
+            return "Good job!";
+        } else if (score >= 50) {
+            return "Needs improvement.";
+        } else {
+            return "Better luck next time!";
+        }
+    }
 }

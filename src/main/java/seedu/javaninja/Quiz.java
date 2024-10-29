@@ -7,9 +7,6 @@ import seedu.javaninja.question.TrueFalse;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Quiz {
     private Topic topic;
