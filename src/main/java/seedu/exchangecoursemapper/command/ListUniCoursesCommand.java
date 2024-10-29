@@ -4,6 +4,7 @@ import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.exception.UnknownUniversityException;
+import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -12,14 +13,11 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_NAME_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
 public class ListUniCoursesCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ListUniCoursesCommand.class.getName());
+    private static final UI ui = new UI();
 
     /**
      * Executes the command to retrieve and list courses for a specified PU based on user input.
@@ -186,31 +184,8 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
         for (int i = 0; i < courseArray.size(); i++) {
             JsonObject courseObject = courseArray.getJsonObject(i);
             assert courseObject != null : Assertions.NO_COURSE_OBJECT;
-            printCourseDetails(courseObject);
+            ui.printListUniCoursesCommand(courseObject);
         }
-    }
-
-    /**
-     * Prints course details of the specified partner university and NUS.
-     * The information printed are:
-     * <ul>
-     *     <li>PU course code</li>
-     *     <li>PU course name</li>
-     *     <li>NUS course code</li>
-     *     <li>NUS course name</li>
-     * </ul>
-     *
-     * @param courseObject A {@link JsonObject} that contains the courses details.
-     */
-    private void printCourseDetails(JsonObject courseObject) {
-        String puCourseCode = courseObject.getString(PU_COURSE_CODE_KEY);
-        String puCourseName = courseObject.getString(PU_COURSE_NAME_KEY);
-        String nusCourseCode = courseObject.getString(NUS_COURSE_CODE_KEY);
-        String nusCourseName = courseObject.getString(NUS_COURSE_NAME_KEY);
-
-        System.out.println(puCourseCode + ": " + puCourseName);
-        System.out.println(nusCourseCode + ": " + nusCourseName);
-        System.out.println(LINE_SEPARATOR);
     }
 
 }

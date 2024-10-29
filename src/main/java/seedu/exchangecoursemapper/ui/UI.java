@@ -19,6 +19,11 @@ import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
 import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_COURSE_CODE_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.DELETE_COURSE_PLAN_HEADER;
+import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_NAME_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
+import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
 public class UI {
     private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
@@ -123,5 +128,16 @@ public class UI {
             userInput = parser.getUserInput();
             parser.processUserInput(userInput, storage);
         } while (!userInput.equalsIgnoreCase("bye"));
+    }
+
+    public void printListUniCoursesCommand(JsonObject courseObject) {
+        String puCourseCode = courseObject.getString(PU_COURSE_CODE_KEY);
+        String puCourseName = courseObject.getString(PU_COURSE_NAME_KEY);
+        String nusCourseCode = courseObject.getString(NUS_COURSE_CODE_KEY);
+        String nusCourseName = courseObject.getString(NUS_COURSE_NAME_KEY);
+
+        System.out.println(puCourseCode + ": " + puCourseName);
+        System.out.println(nusCourseCode + ": " + nusCourseName);
+        System.out.println(LINE_SEPARATOR);
     }
 }
