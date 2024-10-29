@@ -32,6 +32,32 @@ SpendSwift is a simple budgeting tool designed for budget-conscious users. With 
 
    Example: `delete-expense 2` deletes the second expense listed in the expense list.
 
+### Add an Expense: add-expense
+This command allows you to record a new expense.
+
+Format:
+`add-expense n/NAME a/AMOUNT [c/CATEGORY]`
+
+- `NAME`
+
+  - The name of the expense.
+  - This parameter is required.
+
+- `AMOUNT`
+
+  - The monetary value of the expense.
+  - This input must be an integer or a double.
+  - This parameter is required.
+
+- `CATEGORY`
+
+  - The category under which the expense will be recorded.
+  - This parameter is optional. If not provided, the category will be set to `null`.
+
+Example:
+- `add-expense n/Coffee a/5.50 c/Food`
+- `add-expense n/Book a/12.00`
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
