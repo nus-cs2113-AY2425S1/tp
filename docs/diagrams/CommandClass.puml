@@ -1,5 +1,7 @@
 @startuml
 skinparam groupInheritance 2
+left to right direction
+
 abstract class Command {
     +createJsonObject(): JsonObject
 }
