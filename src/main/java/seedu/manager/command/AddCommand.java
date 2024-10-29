@@ -15,7 +15,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
     private static final String ADD_EVENT_MESSAGE = "Event added successfully";
     private static final String ADD_PARTICIPANT_MESSAGE = "Participant added successfully";
+    private static final String ADD_ITEM_MESSAGE = "Item added successfully!";
     private static final String ADD_FAILURE_MESSAGE = "Event not found!";
+
     protected String eventName;
     protected LocalDateTime time;
     protected String venue;
@@ -23,6 +25,7 @@ public class AddCommand extends Command {
     protected String participantName;
     protected String participantNumber;
     protected String participantEmail;
+    protected String itemName;
 
     /**
      * Constructs an AddCommand object with the specified event details.
@@ -57,6 +60,18 @@ public class AddCommand extends Command {
         this.eventName = eventName;
     }
 
+    /**
+     * Constructs an {@link AddCommand} with the specified item and event name.
+     *
+     * @param itemName the name of the item to be added to the event.
+     * @param eventName the name of the event the item is to be added to.
+     */
+    public AddCommand(String itemName, String eventName) {
+        super(false);
+        this.itemName = itemName;
+        this.eventName = eventName;
+    }
+
     //@@author KuanHsienn
     /**
      * Executes the command to add an event or a participant to an event.
@@ -75,17 +90,20 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute() throws DuplicateDataException {
-        if (participantName == null) {
-            this.eventList.addEvent(this.eventName, this.time, this.venue, this.priority);
-            this.message = ADD_EVENT_MESSAGE;
-        } else {
-            boolean isAdded = this.eventList.addParticipantToEvent(
-                    this.participantName,
-                    this.participantEmail,
-                    this.participantNumber,
-                    this.eventName
+        if (participantName != null) {
+            boolean isAdded = eventList.addParticipantToEvent(
+                    participantName,
+                    participantEmail,
+                    participantNumber,
+                    eventName
             );
-            this.message = (isAdded) ? ADD_PARTICIPANT_MESSAGE : ADD_FAILURE_MESSAGE;
+            message = (isAdded) ? ADD_PARTICIPANT_MESSAGE : ADD_FAILURE_MESSAGE;
+        } else if (itemName != null) {
+            boolean isAdded = eventList.addItemToEvent(itemName, participantName);
+            message = (isAdded) ? ADD_ITEM_MESSAGE : ADD_FAILURE_MESSAGE;
+        } else {
+            eventList.addEvent(eventName, time, venue, priority);
+            message = ADD_EVENT_MESSAGE;
         }
     }
 }

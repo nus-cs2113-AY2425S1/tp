@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
 
-
 /**
  * The EventList class manages a list of Event objects.
  * It provides methods to manage an event list.
@@ -63,7 +62,7 @@ public class EventList  {
      * @throws DuplicateDataException if an event with eventName is present in the event list.
      */
     public void addEvent(String eventName, LocalDateTime time,
-                         String venue, Priority priority) throws DuplicateDataException{
+                         String venue, Priority priority) throws DuplicateDataException {
         if (getEventByName(eventName).isPresent()) {
             throw new DuplicateDataException(DUPLICATE_EVENT_MESSAGE);
         }
@@ -169,6 +168,22 @@ public class EventList  {
         return false;
     }
 
+    /**
+     * Returns true if an item with a given name is successfully added to a given event, returns false otherwise.
+     *
+     * @param itemName the name of the item to be added.
+     * @param eventName the name of the event the item is to be added to.
+     * @return {@code true} if the item is successfully added to the event, {@code false} otherwise.
+     */
+    public boolean addItemToEvent(String itemName, String eventName) {
+        Optional<Event> event = getEventByName(eventName);
+        if (event.isPresent()) {
+            event.get().addItem(itemName);
+        }
+        return event.isPresent();
+    }
+
+    //@@author LTK-1606
     /**
      * Sort the event list by name, alphabetically.
      */
