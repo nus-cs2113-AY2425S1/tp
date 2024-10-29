@@ -2,9 +2,10 @@ package seedu.duke.command;
 
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.Income;
+import seedu.duke.financial.FinancialList;
 
 import java.time.LocalDate;
-
+import java.util.Map.Entry;
 /**
  * Command to print all incomes recorded in the financial list.
  */
@@ -61,7 +62,13 @@ public class SeeAllIncomesCommand extends SeeAllEntriesCommand {
      */
     @Override
     protected boolean shouldBeIncluded(FinancialEntry entry) {
-        return entry instanceof Income && (end == null || entry.getDate().isBefore(end))
-                && (start == null || entry.getDate().isAfter(start));
+        return (entry instanceof Income) && isWithinGivenDates(entry);
     }
+
+    @Override
+    protected String getHighestCategoryInfo(FinancialList list) {
+        Entry<Income.Category, Double> highestIncomeCategory = list.getHighestIncomeCategory();
+        return this.formatHighestCategory(highestIncomeCategory, "Highest Income");
+    }
+
 }

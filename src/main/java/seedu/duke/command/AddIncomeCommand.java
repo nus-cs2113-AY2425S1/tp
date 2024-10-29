@@ -3,21 +3,18 @@ package seedu.duke.command;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
 import seedu.duke.exception.FinanceBuddyException;
-import seedu.duke.parser.DateParser;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.time.LocalDate;
 
 /**
  * Command to add an expense to the financial list.
  */
-public class AddIncomeCommand extends Command {
+public class AddIncomeCommand extends AddEntryCommand {
 
     private static Logger logger = Logger.getLogger("Income");
-    private double amount;
-    private String description;
-    private LocalDate date;
+    private final Income.Category category;
 
     /**
      * Constructs an AddIncomeCommand with the specified amount and description.
@@ -25,10 +22,15 @@ public class AddIncomeCommand extends Command {
      * @param amount The amount of the income.
      * @param description The description of the income.
      */
-    public AddIncomeCommand(double amount, String description, String date) throws FinanceBuddyException{
-        this.amount = amount;
-        this.description = description;
-        this.date = DateParser.parse(date);
+    public AddIncomeCommand(
+            double amount,
+            String description,
+            String date,
+            Income.Category category
+    ) throws FinanceBuddyException{
+        super(amount, description, date);
+        this.category = category;
+
     }
 
     /**
@@ -40,9 +42,11 @@ public class AddIncomeCommand extends Command {
      */
     @Override
     public void execute(FinancialList list) throws FinanceBuddyException {
-        Income income = new Income(amount, description, date);
+        Income income = new Income(amount, description, date, category);
         int preEntryCount = list.getEntryCount();
         list.addEntry(income);
+        Map<Income.Category, Double> incomeTotals = list.getTotalIncomeByCategory();
+        incomeTotals.put(category, incomeTotals.getOrDefault(category, 0.0) + amount);
         assert list.getEntryCount() == preEntryCount + 1 : "Income not added";
         System.out.println("--------------------------------------------");
         System.out.println("Got it! I've added this income:");

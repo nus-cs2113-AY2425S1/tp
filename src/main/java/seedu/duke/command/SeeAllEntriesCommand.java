@@ -9,6 +9,7 @@ import seedu.duke.financial.Income;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Map.Entry;
 
 /**
  * Command to print all entries recorded in the financial list.
@@ -61,6 +62,13 @@ public class SeeAllEntriesCommand extends Command {
         return this.cashflowHeader;
     }
 
+    protected String getHighestCategoryInfo(FinancialList list) {
+        Entry<Expense.Category, Double> highestExpenseCategory = list.getHighestExpenseCategory();
+        Entry<Income.Category, Double> highestIncomeCategory = list.getHighestIncomeCategory();
+        return formatHighestCategory(highestExpenseCategory, "Highest Expense") + "\r\n"
+                + formatHighestCategory(highestIncomeCategory, "Highest Income");
+    }
+
     /**
      * Method to express cashflow as a String for printing.
      *
@@ -71,6 +79,24 @@ public class SeeAllEntriesCommand extends Command {
         return String.format("%.2f", cashflow);
     }
 
+    protected boolean isWithinGivenDates(FinancialEntry entry) {
+        boolean withinStartDate = (start == null || !entry.getDate().isBefore(start));
+        boolean withinEndDate = (end == null || !entry.getDate().isAfter(end));
+        return withinStartDate && withinEndDate;
+    }
+
+    /**
+     * Formats the highest category and amount as a string.
+     *
+     * @param categoryEntry Entry representing the category and amount.
+     * @param label Label to indicate if it is income or expense.
+     * @return Formatted string of the category and amount.
+     */
+    protected String formatHighestCategory(Entry<?, Double> categoryEntry, String label) {
+        return label + " Category: " + categoryEntry.getKey()
+                + " ($" + String.format("%.2f", categoryEntry.getValue()) + ")";
+    }
+
     /**
      * Method to determine if an entry should be listed out based on its date.
      *
@@ -78,7 +104,7 @@ public class SeeAllEntriesCommand extends Command {
      * @return true if entry should be listed out, false otherwise.
      */
     protected boolean shouldBeIncluded(FinancialEntry entry) {
-        return (end == null || entry.getDate().isBefore(end)) && (start == null || entry.getDate().isAfter(start));
+        return isWithinGivenDates(entry);
     }
 
     /**
@@ -90,7 +116,6 @@ public class SeeAllEntriesCommand extends Command {
      * @param list The financial list on which the command will operate.
      */
     @Override
-
     public void execute(FinancialList list) throws FinanceBuddyException {
         if (list == null) {
             logger.log(Level.SEVERE, "Financial list is null");
@@ -102,6 +127,7 @@ public class SeeAllEntriesCommand extends Command {
         String entryList = "";
         int entryCount = 0;
         double cashflow = 0;
+        list.clearCategoryTotals();
 
         for (int i = 0; i < list.getEntryCount(); i++) {
             FinancialEntry entry = list.getEntry(i);
@@ -109,23 +135,32 @@ public class SeeAllEntriesCommand extends Command {
                 entryList += (++entryCount) + ". " + entry + System.lineSeparator();
                 if (entry instanceof Income) {
                     cashflow += entry.getAmount();
+                    Income income = (Income) entry;
+                    list.getTotalIncomeByCategory().merge(income.getCategory(), income.getAmount(), Double::sum);
                 } else if (entry instanceof Expense) {
                     cashflow -= entry.getAmount();
+                    Expense expense = (Expense) entry;
+                    list.getTotalExpenseByCategory().merge(expense.getCategory(), expense.getAmount(), Double::sum);
                 }
             }
         }
+
+        //Entry<Expense.Category, Double> highestExpenseCategory = list.getHighestExpenseCategory();
+        //Entry<Income.Category, Double> highestIncomeCategory = list.getHighestIncomeCategory();
 
         if (entryCount == 0) {
             System.out.println(this.getNoEntriesMessage());
             System.out.println(LINE_SEPARATOR);
             return;
         }
-      
+
         System.out.println(this.getEntriesListedMessage());
         System.out.print(entryList);
         System.out.println();
         String cashflowString = this.getCashflowString(cashflow);
         System.out.println(this.getCashflowHeader() + cashflowString);
+        System.out.println();
+        System.out.println(getHighestCategoryInfo(list));
         System.out.println(LINE_SEPARATOR);
     }
 }
