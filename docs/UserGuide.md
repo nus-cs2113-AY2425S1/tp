@@ -106,6 +106,25 @@ Format:
 Example:
 - `tag-expense e/2 c/Transport`
 
+### Add Budget Limit to a Category: set-budget
+Set a maximum spending limit for a category for the current month.
+
+Format:
+`set-budget c/CATEGORY a/AMOUNT`
+
+- `CATEGORY`
+  - The name of the category to set the budget for.
+  - This must be an existing category.
+  - This parameter is required.
+
+- `AMOUNT`
+  - The maximum spending limit for this category in the current month.
+  - This input must be an integer or a double.
+  - This parameter is required.
+
+Example:
+- `set-budget c/Food a/300`
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
