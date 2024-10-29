@@ -2,7 +2,7 @@ package seedu.exchangecoursemapper.constants;
 
 public class HelpMessages {
     public static final String COMMAND_SET = "The set function allows users to key in the partner university(PU)\n" +
-            "they are interested in and it will return NUS courses and the mappable PU courses.\n " +
+            "they are interested in and it will return NUS courses and the mappable PU courses.\n" +
             "The format to use this function is shown below:\n" +
             "set [PU_NAME]\n" +
             "e.g. set the university of western australia";
