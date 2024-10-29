@@ -27,6 +27,9 @@ public class CategoryTracker {
     public CategoryTracker() {
         this.tracker = new HashMap<>();
     }
+    public HashMap<String, CategoryData> getTracker() {
+        return tracker;
+    }
     /**
      * Retrieves the {@code CategoryData} object for a given category.
      *
