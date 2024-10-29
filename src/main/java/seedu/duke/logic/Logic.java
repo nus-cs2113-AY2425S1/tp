@@ -282,8 +282,8 @@ public class Logic {
             try {
                 return Expense.Category.valueOf(categoryStr.toUpperCase());
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid category: " + categoryStr + ". Defaulting to OTHER.");
-                return Expense.Category.OTHER;
+                System.out.println("Invalid category: " + categoryStr + ". Defaulting to UNCATEGORIZED.");
+                return Expense.Category.UNCATEGORIZED;
             }
         }
     }
@@ -301,8 +301,8 @@ public class Logic {
             try {
                 return Income.Category.valueOf(categoryStr.toUpperCase());
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid category: " + categoryStr + ". Defaulting to OTHER.");
-                return Income.Category.OTHER;
+                System.out.println("Invalid category: " + categoryStr + ". Defaulting to UNCATEGORIZED.");
+                return Income.Category.UNCATEGORIZED;
             }
         }
     }
