@@ -13,16 +13,16 @@ component Storage #pink
 component Command #gold
 
 User -down.-> UI
-UI -right-> Parser
+UI -[#green]right-> Parser
 
-Main -down-> Parser
-Main -down-> UI
-Main -up-> Storage
+Main -[#gray]down-> Parser
+Main -[#gray]down-> UI
+Main -[#gray]up-> Storage
 
-Command -down-> Storage
-Parser -right-> Command
+Command -[#gold]down-> Storage
+Parser -[#red]right-> Command
 
-Command -right.-> database
-Storage -right.-> myList
+Command -[#gold]right.-> database
+Storage -[#pink]right.-> myList
 
 @enduml

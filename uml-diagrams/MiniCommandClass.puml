@@ -8,10 +8,10 @@ component ListSchoolsCommand #lightblue
 component DeleteCoursesCommand #lightgreen
 component Command <<abstract>> #red
 
-PersonalTrackerCommand -up-|> Command
-CheckInformationCommand -up-|> Command
+PersonalTrackerCommand -up[#brown]-|> Command
+CheckInformationCommand -up[#brown]-|> Command
 
-ListSchoolsCommand -up-|> CheckInformationCommand
-DeleteCoursesCommand -up-|> PersonalTrackerCommand
+ListSchoolsCommand -up[#brown]-|> CheckInformationCommand
+DeleteCoursesCommand -up[#brown]-|> PersonalTrackerCommand
 
 @enduml

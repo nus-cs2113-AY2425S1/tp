@@ -10,30 +10,30 @@ participant ":Storage" #lightblue
 CEG_Student -> ":UI" : "delete 1"
 activate ":UI" #green
 
-":UI" -> ":Parser" : execute("delete 1")
+":UI" -[#green]> ":Parser" : execute("delete 1")
 activate ":Parser" #gold
 
-":Parser" -> ":Command" : allCourses.remove(index);
+":Parser" -[#gold]> ":Command" : allCourses.remove(index);
 activate ":Command" #pink
 
-":Command" -> ":Storage" : saveAllCourses(allCourses);
+":Command" -[#pink]> ":Storage" : saveAllCourses(allCourses);
 activate ":Storage" #lightblue
 
-":Storage" -> ":Storage" : Save to mylist.json
+":Storage" -[#lightblue]> ":Storage" : Save to mylist.json
 activate ":Storage" #lightblue
 
-":Storage" --> ":Storage"
+":Storage" -[#lightblue]-> ":Storage"
 deactivate ":Storage"
-":Storage" --> ":Command"
+":Storage" -[#lightblue]-> ":Command"
 deactivate ":Storage"
 
-":Command" --> ":Parser"
+":Command" -[#pink]-> ":Parser"
 deactivate ":Command"
 
-":Parser" --> ":UI"
+":Parser" -[#gold]-> ":UI"
 deactivate ":Parser"
 
-":UI" --> CEG_Student
+":UI" -[#green]-> CEG_Student
 deactivate ":UI"
 
 @enduml
