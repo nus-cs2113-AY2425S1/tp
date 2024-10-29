@@ -217,7 +217,7 @@ FinancialEntry entry = financialList.getEntry(0);
 System.out.println("Description: " + entry.getDescription());
 ```
 
-### Design Considerations
+<ins>Design Considerations</ins>
 
 - **Future Budget Management**: `FinancialList` could incorporate a `budget` attribute and `checkBudget()` method to monitor expenses and alert users when limits are exceeded.
 - **Scalability**: By using `FinancialEntry` as a base class, `FinancialList` can easily manage new types of entries (e.g., `Investment` or `Loan`), ensuring the design is open to future extensions.
