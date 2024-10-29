@@ -278,12 +278,12 @@ there is no defined starting date.
 `Logic` invokes the `listHelper` method to create and execute the command to list the financial entries
 according to the following logic.
 
-{add in diagram}
+![overview](UML/SeeAllEntriesOverview.png)
 
 The interaction between the command classes and the `FinancialList` is as follows,
 using `SeeAllEntriesCommand` as an example:
 
-{add diagram}
+![execution](UML/SeeAllEntriesExecution.png)
 
 <ins>Usage Examples</ins>
 
@@ -297,8 +297,7 @@ SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(DatePars
 seeAllExpensesCommand.execute(financialList);
 
 // Listing all expenses starting from 12/10/24 until 24/10/24 in the financial list
-SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(DateParser.parse("12/10/24"), 
-        DateParser.parse("24/10/24"));
+SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(DateParser.parse("12/10/24"), DateParser.parse("24/10/24"));
 seeAllIncomesCommand.execute(financialList);
 ```
 

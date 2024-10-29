@@ -11,28 +11,23 @@ participant "SeeAllEntriesCommand" as all
 participant "FinancialList" as list
 
 ' Get values from HashMap
-app -> map : get("argument")
-map --> app : type
-app -> map : get("/from")
-map --> app : start
-app -> map : get("/to")
-map --> app : end
+app -> map : get command arguments
 
 ' Check for blank dates
-opt start != null && start.isBlank() || end != null && end.isBlank()
-    app -> app : throw FinanceBuddyException
+opt invalid entries for start/end date
+    <- app : throw FinanceBuddyException
 end
 
 ' Parse dates
-alt start != null
-    app -> parser : parse(start)
+alt start date != null
+    app -> parser : parse start date
     parser --> app : startDate
     else
         app -> app : startDate = null
 end
 
-alt end != null
-    app -> parser : parse(end)
+alt end date != null
+    app -> parser : parse end date
     parser --> app : endDate
     else
         app -> app : endDate = null
@@ -41,18 +36,18 @@ end
 ' Command execution based on type
 alt type != null
     alt type equals "expense"
-        app -> expense ** : new(startDate, endDate)
+        app -> expense ** : SeeAllExpensesCommand(startDate, endDate)
         app -> expense : execute(financialList)
         expense -> list : interact
     else type equals "income"
-        app -> income ** : new(startDate, endDate)
+        app -> income ** : SeeAllIncomesCommand(startDate, endDate)
         app -> income : execute(financialList)
         income -> list : interact
     else unknown type
         app -> app : print "Unknown argument"
     end
 else type == null
-    app -> all ** : new(startDate, endDate)
+    app -> all ** : SeeAllEntriesCommand(startDate, endDate)
     app -> all : execute(financialList)
     all -> list : interact
 end
