@@ -6,6 +6,8 @@ import javax.json.JsonReader;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static seedu.exchangecoursemapper.constants.Commands.FILE_PATH;
+
 public abstract class Command {
     protected static final String FILE_PATH = "/database.json";
 
