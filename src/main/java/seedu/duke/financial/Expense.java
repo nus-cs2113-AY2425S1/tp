@@ -48,8 +48,13 @@ public class Expense extends FinancialEntry {
         return category;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    @Override
+    public void setCategory(Enum<?> category) {
+        if (category instanceof Category) {
+            this.category = (Category) category;
+        } else {
+            throw new IllegalArgumentException("Invalid category for Expense.");
+        }
     }
 
     /**

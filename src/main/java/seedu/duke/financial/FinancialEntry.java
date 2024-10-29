@@ -104,4 +104,6 @@ public abstract class FinancialEntry {
     public abstract String toString();
 
     public abstract String toStorageString();
+
+    public abstract void setCategory(Enum<?> category);
 }

@@ -153,7 +153,8 @@ public class Logic {
 
         String date = commandArguments.getOrDefault("/d", entry.getDate().toString());
 
-        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date);
+        Enum<?> category = parseCategory(commandArguments.get("/c"), entry);
+        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
         editEntryCommand.execute(financialList);
     }
 
@@ -304,5 +305,14 @@ public class Logic {
                 return Income.Category.OTHER;
             }
         }
+    }
+
+    private Enum<?> parseCategory(String categoryStr, FinancialEntry entry) {
+        if (entry instanceof Expense) {
+            return parseExpenseCategory(categoryStr);
+        } else if (entry instanceof Income) {
+            return parseIncomeCategory(categoryStr);
+        }
+        return null;
     }
 }

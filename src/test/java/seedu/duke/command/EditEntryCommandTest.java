@@ -27,7 +27,8 @@ class EditEntryCommandTest {
 
     @Test
     void testEditEntryCommand_nullFinancialList() {
-        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/23");
+        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/23",
+                Expense.Category.FOOD);
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
             command.execute(null);
@@ -41,12 +42,14 @@ class EditEntryCommandTest {
 
     @Test 
     void testEditEntryCommand_editExpense() throws FinanceBuddyException {
-        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/23");
+        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/23",
+                Expense.Category.FOOD);
         command.execute(financialList);
 
         assertEquals(1, financialList.getEntryCount());
         assertEquals(50.0, financialList.getEntry(0).getAmount());
         assertEquals("Groceries", financialList.getEntry(0).getDescription());
         assertEquals(LocalDate.of(2023, 10, 1), financialList.getEntry(0).getDate());
+        assertEquals(Expense.Category.FOOD, ((Expense) financialList.getEntry(0)).getCategory());
     }
 }

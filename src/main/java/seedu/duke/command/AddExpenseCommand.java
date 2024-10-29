@@ -14,6 +14,7 @@ import java.util.Map;
 public class AddExpenseCommand extends AddEntryCommand {
     private static final Logger logger = Logger.getLogger(AddExpenseCommand.class.getName());
     private final Expense.Category category;
+    private static final double expenseZero = 0.0;
     /**
      * Constructs an AddExpenseCommand with the specified amount and description.
      *
@@ -50,7 +51,7 @@ public class AddExpenseCommand extends AddEntryCommand {
         Expense expense = new Expense(amount, description, date, category);
         list.addEntry(expense);
         Map<Expense.Category, Double> expenseTotals = list.getTotalExpenseByCategory();
-        expenseTotals.put(category, expenseTotals.getOrDefault(category, 0.0) + amount);
+        expenseTotals.put(category, expenseTotals.getOrDefault(category, expenseZero) + amount);
         assert list.getEntryCount() == preEntryCount + 1 : "Expense not added";
         System.out.println("--------------------------------------------");
         System.out.println("Got it! I've added this expense:");
