@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class CourseValidator {
+    -logger: Logger {static}
+    -ui:UI
+    +isValidCourseMapping(nusCourseInput: String, puCourseInput: String, courses: JsonArray,pu:String): boolean
+    +getPUCourseList(pu: String, jsonObject: JsonObject): JsonArray
+    +isValidInput(nusCourseInput: String, pu: String, puCourseInput: String, jsonObject: JsonObject) : boolean
+}
+
+class UI{
+    -logger: Logger {static}
+    +displayGreeting(): void
+    +displayExitMessage(): void
+    +printMappableCourse(universityName: String, course:JsonObject): void
+    +displayPartnerUniversities(): void
+    +printAddMessage(course:Course): void
+    +displayAvailableMappings(courses:JsonArray, pu"String): void
+    +printDeleteMessage(deleteCourse Course): void
+    +runChat(parser: Parser, storage: Storage): void
+}
+
+class AddCoursesCommand extends PersonalTrackerCommand {
+    -logger: Logger {static}
+    -courseValidator: CourseValidator
+    +AddCoursesCommand()
+    +execute(userInput: String, storage, Storage): void
+    +trimString(string: String): String
+    +parseAddCommand(input: String): String[]
+}
+
+@enduml
