@@ -69,6 +69,9 @@ interact with a given component through its interface rather than the concrete c
 Command Package:
 ![Class diagram for Commands](images/CommandClass.png)
 
+Parser class diagram:
+![Class diagram for Parser](images/ParserClass.png)
+
 {TODO: Object Diagram}
 
 ## Implementation
