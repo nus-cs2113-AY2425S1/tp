@@ -124,9 +124,6 @@ public class Parser {
         String id = splitArray[0].trim();
         try {
             String fields = splitArray[1].trim();
-            if (fields.isBlank()) {
-                throw new ArrayIndexOutOfBoundsException();
-            }
 
             ArrayList<String> commandArgs = parseFlagData(fields);
             if (commandArgs == null) {
@@ -137,9 +134,6 @@ public class Parser {
             return commandArgs;
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showEmptyFlags();
-            return null;
-        } catch (NumberFormatException e) {
-            ui.showOutput("Please input some ID for the command");
             return null;
         }
     }
