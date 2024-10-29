@@ -35,5 +35,19 @@ public class Messages {
                     - Add mapped courses between NUS and partner universities.
                     obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
                     obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
+                    delete <TASK_NUMBER> - Delete a partner university.
+                    list mapped - List all the course mapping.
+                    compare - Compare the course mappings.
+                    bye - End the program.
+                    To get more specific information of the commands, please use help <COMMAND>
                     """;
+
+    // CompareMappedCommand messages
+    public static final String INVALID_INPUT_FORMAT = "Please provide two universities in the format:  " +
+            "compare pu/<University 1> pu/<University 2>";
+    public static final String COMPARISON_RESULTS_HEADER = "Comparison of Course Mappings between ";
+    public static final String COMMON_MAPPINGS_HEADER = "Common Mappings:";
+    public static final String NO_COMMON_MAPPINGS = "No common mappings found.";
+    public static final String UNIQUE_MAPPINGS_HEADER = "Unique to ";
+    public static final String NO_UNIQUE_MAPPINGS = "No unique mappings for ";
 }

@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import static seedu.exchangecoursemapper.constants.Assertions.NULL_LIST;
 import static seedu.exchangecoursemapper.constants.Assertions.NULL_STORAGE;
 import static seedu.exchangecoursemapper.constants.Logs.EXECUTE;
-import static seedu.exchangecoursemapper.constants.Logs.INIT_STORAGE;
+import static seedu.exchangecoursemapper.constants.Logs.INIT_STORAGE_LIST_PT;
 import static seedu.exchangecoursemapper.constants.Logs.NO_MODULES;
 import static seedu.exchangecoursemapper.constants.Logs.NO_MODULES_MESSAGE;
 import static seedu.exchangecoursemapper.constants.Logs.DISPLAY_MODULES;
@@ -25,7 +25,7 @@ public class ListPersonalTrackerCommand extends CheckInformationCommand {
     public ListPersonalTrackerCommand(Storage storage) {
         assert storage != null : NULL_STORAGE;
         this.storage = storage;
-        logger.log(Level.INFO, INIT_STORAGE);
+        logger.log(Level.INFO, INIT_STORAGE_LIST_PT);
     }
 
     @Override
