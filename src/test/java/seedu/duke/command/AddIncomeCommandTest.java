@@ -85,10 +85,12 @@ class AddIncomeCommandTest {
     void execute_addMultipleIncome_expectAllAddedToFinancialList() throws FinanceBuddyException {
         String earlierDate = "21/12/24";
         String laterDate = "23/12/24";
-        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", earlierDate, Income.Category.GIFT);
+        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", earlierDate,
+                Income.Category.GIFT);
         addIncomeCommand.execute(financialList);
 
-        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money", laterDate, Income.Category.OTHER);
+        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money", laterDate,
+                Income.Category.OTHER);
         addIncomeCommand.execute(financialList);
 
         String output = outputStream.toString();
@@ -129,10 +131,12 @@ class AddIncomeCommandTest {
         String dateTwo = "23/12/24";
         String dateThree = "11/11/24";
 
-        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", dateOne, Income.Category.GIFT);
+        addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", dateOne,
+                Income.Category.GIFT);
         addIncomeCommand.execute(financialList);
 
-        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money", dateTwo, Income.Category.OTHER);
+        addIncomeCommand = new AddIncomeCommand(10.50, "friend return money", dateTwo,
+                Income.Category.OTHER);
         addIncomeCommand.execute(financialList);
 
         addIncomeCommand = new AddIncomeCommand(5.00, "rebate", dateThree, Income.Category.OTHER);
@@ -142,11 +146,13 @@ class AddIncomeCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                         "Got it! I've added this income:" + System.lineSeparator() +
-                        "[Income] - Cost of Living payment $ 400.00 (on "+ dateOne + ") [GIFT]" + System.lineSeparator() +
+                        "[Income] - Cost of Living payment $ 400.00 (on "+ dateOne + ") [GIFT]" +
+                        System.lineSeparator() +
                         "--------------------------------------------" + System.lineSeparator() +
                         "--------------------------------------------" + System.lineSeparator() +
                         "Got it! I've added this income:" + System.lineSeparator() +
-                        "[Income] - friend return money $ 10.50 (on " + dateTwo + ") [OTHER]" + System.lineSeparator() +
+                        "[Income] - friend return money $ 10.50 (on " + dateTwo + ") [OTHER]" +
+                        System.lineSeparator() +
                         "--------------------------------------------" + System.lineSeparator() +
                         "--------------------------------------------" + System.lineSeparator() +
                         "Got it! I've added this income:" + System.lineSeparator() +
@@ -181,7 +187,8 @@ class AddIncomeCommandTest {
     void execute_addIncomeWithNegativeAmount_expectErrorMessage() {
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addIncomeCommand = new AddIncomeCommand(-15.20, "grab", null, Income.Category.UNCATEGORIZED);
+            addIncomeCommand = new AddIncomeCommand(-15.20, "grab", null,
+                    Income.Category.UNCATEGORIZED);
             addIncomeCommand.execute(financialList);
         });
 
@@ -198,7 +205,8 @@ class AddIncomeCommandTest {
     void execute_addIncomeWithVerySmallAmount_expectErrorMessage() {
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addIncomeCommand = new AddIncomeCommand(0.0001, "random", null, Income.Category.UNCATEGORIZED);
+            addIncomeCommand = new AddIncomeCommand(0.0001, "random", null,
+                    Income.Category.UNCATEGORIZED);
             addIncomeCommand.execute(financialList);
         });
 

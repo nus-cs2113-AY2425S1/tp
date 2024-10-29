@@ -22,7 +22,12 @@ public class AddIncomeCommand extends AddEntryCommand {
      * @param amount The amount of the income.
      * @param description The description of the income.
      */
-    public AddIncomeCommand(double amount, String description, String date, Income.Category category) throws FinanceBuddyException{
+    public AddIncomeCommand(
+            double amount,
+            String description,
+            String date,
+            Income.Category category
+    ) throws FinanceBuddyException{
         super(amount, description, date);
         this.category = category;
 
