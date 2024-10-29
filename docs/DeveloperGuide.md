@@ -306,6 +306,7 @@ This allows users to navigate this program easily and effectively.
 | v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries |
 | v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU       |
 | v2.0    | CEG student  | delete a course mapping plan for a PU                           | keep my list of saved plans organised            |
+| v2.0    | CEG student  | ask for help when I am in doubt                                 | know what are the possible actions               |
 
 ## Non-Functional Requirements
 
