@@ -1,5 +1,7 @@
 package seedu.manager.event;
 
+import seedu.manager.enumeration.Priority;
+import seedu.manager.exception.DuplicateDataException;
 import seedu.manager.item.Participant;
 
 import java.time.LocalDateTime;
@@ -18,6 +20,7 @@ public class Event {
     private LocalDateTime eventTime;
     private String eventVenue;
     private boolean isDone;
+    private Priority eventPriority;
 
     /**
      * Constructs an Event with the specified name.
@@ -46,11 +49,34 @@ public class Event {
 
     //@@author LTK-1606
     /**
+     * Constructs an Event with the specified name, time, venue and priority.
+     *
+     * @param eventName  the name of the event
+     * @param eventTime  the time duration of the event
+     * @param eventVenue the venue of the event
+     * @param eventPriority the priority level of the event
+     */
+    public Event(String eventName, LocalDateTime eventTime, String eventVenue, Priority eventPriority) {
+        this.eventName = eventName;
+        this.eventTime = eventTime;
+        this.eventVenue = eventVenue;
+        this.eventPriority = eventPriority;
+        this.participantList = new ArrayList<>();
+        this.isDone = false;
+    }
+
+    //@@author LTK-1606
+    /**
      * Adds a participant to the participant list for the event.
      *
      * @param participantName the name of the participant to be added to the list.
+     * @throws DuplicateDataException if a participant with the same name exists in the list.
      */
-    public void addParticipant(String participantName, String participantNumber, String participantEmail) {
+    public void addParticipant(String participantName, String participantNumber, String participantEmail) throws DuplicateDataException {
+        if (getParticipantByName(participantName).isPresent()) {
+            throw new DuplicateDataException("Duplicate participant!");
+        }
+
         Participant participant = new Participant(participantName, participantNumber, participantEmail);
         this.participantList.add(participant);
     }
@@ -105,6 +131,14 @@ public class Event {
         return eventVenue;
     }
 
+    //@@author LTK-1606
+    /**
+     * @return the event priority
+     */
+    public Priority getEventPriority() {
+        return eventPriority;
+    }
+
     public ArrayList<Participant> getParticipantList() {
         return participantList;
     }
@@ -132,6 +166,15 @@ public class Event {
      */
     public void setEventVenue(String eventVenue) {
         this.eventVenue = eventVenue;
+    }
+
+    /**
+     * Sets a new priority level for the event.
+     *
+     * @param eventPriority the new event priority level
+     */
+    public void setEventPriority(Priority eventPriority) {
+        this.eventPriority = eventPriority;
     }
 
     //@@author jemehgoh
@@ -165,6 +208,28 @@ public class Event {
         return markParticipant(participant, isPresent);
     }
 
+    //@author LTK-1606
+    /**
+     * Finds participants in the event whose names contain the specified person name.
+     * <p>
+     * This method iterates through the list of participants and checks if their names
+     * contain the given {@code personName}, ignoring case and leading/trailing spaces.
+     * If a match is found, the participant is added to the result list.
+     * </p>
+     *
+     * @param personName the name or part of the name of the participant to search for
+     * @return a list of {@code Participant} objects whose names contain the specified {@code personName}
+     */
+    public ArrayList<Participant> findParticipants(String personName) {
+        ArrayList<Participant> participants = new ArrayList<>();
+        for (Participant participant : this.participantList) {
+            if (participant.getName().toLowerCase().contains(personName.trim().toLowerCase())) {
+                participants.add(participant);
+            }
+        }
+        return participants;
+    }
+
     //@@author glenn-chew
     /**
      * Formats eventTime to a string in "yyyy-MM-dd HH:mm" format
@@ -185,8 +250,8 @@ public class Event {
     @Override
     public String toString(){
         String eventTimeString = getEventTimeString();
-        return String.format("Event name: %s / Event time: %s / Event venue: %s / Done: %c",
-                eventName, eventTimeString, eventVenue, markIfDone());
+        return String.format("Event name: %s / Event time: %s / Event venue: %s / Event Priority: %s / Done: %c",
+                eventName, eventTimeString, eventVenue, eventPriority, markIfDone());
     }
 
     /**
