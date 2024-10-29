@@ -43,6 +43,7 @@ public class AddRecipeCommand extends Command {
      * and notifying the user via the {@code Ui}.
      *
      * @param recipes The {@code RecipeList} to add the recipe to. Must not be {@code null}.
+     * @param ingredients The {@code IngredientList}. Unused in this command.
      * @param ui The {@code Ui} for user interaction. Used to notify the user about the added recipe.
      * @param storage The {@code Storage} for saving the updated {@code RecipeList} to persistent storage.
      * @throws IOException If an error occurs while saving the recipe list.
