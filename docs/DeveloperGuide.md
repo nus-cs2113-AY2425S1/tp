@@ -236,6 +236,85 @@ Cons:
 - Complicates testing by requiring Mocks or Reflection
 - Difficult to track operation flow 
 
+
+
+# Create Programme Feature
+
+## Feature Overview
+
+The "Create Programme" feature enables users to build a structured fitness program with workout days, each containing specific exercises. This feature allows flexible customization, enabling users to plan their fitness goals in detail, including attributes such as the name, sets, reps, weight, and calories for each exercise.
+
+## Programme Flow
+
+1. **User Input and Command Handling**:
+- Upon startup, BuffBuddy welcomes the user and continuously prompts for commands.
+- The command input is read, parsed, and handled by `handleCommand`. If the user enters a valid command (e.g., `create`), it is executed, producing a `CommandResult`.
+
+2. **Command Parsing and Execution**:
+- `Parser.parse()` analyzes the user’s input to identify the command type and arguments.
+- `CommandFactory.createCommand()` determines the specific command (e.g., `CreateCommand`) and forwards it to the relevant command factory (`ProgCommandFactory` for programme-related commands).
+
+3. **Creating a Programme**:
+- Within `ProgCommandFactory`, `prepareCreateCommand()` splits the input string by `/d` (indicating separate days) and `/e` (indicating exercises within each day).
+- Each **Day** is parsed by `parseDay`, and each **Exercise** is created using `parseExercise`, which extracts details such as name, sets, reps, weight, and calories using flag parsing (`/n`, `/s`, `/r`, `/w`, and `/c` flags).
+- The `CreateCommand` is then prepared with the programme name and its associated days.
+
+4. **Inserting and Storing Programmes**:
+- The `execute()` method of `CreateCommand` uses `ProgrammeList` to insert a new programme, which is then stored for future access and manipulation.
+- `ProgrammeList.insertProgramme()` creates a `Programme` object and adds it to the list, ensuring it is available for subsequent commands (e.g., viewing, editing, or deleting).
+
+5. **Execution Feedback**:
+- A successful creation logs the programme details and returns a `CommandResult`, notifying the user of the new programme with its full structure.
+
+This flow allows users to easily create structured workout routines, customizing their fitness journey directly within BuffBuddy.
+
+The overall design that enables this functionality is described generically by the following sequence diagram.
+![](images/createCommand.png)
+
+## Implementation Details
+
+### Architecture-Level Description
+
+At the architecture level, this feature is part of the command-based structure in the BuffBuddy application, where user inputs are parsed into specific commands. Each command corresponds to a feature within the application. The "Create Programme" feature leverages several classes to manage nested structures (programmes, days, and exercises).
+
+- **Classes Involved**:
+  - `ProgrammeList`: Manages a collection of `Programme` objects.
+  - `Programme`: Represents a complete fitness programme, containing multiple workout days.
+  - `Day`: Represents a single workout day, which contains a list of exercises.
+  - `Exercise`: Contains the properties of each exercise (name, sets, reps, weight, calories).
+
+### Component-Level Description
+
+The implementation is divided into several methods and classes to ensure modularity and separation of concerns. Key components include:
+
+- **Command Handling**:
+  - `handleCommand()`: Reads user input, determines the command type, and executes it.
+  - `Parser.parse()`: Parses the user input string to identify the command and its arguments.
+  - `CommandFactory.createCommand()`: Creates specific commands, such as `CreateCommand`, based on the parsed command string.
+
+- **Creating a Programme**:
+  - `ProgCommandFactory.prepareCreateCommand(String argumentString)`: Prepares a new programme by splitting the input string using `/d` as the delimiter for each day and `/e` for each exercise within a day.
+  - `parseDay(String dayString)`: Parses each workout day and its exercises.
+  - `parseExercise(String argumentString)`: Parses individual exercises with details (e.g., name, sets, reps, weight, calories) using flags (`/n`, `/s`, `/r`, `/w`, `/c`).
+
+- **Programme Insertion and Execution**:
+  - `ProgrammeList.insertProgramme(String programmeName, ArrayList<Day> days)`: Inserts the newly created programme into the list of existing programmes.
+  - `CreateCommand.execute(ProgrammeList programmes, History history)`: Executes the programme creation command, adds the programme to the list, and logs the action.
+
+## Reasoning for Implementation Choices
+
+- **Modularity**: By separating the parsing logic into `parseDay` and `parseExercise`, the feature adheres to the single-responsibility principle. This modular design also makes it easier to maintain and test individual components.
+
+- **Flag-Based Parsing**: The use of flags (e.g., `/n` for name, `/s` for sets) allows for flexible input handling and simplifies parameter extraction for each exercise. This approach enhances user input flexibility and reduces dependency on strict formatting.
+
+- **Command Pattern**: The command pattern enables easy extension for other programme-related commands (e.g., `View`, `Edit`). This pattern allows BuffBuddy to handle multiple commands with minimal impact on other parts of the application, promoting scalability.
+
+## Alternatives Considered
+
+- **Flat Structure for Programme Details**: Initially, a flat structure was considered, where each exercise was directly tied to a programme without days. However, this approach lacked flexibility for users who may want to assign specific exercises to specific days. The current nested structure (Programme -> Day -> Exercise) was chosen for better organization.
+
+- **JSON Input Parsing**: Another alternative was to use JSON format for user input, allowing for more complex data validation and structured parsing. However, this approach was deemed too complex for a command-line interface and would require users to follow strict formatting, reducing ease of use.
+
 ## Product scope
 BuffBuddy is a fitness tracking app that help you track workout, meals, water to aid you in achieving your body goals.
 ### Target user profile
