@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 public class SitAndReachCalculator extends Calculator {
     private static final Map<LookUpKey, TreeMap<Integer, Integer>> sitAndReachTable = new HashMap<>();
-    private static final boolean reverseOrder = true;
+    private static final boolean SHOULD_SORT_DESCENDING = true;
 
     static {
         initialiseMaleData();
@@ -17,7 +17,7 @@ public class SitAndReachCalculator extends Calculator {
     }
 
     public static int calculatePoints(Gender gender, int age, int length) {
-        return getPointsFromTable(sitAndReachTable, gender, age, length, false);
+        return getPointsFromTable(sitAndReachTable, gender, age, length, IS_HIGHER_NUMBER_BETTER);
     }
 
     private static void initialiseMaleData() {
@@ -32,7 +32,7 @@ public class SitAndReachCalculator extends Calculator {
                 {{49, 5}, {45, 4}, {41, 3}, {37, 2}, {32, 1}},
                 {{48, 5}, {44, 4}, {40, 3}, {36, 2}, {32, 1}}
         };
-        addAllTables(sitAndReachTable, Gender.MALE, ageTables, reverseOrder);
+        addAllTables(sitAndReachTable, Gender.MALE, ageTables, SHOULD_SORT_DESCENDING);
     }
 
     private static void initialiseFemaleData() {
@@ -47,6 +47,6 @@ public class SitAndReachCalculator extends Calculator {
                 {{47, 5}, {44, 4}, {41, 3}, {36, 2}, {32, 1}},
                 {{44, 5}, {41, 4}, {38, 3}, {35, 2}, {31, 1}}
         };
-        addAllTables(sitAndReachTable, Gender.FEMALE, ageTables, reverseOrder);
+        addAllTables(sitAndReachTable, Gender.FEMALE, ageTables, SHOULD_SORT_DESCENDING);
     }
 }
