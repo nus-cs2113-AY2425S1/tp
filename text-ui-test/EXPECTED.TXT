@@ -56,11 +56,12 @@ Enter a command: Event not found!
 ------------------------
 Events saved successfully.
 ------------------------
-Enter a command: Event not found!
+Enter a command: Participant added successfully
 ------------------------
 Events saved successfully.
 ------------------------
-Enter a command: There are 0 participants in dinner party! Here are your participants:
+Enter a command: There are 1 participants in dinner party! Here are your participants:
+1. Mary [ ]
 
 ------------------------
 Events saved successfully.
@@ -69,22 +70,16 @@ Enter a command: Event added successfully
 ------------------------
 Events saved successfully.
 ------------------------
-Enter a command: name
-Events successfully sorted by name!
+Enter a command: Events successfully sorted by name!
 1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Done: N
 2. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Done: Y
 
 ------------------------
 Events saved successfully.
 ------------------------
-Enter a command: time
-Events successfully sorted by time!
+Enter a command: Events successfully sorted by time!
 1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Done: Y
 2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Done: N
-
-Enter a command: Events successfully sorted by name!
-1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
-2. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
 
 ------------------------
 Enter a command: Events successfully sorted by time!
