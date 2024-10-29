@@ -1,5 +1,8 @@
 package seedu.duke.commands;
 
+import seedu.duke.data.hospital.Hospital;
+import seedu.duke.ui.Ui;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,6 +20,8 @@ public class ListPatientCommand extends HospitalCommand {
     public ListPatientCommand() {
     }
 
+    Ui ui = new Ui();
+
     @Override
     public CommandResult execute() {
         assert hospital != null : "Hospital should not be null";
@@ -26,7 +31,7 @@ public class ListPatientCommand extends HospitalCommand {
             return new CommandResult(MESSAGE_EMPTY_LIST);
         }
 
-        hospital.printList();
+        ui.showPatientListWithCompletionRate(hospital);
         return new CommandResult(MESSAGE_LIST_SUCCESS);
     }
 }

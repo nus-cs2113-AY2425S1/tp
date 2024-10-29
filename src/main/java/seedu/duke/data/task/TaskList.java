@@ -174,6 +174,22 @@ public class TaskList {
         System.out.println(this);
     }
 
+    /**
+     * Returns the number of completed tasks in the TaskList.
+     *
+     * @return number of completed tasks.
+     */
+    @JsonIgnore
+    public int getCompletedTaskCount() {
+        int completedCount = 0;
+        for (Task task : tasks) {
+            if (task.isDone()) {
+                completedCount++;
+            }
+        }
+        return completedCount;
+    }
+
     public static class TaskNotFoundException extends Exception {
         public TaskNotFoundException() {
             super("Input task is not found in the list.");
