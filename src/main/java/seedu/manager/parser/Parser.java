@@ -129,8 +129,6 @@ public class Parser {
             return parseSortCommand(command, commandParts);
         case FilterCommand.COMMAND_WORD:
             return parseFilterCommand(command, commandParts);
-        case FindCommand.COMMAND_WORD:
-            return parseFindCommand(command, commandParts);
         default:
             throw new InvalidCommandException(INVALID_COMMAND_MESSAGE);
         }
