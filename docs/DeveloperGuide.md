@@ -23,8 +23,11 @@
 #### view-budget
 ![View Budget Sequence Diagram](diagrams/ViewBudget.png)
 
-### view-expenses
+#### view-expenses
 ![View Expenses Sequence Diagram](diagrams/ViewExpenses.png)
+
+#### toggle-reset
+![Toggle Auto Reset Sequence Diagram](diagrams/ToggleAutoReset.pngl)
 
 ### Category
 #### Purpose
