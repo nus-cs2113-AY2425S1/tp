@@ -15,7 +15,7 @@ import static ymfc.YMFC.logger;
 public class FindIngredCommand extends Command {
     public static final String USAGE_EXAMPLE = """
             Use example:
-            \t findI spaghetti // Default: find by name                        
+            \t findI spaghetti // Default: find by name
             
             """;
 
