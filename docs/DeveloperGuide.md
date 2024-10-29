@@ -2,13 +2,13 @@
 Java Ninja is a command-line interface (CLI) learning tool focused on helping beginner programmers enhance their understanding of fundamental programming concepts.
 
 - [Design & implementation](#Design & implementation)
-- [Product scope](#Product scope)
-    - [Target user profile](#Target user profile)
-    - [Value proposition](#Value proposition)
-- [User Stories](#User Stories)
-- [Non-Functional Requirements](#Non-Functional Requirements)
+- [Product scope](#product-scope-scope)
+    - [Target user profile](#target-user-profile-target)
+    - [Value proposition](#value-proposition-value)
+- [User Stories](#user-stories-user)
+- [Non-Functional Requirements](#non-Functional-Requirements-reqs)
 - [Glossary](#Glossary)
-- [Instructions for manual testing](#Instructions for manual testing)
+- [Instructions for manual testing](#Instructions-for-manual-testing-test)
 
 ## Acknowledgements
 
