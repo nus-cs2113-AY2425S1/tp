@@ -197,13 +197,7 @@ The `SortCommand` class is responsible for sorting the internship listings based
 
 #### Sequence Diagram:
 The following sequence diagram shows how the `SortCommand` is executed:
-
-```plaintext
-User -> System: sort alphabet
-System -> SortCommand: execute("alphabet")
-SortCommand -> InternshipList: listInternshipsSortedByRole()
-InternshipList -> UI: showSortedInternshipsByRole()
-```
+![](UML/loadFromFile.png)
 
 ### Product scope
 ### Target user profile
