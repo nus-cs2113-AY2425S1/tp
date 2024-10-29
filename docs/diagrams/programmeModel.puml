@@ -1,0 +1,25 @@
+@startuml
+object ProgrammeList {
+    programmes: List<Programme>
+}
+
+object Programme {
+    id: 1
+    days: List<Day>
+}
+
+object Day {
+    id: 1
+    exercises: List<Exercise>
+}
+
+object Exercise {
+    id: 1
+    name: "Push Up"
+    duration: 30
+}
+
+ProgrammeList --> Programme : contains
+Programme --> Day : contains
+Day --> Exercise : contains
+@enduml

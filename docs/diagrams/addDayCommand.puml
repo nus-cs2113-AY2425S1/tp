@@ -1,0 +1,23 @@
+@startuml
+box "Logic" #c3c3ff
+participant "AddDayCommand" as AddDayCommand #cc88cc
+end box
+
+box "Model" #ffb3b3
+participant "ProgrammeList" as ProgrammeList #ffbb77
+participant "Programme" as Programme #ffbb77
+end box
+
+AddDayCommand -> ProgrammeList : retrieve Programme
+activate AddDayCommand
+activate ProgrammeList
+
+ProgrammeList -> Programme : add/remove Day
+activate Programme
+
+Programme --> ProgrammeList : added/removed Day
+deactivate Programme
+
+ProgrammeList --> AddDayCommand : added/removed Day
+deactivate ProgrammeList
+@enduml
