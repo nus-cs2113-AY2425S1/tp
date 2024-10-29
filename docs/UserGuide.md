@@ -171,6 +171,12 @@ Format:
 Example:
 - `set-budget-reset on`
 
+### Exiting the program: bye
+Exits the program.
+
+Format:
+`bye`
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
