@@ -3,6 +3,7 @@ package seedu.exchangecoursemapper.command;
 import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.exception.Exception;
+import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonObject;
 import java.io.IOException;
@@ -16,6 +17,11 @@ import static seedu.exchangecoursemapper.constants.JsonKey.NUMBER_KEY;
 
 public class ObtainContactsCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ObtainContactsCommand.class.getName());
+    private static UI ui;
+
+    public ObtainContactsCommand() {
+        ui = new UI();
+    }
 
     @Override
     public void execute(String userInput) {
@@ -64,11 +70,11 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         switch (contactType) {
         case EMAIL_KEY:
             String email = schoolInfo.getString(EMAIL_KEY);
-            System.out.println("Email for " + schoolName + ": " + email);
+            ui.printContactInformation("Email for ", schoolName, email);
             break;
         case NUMBER_KEY:
             String number = schoolInfo.getString(NUMBER_KEY);
-            System.out.println("Phone number for " + schoolName + ": " + number);
+            ui.printContactInformation("Phone number for ", schoolName, number);
             break;
         default:
             logger.warning("Invalid contact type requested: " + contactType);

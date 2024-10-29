@@ -3,6 +3,7 @@ package seedu.exchangecoursemapper.command;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
+import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonObject;
 import java.io.IOException;
@@ -14,6 +15,11 @@ import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
 public class ListSchoolCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ListSchoolCommand.class.getName());
+    private static UI ui;
+
+    public ListSchoolCommand() {
+        ui = new UI();
+    }
 
     @Override
     public void execute(String userInput) {
@@ -37,7 +43,7 @@ public class ListSchoolCommand extends CheckInformationCommand {
         for (String universityName : universityNames) {
             assert universityName != null && !universityName.isEmpty();
             logger.log(Level.INFO, Logs.LIST_SCHOOLS_NAMES);
-            System.out.println(universityName);
+            ui.printUniversityList(universityName);
         }
         System.out.println(LINE_SEPARATOR);
     }

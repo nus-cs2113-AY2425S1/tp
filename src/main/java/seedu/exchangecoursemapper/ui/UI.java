@@ -7,6 +7,7 @@ import seedu.exchangecoursemapper.storage.Storage;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,6 +54,14 @@ public class UI {
         System.out.println(PARTNER_UNIVERSITY_HEADER + universityName);
         System.out.println(PARTNER_UNIVERSITY_COURSE_CODE_HEADER + puCourseCode);
         System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printUniversityList(String universityName) {
+        System.out.println(universityName);
+    }
+
+    public void printContactInformation(String informationDescription, String schoolName, String customOutput) {
+        System.out.println(informationDescription + schoolName + ": " + customOutput);
     }
 
     /**
