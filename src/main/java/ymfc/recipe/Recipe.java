@@ -88,16 +88,16 @@ public class Recipe {
         this.timeTaken = timeTaken;
     }
 
-    public boolean equals(Recipe o) {
-        if (!name.equals(o.getName())) {
+    public boolean equals(Recipe recipeToCheck) {
+        if (!name.equals(recipeToCheck.getName())) {
             return false;
         }
 
-        if (!ingredients.equals(o.getIngredients())) {
+        if (!ingredients.equals(recipeToCheck.getIngredients())) {
             return false;
         }
 
-        if (!steps.equals(o.getSteps())) {
+        if (!steps.equals(recipeToCheck.getSteps())) {
             return false;
         }
 
