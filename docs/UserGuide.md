@@ -15,6 +15,35 @@
 
 {Give detailed description of each feature}
 
+1. add-goal: User can add a fitness goal to the the list
+   of goals and attach a deadline to it in order to
+   have clear targets to prepare for the NAPFA test.
+
+Input Command:
+add-goal (goal name) (deadline)
+
+Example Usage:
+add-goal run 12/12/2024 14:00:00
+
+2. delete-goal: User can delete a fitness goal to the the list
+   of goals to moderate a fitness goal.
+
+Input Command:
+delete-goal (goal index)
+
+Example Usage:   
+delete-goal 1
+
+3. list-goal: View a list of all fitness goals and deadlines
+   to keep track of progress in preparation for the NAPFA test
+
+Input Command:
+list-goal
+
+Example Usage:
+list-goal
+
+
 ### Adding a todo: `todo`
 Adds a new item to the list of todo items.
 
