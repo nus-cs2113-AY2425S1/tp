@@ -41,6 +41,8 @@ The `UI` does the following:
 
 ### Storage component
 
+<img src = "images/StorageClassDiagram.png">
+
 The `Storage` component comprises a Storage class, as shown in above **Class Diagram**.
 
 The `Storage` does the following:
