@@ -19,17 +19,15 @@ import java.util.Comparator;
 //@@author jadenlimjc
 public class Internship {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
-
+    private final List<Deadline> deadlines;
+    private final ArrayList<String> skills;
     private int id = -1;
     private String role;
     private String company;
     private YearMonth startDate;
     private YearMonth endDate;
 
-    private final List<Deadline> deadlines;
-
-    private final ArrayList<String> skills;
-
+    private String favourite = "false";
     private String status;
 
 
@@ -119,6 +117,14 @@ public class Internship {
 
     public void setEndDate(String end) throws DateTimeParseException {
         this.endDate = YearMonth.parse(end, formatter);
+    }
+
+    public String getFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(String favourite) {
+        this.favourite = favourite;
     }
 
 

@@ -14,14 +14,17 @@ import java.util.Comparator;
 public class InternshipList {
     private static final UiInternshipList ui = new UiInternshipList();
     public ArrayList<Internship> internships;
+    public ArrayList<Internship> favouriteInternships;
 
     // Constructor
     public InternshipList() {
         internships = new ArrayList<>();
+        favouriteInternships = new ArrayList<>();
     }
 
     public InternshipList(ArrayList<Internship> internships) {
         this.internships = internships;
+        favouriteInternships = new ArrayList<>();
     }
 
     public void addInternship(Internship internship) {
@@ -126,6 +129,14 @@ public class InternshipList {
     //@@author jadenlimjc
     // Method to list all internships
     public void listAllInternships() {
+        if (internships.isEmpty()) {
+            ui.showEmptyInternshipList();
+        } else {
+            ui.showInternships(internships);
+        }
+    }
+
+    public void listAllInternships(ArrayList<Internship> internships) {
         if (internships.isEmpty()) {
             ui.showEmptyInternshipList();
         } else {
