@@ -11,7 +11,7 @@ import ymfc.ui.Ui;
  * Each command has the ability to signal whether it is the exit command (bye).
  */
 public abstract class Command {
-    protected static boolean isBye;
+    protected boolean isBye;
 
     /**
      * Constructor for the {@code Command} class.
@@ -26,7 +26,7 @@ public abstract class Command {
      * the "bye" command has been issued, and the program should terminate.
      */
     public void setBye() {
-        Command.isBye = true;
+        this.isBye = true;
     }
 
     /**
