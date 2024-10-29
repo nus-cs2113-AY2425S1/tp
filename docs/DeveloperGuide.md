@@ -8,6 +8,8 @@ We used these third party libraries to develop our application:
 ## Design & implementation
 
 ### Edit Programme 
+
+#### Feature Implementation
 Edit Programme encompasses all functionality related to editing programme details. It is facilitated by the various
 insert, delete and update functionality that is present in Programme, Exercise and Day respectively.
 
@@ -49,15 +51,93 @@ The 'Model' class in the above diagram is a generalization of the various data m
 to perform each specific edit command. For each edit command, the following sequence diagrams 
 further break down how this interaction works.
 
-#### Add/Remove day
+##### Add/Remove day
 ![Add/Remove Day](images/addDayCommand.png)
 
-#### Add/Remove exercise
+##### Add/Remove exercise
 ![Add/Remove Exercise](images/addExerciseCommand.png)
 
-#### Update exercise
+##### Update exercise
 ![Edit Exercise](images/editExerciseCommand.png)
 
+To summarize, the following activity diagram describes how the overall operation occurs.
+
+![](images/editCommandActivityDiagram.png)
+
+#### Design Considerations
+
+##### Chosen Approach: Hierarchical Command Pattern
+The current implementation uses a hierarchical command pattern with factories where:
+1. Commands traverse through ProgrammeList > Programme > Day > Exercise
+2. Each level handles its own specific edit operations
+3. Changes are propagated upwards through the hierarchy
+
+**Key Benefits**
+- **Encapsulation**: Each layer manages its own data and operations
+- **Single Responsibility**: Each class handles only its specific level of edits
+- **Extensibility**: Easy to add new edit operations at any level
+- **Maintainability**: Changes to one level don't affect others
+
+##### Alternative Approaches
+
+**1. Direct Access Pattern**
+
+Instead of traversing the hierarchy, directly access and modify the target object.
+
+```java
+class ProgrammeList {
+    public Exercise getExercise(int progId, int dayId, int exerciseId) {
+        return programmes.get(progId)
+                        .getDays().get(dayId)
+                        .getExercises().get(exerciseId);
+    }
+    
+    public void editExercise(int progId, int dayId, int exerciseId, ExerciseDetails details) {
+        Exercise exercise = getExercise(progId, dayId, exerciseId);
+        exercise.update(details);
+    }
+}
+```
+Pros: 
+- Simpler to implement
+- Command calls will be "flattened" to only ProgrammeList class
+- Fewer custom methods needed for edit operations
+
+Cons:
+- Violates encapsulation by exposing internal structure
+- Complicates validation and error handling
+- Reduces flexibility for future changes
+
+**2. Visitor Pattern Approach**
+
+Using a visitor pattern to traverse the hierarchy and perform edits.
+
+```java
+interface ProgrammeVisitor {
+    void visitProgramme(Programme prog);
+    void visitDay(Day day);
+    void visitExercise(Exercise exercise);
+}
+
+class EditVisitor implements ProgrammeVisitor {
+    private final EditDetails details;
+    
+    @Override
+    public void visitExercise(Exercise exercise) {
+        // Perform edit operation
+    }
+    // Other visit methods...
+}
+```
+Pros:
+- Reduces coupling between ProgrammeList components
+- Easy to extend and maintain edit functionality
+- Respects Separation of Concern by abstracting editing functionality to a separate file
+
+Cons:
+- Considered overkill for the fixed scope of the feature (unlikely to add any more types of edit operations)
+- Complicates testing by requiring Mocks or Reflection
+- Difficult to track operation flow 
 
 ## Product scope
 BuffBuddy is a fitness tracking app that help you track workout, meals, water to aid you in achieving your body goals.
