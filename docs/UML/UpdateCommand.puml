@@ -1,0 +1,30 @@
+@startuml
+title UpdateCommand Sequence Diagram
+
+participant User
+participant UpdateCommand
+participant uiCommand
+participant Internship
+participant InternshipList
+participant UiInternshipList
+
+activate InternshipList #orange
+activate UiInternshipList #yellow
+
+User -> UpdateCommand:execute(args)
+activate UpdateCommand #red
+activate uiCommand #green
+
+UpdateCommand -> InternshipList:isWithinBounds(index)
+break Not in Bounds
+    InternshipList -> UiInternshipList:showInvalidIndex()
+    UiInternshipList --> User:show invalid index message
+    InternshipList --> UpdateCommand: false
+end
+
+InternshipList --> UpdateCommand: true
+
+UpdateCommand -> uiCommand:clearInvalidFlags()
+UpdateCommand -> uiCommand:clearUpdatedFields()
+UpdateCommand -> uiCommand:clearInvalidFields()
+@enduml
