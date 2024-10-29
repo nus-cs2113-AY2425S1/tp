@@ -187,6 +187,10 @@ public class SeeAllExpensesCommandTest {
                 Expense.Category.TRANSPORT);
         FinancialEntry expense3 = new Expense(15.5, "snacks", LocalDate.of(24, 10, 20),
                 Expense.Category.FOOD);
+        FinancialEntry expense4 = new Expense(10.0, "table", LocalDate.of(24, 10, 21),
+                Expense.Category.OTHER);
+        FinancialEntry expense5 = new Expense(7.0, "shampoo", LocalDate.of(24, 10, 15),
+                Expense.Category.UTILITIES);
         FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24, 10, 22),
                 Income.Category.GIFT);
         FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24, 10, 12),
@@ -197,15 +201,19 @@ public class SeeAllExpensesCommandTest {
         financialList.addEntry(expense3);
         financialList.addEntry(income1);
         financialList.addEntry(income2);
+        financialList.addEntry(expense4);
+        financialList.addEntry(expense5);
 
         seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(24, 10, 15), LocalDate.of(24, 10, 21));
         seeAllExpensesCommand.execute(financialList);
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. " + expense3 + System.lineSeparator() +
+                "1. " + expense5 + System.lineSeparator() +
+                "2. " + expense3 + System.lineSeparator() +
+                "3. " + expense4 + System.lineSeparator() +
                 System.lineSeparator() +
-                "Total expense: $ 15.50" + System.lineSeparator() +
+                "Total expense: $ 32.50" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Highest Expense Category: FOOD ($15.50)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();

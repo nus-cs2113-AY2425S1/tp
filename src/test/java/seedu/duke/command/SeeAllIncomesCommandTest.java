@@ -150,7 +150,7 @@ class SeeAllIncomesCommandTest {
         testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 10, 10), null);
         financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10),
                 Expense.Category.FOOD));
-        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1),
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 10),
                 Income.Category.SALARY));
         financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 10, 10),
                 Expense.Category.FOOD));
@@ -189,11 +189,13 @@ class SeeAllIncomesCommandTest {
                 Expense.Category.FOOD));
         financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1),
                 Income.Category.SALARY));
-        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 10, 10),
-                Expense.Category.FOOD));
+        financialList.addEntry(new Income(5.0, "voucher", LocalDate.of(24, 10, 10),
+                Income.Category.GIFT));
         financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 10),
                 Expense.Category.ENTERTAINMENT));
         financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 11, 2),
+                Income.Category.GIFT));
+        financialList.addEntry(new Income(15.00, "birthday money", LocalDate.of(24, 9, 20),
                 Income.Category.GIFT));
         financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(24, 9, 12),
                 Income.Category.GIFT));
@@ -203,9 +205,11 @@ class SeeAllIncomesCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
-                "1. [Income] - salary $ 3000.00 (on 01/10/24) [SALARY]" + System.lineSeparator() +
+                "1. [Income] - birthday money $ 15.00 (on 20/09/24) [GIFT]" + System.lineSeparator() +
+                "2. [Income] - salary $ 3000.00 (on 01/10/24) [SALARY]" + System.lineSeparator() +
+                "3. [Income] - voucher $ 5.00 (on 10/10/24) [GIFT]" + System.lineSeparator() +
                 System.lineSeparator() +
-                "Total income: $ 3000.00" + System.lineSeparator() +
+                "Total income: $ 3020.00" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Highest Income Category: SALARY ($3000.00)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
