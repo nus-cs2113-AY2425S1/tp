@@ -130,6 +130,11 @@ public class Recipe {
         return recipeDetails.toString();
     }
 
+    /**
+     * Returns a string in the proper format to be written to the recipes.txt save file
+     *
+     * @return String to be written to the save file
+     */
     public String toSaveString() {
         StringBuilder recipeDetails = new StringBuilder();
         recipeDetails.append("add n/").append(name).append(" ");

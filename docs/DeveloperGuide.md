@@ -2,7 +2,8 @@
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries 
+-- include links to the original source as well}
 
 ## Design & implementation
 
@@ -16,8 +17,10 @@
 
 The bulk of the app's work is done by the following components:
 - `UI`: The UI of the App. It handles user interaction, including reading commands and displaying responses.
-- `Storage`: Reads data from, and writes data to, the hard disk. Responsible for loading and saving both recipes and ingredients.
-- `Parser`: The command parser. It interprets user inputs, turning them into `Command` objects that are executed by the app. 
+- `Storage`: Reads data from, and writes data to, the hard disk. 
+Responsible for loading and saving both recipes and ingredients.
+- `Parser`: The command parser. It interprets user inputs,
+turning them into `Command` objects that are executed by the app. 
 - `Command`: Represents actions that the user can perform, such as adding, deleting or listing recipes and ingredients.
 - `RecipeList` and `IngredientList`: These manage collections of recipes and ingredients, respectively. 
 
@@ -34,7 +37,8 @@ The sequence diagram below shows how the components interact with each other whe
 ### RecipeList Class
 
 ### Command Classes
-
+The command class deals with all the possible commands accepted by YMFC
+![commandClasses.png](commandsClassDiagram.png)
 ### Parser Class
  
 ### Storage Class
@@ -46,22 +50,21 @@ The Storage class
 - reads the .txt save file to load in past saved recipes when app is launched
   - The following Sequence diagram shows how the loadRecipes() method in the Storage class
     loads in past saved recipes from the .txt file when the app is first launched
-  ![loadRecipes.png](loadRecipesSequenceDiagram.png)
+  ![img.png](loadRecipesSequenceDiagram.png)
 
 The Storage class also saves and loads the list of user's available ingredients to another .txt save file
-The mechanisms with which it does so is highly similar to the 2 sequence diagrams above
+The mechanisms with which it does so is highly similar to the 2 sequence diagrams above.
 
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
 Cooks who want to quickly search up recipes or get recipe suggestions based on their available ingredients
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
-Cooks these days have more recipes than they know how to handle, and our product will help them store, retrieve and search through their recipes with ease.
-Prompts, tags and ingredients can be used to search a curated database, and recommend random recipes that closely match the criteria.
+Cooks these days have more recipes than they know how to handle, and our product will help them store, retrieve and
+search through their recipes with ease. Prompts, tags and ingredients can be used to search a curated database,
+and recommend random recipes that closely match the criteria.
 
 ## User Stories
 

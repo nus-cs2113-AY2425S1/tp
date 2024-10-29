@@ -60,7 +60,7 @@ public class Ui {
      * Constructor for a <code>YMFC.Ui</code> object.
      * Overloads default constructor to initialise a scanner object reading user inputs.
      *
-     * @param input InputStream for the Ui class to read commands from
+     * @param input InputStream for the Ui class to read commands from.
      */
     public Ui(InputStream input) {
         this.userInput = new Scanner(input);
@@ -93,7 +93,7 @@ public class Ui {
      * Return user input as a string when user hit enter key.
      * Users are re-prompted if they enter an empty command.
      *
-     * @return String representing what user typed into the program
+     * @return String representing what user typed into the program.
      */
     public String readCommand() {
         String commandRead = "";
@@ -107,7 +107,7 @@ public class Ui {
     /**
      * Display a specified message.
      *
-     * @param input String array representing the message, each element representing one line
+     * @param input String array representing the message, each element representing one line.
      */
     public void printMessage(String[] input) {
         System.out.println(LINE);
@@ -124,8 +124,8 @@ public class Ui {
     /**
      * Display a newly added recipe.
      *
-     * @param addedRecipe Recipe that has been added
-     * @param listCount Number of recipes currently in the list
+     * @param addedRecipe Recipe that has been added.
+     * @param listCount Number of recipes currently in the list.
      */
     public void printAddedRecipe(String addedRecipe, int listCount) {
         System.out.println(LINE);
@@ -140,8 +140,8 @@ public class Ui {
     /**
      * Display a newly added ingredient.
      *
-     * @param addedIngredient Ingredient that has been added
-     * @param listCount Number of ingredients currently in the list
+     * @param addedIngredient Ingredient that has been added.
+     * @param listCount Number of ingredients currently in the list.
      */
     public void printAddedIngredient(String addedIngredient, int listCount) {
         System.out.println(LINE);
@@ -156,8 +156,8 @@ public class Ui {
     /**
      * Display the entire list of recipe.
      *
-     * @param list ArrayList of recipes to be displayed
-     * @param listCount Integer representing total number of recipes in <code>list</code>
+     * @param list ArrayList of recipes to be displayed.
+     * @param listCount Integer representing total number of recipes in <code>list</code>.
      */
     public void printList(ArrayList<Recipe> list, int listCount) {
         System.out.println(LINE);
@@ -167,9 +167,10 @@ public class Ui {
     }
 
     /**
-     * Display list of recipes with order of each recipe
-     * @param list ArrayList of recipes to be displayed
-     * @param listCount Integer representing total number of recipes in <code>list</code>
+     * Display list of recipes with order of each recipe.
+     *
+     * @param list ArrayList of recipes to be displayed.
+     * @param listCount Integer representing total number of recipes in <code>list</code>.
      */
     private void printListWithOrder(ArrayList<Recipe> list, int listCount) {
         for (int i = 0; i < listCount; i++) {
@@ -178,6 +179,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Display the entire list of ingredients.
+     *
+     * @param list ArrayList of ingredients to be displayed.
+     * @param listCount Integer representing total number of ingredients in <code>list</code>.
+     */
     public void printIngredientList(ArrayList<Ingredient> list, int listCount) {
         System.out.println(LINE);
         System.out.println("\tHere's all the ingredients you currently have: ");
@@ -190,8 +197,8 @@ public class Ui {
     /**
      * Display a recipe that been deleted.
      *
-     * @param deletedRecipe Recipe that has been deleted
-     * @param listCount Integer representing number of recipes in the list currently
+     * @param deletedRecipe Recipe that has been deleted.
+     * @param listCount Integer representing number of recipes in the list currently.
      */
     public void printDeletedTask(String deletedRecipe, int listCount) {
         System.out.println(LINE);
@@ -203,12 +210,32 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Display the list of available commands.
+     */
     public void printHelp() {
         System.out.println(LINE);
         System.out.println(listOfCommands);
         System.out.println(LINE);
     }
 
+    /**
+     * Alert user that the recipe being added already exists.
+     *
+     * @param duplicateName Name of the duplicate recipe.
+     */
+    public void printDuplicateRecipe(String duplicateName){
+        System.out.println(LINE);
+        System.out.println("\tThere already exists a recipe called: " + duplicateName + " !");
+        System.out.println(LINE);
+    }
+
+    /**
+     * Display list of recipes that match the user's parameters.
+     *
+     * @param list ArrayList of recipes to be displayed.
+     * @param listCount Integer representing total number of recipes in <code>list</code>.
+     */
     public void printFind(ArrayList<Recipe> list, int listCount) {
         System.out.println(LINE);
         System.out.println("\tHere's everything that I've found so far:");
@@ -217,6 +244,12 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Display list of ingredients that match the user's parameters.
+     *
+     * @param list ArrayList of ingredients to be displayed.
+     * @param listCount Integer representing total number of ingredients in <code>list</code>.
+     */
     public void printFindIngred(ArrayList<Ingredient> list, int listCount) {
         System.out.println(LINE);
         System.out.println("\tHere's everything that I've found so far:");
@@ -225,6 +258,12 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Display list of inrgedients with order of each ingredient.
+     *
+     * @param list ArrayList of ingredients to be displayed.
+     * @param listCount Integer representing total number of ingredients in <code>list</code>.
+     */
     private void printIngredListWithOrder(ArrayList<Ingredient> list, int listCount) {
         for (int i = 0; i < listCount; i++) {
             System.out.println("\t" + (i + 1) + ". " + list.get(i));

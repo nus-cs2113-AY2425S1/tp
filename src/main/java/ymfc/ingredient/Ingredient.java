@@ -26,6 +26,11 @@ public class Ingredient {
         return name;
     }
 
+    /**
+     * Returns a string in the proper format to be written to the ingredients.txt save file
+     *
+     * @return String to be written to the save file
+     */
     public String toSaveString() {
 
         String ingredientDetails = "new n/" + name;
