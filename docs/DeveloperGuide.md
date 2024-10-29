@@ -186,14 +186,17 @@ JsonObject with `findUniversityName()`.
 will be called to get the JsonObject containing the PU and the JsonArray containing the list of courses it offers.
 * The two object will be passed into `iterateCourses()` method to iterate through the JsonArray `courseArray` which
 contains the list of courses.
-* It then prints out the course details such as PU course code and NUS course code through the `printCourseDetails()`
-method.
+* It then prints out the course details such as PU course code and NUS course code by calling the 
+`printListUniCoursesCommand` method in the UI class.
 * Assertions and logging are used for error handling.
+
+#### Why it is implemented this why:
+- ****Separation of Concerns:**** Each responsibility is seperated into smaller, well-defined methods
+  For example, `getPuName()` focuses on extracting the university name from user input and `findUniversityName()`
+  focuses on searching the university in the data set.
 
 #### Sequence on PlantUML:
 ![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
-
-
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
@@ -226,6 +229,34 @@ and South-East Asian universities. This command hence helps the users to keep tr
 
 #### Sequence Diagram on PlantUML
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
+
+### 6. Help Command
+
+#### Overview
+This command provides users with detailed explanations of each feature and the ways to use them.
+This allows users to navigate this program easily and effectively.
+
+#### How the feature is implemented:
+* The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides
+the execute method for custom behaviour.
+* First, the user input is passed into the `getCommand()` method which extracts and processes the
+command. It does so by using `switch` statements to determine if the input matches one of the valid commands.
+* If it does, it returns the command, if it does not, an `IllegalArgumentException` exception will be thrown to handle
+invalid commands
+* Then, the `printHelp()` method will be called to display the detailed help messages for the specific command.
+Another `switch` statement is used here to map each command to its corresponding help message.
+* Assertions and logging are implemented for error handling.
+
+#### Why it is implemented that way:
+- ****Separation of Concerns:**** Each method has a single responsibility. For example, `getCommand()` parses and
+  validates the input to extract a specific command and `printHelp()` prints the relevant help message for the 
+  parsed command.
+- ****Switch Statement:**** The use of `switch` statement is an efficient way to match valid commands.
+  `switch` statements are also clearer and easier to read.
+
+#### Sequence diagram on PlantUML
+- Represents when `execute()` method is called
+![Help Command sequence diagram](images/HelpCommand.png)
 
 ## Product scope
 ### Target user profile

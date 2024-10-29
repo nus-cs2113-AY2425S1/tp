@@ -208,5 +208,4 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
         System.out.println(nusCourseCode + ": " + nusCourseName);
         System.out.println(LINE_SEPARATOR);
     }
-
 }
