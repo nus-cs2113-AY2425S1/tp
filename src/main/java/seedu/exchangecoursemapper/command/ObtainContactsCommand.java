@@ -60,6 +60,12 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         return inputParts[1].trim();
     }
 
+    /**
+     * Handles output of different contact types and outputs a string of the details
+     *
+     * @return a String representing the email/number of the specified partner university.
+     * @throws IOException if the file at {@code FILE_PATH} cannot be found or read.
+     */
     public void handleContactType(JsonObject schoolInfo, String schoolName, String contactType) {
         switch (contactType) {
         case EMAIL_KEY:
