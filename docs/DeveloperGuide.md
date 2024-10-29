@@ -55,7 +55,15 @@ The recipelist class represents a list of any non-negative integer number of rec
 This class handles the addition, deletion and editing of recipes.
 
 ### Command Classes
-The command class deals with all the possible commands accepted by YMFC
+The command class deals with all the possible commands accepted by YMFC, with each command representing a specific 
+recognised user input (Eg. ListCommand representing the command to list all the recipes in the recipeList).
+
+#### The Command base class
+
+- Serves as the abstract parent class for all specific commands
+- Defines the basic structure and contract that each command class must follow
+    - adsf
+
 ![commandClasses.png](img/ClassDiagrams/commandsClassDiagram.png)
 ### Parser Class
 Self-explanatory, made for parsing user's input command. This class only consist of one public static method `parseCommand()` in order to process input commands.
