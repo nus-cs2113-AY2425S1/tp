@@ -19,7 +19,6 @@ package "ymfc.ingredient" {
 package "ymfc.list" {
 
     class IngredientList #COLOR_PURPLE_BLUE{
-            - ingredients: ArrayList<Ingredient>
             __
             + addIngredient(ingredient: Ingredient): void
             + getIngredients(): ArrayList<Ingredient>
