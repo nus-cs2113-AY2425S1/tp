@@ -28,7 +28,7 @@ turning them into `Command` objects that are executed by the app.
 ### How the architecture components interact with each other
 The sequence diagram below shows how the components interact with each other when the application is launched.
 
-![applicationStartUp.png](ApplicationStartUpSequenceDiagram.png)
+![ApplicationStartUp.png](img/SequenceDiagrams/ApplicationStartUp.png)
 
 ### Ui Class
 
@@ -38,12 +38,12 @@ The sequence diagram below shows how the components interact with each other whe
 
 ### Command Classes
 The command class deals with all the possible commands accepted by YMFC
-![commandClasses.png](commandsClassDiagram.png)
+![commandClasses.png](img/ClassDiagrams/commandsClassDiagram.png)
 ### Parser Class
 Self-explanatory, made for parsing user's input command. This class only consist of one public static method `parseCommand()` in order to process input commands.
 The remaining private methods represent separated cases for different commands.
 
-![Parser.parseCommand.png](../UMLDiagrams/Parser.parseCommand.png)
+![Parser.parseCommand.png](img/SequenceDiagrams/Parser.parseCommand.png)
 
 ### Storage Class
 The Storage class
@@ -51,12 +51,12 @@ The Storage class
   - The following Sequence diagram shows how the saveRecipes() method in the Storage class
   saves all the created recipes into the .txt file
 
-![saveRecipes.png](saveRecipesSequenceDiagram.png)
+![saveRecipes.png](img/SequenceDiagrams/saveRecipesSequenceDiagram.png)
 - reads the .txt save file to load in past saved recipes when app is launched
   - The following Sequence diagram shows how the loadRecipes() method in the Storage class
     loads in past saved recipes from the .txt file when the app is first launched
 
-  ![img.png](loadRecipesSequenceDiagram.png)
+![img.png](img/SequenceDiagrams/loadRecipesSequenceDiagram.png)
 
 
 The Storage class also saves and loads the list of user's available ingredients to another .txt save file
