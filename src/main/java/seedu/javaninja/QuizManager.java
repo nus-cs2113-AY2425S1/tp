@@ -18,6 +18,7 @@ public class QuizManager {
     private List<String> pastResults;
     private Storage results;
     private Storage questions;
+    public Scanner scanner;
 
     public QuizManager() {
         this.topics = new ArrayList<>();
@@ -76,6 +77,7 @@ public class QuizManager {
     }
 
     public void selectTopic(String topicName) {
+        scanner = new Scanner(System.in);
         if (topicName == null || topicName.trim().isEmpty()) {
             logger.warning("Invalid input. Please provide a topic name.");
             return;
@@ -83,29 +85,17 @@ public class QuizManager {
 
         for (Topic topic : topics) {
             if (topic.getName().equalsIgnoreCase(topicName.trim())) {
-                startQuiz(topic);
+                startQuiz(topic, scanner);
                 return;
             }
         }
         logger.warning("No such topic: " + topicName);
     }
 
-    public void startQuiz(Topic topic) {
-        Scanner quizScanner = new Scanner(System.in);
-        System.out.println("Set a time limit for the quiz.");
-        System.out.print("Enter the number of minutes (or 0 if you want to set seconds): ");
-        int minutes = Integer.parseInt(quizScanner.nextLine().trim());
-
-        int timeLimitInSeconds = 0;
-        if (minutes == 0) {
-            System.out.print("Enter the number of seconds: ");
-            timeLimitInSeconds = Integer.parseInt(quizScanner.nextLine().trim());
-        } else {
-            timeLimitInSeconds = minutes * 60;  // Convert minutes to seconds
-        }
-
-        System.out.print("Enter the number of questions you want to attempt: ");
-        int questionLimit = Integer.parseInt(quizScanner.nextLine().trim());
+    public void startQuiz(Topic topic, Scanner quizScanner) {
+        QuizTimer quizTimer = new QuizTimer(quizScanner);
+        int timeLimitInSeconds = quizTimer.getTimeLimitInSeconds();
+        int questionLimit = quizTimer.getQuestionLimit();
         currentQuiz = new Quiz(topic, quizScanner);
         currentQuiz.start(timeLimitInSeconds, questionLimit);
         int score = currentQuiz.getScore();

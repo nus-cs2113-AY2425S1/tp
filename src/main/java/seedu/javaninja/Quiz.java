@@ -110,6 +110,8 @@ public class Quiz {
         }
     }
 
+
+
     public int getScore() {
         int totalQuestions = topic.getQuestions().size();
         return (int) ((double) correctAnswers / totalQuestions * 100);
