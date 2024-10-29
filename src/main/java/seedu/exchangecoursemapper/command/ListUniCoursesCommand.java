@@ -42,8 +42,13 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
         } catch (IOException e) {
             logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
             System.err.println(Exception.fileReadError());
+            System.out.println(LINE_SEPARATOR);
         } catch (UnknownUniversityException e) {
             logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, e.getMessage());
+            System.err.println(e.getMessage());
+            System.out.println(LINE_SEPARATOR);
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.WARNING, Logs.NULL_UNIVERSITY);
             System.err.println(e.getMessage());
             System.out.println(LINE_SEPARATOR);
         }
@@ -65,7 +70,6 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
             logger.log(Level.WARNING, Logs.NO_PU_NAME);
             throw new IllegalArgumentException(Exception.emptyUniversityName());
         }
-
         return puName;
     }
 
