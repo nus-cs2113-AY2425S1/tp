@@ -1,7 +1,6 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.exception.Exception;
-import seedu.exchangecoursemapper.parser.CourseValidator;
 import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonArray;
