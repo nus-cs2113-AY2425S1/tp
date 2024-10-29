@@ -395,7 +395,7 @@ public class Parser {
                 return new FilterCommand(commandParts[1].trim().toLowerCase(), inputParts[1].trim());
             }
             throw new InvalidCommandException(INVALID_FILTER_FLAG_MESSAGE);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING,"Invalid command format");
             throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
         }

@@ -48,6 +48,7 @@ public class FilterCommand extends Command {
             outputMessage.append(FILTER_BY_PRIORITY_MESSAGE + "\n");
             break;
         default:
+            break;
         }
 
         for (int i = 0; i < filteredEvents.getListSize(); i++) {
