@@ -19,6 +19,13 @@ import wheresmymoney.exception.WheresMyMoneyException;
  */
 public class CategoryStorage {
     
+    /**
+     * Creates a {@code CategoryTracker} object based on the given {@code ExpenseList}.
+     *
+     * @param expenseList The list of expenses to be tracked, each with a category and a price.
+     * @return A CategoryTracker containing the total spending for each category based on the provided expense list.
+     * @throws WheresMyMoneyException If an error occurs while adding a category.
+     */
     public CategoryTracker trackCategoriesOf(ArrayList<Expense> expenseList) throws WheresMyMoneyException {
         CategoryTracker categoryTracker = new CategoryTracker();
         for (Expense expense : expenseList) {
