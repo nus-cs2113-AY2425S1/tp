@@ -232,7 +232,7 @@ The `ListCommandsCommand` provides users with a comprehensive list of all availa
 
 #### How the feature is implemented:
 * The `ListCommandsCommand` class extends the `Command` superclass and overrides the `execute` method.
-* In the `execute` method, `printCommandList()` of the UI class is called.
+* In the `execute` method, `printCommandList` from the UI class is called.
 * A detailed list of commands with brief descriptions is printed to the CLI , providing users with command syntax and expected usage.
 * The command list is formatted for readability with each command on a new line, and `LINE_SEPARATOR` is used before and after the list to create a visually distinct section in the CLI.
 * Logging is implemented to track the start and completion of the command, facilitating debugging and traceability.
@@ -247,6 +247,55 @@ The `ListCommandsCommand` provides users with a comprehensive list of all availa
 
 #### Sequence Diagram on PlantUML:
 ![List Commands Command Sequence Diagram](../uml-images/ListCommandsCommand.png)
+
+
+### 7. ListPersonalTrackerCommand
+
+#### Overview:
+The `ListPersonalTrackerCommand` is responsible for listing all the mapped modules stored in the user’s personal tracker. This command retrieves all stored courses from `myList.json` via the Storage class and displays them in an indexed list format on the CLI.
+
+#### How the Feature is Implemented:
+- The `ListPersonalTrackerCommand` class extends `CheckInformationCommand` and overrides the `execute` method to define custom behavior.
+- **Constructor:** The constructor accepts a `Storage` object to access stored course mappings.
+- **Execution Flow in `execute` Method:**
+  - Calls `loadAllCourses` from the Storage class to retrieve the list of mapped modules.
+  - If the list is empty, a message is displayed to inform the user that no modules have been mapped.
+  - If there are mapped modules, it logs that modules will be displayed and then:
+    - Prints a header and a line separator.
+    - Iterates through `mappedModules`, printing each course with an index for readability by calling `printMappedModules` from the IU class.
+    - Prints a closing line separator.
+
+#### Why It Is Implemented This Way:
+- **Single Responsibility:** This command is focused on a single responsibility—displaying the list of mapped modules—making it easy to maintain and test.
+- **User-Friendly Output:** By indexing the output and adding line separators, the command ensures a clean and readable output format for users.
+
+#### Alternative Implementations Considered:
+- **Direct Output from Storage:** An alternative could have been to let the Storage class directly output the list. However, separating the command logic maintains a cleaner architecture and allows more flexibility in how the data is displayed.
+- **Skipping Indexing:** Displaying the list without indexing was considered, but indexing improves readability, especially if the list of modules is long.
+
+#### Example Usage and Expected Output:
+If the `myList.json` file contains the following entries:
+
+```
+CS3244 | The Australian National University | COMP3670
+CS2105 | The University of Western Australia | CITS3002
+CS2102 | The University of Melbourne | INFO20003
+```
+
+Running the `ListPersonalTrackerCommand` would output:
+
+```
+Mapped Modules:
+-----------------------------------------------------
+1. CS3244 | The Australian National University | COMP3670
+2. CS2105 | The University of Western Australia | CITS3002
+3. CS2102 | The University of Melbourne | INFO20003
+-----------------------------------------------------
+```
+
+#### Sequence Diagram on PlantUML:
+![List Personal Tracker Command Sequence Diagram](../uml-images/ListPersonalTrackerCommand.png)
+
 
 
 ## Product scope
@@ -265,15 +314,16 @@ The `ListCommandsCommand` provides users with a comprehensive list of all availa
 
 ## User Stories
 
-| Version | As a ...     | I want to ...                                                   | So that I can ...                                |
-|---------|--------------|-----------------------------------------------------------------|--------------------------------------------------|
-| v1.0    | CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions     |
-| v1.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                |
-| v1.0    | CEG student  | key in the school I want to go for exchange                     | view the available course offered by the school  |
-| v1.0    | CEG student  | want to see a list of commands                                  | know what to do to go to access the features     |
-| v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries          |
-| v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries |
-| v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU       |
+| Version | As a ...     | I want to ...                                                   | So that I can ...                                               |
+|---------|--------------|-----------------------------------------------------------------|-----------------------------------------------------------------|
+| v1.0    | CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions                    |
+| v1.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                               |
+| v1.0    | CEG student  | key in the school I want to go for exchange                     | view the available course offered by the school                 |
+| v1.0    | CEG student  | want to see a list of commands                                  | know what to do to go to access the features                    |
+| v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries                         |
+| v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries                |
+| v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU                      |
+| v2.0    | CEG student  | list out the mapped courses by calling the list command         | I can track all the courses I have mapped to the different PUs  |
 
 ## Non-Functional Requirements
 
