@@ -84,8 +84,8 @@ class QuizManagerTest {
         // Start the quiz and save the results
         quizManager.startQuiz(topic, scanner);
 
-        String savedResults = Files.readString(Path.of(resultsFilePath));
-        String expectedSavedResults = "Score: 0%, Comment: Better luck next time!\n";
+        String expectedSavedResults = "Score: 0%, Comment: Better luck next time!";
+        String savedResults = Files.readString(Path.of(resultsFilePath)).trim();
         assertEquals(expectedSavedResults, savedResults);
 
         scanner.close();
