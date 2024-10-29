@@ -1,5 +1,6 @@
 package seedu.manager.event;
 
+import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.DuplicateDataException;
 import seedu.manager.item.Participant;
 
@@ -19,6 +20,7 @@ public class Event {
     private LocalDateTime eventTime;
     private String eventVenue;
     private boolean isDone;
+    private Priority eventPriority;
 
     /**
      * Constructs an Event with the specified name.
@@ -41,6 +43,24 @@ public class Event {
         this.eventName = eventName;
         this.eventTime = eventTime;
         this.eventVenue = eventVenue;
+        this.participantList = new ArrayList<>();
+        this.isDone = false;
+    }
+
+    //@@author LTK-1606
+    /**
+     * Constructs an Event with the specified name, time, venue and priority.
+     *
+     * @param eventName  The name of the event.
+     * @param eventTime  The time duration of the event.
+     * @param eventVenue The venue of the event.
+     * @param eventPriority The priority level of the event.
+     */
+    public Event(String eventName, LocalDateTime eventTime, String eventVenue, Priority eventPriority) {
+        this.eventName = eventName;
+        this.eventTime = eventTime;
+        this.eventVenue = eventVenue;
+        this.eventPriority = eventPriority;
         this.participantList = new ArrayList<>();
         this.isDone = false;
     }
@@ -111,6 +131,14 @@ public class Event {
         return eventVenue;
     }
 
+    //@@author LTK-1606
+    /**
+     * @return the event priority
+     */
+    public Priority getEventPriority() {
+        return eventPriority;
+    }
+
     public ArrayList<Participant> getParticipantList() {
         return participantList;
     }
@@ -138,6 +166,15 @@ public class Event {
      */
     public void setEventVenue(String eventVenue) {
         this.eventVenue = eventVenue;
+    }
+
+    /**
+     * Sets a new priority level for the event.
+     *
+     * @param eventPriority the new event priority level
+     */
+    public void setEventPriority(Priority eventPriority) {
+        this.eventPriority = eventPriority;
     }
 
     //@@author jemehgoh
@@ -213,8 +250,8 @@ public class Event {
     @Override
     public String toString(){
         String eventTimeString = getEventTimeString();
-        return String.format("Event name: %s / Event time: %s / Event venue: %s / Done: %c",
-                eventName, eventTimeString, eventVenue, markIfDone());
+        return String.format("Event name: %s / Event time: %s / Event venue: %s / Event Priority: %s / Done: %c",
+                eventName, eventTimeString, eventVenue, eventPriority, markIfDone());
     }
 
     /**
