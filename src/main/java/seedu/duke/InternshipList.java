@@ -125,7 +125,6 @@ public class InternshipList {
     }
 
     //@@author jadenlimjc
-
     // Method to list all internships
     public void listAllInternships() {
         if (internships.isEmpty()) {
@@ -155,7 +154,6 @@ public class InternshipList {
         ui.showInternships(sortedList);
     }
 
-    //@@author jadenlimjc
     // Method to list all internships sorted by start date (year first), then end date
     public void listInternshipsSortedByDuration() {
         ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
@@ -212,7 +210,33 @@ public class InternshipList {
         ui.showInternships(sortedInternships);
     }
 
+    /**
+     * Lists internships sorted by the first skill alphabetically (case-insensitive).
+     */
+    public void listInternshipsSortedByFirstSkill() {
+        ArrayList<Internship> sortedList = new ArrayList<>(internships);
 
+        // Sort by the first skill alphabetically
+        Collections.sort(sortedList, Comparator.comparing(internship -> {
+            String firstSkill = internship.getFirstSkill();
+            return firstSkill.isEmpty() ? "No skills" : firstSkill.toLowerCase();// Sort internships with no skills last
+        }));
 
+        // Display the sorted list without changing IDs
+        ui.showInternships(sortedList);
+    }
+
+    /**
+     * Lists internships sorted by status alphabetically (case-insensitive).
+     */
+    public void listInternshipsSortedByStatus() {
+        ArrayList<Internship> sortedList = new ArrayList<>(internships);
+
+        // Sort by status alphabetically
+        Collections.sort(sortedList, Comparator.comparing(internship -> internship.getStatus().toLowerCase()));
+
+        // Display the sorted list without changing IDs
+        ui.showInternships(sortedList);
+    }
 
 }

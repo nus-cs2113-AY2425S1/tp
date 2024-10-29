@@ -136,6 +136,7 @@ public class UpdateCommand extends Command {
                 deadline.setDate(date);
                 deadlineFound = true;
                 //uiCommand.addUpdatedField(deadline.getDescription(), deadline.getDate());
+                uiCommand.addUpdatedField(deadline.getDescription(), deadline.getDate(), "update");
                 break;
             }
         }

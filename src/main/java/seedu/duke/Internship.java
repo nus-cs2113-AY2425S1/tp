@@ -281,6 +281,18 @@ public class Internship {
         this.status = status.isEmpty() ? "Pending" : status;
     }
 
+    //@@author Toby-Yu
+    /**
+     * Returns the first skill in the list, or an empty string if no skills are available.
+     */
+    public String getFirstSkill() {
+        if (skills.isEmpty()) {
+            return "";
+        }
+        return skills.get(0);
+    }
+
+    //@@author Ridiculouswifi
     // toString method for displaying the details
     @Override
     public String toString() {
