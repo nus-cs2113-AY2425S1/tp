@@ -13,6 +13,8 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# data files
+data/EasInternship.txt
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 META-INF/MANIFEST.MF

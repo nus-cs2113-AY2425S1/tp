@@ -1,8 +1,11 @@
 package seedu.commands;
 
+import seedu.duke.Deadline;
+import seedu.duke.Internship;
 import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.InvalidStatus;
 
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -21,14 +24,25 @@ public class UpdateCommand extends Command {
             }
             args.remove(0);
 
+
             uiCommand.clearInvalidFlags();
             uiCommand.clearUpdatedFields();
             uiCommand.clearInvalidFields();
+            if (args.get(0).startsWith("deadline")) {
+                String trimmedDescription = args.get(0).substring(args.get(0).indexOf(" ") + 1).trim();
+                String trimmedDate = args.size() > 1 ? args.get(1).substring(args.get(1).indexOf(" ") + 1) : "";
+                if (isValidDeadline(trimmedDescription,trimmedDate)) {
+                    updateDeadline(internshipIndex, trimmedDescription,trimmedDate);
+                }
 
-            for (String arg : args) {
-                String[] words = arg.split(" ", 2);
-                updateOneField(words, internshipIndex);
+            } else {
+                for (String arg : args) {
+                    String[] words = arg.split(" ", 2);
+                    updateOneField(words, internshipIndex);
+                }
             }
+
+
             uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
         } catch (NumberFormatException e) {
             uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
@@ -37,7 +51,7 @@ public class UpdateCommand extends Command {
         }
     }
 
-    private boolean isValidValue(String[] words) {
+    protected boolean isValidValue(String[] words) {
         try {
             String value = words[INDEX_DATA].trim();
             if (value.isEmpty()) {
@@ -50,10 +64,10 @@ public class UpdateCommand extends Command {
         }
     }
 
-    private void updateOneField(String[] words, int internshipIndex) throws InvalidIndex {
+    protected void updateOneField(String[] words, int internshipIndex) throws InvalidIndex {
         String field = words[INDEX_FIELD];
         try {
-            switch (words[INDEX_FIELD]) {
+            switch (field) {
             case "status":
             case "skills":
             case "role":
@@ -65,10 +79,10 @@ public class UpdateCommand extends Command {
                 }
                 String value = words[INDEX_DATA].trim();
                 internships.updateField(internshipIndex, field, value);
-                uiCommand.addUpdatedField(field, value);
+                uiCommand.addUpdatedField(field, value, "update");
                 break;
             default:
-                uiCommand.addInvalidFlag(words[INDEX_FIELD]);
+                uiCommand.addInvalidFlag(field);
                 break;
             }
         } catch (DateTimeParseException e) {
@@ -76,7 +90,7 @@ public class UpdateCommand extends Command {
         } catch (InvalidStatus e) {
             String message = """
                     Status provided is not recognised:
-                    Please provide one of the following:
+                    Please provide one of the following:i
                     - Application Pending
                     - Application Completed
                     - Accepted
@@ -84,6 +98,48 @@ public class UpdateCommand extends Command {
             uiCommand.addInvalidField(field, message);
         }
     }
+    //@@author jadenlimjc
+
+    private boolean isValidDeadline(String description, String date) throws DateTimeParseException {
+        if (description.isEmpty()) {
+            uiCommand.addInvalidFlag("deadline");
+            return false;
+        }
+        if (date.isEmpty()) {
+            uiCommand.addInvalidFlag("date");
+            return false;
+        }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+            formatter.parse(date);
+        } catch (DateTimeParseException e) {
+            uiCommand.addInvalidField("date", "Invalid date format. use dd/MM/yy");
+            return false;
+        }
+        return true;
+    }
+
+    private void updateDeadline(int internshipIndex, String description, String date) throws InvalidIndex {
+        Internship internship = internships.getInternship(internshipIndex);
+
+        boolean deadlineFound = false;
+
+        for (Deadline deadline : internship.getDeadlines()) {
+            if (deadline.getDescription().equalsIgnoreCase(description)) {
+                deadline.setDate(date);
+                deadlineFound = true;
+                uiCommand.addUpdatedField(deadline.getDescription(), deadline.getDate(), "update");
+                break;
+            }
+        }
+
+        if (!deadlineFound) {
+            internship.addDeadline(description, date);
+            uiCommand.addCreatedField("Deadline", description);
+        }
+    }
+
+
 
     public String getUsage() {
         return """

@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 public class Ui {
     protected static final String DIVIDER = "__________________________________________________\n";
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     private static final String MESSAGE_WELCOME = """
                 Hello! Welcome to EasInternship!

@@ -3,11 +3,13 @@ package seedu.duke;
 import seedu.commands.Command;
 import seedu.commands.AddCommand;
 import seedu.commands.DeleteCommand;
-import seedu.commands.HelpCommand;
-import seedu.commands.ListCommand;
 import seedu.commands.UpdateCommand;
 import seedu.commands.SortCommand;
 import seedu.commands.FilterCommand;
+import seedu.commands.ListCommand;
+import seedu.commands.HelpCommand;
+import seedu.commands.RemoveCommand;
+
 import seedu.ui.Ui;
 
 import java.util.Map;
@@ -18,7 +20,7 @@ import java.util.function.Supplier;
 
 public class Parser {
     private static final Ui ui = new Ui();
-    private Map<String, Supplier<Command>> commands = new HashMap<>();
+    private final Map<String, Supplier<Command>> commands = new HashMap<>();
 
     public Parser() {
         // Initialize command map
@@ -34,6 +36,7 @@ public class Parser {
         commands.put("filter", FilterCommand::new);
         commands.put("list", ListCommand::new);
         commands.put("help", HelpCommand::new);
+        commands.put("remove", RemoveCommand::new);
     }
 
     public Command parseCommand(String input) {
@@ -121,7 +124,6 @@ public class Parser {
         String id = splitArray[0].trim();
         try {
             String fields = splitArray[1].trim();
-
             if (fields.isBlank()) {
                 throw new ArrayIndexOutOfBoundsException();
             }
@@ -135,6 +137,9 @@ public class Parser {
             return commandArgs;
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showEmptyFlags();
+            return null;
+        } catch (NumberFormatException e) {
+            ui.showOutput("Please input some ID for the command");
             return null;
         }
     }
