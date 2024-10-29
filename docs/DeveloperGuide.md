@@ -195,7 +195,7 @@ method.
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
-### 4. Add Courses Command
+### 5. Add Courses Command
 
 #### Overview:
 This command is responsible for adding users' desired course mapping into the `myList.json` file. 
@@ -225,6 +225,30 @@ and South-East Asian universities. This command hence helps the users to keep tr
 #### Sequence Diagram on PlantUML
 ![Add Courses Sequence Diagram](../uml-images/AddCoursesCommand.png)
 
+### 6. List Commands Command
+
+#### Overview:
+The `ListCommandsCommand` provides users with a comprehensive list of all available commands in the CLI. This is particularly useful for new users or those unfamiliar with specific command formats.
+
+#### How the feature is implemented:
+* The `ListCommandsCommand` class extends the `Command` superclass and overrides the `execute` method.
+* In the `execute` method, `printCommandList()` of the UI class is called.
+* A detailed list of commands with brief descriptions is printed to the CLI , providing users with command syntax and expected usage.
+* The command list is formatted for readability with each command on a new line, and `LINE_SEPARATOR` is used before and after the list to create a visually distinct section in the CLI.
+* Logging is implemented to track the start and completion of the command, facilitating debugging and traceability.
+
+#### Why it is implemented that way:
+* **Ease of Use**: Displaying all available commands in one place helps users quickly identify what actions are possible within the application.
+* **Logging**: Logging the start and end of execution helps developers track usage patterns and troubleshoot issues if the command is not functioning as expected.
+
+#### Alternatives considered:
+* **Dynamic Command List**: Considered dynamically generating the command list from all command classes in the codebase to avoid manually updating this list, but opted for simplicity to prevent added complexity.
+* **Help Command Integration**: Considered integrating `ListCommandsCommand` with the `HelpCommand` to provide a one-stop command for help-related requests, but separating them ensures clarity and keeps each command focused.
+
+#### Sequence Diagram on PlantUML:
+![List Commands Command Sequence Diagram](../uml-images/ListCommandsCommand.png)
+
+
 ## Product scope
 ### Target user profile
 
@@ -246,6 +270,7 @@ and South-East Asian universities. This command hence helps the users to keep tr
 | v1.0    | CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions     |
 | v1.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                |
 | v1.0    | CEG student  | key in the school I want to go for exchange                     | view the available course offered by the school  |
+| v1.0    | CEG student  | want to see a list of commands                                  | know what to do to go to access the features     |
 | v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries          |
 | v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries |
 | v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU       |
