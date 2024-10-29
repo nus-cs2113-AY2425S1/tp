@@ -133,14 +133,17 @@ public class Event {
 
     //@@author LTK-1606
     /**
+     * @return the event's participant list
+     */
+    public ArrayList<Participant> getParticipantList() {
+        return participantList;
+    }
+
+    /**
      * @return the event priority
      */
     public Priority getEventPriority() {
         return eventPriority;
-    }
-
-    public ArrayList<Participant> getParticipantList() {
-        return participantList;
     }
 
     /**
@@ -168,6 +171,15 @@ public class Event {
         this.eventVenue = eventVenue;
     }
 
+    /**
+     * Sets a participant for the event.
+     *
+     * @param participantList the new participant list
+     */
+    public void setParticipantList(ArrayList<Participant> participantList) {
+        this.participantList = participantList;
+    }
+  
     /**
      * Sets a new priority level for the event.
      *
