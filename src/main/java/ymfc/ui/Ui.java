@@ -163,7 +163,6 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("\tHere's everything in my collection so far:");
         printListWithOrder(list, listCount);
-        System.out.println(LINE);
     }
 
     /**
@@ -174,7 +173,7 @@ public class Ui {
      */
     private void printListWithOrder(ArrayList<Recipe> list, int listCount) {
         for (int i = 0; i < listCount; i++) {
-            System.out.println((i + 1) + "." + list.get(i));
+            System.out.println("\t" + (i + 1) + ". " + list.get(i));
             System.out.println(LINE);
         }
     }
@@ -268,6 +267,18 @@ public class Ui {
         for (int i = 0; i < listCount; i++) {
             System.out.println("\t" + (i + 1) + ". " + list.get(i));
         }
+    }
+
+    /**
+     * Display an edited recipe.
+     *
+     * @param editedRecipe Recipe that has been edited.
+     */
+    public void printEditedRecipe(String recipeName, Recipe editedRecipe) {
+        System.out.println(LINE);
+        System.out.println("\tYou got it boss, I have edited your recipe for " + recipeName + " to:");
+        System.out.println("\t " +  editedRecipe);
+        System.out.println(LINE);
     }
 
     public String getLine() {

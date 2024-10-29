@@ -16,7 +16,7 @@
 - At app launch, it initialises the other components in the correct sequence, and connects them up with each other.
 
 The bulk of the app's work is done by the following components:
-- `UI`: The UI of the App. It handles user interaction, including reading commands and displaying responses.
+- `UI`: The user interface of the App. It handles user interaction, namely reading user input and displaying messages.
 - `Storage`: Reads data from, and writes data to, the hard disk. 
 Responsible for loading and saving both recipes and ingredients.
 - `Parser`: The command parser. It interprets user inputs,
@@ -31,10 +31,23 @@ The sequence diagram below shows how the components interact with each other whe
 ![ApplicationStartUp.png](img/SequenceDiagrams/ApplicationStartUp.png)
 
 ### Ui Class
+The ui class deals with taking in inputs from an input stream (in this case, the user input through `System.in`), 
+and then printing messages read-able by the user (through `System.out`). 
 
 ### Recipe Class
+The recipe class represents a singular recipe added by the user or loaded from the storage database. 
+A valid recipe object contains the following fields:
++ Name
++ List of Ingredients
++ List of Steps
++ Cuisine (optional)
++ Time taken (optional)
+
+The formatting of how a recipe is displayed and saved is handled by this class.
 
 ### RecipeList Class
+The recipelist class represents a list of any non-negative integer number of recipes. 
+This class handles the addition, deletion and editing of recipes.
 
 ### Command Classes
 The command class deals with all the possible commands accepted by YMFC

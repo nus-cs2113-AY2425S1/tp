@@ -109,22 +109,23 @@ public class Recipe {
         StringBuilder recipeDetails = new StringBuilder();
         recipeDetails.append("Recipe: ").append(name).append(System.lineSeparator());
 
-        recipeDetails.append("  Ingredients: ");
+        recipeDetails.append("\t" + "  Ingredients: ");
         for (String ingredient : ingredients) {
-            recipeDetails.append(System.lineSeparator()).append("    - ").append(ingredient);
+            recipeDetails.append(System.lineSeparator()).append("\t" + "    - ").append(ingredient);
         }
 
-        recipeDetails.append(System.lineSeparator()).append("  Steps: ");
+        recipeDetails.append(System.lineSeparator()).append("\t" + "  Steps: ");
         for (int i = 0; i < steps.size(); i++) {
-            recipeDetails.append(System.lineSeparator()).append("    ").append(i + 1).append(". ").append(steps.get(i));
+            recipeDetails.append(System.lineSeparator()).append("\t" + "    ")
+                    .append(i + 1).append(". ").append(steps.get(i));
         }
 
         if (cuisine != null) {
-            recipeDetails.append(System.lineSeparator()).append("  Cuisine: ").append(cuisine);
+            recipeDetails.append(System.lineSeparator()).append("\t" + "  Cuisine: ").append(cuisine);
         }
 
         if (timeTaken != null) {
-            recipeDetails.append(System.lineSeparator()).append("  Time taken: ").append(timeTaken);
+            recipeDetails.append(System.lineSeparator()).append("\t" + "  Time taken: ").append(timeTaken);
         }
 
         return recipeDetails.toString();
