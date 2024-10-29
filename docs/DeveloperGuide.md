@@ -44,6 +44,7 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Expense and Expense List](#expense-and-expense-list)
 - [Date and Time Handling](#date-and-time-handling)
 - [Exceptions and Logging](#exceptions-and-logging)
+- [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 
 ### UI and Parser
 
@@ -169,6 +170,45 @@ The `DateUtils` class has no notable methods.
 <u>Implementation Details</u>
 
 The `DateUtils` class is implemented as a Singleton as its methods are common to all other classes that require it.
+
+### Recurring Expense and Recurring Expense List
+
+<u>Overview</u>
+
+The `RecurringExpense` class extends from the `Expense` class and it represents an indivual recurring expense with a price, description, category, last date added and a frequency.
+
+The `RecurringExpenseList` class extends from the `ExpenseList` class and it manages a collection of `RecurringExpense` objects.
+It allows for addition, editing and deletion of expenses.
+
+<u>Methods</u>
+
+The `RecurringExpense` class has no notable methods.
+
+The `RecurringExpenseList` class has the following key methods:
+
+|          Method          |                Description                 |
+|:------------------------:|:------------------------------------------:|
+|  `addRecurringExpense`   |    Adds a recurring expense to the list    |
+| `deleteRecurringExpense` | Removes a recurring expense from the list  |
+|  `editRecurringExpense`  |   Edits a recurring expense in the list    |
+| `loadFromCsv` | Adds the appropriate amount of `Expense` objects with the correct date to the `ExpenseList`|
+
+
+<u>Design Considerations</u>
+
+Since the programme does not have an auto-save function upon closing the programme or auto-load when starting the programme, it is up to the user to save their work and to load it again.
+
+To minimise the amount of checks that need to be done, the recurring expenses are only added after the user calls the `load` command.
+
+<u>Implementation Details</u>
+
+Below is the UML class diagram for `RecurringExpense` and `RecurringExpenseList`:
+
+![RecurringExpenseAndRecurringExpenseList.png](diagrams%2Fimages%2FRecurringExpenseAndRecurringExpenseList.png "UML Class Diagram for RecurringExpense and RecurringExpenseList class")
+
+Below is the sequence diagram for when the user calls the `load` command.
+
+![RecurringExpenseLoadFromCsvSequence.png](diagrams%2Fimages%2FRecurringExpenseLoadFromCsvSequence.png "UML Sequence Diagram for calling load command")
 
 ### Exceptions and Logging
 
