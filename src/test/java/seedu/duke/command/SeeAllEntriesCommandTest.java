@@ -148,7 +148,6 @@ class SeeAllEntriesCommandTest {
         financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 10, 10),
                 Income.Category.GIFT));
 
-
         testCommand.execute(financialList);
 
         String output = outputStream.toString();
@@ -178,7 +177,6 @@ class SeeAllEntriesCommandTest {
                 Expense.Category.ENTERTAINMENT));
         financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 10, 10),
                 Income.Category.GIFT));
-
 
         testCommand.execute(financialList);
 
