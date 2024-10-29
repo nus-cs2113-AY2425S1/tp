@@ -1,12 +1,22 @@
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
-import seedu.commands.*;
+import seedu.commands.AddCommand;
+import seedu.commands.Command;
+import seedu.commands.DeleteCommand;
+import seedu.commands.FilterCommand;
+import seedu.commands.HelpCommand;
+import seedu.commands.ListCommand;
+import seedu.commands.SortCommand;
+import seedu.commands.UpdateCommand;
+
 import seedu.ui.Ui;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class ParserTest {
 
