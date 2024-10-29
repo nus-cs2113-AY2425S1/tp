@@ -24,7 +24,8 @@ public abstract class Command {
      * @param expenseList Current ExpenseList
      * @throws WheresMyMoneyException On any error executing the command
      */
-    public abstract void execute(ExpenseList expenseList, CategoryTracker categoryTracker) throws WheresMyMoneyException;
+    public abstract void execute(ExpenseList expenseList, CategoryTracker categoryTracker)
+            throws WheresMyMoneyException;
 
     /**
      * Returns a boolean representing if the entire program should exit.
