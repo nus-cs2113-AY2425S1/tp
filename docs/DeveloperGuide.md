@@ -55,16 +55,50 @@ The recipelist class represents a list of any non-negative integer number of rec
 This class handles the addition, deletion and editing of recipes.
 
 ### Command Classes
-The command class deals with all the possible commands accepted by YMFC
+The command class deals with all the possible commands accepted by YMFC, with each command representing a specific 
+recognised user input (Eg. ListCommand representing the command to list all the recipes in the recipeList).
+
+#### 1. The `Command` base class
+- Serves as the abstract parent class for all specific commands
+- Defines the basic structure and contract that each command class must follow
+- Each command performs a unique operation and can be expanded to include more functionality as required by YMFC
+- Standardises command behavior and establishes an inheritance hierarchy, allowing for the seamless addition and usage 
+of command functionalities
+- Core Elements:
+  - `isBye`: A flag that tracks if an exit command has been issued, following which programme should be terminated
+    - Set by calling `setBye() `
+    - Checked with `isBye()`
+  - `execute()`: An abstract method that must be implemented by all subclasses
+    - Defines the primary action performed by the command (E.g. add new recipe to `recipeList` for `AddRecipeCommand`)
+
 ![commandClasses.png](img/ClassDiagrams/commandsClassDiagram.png)
+
+#### 2. Command Flow (Using `Command` Classes)
+1. Initialisation: Instantiate a `Command` subclass by passing user input through the `parseCommand()` of `Parser`
+2. Exit signal: If a command is meant to terminate the app (E.g. `ByeCommand`), set `isBye` to true
+3. Execution: Call `execute()`, performing the desired action and interacting with YMFC's data and UI components
+
+![AddRecipes,png](img/SequenceDiagrams/AddRecipesSequenceDiagram.png)
+
+#### 3. Adding new `Command` Classes
+- Create a `Command` class:
+  1. Inherit from `Command`: Each new command class extends `Command`, inheriting its structure and providing a specific 
+implementation of the `execute()` method
+  2. Override `execute()`: Implement `execute()` to define how the command should interact with `RecipeList`,
+`IngredientList`, `Ui`, and `Storage`
+  3. Additional methods (Optional): You may add helper methods within the class if necessary
+- Register the command
+  1. Update the `parseCommand()` method in `Parser` to recognise and instantiate the new command
+
 ### Parser Class
-Self-explanatory, made for parsing user's input command. This class only consist of one public static method `parseCommand()` in order to process input commands.
+Self-explanatory, made for parsing user's input command. This class only consist of one public static method 
+`parseCommand()` in order to process input commands.
 The remaining private methods represent separated cases for different commands.
 
 ![Parser.parseCommand.png](img/SequenceDiagrams/Parser.parseCommand.png)
 
 ### Storage Class
-The Storage class
+The Storage class 
 - saves the User's added recipes to a .txt file
   - The following Sequence diagram shows how the saveRecipes() method in the Storage class
   saves all the created recipes into the .txt file
