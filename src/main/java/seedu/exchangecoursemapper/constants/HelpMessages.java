@@ -29,4 +29,12 @@ public class HelpMessages {
             "1. obtain <SCHOOL_NAME> /email - To obtain PU's email\n" +
             "2. obtain <SCHOOL_NAME> /number - To obtain PU's contact number\n" +
             "e.g. obtain the university of western australia /number";
+    public static final String COMMAND_DELETE = "The delete function allows users to delete a course mapping plan in" +
+            "their personalised tracker.\n" +
+            "The format to use this feature is shown below:\n" +
+            "delete [TASK_NUMBER]\n" +
+            "e.g. delete 1 - which means deleting task 1";
+    public static final String COMMAND_LIST_MAPPED = "The list mapped function allows users to list out all the\n" +
+            "course mapping their have added into their personalised tracker using the add function.\n" +
+            "To use this feature, please key in: list mapped";
 }
