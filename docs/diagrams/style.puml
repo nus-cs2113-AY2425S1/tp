@@ -31,6 +31,11 @@
 !define STORAGE_COLOR_T3 #806600
 !define STORAGE_COLOR_T2 #544400
 
+!define PARSER_COLOR #FF9300
+
+!define COMMAND_COLOR #942192
+
+
 !define USER_COLOR #000000
 
 skinparam Package {

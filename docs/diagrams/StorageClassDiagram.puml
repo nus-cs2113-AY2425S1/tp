@@ -27,6 +27,10 @@ package "Storage" {
         {static} -logger: Logger
         {static} -objectMapper: ObjectMapper
     }
+
+    class StorageBackup {
+        + createBackupFile(filePath : String)
+    }
 }
 
 package "hospital" {
@@ -35,7 +39,17 @@ package "hospital" {
     }
 }
 
-StorageFile o-- "1" Hospital
-StorageFile ..> "uses" JsonUtil
+
+
+
+' package "exception" {
+'     class StorageOperationException {
+'     }
+' }
+
+StorageFile *-- "1" Hospital
+StorageFile --> "1" JsonUtil
+StorageFile ..> StorageBackup
+' JsonUtil --> StorageOperationException : Throws
 
 @enduml
