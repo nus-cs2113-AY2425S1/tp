@@ -37,8 +37,10 @@ public class CategoryTracker {
         checkLimit(category);
     }
     public void editCategory(String oldCategory, String newCategory, Float price) throws WheresMyMoneyException {
-        deleteCategory(oldCategory, price);
-        addCategory(newCategory, price);
+        if (!oldCategory.equals(newCategory)) {
+            deleteCategory(oldCategory, price);
+            addCategory(newCategory, price);
+        }
     }
     public void deleteCategory(String category, Float price) throws WheresMyMoneyException {
         CategoryData categoryData = getCategoryInfo(category);
