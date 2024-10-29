@@ -2,6 +2,7 @@ package seedu.manager.command;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 
 import java.time.LocalDateTime;
@@ -17,9 +18,9 @@ public class CopyCommandTest {
     @BeforeEach
     public void setUp(){
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-23 21:05", formatter),
-                "Venue B");
+                "Venue B", Priority.HIGH);
         eventList.addEvent("Event 2", LocalDateTime.parse("2023-10-23 21:00", formatter),
-                "Venue A");
+                "Venue A", Priority.HIGH);
         assertEquals(2, eventList.getListSize());
         eventList.addParticipantToEvent("John Doe", "Event 1");
         eventList.addParticipantToEvent("Jane Doe", "Event 1");
