@@ -21,7 +21,7 @@ public class ViewCommandTest {
         command.setData(eventList);
         command.execute();
 
-        command = new Parser().parseCommand("add -p Tom -e Event 1");
+        command = new Parser().parseCommand("add -p Tom -n 95015025 -email example@gmail.com -e Event 1");
         command.setData(eventList);
         command.execute();
 

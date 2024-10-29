@@ -72,12 +72,12 @@ public class Event {
      * @param participantName the name of the participant to be added to the list.
      * @throws DuplicateDataException if a participant with the same name exists in the list.
      */
-    public void addParticipant(String participantName) throws DuplicateDataException {
+    public void addParticipant(String participantName, String participantNumber, String participantEmail) throws DuplicateDataException {
         if (getParticipantByName(participantName).isPresent()) {
             throw new DuplicateDataException("Duplicate participant!");
         }
 
-        Participant participant = new Participant(participantName);
+        Participant participant = new Participant(participantName, participantNumber, participantEmail);
         this.participantList.add(participant);
     }
 
