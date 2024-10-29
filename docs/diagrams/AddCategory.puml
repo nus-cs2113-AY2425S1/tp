@@ -1,0 +1,18 @@
+@startuml
+actor User
+participant Duke
+participant ExpenseTracker
+participant Category
+
+User -> Duke: Input: add-category Food
+Duke -> ExpenseTracker: addCategory("Food")
+ExpenseTracker -> ExpenseTracker: check if category exists
+alt Category does not exist
+    ExpenseTracker -> Category: create(Category)
+    ExpenseTracker -> ExpenseTracker: add Category to list
+    ExpenseTracker -> Duke: Category added
+else Category exists
+    ExpenseTracker -> Duke: Category already exists message
+end
+Duke -> User: Confirmation message
+@enduml
