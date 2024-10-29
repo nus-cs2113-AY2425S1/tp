@@ -4,6 +4,9 @@ import seedu.duke.exception.FinanceBuddyException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Represents the list of financial entries (income and expenses).
@@ -11,12 +14,16 @@ import java.util.ArrayList;
  */
 public class FinancialList {
     private ArrayList<FinancialEntry> entries;
+    private Map<Expense.Category, Double> totalExpenseByCategory = new HashMap<>();
+    private Map<Income.Category, Double> totalIncomeByCategory = new HashMap<>();
 
     /**
      * Constructs a FinancialList object with an empty list.
      */
     public FinancialList() {
         entries = new ArrayList<>();
+        totalExpenseByCategory = new HashMap<>();
+        totalIncomeByCategory = new HashMap<>();
     }
 
     private boolean shouldDecrementIndex(FinancialEntry entry, int insertIndex) {
@@ -42,6 +49,22 @@ public class FinancialList {
         }
         assert insertIndex >= 0 && insertIndex <= entries.size(): "Invalid insertion index";
         entries.add(insertIndex, entry);
+        updateCategoryTotal(entry);
+    }
+
+    /**
+     * Updates the category totals based on the entry type and category.
+     *
+     * @param entry The financial entry being added.
+     */
+    private void updateCategoryTotal(FinancialEntry entry) {
+        if (entry instanceof Expense) {
+            Expense expense = (Expense) entry;
+            totalExpenseByCategory.merge(expense.getCategory(), expense.getAmount(), Double::sum);
+        } else if (entry instanceof Income) {
+            Income income = (Income) entry;
+            totalIncomeByCategory.merge(income.getCategory(), income.getAmount(), Double::sum);
+        }
     }
 
     /**
@@ -90,4 +113,52 @@ public class FinancialList {
         entry.setAmount(amount);
         entry.setDescription(description);
     }
+
+    /**
+     * Retrieves the category totals map for expenses.
+     *
+     * @return A map of expense categories and their respective totals.
+     */
+    public Map<Expense.Category, Double> getTotalExpenseByCategory() {
+        return totalExpenseByCategory;
+    }
+
+    /**
+     * Retrieves the category totals map for income.
+     *
+     * @return A map of income categories and their respective totals.
+     */
+    public Map<Income.Category, Double> getTotalIncomeByCategory() {
+        return totalIncomeByCategory;
+    }
+
+    /**
+     * Gets the highest expense category and its total.
+     *
+     * @return A map entry of the highest expense category and its total.
+     */
+    public Entry<Expense.Category, Double> getHighestExpenseCategory() {
+        return totalExpenseByCategory.entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .orElse(Map.entry(Expense.Category.UNCATEGORIZED, 0.0));
+    }
+
+    /**
+     * Gets the highest income category and its total.
+     *
+     * @return A map entry of the highest income category and its total.
+     */
+    public Entry<Income.Category, Double> getHighestIncomeCategory() {
+        return totalIncomeByCategory.entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .orElse(Map.entry(Income.Category.UNCATEGORIZED, 0.0));
+    }
+
+    public void clearCategoryTotals() {
+        totalExpenseByCategory.clear();
+        totalIncomeByCategory.clear();
+    }
+
 }

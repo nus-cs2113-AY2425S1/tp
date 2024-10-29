@@ -60,9 +60,9 @@ class DeleteCommandTest {
         LocalDate date2 = LocalDate.of(2024, 10, 14);
         LocalDate date3 = LocalDate.of(2024, 10, 16);
 
-        financialList.addEntry(new Expense(3.50, "lunch", date1));
-        financialList.addEntry(new Income(3000.00, "salary", date2));
-        financialList.addEntry(new Expense(20.00, "movie ticket", date3));
+        financialList.addEntry(new Expense(3.50, "lunch", date1,Expense.Category.FOOD));
+        financialList.addEntry(new Income(3000.00, "salary", date2, Income.Category.SALARY));
+        financialList.addEntry(new Expense(20.00, "movie", date3, Expense.Category.ENTERTAINMENT));
 
         deleteCommand = new DeleteCommand(2);  // Delete the second entry (1-based index, "salary")
         deleteCommand.execute(financialList);
@@ -70,7 +70,7 @@ class DeleteCommandTest {
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Okay! The following entry has been deleted: " + System.lineSeparator() +
-                "[Income] - salary $ 3000.00 (on " + date2.format(pattern) + ")" + System.lineSeparator() +
+                "[Income] - salary $ 3000.00 (on " + date2.format(pattern) + ") [SALARY]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Verify the correct message is printed
@@ -81,7 +81,7 @@ class DeleteCommandTest {
 
         // Check the remaining entries by description to ensure the correct entry was deleted
         assertEquals("lunch", financialList.getEntry(0).getDescription());
-        assertEquals("movie ticket", financialList.getEntry(1).getDescription());
+        assertEquals("movie", financialList.getEntry(1).getDescription());
     }
 
     /**
@@ -96,9 +96,9 @@ class DeleteCommandTest {
         LocalDate date2 = LocalDate.of(2024, 10, 16);
         LocalDate date3 = LocalDate.of(2024, 12, 29);
 
-        financialList.addEntry(new Expense(3.50, "lunch", date1));
-        financialList.addEntry(new Income(3000.00, "salary", date2));
-        financialList.addEntry(new Expense(20.00, "movie ticket", date3));
+        financialList.addEntry(new Expense(3.50, "lunch", date1,Expense.Category.FOOD));
+        financialList.addEntry(new Income(3000.00, "salary", date2, Income.Category.SALARY));
+        financialList.addEntry(new Expense(20.00, "movie", date3, Expense.Category.ENTERTAINMENT));
 
         deleteCommand = new DeleteCommand(3);  // Delete the 3rd entry
         deleteCommand.execute(financialList);
@@ -106,7 +106,8 @@ class DeleteCommandTest {
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Okay! The following entry has been deleted: " + System.lineSeparator() +
-                "[Expense] - movie ticket $ 20.00 (on " + date3.format(pattern) + ")" + System.lineSeparator() +
+                "[Expense] - movie $ 20.00 (on " + date3.format(pattern) + ") [ENTERTAINMENT]" +
+                System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Verify the correct message is printed
@@ -128,7 +129,7 @@ class DeleteCommandTest {
     void execute_invalidIndex_expectError() throws FinanceBuddyException {
         LocalDate date1 = LocalDate.of(2024, 10, 10);
 
-        financialList.addEntry(new Expense(3.50, "lunch", date1));
+        financialList.addEntry(new Expense(3.50, "lunch", date1,Expense.Category.FOOD));
         deleteCommand = new DeleteCommand(3);
 
         assertThrows(AssertionError.class, () -> {
@@ -145,15 +146,15 @@ class DeleteCommandTest {
     @Test
     void execute_deleteOnlyEntry_expectEntryRemoved() throws FinanceBuddyException {
         LocalDate date1 = LocalDate.of(2024, 4, 1);
-        financialList.addEntry(new Expense(50.00, "groceries", date1));  // Add one expense
-
+        financialList.addEntry(new Expense(50.00, "groceries", date1, Expense.Category.UNCATEGORIZED));
         deleteCommand = new DeleteCommand(1);  // Delete the only entry (1-based index)
         deleteCommand.execute(financialList);
 
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Okay! The following entry has been deleted: " + System.lineSeparator() +
-                "[Expense] - groceries $ 50.00 (on " + date1.format(pattern) + ")" + System.lineSeparator() +
+                "[Expense] - groceries $ 50.00 (on " + date1.format(pattern) + ") [UNCATEGORIZED]" +
+                System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Verify the correct message is printed

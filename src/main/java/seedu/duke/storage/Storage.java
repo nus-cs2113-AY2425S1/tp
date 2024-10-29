@@ -118,9 +118,10 @@ public class Storage {
             String description = tokens[2];
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
             LocalDate date = LocalDate.parse(tokens[3], formatter);
+            Expense.Category category = Expense.Category.valueOf(tokens[4].toUpperCase());
             assert amount >= 0 : "Amount should be non-negative";
             assert description != null && !description.isEmpty() : "Description should not be empty";
-            return new Expense(amount, description, date);
+            return new Expense(amount, description, date, category);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Error parsing amount in expense: " + tokens[1]);
             throw e;
@@ -147,9 +148,10 @@ public class Storage {
             String description = tokens[2];
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
             LocalDate date = LocalDate.parse(tokens[3], formatter);
+            Income.Category category = Income.Category.valueOf(tokens[4].toUpperCase());
             assert amount >= 0 : "Amount should be non-negative";
             assert description != null && !description.isEmpty() : "Description should not be empty";
-            return new Income(amount, description, date);
+            return new Income(amount, description, date, category);
         }catch (NumberFormatException e){
             logger.log(Level.WARNING, "Error parsing amount in income: " + tokens[1]);
             throw e;
