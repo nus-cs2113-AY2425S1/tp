@@ -19,7 +19,7 @@ class MarkParticipantCommandTest {
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-10 16:00", formatter),
                 "Venue 1");
         eventList.addParticipantToEvent(
-                "Participant",
+                "John Doe",
                 "89521252",
                 "example@gmail.com",
                 "Event 1"
