@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 public class StandingBroadJumpCalculator extends Calculator {
     private static final Map<LookUpKey, TreeMap<Integer, Integer>> broadJumpTable = new HashMap<>();
-    private static final boolean reverseOrder = true;
+    private static final boolean SHOULD_SORT_DESCENDING = true;
 
     static {
         initialiseMaleData();
@@ -17,7 +17,7 @@ public class StandingBroadJumpCalculator extends Calculator {
     }
 
     public static int calculatePoints(Gender gender, int age, int distance) {
-        return getPointsFromTable(broadJumpTable, gender, age, distance, false);
+        return getPointsFromTable(broadJumpTable, gender, age, distance, IS_HIGHER_NUMBER_BETTER);
     }
 
     protected static void initialiseMaleData() {
@@ -32,7 +32,7 @@ public class StandingBroadJumpCalculator extends Calculator {
                 {{252, 5}, {242, 4}, {232, 3}, {222, 2}, {212, 1}},
                 {{243, 5}, {234, 4}, {225, 3}, {216, 2}, {207, 1}}
         };
-        addAllTables(broadJumpTable, Gender.MALE, ageTables, reverseOrder);
+        addAllTables(broadJumpTable, Gender.MALE, ageTables, SHOULD_SORT_DESCENDING);
     }
 
     protected static void initialiseFemaleData() {
@@ -47,6 +47,6 @@ public class StandingBroadJumpCalculator extends Calculator {
                 {{196, 5}, {185, 4}, {174, 3}, {165, 2}, {156, 1}},
                 {{198, 5}, {186, 4}, {174, 3}, {162, 2}, {150, 1}}
         };
-        addAllTables(broadJumpTable, Gender.FEMALE, ageTables, reverseOrder);
+        addAllTables(broadJumpTable, Gender.FEMALE, ageTables, SHOULD_SORT_DESCENDING);
     }
 }
