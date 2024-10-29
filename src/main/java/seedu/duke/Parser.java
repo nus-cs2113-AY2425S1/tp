@@ -37,9 +37,15 @@ public class Parser {
     }
 
     public Command parseCommand(String input) {
+        if (input.isBlank()) {
+            ui.showOutput("Please enter a command");
+            return null;
+        }
+
         String[] inputArgs = input.trim().split(" ", 2);
 
-        String inputCommand = inputArgs[0];
+        assert inputArgs[0].equals(inputArgs[0].trim());
+        String inputCommand = inputArgs[0].trim();
 
         if (!commands.containsKey(inputCommand)) {
             ui.showUnknownCommand(inputCommand);
@@ -88,7 +94,11 @@ public class Parser {
     }
 
     private ArrayList<String> parseFlagData(String inputData) {
-        ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(inputData.split("-")));
+        ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(inputData.trim().split("-")));
+        if (commandArgs.isEmpty()) {
+            ui.showOutput("Empty flag detected\n" + "Please input a flag following the '-' symbol");
+            return null;
+        }
         commandArgs.remove(0);
         commandArgs.replaceAll(String::trim);
         return commandArgs;
@@ -106,14 +116,21 @@ public class Parser {
     }
 
     private ArrayList<String> parseUpdateCommandData(String inputData) {
-        String[] splitArray = inputData.split(" ", 2);
-        String id = splitArray[0];
+        String[] splitArray = inputData.trim().split(" ", 2);
+        assert splitArray[0].equals(splitArray[0].trim());
+        String id = splitArray[0].trim();
         try {
-            String fields = splitArray[1];
+            String fields = splitArray[1].trim();
+
             if (fields.isBlank()) {
                 throw new ArrayIndexOutOfBoundsException();
             }
+
             ArrayList<String> commandArgs = parseFlagData(fields);
+            if (commandArgs == null) {
+                return null;
+            }
+
             commandArgs.add(0, id);
             return commandArgs;
         } catch (ArrayIndexOutOfBoundsException e) {

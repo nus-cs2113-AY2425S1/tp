@@ -83,6 +83,16 @@ public class FilterCommandTest {
     }
 
     @Test
+    void execute_invalidDateFormatField_abortsFiltering() {
+        createListOne();
+        args.add("from 24/08");
+
+        filterCommand.execute(args);
+
+        assertFalse(filterCommand.functionComplete);
+    }
+
+    @Test
     void execute_validRoleFilter_internshipFiltered() {
         createListOne();
         args.add("role Software Engineer");
