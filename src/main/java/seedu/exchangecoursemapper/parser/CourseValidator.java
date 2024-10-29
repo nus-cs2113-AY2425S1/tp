@@ -23,7 +23,7 @@ import static seedu.exchangecoursemapper.constants.Assertions.EMPTY_JSON_OBJECT_
 /** A class containing all the relevant methods for course mapping validation. */
 public class CourseValidator {
 
-    private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());;
+    private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
 
     /**
      * Returns true if the user's course mapping is valid; otherwise, returns false.
@@ -140,7 +140,8 @@ public class CourseValidator {
      * @param jsonObject A JsonObject containing the course mapping database for validation.
      * @return true if the course mapping is valid; otherwise, returns false.
      */
-    public boolean isValidInput(String nusCourseInput, String pu, String puCourseInput, JsonObject jsonObject) {
+    public boolean isValidInput(String nusCourseInput, String pu,
+                                String puCourseInput, JsonObject jsonObject) {
 
         assert nusCourseInput != null : EMPTY_NUS_COURSE_WARNING;
         assert pu != null : EMPTY_PU_WARNING;

@@ -21,5 +21,5 @@ public class Assertions {
     public static final String EMPTY_NUS_COURSE_WARNING = "NUS course should not be empty";
     public static final String EMPTY_PU_WARNING = "Partner university should not be empty";
     public static final String EMPTY_PU_COURSE_WARNING = "Partner university course should not be empty";
-    public static final String EMPTY_JSON_OBJECT_WARNING = "JSON object should not be empty"
+    public static final String EMPTY_JSON_OBJECT_WARNING = "JSON object should not be empty";
 }
