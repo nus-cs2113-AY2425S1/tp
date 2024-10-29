@@ -35,5 +35,10 @@ public class Messages {
                     - Add mapped courses between NUS and partner universities.
                     obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
                     obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
+                    delete <TASK_NUMBER> - Delete a partner university.
+                    list mapped - List all the course mapping.
+                    compare - Compare the course mappings.
+                    bye - End the program.
+                    To get more specific information of the commands, please use help <COMMAND>
                     """;
 }
