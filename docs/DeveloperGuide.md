@@ -366,13 +366,38 @@ following arguments:
 - `/d`: Represents the date on which the transaction occurred. This is an optional argument.
 
 ### Listing Entries
-__Overview__
+<ins>Overview</ins>
 
 The list entries feature is facilitated by the `SeeAllEntriesCommand` class.
-Similarly, classes `SeeAllExpensesCommand` and `SeeAllIncomesCommand` facilitate 
-listing out expenses and incomes respectively.
+The classes `SeeAllExpensesCommand` and `SeeAllIncomesCommand` extend from `SeeAllEntriesCommand` 
+and facilitate listing out expenses and incomes respectively.
 
-__Implementation__
+<ins>Class Structure</ins>
+
+The `SeeAllEntriesCommand` class has the following key attributes:
+
+- _start_: The starting date from which Financial Entries are to be listed. `null` if there is no starting date.
+- _end_: The ending date up to which Financial Entries should be listed. `null` if there is no ending date.
+
+The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit these attributes from `SeeAllEntriesCommand`,
+with _entriesListedMessage_, _noEntriesMessage_ and _cashflowHeader_ overwritten to contain customized messages for
+each respective command.
+
+The `SeeAllEntriesCommand` class has the following key methods:
+
+- `execute`: Executes the command, listing all entries/expenses/incomes between the start and end date,
+calculating the total cashflow/expenditure/income during that interval and retrieving the category with the highest
+expenses/income amount during that interval.
+- `shouldBeIncluded`: determines if an entry in the Financial list should be listed out.
+- `getHighestCategoryInfo`: retrieves the category with the highest expenses/income within the stipulated date range
+and the amount of expense/income in that category.
+
+The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit all of the aforementioned methods, overriding
+the following methods:
+
+- `shouldBeIncluded` to further filter out incomes/expenses respectively
+
+<ins>Implementation</ins>
 
 The user invokes the command to list entries by entering the following command:
 ```list [income|expense] [/from START_DATE] [/to END_DATE]```.
@@ -387,24 +412,36 @@ there is no defined starting date.
 - `/to`: Represents the ending date by which Financial Entries should be listed. If value is `null`,
   there is no defined ending date.
 
-`CommandHandler` invokes the `listHelper` method to create and execute the command to list the financial entries
+`Logic` invokes the `listHelper` method to create and execute the command to list the financial entries
 according to the following logic.
 
-{add in diagram}
+![overview](UML/SeeAllEntriesOverview.png)
 
 The interaction between the command classes and the `FinancialList` is as follows,
 using `SeeAllEntriesCommand` as an example:
 
-{add diagram}
+![execution](UML/SeeAllEntriesExecution.png)
 
-The `shouldBeIncluded()` method marks Financial Entries as "should be included" if their
-dates fall between the start and end dates passed into the command object.
+`SeeAllExpensesCommand` and `SeeAllIncomesCommand` work in a similar fashion,
+but only marks `Expense`s and `Income`s respectively as to be included.
 
-`SeeAllExpensesCommand` and `SeeAllIncomesCommand` interact with the `FinancialList` in a 
-similar manner, with the only difference being that the `shouldBeIncluded()` methods of
-`SeeAllExpensesCommand` and `SeeAllIncomesCommand` only mark `Expenses` and `Incomes` as "should be included".
+<ins>Usage Examples</ins>
 
-__Design Considerations__
+```
+// Listing all entries in the financial list
+SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(null, null);
+seeAllEntriesCommand.execute(financialList);
+
+// Listing all expenses starting from 12/10/24 in the financial list
+SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(DateParser.parse("12/10/24"), null);
+seeAllExpensesCommand.execute(financialList);
+
+// Listing all expenses starting from 12/10/24 until 24/10/24 in the financial list
+SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(DateParser.parse("12/10/24"), DateParser.parse("24/10/24"));
+seeAllIncomesCommand.execute(financialList);
+```
+
+<ins>Design Considerations</ins>
 
 Given that the logic for `SeeAllEntriesCommand`, `SeeAllExpensesCommand` and `SeeAllIncomesCommand` are very similar 
 with the only difference being the criteria for printing the entries, we made `SeeAllExpensesCommand` and 
@@ -438,7 +475,6 @@ And the `toStorageString()` method will return as `I | 10.90 | Lunch | 25/10/24`
 ## Product scope
 ### Target user profile:
 - University student who wants to manage their limited finances
-- unsure of how to manage his finances, wants to learn
 - busy with academics and CCAs, wants to manage finances quickly
 - prefer desktop apps over other types
 - can type fast
@@ -458,16 +494,13 @@ faster than a typical mouse/GUI driven app
 | v1.0    | user                           | delete my logging records                                                           | remove a wrong record                                          |
 | v1.0    | user                           | edit my logs                                                                        | edit a wrong record                                            |
 | v1.0    | user                           | see my cash flows                                                                   | have an overview of my cash flow                               |
-| v2.0    | user                           | view my expenditure over the last X days                                            | see how much money I spent recently                            |
+| v2.0    | user                           | view my expenditure over a certain period                                           | see how much money I spent recently                            |
 | v2.0    | user                           | keep a log of my data                                                               | retain memory of past transactions in previous runs of the app |
 | v2.0    | user                           | set a monthly budget for myself                                                     | ensure that I am saving enough money                           |
 | v2.0    | user                           | be alerted when I exceed my allocated budget                                        | know when I spend too much money                               |
 | v2.0    | user                           | categorise my spendings                                                             | know my spending across different areas                        |
 | v2.0    | user                           | view my expenditure over different categories                                       | see where I spend the most                                     |
-| v2.0    | user new to financial planning | get suggested budget allocations according to income, expenses, and financial goals | have realistic financial budgets                               |
-| v2.0    | user                           | have reports or summaries of my spending trends                                     | make better financial decisions in the future                  |
 | v2.0    | busy user                      | log my finances in the shortest possible time                                       | have more time for other activities                            |
-| v2.0    | busy user                      | visualize my overall cash flow (inflows and outflows) across all accounts           | see my total financial health at a glance                      |
 | v2.1    | busy user                      | use shortcuts to log frequent and similar expenses                                  | save time logging expenses                                     |
 
 ## Non-Functional Requirements
