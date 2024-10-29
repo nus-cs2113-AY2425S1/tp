@@ -13,10 +13,11 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class QuizManager {
-    public Scanner scanner;
     private static final String QUESTIONS_FILE_PATH = "./data/Questions.txt";
     private static final String RESULTS_FILE_PATH = "./data/results.txt";
     private static final Logger logger = Logger.getLogger(QuizManager.class.getName());
+
+    public Scanner scanner;
     private List<Topic> topics;
     private Quiz currentQuiz;
     private List<String> pastResults;
