@@ -40,7 +40,7 @@
 ![Category Class Diagram](diagrams/CategoryClass.png)
 
 #### ExpenseTracker class
-![ExpenseTracker Class Diagram](diagrams/expenseclass.png)
+![ExpenseTracker Class Diagram](diagrams/expenseTrackerclass.png)
 
 #### Duke class
 ![Duke Class Diagram](diagrams/dukeclass.png)
