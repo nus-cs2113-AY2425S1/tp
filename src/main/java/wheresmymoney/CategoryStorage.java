@@ -52,7 +52,7 @@ public class CategoryStorage {
                 String categoryName = line[0];
                 Float spendingLimit = Float.parseFloat(line[1]);
                 if (categoryTracker.contains(categoryName)) {
-                    CategoryData categoryData = categoryTracker.getCategoryDataOf(categoryName); 
+                    CategoryData categoryData = categoryTracker.getCategoryDataOf(categoryName);
                     categoryData.setMaxExpenditure(spendingLimit);
                 }
             }
@@ -95,8 +95,8 @@ public class CategoryStorage {
         for (String categoryName : tracker.keySet()) {
             Float spendingLimit = tracker.get(categoryName).getMaxExpenditure();
             String[] row = {
-                    categoryName,
-                    spendingLimit.toString()
+                categoryName,
+                spendingLimit.toString()
             };
             writer.writeNext(row);
         }
