@@ -60,9 +60,10 @@ public class EventList  {
      * @param time      the time of the event.
      * @param venue     the venue where the event will take place.
      * @param priority the priority level of the event
+     * @throws DuplicateDataException if an event with eventName is present in the event list.
      */
     public void addEvent(String eventName, LocalDateTime time,
-                         String venue, Priority priority) throws DuplicateDataException {
+                         String venue, Priority priority) throws DuplicateDataException{
         if (getEventByName(eventName).isPresent()) {
             throw new DuplicateDataException(DUPLICATE_EVENT_MESSAGE);
         }
@@ -186,7 +187,7 @@ public class EventList  {
     public void sortByPriority() {
         eventList.sort(Comparator.comparing(Event::getEventPriority));
     }
-
+  
     /**
      * Filters events in the event list by the specified priority level.
      *
