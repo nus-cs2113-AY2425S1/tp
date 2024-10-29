@@ -2,8 +2,8 @@
 skinparam sequenceMessageAlign center
 skinparam responseMessageBelowArrow true
 
-participant "CommandHandler" as app
-participant "commandArguments" as map
+participant "Logic" as app
+participant "commandArguments:HashMap" as map
 participant "DateParser" as parser
 participant "SeeAllExpensesCommand" as expense
 participant "SeeAllIncomesCommand" as income
@@ -19,7 +19,7 @@ app -> map : get("/to")
 map --> app : end
 
 ' Check for blank dates
-alt start != null && start.isBlank() || end != null && end.isBlank()
+opt start != null && start.isBlank() || end != null && end.isBlank()
     app -> app : throw FinanceBuddyException
 end
 

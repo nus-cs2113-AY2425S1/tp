@@ -231,7 +231,7 @@ and facilitate listing out expenses and incomes respectively.
 
 <ins>Class Structure</ins>
 
-The `SeeAllEntriesCommand` class has the following attributes:
+The `SeeAllEntriesCommand` class has the following key attributes:
 
 - _start_: The starting date from which Financial Entries are to be listed. `null` if there is no starting date.
 - _end_: The ending date up to which Financial Entries should be listed. `null` if there is no ending date.
@@ -243,20 +243,18 @@ The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit these att
 with _entriesListedMessage_, _noEntriesMessage_ and _cashflowHeader_ overwritten to contain customized messages for
 each respective command.
 
-The `SeeAllEntriesCommand` class has the following methods:
+The `SeeAllEntriesCommand` class has the following key methods:
 
-- `execute`
-- Getters:
-  - `getEntriesListedMessage`
-  - `getNoEntriesMessage`
-  - `getCashflowHeader`
-- `getCashflowString`: takes in the net cashflow as a double and returns it as a String for printing.
+- `execute`: Executes the command, listing all entries/expenses/incomes between the start and end date,
+calculating the total cashflow/expenditure/income during that interval and retrieving the category with the highest
+expenses/income amount during that interval.
 - `shouldBeIncluded`: determines if an entry in the Financial list should be listed out.
+- `getHighestCategoryInfo`: retrieves the category with the highest expenses/income within the stipulated date range
+and the amount of expense/income in that category.
 
 The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit all of the aforementioned methods, overriding
 the following methods:
 
-- The getters to print their customized messages/headers
 - `shouldBeIncluded` to further filter out incomes/expenses respectively
 
 Additionally, in the `SeeAllExpensesCommand` class, the `getCashflowString` method is overridden to negate the
@@ -277,7 +275,7 @@ there is no defined starting date.
 - `/to`: Represents the ending date by which Financial Entries should be listed. If value is `null`,
   there is no defined ending date.
 
-`CommandHandler` invokes the `listHelper` method to create and execute the command to list the financial entries
+`Logic` invokes the `listHelper` method to create and execute the command to list the financial entries
 according to the following logic.
 
 {add in diagram}
@@ -287,7 +285,24 @@ using `SeeAllEntriesCommand` as an example:
 
 {add diagram}
 
-__Design Considerations__
+<ins>Usage Examples</ins>
+
+```
+// Listing all entries in the financial list
+SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(null, null);
+seeAllEntriesCommand.execute(financialList);
+
+// Listing all expenses starting from 12/10/24 in the financial list
+SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(DateParser.parse("12/10/24"), null);
+seeAllExpensesCommand.execute(financialList);
+
+// Listing all expenses starting from 12/10/24 until 24/10/24 in the financial list
+SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(DateParser.parse("12/10/24"), 
+        DateParser.parse("24/10/24"));
+seeAllIncomesCommand.execute(financialList);
+```
+
+<ins>Design Considerations</ins>
 
 Given that the logic for `SeeAllEntriesCommand`, `SeeAllExpensesCommand` and `SeeAllIncomesCommand` are very similar 
 with the only difference being the criteria for printing the entries, we made `SeeAllExpensesCommand` and 
