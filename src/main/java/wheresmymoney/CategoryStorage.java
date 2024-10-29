@@ -36,6 +36,38 @@ public class CategoryStorage {
         return categoryTracker;
     }
     /**
+     * Loads from CSV file and updates spending limits for found categories.
+     *
+     * @param filePath File Path to read CSV from
+     */
+    public void loadFromCsv(String filePath, CategoryTracker categoryTracker) throws StorageException {
+        try {
+            File file = new File(filePath);
+            FileReader reader = new FileReader(file);
+            CSVReader csvReader = new CSVReader(reader);
+            
+            csvReader.readNext(); // Skip the header
+            String[] line;
+            while ((line = csvReader.readNext()) != null) {
+                String categoryName = line[0];
+                Float spendingLimit = Float.parseFloat(line[1]);
+                if (categoryTracker.contains(categoryName)) {
+                    CategoryData categoryData = categoryTracker.getCategoryDataOf(categoryName); 
+                    categoryData.setMaxExpenditure(spendingLimit);
+                }
+            }
+            
+            // closing writer connection
+            reader.close();
+        } catch (WheresMyMoneyException exc) {
+            throw new StorageException("An expense's price, description, category and/or date added is missing");
+        } catch (IOException ex) {
+            throw new StorageException("Unable to read file!");
+        } catch (CsvValidationException e){
+            throw new StorageException("File not in the correct format!");
+        }
+    }
+
     /**
      * Saves a Category Tracker to a csv file.
      *

@@ -30,6 +30,9 @@ public class CategoryTracker {
     public HashMap<String, CategoryData> getTracker() {
         return tracker;
     }
+    public boolean contains(String category) {
+        return tracker.containsKey(category);
+    }
     /**
      * Retrieves the {@code CategoryData} object for a given category.
      *
@@ -37,7 +40,7 @@ public class CategoryTracker {
      * @return The CategoryData object associated with the specified category.
      * @throws WheresMyMoneyException If the category does not exist in the tracker.
      */
-    private CategoryData getCategoryDataOf(String category) throws WheresMyMoneyException {
+    public CategoryData getCategoryDataOf(String category) throws WheresMyMoneyException {
         if (!tracker.containsKey(category)) {
             throw new WheresMyMoneyException("No such category exists.");
         }
