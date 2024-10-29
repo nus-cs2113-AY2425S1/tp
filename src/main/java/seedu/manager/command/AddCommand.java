@@ -1,5 +1,7 @@
 package seedu.manager.command;
 
+import seedu.manager.exception.DuplicateDataException;
+
 import java.time.LocalDateTime;
 
 //@@author KuanHsienn
@@ -57,7 +59,7 @@ public class AddCommand extends Command {
      * </p>
      */
     @Override
-    public void execute() {
+    public void execute() throws DuplicateDataException {
         if (participantName == null) {
             this.eventList.addEvent(this.eventName, this.time, this.venue);
             this.message = ADD_EVENT_MESSAGE;

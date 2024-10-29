@@ -37,6 +37,10 @@ remove -e EVENT: Remove an event from the event list.
 add -p PARTICIPANT -e EVENT: Add a participant to an event.
 view -e EVENT: View the list of participants of an event.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
+copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
+find -e EVENT -p NAME: Finds all participants with specified name in an event.
+filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
+sort -by KEYWORD: Sorts events by name/time/priority.
 save: Save latest changes to file
 exit: Exit program
 ```
@@ -113,6 +117,56 @@ Examples:
 * `mark -p John Tan -e Origami workshop -s done` marks the participant `John Tan` in the `Origami workshop` event as present.
 * `mark -p John Tan -e Origami workshop -s undone` marks the participant `John Tan` in the `Origami workshop` event as absent.
 
+### Copies participant list: `copy`
+
+Copies the participant list from one event to another event.
+
+Format: `copy FROM_EVENT > TO_EVENT`
+
+* Both events must already exist
+
+Examples:
+
+* `copy Origami workshop > Coding workshop` copies the participant list from the `Origami workshop` event to the `Coding workshop` event.
+
+### Find participant: `find`
+
+Finds all participants with a specified name in a specified event.
+
+Format: `find -e EVENT -p NAME`
+
+* The `NAME` keywords are case-insensitive.
+
+Examples:
+* `find -e Origami workshop -p john` will output all participants with `john` in their name in the event `Origami workshop`.
+
+### Filters event list: `filter`
+
+Filters out events from the event list based on name, date-time or priority level.
+
+Format: `filter -e/-t/-u DESCRIPTION`
+
+* `-e/-t/-u` are the flags for name, date-time and priority level respectively.
+* `DESCRIPTION` is only case-insensitive when filtering using the priority level flag.
+
+Examples:
+* `filter -e workshop` will output all events with `workshop` in their event name.
+* `filter -t 2024` will output all events that are occurring in `2024`.
+* `filter -u high` with output all events with priority level `HIGH`.
+
+### Sorts event list: `sort`
+
+Sorts events according to event name, event date-time or event priority level.
+
+Format: `sort -by KEYWORD`
+
+* `KEYWORD` is case-insensitive, but must be one of these inputs: `name/time/priority`
+
+Examples:
+* `sort -by name` will output a list of all the user's events alphabetically (from A to Z).
+* `sort -by time` will output a list of all the user's events chronologically (earliest to latest).
+* `sort -by priority` will output a list of all the user's events in terms of urgency (most to least important).
+
 ### Saving the program: `save`
 
 Save the program
@@ -136,5 +190,9 @@ Format: `exit`
 * View all participants for an event: `view -e EVENT`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
+* Copy participant list: `copy FROM_EVENT > TO_EVENT`
+* Find participants: `find -e EVENT -p NAME`
+* Filter events: `filter -e/-t/-u FILTER_DESCRIPTION`
+* Sort events: `sort -by KEYWORD`
 * Save program: `save`
 * Exit program: `exit`
