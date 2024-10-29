@@ -192,13 +192,12 @@ public class ListUniCoursesCommandTest {
         String userInput = "set";
         listUniCoursesCommand.execute(userInput);
 
-         String expectedOutput = """
+        String expectedOutput = """
                  Please provide a University name.
                  -----------------------------------------------------
                  """;
-         String actualOutput = outputStreamCaptor.toString();
-         assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
-
+        String actualOutput = outputStreamCaptor.toString();
+        assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
     }
 
     String normalizeLineEndings(String input) {

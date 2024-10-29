@@ -19,11 +19,6 @@ import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
 import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_COURSE_CODE_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.DELETE_COURSE_PLAN_HEADER;
-import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_NAME_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
-import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
 public class UI {
     private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
