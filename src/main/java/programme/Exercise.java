@@ -85,7 +85,7 @@ public class Exercise {
 
     @Override
     public int hashCode() {
-        return Objects.hash(sets, reps, weight, name);
+        return Objects.hash(sets, reps, weight, calories, name);
     }
 }
 
