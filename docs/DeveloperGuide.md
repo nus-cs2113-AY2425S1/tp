@@ -37,7 +37,15 @@ The sequence diagram below shows how the components interact with each other whe
 ### RecipeList Class
 
 ### Command Classes
-The command class deals with all the possible commands accepted by YMFC
+The command class deals with all the possible commands accepted by YMFC, with each command representing a specific 
+recognised user input (Eg. ListCommand representing the command to list all the recipes in the recipeList).
+
+#### The Command base class
+
+- Serves as the abstract parent class for all specific commands
+- Defines the basic structure and contract that each command class must follow
+    - adsf
+
 ![commandClasses.png](commandsClassDiagram.png)
 ### Parser Class
  
