@@ -4,11 +4,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static common.Utils.NULL_FLOAT;
+import static common.Utils.DATE_FORMAT;
 import static common.Utils.NULL_INTEGER;
+import static common.Utils.NULL_FLOAT;
+
 
 /*
-    PaserUtils is a utility class containing common methods used across all parsing functions
+    ParserUtils is a utility class containing common methods used across all parsing functions
  */
 
 public class ParserUtils {
@@ -78,7 +80,7 @@ public class ParserUtils {
         }
 
         String trimmedDateString = trimInput(dateString);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
         try {
             return LocalDate.parse(trimmedDateString, formatter);

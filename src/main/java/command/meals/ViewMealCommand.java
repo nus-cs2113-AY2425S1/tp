@@ -1,7 +1,7 @@
 package command.meals;
 
 import command.CommandResult;
-import daily.record.DailyRecord;
+import history.DailyRecord;
 import history.History;
 import meal.MealList;
 import java.time.LocalDate;

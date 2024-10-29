@@ -77,7 +77,7 @@ public class Ui {
      */
     public void showMessage(String msg) {
         showLine();
-        String strippedMsg = msg.replaceFirst("\\n+$", "");
+        String strippedMsg = msg.trim();
         out.println(strippedMsg);
         showLine();
     }
