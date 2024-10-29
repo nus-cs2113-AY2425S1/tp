@@ -9,7 +9,7 @@ import seedu.manager.event.EventList;
  * The filter command will filter out and display all events with the specified details
  */
 public class FilterCommand extends Command {
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "filter";
 
     private static final String FILTER_BY_PRIORITY_MESSAGE = "Events successfully filtered by priority!";
 

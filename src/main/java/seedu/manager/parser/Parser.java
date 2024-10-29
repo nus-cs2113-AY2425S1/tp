@@ -125,6 +125,8 @@ public class Parser {
             return new ExitCommand();
         case MarkCommand.COMMAND_WORD:
             return parseMarkCommand(command, commandParts);
+        case FindCommand.COMMAND_WORD:
+            return parseFindCommand(command, commandParts);
         case SortCommand.COMMAND_WORD:
             return parseSortCommand(command, commandParts);
         case FilterCommand.COMMAND_WORD:
