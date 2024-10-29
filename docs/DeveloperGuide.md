@@ -13,6 +13,8 @@
 ![Delete Expense Sequence Diagram](diagrams/DeleteExpense.png)
 #### tag-expense
 ![Tag Expense Sequence Diagram](diagrams/TagExpense.png)
+#### set-budget
+![Set Budget Sequence Diagram](diagrams/SetBudget.png)
 
 ### Category
 #### Purpose
