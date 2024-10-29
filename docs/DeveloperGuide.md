@@ -88,6 +88,46 @@ An alternative approach considered was to store `correctAnswer` as a `String` (`
 
 The class diagram above shows the structure of the `TrueFalse` class, including its attributes and methods, and its inheritance relationship with the `Question` superclass.
 
+### Topic Class Implementation
+The `Topic` class is responsible for organizing questions under specific programming topics in the quiz application. It allows for modular storage of questions, making it easy for users to select topics and for developers to manage quiz content.
+
+#### **Feature Overview**
+The `Topic` class encapsulates a programming topic along with its related questions. It helps in grouping relevant questions, enabling quizzes to be topic-based, and provides essential methods to add and access questions within each topic.
+
+#### **Implementation Details**
+
+1. **Attributes**:
+    - `String name`: Stores the name of the topic.
+    - `List<Question> questions`: Holds a list of questions related to this topic.
+
+2. **Constructor**:
+    - `Topic(String name)`:  
+      Initializes the topic with a specified name and creates an empty list to hold its questions. Ensures that the `name` is non-null to prevent invalid topics.
+
+3. **Methods**:
+    - `addQuestion(Question question)`:  
+      Adds a `Question` object to the topic’s question list.
+    - `List<Question> getQuestions()`:  
+      Returns the list of questions under the topic.
+    - `String getName()`:  
+      Returns the name of the topic as a string.
+
+#### **Design Rationale**
+
+- **Encapsulation**: Storing questions inside a `Topic` object allows better separation of concerns and makes the quiz system more modular and extendable.
+- **Modularity for Scalability**: Organizing questions by topics makes the quiz system scalable, as more topics and questions can be easily added.
+- **Single Responsibility Principle (SRP)**: The `Topic` class focuses only on managing a single topic and its related questions, adhering to SRP.
+
+#### **Alternative Considerations**
+
+1. **Global List for Questions**:
+    - *Drawback*: Having a global list would make it harder to categorize questions logically and efficiently.
+
+2. **Direct Integration into QuizManager**:
+    - *Drawback*: This would tightly couple topic management with quiz functionality, making the code harder to maintain and less reusable.
+
+#### UML Class Diagram
+
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
