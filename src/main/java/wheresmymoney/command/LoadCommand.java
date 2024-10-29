@@ -1,5 +1,6 @@
 package wheresmymoney.command;
 
+import wheresmymoney.CategoryTracker;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -12,7 +13,7 @@ public class LoadCommand extends Command {
     }
 
     @Override
-    public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryTracker categoryTracker) throws WheresMyMoneyException {
         expenseList.loadFromCsv("./data.csv");
     }
 }
