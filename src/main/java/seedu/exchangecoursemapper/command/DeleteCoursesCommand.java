@@ -5,6 +5,7 @@ import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.courses.Course;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.exception.Exception;
+import seedu.exchangecoursemapper.ui.UI;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,9 +15,28 @@ import static seedu.exchangecoursemapper.constants.Commands.ZERO_INDEX_OFFSET;
 import static seedu.exchangecoursemapper.constants.Regex.REPEATED_SPACES;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 
+/**
+ * DeleteCoursesCommand extends from PersonalTrackerCommand, and accesses the Storage to delete a course mapping plan
+ * at the user specified index in the Storage list.
+ */
 public class DeleteCoursesCommand extends PersonalTrackerCommand {
     private static final Logger logger = Logger.getLogger(DeleteCoursesCommand.class.getName());
+    private UI ui;
 
+    /**
+     * Class Constructor.
+     * */
+    public DeleteCoursesCommand() {
+        ui = new UI();
+    }
+
+    /**
+     * Executes the delete courses command, which deletes a course mapping plan from the list in the Storage,
+     * based on a user specified list index.
+     *
+     * @param userInput A string containing the user's input.
+     * @param storage refers to the storage class from the execute function.
+     */
     @Override
     public void execute(String userInput, Storage storage) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
@@ -31,6 +51,12 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
         }
     }
 
+    /**
+     * Parse the user input and extract out the list index of the course mapping the user wants to delete.
+     *
+     * @param userInput a string containing the user input.
+     * @return a String[] containing the extracted information: list index of the course mapping to be deleted.
+     */
     public String[] parseDeleteCommand(String userInput) {
         String input = userInput.trim().replaceAll(REPEATED_SPACES, SPACE);
         assert !input.isEmpty() : Assertions.NULL_INPUT;
@@ -45,10 +71,13 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
         return descriptionSubstrings;
     }
 
-    public void printDeleteMessage(Course deleteCourse) {
-        System.out.println("You have deleted the course from your plan: " + deleteCourse.formatOutput());
-    }
-
+    /**
+     * Executes the main logic of the deletion of a course mapping plan.
+     *
+     * @param descriptionSubstrings a String[] containing the extracted information: list index of the course
+     *                              mapping to be deleted.
+     * @param storage refers to the storage class from the execute function.
+     */
     public void deleteCourse(String[] descriptionSubstrings, Storage storage) {
         try {
             assert descriptionSubstrings.length == 2 |  descriptionSubstrings[1].trim().isEmpty() :
@@ -58,7 +87,7 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
             Course courseToDelete = storage.getCourse(listIndex);
             logger.log(Level.INFO, Logs.DELETE_COURSE_MAPPING);
             storage.deleteCourse(listIndex);
-            printDeleteMessage(courseToDelete);
+            ui.printDeleteMessage(courseToDelete);
         } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
             throw new IllegalArgumentException(Exception.invalidCourseListIndex());
         }
