@@ -143,7 +143,7 @@ public class SeeAllExpensesCommandTest {
      */
     @Test
     public void execute_afterDate_printSomeExpenses() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24, 10, 22),
+        FinancialEntry expense1 = new Expense(9.0, "food", LocalDate.of(24, 10, 22),
                 Expense.Category.FOOD);
         FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24, 10, 12),
                 Expense.Category.TRANSPORT);
@@ -168,9 +168,9 @@ public class SeeAllExpensesCommandTest {
                 "1. " + expense3 + System.lineSeparator() +
                 "2. " + expense1 + System.lineSeparator() +
                 System.lineSeparator() +
-                "Total expense: $ 20.00" + System.lineSeparator() +
+                "Total expense: $ 19.00" + System.lineSeparator() +
                 System.lineSeparator() +
-                "Highest Expense Category: FOOD ($10.00)" + System.lineSeparator() +
+                "Highest Expense Category: OTHER ($10.00)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
