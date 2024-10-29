@@ -204,7 +204,7 @@ To minimise the amount of checks that need to be done, the recurring expenses ar
 
 Below is the UML class diagram for `RecurringExpense` and `RecurringExpenseList`:
 
-[!RecurringExpenseAndRecurringExpenseList.png](diagrams%2Fimages%2FRecurringExpenseAndRecurringExpenseList.png "UML Sequence Diagram for calling load command")
+[!RecurringExpenseAndRecurringExpenseList.png](diagrams%2Fimages%2FRecurringExpenseAndRecurringExpenseList.png "UML Class Diagram for RecurringExpense and RecurringExpenseList class")
 
 Below is the sequence diagram for when the user calls the `load` command.
 
