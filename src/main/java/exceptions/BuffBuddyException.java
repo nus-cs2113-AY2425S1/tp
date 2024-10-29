@@ -27,6 +27,10 @@ public class BuffBuddyException extends Exception {
      * This is useful for wrapping other exceptions in BuffBuddy-specific exceptions.
      * @param message Custom error message describing the exception.
      * @param cause The cause of the exception.
+
+
+
+     
      */
     public BuffBuddyException(String message, Throwable cause) {
         super(message, cause);
