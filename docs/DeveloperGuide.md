@@ -383,9 +383,7 @@ The `SeeAllEntriesCommand` class has the following key attributes:
 - _start_: The starting date from which Financial Entries are to be listed. `null` if there is no starting date.
 - _end_: The ending date up to which Financial Entries should be listed. `null` if there is no ending date.
 
-The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit these attributes from `SeeAllEntriesCommand`,
-with _entriesListedMessage_, _noEntriesMessage_ and _cashflowHeader_ overwritten to contain customized messages for
-each respective command.
+The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit these attributes from `SeeAllEntriesCommand`.
 
 The `SeeAllEntriesCommand` class has the following key methods:
 
