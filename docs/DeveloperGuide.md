@@ -20,7 +20,9 @@
 {TODO: Architecture Diagram}
 
 ### Class Diagrams
-{TODO: Class Diagram}
+Command Package:
+![Class diagram for Commands](../uml-images/CommandClass.png)
+
 {TODO: Object Diagram}
 
 ## Implementation
