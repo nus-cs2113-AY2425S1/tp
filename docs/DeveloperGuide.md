@@ -20,9 +20,10 @@
    1. [Parsing Input](#parsing-input)
    2. [Command Execution](#command-execution)
    3. [Task Management](#task-management) 
-   4. [Add Command Implementation](#addcommand-implementation)
-   5. [Delete Command Implementation](#deletecommand-implementation)
-   6. [Sort Command Implementation](#sortcommand-implementation)
+   4. [AddCommand Implementation](#addcommand-implementation)
+   5. [DeleteCommand Implementation](#deletecommand-implementation)
+   6. [SortCommand Implementation](#sortcommand-implementation)
+   7. [UpdateCommand Implementation](#updatecommand-implementation)
 
 ---
 
@@ -201,6 +202,33 @@ The `SortCommand` class is responsible for sorting the internship listings based
 #### Sequence Diagram:
 The following sequence diagram shows how the `SortCommand` is executed:
 ![](UML/loadFromFile.png)
+
+
+### UpdateCommand Implementation
+
+#### Overview
+The `UpdateCommand` class is responsible for updating the fields of an internship. It extends the `Command` class, providing an updating functionality as part of the command execution framework.
+
+#### Design
+- The `UpdateCommand` class processes the user input to determine which internship and which field to update.
+- If the internship ID is not valid, it will print a message accordingly.
+- If the field is not valid, it will print a message indicating the erroneous field.
+- If the value provided with the field is not valid, it will also print a message indicating the erroneous value.
+
+#### Key Methods
+- `execute(ArrayList<String> args)`: Handles the logic to find the internship entry and determine which field to update. The valid fields include:
+  - `status`: Updates the status of the internship.
+  - `skills`: Adds skills to the relevant field of the internship
+  - `role`: Updates the role of the internship
+  - `company`: Updates the company of the internship
+  - `from`: Updates the start date of the internship
+  - `to`: Updates the end date of the internship
+  - `deadlines`: Updates the deadlines of the internship
+- `isValidValue(String[] words)`: Checks if there was a new value provided for the selected field.
+- `updateOneField(String[] words, int internshipIndex)`: Called within `execute(args)` to call the appropriate method to update the field.
+- `getUsage()`: Returns a string showing the correct usage of the `update` command.
+
+#### Example Usage Scenario:
 
 ### Product scope
 ### Target user profile
