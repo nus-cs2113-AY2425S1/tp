@@ -104,9 +104,9 @@ public class HelpCommandTest {
         String expectedOutput = """
                 The set function allows users to key in the partner university(PU)
                 they are interested in and it will return NUS courses and the mappable PU courses.
-                 The format to use this function is shown below:
+                The format to use this function is shown below:
                 set [PU_NAME]
-                e.g. set the university of western australia
+                For example, set the university of western australia
                 -----------------------------------------------------
                 """;
         String actualOutput = outputStreamCaptor.toString();
@@ -131,7 +131,7 @@ public class HelpCommandTest {
                 want to map and get a list of the mappable courses from PUs.
                 The format to use this feature is shown below:
                 filter [NUS_COURSE_CODE]
-                e.g. filter cs2040
+                For example, filter cs2040
                 -----------------------------------------------------
                 """;
         String actualOutput = outputStreamCaptor.toString();
