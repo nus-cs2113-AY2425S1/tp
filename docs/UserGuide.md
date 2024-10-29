@@ -125,6 +125,22 @@ Format:
 Example:
 - `set-budget c/Food a/300`
 
+### View All Expenses: view-expenses
+Displays all expenses recorded, in the order they were input.
+
+Format:
+`view-expenses`
+
+- No parameters are required.
+- Displays a list of all recorded expenses, showing the name, amount, and category.
+
+Example output:
+``` 
+1. Coffee - $5.50 - Food
+2. Book - $12.00 - null
+3. Taxi - $15.00 - Transport
+```
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
