@@ -108,7 +108,57 @@ The following sequence diagram shows how a load operation for ProgrammeList goes
 The following sequence diagram shows how a save operation goes through the Storage component:
 ![Sequence Diagram for Save operation](./images/Save_Seq-Dia.jpg)
 
+
+## WeeklySummary Feature
+
+The Weekly Summary feature allows users to view a summary of their workouts for the current week. This functionality is achieved through a combination of several interconnected components, including `WeeklySummaryCommand`, `Parser`, `HistoryCommandFactory`, and `History`. Users can access this feature through the `history wk` command in the UI. The implementation follows a command pattern, combined with the factory pattern for command creation.
+
+### Overview
+
+The following components are crucial to the Weekly Summary feature:
+
+1. **Parser Component**  
+   The `Parser` interprets the initial command and directs the flow as follows:
+
+    - **`Parser#parse(String)`**: Accepts the raw input string, splits it into the main command and arguments.
+    - **`CommandFactory`**: Generates the appropriate command object based on the parsed input.
+    - **`HistoryCommandFactory`**: Handles the creation of history-related commands, including `WeeklySummaryCommand`.
+
+2. **WeeklySummaryCommand Component**  
+   The `WeeklySummaryCommand` implements the `Command` interface and performs the following:
+
+    - Extends the abstract `Command` class.
+    - Uses the command word `"wk"`.
+    - Executes by retrieving the weekly summary from the `History` object.
+    - Returns a `CommandResult` that contains the formatted summary for display.
+
+3. **History Component**  
+   The `History` class manages workout data and provides:
+
+    - **`getWeeklyWorkoutSummary()`**: Retrieves and formats the workout data for the current week.
+
+### Flow of Operations
+
+The following example illustrates the usage scenario and behavior of the Weekly Summary feature:
+
+1. **Step 1**: The user enters the `"history wk"` command in the UI. The UI reads this command and passes it to the `Parser`.
+2. **Step 2**: The `Parser` breaks down the command `"history wk"` into:
+    - Main command: `"history"`
+    - Subcommand: `"wk"`
+3. **Step 3**: The `Parser` uses `CommandFactory`, which recognizes this as a history command and delegates to `HistoryCommandFactory`.
+4. **Step 4**: `HistoryCommandFactory` identifies `"wk"` as the `WeeklySummaryCommand` trigger and creates a new `WeeklySummaryCommand` instance.
+5. **Step 5**: The `WeeklySummaryCommand` is passed back through the chain to the UI, which then calls its `execute` method.
+6. **Step 6**: During execution:
+    - `WeeklySummaryCommand` calls `History`'s `getWeeklyWorkoutSummary()`.
+    - The summary is formatted and wrapped in a `CommandResult`.
+    - The UI displays the result to the user.
+
+### Sequence Diagram
+
+![Sequence Diagram for WeeklySummary feature](./images/History%20WeeklySummary%20UML%20Sequence%20Diagram.png)
+
 --- 
+
 
 # Documentation, logging, testing, configuration, dev-ops
 - Documentation guide (add link for these)
