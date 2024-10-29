@@ -3,6 +3,7 @@ package seedu.duke.commands;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 
@@ -29,6 +30,7 @@ public class BackCommand extends Command {
 
         if (state.getState() == StateType.TASK_STATE) {
             state.setState(StateType.MAIN_STATE);
+            Hospital.clearSelectedPatient(); //need clear for changes to be reflected in ui
             // System.out.println(MESSAGE_SWITCHED_TO_MAIN);
             return new CommandResult(MESSAGE_SWITCHED_TO_MAIN);
         } else {

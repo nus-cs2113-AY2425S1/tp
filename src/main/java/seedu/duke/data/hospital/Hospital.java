@@ -18,12 +18,15 @@ public class Hospital {
     private static final Logger logger = Logger.getLogger(Hospital.class.getName());
     private List<Patient> patients;
     @JsonIgnore
-    private Patient selectedPatient;
+    private static Patient selectedPatient;
 
     static {
         logger.setLevel(Level.SEVERE); // Only show warnings and errors
     }
 
+    public static void clearSelectedPatient() {
+        selectedPatient = null;
+    }
     @JsonCreator
     public Hospital() {
         this.patients = new ArrayList<>();
