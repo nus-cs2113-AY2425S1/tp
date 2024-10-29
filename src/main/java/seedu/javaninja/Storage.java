@@ -1,6 +1,9 @@
 package seedu.javaninja;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -60,6 +63,25 @@ public class Storage {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Saves a single question line to the file.
+     * @param questionLine The question line to save.
+     * @throws IOException If there is an error writing to the file.
+     */
+    public void saveQuestionToFile(String questionLine) throws IOException {
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Append the question line to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(questionLine);
+            writer.newLine();
         }
     }
 

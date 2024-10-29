@@ -92,8 +92,22 @@ public class QuizManager {
 
     public void startQuiz(Topic topic) {
         Scanner quizScanner = new Scanner(System.in);
+        System.out.println("Set a time limit for the quiz.");
+        System.out.print("Enter the number of minutes (or 0 if you want to set seconds): ");
+        int minutes = Integer.parseInt(quizScanner.nextLine().trim());
+
+        int timeLimitInSeconds = 0;
+        if (minutes == 0) {
+            System.out.print("Enter the number of seconds: ");
+            timeLimitInSeconds = Integer.parseInt(quizScanner.nextLine().trim());
+        } else {
+            timeLimitInSeconds = minutes * 60;  // Convert minutes to seconds
+        }
+
+        System.out.print("Enter the number of questions you want to attempt: ");
+        int questionLimit = Integer.parseInt(quizScanner.nextLine().trim());
         currentQuiz = new Quiz(topic, quizScanner);
-        currentQuiz.start();
+        currentQuiz.start(timeLimitInSeconds, questionLimit);
         int score = currentQuiz.getScore();
         String comment = generateComment(score);
         addPastResult(score, comment);
