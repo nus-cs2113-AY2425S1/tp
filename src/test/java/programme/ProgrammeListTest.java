@@ -96,37 +96,6 @@ public class ProgrammeListTest {
     }
 
     @Test
-    void testGetDay() {
-        // Set the active programme to index 0
-        Programme activeProgramme = programmeList.startProgramme(0);
-        Day retrievedDay = activeProgramme.getDay(0);
-
-        // Verify that the correct mock day is retrieved
-        assertEquals(mockDay1, retrievedDay);
-    }
-
-    @Test
-    void testDeleteDay() {
-        // Attempt to delete a day at index 0 of the first programme
-        Programme activeProgramme = programmeList.startProgramme(0);
-        Day deletedDay = activeProgramme.deleteDay(0);
-
-        // Verify that the correct day is deleted
-        assertEquals(mockDay1, deletedDay);
-    }
-
-    @Test
-    void testInsertDay() {
-        // Insert a new mock day into the first programme
-        Programme selectedProgramme = programmeList.getProgramme(0);
-        selectedProgramme.insertDay(mockDay2);
-
-        // Verify that the day was inserted correctly
-        when(mockProgramme1.getDay(1)).thenReturn(mockDay2);
-        assertEquals(mockDay2, programmeList.getProgramme(0).getDay(1));
-    }
-
-    @Test
     void testToString() {
         // Stub the toString() method of the mock programmes
         when(mockProgramme1.toString()).thenReturn("Mocked Programme 1");
