@@ -1,6 +1,15 @@
 package seedu.duke;
 
-import seedu.commands.*;
+import seedu.commands.Command;
+import seedu.commands.AddCommand;
+import seedu.commands.DeleteCommand;
+import seedu.commands.UpdateCommand;
+import seedu.commands.SortCommand;
+import seedu.commands.FilterCommand;
+import seedu.commands.ListCommand;
+import seedu.commands.HelpCommand;
+import seedu.commands.RemoveCommand;
+import seedu.commands.FavouriteCommand;
 
 import seedu.ui.Ui;
 
