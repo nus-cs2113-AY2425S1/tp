@@ -380,7 +380,7 @@ public class Parser {
      * @return a {@code CopyCommand} object with the parsed source and destination
      * @throws InvalidCommandException if the command is missing required parts or has an invalid format
      */
-     private Command parseCopyCommand(String input, String[] commandParts) throws InvalidCommandException {
+    private Command parseCopyCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(CopyCommand.COMMAND_WORD);
 
         try {
