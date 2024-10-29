@@ -1,0 +1,57 @@
+@startuml
+
+actor User
+participant Duke
+participant ExpenseTracker
+participant Category
+participant Expense
+participant Budget
+
+User -> Duke : input("view-budget")
+activate Duke
+
+Duke -> ExpenseTracker : viewBudget()
+activate ExpenseTracker
+
+alt No Budgets Set
+    ExpenseTracker -> User : Print "No budgets set for any category."
+else Budgets Exist
+    ExpenseTracker -> ExpenseTracker : Initialize totalExpensesToCategory Map
+
+    loop Calculate Total Expenses Per Category
+        ExpenseTracker -> Expense : Get category and amount for each expense
+        activate Expense
+        Expense --> ExpenseTracker : Return category and amount
+        deactivate Expense
+
+        ExpenseTracker -> ExpenseTracker : Update total expense in totalExpensesToCategory map
+    end
+
+    loop Calculate Remaining Budget for Each Category
+        ExpenseTracker -> Budget : Get budget for each category with a set budget
+        activate Budget
+        Budget --> ExpenseTracker : Return budget limit
+        deactivate Budget
+
+        ExpenseTracker -> ExpenseTracker : Calculate remaining budget (limit - totalExpense)
+
+        alt Remaining Budget >= 0
+            ExpenseTracker -> User : Print "<Category>: <totalExpense> spent, <remainingBudget> remaining"
+        else Over Budget
+            ExpenseTracker -> User : Print "<Category>: <totalExpense> spent, Over budget by <overBudgetAmount>"
+        end
+    end
+
+    loop Check Categories Without Budgets
+        ExpenseTracker -> Category : Check if each category in totalExpensesToCategory has a budget
+        activate Category
+        Category --> ExpenseTracker : Return category name if no budget set
+        deactivate Category
+
+        ExpenseTracker -> User : Print "<Category>: No budget set"
+    end
+end
+deactivate ExpenseTracker
+deactivate Duke
+
+@enduml
