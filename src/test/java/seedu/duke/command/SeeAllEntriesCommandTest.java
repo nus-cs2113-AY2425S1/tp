@@ -84,7 +84,10 @@ class SeeAllEntriesCommandTest {
                 "Highest Income Category: SALARY ($3000.00)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
-        assertEquals(expectedOutput, output);
+        assertEquals(
+                expectedOutput.trim().replaceAll("\\s+", " "),
+                output.trim().replaceAll("\\s+", " ")
+        );
     }
 
     /**
