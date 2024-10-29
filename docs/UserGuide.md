@@ -1,5 +1,26 @@
 # uNivUSaver User Guide
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Quick Start](#quick-start)
+3. [Features](#features)
+   - [Adding](#adding)
+     - [Add an expense: `add-expense`](#add-an-expense-add-expense)
+     - [Add an income: `add-income`](#add-an-income-add-income)
+     - [Add a category: `add-category`](#add-a-category-add-category)
+   - [Deleting](#deleting)
+     - [Delete an expense/income: `delete-transaction`](#delete-an-expenseincome-delete-transaction)
+     - [Delete a category: `delete-category`](#delete-a-category-delete-category)
+   - [Viewing](#viewing)
+     - [List all categories: `view-category`](#list-all-categories-view-category)
+     - [View expenses: `view-expense`](#view-expenses-view-expense)
+     - [View income: `view-income`](#view-income-view-income)
+     - [View transaction history: `history`](#view-transaction-history-history)
+   - [View total amount in account: `view-total`](#view-total-amount-in-account-view-total)
+   - [View command list: `help`](#view-command-list-help)
+4. [FAQ](#faq)
+5. [Command Summary](#command-summary)
 
+---
 ## Introduction
 uNivUSaver is a CLI-based software that helps students to develop a better habit of managing money, which will help you avoid using up your money before the end of month
 
