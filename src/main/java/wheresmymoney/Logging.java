@@ -25,7 +25,7 @@ public class Logging {
         logger.info("Started Logging");
     }
 
-    public void enableFileLogging() throws IOException {
+    private void enableFileLogging() throws IOException {
         // This block configure the logger with handler and formatter
         FileHandler fh = new FileHandler(LOG_FILE_PATH, true);
         logger.addHandler(fh);
@@ -33,14 +33,25 @@ public class Logging {
         fh.setFormatter(formatter);
     }
 
-    public void disableConsoleLogging() {
+    private void disableConsoleLogging() {
         LogManager.getLogManager().reset();
     }
 
+    /**
+     * Logs a message
+     *
+     * @param level Level to log a message at
+     * @param message Message to Log
+     */
     public void logMessage(Level level, String message) {
         logger.log(level, message);
     }
 
+    /**
+     * Gets the Logging Singleton Object
+     *
+     * @return Logging object
+     */
     public static Logging getInstance() {
         if (Logging.loggingInstance == null) {
             Logging.loggingInstance = new Logging();
@@ -48,6 +59,12 @@ public class Logging {
         return Logging.loggingInstance;
     }
 
+    /**
+     * Logs a message using the Logging singleton
+     *
+     * @param level Level to log a message at
+     * @param message Message to Log
+     */
     public static void log(Level level, String message){
         Logging.getInstance().logMessage(level, message);
     }

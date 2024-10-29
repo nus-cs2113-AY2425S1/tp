@@ -1,0 +1,27 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class RecurringExpense {
+    #price: Float
+    #description: String
+    #category: String
+    #dateAdded: LocalDate
+    #frequency: String
+    +RecurringExpense(price: Float, description: String, category: String, frequency: String): Expense
+    +RecurringExpense(price: Float, description: String, category: String, dateAdded: LocalDate, frequency: String): Expense
+}
+
+class RecurringExpenseList {
+    +addRecurringExpense(price: Float, description: String, category: String, frequency: String): void
+    +addRecurringExpense(price: Float, description: String, category: String, dateAdded: LocalDate, frequency: String): void
+    +editRecurringExpenses(index: int, price: Float, description: String, category: String, dateAdded: LocalDate, frequency: String): void
+    +deleteRecurringExpense(index: int): void
+    +listByCategoryForRecurring(category: String): ArrayList<RecurringExpense>
+    +loadFromCsv(filePath: String): void
+    +saveToCsv(filePath: String): void
+}
+
+RecurringExpenseList " 0.1 " -d-> " * " RecurringExpense : " contains "
+
+@enduml
