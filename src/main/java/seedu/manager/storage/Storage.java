@@ -25,6 +25,7 @@ public class Storage {
      * @param filePath The path to the storage file.
      */
     public Storage(String filePath) {
+        assert isValidFilePath(filePath) : "Invalid file path: " + filePath;
         this.filePath = filePath;
     }
 
@@ -66,6 +67,17 @@ public class Storage {
         } catch (IOException exception) {
             throw new IOException("Error loading events from file: " + filePath + ".");
         }
+    }
+
+    /**
+     * Checks if the given file path is valid and matches the expected path.
+     *
+     * @param filePath The path to check.
+     * @return True if valid and matches, false otherwise.
+     */
+    private boolean isValidFilePath(String filePath) {
+        String expectedPath = "events.txt"; // You can change this if needed
+        return filePath.equals(expectedPath);
     }
 }
 
