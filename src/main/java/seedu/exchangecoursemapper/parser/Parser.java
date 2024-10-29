@@ -78,7 +78,7 @@ public class Parser {
         } else if (command.equals(OBTAIN)) {
             new ObtainContactsCommand().execute(input);
         } else if (input.equals(LIST_MAPPED)) {
-            new ListPersonalTrackerCommand().execute(input, storage);
+            new ListPersonalTrackerCommand(storage).execute(input);
         } else if (command.equals(COMPARE_PU)) {
             new CompareMappedCommand(storage).execute(userInput);
         } else if (command.equals(BYE)) {

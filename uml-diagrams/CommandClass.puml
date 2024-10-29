@@ -15,7 +15,6 @@ class FilterCoursesCommand extends CheckInformationCommand {
     +displayMappableCourses(jsonObject: JsonObject, courseToFind: String): void
     +isCourseFound(courseToFind: String, universityName: String, numberOfCourses: int,
          courses: JsonArray, isCourseFound: boolean): boolean
-    +printMappableCourse(universityName: String, course: JsonObject): void
 }
 
 class HelpCommand extends CheckInformationCommand {
@@ -70,20 +69,18 @@ class AddCoursesCommand extends PersonalTrackerCommand {
     +execute(userInput: String, storage, Storage): void
     +trimString(string: String): String
     +parseAddCommand(input: String): String[]
-    +printAddMessage(addCourse: Course): void
 }
 
 class DeleteCoursesCommand extends PersonalTrackerCommand {
     -logger: Logger {static}
     +execute(userInput: String, storage, Storage): void
     +parseDeleteCommand(userInput: String): String[]
-    +printDeleteMessage(addCourse: Course): void
     +deleteCourse(descriptionSubstrings: String[], storage: Storage): void
 }
 
-class ListPersonalTrackerCommand extends PersonalTrackerCommand {
+class ListPersonalTrackerCommand extends CheckInformationCommand {
     -logger: Logger {static}
-    +execute(input: String, storage, Storage): void
+    +execute(input: String): void
 }
 
 @enduml

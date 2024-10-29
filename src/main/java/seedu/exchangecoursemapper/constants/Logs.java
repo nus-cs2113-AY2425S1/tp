@@ -48,4 +48,13 @@ public class Logs {
     public static final String DELETE_COURSE_MAPPING = "Deleting course mapping from storage..";
     public static final String RETURN_PARSED_DELETE_COMMAND = "Returning separated user input...";
     public static final String GET_COURSE_TO_DELETE = "Obtaining information on the course to be deleted.";
+
+    // ListPersonalTrackerCommand
+    public static final String INIT_STORAGE = "ListPersonalTrackerCommand initialized with storage.";
+    public static final String EXECUTE = "Executing ListPersonalTrackerCommand to list mapped modules.";
+    public static final String NO_MODULES = "No modules mapped in the personal tracker.";
+    public static final String DISPLAY_MODULES = "Displaying mapped modules from personal tracker.";
+    public static final String EXECUTE_COMPLETE = "Completed execution of ListPersonalTrackerCommand.";
+    public static final String NO_MODULES_MESSAGE = "No modules mapped yet.";
+    public static final String MAPPED_MODULES_HEADER = "Mapped Modules:";
 }
