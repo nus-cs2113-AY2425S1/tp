@@ -5,11 +5,9 @@ import programme.ProgrammeList;
 import history.History;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ListCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "list";
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Override
     public CommandResult execute(ProgrammeList programmes, History history){
