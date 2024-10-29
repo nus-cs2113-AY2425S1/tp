@@ -8,8 +8,7 @@ import java.util.Optional;
 
 //@author LTK-1606
 /**
- * Represents a command to sort the events in different ways.
- * The sort command will store the sorting keyword.
+ * Represents a command to find all participants in an event with a certain name.
  */
 public class FindCommand extends Command{
     public static final String COMMAND_WORD = "find";

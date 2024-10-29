@@ -82,6 +82,7 @@ public class Parser {
             Invalid find flag!
             Please set the find flag using "-e" and "-p""
             """;
+    private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
 
     /**
      * Returns a command based on the given user command string.
@@ -379,7 +380,7 @@ public class Parser {
                 throw new InvalidCommandException(INVALID_FIND_FLAG_MESSAGE);
             }
 
-            String[] inputParts = input.split("\\s*(-e|-p)\\s*");
+            String[] inputParts = input.split(FIND_REGEX);
             if (inputParts.length < 3 || inputParts[1].isBlank()) {
                 throw new InvalidCommandException(INVALID_FIND_MESSAGE);
             }
