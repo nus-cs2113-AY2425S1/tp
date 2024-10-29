@@ -14,6 +14,12 @@ public class UiCommand extends Ui {
     private String updatedFields;
     private String invalidFields;
 
+    public UiCommand() {
+        super();
+        clearInvalidFields();
+        clearUpdatedFields();
+        clearInvalidFlags();
+    }
     /**
      * Prints newly added or updated internship and invalid flags (if any).
      */
