@@ -69,6 +69,9 @@ interact with a given component through its interface rather than the concrete c
 Command Package:
 ![Class diagram for Commands](images/CommandClass.png)
 
+CourseValidator Class Diagram: 
+![Class diagram for CourseValidator](images/CourseValidatorClass.png)
+
 {TODO: Object Diagram}
 
 ## Implementation
@@ -197,7 +200,7 @@ method.
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
-### 4. Add Courses Command
+### 5. Add Courses Command
 
 #### Overview:
 This command is responsible for adding users' desired course mapping into the `myList.json` file. 
@@ -227,7 +230,7 @@ and South-East Asian universities. This command hence helps the users to keep tr
 #### Sequence Diagram on PlantUML
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
 
-### 5. Delete Courses Command
+### 6. Delete Courses Command
 
 #### Overview:
 This command is responsible for deleting users' existing course mapping plan from the `myList.json` file.
