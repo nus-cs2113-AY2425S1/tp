@@ -1,7 +1,6 @@
 package seedu.javaninja;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Parser {
     private QuizManager quizManager;

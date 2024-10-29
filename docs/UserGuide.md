@@ -27,7 +27,7 @@ Java Ninja is a command-line interface (CLI) learning tool focused on helping be
    - `help`: Lists all basic commands.
    - `view`: Displays available topics.
    - `select [topic]`: Selects a specified topic (e.g., `select loops`) to start the quiz.
-   - `result`: Displays a summary of quiz results.
+   - `review`: Displays a summary of quiz results.
    - `exit`: Exits the quiz, activate only while doing the quiz.
    - `quit`: Exits the program.
 6. Refer to the features below for each command.
@@ -88,14 +88,14 @@ Format: `add Flashcard /q [QUESTION] /a [ANSWER]`
 add Flashcard /q The keyword used to define a class is `____`. /a class
 ```
 
-### 5. Reviewing Past Results: `result`
+### 5. Reviewing Past Results: `review`
 Displays a summary of all quiz results taken during the current session, including scores and comments on performance.
 
-Format: `result`
+Format: `review`
 
 **Example**:
 ```shell
-result
+review
 ```
 
 ---
@@ -117,7 +117,7 @@ result
 | `view`                | View all available quiz topics.                                |
 | `select [TOPIC_NAME]` | Select a topic and start the quiz for that topic.              |
 | `add Flashcard`       | Add a custom flashcard question.                               |
-| `result`              | View results of quizzes taken during this session.             |
+| `review`              | View results of quizzes taken during this session.             |
 | `help`                | List all commands with descriptions.                           |
 | `exit`                | Exit the quiz. 
 | `quit`                | Exit the program. 
