@@ -129,8 +129,8 @@ The `Topic` class encapsulates a programming topic along with its related questi
 #### UML Class Diagram
 
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ## Product scope
 ### Target user profile
