@@ -1,10 +1,18 @@
 package seedu.exchangecoursemapper.constants;
 
 public class Messages {
+    /* For UI layout */
     public static final String LINE_SEPARATOR = "-----------------------------------------------------";
-    public static final String NO_MAPPABLE_COURSES_MESSAGE = "No courses found for the given course code.";
+
+    /* Messages for all invalid CLI commands */
     public static final String INVALID_COMMAND_MESSAGE = "Please provide a valid command!" +
             "\nType 'commands' to find out what we can help you with :)";
+
+    /* Messages for FilterCoursesCommand */
+    public static final String NO_MAPPABLE_COURSES_MESSAGE = "No courses found for the given course code.";
+    public static final String PARTNER_UNIVERSITY_HEADER = "Partner University: ";
+    public static final String PARTNER_UNIVERSITY_COURSE_CODE_HEADER = "Partner University Course Code: ";
+
     public static final String LIST_RELEVANT_PU = "The relevant universities are (non-case sensitive):\n" +
             "1. Chulalongkorn University\n" +
             "2. The University of Melbourne\n" +

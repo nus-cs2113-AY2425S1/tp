@@ -16,6 +16,8 @@ import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
 import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_NAME_KEY;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
+import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_HEADER;
+import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_COURSE_CODE_HEADER;
 
 public class UI {
     private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
@@ -35,6 +37,21 @@ public class UI {
     public void displayExitMessage() {
         String exitMessage = "All the best in planning for your exchange, hope we helped!";
         System.out.println(exitMessage);
+    }
+
+
+    /**
+     * Prints out the Partner University (PU) name and PU course code that is
+     * mappable to a user specified NUS course code.
+     *
+     * @param universityName a String representing the PU's name.
+     * @param course a JsonObject that stores the PU course information.
+     */
+    public void printMappableCourse(String universityName, JsonObject course) {
+        String puCourseCode = course.getString(PU_COURSE_CODE_KEY);
+        System.out.println(PARTNER_UNIVERSITY_HEADER + universityName);
+        System.out.println(PARTNER_UNIVERSITY_COURSE_CODE_HEADER + puCourseCode);
+        System.out.println(LINE_SEPARATOR);
     }
 
     /**
