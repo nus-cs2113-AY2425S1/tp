@@ -28,8 +28,11 @@ activate Integer
 return listIndex : int
 
 DeleteCoursesCommand -> Storage: getCourse(listIndex : int)
+activate Storage
 Storage --> DeleteCoursesCommand: courseToDelete : Course
 DeleteCoursesCommand -> Storage: deleteCourse(listIndex : int)
+Storage --> DeleteCoursesCommand
+deactivate Storage
 
 DeleteCoursesCommand -> UI: printDeleteMessage(courseToDelete: Course)
 activate UI
