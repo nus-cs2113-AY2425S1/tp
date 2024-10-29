@@ -26,12 +26,12 @@ public class HistoryCommandFactory {
         String arguments = inputArguments.length > 1 ? inputArguments[1] : "";
 
         return switch (subCommandString) {
-            case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
-            case ListPersonalBestsCommand.COMMAND_WORD -> prepareListPersonalBestsCommand();
-            case WeeklySummaryCommand.COMMAND_WORD -> prepareWeeklySummaryCommand();
-            case ViewPersonalBestCommand.COMMAND_WORD -> prepareViewPersonalBestCommand(arguments);
-            case DeleteRecordCommand.COMMAND_WORD -> prepareDeleteRecordCommand(arguments);
-            default -> new InvalidCommand();
+        case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
+        case ListPersonalBestsCommand.COMMAND_WORD -> prepareListPersonalBestsCommand();
+        case WeeklySummaryCommand.COMMAND_WORD -> prepareWeeklySummaryCommand();
+        case ViewPersonalBestCommand.COMMAND_WORD -> prepareViewPersonalBestCommand(arguments);
+        case DeleteRecordCommand.COMMAND_WORD -> prepareDeleteRecordCommand(arguments);
+        default -> new InvalidCommand();
         };
     }
 
@@ -57,4 +57,6 @@ public class HistoryCommandFactory {
         return new DeleteRecordCommand(toDelete);
     }
 }
+
+
 
