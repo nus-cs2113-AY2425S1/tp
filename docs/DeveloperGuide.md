@@ -11,15 +11,18 @@
 ### EasInternship (main class)
 
 1. [Design](#design)
-    1. [Architecture](#architecture)
-    2. [UI Component](#ui-component)
-    3. [Logic Component](#logic-component)
-    4. [Model Component](#model-component)
-    5. [Storage Component](#storage-component)
+   1. [Architecture](#architecture)
+   2. [UI Component](#ui-component)
+   3. [Logic Component](#logic-component)
+   4. [Model Component](#model-component)
+   5. [Storage Component](#storage-component)
 2. [Implementation](#implementation)
-    1. [Parsing Input](#parsing-input)
-    2. [Command Execution](#command-execution)
-    3. [Task Management](#task-management)
+   1. [Parsing Input](#parsing-input)
+   2. [Command Execution](#command-execution)
+   3. [Task Management](#task-management) 
+   4. [Add Command Implementation](#addcommand-implementation)
+   5. [Delete Command Implementation](#deletecommand-implementation)
+   6. [Sort Command Implementation](#sortcommand-implementation)
 
 ---
 
@@ -117,7 +120,7 @@ If the user inputs an unknown command or a command fails during execution, the `
 
 ---
 
-### Add Command Implementation
+### AddCommand Implementation
 
 #### Overview:
 The `AddCommand` class is responsible for adding internship listings to the Internship List. It extends the `Command` class, providing the add functionality as part of the command execution framework.
@@ -144,7 +147,7 @@ The `AddCommand` class is responsible for adding internship listings to the Inte
 The following sequence diagram shows how the `AddCommand` is executed:
 ![AddCommandSequenceDiagram](UML/AddCommand_Sequence_Diagram.png)
 
-### Delete Command Implementation
+### DeleteCommand Implementation
 
 #### Overview: 
 The `DeleteCommand` class is responsible for deleting internship listings from the Internship List. It extends the `Command` class, providing the delete functionality as part of the command execution framework.
