@@ -1,0 +1,45 @@
+@startuml
+
+class Task {
+    - description: String
+    - isDone: boolean
+    + markAsDone(): void
+    + markAsUndone(): void
+    + isDone(): boolean
+    + createTask(): Task
+}
+
+class Todo {
+    + Todo(description: String)
+}
+
+class Deadline {
+    - by: String
+    + Deadline(description: String, by: String)
+    + getBy(): String
+}
+
+class Repeat {
+    - repeat: String
+    + Repeat(description: String, repeat: String)
+    + getRepeat(): String
+}
+
+class TaskList {
+    - tasks: ArrayList<Task>
+    - completionRate: double
+    + addTask(task: Task): void
+    + deleteTask(task: Task): void
+    + findTasks(task: Task): ArrayList<Task>
+    + getCompletionRate(): double
+    + getTasks(): ArrayList<Task>
+}
+
+'--- Inheritance Relationships ---
+Task <|-- Todo
+Task <|-- Deadline
+Task <|-- Repeat
+
+'--- Association ---
+TaskList --> Task : contains *
+@enduml

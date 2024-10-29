@@ -35,7 +35,7 @@ Given below is a quick overview of main components and how they interact with ea
 - At CLI launch, it initializes the other components in the correct sequence, and connects them up with each other.
 - At exit, it shuts down the other components and invokes cleanup methods where necessary.
 
-The bulk of the CLI's work id done byu the following components:
+The bulk of the CLI's work id done by the following components:
 
 - **UI**: Handles the user interface and user interactions.
 - **Parser**: Interprets user commands and executes them.
@@ -52,9 +52,15 @@ The Parser interface uses a series of classes to implement the various commands.
 ![Parser_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/ParserClass.png)
 
 ### Command
+The `commands` package includes the command pattern used in the application to handle user operations. An abstract `Command` class serves as the base for all specific command implementations. Each command class extends `Command` and overrides the `execute()` method to perform its intended action.
+
+![Command_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/CommandClass.png)
 
 ### Data
+#### task
+The `task` package manages all task-related functionality. A `Task` class serves as the base for other task types: `Todo`, `Deadline`, and `Repeat`. Each task type extends `Task` and introduces additional attributes relevant to its behavior. The `TaskList` class maintains a collection of tasks and provides methods to add, delete, find and track the completion rate of tasks.
 
+![Task_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/TaskClassDiagram.png)
 ### State Manager
 
 ### Storage
@@ -95,26 +101,36 @@ The following sequence diagram illustrates how the `AddPatientCommand` is execut
 
 ### **AddTaskCommand**
 
-The add Task feature allows users to add different types of task to a patient's records. This is facilitated by the `AddTaskCommand`, which handles the logic of adding a task and updating the system’s state and storage.
+The add Task feature allows users to add different types of task to a selected patient's records. This is facilitated by the `AddTaskCommand`, which handles the logic of adding a task and provides feedback on the success or failure of task addition. The feature is only available when the user has navigated to the `TASK_STATE` by selecting a patient.
+
 There are three possible types of tasks - Todo, Deadline and Repeat.
 
+The sequence to add tasks involves:
 1. **User Input**:
 * **Todo**: The user enters the `todo` command followed by tag details (e.g., /tag).
 * **Deadline**: The user enters the `deadline` command followed by the deadline (e.g., /by) and tag details (e.g., /tag).
 * * **Repeat**: The user enters the `repeat` command followed by the recurring basis (e.g., /every) and tag details (e.g., /tag).
-1. **Command Parsing**:
+2. **Command Parsing**:
 * **Todo Task**: The `Parser` parses the input and creates an `AddTodoParser` object.
 * **Deadline Task**: The `Parser` parses the input and creates an `AddDeadlineParser` object.
 * **Repeat Task**: The `Parser` parses the input and creates an `AddRepeatParser` object.
-1. **Execution**: The `AddTaskCommand` adds the task.
-2. **Storage Update**: The updated patient's data, now containing the new task, is saved to storage.
+3. **Execution**: The `AddTaskCommand` adds the task.
+4. **Storage Update**: The updated patient's data, now containing the new task, is saved to storage.
+
+
 
 #### Sequence Diagram
 
-The following sequence diagram illustrates how the `AddTaskCommand` is executed:
+The following sequence diagram illustrates how `Parser` parse command for `AddTaskCommand`:
+
+![Parse_Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/ParseAddTaskClassDiagram.png)
+
+A closer look on how `AddTaskCommand` is executed is shown below:
 
 ![Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddTaskClassDiagram.png)
 
+#### Implementation considerations:
+The `AddTaskCommand` has been implemented with a design that prioritizes scalability and maintainability. This allows the system to easily support additional task types in the future without requiring major code changes. For example, if new task types are needed in the future (e.g., `event`, `appointment`), they can be added by simply extending the Task class hierarchy and updating the createTask() factory method.
 ### **FindCommand**
 
 The find feature allows users to find the name of a patient, or the name of a task. This is facilitated by the `FindPatientCommand` and `FindTaskCommand`.

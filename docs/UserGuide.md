@@ -23,7 +23,7 @@ Format: `todo TODO_NAME /tag TAG_NAME`
 Adds a new item to the list of deadline items.
 Format: `deadline DEADLINE_NAME /by DATE_TIME /tag TAG_NAME `
 
-### Adding a todo task: `repeat`
+### Adding a recurring task: `repeat`
 Adds a new item to the list of recurring items.
 Format: `repeat TODO_NAME /every RECUR_BASIS /tag TAG_NAME`
 
