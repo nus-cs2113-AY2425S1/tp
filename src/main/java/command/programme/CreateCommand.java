@@ -1,7 +1,6 @@
 package command.programme;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import command.CommandResult;
 import programme.Day;
@@ -11,33 +10,21 @@ import history.History;
 
 public class CreateCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "create";
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
+    private final String programmeName;
+    private final ArrayList<Day> programmeContents;
 
-    private final String name;
-    private final ArrayList<Day> contents;
-
-    public CreateCommand(String name, ArrayList<Day> contents) {
-        this.name = name;
-        this.contents = contents;
+    public CreateCommand(String programmeName, ArrayList<Day> programmeContents) {
+        this.programmeName = programmeName;
+        this.programmeContents = programmeContents;
     }
 
     @Override
     public CommandResult execute(ProgrammeList programmes, History history){
         assert programmes != null : "Programme list must not be null";
-
-        Programme created = programmes.insertProgramme(name, contents);
+        Programme created = programmes.insertProgramme(programmeName, programmeContents);
         assert created != null : "programme must be created";
-        String result = String.format("New programme created: %n%s",created);
-
         logger.log(Level.INFO, "CreateCommand executed successfully.");
-
+        String result = String.format("New programme created: %n%s",created);
         return new CommandResult(result);
     }
-
-
-    public String getName() {
-        return name;
-    }
-
 }
-
