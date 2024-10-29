@@ -1,4 +1,14 @@
-# Developer Guide
+# JavaNinja Developer Guide
+Java Ninja is a command-line interface (CLI) learning tool focused on helping beginner programmers enhance their understanding of fundamental programming concepts.
+
+- [Design & implementation](#Design & implementation)
+- [Product scope](#Product scope)
+    - [Target user profile](#Target user profile)
+    - [Value proposition](#Value proposition)
+- [User Stories](#User Stories)
+- [Non-Functional Requirements](#Non-Functional Requirements)
+- [Glossary](#Glossary)
+- [Instructions for manual testing](#Instructions for manual testing)
 
 ## Acknowledgements
 
@@ -7,8 +17,12 @@
 - [JUnit 5](https://junit.org/junit5/) - Used for testing.
 - Code adapted from [AddressBook-Level3](https://github.com/se-edu/addressbook-level3).
 
-## Design & implementation
+JavaNinja uses the following tools for development:
+- JUnit - Used for testing.
+- Gradle - Used for build automation.
 
+## Design & implementation
+  
 ### Design 
 
 #### Architecture 
@@ -81,11 +95,11 @@ The class diagram above shows the structure of the `TrueFalse` class, including 
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+Beginner programmers looking to improve their proficiency in Java and command-line skills.
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+This tool will offer an interactive learning experience through a series of tasks and challenges designed to deepen users' understanding and proficiency in both command-line operations and Java language.
 
 ## User Stories
 
@@ -96,7 +110,10 @@ The class diagram above shows the structure of the `TrueFalse` class, including 
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+1. Technical Requirements: Any mainstream OS, i.e. Windows, macOS or Linux, with Java 17 installed.
+2. Project Scope Constraints: The application should only be used for practice and reviewing score progress
+3. Project Scope Constraints: Data storage is only to be performed locally.
+4. Quality Requirements: The application should be able to be used effectively by a novice with little experience with CLIs.
 
 ## Glossary
 
@@ -105,3 +122,9 @@ The class diagram above shows the structure of the `TrueFalse` class, including 
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+### Manual Testing
+View the [User Guide](https://AY2425S1-CS2113-W12-4.github.io/tp/UserGuide.html) for the full list of UI commands and their related use case and expected outcomes.
+
+### JUnit Testing
+JUnit tests are written in the subdirectory `test` and serve to test key methods part of the application.
