@@ -19,7 +19,7 @@ public class RecurringExpense extends Expense {
         this.frequency = frequency;
     }
 
-    public LocalDate getlastAddedDate() {
+    public LocalDate getLastAddedDate() {
         return this.dateAdded;
     }
 
@@ -27,7 +27,7 @@ public class RecurringExpense extends Expense {
         return this.frequency;
     }
 
-    public void setlastAddedDate(LocalDate date) {
+    public void setLastAddedDate(LocalDate date) {
         this.dateAdded = date;
     }
 
