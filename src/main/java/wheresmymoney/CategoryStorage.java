@@ -26,7 +26,7 @@ public class CategoryStorage {
      * @return A CategoryTracker containing the total spending for each category based on the provided expense list.
      * @throws WheresMyMoneyException If an error occurs while adding a category.
      */
-    public CategoryTracker trackCategoriesOf(ArrayList<Expense> expenseList) throws WheresMyMoneyException {
+    public static CategoryTracker trackCategoriesOf(ArrayList<Expense> expenseList) throws WheresMyMoneyException {
         CategoryTracker categoryTracker = new CategoryTracker();
         for (Expense expense : expenseList) {
             String categoryName = expense.getCategory();
@@ -40,7 +40,7 @@ public class CategoryStorage {
      *
      * @param filePath File Path to read CSV from
      */
-    public void loadFromCsv(String filePath, CategoryTracker categoryTracker) throws StorageException {
+    public static void loadFromCsv(String filePath, CategoryTracker categoryTracker) throws StorageException {
         try {
             File file = new File(filePath);
             FileReader reader = new FileReader(file);
@@ -73,7 +73,7 @@ public class CategoryStorage {
      *
      * @param filePath File Path to save csv to
      */
-    public void saveToCsv(String filePath, CategoryTracker categoryTracker) throws StorageException {
+    public static void saveToCsv(String filePath, CategoryTracker categoryTracker) throws StorageException {
         File file = new File(filePath);
 
         // create FileWriter object with file as parameter
