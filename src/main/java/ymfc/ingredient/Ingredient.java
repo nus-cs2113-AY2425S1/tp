@@ -1,7 +1,7 @@
 package ymfc.ingredient;
 
 public class Ingredient {
-    String name;
+    private String name;
     //int quantity;
 
     public Ingredient(String name) {
@@ -13,12 +13,8 @@ public class Ingredient {
         return name;
     }
 
-    public boolean equals(Ingredient o) {
-        if (!name.equals(o.getName())) {
-            return false;
-        }
-
-        return true;
+    public boolean equals(Ingredient ingredientToCheck) {
+        return name.equals(ingredientToCheck.getName());
     }
 
     @Override

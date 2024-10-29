@@ -54,6 +54,21 @@ The formatting of how a recipe is displayed and saved is handled by this class.
 The recipelist class represents a list of any non-negative integer number of recipes. 
 This class handles the addition, deletion and editing of recipes.
 
+### Ingredient Class
+The ingredient class represents a singular ingredient added by the user or loaded from the storage database.
+A valid recipe object contains the following field:
++ Name
+
+The formatting of how a recipe is displayed and saved is handled by this class.
+
+### IngredientList Class
+The Ingredientlist class represents a list of any non-negative integer number of ingredients.
+This class handles the addition, deletion and editing of ingredients.
+Shown below is a class diagram detailing how it interacts with the Ingredient class.
+
+![img.png](img/ClassDiagrams/ingredientsClassDiagram.png)
+
+
 ### Command Classes
 The command class deals with all the possible commands accepted by YMFC
 ![commandClasses.png](img/ClassDiagrams/commandsClassDiagram.png)

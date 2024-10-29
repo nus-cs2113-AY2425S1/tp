@@ -1,0 +1,36 @@
+@startuml
+!include Style.puml
+
+skinparam classAttributeIconSize 0
+
+package "ymfc.ingredient" {
+
+    class Ingredient #COLOR_RED{
+        - name: String
+        __
+        + getName(): String
+        + equals(ingredientToCheck: Ingredient): boolean
+        + toString(): String
+        + toSaveString(): String
+    }
+    hide Ingredient circle
+}
+
+package "ymfc.list" {
+
+    class IngredientList #COLOR_PURPLE_BLUE{
+            - ingredients: ArrayList<Ingredient>
+            __
+            + addIngredient(ingredient: Ingredient): void
+            + getIngredients(): ArrayList<Ingredient>
+            + getIngredient(id: int): Ingredient
+            + removeIngredientByName(name: String): boolean
+            + getCounter(): int
+            + sortAlphabetically(): void
+    }
+    hide IngredientList circle
+}
+
+IngredientList "\n1  "  --downo " *  " Ingredient : contains >
+
+@enduml
