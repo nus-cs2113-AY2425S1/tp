@@ -25,6 +25,12 @@ public class Storage {
     public Storage() {
     }
 
+    /**
+     * Add the entire list of recipes to the recipes.txt save file.
+     *
+     * @param recipes Object containing the ArrayList of recipes to be saved.
+     * @throws IOException If the save file cannot be properly accessed.
+     */
     public void saveRecipes(RecipeList recipes) throws IOException {
         File dir = new File("./data");
         if (!dir.isDirectory()) {
@@ -42,6 +48,12 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Add the entire list of ingredients to the ingredients.txt save file.
+     *
+     * @param ingredients Object containing the ArrayList of ingredients to be saved.
+     * @throws IOException If the save file cannot be properly accessed.
+     */
     public void saveIngredients(IngredientList ingredients) throws IOException {
         File dir = new File("./data");
         if (!dir.isDirectory()) {
@@ -59,6 +71,15 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Load in all the previously saved recipes from the recipes.txt save file to the RecipeList object.
+     *
+     * @param recipes Object containing the ArrayList of recipes to be saved.
+     * @param ingredients Object for user's ingredients.
+     * @param ui Object to access the UI class.
+     * @param storage Object to access the Storage class.
+     * @throws FileNotFoundException If save file does not exist.
+     */
     public void loadRecipes(RecipeList recipes, IngredientList ingredients,
                             Ui ui, Storage storage) throws FileNotFoundException {
         File tasksFile = new File(saveRecipeFilePath);
@@ -81,6 +102,15 @@ public class Storage {
         lister.execute(recipes, ingredients, ui, storage);
     }
 
+    /**
+     * Load in all the previously saved ingredients from the ingredients.txt save file to the IngredientList object.
+     *
+     * @param recipes Object for user's recipes.
+     * @param ingredients Object containing the ArrayList of ingredients to be saved.
+     * @param ui Object to access the UI class.
+     * @param storage Object to access the Storage class.
+     * @throws FileNotFoundException If save file does not exist.
+     */
     public void loadIngredients(RecipeList recipes, IngredientList ingredients,
                                 Ui ui, Storage storage) throws FileNotFoundException {
         File tasksFile = new File(saveIngredientFilePath);
