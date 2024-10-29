@@ -13,7 +13,6 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FileManagerTest {
     private FileManager fileManager;
@@ -43,12 +42,6 @@ public class FileManagerTest {
         JsonObject result = fileManager.loadProgrammeList();
         assertTrue(result.has("programme"), "Programme list should contain the expected 'programme' key.");
     }
-
-    //@Test
-    //public void testLoadProgrammeList_fileNotFound() {
-    //    JsonObject result = fileManager.loadProgrammeList();
-    //    assertTrue(result.isJsonNull() || result.size() == 0, "Programme list should be empty when the file doesn't exist.");
-    //}
 
     @Test
     public void testLoadProgrammeList_noProgrammeListKey() throws IOException {
@@ -91,15 +84,6 @@ public class FileManagerTest {
 
         assertEquals("value", result.get("key").getAsString(), "Saved data should contain the key and value.");
     }
-
-    //@Test
-    //public void testSave_invalidPath() {
-     //   FileManager invalidFileManager = new FileManager("/invalid/path/test_data.json");
-     //   JsonObject testData = new JsonObject();
-     //   testData.addProperty("key", "value");
-
-     //   assertThrows(IOException.class, () -> invalidFileManager.save(testData), "Should throw IOException for invalid file path.");
-    //}
 
     @Test
     public void testSave_emptyData() throws IOException {
