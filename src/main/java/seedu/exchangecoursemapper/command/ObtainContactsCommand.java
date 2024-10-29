@@ -17,6 +17,12 @@ import static seedu.exchangecoursemapper.constants.JsonKey.NUMBER_KEY;
 public class ObtainContactsCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ObtainContactsCommand.class.getName());
 
+    /**
+     * Executes the command to retrieve contact information for a university.
+     * Reads from the JSON file and outputs the email or phone number based on the input.
+     *
+     * @param userInput Contains a school name and contact type separated by a backslash.
+     */
     @Override
     public void execute(String userInput) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
@@ -42,6 +48,13 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
 
+    /**
+     * Filters the school name from the user input.
+     *
+     * @param userInput the input string provided by the user.
+     * @return the school name as a string.
+     * @throws AssertionError if the school name is empty.
+     */
     public String getSchoolName(String userInput) {
         String inputWithoutCommand = userInput.substring(userInput.indexOf(SPACE) + 1).trim();
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
@@ -49,6 +62,13 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         return inputParts[0].trim();
     }
 
+    /**
+     * Filters the contact type from the user input.
+     *
+     * @param userInput the input string provided by the user.
+     * @return the contact type as a string.
+     * @throws IllegalArgumentException if the input is invalid.
+     */
     public String getContactType(String userInput) {
         String inputWithoutCommand = userInput.substring(userInput.indexOf(SPACE) + 1).trim();
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
@@ -61,10 +81,11 @@ public class ObtainContactsCommand extends CheckInformationCommand {
     }
 
     /**
-     * Handles output of different contact types and outputs a string of the details
+     * Handles output of different contact types and outputs a string of the details.
      *
-     * @return a String representing the email/number of the specified partner university.
-     * @throws IOException if the file at {@code FILE_PATH} cannot be found or read.
+     * @param schoolInfo  the JSON object containing the school's information.
+     * @param schoolName  the name of the school as a string
+     * @param contactType the type of contact information to retrieve as a string.
      */
     public void handleContactType(JsonObject schoolInfo, String schoolName, String contactType) {
         switch (contactType) {
@@ -82,6 +103,14 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         }
     }
 
+    /**
+     * Looks for a matching school name from the database.
+     *
+     * @param jsonObject the JSON object containing all school information.
+     * @param schoolName the school name to search for.
+     * @return the matching school name if found, or the input school name if not found.
+     * @throws AssertionError if jsonObject or schoolName is null.
+     */
     public String findMatchingSchool(JsonObject jsonObject, String schoolName) {
         assert jsonObject != null : Assertions.NULL_JSON_OBJECT;
         assert schoolName != null : Assertions.NULL_SCHOOL_NAME;
