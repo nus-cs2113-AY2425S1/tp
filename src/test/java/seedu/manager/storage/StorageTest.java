@@ -27,6 +27,7 @@ public class StorageTest {
 
     @BeforeEach
     public void setUp() {
+        System.setProperty("test.environment", "true"); // Set the system property for testing
         storage = new Storage(TEST_FILE_PATH);
         eventList = new EventList();
     }

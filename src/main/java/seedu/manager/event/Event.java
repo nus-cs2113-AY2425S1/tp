@@ -1,6 +1,7 @@
 package seedu.manager.event;
 
 import seedu.manager.enumeration.Priority;
+import seedu.manager.exception.DuplicateDataException;
 import seedu.manager.item.Participant;
 
 import java.time.LocalDateTime;
@@ -69,8 +70,13 @@ public class Event {
      * Adds a participant to the participant list for the event.
      *
      * @param participantName the name of the participant to be added to the list.
+     * @throws DuplicateDataException if a participant with the same name exists in the list.
      */
-    public void addParticipant(String participantName) {
+    public void addParticipant(String participantName) throws DuplicateDataException {
+        if (getParticipantByName(participantName).isPresent()) {
+            throw new DuplicateDataException("Duplicate participant!");
+        }
+
         Participant participant = new Participant(participantName);
         this.participantList.add(participant);
     }
@@ -101,25 +107,6 @@ public class Event {
      */
     public int getParticipantCount() {
         return this.participantList.size();
-    }
-
-    //@@author jemehgoh
-    /**
-     * Returns the participant in the participant list with the given name.
-     * If the participant is not in the participant list, returns null.
-     *
-     * @param participantName the name of the participant.
-     * @return the participant in the participant list with participantName, or null if
-     *     no such participant exists.
-     */
-    private Optional<Participant> getParticipantByName(String participantName) {
-        for (Participant participant : this.participantList) {
-            if (participant.getName().equalsIgnoreCase(participantName)) {
-                return Optional.of(participant);
-            }
-        }
-
-        return Optional.empty();
     }
 
     //@@author MatchaRRR
@@ -209,22 +196,16 @@ public class Event {
 
     /**
      * Returns true if the participant with the given name can be marked present or absent.
-     * Returns false otherwise.
+     *         Returns false otherwise.
      *
-     * @param participantName the name of the participant.
-     * @param isPresent true if the participant is to be marked present, false if he is to be marked absent.
+     * @param participantName the participant name.
+     * @param isPresent true if participant is to be marked present, false if he is to be marked absent.
      * @return {@code true} if the participant with participantName has been marked present or absent,
-     *     {@code false} otherwise.
+     *         {@code false} otherwise.
      */
-    public boolean markParticipant(String participantName, boolean isPresent) {
+    public boolean markParticipantByName(String participantName, boolean isPresent) {
         Optional<Participant> participant = getParticipantByName(participantName);
-
-        if (participant.isEmpty()) {
-            return false;
-        }
-
-        participant.get().setPresent(isPresent);
-        return true;
+        return markParticipant(participant, isPresent);
     }
 
     //@@author glenn-chew
@@ -249,5 +230,41 @@ public class Event {
         String eventTimeString = getEventTimeString();
         return String.format("Event name: %s / Event time: %s / Event venue: %s / Event Priority: %s / Done: %c",
                 eventName, eventTimeString, eventVenue, eventPriority, markIfDone());
+    }
+
+    /**
+     * Returns the participant in the participant list with the given name.
+     * If the participant is not in the participant list, returns null.
+     *
+     * @param participantName the name of the participant.
+     * @return the participant in the participant list with participantName, or null if
+     *     no such participant exists.
+     */
+    private Optional<Participant> getParticipantByName(String participantName) {
+        for (Participant participant : participantList) {
+            if (participant.getName().equalsIgnoreCase(participantName)) {
+                return Optional.of(participant);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    //@@author jemehgoh
+    /**
+     * Returns true if the given participant can be marked present or absent. Returns false otherwise.
+     *
+     * @param participant the participant.
+     * @param isPresent true if participant is to be marked present, false if he is to be marked absent.
+     * @return {@code true} if the participant with participantName has been marked present or absent,
+     *     {@code false} otherwise.
+     */
+    private boolean markParticipant(Optional<Participant> participant, boolean isPresent) {
+        if (participant.isEmpty()) {
+            return false;
+        }
+
+        participant.get().setPresent(isPresent);
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package seedu.manager.event;
 
 import seedu.manager.enumeration.Priority;
+import seedu.manager.exception.DuplicateDataException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import java.util.Optional;
  * It provides methods to manage an event list.
  */
 public class EventList  {
+    private static final String DUPLICATE_EVENT_MESSAGE = "Duplicate event!";
+
     private final ArrayList<Event> eventList;
 
     /**
@@ -57,8 +60,12 @@ public class EventList  {
      * @param time      the time of the event.
      * @param venue     the venue where the event will take place.
      * @param priority the priority level of the event
+     * @throws DuplicateDataException if an event with eventName is present in the event list.
      */
     public void addEvent(String eventName, LocalDateTime time, String venue, Priority priority) {
+        if (getEventByName(eventName).isPresent()) {
+            throw new DuplicateDataException(DUPLICATE_EVENT_MESSAGE);
+        }
         Event newEvent = new Event(eventName, time, venue, priority);
         eventList.add(newEvent);
     }
