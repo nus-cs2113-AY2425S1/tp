@@ -27,24 +27,23 @@
 ![View Expenses Sequence Diagram](diagrams/ViewExpenses.png)
 
 #### toggle-reset
-![Toggle Auto Reset Sequence Diagram](diagrams/ToggleAutoReset.pngl)
+![Toggle Auto Reset Sequence Diagram](diagrams/ToggleAutoReset.png)
 
 ### Class Diagrams
 #### Budget class
-![Budget Class Diagram] (diagrams/budgetclass.png)
+![Budget Class Diagram](diagrams/budgetclass.png)
 
 #### Expense class
-![Expense Class Diagram] (diagrams/expenseclass.png)
+![Expense Class Diagram](diagrams/expenseclass.png)
 
 #### Category class
-![Category Class Diagram] (diagrams/CategoryClass.png)
+![Category Class Diagram](diagrams/CategoryClass.png)
 
 #### ExpenseTracker class
-![Expense Class Diagram] (diagrams/expenseclass.png)
+![ExpenseTracker Class Diagram](diagrams/expenseclass.png)
 
 #### Duke class
-![Duke Class Diagram] (diagrams/dukeclass.png)
-
+![Duke Class Diagram](diagrams/dukeclass.png)
 
 
 ### Category
