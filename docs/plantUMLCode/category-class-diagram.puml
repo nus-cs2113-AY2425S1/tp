@@ -1,0 +1,52 @@
+@startuml
+participant "Main" as Main
+participant "Category" as Category
+activate Main
+
+Main -> Category: new Category("ExampleName")
+activate Category
+Category --> Main: Category instance with name "ExampleName"
+deactivate Category
+@enduml
+
+@startuml
+participant "Main" as Main
+participant "Category" as Category
+activate Main
+
+Main -> Category: getName()
+activate Category
+Category --> Main: "ExampleName"
+deactivate Category
+@enduml
+
+@startuml
+participant "Main" as Main
+participant "Category" as Category1
+participant "Category" as Category2
+activate Main
+
+Main -> Category1: equals(Category2)
+activate Category1
+alt Same object
+    Category1 --> Main: true
+else Null or different class
+    Category1 --> Main: false
+else Same name
+    Category1 --> Main: true
+else Different name
+    Category1 --> Main: false
+end
+deactivate Category1
+@enduml
+
+@startuml
+participant "Main" as Main
+participant "Category" as Category
+activate Main
+
+Main -> Category: toString()
+activate Category
+Category --> Main: "Category: ExampleName"
+deactivate Category
+@enduml
