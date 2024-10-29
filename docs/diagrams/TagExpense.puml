@@ -1,0 +1,49 @@
+@startuml
+
+actor User
+participant Duke
+participant ExpenseTracker
+participant Category
+participant Expense
+
+User -> Duke : input("tag-expense e/<index> c/<category>")
+activate Duke
+
+Duke -> ExpenseTracker : tagExpense(input)
+activate ExpenseTracker
+
+ExpenseTracker -> ExpenseTracker : Parse expenseIndex and category from input
+
+alt Invalid Input (Missing/Incorrect Index or Category)
+    ExpenseTracker -> User : Display "Invalid input! Please provide an expense index and category."
+else Valid Input
+    ExpenseTracker -> ExpenseTracker : Check if expenseIndex is within bounds
+
+    alt Index Out of Bounds
+        ExpenseTracker -> User : Display "Invalid index"
+    else Valid Index
+        ExpenseTracker -> ExpenseTracker : formatInput(categoryName)
+
+        loop Search for Category
+            ExpenseTracker -> Category : Check if category matches formattedCategoryName
+            activate Category
+            Category --> ExpenseTracker : Return category name
+            deactivate Category
+        end
+
+        alt Category Exists
+            ExpenseTracker -> Expense : Retrieve expense at expenseIndex
+            activate Expense
+            Expense -> Expense : setCategory(category)
+            Expense --> ExpenseTracker : Return updated expense details
+            deactivate Expense
+            ExpenseTracker -> User : Display "Tagged expense: <expense details>"
+        else Category Does Not Exist
+            ExpenseTracker -> User : Display "Category '<formattedCategoryName>' does not exist."
+        end
+    end
+end
+deactivate ExpenseTracker
+deactivate Duke
+
+@enduml
