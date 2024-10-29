@@ -2,8 +2,10 @@ package seedu.duke.command;
 
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.Expense;
+import seedu.duke.financial.FinancialList;
 
 import java.time.LocalDate;
+import java.util.Map.Entry;
 
 /**
  * The SeeAllExpensesCommand class is responsible for displaying all recorded expenses
@@ -76,5 +78,11 @@ public class SeeAllExpensesCommand extends SeeAllEntriesCommand{
     @Override
     protected boolean shouldBeIncluded(FinancialEntry entry) {
         return (entry instanceof Expense) && isWithinGivenDates(entry);
+    }
+
+    @Override
+    protected String getHighestCategoryInfo(FinancialList list) {
+        Entry<Expense.Category, Double> highestExpenseCategory = list.getHighestExpenseCategory();
+        return formatHighestCategory(highestExpenseCategory, "Highest Expense");
     }
 }
