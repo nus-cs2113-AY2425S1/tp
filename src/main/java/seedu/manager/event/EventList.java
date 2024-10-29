@@ -1,5 +1,6 @@
 package seedu.manager.event;
 
+import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.DuplicateDataException;
 
 import java.time.LocalDateTime;
@@ -58,14 +59,25 @@ public class EventList  {
      * @param eventName the name of the event to be added.
      * @param time      the time of the event.
      * @param venue     the venue where the event will take place.
+     * @param priority the priority level of the event
      * @throws DuplicateDataException if an event with eventName is present in the event list.
      */
-    public void addEvent(String eventName, LocalDateTime time, String venue) throws DuplicateDataException {
+    public void addEvent(String eventName, LocalDateTime time,
+                         String venue, Priority priority) throws DuplicateDataException{
         if (getEventByName(eventName).isPresent()) {
             throw new DuplicateDataException(DUPLICATE_EVENT_MESSAGE);
         }
-        Event newEvent = new Event(eventName, time, venue);
+        Event newEvent = new Event(eventName, time, venue, priority);
         eventList.add(newEvent);
+    }
+
+    /**
+     * Adds an event to the event list.
+     *
+     * @param event the event to be added to the list
+     */
+    public void addEvent(Event event) {
+        eventList.add(event);
     }
 
     /**
@@ -167,5 +179,30 @@ public class EventList  {
      */
     public void sortByTime() {
         eventList.sort(Comparator.comparing(Event::getEventTime));
+    }
+
+    /**
+     *  Sort the event list by priority level from highest to lowest priority.
+     */
+    public void sortByPriority() {
+        eventList.sort(Comparator.comparing(Event::getEventPriority));
+    }
+  
+    /**
+     * Filters events in the event list by the specified priority level.
+     *
+     * @param priority the priority level to filter events by
+     * @return an {@code EventList} containing only events with the specified priority
+     */
+    public EventList filterByPriority(Priority priority) {
+        EventList filteredList = new EventList();
+
+        for (Event event : eventList) {
+            if (event.getEventPriority() == priority) {
+                filteredList.addEvent(event);
+            }
+        }
+
+        return filteredList;
     }
 }

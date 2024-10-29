@@ -1,5 +1,6 @@
 package seedu.manager.storage;
 
+import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 import seedu.manager.event.Event;
 import seedu.manager.parser.Parser;
@@ -41,7 +42,8 @@ public class Storage {
             for (Event event : events.getList()) {
                 String eventTimeString = formatter.format(event.getEventTime());
                 writer.write(event.getEventName() + "," + eventTimeString + ","
-                        + event.getEventVenue() + "\n"); // Save event details in CSV format
+                        + event.getEventVenue() + ","
+                        + event.getEventPriority() + "\n"); // Save event details in CSV format
             }
         } catch (IOException exception) {
             throw new IOException("Error saving events to file: " + filePath);
@@ -56,7 +58,6 @@ public class Storage {
     public void loadEvents(EventList events) throws IOException {
         Parser parser = new Parser();
         parser.parseFile(events, filePath);
-
     }
 
     /**
