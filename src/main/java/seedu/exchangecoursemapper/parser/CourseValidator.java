@@ -1,6 +1,7 @@
 package seedu.exchangecoursemapper.parser;
 
 import seedu.exchangecoursemapper.constants.Logs;
+import seedu.exchangecoursemapper.constants.Messages;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.ui.UI;
 
@@ -56,7 +57,7 @@ public class CourseValidator {
             }
         }
 
-        System.out.println("Invalid course mapping!");
+        System.out.println(Messages.INVALID_COURSE_MAPPING);
         ui.displayAvailableMappings(courses, pu);
         return false;
     }
