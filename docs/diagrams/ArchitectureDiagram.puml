@@ -1,0 +1,28 @@
+@startuml
+
+skinparam componentStyle rectangle
+
+actor User
+database myList #lightblue
+database database #lightblue
+
+component UI #green
+component Parser #red
+component Main #gray
+component Storage #pink
+component Command #gold
+
+User -down.-> UI
+UI -[#green]right-> Parser
+
+Main -[#gray]down-> Parser
+Main -[#gray]down-> UI
+Main -[#gray]up-> Storage
+
+Command -[#gold]down-> Storage
+Parser -[#red]right-> Command
+
+Command -[#gold]right.-> database
+Storage -[#pink]right.-> myList
+
+@enduml

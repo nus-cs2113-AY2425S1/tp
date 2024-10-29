@@ -1,0 +1,17 @@
+@startuml
+
+skinparam componentStyle rectangle
+
+component PersonalTrackerCommand <<abstract>> #gold
+component CheckInformationCommand <<abstract>> #gold
+component ListSchoolsCommand #gold
+component DeleteCoursesCommand #gold
+component Command <<abstract>> #gold
+
+PersonalTrackerCommand -up[#gold]-|> Command
+CheckInformationCommand -up[#gold]-|> Command
+
+ListSchoolsCommand -up[#gold]-|> CheckInformationCommand
+DeleteCoursesCommand -up[#gold]-|> PersonalTrackerCommand
+
+@enduml

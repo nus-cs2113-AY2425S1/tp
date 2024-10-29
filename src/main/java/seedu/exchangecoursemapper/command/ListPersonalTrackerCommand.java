@@ -31,7 +31,6 @@ public class ListPersonalTrackerCommand extends CheckInformationCommand {
     @Override
     public void execute(String userInput) {
         logger.log(Level.INFO, EXECUTE);
-
         List<String> mappedModules = storage.loadAllCourses();
         assert mappedModules != null : NULL_LIST;
 

@@ -17,10 +17,58 @@
 ## Design
 
 ### Architecture
-{TODO: Architecture Diagram}
+![Sequence Diagram](images/ArchitectureDiagram.png)
+
+The **Architecture Diagram** given above explains the high-level design of the App.
+
+Given below is a quick overview of main components and how they interact with each other.
+
+**Main components of the architecture**
+
+`ExchangeCourseMapper` class (referred to as `Main` in diagram) is responsible for the app launch and shut down.
+* At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
+* At shut down, it shuts down the other components and invokes cleanup methods where necessary.
+
+The bulk of the app’s work is done by the following four components:
+
+`UI`: The UI of the App.
+
+`Parser`: The command executor and logic checker.
+
+`Command`: Details and implementation of various commands/features of the app.
+
+`Storage`: Reads data from, and writes data to, `mylist.json`.
+
+**How the architecture components interact with each other**
+
+Only some of the commands will need all 4 main components for example the Delete course command:
+
+The Sequence Diagram below shows how the components interact with each other for the scenario 
+where the user issues the command `delete 1`.
+
+![Sequence Diagram](images/DesignSequenceDiagram.png)
+
+The `UI`, `Parser` and `Storage` components (also shown in the diagram above),
+* defines its API in a class with the same name as the Package
+
+The `Command` component,
+* defines its API in an `abstract` class with the same name as the Component.
+* further splits them into `CheckInformationCommand` and `PersonalTrackerCommand` as child classes
+* further split them into the various commands
+
+For example, the `Command` component defines its API in the `Command.java` abstract class and extends its functionality using the 
+`PersonalTrackerCommand.java` and `CheckInformationCommand` class. Other components such as `ListSchoolsCommand` and `DeleteCoursesCommand`  
+interact with a given component through its interface rather than the concrete class 
+(reason: to prevent outside component’s being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
+
+![Sequence Diagram](images/MiniCommandClass.png)
+
+**The sections below give more details of each component.**
 
 ### Class Diagrams
-{TODO: Class Diagram}
+Command Package:
+![Class diagram for Commands](images/CommandClass.png)
+
 {TODO: Object Diagram}
 
 ## Implementation
@@ -56,7 +104,7 @@ and Oceania.
   readability.
 
 #### Sequence Diagram on PlantUML:
-![List School Command Sequence Diagram](../uml-images/ListSchoolsCommand.png)
+![List School Command Sequence Diagram](images/ListSchoolsCommand.png)
 
 ### 2. Filter Courses Command
 
@@ -81,7 +129,7 @@ that NUS course is suitable to be mapped overseas in South East Asia and Oceania
 * Line Separator is used to ensure readability and ease of use for users.
 
 #### Sequence Diagram on PlantUML:
-![Filter Courses Sequence Diagram](../uml-images/FilterCoursesCommand.png)
+![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
 
 ### 3. Obtain Partner University Email and Contact Number Command
 
@@ -116,7 +164,7 @@ exchange opportunities.
   readability.
 
 #### Sequence Diagram on PlantUML:
-![Filter Courses Sequence Diagram](../uml-images/ObtainContactsCommand.png)
+![Filter Courses Sequence Diagram](images/ObtainContactsCommand.png)
 
 ### 4. List University Courses Command
 
@@ -143,7 +191,7 @@ method.
 * Assertions and logging are used for error handling.
 
 #### Sequence on PlantUML:
-![ListUniCourseCommand sequence diagram](../uml-images/ListUniCoursesCommand.png)
+![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
 
 
 
@@ -177,7 +225,7 @@ and South-East Asian universities. This command hence helps the users to keep tr
 * Line Separator is used to ensure readability and ease of use for users.
 
 #### Sequence Diagram on PlantUML
-![Add Courses Sequence Diagram](../uml-images/AddCoursesCommand.png)
+![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
 
 ## Product scope
 ### Target user profile
