@@ -61,6 +61,43 @@ The `Parser` class is responsible for interpreting user commands and extracting 
     - If not found (mean that the last keyword reached):
       - Attach the remaining part with the previously found keyword and put in to `arguments`.
 
+### Category
+The `Category` class encapsulates the name of a category and provides functionality for equality checks, hash code generation, and string representation. It serves as the foundational representation of a category.
+
+#### Class Responsibilities
+1. **Attribute Encapsulation**: Encapsulates the category name to prevent external modification.
+2. **Equality Checks**: Implements equality based on the category name, allowing categories with the same name to be considered equal.
+3. **String Representation**: Provides a `toString` method for convenient logging and debugging output.
+
+#### Class attributes
+1. **name**:String
+   - Description:Represents the category name, set as a read-only attribute.
+
+#### Class Main Methods
+1. **public Category(String name)**
+   - **Parameters**:
+     - **`name`**: The category name.
+   - **Process**: Initializes the name attribute with the specified value.
+
+2. **public String getName()**
+   - **Returns**: The `name` of the Category object.
+   - **Process**: Provides access to name attribute.
+
+3. **public boolean equals(Object obj)**
+   - **Parameters**:
+     - **`obj`**: The object to compare for equality.
+   - **Returns**: `true` if `obj` is a Category instance with the same name, `false` otherwise.
+   - **Process**: Checks if `obj` is a Category instance and compares its name with the current `Category` object’s name.
+
+4. **public int hashCode()**
+   - **Returns**: The hash code based on the name.
+   - **Process**: Calculates the hash code for storing `Category` objects in hash-based collections.
+
+5. **public int hashCode()**
+   - **Returns**: The formatted description of the category
+   - **Process**: Generates a string representation of the `Category` object, useful for logging and debugging.
+
+![Category](./diagrams/category/category-class-diagram.png)
 ## Product scope
 ### Target user profile
 
