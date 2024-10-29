@@ -235,9 +235,6 @@ The `SeeAllEntriesCommand` class has the following key attributes:
 
 - _start_: The starting date from which Financial Entries are to be listed. `null` if there is no starting date.
 - _end_: The ending date up to which Financial Entries should be listed. `null` if there is no ending date.
-- _entriesListedMessage_: String constant containing message when there are entries to be listed.
-- _noEntriesMessage_: String constant containing message when there are no entries to be listed.
-- _cashflowHeader_: String constant containing header to be printed when displaying total cashflow.
 
 The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit these attributes from `SeeAllEntriesCommand`,
 with _entriesListedMessage_, _noEntriesMessage_ and _cashflowHeader_ overwritten to contain customized messages for
@@ -256,9 +253,6 @@ The `SeeAllExpensesCommand` and `SeeAllIncomesCommand` classes inherit all of th
 the following methods:
 
 - `shouldBeIncluded` to further filter out incomes/expenses respectively
-
-Additionally, in the `SeeAllExpensesCommand` class, the `getCashflowString` method is overridden to negate the
-net cashflow input into the method to give a positive number for total Expenses.
 
 <ins>Implementation</ins>
 
@@ -284,6 +278,9 @@ The interaction between the command classes and the `FinancialList` is as follow
 using `SeeAllEntriesCommand` as an example:
 
 ![execution](UML/SeeAllEntriesExecution.png)
+
+`SeeAllExpensesCommand` and `SeeAllIncomesCommand` work in a similar fashion,
+but only marks `Expense`s and `Income`s respectively as to be included.
 
 <ins>Usage Examples</ins>
 
