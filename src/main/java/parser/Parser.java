@@ -28,7 +28,7 @@ public class Parser {
 
         String[] inputArguments = splitArguments(fullCommand);
         String commandString = inputArguments[0];
-        String argumentString = inputArguments.length > 1 ? inputArguments[1] : "";  // Handle cases without arguments
+        String argumentString = inputArguments[1];
 
         logger.log(Level.INFO, "Parsed command: {0}, with arguments: {1}",
                 new Object[]{commandString, argumentString});
