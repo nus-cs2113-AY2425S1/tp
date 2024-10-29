@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.time.LocalDate;
 
+/**
+ * The {@code ExpenseList} class manages a collection of {@code Expense} objects.
+ * It allows for the addition, editing and deletion of expenses.
+ */
 public class ExpenseList {
     private ArrayList<Expense> expenses;
 
