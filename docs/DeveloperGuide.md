@@ -38,8 +38,7 @@ The sequence diagram below shows how the components interact with each other whe
 
 ### Command Classes
 The command class deals with all the possible commands accepted by YMFC
-![img.png](commandsClassDiagram.png)
-
+![commandClasses.png](commandsClassDiagram.png)
 ### Parser Class
  
 ### Storage Class

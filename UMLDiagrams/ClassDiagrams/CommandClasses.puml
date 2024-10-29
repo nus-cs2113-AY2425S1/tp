@@ -85,17 +85,17 @@ package "ymfc.commands" {
     }
     hide SortCommand circle
 
-    AddRecipeCommand --u|> Command
-    AddIngredientCommand --u|> Command
+    AddRecipeCommand --d|> Command
+    AddIngredientCommand --d|> Command
     ByeCommand --u|> Command
     DeleteCommand --u|> Command
     EditCommand --u|> Command
     FindCommand --u|> Command
     FindIngredCommand --u|> Command
     HelpCommand --u|> Command
-    ListCommand --u|> Command
-    ListIngredientCommand --u|> Command
-    SortCommand --u|> Command
+    ListCommand --l|> Command
+    ListIngredientCommand --r|> Command
+    SortCommand --d|> Command
 
 }
 
