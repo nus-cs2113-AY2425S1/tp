@@ -63,7 +63,7 @@ public class DailyRecord {
         return water.deleteWater(index);
     }
 
-    private int getCaloriesFromMeal() {
+    private int getCaloriesFromMeals() {
         int caloriesMeal = 0;
         for (Meal meal : mealList.getMeals()) {
             assert meal != null : "meal must not be null";
