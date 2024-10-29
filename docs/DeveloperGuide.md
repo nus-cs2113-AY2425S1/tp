@@ -172,20 +172,28 @@ The following sequence diagram shows how the `DeleteCommand` is executed:
 ### SortCommand Implementation
 
 #### Overview:
-The `SortCommand` class is responsible for sorting the internship listings based on different criteria such as the internship role (alphabetically) or the application deadline (by start and end dates). It extends the `Command` class, providing the sorting functionality as part of the command execution framework.
+The `SortCommand` class is responsible for sorting the internship listings based on different criteria such as the internship role, skills and status (alphabetically) , the application deadline (by start and end dates). It extends the `Command` class, providing the sorting functionality as part of the command execution framework.
 
 #### Design:
 - The `SortCommand` class processes user input to determine which sorting method to apply (e.g., role or deadline).
 - If no arguments or invalid arguments are given, it defaults to listing internships by ID.
 
 #### Key Methods:
-- **`execute(ArrayList<String> args)`**: Handles sorting logic based on the first argument provided. If the argument is "alphabet", internships are sorted by role; if the argument is "deadline", internships are sorted by start and end dates. If no valid argument is provided, it defaults to listing by ID.
-- **`getUsage()`**: Returns a string showing the correct usage of the `sort` command, including valid options like "alphabet" or "deadline".
+- **`execute(ArrayList<String> args)`**: Handles sorting logic based on the first argument provided. The valid sort options include:
+   - `"alphabet"`: Sorts internships by role alphabetically.
+   - `"duration"`: Sorts internships by duration (start and end dates).
+   - `"deadline"`: Sorts internships by deadline.
+   - `"skills"`: Sorts internships by the first skill in the skills list alphabetically.
+   - `"status"`: Sorts internships by status alphabetically.
+- If the user provides an invalid sort option, the command returns an error and defaults to listing internships by ID.
+- **`getUsage()`**: Returns a string showing the correct usage of the `sort` command, including valid options like "alphabet", "deadline", "duration", "skills", and "status".
 
 #### Example Usage Scenario:
 1. The user enters `sort alphabet`, and the `execute` method sorts the internships by role.
 2. The user enters `sort deadline`, and the internships are sorted by their start and end dates.
-3. If the user enters an invalid sort option, the command returns an error and lists the internships by ID.
+3. The user enters `sort skills`, and the internships are sorted by the first skill alphabetically.
+4. The user enters `sort status`, and the internships are sorted by their status alphabetically.
+5. If the user enters an invalid sort option, the command returns an error and lists the internships by ID.
 
 #### Sequence Diagram:
 The following sequence diagram shows how the `SortCommand` is executed:
