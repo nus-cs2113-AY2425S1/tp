@@ -98,6 +98,64 @@ The `Category` class encapsulates the name of a category and provides functional
    - **Process**: Generates a string representation of the `Category` object, useful for logging and debugging.
 
 ![Category](./diagrams/category/category-class-diagram.png)
+
+### TransactionList
+The `TransactionList` class is responsible for storing user transactions of different types. It also provides various
+operations that enable user to add, delete, search by (date/ category/ keywords).
+
+![TransactionList](./diagrams/TransactionList/transactionlist-class-diagram.png)
+#### Class Responsibilities
+
+1. **Storage for transactions**: Keeps an ArrayList of `Transaction` objects.
+2. **Amend transactions**: Adding or Deleting `Transaction` objects to or from the ArrayList.
+3. **Search Transactions**: Search `Transaction` in the `TransactionList` based on multiple keywords, date range or `category` of `Transaction`.
+
+#### Class attributes
+1. **transactions: `ArrayList<Transaction>`**
+    - Description: A List of `Transaction` objects stored that supports List operations.
+2. **InvertedIndex: `Map<String, List<Transaction>>`**
+    - Description: An inverted index implemented as a map that associates each unique keyword from transaction descriptions with a list of Transaction objects containing that keyword in their descriptions.
+
+Here’s the description for each method in the format you provided:
+
+#### Class main methods
+
+1. **addTransaction(transaction : Transaction) : void**
+    - **Parameters**:
+        - `transaction`: The `Transaction` object to be added to the `transactions` list.
+    - **Process**:
+        - Adds the `transaction` to the `transactions` list.
+        - Updates the `invertedIndex` to include the new `transaction` for quick search.
+        - Sorts the `transactions` list by date using a custom comparator.
+
+2. **deleteTransaction(index : int) : Transaction**
+    - **Parameters**:
+        - `index`: The position of the `Transaction` object to be removed.
+    - **Process**:
+        - Removes the `Transaction` at the specified `index` from `transactions`.
+        - Updates the `invertedIndex` to reflect the deletion.
+        - Returns the removed `Transaction`.
+
+3. **getTransactions() : ArrayList<Transaction>**
+    - **Parameters**: None
+    - **Process**:
+        - Returns the complete list of `Transaction` objects in `transactions`.
+
+4. **searchTransactionsByKeywords(keywords : List<String>) : List<Transaction>**
+    - **Parameters**:
+        - `keywords`: A list of keywords to search for within transaction descriptions.
+    - **Process**:
+        - Looks up each `keyword` in the `invertedIndex` to find matching transactions.
+        - Aggregates and counts relevance for each match.
+        - Sorts the results by relevance and returns the list of matched transactions.
+![SearchByKeywords](./diagrams/TransactionList/transactionlist-class-SearchKeyword-diagram.png)
+5. **getExpensesByCategory(category : Category) : List<Transaction>**
+    - **Parameters**:
+        - `category`: The `Category` to filter expenses by.
+    - **Process**:
+        - Filters `transactions` to include only `Expense` objects with the specified `category`.
+        - Returns the filtered list of expenses.
+![SearchByCategory](./diagrams/TransactionList/transactionlist-Sequence-SearchByCategoty-diagram.png)
 ## Product scope
 ### Target user profile
 
