@@ -1,6 +1,7 @@
 package wheresmymoney.command;
 
 import wheresmymoney.ExpenseList;
+import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.Ui;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -16,7 +17,8 @@ public class HelpCommand extends Command {
      * Displays list expenses as requested by user
      */
     @Override
-    public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, RecurringExpenseList recurringExpenseList) 
+            throws WheresMyMoneyException {
         Ui.displayMessage("Here are the list of commands");
         Ui.displayMessage("Take note that any words in SCREAMING_SNAKE_CASE is a parameter");
         Ui.displayMessage("");
