@@ -1,0 +1,50 @@
+@startuml
+class TransactionList {
+    - transactions : ArrayList<Transaction>
+    - invertedIndex : Map<String, List<Transaction>>
+
+    + TransactionList()
+    + addTransaction(transaction : Transaction) : void
+    + deleteTransaction(index : int) : Transaction
+    + getTransactions() : ArrayList<Transaction>
+    + getTransactionsBetween(startTime : LocalDateTime, endTime : LocalDateTime) : List<Transaction>
+    + getExpensesByCategory(category : Category) : List<Transaction>
+    + searchTransactionsByKeywords(keywords : List<String>) : List<Transaction>
+    + getTodaySpending() : double
+    + updateCategory(index : int, newCategory : Category) : boolean
+}
+
+abstract class Transaction {
+    - amount : double
+    - description : String
+    - dateTimeString : String
+
+    + getAmount() : double
+    + getDescription() : String
+    + getDate() : LocalDateTime
+    + setDate(date : LocalDateTime) : void
+    + getTransactionType() : String
+}
+
+class Expense extends Transaction {
+    - category : Category
+
+    + getCategory() : Category
+    + setCategory(category : Category) : void
+}
+
+class Income extends Transaction {
+    + getTransactionType() : String
+}
+
+class Category {
+    - name : String
+
+    + getName() : String
+}
+
+TransactionList "1" --> "*" Transaction
+
+Expense --> Category
+
+@enduml
