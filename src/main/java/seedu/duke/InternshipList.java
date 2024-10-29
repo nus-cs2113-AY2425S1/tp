@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
@@ -76,7 +77,8 @@ public class InternshipList {
      * @param field Specific attribute to update.
      * @param value Updated value
      */
-    public void updateField(int index, String field, String value) throws InvalidIndex, InvalidStatus {
+    public void updateField(int index, String field, String value)
+            throws InvalidIndex, InvalidStatus, InvalidDeadline {
         try {
             switch (field) {
             case "status":
@@ -96,6 +98,9 @@ public class InternshipList {
                 break;
             case "to":
                 internships.get(index).setEndDate(value);
+                break;
+            case "deadline":
+                internships.get(index).updateDeadline(value);
                 break;
             default:
                 assert false: "All valid fields should we handled in individual cases";

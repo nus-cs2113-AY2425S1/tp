@@ -156,4 +156,19 @@ class UpdateCommandTest {
 
         assertEquals("01/24", internships.getInternship(0).getStartDate());
     }
+
+    //@@author Ridiculouswifi
+    @Test
+    void execute_validDeadline_expectUpdated() {
+        createList();
+
+        String[] parsedInputs = {"1", "deadline Application Draft 1 04/11/25"};
+        ArrayList<String> arguments = new ArrayList<>(List.of(parsedInputs));
+
+        updateCommand.execute(arguments);
+
+        assertEquals("Application Draft 1",
+                internships.getInternship(0).getDeadlines().get(0).getDescription());
+        assertEquals("04/11/25", internships.getInternship(0).getDeadlines().get(0).getDate());
+    }
 }
