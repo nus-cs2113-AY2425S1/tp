@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Main {
     private static final Ui ui = new Ui();
     private static EventList events = new EventList();
-    private static final String FILE_PATH = "events.txt";
+    private static final String FILE_PATH = "events.csv";
     private static final Storage storage = new Storage(FILE_PATH);
 
     /**
@@ -23,7 +23,6 @@ public class Main {
         ui.greetUser();
         loadData();
         runCommandLoop();
-        saveData();
         System.exit(0);
     }
 
@@ -43,7 +42,7 @@ public class Main {
                 command.setData(events);
                 command.execute();
                 ui.showOutputToUser(command);
-
+                saveData();
                 isGettingCommands = !command.getCanExit();
             } catch (InvalidCommandException | DuplicateDataException exception) {
                 ui.showErrorMessageToUser(exception);
