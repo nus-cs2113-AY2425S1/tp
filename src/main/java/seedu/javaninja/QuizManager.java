@@ -1,33 +1,31 @@
 package seedu.javaninja;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import seedu.javaninja.question.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class QuizManager {
-    private static final String FILE_PATH = "./data/Questions.txt";
+    private static final String QUESTIONS_FILE_PATH = "./data/Questions.txt";
+    private static final String RESULTS_FILE_PATH = "./data/results.txt";
     private static final Logger logger = Logger.getLogger(QuizManager.class.getName());
     private List<Topic> topics;
     private Quiz currentQuiz;
     private List<String> pastResults;
-    private Storage storage;
+    private Storage results;
+    private Storage questions;
 
     public QuizManager() {
         this.topics = new ArrayList<>();
         this.pastResults = new ArrayList<>();
-        this.storage = new Storage("data/results.txt");
-        loadTopicsFromFile();
-        loadResultsFromFile();
+        this.results = new Storage(RESULTS_FILE_PATH);
+        this.questions = new Storage(QUESTIONS_FILE_PATH);
+        loadDataFromFile();
     }
-
-
 
     private Topic getOrCreateTopic(String topicName) {
         for (Topic topic : topics) {
@@ -77,7 +75,7 @@ public class QuizManager {
         }
     }
 
-    public void selectTopic(String topicName, Scanner scanner) {
+    public void selectTopic(String topicName) {
         if (topicName == null || topicName.trim().isEmpty()) {
             logger.warning("Invalid input. Please provide a topic name.");
             return;
@@ -85,27 +83,28 @@ public class QuizManager {
 
         for (Topic topic : topics) {
             if (topic.getName().equalsIgnoreCase(topicName.trim())) {
-                startQuiz(topic, scanner);
+                startQuiz(topic);
                 return;
             }
         }
         logger.warning("No such topic: " + topicName);
     }
 
-    public void startQuiz(Topic topic, Scanner scanner) {
-        currentQuiz = new Quiz(topic, scanner);
+    public void startQuiz(Topic topic) {
+        Scanner quizScanner = new Scanner(System.in);
+        currentQuiz = new Quiz(topic, quizScanner);
         currentQuiz.start();
         int score = currentQuiz.getScore();
         String comment = generateComment(score);
         addPastResult(score, comment);
-        saveResultsToFile();
+        saveDataToFile();
     }
 
     public void printTopics() {
         if (topics.isEmpty()) {
             System.out.println("No topics available.");
         } else {
-            logger.info("Listing all available topics:");
+            //logger.info("Listing all available topics:");
             topics.forEach(topic -> System.out.println(topic.getName()));
         }
     }
@@ -165,23 +164,35 @@ public class QuizManager {
         return results.toString();
     }
 
-    private void saveResultsToFile() {
+    public void saveDataToFile() {
         try {
-            storage.saveResults(pastResults);
+            results.saveToFile(RESULTS_FILE_PATH, pastResults, false);
         } catch (IOException e) {
             logger.severe("Error saving results to file: " + e.getMessage());
         }
     }
 
-    private void loadResultsFromFile() {
+    public void loadDataFromFile() {
         try {
-            pastResults = storage.loadResults();
+            pastResults = results.loadData();
+            // load questions from file
         } catch (IOException e) {
             logger.warning("No past results found.");
         }
+        try {
+            List<String> questionData = questions.loadData();
+            for (String question : questionData) {
+                if (!question.trim().isEmpty()) {
+                    parseTopic(question);
+                }
+            }
+        } catch (IOException e) {
+            logger.warning("No questions found.");
+        }
     }
 
-    public void addQuestionByUser(String input) throws IOException {
+
+    public void addFlashcardByUser(String input) throws IOException {
         if (input.startsWith("add Flashcard")) {
             String[] parts = input.split("/q|/a");
             if (parts.length < 3) {
@@ -197,74 +208,11 @@ public class QuizManager {
             logger.info("Added new Flashcard question.");
 
             String questionLine = "Flashcards | Flashcard | " + questionText + " | " + correctAnswer;
-            saveQuestionToFile(questionLine);
-        } else if (input.startsWith("add TrueFalse")) {
-            String[] parts = input.split("/q|/a");
-            if (parts.length < 3) {
-                System.out.println("Invalid command format. Please provide both question and answer.");
-                return;
-            }
-
-            String questionText = parts[1].trim();
-            boolean correctAnswer = Boolean.parseBoolean(parts[2].trim());
-
-            Topic topic = getOrCreateTopic("TrueFalse");
-            topic.addQuestion(new TrueFalse(questionText, correctAnswer));
-            logger.info("Added new TrueFalse question.");
-
-            String questionLine = "TrueFalse | TrueFalse | " + questionText + " | " + correctAnswer;
-            saveQuestionToFile(questionLine);
-        } else if (input.startsWith("add FITB")) {
-            String[] parts = input.split("/q|/a");
-            if (parts.length < 3) {
-                System.out.println("Invalid command format. Please provide both question and answer.");
-                return;
-            }
-
-            String questionText = parts[1].trim();
-            String correctAnswer = parts[2].trim();
-
-            // Create or get the "FillInTheBlanks" topic
-            Topic topic = getOrCreateTopic("FillInTheBlanks");
-            topic.addQuestion(new FillInTheBlank(questionText, correctAnswer));
-            logger.info("Added new FillInTheBlank question.");
-
-            // Format for saving to Questions.txt
-            String questionLine = "FITB | FillInTheBlank | " + questionText + " | " + correctAnswer;
-            storage.saveQuestionToFile(questionLine);
+            questions.saveToFile(QUESTIONS_FILE_PATH, Collections.singletonList(questionLine), true);
 
         } else {
             logger.warning("Invalid command: " + input);
         }
     }
-
-    public void loadTopicsFromFile() {
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            logger.warning("Questions file not found. No topics loaded.");
-            return;
-        }
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (!line.trim().isEmpty()) {
-                    parseTopic(line);
-                }
-            }
-        } catch (IOException e) {
-            logger.severe("Error reading file: " + e.getMessage());
-        }
-    }
-
-    public void saveQuestionToFile(String questionLine) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            writer.write(questionLine);
-            writer.newLine();
-            logger.info("Question saved to file: " + FILE_PATH);
-        } catch (IOException e) {
-            logger.severe("Error saving question to file: " + e.getMessage());
-        }
-    }
-
 
 }

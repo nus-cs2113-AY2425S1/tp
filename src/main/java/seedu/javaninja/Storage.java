@@ -24,38 +24,43 @@ public class Storage {
      * @return A list of past quiz results loaded from the file.
      * @throws IOException If there is an error reading the file.
      */
-    public List<String> loadResults() throws IOException {
-        List<String> results = new ArrayList<>();
+    public List<String> loadData() throws IOException {
+        List<String> data = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
-            return results;  // Return an empty list if the file doesn't exist
+            return data;  // Return an empty list if the file doesn't exist
         }
 
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
-            results.add(scanner.nextLine());
+            data.add(scanner.nextLine());
         }
         scanner.close();
-        return results;
+        return data;
     }
 
     /**
      * Saves the quiz results to the file.
-     * @param results The list of past results to save.
+     * @param lines The list of data to save.
+     * @param filepath The filepath of which it should save into.
+     * @param append Check if it should rewrite data in the file or not
      * @throws IOException If there is an error writing to the file.
      */
-    public void saveResults(List<String> results) throws IOException {
+    public void saveToFile(String filePath, List<String> lines, boolean append) throws IOException {
         File file = new File(filePath);
         File directory = file.getParentFile();
         if (directory != null && !directory.exists()) {
             directory.mkdirs();
         }
 
-        FileWriter writer = new FileWriter(filePath);
-        for (String result : results) {
-            writer.write(result + "\n");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, append))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        writer.close();
     }
 
     /**
@@ -68,4 +73,7 @@ public class Storage {
         writer.write(""); // Clear file content
         writer.close();
     }
+
+
+
 }

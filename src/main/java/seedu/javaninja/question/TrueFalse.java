@@ -1,4 +1,4 @@
-package seedu.javaninja;
+package seedu.javaninja.question;
 
 public class TrueFalse extends Question {
     private boolean correctAnswer;
