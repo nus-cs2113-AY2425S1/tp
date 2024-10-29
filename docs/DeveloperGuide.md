@@ -90,6 +90,13 @@ implementation of the `execute()` method
 - Register the command
   1. Update the `parseCommand()` method in `Parser` to recognise and instantiate the new command
 
+#### Example of `Command` Child Classes
+1. `EditCommand` Class
+
+The EditCommand class finds an existing recipe in recipelist by name, and then replaces its parameter 
+with the new parameters that the user inputted.
+![EditCommand.png](img/SequenceDiagrams/EditRecipesSequenceDiagram.png)
+
 ### Parser Class
 Self-explanatory, made for parsing user's input command. This class only consist of one public static method 
 `parseCommand()` in order to process input commands.

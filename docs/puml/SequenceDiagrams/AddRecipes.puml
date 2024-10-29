@@ -10,7 +10,7 @@ skinparam {
     SequenceGroupBackgroundColor COLOR_LIGHTRED
 }
 
-box Loading Saved Recipes COLOR_PURPLE_BLUE
+box Adding Recipes COLOR_PURPLE_BLUE
 participant "YMFC" as YMFC <<class>>
 participant "Parser" as Parser <<class>>
 participant ":AddRecipeCommand" as AddRecipeCommand
