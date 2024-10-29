@@ -2,6 +2,7 @@ package seedu.manager.command;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ public class FindCommandTest {
     public void testSetUp() {
         eventList = new EventList();
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-10 16:00", formatter),
-                "Venue 1");
+                "Venue 1", Priority.HIGH);
         eventList.addParticipantToEvent("John Doe", "Event 1");
         eventList.addParticipantToEvent("Jane Doe", "Event 1");
         eventList.addParticipantToEvent("Kuan Hsien", "Event 1");
