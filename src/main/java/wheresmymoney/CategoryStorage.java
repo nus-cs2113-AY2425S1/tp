@@ -49,6 +49,10 @@ public class CategoryStorage {
             csvReader.readNext(); // Skip the header
             String[] line;
             while ((line = csvReader.readNext()) != null) {
+                if (line.length != 2) {
+                    continue;
+                }
+                
                 String categoryName = line[0];
                 Float spendingLimit = Float.parseFloat(line[1]);
                 if (categoryTracker.contains(categoryName)) {
