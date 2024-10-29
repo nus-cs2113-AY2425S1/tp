@@ -133,14 +133,20 @@ public class Parser {
                 inputParts = input.split("(-e|-t|-v)");
                 logger.info("Creating AddCommand for event with details: " +
                         inputParts[1].trim() + ", " + inputParts[2].trim() + ", " + inputParts[3].trim());
+                String eventName = inputParts[1].trim();
+                String venue = inputParts[3].trim();
                 LocalDateTime eventTime = LocalDateTime.parse(inputParts[2].trim(),
                         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                return new AddCommand(inputParts[1].trim(), eventTime, inputParts[3].trim());
+                return new AddCommand(eventName, eventTime, venue);
             } else if (commandFlag.equals("-p")) {
                 inputParts = input.split("(-p|-n|-email|-e)");
                 logger.info("Creating AddCommand for participant with details: " +
                         inputParts[1].trim() + ", " + inputParts[2].trim());
-                return new AddCommand(inputParts[1].trim(), inputParts[2].trim(), inputParts[3].trim(), inputParts[4].trim());
+                String participantName = inputParts[1].trim();
+                String participantNumber = inputParts[2].trim();
+                String participantEmail = inputParts[3].trim();
+                String eventName = inputParts[4].trim();
+                return new AddCommand(participantName, participantNumber, participantEmail, eventName);
             }
 
             logger.log(WARNING,"Invalid command format");
