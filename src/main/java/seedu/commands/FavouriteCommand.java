@@ -1,7 +1,6 @@
 package seedu.commands;
 
 import seedu.duke.Internship;
-import seedu.duke.InternshipList;
 import seedu.exceptions.InvalidIndex;
 
 import java.util.ArrayList;
