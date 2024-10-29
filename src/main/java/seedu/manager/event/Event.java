@@ -51,10 +51,10 @@ public class Event {
     /**
      * Constructs an Event with the specified name, time, venue and priority.
      *
-     * @param eventName  The name of the event.
-     * @param eventTime  The time duration of the event.
-     * @param eventVenue The venue of the event.
-     * @param eventPriority The priority level of the event.
+     * @param eventName  the name of the event
+     * @param eventTime  the time duration of the event
+     * @param eventVenue the venue of the event
+     * @param eventPriority the priority level of the event
      */
     public Event(String eventName, LocalDateTime eventTime, String eventVenue, Priority eventPriority) {
         this.eventName = eventName;

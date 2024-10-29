@@ -159,7 +159,7 @@ class ParserTest {
         Parser parser = new Parser();
         String commandString = "sort by name";
     }
-    
+
     @Test
     public void parseCommand_findCommandFlags_throwsException() {
         Parser parser = new Parser();
@@ -176,11 +176,19 @@ class ParserTest {
             parser.parseCommand(commandString);});
     }
 
-
+    @Test
+    public void parseCommand_filterEventsInvalidFlag_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "filter -s high";
+        assertThrows(InvalidCommandException.class,() -> {
+            parser.parseCommand(commandString);});
+    }
+        
     @Test
     public void parseCommand_findCommandInvalidInput_throwsException() {
         Parser parser = new Parser();
         String commandString = "find -e -p doe";
+
         assertThrows(InvalidCommandException.class,() -> {
             parser.parseCommand(commandString);});
     }
