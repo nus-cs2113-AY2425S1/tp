@@ -12,9 +12,11 @@ import java.util.Map;
  * Command to add an expense to the financial list.
  */
 public class AddExpenseCommand extends AddEntryCommand {
+
     private static final Logger logger = Logger.getLogger(AddExpenseCommand.class.getName());
-    private final Expense.Category category;
     private static final double expenseZero = 0.0;
+    private final Expense.Category category;
+
     /**
      * Constructs an AddExpenseCommand with the specified amount and description.
      *

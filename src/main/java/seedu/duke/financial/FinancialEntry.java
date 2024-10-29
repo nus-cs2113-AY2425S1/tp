@@ -103,7 +103,24 @@ public abstract class FinancialEntry {
      */
     public abstract String toString();
 
+    /**
+     * Converts the financial entry to a formatted string for storage purposes.
+     * This method is implemented by subclasses to provide specific formats for each entry type.
+     * The string includes relevant information such as the entry type, amount, description, date,
+     * and category, formatted appropriately.
+     *
+     * @return A formatted string representing the financial entry for storage.
+     */
     public abstract String toStorageString();
 
+    /**
+     * Sets the category of the financial entry.
+     * This method allows assigning a specific category to the entry and should be implemented by
+     * subclasses to ensure the correct category type (Expense or Income) is used.
+     *
+     * @param category The category to assign to the financial entry.
+     *                 Must be a valid enum value of the appropriate type.
+     * @throws IllegalArgumentException if the provided category is invalid for the entry type.
+     */
     public abstract void setCategory(Enum<?> category);
 }

@@ -14,8 +14,9 @@ import java.util.logging.Logger;
 public class AddIncomeCommand extends AddEntryCommand {
 
     private static Logger logger = Logger.getLogger("Income");
-    private final Income.Category category;
     private static final double incomeZero = 0.0;
+    private final Income.Category category;
+
 
     /**
      * Constructs an AddIncomeCommand with the specified amount and description.

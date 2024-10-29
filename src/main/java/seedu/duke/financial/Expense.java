@@ -44,10 +44,22 @@ public class Expense extends FinancialEntry {
         super(amount, description, date);
     }
 
+    /**
+     * Retrieves the expense category for this entry.
+     *
+     * @return The category of this income entry as an {@link Expense.Category}.
+     */
     public Category getCategory() {
         return category;
     }
 
+    /**
+     * Sets the category for this expense entry. Ensures the provided category is of the correct type
+     * for income entries.
+     *
+     * @param category The category to set, expected to be an {@link Expense.Category} type.
+     * @throws IllegalArgumentException if the provided category is not an instance of {@link Expense.Category}.
+     */
     @Override
     public void setCategory(Enum<?> category) {
         if (category instanceof Category) {
@@ -68,6 +80,15 @@ public class Expense extends FinancialEntry {
         return String.format("[Expense] - %s $ %.2f (on %s) [%s]", description, amount, date.format(pattern),category);
     }
 
+    /**
+     * Converts the expense entry to a string format suitable for storage.
+     * The returned string includes the entry type, amount, description, date, and category,
+     * all formatted in a specific structure.
+     *
+     * @return A formatted string representing the expense entry for storage.
+     *         The format is: "E | amount | description | date | category"
+     *         where the date is formatted as "dd/MM/yy".
+     */
     public String toStorageString() {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
         return String.format("E | %.2f | %s | %s | %s", amount, description, date.format(pattern),category);
