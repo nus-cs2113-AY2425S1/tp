@@ -347,4 +347,10 @@ faster than a typical mouse/GUI driven app
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Manual Testing
+
+View the [User Guide](UserGuide.md) for the list of UI commands and their related use case and expected outcomes.
+
+### JUnit Testing
+
+JUnit tests are written in the subdirectory `test` and serve to test the key methods part of the application.
