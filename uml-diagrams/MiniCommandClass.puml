@@ -2,16 +2,16 @@
 
 skinparam componentStyle rectangle
 
-component PersonalTrackerCommand <<abstract>> #skyblue
-component CheckInformationCommand <<abstract>> #lime
-component ListSchoolsCommand #lightblue
-component DeleteCoursesCommand #lightgreen
-component Command <<abstract>> #red
+component PersonalTrackerCommand <<abstract>> #gold
+component CheckInformationCommand <<abstract>> #gold
+component ListSchoolsCommand #gold
+component DeleteCoursesCommand #gold
+component Command <<abstract>> #gold
 
-PersonalTrackerCommand -up[#brown]-|> Command
-CheckInformationCommand -up[#brown]-|> Command
+PersonalTrackerCommand -up[#gold]-|> Command
+CheckInformationCommand -up[#gold]-|> Command
 
-ListSchoolsCommand -up[#brown]-|> CheckInformationCommand
-DeleteCoursesCommand -up[#brown]-|> PersonalTrackerCommand
+ListSchoolsCommand -up[#gold]-|> CheckInformationCommand
+DeleteCoursesCommand -up[#gold]-|> PersonalTrackerCommand
 
 @enduml

@@ -3,34 +3,34 @@ hide footbox
 
 actor CEG_Student
 participant ":UI" #green
-participant ":Parser" #gold
-participant ":Command" #pink
-participant ":Storage" #lightblue
+participant ":Parser" #red
+participant ":Command" #gold
+participant ":Storage" #pink
 
 CEG_Student -> ":UI" : "delete 1"
 activate ":UI" #green
 
 ":UI" -[#green]> ":Parser" : execute("delete 1")
-activate ":Parser" #gold
+activate ":Parser" #red
 
-":Parser" -[#gold]> ":Command" : allCourses.remove(index);
-activate ":Command" #pink
+":Parser" -[#red]> ":Command" : allCourses.remove(index);
+activate ":Command" #gold
 
-":Command" -[#pink]> ":Storage" : saveAllCourses(allCourses);
-activate ":Storage" #lightblue
+":Command" -[#gold]> ":Storage" : saveAllCourses(allCourses);
+activate ":Storage" #pink
 
-":Storage" -[#lightblue]> ":Storage" : Save to mylist.json
-activate ":Storage" #lightblue
+":Storage" -[#pink]> ":Storage" : Save to mylist.json
+activate ":Storage" #pink
 
-":Storage" -[#lightblue]-> ":Storage"
+":Storage" -[#pink]-> ":Storage"
 deactivate ":Storage"
-":Storage" -[#lightblue]-> ":Command"
+":Storage" -[#pink]-> ":Command"
 deactivate ":Storage"
 
-":Command" -[#pink]-> ":Parser"
+":Command" -[#gold]-> ":Parser"
 deactivate ":Command"
 
-":Parser" -[#gold]-> ":UI"
+":Parser" -[#red]-> ":UI"
 deactivate ":Parser"
 
 ":UI" -[#green]-> CEG_Student
