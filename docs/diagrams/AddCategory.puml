@@ -4,15 +4,28 @@ participant Duke
 participant ExpenseTracker
 participant Category
 
-User -> Duke: Input: add-category Food
-Duke -> ExpenseTracker: addCategory("Food")
-ExpenseTracker -> ExpenseTracker: check if category exists
-alt Category does not exist
-    ExpenseTracker -> Category: create(Category)
-    ExpenseTracker -> ExpenseTracker: add Category to list
-    ExpenseTracker -> Duke: Category added
-else Category exists
-    ExpenseTracker -> Duke: Category already exists message
+User -> Duke: input ("add-category <categoryName>")
+Duke -> ExpenseTracker: addCategory(input)
+
+activate ExpenseTracker
+ExpenseTracker -> ExpenseTracker: trim and format input\ncategoryName = formatInput(trimmedCategoryName)
+
+ExpenseTracker -> ExpenseTracker: check if categoryName is empty
+alt categoryName is empty
+    ExpenseTracker -> User: print "Category name is empty!"
+else categoryName is not empty
+    ExpenseTracker -> ExpenseTracker: iterate over categories\nand compare formattedCategoryName
+
+    alt category already exists
+        ExpenseTracker -> User: print "Category '<categoryName>' already exists!"
+    else category does not exist
+        ExpenseTracker -> Category: new Category(formattedCategoryName)
+        activate Category
+        Category -> ExpenseTracker: return new Category instance
+        deactivate Category
+
+        ExpenseTracker -> ExpenseTracker: add new Category to categories list
+        ExpenseTracker -> User: print "Category '<categoryName>' added successfully."
+    end
 end
-Duke -> User: Confirmation message
 @enduml
