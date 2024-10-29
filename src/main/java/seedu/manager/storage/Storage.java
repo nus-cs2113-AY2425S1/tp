@@ -1,6 +1,5 @@
 package seedu.manager.storage;
 
-import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 import seedu.manager.event.Event;
 import seedu.manager.parser.Parser;
