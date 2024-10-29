@@ -10,7 +10,6 @@ public class Main {
      */
     public static void main(String[] args) {
         ExpenseList expenseList = new ExpenseList();
-        RecurringExpenseList recurringExpenseList = new RecurringExpenseList();
         Ui.displayIntroText();
         Logging.getInstance(); // Initialise at the start
 
@@ -19,7 +18,7 @@ public class Main {
             try {
                 String line = Ui.getCommand();
                 Command command = Parser.parseInputToCommand(line);
-                command.execute(expenseList, recurringExpenseList);
+                command.execute(expenseList);
                 isExit = command.isExit();
             } catch (WheresMyMoneyException e){
                 Ui.displayMessage(e.getMessage());

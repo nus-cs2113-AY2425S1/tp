@@ -12,7 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.time.LocalDate;
 
 /**
  * The {@code ExpenseList} class manages a collection of {@code Expense} objects.
@@ -74,7 +73,7 @@ public class ExpenseList {
      * @param description New description of expense
      * @param category New category of expense
      */
-    public void addExpense(Float price, String description, String category, LocalDate dateAdded)
+    public void addExpense(Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
         Logging.log(Level.INFO,
                 String.format("Adding expense with parameters: %f, %s, %s, %s",
@@ -89,9 +88,9 @@ public class ExpenseList {
      * Edit the details of an expense given its position in the list
      *
      * @param index index of Expense in the list that is to be edited
+     * @param category New category of expense
      * @param price New price of expense
      * @param description New description of expense
-     * @param category New category of expense
      */
     public void editExpense(int index, Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
@@ -160,7 +159,6 @@ public class ExpenseList {
             
             // closing writer connection
             reader.close();
-            csvReader.close();
         } catch (WheresMyMoneyException exc) {
             throw new StorageException("An expense's price, description, category and/or date added is missing");
         } catch (IOException ex) {

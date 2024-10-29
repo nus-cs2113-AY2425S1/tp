@@ -16,7 +16,6 @@ import wheresmymoney.exception.WheresMyMoneyException;
  * </p>
  */
 public class DateUtils {
-    
     public static final String DATE_FORMAT = "dd-MM-yyyy";
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
     
@@ -31,11 +30,9 @@ public class DateUtils {
             return false;
         }
     }
-
     public static LocalDate getCurrentDate() {
         return LocalDate.now();
     }
-
     public static LocalDate stringToDate(String dateAsString) throws WheresMyMoneyException {
         try {
             return LocalDate.parse(dateAsString, formatter);
@@ -43,7 +40,6 @@ public class DateUtils {
             throw new WheresMyMoneyException("Date string is not in the correct format: " + DATE_FORMAT);
         }
     }
-
     public static String dateFormatToString(LocalDate date) {
         return date.format(formatter);
     }
