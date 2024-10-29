@@ -18,6 +18,17 @@ import wheresmymoney.exception.WheresMyMoneyException;
  * The {@code CategoryStorage} class handles conversion between CSV and CategoryTracker.
  */
 public class CategoryStorage {
+    
+    public CategoryTracker trackCategoriesOf(ArrayList<Expense> expenseList) throws WheresMyMoneyException {
+        CategoryTracker categoryTracker = new CategoryTracker();
+        for (Expense expense : expenseList) {
+            String categoryName = expense.getCategory();
+            Float price = expense.getPrice();
+            categoryTracker.addCategory(categoryName, price);
+        }
+        return categoryTracker;
+    }
+    /**
     /**
      * Saves a Category Tracker to a csv file.
      *
