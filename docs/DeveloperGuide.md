@@ -128,7 +128,7 @@ Step 1. The user creates a programme with a given number of Days with their resp
 
 ![](images/editCommandStepOne.png)
 
-Step 2. The user executes `programme edit /p 1 /d 1 /x 1` to delete the first exercise in the first day of the first programme. The programme first retrieves the given day with `ProgrammeList#getDay()`.
+Step 2. The user executes `programme edit /p 1 /d 1 /x 1` to delete the first exercise in the first day of the first programme. The programme first retrieves the given programme with `ProgrammeList#getProgramme()`, then retrieves the day with `Programme#getDay()`.
 
 ![](images/editCommandStepTwo.png)
 
