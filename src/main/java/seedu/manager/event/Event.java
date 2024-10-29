@@ -50,8 +50,8 @@ public class Event {
      *
      * @param participantName the name of the participant to be added to the list.
      */
-    public void addParticipant(String participantName) {
-        Participant participant = new Participant(participantName);
+    public void addParticipant(String participantName, String participantNumber, String participantEmail) {
+        Participant participant = new Participant(participantName, participantNumber, participantEmail);
         this.participantList.add(participant);
     }
 
