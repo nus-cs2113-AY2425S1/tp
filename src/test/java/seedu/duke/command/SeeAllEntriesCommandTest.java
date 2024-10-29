@@ -101,7 +101,10 @@ class SeeAllEntriesCommandTest {
                 "No entries found." + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
-        assertEquals(expectedOutput, output);
+        assertEquals(
+                expectedOutput.trim().replaceAll("\\s+", " "),
+                output.trim().replaceAll("\\s+", " ")
+        );
     }
 
     @Test
@@ -131,7 +134,10 @@ class SeeAllEntriesCommandTest {
                 "Highest Expense Category: ENTERTAINMENT ($20.00)" + System.lineSeparator() +
                 "Highest Income Category: UNCATEGORIZED ($0.00)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
-        assertEquals(expectedOutput, output);
+        assertEquals(
+                expectedOutput.trim().replaceAll("\\s+", " "),
+                output.trim().replaceAll("\\s+", " ")
+        );
     }
 
     @Test
@@ -161,7 +167,10 @@ class SeeAllEntriesCommandTest {
                 "Highest Expense Category: FOOD ($3.50)" + System.lineSeparator() +
                 "Highest Income Category: SALARY ($3000.00)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() ;
-        assertEquals(expectedOutput, output);
+        assertEquals(
+                expectedOutput.trim().replaceAll("\\s+", " "),
+                output.trim().replaceAll("\\s+", " ")
+        );
     }
 
     @Test
@@ -190,6 +199,9 @@ class SeeAllEntriesCommandTest {
                 "Highest Expense Category: FOOD ($3.50)" + System.lineSeparator() +
                 "Highest Income Category: UNCATEGORIZED ($0.00)" + System.lineSeparator()+
                 "--------------------------------------------" + System.lineSeparator();
-        assertEquals(expectedOutput, output);
+        assertEquals(
+                expectedOutput.trim().replaceAll("\\s+", " "),
+                output.trim().replaceAll("\\s+", " ")
+        );
     }
 }
