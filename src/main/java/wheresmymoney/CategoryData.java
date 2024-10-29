@@ -26,13 +26,13 @@ public class CategoryData {
         this.maxExpenditure = maxExpenditure;
     }
     
-    public void addToCurrExpenditure(Float price) {
+    public void increaseCurrExpenditureBy(Float price) {
         this.currExpenditure += price;
     }
-    public void removeFromCurrExpenditure(Float price) {
+    public void decreaseCurrExpenditureBy(Float price) {
         this.currExpenditure -= price;
     }
-    public boolean closeToLimit() {
+    public boolean isNearingLimit() {
         return maxExpenditure - currExpenditure <= 100; // dummy alert
     }
     public boolean hasExceededLimit() {
