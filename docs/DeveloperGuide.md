@@ -156,6 +156,48 @@ Here’s the description for each method in the format you provided:
         - Filters `transactions` to include only `Expense` objects with the specified `category`.
         - Returns the filtered list of expenses.
 ![SearchByCategory](./diagrams/TransactionList/transactionlist-Sequence-SearchByCategoty-diagram.png)
+
+### AddIncomeCommand
+The `AddIncomeCommand` class handles the logic for adding an income transaction to the `TransactionList` by parsing input arguments, creating a new `Income` instance, and updating the transaction list.
+
+![AddIncomeCommand](./diagrams/addincomecommand/addincomecommand-class-diagram.png)
+
+### Class Responsibilities
+
+1. **Command Parsing and Validation**: The class validates required fields (e.g., amount) and parses optional fields (e.g., date).
+2. **Transaction Creation**: An `Income` transaction is instantiated and initialized with a description, amount, and date.
+3. **Transaction Storage**: Upon creation, the transaction is saved to the `TransactionList` and persisted using `Storage`.
+
+### Class Attributes
+1. **COMMAND_WORD**: `String`
+    - **Description**: The keyword triggering this command.
+2. **COMMAND_MANDATORY_KEYWORDS**: `String[]`
+    - **Description**: Array storing mandatory argument keywords.
+3. **COMMAND_EXTRA_KEYWORDS**: `String[]`
+    - **Description**: Array storing optional argument keywords.
+4. **transactions**: `TransactionList`
+    - **Description**: Stores the current list of all transactions.
+
+### Class Main Methods
+
+1. **execute()**
+    - **Returns**: `List<String>`
+    - **Process**:
+        1. Validates the input arguments.
+        2. Parses `amount` and `date` fields.
+        3. Instantiates a new `Income` transaction and adds it to `TransactionList`.
+        4. Calls `Storage.saveTransaction()` to persist data.
+
+![execute](./diagrams/addincomecommand/addincomecommand-class-diagram_001.png)
+
+2. **createTransaction(double amount, String description, String date) : Transaction**
+    - **Parameters**:
+        - `amount`: Amount for the income.
+        - `description`: Description for the income.
+        - `date`: Date when the income was received.
+    - **Returns**: A new `Income` instance.
+
+    
 ## Product scope
 ### Target user profile
 
