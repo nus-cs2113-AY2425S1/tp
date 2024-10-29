@@ -81,18 +81,18 @@ class RecipeTest {
 
         // Expected string representation
         String expected = "Recipe: Pancakes" + System.lineSeparator() +
-                "  Ingredients: " + System.lineSeparator() +
-                "    - Flour" + System.lineSeparator() +
-                "    - Eggs" + System.lineSeparator() +
-                "    - Milk" + System.lineSeparator() +
-                "    - Sugar" + System.lineSeparator() +
-                "    - Baking powder" + System.lineSeparator() +
-                "  Steps: " + System.lineSeparator() +
-                "    1. Mix ingredients" + System.lineSeparator() +
-                "    2. Heat the pan" + System.lineSeparator() +
-                "    3. Pour batter" + System.lineSeparator() +
-                "    4. Flip the pancake" + System.lineSeparator() +
-                "    5. Serve hot";
+                "\t" + "  Ingredients: " + System.lineSeparator() +
+                "\t" + "    - Flour" + System.lineSeparator() +
+                "\t" + "    - Eggs" + System.lineSeparator() +
+                "\t" + "    - Milk" + System.lineSeparator() +
+                "\t" + "    - Sugar" + System.lineSeparator() +
+                "\t" + "    - Baking powder" + System.lineSeparator() +
+                "\t" + "  Steps: " + System.lineSeparator() +
+                "\t" + "    1. Mix ingredients" + System.lineSeparator() +
+                "\t" + "    2. Heat the pan" + System.lineSeparator() +
+                "\t" + "    3. Pour batter" + System.lineSeparator() +
+                "\t" + "    4. Flip the pancake" + System.lineSeparator() +
+                "\t" + "    5. Serve hot";
 
         // Assert the output of toString method matches expected
         assertEquals(expected, recipe.toString());

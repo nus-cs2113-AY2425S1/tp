@@ -63,5 +63,7 @@ public class EditCommand extends Command {
         } catch (IOException exception) {
             System.out.println(exception.getMessage());
         }
+
+        ui.printEditedRecipe(recipeName, recipe);
     }
 }

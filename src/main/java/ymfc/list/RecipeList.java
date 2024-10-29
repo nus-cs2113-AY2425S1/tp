@@ -54,6 +54,7 @@ public class RecipeList {
         for (int i = 0; i < recipes.size(); i++) {
             if (recipes.get(i).getName().equalsIgnoreCase(name)) {
                 index = i;
+                break;
             }
         }
         // If index not found, return false, else edit the recipe based on index found
