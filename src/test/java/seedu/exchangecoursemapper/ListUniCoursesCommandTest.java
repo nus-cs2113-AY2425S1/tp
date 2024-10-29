@@ -51,32 +51,62 @@ public class ListUniCoursesCommandTest {
 
         assertEquals("Please provide a University name.", exception.getMessage());
     }
-    /*
+
     @Test
     public void getUniCourses_withValidUni_success() throws IOException, UnknownUniversityException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
         JsonObject jsonObject = jsonReader.readObject();
         jsonReader.close();
 
-        String uniName = "Chulalongkorn University";
+        String uniName = "Victoria University of Wellington";
         listUniCoursesCommand.getUniCourses(jsonObject, uniName);
 
         String expectedOutput = """
-                ICE2190472: Netcentric Architecture
-                CS2105: Introduction to Computer Networks
+                COMP102: Introduction to Computer Program Design
+                CS1010J: Programming Methodology
                 -----------------------------------------------------
-                ICSE2190479: Graphics Computing
-                CS3241: Computer Graphics
+                COMP103: Introduction to Data Structures and Algorithms
+                CS2040: Data Structures and Algorithms
                 -----------------------------------------------------
-                2603637: Machine Learning
-                CS3244: Machine Learning
+                INFO151: Databases
+                CS2102: Database Systems
+                -----------------------------------------------------
+                SWEN221: Software Development
+                CS2103: Software Engineering
+                -----------------------------------------------------
+                NWEN301: Operating Systems Design
+                CS2106: Introduction to Operating Systems
+                -----------------------------------------------------
+                NWEN405: Security Engineering
+                CS2107: Introduction to Information Security
+                -----------------------------------------------------
+                NWEN303: Concurrent Programming
+                CS3211: Parallel and Concurrent Programming
+                -----------------------------------------------------
+                COMP361: Design and Analysis of Algorithms
+                CS3230: Design and Analysis of Algorithms
+                -----------------------------------------------------
+                MATH324: Coding and Cryptography
+                CS3236: Introduction to Information Theory
+                -----------------------------------------------------
+                SWEN303: User Interface Design
+                CS3240: Interaction Design
+                -----------------------------------------------------
+                MDDN241: 3D Modelling and Animation II
+                CS3242: 3D Modeling and Animation
+                -----------------------------------------------------
+                SWEN421: Formal Software Engineering
+                CS4211: Formal Methods for Software Engineering
+                -----------------------------------------------------
+                CYBR371: System and Network Security
+                CS5231: Systems Security
                 -----------------------------------------------------
                 """;
 
         String actualOutput = outputStreamCaptor.toString();
         assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
     }
-    */
+
     @Test
     public void getUniCourses_withInvalidUni_throwsException() throws IOException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
@@ -91,28 +121,58 @@ public class ListUniCoursesCommandTest {
 
         assertEquals("University not found: Invalid Uni", exception.getMessage());
     }
-    /*
+
     @Test
     public void execute_validInput_success() {
-        String userInput = "set Chulalongkorn University";
+        String userInput = "set Victoria University of Wellington";
         listUniCoursesCommand.execute(userInput);
 
         String expectedOutput = """
-                ICE2190472: Netcentric Architecture
-                CS2105: Introduction to Computer Networks
+                COMP102: Introduction to Computer Program Design
+                CS1010J: Programming Methodology
                 -----------------------------------------------------
-                ICSE2190479: Graphics Computing
-                CS3241: Computer Graphics
+                COMP103: Introduction to Data Structures and Algorithms
+                CS2040: Data Structures and Algorithms
                 -----------------------------------------------------
-                2603637: Machine Learning
-                CS3244: Machine Learning
+                INFO151: Databases
+                CS2102: Database Systems
+                -----------------------------------------------------
+                SWEN221: Software Development
+                CS2103: Software Engineering
+                -----------------------------------------------------
+                NWEN301: Operating Systems Design
+                CS2106: Introduction to Operating Systems
+                -----------------------------------------------------
+                NWEN405: Security Engineering
+                CS2107: Introduction to Information Security
+                -----------------------------------------------------
+                NWEN303: Concurrent Programming
+                CS3211: Parallel and Concurrent Programming
+                -----------------------------------------------------
+                COMP361: Design and Analysis of Algorithms
+                CS3230: Design and Analysis of Algorithms
+                -----------------------------------------------------
+                MATH324: Coding and Cryptography
+                CS3236: Introduction to Information Theory
+                -----------------------------------------------------
+                SWEN303: User Interface Design
+                CS3240: Interaction Design
+                -----------------------------------------------------
+                MDDN241: 3D Modelling and Animation II
+                CS3242: 3D Modeling and Animation
+                -----------------------------------------------------
+                SWEN421: Formal Software Engineering
+                CS4211: Formal Methods for Software Engineering
+                -----------------------------------------------------
+                CYBR371: System and Network Security
+                CS5231: Systems Security
                 -----------------------------------------------------
                 """;
 
         String actualOutput = outputStreamCaptor.toString();
         assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
     }
-*/
+
     @Test
     public void execute_invalidUni_displayError() {
         String userInput = "set Invalid Uni";

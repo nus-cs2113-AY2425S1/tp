@@ -42,8 +42,10 @@ public class ListPersonalTrackerCommand extends CheckInformationCommand {
             logger.log(Level.INFO, DISPLAY_MODULES);
             System.out.println(MAPPED_MODULES_HEADER);
             System.out.println(LINE_SEPARATOR);
+            int moduleIndex = 1;
             for (String module : mappedModules) {
-                System.out.println(module);
+                System.out.println(moduleIndex + ". " + module);
+                moduleIndex += 1;
             }
             System.out.println(LINE_SEPARATOR);
         }

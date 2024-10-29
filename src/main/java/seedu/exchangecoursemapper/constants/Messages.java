@@ -1,10 +1,21 @@
 package seedu.exchangecoursemapper.constants;
 
 public class Messages {
+    /* For UI layout */
     public static final String LINE_SEPARATOR = "-----------------------------------------------------";
-    public static final String NO_MAPPABLE_COURSES_MESSAGE = "No courses found for the given course code.";
+
+    /* Messages for all invalid CLI commands */
     public static final String INVALID_COMMAND_MESSAGE = "Please provide a valid command!" +
             "\nType 'commands' to find out what we can help you with :)";
+
+    /* Messages for FilterCoursesCommand */
+    public static final String NO_MAPPABLE_COURSES_MESSAGE = "No courses found for the given course code.";
+    public static final String PARTNER_UNIVERSITY_HEADER = "Partner University: ";
+    public static final String PARTNER_UNIVERSITY_COURSE_CODE_HEADER = "Partner University Course Code: ";
+
+    /* Messages for DeleteCoursesCommand */
+    public static final String DELETE_COURSE_PLAN_HEADER = "You have deleted the course from your plan: ";
+
     public static final String LIST_RELEVANT_PU = "The relevant universities are (non-case sensitive):\n" +
             "1. Chulalongkorn University\n" +
             "2. The University of Melbourne\n" +
@@ -24,6 +35,11 @@ public class Messages {
                     - Add mapped courses between NUS and partner universities.
                     obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
                     obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
+                    delete <TASK_NUMBER> - Delete a partner university.
+                    list mapped - List all the course mapping.
+                    compare - Compare the course mappings.
+                    bye - End the program.
+                    To get more specific information of the commands, please use help <COMMAND>
                     """;
 
     // CompareMappedCommand messages
