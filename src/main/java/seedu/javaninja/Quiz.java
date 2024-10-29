@@ -1,5 +1,10 @@
 package seedu.javaninja;
 
+import seedu.javaninja.question.FillInTheBlank;
+import seedu.javaninja.question.Mcq;
+import seedu.javaninja.question.Question;
+import seedu.javaninja.question.TrueFalse;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.Timer;
@@ -38,7 +43,7 @@ public class Quiz {
             Question currentQuestion = questions.get(currentQuestionIndex);
             assert currentQuestion != null : "Current question must not be null";
 
-            System.out.println(currentQuestion.text);
+            System.out.println(currentQuestion.getText());
 
             if (currentQuestion instanceof Mcq) {
                 currentQuestion.printOptions();

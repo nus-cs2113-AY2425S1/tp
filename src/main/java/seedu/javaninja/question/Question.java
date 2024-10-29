@@ -1,4 +1,4 @@
-package seedu.javaninja;
+package seedu.javaninja.question;
 
 /* Represents a question that could be of different types (MCQ / True or False) */
 

@@ -1,5 +1,7 @@
 package seedu.javaninja;
 
+import seedu.javaninja.question.Question;
+
 import java.util.ArrayList;
 import java.util.List;
 
