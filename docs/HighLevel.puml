@@ -83,6 +83,6 @@ Storage "1" --> "*" TrainingSession : manages
 Storage "1" --> "1" FitTrackLogger : uses
 
 TrainingSession "*" ---> "1" User : belongs to
-TrainingSession "*" --> "1" Exercise : contains
+TrainingSession "*" --> Exercise : contains
 
 @enduml
