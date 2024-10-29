@@ -1,6 +1,7 @@
 package ymfc.commands;
 
-import ymfc.recipelist.RecipeList;
+import ymfc.list.IngredientList;
+import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
@@ -31,7 +32,7 @@ public class HelpCommand extends Command {
      * @param ui The {@code Ui} used to display the help information to the user.
      * @param storage The {@code Storage}, not used in this method.
      */
-    public void execute(RecipeList recipes, Ui ui, Storage storage) {
+    public void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) {
         logger.log(Level.FINEST, "Executing HelpCommand");
 
         ui.printHelp();

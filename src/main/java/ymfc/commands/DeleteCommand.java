@@ -1,7 +1,8 @@
 package ymfc.commands;
 
 import ymfc.exception.InvalidArgumentException;
-import ymfc.recipelist.RecipeList;
+import ymfc.list.IngredientList;
+import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
@@ -46,7 +47,8 @@ public class DeleteCommand extends Command {
      * @param storage The {@code Storage} to save the updated recipe list.
      * @throws InvalidArgumentException If the recipe with the specified name is not found in the list.
      */
-    public void execute(RecipeList recipes, Ui ui, Storage storage) throws InvalidArgumentException {
+    public void execute(RecipeList recipes, IngredientList ingredients,
+                        Ui ui, Storage storage) throws InvalidArgumentException {
         logger.log(Level.FINEST, "Executing DeleteCommand");
         assert recipes != null;
 
@@ -55,8 +57,8 @@ public class DeleteCommand extends Command {
             ui.printDeletedTask(recipeName, recipes.getCounter());
             try {
                 storage.saveRecipes(recipes);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+            } catch (IOException exception) {
+                System.out.println(exception.getMessage());
             }
         } else {
             throw new InvalidArgumentException("Recipe not found: " + recipeName);

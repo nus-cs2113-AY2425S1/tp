@@ -1,6 +1,7 @@
 package ymfc.commands;
 
-import ymfc.recipelist.RecipeList;
+import ymfc.list.IngredientList;
+import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 import java.util.logging.Level;
@@ -31,7 +32,7 @@ public class ByeCommand extends Command {
      * @param ui The {@code Ui} to interact with the user. Displays the farewell message.
      * @param storage The {@code Storage}, not used in this method.
      */
-    public void execute(RecipeList recipes, Ui ui, Storage storage) {
+    public void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) {
         logger.log(Level.FINEST, "Executing ByeCommand");
 
         ui.bidFarewell();

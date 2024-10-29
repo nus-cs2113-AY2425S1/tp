@@ -1,0 +1,70 @@
+@startuml
+!include Style.puml
+
+hide footbox
+skinparam guillemet false
+skinparam sequenceReferenceBackgroundColor COLOR_YELLOW
+skinparam sequenceReferenceHeaderBackgroundColor COLOR_RED
+skinparam ParticipantBackGroundColor COLOR_LIGHTBLUE
+skinparam {
+    SequenceGroupBackgroundColor COLOR_LIGHTRED
+}
+
+box Saving Recipes COLOR_PURPLE_BLUE
+participant ":Storage" as Storage
+participant ":File" as File
+participant ":FileWriter" as FileWriter
+participant ":RecipeList" as RecipeList
+participant ":Recipe" as Recipe
+end box
+
+[-> Storage : saveRecipes(recipes)
+activate Storage
+
+create File
+Storage -> File : File("./data")
+activate File
+File --> Storage : :dir
+deactivate File
+
+opt COLOR_GREEN !dir.isDirectory()
+    Storage -> File : mkdir()
+    activate File
+    File --> Storage
+    deactivate File
+end
+
+create FileWriter
+Storage -> FileWriter : FileWriter(saveRecipeFilePath)
+activate FileWriter
+FileWriter --> Storage : :writer
+deactivate FileWriter
+
+loop COLOR_GREEN number of recipes
+    Storage -> RecipeList : getRecipe(i)
+    activate RecipeList
+    RecipeList --> Storage : :recipe
+    deactivate RecipeList
+
+    Storage -> Recipe : toSaveString()
+    activate Recipe
+    Recipe --> Storage : string to be written to save file
+    deactivate Recipe
+
+    Storage -> FileWriter : write(string to be written to save file)
+    activate FileWriter
+    FileWriter --> Storage
+    deactivate FileWriter
+end
+
+Storage -> FileWriter : close()
+activate FileWriter
+FileWriter --> Storage
+deactivate FileWriter
+
+destroy File
+destroy FileWriter
+
+Storage -->[
+
+@enduml

@@ -1,10 +1,11 @@
 package ymfc.recipe;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class RecipeTest {
 
@@ -95,5 +96,64 @@ class RecipeTest {
 
         // Assert the output of toString method matches expected
         assertEquals(expected, recipe.toString());
+    }
+
+    @Test
+    public void getCuisine_validCuisine_returnCorrectString() {
+        Recipe recipe = new Recipe("Pasta", new ArrayList<>(), new ArrayList<>(), "Italian", 4);
+        assertEquals("Italian", recipe.getCuisine());
+    }
+
+    @Test
+    void setCuisine_validCuisine_stringUpdatedCorrectly() {
+        Recipe recipe = new Recipe("Pasta", new ArrayList<>(), new ArrayList<>(), "Italian", 4);
+        assertEquals("Italian", recipe.getCuisine());
+        recipe.setCuisine("New York");
+        assertEquals("New York", recipe.getCuisine());
+    }
+
+    @Test
+    void setTimeTaken_validTime_integerUpdatedCorrectly() {
+        Recipe recipe = new Recipe("Pasta", new ArrayList<>(), new ArrayList<>(), "Italian", 4);
+        assertEquals(4, recipe.getTimeTaken());
+        recipe.setTimeTaken(8);
+        assertEquals(8, recipe.getTimeTaken());
+    }
+
+    @Test
+    void equals_isSameRecipe_returnsTrue() {
+        ArrayList<String> ingredients = new ArrayList<>();
+        ingredients.add("Flour");
+
+        ArrayList<String> steps = new ArrayList<>();
+        steps.add("Bake");
+
+        Recipe recipe1 = new Recipe("Pancakes", ingredients, steps, "American", 3);
+        Recipe recipe2 = new Recipe("Pancakes", ingredients, steps, "American", 3);
+
+        assertTrue(recipe1.equals(recipe2));
+    }
+
+    @Test
+    void equals_isNotSameRecipe_returnsFalse() {
+        ArrayList<String> ingredients1 = new ArrayList<>();
+        ingredients1.add("Flour");
+        ArrayList<String> ingredients2 = new ArrayList<>();
+        ingredients2.add("Rice");
+
+        ArrayList<String> steps1 = new ArrayList<>();
+        steps1.add("Bake");
+        ArrayList<String> steps2 = new ArrayList<>();
+        steps2.add("Cook");
+
+        Recipe recipe1 = new Recipe("Pancakes", ingredients1, steps1, "American", 3);
+        Recipe recipe2 = new Recipe("Pancakes", ingredients2, steps1, "American", 3);
+        assertFalse(recipe1.equals(recipe2)); // Different ingredients
+
+        Recipe recipe3 = new Recipe("Pancakes", ingredients1, steps2, "American", 3);
+        assertFalse(recipe1.equals(recipe3)); // Different steps
+
+        Recipe recipe4 = new Recipe("Ricecakes", ingredients1, steps1, "American", 3);
+        assertFalse(recipe1.equals(recipe4)); // Different name
     }
 }
