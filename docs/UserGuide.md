@@ -86,6 +86,26 @@ Format:
 Example:
 - `add-category c/Transport`
 
+### Tag an Expense to a Category: tag-expense
+Assign or change the category of an existing expense.
+
+Format:
+`tag-expense e/INDEX c/CATEGORY`
+
+- `INDEX`
+  - The index number of the expense, as shown in the expense list.
+  - The index refers to the index number shown in the displayed person list.
+  - The index must be a positive integer 1, 2, 3, ...
+  - This parameter is required.
+
+- `CATEGORY`
+  - The name of the category to assign the expense to.
+  - This must be an existing category.
+  - This parameter is required.
+
+Example:
+- `tag-expense e/2 c/Transport`
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
