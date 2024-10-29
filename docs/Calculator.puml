@@ -1,5 +1,11 @@
 @startuml
 
+skinparam linetype ortho
+hide circle
+skinparam classAttributeIconSize 0
+skinparam classBackgroundColor White
+skinparam classBorderColor Black
+
 ' Abstract class
 abstract class Calculator {
     - static final int AGE_RANGE_LOWER_START : int
@@ -61,11 +67,11 @@ class WalkAndRunCalculator {
 }
 
 ' Relationships
-Calculator <|-- PullUpCalculator
+Calculator <|--- PullUpCalculator
 Calculator <|-- ShuttleRunCalculator
-Calculator <|-- SitAndReachCalculator
+Calculator <|--- SitAndReachCalculator
 Calculator <|-- SitUpCalculator
-Calculator <|-- StandingBroadJumpCalculator
+Calculator <|--- StandingBroadJumpCalculator
 Calculator <|-- WalkAndRunCalculator
 
 @enduml
