@@ -4,6 +4,30 @@
 {List here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well.}
 
 ## Design & Implementation
+### Sequence Diagrams
+#### add-expense
+![Add Expense Sequence Diagram](diagrams/AddExpense.png)
+
+#### add-category
+![Add Category Sequence Diagram](diagrams/AddCategory.png)
+
+#### delete-expense
+![Delete Expense Sequence Diagram](diagrams/DeleteExpense.png)
+
+#### tag-expense
+![Tag Expense Sequence Diagram](diagrams/TagExpense.png)
+
+#### set-budget
+![Set Budget Sequence Diagram](diagrams/SetBudget.png)
+
+#### view-budget
+![View Budget Sequence Diagram](diagrams/ViewBudget.png)
+
+#### view-expenses
+![View Expenses Sequence Diagram](diagrams/ViewExpenses.png)
+
+#### toggle-reset
+![Toggle Auto Reset Sequence Diagram](diagrams/ToggleAutoReset.pngl)
 
 ### Category
 #### Purpose

@@ -1,0 +1,51 @@
+@startuml
+
+actor User
+participant "Duke" as Duke
+participant "ExpenseTracker" as ExpenseTracker
+participant "Budget" as Budget
+
+User -> Duke : input("toggle-reset")
+activate Duke
+
+Duke -> ExpenseTracker : toggleAutoReset()
+activate ExpenseTracker
+
+alt Toggle Auto Reset On/Off
+    ExpenseTracker -> ExpenseTracker : Toggle isautoResetEnabled (check if ON/OFF)
+    ExpenseTracker -> User : Display "Automatic budget reset is now ON/OFF."
+end
+
+deactivate ExpenseTracker
+deactivate Duke
+
+
+User -> Duke : Triggers Monthly Reset Check
+activate Duke
+
+Duke -> ExpenseTracker : manageMonthlyReset()
+activate ExpenseTracker
+
+ExpenseTracker -> ExpenseTracker : checkAndResetBudgets()
+activate ExpenseTracker
+
+ExpenseTracker -> ExpenseTracker : Get current month
+
+alt Auto Reset Enabled and New Month
+    ExpenseTracker -> ExpenseTracker : resetBudgets()
+    loop For each Budget in budgets
+        ExpenseTracker -> Budget : setLimit(budget.getLimit())
+        activate Budget
+        Budget --> ExpenseTracker : Return success/failure
+        deactivate Budget
+    end
+    ExpenseTracker -> User : Display "Budgets have been reset for all categories."
+    ExpenseTracker -> ExpenseTracker : Update lastResetMonth
+else Auto Reset Disabled or Same Month
+    ExpenseTracker -> User : No reset needed
+end
+
+deactivate ExpenseTracker
+deactivate Duke
+
+@enduml
