@@ -25,8 +25,6 @@ class MarkParticipantCommandTest {
                 "example@gmail.com",
                 "Event 1"
         );
-      
-        eventList.addParticipantToEvent("John Doe", "Event 1");
     }
 
     @Test

@@ -106,9 +106,10 @@ public class AddCommandTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-10 10:00", formatter),
                 "Venue A", Priority.HIGH);
-        eventList.addParticipantToEvent("John", "Event 1");
+        eventList.addParticipantToEvent("John", "9123 8321", "example1@gmail.com", "Event 1");
 
-        AddCommand addCommand = new AddCommand("John", "Event 1");
+        AddCommand addCommand = new AddCommand("Event 1", LocalDateTime.parse("2024-10-10 10:00",
+                formatter), "Venue A", Priority.HIGH);
         addCommand.setData(eventList);
 
         assertThrows(DuplicateDataException.class, addCommand::execute);
