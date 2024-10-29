@@ -64,8 +64,8 @@ public class FileManager {
     public void save(JsonObject data) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        createDirIfNotExists();
-        createFileIfNotExists();
+        createDirIfNotExist();
+        createFileIfNotExist();
 
         try (FileWriter writer = new FileWriter(path)) {
             gson.toJson(data, writer);
@@ -76,7 +76,7 @@ public class FileManager {
         }
     }
 
-    private void createDirIfNotExists() throws IOException {
+    private void createDirIfNotExist() throws IOException {
         File dir = new File(path).getParentFile();
 
         if (dir == null || dir.exists()){
@@ -93,7 +93,7 @@ public class FileManager {
         logger.log(Level.INFO, "Directory created");
     }
 
-    private void createFileIfNotExists() throws IOException {
+    private void createFileIfNotExist() throws IOException {
         File file = new File(path);
         if (file.exists()) {
             logger.log(Level.INFO, "File exists");
