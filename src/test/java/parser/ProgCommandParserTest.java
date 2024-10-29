@@ -38,7 +38,7 @@
 //
 //        assertInstanceOf(ViewCommand.class, command, "Expected ViewCommand instance");
 //        ViewCommand viewCommand = (ViewCommand) command;
-//        assertEquals(0, viewCommand.getProgId());
+//        assertEquals(0, viewCommand.getprogrammeIndex());
 //    }
 //
 //    @Test
@@ -223,7 +223,7 @@
 //
 //        assertInstanceOf(DeleteCommand.class, command, "Expected DeleteCommand instance");
 //        DeleteCommand deleteCommand = (DeleteCommand) command;
-//        assertEquals(0, deleteCommand.getProgId(),
+//        assertEquals(0, deleteCommand.getprogrammeIndex(),
 //                "Program ID should be parsed as 0 for input '1'");
 //    }
 //
@@ -277,7 +277,7 @@
 //
 //        assertInstanceOf(ViewCommand.class, command, "Expected ViewCommand instance");
 //        ViewCommand viewCommand = (ViewCommand) command;
-//        assertEquals(0, viewCommand.getProgId(), "Programme index mismatch");
+//        assertEquals(0, viewCommand.getprogrammeIndex(), "Programme index mismatch");
 //    }
 //
 //    @Test
@@ -330,7 +330,7 @@
 //
 //        assertInstanceOf(StartCommand.class, command, "Expected StartCommand instance");
 //        StartCommand startCommand = (StartCommand) command;
-//        assertEquals(1, startCommand.getProgId(), "Programme index mismatch");
+//        assertEquals(1, startCommand.getprogrammeIndex(), "Programme index mismatch");
 //    }
 //
 //    @Test

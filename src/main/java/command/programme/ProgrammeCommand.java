@@ -1,20 +1,25 @@
 package command.programme;
 import command.Command;
 
-public abstract class ProgrammeCommand extends Command {
-    protected int progId;
-    protected int dayId;
+import java.util.logging.Logger;
 
-    public ProgrammeCommand(int progId, int dayId) {
-        this.progId = progId;
-        this.dayId = dayId;
-        assert progId >= 0 : "progId must not be negative";
-        assert dayId >= 0 : "dayId must not be negative";
+import static common.Utils.NULL_INTEGER;
+
+public abstract class ProgrammeCommand extends Command {
+    protected final Logger logger = Logger.getLogger(this.getClass().getName());
+    protected int programmeIndex;
+    protected int dayIndex;
+
+    public ProgrammeCommand(int programmeIndex, int dayIndex) {
+        this(programmeIndex);
+        assert dayIndex >= 0 : "dayId must not be negative";
+        this.dayIndex = dayIndex;
     }
 
-    public ProgrammeCommand(int progId) {
-        this.progId = progId;
-        assert progId >= 0 : "progId must not be negative";
+    public ProgrammeCommand(int programmeIndex) {
+        // We accept NULL_INTEGER as a valid programmeIndex as it is a optional argument
+        assert programmeIndex == NULL_INTEGER || programmeIndex >= 0 : "Program index must be valid";
+        this.programmeIndex = programmeIndex;
     }
 
     public ProgrammeCommand(){}
@@ -29,8 +34,8 @@ public abstract class ProgrammeCommand extends Command {
             return false;
         }
 
-        boolean isProgIndexEqual = this.progId == that.progId;
-        boolean isDayIndexEqual = this.dayId == that.dayId;
+        boolean isProgIndexEqual = this.programmeIndex == that.programmeIndex;
+        boolean isDayIndexEqual = this.dayIndex == that.dayIndex;
         return isProgIndexEqual && isDayIndexEqual;
     }
 }

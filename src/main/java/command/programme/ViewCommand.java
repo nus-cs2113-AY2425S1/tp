@@ -7,22 +7,20 @@ import programme.Programme;
 import history.History;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class ViewCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "view";
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public ViewCommand(int progId) {
-        super(progId);
+    public ViewCommand(int programmeIndex) {
+        super(programmeIndex);
     }
 
     @Override
     public CommandResult execute(ProgrammeList programmes, History history){
         assert programmes != null : "ProgrammeList must not be null";
 
-        Programme programme = programmes.getProgramme(progId);
+        Programme programme = programmes.getProgramme(programmeIndex);
         assert programme != null : "Programme must not be null";
         String result = String.format("Viewing programme: %n%s",programme);
         logger.log(Level.INFO, "ViewCommand executed successfully.");

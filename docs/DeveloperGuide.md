@@ -1,64 +1,59 @@
 # Developer Guide
 
 ## Acknowledgements
-
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
-We used these third party library
+We used these third party libraries to develop our application:
 - Gson
 - Mockito
 
 ## Design
 
-
 ### DailyRecord component
 API: `DailyRecord.java`
 ![Diagram for DailyRecord Component](./images/DailyRecord_API_UML.jpg)
 The `DailyRecord` component,
-- **Tracks daily workout, meals, and water intake:** The `DailyRecord` class maintains a log of the day’s activities, meals consumed, 
-and water intake. It provides methods to add, update, and retrieve each of these records.
-- **Encapsulates multiple data types:** `DailyRecord` works with various objects such as `Day` (for recording the workout programme), 
-`MealList` (for managing a list of meals consumed), and `Water` (for tracking daily water intake). These components are stored and managed 
-together within a single daily record.
-- **Enables modification and deletion:** The class provides methods for adding meals and water to the record, updating the workout for the 
-day, and removing items such as meals or water entries. Each modification is logged for traceability.
-- **Calculates key daily statistics:** `DailyRecord` is capable of calculating the total calories burned from the recorded `Day` and the 
-calories gained from the `MealList`. It can also sum the total water intake for the day.
-- **Provides a comprehensive summary:** The class’s `toString()` method generates a detailed summary of the day’s activities, including 
-calories burned, meals eaten, water consumed, and the caloric balance, making it easy to retrieve and display all relevant information in a readable format.
+- **Tracks daily workout, meals, and water intake:** The `DailyRecord` class maintains a log of the day’s activities, meals consumed,
+  and water intake. It provides methods to add, update, and retrieve each of these records.
+- **Encapsulates multiple data types:** `DailyRecord` works with various objects such as `Day` (for recording the workout programme),
+  `MealList` (for managing a list of meals consumed), and `Water` (for tracking daily water intake). These components are stored and managed
+  together within a single daily record.
+- **Enables modification and deletion:** The class provides methods for adding meals and water to the record, updating the workout for the
+  day, and removing items such as meals or water entries. Each modification is logged for traceability.
+- **Calculates key daily statistics:** `DailyRecord` is capable of calculating the total calories burned from the recorded `Day` and the
+  calories gained from the `MealList`. It can also sum the total water intake for the day.
+- **Provides a comprehensive summary:** The class’s `toString()` method generates a detailed summary of the day’s activities, including
+  calories burned, meals eaten, water consumed, and the caloric balance, making it easy to retrieve and display all relevant information in a readable format.
 
 
 ### Storage component
 API: `Storage.java`
 ![Diagram for Storage Component](./images/Storage_API_UML.jpg)
-The `Storage` component, 
-- **Handles the saving and loading of both `ProgrammeList` and `History` data in JSON format:** The `Storage` component is responsible 
-for serializing `ProgrammeList` and `History` objects into JSON format and passing them on to `FileManager`, as well as getting the 
-data in Json format from `FileManager` and deserializing it into the appropriate objects when needed.
-- **Serves as an adapter between `FileManager` and `BuffBuddy` classes:** `Storage` acts as an intermediary, translating between the JSON 
-data handled by `FileManager` and the objects in the `BuffBuddy` application, ensuring seamless conversion between formats.
-- **Relies on `ProgrammeList` and `History` from the Model component:** Since the `Storage` component is tasked with saving and retrieving 
-the `ProgrammeList` and `History` objects, it ensures the data is accurately represented and stored.
-- **Utilizes custom serializers:** To properly handle date formats and other specific needs, Storage makes use of custom serializers for 
-objects like LocalDate from the `DateSerilazer` class, ensuring that these objects are correctly serialized to and deserialized from JSON.
+The `Storage` component,
+- **Handles the saving and loading of both `ProgrammeList` and `History` data in JSON format:** The `Storage` component is responsible
+  for serializing `ProgrammeList` and `History` objects into JSON format and passing them on to `FileManager`, as well as getting the
+  data in Json format from `FileManager` and deserializing it into the appropriate objects when needed.
+- **Serves as an adapter between `FileManager` and `BuffBuddy` classes:** `Storage` acts as an intermediary, translating between the JSON
+  data handled by `FileManager` and the objects in the `BuffBuddy` application, ensuring seamless conversion between formats.
+- **Relies on `ProgrammeList` and `History` from the Model component:** Since the `Storage` component is tasked with saving and retrieving
+  the `ProgrammeList` and `History` objects, it ensures the data is accurately represented and stored.
+- **Utilizes custom serializers:** To properly handle date formats and other specific needs, Storage makes use of custom serializers for
+  objects like LocalDate from the `DateSerilazer` class, ensuring that these objects are correctly serialized to and deserialized from JSON.
 
 
 ### FileManager
 API: `FileManager.java`
 ![Diagram for FileManager Component](./images/FileManager_API_UML.jpg)
-The `FileManager` component, 
-- **Manages the saving and loading of data:** The `FileManager` class is responsible for reading data from and writing data to the file 
-specified by the user. It ensures that both the `ProgrammeList` and `History` data are stored in JSON format, and retrieves them when needed.
-- **Handles file creation and directory management:** Before saving data, `FileManager` checks whether the necessary directories and 
-files exist. If they do not, it creates them to ensure data can be stored correctly.
-- **Leverages JSON for data structure:** `FileManager` uses `Gson` to serialize and deserialize JSON data, making it easy to work with 
-structured data. It also ensures the data is formatted in a readable way using pretty printing for clarity.
-- **Performs error handling and logging:** `FileManager` employs detailed logging to track the progress of saving and loading operations. 
-If any issues arise during file operations (e.g., missing files, failed directory creation), they are logged, and exceptions are thrown to handle errors gracefully.
+The `FileManager` component,
+- **Manages the saving and loading of data:** The `FileManager` class is responsible for reading data from and writing data to the file
+  specified by the user. It ensures that both the `ProgrammeList` and `History` data are stored in JSON format, and retrieves them when needed.
+- **Handles file creation and directory management:** Before saving data, `FileManager` checks whether the necessary directories and
+  files exist. If they do not, it creates them to ensure data can be stored correctly.
+- **Leverages JSON for data structure:** `FileManager` uses `Gson` to serialize and deserialize JSON data, making it easy to work with
+  structured data. It also ensures the data is formatted in a readable way using pretty printing for clarity.
+- **Performs error handling and logging:** `FileManager` employs detailed logging to track the progress of saving and loading operations.
+  If any issues arise during file operations (e.g., missing files, failed directory creation), they are logged, and exceptions are thrown to handle errors gracefully.
 
----
 
 ## Implementation
-This section describes some noteworthy details on how certain features are implemented.
 
 ### Save/Load Feature
 
@@ -84,22 +79,22 @@ These operations are exposed in the `Model` interface, allowing seamless saving 
 ### Flow of Operations
 Given below is an example usage scenario and how the save/load mechanism behaves at each step.
 
-**Step 1.** The user launches the application for the first time. A `Storage` object is initialized by `BuffyBuddy`, and it attempts to load data from 
+**Step 1.** The user launches the application for the first time. A `Storage` object is initialized by `BuffyBuddy`, and it attempts to load data from
 the file using `FileManager`. If no data file exists, `Storage` initializes an empty `ProgrammeList` and `History`.
 
-**Step 2.** The user interacts with the application by adding programmes or logging workout activities and meals, modifying both the 
+**Step 2.** The user interacts with the application by adding programmes or logging workout activities and meals, modifying both the
 `ProgrammeList` and `History`. These changes are stored temporarily in memory, but no data is saved to the file at this point.
 
-**Step 3.** When the user chooses to exit the application, `Model#saveData()` is triggered, which in turn calls `Storage#saveData()`. 
-At this point, `Storage` converts the current `ProgrammeList` and `History` into JSON format using the `createJSON()` method and passes 
+**Step 3.** When the user chooses to exit the application, `Model#saveData()` is triggered, which in turn calls `Storage#saveData()`.
+At this point, `Storage` converts the current `ProgrammeList` and `History` into JSON format using the `createJSON()` method and passes
 the `JsonObject` to `FileManager#save()`.
 
-**Step 4.** The `FileManager` saves the updated `JsonObject` to the data file, ensuring that the user's changes are preserved for the 
+**Step 4.** The `FileManager` saves the updated `JsonObject` to the data file, ensuring that the user's changes are preserved for the
 next session. If necessary, `FileManager#createDirIfNotExist()` and `FileManager#createFileIfNotExist()` ensure that the correct directories
 and files are in place before saving.
 
-**Step 5.** The next time the user launches the application, `Storage#loadProgrammeList()` and `Storage#loadHistory()` are called, which 
-load the data from the file via `FileManager#load()`. The loaded data is then converted from JSON back into `ProgrammeList` and `History` 
+**Step 5.** The next time the user launches the application, `Storage#loadProgrammeList()` and `Storage#loadHistory()` are called, which
+load the data from the file via `FileManager#load()`. The loaded data is then converted from JSON back into `ProgrammeList` and `History`
 objects, restoring the user's previous session.
 
 The following sequence diagram shows how a load operation for ProgrammeList goes through the Storage component:
@@ -108,26 +103,150 @@ The following sequence diagram shows how a load operation for ProgrammeList goes
 The following sequence diagram shows how a save operation goes through the Storage component:
 ![Sequence Diagram for Save operation](./images/Save_Seq-Dia.jpg)
 
---- 
 
-# Documentation, logging, testing, configuration, dev-ops
-- Documentation guide (add link for these)
-- Testing guide
-- Logging guide
+### Edit Programme 
 
---- 
+#### Feature Implementation
+Edit Programme encompasses all functionality related to editing programme details. It is facilitated by the various
+insert, delete and update functionality that is present in Programme, Exercise and Day respectively.
 
-# Appendix: Requirements
+For reference, the following models how ProgrammeList and its various contained classes are structured.
+
+![](images/programmeModel.png)
+
+Due to the nested nature of this data, all edit commands will traverse from ProgrammeList > Programme > Day > Exercise until
+it reaches the necessary depth to accomplish the relevant operation.
+
+These operations include:
+- Adding or removing Days to the Programme
+- Adding or removing Exercises to Days in the Programme
+- Updating the details of Exercises in Days in the Programme
+
+Given below is an example usage scenario for 'delete exercise' and how the edit programme functions at each step.
+
+Step 1. The user creates a programme with a given number of Days with their respective Exercises. ProgrammeList will contain a reference to this programme after its creation.
+
+![](images/editCommandStepOne.png)
+
+Step 2. The user executes `programme edit /p 1 /d 1 /x 1` to delete the first exercise in the first day of the first programme. The programme first retrieves the given day with `ProgrammeList#getDay()`.
+
+![](images/editCommandStepTwo.png)
+
+Step 3. With the Day object, it performs the `Day#deleteExercise()` with the given exercise ID
+
+![](images/editCommandStepThree.png)
+
+Step 4. The deleted Exercise object is then returned to the `DeleteExerciseCommand` to display as part of the CommandResult.
+
+![](images/editCommandStepFour.png)
+
+The overall design that enables this functionality is described generically by the following sequence diagram.
+
+![Edit Command generic sequence](images/editCommand.png)
+
+The 'Model' class in the above diagram is a generalization of the various data models that are being interacted with
+to perform each specific edit command. For each edit command, the following sequence diagrams 
+further break down how this interaction works.
+
+##### Add/Remove day
+![Add/Remove Day](images/addDayCommand.png)
+
+##### Add/Remove exercise
+![Add/Remove Exercise](images/addExerciseCommand.png)
+
+##### Update exercise
+![Edit Exercise](images/editExerciseCommand.png)
+
+To summarize, the following activity diagram describes how the overall operation occurs.
+
+![](images/editCommandActivityDiagram.png)
+
+#### Design Considerations
+
+##### Chosen Approach: Hierarchical Command Pattern
+The current implementation uses a hierarchical command pattern with factories where:
+1. Commands traverse through ProgrammeList > Programme > Day > Exercise
+2. Each level handles its own specific edit operations
+3. Changes are propagated upwards through the hierarchy
+
+**Key Benefits**
+- **Encapsulation**: Each layer manages its own data and operations
+- **Single Responsibility**: Each class handles only its specific level of edits
+- **Extensibility**: Easy to add new edit operations at any level
+- **Maintainability**: Changes to one level don't affect others
+
+##### Alternative Approaches
+
+**1. Direct Access Pattern**
+
+Instead of traversing the hierarchy, directly access and modify the target object.
+
+```java
+class ProgrammeList {
+    public Exercise getExercise(int progId, int dayId, int exerciseId) {
+        return programmes.get(progId)
+                        .getDays().get(dayId)
+                        .getExercises().get(exerciseId);
+    }
+    
+    public void editExercise(int progId, int dayId, int exerciseId, ExerciseDetails details) {
+        Exercise exercise = getExercise(progId, dayId, exerciseId);
+        exercise.update(details);
+    }
+}
+```
+Pros: 
+- Simpler to implement
+- Command calls will be "flattened" to only ProgrammeList class
+- Fewer custom methods needed for edit operations
+
+Cons:
+- Violates encapsulation by exposing internal structure
+- Complicates validation and error handling
+- Reduces flexibility for future changes
+
+**2. Visitor Pattern Approach**
+
+Using a visitor pattern to traverse the hierarchy and perform edits.
+
+```java
+interface ProgrammeVisitor {
+    void visitProgramme(Programme prog);
+    void visitDay(Day day);
+    void visitExercise(Exercise exercise);
+}
+
+class EditVisitor implements ProgrammeVisitor {
+    private final EditDetails details;
+    
+    @Override
+    public void visitExercise(Exercise exercise) {
+        // Perform edit operation
+    }
+    // Other visit methods...
+}
+```
+Pros:
+- Reduces coupling between ProgrammeList components
+- Easy to extend and maintain edit functionality
+- Respects Separation of Concern by abstracting editing functionality to a separate file
+
+Cons:
+- Considered overkill for the fixed scope of the feature (unlikely to add any more types of edit operations)
+- Complicates testing by requiring Mocks or Reflection
+- Difficult to track operation flow 
 
 ## Product scope
 BuffBuddy is a fitness tracking app that help you track workout, meals, water to aid you in achieving your body goals.
 ### Target user profile
 
-{Describe the target user profile}
+Gym goers who need a quick way to create, manage and track their progress
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+* Users will be able to quickly create, update and view their workout programmes
+* Users will be able to track their progress as they progress on their fitness journey
+* Users will be able to track water and calorie intake to better track their nutrition
 
 ## User Stories
 
@@ -154,15 +273,17 @@ BuffBuddy is a fitness tracking app that help you track workout, meals, water to
 | v2.0    | user                   | set weekly/monthly exercise goals                       | to be accountable and motivate myself to stay on track |
 
 
-## Use cases
-
 ## Non-Functional Requirements
-{Give non-functional requirements}
+
+* Java 11 or above installed
+* Program built to support only single user
 
 ## Glossary
 
-* *glossary item* - Definition
-
+* *exercise* - Any exercise that can defined by a name, rep, set, weight and calories burned.
+* *day* - A day is a collection of exercises meant to be done in one day
+* *programme* - A programme is a weekly plan of workout days meant to be performed in rotation
+ 
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
