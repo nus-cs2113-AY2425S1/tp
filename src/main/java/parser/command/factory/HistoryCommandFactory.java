@@ -57,3 +57,4 @@ public class HistoryCommandFactory {
         return new DeleteRecordCommand(toDelete);
     }
 }
+
