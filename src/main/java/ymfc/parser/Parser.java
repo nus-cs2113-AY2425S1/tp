@@ -248,7 +248,6 @@ public final class Parser {
         Integer timeTaken = getTimeTakenInteger(m);
 
         return new EditCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
-
     }
 
     private static Command getFindCommand(String args) throws InvalidArgumentException {

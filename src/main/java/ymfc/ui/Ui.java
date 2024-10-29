@@ -272,6 +272,7 @@ public class Ui {
     /**
      * Display an edited recipe.
      *
+     * @param recipeName Name of recipe that has been edited.
      * @param editedRecipe Recipe that has been edited.
      */
     public void printEditedRecipe(String recipeName, Recipe editedRecipe) {
