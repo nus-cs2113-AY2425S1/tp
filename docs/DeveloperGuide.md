@@ -180,6 +180,26 @@ The `RecurringExpense` class represents an indivual recurring expense with a pri
 The `RecurringExpenseList` class manages a collection of `RecurringExpense` objects.
 It allows for addition, editing and deletion of expenses.
 
+<u>Methods</u>
+
+The `RecurringExpense` class has no notable methods.
+
+The `RecurringExpenseList` class has the following key methods:
+
+|          Method          |                Description                 |
+|:------------------------:|:------------------------------------------:|
+|  `addRecurringExpense`   |    Adds a recurring expense to the list    |
+| `deleteRecurringExpense` | Removes a recurring expense from the list  |
+|  `editRecurringExpense`  |   Edits a recurring expense in the list    |
+| `loadFromCsv` | Adds the appropriate amount of expenses with the correct date to the `ExpenseList`|
+
+
+<u>Design Considerations</u>
+
+
+
+<u>Implementation Details</u>
+
 ### Exceptions and Logging
 
 <u>Overview</u>
