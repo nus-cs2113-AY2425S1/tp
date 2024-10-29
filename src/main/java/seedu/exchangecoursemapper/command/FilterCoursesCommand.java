@@ -63,7 +63,10 @@ public class FilterCoursesCommand extends CheckInformationCommand {
             displayMappableCourses(jsonObject, courseToFind.toLowerCase());
         } catch (IOException e) {
             logger.log(Level.WARNING, FAILURE_READ_JSON_FILE);
-            System.err.println(Exception.fileReadError());
+            System.out.println(Exception.fileReadError());
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.WARNING, e.getMessage());
+            System.out.println(e.getMessage());
         }
         logger.log(Level.INFO, COMPLETE_EXECUTION);
     }
@@ -74,7 +77,7 @@ public class FilterCoursesCommand extends CheckInformationCommand {
      * @param userInput A String containing the user's input.
      * @return a String containing the extracted information: NUS course code.
      */
-    public String getNusCourseCode(String userInput) {
+    public String getNusCourseCode(String userInput) throws IllegalArgumentException {
         String input = userInput.trim().replaceAll(REPEATED_SPACES, SPACE);
         String[] inputDetails = input.split(SPACE);
         if (inputDetails.length == COMMAND_WORD_INDEX + ZERO_INDEX_OFFSET) {
