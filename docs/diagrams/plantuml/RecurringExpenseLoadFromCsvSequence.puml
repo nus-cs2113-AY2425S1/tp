@@ -93,5 +93,5 @@ loop for each RecurringExpense
 end
 
 REL --> LC
-deactivate EL
+deactivate REL
 @enduml
