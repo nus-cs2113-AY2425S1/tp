@@ -16,8 +16,7 @@ public class Quiz {
     private int currentQuestionIndex;
     private int correctAnswers;
     private Scanner scanner;
-    private Timer timer;
-    private AtomicBoolean timeUp;
+    private QuizTimer quizTimer;
 
     public Quiz(Topic topic, Scanner scanner) {
         assert topic != null : "Topic must not be null";
@@ -26,18 +25,19 @@ public class Quiz {
         this.scanner = scanner;
         this.currentQuestionIndex = 0;
         this.correctAnswers = 0;
+        this.quizTimer = new QuizTimer(scanner);
     }
 
     public void start(int timeLimitInSeconds, int questionLimit) {
         List<Question> questions = topic.getQuestions();
-        startTimer(timeLimitInSeconds);
+        quizTimer.startTimer(timeLimitInSeconds);
 
         if (questions.isEmpty()) {
             throw new IllegalStateException("Cannot start a quiz with no questions.");
         }
 
         while (currentQuestionIndex < questions.size() && currentQuestionIndex < questionLimit) {
-            if (timeUp.get()) {
+            if (quizTimer.isTimeUp()) {
                 break;
             }
             Question currentQuestion = questions.get(currentQuestionIndex);
@@ -53,48 +53,38 @@ public class Quiz {
                 System.out.println("Please fill in the blank with the correct answer.");
             }
 
-            boolean validInput = false;
-            while (!validInput) {
-                System.out.print("Enter your answer: ");
-                String answer = scanner.nextLine().trim();
-
-                if (timeUp.get()) {  // Check if the time is up
-                    break;
-                }
-
-                // Check if the user wants to exit the quiz
-                if (answer.equalsIgnoreCase("exit")) {
-                    System.out.println("Exiting the quiz. Returning to main menu...");
-                    return;  // Exit the quiz early without quitting the entire application
-                }
-
-                try {
-                    answerQuestion(answer);
-                    validInput = true;
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
+            handleQuestionInput(currentQuestion);
 
             currentQuestionIndex++;
         }
 
-        timer.cancel();
+        quizTimer.cancelTimer();
         System.out.println("Quiz finished. Your score is: " + getScore() + "%");
     }
 
-    public void startTimer(int seconds) {
-        timer = new Timer();
-        timeUp = new AtomicBoolean(false);
+    private void handleQuestionInput(Question currentQuestion) {
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.print("Enter your answer: ");
+            String answer = scanner.nextLine().trim();
 
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeUp.set(true);
-                System.out.println("\nTime's up! The quiz is ending now.");
-                timer.cancel();  // Stop the timer
+            if (quizTimer.isTimeUp()) {  // Check if the time is up
+                break;
             }
-        }, seconds * 1000);  // Convert seconds to milliseconds
+
+            // Check if the user wants to exit the quiz
+            if (answer.equalsIgnoreCase("exit")) {
+                System.out.println("Exiting the quiz. Returning to main menu...");
+                return;  // Exit the quiz early without quitting the entire application
+            }
+
+            try {
+                answerQuestion(answer);
+                validInput = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public void answerQuestion(String answer) {
@@ -109,8 +99,6 @@ public class Quiz {
             System.out.println("Incorrect!");
         }
     }
-
-
 
     public int getScore() {
         int totalQuestions = topic.getQuestions().size();
