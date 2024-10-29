@@ -44,8 +44,8 @@ public class ListUniCoursesCommandTest {
     }
 
     @Test
-    public void getPuName_withInvalidInput_throwsException() {
-        String userInput = "set";
+    public void getPuName_withNullUni_throwsException() {
+        String userInput = "";
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> listUniCoursesCommand.getPuName(userInput));
 
@@ -185,6 +185,20 @@ public class ListUniCoursesCommandTest {
 
         String actualOutput = outputStreamCaptor.toString();
         assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
+    }
+
+    @Test
+    public void execute_emptyUni_displayError() {
+        String userInput = "set";
+        listUniCoursesCommand.execute(userInput);
+
+         String expectedOutput = """
+                 Please provide a University name.
+                 -----------------------------------------------------
+                 """;
+         String actualOutput = outputStreamCaptor.toString();
+         assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
+
     }
 
     String normalizeLineEndings(String input) {
