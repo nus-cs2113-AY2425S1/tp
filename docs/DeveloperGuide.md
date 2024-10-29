@@ -105,11 +105,8 @@ objects, restoring the user's previous session.
 The following sequence diagram shows how a load operation for ProgrammeList goes through the Storage component:
 ![Sequence Diagram for Load operation](./images/LoadProgrammeList_Seq_Dia.jpg)
 
-The following sequence diagram shows how a load operation for ProgrammeList goes through the Storage component:
-![Sequence Diagram for Load operation](./images/LoadHistory_Seq_Dia.jpg)
-
 The following sequence diagram shows how a save operation goes through the Storage component:
-![Sequence Diagram for Save operation](./images/Save_Sequence_Diagram.jpg)
+![Sequence Diagram for Save operation](./images/Save_Seq-Dia.jpg)
 
 --- 
 
