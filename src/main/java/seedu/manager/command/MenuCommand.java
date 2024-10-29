@@ -19,6 +19,7 @@ public class MenuCommand extends Command {
             mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
             sort -by KEYWORD: Sorts events by name/time/priority.
             copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.""";
+            find -e EVENT -p NAME: Finds all participants with specified name in an event.""";
 
     /**
      * Constructs a new MenuCommand

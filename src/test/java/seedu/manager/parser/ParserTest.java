@@ -155,11 +155,30 @@ class ParserTest {
     }
 
     @Test
-    public void parseCommand_copyCommand_throwsException() {
+    public void parseCommand_copyCommandInvalidFlags_throwsException() {
         Parser parser = new Parser();
         String commandString = "copy tutorial < lecture";
+  
+        assertThrows(InvalidCommandException.class,() -> {
+            parser.parseCommand(commandString);});
+    }
+    
+    @Test
+    public void parseCommand_findCommandInvalidFlags_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "find -s event 1 -p doe";
 
         assertThrows(InvalidCommandException.class,() -> {
             parser.parseCommand(commandString);});
     }
+
+    @Test
+    public void parseCommand_findCommandInvalidInput_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "find -e -p doe";
+
+        assertThrows(InvalidCommandException.class,() -> {
+            parser.parseCommand(commandString);});
+    }
+
 }

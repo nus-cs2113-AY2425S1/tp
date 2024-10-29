@@ -1,5 +1,6 @@
 package seedu.manager.event;
 
+import seedu.manager.exception.DuplicateDataException;
 import seedu.manager.item.Participant;
 
 import java.time.LocalDateTime;
@@ -49,8 +50,13 @@ public class Event {
      * Adds a participant to the participant list for the event.
      *
      * @param participantName the name of the participant to be added to the list.
+     * @throws DuplicateDataException if a participant with the same name exists in the list.
      */
-    public void addParticipant(String participantName) {
+    public void addParticipant(String participantName) throws DuplicateDataException {
+        if (getParticipantByName(participantName).isPresent()) {
+            throw new DuplicateDataException("Duplicate participant!");
+        }
+
         Participant participant = new Participant(participantName);
         this.participantList.add(participant);
     }
@@ -81,25 +87,6 @@ public class Event {
      */
     public int getParticipantCount() {
         return this.participantList.size();
-    }
-
-    //@@author jemehgoh
-    /**
-     * Returns the participant in the participant list with the given name.
-     * If the participant is not in the participant list, returns null.
-     *
-     * @param participantName the name of the participant.
-     * @return the participant in the participant list with participantName, or null if
-     *     no such participant exists.
-     */
-    private Optional<Participant> getParticipantByName(String participantName) {
-        for (Participant participant : this.participantList) {
-            if (participant.getName().equalsIgnoreCase(participantName)) {
-                return Optional.of(participant);
-            }
-        }
-
-        return Optional.empty();
     }
 
     //@@author MatchaRRR
@@ -184,22 +171,38 @@ public class Event {
 
     /**
      * Returns true if the participant with the given name can be marked present or absent.
-     * Returns false otherwise.
+     *         Returns false otherwise.
      *
-     * @param participantName the name of the participant.
-     * @param isPresent true if the participant is to be marked present, false if he is to be marked absent.
+     * @param participantName the participant name.
+     * @param isPresent true if participant is to be marked present, false if he is to be marked absent.
      * @return {@code true} if the participant with participantName has been marked present or absent,
-     *     {@code false} otherwise.
+     *         {@code false} otherwise.
      */
-    public boolean markParticipant(String participantName, boolean isPresent) {
+    public boolean markParticipantByName(String participantName, boolean isPresent) {
         Optional<Participant> participant = getParticipantByName(participantName);
+        return markParticipant(participant, isPresent);
+    }
 
-        if (participant.isEmpty()) {
-            return false;
+    //@author LTK-1606
+    /**
+     * Finds participants in the event whose names contain the specified person name.
+     * <p>
+     * This method iterates through the list of participants and checks if their names
+     * contain the given {@code personName}, ignoring case and leading/trailing spaces.
+     * If a match is found, the participant is added to the result list.
+     * </p>
+     *
+     * @param personName the name or part of the name of the participant to search for
+     * @return a list of {@code Participant} objects whose names contain the specified {@code personName}
+     */
+    public ArrayList<Participant> findParticipants(String personName) {
+        ArrayList<Participant> participants = new ArrayList<>();
+        for (Participant participant : this.participantList) {
+            if (participant.getName().toLowerCase().contains(personName.trim().toLowerCase())) {
+                participants.add(participant);
+            }
         }
-
-        participant.get().setPresent(isPresent);
-        return true;
+        return participants;
     }
 
     //@@author glenn-chew
@@ -224,5 +227,41 @@ public class Event {
         String eventTimeString = getEventTimeString();
         return String.format("Event name: %s / Event time: %s / Event venue: %s / Done: %c",
                 eventName, eventTimeString, eventVenue, markIfDone());
+    }
+
+    /**
+     * Returns the participant in the participant list with the given name.
+     * If the participant is not in the participant list, returns null.
+     *
+     * @param participantName the name of the participant.
+     * @return the participant in the participant list with participantName, or null if
+     *     no such participant exists.
+     */
+    private Optional<Participant> getParticipantByName(String participantName) {
+        for (Participant participant : participantList) {
+            if (participant.getName().equalsIgnoreCase(participantName)) {
+                return Optional.of(participant);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    //@@author jemehgoh
+    /**
+     * Returns true if the given participant can be marked present or absent. Returns false otherwise.
+     *
+     * @param participant the participant.
+     * @param isPresent true if participant is to be marked present, false if he is to be marked absent.
+     * @return {@code true} if the participant with participantName has been marked present or absent,
+     *     {@code false} otherwise.
+     */
+    private boolean markParticipant(Optional<Participant> participant, boolean isPresent) {
+        if (participant.isEmpty()) {
+            return false;
+        }
+
+        participant.get().setPresent(isPresent);
+        return true;
     }
 }
