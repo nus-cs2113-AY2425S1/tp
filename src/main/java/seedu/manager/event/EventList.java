@@ -61,7 +61,8 @@ public class EventList  {
      * @param venue     the venue where the event will take place.
      * @param priority the priority level of the event
      */
-    public void addEvent(String eventName, LocalDateTime time, String venue, Priority priority) throws DuplicateDataException {
+    public void addEvent(String eventName, LocalDateTime time,
+                         String venue, Priority priority) throws DuplicateDataException {
         if (getEventByName(eventName).isPresent()) {
             throw new DuplicateDataException(DUPLICATE_EVENT_MESSAGE);
         }
