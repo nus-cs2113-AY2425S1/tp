@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DateSerializerTest {
     private DateSerializer dateSerializer;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @BeforeEach
     public void setUp() {

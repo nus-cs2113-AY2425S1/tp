@@ -63,7 +63,7 @@ public class DailyRecord {
         return water.deleteWater(index);
     }
 
-    private int getCaloriesFromMeal() {
+    private int getCaloriesFromMeals() {
         int caloriesMeal = 0;
         for (Meal meal : mealList.getMeals()) {
             assert meal != null : "meal must not be null";
@@ -86,7 +86,7 @@ public class DailyRecord {
     public String toString() {
         StringBuilder result = new StringBuilder();
         int caloriesBurnt = day.getTotalCaloriesBurnt();
-        int caloriesGained = getCaloriesFromMeal();
+        int caloriesGained = getCaloriesFromMeals();
 
         result.append("Day: \n");
         if (day != null && day.getExercisesCount() > 0) {

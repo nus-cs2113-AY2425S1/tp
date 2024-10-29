@@ -4,8 +4,6 @@ import command.Command;
 import command.CommandResult;
 import programme.ProgrammeList;
 import history.History;
-import java.util.Map;
-import programme.Exercise;
 
 public class ViewPersonalBestCommand extends Command {
     public static final String COMMAND_WORD = "pb_exercise";
