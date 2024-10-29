@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
+import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
 
@@ -106,5 +107,34 @@ class InternshipTest {
         internship.setSkills("Java, Python");
 
         assertThrows(MissingValue.class, () -> internship.removeSkill("C++"));
+    }
+
+    //@@author Ridiculouswifi
+    @Test
+    void updateDeadline_validDeadline_expectUpdated() throws InvalidDeadline {
+        internship.updateDeadline("Interview Deadline 11/11/25");
+
+        assertEquals("Interview Deadline", internship.getDeadlines().get(0).getDescription());
+    }
+
+    //@@author Ridiculouswifi
+    @Test
+    void updateDeadline_descriptionEmpty_expectException() {
+        assertThrows(InvalidDeadline.class, () -> internship.updateDeadline("    11/11/25"));
+    }
+
+    //@@author Ridiculouswifi
+    @Test
+    void updateDeadline_noValidDates_expectException() {
+        assertThrows(InvalidDeadline.class, () -> internship.updateDeadline("Interview Deadline 11/11"));
+    }
+
+    //@@author Ridiculouswifi
+    @Test
+    void updateDeadline_sameDescription_expectUpdated() throws InvalidDeadline {
+        internship.updateDeadline("Interview Deadline 11/11/25");
+        internship.updateDeadline("Interview Deadline 12/12/24");
+
+        assertEquals("12/12/24", internship.getDeadlines().get(0).getDate());
     }
 }
