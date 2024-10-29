@@ -65,7 +65,7 @@ SpendSwift is designed for budget-conscious individuals who prefer a simple, eff
 SpendSwift provides a fast, text-based solution for managing finances, eliminating the complexity of traditional budgeting tools.
 
 ## User Stories
-
+<!-- @@author glenda-1506 -->
 | Version | As a... | I want to... | So that I can... |
 |---------|---------|--------------|------------------|
 | v1.0    | Budget-conscious user | Quickly log an expense using a typed command (e.g., add 50 groceries) | track my spending with easy input |
@@ -77,7 +77,7 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 | v1.0    | Frequent user | Categorize expenses (e.g., add category food) | customize my expense tracking to better manage my budget |
 
 ## Non-Functional Requirements
-
+<!-- @@author mayfairmi6 -->
 | ID  | Requirement      | Description                                          | Rationale                                             |
 |-----|------------------|------------------------------------------------------|-------------------------------------------------------|
 | 1   | Responsiveness   | The system should respond to user commands within 2 seconds. | Ensures efficient interaction and enhances user satisfaction. |
