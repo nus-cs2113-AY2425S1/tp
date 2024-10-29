@@ -21,7 +21,7 @@ public class LoadCommand extends Command {
             categoryTracker = CategoryStorage.trackCategoriesOf(expenseList.getExpenseList());
             CategoryStorage.loadFromCsv("./category_spending_limit.csv", categoryTracker);
         } catch (StorageException e) {
-            throw new WheresMyMoneyException("");
+            throw new WheresMyMoneyException("Exception occurred when reading from file.");
         }
     }
 }

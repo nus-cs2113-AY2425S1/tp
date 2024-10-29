@@ -20,7 +20,7 @@ public class SaveCommand extends Command {
             expenseList.saveToCsv("./data.csv");
             CategoryStorage.saveToCsv("./category_spending_limit.csv", categoryTracker);
         } catch (StorageException e) {
-            throw new WheresMyMoneyException("");
+            throw new WheresMyMoneyException("Exception occurred when saving to file.");
         }
     }
 }
