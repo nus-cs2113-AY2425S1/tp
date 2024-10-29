@@ -44,6 +44,7 @@ public class EditCommand extends Command {
      * and a confirmation message is displayed.
      *
      * @param recipes The {@code RecipeList} to edit the recipe from. Must not be {@code null}.
+     * @param ingredients The {@code IngredientList}. Unused in this command.
      * @param ui The {@code Ui} to inform the user of the edited recipe or error.
      * @param storage The {@code Storage} to save the updated recipe list.
      * @throws InvalidArgumentException If the recipe with the specified name is not found in the list.
