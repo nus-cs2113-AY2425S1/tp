@@ -37,6 +37,15 @@ Example of usage:
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
+| Command  | Format                                                       | Example        |
+|----------|--------------------------------------------------------------|----------------|
+| **help** | `help`                                                       | `help`         |
+| **set**  | `set GENDER AGE`                                             | `set male 12`  |
+| **add**  | `add SESSION_NAME`                                           | `add session1` |
+| **list** | `list`                                                       | `list`         |
+| **view** | `view SESSION_INDEX`                                         | `view 1`       |
+| **edit** | `edit SESSION_INDEX EXERCISE_INDEX REPETITION/TIME DURATION` | `edit 1 2 45`  |
+| **exit** | `exit`                                                       | `exit`         |
 
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+By following the guide, you can efficiently manage your tasks using the FitTrack application.
+
