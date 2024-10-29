@@ -71,16 +71,11 @@ Enter a command: Event added successfully
 Events saved successfully.
 ------------------------
 Enter a command: Events successfully sorted by name!
-1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Done: N
-2. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Done: Y
+1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+2. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
 
 ------------------------
 Events saved successfully.
-------------------------
-Enter a command: Events successfully sorted by time!
-1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Done: Y
-2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Done: N
-
 ------------------------
 Enter a command: Events successfully sorted by time!
 1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
