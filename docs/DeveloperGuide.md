@@ -127,8 +127,8 @@ The `Topic` class encapsulates a programming topic along with its related questi
     - *Drawback*: This would tightly couple topic management with quiz functionality, making the code harder to maintain and less reusable.
 
 #### UML Class Diagram
-
-
+Below is the class diagram for the `Topic` class, illustrating its attributes and methods.
+![Topic Class Diagram](https://github.com/naveen42x/tp/blob/dg/docs/UML/TopicClasDiagram.png?raw=true)
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
