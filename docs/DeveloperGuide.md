@@ -8,25 +8,61 @@
 
 <img src = "images/ArchitectureDiagram.png">
 
-The *Architecture Diagram* given above provides the high-level design of the application.
+The above **Architecture Diagram** provides the high-level design of the application.
 
 ### Main components
 
 The application comprises the following components:
+
 * `Main`, which handles program startup and shutdown, and also interactions between other components.
 * `UI`, which handles user input and showing messages to the user.
 * `Storage`, which handles the loading and saving of data upon program startup and shutdown.
 * `Parser`, which converts user input into commands.
 * `Command`, which are executed to modify the data stored in the program.
-* `EventList`, which stores the program's data.
+* `Event`, which stores the program's data.
 
 ### Interactions between components
 
 <img src = "images/ArchitectureSequenceDiagram.png">
 
-The above *Sequence Diagram* shows how the different components of the system interact with one
+The above **Sequence Diagram** shows how the different components of the system interact with one
 another in the scenario when the command `add -e event -t 1200 -v venue` is executed.
 
+### UI component
+
+<img src = "images/UiClassDiagram.png">
+
+The `UI` component comprises an Ui class, as shown in the above **Class Diagram**.
+
+The `UI` does the following:
+
+* Take in command input from the user and pass the input to `Main`.
+* Show output messages from `Command` to the user after command execution.
+
+### Command component
+
+The `Command` component and its component classes are shown in the below **Class Diagram**:
+
+<img src = "images/CommandClassDiagram.png">
+
+The `Command` component does the following:
+
+* Handle the execution of the user command through interactions with `Event`.
+* Provides a command output message to `Ui` after the command execution.
+
+The interactions between `Command` and other commands in the system is shown in the following _Sequence Diagram_:
+
+<img src = "images/CommandSequenceDiagram.png">
+
+### Event component
+
+The `Event` component and its component classes are shown in the below **Class Diagram**:
+
+<img src = "images/EventClassDiagram.png">
+
+The `Event` component does the following:
+* Handle the addition, removal and marking of events stored in `EventList`.
+* Add, remove and mark participants for a specific `Event` in `EventList`.
 
 ## Implementation
 
@@ -96,6 +132,7 @@ Any other values entered for the status parameter will be treated as invalid.
 ### Target user profile
 
 The target user:
+
 * has a need to organise a large number of events
 * organises small-scale events, such that he is able to handle all matters on his own
 * prefers typing to mouse interactions
@@ -107,15 +144,21 @@ The user is able to organise and manage his events more quickly and efficiently 
 
 ## User Stories
 
-| Version | As a ... | I want to ...            | So that I can ...                                      |
-|---------|----------|--------------------------|--------------------------------------------------------|
-| v1.0    | new user | see usage instructions   | refer to them when I forget how to use the application |
-| v2.0    | user     | mark events as completed | easily track all past events                           |
-| v2.0    | user     | mark participants present| know exactly who signed up but did not attend the event|
+| Version | As a ... | I want to ...                                                   | So that I can ...                                                                         |
+|---------|----------|-----------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| v1.0    | new user | see the list of commands                                        | know how to format my input                                                               |
+| v1.0    | user     | add new events                                                  | manage future events                                                                      |
+| v1.0    | user     | remove events from the events list                              | maintain the event list with events that are relevant and current                         |
+| v1.0    | user     | list all current events                                         | know which events are currently ongoing                                                   |
+| v1.0    | user     | add participants to a specific event                            | ensure all relevant individuals are included in that event's participant list efficiently |
+| v1.0    | user     | remove participants who are no longer coming to specific events | efficiently keep the participant list for that event up-to-date and relevant              |
+| v1.0    | user     | view the participant list of an event                           | know who is involved                                                                      |
+| v2.0    | user     | mark events as completed                                        | easily track all past events                                                              |
+| v2.0    | user     | mark participants present                                       | know exactly who signed up but did not attend the event                                   |
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+* Should work for any **mainstream OS** as long as Java 17 is installed.
 
 ## Glossary
 
