@@ -1,23 +1,31 @@
 package seedu.manager.parser;
 
-import seedu.manager.command.Command;
 import seedu.manager.command.AddCommand;
+import seedu.manager.command.Command;
+import seedu.manager.command.CopyCommand;
+import seedu.manager.command.ExitCommand;
+import seedu.manager.command.FilterCommand;
+import seedu.manager.command.ListCommand;
 import seedu.manager.command.MarkCommand;
 import seedu.manager.command.MarkEventCommand;
 import seedu.manager.command.MarkParticipantCommand;
-import seedu.manager.command.RemoveCommand;
-import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MenuCommand;
-import seedu.manager.command.ListCommand;
-import seedu.manager.command.ViewCommand;
+import seedu.manager.command.RemoveCommand;
 import seedu.manager.command.SortCommand;
+import seedu.manager.command.ViewCommand;
+import seedu.manager.command.FindCommand;
+import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.InvalidCommandException;
+import seedu.manager.event.EventList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
 
 import static java.util.logging.Level.WARNING;
 
@@ -30,7 +38,7 @@ public class Parser {
     private static final String INVALID_ADD_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            add -e EVENT -t TIME -v VENUE
+            add -e EVENT -t TIME -v VENUE -u PRIORITY
             add -p PARTICIPANT -e EVENT
             """;
     private static final String INVALID_REMOVE_MESSAGE = """
@@ -72,6 +80,35 @@ public class Parser {
             Please use the following format for event time:
             YYYY-MM-DD HH:mm
             """;
+    private static final String INVALID_COPY_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            copy FROM_EVENT > TO_EVENT
+            """;
+    private static final String INVALID_PRIORITY_MESSAGE = """
+            Invalid priority level status!
+            Please use the following format for priority level:
+            high/medium/low
+            """;
+    private static final String INVALID_FILTER_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            filter -e/-t/-u FILTER_DESCRIPTION
+            """;
+    private static final String INVALID_FILTER_FLAG_MESSAGE = """
+            Invalid filter flag!
+            Please set the filter flag as either "-e/-t/-u"
+            """;
+    private static final String INVALID_FIND_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            find -e EVENT -p NAME
+            """;
+    private static final String INVALID_FIND_FLAG_MESSAGE = """
+            Invalid find flag!
+            Please set the find flag using "-e" and "-p""
+            """;
+    private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
 
     /**
      * Returns a command based on the given user command string.
@@ -98,29 +135,36 @@ public class Parser {
             return new ExitCommand();
         case MarkCommand.COMMAND_WORD:
             return parseMarkCommand(command, commandParts);
+        case CopyCommand.COMMAND_WORD:
+            return parseCopyCommand(command, commandParts);
+        case FindCommand.COMMAND_WORD:
+            return parseFindCommand(command, commandParts);
         case SortCommand.COMMAND_WORD:
             return parseSortCommand(command, commandParts);
+        case FilterCommand.COMMAND_WORD:
+            return parseFilterCommand(command, commandParts);
         default:
             throw new InvalidCommandException(INVALID_COMMAND_MESSAGE);
         }
     }
 
     /**
-     * Parses the input string to create an {@link Command} based on the provided command parts.
-     *
+     * Parses the input string to create an {@link Command} object based on the provided command parts.
      * <p>
-     * This method checks the command flag extracted from the command parts. If the command
-     * flag is {@code "-e"}, it splits the input string into parts to create an
-     * {@link AddCommand} for adding an event. If the command flag is {@code "-p"},
-     * it creates an {@link AddCommand} for adding a participant to an event. If neither
-     * flag is matched, it throws a {@link InvalidCommandException} with an error message.
+     * This method examines the command flag extracted from the command parts. If the command
+     * flag is {@code "-e"}, it splits the input string to create an {@link AddCommand} for adding an event
+     * with the specified details (event name, time, and venue). If the command flag is {@code "-p"},
+     * it creates an {@link AddCommand} for adding a participant to an event, including the participant's
+     * name, contact number, email, and the event name. If the command flag does not match either,
+     * an {@link InvalidCommandException} is thrown with an error message.
      * </p>
      *
-     * @param input        the input string containing the command details.
-     * @param commandParts an array of strings representing the parsed command parts,
-     *                     where the second element is the command flag.
-     * @return a {@link Command} object representing the parsed command.
-     * @throws InvalidCommandException if the flags are not matched in the command parts.
+     * @param input        the input string containing the command details
+     * @param commandParts an array of strings representing the parsed command parts, where the second element
+     *                     is the command flag, indicating the type of command
+     * @return a {@link Command} object representing the parsed command
+     * @throws InvalidCommandException if the command flag is invalid, or if there are missing or improperly
+     *                                 formatted input details
      */
     public Command parseAddCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
@@ -129,17 +173,24 @@ public class Parser {
             String[] inputParts;
 
             if (commandFlag.equals("-e")) {
-                inputParts = input.split("(-e|-t|-v)");
+                inputParts = input.split("(-e|-t|-v|-u)");
                 logger.info("Creating AddCommand for event with details: " +
                         inputParts[1].trim() + ", " + inputParts[2].trim() + ", " + inputParts[3].trim());
+                String eventName = inputParts[1].trim();
                 LocalDateTime eventTime = LocalDateTime.parse(inputParts[2].trim(),
                         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                return new AddCommand(inputParts[1].trim(), eventTime, inputParts[3].trim());
+                String venue = inputParts[3].trim();
+                Priority eventPriority = Priority.valueOf(inputParts[4].trim().toUpperCase());
+                return new AddCommand(eventName, eventTime, venue, eventPriority);
             } else if (commandFlag.equals("-p")) {
-                inputParts = input.split("(-p|-e)");
+                inputParts = input.split("(-p|-n|-email|-e)");
                 logger.info("Creating AddCommand for participant with details: " +
                         inputParts[1].trim() + ", " + inputParts[2].trim());
-                return new AddCommand(inputParts[1].trim(), inputParts[2].trim());
+                String participantName = inputParts[1].trim();
+                String participantNumber = inputParts[2].trim();
+                String participantEmail = inputParts[3].trim();
+                String eventName = inputParts[4].trim();
+                return new AddCommand(participantName, participantNumber, participantEmail, eventName);
             }
 
             logger.log(WARNING,"Invalid command format");
@@ -150,6 +201,9 @@ public class Parser {
         } catch (DateTimeParseException exception) {
             logger.log(WARNING,"Invalid date-time format");
             throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
+        } catch (IllegalArgumentException exception) {
+            logger.log(WARNING,"Invalid priority level status");
+            throw new InvalidCommandException(INVALID_PRIORITY_MESSAGE);
         }
     }
 
@@ -194,7 +248,7 @@ public class Parser {
 
     //@@author glenn-chew
     /**
-     * Parses the input string to create a {@link Command} based on the provided command parts.
+     * Parses the input string to create a {@link Command} based on the providedcomma nd parts.
      *
      * <p>
      * This method checks the command flag extracted from the command parts. If the command
@@ -331,7 +385,6 @@ public class Parser {
             }
 
             String keyword = inputParts[1].trim();
-            System.out.println(keyword);
             Set<String> validKeywords = Set.of("name", "time", "priority");
             if (validKeywords.contains(keyword.toLowerCase())) {
                 return new SortCommand(keyword);
@@ -341,6 +394,150 @@ public class Parser {
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING, "Invalid command format");
             throw new InvalidCommandException(INVALID_SORT_MESSAGE);
+        }
+    }
+
+    //@@author KuanHsienn
+    /**
+     * Parses a CSV file containing event details and loads the events into the specified EventList.
+     *
+     * This method reads each line from the specified file, expecting the format to be:
+     * <pre>
+     * eventName, eventTime, eventVenue, eventPriority
+     * </pre>
+     * where:
+     * - eventName is a String representing the name of the event.
+     * - eventTime is a String formatted as "yyyy-MM-dd HH:mm" that will be parsed into a LocalDateTime object.
+     * - eventVenue is a String representing the venue of the event.
+     * - eventPriority is a String representing the priority level of the event.
+     *
+     * If a line does not contain exactly three parts, it is skipped.
+     *
+     * @param events The EventList where the parsed events will be added.
+     * @param filePath The path to the file containing the event details.
+     * @throws IOException If there is an error reading from the file or if the file cannot be found.
+     */
+    public void parseFile(EventList events, String filePath) throws IOException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            for (String line : Files.readAllLines(Paths.get(filePath))) {
+                String[] parts = line.split(","); // CSV format
+                if (parts.length == 4) {
+                    String eventName = parts[0].trim();
+                    LocalDateTime time = LocalDateTime.parse(parts[1].trim(), formatter);
+                    String venue = parts[2].trim();
+                    Priority priority = Priority.valueOf(parts[3].trim().toUpperCase());
+                    events.addEvent(eventName, time, venue, priority);
+                }
+            }
+        } catch (IOException exception) {
+            throw new IOException("Error loading events from file: " + filePath + ".");
+        }
+    }
+  
+    /**
+     * Parses the input string and command parts to create a {@code FilterCommand} object.
+     * <p>
+     * This method verifies that the first part of {@code commandParts} matches the expected filter command
+     * and then checks if a valid flag is provided. The filter flag should be one of <code>"-e"</code>,
+     * <code>"-t"</code>, or <code>"-u"</code>, representing different filter types.
+     * If the flag is valid and additional input is provided, a new {@code FilterCommand} is created.
+     * <p>
+     * If the input format is incorrect, or an invalid flag is provided,
+     * this method throws an {@code InvalidCommandException}.
+     *
+     * @param input        the full user input string
+     * @param commandParts the split parts of the command, with the first element expected to be the filter command word
+     * @return a {@code FilterCommand} object initialized with the specified flag and filter criteria
+     * @throws InvalidCommandException if the command format is invalid or an invalid flag is provided
+     */
+    private Command parseFilterCommand(String input, String[] commandParts) throws InvalidCommandException {
+        assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
+
+        try {
+            String[] inputParts = input.split("(-e|-t|-u)");
+            if (inputParts.length < 2) {
+                throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
+            }
+
+            Set<String> validFlags = Set.of("-e", "-t", "-u");
+            if (validFlags.contains(commandParts[1].trim().toLowerCase())) {
+                return new FilterCommand(commandParts[1].trim().toLowerCase(), inputParts[1].trim());
+            }
+            throw new InvalidCommandException(INVALID_FILTER_FLAG_MESSAGE);
+        } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING,"Invalid command format");
+            throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
+        }
+    }
+
+
+    //@author LTK-1606
+    /**
+     * Parses the input command to create a {@code CopyCommand} object.
+     * <p>
+     * This method checks if the command input starts with the specified command word
+     * and then removes it from the input. It splits the remaining input at the '>' character
+     * to separate the source and destination parts. If the split does not yield exactly
+     * two parts, an {@code InvalidCommandException} is thrown.
+      * </p>
+     *
+     * @param input the full command input string to be parsed
+     * @param commandParts the parts of the command, typically split by whitespace
+     * @return a {@code CopyCommand} object with the parsed source and destination
+     * @throws InvalidCommandException if the command is missing required parts or has an invalid format
+     */
+    private Command parseCopyCommand(String input, String[] commandParts) throws InvalidCommandException {
+        assert commandParts[0].equalsIgnoreCase(CopyCommand.COMMAND_WORD);
+
+        try {
+            String commandInput = input.replaceFirst("^" + commandParts[0] + "\\s*", "");
+            String[] inputParts = commandInput.split(">");
+
+            if (inputParts.length != 2) {
+                throw new InvalidCommandException(INVALID_COPY_MESSAGE);
+            }
+
+            return new CopyCommand(inputParts[0].trim(), inputParts[1].trim());
+
+        } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING,"Invalid command format");
+            throw new InvalidCommandException(INVALID_COPY_MESSAGE);
+        }
+    }
+
+    //@author LTK-1606
+    /**
+     * Parses the input command to create a {@code FindCommand} object.
+     * <p>
+     * This method checks if the input contains the required flags (-e for event and -p for person).
+     * It splits the input into parts based on these flags and validates the resulting segments.
+     * If valid, it constructs and returns a new {@code FindCommand} with the specified event name
+     * and participant name. If the command format is invalid or the required flags are missing,
+     * an {@code InvalidCommandException} is thrown.
+     * </p>
+     *
+     * @param input the full command input string to be parsed
+     * @param commandParts the parts of the command, typically split by whitespace
+     * @return a {@code FindCommand} object with the parsed event and person names
+     * @throws InvalidCommandException if the command is missing required flags or has an invalid format
+     */
+    private Command parseFindCommand(String input, String[] commandParts) throws InvalidCommandException {
+        assert commandParts[0].equalsIgnoreCase(FindCommand.COMMAND_WORD);
+        try {
+            if (!input.contains("-e") || !input.contains("-p")) {
+                throw new InvalidCommandException(INVALID_FIND_FLAG_MESSAGE);
+            }
+
+            String[] inputParts = input.split(FIND_REGEX);
+            if (inputParts.length < 3 || inputParts[1].isBlank()) {
+                throw new InvalidCommandException(INVALID_FIND_MESSAGE);
+            }
+
+            return new FindCommand(inputParts[1].trim(), inputParts[2].trim());
+        } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING,"Invalid command format");
+            throw new InvalidCommandException(INVALID_FIND_MESSAGE);
         }
     }
 }

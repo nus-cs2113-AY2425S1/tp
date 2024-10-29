@@ -2,18 +2,72 @@ package seedu.manager.item;
 
 import seedu.manager.event.Event;
 
-//@@author jemehgoh
+
 /**
  * Represents an event participant, in the participant list of an {@link Event}.
  */
 public class Participant extends Item {
+    private String number;
+    private String email;
 
     /**
      * Constructs a new Participant with a given name
      *
      * @param name the given name
      */
-    public Participant(String name) {
+    public Participant(String name, String number, String email) {
         super(name);
+        this.number = number;
+        this.email = email;
+    }
+
+    //@@author jemehgoh
+    /**
+     * Returns the name of the participant.
+     *
+     * @return the name of the participant
+     */
+    public String getName() {
+        return name;
+    }
+
+    //@@author KuanHsienn
+    /**
+     * Returns the contact number of the participant
+     *
+     * @return the contact number of the participant
+     */
+    public String getNumber() {
+        return this.number;
+    }
+
+    //@@author KuanHsienn
+    /**
+     * Returns the contact email of the participant
+     *
+     * @return the contact email of the participant
+     */
+    public String getEmail() {
+        return this.email;
+    }
+
+    //@@author KuanHsienn
+    /**
+     * Sets the contact number of the participant
+     *
+     * @param newNumber the new contact number of the participant
+     */
+    public void setNumber(String newNumber) {
+        this.number = newNumber;
+    }
+
+    //@@author KuanHsienn
+    /**
+     * Sets the contact email of the participant
+     *
+     * @param newEmail the new contact email of the participant
+     */
+    public void setEmail(String newEmail) {
+        this.email = newEmail;
     }
 }
