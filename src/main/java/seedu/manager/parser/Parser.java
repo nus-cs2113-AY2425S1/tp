@@ -145,21 +145,22 @@ public class Parser {
     }
 
     /**
-     * Parses the input string to create an {@link Command} based on the provided command parts.
-     *
+     * Parses the input string to create an {@link Command} object based on the provided command parts.
      * <p>
-     * This method checks the command flag extracted from the command parts. If the command
-     * flag is {@code "-e"}, it splits the input string into parts to create an
-     * {@link AddCommand} for adding an event. If the command flag is {@code "-p"},
-     * it creates an {@link AddCommand} for adding a participant to an event. If neither
-     * flag is matched, it throws a {@link InvalidCommandException} with an error message.
+     * This method examines the command flag extracted from the command parts. If the command
+     * flag is {@code "-e"}, it splits the input string to create an {@link AddCommand} for adding an event
+     * with the specified details (event name, time, and venue). If the command flag is {@code "-p"},
+     * it creates an {@link AddCommand} for adding a participant to an event, including the participant's
+     * name, contact number, email, and the event name. If the command flag does not match either,
+     * an {@link InvalidCommandException} is thrown with an error message.
      * </p>
      *
-     * @param input        the input string containing the command details.
-     * @param commandParts an array of strings representing the parsed command parts,
-     *                     where the second element is the command flag.
-     * @return a {@link Command} object representing the parsed command.
-     * @throws InvalidCommandException if the flags are not matched in the command parts.
+     * @param input        the input string containing the command details
+     * @param commandParts an array of strings representing the parsed command parts, where the second element
+     *                     is the command flag, indicating the type of command
+     * @return a {@link Command} object representing the parsed command
+     * @throws InvalidCommandException if the command flag is invalid, or if there are missing or improperly
+     *                                 formatted input details
      */
     public Command parseAddCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
@@ -171,15 +172,21 @@ public class Parser {
                 inputParts = input.split("(-e|-t|-v|-u)");
                 logger.info("Creating AddCommand for event with details: " +
                         inputParts[1].trim() + ", " + inputParts[2].trim() + ", " + inputParts[3].trim());
+                String eventName = inputParts[1].trim();
                 LocalDateTime eventTime = LocalDateTime.parse(inputParts[2].trim(),
                         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                String venue = inputParts[3].trim();
                 Priority eventPriority = Priority.valueOf(inputParts[4].trim().toUpperCase());
-                return new AddCommand(inputParts[1].trim(), eventTime, inputParts[3].trim(), eventPriority);
+                return new AddCommand(eventName, eventTime, venue, eventPriority);
             } else if (commandFlag.equals("-p")) {
-                inputParts = input.split("(-p|-e)");
+                inputParts = input.split("(-p|-n|-email|-e)");
                 logger.info("Creating AddCommand for participant with details: " +
                         inputParts[1].trim() + ", " + inputParts[2].trim());
-                return new AddCommand(inputParts[1].trim(), inputParts[2].trim());
+                String participantName = inputParts[1].trim();
+                String participantNumber = inputParts[2].trim();
+                String participantEmail = inputParts[3].trim();
+                String eventName = inputParts[4].trim();
+                return new AddCommand(participantName, participantNumber, participantEmail, eventName);
             }
 
             logger.log(WARNING,"Invalid command format");
@@ -237,7 +244,7 @@ public class Parser {
 
     //@@author glenn-chew
     /**
-     * Parses the input string to create a {@link Command} based on the provided command parts.
+     * Parses the input string to create a {@link Command} based on the providedcomma nd parts.
      *
      * <p>
      * This method checks the command flag extracted from the command parts. If the command
