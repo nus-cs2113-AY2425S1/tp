@@ -73,6 +73,19 @@ Format:
 Example:
 - `delete-expense e/3`
 
+### Add a Category: add-category
+Create a new category under which expenses can be categorised.
+
+Format:
+`add-category c/CATEGORY`
+
+- `CATEGORY`
+  - The name of the new category.
+  - This parameter is required.
+
+Example:
+- `add-category c/Transport`
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
