@@ -57,7 +57,7 @@ Interface for command-line interactions.
 - Directly invokes methods from ExpenseTracker based on input.
 
 ## Product Scope
-
+<!-- @@author glenda-1506 -->
 ### Target User Profile
 SpendSwift is designed for budget-conscious individuals who prefer a simple, efficient way to track expenses and manage budgets using text commands.
 
