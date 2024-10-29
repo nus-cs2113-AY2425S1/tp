@@ -1,0 +1,42 @@
+@startuml
+!include <office/Concepts/globe_internet>
+!include <office/Concepts/documents>
+!include <office/Users/user>
+!include style.puml
+
+!include <material/common>
+!include <material/account>
+!include <material/database>
+
+Package " "<<Rectangle>>{
+    Class UI UI_COLOR
+    Class StateManager LOGIC_COLOR
+    Class Storage STORAGE_COLOR
+    Class Data MODEL_COLOR
+    Class MediTask #grey
+    Class Common LOGIC_COLOR_T2
+    Class Parser PARSER_COLOR
+    Class Commands COMMAND_COLOR
+}
+
+Class "<$ma_account>" as User MODEL_COLOR_T2
+Class "<$ma_database>" as File UI_COLOR_T1
+
+
+UI -[#green]> Parser
+Parser -[#orange]-> Commands
+Commands -[#purple]-> StateManager
+UI -[#green]-> Data
+StateManager -[#blue]-> Storage
+StateManager -down[#blue]-> Data
+MediTask -[#grey]-> UI
+MediTask -[#grey]-> StateManager
+MediTask -[#grey]-> Parser
+MediTask -[#grey]-> Storage
+MediTask -up[#grey]-> Data
+MediTask -down[hidden]-> Common
+
+Storage -up[STORAGE_COLOR].> Data
+Storage .right[STORAGE_COLOR].>File
+User ..> UI
+@enduml
