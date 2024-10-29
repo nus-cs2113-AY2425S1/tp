@@ -5,6 +5,8 @@
 
 ## Design & Implementation
 ### Sequence Diagrams
+#### add-expense
+![Add Expense Sequence Diagram](diagrams/AddExpense.png)
 #### add-category
 ![Add Category Sequence Diagram](diagrams/AddCategory.png)
 
