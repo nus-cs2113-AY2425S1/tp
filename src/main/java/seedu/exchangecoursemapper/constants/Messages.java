@@ -41,4 +41,13 @@ public class Messages {
                     bye - End the program.
                     To get more specific information of the commands, please use help <COMMAND>
                     """;
+
+    // CompareMappedCommand messages
+    public static final String INVALID_INPUT_FORMAT = "Please provide two universities in the format:  " +
+            "compare pu/<University 1> pu/<University 2>";
+    public static final String COMPARISON_RESULTS_HEADER = "Comparison of Course Mappings between ";
+    public static final String COMMON_MAPPINGS_HEADER = "Common Mappings:";
+    public static final String NO_COMMON_MAPPINGS = "No common mappings found.";
+    public static final String UNIQUE_MAPPINGS_HEADER = "Unique to ";
+    public static final String NO_UNIQUE_MAPPINGS = "No unique mappings for ";
 }
