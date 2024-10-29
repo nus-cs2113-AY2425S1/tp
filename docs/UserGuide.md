@@ -48,6 +48,8 @@ Role: Software Engineer Intern
 Company: Google
 Duration: Not Stated
 Skills: Not Stated 
+Deadlines:
+No deadlines set.
 ```
 
 **Example Input 2:**
@@ -60,6 +62,8 @@ Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/25 to 08/25
 Skills: Not Stated
+Deadlines:
+No deadlines set.
 ```
 
 ## Update Command
@@ -68,6 +72,7 @@ Skills: Not Stated
 This feature allows you to update any field of an internship application. For example, when updating the status of an internship application, you can mark the status as ‘application pending’, ‘application completed’, ‘accepted’, ‘rejected’ etc.
 
 The default status for any internship that is stored in the database is ‘application pending’.
+
 
 **Format:**
 `update {ID} {-field} {updated information}`
@@ -82,6 +87,8 @@ Role: Embedded Software Engineer Intern    		application completed
 Company: Continental
 Duration: 05/25 to 08/25
 Skills: Not Stated
+Deadlines:
+No deadlines set.
 ```
 
 `Update 02 -status interview scheduled`
@@ -92,6 +99,8 @@ Role: Embedded Software Engineer Intern    		interview scheduled
 Company: Continental
 Duration: 05/25 to 08/25
 Skills: Not Stated
+Deadlines:
+No deadlines set.
 ```
 
 `Update 02 -company Venti`
@@ -102,6 +111,8 @@ Role: Embedded Software Engineer Intern    		interview scheduled
 Company: Venti
 Duration: 05/25 to 08/25
 Skills: Not Stated
+Deadlines:
+No deadlines set.
 ```
 
 `Update 02 -duration /from 04/25`
@@ -112,6 +123,8 @@ Role: Embedded Software Engineer Intern    		interview scheduled
 Company: Venti
 Duration: 04/25 to 08/25
 Skills: Not Stated
+Deadlines:
+No deadlines set.
 ```
 
 `update 02 -skills Python SQL`
@@ -122,6 +135,8 @@ Role: Embedded Software Engineer Intern    		interview scheduled
 Company: Venti
 Duration: 04/25 to 08/25
 Skills: Python, SQL
+Deadlines:
+No deadlines set.
 ```
 ## Sort Command
 `sort`
@@ -145,37 +160,57 @@ Role: Software Engineer Intern
 Company: Google
 Duration: 05/23 to 08/25
 Skills: Not Stated
+Deadlines:
+online assessment: 11/11/24
 
 ID: 01
 Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/24 to 08/24
 Skills: Not Stated
+Deadlines:
+interview: 25/11/24
 ```
 `sort -role`
 
 ```
-__________________________________________________
-__________________________________________________
-ID: 2	Status: Accepted
-Role: Marketing sales
-Company: Castify
-Duration: 05/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-No deadlines set.
-
-__________________________________________________
-ID: 1	Status: Application Completed
+ID: 01
 Role: Embedded Software Engineer Intern
-Company: Google
-Duration: 02/23 to 05/24
-Skills: No Skills Entered 
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: Not Stated
 Deadlines:
-No deadlines set.
+interview: 25/11/24
 
-__________________________________________________
-__________________________________________________
+
+ID: 02
+Role: Software Engineer Intern
+Company: Google
+Duration: Not Stated
+Skills: Not Stated
+Deadlines:
+online assessment: 11/11/24
+```
+
+`sort -deadline`
+
+```
+ID: 02
+Role: Software Engineer Intern
+Company: Google
+Duration: 05/23 to 08/25
+Skills: Not Stated
+Deadlines:
+online assessment: 11/11/24
+
+ID: 01
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/24 to 08/24
+Skills: Not Stated
+Deadlines:
+interview: 25/11/24
+
 ```
 `sort -skills`
 
@@ -188,7 +223,7 @@ Company: Google
 Duration: 02/23 to 05/24
 Skills: No Skills Entered 
 Deadlines:
-No deadlines set.
+interview: 25/11/24
 
 __________________________________________________
 ID: 2	Status: Accepted
@@ -197,7 +232,7 @@ Company: Castify
 Duration: 05/23 to 05/24
 Skills: No Skills Entered 
 Deadlines:
-No deadlines set.
+online assessment: 11/11/24
 
 __________________________________________________
 __________________________________________________
@@ -213,7 +248,7 @@ Company: Castify
 Duration: 05/23 to 05/24
 Skills: No Skills Entered 
 Deadlines:
-No deadlines set.
+online assessment: 11/11/24
 
 __________________________________________________
 ID: 1	Status: Application Completed
@@ -222,7 +257,7 @@ Company: Google
 Duration: 02/23 to 05/24
 Skills: No Skills Entered 
 Deadlines:
-No deadlines set.
+interview: 25/11/24
 
 __________________________________________________
 __________________________________________________
