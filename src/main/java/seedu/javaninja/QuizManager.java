@@ -96,8 +96,10 @@ public class QuizManager {
         QuizTimer quizTimer = new QuizTimer(quizScanner);
         int timeLimitInSeconds = quizTimer.getTimeLimitInSeconds();
         int questionLimit = quizTimer.getQuestionLimit();
+
         currentQuiz = new Quiz(topic, quizScanner);
         currentQuiz.start(timeLimitInSeconds, questionLimit);
+
         int score = currentQuiz.getScore();
         String comment = generateComment(score);
         addPastResult(score, comment);
@@ -194,7 +196,6 @@ public class QuizManager {
             logger.warning("No questions found.");
         }
     }
-
 
     public void addFlashcardByUser(String input) throws IOException {
         if (input.startsWith("add Flashcard")) {

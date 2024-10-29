@@ -30,20 +30,20 @@ class QuizManagerTest {
     }
 
 
-//    public void selectTopic_invalidTopicName_displaysError() {
-//        // Prepare a scanner with simulated user input
-//        ByteArrayInputStream input = new ByteArrayInputStream("InvalidTopicName\n".getBytes());
-//        Scanner scanner = new Scanner(input);
-//
-//        // Pass the scanner to the selectTopic method, including a default timer of 10 seconds
-//        quizManager.selectTopic("InvalidTopicName", scanner, 10, 2);
-//
-//        scanner.close();
-//
-//        // Assert that past results remain empty since no valid quiz was selected
-//        assertEquals("No past results available. You haven't completed any quizzes yet.", quizManager.getPastResults());
-//
-//    }
+    public void selectTopic_invalidTopicName_displaysError() {
+        // Prepare a scanner with simulated user input
+        ByteArrayInputStream input = new ByteArrayInputStream("InvalidTopicName\n".getBytes());
+        Scanner scanner = new Scanner(input);
+
+        // Pass the scanner to the selectTopic method, including a default timer of 10 seconds
+        quizManager.selectTopic("InvalidTopicName");
+
+        scanner.close();
+
+        // Assert that past results remain empty since no valid quiz was selected
+        assertEquals("No past results available. You haven't completed any quizzes yet.", quizManager.getPastResults());
+
+    }
 
     @Test
     public void getPastResults_withResults_returnsCorrectResults() {
