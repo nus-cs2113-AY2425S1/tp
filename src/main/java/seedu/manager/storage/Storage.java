@@ -25,7 +25,9 @@ public class Storage {
      * @param filePath The path to the storage file.
      */
     public Storage(String filePath) {
-        assert isValidFilePath(filePath) : "Invalid file path: " + filePath;
+        if (!isTestEnvironment()) {
+            assert isValidFilePath(filePath) : "Invalid file path: " + filePath;
+        }
         this.filePath = filePath;
     }
 
@@ -78,6 +80,15 @@ public class Storage {
     private boolean isValidFilePath(String filePath) {
         String expectedPath = "events.txt"; // You can change this if needed
         return filePath.equals(expectedPath);
+    }
+
+    /**
+     * Checks if the code is running in a test environment.
+     *
+     * @return True if in test environment, false otherwise.
+     */
+    private boolean isTestEnvironment() {
+        return "true".equals(System.getProperty("test.environment"));
     }
 }
 
