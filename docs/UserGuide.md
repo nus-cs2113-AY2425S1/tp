@@ -141,6 +141,22 @@ Example output:
 3. Taxi - $15.00 - Transport
 ```
 
+### View Budget for Each Category: view-budget
+View the total expenses for each category in the current month and how much remains before the budget limit is reached.
+
+Format:
+`view-budget`
+
+- No parameters are required.
+- Displays a summary of spending and remaining budget for all categories with a budget limit.
+
+Example output:
+``` 
+Food: $120 spent, $180 remaining  
+Transport: $45 spent, $55 remaining  
+Entertainment: No budget set
+```
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
