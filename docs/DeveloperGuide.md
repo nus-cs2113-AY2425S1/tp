@@ -288,7 +288,7 @@ allowing for separation of handling command keywords and executing commands.
 The diagram below shows the inheritance of the `Command` class. The diagram is only meant to show
 the hierarchy of classes and have been greatly simplified.
 
-{Insert diagram here}
+![Command_Inheritance_Diagram](UML/CommandInheritance.png)
 
 <ins>Constructor</ins>
 
@@ -451,6 +451,8 @@ with the only difference being the criteria for printing the entries, we made `S
 
 An exception class `FinanceBuddyException` is thrown when users use the product wrongly.
 Exceptions are caught at the nearest instance that they occur.
+
+Logging is handled by the `Logger` class. 
 
 ### Storage
 
