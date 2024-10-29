@@ -1,0 +1,36 @@
+@startuml
+actor User as user
+participant Ui
+participant Hospital
+participant Patient
+participant TaskList
+
+== Show Task List for a Patient ==
+user -> Ui : showTaskList()
+Ui -> Hospital : getSelectedPatient()
+Hospital --> Ui : Patient (selected patient)
+
+Ui -> Patient : getTaskList()
+Patient --> Ui : TaskList
+
+Ui -> TaskList : getTasks() and calculateCompletionRate()
+TaskList --> Ui : List<Task>, completionPercentage
+
+Ui -> Ui : formatTaskListDisplay()
+
+Ui -> User : displayTaskListWithCompletionRate()
+
+== Show Patient List with Completion Rate ==
+user -> Ui : showPatientListWithCompletionRate()
+Ui -> Hospital : calculateOverallCompletionRate()
+Hospital -> Patient : getTaskList() for each patient
+Patient -> TaskList : calculateCompletionRate()
+TaskList --> Patient : completion rate
+Patient --> Hospital : completion rate
+Hospital --> Ui : overallCompletionRate, List<Patient>
+
+Ui -> Ui : formatPatientListDisplay()
+
+Ui -> User : displayPatientListWithCompletionRate()
+
+@enduml
