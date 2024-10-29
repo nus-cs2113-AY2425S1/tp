@@ -17,7 +17,53 @@
 ## Design
 
 ### Architecture
-{TODO: Architecture Diagram}
+![Sequence Diagram](../uml-images/ArchitectureDiagram.png)
+
+The **Architecture Diagram** given above explains the high-level design of the App.
+
+Given below is a quick overview of main components and how they interact with each other.
+
+**Main components of the architecture**
+
+`ExchangeCourseMapper` class (referred to as `Main` in diagram) is responsible for the app launch and shut down.
+* At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
+* At shut down, it shuts down the other components and invokes cleanup methods where necessary.
+
+The bulk of the app’s work is done by the following four components:
+
+`UI`: The UI of the App.
+
+`Parser`: The command executor and logic checker.
+
+`Command`: Details and implementation of various commands/features of the app.
+
+`Storage`: Reads data from, and writes data to, `mylist.json`.
+
+**How the architecture components interact with each other**
+
+Only some of the commands will need all 4 main components for example the Delete course command:
+
+The Sequence Diagram below shows how the components interact with each other for the scenario 
+where the user issues the command `delete 1`.
+
+![Sequence Diagram](../uml-images/DesignSequenceDiagram.png)
+
+The `UI`, `Parser` and `Storage` components (also shown in the diagram above),
+* defines its API in a class with the same name as the Package
+
+The `Command` component,
+* defines its API in an `abstract` class with the same name as the Component.
+* further splits them into `CheckInformationCommand` and `PersonalTrackerCommand` as child classes
+* further split them into the various commands
+
+For example, the `Command` component defines its API in the `Command.java` abstract class and extends its functionality using the 
+`PersonalTrackerCommand.java` and `CheckInformationCommand` class. Other components such as `ListSchoolsCommand` and `DeleteCoursesCommand`  
+interact with a given component through its interface rather than the concrete class 
+(reason: to prevent outside component’s being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
+
+![Sequence Diagram](../uml-images/MiniCommandClass.png)
+
+**The sections below give more details of each component.**
 
 ### Class Diagrams
 {TODO: Class Diagram}

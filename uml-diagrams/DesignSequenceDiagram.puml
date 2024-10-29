@@ -1,0 +1,39 @@
+@startuml
+hide footbox
+
+actor CEG_Student
+participant ":UI" #green
+participant ":Parser" #red
+participant ":Command" #gold
+participant ":Storage" #pink
+
+CEG_Student -> ":UI" : "delete 1"
+activate ":UI" #green
+
+":UI" -[#green]> ":Parser" : execute("delete 1")
+activate ":Parser" #red
+
+":Parser" -[#red]> ":Command" : allCourses.remove(index);
+activate ":Command" #gold
+
+":Command" -[#gold]> ":Storage" : saveAllCourses(allCourses);
+activate ":Storage" #pink
+
+":Storage" -[#pink]> ":Storage" : Save to mylist.json
+activate ":Storage" #pink
+
+":Storage" -[#pink]-> ":Storage"
+deactivate ":Storage"
+":Storage" -[#pink]-> ":Command"
+deactivate ":Storage"
+
+":Command" -[#gold]-> ":Parser"
+deactivate ":Command"
+
+":Parser" -[#red]-> ":UI"
+deactivate ":Parser"
+
+":UI" -[#green]-> CEG_Student
+deactivate ":UI"
+
+@enduml
