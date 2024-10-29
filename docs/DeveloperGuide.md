@@ -227,6 +227,29 @@ and South-East Asian universities. This command hence helps the users to keep tr
 #### Sequence Diagram on PlantUML
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
 
+### 5. Delete Courses Command
+
+#### Overview:
+This command is responsible for deleting users' existing course mapping plan from the `myList.json` file.
+This helps the users to keep track of their most recent course mapping plans, and to keep the `myList.json` file organised.
+
+#### How the feature is implemented:
+* The `DeleteCoursesCommand` class extends `Command` class where it overrides the `execute` method for
+  custom behaviour.
+* When `execute` is called, the command first passes the user's input into the `parseDeleteCommand` method, which parses
+  the user input to extract the list index, still of `String` type, of the course mapping plan 
+  they would like to delete.
+* The parsed input is then passed into the `deleteCourse` method, along with the Storage object, which updates the
+  `myList.json` file. The list index is then converted to an `int` using the `Integer` class. If a valid list index
+  has been given by the user, the list index is passed into the storage object's `deleteCourse` method to delete the 
+  plan stored at that index.
+* Lastly, the UI object's `printDeleteMessage` is called to inform the user of the course plan which is deleted.
+* Throughout the code, exceptions, assertions and logging are in place for better error handling.
+* Line Separator is used to ensure readability and ease of use for users.
+
+#### Sequence Diagram on PlantUML
+![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
+
 ## Product scope
 ### Target user profile
 
@@ -251,6 +274,7 @@ and South-East Asian universities. This command hence helps the users to keep tr
 | v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries          |
 | v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries |
 | v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU       |
+| v2.0    | CEG student  | delete a course mapping plan for a PU                           | keep my list of saved plans organised            |
 
 ## Non-Functional Requirements
 
