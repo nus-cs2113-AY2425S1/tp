@@ -22,17 +22,17 @@ public class BuffBuddyException extends Exception {
         super(message);
     }
 
+    
+    
     /**
      * Constructor that accepts a custom error message and a throwable cause.
      * This is useful for wrapping other exceptions in BuffBuddy-specific exceptions.
      * @param message Custom error message describing the exception.
-     * @param cause The cause of the exception.
-
-
-
-     
+     * @param cause The cause of the exception. 
      */
     public BuffBuddyException(String message, Throwable cause) {
         super(message, cause);
     }
 }
+
+
