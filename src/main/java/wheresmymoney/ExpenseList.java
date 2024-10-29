@@ -24,7 +24,7 @@ public class ExpenseList {
         expenses = new ArrayList<>();
     }
 
-    public ArrayList<Expense> getList() {
+    public ArrayList<Expense> getExpenseList() {
         return expenses;
     }
 
