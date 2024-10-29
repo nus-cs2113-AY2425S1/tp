@@ -9,6 +9,139 @@
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ---
+### Ui and Parser
+__Overview__
+The Ui component, `AppUi` manages user interactions by displaying messages and receiving input. 
+
+The Parser component, comprising `DateParser` and `InputParser`, handles input parsing to interpret commands and dates entered bythe user accurately
+
+__Implementation__
+
+- **Class Diagram**: Displays the relationship between `AppUi`, `DateParser`, and `InputParser`. `AppUi` serves as the main interface for user interaction, utilizing `DateParser` and `InputParser` to interpret and process input effectively.
+  - {Input Class diagram}
+- **Sequence Diagram**: Illustrates the flow of processing user input, from capturing input in `AppUi`, parsing it with `InputParser`, and validating date formats via `DateParser`.
+  - {input sequence Diagram}
+
+### Ui Component
+
+__Overview__
+
+The `AppUi` class in the Ui component facilitates user interactions, including displaying start up messages, errors, and capturing input from users.
+
+__Class Structure__
+
+- **Attributes**:
+  - `scanner`: `Scanner` — Reads user input from the console
+
+__Implementation Details__
+
+*Class Diagram*: Illustrates `AppUi` with its methods for displaying messages and capturing user input.
+
+{insert class diagram for UI Component here}
+
+__Methods__
+
+- **displayWelcomeMessage()**: Outputs a startup message.
+- **getUserInput()**: Reads input from the user.
+- **showUnknownCommandMessage()**: Notifies the user of an unrecognized command.
+- **showErrorMessage(String message)**: Displays a specific error message.
+
+__Usage Example__
+
+```
+AppUi ui = new AppUi();
+ui.displayWelcomeMessage();
+String userInput = ui.getUserInput();
+ui.showUnknownCommandMessage();
+```
+
+__Design Considerations__
+
+- **Future Extension**: Additional Ui features such as graphical interfaces or web-based interactions may be added to enhance user experience.
+
+### Parser Component
+__Overview__
+
+The Parser component includes `InputParser` and `DateParser`. `InputParser` processes user commands, while `DateParser` validates date string.
+
+__Class Structure__
+
+- **Attributes**:
+  - `formatter`: `DateTimeFormatter` — Defines a date format for parsing.
+
+__Implementation Details__
+
+*Class Diagram*: Shows `InputParser` parsing command input and `DateParser` handling date validation.
+
+{insert class diagram for Parser Component here}
+
+__Methods__
+
+- **InputParser.parseCommands(String input)**: Breaks down commands and arguments.
+- **DateParser.parse(String dateStr)**: Validates and converts date strings.
+
+__Usage Example__
+
+```
+HashMap<String, String> commandArgs = InputParser.parseCommands("add /date 12/10/24 /amount 500");
+LocalDate parsedDate = DateParser.parse("12/10/24");
+```
+
+__Design Considerations__
+
+- **Future Extension**: To support more complex commands and argument parsing, the Parser component could introduce additional parsers, such as `CommandParser` and `ArgumentParser`, extending from an abstract base. Supporting alternative date formats in `DateParser` could enhance flexibility, accommodating user input from different locales or formats.
+
+---
+### Logic
+__Overview__
+
+The Logic component manages core functionalities in the application like adding, editing and deleting financial entries. 
+It interacts with `FinancialList`, `AppUi` and `Storage`, and leverages command classes (`AddExpenseCommand`, `AddIncomeCommand`, etc.) to execute operations.
+
+__Class Structure__
+
+- **Attributes**:
+  - `financialList`: `FinancialList` — Stores financial entries.
+  - `ui`: `AppUi` - Manages user interactions.
+  - `storage`: `Storage` - Handles data persistence
+
+__Implementation Details__
+
+*Class Diagram*: Shows Logic as the main controller interacting with `FinancialList`, `AppUi`, and various command classes for operations (e.g., `AddIncomeCommand`, `DeleteCommand`).
+
+{Insert Class Diagram for Logic Component here}
+
+__Constructor__
+
+The Logic constructor initializes `FinancialList`, `AppUi`, and `Storage` components to support all operations.
+
+__Methods__
+
+- **executeCommand(String userInput)**: Parses and executes the command from `userInput`.
+- **addExpense(double amount, String description, LocalDate date)**: Adds a new `Expense` to `FinancialList`.
+- **addIncome(double amount, String description, LocalDate date)**: Adds a new `Income` to `FinancialList`.
+- **deleteEntry(int index)**: Removes an entry at a given index.
+- **editEntry(int index, double amount, String description)**: Updates an entry's amount and description.
+- **seeAllEntries()**: Displays all entries in `FinancialList`
+
+__Usage Example__
+
+```
+FinancialList financialList = new FinancialList();
+AppUi ui = new AppUi();
+Storage storage = new Storage();
+
+Logic logic = new Logic(financialList, ui, storage);
+logic.addIncome(500.00, "Freelance Project", LocalDate.of(2023, 10, 27));
+logic.seeAllEntries();
+
+```
+
+__Design Considerations__
+
+- **Future Extension**: External APIs could be integrated in the future for features like currency conversion or market updates, making Logic an ideal candidate for adaptability.
+
+---
 ### FinancialList and FinancialEntry
 __Overview__
 
