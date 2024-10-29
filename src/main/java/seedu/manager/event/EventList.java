@@ -109,13 +109,15 @@ public class EventList  {
      * returns false otherwise.
      *
      * @param participantName the name of the participant to be added.
+     * @param participantNumber the contact number of the participant
+     * @param participantEmail the email address of the participant
      * @param eventName the name of the event to which the participant will be added.
      * @return {@code true} if the participant can be added to the event, {@code false} otherwise.
      */
-    public boolean addParticipantToEvent(String participantName, String eventName) {
+    public boolean addParticipantToEvent(String participantName, String participantNumber, String participantEmail, String eventName) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
-                event.addParticipant(participantName);
+                event.addParticipant(participantName, participantNumber, participantEmail);
                 return true;
             }
         }

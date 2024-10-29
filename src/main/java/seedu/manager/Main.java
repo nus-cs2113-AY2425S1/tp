@@ -63,6 +63,7 @@ public class Main {
         }
     }
 
+    //@@author KuanHsienn
     /**
      * Saves events to file and handles exceptions.
      */

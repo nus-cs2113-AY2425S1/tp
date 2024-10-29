@@ -29,8 +29,18 @@ public class AddCommandTest {
         eventList.addEvent("Event 1",
                 LocalDateTime.parse("2024-10-10 10:00", formatter),
                 "Venue A");
-        eventList.addParticipantToEvent("Tom", "Event 1");
-        eventList.addParticipantToEvent("Harry", "Event 1");
+        eventList.addParticipantToEvent(
+                "Tom",
+                "89521252",
+                "example@gmail.com",
+                "Event 1"
+        );
+        eventList.addParticipantToEvent(
+                "Harry",
+                "89521252",
+                "example@gmail.com",
+                "Event 1"
+        );
 
         assertEquals(2, eventList.getEvent(0).getParticipantCount());
     }
@@ -42,8 +52,18 @@ public class AddCommandTest {
 
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-10 10:00", formatter),
                 "Venue A");
-        eventList.addParticipantToEvent("Tom", "Event 1");
-        eventList.addParticipantToEvent("Harry", "Event 2");
+        eventList.addParticipantToEvent(
+                "Tom",
+                "89521252",
+                "example@gmail.com",
+                "Event 1"
+        );
+        eventList.addParticipantToEvent(
+                "Harry",
+                "89521252",
+                "example@gmail.com",
+                "Event 2"
+        );
 
         assertEquals(1, eventList.getEvent(0).getParticipantCount());
     }
@@ -53,7 +73,7 @@ public class AddCommandTest {
         EventList eventList = new EventList();
         String expectedMessage = "Event not found!";
 
-        AddCommand addCommand = new AddCommand("Tom", "Event 1");
+        AddCommand addCommand = new AddCommand("Tom","89521252", "example@gmail.com", "Event 1");
         addCommand.setData(eventList);
         addCommand.execute();
 
