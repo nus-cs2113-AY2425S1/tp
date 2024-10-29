@@ -1,8 +1,25 @@
 package seedu.exchangecoursemapper.ui;
+import seedu.exchangecoursemapper.constants.Logs;
+import seedu.exchangecoursemapper.courses.Course;
+import seedu.exchangecoursemapper.parser.CourseValidator;
 import seedu.exchangecoursemapper.parser.Parser;
 import seedu.exchangecoursemapper.storage.Storage;
 
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
+import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_NAME_KEY;
+import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
+import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
+
 public class UI {
+    private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
+
     public void displayGreeting() {
         String greetingMessage = "Welcome to ExchangeCourseMapper! The easiest way to plan your exchange courses.";
         String banner = """
@@ -18,6 +35,53 @@ public class UI {
     public void displayExitMessage() {
         String exitMessage = "All the best in planning for your exchange, hope we helped!";
         System.out.println(exitMessage);
+    }
+
+    /**
+     * Prints out all relevant partner universities available in our database.
+     */
+    public void displayPartnerUniversities() {
+        logger.log(Level.INFO, Logs.INVALID_UNIVERSITY_INPUT);
+        System.out.println(Logs.INVALID_UNIVERSITY_INPUT);
+
+        logger.log(Level.INFO, Logs.DISPLAY_PARTNER_UNIVERSITIES);
+        System.out.println(LINE_SEPARATOR);
+        System.out.println(LIST_RELEVANT_PU);
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    /**
+     * Prints add courses success statement.
+     *
+     * @param course a Course object that user successfully adds to storage.
+     */
+    public void printAddMessage(Course course) {
+        System.out.println("You have successfully added the course: " + course.formatOutput());
+    }
+
+
+    /**
+     * Prints all relevant course mappings for the user's PU input when an incorrect course mapping
+     * is passed from the isValidCourseMapping() method.
+     *
+     * @param courses a JsonArray containing all the relevant course mappings from the user's PU input.
+     * @param pu a string containing the user's PU input.
+     */
+    public void displayAvailableMappings(JsonArray courses, String pu) {
+        System.out.println("The available mappings for " + pu + " are:");
+        System.out.println(LINE_SEPARATOR);
+
+        for (int i = 0; i < courses.size(); i++) {
+            JsonObject course = courses.getJsonObject(i);
+            String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
+            String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY).toLowerCase();
+            String nusCourseName = course.getString(NUS_COURSE_NAME_KEY).toLowerCase();
+            String puCourseName = course.getString(PU_COURSE_NAME_KEY).toLowerCase();
+
+            System.out.println(nusCourseCode + " " + nusCourseName + " | " + puCourseCode
+                    + " " + puCourseName + System.lineSeparator());
+        }
+        System.out.println(LINE_SEPARATOR);
     }
 
     /**

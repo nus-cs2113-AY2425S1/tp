@@ -6,6 +6,7 @@ import seedu.exchangecoursemapper.courses.Course;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.parser.CourseValidator;
+import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonObject;
 import java.io.IOException;
@@ -17,10 +18,12 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
     private CourseValidator courseValidator;
+    private UI ui;
 
     /** constructor */
     public AddCoursesCommand() {
         courseValidator = new CourseValidator();
+        ui = new UI();
     }
 
     /**
@@ -59,7 +62,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
                 logger.log(Level.INFO, Logs.ADD_APPROVED_MAPPING);
                 Course courseToStore = new Course(puCourse, nusCourse, pu);
                 storage.addCourse(courseToStore);
-                printAddMessage(courseToStore);
+                ui.printAddMessage(courseToStore);
             } else {
                 System.out.println(Logs.ADD_NEW_COURSE_MAPPING);
             }
@@ -128,15 +131,6 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         }
 
         return inputSubstrings;
-    }
-
-    /**
-     * Prints add courses success statement.
-     *
-     * @param course a Course object that user successfully adds to storage.
-     */
-    public void printAddMessage(Course course) {
-        System.out.println("You have successfully added the course: " + course.formatOutput());
     }
 
 }
