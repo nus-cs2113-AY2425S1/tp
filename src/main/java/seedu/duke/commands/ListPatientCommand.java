@@ -1,6 +1,5 @@
 package seedu.duke.commands;
 
-import seedu.duke.data.hospital.Hospital;
 import seedu.duke.ui.Ui;
 
 import java.util.logging.Level;
@@ -17,10 +16,10 @@ public class ListPatientCommand extends HospitalCommand {
         logger.setLevel(Level.SEVERE);
     }
 
+    Ui ui = new Ui();
+
     public ListPatientCommand() {
     }
-
-    Ui ui = new Ui();
 
     @Override
     public CommandResult execute() {

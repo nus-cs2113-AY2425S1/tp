@@ -16,26 +16,25 @@ import seedu.duke.data.task.TaskList;
 @JsonRootName("hospital")
 @JsonInclude(JsonInclude.Include.NON_NULL) // Added to exclude null values
 public class Hospital {
-    private static final Logger logger = Logger.getLogger(Hospital.class.getName());
-    private List<Patient> patients;
     @JsonIgnore
     private static Patient selectedPatient;
+    private static final Logger logger = Logger.getLogger(Hospital.class.getName());
+    private List<Patient> patients;
 
     static {
         logger.setLevel(Level.SEVERE); // Only show warnings and errors
     }
 
-    public static void clearSelectedPatient() {
-        selectedPatient = null;
-    }
     @JsonCreator
     public Hospital() {
         this.patients = new ArrayList<>();
-        this.selectedPatient = null;
         logger.log(Level.INFO, "Hospital initialized with an empty patient list.");
         assert patients != null : "Patients list should not be null after initialization";
     }
 
+    public static void clearSelectedPatient() {
+        selectedPatient = null;
+    }
 
     public void addPatient(String name) {
         assert name != null && !name.isEmpty() : "Patient name should not be null or empty";
@@ -96,8 +95,7 @@ public class Hospital {
         logger.log(Level.INFO, "Selected patient set successfully at index: {0}", index);
     }
 
-    public static Patient getSelectedPatient()
-    {
+    public static Patient getSelectedPatient() {
         return selectedPatient;
     }
 
