@@ -1,5 +1,7 @@
 @startuml
 skinparam groupInheritance 2
+left to right direction
+
 abstract class Command {
     +createJsonObject(): JsonObject
 }
@@ -82,5 +84,16 @@ class ListPersonalTrackerCommand extends CheckInformationCommand {
     -logger: Logger {static}
     +execute(input: String): void
 }
+
+ListPersonalTrackerCommand --> "storage 1" Storage
+Storage : +loadAllCourses(): void
+
+AddCoursesCommand --> "courseValidator 1" CourseValidator
+CourseValidator : +isValidInput(...): boolean
+AddCoursesCommand ..> UI
+UI : +printAddMessage(): void
+
+DeleteCoursesCommand ..> UI
+UI : +printDeleteMessage(): void
 
 @enduml

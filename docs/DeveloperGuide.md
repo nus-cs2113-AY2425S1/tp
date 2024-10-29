@@ -200,7 +200,7 @@ contains the list of courses.
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
-### 4. Add Courses Command
+### 5. Add Courses Command
 
 #### Overview:
 This command is responsible for adding users' desired course mapping into the `myList.json` file. 
@@ -230,7 +230,30 @@ and South-East Asian universities. This command hence helps the users to keep tr
 #### Sequence Diagram on PlantUML
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
 
-### 6. Help Command
+### 6. Delete Courses Command
+
+#### Overview:
+This command is responsible for deleting users' existing course mapping plan from the `myList.json` file.
+This helps the users to keep track of their most recent course mapping plans, and to keep the `myList.json` file organised.
+
+#### How the feature is implemented:
+* The `DeleteCoursesCommand` class extends `Command` class where it overrides the `execute` method for
+  custom behaviour.
+* When `execute` is called, the command first passes the user's input into the `parseDeleteCommand` method, which parses
+  the user input to extract the list index, still of `String` type, of the course mapping plan 
+  they would like to delete.
+* The parsed input is then passed into the `deleteCourse` method, along with the Storage object, which updates the
+  `myList.json` file. The list index is then converted to an `int` using the `Integer` class. If a valid list index
+  has been given by the user, the list index is passed into the storage object's `deleteCourse` method to delete the 
+  plan stored at that index.
+* Lastly, the UI object's `printDeleteMessage` is called to inform the user of the course plan which is deleted.
+* Throughout the code, exceptions, assertions and logging are in place for better error handling.
+* Line Separator is used to ensure readability and ease of use for users.
+
+#### Sequence Diagram on PlantUML
+![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
+
+### 7. Help Command
 
 #### Overview
 This command provides users with detailed explanations of each feature and the ways to use them.
@@ -238,25 +261,25 @@ This allows users to navigate this program easily and effectively.
 
 #### How the feature is implemented:
 * The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides
-the execute method for custom behaviour.
+  the execute method for custom behaviour.
 * First, the user input is passed into the `getCommand()` method which extracts and processes the
-command. It does so by using `switch` statements to determine if the input matches one of the valid commands.
+  command. It does so by using `switch` statements to determine if the input matches one of the valid commands.
 * If it does, it returns the command, if it does not, an `IllegalArgumentException` exception will be thrown to handle
-invalid commands
+  invalid commands
 * Then, the `printHelp()` method will be called to display the detailed help messages for the specific command.
-Another `switch` statement is used here to map each command to its corresponding help message.
+  Another `switch` statement is used here to map each command to its corresponding help message.
 * Assertions and logging are implemented for error handling.
 
 #### Why it is implemented that way:
 - ****Separation of Concerns:**** Each method has a single responsibility. For example, `getCommand()` parses and
-  validates the input to extract a specific command and `printHelp()` prints the relevant help message for the 
+  validates the input to extract a specific command and `printHelp()` prints the relevant help message for the
   parsed command.
 - ****Switch Statement:**** The use of `switch` statement is an efficient way to match valid commands.
   `switch` statements are also clearer and easier to read.
 
 #### Sequence diagram on PlantUML
 - Represents when `execute()` method is called
-![Help Command sequence diagram](images/HelpCommand.png)
+  ![Help Command sequence diagram](images/HelpCommand.png)
 
 ## Product scope
 ### Target user profile
@@ -282,6 +305,7 @@ Another `switch` statement is used here to map each command to its corresponding
 | v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries          |
 | v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries |
 | v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU       |
+| v2.0    | CEG student  | delete a course mapping plan for a PU                           | keep my list of saved plans organised            |
 
 ## Non-Functional Requirements
 
