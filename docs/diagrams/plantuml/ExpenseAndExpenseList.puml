@@ -15,7 +15,7 @@ class Expense {
     +getDateAdded(): LocalDate
     +setPrice(price: Float): void
     +setDescription(description: String): void
-    +setCategory(String, category): void
+    +setCategory(String: category): void
     +setDateAdded(dateAdded: LocalDate): void
 }
 
