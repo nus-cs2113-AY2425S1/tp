@@ -1,15 +1,29 @@
-# User Guide
+# Java Ninja User Guide
 
 ## Introduction
 
-{Give a product intro}
+Java Ninja is a command-line interface (CLI) learning tool focused on helping beginner programmers enhance their understanding of fundamental programming concepts. This tool provides different modes of assessments with various difficulty levels as you progress.
+
+- [Quickstart](#QuickStart)
+- [Features](#Features)
 
 ## Quick Start
 
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Down the latest version of `JavaNinja` from [here](http://link.to/duke).
+3. Copy the file to the folder you want to use as the home folder for JavaNinja.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar javaninja.jar command to run the application.
+5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
+   Some example commands you can try:
+   Help: lists basic commands required to use the programme
+   View: view the different topics you can attempt
+   Select loops: Selects the loops topic to attempt, and jumps into quiz mode
+   Result: View results of the different quizzes that you have attempted from the running of this programme
+   Exit: Exits the app
+6. Refer to the features below for each command.
+
 
 ## Features 
 
