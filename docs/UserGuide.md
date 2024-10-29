@@ -37,6 +37,8 @@ remove -e EVENT: Remove an event from the event list.
 add -p PARTICIPANT -e EVENT: Add a participant to an event.
 view -e EVENT: View the list of participants of an event.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
+save: Save latest changes to file
+exit: Exit program
 ```
 
 Format: `menu`
@@ -54,12 +56,12 @@ Adds an event to the event list, or a participant to an event.
 Format:  
 
 * `add -e EVENT -t TIME -v VENUE` for adding an event to the events list.
-* `add -p PARTICIPANT -e EVENT` for adding a participant to an event.
+* `add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for adding a participant to an event.
 
 Examples:
 
 * `add -e Origami workshop -t Mon 1600-1800 -v Building A` adds an event with name `Origami workshop`, time `Mon 1600-1800` and venue `Building A` to the events list.
-* `add -p John Tan -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
+* `add -p John Tan -n 91583215 -email john@gmail.com -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
 
 ### Remove an event or participant: `remove` 
 
@@ -111,6 +113,12 @@ Examples:
 * `mark -p John Tan -e Origami workshop -s done` marks the participant `John Tan` in the `Origami workshop` event as present.
 * `mark -p John Tan -e Origami workshop -s undone` marks the participant `John Tan` in the `Origami workshop` event as absent.
 
+### Saving the program: `save`
+
+Save the program
+
+Format: `save`
+
 ### Exiting the program: `exit`
 
 Exits the program.
@@ -128,3 +136,5 @@ Format: `exit`
 * View all participants for an event: `view -e EVENT`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
+* Save program: `save`
+* Exit program: `exit`
