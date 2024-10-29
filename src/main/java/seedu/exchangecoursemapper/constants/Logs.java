@@ -1,7 +1,5 @@
 package seedu.exchangecoursemapper.constants;
 
-import seedu.exchangecoursemapper.command.CompareMappedCommand;
-
 public class Logs {
     public static final String EXECUTING_COMMAND  = "Executing command";
     public static final String SUCCESS_READ_JSON_FILE = "Successfully read JSON file";
@@ -50,26 +48,4 @@ public class Logs {
     public static final String DELETE_COURSE_MAPPING = "Deleting course mapping from storage..";
     public static final String RETURN_PARSED_DELETE_COMMAND = "Returning separated user input...";
     public static final String GET_COURSE_TO_DELETE = "Obtaining information on the course to be deleted.";
-
-    // ListPersonalTrackerCommand
-    public static final String INIT_STORAGE_LIST_PT = "ListPersonalTrackerCommand initialized with storage.";
-    public static final String EXECUTE = "Executing ListPersonalTrackerCommand to list mapped modules.";
-    public static final String NO_MODULES = "No modules mapped in the personal tracker.";
-    public static final String DISPLAY_MODULES = "Displaying mapped modules from personal tracker.";
-    public static final String EXECUTE_COMPLETE = "Completed execution of ListPersonalTrackerCommand.";
-    public static final String NO_MODULES_MESSAGE = "No modules mapped yet.";
-    public static final String MAPPED_MODULES_HEADER = "Mapped Modules:";
-
-    // CompareMappedCommand logs
-    public static final String INIT_STORAGE_COMPARE_MAPPED = "CompareMappedCommand initialized with storage.";
-    public static final String EXECUTE_COMPARE_MAPPED = "Executing CompareMappedCommand for comparing mapped modules.";
-    public static final String LOADED_MODULES = "Loaded mapped modules for comparison.";
-    public static final String FILTERING_UNIVERSITY = "Filtering modules for university: ";
-    public static final String COURSE_CODE_EXTRACTION= "Extracting course codes from modules.";
-    public static final String COMMON_COURSE_CODES = "Identified common course codes between the two universities.";
-    public static final String UNIQUE_COURSE_CODES = "Identified unique course codes for each university.";
-    public static final String DISPLAY_COMPLETE = "Completed displaying comparison results for ";
-    public static final String DISPLAYING_RESULTS = "Displaying comparison results between ";
-    public static final String DISPLAYING_UNIQUE_MAPPINGS = "Displaying unique mappings for ";
-
 }
