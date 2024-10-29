@@ -3,20 +3,36 @@
 
 Participant "Main" as main
 Participant "Ui" as ui UI_COLOUR
+Participant "Storage" as storage STORAGE_COLOUR
 Participant "Parser" as parser PARSER_COLOUR
 Participant "Command" as command COMMAND_COLOUR
-Participant "Event" as event EVENT_COLOUR
+Participant "EventList" as event EVENT_COLOUR
+
+
+main -> storage : loadEvents(events)
+activate storage STORAGE_COLOUR
+storage --> parser : parseFile(events, FILE_PATH)
+activate parser PARSER_COLOUR
+parser -> event : addEvent(eventName, time, venue)
+activate event EVENT_COLOUR
+event --> parser
+deactivate event
+parser --> storage
+deactivate parser
+storage -> main
+deactivate storage
+
+main -> parser : Parser()
+activate parser PARSER_COLOUR
+parser --> main : :Parser
+deactivate parser
 
 main -> ui : getCommand()
 activate ui UI_COLOUR
 ui --> main : "add -e event -t 1200 -v venue"
 deactivate ui
 
-create parser
-main -> parser : Parser()
-activate parser PARSER_COLOUR
-parser --> main : :Parser
-deactivate parser
+
 
 main -> parser : parseCommand("add -e event -t 1200 -v venue")
 activate parser PARSER_COLOUR
@@ -56,7 +72,16 @@ activate command COMMAND_COLOUR
 command --> ui : :String
 deactivate command
 
-ui --> main
+ui --> main :
 deactivate ui
+
+main -> storage : saveEvents(events)
+activate storage STORAGE_COLOUR
+storage -> event : getList()
+activate event EVENT_COLOUR
+event --> storage
+deactivate event
+storage --> main
+deactivate storage
 
 @enduml

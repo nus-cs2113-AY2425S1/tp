@@ -39,6 +39,17 @@ The `UI` does the following:
 * Take in command input from the user and pass the input to `Main`.
 * Show output messages from `Command` to the user after command execution.
 
+### Storage component
+
+<img src = "images/StorageClassDiagram.png">
+
+The `Storage` component comprises a Storage class, as shown in above **Class Diagram**.
+
+The `Storage` does the following:
+
+* Load events and participants information from a text file and save it to `EventList` list.
+* Save events from `EventList` list to a text file
+
 ### Command component
 
 The `Command` component and its component classes are shown in the below **Class Diagram**:
@@ -155,6 +166,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 | v1.0    | user     | view the participant list of an event                           | know who is involved                                                                      |
 | v2.0    | user     | mark events as completed                                        | easily track all past events                                                              |
 | v2.0    | user     | mark participants present                                       | know exactly who signed up but did not attend the event                                   |
+| v2.0    | user     | save events info                                                | can still access the information if the program terminates                                |
 
 ## Non-Functional Requirements
 

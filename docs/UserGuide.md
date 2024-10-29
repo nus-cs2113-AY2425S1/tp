@@ -41,6 +41,8 @@ copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
 find -e EVENT -p NAME: Finds all participants with specified name in an event.
 filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
 sort -by KEYWORD: Sorts events by name/time/priority.
+save: Save latest changes to file
+exit: Exit program
 ```
 
 Format: `menu`
@@ -58,12 +60,12 @@ Adds an event to the event list, or a participant to an event.
 Format:  
 
 * `add -e EVENT -t TIME -v VENUE` for adding an event to the events list.
-* `add -p PARTICIPANT -e EVENT` for adding a participant to an event.
+* `add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for adding a participant to an event.
 
 Examples:
 
 * `add -e Origami workshop -t Mon 1600-1800 -v Building A` adds an event with name `Origami workshop`, time `Mon 1600-1800` and venue `Building A` to the events list.
-* `add -p John Tan -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
+* `add -p John Tan -n 91583215 -email john@gmail.com -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
 
 ### Remove an event or participant: `remove` 
 
@@ -165,6 +167,12 @@ Examples:
 * `sort -by time` will output a list of all the user's events chronologically (earliest to latest).
 * `sort -by priority` will output a list of all the user's events in terms of urgency (most to least important).
 
+### Saving the program: `save`
+
+Save the program
+
+Format: `save`
+
 ### Exiting the program: `exit`
 
 Exits the program.
@@ -182,3 +190,9 @@ Format: `exit`
 * View all participants for an event: `view -e EVENT`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
+* Copy participant list: `copy FROM_EVENT > TO_EVENT`
+* Find participants: `find -e EVENT -p NAME`
+* Filter events: `filter -e/-t/-u FILTER_DESCRIPTION`
+* Sort events: `sort -by KEYWORD`
+* Save program: `save`
+* Exit program: `exit`
