@@ -60,6 +60,29 @@ Events are appended to `outputMessage` with numbered formatting for readability.
 4. Output Generation:
 The method stores the generated `outputMessage` in `this.message`, ready for display.
 
+### Mark/unmark feature
+
+The mark/unmark feature allows users to mark events as done or not done. The feature comprises `MarkEventCommand`, which 
+extends `Command`. This class performs one operation, which marks a specified event as done or not done.
+
+The above operation is implemented as `MarkEventCommand#execute()`. This then overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+#### Feature implementation
+
+Given below is an example usage scenario for the mark/unmark mechanism, and how it behaves at each step.
+
+1. The user adds an event `Event 1` to the event list. The mark status for `Event 1` is initially `false` or not done.
+
+2. The user enters the command `mark -e Event 1 -s done` to mark `Event 1` as done. The `MarkEventCommand` calls `MarkEventCommand#execute`,
+in which it gets the event `Event 1` from the event list, and sets its mark status to `true` or done.
+
+3. The user then enters the command `mark -e Event 1 -s undone` to mark `Event 1` as not done. The `MarkEventCommand` again calls `MarkEventCommand#execute`,
+in which it gets the event `Event 1` from the event list, and sets its mark status to `false` or not done.
+
+The interactions between components during the execution of the `mark` command are show in the **Sequence Diagram** below:
+
+<img src = "images/MarkEventSequenceDiagram.png">
 
 ## Product scope
 ### Target user profile
