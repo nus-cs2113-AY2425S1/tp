@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import java.time.LocalDate;
-
 /**
  * Represents the list of financial entries (income and expenses).
  * Provides methods for adding, deleting, and viewing entries.
