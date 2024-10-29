@@ -28,7 +28,7 @@ The Architecture Diagram given above explains the high-level design of the MediT
 
 Given below is a quick overview of main components and how they interact with each other.
 
-#### Main Components
+**Main Components**
 
 `MediTask` is in charge of the CLI to launch and the exit.
 
