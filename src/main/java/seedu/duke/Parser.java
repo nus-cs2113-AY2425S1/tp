@@ -1,14 +1,6 @@
 package seedu.duke;
 
-import seedu.commands.Command;
-import seedu.commands.AddCommand;
-import seedu.commands.DeleteCommand;
-import seedu.commands.UpdateCommand;
-import seedu.commands.SortCommand;
-import seedu.commands.FilterCommand;
-import seedu.commands.ListCommand;
-import seedu.commands.HelpCommand;
-import seedu.commands.RemoveCommand;
+import seedu.commands.*;
 
 import seedu.ui.Ui;
 
@@ -37,6 +29,7 @@ public class Parser {
         commands.put("list", ListCommand::new);
         commands.put("help", HelpCommand::new);
         commands.put("remove", RemoveCommand::new);
+        commands.put("fav", FavouriteCommand::new);
     }
 
     public Command parseCommand(String input) {
@@ -91,7 +84,9 @@ public class Parser {
         if (command instanceof FilterCommand) {
             return parseFilterCommandData(inputData);
         }
-
+        if (command instanceof FavouriteCommand) {
+            return parseFavouriteCommandData(inputData);
+        }
         assert false : "Should never be able to reach this statement if all commands are accounted for";
         return null;
     }
@@ -144,6 +139,15 @@ public class Parser {
 
     private ArrayList<String> parseFilterCommandData(String inputData) {
         return parseFlagData(inputData);
+    }
+
+    private ArrayList<String> parseFavouriteCommandData(String inputData) {
+        if (inputData.trim().isEmpty()) {
+            return null;
+        }
+        ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(inputData.trim().split(",")));
+        commandArgs.replaceAll(String::trim);
+        return commandArgs;
     }
 
 }
