@@ -1,0 +1,86 @@
+@startuml
+skinparam groupInheritance 2
+abstract class Command {
+    +createJsonObject(): JsonObject
+}
+
+abstract class CheckInformationCommand extends Command {
+    +execute(userInput: String): void {abstract}
+}
+
+class FilterCoursesCommand extends CheckInformationCommand {
+    -logger: Logger {static}
+    +execute(userInput: String): void
+    +getNusCourseCode(userInput: String): String
+    +displayMappableCourses(jsonObject: JsonObject, courseToFind: String): void
+    +isCourseFound(courseToFind: String, universityName: String, numberOfCourses: int,
+         courses: JsonArray, isCourseFound: boolean): boolean
+}
+
+class HelpCommand extends CheckInformationCommand {
+    -logger: Logger {static}
+    +execute(input: String): void
+    +getCommand(input: String): String
+    +printHelp(command: String): void
+}
+
+class ListCommandsCommand extends CheckInformationCommand {
+    -logger: Logger {static}
+    +execute(input: String): void
+}
+
+class ListSchoolCommand extends CheckInformationCommand {
+    -logger: Logger {static}
+    +execute(input: String): void
+    +displaySchoolList(jsonObject: JsonObject) {static}
+}
+
+class ListUniCoursesCommand extends CheckInformationCommand {
+    -logger: Logger {static}
+    +execute(input: String): void
+    +getPuName(userInput: String): String
+    +getUniCourses(jsonObject: JsonObject, puName: String): void
+    -findUniversityName(universityNames: Set<String>, lowerCasePuName: String): String
+    -handleUnknownUniversity(puName: String): void
+    -listCourses(jsonObject: JsonObject, universityName: String): void
+    -getUniversityObject(jsonObject: JsonObject), universityName: String): JsonObject
+    -getCourseArray(universityObject: JsonObject, universityName: String): JsonObject
+    -iterateCourses(courseArray: JsonArray): void
+    -printCourseDetails(courseObject: JsonObject): void
+}
+
+class ObtainContactsCommand extends CheckInformationCommand {
+    -logger: Logger {static}
+    +execute(input: String): void
+    +getSchoolName(userInput: String): String
+    +getContactType(userInput: String): String
+    +handleContactType(schoolInfo: JsonObject, schoolName: String, contactType: String): void
+    +findMatchingSchool(jsonObject: JsonObject, schoolName: String): String
+}
+
+abstract class PersonalTrackerCommand extends Command {
+    +execute(userInput: String, storage: Storage): void {abstract}
+}
+
+class AddCoursesCommand extends PersonalTrackerCommand {
+    -logger: Logger {static}
+    -courseValidator: CourseValidator
+    +AddCoursesCommand()
+    +execute(userInput: String, storage, Storage): void
+    +trimString(string: String): String
+    +parseAddCommand(input: String): String[]
+}
+
+class DeleteCoursesCommand extends PersonalTrackerCommand {
+    -logger: Logger {static}
+    +execute(userInput: String, storage, Storage): void
+    +parseDeleteCommand(userInput: String): String[]
+    +deleteCourse(descriptionSubstrings: String[], storage: Storage): void
+}
+
+class ListPersonalTrackerCommand extends CheckInformationCommand {
+    -logger: Logger {static}
+    +execute(input: String): void
+}
+
+@enduml

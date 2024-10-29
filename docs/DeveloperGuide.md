@@ -66,7 +66,9 @@ interact with a given component through its interface rather than the concrete c
 **The sections below give more details of each component.**
 
 ### Class Diagrams
-{TODO: Class Diagram}
+Command Package:
+![Class diagram for Commands](../uml-images/CommandClass.png)
+
 {TODO: Object Diagram}
 
 ## Implementation
