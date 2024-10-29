@@ -1,5 +1,6 @@
 package seedu.manager.event;
 
+import seedu.manager.exception.DuplicateDataException;
 import seedu.manager.item.Participant;
 
 import java.time.LocalDateTime;
@@ -49,8 +50,13 @@ public class Event {
      * Adds a participant to the participant list for the event.
      *
      * @param participantName the name of the participant to be added to the list.
+     * @throws DuplicateDataException if a participant with the same name exists in the list.
      */
-    public void addParticipant(String participantName) {
+    public void addParticipant(String participantName) throws DuplicateDataException {
+        if (getParticipantByName(participantName).isPresent()) {
+            throw new DuplicateDataException("Duplicate participant!");
+        }
+
         Participant participant = new Participant(participantName);
         this.participantList.add(participant);
     }
