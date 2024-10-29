@@ -3,12 +3,10 @@ package seedu.manager.storage;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 import seedu.manager.event.Event;
+import seedu.manager.parser.Parser;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 //@@author KuanHsienn
@@ -58,20 +56,8 @@ public class Storage {
      * @throws IOException if there's an error reading from the file.
      */
     public void loadEvents(EventList events) throws IOException {
-        try {
-            for (String line : Files.readAllLines(Paths.get(filePath))) {
-                String[] parts = line.split(","); // CSV format
-                if (parts.length == 4) {
-                    String eventName = parts[0].trim();
-                    LocalDateTime time = LocalDateTime.parse(parts[1].trim(), formatter);
-                    String venue = parts[2].trim();
-                    Priority priority = Priority.valueOf(parts[3].trim().toUpperCase());
-                    events.addEvent(eventName, time, venue, priority);
-                }
-            }
-        } catch (IOException exception) {
-            throw new IOException("Error loading events from file: " + filePath + ".");
-        }
+        Parser parser = new Parser();
+        parser.parseFile(events, filePath);
     }
 
     /**
