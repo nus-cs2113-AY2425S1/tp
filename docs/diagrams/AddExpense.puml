@@ -1,0 +1,42 @@
+@startuml
+actor User
+participant Duke
+participant ExpenseTracker
+participant Category
+participant Expense
+
+User -> Duke: input ("add-expense n/<name> a/<amount> c/<category>")
+activate Duke
+
+Duke -> Duke: addExpenseRequest(input, expenseTracker)
+Duke -> Duke: Parse name, amount, category from input
+Duke -> ExpenseTracker: addExpense(name, amount, category)
+activate ExpenseTracker
+
+ExpenseTracker -> ExpenseTracker: formatInput(categoryName)
+ExpenseTracker -> ExpenseTracker: Check if category exists in categories
+
+alt Category exists
+    ExpenseTracker -> Category: Retrieve existing category
+    activate Category
+    deactivate Category
+else Category does not exist
+    ExpenseTracker -> Category: Create new Category
+    activate Category
+    ExpenseTracker -> ExpenseTracker: Add new category to categories
+    deactivate Category
+end
+
+ExpenseTracker -> Expense: Create Expense(name, amount, existingCategory)
+activate Expense
+deactivate Expense
+
+ExpenseTracker -> ExpenseTracker: Add Expense to expenses
+
+ExpenseTracker -> Duke: Print confirmation of added expense
+deactivate ExpenseTracker
+
+Duke -> User: Print success message
+deactivate Duke
+
+@enduml
