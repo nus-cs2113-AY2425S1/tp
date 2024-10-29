@@ -77,8 +77,7 @@ public class SeeAllExpensesCommand extends SeeAllEntriesCommand{
      */
     @Override
     protected boolean shouldBeIncluded(FinancialEntry entry) {
-        return entry instanceof Expense && (end == null || entry.getDate().isBefore(end))
-                && (start == null || entry.getDate().isAfter(start));
+        return (entry instanceof Expense) && isWithinGivenDates(entry);
     }
 
     @Override

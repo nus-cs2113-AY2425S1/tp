@@ -79,6 +79,12 @@ public class SeeAllEntriesCommand extends Command {
         return String.format("%.2f", cashflow);
     }
 
+    protected boolean isWithinGivenDates(FinancialEntry entry) {
+        boolean withinStartDate = (start == null || !entry.getDate().isBefore(start));
+        boolean withinEndDate = (end == null || !entry.getDate().isAfter(end));
+        return withinStartDate && withinEndDate;
+    }
+
     /**
      * Formats the highest category and amount as a string.
      *
@@ -98,7 +104,7 @@ public class SeeAllEntriesCommand extends Command {
      * @return true if entry should be listed out, false otherwise.
      */
     protected boolean shouldBeIncluded(FinancialEntry entry) {
-        return (end == null || entry.getDate().isBefore(end)) && (start == null || entry.getDate().isAfter(start));
+        return isWithinGivenDates(entry);
     }
 
     /**
