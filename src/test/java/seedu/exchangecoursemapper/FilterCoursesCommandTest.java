@@ -45,9 +45,7 @@ public class FilterCoursesCommandTest {
 
     @Test
     public void displayMappableCourses_mappableNusCourse_expectMappableCoursesList() throws FileNotFoundException {
-        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
-        JsonObject jsonObject = jsonReader.readObject();
-        jsonReader.close();
+        JsonObject jsonObject = createDatabaseJsonObject();
 
         String nusCourseCode = "cs3244";
         filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
@@ -72,9 +70,7 @@ public class FilterCoursesCommandTest {
     @Test
     public void displayMappableCourses_mappableNusCourseInUpperCase_expectMappableCoursesList()
             throws FileNotFoundException {
-        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
-        JsonObject jsonObject = jsonReader.readObject();
-        jsonReader.close();
+        JsonObject jsonObject = createDatabaseJsonObject();
 
         String nusCourseCode = "CS3244";
         filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
@@ -98,14 +94,10 @@ public class FilterCoursesCommandTest {
 
     @Test
     public void displayMappableCourses_nonMappableNusCourse_expectNoMappableCourses() throws FileNotFoundException {
-        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
-        JsonObject jsonObject = jsonReader.readObject();
-        jsonReader.close();
+        JsonObject jsonObject = createDatabaseJsonObject();
 
         String nusCourseCode = "ee2026";
-
         filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
-
         String actualOutput = outputStreamCaptor.toString();
         assertEquals("No courses found for the given course code.",
                 normalizeLineEndings(actualOutput));
@@ -114,14 +106,10 @@ public class FilterCoursesCommandTest {
     @Test
     public void displayMappableCourses_nonMappableNusCourseInUpperCase_expectNoMappableCourses()
             throws FileNotFoundException {
-        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
-        JsonObject jsonObject = jsonReader.readObject();
-        jsonReader.close();
+        JsonObject jsonObject = createDatabaseJsonObject();
 
         String nusCourseCode = "EE2026";
-
         filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
-
         String actualOutput = outputStreamCaptor.toString();
         assertEquals("No courses found for the given course code.",
                 normalizeLineEndings(actualOutput));
@@ -130,7 +118,6 @@ public class FilterCoursesCommandTest {
     @Test
     public void execute_oneNusCourseCode_expectMappableCoursesList() {
         String input = "filter CS3241";
-
         filterCoursesCommand.execute(input);
         String expectedOutput = """
                 Partner University: The University of Melbourne
@@ -145,17 +132,22 @@ public class FilterCoursesCommandTest {
     }
 
     @Test
-    public void execute_twoNusCourseCodes_expectException() {
+    public void execute_twoNusCourseCodes_expectErrorMessage() {
         String userInput = "filter CS3241 Ee2026";
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
-            filterCoursesCommand.execute(userInput);
-        });
+        filterCoursesCommand.execute(userInput);
+        String actualOutput = outputStreamCaptor.toString();
         assertEquals("Please note that we can only filter for only one NUS Course!",
-                e.getMessage());
+                normalizeLineEndings(actualOutput));
+    }
+
+    public JsonObject createDatabaseJsonObject() throws FileNotFoundException {
+        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
+        JsonObject jsonObject = jsonReader.readObject();
+        jsonReader.close();
+        return jsonObject;
     }
 
     String normalizeLineEndings(String input) {
         return input.replaceAll("\\r\\n", "\n").replaceAll("\\r", "\n").trim();
     }
-
 }
