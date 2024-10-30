@@ -72,7 +72,7 @@ Lists out all the available commands and their proper format for use.
 
 Format: `bye`
 
-Will close the app
+Will end the program and close the app.
 
 ## Features and Command - CookBook for Recipes
 

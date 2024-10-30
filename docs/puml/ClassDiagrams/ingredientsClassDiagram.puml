@@ -28,6 +28,6 @@ class IngredientList #COLOR_PURPLE_BLUE{
 }
 hide IngredientList circle
 
-IngredientList "1 " o----> "ingredients * " Ingredient: contains >
+IngredientList "1 " o--- "ingredients * " Ingredient: contains >
 
 @enduml
