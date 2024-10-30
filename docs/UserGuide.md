@@ -98,13 +98,21 @@ Format: `review`
 review
 ```
 
+### 6. Exit Quiz: `exit`
+Exit the current quiz session if you want to stop answering questions without finishing the quiz.
+
+**Format**: `exit`
+
+**Example**:
+```shell
+exit
+```
 ---
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
-
-**A**: {your answer here}
+**Q**: What should I do if I encounter an error saying "Command not recognized"?  
+**A**: Ensure you have typed the command correctly without any typos. Use the `help` command to view all available commands and check the correct format.
 
 ---
 
@@ -112,12 +120,21 @@ review
 
 {Give a 'cheat sheet' of commands here}
 
-| Command               | Description                                                    |
-|-----------------------|----------------------------------------------------------------|
-| `view`                | View all available quiz topics.                                |
-| `select [TOPIC_NAME]` | Select a topic and start the quiz for that topic.              |
-| `add Flashcard`       | Add a custom flashcard question.                               |
-| `review`              | View results of quizzes taken during this session.             |
-| `help`                | List all commands with descriptions.                           |
-| `exit`                | Exit the quiz. 
-| `quit`                | Exit the program. 
+| Command               | Description                                        |
+|-----------------------|----------------------------------------------------|
+| `view`                | View all available quiz topics.                    |
+| `select [TOPIC_NAME]` | Select a topic and start the quiz for that topic.  |
+| `add Flashcard`       | Add a custom flashcard question.                   |
+| `review`              | View results of quizzes taken during this session. |
+| `help`                | List all commands with descriptions.               |
+| `exit`                | Exit the quiz.                                     |
+| `quit`                | Exit the program.                                  |
+
+
+## Troubleshooting
+
+- **Issue**: The application does not start when running the `java -jar javaninja.jar` command.
+  - **Solution**: Make sure Java 17 or above is installed and properly configured in your system's PATH. You can check your Java version with `java -version`.
+
+- **Issue**: Commands are not recognized or produce unexpected results.
+  - **Solution**: Ensure correct command syntax. Use the `help` command to verify command formats.
