@@ -169,7 +169,33 @@ public class EventList  {
         return false;
     }
 
-    public void
+    //@@author KuanHsienn
+    /**
+     * Edits the details of a participant in a specified event.
+     *
+     * <p>
+     * This method searches for the event with the given name in the event list and
+     * attempts to update the specified participant's phone number and email. If the event
+     * is found and the participant is successfully updated, it returns {@code true}.
+     * If the event does not exist or the participant is not found, it returns
+     * {@code false}.
+     * </p>
+     *
+     * @param participantName the name of the participant to be edited.
+     * @param number         the new contact number of the participant.
+     * @param email          the new email address of the participant.
+     * @param eventName      the name of the event associated with the participant.
+     * @return {@code true} if the participant was successfully edited;
+     *         {@code false} if the event does not exist or the participant was not found.
+     */
+    public boolean editParticipant(String participantName, String number, String email, String eventName) {
+        for (Event event : eventList) {
+            if (event.getEventName().equals(eventName)) {
+                return event.updateParticipant(participantName, number, email);
+            }
+        }
+        return false;
+    }
 
     /**
      * Sort the event list by name, alphabetically.
