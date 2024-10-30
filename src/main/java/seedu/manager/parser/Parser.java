@@ -119,6 +119,9 @@ public class Parser {
     private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
     private static final String VIEW_REGEX = "(-e|-y)";
+    public static final String EVENT_FLAG = "-e";
+    public static final String PARTICIPANT_FLAG = "-p";
+    public static final String ITEM_FLAG = "-m";
 
     /**
      * Returns a command based on the given user command string.
@@ -182,16 +185,17 @@ public class Parser {
         try {
             String commandFlag = commandParts[1];
 
-            if (commandFlag.equals("-e")) {
+            switch (commandFlag) {
+            case EVENT_FLAG:
                 return getAddEventCommand(input);
-            } else if (commandFlag.equals("-p")) {
+            case PARTICIPANT_FLAG:
                 return getAddParticipantCommand(input);
-            } else if (commandFlag.equals("-m")) {
+            case ITEM_FLAG:
                 return getAddItemCommand(input);
+            default:
+                logger.log(WARNING, "Invalid command format");
+                throw new InvalidCommandException(INVALID_ADD_MESSAGE);
             }
-
-            logger.log(WARNING,"Invalid command format");
-            throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING,"Invalid command format");
             throw new InvalidCommandException(INVALID_ADD_MESSAGE);
@@ -285,16 +289,17 @@ public class Parser {
         try {
             String commandFlag = commandParts[1];
 
-            if (commandFlag.equals("-e")) {
+            switch (commandFlag) {
+            case EVENT_FLAG:
                 return getRemoveEventCommand(input);
-            } else if (commandFlag.equals("-p")) {
+            case PARTICIPANT_FLAG:
                 return getRemoveParticipantCommand(input);
-            } else if (commandFlag.equals("-m")) {
+            case ITEM_FLAG:
                 return getRemoveItemCommand(input);
+            default:
+                logger.log(WARNING, "Invalid command format");
+                throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
             }
-
-            logger.log(WARNING,"Invalid command format");
-            throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING,"Invalid command format");
             throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
@@ -310,7 +315,7 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present in input.
      */
     private RemoveCommand getRemoveEventCommand(String input) throws IndexOutOfBoundsException {
-        String[] inputParts = input.split("-e");
+        String[] inputParts = input.split(EVENT_FLAG);
         return new RemoveCommand(inputParts[1].trim());
     }
 
@@ -362,7 +367,7 @@ public class Parser {
         try {
             String commandFlag = commandParts[1];
 
-            if (commandFlag.equals("-e")) {
+            if (commandFlag.equals(EVENT_FLAG)) {
                 return getViewCommand(input);
             }
 
@@ -417,10 +422,10 @@ public class Parser {
         try {
             String commandFlag = commandParts[1];
 
-            if (commandFlag.equalsIgnoreCase("-e")) {
+            if (commandFlag.equalsIgnoreCase(EVENT_FLAG)) {
                 String[] inputParts = input.split("-e|-s");
                 return getMarkEventCommand(inputParts[1].trim(), inputParts[2].trim());
-            } else if (commandFlag.equalsIgnoreCase("-p")) {
+            } else if (commandFlag.equalsIgnoreCase(PARTICIPANT_FLAG)) {
                 String[] inputParts = input.split("-p|-e|-s");
                 return getMarkParticipantCommand(inputParts[1].trim(), inputParts[2].trim(), inputParts[3].trim());
             }
@@ -575,7 +580,7 @@ public class Parser {
                 throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
             }
 
-            Set<String> validFlags = Set.of("-e", "-t", "-u");
+            Set<String> validFlags = Set.of(EVENT_FLAG, "-t", "-u");
             if (validFlags.contains(commandParts[1].trim().toLowerCase())) {
                 return new FilterCommand(commandParts[1].trim().toLowerCase(), inputParts[1].trim());
             }
@@ -637,7 +642,7 @@ public class Parser {
     private Command parseFindCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(FindCommand.COMMAND_WORD);
         try {
-            if (!input.contains("-e") || !input.contains("-p")) {
+            if (!input.contains(EVENT_FLAG) || !input.contains(PARTICIPANT_FLAG)) {
                 throw new InvalidCommandException(INVALID_FIND_FLAG_MESSAGE);
             }
 
