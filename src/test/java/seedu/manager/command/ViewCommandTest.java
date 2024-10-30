@@ -25,7 +25,7 @@ public class ViewCommandTest {
         command.setData(eventList);
         command.execute();
 
-        viewCommand = new Parser().parseCommand("view -e Event 1");
+        viewCommand = new Parser().parseCommand("view -e Event 1 -y participant");
         viewCommand.setData(eventList);
         viewCommand.execute();
     }

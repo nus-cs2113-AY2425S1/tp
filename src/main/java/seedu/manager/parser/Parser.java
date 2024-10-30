@@ -51,7 +51,11 @@ public class Parser {
     private static final String INVALID_VIEW_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            view -e EVENT
+            view -e EVENT -y TYPE
+            """;
+    private static final String INVALID_TYPE_MESSAGE = """
+            Invalid type!
+            Please set the type as either "participant" or "item"
             """;
     private static final String INVALID_MARK_MESSAGE = """
             Invalid command!
@@ -114,6 +118,7 @@ public class Parser {
     private static final String ITEM_REGEX = "(-m|-e)";
     private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
+    private static final String VIEW_REGEX = "(-e|-y)";
 
     /**
      * Returns a command based on the given user command string.
@@ -358,8 +363,7 @@ public class Parser {
             String commandFlag = commandParts[1];
 
             if (commandFlag.equals("-e")) {
-                String [] inputParts = input.split("-e");
-                return new ViewCommand(inputParts[1].trim(), true);
+                return getViewCommand(input);
             }
 
             logger.log(WARNING,"Invalid command format");
@@ -371,6 +375,27 @@ public class Parser {
     }
 
     //@@author jemehgoh
+    /**
+     * Returns a {@link ViewCommand} with fields parsed from a given user input.
+     *
+     * @param input the user input to be parsed.
+     * @return a {@link ViewCommand} with fields parsed from input.
+     * @throws IndexOutOfBoundsException if not all fields are present in input.
+     * @throws InvalidCommandException if the status parameter in input is invalid.
+     */
+    private ViewCommand getViewCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
+        String[] inputParts = input.split(VIEW_REGEX);
+        String eventName = inputParts[1].trim();
+        String viewType = inputParts[2].trim();
+        if (viewType.equalsIgnoreCase("participant")) {
+            return new ViewCommand(eventName, true);
+        } else if (viewType.equalsIgnoreCase("item")) {
+            return new ViewCommand(eventName, false);
+        } else {
+            throw new InvalidCommandException(INVALID_TYPE_MESSAGE);
+        }
+    }
+
     /**
      * Parses the input string to create a {@link Command} based on the provided command parts.
      *
