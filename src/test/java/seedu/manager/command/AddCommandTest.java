@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AddCommandTest {
-    //@@author jemehgoh
     private EventList eventList;
     private DateTimeFormatter formatter;
 
@@ -23,7 +22,6 @@ public class AddCommandTest {
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     }
 
-    //@@author
     @Test
     public void add_event_success() {
         eventList.addEvent("Event 1",
