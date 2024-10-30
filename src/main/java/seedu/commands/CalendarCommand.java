@@ -6,12 +6,11 @@ import seedu.duke.Deadline;
 import seedu.duke.Internship;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
 /**
- * Subclass of <code>Command</code> to display all deadlines from every <code>Intenship</code> entry.
+ * Subclass of <code>Command</code> to display all deadlines from every <code>Internship</code> entry.
  */
 public class CalendarCommand extends Command {
     @Override
@@ -31,7 +30,7 @@ public class CalendarCommand extends Command {
     }
 
     protected ArrayList<Deadline> sortDeadlines(ArrayList<Deadline> deadlines) {
-        deadlines.sort(Comparator.comparing(deadline -> deadline.getDate()));
+        deadlines.sort(Comparator.comparing(deadline -> deadline.getUnformattedDate()));
         return deadlines;
     }
 
