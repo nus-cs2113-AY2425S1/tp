@@ -1,0 +1,38 @@
+@startuml
+
+class StateManager {
+    - State currentState
+    + StateManager()
+    + getCurrentState(): State
+    + setCurrentState(State currentState): void
+    + changeState(StateType state): void
+    + getState(): StateType
+    + runState(String commandInput, Command command, Hospital hospital): CommandResult
+    + runMainState(String commandInput, Command command, Hospital hospital): CommandResult
+    + runTaskState(String commandInput, Command command, Hospital hospital): CommandResult
+}
+
+class State {
+    - StateType currentStage
+    + State()
+    + State(StateType state)
+    + getState(): StateType
+    + setState(StateType state): void
+}
+
+enum StateType {
+    MAIN_STATE
+    TASK_STATE
+}
+
+class CommandResult {
+    - feedbackToUser: String
+    + CommandResult(String feedbackToUser)
+    + getFeedbackToUser(): String
+}
+
+StateManager --> "0..1" State
+State --> "1" StateType
+StateManager --> CommandResult
+
+@enduml

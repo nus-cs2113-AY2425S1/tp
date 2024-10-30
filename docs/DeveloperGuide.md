@@ -57,11 +57,12 @@ The `commands` package includes the command pattern used in the application to h
 ![Command_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/CommandClass.png)
 
 ### Data
-#### task
+
+### task
 The `task` package manages all task-related functionality. A `Task` class serves as the base for other task types: `Todo`, `Deadline`, and `Repeat`. Each task type extends `Task` and introduces additional attributes relevant to its behavior. The `TaskList` class maintains a collection of tasks and provides methods to add, delete, find and track the completion rate of tasks.
 
 ![Task_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/TaskClassDiagram.png)
-### State Manager
+
 
 ### Hospital 
 
@@ -91,6 +92,43 @@ The following diagram illustrates the structure of the `Hospital` class and its 
 - **Logging**: All major actions, such as adding and deleting patients, are logged at an appropriate level to facilitate debugging and monitoring.
 - **Error Handling**: Throws `PatientNotFoundException` for invalid indices, ensuring robustness in data handling.
 
+
+### State
+
+### State Class
+
+The `State` class manages the application’s current operational mode, allowing the system to handle different types of commands depending on whether it is in the `MAIN_STATE` or `TASK_STATE`.
+
+- **Attributes**:
+        - `currentStage`: Holds the current state of the application, represented by `StateType` enum values.
+- **Methods**:
+        - `getState()`: Returns the current state.
+        - `setState()`: Changes the application’s state to the provided `StateType`.
+
+The state ensures that certain commands, like task-related commands, are only available when a patient is selected.
+
+
+### **State Manager**
+
+The `StateManager` class coordinates the application’s state transitions, managing the current state and delegating command execution based on the active state.
+
+1. **Attributes**:
+        - `currentState`: Stores the current state as a `State` object.
+2. **Methods**:
+        - `changeState(StateType state)`: Changes the application state.
+        - `runState(String commandInput, Command command, Hospital hospital)`: Executes commands based on the active state. It distinguishes between `MAIN_STATE` for patient-related commands and `TASK_STATE` for task-related commands.
+        - `runMainState` and `runTaskState`: Helper methods to handle specific command logic within each state.
+
+#### Class Diagram
+
+The following class diagram shows the structure of the `StateManager`:
+
+![StateManager Class Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/StateManagerClassDiagram.png)
+
+#### Implementation Considerations
+
+- **Error Handling**: The `StateManager` throws an `UnknownStateFound` exception if it encounters an unrecognized state, ensuring robustness.
+- **State Transitions**: Commands like `SelectPatientCommand` and `BackCommand` are responsible for transitioning between `MAIN_STATE` and `TASK_STATE`.
 ### Storage
 
 ![Storage_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/StorageClassDiagram.png)
