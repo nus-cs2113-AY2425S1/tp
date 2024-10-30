@@ -6,6 +6,7 @@
 - [Features](#features)
   - [Add Command: `add`](#add-command-add)
   - [Update Command: `update`](#update-command-update)
+  - [Remove Command: `remove`]()
   - [Sort Command: `sort`](#sort-command-sort)
   - [Filter Command: `filter`](#filter-command-filter)
   - [Delete Command: `delete`](#delete-command-delete)
@@ -143,6 +144,22 @@ Skills: Python
 Deadlines:
     No deadlines set.
 ```
+
+## Remove Command: `remove`
+
+Removes specific values from fields of an Internship entry.
+
+Valid Fields:
+- `skills`
+- `deadline`
+
+**Format:**
+`remove {ID} -{field} {value}`
+
+**Examples:**
+
+`remove`
+
 
 ## Sort Command: `sort`
 
