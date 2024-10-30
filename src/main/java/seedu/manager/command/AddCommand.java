@@ -99,7 +99,7 @@ public class AddCommand extends Command {
             );
             message = (isAdded) ? ADD_PARTICIPANT_MESSAGE : ADD_FAILURE_MESSAGE;
         } else if (itemName != null) {
-            boolean isAdded = eventList.addItemToEvent(itemName, participantName);
+            boolean isAdded = eventList.addItemToEvent(itemName, eventName);
             message = (isAdded) ? ADD_ITEM_MESSAGE : ADD_FAILURE_MESSAGE;
         } else {
             eventList.addEvent(eventName, time, venue, priority);

@@ -108,6 +108,9 @@ public class Parser {
             Invalid find flag!
             Please set the find flag using "-e" and "-p""
             """;
+    private static final String ADD_EVENT_REGEX = "(-e|-t|-v|-u)";
+    private static final String ADD_PARTICIPANT_REGEX = "(-p|-n|-email|-e)";
+    private static final String ADD_ITEM_REGEX = "(-m|-e)";
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
 
     /**
@@ -170,27 +173,13 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
-            String[] inputParts;
 
             if (commandFlag.equals("-e")) {
-                inputParts = input.split("(-e|-t|-v|-u)");
-                logger.info("Creating AddCommand for event with details: " +
-                        inputParts[1].trim() + ", " + inputParts[2].trim() + ", " + inputParts[3].trim());
-                String eventName = inputParts[1].trim();
-                LocalDateTime eventTime = LocalDateTime.parse(inputParts[2].trim(),
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                String venue = inputParts[3].trim();
-                Priority eventPriority = Priority.valueOf(inputParts[4].trim().toUpperCase());
-                return new AddCommand(eventName, eventTime, venue, eventPriority);
+                return getAddEventCommand(input);
             } else if (commandFlag.equals("-p")) {
-                inputParts = input.split("(-p|-n|-email|-e)");
-                logger.info("Creating AddCommand for participant with details: " +
-                        inputParts[1].trim() + ", " + inputParts[2].trim());
-                String participantName = inputParts[1].trim();
-                String participantNumber = inputParts[2].trim();
-                String participantEmail = inputParts[3].trim();
-                String eventName = inputParts[4].trim();
-                return new AddCommand(participantName, participantNumber, participantEmail, eventName);
+                return getAddParticipantCommand(input);
+            } else if (commandFlag.equals("-m")) {
+                return getAddItemCommand(input);
             }
 
             logger.log(WARNING,"Invalid command format");
@@ -207,6 +196,43 @@ public class Parser {
         }
     }
 
+    //@@author KuanHsienn
+    private Command getAddEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException {
+        String[] inputParts = input.split(ADD_EVENT_REGEX);
+        logger.info("Creating AddCommand for event with details: " +
+                inputParts[1].trim() + ", " + inputParts[2].trim() + ", " + inputParts[3].trim());
+        String eventName = inputParts[1].trim();
+        LocalDateTime eventTime = LocalDateTime.parse(inputParts[2].trim(),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String venue = inputParts[3].trim();
+        Priority eventPriority = Priority.valueOf(inputParts[4].trim().toUpperCase());
+        return new AddCommand(eventName, eventTime, venue, eventPriority);
+    }
+
+    //@@author LTK-1606
+    private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException {
+        String[] inputParts = input.split(ADD_PARTICIPANT_REGEX);
+        logger.info("Creating AddCommand for participant with details: " +
+                inputParts[1].trim() + ", " + inputParts[2].trim());
+        String participantName = inputParts[1].trim();
+        String participantNumber = inputParts[2].trim();
+        String participantEmail = inputParts[3].trim();
+        String eventName = inputParts[4].trim();
+        return new AddCommand(participantName, participantNumber, participantEmail, eventName);
+    }
+
+    //@@author jemehgoh
+    private Command getAddItemCommand(String input) throws IndexOutOfBoundsException {
+        String[] inputParts = input.split(ADD_ITEM_REGEX);
+        String itemName = inputParts[1].trim();
+
+        String eventName = inputParts[2].trim();
+        logger.info(String.format("Creating AddCommand for item with details: %s, %s", itemName,
+                eventName));
+        return new AddCommand(itemName, eventName);
+    }
+
+    //@@author LTK-1606
     /**
      * Parses the input string to create a {@link Command} based on the provided command parts.
      *
