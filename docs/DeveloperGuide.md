@@ -10,6 +10,7 @@ Certain aspects of YMFC's code was inspired from the following member(s) IPs:
 
 ### Architecture
 ![ArchitectureDiagram.png](img/ClassDiagrams/ArchitectureDiagram.png)
+
 The **_Architecture Diagram_** given above explains the high-level design of the YMFC App.
 
 Given below is a quick overview of main components and how they interact with each other.
@@ -203,4 +204,5 @@ steps to take, cuisine and time taken to cook
 
 ## Instructions for manual testing
 
-Refer to the [UserGuide](https://ay2425s1-cs2113-w13-1.github.io/tp/UserGuide.html) for the list of available commands and their expected behaviour
+Refer to the [UserGuide](https://ay2425s1-cs2113-w13-1.github.io/tp/UserGuide.html) 
+for the list of available commands and their expected behaviour
