@@ -143,6 +143,51 @@ Command: `prog delete INDEX`
 
 Deletes the programme at the given index.
 
+### 10. Add a Meal
+Command: `meal add /n MEAL_NAME /c CALORIES /t DATE`
+
+Adds a meal to the daily record of a specific date.
+
+- `/n MEAL_NAME`: Name of the meal.
+- `/c CALORIES`: Number of calories in the meal.
+- `/t DATE`: Date in the format `dd-MM-yyyy`.
+
+**Example**: `meal add /n Chicken_Breast /c 250 /t 30-10-2024`
+
+Chicken_Breast | 250kcal has been added to 30-10-2024.
+
+---
+
+### 11. Delete a Meal
+Command: `meal delete /m MEAL_INDEX /t DATE`
+
+Deletes a meal from the daily record of a specific date.
+
+- `/m MEAL_INDEX`: Index of the meal to delete.
+- `/t DATE`: Date in the format `dd-MM-yyyy`.
+
+**Example**: `meal delete /m 1 /t 30-10-2024`
+
+Chicken_Breast | 250kcal has been deleted from 30-10-2024
+
+---
+
+### 12. View Meals
+Command: `meal view /t DATE`
+
+Displays all meals recorded for a specific date.
+
+- `/t DATE`: Date in the format `dd-MM-yyyy`.
+
+**Example**: `meal view /t 30-10-2024`
+
+Meals for 30-10-2024:
+
+1. Chicken_Breast | 250 kcal
+2. Scrambled_Eggs | 150 kcal
+
+
+
 ## Command Summary
 
 | Command                | Description                                                 | Format                                                                          | Example                                                         |
@@ -156,7 +201,9 @@ Deletes the programme at the given index.
 | **View History**       | Displays the history of completed workouts                  | `history`                                                                       | `history`                                                       |
 | **Delete Program**     | Deletes a program by its index                              | `prog delete INDEX`                                                             | `prog delete 1`                                                 |
 | **Set Active Program** | Changes the active program to a new one                     | `prog active INDEX`                                                             | `prog active 2`                                                 |
-
+| **Add Meal**           | Adds a meal to a daily record                               | `meal add /n MEAL_NAME /c CALORIES /t DATE`                                     | `meal add /n Chicken_Breast /c 250 /t 30-10-2024`               |
+| **Delete Meal**        | Deletes a meal from a daily record                          | `meal delete /m MEAL_INDEX /t DATE`                                             | `meal delete /m 1 /t 30-10-2024`                                |
+| **View Meals**         | Displays all meals for a specific date                      | `meal view /t DATE`                                                             | `meal view /t 30-10-2024`                                       |
 
 
 
