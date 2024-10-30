@@ -63,6 +63,34 @@ The `task` package manages all task-related functionality. A `Task` class serves
 ![Task_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/TaskClassDiagram.png)
 ### State Manager
 
+### Hospital 
+
+The `Hospital` class manages the patient data within the system, including adding, deleting, and finding patients. It also manages the selection of a patient for task-related operations, calculates task completion rates, and handles persistence through serialization.
+
+#### Attributes
+- **`patients`**: A `List<Patient>` that stores all patients in the hospital system.
+- **`selectedPatient`**: A static variable that holds the currently selected patient for task-related operations.
+- **`logger`**: A static `Logger` used for logging actions, set to log warnings and errors only.
+
+#### Key Methods
+1. **`addPatient(String name)` / `addPatient(String name, String tag)`**: Adds a new patient to the hospital. The method checks for duplicate patient names before adding and logs the action.
+2. **`deletePatient(int index)`**: Deletes a patient by index. It verifies if the index is valid and logs errors if the index is out of bounds.
+3. **`getPatient(int index)`**: Retrieves a patient by index, throwing a `PatientNotFoundException` if the index is invalid.
+4. **`setSelectedPatient(int index)`**: Sets a patient as the selected patient by index, enabling task-related commands to operate on this patient.
+5. **`isDuplicatePatient(String name)`**: Checks if a patient with the specified name already exists.
+6. **`calculateOverallCompletionRate()`**: Calculates the total completion rate across all patients' tasks, returning a percentage.
+7. **`printList()`**: Prints the list of patients with their names and tags.
+
+#### Sequence Diagram
+
+The following diagram illustrates the structure of the `Hospital` class and its relationships:
+
+![Hospital Class Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/HospitalClassDiagram.png)
+
+- **Data Management**: The class supports data management functions like adding, deleting, and finding patients.
+- **Logging**: All major actions, such as adding and deleting patients, are logged at an appropriate level to facilitate debugging and monitoring.
+- **Error Handling**: Throws `PatientNotFoundException` for invalid indices, ensuring robustness in data handling.
+
 ### Storage
 
 ![Storage_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/StorageClassDiagram.png)

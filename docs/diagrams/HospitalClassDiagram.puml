@@ -1,0 +1,64 @@
+@startuml
+
+class Hospital {
+    - static Patient selectedPatient
+    - static Logger logger
+    - List<Patient> patients
+
+    + Hospital()
+    + clearSelectedPatient(): void
+    + addPatient(String name): void
+    + addPatient(String name, String tag): void
+    + deletePatient(int index): void
+    + getPatient(int index): Patient
+    + setSelectedPatient(int index): void
+    + getSelectedPatient(): Patient
+    + isValidIndex(int index): boolean
+    + getSize(): int
+    + getPatients(): List<Patient>
+    + printList(): void
+    + isDuplicatePatient(String name): boolean
+    + findPatients(String keyword): ArrayList<Patient>
+    + calculateOverallCompletionRate(): double
+}
+
+class Patient {
+    - String name
+    - TaskList taskList
+    - String tag
+
+    + Patient()
+    + Patient(String name)
+    + Patient(String name, int index)
+    + Patient(String name, String tag)
+    + Patient(String name, TaskList taskList)
+    + getTag(): String
+    + setTag(String tag): void
+    + getFormattedTag(): String
+    + getName(): String
+    + setName(String name): void
+    + getTaskList(): TaskList
+    + setTaskList(TaskList taskList): void
+    + toString(): String
+}
+
+class PatientNotFoundException {
+    + PatientNotFoundException()
+}
+
+class TaskList {
+    - tasks: ArrayList<Task>
+    - completionRate: double
+    + addTask(task: Task): void
+    + deleteTask(task: Task): void
+    + findTasks(task: Task): ArrayList<Task>
+    + getCompletionRate(): double
+    + getTasks(): ArrayList<Task>
+}
+
+PatientNotFoundException .down.|> Exception : extends
+Hospital --> "0...*" Patient
+Hospital .down.> PatientNotFoundException
+Patient --> "0...*" TaskList
+
+@enduml
