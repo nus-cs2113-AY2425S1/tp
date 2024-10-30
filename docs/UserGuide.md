@@ -50,7 +50,9 @@ ID: 01
 Role: Software Engineer Intern
 Company: Google
 Duration: 01/01 to 01/01
-Skills: Not Stated   
+Skills: Not Stated
+Deadlines:
+    No deadlines set.  
 ```
 
 **Example Input 2:**
@@ -63,6 +65,8 @@ Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/25 to 08/25
 Skills: Not Stated
+Deadlines:
+    No deadlines set.
 ```
 
 ## Update Command: `update`
@@ -83,6 +87,7 @@ Valid Statuses for `status` flag:<br>
 - Accepted
 - Rejected
 
+
 **Format:**
 `update {ID} -{field} {updated information}`
 
@@ -96,6 +101,8 @@ Role: Embedded Software Engineer Intern      application completed
 Company: Continental
 Duration: 05/25 to 08/25
 Skills: Not Stated
+Deadlines:
+    No deadlines set.
 ```
 
 `update 02 -company Venti`
@@ -106,6 +113,8 @@ Role: Embedded Software Engineer Intern      application completed
 Company: Venti
 Duration: 05/25 to 08/25
 Skills: Not Stated
+Deadlines:
+    No deadlines set.
 ```
 
 `update 02 -from 04/25 -skills Python`
@@ -116,6 +125,8 @@ Role: Embedded Software Engineer Intern      application completed
 Company: Venti
 Duration: 04/25 to 08/25
 Skills: Python
+Deadlines:
+    No deadlines set.
 ```
 
 ## Sort Command
@@ -123,7 +134,7 @@ Skills: Python
 
 This feature allows you to sort and list all the internships saved in your database. The default display format is in increasing order of their ID’s (based on time of creation)
 
-Users can specify a flag to display them in alphabetical order (regardless of uppercase or lowercase) of their role titles or by deadline.
+Users can specify a flag to display them in alphabetical order (regardless of uppercase or lowercase) of their role, skills and status or by deadline.
 
 **Format:**
 
@@ -131,6 +142,46 @@ Users can specify a flag to display them in alphabetical order (regardless of up
 `sort {field}`
 
 **Example:**
+
+`sort -duration`
+
+```
+ID: 02
+Role: Software Engineer Intern
+Company: Google
+Duration: 05/23 to 08/25
+Skills: Not Stated
+Deadlines:
+    online assessment: 11/11/24
+
+ID: 01
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/24 to 08/24
+Skills: Not Stated
+Deadlines:
+    interview: 25/11/24
+```
+`sort -role`
+
+```
+ID: 01
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: Not Stated
+Deadlines:
+    interview: 25/11/24
+
+
+ID: 02
+Role: Software Engineer Intern
+Company: Google
+Duration: Not Stated
+Skills: Not Stated
+Deadlines:
+    online assessment: 11/11/24
+```
 
 `sort -deadline`
 
@@ -140,28 +191,69 @@ Role: Software Engineer Intern
 Company: Google
 Duration: 05/23 to 08/25
 Skills: Not Stated
+Deadlines:
+    online assessment: 11/11/24
 
 ID: 01
 Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/24 to 08/24
 Skills: Not Stated
-```
-`sort -alphabet`
+Deadlines:
+    interview: 25/11/24
 
 ```
-ID: 02
+`sort -skills`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Completed
 Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: Not Stated
-
-ID: 01
-Role: Software Engineer Intern
 Company: Google
-Duration: Not Stated
-Skills: Not Stated
+Duration: 02/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+    interview: 25/11/24
+
+__________________________________________________
+ID: 2	Status: Accepted
+Role: Marketing sales
+Company: Castify
+Duration: 05/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+    online assessment: 11/11/24
+
+__________________________________________________
+__________________________________________________
 ```
+`sort -status`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 2	Status: Accepted
+Role: Marketing sales
+Company: Castify
+Duration: 05/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+    online assessment: 11/11/24
+
+__________________________________________________
+ID: 1	Status: Application Completed
+Role: Embedded Software Engineer Intern
+Company: Google
+Duration: 02/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+    interview: 25/11/24
+
+__________________________________________________
+__________________________________________________
+```
+
 ## Filter command: 
 `filter`
 
