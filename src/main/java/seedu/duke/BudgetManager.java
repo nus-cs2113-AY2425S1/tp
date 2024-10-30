@@ -88,13 +88,19 @@ public class BudgetManager {
             return;
         }
 
+        // mapping total expenses for a category to each category
         Map<Category, Double> totalExpensesToCategory = new HashMap<>();
-        for (Expense expense : expenses) {
+        for (Expense expense: expenses) {
             Category category = expense.getCategory();
-            totalExpensesToCategory.put(category, totalExpensesToCategory.getOrDefault(category, 0.0) + expense.getAmount());
+            if (totalExpensesToCategory.containsKey(category)) {
+                totalExpensesToCategory.put(category, totalExpensesToCategory.get(category) + expense.getAmount());
+            } else {
+                totalExpensesToCategory.put(category, expense.getAmount());
+            }
         }
 
-        for (Category category : budgets.keySet()) {
+        // Calculate remaining budget, and display as needed
+        for (Category category: budgets.keySet()) {
             Budget budget = budgets.get(category);
             double totalExpense = totalExpensesToCategory.getOrDefault(category, 0.0);
             double remainingBudget = budget.getLimit() - totalExpense;
@@ -103,12 +109,14 @@ public class BudgetManager {
                 System.out.println(category + ": " + formatDecimal(totalExpense) + " spent, " +
                         formatDecimal(remainingBudget) + " remaining");
             } else {
+                Double positive = Math.abs(remainingBudget);
                 System.out.println(category + ": " + formatDecimal(totalExpense) + " spent, " +
-                        "Over budget by " + formatDecimal(Math.abs(remainingBudget)));
+                        "Over budget by " + formatDecimal(positive));
             }
         }
 
-        for (Category category : totalExpensesToCategory.keySet()) {
+        // if no budget set for certain category
+        for (Category category: totalExpensesToCategory.keySet()) {
             if (!budgets.containsKey(category)) {
                 System.out.println(category + ": No budget set");
             }
