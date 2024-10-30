@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ExpenseManagerTest {
 
     @Test
-    public void testAddExpense_NewCategory() {
+    public void testAddExpenseNewCategory() {
         ExpenseManager expenseManager = new ExpenseManager();
         TrackerData trackerData = new TrackerData();
 
