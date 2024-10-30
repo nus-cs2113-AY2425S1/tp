@@ -166,6 +166,47 @@ An alternative approach considered was to store `correctAnswer` as a `String` (`
 
 The class diagram above shows the structure of the `TrueFalse` class, including its attributes and methods, and its inheritance relationship with the `Question` superclass.
 
+### Fill-in-the-Blank Feature Implementation
+
+The `FillInTheBlank` class handles fill-in-the-blank questions in the quiz application. This section provides an in-depth overview of its design, implementation details, and the reasoning behind key design choices.
+
+#### Feature Overview
+The `FillInTheBlank` class represents a fill-in-the-blank question, where users provide an exact text answer to complete the question. It stores the question text with a placeholder for the blank and the correct answer as a string. It includes methods to validate the user’s answer and present the question in a way that indicates where the blank is located.
+
+#### Implementation Details
+
+1. **Attributes**:
+    - `String correctAnswer`: Stores the correct answer text for the blank in the question.
+    - `String questionText`: Stores the question text with a placeholder (e.g., `The `____` keyword is used to create a new object in Java.`).
+
+2. **Constructor**:
+    - `FillInTheBlank(String questionText, String correctAnswer)`: Initializes both the question text and correct answer. The constructor ensures that `questionText` includes a blank placeholder and that `correctAnswer` is non-null and non-empty, validating that the question is properly structured.
+
+3. **Methods**:
+    - `checkAnswer(String userAnswer)`:
+      Compares the user’s answer to `correctAnswer`, ignoring case sensitivity to allow for minor capitalization differences. Throws an `IllegalArgumentException` for null or empty inputs, ensuring only valid responses are considered.
+    - `printQuestion()`:
+      Displays the question text with the blank to the user, making it clear where they need to provide an answer.
+    - `toString()`:
+      Returns a formatted string representation of the question, clearly marking it as a fill-in-the-blank question for clarity within the quiz.
+
+#### Design Rationale
+
+- **String Storage for Correct Answer**: The answer is stored as a string to allow precise text matching, which is necessary for fill-in-the-blank questions. This simplifies checking whether the user's input matches the correct answer exactly (or approximately, if extended to support partial matching).
+- **Input Validation in `checkAnswer`**: By ensuring only non-null, non-empty strings are accepted as answers, `checkAnswer` reduces the risk of invalid input and enhances robustness.
+- **Placeholder in Question Text**: Using a placeholder (e.g., `"_____"`) in the question text makes it clear to users where they should mentally "fill in the blank," improving usability.
+
+#### Alternative Considerations
+
+1. **Implementing Case-Sensitive Comparison**: An initial approach was to use case-sensitive comparison for `checkAnswer`, but it was modified to ignore case for a more forgiving user experience.
+2. **Approximate Matching for Answers**: To increase flexibility, an alternative approach could involve approximate matching, allowing answers that closely resemble the correct answer to be accepted (e.g., `"paris"` vs. `"Paris"`). This would, however, add complexity to the validation process and was ultimately deemed unnecessary for this basic implementation.
+
+#### UML Class Diagram
+
+![FillInTheBlank UML Class Diagram](https://github.com/YubotKwng/tp/blob/e3358e1cc869012c202864071fbb75f2f8261712/docs/UML/FITBClassDiagram.png)
+
+The diagram illustrates the `FillInTheBlank` class with its attributes and methods, and its inheritance relationship with the `Question` superclass. This setup allows `FillInTheBlank` to share common functionality with other question types while implementing unique behavior specific to fill-in-the-blank questions.
+
 ### Topic Class Implementation
 The `Topic` class is responsible for organizing questions under specific programming topics in the quiz application. It allows for modular storage of questions, making it easy for users to select topics and for developers to manage quiz content.
 
