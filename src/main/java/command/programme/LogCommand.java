@@ -8,32 +8,25 @@ import history.History;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static common.Utils.NULL_INTEGER;
 
 public class LogCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "log";
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private final int progIndex;
-    private final int dayIndex;
     private final LocalDate date;
 
 
-    public LogCommand(int progIndex, int dayIndex, LocalDate date){
-        assert progIndex == NULL_INTEGER || progIndex >= 0 : "Program index must be valid";
+    public LogCommand(int programmeIndex, int dayIndex, LocalDate date){
+        super(programmeIndex, dayIndex);
+
         assert dayIndex >= 0 : "Day index must be non-negative";
         assert date != null : "Date must not be null";
 
-        this.progIndex = progIndex;
-        this.dayIndex = dayIndex;
         this.date = date;
       
         logger.log(
                 Level.INFO,
                 "LogCommand initialized with progIndex: {0}, dayIndex: {1}, date: {2}",
-                new Object[]{progIndex, dayIndex, date}
+                new Object[]{programmeIndex, dayIndex, date}
         );
     }
 
@@ -42,13 +35,13 @@ public class LogCommand extends ProgrammeCommand {
         logger.log(
                 Level.INFO,
                 "Executing LogCommand with progIndex: {0}, dayIndex: {1}, date: {2}",
-                new Object[]{progIndex, dayIndex, date}
+                new Object[]{programmeIndex, dayIndex, date}
         );
 
         assert programmes != null : "ProgrammeList must not be null";
         assert history != null : "History must not be null";
 
-        Day completed = programmes.getDay(progIndex, dayIndex);
+        Day completed = programmes.getDay(programmeIndex, dayIndex);
 
         assert completed != null : "Completed Day must not be null";
 
@@ -56,9 +49,9 @@ public class LogCommand extends ProgrammeCommand {
         dailyRecord.logDay(completed);
         history.logRecord(date, dailyRecord);
 
-        String result =  String.format("Congrats! You've successfully completed:%n%s",completed);
-
         logger.log(Level.INFO, "LogCommand executed successfully for day: {0}", completed);
+
+        String result =  String.format("Congrats! You've successfully completed:%n%s",completed);
         return new CommandResult(result);
     }
 
@@ -72,15 +65,15 @@ public class LogCommand extends ProgrammeCommand {
             return false;
         }
 
-        logger.log(Level.WARNING,"LogCommand this: {0}, that: {1}", new Object[]{this.progIndex, that.progIndex});
-        boolean isProgIndexEqual =  (progIndex == that.progIndex);
+        logger.log(
+                Level.INFO,"Comparing LogCommand with this: {0}, that: {1}",
+                new Object[]{this.programmeIndex, that.programmeIndex}
+        );
+
+        boolean isProgrammeIndexEqual =  (programmeIndex == that.programmeIndex);
         boolean isDayIndexEqual = (dayIndex == that.dayIndex);
         boolean isDateEqual = Objects.equals(date, that.date);
 
-        return (isProgIndexEqual && isDayIndexEqual && isDateEqual);
-    }
-
-    public LocalDate getDate() {
-        return date;
+        return (isProgrammeIndexEqual && isDayIndexEqual && isDateEqual);
     }
 }

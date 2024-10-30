@@ -1,6 +1,5 @@
-package daily.record;
+package history;
 
-import history.DailyRecord;
 import meal.Meal;
 import meal.MealList;
 import org.junit.jupiter.api.AfterEach;
