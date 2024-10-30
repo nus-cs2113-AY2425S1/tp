@@ -56,6 +56,23 @@ This class handles the addition, deletion and editing of recipes.
 
 Below is the interaction between `RecipeList` and `Recipe`:
 ![RecipeClassDiagram.png](img/ClassDiagrams/RecipeClassDiagram.png)
+
+
+### Ingredient Class
+The ingredient class represents a singular ingredient added by the user or loaded from the storage database.
+A valid recipe object contains the following field:
++ Name
+
+The formatting of how a recipe is displayed and saved is handled by this class.
+
+### IngredientList Class
+The Ingredientlist class represents a list of any non-negative integer number of ingredients.
+This class handles the addition, deletion and editing of ingredients.
+
+Shown below is a class diagram detailing how it interacts with the Ingredient class.
+![ingredientClasses.png](img/ClassDiagrams/ingredientsClassDiagram.png)
+
+
 ### Command Classes
 The command class deals with all the possible commands accepted by YMFC, with each command representing a specific 
 recognised user input (Eg. ListCommand representing the command to list all the recipes in the recipeList).
@@ -116,8 +133,6 @@ The Storage class
 - reads the .txt save file to load in past saved recipes when app is launched
   - The following Sequence diagram shows how the loadRecipes() method in the Storage class
     loads in past saved recipes from the .txt file when the app is first launched
-
-![img.png](img/SequenceDiagrams/loadRecipesSequenceDiagram.png)
 
 
 The Storage class also saves and loads the list of user's available ingredients to another .txt save file

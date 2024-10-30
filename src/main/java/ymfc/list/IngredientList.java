@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class IngredientList {
-    ArrayList<Ingredient> ingredients = new ArrayList<>();
+    private ArrayList<Ingredient> ingredients = new ArrayList<>();
 
     public IngredientList() {
         this.ingredients = new ArrayList<>();
