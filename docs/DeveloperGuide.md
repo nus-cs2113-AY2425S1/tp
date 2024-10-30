@@ -43,13 +43,21 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Commands](#commands)
 - [Storage](#storage)
 - [Expense and Expense List](#expense-and-expense-list)
+- [Expense Filter](#expense-filter)
 - [Date and Time Handling](#date-and-time-handling)
 - [Exceptions and Logging](#exceptions-and-logging)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 
 ### Architecture
+A high-level overview of the system is shown in the Architecture Diagram below.
 
+![ArchitectureDiagram.png](diagrams%2Fimages%2FArchitectureDiagram.png "Architecture Diagram of WheresMyMoney")
 
+This architecture consist of: 
+1. `UI`, `Main`, `Parser`, and `Command` classes: These classes stand between the user and the internal processing of the software.
+2. `Expense`, `ExpenseList`, `ExpenseFilter` classes: Model expenses that commands can interact with.
+3. `Storage` class: Stores information between sessions.
+4. Logger and other utility classes: Provide extra functionalities for the software.
 ### UI and Parser
 
 <u>Overview</u>
@@ -117,6 +125,10 @@ The following diagram is a sequence diagram for execution of Command.
 
 ![CommandExecutionSequence.png](diagrams%2Fimages%2FCommandExecutionSequence.png)
 
+Commands interact with `UI` and `Parser` classes via `Main`, as illustrated in the following class diagram:
+
+![UiToCommand.png](diagrams%2Fimages%2FUiToCommand.png)
+
 ### Storage
 
 <u>Overview</u>
@@ -161,9 +173,34 @@ The nontrivial methods in `ExpenseList` class contain some sort of exception han
 
 <u>Implementation Details</u>
 
+UML class diagram to show the dependency between `Command` and `ExpenseList` classes:
+
+![CommandAndExpenseList.png](diagrams%2Fimages%2FCommandAndExpenseList.png)
+
 The following diagram is a UML class diagram for `Expense` and `ExpenseList`:
 
 ![ExpenseAndExpenseList.png](diagrams%2Fimages%2FExpenseAndExpenseList.png "UML Class Diagram for Expense and ExpenseList")
+
+### Expense Filter
+
+The `ExpenseFilter` class provides utility methods for selecting expenses based on their category and time range.
+
+Its interaction with `ExpenseList` is demonstrated in the following UML Class Diagram:
+
+![ExpenseListAndFilter.png](diagrams%2Fimages%2FExpenseListAndFilter.png)
+
+`ExpenseFilter` is a prerequisite to implementing other features, e.g. Expense statistics and visualization.
+
+<u>Implementation Details</u>
+
+`ExpenseFilter` filters expenses by 3 criteria: Category, From (date), To (date).
+Each criterion is taken care of by a helper method.
+Since these filter fields are optional, if they are `null`, helper methods will evaluate to `true`.
+
+Given a list of expenses, `ExpenseFilter` iterates through each expense, applying three criteria checks on them; and 
+it would add the expense to a new `ArrayList` if all three checks are satisfied.
+
+The `ArrayList` is then returned to the caller.
 
 ### Date and Time Handling
 
