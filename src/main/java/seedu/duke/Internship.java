@@ -132,13 +132,18 @@ public class Internship {
         deadlines.add(new Deadline(getId(), description, date));
     }
 
+    //@@ jadenlimjc
     /**
      * Removes a deadline by its description.
      *
-     * @param description description of the deadline to remove.
+     * @param description   description of the deadline to remove.
+     * @throws MissingValue No deadline in the list of deadlines is
      */
-    public void removeDeadline(String description){
-        deadlines.removeIf(deadline -> deadline.getDescription().equalsIgnoreCase(description));
+    public void removeDeadline(String description) throws MissingValue {
+        String trimmedDescription = description.trim();
+        if(!deadlines.removeIf(deadline -> deadline.getDescription().equalsIgnoreCase(trimmedDescription))) {
+            throw new MissingValue();
+        }
     }
 
     /**
@@ -232,7 +237,6 @@ public class Internship {
     /**
      * Returns all skills stored in <code>skills</code> field as a combined String.
      */
-
     public String getSkills() {
         String skillList = "";
         if (this.skills.isEmpty()) {
