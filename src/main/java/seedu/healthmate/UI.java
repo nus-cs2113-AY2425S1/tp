@@ -8,7 +8,7 @@ import seedu.healthmate.command.Command;
 
 
 public class UI {
-    
+    //@@author kennethSty
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String SEPARATOR =
             "_____________________________________________________________________________";
@@ -24,7 +24,6 @@ public class UI {
             + INDENTATION + "     \\\\|//\n"
             + INDENTATION + "      \\|/\n"
             + INDENTATION + "       |\n";
-
 
     public static void printReply(String input, String actionPerformed) {
         System.out.println(LINE);
@@ -44,15 +43,18 @@ public class UI {
         System.out.println(INDENTATION + "Stay healthy!");
         System.out.println(LINE);
     }
+    //@@author
 
     public static void printSeparator() {
         System.out.println(LINE);
     }
 
+
     public static void printString(String input) {
         System.out.println(INDENTATION + input);
     }
 
+    //@@author kennethSty
     public static void printMealOptions(MealList mealOptions) {
         printSeparator();
         if (mealOptions.size() > 0) {
@@ -66,6 +68,7 @@ public class UI {
         printSeparator();
     }
 
+
     public static void printMealEntries(MealEntriesList mealEntries) {
         printSeparator();
         if (mealEntries.size() > 0) {
@@ -78,6 +81,7 @@ public class UI {
         }
         printSeparator();
     }
+    //@@author
 
     public static void printMealNotFound() {
         System.out.println("The meal was not found in the meal menu!");
@@ -107,6 +111,7 @@ public class UI {
      * @param newMealString
      * @return
      */
+    //@@author kennethSty
     public static String toMealOptionsString(MealList mealOptions, String newMealString) {
         String mealOptionsString = "";
         for (int i = 0; i < mealOptions.size(); i++) {
@@ -155,6 +160,7 @@ public class UI {
                 + LINE_SEPARATOR + LINE;
 
     }
+    //@@author
 
     /**
      * Prints a progress bar for historic consumption data.
@@ -171,6 +177,7 @@ public class UI {
                 + " (" + timestamp + ")");
     }
 
+    //@@author kennethSty
     private static String progressBarStringBuilder(double expectedValue, int actualValue) {
         int percentageOfExpected = (int) Math.ceil((actualValue / expectedValue) * 100);
 
@@ -205,6 +212,8 @@ public class UI {
         String line2 = INDENTATION + actionPerformed + input + LINE_SEPARATOR;
         return  line1 + line2 + FRAME_LINE;
     }
+
+    //@@author
 
     public static String simulateString(String input) {
         return INDENTATION + input + LINE_SEPARATOR;
