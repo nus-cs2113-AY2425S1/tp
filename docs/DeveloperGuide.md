@@ -463,6 +463,11 @@ Logging is handled by the `Logger` class.
 The `Storage` class has been implemented to store the `FinancialList` into a file. 
 Also it's responsible for restoring users' progress even if they have terminate the program using the saved file.
 
+<ins>Class Structure</ins>
+
+ - Attributes:
+   - `STORAGE_FILE_PATH`: `String` — Specifies the file path for storing financial data.
+
 <ins>Implementation Details</ins>
 
 The function `updateStorage` should be called whenever the `FinancialList` in an `AppUi` object. 
@@ -475,6 +480,32 @@ EX:
 For an Income with description "Lunch", amount "10.90" and date "2024/10/25":
 The `toString()` method will return as `[Income] - Lunch $ 10.90 (on 25/10/24)`
 And the `toStorageString()` method will return as `I | 10.90 | Lunch | 25/10/24`
+
+<ins>Methods</ins>
+
+ - **getStorageFile()**: Ensures the storage file and its parent directories exist. If not, they are created. Returns the storage file.
+ - **update(FinancialList theList)**: Writes all entries from FinancialList to the storage file, creating or overwriting the file with current entries. Logs the update upon completion.
+ - **parseExpense(String[] tokens)**: Parses a string array into an Expense object. Expects tokens to contain amount, description, date, and category information.
+ - **parseIncome(String[] tokens)**: Parses a string array into an Income object. Similar to parseExpense, it requires tokens for amount, description, date, and category.
+ - **loadFromFile()**: Loads financial entries from the storage file into a FinancialList. Interprets each line as either an Expense or Income based on its starting character and parses the details accordingly.
+
+<ins>Useage Example</ins>
+
+```
+Storage storage = new Storage("data/FinancialList.txt");
+
+// Save the current financial list to a file
+storage.update(financialList);
+
+// Load the financial list from the file
+FinancialList restoredList = storage.loadFromFile();
+```
+
+<ins>Design Considerations</ins>
+
+ - **Data Persistence**: Storage supports retention of records after application closure, aligning with needs for long-term financial tracking.
+ - **Scalability**: Future improvements to Storage could incorporate encryption or remote storage options, enhancing data security and flexibility.
+
 
 ## Product scope
 
