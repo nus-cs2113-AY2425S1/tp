@@ -125,6 +125,8 @@ The `FillInTheBlank` class represents a fill-in-the-blank question, where users 
 
 #### UML Class Diagram
 
+![FillInTheBlank UML Class Diagram](https://github.com/YubotKwng/tp/blob/e3358e1cc869012c202864071fbb75f2f8261712/docs/UML/FITBClassDiagram.png)
+
 The diagram illustrates the `FillInTheBlank` class with its attributes and methods, and its inheritance relationship with the `Question` superclass. This setup allows `FillInTheBlank` to share common functionality with other question types while implementing unique behavior specific to fill-in-the-blank questions.
 
 ### Topic Class Implementation
