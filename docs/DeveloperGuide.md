@@ -11,15 +11,19 @@
 ### EasInternship (main class)
 
 1. [Design](#design)
-    1. [Architecture](#architecture)
-    2. [UI Component](#ui-component)
-    3. [Logic Component](#logic-component)
-    4. [Model Component](#model-component)
-    5. [Storage Component](#storage-component)
+   1. [Architecture](#architecture)
+   2. [UI Component](#ui-component)
+   3. [Logic Component](#logic-component)
+   4. [Model Component](#model-component)
+   5. [Storage Component](#storage-component)
 2. [Implementation](#implementation)
-    1. [Parsing Input](#parsing-input)
-    2. [Command Execution](#command-execution)
-    3. [Task Management](#task-management)
+   1. [Parsing Input](#parsing-input)
+   2. [Command Execution](#command-execution)
+   3. [Task Management](#task-management) 
+   4. [AddCommand Implementation](#addcommand-implementation)
+   5. [DeleteCommand Implementation](#deletecommand-implementation)
+   6. [SortCommand Implementation](#sortcommand-implementation)
+   7. [UpdateCommand Implementation](#updatecommand-implementation)
 
 ---
 
@@ -117,7 +121,7 @@ If the user inputs an unknown command or a command fails during execution, the `
 
 ---
 
-### Add Command Implementation
+### AddCommand Implementation
 
 #### Overview:
 The `AddCommand` class is responsible for adding internship listings to the Internship List. It extends the `Command` class, providing the add functionality as part of the command execution framework.
@@ -144,7 +148,7 @@ The `AddCommand` class is responsible for adding internship listings to the Inte
 The following sequence diagram shows how the `AddCommand` is executed:
 ![AddCommandSequenceDiagram](UML/AddCommand_Sequence_Diagram.png)
 
-### Delete Command Implementation
+### DeleteCommand Implementation
 
 #### Overview: 
 The `DeleteCommand` class is responsible for deleting internship listings from the Internship List. It extends the `Command` class, providing the delete functionality as part of the command execution framework.
@@ -198,6 +202,41 @@ The `SortCommand` class is responsible for sorting the internship listings based
 #### Sequence Diagram:
 The following sequence diagram shows how the `SortCommand` is executed:
 ![](UML/loadFromFile.png)
+
+
+### UpdateCommand Implementation
+
+#### Overview
+The `UpdateCommand` class is responsible for updating the fields of an internship. It extends the `Command` class, providing an updating functionality as part of the command execution framework.
+
+#### Design
+- The `UpdateCommand` class processes the user input to determine which internship and which field to update.
+- If the internship ID is not valid, it will print a message accordingly.
+- If the field is not valid, it will print a message indicating the erroneous field.
+- If the value provided with the field is not valid, it will also print a message indicating the erroneous value.
+
+#### Key Methods
+- `execute(ArrayList<String> args)`: Handles the logic to find the internship entry and determine which field to update. The valid fields include:
+  - `status`: Updates the status of the internship.
+  - `skills`: Adds skills to the relevant field of the internship
+  - `role`: Updates the role of the internship
+  - `company`: Updates the company of the internship
+  - `from`: Updates the start date of the internship
+  - `to`: Updates the end date of the internship
+  - `deadlines`: Updates the deadlines of the internship
+- `isValidValue(String[] words)`: Checks if there was a new value provided for the selected field.
+- `updateOneField(String[] words, int internshipIndex)`: Called within `execute(args)` to invoke the appropriate method to update the field.
+- `getUsage()`: Returns a string showing the correct usage of the `update` command.
+
+#### Example Usage Scenario:
+- The user enters `update 2 -status Application Completed`, and the `execute` method finds the internship with ID `2` and updates its `status` to `Application Completed`.
+- The user enters `update 4 -status Application Completed`, if `4` is not a valid ID, the `execute` method will print a message to show the ID is out of bounds.
+- The user enters `update 2 -skills`, no value is given after the `-skills` flag, the `isValidValue` method returns false and prints a message to indicate the need for a value.
+- The user enters `update 2 -from Tomorrow`, `Tomorrow` is not a valid date, the `execute` method prints message to indicate it is an invalid value.
+
+#### Sequence Diagram
+The following sequence diagram shows how the `UpdateCommand` is executed:
+![](UML/UpdateCommand_Sequence_Diagram.png)
 
 ### Product scope
 ### Target user profile
