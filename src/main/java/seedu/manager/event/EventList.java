@@ -169,6 +169,8 @@ public class EventList  {
         return false;
     }
 
+    public void
+
     /**
      * Sort the event list by name, alphabetically.
      */
