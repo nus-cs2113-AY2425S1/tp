@@ -27,8 +27,7 @@
 
 Your Mother's Favourite Cookbook (YMFC) is a desktop app for managing recipes, designed for use through the
 Command Line Interface (CLI). YMFC can help you manage all your recipes with ease, using the simplicity of the CLI.
-It can also keep track of what ingredients you have on hand, and recommend recipes based on what you can make.
-
+It can also keep track of what ingredients you have on hand, and recommend recipes based on what you can make. 
 
 ## Quick Start
 
@@ -62,13 +61,47 @@ such as `n/ABC Soup`
 * The ... in `PARAMETER...` means that there can be multiple of that parameter.
   * There must be at least 1 parameter included.
 
-### Getting Help:
+### Getting Help:`help`
 
 Format: `help`
 
 Lists out all the available commands and their proper format for use.
 
-### Exiting YMFC
+````
+help
+__________________________________________________________________________________
+This is all the things you can do with me:
+0. help                              -  Lists out all the available commands and their usage
+__________________________________________________________________________________
+The following commands is for working with your recipes list
+1. listR                             -  Lists out all the existing recipes
+2. add n/name i/ingredients s1/step  -  Adds a new recipe.
+	 add more ingredients using more i/ tags
+	 add more steps using more sx/ tags, where x starts from 1 and increases one by one
+3. sort s/name                       -  Sorts the recipes alphabetically by name
+4. sort s/time                       -  Sorts the recipes by time, from least to most
+5. find KEYWORDS                     -  Looks for the keyword in recipes' 
+	 find name             = name
+	 find i/keyword        = ingredients
+	 find ns/keyword       = name or steps
+	 find nis/keyword      = name or ingredients or steps
+6. edit e/name i/ingredients s1/step -  Edit an existing recipe's steps and ingredients
+	 add more ingredients using more i/ tags
+	 add more steps using more sx/ tags, where x starts from 1 and increases one by one
+7. delete n/name                     - Deletes the recipe of that name
+8. bye                               -  Ends the program
+__________________________________________________________________________________
+The following commands is for working with your ingredients list
+1. new n/ingredient                  - Add a new ingredient to your list
+2. listI                             - Lists out all your current ingredients
+__________________________________________________________________________________
+Got it? Let's get back to cooking.
+
+__________________________________________________________________________________
+
+````
+
+### Exiting YMFC: `bye`
 
 Format: `bye`
 
@@ -76,7 +109,7 @@ Will end the program and close the app.
 
 ## Features and Command - CookBook for Recipes
 
-### Adding a New Recipe
+### Adding a New Recipe: `add`
 
 Format: `Format: add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`
 
