@@ -6,11 +6,9 @@ import seedu.manager.event.Event;
 /**
  * Represents an event participant, in the participant list of an {@link Event}.
  */
-public class Participant {
-    private final String name;
+public class Participant extends Item {
     private String number;
     private String email;
-    private boolean isPresent;
 
     /**
      * Constructs a new Participant with a given name
@@ -18,8 +16,7 @@ public class Participant {
      * @param name the given name
      */
     public Participant(String name, String number, String email) {
-        this.name = name;
-        this.isPresent = false;
+        super(name);
         this.number = number;
         this.email = email;
     }
@@ -72,36 +69,5 @@ public class Participant {
      */
     public void setEmail(String newEmail) {
         this.email = newEmail;
-    }
-
-    //@@author jemehgoh
-    /**
-     * Sets the participant as present or not present.
-     *
-     * @param isPresent whether the participant is present or not present
-     */
-    public void setPresent(boolean isPresent) {
-        this.isPresent = isPresent;
-    }
-
-    //@@author jemehgoh
-    /**
-     * Returns "X" if isPresent is true, " " otherwise.
-     *
-     * @return "X" if isPresent is true, " " otherwise.
-     */
-    public String markIfPresent() {
-        return (this.isPresent) ? "X" : " ";
-    }
-
-    //@@author jemehgoh
-    /**
-     * Returns a formatted string of the item
-     *
-     * @return a formatted string of the item
-     */
-    @Override
-    public String toString() {
-        return String.format("%s [%s]", this.name, this.markIfPresent());
     }
 }

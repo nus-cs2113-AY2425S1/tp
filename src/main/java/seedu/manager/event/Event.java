@@ -2,6 +2,7 @@ package seedu.manager.event;
 
 import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.DuplicateDataException;
+import seedu.manager.item.Item;
 import seedu.manager.item.Participant;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,11 @@ import java.util.Optional;
  * It provides methods to access and modify the time and venue of the event.
  */
 public class Event {
+    private static final String DUPLICATE_PARTICIPANT_MESSAGE = "Duplicate participant!";
+    private static final String DUPLICATE_ITEM_MESSAGE = "Duplicate item!";
+
     protected ArrayList<Participant> participantList;
+    private ArrayList<Item> itemList;
     private final String eventName;
     private LocalDateTime eventTime;
     private String eventVenue;
@@ -44,6 +49,7 @@ public class Event {
         this.eventTime = eventTime;
         this.eventVenue = eventVenue;
         this.participantList = new ArrayList<>();
+        this.itemList = new ArrayList<>();
         this.isDone = false;
     }
 
@@ -62,6 +68,7 @@ public class Event {
         this.eventVenue = eventVenue;
         this.eventPriority = eventPriority;
         this.participantList = new ArrayList<>();
+        this.itemList = new ArrayList<>();
         this.isDone = false;
     }
 
@@ -75,7 +82,7 @@ public class Event {
     public void addParticipant(String participantName, String participantNumber, String participantEmail)
             throws DuplicateDataException {
         if (getParticipantByName(participantName).isPresent()) {
-            throw new DuplicateDataException("Duplicate participant!");
+            throw new DuplicateDataException(DUPLICATE_PARTICIPANT_MESSAGE);
         }
 
         Participant participant = new Participant(participantName, participantNumber, participantEmail);
@@ -108,6 +115,33 @@ public class Event {
      */
     public int getParticipantCount() {
         return this.participantList.size();
+    }
+
+    //@@author jemehgoh
+    /**
+     * Adds an item with a given name to the event's item list.
+     *
+     * @param itemName the name of the item to be added.
+     * @throws DuplicateDataException if an item with the same name is already in the list.
+     */
+    public void addItem(String itemName) throws DuplicateDataException {
+        if (getItemByName(itemName).isPresent()) {
+            throw new DuplicateDataException(DUPLICATE_ITEM_MESSAGE);
+        }
+
+        Item item = new Item(itemName);
+        itemList.add(item);
+    }
+
+    /**
+     * Returns true if an item with the given name is successfully removed from the item list, returns false
+     *         otherwise.
+     *
+     * @param itemName the name of the item to be removed.
+     * @return {@code true} if an item with itemName is successfully removed, {@code false} otherwise.
+     */
+    public boolean removeItem(String itemName) {
+        return itemList.removeIf((item) -> (item.getName().equalsIgnoreCase(itemName)));
     }
 
     //@@author MatchaRRR
@@ -301,5 +335,15 @@ public class Event {
 
         participant.get().setPresent(isPresent);
         return true;
+    }
+
+    private Optional<Item> getItemByName(String itemName) {
+        for (Item item : itemList) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                return Optional.of(item);
+            }
+        }
+        
+        return Optional.empty();
     }
 }

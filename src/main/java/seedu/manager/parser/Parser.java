@@ -40,12 +40,13 @@ public class Parser {
             Please enter your commands in the following format:
             add -e EVENT -t TIME -v VENUE -u PRIORITY
             add -p PARTICIPANT -e EVENT
+            add -m ITEM -e EVENT
             """;
     private static final String INVALID_REMOVE_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
             remove -e EVENT
-            remove -p PARTICIPANT -e EVENT
+            remove -m ITEM -e EVENT
             """;
     private static final String INVALID_VIEW_MESSAGE = """
             Invalid command!
@@ -108,6 +109,10 @@ public class Parser {
             Invalid find flag!
             Please set the find flag using "-e" and "-p""
             """;
+    private static final String ADD_EVENT_REGEX = "(-e|-t|-v|-u)";
+    private static final String ADD_PARTICIPANT_REGEX = "(-p|-n|-email|-e)";
+    private static final String ITEM_REGEX = "(-m|-e)";
+    private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
 
     /**
@@ -147,7 +152,7 @@ public class Parser {
             throw new InvalidCommandException(INVALID_COMMAND_MESSAGE);
         }
     }
-
+    
     //@@author LTK-1606
     /**
      * Parses the input string to create an {@link Command} object based on the provided command parts.
@@ -171,27 +176,13 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
-            String[] inputParts;
 
             if (commandFlag.equals("-e")) {
-                inputParts = input.split("(-e|-t|-v|-u)");
-                logger.info("Creating AddCommand for event with details: " +
-                        inputParts[1].trim() + ", " + inputParts[2].trim() + ", " + inputParts[3].trim());
-                String eventName = inputParts[1].trim();
-                LocalDateTime eventTime = LocalDateTime.parse(inputParts[2].trim(),
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                String venue = inputParts[3].trim();
-                Priority eventPriority = Priority.valueOf(inputParts[4].trim().toUpperCase());
-                return new AddCommand(eventName, eventTime, venue, eventPriority);
+                return getAddEventCommand(input);
             } else if (commandFlag.equals("-p")) {
-                inputParts = input.split("(-p|-n|-email|-e)");
-                logger.info("Creating AddCommand for participant with details: " +
-                        inputParts[1].trim() + ", " + inputParts[2].trim());
-                String participantName = inputParts[1].trim();
-                String participantNumber = inputParts[2].trim();
-                String participantEmail = inputParts[3].trim();
-                String eventName = inputParts[4].trim();
-                return new AddCommand(participantName, participantNumber, participantEmail, eventName);
+                return getAddParticipantCommand(input);
+            } else if (commandFlag.equals("-m")) {
+                return getAddItemCommand(input);
             }
 
             logger.log(WARNING,"Invalid command format");
@@ -208,6 +199,65 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an {@link AddCommand} that adds an event with fields parsed from a given user input.
+     *
+     * @param input the given user input.
+     * @return an {@link AddCommand} that adds an event with fields parsed from input.
+     * @throws IndexOutOfBoundsException if not all fields are present.
+     * @throws DateTimeParseException if the time parameter is not entered in the correct format.
+     * @throws IllegalArgumentException if the priority parameter is not valid.
+     */
+    private Command getAddEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
+            IllegalArgumentException {
+        String[] inputParts = input.split(ADD_EVENT_REGEX);
+        logger.info("Creating AddCommand for event with details: " +
+                inputParts[1].trim() + ", " + inputParts[2].trim() + ", " + inputParts[3].trim());
+        String eventName = inputParts[1].trim();
+        LocalDateTime eventTime = LocalDateTime.parse(inputParts[2].trim(),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String venue = inputParts[3].trim();
+        Priority eventPriority = Priority.valueOf(inputParts[4].trim().toUpperCase());
+        return new AddCommand(eventName, eventTime, venue, eventPriority);
+    }
+
+    //@@author LTK-1606
+    /**
+     * Returns an {@link AddCommand} that adds a participant with fields parsed from a given user input.
+     *
+     * @param input the given user input.
+     * @return an {@link AddCommand} that adds a participant with fields parsed from input.
+     * @throws IndexOutOfBoundsException if not all fields are present.
+     */
+    private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException {
+        String[] inputParts = input.split(ADD_PARTICIPANT_REGEX);
+        logger.info("Creating AddCommand for participant with details: " +
+                inputParts[1].trim() + ", " + inputParts[2].trim());
+        String participantName = inputParts[1].trim();
+        String participantNumber = inputParts[2].trim();
+        String participantEmail = inputParts[3].trim();
+        String eventName = inputParts[4].trim();
+        return new AddCommand(participantName, participantNumber, participantEmail, eventName);
+    }
+
+    //@@author jemehgoh
+    /**
+     * Returns an {@link AddCommand} that adds an item with fields parsed from a given user input.
+     *
+     * @param input the given user input.
+     * @return an {@link AddCommand} that adds an item with fields parsed from input.
+     * @throws IndexOutOfBoundsException if not all fields are present.
+     */
+    private Command getAddItemCommand(String input) throws IndexOutOfBoundsException {
+        String[] inputParts = input.split(ITEM_REGEX);
+        String itemName = inputParts[1].trim();
+        String eventName = inputParts[2].trim();
+        logger.info(String.format("Creating AddCommand for item with details: %s, %s", itemName,
+                eventName));
+        return new AddCommand(itemName, eventName);
+    }
+
+    //@@author LTK-1606
     /**
      * Parses the input string to create a {@link Command} based on the provided command parts.
      *
@@ -229,14 +279,13 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(RemoveCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
-            String[] inputParts;
 
             if (commandFlag.equals("-e")) {
-                inputParts = input.split("-e");
-                return new RemoveCommand(inputParts[1].trim());
+                return getRemoveEventCommand(input);
             } else if (commandFlag.equals("-p")) {
-                inputParts = input.split("(-p|-e)");
-                return new RemoveCommand(inputParts[1].trim(), inputParts[2].trim());
+                return getRemoveParticipantCommand(input);
+            } else if (commandFlag.equals("-m")) {
+                return getRemoveItemCommand(input);
             }
 
             logger.log(WARNING,"Invalid command format");
@@ -247,9 +296,48 @@ public class Parser {
         }
     }
 
+    //@@author KuanHsienn
+    /**
+     * Returns a {@link RemoveCommand} that removes an event, with a given user input.
+     *
+     * @param input the user input to be parsed.
+     * @return a {@link RemoveCommand} that removes an event with fields parsed from input.
+     * @throws IndexOutOfBoundsException if not all fields are present in input.
+     */
+    private RemoveCommand getRemoveEventCommand(String input) throws IndexOutOfBoundsException {
+        String[] inputParts = input.split("-e");
+        return new RemoveCommand(inputParts[1].trim());
+    }
+
+    //@@author LTK-1606
+    /**
+     * Returns a {@link RemoveCommand} that removes a participant, with fields from a given user input.
+     *
+     * @param input the user input to be parsed.
+     * @return a {@link RemoveCommand} that removes a participant with fields parsed from input.
+     * @throws IndexOutOfBoundsException if not all fields are present in input.
+     */
+    private RemoveCommand getRemoveParticipantCommand(String input) throws IndexOutOfBoundsException {
+        String[] inputParts = input.split(REMOVE_PARTICIPANT_REGEX);
+        return new RemoveCommand(inputParts[1].trim(), inputParts[2].trim(), true);
+    }
+
+    //@@author jemehgoh
+    /**
+     * Returns a {@link RemoveCommand} that removes an item, with fields from a given user input.
+     *
+     * @param input the user input to be parsed.
+     * @return a {@link RemoveCommand} that removes an item with fields parsed from input.
+     * @throws IndexOutOfBoundsException if not all fields are present in input.
+     */
+    private RemoveCommand getRemoveItemCommand(String input) throws IndexOutOfBoundsException {
+        String[] inputParts = input.split(ITEM_REGEX);
+        return new RemoveCommand(inputParts[1].trim(), inputParts[2].trim(), false);
+    }
+
     //@@author glenn-chew
     /**
-     * Parses the input string to create a {@link Command} based on the providedcomma nd parts.
+     * Parses the input string to create a {@link Command} based on the provided command parts.
      *
      * <p>
      * This method checks the command flag extracted from the command parts. If the command
