@@ -47,6 +47,84 @@ The Sequence Diagram below shows how the components interact with each other for
 
 ![image](https://github.com/user-attachments/assets/1dd443de-b538-4fb8-b4d1-3bff4643b3dd)
 
+### QuizManager Class Implementation
+The `QuizManager` class orchestrates the main operations of the quiz application. It manages topics, quizzes, past results, and handles the loading and saving of data. This class serves as the central controller that interacts with other classes like `Topic`, `Quiz`, and `Storage`.
+
+#### **Feature Overview**
+The `QuizManager` class is designed to provide the following key functionalities: 
+
+1. **Manage Topic and Questions**:
+    - Load and save questions by topic, allowing easy organization of quiz content. 
+    - Support for multiple question types, such as multiple-choice, true/false, flashcards, and fill-in-the-blank.
+
+2. **Quiz Execution**:
+    - Enable users to start quizzes on specific topics, with time limits and question limits. 
+    - Track the user’s score and display feedback upon quiz completion.
+
+3. **Persistence of Quiz Data**:
+    - Save quiz questions and past quiz results to files, ensuring data is preserved across sessions.
+    - Load saved quiz data from files when the application starts.
+
+4. **Review Past Results**:
+    - Allow users to review their scores and comments from previous quiz attempts, providing a way to track their progress.
+
+
+#### **Implementation Details**
+
+Implementation Details
+
+1. **Attributes**:
+   - Constants:
+     - `QUESTIONS_FILE_PATH`: Specifies the path to the file that stores quiz questions.
+     - `RESULTS_FILE_PATH`: Specifies the path to the file that stores past quiz results.
+   - Core Components:
+     - `List<Topic> topics`: Stores all available quiz topics.
+     - `Quiz currentQuiz`: Represents the quiz currently in progress.
+     - `List<String> pastResults`: Maintains a list of past quiz results, with each result stored as a formatted string.
+   - Data Storage:
+     - `Storage results`: Manages loading and saving of past quiz results.
+     - `Storage questions`: Manages loading and saving of quiz questions.
+
+2. **Constructor**:
+   - `QuizManager()`: Initializes the topics and pastResults lists. It also attempts to load saved questions and results from files using the Storage class, handling any file errors gracefully.
+
+3. **Methods**:
+   - Topic and Question Management:
+     - `parseTopic(String line)`: Parses a line from the questions file to add questions to the appropriate topic. Each line includes information such as topic name, question type, question text, and correct answer.
+     - `getOrCreateTopic(String topicName)`: Finds an existing topic by name or creates a new one if it doesn’t exist.
+     - `addFlashcardByUser(String input)`: Allows user to add a custom flashcard question and answer to the quiz system.
+   - Quiz Operations:
+     - `selectTopic(String topicName)`: Allows the user to choose a topic for the quiz. If the topic exists, a new quiz session is started.
+     - `startQuiz(Topic topic, Scanner quizScanner)`: Begins a quiz session for the specified topic, sets up the timer and question limit, and calculates the score upon completion.
+   - Utility Methods:
+     - `printTopics()`: Displays all available topics to the user.
+     - `addTopic(Topic topic)`: Adds a new topic to the topics list if it doesn’t already exist.
+     - `removeTopic(Topic topic)`: Removes an existing topic from the topics list.
+   - Data Persistence:
+     - `saveDataToFile()`: Saves past quiz results to the results file.
+     - `loadDataFromFile()`: Loads questions and past results from their respective files using `Storage`.
+   - Helper Methods:
+     - `addPastResult(int score, String comment)`: Adds the quiz score and a feedback comment to pastResults.
+     - `generateComment(int score)`: Provides feedback based on the user’s score.
+
+#### **Design Rationale**
+
+- **Modularization**: By separating topics, quiz sessions, and persistence into distinct methods and attributes, the class becomes more manageable and modular. Each component has a clear responsibility, which improves readability and maintainability.
+- **Scalability**: Storing topics and questions in collections allows the quiz system to scale easily. New topics and questions can be added without modifying core functionality.
+- **Separation of Concerns**: The QuizManager focuses solely on managing quiz-related data and processes, delegating storage tasks to the Storage class. This separation makes the code more maintainable and allows each component to evolve independently.
+  
+
+#### **Alternative Considerations**
+
+1. **Encapsulate Score Calculation**:
+   - Alternative: Create separate classes for `ScoreCalculator`.
+      - Pros: Increases code modularity and allows for more scoring logic.
+      - Cons: Adds complexity that may not be necessary if the scoring logic remain simple.
+
+#### UML Class Diagram
+Below is the class diagram for the `QuizManager` class, illustrating its attributes and methods.
+![image](https://github.com/user-attachments/assets/85b30191-76ab-431f-8cdb-0e29c481e506)
+
 
 ### True/False Feature Implementation
 
