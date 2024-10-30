@@ -14,6 +14,7 @@ public class RemoveCommand extends UpdateCommand {
         try {
             switch (field) {
             case "skills":
+            case "deadline":
                 if (!isValidValue(words)) {
                     return;
                 }
