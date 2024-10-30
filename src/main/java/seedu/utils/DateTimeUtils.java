@@ -3,6 +3,7 @@ package seedu.utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.YearMonth;
 
 /**
  * Utility class for handling date-time parsing.
@@ -10,9 +11,10 @@ import java.time.format.DateTimeParseException;
 public class DateTimeUtils {
     // Static error messages
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Your date and/or time is invalid!";
+    public static final String MESSAGE_INVALID_YEAR_MONTH_FORMAT = "Your year and month format is invalid!";
     // DateTimeFormatter for reading date-time strings in the specified format.
     private static final DateTimeFormatter DATETIME_READ_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
+    private static final DateTimeFormatter YEARMONTH_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM");
     // DateTimeFormatter for printing date-time strings in a user-friendly format.
     private static final DateTimeFormatter DATETIME_PRINT_FORMAT
             = DateTimeFormatter.ofPattern("EEEE, yyyy-MM-dd hh.mm a");
@@ -40,6 +42,21 @@ public class DateTimeUtils {
         }
 
         return result;
+    }
+
+    /**
+     * Parses a year-month string into a YearMonth object.
+     *
+     * @param yearMonthStr The year-month string to be parsed.
+     * @return A YearMonth representing the parsed year and month.
+     * @throws Exception If the year-month format is invalid.
+     */
+    public static YearMonth parseYearMonth(String yearMonthStr) throws Exception {
+        try {
+            return YearMonth.parse(yearMonthStr, YEARMONTH_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new Exception(MESSAGE_INVALID_YEAR_MONTH_FORMAT);
+        }
     }
 
     /**

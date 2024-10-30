@@ -40,7 +40,7 @@ class AddIncomeCommandTest {
         command.setArguments(Map.of("", "Salary", "a/", "test", "d/", "2024-10-01"));
         List<String> result = command.execute();
 
-        assertEquals("Error creating Income!: Invalid Amount", result.get(0));
+        assertEquals("Error creating Income!: Invalid amount format: test", result.get(0));
     }
 
     @Test

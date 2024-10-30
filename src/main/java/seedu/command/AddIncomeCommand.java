@@ -4,6 +4,7 @@ import seedu.datastorage.Storage;
 import seedu.transaction.Income;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
+import seedu.utils.AmountUtils;
 import seedu.utils.DateTimeUtils;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class AddIncomeCommand extends AddTransactionCommand {
     public static final String COMMAND_WORD = "add-income";
-    public static final String COMMAND_GUIDE = "add-income [DESCRIPTION] [a/ AMOUNT] [d/ DATE]";
+    public static final String COMMAND_GUIDE = "add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/"};
     public static final String ERROR_MESSAGE = "Error creating Income!";
@@ -32,7 +33,13 @@ public class AddIncomeCommand extends AddTransactionCommand {
             incomeName = "";
         }
 
-        String amountString = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
+        String amountStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
+        Double amount = null;
+        try {
+            amount = AmountUtils.parseAmount(amountStr);
+        } catch (Exception e) {
+            return List.of(ERROR_MESSAGE + ": " + e.getMessage());
+        }
 
         String dateString = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
         if (dateString == null || dateString.isEmpty()) {
@@ -46,12 +53,6 @@ public class AddIncomeCommand extends AddTransactionCommand {
             }
         }
 
-        double amount;
-        try {
-            amount = Double.parseDouble(amountString);
-        } catch (NumberFormatException e) {
-            return List.of( ERROR_MESSAGE + ": " + "Invalid Amount");
-        }
         try {
             transactions.addTransaction(createTransaction(amount, incomeName, dateString));
 
