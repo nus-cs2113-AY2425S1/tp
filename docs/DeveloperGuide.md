@@ -110,6 +110,27 @@ The following sequence diagram illustrates how the `AddPatientCommand` is execut
 - **Tag Handling**: The tag attribute is optional, and the command formats the success message based on whether a tag is provided.
 
 
+### **Delete Patient Command**
+
+The delete patient feature allows users to remove a patient by their index in the hospital’s patient list. This feature is handled by the `DeletePatientCommand` class, which performs validation, deletion, and logging.
+
+1. **User Input**: The user enters the `delete` command followed by the patient's index.
+2. **Command Parsing**: The `Parser` converts the input into a `DeletePatientCommand` object with the index adjusted to match the list’s 0-based indexing.
+3. **Execution**: The `DeletePatientCommand`:
+        - Verifies if the specified index is valid and corresponds to an existing patient.
+        - If the index is invalid, a severe log entry is generated, and an error message is returned.
+        - If valid, the command retrieves the patient’s name, deletes the patient from the hospital, and generates a success message.
+4. **Logging**: The logger is configured to `Level.SEVERE`, and any errors, such as attempting to delete a non-existent patient, are logged.
+
+#### Sequence Diagram
+
+The following sequence diagram illustrates the `DeletePatientCommand` execution:
+
+![DeletePatientCommand Sequence Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/DeletePatientSequenceDiagram.png)
+
+- **Error Handling**: The command checks if the specified index is within bounds and logs errors if the patient is not found.
+- **Logging**: Success and error messages are logged for traceability.
+
 ### **AddTaskCommand**
 
 The add Task feature allows users to add different types of task to a selected patient's records. This is facilitated by the `AddTaskCommand`, which handles the logic of adding a task and provides feedback on the success or failure of task addition. The feature is only available when the user has navigated to the `TASK_STATE` by selecting a patient.
