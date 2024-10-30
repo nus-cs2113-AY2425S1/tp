@@ -54,6 +54,10 @@ The formatting of how a recipe is displayed and saved is handled by this class.
 The recipelist class represents a list of any non-negative integer number of recipes. 
 This class handles the addition, deletion and editing of recipes.
 
+Below is the interaction between `RecipeList` and `Recipe`:
+![RecipeClassDiagram.png](img/ClassDiagrams/RecipeClassDiagram.png)
+
+
 ### Ingredient Class
 The ingredient class represents a singular ingredient added by the user or loaded from the storage database.
 A valid recipe object contains the following field:
@@ -64,8 +68,8 @@ The formatting of how a recipe is displayed and saved is handled by this class.
 ### IngredientList Class
 The Ingredientlist class represents a list of any non-negative integer number of ingredients.
 This class handles the addition, deletion and editing of ingredients.
-Shown below is a class diagram detailing how it interacts with the Ingredient class.
 
+Shown below is a class diagram detailing how it interacts with the Ingredient class.
 ![ingredientClasses.png](img/ClassDiagrams/ingredientsClassDiagram.png)
 
 
@@ -147,12 +151,12 @@ and recommend random recipes that closely match the criteria.
 
 ## User Stories
 
-| Version | As a ...      | I want to ...                                    | So that I can ...                                         |
-|---------|---------------|--------------------------------------------------|-----------------------------------------------------------|
-| v1.0    | new user      | see list of available commands                   | refer to them when I forget how to use the application    |
-| v1.0    | constant user | see list of all my added recipes                 | glance at all my recipes in one go                        |
-| v1.0    | picky user    | remove recipes from database                     | remove recipes that do not fit my changing tastebuds      |
-| v1.0    | busy user     | store information about my recipes in a database | have a tool to organise my recipes                        |
+| Version | As a ...      | I want to ...                                    | So that I can ...                                          |
+|---------|---------------|--------------------------------------------------|------------------------------------------------------------|
+| v1.0    | new user      | see list of available commands                   | refer to them when I forget how to use the application     |
+| v1.0    | constant user | see list of all my added recipes                 | glance at all my recipes in one go                         |
+| v1.0    | picky user    | remove recipes from database                     | remove recipes that do not fit my changing tastebuds       |
+| v1.0    | busy user     | store information about my recipes in a database | have a tool to organise my recipes                         |
 | v2.0    | user          | sort my recipes by preparation time              | find a recipe that I can cook within my current time limit |
 
 
