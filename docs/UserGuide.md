@@ -2,11 +2,11 @@
 
 ## Introduction
 
-{Give a product intro}
+{TODO: Give a product intro}
 
 ## Quick Start
 
-{Give steps to get started quickly}
+{TODO: Give steps to get started quickly}
 
 1. Ensure that you have Java 17 or above installed.
 1. Down the latest version of `Duke` from [here](http://link.to/duke).
@@ -40,3 +40,5 @@ Example of usage:
 {Give a 'cheat sheet' of commands here}
 
 * Add todo `todo n/TODO_NAME d/DEADLINE`
+
+cp ps from Docs
