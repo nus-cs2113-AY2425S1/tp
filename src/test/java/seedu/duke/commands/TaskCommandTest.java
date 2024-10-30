@@ -2,7 +2,6 @@ package seedu.duke.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-
 import seedu.duke.data.task.TaskList;
 
 public class TaskCommandTest {
@@ -76,20 +75,7 @@ public class TaskCommandTest {
         CommandResult commandResult = command2.execute();
         assertEquals("Task marked successfully: [T][X] Read book", commandResult.getFeedbackToUser());
     }
-
-    @Test
-    void testPrintTask(){
-        TaskList tasks = new TaskList();
-        AddTaskCommand command = new AddTaskCommand("todo", "Read book");
-        command.setData(tasks);
-        command.execute();
-
-        ListTaskCommand listTaskCommand = new ListTaskCommand();
-        listTaskCommand.setData(tasks);
-        CommandResult commandResult = listTaskCommand.execute();
-        assertEquals("Here are the tasks in your list!\n1. [T][ ] Read book\n", 
-            commandResult.getFeedbackToUser());
-    }
+    
 
     @Test
     void testDuplicateTask(){

@@ -145,6 +145,50 @@ The following sequence diagram illustrates how the `FindPatientCommand` is execu
 
 ![Find_Sequence_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/FindSequenceDiagram.png)
 
+### **Completion Rate Feature**
+
+The completion rate feature provides users with task progress summaries for individual patients and across all patients in the hospital. It consists of two main commands:
+
+1. **Show Task List for a Patient**: Displays a specific patient’s tasks with the percentage completed.
+        - The user initiates `showTaskList()`.
+        - `Ui` retrieves the selected `Patient` from `Hospital`, then calls `getTaskList()` to access tasks.
+        - The `TaskList` calculates the completion rate and returns it to `Ui`.
+        - `Ui` formats and displays the task list and completion rate to the user.
+
+2. **Show Patient List with Completion Rate**: Displays all patients with their overall task completion rates.
+        - The user initiates `showPatientListWithCompletionRate()`.
+        - `Ui` calls `calculateOverallCompletionRate()` on `Hospital`, which iterates through each `Patient` to get individual completion rates from their `TaskList`.
+        - `Hospital` aggregates these to determine the overall completion rate, then returns the list of patients with completion data.
+        - `Ui` formats and displays the list to the user.
+
+#### Sequence Diagram
+
+The following sequence diagram illustrates the **Completion Rate Feature**:
+
+![Completion Rate Sequence Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/CompletionRateSequenceDiagram.png)
+
+
+### **Tag Patient Feature**
+
+The Tag Patient Feature allows users to assign tags for each patient, providing additional information for quick identification. This feature is managed through the `AddPatientCommand`
+
+1. **User Input**: The user can add or edit a patient's tag by including `/tag` followed by the tag text with the `addPatient` command (e.g., `add John Doe /tag Critical`).
+2. **Command Parsing**: The `Parser` parses the input, identifying and handling tags with `AddParser`, and creates an `AddPatientCommand`
+3. **Execution**:`AddPatientCommand` stores the patient with the specified name and tag in the `Hospital`.
+4. **Storage Update**: The `Hospital`’s updated patient list, including the new or edited tag, is saved to storage.
+
+#### Sequence Diagram
+
+The following sequence diagram illustrates how the **Tag Patient Feature** operates when adding or updating a tag on a patient:
+
+![TagFeature Sequence Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/TagPatientClassDiagram.png)
+
+- **Conditional Check**: `AddPatientCommand` verifies that the patient does not already exist before adding them.
+- **Tag Display**: When viewing patient information, tags are displayed in a formatted way, such as `[VIP]` or `[Critical]`, if provided.
+
+This feature enables users to quickly categorize and prioritize patients within the hospital system by adding relevant tags to patient profiles.
+
+
 ### **State Switching Feature**
 
 The state switching feature allows the system to change its mode of operation between `MAIN_STATE` (for patient management) and `TASK_STATE` (for task management). This allows the software to handle commands differently based on the current state.

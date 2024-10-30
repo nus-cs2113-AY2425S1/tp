@@ -1,0 +1,35 @@
+@startuml
+
+class Ui {
+    + showTaskScreen(patient: Patient)
+}
+
+class Hospital {
+    - patients: List<Patient>
+    + addPatient(name: String, tag: String)
+    + getPatient(index: int): Patient
+}
+
+class Patient {
+    - name: String
+    - tag: String
+    + getTag(): String
+    + setTag(tag: String)
+    + getFormattedTag(): String
+}
+
+abstract class Command {
+    + execute(): CommandResult
+}
+
+class AddPatientCommand extends Command {
+    - name: String
+    - tag: String
+    + execute(): CommandResult
+}
+
+Ui --> Patient : displays
+Hospital "1" --> "*" Patient : manages
+AddPatientCommand --> Hospital : adds patient with tag
+
+@enduml
