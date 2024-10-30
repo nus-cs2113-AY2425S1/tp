@@ -105,7 +105,7 @@ class InternshipListTest {
 
         internshipList.removeField(0, "deadline", "    Interview Deadline   ");
 
-        assertThrows(IndexOutOfBoundsException.class, 
+        assertThrows(IndexOutOfBoundsException.class,
                 () -> internshipList.getInternship(0).getDeadlines().get(0));
     }
 }
