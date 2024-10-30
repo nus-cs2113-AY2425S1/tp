@@ -1,0 +1,40 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class UI {
+    +displayMessage(message: String) {static} : void
+    +getUserInput() {static} : String
+    +close() {static} : void
+    +displayIntroText() {static} : void
+    +displayCommandPrompt() {static} : void
+}
+
+class Main {
+    +main(args: String[]) {static} : void
+}
+
+class Parser {
+    -getCommandFromWords(words: String[]) {static} : String
+    -packCommandToExistingArgumentsMap(...) {static} : void
+    -packArgumentToExistingArgumentsMap(...) {static} : void
+    -packFollowingArgumentsToExistingArgumentsMap(...) {static} : void
+    -packWordsToArgumentsMap(words: String[]) {static} : HashMap<String, String>
+    -parseLineToArgumentsMap(line: String) {static} : HashMap<String, String>
+    +commandMatching(...) {static} : Command
+    +parseInputToCommand(line: String) {static} : Command
+}
+
+class "{abstract}\nCommand" {
+    +argumentsMap: HashMap<String, String>
+    +Command(HashMap<String, String>)
+    +execute(ExpenseList) {abstract}
+    +isExit(): boolean
+}
+
+
+Main "1" .up.> "1" UI
+Main "1" .right.> "1" Parser : < provides command for
+Main "1" .down.> "1" "{abstract}\nCommand" : executes >
+
+@enduml
