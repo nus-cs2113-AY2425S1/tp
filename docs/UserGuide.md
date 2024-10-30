@@ -1,5 +1,20 @@
 # User Guide
 
+## Outline
+- [Product Desciption](#product-description)
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Add Command: `add`](#add-command-add)
+  - [Update Command: `update`](#update-command-update)
+  - [Sort Command: `sort`](#sort-command-sort)
+  - [Filter Command: `filter`](#filter-command-filter)
+  - [Delete Command: `delete`](#delete-command-delete)
+  - [Help Command: `help`](#help-command-help)
+  - [Exit Command: `exit`](#exit-command-exit)
+  - [Invalid Inputs](#invalid-inputs)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
+
 ## Product Description
 This product aims to streamline the tracking of internship applications for the user, where the user is able to store key details of the internship as well as save and edit the status of the application.
 
@@ -129,8 +144,7 @@ Deadlines:
     No deadlines set.
 ```
 
-## Sort Command
-`sort`
+## Sort Command: `sort`
 
 This feature allows you to sort and list all the internships saved in your database. The default display format is in increasing order of their ID’s (based on time of creation)
 
@@ -254,8 +268,7 @@ __________________________________________________
 __________________________________________________
 ```
 
-## Filter command: 
-`filter`
+## Filter command: `filter`
 
 This feature is an extension of the previous list feature. It allows the user to specify certain values for any of the role name, company name or duration parameters based on which only the relevant internships are shown. 
 
@@ -310,8 +323,7 @@ Duration: 05/25 to 08/25
 Skills: Not Stated
 ```
 
-## Delete Command: 
-`del`
+## Delete Command: `delete`
 
 This feature removes an entire listing from the tracker.
 
@@ -357,8 +369,7 @@ Duration: Not Stated
 Skills: Not Stated
 ```
 
-## Help Command: 
-`help`
+## Help Command: `help`
 
 Shows the commands available for the user.
 Describes the available functions and inputs that are needed
@@ -377,11 +388,11 @@ Other basic commands.
 ```
 
 
-## Exit Command
+## Exit Command: `exit`
 
 Terminates the program.
 
-**Format:** `/exit`
+**Format:** `exit`
 
 
 
@@ -405,7 +416,7 @@ I do not understand what flag you are using, type /help to get a list of valid c
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: {your answer here}
+**A**: Copy the `.jar` file and 
 
 ## Command Summary
 
