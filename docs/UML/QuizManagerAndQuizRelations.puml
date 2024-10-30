@@ -1,0 +1,87 @@
+@startuml
+
+class QuizManager {
+    - scanner: Scanner
+    - topics: List<Topic>
+    - currentQuiz: Quiz
+    - pastResults: List<String>
+    - results: Storage
+    - questions: Storage
+    + QuizManager()
+    + parseTopic(String line): void
+    + selectTopic(String topicName): void
+    + startQuiz(Topic topic, Scanner quizScanner): void
+    + printTopics(): void
+    + addTopic(Topic topics): void
+    + getTopicsCount(): int
+    + removeTopic(Topic topics): void
+    + getPastResults(): String
+    + saveDataToFile(): void
+    + loadDataFromFile(): void
+    + addFlashcardByUser(String input): void
+}
+
+class Quiz {
+    - topic: Topic
+    - currentQuestionIndex: int
+    - correctAnswers: int
+    - scanner: Scanner
+    - quizTimer: QuizTimer
+    + Quiz(topic: Topic, scanner: Scanner)
+    + start(timeLimitInSeconds: int, questionLimit: int): void
+    - handleQuestionInput(currentQuestion: Question): void
+    + answerQuestion(answer: String): void
+    + getScore(): int
+}
+
+class Topic {
+    - questions: List<Question>
+    + getQuestions(): List<Question>
+}
+
+abstract class Question {
+    - text: String
+    + Question(String text)
+    + getText(): String
+    + checkAnswer(userAnswer: String): boolean
+    + printOptions(): void
+    + toString(): String
+}
+
+class Mcq {
+    - options: List<String>
+    + Mcq(String questionText, String correctAnswer, List<String> options)
+    + printOptions(): void
+    + toString(): String
+}
+
+class TrueFalse {
+    - correctAnswer: boolean
+    + TrueFalse(String questionText, boolean correctAnswer)
+    + checkAnswer(userAnswer: String): boolean
+    + printOptions(): void
+    + toString(): String
+}
+
+class FillInTheBlank {
+    - correctAnswer: String
+    + FillInTheBlank(String questionText, String correctAnswer)
+    + checkAnswer(userAnswer: String): boolean
+    + printQuestion(): void
+    + toString(): String
+}
+
+class QuizTimer {
+    + startTimer(timeLimitInSeconds: int): void
+    + isTimeUp(): boolean
+    + cancelTimer(): void
+}
+
+QuizManager --> Topic : manages
+QuizManager --> Quiz : starts
+Quiz --> Topic : contains
+Quiz --> Question : interacts
+Question <|-- Mcq : extends
+Question <|-- TrueFalse : extends
+Question <|-- FillInTheBlank : extends
+@enduml
