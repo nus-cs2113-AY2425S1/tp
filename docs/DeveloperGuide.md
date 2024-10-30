@@ -91,6 +91,8 @@ The `ListCommand` class performs the following key operations:
 
 These operations are accessible through the `Command` and can be invoked when the list command is entered by the user.
 
+#### Feature Implementation
+
 Given below is an example usage scenario and the behavior of the list feature at each step:
 
 1. User Command Input:
@@ -106,6 +108,35 @@ Events are appended to `outputMessage` with numbered formatting for readability.
 
 4. Output Generation:
 The method stores the generated `outputMessage` in `this.message`, ready for display.
+
+### Add feature
+
+The `add` feature allow users to add events/participants based on relevant flags.
+It is implemented in the `AddCommand` class which extends the base `Command` class and parse through the command to retrieve information based off flags.
+
+The above operation is implemented as `AdCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+The `AddCommand` handles two primary functions:
+
+1. **Add an Event:** When provided with event details, including name, time, venue and priority, it creates and stores a new event in the event list.
+2. **Add a Participant:** When provided with participant information, including name, contact number, and email, it attempts to add the participant to an existing event.
+
+#### Feature Implementation
+
+Given below is an example usage scenario for the add mechanism, and how it behaves at each step.
+
+1. The user enters the command `add` followed by `-e` or `-p` to indicate adding an event or participant.
+2. This step is determined by our `Parser` which parses through the user input to determine if it is adding a participant or event
+3. Based on the parsed input, `AddCommand` executes one of the following actions:
+   + **Add Event:** Creates a new event in `EventList` with the provided event details
+   + **Add Participant:** Locates the event in `EventList` and adds the participant to it
+4. If a duplicate event is found, `DuplicateDataException` is thrown.
+
+The interactions between components during the execution of the `add` command are show in the **Sequence Diagram** below:
+
+<img src = "images/AddEventSequenceDiagram.png">
+
 
 ### Mark/unmark feature
 
@@ -167,6 +198,8 @@ The user is able to organise and manage his events more quickly and efficiently 
 | v2.0    | user     | mark events as completed                                        | easily track all past events                                                              |
 | v2.0    | user     | mark participants present                                       | know exactly who signed up but did not attend the event                                   |
 | v2.0    | user     | save events info                                                | can still access the information if the program terminates                                |
+| v2.0    | user     | filter events by keywords                                       | can find relevant information efficiently                                                 |
+| v2.0    | user     | edit event details                                              | can update latest changes to events                                                       |
 
 ## Non-Functional Requirements
 
