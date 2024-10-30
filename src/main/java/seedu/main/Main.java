@@ -1,20 +1,8 @@
 package seedu.main;
 
+import seedu.budget.BudgetTracker;
 import seedu.category.CategoryList;
-import seedu.command.AddCategoryCommand;
-import seedu.command.ByeCommand;
-import seedu.command.Command;
-import seedu.command.DeleteCategoryCommand;
-import seedu.command.HelpCommand;
-import seedu.command.HistoryCommand;
-import seedu.command.ViewCategoryCommand;
-import seedu.command.ViewExpenseCommand;
-import seedu.command.ViewIncomeCommand;
-import seedu.command.AddIncomeCommand;
-import seedu.command.AddExpenseCommand;
-import seedu.command.DeleteTransactionCommand;
-import seedu.command.ViewTotalCommand;
-import seedu.command.KeywordsSearchCommand;
+import seedu.command.*;
 
 import seedu.datastorage.Storage;
 import seedu.transaction.TransactionList;
@@ -48,8 +36,9 @@ public class Main {
     // Singleton TransactionList for use across classes
     private static TransactionList transactions;
 
-    private static boolean isRunning = true;
+    private static BudgetTracker budgetTracker;
 
+    private static boolean isRunning = true;
 
 
     public static void main(String[] args) {
@@ -90,10 +79,12 @@ public class Main {
 
         categories = new CategoryList();
         categories.setCategories(Storage.loadCategories());
-        Storage.saveCategory(categories.getCategories()); //Save categories in case of initialization
+        Storage.saveCategory(categories.getCategories());
 
         transactions = new TransactionList();
         transactions.setTransactions(Storage.loadTransactions());
+
+        budgetTracker = new BudgetTracker(transactions);
 
         setupCommands();
 
@@ -113,6 +104,7 @@ public class Main {
         parser.registerCommands(new AddCategoryCommand(categories));
         parser.registerCommands(new AddIncomeCommand(transactions));
         parser.registerCommands(new AddExpenseCommand(transactions));
+        parser.registerCommands(new AddBudgetCommand(budgetTracker));
 
         parser.registerCommands(new DeleteCategoryCommand(categories));
         parser.registerCommands(new DeleteTransactionCommand(transactions));
