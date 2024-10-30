@@ -231,7 +231,7 @@ and South-East Asian universities. This command hence helps the users to keep tr
 The `ListCommandsCommand` provides users with a comprehensive list of all available commands in the CLI. This is particularly useful for new users or those unfamiliar with specific command formats.
 
 #### How the feature is implemented:
-* The `ListCommandsCommand` class extends the `Command` superclass and overrides the `execute` method.
+* The `ListCommandsCommand` class extends the `CheckInformationCommand` superclass and overrides the `execute` method.
 * In the `execute` method, `printCommandList` from the UI class is called.
 * A detailed list of commands with brief descriptions is printed to the CLI , providing users with command syntax and expected usage.
 * The command list is formatted for readability with each command on a new line, and `LINE_SEPARATOR` is used before and after the list to create a visually distinct section in the CLI.

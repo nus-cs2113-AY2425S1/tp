@@ -12,7 +12,7 @@ activate Command
 
 Command -> Storage: loadAllCourses()
 activate Storage
-Storage --> Command: List<String> mappedModules
+Storage --> Command: mappedModules: List<String>
 deactivate Storage
 
 loop each module in mappedModules
