@@ -1,0 +1,38 @@
+@startuml
+actor User
+participant "FindCommand" as FC
+participant "EventList" as EL
+participant "Event" as E
+participant "Participant" as P
+
+User -> FC: execute()
+activate FC
+FC -> EL: getEventByName(eventName)
+activate EL
+EL --> FC: return event (Optional<Event>)
+deactivate EL
+
+alt Event Found
+    FC -> E: findParticipants(personName)
+    activate E
+    E --> FC: return participantsFound (ArrayList<Participant>)
+    deactivate E
+
+    alt Participants Found
+        FC -> FC: Append FIND_SUCCESS_MESSAGE
+        loop each participant
+            FC -> P: toString()
+            P --> FC: participant details
+        end loop
+    else No Participants Found
+        FC -> FC: Append FIND_FAILURE_MESSAGE
+    end alt
+
+else Event Not Found
+    FC -> FC: Append FIND_EVENT_FAILURE_MESSAGE
+end alt
+
+FC --> User: Display search results
+deactivate FC
+
+@enduml

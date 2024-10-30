@@ -1,0 +1,29 @@
+@startuml
+actor User
+participant "FilterCommand" as FC
+participant "EventList" as EL
+participant "FilteredEventList" as FEL
+
+User -> FC: execute()
+activate FC
+FC -> FEL: new EventList() // create empty list for filtered events
+activate FEL
+deactivate FEL
+
+alt Filter by priority (-u)
+    FC -> EL: filterByPriority(priority)
+    activate EL
+    EL --> FC: return filteredEvents
+    deactivate EL
+    FC -> FC: Append FILTER_BY_PRIORITY_MESSAGE
+end alt
+
+loop each event in filteredEvents
+    FC -> FEL: getEvent(i)
+    FEL --> FC: Event.toString()
+end loop
+
+FC --> User: Display filtered event list
+deactivate FC
+
+@enduml
