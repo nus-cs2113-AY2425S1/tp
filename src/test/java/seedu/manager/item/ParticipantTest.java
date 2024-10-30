@@ -24,6 +24,7 @@ class ParticipantTest {
     public void toString_setTrue_present() {
         Participant participant = new Participant("Participant", "89521252", "example@gmail.com");
         participant.setPresent(true);
-        assertEquals("Participant [X]", participant.toString());
+        assertEquals("[X] Name: Participant / Number: 89521252 / Email: example@gmail.com",
+                participant.toString());
     }
 }
