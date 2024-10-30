@@ -10,6 +10,7 @@ import parser.FlagParser;
 
 import java.time.LocalDate;
 
+import static parser.ParserUtils.parseDate;
 import static parser.ParserUtils.splitArguments;
 
 public class MealCommandFactory {
@@ -56,12 +57,7 @@ public class MealCommandFactory {
     }
 
     public Command prepareViewCommand(String argumentString) {
-        FlagParser flagParser = new FlagParser(argumentString);
-
-        flagParser.validateRequiredFlags("/t");
-
-        LocalDate date = flagParser.getDateByFlag("/t");
-
+        LocalDate date = parseDate(argumentString);
         return new ViewMealCommand(date);
     }
 }

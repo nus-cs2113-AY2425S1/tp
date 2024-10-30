@@ -75,7 +75,7 @@ public class ParserUtils {
     }
 
     public static LocalDate parseDate(String dateString) {
-        if (dateString == null) {
+        if (dateString == null || dateString.trim().isEmpty()) {
             return LocalDate.now();
         }
 
