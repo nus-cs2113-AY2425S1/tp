@@ -40,12 +40,13 @@ public class Parser {
             Please enter your commands in the following format:
             add -e EVENT -t TIME -v VENUE -u PRIORITY
             add -p PARTICIPANT -e EVENT
+            add -m ITEM -e EVENT
             """;
     private static final String INVALID_REMOVE_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
             remove -e EVENT
-            remove -p PARTICIPANT -e EVENT
+            remove -m ITEM -e EVENT
             """;
     private static final String INVALID_VIEW_MESSAGE = """
             Invalid command!
