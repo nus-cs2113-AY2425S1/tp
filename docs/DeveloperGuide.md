@@ -132,10 +132,10 @@ The Logic constructor initializes `FinancialList`, `AppUi`, and `Storage` compon
 <ins>Methods</ins>
 
 - **executeCommand(String userInput)**: Parses and executes the command from `userInput`.
-- **addExpense(double amount, String description, LocalDate date)**: Adds a new `Expense` to `FinancialList` specified or default category.
-- **addIncome(double amount, String description, LocalDate date)**: Adds a new `Income` to `FinancialList` specified or default category.
+- **addExpense(double amount, String description, LocalDate date, Expense.Category category)**: Adds a new `Expense` to `FinancialList` specified or default category.
+- **addIncome(double amount, String description, LocalDate date, Income.Category category)**: Adds a new `Income` to `FinancialList` specified or default category.
 - **deleteEntry(int index)**: Removes an entry at a given index.
-- **editEntry(int index, double amount, String description)**: Updates an entry's amount, description, date and category.
+- **editEntry(int index, double amount, String description, String date, Enum<?> category)**: Updates an entry's amount, description, date and category.
 - **seeAllEntries()**: Displays all entries in `FinancialList`.
 
 <ins>Usage Example</ins>
@@ -222,9 +222,8 @@ System.out.println("Description: " + entry.getDescription());
 
 <ins>Design Considerations</ins>
 
-- **Future Budget Management**: `FinancialList` could incorporate a `budget` attribute and `checkBudget()` method to monitor expenses and alert users when limits are exceeded.
-- **Scalability**: By using `FinancialEntry` as a base class, `FinancialList` can easily manage new types of entries (e.g., `Investment` or `Loan`), ensuring the design is open to future extensions.
-
+- **Future Audit and History Management**: To improve traceability and accountability, `FinancialList` could maintain a history log of changes (e.g., edits, deletions, additions). This could support undo operations or provide users with an audit trail of modifications to their financial entries.
+- **Security and Access Control**: Adding access control features to `FinancialList` could protect sensitive data. Methods for role-based access (e.g., view-only, edit permissions) could be introduced, along with data encryption for secure storage and retrieval.
 ---
 #### FinancialEntry Component
 <ins>Overview</ins>
