@@ -18,12 +18,14 @@ Check out my contributions on the [TP Dashboard](https://nus-cs2113-ay2425s1.git
 ### List Schools Command Class
 
 ### Miscellaneous
+* Implemented starting points for 4 major components: `Parser`, `UI`, `Commands`, `Storage`
+* Trivial features: Creating `Assertions`, `Logs` file and getting rid of magic strings
 
 ## 3. User Guide
 {WIP}
 
 ## 4. Developer Guide
-* Documenting the NFR, product scope, acknowledgements
+* Documenting the NFR, product scope, acknowledgements section
 * Design Section: Architecture section - Architecture Diagram, Partial Class Diagram of `Commands`, Example of Sequence Diagram
 * Implementation Section: List Schools and Obtain Contacts Sequence Diagram 
 
