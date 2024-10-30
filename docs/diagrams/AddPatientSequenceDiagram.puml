@@ -1,35 +1,42 @@
 @startuml
+
 actor User
-User -> UI : Inputs 'add John Doe'
-activate UI
+participant MediTask
+participant Parser
+participant AddParser
+participant AddPatientCommand
+participant hospital
 
-UI -> Logic : Passes input to Logic
-activate Logic
-
-Logic -> Parser : parseCommand("add John Doe")
+User -> MediTask : enter "add John Doe [tag]"
+activate MediTask
+MediTask -> Parser : parseCommand("add John Doe [tag]", currentState)
 activate Parser
-
-alt State is MAIN_STATE
-    Parser -> AddPatientCommand : new AddPatientCommand("John Doe")
-    activate AddPatientCommand
-
-    AddPatientCommand -> Model : isDuplicatePatient("John Doe")
-    activate Model
-    Model --> AddPatientCommand : Returns false (if no duplicate)
-    deactivate Model
-
-    AddPatientCommand -> Model : addPatient("John Doe")
-    deactivate AddPatientCommand
-    Model -> Storage : saveHospitalData()
-    activate Storage
-    deactivate Storage
-
-    AddPatientCommand -> UI : Display success message
-else State is not MAIN_STATE
-    Parser -> UI : Display error message
-end
-
+Parser -> AddParser : execute("add John Doe [tag]", currentState)
 deactivate Parser
-deactivate Logic
-deactivate UI
+activate AddParser
+AddParser -> AddPatientCommand : new AddPatientCommand(name, tag)
+deactivate AddParser
+activate AddPatientCommand
+
+alt Name is null or empty
+    AddPatientCommand -> MediTask : throw AssertionError
+else Name is not null or empty
+    AddPatientCommand -> hospital : isDuplicatePatient(name)
+    alt Duplicate patient
+        AddPatientCommand -> MediTask : return "This patient already exists in the hospital"
+        MediTask -> User : Display "This patient already exists in the hospital"
+    else No duplicate
+        AddPatientCommand -> hospital : addPatient(name, tag)
+        alt tag is not null or empty
+            AddPatientCommand -> MediTask : return "New patient added: John Doe [tag]"
+            MediTask -> User : Display "New patient added: John Doe [tag]"
+        else tag is null or empty
+            AddPatientCommand -> MediTask : return "New patient added: John Doe"
+            MediTask -> User : Display "New patient added: John Doe"
+        end
+    end
+end
+deactivate AddPatientCommand
+deactivate MediTask
+
 @enduml

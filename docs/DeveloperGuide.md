@@ -78,17 +78,21 @@ The `Storage` component,
 
 Classes that are used by multiple components are placed in the `Common` package.
 
+---
 
 ## Implementation
 
-### **AddPatientCommand**
+### **Add Patient Command**
 
-The add patient feature allows users to add a new patient to the hospital system. This is facilitated by the `AddPatientCommand`, which handles the logic of adding a patient and updating the system’s state and storage.
+The add patient feature allows users to register a new patient within the hospital system. This feature is implemented in the `AddPatientCommand` class, which handles the validation, addition, and logging related to patient registration.
 
-1. **User Input**: The user enters the `addPatient` command followed by patient details (e.g., name).
-2. **Command Parsing**: The `Parser` parses the input and creates an `AddPatientCommand` object.
-3. **Execution**: The `AddPatientCommand` checks if the patient already exists in the `Hospital`. If not, it adds the patient.
-4. **Storage Update**: The updated hospital data, now containing the new patient, is saved to storage.
+1. **User Input**: The user enters the `add` command followed by the patient's name and an optional tag (e.g., "add John Doe /tag Critical").
+2. **Command Parsing**: The `Parser` interprets the input and creates an `AddPatientCommand` object with the specified name and tag.
+3. **Execution**: The `AddPatientCommand`:
+        - Checks if a patient with the given name already exists in the hospital system using the `hospital.isDuplicatePatient()` method.
+        - If a duplicate is detected, a severe-level log entry is created, and the user is notified with a message.
+        - If no duplicate is found, the patient is added to the hospital’s records, and a success message is generated.
+4. **Storage Update**: The updated hospital data, which now includes the new patient, is saved to storage for persistence across sessions.
 
 #### Sequence Diagram
 
@@ -96,8 +100,15 @@ The following sequence diagram illustrates how the `AddPatientCommand` is execut
 
 ![AddPatientCommand Sequence Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddPatientSequenceDiagram.png)
 
-- **If Condition**: The command checks if the patient already exists before adding the patient.
-- **Logging**: If a duplicate is detected, an error is logged.
+- **Conditional Check**: The command checks for duplicate entries by verifying if a patient with the given name already exists.
+- **Logging**: If a duplicate is detected, a severe-level log entry is recorded, and no patient is added.
+
+#### Implementation Considerations
+
+- **Error Handling**: This command includes assertions to validate the presence of a non-null, non-empty name.
+- **Logging Configuration**: The logger is set to `Level.SEVERE` to log only warnings and errors.
+- **Tag Handling**: The tag attribute is optional, and the command formats the success message based on whether a tag is provided.
+
 
 ### **AddTaskCommand**
 
