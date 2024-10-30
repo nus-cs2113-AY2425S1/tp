@@ -57,12 +57,78 @@ The `commands` package includes the command pattern used in the application to h
 ![Command_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/CommandClass.png)
 
 ### Data
-#### task
+
+### task
 The `task` package manages all task-related functionality. A `Task` class serves as the base for other task types: `Todo`, `Deadline`, and `Repeat`. Each task type extends `Task` and introduces additional attributes relevant to its behavior. The `TaskList` class maintains a collection of tasks and provides methods to add, delete, find and track the completion rate of tasks.
 
 ![Task_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/TaskClassDiagram.png)
-### State Manager
 
+
+### Hospital 
+
+The `Hospital` class manages the patient data within the system, including adding, deleting, and finding patients. It also manages the selection of a patient for task-related operations, calculates task completion rates, and handles persistence through serialization.
+
+#### Attributes
+- **`patients`**: A `List<Patient>` that stores all patients in the hospital system.
+- **`selectedPatient`**: A static variable that holds the currently selected patient for task-related operations.
+- **`logger`**: A static `Logger` used for logging actions, set to log warnings and errors only.
+
+#### Key Methods
+1. **`addPatient(String name)` / `addPatient(String name, String tag)`**: Adds a new patient to the hospital. The method checks for duplicate patient names before adding and logs the action.
+2. **`deletePatient(int index)`**: Deletes a patient by index. It verifies if the index is valid and logs errors if the index is out of bounds.
+3. **`getPatient(int index)`**: Retrieves a patient by index, throwing a `PatientNotFoundException` if the index is invalid.
+4. **`setSelectedPatient(int index)`**: Sets a patient as the selected patient by index, enabling task-related commands to operate on this patient.
+5. **`isDuplicatePatient(String name)`**: Checks if a patient with the specified name already exists.
+6. **`calculateOverallCompletionRate()`**: Calculates the total completion rate across all patients' tasks, returning a percentage.
+7. **`printList()`**: Prints the list of patients with their names and tags.
+
+#### Sequence Diagram
+
+The following diagram illustrates the structure of the `Hospital` class and its relationships:
+
+![Hospital Class Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/HospitalClassDiagram.png)
+
+- **Data Management**: The class supports data management functions like adding, deleting, and finding patients.
+- **Logging**: All major actions, such as adding and deleting patients, are logged at an appropriate level to facilitate debugging and monitoring.
+- **Error Handling**: Throws `PatientNotFoundException` for invalid indices, ensuring robustness in data handling.
+
+
+### State
+
+### State Class
+
+The `State` class manages the application’s current operational mode, allowing the system to handle different types of commands depending on whether it is in the `MAIN_STATE` or `TASK_STATE`.
+
+- **Attributes**:
+        - `currentStage`: Holds the current state of the application, represented by `StateType` enum values.
+- **Methods**:
+        - `getState()`: Returns the current state.
+        - `setState()`: Changes the application’s state to the provided `StateType`.
+
+The state ensures that certain commands, like task-related commands, are only available when a patient is selected.
+
+
+### **State Manager**
+
+The `StateManager` class coordinates the application’s state transitions, managing the current state and delegating command execution based on the active state.
+
+1. **Attributes**:
+        - `currentState`: Stores the current state as a `State` object.
+2. **Methods**:
+        - `changeState(StateType state)`: Changes the application state.
+        - `runState(String commandInput, Command command, Hospital hospital)`: Executes commands based on the active state. It distinguishes between `MAIN_STATE` for patient-related commands and `TASK_STATE` for task-related commands.
+        - `runMainState` and `runTaskState`: Helper methods to handle specific command logic within each state.
+
+#### Class Diagram
+
+The following class diagram shows the structure of the `StateManager`:
+
+![StateManager Class Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/StateManagerClassDiagram.png)
+
+#### Implementation Considerations
+
+- **Error Handling**: The `StateManager` throws an `UnknownStateFound` exception if it encounters an unrecognized state, ensuring robustness.
+- **State Transitions**: Commands like `SelectPatientCommand` and `BackCommand` are responsible for transitioning between `MAIN_STATE` and `TASK_STATE`.
 ### Storage
 
 ![Storage_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/StorageClassDiagram.png)
@@ -78,17 +144,21 @@ The `Storage` component,
 
 Classes that are used by multiple components are placed in the `Common` package.
 
+---
 
 ## Implementation
 
-### **AddPatientCommand**
+### **Add Patient Command**
 
-The add patient feature allows users to add a new patient to the hospital system. This is facilitated by the `AddPatientCommand`, which handles the logic of adding a patient and updating the system’s state and storage.
+The add patient feature allows users to register a new patient within the hospital system. This feature is implemented in the `AddPatientCommand` class, which handles the validation, addition, and logging related to patient registration.
 
-1. **User Input**: The user enters the `addPatient` command followed by patient details (e.g., name).
-2. **Command Parsing**: The `Parser` parses the input and creates an `AddPatientCommand` object.
-3. **Execution**: The `AddPatientCommand` checks if the patient already exists in the `Hospital`. If not, it adds the patient.
-4. **Storage Update**: The updated hospital data, now containing the new patient, is saved to storage.
+1. **User Input**: The user enters the `add` command followed by the patient's name and an optional tag (e.g., "add John Doe /tag Critical").
+2. **Command Parsing**: The `Parser` interprets the input and creates an `AddPatientCommand` object with the specified name and tag.
+3. **Execution**: The `AddPatientCommand`:
+        - Checks if a patient with the given name already exists in the hospital system using the `hospital.isDuplicatePatient()` method.
+        - If a duplicate is detected, a severe-level log entry is created, and the user is notified with a message.
+        - If no duplicate is found, the patient is added to the hospital’s records, and a success message is generated.
+4. **Storage Update**: The updated hospital data, which now includes the new patient, is saved to storage for persistence across sessions.
 
 #### Sequence Diagram
 
@@ -96,8 +166,36 @@ The following sequence diagram illustrates how the `AddPatientCommand` is execut
 
 ![AddPatientCommand Sequence Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddPatientSequenceDiagram.png)
 
-- **If Condition**: The command checks if the patient already exists before adding the patient.
-- **Logging**: If a duplicate is detected, an error is logged.
+- **Conditional Check**: The command checks for duplicate entries by verifying if a patient with the given name already exists.
+- **Logging**: If a duplicate is detected, a severe-level log entry is recorded, and no patient is added.
+
+#### Implementation Considerations
+
+- **Error Handling**: This command includes assertions to validate the presence of a non-null, non-empty name.
+- **Logging Configuration**: The logger is set to `Level.SEVERE` to log only warnings and errors.
+- **Tag Handling**: The tag attribute is optional, and the command formats the success message based on whether a tag is provided.
+
+
+### **Delete Patient Command**
+
+The delete patient feature allows users to remove a patient by their index in the hospital’s patient list. This feature is handled by the `DeletePatientCommand` class, which performs validation, deletion, and logging.
+
+1. **User Input**: The user enters the `delete` command followed by the patient's index.
+2. **Command Parsing**: The `Parser` converts the input into a `DeletePatientCommand` object with the index adjusted to match the list’s 0-based indexing.
+3. **Execution**: The `DeletePatientCommand`:
+        - Verifies if the specified index is valid and corresponds to an existing patient.
+        - If the index is invalid, a severe log entry is generated, and an error message is returned.
+        - If valid, the command retrieves the patient’s name, deletes the patient from the hospital, and generates a success message.
+4. **Logging**: The logger is configured to `Level.SEVERE`, and any errors, such as attempting to delete a non-existent patient, are logged.
+
+#### Sequence Diagram
+
+The following sequence diagram illustrates the `DeletePatientCommand` execution:
+
+![DeletePatientCommand Sequence Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/DeletePatientSequenceDiagram.png)
+
+- **Error Handling**: The command checks if the specified index is within bounds and logs errors if the patient is not found.
+- **Logging**: Success and error messages are logged for traceability.
 
 ### **AddTaskCommand**
 
