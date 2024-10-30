@@ -81,8 +81,8 @@ public class AddCommand extends Command {
         } else {
             boolean isAdded = this.eventList.addParticipantToEvent(
                     this.participantName,
-                    this.participantEmail,
                     this.participantNumber,
+                    this.participantEmail,
                     this.eventName
             );
             this.message = (isAdded) ? ADD_PARTICIPANT_MESSAGE : ADD_FAILURE_MESSAGE;
