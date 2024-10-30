@@ -18,6 +18,7 @@ public class CalendarCommand extends Command {
     public void execute(ArrayList<String> args) {
         ArrayList<Deadline> deadlines = getDeadlines();
         ArrayList<Deadline> sortedDeadlines = sortDeadlines(deadlines);
+        uiCommand.showCalendar(sortedDeadlines);
     }
 
     protected ArrayList<Deadline> getDeadlines() {

@@ -1,8 +1,11 @@
 package seedu.ui;
 
 import seedu.commands.Command;
+import seedu.duke.Deadline;
 import seedu.duke.Internship;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 //@@author Ridiculouswifi
@@ -200,6 +203,20 @@ public class UiCommand extends Ui {
         System.out.println("""
                 exit
                 Usage: exit""");
+        printTailDivider();
+    }
+
+    //@@author Ridiculouswifi
+    /**
+     * Prints out the deadlines in order of date.
+     * @param deadlines     Sorted list of deadlines.
+     */
+    public void showCalendar(ArrayList<Deadline> deadlines) {
+        printHeadDivider();
+        for (Deadline deadline : deadlines) {
+            String date = deadline.getDate();
+            System.out.println(date + ": " + deadline.getDescription());
+        }
         printTailDivider();
     }
 
