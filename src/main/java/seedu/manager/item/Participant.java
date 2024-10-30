@@ -102,6 +102,7 @@ public class Participant {
      */
     @Override
     public String toString() {
-        return String.format("%s [%s]", this.name, this.markIfPresent());
+        return String.format("[%s] Name: %s / Number: %s / Email: %s",
+                this.markIfPresent(), this.name, this.number, this.email);
     }
 }
