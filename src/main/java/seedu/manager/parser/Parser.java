@@ -148,6 +148,7 @@ public class Parser {
         }
     }
 
+    //@@author LTK-1606
     /**
      * Parses the input string to create an {@link Command} object based on the provided command parts.
      * <p>
@@ -435,7 +436,7 @@ public class Parser {
         }
     }
 
-    //@author LTK-1606
+    //@@author LTK-1606
     /**
      * Parses the input string and command parts to create a {@code FilterCommand} object.
      * <p>
