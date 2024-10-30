@@ -1,0 +1,66 @@
+@startuml
+title SortCommand Sequence Diagram
+
+participant User
+participant SortCommand
+participant uiCommand
+participant Internships
+
+User->SortCommand: execute(args)
+activate SortCommand #red
+SortCommand --> uiCommand: clearInvalidFlags()
+activate uiCommand #green
+SortCommand -> SortCommand : Initialize variables
+
+alt args are empty
+    SortCommand -> uiCommand: showSortedInternships("none")
+    SortCommand -> Internships: listAllInternships()
+    activate Internships #aquamarine
+    deactivate Internships
+else args are not empty
+    SortCommand -> SortCommand : get first argument (sortOption)
+
+    alt sortOption == "role"
+        SortCommand -> uiCommand: showSortedInternships("role")
+        SortCommand -> Internships: listInternshipsSortedByRole()
+        activate Internships #blue
+        deactivate Internships
+
+    else sortOption == "duration"
+        SortCommand -> uiCommand: showSortedInternships("duration")
+        SortCommand -> Internships: listInternshipsSortedByDuration()
+        activate Internships #blue
+        deactivate Internships
+
+    else sortOption == "deadline"
+        SortCommand -> uiCommand: showSortedInternships("deadline")
+        SortCommand -> Internships: listInternshipsSortedByDeadline()
+        activate Internships #blue
+        deactivate Internships
+
+    else sortOption == "skills"
+        SortCommand -> uiCommand: showSortedInternships("skills")
+        SortCommand -> Internships: listInternshipsSortedByFirstSkill()
+        activate Internships #blue
+        deactivate Internships
+
+    else sortOption == "status"
+        SortCommand -> uiCommand: showSortedInternships("status")
+        SortCommand -> Internships: listInternshipsSortedByStatus()
+        activate Internships #blue
+        deactivate Internships
+
+    else invalid sortOption
+        SortCommand -> uiCommand: addInvalidFlag(sortOption)
+        SortCommand -> uiCommand: printInvalidFlags()
+        SortCommand -> Internships: listAllInternships()
+        activate Internships #aquamarine
+        deactivate Internships
+    end
+end
+
+SortCommand -> User: Return result (sorted internships or error message)
+deactivate uiCommand
+deactivate SortCommand
+
+@enduml

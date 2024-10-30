@@ -91,11 +91,11 @@ public class Storage {
                 internshipList.addInternship(internship);
                 internship.setSkills(skills);
                 internship.setStatus(status);
+
                 List<Deadline> loadedDeadlines = parseDeadlines(deadlines, internship.getId());
                 for (Deadline deadline : loadedDeadlines) {
                     internship.addDeadline(deadline.getDescription(), deadline.getDate());
                 }
-
 
             }
         } catch (IOException e) {
