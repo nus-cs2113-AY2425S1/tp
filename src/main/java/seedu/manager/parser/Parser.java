@@ -39,7 +39,7 @@ public class Parser {
             Invalid command!
             Please enter your commands in the following format:
             add -e EVENT -t TIME -v VENUE -u PRIORITY
-            add -p PARTICIPANT -e EVENT
+            add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT
             """;
     private static final String INVALID_REMOVE_MESSAGE = """
             Invalid command!
