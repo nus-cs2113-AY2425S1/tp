@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.Internship;
 import seedu.duke.InternshipList;
 import seedu.exceptions.InvalidDeadline;
-import seedu.exceptions.MissingValue;
 
 import java.util.ArrayList;
 import java.util.List;
