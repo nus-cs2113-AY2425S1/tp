@@ -1,0 +1,16 @@
+@startuml
+
+Main -> Parser: add p/John Doe n/Meeting e/johndoe@example.com p/12345678
+activate Parser
+Parser -> AddCommand: new AddCommand("John Doe", "12345678", "johndoe@example.com", "Meeting")
+activate AddCommand
+AddCommand -> EventList: addParticipantToEvent("John Doe", "12345678", "johndoe@example.com", "Meeting")
+activate EventList
+EventList --> AddCommand
+deactivate EventList
+AddCommand --> Parser
+deactivate AddCommand
+Parser --> Main
+deactivate Parser
+
+@enduml

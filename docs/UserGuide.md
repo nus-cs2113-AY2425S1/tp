@@ -23,6 +23,7 @@ Enter a command:
 * Words in `UPPER_CASE` represent parameters that are to be supplied by the user.
 * Parameters listed have to be entered in the specified order.
 * Extraneous parameters for commands that do not take in parameters (e.g. `list`) will be ignored.
+* Events information and participants information are saved after each user command
 
 ### Viewing the command list: `menu`
 
@@ -43,8 +44,12 @@ copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
 find -e EVENT -p NAME: Finds all participants with specified name in an event.
 filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
 sort -by KEYWORD: Sorts events by name/time/priority.
+<<<<<<< HEAD
 save: Save latest changes to file.
 exit: Exit program.
+=======
+exit: Exit program
+>>>>>>> master
 ```
 
 Format: `menu`
@@ -173,12 +178,6 @@ Examples:
 * `sort -by time` will output a list of all the user's events chronologically (earliest to latest).
 * `sort -by priority` will output a list of all the user's events in terms of urgency (most to least important).
 
-### Saving the program: `save`
-
-Save the program
-
-Format: `save`
-
 ### Exiting the program: `exit`
 
 Exits the program.
@@ -202,5 +201,4 @@ Format: `exit`
 * Find participants: `find -e EVENT -p NAME`
 * Filter events: `filter -e/-t/-u FILTER_DESCRIPTION`
 * Sort events: `sort -by KEYWORD`
-* Save program: `save`
 * Exit program: `exit`

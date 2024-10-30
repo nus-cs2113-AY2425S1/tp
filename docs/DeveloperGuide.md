@@ -91,6 +91,8 @@ The `ListCommand` class performs the following key operations:
 
 These operations are accessible through the `Command` and can be invoked when the list command is entered by the user.
 
+#### Feature Implementation
+
 Given below is an example usage scenario and the behavior of the list feature at each step:
 
 1. User Command Input:
@@ -107,9 +109,106 @@ Events are appended to `outputMessage` with numbered formatting for readability.
 4. Output Generation:
 The method stores the generated `outputMessage` in `this.message`, ready for display.
 
+### Add feature
+
+The `add` feature allow users to add events/participants based on relevant flags.
+It is implemented in the `AddCommand` class which extends the base `Command` class and parse through the command to retrieve information based off flags.
+
+The above operation is implemented as `AddCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+The `AddCommand` handles two primary functions:
+
+1. **Add an Event:** When provided with event details, including name, time, venue and priority, it creates and stores a new event in the event list.
+2. **Add a Participant:** When provided with participant information, including name, contact number, and email, it attempts to add the participant to an existing event.
+
+#### Feature Implementation
+
+Given below is an example usage scenario for the `add` mechanism, and how it behaves at each step.
+
+1. The user enters the command `add` followed by `-e` or `-p` to indicate adding an event or participant.
+2. This step is determined by our `Parser` which parses through the user input to determine if it is adding a participant or event
+3. Based on the parsed input, `AddCommand` executes one of the following actions:
+   + **Add Event:** Creates a new event in `EventList` with the provided event details
+   + **Add Participant:** Locates the event in `EventList` and adds the participant to it
+4. If a duplicate event is found, `DuplicateDataException` is thrown.
+
+The interactions between components during the execution of the `add` command are show in the **Sequence Diagram** below:
+
+**Add Event**
+
+<img src = "images/AddEventSequenceDiagram.png">
+
+**Add Participant**
+
+<img src = "images/AddParticipantSequenceDiagram.png">
+
+### Remove feature
+
+The `remove` feature allows users to remove events/participants based on relevant flags.
+It is implemented in the `RemoveCommand` class which extends the base `Command` class and parse through the command to retrieve information based off flags.
+
+The above operation is implemented as `RemoveCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+The `RemoveCommand` handles two primary functions:
+
+1. **Remove an Event:** When given the name of an event, it searches for and deletes it from the event list if it exists.
+2. **Remove a Participant:** When provided with a participant’s name and the name of an event, it attempts to remove the specified participant from that event.
+
+#### Feature Implementation
+
+Given below is an example usage scenario for the `remove` mechanism, and how it behaves at each step.
+
+1. The user enters the command `remove` followed by `-e` or `-p` to specify removing an event or participant.
+2. This step is determined by our `Parser` which parses through the user input to determine if it is adding a participant or event
+3. Based on the parsed input, `RemoveComamnd` executes one of the following actions:
+   + **Remove Event:** Remove the specified event from `EventList` using the provided event name
+   + **Remove Participant:** Locates the event in `EventList` and deletes the specified participant
+4. If the event or participant is not found, `RemoveCommand` sets a failure message.
+
+The interactions between components during the execution of the `remove` command are show in the **Sequence Diagram** below:
+
+**Remove Event**
+
+<img src = "images/RemoveEventSequenceDiagram.png">
+
+**Remove Participant**
+
+<img src = "images/RemoveParticipantSequenceDiagram.png">
+
+### View feature
+
+The `view` feature allows users to view the list of participants of an event.
+The view command will search for an event by its name and display all its participants if found.
+It is implemented in the `ViewCommand` class which extends the base `Command` class and interacts with the `EventList` to retrieve and display participant information.
+
+The `ViewCommand` class handles one primary function:
+
+1. It is to enable users to view all participants associated with a specific event. 
+It accomplishes this by searching for the event by its name and displaying participant details if the event is found.
+
+#### Feature Implementation
+
+Given below is an example usage scenario for the `view` mechanism, and how it behaves at each step
+
+1. The user enters the command `view` followed by an `-e` flag to indicate which event to view participants from
+2. The command is processed by the `Parser`, which identifies that the user intends to view participants for the specified event.
+3. The `ViewCommand` attempts to retrieve the event from the `EventList` using the `getEventByName` method.
+4. If the event is found:
+   - The `ViewCommand` constructs a success message that includes the number of participants and their details in a formatted manner.
+
+   If the event is not found:
+   - The `ViewCommand` sets an error message.
+5. The message generated by `ViewCommand` is returned to the user interface, which then displays it to the user
+
+The interactions between components during the execution of the `view` command are show in the **Sequence Diagram** below:
+
+<img src = "images/ViewEventSequenceDiagram.png">
+
 ### Mark/unmark feature
 
-The mark/unmark feature allows users to mark events as done or not done. The feature comprises `MarkEventCommand`, which 
+The `mark/unmark` feature allows users to mark events as done or not done. The feature comprises `MarkEventCommand`, which 
 extends `Command`. This class performs one operation, which marks a specified event as done or not done.
 
 The above operation is implemented as `MarkEventCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
@@ -167,6 +266,8 @@ The user is able to organise and manage his events more quickly and efficiently 
 | v2.0    | user     | mark events as completed                                        | easily track all past events                                                              |
 | v2.0    | user     | mark participants present                                       | know exactly who signed up but did not attend the event                                   |
 | v2.0    | user     | save events info                                                | can still access the information if the program terminates                                |
+| v2.0    | user     | filter events by keywords                                       | can find relevant information efficiently                                                 |
+| v2.0    | user     | edit event details                                              | can update latest changes to events                                                       |
 
 ## Non-Functional Requirements
 

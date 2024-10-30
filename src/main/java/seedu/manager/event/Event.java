@@ -255,7 +255,7 @@ public class Event {
         return markParticipant(participant, isPresent);
     }
 
-    //@author LTK-1606
+    //@@author LTK-1606
     /**
      * Finds participants in the event whose names contain the specified person name.
      * <p>

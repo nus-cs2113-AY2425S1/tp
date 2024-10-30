@@ -1,0 +1,20 @@
+@startuml
+
+Main -> Parser: add n/Meeting t/2023-11-10T14:00 v/Room 101 p/HIGH
+activate Parser
+Parser -> AddCommand: new AddCommand("Meeting", time, "Room 101", Priority.HIGH)
+activate AddCommand
+AddCommand -> EventList: addEvent("Meeting", time, "Room 101", Priority.HIGH)
+activate EventList
+EventList -> Event: new Event("Meeting", time, "Room 101", Priority.HIGH)
+activate Event
+Event --> EventList
+deactivate Event
+EventList --> AddCommand
+deactivate EventList
+AddCommand --> Parser
+deactivate AddCommand
+Parser --> Main
+deactivate Parser
+
+@enduml
