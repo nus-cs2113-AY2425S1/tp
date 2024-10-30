@@ -11,9 +11,9 @@ import java.time.YearMonth;
 public class DateTimeUtils {
     // Static error messages
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Your date and/or time is invalid!";
+    public static final String MESSAGE_INVALID_YEAR_MONTH_FORMAT = "Your year and month format is invalid!";
     // DateTimeFormatter for reading date-time strings in the specified format.
     private static final DateTimeFormatter DATETIME_READ_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    public static final String MESSAGE_INVALID_YEAR_MONTH_FORMAT = "Your year and month format is invalid!";
     private static final DateTimeFormatter YEARMONTH_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM");
     // DateTimeFormatter for printing date-time strings in a user-friendly format.
     private static final DateTimeFormatter DATETIME_PRINT_FORMAT

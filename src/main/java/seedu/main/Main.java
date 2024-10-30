@@ -2,7 +2,21 @@ package seedu.main;
 
 import seedu.budget.BudgetTracker;
 import seedu.category.CategoryList;
-import seedu.command.*;
+import seedu.command.AddCategoryCommand;
+import seedu.command.ByeCommand;
+import seedu.command.Command;
+import seedu.command.DeleteCategoryCommand;
+import seedu.command.HelpCommand;
+import seedu.command.HistoryCommand;
+import seedu.command.ViewCategoryCommand;
+import seedu.command.ViewExpenseCommand;
+import seedu.command.ViewIncomeCommand;
+import seedu.command.AddIncomeCommand;
+import seedu.command.AddExpenseCommand;
+import seedu.command.DeleteTransactionCommand;
+import seedu.command.ViewTotalCommand;
+import seedu.command.KeywordsSearchCommand;
+import seedu.command.AddBudgetCommand;
 
 import seedu.datastorage.Storage;
 import seedu.transaction.TransactionList;
