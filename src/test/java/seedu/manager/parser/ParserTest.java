@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParserTest {
 
+    //@@author jemehgoh
     @Test
     public void parseCommand_invalidString_throwsException() {
         Parser parser = new Parser();
@@ -33,6 +34,7 @@ class ParserTest {
         assertInstanceOf(ExitCommand.class, command);
     }
 
+    //@@author glenn-chew
     @Test
     public void parseCommand_menuWord_menu() {
         Parser parser = new Parser();
@@ -41,6 +43,7 @@ class ParserTest {
         assertInstanceOf(MenuCommand.class, command);
     }
 
+    //@@author MatchaRRR
     @Test
     public void parseCommand_listWord_list() {
         Parser parser = new Parser();
@@ -49,6 +52,7 @@ class ParserTest {
         assertInstanceOf(ListCommand.class, command);
     }
 
+    //@@author jemehgoh
     @Test
     public void addCommand_addEvent_add() {
         Parser parser = new Parser();
@@ -83,6 +87,7 @@ class ParserTest {
             parser.parseCommand(commandString);});
     }
 
+    //@@author jemehgoh
     @Test
     public void parseCommand_markEvent_mark() {
         Parser parser = new Parser();
@@ -154,6 +159,7 @@ class ParserTest {
             parser.parseCommand(commandString);});
     }
 
+    //@@author LTK-1606
     @Test
     public void parseCommand_copyCommandInvalidFlags_throwsException() {
         Parser parser = new Parser();

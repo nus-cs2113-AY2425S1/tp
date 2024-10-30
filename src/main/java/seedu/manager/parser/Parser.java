@@ -151,6 +151,7 @@ public class Parser {
         }
     }
 
+    //@@author KuanHsienn
     /**
      * Parses the input string to create an {@link Command} object based on the provided command parts.
      * <p>
@@ -196,7 +197,6 @@ public class Parser {
         }
     }
 
-    //@@author KuanHsienn
     private Command getAddEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException {
         String[] inputParts = input.split(ADD_EVENT_REGEX);
         logger.info("Creating AddCommand for event with details: " +
