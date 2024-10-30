@@ -11,6 +11,7 @@ import seedu.manager.command.MarkEventCommand;
 import seedu.manager.command.MarkParticipantCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.RemoveCommand;
+import seedu.manager.command.EditCommand;
 import seedu.manager.command.SortCommand;
 import seedu.manager.command.ViewCommand;
 import seedu.manager.command.FindCommand;
@@ -39,13 +40,18 @@ public class Parser {
             Invalid command!
             Please enter your commands in the following format:
             add -e EVENT -t TIME -v VENUE -u PRIORITY
-            add -p PARTICIPANT -e EVENT
+            add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT
             """;
     private static final String INVALID_REMOVE_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
             remove -e EVENT
             remove -p PARTICIPANT -e EVENT
+            """;
+    private static final String INVALID_EDIT_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT
             """;
     private static final String INVALID_VIEW_MESSAGE = """
             Invalid command!
@@ -125,6 +131,8 @@ public class Parser {
             return parseAddCommand(command, commandParts);
         case RemoveCommand.COMMAND_WORD:
             return parseRemoveCommand(command, commandParts);
+        case EditCommand.COMMAND_WORD:
+            return parseEditCommand(command, commandParts);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
         case ViewCommand.COMMAND_WORD:
@@ -244,6 +252,58 @@ public class Parser {
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING,"Invalid command format");
             throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
+        }
+    }
+
+    /**
+     * Parses the input string to create an Command object based on the provided command parts.
+     * <p>
+     * This method checks the command flag extracted from the command parts. If the command
+     * flag is "-e", it splits the input string to create an EditCommand
+     * for editing an event. If the command flag is "-p", it creates an EditCommand
+     * for editing a participant's details. If neither flag is matched, it throws an InvalidCommandException
+     * with an error message.
+     * </p>
+     *
+     * @param input        the input string containing the command details.
+     * @param commandParts an array of strings representing the parsed command parts,
+     *                     where the second element is the command flag.
+     * @return a Command object representing the parsed command.
+     * @throws InvalidCommandException if the flags are not matched in the command parts.
+     */
+    private Command parseEditCommand(String input, String[] commandParts) throws InvalidCommandException {
+        assert commandParts[0].equalsIgnoreCase(EditCommand.COMMAND_WORD);
+        try {
+            String commandFlag = commandParts[1];
+            String[] inputParts;
+
+            if (commandFlag.equals("-e")) {
+                inputParts = input.split("(-p|-n|-email|-e)");
+                String participantName = inputParts[1].trim();
+                String newNumber = inputParts[2].trim();
+                String newEmail = inputParts[3].trim();
+                String eventName = inputParts[4].trim();
+                return new EditCommand(participantName, newNumber, newEmail, eventName);
+            } else if (commandFlag.equals("-p")) {
+                inputParts = input.split("(-p|-n|-email|-e)");
+                String participantName = inputParts[1].trim();
+                String newNumber = inputParts[2].trim();
+                String newEmail = inputParts[3].trim();
+                String eventName = inputParts[4].trim();
+                return new EditCommand(participantName, newNumber, newEmail, eventName);
+            }
+
+            logger.log(WARNING, "Invalid command format");
+            throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
+        } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING, "Invalid command format");
+            throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
+        } catch (DateTimeParseException exception) {
+            logger.log(WARNING, "Invalid date-time format");
+            throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
+        } catch (IllegalArgumentException exception) {
+            logger.log(WARNING, "Invalid priority level status");
+            throw new InvalidCommandException(INVALID_PRIORITY_MESSAGE);
         }
     }
 
