@@ -9,6 +9,7 @@ import seedu.commands.FilterCommand;
 import seedu.commands.ListCommand;
 import seedu.commands.HelpCommand;
 import seedu.commands.RemoveCommand;
+import seedu.commands.CalendarCommand;
 
 import seedu.ui.Ui;
 
@@ -37,6 +38,7 @@ public class Parser {
         commands.put("list", ListCommand::new);
         commands.put("help", HelpCommand::new);
         commands.put("remove", RemoveCommand::new);
+        commands.put("calendar", CalendarCommand::new);
     }
 
     public Command parseCommand(String input) {
@@ -60,7 +62,7 @@ public class Parser {
     }
 
     public ArrayList<String> parseData(Command command, String input) {
-        if (command instanceof ListCommand || command instanceof HelpCommand) {
+        if (command instanceof ListCommand || command instanceof HelpCommand || command instanceof CalendarCommand) {
             return new ArrayList<>();
         }
 
