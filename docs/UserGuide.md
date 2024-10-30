@@ -40,10 +40,11 @@ add -m ITEM -e EVENT: Add an item to an event.
 view -e EVENT -y TYPE: View the list of participants or items of an event.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
 remove -m ITEM -e EVENT: Remove an item from an event.
+edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
 mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
-sort -by KEYWORD: Sorts events by name/time/priority.
 copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
+sort -by KEYWORD: Sorts events by name/time/priority.
 filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
 find -e EVENT -p NAME: Finds all participants with specified name in an event.
 exit: Exit program
@@ -143,16 +144,18 @@ Examples:
 
 * `copy Origami workshop > Coding workshop` copies the participant list from the `Origami workshop` event to the `Coding workshop` event.
 
-### Find participant: `find`
+### Sorts event list: `sort`
 
-Finds all participants with a specified name in a specified event.
+Sorts events according to event name, event date-time or event priority level.
 
-Format: `find -e EVENT -p NAME`
+Format: `sort -by KEYWORD`
 
-* The `NAME` keywords are case-insensitive.
+* `KEYWORD` is case-insensitive, but must be one of these inputs: `name/time/priority`
 
 Examples:
-* `find -e Origami workshop -p john` will output all participants with `john` in their name in the event `Origami workshop`.
+* `sort -by name` will output a list of all the user's events alphabetically (from A to Z).
+* `sort -by time` will output a list of all the user's events chronologically (earliest to latest).
+* `sort -by priority` will output a list of all the user's events in terms of urgency (most to least important).
 
 ### Filters event list: `filter`
 
@@ -168,18 +171,16 @@ Examples:
 * `filter -t 2024` will output all events that are occurring in `2024`.
 * `filter -u high` with output all events with priority level `HIGH`.
 
-### Sorts event list: `sort`
+### Find participant: `find`
 
-Sorts events according to event name, event date-time or event priority level.
+Finds all participants with a specified name in a specified event.
 
-Format: `sort -by KEYWORD`
+Format: `find -e EVENT -p NAME`
 
-* `KEYWORD` is case-insensitive, but must be one of these inputs: `name/time/priority`
+* The `NAME` keywords are case-insensitive.
 
 Examples:
-* `sort -by name` will output a list of all the user's events alphabetically (from A to Z).
-* `sort -by time` will output a list of all the user's events chronologically (earliest to latest).
-* `sort -by priority` will output a list of all the user's events in terms of urgency (most to least important).
+* `find -e Origami workshop -p john` will output all participants with `john` in their name in the event `Origami workshop`.
 
 ### Exiting the program: `exit`
 
@@ -189,19 +190,20 @@ Format: `exit`
 
 ## Command Summary
 
-* View all commands: `view`
 * List all events: `list`
+* View all participants for an event: `view -e EVENT`
 * Add event: `add -e EVENT -t TIME -v VENUE`
 * Add participant to an event: `add -p PARTICIPANT -e EVENT`
 * Add item to an event: `add -m ITEM -e EVENT`
 * Remove event: `remove -e EVENT`
 * Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
 * Remove item from an event: `remove -m ITEM -e EVENT`
-* View all participants for an event: `view -e EVENT`
+* View all participants for an event: `view -e EVENT -y TYPE`
+* Edit participant of an event: `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
 * Copy participant list: `copy FROM_EVENT > TO_EVENT`
-* Find participants: `find -e EVENT -p NAME`
-* Filter events: `filter -e/-t/-u FILTER_DESCRIPTION`
 * Sort events: `sort -by KEYWORD`
+* Filter events: `filter -e/-t/-u FILTER_DESCRIPTION`
+* Find participants: `find -e EVENT -p NAME`
 * Exit program: `exit`
