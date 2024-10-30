@@ -38,6 +38,7 @@ WheresMyMoney uses the following tools for development:
 
 Design and Implementation has been broken down into various sections, each tagged for ease of reference:
 
+- [Architecture](#architecture)
 - [UI and Parser](#ui-and-parser)
 - [Commands](#commands)
 - [Storage](#storage)
@@ -45,6 +46,9 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Date and Time Handling](#date-and-time-handling)
 - [Exceptions and Logging](#exceptions-and-logging)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
+
+### Architecture
+
 
 ### UI and Parser
 
@@ -88,10 +92,10 @@ The Parser also has some considerations such as
        2. `command /argument value\/value` -> `argument`:`value/value`
        3. `command /argument value/value` -> `argument`:`value/value` (this is accepted for now, but not recommended)
        4. `command /argument value\\/value` -> `argument`:`value\/value`
-   2. `/` don't need to be escaped for
-       1. commands -> eg. `/command /argument value1` -> the command is `/command`
+   2. `/` doesn't need to be escaped for
+       1. commands -> e.g. `/command /argument value1` -> the command is `/command`
            1. It is discouraged to do so, but the option is left for potential expandability
-       2. arguments -> eg. `command /argument/param value` -> the argument name is `argument/param`
+       2. arguments -> e.g. `command /argument/param value` -> the argument name is `argument/param`
     3. Leading and Trailing spaces are ignored, but additional spaces within values (eg. `main  value`) are counted 
 
 ### Commands
