@@ -154,7 +154,7 @@ Adds a meal to the daily record of a specific date.
 
 **Example**: `meal add /n Chicken_Breast /c 250 /t 30-10-2024`
 
-Chicken_Breast | 250kcal has been added to 30-10-2024.
+Chicken Breast | 250kcal has been added to 30-10-2024.
 
 ---
 
@@ -168,7 +168,7 @@ Deletes a meal from the daily record of a specific date.
 
 **Example**: `meal delete /m 1 /t 30-10-2024`
 
-Chicken_Breast | 250kcal has been deleted from 30-10-2024
+Chicken Breast | 250kcal has been deleted from 30-10-2024
 
 ---
 
@@ -183,8 +183,8 @@ Displays all meals recorded for a specific date.
 
 Meals for 30-10-2024:
 
-1. Chicken_Breast | 250 kcal
-2. Scrambled_Eggs | 150 kcal
+1. Chicken Breast | 250 kcal
+2. Scrambled Eggs | 150 kcal
 
 
 
