@@ -1,0 +1,20 @@
+@startuml
+
+Main -> Parser: view EventName
+activate Parser
+Parser -> ViewCommand: new ViewCommand("EventName")
+activate ViewCommand
+ViewCommand -> EventList: getEventByName("EventName")
+activate EventList
+EventList -> EventList: getParticpantList()
+activate EventList
+EventList -->EventList
+deactivate EventList
+EventList --> ViewCommand: Optional<Event>
+deactivate EventList
+ViewCommand --> Parser: return message
+deactivate ViewCommand
+Parser --> Main
+deactivate Parser
+
+@enduml

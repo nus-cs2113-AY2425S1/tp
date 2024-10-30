@@ -1,0 +1,16 @@
+@startuml
+
+Main -> Parser: remove e/Meeting
+activate Parser
+Parser -> RemoveCommand: new RemoveCommand("Meeting")
+activate RemoveCommand
+RemoveCommand -> EventList: removeEvent("Meeting")
+activate EventList
+EventList --> RemoveCommand
+deactivate EventList
+RemoveCommand --> Parser
+deactivate RemoveCommand
+Parser --> Main
+deactivate Parser
+
+@enduml
