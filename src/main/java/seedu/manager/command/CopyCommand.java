@@ -6,7 +6,7 @@ import seedu.manager.item.Participant;
 import java.util.ArrayList;
 import java.util.Optional;
 
-//@author LTK-1606
+//@@author LTK-1606
 /**
  * Represents a command to copy the participant list from one event to another.
  */
