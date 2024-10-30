@@ -33,18 +33,18 @@ class AddExpenseCommandTest {
     }
 
     @Test
-    public void execute_addExpenseInvalidAmount_success() {
+    public void execute_addExpenseInvalidAmount_exceptionThrown() {
         TransactionList transactionList = new TransactionList();
         AddExpenseCommand command = new AddExpenseCommand(transactionList);
 
         command.setArguments(Map.of("", "dinner", "a/", "test", "d/", "2024-10-01 1800", "c/", "Food"));
         List<String> result = command.execute();
 
-        assertEquals("Error creating Expense!: Invalid amount", result.get(0));
+        assertEquals("Error creating Expense!: Invalid amount format: test", result.get(0));
     }
 
     @Test
-    public void execute_addExpenseInvalidDate_success() {
+    public void execute_addExpenseInvalidDate_exceptionThrown() {
         TransactionList transactionList = new TransactionList();
         AddExpenseCommand command = new AddExpenseCommand(transactionList);
 

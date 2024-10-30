@@ -26,8 +26,7 @@ public class AddBudgetCommand extends Command {
         Double amount = null;
         try {
             amount = AmountUtils.parseAmount(amountStr);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return List.of(ERROR_MESSAGE + ": " + e.getMessage());
         }
 
