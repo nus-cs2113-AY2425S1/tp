@@ -21,7 +21,6 @@ public class ProgrammeListTest {
 
     @BeforeEach
     public void setUp() {
-        // Initialize ProgrammeList
         programmeList = new ProgrammeList();
 
         // Create mock Programme and Day objects
@@ -50,78 +49,62 @@ public class ProgrammeListTest {
 
     @Test
     void testInsertProgramme() {
-        // Insert a new programme
         ArrayList<Day> days = new ArrayList<>();
         days.add(mockDay1);
         Programme newProgramme = programmeList.insertProgramme("New Programme", days);
 
-        // Verify insertion
         assertEquals(newProgramme, programmeList.getProgramme(2));
         assertEquals(3, programmeList.getProgrammeListSize());
     }
 
     @Test
     void testDeleteProgrammeValidIndex() {
-        // Delete the programme at index 0
         Programme deletedProgramme = programmeList.deleteProgram(0);
 
-        // Verify deletion
         assertEquals(mockProgramme1, deletedProgramme);
         assertEquals(1, programmeList.getProgrammeListSize());
     }
 
     @Test
     void testDeleteProgrammeInvalidIndex() {
-        // Verify that an invalid index throws an IndexOutOfBoundsException
         assertThrows(IndexOutOfBoundsException.class, () -> programmeList.deleteProgram(5));
 
-        // Verify that the size remains unchanged
         assertEquals(2, programmeList.getProgrammeListSize());
     }
 
     @Test
     void testGetProgramme() {
-        // Verify retrieval of programme at index 1
         Programme programme = programmeList.getProgramme(1);
         assertEquals(mockProgramme2, programme);
     }
 
     @Test
     void testStartProgramme() {
-        // Set the active programme to index 1
         Programme activeProgramme = programmeList.startProgramme(1);
 
-        // Verify that the active programme is set correctly
         assertEquals(mockProgramme2, activeProgramme);
     }
 
     @Test
     void testGetDay() {
-        // Set the active programme to index 0
         programmeList.startProgramme(0);
 
-        // Retrieve the day at index 0 of the active programme
         Day retrievedDay = programmeList.getDay(0, 0);
 
-        // Verify that the correct mock day is retrieved
         assertEquals(mockDay1, retrievedDay);
     }
 
     @Test
     void testDeleteDay() {
-        // Attempt to delete a day at index 0 of the first programme
         Day deletedDay = programmeList.deleteDay(0, 0);
 
-        // Verify that the correct day is deleted
         assertEquals(mockDay1, deletedDay);
     }
 
     @Test
     void testInsertDay() {
-        // Insert a new mock day into the first programme
         programmeList.insertDay(0, mockDay2);
 
-        // Verify that the day was inserted correctly
         when(mockProgramme1.getDay(1)).thenReturn(mockDay2);
         assertEquals(mockDay2, programmeList.getDay(0, 1));
     }
@@ -132,16 +115,12 @@ public class ProgrammeListTest {
         when(mockProgramme1.toString()).thenReturn("Mocked Programme 1");
         when(mockProgramme2.toString()).thenReturn("Mocked Programme 2");
 
-        // Set the active programme to index 0
         programmeList.startProgramme(0);
 
-        // Get the string representation of the ProgrammeList
         String programmeListString = programmeList.toString();
 
-        // Expected string with the first programme marked as active
         String expectedString = "*Active* Mocked Programme 1\nMocked Programme 2\n";
 
-        // Verify the expected output
         assertEquals(expectedString, programmeListString);
     }
 

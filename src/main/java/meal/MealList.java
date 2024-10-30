@@ -1,6 +1,7 @@
 package meal;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,5 +58,22 @@ public class MealList {
         }
 
         return output.toString().trim(); // Trim to remove trailing newline
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(meals);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MealList meallist = (MealList) o;
+        return meals == meallist.meals;
     }
 }

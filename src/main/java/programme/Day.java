@@ -117,7 +117,5 @@ public class Day {
         return Objects.equals(name, day.name) &&
                 Objects.equals(exercises, day.exercises);
     }
-
-
 }
 
