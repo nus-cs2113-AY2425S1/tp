@@ -213,9 +213,21 @@ public class UiCommand extends Ui {
      */
     public void showCalendar(ArrayList<Deadline> deadlines) {
         printHeadDivider();
+        String currentDate = "";
+        if (deadlines.isEmpty()) {
+            System.out.println("No deadlines listed");
+            printTailDivider();
+            return;
+        }
+        System.out.println("Deadlines:");
         for (Deadline deadline : deadlines) {
             String date = deadline.getDate();
-            System.out.println(date + ": " + deadline.getDescription());
+            if (!date.equals(currentDate)) {
+                System.out.println();
+                System.out.println(date);
+                currentDate = date;
+            }
+            System.out.println("\t" + deadline.getInternshipId() + ": " + deadline.getDescription());
         }
         printTailDivider();
     }
