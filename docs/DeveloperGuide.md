@@ -114,7 +114,7 @@ The method stores the generated `outputMessage` in `this.message`, ready for dis
 The `add` feature allow users to add events/participants based on relevant flags.
 It is implemented in the `AddCommand` class which extends the base `Command` class and parse through the command to retrieve information based off flags.
 
-The above operation is implemented as `AdCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+The above operation is implemented as `AddCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
 The `AddCommand` handles two primary functions:
@@ -135,7 +135,47 @@ Given below is an example usage scenario for the add mechanism, and how it behav
 
 The interactions between components during the execution of the `add` command are show in the **Sequence Diagram** below:
 
+**Add Event**
+
 <img src = "images/AddEventSequenceDiagram.png">
+
+**Add Participant**
+
+<img src = "images/AddParticipantSequenceDiagram.png">
+
+### Remove feature
+
+The `remove` feature allows users to remove events/participants based on relevant flags.
+It is implemented in the `RemoveCommand` class which extends the base `Command` class and parse through the command to retrieve information based off flags.
+
+The above operation is implemented as `RemoveCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+The `RemoveCommand` handles two primary functions:
+
+1. **Remove an Event:** When given the name of an event, it searches for and deletes it from the event list if it exists.
+2. **Remove a Participant:** When provided with a participant’s name and the name of an event, it attempts to remove the specified participant from that event.
+
+#### Feature Implementation
+
+Given below is an example usage scenario for the remove mechanism, and how it behaves at each step.
+
+1. The user enters the command `remove` followed by `-e` or `-p` to specify removing an event or participant.
+2. This step is determined by our `Parser` which parses through the user input to determine if it is adding a participant or event
+3. Based on the parsed input, `RemoveComamnd` executes one of the following actions:
+   + **Remove Event:** Remove the specified event from `EventList` using the provided event name
+   + **Remove Participant:** Locates the event in `EventList` and deletes the specified participant
+4. If the event or participant is not found, `RemoveCommand` sets a failure message.
+
+The interactions between components during the execution of the `remove` command are show in the **Sequence Diagram** below:
+
+**Remove Event**
+
+<img src = "images/RemoveEventSequenceDiagram.png">
+
+**Remove Participant**
+
+<img src = "images/RemoveParticipantSequenceDiagram.png">
 
 
 ### Mark/unmark feature
