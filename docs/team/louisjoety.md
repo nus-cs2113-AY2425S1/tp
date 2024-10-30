@@ -12,10 +12,18 @@ Check out my contributions on the [TP Dashboard](https://nus-cs2113-ay2425s1.git
 ## 2. Enhancements implemented
 
 ### Command | CheckInformationCommand | PersonalTrackerCommand
+* Abstract parent classes to allow child classes to be implemented through over-riding methods
+* This is essential for ease of debugging and task allocation
 
 ### Obtain Contacts Command Class
+* Updated Database with new contact number and email information
+* Managed controls to allow users to retrieve either email or number
+* J-unit test, assertions and logging were done to gracefully handle errors
 
 ### List Schools Command Class
+* Updated Database with school names and courses available
+* Managed controls to allow users to obtain a list of schools available in the database
+* J-unit test, assertions and logging were done to gracefully handle errors
 
 ### Miscellaneous
 * Implemented starting points for 4 major components: `Parser`, `UI`, `Commands`, `Storage`
