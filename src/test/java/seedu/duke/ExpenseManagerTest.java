@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ExpenseManagerTest {
 
     @Test
-    public void testAddExpenseNewCategory() {
+    public void addExpenseNewCategory() {
         ExpenseManager expenseManager = new ExpenseManager();
         TrackerData trackerData = new TrackerData();
 
@@ -24,7 +24,7 @@ public class ExpenseManagerTest {
     }
 
     @Test
-    void testAddExpenseExistingCategory() {
+    void addExpenseExistingCategory() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
 
@@ -38,7 +38,7 @@ public class ExpenseManagerTest {
     }
 
     @Test
-    void testDeleteExpenseValidIndex() {
+    void deleteExpenseValidIndex() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
 
@@ -58,7 +58,7 @@ public class ExpenseManagerTest {
     }
 
     @Test
-    void testDeleteExpenseInvalidIndex() {
+    void deleteExpenseInvalidIndex() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
 
@@ -71,7 +71,7 @@ public class ExpenseManagerTest {
     }
 
     @Test
-    void testTagExpenseValidInput() {
+    void tagExpenseValidInput() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
 
@@ -88,7 +88,7 @@ public class ExpenseManagerTest {
     }
 
     @Test
-    void testTagExpenseInvalidIndex() {
+    void tagExpenseInvalidIndex() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
 
@@ -102,7 +102,7 @@ public class ExpenseManagerTest {
     }
 
     @Test
-    void testTagExpenseInvalidCategory() {
+    void tagExpenseInvalidCategory() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
 
