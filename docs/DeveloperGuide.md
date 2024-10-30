@@ -539,6 +539,101 @@ faster than a typical mouse/GUI driven app
 | v2.0    | busy user                      | log my finances in the shortest possible time                                       | have more time for other activities                            |
 | v2.1    | busy user                      | use shortcuts to log frequent and similar expenses                                  | save time logging expenses                                     |
 
+## Use Cases
+
+#### Use Case: Add an Expense
+
+**Main Success Scenario (MSS)**
+
+1. User requests to add an expense.
+2. FinanceBuddy prompts the user to enter the description, amount, and date (optional).
+3. User enters the required information.
+4. FinanceBuddy saves the expense entry.
+
+**Use case ends.**
+
+**Extensions**
+
+- 2a. User cancels the operation.
+    - 2a1. FinanceBuddy aborts the addition of the expense.
+    - **Use case ends.**
+
+- 3a. The input format is invalid.
+    - 3a1. FinanceBuddy shows an error message.
+    - 3a2. FinanceBuddy prompts the user to re-enter the information.
+    - **Use case resumes at step 2.**
+
+
+#### Use Case: Edit an Expense
+
+**MSS**
+
+1. User requests to list all expenses.
+2. FinanceBuddy shows a list of expenses.
+3. User requests to edit a specific expense.
+4. FinanceBuddy prompts the user to enter new values for the description, amount, and date (optional).
+5. User enters the updated information.
+6. FinanceBuddy updates the selected expense entry.
+
+**Use case ends.**
+
+**Extensions**
+
+- 2a. The list is empty.
+    - **Use case ends.**
+
+- 3a. The given index is invalid.
+    - 3a1. FinanceBuddy shows an error message.
+    - **Use case resumes at step 2.**
+
+- 4a. The input format is invalid.
+    - 4a1. FinanceBuddy shows an error message.
+    - 4a2. FinanceBuddy prompts the user to re-enter the information.
+    - **Use case resumes at step 4.**
+
+#### Use Case: Delete an Expense
+
+**MSS**
+
+1. User requests to list all expenses.
+2. FinanceBuddy shows a list of expenses.
+3. User requests to delete a specific expense.
+4. FinanceBuddy deletes the selected expense entry.
+
+**Use case ends.**
+
+**Extensions**
+
+- 2a. The list is empty.
+    - **Use case ends.**
+
+- 3a. The given index is invalid.
+    - 3a1. FinanceBuddy shows an error message.
+    - **Use case resumes at step 2.**
+
+#### Use Case: Add Income
+
+**MSS**
+
+1. User requests to add income.
+2. FinanceBuddy prompts the user to enter the description, amount, and date (optional).
+3. User enters the required information.
+4. FinanceBuddy saves the income entry.
+
+**Use case ends.**
+
+**Extensions**
+
+- 2a. User cancels the operation.
+    - 2a1. FinanceBuddy aborts the addition of the income.
+    - **Use case ends.**
+
+- 3a. The input format is invalid.
+    - 3a1. FinanceBuddy shows an error message.
+    - 3a2. FinanceBuddy prompts the user to re-enter the information.
+    - **Use case resumes at step 2.**
+
+
 ## Non-Functional Requirements
 
  - Technical Requirements: Any mainstream OS, i.e. Windows, macOS or Linux, with Java 11 installed. Instructions for downloading Java 11 can be found [here](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html).
