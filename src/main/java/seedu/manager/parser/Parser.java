@@ -434,7 +434,8 @@ public class Parser {
             throw new IOException("Error loading events from file: " + filePath + ".");
         }
     }
-  
+
+    //@author LTK-1606
     /**
      * Parses the input string and command parts to create a {@code FilterCommand} object.
      * <p>
@@ -471,8 +472,6 @@ public class Parser {
         }
     }
 
-
-    //@author LTK-1606
     /**
      * Parses the input command to create a {@code CopyCommand} object.
      * <p>
@@ -506,7 +505,6 @@ public class Parser {
         }
     }
 
-    //@author LTK-1606
     /**
      * Parses the input command to create a {@code FindCommand} object.
      * <p>
