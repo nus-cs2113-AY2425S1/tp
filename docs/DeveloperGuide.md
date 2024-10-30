@@ -267,7 +267,7 @@ The `RemoveCommand` class is responsible for removing the values within fields o
 
 #### Sequence Diagram
 The following sequence diagram shows how the `RemoveCommand` is executed:
-![]()
+![](UML/RemoveCommand_Sequence_Diagram.png)
 
 ### Product scope
 ### Target user profile
