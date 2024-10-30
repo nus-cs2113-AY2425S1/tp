@@ -38,7 +38,12 @@ public class EditCommandTest {
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-20 21:00", formatter), "Venue A", Priority.HIGH);
         eventList.addParticipantToEvent("Tom", "89521252", "example@gmail.com", "Event 1");
         String expectedMessage = "Event/Participant not found!";
-        EditCommand editParticipantCommand = new EditCommand("Tom", "9123 4567", "new_email@example.com", "Non-Existent Event");
+        EditCommand editParticipantCommand = new EditCommand(
+                "Tom",
+                "9123 4567",
+                "new_email@example.com",
+                "Non-Existent Event"
+        );
         editParticipantCommand.setData(eventList);
         editParticipantCommand.execute();
 
@@ -50,7 +55,12 @@ public class EditCommandTest {
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-20 21:00", formatter), "Venue A", Priority.HIGH);
         eventList.addParticipantToEvent("Tom", "89521252", "example@gmail.com", "Event 1");
         String expectedMessage = "Event/Participant not found!";
-        EditCommand editParticipantCommand = new EditCommand("Invalid Participant", "9123 4567", "new_email@example.com", "Event 1");
+        EditCommand editParticipantCommand = new EditCommand(
+                "Invalid Participant",
+                "9123 4567",
+                "new_email@example.com",
+                "Event 1"
+        );
         editParticipantCommand.setData(eventList);
         editParticipantCommand.execute();
 
