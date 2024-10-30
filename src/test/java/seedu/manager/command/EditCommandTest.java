@@ -4,13 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
-import seedu.manager.exception.DuplicateDataException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EditCommandTest {
     private EventList eventList;
@@ -36,7 +34,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void edit_participant_invalidEvent_failure() {
+    public void editParticipant_invalidEvent_failure() {
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-20 21:00", formatter), "Venue A", Priority.HIGH);
         eventList.addParticipantToEvent("Tom", "89521252", "example@gmail.com", "Event 1");
         String expectedMessage = "Event/Participant not found!";
@@ -48,7 +46,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void edit_participant_invalidParticipant_failure() {
+    public void editParticipant_invalidParticipant_failure() {
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-20 21:00", formatter), "Venue A", Priority.HIGH);
         eventList.addParticipantToEvent("Tom", "89521252", "example@gmail.com", "Event 1");
         String expectedMessage = "Event/Participant not found!";
