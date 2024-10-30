@@ -4,7 +4,6 @@ import seedu.duke.exception.FinanceBuddyException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -14,7 +13,6 @@ import java.util.Map.Entry;
  * Provides methods for adding, deleting, and viewing entries.
  */
 public class FinancialList {
-    private static final double EMPTYVALUE = 0.0;
     private ArrayList<FinancialEntry> entries;
     private Map<Expense.Category, Double> totalExpenseByCategory = new HashMap<>();
     private Map<Income.Category, Double> totalIncomeByCategory = new HashMap<>();
@@ -139,47 +137,27 @@ public class FinancialList {
         return totalIncomeByCategory;
     }
 
-
     /**
      * Gets the highest expense category and its total.
-     * Breaks ties by returning the category that comes first alphabetically.
      *
      * @return A map entry of the highest expense category and its total.
      */
-    public Map.Entry<Expense.Category, Double> getHighestExpenseCategory() {
-        // Only consider categories with non-zero totals
-        // Sort by value, descending
-        // Alphabetical order if tied
-        return totalExpenseByCategory.entrySet().stream()
-                .filter(entry -> entry.getValue() > 0).min((entry1, entry2) -> {
-                    int valueComparison = entry2.getValue().compareTo(entry1.getValue());  // Sort by value, descending
-                    if (valueComparison == 0) {
-                        return entry1.getKey().name().compareTo(entry2.getKey().name());  // Alphabetical order if tied
-                    }
-                    return valueComparison;
-                })  // Get the first entry after sorting
+    public Entry<Expense.Category, Double> getHighestExpenseCategory() {
+        return totalExpenseByCategory.entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
                 .orElse(Map.entry(Expense.Category.UNCATEGORIZED, 0.0));
     }
 
-
     /**
      * Gets the highest income category and its total.
-     * Breaks ties by returning the category that comes first alphabetically.
      *
      * @return A map entry of the highest income category and its total.
      */
-    public Map.Entry<Income.Category, Double> getHighestIncomeCategory() {
-        // Only consider categories with non-zero totals
-        // Sort by value, descending
-        // Alphabetical order if tied
-        return totalIncomeByCategory.entrySet().stream()
-                .filter(entry -> entry.getValue() > 0).min((entry1, entry2) -> {
-                    int valueComparison = entry2.getValue().compareTo(entry1.getValue());  // Sort by value, descending
-                    if (valueComparison == 0) {
-                        return entry1.getKey().name().compareTo(entry2.getKey().name());  // Alphabetical order if tied
-                    }
-                    return valueComparison;
-                })  // Get the first entry after sorting
+    public Entry<Income.Category, Double> getHighestIncomeCategory() {
+        return totalIncomeByCategory.entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
                 .orElse(Map.entry(Income.Category.UNCATEGORIZED, 0.0));
     }
 
