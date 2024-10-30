@@ -33,7 +33,6 @@ import static java.util.logging.Level.WARNING;
  * Represents the command parser for EventManagerCLI
  */
 public class Parser {
-    public static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
     private static final String INVALID_COMMAND_MESSAGE = "Invalid command!";
     private static final String INVALID_ADD_MESSAGE = """
@@ -111,8 +110,8 @@ public class Parser {
             """;
     private static final String ADD_EVENT_REGEX = "(-e|-t|-v|-u)";
     private static final String ADD_PARTICIPANT_REGEX = "(-p|-n|-email|-e)";
-    public static final String REMOVE_ITEM_REGEX = "(-m|-e)";
-    private static final String ADD_ITEM_REGEX = REMOVE_ITEM_REGEX;
+    private static final String ITEM_REGEX = "(-m|-e)";
+    private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
 
     /**
@@ -249,7 +248,7 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getAddItemCommand(String input) throws IndexOutOfBoundsException {
-        String[] inputParts = input.split(ADD_ITEM_REGEX);
+        String[] inputParts = input.split(ITEM_REGEX);
         String itemName = inputParts[1].trim();
         String eventName = inputParts[2].trim();
         logger.info(String.format("Creating AddCommand for item with details: %s, %s", itemName,
@@ -279,7 +278,6 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(RemoveCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
-            String[] inputParts;
 
             if (commandFlag.equals("-e")) {
                 return getRemoveEventCommand(input);
@@ -332,7 +330,7 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present in input.
      */
     private RemoveCommand getRemoveItemCommand(String input) throws IndexOutOfBoundsException {
-        String[] inputParts = input.split(REMOVE_ITEM_REGEX);
+        String[] inputParts = input.split(ITEM_REGEX);
         return new RemoveCommand(inputParts[1].trim(), inputParts[2].trim(), false);
     }
 
