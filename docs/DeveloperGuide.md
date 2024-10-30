@@ -225,10 +225,18 @@ The `UpdateCommand` class is responsible for updating the fields of an internshi
   - `to`: Updates the end date of the internship
   - `deadlines`: Updates the deadlines of the internship
 - `isValidValue(String[] words)`: Checks if there was a new value provided for the selected field.
-- `updateOneField(String[] words, int internshipIndex)`: Called within `execute(args)` to call the appropriate method to update the field.
+- `updateOneField(String[] words, int internshipIndex)`: Called within `execute(args)` to invoke the appropriate method to update the field.
 - `getUsage()`: Returns a string showing the correct usage of the `update` command.
 
 #### Example Usage Scenario:
+- The user enters `update 2 -status Application Completed`, and the `execute` method finds the internship with ID `2` and updates its `status` to `Application Completed`.
+- The user enters `update 4 -status Application Completed`, if `4` is not a valid ID, the `execute` method will print a message to show the ID is out of bounds.
+- The user enters `update 2 -skills`, no value is given after the `-skills` flag, the `isValidValue` method returns false and prints a message to indicate the need for a value.
+- The user enters `update 2 -from Tomorrow`, `Tomorrow` is not a valid date, the `execute` method prints message to indicate it is an invalid value.
+
+#### Sequence Diagram
+The following sequence diagram shows how the `UpdateCommand` is executed:
+![](UML/UpdateCommand_Sequence_Diagram.png)
 
 ### Product scope
 ### Target user profile
