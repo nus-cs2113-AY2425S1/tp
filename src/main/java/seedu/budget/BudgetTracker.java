@@ -38,18 +38,24 @@ public class BudgetTracker {
      * @param monthStr        The YearMonth to set the budget for.
      * @param budgetAmount The budget amount for the specified month.
      */
-    public void setBudget(String monthStr, double budgetAmount) {
+    public void setBudget(String monthStr, double budgetAmount) throws IllegalArgumentException {
         YearMonth month;
+
+        if (budgetAmount < 0) {
+            throw new IllegalArgumentException("Budget amount cannot be negative");
+        }
+
         try {
             month = DateTimeUtils.parseYearMonth(monthStr);
         } catch (Exception e) {
             logger.log(Level.WARNING, "Invalid date format for budget month: " + e.getMessage());
-            return;
+            throw new IllegalArgumentException("Invalid date format for budget month.");
         }
 
         if (month.isBefore(YearMonth.now())) {
-            logger.log(Level.WARNING, "Cannot set budget for past months.");
-            return;
+            String message = "Budget can only be set for the current or future months.";
+            logger.log(Level.WARNING, message);
+            throw new IllegalArgumentException(message);
         }
 
         monthlyBudgets.put(month, budgetAmount);
