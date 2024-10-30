@@ -119,9 +119,9 @@ public class Parser {
     private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
     private static final String VIEW_REGEX = "(-e|-y)";
-    public static final String EVENT_FLAG = "-e";
-    public static final String PARTICIPANT_FLAG = "-p";
-    public static final String ITEM_FLAG = "-m";
+    private static final String EVENT_FLAG = "-e";
+    private static final String PARTICIPANT_FLAG = "-p";
+    private static final String ITEM_FLAG = "-m";
 
     /**
      * Returns a command based on the given user command string.

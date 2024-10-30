@@ -31,21 +31,22 @@ Shows a list of all valid user commands in the program.
 
 ```
 Here are the possible commands:
-
-add -e EVENT -t TIME -v VENUE: Add an event to the event list.
+           
+add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
 list: List events.
 remove -e EVENT: Remove an event from the event list.
-add -p PARTICIPANT -e EVENT: Add a participant to an event.
+add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Add a participant to an event.
 add -m ITEM -e EVENT: Add an item to an event.
-view -e EVENT: View the list of participants of an event.
+view -e EVENT -y TYPE: View the list of participants or items of an event.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
 remove -m ITEM -e EVENT: Remove an item from an event.
-copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
-find -e EVENT -p NAME: Finds all participants with specified name in an event.
-filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
+mark -e EVENT -s STATUS: Mark an event as done or not done.
+mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
 sort -by KEYWORD: Sorts events by name/time/priority.
-save: Save latest changes to file.
-exit: Exit program.
+copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
+filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
+find -e EVENT -p NAME: Finds all participants with specified name in an event.
+exit: Exit program
 ```
 
 Format: `menu`
@@ -88,15 +89,21 @@ Examples:
 * `remove -p John Tan -e Origami workshop` removes the participant `John Tan` from the event `Origami workshop`.
 * `remove -m Origami paper -e Origami workshop` removes the item `Origami paper` from the event `Origami workshop`.
 
-### View all participants for an event: `view`
+### View all participants or items for an event: `view`
 
-Shows a list of all participants for an event.
+Shows a list of all participants or items for an event.
 
-Format: `view -e EVENT`
+Format: `view -e EVENT -y TYPE`
+
+* The list shown varies based on the value of `TYPE` entered, as follows:
+  * A list of participants is shown when `TYPE` is `participant`.
+  * A list of items is shown when `TYPE` is `item`.
+* `TYPE` is case-insensitive, i.e. `PARTICIPANT` and `participant` will produce the same result.
 
 Examples:
 
-* `view -e Origami workshop` shows a list of all participants for the event `Origami workshop`.
+* `view -e Origami workshop -y participant` shows a list of all participants for the event `Origami workshop`.
+* `view -e Origami workshop -y item` shows a list of all items for the event `Origami workshop`. 
 
 ### Mark an event as done: `mark`
 
