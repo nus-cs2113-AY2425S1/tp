@@ -29,7 +29,7 @@ Events saved successfully.
 Enter a command: Invalid command!
 Please enter your commands in the following format:
 add -e EVENT -t TIME -v VENUE -u PRIORITY
-add -p PARTICIPANT -e EVENT
+add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT
 
 ------------------------
 Enter a command: Event added successfully
@@ -61,7 +61,7 @@ Enter a command: Participant added successfully
 Events saved successfully.
 ------------------------
 Enter a command: There are 1 participants in dinner party! Here are your participants:
-1. Mary [ ]
+1. [ ] Name: Mary / Number: 98512525 / Email: example@gmail.com
 
 ------------------------
 Events saved successfully.
