@@ -104,6 +104,64 @@ The following sequence diagram shows how a save operation goes through the Stora
 ![Sequence Diagram for Save operation](./images/Save_Seq-Dia.jpg)
 
 
+
+## WeeklySummary Feature
+
+The Weekly Summary feature allows users to view a summary of their workouts for the current week. This functionality is achieved through a combination of several interconnected components, including `WeeklySummaryCommand`, `Parser`, `HistoryCommandFactory`, and `History`. Users can access this feature through the `history wk` command in the UI. The implementation follows a command pattern, combined with the factory pattern for command creation.
+
+### Overview
+
+The following components are crucial to the Weekly Summary feature:
+
+1. **Parser Component**  
+   The `Parser` interprets the initial command and directs the flow as follows:
+
+    - **`Parser#parse(String)`**: Accepts the raw input string, splits it into the main command and arguments.
+    - **`CommandFactory`**: Generates the appropriate command object based on the parsed input.
+    - **`HistoryCommandFactory`**: Handles the creation of history-related commands, including `WeeklySummaryCommand`.
+
+2. **WeeklySummaryCommand Component**  
+   The `WeeklySummaryCommand` implements the `Command` interface and performs the following:
+
+    - Extends the abstract `Command` class.
+    - Uses the command word `"wk"`.
+    - Executes by retrieving the weekly summary from the `History` object.
+    - Returns a `CommandResult` that contains the formatted summary for display.
+
+3. **History Component**  
+   The `History` class manages workout data and provides:
+
+    - **`getWeeklyWorkoutSummary()`**: Retrieves and formats the workout data for the current week.
+
+### Flow of Operations
+
+The following example illustrates the usage scenario and behavior of the Weekly Summary feature:
+
+1. **Step 1**: The user enters the `"history wk"` command in the UI. The UI reads this command and passes it to the `Parser`.
+2. **Step 2**: The `Parser` breaks down the command `"history wk"` into:
+    - Main command: `"history"`
+    - Subcommand: `"wk"`
+3. **Step 3**: The `Parser` uses `CommandFactory`, which recognizes this as a history command and delegates to `HistoryCommandFactory`.
+4. **Step 4**: `HistoryCommandFactory` identifies `"wk"` as the `WeeklySummaryCommand` trigger and creates a new `WeeklySummaryCommand` instance.
+5. **Step 5**: The `WeeklySummaryCommand` is passed back through the chain to the UI, which then calls its `execute` method.
+6. **Step 6**: During execution:
+    - `WeeklySummaryCommand` calls `History`'s `getWeeklyWorkoutSummary()`.
+    - The summary is formatted and wrapped in a `CommandResult`.
+    - The UI displays the result to the user.
+
+### Sequence Diagram
+
+![Sequence Diagram for WeeklySummary feature](./images/History%20WeeklySummary%20UML%20Sequence%20Diagram.png)
+
+--- 
+
+
+# Documentation, logging, testing, configuration, dev-ops
+- Documentation guide (add link for these)
+- Testing guide
+- Logging guide
+
+
 ### Edit Programme 
 
 #### Feature Implementation
@@ -136,6 +194,154 @@ Step 3. With the Day object, it performs the `Day#deleteExercise()` with the giv
 
 ![](images/editCommandStepThree.png)
 
+### Add Meal
+
+#### Feature Implementation
+The **Add Meal** feature manages the functionality related to adding meals to a daily record. It interacts with various components such as `History`, `DailyRecord`, and `MealList` to ensure meals are added correctly.
+
+The **Add Meal** command navigates through the following hierarchy:
+- **History** → **DailyRecord** → **MealList**
+- If a `DailyRecord` does not exist for a given date, it is created before adding the meal.
+- Similarly, a new `Meal` object is created and added to the `MealList` if it doesn't already exist.
+
+These operations include:
+- Adding meals to a `DailyRecord` in the `History`.
+- Updating existing meals in the `MealList` within a `DailyRecord`.
+- Displaying the result of the command execution.
+
+Given below is an example usage scenario for adding a meal and how the add meal command functions at each step.
+
+#### Example Usage Scenario
+
+**Step 1**: The user starts by adding a meal using the command:
+
+meal add /n [mealName] /c [calories]
+
+- The command is parsed and translated into an `AddMealCommand` object, which contains the necessary details.
+
+![Add Meal Step 1](images/AddMeal_Step_one_diagram.png)
+
+**Step 2**: The command retrieves the `DailyRecord` for the specified date from the `History` using `History#getRecordByDate()`. If no record exists, a new one is created.
+
+![Add Meal Step 2](images/AddMeal_Step_two_diagram.png)
+
+**Step 3**: The `AddMealCommand` adds the meal to the `MealList` of the `DailyRecord`. If the meallist already exists, it updates the existing meallist instead.
+
+![Add Meal Step 3](images/AddMeal_Step_three_diagram.png)
+
+**Step 4**: The newly added `Meal` object is returned to the `AddMealCommand` to display as part of the `CommandResult`.
+
+![Add Meal Step 4](images/AddMeal_Step_four_diagram.png)
+
+The overall design that enables this functionality is described generically by the following sequence diagram.
+
+#### Sequence Diagram for "Add Meal" Command
+
+![Add Meal Sequence Diagram](images/AddMeal_Sequence_diagram.png)
+
+The diagram shows the interactions among different classes and objects during the execution of the "Add Meal" command.
+
+### Design Considerations
+
+#### Chosen Approach: Hierarchical Command Pattern
+The implementation of the "Add Meal" feature uses a hierarchical command pattern, where:
+1. Commands traverse through the hierarchy from `History` → `DailyRecord` → `MealList`.
+2. Each level handles its own operations, such as adding a meal or creating a new record.
+3. Changes are managed within each layer to ensure separation of responsibilities.
+
+**Key Benefits**:
+- **Encapsulation**: Each class manages its own data and operations.
+- **Single Responsibility**: Each class is responsible for handling specific aspects of meal addition.
+- **Extensibility**: It is easy to add new meal-related operations (e.g., viewing or deleting meals).
+- **Maintainability**: Changes at one level do not affect others, keeping the code clean and organized.
+
+#### Alternative Approaches
+
+1. **Command Handler Pattern**
+    - In this approach, a **central command handler** class processes the command and delegates operations to the relevant models (`History`, `DailyRecord`, `MealList`).
+    - This pattern separates the command handling logic from the execution logic, centralizing all command processing in a dedicated handler.
+    - Example:
+      ```java
+      class CommandHandler {
+          public void handleAddMeal(String mealName, int calories, LocalDate date) {
+              History history = getHistory();
+              DailyRecord record = history.getOrCreateRecordByDate(date);
+              record.getMealList().addMeal(new Meal(mealName, calories));
+          }
+      }
+      ```
+    - **Pros**:
+        - Centralizes command processing, making it easier to manage command flow.
+        - Simplifies the addition of new commands, as they can be registered in the handler.
+        - Provides clear separation between command parsing and execution logic.
+    - **Cons**:
+        - Introduces a single point of failure, as the command handler manages all command execution.
+        - Requires additional routing logic to delegate commands, which can increase complexity.
+        - Increases the coupling between command handling and model interaction.
+
+2. **Chain of Responsibility Pattern**
+    - This approach uses a **chain of handlers** to manage different meal-related operations, like adding or updating a meal.
+    - Each handler in the chain checks whether it can process the command. If not, it forwards the request to the next handler.
+    - Example:
+      ```java
+      interface MealCommandHandler {
+          void setNext(MealCommandHandler handler);
+          void handle(String command, String mealName, int calories, LocalDate date);
+      }
+ 
+      class AddMealHandler implements MealCommandHandler {
+          private MealCommandHandler nextHandler;
+ 
+          @Override
+          public void setNext(MealCommandHandler handler) {
+              this.nextHandler = handler;
+          }
+ 
+          @Override
+          public void handle(String command, String mealName, int calories, LocalDate date) {
+              if (command.equals("add")) {
+                  DailyRecord record = history.getOrCreateRecordByDate(date);
+                  record.getMealList().addMeal(new Meal(mealName, calories));
+              } else if (nextHandler != null) {
+                  nextHandler.handle(command, mealName, calories, date);
+              }
+          }
+      }
+      ```
+    - **Pros**:
+        - Decouples command handling, making it easier to manage different meal-related operations.
+        - Simplifies adding new command handlers without modifying existing code.
+        - Reduces the complexity of individual handlers by focusing only on specific operations.
+    - **Cons**:
+        - Introduces more classes and interfaces, increasing the overall codebase complexity.
+        - Adds a bit of overhead due to the need to forward requests through the chain.
+        - May be overkill if the number of meal-related operations is limited and well-defined.
+
+### Summary of Design Considerations
+- The **chosen approach** (Hierarchical Command Pattern) remains the best fit for the current implementation due to its **encapsulation**, **extensibility**, and **clear separation of concerns**.
+- These alternative approaches offer other benefits like **centralization** or **decoupling**, but also come with their own trade-offs in terms of complexity and flexibility.
+
+### Storage
+The **Add Meal** feature ensures data persistence by saving changes to the `DailyRecord` and `MealList` in the `History`. The updated `History` object is saved using the `Storage` class.
+
+### FileManager
+The **FileManager** class handles the loading and saving of meals as part of the `History` data. It translates JSON data to Java objects and vice versa to maintain persistence across sessions.
+
+### Activity Diagram for "Add Meal" Feature
+
+![Add Meal Activity Diagram](images/AddMeal_Activity_diagram.png)
+
+The diagram shows the overall operation flow, including:
+1. User input parsing.
+2. Daily record retrieval or creation.
+3. Meal addition.
+4. Data persistence.
+
+### Summary of Feature
+The **Add Meal** feature uses a **hierarchical command pattern** to manage meal additions while maintaining good encapsulation and separation of concerns. The chosen design allows easy extensibility and maintainability.
+
+This completes the developer guide for the **Add Meal** feature. Let me know if you need any additional diagrams or details!
+=======
 Step 4. The deleted Exercise object is then returned to the `DeleteExerciseCommand` to display as part of the CommandResult.
 
 ![](images/editCommandStepFour.png)
@@ -147,6 +353,7 @@ The overall design that enables this functionality is described generically by t
 The 'Model' class in the above diagram is a generalization of the various data models that are being interacted with
 to perform each specific edit command. For each edit command, the following sequence diagrams 
 further break down how this interaction works.
+
 
 ##### Add/Remove day
 ![Add/Remove Day](images/addDayCommand.png)
@@ -313,7 +520,7 @@ The implementation is divided into several methods and classes to ensure modular
 
 - **Flat Structure for Programme Details**: Initially, a flat structure was considered, where each exercise was directly tied to a programme without days. However, this approach lacked flexibility for users who may want to assign specific exercises to specific days. The current nested structure (Programme -> Day -> Exercise) was chosen for better organization.
 
-- **JSON Input Parsing**: Another alternative was to use JSON format for user input, allowing for more complex data validation and structured parsing. However, this approach was deemed too complex for a command-line interface and would require users to follow strict formatting, reducing ease of use.
+- **JSON Input Parsing**: Another alternative was to use JSON format for user input, allowing for more complex data validation and structured parsing. However, this approach was deemed too complex for a command-line interface and would require users to follow strict formatting, reducing ease of use
 
 ## Product scope
 BuffBuddy is a fitness tracking app that help you track workout, meals, water to aid you in achieving your body goals.
