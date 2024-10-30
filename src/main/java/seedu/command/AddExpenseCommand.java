@@ -5,6 +5,7 @@ import seedu.datastorage.Storage;
 import seedu.transaction.Expense;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
+import seedu.utils.AmountUtils;
 import seedu.utils.DateTimeUtils;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class AddExpenseCommand extends AddTransactionCommand {
     public static final String COMMAND_WORD = "add-expense";
-    public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] [a/ AMOUNT] [d/ DATE] [c/ hCATEGORY]";
+    public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ hCATEGORY]";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/", "c/"};
 
@@ -35,16 +36,15 @@ public class AddExpenseCommand extends AddTransactionCommand {
             expenseName = "";
         }
 
-        // Retrieve and parse amount
-        String amountString = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
-        double amount;
+        String amountStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
+        Double amount = null;
         try {
-            amount = Double.parseDouble(amountString);
-        } catch (NumberFormatException e) {
-            return List.of(ERROR_MESSAGE + ": " + "Invalid amount");
+            amount = AmountUtils.parseAmount(amountStr);
+        }
+        catch (Exception e) {
+            return List.of(ERROR_MESSAGE + ": " + e.getMessage());
         }
 
-        // Handle missing date
         String dateString = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
         if (dateString == null || dateString.isEmpty()) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
