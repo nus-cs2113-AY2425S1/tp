@@ -17,7 +17,7 @@
 ## Design
 
 ### Architecture
-![Sequence Diagram](../uml-images/ArchitectureDiagram.png)
+![Sequence Diagram](images/ArchitectureDiagram.png)
 
 The **Architecture Diagram** given above explains the high-level design of the App.
 
@@ -46,7 +46,7 @@ Only some of the commands will need all 4 main components for example the Delete
 The Sequence Diagram below shows how the components interact with each other for the scenario 
 where the user issues the command `delete 1`.
 
-![Sequence Diagram](../uml-images/DesignSequenceDiagram.png)
+![Sequence Diagram](images/DesignSequenceDiagram.png)
 
 The `UI`, `Parser` and `Storage` components (also shown in the diagram above),
 * defines its API in a class with the same name as the Package
@@ -61,12 +61,14 @@ For example, the `Command` component defines its API in the `Command.java` abstr
 interact with a given component through its interface rather than the concrete class 
 (reason: to prevent outside component’s being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-![Sequence Diagram](../uml-images/MiniCommandClass.png)
+![Sequence Diagram](images/MiniCommandClass.png)
 
 **The sections below give more details of each component.**
 
 ### Class Diagrams
-{TODO: Class Diagram}
+Command Package:
+![Class diagram for Commands](images/CommandClass.png)
+
 {TODO: Object Diagram}
 
 ## Implementation
@@ -102,7 +104,7 @@ and Oceania.
   readability.
 
 #### Sequence Diagram on PlantUML:
-![List School Command Sequence Diagram](../uml-images/ListSchoolsCommand.png)
+![List School Command Sequence Diagram](images/ListSchoolsCommand.png)
 
 ### 2. Filter Courses Command
 
@@ -127,7 +129,7 @@ that NUS course is suitable to be mapped overseas in South East Asia and Oceania
 * Line Separator is used to ensure readability and ease of use for users.
 
 #### Sequence Diagram on PlantUML:
-![Filter Courses Sequence Diagram](../uml-images/FilterCoursesCommand.png)
+![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
 
 ### 3. Obtain Partner University Email and Contact Number Command
 
@@ -162,7 +164,7 @@ exchange opportunities.
   readability.
 
 #### Sequence Diagram on PlantUML:
-![Filter Courses Sequence Diagram](../uml-images/ObtainContactsCommand.png)
+![Filter Courses Sequence Diagram](images/ObtainContactsCommand.png)
 
 ### 4. List University Courses Command
 
@@ -189,7 +191,7 @@ method.
 * Assertions and logging are used for error handling.
 
 #### Sequence on PlantUML:
-![ListUniCourseCommand sequence diagram](../uml-images/ListUniCoursesCommand.png)
+![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
 
 
 
@@ -223,7 +225,30 @@ and South-East Asian universities. This command hence helps the users to keep tr
 * Line Separator is used to ensure readability and ease of use for users.
 
 #### Sequence Diagram on PlantUML
-![Add Courses Sequence Diagram](../uml-images/AddCoursesCommand.png)
+![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
+
+### 5. Delete Courses Command
+
+#### Overview:
+This command is responsible for deleting users' existing course mapping plan from the `myList.json` file.
+This helps the users to keep track of their most recent course mapping plans, and to keep the `myList.json` file organised.
+
+#### How the feature is implemented:
+* The `DeleteCoursesCommand` class extends `Command` class where it overrides the `execute` method for
+  custom behaviour.
+* When `execute` is called, the command first passes the user's input into the `parseDeleteCommand` method, which parses
+  the user input to extract the list index, still of `String` type, of the course mapping plan 
+  they would like to delete.
+* The parsed input is then passed into the `deleteCourse` method, along with the Storage object, which updates the
+  `myList.json` file. The list index is then converted to an `int` using the `Integer` class. If a valid list index
+  has been given by the user, the list index is passed into the storage object's `deleteCourse` method to delete the 
+  plan stored at that index.
+* Lastly, the UI object's `printDeleteMessage` is called to inform the user of the course plan which is deleted.
+* Throughout the code, exceptions, assertions and logging are in place for better error handling.
+* Line Separator is used to ensure readability and ease of use for users.
+
+#### Sequence Diagram on PlantUML
+![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
 
 ### 6. List Commands Command
 
@@ -324,6 +349,7 @@ Mapped Modules:
 | v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries                |
 | v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU                      |
 | v2.0    | CEG student  | list out the mapped courses by calling the list command         | I can track all the courses I have mapped to the different PUs  |
+| v2.0    | CEG student  | delete a course mapping plan for a PU                           | keep my list of saved plans organised                           |
 
 ## Non-Functional Requirements
 
