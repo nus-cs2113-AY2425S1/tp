@@ -153,7 +153,8 @@ public class Logic {
 
         String date = commandArguments.getOrDefault("/d", entry.getDate().toString());
 
-        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date);
+        Enum<?> category = parseCategory(commandArguments.get("/c"), entry);
+        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
         editEntryCommand.execute(financialList);
     }
 
@@ -281,8 +282,8 @@ public class Logic {
             try {
                 return Expense.Category.valueOf(categoryStr.toUpperCase());
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid category: " + categoryStr + ". Defaulting to OTHER.");
-                return Expense.Category.OTHER;
+                System.out.println("Invalid category: " + categoryStr + ". Defaulting to UNCATEGORIZED.");
+                return Expense.Category.UNCATEGORIZED;
             }
         }
     }
@@ -300,9 +301,18 @@ public class Logic {
             try {
                 return Income.Category.valueOf(categoryStr.toUpperCase());
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid category: " + categoryStr + ". Defaulting to OTHER.");
-                return Income.Category.OTHER;
+                System.out.println("Invalid category: " + categoryStr + ". Defaulting to UNCATEGORIZED.");
+                return Income.Category.UNCATEGORIZED;
             }
         }
+    }
+
+    private Enum<?> parseCategory(String categoryStr, FinancialEntry entry) {
+        if (entry instanceof Expense) {
+            return parseExpenseCategory(categoryStr);
+        } else if (entry instanceof Income) {
+            return parseIncomeCategory(categoryStr);
+        }
+        return null;
     }
 }

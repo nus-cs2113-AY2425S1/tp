@@ -14,7 +14,9 @@ import java.util.logging.Logger;
 public class AddIncomeCommand extends AddEntryCommand {
 
     private static Logger logger = Logger.getLogger("Income");
+    private static final double incomeZero = 0.0;
     private final Income.Category category;
+
 
     /**
      * Constructs an AddIncomeCommand with the specified amount and description.
@@ -46,7 +48,7 @@ public class AddIncomeCommand extends AddEntryCommand {
         int preEntryCount = list.getEntryCount();
         list.addEntry(income);
         Map<Income.Category, Double> incomeTotals = list.getTotalIncomeByCategory();
-        incomeTotals.put(category, incomeTotals.getOrDefault(category, 0.0) + amount);
+        incomeTotals.put(category, incomeTotals.getOrDefault(category, incomeZero) + amount);
         assert list.getEntryCount() == preEntryCount + 1 : "Income not added";
         System.out.println("--------------------------------------------");
         System.out.println("Got it! I've added this income:");

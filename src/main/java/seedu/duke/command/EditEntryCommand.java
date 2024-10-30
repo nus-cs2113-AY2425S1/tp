@@ -45,6 +45,7 @@ public class EditEntryCommand extends Command {
     private double amount;
     private String description;
     private LocalDate date;
+    private final Enum<?> category;
 
     /**
      * Constructs an EditEntryCommand with the specified index, amount, and description.
@@ -55,10 +56,11 @@ public class EditEntryCommand extends Command {
      * @param date The new date for the entry.
      * @throws IllegalArgumentException if amount is negative or description is null/empty.
      */
-    public EditEntryCommand(int index, double amount, String description, String date) {
+    public EditEntryCommand(int index, double amount, String description, String date, Enum<?> category) {
         this.index = index;
         this.amount = amount;
         this.description = description;
+        this.category = category;
         try {
             this.date = DateParser.parse(date);
         } catch (FinanceBuddyException e) {
@@ -83,7 +85,7 @@ public class EditEntryCommand extends Command {
             throw new FinanceBuddyException("Financial list cannot be null");
         }
         if (index >= 0 && index <= list.getEntryCount()) {
-            list.editEntry(index - 1, amount, description, date);
+            list.editEntry(index - 1, amount, description, date, category);
             assert list.getEntry(index - 1).getAmount() == amount : "Amount should be updated";
             assert list.getEntry(index - 1).getDescription().equals(description) : "Description should be updated";
             System.out.println("--------------------------------------------");

@@ -62,6 +62,12 @@ public class SeeAllEntriesCommand extends Command {
         return this.cashflowHeader;
     }
 
+    /**
+     * Retrieves and formats the highest spending and income category information from the financial list.
+     *
+     * @param list The financial list containing all entries.
+     * @return A formatted string of highest spending and income categories and their respective amounts.
+     */
     protected String getHighestCategoryInfo(FinancialList list) {
         Entry<Expense.Category, Double> highestExpenseCategory = list.getHighestExpenseCategory();
         Entry<Income.Category, Double> highestIncomeCategory = list.getHighestIncomeCategory();
@@ -79,6 +85,12 @@ public class SeeAllEntriesCommand extends Command {
         return String.format("%.2f", cashflow);
     }
 
+    /**
+     * Checks if a given financial entry falls within the specified date range.
+     *
+     * @param entry The financial entry to check.
+     * @return true if entry is within the date range, false otherwise.
+     */
     protected boolean isWithinGivenDates(FinancialEntry entry) {
         boolean withinStartDate = (start == null || !entry.getDate().isBefore(start));
         boolean withinEndDate = (end == null || !entry.getDate().isAfter(end));
@@ -144,9 +156,6 @@ public class SeeAllEntriesCommand extends Command {
                 }
             }
         }
-
-        //Entry<Expense.Category, Double> highestExpenseCategory = list.getHighestExpenseCategory();
-        //Entry<Income.Category, Double> highestIncomeCategory = list.getHighestIncomeCategory();
 
         if (entryCount == 0) {
             System.out.println(this.getNoEntriesMessage());
