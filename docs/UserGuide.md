@@ -171,11 +171,29 @@ Format:
 Example:
 - `set-budget-reset on`
 
+## V2 Features (Coming soon)
+### Menu
+Format:
+`menu`
+- Displays a list of all available commands and short descriptions, such as:
+  - tap-expense - Record a new expense
+  - delete-expense - Remove an expense
+  - tag-expense - Assign an expense to a category
+  - add-category - Assign an expense to a category
+  - set-budget - Set a budget limit for a category
+  - view-expenses - View all recorded expenses
+  - view-budget - Display current budget status for each category
+  - set-budget-reset - Toggle monthly budget reset on or off
+
+Example:
+`menu`
+
 ### Exiting the program: bye
 Exits the program.
 
 Format:
 `bye`
+
 
 ## FAQ
 
