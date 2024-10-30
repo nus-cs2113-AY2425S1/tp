@@ -9,6 +9,7 @@ import seedu.manager.command.MarkParticipantCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.RemoveCommand;
+import seedu.manager.command.ViewCommand;
 import seedu.manager.exception.InvalidCommandException;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -84,6 +85,33 @@ class ParserTest {
         String commandString = "remove";
 
         assertThrows(InvalidCommandException.class,() -> {
+            parser.parseCommand(commandString);});
+    }
+
+    //@@author jemehgoh
+    @Test
+    public void viewCommand_viewParticipant_view() {
+        Parser parser = new Parser();
+        Command command = parser.parseCommand("view -e event -y participant");
+
+        assertInstanceOf(ViewCommand.class, command);
+    }
+
+    @Test
+    public void viewCommand_noParameter_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "view";
+
+        assertThrows(InvalidCommandException.class, () -> {
+            parser.parseCommand(commandString);});
+    }
+
+    @Test
+    public void viewCommand_invalidStatus_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "view -e event -y command";
+
+        assertThrows(InvalidCommandException.class, () -> {
             parser.parseCommand(commandString);});
     }
 
