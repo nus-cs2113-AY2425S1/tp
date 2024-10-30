@@ -6,6 +6,8 @@ Certain aspects of YMFC's code was inspired from the following member(s) IPs:
 
 [Sanjith](http://github.com/KSanjith/ip)
 
+<div style="page-break-after: always;"></div>
+
 ## Design & implementation
 
 ### Architecture
@@ -14,6 +16,8 @@ Certain aspects of YMFC's code was inspired from the following member(s) IPs:
 The **_Architecture Diagram_** given above explains the high-level design of the YMFC App.
 
 Given below is a quick overview of main components and how they interact with each other.
+
+<div style="page-break-after: always;"></div>
 
 #### Main components of the architecture
 `YMFC` (consisting of `YMFC` class) is in charge of app launch and shut down. 
@@ -28,6 +32,7 @@ turning them into `Command` objects that are executed by the app.
 - `Command`: Represents actions that the user can perform, such as adding, deleting or listing recipes and ingredients.
 - `RecipeList` and `IngredientList`: These manage collections of recipes and ingredients, respectively. 
 
+<div style="page-break-after: always;"></div>
 
 ### How the architecture components interact with each other
 The sequence diagram below shows how the components interact with each other when the application is first launched.
@@ -36,6 +41,7 @@ The sequence diagram below shows how the components interact with each other whe
 
 (Note: The lifelines of objects cannot be hidden after the X in the PlantUML software used to make this class diagram)
 
+<div style="page-break-after: always;"></div>
 
 ### Ui Class
 The Ui class deals with taking in inputs from an input stream (in this case, the user input through `System.in`), 
@@ -59,6 +65,7 @@ This class handles the addition, deletion and editing of recipes.
 Shown below is a class diagram detailing the interaction between `RecipeList` and `Recipe`:
 ![RecipeClassDiagram.png](img/ClassDiagrams/recipesClassDiagram.png)
 
+<div style="page-break-after: always;"></div>
 
 ### Ingredient Class
 The ingredient class represents a singular ingredient added by the user or loaded from the storage database.
@@ -74,6 +81,7 @@ This class handles the addition, deletion and editing of ingredients.
 Shown below is a class diagram detailing the interaction between `IngredientList` and `Ingredient`:
 ![ingredientClasses.png](img/ClassDiagrams/ingredientsClassDiagram.png)
 
+<div style="page-break-after: always;"></div>
 
 ### Command Classes
 The command class deals with all the possible commands accepted by YMFC, with each command representing a specific 
@@ -95,6 +103,8 @@ of command functionalities
 Shown below is a class diagram detailing the interaction between the parent `Command` class and it's child classes:
 ![commandClasses.png](img/ClassDiagrams/commandsClassDiagram.png)
 
+<div style="page-break-after: always;"></div>
+
 #### 2. Command Flow (Using `Command` Classes)
 1. Initialisation: Instantiate a `Command` subclass by passing user input through the `parseCommand()` of `Parser`
 2. Exit signal: If a command is meant to terminate the app (E.g. `ByeCommand`), set `isBye` to true
@@ -111,6 +121,8 @@ implementation of the `execute()` method
 - Register the command
   1. Update the `parseCommand()` method in `Parser` to recognise and instantiate the new command
 
+<div style="page-break-after: always;"></div>
+
 #### Example of `Command` Child Classes
 
 1. `AddRecipeCommand` Class
@@ -121,6 +133,8 @@ starting from parsing the user input to the addition of the recipe to the recipe
 to finally printing the "recipe added" message to the User on the CLI:
 ![AddRecipes.png](img/SequenceDiagrams/AddRecipesSequenceDiagram.png)
 
+<div style="page-break-after: always;"></div>
+
 2. `EditCommand` Class
 The EditCommand class finds an existing recipe in recipelist by name, and then replaces its parameter
 with the new parameters that the user inputted.
@@ -130,6 +144,8 @@ starting from parsing the user input to finding the exiting recipe in the Recipe
 to finally modifying and saving the recipe in the RecipeList:
 ![EditCommand.png](img/SequenceDiagrams/EditRecipesSequenceDiagram.png)
 
+<div style="page-break-after: always;"></div>
+
 ### Parser Class
 Self-explanatory, made for parsing user's input command. This class only consist of one public static method 
 `parseCommand()` in order to process input commands.
@@ -138,6 +154,8 @@ The remaining private methods represent separated cases for different commands.
 Shown below is a sequence diagram detailing how the Parser class interprets the user's CLI input
 and returns the appropriate command object containing the user's input parameters.
 ![Parser.parseCommand.png](img/SequenceDiagrams/Parser.parseCommand.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Storage Class
 The Storage class 
@@ -149,6 +167,8 @@ The Storage class
 
 (Note: The lifelines of objects cannot be hidden after the X in the PlantUML software used to make this class diagram)
 
+<div style="page-break-after: always;"></div>
+
 - reads the .txt save file to load in past saved recipes when app is launched
   - The following Sequence diagram shows how the loadRecipes() method in the Storage class
     loads in past saved recipes from the .txt file when the app is first launched
@@ -159,6 +179,8 @@ The Storage class
 
 The Storage class also saves and loads the list of user's available ingredients to another .txt save file
 The mechanisms with which it does so is highly similar to the 2 sequence diagrams above.
+
+<div style="page-break-after: always;"></div>
 
 ## Product scope
 ### Target user profile
@@ -183,7 +205,7 @@ and recommend random recipes that closely match the criteria.
 | v2.0    | heavy user    | find specific recipes by name/ingredients/steps  | filter through my huge list of recipes easily to find what I want |
 
 
-
+<div style="page-break-after: always;"></div>
 
 ## Non-Functional Requirements
 
