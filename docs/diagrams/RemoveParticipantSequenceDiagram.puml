@@ -1,4 +1,5 @@
 @startuml
+
 Main -> Parser: remove p/John Doe e/Meeting
 activate Parser
 Parser -> RemoveCommand: new RemoveCommand("John Doe", "Meeting")
