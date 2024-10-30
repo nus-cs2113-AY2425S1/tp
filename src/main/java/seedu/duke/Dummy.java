@@ -107,7 +107,7 @@ public class Dummy {
             int expenseIndex = Integer.parseInt(parts[1].substring(2).trim()) - 1; // 1-based index
             expenseManager.deleteExpense(trackerData, expenseIndex);
         } catch (NumberFormatException e) {
-            System.out.println("Error parsing the expense index. Please use the correct format for delete-expense commands.");
+            System.out.println("Error parsing the expense index. Please use the correct format.");
         } catch (Exception e) {
             System.out.println("An unexpected error occurred: " + e.getMessage());
         }

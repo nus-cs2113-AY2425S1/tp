@@ -25,18 +25,6 @@ public class CategoryManager {
         System.out.println("Category '" + newCategory + "' added successfully.");
     }
 
-//    public Category findCategoryByName(TrackerData trackerData, String categoryName) {
-//        List<Category> categories = trackerData.getCategories();
-//        String formattedCategoryName = formatInput(categoryName.trim());
-//
-//        for (Category category : categories) {
-//            if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
-//                return category;
-//            }
-//        }
-//        return null;
-//    }
-
     private String formatInput(String input) {
         if (input == null || input.isEmpty()) {
             return input;
