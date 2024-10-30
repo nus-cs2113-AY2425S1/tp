@@ -1,4 +1,19 @@
-# User Guide
+# Finance Buddy User Guide
+
+## Contents
+- [Introduction](#Introduction)
+- [Quick Start](#Quick-Start)
+- [Features](#Features)
+  - [Help](#Help)
+  - [Add Transaction](#Add-Transaction)
+  - [Edit Transaction](#Edit-Transaction)
+  - [Delete Transaction](#Delete-Transaction)
+  - [List Entries](#List-Entries)
+    - [List By Type](#List-By-Type)
+    - [List By Date](#List-By-Date)
+  - [Set/Edit Budget](#SetEdit-Budget)
+- [FAQ](#FAQ)
+- [Command Summary](#Command-Summary)
 
 ## Introduction
 
@@ -11,23 +26,27 @@
 1. Ensure that you have Java 17 or above installed.
 1. Down the latest version of `Duke` from [here](http://link.to/duke).
 
-## Features 
+## Features
 
 {Give detailed description of each feature}
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
+### Help
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+### Add Transaction
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+### Edit Transaction
 
-Example of usage: 
+### Delete Transaction
 
-`todo n/Write the rest of the User Guide d/next week`
+### List Entries
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+#### List by Type
+
+#### List by Date
+
+### Set/Edit Budget
+
+### Saving Data
 
 ## FAQ
 
