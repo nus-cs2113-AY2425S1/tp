@@ -191,8 +191,10 @@ Format: `exit`
 * List all events: `list`
 * Add event: `add -e EVENT -t TIME -v VENUE`
 * Add participant to an event: `add -p PARTICIPANT -e EVENT`
+* Add item to an event: `add -m ITEM -e EVENT`
 * Remove event: `remove -e EVENT`
 * Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
+* Remove item from an event: `remove -m ITEM -e EVENT`
 * View all participants for an event: `view -e EVENT`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
