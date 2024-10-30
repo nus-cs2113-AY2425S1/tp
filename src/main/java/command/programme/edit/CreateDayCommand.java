@@ -1,3 +1,5 @@
+// @@author TVageesan
+
 package command.programme.edit;
 
 import command.CommandResult;
@@ -16,7 +18,6 @@ public class CreateDayCommand extends EditCommand {
 
     /**
      * Constructs a new CreateDayCommand.
-     *
      * @param programmeId The ID of the programme to add the day to
      * @param day The Day object to be added to the programme
      */
@@ -28,6 +29,7 @@ public class CreateDayCommand extends EditCommand {
 
     /**
      * Executes the command to insert the created day into the specified programme.
+     * @author TVageesan
      * @param programmes the ProgrammeList that contains the programmes where the day will be added
      * @return a CommandResult containing a success message indicating the created day
      */

@@ -38,11 +38,12 @@ public class DayTest {
 
     @Test
     void testUpdateExercises() {
-        Exercise updatedExercise = new Exercise(3, 12, 40, 120,"Chest_Fly");
+        ExerciseUpdate update = new ExerciseUpdate(3, 12, 40, 120,"Chest_Fly");
+        Exercise expectedExercise = new Exercise(3, 12, 40, 120,"Chest_Fly");
 
-        day.updateExercise(2, updatedExercise);
+        day.updateExercise(2, update);
 
-        assertEquals(updatedExercise, day.getExercise(2));
+        assertEquals(expectedExercise, day.getExercise(2));
     }
 
     @Test

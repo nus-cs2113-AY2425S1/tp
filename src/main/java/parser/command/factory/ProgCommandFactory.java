@@ -18,6 +18,7 @@ import command.programme.LogCommand;
 import parser.FlagParser;
 import programme.Day;
 import programme.Exercise;
+import programme.ExerciseUpdate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,6 +28,16 @@ import java.util.logging.Logger;
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.splitArguments;
 
+import static parser.FlagDefinitions.ADD_DAY_FLAG;
+import static parser.FlagDefinitions.REMOVE_DAY_FLAG;
+import static parser.FlagDefinitions.ADD_EXERCISE_FLAG;
+import static parser.FlagDefinitions.REMOVE_EXERCISE_FLAG;
+import static parser.FlagDefinitions.UPDATE_EXERCISE_FLAG;
+import static parser.FlagDefinitions.SETS_FLAG;
+import static parser.FlagDefinitions.CALORIES_FLAG;
+import static parser.FlagDefinitions.REPS_FLAG;
+import static parser.FlagDefinitions.WEIGHT_FLAG;
+import static parser.FlagDefinitions.NAME_FLAG;
 
 /*
     ProgCommandFactory is a factory class that creates all programme related commands
@@ -60,22 +71,23 @@ public class ProgCommandFactory {
         };
     }
 
+    // @@author TVageesan
     private Command prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
         FlagParser flagParser = new FlagParser(argumentString, "/n", "/r","/s","/w","/e","/c");
-        if (flagParser.hasFlag("/u")) {
+        if (flagParser.hasFlag(UPDATE_EXERCISE_FLAG)) {
             return prepareEditExerciseCommand(flagParser);
         }
-        if (flagParser.hasFlag("/a")) {
+        if (flagParser.hasFlag(ADD_EXERCISE_FLAG)) {
             return prepareCreateExerciseCommand(flagParser);
         }
-        if (flagParser.hasFlag("/x")) {
+        if (flagParser.hasFlag(REMOVE_EXERCISE_FLAG)) {
             return prepareDeleteExerciseCommand(flagParser);
         }
-        if (flagParser.hasFlag("/ad")) {
+        if (flagParser.hasFlag(ADD_DAY_FLAG)) {
             return prepareCreateDayCommand(flagParser);
         }
-        if (flagParser.hasFlag("/xd")) {
+        if (flagParser.hasFlag(REMOVE_DAY_FLAG)) {
             return prepareDeleteDayCommand(flagParser);
         }
         return new InvalidCommand();
@@ -93,7 +105,7 @@ public class ProgCommandFactory {
             flagParser.getIndexByFlag("/p"),
             flagParser.getIndexByFlag("/d"),
             exerciseIndex,
-            parseExercise(exerciseString)
+            parseExerciseUpdate(exerciseString)
         );
     }
 
@@ -131,6 +143,7 @@ public class ProgCommandFactory {
                 flagParser.getIndexByFlag("/xd")
         );
     }
+
     private Command prepareCreateCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -150,6 +163,8 @@ public class ProgCommandFactory {
         logger.log(Level.INFO, "CreateCommand prepared with programme: {0}", progName);
         return new CreateCommand(progName, days);
     }
+
+    // @@author
 
     private Command prepareViewCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -193,6 +208,8 @@ public class ProgCommandFactory {
         return new LogCommand(progIndex, dayIndex, date);
     }
 
+    // @@author TVageesan
+
     private  Day parseDay(String dayString) {
         assert dayString != null : "Day string must not be null";
 
@@ -218,17 +235,29 @@ public class ProgCommandFactory {
         assert argumentString != null : "Argument string must not be null";
 
         FlagParser flagParser = new FlagParser(argumentString);
+        flagParser.validateRequiredFlags("/n");
 
-        String name = flagParser.getStringByFlag("/n");
-        int sets = flagParser.getIntegerByFlag("/s");
-        int reps = flagParser.getIntegerByFlag("/r");
-        int weight = flagParser.getIntegerByFlag("/w");
-        int calories = flagParser.getIntegerByFlag("/c");
+        return new Exercise(
+                flagParser.getIntegerByFlag(SETS_FLAG),
+                flagParser.getIntegerByFlag(REPS_FLAG),
+                flagParser.getIntegerByFlag(WEIGHT_FLAG),
+                flagParser.getIntegerByFlag(CALORIES_FLAG),
+                flagParser.getStringByFlag(NAME_FLAG)
+        );
+    }
 
-        logger.log(Level.INFO, "Parsed exercise successfully with name: {0}, set: {1}, rep: {2}" +
-                " weight: {3}", new Object[]{name, sets, reps, weight});
+    private ExerciseUpdate parseExerciseUpdate(String argumentString){
+        assert argumentString != null : "Argument string must not be null";
 
-        return new Exercise(sets, reps, weight, calories, name);
+        FlagParser flagParser = new FlagParser(argumentString);
+
+        return new ExerciseUpdate(
+                flagParser.getIntegerByFlag(SETS_FLAG),
+                flagParser.getIntegerByFlag(REPS_FLAG),
+                flagParser.getIntegerByFlag(WEIGHT_FLAG),
+                flagParser.getIntegerByFlag(CALORIES_FLAG),
+                flagParser.getStringByFlag(NAME_FLAG)
+        );
     }
 }
 

@@ -55,7 +55,7 @@ public class BuffBuddy {
             }
 
         } catch (Exception e) {
-            ui.showError(e);
+            ui.showMessage(e);
         }
     }
 }
