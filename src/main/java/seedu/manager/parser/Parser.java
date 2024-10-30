@@ -359,7 +359,7 @@ public class Parser {
 
             if (commandFlag.equals("-e")) {
                 String [] inputParts = input.split("-e");
-                return new ViewCommand(inputParts[1].trim());
+                return new ViewCommand(inputParts[1].trim(), true);
             }
 
             logger.log(WARNING,"Invalid command format");

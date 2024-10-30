@@ -144,6 +144,15 @@ public class Event {
         return itemList.removeIf((item) -> (item.getName().equalsIgnoreCase(itemName)));
     }
 
+    /**
+     * Returns the number of items in the event's item list.
+     *
+     * @return the number of items in the event's item list.
+     */
+    public int getItemCount() {
+        return itemList.size();
+    }
+
     //@@author MatchaRRR
     /**
      * @return the event name
@@ -174,6 +183,15 @@ public class Event {
         return participantList;
     }
 
+    //@@author jemehgoh
+    /**
+     * @return the item list of the event.
+     */
+    public ArrayList<Item> getItemList() {
+        return itemList;
+    }
+
+    //@@author LTK-1606
     /**
      * @return the event priority
      */
