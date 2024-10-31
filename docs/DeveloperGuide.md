@@ -349,4 +349,35 @@ The following sequence diagram illustrates how the state-switching mechanism wor
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Getting Started
+1. Ensure that you have Java `17` or above installed.
+2. Down the latest version of `MediTask` from [here](https://github.com/AY2425S1-CS2113-T11-1/tp/releases).
+3. Copy the file to the folder you want to use as the _home folder_ for your `MediTask`.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tp.jar` command to run the application.<br>
+   ![Ui](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/cli_preview.png)
+
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+   Some example commands you can try:
+
+   Patient-related commands:
+        - `add Alice /tag patient` : Adds a patient named Alice to the list of patients.
+
+        - `list` : Lists all patients.
+
+        - `delete 1` : Deletes the 1st patient in the list.
+
+        - `exit` : Exits the app.
+
+   Task-related commands:
+
+        - `todo Update patient records` : Adds a todo task named "Update patient records" to the list of tasks.
+
+        - `list` : Lists all tasks.
+
+        - `delete 1` : Deletes the 1st task in the list.
+
+        - `mark 1` : Marks the 1st task in the list as done.
+
+        - `unmark 1` : Marks the 1st task in the list as undone.
+
+For more details on the commands of MediTask, please refer to the [User Guide](https://ay2425s1-cs2113-t11-1.github.io/tp/UserGuide.html).
