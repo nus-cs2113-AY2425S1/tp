@@ -1,7 +1,7 @@
 @startuml
-hide footbox
+!include .SequenceDiagram.config
 
-actor User
+actor CEG_Student
 participant ":DeleteCoursesCommand" as DeleteCoursesCommand
 participant ":Integer" as Integer
 participant ":Storage" as Storage
