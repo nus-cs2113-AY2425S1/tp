@@ -80,12 +80,17 @@ Allows users to add their own quiz questions.
 
 Format: `add Flashcard /q [QUESTION] /a [ANSWER]`
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+* The `QUESITION` can be in a natural language format.
+* The `ANSWER` cannot contain punctuation.  
 
 **Example**:
 ```shell
 add Flashcard /q The keyword used to define a class is `____`. /a class
+```
+
+**Output Expected**:
+```shell
+NIL need to add an output for this
 ```
 
 ### 5. Reviewing Past Results: `review`
@@ -98,6 +103,13 @@ Format: `review`
 review
 ```
 
+**Expected Output**:
+```shell
+Reviewing your past results:
+Score: 0%, Comment: Better luck next time!
+```
+
+
 ### 6. Exit Quiz: `exit`
 Exit the current quiz session if you want to stop answering questions without finishing the quiz.
 
@@ -106,6 +118,16 @@ Exit the current quiz session if you want to stop answering questions without fi
 **Example**:
 ```shell
 exit
+```
+
+### 7. Exit Programme: `quit`
+Exits the programme
+
+**Format**: `quit`
+
+**Example**:
+```shell
+quit
 ```
 ---
 
