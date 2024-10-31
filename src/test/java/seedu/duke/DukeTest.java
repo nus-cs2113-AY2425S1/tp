@@ -1,9 +1,7 @@
 //@@author glenda-1506
 package seedu.duke;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExpenseTest {
@@ -301,13 +299,8 @@ class ExpenseManagerTest {
     void tagExpenseInvalidNegativeIndex() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
-
         expenseManager.addExpense(trackerData, "Lunch", 10.00, "Food");
-
-        // Try tagging with a negative index
         expenseManager.tagExpense(trackerData, "e/-1 c/Transport");
-
-        // Verify the category remains unchanged
         assertEquals("Food", trackerData.getExpenses().get(0).getCategory().getName());
     }
 
@@ -315,9 +308,7 @@ class ExpenseManagerTest {
     void tagInvalidFormatExpense() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
-
         expenseManager.addExpense(trackerData, "Train", 4, "Transport");
-
         expenseManager.tagExpense(trackerData, "e/x c/");
     }
 
@@ -325,7 +316,6 @@ class ExpenseManagerTest {
     void viewNoExpenses() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
-
         expenseManager.viewExpensesByCategory(trackerData);
     }
 
@@ -333,10 +323,8 @@ class ExpenseManagerTest {
     void viewMultipleExpensesOneCategory() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
-
         expenseManager.addExpense(trackerData, "Coffee", 5.0, "Food");
         expenseManager.addExpense(trackerData, "Sandwich", 3.0, "Food");
-
         expenseManager.viewExpensesByCategory(trackerData);
     }
 
@@ -344,10 +332,8 @@ class ExpenseManagerTest {
     void viewExpensesMultipleCategory() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
-
         expenseManager.addExpense(trackerData, "Train", 4.5, "Transport");
         expenseManager.addExpense(trackerData, "Pizza", 12.0, "Food");
-
         expenseManager.viewExpensesByCategory(trackerData);
     }
 
@@ -355,7 +341,6 @@ class ExpenseManagerTest {
     void deleteExpenseEmptyList() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
-
         expenseManager.deleteExpense(trackerData, 0);
         assertTrue(trackerData.getExpenses().isEmpty());
     }
@@ -364,13 +349,8 @@ class ExpenseManagerTest {
     void deleteExpenseIndexOutOfBounds() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
-
         expenseManager.addExpense(trackerData, "Dinner", 20.00, "Food");
-
-        // Try deleting with a negative index
         expenseManager.deleteExpense(trackerData, -1);
-
-        // Ensure that the expense list remains unchanged
         assertEquals(1, trackerData.getExpenses().size());
     }
 
