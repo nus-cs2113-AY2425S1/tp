@@ -194,7 +194,7 @@ class ExpenseManagerTest {
         ExpenseManager expenseManager = new ExpenseManager();
         TrackerData trackerData = new TrackerData();
 
-        expenseManager.addExpense(trackerData,"Coffee", 2.0, "Food");
+        expenseManager.addExpense(trackerData, "Coffee", 2.0, "Food");
 
         assertEquals(1, trackerData.getExpenses().size());
         assertEquals("Coffee", trackerData.getExpenses().get(0).getName());
@@ -257,7 +257,6 @@ class ExpenseManagerTest {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
 
-
         expenseManager.addExpense(trackerData, "Train", 4, "Transport");
 
         Category existingCategory = new Category("Travel");
@@ -266,7 +265,7 @@ class ExpenseManagerTest {
         expenseManager.tagExpense(trackerData, "e/1 c/Travel");
 
         assertEquals("Travel", trackerData.getExpenses().get(0).getCategory().getName());
-        assertEquals(2,trackerData.getCategories().size());
+        assertEquals(2, trackerData.getCategories().size());
     }
 
     @Test
@@ -291,9 +290,107 @@ class ExpenseManagerTest {
         Expense expense = new Expense("Bus Fare", 2.50, new Category("Transport"));
         trackerData.getExpenses().add(expense);
 
-        expenseManager.addExpense(trackerData,"Bus", 1.25, "Transport");
+        expenseManager.addExpense(trackerData, "Bus", 1.25, "Transport");
         expenseManager.tagExpense(trackerData, "e/1 c/Travel");
 
         assertEquals("Transport", trackerData.getExpenses().get(0).getCategory().getName());
+    }
+
+    //@@author glenda-1506
+    @Test
+    void tagExpenseInvalidNegativeIndex() {
+        TrackerData trackerData = new TrackerData();
+        ExpenseManager expenseManager = new ExpenseManager();
+
+        expenseManager.addExpense(trackerData, "Lunch", 10.00, "Food");
+
+        // Try tagging with a negative index
+        expenseManager.tagExpense(trackerData, "e/-1 c/Transport");
+
+        // Verify the category remains unchanged
+        assertEquals("Food", trackerData.getExpenses().get(0).getCategory().getName());
+    }
+
+    @Test
+    void tagInvalidFormatExpense() {
+        TrackerData trackerData = new TrackerData();
+        ExpenseManager expenseManager = new ExpenseManager();
+
+        expenseManager.addExpense(trackerData, "Train", 4, "Transport");
+
+        expenseManager.tagExpense(trackerData, "e/x c/");
+    }
+
+    @Test
+    void viewNoExpenses() {
+        TrackerData trackerData = new TrackerData();
+        ExpenseManager expenseManager = new ExpenseManager();
+
+        expenseManager.viewExpensesByCategory(trackerData);
+    }
+
+    @Test
+    void viewMultipleExpensesOneCategory() {
+        TrackerData trackerData = new TrackerData();
+        ExpenseManager expenseManager = new ExpenseManager();
+
+        expenseManager.addExpense(trackerData, "Coffee", 5.0, "Food");
+        expenseManager.addExpense(trackerData, "Sandwich", 3.0, "Food");
+
+        expenseManager.viewExpensesByCategory(trackerData);
+    }
+
+    @Test
+    void viewExpensesMultipleCategory() {
+        TrackerData trackerData = new TrackerData();
+        ExpenseManager expenseManager = new ExpenseManager();
+
+        expenseManager.addExpense(trackerData, "Train", 4.5, "Transport");
+        expenseManager.addExpense(trackerData, "Pizza", 12.0, "Food");
+
+        expenseManager.viewExpensesByCategory(trackerData);
+    }
+
+    @Test
+    void deleteExpenseEmptyList() {
+        TrackerData trackerData = new TrackerData();
+        ExpenseManager expenseManager = new ExpenseManager();
+
+        expenseManager.deleteExpense(trackerData, 0);
+        assertTrue(trackerData.getExpenses().isEmpty());
+    }
+
+    @Test
+    void deleteExpenseIndexOutOfBounds() {
+        TrackerData trackerData = new TrackerData();
+        ExpenseManager expenseManager = new ExpenseManager();
+
+        expenseManager.addExpense(trackerData, "Dinner", 20.00, "Food");
+
+        // Try deleting with a negative index
+        expenseManager.deleteExpense(trackerData, -1);
+
+        // Ensure that the expense list remains unchanged
+        assertEquals(1, trackerData.getExpenses().size());
+    }
+
+    @Test
+    void formatMixedCaseInput() {
+        ExpenseManager expenseManager = new ExpenseManager();
+        assertEquals("Food", expenseManager.formatInput("fOoD"));
+    }
+
+    @Test
+    public void formatNullInput() {
+        ExpenseManager expenseManager = new ExpenseManager();
+        String result = expenseManager.formatInput(null);
+        assertNull(result, "Expected null for null input");
+    }
+
+    @Test
+    public void formatEmptyInput() {
+        ExpenseManager expenseManager = new ExpenseManager();
+        String result = expenseManager.formatInput("");
+        assertEquals("", result, "Expected empty string for empty input");
     }
 }
