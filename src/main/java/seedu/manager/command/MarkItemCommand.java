@@ -21,10 +21,10 @@ public class MarkItemCommand extends MarkCommand {
      *
      * @param itemName the name of the item.
      * @param eventName the name of the event.
-     * @param toMark true if the item is to be marked present, false if he is to be marked absent.
+     * @param isToMark true if the item is to be marked present, false if he is to be marked absent.
      */
-    public MarkItemCommand(String itemName, String eventName, boolean toMark) {
-        super(eventName, toMark);
+    public MarkItemCommand(String itemName, String eventName, boolean isToMark) {
+        super(eventName, isToMark);
         this.itemName = itemName;
     }
 
@@ -40,10 +40,10 @@ public class MarkItemCommand extends MarkCommand {
             return;
         }
 
-        boolean isMarked = event.get().markItemByName(itemName, toMark);
+        boolean isMarked = event.get().markItemByName(itemName, isToMark);
 
         if (isMarked) {
-            message = (toMark) ? ITEM_MARK_MESSAGE : ITEM_UNMARK_MESSAGE;
+            message = (isToMark) ? ITEM_MARK_MESSAGE : ITEM_UNMARK_MESSAGE;
         } else {
             message = INVALID_ITEM_MESSAGE;
         }

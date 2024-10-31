@@ -70,6 +70,7 @@ public class Parser {
             Please enter your commands in the following format:
             mark -e EVENT -s STATUS
             mark -p PARTICIPANT -e EVENT -s STATUS
+            mark -m ITEM -e EVENT -s STATUS
             """;
     private static final String INVALID_EVENT_STATUS_MESSAGE = """
             Invalid event status!
@@ -78,6 +79,10 @@ public class Parser {
     private static final String INVALID_PARTICIPANT_STATUS_MESSAGE = """
             Invalid participant status!
             Please set the event status as either "present" or "absent"
+            """;
+    private static final String INVALID_ITEM_STATUS_MESSAGE = """
+            Invalid mark status!
+            Please set the event status as either "accounted" or "unaccounted"
             """;
     private static final String INVALID_SORT_MESSAGE = """
             Invalid command!
@@ -121,15 +126,18 @@ public class Parser {
             Invalid find flag!
             Please set the find flag using "-e" and "-p""
             """;
+    private static final String EVENT_FLAG = "-e";
+    private static final String PARTICIPANT_FLAG = "-p";
+    private static final String ITEM_FLAG = "-m";
     private static final String EVENT_REGEX = "(-e|-t|-v|-u)";
     private static final String PARTICIPANT_REGEX = "(-p|-n|-email|-e)";
     private static final String ITEM_REGEX = "(-m|-e)";
     private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
-    private static final String VIEW_REGEX = "(-e|-y)";
-    private static final String EVENT_FLAG = "-e";
-    private static final String PARTICIPANT_FLAG = "-p";
-    private static final String ITEM_FLAG = "-m";
+    private static final String VIEW_REGEX = "(-e|-y)";;
+    private static final String MARK_EVENT_REGEX = "-e|-s";
+    private static final String MARK_PARTICIPANT_REGEX = "-p|-e|-s";
+    private static final String MARK_ITEM_REGEX = "-m|-e|-s";
 
     /**
      * Returns a command based on the given user command string.
@@ -514,11 +522,11 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getMarkEventCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
-        String[] inputParts = input.split("-e|-s");
+        String[] inputParts = input.split(MARK_EVENT_REGEX);
         String eventName = inputParts[1].trim();
-        boolean toMark = toMarkEvent(inputParts[2].trim());
+        boolean isToMark = toMarkEvent(inputParts[2].trim());
 
-        return new MarkEventCommand(eventName, toMark);
+        return new MarkEventCommand(eventName, isToMark);
     }
 
     /**
@@ -548,12 +556,13 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getMarkParticipantCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
-        String[] inputParts = input.split("-p|-e|-s");
+        String[] inputParts = input.split(MARK_PARTICIPANT_REGEX);
         String participantName = inputParts[1].trim();
         String eventName = inputParts[2].trim();
-        boolean toMark = toMarkParticipant(inputParts[3].trim());
+        boolean isToMark = toMarkParticipant(inputParts[3].trim());
 
-        return new MarkParticipantCommand(participantName, eventName, toMark);
+
+        return new MarkParticipantCommand(participantName, eventName, isToMark);
     }
 
     /**
@@ -570,7 +579,7 @@ public class Parser {
             return false;
         } else {
             logger.log(WARNING,"Invalid status keyword");
-            throw new InvalidCommandException(INVALID_EVENT_STATUS_MESSAGE);
+            throw new InvalidCommandException(INVALID_PARTICIPANT_STATUS_MESSAGE);
         }
     }
 
@@ -583,12 +592,12 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getMarkItemCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
-        String[] inputParts = input.split("-m|-e|-s");
+        String[] inputParts = input.split(MARK_ITEM_REGEX);
         String itemName = inputParts[1].trim();
         String eventName = inputParts[2].trim();
-        boolean toMark = toMarkItem(inputParts[3].trim());
+        boolean isToMark = toMarkItem(inputParts[3].trim());
 
-        return new MarkItemCommand(itemName, eventName, toMark);
+        return new MarkItemCommand(itemName, eventName, isToMark);
     }
 
     /**
@@ -605,7 +614,7 @@ public class Parser {
             return false;
         } else {
             logger.log(WARNING,"Invalid status keyword");
-            throw new InvalidCommandException(INVALID_EVENT_STATUS_MESSAGE);
+            throw new InvalidCommandException(INVALID_ITEM_STATUS_MESSAGE);
         }
     }
 
