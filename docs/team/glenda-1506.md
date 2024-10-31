@@ -9,4 +9,16 @@ Given below are my contributions to the project
 #### Code Contributed
 [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=glenda-1506&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 
+#### Contributions to the UG
+- Added documentation for Introduction: #65
+- Added documentation for Command Format Notes: #65
+- Added documentation for features: #65
+    - `add-expense`
+    - `delete-expense`
+    - `add-cateogry`
+    - `tag-expense`
+    - `set-budget`
+    - `view-expenses`
+    - `set-budget-reset`
+    - `bye`
 
