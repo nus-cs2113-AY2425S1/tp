@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AddCommandTest {
-    //@@author jemehgoh
     private EventList eventList;
     private DateTimeFormatter formatter;
 
@@ -23,7 +22,6 @@ public class AddCommandTest {
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     }
 
-    //@@author
     @Test
     public void add_event_success() {
         eventList.addEvent("Event 1",
@@ -110,6 +108,44 @@ public class AddCommandTest {
 
         AddCommand addCommand = new AddCommand("Event 1", LocalDateTime.parse("2024-10-10 10:00",
                 formatter), "Venue A", Priority.HIGH);
+        addCommand.setData(eventList);
+
+        assertThrows(DuplicateDataException.class, addCommand::execute);
+    }
+
+    @Test
+    public void add_oneItem_success() {
+        String expectedMessage = "Item added successfully";
+        eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-25 16:00", formatter),
+                "Venue 1", Priority.MEDIUM);
+
+        AddCommand addCommand = new AddCommand("Foolscap paper", "Event 1");
+        addCommand.setData(eventList);
+        addCommand.execute();
+
+        assertEquals(expectedMessage, addCommand.getMessage());
+    }
+
+    @Test
+    public void add_oneItemInvalidEvent_failure() {
+        String expectedMessage = "Event not found!";
+        eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-25 16:00", formatter),
+                "Venue 1", Priority.MEDIUM);
+
+        AddCommand addCommand = new AddCommand("Graph paper", "Event 2");
+        addCommand.setData(eventList);
+        addCommand.execute();
+
+        assertEquals(expectedMessage, addCommand.getMessage());
+    }
+
+    @Test
+    public void add_duplicateItem_throwsException() {
+        eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-25 16:00", formatter),
+                "Venue 1", Priority.MEDIUM);
+        eventList.addItemToEvent("Crepe paper", "Event 1");
+
+        AddCommand addCommand = new AddCommand("Crepe paper", "Event 1");
         addCommand.setData(eventList);
 
         assertThrows(DuplicateDataException.class, addCommand::execute);

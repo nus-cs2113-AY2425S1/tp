@@ -31,13 +31,15 @@ Shows a list of all valid user commands in the program.
 
 ```
 Here are the possible commands:
-
-list: List events.
-view -e EVENT: View the list of participants of an event.
+           
 add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
-add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Add a participant to an event.
+list: List events.
 remove -e EVENT: Remove an event from the event list.
+add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Add a participant to an event.
+add -m ITEM -e EVENT: Add an item to an event.
+view -e EVENT -y TYPE: View the list of participants or items of an event.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
+remove -m ITEM -e EVENT: Remove an item from an event.
 edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
 mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
@@ -56,43 +58,53 @@ Shows a list of all events currently stored in the program.
 
 Format: `list`
 
-### View all participants for an event: `view`
-
-Shows a list of all participants for an event.
-
-Format: `view -e EVENT`
-
-Examples:
-
-* `view -e Origami workshop` shows a list of all participants for the event `Origami workshop`.
-
 ### Add an event or participant: `add`
 
-Adds an event to the event list, or a participant to an event.
+Adds an event to the event list, a participant to an event, or an item to an event.
 
 Format:  
 
 * `add -e EVENT -t TIME -v VENUE` for adding an event to the events list.
 * `add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for adding a participant to an event.
+* `add -m ITEM -e EVENT` for adding an item to an event.
 
 Examples:
 
-* `add -e Origami workshop -t Mon 1600-1800 -v Building A` adds an event with name `Origami workshop`, time `Mon 1600-1800` and venue `Building A` to the events list.
+* `add -e Origami workshop -t 2024-10-12 18:00 -v Building A` adds an event with name `Origami workshop`, time `2024-10-12 18:00` and venue `Building A` to the events list.
 * `add -p John Tan -n 91583215 -email john@gmail.com -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
+* `add -m Origami paper -e Origami workshop` adds an item `Origami paper` to the event `Origami workshop`.
 
 ### Remove an event or participant: `remove` 
 
-Removes an event from the event list, or a participant from an event.
+Removes an event from the event list, a participant from an event, or an item from an event.
 
 Format:
 
 * `remove -e EVENT` for removing an event from the event list.
 * `remove -p PARTICIPANT -e EVENT` for removing a participant from an event.
+* `remove -m ITEM -e EVENT` for removing an item from an event.
 
 Examples:
 
 * `remove -e Origami workshop` removes the event `Origami workshop` from the event list.
 * `remove -p John Tan -e Origami workshop` removes the participant `John Tan` from the event `Origami workshop`.
+* `remove -m Origami paper -e Origami workshop` removes the item `Origami paper` from the event `Origami workshop`.
+
+### View all participants or items for an event: `view`
+
+Shows a list of all participants or items for an event.
+
+Format: `view -e EVENT -y TYPE`
+
+* The list shown varies based on the value of `TYPE` entered, as follows:
+  * A list of participants is shown when `TYPE` is `participant`.
+  * A list of items is shown when `TYPE` is `item`.
+* `TYPE` is case-insensitive, i.e. `PARTICIPANT` and `participant` will produce the same result.
+
+Examples:
+
+* `view -e Origami workshop -y participant` shows a list of all participants for the event `Origami workshop`.
+* `view -e Origami workshop -y item` shows a list of all items for the event `Origami workshop`. 
 
 ### Mark an event as done: `mark`
 
@@ -181,10 +193,13 @@ Format: `exit`
 * List all events: `list`
 * View all participants for an event: `view -e EVENT`
 * Add event: `add -e EVENT -t TIME -v VENUE`
-* Add participant to an event: `add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
+* Add participant to an event: `add -p PARTICIPANT -e EVENT`
+* Add item to an event: `add -m ITEM -e EVENT`
 * Remove event: `remove -e EVENT`
 * Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
-* Edit particpant of an event: `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
+* Remove item from an event: `remove -m ITEM -e EVENT`
+* View all participants for an event: `view -e EVENT -y TYPE`
+* Edit participant of an event: `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
 * Copy participant list: `copy FROM_EVENT > TO_EVENT`
