@@ -17,6 +17,11 @@ public class Repeat extends Task{
         this.repeat = repeat;
     }
 
+    public Repeat(String description, String repeat, String tag) {
+        super(description, tag);
+        this.repeat = repeat;
+    }
+
     public Repeat(String description, String repeat, boolean isDone) {
         super(description, isDone);
         this.repeat = repeat;

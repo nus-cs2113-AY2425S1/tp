@@ -10,9 +10,11 @@ MediTask is a desktop application designed to help nurses efficiently manage and
    - [Finding a Patient: `find`](#finding-a-patient-find)
    - [Listing All Patients: `list`](#listing-all-patients-list)
    - [Selecting a Patient: `select`](#selecting-a-patient-select)
+   - [Returning to Main State: `back`](#returning-to-main-state-back)
    - [Adding a deadline task: `deadline`](#adding-a-deadline-task-deadline)
    - [Adding a recurring task: `repeat`](#adding-a-recurring-task-repeat)
    - [Finding a task: `find`](#finding-task-find)
+   - 
 3. [FAQ](#faq)
 4. [Command Summary](#command-summary)
 
@@ -114,6 +116,15 @@ Switches the application state to `TASK_STATE`, enabling task management feature
 - `select 3`
    - Selects the third patient in the patient list and enables task management features for that patient.
 
+### Returning to Main State: `back`
+Returns to the `MAIN_STATE` from the patient-specific task management state.
+
+**Format**: `back`
+
+**Example**:
+- `back`
+    - Returns to the main menu from the selected patient's task management view.
+
 
 ### Adding a deadline task: `deadline`
 Adds a new item to the list of deadline items.
@@ -143,4 +154,16 @@ Example of usage:
 
 {Give a 'cheat sheet' of commands here}
 
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+- **add** `add PATIENT_NAME /tag TAG_NAME`: Adds a new patient to the list with an optional tag.
+- **select** `select INDEX`: Selects a patient and switches to task management mode.
+- **back** `back`: Returns to the main menu from the task management view.
+- **list** `list`:
+    - **In main state**: Lists all patients, showing overall task completion rates.
+    - **In task state**: Lists all tasks for the selected patient, showing each task’s completion status.
+- **delete** `delete INDEX`:
+    - **In main state**: Deletes the patient at the specified index.
+    - **In task state**: Deletes the task at the specified index for the selected patient.
+- **todo** `todo TODO_NAME /tag TAG_NAME`: Adds a new to-do task with an optional tag.
+- **deadline** `deadline DEADLINE_NAME /by DATE_TIME /tag TAG_NAME`: Adds a deadline task with a specified date and time, and an optional tag.
+- **repeat** `repeat TASK_NAME /every INTERVAL /tag TAG_NAME`: Adds a recurring task with a specified interval (e.g., daily, weekly) and an optional tag.
+- **find** `find KEYWORD`: Searches for a patient or task by the specified keyword.

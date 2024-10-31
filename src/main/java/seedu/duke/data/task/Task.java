@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 public class Task {
     private String description;
     private boolean isDone;
+    private String tag;
 
     public Task() {
         this("");
@@ -29,6 +30,20 @@ public class Task {
         this.isDone = done;
     }
 
+    //constructor for tag
+    public Task(String description, String tag) {
+        this.description = description;
+        this.isDone = false;
+        this.tag = tag;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
     public String getDescription() {
         return description;
     }
@@ -67,11 +82,14 @@ public class Task {
             }
             switch (type.toLowerCase()) {
             case "todo":
-                return new Todo(args[0]);
+                // args[0] is the description, args[1] is the optional tag
+                return new Todo(args[0], args.length > 1 ? args[1] : "");
             case "deadline":
-                return new Deadline(args[0], args[1]);
+                // args[0] is the description, args[1] is the due date, args[2] is the optional tag
+                return new Deadline(args[0], args[1], args.length > 2 ? args[2] : "");
             case "repeat":
-                return new Repeat(args[0], args[1]);
+                // args[0] is description, args[1] is the repeat interval, args[2] is the optional tag
+                return new Repeat(args[0], args[1], args.length > 2 ? args[2] : "");
             default:
                 throw new UnknownTaskType(type);
             }
@@ -121,7 +139,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return (isDone ? "[X] " : "[ ] ") + description;
+        return (isDone ? "[X] " : "[ ] ") + description + (tag != null && !tag.isEmpty() ? " [" + tag + "]" : "");
     }
 
     /**
