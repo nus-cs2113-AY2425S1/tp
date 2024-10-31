@@ -19,13 +19,13 @@ public class CreateDayCommand extends EditCommand {
 
     /**
      * Constructs a new CreateDayCommand.
-     * @param programmeId The ID of the programme to add the day to
-     * @param day The Day object to be added to the programme
+     * @param programmeIndex The ID of the programme to add the day to
+     * @param createdDay The Day object to be added to the programme
      */
-    public CreateDayCommand(int programmeId, Day day) {
-        super(programmeId);
-        assert day != null : "created day cannot be null";
-        this.createdDay = day;
+    public CreateDayCommand(int programmeIndex, Day createdDay) {
+        super(programmeIndex);
+        assert createdDay != null : "created day cannot be null";
+        this.createdDay = createdDay;
     }
 
     /**

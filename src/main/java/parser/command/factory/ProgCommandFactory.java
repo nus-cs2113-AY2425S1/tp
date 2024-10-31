@@ -123,6 +123,8 @@ public class ProgCommandFactory {
      * @throws IllegalArgumentException If required flags are missing.
      */
     private EditExerciseCommand prepareEditExerciseCommand(FlagParser flagParser) {
+        assert flagParser == null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(DAY_FLAG);
         String editString = flagParser.getStringByFlag("/u");
 
@@ -146,6 +148,8 @@ public class ProgCommandFactory {
      * @throws IllegalArgumentException If required flags are missing.
      */
     private CreateExerciseCommand prepareCreateExerciseCommand(FlagParser flagParser) {
+        assert flagParser == null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(DAY_FLAG);
         String exerciseString = flagParser.getStringByFlag(ADD_EXERCISE_FLAG);
         return new CreateExerciseCommand(
@@ -163,6 +167,8 @@ public class ProgCommandFactory {
      * @throws IllegalArgumentException If required flags are missing.
      */
     private DeleteExerciseCommand prepareDeleteExerciseCommand(FlagParser flagParser) {
+        assert flagParser == null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(DAY_FLAG, REMOVE_EXERCISE_FLAG);
         return new DeleteExerciseCommand(
                 flagParser.getIndexByFlag(PROGRAMME_FLAG),
@@ -178,6 +184,8 @@ public class ProgCommandFactory {
      * @return A {@link CreateDayCommand} object to create a new day.
      */
     private CreateDayCommand prepareCreateDayCommand(FlagParser flagParser) {
+        assert flagParser == null: "flagParser must not be null";
+
         String dayString = flagParser.getStringByFlag(ADD_DAY_FLAG);
         return new CreateDayCommand(
                 flagParser.getIndexByFlag(PROGRAMME_FLAG),
@@ -193,6 +201,8 @@ public class ProgCommandFactory {
      * @throws IllegalArgumentException If required flags are missing.
      */
     private DeleteDayCommand prepareDeleteDayCommand(FlagParser flagParser) {
+        assert flagParser == null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(REMOVE_DAY_FLAG);
         return new DeleteDayCommand(
                 flagParser.getIndexByFlag(PROGRAMME_FLAG),
@@ -266,6 +276,13 @@ public class ProgCommandFactory {
 
     // @@author TVageesan
 
+    /**
+     * Parses a string of day related arguments and returns a Day object.
+     *
+     * @param dayString the input string representing a day and its exercises, not null.
+     * @return a Day object representing the parsed day and its exercises.
+     * @throws IllegalArgumentException if there are missing arguments to create a day.
+     */
     private  Day parseDay(String dayString) {
         assert dayString != null : "Day string must not be null";
 
@@ -287,6 +304,12 @@ public class ProgCommandFactory {
         return day;
     }
 
+    /**
+     * Parses an exercise string and returns an Exercise object.
+     *
+     * @param argumentString the input string containing exercise details, not null.
+     * @return an Exercise object representing the parsed exercise details.
+     */
     private Exercise parseExercise(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -302,6 +325,12 @@ public class ProgCommandFactory {
         );
     }
 
+    /**
+     * Parses an exercise update string and returns an ExerciseUpdate object.
+     *
+     * @param argumentString the input string containing exercise update details, not null.
+     * @return an ExerciseUpdate object representing the parsed exercise update details.
+     */
     private ExerciseUpdate parseExerciseUpdate(String argumentString){
         assert argumentString != null : "Argument string must not be null";
 

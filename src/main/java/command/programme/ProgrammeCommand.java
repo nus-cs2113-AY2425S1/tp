@@ -12,7 +12,7 @@ public abstract class ProgrammeCommand extends Command {
 
     public ProgrammeCommand(int programmeIndex, int dayIndex) {
         this(programmeIndex);
-        assert dayIndex >= 0 : "dayId must not be negative";
+        assert dayIndex >= 0 : "dayIndex must not be negative";
         this.dayIndex = dayIndex;
     }
 

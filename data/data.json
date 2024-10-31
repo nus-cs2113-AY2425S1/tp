@@ -10,14 +10,16 @@
             "exercises": [
               {
                 "sets": 3,
-                "reps": 12,
+                "reps": 30,
                 "weight": 30,
-                "name": "Bench_Press"
+                "calories": 1000,
+                "name": "bench"
               },
               {
                 "sets": 3,
                 "reps": 12,
                 "weight": 50,
+                "calories": 0,
                 "name": "Squat"
               }
             ]
@@ -29,6 +31,7 @@
                 "sets": 3,
                 "reps": 12,
                 "weight": 10,
+                "calories": 0,
                 "name": "Bicep_Curl"
               }
             ]
@@ -46,12 +49,14 @@
             "sets": 3,
             "reps": 12,
             "weight": 30,
+            "calories": 0,
             "name": "Bench_Press"
           },
           {
             "sets": 3,
             "reps": 12,
             "weight": 50,
+            "calories": 0,
             "name": "Squat"
           }
         ]
@@ -78,6 +83,7 @@
             "sets": 3,
             "reps": 12,
             "weight": 10,
+            "calories": 0,
             "name": "Bicep_Curl"
           }
         ]

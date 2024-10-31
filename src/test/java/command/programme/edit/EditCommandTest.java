@@ -20,23 +20,23 @@ class EditCommandTest {
         assertDoesNotThrow(() -> new TestEditCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID));
     }
 
-    // Edge case for constructor with exerciseId: Negative exercise ID
+    // Edge case for constructor with exerciseIndex: Negative exercise ID
     @Test
-    void constructor_withNegativeExerciseId_throwsAssertionError() {
+    void constructor_withNegativeexerciseIndex_throwsAssertionError() {
         assertThrows(AssertionError.class, () ->
                 new TestEditCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID)
         );
     }
 
-    // Happy path for constructor without exerciseId
+    // Happy path for constructor without exerciseIndex
     @Test
-    void constructor_withoutExerciseId_initializesCorrectly() {
+    void constructor_withoutexerciseIndex_initializesCorrectly() {
         assertDoesNotThrow(() -> new TestEditCommand(VALID_PROGRAMME_ID, VALID_DAY_ID));
     }
 
-    // Edge case for constructor without exerciseId: Invalid day ID
+    // Edge case for constructor without exerciseIndex: Invalid day ID
     @Test
-    void constructor_withNegativeDayId_throwsAssertionError() {
+    void constructor_withNegativedayIndex_throwsAssertionError() {
         assertThrows(AssertionError.class, () -> new TestEditCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID));
     }
 
