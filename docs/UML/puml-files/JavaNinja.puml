@@ -1,0 +1,66 @@
+@startuml
+hide circle
+
+skinparam classAttributeIconSize 0
+
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    FontColor Black
+}
+
+skinparam class {
+    FontName Bold
+}
+
+circle Person
+
+class JavaNinja {
+    - Cli cli
+    - Parser parser
+    - QuizManager quizManager
+    + JavaNinja()
+    + run(): void
+}
+
+class Cli {
+    - Scanner scanner
+    + Cli()
+    + closeScanner(): void
+    + readInput(): String
+    + printStartMessage(): void
+    + printHelp(): void
+    + printGoodByeMessage(): void
+}
+
+class Parser {
+    - QuizManager quizManager
+    - Cli cli
+    + Parser(QuizManager, Cli)
+    + determineCommand(input: String): void
+    + processCommand(input: String): String
+}
+
+class QuizManager {
+    - QuizSession quizSession
+    - QuizResults quizResults
+    - TopicManager topicManager
+    + QuizManager()
+    + selectQuizToAttempt(topicName: String): void
+    + addResultsAndPrintScore(): void
+    + printQuizzesAvailable(): void
+    + printPastResults(): void
+    + addInput(input: String): void
+    + saveResults(): void
+}
+
+Person ..> Cli
+JavaNinja *-left-> "1" Cli
+JavaNinja *-down-> "1" Parser
+JavaNinja *--> "1" QuizManager
+Cli --> Parser : passes input
+Parser --> QuizManager : executes command
+Cli ..> QuizManager : displays information
+
+@enduml
+
