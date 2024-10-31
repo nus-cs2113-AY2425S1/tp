@@ -244,6 +244,16 @@ public class Ui {
     }
 
     /**
+     * Custom message when no recipe is found with FindCommand
+     */
+    public void printEmptyFind() {
+        System.out.println(LINE);
+        System.out.println("\tSorry I didn't find anything! :(");
+        System.out.println("\tPerhaps you should ask your mom for more recipes and add them here!");
+        System.out.println(LINE);
+    }
+
+    /**
      * Display list of ingredients that match the user's parameters.
      *
      * @param list ArrayList of ingredients to be displayed.
@@ -254,6 +264,16 @@ public class Ui {
         System.out.println("\tHere's everything that I've found so far:");
         printIngredListWithOrder(list, listCount);
         System.out.println("\tTotal: " + listCount + " ingredients found!");
+        System.out.println(LINE);
+    }
+
+    /**
+     * Custom message when no ingredient is found with FindIngredCommand
+     */
+    public void printEmptyFindIngred() {
+        System.out.println(LINE);
+        System.out.println("\tSorry I didn't find anything! :(");
+        System.out.println("\tNow go fill your fridge and come back anytime!");
         System.out.println(LINE);
     }
 
