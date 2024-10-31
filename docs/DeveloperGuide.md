@@ -56,22 +56,27 @@ The `Command` component and its component classes are shown in the below **Class
 
 <img src = "images/CommandClassDiagram.png">
 
+In all `XYZCommand` classes, the abstract `execute()` method from the parent `Command` class is implemented.
+
 The `Command` component does the following:
 
 * Handle the execution of the user command through interactions with `Event`.
 * Provides a command output message to `Ui` after the command execution.
 
-The interactions between `Command` and other commands in the system is shown in the following _Sequence Diagram_:
+The interactions between `Command` and other components in the system when a command is executed is shown in the following _Sequence Diagram_:
 
 <img src = "images/CommandSequenceDiagram.png">
 
 ### Event component
+
+The `Event` component comprises an `EventList` class that is composed of multiple `Event`s. Each `Event` contains event participant data, represented by multiple `Participant` objects.
 
 The `Event` component and its component classes are shown in the below **Class Diagram**:
 
 <img src = "images/EventClassDiagram.png">
 
 The `Event` component does the following:
+
 * Handle the addition, removal and marking of events stored in `EventList`.
 * Add, remove and mark participants for a specific `Event` in `EventList`.
 

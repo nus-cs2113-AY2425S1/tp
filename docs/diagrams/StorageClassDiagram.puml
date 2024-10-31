@@ -4,22 +4,21 @@ allowmixing
 
 package storage {
     class Storage {
-        - String filePath
-        + Storage(String filePath)
+        - filePath : String
+        + Storage(filePath : String)
         + void saveEvents(EventList events) throws IOException
-        + void loadEvents(EventList events) throws IOException
-        - boolean isValidFilePath(String filePath)
-        - boolean isTestEnvironment()
+        + loadEvents(EventList events) : void
+        - isValidFilePath(String filePath) : boolean
+        - isTestEnvironment() : boolean
     }
 }
 
 rectangle Main
-rectangle EventList EVENT_COLOUR
+rectangle Event EVENT_COLOUR
 rectangle Parser PARSER_COLOUR
 
-Storage ..> EventList : saves/loads
-Parser <.. Storage : adopts
-EventList *--> "*" Event : contains
-Main .> Storage : invokes
+Storage ..> Event : saves/loads >
+Parser <.. Storage : < adopts
+Main .> Storage : invokes >
 
 @enduml
