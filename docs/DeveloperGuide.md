@@ -23,108 +23,85 @@ JavaNinja uses the following tools for development:
 
 ## Design & implementation
   
-### Design 
+### Design
 
-#### Architecture 
+### Java-Ninja Implementation
+`JavaNinja` serves as the main entry point for the command-line-based Java application, managing the initialization, control flow, and shutdown of the application. It composes of three core components:
 
-Main components of the architecture:
+1. `Cli` - Handles interactions with the user, including input and output operations.
+2. `Parser` - Interprets user commands and delegates tasks to the appropriate component.
+3. `QuizManager` - Manages quiz-related functions such as selecting quizzes, executing quiz sessions, and saving quiz results.
 
-`Main` (consisting of class `JavaNinja`) is in charge of the app launch and shut down. 
-1. At app launch, it initialises the components in the correct order and connects them with each other
-2. At shut down, it shuts down the other components and invokes cleanup methods 
+Here is the class diagram highlighting the structure of the `JavaNinja` class:
+![JavaNinja](https://github.com/user-attachments/assets/2cfd1337-2e2e-4a64-8fd0-60aaaf04fb14)
 
-The bulk of the app's work is done by the respective components: 
-1. `Cli`: It handles the user interface of the app 
-2. `Parser`: The command executor 
-3. `QuizManager`: Holds the data of the App in memory
-4. `Storage`: Reads data from, and writes data to, the hard disk.
+#### How `JavaNinja` works:
+1. **Application Initialization**:
+   - Upon instantiation, JavaNinja initializes the core components: Cli, Parser, and QuizManager.
+   - Cli is responsible for managing user input and output, while Parser interprets user commands and directs actions to QuizManager, which handles quiz operations.
+2. **Application Flow**:
+   - JavaNinja uses a loop in the run() method to keep the application active until the user decides to quit.
+   - Inside the loop, Cli reads the user's input, and Parser interprets the command. Based on the command, Parser delegates tasks to QuizManager.
+3. **Command Execution**:
+   - Parser processes commands such as "view," "select," "review," "help," and "add." 
+   - Each command invokes specific methods in QuizManager or Cli, such as displaying available quizzes, starting a quiz session, reviewing past results, or displaying help.
+4. **Shutdown and Cleanup**:
+   - Upon receiving the "quit" command, JavaNinja terminates the loop, triggering the shutdown sequence.
+   - QuizManager saves any unsaved quiz results, and Cli displays a goodbye message and closes any open resources like the input scanner.
 
-`Commons` represent a collection of classes used by other components.
+The `JavaNinja` class acts as a controller that organizes interactions between `Cli`, `Parser`, and `QuizManager`, ensuring a modular and maintainable structure where each component has distinct responsibilities.
 
-How the architecture components interact with each other: 
+### `Parser` class:
+The `Parser` class is responsible for interpreting and handling user commands. 
+It processes input strings from the command-line interface and routes these commands to the appropriate methods within QuizManager or Cli to execute corresponding actions.
 
-The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command `add Flashcard /q what's 2+3 /a 5`
+#### How `Parser` works:
+- The determineCommand(String input) method is the main entry point for interpreting user commands. It first calls processCommand(input) to isolate the command keyword, then uses a switch statement to identify the corresponding action:
+  - `view`: Invokes `quizManager.printTopics()` to display all available quiz topics.
+  - `select`: Calls `quizManager.selectTopic(topic)` to initiate a quiz on the specified topic. If no topic is specified, prompts the user to enter one.
+  - `review`: Fetches and displays past quiz results by calling `quizManager.getPastResults()`.
+  - `help`: Calls `cli.printHelp()` to show a help message with available commands.
+  - `add`: Uses `quizManager.addFlashcardByUser(input)` to add a new flashcard question created by the user.
+  - Default case: Prints an error message for unrecognized commands, suggesting the "help" command for guidance. 
+- Any IOException encountered during command execution is caught and logged
 
-![image](https://github.com/user-attachments/assets/1dd443de-b538-4fb8-b4d1-3bff4643b3dd)
+#### Commands:
 
-### QuizManager Class Implementation
-The `QuizManager` class orchestrates the main operations of the quiz application. It manages topics, quizzes, past results, and handles the loading and saving of data. This class serves as the central controller that interacts with other classes like `Topic`, `Quiz`, and `Storage`.
+- `view`: `INSERT SEQUENCE DIAGRAM`
+- `select`: `INSERT SEQUENCE DIAGRAM`
+- `review`: `INSERT SEQUENCE DIAGRAM`
+- `help`: `INSERT SEQUENCE DIAGRAM`
+- `add`: `INSERT SEQUENCE DIAGRAM`
 
-#### **Feature Overview**
-The `QuizManager` class is designed to provide the following key functionalities: 
+The sequence diagram below demonstrates the interactions within the `Parser` component when a user inputs the command `select Loops`:
+![ParserSequenceDiagram](https://github.com/user-attachments/assets/dc69d920-70e8-4d9c-8e59-0b93eb83095b)
 
-1. **Manage Topic and Questions**:
-    - Load and save questions by topic, allowing easy organization of quiz content. 
-    - Support for multiple question types, such as multiple-choice, true/false, flashcards, and fill-in-the-blank.
+### `QuizManager` class: 
+The `QuizManager` class serves as the primary controller for quiz functionalities within the application. 
+It manages quiz operations such as starting and tracking quizzes, handling topics, saving results, and providing feedback.
 
-2. **Quiz Execution**:
-    - Enable users to start quizzes on specific topics, with time limits and question limits. 
-    - Track the user’s score and display feedback upon quiz completion.
-
-3. **Persistence of Quiz Data**:
-    - Save quiz questions and past quiz results to files, ensuring data is preserved across sessions.
-    - Load saved quiz data from files when the application starts.
-
-4. **Review Past Results**:
-    - Allow users to review their scores and comments from previous quiz attempts, providing a way to track their progress.
-
-
-#### **Implementation Details**
-
-Implementation Details
-
-1. **Attributes**:
-   - Constants:
-     - `QUESTIONS_FILE_PATH`: Specifies the path to the file that stores quiz questions.
-     - `RESULTS_FILE_PATH`: Specifies the path to the file that stores past quiz results.
-   - Core Components:
-     - `List<Topic> topics`: Stores all available quiz topics.
-     - `Quiz currentQuiz`: Represents the quiz currently in progress.
-     - `List<String> pastResults`: Maintains a list of past quiz results, with each result stored as a formatted string.
-   - Data Storage:
-     - `Storage results`: Manages loading and saving of past quiz results.
-     - `Storage questions`: Manages loading and saving of quiz questions.
-
-2. **Constructor**:
-   - `QuizManager()`: Initializes the topics and pastResults lists. It also attempts to load saved questions and results from files using the Storage class, handling any file errors gracefully.
-
-3. **Methods**:
-   - Topic and Question Management:
-     - `parseTopic(String line)`: Parses a line from the questions file to add questions to the appropriate topic. Each line includes information such as topic name, question type, question text, and correct answer.
-     - `getOrCreateTopic(String topicName)`: Finds an existing topic by name or creates a new one if it doesn’t exist.
-     - `addFlashcardByUser(String input)`: Allows user to add a custom flashcard question and answer to the quiz system.
-   - Quiz Operations:
-     - `selectTopic(String topicName)`: Allows the user to choose a topic for the quiz. If the topic exists, a new quiz session is started.
-     - `startQuiz(Topic topic, Scanner quizScanner)`: Begins a quiz session for the specified topic, sets up the timer and question limit, and calculates the score upon completion.
-   - Utility Methods:
-     - `printTopics()`: Displays all available topics to the user.
-     - `addTopic(Topic topic)`: Adds a new topic to the topics list if it doesn’t already exist.
-     - `removeTopic(Topic topic)`: Removes an existing topic from the topics list.
-   - Data Persistence:
-     - `saveDataToFile()`: Saves past quiz results to the results file.
-     - `loadDataFromFile()`: Loads questions and past results from their respective files using `Storage`.
-   - Helper Methods:
-     - `addPastResult(int score, String comment)`: Adds the quiz score and a feedback comment to pastResults.
-     - `generateComment(int score)`: Provides feedback based on the user’s score.
-
-#### **Design Rationale**
-
-- **Modularization**: By separating topics, quiz sessions, and persistence into distinct methods and attributes, the class becomes more manageable and modular. Each component has a clear responsibility, which improves readability and maintainability.
-- **Scalability**: Storing topics and questions in collections allows the quiz system to scale easily. New topics and questions can be added without modifying core functionality.
-- **Separation of Concerns**: The QuizManager focuses solely on managing quiz-related data and processes, delegating storage tasks to the Storage class. This separation makes the code more maintainable and allows each component to evolve independently.
-  
-
-#### **Alternative Considerations**
-
-1. **Encapsulate Score Calculation**:
-   - Alternative: Create separate classes for `ScoreCalculator`.
-      - Pros: Increases code modularity and allows for more scoring logic.
-      - Cons: Adds complexity that may not be necessary if the scoring logic remain simple.
-
-#### UML Class Diagram
 Below is the class diagram for the `QuizManager` class, illustrating its attributes and methods.
-![image](https://github.com/user-attachments/assets/85b30191-76ab-431f-8cdb-0e29c481e506)
 
+Firstly its architecture:
+![QuizManagerArchitecture](https://github.com/user-attachments/assets/28efc5ae-9258-48d0-890b-2ee61498dbc0)
+Secondly its methods and attributes: 
+![QuizManager](https://github.com/user-attachments/assets/acf8bd44-f2fd-4f3d-b424-af77bd1e394f)
+
+####  How QuizManager Works
+- Manage Topic and Questions:
+  - Manages quiz topics through TopicManager, enabling easy addition, retrieval, and organization of topics and questions.
+  - Loads questions and topics from a file at startup, ensuring data availability when the application begins.
+- Quiz Execution:
+  - Starts a quiz session on a specific topic selected by the user via QuizSession.
+  - Tracks the quiz’s progress and calculates the score, providing feedback upon quiz completion through QuizResults.
+- Persistence of Quiz Data:
+  - Loads previously saved quiz data from files when the application starts, making past results and quiz content readily accessible.
+  - Saves new quiz data, including quiz questions and results, ensuring all data is preserved across sessions.
+- Review Past Results:
+  - Allows users to review their scores and feedback from previous quiz attempts, offering insights into their progress and areas for improvement.
+
+Over here is a continuation of `Select Loops` as a sequence diagram in a more detailed level:
+![QuizManagerSequenceDiagram](https://github.com/user-attachments/assets/05e903ec-b480-4dd8-92ba-3271468893d0)
 
 ### True/False Feature Implementation
 
