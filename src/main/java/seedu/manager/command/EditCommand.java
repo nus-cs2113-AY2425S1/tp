@@ -32,6 +32,11 @@ public class EditCommand extends Command{
         this.eventName = eventName;
     }
 
+    /**
+     * Executes the edit operation, updating the participant's contact information if the
+     * participant is associated with the specified event. If successful, a confirmation message
+     * is set; otherwise, an error message is set.
+     */
     @Override
     public void execute() {
         if (participantName == null) {
