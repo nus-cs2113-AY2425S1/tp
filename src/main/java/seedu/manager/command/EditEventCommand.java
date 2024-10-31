@@ -30,7 +30,8 @@ public class EditEventCommand extends Command{
      * @param eventVenue The new venue of the event.
      * @param eventPriority The new priority of the event.
      */
-    public EditEventCommand(String eventName, String eventNewName, LocalDateTime eventTime, String eventVenue, Priority eventPriority) {
+    public EditEventCommand(String eventName, String eventNewName, LocalDateTime eventTime, String eventVenue,
+                            Priority eventPriority) {
         super(false);
         this.eventName = eventName;
         this.eventNewName = eventNewName;

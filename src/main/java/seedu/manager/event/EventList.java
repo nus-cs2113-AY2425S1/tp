@@ -201,12 +201,11 @@ public class EventList  {
      * Edits the details of an event in a specified event.
      *
      * <p>
-     * This method searches for the event with the given name in the event list and attempts to update the event's information.
+     * This method searches for the event with the given name in the event list and update the event's information.
      * If the event is found and the participant is successfully updated, it returns {@code true}.
      * If the event does not exist, it returns {@code false}.
      * </p>
      *
-
      * @param eventName The name of the event to be edited.
      * @param eventNewName The new name of the event.
      * @param eventTime The new time of the event.
@@ -215,7 +214,8 @@ public class EventList  {
      * @return {@code true} if the event was successfully edited;
      *         {@code false} if the event does not exist.
      */
-    public boolean editEvent(String eventName, String eventNewName, LocalDateTime eventTime, String eventVenue, Priority eventPriority) {
+    public boolean editEvent(String eventName, String eventNewName, LocalDateTime eventTime, String eventVenue,
+                             Priority eventPriority) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
                 event.updateEvent(eventNewName, eventTime, eventVenue, eventPriority);

@@ -1,6 +1,21 @@
 package seedu.manager.parser;
 
-import seedu.manager.command.*;
+import seedu.manager.command.AddCommand;
+import seedu.manager.command.Command;
+import seedu.manager.command.CopyCommand;
+import seedu.manager.command.ExitCommand;
+import seedu.manager.command.FilterCommand;
+import seedu.manager.command.ListCommand;
+import seedu.manager.command.MarkCommand;
+import seedu.manager.command.MarkEventCommand;
+import seedu.manager.command.MarkParticipantCommand;
+import seedu.manager.command.MenuCommand;
+import seedu.manager.command.RemoveCommand;
+import seedu.manager.command.EditParticipantCommand;
+import seedu.manager.command.EditEventCommand;
+import seedu.manager.command.SortCommand;
+import seedu.manager.command.ViewCommand;
+import seedu.manager.command.FindCommand;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.InvalidCommandException;
 import seedu.manager.event.EventList;
@@ -411,7 +426,8 @@ public class Parser {
      * @return an {@link EditParticipantCommand} that edits an event with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
-    private Command getEditEventCommand(String input) throws IndexOutOfBoundsException {
+    private Command getEditEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
+            IllegalArgumentException {
         String[] inputParts = input.split(EVENT_ATTRIBUTE_REGEX);
 
         String eventName = inputParts[1].trim();
