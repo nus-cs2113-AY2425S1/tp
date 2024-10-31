@@ -24,7 +24,8 @@ public class EditParticipantCommand extends Command{
      * @param participantEmail The new email address of the participant.
      * @param eventName The name of the event associated with the participant.
      */
-    public EditParticipantCommand(String participantName, String participantNumber, String participantEmail, String eventName) {
+    public EditParticipantCommand(String participantName, String participantNumber, String participantEmail,
+                                  String eventName) {
         super(false);
         this.participantName = participantName;
         this.participantNumber = participantNumber;

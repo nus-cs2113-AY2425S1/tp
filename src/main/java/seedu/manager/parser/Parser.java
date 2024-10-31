@@ -121,6 +121,9 @@ public class Parser {
             Invalid find flag!
             Please set the find flag using "-e" and "-p""
             """;
+
+    public static final String SPACE = " ";
+
     private static final String EVENT_REGEX = "(-e|-t|-v|-u)";
     private static final String EVENT_ATTRIBUTE_REGEX ="(-e|-name|-t|-v|-u)";
     private static final String PARTICIPANT_REGEX = "(-p|-n|-email|-e)";
@@ -131,7 +134,6 @@ public class Parser {
     private static final String EVENT_FLAG = "-e";
     private static final String PARTICIPANT_FLAG = "-p";
     private static final String ITEM_FLAG = "-m";
-    public static final String SPACE = " ";
 
     /**
      * Returns a command based on the given user command string.
