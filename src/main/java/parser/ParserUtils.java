@@ -15,6 +15,7 @@ import static common.Utils.NULL_FLOAT;
 
 public class ParserUtils {
 
+    // @@author nirala-ts
     public static String[] splitArguments(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
         String[] inputArguments = argumentString.split(" ", 2);
@@ -23,6 +24,7 @@ public class ParserUtils {
         return new String[]{command, args};
     }
 
+    // @@author nirala-ts
     private static String trimInput(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
         String trimmedString = argumentString.trim();
@@ -34,6 +36,7 @@ public class ParserUtils {
         return trimmedString;
     }
 
+    // @@author nirala-ts
     public static int parseInteger(String intString){
         if (intString == null) {
             return NULL_INTEGER;
@@ -48,6 +51,7 @@ public class ParserUtils {
         }
     }
 
+    // @@author nirala-ts
     public static float parseFloat(String floatString) {
         if (floatString == null) {
             return NULL_FLOAT;
@@ -62,6 +66,7 @@ public class ParserUtils {
         }
     }
 
+    // @@author nirala-ts
     public static int parseIndex(String indexString) {
         if (indexString == null) {
             return NULL_INTEGER;
@@ -74,6 +79,7 @@ public class ParserUtils {
         return index;
     }
 
+    // @@author nirala-ts
     public static LocalDate parseDate(String dateString) {
         if (dateString == null) {
             return LocalDate.now();

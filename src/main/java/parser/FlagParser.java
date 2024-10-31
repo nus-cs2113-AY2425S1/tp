@@ -65,6 +65,7 @@ public class FlagParser {
         return splitBy.append(SPLIT_BY_END).toString();
     }
 
+    // @@author nirala-ts
     private void initializeAliasMap() {
         aliasMap.put("/p", "/p");
         aliasMap.put("/programme", "/p");
@@ -91,6 +92,7 @@ public class FlagParser {
         aliasMap.put("/water", "/w");
     }
 
+    // @@author nirala-ts
     private void parse(String argumentString, String splitBy) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -110,6 +112,7 @@ public class FlagParser {
         }
     }
 
+    // @@author nirala-ts
     private String resolveAlias(String flag) {
         if (aliasMap.containsKey(flag)) {
             return aliasMap.get(flag);
@@ -117,6 +120,7 @@ public class FlagParser {
         return flag;
     }
 
+    // @@author nirala-ts
     public boolean hasFlag(String flag) {
         assert flag != null && !flag.isEmpty() : "Flag must not be null or empty";
 
@@ -127,7 +131,7 @@ public class FlagParser {
         return hasFlag;
     }
 
-
+    // @@author nirala-ts
     public void validateRequiredFlags(String... requiredFlags) {
         assert requiredFlags != null : "Required flags string must not be null";
 
@@ -139,6 +143,7 @@ public class FlagParser {
         }
     }
 
+    // @@author nirala-ts
     public String getStringByFlag(String flag) {
         assert flag != null && !flag.isEmpty() : "Flag must not be null or empty";
 
@@ -153,21 +158,25 @@ public class FlagParser {
         return value.trim();
     }
 
+    // @@author nirala-ts
     public int getIndexByFlag(String flag) {
         String indexString = getStringByFlag(flag);
         return parseIndex(indexString);
     }
 
+    // @@author nirala-ts
     public int getIntegerByFlag(String flag){
         String intString = getStringByFlag(flag);
         return parseInteger(intString);
     }
 
+    // @@author nirala-ts
     public float getFloatByFlag(String flag) {
         String floatString = getStringByFlag(flag);
         return parseFloat(floatString);
     }
 
+    // @@author nirala-ts
     public LocalDate getDateByFlag(String flag){
         String dateString = getStringByFlag(flag);
         return parseDate(dateString);

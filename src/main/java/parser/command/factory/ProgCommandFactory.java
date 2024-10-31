@@ -48,10 +48,12 @@ import static parser.FlagDefinitions.NAME_FLAG;
     that are common to programme related commands.
  */
 
+// @@author nirala-ts
 public class ProgCommandFactory {
     public static final String COMMAND_WORD = "prog";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
+    // @@author nirala-ts
     public Command parse(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -115,6 +117,7 @@ public class ProgCommandFactory {
         throw new IllegalArgumentException("Missing edit command flag. Please provide a valid command flag.");
     }
 
+    // @@author TVageesan
     /**
      * Creates and returns an {@link EditExerciseCommand} for updating an exercise in a program.
      *
@@ -138,6 +141,7 @@ public class ProgCommandFactory {
         );
     }
 
+    // @@author nirala-ts
     /**
      * Creates and returns a {@link CreateExerciseCommand} for adding a new exercise to a day in a program.
      *
@@ -155,6 +159,7 @@ public class ProgCommandFactory {
         );
     }
 
+    // @@author nirala-ts
     /**
      * Creates and returns a {@link DeleteExerciseCommand} for removing an exercise from a day in a program.
      *
@@ -171,6 +176,7 @@ public class ProgCommandFactory {
         );
     }
 
+    // @@author nirala-ts
     /**
      * Creates and returns a {@link CreateDayCommand} for adding a new day to a program.
      *
@@ -185,6 +191,7 @@ public class ProgCommandFactory {
         );
     }
 
+    // @@author nirala-ts
     /**
      * Creates and returns a {@link DeleteDayCommand} for removing a day from a program.
      *
@@ -200,8 +207,7 @@ public class ProgCommandFactory {
         );
     }
 
-    // @@author
-
+    // @@author nirala-ts
     private Command prepareCreateCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -222,6 +228,7 @@ public class ProgCommandFactory {
         return new CreateCommand(progName, days);
     }
 
+    // @@author nirala-ts
     private Command prepareViewCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -231,6 +238,7 @@ public class ProgCommandFactory {
         return new ViewCommand(progIndex);
     }
 
+    // @@author nirala-ts
     private Command prepareStartCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -240,6 +248,7 @@ public class ProgCommandFactory {
         return new StartCommand(progIndex);
     }
 
+    // @@author nirala-ts
     private Command prepareDeleteCommand(String argumentString){
         assert argumentString != null : "Argument string must not be null";
 
@@ -249,6 +258,7 @@ public class ProgCommandFactory {
         return new DeleteCommand(progIndex);
     }
 
+    // @@author nirala-ts
     private Command prepareLogCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
@@ -264,8 +274,7 @@ public class ProgCommandFactory {
         return new LogCommand(progIndex, dayIndex, date);
     }
 
-    // @@author TVageesan
-
+    // @@author nirala-ts
     private  Day parseDay(String dayString) {
         assert dayString != null : "Day string must not be null";
 
@@ -287,6 +296,7 @@ public class ProgCommandFactory {
         return day;
     }
 
+    // @@author nirala-ts
     private Exercise parseExercise(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
@@ -302,6 +312,7 @@ public class ProgCommandFactory {
         );
     }
 
+    // @@author nirala-ts
     private ExerciseUpdate parseExerciseUpdate(String argumentString){
         assert argumentString != null : "Argument string must not be null";
 

@@ -20,7 +20,7 @@ public class CommandFactory {
         this.progFactory = new ProgCommandFactory();
         this.mealFactory = new MealCommandFactory();
         this.waterFactory = new WaterCommandFactory();
-        this.historyFactory = new HistoryCommandFactory();  // Add HistoryCommandFactory
+        this.historyFactory = new HistoryCommandFactory();
     }
 
     public Command createCommand(String commandString, String argumentString) {
