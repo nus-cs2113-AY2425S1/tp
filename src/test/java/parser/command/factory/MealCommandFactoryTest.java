@@ -1,5 +1,4 @@
 package parser.command.factory;
-
 import command.Command;
 import command.meals.AddMealCommand;
 import command.meals.DeleteMealCommand;
