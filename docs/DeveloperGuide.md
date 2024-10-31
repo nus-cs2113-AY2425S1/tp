@@ -322,15 +322,16 @@ The following sequence diagram illustrates how the state-switching mechanism wor
 
 ## User Stories
 
-| Version | As a ... | I want to ... | So that I can ... |
-|---------|----------|---------------|-------------------|
-| v1.0    | nurse    | add tasks with specific details (e.g., patient illness, precautions) | ensure all safety and medical steps are followed for each patient |
-| v1.0    | nurse    | delete tasks that are no longer relevant | keep my task list up to date and avoid unnecessary clutter |
-| v1.0    | nurse    | mark tasks as completed | stay organized and ensure all tasks are done during my shift |
-| v1.0    | nurse    | unmark tasks that were incorrectly marked as completed | quickly correct errors and keep an accurate account of ongoing tasks |
-| v1.0    | nurse    | save my tasks | access and view them after closing and reopening the interface |
-| v1.0    | nurse    | list my tasks | see all my tasks that I have currently |
-
+| Version | As a ... | I want to ...                                                        | So that I can ...                                                    |
+|---------|----------|----------------------------------------------------------------------|----------------------------------------------------------------------|
+| v1.0    | nurse    | add tasks with specific details (e.g., patient illness, precautions) | ensure all safety and medical steps are followed for each patient    |
+| v1.0    | nurse    | delete tasks that are no longer relevant                             | keep my task list up to date and avoid unnecessary clutter           |
+| v1.0    | nurse    | mark tasks as completed                                              | stay organized and ensure all tasks are done during my shift         |
+| v1.0    | nurse    | unmark tasks that were incorrectly marked as completed               | quickly correct errors and keep an accurate account of ongoing tasks |
+| v1.0    | nurse    | save my tasks                                                        | access and view them after closing and reopening the interface       |
+| v1.0    | nurse    | list my tasks                                                        | see all my tasks that I have currently                               |
+| v2.0    | nurse    | check my task completion progress                                    | see the rate of completion of my current tasks                       |
+| v2.0    | nurse    | add deadlines to my tasks                                            | know when I need to finish my given task                             |
 
 ## Non-Functional Requirements
 
