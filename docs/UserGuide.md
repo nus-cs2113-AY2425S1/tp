@@ -34,9 +34,25 @@
 
 ### Add Transaction
 
+Adds an income or expense entry to your financial list.
+
+**Format**:
+- For Expense: `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`
+- For Income: `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`
+
+**Examples**:
+- `expense Lunch /a 10.50 /d 12/10/24 /c FOOD`
+- `income Freelance Work /a 500 /d 15/10/24 /c SALARY`
+
 ### Edit Transaction
 
 ### Delete Transaction
+Deletes an entry from your financial list.
+
+**Format**: `delete INDEX`
+
+**Example**:
+- `delete 3` - Deletes the entry at index 3.
 
 ### List Entries
 
