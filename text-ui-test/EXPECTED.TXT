@@ -5,9 +5,8 @@ Enter a command: Invalid command!
 ------------------------
 Enter a command: Here are the possible commands:
 
-add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
 list: List events.
-view -e EVENT: View the list of participants of an event.
+view -e EVENT -y TYPE: View the list of participants or items of an event.
 add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
 add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Add a participant to an event.
 remove -e EVENT: Remove an event from the event list.
@@ -64,11 +63,10 @@ Enter a command: Participant added successfully
 ------------------------
 Events saved successfully.
 ------------------------
-Enter a command: There are 1 participants in dinner party! Here are your participants:
-1. Mary [ ]
+Enter a command: Invalid command!
+Please enter your commands in the following format:
+view -e EVENT -y TYPE
 
-------------------------
-Events saved successfully.
 ------------------------
 Enter a command: Participant contact information successfully updated
 ------------------------

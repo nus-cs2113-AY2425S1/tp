@@ -120,8 +120,8 @@ public class Parser {
             Invalid find flag!
             Please set the find flag using "-e" and "-p""
             """;
-    private static final String ADD_EVENT_REGEX = "(-e|-t|-v|-u)";
-    private static final String ADD_PARTICIPANT_REGEX = "(-p|-n|-email|-e)";
+    private static final String EVENT_REGEX = "(-e|-t|-v|-u)";
+    private static final String PARTICIPANT_REGEX = "(-p|-n|-email|-e)";
     private static final String ITEM_REGEX = "(-m|-e)";
     private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
@@ -229,7 +229,7 @@ public class Parser {
      */
     private Command getAddEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
             IllegalArgumentException {
-        String[] inputParts = input.split(ADD_EVENT_REGEX);
+        String[] inputParts = input.split(EVENT_REGEX);
         logger.info("Creating AddCommand for event with details: " +
                 inputParts[1].trim() + ", " + inputParts[2].trim() + ", " + inputParts[3].trim());
         String eventName = inputParts[1].trim();
@@ -249,7 +249,7 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException {
-        String[] inputParts = input.split(ADD_PARTICIPANT_REGEX);
+        String[] inputParts = input.split(PARTICIPANT_REGEX);
         logger.info("Creating AddCommand for participant with details: " +
                 inputParts[1].trim() + ", " + inputParts[2].trim());
         String participantName = inputParts[1].trim();
@@ -376,26 +376,16 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(EditCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
-            String[] inputParts;
 
-            if (commandFlag.equals("-e")) {
-                inputParts = input.split("(-p|-n|-email|-e)");
-                String participantName = inputParts[1].trim();
-                String newNumber = inputParts[2].trim();
-                String newEmail = inputParts[3].trim();
-                String eventName = inputParts[4].trim();
-                return new EditCommand(participantName, newNumber, newEmail, eventName);
-            } else if (commandFlag.equals("-p")) {
-                inputParts = input.split("(-p|-n|-email|-e)");
-                String participantName = inputParts[1].trim();
-                String newNumber = inputParts[2].trim();
-                String newEmail = inputParts[3].trim();
-                String eventName = inputParts[4].trim();
-                return new EditCommand(participantName, newNumber, newEmail, eventName);
+            switch (commandFlag) {
+            case EVENT_FLAG:
+                return getEditParticipantCommand(input);
+            case PARTICIPANT_FLAG:
+                return getEditParticipantCommand(input);
+            default:
+                logger.log(WARNING, "Invalid command format");
+                throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
             }
-
-            logger.log(WARNING, "Invalid command format");
-            throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING, "Invalid command format");
             throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
@@ -406,6 +396,24 @@ public class Parser {
             logger.log(WARNING, "Invalid priority level status");
             throw new InvalidCommandException(INVALID_PRIORITY_MESSAGE);
         }
+    }
+
+    //@@author KuanHsienn
+    /**
+     * Returns an {@link EditCommand} that edits a participant with fields parsed from a given user input.
+     *
+     * @param input the given user input.
+     * @return an {@link EditCommand} that edits a participant with fields parsed from input.
+     * @throws IndexOutOfBoundsException if not all fields are present.
+     */
+    private Command getEditParticipantCommand(String input) throws IndexOutOfBoundsException {
+        String[] inputParts = input.split(PARTICIPANT_REGEX);
+        inputParts = input.split("(-p|-n|-email|-e)");
+        String participantName = inputParts[1].trim();
+        String newNumber = inputParts[2].trim();
+        String newEmail = inputParts[3].trim();
+        String eventName = inputParts[4].trim();
+        return new EditCommand(participantName, newNumber, newEmail, eventName);
     }
 
     //@@author glenn-chew
