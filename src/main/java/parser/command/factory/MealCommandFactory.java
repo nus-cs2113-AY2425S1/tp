@@ -25,7 +25,8 @@ public class MealCommandFactory {
      * Parses the argument string and returns the appropriate meal command based on the subcommand.
      *
      * @param argumentString the argument string containing the subcommand and flags
-     * @return the corresponding Command object based on the subcommand; InvalidCommand if the subcommand is unrecognized
+     * @return the corresponding Command object based on the subcommand;
+     *          InvalidCommand if the subcommand is unrecognized
      * @throws AssertionError if the argument string is null
      */
     public Command parse(String argumentString) {
