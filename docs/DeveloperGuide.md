@@ -38,13 +38,26 @@ WheresMyMoney uses the following tools for development:
 
 Design and Implementation has been broken down into various sections, each tagged for ease of reference:
 
+- [Architecture](#architecture)
 - [UI and Parser](#ui-and-parser)
 - [Commands](#commands)
 - [Storage](#storage)
 - [Expense and Expense List](#expense-and-expense-list)
+- [Expense Filter](#expense-filter)
 - [Date and Time Handling](#date-and-time-handling)
 - [Exceptions and Logging](#exceptions-and-logging)
+- [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 
+### Architecture
+A high-level overview of the system is shown in the Architecture Diagram below.
+
+![ArchitectureDiagram.png](diagrams%2Fimages%2FArchitectureDiagram.png "Architecture Diagram of WheresMyMoney")
+
+This architecture consist of: 
+1. `UI`, `Main`, `Parser`, and `Command` classes: These classes stand between the user and the internal processing of the software.
+2. `Expense`, `ExpenseList`, `ExpenseFilter` classes: Model expenses that commands can interact with.
+3. `Storage` class: Stores information between sessions.
+4. Logger and other utility classes: Provide extra functionalities for the software.
 ### UI and Parser
 
 <u>Overview</u>
@@ -87,10 +100,10 @@ The Parser also has some considerations such as
        2. `command /argument value\/value` -> `argument`:`value/value`
        3. `command /argument value/value` -> `argument`:`value/value` (this is accepted for now, but not recommended)
        4. `command /argument value\\/value` -> `argument`:`value\/value`
-   2. `/` don't need to be escaped for
-       1. commands -> eg. `/command /argument value1` -> the command is `/command`
+   2. `/` doesn't need to be escaped for
+       1. commands -> e.g. `/command /argument value1` -> the command is `/command`
            1. It is discouraged to do so, but the option is left for potential expandability
-       2. arguments -> eg. `command /argument/param value` -> the argument name is `argument/param`
+       2. arguments -> e.g. `command /argument/param value` -> the argument name is `argument/param`
     3. Leading and Trailing spaces are ignored, but additional spaces within values (eg. `main  value`) are counted 
 
 ### Commands
@@ -111,6 +124,10 @@ This has been heavily simplified and only shows the key commands.
 The following diagram is a sequence diagram for execution of Command.
 
 ![CommandExecutionSequence.png](diagrams%2Fimages%2FCommandExecutionSequence.png)
+
+Commands interact with `UI` and `Parser` classes via `Main`, as illustrated in the following class diagram:
+
+![UiToCommand.png](diagrams%2Fimages%2FUiToCommand.png)
 
 ### Storage
 
@@ -156,9 +173,34 @@ The nontrivial methods in `ExpenseList` class contain some sort of exception han
 
 <u>Implementation Details</u>
 
+UML class diagram to show the dependency between `Command` and `ExpenseList` classes:
+
+![CommandAndExpenseList.png](diagrams%2Fimages%2FCommandAndExpenseList.png)
+
 The following diagram is a UML class diagram for `Expense` and `ExpenseList`:
 
 ![ExpenseAndExpenseList.png](diagrams%2Fimages%2FExpenseAndExpenseList.png "UML Class Diagram for Expense and ExpenseList")
+
+### Expense Filter
+
+The `ExpenseFilter` class provides utility methods for selecting expenses based on their category and time range.
+
+Its interaction with `ExpenseList` is demonstrated in the following UML Class Diagram:
+
+![ExpenseListAndFilter.png](diagrams%2Fimages%2FExpenseListAndFilter.png)
+
+`ExpenseFilter` is a prerequisite to implementing other features, e.g. Expense statistics and visualization.
+
+<u>Implementation Details</u>
+
+`ExpenseFilter` filters expenses by 3 criteria: Category, From (date), To (date).
+Each criterion is taken care of by a helper method.
+Since these filter fields are optional, if they are `null`, helper methods will evaluate to `true`.
+
+Given a list of expenses, `ExpenseFilter` iterates through each expense, applying three criteria checks on them; and 
+it would add the expense to a new `ArrayList` if all three checks are satisfied.
+
+The `ArrayList` is then returned to the caller.
 
 ### Date and Time Handling
 
@@ -169,6 +211,45 @@ The `DateUtils` class has no notable methods.
 <u>Implementation Details</u>
 
 The `DateUtils` class is implemented as a Singleton as its methods are common to all other classes that require it.
+
+### Recurring Expense and Recurring Expense List
+
+<u>Overview</u>
+
+The `RecurringExpense` class extends from the `Expense` class and it represents an indivual recurring expense with a price, description, category, last date added and a frequency.
+
+The `RecurringExpenseList` class extends from the `ExpenseList` class and it manages a collection of `RecurringExpense` objects.
+It allows for addition, editing and deletion of expenses.
+
+<u>Methods</u>
+
+The `RecurringExpense` class has no notable methods.
+
+The `RecurringExpenseList` class has the following key methods:
+
+|          Method          |                Description                 |
+|:------------------------:|:------------------------------------------:|
+|  `addRecurringExpense`   |    Adds a recurring expense to the list    |
+| `deleteRecurringExpense` | Removes a recurring expense from the list  |
+|  `editRecurringExpense`  |   Edits a recurring expense in the list    |
+| `loadFromCsv` | Adds the appropriate amount of `Expense` objects with the correct date to the `ExpenseList`|
+
+
+<u>Design Considerations</u>
+
+Since the programme does not have an auto-save function upon closing the programme or auto-load when starting the programme, it is up to the user to save their work and to load it again.
+
+To minimise the amount of checks that need to be done, the recurring expenses are only added after the user calls the `load` command.
+
+<u>Implementation Details</u>
+
+Below is the UML class diagram for `RecurringExpense` and `RecurringExpenseList`:
+
+![RecurringExpenseAndRecurringExpenseList.png](diagrams%2Fimages%2FRecurringExpenseAndRecurringExpenseList.png "UML Class Diagram for RecurringExpense and RecurringExpenseList class")
+
+Below is the sequence diagram for when the user calls the `load` command.
+
+![RecurringExpenseLoadFromCsvSequence.png](diagrams%2Fimages%2FRecurringExpenseLoadFromCsvSequence.png "UML Sequence Diagram for calling load command")
 
 ### Exceptions and Logging
 
