@@ -1,7 +1,7 @@
 # Developer Guide
 
-* Table of Contents
-{:toc}
+- Table of Contents
+  {:toc}
 
 ---
 
@@ -14,6 +14,7 @@
 ---
 
 ## Setting up, getting started
+
 Refer to the guide for 'Setting up and getting started.'
 
 ---
@@ -42,49 +43,42 @@ The bulk of the CLI's work id done by the following components:
 - **Command**: Contains the logic for executing user commands.
 - **StateManager**: Manages the state logic of the application and keeps track of the current state of the application.
 - **Storage**: Handles reading and writing data from and to the hard disk.
-- **Data**:  Holds the data of the App in memory.
+- **Data**: Holds the data of the App in memory.
 - **Common**: Contains common classes used by other components.
 
 ### UI
 
 ### Parser
+
 The Parser interface uses a series of classes to implement the various commands.
 ![Parser_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/ParserClass.png)
 
 ### Command
+
 The `commands` package includes the command pattern used in the application to handle user operations. An abstract `Command` class serves as the base for all specific command implementations. Each command class extends `Command` and overrides the `execute()` method to perform its intended action.
 
 ![Command_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/CommandClass.png)
 
 ### Data
 
-### Task
+### task
 The `task` package manages all task-related functionality. A `Task` class serves as the base for other task types: `Todo`, `Deadline`, and `Repeat`. Each task type extends `Task` and introduces additional attributes relevant to its behavior. The `TaskList` class maintains a collection of tasks and provides methods to add, delete, find and track the completion rate of tasks.
 
 ![Task_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/TaskClassDiagram.png)
 
-#### TaskList
-##### Attributes
-- **`tasks`**: An `ArrayList<Task>` that stores all tasks in the list.
-- **`completionRate`**: A `double` representing the proportion of completed tasks, initially set to 1.0 - as in 100%.
 
-##### Method highlights
-- **`addTask(Task task)`**: Adds a task by description or `Task` object; checks for duplicates and updates the completion rate.
-- **`deleteTask(int index)` / `deleteTask(Task task)`**: Deletes a task by index or `Task` object; verifies existence and recalculates completion rate.
-- **`getTask(int index)`**: Retrieves a task by index, throwing `TaskNotFoundException` if invalid.
-- **`findTasks(String keyword)`**: Finds tasks containing the specified keyword, returning a list of matches or throwing `TaskNotFoundException` if none are found.
-- **`markAsDone(int index)` / `markAsUndone(int index)`**: Marks a task as completed or not completed by index, updating the completion rate.
-- **`calCompletionRate()`**: Calculates and returns the current completion rate based on the proportion of completed tasks.
-### Hospital 
+### Hospital
 
 The `Hospital` class manages the patient data within the system, including adding, deleting, and finding patients. It also manages the selection of a patient for task-related operations, calculates task completion rates, and handles persistence through serialization.
 
 #### Attributes
+
 - **`patients`**: A `List<Patient>` that stores all patients in the hospital system.
 - **`selectedPatient`**: A static variable that holds the currently selected patient for task-related operations.
 - **`logger`**: A static `Logger` used for logging actions, set to log warnings and errors only.
 
 #### Key Methods
+
 1. **`addPatient(String name)` / `addPatient(String name, String tag)`**: Adds a new patient to the hospital. The method checks for duplicate patient names before adding and logs the action.
 2. **`deletePatient(int index)`**: Deletes a patient by index. It verifies if the index is valid and logs errors if the index is out of bounds.
 3. **`getPatient(int index)`**: Retrieves a patient by index, throwing a `PatientNotFoundException` if the index is invalid.
@@ -103,32 +97,23 @@ The following diagram illustrates the structure of the `Hospital` class and its 
 - **Logging**: All major actions, such as adding and deleting patients, are logged at an appropriate level to facilitate debugging and monitoring.
 - **Error Handling**: Throws `PatientNotFoundException` for invalid indices, ensuring robustness in data handling.
 
-
 ### State
 
 ### State Class
 
 The `State` class manages the application’s current operational mode, allowing the system to handle different types of commands depending on whether it is in the `MAIN_STATE` or `TASK_STATE`.
 
-- **Attributes**:
-        - `currentStage`: Holds the current state of the application, represented by `StateType` enum values.
-- **Methods**:
-        - `getState()`: Returns the current state.
-        - `setState()`: Changes the application’s state to the provided `StateType`.
+- **Attributes**: - `currentStage`: Holds the current state of the application, represented by `StateType` enum values.
+- **Methods**: - `getState()`: Returns the current state. - `setState()`: Changes the application’s state to the provided `StateType`.
 
 The state ensures that certain commands, like task-related commands, are only available when a patient is selected.
-
 
 ### **State Manager**
 
 The `StateManager` class coordinates the application’s state transitions, managing the current state and delegating command execution based on the active state.
 
-1. **Attributes**:
-        - `currentState`: Stores the current state as a `State` object.
-2. **Methods**:
-        - `changeState(StateType state)`: Changes the application state.
-        - `runState(String commandInput, Command command, Hospital hospital)`: Executes commands based on the active state. It distinguishes between `MAIN_STATE` for patient-related commands and `TASK_STATE` for task-related commands.
-        - `runMainState` and `runTaskState`: Helper methods to handle specific command logic within each state.
+1. **Attributes**: - `currentState`: Stores the current state as a `State` object.
+2. **Methods**: - `changeState(StateType state)`: Changes the application state. - `runState(String commandInput, Command command, Hospital hospital)`: Executes commands based on the active state. It distinguishes between `MAIN_STATE` for patient-related commands and `TASK_STATE` for task-related commands. - `runMainState` and `runTaskState`: Helper methods to handle specific command logic within each state.
 
 #### Class Diagram
 
@@ -140,6 +125,7 @@ The following class diagram shows the structure of the `StateManager`:
 
 - **Error Handling**: The `StateManager` throws an `UnknownStateFound` exception if it encounters an unrecognized state, ensuring robustness.
 - **State Transitions**: Commands like `SelectPatientCommand` and `BackCommand` are responsible for transitioning between `MAIN_STATE` and `TASK_STATE`.
+
 ### Storage
 
 ![Storage_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/StorageClassDiagram.png)
@@ -165,10 +151,7 @@ The add patient feature allows users to register a new patient within the hospit
 
 1. **User Input**: The user enters the `add` command followed by the patient's name and an optional tag (e.g., "add John Doe /tag Critical").
 2. **Command Parsing**: The `Parser` interprets the input and creates an `AddPatientCommand` object with the specified name and tag.
-3. **Execution**: The `AddPatientCommand`:
-        - Checks if a patient with the given name already exists in the hospital system using the `hospital.isDuplicatePatient()` method.
-        - If a duplicate is detected, a severe-level log entry is created, and the user is notified with a message.
-        - If no duplicate is found, the patient is added to the hospital’s records, and a success message is generated.
+3. **Execution**: The `AddPatientCommand`: - Checks if a patient with the given name already exists in the hospital system using the `hospital.isDuplicatePatient()` method. - If a duplicate is detected, a severe-level log entry is created, and the user is notified with a message. - If no duplicate is found, the patient is added to the hospital’s records, and a success message is generated.
 4. **Storage Update**: The updated hospital data, which now includes the new patient, is saved to storage for persistence across sessions.
 
 #### Sequence Diagram
@@ -186,17 +169,13 @@ The following sequence diagram illustrates how the `AddPatientCommand` is execut
 - **Logging Configuration**: The logger is set to `Level.SEVERE` to log only warnings and errors.
 - **Tag Handling**: The tag attribute is optional, and the command formats the success message based on whether a tag is provided.
 
-
 ### **Delete Patient Command**
 
 The delete patient feature allows users to remove a patient by their index in the hospital’s patient list. This feature is handled by the `DeletePatientCommand` class, which performs validation, deletion, and logging.
 
 1. **User Input**: The user enters the `delete` command followed by the patient's index.
 2. **Command Parsing**: The `Parser` converts the input into a `DeletePatientCommand` object with the index adjusted to match the list’s 0-based indexing.
-3. **Execution**: The `DeletePatientCommand`:
-        - Verifies if the specified index is valid and corresponds to an existing patient.
-        - If the index is invalid, a severe log entry is generated, and an error message is returned.
-        - If valid, the command retrieves the patient’s name, deletes the patient from the hospital, and generates a success message.
+3. **Execution**: The `DeletePatientCommand`: - Verifies if the specified index is valid and corresponds to an existing patient. - If the index is invalid, a severe log entry is generated, and an error message is returned. - If valid, the command retrieves the patient’s name, deletes the patient from the hospital, and generates a success message.
 4. **Logging**: The logger is configured to `Level.SEVERE`, and any errors, such as attempting to delete a non-existent patient, are logged.
 
 #### Sequence Diagram
@@ -215,18 +194,19 @@ The add Task feature allows users to add different types of task to a selected p
 There are three possible types of tasks - Todo, Deadline and Repeat.
 
 The sequence to add tasks involves:
+
 1. **User Input**:
 * **Todo**: The user enters the `todo` command followed by tag details (e.g., /tag).
 * **Deadline**: The user enters the `deadline` command followed by the deadline (e.g., /by) and tag details (e.g., /tag).
-* **Repeat**: The user enters the `repeat` command followed by the recurring basis (e.g., /every) and tag details (e.g., /tag).
+* * **Repeat**: The user enters the `repeat` command followed by the recurring basis (e.g., /every) and tag details (e.g., /tag).
 2. **Command Parsing**:
-* **Todo Task**: The `Parser` parses the input and creates an `AddTodoParser` object.
-* **Deadline Task**: The `Parser` parses the input and creates an `AddDeadlineParser` object.
-* **Repeat Task**: The `Parser` parses the input and creates an `AddRepeatParser` object.
+
+- **Todo Task**: The `Parser` parses the input and creates an `AddTodoParser` object.
+- **Deadline Task**: The `Parser` parses the input and creates an `AddDeadlineParser` object.
+- **Repeat Task**: The `Parser` parses the input and creates an `AddRepeatParser` object.
+
 3. **Execution**: The `AddTaskCommand` adds the task.
 4. **Storage Update**: The updated patient's data, now containing the new task, is saved to storage.
-
-
 
 #### Sequence Diagram
 
@@ -239,7 +219,9 @@ A closer look on how `AddTaskCommand` is executed is shown below:
 ![Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddTaskSequenceDiagram.png)
 
 #### Implementation considerations:
+
 The `AddTaskCommand` has been implemented with a design that prioritizes scalability and maintainability. This allows the system to easily support additional task types in the future without requiring major code changes. For example, if new task types are needed in the future (e.g., `event`, `appointment`), they can be added by simply extending the Task class hierarchy and updating the createTask() factory method.
+
 ### **FindCommand**
 
 The find feature allows users to find the name of a patient, or the name of a task. This is facilitated by the `FindPatientCommand` and `FindTaskCommand`.
@@ -258,24 +240,15 @@ The following sequence diagram illustrates how the `FindPatientCommand` is execu
 
 The completion rate feature provides users with task progress summaries for individual patients and across all patients in the hospital. It consists of two main commands:
 
-1. **Show Task List for a Patient**: Displays a specific patient’s tasks with the percentage completed.
-        - The user initiates `showTaskList()`.
-        - `Ui` retrieves the selected `Patient` from `Hospital`, then calls `getTaskList()` to access tasks.
-        - The `TaskList` calculates the completion rate and returns it to `Ui`.
-        - `Ui` formats and displays the task list and completion rate to the user.
+1. **Show Task List for a Patient**: Displays a specific patient’s tasks with the percentage completed. - The user initiates `showTaskList()`. - `Ui` retrieves the selected `Patient` from `Hospital`, then calls `getTaskList()` to access tasks. - The `TaskList` calculates the completion rate and returns it to `Ui`. - `Ui` formats and displays the task list and completion rate to the user.
 
-2. **Show Patient List with Completion Rate**: Displays all patients with their overall task completion rates.
-        - The user initiates `showPatientListWithCompletionRate()`.
-        - `Ui` calls `calculateOverallCompletionRate()` on `Hospital`, which iterates through each `Patient` to get individual completion rates from their `TaskList`.
-        - `Hospital` aggregates these to determine the overall completion rate, then returns the list of patients with completion data.
-        - `Ui` formats and displays the list to the user.
+2. **Show Patient List with Completion Rate**: Displays all patients with their overall task completion rates. - The user initiates `showPatientListWithCompletionRate()`. - `Ui` calls `calculateOverallCompletionRate()` on `Hospital`, which iterates through each `Patient` to get individual completion rates from their `TaskList`. - `Hospital` aggregates these to determine the overall completion rate, then returns the list of patients with completion data. - `Ui` formats and displays the list to the user.
 
 #### Sequence Diagram
 
 The following sequence diagram illustrates the **Completion Rate Feature**:
 
 ![Completion Rate Sequence Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/CompletionRateSequenceDiagram.png)
-
 
 ### **Tag Patient Feature**
 
@@ -297,13 +270,12 @@ The following sequence diagram illustrates how the **Tag Patient Feature** opera
 
 This feature enables users to quickly categorize and prioritize patients within the hospital system by adding relevant tags to patient profiles.
 
-
 ### **State Switching Feature**
 
 The state switching feature allows the system to change its mode of operation between `MAIN_STATE` (for patient management) and `TASK_STATE` (for task management). This allows the software to handle commands differently based on the current state.
 
 1. **User Input**: The user enters a command pertaining either to patients (in `MAIN_STATE`) or tasks (in `TASK_STATE`).
-2. **Command Parsing**: The `Parser` checks the current state of the software by interacting with the `State` class. Depending on the state, it interprets  the command differently.
+2. **Command Parsing**: The `Parser` checks the current state of the software by interacting with the `State` class. Depending on the state, it interprets the command differently.
 3. **State Checking**: The `State` class tracks the current state of the application. If the system is in `MAIN_STATE`, the `Parser` creates patient-related commands (e.g., `AddPatientCommand`). If it's in `TASK_STATE`, task-related commands (e.g., `AddTaskCommand`)
 4. **Command Execution**: The appropriate command is then executed. For example, in `MAIN_STATE`, it adds a new patient, while in `TASK_STATE`, it adds a new task to a patient's task list.
 5. **State Transitions**: Commands like `SelectPatientCommand` and `BackCommand`, trigger state transitions.
@@ -347,7 +319,6 @@ The following sequence diagram illustrates how the state-switching mechanism wor
 | v2.0    | nurse    | find my patient by name                                            | check my tasks for specific patients                             |
 ## Non-Functional Requirements
 
-
 1. Should work on any mainstream OS as long as it has Java 17 or above installed.
 
 2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
@@ -358,7 +329,6 @@ The following sequence diagram illustrates how the state-switching mechanism wor
 
 - **Mainstream OS**: Windows, Linux, Unix, MacOS
 - **Personal data**: Data that can be used to identify a person, such as a name and medical records.
-
 
 ## Instructions for manual testing
 

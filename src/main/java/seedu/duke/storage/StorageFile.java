@@ -16,9 +16,8 @@ public class StorageFile implements Storage<Hospital> {
     private static final String DEFAULT_STORAGE_FILEPATH = "data/hospital_data.json";
     private static final Logger logger = Logger.getLogger("StorageFile");
 
-    Ui ui;
-    JsonUtil jsonUtil;
-
+    private Ui ui;
+    private JsonUtil jsonUtil;
 
     static {
         logger.setLevel(Level.SEVERE);
@@ -27,6 +26,9 @@ public class StorageFile implements Storage<Hospital> {
     /** The file path of the storage file. */
     private final String filePath;
 
+    /**
+     * Constructs a StorageFile with the default file path.
+     */
     public StorageFile() {
         this(DEFAULT_STORAGE_FILEPATH);
 
@@ -34,6 +36,11 @@ public class StorageFile implements Storage<Hospital> {
         jsonUtil = new JsonUtil();
     }
 
+    /**
+     * Constructs a StorageFile with the specified file path.
+     *
+     * @param filePath The String file path of the storage file.
+     */
     public StorageFile(String filePath) {
         this.filePath = filePath;
         assert filePath != null : "File path cannot be null";
@@ -44,12 +51,22 @@ public class StorageFile implements Storage<Hospital> {
         checkFileFound(filePath);
     }
 
+    /**
+     * Returns the file path of the storage file.
+     *
+     * @return The String file path of the storage file.
+     */
     @Override
     public String getFilePath() {
         assert filePath != null : "File path cannot be null";
         return filePath;
     }
 
+    /**
+     * Checks if the file exists. If the file does not exist, a new file will be created.
+     *
+     * @param filePath The String file path of the storage file.
+     */
     @Override
     public void checkFileFound(String filePath) {
         File f = new File(filePath);
@@ -73,6 +90,11 @@ public class StorageFile implements Storage<Hospital> {
         }
     }
 
+    /**
+     * Saves the hospital data {@code Hospital} to the storage file.
+     *
+     * @param hospital The hospital data to save.
+     */
     @Override
     public void save(Hospital hospital) {
         assert hospital != null : "Hospital cannot be null";
@@ -85,6 +107,11 @@ public class StorageFile implements Storage<Hospital> {
         }
     }
 
+    /**
+     * Loads the hospital data {@code Hospital} from the storage file.
+     *
+     * @return The hospital data loaded from the storage file.
+     */
     @Override
     public Hospital load() {
         logger.log(Level.INFO, "Going to load data from file: {0}", filePath);
@@ -97,6 +124,11 @@ public class StorageFile implements Storage<Hospital> {
         }
     }
 
+    /**
+     * Returns the string representation of the storage file.
+     *
+     * @return The string representation of the storage file.
+     */
     @Override
     public String toString() {
         return "File Path: " + filePath;
