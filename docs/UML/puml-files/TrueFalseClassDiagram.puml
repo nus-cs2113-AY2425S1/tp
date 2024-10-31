@@ -1,5 +1,5 @@
 @startuml
-class Question {
+class ":Question" {
     - text : String
     + Question(String text)
     + getText() : String
