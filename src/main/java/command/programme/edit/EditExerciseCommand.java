@@ -19,7 +19,7 @@ import java.util.logging.Level;
  */
 public class EditExerciseCommand extends EditCommand {
 
-    public static final String SUCCESS_MESSAGE_FORMAT = "Update exercise: %s%n";
+    public static final String SUCCESS_MESSAGE_FORMAT = "Updated exercise: %s%n";
 
     private final ExerciseUpdate update;
 

@@ -13,7 +13,7 @@ import java.util.logging.Level;
  * This command adds a new Day object to an existing programme identified by the programme ID.
  */
 public class CreateDayCommand extends EditCommand {
-    public static final String SUCCESS_MESSAGE_FORMAT = "Created: %s%n";
+    public static final String SUCCESS_MESSAGE_FORMAT = "Created new day: %s%n";
     private final Day createdDay;
 
     /**

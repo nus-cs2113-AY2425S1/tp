@@ -21,31 +21,48 @@ import static parser.ParserUtils.splitArguments;
     These values can then be retrieved in Integer, Date, String or Index formats
 */
 public class FlagParser {
+    private static final String DEFAULT_SPLIT_BY = "(?=/)";
     private static final String SPLIT_BY_START = "(?=/(?!(";
+    private static final String SPLIT_BY_DELIMITER = "|";
     private static final String SPLIT_BY_END = ")\\b))";
+
     private final Logger logger = Logger.getLogger(FlagParser.class.getName());
+
     private final Map<String, String> parsedFlags = new HashMap<>();
     private final Map<String, String> aliasMap = new HashMap<>();
-    private String splitBy = "(?=/(?!(n)\\b))";
 
-
-    public FlagParser(String argumentString) {
+    public FlagParser(String argumentString, String... ignoredFlags) {
         if (isNull(argumentString)){
             throw new IllegalArgumentException("ArgumentString: " + argumentString + " is null");
         }
+
         initializeAliasMap();
-        parse(argumentString);
+        parse(argumentString, generateSplitBy(ignoredFlags));
     }
 
-    public FlagParser(String argumentString, String... ignoredFlags) {
-        this(argumentString);
+    // Generates a regex to parse the argumentString for flags, accounting for any flags/aliases that should be ignored
+    private String generateSplitBy(String... ignoredFlags){
+        if (ignoredFlags.length == 0){
+            return DEFAULT_SPLIT_BY;
+        }
 
         StringBuilder splitBy = new StringBuilder(SPLIT_BY_START);
-        for (String flag: ignoredFlags) {
-            splitBy.append(flag.charAt(1));
+        for (String ignoredFlag: ignoredFlags) {
+            splitBy.append(ignoredFlag.substring(1)).append(SPLIT_BY_DELIMITER);
+
+            for (Map.Entry<String, String> entry: aliasMap.entrySet()){
+                String canonicalFlag = entry.getValue();
+                String aliasFlag = entry.getKey();
+                if (canonicalFlag.equals(ignoredFlag)){
+                    splitBy.append(aliasFlag.substring(1)).append(SPLIT_BY_DELIMITER);
+                }
+            }
         }
-        splitBy.append(SPLIT_BY_END);
-        this.splitBy = splitBy.toString();
+
+        // Trim the last SPLIT_BY_DELIMITER from StringBuilder
+        splitBy.setLength(splitBy.length() - 1);
+
+        return splitBy.append(SPLIT_BY_END).toString();
     }
 
     private void initializeAliasMap() {
@@ -74,11 +91,12 @@ public class FlagParser {
         aliasMap.put("/water", "/w");
     }
 
-    private void parse(String argumentString) {
+    private void parse(String argumentString, String splitBy) {
         assert argumentString != null : "Argument string must not be null";
 
-        String[] args = argumentString.trim().split(this.splitBy);
+        String[] args = argumentString.split(splitBy);
         for (String arg : args) {
+
             logger.log(Level.INFO, "Parsing argument: " + arg);
 
             String[] argParts = splitArguments(arg);
