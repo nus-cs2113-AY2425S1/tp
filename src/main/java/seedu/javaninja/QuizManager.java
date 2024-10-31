@@ -20,7 +20,7 @@ public class QuizManager {
             logger.warning("Invalid input. Please provide a topic name.");
             return;
         }
-        Topic selectedTopic = topicManager.getOrCreateTopic(topicName);
+        Topic selectedTopic = topicManager.getTopic(topicName);
 
         if (selectedTopic == null) {
             logger.warning("No such topic: " + topicName);
@@ -51,7 +51,7 @@ public class QuizManager {
     }
 
     public void printPastResults() {
-        quizResults.getPastResults();
+        System.out.println(quizResults.getPastResults());
     }
 
     public void addInput (String input) {
@@ -61,4 +61,25 @@ public class QuizManager {
             logger.warning(e.getMessage());
         }
     }
+
+    public void saveResults () {
+        quizResults.saveResults();
+    }
+
+    /* For quizManagerTest */
+    public QuizSession getQuizSession() {
+        if (this.quizSession == null) {
+            this.quizSession = new QuizSession();
+        }
+        return this.quizSession;
+    }
+
+    public QuizResults getQuizResults() {
+        return this.quizResults;
+    }
+
+    public TopicManager getTopicManager() {
+        return this.topicManager;
+    }
+
 }

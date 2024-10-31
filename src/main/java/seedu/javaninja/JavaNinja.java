@@ -26,6 +26,7 @@ public class JavaNinja {
                 throw new RuntimeException(e);
             }
         }
+        quizManager.saveResults();
         cli.printGoodByeMessage();
         cli.closeScanner();
     }
