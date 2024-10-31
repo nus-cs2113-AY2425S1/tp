@@ -65,10 +65,10 @@ public class StorageFile implements Storage<Hospital> {
 
                 logger.log(Level.INFO, "File created successfully: {0}", filePath);
             } catch (IOException e) {
-                ui.showToUser("Error creating file: " + e.getMessage());
+                ui.showToUserException("Error creating file: " + e.getMessage());
                 logger.log(Level.WARNING, "Error creating file: {0}", e.getMessage());
             } catch (StorageOperationException e) {
-                ui.showToUser(e.getMessage());
+                ui.showToUserException(e.getMessage());
             }
         }
     }
@@ -80,7 +80,7 @@ public class StorageFile implements Storage<Hospital> {
         try {
             jsonUtil.saveToFile(hospital, filePath);
         } catch (StorageOperationException e) {
-            ui.showToUser(e.getMessage());
+            ui.showToUserException(e.getMessage());
 
         }
     }
@@ -91,7 +91,7 @@ public class StorageFile implements Storage<Hospital> {
         try {
             return jsonUtil.loadFromFile(getFilePath());
         } catch (StorageOperationException e) {
-            ui.showToUser("File is Corrupted! " + e.getMessage());
+            ui.showToUserException("File is Corrupted! " + e.getMessage());
             StorageBackup.createBackupFile(filePath); // Create a backup file
             return new Hospital(); // Return an empty hospital
         }

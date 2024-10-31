@@ -70,7 +70,7 @@ public class MediTask {
             if (hospital.getSelectedPatient() != null) {
                 ui.showTaskScreen(hospital.getSelectedPatient());
             } else {
-                ui.showMainScreen();
+                ui.showMainScreen(hospital);
             }
 
             commandInput = ui.readCommand();
