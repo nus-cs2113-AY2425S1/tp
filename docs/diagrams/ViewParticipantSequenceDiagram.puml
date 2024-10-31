@@ -1,0 +1,26 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":ViewCommand" as command
+participant "eventToView:Event" as event
+participant "participant:Participant" as participant
+
+group sd view participants
+    activate command
+    command -> command : getParticipants(eventToView : Event)
+    activate command
+
+    command -> event : getParticipantsList()
+    activate event
+
+    return participants : ArrayList<Participant>
+
+    loop for participant in participants
+        command -> participant : toString()
+        activate participant
+        return :String
+    end
+    return :String
+end
+@enduml

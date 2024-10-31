@@ -11,6 +11,7 @@ public class RemoveCommand extends Command {
     private static final String REMOVE_FAILURE = "Not found";
     protected String eventName;
     protected String participantName;
+    protected String itemName;
 
     /**
      * Constructs a RemoveCommand object with the specified event name.
@@ -24,17 +25,23 @@ public class RemoveCommand extends Command {
 
     //@@author LTK-1606
     /**
-     * Constructs a RemoveCommand object with the specified event name.
+     * Constructs a RemoveCommand object with the specified event name and item name.
      *
      * @param eventName The name of the event the participant is to be removed from.
-     * @param participantName The name of the participant to be removed.
+     * @param itemName The name of the item to be removed.
+     * @param isParticipant true if the item is a participant, false otherwise
      */
-    public RemoveCommand(String participantName, String eventName) {
+    public RemoveCommand(String itemName, String eventName, boolean isParticipant) {
         super(false);
         this.eventName = eventName;
-        this.participantName = participantName;
+        if (isParticipant) {
+            participantName = itemName;
+        } else {
+            this.itemName = itemName;
+        }
     }
 
+    //@@author KuanHsienn
     /**
      * Executes the command to remove an event or a participant from an event.
      *
@@ -49,10 +56,12 @@ public class RemoveCommand extends Command {
     public void execute() {
         boolean isRemoved;
 
-        if (participantName == null) {
-            isRemoved = this.eventList.removeEvent(this.eventName);
+        if (participantName != null) {
+            isRemoved = eventList.removeParticipantFromEvent(participantName, eventName);
+        } else if (itemName != null) {
+            isRemoved = eventList.removeItemFromEvent(itemName, eventName);
         } else {
-            isRemoved = this.eventList.removeParticipantFromEvent(this.participantName, this.eventName);
+            isRemoved = eventList.removeEvent(eventName);
         }
 
         if (isRemoved) {
