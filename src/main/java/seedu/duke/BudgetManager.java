@@ -115,6 +115,31 @@ public class BudgetManager {
     }
 
     //@@author kq2003
+    public void setBudgetLimitRequest(String input, BudgetManager budgetManager, TrackerData trackerData) {
+        try {
+            String[] parts = input.split(" ");
+            double limit = 0;
+            String category = null;
+
+            for (String part : parts) {
+                if (part.startsWith("c/")) {
+                    category = part.substring(2).trim();
+                } else if (part.startsWith("l/")) {
+                    limit = Double.parseDouble(part.substring(2).trim());
+                }
+            }
+
+            if (category == null || limit == 0) {
+                System.out.println("Invalid input! Please provide category name and limit.");
+                return;
+            }
+
+            budgetManager.setBudgetLimit(trackerData, category, limit);
+        } catch (Exception e) {
+            System.out.println("Error parsing the input. Please use the correct format for set-budget commands.");
+        }
+    }
+
     /**
      * Displays the current budget status for each category.
      *
