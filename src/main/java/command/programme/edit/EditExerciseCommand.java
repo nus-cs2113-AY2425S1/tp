@@ -52,11 +52,11 @@ public class EditExerciseCommand extends EditCommand {
 
         Programme selectedProgramme = programmes.getProgramme(programmeIndex);
         Day selectedDay = selectedProgramme.getDay(dayIndex);
-        Exercise updatedExercise = selectedDay.updateExercise(exerciseId, updateExercise);
+        Exercise updatedExercise = selectedDay.updateExercise(exerciseId, update);
 
         logger.log(Level.INFO, "EditExerciseCommand executed successfully.");
 
-        String result = String.format(SUCCESS_MESSAGE_FORMAT, exerciseId, updatedExercise);
+        String result = String.format(SUCCESS_MESSAGE_FORMAT, updatedExercise);
         return new CommandResult(result);
     }
 }
