@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class EditCommandTest {
+public class EditParticipantCommandTest {
     private EventList eventList;
     private DateTimeFormatter formatter;
 
@@ -35,7 +35,7 @@ public class EditCommandTest {
                 "Event 1"
         );
 
-        EditCommand editParticipantCommand = new EditCommand(
+        EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
                 "Tom",
                 "9123 4567",
                 "new_email@example.com",
@@ -63,7 +63,7 @@ public class EditCommandTest {
                 "Event 1"
         );
         String expectedMessage = "Event/Participant not found!";
-        EditCommand editParticipantCommand = new EditCommand(
+        EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
                 "Tom",
                 "9123 4567",
                 "new_email@example.com",
@@ -89,7 +89,7 @@ public class EditCommandTest {
                 "Event 1"
         );
         String expectedMessage = "Event/Participant not found!";
-        EditCommand editParticipantCommand = new EditCommand(
+        EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
                 "Invalid Participant",
                 "9123 4567",
                 "new_email@example.com",

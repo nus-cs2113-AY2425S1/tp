@@ -4,7 +4,7 @@ package seedu.manager.command;
  * Represents a command to edit an event to the event list.
  * The edit command will store the event's name, time, and venue.
  */
-public class EditCommand extends Command{
+public class EditParticipantCommand extends Command{
     public static final String COMMAND_WORD = "edit";
     private static final String EDIT_PARTICIPANT_MESSAGE = "Participant contact information successfully updated";
     private static final String EDIT_FAILURE_MESSAGE = "Event/Participant not found!";
@@ -24,13 +24,14 @@ public class EditCommand extends Command{
      * @param participantEmail The new email address of the participant.
      * @param eventName The name of the event associated with the participant.
      */
-    public EditCommand(String participantName, String participantNumber, String participantEmail, String eventName) {
+    public EditParticipantCommand(String participantName, String participantNumber, String participantEmail, String eventName) {
         super(false);
         this.participantName = participantName;
         this.participantNumber = participantNumber;
         this.participantEmail = participantEmail;
         this.eventName = eventName;
     }
+
 
     /**
      * Executes the edit operation, updating the participant's contact information if the
@@ -39,9 +40,7 @@ public class EditCommand extends Command{
      */
     @Override
     public void execute() {
-        if (participantName == null) {
-            return;
-        } else {
+        if (participantName != null) {
             boolean isEdited = this.eventList.editParticipant(
                     this.participantName,
                     this.participantNumber,

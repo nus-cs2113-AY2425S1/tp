@@ -17,6 +17,7 @@ public class MenuCommand extends Command {
             remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
             remove -m ITEM -e EVENT: Remove an item from an event.
             edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
+            edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
             mark -e EVENT -s STATUS: Mark an event as done or not done.
             mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
             copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
