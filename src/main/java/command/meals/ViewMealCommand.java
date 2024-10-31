@@ -5,6 +5,7 @@ import history.DailyRecord;
 import history.History;
 import meal.MealList;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,5 +29,22 @@ public class ViewMealCommand extends MealCommand {
         logger.log(Level.INFO, "Retrieved MealList for date {0}: {1}", new Object[]{date, meals});
 
         return new CommandResult(meals.toString());
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ViewMealCommand that)) {
+            return false;
+        }
+        return Objects.equals(date, that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date);
     }
 }
