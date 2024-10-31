@@ -21,38 +21,38 @@ public class FitnessGoalTest {
 
     @BeforeEach
     public void setUp() {
-      System.setOut(new PrintStream(outContent));
-      testUser = new User("FEMALE", "25"); // Initialize the User instance here
+        System.setOut(new PrintStream(outContent));
+        testUser = new User("FEMALE", "25"); // Initialize the User instance here
     }
 
     // Test for adding a goal
     @Test
     public void testAddFitnessGoal() {
-      AddFitnessGoal addGoal = new AddFitnessGoal(goalDescription, testDeadline);
-      addGoal.addGoal(testUser); // Adding the goal to the user
-      assertEquals("Added goal: " + goalDescription + System.lineSeparator(), outContent.toString());
+        AddFitnessGoal addGoal = new AddFitnessGoal(goalDescription, testDeadline);
+        addGoal.addGoal(testUser); // Adding the goal to the user
+        assertEquals("Added goal: " + goalDescription + System.lineSeparator(), outContent.toString());
     }
 
     // Test for deleting a goal
     @Test
     public void testDeleteFitnessGoal() {
-      AddFitnessGoal addGoal = new AddFitnessGoal(goalDescription, testDeadline);
-      addGoal.addGoal(testUser); // First, add the goal
+        AddFitnessGoal addGoal = new AddFitnessGoal(goalDescription, testDeadline);
+        addGoal.addGoal(testUser); // First, add the goal
 
-      outContent.reset(); // Clear previous output
-      DeleteFitnessGoal deleteGoal = new DeleteFitnessGoal(goalDescription);
-      deleteGoal.deleteGoal(testUser); // Attempt to delete the goal
+        outContent.reset(); // Clear previous output
+        DeleteFitnessGoal deleteGoal = new DeleteFitnessGoal(goalDescription);
+        deleteGoal.deleteGoal(testUser); // Attempt to delete the goal
 
-      assertEquals("Deleted goal: " + goalDescription + System.lineSeparator(), outContent.toString());
+        assertEquals("Deleted goal: " + goalDescription + System.lineSeparator(), outContent.toString());
     }
 
     // Test for attempting to delete a non-existing goal
     @Test
     public void testDeleteNonExistingGoal() {
-      DeleteFitnessGoal deleteGoal = new DeleteFitnessGoal("Non-existing goal");
-      outContent.reset(); // Clear previous output
-      deleteGoal.deleteGoal(testUser); // Attempt to delete a goal that doesn't exist
+        DeleteFitnessGoal deleteGoal = new DeleteFitnessGoal("Non-existing goal");
+        outContent.reset(); // Clear previous output
+        deleteGoal.deleteGoal(testUser); // Attempt to delete a goal that doesn't exist
 
-      assertEquals("Goal not found: Non-existing goal" + System.lineSeparator(), outContent.toString());
+        assertEquals("Goal not found: Non-existing goal" + System.lineSeparator(), outContent.toString());
     }
 }
