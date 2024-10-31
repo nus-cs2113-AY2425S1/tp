@@ -82,7 +82,7 @@ The `Hospital` class manages the patient data within the system, including addin
 6. **`calculateOverallCompletionRate()`**: Calculates the total completion rate across all patients' tasks, returning a percentage.
 7. **`printList()`**: Prints the list of patients with their names and tags.
 
-#### Sequence Diagram
+#### Class Diagram
 
 The following diagram illustrates the structure of the `Hospital` class and its relationships:
 
@@ -221,11 +221,11 @@ The sequence to add tasks involves:
 
 The following sequence diagram illustrates how `Parser` parse command for `AddTaskCommand`:
 
-![Parse_Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/ParseAddTaskClassDiagram.png)
+![Parse_Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/ParseAddTaskSequenceDiagram.png)
 
 A closer look on how `AddTaskCommand` is executed is shown below:
 
-![Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddTaskClassDiagram.png)
+![Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddTaskSequenceDiagram.png)
 
 #### Implementation considerations:
 The `AddTaskCommand` has been implemented with a design that prioritizes scalability and maintainability. This allows the system to easily support additional task types in the future without requiring major code changes. For example, if new task types are needed in the future (e.g., `event`, `appointment`), they can be added by simply extending the Task class hierarchy and updating the createTask() factory method.
