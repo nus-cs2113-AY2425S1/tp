@@ -73,7 +73,7 @@ Enter a command: Participant contact information successfully updated
 Events saved successfully.
 ------------------------
 Enter a command: There are 1 participants in dinner party! Here are your participants:
-1. Name: Mary / Number: 98512525 / Email: example@gmail.com [ ]
+1. Name: Mary / Number: 98624759 / Email: Mary@gmail.com [ ]
 
 ------------------------
 Events saved successfully.
