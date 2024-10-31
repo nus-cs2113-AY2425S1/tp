@@ -1,6 +1,6 @@
 package seedu.duke;
 
-public class Category extends ExpenseTracker {
+public class Category {
     private String name;
 
     public Category(String name) {
