@@ -82,7 +82,7 @@ The `Hospital` class manages the patient data within the system, including addin
 6. **`calculateOverallCompletionRate()`**: Calculates the total completion rate across all patients' tasks, returning a percentage.
 7. **`printList()`**: Prints the list of patients with their names and tags.
 
-#### Sequence Diagram
+#### Class Diagram
 
 The following diagram illustrates the structure of the `Hospital` class and its relationships:
 
@@ -221,11 +221,11 @@ The sequence to add tasks involves:
 
 The following sequence diagram illustrates how `Parser` parse command for `AddTaskCommand`:
 
-![Parse_Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/ParseAddTaskClassDiagram.png)
+![Parse_Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/ParseAddTaskSequenceDiagram.png)
 
 A closer look on how `AddTaskCommand` is executed is shown below:
 
-![Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddTaskClassDiagram.png)
+![Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddTaskSequenceDiagram.png)
 
 #### Implementation considerations:
 The `AddTaskCommand` has been implemented with a design that prioritizes scalability and maintainability. This allows the system to easily support additional task types in the future without requiring major code changes. For example, if new task types are needed in the future (e.g., `event`, `appointment`), they can be added by simply extending the Task class hierarchy and updating the createTask() factory method.
@@ -322,15 +322,16 @@ The following sequence diagram illustrates how the state-switching mechanism wor
 
 ## User Stories
 
-| Version | As a ... | I want to ... | So that I can ... |
-|---------|----------|---------------|-------------------|
-| v1.0    | nurse    | add tasks with specific details (e.g., patient illness, precautions) | ensure all safety and medical steps are followed for each patient |
-| v1.0    | nurse    | delete tasks that are no longer relevant | keep my task list up to date and avoid unnecessary clutter |
-| v1.0    | nurse    | mark tasks as completed | stay organized and ensure all tasks are done during my shift |
-| v1.0    | nurse    | unmark tasks that were incorrectly marked as completed | quickly correct errors and keep an accurate account of ongoing tasks |
-| v1.0    | nurse    | save my tasks | access and view them after closing and reopening the interface |
-| v1.0    | nurse    | list my tasks | see all my tasks that I have currently |
-
+| Version | As a ... | I want to ...                                                        | So that I can ...                                                    |
+|---------|----------|----------------------------------------------------------------------|----------------------------------------------------------------------|
+| v1.0    | nurse    | add tasks with specific details (e.g., patient illness, precautions) | ensure all safety and medical steps are followed for each patient    |
+| v1.0    | nurse    | delete tasks that are no longer relevant                             | keep my task list up to date and avoid unnecessary clutter           |
+| v1.0    | nurse    | mark tasks as completed                                              | stay organized and ensure all tasks are done during my shift         |
+| v1.0    | nurse    | unmark tasks that were incorrectly marked as completed               | quickly correct errors and keep an accurate account of ongoing tasks |
+| v1.0    | nurse    | save my tasks                                                        | access and view them after closing and reopening the interface       |
+| v1.0    | nurse    | list my tasks                                                        | see all my tasks that I have currently                               |
+| v2.0    | nurse    | check my task completion progress                                    | see the rate of completion of my current tasks                       |
+| v2.0    | nurse    | add deadlines to my tasks                                            | know when I need to finish my given task                             |
 
 ## Non-Functional Requirements
 
@@ -349,4 +350,35 @@ The following sequence diagram illustrates how the state-switching mechanism wor
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Getting Started
+1. Ensure that you have Java `17` or above installed.
+2. Down the latest version of `MediTask` from [here](https://github.com/AY2425S1-CS2113-T11-1/tp/releases).
+3. Copy the file to the folder you want to use as the _home folder_ for your `MediTask`.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tp.jar` command to run the application.<br>
+   ![Ui](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/cli_preview.png)
+
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+   Some example commands you can try:
+
+   Patient-related commands:
+        - `add Alice /tag patient` : Adds a patient named Alice to the list of patients.
+
+        - `list` : Lists all patients.
+
+        - `delete 1` : Deletes the 1st patient in the list.
+
+        - `exit` : Exits the app.
+
+   Task-related commands:
+
+        - `todo Update patient records` : Adds a todo task named "Update patient records" to the list of tasks.
+
+        - `list` : Lists all tasks.
+
+        - `delete 1` : Deletes the 1st task in the list.
+
+        - `mark 1` : Marks the 1st task in the list as done.
+
+        - `unmark 1` : Marks the 1st task in the list as undone.
+
+For more details on the commands of MediTask, please refer to the [User Guide](https://ay2425s1-cs2113-t11-1.github.io/tp/UserGuide.html).

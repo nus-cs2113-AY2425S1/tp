@@ -37,6 +37,7 @@ else Name is not null or empty
     end
 end
 deactivate AddPatientCommand
+destroy AddPatientCommand
 deactivate MediTask
 
 @enduml
