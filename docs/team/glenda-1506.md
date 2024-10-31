@@ -22,3 +22,17 @@ Given below are my contributions to the project
     - `set-budget-reset`
     - `bye`
 
+#### Contributions to the DG
+- Added documentation for Target User Profile: #32
+- Added documentation for Value Proposition: #32
+- Added documentation for v1.0 User Stories: #32
+- Added sequence diagrams: #66
+    - `add-expense`
+    - `delete-expense`
+    - `add-cateogry`
+    - `tag-expense`
+    - `set-budget`
+    - `view-expenses`
+    - `set-budget-reset`
+    - `bye`
+
