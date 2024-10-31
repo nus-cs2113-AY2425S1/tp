@@ -2,7 +2,11 @@
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ExpenseTest {
     @Test
@@ -167,7 +171,7 @@ class CategoryManagerTest {
         categoryManager.addCategory(trackerData, "add category Food");
         assertEquals(1, trackerData.getCategories().size(), "Should have 1 category");
         categoryManager.addCategory(trackerData, "add category Drinks");
-        assertEquals(2, trackerData.getCategories().size(), "Should have 2 categories after adding a different category");
+        assertEquals(2, trackerData.getCategories().size(), "Should have 2 categories");
     }
 
     @Test
