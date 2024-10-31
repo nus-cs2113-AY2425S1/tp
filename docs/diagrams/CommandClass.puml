@@ -14,33 +14,58 @@ class PersonalTrackerCommand as "{abstract} \nPersonalTrackerCommand" extends Co
     +execute(userInput: String, storage: Storage): void ABSTRACT
 }
 
-class FilterCoursesCommand extends CheckInformationCommand
+class FilterCoursesCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
 
-class HelpCommand extends CheckInformationCommand
+class HelpCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
 
-class ListCommandsCommand extends CheckInformationCommand
+class ListCommandsCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
 
-class ListSchoolCommand extends CheckInformationCommand
+class ListSchoolCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
 
-class ListUniCoursesCommand extends CheckInformationCommand
+class ListUniCoursesCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
 
-class ObtainContactsCommand extends CheckInformationCommand
+class ObtainContactsCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
 
-class AddCoursesCommand extends PersonalTrackerCommand
+class ListPersonalTrackerCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
 
-class DeleteCoursesCommand extends PersonalTrackerCommand
+class AddCoursesCommand extends PersonalTrackerCommand {
+    +execute(userInput: String, storage: Storage): void
+}
 
-class ListPersonalTrackerCommand extends CheckInformationCommand
+class DeleteCoursesCommand extends PersonalTrackerCommand {
+    +execute(userInput: String, storage: Storage): void
+}
 
 ListPersonalTrackerCommand --> "storage 1" Storage
 Storage : +loadAllCourses(): void
 
-AddCoursesCommand --> "courseValidator 1" CourseValidator
+AddCoursesCommand ---> "courseValidator 1" CourseValidator
 CourseValidator : +isValidInput(...): boolean
 AddCoursesCommand ..> UI
 UI : +printAddMessage(): void
 
 DeleteCoursesCommand ..> UI
 UI : +printDeleteMessage(): void
+
+note "CheckInformationCommand lists out information stored \nin the database or saved list based on user request" as N1
+N1..CheckInformationCommand
+note "PersonalTrackerCommand modifies the \nsaved plans list in the storage class" as N2
+N2..PersonalTrackerCommand
+note "execute() methods are overridden by concrete classes" as N3
+N3..FilterCoursesCommand
 
 @enduml
