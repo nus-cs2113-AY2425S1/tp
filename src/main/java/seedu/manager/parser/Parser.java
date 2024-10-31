@@ -122,7 +122,7 @@ public class Parser {
             Please set the find flag using "-e" and "-p""
             """;
 
-    public static final String SPACE = " ";
+    private static final String SPACE = " ";
 
     private static final String EVENT_REGEX = "(-e|-t|-v|-u)";
     private static final String EVENT_ATTRIBUTE_REGEX ="(-e|-name|-t|-v|-u)";

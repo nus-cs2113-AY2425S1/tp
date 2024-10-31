@@ -21,7 +21,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void edit_participant_success() {
+    public void edit_Event_success() {
         eventList.addEvent(
                 "Event 1",
                 LocalDateTime.parse("2024-10-20 21:00", formatter),
@@ -35,21 +35,26 @@ public class EditEventCommandTest {
                 "Event 1"
         );
 
-        EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
-                "Tom",
-                "9123 4567",
-                "new_email@example.com",
-                "Event 1"
+        EditEventCommand editEventCommand = new EditEventCommand(
+                "Event 1",
+                "newEvent 1",
+                LocalDateTime.parse("2024-10-31 00:00", formatter),
+                "new_Venue",
+                Priority.LOW
         );
-        editParticipantCommand.setData(eventList);
-        editParticipantCommand.execute();
 
-        assertEquals("9123 4567", eventList.getEvent(0).getParticipantList().get(0).getNumber());
-        assertEquals("new_email@example.com", eventList.getEvent(0).getParticipantList().get(0).getEmail());
+        editEventCommand.setData(eventList);
+        editEventCommand.execute();
+
+        assertEquals("newEvent 1", eventList.getEvent(0).getEventName());
+        assertEquals(LocalDateTime.parse("2024-10-31 00:00", formatter), eventList.getEvent(0).getEventTime());
+        assertEquals("new_Venue", eventList.getEvent(0).getEventVenue());
+        assertEquals(Priority.LOW, eventList.getEvent(0).getEventPriority());
+
     }
 
     @Test
-    public void editParticipant_invalidEvent_failure() {
+    public void editEvent_invalidEvent_failure() {
         eventList.addEvent(
                 "Event 1",
                 LocalDateTime.parse("2024-10-20 21:00", formatter),
@@ -62,42 +67,17 @@ public class EditEventCommandTest {
                 "example@gmail.com",
                 "Event 1"
         );
-        String expectedMessage = "Event/Participant not found!";
-        EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
-                "Tom",
-                "9123 4567",
-                "new_email@example.com",
-                "Non-Existent Event"
+        String expectedMessage = "Event not found!";
+        EditEventCommand editEventCommand = new EditEventCommand(
+                "Non-Existent Event",
+                "newEvent 1",
+                LocalDateTime.parse("2024-10-31 00:00", formatter),
+                "new_Venue",
+                Priority.LOW
         );
-        editParticipantCommand.setData(eventList);
-        editParticipantCommand.execute();
+        editEventCommand.setData(eventList);
+        editEventCommand.execute();
 
-        assertEquals(expectedMessage, editParticipantCommand.getMessage());
-    }
-
-    @Test
-    public void editParticipant_invalidParticipant_failure() {
-        eventList.addEvent(
-                "Event 1",
-                LocalDateTime.parse("2024-10-20 21:00", formatter),
-                "Venue A", Priority.HIGH
-        );
-        eventList.addParticipantToEvent(
-                "Tom",
-                "89521252",
-                "example@gmail.com",
-                "Event 1"
-        );
-        String expectedMessage = "Event/Participant not found!";
-        EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
-                "Invalid Participant",
-                "9123 4567",
-                "new_email@example.com",
-                "Event 1"
-        );
-        editParticipantCommand.setData(eventList);
-        editParticipantCommand.execute();
-
-        assertEquals(expectedMessage, editParticipantCommand.getMessage());
+        assertEquals(expectedMessage, editEventCommand.getMessage());
     }
 }
