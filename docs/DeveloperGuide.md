@@ -108,10 +108,19 @@ respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), w
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
+
+| Priority | As a ... | I want to ...                          | So that I can ...                                   |
+|----------|----------|----------------------------------------|-----------------------------------------------------|
+| ***      | new user | see usage instructions                 | refer to them when I forget how to use the app      |
+| ***      | user     | add a new training session             | record my NAPFA training progress                   |
+| ***      | user     | edit my new training session           | record the reps/time I attained for each exercise   |
+| ***      | user     | delete a training session              | remove a session that was added by mistake          |
+| ***      | user     | view a list of past training sessions  | track the number of training sessions I have done   |
+| ***      | user     | view the details of a training session | have an overview of my performance for that session |
+| ***      | user     | store my training sessions             | keep a record of my sessions when the app is closed |
+| **       | user     | calculate my NAPFA points per exercise | conveniently view my standing for each station      |
+| *        | user     | know my NAPFA achievement level        | know my NAPFA standard at a glance                  |
 
 ## Non-Functional Requirements
 
