@@ -1,6 +1,7 @@
 //@@author glenda-1506
 package seedu.duke;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -159,10 +160,35 @@ class CategoryManagerTest {
 
         assertTrue(trackerData.getCategories().isEmpty());
     }
+
+    //@@glenda-1506
+    @Test
+    public void add2NonDuplicateCategory() {
+        CategoryManager categoryManager = new CategoryManager();
+        TrackerData trackerData = new TrackerData();
+        categoryManager.addCategory(trackerData, "add category Food");
+        assertEquals(1, trackerData.getCategories().size(), "Should have 1 category");
+        categoryManager.addCategory(trackerData, "add category Drinks");
+        assertEquals(2, trackerData.getCategories().size(), "Should have 2 categories after adding a different category");
+    }
+
+    @Test
+    public void formatNullInput() {
+        CategoryManager categoryManager = new CategoryManager();
+        String result = categoryManager.formatInput(null);
+        assertNull(result, "Expected null for null input");
+    }
+
+    @Test
+    public void formatEmptyInput() {
+        CategoryManager categoryManager = new CategoryManager();
+        String result = categoryManager.formatInput("");
+        assertEquals("", result, "Expected empty string for empty input");
+    }
 }
 
+//@@author AdiMangalam
 class ExpenseManagerTest {
-
     @Test
     public void addExpenseNewCategory() {
         ExpenseManager expenseManager = new ExpenseManager();

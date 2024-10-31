@@ -26,7 +26,7 @@ public class CategoryManager {
         System.out.println("Category '" + newCategory + "' added successfully.");
     }
 
-    private String formatInput(String input) {
+    public String formatInput(String input) {
         if (input == null || input.isEmpty()) {
             return input;
         }
