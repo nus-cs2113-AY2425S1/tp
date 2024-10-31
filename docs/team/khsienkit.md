@@ -10,7 +10,11 @@ Given below are my contributions to the project.
 
 * **New Feature**: Add ability to edit expenses
     * What it does: This feature introduces the ability to edit the price, description, category and date added for an added expense
-    * Justification: This is to allow a user to rectify a mistake rather than having to delete a particular expense and re-adding the correct expense. This is part of the basic CRUD functionality
+    * Justification: This is to allow the user to rectify a mistake rather than having to delete a particular expense and re-adding the correct expense. This is part of the basic CRUD functionality
+
+* **New Feature**: Add help command for user
+    * What it does: List down all commands, their parameters and their usage
+    * Justification: This is to allow the user to find out what all the commands are and how to use them
 
 * **New Feature**: Add support for recurring expenses
     * What it does: This feature allows the user to create, read, update and delete recurring expenses
@@ -22,15 +26,15 @@ Given below are my contributions to the project.
 * **Code Contributed**: [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=khsienkit&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&tabOpen=true&tabType=authorship&tabAuthor=KHsienKit&tabRepo=AY2425S1-CS2113-W12-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
 * **Documentation**
-    * User Guide
-        * Updated commands to match v1.0. [#56](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/56)
+    <!-- * User Guide
+        * Updated commands to match v1.0. [#56](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/56) -->
     * Developer Guide
-        * Initial Outline of DG and implementation of Ui, Parser and Command. [#56](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/56)
+        * Created RecurringExpense and RecurringExpenseList section, including Class and Sequence diagram. [#81](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/81)
 
 <div style="page-break-after: always;"></div>
 
 * **Project Management**
-    * Maintained issues and managed milestones.
+    * Maintained issues and reviewed PRs
 
 * **Community**
-    * PRs reviewed (with non-trivial review comments): [#68](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/68)
+    * PRs reviewed (with non-trivial review comments): [#81](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/81)
