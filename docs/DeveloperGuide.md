@@ -46,30 +46,31 @@
 The **Edit Exercise** feature is managed by the `TrainingSession` class, and is primarily carried out by its 
 `editExercise()` function. This feature utilizes the `setPerformance()`and `getReps()` methods from the 
 `ExerciseStation` classes to edit the repetitions and timings for the user’s selected 
-exercises. Additionally, it calculates the points the user will earn for each exercise based on the updated values.
+exercises. Additionally, it calculates the points the user will earn for each exercise based on the updated "rep" or
+"timing" values.
 
 #### Step 1: Logging a New Training Session
 
 When the user logs a new training session, an instance of the `TrainingSession` class is created. This instance 
-initializes an EnumMap, which populates the various `ExerciseStation` instances with their initial values. 
-Below is a representation of how the `ExerciseStations` are initialized:
+initializes an EnumMap, which instantiates the various `ExerciseStation` subclasses with their initial values. 
+Below is a class diagram showing the EnumMap after an instance of `TrainingSession` is created.
 
-![TrainingSessionInitialState.png](TrainingSessionInitialState.png)  
+![Class_TrainingSessionInitialState.png](Images/Class_TrainingSessionInitialState.png)  
 
 #### Step 2: Editing a Training Session
 
-When the user wishes to edit a training session, they specify an `Exercise` Enum, and the reps/timing to be inputted,
-which is passed to the`editExercise` function. This function calls the relevant methods to update the repetitions or 
-timings and calculates the corresponding points for the specified exercise.
+When the user wishes to edit a training session, they specify an `Exercise` Enum, and the reps/timing to be inputted.
+These variables are then passed to the`editExercise` function. This function calls the relevant methods to update the 
+repetitions or timings and calculates the corresponding points for the specified exercise.
 
 The following sequence diagram illustrates the function calls involved in this process:
 
-![editExerciseSequenceDiagram.png](editExerciseSequenceDiagram.png)
+![Sequence_editExercise.png](Images/Sequence_editExercise.png)
 
 Additionally, the state diagram below shows the end state of the `editExercise` function after execution of the command,
-`editExercise(Exercise.PULL_UP, 1)`:
+`editExercise(Exercise.PULL_UP, 1)` and `editExercise(Exercise.SHUTTLE_RUN, "16.0")`:
 
-![TrainingSessionEditState.png](TrainingSessionEditState.png)
+![Class_TrainingSessionEditState.png](Images/Class_TrainingSessionEditState.png)
 
 ### Points Calculation
 
