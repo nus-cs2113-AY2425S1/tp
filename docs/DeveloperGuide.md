@@ -6,7 +6,7 @@
 
 ## Design & implementation
 
-# Software Architecture
+## Software Architecture
 ![Architecture.png](Images/Archi_Architecture.png)
 
 **FitTrack** is the main class and entry point of the application. It manages high level functionalities by coordinating the following classes:
@@ -21,7 +21,7 @@
 | TrainingSession | Represents a single training session, including exercises and metadata (e.g. date and description)           |
 | Exercise        | Represents different types of exercises available in the application, like pull-ups or shuttle runs          |
 
-# Features
+## Features
 
 ### Storage
 ![Storage.png](Images/Class_Storage.png)
