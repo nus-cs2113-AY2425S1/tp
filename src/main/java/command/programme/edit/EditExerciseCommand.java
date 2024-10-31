@@ -1,8 +1,12 @@
+// @@author TVageesan
+
 package command.programme.edit;
 
 import command.CommandResult;
+
 import programme.Day;
 import programme.Exercise;
+import programme.ExerciseUpdate;
 import programme.Programme;
 import programme.ProgrammeList;
 
@@ -17,9 +21,9 @@ import java.util.logging.Level;
  */
 public class EditExerciseCommand extends EditCommand {
 
-    public static final String SUCCESS_MESSAGE_FORMAT = "Update exercise %d to: %s%n";
+    public static final String SUCCESS_MESSAGE_FORMAT = "Updated exercise: %s%n";
 
-    private final Exercise updateExercise;
+    private final ExerciseUpdate update;
 
     /**
      * Constructs an EditExerciseCommand with the specified programme index, day ID,
@@ -28,12 +32,12 @@ public class EditExerciseCommand extends EditCommand {
      * @param programmeIndex the index of the programme containing the exercise to be updated
      * @param dayId the ID of the day containing the exercise to be updated
      * @param exerciseId the ID of the exercise to be updated
-     * @param updateExercise the exercise object containing the fields meant to be updated
+     * @param update the ExerciseUpdate object containing the fields that need to be updated in the target Exercise
      */
-    public EditExerciseCommand(int programmeIndex, int dayId, int exerciseId, Exercise updateExercise) {
+    public EditExerciseCommand(int programmeIndex, int dayId, int exerciseId, ExerciseUpdate update) {
         super(programmeIndex, dayId, exerciseId);
-        assert updateExercise != null : "updateExercise must not be null";
-        this.updateExercise = updateExercise;
+        assert update != null : "update object must not be null";
+        this.update = update;
     }
 
     /**
@@ -48,11 +52,11 @@ public class EditExerciseCommand extends EditCommand {
 
         Programme selectedProgramme = programmes.getProgramme(programmeIndex);
         Day selectedDay = selectedProgramme.getDay(dayIndex);
-        Exercise updatedExercise = selectedDay.updateExercise(exerciseId, updateExercise);
+        Exercise updatedExercise = selectedDay.updateExercise(exerciseId, update);
 
         logger.log(Level.INFO, "EditExerciseCommand executed successfully.");
 
-        String result = String.format(SUCCESS_MESSAGE_FORMAT, exerciseId, updatedExercise);
+        String result = String.format(SUCCESS_MESSAGE_FORMAT, updatedExercise);
         return new CommandResult(result);
     }
 }

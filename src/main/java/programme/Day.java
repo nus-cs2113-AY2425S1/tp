@@ -48,19 +48,39 @@ public class Day {
         return exercises.get(index);
     }
 
-    public Exercise updateExercise(int exerciseId, Exercise exercise) {
+    // @@author TVageesan
+
+    /**
+     * Updates an Exercise at a specific index within the programme's list of exercises.
+     * <p>
+     * The exercise at the provided index is updated according to the fields specified
+     * in the provided ExerciseUpdate object.
+     * </p>
+     *
+     * @param exerciseId the ID of the exercise to update, corresponding to its index in the list.
+     * @param update     the ExerciseUpdate object with the fields to modify in the exercise.
+     * @return the updated Exercise object.
+     * @throws IndexOutOfBoundsException if the exerciseId is invalid.
+     */
+    public Exercise updateExercise(int exerciseId, ExerciseUpdate update) {
         if (exerciseId < 0 || exerciseId >= exercises.size()) {
             throw new IndexOutOfBoundsException("Index " + exerciseId + " is out of bounds for exercise list.");
         }
+
         Exercise toBeUpdated = exercises.get(exerciseId);
+        String originalExercise = toBeUpdated.toString();
+        toBeUpdated.updateExercise(update);
 
-        logger.log(Level.INFO, "Updating exercise at index {0} from {1} to {2}",
-                new Object[]{exerciseId, toBeUpdated, exercise});
+        logger.log(
+                Level.INFO,
+                "Updated exercise at index {0} from {1} to {2}",
+                new Object[]{exerciseId, originalExercise, toBeUpdated}
+        );
 
-        toBeUpdated.updateExercise(exercise);
-        exercises.set(exerciseId, toBeUpdated);
         return toBeUpdated;
     }
+
+    // @@author
 
     public void insertExercise(Exercise exercise) {
         assert exercise != null : "Exercise to insert cannot be null";
