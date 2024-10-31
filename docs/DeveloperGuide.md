@@ -61,19 +61,24 @@ The `Command` component does the following:
 * Handle the execution of the user command through interactions with `Event`.
 * Provides a command output message to `Ui` after the command execution.
 
-The interactions between `Command` and other commands in the system is shown in the following _Sequence Diagram_:
+The interactions between `Command` and other components in the system is shown in the following _Sequence Diagram_:
 
 <img src = "images/CommandSequenceDiagram.png">
 
 ### Event component
 
+The `Event` component stores the event data for the program. This is done in the `EventList` class, which stores a list of `Event`s.
+
+Each `Event` is composed of the following: 
+
+* Data on event details (the event name, date and venue), stored as separate variables.
+* Data on the event priority, stored as a `Priority` enumeration value (which can be `HIGH`, `MEDIUM`, or `LOW`).
+* A list of `Participant`s, each representing a participant at the event.
+* A list of `Items`s, each representing an item for the event.
+
 The `Event` component and its component classes are shown in the below **Class Diagram**:
 
 <img src = "images/EventClassDiagram.png">
-
-The `Event` component does the following:
-* Handle the addition, removal and marking of events stored in `EventList`.
-* Add, remove and mark participants for a specific `Event` in `EventList`.
 
 ## Implementation
 
@@ -205,8 +210,6 @@ The values of `eventName` and `isViewingParticipants` are set by the user throug
 
 The `Parser` assigns the event parameter directly to `eventName`. Conversely, it sets `isViewingParticipants` to true if the type parameter value is `participant`, 
 to false if the type parameter value is `item`, and treats any other value entered as invalid.
-
-
 
 ### Mark/unmark feature
 
