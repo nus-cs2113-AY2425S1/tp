@@ -70,4 +70,16 @@ public class Participant extends Item {
     public void setEmail(String newEmail) {
         this.email = newEmail;
     }
+
+    //@@author glenn-chew
+    /**
+     * Returns a formatted string of the participant
+     *
+     * @return a formatted string of the participant
+     */
+    @Override
+    public String toString() {
+        return String.format("Name: %s / Number: %s / Email: %s [%s]",
+                this.name, this.number, this.email, this.markIfPresent());
+    }
 }

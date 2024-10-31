@@ -32,8 +32,8 @@ public class FindCommandTest {
         findCommand.execute();
 
         String expectedMessage = "Person(s) found!\n" +
-                "1. John Doe [ ]\n" +
-                "2. Jane Doe [ ]\n";
+                "1. Name: John Doe / Number: 9123 8321 / Email: example1@gmail.com [ ]\n" +
+                "2. Name: Jane Doe / Number: 8123 9321 / Email: example2@gmail.com [ ]\n";
         assertEquals(expectedMessage, findCommand.getMessage());
     }
 

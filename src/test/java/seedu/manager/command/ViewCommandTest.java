@@ -35,7 +35,7 @@ public class ViewCommandTest {
     @Test
     public void execute_twoEvents_success() {
         String expectedMessage = "There are 1 participants in Event 1! Here are your participants:\n"
-                + "1. Tom [ ]\n";
+                + "1. Name: Tom / Number: 95015025 / Email: example@gmail.com [ ]\n";
 
         viewCommand = new Parser().parseCommand("view -e Event 1 -y participant");
         viewCommand.setData(eventList);
