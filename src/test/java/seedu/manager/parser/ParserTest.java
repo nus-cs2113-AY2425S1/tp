@@ -9,6 +9,7 @@ import seedu.manager.command.MarkParticipantCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.RemoveCommand;
+import seedu.manager.command.ViewCommand;
 import seedu.manager.exception.InvalidCommandException;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParserTest {
 
+    //@@author jemehgoh
     @Test
     public void parseCommand_invalidString_throwsException() {
         Parser parser = new Parser();
@@ -33,6 +35,7 @@ class ParserTest {
         assertInstanceOf(ExitCommand.class, command);
     }
 
+    //@@author glenn-chew
     @Test
     public void parseCommand_menuWord_menu() {
         Parser parser = new Parser();
@@ -41,6 +44,7 @@ class ParserTest {
         assertInstanceOf(MenuCommand.class, command);
     }
 
+    //@@author MatchaRRR
     @Test
     public void parseCommand_listWord_list() {
         Parser parser = new Parser();
@@ -49,6 +53,7 @@ class ParserTest {
         assertInstanceOf(ListCommand.class, command);
     }
 
+    //@@author jemehgoh
     @Test
     public void addCommand_addEvent_add() {
         Parser parser = new Parser();
@@ -83,6 +88,34 @@ class ParserTest {
             parser.parseCommand(commandString);});
     }
 
+    //@@author jemehgoh
+    @Test
+    public void viewCommand_viewParticipant_view() {
+        Parser parser = new Parser();
+        Command command = parser.parseCommand("view -e event -y participant");
+
+        assertInstanceOf(ViewCommand.class, command);
+    }
+
+    @Test
+    public void viewCommand_noParameter_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "view";
+
+        assertThrows(InvalidCommandException.class, () -> {
+            parser.parseCommand(commandString);});
+    }
+
+    @Test
+    public void viewCommand_invalidStatus_throwsException() {
+        Parser parser = new Parser();
+        String commandString = "view -e event -y command";
+
+        assertThrows(InvalidCommandException.class, () -> {
+            parser.parseCommand(commandString);});
+    }
+
+    //@@author jemehgoh
     @Test
     public void parseCommand_markEvent_mark() {
         Parser parser = new Parser();
@@ -154,6 +187,7 @@ class ParserTest {
             parser.parseCommand(commandString);});
     }
 
+    //@@author LTK-1606
     @Test
     public void parseCommand_copyCommandInvalidFlags_throwsException() {
         Parser parser = new Parser();
