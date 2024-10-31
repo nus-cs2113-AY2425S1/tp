@@ -93,7 +93,7 @@ Edits a given programme based on command and argument flags.
 **Parameters:**
 
 - **/p PROG_INDEX** *(optional)*: Specifies the program index. Defaults to the current active program if omitted.  
-  **Alias**: `/program` – Either `/p` or `/program` can be used to specify the program index.
+  **Alias**: `/programme` – Either `/p` or `/programme` can be used to specify the programme index.
 
 
 - **/d DAY_INDEX**: Specifies the day index within the program.  
@@ -102,11 +102,11 @@ Edits a given programme based on command and argument flags.
 
 - **command**: Determines the action type on the exercise or day:
   - `/a` : **Add a New Exercise** to the specified day.  
-    **Alias**: `/addExercise` – Either `/a` or `/addExercise` can be used to add an exercise.
-  - `/u` : **Update an Existing Exercise** within the specified day.  
-    **Alias**: `/updateExercise` – Either `/u` or `/updateExercise` can be used to update an exercise.
-  - `/x` : **Remove an Existing Exercise** from the specified day.  
-    **Alias**: `/removeExercise` – Either `/x` or `/removeExercise` can be used to delete an exercise.
+    **Alias**: `/addExercise` – Either `/ae` or `/addExercise` can be used to add an exercise.
+  - `/u EXERICSE_INDEX` : **Update an Existing Exercise** within the specified day.  
+    **Alias**: `/updateExercise` – Either `/ue` or `/updateExercise` can be used to update an exercise.
+  - `/x EXERICSE_INDEX` : **Remove an Existing Exercise** from the specified day.  
+    **Alias**: `/removeExercise` – Either `/xe` or `/removeExercise` can be used to delete an exercise.
   - `/ad`: **Create a New Day** in the program.  
     **Alias**: `/addDay` – Either `/ad` or `/addDay` can be used to add a day.
   - `/xd`: **Remove an Existing Day** from the program.  
@@ -114,7 +114,6 @@ Edits a given programme based on command and argument flags.
 
 
 - **args**: These arguments set specific attributes for edit actions:
-  - **EXERCISE_INDEX** - Specifies the index of the exercise to update (for `/u`) or delete (for `/x`). No alias.
   - **/w WEIGHT**: Sets the weight for the exercise on update.  
     **Alias**: `/weight` – Either `/w` or `/weight` can be used to specify weight.
   - **/r REPS**: Sets the repetitions on update.  
