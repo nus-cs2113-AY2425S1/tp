@@ -8,8 +8,9 @@ import java.time.LocalDateTime;
 
 //@@author KuanHsienn
 /**
- * Represents a command to add an event to the event list.
- * The add command will store the event's name, time, and venue.
+ * Represents a command to add an event to the event list or a participant to an event.
+ * The AddCommand class stores details of an event, including its name, time, venue,
+ * and priority, or details of a participant, including their name, contact number, and email.
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
