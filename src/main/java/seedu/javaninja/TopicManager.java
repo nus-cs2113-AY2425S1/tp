@@ -33,6 +33,15 @@ public class TopicManager {
         return newTopic;
     }
 
+    public Topic getTopic(String topicName) {
+        for (Topic topic : topics) {
+            if (topic.getName().equalsIgnoreCase(topicName)) {
+                return topic;
+            }
+        }
+        return null;
+    }
+
     public void addTopic(Topic topic) {
         if (topic == null) {
             logger.warning("Cannot add a null topic.");

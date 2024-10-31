@@ -16,8 +16,8 @@ public class QuizSession {
     public void startQuiz(Topic topic) {
         currentQuiz = new Quiz(topic, scanner);
 
-        int timeLimitInSeconds = getTimeLimitInSeconds();
-        int questionLimit = getQuestionLimit();
+        int timeLimitInSeconds = getTimeLimitInSeconds(scanner);
+        int questionLimit = getQuestionLimit(scanner);
 
         currentQuiz.start(timeLimitInSeconds, questionLimit);
     }
@@ -26,7 +26,7 @@ public class QuizSession {
         return currentQuiz.getScore();
     }
 
-    public int getTimeLimitInSeconds() {
+    public int getTimeLimitInSeconds(Scanner scanner) {
         System.out.println("Set a time limit for the quiz.");
         System.out.print("Enter the number of minutes (or 0 if you want to set seconds): ");
         int minutes = Integer.parseInt(scanner.nextLine().trim());
@@ -42,8 +42,16 @@ public class QuizSession {
         return timeLimitInSeconds;
     }
 
-    public int getQuestionLimit() {
+    public int getQuestionLimit(Scanner scanner) {
         System.out.print("Enter the number of questions you want to attempt: ");
         return Integer.parseInt(scanner.nextLine().trim());
+    }
+
+    /* For QuizManagerTest */
+    public Quiz getCurrentQuiz(Topic topic, Scanner scanner) {
+        if (currentQuiz == null) {
+            currentQuiz = new Quiz(topic, scanner);
+        }
+        return this.currentQuiz;
     }
 }

@@ -26,55 +26,60 @@ class QuizManagerTest {
             file.delete();
         }
         quizManager = new QuizManager();
-        quizManager.addTopic(new Topic("Default Topic"));
     }
 
-
+    @Test
     public void selectTopic_invalidTopicName_displaysError() {
         // Prepare a scanner with simulated user input
         ByteArrayInputStream input = new ByteArrayInputStream("InvalidTopicName\n".getBytes());
         Scanner scanner = new Scanner(input);
 
         // Pass the scanner to the selectTopic method, including a default timer of 10 seconds
-        quizManager.selectTopic("InvalidTopicName");
+        quizManager.selectQuizToAttempt("InvalidTopicName");
 
         scanner.close();
 
         // Assert that past results remain empty since no valid quiz was selected
-        assertEquals("No past results available. You haven't completed any quizzes yet.", quizManager.getPastResults());
+        assertEquals("No past results available. You haven't completed any quizzes yet.", quizManager.getQuizResults().getPastResults());
 
     }
 
     @Test
     public void getPastResults_withResults_returnsCorrectResults() {
+        quizManager = new QuizManager();
         // Add a topic with a question
         Topic topic = new Topic("Java Basics");
         topic.addQuestion(new Mcq("What is Java?", "a",
                 List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
-
-        quizManager.addTopic(topic);
+        quizManager.getTopicManager().addTopic(topic);
 
         // Prepare simulated input for the quiz
         ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nb\n".getBytes());
         Scanner scanner = new Scanner(input);
 
         // Start the quiz with the provided scanner
-        quizManager.startQuiz(topic, scanner);
+        int timeLimit = quizManager.getQuizSession().getTimeLimitInSeconds(scanner);
+        int questionLimit = quizManager.getQuizSession().getQuestionLimit(scanner);
+
+        quizManager.getQuizSession().getCurrentQuiz(topic, scanner).start(timeLimit, questionLimit);
+        quizManager.addResultsAndPrintScore();
 
         String expectedResult = "Score: 0%, Comment: Better luck next time!\n";
-        assertEquals(expectedResult, quizManager.getPastResults());
+        assertEquals(expectedResult, quizManager.getQuizResults().getPastResults());
 
         scanner.close();
     }
 
     @Test
     public void saveResults_savesToFileCorrectly() throws IOException {
+        quizManager = new QuizManager();
+
         // Add a topic and question
         Topic topic = new Topic("Java Basics");
         topic.addQuestion(new Mcq("What is Java?", "a",
                 List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
 
-        quizManager.addTopic(topic);
+        quizManager.getTopicManager().addTopic(topic);
 
         // Simulate user input during the quiz
         // ByteArrayInputStream input = new ByteArrayInputStream("b\n".getBytes());
@@ -82,10 +87,16 @@ class QuizManagerTest {
         Scanner scanner = new Scanner(input);
 
         // Start the quiz and save the results
-        quizManager.startQuiz(topic, scanner);
+        int timeLimit = quizManager.getQuizSession().getTimeLimitInSeconds(scanner);
+        int questionLimit = quizManager.getQuizSession().getQuestionLimit(scanner);
+
+        quizManager.getQuizSession().getCurrentQuiz(topic, scanner).start(timeLimit, questionLimit);
+        quizManager.addResultsAndPrintScore();
+        quizManager.saveResults();
 
         String expectedSavedResults = "Score: 0%, Comment: Better luck next time!";
-        String savedResults = Files.readString(Path.of(resultsFilePath)).trim();
+        Path resultsPath = Path.of(System.getProperty("user.dir"), resultsFilePath);
+        String savedResults = Files.readString(resultsPath).trim();
         assertEquals(expectedSavedResults, savedResults);
 
         scanner.close();
@@ -101,45 +112,55 @@ class QuizManagerTest {
         quizManager = new QuizManager();
 
         // Verify that the loaded result matches the expected value
-        String loadedResults = quizManager.getPastResults();
+        String loadedResults = quizManager.getQuizResults().getPastResults();
         assertEquals(previousResult, loadedResults);
     }
 
     @Test
     public void startQuiz_withTrueFalseQuestion_correctlyHandlesTrueFalse() {
+        quizManager = new QuizManager();
         // Add a topic with a TrueFalse question
         Topic topic = new Topic("General Knowledge");
         topic.addQuestion(new TrueFalse("The Earth is flat.", false));
 
-        quizManager.addTopic(topic);
+        quizManager.getTopicManager().addTopic(topic);
 
         // Prepare simulated input for the quiz (answering "false")
         ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nfalse\n".getBytes());
         Scanner scanner = new Scanner(input);
 
         // Start the quiz and validate results
-        quizManager.startQuiz(topic, scanner);
+        int timeLimit = quizManager.getQuizSession().getTimeLimitInSeconds(scanner);
+        int questionLimit = quizManager.getQuizSession().getQuestionLimit(scanner);
+
+        quizManager.getQuizSession().getCurrentQuiz(topic, scanner).start(timeLimit, questionLimit);
+        quizManager.addResultsAndPrintScore();
 
         String expectedResult = "Score: 100%, Comment: Excellent!\n";
-        assertEquals(expectedResult, quizManager.getPastResults());
+        assertEquals(expectedResult, quizManager.getQuizResults().getPastResults());
 
         scanner.close();
     }
 
     @Test
     public void startQuiz_withInvalidTrueFalseAnswer_throwsException() {
+        quizManager = new QuizManager();
         // Add a topic with a TrueFalse question
         Topic topic = new Topic("General Knowledge");
         topic.addQuestion(new TrueFalse("The Earth is flat.", false));
 
-        quizManager.addTopic(topic);
+        quizManager.getTopicManager().addTopic(topic);
 
         // Prepare simulated input for the quiz (answering "yes", then "false" after invalid input)
         ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nyes\nfalse\n".getBytes());
         Scanner scanner = new Scanner(input);
 
+        // Start the quiz and validate results
+        int timeLimit = quizManager.getQuizSession().getTimeLimitInSeconds(scanner);
+        int questionLimit = quizManager.getQuizSession().getQuestionLimit(scanner);
+
         try {
-            quizManager.startQuiz(topic, scanner);
+            quizManager.getQuizSession().getCurrentQuiz(topic, scanner).start(timeLimit, questionLimit);
 
         } catch (IllegalArgumentException e) {
             assertEquals("Invalid input! Please enter 'true' or 'false'.", e.getMessage());
