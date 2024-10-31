@@ -73,3 +73,6 @@ Given below are my contributions to the project
 - Team Coordination: Helped the team stay on track by reminding members of deadlines, prompting active participation, and clarifying steps to streamline contributions and avoid common mistakes.
 
 #### Contributions beyond the project team
+- Design and Implementation Review
+  - Conducted a detailed review of the Developer Guide of a peer team
+  - Focused on identifying potential issues or improvements by examining possible DG bugs, with an emphasis on clarity and accuracy in the documentation
