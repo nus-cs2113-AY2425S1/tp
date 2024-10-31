@@ -1,9 +1,10 @@
 @startuml
+!include style.puml
 
 participant ":Main" as main
-participant ":MarkEventCommand" as markCommand
-participant ":EventList" as eventList
-participant ":Event" as event
+participant ":MarkEventCommand" as markCommand COMMAND_COLOUR
+participant ":EventList" as eventList EVENT_COLOUR
+participant ":Event" as event EVENT_COLOUR
 
 main -> markCommand : execute()
 activate markCommand
