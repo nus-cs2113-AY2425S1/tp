@@ -1,0 +1,60 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+skinparam classBackgroundColor White
+skinparam classBorderColor Black
+
+rectangle Exercise <<enumeration>> {
+}
+
+rectangle User {
+}
+
+rectangle FitTrackLogger {
+}
+
+rectangle Storage {
+}
+
+rectangle FitTrack {
+}
+
+rectangle Parser {
+}
+
+rectangle Ui {
+}
+
+rectangle TrainingSession {
+}
+
+rectangle ExerciseStation {
+}
+
+rectangle Calculator {
+}
+
+FitTrack  -->  Parser
+FitTrack  -->  Ui
+FitTrack  -->  Storage
+FitTrack  -->  User
+FitTrack  -->  FitTrackLogger
+
+Parser  -->  TrainingSession
+Parser  --> Exercise
+Parser  -->  User
+Parser  -->  Ui
+
+Ui  -->  User
+Ui  -->  TrainingSession
+
+Storage  -->  TrainingSession
+Storage  -->  FitTrackLogger
+
+TrainingSession  -->  User
+TrainingSession  --> Exercise
+TrainingSession  --> ExerciseStation
+
+ExerciseStation --> Calculator
+
+@enduml

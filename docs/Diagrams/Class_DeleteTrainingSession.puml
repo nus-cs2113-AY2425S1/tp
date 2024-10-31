@@ -1,0 +1,31 @@
+@startuml
+' Use right-angle straight lines for relationships
+skinparam linetype ortho
+hide circle
+skinparam classAttributeIconSize 0
+skinparam classBackgroundColor White
+skinparam classBorderColor Black
+
+' Define classes
+class FitTrack {
+    -sessionList : ArrayList<TrainingSession>
+}
+
+class Parser {
+    -command : String
+    -indexToDelete : int
+    +parse()
+}
+
+class Ui {
+    +printDeletedSession()
+    +printSessionCount()
+}
+
+' Define relationships with right-angle arrows
+FitTrack "1" --> "1" Parser : uses
+FitTrack "1" --> "1" Ui : uses
+
+Parser "1" --> "1" Ui : uses
+
+@enduml
