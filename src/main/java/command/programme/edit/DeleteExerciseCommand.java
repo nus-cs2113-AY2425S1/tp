@@ -1,8 +1,11 @@
+// @@author TVageesan
+
 package command.programme.edit;
 
 import command.CommandResult;
 import programme.Day;
 import programme.Exercise;
+import programme.Programme;
 import programme.ProgrammeList;
 
 import java.util.logging.Level;
@@ -15,7 +18,6 @@ import java.util.logging.Level;
  * </p>
  */
 public class DeleteExerciseCommand extends EditCommand {
-
     public static final String SUCCESS_MESSAGE_FORMAT = "Deleted exercise %d: %s%n";
 
     /**
@@ -38,10 +40,14 @@ public class DeleteExerciseCommand extends EditCommand {
     @Override
     public CommandResult execute(ProgrammeList programmes) {
         assert programmes != null : "programmes cannot be null";
-        Day day = programmes.getDay(programmeIndex, dayIndex);
-        Exercise deleted = day.deleteExercise(exerciseId);
-        String result = String.format(SUCCESS_MESSAGE_FORMAT, exerciseId, deleted);
+
+        Programme selectedProgramme = programmes.getProgramme(programmeIndex);
+        Day selectedDay = selectedProgramme.getDay(dayIndex);
+        Exercise deletedExercise = selectedDay.deleteExercise(exerciseId);
+
         logger.log(Level.INFO, "DeleteExerciseCommand executed successfully.");
+
+        String result = String.format(SUCCESS_MESSAGE_FORMAT, exerciseId, deletedExercise);
         return new CommandResult(result);
     }
 }

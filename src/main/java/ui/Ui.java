@@ -59,16 +59,6 @@ public class Ui {
         out.println(LINE_CHAR.repeat(LINE_LENGTH));
     }
 
-    /**
-     * Displays an error message to the user.
-     *
-     * @param e the exception to be displayed
-     */
-    public void showError(Exception e) {
-        showLine();
-        out.println(ERROR_HEADER + e.getMessage());
-        showLine();
-    }
 
     /**
      * Displays a message to the user.
@@ -78,9 +68,25 @@ public class Ui {
     public void showMessage(String msg) {
         showLine();
         String strippedMsg = msg.trim();
-        out.println(strippedMsg);
+        String formattedMsg = strippedMsg.replace("_", " ");
+        out.println(formattedMsg);
         showLine();
     }
+
+    /**
+     * Displays an error message to the user.
+     *
+     * @param e the exception to be displayed
+     */
+    public void showMessage(Exception e) {
+        showMessage(ERROR_HEADER + e.getMessage());
+    }
+
+    /**
+     * Displays the success/failure message of a Command to the user.
+     *
+     * @param result the CommandResult to be displayed
+     */
 
     public void showMessage(CommandResult result){
         showMessage(result.getMessage());

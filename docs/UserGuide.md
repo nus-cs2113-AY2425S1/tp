@@ -25,9 +25,9 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 
 ### 1. Create a New Program
 
-Command: `prog create PROG_NAME /d /e /n EXERCISE_NAME /s SET /r REP /w WEIGHT`
+Command: `prog create PROG_NAME /d /e /n EXERCISE_NAME /s SET /r REP /w WEIGHT /c CALORIES`
 
-Example: `prog create Starter /d ONE /e /n Bench_Press /s 3 /r 12 /w 30 /e /n Squat /s 3 /r 12 /w 50 /d TWO /e /n Bicep_Curl /s 3 /r 12 /w 10`
+Example: `prog create Starter /d ONE /e /n Bench_Press /s 3 /r 12 /w 30 /c 200 /e /n Squat /s 3 /r 12 /w 50 /c 200 /d TWO /e /n Bicep_Curl /s 3 /r 12 /w 10 /c 100`
 
 (To create a programme ‘Starter’ with Day One being Bench & Squat, Day Two being Bicep Curl.)
 
@@ -79,22 +79,87 @@ Example: `prog list`
 
 2: Full Body
 ```
-
 ---
 
-### 4. Edit Program
-Command: `prog edit /p PROG_INDEX /d DAY [command] INDEX [args]`
+### 4. Editing a Program
 
-`p_index`: Program index (optional - defaults to active program).  
-`d_day`: Day index (optional - defaults to active day).  
-`command`: Abbreviated edits (/a for create exercise, /u for update exercise, /x for remove exercise, /ad for create day, /xd for remove day).  
-`Args`: A set of flags to update for that specific exercise. (e.g., /w WEIGHT to update weight, /r REPS, and /s SETS in any order).
-
-Example behaviour: `prog edit /p 1 /d 1 /u 1 /w 30`
+**Command Format:**
+```
+prog edit [/p PROG_INDEX] [/d DAY_INDEX] [command] [args]
 ```
 
-Update Exercise 1 of Day 1 of Prog 1 - Weight set to 30.
-```
+Edits a given programme based on command and argument flags.
+
+**Parameters:**
+
+- **/p PROG_INDEX** *(optional)*: Specifies the program index. Defaults to the current active program if omitted.  
+  **Alias**: `/programme` – Either `/p` or `/programme` can be used to specify the programme index.
+
+
+- **/d DAY_INDEX**: Specifies the day index within the program.  
+  **Alias**: `/day` – Either `/d` or `/day` can be used to specify the day index.
+
+
+- **command**: Determines the action type on the exercise or day:
+  - `/a` : **Add a New Exercise** to the specified day.  
+    **Alias**: `/addExercise` – Either `/ae` or `/addExercise` can be used to add an exercise.
+  - `/u EXERICSE_INDEX` : **Update an Existing Exercise** within the specified day.  
+    **Alias**: `/updateExercise` – Either `/ue` or `/updateExercise` can be used to update an exercise.
+  - `/x EXERICSE_INDEX` : **Remove an Existing Exercise** from the specified day.  
+    **Alias**: `/removeExercise` – Either `/xe` or `/removeExercise` can be used to delete an exercise.
+  - `/ad`: **Create a New Day** in the program.  
+    **Alias**: `/addDay` – Either `/ad` or `/addDay` can be used to add a day.
+  - `/xd`: **Remove an Existing Day** from the program.  
+    **Alias**: `/removeDay` – Either `/xd` or `/removeDay` can be used to delete a day.
+
+
+- **args**: These arguments set specific attributes for edit actions:
+  - **/w WEIGHT**: Sets the weight for the exercise on update.  
+    **Alias**: `/weight` – Either `/w` or `/weight` can be used to specify weight.
+  - **/r REPS**: Sets the repetitions on update.  
+    **Alias**: `/reps` – Either `/r` or `/reps` can be used to specify repetitions.
+  - **/s SETS**: Sets the number of sets on update.  
+    **Alias**: `/sets` – Either `/s` or `/sets` can be used to specify sets.
+  - **/n NAME**: Sets or updates the name of the exercise on update.  
+    **Alias**: `/name` – Either `/n` or `/name` can be used to specify the exercise name.
+  - **/c CALORIES**: Sets the calories of the exercise on update.  
+    **Alias**: `/calories` – Either `/c` or `/calories` can be used to specify the calorie count.
+
+**Example Commands:**
+
+**Create a New Exercise**:
+   ```plaintext
+   prog edit /p 1 /d 1 /a "Push-Up /w 30 /r 15 /s 3 /c 100"
+   ```
+Adds a "Push-Up" exercise on Day 1 of Program 1.
+
+**Update an Existing Exercise**:
+   ```plaintext
+   prog edit /p 1 /d 1 /u 1 /w 30 /r 12
+   ```
+Updates Exercise 1 on Day 1 of Program 1, setting the weight to 30 and resp to 12.
+
+**Delete an Exercise**:
+   ```plaintext
+   prog edit /p 1 /d 1 /x 1
+   ```
+Deletes Exercise 1 on Day 1 of Program 1.
+
+   **Create a New Day**:
+   ```plaintext
+   prog edit /p 1 /ad "Cardio Day"
+   ```
+   Creates a new empty Day named "Cardio Day" in Program 1.
+   
+   *Note*: Advanced users can directly create days with exercises using the syntax found in `Create Programme`
+   ```plaintext
+   prog edit /p 1 /ad "Pull Day" /e /n "Push-Up /w 30 /r 15 /s 3 /c 100 /e ...
+   ```
+   **Remove an Existing Day**:
+   ```plaintext
+   prog edit /p 1 /xd 1
+   ```
+   Removes Day 1 of Programme 1. 
 
 ---
 
