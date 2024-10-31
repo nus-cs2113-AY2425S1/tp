@@ -32,7 +32,7 @@ public class JsonUtil {
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false) // Ignore unknown properties
             .findAndRegisterModules(); // Automatically register additional modules (future use);
 
-    public static void saveToFile(String filePath) throws StorageOperationException {
+    public void saveToFile(String filePath) throws StorageOperationException {
         try {
             objectMapper.writeValue(new File(filePath), new Hospital());
         } catch (StreamWriteException e) {
@@ -53,7 +53,7 @@ public class JsonUtil {
         logger.log(Level.INFO, "Data saved successfully at: {0}", filePath);
     }
 
-    public static void saveToFile(Hospital hospital, String filePath) throws StorageOperationException {
+    public void saveToFile(Hospital hospital, String filePath) throws StorageOperationException {
         try {
             objectMapper.writeValue(new File(filePath), hospital);
         } catch (StreamWriteException e) {
@@ -74,7 +74,7 @@ public class JsonUtil {
         logger.log(Level.INFO, "Data saved successfully at: {0}", filePath);
     }
 
-    public static Hospital loadFromFile(String filePath) throws StorageOperationException {
+    public Hospital loadFromFile(String filePath) throws StorageOperationException {
         try {
             Hospital hospital = objectMapper.readValue(new File(filePath), Hospital.class);
 
@@ -95,7 +95,7 @@ public class JsonUtil {
 
     }
 
-    public static String toJson(Hospital hospital) throws StorageOperationException {
+    public String toJson(Hospital hospital) throws StorageOperationException {
         logger.log(Level.INFO, "Converting object to JSON");
         try {
             String hospitalJson = objectMapper.writeValueAsString(hospital);
@@ -113,7 +113,7 @@ public class JsonUtil {
 
     }
 
-    public static Hospital fromJson(String json) throws StorageOperationException {
+    public Hospital fromJson(String json) throws StorageOperationException {
         logger.log(Level.INFO, "Converting JSON to object");
         Hospital hospital = null;
 

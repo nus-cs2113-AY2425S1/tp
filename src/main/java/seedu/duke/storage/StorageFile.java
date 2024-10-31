@@ -10,13 +10,15 @@ import seedu.duke.storage.exception.StorageOperationException;
 import seedu.duke.ui.Ui;
 
 /**
- * Represents a storage file.
+ * Represents a storage file to manage Hospital.
  */
-public class StorageFile {
+public class StorageFile implements Storage<Hospital> {
     private static final String DEFAULT_STORAGE_FILEPATH = "data/hospital_data.json";
     private static final Logger logger = Logger.getLogger("StorageFile");
 
-    Ui ui = new Ui();
+    Ui ui;
+    JsonUtil jsonUtil;
+
 
     static {
         logger.setLevel(Level.SEVERE);
@@ -27,20 +29,29 @@ public class StorageFile {
 
     public StorageFile() {
         this(DEFAULT_STORAGE_FILEPATH);
+
+        ui = new Ui();
+        jsonUtil = new JsonUtil();
     }
 
     public StorageFile(String filePath) {
         this.filePath = filePath;
         assert filePath != null : "File path cannot be null";
+
+        ui = new Ui();
+        jsonUtil = new JsonUtil();
+
         checkFileFound(filePath);
     }
 
+    @Override
     public String getFilePath() {
         assert filePath != null : "File path cannot be null";
         return filePath;
     }
 
-    private void checkFileFound(String filePath) {
+    @Override
+    public void checkFileFound(String filePath) {
         File f = new File(filePath);
         if (!f.exists()) {
             logger.log(Level.INFO, "File not found, creating new file: {0}", filePath);
@@ -50,7 +61,7 @@ public class StorageFile {
                 f.createNewFile();
                 assert f.exists() : "File should exist after creation";
 
-                JsonUtil.saveToFile(filePath); // Save an initial hospital to the file
+                jsonUtil.saveToFile(filePath); // Save an initial hospital to the file
 
                 logger.log(Level.INFO, "File created successfully: {0}", filePath);
             } catch (IOException e) {
@@ -62,21 +73,23 @@ public class StorageFile {
         }
     }
 
+    @Override
     public void save(Hospital hospital) {
         assert hospital != null : "Hospital cannot be null";
         logger.log(Level.INFO, "Going to save data to file: {0}", filePath);
         try {
-            JsonUtil.saveToFile(hospital, filePath);
+            jsonUtil.saveToFile(hospital, filePath);
         } catch (StorageOperationException e) {
             ui.showToUser(e.getMessage());
 
         }
     }
 
+    @Override
     public Hospital load() {
         logger.log(Level.INFO, "Going to load data from file: {0}", filePath);
         try {
-            return JsonUtil.loadFromFile(getFilePath());
+            return jsonUtil.loadFromFile(getFilePath());
         } catch (StorageOperationException e) {
             ui.showToUser("File is Corrupted! " + e.getMessage());
             StorageBackup.createBackupFile(filePath); // Create a backup file
@@ -88,5 +101,4 @@ public class StorageFile {
     public String toString() {
         return "File Path: " + filePath;
     }
-
 }
