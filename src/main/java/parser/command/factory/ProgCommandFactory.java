@@ -90,7 +90,8 @@ public class ProgCommandFactory {
         if (flagParser.hasFlag(REMOVE_DAY_FLAG)) {
             return prepareDeleteDayCommand(flagParser);
         }
-        return new InvalidCommand();
+
+        throw new IllegalArgumentException("Missing edit command flag. Please provide a valid command flag.");
     }
 
     private EditExerciseCommand prepareEditExerciseCommand(FlagParser flagParser) {
@@ -213,7 +214,7 @@ public class ProgCommandFactory {
     private  Day parseDay(String dayString) {
         assert dayString != null : "Day string must not be null";
 
-        String[] dayParts  = dayString.split("/e");
+        String[] dayParts  = dayString.split(EXERCISE_FLAG);
         String dayName = dayParts[0].trim();
         if (dayName.isEmpty()) {
             throw new IllegalArgumentException("Day name cannot be empty. Please enter a valid day name.");
@@ -235,7 +236,7 @@ public class ProgCommandFactory {
         assert argumentString != null : "Argument string must not be null";
 
         FlagParser flagParser = new FlagParser(argumentString);
-        flagParser.validateRequiredFlags("/n");
+        flagParser.validateRequiredFlags(SETS_FLAG, REPS_FLAG, WEIGHT_FLAG, CALORIES_FLAG, NAME_FLAG);
 
         return new Exercise(
                 flagParser.getIntegerByFlag(SETS_FLAG),

@@ -126,6 +126,10 @@ public class ProgrammeList {
 
     @Override
     public String toString() {
+        if (programmeList.isEmpty()){
+            return "No programmes found.";
+        }
+
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < programmeList.size(); i++) {
             Programme programme = programmeList.get(i);

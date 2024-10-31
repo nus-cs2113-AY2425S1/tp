@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static common.Utils.isNull;
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.parseInteger;
 import static parser.ParserUtils.parseFloat;
@@ -20,28 +21,35 @@ import static parser.ParserUtils.splitArguments;
     These values can then be retrieved in Integer, Date, String or Index formats
 */
 public class FlagParser {
+    private static final String SPLIT_BY_START = "(?=/(?!(";
+    private static final String SPLIT_BY_END = ")\\b))";
     private final Logger logger = Logger.getLogger(FlagParser.class.getName());
     private final Map<String, String> parsedFlags = new HashMap<>();
     private final Map<String, String> aliasMap = new HashMap<>();
-    private String splitBy = " (?=/)";
+    private String splitBy = "(?=/(?!(n)\\b))";
 
-    public FlagParser(String argumentString, String... ignoredFlags) {
-        if (ignoredFlags.length > 0){
-            StringBuilder splitBy = new StringBuilder("(?=/(?![");
-            for (String flag: ignoredFlags) {
-                splitBy.append(flag.charAt(1));
-            }
-            this.splitBy = splitBy.append("]\\b))").toString();
+
+    public FlagParser(String argumentString) {
+        if (isNull(argumentString)){
+            throw new IllegalArgumentException("ArgumentString: " + argumentString + " is null");
         }
         initializeAliasMap();
-        if (argumentString != null && !argumentString.trim().isEmpty()) {
-            parse(argumentString);
+        parse(argumentString);
+    }
+
+    public FlagParser(String argumentString, String... ignoredFlags) {
+        this(argumentString);
+
+        StringBuilder splitBy = new StringBuilder(SPLIT_BY_START);
+        for (String flag: ignoredFlags) {
+            splitBy.append(flag.charAt(1));
         }
+        splitBy.append(SPLIT_BY_END);
+        this.splitBy = splitBy.toString();
     }
 
     private void initializeAliasMap() {
         aliasMap.put("/p", "/p");
-        aliasMap.put("/progIndex", "/p");
         aliasMap.put("/programme", "/p");
 
         aliasMap.put("/day", "/d");
@@ -52,6 +60,7 @@ public class FlagParser {
         aliasMap.put("/set", "/s");
         aliasMap.put("/rep", "/r");
         aliasMap.put("/weight", "/w");
+        aliasMap.put("/calories", "/c");
 
         aliasMap.put("/createEx", "/a");
         aliasMap.put("/updateEx", "/u");
@@ -59,12 +68,10 @@ public class FlagParser {
         aliasMap.put("/createDay", "/ad");
         aliasMap.put("/removeDay", "/xd");
 
-        aliasMap.put("/mealName", "/n");
-        aliasMap.put("/mealCalories", "/c");
-        aliasMap.put("/mealIndex", "/m");
+        aliasMap.put("/meal", "/m");
 
-        aliasMap.put("/waterAmount", "/v");
-        aliasMap.put("/waterIndex", "/w");
+        aliasMap.put("/volume", "/v");
+        aliasMap.put("/water", "/w");
     }
 
     private void parse(String argumentString) {
@@ -72,6 +79,8 @@ public class FlagParser {
 
         String[] args = argumentString.trim().split(this.splitBy);
         for (String arg : args) {
+            logger.log(Level.INFO, "Parsing argument: " + arg);
+
             String[] argParts = splitArguments(arg);
 
             String flag = argParts[0].trim();

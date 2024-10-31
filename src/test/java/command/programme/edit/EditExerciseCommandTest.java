@@ -19,7 +19,10 @@ class EditExerciseCommandTest {
     private static final int VALID_PROGRAMME_ID = 0;
     private static final int VALID_DAY_ID = 0;
     private static final int VALID_EXERCISE_ID = 0;
+
+    //Since programme_id is optional, -1 (NULL_INTEGER) is a valid input.
     private static final int INVALID_PROGRAMME_ID = -2;
+
     private static final int INVALID_DAY_ID = -1;
     private static final int INVALID_EXERCISE_ID = -1;
     private static final int OUT_OF_RANGE_PROGRAMME_ID = 999;
@@ -97,13 +100,10 @@ class EditExerciseCommandTest {
         String expectedMessage = String.format(
                 EditExerciseCommand.SUCCESS_MESSAGE_FORMAT, expectedExercise
         );
-        CommandResult expectedResult = new CommandResult(expectedMessage);
 
+        CommandResult expectedResult = new CommandResult(expectedMessage);
         CommandResult actualResult = command.execute(programmeList);
 
-
-        System.out.println(expectedResult.getMessage());
-        System.out.println(actualResult.getMessage());
         assertEquals(expectedResult, actualResult);
     }
 
