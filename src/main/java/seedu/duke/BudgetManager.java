@@ -22,6 +22,14 @@ public class BudgetManager {
         System.out.println("Automatic budget reset is now " + (isAutoResetEnabled ? "ON" : "OFF") + ".");
     }
 
+    //@@author AdiMangalam
+    /**
+     * Checks if it is a new month and resets budgets if auto-reset is enabled.
+     *
+     * This method uses the current month to determine if a monthly budget reset
+     * should occur. If auto-reset is enabled and the month has changed since the
+     * last reset, it triggers a reset of all budgets and updates the last reset month.
+     */
     public void checkAndResetBudgets(TrackerData trackerData) {
 
         Calendar calendar = Calendar.getInstance();
@@ -33,10 +41,24 @@ public class BudgetManager {
         }
     }
 
+    /**
+     * Manages the monthly budget reset process.
+     *
+     * This method is intended to be called periodically to ensure budgets are reset
+     * at the start of a new month if necessary. It delegates the actual reset logic
+     * to the checkAndResetBudgets method, which handles auto-reset checks.
+     */
     public void manageMonthlyReset(TrackerData trackerData) {
         checkAndResetBudgets(trackerData);
     }
 
+    /**
+     * Resets the budget limits for all categories.
+     *
+     * This method iterates over all budgets in the tracker and resets each budget's
+     * limit as per the current configuration. By default, it maintains the same limit
+     * for each budget, but the reset logic can be adjusted if needed.
+     */
     private void resetBudgets(TrackerData trackerData) {
         Map<Category, Budget> budgets = trackerData.getBudgets();
 
@@ -49,6 +71,19 @@ public class BudgetManager {
         System.out.println("Budgets have been reset for all categories.");
     }
 
+    //@@author MayFairMI6
+    /**
+     * Sets a budget limit for a specific category.
+     *
+     * If the category already has a budget, this method updates the budget limit.
+     * If the category does not have a budget set, it creates a new budget for the category.
+     *
+     * This method is used to track and control spending limits for different categories.
+     * After setting the budget, a message is displayed to confirm the action.
+     *
+     * @param categoryName The name of the category to set the budget for
+     * @param limit The budget limit to be set for the category (in dollars)
+     */
     public void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
         List<Category> categories = trackerData.getCategories();
         Map<Category, Budget> budgets = trackerData.getBudgets();
@@ -79,6 +114,15 @@ public class BudgetManager {
         trackerData.setBudgets(budgets);
     }
 
+    //@@author kq2003
+    /**
+     * Displays the current budget status for each category.
+     *
+     * This method checks if each category has a budget set, calculates the total expenses for that category,
+     * and shows the remaining budget. If the total expenses exceed the budget limit, it displays the amount
+     * over budget. Categories with expenses but no budget set are also displayed.
+     * If no budgets are set, a message is shown indicating the absence of budgets.
+     */
     public void viewBudget(TrackerData trackerData) {
         List<Expense> expenses = trackerData.getExpenses();
         Map<Category, Budget> budgets = trackerData.getBudgets();
@@ -123,6 +167,7 @@ public class BudgetManager {
         }
     }
 
+    //@@glenda-1506
     private String formatDecimal(double value) {
         BigDecimal roundedValue = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP);
         DecimalFormat decimalFormat = new DecimalFormat("$#.00");
