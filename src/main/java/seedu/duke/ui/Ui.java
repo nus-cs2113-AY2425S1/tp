@@ -21,8 +21,9 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    public void showMainScreen() {
+    public void showMainScreen(Hospital hospital) {
         showLine();
+        showCompletionRate(hospital);
         System.out.print(Messages.MESSAGE_MAIN_PROMPT);
     }
 
@@ -36,7 +37,12 @@ public class Ui {
         System.out.println(message);
     }
 
+    public void showToUserException(String message) {
+        System.out.println(Colors.ANSI_RED + message + Colors.ANSI_RESET);
+    }
 
+
+    // @@kennethszj
     public void showTaskList(Patient patient) {
         showLine();
         //retrieve and display completion rate
@@ -51,21 +57,34 @@ public class Ui {
         System.out.println(taskList); //use TaskList's toString method to print the list of tasks
     }
 
+    // @@kennethszj
     public void showPatientListWithCompletionRate(Hospital hospital) {
         showLine();
 
         //calculate and display the overall task completion rate
-        double completionRate = hospital.calculateOverallCompletionRate();
-        System.out.printf("%s%.0f%% of tasks are completed.%s%n", Colors.ANSI_GREEN, completionRate, Colors.ANSI_RESET);
+        showCompletionRate(hospital);
         //display each patient
         System.out.println(Colors.ANSI_BLUE + "Here are the patients in your list:" + Colors.ANSI_RESET);
         List<Patient> patients = hospital.getPatients();
         for (int i = 0; i < patients.size(); i++) {
             Patient patient = patients.get(i);
-            System.out.printf("%s%d.%s %s %s%n",
+
+            // retrieve and display completion rate for each patient
+            TaskList taskList = patient.getTaskList();
+            String completionPercentage = taskList.completionRatePercentageToString();
+
+            System.out.printf("%s%d.%s %s %s [Tasks Completed: %s] %n",
                     Colors.ANSI_BLUE, i + 1, Colors.ANSI_RESET,
-                    patient.getName(), patient.getFormattedTag());
+                    patient.getName(), patient.getFormattedTag(), completionPercentage);
         }
+    }
+
+    // @@kennethszj
+    public void showCompletionRate(Hospital hospital)
+    {
+        // Calculate and display the overall task completion rate
+        double completionRate = hospital.calculateOverallCompletionRate();
+        System.out.printf("%s%.0f%% of all tasks are completed.%s%n", Colors.ANSI_GREEN, completionRate, Colors.ANSI_RESET);
     }
 
     /**
