@@ -44,3 +44,6 @@ Given below are my contributions to the project
 - Updating user and developer documents that are not specific to a feature
 - Necessary general code enhancements
 
+#### Review/mentoring contributions
+- Guidance on Project Workflow: Actively provided clear guidelines to ensure the team followed best practices for version control, including instructions for local edits, creating pull requests, and verifying auto-build success before merging. This helped maintain build consistency and prevented errors.
+- Team Coordination: Helped the team stay on track by reminding members of deadlines, prompting active participation, and clarifying steps to streamline contributions and avoid common mistakes.
