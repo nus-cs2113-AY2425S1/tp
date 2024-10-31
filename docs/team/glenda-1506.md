@@ -36,3 +36,11 @@ Given below are my contributions to the project
     - `set-budget-reset`
     - `bye`
 
+#### Contributions to team-based tasks
+- Set up the GitHub team organisation
+- Set up the GitHub team repository
+- Maintain the issue tracker
+- Release management
+- Updating user and developer documents that are not specific to a feature
+- Necessary general code enhancements
+
