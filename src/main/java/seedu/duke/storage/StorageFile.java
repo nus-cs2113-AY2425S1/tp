@@ -12,7 +12,7 @@ import seedu.duke.ui.Ui;
 /**
  * Represents a storage file to manage Hospital.
  */
-public class StorageFile implements Storage<Hospital> {
+public class StorageFile<T> implements Storage<Hospital> {
     private static final String DEFAULT_STORAGE_FILEPATH = "data/hospital_data.json";
     private static final Logger logger = Logger.getLogger("StorageFile");
 
@@ -52,7 +52,7 @@ public class StorageFile implements Storage<Hospital> {
     }
 
     /**
-     * Returns the file path of the storage file.
+     * Returns the file path of the storage.
      *
      * @return The String file path of the storage file.
      */
@@ -63,7 +63,8 @@ public class StorageFile implements Storage<Hospital> {
     }
 
     /**
-     * Checks if the file exists. If the file does not exist, a new file will be created.
+     * Checks if the file exists. If the file does not exist, a new path and file will be created.
+     *
      *
      * @param filePath The String file path of the storage file.
      */
@@ -92,6 +93,7 @@ public class StorageFile implements Storage<Hospital> {
 
     /**
      * Saves the hospital data {@code Hospital} to the storage file.
+     * If the file does not exist, a new file will be created.
      *
      * @param hospital The hospital data to save.
      */
@@ -103,12 +105,12 @@ public class StorageFile implements Storage<Hospital> {
             jsonUtil.saveToFile(hospital, filePath);
         } catch (StorageOperationException e) {
             ui.showToUserException(e.getMessage());
-
         }
     }
 
     /**
      * Loads the hospital data {@code Hospital} from the storage file.
+     * If the file is corrupted, a backup file will be created and an empty hospital will be returned.
      *
      * @return The hospital data loaded from the storage file.
      */
@@ -127,7 +129,7 @@ public class StorageFile implements Storage<Hospital> {
     /**
      * Returns the string representation of the storage file.
      *
-     * @return The string representation of the storage file.
+     * @return The String representation of the storage file.
      */
     @Override
     public String toString() {

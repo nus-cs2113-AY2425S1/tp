@@ -1,4 +1,5 @@
 package seedu.duke.ui;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,49 +22,78 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Displays the main screen for the task management application.
+     *
+     * @param hospital The hospital object to display the main screen for.
+     */
     public void showMainScreen(Hospital hospital) {
         showLine();
         showCompletionRate(hospital);
         System.out.print(Messages.MESSAGE_MAIN_PROMPT);
     }
 
+    /**
+     * Displays the task screen for a patient.
+     *
+     * @param patient The patient object to display the task screen for.
+     */
     public void showTaskScreen(Patient patient) {
         showLine();
         System.out.println("Patient: " + patient.getName() + patient.getFormattedTag());
         System.out.print(Messages.MESSAGE_MAIN_PROMPT);
     }
 
+    /**
+     * Displays a message to the user.
+     *
+     * @param message The message to display.
+     */
     public void showToUser(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message The error message to display.
+     */
     public void showToUserException(String message) {
         System.out.println(Colors.ANSI_RED + message + Colors.ANSI_RESET);
     }
 
-
     // @@kennethszj
+    /**
+     * Displays the list of tasks for a patient.
+     *
+     * @param patient The patient object to display the tasks from.
+     */
     public void showTaskList(Patient patient) {
         showLine();
-        //retrieve and display completion rate
+        // retrieve and display completion rate
         TaskList taskList = patient.getTaskList();
         String completionPercentage = taskList.completionRatePercentageToString();
-        //display info with completion rate
+        // display info with completion rate
         System.out.printf("%sPatient:%s %s %s [Tasks Completed: %s%s%s]%n",
                 Colors.ANSI_BLUE, Colors.ANSI_RESET,
                 patient.getName(), patient.getFormattedTag(),
                 Colors.ANSI_GREEN, completionPercentage, Colors.ANSI_RESET);
         System.out.println(Colors.ANSI_BLUE + "Here are the tasks in your list!" + Colors.ANSI_RESET);
-        System.out.println(taskList); //use TaskList's toString method to print the list of tasks
+        System.out.println(taskList); // use TaskList's toString method to print the list of tasks
     }
 
     // @@kennethszj
+    /**
+     * Displays the list of patients in the hospital with their completion rates.
+     *
+     * @param hospital The hospital object to display the patients from.
+     */
     public void showPatientListWithCompletionRate(Hospital hospital) {
         showLine();
 
-        //calculate and display the overall task completion rate
+        // calculate and display the overall task completion rate
         showCompletionRate(hospital);
-        //display each patient
+        // display each patient
         System.out.println(Colors.ANSI_BLUE + "Here are the patients in your list:" + Colors.ANSI_RESET);
         List<Patient> patients = hospital.getPatients();
         for (int i = 0; i < patients.size(); i++) {
@@ -80,11 +110,16 @@ public class Ui {
     }
 
     // @@kennethszj
-    public void showCompletionRate(Hospital hospital)
-    {
+    /**
+     * Displays the completion rate of the hospital.
+     *
+     * @param hospital The hospital object to calculate the completion rate from.
+     */
+    public void showCompletionRate(Hospital hospital) {
         // Calculate and display the overall task completion rate
         double completionRate = hospital.calculateOverallCompletionRate();
-        System.out.printf("%s%.0f%% of all tasks are completed.%s%n", Colors.ANSI_GREEN, completionRate, Colors.ANSI_RESET);
+        System.out.printf("%s%.0f%% of all tasks are completed.%s%n", Colors.ANSI_GREEN, completionRate,
+                Colors.ANSI_RESET);
     }
 
     /**

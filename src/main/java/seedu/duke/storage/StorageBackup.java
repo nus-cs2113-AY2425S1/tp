@@ -53,7 +53,8 @@ public class StorageBackup {
 
 
     /**
-     * Creates a backup file with the default file path.
+     * Creates a backup file with the file path with timestamp.
+     * The backup file is a copy of the corrupted storage file.
      *
      * @param filePath The String file path of the storage file.
      */

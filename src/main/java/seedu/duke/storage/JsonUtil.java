@@ -27,11 +27,18 @@ public class JsonUtil {
         logger.setLevel(Level.SEVERE); // Only show warnings and errors
     }
 
+    /** The object mapper for JSON operations needed Jackson */
     private static final ObjectMapper objectMapper = new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT) // Readable format
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false) // Ignore unknown properties
             .findAndRegisterModules(); // Automatically register additional modules (future use);
 
+    /**
+     * Saves the empty hospital object to a file.
+     *
+     * @param filePath The file path to save the hospital object.
+     * @throws StorageOperationException If there is an error saving the file.
+     */
     public void saveToFile(String filePath) throws StorageOperationException {
         try {
             objectMapper.writeValue(new File(filePath), new Hospital());
@@ -53,6 +60,13 @@ public class JsonUtil {
         logger.log(Level.INFO, "Data saved successfully at: {0}", filePath);
     }
 
+    /**
+     * Saves the hospital object to a file.
+     *
+     * @param hospital The hospital object to save.
+     * @param filePath The file path to save the hospital object.
+     * @throws StorageOperationException If there is an error saving the file.
+     */
     public void saveToFile(Hospital hospital, String filePath) throws StorageOperationException {
         try {
             objectMapper.writeValue(new File(filePath), hospital);
@@ -74,6 +88,13 @@ public class JsonUtil {
         logger.log(Level.INFO, "Data saved successfully at: {0}", filePath);
     }
 
+    /**
+     * Loads the hospital object from a file.
+     *
+     * @param filePath The file path to load the hospital object.
+     * @return The hospital object loaded from the file.
+     * @throws StorageOperationException If there is an error loading the file.
+     */
     public Hospital loadFromFile(String filePath) throws StorageOperationException {
         try {
             Hospital hospital = objectMapper.readValue(new File(filePath), Hospital.class);
@@ -95,6 +116,13 @@ public class JsonUtil {
 
     }
 
+    /**
+     * Converts the hospital object to JSON String.
+     *
+     * @param hospital The hospital object to convert.
+     * @return The JSON string of the hospital object.
+     * @throws StorageOperationException If there is an error converting the object to JSON.
+     */
     public String toJson(Hospital hospital) throws StorageOperationException {
         logger.log(Level.INFO, "Converting object to JSON");
         try {
@@ -110,9 +138,16 @@ public class JsonUtil {
             throw new StorageOperationException(
                     "Json Processing Exception Caught. Failed to convert object to JSON: " + e.getMessage());
         }
-
     }
 
+    /**
+     * Converts the JSON string to a hospital object.
+     * If there is an error converting the JSON to object, an empty hospital object is returned.
+     *
+     * @param json The JSON string to convert.
+     * @return The hospital object converted from the JSON string.
+     * @throws StorageOperationException If there is an error converting the JSON to object.
+     */
     public Hospital fromJson(String json) throws StorageOperationException {
         logger.log(Level.INFO, "Converting JSON to object");
         Hospital hospital = null;
