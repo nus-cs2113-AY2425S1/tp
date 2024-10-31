@@ -4,35 +4,34 @@ skinparam classAttributeIconSize 0
 skinparam classBackgroundColor White
 skinparam classBorderColor Black
 
-
-enum Exercise <<enumeration>> {
+rectangle Exercise <<enumeration>> {
 }
 
-class User {
+rectangle User {
 }
 
-class FitTrackLogger {
+rectangle FitTrackLogger {
 }
 
-class Storage {
+rectangle Storage {
 }
 
-class FitTrack {
+rectangle FitTrack {
 }
 
-class Parser {
+rectangle Parser {
 }
 
-class Ui {
+rectangle Ui {
 }
 
-class TrainingSession {
+rectangle TrainingSession {
 }
 
-class ExerciseStation {
+rectangle ExerciseStation {
 }
 
-class Calculator {
+rectangle Calculator {
 }
 
 FitTrack  -->  Parser
