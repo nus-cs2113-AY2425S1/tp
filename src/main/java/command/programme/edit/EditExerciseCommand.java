@@ -3,9 +3,11 @@
 package command.programme.edit;
 
 import command.CommandResult;
+
 import programme.Day;
 import programme.Exercise;
 import programme.ExerciseUpdate;
+import programme.Programme;
 import programme.ProgrammeList;
 
 import java.util.logging.Level;
@@ -47,10 +49,14 @@ public class EditExerciseCommand extends EditCommand {
     @Override
     public CommandResult execute(ProgrammeList programmes) {
         assert programmes != null : "programmes cannot be null";
-        Day selectedDay = programmes.getDay(programmeIndex, dayIndex);
-        Exercise updated = selectedDay.updateExercise(exerciseId, update);
-        String result = String.format(SUCCESS_MESSAGE_FORMAT, updated);
+
+        Programme selectedProgramme = programmes.getProgramme(programmeIndex);
+        Day selectedDay = selectedProgramme.getDay(dayIndex);
+        Exercise updatedExercise = selectedDay.updateExercise(exerciseId, updateExercise);
+
         logger.log(Level.INFO, "EditExerciseCommand executed successfully.");
+
+        String result = String.format(SUCCESS_MESSAGE_FORMAT, exerciseId, updatedExercise);
         return new CommandResult(result);
     }
 }

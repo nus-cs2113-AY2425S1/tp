@@ -134,7 +134,7 @@ public class FlagParser {
         for (String flag : requiredFlags) {
             flag = resolveAlias(flag);
             if (!hasFlag(flag)) {
-                throw new IllegalArgumentException("Required flag: " + flag + "is missing. Please provide the flag.");
+                throw new IllegalArgumentException("Required flag: " + flag + " is missing. Please provide the flag.");
             }
         }
     }

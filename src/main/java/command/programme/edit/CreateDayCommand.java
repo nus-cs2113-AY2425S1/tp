@@ -4,6 +4,7 @@ package command.programme.edit;
 
 import command.CommandResult;
 import programme.Day;
+import programme.Programme;
 import programme.ProgrammeList;
 
 import java.util.logging.Level;
@@ -36,9 +37,13 @@ public class CreateDayCommand extends EditCommand {
     @Override
     public CommandResult execute(ProgrammeList programmes) {
         assert programmes != null : "programmes cannot be null";
-        programmes.insertDay(programmeIndex, createdDay);
-        String resultMessage = String.format(SUCCESS_MESSAGE_FORMAT, createdDay);
+
+        Programme selectedProgramme = programmes.getProgramme(programmeIndex);
+        selectedProgramme.insertDay(createdDay);
+
         logger.log(Level.INFO, "CreateDayCommand executed successfully.");
+
+        String resultMessage = String.format(SUCCESS_MESSAGE_FORMAT, createdDay);
         return new CommandResult(resultMessage);
     }
 }
