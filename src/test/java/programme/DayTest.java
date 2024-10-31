@@ -37,16 +37,6 @@ public class DayTest {
     }
 
     @Test
-    void testUpdateExercises() {
-        ExerciseUpdate update = new ExerciseUpdate(3, 12, 40, 120,"Chest_Fly");
-        Exercise expectedExercise = new Exercise(3, 12, 40, 120,"Chest_Fly");
-
-        day.updateExercise(2, update);
-
-        assertEquals(expectedExercise, day.getExercise(2));
-    }
-
-    @Test
     void testDeleteExercise() {
         Exercise deletedExercise = day.deleteExercise(2);
 

@@ -72,7 +72,7 @@ class EditExerciseCommandTest {
 
     // Edge case for constructor: Negative day ID
     @Test
-    void constructor_throwsAssertionErrorIfDayIdIsNegative() {
+    void constructor_throwsAssertionErrorIfdayIndexIsNegative() {
         assertThrows(AssertionError.class, () ->
                 new EditExerciseCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID, VALID_EXERCISE_ID, update)
         );
@@ -80,7 +80,7 @@ class EditExerciseCommandTest {
 
     // Edge case for constructor: Negative exercise ID
     @Test
-    void constructor_throwsAssertionErrorIfExerciseIdIsNegative() {
+    void constructor_throwsAssertionErrorIfexerciseIndexIsNegative() {
         assertThrows(AssertionError.class, () ->
                 new EditExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID, update)
         );
@@ -124,7 +124,7 @@ class EditExerciseCommandTest {
 
     // Edge case for execute: Nonexistent day ID within existing programme
     @Test
-    void execute_throwsIndexOutOfBoundsIfDayIdDoesNotExist() {
+    void execute_throwsIndexOutOfBoundsIfdayIndexDoesNotExist() {
         EditExerciseCommand invalidCommand = new EditExerciseCommand(
                 VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID, VALID_EXERCISE_ID, update
         );
@@ -133,7 +133,7 @@ class EditExerciseCommandTest {
 
     // Edge case for execute: Nonexistent exercise ID within existing day
     @Test
-    void execute_handlesNonexistentExerciseIdGracefully() {
+    void execute_handlesNonexistentexerciseIndexGracefully() {
         EditExerciseCommand invalidCommand = new EditExerciseCommand(
                 VALID_PROGRAMME_ID, VALID_DAY_ID, OUT_OF_RANGE_EXERCISE_ID, update
         );
