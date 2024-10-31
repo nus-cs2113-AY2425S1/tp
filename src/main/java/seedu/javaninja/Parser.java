@@ -12,34 +12,30 @@ public class Parser {
     }
 
     public void determineCommand(String input) throws IOException {
-        try {
-            switch (processCommand(input)) {
-            case "view":
-                quizManager.printTopics();
-                break;
-            case "select":
-                String[] parts = input.split(" ", 2);
-                if (parts.length > 1) {
-                    quizManager.selectTopic(parts[1].trim());
-                } else {
-                    System.out.println("Please provide a topic to select.");
-                }
-                break;
-            case "review":
-                System.out.println("Reviewing your past results:");
-                System.out.println(quizManager.getPastResults());
-                break;
-            case "help":
-                cli.printHelp();
-                break;
-            case "add":
-                quizManager.addFlashcardByUser(input);
-                break;
-            default:
-                System.out.println("Invalid input. Type 'help' for a list of commands.");
+        switch (processCommand(input)) {
+        case "view":
+            quizManager.printQuizzesAvailable();
+            break;
+        case "select":
+            String[] parts = input.split(" ", 2);
+            if (parts.length > 1) {
+                quizManager.selectQuizToAttempt(parts[1].trim());
+            } else {
+                System.out.println("Please provide a topic to select.");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            break;
+        case "review":
+            System.out.println("Reviewing your past results:");
+            quizManager.printPastResults();
+            break;
+        case "help":
+            cli.printHelp();
+            break;
+        case "add":
+            quizManager.addInput(input);
+            break;
+        default:
+            System.out.println("Invalid input. Type 'help' for a list of commands.");
         }
     }
 

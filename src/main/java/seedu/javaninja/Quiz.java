@@ -18,11 +18,11 @@ public class Quiz {
     public Quiz(Topic topic, Scanner scanner) {
         assert topic != null : "Topic must not be null";
         assert !topic.getQuestions().isEmpty() : "Topic must contain at least one question";
+        quizTimer = new QuizTimer();
         this.topic = topic;
         this.scanner = scanner;
         this.currentQuestionIndex = 0;
         this.correctAnswers = 0;
-        this.quizTimer = new QuizTimer(scanner);
     }
 
     public void start(int timeLimitInSeconds, int questionLimit) {
