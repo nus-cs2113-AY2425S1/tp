@@ -13,8 +13,10 @@ public class MenuCommand extends Command {
             list: List events.
             remove -e EVENT: Remove an event from the event list.
             add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Add a participant to an event.
-            view -e EVENT: View the list of participants of an event.
+            add -m ITEM -e EVENT: Add an item to an event.
+            view -e EVENT -y TYPE: View the list of participants or items of an event.
             remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
+            remove -m ITEM -e EVENT: Remove an item from an event.
             mark -e EVENT -s STATUS: Mark an event as done or not done.
             mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
             sort -by KEYWORD: Sorts events by name/time/priority.
