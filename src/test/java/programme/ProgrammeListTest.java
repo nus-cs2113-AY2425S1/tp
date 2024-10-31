@@ -21,7 +21,6 @@ public class ProgrammeListTest {
 
     @BeforeEach
     public void setUp() {
-        // Initialize ProgrammeList
         programmeList = new ProgrammeList();
 
         // Create mock Programme and Day objects
@@ -50,67 +49,53 @@ public class ProgrammeListTest {
 
     @Test
     void testInsertProgramme() {
-        // Insert a new programme
         ArrayList<Day> days = new ArrayList<>();
         days.add(mockDay1);
         Programme newProgramme = programmeList.insertProgramme("New Programme", days);
 
-        // Verify insertion
         assertEquals(newProgramme, programmeList.getProgramme(2));
         assertEquals(3, programmeList.getProgrammeListSize());
     }
 
     @Test
     void testDeleteProgrammeValidIndex() {
-        // Delete the programme at index 0
         Programme deletedProgramme = programmeList.deleteProgram(0);
 
-        // Verify deletion
         assertEquals(mockProgramme1, deletedProgramme);
         assertEquals(1, programmeList.getProgrammeListSize());
     }
 
     @Test
     void testDeleteProgrammeInvalidIndex() {
-        // Verify that an invalid index throws an IndexOutOfBoundsException
         assertThrows(IndexOutOfBoundsException.class, () -> programmeList.deleteProgram(5));
 
-        // Verify that the size remains unchanged
         assertEquals(2, programmeList.getProgrammeListSize());
     }
 
     @Test
     void testGetProgramme() {
-        // Verify retrieval of programme at index 1
         Programme programme = programmeList.getProgramme(1);
         assertEquals(mockProgramme2, programme);
     }
 
     @Test
     void testStartProgramme() {
-        // Set the active programme to index 1
         Programme activeProgramme = programmeList.startProgramme(1);
 
-        // Verify that the active programme is set correctly
         assertEquals(mockProgramme2, activeProgramme);
     }
 
-    @Test
     void testToString() {
         // Stub the toString() method of the mock programmes
         when(mockProgramme1.toString()).thenReturn("Mocked Programme 1");
         when(mockProgramme2.toString()).thenReturn("Mocked Programme 2");
 
-        // Set the active programme to index 0
         programmeList.startProgramme(0);
 
-        // Get the string representation of the ProgrammeList
         String programmeListString = programmeList.toString();
 
-        // Expected string with the first programme marked as active
         String expectedString = "*Active* Mocked Programme 1\nMocked Programme 2\n";
 
-        // Verify the expected output
         assertEquals(expectedString, programmeListString);
     }
 

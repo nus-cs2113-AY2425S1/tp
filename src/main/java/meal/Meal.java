@@ -1,5 +1,6 @@
 package meal;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +27,24 @@ public class Meal {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(calories, name);
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Meal meal = (Meal) o;
+        return calories == meal.calories &&
+                Objects.equals(name, meal.name);
     }
 
     @Override

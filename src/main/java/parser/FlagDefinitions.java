@@ -14,6 +14,9 @@ public class FlagDefinitions {
     public static final String UPDATE_EXERCISE_FLAG = "/u";
     public static final String ADD_DAY_INDEX = "/ad";
     public static final String REMOVE_DAY_INDEX = "/xd";
+    public static final String MEAL_NAME = "/n";
+    public static final String MEAL_CALORIES = "/c";
+    public static final String MEAL_INDEX = "/m";
     public static final String WATER_INDEX = "/w";
     public static final String VOLUME_FLAG = "/v";
 }

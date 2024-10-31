@@ -1,4 +1,5 @@
 package command.history;
+
 import command.Command;
 import command.CommandResult;
 import programme.ProgrammeList;
@@ -9,12 +10,9 @@ public class WeeklySummaryCommand extends Command {
 
     @Override
     public CommandResult execute(ProgrammeList programmes, History history) {
-        // Call the method that retrieves the weekly summary from the History class
+        // Retrieve the weekly summary from the History class
         String weeklySummary = history.getWeeklyWorkoutSummary();
         return new CommandResult("Your weekly workout summary: \n" + weeklySummary);
     }
 }
-
-
-
 
