@@ -8,12 +8,14 @@ skinparam classBorderColor Black
 
 ' Define classes
 class FitTrack {
-    +main()
+    -sessionList : ArrayList<TrainingSession>
 }
 
 class Parser {
+    -command : String
+    -description : String
+    -currentTime : LocalDateTime
     +parse()
-    +getExercise()
 }
 
 class Ui {
@@ -24,6 +26,7 @@ class Ui {
     +printDeletedSession()
     +printSessionList()
     +printSessionView()
+    +printSessionCount()
     +printUnrecognizedInputMessage()
 }
 
@@ -34,17 +37,19 @@ class Storage {
 }
 
 class TrainingSession {
-    -LocalDateTime sessionDateTime
-    -String description
-    -User user
+    -description : String
+    -sessionDateTime : LocalDateTime
+    -user : User
+    -exerciseStations : Map<Exercise, ExerciseStation>
+    -initialiseExerciseStations()
     +editExercise()
-    +printSessionDescription()
+    +getSessionDescription()
     +viewSession()
 }
 
 class User {
-    -String gender
-    -int age
+    -gender : Gender
+    -age : int
     +setGender()
     +setAge()
     +getGender()
@@ -64,17 +69,29 @@ class FitTrackLogger {
     +setupLogger()
 }
 
+class ExerciseStation {
+    +getName()
+    +toString()
+}
+
+class Calculator {
+    -getPointsFromTable()
+    -addAgeSubTable()
+    -addAllTables()
+    +calculatePoints()
+}
+
 ' Define relationships with right-angle arrows
+FitTrack "1" --> "1" Storage : uses
+FitTrack "1" --> "1" FitTrackLogger : uses
+FitTrack "1" --> "1" User : creates
 FitTrack "1" --> "1" Parser : uses
 FitTrack "1" --> "1" Ui : uses
-FitTrack "1" --> "1" Storage : uses
-FitTrack "1" --> "1" User : manipulates
-FitTrack "1" --> "1" FitTrackLogger : uses
 
-Parser "1" --> "*" TrainingSession : manipulates
-Parser "1" --> Exercise : gets
-Parser "1" --> "1" User : manipulates
 Parser "1" --> "1" Ui : uses
+Parser "1" --> "1" User : manages
+Parser "1" --> "*" TrainingSession : manages
+Parser "1" --> Exercise : references
 
 Ui "1" -> "1" User : displays
 Ui "1" --> "*" TrainingSession : displays
@@ -83,6 +100,9 @@ Storage "1" --> "*" TrainingSession : manages
 Storage "1" --> "1" FitTrackLogger : uses
 
 TrainingSession "*" ---> "1" User : belongs to
-TrainingSession "*" --> Exercise : contains
+TrainingSession "*" --> Exercise : references
+TrainingSession "1" --> "6" ExerciseStation : contains
+
+ExerciseStation "1" --> "1" Calculator : uses
 
 @enduml

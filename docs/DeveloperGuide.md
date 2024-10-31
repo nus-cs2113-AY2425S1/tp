@@ -6,23 +6,42 @@
 
 ## Design & implementation
 
-# High Level Functionalities
-![HighLevel.png](HighLevel.png)
+# Software Architecture
+![Architecture.png](Images/Archi_Architecture.png)
 
-**FitTrack** is the main class and entry point of the application.  
-It manages high level functionalities by coordinating the `FitTrackLogger`, `Storage`, `User`, `Parser`, `Ui`, `TrainingSession`, and `Exercise` classes.
+**FitTrack** is the main class and entry point of the application. It manages high level functionalities by coordinating the following classes:
 
-- **FitTrackLogger** manages logging for the application, ensuring errors and important events are properly recorded.
-- **Storage** manages saving and loading data from a persistent storage file.
-- **User** holds the user’s information, such as age and gender, and provides methods to modify or retrieve this data.
-- **Parser** handles parsing of user input, converting it into commands and actions.
-- **Ui** manages all output and user interaction, such as printing data and messages to the console.
-- **TrainingSession** represents a single training session, including exercises and metadata (like date and description).
-- **Exercise** represents different types of exercises available in the application, like pull-ups or shuttle runs.
+| Class           | Functionality                                                                                                |
+|-----------------|--------------------------------------------------------------------------------------------------------------|
+| FitTrackLogger  | Manages logging for the application, ensuring errors and important events are properly recorded              |
+| Storage         | Manages saving and loading data from a persistent storage file                                               |
+| User            | Records the user’s information, such as age and gender, and provides methods to modify or retrieve this data |
+| Parser          | Handles parsing of user input, converting it into commands and actions                                       |
+| Ui              | Handles user interaction and CLI output, printing messages and data to the console                           |
+| TrainingSession | Represents a single training session, including exercises and metadata (e.g. date and description)           |
+| Exercise        | Represents different types of exercises available in the application, like pull-ups or shuttle runs          |
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+# Features
 
-### Edit Exercise Feature
+### Storage
+![Storage.png](Images/Class_Storage.png)
+
+### Set User
+![SetUser.png](Images/Class_SetUser.png)
+
+### Add Training Session
+![AddTrainingSession.png](Images/Class_AddTrainingSession.png)
+
+### Delete Training Session
+![DeleteTrainingSession.png](Images/Class_DeleteTrainingSession.png)
+
+### List Training Sessions
+![ListTrainingSessions.png](Images/Class_ListTrainingSessions.png)
+
+### View Training Session
+![ViewTrainingSession.png](Images/Class_ViewTrainingSession.png)
+
+### Edit Exercise
 
 The **Edit Exercise** feature is managed by the `TrainingSession` class, and is primarily carried out by its 
 `editExercise()` function. This feature utilizes the `setPerformance()`and `getReps()` methods from the 
@@ -52,7 +71,7 @@ Additionally, the state diagram below shows the end state of the `editExercise` 
 
 ![TrainingSessionEditState.png](TrainingSessionEditState.png)
 
-### Points Calculation Feature
+### Points Calculation
 
 The **points calculation feature** is a significant part of the `ExerciseStation` system. It allows for the calculation
 of user-specific points based on their performance in various exercises (e.g., pull-ups, sit-ups). This process 
