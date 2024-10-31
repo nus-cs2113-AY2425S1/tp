@@ -7,7 +7,36 @@ import java.util.List;
 import java.util.Map;
 
 public class ExpenseManager {
+
     //@@author kq2003
+    public void addExpenseRequest(String input, ExpenseManager expenseManager, TrackerData trackerData) {
+        try {
+            String[] parts = input.split(" ");
+            String name = null;
+            double amount = 0;
+            String category = null;
+
+            for (String part : parts) {
+                if (part.startsWith("n/")) {
+                    name = part.substring(2).trim();
+                } else if (part.startsWith("a/")) {
+                    amount = Double.parseDouble(part.substring(2).trim());
+                } else if (part.startsWith("c/")) {
+                    category = part.substring(2).trim();
+                }
+            }
+
+            if (name == null || amount == 0) {
+                System.out.println("Invalid input! Please provide name, amount, and category.");
+                return;
+            }
+
+            expenseManager.addExpense(trackerData, name, amount, category);
+        } catch (Exception e) {
+            System.out.println("Error parsing the input. Please use the correct format for add-expense commands.");
+        }
+    }
+
     /**
      * Adds a new expense with the specified name, amount, and category.
      *
@@ -47,6 +76,22 @@ public class ExpenseManager {
     }
 
     //@@author AdiMangalam
+    public void deleteExpenseRequest(String input, ExpenseManager expenseManager, TrackerData trackerData) {
+        try {
+            String[] parts = input.split(" ");
+            if (parts.length < 2 || !parts[1].startsWith("e/")) {
+                System.out.println("Invalid input! Please provide an expense index to delete.");
+                return;
+            }
+            int expenseIndex = Integer.parseInt(parts[1].substring(2).trim()) - 1; // 1-based index
+            expenseManager.deleteExpense(trackerData, expenseIndex);
+        } catch (NumberFormatException e) {
+            System.out.println("Error parsing the expense index. Please use the correct format.");
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
+    }
+
     /**
      * Deletes an expense at the specified index in the expense list.
      *
