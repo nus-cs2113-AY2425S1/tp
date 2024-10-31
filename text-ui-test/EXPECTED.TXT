@@ -1,5 +1,5 @@
 Welcome to EventManagerCLI.
-Events loaded successfully.
+Error loading events from file: events.csv.
 ------------------------
 Enter a command: Invalid command!
 ------------------------
@@ -24,9 +24,7 @@ exit: Exit program
 ------------------------
 Events saved successfully.
 ------------------------
-Enter a command: There are 2 events in your list! Here are your scheduled events:
-1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: N
-2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+Enter a command: There are 0 events in your list! Here are your scheduled events:
 
 ------------------------
 Events saved successfully.
@@ -38,11 +36,12 @@ add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT
 add -m ITEM -e EVENT
 
 ------------------------
-Enter a command: Duplicate event!
+Enter a command: Event added successfully
 ------------------------
-Enter a command: There are 2 events in your list! Here are your scheduled events:
-1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: N
-2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+Events saved successfully.
+------------------------
+Enter a command: There are 1 events in your list! Here are your scheduled events:
+1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: N
 
 ------------------------
 Events saved successfully.
@@ -51,9 +50,8 @@ Enter a command: Event marked as done
 ------------------------
 Events saved successfully.
 ------------------------
-Enter a command: There are 2 events in your list! Here are your scheduled events:
-1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
-2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+Enter a command: There are 1 events in your list! Here are your scheduled events:
+1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
 
 ------------------------
 Events saved successfully.
@@ -66,9 +64,8 @@ Enter a command: Event information successfully updated
 ------------------------
 Events saved successfully.
 ------------------------
-Enter a command: There are 2 events in your list! Here are your scheduled events:
+Enter a command: There are 1 events in your list! Here are your scheduled events:
 1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
-2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
 Events saved successfully.
@@ -92,7 +89,9 @@ Enter a command: There are 1 participants in dinner party! Here are your partici
 ------------------------
 Events saved successfully.
 ------------------------
-Enter a command: Duplicate event!
+Enter a command: Event added successfully
+------------------------
+Events saved successfully.
 ------------------------
 Enter a command: Events successfully sorted by name!
 1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
