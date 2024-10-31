@@ -1,20 +1,27 @@
 @startuml
+!include style.puml
+hide footbox
 
-Main -> Parser: view EventName
-activate Parser
-Parser -> ViewCommand: new ViewCommand("EventName")
-activate ViewCommand
-ViewCommand -> EventList: getEventByName("EventName")
-activate EventList
-EventList -> EventList: getParticpantList()
-activate EventList
-EventList -->EventList
-deactivate EventList
-EventList --> ViewCommand: Optional<Event>
-deactivate EventList
-ViewCommand --> Parser: return message
-deactivate ViewCommand
-Parser --> Main
-deactivate Parser
+participant ":Main" as main
+participant ":ViewCommand" as command
+participant ":EventList" as eventList
+
+main -> command : execute()
+activate command
+
+command -> eventList : getEventByName(eventName : String)
+activate eventList
+
+return eventToView : Event
+
+alt eventToView == null
+    command --> main : Invalid event
+else isViewingParticipants
+    ref over command, eventList: view participants
+else else
+    ref over command, eventList: view items
+end
+
+return
 
 @enduml
