@@ -36,12 +36,14 @@ else Index invalid
     DeletePatientCommand -> CommandResult : new CommandResult("Patient not found in the list!")
     deactivate DeletePatientCommand
 end
+
 deactivate Hospital
 
 Parser <-- DeletePatientCommand : CommandResult
 deactivate Parser
 
 MediTask <-- Parser : CommandResult
+destroy DeletePatientCommand
 MediTask -> User : Display CommandResult
 
 deactivate MediTask
