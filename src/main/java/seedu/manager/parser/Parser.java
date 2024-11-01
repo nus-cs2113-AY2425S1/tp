@@ -134,7 +134,7 @@ public class Parser {
     private static final String ITEM_REGEX = "(-m|-e)";
     private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
-    private static final String VIEW_REGEX = "(-e|-y)";;
+    private static final String VIEW_REGEX = "(-e|-y)";
     private static final String MARK_EVENT_REGEX = "-e|-s";
     private static final String MARK_PARTICIPANT_REGEX = "-p|-e|-s";
     private static final String MARK_ITEM_REGEX = "-m|-e|-s";
