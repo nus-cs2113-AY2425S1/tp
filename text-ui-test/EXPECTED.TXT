@@ -13,6 +13,7 @@ remove -e EVENT: Remove an event from the event list.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
 remove -m ITEM -e EVENT: Remove an item from an event.
 edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
+edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
 mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
 copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
@@ -59,6 +60,16 @@ Enter a command: Event not found!
 ------------------------
 Events saved successfully.
 ------------------------
+Enter a command: Event information successfully updated
+------------------------
+Events saved successfully.
+------------------------
+Enter a command: There are 1 events in your list! Here are your scheduled events:
+1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+
+------------------------
+Events saved successfully.
+------------------------
 Enter a command: Participant added successfully
 ------------------------
 Events saved successfully.
@@ -84,13 +95,13 @@ Events saved successfully.
 ------------------------
 Enter a command: Events successfully sorted by name!
 1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
-2. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
+2. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Events saved successfully.
 ------------------------
 Enter a command: Events successfully sorted by time!
-1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
+1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
