@@ -70,7 +70,7 @@ public class AddMealCommand extends MealCommand {
     }
 
     /**
-     * Returns the hash code for this AddMealCommand.
+     * Returns the hash code for AddMealCommand.
      * The hash code is based on the meal and date fields.
      *
      * @return the hash code value for this AddMealCommand
