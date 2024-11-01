@@ -269,11 +269,20 @@ public final class Parser {
             return new FindCommand(query); // Default case, no option provided
         }
 
-        options = options.trim();
+        String trimmedOptions = options.trim();
+        int nCount = countCharOccurrence(trimmedOptions, "[^nN]");
+        int iCount = countCharOccurrence(trimmedOptions, "[^iI]");
+        int sCount = countCharOccurrence(trimmedOptions, "[^sS]");
+        if (nCount > 1 | iCount > 1 | sCount > 1) {
+            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" +
+                    "At most ONE character for each option is allowed!" + "\n" +
+                    FindCommand.USAGE_EXAMPLE);
+        }
+
         return new FindCommand(query,
-                options.contains("n") | options.contains("n"),
-                options.contains("i") | options.contains("I"),
-                options.contains("s") | options.contains("S")
+                nCount == 1, // Can only be 1 or 0
+                iCount == 1,
+                sCount == 1
         );
     }
 
@@ -291,5 +300,7 @@ public final class Parser {
         return new FindIngredCommand(query); // No options, only the query is needed
     }
 
-
+    private static int countCharOccurrence(String options, String regex) {
+        return options.replaceAll(regex, "").length();
+    }
 }
