@@ -39,6 +39,26 @@ PU_COURSE_CODE: PU_COURSE_NAME
 NUS_COURSE_CODE: NUS_COURSE_NAME
 ```
 * Note that the output would be a list of mappable course of the format above
+
+### Help Command: `help`
+This feature allows users to ask for help when unsure of how the commands work or how to use the commands.
+It provides users with a detailed explanation of what the command does and the format to utilise the command.
+
+Format:
+`help [COMMAND]`
+* Users can use the commands feature to list out all the available commands
+
+Example of usage:
+* help filter
+* help set
+
+Expected outcome:
+```
+Detail explanation
+Format to use the feature
+Example
+```
+
 {Give detailed description of each feature}
 
 ### Adding a todo: `todo`
