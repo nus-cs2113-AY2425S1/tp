@@ -1,3 +1,9 @@
+---
+title: User Guide
+nav_order: 1
+---
+
+
 # User Guide
 
 MediTask is a desktop application designed to help nurses efficiently manage and track their daily tasks via a Command Line Interface (CLI). This CLI tool streamlines task management, allowing nurses to quickly organize, monitor, and complete tasks, ensuring no important steps are missed.

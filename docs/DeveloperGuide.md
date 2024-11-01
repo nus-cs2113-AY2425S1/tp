@@ -1,3 +1,8 @@
+---
+title: Developer Guide
+nav_order: 1
+---
+
 # Developer Guide
 
 - Table of Contents
