@@ -36,10 +36,12 @@ list: List events.
 view -e EVENT -y TYPE: View the list of participants or items of an event.
 add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
 add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Add a participant to an event.
+add -m ITEM -e EVENT: Add an item to an event.
 remove -e EVENT: Remove an event from the event list.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
 remove -m ITEM -e EVENT: Remove an item from an event.
 edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
+edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
 mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
 mark -m ITEM -e EVENT -s STATUS: Mark an item as accounted or unaccounted.
@@ -48,6 +50,7 @@ sort -by KEYWORD: Sorts events by name/time/priority.
 filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
 find -e EVENT -p NAME: Finds all participants with specified name in an event.
 exit: Exit program
+
 ```
 
 Format: `menu`
@@ -89,6 +92,20 @@ Examples:
 * `remove -e Origami workshop` removes the event `Origami workshop` from the event list.
 * `remove -p John Tan -e Origami workshop` removes the participant `John Tan` from the event `Origami workshop`.
 * `remove -m Origami paper -e Origami workshop` removes the item `Origami paper` from the event `Origami workshop`.
+
+### Edit the information of an event or a participant: `edit`
+
+Edit the name/time/venue/priority of an event, or edit the number/email of a participant.
+
+Format:
+
+* `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for editing a participant's contact information in an event.
+* `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
+
+Examples:
+
+* `edit -p Mary -n 9182 3213 -email mary@gmail.com -e CS2113`
+* `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH`
 
 ### View all participants or items for an event: `view`
 

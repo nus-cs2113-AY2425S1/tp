@@ -94,8 +94,8 @@ public class AddCommand extends Command {
         if (participantName != null) {
             boolean isAdded = eventList.addParticipantToEvent(
                     participantName,
-                    participantEmail,
                     participantNumber,
+                    participantEmail,
                     eventName
             );
             message = (isAdded) ? ADD_PARTICIPANT_MESSAGE : ADD_FAILURE_MESSAGE;

@@ -21,7 +21,7 @@ public class Event {
 
     protected ArrayList<Participant> participantList;
     private ArrayList<Item> itemList;
-    private final String eventName;
+    private String eventName;
     private LocalDateTime eventTime;
     private String eventVenue;
     private boolean isDone;
@@ -127,6 +127,23 @@ public class Event {
         }
         return false;
     }
+
+    //@@author MatchaRRR
+    /**
+     * Updates the details of an event.
+     *
+     * @param eventNewName The new name of the event.
+     * @param eventTime The new time of the event.
+     * @param eventVenue The new venue of the event.
+     * @param eventPriority The new priority of the event.
+     */
+    public void updateEvent(String eventNewName, LocalDateTime eventTime, String eventVenue, Priority eventPriority) {
+        this.eventName = eventNewName;
+        this.eventTime = eventTime;
+        this.eventVenue = eventVenue;
+        this.eventPriority = eventPriority;
+    }
+
 
     /**
      * Retrieves the number of participants in the participant list.
