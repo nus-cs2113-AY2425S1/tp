@@ -27,6 +27,7 @@ public class EditCommand extends Command {
             
             expenseList.editExpense(index, price, description, newCategory, dateAdded);
             categoryTracker.editCategory(oldCategory, newCategory, price);
+            categoryTracker.checkLimitOf(newCategory);
         } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments.");
         }

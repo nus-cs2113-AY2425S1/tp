@@ -57,7 +57,7 @@ public class CategoryTracker {
      * @param category The name of the category to check.
      * @throws WheresMyMoneyException If the category does not exist in the tracker.
      */
-    private void checkLimitOf(String category) throws WheresMyMoneyException {
+    public void checkLimitOf(String category) throws WheresMyMoneyException {
         CategoryData categoryData = getCategoryDataOf(category);
         float currExpenditure = categoryData.getCurrExpenditure();
         float maxExpenditure = categoryData.getMaxExpenditure();
@@ -92,7 +92,6 @@ public class CategoryTracker {
             CategoryData categoryData = new CategoryData(price);
             tracker.put(category, categoryData);
         }
-        checkLimitOf(category);
     }
     /**
      * Edits category details if an {@code Expense}'s category attribute is changed.
@@ -136,7 +135,7 @@ public class CategoryTracker {
      * Sets the spending limit for the specified category.
      *
      * @param category The name of the category for which the spending limit is being set.
-     * @param spendingLimit The spending limit to be set for the category. 
+     * @param spendingLimit The spending limit to be set for the category.
      * @throws WheresMyMoneyException If the specified category does not exist in the tracker.
      */
     public void setSpendingLimitFor(String category, Float spendingLimit) throws WheresMyMoneyException {
