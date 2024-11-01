@@ -34,7 +34,7 @@ public class CategoryData {
      */
     public CategoryData(Float currExpenditure, Float maxExpenditure) throws WheresMyMoneyException {
         setCurrExpenditure(currExpenditure);
-        setMaxExpenditure(currExpenditure);
+        setMaxExpenditure(maxExpenditure);
         assert (currExpenditure != null) && (maxExpenditure != null);
     }
     
