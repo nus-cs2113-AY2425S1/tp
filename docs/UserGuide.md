@@ -94,6 +94,7 @@ ________________________________________________________________________________
 The following commands is for working with your ingredients list
 1. new n/ingredient                  - Add a new ingredient to your list
 2. listI                             - Lists out all your current ingredients
+3. findI ingredient                  - Looks for your ingredient in your ingredients list"
 __________________________________________________________________________________
 Got it? Let's get back to cooking.
 
@@ -287,6 +288,12 @@ Format: `listI`
 Lists out all of your available ingredients in your inventory
 
 
+## Finding ingredients 
+
+Format: `findI INGREDIENT`
+
+Searches through your inventory list based on the ingredient name given
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
@@ -313,3 +320,4 @@ and paste it in your other computer in the same directory where YMFC.jar is loca
 | `delete n/NAME`                                                 | Delete the recipe of that name                                                                            |
 | `new n/INGREDIENT`                                              | Add a new ingredient to your list                                                                         |
 | `listI`                                                         | List out all your current ingredients                                                                     |
+| `findI INGREDIENT`                                              | Searches ingredient list with input ingredient name                                                       |                                             
