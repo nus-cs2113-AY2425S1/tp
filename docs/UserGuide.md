@@ -44,26 +44,26 @@ Format: `filter NUS_COURSE_CODE`
 
 * The `NUS_COURSE_CODE` is in NUS course code format.
 
-Example of usage: 
+Example: `filter cs3241`
 
-- `filter cs3241`
+Expected Output:
+   
+```agsl
+Partner University: The University of Melbourne
+Partner University Course Code: COMP30019
+-----------------------------------------------------
+Partner University: The Australian National University
+Partner University Course Code: COMP4610
+-----------------------------------------------------
+```
 
-    Output:
-    ```agsl
-    Partner University: The University of Melbourne
-    Partner University Course Code: COMP30019
-    -----------------------------------------------------
-    Partner University: The Australian National University
-    Partner University Course Code: COMP4610
-    -----------------------------------------------------
-    ```
-
-- `filter ee2026`
+Example: `filter ee2026`
     
-    Output:
-    ```agsl
-    No courses found for the given course code.
-    ```
+Output:
+
+```
+No courses found for the given course code.
+```
 
 ### Delete course mapping plans from Personal Tracker: `delete`
 Delete a course mapping plan that was initially saved into the Personal Tracker.
@@ -72,10 +72,19 @@ Format: `delete LIST_INDEX`
 
 * The `LIST_INDEX` is the list index of the course mapping plan to be deleted.
 
-Example of usage:
+Example: `delete 1` when there are plans stored in the Personal Tracker.
 
-- `delete 1`
+Expected Output:
+```
+You have deleted the course from your plan: cs2102 | the university of melbourne | info20003
+```
 
+Example: `delete 0`
+
+Expected Output:
+```
+Please provide a valid index of the course plan you would like to delete.
+```
 
 ## FAQ
 
