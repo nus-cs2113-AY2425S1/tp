@@ -156,7 +156,7 @@ The `ExpenseList` class has the following key methods:
 The setters in `Expense` class checks for null and blank.
 The `Expense` constructors also do, as they use those setters.
 
-The nontrivial methods in `ExpenseList` class contain some sort of exception handling. 
+The `ExpenseList` class contains exception handling when attempting to edit or delete an expense that is not in the list.
 
 <u>Implementation Details</u>
 
