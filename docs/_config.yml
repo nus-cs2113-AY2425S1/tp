@@ -1,0 +1,12 @@
+title: MediTask
+description: MediTask is a desktop application designed to help nurses efficiently manage and track their daily tasks via a Command Line Interface (CLI). This CLI tool streamlines task management, allowing nurses to quickly organize, monitor, and complete tasks, ensuring no important steps are missed.
+theme: just-the-docs
+remote_theme: just-the-docs/just-the-docs
+
+url: https://ay2425s1-cs2113-t11-1.github.io/tp/
+
+# aux_links: # remove if you don't want this link to appear on your pages
+#   Template Repository: https://meditask.github.io
+
+plugins:
+  - jekyll-default-layout
