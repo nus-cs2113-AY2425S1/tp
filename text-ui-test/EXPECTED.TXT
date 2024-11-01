@@ -41,6 +41,7 @@ The following commands is for working with your recipes list
 The following commands is for working with your ingredients list
 1. new n/ingredient                  - Add a new ingredient to your list
 2. listI                             - Lists out all your current ingredients
+3. findI ingredient                  - Looks for your ingredient in your ingredients list
 	__________________________________________________________________________________
 Got it? Let's get back to cooking.
 
