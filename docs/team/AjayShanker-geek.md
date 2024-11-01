@@ -15,7 +15,7 @@ MediTask is a desktop application designed to help nurses efficiently manage and
 Given below are my contributions to the project.
 
 - **New Feature:** `Storage` Functionality
-    - **What it does**: Provides data persistence for patients and tasks information, allowing the system to save and load data from disk with use of [Jackson](https://github.com/FasterXML/jackson) to improve scalability and reliability in mind.
+    - **What it does**: Provides data persistence for patients and tasks information, allowing the system to save and load data from disk with use of [Jackson Library](https://github.com/FasterXML/jackson) to improve scalability and reliability in mind.
     - **Justification**: Enables nurses to store patient and task data across sessions, ensuring data integrity and continuity.
     - **Highlights**: Implemented `Storage` classes for patients and tasks, including methods for reading and writing data to disk. The system supports automatic data loading on startup and error handling for file I/O operations, ensuring robust data management.
 - **New Feature: `Json Utility`**
