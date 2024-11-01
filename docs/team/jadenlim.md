@@ -36,8 +36,13 @@ Given below are my contributions to the project.
 <br><br>
 
 - **Enhancement to Existing Features:**
-  - Updated `Internship` class to include the `dealdine` field.
-    <br><br>
+  - Updated `Internship` class to include the `deadline` field.
+  - What it does: Allows the user to monitor a list of deadlines within each internship. Each deadline has a different description and date tagged to it.
+  - Justification: Every internship application has a different set of deadlines the applicant has to follow. This
+    feature aids users to track their deadlines.
+  - Highlights: This feature was tough to implement using a format that corresponded to our existing command structure, as our structure specialised in parsing commands with only one flag. Adding deadlines would require multiple flags due to the nested nature of each deadline within each internship, making it difficult to find an implementation that met both our functionality and syntax goals.
+  - Credits: ridiculouswifi was a co-author that completed the final implementation and syntax format for the deadline class.
+  <br><br>
   - 
 - **Documentation:**
   - Developer Guide:
