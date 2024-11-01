@@ -40,6 +40,23 @@ public class CommandFactory {
     }
 
     /**
+     * Constructor for dependency injection, allowing custom instances of subcommand factories
+     * for testing with mock objects.
+     *
+     * @param progFactory the {@code ProgCommandFactory} instance to handle "prog" commands
+     * @param mealFactory the {@code MealCommandFactory} instance to handle "meal" commands
+     * @param waterFactory the {@code WaterCommandFactory} instance to handle "water" commands
+     * @param historyFactory the {@code HistoryCommandFactory} instance to handle "history" commands
+     */
+    public CommandFactory(ProgCommandFactory progFactory, MealCommandFactory mealFactory,
+                          WaterCommandFactory waterFactory, HistoryCommandFactory historyFactory) {
+        this.progFactory = progFactory;
+        this.mealFactory = mealFactory;
+        this.waterFactory = waterFactory;
+        this.historyFactory = historyFactory;
+    }
+
+    /**
      * Creates and returns the appropriate {@code Command} object based on the provided command string.
      * Delegates command parsing to the relevant subcommand factory when available. Returns an
      * {@code ExitCommand} for exit requests and an {@code InvalidCommand} for unsupported commands.
