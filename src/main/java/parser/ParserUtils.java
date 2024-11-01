@@ -69,7 +69,7 @@ public class ParserUtils {
 
         int index = parseInteger(indexString) - 1;
         if (index < 0){
-            throw new IllegalArgumentException("index must not be negative.");
+            throw new IllegalArgumentException("Index: " + indexString +" is not a valid index.");
         }
         return index;
     }

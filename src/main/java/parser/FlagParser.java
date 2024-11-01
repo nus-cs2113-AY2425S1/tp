@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static common.Utils.isNull;
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.parseInteger;
 import static parser.ParserUtils.parseFloat;
@@ -20,28 +21,52 @@ import static parser.ParserUtils.splitArguments;
     These values can then be retrieved in Integer, Date, String or Index formats
 */
 public class FlagParser {
+    private static final String DEFAULT_SPLIT_BY = "(?=/)";
+    private static final String SPLIT_BY_START = "(?=/(?!(";
+    private static final String SPLIT_BY_DELIMITER = "|";
+    private static final String SPLIT_BY_END = ")\\b))";
+
     private final Logger logger = Logger.getLogger(FlagParser.class.getName());
+
     private final Map<String, String> parsedFlags = new HashMap<>();
     private final Map<String, String> aliasMap = new HashMap<>();
-    private String splitBy = " (?=/)";
 
     public FlagParser(String argumentString, String... ignoredFlags) {
-        if (ignoredFlags.length > 0){
-            StringBuilder splitBy = new StringBuilder("(?=/(?![");
-            for (String flag: ignoredFlags) {
-                splitBy.append(flag.charAt(1));
-            }
-            this.splitBy = splitBy.append("]\\b))").toString();
+        if (isNull(argumentString)){
+            throw new IllegalArgumentException("ArgumentString: " + argumentString + " is null");
         }
+
         initializeAliasMap();
-        if (argumentString != null && !argumentString.trim().isEmpty()) {
-            parse(argumentString);
+        parse(argumentString, generateSplitBy(ignoredFlags));
+    }
+
+    // Generates a regex to parse the argumentString for flags, accounting for any flags/aliases that should be ignored
+    private String generateSplitBy(String... ignoredFlags){
+        if (ignoredFlags.length == 0){
+            return DEFAULT_SPLIT_BY;
         }
+
+        StringBuilder splitBy = new StringBuilder(SPLIT_BY_START);
+        for (String ignoredFlag: ignoredFlags) {
+            splitBy.append(ignoredFlag.substring(1)).append(SPLIT_BY_DELIMITER);
+
+            for (Map.Entry<String, String> entry: aliasMap.entrySet()){
+                String canonicalFlag = entry.getValue();
+                String aliasFlag = entry.getKey();
+                if (canonicalFlag.equals(ignoredFlag)){
+                    splitBy.append(aliasFlag.substring(1)).append(SPLIT_BY_DELIMITER);
+                }
+            }
+        }
+
+        // Trim the last SPLIT_BY_DELIMITER from StringBuilder
+        splitBy.setLength(splitBy.length() - 1);
+
+        return splitBy.append(SPLIT_BY_END).toString();
     }
 
     private void initializeAliasMap() {
         aliasMap.put("/p", "/p");
-        aliasMap.put("/progIndex", "/p");
         aliasMap.put("/programme", "/p");
 
         aliasMap.put("/day", "/d");
@@ -52,6 +77,7 @@ public class FlagParser {
         aliasMap.put("/set", "/s");
         aliasMap.put("/rep", "/r");
         aliasMap.put("/weight", "/w");
+        aliasMap.put("/calories", "/c");
 
         aliasMap.put("/createEx", "/a");
         aliasMap.put("/updateEx", "/u");
@@ -59,19 +85,20 @@ public class FlagParser {
         aliasMap.put("/createDay", "/ad");
         aliasMap.put("/removeDay", "/xd");
 
-        aliasMap.put("/mealName", "/n");
-        aliasMap.put("/mealCalories", "/c");
-        aliasMap.put("/mealIndex", "/m");
+        aliasMap.put("/meal", "/m");
 
-        aliasMap.put("/waterAmount", "/v");
-        aliasMap.put("/waterIndex", "/w");
+        aliasMap.put("/volume", "/v");
+        aliasMap.put("/water", "/w");
     }
 
-    private void parse(String argumentString) {
+    private void parse(String argumentString, String splitBy) {
         assert argumentString != null : "Argument string must not be null";
 
-        String[] args = argumentString.trim().split(this.splitBy);
+        String[] args = argumentString.split(splitBy);
         for (String arg : args) {
+
+            logger.log(Level.INFO, "Parsing argument: " + arg);
+
             String[] argParts = splitArguments(arg);
 
             String flag = argParts[0].trim();

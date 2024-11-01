@@ -1,0 +1,52 @@
+@startuml
+
+    class ProgrammeCommand {
+        <<abstract>>
+        #programmeIndex: int
+        #dayIndex: int
+        + ProgrammeCommand()
+        + ProgrammeCommand(programmeIndex: int)
+        + ProgrammeCommand(programmeIndex: int, dayIndex: int)
+        +equals(other: Object): boolean
+    }
+
+    class CreateCommand {
+        + programmeName : String
+        + programmeContents: ArrayList<Day>
+        + CreateCommand(programmeName: String, programmeContents: ArrayList<Day>)
+        + execute(programmes: ProgrammeList, History history): CommandResult
+    }
+
+    class DeleteCommand {
+        + DeleteCommand(programmeIndex: int)
+        + execute(programmes: ProgrammeList, History history): CommandResult
+    }
+
+    class ViewCommand {
+        + ViewCommand(programmeIndex: int)
+        + execute(programmes: ProgrammeList, History history): CommandResult
+    }
+
+    class StartCommand {
+        + StartCommand(programmeIndex: int)
+        + execute(programmes: ProgrammeList, History history): CommandResult
+    }
+
+    class LogCommand {
+        # date: LocalDate
+        + LogCommand(programmeIndex: int, dayIndex: int, date: LocalDate)
+        + execute(programmes: ProgrammeList, History history): CommandResult
+    }
+
+    class ListCommand {
+        + execute(programmes: ProgrammeList, History history): CommandResult
+    }
+
+    ProgrammeCommand <|-- EditCommand
+    ProgrammeCommand <|-- ViewCommand
+    ProgrammeCommand <|-- LogCommand
+    ProgrammeCommand <|-- StartCommand
+    ProgrammeCommand <|-- ListCommand
+    ProgrammeCommand <|-- CreateCommand
+    ProgrammeCommand <|-- DeleteCommand
+@enduml

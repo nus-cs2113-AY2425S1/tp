@@ -52,7 +52,7 @@ class DeleteDayCommandTest {
 
     // Edge case for constructor: Negative day ID
     @Test
-    void constructor_throwsAssertionErrorIfDayIdIsNegative() {
+    void constructor_throwsAssertionErrorIfdayIndexIsNegative() {
         assertThrows(AssertionError.class, () -> new DeleteDayCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID));
     }
 
@@ -81,7 +81,7 @@ class DeleteDayCommandTest {
 
     // Edge case for execute: Nonexistent day ID within existing programme
     @Test
-    void execute_throwsIndexOutOfBoundsIfDayIdDoesNotExist() {
+    void execute_throwsIndexOutOfBoundsIfdayIndexDoesNotExist() {
         DeleteDayCommand invalidCommand = new DeleteDayCommand(VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID);
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
     }

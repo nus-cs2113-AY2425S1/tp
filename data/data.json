@@ -10,10 +10,10 @@
             "exercises": [
               {
                 "sets": 3,
-                "reps": 12,
+                "reps": 30,
                 "weight": 30,
                 "calories": 0,
-                "name": "Bench_Press"
+                "name": "bench"
               },
               {
                 "sets": 3,

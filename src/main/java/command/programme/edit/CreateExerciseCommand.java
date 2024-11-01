@@ -1,8 +1,11 @@
+// @@author TVageesan
+
 package command.programme.edit;
 
 import command.CommandResult;
 import programme.Day;
 import programme.Exercise;
+import programme.Programme;
 import programme.ProgrammeList;
 
 import java.util.logging.Level;
@@ -15,18 +18,18 @@ import java.util.logging.Level;
  * </p>
  */
 public class CreateExerciseCommand  extends EditCommand {
-    public static final String SUCCESS_MESSAGE_FORMAT = "Created new exercise: %s%n";
+    public static final String SUCCESS_MESSAGE_FORMAT = "Created new exercise: %n%s%n";
     private final Exercise createdExercise;
 
     /**
      * Constructs a CreateExerciseCommand with the specified programme index, day ID, and exercise.
      *
      * @param programmeIndex the index of the programme to which the exercise will be added
-     * @param dayId the ID of the day within the programme where the exercise will be inserted
+     * @param dayIndex the ID of the day within the programme where the exercise will be inserted
      * @param createdExercise the exercise to be created and added to the day
      */
-    public CreateExerciseCommand(int programmeIndex, int dayId, Exercise createdExercise) {
-        super(programmeIndex,dayId);
+    public CreateExerciseCommand(int programmeIndex, int dayIndex, Exercise createdExercise) {
+        super(programmeIndex,dayIndex);
         this.createdExercise = createdExercise;
         assert createdExercise != null : "created exercise must not be null";
     }
@@ -38,10 +41,14 @@ public class CreateExerciseCommand  extends EditCommand {
      */
     public CommandResult execute(ProgrammeList programmes) {
         assert programmes != null : "programmes cannot be null";
-        Day day = programmes.getDay(programmeIndex, dayIndex);
-        day.insertExercise(createdExercise);
-        String result = String.format(SUCCESS_MESSAGE_FORMAT, createdExercise);
+
+        Programme selectedProgramme = programmes.getProgramme(programmeIndex);
+        Day selectedDay = selectedProgramme.getDay(dayIndex);
+        selectedDay.insertExercise(createdExercise);
+
         logger.log(Level.INFO, "CreateExerciseCommand executed successfully.");
+
+        String result = String.format(SUCCESS_MESSAGE_FORMAT, createdExercise);
         return new CommandResult(result);
     }
 }

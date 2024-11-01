@@ -48,20 +48,6 @@ public class Day {
         return exercises.get(index);
     }
 
-    public Exercise updateExercise(int exerciseId, Exercise exercise) {
-        if (exerciseId < 0 || exerciseId >= exercises.size()) {
-            throw new IndexOutOfBoundsException("Index " + exerciseId + " is out of bounds for exercise list.");
-        }
-        Exercise toBeUpdated = exercises.get(exerciseId);
-
-        logger.log(Level.INFO, "Updating exercise at index {0} from {1} to {2}",
-                new Object[]{exerciseId, toBeUpdated, exercise});
-
-        toBeUpdated.updateExercise(exercise);
-        exercises.set(exerciseId, toBeUpdated);
-        return toBeUpdated;
-    }
-
     public void insertExercise(Exercise exercise) {
         assert exercise != null : "Exercise to insert cannot be null";
         exercises.add(exercise);
@@ -90,7 +76,7 @@ public class Day {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("Name: ").append(name).append("\n");
+        result.append(name).append("\n");
 
         for (int i = 0; i <      exercises.size(); i++) {
             Exercise exercise = exercises.get(i);

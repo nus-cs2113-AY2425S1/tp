@@ -7,7 +7,17 @@ We used these third party libraries to develop our application:
 
 ## Design
 
-### DailyRecord component
+### UI Component
+
+### Programme Component
+
+### Meal Component
+
+### Water Component
+
+### History Component
+
+#### DailyRecord component
 API: `DailyRecord.java`
 ![Diagram for DailyRecord Component](./images/DailyRecord_API_UML.jpg)
 The `DailyRecord` component,
@@ -24,7 +34,10 @@ The `DailyRecord` component,
   calories burned, meals eaten, water consumed, and the caloric balance, making it easy to retrieve and display all relevant information in a readable format.
 
 
-### Storage component
+### Storage Component
+
+
+#### Storage 
 API: `Storage.java`
 ![Diagram for Storage Component](./images/Storage_API_UML.jpg)
 The `Storage` component,
@@ -39,7 +52,7 @@ The `Storage` component,
   objects like LocalDate from the `DateSerilazer` class, ensuring that these objects are correctly serialized to and deserialized from JSON.
 
 
-### FileManager
+#### FileManager
 API: `FileManager.java`
 ![Diagram for FileManager Component](./images/FileManager_API_UML.jpg)
 The `FileManager` component,
@@ -52,6 +65,35 @@ The `FileManager` component,
 - **Performs error handling and logging:** `FileManager` employs detailed logging to track the progress of saving and loading operations.
   If any issues arise during file operations (e.g., missing files, failed directory creation), they are logged, and exceptions are thrown to handle errors gracefully.
 
+### Parser Component
+
+### Command Component
+
+#### Overview
+
+To interact with BuffBuddy, the user's input commands are parsed into discrete `Command` objects that have the sole responsibility of accomplishing that task.
+
+As BuffBuddy contains many commands and thus many types of `Command` subclasses, the following diagram presents a simplified representation of the various `Command` classes:
+
+![Summary of Command classes](images/commandSummary.png)
+
+Each abstract sub-class of `Command` represents a generalization of the various commands available to BuffBuddy. In the following sections, each abstract class and their respective purposes will be elaborated on.
+
+#### Programme Commands
+
+`ProgrammeCommand` is an abstract class for all programme classes that interact with `ProgrammeList` and its encapsulated data. The following diagram documents all `ProgrammeCommand` subclasses.
+
+![Summary of Programme classes](images/programmeCommandSummary.png)
+
+
+`EditCommand` classes are a subset of `ProgrammeCommand` classes that focus specifically on editing the internal `ProgrammeList` data. As this data is concerned only with `ProgrammeList`, `EditCommand#execute()` has been narrowed through method overloading to only take in `ProgrammeList` as a parameter.
+
+![Summary of Edit classes](images/editCommandSummary.png)
+
+
+### Common Component
+
+`common` package contains utility classes that are used across the multiple packages.
 
 ## Implementation
 
@@ -153,46 +195,66 @@ The following example illustrates the usage scenario and behavior of the Weekly 
 
 ![Sequence Diagram for WeeklySummary feature](./images/History%20WeeklySummary%20UML%20Sequence%20Diagram.png)
 
---- 
+---
 
 
-# Documentation, logging, testing, configuration, dev-ops
-- Documentation guide (add link for these)
-- Testing guide
-- Logging guide
+### Edit Programme
 
+#### Overview
+The **Edit Programme** feature allows for in-depth management of programme structures, supporting operations to add, remove, and update days and exercises within each programme.
+Due to the nature of modelling a Workout Programme, a hierarchical data structure is used to represent workout data. 
 
-### Edit Programme 
-
-#### Feature Implementation
-Edit Programme encompasses all functionality related to editing programme details. It is facilitated by the various
-insert, delete and update functionality that is present in Programme, Exercise and Day respectively.
-
-For reference, the following models how ProgrammeList and its various contained classes are structured.
-
-![](images/programmeModel.png)
-
-Due to the nested nature of this data, all edit commands will traverse from ProgrammeList > Programme > Day > Exercise until
-it reaches the necessary depth to accomplish the relevant operation.
+To perform an edit to any aspect of this data, the EditCommand will traverse the hierarchy until it reaches the necessary depth to perform its edit operation.
 
 These operations include:
 - Adding or removing Days to the Programme
 - Adding or removing Exercises to Days in the Programme
 - Updating the details of Exercises in Days in the Programme
 
+#### Sequence Diagram
+
+The overall design that enables this functionality is described generically by the following sequence diagram.
+
+![Edit Command generic sequence](images/editCommand.png)
+
+The 'Model' class in the above diagram is a generalization of the various data models that are being interacted with
+to perform each specific edit command. For each edit command, the following sequence diagrams
+further break down how this interaction works.
+
+##### Add day
+![Add/Remove Day](images/addDayCommand.png)
+
+##### Add exercise
+![Add/Remove Exercise](images/addExerciseCommand.png)
+
+##### Update exercise
+![Edit Exercise](images/editExerciseCommand.png)
+
+##### Example Usage
+
 Given below is an example usage scenario for 'delete exercise' and how the edit programme functions at each step.
 
 Step 1. The user creates a programme with a given number of Days with their respective Exercises. ProgrammeList will contain a reference to this programme after its creation.
 
-![](images/editCommandStepOne.png)
+Step 2. The user executes `programme edit /p 1 /d 1 /x 1` to delete the first exercise in the first day of the first programme. 
 
-Step 2. The user executes `programme edit /p 1 /d 1 /x 1` to delete the first exercise in the first day of the first programme. The programme first retrieves the given day with `ProgrammeList#getDay()`.
+Step 3. After parsing this input, a `DeleteExerciseCommand` (inheriting from the generic `EditProgrammeCommand`) is created and executed.
 
-![](images/editCommandStepTwo.png)
+Step 4. The command first retrieves the chosen Progamme with `ProgrammeList#getProgramme()`.
 
-Step 3. With the Day object, it performs the `Day#deleteExercise()` with the given exercise ID
+Step 5. The command then retrieves the chosen Day with `Programme#getDay()`.
 
-![](images/editCommandStepThree.png)
+Step 6. With the Day object, it performs the `Day#deleteExercise()` with the given exercise ID
+
+Step 7. The deleted Exercise object is then returned to the `DeleteExerciseCommand` to display as part of the returned `CommandResult`.
+
+#### Activity Diagram
+
+To summarize, the following activity diagram describes how the overall operation occurs.
+
+![](images/editCommandActivityDiagram.png)
+
+---
 
 ### Add Meal
 
