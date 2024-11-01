@@ -48,7 +48,6 @@ FitTrack "1" --> "1" Ui : uses
 
 Parser "1" --> "1" Ui : uses
 Parser "1" --> "1" User : manages
-Parser "1" --> "*" TrainingSession : manages
 
 Ui "1" -> "1" User : displays
 Ui "1" --> "*" TrainingSession : displays
