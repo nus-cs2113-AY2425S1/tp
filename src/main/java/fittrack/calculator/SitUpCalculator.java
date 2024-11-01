@@ -47,6 +47,6 @@ public class SitUpCalculator extends Calculator {
                 {{31, 5}, {29, 4}, {27, 3}, {24, 2}, {21, 1}},
                 {{29, 5}, {27, 4}, {25, 3}, {23, 2}, {21, 1}}
         };
-        addAllTables(sitUpTable, Gender.MALE, ageTables, SHOULD_SORT_DESCENDING);
+        addAllTables(sitUpTable, Gender.FEMALE, ageTables, SHOULD_SORT_DESCENDING);
     }
 }
