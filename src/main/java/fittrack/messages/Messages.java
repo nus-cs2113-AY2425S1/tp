@@ -62,8 +62,10 @@ public class Messages {
             + System.lineSeparator() + "add-food (food item)                                             add-food apple"
             + System.lineSeparator() + "delete-food (index)                                              delete-food 1"
             + System.lineSeparator() + "list-food                                                        list-food"
-            + System.lineSeparator() + "add-calories (calorie amount)                                    add-calories 200"
-            + System.lineSeparator() + "delete-calories (index)                                          delete-calories 1"
+            + System.lineSeparator() + "add-calories (calorie amount)                                    add-calories"
+            + "200"
+            + System.lineSeparator() + "delete-calories (index)                                          delete-calories"
+            +"1"
             + System.lineSeparator() + "list-calories                                                    list-calories"
             + System.lineSeparator() + "exit                                                             exit";
     public static final String LIST_SESSION_MESSAGE = "Here are your training sessions:";

@@ -272,7 +272,7 @@ public class Parser {
             break;
 
 
-            default:
+        default:
             printUnrecognizedInputMessage(); // Response to unrecognized inputs
             break;
         }
