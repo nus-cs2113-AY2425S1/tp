@@ -132,6 +132,13 @@ public class CategoryTracker {
         }
     }
     
+    /**
+     * Sets the spending limit for the specified category.
+     *
+     * @param category The name of the category for which the spending limit is being set.
+     * @param spendingLimit The spending limit to be set for the category. 
+     * @throws WheresMyMoneyException If the specified category does not exist in the tracker.
+     */
     public void setSpendingLimitFor(String category, Float spendingLimit) throws WheresMyMoneyException {
         CategoryData categoryData = getCategoryDataOf(category);
         Float currExpenditure = categoryData.getCurrExpenditure();
