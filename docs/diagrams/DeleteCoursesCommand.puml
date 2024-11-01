@@ -1,13 +1,13 @@
 @startuml
-hide footbox
+!include .SequenceDiagram.config
 
-actor User
+actor CEG_Student
 participant ":DeleteCoursesCommand" as DeleteCoursesCommand
 participant ":Integer" as Integer
 participant ":Storage" as Storage
 participant ":UI" as UI
 
-User -> DeleteCoursesCommand: execute (userInput:String)
+CEG_Student -> DeleteCoursesCommand: execute (userInput:String)
 activate DeleteCoursesCommand
 
 DeleteCoursesCommand -> DeleteCoursesCommand: parseDeleteCommand(userInput: String)
@@ -42,6 +42,6 @@ deactivate UI
 DeleteCoursesCommand --> DeleteCoursesCommand
 deactivate DeleteCoursesCommand
 
-DeleteCoursesCommand --> User
+DeleteCoursesCommand --> CEG_Student
 deactivate DeleteCoursesCommand
 @enduml
