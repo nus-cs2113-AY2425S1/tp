@@ -17,12 +17,13 @@ public class MealListTest {
     @BeforeEach
     public void setUp() {
         mealList = new MealList();
-        sampleMeal = new Meal("Sample Meal", 300); // Assuming Meal has a constructor Meal(String name, int calories)
+        sampleMeal = new Meal("Sample Meal", 300);
     }
 
     @Test
     public void testIsEmptyHappyPath() {
-        assertTrue(mealList.isEmpty(), "Meal list should be empty initially.");
+        assertTrue(mealList.isEmpty(), "Meal list " +
+                "should be empty initially.");
     }
 
     @Test
@@ -35,7 +36,8 @@ public class MealListTest {
     public void testIsEmptyEdgeCaseEmptyAfterDeletion() {
         mealList.addMeal(sampleMeal);
         mealList.deleteMeal(0);
-        assertTrue(mealList.isEmpty(), "Meal list should be empty after adding and then deleting the only meal.");
+        assertTrue(mealList.isEmpty(), "Meal list " +
+                "should be empty after adding and then deleting the only meal.");
     }
 
     @Test
@@ -60,19 +62,22 @@ public class MealListTest {
     public void testAddMealHappyPath() {
         mealList.addMeal(sampleMeal);
         assertEquals(1, mealList.getSize(), "Size should be 1 after adding one meal.");
-        assertTrue(mealList.getMeals().contains(sampleMeal), "Meal list should contain the added meal.");
+        assertTrue(mealList.getMeals().contains(sampleMeal), "Meal list should " +
+                "contain the added meal.");
     }
 
     @Test
     public void testAddMealEdgeCaseNullMeal() {
-        assertThrows(AssertionError.class, () -> mealList.addMeal(null), "Adding a null meal should throw an AssertionError.");
+        assertThrows(AssertionError.class, () -> mealList.addMeal(null), "Adding a null " +
+                "meal should throw an AssertionError.");
     }
 
     @Test
     public void testAddMealEdgeCaseDuplicateMeals() {
         mealList.addMeal(sampleMeal);
         mealList.addMeal(sampleMeal);
-        assertEquals(2, mealList.getSize(), "Size should be 2 after adding the same meal twice.");
+        assertEquals(2, mealList.getSize(), "Size should " +
+                "be 2 after adding the same meal twice.");
     }
 
     @Test
@@ -85,13 +90,15 @@ public class MealListTest {
 
     @Test
     public void testDeleteMealEdgeCaseNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> mealList.deleteMeal(-1), "Deleting with a negative index should throw IndexOutOfBoundsException.");
+        assertThrows(IndexOutOfBoundsException.class, () -> mealList.deleteMeal(-1),
+                "Deleting with a negative index should throw IndexOutOfBoundsException.");
     }
 
     @Test
     public void testDeleteMealEdgeCaseIndexOutOfBounds() {
         mealList.addMeal(sampleMeal);
-        assertThrows(IndexOutOfBoundsException.class, () -> mealList.deleteMeal(1), "Deleting with an out-of-bounds index should throw IndexOutOfBoundsException.");
+        assertThrows(IndexOutOfBoundsException.class, () -> mealList.deleteMeal(1),
+                "Deleting with an out-of-bounds index should throw IndexOutOfBoundsException.");
     }
 
     @Test
@@ -115,6 +122,7 @@ public class MealListTest {
         mealList.addMeal(anotherMeal);
         ArrayList<Meal> meals = mealList.getMeals();
         assertEquals(2, meals.size(), "Meal list should contain two meals after adding two.");
-        assertTrue(meals.get(0).equals(sampleMeal) && meals.get(1).equals(anotherMeal), "Meals should be equal to those added.");
+        assertTrue(meals.get(0).equals(sampleMeal) && meals.get(1).equals(anotherMeal),
+                "Meals should be equal to those added.");
     }
 }

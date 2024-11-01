@@ -17,29 +17,34 @@ public class MealTest {
 
     @Test
     public void testConstructorEdgeCaseNullName() {
-        assertThrows(AssertionError.class, () -> new Meal(null, 300), "Creating a Meal with a null name should throw an AssertionError.");
+        assertThrows(AssertionError.class, () -> new Meal(null, 300), "Creating " +
+                "a Meal with a null name should throw an AssertionError.");
     }
 
     @Test
     public void testConstructorEdgeCaseEmptyName() {
-        assertThrows(AssertionError.class, () -> new Meal("", 300), "Creating a Meal with an empty name should throw an AssertionError.");
+        assertThrows(AssertionError.class, () -> new Meal("", 300), "Creating " +
+                "a Meal with an empty name should throw an AssertionError.");
     }
 
     @Test
     public void testConstructorEdgeCaseNegativeCalories() {
-        assertThrows(AssertionError.class, () -> new Meal("Negative Calories Meal", -100), "Creating a Meal with negative calories should throw an AssertionError.");
+        assertThrows(AssertionError.class, () -> new Meal("Negative Calories Meal", -100),
+                "Create a Meal with negative calories should throw an AssertionError.");
     }
 
     @Test
     public void testGetCaloriesHappyPath() {
         Meal meal = new Meal("Sample Meal", 250);
-        assertEquals(250, meal.getCalories(), "getCalories should return the correct calorie count.");
+        assertEquals(250, meal.getCalories(), "getCalories should " +
+                "return the correct calorie count.");
     }
 
     @Test
     public void testGetNameHappyPath() {
         Meal meal = new Meal("Healthy Salad", 150);
-        assertEquals("Healthy Salad", meal.getName(), "getName should return the correct meal name.");
+        assertEquals("Healthy Salad", meal.getName(), "getName " +
+                "should return the correct meal name.");
     }
 
     @Test
@@ -67,26 +72,30 @@ public class MealTest {
     public void testHashCodeHappyPath() {
         Meal meal1 = new Meal("Hash Meal", 500);
         Meal meal2 = new Meal("Hash Meal", 500);
-        assertEquals(meal1.hashCode(), meal2.hashCode(), "Meals with the same name and calories should have the same hash code.");
+        assertEquals(meal1.hashCode(), meal2.hashCode(), "Meals with the " +
+                "same name and calories should have the same hash code.");
     }
 
     @Test
     public void testHashCodeEdgeCaseDifferentCalories() {
         Meal meal1 = new Meal("Hash Meal", 500);
         Meal meal2 = new Meal("Hash Meal", 300);
-        assertNotEquals(meal1.hashCode(), meal2.hashCode(), "Meals with different calories should have different hash codes.");
+        assertNotEquals(meal1.hashCode(), meal2.hashCode(), "Meals with " +
+                "different calories should have different hash codes.");
     }
 
     @Test
     public void testHashCodeEdgeCaseDifferentName() {
         Meal meal1 = new Meal("Hash Meal One", 500);
         Meal meal2 = new Meal("Hash Meal Two", 500);
-        assertNotEquals(meal1.hashCode(), meal2.hashCode(), "Meals with different names should have different hash codes.");
+        assertNotEquals(meal1.hashCode(), meal2.hashCode(), "Meals with " +
+                "different names should have different hash codes.");
     }
 
     @Test
     public void testToStringHappyPath() {
         Meal meal = new Meal("Sample Meal", 350);
-        assertEquals("Sample Meal | 350kcal", meal.toString(), "toString should return the correct formatted string.");
+        assertEquals("Sample Meal | 350kcal", meal.toString(), "toString should " +
+                "return the correct formatted string.");
     }
 }
