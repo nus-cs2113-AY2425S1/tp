@@ -15,17 +15,20 @@ keep track of what ingredients you have on hand.
 - Created the base Recipe Class 
   - Created the overloaded to_string method in Recipe for ease of displaying the recipe's name, ingredients and steps coherently.
   - Added the optional attributes (time and cuisine) and updated the parser logic to accept inputs with and without them.
-- Created the findIngredient Command
+- Created the findIngredient Command 
   - The findIngredient command allows users to search their ingredient list for ingredients 
-  - Updated the parser code to check for and execute the findIngredient command 
+  - Updated the parser code to check for and execute the findIngredient command
+
 
 
 #### Enhancements Implemented
-- 
+- Added delete recipe by name method to the delete recipe command
+  - Replaced the original delete recipe by index method 
 
 
 #### Contributions to the UG
 - Added some use-case examples for the addRecipe command
+- Added to findI command section for ingredients
 
 
 #### Contributions to the DG
