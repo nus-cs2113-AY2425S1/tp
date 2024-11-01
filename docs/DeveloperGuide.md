@@ -189,14 +189,17 @@ JsonObject with `findUniversityName()`.
 will be called to get the JsonObject containing the PU and the JsonArray containing the list of courses it offers.
 * The two object will be passed into `iterateCourses()` method to iterate through the JsonArray `courseArray` which
 contains the list of courses.
-* It then prints out the course details such as PU course code and NUS course code through the `printCourseDetails()`
-method.
+* It then prints out the course details such as PU course code and NUS course code by calling the 
+`printListUniCoursesCommand` method in the UI class.
 * Assertions and logging are used for error handling.
+
+#### Why it is implemented this why:
+- ****Separation of Concerns:**** Each responsibility is seperated into smaller, well-defined methods
+  For example, `getPuName()` focuses on extracting the university name from user input and `findUniversityName()`
+  focuses on searching the university in the data set.
 
 #### Sequence on PlantUML:
 ![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
-
-
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
@@ -253,7 +256,7 @@ This helps the users to keep track of their most recent course mapping plans, an
 #### Sequence Diagram on PlantUML
 ![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
 
-### 6. List Commands Command
+### 7. List Commands Command
 
 #### Overview:
 The `ListCommandsCommand` provides users with a comprehensive list of all available commands in the CLI. This is particularly useful for new users or those unfamiliar with specific command formats.
@@ -276,8 +279,7 @@ The `ListCommandsCommand` provides users with a comprehensive list of all availa
 #### Sequence Diagram on PlantUML:
 ![List Commands Command Sequence Diagram](../uml-images/ListCommandsCommand.png)
 
-
-### 7. ListPersonalTrackerCommand
+### 8. ListPersonalTrackerCommand
 
 #### Overview:
 The `ListPersonalTrackerCommand` is responsible for listing all the mapped modules stored in the user’s personal tracker. This command retrieves all stored courses from `myList.json` via the Storage class and displays them in an indexed list format on the CLI.
@@ -324,7 +326,38 @@ Mapped Modules:
 #### Sequence Diagram on PlantUML:
 ![List Personal Tracker Command Sequence Diagram](../uml-images/ListPersonalTrackerCommand.png)
 
+### 9. Help Command
 
+#### Overview
+This command provides users with detailed explanations of each feature and the ways to use them.
+This allows users to navigate this program easily and effectively.
+
+#### How the feature is implemented:
+* The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides
+  the execute method for custom behaviour.
+* First, the user input is passed into the `getCommand()` method which extracts and processes the
+  command. It does so by using `switch` statements to determine if the input matches one of the valid commands.
+* If it does, it returns the command, if it does not, an `IllegalArgumentException` exception will be thrown to handle
+  invalid commands
+* Then, the `printHelp()` method will be called to display the detailed help messages for the specific command.
+  Another `switch` statement is used here to map each command to its corresponding help message.
+* Assertions and logging are implemented for error handling.
+
+#### Why it is implemented that way:
+- ****Separation of Concerns:**** Each method has a single responsibility. For example, `getCommand()` parses and
+  validates the input to extract a specific command and `printHelp()` prints the relevant help message for the
+  parsed command.
+- ****Switch Statement:**** The use of `switch` statement is an efficient way to match valid commands.
+  `switch` statements are also clearer and easier to read.
+
+#### Alternative Implementation considered:
+- The use of `if-else` statement
+  - However, since the condition is a single variable and not complex conditions, it will be cleaner and clearer to use
+  `switch` statements
+
+#### Sequence diagram on PlantUML
+- Represents when `execute()` method is called
+  ![Help Command sequence diagram](images/HelpCommand.png)
 
 ## Product scope
 ### Target user profile
@@ -342,17 +375,19 @@ Mapped Modules:
 
 ## User Stories
 
-| Version | As a ...     | I want to ...                                                   | So that I can ...                                               |
-|---------|--------------|-----------------------------------------------------------------|-----------------------------------------------------------------|
-| v1.0    | CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions                    |
-| v1.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                               |
-| v1.0    | CEG student  | key in the school I want to go for exchange                     | view the available course offered by the school                 |
-| v1.0    | CEG student  | want to see a list of commands                                  | know what to do to go to access the features                    |
-| v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries                         |
-| v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries                |
-| v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU                      |
-| v2.0    | CEG student  | list out the mapped courses by calling the list command         | I can track all the courses I have mapped to the different PUs  |
-| v2.0    | CEG student  | delete a course mapping plan for a PU                           | keep my list of saved plans organised                           |
+| Version | As a ...     | I want to ...                                                   | So that I can ...                                              |
+|---------|--------------|-----------------------------------------------------------------|----------------------------------------------------------------|
+| v1.0    | CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions                   |
+| v1.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                              |
+| v1.0    | CEG student  | key in the school I want to go for exchange                     | view the available course offered by the school                |
+| v1.0    | CEG student  | want to see a list of commands                                  | know what to do to go to access the features                   |
+| v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries                        |
+| v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries               |
+| v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU                     |
+| v2.0    | CEG student  | list out the mapped courses by calling the list command         | I can track all the courses I have mapped to the different PUs |
+| v2.0    | CEG student  | delete a course mapping plan for a PU                           | keep my list of saved plans organised                          |
+| v2.0    | CEG student  | ask for help when I am in doubt                                 | know what are the possible actions                             |
+
 
 ## Non-Functional Requirements
 
