@@ -350,6 +350,11 @@ This allows users to navigate this program easily and effectively.
 - ****Switch Statement:**** The use of `switch` statement is an efficient way to match valid commands.
   `switch` statements are also clearer and easier to read.
 
+#### Alternative Implementation considered:
+- The use of `if-else` statement
+  - However, since the condition is a single variable and not complex conditions, it will be cleaner and clearer to use
+  `switch` statements
+
 #### Sequence diagram on PlantUML
 - Represents when `execute()` method is called
   ![Help Command sequence diagram](images/HelpCommand.png)
