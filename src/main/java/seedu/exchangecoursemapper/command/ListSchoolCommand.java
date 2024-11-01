@@ -38,6 +38,11 @@ public class ListSchoolCommand extends CheckInformationCommand {
         } catch (IOException e) {
             logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
             System.out.println(Exception.fileReadError());
+            return;
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.WARNING, e.getMessage());
+            System.out.println(e.getMessage());
+            return;
         }
         logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }

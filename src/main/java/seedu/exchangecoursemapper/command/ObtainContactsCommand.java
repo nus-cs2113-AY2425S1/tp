@@ -48,6 +48,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         } catch (IOException e) {
             logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
             System.err.println(Exception.fileReadError());
+            return;
         } catch (IllegalArgumentException e) {
             logger.log(Level.WARNING, e.getMessage());
         }
