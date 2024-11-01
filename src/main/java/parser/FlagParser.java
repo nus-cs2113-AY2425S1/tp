@@ -124,15 +124,12 @@ public class FlagParser {
         String[] args = argumentString.split(splitBy);
         for (String arg : args) {
 
-            logger.log(Level.INFO, "Parsing argument: " + arg);
-
             String[] argParts = splitArguments(arg);
-
             String flag = argParts[0].trim();
             String value = argParts[1].trim();
-
             flag = resolveAlias(flag);
-            logger.log(Level.INFO, "Parsed flag: {0} with value: {1}", new Object[]{flag, value});
+
+            logger.log(Level.INFO, "Successfully parsed flag: {0} with value: {1}", new Object[]{flag, value});
             parsedFlags.put(flag, value);
         }
     }
@@ -178,6 +175,7 @@ public class FlagParser {
         for (String flag : requiredFlags) {
             flag = resolveAlias(flag);
             if (!hasFlag(flag)) {
+                logger.log(Level.WARNING, "Missing required flag: {0}", flag);
                 throw new IllegalArgumentException("Required flag: " + flag + " is missing. Please provide the flag.");
             }
         }
@@ -195,6 +193,7 @@ public class FlagParser {
         flag = resolveAlias(flag);
 
         if (!parsedFlags.containsKey(flag)) {
+            logger.log(Level.INFO, "Flag {0} not found; returning null", flag);
             return null;
         }
 
