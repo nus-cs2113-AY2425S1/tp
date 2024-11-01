@@ -1,0 +1,44 @@
+@startuml
+class ExpenseTracker {
+    - categories : List<Category>
+    - expenses : List<Expense>
+    - budgets : Map<Category, Budget>
+    - isautoResetEnabled : boolean
+    - lastResetMonth : int
+    + toggleAutoReset()
+    + checkAndResetBudgets()
+    + manageMonthlyReset()
+    + addExpense(String, double, String)
+    + addCategory(String)
+    + deleteExpense(int)
+    + tagExpense(String)
+    + viewExpensesByCategory()
+    + setBudgetLimit(String, double)
+    + viewBudget()
+}
+
+class Category {
+    - name : String
+    + getName() : String
+}
+
+class Expense {
+    - name : String
+    - amount : double
+    - category : Category
+    + getCategory() : Category
+}
+
+class Budget {
+    - category : Category
+    - limit : double
+    + setLimit(double)
+}
+
+ExpenseTracker "1" *-- "many" Category : contains
+ExpenseTracker "1" *-- "many" Expense : contains
+ExpenseTracker "1" *-- "*" Budget : maps
+
+Expense "1" --> "1" Category : belongs to
+Budget "1" --> "1" Category : belongs to
+@enduml
