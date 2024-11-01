@@ -1,5 +1,7 @@
 package wheresmymoney;
 
+import wheresmymoney.exception.WheresMyMoneyException;
+
 /**
  * The {@code CategoryData} class represents the expenditure data for a specific category,
  * consisting of:
@@ -40,10 +42,16 @@ public class CategoryData {
     public Float getMaxExpenditure() {
         return maxExpenditure;
     }
-    public void setCurrExpenditure(Float currExpenditure) {
+    public void setCurrExpenditure(Float currExpenditure) throws WheresMyMoneyException {
+        if (currExpenditure == null) {
+            throw new WheresMyMoneyException("Current total expenditure should not be null.");
+        }
         this.currExpenditure = currExpenditure;
     }
-    public void setMaxExpenditure(Float maxExpenditure) {
+    public void setMaxExpenditure(Float maxExpenditure) throws WheresMyMoneyException {
+        if (maxExpenditure == null) {
+            throw new WheresMyMoneyException("Expenditure's spending limit should not be null.");
+        }
         this.maxExpenditure = maxExpenditure;
     }
     
