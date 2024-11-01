@@ -328,3 +328,13 @@ in the form of a point graph.
 | **delete-goal**     | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                    |
 | **list-goal**       | `list-goal`                                                    | `list-goal`                        |
 | **graph**           | `graph EXERCISE_ACRONYM`                                       | `graph PU`                         |
+| **add-water**       | `add-water`                                                    | `add-water 1.5`                    |
+| **delete-water**    | `delete-water`                                                 | `delete-water 1`                   |
+| **list-water**      | `list-water`                                                   | `list-water`                       |
+| **add-calories**    | `add-calories`                                                 | `delete-calories 1`                |
+| **delete-calories** | `delete-calories`                                              | `add-water 1.5`                    |
+| **list-calories**   | `list-calories`                                                | `list-water`                       |
+| **add-food**        | `add-food`                                                     | `add-food apple`                   |
+| **delete-food**     | `delete-food`                                                  | `delete-food 1`                    |
+| **list-food**       | `list-food`                                                    | `list-food`                        |
+

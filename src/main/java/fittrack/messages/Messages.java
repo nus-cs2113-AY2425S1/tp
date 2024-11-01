@@ -25,6 +25,15 @@ public class Messages {
     public static final String SIT_UP_ACRONYM = "SU";
     public static final String STANDING_BROAD_JUMP_ACRONYM = "SBJ";
     public static final String WALK_AND_RUN_ACRONYM = "WAR";
+    public static final String ADD_WATER_COMMAND = "add-water";
+    public static final String DELETE_WATER_COMMAND = "delete-water";
+    public static final String LIST_WATER_COMMAND = "list-water";
+    public static final String ADD_FOOD_COMMAND = "add-food";
+    public static final String DELETE_FOOD_COMMAND = "delete-food";
+    public static final String LIST_FOOD_COMMAND = "list-food";
+    public static final String ADD_CALORIES_COMMAND = "add-calories";
+    public static final String DELETE_CALORIES_COMMAND = "delete-calories";
+    public static final String LIST_CALORIES_COMMAND = "list-calories";
 
     public static final String INIT_SENTENCE = "Hello! I'm FitTrack."
             + System.lineSeparator() + "Please input your gender and age:";
@@ -47,6 +56,15 @@ public class Messages {
             " 12/12/2024 14:00:00"
             + System.lineSeparator() + "delete-goal (goal index)                                         delete-goal 1"
             + System.lineSeparator() + "list-goal                                                        list-goal"
+            + System.lineSeparator() + "add-water (amount)                                               add-water 500"
+            + System.lineSeparator() + "delete-water (index)                                             delete-water 1"
+            + System.lineSeparator() + "list-water                                                       list-water"
+            + System.lineSeparator() + "add-food (food item)                                             add-food apple"
+            + System.lineSeparator() + "delete-food (index)                                              delete-food 1"
+            + System.lineSeparator() + "list-food                                                        list-food"
+            + System.lineSeparator() + "add-calories (calorie amount)                                    add-calories 200"
+            + System.lineSeparator() + "delete-calories (index)                                          delete-calories 1"
+            + System.lineSeparator() + "list-calories                                                    list-calories"
             + System.lineSeparator() + "exit                                                             exit";
     public static final String LIST_SESSION_MESSAGE = "Here are your training sessions:";
     public static final String LIST_SESSION_EMPTY_MESSAGE = "Your session list is currently empty.";
@@ -62,6 +80,18 @@ public class Messages {
     public static final String ADD_GOAL_MESSAGE = "Got it. I've added a new goal:";
     public static final String DELETE_GOALS_MESSAGE = "Got it. I've deleted this goal.";
     public static final String LIST_GOAL_MESSAGE = "Here is your goal list!";
+
+    public static final String ADD_WATER_MESSAGE = "Added <WATER_ML> of water.";
+    public static final String DELETE_WATER_MESSAGE = "Deleted <WATER_ML> of water.";
+    public static final String LIST_WATER_MESSAGE = "Water intake (in ml)::";
+
+    public static final String ADD_FOOD_MESSAGE = "Got it. I've added food intake:";
+    public static final String DELETE_FOOD_MESSAGE = "Got it. I've deleted the food intake.";
+    public static final String LIST_FOOD_MESSAGE = "Here is your food intake list:";
+
+    public static final String ADD_CALORIES_MESSAGE = "Got it. I've added calorie intake:";
+    public static final String DELETE_CALORIES_MESSAGE = "Got it. I've deleted the calorie intake.";
+    public static final String LIST_CALORIES_MESSAGE = "Here is your calorie intake list:";
 
     public static final String NONNUMERICAL_INDEX_MESSAGE = "Please provide a valid numerical index.";
     public static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Sorry, but that index is not within the list.";
