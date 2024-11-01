@@ -1,7 +1,10 @@
+// @@author TVageesan
+
 package command.programme.edit;
 
 import command.CommandResult;
 import programme.Day;
+import programme.Programme;
 import programme.ProgrammeList;
 
 import java.util.logging.Level;
@@ -14,17 +17,16 @@ import java.util.logging.Level;
  * </p>
  */
 public class DeleteDayCommand extends EditCommand {
-
-    public static final String SUCCESS_MESSAGE_FORMAT = "Deleted day: %s%n";
+    public static final String SUCCESS_MESSAGE_FORMAT = "Deleted day: %n%s%n";
 
     /**
      * Constructs a DeleteDayCommand with the specified programme index and day ID.
      *
      * @param programmeIndex the index of the programme from which the day will be deleted
-     * @param dayId the ID of the day to be deleted from the programme
+     * @param dayIndex the ID of the day to be deleted from the programme
      */
-    public DeleteDayCommand(int programmeIndex, int dayId) {
-        super(programmeIndex, dayId);
+    public DeleteDayCommand(int programmeIndex, int dayIndex) {
+        super(programmeIndex, dayIndex);
     }
 
     /**
@@ -35,9 +37,13 @@ public class DeleteDayCommand extends EditCommand {
      */
     public CommandResult execute(ProgrammeList programmes) {
         assert programmes != null : "programmes cannot be null";
-        Day deleted = programmes.deleteDay(programmeIndex, dayIndex);
-        String result = String.format(SUCCESS_MESSAGE_FORMAT, deleted);
+
+        Programme selectedProgramme = programmes.getProgramme(programmeIndex);
+        Day deletedDay = selectedProgramme.deleteDay(dayIndex);
+
         logger.log(Level.INFO, "DeleteDayCommand executed successfully.");
+
+        String result = String.format(SUCCESS_MESSAGE_FORMAT, deletedDay);
         return new CommandResult(result);
     }
 }

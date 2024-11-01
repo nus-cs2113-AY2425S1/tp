@@ -1,6 +1,7 @@
 package command.programme;
 import command.CommandResult;
 import history.DailyRecord;
+import programme.Programme;
 import programme.ProgrammeList;
 import programme.Day;
 import history.History;
@@ -22,12 +23,6 @@ public class LogCommand extends ProgrammeCommand {
         assert date != null : "Date must not be null";
 
         this.date = date;
-      
-        logger.log(
-                Level.INFO,
-                "LogCommand initialized with progIndex: {0}, dayIndex: {1}, date: {2}",
-                new Object[]{programmeIndex, dayIndex, date}
-        );
     }
 
     @Override
@@ -41,9 +36,8 @@ public class LogCommand extends ProgrammeCommand {
         assert programmes != null : "ProgrammeList must not be null";
         assert history != null : "History must not be null";
 
-        Day completed = programmes.getDay(programmeIndex, dayIndex);
-
-        assert completed != null : "Completed Day must not be null";
+        Programme selectedProgramme = programmes.getProgramme(programmeIndex);
+        Day completed = selectedProgramme.getDay(dayIndex);
 
         DailyRecord dailyRecord = history.getRecordByDate(date);
         dailyRecord.logDay(completed);

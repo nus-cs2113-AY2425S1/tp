@@ -1,3 +1,5 @@
+// @@author TVageesan
+
 package command.programme.edit;
 
 import command.CommandResult;
@@ -17,29 +19,29 @@ public abstract class EditCommand extends ProgrammeCommand {
 
     public static final String COMMAND_WORD = "edit";
 
-    protected int exerciseId;
+    protected int exerciseIndex;
 
     /**
      * Constructs an EditCommand with the specified programme index, day ID, and exercise ID.
      *
      * @param programmeIndex the index of the programme being edited
-     * @param dayId the ID of the day being edited within the programme
-     * @param exerciseId the ID of the exercise being edited
+     * @param dayIndex the ID of the day being edited within the programme
+     * @param exerciseIndex the ID of the exercise being edited
      */
-    public EditCommand(int programmeIndex, int dayId, int exerciseId) {
-        super(programmeIndex, dayId);
-        assert exerciseId >= 0 : "exercise id must be non-negative";
-        this.exerciseId = exerciseId;
+    public EditCommand(int programmeIndex, int dayIndex, int exerciseIndex) {
+        super(programmeIndex, dayIndex);
+        assert exerciseIndex >= 0 : "exercise id must be non-negative";
+        this.exerciseIndex = exerciseIndex;
     }
 
     /**
      * Constructs an EditCommand with the specified programme index and day ID.
      *
      * @param programmeIndex the index of the programme being edited
-     * @param dayId the ID of the day being edited within the programme
+     * @param dayIndex the ID of the day being edited within the programme
      */
-    public EditCommand(int programmeIndex, int dayId) {
-        super(programmeIndex, dayId);
+    public EditCommand(int programmeIndex, int dayIndex) {
+        super(programmeIndex, dayIndex);
     }
 
     /**

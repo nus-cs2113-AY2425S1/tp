@@ -25,29 +25,47 @@ public class Exercise {
         logger.log(Level.INFO, "Exercise created: {0}", this);
     }
 
-    // Where the 'update' Exercise object has a non-null field, update current exercise to that value
-    public void updateExercise(Exercise update) {
+    // @@author TVageesan
+
+    /**
+     * Updates the current Exercise's fields based on the non-null values in the provided ExerciseUpdate object.
+     * <p>
+     * For each non-null field in the UpdateExercise object, the corresponding field in this Exercise is updated.
+     * </p>
+     *
+     * @param update the ExerciseUpdate containing fields to be updated in this Exercise.
+     */
+    public void updateExercise(ExerciseUpdate update) {
+        assert update != null : "ExerciseUpdate object must be provided";
+
         if (!isNull(update.sets)) {
             logger.log(Level.INFO, "Updating sets from {0} to {1}", new Object[]{sets, update.sets});
             sets = update.sets;
         }
+
         if (!isNull(update.reps)) {
             logger.log(Level.INFO, "Updating reps from {0} to {1}", new Object[]{reps, update.reps});
             reps = update.reps;
         }
+
         if (!isNull(update.weight)) {
             logger.log(Level.INFO, "Updating weight from {0} to {1}", new Object[]{weight, update.weight});
             weight = update.weight;
         }
+
         if (!isNull(update.name)) {
             logger.log(Level.INFO, "Updating name from {0} to {1}", new Object[]{name, update.name});
             name = update.name;
         }
+
         if (!isNull(update.calories)) {
             logger.log(Level.INFO, "Updating calories from {0} to {1}", new Object[]{calories, update.calories});
             calories = update.calories;
         }
+
     }
+
+    // @@author
 
     public int getWeight() {
         return weight;
