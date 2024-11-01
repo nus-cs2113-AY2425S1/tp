@@ -57,4 +57,4 @@ Given below are my contributions to the project.
     * Contributed to forum discussions ([1](https://github.com/nus-cs2113-AY2425S1/forum/issues/3#issuecomment-2306188636))
 
 * **Tools**:
-    * Integrated [JUnit Jupiter Params](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params) to the project to make use of [ParameterizedTest](https://junit.org/junit5/docs/current/api/org.junit.jupiter.params/org/junit/jupiter/params/ParameterizedTest.html] ([\#53](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/53))
+    * Integrated [JUnit Jupiter Params](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params) to the project to make use of [ParameterizedTest](https://junit.org/junit5/docs/current/api/org.junit.jupiter.params/org/junit/jupiter/params/ParameterizedTest.html) ([\#53](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/53))
