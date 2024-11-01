@@ -127,4 +127,10 @@ public class CategoryTracker {
             tracker.remove(category);
         }
     }
+    
+    public void setSpendingLimitFor(String category, Float spendingLimit) throws WheresMyMoneyException {
+        CategoryData categoryData = getCategoryDataOf(category);
+        Float currExpenditure = categoryData.getCurrExpenditure();
+        tracker.put(category, new CategoryData(currExpenditure, spendingLimit));
+    }
 }
