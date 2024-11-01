@@ -10,21 +10,21 @@ participant "participantList:ArrayList<Participant>" as participantList EVENT_CO
 group sd Add participant to event
     activate eventList EVENT_COLOUR
 
-    eventList -> event : addParticipant(name, number, email)
+    eventList -> event : addParticipant(String, String, String)
     activate event EVENT_COLOUR
 
-    event -> event : getParticipantByName(participantName)
+    event -> event : getParticipantByName(String)
     activate event EVENT_COLOUR
     return :Event
 
     alt participant already present
         event --> eventList:DuplicateDataException
     else else
-        event -> participant : Participant(name, number, email)
+        event -> participant : Participant(String, String, String)
         activate participant EVENT_COLOUR
         return participant : Participant
 
-        event -> participantList : add(participant:Participant)
+        event -> participantList : add(Participant)
         activate participantList EVENT_COLOUR
         return
     end

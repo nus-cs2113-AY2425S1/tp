@@ -9,7 +9,7 @@ participant "newEvent:Event" as event EVENT_COLOUR
 
 group sd Add event
     activate command COMMAND_COLOUR
-    command -> eventList : addEvent(eventName, time, venue, priority)
+    command -> eventList : addEvent(String, LocalDateTime, String, Priority)
     activate eventList EVENT_COLOUR
 
     eventList -> eventList : getEventByName(eventName)
@@ -22,12 +22,12 @@ group sd Add event
     else else
 
         create event
-        eventList -> event : Event(eventName, venue, time, priority)
+        eventList -> event : Event(create xyzCommand)
         activate event EVENT_COLOUR
 
         return
 
-        eventList -> list : add(newEvent : Event)
+        eventList -> list : add(Event)
         activate list EVENT_COLOUR
 
         return

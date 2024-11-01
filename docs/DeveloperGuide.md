@@ -65,6 +65,29 @@ The `Storage` does the following:
 * Load events and participants information from a text file and save it to `EventList` list.
 * Save events from `EventList` list to a text file
 
+### Parser component
+
+<img src = "images/ParserClassDiagram.png">
+
+The `Parser` component comprises a `Parser` class, as shown in the above **Class Diagram**.
+
+The `Parser` class takes in a user input string, and constructs an `XYZCommand` object with fields parsed from the input.
+
+The logic of the `Parser` component is illustrated in the following use case:
+
+1. Upon receiving a user command input, `Main` constructs a new `Parser`. This state is represented in the following **Object Diagram**:
+
+<img src = "images/ParserObjectDiagram0.png">
+
+2. `Main` passes the user command input to `Parser`, which parses the input and constructs an `XYZCommand` object, which is returned to `Main`. 
+The `Parser` instance is no longer referenced. The current state is as shown in the **Object Diagram** below:
+
+<img src = "images/ParserObjectDiagram1.png">
+
+The interactions between `Parser` and the other components in the above procedure is shown in the sequence diagram in the _Command component_ section.
+
+Further details regarding command parsing can be found under _Command parsing_ in _Implementation_.
+
 ### Command component
 
 The `Command` component comprises multiple `XYZCommand` classes, which inherit from the abstract `Command` parent class.
@@ -105,6 +128,43 @@ The `Event` component does the following:
 ## Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Command parsing ###
+
+The user command input for the program is in the following format:
+
+* `COMMAND_WORD FLAG PARAMETER FLAG_2 PARAMETER_2 ...`
+
+where `COMMAND_WORD` determines the command type, `FLAG` is a command flag demarcating a parameter, and `PARAMETER` is a parameter value.
+
+The above input is parsed into `Command`s by the `Parser` by the `Parser#parseCommand` operation, which, based upon the value of `COMMAND_WORD`, does the following:  
+
+* If the command does not take in any parameters, the `Parser` constructs the corresponding `XYZCommandObject`.
+* Otherwise, the `Parser` invokes a `Parser#parseXYZCommand` operation.
+
+The `Parser#parseXYZCommand` operation then does the following:
+* If `XYZCommand` has multiple possible operations, the `Parser`, based on the value of the first command flag, constructs the
+`XYZCommand` object for one of these operations. An example from `parseAddCommand` (where `commandFlag` is the first flag) is shown in the code snippet below:
+```
+switch (commandFlag) {
+    case EVENT_FLAG:
+        return getAddEventCommand(input);
+    case PARTICIPANT_FLAG:
+        return getAddParticipantCommand(input);
+    case ITEM_FLAG:
+        return getAddItemCommand(input);
+    default:
+        logger.log(WARNING, "Invalid command format");
+        throw new InvalidCommandException(INVALID_ADD_MESSAGE);
+    }
+```
+
+* Otherwise, the `Parser` parses the user command input based on the values of the `FLAG`s in the input.
+* If any of the `FLAG`s in the user command input are not present or invalid, the `Parser` throws an `InvalidCommandException`.
+
+The interactions between classes for the parsing of a command with parameters is shown in the following **Sequence Diagram**:
+
+<img src="images/CommandParsingSequenceDiagram.png">
 
 ### List feature[TBD]
 

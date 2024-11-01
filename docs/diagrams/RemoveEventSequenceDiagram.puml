@@ -10,7 +10,7 @@ participant "event:Event" as event EVENT_COLOUR
 group sd Remove event
     activate command COMMAND_COLOUR
 
-    command -> eventList : removeEvent(eventName : String)
+    command -> eventList : removeEvent(String)
     activate eventList EVENT_COLOUR
     loop for event in eventList
         eventList -> event : getName()
@@ -18,7 +18,7 @@ group sd Remove event
         return :String
 
         opt name of event equals eventName
-            eventList -> list : remove(event : Event)
+            eventList -> list : remove(Event)
             activate list EVENT_COLOUR
             destroy event
             return

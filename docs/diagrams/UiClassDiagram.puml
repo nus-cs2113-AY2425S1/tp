@@ -1,12 +1,21 @@
 @startuml
 !include style.puml
+allowmixing
 
-rectangle ui {
-    rectangle Ui UI_COLOUR
+skinparam ClassAttributeIconSize 0
+hide circle
+
+class Ui {
+    +userInput : Scanner
+    +greetUser() : void
+    +getCommand() : String
+    +showOutputToUser() : void
+    +showErrorMessageToUser() : void
+    +showMessage() : void
 }
 
 rectangle Main
-rectangle Command COMMAND_COLOUR
+rectangle Command
 
 Main .> Ui
 Ui ..> Command

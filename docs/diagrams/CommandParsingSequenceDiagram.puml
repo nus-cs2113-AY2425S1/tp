@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":Main" as main
+participant ":Parser"  as parser PARSER_COLOUR
+participant ":XYZCommand" as xyzCommand COMMAND_COLOUR
+
+create parser
+main -> parser : Parser()
+activate parser PARSER_COLOUR
+return
+
+main -> parser : parseCommand(String)
+activate parser PARSER_COLOUR
+
+parser -> parser : parseXYZCommand(String, String[])
+activate parser PARSER_COLOUR
+
+create xyzCommand
+parser -> xyzCommand : XYZCommand(...)
+activate xyzCommand COMMAND_COLOUR
+return :XYZCommand
+return
+
+parser --> main : command :Command
+deactivate parser
+
+@enduml

@@ -9,7 +9,7 @@ participant ":EventList" as eventList EVENT_COLOUR
 main -> command : execute()
 activate command COMMAND_COLOUR
 
-command -> eventList : getEventByName(eventName : String)
+command -> eventList : getEventByName(String)
 activate eventList EVENT_COLOUR
 
 return eventToView : Event

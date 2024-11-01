@@ -8,7 +8,7 @@ participant "participant:Participant" as participant EVENT_COLOUR
 
 group sd view participants
     activate command COMMAND_COLOUR
-    command -> command : getParticipants(eventToView : Event)
+    command -> command : getParticipants(Event)
     activate command COMMAND_COLOUR
 
     command -> event : getParticipantsList()

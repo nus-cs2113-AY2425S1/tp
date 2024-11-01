@@ -24,7 +24,7 @@ deactivate xyzCommand
 parser --> main : command : Command
 deactivate parser
 
-main -> xyzCommand : setdata(events)
+main -> xyzCommand : setData(EventList)
 activate xyzCommand COMMAND_COLOUR
 xyzCommand --> main
 deactivate xyzCommand
@@ -34,7 +34,7 @@ activate xyzCommand COMMAND_COLOUR
 xyzCommand --> main
 deactivate xyzCommand
 
-main -> ui : showOutputToUser(command)
+main -> ui : showOutputToUser(Command)
 activate ui UI_COLOUR
 
 ui -> xyzCommand : getMessage()

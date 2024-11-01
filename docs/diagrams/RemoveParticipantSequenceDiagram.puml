@@ -7,7 +7,7 @@ participant ":EventList" as eventList EVENT_COLOUR
 
 group sd Remove participant
     activate command COMMAND_COLOUR
-    command -> eventList : removeParticipantFromEvent(participantName : String, eventName : String)
+    command -> eventList : removeParticipantFromEvent(String, String)
     activate eventList EVENT_COLOUR
 
     eventList -> eventList : getEventByName()

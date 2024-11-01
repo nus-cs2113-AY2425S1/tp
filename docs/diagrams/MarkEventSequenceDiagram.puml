@@ -9,13 +9,13 @@ participant ":Event" as event EVENT_COLOUR
 main -> markCommand : execute()
 activate markCommand
 
-markCommand -> eventList : getEventByName(eventName : String)
+markCommand -> eventList : getEventByName(String)
 activate eventList
 
 eventList --> markCommand : eventToMark : Event
 deactivate eventList
 
-markCommand -> event : setDone(toMark : boolean)
+markCommand -> event : setDone(boolean)
 activate event
 
 event --> markCommand

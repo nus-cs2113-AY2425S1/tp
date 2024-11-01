@@ -8,9 +8,9 @@ participant ":AddCommand" as command COMMAND_COLOUR
 main -> command : execute()
 activate command COMMAND_COLOUR
 
-alt participantName != null
+alt participantName is not null
     ref over command : Add participant
-else itemName != null
+else itemName is not null
     ref over command : Add item
 else else
     ref over command : Add event

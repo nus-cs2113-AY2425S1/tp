@@ -7,10 +7,10 @@ participant ":EventList" as eventList EVENT_COLOUR
 
 group sd Add participant
     activate command COMMAND_COLOUR
-    command -> eventList : addParticipantToEvent(participantName,\n participantNumber, participantEmail, eventName)
+    command -> eventList : addParticipantToEvent(String, String, String, String)
     activate eventList EVENT_COLOUR
 
-    eventList -> eventList : getEventByName(eventName)
+    eventList -> eventList : getEventByName(String)
     activate eventList EVENT_COLOUR
 
     return event:Event

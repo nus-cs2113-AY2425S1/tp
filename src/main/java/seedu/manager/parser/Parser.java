@@ -193,7 +193,6 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
-            String[] inputParts;
 
             switch (commandFlag) {
             case EVENT_FLAG:
