@@ -74,7 +74,7 @@ public class CategoryFacade {
      */
     public void loadCategoryInfo(ExpenseList expenseList) throws WheresMyMoneyException {
         categoryStorage.loadFromCsv("./category_spending_limit.csv",
-                categoryStorage.trackCategoriesOf(expenseList.getExpenseList()));x`
+                categoryStorage.trackCategoriesOf(expenseList.getExpenseList()));
     }
     /**
      * The interface for {@code LoadCommand} to show filtered categories
