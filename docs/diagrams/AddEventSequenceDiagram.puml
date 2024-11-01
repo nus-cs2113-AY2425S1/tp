@@ -4,10 +4,10 @@ hide footbox
 
 participant ":AddCommand" as command COMMAND_COLOUR
 participant ":EventList" as eventList EVENT_COLOUR
-participant ":Optional<Event>" as existing_event EVENT_COLOUR
+participant "eventList:ArrayList<Event>" as list EVENT_COLOUR
 participant "newEvent:Event" as event EVENT_COLOUR
 
-group sd Add event to event list
+group sd Add event
     activate command COMMAND_COLOUR
     command -> eventList : addEvent(eventName, time, venue, priority)
     activate eventList EVENT_COLOUR
@@ -15,16 +15,11 @@ group sd Add event to event list
     eventList -> eventList : getEventByName(eventName)
     activate eventList EVENT_COLOUR
 
-    return :Optional<Event>
+    return :Event
 
-    eventList -> existing_event : isPresent()
-    activate existing_event EVENT_COLOUR
-
-    return :boolean
-
-    alt isPresent() == true
+    alt event already present
         eventList --> command : :DuplicateDataException
-    else isPresent() == false
+    else else
 
         create event
         eventList -> event : Event(eventName, venue, time, priority)
@@ -32,8 +27,8 @@ group sd Add event to event list
 
         return
 
-        eventList -> eventList : add(newEvent : Event)
-        activate eventList EVENT_COLOUR
+        eventList -> list : add(newEvent : Event)
+        activate list EVENT_COLOUR
 
         return
 

@@ -4,16 +4,16 @@ hide footbox
 
 participant ":Main" as main
 participant ":AddCommand" as command COMMAND_COLOUR
-participant ":EventList" as eventList EVENT_COLOUR
 
 main -> command : execute()
 activate command COMMAND_COLOUR
 
-alt participantName == null
-    ref over command, eventList: Add event to event list
-else participantName != null
-    ref over command, eventList: Add participant to event list
-
+alt participantName != null
+    ref over command : Add participant
+else itemName != null
+    ref over command : Add item
+else else
+    ref over command : Add event
 end
 
 return

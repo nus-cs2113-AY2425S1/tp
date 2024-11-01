@@ -4,6 +4,7 @@ hide footbox
 
 participant ":EventList" as eventList EVENT_COLOUR
 participant "event:Event" as event EVENT_COLOUR
+participant "participantList:ArrayList<Participant>" as participantList EVENT_COLOUR
 participant "participant:Participant" as participant EVENT_COLOUR
 
 group sd Remove participant from event
@@ -18,13 +19,13 @@ group sd Remove participant from event
         return :String
 
         opt name of participant equals participantName
-            event -> event : remove(participant : Participant)
-            activate event EVENT_COLOUR
+            event -> participantList : remove(participant : Participant)
+            activate participantList EVENT_COLOUR
             destroy participant
             return
-            event --> eventList : true : boolean
+            event --> eventList : :boolean
         end
     end
-    return false : boolean
+    return :boolean
 end
 @enduml

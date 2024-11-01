@@ -1,16 +1,26 @@
 @startuml
+!include style.puml
+hide footbox
 
-Main -> Parser: add p/John Doe n/Meeting e/johndoe@example.com p/12345678
-activate Parser
-Parser -> AddCommand: new AddCommand("John Doe", "12345678", "johndoe@example.com", "Meeting")
-activate AddCommand
-AddCommand -> EventList: addParticipantToEvent("John Doe", "12345678", "johndoe@example.com", "Meeting")
-activate EventList
-EventList --> AddCommand
-deactivate EventList
-AddCommand --> Parser
-deactivate AddCommand
-Parser --> Main
-deactivate Parser
+participant ":AddCommand" as command COMMAND_COLOUR
+participant ":EventList" as eventList EVENT_COLOUR
 
+group sd Add participant
+    activate command COMMAND_COLOUR
+    command -> eventList : addParticipantToEvent(participantName,\n participantNumber, participantEmail, eventName)
+    activate eventList EVENT_COLOUR
+
+    eventList -> eventList : getEventByName(eventName)
+    activate eventList EVENT_COLOUR
+
+    return event:Event
+
+    alt event not found
+        eventList --> command : Invalid event
+    else else
+        ref over eventList : Add participant to event
+    end
+
+    return
+end
 @enduml

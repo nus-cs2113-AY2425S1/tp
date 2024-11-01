@@ -4,6 +4,7 @@ hide footbox
 
 participant ":RemoveCommand" as command COMMAND_COLOUR
 participant ":EventList" as eventList EVENT_COLOUR
+participant "eventList:ArrayList<Event>" as list EVENT_COLOUR
 participant "event:Event" as event EVENT_COLOUR
 
 group sd Remove event
@@ -17,8 +18,8 @@ group sd Remove event
         return :String
 
         opt name of event equals eventName
-            eventList -> eventList : remove(event : Event)
-            activate eventList EVENT_COLOUR
+            eventList -> list : remove(event : Event)
+            activate list EVENT_COLOUR
             destroy event
             return
             eventList --> command : true : boolean

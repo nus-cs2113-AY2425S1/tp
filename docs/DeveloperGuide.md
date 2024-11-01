@@ -58,7 +58,7 @@ The `UI` does the following:
 
 <img src = "images/StorageClassDiagram.png">
 
-The `Storage` component comprises a Storage class, as shown in above **Class Diagram**.
+The `Storage` component comprises a Storage class, as shown in the above **Component Diagram**.
 
 The `Storage` does the following:
 
@@ -72,7 +72,7 @@ The `Command` component comprises multiple `XYZCommand` classes, which inherit f
 In each `XYZCommand` class, command execution is done through the `execute()` method, which is implemented from an abstract method in `Command`.
 After the command execution, `XYZCommand`'s output message is set depending on whether the execution was a success or a failure.
 
-The `Command` component and its component classes are shown in the below **Class Diagram**:
+The `Command` component and its component classes are shown in the below **Component Diagram**:
 
 <img src = "images/CommandClassDiagram.png">
 
@@ -138,37 +138,65 @@ The method stores the generated `outputMessage` in `this.message`, ready for dis
 
 ### Add feature
 
-The `add` feature allow users to add events/participants based on relevant flags.
-It is implemented in the `AddCommand` class which extends the base `Command` class and parse through the command to retrieve information based off flags.
+The `add` feature allows users to remove `Event`s from the `EventList`, `Participant`s or `Item`s from an `Event`.
+It is implemented in the `AddCommand` class which extends the base `Command` class, and in the `EventList`.
 
-The above operation is implemented as `AddCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+The feature has three operations, namely:
+
+1. `EventList#AddParticipantToEvent()`, which adds a `Participant` to an `Event` in the `EventList`.
+2. `EventList#AddItemFromEvent()`, which adds an `Item` to an `Event` in the `EventList`.
+3. `EventList#AddEvent()`, which adds an `Event` to the `EventList`.
+
+These three operations are invoked from `AddCommand` through `AddCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-The `AddCommand` handles two primary functions:
+In `AddCommand#execute()`, one operation is selected based on the values stored in several members of the `RemoveCommand` instance, namely:
 
-1. **Add an Event:** When provided with event details, including name, time, venue and priority, it creates and stores a new event in the event list.
-2. **Add a Participant:** When provided with participant information, including name, contact number, and email, it attempts to add the participant to an existing event.
+* `participantName`, the name of the `Participant` to be added to the specified `Event`,
+* `itemName`, the name of the `Item` to be added to the specified `Event`,
+* `eventName`, the name of the specified `Event`.
 
-#### Feature Implementation
+The operation selection logic is as follows:
 
-Given below is an example usage scenario for the `add` mechanism, and how it behaves at each step.
+1. If `participantName` is not `null`, `EventList#AddParticipantToEvent()` will be invoked.
+2. Otherwise, if `itemName` is not `null`, `EventList#AddItemToEvent()` will be invoked.
+3. Otherwise, `EventList#AddEvent()` will be invoked.
 
-1. The user enters the command `add` followed by `-e` or `-p` to indicate adding an event or participant.
-2. This step is determined by our `Parser` which parses through the user input to determine if it is adding a participant or event
-3. Based on the parsed input, `AddCommand` executes one of the following actions:
-   + **Add Event:** Creates a new event in `EventList` with the provided event details
-   + **Add Participant:** Locates the event in `EventList` and adds the participant to it
-4. If a duplicate event is found, `DuplicateDataException` is thrown.
+This operation selection logic is executed upon the invocation of `AddCommand#execute()`.
 
-The interactions between components during the execution of the `add` command are show in the **Sequence Diagram** below:
+The interactions between components during the operation selection in `AddCommand#execute()` are show in the **Sequence Diagram** below:
 
-**Add Event**
+<img src = "images/AddCommandSequenceDiagram.png">
+
+The `EventList#AddParticipantToEvent()` operation works as follows:
+
+1. `EventList` gets the `Event` with the event name `eventName` from the list of `Event`s stored within it.
+2. In the selected `Event`, `Event` checks if there is a `Participant` with the name in `participantName` in the list of `Participant`s. If there is one, it throws a `DuplicateDataException`.
+3. Otherwise, `Event` creates a new `Participant` object with the parameters passed to it, and adds it to the `Participant` list.
+
+If an `Event` with a name matching `eventName` is not found, the operation returns `false` to indicate that the operation was unsuccessful. Otherwise, the operation returns `true`.
+
+The interactions between components during the execution of the `EventList#AddParticipantToEvent()` operation are show in the **Sequence Diagram** below:
+
+<img src = "images/AddParticipantSequenceDiagram.png">
+<img src = "images/AddParticipantEventSequenceDiagram.png">
+
+The operation logic for `EventList#AddItemToEvent()` is similar to that for `EventList#AddParticipantToEvent()`, and will not be elaborated upon.
+
+The interactions between components during the execution of the `EventList#AddEvent()` operation are show in the **Sequence Diagram** below:
+
+1. `EventList` checks if there is a `Event` with the name in `eventName` in its list of `Events`s. If there is one, it throws a `DuplicateDataException`.
+3. Otherwise, `EventList` creates a new `Event` object with the parameters passed to it, and adds it to the `Event` list.
 
 <img src = "images/AddEventSequenceDiagram.png">
 
-**Add Participant**
+Upon the execution of the above operations, the output message is set based on the operation's return value, to indicate if the removal was successful.
 
-<img src = "images/AddParticipantSequenceDiagram.png">
+The `Parser` assigns the values of the parameters directly to their respective members, depending on the first command flag in the user input, as follows:
+
+* If the first command flag is the event flag (`-e`), the `Parser` only assigns values to `eventName`.
+* If the first command flag is the participant flag (`-p`), the `Parser` assigns values to `eventName` and `participantName`.
+* If the first command flag is the item flag (`-m`), the `Parser` assigns values to `eventName` and `itemName`.
 
 ### Remove feature
 
@@ -190,15 +218,11 @@ In `RemoveCommand#execute()`, one operation is selected based on the values stor
 * `itemName`, the name of the `Item` to be removed from the specified `Event`,
 * `eventName`, the name of the specified `Event`.
 
-The operation selection logic is as follows:
+The operation selection logic is similar to that for `AddCommand#execute()`, with `EventList#RemoveParticipantFromEvent()`,  
+`EventList#RemoveItemFromEvent()`, and `EventList#RemoveEvent()` in place of `EventList#AddParticipantToEvent()`,  
+`EventList#AddItemToEvent()`, and `EventList#AddEvent()`. For more details, refer to _Add feature_.
 
-1. If `participantName` is not `null`, the specified `Participant` will be removed from the specified `Event`.
-2. Otherwise, if `itemName` is not `null`, the specified `Participant` will be removed from the specified `Event`.
-3. Otherwise, the specified `Event` will be removed from the `EventList`.
-
-This path selection logic is executed upon the invocation of `RemoveCommand#execute()`.
-
-The interactions between components during the execution path selection in `RemoveCommand#execute()` are show in the **Sequence Diagram** below:
+The interactions between components during the operation selection in `RemoveCommand#execute()` are show in the **Sequence Diagram** below:
 
 <img src = "images/RemoveCommandSequenceDiagram.png">
 
@@ -218,22 +242,22 @@ The interactions between components during the above operation are shown in the 
 
 The operation logic for `EventList#RemoveItemFromEvent()` is similar to that for `EventList#RemoveParticipantFromEvent()`, and will not be elaborated upon.
 
-The `EventList#RemoveParticipantFromEvent()` operation works as follows:
+The `EventList#RemoveEvent()` operation works as follows:
 
 1. `EventList` compares the names of the `Event`s in its list of `Event`s with `eventName`.
 2. If an `Event` with a matching name is found, the `Event` is removed from the `Event` list of the `EventList`.
+
+If an `Event` with a name matching `eventName` is not found, the operation returns `false` to indicate that the operation was unsuccessful. Otherwise, the operation returns `true`.
 
 The interactions between components during the above operation are shown in the **Sequence Diagram** below:
 
 <img src = "images/RemoveEventSequenceDiagram.png">
 
+Upon the execution of the above operations, the output message is set based on the operation's return value, to indicate if the removal was successful.
+
 The values of `participantName`, `itemName`, and `eventName` are set through the participant, item and event parameters in the `remove` command respectively.  
 
-The `Parser` assigns the values of the parameters directly to their respective members, depending on the first command flag in the user input, as follows:
-
-* If the first command flag is the event flag (`-e`), the `Parser` only assigns values to `eventName`.
-* If the first command flag is the participant flag (`-p`), the `Parser` assigns values to `eventName` and `participantName`.
-* If the first command flag is the item flag (`-m`), the `Parser` assigns values to `eventName` and `itemName`.
+The `Parser` assigns the values of the parameters directly to their respective members, depending on the first command flag in the user input in the same way as for the `add` command.
 
 ### View feature
 
