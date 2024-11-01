@@ -52,18 +52,25 @@ This adds a new day "ONE" and inserts the exercise "Bench Press" with 10 reps, 3
 ---
 
 ### 2. View Program
-Command: `prog view [INDEX]`
+Command: `prog view [PROG_INDEX]`
 
-Displays the detailed workout routine of the selected program. If no index is provided, defaults to the currently active program.
+This command displays the detailed workout routine, separated by days, for the chosen program. 
+Each exercise includes its name, sets, reps, weight and how many calories you have burnt. 
+If no program index is provided, it defaults to viewing the currently active program.
 
 Example: `prog view 1`
 
 ```
-Program: Starter
+========================================
+Viewing Program: Starter
 
-Day 1: Chest Press [3x12 30kg], Squat [3x12 50kg]
+Day 1: Name: ONE
+1. Bench Press: 3 sets of 12 reps at 30 kg | Burnt 0 calories
+2. Squat: 3 sets of 12 reps at 50 kg | Burnt 0 calories
 
-Day 2: Squat [3x12 10kg]
+Day 2: Name: TWO
+1. Bicep Curl: 3 sets of 12 reps at 10 kg | Burnt 0 calories
+========================================
 ```
 
 ---
