@@ -27,21 +27,6 @@ public class UpdateCommand extends Command {
             uiCommand.clearUpdatedFields();
             uiCommand.clearInvalidFields();
 
-            /*
-            if (args.get(0).startsWith("deadline")) {
-                String trimmedDescription = args.get(0).substring(args.get(0).indexOf(" ") + 1).trim();
-                String trimmedDate = args.size() > 1 ? args.get(1).substring(args.get(1).indexOf(" ") + 1) : "";
-                if (isValidDeadline(trimmedDescription,trimmedDate)) {
-                    updateDeadline(internshipIndex, trimmedDescription,trimmedDate);
-                }
-
-            } else {
-                for (String arg : args) {
-                    String[] words = arg.split(" ", 2);
-                    updateOneField(words, internshipIndex);
-                }
-            }
-            */
             for (String arg : args) {
                 String[] words = arg.split(" ", 2);
                 updateOneField(words, internshipIndex);
@@ -105,48 +90,6 @@ public class UpdateCommand extends Command {
             uiCommand.addInvalidField(field, message);
         }
     }
-    //@@author jadenlimjc
-    /*
-    private boolean isValidDeadline(String description, String date) throws DateTimeParseException {
-        if (description.isEmpty()) {
-            uiCommand.addInvalidFlag("deadline");
-            return false;
-        }
-        if (date.isEmpty()) {
-            uiCommand.addInvalidFlag("date");
-            return false;
-        }
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-            formatter.parse(date);
-        } catch (DateTimeParseException e) {
-            uiCommand.addInvalidField("date", "Invalid date format. use dd/MM/yy");
-            return false;
-        }
-        return true;
-    }
-
-    private void updateDeadline(int internshipIndex, String description, String date) throws InvalidIndex {
-        Internship internship = internships.getInternship(internshipIndex);
-
-        boolean deadlineFound = false;
-
-        for (Deadline deadline : internship.getDeadlines()) {
-            if (deadline.getDescription().equalsIgnoreCase(description)) {
-                deadline.setDate(date);
-                deadlineFound = true;
-                //uiCommand.addUpdatedField(deadline.getDescription(), deadline.getDate());
-                uiCommand.addUpdatedField(deadline.getDescription(), deadline.getDate(), "update");
-                break;
-            }
-        }
-
-        if (!deadlineFound) {
-            internship.addDeadline(description, date);
-            uiCommand.addCreatedField("Deadline", description);
-        }
-    }
-     */
 
     public String getUsage() {
         return """

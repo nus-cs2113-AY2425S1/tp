@@ -96,4 +96,16 @@ class InternshipListTest {
         assertThrows(InvalidIndex.class,
                 () -> internshipList.removeField(1, "skills", "Java"));
     }
+
+    //@@author Ridiculouswifi
+    @Test
+    void removeField_validDeadline_expectUpdated() throws InvalidIndex, InvalidStatus, MissingValue, InvalidDeadline {
+        initialiseInternshipList();
+        internshipList.updateField(0, "deadline", "Interview Deadline 11/11/25");
+
+        internshipList.removeField(0, "deadline", "    Interview Deadline   ");
+
+        assertThrows(IndexOutOfBoundsException.class,
+                () -> internshipList.getInternship(0).getDeadlines().get(0));
+    }
 }
