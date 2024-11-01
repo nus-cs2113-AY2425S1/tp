@@ -72,5 +72,4 @@ I wrote an overview for the FilterCourses and DeleteCourses commands, as well as
     * https://github.com/AY2425S1-CS2113-W10-2/tp/pull/125 (Discussion on SLAP)
 
 ## Contributions beyond the project team:
-* Peer review for team CS2113-T10-3, for the DG!
-* https://github.com/nus-cs2113-AY2425S1/tp/pull/9#pullrequestreview-2403433893
+[Peer reviewed](https://github.com/nus-cs2113-AY2425S1/tp/pull/9#pullrequestreview-2403433893) the DG done by team CS2113-T10-3.
