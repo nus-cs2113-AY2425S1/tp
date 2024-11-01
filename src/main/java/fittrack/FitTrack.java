@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import fittrack.parser.Parser;
 import fittrack.reminder.Reminder;
+import fittrack.storage.Saveable;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 
@@ -29,16 +30,30 @@ public class FitTrack {
     public static void main(String[] args) throws FileNotFoundException {
         setupLogger();
 
-        // Initialize scanner and session / reminder list
+        // Initialize scanner and and unified saveable-item list
         Scanner scan = new Scanner(System.in);
-        ArrayList<TrainingSession> sessionList = new ArrayList<>();
-        ArrayList<Reminder> reminderList = new ArrayList<>();
-        ArrayList<Goal> goalList = new ArrayList<>();
+        ArrayList<Saveable> saveableList = new ArrayList<>();
 
 
         // Initialize and load the save file
         initialiseSaveFile();
-        loadSaveFile(sessionList);
+        loadSaveFile(saveableList);
+
+        // Initialize separate Goal/Reminder/Training Session lists for easier access if needed
+        ArrayList<TrainingSession> sessionList = new ArrayList<>();
+        ArrayList<Reminder> reminderList = new ArrayList<>();
+        ArrayList<Goal> goalList = new ArrayList<>();
+
+        // Separate saveable items into specific lists based on their type
+        for (Saveable item : saveableList) {
+            if (item instanceof TrainingSession) {
+                sessionList.add((TrainingSession) item);
+            } else if (item instanceof Reminder) {
+                reminderList.add((Reminder) item);
+            } else if (item instanceof Goal) {
+                goalList.add((Goal) item);
+            }
+        }
 
         // Set user gender and age
         printGreeting();

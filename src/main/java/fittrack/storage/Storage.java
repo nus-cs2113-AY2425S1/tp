@@ -1,6 +1,8 @@
 package fittrack.storage;
 
+import fittrack.exception.InvalidSaveDataException;
 import fittrack.fitnessgoal.Goal;
+import fittrack.reminder.Reminder;
 import fittrack.trainingsession.TrainingSession;
 
 import java.io.File;
@@ -58,30 +60,64 @@ public class Storage {
         assert file.exists() : "Save file should exist after initialization";
     }
 
+
     /**
-     * Loads the sessions from the save file into the given session list.
+     * Saves a list of Saveable items to the save file.
      *
-     * @param sessionList The list to populate with sessions from the save file.
-     * @throws FileNotFoundException If the save file is not found.
+     * @param items The list of Saveable items to save.
+     * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public static void loadSaveFile(ArrayList<TrainingSession> sessionList) throws FileNotFoundException {
-        // Assert that the session list is not null before loading
-        assert sessionList != null : "Session list must not be null";
-
-        Scanner s = new Scanner(SAVEFILE); // Create a Scanner to read the save file
-        while (s.hasNext()) {
-            String line = s.nextLine(); // Read each line from the file
-
-            // IMPLEMENT READ SAVE FILE HERE
-
+    public static void saveToFile(ArrayList<Saveable> saveableItems) throws IOException {
+        try (FileWriter fw = new FileWriter(SAVEFILE)) {
+            for (Saveable item : saveableItems) {
+                fw.write(item.toSaveString()); // Write the Saveable item's serialized string
+                fw.write(System.lineSeparator()); // Add a new line after each serialized string
+            }
+            LOGGER.info("Save file successfully updated.");
+        } catch (FileNotFoundException e) {
+            System.out.println("FileWriter object failed to initialise.");
         }
 
-        // Assert that the session list is populated after loading (if applicable)
-        assert !sessionList.isEmpty() : "Session list should be populated after loading";
+        LOGGER.info("Save file successfully updated.");
+    }
+
+    /**
+     * Loads Saveable items from the save file into a list.
+     *
+     * @return A list of Saveable items loaded from the save file.
+     * @throws FileNotFoundException If the save file is not found.
+     */
+    public static void loadFromFile(ArrayList<Saveable> loadList) {
+        try (Scanner scanner = new Scanner(SAVEFILE)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Saveable item = createSaveableFromString(line);
+                if (item != null) {
+                    loadList.add(item);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Scanner object failed to initialise.");
+        } catch (InvalidSaveDataException e) {
+            System.out.println("Invalid save data.");
+        }
 
         System.out.println("Save file successfully loaded.");
         LOGGER.info("Save file successfully loaded.");
     }
+
+    // Factory method to create Saveable objects based on type
+    private static Saveable createSaveableFromString(String saveString) {
+        if (saveString.startsWith("TrainingSession")) {
+            return TrainingSession.fromSaveString(saveString);
+        } else if (saveString.startsWith("Goal")) {
+            return Goal.fromSaveString(saveString);
+        } else if (saveString.startsWith("Reminder")) {
+            return Reminder.fromSaveString(saveString);
+        }
+        return null;
+    }
+
 
     /**
      * Updates the save file with the current list of sessions.
@@ -102,10 +138,10 @@ public class Storage {
                 LOGGER.info("Save file successfully updated.");
             }
         }
-
         // Assert that the file has been written to successfully
         assert SAVEFILE.length() > 0 : "Save file should not be empty after update";
     }
+
     public static void updateGoalsFile(ArrayList<Goal> goals) throws IOException {
         try (FileWriter fw = new FileWriter(SAVEFILE, true)) {
             fw.write("Goals:\n");
@@ -114,4 +150,19 @@ public class Storage {
             }
         }
     }
+
+    public static void updateRemindersFile(ArrayList<Reminder> reminderList) throws IOException {
+        try (FileWriter fw = new FileWriter(SAVEFILE, true)) {
+            fw.write("Reminders:\n");
+            for (Reminder reminder : reminderList) {
+                fw.write(reminder.toString() + "\n");
+            }
+        }
+        catch (IOException e) {
+            // TODO:
+        }
+    }
+
+
+
 }
