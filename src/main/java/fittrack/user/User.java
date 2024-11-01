@@ -1,6 +1,9 @@
 package fittrack.user;
 import fittrack.enums.Gender;
 import fittrack.fitnessgoal.Goal;
+import fittrack.healthprofile.CalorieIntake;
+import fittrack.healthprofile.FoodIntake;
+import fittrack.healthprofile.WaterIntake;
 import java.util.ArrayList;
 
 public class User {
