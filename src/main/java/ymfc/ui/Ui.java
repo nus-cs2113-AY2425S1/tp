@@ -50,7 +50,7 @@ public class Ui {
             + "\nThe following commands is for working with your ingredients list\n"
             + "1. new n/ingredient                  - Add a new ingredient to your list\n"
             + "2. listI                             - Lists out all your current ingredients\n"
-            //+ "3. delete n/ingredient                  - Delete an existing ingredient from your list\n"
+            + "3. findI ingredient                  - Searches ingredient list for your ingredient\n"
             + LINE
             + "\nGot it? Let's get back to cooking.\n";
 
