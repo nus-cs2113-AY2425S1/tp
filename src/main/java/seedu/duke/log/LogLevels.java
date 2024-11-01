@@ -1,5 +1,5 @@
 package seedu.duke.log;
 
 public enum LogLevels {
-    INFO, WARNING, SEVERE, ERROR;
+    INFO, WARNING, SEVERE;
 }

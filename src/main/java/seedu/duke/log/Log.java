@@ -3,21 +3,46 @@ package seedu.duke.log;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * The Log class is a Singleton logger utility for logging messages
+ * and exceptions at different levels. The logger handles three levels of
+ * logging defined by LogLevels: INFO, WARNING, and SEVERE.
+ * This class ensures that a single logging instance is used throughout the
+ * application, which can be accessed by getInstance() method.
+ * Each method allows for logging messages with optional exception tracing.
+ */
 public class Log {
     private final Logger logger;
 
+    /**
+     * Private constructor initializes the logger instance.
+     */
     private Log() {
         logger = Logger.getLogger("FinanceBuddy Log");
     }
 
+    /**
+     * Holder class for Log singleton instance.
+     */
     private static class LogHelper {
         private static final Log INSTANCE = new Log();
     }
 
+    /**
+     * Provides the Singleton instance of the Log class.
+     *
+     * @return the sole instance of the Log class
+     */
     public static Log getInstance() {
         return LogHelper.INSTANCE;
     }
 
+    /**
+     * Logs a message at the specified log level.
+     *
+     * @param logLevel The level of logging, as defined by LogLevels
+     * @param message The message string to log
+     */
     public void log(LogLevels logLevel, String message) {
         switch (logLevel) {
         case INFO:
@@ -35,6 +60,13 @@ public class Log {
         }
     }
 
+    /**
+     * Logs a message along with an exception at the specified log level.
+     *
+     * @param logLevel The level of logging, as defined by LogLevels
+     * @param message The message string to log
+     * @param e The exception to log, providing context with the message
+     */
     public void log(LogLevels logLevel, String message, Exception e) {
         switch (logLevel) {
         case INFO:
