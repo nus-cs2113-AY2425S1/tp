@@ -1,0 +1,28 @@
+@startuml
+
+hide footbox
+
+actor CEG_Student
+participant ":ListPersonalTrackerCommand" as Command
+participant ":Storage" as Storage
+participant ":UI" as UI
+
+CEG_Student -> Command: execute(userInput)
+activate Command
+
+Command -> Storage: loadAllCourses()
+activate Storage
+Storage --> Command: mappedModules: List<String>
+deactivate Storage
+
+loop each module in mappedModules
+    Command -> UI : printMappedModules()
+    activate UI
+    UI --> Command : display mapped modules
+    deactivate UI
+end
+
+deactivate Command
+Command --> CEG_Student
+
+@enduml

@@ -4,6 +4,7 @@ import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.exception.UnknownUniversityException;
+import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -12,14 +13,11 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_NAME_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
-import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
 public class ListUniCoursesCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ListUniCoursesCommand.class.getName());
+    private static final UI ui = new UI();
 
     /**
      * Executes the command to retrieve and list courses for a specified PU based on user input.
@@ -42,8 +40,13 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
         } catch (IOException e) {
             logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
             System.err.println(Exception.fileReadError());
+            System.out.println(LINE_SEPARATOR);
         } catch (UnknownUniversityException e) {
             logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, e.getMessage());
+            System.err.println(e.getMessage());
+            System.out.println(LINE_SEPARATOR);
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.WARNING, Logs.NULL_UNIVERSITY);
             System.err.println(e.getMessage());
             System.out.println(LINE_SEPARATOR);
         }
@@ -65,7 +68,6 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
             logger.log(Level.WARNING, Logs.NO_PU_NAME);
             throw new IllegalArgumentException(Exception.emptyUniversityName());
         }
-
         return puName;
     }
 
@@ -182,10 +184,11 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
         for (int i = 0; i < courseArray.size(); i++) {
             JsonObject courseObject = courseArray.getJsonObject(i);
             assert courseObject != null : Assertions.NO_COURSE_OBJECT;
-            printCourseDetails(courseObject);
+            ui.printListUniCoursesCommand(courseObject);
         }
     }
 
+<<<<<<< HEAD
     /**
      * Prints course details of the specified partner university and NUS.
      * The information printed are:
@@ -208,4 +211,6 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
         System.out.println(nusCourseCode + ": " + nusCourseName);
         System.out.println(LINE_SEPARATOR);
     }
+=======
+>>>>>>> b8169fbd2ab7ed97f62cad0914a053460ff33b23
 }
