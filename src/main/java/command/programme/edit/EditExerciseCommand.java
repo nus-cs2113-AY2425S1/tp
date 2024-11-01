@@ -30,12 +30,12 @@ public class EditExerciseCommand extends EditCommand {
      * exercise ID, and updated exercise details.
      *
      * @param programmeIndex the index of the programme containing the exercise to be updated
-     * @param dayId the ID of the day containing the exercise to be updated
-     * @param exerciseId the ID of the exercise to be updated
+     * @param dayIndex the ID of the day containing the exercise to be updated
+     * @param exerciseIndex the ID of the exercise to be updated
      * @param update the ExerciseUpdate object containing the fields that need to be updated in the target Exercise
      */
-    public EditExerciseCommand(int programmeIndex, int dayId, int exerciseId, ExerciseUpdate update) {
-        super(programmeIndex, dayId, exerciseId);
+    public EditExerciseCommand(int programmeIndex, int dayIndex, int exerciseIndex, ExerciseUpdate update) {
+        super(programmeIndex, dayIndex, exerciseIndex);
         assert update != null : "update object must not be null";
         this.update = update;
     }
@@ -52,11 +52,12 @@ public class EditExerciseCommand extends EditCommand {
 
         Programme selectedProgramme = programmes.getProgramme(programmeIndex);
         Day selectedDay = selectedProgramme.getDay(dayIndex);
-        Exercise updatedExercise = selectedDay.updateExercise(exerciseId, update);
+        Exercise selectedExercise = selectedDay.getExercise(exerciseIndex);
+        selectedExercise.updateExercise(update);
 
         logger.log(Level.INFO, "EditExerciseCommand executed successfully.");
 
-        String result = String.format(SUCCESS_MESSAGE_FORMAT, updatedExercise);
+        String result = String.format(SUCCESS_MESSAGE_FORMAT, selectedExercise);
         return new CommandResult(result);
     }
 }

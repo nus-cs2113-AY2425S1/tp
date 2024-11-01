@@ -7,7 +7,17 @@ We used these third party libraries to develop our application:
 
 ## Design
 
-### DailyRecord component
+### UI Component
+
+### Programme Component
+
+### Meal Component
+
+### Water Component
+
+### History Component
+
+#### DailyRecord component
 API: `DailyRecord.java`
 ![Diagram for DailyRecord Component](./images/DailyRecord_API_UML.jpg)
 The `DailyRecord` component,
@@ -24,7 +34,10 @@ The `DailyRecord` component,
   calories burned, meals eaten, water consumed, and the caloric balance, making it easy to retrieve and display all relevant information in a readable format.
 
 
-### Storage component
+### Storage Component
+
+
+#### Storage 
 API: `Storage.java`
 ![Diagram for Storage Component](./images/Storage_API_UML.jpg)
 The `Storage` component,
@@ -39,7 +52,7 @@ The `Storage` component,
   objects like LocalDate from the `DateSerilazer` class, ensuring that these objects are correctly serialized to and deserialized from JSON.
 
 
-### FileManager
+#### FileManager
 API: `FileManager.java`
 ![Diagram for FileManager Component](./images/FileManager_API_UML.jpg)
 The `FileManager` component,
@@ -52,6 +65,35 @@ The `FileManager` component,
 - **Performs error handling and logging:** `FileManager` employs detailed logging to track the progress of saving and loading operations.
   If any issues arise during file operations (e.g., missing files, failed directory creation), they are logged, and exceptions are thrown to handle errors gracefully.
 
+### Parser Component
+
+### Command Component
+
+#### Overview
+
+To interact with BuffBuddy, the user's input commands are parsed into discrete `Command` objects that have the sole responsibility of accomplishing that task.
+
+As BuffBuddy contains many commands and thus many types of `Command` subclasses, the following diagram presents a simplified representation of the various `Command` classes:
+
+![Summary of Command classes](images/commandSummary.png)
+
+Each abstract sub-class of `Command` represents a generalization of the various commands available to BuffBuddy. In the following sections, each abstract class and their respective purposes will be elaborated on.
+
+#### Programme Commands
+
+`ProgrammeCommand` is an abstract class for all programme classes that interact with `ProgrammeList` and its encapsulated data. The following diagram documents all `ProgrammeCommand` subclasses.
+
+![Summary of Programme classes](images/programmeCommandSummary.png)
+
+
+`EditCommand` classes are a subset of `ProgrammeCommand` classes that focus specifically on editing the internal `ProgrammeList` data. As this data is concerned only with `ProgrammeList`, `EditCommand#execute()` has been narrowed through method overloading to only take in `ProgrammeList` as a parameter.
+
+![Summary of Edit classes](images/editCommandSummary.png)
+
+
+### Common Component
+
+`common` package contains utility classes that are used across the multiple packages.
 
 ## Implementation
 
@@ -160,9 +202,9 @@ The following example illustrates the usage scenario and behavior of the Weekly 
 
 #### Overview
 The **Edit Programme** feature allows for in-depth management of programme structures, supporting operations to add, remove, and update days and exercises within each programme.
-Due to the nature of modelling a Workout Programme, a heirachial data structure is used to represent workout data. 
+Due to the nature of modelling a Workout Programme, a hierarchical data structure is used to represent workout data. 
 
-To perform an edit to any aspect of this data, the EditCommand will traverse the heirachy until it reaches the necessary depth to perform its edit operation.
+To perform an edit to any aspect of this data, the EditCommand will traverse the hierarchy until it reaches the necessary depth to perform its edit operation.
 
 These operations include:
 - Adding or removing Days to the Programme
@@ -179,10 +221,10 @@ The 'Model' class in the above diagram is a generalization of the various data m
 to perform each specific edit command. For each edit command, the following sequence diagrams
 further break down how this interaction works.
 
-##### Add/Remove day
+##### Add day
 ![Add/Remove Day](images/addDayCommand.png)
 
-##### Add/Remove exercise
+##### Add exercise
 ![Add/Remove Exercise](images/addExerciseCommand.png)
 
 ##### Update exercise
@@ -391,7 +433,7 @@ The "Create Programme" feature enables users to build a structured fitness progr
 This flow allows users to easily create structured workout routines, customizing their fitness journey directly within BuffBuddy.
 
 The overall design that enables this functionality is described generically by the following sequence diagram.
-![](images/createCommand.png)
+![](images/createCommand.jpeg)
 
 ## Implementation Details
 

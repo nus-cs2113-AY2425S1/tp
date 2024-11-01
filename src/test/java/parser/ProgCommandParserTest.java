@@ -180,8 +180,8 @@
 //        assertInstanceOf(DeleteExerciseCommand.class, subCommand, "Expected DeleteExerciseCommand");
 //
 //        DeleteExerciseCommand deleteExerciseCommand = (DeleteExerciseCommand) subCommand;
-//        assertEquals(0, deleteExerciseCommand.getDayId());
-//        assertEquals(0, deleteExerciseCommand.getExerciseId());
+//        assertEquals(0, deleteExerciseCommand.getdayIndex());
+//        assertEquals(0, deleteExerciseCommand.getexerciseIndex());
 //    }
 //create new progcommand with (1,1,1) and compare with the one you pass
 //

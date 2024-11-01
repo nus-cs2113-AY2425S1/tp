@@ -18,17 +18,17 @@ import java.util.logging.Level;
  * </p>
  */
 public class DeleteExerciseCommand extends EditCommand {
-    public static final String SUCCESS_MESSAGE_FORMAT = "Deleted exercise %d: %s%n";
+    public static final String SUCCESS_MESSAGE_FORMAT = "Deleted exercise %d: %n%s%n";
 
     /**
      * Constructs a DeleteExerciseCommand with the specified programme index, day ID, and exercise ID.
      *
      * @param programmeIndex the index of the programme from which the exercise will be deleted
-     * @param dayId the ID of the day from which the exercise will be deleted
-     * @param exerciseId the ID of the exercise to be deleted
+     * @param dayIndex the ID of the day from which the exercise will be deleted
+     * @param exerciseIndex the ID of the exercise to be deleted
      */
-    public DeleteExerciseCommand(int programmeIndex, int dayId, int exerciseId) {
-        super(programmeIndex, dayId, exerciseId);
+    public DeleteExerciseCommand(int programmeIndex, int dayIndex, int exerciseIndex) {
+        super(programmeIndex, dayIndex, exerciseIndex);
     }
 
     /**
@@ -43,11 +43,11 @@ public class DeleteExerciseCommand extends EditCommand {
 
         Programme selectedProgramme = programmes.getProgramme(programmeIndex);
         Day selectedDay = selectedProgramme.getDay(dayIndex);
-        Exercise deletedExercise = selectedDay.deleteExercise(exerciseId);
+        Exercise deletedExercise = selectedDay.deleteExercise(exerciseIndex);
 
         logger.log(Level.INFO, "DeleteExerciseCommand executed successfully.");
 
-        String result = String.format(SUCCESS_MESSAGE_FORMAT, exerciseId, deletedExercise);
+        String result = String.format(SUCCESS_MESSAGE_FORMAT, exerciseIndex, deletedExercise);
         return new CommandResult(result);
     }
 }
