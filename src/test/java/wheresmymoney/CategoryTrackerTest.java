@@ -31,20 +31,62 @@ class CategoryTrackerTest {
     }
     
     @Test
-    void addCategory_categoryNotInMap_categoryAddedToMap() {
-        CategoryTracker tracker = new CategoryTracker();
-    }
-    @Test
     void addCategory_categoryInMap_incrementsThatCategoryCurrExpenditure() {
         CategoryTracker tracker = new CategoryTracker();
+        try {
+            tracker.addCategory("category", 23.00F);
+            assertEquals(1, tracker.size());
+            tracker.addCategory("category", 46.00F);
+            assertEquals(1, tracker.size());
+            Float newCurrExpenditure = tracker.getCategoryDataOf("category").getCurrExpenditure();
+            assertEquals(69.00F, newCurrExpenditure);
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when inputs are not null.");
+        }
+    }
+    @Test
+    void addCategory_categoryNotInMap_categoryAddedToMap() {
+        CategoryTracker tracker = new CategoryTracker();
+        try {
+            assertEquals(0, tracker.size());
+            tracker.addCategory("category", 10.00F);
+            assertEquals(1, tracker.size());
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when inputs are not null.");
+        }
     }
     
     @Test
     void deleteCategory_categoryInMap_decrementsCurrExpenditure() {
         CategoryTracker tracker = new CategoryTracker();
+        try {
+            tracker.addCategory("category", 100.00F);
+            assertEquals(1, tracker.size());
+            tracker.deleteCategory("category", 31.00F);
+            assertEquals(1, tracker.size());
+            Float newCurrExpenditure = tracker.getCategoryDataOf("category").getCurrExpenditure();
+            assertEquals(69.00F, newCurrExpenditure);
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when inputs are not null.");
+        }
     }
     @Test
     void deleteCategory_categoryInMap_removesCategoryFromMap() {
         CategoryTracker tracker = new CategoryTracker();
+        try {
+            tracker.addCategory("category", 100.00F);
+            assertEquals(1, tracker.size());
+            tracker.deleteCategory("category", 100.00F);
+            assertEquals(0, tracker.size());
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when inputs are not null.");
+        }
     }
+    @Test
+    void deleteCategory_categoryNotInMap_throwsWheresMyMoneyException() {
+        CategoryTracker tracker = new CategoryTracker();
+        assertThrows(WheresMyMoneyException.class,
+                () -> tracker.deleteCategory("category", 420.00F));
+    }
+    
 }

@@ -30,6 +30,9 @@ public class CategoryTracker {
     public HashMap<String, CategoryData> getTracker() {
         return tracker;
     }
+    public int size() {
+        return tracker.size();
+    }
     public boolean contains(String category) {
         return tracker.containsKey(category);
     }
