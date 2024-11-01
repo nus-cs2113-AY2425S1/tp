@@ -15,7 +15,7 @@ This guide will bring you through the various features of FitTrackCLI, and how t
 
 ## FitTrackCLI's Features
 
-### 1. User initialisation: `set`
+### 1. User Configuration: `set`
 
 **Purpose**: Set the age and gender of the user.
 
@@ -139,7 +139,7 @@ ________________________________________________________________________________
 ```
 
 ### 7. Deleting a Training Session: `delete`
-**Purpose**: Removes a task from your list.
+**Purpose**: Removes a Training Session from the list.
 
 **Format**: `delete [session index]`
 

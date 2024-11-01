@@ -14,6 +14,7 @@ class FitTrack {
 class Parser {
     -command : String
     -indexToDelete : int
+    -sessionToDelete : TrainingSession
     +parse()
 }
 

@@ -37,6 +37,11 @@ First , **fork** this repo, and clone the fork into your computer.
 ![Storage.png](Images/Class_Storage.png)
 
 ### Set User
+When the application starts up, it will prompt the user for their gender and age via the Set User feature.
+Their input is processed by Parser and stored in an instance of the User class.
+Upon successful setting of the gender and age fields, a confirmation of the user's gender and age will be printed in the CLI via the Ui class.
+After this initialization process, if the user desires, they can set their gender and age again at any time by calling the "set" command.
+
 ![SetUser.png](Images/Class_SetUser.png)
 
 ### Add Training Session
@@ -67,12 +72,28 @@ Below is a class diagram showing the EnumMap after an instance of `TrainingSessi
    performance metric and point conversion.
 
 ### Delete Training Session
+When Parser detects the "delete" command, the TrainingSession instance at the user's specified index in sessionList will be 
+copied into a new private TrainingSession instance called sessionToDelete. The original instance in sessionList will 
+then be deleted. The new private instance is used to print the details of the deleted session, giving the user 
+confirmation that the TrainingSession they wished to delete has been successfully deleted. The new TrainingSession
+instance is then disposed of.
+
 ![DeleteTrainingSession.png](Images/Class_DeleteTrainingSession.png)
 
 ### List Training Sessions
+When Parser detects the "list" command, it calls printSessionList() followed by printSessionCount().
+printSessionList() first checks if sessionList is empty. If sessionList is empty, it prints a message saying so.
+If sessionList is not empty, it will be iterated through. 
+For each TrainingSession in sessionList, getSessionDescription will be called, returning its details as a String.
+The TrainingSession's index will be printed, followed by the session description before iterating to the next index.
+
 ![ListTrainingSessions.png](Images/Class_ListTrainingSessions.png)
 
 ### View Training Session
+When Parser detects the "view" command, it calls printSessionView() on the user's specified session index.
+This in turn calls viewSession(), which outputs the details of the TrainingSession instance in the CLI.
+This process fetches the details of each of the 6 ExerciseStation classes, which fetch details from the Calculator classes.
+
 ![ViewTrainingSession.png](Images/Class_ViewTrainingSession.png)
 
 ### Edit Exercise

@@ -41,10 +41,6 @@ class ExerciseStation {
     +toString()
 }
 
-class Calculator {
-    +calculatePoints()
-}
-
 ' Define relationships with right-angle arrows
 FitTrack "1" --> "1" User : creates
 FitTrack "1" --> "1" Parser : uses
@@ -59,7 +55,4 @@ Ui "1" --> "*" TrainingSession : displays
 
 TrainingSession "*" ---> "1" User : belongs to
 TrainingSession "1" --> "6" ExerciseStation : contains
-
-ExerciseStation "1" --> "1" Calculator : uses
-
 @enduml
