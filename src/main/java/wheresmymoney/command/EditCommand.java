@@ -20,13 +20,13 @@ public class EditCommand extends Command {
             int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
             String oldCategory = expenseList.getExpenseAtIndex(index).getCategory();
             
-            String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
+            String newCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
             float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
             String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE_ADDED);
             
-            expenseList.editExpense(index, price, description, category, dateAdded);
-            categoryTracker.editCategory(oldCategory, category, price);
+            expenseList.editExpense(index, price, description, newCategory, dateAdded);
+            categoryTracker.editCategory(oldCategory, newCategory, price);
         } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments.");
         }

@@ -27,7 +27,7 @@ public class AddCommand extends Command {
                 expenseList.addExpense(price, description, category);
             }
             categoryTracker.addCategory(category, price);
-        } catch(NullPointerException | NumberFormatException e){
+        } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments");
         }
     }
