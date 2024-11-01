@@ -6,6 +6,7 @@ actor CEG_Student
 
 participant ":ListUniCoursesCommand" as ListUniCoursesCommand
 participant ":Command" as Command
+participant ":UI" as UI
 
 CEG_Student -> ListUniCoursesCommand : execute(userInput: String)
 activate ListUniCoursesCommand
@@ -47,7 +48,9 @@ alt universityName == null
         ListUniCoursesCommand -> ListUniCoursesCommand : listCourses(...)
         activate ListUniCoursesCommand
             loop for courseArray.size()
-            ListUniCoursesCommand -> ListUniCoursesCommand : print course details
+            ListUniCoursesCommand -> UI : printListUniCoursesCommand(...)
+            activate UI
+            return print course details
             end
         return
     end

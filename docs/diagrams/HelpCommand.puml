@@ -1,0 +1,33 @@
+@startuml
+
+hide footbox
+
+actor CEG_Student
+
+participant ":HelpCommand" as HelpCommand
+
+CEG_Student -> HelpCommand : execute(input: String)
+activate HelpCommand
+
+HelpCommand -> HelpCommand : getCommand
+activate HelpCommand
+alt Valid Input
+    HelpCommand -> HelpCommand : return parsed command
+    else Invalid Input
+        HelpCommand -> HelpCommand : Throws IllegalArgumentException
+end
+return
+
+HelpCommand -> HelpCommand
+activate HelpCommand
+alt Valid Command
+    HelpCommand -> HelpCommand : Print specific help messages
+    else Invalid Command
+        HelpCommand -> HelpCommand : Throws IllegalArgumentException
+end
+return
+
+HelpCommand --> CEG_Student
+deactivate HelpCommand
+
+@enduml
