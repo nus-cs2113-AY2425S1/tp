@@ -172,40 +172,68 @@ The interactions between components during the execution of the `add` command ar
 
 ### Remove feature
 
-The `remove` feature allows users to remove events/participants based on relevant flags.
-It is implemented in the `RemoveCommand` class which extends the base `Command` class and parse through the command to retrieve information based off flags.
+The `remove` feature allows users to remove `Event`s from the `EventList`, `Participant`s or `Item`s from an `Event`.
+It is implemented in the `RemoveCommand` class which extends the base `Command` class, and in the `EventList`.
 
-The above operation is implemented as `RemoveCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+The feature has three operations, namely:
+
+1. `EventList#RemoveParticipantFromEvent()`, which removes a `Participant` from an `Event` in the `EventList`.
+2. `EventList#RemoveItemFromEvent()`, which removes an `Item` from an `Event` in the `EventList`.
+3. `EventList#RemoveEvent()`, which removes an `Event` from the `EventList`.
+
+These three operations are invoked from `RemoveCommand` through `RemoveCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-The `RemoveCommand` handles two primary functions:
+In `RemoveCommand#execute()`, one operation is selected based on the values stored in several members of the `RemoveCommand` instance, namely:
 
-1. **Remove an Event:** When given the name of an event, it searches for and deletes it from the event list if it exists.
-2. **Remove a Participant:** When provided with a participant’s name and the name of an event, it attempts to remove the specified participant from that event.
+* `participantName`, the name of the `Participant` to be removed from the specified `Event`,
+* `itemName`, the name of the `Item` to be removed from the specified `Event`,
+* `eventName`, the name of the specified `Event`.
 
-#### Feature Implementation
+The operation selection logic is as follows:
 
-Given below is an example usage scenario for the `remove` mechanism, and how it behaves at each step.
+1. If `participantName` is not `null`, the specified `Participant` will be removed from the specified `Event`.
+2. Otherwise, if `itemName` is not `null`, the specified `Participant` will be removed from the specified `Event`.
+3. Otherwise, the specified `Event` will be removed from the `EventList`.
 
-1. The user enters the command `remove` followed by `-e` or `-p` to specify removing an event or participant.
-2. This step is determined by our `Parser` which parses through the user input to determine if it is adding a participant or event
-3. Based on the parsed input, `RemoveComamnd` executes one of the following actions:
-   + **Remove Event:** Remove the specified event from `EventList` using the provided event name
-   + **Remove Participant:** Locates the event in `EventList` and deletes the specified participant
-4. If the event or participant is not found, `RemoveCommand` sets a failure message.
+This path selection logic is executed upon the invocation of `RemoveCommand#execute()`.
 
-The interactions between components during the execution of the `remove` command are show in the **Sequence Diagram** below:
+The interactions between components during the execution path selection in `RemoveCommand#execute()` are show in the **Sequence Diagram** below:
 
-**Remove Event**
+<img src = "images/RemoveCommandSequenceDiagram.png">
 
-<img src = "images/RemoveEventSequenceDiagram.png">
+The `EventList#RemoveParticipantFromEvent()` operation works as follows:
 
-**Remove Participant**
+1. `EventList` gets the `Event` with the event name `eventName` from the list of `Event`s stored within it.
+2. The selected `Event` compares the names of the `Participant`s in its list of `Participant`s with `participantName`.
+3. If a `Participant` with a matching name is found, the `Participant` is removed from the `Participant` list of the `Event`.
+
+If an `Event` with a name matching `eventName` or a `Participant` with name matching `participantName` is not found, the operation returns `false`
+to indicate that the operation was unsuccessful. Otherwise, the operation returns `true`.
+
+The interactions between components during the above operation are shown in the **Sequence Diagram** below:
 
 <img src = "images/RemoveParticipantSequenceDiagram.png">
 <img src = "images/RemoveParticipantEventSequenceDiagram.png">
 
-The interactions between components for the removing of `Item`s from `Event`s are similar to those for removing `Participant`s, and will not be depicted.
+The operation logic for `EventList#RemoveItemFromEvent()` is similar to that for `EventList#RemoveParticipantFromEvent()`, and will not be elaborated upon.
+
+The `EventList#RemoveParticipantFromEvent()` operation works as follows:
+
+1. `EventList` compares the names of the `Event`s in its list of `Event`s with `eventName`.
+2. If an `Event` with a matching name is found, the `Event` is removed from the `Event` list of the `EventList`.
+
+The interactions between components during the above operation are shown in the **Sequence Diagram** below:
+
+<img src = "images/RemoveEventSequenceDiagram.png">
+
+The values of `participantName`, `itemName`, and `eventName` are set through the participant, item and event parameters in the `remove` command respectively.  
+
+The `Parser` assigns the values of the parameters directly to their respective members, depending on the first command flag in the user input, as follows:
+
+* If the first command flag is the event flag (`-e`), the `Parser` only assigns values to `eventName`.
+* If the first command flag is the participant flag (`-p`), the `Parser` assigns values to `eventName` and `participantName`.
+* If the first command flag is the item flag (`-m`), the `Parser` assigns values to `eventName` and `itemName`.
 
 ### View feature
 
@@ -235,8 +263,6 @@ The values of `eventName` and `isViewingParticipants` are set by the user throug
 
 The `Parser` assigns the event parameter directly to `eventName`. Conversely, it sets `isViewingParticipants` to true if the type parameter value is `participant`, 
 to false if the type parameter value is `item`, and treats any other value entered as invalid.
-
-
 
 ### Mark/unmark feature
 
