@@ -1,6 +1,9 @@
 package fittrack.user;
 import fittrack.enums.Gender;
 import fittrack.fitnessgoal.Goal;
+import fittrack.healthprofile.CalorieIntake;
+import fittrack.healthprofile.FoodIntake;
+import fittrack.healthprofile.WaterIntake;
 import java.util.ArrayList;
 
 public class User {
@@ -8,12 +11,21 @@ public class User {
     public Gender gender;
     public int age;
     private final ArrayList<Goal> goals;
+    private WaterIntake waterIntake;
+    private FoodIntake foodIntake;
+    private CalorieIntake calorieIntake;
+
+
 
 
     public User(String gender, String age) {
         this.gender = Gender.valueOf(gender.toUpperCase());
         this.age = Integer.parseInt(age);
         this.goals = new ArrayList<>();
+        this.waterIntake = new WaterIntake();
+        this.foodIntake = new FoodIntake();
+        this.calorieIntake = new CalorieIntake();
+
 
     }
 
@@ -44,4 +56,17 @@ public class User {
     public ArrayList<Goal> getGoals() {
         return goals;
     }
+
+    public WaterIntake getWaterIntake() {
+        return waterIntake;
+    }
+
+    public FoodIntake getFoodIntake() {
+        return foodIntake;
+    }
+
+    public CalorieIntake getCalorieIntake() {
+        return calorieIntake;
+    }
+
 }
