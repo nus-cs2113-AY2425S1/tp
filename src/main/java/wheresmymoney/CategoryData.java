@@ -53,7 +53,10 @@ public class CategoryData {
      * @param price The amount to add to the current total expenditure.
      * @throws WheresMyMoneyException If the price is null.
      */
-    public void increaseCurrExpenditureBy(Float price) {
+    public void increaseCurrExpenditureBy(Float price) throws WheresMyMoneyException {
+        if (price == null) {
+            throw new WheresMyMoneyException("Price to update current total expenditure by should not be null.");
+        }
         this.currExpenditure += price;
     }
     /**
@@ -62,7 +65,10 @@ public class CategoryData {
      * @param price The amount to subtract from the current total expenditure.
      * @throws WheresMyMoneyException If the price is null.
      */
-    public void decreaseCurrExpenditureBy(Float price) {
+    public void decreaseCurrExpenditureBy(Float price) throws WheresMyMoneyException {
+        if (price == null) {
+            throw new WheresMyMoneyException("Price to update current total expenditure by should not be null.");
+        }
         this.currExpenditure -= price;
     }
     /**
