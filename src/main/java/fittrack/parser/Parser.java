@@ -230,46 +230,46 @@ public class Parser {
             }
             break;
 
-            case "add-water":
-                int waterAmount = Integer.parseInt(description);
-                user.getWaterIntake().addWater(waterAmount);
-                break;
+        case "add-water":
+            int waterAmount = Integer.parseInt(description);
+            user.getWaterIntake().addWater(waterAmount);
+            break;
 
-            case "delete-water":
-                int waterIndex = Integer.parseInt(description) - 1;
-                user.getWaterIntake().deleteWater(waterIndex);
-                break;
+        case "delete-water":
+            int waterIndex = Integer.parseInt(description) - 1;
+            user.getWaterIntake().deleteWater(waterIndex);
+            break;
 
-            case "list-water":
-                user.getWaterIntake().listWater();
-                break;
+        case "list-water":
+            user.getWaterIntake().listWater();
+            break;
 
-            case "add-food":
-                user.getFoodIntake().addFood(description);
-                break;
+        case "add-food":
+            user.getFoodIntake().addFood(description);
+            break;
 
-            case "delete-food":
-                int foodIndex = Integer.parseInt(description) - 1;
-                user.getFoodIntake().deleteFood(foodIndex);
-                break;
+        case "delete-food":
+            int foodIndex = Integer.parseInt(description) - 1;
+            user.getFoodIntake().deleteFood(foodIndex);
+            break;
 
-            case "list-food":
-                user.getFoodIntake().listFood();
-                break;
+        case "list-food":
+            user.getFoodIntake().listFood();
+            break;
 
-            case "add-calories":
-                int calorieAmount = Integer.parseInt(description);
-                user.getCalorieIntake().addCalories(calorieAmount);
-                break;
+        case "add-calories":
+            int calorieAmount = Integer.parseInt(description);
+            user.getCalorieIntake().addCalories(calorieAmount);
+            break;
 
-            case "delete-calories":
-                int calorieIndex = Integer.parseInt(description) - 1;
-                user.getCalorieIntake().deleteCalories(calorieIndex);
-                break;
+        case "delete-calories":
+            int calorieIndex = Integer.parseInt(description) - 1;
+            user.getCalorieIntake().deleteCalories(calorieIndex);
+            break;
 
-            case "list-calories":
-                user.getCalorieIntake().listCalories();
-                break;
+        case "list-calories":
+            user.getCalorieIntake().listCalories();
+            break;
 
 
             default:
