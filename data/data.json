@@ -12,7 +12,7 @@
                 "sets": 3,
                 "reps": 30,
                 "weight": 30,
-                "calories": 1000,
+                "calories": 0,
                 "name": "bench"
               },
               {
@@ -90,6 +90,31 @@
       },
       "mealList": {
         "meals": []
+      },
+      "water": {
+        "waterList": []
+      }
+    },
+    "30-10-2024": {
+      "day": {
+        "name": "Empty Day",
+        "exercises": []
+      },
+      "mealList": {
+        "meals": [
+          {
+            "calories": 250,
+            "name": "chicken"
+          },
+          {
+            "calories": 1000,
+            "name": "gulab jamun"
+          },
+          {
+            "calories": 250,
+            "name": "chicken"
+          }
+        ]
       },
       "water": {
         "waterList": []
