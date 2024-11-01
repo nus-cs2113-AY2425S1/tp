@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Introducing ExchangeCourseMapper, the perfect assistant in your planning for your SEP in Australia!
+Introducing ExchangeCourseMapper, the perfect assistant in your planning for your SEP in Oceania!
 
 Using ExchangeCourseMapper, you can plan your course mapping by listing the universities of interest, 
 along with the specific courses and subject codes offered by each school. You can quickly filter by NUS-coded modules 
@@ -66,21 +66,49 @@ Format to use the feature
 Example
 ```
 
-{Give detailed description of each feature}
+### Adding a course mapping: `add`
+Adds a new course mapping into `myList.json` file for storage.Course mapping is subject to validation 
+to ensure that the course mapping is valid and that the university provided is an Oceania university. 
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
+Format: `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE`
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+* All 3 parameters `NUS_COURSE_CODE`, `PARTNER_UNIVERISTY_NAME` and `PU_COURSE_CODE` are case-insensitive.
+* Do not add punctuation to the above three parameters
+* Indicate the full name of the partner university for `PARTNER_UNIVERISTY_NAME`. For example, indicate
+`The Australian National University` instead of `Australian National University` or `ANU`. 
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.
+Example of usage: 
+`add cs2102 /pu the university of melbourne /coursepu info20003`
+
+Expected output:
+```
+You have successfully added the course: cs2102 | the university of melbourne | info20003
+```
+Example of usage:
+`add CS3244 /pu The Australian National University /coursepu COMP3670`
+
+Expected output:
+```
+You have successfully added the course: cs3244 | the australian national university | comp3670
+```
 
 Example of usage:
+`add CS3244 /pu Australian National University /coursepu COMP3670`
 
-`todo n/Write the rest of the User Guide d/next week`
+Expected output:
+```
+Invalid university input!
+-----------------------------------------------------
+The relevant universities are (non-case sensitive):
+1. The University of Melbourne
+2.The Australian National University
+3. Victoria University of Wellington
+4.The University of Western Australia
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+NOTE: Please indicate the partner universities FULL NAME!
+NOTE: Instead of "Australian National University," please indicate "The Australian National University."
+-----------------------------------------------------
+```
 
 
 ### Filtering possible mappings: `filter`
