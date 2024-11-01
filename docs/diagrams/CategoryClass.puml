@@ -1,0 +1,13 @@
+@startuml
+class ExpenseTracker {
+}
+
+class Category {
+    - name : String
+    + getName() : String
+    + toString() : String
+}
+
+Category --|> ExpenseTracker : extends
+
+@enduml
