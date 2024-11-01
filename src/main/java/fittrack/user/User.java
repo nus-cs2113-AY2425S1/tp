@@ -44,4 +44,9 @@ public class User {
     public ArrayList<Goal> getGoals() {
         return goals;
     }
+
+    @Override
+    public String toString () {
+        return gender + " " + age;
+    }
 }
