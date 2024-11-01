@@ -203,6 +203,9 @@ The interactions between components during the execution of the `remove` command
 **Remove Participant**
 
 <img src = "images/RemoveParticipantSequenceDiagram.png">
+<img src = "images/RemoveParticipantEventSequenceDiagram.png">
+
+The interactions between components for the removing of `Item`s from `Event`s are similar to those for removing `Participant`s, and will not be depicted.
 
 ### View feature
 

@@ -1,0 +1,30 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":EventList" as eventList EVENT_COLOUR
+participant "event:Event" as event EVENT_COLOUR
+participant "participant:Participant" as participant EVENT_COLOUR
+
+group sd Remove participant from event
+    activate eventList EVENT_COLOUR
+    eventList -> event : removeParticipant(participantName : String)
+    activate event EVENT_COLOUR
+
+    loop for participant in participantList
+        event -> participant : getName()
+        activate participant EVENT_COLOUR
+
+        return :String
+
+        opt name of participant equals participantName
+            event -> event : remove(participant : Participant)
+            activate event EVENT_COLOUR
+            destroy participant
+            return
+            event --> eventList : true : boolean
+        end
+    end
+    return false : boolean
+end
+@enduml
