@@ -8,18 +8,44 @@ of an application. The user interacts with it using a CLI, and it has a GUI crea
 Given below are my contributions to the project.
 
 ### Summary of Contributions
+- **New Feature:** Created the base Internship and InternshipList classes.
+  - What it does: creates the baseline functionality for these classes as well as the getters and setters for each field within the class.
+  - Justification: When applying for internships, there are often multiple vital fields to take into account, such as `Role`, `Company`, `Duration`, `Deadlines` amongst others. It is integral for these fields to recorded within each internship. Creating the getters and setters for these fields is the foundation for all functions built on top of it.
+  - Highlights: The design of Internship and InternshipList focused on flexibility, allowing future additions to accommodate new fields without requiring major rewrites. Getters and setters enable controlled access to fields, maintaining encapsulation while ensuring that key data can be updated as needed. This setup provides the structural foundation for further functionality, such as filtering or sorting internships based on user-defined criteria.
+<br><br>
 
 - **New Feature:** Added the ability to add an internship entry.
   - What it does: Allows the user to add a new internship entry
   - Justification: Applicants might be applying to multiple companies and hence it can aid the user in tracking their multiple applications
-  - Highlights: This enhancement affects both the `InternshipList` and `Internship` class, requiring a careful analysis
-    on the methods to implement in each class, as well as the `Exceptions` to be handled on each level. The
-    implementation also has to be constantly updated when new fields are added to the internship entries.
+  - Highlights: This functionality is fundamental for managing and tracking multiple internship applications in a single place, which allows for efficient updates and reviews of application statuses.
 <br><br>
+
+- **New Feature:** Added the ability to delete an internship entry.
+  - What it does: Allows the user to delete a new internship entry
+  - Justification: Applicants might be applying to multiple companies and hence it can aid the user in tracking their multiple applications by deleting internships that are no longer necessary to be maintained.
+  - Highlights: This functionality is fundamental for managing and tracking multiple internship applications in a single place, which allows for efficient updates and reviews of application statuses.
+<br><br>
+
 
 - **Code Contributed:** [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=jadenlimjc&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 <br><br>
 
 - **Project Management:**
   - Head in splitting work load of features.
+  - Managed expectations and milestones to be met for v1.0 and v2.0.
 <br><br>
+
+- **Enhancement to Existing Features:**
+  - Updated `Internship` class to include the `dealdine` field.
+    <br><br>
+  - 
+- **Documentation:**
+  - Developer Guide:
+    - Added implementation details for `add` and `delete` features.
+    - Added implementation details for `Internship` ,`InternshipList`, and `Deadline` classes as well as how they interact with one another.
+  - User Guide:
+    - Created the entire skeleton of the UserGuide with all base functions. (Add, Delete, Update, Sort Filter, Help)
+<br><br>
+
+- **Community:**
+  - PRs reviewed (with non-trivial review comments): [#35](), [#37]()
