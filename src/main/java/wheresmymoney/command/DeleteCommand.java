@@ -22,7 +22,8 @@ public class DeleteCommand extends Command {
             int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
             Expense expense = expenseList.getExpenseAtIndex(index);
             expenseList.deleteExpense(index);
-            CategoryFacade.deleteCategory(categoryTracker, expense);
+            
+            categoryFacade.deleteCategory(expense.getCategory(), expense.getPrice());
         } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments.");
         }

@@ -14,20 +14,18 @@ public class CategoryFacade {
         this.categoryFilter = new CategoryFilter();
         this.categoryFilter.setCategoryFacade(this);
     }
-    
     public CategoryTracker getCategoryTracker() {
         return categoryTracker;
     }
     
-    
-    public void addCategory(CategoryTracker categoryTracker, String category, float price) throws WheresMyMoneyException {
+    public void addCategory(String category, float price) throws WheresMyMoneyException {
         categoryTracker.addCategory(category, price);
         categoryTracker.checkLimitOf(category);
     }
-    public void deleteCategory(CategoryTracker categoryTracker, Expense expense) throws WheresMyMoneyException {
-        categoryTracker.deleteCategory(expense.getCategory(), expense.getPrice());
+    public void deleteCategory(String category, Float price) throws WheresMyMoneyException {
+        categoryTracker.deleteCategory(category, price);
     }
-    public void editCategory(CategoryTracker categoryTracker, String oldCategory, String newCategory, float price) throws WheresMyMoneyException {
+    public void editCategory(String oldCategory, String newCategory, float price) throws WheresMyMoneyException {
         categoryTracker.editCategory(oldCategory, newCategory, price);
         categoryTracker.checkLimitOf(newCategory);
     }

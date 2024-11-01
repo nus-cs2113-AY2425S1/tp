@@ -27,7 +27,7 @@ public class EditCommand extends Command {
             String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE_ADDED);
             
             expenseList.editExpense(index, price, description, newCategory, dateAdded);
-            CategoryFacade.editCategory(categoryTracker, oldCategory, newCategory, price);
+            categoryFacade.editCategory(oldCategory, newCategory, price);
         } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments.");
         }

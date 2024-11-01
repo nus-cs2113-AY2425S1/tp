@@ -29,7 +29,7 @@ public class AddCommand extends Command {
                 expenseList.addExpense(price, description, category);
             }
             
-            CategoryFacade.addCategory(categoryTracker, category, price);
+            categoryFacade.addCategory(category, price);
         } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments");
         }
