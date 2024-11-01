@@ -184,7 +184,7 @@ The `SortCommand` class is responsible for sorting the internship listings based
 
 #### Key Methods:
 - **`execute(ArrayList<String> args)`**: Handles sorting logic based on the first argument provided. The valid sort options include:
-   - `"alphabet"`: Sorts internships by role alphabetically.
+   - `"role"`: Sorts internships by role alphabetically.
    - `"duration"`: Sorts internships by duration (start and end dates).
    - `"deadline"`: Sorts internships by deadline.
    - `"skills"`: Sorts internships by the first skill in the skills list alphabetically.
@@ -194,9 +194,10 @@ The `SortCommand` class is responsible for sorting the internship listings based
 
 #### Example Usage Scenario:
 1. The user enters `sort alphabet`, and the `execute` method sorts the internships by role.
-2. The user enters `sort deadline`, and the internships are sorted by their start and end dates.
+2. The user enters `sort duration`, and the internships are sorted by their start and end dates.
 3. The user enters `sort skills`, and the internships are sorted by the first skill alphabetically.
 4. The user enters `sort status`, and the internships are sorted by their status alphabetically.
+5. The user enters `sort deadline`, and the internships are sorted by each of their earliest deadline.
 5. If the user enters an invalid sort option, the command returns an error and lists the internships by ID.
 
 #### Sequence Diagram:
