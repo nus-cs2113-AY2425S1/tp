@@ -30,8 +30,8 @@ public class ParserUtils {
         assert argumentString != null : "Argument string must not be null";
 
         String[] inputArguments = argumentString.split(" ", 2);
-        String command = inputArguments[0];
-        String args = (inputArguments.length > 1) ? inputArguments[1] : "";
+        String command = inputArguments[0].trim();
+        String args = (inputArguments.length > 1) ? inputArguments[1].trim() : "";
 
         logger.log(Level.INFO, "Successfully split arguments. Command: {0}, Arguments: {1}",
                 new Object[]{command, args});
@@ -46,7 +46,7 @@ public class ParserUtils {
      * @return The trimmed version of {@code argumentString}.
      * @throws IllegalArgumentException if {@code argumentString} is empty after trimming.
      */
-    private static String trimInput(String argumentString) {
+    static String trimInput(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
         String trimmedString = argumentString.trim();
 
