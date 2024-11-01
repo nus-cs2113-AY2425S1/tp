@@ -4,6 +4,16 @@
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
+## Setting up, getting started
+First , **fork** this repo, and clone the fork into your computer.
+1. **Configure the JDK**: Follow the guide [se-edu/guides] IDEA: Configuring the JDK to ensure Intellij is configured 
+   to use **JDK 17**.
+2. **Import the project as a Gradle project**: Follow the guide [se-edu/guides] IDEA: Importing a Gradle project
+   to import the project into IDEA.
+3. Verify the setup:
+   (i) Run the FitTrack.Main and try a few commands like `help`.
+   (ii) Run the tests to ensure that all of it pass.
+
 ## Design & implementation
 
 ## Software Architecture
@@ -32,6 +42,30 @@
 ### Add Training Session
 ![AddTrainingSession.png](Images/Class_AddTrainingSession.png)
 
+#### 1. Class Interaction Overview
+When the user adds a new training session, an instance of the `TrainingSession` class is created. 
+This instance initializes an EnumMap, which instantiates the 6 `ExerciseStation` child classes with 
+their initial values.
+Below is a class diagram showing the EnumMap after an instance of `TrainingSession` is created.
+![Class_TrainingSessionInitialState.png](Images/Class_TrainingSessionInitialState.png)
+
+#### 2. Sequence of Event 
+![Sequence_addTrainingSessionCommand.png](Images%2FSequence_addTrainingSessionCommand.png)
+1) **User Inputs Add command**:The User initiates the "add <name of the training session>" command by 
+   calling Parser with the input.
+2) **Instantiation of TrainingSession**: The Parser creates a new TrainingSession object with the 
+   current time, description, and user.
+3) **Instantiation of Exercise Stations**: Within TrainingSession class, all 6 subclasses of exercise
+   stations are instantiated.
+4) **UI Interaction**: The Parser calls Ui.printAddedSession(sessionList), which:
+   (i) Begins a UI segment
+   (ii) Prints a session message
+   (iii) Prints the description of the last added session
+   (iv) Calls printSessionCount to show the total count
+   (v) Ends the segment.
+4) Refer to Section on Edit Exercise and Point Calculation for specific implementation of 
+   performance metric and point conversion.
+
 ### Delete Training Session
 ![DeleteTrainingSession.png](Images/Class_DeleteTrainingSession.png)
 
@@ -48,14 +82,6 @@ The **Edit Exercise** feature is managed by the `TrainingSession` class, and is 
 `ExerciseStation` classes to edit the repetitions and timings for the user’s selected 
 exercises. Additionally, it calculates the points the user will earn for each exercise based on the updated "rep" or
 "timing" values.
-
-#### Step 1: Logging a New Training Session
-
-When the user logs a new training session, an instance of the `TrainingSession` class is created. This instance 
-initializes an EnumMap, which instantiates the various `ExerciseStation` subclasses with their initial values. 
-Below is a class diagram showing the EnumMap after an instance of `TrainingSession` is created.
-
-![Class_TrainingSessionInitialState.png](Images/Class_TrainingSessionInitialState.png)  
 
 #### Step 2: Editing a Training Session
 
@@ -85,9 +111,8 @@ Each `ExerciseStation` subclass (e.g., `PullUpStation`, `SitUpStation`) has its 
 method. The main responsibility of this method is to invoke the `calculatePoints()` function from the 
 respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), which holds the points calculation logic.
 
+#### 2.  Sequence of Events:
 ![getPointsSequenceDiagram.png](getPointsSequenceDiagram.png)
-##### Sequence of Events:
-
 1. **User Inputs Performance**: The user’s performance (e.g., number of pull-ups) is passed to the
    `setPerformance()` method in the exercise station.
 
