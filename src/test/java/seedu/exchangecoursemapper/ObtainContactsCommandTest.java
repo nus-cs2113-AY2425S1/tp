@@ -131,7 +131,7 @@ public class ObtainContactsCommandTest {
     }
 
     @Test
-    public void inputWithNoCourseCode_expectException() {
+    public void inputWithOneWord_expectException() {
         String userInput = "obtain";
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
