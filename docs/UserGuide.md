@@ -20,6 +20,52 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 ## Features 
 
+### List courses provided by the partner university: `set`
+This feature allows users to list out the available mappable course that are provided by a specific partner university.
+
+The information that would be listed out are:
+- PU course code and PU course name
+- NUS course code and NUS course name
+
+Format:
+`set [PARTNER_UNIVERISTY_NAME]`
+
+The available partner universities are:
+* The University of Western Australia
+* The University of Melbourne
+* The Australian National University
+* Victoria University of Wellington
+
+Example of usage:
+* set the university of western australia
+* set victoria university of wellington
+
+Expected output:
+```
+PU_COURSE_CODE: PU_COURSE_NAME
+NUS_COURSE_CODE: NUS_COURSE_NAME
+```
+* Note that the output would be a list of mappable course of the format above
+
+### Help Command: `help`
+This feature allows users to ask for help when unsure of how the commands work or how to use the commands.
+It provides users with a detailed explanation of what the command does and the format to utilise the command.
+
+Format:
+`help [COMMAND]`
+* Users can use the commands feature to list out all the available commands
+
+Example of usage:
+* help filter
+* help set
+
+Expected outcome:
+```
+Detail explanation
+Format to use the feature
+Example
+```
+
 {Give detailed description of each feature}
 
 ### Adding a todo: `todo`
