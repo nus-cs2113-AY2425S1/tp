@@ -143,4 +143,5 @@ public class CategoryTracker {
         Float currExpenditure = categoryData.getCurrExpenditure();
         tracker.put(category, new CategoryData(currExpenditure, spendingLimit));
     }
+    
 }
