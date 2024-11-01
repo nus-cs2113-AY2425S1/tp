@@ -19,8 +19,8 @@ import static seedu.exchangecoursemapper.constants.Logs.EXECUTE_COMPLETE;
 public class ListPersonalTrackerCommand extends CheckInformationCommand {
 
     private static final Logger logger = Logger.getLogger(ListPersonalTrackerCommand.class.getName());
-    private final Storage storage;
     private static final UI ui = new UI();
+    private final Storage storage;
 
     public ListPersonalTrackerCommand(Storage storage) {
         assert storage != null : NULL_STORAGE;

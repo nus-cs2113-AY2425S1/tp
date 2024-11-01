@@ -37,8 +37,8 @@ import static seedu.exchangecoursemapper.constants.Logs.DISPLAYING_UNIQUE_MAPPIN
 public class CompareMappedCommand extends CheckInformationCommand {
 
     private static final Logger logger = Logger.getLogger(CompareMappedCommand.class.getName());
-    private final Storage storage;
     private static final UI ui = new UI();
+    private final Storage storage;
 
     public CompareMappedCommand(Storage storage) {
         assert storage != null : NULL_STORAGE;

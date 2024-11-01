@@ -29,7 +29,6 @@ import static seedu.exchangecoursemapper.constants.Messages.INVALID_INPUT_FORMAT
 import static seedu.exchangecoursemapper.constants.Messages.COMPARISON_RESULTS_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.COMMON_MAPPINGS_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.NO_COMMON_MAPPINGS;
-import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 import static seedu.exchangecoursemapper.constants.Messages.UNIQUE_MAPPINGS_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.NO_UNIQUE_MAPPINGS;
 
