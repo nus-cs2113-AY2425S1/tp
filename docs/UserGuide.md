@@ -98,4 +98,10 @@ Please provide a valid index of the course plan you would like to delete.
 
 * Add todo `todo n/TODO_NAME d/DEADLINE`
 
+For Louis to do for the UG: 
+
 cp ps from Docs
+{TODO: Obtain Contacts}
+{TODO: List schools}
+{TODO: Commands}
+{TODO: Miscellaneous}
