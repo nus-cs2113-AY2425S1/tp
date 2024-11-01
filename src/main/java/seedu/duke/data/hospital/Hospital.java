@@ -10,15 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import seedu.duke.data.task.TaskList;
 
 @JsonPropertyOrder({"patients"})
 @JsonRootName("hospital")
 @JsonInclude(JsonInclude.Include.NON_NULL) // Added to exclude null values
 public class Hospital {
+    @JsonIgnore
+    private static Patient selectedPatient;
     private static final Logger logger = Logger.getLogger(Hospital.class.getName());
     private List<Patient> patients;
-    @JsonIgnore
-    private Patient selectedPatient;
 
     static {
         logger.setLevel(Level.SEVERE); // Only show warnings and errors
@@ -27,11 +28,13 @@ public class Hospital {
     @JsonCreator
     public Hospital() {
         this.patients = new ArrayList<>();
-        this.selectedPatient = null;
         logger.log(Level.INFO, "Hospital initialized with an empty patient list.");
         assert patients != null : "Patients list should not be null after initialization";
     }
 
+    public static void clearSelectedPatient() {
+        selectedPatient = null;
+    }
 
     public void addPatient(String name) {
         assert name != null && !name.isEmpty() : "Patient name should not be null or empty";
@@ -92,7 +95,7 @@ public class Hospital {
         logger.log(Level.INFO, "Selected patient set successfully at index: {0}", index);
     }
 
-    public Patient getSelectedPatient() {
+    public static Patient getSelectedPatient() {
         return selectedPatient;
     }
 
@@ -143,6 +146,21 @@ public class Hospital {
         return matchingPatients;
     }
 
+    /**
+     * Calculates the overall completion rate across all patients' tasks.
+     *
+     * @return the completion percentage as a double, or 0.0 if there are no tasks.
+     */
+    public double calculateOverallCompletionRate() {
+        int totalTasks = 0;
+        int completedTasks = 0;
+        for (Patient patient : patients) {
+            TaskList taskList = patient.getTaskList();
+            totalTasks += taskList.getSize();
+            completedTasks += taskList.getCompletedTaskCount();
+        }
+        return totalTasks == 0 ? 0.0 : ((double) completedTasks / totalTasks) * 100;
+    }
     public static class PatientNotFoundException extends Exception {
         public PatientNotFoundException() {
             super("Patient not found in the list!");

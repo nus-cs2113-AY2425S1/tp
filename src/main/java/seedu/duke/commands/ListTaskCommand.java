@@ -1,5 +1,9 @@
 package seedu.duke.commands;
 
+import seedu.duke.data.hospital.Hospital;
+import seedu.duke.data.hospital.Patient;
+import seedu.duke.ui.Ui;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +18,10 @@ public class ListTaskCommand extends Command {
     static {
         logger.setLevel(Level.SEVERE);
     }
+
+    Ui ui = new Ui();
+    Patient currentPatient = Hospital.getSelectedPatient();
+
     @Override
     public CommandResult execute() {
         assert tasks != null : "Task list should not be null";
@@ -22,7 +30,8 @@ public class ListTaskCommand extends Command {
             logger.log(Level.WARNING, "Attempted to list tasks, but the list is empty.");
             return new CommandResult(MESSAGE_EMPTY_LIST);
         } else{
-            return new CommandResult(String.format(MESSAGE_SUCCESS, tasks));
+            ui.showTaskList(currentPatient);
+            return new CommandResult("");
         }
     }
 }

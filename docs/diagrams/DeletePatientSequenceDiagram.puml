@@ -1,0 +1,51 @@
+@startuml
+
+actor User
+participant MediTask
+participant Parser
+participant DeleteParser
+participant DeletePatientCommand
+participant Hospital
+participant CommandResult
+
+User -> MediTask : User input ("delete <index>")
+activate MediTask
+
+MediTask -> Parser : parseCommand(input, state)
+activate Parser
+
+Parser -> DeleteParser : execute(input, state)
+activate DeleteParser
+
+DeleteParser -> DeletePatientCommand : new DeletePatientCommand(index)
+deactivate DeleteParser
+activate DeletePatientCommand
+
+DeletePatientCommand -> Hospital : getPatient(index)
+activate Hospital
+
+alt Index valid
+    Hospital --> DeletePatientCommand : Patient
+    DeletePatientCommand -> Hospital : deletePatient(index)
+    Hospital --> DeletePatientCommand : void
+
+    DeletePatientCommand -> CommandResult : new CommandResult("Deleted patient: <patient name>")
+    deactivate DeletePatientCommand
+else Index invalid
+    Hospital --> DeletePatientCommand : throws PatientNotFoundException
+    DeletePatientCommand -> CommandResult : new CommandResult("Patient not found in the list!")
+    deactivate DeletePatientCommand
+end
+
+deactivate Hospital
+
+Parser <-- DeletePatientCommand : CommandResult
+deactivate Parser
+
+MediTask <-- Parser : CommandResult
+destroy DeletePatientCommand
+MediTask -> User : Display CommandResult
+
+deactivate MediTask
+
+@enduml

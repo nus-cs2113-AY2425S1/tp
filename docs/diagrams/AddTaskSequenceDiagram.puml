@@ -1,0 +1,34 @@
+@startuml
+actor User
+participant MediTask
+participant Parser
+participant AddTaskCommand
+participant Task
+participant TaskList
+
+User -> MediTask: Selects a patient
+MediTask -> Parser: Parse input command ("add <task_type> <args>")
+Parser -> AddTaskCommand: Create AddTaskCommand (taskType, args)
+
+AddTaskCommand -> Task: Create Task (taskType, args)
+activate Task
+alt Missing or invalid input
+    Task --> AddTaskCommand: Throw EmptyTaskDescription or MissingTaskArgument
+    AddTaskCommand --> MediTask: Return error message
+    MediTask --> User: Display error
+else Valid input
+    Task --> AddTaskCommand: return :Task
+    deactivate Task
+    AddTaskCommand -> TaskList: Add task to list
+    alt Task exists
+        TaskList --> AddTaskCommand: Throw DuplicateTaskException
+        AddTaskCommand --> MediTask: Return "This task already exists"
+        MediTask --> User: Display "This task already exists"
+    else Task does not exist
+        TaskList --> AddTaskCommand: Confirm task addition
+        AddTaskCommand --> MediTask: Return success message
+        MediTask --> User: Display "New task added: <task>"
+        destroy AddTaskCommand
+    end
+end
+@enduml

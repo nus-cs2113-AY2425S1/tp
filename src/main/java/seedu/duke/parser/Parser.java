@@ -116,6 +116,8 @@ public class Parser {
                 LOGGER.log(Level.WARNING, "Find Command Error: Non-Numerical Error");
             }
             break;
+        case "help":
+            return new HelpParser().execute(line, state);
 
         case "exit":
             return new ExitParser().execute(line, state);
