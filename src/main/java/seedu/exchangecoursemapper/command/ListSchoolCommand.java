@@ -21,6 +21,11 @@ public class ListSchoolCommand extends CheckInformationCommand {
         ui = new UI();
     }
 
+    /**
+     * Executes the listing of schools to output a list of possible schools from the JSON file .
+     *
+     * @param userInput A string containing the user's input.
+     */
     @Override
     public void execute(String userInput) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
@@ -37,6 +42,13 @@ public class ListSchoolCommand extends CheckInformationCommand {
         logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
 
+    /**
+     * Displays the list of university names found in the provided JSON object.
+     * Prints out each university name to the console.
+     *
+     * @param jsonObject the JSON object containing university names as keys.
+     * @throws AssertionError if a university name is null or empty.
+     */
     public static void displaySchoolList(JsonObject jsonObject) {
         Set<String> universityNames = jsonObject.keySet();
         System.out.println(LINE_SEPARATOR);

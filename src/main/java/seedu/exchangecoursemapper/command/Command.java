@@ -9,6 +9,14 @@ import java.io.InputStream;
 import static seedu.exchangecoursemapper.constants.Commands.FILE_PATH;
 
 public abstract class Command {
+    protected static final String FILE_PATH = "/database.json";
+
+    /**
+     * Creates and returns a JsonObject by reading from the JSON file at {@code FILE_PATH}.
+     *
+     * @return a JsonObject representing the data in the JSON file.
+     * @throws IOException if the file at {@code FILE_PATH} cannot be found or read.
+     */
     public JsonObject createJsonObject() throws IOException {
         InputStream inputStream = getClass().getResourceAsStream(FILE_PATH);
         if (inputStream == null) {

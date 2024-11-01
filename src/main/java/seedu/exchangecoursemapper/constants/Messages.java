@@ -17,11 +17,10 @@ public class Messages {
     public static final String DELETE_COURSE_PLAN_HEADER = "You have deleted the course from your plan: ";
 
     public static final String LIST_RELEVANT_PU = "The relevant universities are (non-case sensitive):\n" +
-            "1. Chulalongkorn University\n" +
-            "2. The University of Melbourne\n" +
-            "3.The Australian National University\n" +
-            "4. Victoria University of Wellington\n" +
-            "5.The University of Western Australia\n\n" +
+            "1. The University of Melbourne\n" +
+            "2.The Australian National University\n" +
+            "3. Victoria University of Wellington\n" +
+            "4.The University of Western Australia\n\n" +
             "NOTE: Please indicate the partner universities FULL NAME!\n" +
             "NOTE: Instead of \"Australian National University,\" " +
             "please indicate \"The Australian National University.\"";
@@ -50,4 +49,5 @@ public class Messages {
     public static final String NO_COMMON_MAPPINGS = "No common mappings found.";
     public static final String UNIQUE_MAPPINGS_HEADER = "Unique to ";
     public static final String NO_UNIQUE_MAPPINGS = "No unique mappings for ";
+    public static final String INVALID_COURSE_MAPPING = "Invalid course mapping!";
 }
