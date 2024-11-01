@@ -23,6 +23,7 @@ public class CategoryData {
     public CategoryData(Float currExpenditure) throws WheresMyMoneyException {
         setCurrExpenditure(currExpenditure);
         setMaxExpenditure(100F);
+        assert (currExpenditure != null) && (maxExpenditure == 100F);
     }
     /**
      * Constructs a {@code CategoryData} object with a specified current expenditure
@@ -35,12 +36,15 @@ public class CategoryData {
     public CategoryData(Float currExpenditure, Float maxExpenditure) throws WheresMyMoneyException {
         setCurrExpenditure(currExpenditure);
         setMaxExpenditure(currExpenditure);
+        assert (currExpenditure != null) && (maxExpenditure != null);
     }
     
     public Float getCurrExpenditure() {
+        assert currExpenditure != null;
         return currExpenditure;
     }
     public Float getMaxExpenditure() {
+        assert maxExpenditure != null;
         return maxExpenditure;
     }
     public void setCurrExpenditure(Float currExpenditure) throws WheresMyMoneyException {
@@ -89,6 +93,7 @@ public class CategoryData {
      *         {@code false} otherwise.
      */
     public boolean isNearingLimit() {
+        assert (maxExpenditure != null) && (currExpenditure != null);
         return currExpenditure - (0.80F * maxExpenditure) >= PRECISION;
     }
     /**
@@ -98,6 +103,7 @@ public class CategoryData {
      *         {@code false} otherwise.
      */
     public boolean hasExceededLimit() {
+        assert (maxExpenditure != null) && (currExpenditure != null);
         return currExpenditure - maxExpenditure > PRECISION;
     }
 }
