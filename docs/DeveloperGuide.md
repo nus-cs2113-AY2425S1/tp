@@ -76,9 +76,9 @@ Each `Event` is composed of the following:
 * A list of `Participant`s, each representing a participant at the event.
 * A list of `Items`s, each representing an item for the event.
 
-The `Event` component and its component classes are shown in the below **Class Diagram**:
+The component and its dependencies are shown in the below **Component Diagram**:
 
-<img src = "images/EventClassDiagram.png">
+<img src = "images/EventComponentDiagram.png">
 
 ## Implementation
 

@@ -15,6 +15,7 @@ rectangle Storage STORAGE_COLOUR
 EventList *--> "*" Event : event
 Event *--> "*" Participant : participant
 Event *--> "*" Item : item
+Participant --|> Item
 
 Main .> EventList
 EventList <. Storage
