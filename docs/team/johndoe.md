@@ -1,6 +1,7 @@
 ---
 title: John Doe
-nav_order: 2
+parent: About Us
+nav_order: 5
 ---
 
 # John Doe - Project Portfolio Page

@@ -1,3 +1,8 @@
+---
+title: MediTask
+nav_order: 1
+---
+
 # MediTask
 
 [![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/AY2425S1-CS2113-T11-1/tp/actions)
