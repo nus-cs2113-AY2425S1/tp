@@ -17,9 +17,9 @@ public class CategoryData {
      * @param currExpenditure The current expenditure for this category.
      * @throws WheresMyMoneyException If currExpenditure is null.
      */
-    public CategoryData(Float currExpenditure) {
-        this.currExpenditure = currExpenditure;
-        this.maxExpenditure = 100F;
+    public CategoryData(Float currExpenditure) throws WheresMyMoneyException {
+        setCurrExpenditure(currExpenditure);
+        setMaxExpenditure(100F);
     }
     /**
      * Constructs a {@code CategoryData} object with a specified current expenditure
@@ -29,9 +29,9 @@ public class CategoryData {
      * @param maxExpenditure  The spending limit for this category.
      * @throws WheresMyMoneyException If currExpenditure or maxExpenditure is null.
      */
-    public CategoryData(Float currExpenditure, Float maxExpenditure) {
-        this.currExpenditure = currExpenditure;
-        this.maxExpenditure = maxExpenditure;
+    public CategoryData(Float currExpenditure, Float maxExpenditure) throws WheresMyMoneyException {
+        setCurrExpenditure(currExpenditure);
+        setMaxExpenditure(currExpenditure);
     }
     
     public Float getCurrExpenditure() {
