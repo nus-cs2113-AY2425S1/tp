@@ -4,7 +4,7 @@
 
 Certain aspects of YMFC's code was inspired from the following member(s) IPs:
 
-[Sanjith](http://github.com/KSanjith/ip)
+[Sanjith](http://github.com/KSanjith/ip) : Referenced to develop the working mechanisms of YMFC's storage class
 
 ## Design & implementation
 
