@@ -34,26 +34,27 @@ public class MealCommandTest {
     }
 
     @Test
-    public void testConstructor_HappyPath() {
-        assertEquals(date, mealCommand.date, "Date should be initialized correctly in MealCommand.");
+    public void testConstructorHappyPath() {
+        assertEquals(date, mealCommand.date, "Date should be " +
+                "initialized correctly in MealCommand.");
     }
 
     @Test
-    public void testConstructor_EdgeCase_NullDate() {
-        assertThrows(AssertionError.class, () -> new TestMealCommand(null), "Creating MealCommand with null date should throw an AssertionError.");
+    public void testConstructorEdgeCaseNullDate() {
+        assertThrows(AssertionError.class, () -> new TestMealCommand(null), "Creating " +
+                "MealCommand with null date should throw an AssertionError.");
     }
 
     @Test
-    public void testExecute_WithProgrammeListAndHistory_HappyPath() {
-        // Arrange
+    public void testExecuteWithProgrammeListAndHistoryHappyPath() {
         CommandResult expected = new CommandResult("Executed with history");
 
-        // Act
         CommandResult result = mealCommand.execute(mockProgrammeList, mockHistory);
 
-        // Assert
-        assertEquals(expected, result, "execute should return a CommandResult with the correct message.");
-        verify(mockHistory).getRecordByDate(date); // Assuming some method interaction with mockHistory in the subclass
+        assertEquals(expected, result, "execute should return a " +
+                "CommandResult with the correct message.");
+        // Assuming some method interaction with mockHistory in the subclass
+        verify(mockHistory).getRecordByDate(date);
     }
 
     // Concrete subclass of MealCommand for testing purposes

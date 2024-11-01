@@ -42,7 +42,7 @@ public class AddMealCommandTest {
     }
 
     @Test
-    public void testExecute_HappyPath() {
+    public void testExecuteHappyPath() {
         // Arrange
         CommandResult expectedResult = new CommandResult(sampleMeal.toString() + " has been added");
 
@@ -51,20 +51,23 @@ public class AddMealCommandTest {
 
         // Assert
         verify(mockDailyRecord).addMealToRecord(sampleMeal);
-        assertEquals(expectedResult, result, "Execution should return a CommandResult with the correct success message.");
+        assertEquals(expectedResult, result, "Execution should " +
+                "return a CommandResult with the correct success message.");
     }
 
     @Test
-    public void testExecute_EdgeCase_NullDailyRecord() {
+    public void testExecuteEdgeCaseNullDailyRecord() {
         // Set up History mock to return null for the DailyRecord
         when(mockHistory.getRecordByDate(date)).thenReturn(null);
 
-        assertThrows(AssertionError.class, () -> addMealCommand.execute(mockHistory), "Executing AddMealCommand without a valid DailyRecord should throw an AssertionError.");
+        assertThrows(AssertionError.class, () -> addMealCommand.execute(mockHistory), "Executing " +
+                "AddMealCommand without a valid DailyRecord should throw an AssertionError.");
     }
 
     @Test
-    public void testExecute_EdgeCase_NullMeal() {
+    public void testExecuteEdgeCaseNullMeal() {
         // Attempting to create a command with a null meal should throw an AssertionError
-        assertThrows(AssertionError.class, () -> new AddMealCommand(null, date), "Creating AddMealCommand with null Meal should throw AssertionError.");
+        assertThrows(AssertionError.class, () -> new AddMealCommand(null, date), "Creating " +
+                "AddMealCommand with null Meal should throw AssertionError.");
     }
 }

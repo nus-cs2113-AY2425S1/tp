@@ -45,7 +45,7 @@ public class DeleteMealCommandTest {
     }
 
     @Test
-    public void testExecute_HappyPath() {
+    public void testExecuteHappyPath() {
         // Arrange
         CommandResult expectedResult = new CommandResult(sampleMeal + " has been deleted");
 
@@ -54,30 +54,34 @@ public class DeleteMealCommandTest {
 
         // Assert
         verify(mockDailyRecord).deleteMealFromRecord(0);
-        assertEquals(expectedResult, result, "Execution should return a CommandResult with the correct success message.");
+        assertEquals(expectedResult, result, "Execution should " +
+                "return a CommandResult with the correct success message.");
     }
 
     @Test
-    public void testExecute_EdgeCase_NullDailyRecord() {
+    public void testExecuteEdgeCaseNullDailyRecord() {
         // Set up History mock to return null for the DailyRecord
         when(mockHistory.getRecordByDate(date)).thenReturn(null);
 
-        assertThrows(AssertionError.class, () -> deleteMealCommand.execute(mockHistory), "Executing DeleteMealCommand without a valid DailyRecord should throw an AssertionError.");
+        assertThrows(AssertionError.class, () -> deleteMealCommand.execute(mockHistory), "Executing " +
+                "DeleteMealCommand without a valid DailyRecord should throw an AssertionError.");
     }
 
     @Test
-    public void testExecute_EdgeCase_InvalidIndex() {
+    public void testExecuteEdgeCaseInvalidIndex() {
         // Set up DailyRecord mock to throw IndexOutOfBoundsException when an invalid index is used
         when(mockDailyRecord.deleteMealFromRecord(5)).thenThrow(new IndexOutOfBoundsException("Invalid index"));
 
         DeleteMealCommand invalidIndexCommand = new DeleteMealCommand(5, date);
 
-        assertThrows(IndexOutOfBoundsException.class, () -> invalidIndexCommand.execute(mockHistory), "Executing DeleteMealCommand with an invalid index should throw IndexOutOfBoundsException.");
+        assertThrows(IndexOutOfBoundsException.class, () -> invalidIndexCommand.execute(mockHistory), "Executing " +
+                "DeleteMealCommand with an invalid index should throw IndexOutOfBoundsException.");
     }
 
     @Test
-    public void testConstructor_EdgeCase_NegativeIndex() {
+    public void testConstructorEdgeCaseNegativeIndex() {
         // Attempting to create a command with a negative index should throw an AssertionError
-        assertThrows(AssertionError.class, () -> new DeleteMealCommand(-1, date), "Creating DeleteMealCommand with negative index should throw AssertionError.");
+        assertThrows(AssertionError.class, () -> new DeleteMealCommand(-1, date), "Creating " +
+                "DeleteMealCommand with negative index should throw AssertionError.");
     }
 }

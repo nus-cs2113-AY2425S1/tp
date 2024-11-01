@@ -85,7 +85,6 @@ public class MealCommandFactory {
 
     /**
      * Prepares a ViewMealCommand by parsing the argument string for the date.
-     *
      * @param argumentString the argument string containing the date
      * @return a ViewMealCommand containing the parsed date
      */
