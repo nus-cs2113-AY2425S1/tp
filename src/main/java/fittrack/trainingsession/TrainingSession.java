@@ -1,6 +1,7 @@
 package fittrack.trainingsession;
 
 import fittrack.enums.Exercise;
+import fittrack.exception.InvalidSaveDataException;
 import fittrack.exercisestation.ExerciseStation;
 import fittrack.exercisestation.PullUpStation;
 import fittrack.exercisestation.ShuttleRunStation;
@@ -8,13 +9,14 @@ import fittrack.exercisestation.SitAndReachStation;
 import fittrack.exercisestation.SitUpStation;
 import fittrack.exercisestation.StandingBroadJumpStation;
 import fittrack.exercisestation.WalkAndRunStation;
+import fittrack.storage.Saveable;
 import fittrack.user.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class TrainingSession{
+public class TrainingSession extends Saveable {
 
     static final int NUM_OF_EXERCISES = 6;
     static final int MAX_POINT = 5;
@@ -123,4 +125,41 @@ public class TrainingSession{
         System.out.print("Total points: " + totalPoints + System.lineSeparator() +
                 "Overall Award: " + award(minPoint, totalPoints) + System.lineSeparator());
     }
+
+    @Override
+    public String toSaveString(){
+
+        String sessionInfo = this.getSessionDescription();
+        String sessionDateTime = this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        String PUInfo = ""; // Pullups info
+        String SBJInfo = "";
+        String SRInfo = "";
+        String SARInfo = "";
+        String SUInfo = "";
+        String WARInfo = "";
+
+        return sessionInfo + " | " + sessionDateTime + " | " + PUInfo +  " | " + SBJInfo +  " | " + SRInfo + " | "
+                + SARInfo + " | " + SUInfo + " | " + WARInfo;
+    }
+
+    public static Saveable fromSaveString(String saveString) throws InvalidSaveDataException {
+        String[] stringData = saveString.split("\\|");
+
+        // Check for appropriate string length
+        if (stringData.length < 8) {
+            throw new InvalidSaveDataException("Data missing from TrainingSession-apparent string");
+        }
+
+        String sessionDescription = stringData[0];
+        LocalDateTime sessionDatetime = LocalDateTime.parse(stringData[1]);
+        String PUInfo = stringData[2];
+        String SBJInfo = stringData[3];
+        String SRInfo = stringData[4];
+        String SARInfo = stringData[5];
+        String SUInfo = stringData[6];
+        String WARInfo = stringData[7];
+
+        return new TrainingSession(sessionDatetime,sessionDescription, User);
+    }
+
 }

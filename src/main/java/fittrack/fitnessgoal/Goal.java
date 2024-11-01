@@ -1,6 +1,10 @@
 package fittrack.fitnessgoal;
+import fittrack.storage.Saveable;
+
 import java.time.LocalDateTime;
-public class Goal {
+import java.time.format.DateTimeFormatter;
+
+public class Goal extends Saveable {
 
     private final String description;
     private final LocalDateTime deadline;
@@ -24,5 +28,28 @@ public class Goal {
     // Optionally, you might want to override the toString() method for easy printing
     public String toString() {
         return "Goal: " + description + (deadline != null ? ", Deadline: " + deadline : "");
+    }
+
+    // Saves in the format [ Goal | Description | Deadline | User ]
+    @Override
+    public String toSaveString() {
+        return "Goal" + " | " + description + " | " + (deadline != null ?
+                deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "");
+    }
+
+    public static Goal fromSaveString(String saveString) {
+        // Split the string by the " | " delimiter
+        String[] stringData = saveString.split(" \\| ");
+
+        // Check if the format is correct
+        if (stringData.length < 2 || !stringData[0].equals("Goal")) {
+            throw new IllegalArgumentException("Invalid save string format for Goal: " + saveString);
+        }
+
+        String goalDescription = stringData[1];
+        LocalDateTime goalDeadline = LocalDateTime.parse(stringData[2],
+                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+
+        return new Goal(goalDescription, goalDeadline);
     }
 }
