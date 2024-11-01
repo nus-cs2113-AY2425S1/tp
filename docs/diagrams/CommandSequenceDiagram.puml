@@ -1,11 +1,16 @@
 @startuml
 !include style.puml
+hide footbox
 
 participant ":Main" as main
-participant ":Parser"  as parser PARSER_COLOUR
 participant ":Ui"  as ui UI_COLOUR
+participant ":Parser"  as parser PARSER_COLOUR
 participant ":XYZCommand" as xyzCommand COMMAND_COLOUR
 
+main -> ui : getCommand()
+activate ui UI_COLOUR
+
+return userCommandText : String
 
 main -> parser : parseCommand(userCommandText)
 activate parser PARSER_COLOUR

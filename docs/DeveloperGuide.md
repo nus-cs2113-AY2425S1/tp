@@ -16,17 +16,30 @@ The application comprises the following components:
 
 * `Main`, which handles program startup and shutdown, and also interactions between other components.
 * `UI`, which handles user input and showing messages to the user.
-* `Storage`, which handles the loading and saving of data upon program startup and shutdown.
+* `Storage`, which handles the loading and saving of data from and to a file upon program startup and shutdown.
 * `Parser`, which converts user input into commands.
 * `Command`, which are executed to modify the data stored in the program.
 * `Event`, which stores the program's data.
 
 ### Interactions between components
 
+The overall program execution is as follows:
+
+1. Upon program startup, the `Ui` shows the user a welcome message.
+2. `Storage` loads the event data from the saved file into `Event`
+3. The program enters the command loop upon invocation of the `runCommandLoop()` method.
+4. In the command loop, the program gets, parses and executes commands entered by the user.
+5. `Storage` saves the event data in `Event` after the execution of each user command.
+6. The program exits the command loop once `IsGettingCommands` is set to `false`.
+
 <img src = "images/ArchitectureSequenceDiagram.png">
 
-The above **Sequence Diagram** shows how the different components of the system interact with one
-another in the scenario when the command `add -e event -t 1200 -v venue` is executed.
+The above **Sequence Diagram** shows how the different components of the system interact in the above operation. The components are represented by classes, as follows:
+
+* `Main` refers to the `Main` class in `Main`.
+* `Ui` refers to the `Ui` class in `Ui`.
+* `Storage` refers to the `Storage` class in `Storage`.
+* `EventList` refers to the list of events in `Event` which the program's event data is stored (see the _Event component_ section for more details).
 
 ### UI component
 
@@ -36,8 +49,10 @@ The `UI` component comprises an Ui class, as shown in the above **Class Diagram*
 
 The `UI` does the following:
 
-* Take in command input from the user and pass the input to `Main`.
-* Show output messages from `Command` to the user after command execution.
+* Show the user a welcome message upon program startup.
+* Take in command input from the user and pass the input to `Main` (through the `getCommand()` method).
+* Show output messages from `Command` to the user after command execution (through the `showOutputMessage()` method).
+* Show error messages from any caught exceptions (through the `showErrorMessageToUser()` method).
 
 ### Storage component
 
@@ -52,18 +67,25 @@ The `Storage` does the following:
 
 ### Command component
 
+The `Command` component comprises multiple `XYZCommand` classes, which inherit from the abstract `Command` parent class.
+
+In each `XYZCommand` class, command execution is done through the `execute()` method, which is implemented from an abstract method in `Command`.
+After the command execution, `XYZCommand`'s output message is set depending on whether the execution was a success or a failure.
+
 The `Command` component and its component classes are shown in the below **Class Diagram**:
 
 <img src = "images/CommandClassDiagram.png">
 
-In all `XYZCommand` classes, the abstract `execute()` method from the parent `Command` class is implemented.
+The logic of the command parsing and execution in `Command` is as follows:
 
-The `Command` component does the following:
+1. The `Ui` takes in a command input from the user, and passes the user command input to `Main`.
+2. The `Parser` gets the user command input from `Main` and creates an `XYZCommand` instance.
+The parameters of the `XYZCommand` instance are parsed from fields given in the user input.
+3. The program's event data (in the form of `EventList`) is passed to `XYZCommand` by `Main`.
+4. `XYZCommand` is executed with the invocation of the `execute()` method. 
+5. The `Ui` gets `XYZCommand`'s output message, and shows it to the user. 
 
-* Handle the execution of the user command through interactions with `Event`.
-* Provides a command output message to `Ui` after the command execution.
-
-The interactions between `Command` and other components in the system when a command is executed is shown in the following _Sequence Diagram_:
+The interactions between `Command` and other components in the system for the above set of operations is shown in the following _Sequence Diagram_:
 
 <img src = "images/CommandSequenceDiagram.png">
 

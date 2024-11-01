@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+hide footbox
+
+Participant ":Main" as main
+Participant ":Storage" as storage STORAGE_COLOUR
+Participant ":Parser" as parser PARSER_COLOUR
+Participant ":EventList" as event EVENT_COLOUR
+
+
+main -> storage : saveEvents(events)
+activate storage STORAGE_COLOUR
+storage -> event : getList()
+activate event EVENT_COLOUR
+event --> storage
+deactivate event
+storage --> main
+deactivate storage
+
+@enduml
