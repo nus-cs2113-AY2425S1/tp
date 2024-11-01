@@ -58,12 +58,23 @@ The `commands` package includes the command pattern used in the application to h
 
 ### Data
 
-### task
+### Task
 The `task` package manages all task-related functionality. A `Task` class serves as the base for other task types: `Todo`, `Deadline`, and `Repeat`. Each task type extends `Task` and introduces additional attributes relevant to its behavior. The `TaskList` class maintains a collection of tasks and provides methods to add, delete, find and track the completion rate of tasks.
 
 ![Task_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/TaskClassDiagram.png)
 
+#### TaskList
+##### Attributes
+- **`tasks`**: An `ArrayList<Task>` that stores all tasks in the list.
+- **`completionRate`**: A `double` representing the proportion of completed tasks, initially set to 1.0 - as in 100%.
 
+##### Method highlights
+- **`addTask(Task task)`**: Adds a task by description or `Task` object; checks for duplicates and updates the completion rate.
+- **`deleteTask(int index)` / `deleteTask(Task task)`**: Deletes a task by index or `Task` object; verifies existence and recalculates completion rate.
+- **`getTask(int index)`**: Retrieves a task by index, throwing `TaskNotFoundException` if invalid.
+- **`findTasks(String keyword)`**: Finds tasks containing the specified keyword, returning a list of matches or throwing `TaskNotFoundException` if none are found.
+- **`markAsDone(int index)` / `markAsUndone(int index)`**: Marks a task as completed or not completed by index, updating the completion rate.
+- **`calCompletionRate()`**: Calculates and returns the current completion rate based on the proportion of completed tasks.
 ### Hospital 
 
 The `Hospital` class manages the patient data within the system, including adding, deleting, and finding patients. It also manages the selection of a patient for task-related operations, calculates task completion rates, and handles persistence through serialization.
@@ -207,7 +218,7 @@ The sequence to add tasks involves:
 1. **User Input**:
 * **Todo**: The user enters the `todo` command followed by tag details (e.g., /tag).
 * **Deadline**: The user enters the `deadline` command followed by the deadline (e.g., /by) and tag details (e.g., /tag).
-* * **Repeat**: The user enters the `repeat` command followed by the recurring basis (e.g., /every) and tag details (e.g., /tag).
+* **Repeat**: The user enters the `repeat` command followed by the recurring basis (e.g., /every) and tag details (e.g., /tag).
 2. **Command Parsing**:
 * **Todo Task**: The `Parser` parses the input and creates an `AddTodoParser` object.
 * **Deadline Task**: The `Parser` parses the input and creates an `AddDeadlineParser` object.
@@ -332,7 +343,8 @@ The following sequence diagram illustrates how the state-switching mechanism wor
 | v1.0    | nurse    | list my tasks                                                        | see all my tasks that I have currently                               |
 | v2.0    | nurse    | check my task completion progress                                    | see the rate of completion of my current tasks                       |
 | v2.0    | nurse    | add deadlines to my tasks                                            | know when I need to finish my given task                             |
-
+| v2.0    | nurse    | find my task by keyword                                            | check on specific tasks                             |
+| v2.0    | nurse    | find my patient by name                                            | check my tasks for specific patients                             |
 ## Non-Functional Requirements
 
 
