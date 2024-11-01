@@ -2,6 +2,7 @@
 title Sequence Diagram for "add <name of the training session>" Command
 
 actor User
+participant FitTrack
 participant Parser
 participant TrainingSession
 participant Ui
@@ -12,7 +13,10 @@ participant SitUpStation
 participant StandingBroadJumpStation
 participant WalkAndRunStation
 
-User -> Parser: add session name
+User -> FitTrack: add session name
+activate FitTrack
+
+FitTrack -> Parser: parse(...)
 activate Parser
 
 Parser -> TrainingSession: new TrainingSession(currentTime, description, user)
@@ -48,8 +52,12 @@ deactivate WalkAndRunStation
 
 deactivate TrainingSession
 
-return TrainingSession instance
+return TrainingSession
 deactivate TrainingSession
+
+Parser -> FitTrack: sessionList.add(TrainingSession)
+activate FitTrack
+deactivate FitTrack
 
 Parser -> Ui: printAddedSession(sessionList)
 activate Ui
