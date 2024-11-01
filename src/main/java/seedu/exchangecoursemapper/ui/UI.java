@@ -8,7 +8,6 @@ import seedu.exchangecoursemapper.storage.Storage;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,10 +59,22 @@ public class UI {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Prints the specified university name.
+     *
+     * @param universityName the name of the university to print
+     */
     public void printUniversityList(String universityName) {
         System.out.println(universityName);
     }
 
+    /**
+     * Prints the contact information based on the provided description, school name, and custom output.
+     *
+     * @param informationDescription a description of the information
+     * @param schoolName the name of the school
+     * @param customOutput the specific contact information
+     */
     public void printContactInformation(String informationDescription, String schoolName, String customOutput) {
         System.out.println(informationDescription + schoolName + ": " + customOutput);
     }
