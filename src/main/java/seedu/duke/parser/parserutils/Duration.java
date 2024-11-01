@@ -3,16 +3,20 @@ package seedu.duke.parser.parserutils;
 public class Duration implements StringExtraction {
     @Override
     public String extract(String input) {
-        String[] duration;
+        String result = "No repeats";  //default if dont have /by or /every
 
-        if(input.contains("/by ")){
-            duration = input.split("/by");
-        } else if(input.contains("/every ")){
-            duration = input.split("/every");
-        } else {
-            duration = new String[]{"No repeats"};
-            return duration[0].trim();
+        if (input.contains("/by ")) {
+            //extract the part after /by, and split by /tag if present
+            String[] parts = input.split("/by", 2);
+            String[] dateAndTag = parts[1].split("/tag", 2);
+            result = dateAndTag[0].trim();  //take only the date portion
+        } else if (input.contains("/every ")) {
+            //extract the part after /every, and split by /tag if present
+            String[] parts = input.split("/every", 2);
+            String[] intervalAndTag = parts[1].split("/tag", 2);
+            result = intervalAndTag[0].trim();  //take only the interval portion
         }
-        return duration[1].trim();
+
+        return result;
     }
 }
