@@ -5,10 +5,10 @@ import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.log.Log;
+import seedu.duke.log.LogLevels;
 
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Map.Entry;
 
 /**
@@ -16,7 +16,7 @@ import java.util.Map.Entry;
  */
 public class SeeAllEntriesCommand extends Command {
     protected static final String LINE_SEPARATOR = "--------------------------------------------";
-    protected static Logger logger = Logger.getLogger(SeeAllExpensesCommand.class.getName());
+    protected static Log logger = Log.getInstance();
     protected final String entriesListedMessage = "Here's a list of all recorded entries:";
     protected final String noEntriesMessage = "No entries found.";
     protected final String cashflowHeader = "Net cashflow: $ ";
@@ -130,7 +130,7 @@ public class SeeAllEntriesCommand extends Command {
     @Override
     public void execute(FinancialList list) throws FinanceBuddyException {
         if (list == null) {
-            logger.log(Level.SEVERE, "Financial list is null");
+            logger.log(LogLevels.SEVERE, "Financial list is null");
             assert list != null : "Financial list cannot be null";
             throw new FinanceBuddyException("Financial list cannot be null");
         }
@@ -171,5 +171,7 @@ public class SeeAllEntriesCommand extends Command {
         System.out.println();
         System.out.println(getHighestCategoryInfo(list));
         System.out.println(LINE_SEPARATOR);
+
+        logger.log(LogLevels.INFO, "Listed " + list.getEntryCount() + " valid entries.");
     }
 }

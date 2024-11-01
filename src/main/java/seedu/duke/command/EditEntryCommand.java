@@ -2,10 +2,9 @@ package seedu.duke.command;
 
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.log.Log;
+import seedu.duke.log.LogLevels;
 import seedu.duke.parser.DateParser;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import java.time.LocalDate;
 /**
@@ -40,7 +39,7 @@ import java.time.LocalDate;
  * @see FinancialList
  */
 public class EditEntryCommand extends Command {
-    private static final Logger logger = Logger.getLogger(EditEntryCommand.class.getName());
+    private static final Log logger = Log.getInstance();
     private int index;
     private double amount;
     private String description;
@@ -64,7 +63,7 @@ public class EditEntryCommand extends Command {
         try {
             this.date = DateParser.parse(date);
         } catch (FinanceBuddyException e) {
-            logger.log(Level.SEVERE, "Error parsing date: " + date, e);
+            logger.log(LogLevels.SEVERE, "Error parsing date: " + date, e);
             throw new IllegalArgumentException("Invalid date format: " + date, e);
         }
 
@@ -81,7 +80,7 @@ public class EditEntryCommand extends Command {
     @Override
     public void execute(FinancialList list) throws FinanceBuddyException {
         if (list == null) {
-            logger.log(Level.SEVERE, "Financial list is null");
+            logger.log(LogLevels.SEVERE, "Financial list is null");
             throw new FinanceBuddyException("Financial list cannot be null");
         }
         if (index >= 0 && index <= list.getEntryCount()) {
@@ -92,12 +91,12 @@ public class EditEntryCommand extends Command {
             System.out.println("Got it. I've edited this expense:");
             System.out.println(list.getEntry(index - 1));
             System.out.println("--------------------------------------------");
-            logger.log(Level.INFO, "Edited entry at index " + index + " to " + amount + " " + description);
+            logger.log(LogLevels.INFO, "Edited entry at index " + index + " to " + amount + " " + description);
         } else {
             System.out.println("OOPS!!! The entry does not exist.");
             System.out.println(index);
             System.out.println(list.getEntryCount());
-            logger.log(Level.WARNING, "Entry does not exist at index " + index);
+            logger.log(LogLevels.WARNING, "Entry does not exist at index " + index);
         }
     }
 }

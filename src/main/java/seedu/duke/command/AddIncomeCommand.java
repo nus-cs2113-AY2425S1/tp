@@ -3,17 +3,17 @@ package seedu.duke.command;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.log.Log;
+import seedu.duke.log.LogLevels;
 
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Command to add an expense to the financial list.
  */
 public class AddIncomeCommand extends AddEntryCommand {
 
-    private static Logger logger = Logger.getLogger("Income");
+    private static final Log logger = Log.getInstance();
     private static final double incomeZero = 0.0;
     private final Income.Category category;
 
@@ -54,7 +54,7 @@ public class AddIncomeCommand extends AddEntryCommand {
         System.out.println("Got it! I've added this income:");
         System.out.println(income);
         System.out.println("--------------------------------------------");
-        logger.log(Level.INFO, "Income added to list: " + income);
+        logger.log(LogLevels.INFO, "Income added to list: " + income);
 
     }
 }
