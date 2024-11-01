@@ -9,8 +9,8 @@ import wheresmymoney.exception.WheresMyMoneyException;
  * <li> The spending limit for that category </li>
  */
 public class CategoryData {
-    private Float currExpenditure;
-    private Float maxExpenditure;
+    protected Float currExpenditure;
+    protected Float maxExpenditure;
     
     /**
      * Constructs a {@code CategoryData} object with a specified current expenditure
