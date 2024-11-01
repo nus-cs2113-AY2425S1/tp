@@ -38,7 +38,11 @@ public class FindIngredCommand extends Command {
                 )
                 .collect(Collectors.toCollection(ArrayList::new));
         numMatches = results.size();
-        ui.printFindIngred(results, numMatches);
+        if (numMatches > 0) {
+            ui.printFindIngred(results, numMatches);
+        } else {
+            ui.printEmptyFindIngred();
+        }
         logger.log(Level.FINEST, "FindIngredCommand successfully executed");
     }
 
