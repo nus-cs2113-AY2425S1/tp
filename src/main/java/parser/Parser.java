@@ -35,6 +35,7 @@ public class Parser {
      */
     public Command parse(String fullCommand) {
         if (fullCommand == null || fullCommand.trim().isEmpty()) {
+            logger.log(Level.WARNING, "Command is empty");
             throw new IllegalArgumentException("Command cannot be empty. Please enter a valid command.");
         }
 
@@ -46,7 +47,7 @@ public class Parser {
         String commandString = inputArguments[0];
         String argumentString = inputArguments[1];
 
-        logger.log(Level.INFO, "Parsed command: {0}, with arguments: {1}",
+        logger.log(Level.INFO, "Successfully parsed command: {0}, with arguments: {1}",
                 new Object[]{commandString, argumentString});
 
         return commandFactory.createCommand(commandString, argumentString);

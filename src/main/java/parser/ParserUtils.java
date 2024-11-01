@@ -3,6 +3,8 @@ package parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static common.Utils.DATE_FORMAT;
 import static common.Utils.NULL_INTEGER;
@@ -14,6 +16,7 @@ import static common.Utils.NULL_FLOAT;
  * and formatting dates.
  */
 public class ParserUtils {
+    private static final Logger logger = Logger.getLogger(ParserUtils.class.getName());
 
     /**
      * Splits the argument string into the primary command and its arguments.
@@ -29,6 +32,9 @@ public class ParserUtils {
         String[] inputArguments = argumentString.split(" ", 2);
         String command = inputArguments[0];
         String args = (inputArguments.length > 1) ? inputArguments[1] : "";
+
+        logger.log(Level.INFO, "Successfully split arguments. Command: {0}, Arguments: {1}",
+                new Object[]{command, args});
         return new String[]{command, args};
     }
 
@@ -45,9 +51,11 @@ public class ParserUtils {
         String trimmedString = argumentString.trim();
 
         if (trimmedString.isEmpty()){
-            throw new IllegalArgumentException("intString is empty.");
+            logger.log(Level.WARNING, "Trimmed input is empty");
+            throw new IllegalArgumentException("intString or dateString is empty.");
         }
 
+        logger.log(Level.INFO, "Successfully trimmed input: {0}", trimmedString);
         return trimmedString;
     }
 
@@ -61,14 +69,19 @@ public class ParserUtils {
      */
     public static int parseInteger(String intString){
         if (intString == null) {
+            logger.log(Level.INFO, "Integer string is null. Returning default value: {0}", NULL_INTEGER);
             return NULL_INTEGER;
         }
 
         String trimmedIntString = trimInput(intString);
 
         try{
-            return Integer.parseInt(trimmedIntString);
+            int result = Integer.parseInt(trimmedIntString);
+
+            logger.log(Level.INFO, "Successfully parsed integer: {0}", result);
+            return result;
         } catch (NumberFormatException e){
+            logger.log(Level.WARNING, "Failed to parse integer from string: {0}", intString);
             throw new IllegalArgumentException("intString is not an integer.");
         }
     }
@@ -83,14 +96,19 @@ public class ParserUtils {
      */
     public static float parseFloat(String floatString) {
         if (floatString == null) {
+            logger.log(Level.INFO, "Float string is null. Returning default value: {0}", NULL_FLOAT);
             return NULL_FLOAT;
         }
 
         String trimmedFloatString = trimInput(floatString);
 
         try {
-            return Float.parseFloat(trimmedFloatString);
+            float result = Float.parseFloat(trimmedFloatString);
+
+            logger.log(Level.INFO, "Successfully parsed float: {0}", result);
+            return result;
         } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Failed to parse float from string: {0}", floatString);
             throw new IllegalArgumentException("floatString is not a valid float.");
         }
     }
@@ -105,13 +123,17 @@ public class ParserUtils {
      */
     public static int parseIndex(String indexString) {
         if (indexString == null) {
+            logger.log(Level.INFO, "Index string is null. Returning default value: {0}", NULL_INTEGER);
             return NULL_INTEGER;
         }
 
         int index = parseInteger(indexString) - 1;
         if (index < 0){
+            logger.log(Level.WARNING, "Invalid index: {0}. Index must be non-negative.", indexString);
             throw new IllegalArgumentException("Index: " + indexString +" is not a valid index.");
         }
+
+        logger.log(Level.INFO, "Successfully parsed index: {0}", index);
         return index;
     }
 
@@ -125,15 +147,22 @@ public class ParserUtils {
      */
     public static LocalDate parseDate(String dateString) {
         if (dateString == null) {
-            return LocalDate.now();
+            LocalDate today = LocalDate.now();
+            logger.log(Level.INFO, "Date string is null. Returning current date: {0}", today);
+            return today;
         }
 
         String trimmedDateString = trimInput(dateString);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
         try {
-            return LocalDate.parse(trimmedDateString, formatter);
+            LocalDate date = LocalDate.parse(trimmedDateString, formatter);
+
+            logger.log(Level.INFO, "Successfully parsed date: {0}", date);
+            return date;
         } catch (DateTimeParseException e) {
+            logger.log(Level.WARNING, "Invalid date format: {0}. Expected format: {1}",
+                    new Object[]{dateString, DATE_FORMAT});
             throw new IllegalArgumentException("Invalid date format. Expected format: dd-MM-yyyy. " +
                     "Error: " + e.getParsedString(), e);
         }

@@ -49,6 +49,8 @@ public class CommandFactory {
      * @return A {@code Command} object corresponding to the parsed command.
      */
     public Command createCommand(String commandString, String argumentString) {
+        assert commandString != null;
+
         return switch (commandString) {
         case ProgCommandFactory.COMMAND_WORD -> progFactory.parse(argumentString);
         case MealCommandFactory.COMMAND_WORD -> mealFactory.parse(argumentString);

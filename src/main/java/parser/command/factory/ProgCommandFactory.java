@@ -25,7 +25,21 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static parser.FlagDefinitions.*;
+import static parser.FlagDefinitions.DAY_FLAG;
+import static parser.FlagDefinitions.DATE_FLAG;
+import static parser.FlagDefinitions.EXERCISE_FLAG;
+import static parser.FlagDefinitions.NAME_FLAG;
+import static parser.FlagDefinitions.CALORIES_FLAG;
+import static parser.FlagDefinitions.REPS_FLAG;
+import static parser.FlagDefinitions.SETS_FLAG;
+import static parser.FlagDefinitions.WEIGHT_FLAG;
+import static parser.FlagDefinitions.PROGRAMME_FLAG;
+import static parser.FlagDefinitions.UPDATE_EXERCISE_FLAG;
+import static parser.FlagDefinitions.ADD_DAY_FLAG;
+import static parser.FlagDefinitions.ADD_EXERCISE_FLAG;
+import static parser.FlagDefinitions.REMOVE_DAY_FLAG;
+import static parser.FlagDefinitions.REMOVE_EXERCISE_FLAG;
+
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.splitArguments;
 
@@ -69,7 +83,7 @@ public class ProgCommandFactory {
         String subCommandString = inputArguments[0];
         String arguments = inputArguments[1];
 
-        logger.log(Level.INFO, "Parsed sub-command: {0}, with arguments: {1}",
+        logger.log(Level.INFO, "Successfully parsed sub-command: {0}, with arguments: {1}",
                 new Object[]{subCommandString, arguments});
 
         return switch (subCommandString) {
@@ -101,6 +115,7 @@ public class ProgCommandFactory {
         String[] progParts = argumentString.split(DAY_FLAG);
         String progName = progParts[0].trim();
         if (progName.isEmpty()) {
+            logger.log(Level.WARNING, "Programme name is empty");
             throw new IllegalArgumentException("Programme name cannot be empty. Please enter a name.");
         }
 
@@ -110,7 +125,7 @@ public class ProgCommandFactory {
             days.add(day);
         }
 
-        logger.log(Level.INFO, "CreateCommand prepared with programme: {0}", progName);
+        logger.log(Level.INFO, "Successfully prepared CreateCommand with programme: {0}", progName);
         return new CreateCommand(progName, days);
     }
 
@@ -129,6 +144,7 @@ public class ProgCommandFactory {
         String[] dayParts  = dayString.split(EXERCISE_FLAG);
         String dayName = dayParts[0].trim();
         if (dayName.isEmpty()) {
+            logger.log(Level.WARNING, "Day name is empty");
             throw new IllegalArgumentException("Day name cannot be empty. Please enter a valid day name.");
         }
 
@@ -140,7 +156,7 @@ public class ProgCommandFactory {
             day.insertExercise(exercise);
         }
 
-        logger.log(Level.INFO, "Parsed day successfully: {0}", dayName);
+        logger.log(Level.INFO, "Successfully parsed day name: {0}", dayName);
         return day;
     }
 
@@ -160,13 +176,16 @@ public class ProgCommandFactory {
         // Ensures the exercise contains all necessary information before creating a new Exercise
         flagParser.validateRequiredFlags(SETS_FLAG, REPS_FLAG, WEIGHT_FLAG, CALORIES_FLAG, NAME_FLAG);
 
-        return new Exercise(
-                flagParser.getIntegerByFlag(SETS_FLAG),
-                flagParser.getIntegerByFlag(REPS_FLAG),
-                flagParser.getIntegerByFlag(WEIGHT_FLAG),
-                flagParser.getIntegerByFlag(CALORIES_FLAG),
-                flagParser.getStringByFlag(NAME_FLAG)
-        );
+        int sets = flagParser.getIntegerByFlag(SETS_FLAG);
+        int reps = flagParser.getIntegerByFlag(REPS_FLAG);
+        int weight = flagParser.getIntegerByFlag(WEIGHT_FLAG);
+        int calories = flagParser.getIntegerByFlag(CALORIES_FLAG);
+        String name = flagParser.getStringByFlag(NAME_FLAG);
+
+        logger.log(Level.INFO, "Successfully parsed exercise details - Name: {0}, Sets: {1}, Reps: {2}, " +
+                        "Weight: {3}, Calories: {4}", new Object[]{name, sets, reps, weight, calories});
+
+        return new Exercise(sets, reps, weight, calories, name);
     }
 
     /**
@@ -181,7 +200,7 @@ public class ProgCommandFactory {
 
         int progIndex = parseIndex(argumentString);
 
-        logger.log(Level.INFO, "ViewCommand prepared successfully");
+        logger.log(Level.INFO, "Successfully prepared ViewCommand");
         return new ViewCommand(progIndex);
     }
 
@@ -197,7 +216,7 @@ public class ProgCommandFactory {
 
         int progIndex = parseIndex(argumentString);
 
-        logger.log(Level.INFO, "StartCommand prepared successfully");
+        logger.log(Level.INFO, "Successfully prepared StartCommand");
         return new StartCommand(progIndex);
     }
 
@@ -213,7 +232,7 @@ public class ProgCommandFactory {
 
         int progIndex = parseIndex(argumentString);
 
-        logger.log(Level.INFO, "DeleteCommand prepared successfully");
+        logger.log(Level.INFO, "Successfully prepared DeleteCommand");
         return new DeleteCommand(progIndex);
     }
 
@@ -234,8 +253,8 @@ public class ProgCommandFactory {
         int progIndex = flagParser.getIndexByFlag(PROGRAMME_FLAG);
         int dayIndex = flagParser.getIndexByFlag(DAY_FLAG);
 
-        logger.log(Level.INFO, "LogCommand prepared with Date: {0}, Programme index: {1}, Day index: {2}",
-                new Object[]{progIndex, dayIndex, date});
+        logger.log(Level.INFO, "Successfully prepared LogCommand with Date: {0}, " +
+                        "Programme index: {1}, Day index: {2}", new Object[]{progIndex, dayIndex, date});
 
         return new LogCommand(progIndex, dayIndex, date);
     }
