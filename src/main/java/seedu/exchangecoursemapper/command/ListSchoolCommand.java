@@ -69,7 +69,7 @@ public class ListSchoolCommand extends CheckInformationCommand {
     private void validateJsonObject(JsonObject jsonObject) {
         assert jsonObject != null : Assertions.NULL_JSON_FILE;
         assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
-        logger.log(Level.INFO, "Validated JSON data is not null and not empty.");
+        logger.log(Level.INFO, Logs.JSON_FILE_CONTAINS_DATA);
     }
 
     /**
@@ -81,11 +81,6 @@ public class ListSchoolCommand extends CheckInformationCommand {
         Set<String> universityNames = jsonObject.keySet();
 
         System.out.println(LINE_SEPARATOR);
-        if (universityNames.isEmpty()) {
-            System.out.println("No schools found in the JSON file.");
-            logger.log(Level.WARNING, "No university names to display.");
-            return;
-        }
 
         for (String universityName : universityNames) {
             if (universityName == null || universityName.isEmpty()) {

@@ -129,4 +129,19 @@ public class ObtainContactsCommandTest {
 
         assertTrue(actualOutput.contains(expectedOutput), "Does not match the actual output.");
     }
+
+    @Test
+    public void inputWithNoCourseCode_expectException() {
+        String userInput = "obtain";
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        obtainContactsCommand.execute(userInput);
+
+        String expectedMessage = "Invalid input format";
+        String actualOutput = outContent.toString().trim();
+
+        assertTrue(actualOutput.contains(expectedMessage), "Expected " + expectedMessage);
+    }
 }
