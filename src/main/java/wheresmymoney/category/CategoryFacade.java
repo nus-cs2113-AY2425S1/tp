@@ -1,6 +1,5 @@
 package wheresmymoney.category;
 
-import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;

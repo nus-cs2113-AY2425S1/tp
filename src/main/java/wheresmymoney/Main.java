@@ -1,7 +1,6 @@
 package wheresmymoney;
 
 import wheresmymoney.category.CategoryFacade;
-import wheresmymoney.category.CategoryTracker;
 import wheresmymoney.command.Command;
 import wheresmymoney.exception.WheresMyMoneyException;
 

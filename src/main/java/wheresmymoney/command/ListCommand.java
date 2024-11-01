@@ -1,7 +1,6 @@
 package wheresmymoney.command;
 
 import wheresmymoney.category.CategoryFacade;
-import wheresmymoney.category.CategoryTracker;
 import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;

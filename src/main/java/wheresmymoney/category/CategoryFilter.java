@@ -6,20 +6,20 @@ import java.util.PriorityQueue;
 
 public class CategoryFilter {
     private CategoryFacade categoryFacade;
-    private static PriorityQueue<Map.Entry<String, CategoryData>> exceededCategories;
-    private static PriorityQueue<Map.Entry<String, CategoryData>> nearingCategories;
+    private PriorityQueue<Map.Entry<String, CategoryData>> exceededCategories;
+    private PriorityQueue<Map.Entry<String, CategoryData>> nearingCategories;
     
     public void setCategoryFacade(CategoryFacade categoryFacade) {
         this.categoryFacade = categoryFacade;
     }
     
-   /**
+    /**
      * Initializes and returns a new {@code PriorityQueue} sorted by the
      * categories' current total expenditure in descending order.
      *
      * @return a {@code PriorityQueue} that sorts categories by current expenditure.
      */
-    private static PriorityQueue<Map.Entry<String, CategoryData>> sortCategoriesIntoHeap() {
+    private PriorityQueue<Map.Entry<String, CategoryData>> sortCategoriesIntoHeap() {
         return new PriorityQueue<>(
                 (cat1, cat2) -> cat2.getValue().getCurrExpenditure().compareTo(cat1.getValue().getCurrExpenditure())
         );
