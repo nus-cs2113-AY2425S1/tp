@@ -203,6 +203,53 @@ The `SortCommand` class is responsible for sorting the internship listings based
 The following sequence diagram shows how the `SortCommand` is executed:
 ![](UML/loadFromFile.png)
 
+```plaintext
+User -> System: sort alphabet
+System -> SortCommand: execute("alphabet")
+SortCommand -> InternshipList: listInternshipsSortedByRole()
+InternshipList -> UI: showSortedInternshipsByRole()
+```
+### Filter Command Implementation
+
+#### Overview:
+
+The FilterCommand class is responsible for filtering internship listings in the InternshipList based on various criteria. It extends the Command class, providing the filter functionality as part of the command execution framework.
+
+#### Design:
+
+The FilterCommand class processes user input to determine which fields to filter by (e.g., role, company, start date, end date and/or favourite status) and then filters the internships based on the respective fields.
+
+Role and Company: Filters internships by checking the equality of the given role or company name against each internship's role or company name
+
+Start Date (-from) and End Date (-to): Filters internships by checking if the internship's duration is within the time interval specified by the start and end dates. if no -to flag is provided, all internships whose start date is greater than or equal to the given start date is listed. If no -from flag is provided, all internships whose end date is lesser than or equal to the given end date is listed.
+
+Favourite: Filters internships based on whether or not they are marked as a favourite (true or false).
+
+If an invalid flag, empty or invalid fields are provided, it prompts the user with an error message indicating which flags/fields are missing or erroneous.
+
+#### Key Methods:
+
+execute(ArrayList<String> args): Handles filtering logic based on the arguments provided. The command allows the user to filter internships by different criteria such as role, company, start date, end date and/or favourite status. If the arguments are invalid or missing, the user is notified accordingly.
+
+getUsage(): Returns a string showing the correct usage of the filter command and the expected inputs.
+
+#### Example Usage Scenario:
+
+The user enters `filter -role Software Engineer`, and the execute method filters the internships to only those with the role of "Software Engineer"
+
+The user enters `filter -company Google`, and the execute method filters internships from "Google"
+
+The user enters `filter -favourite true`, and the execute method filters internships that have been marked as favourites
+
+The user enters `filter -from 06/24`, and the execute method filters internships starting from June 2024
+
+The user enters `filter -role Software Engineer -from 02/24 -to 08/24`, the execute method filters internships whose duration is within the period of 02/24 to 08/24 and which has the role of "Software Engineer"
+
+The user enters `filter -favourite false -company Huawei`, the execute method filters internships from "Huawei" and which have not been marked as favourite by the user
+
+#### Sequence Diagram
+The following sequence diagram shows how the `FilterCommand` is executed:
+![FilterCommandSequenceDiagram](UML/FilterCommand_Execute_Method.png)
 
 ### UpdateCommand Implementation
 
