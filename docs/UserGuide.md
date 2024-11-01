@@ -12,6 +12,7 @@ The user can:
 The NAPFA score sheet used for this chatbot can be found here:
 This guide will bring you through the various features of FitTrackCLI, and how to utilise them!
 
+
 ## FitTrackCLI's Features
 
 ### 1. User initialisation: `set`
@@ -219,18 +220,43 @@ Goals:
 ____________________________________________________________________________________________________
 ```
 
+### 12. Display Non-Time Station Graph
+**Purpose**: View the progress of User's performance for SitUpStation, PullUpStation, StandingBroadJumpStation
+and SitAndReachStation class in the form of a bar chart.
+
+**Format**: `graph [exercise acronym]`
+
+**Example**: `graph ______` 
+
+**Expected Output**:
+```
+```
+
+
+### 13. Display Time Station Graph
+**Purpose**: View the progress of User's performance for WalkAndRunStation class and ShuttleRunStation class 
+in the form of a point graph.
+
+**Format**: `graph [exercise acronym]`
+
+**Example**: `graph ______`
+
+**Expected Output**:
+```
+```
 
 ## FitTrackCLI's Command Summary
-| Command    | Format                                                         | Example        |
-|------------|----------------------------------------------------------------|----------------|
-| **help**   | `help`                                                         | `help`         |
-| **set**    | `set GENDER AGE`                                               | `set male 12`  |
-| **add**    | `add SESSION_NAME`                                             | `add session1` |
-| **list**   | `list`                                                         | `list`         |
-| **view**   | `view SESSION_INDEX`                                           | `view 1`       |
-| **edit**   | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45` |
-| **delete** | `delete SESSION_INDEX `                                        | `delete 1 `    |
-| **exit**   | `exit`                                                         | `exit`         |
+| Command         | Format                                                         | Example                            |
+|-----------------|----------------------------------------------------------------|------------------------------------|
+| **help**        | `help`                                                         | `help`                             |
+| **set**         | `set GENDER AGE`                                               | `set male 12`                      |
+| **add**         | `add SESSION_NAME`                                             | `add session1`                     |
+| **list**        | `list`                                                         | `list`                             |
+| **view**        | `view SESSION_INDEX`                                           | `view 1`                           |
+| **edit**        | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45`                     |
+| **delete**      | `delete SESSION_INDEX `                                        | `delete 1 `                        |
+| **exit**        | `exit`                                                         | `exit`                             |
 | **add-goal**    | `add-goal GOAL_NAME DEADLINE`                                  | `add-goal run 12/12/2024 14:00:00` |
 | **delete-goal** | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                    |
 | **list-goal**   | `list-goal`                                                    | `list-goal`                        |
+| **graph**       | `graph EXERCISE_ACRONYM`                                       | `graph PU`                         |
