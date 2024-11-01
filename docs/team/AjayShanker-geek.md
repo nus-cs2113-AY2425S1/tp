@@ -1,5 +1,5 @@
 ---
-title: Ajay Shnaker
+title: Ajay Shanker
 parent: About Us
 # nav_order: 5
 ---

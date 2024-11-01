@@ -1,3 +1,9 @@
+---
+title: Low Jun Chen
+parent: About Us
+# nav_order: 5
+---
+
 # Low Jun Chen's Project Portfolio Page
 
 ## Project: MediTask
