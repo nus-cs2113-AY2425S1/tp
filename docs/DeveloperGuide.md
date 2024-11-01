@@ -1,12 +1,12 @@
 ---
 title: Developer Guide
-nav_order: 3
+nav_order: 2
 ---
 
 # Developer Guide
 
-- Table of Contents
-  {:toc}
+* Table of Contents
+{:toc}
 
 ---
 
