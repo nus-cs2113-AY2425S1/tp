@@ -101,7 +101,7 @@ public class CategoryData {
      * @return {@code true} if the current expenditure exceeds the spending limit,
      *         {@code false} otherwise.
      */
-    public boolean hasExceededLimit() throws WheresMyMoneyException {
+    public boolean hasExceededLimit() {
         assert (this.maxExpenditure != null) && (this.currExpenditure != null);
         return Float.compare(currExpenditure, maxExpenditure) > 0;
     }
