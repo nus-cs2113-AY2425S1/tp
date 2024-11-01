@@ -1,3 +1,9 @@
+---
+title: Vu Nhat Nguyen Thu
+parent: About Us
+# nav_order: 5
+---
+
 # Vu Nhat Nguyen Thu's Project Portfolio Page
 
 ## Project: MediTask
