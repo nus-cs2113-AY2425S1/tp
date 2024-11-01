@@ -49,12 +49,22 @@ Click here to view my code contributions: [Nancy's TP Code Dashboard](https://nu
 + Create a class diagram for the `CourseValidator` class.
 
 ## Contribution to team-based tasks
-
++ Maintaining the issue tracker
++ Add a Course class to enhance the modularity and reusability of course mapping across the project
 ## Review/mentoring contributions
 
-## Contributions to the Developer Guide (Extracts):
+PR Reviews with non-trivial comments: 
+ [#164](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/164),
+[#110](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/110), 
+[#168](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/168)
 
-## Contributions to the User Guide (Extracts):
+Actively participates in weekly meeting and clarify doubts from my teammates on a regular basis
+
+## Contribution beyond the project team
+Provided useful feedback for FinanceBuddy Developer Guide: [Comments Given](https://github.com/nus-cs2113-AY2425S1/tp/pull/25#pullrequestreview-2403417754)
+## Contributions to the Developer Guide (Extracts):
+![Class Diagram](../images/AddCoursesCommand.png)
+*Sequence Diagram for AddCoursesCommand*
 
 
 
