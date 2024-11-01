@@ -1,0 +1,35 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class CategoryData {
+    #currExpenditure: Float
+    #maxExpenditure: Float
+
+    +CategoryData(currExpenditure: Float): CategoryData
+    +CategoryData(currExpenditure: Float, maxExpenditure: Float): CategoryData
+'    +getCurrExpenditure(): Float
+'    +getMaxExpenditure(): Float
+'    +setCurrExpenditure(price: Float): void
+'    +setMaxExpenditure(price: Float): void
+    +increaseCurrExpenditureBy(currExpenditure: Float): void
+    +decreaseCurrExpenditureBy(maxExpenditure: Float): void
+    +isNearingLimit(): boolean
+    +hasExceededLimit(): boolean
+}
+
+class CategoryTracker {
+    +CategoryTracker(): CategoryTracker
+'    +getTracker(): HashMap<String, CategoryData>
+'    +size(): int
+'    +contains(): boolean
+    +getCategoryDataOf(category: String): CategoryData
+    -checkLimitOf(category: String): void
+    +addCategory(category: String, price: Float): void
+    +editCategory(oldCategory: String, newCategory: String, price: Float): void
+    +deleteCategory(category: String, price: Float): void
+}
+
+CategoryTracker " 0..1 " -d-> " * " CategoryData : " contains "
+
+@enduml

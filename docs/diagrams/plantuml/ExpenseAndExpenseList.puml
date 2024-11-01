@@ -27,6 +27,6 @@ class ExpenseList {
     +listByCategory(category: String): ArrayList<Expense>
 }
 
-ExpenseList " 0.1 " -d-> " * " Expense : " contains "
+ExpenseList " 0..1 " -d-> " * " Expense : " contains "
 
 @enduml
