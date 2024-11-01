@@ -1,8 +1,6 @@
 package wheresmymoney.command;
 
-import wheresmymoney.CategoryFilter;
-import wheresmymoney.CategoryStorage;
-import wheresmymoney.CategoryTracker;
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
@@ -16,18 +14,14 @@ public class LoadCommand extends Command {
     }
 
     @Override
-    public void execute(ExpenseList expenseList, CategoryTracker categoryTracker) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade) throws WheresMyMoneyException {
         try {
             expenseList.loadFromCsv("./data.csv");
-
-            categoryTracker = CategoryStorage.trackCategoriesOf(expenseList.getExpenseList());
-            CategoryStorage.loadFromCsv("./category_spending_limit.csv", categoryTracker);
-
-            CategoryFilter.getCategoriesFiltered(categoryTracker.getTracker());
-            CategoryFilter.displayExceededCategories();
-            CategoryFilter.displayNearingCategories();
+            categoryFacade.loadCategoryInfo(expenseList);
+            categoryFacade.displayFilteredCategories();
         } catch (StorageException e) {
             throw new WheresMyMoneyException("Exception occurred when reading from file.");
         }
     }
+    
 }

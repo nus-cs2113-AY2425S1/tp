@@ -1,7 +1,6 @@
 package wheresmymoney.command;
 
-import wheresmymoney.CategoryStorage;
-import wheresmymoney.CategoryTracker;
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
@@ -15,12 +14,13 @@ public class SaveCommand extends Command {
     }
 
     @Override
-    public void execute(ExpenseList expenseList, CategoryTracker categoryTracker) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList,  CategoryFacade categoryFacade) throws WheresMyMoneyException {
         try {
             expenseList.saveToCsv("./data.csv");
-            CategoryStorage.saveToCsv("./category_spending_limit.csv", categoryTracker);
+            categoryFacade.saveCategoryInfo();
         } catch (StorageException e) {
             throw new WheresMyMoneyException("Exception occurred when saving to file.");
         }
     }
+    
 }

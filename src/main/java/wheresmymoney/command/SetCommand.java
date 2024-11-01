@@ -2,7 +2,7 @@ package wheresmymoney.command;
 
 import java.util.HashMap;
 
-import wheresmymoney.CategoryTracker;
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
 import wheresmymoney.exception.InvalidInputException;
@@ -14,11 +14,11 @@ public class SetCommand extends Command {
     }
     
     @Override
-    public void execute(ExpenseList expenseList, CategoryTracker categoryTracker) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade) throws WheresMyMoneyException {
         try {
             String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
             float limit = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_LIMIT));
-            categoryTracker.setSpendingLimitFor(category, limit);
+            categoryFacade.setCategorySpendingLimit(category, limit);
         } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments");
         }

@@ -1,12 +1,17 @@
-package wheresmymoney;
+package wheresmymoney.category;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
 public class CategoryFilter {
+    private CategoryFacade categoryFacade;
     private static PriorityQueue<Map.Entry<String, CategoryData>> exceededCategories;
     private static PriorityQueue<Map.Entry<String, CategoryData>> nearingCategories;
+    
+    public void setCategoryFacade(CategoryFacade categoryFacade) {
+        this.categoryFacade = categoryFacade;
+    }
     
    /**
      * Initializes and returns a new {@code PriorityQueue} sorted by the
@@ -26,11 +31,9 @@ public class CategoryFilter {
      * <li> For categories that have exceeded their spending limits. <li/>
      * For categories that are close to, but not exceeded, their spending limits.
      * </p>
-     *
-     * @param tracker a {@code HashMap} that tracks category names (as keys) and their
-     *                corresponding {@code CategoryData} (as values).
      */
-    public static void getCategoriesFiltered(HashMap<String, CategoryData> tracker) {
+    public void getCategoriesFiltered() {
+        HashMap<String, CategoryData> tracker = categoryFacade.getCategoryTracker().getTracker();
         exceededCategories = sortCategoriesIntoHeap();
         nearingCategories = sortCategoriesIntoHeap();
         for (Map.Entry<String, CategoryData> entry : tracker.entrySet()) {
@@ -55,7 +58,7 @@ public class CategoryFilter {
      * @param messageIfFound the message to display if the queue contains categories.
      * @param messageIfNoneFound the message to display if the queue is empty.
      */
-    private static void displayFilteredCategories(PriorityQueue<Map.Entry<String, CategoryData>> filtered,
+    private void displayFilteredCategories(PriorityQueue<Map.Entry<String, CategoryData>> filtered,
                                           String messageIfFound, String messageIfNoneFound) {
         if (!filtered.isEmpty()) {
             System.out.println(messageIfFound);
@@ -75,7 +78,7 @@ public class CategoryFilter {
      * If there are such categories, they are listed in descending order of current expenditure.
      * Otherwise, a message indicating that no categories have exceeded their limits is displayed.
      */
-    public static void displayExceededCategories() {
+    public void displayExceededCategories() {
         displayFilteredCategories(exceededCategories,
                 "These categories have exceeded their spending limits: ",
                 "None of the categories have exceeded their respective spending limits.");
@@ -86,7 +89,7 @@ public class CategoryFilter {
      * If there are such categories, they are listed in descending order of current expenditure.
      * Otherwise, a message indicating that no categories are nearing their limits is displayed.
      */
-    public static void displayNearingCategories() {
+    public void displayNearingCategories() {
         displayFilteredCategories(exceededCategories,
                 "These categories are close to their spending limits: ",
                 "None of the categories were close to their respective spending limits.");

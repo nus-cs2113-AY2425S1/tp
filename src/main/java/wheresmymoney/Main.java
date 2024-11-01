@@ -1,5 +1,7 @@
 package wheresmymoney;
 
+import wheresmymoney.category.CategoryFacade;
+import wheresmymoney.category.CategoryTracker;
 import wheresmymoney.command.Command;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -10,7 +12,7 @@ public class Main {
      */
     public static void main(String[] args) {
         ExpenseList expenseList = new ExpenseList();
-        CategoryTracker categoryTracker = new CategoryTracker();
+        CategoryFacade categoryFacade = new CategoryFacade();
         Ui.displayIntroText();
         Logging.getInstance(); // Initialise at the start
 
@@ -19,7 +21,7 @@ public class Main {
             try {
                 String line = Ui.getCommand();
                 Command command = Parser.parseInputToCommand(line);
-                command.execute(expenseList, categoryTracker);
+                command.execute(expenseList, categoryFacade);
                 isExit = command.isExit();
             } catch (WheresMyMoneyException e){
                 Ui.displayMessage(e.getMessage());

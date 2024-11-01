@@ -1,4 +1,4 @@
-package wheresmymoney;
+package wheresmymoney.category;
 
 import wheresmymoney.exception.WheresMyMoneyException;
 

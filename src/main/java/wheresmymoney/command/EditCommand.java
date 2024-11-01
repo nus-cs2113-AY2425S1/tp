@@ -1,6 +1,7 @@
 package wheresmymoney.command;
 
-import wheresmymoney.CategoryTracker;
+import wheresmymoney.category.CategoryFacade;
+import wheresmymoney.category.CategoryTracker;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
 import wheresmymoney.exception.InvalidInputException;
@@ -15,7 +16,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public void execute(ExpenseList expenseList, CategoryTracker categoryTracker) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade) throws WheresMyMoneyException {
         try {
             int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
             String oldCategory = expenseList.getExpenseAtIndex(index).getCategory();
@@ -26,10 +27,10 @@ public class EditCommand extends Command {
             String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE_ADDED);
             
             expenseList.editExpense(index, price, description, newCategory, dateAdded);
-            categoryTracker.editCategory(oldCategory, newCategory, price);
-            categoryTracker.checkLimitOf(newCategory);
+            CategoryFacade.editCategory(categoryTracker, oldCategory, newCategory, price);
         } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments.");
         }
     }
+    
 }

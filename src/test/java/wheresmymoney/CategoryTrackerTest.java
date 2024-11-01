@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
+import wheresmymoney.category.CategoryData;
+import wheresmymoney.category.CategoryTracker;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 class CategoryTrackerTest {

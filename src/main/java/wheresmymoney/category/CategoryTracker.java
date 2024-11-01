@@ -1,4 +1,4 @@
-package wheresmymoney;
+package wheresmymoney.category;
 
 import java.util.HashMap;
 
@@ -27,6 +27,7 @@ public class CategoryTracker {
     public CategoryTracker() {
         this.tracker = new HashMap<>();
     }
+    
     public HashMap<String, CategoryData> getTracker() {
         return tracker;
     }
@@ -36,6 +37,7 @@ public class CategoryTracker {
     public boolean contains(String category) {
         return tracker.containsKey(category);
     }
+    
     /**
      * Retrieves the {@code CategoryData} object for a given category.
      *

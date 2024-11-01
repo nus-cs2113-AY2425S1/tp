@@ -1,6 +1,7 @@
 package wheresmymoney.command;
 
-import wheresmymoney.CategoryTracker;
+import wheresmymoney.category.CategoryFacade;
+import wheresmymoney.category.CategoryTracker;
 import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
@@ -16,14 +17,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(ExpenseList expenseList, CategoryTracker categoryTracker) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade) throws WheresMyMoneyException {
         try {
             int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
             Expense expense = expenseList.getExpenseAtIndex(index);
             expenseList.deleteExpense(index);
-            categoryTracker.deleteCategory(expense.getCategory(), expense.getPrice());
+            CategoryFacade.deleteCategory(categoryTracker, expense);
         } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments.");
         }
     }
+    
 }

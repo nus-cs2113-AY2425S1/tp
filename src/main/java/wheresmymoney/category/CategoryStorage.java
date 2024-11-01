@@ -1,4 +1,4 @@
-package wheresmymoney;
+package wheresmymoney.category;
 
 import java.io.File;
 import java.io.FileReader;
@@ -11,6 +11,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
+import wheresmymoney.Expense;
 import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -18,7 +19,6 @@ import wheresmymoney.exception.WheresMyMoneyException;
  * The {@code CategoryStorage} class handles conversion between CSV and CategoryTracker.
  */
 public class CategoryStorage {
-    
     /**
      * Creates a {@code CategoryTracker} object based on the given {@code ExpenseList}.
      *
@@ -35,6 +35,7 @@ public class CategoryStorage {
         }
         return categoryTracker;
     }
+    
     /**
      * Loads from CSV file and updates spending limits for found categories.
      *
@@ -77,7 +78,7 @@ public class CategoryStorage {
      *
      * @param filePath File Path to save csv to
      */
-    public static void saveToCsv(String filePath, CategoryTracker categoryTracker) throws StorageException {
+    public static void saveToCsv(String filePath, HashMap<String, CategoryData> tracker) throws StorageException {
         File file = new File(filePath);
 
         // create FileWriter object with file as parameter
@@ -95,7 +96,6 @@ public class CategoryStorage {
         String[] header = { "Category", "SpendingLimit" };
         writer.writeNext(header);
         
-        HashMap<String, CategoryData> tracker = categoryTracker.getTracker();
         for (String categoryName : tracker.keySet()) {
             Float spendingLimit = tracker.get(categoryName).getMaxExpenditure();
             String[] row = {

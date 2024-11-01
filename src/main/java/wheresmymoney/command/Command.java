@@ -1,6 +1,7 @@
 package wheresmymoney.command;
 
-import wheresmymoney.CategoryTracker;
+import wheresmymoney.category.CategoryFacade;
+import wheresmymoney.category.CategoryTracker;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -24,7 +25,7 @@ public abstract class Command {
      * @param expenseList Current ExpenseList
      * @throws WheresMyMoneyException On any error executing the command
      */
-    public abstract void execute(ExpenseList expenseList, CategoryTracker categoryTracker)
+    public abstract void execute(ExpenseList expenseList, CategoryFacade categoryFacade)
             throws WheresMyMoneyException;
 
     /**
