@@ -123,6 +123,17 @@ public class UI {
         System.out.println(DELETE_COURSE_PLAN_HEADER + deleteCourse.formatOutput());
     }
 
+    public void printListUniCoursesCommand(JsonObject courseObject) {
+        String puCourseCode = courseObject.getString(PU_COURSE_CODE_KEY);
+        String puCourseName = courseObject.getString(PU_COURSE_NAME_KEY);
+        String nusCourseCode = courseObject.getString(NUS_COURSE_CODE_KEY);
+        String nusCourseName = courseObject.getString(NUS_COURSE_NAME_KEY);
+
+        System.out.println(puCourseCode + ": " + puCourseName);
+        System.out.println(nusCourseCode + ": " + nusCourseName);
+        System.out.println(LINE_SEPARATOR);
+    }
+
     /**
      * Runs the main chat loop of the application. It continuously takes user input
      * and processes it through the {@code Parser} until the user types "bye".
@@ -135,16 +146,5 @@ public class UI {
             userInput = parser.getUserInput();
             parser.processUserInput(userInput, storage);
         } while (!userInput.equalsIgnoreCase(BYE));
-    }
-
-    public void printListUniCoursesCommand(JsonObject courseObject) {
-        String puCourseCode = courseObject.getString(PU_COURSE_CODE_KEY);
-        String puCourseName = courseObject.getString(PU_COURSE_NAME_KEY);
-        String nusCourseCode = courseObject.getString(NUS_COURSE_CODE_KEY);
-        String nusCourseName = courseObject.getString(NUS_COURSE_NAME_KEY);
-
-        System.out.println(puCourseCode + ": " + puCourseName);
-        System.out.println(nusCourseCode + ": " + nusCourseName);
-        System.out.println(LINE_SEPARATOR);
     }
 }

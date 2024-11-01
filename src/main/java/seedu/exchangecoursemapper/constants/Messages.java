@@ -1,5 +1,7 @@
 package seedu.exchangecoursemapper.constants;
 
+import java.security.PublicKey;
+
 public class Messages {
     /* For UI layout */
     public static final String LINE_SEPARATOR = "-----------------------------------------------------";
@@ -50,4 +52,8 @@ public class Messages {
     public static final String UNIQUE_MAPPINGS_HEADER = "Unique to ";
     public static final String NO_UNIQUE_MAPPINGS = "No unique mappings for ";
     public static final String INVALID_COURSE_MAPPING = "Invalid course mapping!";
+
+    //Obtain contacts messages
+    public static final String EMAIL_TAG = "Email for ";
+    public static final String NUMBER_TAG = "Phone number for ";
 }

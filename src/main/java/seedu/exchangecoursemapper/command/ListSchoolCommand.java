@@ -22,18 +22,18 @@ public class ListSchoolCommand extends CheckInformationCommand {
     }
 
     /**
-     * Executes the listing of schools to output a list of possible schools from the JSON file .
+     * Executes the command to list schools by fetching them from the JSON file.
+     * Adds additional logging for debugging and error handling.
      *
      * @param userInput A string containing the user's input.
      */
     @Override
     public void execute(String userInput) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
+        JsonObject jsonObject;
         try {
-            JsonObject jsonObject = super.createJsonObject();
-            logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
-            assert jsonObject != null : Assertions.NULL_JSON_FILE;
-            assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+            jsonObject = fetchSchoolData();
+            validateJsonObject(jsonObject);
             displaySchoolList(jsonObject);
         } catch (IOException e) {
             logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
@@ -48,17 +48,50 @@ public class ListSchoolCommand extends CheckInformationCommand {
     }
 
     /**
-     * Displays the list of university names found in the provided JSON object.
-     * Prints out each university name to the console.
+     * Fetches the JSON object containing school data.
      *
-     * @param jsonObject the JSON object containing university names as keys.
-     * @throws AssertionError if a university name is null or empty.
+     * @return A JsonObject representing the school data.
+     * @throws IOException If there is an issue reading the JSON file.
+     */
+    private JsonObject fetchSchoolData() throws IOException {
+        logger.log(Level.INFO, Logs.READING_JSON_FILE);
+        JsonObject jsonObject = super.createJsonObject();
+        logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
+        return jsonObject;
+    }
+
+    /**
+     * Validates the provided JSON object to ensure it contains data.
+     *
+     * @param jsonObject The JSON object to validate.
+     * @throws AssertionError if jsonObject is null or empty.
+     */
+    private void validateJsonObject(JsonObject jsonObject) {
+        assert jsonObject != null : Assertions.NULL_JSON_FILE;
+        assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+        logger.log(Level.INFO, "Validated JSON data is not null and not empty.");
+    }
+
+    /**
+     * Displays the list of university names from the JSON object.
+     *
+     * @param jsonObject The JSON object containing university names.
      */
     public static void displaySchoolList(JsonObject jsonObject) {
         Set<String> universityNames = jsonObject.keySet();
+
         System.out.println(LINE_SEPARATOR);
+        if (universityNames.isEmpty()) {
+            System.out.println("No schools found in the JSON file.");
+            logger.log(Level.WARNING, "No university names to display.");
+            return;
+        }
+
         for (String universityName : universityNames) {
-            assert universityName != null && !universityName.isEmpty();
+            if (universityName == null || universityName.isEmpty()) {
+                logger.log(Level.WARNING, Logs.POSSIBLE_NULL_JSON_KEY);
+                continue;
+            }
             logger.log(Level.INFO, Logs.LIST_SCHOOLS_NAMES);
             ui.printUniversityList(universityName);
         }
