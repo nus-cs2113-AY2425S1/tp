@@ -11,7 +11,6 @@ import wheresmymoney.exception.WheresMyMoneyException;
 public class CategoryData {
     private Float currExpenditure;
     private Float maxExpenditure;
-    private static Float PRECISION = 0.0000001F;
     
     /**
      * Constructs a {@code CategoryData} object with a specified current expenditure
@@ -94,7 +93,7 @@ public class CategoryData {
      */
     public boolean isNearingLimit() {
         assert (maxExpenditure != null) && (currExpenditure != null);
-        return currExpenditure - (0.80F * maxExpenditure) >= PRECISION;
+        return Float.compare(currExpenditure, 0.80F * maxExpenditure) >= 0;
     }
     /**
      * Checks if the current total expenditure for this category has exceeded its spending limit.
@@ -102,8 +101,8 @@ public class CategoryData {
      * @return {@code true} if the current expenditure exceeds the spending limit,
      *         {@code false} otherwise.
      */
-    public boolean hasExceededLimit() {
-        assert (maxExpenditure != null) && (currExpenditure != null);
-        return currExpenditure - maxExpenditure > PRECISION;
+    public boolean hasExceededLimit() throws WheresMyMoneyException {
+        assert (this.maxExpenditure != null) && (this.currExpenditure != null);
+        return Float.compare(currExpenditure, maxExpenditure) > 0;
     }
 }
