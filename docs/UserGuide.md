@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Introducing ExchangeCourseMapper, the perfect assistant in your planning for your SEP in Australia!
+Introducing ExchangeCourseMapper, the perfect assistant in your planning for your SEP in Oceania!
 
 Using ExchangeCourseMapper, you can plan your course mapping by listing the universities of interest, 
 along with the specific courses and subject codes offered by each school. You can quickly filter by NUS-coded modules 
@@ -44,6 +44,24 @@ Example of usage:
 Expected output:
 ```
 You have successfully added the course: cs3244 | the australian national university | comp3670
+```
+
+Example of usage:
+`add CS3244 /pu Australian National University /coursepu COMP3670`
+
+Expected output:
+```
+Invalid university input!
+-----------------------------------------------------
+The relevant universities are (non-case sensitive):
+1. The University of Melbourne
+2.The Australian National University
+3. Victoria University of Wellington
+4.The University of Western Australia
+
+NOTE: Please indicate the partner universities FULL NAME!
+NOTE: Instead of "Australian National University," please indicate "The Australian National University."
+-----------------------------------------------------
 ```
 
 
