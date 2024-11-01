@@ -59,10 +59,14 @@ public class CategoryTracker {
      */
     private void checkLimitOf(String category) throws WheresMyMoneyException {
         CategoryData categoryData = getCategoryDataOf(category);
+        float currExpenditure = categoryData.getCurrExpenditure();
+        float maxExpenditure = categoryData.getMaxExpenditure();
         if (categoryData.hasExceededLimit()) {
-            System.out.println("Alert! You have exceeded the spending limit for this category: " + category);
+            System.out.println("Alert! You have exceeded the spending limit of " + maxExpenditure +
+                    " for the category of " + category + ", with a total expenditure of " + currExpenditure + ". ");
         } else if (categoryData.isNearingLimit()) {
-            System.out.println("Warning! You are close to the spending limit for this category: " + category);
+            System.out.println("Warning! You are close to the spending limit of " + maxExpenditure +
+                    " for the category of " + category  + ", with a total expenditure of " + currExpenditure + ". ");
         }
     }
     
