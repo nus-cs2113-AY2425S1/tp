@@ -22,8 +22,8 @@ public class CategoryData {
      */
     public CategoryData(Float currExpenditure) throws WheresMyMoneyException {
         setCurrExpenditure(currExpenditure);
-        setMaxExpenditure(100F);
-        assert (currExpenditure != null) && (maxExpenditure == 100F);
+        setMaxExpenditure(100.00F);
+        assert (currExpenditure != null) && (maxExpenditure != null);
     }
     /**
      * Constructs a {@code CategoryData} object with a specified current expenditure
