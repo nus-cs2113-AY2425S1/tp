@@ -18,13 +18,11 @@ mermaid:
   version: "9.1.3"
 
 
-
-
-# search_enabled: true
-# search.heading_level: 2
-# search.previews: 3
-# search.preview_words_before: 5
-# search.preview_words_after: 10
-# search.button: true
-# search:
-#     focus_shortcut_key: 'k'
+search_enabled: true
+search.heading_level: 2
+search.previews: 3
+search.preview_words_before: 5
+search.preview_words_after: 10
+search.button: true
+search:
+    focus_shortcut_key: 'k'
