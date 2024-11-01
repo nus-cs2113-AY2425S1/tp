@@ -2,32 +2,26 @@
 
 ## Introduction
 
-{TODO: Give a product intro}
+ExchangeCourseMapper allows users to plan their course mapping by listing the universities of interest,
+along with the specific courses and subject codes offered by each school. Users can quickly filter by NUS-coded
+modules or partner universities (PU) when viewing the relevant options.
 
 ## Quick Start
 
-{TODO: Give steps to get started quickly}
-
 1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Down the latest version of `Duke` from [here](http://link.to/duke).
 
 ## Features 
 
-{Give detailed description of each feature}
+### Adding a course mapping: `add`
+Adds a new course mapping into `myList.json` file for storage.Course mapping is subject to validation 
+to ensure that the course mapping is valid and that the university provided is an Oceania university. 
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
-
-Format: `todo n/TODO_NAME d/DEADLINE`
-
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+Format: `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE`
 
 Example of usage: 
-
-`todo n/Write the rest of the User Guide d/next week`
-
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+`add cs2102 /pu the university of melbourne /coursepu info20003`
+`add CS3244 /pu The Australian National University /coursepu COMP3670`
 
 ## FAQ
 
