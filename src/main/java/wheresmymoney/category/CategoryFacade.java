@@ -8,11 +8,14 @@ import wheresmymoney.exception.WheresMyMoneyException;
 public class CategoryFacade {
     private CategoryTracker categoryTracker;
     private CategoryFilter categoryFilter;
+    private CategoryStorage categoryStorage;
     
     public CategoryFacade() {
         this.categoryTracker = new CategoryTracker();
         this.categoryFilter = new CategoryFilter();
+        this.categoryStorage = new CategoryStorage();
         this.categoryFilter.setCategoryFacade(this);
+        this.categoryStorage.setCategoryFacade(this);
     }
     public CategoryTracker getCategoryTracker() {
         return categoryTracker;

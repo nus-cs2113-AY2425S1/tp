@@ -19,6 +19,12 @@ import wheresmymoney.exception.WheresMyMoneyException;
  * The {@code CategoryStorage} class handles conversion between CSV and CategoryTracker.
  */
 public class CategoryStorage {
+    private CategoryFacade categoryFacade;
+    
+    public void setCategoryFacade(CategoryFacade categoryFacade) {
+        this.categoryFacade = categoryFacade;
+    }
+    
     /**
      * Creates a {@code CategoryTracker} object based on the given {@code ExpenseList}.
      *
