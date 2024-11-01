@@ -165,8 +165,72 @@ Bye! Hope to see you again soon!
 ____________________________________________________________________________________________________
 ```
 
+### 9. Add a Reminder: `remind`
+**Purpose**: Adds a Reminder with the specified description and due date.
 
-### 9. Add Goal: `add-goal`
+**Format**: `remind [description] [deadline]`
+- `description` and `deadline` fields must be non-empty.
+- `deadline` field must be formatted `dd-MM-yyyy` or `dd-MM-yyyy HH:mm`. 
+- If `deadline` field is given as `dd-MM-yyyy`, `HH:mm` information will default to `00:00` on that date. 
+
+**Example**: `remind NAPFA 31/12/2024`
+
+**Expected output**:
+```
+____________________________________________________________________________________________________
+Got it. I've added a new reminder
+1. NAPFA | 31/12/2024 00:00
+There are 1 reminders in your list.
+____________________________________________________________________________________________________
+```
+
+### 10. List all Reminders: `list-remind`
+**Purpose**: Displays all active Reminders the user has added.
+
+**Format**: `list-remind`
+
+**Example Output**:
+```
+____________________________________________________________________________________________________
+Here are your reminders:
+1. TEST1 | 31/12/2024 00:00
+2. TEST2 | 30/12/2024 00:00
+3. TEST3 | 29/12/2024 00:00
+There are 3 reminders in your list.
+____________________________________________________________________________________________________
+```
+
+### 11. List soon-due Reminders: `upcoming-remind`
+**Purpose**: Displays all Reminders the user has added that are due in the next week (7 days).
+
+**Format**: `upcoming-remind`
+
+**Example Output**:
+```
+____________________________________________________________________________________________________
+There are 1 reminders due in the next week:
+1. UPCOMINGTEST | 06/11/2024 00:00
+You have 2 reminders in total. View them with 'list-remind'.
+____________________________________________________________________________________________________
+```
+
+### 12. Delete a Reminder: `delete-remind`
+**Purpose**: Removes a reminder from your list.
+
+**Format**: `delete-remind [reminder index]`
+- `reminder index` can be found using the `list-remind` command.
+
+**Example**: `delete-remind 1`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Got it. I've deleted this reminder:NAPFA | 31/12/2024 00:00
+There are 0 reminders in your list.
+____________________________________________________________________________________________________
+```
+
+### 13. Add Goal: `add-goal`
 **Purpose**: User can add a fitness goal to the the list
 of goals and attach a deadline to it in order to
 have clear targets to prepare for the NAPFA test.
@@ -183,7 +247,7 @@ Deadline: 12/12/2024 14:00:00
 ____________________________________________________________________________________________________
 ```
 
-### 10. Delete Goal: `delete-goal`
+### 14. Delete Goal: `delete-goal`
 User can delete a fitness goal to the the list
 of goals to moderate a fitness goal.
 
@@ -198,7 +262,7 @@ Goal at index 1 has been removed.
 ____________________________________________________________________________________________________
 ```
 
-### 11. List of Goals: `list-goal`
+### 15. List of Goals: `list-goal`
 View a list of all fitness goals and deadlines
 to keep track of progress in preparation for the NAPFA test
 
@@ -220,7 +284,7 @@ Goals:
 ____________________________________________________________________________________________________
 ```
 
-### 12. Display Non-Time Station Graph
+### 16. Display Non-Time Station Graph
 **Purpose**: View the progress of User's performance for SitUpStation, PullUpStation, StandingBroadJumpStation
 and SitAndReachStation class in the form of a bar chart.
 
@@ -233,7 +297,7 @@ and SitAndReachStation class in the form of a bar chart.
 ```
 
 
-### 13. Display Time Station Graph
+### 17. Display Time Station Graph
 **Purpose**: View the progress of User's performance for WalkAndRunStation class and ShuttleRunStation class 
 in the form of a point graph.
 
@@ -246,17 +310,21 @@ in the form of a point graph.
 ```
 
 ## FitTrackCLI's Command Summary
-| Command         | Format                                                         | Example                            |
-|-----------------|----------------------------------------------------------------|------------------------------------|
-| **help**        | `help`                                                         | `help`                             |
-| **set**         | `set GENDER AGE`                                               | `set male 12`                      |
-| **add**         | `add SESSION_NAME`                                             | `add session1`                     |
-| **list**        | `list`                                                         | `list`                             |
-| **view**        | `view SESSION_INDEX`                                           | `view 1`                           |
-| **edit**        | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45`                     |
-| **delete**      | `delete SESSION_INDEX `                                        | `delete 1 `                        |
-| **exit**        | `exit`                                                         | `exit`                             |
-| **add-goal**    | `add-goal GOAL_NAME DEADLINE`                                  | `add-goal run 12/12/2024 14:00:00` |
-| **delete-goal** | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                    |
-| **list-goal**   | `list-goal`                                                    | `list-goal`                        |
-| **graph**       | `graph EXERCISE_ACRONYM`                                       | `graph PU`                         |
+| Command             | Format                                                         | Example                            |
+|---------------------|----------------------------------------------------------------|------------------------------------|
+| **set**             | `set GENDER AGE`                                               | `set male 12`                      |
+| **help**            | `help`                                                         | `help`                             |
+| **add**             | `add SESSION_NAME`                                             | `add session1`                     |
+| **list**            | `list`                                                         | `list`                             |
+| **view**            | `view SESSION_INDEX`                                           | `view 1`                           |
+| **edit**            | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45`                     |
+| **delete**          | `delete SESSION_INDEX `                                        | `delete 1 `                        |
+| **exit**            | `exit`                                                         | `exit`                             |
+| **remind**          | `remind REMINDER_NAME DEADLINE`                                | `remind run 12/12/2024`            |
+| **list-remind**     | `list-goal`                                                    | `list-remind`                      |
+| **upcoming-remind** | `upcoming-remind`                                              | `upcoming-remind`                  |
+| **delete-remind**   | `delete-remind REMINDER_INDEX`                                 | `delete-remind 1`                  |
+| **add-goal**        | `add-goal GOAL_NAME DEADLINE`                                  | `add-goal run 12/12/2024 14:00:00` |
+| **delete-goal**     | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                    |
+| **list-goal**       | `list-goal`                                                    | `list-goal`                        |
+| **graph**           | `graph EXERCISE_ACRONYM`                                       | `graph PU`                         |
