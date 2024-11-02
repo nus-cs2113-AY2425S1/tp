@@ -413,6 +413,31 @@ __________________________________________________
 __________________________________________________
 ```
 
+## Calendar Command: `calendar`
+
+Lists out all deadlines along with the current date (according to local machine date)
+
+**Format:** `calendar`
+
+Example Output:
+
+```
+__________________________________________________
+__________________________________________________
+Deadlines:
+
+10/10/24 
+	1: interview round 1
+
+02/11/24 --> Today
+	2: application deadline
+
+05/11/24 
+	1: interview round 2
+__________________________________________________
+__________________________________________________
+```
+
 ## Help Command: `help`
 
 Shows the commands available for the user and the inputs required.
