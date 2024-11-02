@@ -62,11 +62,16 @@ public class EventList  {
      * @throws DuplicateDataException if an event with eventName is present in the event list.
      */
     public void addEvent(String eventName, LocalDateTime time,
-                         String venue, Priority priority) throws DuplicateDataException {
+            String venue, Priority priority) throws DuplicateDataException {
+        addEvent(eventName, time, venue, priority, false);
+    }
+
+    public void addEvent(String eventName, LocalDateTime time, String venue,
+            Priority priority, boolean isDone) throws DuplicateDataException {
         if (getEventByName(eventName).isPresent()) {
             throw new DuplicateDataException(DUPLICATE_EVENT_MESSAGE);
         }
-        Event newEvent = new Event(eventName, time, venue, priority);
+        Event newEvent = new Event(eventName, time, venue, priority, isDone);
         eventList.add(newEvent);
     }
 
@@ -134,9 +139,25 @@ public class EventList  {
      * @return {@code true} if the participant can be added to the event, {@code false} otherwise.
      */
     public boolean addParticipantToEvent(String name, String number, String email, String eventName) {
+        return addParticipantToEvent(name, number, email, false, eventName);
+    }
+
+    /**
+     * Returns true if a participant can be added to a specified event,
+     * returns false otherwise.
+     *
+     * @param name the name of the participant to be added.
+     * @param number the contact number of the participant.
+     * @param email the email address of the participant.
+     * @param isPresent {@code true} if the participant is to be marked present, {@code false} otherwise.
+     * @param eventName the name of the event to which the participant will be added.
+     * @return {@code true} if the participant can be added to the event, {@code false} otherwise.
+     */
+    public boolean addParticipantToEvent(String name, String number, String email, boolean isPresent,
+            String eventName) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
-                event.addParticipant(name, number, email);
+                event.addParticipant(name, number, email, isPresent);
                 return true;
             }
         }
@@ -225,8 +246,6 @@ public class EventList  {
         return false;
     }
 
-
-
     /**
      * Returns true if an item with a given name is successfully added to a given event, returns false otherwise.
      *
@@ -235,10 +254,21 @@ public class EventList  {
      * @return {@code true} if the item is successfully added to the event, {@code false} otherwise.
      */
     public boolean addItemToEvent(String itemName, String eventName) {
+        return addItemToEvent(itemName, false, eventName);
+    }
+
+    /**
+     * Returns true if an item with a given name is successfully added to a given event, returns false otherwise.
+     *
+     * @param itemName the name of the item to be added.
+     * @param eventName the name of the event the item is to be added to.
+     * @return {@code true} if the item is successfully added to the event, {@code false} otherwise.
+     */
+    public boolean addItemToEvent(String itemName, boolean isPresent, String eventName) {
         assert itemName != null : "Item name should not be null";
         Optional<Event> event = getEventByName(eventName);
         if (event.isPresent()) {
-            event.get().addItem(itemName);
+            event.get().addItem(itemName, isPresent);
         }
         return event.isPresent();
     }

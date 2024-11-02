@@ -5,7 +5,6 @@ import seedu.manager.event.EventList;
 import seedu.manager.exception.DuplicateDataException;
 import seedu.manager.exception.InvalidCommandException;
 import seedu.manager.parser.Parser;
-import seedu.manager.storage.FileParser;
 import seedu.manager.ui.Ui;
 import seedu.manager.storage.Storage;
 

@@ -27,32 +27,6 @@ public class Event {
     private boolean isDone;
     private Priority eventPriority;
 
-    /**
-     * Constructs an Event with the specified name.
-     *
-     * @param eventName the name of the event
-     */
-    public Event(String eventName) {
-        this.eventName = eventName;
-        this.participantList = new ArrayList<>();
-    }
-
-    /**
-     * Constructs an Event with the specified name, time, and venue.
-     *
-     * @param eventName  the name of the event
-     * @param eventTime  the time duration of the event
-     * @param eventVenue the venue of the event
-     */
-    public Event(String eventName, LocalDateTime eventTime, String eventVenue) {
-        this.eventName = eventName;
-        this.eventTime = eventTime;
-        this.eventVenue = eventVenue;
-        this.participantList = new ArrayList<>();
-        this.itemList = new ArrayList<>();
-        this.isDone = false;
-    }
-
     //@@author LTK-1606
     /**
      * Constructs an Event with the specified name, time, venue and priority.
@@ -72,20 +46,41 @@ public class Event {
         this.isDone = false;
     }
 
+    /**
+     * Constructs an Event with the specified name, time, venue, priority and whether it is marked done.
+     *
+     * @param eventName  the name of the event.
+     * @param eventTime  the time duration of the event.
+     * @param eventVenue the venue of the event.
+     * @param eventPriority the priority level of the event.
+     * @param isDone {@code true} if the event is marked done, {@code false otherwise}.
+     */
+    public Event(String eventName, LocalDateTime eventTime, String eventVenue, Priority eventPriority,
+                 boolean isDone) {
+        this.eventName = eventName;
+        this.eventTime = eventTime;
+        this.eventVenue = eventVenue;
+        this.eventPriority = eventPriority;
+        this.participantList = new ArrayList<>();
+        this.itemList = new ArrayList<>();
+        this.isDone = isDone;
+    }
+
     //@@author LTK-1606
     /**
      * Adds a participant to the participant list for the event.
      *
      * @param participantName the name of the participant to be added to the list.
+     * @param isPresent {@code true} if the participant is to be present, {@code false} otherwise.
      * @throws DuplicateDataException if a participant with the same name exists in the list.
      */
-    public void addParticipant(String participantName, String participantNumber, String participantEmail)
-            throws DuplicateDataException {
+    public void addParticipant(String participantName, String participantNumber, String participantEmail,
+            boolean isPresent) throws DuplicateDataException {
         if (getParticipantByName(participantName).isPresent()) {
             throw new DuplicateDataException(DUPLICATE_PARTICIPANT_MESSAGE);
         }
 
-        Participant participant = new Participant(participantName, participantNumber, participantEmail);
+        Participant participant = new Participant(participantName, participantNumber, participantEmail, isPresent);
         this.participantList.add(participant);
     }
 
@@ -161,12 +156,12 @@ public class Event {
      * @param itemName the name of the item to be added.
      * @throws DuplicateDataException if an item with the same name is already in the list.
      */
-    public void addItem(String itemName) throws DuplicateDataException {
+    public void addItem(String itemName, boolean isPresent) throws DuplicateDataException {
         if (getItemByName(itemName).isPresent()) {
             throw new DuplicateDataException(DUPLICATE_ITEM_MESSAGE);
         }
 
-        Item item = new Item(itemName);
+        Item item = new Item(itemName, isPresent);
         itemList.add(item);
     }
 
@@ -392,6 +387,12 @@ public class Event {
         return true;
     }
 
+    /**
+     * Returns the {@code Item} with the given name in the item list.
+     *
+     * @param itemName the given item name
+     * @return the {@code Item} with name itemName, or null if the item is not founc
+     */
     private Optional<Item> getItemByName(String itemName) {
         for (Item item : itemList) {
             if (item.getName().equalsIgnoreCase(itemName)) {
