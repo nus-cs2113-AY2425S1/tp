@@ -109,7 +109,8 @@ public class FileParser {
             Priority priority = Priority.valueOf(parts[3].trim().toUpperCase());
             boolean isDone = getIsMarked(parts[4].trim());
             events.addEvent(eventName, time, venue, priority, isDone);
-        } catch (DateTimeParseException | IndexOutOfBoundsException | NullPointerException exception) {
+        } catch (DateTimeParseException | IndexOutOfBoundsException | NullPointerException
+                | IllegalArgumentException exception) {
             logger.log(WARNING, "File line cannot be parsed, event not loaded");
         }
     }

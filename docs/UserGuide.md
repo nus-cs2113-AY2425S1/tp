@@ -23,7 +23,6 @@ Enter a command:
 * Words in `UPPER_CASE` represent parameters that are to be supplied by the user.
 * Parameters listed have to be entered in the specified order.
 * Extraneous parameters for commands that do not take in parameters (e.g. `list`) will be ignored.
-* Events information and participants information are saved after each user command
 
 ### Viewing the command list: `menu`
 
@@ -203,6 +202,60 @@ Examples:
 Exits the program.
 
 Format: `exit`
+
+### Saving of program data
+
+The program saves its stored data into three `.csv` files in the same directory as the application `.JAR`.
+
+These files are as follows:
+
+* `events.csv`, which stores data on the `Event`s stored in the program,
+* `participants.csv`, which stores data on the `Participant`s for all `Event`s,
+* `items.csv`, which stores data on the `Item`s for all `Event`s,
+
+The data is saved after the execution of every command and upon program startup.
+
+### Loading of program data
+
+The saved program data in the aforementioned three files is loaded into the program upon program startup.
+
+If any one of the files do not exist in the directory, the file will be created when the data is saved.
+
+### Editing of saved program data
+
+Experienced users may feel free to edit the saved data in the `.csv` files.
+
+The program data is stored in the following format:
+
+For `events.csv`:
+
+```
+EVENT,TIME,VENUE,PRIORITY,STATUS
+```
+
+* `TIME` must be in the format `yyyy-mm-dd hh:mm`.
+* `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
+* `STATUS` must be either `Y` or `N`
+
+For `participants.csv`:
+
+```
+PARTICIPANT,NUMBER,EMAIL,STATUS,EVENT
+```
+
+* `STATUS` must be either `Y` or `N`
+* An entry for the `Event` corresponding to `EVENT` must be present in `events.csv`.
+
+For `items.csv`:
+
+```
+ITEM,STATUS,EVENT
+```
+
+* `STATUS` must be either `Y` or `N`
+* An entry for the `Event` corresponding to `EVENT` must be present in `events.csv`.
+
+If the above format or parameter constraints are not followed, the `Event`, `Participant` or `Item` corresponding to the file line will not be loaded upon program startup.
 
 ## Command Summary
 
