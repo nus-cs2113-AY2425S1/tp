@@ -160,7 +160,7 @@ Expected Output:
 Please provide a valid index of the course plan you would like to delete.
 ```
 
-### List out all the possible schools from the options `list schools`
+### List out all the possible schools from the options: `list schools`
 List out all the schools users could possibly go for their SEP
 
 Format: `list schools`
@@ -175,7 +175,48 @@ The University of Western Australia
 -----------------------------------------------------
 ```
 
+### Obtain contacts from the list of universities `obtain`
+Delete a course mapping plan that was initially saved into the Personal Tracker.
 
+Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
+
+* The `PARTNER_UNIVERSITY_NAME` is the name of the partner university from the list of schools.
+* The `CONTACT_TYPE` is the type of contact either number or email
+
+Example: `obtain victoria university of wellington /number`
+
+Expected Output:
+```
+Phone number for Victoria University of Wellington: +64 4 472 1000
+```
+
+Example: `obtain the university of western australia /email`
+
+Expected Output:
+```
+Email for The University of Western Australia: uwa-albany@uwa.edu.au
+```
+
+Example: `obtain`
+
+Expected Output:
+```
+Invalid input format
+```
+
+Example: `obtain NUS /email`
+
+Expected Output:
+```
+Unknown university - nus
+```
+
+Example: `obtain the university of melbourne /fax`
+
+Expected Output:
+```
+Invalid contact type.
+```
 
 ## FAQ
 
