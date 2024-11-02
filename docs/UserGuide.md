@@ -7,6 +7,7 @@
   - [Add Command: `add`](#add-command-add)
   - [Update Command: `update`](#update-command-update)
   - [Remove Command: `remove`](#remove-command-remove)
+  - [List Command: `list`](#list-command-list)
   - [Sort Command: `sort`](#sort-command-sort)
   - [Filter Command: `filter`](#filter-command-filter)
   - [Delete Command: `delete`](#delete-command-delete)
@@ -227,6 +228,37 @@ ID: 2	Status: Application Completed
 Role: Embedded Software Engineer Intern
 Company: Venti
 Duration: 04/25 to 08/25
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+
+## List Command: `list`
+
+Lists out all the Internships in the order of IDs.
+
+**Format:** `list`
+
+Example Output:
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: accountant
+Company: XYZ
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: engineer
+Company: ABS
+Duration: 01/01 to 01/01
 Skills: No Skills Entered 
 Deadlines:
 	No deadlines set.
