@@ -6,7 +6,9 @@ import ymfc.ingredient.Ingredient;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class IngredientListTest {
     private Ingredient ingredient1;
