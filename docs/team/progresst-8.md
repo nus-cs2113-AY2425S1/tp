@@ -16,7 +16,8 @@ Given below are my contributions to the project.
     - CategoryTracker and CategoryData classes' JUnit tests
 - **Documentation**
   - User Guide 
-    - Created set command section 
+    - Created section about setting spending limits for a category 
   - Developer Guide
     - Created Expense and ExpenseList section
+    - Created CategoryTracker, CategoryData and CategoryFilter section
 - **Review & Mentoring Contributions:** Provide suggestions for designing various components of the software.
