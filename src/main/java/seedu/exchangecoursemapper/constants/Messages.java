@@ -36,11 +36,14 @@ public class Messages {
                     obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
                     obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
                     delete <TASK_NUMBER> - Delete a partner university.
-                    list mapped - List all the course mapping.
-                    compare - Compare the course mappings.
+                    list mapped - List all course mapping saved.
+                    compare pu/<uni1> pu/<uni2> - Compare course mappings between 2 universities.
                     bye - End the program.
                     To get more specific information of the commands, please use help <COMMAND>
                     """;
+    // ListPersonalTrackerCommand
+    public static final String NO_MODULES_MESSAGE = "No modules mapped yet.";
+    public static final String MAPPED_MODULES_HEADER = "Mapped Modules:";
 
     // CompareMappedCommand messages
     public static final String INVALID_INPUT_FORMAT = "Please provide two universities in the format:  " +
