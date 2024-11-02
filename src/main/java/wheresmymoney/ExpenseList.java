@@ -12,7 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.time.LocalDate;
 
 /**
  * The {@code ExpenseList} class manages a collection of {@code Expense} objects.

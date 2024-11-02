@@ -92,14 +92,9 @@ public class Expense {
     }
 
     public void setDateAdded(LocalDate dateAdded) throws WheresMyMoneyException {
-        // if (dateAdded == null) {
-        //     throw new WheresMyMoneyException("Expense's date added shouldn't be null.");
-        // } else if (dateAdded.isBlank()) {
-        //     throw new WheresMyMoneyException("Expense's date added shouldn't be blank.");
-        // } else if (!DateUtils.isInDateFormat(dateAdded)) {
-        //     throw new WheresMyMoneyException("Expense's date added is not in recognised format.");
-        // }
+        if (dateAdded == null) {
+            throw new WheresMyMoneyException("Expense's date added shouldn't be null.");
+        }
         this.dateAdded = dateAdded;
     }
-    
 }
