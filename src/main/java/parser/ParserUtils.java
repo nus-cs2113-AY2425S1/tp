@@ -167,4 +167,11 @@ public class ParserUtils {
                     "Error: " + e.getParsedString(), e);
         }
     }
+
+    public static String parseString(String value, String flagName) {
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalArgumentException("Value for " + flagName + " cannot be null or empty.");
+        }
+        return value.trim();
+    }
 }

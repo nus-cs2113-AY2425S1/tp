@@ -34,6 +34,8 @@ public class MealList {
      */
     public void addMeal(Meal meal) {
         assert meal != null : "Meal cannot be null";
+
+
         meals.add(meal);
         logger.log(Level.INFO, "Added meal: {0}. Current list: {1}", new Object[]{meal, meals});
     }
