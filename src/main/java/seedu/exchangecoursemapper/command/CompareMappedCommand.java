@@ -1,6 +1,7 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.storage.Storage;
+import seedu.exchangecoursemapper.ui.UI;
 
 import java.util.List;
 import java.util.Set;
@@ -19,6 +20,8 @@ import static seedu.exchangecoursemapper.constants.Assertions.UNI2_UNIQUE_CODES_
 import static seedu.exchangecoursemapper.constants.Assertions.UNIVERSITY_NOT_NULL ;
 import static seedu.exchangecoursemapper.constants.Assertions.UNIQUE_CODES_NOT_NULL ;
 import static seedu.exchangecoursemapper.constants.Assertions.UNI_MODULES_NOT_NULL;
+import static seedu.exchangecoursemapper.constants.Assertions.LOADED_LIST_NOT_NULL;
+import static seedu.exchangecoursemapper.constants.Assertions.NULL_STORAGE;
 import static seedu.exchangecoursemapper.constants.Logs.EXECUTE_COMPARE_MAPPED;
 import static seedu.exchangecoursemapper.constants.Logs.INIT_STORAGE_COMPARE_MAPPED;
 import static seedu.exchangecoursemapper.constants.Logs.LOADED_MODULES;
@@ -29,22 +32,16 @@ import static seedu.exchangecoursemapper.constants.Logs.UNIQUE_COURSE_CODES;
 import static seedu.exchangecoursemapper.constants.Logs.DISPLAYING_RESULTS;
 import static seedu.exchangecoursemapper.constants.Logs.DISPLAY_COMPLETE;
 import static seedu.exchangecoursemapper.constants.Logs.DISPLAYING_UNIQUE_MAPPINGS;
-import static seedu.exchangecoursemapper.constants.Messages.INVALID_INPUT_FORMAT;
-import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
-import static seedu.exchangecoursemapper.constants.Messages.COMPARISON_RESULTS_HEADER;
-import static seedu.exchangecoursemapper.constants.Messages.COMMON_MAPPINGS_HEADER;
-import static seedu.exchangecoursemapper.constants.Messages.NO_COMMON_MAPPINGS;
-import static seedu.exchangecoursemapper.constants.Messages.UNIQUE_MAPPINGS_HEADER;
-import static seedu.exchangecoursemapper.constants.Messages.NO_UNIQUE_MAPPINGS;
 
 
 public class CompareMappedCommand extends CheckInformationCommand {
 
     private static final Logger logger = Logger.getLogger(CompareMappedCommand.class.getName());
+    private static final UI ui = new UI();
     private final Storage storage;
 
     public CompareMappedCommand(Storage storage) {
-        assert storage != null : "Storage cannot be null";
+        assert storage != null : NULL_STORAGE;
         this.storage = storage;
         logger.log(Level.INFO, INIT_STORAGE_COMPARE_MAPPED);
     }
@@ -55,7 +52,7 @@ public class CompareMappedCommand extends CheckInformationCommand {
 
         String[] inputs = userInput.split("pu/");
         if (inputs.length < 3) {
-            System.out.println(INVALID_INPUT_FORMAT);
+            ui.printInvalidInputFormat();
             return;
         }
 
@@ -63,7 +60,7 @@ public class CompareMappedCommand extends CheckInformationCommand {
         String university2 = inputs[2].trim();
 
         List<String> allModules = storage.loadAllCourses();
-        assert allModules != null : "Loaded modules list should not be null";
+        assert allModules != null : LOADED_LIST_NOT_NULL;
         logger.log(Level.INFO, LOADED_MODULES);
 
         List<String> uni1Modules = filterModulesByUniversity(allModules, university1);
@@ -121,48 +118,19 @@ public class CompareMappedCommand extends CheckInformationCommand {
         assert uni2UniqueCourseCodes != null : UNI2_UNIQUE_CODES_NOT_NULL;
 
         logger.log(Level.INFO, DISPLAYING_RESULTS + university1 + " and " + university2);
-        System.out.println(COMPARISON_RESULTS_HEADER + university1 + " and " + university2 + ":");
-
-        System.out.println("\n" + COMMON_MAPPINGS_HEADER);
-        System.out.println(LINE_SEPARATOR);
-        if (commonCourseCodes.isEmpty()) {
-            System.out.println(NO_COMMON_MAPPINGS);
-        } else {
-            for (String courseCode : commonCourseCodes) {
-                uni1Modules.stream()
-                        .filter(module -> module.startsWith(courseCode + " | "))
-                        .forEach(System.out::println);
-
-                uni2Modules.stream()
-                        .filter(module -> module.startsWith(courseCode + " | "))
-                        .forEach(System.out::println);
-            }
-        }
-        System.out.println(LINE_SEPARATOR);
-
-        printUniqueMappings(university1, uni1Modules, uni1UniqueCourseCodes);
-        printUniqueMappings(university2, uni2Modules, uni2UniqueCourseCodes);
+        ui.printCommonMappings(university1,university2,commonCourseCodes,uni1Modules,uni2Modules);
+        displayUniqueMappings(university1, uni1Modules, uni1UniqueCourseCodes);
+        displayUniqueMappings(university2, uni2Modules, uni2UniqueCourseCodes);
         logger.log(Level.INFO, DISPLAY_COMPLETE + university1 + " and " + university2);
     }
 
-    private void printUniqueMappings(String university, List<String> modules, Set<String> uniqueCourseCodes) {
+    private void displayUniqueMappings(String university, List<String> modules, Set<String> uniqueCourseCodes) {
 
         assert university != null : UNIVERSITY_NOT_NULL;
         assert modules != null : UNI_MODULES_NOT_NULL;
         assert uniqueCourseCodes != null : UNIQUE_CODES_NOT_NULL;
 
         logger.log(Level.INFO, DISPLAYING_UNIQUE_MAPPINGS + university);
-        System.out.println("\n" + UNIQUE_MAPPINGS_HEADER + university + ":");
-        System.out.println(LINE_SEPARATOR);
-        if (uniqueCourseCodes.isEmpty()) {
-            System.out.println(NO_UNIQUE_MAPPINGS + university);
-        } else {
-            for (String courseCode : uniqueCourseCodes) {
-                modules.stream()
-                        .filter(module -> module.startsWith(courseCode + " | "))
-                        .forEach(System.out::println);
-            }
-        }
-        System.out.println(LINE_SEPARATOR);
+        ui.printUniqueMappings(university,modules,uniqueCourseCodes);
     }
 }

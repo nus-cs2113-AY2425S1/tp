@@ -8,6 +8,8 @@ import seedu.exchangecoursemapper.storage.Storage;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,13 +17,24 @@ import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
 import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
 import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
 import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_NAME_KEY;
+import static seedu.exchangecoursemapper.constants.Messages.MAPPED_MODULES_HEADER;
+import static seedu.exchangecoursemapper.constants.Messages.NO_MODULES_MESSAGE;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
 import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_COURSE_CODE_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.DELETE_COURSE_PLAN_HEADER;
+import static seedu.exchangecoursemapper.constants.Messages.COMMANDS_LIST;
+import static seedu.exchangecoursemapper.constants.Messages.INVALID_INPUT_FORMAT;
+import static seedu.exchangecoursemapper.constants.Messages.COMPARISON_RESULTS_HEADER;
+import static seedu.exchangecoursemapper.constants.Messages.COMMON_MAPPINGS_HEADER;
+import static seedu.exchangecoursemapper.constants.Messages.NO_COMMON_MAPPINGS;
+import static seedu.exchangecoursemapper.constants.Messages.UNIQUE_MAPPINGS_HEADER;
+import static seedu.exchangecoursemapper.constants.Messages.NO_UNIQUE_MAPPINGS;
+
 
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
+
 
 
 public class UI {
@@ -136,6 +149,68 @@ public class UI {
 
         System.out.println(puCourseCode + ": " + puCourseName);
         System.out.println(nusCourseCode + ": " + nusCourseName);
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printCommandsList(){
+        System.out.println(LINE_SEPARATOR);
+        System.out.println(COMMANDS_LIST);
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printNoMappedModules(){
+        System.out.println(NO_MODULES_MESSAGE);
+    }
+
+    public void printMappedModules(List<String> mappedModules){
+        System.out.println(MAPPED_MODULES_HEADER);
+        System.out.println(LINE_SEPARATOR);
+        int moduleIndex = 1;
+        for (String module : mappedModules) {
+            System.out.println(moduleIndex + ". " + module);
+            moduleIndex += 1;
+        }
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printInvalidInputFormat(){
+        System.out.println(INVALID_INPUT_FORMAT);
+    }
+
+    public void printCommonMappings(String university1, String university2, Set<String> commonCourseCodes,
+                                    List<String> uni1Modules, List<String> uni2Modules){
+        System.out.println(COMPARISON_RESULTS_HEADER + university1 + " and " + university2 + ":");
+
+        System.out.println("\n" + COMMON_MAPPINGS_HEADER);
+        System.out.println(LINE_SEPARATOR);
+        if (commonCourseCodes.isEmpty()) {
+            System.out.println(NO_COMMON_MAPPINGS);
+        } else {
+            for (String courseCode : commonCourseCodes) {
+                uni1Modules.stream()
+                        .filter(module -> module.startsWith(courseCode + " | "))
+                        .forEach(System.out::println);
+
+                uni2Modules.stream()
+                        .filter(module -> module.startsWith(courseCode + " | "))
+                        .forEach(System.out::println);
+            }
+        }
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printUniqueMappings(String university, List<String> modules, Set<String> uniqueCourseCodes){
+        System.out.println("\n" + UNIQUE_MAPPINGS_HEADER + university + ":");
+        System.out.println(LINE_SEPARATOR);
+        if (uniqueCourseCodes.isEmpty()) {
+            System.out.println(NO_UNIQUE_MAPPINGS + university);
+        } else {
+            for (String courseCode : uniqueCourseCodes) {
+                modules.stream()
+                        .filter(module -> module.startsWith(courseCode + " | "))
+                        .forEach(System.out::println);
+            }
+        }
         System.out.println(LINE_SEPARATOR);
     }
 }
