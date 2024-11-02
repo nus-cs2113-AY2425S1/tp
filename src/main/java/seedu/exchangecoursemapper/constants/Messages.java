@@ -1,6 +1,5 @@
 package seedu.exchangecoursemapper.constants;
 
-import java.security.PublicKey;
 
 public class Messages {
     /* For UI layout */
