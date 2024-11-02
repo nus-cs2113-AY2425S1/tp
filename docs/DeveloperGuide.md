@@ -101,7 +101,7 @@ of command functionalities
     - Defines the primary action performed by the command (E.g. add new recipe to `recipeList` for `AddRecipeCommand`)
 
 Shown below is a class diagram detailing the interaction between the parent `Command` class and it's child classes:
-![commandClasses.png](img/ClassDiagrams/commandsClassDiagram.png)
+![commandClasses.png](img/ClassDiagrams/commandsShortClassDiagram.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -131,7 +131,7 @@ The AddRecipeCommand class adds a newly created Recipe object to the currentReci
 Shown below is a sequence diagram detailing how a new recipe is added using the AddRecipeCommand object,
 starting from parsing the user input to the addition of the recipe to the recipeList object,
 to finally printing the "recipe added" message to the User on the CLI:
-![AddRecipes.png](img/SequenceDiagrams/AddRecipesSequenceDiagram.png)
+![AddCommand.png](img/SequenceDiagrams/AddRecipesSequenceDiagram.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -153,7 +153,7 @@ The remaining private methods represent separated cases for different commands.
 
 Shown below is a sequence diagram detailing how the Parser class interprets the user's CLI input
 and returns the appropriate command object containing the user's input parameters.
-![Parser.parseCommand.png](img/SequenceDiagrams/Parser.parseCommand.png)
+![parseCommandShort.png](img/SequenceDiagrams/parseCommandShortSequenceDiagram.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -173,7 +173,7 @@ The Storage class
   - The following Sequence diagram shows how the loadRecipes() method in the Storage class
     loads in past saved recipes from the .txt file when the app is first launched
 
-![loadRecipesSequenceDiagram.png](img/SequenceDiagrams/loadRecipesSequenceDiagram.png)
+![loadRecipes.png](img/SequenceDiagrams/loadRecipesSequenceDiagram.png)
 
 (Note: The lifelines of objects cannot be hidden after the X in the PlantUML software used to make this class diagram)
 
@@ -210,11 +210,11 @@ and recommend random recipes that closely match the criteria.
 ## Non-Functional Requirements
 
 1. Should work on any Windows, MacOS or Linux computers as long as Java 17 is installed
-2. Ease in moving data between different devices
-   - As just 2x .txt files need to be moved over
-3. Ease in searching, finding and sorting recipes
-   - Due to extensive ability to search for matching recipes by name, ingredients or steps
-   - And ability to sort by name or by time
+2. Should be easy to move data between different devices
+   - Only 2x .txt files need to be moved over
+3. Should be easy to search, find and sort recipes in the list
+   - There is the extensive ability to search for matching recipes by name, ingredients or steps
+   - There is also the ability to sort recipes by name or by time taken
 
 ## Glossary
 
