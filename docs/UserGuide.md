@@ -4,7 +4,7 @@
 
 Introducing ExchangeCourseMapper, the perfect assistant in your planning for your SEP in Oceania!
 
-Using ExchangeCourseMapper, you can plan your course mapping by listing the universities of interest, 
+Using ExchangeCourseMapper, you can search and plan your course mapping by listing the universities of interest, 
 along with the specific courses and subject codes offered by each school. You can quickly filter by NUS-coded modules 
 or by partner universities (PU) when you want to view the relevant options. For any course mappings you are interested in,
 you can save it in the Personal Tracker provided by ExchangeCourseMapper!
@@ -160,6 +160,23 @@ Expected Output:
 Please provide a valid index of the course plan you would like to delete.
 ```
 
+### List out all the possible schools from the options `list schools`
+List out all the schools users could possibly go for their SEP
+
+Format: `list schools`
+
+Expected Output:
+```
+-----------------------------------------------------
+The University of Melbourne
+The Australian National University
+Victoria University of Wellington
+The University of Western Australia
+-----------------------------------------------------
+```
+
+
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
@@ -171,11 +188,3 @@ Please provide a valid index of the course plan you would like to delete.
 {Give a 'cheat sheet' of commands here}
 
 * Add todo `todo n/TODO_NAME d/DEADLINE`
-
-For Louis to do for the UG: 
-
-cp ps from Docs
-{TODO: Obtain Contacts}
-{TODO: List schools}
-{TODO: Commands}
-{TODO: Miscellaneous}
