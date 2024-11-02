@@ -260,13 +260,13 @@ Below is the sequence diagram for when the user calls the `load` command.
 
 <u>Overview</u>
 
-The `CategoryFacade` class serves as a higher-level interface that simplifies the interaction with multiple category-related classes (`CategoryTracker`, and `CategoryFilter`). It coordinates the handling of category data and filtering operations, providing a unified API for the rest of the application.
+The `CategoryFacade` class serves as an interface that simplifies the interaction with various category-related classes (`CategoryTracker` and `CategoryFilter`), providing a unified API for the rest of the application (namely the `Command` classes).
 
 The `CategoryTracker` class manages a collection of Category-`CategoryData` pairs. It allows for the addition, editing and deletion of category-related information.
 
 The `CategoryData` class contains category-related information, namely the cumulative expenditure (the sum of all prices of expenses with that category) and the spending limits for that category. 
 
-The `CategoryFilter` class is responsible for filtering categories based on various criteria, such as those nearing but no yet exceeded their spending limits or those that have exceeded their spending limits. 
+The `CategoryFilter` class is responsible for filtering categories based on various criteria.
 
 <u>Methods</u>
 
