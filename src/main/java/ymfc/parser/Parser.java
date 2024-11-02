@@ -1,17 +1,6 @@
 package ymfc.parser;
 
-import ymfc.commands.Command;
-import ymfc.commands.AddRecipeCommand;
-import ymfc.commands.AddIngredientCommand;
-import ymfc.commands.ByeCommand;
-import ymfc.commands.DeleteCommand;
-import ymfc.commands.EditCommand;
-import ymfc.commands.FindCommand;
-import ymfc.commands.HelpCommand;
-import ymfc.commands.ListCommand;
-import ymfc.commands.ListIngredientsCommand;
-import ymfc.commands.SortCommand;
-import ymfc.commands.FindIngredCommand;
+import ymfc.commands.*;
 
 import ymfc.exception.EmptyListException;
 import ymfc.exception.InvalidArgumentException;
@@ -63,6 +52,11 @@ public final class Parser {
                 throw new EmptyListException("You can't remove something from nothing!");
             }
             return getDeleteCommand(args);
+        case "deleteI":
+            if (numIngredients <= 0) {
+                throw new EmptyListException("You can't remove something from nothing!");
+            }
+            return getDeleteIngredientCommand(args);
         case "listR":
             if (numRecipes <= 0) {
                 throw new EmptyListException("Your recipe list is empty!");
@@ -190,6 +184,19 @@ public final class Parser {
         }
         String name = m.group("name").trim().substring(2);
         return new DeleteCommand(name);
+    }
+
+    private static DeleteIngredientCommand getDeleteIngredientCommand(String args) throws InvalidArgumentException {
+        final Pattern deleteIngredientCommandFormat =
+                Pattern.compile("(?<name>[nN]/[^/]+)");
+        String input = args.trim();
+        Matcher m = deleteIngredientCommandFormat.matcher(input);
+        if (!m.matches()) {
+            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n"
+                    + DeleteIngredientCommand.USAGE_EXAMPLE);
+        }
+        String name = m.group("name").trim().substring(2);
+        return new DeleteIngredientCommand(name);
     }
 
     private static SortCommand getSortCommand(String args) throws InvalidArgumentException {
