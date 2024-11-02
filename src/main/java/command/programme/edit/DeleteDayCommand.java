@@ -17,16 +17,16 @@ import java.util.logging.Level;
  * </p>
  */
 public class DeleteDayCommand extends EditCommand {
-    public static final String SUCCESS_MESSAGE_FORMAT = "Deleted day: %s%n";
+    public static final String SUCCESS_MESSAGE_FORMAT = "Deleted day: %n%s%n";
 
     /**
      * Constructs a DeleteDayCommand with the specified programme index and day ID.
      *
      * @param programmeIndex the index of the programme from which the day will be deleted
-     * @param dayId the ID of the day to be deleted from the programme
+     * @param dayIndex the ID of the day to be deleted from the programme
      */
-    public DeleteDayCommand(int programmeIndex, int dayId) {
-        super(programmeIndex, dayId);
+    public DeleteDayCommand(int programmeIndex, int dayIndex) {
+        super(programmeIndex, dayIndex);
     }
 
     /**

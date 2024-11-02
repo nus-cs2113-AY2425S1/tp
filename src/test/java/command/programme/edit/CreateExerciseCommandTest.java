@@ -57,7 +57,7 @@ class CreateExerciseCommandTest {
 
     // Edge case for the constructor: Negative day ID
     @Test
-    void constructor_throwsAssertionErrorIfDayIdIsNegative() {
+    void constructor_throwsAssertionErrorIfdayIndexIsNegative() {
         assertThrows(AssertionError.class, () ->
                 new CreateExerciseCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID, exercise)
         );
@@ -98,7 +98,7 @@ class CreateExerciseCommandTest {
 
     // Edge case for the execute method: Nonexistent day ID within an existing programme
     @Test
-    void execute_throwsIndexOutOfBoundsIfDayIdDoesNotExist() {
+    void execute_throwsIndexOutOfBoundsIfdayIndexDoesNotExist() {
         CreateExerciseCommand invalidCommand = new CreateExerciseCommand(
                 VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID, exercise
         );

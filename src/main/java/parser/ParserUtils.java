@@ -146,9 +146,9 @@ public class ParserUtils {
      * @throws IllegalArgumentException if the date format is invalid.
      */
     public static LocalDate parseDate(String dateString) {
-        if (dateString == null) {
+        if (dateString == null || dateString.trim().isEmpty()) {
             LocalDate today = LocalDate.now();
-            logger.log(Level.INFO, "Date string is null. Returning current date: {0}", today);
+            logger.log(Level.INFO, "Date string is null/empty. Returning current date: {0}", today);
             return today;
         }
 

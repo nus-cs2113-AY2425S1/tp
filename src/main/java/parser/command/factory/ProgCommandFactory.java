@@ -309,6 +309,8 @@ public class ProgCommandFactory {
      * @throws IllegalArgumentException If required flags are missing.
      */
     private EditExerciseCommand prepareEditExerciseCommand(FlagParser flagParser) {
+        assert flagParser == null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(DAY_FLAG);
         String editString = flagParser.getStringByFlag("/u");
 
@@ -334,6 +336,8 @@ public class ProgCommandFactory {
      * @throws IllegalArgumentException If required flags are missing.
      */
     private CreateExerciseCommand prepareCreateExerciseCommand(FlagParser flagParser) {
+        assert flagParser == null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(DAY_FLAG);
         String exerciseString = flagParser.getStringByFlag(ADD_EXERCISE_FLAG);
         return new CreateExerciseCommand(
@@ -352,6 +356,8 @@ public class ProgCommandFactory {
      * @throws IllegalArgumentException If required flags are missing.
      */
     private DeleteExerciseCommand prepareDeleteExerciseCommand(FlagParser flagParser) {
+        assert flagParser == null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(DAY_FLAG, REMOVE_EXERCISE_FLAG);
         return new DeleteExerciseCommand(
                 flagParser.getIndexByFlag(PROGRAMME_FLAG),
@@ -368,6 +374,8 @@ public class ProgCommandFactory {
      * @return A {@link CreateDayCommand} object to create a new day.
      */
     private CreateDayCommand prepareCreateDayCommand(FlagParser flagParser) {
+        assert flagParser == null: "flagParser must not be null";
+
         String dayString = flagParser.getStringByFlag(ADD_DAY_FLAG);
         return new CreateDayCommand(
                 flagParser.getIndexByFlag(PROGRAMME_FLAG),
@@ -384,6 +392,8 @@ public class ProgCommandFactory {
      * @throws IllegalArgumentException If required flags are missing.
      */
     private DeleteDayCommand prepareDeleteDayCommand(FlagParser flagParser) {
+        assert flagParser == null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(REMOVE_DAY_FLAG);
         return new DeleteDayCommand(
                 flagParser.getIndexByFlag(PROGRAMME_FLAG),
