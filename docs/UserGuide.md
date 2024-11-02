@@ -1,12 +1,12 @@
 # User Guide
 
 ## Outline
-- [Product Desciption](#product-description)
+- [Product Description](#product-description)
 - [Quick Start](#quick-start)
 - [Features](#features)
   - [Add Command: `add`](#add-command-add)
   - [Update Command: `update`](#update-command-update)
-  - [Remove Command: `remove`]()
+  - [Remove Command: `remove`](#remove-command-remove)
   - [Sort Command: `sort`](#sort-command-sort)
   - [Filter Command: `filter`](#filter-command-filter)
   - [Delete Command: `delete`](#delete-command-delete)
@@ -58,31 +58,41 @@ Each internship is assigned a unique ID, serving as the reference for functions 
 - `from` and `to` are optional and will be replaced with `01/01` when left empty.
 
 **Example Input 1:**
-`add -name Software Engineer Intern -company Google`
+`add -role Software Engineer Intern -company Google`
 
 **Example Output 1:**
 ```
-ID: 01
+__________________________________________________
+__________________________________________________
+Internship added:
+ID: 1	Status: Application Pending
 Role: Software Engineer Intern
 Company: Google
 Duration: 01/01 to 01/01
-Skills: Not Stated
+Skills: No Skills Entered 
 Deadlines:
-    No deadlines set.  
+	No deadlines set.
+__________________________________________________
+__________________________________________________  
 ```
 
 **Example Input 2:**
-`add -name Embedded Software Engineer Intern -company Continental -from 05/25 -to 08/25`
+`add -role Embedded Software Engineer Intern -company Continental -from 05/25 -to 08/25`
 
 **Example Output 2:**
 ```
-ID: 02
+__________________________________________________
+__________________________________________________
+Internship added:
+ID: 2	Status: Application Pending
 Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/25 to 08/25
-Skills: Not Stated
+Skills: No Skills Entered 
 Deadlines:
-    No deadlines set.
+	No deadlines set.
+__________________________________________________
+__________________________________________________
 ```
 
 ## Update Command: `update`
@@ -112,37 +122,60 @@ Valid Statuses for `status` flag:<br>
 `update 02 -status application completed`
 
 ```
-ID: 02                                       Status
-Role: Embedded Software Engineer Intern      application completed
+__________________________________________________
+__________________________________________________
+status updated: application completed
+__________________________________________________
+Internship updated:
+ID: 2	Status: Application Completed
+Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/25 to 08/25
-Skills: Not Stated
+Skills: No Skills Entered 
 Deadlines:
-    No deadlines set.
+	No deadlines set.
+__________________________________________________
+__________________________________________________
 ```
 
-`update 02 -company Venti`
+`update 02 -company Venti -deadline Interview Round 1 03/02/25`
 
 ```
-ID: 02                                       Status
-Role: Embedded Software Engineer Intern      application completed
+__________________________________________________
+__________________________________________________
+company updated: Venti
+deadline updated: Interview Round 1 03/02/25
+__________________________________________________
+Internship updated:
+ID: 2	Status: Application Completed
+Role: Embedded Software Engineer Intern
 Company: Venti
 Duration: 05/25 to 08/25
-Skills: Not Stated
+Skills: No Skills Entered 
 Deadlines:
-    No deadlines set.
+	Interview Round 1: 03/02/25
+__________________________________________________
+__________________________________________________
 ```
 
 `update 02 -from 04/25 -skills Python`
 
 ```
-ID: 02                                       Status
-Role: Embedded Software Engineer Intern      application completed
+__________________________________________________
+__________________________________________________
+from updated: 04/25
+skills updated: Python
+__________________________________________________
+Internship updated:
+ID: 2	Status: Application Completed
+Role: Embedded Software Engineer Intern
 Company: Venti
 Duration: 04/25 to 08/25
-Skills: Python
+Skills: Python 
 Deadlines:
-    No deadlines set.
+	Interview Round 1: 03/02/25
+__________________________________________________
+__________________________________________________
 ```
 
 ## Remove Command: `remove`
@@ -158,7 +191,45 @@ Valid Fields:
 
 **Examples:**
 
-`remove`
+`remove 02 -skills Python`
+
+```
+__________________________________________________
+__________________________________________________
+skills removed: Python
+__________________________________________________
+Internship updated:
+ID: 2	Status: Application Completed
+Role: Embedded Software Engineer Intern
+Company: Venti
+Duration: 04/25 to 08/25
+Skills: No Skills Entered 
+Deadlines:
+	Interview Round 1: 03/02/25
+__________________________________________________
+__________________________________________________
+```
+
+`remove 02 -deadline Interview Round 1 -deadline Interview Round 2`
+
+```
+__________________________________________________
+__________________________________________________
+deadline: Interview Round 2 is not found
+__________________________________________________
+deadline removed: Interview Round 1
+__________________________________________________
+Internship updated:
+ID: 2	Status: Application Completed
+Role: Embedded Software Engineer Intern
+Company: Venti
+Duration: 04/25 to 08/25
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
 
 
 ## Sort Command: `sort`
