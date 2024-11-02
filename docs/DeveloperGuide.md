@@ -47,6 +47,7 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Date and Time Handling](#date-and-time-handling)
 - [Exceptions and Logging](#exceptions-and-logging)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
+- [Category Tracker and Category Data]()
 
 ### Architecture
 A high-level overview of the system is shown in the Architecture Diagram below.
@@ -143,6 +144,8 @@ The CSV file format was used to allow expenses to be easily exported/ imported t
 In the future, if the state expands to be greater than an ExpenseList, it would be better for a separate class to be
 created for solely handling Storage. 
 
+The list of categories in ExpenseList and the corresponding spending limit set for each of those categories can also be saved to storage.
+
 ### Expense and Expense List
 
 <u>Overview</u>
@@ -169,7 +172,7 @@ The `ExpenseList` class has the following key methods:
 The setters in `Expense` class checks for null and blank.
 The `Expense` constructors also do, as they use those setters.
 
-The nontrivial methods in `ExpenseList` class contain some sort of exception handling. 
+The `ExpenseList` class contains exception handling when attempting to edit or delete an expense that is not in the list.
 
 <u>Implementation Details</u>
 
@@ -250,6 +253,47 @@ Below is the UML class diagram for `RecurringExpense` and `RecurringExpenseList`
 Below is the sequence diagram for when the user calls the `load` command.
 
 ![RecurringExpenseLoadFromCsvSequence.png](diagrams%2Fimages%2FRecurringExpenseLoadFromCsvSequence.png "UML Sequence Diagram for calling load command")
+
+
+
+### Category Tracker and Category Data
+
+<u>Overview</u>
+
+The `CategoryData` class contains category-related information, namely the cumulative expenditure (the sum of all prices of expenses with that category) and the spending limits for that category. 
+
+The `CategoryTracker` class manages a collection of Category-`CategoryData` pairs. It allows for the addition, editing and deletion of category-related information.
+
+<u>Methods</u>
+
+The `CategoryData` class has no notable methods.
+
+The `CategoryTracker` class has the following key methods: 
+
+|     Method     |                                                            Description                                                            |
+|:--------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
+|  addCategory   | Adds a new category to the tracker. If already in the tracker, then the total expenditure for that category is increased instead. |
+| deleteCategory |    Decreases total expenditure of a category. If that total drops to zero or below, the category is removed from the tracker.     |
+|  editCategory  |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed.                   |
+
+After the user adds or edits an `Expense`, it alerts the user if the spending limit is approached or exceeded for that `Expenses`'s category.
+
+<u>Design Considerations</u>
+
+The setters in `CategoryData` checks for null inputs.
+The `CategoryData` constructors also do, as they use those setters.
+
+The `CategoryTracker` class contains exception handling when attempting to edit or delete a category that is not in the tracker.
+
+The `CategoryTracker` class uses a hashmap to store `CategoryData` objects, providing quick access and updating of total expenses.
+
+<u>Implementation Details</u>
+
+The following diagram is a UML class diagram for `CategoryData` and `CategoryTracker`:
+
+![CategoryDataAndCategoryTracker.png]([CategoryDataAndCategoryTracker.puml](diagrams%2Fplantuml%2FCategoryDataAndCategoryTracker.puml))
+
+
 
 ### Exceptions and Logging
 
