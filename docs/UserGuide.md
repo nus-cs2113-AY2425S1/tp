@@ -415,21 +415,9 @@ Skills: Not Stated
 
 ## Help Command: `help`
 
-Shows the commands available for the user.
-Describes the available functions and inputs that are needed
-Other basic commands.
+Shows the commands available for the user and the inputs required.
 
-**Format:** `/help`
-
-**Example Output**
-
-```
-    add -name {Role name} -company {Company name}: Adds internship to the list of internships currently being tracked by the user.
-
-
-    update {ID} {-field} {updated information}: Adds information to the field of the entry tagged to the ID.
-    Eg. update 02 -status application completed
-```
+**Format:** `help`
 
 
 ## Exit Command: `exit`
@@ -443,16 +431,18 @@ Terminates the program.
 ## Invalid Inputs
 Shows whenever an incomplete or invalid search call is performed. Output also shows what corrective action can be taken.
 
-Example Output:
-Please include a duration if you are using the -duration flag!
-Eg. Update 02 -duration /from 04/25
+Examples:
 
-Please include specific skills if you are using the -skills flag!
+`add -company`
 
-I do not understand what flag you are using, type /help to get a list of valid commands.
-
-
-
+```
+__________________________________________________
+__________________________________________________
+Company not specified.
+Role not specified.
+__________________________________________________
+__________________________________________________
+```
 
 
 
@@ -460,7 +450,7 @@ I do not understand what flag you are using, type /help to get a list of valid c
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: Copy the `.jar` file and 
+**A**: Locate the `/data/` directory, in the same directory as your `.jar` file. Copy this `/data/` directory to the second computer and store it in the same directory as the `.jar` file.
 
 ## Command Summary
 
