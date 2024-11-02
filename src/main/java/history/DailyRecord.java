@@ -1,4 +1,4 @@
-// @@author andreusxcarvalho
+// @@author BevLow
 
 package history;
 
@@ -16,13 +16,18 @@ public class DailyRecord {
     private final Water water;
 
     public DailyRecord() {
-        day = new Day("Empty Day"); //This will be replaced when a Day is recorded
         this.mealList = new MealList();
         this.water = new Water();
     }
 
     public Day getDayFromRecord() {
         return day;
+    }
+
+    public Day deleteDayFromRecord() {
+        Day deleted = this.day;
+        this.day = null;
+        return deleted;
     }
 
     public MealList getMealList() {
@@ -34,7 +39,7 @@ public class DailyRecord {
     }
 
     public void logDay(Day newDay) { //this replaces any current day recorded
-        assert day != null : "day must not be null";
+        assert newDay != null : "day must not be null";
 
         this.day = newDay;
         logger.info("Day updated: " + day);
@@ -87,11 +92,12 @@ public class DailyRecord {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
-        int caloriesBurnt = day.getTotalCaloriesBurnt();
+        int caloriesBurnt = 0;
         int caloriesGained = getCaloriesFromMeals();
 
         result.append("Day: \n");
         if (day != null && day.getExercisesCount() > 0) {
+            caloriesBurnt = day.getTotalCaloriesBurnt();
             result.append(day.toString()).append("\n");
             result.append("Total Calories burnt: ").append(caloriesBurnt).append(" kcal\n\n");
         } else {
