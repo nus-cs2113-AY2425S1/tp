@@ -47,7 +47,7 @@ MediTask is a desktop application designed to help nurses efficiently manage and
 ## Features
 
 {: .important }
->:information_source: Notes about the command format:
+> ℹ️ Notes about the command format:
 >
 >- Extraneous parameters for commands that do not take in parameters (such as `help`, `list` and `exit`) will be ignored. e.g. if the command specifies `help 123`, it will be interpreted as help.
 >
@@ -187,7 +187,7 @@ MediTask data is saved in the hard disk automatically after any command that cha
 MediTask data is saved as a JSON file [JAR file location]/data/hospital_data.json. Advanced users are welcome to update data directly by editing that data file.
 
 {: .warning }
-> :exclamation: Caution: If your changes to the data file makes its format invalid, MediTask will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+> ⚠️ Caution: If your changes to the data file makes its format invalid, MediTask will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 > Furthermore, certain edits can cause the MediTask to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 ## FAQ
