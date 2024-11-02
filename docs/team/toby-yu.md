@@ -11,6 +11,7 @@ By using this tool, the user can:
 - **Track Application Status**: Users can save the current status of their application (e.g., not applied, applied, interview scheduled, offer received) and update it as the application progresses.
 - **Edit and Manage Internships**: Users can edit saved internships, modify statuses, update deadlines, or remove outdated internships from the list.
 - **Filter Internships by Key Criteria**: The user can filter internships by relevant skills, application status, or upcoming deadlines.
+-  **Sort Internships by Key Criteria**: Users can sort tracked internships by relevant criteria such as required skills, application status, or upcoming deadlines, helping them prioritize applications.
 - **Monitor Deadlines Easily**: The tool helps users stay on top of their internship deadlines with sorting features and deadline alerts.
 
 ---
@@ -38,7 +39,7 @@ By using this tool, the user can:
 
 ### Testing
 - Wrote comprehensive JUnit tests for the `SortCommand` to ensure accuracy across different sorting criteria and edge cases
-- Achieved 95% coverage for the `SortCommand` class.
+- Achieved 60% coverage for the `SortCommand` class.
 
 ### Documentation Contributions
 
@@ -67,3 +68,9 @@ By using this tool, the user can:
 
 ### SortCommand Class
 The `SortCommand` class allows users to sort the list of internships based on specific criteria such as role, or skills alphabetically and duration, deadline. Here's an excerpt of the sequence diagram for the `SortCommand`
+
+### Value Proposition
+The value proposition parts shows the problem we solve in this project
+
+### User Stories
+Mention the situation and reason why user need such functions or design.
