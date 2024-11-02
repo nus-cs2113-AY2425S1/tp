@@ -46,16 +46,16 @@ MediTask is a desktop application designed to help nurses efficiently manage and
 
 ## Features
 
-{: .important-title }
-> :information_source: Notes about the command format:
+{: .important }
+>:information_source: Notes about the command format:
 >
-> - Extraneous parameters for commands that do not take in parameters (such as `help`, `list` and `exit`) will be ignored. e.g. if the command specifies `help 123`, it will be interpreted as help.
+>- Extraneous parameters for commands that do not take in parameters (such as `help`, `list` and `exit`) will be ignored. e.g. if the command specifies `help 123`, it will be interpreted as help.
 >
-> - Parameters cannot be in any order. e.g. if the command specifies `add Alice /tag HighPriority`, `/tag HighPriority add Alice` is not acceptable.
+>- Parameters cannot be in any order. e.g. if the command specifies `add Alice /tag HighPriority`, `/tag HighPriority add Alice` is not acceptable.
 >
-> - Ensure that Patient is selected before adding a task. e.g. `select 1` before adding a task or simply look above the prompt `Patient: <patient_name>`.
+>- Ensure that Patient is selected before adding a task. e.g. `select 1` before adding a task or simply look above the prompt `Patient: <patient_name>`.
 >
-> - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+>- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 ### Viewing Help: `help`
 
@@ -85,8 +85,8 @@ Removes a patient from the hospital’s patient list by their index.
 **Format**: `delete INDEX`
 
 {: .highlight }
-> **Note**:
-> - The index refers to the position of the patient in the list and must be a valid, positive integer.
+>**Note**:
+>- The index refers to the position of the patient in the list and must be a valid, positive integer.
 
 **Examples**:
 - `delete 1`
