@@ -23,7 +23,7 @@ This product aims to streamline the tracking of internship applications for the 
 
 **By using this tool, the user can:**
 
-**Store Important seedu.duke.Internship Information:** Users can input and store key details such as the role, company, duration, required skills, application deadlines, and any additional notes.
+**Store Important Internship Information:** Users can input and store key details such as the role, company, duration, required skills, application deadlines, and any additional notes.
 
 **Track Application Status:** Users can save the current status of their application (e.g., not applied, applied, interview scheduled, offer received) and update it as the application progresses.
 
@@ -51,8 +51,6 @@ This product aims to streamline the tracking of internship applications for the 
 Adds a new internship entry to the list of internships currently being tracked by the user. 
 Each internship is assigned a unique ID, serving as the reference for functions that call specific Internship entries
 (e.g. `update`, `delete`).
-
-
 
 **Format:** `add -role {Role name} -company {Company name} -from {date} -to {date}`
 
