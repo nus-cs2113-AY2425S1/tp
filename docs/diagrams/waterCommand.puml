@@ -1,0 +1,30 @@
+@startuml
+abstract class Command {
+    + {abstract} execute(ProgrammeList, History): CommandResult
+}
+
+abstract class WaterCommand {
+    # date: LocalDate
+    + execute(ProgrammeList, History): CommandResult
+}
+
+class AddWaterCommand {
+    - amount: int
+    + execute(ProgrammeList, History): CommandResult
+}
+
+class DeleteWaterCommand {
+    - waterIndex: int
+    + execute(ProgrammeList, History): CommandResult
+}
+
+class ViewWaterCommand {
+    + execute(ProgrammeList, History): CommandResult
+}
+
+Command <|-- WaterCommand
+WaterCommand <|-- AddWaterCommand
+WaterCommand <|-- DeleteWaterCommand
+WaterCommand <|-- ViewWaterCommand
+
+@enduml
