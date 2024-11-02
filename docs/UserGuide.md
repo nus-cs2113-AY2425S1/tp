@@ -10,6 +10,7 @@
   - [Sort Command: `sort`](#sort-command-sort)
   - [Filter Command: `filter`](#filter-command-filter)
   - [Delete Command: `delete`](#delete-command-delete)
+  - [Calendar Command: `calendar`](#calendar-command-calendar)
   - [Help Command: `help`](#help-command-help)
   - [Exit Command: `exit`](#exit-command-exit)
   - [Invalid Inputs](#invalid-inputs)
@@ -100,12 +101,13 @@ __________________________________________________
 Updates any field of an Internship entry.
 
 Valid Fields:<br>
-- `role`
-- `company`
-- `status`
-- `from`
-- `to`
-- `skills`
+- `role`: Provide the new role
+- `company`: Provide the new company
+- `status`: Provide the new status, according to the list below
+- `from`: Provide the new start date in `MM/yy` format
+- `to`: Provide the new end date in `MM/yy` format
+- `skills`: Provide a new skill
+- `deadline`: Provide the description and deadline (in `dd/MM/yy` format) with a whitespace between them
 
 Valid Statuses for `status` flag:<br>
 - Application Pending (Default Status)
@@ -113,6 +115,7 @@ Valid Statuses for `status` flag:<br>
 - Accepted
 - Rejected
 
+For multiple uses of flags that are not `skills` or `deadline` only the last occurrence of the flag is used.
 
 **Format:**
 `update {ID} -{field} {updated information}`
@@ -183,8 +186,8 @@ __________________________________________________
 Removes specific values from fields of an Internship entry.
 
 Valid Fields:
-- `skills`
-- `deadline`
+- `skills`: Provide a skill listed in `skills` (case-sensitive)
+- `deadline`: Provide the description of the deadline to be removed (case-insensitive)
 
 **Format:**
 `remove {ID} -{field} {value}`
