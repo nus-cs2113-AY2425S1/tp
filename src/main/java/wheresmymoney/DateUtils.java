@@ -17,7 +17,7 @@ import wheresmymoney.exception.WheresMyMoneyException;
  */
 public class DateUtils {
     public static final String DATE_FORMAT = "dd-MM-yyyy";
-    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
     
     public static boolean isInDateFormat(String dateAsString) throws WheresMyMoneyException {
         if (dateAsString == null)  {

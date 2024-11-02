@@ -1,6 +1,17 @@
 package wheresmymoney;
 
-import wheresmymoney.command.*;
+
+import wheresmymoney.command.AddCommand;
+import wheresmymoney.command.ByeCommand;
+import wheresmymoney.command.Command;
+import wheresmymoney.command.DeleteCommand;
+import wheresmymoney.command.EditCommand;
+import wheresmymoney.command.HelpCommand;
+import wheresmymoney.command.ListCommand;
+import wheresmymoney.command.StatsCommand;
+import wheresmymoney.command.LoadCommand;
+import wheresmymoney.command.SaveCommand;
+import wheresmymoney.command.SetCommand;
 import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -16,6 +27,7 @@ public class Parser {
     public static final String ARGUMENT_DATE_ADDED = "dateAdded";
     public static final String ARGUMENT_FROM = "from";
     public static final String ARGUMENT_TO = "to";
+    public static final String ARGUMENT_LIMIT = "limit";
 
     /**
      * Gets command from words.
@@ -132,6 +144,8 @@ public class Parser {
             return new SaveCommand(argumentsMap);
         case "help":
             return new HelpCommand(argumentsMap);
+        case "set":
+            return new SetCommand(argumentsMap);
         default:
             throw new InvalidInputException("No valid command given!");
         }

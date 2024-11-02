@@ -61,6 +61,14 @@ Format:  `delete [INDEX]`
 
 Examples: `delete 2`
 
+### Set a spending limit for a category `set`
+
+Use the set command to set a spending limit for a category.
+
+Format: `set [/category CATEGORY] [/limit LIMIT]`
+
+Examples: `set /category food /limit 100` 
+
 ### Get a list of all your transactions: `list`
 
 Use the list command to display expenses and gives the sum of all expenses listed
@@ -119,12 +127,13 @@ eg. `<command> /argument \/value` -> `argument`: `/value`
 ## Command Summary
 
 
-| Command     | Format                                                                | 
-|-------------|-----------------------------------------------------------------------|
-| Add Expense | `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]`  |
- | Edit Expense | `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]` |
-| Delete Expense | `delete [INDEX]` |
-| List all Expenses |  `list [/category CATEGORY]` | 
-| Viewing help | `help` |
-| Saves expenses to a file | `save` |
-| Loads expenses from a file | `load` |
+| Command                           | Format                                                                      | 
+|-----------------------------------|-----------------------------------------------------------------------------|
+| Add Expense                       | `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]`        |
+ | Edit Expense                      | `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]` |
+| Delete Expense                    | `delete [INDEX]`                                                            |
+| List all Expenses                 | `list [/category CATEGORY]`                                                 | 
+| Set spending limit for a category | `set [/category CATEGORY] [/limit LIMIT]`                                   |
+| Viewing help                      | `help`                                                                      |
+| Saves expenses to a file          | `save`                                                                      |
+| Loads expenses from a file        | `load`                                                                      |

@@ -1,5 +1,6 @@
 package wheresmymoney.command;
 
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
@@ -65,7 +66,7 @@ public class ListCommand extends Command {
      * Display list expenses as requested by user
      */
     @Override
-    public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade) throws WheresMyMoneyException {
         ArrayList<Expense> expensesToDisplay = getExpensesToDisplay(expenseList);
         displayExpenses(expensesToDisplay, expenseList);
     }
