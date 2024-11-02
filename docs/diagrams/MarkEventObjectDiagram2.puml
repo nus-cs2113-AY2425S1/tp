@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+hide circle
+skinparam ClassAttributeIconSize 0
+
+class ":EventList"
+
+class ":Event" {
+    name = "Event 1"
+    isDone = true
+}
+
+":EventList" -> ":Event" : event
+
+@enduml

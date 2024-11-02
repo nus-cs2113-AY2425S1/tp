@@ -1,8 +1,10 @@
 @startuml
 !include style.puml
+hide circle
+skinparam ClassAttributeIconSize 0
+
 allowmixing
 
-package storage {
     class Storage {
         - filePath : String
         + Storage(filePath : String)
@@ -11,13 +13,12 @@ package storage {
         - isValidFilePath(String filePath) : boolean
         - isTestEnvironment() : boolean
     }
-}
 
-rectangle Main
-rectangle Event EVENT_COLOUR
-rectangle Parser PARSER_COLOUR
+class Main
+class EventList
+class Parser
 
-Storage ..> Event : saves/loads >
+Storage ..> EventList : saves/loads >
 Parser <.. Storage : < adopts
 Main .> Storage : invokes >
 

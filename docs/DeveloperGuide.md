@@ -58,7 +58,7 @@ The `UI` does the following:
 
 <img src = "images/StorageClassDiagram.png">
 
-The `Storage` component comprises a Storage class, as shown in the above **Component Diagram**.
+The `Storage` component comprises a Storage class, as shown in the above **Class Diagram**.
 
 The `Storage` does the following:
 
@@ -145,6 +145,7 @@ The above input is parsed into `Command`s by the `Parser` by the `Parser#parseCo
 The `Parser#parseXYZCommand` operation then does the following:
 * If `XYZCommand` has multiple possible operations, the `Parser`, based on the value of the first command flag, constructs the
 `XYZCommand` object for one of these operations. An example from `parseAddCommand` (where `commandFlag` is the first flag) is shown in the code snippet below:
+
 ```
 switch (commandFlag) {
     case EVENT_FLAG:
@@ -166,7 +167,7 @@ The interactions between classes for the parsing of a command with parameters is
 
 <img src="images/CommandParsingSequenceDiagram.png">
 
-### List feature[TBD]
+### List feature
 
 The `list` feature allows users to view all scheduled events in the system. 
 It is implemented in the `ListCommand` class, which extends the base `Command` class and formats the output to display all events. 
@@ -210,7 +211,7 @@ The feature has three operations, namely:
 These three operations are invoked from `AddCommand` through `AddCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-In `AddCommand#execute()`, one operation is selected based on the values stored in several members of the `RemoveCommand` instance, namely:
+In `AddCommand#execute()`, one operation is selected based on the values stored in several members of the `AddCommand` instance, namely:
 
 * `participantName`, the name of the `Participant` to be added to the specified `Event`,
 * `itemName`, the name of the `Item` to be added to the specified `Event`,
@@ -272,15 +273,7 @@ The feature has three operations, namely:
 These three operations are invoked from `RemoveCommand` through `RemoveCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-In `RemoveCommand#execute()`, one operation is selected based on the values stored in several members of the `RemoveCommand` instance, namely:
-
-* `participantName`, the name of the `Participant` to be removed from the specified `Event`,
-* `itemName`, the name of the `Item` to be removed from the specified `Event`,
-* `eventName`, the name of the specified `Event`.
-
-The operation selection logic is similar to that for `AddCommand#execute()`, with `EventList#RemoveParticipantFromEvent()`,  
-`EventList#RemoveItemFromEvent()`, and `EventList#RemoveEvent()` in place of `EventList#AddParticipantToEvent()`,  
-`EventList#AddItemToEvent()`, and `EventList#AddEvent()`. For more details, refer to _Add feature_.
+In `RemoveCommand#execute()`, one operation is selected using a logic similar to that for `AddCommand#execute()`. For more details, refer to _Add feature_.
 
 The interactions between components during the operation selection in `RemoveCommand#execute()` are show in the **Sequence Diagram** below:
 
@@ -300,7 +293,7 @@ The interactions between components during the above operation are shown in the 
 <img src = "images/RemoveParticipantSequenceDiagram.png">
 <img src = "images/RemoveParticipantEventSequenceDiagram.png">
 
-The operation logic for `EventList#RemoveItemFromEvent()` is similar to that for `EventList#RemoveParticipantFromEvent()`, and will not be elaborated upon.
+The operation logic for `EventList#RemoveItemFromEvent()` is similar to that for `EventList#RemoveParticipantFromEvent()`.
 
 The `EventList#RemoveEvent()` operation works as follows:
 
@@ -315,9 +308,7 @@ The interactions between components during the above operation are shown in the 
 
 Upon the execution of the above operations, the output message is set based on the operation's return value, to indicate if the removal was successful.
 
-The values of `participantName`, `itemName`, and `eventName` are set through the participant, item and event parameters in the `remove` command respectively.  
-
-The `Parser` assigns the values of the parameters directly to their respective members, depending on the first command flag in the user input in the same way as for the `add` command.
+The members in `RemoveCommand`  are similar to those in `AddCommand`, and are set from parameters in the `remove` command by the `Parser` in a similar way.
 
 ### View feature
 
@@ -350,34 +341,64 @@ to false if the type parameter value is `item`, and treats any other value enter
 
 ### Mark/unmark feature
 
-The `mark/unmark` feature allows users to mark events as done or not done. The feature comprises `MarkEventCommand`, which 
-extends `Command`. This class performs one operation, which marks a specified event as done or not done.
+The `mark/unmark` feature allows users to mark and unmark `Event`s in the `EventList`, or `Participant`s or `Item`s stored in an `Event`. The feature comprises the abstract `MarkCommand` class,
+which extends `Command`, and three child classes, `MarkEventCommand`, `MarkParticipantCommand`, and `MarkItemCommand`.
 
-The above operation is implemented as `MarkEventCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+The feature comprises three operations, namely:
+* `MarkEventCommand#execute`, which marks an event as done or not done.
+* `MarkParticipantCommand#execute`, which marks a participant as present or absent.
+* `MarkItemCommand#execute`, which marks an item as accounted or unaccounted.
+
+The above three operations override the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
 #### Feature implementation
 
-Given below is an example usage scenario for the mark/unmark mechanism, and how it behaves at each step.
+Given below is an example usage scenario for `MarkEventCommand#execute`, and how it behaves at each step.
 
-1. The user adds an event `Event 1` to the event list. The mark status for `Event 1` is initially `false` or not done.
+1. The user adds an event `Event 1` to the event list. The mark status for `Event 1` is initially `false` or not done, as shown in the **Object Diagram** below:
+
+<img src = "images/MarkEventObjectDiagram1.png">
 
 2. The user enters the command `mark -e Event 1 -s done` to mark `Event 1` as done. `MarkEventCommand` calls `MarkEventCommand#execute`,
-in which it gets the event `Event 1` from the event list, and sets its mark status to `true` or done.
+in which it gets the event `Event 1` from the event list, and sets its mark status to `true` or done, as shown in the **Object Diagram** below.
+
+<img src = "images/MarkEventObjectDiagram2.png">
 
 3. The user then enters the command `mark -e Event 1 -s undone` to mark `Event 1` as not done. The `MarkEventCommand` again calls `MarkEventCommand#execute`,
 in which it gets the event `Event 1` from the event list, and sets its mark status to `false` or not done.
 
-The interactions between components during the execution of the `mark` command are show in the **Sequence Diagram** below:
+The interactions between components during the execution of `MarkEventCommand#execute` are shown in the **Sequence Diagram** below:
 
 <img src = "images/MarkEventSequenceDiagram.png">
 
 Upon execution of the command, the output message of `MarkEventCommand` is set to inform the user if the event has been marked done or not done,
 or if the operation was unsuccessful (e.g. if the event specified is not present in the event list).
 
-The user determines if an event is to be marked done or not done through the status parameter (indicated by the `-s` flag) in the `mark` command.
-The `Parser` then checks this parameter for two values, `done` or `undone`, and constructs the `MarkEventCommand` accordingly.
-If the parameter value is `done`, the `MarkEventCommand` will set the event as done, and will do otherwise if the parameter value is `undone`.
+The `MarkParticipantCommand#execute` operation is executed as follows:
+
+1. `EventList` gets the `Event` with the specified event name from its list of `Event`s.
+2. The selected `Event` then gets the `Participant` with the specified participant name from its list of `Participant`s.
+3. The selected `Participant` is marked present or absent.
+
+The operation would be unsuccessful if the specified `Event` in `EventList`, or the specified `Participant` in `Event` is not found.
+
+The interactions between components during the execution of `MarkParticipantCommand#execute` are shown in the **Sequence Diagram** below:
+
+<img src = "images/MarkParticipantSequenceDiagram.png">
+
+The output message of `MarkParticipantCommand` is set in a similar way as `MarkEventCommand`.
+
+The operation logic for `MarkItemCommand#execute()` is similar to that for `MarkParticipantCommand#execute()`.
+
+The user determines if the `MarkCommand` is to mark or to unmark through the status parameter (indicated by the `-s` flag) in the `mark` command.
+The `Parser` then checks this parameter for two possible values and constructs the `MarkCommand` object accordingly.
+
+These two values are as follows:
+* For `MarkEventCommand`, `done` to mark, `undone` to unmark,
+* For `MarkParticipantCommand`, `present` to mark, `absent` to unmark,
+* For `MarkItemCommand`, `accounted` to mark, `unaccounted` to unmark.
+
 Any other values entered for the status parameter will be treated as invalid.
 
 ## Product scope
