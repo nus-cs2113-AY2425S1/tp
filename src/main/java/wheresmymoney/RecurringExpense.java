@@ -14,7 +14,7 @@ public class RecurringExpense extends Expense {
     }
 
     public RecurringExpense(Float price, String description, String category, 
-            LocalDate lastAddedDate, String frequency) throws WheresMyMoneyException{
+            String lastAddedDate, String frequency) throws WheresMyMoneyException{
         super(price, description, category, lastAddedDate);
         this.frequency = frequency;
     }

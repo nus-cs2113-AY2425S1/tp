@@ -38,14 +38,12 @@ public class AddCommand extends Command {
                 expenseList.addExpense(price, description, category);
                 categoryFacade.addCategory(category, price);
             } else if (isContainDateKey && this.isRecur()) {
-                String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE);
+                LocalDate lastAddedDate = DateUtils.stringToDate(argumentsMap.get(Parser.ARGUMENT_DATE));
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
                 recurringExpenseList.addRecurringExpense(price, description, category, lastAddedDate, frequency);
             } else {
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
                 recurringExpenseList.addRecurringExpense(price, description, category, frequency);
-            }
-        } catch(NullPointerException | NumberFormatException e) {
             }
         } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments");

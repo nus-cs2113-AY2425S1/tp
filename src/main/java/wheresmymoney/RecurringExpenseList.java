@@ -30,7 +30,7 @@ public class RecurringExpenseList extends ExpenseList {
     }
 
     /**
-     * Add a recurring expense to the end of the list
+     * Add a recurring expense with a specified dateto the end of the list
      *
      * @param price New price of expense
      * @param description New description of expense
@@ -43,11 +43,38 @@ public class RecurringExpenseList extends ExpenseList {
         Logging.log(Level.INFO,
                 String.format("Adding recurring expense with parameters: %f, %s, %s, %s, %s", 
                 price, description, category, lastAddedDate, frequency));
-        RecurringExpense recurringExpense = new RecurringExpense(price, description, category, 
-                lastAddedDate, frequency);
-        assert (recurringExpense != null);
-        recurringExpenses.add(recurringExpense);
-        Logging.log(Level.INFO, "Successfully added recurring expense.");
+        try {
+            RecurringExpense recurringExpense = new RecurringExpense(price, description, category, 
+                    lastAddedDate, frequency);
+            assert (recurringExpense != null);
+            recurringExpenses.add(recurringExpense);
+            Logging.log(Level.INFO, "Successfully added recurring expense.");
+        } catch (WheresMyMoneyException e) {
+            
+        }
+    }
+
+    /**
+     * Add a recurring expense to the end of the list
+     *
+     * @param price New price of expense
+     * @param description New description of expense
+     * @param category New category of expense
+     * @param lastAddedDate Date of when the expense was last updated
+     * @param frequency Frequency of recurring expense
+     */
+    public void addRecurringExpense(Float price, String description, String category, String frequency) {
+        Logging.log(Level.INFO,
+                String.format("Adding recurring expense with parameters: %f, %s, %s, %s, %s", 
+                price, description, category, frequency));
+        try {
+            RecurringExpense recurringExpense = new RecurringExpense(price, description, category, frequency);
+            assert (recurringExpense != null);
+            recurringExpenses.add(recurringExpense);
+            Logging.log(Level.INFO, "Successfully added recurring expense.");
+        } catch (WheresMyMoneyException e) {
+            Ui.displayMessage(e.getMessage());
+        }
     }
 
     /**
@@ -61,7 +88,7 @@ public class RecurringExpenseList extends ExpenseList {
      * @param frequency New frequency of recurring expense
      */
     public void editRecurringExpense(int index, Float price, String description, String category, 
-            String lastAddedDate, String frequency) throws WheresMyMoneyException {
+            LocalDate lastAddedDate, String frequency) throws WheresMyMoneyException {
         try {
             Logging.log(Level.INFO, "Attempting to edit recurring expense.");
             RecurringExpense recurringExpense = recurringExpenses.get(index);
@@ -130,10 +157,10 @@ public class RecurringExpenseList extends ExpenseList {
             LocalDate currentDate = LocalDate.now();
             for (RecurringExpense recurringExpense: recurringExpenses) {
                 String frequency = recurringExpense.getFrequency();
-                LocalDate lastAddedDate = LocalDate.parse(recurringExpense.getlastAddedDate());
+                LocalDate lastAddedDate = recurringExpense.getlastAddedDate();
                 switch (frequency) {
                 case "daily":
-                    
+                    addDailyExpense(recurringExpense, lastAddedDate, currentDate);
                     break;
                 case "weekly":
                     break;
@@ -177,7 +204,7 @@ public class RecurringExpenseList extends ExpenseList {
                 recurringExpense.getCategory(),
                 recurringExpense.getDescription(),
                 recurringExpense.getPrice().toString(),
-                recurringExpense.getlastAddedDate(),
+                DateUtils.dateFormatToString(recurringExpense.getlastAddedDate()),
                 recurringExpense.getFrequency()
             };
             writer.writeNext(row);

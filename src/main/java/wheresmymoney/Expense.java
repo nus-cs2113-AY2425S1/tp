@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.time.LocalDate;
-
 /**
  * The {@code Expense} class represents an individual expense
  * with a price, description, category and date added.
@@ -33,7 +31,7 @@ public class Expense {
         assert (!description.isBlank()) && (!category.isBlank());
     }
 
-    public Expense(Float price, String description, String category, LocalDate dateAdded)
+    public Expense(Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
         if (!DateUtils.isInDateFormat(dateAdded)){
             throw new WheresMyMoneyException("Invalid date format" + DateUtils.DATE_FORMAT);

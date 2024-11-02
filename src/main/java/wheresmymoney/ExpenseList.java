@@ -81,6 +81,7 @@ public class ExpenseList {
         expenses.add(expense);
         Logging.log(Level.INFO, "Successfully added expense.");
     }
+
     /**
      * Add an expense with a specified date to the end of the list
      *
@@ -88,7 +89,7 @@ public class ExpenseList {
      * @param description New description of expense
      * @param category New category of expense
      */
-    public void addExpense(Float price, String description, String category, LocalDate dateAdded)
+    public void addExpense(Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
         Logging.log(Level.INFO,
                 String.format("Adding expense with parameters: %f, %s, %s, %s",
