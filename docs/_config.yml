@@ -31,9 +31,9 @@ search:
 
 
 # callouts
-callouts:
-  warning:
-    title: Warning
-    color: orange
+# callouts:
+#   warning:
+#     title: Warning
+#     color: orange
 
-callouts_opacity: 0.3
+# callouts_opacity: 0.3
