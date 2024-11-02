@@ -5,6 +5,7 @@ import command.CommandResult;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+// @@author nirala-ts
 /**
  * Represents the user interface for the task management system.
  * This class handles user input and output, providing methods to read commands,
@@ -20,7 +21,7 @@ public class Ui {
     private static final String LOGO = """
                   ____         __  __ ____            _     _      \n
                  |  _ \\       / _|/ _|  _ \\          | |   | |     \n
-                 | |_) |_   _| |_| |_| |_) |_   _  __| | __| |_   _\n
+                 | |_) |_   _| |_| |_| |_) |_   _  __| | __| |_   _ \n
                  |  _ <| | | |  _|  _|  _ <| | | |/ _` |/ _` | | | |
                  | |_) | |_| | | | | | |_) | |_| | (_| | (_| | |_| |
                  |____/ \\__,_|_| |_| |____/ \\__,_|\\__,_|\\__,_|\\__, |
@@ -35,6 +36,7 @@ public class Ui {
     private final Scanner in;
     private final PrintStream out;
 
+    // @@author nirala-ts
     /**
      * Constructs an Ui object, initializing the input and output streams.
      */
@@ -43,6 +45,7 @@ public class Ui {
         out = new PrintStream(System.out);
     }
 
+    // @@author nirala-ts
     /**
      * Reads a command input from the user.
      *
@@ -52,6 +55,7 @@ public class Ui {
         return in.nextLine();
     }
 
+    // @@author nirala-ts
     /**
      * Displays a line for visual separation in the output.
      */
@@ -60,6 +64,7 @@ public class Ui {
     }
 
 
+    // @@author nirala-ts
     /**
      * Displays a message to the user.
      *
@@ -73,6 +78,7 @@ public class Ui {
         showLine();
     }
 
+    // @@author nirala-ts
     /**
      * Displays an error message to the user.
      *
@@ -88,10 +94,12 @@ public class Ui {
      * @param result the CommandResult to be displayed
      */
 
+    // @@author nirala-ts
     public void showMessage(CommandResult result){
         showMessage(result.getMessage());
     }
 
+    // @@author nirala-ts
     /**
      * Displays a welcome message to the user.
      */
@@ -101,11 +109,12 @@ public class Ui {
         out.println(PROMPT);
     }
 
+    // @@author nirala-ts
     /**
      * Displays a farewell message to the user.
      */
     public void showFarewell() {
         out.println(FAREWELL);
     }
-
 }
+
