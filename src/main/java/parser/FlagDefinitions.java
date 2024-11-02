@@ -1,3 +1,4 @@
+//@@author nirala-ts
 package parser;
 
 public class FlagDefinitions {
@@ -19,9 +20,7 @@ public class FlagDefinitions {
     public static final String ADD_DAY_FLAG = "/ad";
     public static final String REMOVE_DAY_FLAG = "/xd";
 
-
     public static final String MEAL_INDEX = "/m";
-  
     public static final String WATER_INDEX = "/w";
     public static final String VOLUME_FLAG = "/v";
 }

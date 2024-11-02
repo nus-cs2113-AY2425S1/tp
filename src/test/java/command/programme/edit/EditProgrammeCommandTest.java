@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class EditCommandTest {
+class EditProgrammeCommandTest {
 
     private static final int VALID_PROGRAMME_ID = 0;
     private static final int INVALID_PROGRAMME_ID = -2;
@@ -17,38 +17,38 @@ class EditCommandTest {
     // Test for the constructor with valid parameters
     @Test
     void constructor_withValidParameters_initializesCorrectly() {
-        assertDoesNotThrow(() -> new TestEditCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID));
+        assertDoesNotThrow(() -> new TestEditProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID));
     }
 
     // Edge case for constructor with exerciseIndex: Negative exercise ID
     @Test
     void constructor_withNegativeexerciseIndex_throwsAssertionError() {
         assertThrows(AssertionError.class, () ->
-                new TestEditCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID)
+                new TestEditProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID)
         );
     }
 
     // Happy path for constructor without exerciseIndex
     @Test
     void constructor_withoutexerciseIndex_initializesCorrectly() {
-        assertDoesNotThrow(() -> new TestEditCommand(VALID_PROGRAMME_ID, VALID_DAY_ID));
+        assertDoesNotThrow(() -> new TestEditProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID));
     }
 
     // Edge case for constructor without exerciseIndex: Invalid day ID
     @Test
     void constructor_withNegativedayIndex_throwsAssertionError() {
-        assertThrows(AssertionError.class, () -> new TestEditCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID));
+        assertThrows(AssertionError.class, () -> new TestEditProgrammeCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID));
     }
 
     // Happy path for constructor with only programme index
     @Test
     void constructor_withProgrammeIndex_initializesCorrectly() {
-        assertDoesNotThrow(() -> new TestEditCommand(VALID_PROGRAMME_ID));
+        assertDoesNotThrow(() -> new TestEditProgrammeCommand(VALID_PROGRAMME_ID));
     }
 
     // Edge case for constructor with programme index: Negative programme index
     @Test
     void constructor_withNegativeProgrammeIndex_throwsAssertionError() {
-        assertThrows(AssertionError.class, () -> new TestEditCommand(INVALID_PROGRAMME_ID));
+        assertThrows(AssertionError.class, () -> new TestEditProgrammeCommand(INVALID_PROGRAMME_ID));
     }
 }

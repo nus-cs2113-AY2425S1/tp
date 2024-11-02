@@ -1,7 +1,7 @@
 package parser.command.factory;
 
 import command.Command;
-import command.programme.LogCommand;
+import command.programme.LogProgrammeCommand;
 import org.junit.jupiter.api.Test;
 import parser.Parser;
 
@@ -17,13 +17,13 @@ class ProgCommandFactoryTest {
 
     @Test
     public void testPrepareLogCommandValidArguments() {
-        LogCommand expectedCommand = new LogCommand(1, 2,
+        LogProgrammeCommand expectedCommand = new LogProgrammeCommand(1, 2,
                 LocalDate.of(2023, 12, 21));
 
         String fullCommand = "prog log /p 2 /d 3 /t 21-12-2023";
         Command command = parser.parse(fullCommand);
-        assertInstanceOf(LogCommand.class, command, "Expected LogCommand instance.");
-        LogCommand actualCommand = (LogCommand) command;
+        assertInstanceOf(LogProgrammeCommand.class, command, "Expected LogCommand instance.");
+        LogProgrammeCommand actualCommand = (LogProgrammeCommand) command;
 
         assertEquals(expectedCommand, actualCommand,
                 "Expected command to be equal to the parsed LogCommand.");
@@ -67,12 +67,12 @@ class ProgCommandFactoryTest {
     @Test
     public void testPrepareLogCommandFutureDate() {
         String fullCommand = "prog log /p 2 /d 3 /t 21-12-2030";
-        LogCommand expectedCommand = new LogCommand(1, 2,
+        LogProgrammeCommand expectedCommand = new LogProgrammeCommand(1, 2,
                 LocalDate.of(2030, 12, 21));
 
         Command command = parser.parse(fullCommand);
-        assertInstanceOf(LogCommand.class, command, "Expected LogCommand instance.");
-        LogCommand actualCommand = (LogCommand) command;
+        assertInstanceOf(LogProgrammeCommand.class, command, "Expected LogCommand instance.");
+        LogProgrammeCommand actualCommand = (LogProgrammeCommand) command;
 
         assertEquals(expectedCommand, actualCommand, "Expected command to be equal " +
                 "to the parsed LogCommand with a future date.");

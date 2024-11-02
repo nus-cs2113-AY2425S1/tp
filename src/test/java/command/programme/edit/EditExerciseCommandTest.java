@@ -32,7 +32,7 @@ class EditExerciseCommandTest {
     private ProgrammeList programmeList;
     private ExerciseUpdate update;
     private Exercise expectedExercise;
-    private EditExerciseCommand command;
+    private EditExerciseProgrammeCommand command;
 
     @BeforeEach
     void setUp() {
@@ -51,14 +51,14 @@ class EditExerciseCommandTest {
         programmeList.insertProgramme("Mock Programme", days);
 
         // Initialize EditExerciseCommand with valid IDs and the updated exercise
-        command = new EditExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID, update);
+        command = new EditExerciseProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID, update);
     }
 
     // Test for constructor with valid inputs
     @Test
     void constructor_initializesWithValidParameters() {
         assertDoesNotThrow(() ->
-                new EditExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID, update)
+                new EditExerciseProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID, update)
         );
     }
 
@@ -66,7 +66,7 @@ class EditExerciseCommandTest {
     @Test
     void constructor_throwsAssertionErrorIfProgrammeIdIsNegative() {
         assertThrows(AssertionError.class, () ->
-                new EditExerciseCommand(INVALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID, update)
+                new EditExerciseProgrammeCommand(INVALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID, update)
         );
     }
 
@@ -74,7 +74,7 @@ class EditExerciseCommandTest {
     @Test
     void constructor_throwsAssertionErrorIfdayIndexIsNegative() {
         assertThrows(AssertionError.class, () ->
-                new EditExerciseCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID, VALID_EXERCISE_ID, update)
+                new EditExerciseProgrammeCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID, VALID_EXERCISE_ID, update)
         );
     }
 
@@ -82,7 +82,7 @@ class EditExerciseCommandTest {
     @Test
     void constructor_throwsAssertionErrorIfexerciseIndexIsNegative() {
         assertThrows(AssertionError.class, () ->
-                new EditExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID, update)
+                new EditExerciseProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID, update)
         );
     }
 
@@ -90,7 +90,7 @@ class EditExerciseCommandTest {
     @Test
     void constructor_throwsAssertionErrorIfUpdatedExerciseIsNull() {
         assertThrows(AssertionError.class, () ->
-                new EditExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID, null)
+                new EditExerciseProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID, null)
         );
     }
 
@@ -98,7 +98,7 @@ class EditExerciseCommandTest {
     @Test
     void execute_updatesExerciseInDay_returnsSuccessMessage() {
         String expectedMessage = String.format(
-                EditExerciseCommand.SUCCESS_MESSAGE_FORMAT, expectedExercise
+                EditExerciseProgrammeCommand.SUCCESS_MESSAGE_FORMAT, expectedExercise
         );
 
         CommandResult expectedResult = new CommandResult(expectedMessage);
@@ -116,7 +116,7 @@ class EditExerciseCommandTest {
     // Edge case for execute: Nonexistent programme ID
     @Test
     void execute_throwsIndexOutOfBoundsIfProgrammeIdDoesNotExist() {
-        EditExerciseCommand invalidCommand = new EditExerciseCommand(
+        EditExerciseProgrammeCommand invalidCommand = new EditExerciseProgrammeCommand(
                 OUT_OF_RANGE_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID, update
         );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
@@ -125,7 +125,7 @@ class EditExerciseCommandTest {
     // Edge case for execute: Nonexistent day ID within existing programme
     @Test
     void execute_throwsIndexOutOfBoundsIfdayIndexDoesNotExist() {
-        EditExerciseCommand invalidCommand = new EditExerciseCommand(
+        EditExerciseProgrammeCommand invalidCommand = new EditExerciseProgrammeCommand(
                 VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID, VALID_EXERCISE_ID, update
         );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
@@ -134,7 +134,7 @@ class EditExerciseCommandTest {
     // Edge case for execute: Nonexistent exercise ID within existing day
     @Test
     void execute_handlesNonexistentexerciseIndexGracefully() {
-        EditExerciseCommand invalidCommand = new EditExerciseCommand(
+        EditExerciseProgrammeCommand invalidCommand = new EditExerciseProgrammeCommand(
                 VALID_PROGRAMME_ID, VALID_DAY_ID, OUT_OF_RANGE_EXERCISE_ID, update
         );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));

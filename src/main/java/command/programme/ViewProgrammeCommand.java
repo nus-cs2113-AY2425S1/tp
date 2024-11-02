@@ -9,10 +9,10 @@ import history.History;
 import java.util.logging.Level;
 
 
-public class ViewCommand extends ProgrammeCommand {
+public class ViewProgrammeCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "view";
 
-    public ViewCommand(int programmeIndex) {
+    public ViewProgrammeCommand(int programmeIndex) {
         super(programmeIndex);
     }
 

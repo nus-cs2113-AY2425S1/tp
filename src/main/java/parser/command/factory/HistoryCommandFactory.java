@@ -1,3 +1,5 @@
+// @@author andreusxcarvalho
+
 package parser.command.factory;
 
 import command.Command;
@@ -53,6 +55,18 @@ public class HistoryCommandFactory {
         return new ListPersonalBestsCommand();
     }
 
+    // @@author TVageesan
+    /**
+     * Prepares a command to delete a record for a specific date.
+     * <p>
+     * Parses the provided date string and creates a {@code DeleteRecordCommand}
+     * with the parsed date as the target date for deletion.
+     * </p>
+     *
+     * @param argumentString the string containing the date to be deleted
+     * @return a {@code DeleteRecordCommand} configured with the parsed date
+     * @throws IllegalArgumentException if the date cannot be parsed from {@code argumentString}
+     */
     private Command prepareDeleteRecordCommand(String argumentString) {
         LocalDate toDelete = parseDate(argumentString);
         return new DeleteRecordCommand(toDelete);

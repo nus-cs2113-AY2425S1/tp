@@ -1,5 +1,4 @@
 // @@author TVageesan
-
 package command.programme.edit;
 
 import command.CommandResult;
@@ -16,7 +15,7 @@ import java.util.logging.Level;
  * specified programme, identified by its index.
  * </p>
  */
-public class DeleteDayCommand extends EditCommand {
+public class DeleteDayProgrammeCommand extends EditProgrammeCommand {
     public static final String SUCCESS_MESSAGE_FORMAT = "Deleted day: %n%s%n";
 
     /**
@@ -25,7 +24,7 @@ public class DeleteDayCommand extends EditCommand {
      * @param programmeIndex the index of the programme from which the day will be deleted
      * @param dayIndex the ID of the day to be deleted from the programme
      */
-    public DeleteDayCommand(int programmeIndex, int dayIndex) {
+    public DeleteDayProgrammeCommand(int programmeIndex, int dayIndex) {
         super(programmeIndex, dayIndex);
     }
 

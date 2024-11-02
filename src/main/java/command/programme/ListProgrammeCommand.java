@@ -6,7 +6,7 @@ import history.History;
 
 import java.util.logging.Level;
 
-public class ListCommand extends ProgrammeCommand {
+public class ListProgrammeCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "list";
     public static final String SUCCESS_MESSAGE_FORMAT = "Listing programmes: %n%s";
 

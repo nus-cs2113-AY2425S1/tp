@@ -1,5 +1,4 @@
 // @@author TVageesan
-
 package command.programme.edit;
 
 import command.CommandResult;
@@ -17,7 +16,7 @@ import java.util.logging.Level;
  * within a specified programme.
  * </p>
  */
-public class CreateExerciseCommand  extends EditCommand {
+public class CreateExerciseProgrammeCommand extends EditProgrammeCommand {
     public static final String SUCCESS_MESSAGE_FORMAT = "Created new exercise: %n%s%n";
     private final Exercise createdExercise;
 
@@ -28,7 +27,7 @@ public class CreateExerciseCommand  extends EditCommand {
      * @param dayIndex the ID of the day within the programme where the exercise will be inserted
      * @param createdExercise the exercise to be created and added to the day
      */
-    public CreateExerciseCommand(int programmeIndex, int dayIndex, Exercise createdExercise) {
+    public CreateExerciseProgrammeCommand(int programmeIndex, int dayIndex, Exercise createdExercise) {
         super(programmeIndex,dayIndex);
         this.createdExercise = createdExercise;
         assert createdExercise != null : "created exercise must not be null";

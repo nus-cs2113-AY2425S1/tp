@@ -7,10 +7,10 @@ import programme.ProgrammeList;
 
 import java.util.logging.Level;
 
-public class DeleteCommand extends ProgrammeCommand {
+public class DeleteProgrammeCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "delete";
 
-    public DeleteCommand(int programmeIndex) {
+    public DeleteProgrammeCommand(int programmeIndex) {
         super(programmeIndex);
     }
 

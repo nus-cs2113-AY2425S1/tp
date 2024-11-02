@@ -1,3 +1,6 @@
+// @@author andreusxcarvalho
+
+
 package history;
 
 import programme.Exercise;
@@ -63,12 +66,25 @@ public class History {
         history.put(date, record);
     }
 
+    // @@author TVageesan
+    /**
+     * Deletes the daily record for a specified date.
+     * <p>
+     * Checks if a record exists in the {@code history} map for the given date.
+     * If present, removes the record and returns it. If not present, returns {@code null}.
+     * </p>
+     *
+     * @param date the date of the record to delete
+     * @return the deleted {@code DailyRecord} if it existed, or {@code null} if no record exists for the specified date
+     */
     public DailyRecord deleteRecord(LocalDate date) {
+        assert date != null : "Date must not be null";
         if (!history.containsKey(date)) {
             return null;
         }
         return history.remove(date);
     }
+    // @@author
 
     public int getHistorySize() {
         return history.size();

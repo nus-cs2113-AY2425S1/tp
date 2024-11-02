@@ -27,5 +27,3 @@ class ExerciseTest {
         exercise.updateExercise(update);
     }
 }
-
-

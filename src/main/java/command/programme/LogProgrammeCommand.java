@@ -10,13 +10,13 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.logging.Level;
 
-public class LogCommand extends ProgrammeCommand {
+public class LogProgrammeCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "log";
 
     private final LocalDate date;
 
 
-    public LogCommand(int programmeIndex, int dayIndex, LocalDate date){
+    public LogProgrammeCommand(int programmeIndex, int dayIndex, LocalDate date){
         super(programmeIndex, dayIndex);
 
         assert dayIndex >= 0 : "Day index must be non-negative";
@@ -55,7 +55,7 @@ public class LogCommand extends ProgrammeCommand {
             return true;
         }
 
-        if (!(o instanceof LogCommand that)){
+        if (!(o instanceof LogProgrammeCommand that)){
             return false;
         }
 
