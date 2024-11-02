@@ -1,3 +1,5 @@
+// @@author Atulteja
+
 package programme;
 
 import java.util.ArrayList;
@@ -84,10 +86,11 @@ public class ProgrammeList {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < programmeList.size(); i++) {
             Programme programme = programmeList.get(i);
+            str.append(i + 1).append(". ").append(programme.getProgrammeName());
             if (i == currentActiveProgramme) {
-                str.append("*Active* ");
+                str.append(" -- Active");
             }
-            str.append(programme).append("\n");
+            str.append("\n");
         }
         return str.toString();
     }

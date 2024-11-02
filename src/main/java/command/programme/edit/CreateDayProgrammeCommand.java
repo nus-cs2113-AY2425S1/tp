@@ -1,5 +1,4 @@
 // @@author TVageesan
-
 package command.programme.edit;
 
 import command.CommandResult;
@@ -13,7 +12,7 @@ import java.util.logging.Level;
  * Command to create a new day in a programme.
  * This command adds a new Day object to an existing programme identified by the programme ID.
  */
-public class CreateDayCommand extends EditCommand {
+public class CreateDayProgrammeCommand extends EditProgrammeCommand {
     public static final String SUCCESS_MESSAGE_FORMAT = "Created new day: %s%n";
     private final Day createdDay;
 
@@ -22,7 +21,7 @@ public class CreateDayCommand extends EditCommand {
      * @param programmeIndex The ID of the programme to add the day to
      * @param createdDay The Day object to be added to the programme
      */
-    public CreateDayCommand(int programmeIndex, Day createdDay) {
+    public CreateDayProgrammeCommand(int programmeIndex, Day createdDay) {
         super(programmeIndex);
         assert createdDay != null : "created day cannot be null";
         this.createdDay = createdDay;

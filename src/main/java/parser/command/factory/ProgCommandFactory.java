@@ -1,19 +1,20 @@
+// @@author nirala-ts
 package parser.command.factory;
 
 import command.Command;
 import command.InvalidCommand;
-import command.programme.CreateCommand;
-import command.programme.ViewCommand;
-import command.programme.edit.EditCommand;
-import command.programme.edit.EditExerciseCommand;
-import command.programme.edit.CreateExerciseCommand;
-import command.programme.edit.DeleteExerciseCommand;
-import command.programme.edit.CreateDayCommand;
-import command.programme.edit.DeleteDayCommand;
-import command.programme.ListCommand;
-import command.programme.StartCommand;
-import command.programme.DeleteCommand;
-import command.programme.LogCommand;
+import command.programme.CreateProgrammeCommand;
+import command.programme.ViewProgrammeCommand;
+import command.programme.edit.EditProgrammeCommand;
+import command.programme.edit.EditExerciseProgrammeCommand;
+import command.programme.edit.CreateExerciseProgrammeCommand;
+import command.programme.edit.DeleteExerciseProgrammeCommand;
+import command.programme.edit.CreateDayProgrammeCommand;
+import command.programme.edit.DeleteDayProgrammeCommand;
+import command.programme.ListProgrammeCommand;
+import command.programme.StartProgrammeCommand;
+import command.programme.DeleteProgrammeCommand;
+import command.programme.LogProgrammeCommand;
 
 import parser.FlagParser;
 import programme.Day;
@@ -87,23 +88,23 @@ public class ProgCommandFactory {
                 new Object[]{subCommandString, arguments});
 
         return switch (subCommandString) {
-        case CreateCommand.COMMAND_WORD -> prepareCreateCommand(arguments);
-        case ViewCommand.COMMAND_WORD -> prepareViewCommand(arguments);
-        case ListCommand.COMMAND_WORD -> new ListCommand();
-        case EditCommand.COMMAND_WORD -> prepareEditCommand(arguments);
-        case StartCommand.COMMAND_WORD -> prepareStartCommand(arguments);
-        case DeleteCommand.COMMAND_WORD ->  prepareDeleteCommand(arguments);
-        case LogCommand.COMMAND_WORD -> prepareLogCommand(arguments);
+        case CreateProgrammeCommand.COMMAND_WORD -> prepareCreateCommand(arguments);
+        case ViewProgrammeCommand.COMMAND_WORD -> prepareViewCommand(arguments);
+        case ListProgrammeCommand.COMMAND_WORD -> new ListProgrammeCommand();
+        case EditProgrammeCommand.COMMAND_WORD -> prepareEditCommand(arguments);
+        case StartProgrammeCommand.COMMAND_WORD -> prepareStartCommand(arguments);
+        case DeleteProgrammeCommand.COMMAND_WORD ->  prepareDeleteCommand(arguments);
+        case LogProgrammeCommand.COMMAND_WORD -> prepareLogCommand(arguments);
         default -> new InvalidCommand();
         };
     }
 
     /**
-     * Prepares and returns a {@link CreateCommand} to create a new program with a specified name and days.
+     * Prepares and returns a {@link CreateProgrammeCommand} to create a new program with a specified name and days.
      *
      * @author nirala-ts
      * @param argumentString The argument string containing program details, including days and exercises.
-     * @return A {@link CreateCommand} object that represents the request to create a new program.
+     * @return A {@link CreateProgrammeCommand} object that represents the request to create a new program.
      */
     private Command prepareCreateCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -126,74 +127,15 @@ public class ProgCommandFactory {
         }
 
         logger.log(Level.INFO, "Successfully prepared CreateCommand with programme: {0}", progName);
-        return new CreateCommand(progName, days);
+        return new CreateProgrammeCommand(progName, days);
     }
 
     /**
-     * Parses a day string to create a {@link Day} object with exercises.
-     *
-     * @author nirala-ts
-     * @param dayString The string containing the day's name and its exercises.
-     * @return A {@link Day} object populated with exercises for a program.
-     */
-    private  Day parseDay(String dayString) {
-        assert dayString != null : "Day string must not be null";
-
-        // Splits the argument by EXERCISE_FLAG to separate each exercise.
-        // The first element represents the exercise name.
-        String[] dayParts  = dayString.split(EXERCISE_FLAG);
-        String dayName = dayParts[0].trim();
-        if (dayName.isEmpty()) {
-            logger.log(Level.WARNING, "Day name is empty");
-            throw new IllegalArgumentException("Day name cannot be empty. Please enter a valid day name.");
-        }
-
-        Day day = new Day(dayName);
-
-        for (int j = 1; j < dayParts.length; j++) {
-            String exerciseString = dayParts[j].trim();
-            Exercise exercise = parseExercise(exerciseString);
-            day.insertExercise(exercise);
-        }
-
-        logger.log(Level.INFO, "Successfully parsed day name: {0}", dayName);
-        return day;
-    }
-
-    /**
-     * Parses an exercise string to create an {@link Exercise} object with required attributes.
-     *
-     * @author nirala-ts
-     * @param argumentString The string containing exercise details and flags.
-     * @return An {@link Exercise} object initialized with the specified attributes.
-     * @throws IllegalArgumentException If required flags are missing.
-     * */
-    private Exercise parseExercise(String argumentString) {
-        assert argumentString != null : "Argument string must not be null";
-
-        FlagParser flagParser = new FlagParser(argumentString);
-
-        // Ensures the exercise contains all necessary information before creating a new Exercise
-        flagParser.validateRequiredFlags(SETS_FLAG, REPS_FLAG, WEIGHT_FLAG, CALORIES_FLAG, NAME_FLAG);
-
-        int sets = flagParser.getIntegerByFlag(SETS_FLAG);
-        int reps = flagParser.getIntegerByFlag(REPS_FLAG);
-        int weight = flagParser.getIntegerByFlag(WEIGHT_FLAG);
-        int calories = flagParser.getIntegerByFlag(CALORIES_FLAG);
-        String name = flagParser.getStringByFlag(NAME_FLAG);
-
-        logger.log(Level.INFO, "Successfully parsed exercise details - Name: {0}, Sets: {1}, Reps: {2}, " +
-                        "Weight: {3}, Calories: {4}", new Object[]{name, sets, reps, weight, calories});
-
-        return new Exercise(sets, reps, weight, calories, name);
-    }
-
-    /**
-     * Prepares and returns a {@link ViewCommand} to view a specific program by its index.
+     * Prepares and returns a {@link ViewProgrammeCommand} to view a specific program by its index.
      *
      * @author nirala-ts
      * @param argumentString The string containing the program index to view.
-     * @return A {@link ViewCommand} initialized with the specified program index.
+     * @return A {@link ViewProgrammeCommand} initialized with the specified program index.
      */
     private Command prepareViewCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -201,15 +143,15 @@ public class ProgCommandFactory {
         int progIndex = parseIndex(argumentString);
 
         logger.log(Level.INFO, "Successfully prepared ViewCommand");
-        return new ViewCommand(progIndex);
+        return new ViewProgrammeCommand(progIndex);
     }
 
     /**
-     * Prepares and returns a {@link StartCommand} to activate a specific program by its index.
+     * Prepares and returns a {@link StartProgrammeCommand} to activate a specific program by its index.
      *
      * @author nirala-ts
      * @param argumentString The string containing the program index to start.
-     * @return A {@link StartCommand} initialized with the specified program index.
+     * @return A {@link StartProgrammeCommand} initialized with the specified program index.
      */
     private Command prepareStartCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -217,15 +159,15 @@ public class ProgCommandFactory {
         int progIndex = parseIndex(argumentString);
 
         logger.log(Level.INFO, "Successfully prepared StartCommand");
-        return new StartCommand(progIndex);
+        return new StartProgrammeCommand(progIndex);
     }
 
     /**
-     * Prepares and returns a {@link DeleteCommand} to remove a specific program by its index.
+     * Prepares and returns a {@link DeleteProgrammeCommand} to remove a specific program by its index.
      *
      * @author nirala-ts
      * @param argumentString The string containing the program index to delete.
-     * @return A {@link DeleteCommand} initialized with the specified program index.
+     * @return A {@link DeleteProgrammeCommand} initialized with the specified program index.
      */
     private Command prepareDeleteCommand(String argumentString){
         assert argumentString != null : "Argument string must not be null";
@@ -233,15 +175,15 @@ public class ProgCommandFactory {
         int progIndex = parseIndex(argumentString);
 
         logger.log(Level.INFO, "Successfully prepared DeleteCommand");
-        return new DeleteCommand(progIndex);
+        return new DeleteProgrammeCommand(progIndex);
     }
 
     /**
-     * Prepares and returns a {@link LogCommand} to log activity in a specific program on a particular date.
+     * Prepares and returns a {@link LogProgrammeCommand} to log activity in a specific program on a particular date.
      *
      * @author nirala-ts
      * @param argumentString The string containing flags for the date, program index, and day index.
-     * @return A {@link LogCommand} initialized with the specified date and indices.
+     * @return A {@link LogProgrammeCommand} initialized with the specified date and indices.
      * @throws IllegalArgumentException If required flags are missing.
      */
     private Command prepareLogCommand(String argumentString) {
@@ -256,22 +198,26 @@ public class ProgCommandFactory {
         logger.log(Level.INFO, "Successfully prepared LogCommand with Date: {0}, " +
                         "Programme index: {1}, Day index: {2}", new Object[]{progIndex, dayIndex, date});
 
-        return new LogCommand(progIndex, dayIndex, date);
+        return new LogProgrammeCommand(progIndex, dayIndex, date);
     }
 
+    // @@author TVageesan
+
     /**
-     * Prepares and returns an appropriate {@link EditCommand} based on the flags parsed
+     * Prepares and returns an appropriate {@link EditProgrammeCommand} based on the flags parsed
      * from the provided argument string.
      *
-     * @author TVageesan
      * @param argumentString A {@link String} containing arguments to parse.
-     * @return The specific {@link EditCommand} object that corresponds to the flag detected.
+     * @return The specific {@link EditProgrammeCommand} object that corresponds to the flag detected.
      * @throws IllegalArgumentException If no recognized edit command flag is present in the argument string.
      */
-    private EditCommand prepareEditCommand(String argumentString) {
+    private EditProgrammeCommand prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        // Parse by flags except for all exercise related flags - preserve exerciseString for later parsing as needed
+        /*
+         * Parse by flags except for all exercise related flags,
+         * preserving exercise arguments in one string for later parsing if needed
+         */
         FlagParser flagParser = new FlagParser (
                 argumentString,
                 NAME_FLAG, REPS_FLAG,SETS_FLAG,WEIGHT_FLAG,EXERCISE_FLAG,CALORIES_FLAG
@@ -301,22 +247,24 @@ public class ProgCommandFactory {
     }
 
     /**
-     * Creates and returns an {@link EditExerciseCommand} for updating an exercise in a program.
+     * Creates and returns an {@link EditExerciseProgrammeCommand} for updating an exercise in a program.
      *
      * @author TVageesan
      * @param flagParser A {@link FlagParser} containing parsed flags and arguments.
-     * @return An {@link EditExerciseCommand} object to edit an existing exercise.
+     * @return An {@link EditExerciseProgrammeCommand} object to edit an existing exercise.
      * @throws IllegalArgumentException If required flags are missing.
      */
-    private EditExerciseCommand prepareEditExerciseCommand(FlagParser flagParser) {
+    private EditExerciseProgrammeCommand prepareEditExerciseCommand(FlagParser flagParser) {
+        assert flagParser != null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(DAY_FLAG);
-        String editString = flagParser.getStringByFlag("/u");
+        String editString = flagParser.getStringByFlag(UPDATE_EXERCISE_FLAG);
 
         String[] editParts = splitArguments(editString);
         int exerciseIndex = parseIndex(editParts[0]);
         String exerciseString = editParts[1];
 
-        return new EditExerciseCommand(
+        return new EditExerciseProgrammeCommand(
             flagParser.getIndexByFlag(PROGRAMME_FLAG),
             flagParser.getIndexByFlag(DAY_FLAG),
             exerciseIndex,
@@ -324,19 +272,19 @@ public class ProgCommandFactory {
         );
     }
 
-
     /**
-     * Creates and returns a {@link CreateExerciseCommand} for adding a new exercise to a day in a program.
+     * Creates and returns a {@link CreateExerciseProgrammeCommand} for adding a new exercise to a day in a program.
      *
-     * @author TVageesan
      * @param flagParser A {@link FlagParser} containing parsed flags and arguments.
-     * @return A {@link CreateExerciseCommand} object to create a new exercise.
+     * @return A {@link CreateExerciseProgrammeCommand} object to create a new exercise.
      * @throws IllegalArgumentException If required flags are missing.
      */
-    private CreateExerciseCommand prepareCreateExerciseCommand(FlagParser flagParser) {
+    private CreateExerciseProgrammeCommand prepareCreateExerciseCommand(FlagParser flagParser) {
+        assert flagParser != null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(DAY_FLAG);
         String exerciseString = flagParser.getStringByFlag(ADD_EXERCISE_FLAG);
-        return new CreateExerciseCommand(
+        return new CreateExerciseProgrammeCommand(
             flagParser.getIndexByFlag(PROGRAMME_FLAG),
             flagParser.getIndexByFlag(DAY_FLAG),
             parseExercise(exerciseString)
@@ -344,16 +292,17 @@ public class ProgCommandFactory {
     }
 
     /**
-     * Creates and returns a {@link DeleteExerciseCommand} for removing an exercise from a day in a program.
+     * Creates and returns a {@link DeleteExerciseProgrammeCommand} for removing an exercise from a day in a program.
      *
-     * @author TVageesan
      * @param flagParser A {@link FlagParser} containing parsed flags and arguments.
-     * @return A {@link DeleteExerciseCommand} object to delete an existing exercise.
+     * @return A {@link DeleteExerciseProgrammeCommand} object to delete an existing exercise.
      * @throws IllegalArgumentException If required flags are missing.
      */
-    private DeleteExerciseCommand prepareDeleteExerciseCommand(FlagParser flagParser) {
+    private DeleteExerciseProgrammeCommand prepareDeleteExerciseCommand(FlagParser flagParser) {
+        assert flagParser != null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(DAY_FLAG, REMOVE_EXERCISE_FLAG);
-        return new DeleteExerciseCommand(
+        return new DeleteExerciseProgrammeCommand(
                 flagParser.getIndexByFlag(PROGRAMME_FLAG),
                 flagParser.getIndexByFlag(DAY_FLAG),
                 flagParser.getIndexByFlag(REMOVE_EXERCISE_FLAG)
@@ -361,37 +310,94 @@ public class ProgCommandFactory {
     }
 
     /**
-     * Creates and returns a {@link CreateDayCommand} for adding a new day to a program.
+     * Creates and returns a {@link CreateDayProgrammeCommand} for adding a new day to a program.
      *
-     * @author TVageesan
      * @param flagParser A {@link FlagParser} containing parsed flags and arguments.
-     * @return A {@link CreateDayCommand} object to create a new day.
+     * @return A {@link CreateDayProgrammeCommand} object to create a new day.
      */
-    private CreateDayCommand prepareCreateDayCommand(FlagParser flagParser) {
+    private CreateDayProgrammeCommand prepareCreateDayCommand(FlagParser flagParser) {
+        assert flagParser != null: "flagParser must not be null";
+
         String dayString = flagParser.getStringByFlag(ADD_DAY_FLAG);
-        return new CreateDayCommand(
+        return new CreateDayProgrammeCommand(
                 flagParser.getIndexByFlag(PROGRAMME_FLAG),
                 parseDay(dayString)
         );
     }
 
     /**
-     * Creates and returns a {@link DeleteDayCommand} for removing a day from a program.
+     * Creates and returns a {@link DeleteDayProgrammeCommand} for removing a day from a program.
      *
-     * @author TVageesan
      * @param flagParser A {@link FlagParser} containing parsed flags and arguments.
-     * @return A {@link DeleteDayCommand} object to delete an existing day.
+     * @return A {@link DeleteDayProgrammeCommand} object to delete an existing day.
      * @throws IllegalArgumentException If required flags are missing.
      */
-    private DeleteDayCommand prepareDeleteDayCommand(FlagParser flagParser) {
+    private DeleteDayProgrammeCommand prepareDeleteDayCommand(FlagParser flagParser) {
+        assert flagParser != null: "flagParser must not be null";
+
         flagParser.validateRequiredFlags(REMOVE_DAY_FLAG);
-        return new DeleteDayCommand(
+        return new DeleteDayProgrammeCommand(
                 flagParser.getIndexByFlag(PROGRAMME_FLAG),
                 flagParser.getIndexByFlag(REMOVE_DAY_FLAG)
         );
     }
 
-    // @@author TVageesan
+    /**
+     * Parses a string of day related arguments and returns a Day object.
+     *
+     * @param dayString the input string representing a day and its exercises, not null.
+     * @return a Day object representing the parsed day and its exercises.
+     * @throws IllegalArgumentException if there are missing arguments to create a day.
+     */
+    private  Day parseDay(String dayString) {
+        assert dayString != null : "Day string must not be null";
+
+        String[] dayParts  = dayString.split(EXERCISE_FLAG);
+        String dayName = dayParts[0].trim();
+        if (dayName.isEmpty()) {
+            throw new IllegalArgumentException("Day name cannot be empty. Please enter a valid day name.");
+        }
+
+        Day day = new Day(dayName);
+
+        for (int j = 1; j < dayParts.length; j++) {
+            String exerciseString = dayParts[j].trim();
+            Exercise exercise = parseExercise(exerciseString);
+            day.insertExercise(exercise);
+        }
+
+        logger.log(Level.INFO, "Parsed day successfully: {0}", dayName);
+        return day;
+    }
+
+    /**
+     * Parses an exercise string to create an {@link Exercise} object with required attributes.
+     *
+     * @author nirala-ts
+     * @param argumentString The string containing exercise details and flags.
+     * @return An {@link Exercise} object initialized with the specified attributes.
+     * @throws IllegalArgumentException If required flags are missing.
+     * */
+    private Exercise parseExercise(String argumentString) {
+        assert argumentString != null : "Argument string must not be null";
+
+        FlagParser flagParser = new FlagParser(argumentString);
+
+        // Ensures the exercise contains all necessary information before creating a new Exercise
+        flagParser.validateRequiredFlags(SETS_FLAG, REPS_FLAG, WEIGHT_FLAG, CALORIES_FLAG, NAME_FLAG);
+
+        int sets = flagParser.getIntegerByFlag(SETS_FLAG);
+        int reps = flagParser.getIntegerByFlag(REPS_FLAG);
+        int weight = flagParser.getIntegerByFlag(WEIGHT_FLAG);
+        int calories = flagParser.getIntegerByFlag(CALORIES_FLAG);
+        String name = flagParser.getStringByFlag(NAME_FLAG);
+
+        logger.log(Level.INFO, "Successfully parsed exercise details - Name: {0}, Sets: {1}, Reps: {2}, " +
+                "Weight: {3}, Calories: {4}", new Object[]{name, sets, reps, weight, calories});
+
+        return new Exercise(sets, reps, weight, calories, name);
+    }
+
     private ExerciseUpdate parseExerciseUpdate(String argumentString){
         assert argumentString != null : "Argument string must not be null";
 

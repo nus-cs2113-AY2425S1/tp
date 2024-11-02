@@ -38,9 +38,10 @@ activate Command
 BuffBuddy <-- Command
 
 BuffBuddy -> Command : execute()
-activate Model
+
 
 Command -> Model : interact with Model
+activate Model
 Command <-- Model: returned Data
 deactivate Model
 

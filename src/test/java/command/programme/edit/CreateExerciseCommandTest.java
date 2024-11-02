@@ -25,7 +25,7 @@ class CreateExerciseCommandTest {
 
     private ProgrammeList programmeList;
     private Exercise exercise;
-    private CreateExerciseCommand command;
+    private CreateExerciseProgrammeCommand command;
 
     @BeforeEach
     void setUp() {
@@ -38,20 +38,20 @@ class CreateExerciseCommandTest {
 
         // Initialize the Exercise and CreateExerciseCommand with valid IDs
         exercise = new Exercise(3, 10, 100, 200, "Deadlift");
-        command = new CreateExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, exercise);
+        command = new CreateExerciseProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, exercise);
     }
 
     // Test for the constructor with valid programme and day IDs and exercise
     @Test
     void constructor_initializesWithValidParameters() {
-        assertDoesNotThrow(() -> new CreateExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, exercise));
+        assertDoesNotThrow(() -> new CreateExerciseProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, exercise));
     }
 
     // Edge case for the constructor: Negative programme ID
     @Test
     void constructor_throwsAssertionErrorIfProgrammeIdIsInvalid() {
         assertThrows(AssertionError.class, () ->
-                new CreateExerciseCommand(INVALID_PROGRAMME_ID, VALID_DAY_ID, exercise)
+                new CreateExerciseProgrammeCommand(INVALID_PROGRAMME_ID, VALID_DAY_ID, exercise)
         );
     }
 
@@ -59,7 +59,7 @@ class CreateExerciseCommandTest {
     @Test
     void constructor_throwsAssertionErrorIfdayIndexIsNegative() {
         assertThrows(AssertionError.class, () ->
-                new CreateExerciseCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID, exercise)
+                new CreateExerciseProgrammeCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID, exercise)
         );
     }
 
@@ -67,14 +67,14 @@ class CreateExerciseCommandTest {
     @Test
     void constructor_throwsAssertionErrorIfExerciseIsNull() {
         assertThrows(AssertionError.class, () ->
-                new CreateExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, null)
+                new CreateExerciseProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, null)
         );
     }
 
     // Test for the execute method with a valid programme and day ID
     @Test
     void execute_addsExerciseToDay_returnsSuccessMessage() {
-        String expectedMessage = String.format(CreateExerciseCommand.SUCCESS_MESSAGE_FORMAT, exercise);
+        String expectedMessage = String.format(CreateExerciseProgrammeCommand.SUCCESS_MESSAGE_FORMAT, exercise);
         CommandResult expectedResult = new CommandResult(expectedMessage);
 
         CommandResult actualResult = command.execute(programmeList);
@@ -90,7 +90,7 @@ class CreateExerciseCommandTest {
     // Edge case for the execute method: Nonexistent programme ID
     @Test
     void execute_throwsIndexOutOfBoundsIfProgrammeIdDoesNotExist() {
-        CreateExerciseCommand invalidCommand = new CreateExerciseCommand(
+        CreateExerciseProgrammeCommand invalidCommand = new CreateExerciseProgrammeCommand(
                 OUT_OF_RANGE_PROGRAMME_ID, VALID_DAY_ID, exercise
         );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
@@ -99,7 +99,7 @@ class CreateExerciseCommandTest {
     // Edge case for the execute method: Nonexistent day ID within an existing programme
     @Test
     void execute_throwsIndexOutOfBoundsIfdayIndexDoesNotExist() {
-        CreateExerciseCommand invalidCommand = new CreateExerciseCommand(
+        CreateExerciseProgrammeCommand invalidCommand = new CreateExerciseProgrammeCommand(
                 VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID, exercise
         );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));

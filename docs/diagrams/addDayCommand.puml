@@ -5,9 +5,9 @@ participant ":Programme" as Programme #ffbb77
 
 
 
-activate CreateDayCommand
--> CreateDayCommand : execute()
 
+-> CreateDayCommand : execute()
+activate CreateDayCommand
 CreateDayCommand -> ProgrammeList : getProgramme(programmeIndex)
 activate ProgrammeList
 

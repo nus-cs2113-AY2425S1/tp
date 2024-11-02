@@ -8,12 +8,12 @@ import programme.ProgrammeList;
 import programme.Programme;
 import history.History;
 
-public class CreateCommand extends ProgrammeCommand {
+public class CreateProgrammeCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "create";
     private final String programmeName;
     private final ArrayList<Day> programmeContents;
 
-    public CreateCommand(String programmeName, ArrayList<Day> programmeContents) {
+    public CreateProgrammeCommand(String programmeName, ArrayList<Day> programmeContents) {
         this.programmeName = programmeName;
         this.programmeContents = programmeContents;
     }

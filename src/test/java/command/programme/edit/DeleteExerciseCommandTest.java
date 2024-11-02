@@ -27,7 +27,7 @@ class DeleteExerciseCommandTest {
 
     private ProgrammeList programmeList;
     private Exercise exercise;
-    private DeleteExerciseCommand command;
+    private DeleteExerciseProgrammeCommand command;
 
     @BeforeEach
     void setUp() {
@@ -43,20 +43,22 @@ class DeleteExerciseCommandTest {
         programmeList.insertProgramme("Mock Programme", days);
 
         // Initialize DeleteExerciseCommand with valid IDs
-        command = new DeleteExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID);
+        command = new DeleteExerciseProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID);
     }
 
     // Test for constructor with valid inputs
     @Test
     void constructor_initializesWithValidParameters() {
-        assertDoesNotThrow(() -> new DeleteExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID));
+        assertDoesNotThrow(() -> new DeleteExerciseProgrammeCommand(
+                VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID)
+        );
     }
 
     // Edge case for constructor: Negative programme ID
     @Test
     void constructor_throwsAssertionErrorIfProgrammeIdIsNegative() {
         assertThrows(AssertionError.class, () ->
-                new DeleteExerciseCommand(INVALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID)
+                new DeleteExerciseProgrammeCommand(INVALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID)
         );
     }
 
@@ -64,7 +66,7 @@ class DeleteExerciseCommandTest {
     @Test
     void constructor_throwsAssertionErrorIfdayIndexIsNegative() {
         assertThrows(AssertionError.class, () ->
-                new DeleteExerciseCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID, VALID_EXERCISE_ID)
+                new DeleteExerciseProgrammeCommand(VALID_PROGRAMME_ID, INVALID_DAY_ID, VALID_EXERCISE_ID)
         );
     }
 
@@ -72,7 +74,7 @@ class DeleteExerciseCommandTest {
     @Test
     void constructor_throwsAssertionErrorIfexerciseIndexIsNegative() {
         assertThrows(AssertionError.class, () ->
-                new DeleteExerciseCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID)
+                new DeleteExerciseProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, INVALID_EXERCISE_ID)
         );
     }
 
@@ -80,7 +82,7 @@ class DeleteExerciseCommandTest {
     @Test
     void execute_deletesExerciseFromDay_returnsSuccessMessage() {
         String expectedMessage = String.format(
-                DeleteExerciseCommand.SUCCESS_MESSAGE_FORMAT, VALID_EXERCISE_ID, exercise
+                DeleteExerciseProgrammeCommand.SUCCESS_MESSAGE_FORMAT, VALID_EXERCISE_ID, exercise
         );
         CommandResult expectedResult = new CommandResult(expectedMessage);
 
@@ -97,7 +99,7 @@ class DeleteExerciseCommandTest {
     // Edge case for execute: Nonexistent programme ID
     @Test
     void execute_throwsIndexOutOfBoundsIfProgrammeIdDoesNotExist() {
-        DeleteExerciseCommand invalidCommand = new DeleteExerciseCommand(
+        DeleteExerciseProgrammeCommand invalidCommand = new DeleteExerciseProgrammeCommand(
                 OUT_OF_RANGE_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID
         );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
@@ -106,7 +108,7 @@ class DeleteExerciseCommandTest {
     // Edge case for execute: Nonexistent day ID within existing programme
     @Test
     void execute_throwsIndexOutOfBoundsIfdayIndexDoesNotExist() {
-        DeleteExerciseCommand invalidCommand = new DeleteExerciseCommand(
+        DeleteExerciseProgrammeCommand invalidCommand = new DeleteExerciseProgrammeCommand(
                 VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID, VALID_EXERCISE_ID
         );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
@@ -115,7 +117,7 @@ class DeleteExerciseCommandTest {
     // Edge case for execute: Nonexistent exercise ID within existing day
     @Test
     void execute_handlesNonexistentexerciseIndexGracefully() {
-        DeleteExerciseCommand invalidCommand = new DeleteExerciseCommand(
+        DeleteExerciseProgrammeCommand invalidCommand = new DeleteExerciseProgrammeCommand(
                 VALID_PROGRAMME_ID, VALID_DAY_ID, OUT_OF_RANGE_EXERCISE_ID
         );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));

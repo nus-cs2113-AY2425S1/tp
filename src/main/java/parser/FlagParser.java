@@ -1,5 +1,5 @@
+//@@author nirala-ts
 package parser;
-
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -174,10 +174,18 @@ public class FlagParser {
         assert requiredFlags != null : "Required flags string must not be null";
 
         for (String flag : requiredFlags) {
+
             flag = resolveAlias(flag);
+
             if (!hasFlag(flag)) {
                 logger.log(Level.WARNING, "Missing required flag: {0}", flag);
-                throw new IllegalArgumentException("Required flag: " + flag + " is missing. Please provide the flag.");
+                throw new IllegalArgumentException("Required flag: " + flag + " is missing.");
+            }
+            String value = getStringByFlag(flag);
+
+            if (isNull(value)) {
+                logger.log(Level.WARNING, "Missing required flag has null value: {0}", flag);
+                throw new IllegalArgumentException("Required flag: " + flag + " has no associated value.");
             }
         }
     }

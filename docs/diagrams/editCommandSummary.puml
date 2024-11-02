@@ -1,10 +1,10 @@
 @startuml
-    class EditCommand {
+    class EditProgrammeCommand {
         <<abstract>>
         #exerciseIndex: int
-        +EditCommand(programmeIndex: int, dayIndex: int, exerciseIndex: int)
-        +EditCommand(programmeIndex: int, dayIndex: int)
-        +EditCommand(programmeIndex: int)
+        +EditProgrammeCommand(programmeIndex: int, dayIndex: int, exerciseIndex: int)
+        +EditProgrammeCommand(programmeIndex: int, dayIndex: int)
+        +EditProgrammeCommand(programmeIndex: int)
         +execute(programmes: ProgrammeList): CommandResult
     }
 
@@ -32,10 +32,10 @@
         + execute(programmes: ProgrammeList): CommandResult
     }
 
-    EditCommand <|--- CreateDayCommand
-    EditCommand <|--- CreateExerciseCommand
-    EditCommand <|--- DeleteDayCommand
-    EditCommand <|--- DeleteExerciseCommand
-    EditCommand <|--- EditExerciseCommand
+    EditProgrammeCommand <|--- CreateDayCommand
+    EditProgrammeCommand <|--- CreateExerciseCommand
+    EditProgrammeCommand <|--- DeleteDayCommand
+    EditProgrammeCommand <|--- DeleteExerciseCommand
+    EditProgrammeCommand <|--- EditExerciseCommand
 
 @enduml

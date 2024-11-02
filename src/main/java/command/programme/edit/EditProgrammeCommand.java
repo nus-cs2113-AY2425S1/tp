@@ -1,5 +1,4 @@
 // @@author TVageesan
-
 package command.programme.edit;
 
 import command.CommandResult;
@@ -15,7 +14,7 @@ import programme.ProgrammeList;
  * a programme.
  * </p>
  */
-public abstract class EditCommand extends ProgrammeCommand {
+public abstract class EditProgrammeCommand extends ProgrammeCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -28,7 +27,7 @@ public abstract class EditCommand extends ProgrammeCommand {
      * @param dayIndex the ID of the day being edited within the programme
      * @param exerciseIndex the ID of the exercise being edited
      */
-    public EditCommand(int programmeIndex, int dayIndex, int exerciseIndex) {
+    public EditProgrammeCommand(int programmeIndex, int dayIndex, int exerciseIndex) {
         super(programmeIndex, dayIndex);
         assert exerciseIndex >= 0 : "exercise id must be non-negative";
         this.exerciseIndex = exerciseIndex;
@@ -40,7 +39,7 @@ public abstract class EditCommand extends ProgrammeCommand {
      * @param programmeIndex the index of the programme being edited
      * @param dayIndex the ID of the day being edited within the programme
      */
-    public EditCommand(int programmeIndex, int dayIndex) {
+    public EditProgrammeCommand(int programmeIndex, int dayIndex) {
         super(programmeIndex, dayIndex);
     }
 
@@ -49,7 +48,7 @@ public abstract class EditCommand extends ProgrammeCommand {
      *
      * @param programmeIndex the index of the programme being edited
      */
-    public EditCommand(int programmeIndex) {
+    public EditProgrammeCommand(int programmeIndex) {
         super(programmeIndex);
     }
 

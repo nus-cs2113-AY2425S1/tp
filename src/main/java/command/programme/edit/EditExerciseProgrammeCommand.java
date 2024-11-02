@@ -1,5 +1,4 @@
 // @@author TVageesan
-
 package command.programme.edit;
 
 import command.CommandResult;
@@ -19,7 +18,7 @@ import java.util.logging.Level;
  * existing exercise identified by its ID within a specified day of a programme.
  * </p>
  */
-public class EditExerciseCommand extends EditCommand {
+public class EditExerciseProgrammeCommand extends EditProgrammeCommand {
 
     public static final String SUCCESS_MESSAGE_FORMAT = "Updated exercise: %s%n";
 
@@ -34,7 +33,7 @@ public class EditExerciseCommand extends EditCommand {
      * @param exerciseIndex the ID of the exercise to be updated
      * @param update the ExerciseUpdate object containing the fields that need to be updated in the target Exercise
      */
-    public EditExerciseCommand(int programmeIndex, int dayIndex, int exerciseIndex, ExerciseUpdate update) {
+    public EditExerciseProgrammeCommand(int programmeIndex, int dayIndex, int exerciseIndex, ExerciseUpdate update) {
         super(programmeIndex, dayIndex, exerciseIndex);
         assert update != null : "update object must not be null";
         this.update = update;

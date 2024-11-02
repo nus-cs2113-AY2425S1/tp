@@ -5,9 +5,9 @@ participant ":Programme" as Programme #ffbb77
 participant ":Day" as Day #ffbb77
 
 
-activate AddExerciseCommand
--> AddExerciseCommand : execute()
 
+-> AddExerciseCommand : execute()
+activate AddExerciseCommand
 AddExerciseCommand -> ProgrammeList : getProgramme(programmeIndex)
 activate ProgrammeList
 ProgrammeList --> AddExerciseCommand : selected Programme
