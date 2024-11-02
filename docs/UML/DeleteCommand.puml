@@ -1,0 +1,18 @@
+@startuml
+title DeleteCommand Sequence Diagram
+
+User -> DeleteCommand: execute(args: ArrayList<String>)
+activate DeleteCommand #red
+alt Valid ID
+    DeleteCommand -> DeleteCommand: parse ID from args
+    DeleteCommand -> InternshipList: removeInternship(index)
+    activate InternshipList #green
+    deactivate InternshipList #green
+else Invalid ID
+    DeleteCommand -> DeleteCommand: Catch NumberFormatException
+    DeleteCommand -> UI: showOutput("Invalid integer, please provide a valid internship ID")
+    activate UI #blue
+    deactivate UI
+end
+
+@enduml

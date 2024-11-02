@@ -1,8 +1,11 @@
 package seedu.ui;
 
 import seedu.commands.Command;
+import seedu.duke.Deadline;
 import seedu.duke.Internship;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 //@@author Ridiculouswifi
@@ -10,10 +13,18 @@ import java.util.ArrayList;
  * Subclass of <code>Ui</code> to print outputs from <code>Command</code> subclasses
  */
 public class UiCommand extends Ui {
+    private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy");
+
     private String invalidFlags;
     private String updatedFields;
     private String invalidFields;
 
+    public UiCommand() {
+        super();
+        clearInvalidFields();
+        clearUpdatedFields();
+        clearInvalidFlags();
+    }
     /**
      * Prints newly added or updated internship and invalid flags (if any).
      */
@@ -21,6 +32,9 @@ public class UiCommand extends Ui {
         String message = "";
         if (!getInvalidFlags().isEmpty()) {
             message += getInvalidFlags() + DIVIDER;
+        }
+        if (!getInvalidFields().isEmpty()) {
+            message += getInvalidFields() + DIVIDER;
         }
         switch (action) {
         case "add":
@@ -61,10 +75,28 @@ public class UiCommand extends Ui {
         setInvalidFields("");
     }
 
-    public void addUpdatedField(String updatedField, String updatedValue) {
+    public void addUpdatedField(String updatedField, String updatedValue, String type) {
         String newUpdatedFields = getUpdatedFields();
-        newUpdatedFields += updatedField + " updated: " + updatedValue + "\n";
+        newUpdatedFields += updatedField;
+        switch (type) {
+        case "update":
+            newUpdatedFields += " updated: ";
+            break;
+        case "remove":
+            newUpdatedFields += " removed: ";
+            break;
+        default:
+            assert false: "All valid types should be handled in individual switch cases.";
+            break;
+        }
+        newUpdatedFields += updatedValue + "\n";
         setUpdatedFields(newUpdatedFields);
+    }
+
+    public void addCreatedField(String createdField, String createdValue) {
+        String newCreatedFields = getUpdatedFields();
+        newCreatedFields += createdField + " created: " + createdValue + "\n";
+        setUpdatedFields(newCreatedFields);
     }
 
     /**
@@ -84,6 +116,12 @@ public class UiCommand extends Ui {
             break;
         case "to":
             newInvalidFlags += "End date not specified." + "\n";
+            break;
+        case "deadline":
+            newInvalidFlags += "Deadline description flag not specified." + "\n";
+            break;
+        case "date":
+            newInvalidFlags += "Deadline date flag not specified." + "\n";
             break;
         default:
             newInvalidFlags += "Unknown flag: " + flag + "\n";
@@ -133,8 +171,11 @@ public class UiCommand extends Ui {
         case "alphabet":
             System.out.println("Sorted internships by role alphabetically (case-insensitive).");
             break;
-        case "deadline":
+        case "duration":
             System.out.println("Sorted internships by start date (year first), then end date.");
+            break;
+        case "deadline":
+            System.out.println("Sorted internships by deadline.");
             break;
         default:
             // Handling invalid sorting options
@@ -167,6 +208,48 @@ public class UiCommand extends Ui {
         printTailDivider();
     }
 
+    //@@author Ridiculouswifi
+    /**
+     * Prints out the deadlines in order of date.
+     * @param deadlines     Sorted list of deadlines.
+     */
+    public void showCalendar(ArrayList<Deadline> deadlines) {
+        printHeadDivider();
+        LocalDate present = LocalDate.now();
+        String pointerToNow = "--> Today";
+        boolean isPresentPrinted = false;
+
+        LocalDate currentDate = LocalDate.parse("01/01/00", FORMATTER_DATE);
+        if (deadlines.isEmpty()) {
+            System.out.println("No deadlines listed");
+            printTailDivider();
+            return;
+        }
+
+        System.out.println("Deadlines:");
+
+        for (Deadline deadline : deadlines) {
+            LocalDate date = deadline.getUnformattedDate();
+            if (!isPresentPrinted && date.isAfter(present)) {
+                isPresentPrinted = true;
+                System.out.println();
+                System.out.println(present.format(FORMATTER_DATE) + " " + pointerToNow);
+            }
+            String pointer = "";
+            if (!isPresentPrinted && date.isEqual(present)) {
+                isPresentPrinted = true;
+                pointer = pointerToNow;
+            }
+            if (!date.isEqual(currentDate)) {
+                currentDate = date;
+                System.out.println();
+                System.out.println(date.format(FORMATTER_DATE) + " " + pointer);
+            }
+            System.out.println("\t" + deadline.getInternshipId() + ": " + deadline.getDescription());
+        }
+        printTailDivider();
+    }
+
     public String getInvalidFlags() {
         return invalidFlags;
     }
@@ -190,4 +273,7 @@ public class UiCommand extends Ui {
     public void setInvalidFields(String invalidFields) {
         this.invalidFields = invalidFields;
     }
+
+
+
 }

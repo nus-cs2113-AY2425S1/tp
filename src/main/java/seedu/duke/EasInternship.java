@@ -43,7 +43,6 @@ public class EasInternship {
             Command command = parser.parseCommand(input);
 
             if (command == null) {
-                ui.showUnknownCommand(input);
                 continue;
             }
 

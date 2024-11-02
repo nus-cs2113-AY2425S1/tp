@@ -1,0 +1,44 @@
+@startuml
+Title FilterCommand execute method
+
+participant User
+participant FilterCommand
+participant InternshipList
+participant UICommand
+
+User -> FilterCommand: execute(args)
+activate FilterCommand #turquoise
+activate InternshipList #green
+activate UICommand #red
+
+FilterCommand -> InternshipList: getAllInternships()
+InternshipList --> FilterCommand: internships
+
+FilterCommand -> InternshipList: favouriteInternships
+InternshipList --> FilterCommand: favouriteInternships
+
+FilterCommand -> InternshipList: new InternshipList(internshipList)
+InternshipList --> FilterCommand: filteredInternshipsList
+
+break Empty args
+    FilterCommand -> UICommand: showInsufficientArguments()
+    FilterCommand --> User
+else
+    loop for each arg in args
+        FilterCommand -> FilterCommand: executeFilterByOneFlag(words)
+        activate FilterCommand #turquoise
+        break Incomplete or invalid arg
+        FilterCommand --> FilterCommand: IllegalArgumentException()
+        FilterCommand --> User
+        end break
+        FilterCommand --> FilterCommand
+        deactivate FilterCommand
+    end
+end break
+
+FilterCommand -> InternshipList: listAllInternships()
+deactivate FilterCommand
+deactivate InternshipList
+deactivate UICommand
+
+@enduml

@@ -3,15 +3,30 @@ package seedu.commands;
 import seedu.duke.InternshipList;
 import seedu.duke.Internship;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.function.BiPredicate;
+
 public class FilterCommand extends Command {
+    public boolean functionComplete = false; // For testing purposes
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+    private final Map<String, InternshipFieldGetter> fieldGetters = new HashMap<>();
+
+    private ArrayList<Internship> internshipList;
     private InternshipList filteredInternships;
 
     public FilterCommand() {
-        this.filteredInternships = new InternshipList();
+        // Map flags to getter methods using lambdas
+        fieldGetters.put("role", Internship::getRole);
+        fieldGetters.put("company", Internship::getCompany);
+        fieldGetters.put("from", Internship::getStartDate);
+        fieldGetters.put("to", Internship::getEndDate);
     }
 
     public InternshipList getFilteredInternships() {
@@ -20,49 +35,108 @@ public class FilterCommand extends Command {
 
     @Override
     public void execute(ArrayList<String> args) {
+        assert internships != null: "Internship list should always be set before a command can be executed";
+        internshipList = new ArrayList<>(internships.getAllInternships());
+        filteredInternships = new InternshipList(internshipList);
+
         if (args.isEmpty()) {
             uiCommand.showInsufficientArguments();
             return;
         }
 
-        if (args.size() > 1) {
-            uiCommand.showOutput("Too many flags provided. Can only filter by one flag at a time");
-            return;
-        }
-
-        String[] words = args.get(0).split(" ", 2);
-        String flag = words[0];
-        try {
-            // Map flags to getter methods using lambdas
-            Map<String, InternshipFieldGetter> fieldGetters = new HashMap<>();
-            fieldGetters.put("role", Internship::getRole);
-            fieldGetters.put("company", Internship::getCompany);
-            fieldGetters.put("from", Internship::getStartDate);
-            fieldGetters.put("to", Internship::getEndDate);
-
-            // Retrieve the corresponding getter method based on the flag
-            InternshipFieldGetter getter = fieldGetters.get(flag);
-
-            if (getter == null) {
-                uiCommand.clearInvalidFlags();
-                uiCommand.addInvalidFlag(flag);
-                uiCommand.printInvalidFlags();
+        for (String arg : args) {
+            String[] words = arg.split(" ", 2);
+            try {
+                executeFilterByOneFlag(words);
+            } catch (IllegalArgumentException e) {
                 return;
             }
+        }
 
-            String searchTerm = words[1];
+        functionComplete = true;
+        filteredInternships.listAllInternships();
+    }
 
-            // Iterate over the internships and apply the getter for comparison
-            for (Internship internship : internships.getAllInternships()) {
-                String fieldValue = getter.getField(internship); // Dynamically calls getRole(), getCompany(), etc.
-                if (fieldValue.equalsIgnoreCase(searchTerm)) {
-                    filteredInternships.addInternship(internship);
-                }
-            }
+    private void executeFilterByOneFlag(String[] words) {
+        String flag = words[INDEX_FIELD];
+        // Retrieve the corresponding getter method based on the flag
+        InternshipFieldGetter getter = fieldGetters.get(flag);
 
-            filteredInternships.listAllInternships();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        if (getter == null) {
+            uiCommand.clearInvalidFlags();
+            uiCommand.addInvalidFlag(flag);
+            uiCommand.printInvalidFlags();
+            throw new IllegalArgumentException();
+        }
+
+        if (words.length < 2) {
             uiCommand.showOutput(words[INDEX_FIELD] + " field cannot be empty");
+            throw new IllegalArgumentException();
+        }
+
+        String searchTerm = words[INDEX_DATA];
+        BiPredicate<YearMonth, YearMonth> dateComparator = null;
+
+        switch (flag) {
+        case "role":
+        case "company":
+            filterByRoleAndCompany(getter, searchTerm);
+            return;
+
+        case "from":
+            dateComparator = YearMonth::isBefore;
+            break;
+
+        case "to":
+            dateComparator = YearMonth::isAfter;
+            break;
+
+        default:
+            assert false: "Should never be able to reach this statement if all flags are accounted for";
+        }
+
+        filterByDate(getter, searchTerm, dateComparator);
+    }
+
+    private void filterByRoleAndCompany(InternshipFieldGetter getter, String searchTerm) {
+        ArrayList<Internship> internshipListIterator = new ArrayList<>(internshipList);
+        // Iterate over the internships and apply the getter for comparison
+        for (Internship internship : internshipListIterator) {
+            String fieldValue = getter.getField(internship); // Dynamically calls getRole(), getCompany(),
+            // etc.
+            boolean isEqualToSearchTerm = fieldValue.equalsIgnoreCase(searchTerm);
+            if (!isEqualToSearchTerm) {
+                internshipList.remove(internship);
+            }
+        }
+    }
+
+    private void filterByDate(InternshipFieldGetter getter, String searchTerm,
+                              BiPredicate<YearMonth, YearMonth> dateComparator) {
+        assert dateComparator != null : "dateComparator should not be null in filterByDate method";
+
+        ArrayList<Internship> internshipListIterator = new ArrayList<>(internshipList);
+        for (Internship internship : internshipListIterator) {
+            String fieldValue = getter.getField(internship); // Dynamically calls getRole(), getCompany(), etc.
+            YearMonth fieldDate = parseDate(fieldValue);
+            assert fieldDate != null : "fieldValue should always be a valid date";
+            YearMonth searchDate = parseDate(searchTerm);
+            if (searchDate == null) {
+                String outputString = searchTerm + " is not a valid date\n" + "Please enter a date in the MM/yy format";
+                uiCommand.showOutput(outputString);
+                throw new IllegalArgumentException();
+            }
+            if (dateComparator.test(fieldDate, searchDate)) {
+                internshipList.remove(internship);
+            }
+        }
+    }
+
+    private YearMonth parseDate(String stringDate) {
+        try {
+            return YearMonth.parse(stringDate, formatter);
+        } catch (DateTimeParseException e) {
+            return null;
         }
     }
 
