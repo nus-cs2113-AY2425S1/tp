@@ -12,12 +12,12 @@ Given below are my contributions to the project.
   - Code Written
     - ExpenseList and Expense classes
     - ExpenseListTest and ExpenseTest classes' JUnit tests
-    - CategoryTracker, CategoryData, CategoryFilter classes
+    - CategoryTracker, CategoryData, CategoryFilter, CategoryFacade classes
     - CategoryTracker and CategoryData classes' JUnit tests
 - **Documentation**
   - User Guide 
     - Created section about setting spending limits for a category 
   - Developer Guide
     - Created Expense and ExpenseList section
-    - Created CategoryTracker, CategoryData and CategoryFilter section
+    - Created CategoryTracker, CategoryData, CategoryFilter and CategoryFacade section
 - **Review & Mentoring Contributions:** Provide suggestions for designing various components of the software.
