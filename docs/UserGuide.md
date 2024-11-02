@@ -194,28 +194,19 @@ Workout 1
 Deadlift [3x10 100kg], Bench [3x12 30kg].
 ```
 
----
-
-### 7. Change Active Programme
-Command: `prog active INDEX`
-
-Changes the ‘active’ programme to a new programme.
-
----
-
-### 8. List Completed Workouts
+### 7. List Completed Workouts
 Command: `history`
 
 View all completed workouts in order.
 
 ---
 
-### 9. Delete Program
+### 8. Delete Program
 Command: `prog delete INDEX`
 
 Deletes the programme at the given index.
 
-### 10. Add a Meal
+### 9. Add a Meal
 Command: `meal add /n MEAL_NAME /c CALORIES /t DATE`
 
 Adds a meal to the daily record of a specific date.
@@ -230,7 +221,7 @@ Chicken Breast | 250kcal has been added to 30-10-2024.
 
 ---
 
-### 11. Delete a Meal
+### 10. Delete a Meal
 Command: `meal delete /m MEAL_INDEX /t DATE`
 
 Deletes a meal from the daily record of a specific date.
@@ -244,7 +235,7 @@ Chicken Breast | 250kcal has been deleted from 30-10-2024
 
 ---
 
-### 12. View Meals
+### 11. View Meals
 Command: `meal view /t DATE`
 
 Displays all meals recorded for a specific date.
@@ -272,7 +263,6 @@ Meals for 30-10-2024:
 | **Log Workout**        | Logs a workout for a specific day                           | `log /p PROGRAMME_INDEX /d DAY_INDEX /t DATE`                                   | `log /p 1 /d 1 /t 12/10/2024`                                   |
 | **View History**       | Displays the history of completed workouts                  | `history`                                                                       | `history`                                                       |
 | **Delete Program**     | Deletes a program by its index                              | `prog delete INDEX`                                                             | `prog delete 1`                                                 |
-| **Set Active Program** | Changes the active program to a new one                     | `prog active INDEX`                                                             | `prog active 2`                                                 |
 | **Add Meal**           | Adds a meal to a daily record                               | `meal add /n MEAL_NAME /c CALORIES /t DATE`                                     | `meal add /n Chicken_Breast /c 250 /t 30-10-2024`               |
 | **Delete Meal**        | Deletes a meal from a daily record                          | `meal delete /m MEAL_INDEX /t DATE`                                             | `meal delete /m 1 /t 30-10-2024`                                |
 | **View Meals**         | Displays all meals for a specific date                      | `meal view /t DATE`                                                             | `meal view /t 30-10-2024`                                       |
