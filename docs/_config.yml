@@ -30,10 +30,10 @@ search:
     focus_shortcut_key: 'k'
 
 
-# Callouts
+# callouts
 callouts:
-  important: Important
-  warning: Warning
-  note: Note
-  tip: Tip
-  example: Example
+  warning:
+    title: Warning
+    color: orange
+
+callouts_opacity: 0.3
