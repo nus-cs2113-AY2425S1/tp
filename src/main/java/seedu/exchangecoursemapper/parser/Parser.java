@@ -1,15 +1,6 @@
 package seedu.exchangecoursemapper.parser;
 
-import seedu.exchangecoursemapper.command.FilterCoursesCommand;
-import seedu.exchangecoursemapper.command.ListCommandsCommand;
-import seedu.exchangecoursemapper.command.ListSchoolCommand;
-import seedu.exchangecoursemapper.command.ListUniCoursesCommand;
-import seedu.exchangecoursemapper.command.AddCoursesCommand;
-import seedu.exchangecoursemapper.command.HelpCommand;
-import seedu.exchangecoursemapper.command.DeleteCoursesCommand;
-import seedu.exchangecoursemapper.command.ObtainContactsCommand;
-import seedu.exchangecoursemapper.command.ListPersonalTrackerCommand;
-import seedu.exchangecoursemapper.command.CompareMappedCommand;
+import seedu.exchangecoursemapper.command.*;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
 
@@ -81,6 +72,8 @@ public class Parser {
             new ListPersonalTrackerCommand(storage).execute(input);
         } else if (command.equals(COMPARE_PU)) {
             new CompareMappedCommand(storage).execute(userInput);
+        } else if (command.equals("find")) {
+            new FindCoursesCommand(storage).execute(input, storage);
         } else if (command.equals(BYE)) {
             mapperUI.displayExitMessage();
         } else {
