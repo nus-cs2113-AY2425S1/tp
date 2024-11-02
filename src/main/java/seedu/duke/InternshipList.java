@@ -118,6 +118,9 @@ public class InternshipList {
             case "skills":
                 internships.get(index).removeSkill(value);
                 break;
+            case "deadline":
+                internships.get(index).removeDeadline(value);
+                break;
             default:
                 assert false: "All valid fields should we handled in individual cases";
                 break;

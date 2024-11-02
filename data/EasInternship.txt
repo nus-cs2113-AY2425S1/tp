@@ -1,4 +1,0 @@
-1 | ABC | XYZ | 01/01 | 01/01 |  | Application Pending | No Deadlines set.
-2 | software engineer | abs | 01/01 | 03/24 | python, c++, backend | Application Completed | No Deadlines set.
-3 | lawyer | lolo pte ltd | 04/23 | 01/01 | source, terry | Application Completed | Application deadline -date 03/12/04
-4 | Technician | Nokia | 12/22 | 12/30 | java, c++ | Application Pending | interview round 1 -date 26/04/24 - interview round 2 -date 14/05/24
