@@ -115,14 +115,16 @@ class ParserUtilsTest {
     void testParseIndexValidIndex() {
         String input = "3";
         int result = ParserUtils.parseIndex(input);
-        assertEquals(2, result, "Should parse and convert valid index to zero-based.");
+        assertEquals(2, result,
+                "Should parse and convert valid index to zero-based.");
     }
 
     @Test
     void testParseIndexLargeIndexEdgeCase() {
         String input = "2147483647"; // Integer.MAX_VALUE
         int result = ParserUtils.parseIndex(input);
-        assertEquals(2147483646, result, "Should handle large index correctly and convert to zero-based.");
+        assertEquals(2147483646, result,
+                "Should handle large index correctly and convert to zero-based.");
     }
 
     @Test
@@ -157,7 +159,8 @@ class ParserUtilsTest {
         LocalDate expectedDate = LocalDate.of(2023, 8, 15);
         LocalDate actualDate = ParserUtils.parseDate(dateString);
 
-        assertEquals(expectedDate, actualDate, "The parsed date should match the expected date.");
+        assertEquals(expectedDate, actualDate,
+                "The parsed date should match the expected date.");
     }
 
     @Test
@@ -165,7 +168,8 @@ class ParserUtilsTest {
         LocalDate actualDate = ParserUtils.parseDate(null);
         LocalDate expectedDate = LocalDate.now();
 
-        assertEquals(expectedDate, actualDate, "When the input is null, the parsed date should be today's date.");
+        assertEquals(expectedDate, actualDate,
+                "When the input is null, the parsed date should be today's date.");
     }
 
     @Test
@@ -174,7 +178,8 @@ class ParserUtilsTest {
         LocalDate expectedDate = LocalDate.of(2023, 8, 15);
         LocalDate actualDate = ParserUtils.parseDate(dateString);
 
-        assertEquals(expectedDate, actualDate, "The parsed date should match the expected date, ignoring extra spaces.");
+        assertEquals(expectedDate, actualDate,
+                "The parsed date should match the expected date, ignoring extra spaces.");
     }
 
     @Test
@@ -183,6 +188,7 @@ class ParserUtilsTest {
         LocalDate expectedDate = LocalDate.of(2024, 2, 29);
         LocalDate actualDate = ParserUtils.parseDate(dateString);
 
-        assertEquals(expectedDate, actualDate, "The parsed date should match the expected leap year date.");
+        assertEquals(expectedDate, actualDate,
+                "The parsed date should match the expected leap year date.");
     }
 }

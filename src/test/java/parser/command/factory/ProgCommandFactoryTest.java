@@ -14,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ProgCommandFactoryTest {
 
     private final Parser parser = new Parser();
-    private final ProgCommandFactory factory = new ProgCommandFactory();
-
 
     @Test
     public void testPrepareLogCommandValidArguments() {
@@ -27,7 +25,8 @@ class ProgCommandFactoryTest {
         assertInstanceOf(LogCommand.class, command, "Expected LogCommand instance.");
         LogCommand actualCommand = (LogCommand) command;
 
-        assertEquals(expectedCommand, actualCommand, "Expected command to be equal to the parsed LogCommand.");
+        assertEquals(expectedCommand, actualCommand,
+                "Expected command to be equal to the parsed LogCommand.");
     }
 
     @Test
