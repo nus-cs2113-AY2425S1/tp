@@ -18,9 +18,9 @@ public class ListCommand extends Command {
     /**
      * Get a list of expenses based on various filter metrics
      *
+     * @author shyaamald
      * @param expenseList ExpenseList to be filtered by category, a start date and an end date
      */
-
     private ArrayList<Expense> getExpensesToDisplay(ExpenseList expenseList) throws WheresMyMoneyException {
         String listCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
         String from = argumentsMap.get(Parser.ARGUMENT_FROM);
@@ -28,6 +28,13 @@ public class ListCommand extends Command {
         return expenseList.listByFilter(listCategory, from, to);
     }
 
+    /**
+     * Display the list of expenses passed to it
+     *
+     * @author shyaamald
+     * @param expensesToDisplay List of expenses to be displayed
+     * @param expenseList Main expense list to retrieve expense indices
+     */
     private void displayExpenses(ArrayList<Expense> expensesToDisplay, ExpenseList expenseList)
             throws WheresMyMoneyException {
         if (expensesToDisplay.isEmpty()) {
@@ -35,17 +42,27 @@ public class ListCommand extends Command {
             return;
         }
         for (Expense expense: expensesToDisplay) {
-            String index = expenseList.getIndexOf(expense) + 1 + ". ";
-            String category = "CATEGORY: " + expense.getCategory();
-            String description = "DESCRIPTION: " + expense.getDescription();
-            String price = "PRICE: " + expense.getPrice();
-            String dateAdded = "DATE ADDED: " + expense.getDateAdded();
-            Ui.displayMessage(index + category + ", " + description + ", " + price + ", " + dateAdded);
+            displayExpense(expenseList, expense);
         }
     }
 
     /**
-     * Displays list expenses as requested by user
+     * Display index, category, description, price, and date added of the expense passed to it
+     *
+     * @param expenseList Main expense list to retrieve expense indices
+     * @param expense Expense to be displayed
+     */
+    private static void displayExpense(ExpenseList expenseList, Expense expense) throws WheresMyMoneyException {
+        String index = expenseList.getIndexOf(expense) + 1 + ". ";
+        String category = "CATEGORY: " + expense.getCategory();
+        String description = "DESCRIPTION: " + expense.getDescription();
+        String price = "PRICE: " + expense.getPrice();
+        String dateAdded = "DATE ADDED: " + expense.getDateAdded();
+        Ui.displayMessage(index + category + ", " + description + ", " + price + ", " + dateAdded);
+    }
+
+    /**
+     * Display list expenses as requested by user
      */
     @Override
     public void execute(ExpenseList expenseList) throws WheresMyMoneyException {

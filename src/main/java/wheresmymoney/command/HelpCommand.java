@@ -44,13 +44,22 @@ public class HelpCommand extends Command {
         Ui.displayMessage("Examples: delete 2");
         Ui.displayMessage("");
 
-        Ui.displayMessage("Use the list command to display expenses and gives the sum of all expenses listed");
+        Ui.displayMessage("Use the list command to display all expenses by category");
         Ui.displayMessage("Format:  list [/category CATEGORY]");
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - Category is text");
         Ui.displayMessage("    - Lists all expenses the user has if the category is not specified");
         Ui.displayMessage("    - Lists all expenses with that category if specified");
         Ui.displayMessage("Examples: list /category food");
+        Ui.displayMessage("");
+
+        Ui.displayMessage("Use the stats command to display basic statistics of expenses by category");
+        Ui.displayMessage("Format:  stats [/category CATEGORY]");
+        Ui.displayMessage("Notes:");
+        Ui.displayMessage("    - Category is text");
+        Ui.displayMessage("    - Lists stats of all expenses the user has if the category is not specified");
+        Ui.displayMessage("    - Lists stats of all expenses with that category if specified");
+        Ui.displayMessage("Examples: stats /category food");
         Ui.displayMessage("");
     }
 }
