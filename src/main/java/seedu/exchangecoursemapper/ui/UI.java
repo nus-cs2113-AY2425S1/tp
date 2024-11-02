@@ -36,7 +36,6 @@ import static seedu.exchangecoursemapper.constants.Messages.NO_UNIQUE_MAPPINGS;
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
 
 
-
 public class UI {
     private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
 
@@ -70,6 +69,26 @@ public class UI {
         System.out.println(PARTNER_UNIVERSITY_HEADER + universityName);
         System.out.println(PARTNER_UNIVERSITY_COURSE_CODE_HEADER + puCourseCode);
         System.out.println(LINE_SEPARATOR);
+    }
+
+    /**
+     * Prints the specified university name.
+     *
+     * @param universityName the name of the university to print
+     */
+    public void printUniversityList(String universityName) {
+        System.out.println(universityName);
+    }
+
+    /**
+     * Prints the contact information based on the provided description, school name, and custom output.
+     *
+     * @param informationDescription a description of the information
+     * @param schoolName the name of the school
+     * @param customOutput the specific contact information
+     */
+    public void printContactInformation(String informationDescription, String schoolName, String customOutput) {
+        System.out.println(informationDescription + schoolName + ": " + customOutput);
     }
 
     /**
@@ -125,20 +144,6 @@ public class UI {
      */
     public void printDeleteMessage(Course deleteCourse) {
         System.out.println(DELETE_COURSE_PLAN_HEADER + deleteCourse.formatOutput());
-    }
-
-    /**
-     * Runs the main chat loop of the application. It continuously takes user input
-     * and processes it through the {@code Parser} until the user types "bye".
-     *
-     * @param parser The {@code Parser} object that processes user input.
-     */
-    public void runChat(Parser parser, Storage storage) {
-        String userInput;
-        do {
-            userInput = parser.getUserInput();
-            parser.processUserInput(userInput, storage);
-        } while (!userInput.equalsIgnoreCase(BYE));
     }
 
     public void printListUniCoursesCommand(JsonObject courseObject) {
@@ -212,5 +217,19 @@ public class UI {
             }
         }
         System.out.println(LINE_SEPARATOR);
+    }
+
+    /**
+     * Runs the main chat loop of the application. It continuously takes user input
+     * and processes it through the {@code Parser} until the user types "bye".
+     *
+     * @param parser The {@code Parser} object that processes user input.
+     */
+    public void runChat(Parser parser, Storage storage) {
+        String userInput;
+        do {
+            userInput = parser.getUserInput();
+            parser.processUserInput(userInput, storage);
+        } while (!userInput.equalsIgnoreCase(BYE));
     }
 }
