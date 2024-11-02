@@ -9,10 +9,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static common.Utils.isNull;
-import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.parseInteger;
+import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.parseFloat;
 import static parser.ParserUtils.parseDate;
+import static parser.ParserUtils.parseString;
 import static parser.ParserUtils.splitArguments;
 
 /*
@@ -171,5 +172,10 @@ public class FlagParser {
     public LocalDate getDateByFlag(String flag){
         String dateString = getStringByFlag(flag);
         return parseDate(dateString);
+    }
+
+    public String getNameByFlag(String flag){
+        String string = getStringByFlag(flag);
+        return parseString(string, flag);
     }
 }
