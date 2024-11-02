@@ -10,43 +10,43 @@
         +equals(other: Object): boolean
     }
 
-    class CreateCommand {
+    class CreateProgrammeCommand {
         + programmeName : String
         + programmeContents: ArrayList<Day>
-        + CreateCommand(programmeName: String, programmeContents: ArrayList<Day>)
+        + CreateProgrammeCommand(programmeName: String, programmeContents: ArrayList<Day>)
         + execute(programmes: ProgrammeList, History history): CommandResult
     }
 
-    class DeleteCommand {
-        + DeleteCommand(programmeIndex: int)
+    class DeleteProgrammeCommand {
+        + DeleteProgrammeCommand(programmeIndex: int)
         + execute(programmes: ProgrammeList, History history): CommandResult
     }
 
-    class ViewCommand {
-        + ViewCommand(programmeIndex: int)
+    class ViewProgrammeCommand {
+        + ViewProgrammeCommand(programmeIndex: int)
         + execute(programmes: ProgrammeList, History history): CommandResult
     }
 
-    class StartCommand {
-        + StartCommand(programmeIndex: int)
+    class StartProgrammeCommand {
+        + StartProgrammeCommand(programmeIndex: int)
         + execute(programmes: ProgrammeList, History history): CommandResult
     }
 
-    class LogCommand {
+    class LogProgrammeCommand {
         # date: LocalDate
-        + LogCommand(programmeIndex: int, dayIndex: int, date: LocalDate)
+        + LogProgrammeCommand(programmeIndex: int, dayIndex: int, date: LocalDate)
         + execute(programmes: ProgrammeList, History history): CommandResult
     }
 
-    class ListCommand {
+    class ListProgrammeCommand {
         + execute(programmes: ProgrammeList, History history): CommandResult
     }
 
     ProgrammeCommand <|-- EditCommand
-    ProgrammeCommand <|-- ViewCommand
-    ProgrammeCommand <|-- LogCommand
-    ProgrammeCommand <|-- StartCommand
-    ProgrammeCommand <|-- ListCommand
-    ProgrammeCommand <|-- CreateCommand
-    ProgrammeCommand <|-- DeleteCommand
+    ProgrammeCommand <|-- ViewProgrammeCommand
+    ProgrammeCommand <|-- LogProgrammeCommand
+    ProgrammeCommand <|-- StartProgrammeCommand
+    ProgrammeCommand <|-- ListProgrammeCommand
+    ProgrammeCommand <|-- CreateProgrammeCommand
+    ProgrammeCommand <|-- DeleteProgrammeCommand
 @enduml
