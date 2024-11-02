@@ -28,3 +28,12 @@ search.preview_words_after: 10
 search.button: true
 search:
     focus_shortcut_key: 'k'
+
+
+# Callouts
+callouts:
+  important: Important
+  warning: Warning
+  note: Note
+  tip: Tip
+  example: Example
