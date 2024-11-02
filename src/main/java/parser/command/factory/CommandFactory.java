@@ -72,6 +72,7 @@ public class CommandFactory {
         case ProgCommandFactory.COMMAND_WORD -> progFactory.parse(argumentString);
         case MealCommandFactory.COMMAND_WORD -> mealFactory.parse(argumentString);
         case WaterCommandFactory.COMMAND_WORD -> waterFactory.parse(argumentString);
+        case HistoryCommandFactory.COMMAND_WORD -> historyFactory.parse(argumentString);
         case ExitCommand.COMMAND_WORD -> new ExitCommand();
         default -> new InvalidCommand();
         };
