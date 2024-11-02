@@ -2,7 +2,6 @@ package seedu.manager.storage;
 
 import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
-import seedu.manager.parser.Parser;
 
 import java.io.IOException;
 import java.nio.file.Files;

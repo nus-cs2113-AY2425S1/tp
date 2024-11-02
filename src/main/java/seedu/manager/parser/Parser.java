@@ -17,16 +17,12 @@ import seedu.manager.command.ViewCommand;
 import seedu.manager.command.FindCommand;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.InvalidCommandException;
-import seedu.manager.event.EventList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.io.IOException;
 
 import static java.util.logging.Level.WARNING;
 

@@ -16,6 +16,9 @@ import java.util.ArrayList;
  *
  */
 public class Storage {
+    private static final String CSV_LINE_FORMAT = "%s,%s,%s,%s\n";
+    private static final String ITEM_CSV_LINE_FORMAT = "%s,%s\n";
+
     private final String eventFilePath;
     private final String participantFilePath;
     private final String itemFilePath;
@@ -43,12 +46,10 @@ public class Storage {
      */
     public void saveEvents(EventList events) throws IOException {
         try (FileWriter writer = new FileWriter(eventFilePath)) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             for (Event event : events.getList()) {
                 String eventTimeString = formatter.format(event.getEventTime());
-                writer.write(event.getEventName() + "," + eventTimeString + ","
-                        + event.getEventVenue() + ","
-                        + event.getEventPriority() + "\n"); // Save event details in CSV format
+                writer.write(String.format(CSV_LINE_FORMAT, event.getEventName(), eventTimeString,
+                        event.getEventVenue(), event.getEventPriority()));
             }
         } catch (IOException exception) {
             throw new IOException("Error saving events to file: " + eventFilePath);
@@ -65,11 +66,7 @@ public class Storage {
     public void saveParticipants(EventList events) throws IOException {
         try (FileWriter writer = new FileWriter(participantFilePath)) {
             for (Event event : events.getList()) {
-                ArrayList<Participant> participants = event.getParticipantList();
-                for (Participant participant : participants) {
-                    writer.write(participant.getName() + "," + participant.getNumber() + ","
-                            + participant.getEmail() + "," + event.getEventName()  + "\n"); // Save event details in CSV format
-                }
+                saveEventParticipants(event, writer);
             }
         } catch (IOException exception) {
             throw new IOException("Error saving events to file: " + participantFilePath);
@@ -85,10 +82,7 @@ public class Storage {
     public void saveItems(EventList events) throws IOException {
         try (FileWriter writer = new FileWriter(itemFilePath)) {
             for (Event event : events.getList()) {
-                ArrayList<Item> items = event.getItemList();
-                for (Item item : items) {
-                    writer.write(item.getName() + "," + event.getEventName()  + "\n"); // Save event details in CSV format
-                }
+                saveEventItems(event, writer);
             }
         } catch (IOException exception) {
             throw new IOException("Error saving events to file: " + itemFilePath);
@@ -146,6 +140,36 @@ public class Storage {
      */
     private boolean isTestEnvironment() {
         return "true".equals(System.getProperty("test.environment"));
+    }
+
+    //@@author jemehgoh
+    /**
+     * Saves the data of the participants in a given event to a given file writer.
+     *
+     * @param event the event containing the participant data.
+     * @param writer the file writer.
+     * @throws IOException if the participant cannot be written into the file.
+     */
+    private void saveEventParticipants(Event event, FileWriter writer) throws IOException {
+        ArrayList<Participant> participants = event.getParticipantList();
+        for (Participant participant : participants) {
+            writer.write(String.format(CSV_LINE_FORMAT, participant.getName(), participant.getNumber(),
+                    participant.getEmail(), event.getEventName()));
+        }
+    }
+
+    /**
+     * Saves the data of the items in a given event to a given file writer.
+     *
+     * @param event the event containing the item data.
+     * @param writer the file writer.
+     * @throws IOException if the participant cannot be written into the file.
+     */
+    private void saveEventItems(Event event, FileWriter writer) throws IOException {
+        ArrayList<Item> items = event.getItemList();
+        for (Item item : items) {
+            writer.write(String.format(ITEM_CSV_LINE_FORMAT, item.getName(), event.getEventName()));
+        }
     }
 }
 

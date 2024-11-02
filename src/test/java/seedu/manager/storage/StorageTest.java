@@ -36,16 +36,28 @@ public class StorageTest {
 
     @AfterEach
     public void tearDown() {
-        File file = new File(TEST_EVENTS_FILE_PATH);
-        // Clean up the test file after each test
-        if (file.exists()) {
-            file.delete();
+        File eventsFile = new File(TEST_EVENTS_FILE_PATH);
+        File participantsFile = new File(TEST_PARTICIPANTS_FILE_PATH);
+        File itemsFile = new File(TEST_ITEMS_FILE_PATH);
+
+        // Clean up the test files after each test
+        if (eventsFile.exists()) {
+            eventsFile.delete();
+        }
+
+        if (participantsFile.exists()) {
+            participantsFile.delete();
+        }
+
+        if (itemsFile.exists()) {
+            itemsFile.delete();
         }
     }
 
     @Test
     public void testLoadEventsFileNotExists() {
-        Storage nonExistentFileStorage = new Storage(NON_EXISTENT_FILE_PATH);
+        Storage nonExistentFileStorage = new Storage(NON_EXISTENT_FILE_PATH, NON_EXISTENT_FILE_PATH,
+                NON_EXISTENT_FILE_PATH);
 
         IOException exception = assertThrows(IOException.class, () -> {
             nonExistentFileStorage.loadEvents(eventList);
@@ -111,8 +123,6 @@ public class StorageTest {
             fail("Exception should not be thrown when reading the saved file: " + exception.getMessage());
         }
     }
-
-
 }
 
 
