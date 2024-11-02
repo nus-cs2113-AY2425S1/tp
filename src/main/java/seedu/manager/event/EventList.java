@@ -66,6 +66,16 @@ public class EventList  {
         addEvent(eventName, time, venue, priority, false);
     }
 
+    /**
+     * Adds a new {@code Event} with the given parameters and adds it to the event list.
+     *
+     * @param eventName the name of the event to be added.
+     * @param time the time of the event.
+     * @param venue the venue where the event will take place.
+     * @param priority the priority level of the event.
+     * @param isDone {@code true} if the event is marked done, {@code false otherwise}.
+     * @throws DuplicateDataException if an event with eventName is present in the event list.
+     */
     public void addEvent(String eventName, LocalDateTime time, String venue,
             Priority priority, boolean isDone) throws DuplicateDataException {
         if (getEventByName(eventName).isPresent()) {
@@ -246,6 +256,7 @@ public class EventList  {
         return false;
     }
 
+    //@@author jemehgoh
     /**
      * Returns true if an item with a given name is successfully added to a given event, returns false otherwise.
      *

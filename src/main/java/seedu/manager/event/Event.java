@@ -139,7 +139,6 @@ public class Event {
         this.eventPriority = eventPriority;
     }
 
-
     /**
      * Retrieves the number of participants in the participant list.
      *
