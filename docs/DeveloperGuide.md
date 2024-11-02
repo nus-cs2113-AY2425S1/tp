@@ -272,15 +272,15 @@ The `CategoryFilter` class is responsible for filtering categories based on vari
 
 The `CategoryFacade` class has key methods for:
 
-|          Method           |                                                        Description                                                        |
-|:-------------------------:|:-------------------------------------------------------------------------------------------------------------------------:|
-|        addCategory        |                Adds a new category and price to the tracker, checking for spending limits after addition.                 |
-|      deleteCategory       |                          Deletes a specified category and its associated price from the tracker.                          |
-|       editCategory        |   Edits an existing category, updating the old and new category's total expenditures and checking limits after editing.   |
-|     loadCategoryInfo      |              Loads category information from a CSV file, tracking categories based on a given expense list.               |
-| displayFilteredCategories | Displays filtered categories based on spending limits, showing categories that have exceeded or are nearing their limits. |
-|     saveCategoryInfo      |                                   Saves the current category information to a CSV file.                                   |
-| setCategorySpendingLimit  |                    Sets a spending limit for a specified category, updating the limit in the tracker.                     |
+|          Method           |                                                    Description                                                    |
+|:-------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
+|        addCategory        |                           The interface for AddCommand when the user adds a new Expense                           |
+|      deleteCategory       |                         The interface for DeleteCommand when the user deletes an Expense.                         |
+|       editCategory        |                           The interface for EditCommand when the user edits an Expense.                           |
+|     loadCategoryInfo      |                    The interface for LoadCommand to load category information from a CSV file.                    |
+| displayFilteredCategories |                The interface for LoadCommand to show filtered categories based on spending limits.                |
+|     saveCategoryInfo      |                 The interface for SaveCommand to save current category information to a CSV file.                 |
+| setCategorySpendingLimit  |                  The interface for SetCommand to set a spending limit for a specified category.                   |
 
 The `CategoryTracker` class has the following key methods: 
 
