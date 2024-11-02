@@ -1,8 +1,4 @@
 @startuml
-abstract class Command {
-    + {abstract} execute(ProgrammeList, History): CommandResult
-}
-
 abstract class MealCommand {
     # date: LocalDate
     + execute(ProgrammeList, History): CommandResult
@@ -23,7 +19,6 @@ class ViewMealCommand {
     + execute(ProgrammeList, History): CommandResult
 }
 
-Command <|-- MealCommand
 MealCommand <|-- AddMealCommand
 MealCommand <|-- DeleteMealCommand
 MealCommand <|-- ViewMealCommand

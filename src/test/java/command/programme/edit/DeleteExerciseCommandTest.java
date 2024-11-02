@@ -49,7 +49,9 @@ class DeleteExerciseCommandTest {
     // Test for constructor with valid inputs
     @Test
     void constructor_initializesWithValidParameters() {
-        assertDoesNotThrow(() -> new DeleteExerciseProgrammeCommand(VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID));
+        assertDoesNotThrow(() -> new DeleteExerciseProgrammeCommand(
+                VALID_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID)
+        );
     }
 
     // Edge case for constructor: Negative programme ID

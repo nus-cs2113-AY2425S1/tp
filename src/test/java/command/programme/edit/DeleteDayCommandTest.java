@@ -75,14 +75,18 @@ class DeleteDayCommandTest {
     // Edge case for execute: Nonexistent programme ID
     @Test
     void execute_throwsIndexOutOfBoundsIfProgrammeIdDoesNotExist() {
-        DeleteDayProgrammeCommand invalidCommand = new DeleteDayProgrammeCommand(OUT_OF_RANGE_PROGRAMME_ID, VALID_DAY_ID);
+        DeleteDayProgrammeCommand invalidCommand = new DeleteDayProgrammeCommand(
+                OUT_OF_RANGE_PROGRAMME_ID, VALID_DAY_ID)
+                ;
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
     }
 
     // Edge case for execute: Nonexistent day ID within existing programme
     @Test
     void execute_throwsIndexOutOfBoundsIfdayIndexDoesNotExist() {
-        DeleteDayProgrammeCommand invalidCommand = new DeleteDayProgrammeCommand(VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID);
+        DeleteDayProgrammeCommand invalidCommand = new DeleteDayProgrammeCommand(
+                VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID
+        );
         assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
     }
 }

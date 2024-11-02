@@ -1,7 +1,4 @@
 @startuml
-abstract class Command {
-    + {abstract} execute(ProgrammeList, History): CommandResult
-}
 
 abstract class HistoryCommand {
     + execute(ProgrammeList, History): CommandResult
@@ -17,7 +14,6 @@ class ViewHistoryCommand {
 }
 
 
-Command <|-- HistoryCommand
 HistoryCommand <|-- WeeklySummaryCommand
 HistoryCommand <|-- ViewHistoryCommand
 

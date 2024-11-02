@@ -1,6 +1,6 @@
 @startuml
 
-    class ProgrammeCommand {
+    abstract ProgrammeCommand {
         <<abstract>>
         #programmeIndex: int
         #dayIndex: int
