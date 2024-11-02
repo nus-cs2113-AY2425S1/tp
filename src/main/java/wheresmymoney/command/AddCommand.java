@@ -1,5 +1,6 @@
 package wheresmymoney.command;
 
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
 import wheresmymoney.exception.InvalidInputException;
@@ -14,19 +15,23 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade) throws WheresMyMoneyException {
         try {
             float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
             String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
+
             if (argumentsMap.containsKey(Parser.ARGUMENT_DATE_ADDED)) {
                 String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE_ADDED);
                 expenseList.addExpense(price, description, category, dateAdded);
             } else {
                 expenseList.addExpense(price, description, category);
             }
-        } catch(NullPointerException | NumberFormatException e){
+            
+            categoryFacade.addCategory(category, price);
+        } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments");
         }
     }
+    
 }

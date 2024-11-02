@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class ExpenseListTest {
 
     @Test
-    public void getList_notNullInput_expenseListIsNotNull() {
+    public void getList_notNullInput_expenseExpenseListIsNotNull() {
         ExpenseList expenseList = new ExpenseList();
         assertNotNull(expenseList);
     }
