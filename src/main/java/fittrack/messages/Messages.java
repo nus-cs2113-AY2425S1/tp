@@ -83,17 +83,17 @@ public class Messages {
     public static final String DELETE_GOALS_MESSAGE = "Got it. I've deleted this goal.";
     public static final String LIST_GOAL_MESSAGE = "Here is your goal list!";
 
-    public static final String ADD_WATER_MESSAGE = "Added <WATER_ML> of water.";
-    public static final String DELETE_WATER_MESSAGE = "Deleted <WATER_ML> of water.";
-    public static final String LIST_WATER_MESSAGE = "Water intake (in ml)::";
+    public static final String ADD_WATER_MESSAGE = "Got it. I've added <WATER_ML> of water.";
+    public static final String DELETE_WATER_MESSAGE = "Got it. I've deleted <WATER_ML> of water.";
+    public static final String LIST_WATER_MESSAGE = "Here is your water intake (in ml):";
 
-    public static final String ADD_FOOD_MESSAGE = "Got it. I've added food intake:";
-    public static final String DELETE_FOOD_MESSAGE = "Got it. I've deleted the food intake.";
-    public static final String LIST_FOOD_MESSAGE = "Here is your food intake list:";
+    public static final String ADD_FOOD_MESSAGE = "Got it. I've added food item: ";
+    public static final String DELETE_FOOD_MESSAGE = "Got it. I've deleted food item: ";
+    public static final String LIST_FOOD_MESSAGE = "Here is your food intake list: ";
 
     public static final String ADD_CALORIES_MESSAGE = "Got it. I've added calorie intake:";
     public static final String DELETE_CALORIES_MESSAGE = "Got it. I've deleted the calorie intake.";
-    public static final String LIST_CALORIES_MESSAGE = "Here is your calorie intake list:";
+    public static final String LIST_CALORIES_MESSAGE = "Here is your calorie intake:";
 
     public static final String NONNUMERICAL_INDEX_MESSAGE = "Please provide a valid numerical index.";
     public static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Sorry, but that index is not within the list.";

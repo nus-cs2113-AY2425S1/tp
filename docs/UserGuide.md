@@ -309,6 +309,150 @@ in the form of a point graph.
 ```
 ```
 
+### 18. Add Food Intake: `add-food`
+View a list of daily food intake
+to have a more comprehensive understanding
+of factors affecting my fitness.
+
+**Format**: `add-food (food name)`
+
+**Example**: `add-food apple`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Got it. I've added food item: apple
+____________________________________________________________________________________________________
+```
+
+### 19. Delete Food Intake: delete-food
+**Purpose**: Remove a food item from 
+the daily food intake list.
+
+**Format**: `delete-food (food name)`
+
+**Example**: `delete-food apple`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Got it. I've deleted food item: apple
+____________________________________________________________________________________________________
+```
+
+### 20. List Food Intake: list-food
+**Purpose**: Display the list of all food items 
+that have been added for the day.
+
+**Format**: `list-food`
+
+**Example**: `list-food`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Here is your food intake list:
+1. apple
+2. banana
+There are 2 food items in your list.
+____________________________________________________________________________________________________
+```
+
+### 21. Add Water Intake: add-water
+**Purpose**: Add water intake in milliliters 
+to track hydration levels.
+
+**Format**: `add-water (water ml)`
+
+**Example**: `add-water 500`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Got it. I've added 500 ml of water.
+____________________________________________________________________________________________________
+```
+
+### 22. Delete Water Intake: delete-water
+**Purpose**: Remove a specified amount of water 
+from the daily water intake record.
+
+**Format**: `delete-water (water ml)`
+
+**Example**: `delete-water 500`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Got it. I've deleted 500 ml of water.
+____________________________________________________________________________________________________
+```
+
+### 23. List Water Intake: list-water
+**Purpose**: Display the total water 
+intake recorded for the day.
+
+**Format**: `list-water`
+
+**Example**: `list-water`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Here is your water intake (in ml):
+1. 500 ml
+2. 300 ml
+There are 2 entries in your water intake list.
+____________________________________________________________________________________________________
+```
+
+### 24. Add Calorie Intake: add-calories
+**Purpose**: Add calorie intake for the day to 
+keep track of energy consumption.
+
+**Format**: `add-calories (calorie amount)`
+
+**Example**: `add-calories 250`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Got it. I've added calorie intake: 250
+____________________________________________________________________________________________________
+```
+
+### 25. Delete Calorie Intake: delete-calories
+**Purpose**: Remove a specific calorie entry from the daily calorie record.
+
+**Format**: `delete-calories (calorie amount)`
+
+**Example**: `delete-calories 250`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Got it. I've deleted the calorie intake: 250
+____________________________________________________________________________________________________
+```
+
+### 26. List Calorie Intake: list-calories
+**Purpose**: Display the total calorie intake recorded for the day.
+
+**Format**: `list-calories`
+
+**Example**: `list-calories`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Here is your calorie intake:
+1. 250 calories
+2. 300 calories
+   There are 2 entries in your calorie intake list.
+____________________________________________________________________________________________________
+```
+
+
 ## FitTrackCLI's Command Summary
 | Command             | Format                                                         | Example                            |
 |---------------------|----------------------------------------------------------------|------------------------------------|
