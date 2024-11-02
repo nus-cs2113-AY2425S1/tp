@@ -28,14 +28,8 @@ public class YMFC {
         logger.log(Level.FINE, "Starting YMFC");
         ui.greet();
 
-        try {
-            storage.loadRecipes(recipeList, ingredientList, ui, storage);
-            storage.loadIngredients(recipeList, ingredientList, ui, storage);
-            logger.log(Level.INFO, "Save file found");
-        } catch (FileNotFoundException e) {
-            logger.log(Level.INFO, "No save file found");
-        }
-
+        storage.loadRecipes(recipeList, ingredientList, ui, storage);
+        storage.loadIngredients(recipeList, ingredientList, ui, storage);
 
         String userInput;
         while (!saidBye) {

@@ -1,5 +1,6 @@
 package ymfc.storage;
 
+import static ymfc.YMFC.logger;
 import ymfc.commands.AddIngredientCommand;
 import ymfc.commands.AddRecipeCommand;
 import ymfc.commands.ListCommand;
@@ -17,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 public class Storage {
     private static final String saveRecipeFilePath = "./data/recipes.txt";
@@ -78,12 +80,18 @@ public class Storage {
      * @param ingredients Object for user's ingredients.
      * @param ui Object to access the UI class.
      * @param storage Object to access the Storage class.
-     * @throws FileNotFoundException If save file does not exist.
      */
     public void loadRecipes(RecipeList recipes, IngredientList ingredients,
-                            Ui ui, Storage storage) throws FileNotFoundException {
-        File tasksFile = new File(saveRecipeFilePath);
-        Scanner reader = new Scanner(tasksFile);
+                            Ui ui, Storage storage) {
+        Scanner reader;
+        try {
+            File tasksFile = new File(saveRecipeFilePath);
+            reader = new Scanner(tasksFile);
+        } catch (FileNotFoundException exception) {
+            logger.log(Level.INFO, "No recipes savefile found");
+            return;
+        }
+
         boolean isEmpty = true;
         while (reader.hasNext()) {
             String line = reader.nextLine();
@@ -109,12 +117,18 @@ public class Storage {
      * @param ingredients Object containing the ArrayList of ingredients to be saved.
      * @param ui Object to access the UI class.
      * @param storage Object to access the Storage class.
-     * @throws FileNotFoundException If save file does not exist.
      */
     public void loadIngredients(RecipeList recipes, IngredientList ingredients,
-                                Ui ui, Storage storage) throws FileNotFoundException {
-        File tasksFile = new File(saveIngredientFilePath);
-        Scanner reader = new Scanner(tasksFile);
+                                Ui ui, Storage storage) {
+        Scanner reader;
+        try {
+            File tasksFile = new File(saveIngredientFilePath);
+            reader = new Scanner(tasksFile);
+        } catch (FileNotFoundException exception) {
+            logger.log(Level.INFO ,"No ingredients savefile found");
+            return;
+        }
+
         boolean isEmpty = true;
         while (reader.hasNext()) {
             String line = reader.nextLine();
