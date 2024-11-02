@@ -21,10 +21,11 @@ public class SortCommand extends Command {
     // Execute method for the SortCommand
     @Override
     public void execute(ArrayList<String> args) {
+        uiCommand.clearInvalidFlags();
+
         // Check if no arguments are provided after "sort"
         if (args.isEmpty()) {
-            uiCommand.showSortedInternships("none");  // No valid sort option provided
-            internships.listAllInternships();  // Default to listing by ID
+            internships.listInternshipsNotSorted(); // No valid sort option provided
             return;
         }
 
@@ -34,32 +35,23 @@ public class SortCommand extends Command {
         // Handle valid sorting options
         switch (sortOption) {
         case "role":
-            uiCommand.showSortedInternships(sortOption);  // Show sorting message for alphabet
             internships.listInternshipsSortedByRole();  // Sort by role alphabetically (case-insensitive)
             break;
         case "duration":
-            uiCommand.showSortedInternships(sortOption);  // Show sorting message for deadline
             internships.listInternshipsSortedByDuration();  // Sort by start date, then end date (year first)
             break;
         case "deadline":
-            uiCommand.showSortedInternships(sortOption);
             internships.listInternshipsSortedByDeadline();
             break;
         case "skills":
-            uiCommand.showSortedInternships(sortOption);
             internships.listInternshipsSortedByFirstSkill();  // Sort by first skill alphabetically
             break;
         case "status":
-            uiCommand.showSortedInternships(sortOption);
             internships.listInternshipsSortedByStatus();  // Sort by status alphabetically
             break;
         default:
             // Handle invalid sorting options
-            uiCommand.clearInvalidFlags();
-            uiCommand.addInvalidFlag(sortOption);
-            uiCommand.printInvalidFlags();
-            System.out.println(uiCommand.getSortUsageMessage());  // Show correct usage message
-            internships.listAllInternships();  // Default to listing by ID
+            internships.listInternshipsInvalidFlag(sortOption);
         }
     }
 
@@ -68,7 +60,8 @@ public class SortCommand extends Command {
         return """
                 sort
                 Usage: sort [role | deadline | duration | skills | status]
-                alphabet: Sort internships alphabetically by role (case-insensitive).
+                
+                role: Sort internships alphabetically by role (case-insensitive).
                 deadline: Sort internships by start date (year first), then end date.
                 duration: Sort internships by internship duration.
                 skills: Sort internships by the first skill alphabetically.
