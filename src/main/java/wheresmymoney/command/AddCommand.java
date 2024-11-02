@@ -1,5 +1,6 @@
 package wheresmymoney.command;
 
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
 import wheresmymoney.RecurringExpenseList;
@@ -22,7 +23,7 @@ public class AddCommand extends Command {
      * @param recurringExpenseList List of recurring expenses
      */
     @Override
-    public void execute(ExpenseList expenseList, RecurringExpenseList recurringExpenseList) 
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList) 
             throws WheresMyMoneyException {
         try {
             float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
@@ -32,8 +33,10 @@ public class AddCommand extends Command {
             if (isContainDateKey && !this.isRecur()) {
                 LocalDate dateAdded = DateUtils.stringToDate(argumentsMap.get(Parser.ARGUMENT_DATE));
                 expenseList.addExpense(price, description, category, dateAdded);
+                categoryFacade.addCategory(category, price);
             } else if (!isContainDateKey && !this.isRecur()) {
                 expenseList.addExpense(price, description, category);
+                categoryFacade.addCategory(category, price);
             } else if (isContainDateKey && this.isRecur()) {
                 String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE);
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
@@ -43,7 +46,10 @@ public class AddCommand extends Command {
                 recurringExpenseList.addRecurringExpense(price, description, category, frequency);
             }
         } catch(NullPointerException | NumberFormatException e) {
+            }
+        } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments");
         }
     }
+    
 }

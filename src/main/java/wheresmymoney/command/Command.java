@@ -1,5 +1,6 @@
 package wheresmymoney.command;
 
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
 import wheresmymoney.RecurringExpenseList;
@@ -26,9 +27,8 @@ public abstract class Command {
      * @param expenseList Current ExpenseList
      * @throws WheresMyMoneyException On any error executing the command
      */
-    public abstract void execute(ExpenseList expenseList, RecurringExpenseList recurringExpenseList) 
-            throws WheresMyMoneyException;
-
+    public abstract void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
+            RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException;
 
     /**
      * Returns a boolean representing if the entire program should exit.

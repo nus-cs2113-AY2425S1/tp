@@ -1,7 +1,9 @@
 package wheresmymoney.command;
 
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.RecurringExpenseList;
+import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
@@ -22,9 +24,15 @@ public class SaveCommand extends Command {
      * @param recurringExpenseList
      * @throws WheresMyMoneyException
      */
-    public void execute(ExpenseList expenseList, RecurringExpenseList recurringExpenseList) 
+    public void execute(ExpenseList expenseList,  CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList) 
             throws WheresMyMoneyException {
-        expenseList.saveToCsv(this.EXPENSES_FILE_PATH);
-        recurringExpenseList.saveToCsv(this.RECURRING_EXPENSES_FILE_PATH);
+        try {
+            expenseList.saveToCsv(this.EXPENSES_FILE_PATH);
+            recurringExpenseList.saveToCsv(this.RECURRING_EXPENSES_FILE_PATH);
+            categoryFacade.saveCategoryInfo();
+        } catch (StorageException e) {
+            throw new WheresMyMoneyException("Exception occurred when saving to file.");
+        }
     }
+    
 }

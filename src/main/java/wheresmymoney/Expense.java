@@ -29,6 +29,8 @@ public class Expense {
         this.setDescription(description);
         this.setCategory(category);
         this.dateAdded = DateUtils.getCurrentDate();
+        assert (price != null) && (description != null) && (category != null);
+        assert (!description.isBlank()) && (!category.isBlank());
     }
 
     public Expense(Float price, String description, String category, LocalDate dateAdded)
@@ -40,23 +42,29 @@ public class Expense {
         this.setDescription(description);
         this.setCategory(category);
         this.setDateAdded(DateUtils.stringToDate(dateAdded));
+        assert (price != null) && (description != null) && (category != null);
+        assert (!description.isBlank()) && (!category.isBlank());
     }
 
     public Expense() {}
     
     public Float getPrice() {
+        assert price != null;
         return price;
     }
 
     public String getDescription() {
+        assert (description != null) && (!description.isBlank());
         return description;
     }
 
     public String getCategory() {
+        assert (category != null) && (!category.isBlank());
         return category;
     }
 
     public LocalDate getDateAdded() {
+        assert dateAdded != null;
         return dateAdded;
     }
     
@@ -65,7 +73,6 @@ public class Expense {
             throw new WheresMyMoneyException("Expense's price shouldn't be null.");
         }
         this.price = price;
-        assert this.price != null : "Expense's price shouldn't be null.";
     }
 
     public void setDescription(String description) throws WheresMyMoneyException {
@@ -75,7 +82,6 @@ public class Expense {
             throw new WheresMyMoneyException("Expense's description shouldn't be blank.");
         }
         this.description = description;
-        assert this.description != null : "Expense's description shouldn't be null.";
     }
 
     public void setCategory(String category) throws WheresMyMoneyException {
@@ -85,7 +91,6 @@ public class Expense {
             throw new WheresMyMoneyException("Expense's category shouldn't be blank.");
         }
         this.category = category;
-        assert this.category != null : "Expense's category shouldn't be null.";
     }
 
     public void setDateAdded(LocalDate dateAdded) throws WheresMyMoneyException {
@@ -97,7 +102,6 @@ public class Expense {
         //     throw new WheresMyMoneyException("Expense's date added is not in recognised format.");
         // }
         this.dateAdded = dateAdded;
-        assert this.dateAdded != null : "Expense's date added shouldn't be null.";
     }
     
 }

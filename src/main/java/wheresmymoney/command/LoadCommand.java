@@ -1,7 +1,9 @@
 package wheresmymoney.command;
 
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.RecurringExpenseList;
+import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
@@ -23,9 +25,16 @@ public class LoadCommand extends Command {
      * @throws WheresMyMoneyException
      */
     @Override
-    public void execute(ExpenseList expenseList, RecurringExpenseList recurringExpenseList) 
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList) 
             throws WheresMyMoneyException {
-        expenseList.loadFromCsv(this.EXPENSES_FILE_PATH);
-        recurringExpenseList.loadFromCsv(this.RECURRING_EXPENSES_FILE_PATH);
+        try {
+            expenseList.loadFromCsv(this.EXPENSES_FILE_PATH);
+            recurringExpenseList.loadFromCsv(this.RECURRING_EXPENSES_FILE_PATH);
+            categoryFacade.loadCategoryInfo(expenseList);
+            categoryFacade.displayFilteredCategories();
+        } catch (StorageException e) {
+            throw new WheresMyMoneyException("Exception occurred when reading from file.");
+        }
     }
+    
 }

@@ -1,5 +1,6 @@
 package wheresmymoney.command;
 
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
 import wheresmymoney.RecurringExpenseList;
@@ -21,22 +22,26 @@ public class EditCommand extends Command {
      * @param recurringExpenseList List of recurring expenses
      */
     @Override
-    public void execute(ExpenseList expenseList, RecurringExpenseList recurringExpenseList) 
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList) 
             throws WheresMyMoneyException {
         try {
             int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
-            String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
+            String oldCategory = expenseList.getExpenseAtIndex(index).getCategory();
+            
+            String newCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
             float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
             String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE);
             if (this.isRecur()) {
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
-                recurringExpenseList.editRecurringExpense(index, price, description, category, dateAdded, frequency);
+                recurringExpenseList.editRecurringExpense(index, price, description, newCategory, dateAdded, frequency);
             } else {
-                expenseList.editExpense(index, price, description, category, dateAdded);
+                expenseList.editExpense(index, price, description, newCategory, dateAdded);
+                categoryFacade.editCategory(oldCategory, newCategory, price);
             }
         } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments.");
         }
     }
+    
 }
