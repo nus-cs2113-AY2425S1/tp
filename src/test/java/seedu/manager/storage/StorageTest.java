@@ -20,7 +20,9 @@ import java.time.format.DateTimeFormatter;
 
 
 public class StorageTest {
-    private static final String TEST_FILE_PATH = "test_events.txt";
+    private static final String TEST_EVENTS_FILE_PATH = "test_events.txt";
+    private static final String TEST_PARTICIPANTS_FILE_PATH = "test_participants.txt";
+    private static final String TEST_ITEMS_FILE_PATH = "test_items.txt";
     private static final String NON_EXISTENT_FILE_PATH = "non_existent_file.txt";
     private Storage storage;
     private EventList eventList;
@@ -28,13 +30,13 @@ public class StorageTest {
     @BeforeEach
     public void setUp() {
         System.setProperty("test.environment", "true"); // Set the system property for testing
-        storage = new Storage(TEST_FILE_PATH);
+        storage = new Storage(TEST_EVENTS_FILE_PATH, TEST_PARTICIPANTS_FILE_PATH, TEST_ITEMS_FILE_PATH);
         eventList = new EventList();
     }
 
     @AfterEach
     public void tearDown() {
-        File file = new File(TEST_FILE_PATH);
+        File file = new File(TEST_EVENTS_FILE_PATH);
         // Clean up the test file after each test
         if (file.exists()) {
             file.delete();
@@ -56,7 +58,7 @@ public class StorageTest {
     public void testLoadEvents() {
         try {
             java.nio.file.Files.writeString(
-                    java.nio.file.Paths.get(TEST_FILE_PATH),
+                    java.nio.file.Paths.get(TEST_EVENTS_FILE_PATH),
                     "Meeting,2024-10-25 10:00,Conference Room,HIGH\n" +
                             "Workshop,2024-10-26 14:00,Main Hall,MEDIUM\n"
             );
@@ -97,7 +99,7 @@ public class StorageTest {
             fail("Exception should not be thrown when saving events: " + exception.getMessage());
         }
 
-        File file = new File(TEST_FILE_PATH);
+        File file = new File(TEST_EVENTS_FILE_PATH);
         assertTrue(file.exists());
 
         try {
