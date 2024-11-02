@@ -56,7 +56,7 @@ class CategoryFilter {
     - PriorityQueue<Map.Entry<String, CategoryData>> nearingCategories
 
 '    + setCategoryFacade(categoryFacade: CategoryFacade): void
-    -sortCategoriesIntoHeap(): PriorityQueue<Map.Entry<String, CategoryData>>
+    -initMaxHeap(): PriorityQueue<Map.Entry<String, CategoryData>>
     +getCategoriesFiltered(): void
     -displayFilteredCategories(filtered: PriorityQueue<Map.Entry<String, CategoryData>>, messageIfFound: String, messageIfNoneFound: String): void
     +displayExceededCategories(): void

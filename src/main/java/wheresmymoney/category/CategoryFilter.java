@@ -19,7 +19,7 @@ public class CategoryFilter {
      *
      * @return a {@code PriorityQueue} that sorts categories by current expenditure.
      */
-    private PriorityQueue<Map.Entry<String, CategoryData>> sortCategoriesIntoHeap() {
+    private PriorityQueue<Map.Entry<String, CategoryData>> initMaxHeap() {
         return new PriorityQueue<>(
                 (cat1, cat2) -> cat2.getValue().getCurrExpenditure().compareTo(cat1.getValue().getCurrExpenditure())
         );
@@ -34,8 +34,8 @@ public class CategoryFilter {
      */
     public void getCategoriesFiltered() {
         HashMap<String, CategoryData> tracker = categoryFacade.getCategoryTracker().getTracker();
-        exceededCategories = sortCategoriesIntoHeap();
-        nearingCategories = sortCategoriesIntoHeap();
+        exceededCategories = initMaxHeap();
+        nearingCategories = initMaxHeap();
         for (Map.Entry<String, CategoryData> entry : tracker.entrySet()) {
             CategoryData categoryData = entry.getValue();
             if (categoryData.hasExceededLimit()) {
@@ -85,7 +85,7 @@ public class CategoryFilter {
 
     }
     /**
-     * Displays the categories that are nearing their spending limits.
+     * Displays the categories that are nearing, but not exceeded, their spending limits.
      * If there are such categories, they are listed in descending order of current expenditure.
      * Otherwise, a message indicating that no categories are nearing their limits is displayed.
      */
