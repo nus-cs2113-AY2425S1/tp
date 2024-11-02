@@ -179,9 +179,42 @@ The University of Western Australia
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+**Q**: How do I transfer my data to another computer?
 
 **A**: {your answer here}
+
+**Q**: Are the commands case-sensitive?
+
+**A**: No they are not.
+
+**Q**: Can I `filter` multiple courses at the same time?
+
+**A**: No you cannot
+
+**Q**: Can I `set` multiple schools at the same time?
+
+**A**: No you cannot
+
+**Q**: Can I `add` multiple courses and/or multiple schools at the same time?
+
+**A**: No you cannot
+
+**Q**: Can I `add` schools not in the list of schools and/or add courses not in the list?
+
+**A**: No you cannot
+
+**Q**: Can I `obtain` multiple schools/contact types at the same time?
+
+**A**: No you cannot
+
+**Q**: Can I `obtain` contacts of schools not in the list?
+
+**A**: No you cannot
+
+**Q**: Can I `delete` multiple indices at the same time?
+
+**A**: No you cannot
+
 
 ## Command Summary
 
