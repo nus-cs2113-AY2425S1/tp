@@ -36,7 +36,6 @@ import static seedu.exchangecoursemapper.constants.Messages.NO_UNIQUE_MAPPINGS;
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
 
 
-
 public class UI {
     private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
 
@@ -158,32 +157,6 @@ public class UI {
         System.out.println(LINE_SEPARATOR);
     }
 
-    /**
-     * Runs the main chat loop of the application. It continuously takes user input
-     * and processes it through the {@code Parser} until the user types "bye".
-     *
-     * @param parser The {@code Parser} object that processes user input.
-     */
-    public void runChat(Parser parser, Storage storage) {
-        String userInput;
-        do {
-            userInput = parser.getUserInput();
-            parser.processUserInput(userInput, storage);
-        } while (!userInput.equalsIgnoreCase(BYE));
-    }
-
-
-    public void printListUniCoursesCommand(JsonObject courseObject) {
-        String puCourseCode = courseObject.getString(PU_COURSE_CODE_KEY);
-        String puCourseName = courseObject.getString(PU_COURSE_NAME_KEY);
-        String nusCourseCode = courseObject.getString(NUS_COURSE_CODE_KEY);
-        String nusCourseName = courseObject.getString(NUS_COURSE_NAME_KEY);
-
-        System.out.println(puCourseCode + ": " + puCourseName);
-        System.out.println(nusCourseCode + ": " + nusCourseName);
-        System.out.println(LINE_SEPARATOR);
-    }
-
     public void printCommandsList(){
         System.out.println(LINE_SEPARATOR);
         System.out.println(COMMANDS_LIST);
@@ -246,4 +219,17 @@ public class UI {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Runs the main chat loop of the application. It continuously takes user input
+     * and processes it through the {@code Parser} until the user types "bye".
+     *
+     * @param parser The {@code Parser} object that processes user input.
+     */
+    public void runChat(Parser parser, Storage storage) {
+        String userInput;
+        do {
+            userInput = parser.getUserInput();
+            parser.processUserInput(userInput, storage);
+        } while (!userInput.equalsIgnoreCase(BYE));
+    }
 }
