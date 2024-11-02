@@ -320,8 +320,10 @@ The following sequence diagram illustrates how the state-switching mechanism wor
 | v1.0    | nurse    | list my tasks                                                        | see all my tasks that I have currently                               |
 | v2.0    | nurse    | check my task completion progress                                    | see the rate of completion of my current tasks                       |
 | v2.0    | nurse    | add deadlines to my tasks                                            | know when I need to finish my given task                             |
-| v2.0    | nurse    | find my task by keyword                                            | check on specific tasks                             |
-| v2.0    | nurse    | find my patient by name                                            | check my tasks for specific patients                             |
+| v2.0    | nurse    | find my task by keyword                                              | check on specific tasks                                              |
+| v2.0    | nurse    | find my patient by name                                              | check my tasks for specific patients                                 |
+| v2.0    | nurse    | tag my patients                                                      | categorize my patients for easier identification                     |
+
 ## Non-Functional Requirements
 
 1. Should work on any mainstream OS as long as it has Java 17 or above installed.
@@ -348,24 +350,24 @@ The following sequence diagram illustrates how the state-switching mechanism wor
    Some example commands you can try:
 
    Patient-related commands:
-        - `add Alice /tag patient` : Adds a patient named Alice to the list of patients.
+  - `add Alice /tag patient` : Adds a patient named Alice to the list of patients.
 
-        - `list` : Lists all patients.
+  - `list` : Lists all patients.
 
-        - `delete 1` : Deletes the 1st patient in the list.
+  - `delete 1` : Deletes the 1st patient in the list.
 
-        - `exit` : Exits the app.
+  - `exit` : Exits the app.
 
    Task-related commands:
 
-        - `todo Update patient records` : Adds a todo task named "Update patient records" to the list of tasks.
+  - `todo Update patient records` : Adds a todo task named "Update patient records" to the list of tasks.
 
-        - `list` : Lists all tasks.
+  - `list` : Lists all tasks.
 
-        - `delete 1` : Deletes the 1st task in the list.
+  - `delete 1` : Deletes the 1st task in the list.
 
-        - `mark 1` : Marks the 1st task in the list as done.
+  - `mark 1` : Marks the 1st task in the list as done.
 
-        - `unmark 1` : Marks the 1st task in the list as undone.
+  - `unmark 1` : Marks the 1st task in the list as undone.
 
 For more details on the commands of MediTask, please refer to the [User Guide](https://ay2425s1-cs2113-t11-1.github.io/tp/UserGuide.html).
