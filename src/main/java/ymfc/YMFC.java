@@ -1,6 +1,5 @@
 package ymfc;
 
-import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
