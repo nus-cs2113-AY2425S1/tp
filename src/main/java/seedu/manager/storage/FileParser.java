@@ -132,7 +132,9 @@ public class FileParser {
             String email = parts[2].trim();
             boolean isPresent = getIsMarked(parts[3].trim());
             String eventName = parts[4].trim();
-            events.addParticipantToEvent(participantName, number, email, isPresent, eventName);
+            boolean isLoaded = events.addParticipantToEvent(participantName, number, email,
+                    isPresent, eventName);
+            logOnUnsuccessfulLoad(isLoaded);
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
             logger.log(WARNING, "File line cannot be parsed, participant not loaded");
         }
@@ -152,7 +154,8 @@ public class FileParser {
             String itemName = parts[0].trim();
             boolean isPresent = getIsMarked(parts[1].trim());
             String eventName = parts[2].trim();
-            events.addItemToEvent(itemName, isPresent, eventName);
+            boolean isLoaded = events.addItemToEvent(itemName, isPresent, eventName);
+            logOnUnsuccessfulLoad(isLoaded);
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
             logger.log(WARNING, "File line cannot be parsed, item not loaded");
         }
@@ -172,6 +175,17 @@ public class FileParser {
         } else {
             logger.log(WARNING, "Cannot parse mark status, setting to false");
             return false;
+        }
+    }
+
+    /**
+     * Logs a warning message if a file entry was not loaded.
+     *
+     * @param isLoaded {@code true} if the entry was loaded, {@code false} otherwise.
+     */
+    private void logOnUnsuccessfulLoad(boolean isLoaded) {
+        if (!isLoaded) {
+            logger.log(WARNING, "Associated event not found, entry not loaded");
         }
     }
 }
