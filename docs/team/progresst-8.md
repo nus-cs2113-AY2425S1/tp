@@ -19,5 +19,6 @@ Given below are my contributions to the project.
     - Created section about setting spending limits for a category 
   - Developer Guide
     - Created Expense and ExpenseList section
-    - Created CategoryTracker, CategoryData, CategoryFilter and CategoryFacade section
+    - Created category package section
+      - Includes details about classes `CategoryTracker`, `CategoryData`, `CategoryFilter` and `CategoryFacade`
 - **Review & Mentoring Contributions:** Provide suggestions for designing various components of the software.
