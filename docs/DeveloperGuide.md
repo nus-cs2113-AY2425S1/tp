@@ -47,7 +47,7 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Date and Time Handling](#date-and-time-handling)
 - [Exceptions and Logging](#exceptions-and-logging)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
-- [Category Tracker and Category Data]()
+- [Category Package](#category-package)
 
 ### Architecture
 A high-level overview of the system is shown in the Architecture Diagram below.
@@ -256,42 +256,82 @@ Below is the sequence diagram for when the user calls the `load` command.
 
 
 
-### Category Tracker and Category Data
+### Category Package
 
 <u>Overview</u>
 
-The `CategoryData` class contains category-related information, namely the cumulative expenditure (the sum of all prices of expenses with that category) and the spending limits for that category. 
+The `CategoryFacade` class serves as an interface that simplifies the interaction with various category-related classes (`CategoryTracker` and `CategoryFilter`), providing a unified API for the rest of the application (namely the `Command` classes).
 
 The `CategoryTracker` class manages a collection of Category-`CategoryData` pairs. It allows for the addition, editing and deletion of category-related information.
 
+The `CategoryData` class contains category-related information, namely the cumulative expenditure (the sum of all prices of expenses with that category) and the spending limits for that category. 
+
+The `CategoryFilter` class is responsible for filtering categories based on various criteria.
+
 <u>Methods</u>
 
-The `CategoryData` class has no notable methods.
+The `CategoryFacade` class has key methods for:
+
+|          Method           |                                                    Description                                                    |
+|:-------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
+|        addCategory        |                           The interface for AddCommand when the user adds a new Expense                           |
+|      deleteCategory       |                         The interface for DeleteCommand when the user deletes an Expense.                         |
+|       editCategory        |                           The interface for EditCommand when the user edits an Expense.                           |
+|     loadCategoryInfo      |                    The interface for LoadCommand to load category information from a CSV file.                    |
+| displayFilteredCategories |                The interface for LoadCommand to show filtered categories based on spending limits.                |
+|     saveCategoryInfo      |                 The interface for SaveCommand to save current category information to a CSV file.                 |
+| setCategorySpendingLimit  |                  The interface for SetCommand to set a spending limit for a specified category.                   |
 
 The `CategoryTracker` class has the following key methods: 
 
-|     Method     |                                                            Description                                                            |
-|:--------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
-|  addCategory   | Adds a new category to the tracker. If already in the tracker, then the total expenditure for that category is increased instead. |
-| deleteCategory |    Decreases total expenditure of a category. If that total drops to zero or below, the category is removed from the tracker.     |
-|  editCategory  |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed.                   |
+|       Method        |                                                            Description                                                            |
+|:-------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
+|     addCategory     | Adds a new category to the tracker. If already in the tracker, then the total expenditure for that category is increased instead. |
+|   deleteCategory    |    Decreases total expenditure of a category. If that total drops to zero or below, the category is removed from the tracker.     |
+|    editCategory     |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed.                   |
+| setSpendingLimitFor |                                         Sets a spending limit for a particular category.                                          |
+
+The `CategoryData` class has no notable methods.
+
+The `CategoryFilter` class has key methods for:
+
+|          Method           |                                                    Description                                                    |
+|:-------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
+|        initMaxHeap        |              Initialises a custom max heap that sorts categories by their current total expenditure               |
+|   getCategoriesFiltered   | Sorts categories in the tracker, which are nearing or have exceeded the designated spending limit, into max-heaps |
+| displayFilteredCategories |              Displays the categories in the provided category-filtered max-heap, in a preset format.              |
+| displayExceededCategories |                          Displays the categories that have exceeded its spending limits.                          |
+| displayNearingCategories  |                 Displays the categories that are nearing, but not exceeded, its spending limits.                  |
 
 After the user adds or edits an `Expense`, it alerts the user if the spending limit is approached or exceeded for that `Expenses`'s category.
 
+After the user loads from file, all categories that have exceeded its designated spending limit will be displayed to the user, followed by all categories that have not exceeded its designated spending limit but are close to it.
+
 <u>Design Considerations</u>
 
-The setters in `CategoryData` checks for null inputs.
-The `CategoryData` constructors also do, as they use those setters.
+Each of the classes in this package handle a separate concern relating to category management (achieving Separation of Concerns Principle) and each focuses on a specific responsibility (achieving Single Responsibility Principle).
 
-The `CategoryTracker` class contains exception handling when attempting to edit or delete a category that is not in the tracker.
-
-The `CategoryTracker` class uses a hashmap to store `CategoryData` objects, providing quick access and updating of total expenses.
+- `CategoryFacade` class
+  - Acts as a singleton because only one instance of this exists throughout the program's lifetime. The program passes this instance around through method parameters.
+  - Acts as a facade because it provides the Command classes with a unified interface to the underlying category management classes, without the Command classes knowing of the complexity of the interactions between the category-related classes. 
+    - This abstracts and encapsulates the category management information with an interface. 
+    - This decouples classes outside the package from the classes inside.
+  - Acts as a mediator because the category classes access information from the other classes through this class.
+    - `CategoryFilter` accesses the tracker in `CategoryTracker` via the instance attribute in `CategoryFacade`.
+    - `CategoryStorage` accesses the tracker in `CategoryTracker` via the instance attribute in `CategoryFacade`.
+- `CategoryTracker` class
+  - Contains exception handling when attempting to edit or delete a category that is not in the tracker. 
+  - Uses a hashmap data structure to store `CategoryData` objects, providing quick access and updating of total expenses.
+- `CategoryData` class
+  - Setter methods checks for null inputs. Constructor methods also do, as they use those setters. 
+- `CategoryFilter` class
+  -  Uses priority queue data structures as max heaps to sort the category expenditure information
 
 <u>Implementation Details</u>
 
-The following diagram is a UML class diagram for `CategoryData` and `CategoryTracker`:
+The following diagram is a UML class diagram for `CategoryData`, `CategoryTracker`, `CategoryFilter` and `CategoryFacade`:
 
-![CategoryDataAndCategoryTracker.png]([CategoryDataAndCategoryTracker.puml](diagrams%2Fplantuml%2FCategoryDataAndCategoryTracker.puml))
+![Category Classes ClassUML.png](diagrams%2Fimages%2FCategory%20Classes%20ClassUML.png)
 
 
 
