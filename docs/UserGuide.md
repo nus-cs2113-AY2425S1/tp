@@ -161,7 +161,7 @@ Please provide a valid index of the course plan you would like to delete.
 ```
 
 ### List out all the possible schools from the options: `list schools`
-List out all the schools users could possibly go for their SEP
+List out all the schools users could possibly go for their SEP.
 
 Format: `list schools`
 
@@ -176,7 +176,7 @@ The University of Western Australia
 ```
 
 ### Obtain contacts from the list of universities `obtain`
-Delete a course mapping plan that was initially saved into the Personal Tracker.
+Obtain the contact details of the university of interest from the list of schools available. 
 
 Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
 
