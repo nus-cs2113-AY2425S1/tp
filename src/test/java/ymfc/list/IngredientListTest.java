@@ -3,8 +3,6 @@ package ymfc.list;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ymfc.ingredient.Ingredient;
-import ymfc.recipe.Recipe;
-
 
 import java.util.ArrayList;
 
