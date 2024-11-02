@@ -24,7 +24,7 @@ class ParserTest {
     }
 
     @Test
-    void testParse_ValidCommand() {
+    void testParseValidCommand() {
         Command mockCommand = mock(Command.class);
         when(commandFactory.createCommand("test", "argument")).thenReturn(mockCommand);
 
@@ -33,25 +33,25 @@ class ParserTest {
     }
 
     @Test
-    void testParse_InvalidCommand() {
+    void testParseInvalidCommand() {
         Command command = parser.parse("unknownCommand");
         assertInstanceOf(InvalidCommand.class, command, "Expected InvalidCommand for unknown command");
     }
 
     @Test
-    void testParse_EmptyCommand() {
+    void testParseEmptyCommand() {
         assertThrows(IllegalArgumentException.class, () -> parser.parse(""),
                 "Should throw exception on empty command");
     }
 
     @Test
-    void testParse_OnlySpacesCommand() {
+    void testParseOnlySpacesCommand() {
         assertThrows(IllegalArgumentException.class, () -> parser.parse("   "),
                 "Should throw exception on empty command");
     }
 
     @Test
-    void testParse_NullCommand() {
+    void testParseNullCommand() {
         assertThrows(IllegalArgumentException.class, () -> parser.parse(null),
                 "Should throw exception on empty command");
     }

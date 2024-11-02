@@ -18,7 +18,7 @@ class ProgCommandFactoryTest {
 
 
     @Test
-    public void testPrepareLogCommand_validArguments() {
+    public void testPrepareLogCommandValidArguments() {
         LogCommand expectedCommand = new LogCommand(1, 2,
                 LocalDate.of(2023, 12, 21));
 
@@ -31,7 +31,7 @@ class ProgCommandFactoryTest {
     }
 
     @Test
-    public void testPrepareLogCommand_missingFlags() {
+    public void testPrepareLogCommandMissingFlags() {
         String fullCommand = "prog log /p 2";
 
         assertThrows(IllegalArgumentException.class, () -> parser.parse(fullCommand),
@@ -39,7 +39,7 @@ class ProgCommandFactoryTest {
     }
 
     @Test
-    public void testPrepareLogCommand_invalidProgrammeIndex() {
+    public void testPrepareLogCommandInvalidProgrammeIndex() {
         // Test when programme index is invalid
         String fullCommand = "prog log /p abc /d 3 /t 21-12-2023";
 
@@ -48,7 +48,7 @@ class ProgCommandFactoryTest {
     }
 
     @Test
-    public void testPrepareLogCommand_invalidDayIndex() {
+    public void testPrepareLogCommandInvalidDayIndex() {
         // Test when day index is invalid
         String fullCommand = "prog log /p 2 /d abc /t 21-12-2023";
 
@@ -57,7 +57,7 @@ class ProgCommandFactoryTest {
     }
 
     @Test
-    public void testPrepareLogCommand_invalidDateFormat() {
+    public void testPrepareLogCommandInvalidDateFormat() {
         // Test with an incorrectly formatted date
         String fullCommand = "prog log /p 2 /d 3 /t 2023-12-21";
 
@@ -66,7 +66,7 @@ class ProgCommandFactoryTest {
     }
 
     @Test
-    public void testPrepareLogCommand_futureDate() {
+    public void testPrepareLogCommandFutureDate() {
         String fullCommand = "prog log /p 2 /d 3 /t 21-12-2030";
         LogCommand expectedCommand = new LogCommand(1, 2,
                 LocalDate.of(2030, 12, 21));
