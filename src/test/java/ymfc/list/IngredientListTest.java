@@ -30,7 +30,7 @@ public class IngredientListTest {
     }
 
     @Test
-    public void addRecipe_addingMultipleRecipes_success() {
+    public void addIngredient_addingMultipleIngredients_success() {
         testIngredientList = new IngredientList();
         assertEquals(0, testIngredientList.getCounter());
 
@@ -45,33 +45,33 @@ public class IngredientListTest {
     }
 
     @Test
-    public void removeRecipe_deletingMultipleRecipes_success() {
-        testIngredientList = new IngredientList();
-        testIngredientList.addIngredient(ingredient1);
-        testIngredientList.addIngredient(ingredient2);
-        testIngredientList.addIngredient(ingredient2);
-
-        testIngredientList.removeIngredient(0);
-        assertEquals(2, testIngredientList.getCounter());
-        assertSame(ingredient1, testIngredientList.getIngredient(1));
-
-        testIngredientList.removeIngredient(1);
-        assertEquals(1, testIngredientList.getCounter());
-        assertSame(ingredient2, testIngredientList.getIngredient(0));
-    }
-
-    @Test
-    public void removeRecipe_inputOutOfBounds_exceptionThrown() {
+    public void removeIngredient_deletingMultipleIngredient_success() {
         testIngredientList = new IngredientList();
         testIngredientList.addIngredient(ingredient1);
         testIngredientList.addIngredient(ingredient2);
         testIngredientList.addIngredient(ingredient3);
 
-        assertThrows(IndexOutOfBoundsException.class, () -> testIngredientList.removeIngredient(-1));
+        testIngredientList.removeIngredientByName("Mash Potatoes");
+        assertEquals(2, testIngredientList.getCounter());
+        assertSame(ingredient2, testIngredientList.getIngredient(1));
+
+        testIngredientList.removeIngredientByName("White Rice");
+        assertEquals(1, testIngredientList.getCounter());
+        assertSame(ingredient2, testIngredientList.getIngredient(0));
     }
 
     @Test
-    public void removeRecipeByName_deletingMultipleRecipes_success() {
+    public void removeIngredient_nonExistentIngredient_returnFalse() {
+        testIngredientList = new IngredientList();
+        testIngredientList.addIngredient(ingredient1);
+        testIngredientList.addIngredient(ingredient2);
+        testIngredientList.addIngredient(ingredient3);
+
+        assertFalse(testIngredientList.removeIngredientByName("Potato"));
+    }
+
+    @Test
+    public void removeIngredientByName_deletingMultipleIngredients_success() {
         testIngredientList = new IngredientList();
         testIngredientList.addIngredient(ingredient1);
         testIngredientList.addIngredient(ingredient2);
