@@ -305,6 +305,8 @@ The `CategoryFilter` class has key methods for:
 
 After the user adds or edits an `Expense`, it alerts the user if the spending limit is approached or exceeded for that `Expenses`'s category.
 
+After the user loads from file, all categories that have exceeded its designated spending limit will be displayed to the user, followed by all categories that have not exceeded its designated spending limit but are close to it.
+
 <u>Design Considerations</u>
 
 Each of the classes in this package handle a separate concern relating to category management (achieving Separation of Concerns Principle) and each focuses on a specific responsibility (achieving Single Responsibility Principle).
