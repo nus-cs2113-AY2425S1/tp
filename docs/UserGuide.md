@@ -318,54 +318,58 @@ This feature is an extension of the previous list feature. It allows the user to
 
 The role and company name parameters are case-insensitive, For the duration parameter, this feature displays all relevant internships whose start dates and end dates are within the duration timeline specified by the user.  For the MVP version of the product, user can only sort by 1 field at a time.
 
-**Format:**
+**Format:** `filter -{field} {value}`
 
-`filter -role {Role name} -`
+Valid fields:
+- `role`: Provide the role name
+- `company`: Provide the company name
+- `from`: Provide the start date
+- `to`: Provide the end date
+- `skills`: Provide one skill listed in `skills`
+- `deadline`: Provide the description of one of the deadlines
 
-`filter -company {Company name}`
-
-`filter -duration /from {start date} /to {end date}`
-
-`filter -skills {skill}`
-
-`filter -deadline /by {date}`
-
-**Example:**
+**Examples:**
 
 `list`
 
 ```
-ID: 01
-Role: Software Engineer Intern
-Company: Google
-Duration: Not Stated
-Skills: Not Stated
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: engineer
+Company: ABS
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: accountant
+Company: XYZ
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
 
-ID: 02
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: Not Stated
-```
-`filter -company Google`
+`filter -company ABS`
 
 ```
-ID: 01
-Role: Software Engineer Intern
-Company: Google
-Duration: Not Stated
-Skills: Not Stated
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: engineer
+Company: ABS
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
 ```
 
-`filter -duration /from 04/25 /to 09/25`
-
-```
-ID: 02
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: Not Stated
-```
 
 ## Delete Command: `delete`
 
@@ -378,39 +382,35 @@ This feature removes an entire listing from the tracker.
 `list`
 
 ```
-ID: 01
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: Not Stated
-
-ID: 02
-Role: Software Engineer Intern
-Company: Google
-Duration: Not Stated
-Skills: Not Stated
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: engineer
+Company: ABS
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: accountant
+Company: XYZ
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
 ```
 
-`del {01}`
+`delete 01`
 
 ```
-You have deleted this listing:
-
-ID: 01
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: Not Stated
-```
-
-`list`
-
-```
-ID: 02
-Role: Software Engineer Intern
-Company: Google
-Duration: Not Stated
-Skills: Not Stated
+__________________________________________________
+__________________________________________________
+Internship deleted: 1
+__________________________________________________
+__________________________________________________
 ```
 
 ## Help Command: `help`
