@@ -188,3 +188,15 @@ The University of Western Australia
 {Give a 'cheat sheet' of commands here}
 
 * Add todo `todo n/TODO_NAME d/DEADLINE`
+
+| Action                         | Format, Examples                                                                                                         |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+|                  | |
+|             ||
+|         ||
+|       ||
+||                                                                                                                |
+||                                                                                                                  |
+||                                                                                                                |
+||                                                                                                             |
+|             |  
