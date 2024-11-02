@@ -4,17 +4,18 @@ hide footbox
 
 Participant ":Main" as main
 Participant ":Storage" as storage STORAGE_COLOUR
-Participant ":Parser" as parser PARSER_COLOUR
 Participant ":EventList" as event EVENT_COLOUR
 
 
-main -> storage : saveEvents(events)
+group sd Saving of event data
+main -> storage : saveEvents(EventList)
 activate storage STORAGE_COLOUR
 storage -> event : getList()
 activate event EVENT_COLOUR
-event --> storage
-deactivate event
+return :ArrayList<Event>
+
 storage --> main
 deactivate storage
+end
 
 @enduml

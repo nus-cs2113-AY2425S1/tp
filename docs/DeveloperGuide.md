@@ -58,12 +58,18 @@ The `UI` does the following:
 
 <img src = "images/StorageClassDiagram.png">
 
-The `Storage` component comprises a Storage class, as shown in the above **Class Diagram**.
+The `Storage` component's component classes are shown in the above **Class Diagram**.
 
-The `Storage` does the following:
+These are:
 
-* Load events and participants information from a text file and save it to `EventList` list.
-* Save events from `EventList` list to a text file
+* A `Storage` class that handles the loading and saving of event data into files.
+* A `FileParser` that parses through the file contents when loading event data.
+
+The `Storage` component does the following:
+* Load event data from several `.csv` files into `EventList` upon program startup.
+* Save events data from `EventList` into the aforementioned `.csv` files each time a command is executed.
+
+Additional details on the implementation of the above operations can be found in the _Saving and loading of data_ section.
 
 ### Parser component
 
@@ -122,8 +128,8 @@ The `Event` component and its component classes are shown in the below **Class D
 
 The `Event` component does the following:
 
-* Handle the addition, removal and marking of events stored in `EventList`.
-* Add, remove and mark participants for a specific `Event` in `EventList`.
+* Handle the addition, removal and marking of `Event`s stored in `EventList`.
+* Add, remove and mark `Participant`s for a specific `Event` in `EventList`.
 
 ## Implementation
 
@@ -401,6 +407,70 @@ These two values are as follows:
 
 Any other values entered for the status parameter will be treated as invalid.
 
+### Saving and loading of data
+
+As mentioned in the _Storage component_ section, the program automatically saves any stored data in `EventList` into several `.csv` files, and loads
+the data from these files when it is run.
+
+There are three `.csv` files used for storing data, for `Event`s, `Participant`s and `Item`s respectively. Within each file, each
+object (like an `Event` in the `Event`s) file is stored in one line in the following format,
+
+```
+FIELD,FIELD,...
+```
+
+where `FIELD` represents a value for a member of the object (like the name of an `Event`).
+
+This functionality is implemented by the `Storage` and `FileParser` classes, and has two operations, namely:
+
+* `Main#loadData()`, which loads the data from the `.csv` files into the `EventList` amd its `Events`,
+* `Main#saveData()`, which saves the data stored in `EventList` and its `Event`s into the `.csv` files.
+
+The `Main#loadData()` operation works as follows:
+
+1. `Storage` loads the data for the `Event`s from the `.csv` file into `EventList`.
+2. `Storage` then loads the data for the `Event`s' `Participant`s into `EventList`.
+3. `Storage` then loads the data for the `Event`s' `Item`s into `EventList`.
+
+The interactions between classes during the `Main#loadData()` operation is shown in the **Sequence Diagram** below.
+
+<img src = "images/LoadingSequenceDiagram.png">
+
+The logic for the loading of `Event`s is as follows:
+
+1. `Storage` creates a `FileParser`, and passes the event file's filepath to `FileParser`.
+2. `FileParser` adds a new `Event` to `EventList` with the fields in each line of the event file.
+3. If a line in the file has insufficient or invalid fields, the `FileParser` skips past the line.
+
+If a line has more fields than required, `FileParser` will ignore the additional fields.
+
+The interactions between classes during the loading of `Event`s is shown in the **Sequence Diagram** below.
+
+<img src = "images/StorageEventLoadingSequenceDiagram.png">
+
+The logic for the loading of `Participant`s and `Item`s is similar to that for `Event`s.
+
+The `Main#saveData()` operation saves data in the same order as `Main#loadData()`. The interactions between classes during the operation is shown in the **Sequence Diagram** below:
+
+<img src = "images/SavingSequenceDiagram.png">
+
+For the saving of `Event`s, `Storage` gets the list of `Event`s from `EventList`, and writes a line of event data into the `.csv` file for each `Event`.
+
+The interactions between classes during the saving of `Event`s is shown in the **Sequence Diagram** below.
+
+<img src= "images/StorageEventSavingSequenceDiagram.png">
+
+The logic for the saving of `Participant`s is as follows:
+1. `Storage` gets a list of `Event`s from `EventList`.
+2. For each `Event` in the list of `Event`s, `Storage` gets its list of `Participant`s.
+3. `Storage` then writes the `Participant` data for each participant into a line in the participant `.csv` file.
+
+The interactions between classes during the saving of `Participant`s is shown in the **Sequence Diagram** below.
+
+<img src= "images/StorageParticipantSavingSequenceDiagram.png">
+
+The logic for the loading of `Item`s is similar to that for `Participant`s.
+
 ## Product scope
 ### Target user profile
 
@@ -438,7 +508,9 @@ The user is able to organise and manage his events more quickly and efficiently 
 
 ## Glossary
 
-* *glossary item* - Definition
+* _Command_ - an action that is carried out in the program as a result of user input.
+* _List_ - a container class that stores multiple instances of an object. 
+* _Parameter_ - a value in the user command input that is used for the parsing of a command.
 
 ## Instructions for manual testing
 

@@ -1,0 +1,17 @@
+@startuml
+!include style.puml
+hide footbox
+
+Participant ":Main" as main
+Participant ":Storage" as storage STORAGE_COLOUR
+
+main -> main : loadData()
+activate main
+
+ref over main, storage : Loading of event data
+ref over main, storage : Loading of participant data
+ref over main, storage : Loading of item data
+
+return
+
+@enduml

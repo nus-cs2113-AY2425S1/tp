@@ -3,23 +3,31 @@
 hide circle
 skinparam ClassAttributeIconSize 0
 
-allowmixing
-
-    class Storage {
-        - filePath : String
-        + Storage(filePath : String)
-        + void saveEvents(EventList events) throws IOException
-        + loadEvents(EventList events) : void
-        - isValidFilePath(String filePath) : boolean
+class Storage {
+        - eventFilePath : String
+        - participantFilePath : String
+        - itemFilePath : String
+        + Storage(eventFilePath : String, participantFilePath : String, itemFilePath : String) : Storage
+        + saveEvents(events : EventList) : void
+        + saveParticipants(events : EventList) : void
+        + saveItems(events : EventList) : void
+        + loadEvents(events : EventList) : void
+        + loadParticipants(events : EventList) : void
+        + loadItems(events : EventList) : void
+        - isValidFilePath(filePath : String) : boolean
         - isTestEnvironment() : boolean
-    }
+}
 
 class Main
 class EventList
-class Parser
+class FileParser {
+    +parseEventsFile(events : EventList, filePath : String) : void
+    +parseParticipantsFile(events : EventList, filePath : String) : void
+    +parseItemsFile(events : EventList, filePath : String) : void
+}
 
 Storage ..> EventList : saves/loads >
-Parser <.. Storage : < adopts
+FileParser <.. Storage : < invokes
 Main .> Storage : invokes >
 
 @enduml
