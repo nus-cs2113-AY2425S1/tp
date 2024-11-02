@@ -188,6 +188,7 @@ MediTask data is saved as a JSON file [JAR file location]/data/hospital_data.jso
 
 {: .warning }
 > ⚠️ Caution: If your changes to the data file makes its format invalid, MediTask will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+>
 > Furthermore, certain edits can cause the MediTask to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 ## FAQ
