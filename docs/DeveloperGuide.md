@@ -106,7 +106,7 @@ and Oceania.
 * Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure 
   readability.
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![List School Command Sequence Diagram](images/ListSchoolsCommand.png)
 
 ### 2. Filter Courses Command
@@ -131,7 +131,7 @@ that NUS course is suitable to be mapped overseas in South East Asia and Oceania
 * There are also assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
 
 ### 3. Obtain Partner University Email and Contact Number Command
@@ -166,7 +166,7 @@ exchange opportunities.
 * Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
   readability.
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![Filter Courses Sequence Diagram](images/ObtainContactsCommand.png)
 
 ### 4. List University Courses Command
@@ -198,7 +198,7 @@ contains the list of courses.
   For example, `getPuName()` focuses on extracting the university name from user input and `findUniversityName()`
   focuses on searching the university in the data set.
 
-#### Sequence on PlantUML:
+#### Sequence Diagram:
 ![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
@@ -230,7 +230,7 @@ and South-East Asian universities. This command hence helps the users to keep tr
 * Throughout the code, exceptions, assertions and logging are in place for better error handling. 
 * Line Separator is used to ensure readability and ease of use for users.
 
-#### Sequence Diagram on PlantUML
+#### Sequence Diagram:
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
 
 ### 6. Delete Courses Command
@@ -253,7 +253,7 @@ This helps the users to keep track of their most recent course mapping plans, an
 * Throughout the code, exceptions, assertions and logging are in place for better error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
-#### Sequence Diagram on PlantUML
+#### Sequence Diagram:
 ![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
 
 ### 7. List Commands Command
@@ -276,7 +276,7 @@ The `ListCommandsCommand` provides users with a comprehensive list of all availa
 * **Dynamic Command List**: Considered dynamically generating the command list from all command classes in the codebase to avoid manually updating this list, but opted for simplicity to prevent added complexity.
 * **Help Command Integration**: Considered integrating `ListCommandsCommand` with the `HelpCommand` to provide a one-stop command for help-related requests, but separating them ensures clarity and keeps each command focused.
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![List Commands Command Sequence Diagram](../uml-images/ListCommandsCommand.png)
 
 ### 8. ListPersonalTrackerCommand
@@ -323,7 +323,7 @@ Mapped Modules:
 -----------------------------------------------------
 ```
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![List Personal Tracker Command Sequence Diagram](../uml-images/ListPersonalTrackerCommand.png)
 
 ### 9. Help Command
@@ -355,7 +355,7 @@ This allows users to navigate this program easily and effectively.
   - However, since the condition is a single variable and not complex conditions, it will be cleaner and clearer to use
   `switch` statements
 
-#### Sequence diagram on PlantUML
+#### Sequence Diagram:
 - Represents when `execute()` method is called
   ![Help Command sequence diagram](images/HelpCommand.png)
 
