@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         ExpenseList expenseList = new ExpenseList();
         CategoryFacade categoryFacade = new CategoryFacade();
-        RecurringExpenseList recurringExpenseList = new RecurringExpenseList();
+        RecurringExpenseList recurringExpenseList = new RecurringExpenseList(expenseList);
         Ui.displayIntroText();
         Logging.getInstance(); // Initialise at the start
 

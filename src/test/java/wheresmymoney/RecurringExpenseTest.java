@@ -35,25 +35,39 @@ class ReccuringExpenseTest {
             () -> new RecurringExpense(0.0F, "desc", "category", null, "daily"));
     }
     
-
     @Test
     public void setPrice_nullInput_throwsWheresMyMoneyException() {
         assertThrows(WheresMyMoneyException.class,
                 () -> initRecurringExpenseWithNoNullParts().setPrice(null));
     }
+
     @Test
     public void setDescription_nullInput_throwsWheresMyMoneyException() {
         assertThrows(WheresMyMoneyException.class,
                 () -> initRecurringExpenseWithNoNullParts().setDescription(null));
     }
+
     @Test
     public void setCategory_nullInput_throwsWheresMyMoneyException() {
         assertThrows(WheresMyMoneyException.class,
                 () -> initRecurringExpenseWithNoNullParts().setCategory(null));
     }
+
     @Test
-    public void setDateAdded_nullInput_throwsWheresMyMoneyException() {
+    public void setLastAddedDate_nullInput_throwsWheresMyMoneyException() {
         assertThrows(WheresMyMoneyException.class,
-                () -> initRecurringExpenseWithNoNullParts().setDateAdded(null));
+                () -> initRecurringExpenseWithNoNullParts().setLastAddedDate(null));
+    }
+
+    @Test
+    public void setLastAddedDate_wrongDateFormat_throwsWheresMyMoneyException() {
+        assertThrows(WheresMyMoneyException.class,
+                () -> initRecurringExpenseWithNoNullParts().setLastAddedDate("2024-10-25"));
+    }
+
+    @Test
+    public void setFrequency_nullInput_throwsWheresMyMoneyException() {
+        assertThrows(WheresMyMoneyException.class,
+                () -> initRecurringExpenseWithNoNullParts().setFrequency(null));
     }
 }

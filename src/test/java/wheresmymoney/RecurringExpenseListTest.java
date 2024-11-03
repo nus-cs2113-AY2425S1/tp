@@ -14,24 +14,53 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class RecurringExpenseListTest {
 
+    private void initRecurringExpenseList() {
+        
+        String JAN_START_OF_MONTH = "1-1-2024";
+        String JAN_MIDDLE_OF_MONTH = "15-1-2024";
+        String JAN_END_OF_MONTH = "31-1-2024";
+        String JUNE_START_OF_MONTH = "1-6-2024";
+        String JUNE_MIDDLE_OF_MONTH = "15-6-2024";
+        String JUNE_END_OF_MONTH = "30-6-2024";
+
+        String RECURRING_EXPENSES_FILE_PATH = "./recurring_expenses_data.csv";
+        
+        ExpenseList expenseList = new ExpenseList();
+        RecurringExpenseList recurringExpenseList = new RecurringExpenseList(expenseList);
+        try {
+            RecurringExpense janDailyExpense = new RecurringExpense(1.00F, "desc1", "cat1", JAN_START_OF_MONTH, "daily");
+            RecurringExpense janWeeklyExpense = new RecurringExpense(2.50F, "desc2", "cat2", JAN_MIDDLE_OF_MONTH, "weekly");
+            RecurringExpense janMonthlyExpense = new RecurringExpense(3.99F, "desc3", "cat3", JAN_END_OF_MONTH, "monthly");
+            RecurringExpense juneDailyExpense = new RecurringExpense(4.00F, "desc4", "cat4", JUNE_START_OF_MONTH, "daily");
+            RecurringExpense juneWeeklyExpense = new RecurringExpense(5.50F, "desc5", "cat5", JUNE_MIDDLE_OF_MONTH, "weekly");
+            RecurringExpense juneMonthlyExpense = new RecurringExpense(6.99F, "desc6", "cat6", JUNE_END_OF_MONTH, "monthly");
+            
+            recurringExpenseList.saveToCsv(RECURRING_EXPENSES_FILE_PATH);
+        } catch (WheresMyMoneyException e) {
+            Ui.displayMessage(e.getMessage());
+        }
+        
+    }
+
     @Test
     public void getList_notNullInput_RecurringExpenseListIsNotNull() {
         ExpenseList expenseList = new ExpenseList();
         assertNotNull(expenseList);
     }
-    // @Test
-    // public void getTotal_expenseList_correctTotal() {
-    //     try {
-    //         ExpenseList expenseList = new ExpenseList();
-    //         assertEquals(0, expenseList.getTotal());
-    //         expenseList.addExpense(0.0F, "desc", "category", "25-10-2024");
-    //         assertEquals(1, expenseList.getTotal());
-    //         expenseList.deleteExpense(0);
-    //         assertEquals(0, expenseList.getTotal());
-    //     } catch (WheresMyMoneyException e) {
-    //         fail("Exception thrown when Expense parameters and list index are valid.");
-    //     }
-    // }
+
+    @Test
+    public void getTotal_expenseList_correctTotal() {
+        try {
+            ExpenseList expenseList = new ExpenseList();
+            assertEquals(0, expenseList.getTotal());
+            expenseList.addExpense(0.0F, "desc", "category", "25-10-2024");
+            assertEquals(1, expenseList.getTotal());
+            expenseList.deleteExpense(0);
+            assertEquals(0, expenseList.getTotal());
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when Expense parameters and list index are valid.");
+        }
+    }
     // @Test
     // public void isEmpty_expenseList_correctBoolean() {
     //     try {

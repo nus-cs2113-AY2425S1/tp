@@ -97,4 +97,4 @@ public class Expense {
         }
         this.dateAdded = dateAdded;
     }
-}
+}   

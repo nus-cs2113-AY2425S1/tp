@@ -38,16 +38,19 @@ class ExpenseTest {
         assertThrows(WheresMyMoneyException.class,
                 () -> initExpenseWithNoNullParts().setPrice(null));
     }
+
     @Test
     public void setDescription_nullInput_throwsWheresMyMoneyException() {
         assertThrows(WheresMyMoneyException.class,
                 () -> initExpenseWithNoNullParts().setDescription(null));
     }
+
     @Test
     public void setCategory_nullInput_throwsWheresMyMoneyException() {
         assertThrows(WheresMyMoneyException.class,
                 () -> initExpenseWithNoNullParts().setCategory(null));
     }
+
     @Test
     public void setDateAdded_nullInput_throwsWheresMyMoneyException() {
         assertThrows(WheresMyMoneyException.class,

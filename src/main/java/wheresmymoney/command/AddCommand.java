@@ -38,9 +38,17 @@ public class AddCommand extends Command {
             } else if (isContainDateKey && this.isRecur()) {
                 String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE);
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
+                if (frequency == null) {
+                    throw new WheresMyMoneyException("Missing frequency argument");
+                } else if (lastAddedDate == null) {
+                    throw new WheresMyMoneyException("Where Date");
+                }
                 recurringExpenseList.addRecurringExpense(price, description, category, lastAddedDate, frequency);
             } else {
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
+                if (frequency == null) {
+                    throw new WheresMyMoneyException("Missing frequency argument");
+                }
                 recurringExpenseList.addRecurringExpense(price, description, category, frequency);
             }
         } catch (NullPointerException | NumberFormatException e) {
