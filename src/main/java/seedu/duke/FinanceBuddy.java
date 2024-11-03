@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import seedu.duke.budget.Budget;
+import seedu.duke.logic.BudgetLogic;
 import seedu.duke.storage.Storage;
 import seedu.duke.ui.AppUi;
 import seedu.duke.logic.Logic;
@@ -25,11 +27,15 @@ public class FinanceBuddy {
     public static void main(String[] args) {
         AppUi ui = new AppUi();
         Storage storage = new Storage();
+        Budget budget = new Budget();
 
         FinancialList financialList = storage.loadFromFile();
-        Logic logic = new Logic(financialList, storage, ui);
+        BudgetLogic budgetLogic = new BudgetLogic(budget, ui);
+        Logic logic = new Logic(financialList, storage, ui, budgetLogic);
 
         ui.displayWelcomeMessage();
+
+        budgetLogic.setBudget();
 
         boolean isRunning = true;
         while (isRunning) {
