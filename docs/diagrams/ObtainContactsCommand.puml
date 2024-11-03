@@ -1,14 +1,14 @@
 @startuml
 hide footbox
 
-actor User
+actor CEG_Student
 participant ":ObtainContactsCommand" as ObtainContactsCommand
 participant ":IllegalArgumentException" as IllegalArgumentException
 participant ":UI" as UI
 participant ":Command" as Command
 participant ":IOException" as IOException
 
-User -> ObtainContactsCommand: execute(userInput: String)
+CEG_Student -> ObtainContactsCommand: execute(userInput: String)
 activate ObtainContactsCommand
 
 ObtainContactsCommand -> Command: createJsonObject()
@@ -44,7 +44,7 @@ loop for  each school found in the set of schools
 end
 
 opt no matching School Names
-    ObtainContactsCommand --> User: Display "Unknown university - " + schoolName
+    ObtainContactsCommand --> CEG_Student: Display "Unknown university - " + schoolName
 end
 
 ObtainContactsCommand -> ObtainContactsCommand: handleContactType(schoolInfo: JsonObject, matchingSchool: String, contactType: String)
@@ -55,14 +55,14 @@ alt EMAIL_KEY
 else NUMBER_KEY
     ObtainContactsCommand -> UI: printContactInformation(NUMBER_TAG: String, schoolName: String, number:String)
 else Invalid
-    ObtainContactsCommand --> User: Display Invalid Contact Type Message
+    ObtainContactsCommand --> CEG_Student: Display Invalid Contact Type Message
 end
 
 
 ObtainContactsCommand --> ObtainContactsCommand
 deactivate ObtainContactsCommand
 
-ObtainContactsCommand --> User
+ObtainContactsCommand --> CEG_Student
 
 deactivate ObtainContactsCommand
 

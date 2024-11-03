@@ -80,7 +80,7 @@ CourseValidator Class Diagram:
 
 #### Overview:
 This command is responsible for displaying and retrieving the full list of universities
-from `database.json` file. It helps the users to identify the possible choices in South East Asia
+from `database.json` file. It helps the users to identify the possible choices in
 and Oceania.
 
 #### How the feature is implemented:
@@ -91,20 +91,7 @@ and Oceania.
 * The `displaySchoolList()` method will iterate over the keys of the database which contains the University
   names, upon acquiring the keys, they will be printed over the CLI.
 * There are also assertions and logging in place for error handling.
-* Line Separator is used to ensure readability and ease of use for users.  
-
-#### Why it is implemented that way:
-* The `execute` method is essential and unique to every command class so inheritance was used. 
-* Every method in the class remains maintainable and has one responsibility this allows easy debugging and
-  refactoring.
-* By using inheritance, new command classes can easily extend the functionality of existing ones
-  which reducing redundancy in the code
-* Logging and assertions helps the team of developers to follow through the command execution.
-
-#### Alternatives considered:
-* Reading of the `database.json` was tricky and other libraries were considered.
-* Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure 
-  readability.
+* Line Separator is used to ensure readability and ease of use for users.
 
 #### Sequence Diagram:
 ![List School Command Sequence Diagram](images/ListSchoolsCommand.png)
@@ -375,18 +362,18 @@ This allows users to navigate this program easily and effectively.
 
 ## User Stories
 
-| Version | As a ...     | I want to ...                                                   | So that I can ...                                              |
-|---------|--------------|-----------------------------------------------------------------|----------------------------------------------------------------|
-| v1.0    | CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions                   |
-| v1.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                              |
-| v1.0    | CEG student  | key in the school I want to go for exchange                     | view the available course offered by the school                |
-| v1.0    | CEG student  | want to see a list of commands                                  | know what to do to go to access the features                   |
-| v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries                        |
-| v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries               |
-| v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU                     |
-| v2.0    | CEG student  | list out the mapped courses by calling the list command         | I can track all the courses I have mapped to the different PUs |
-| v2.0    | CEG student  | delete a course mapping plan for a PU                           | keep my list of saved plans organised                          |
-| v2.0    | CEG student  | ask for help when I am in doubt                                 | know what are the possible actions                             |
+| Version | As a ...    | I want to ...                                           | So that I can ...                                              |
+|---------|-------------|---------------------------------------------------------|----------------------------------------------------------------|
+| v1.0    | CEG student | see the possible Oceania Universities for CEG students  | see all my possible choices in those regions                   |
+| v1.0    | CEG student | search for NUS courses to map                           | search for related courses in PUs                              |
+| v1.0    | CEG student | key in the school I want to go for exchange             | view the available course offered by the school                |
+| v1.0    | CEG student | want to see a list of commands                          | know what to do to go to access the features                   |
+| v2.0    | CEG student | obtain the email address of the partner universities    | send an email should I have any queries                        |
+| v2.0    | CEG student | obtain the contact number of the partner universities   | call the number should I have any urgent queries               |
+| v2.0    | CEG student | add a course mapping plan for a PU                      | keep track of my courses for a specific PU                     |
+| v2.0    | CEG student | list out the mapped courses by calling the list command | I can track all the courses I have mapped to the different PUs |
+| v2.0    | CEG student | delete a course mapping plan for a PU                   | keep my list of saved plans organised                          |
+| v2.0    | CEG student | ask for help when I am in doubt                         | know what are the possible actions                             |
 
 
 ## Non-Functional Requirements
