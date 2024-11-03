@@ -5,6 +5,7 @@ hide footbox
 actor CEG_Student
 participant ":ListSchoolCommand" as ListSchoolCommand
 participant ":Command" as Command
+participant ":IOException" as IOException
 
 CEG_Student -> ListSchoolCommand: execute (userInput:String)
 activate ListSchoolCommand
@@ -13,7 +14,7 @@ ListSchoolCommand -> Command: createJsonObject()
 activate Command
 
 opt inputStream is null
-    Command -> Command: throw new IOException()
+    Command -> IOException: throw new IOException()
 end
 
 Command --> ListSchoolCommand: JsonObject
@@ -22,8 +23,8 @@ deactivate Command
 ListSchoolCommand -> ListSchoolCommand: displaySchoolList (jsonObject:JsonObject)
 activate ListSchoolCommand
 
-loop for each universityName in universityNames
-    ListSchoolCommand -> ListSchoolCommand: System.out.println(universityName)
+loop for each PU Name in PU Names
+    ListSchoolCommand --> CEG_Student: System.out.println(universityName)
 end
 
 ListSchoolCommand --> ListSchoolCommand
