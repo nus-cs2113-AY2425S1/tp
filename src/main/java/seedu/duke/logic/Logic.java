@@ -1,5 +1,6 @@
 package seedu.duke.logic;
 
+import seedu.duke.budget.Budget;
 import seedu.duke.command.AddExpenseCommand;
 import seedu.duke.command.AddIncomeCommand;
 import seedu.duke.command.DeleteCommand;
@@ -30,6 +31,7 @@ public class Logic {
     public final FinancialList financialList;
     private final Storage storage;
     private final AppUi ui;
+    private final BudgetLogic budgetLogic;
 
     /**
      * Constructor for the Logic class.
@@ -39,10 +41,11 @@ public class Logic {
      * @param storage       The storage used to load and save financial data.
      * @param ui            The UI component to interact with the user.
      */
-    public Logic(FinancialList financialList, Storage storage, AppUi ui) {
+    public Logic(FinancialList financialList, Storage storage, AppUi ui, BudgetLogic budgetLogic) {
         this.financialList = financialList;
         this.storage = storage;
         this.ui = ui;
+        this.budgetLogic = budgetLogic;
     }
 
     /**
@@ -254,6 +257,9 @@ public class Logic {
         case "delete":
             deleteEntry(commandArguments);
             storage.update(financialList);
+            break;
+        case "budget":
+            budgetLogic.setBudget();
             break;
         case "help":
             printHelpMenu();
