@@ -23,8 +23,7 @@ import ymfc.list.IngredientList;
 import ymfc.list.RecipeList;
 import ymfc.recipe.Recipe;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -155,6 +154,14 @@ public final class Parser {
         ArrayList<String> steps = Arrays.stream(stepString.split("\\s+[sS][0-9]+/"))
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.toCollection(ArrayList::new));
+
+        // Extract step identifiers (s1, s2, ...) and validate for duplicates or missing numbers
+        List<String> stepIdentifiers = Arrays.stream(stepString.split("\\s+"))
+                .filter(step -> step.matches("[sS][0-9]+/.*")) // Ensure the string matches the step format
+                .map(step -> step.split("/")[0]) // Extracts "s1", "s2", etc.
+                .toList();
+
+        validateStepNumbers(stepIdentifiers); // Check for missing/duplicate numbers
 
         String cuisine = m.group("cuisine") != null ? m.group("cuisine").trim().substring(2) : null;
         Integer timeTaken = getTimeTakenInteger(m);
@@ -322,4 +329,32 @@ public final class Parser {
     private static int countCharOccurrence(String options, String regex) {
         return options.replaceAll(regex, "").length();
     }
+
+    public static void validateStepNumbers(List<String> stepStrings) throws InvalidArgumentException {
+        Set<Integer> stepNumbers = new HashSet<>();
+        int maxStepNumber = 0;
+
+        for (String step : stepStrings) {
+            // Extract the step number (e.g., "s1" -> 1)
+            try {
+                int stepNumber = Integer.parseInt(step.split("/")[0].substring(1));
+                if (!stepNumbers.add(stepNumber)) {
+                    throw new InvalidArgumentException("Duplicate step number found: s" + stepNumber
+                            + "\nLearn to count!");
+                }
+                maxStepNumber = Math.max(maxStepNumber, stepNumber);
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException exception) {
+                throw new InvalidArgumentException("Invalid step format. Expected format: s1, s2, ...");
+            }
+        }
+
+        // Check for missing numbers in the range 1 to maxStepNumber
+        for (int i = 1; i <= maxStepNumber; i++) {
+            if (!stepNumbers.contains(i)) {
+                throw new InvalidArgumentException("Missing step number: s" + i
+                        + "\nLearn to count!");
+            }
+        }
+    }
+
 }
