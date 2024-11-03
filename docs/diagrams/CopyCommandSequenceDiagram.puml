@@ -1,44 +1,39 @@
 @startuml
-actor User
-participant "CopyCommand" as CC
-participant "EventList" as EL
-participant "Event (source)" as SourceEvent
-participant "Event (destination)" as DestEvent
-participant "Participant" as P
+participant ":Main" as Main
+participant ":CopyCommand" as CC
+participant ":EventList" as EL
+participant "eventFrom :Event" as SourceEvent
+participant "eventTo :Event" as DestEvent
 
-User -> CC: execute()
+Main -> CC: execute()
 activate CC
-
-CC -> EL: getEventByName(copyFrom)
-activate EL
-EL --> CC: return SourceEvent (Optional<Event>)
-deactivate EL
 
 CC -> EL: getEventByName(copyTo)
 activate EL
-EL --> CC: return DestEvent (Optional<Event>)
+EL --> CC: return eventTo
 deactivate EL
 
-alt Both Events Found
+CC -> EL: getEventByName(copyFrom)
+activate EL
+EL --> CC: return eventFrom
+deactivate EL
+
+opt Both Events Found
     CC -> SourceEvent: getParticipantList()
     activate SourceEvent
-    SourceEvent --> CC: return participants (ArrayList<Participant>)
+    SourceEvent --> CC: return participantList
     deactivate SourceEvent
 
-    alt Participant List Not Empty
-        CC -> DestEvent: setParticipantList(participants)
+    opt Participant List Not Empty
+        CC -> DestEvent: setParticipantList(participantList)
         activate DestEvent
+        DestEvent --> CC
         deactivate DestEvent
-        CC -> CC: Append COPY_SUCCESSFUL
-    else Participant List Empty
-        CC -> CC: Append PARTICIPANT_NOT_FOUND
-    end alt
+    end opt
 
-else Event(s) Not Found
-    CC -> CC: Append EVENT_NOT_FOUND
-end alt
+end opt
 
-CC --> User: Display copy result message
+CC --> Main: Display copy result message
 deactivate CC
 
 @enduml

@@ -1,29 +1,35 @@
 @startuml
-actor User
-participant "FilterCommand" as FC
-participant "EventList" as EL
-participant "FilteredEventList" as FEL
+participant ":Main" as Main
+participant ":FilterCommand" as FC
 
-User -> FC: execute()
+Main -> FC: execute()
+
+create participant "FilteredEventList :EventList" as FEL
 activate FC
-FC -> FEL: new EventList() // create empty list for filtered events
+FC -> FEL: new EventList()
 activate FEL
+FEL --> FC
 deactivate FEL
 
-alt Filter by priority (-u)
-    FC -> EL: filterByPriority(priority)
-    activate EL
-    EL --> FC: return filteredEvents
-    deactivate EL
-    FC -> FC: Append FILTER_BY_PRIORITY_MESSAGE
+alt filter by name
+    FC -> FEL: filterByName()
+    activate FEL
+    FEL --> FC: return filtered list
+    deactivate FEL
+else filter by time
+    FC -> FEL: filterByTime()
+    activate FEL
+    FEL --> FC: return filtered list
+    deactivate FEL
+else filter by priority
+    FC -> FEL: filterByPriority(...)
+    activate FEL
+    FEL --> FC: return filtered list
+    deactivate FEL
 end alt
 
-loop each event in filteredEvents
-    FC -> FEL: getEvent(i)
-    FEL --> FC: Event.toString()
-end loop
-
-FC --> User: Display filtered event list
+FC --> Main: Display FilteredEventList and filter result message
 deactivate FC
+destroy FEL
 
 @enduml

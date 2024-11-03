@@ -1,27 +1,36 @@
 @startuml
-actor User
-participant "SortCommand" as SC
-participant "EventList" as EL
-participant "SortedEventList" as SEL
+participant ":Main" as Main
+participant ":SortCommand" as SC
 
-User -> SC: execute()
+Main -> SC: execute()
 activate SC
-SC -> EL: new EventList(eventList) // deep copy
-activate EL
-EL --> SC: return sortedEventList
-deactivate EL
 
-SC -> SEL: sortByName() / sortByTime() / sortByPriority()
+create participant "SortedEventList :EventList" as SEL
+SC -> SEL : new EventList(eventList)
 activate SEL
-SEL --> SC: sorted list
+SEL --> SC:
 deactivate SEL
 
-loop each event in sortedEventList
-  SC -> SEL: getEvent(i)
-  SEL --> SC: Event.toString()
-end loop
+alt sort by name
+    SC -> SEL: sortByName()
+    activate SEL
+    SEL --> SC: return sorted list
+    deactivate SEL
+else sort by time
+    SC -> SEL: sortByTime()
+    activate SEL
+    SEL --> SC: return sorted list
+    deactivate SEL
+else sort by priority
+    SC -> SEL: sortByPriority()
+    activate SEL
+    SEL --> SC: return sorted list
+    deactivate SEL
 
-SC --> User: Display sorted event list
+end alt
+
+SC --> Main: Display SortedEventList and sort result message
 deactivate SC
+destroy SEL
 
 @enduml
