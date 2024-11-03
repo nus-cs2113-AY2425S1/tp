@@ -6,7 +6,6 @@ actor CEG_Student
 participant "CompareMappedCommand" as Command
 participant "Storage" as Storage
 participant "UI" as UI
-participant "Logger" as Logger
 
 CEG_Student -> Command: execute(userInput)
 activate Command
@@ -16,58 +15,23 @@ activate Storage
 Storage --> Command: allModules: List<String>
 deactivate Storage
 
-Command -> Command: filterModulesByUniversity(allModules: List<String>, university1: String)
+Command -> Command: displayComparisonResults(university1: String, university2: String, ...)
 activate Command
-Command --> Command: uni1Modules: List<String> 
-deactivate Command
-
-Command -> Command: filterModulesByUniversity(allModules: List<String>, university2: String)
-activate Command
-Command --> Command: uni2Modules: List<String> 
-deactivate Command
-
-Command -> Command: extractCourseCodes(uni1Modules: List<String>)
-activate Command
-Command --> Command: uni1CourseCodes: Set<String> 
-deactivate Command
-
-Command -> Command: extractCourseCodes(uni2Modules: List<String>)
-activate Command
-Command --> Command: uni2CourseCodes: Set<String> 
-deactivate Command
-
-Command -> Command: getCommonCourseCodes(uni1CourseCodes: get<String>, uni2CourseCodes: get<String>)
-activate Command
-Command --> Command: commonCourseCodes: Set<String>
-deactivate Command
-
-Command -> Command: getUniqueCourseCodes(uni1CourseCodes: get<String>, commonCourseCodes: get<String>)
-activate Command
-Command --> Command: uni1UniqueCourseCodes: Set<String> 
-deactivate Command
-
-Command -> Command: getUniqueCourseCodes(uni2CourseCodes: get<String>, commonCourseCodes: get<String>)
-activate Command
-Command --> Command: uni2UniqueCourseCodes: Set<String> 
-deactivate Command
-
-Command -> Command: displayComparisonResults(university1: String, university2: String, commonCourseCodes: get<String>, uni1Modules: List<String>, uni2Modules: List<String>, uni2UniqueCourseCodes: get<String>, uni2UniqueCourseCodes: get<String>)
-activate Command
-Command -> UI: printCommonMappings(university1: String, university2: String, commonCourseCodes: get<String>, uni1Modules: List<String>, uni2Modules: List<String>)
+Command -> UI: printCommonMappings(university1: String, university2: String, ...)
 activate UI
 UI --> Command : Print Common Mappings
 deactivate UI
-Command -> Command: displayUniqueMappings(university1: String, uni1Modules: List<String>, uni1UniqueCourseCodes: get<String>)
+Command -> Command: displayUniqueMappings(university1: String, ...)
 activate Command
-Command -> UI: printUniqueMappings(university: String, modules: List<String>, uniqueCourseCodes: get<String>);
+Command -> UI: printUniqueMappings(university1: String, ...);
 activate UI
 UI --> Command : Print Unique Mappings
 deactivate UI
 Command --> Command 
 deactivate Command
-Command -> Command: displayUniqueMappings(university2: String, uni2Modules: List<String>, uni2UniqueCourseCodes: get<String>)
+Command -> Command: displayUniqueMappings(university2: String, ...)
 activate Command
-Command -> UI: printUniqueMappings(university: String, modules: List<String>, uniqueCourseCodes: get<String>);
+Command -> UI: printUniqueMappings(university2: String, ...);
 activate UI
 UI --> Command : Print Unique Mappings
 deactivate UI
@@ -77,4 +41,5 @@ Command --> Command
 deactivate Command
 Command --> CEG_Student
 deactivate Command
+
 @enduml
