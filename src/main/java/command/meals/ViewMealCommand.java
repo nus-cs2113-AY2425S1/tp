@@ -2,11 +2,11 @@
 package command.meals;
 
 import command.CommandResult;
+import common.Utils;
 import history.DailyRecord;
 import history.History;
 import meal.MealList;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,8 +38,7 @@ public class ViewMealCommand extends MealCommand {
      */
     public CommandResult execute(History history) {
         logger.log(Level.INFO, "Executing ViewMealCommand for date: {0}", date);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDate = date.format(formatter);
+        String formattedDate = Utils.formatDate(date);
 
         DailyRecord dailyRecord = history.getRecordByDate(date);
         assert dailyRecord != null : "Daily record not found";

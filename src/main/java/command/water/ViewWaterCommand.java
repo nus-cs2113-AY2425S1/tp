@@ -2,12 +2,12 @@
 package command.water;
 
 import command.CommandResult;
+import common.Utils;
 import history.DailyRecord;
 import history.History;
 import water.Water;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,8 +22,7 @@ public class ViewWaterCommand extends WaterCommand {
     }
 
     public CommandResult execute(History history) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDate = date.format(formatter);
+        String formattedDate = Utils.formatDate(date);
 
         DailyRecord dailyRecord = history.getRecordByDate(date);
         assert dailyRecord != null : "Daily record not found";
