@@ -101,7 +101,7 @@ of command functionalities
     - Defines the primary action performed by the command (E.g. add new recipe to `recipeList` for `AddRecipeCommand`)
 
 Shown below is a class diagram detailing the interaction between the parent `Command` class and it's child classes:
-![commandClasses.png](img/ClassDiagrams/commandsShortClassDiagram.png)
+![commandClassesShort.png](img/ClassDiagrams/commandsShortClassDiagram.png)
 
 <div style="page-break-after: always;"></div>
 
