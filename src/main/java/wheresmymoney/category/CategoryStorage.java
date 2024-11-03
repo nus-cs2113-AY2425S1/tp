@@ -70,6 +70,7 @@ public class CategoryStorage {
             
             // closing writer connection
             reader.close();
+            csvReader.close();
         } catch (WheresMyMoneyException exc) {
             throw new StorageException("An expense's price, description, category and/or date added is missing");
         } catch (IOException ex) {
