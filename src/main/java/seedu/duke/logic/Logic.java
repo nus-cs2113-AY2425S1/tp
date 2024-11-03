@@ -1,6 +1,5 @@
 package seedu.duke.logic;
 
-import seedu.duke.budget.Budget;
 import seedu.duke.command.AddExpenseCommand;
 import seedu.duke.command.AddIncomeCommand;
 import seedu.duke.command.DeleteCommand;
