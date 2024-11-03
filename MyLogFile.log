@@ -710,3 +710,83 @@ Oct 25, 2024 1:31:56 PM wheresmymoney.Logging logMessage
 INFO: Parsing Line: list /recur
 Oct 25, 2024 1:31:58 PM wheresmymoney.Logging logMessage
 INFO: Parsing Line: bye
+Nov 03, 2024 9:13:11 PM wheresmymoney.Logging <init>
+INFO: Started Logging
+Nov 03, 2024 9:13:24 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: help
+Nov 03, 2024 9:13:43 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: add /price 4.50 /description chicken rice /category food
+Nov 03, 2024 9:13:43 PM wheresmymoney.Logging logMessage
+INFO: Adding expense with parameters: 4.500000, chicken rice, food
+Nov 03, 2024 9:13:43 PM wheresmymoney.Logging logMessage
+INFO: Successfully added expense.
+Nov 03, 2024 9:13:51 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: add /price 6.50 /description salad /category food
+Nov 03, 2024 9:13:51 PM wheresmymoney.Logging logMessage
+INFO: Adding expense with parameters: 6.500000, salad, food
+Nov 03, 2024 9:13:51 PM wheresmymoney.Logging logMessage
+INFO: Successfully added expense.
+Nov 03, 2024 9:14:04 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: add /price 8.00 /description burger /category food
+Nov 03, 2024 9:14:04 PM wheresmymoney.Logging logMessage
+INFO: Adding expense with parameters: 8.000000, burger, food
+Nov 03, 2024 9:14:04 PM wheresmymoney.Logging logMessage
+INFO: Successfully added expense.
+Nov 03, 2024 9:14:20 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: add /price 2.50 /description laundry /category clothes
+Nov 03, 2024 9:14:20 PM wheresmymoney.Logging logMessage
+INFO: Adding expense with parameters: 2.500000, laundry, clothes
+Nov 03, 2024 9:14:20 PM wheresmymoney.Logging logMessage
+INFO: Successfully added expense.
+Nov 03, 2024 9:14:35 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: add /price 24.50 /description new shirt /category clothes
+Nov 03, 2024 9:14:35 PM wheresmymoney.Logging logMessage
+INFO: Adding expense with parameters: 24.500000, new shirt, clothes
+Nov 03, 2024 9:14:35 PM wheresmymoney.Logging logMessage
+INFO: Successfully added expense.
+Nov 03, 2024 9:14:37 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: list
+Nov 03, 2024 9:14:37 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: chicken rice
+Nov 03, 2024 9:14:37 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: salad
+Nov 03, 2024 9:14:37 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: burger
+Nov 03, 2024 9:14:37 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: laundry
+Nov 03, 2024 9:14:37 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: new shirt
+Nov 03, 2024 9:14:50 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: list /category food
+Nov 03, 2024 9:14:50 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: chicken rice
+Nov 03, 2024 9:14:50 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: salad
+Nov 03, 2024 9:14:50 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: burger
+Nov 03, 2024 9:14:55 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: stats
+Nov 03, 2024 9:14:55 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: chicken rice
+Nov 03, 2024 9:14:55 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: salad
+Nov 03, 2024 9:14:55 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: burger
+Nov 03, 2024 9:14:55 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: laundry
+Nov 03, 2024 9:14:55 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: new shirt
+Nov 03, 2024 9:15:11 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: stats /category food
+Nov 03, 2024 9:15:11 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: chicken rice
+Nov 03, 2024 9:15:11 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: salad
+Nov 03, 2024 9:15:11 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: burger
+Nov 03, 2024 9:15:26 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: end
+Nov 03, 2024 9:15:28 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: byw
+Nov 03, 2024 9:15:30 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: bye
