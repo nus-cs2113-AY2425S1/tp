@@ -1,0 +1,39 @@
+@startuml
+!include .ClassDiagram.config
+
+class Command as "{abstract} \nCommand"{
+    +createJsonObject(): JsonObject
+}
+
+class PersonalTrackerCommand as "{abstract} \nPersonalTrackerCommand" extends Command {
+    +execute(userInput: String, storage: Storage): void ABSTRACT
+}
+
+class AddCoursesCommand extends PersonalTrackerCommand {
+    +execute(userInput: String, storage: Storage): void
+}
+
+class DeleteCoursesCommand extends PersonalTrackerCommand {
+    +execute(userInput: String, storage: Storage): void
+}
+
+class CourseValidator {
+    +isValidCourseMapping(nusCourseInput: String, puCourseInput: String, courses: JsonArray, pu: String): boolean
+    +isValidInput(nusCourseInput: String, pu: String, puCourseInput: String, jsonObject: JsonObject): boolean
+    +getPUCourseList(pu: String, jsonObject: JsonObject): JsonArray
+}
+
+class UI {
+    +printAddMessage(): void
+    +printDeleteMessage(): void
+}
+
+AddCoursesCommand ---> "courseValidator 1" CourseValidator
+AddCoursesCommand --> "ui 1" UI
+
+DeleteCoursesCommand --> "ui 1" UI
+
+note "execute() methods are overridden by concrete classes" as N3
+N3..AddCoursesCommand
+
+@enduml

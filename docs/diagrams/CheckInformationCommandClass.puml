@@ -1,0 +1,48 @@
+@startuml
+!include .ClassDiagram.config
+left to right direction
+
+class Command as "{abstract} \nCommand"{
+    +createJsonObject(): JsonObject
+}
+
+class CheckInformationCommand as "{abstract} \nCheckInformationCommand" extends Command {
+    +execute(userInput: String): void ABSTRACT
+}
+
+
+class FilterCoursesCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
+
+class HelpCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
+
+class ListCommandsCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
+
+class ListSchoolCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
+
+class ListUniCoursesCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
+
+class ObtainContactsCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
+
+class ListPersonalTrackerCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
+
+ListPersonalTrackerCommand --> "storage 1" Storage
+Storage : +loadAllCourses(): void
+
+note "execute() methods are overridden by concrete classes" as N1
+N1..FilterCoursesCommand
+
+@enduml
