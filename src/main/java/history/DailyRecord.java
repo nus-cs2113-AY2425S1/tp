@@ -99,7 +99,7 @@ public class DailyRecord {
         int caloriesGained = getCaloriesFromMeals();
 
         result.append("Day: \n");
-        if (day != null && day.getExercisesCount() > 0) {
+        if (day != null) {
             caloriesBurnt = day.getTotalCaloriesBurnt();
             result.append(day.toString()).append("\n");
             result.append("Total Calories burnt: ").append(caloriesBurnt).append(" kcal\n\n");

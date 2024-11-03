@@ -35,8 +35,6 @@ public class BuffBuddy {
     }
 
     public static void main(String[] args) {
-        Logger rootLogger = Logger.getLogger("");
-        rootLogger.setLevel(Level.OFF);
         new BuffBuddy(DEFAULT_FILE_PATH).run();
     }
 
