@@ -452,6 +452,49 @@ Here is your calorie intake:
 ____________________________________________________________________________________________________
 ```
 
+### 27. Add Mood Log: add-mood
+
+**Purpose**: Record a mood entry for a specific date and time.
+
+**Format**: `add-mood <mood description> <date> <time> <optional description>`
+
+**Example**: `add-mood happy 01/11/2024 18:30:00 feeling rejuvenated`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Mood log added: Mood: happy, Timestamp: 01/11/2024 18:30:00, Description: feeling rejuvenated
+____________________________________________________________________________________________________
+```
+
+### 28. Delete Mood Log: delete-mood
+**Purpose**: Remove a specific mood entry by its ID.
+
+**Format**: `delete-mood <mood ID>`
+
+**Example**: `delete-mood 2`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Mood log deleted with ID: 1
+____________________________________________________________________________________________________
+```
+
+### 29. List Mood Logs: list-mood
+**Purpose**: Display all recorded mood entries.
+
+**Format**: `list-mood`
+
+**Example**: `list-mood`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Your mood logs:
+1. Mood: happy, Timestamp: 01/11/2024 18:30:00, Description: feeling rejuvenated
+____________________________________________________________________________________________________
+```
 
 ## FitTrackCLI's Command Summary
 | Command             | Format                                                         | Example                            |
