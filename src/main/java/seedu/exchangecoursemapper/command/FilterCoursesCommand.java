@@ -88,8 +88,15 @@ public class FilterCoursesCommand extends CheckInformationCommand {
             logger.log(Level.WARNING, FILTER_COURSES_LIMIT);
             throw new IllegalArgumentException(Exception.filterCoursesLimitExceeded());
         }
-        assert inputDetails[1] != null : NO_NUS_COURSE_CODE_PARSED;
-        return inputDetails[1];
+        return inputDetails;
+    }
+
+    /**
+     * Returns the user specified NUS course code as a String to use as a filter.
+     *
+     * @param descriptionSubstrings A user's input separated into details containing the NUS course code.
+     * @return a String containing the extracted information: NUS course code.
+     */
     public String getNusCourseCode(String[] descriptionSubstrings) throws IllegalArgumentException {
         assert descriptionSubstrings[1] != null : NO_NUS_COURSE_CODE_PARSED;
         String nusCourseCode = descriptionSubstrings[1].toLowerCase();
@@ -98,6 +105,13 @@ public class FilterCoursesCommand extends CheckInformationCommand {
         }
         return nusCourseCode;
     }
+
+    /**
+     * Returns true if the NUS course code provided is a School of Computing (SoC) course, false otherwise.
+     *
+     * @param nusCourseCode a String containing the extracted information: NUS course code.
+     * @return true if the NUS course code provided is an SoC offered course, false otherwise.
+     */
     public boolean isValidSocCourseCode(String nusCourseCode) {
         return nusCourseCode.startsWith("cs") | nusCourseCode.startsWith("ee") | nusCourseCode.startsWith("bt") |
                 nusCourseCode.startsWith("is");
