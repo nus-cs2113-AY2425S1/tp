@@ -295,14 +295,38 @@ Given below is an example usage scenario and the behaviour of the `sort` feature
 
 The interactions between components of `SortCommand#execute` are shown in the **Sequence Diagram** below:
 
-<img src="SortCommandSequenceDiagram.png">
+<img src="images/SortCommandSequenceDiagram.png">
 
 ### Filter feature
 
 The `filter` feature allows users to filter events from the event list based on specified criteria. 
 This feature is implemented in the `FilterCommand` class, which extends the `Command` base class and uses flags to determine the filtering criteria.
 
+The `FilterCommand` supports the following filter options:
+* **By Name:** Finds any events containing the specified name
+* **By Time:** Finds all events scheduled at the specified time
+* **By Priority:** Finds all events with the specified priority level
+
+The above operation is implemented as `FilterCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
 #### Feature Implementation
+
+The `FilterCommand` class is constructed with a specified filter flag and keywords. It then performs filter operations based on both the flag and keywords.
+Given below is an example usage scenario and the behaviour of the `filter` feature at each step:
+1. The user enters the command filter followed by a flag (`-e: name, -t: time, or -u: priority`) and their search keyword e.g. `filter -e work` to specify the filtering criterion
+2. `FilterCommand` calls `FilterCommand#execute`, which based on the flag invokes one of the following 3 methods
+   * `filterByName()` - Finds events containing given name (keyword)
+   * `filterByTime()` - Finds events occurring during given time (keyword)
+   * `filterByPriority` - Finds events with given priority (keyword)
+   
+   After filtering, a success message is appended to `outputMessage` which indicates the filtering criterion used
+3. The final filtered list is then formatted and appended to `outputMessage`,
+   which is subsequently stored in `this.message` and displayed to the user.
+
+The interactions between components of `FilterCommand#execute` are shown in the **Sequence Diagram** below:
+
+<img src="images/FilterCommandSequenceDiagram.png">
 
 ### Find feature
 
@@ -327,7 +351,7 @@ Given below is an example usage scenario and the behaviour of the `find` feature
 
 The interactions between components of `FindCommand#execute` are shown in the **Sequence Diagram** below:
 
-<img src="FindCommandSequenceDiagram.png">
+<img src="images/FindCommandSequenceDiagram.png">
 
 ## Product scope
 ### Target user profile
