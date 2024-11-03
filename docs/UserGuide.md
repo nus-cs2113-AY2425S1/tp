@@ -4,7 +4,7 @@
 
 Introducing ExchangeCourseMapper, the perfect assistant in your planning for your SEP in Oceania!
 
-Using ExchangeCourseMapper, you can plan your course mapping by listing the universities of interest, 
+Using ExchangeCourseMapper, you can search and plan your course mapping by listing the universities of interest, 
 along with the specific courses and subject codes offered by each school. You can quickly filter by NUS-coded modules 
 or by partner universities (PU) when you want to view the relevant options. For any course mappings you are interested in,
 you can save it in the Personal Tracker provided by ExchangeCourseMapper!
@@ -160,11 +160,102 @@ Expected Output:
 Please provide a valid index of the course plan you would like to delete.
 ```
 
+### List out all the possible schools from the options: `list schools`
+List out all the schools users could possibly go for their SEP.
+
+Format: `list schools`
+
+Expected Output:
+```
+-----------------------------------------------------
+The University of Melbourne
+The Australian National University
+Victoria University of Wellington
+The University of Western Australia
+-----------------------------------------------------
+```
+
+### Obtain contacts from the list of universities `obtain`
+Obtain the contact details of the university of interest from the list of schools available. 
+
+Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
+
+* The `PARTNER_UNIVERSITY_NAME` is the name of the partner university from the list of schools.
+* The `CONTACT_TYPE` is the type of contact either number or email
+
+Example: `obtain victoria university of wellington /number`
+
+Expected Output:
+```
+Phone number for Victoria University of Wellington: +64 4 472 1000
+```
+
+Example: `obtain the university of western australia /email`
+
+Expected Output:
+```
+Email for The University of Western Australia: uwa-albany@uwa.edu.au
+```
+
+Example: `obtain`
+
+Expected Output:
+```
+Invalid input format
+```
+
+Example: `obtain NUS /email`
+
+Expected Output:
+```
+Unknown university - nus
+```
+
+Example: `obtain the university of melbourne /fax`
+
+Expected Output:
+```
+Invalid contact type.
+```
+
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+**Q**: How do I transfer my data to another computer?
 
 **A**: {your answer here}
+
+**Q**: Are the commands case-sensitive?
+
+**A**: No they are not.
+
+**Q**: Can I `filter` multiple courses at the same time?
+
+**A**: No you cannot
+
+**Q**: Can I `set` multiple schools at the same time?
+
+**A**: No you cannot
+
+**Q**: Can I `add` multiple courses and/or multiple schools at the same time?
+
+**A**: No you cannot
+
+**Q**: Can I `add` schools not in the list of schools and/or add courses not in the list?
+
+**A**: No you cannot
+
+**Q**: Can I `obtain` multiple schools/contact types at the same time?
+
+**A**: No you cannot
+
+**Q**: Can I `obtain` contacts of schools not in the list?
+
+**A**: No you cannot
+
+**Q**: Can I `delete` multiple indices at the same time?
+
+**A**: No you cannot
+
 
 ## Command Summary
 
@@ -172,10 +263,14 @@ Please provide a valid index of the course plan you would like to delete.
 
 * Add todo `todo n/TODO_NAME d/DEADLINE`
 
-For Louis to do for the UG: 
-
-cp ps from Docs
-{TODO: Obtain Contacts}
-{TODO: List schools}
-{TODO: Commands}
-{TODO: Miscellaneous}
+| Action                         | Format, Examples                                                                                                         |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+|                  | |
+|             ||
+|         ||
+|       ||
+||                                                                                                                |
+||                                                                                                                  |
+||                                                                                                                |
+||                                                                                                             |
+|             |  

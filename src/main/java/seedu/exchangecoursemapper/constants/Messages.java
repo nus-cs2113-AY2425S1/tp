@@ -1,5 +1,6 @@
 package seedu.exchangecoursemapper.constants;
 
+
 public class Messages {
     /* For UI layout */
     public static final String LINE_SEPARATOR = "-----------------------------------------------------";
@@ -27,17 +28,17 @@ public class Messages {
     public static final String COMMANDS_LIST =
             """
                     Here are the available commands:
-                    filter <subject code> - Filter courses by subject code.
-                    set <SCHOOL_NAME>     - Set a partner university for course mapping.
-                    list schools          - List all available partner universities.
-                    add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE> \
+                    filter: filter <subject code> - Filter courses by subject code.
+                    set: set <SCHOOL_NAME>     - Set a partner university for course mapping.
+                    list schools: list schools          - List all available partner universities.
+                    add: add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE> \
                     - Add mapped courses between NUS and partner universities.
-                    obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
-                    obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
-                    delete <TASK_NUMBER> - Delete a partner university.
-                    list mapped - List all course mapping saved.
-                    compare pu/<uni1> pu/<uni2> - Compare course mappings between 2 universities.
-                    bye - End the program.
+                    obtain: obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
+                    obtain: obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
+                    delete: delete <TASK_NUMBER> - Delete a partner university.
+                    list mapped: list mapped - List all course mapping saved.
+                    compare: compare pu/<uni1> pu/<uni2> - Compare course mappings between 2 universities.
+                    bye: bye - End the program.
                     To get more specific information of the commands, please use help <COMMAND>
                     """;
     // ListPersonalTrackerCommand
@@ -53,5 +54,9 @@ public class Messages {
     public static final String UNIQUE_MAPPINGS_HEADER = "Unique to ";
     public static final String NO_UNIQUE_MAPPINGS = "No unique mappings for ";
     public static final String INVALID_COURSE_MAPPING = "Invalid course mapping!";
-    public static final String NO_MATCH_FOUND = "No match found";
+
+    //Obtain contacts messages
+    public static final String EMAIL_TAG = "Email for ";
+    public static final String NUMBER_TAG = "Phone number for ";
+
 }
