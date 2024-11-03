@@ -240,9 +240,34 @@ The `Parser` then checks this parameter for two values, `done` or `undone`, and 
 If the parameter value is `done`, the `MarkEventCommand` will set the event as done, and will do otherwise if the parameter value is `undone`.
 Any other values entered for the status parameter will be treated as invalid.
 
+### Copy Feature
+
+The copy feature allows users to copy the list of participants from one event to another. This feature is implemented in the `CopyCommand` class,  which extends `Command`,
+The `CopyCommand` copies participants from a source event to a destination event if both events exist in the event list.
+
+The main operations for `copy` feature include:
+* Checking if both source and destination events exists in `EventList`
+* Verifying that the source event contains a non-empty participant list
+* Copying the participant list from the source event to the destination event
+* Displaying an appropriate message based on the outcome of the operation
+
+The above operation is implemented as `CopyCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+#### Feature Implementation
+
+Given below is an example usage scenario and the behaviour of the `copy` feature at each step:
+1. The user enters the command `copy EventA > EventB` to copy participants from EventA to EventB. 
+2. `CopyCommand` calls `CopyCommand#execute`, where it attempts to get the participant list from EventA, and copy the participant list over to EventB if there are existing participants.
+The interactions between components of `CopyCommand#execute` are shown in the **Sequence Diagram** below:
+
+<img src="images/CopyCommandSequenceDiagram.png">
+
+3.  Upon execution of the command, the output message of `CopyCommand` is set to inform the user if the participants list has been copied,
+    or if the operation was unsuccessful (e.g. if the participant list that is meant to be copied is empty).
+
 ## Product scope
 ### Target user profile
-
 The target user:
 
 * has a need to organise a large number of events

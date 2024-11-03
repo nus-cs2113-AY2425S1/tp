@@ -1,6 +1,6 @@
 @startuml
 
-Main -> Parser: add p/John Doe n/Meeting e/johndoe@example.com p/12345678
+Main -> Parser: add -p John Doe -e Meeting -n 92561352 -email johndoe@example.com
 activate Parser
 Parser -> AddCommand: new AddCommand("John Doe", "12345678", "johndoe@example.com", "Meeting")
 activate AddCommand
