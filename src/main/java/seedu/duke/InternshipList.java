@@ -26,9 +26,16 @@ public class InternshipList {
     }
 
     public void addInternship(Internship internship) {
+
+        assert internship != null : "Internship object cannot be null";
+
         if (internship.getId() == -1) {
             internship.setId(internships.size());
         }
+
+        assert internship.getId() >= 0 : "Internship ID should be non-negative after setting";
+        assert internship.getId() == internships.size() : "Internship ID should match the list size before adding";
+
         internships.add(internship);
     }
 
@@ -46,8 +53,12 @@ public class InternshipList {
 
     // Method to remove an internship by index (0-based)
     public void removeInternship(int index) {
+        assert isWithinBounds(index) : "Index is out of bounds for removal";
+
         if (isWithinBounds(index)) {
             Internship internship = internships.remove(index);
+            assert internship != null : "Removed internship should not be null";
+
             internship.clearDeadlines();
             ui.showDeletedInternship(index + 1);
             updateIds(); // Reassign IDs after removal
