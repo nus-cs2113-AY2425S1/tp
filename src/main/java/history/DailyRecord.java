@@ -243,7 +243,7 @@ public class DailyRecord {
         result.append("Water Intake: \n");
         if (!water.getWaterList().isEmpty()) {
             result.append(water).append("\n");
-            result.append("Total Water Intake: ").append(getTotalWaterIntake()).append(" liters");
+            result.append("Total Water Intake: ").append(getTotalWaterIntake()).append(" liters \n\n");
         } else {
             result.append("No Water.\n\n");
         }

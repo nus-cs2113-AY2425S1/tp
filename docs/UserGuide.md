@@ -261,6 +261,7 @@ Parameters:
 Chicken Breast | 250kcal has been added to 30-10-2024.
 ```
 ---
+
 ### 9. View Meals
 
 Displays all meals recorded for a specific date.
@@ -277,6 +278,7 @@ Meals for 30-10-2024:
 1. Chicken Breast | 250 kcal
 2. Scrambled Eggs | 150 kcal
 ```
+
 ---
 
 ### 10. Delete a Meal
@@ -292,7 +294,9 @@ Parameters:
 ```
 Chicken Breast | 250kcal has been deleted from 30-10-2024
 ```
+
 ---
+
 ### 11. Add a Water Log
 
 Adds a water log to the daily record of a specific date.
@@ -307,7 +311,9 @@ Parameters:
 ```
 200.2 liters of water has been added
 ```
+
 ---
+
 ### 9. View Water Logs
 
 Displays all water logs recorded for a specific date.
@@ -324,6 +330,7 @@ Water intake for 30-10-2024:
 1: 100.0
 2. 200.2
 ```
+
 ---
 
 ### 10. Delete a Water Log
@@ -339,7 +346,36 @@ Parameters:
 ```
 100.0 liters of water has been deleted
 ```
+
 ---
+
+### 10. View all history
+View all records of workouts, meals and water intake
+
+Command: `history`
+
+**Example**: `history`
+```
+Completed On: 30-10-2024
+
+Day: 
+ONE
+1. Bench Press: 3 sets of 12 at 30 | Burnt 220 cals
+2. Squat: 3 sets of 12 at 50 | Burnt 300 cals
+
+Total Calories burnt: 520 kcal
+
+Meals: 
+1: pasta | 100kcal
+Total Calories from Meals: 100 kcal
+
+Water Intake: 
+1: 100.0
+Total Water Intake: 100.0 liters 
+
+Caloric Balance: -420 kcal
+
+```
 
 ## Command Summary
 
