@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
+import static seedu.exchangecoursemapper.constants.Regex.PIPE;
 
 public class FindCoursesCommand extends PersonalTrackerCommand{
 
@@ -44,7 +45,7 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         List<String> mappedCourses = storage.loadAllCourses();
         List<String> foundCourses = new ArrayList<>();
 
-        iterateKeyword(keyword, mappedCourses, foundCourses);
+        matchKeyword(keyword, mappedCourses, foundCourses);
 
         if (foundCourses.isEmpty()) {
             ui.printNoMatchFound();
@@ -56,12 +57,17 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         }
     }
 
-    private static void iterateKeyword(String keyword, List<String> mappedCourses, List<String> foundCourses) {
+    private static void matchKeyword(String keyword, List<String> mappedCourses, List<String> foundCourses) {
         for (String course : mappedCourses) {
-            if (course.contains(keyword)) {
+            String nusCourseCode = getMappedCode(course);
+            if (nusCourseCode.equals(keyword)) {
                 foundCourses.add(course);
             }
         }
     }
 
+    private static String getMappedCode(String course) {
+        String[] mappedParts = course.split(PIPE);
+        return mappedParts[0].trim();
+    }
 }
