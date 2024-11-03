@@ -90,6 +90,17 @@ public class FilterCoursesCommand extends CheckInformationCommand {
         }
         assert inputDetails[1] != null : NO_NUS_COURSE_CODE_PARSED;
         return inputDetails[1];
+    public String getNusCourseCode(String[] descriptionSubstrings) throws IllegalArgumentException {
+        assert descriptionSubstrings[1] != null : NO_NUS_COURSE_CODE_PARSED;
+        String nusCourseCode = descriptionSubstrings[1].toLowerCase();
+        if (!isValidSocCourseCode(nusCourseCode)) {
+            throw new IllegalArgumentException(Exception.nonSocNusCourseGiven());
+        }
+        return nusCourseCode;
+    }
+    public boolean isValidSocCourseCode(String nusCourseCode) {
+        return nusCourseCode.startsWith("cs") | nusCourseCode.startsWith("ee") | nusCourseCode.startsWith("bt") |
+                nusCourseCode.startsWith("is");
     }
 
     /**
