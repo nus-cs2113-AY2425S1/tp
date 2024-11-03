@@ -116,7 +116,7 @@ The abstract Command class has been implemented to introduce an additional layer
 
 <u>Implementation Details</u>
 
-The following diagram is an inheritance diagram for Command and its children classes. 
+The following diagram is a class diagram for Command and its children classes. 
 This has been heavily simplified and only shows the key commands.
 
 ![CommandInheritance.png](diagrams%2Fimages%2FCommandInheritance.png)
