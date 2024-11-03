@@ -23,7 +23,7 @@ public class ViewWaterCommand extends WaterCommand {
     public CommandResult execute(History history) {
         DailyRecord dailyRecord = history.getRecordByDate(date);
         assert dailyRecord != null : "Daily record not found";
-        Water water = dailyRecord.getWater();
+        Water water = dailyRecord.getWaterFromRecord();
 
         logger.log(Level.INFO, "Retrieved Water record for date: {0}, Water: {1}", new Object[]{date, water});
         return new CommandResult(water.toString());
