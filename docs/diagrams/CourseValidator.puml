@@ -14,7 +14,7 @@ activate CourseValidator
 
 alt matchPu != null
 CourseValidator -> CourseValidator: get JsonArray for Partner University
-else
+else else
 CourseValidator -> CourseValidator:displayPartnerUniversities()
 activate CourseValidator
 deactivate

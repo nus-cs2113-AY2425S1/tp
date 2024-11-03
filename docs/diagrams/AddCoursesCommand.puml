@@ -42,7 +42,7 @@ Course --> AddCoursesCommand : returns Course
 deactivate
 AddCoursesCommand -> Storage :addCourse(courseToStore)
 AddCoursesCommand -> AddCoursesCommand: printAddMessage(courseToStore)
-else
+else else
 AddCoursesCommand -> AddCoursesCommand: print error message
 end
 return
