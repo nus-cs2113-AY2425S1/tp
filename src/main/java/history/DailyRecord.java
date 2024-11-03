@@ -8,6 +8,15 @@ import water.Water;
 
 import java.util.logging.Logger;
 
+/**
+ * Represents a daily record containing a {@link Day} for workouts, a {@link MealList} for meals,
+ * and a {@link Water} record for water intake.
+ * <p>
+ * Each {@code DailyRecord} logs a day's activities, meals, and water intake, supporting methods
+ * for managing these entries and calculating totals. Instances are stored in a {@code history}
+ * map that associates each record with a specific date.
+ * </p>
+ */
 public class DailyRecord {
     private static final Logger logger = Logger.getLogger(DailyRecord.class.getName());
     private Day day;
@@ -208,6 +217,7 @@ public class DailyRecord {
      * @return a formatted string representation of the daily record, detailing calories burned, calories
      *         gained from meals, water intake, and overall caloric balance.
      */
+    @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
         int caloriesBurnt = 0;
