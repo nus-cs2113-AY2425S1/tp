@@ -10,8 +10,8 @@ import java.util.HashMap;
 
 public class LoadCommand extends Command {
 
-    private String EXPENSES_FILE_PATH = "./expenses_data.csv";
-    private String RECURRING_EXPENSES_FILE_PATH = "./recurring_expenses_data.csv"; 
+    private static String EXPENSES_FILE_PATH = "./expenses_data.csv";
+    private static String RECURRING_EXPENSES_FILE_PATH = "./recurring_expenses_data.csv"; 
 
     public LoadCommand(HashMap<String, String> argumentsMap) {
         super(argumentsMap);
