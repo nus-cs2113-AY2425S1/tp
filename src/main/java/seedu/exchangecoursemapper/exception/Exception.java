@@ -38,6 +38,10 @@ public class Exception extends Throwable {
         return "Please note that we can only filter for only one NUS Course!";
     }
 
+    public static String nonSocNusCourseGiven() {
+        return "We can only filter for CS/EE/BT/IS coded courses!";
+    }
+
     public static String invalidCommand() {
         return "Invalid command. \nPlease check the commands available by typing commands.";
     }
