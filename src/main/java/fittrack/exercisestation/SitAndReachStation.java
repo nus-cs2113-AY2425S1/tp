@@ -28,6 +28,11 @@ public class SitAndReachStation extends ExerciseStation {
     }
 
     @Override
+    public int getPerformance() {
+        return this.length;
+    }
+
+    @Override
     public String getName() {
         return name;
     }

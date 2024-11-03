@@ -27,6 +27,11 @@ public class ShuttleRunStation extends ExerciseStation {
     }
 
     @Override
+    public int getPerformance() {
+        return this.time;
+    }
+
+    @Override
     public int getPoints(User user) {
         if(time == INVALID_TIME) {
             return DEFAULT_POINT;

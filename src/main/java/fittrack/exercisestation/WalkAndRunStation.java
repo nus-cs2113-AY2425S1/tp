@@ -43,6 +43,11 @@ public class WalkAndRunStation extends ExerciseStation {
     }
 
     @Override
+    public int getPerformance() {
+        return this.time;
+    }
+
+    @Override
     public String getName() {
         return name;
     }

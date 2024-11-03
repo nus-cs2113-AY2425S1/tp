@@ -28,6 +28,11 @@ public class StandingBroadJumpStation extends ExerciseStation {
     }
 
     @Override
+    public int getPerformance() {
+        return this.distance;
+    }
+
+    @Override
     public String getName() {
         return name;
     }

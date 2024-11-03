@@ -28,6 +28,11 @@ public class PullUpStation extends ExerciseStation {
     }
 
     @Override
+    public int getPerformance() {
+        return this.reps;
+    }
+
+    @Override
     public String getName() {
         return name;
     }
