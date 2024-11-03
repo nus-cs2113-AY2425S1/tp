@@ -2,7 +2,7 @@ package seedu.manager.command;
 
 /**
  * Represents a command to edit an event to the event list.
- * The edit command will store the event's name, time, and venue.
+ * The edit command will store the event's name, the participant's information.
  */
 public class EditParticipantCommand extends Command{
     public static final String COMMAND_WORD = "edit";
@@ -16,7 +16,7 @@ public class EditParticipantCommand extends Command{
 
     //@@author KuanHsienn
     /**
-     * Constructs an EditCommand object with the specified participant name, participant number,
+     * Constructs an EditParticipantCommand object with the specified participant name, participant number,
      * participant email, and event name.
      *
      * @param participantName The name of the participant.
