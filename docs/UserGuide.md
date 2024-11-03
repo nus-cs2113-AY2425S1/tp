@@ -74,9 +74,53 @@ Deletes an entry from your financial list.
 
 ### List Entries
 
+Lists out entries in your financial list for your perusal. Entries can be filtered by type (income/expense)
+or restricted to a stipulated period. The app will display the total cashflow/expenditure/income 
+during the stipulated period depending on the financial entry type selected to be listed, as well as the
+category with the highest total expenditure/income.
+
+**Format**: `list [expense|income] [/from START_DATE] [/to END_DATE]`
+
 #### List by Type
 
+User can command app to list out only expenses, only incomes or both expenses and incomes.
+
+**Example Usage**:
+``` java
+//Lists out all expenses and incomes. 
+//Displays total cashflow (income - expenditure), and shows categories with the highest total expenditure and income respectively
+list
+
+//Lists out all expenses. Displays total expenditure, and shows category with highest total expenditure.
+list expense 
+
+//Lists out all incomes. Displays total income, and shows category with highest total income.
+list income 
+```
+
 #### List by Date
+
+User can command app to only list out financial entries starting from a certain date using the `/from` flag, 
+and/or up to a certain date using the `/to` flag.
+
+Total cashflow/expenditure/income displayed will be restricted to the range of dates entered by the user.
+Category with highest expenditure/income displayed will also be based on the entered date range.
+
+**Example Usage**:
+``` java
+//Lists out all expenses and incomes with date equal to or after 03/10/24.
+//Displays total cashflow (income - expenditure) during that period, and shows
+//categories with the highest total expenditure and income during that period respectively.
+list /from 03/10/24
+
+//Lists out all expenses with dates before or equal to 03/10/24.
+//Displays total expenditure + category with highest total expenditure during that period.
+list expense /to 03/10/24
+
+//Lists out all incomes with dates between 03/10/24 and 01/11/24 inclusive.
+//Displays total income + category with highest total income during that period.
+list income /from 03/10/24 /to 01/11/24
+```
 
 ### Set/Edit Budget
 
