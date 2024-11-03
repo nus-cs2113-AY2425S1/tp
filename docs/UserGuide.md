@@ -155,6 +155,10 @@ Users can specify a flag to display them in alphabetical order (regardless of up
 `sort -duration`
 
 ```
+__________________________________________________
+__________________________________________________
+Sorted internships by start date (year first), then end date.
+__________________________________________________
 ID: 02
 Role: Software Engineer Intern
 Company: Google
@@ -162,25 +166,32 @@ Duration: 05/23 to 08/25
 Skills: Not Stated
 Deadlines:
 online assessment: 11/11/24
-
+__________________________________________________
 ID: 01
 Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/24 to 08/24
 Skills: Not Stated
 Deadlines:
-interview: 25/11/24
+    interview: 25/11/24
+__________________________________________________
+__________________________________________________
 ```
+
 `sort -role`
 
 ```
+__________________________________________________
+__________________________________________________
+Sorted internships by role alphabetically (case-insensitive).
+__________________________________________________
 ID: 01
 Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/25 to 08/25
 Skills: Not Stated
 Deadlines:
-interview: 25/11/24
+    interview: 25/11/24
 
 
 ID: 02
@@ -189,19 +200,25 @@ Company: Google
 Duration: Not Stated
 Skills: Not Stated
 Deadlines:
-online assessment: 11/11/24
+    online assessment: 11/11/24
+__________________________________________________
+__________________________________________________
 ```
 
 `sort -deadline`
 
 ```
+__________________________________________________
+__________________________________________________
+Sorted internships by deadline.
+__________________________________________________
 ID: 02
 Role: Software Engineer Intern
 Company: Google
 Duration: 05/23 to 08/25
 Skills: Not Stated
 Deadlines:
-online assessment: 11/11/24
+    online assessment: 11/11/24
 
 ID: 01
 Role: Embedded Software Engineer Intern
@@ -209,13 +226,17 @@ Company: Continental
 Duration: 05/24 to 08/24
 Skills: Not Stated
 Deadlines:
-interview: 25/11/24
-
+    interview: 25/11/24
+__________________________________________________
+__________________________________________________
 ```
+
 `sort -skills`
 
 ```
 __________________________________________________
+__________________________________________________
+Sorted internships by skills.
 __________________________________________________
 ID: 1	Status: Application Completed
 Role: Embedded Software Engineer Intern
@@ -223,8 +244,7 @@ Company: Google
 Duration: 02/23 to 05/24
 Skills: No Skills Entered 
 Deadlines:
-interview: 25/11/24
-
+    interview: 25/11/24
 __________________________________________________
 ID: 2	Status: Accepted
 Role: Marketing sales
@@ -232,8 +252,7 @@ Company: Castify
 Duration: 05/23 to 05/24
 Skills: No Skills Entered 
 Deadlines:
-online assessment: 11/11/24
-
+    online assessment: 11/11/24
 __________________________________________________
 __________________________________________________
 ```
@@ -242,14 +261,15 @@ __________________________________________________
 ```
 __________________________________________________
 __________________________________________________
+Sorted internships by status.
+__________________________________________________
 ID: 2	Status: Accepted
 Role: Marketing sales
 Company: Castify
 Duration: 05/23 to 05/24
 Skills: No Skills Entered 
 Deadlines:
-online assessment: 11/11/24
-
+    online assessment: 11/11/24
 __________________________________________________
 ID: 1	Status: Application Completed
 Role: Embedded Software Engineer Intern
@@ -257,8 +277,7 @@ Company: Google
 Duration: 02/23 to 05/24
 Skills: No Skills Entered 
 Deadlines:
-interview: 25/11/24
-
+    interview: 25/11/24
 __________________________________________________
 __________________________________________________
 ```
