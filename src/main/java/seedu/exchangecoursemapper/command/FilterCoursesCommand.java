@@ -72,12 +72,12 @@ public class FilterCoursesCommand extends CheckInformationCommand {
     }
 
     /**
-     * Returns the user specified NUS course code as a String to use as a filter.
+     * Parse the user input and extract out the NUS course code the user wants to use as a filter.
      *
-     * @param userInput A String containing the user's input.
-     * @return a String containing the extracted information: NUS course code.
+     * @param userInput a string containing the user input.
+     * @return a String[] containing the extracted information: NUS course code to use as a filter.
      */
-    public String getNusCourseCode(String userInput) throws IllegalArgumentException {
+    public String[] parseFilterCommand(String userInput) throws IllegalArgumentException {
         String input = userInput.trim().replaceAll(REPEATED_SPACES, SPACE);
         String[] inputDetails = input.split(SPACE);
         if (inputDetails.length == COMMAND_WORD_INDEX + ZERO_INDEX_OFFSET) {
