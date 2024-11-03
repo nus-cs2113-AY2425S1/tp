@@ -314,7 +314,7 @@ Parameters:
 
 ---
 
-### 9. View Water Logs
+### 12. View Water Logs
 
 Displays all water logs recorded for a specific date.
 
@@ -333,7 +333,7 @@ Water intake for 30-10-2024:
 
 ---
 
-### 10. Delete a Water Log
+### 13. Delete a Water Log
 Deletes a water log from the daily record of a specific date.
 
 Command: `water delete /w WATER_INDEX /t DATE`
@@ -349,7 +349,7 @@ Parameters:
 
 ---
 
-### 11. View All History
+### 14. View All History
 Displays a comprehensive record of workouts, meals, and water intake for each logged day.
 
 Command: `history`
