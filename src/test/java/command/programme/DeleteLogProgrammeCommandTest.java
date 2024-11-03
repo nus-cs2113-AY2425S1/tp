@@ -10,7 +10,10 @@ import programme.ProgrammeList;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class DeleteLogProgrammeCommandTest {
 
@@ -70,5 +73,4 @@ class DeleteLogProgrammeCommandTest {
         DeleteLogProgrammeCommand command = new DeleteLogProgrammeCommand(testDate);
         assertThrows(AssertionError.class, () -> command.execute(null, history));
     }
-
 }
