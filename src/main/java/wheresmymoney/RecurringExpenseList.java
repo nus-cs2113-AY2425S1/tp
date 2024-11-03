@@ -49,7 +49,7 @@ public class RecurringExpenseList extends ExpenseList {
     /**
      * Returns the index of the specified {@code RecurringExpense} in the list.
      *
-     * @param expense The {@code RecurringExpense} object to find the index of.
+     * @param recurringExpense The {@code RecurringExpense} object to find the index of.
      * @return The index of the specified {@code RecurringExpense}.
      * @throws WheresMyMoneyException If the expense is not found in the list.
      */
