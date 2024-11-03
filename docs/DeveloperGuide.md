@@ -266,6 +266,41 @@ The interactions between components of `CopyCommand#execute` are shown in the **
 3.  Upon execution of the command, the output message of `CopyCommand` is set to inform the user if the participants list has been copied,
     or if the operation was unsuccessful (e.g. if the participant list that is meant to be copied is empty).
 
+### Sort feature
+
+The `sort` feature allows users to organize events in a chosen order based on different attributes, such as name, time, or priority.
+This feature is implemented in the `SortCommand` class, which extends the `Command` base class and utilises a keyword to determine the sorting criterion.
+
+The `SortCommand` supports the following sorting options:
+* **By Name:** Alphabetically sorts the events by name
+* **By Time:** Orders events bases on scheduled time
+* **By Priority:** Organises events by priority level, with the highest priority appearing first
+
+The above operation is implemented as `SortCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+#### Feature Implementation
+
+The `SortCommand` class is constructed with a specified sorting keyword and performs sorting operations based on this keyword.
+Given below is an example usage scenario and the behaviour of the `sort` feature at each step:
+1. The user enters the command sort followed by a keyword (name, time, or priority) e.g. `sort -by name` to specify the sorting criterion
+2. `SortCommand` calls `SortCommand#execute`, which based on the keyword invokes one of the following 3 methods
+    * `sortByName()` - Sort events alphabetically by name
+    * `sortByTime()` - Sort events chronologically by time
+    * `sortByPriority` - Sort events by priority level
+    
+    After sorting, a success message is appended to `outputMessage` which indicates the sorting criterion used
+3. The final sorted list is then formatted and appended to `outputMessage`,
+    which is subsequently stored in `this.message` and displayed to the user.
+
+The interactions between components of `SortCommand#execute` are shown in the **Sequence Diagram** below:
+
+<img src="SortCommandSequenceDiagram.png">
+
+### Filter feature
+
+### Find feature
+
 ## Product scope
 ### Target user profile
 The target user:
@@ -291,10 +326,13 @@ The user is able to organise and manage his events more quickly and efficiently 
 | v1.0    | user     | remove participants who are no longer coming to specific events | efficiently keep the participant list for that event up-to-date and relevant              |
 | v1.0    | user     | view the participant list of an event                           | know who is involved                                                                      |
 | v2.0    | user     | mark events as completed                                        | easily track all past events                                                              |
-| v2.0    | user     | mark participants present                                       | know exactly who signed up but did not attend the event                                   |
-| v2.0    | user     | save events info                                                | can still access the information if the program terminates                                |
-| v2.0    | user     | filter events by keywords                                       | can find relevant information efficiently                                                 |
-| v2.0    | user     | edit event details                                              | can update latest changes to events                                                       |
+| v2.0    | user     | mark participants present                                       | exactly know who signed up but did not attend the event                                   |
+| v2.0    | user     | save events info                                                | still access the information if the program terminates                                    |
+| v2.0    | user     | filter events by keywords                                       | find relevant information efficiently                                                     |
+| v2.0    | user     | edit event details                                              | update latest changes to events                                                           |
+| v2.0    | user     | copy participant details across events                          | update events with the same participants efficiently                                      |    
+| v2.0    | user     | sort events by certain order (e.g. Priority)                    | visually view events in a certain order                                                   |
+| v2.0    | user     | find if a person is in a certain event                          | quickly confirm a participant’s involvement in an event                                             |
 
 ## Non-Functional Requirements
 
