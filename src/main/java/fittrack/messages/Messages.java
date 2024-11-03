@@ -100,7 +100,8 @@ public class Messages {
     public static final String INVALID_USER_INFO_MESSAGE = "Please provide a valid gender and age (male/female 12-24).";
     public static final String INVALID_SESSION_NAME_MESSAGE = "Please provide a valid session name.";
     public static final String INVALID_SESSION_INDEX_MESSAGE = "Please provide a valid session index.";
-    public static final String INVALID_EXERCISE_DETAILS_MESSAGE = "Please provide a valid session index, station and reps.";
+    public static final String INVALID_EXERCISE_DETAILS_MESSAGE =
+            "Please provide a valid session index, station and reps.";
     public static final String INVALID_EXERCISE_ACRONYM_MESSAGE = "Invalid exercise acronym: ";
     public static final String INVALID_PULL_UP_REPETITIONS_MESSAGE = "Invalid Pull Up repetitions: ";
     public static final String INVALID_SHUTTLE_RUN_TIMING_MESSAGE = "Invalid Shuttle Run timing: ";
