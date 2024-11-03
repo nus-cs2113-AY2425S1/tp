@@ -1,5 +1,6 @@
 package wheresmymoney;
 
+
 import wheresmymoney.command.AddCommand;
 import wheresmymoney.command.ByeCommand;
 import wheresmymoney.command.Command;
@@ -7,6 +8,7 @@ import wheresmymoney.command.DeleteCommand;
 import wheresmymoney.command.EditCommand;
 import wheresmymoney.command.HelpCommand;
 import wheresmymoney.command.ListCommand;
+import wheresmymoney.command.StatsCommand;
 import wheresmymoney.command.LoadCommand;
 import wheresmymoney.command.SaveCommand;
 import wheresmymoney.command.SetCommand;
@@ -137,6 +139,8 @@ public class Parser {
             return new DeleteCommand(argumentsMap);
         case "list":
             return new ListCommand(argumentsMap);
+        case "stats":
+            return new StatsCommand(argumentsMap);
         case "load":
             return new LoadCommand(argumentsMap);
         case "save":
