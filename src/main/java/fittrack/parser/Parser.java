@@ -13,6 +13,11 @@ import java.util.Objects;
 
 import static fittrack.enums.Exercise.fromUserInput;
 
+import static fittrack.exception.ParserExceptions.validSession;
+import static fittrack.exception.ParserExceptions.validSessionIndex;
+import static fittrack.exception.ParserExceptions.validUser;
+import static fittrack.exception.ParserExceptions.parseUserInfo;
+import static fittrack.exception.ParserExceptions.validEditDetails;
 import static fittrack.messages.Messages.ADD_REMINDER_COMMAND;
 import static fittrack.messages.Messages.ADD_SESSION_COMMAND;
 import static fittrack.messages.Messages.DELETE_REMINDER_COMMAND;
@@ -39,15 +44,6 @@ import static fittrack.ui.Ui.printUser;
 
 
 public class Parser {
-
-    /**
-     * Parses the user's input and calls the corresponding method based on the command.
-     *
-     * @param user The user object to be manipulated based on the command.
-     * @param input The input string entered by the user.
-     * @param sessionList The list of sessions to be manipulated based on the command.
-     * @param reminderList The list of reminders to be manipulated based on the command.
-     */
 
     private static void printGoalList(ArrayList<String> goalList) {
         if (goalList.isEmpty()){
@@ -94,7 +90,6 @@ public class Parser {
         assert sessionList != null : "Session list must not be null";
         assert goalList != null : "Goal list must not be null";
 
-
         String[] sentence = {input, input};
         String command = input;
         String description = "";
@@ -107,52 +102,61 @@ public class Parser {
         }
 
         switch (command) {
-        case SET_USER_COMMAND:
-            assert description.contains(" ") : "Invalid user data format";
-            sentence = description.split(" ", 2);
-            user.setGender(sentence[0]);
-            user.setAge(sentence[1]);
-            printUser(user);
-            break;
         case HELP_COMMAND:
             printHelp();
             break;
+        case LIST_SESSIONS_COMMAND:
+            printSessionList(sessionList);
+            break;
+        case SET_USER_COMMAND:
+            try {
+                String[] userInfo = parseUserInfo(description);
+                user = validUser(userInfo[0], userInfo[1]);
+                printUser(user);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            break;
         case ADD_SESSION_COMMAND:
-            assert !description.isEmpty() : "Session description must not be empty";
-            LocalDateTime currentTime = LocalDateTime.now();
-            sessionList.add(new TrainingSession(currentTime, description, user));
-            printAddedSession(sessionList);
+            try {
+                sessionList.add(validSession(description,user));
+                printAddedSession(sessionList);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             break;
         case EDIT_EXERCISE_COMMAND:
-            sentence = description.split(" ", 3);
-            System.out.println(sentence[0]);
-            assert sentence.length == 3 : "Edit exercise command requires exactly 3 arguments";
-            int sessionIndex = Integer.parseInt(sentence[0]) - 1;
-            String exerciseAcronym = sentence[1];
-            String exerciseData = sentence[2];
-            assert sessionIndex >= 0 && sessionIndex < sessionList.size() : "Session index out of bounds";
             try {
+                String[] editDetails = validEditDetails(description, sessionList.size());
+                int sessionIndex = Integer.parseInt(editDetails[0]) - 1;
+                String exerciseAcronym = editDetails[1];
+                String exerciseData = editDetails[2];
                 sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);
+                printSessionView(sessionList, sessionIndex);
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            printSessionView(sessionList, sessionIndex);
-            break;
-        case LIST_SESSIONS_COMMAND:
-            printSessionList(sessionList); // Print the list of sessions
             break;
         case VIEW_SESSION_COMMAND:
-            int viewIndex = Integer.parseInt(description) - 1;
-            assert viewIndex >= 0 && viewIndex < sessionList.size() : "View session index out of bounds";
-            printSessionView(sessionList, viewIndex); // Print the session view
+            try {
+                int indexToView = validSessionIndex(Integer.parseInt(description) - 1, sessionList.size());
+                printSessionView(sessionList, indexToView); // Print the session view
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             break;
         case DELETE_SESSION_COMMAND:
-            int indexToDelete = Integer.parseInt(description) - 1;
-            assert indexToDelete >= 0 && indexToDelete < sessionList.size() : "Delete session index out of bounds";
-            TrainingSession sessionToDelete = sessionList.get(indexToDelete);
-            sessionList.remove(indexToDelete);
-            printDeletedSession(sessionList, sessionToDelete);
+            try {
+                int indexToDelete = validSessionIndex(Integer.parseInt(description) - 1, sessionList.size());
+                TrainingSession sessionToDelete = sessionList.get(indexToDelete);
+                sessionList.remove(indexToDelete);
+                printDeletedSession(sessionList, sessionToDelete);
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             break;
         case ADD_REMINDER_COMMAND:
             sentence = description.split(" ", 2);

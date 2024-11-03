@@ -102,12 +102,28 @@ public class Messages {
     public static final String DELETE_CALORIES_MESSAGE = "Got it. I've deleted the calorie intake.";
     public static final String LIST_CALORIES_MESSAGE = "Here is your calorie intake:";
 
+    public static final String MALE_GENDER = "male";
+    public static final String FEMALE_GENDER = "female";
+    public static final String INVALID_USER_INFO_MESSAGE = "Please provide a valid gender and age (male/female 12-24).";
+    public static final String INVALID_SESSION_NAME_MESSAGE = "Please provide a valid session name.";
+    public static final String INVALID_SESSION_INDEX_MESSAGE = "Please provide a valid session index.";
+    public static final String INVALID_EXERCISE_DETAILS_MESSAGE =
+            "Please provide a valid session index, station and reps.";
+    public static final String INVALID_EXERCISE_ACRONYM_MESSAGE = "Invalid exercise acronym: ";
+    public static final String INVALID_PULL_UP_REPETITIONS_MESSAGE = "Invalid Pull Up repetitions: ";
+    public static final String INVALID_SHUTTLE_RUN_TIMING_MESSAGE = "Invalid Shuttle Run timing: ";
+    public static final String INVALID_SIT_AND_REACH_DISTANCE_MESSAGE = "Invalid Sit and Reach distance: ";
+    public static final String INVALID_SIT_UP_REPETITIONS_MESSAGE = "Invalid Sit Up repetitions: ";
+    public static final String INVALID_STANDING_BROAD_JUMP_DISTANCE_MESSAGE = "Invalid Standing Broad Jump distance: ";
+    public static final String INVALID_WALK_AND_RUN_TIMING_MESSAGE = "Invalid Walk and Run timing: ";
+
     public static final String ADD_MOOD_MESSAGE = "Mood log added: ";
     public static final String DELETE_MOOD_MESSAGE = "Mood log deleted with ID: ";
     public static final String LIST_MOOD_MESSAGE = "Your mood logs: ";
 
     public static final String NONNUMERICAL_INDEX_MESSAGE = "Please provide a valid numerical index.";
     public static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Sorry, but that index is not within the list.";
+
     public static final String INVALID_INPUT_MESSAGE = "I'm sorry, I don't know what that means.";
     public static final String EXIT_MESSAGE = "Bye! Hope to see you again soon!";
 }

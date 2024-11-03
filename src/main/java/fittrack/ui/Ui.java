@@ -7,7 +7,6 @@ import fittrack.user.User;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import static fittrack.messages.Messages.ADD_REMINDER_MESSAGE;
 import static fittrack.messages.Messages.ADD_SESSION_MESSAGE;
 import static fittrack.messages.Messages.DELETE_REMINDER_MESSAGE;
