@@ -524,7 +524,4 @@ ________________________________________________________________________________
 | **add-food**        | `add-food`                                                     | `add-food apple`                   |
 | **delete-food**     | `delete-food`                                                  | `delete-food 1`                    |
 | **list-food**       | `list-food`                                                    | `list-food`                        |
-| **add-mood**       | `add-food`                                                    | `add-mood happy 01/11/2024 18:30:00`  |
-| **delete-mood**       | `delete-mood`                                                    | `delete-mood 1`                        |
-| **list-mood**       | `list-mood`                                                    | `list-mood`                        |
 
