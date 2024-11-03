@@ -1,0 +1,44 @@
+@startuml
+participant Ui as User
+participant Graph
+participant TrainingSession
+
+User -> Graph : graphSessions(sessionList)
+activate Graph
+
+Graph -> Graph : generatePointGraphs(sessionList, null)
+activate Graph
+Graph -> Graph : generateGraphHeaderPoints(descriptionLength)
+activate Graph
+Graph --> Graph : Header
+deactivate Graph
+
+loop For each session in sessionList
+    Graph -> Graph : generateGraphRowsPoints(session, null, descriptionLength)
+    activate Graph
+
+    Graph -> TrainingSession : getSessionDescription()
+    activate TrainingSession
+    TrainingSession --> Graph : description
+    deactivate TrainingSession
+
+    Graph -> TrainingSession : getSessionDatetime()
+    activate TrainingSession
+    TrainingSession --> Graph : datetime
+    deactivate TrainingSession
+
+    Graph -> TrainingSession : getTotalPoints()
+    activate TrainingSession
+    TrainingSession --> Graph : points
+    deactivate TrainingSession
+    Graph --> Graph : row
+    deactivate Graph
+
+end loop
+
+Graph --> Graph : pointGraph
+deactivate Graph
+
+User <-- Graph : Display graph output
+deactivate Graph
+@enduml
