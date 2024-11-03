@@ -17,9 +17,9 @@ import static seedu.exchangecoursemapper.constants.Regex.PIPE;
 
 public class FindCoursesCommand extends PersonalTrackerCommand{
 
-    private final Storage storage;
     private static final UI ui = new UI();
     private static final Logger logger = Logger.getLogger(FindCoursesCommand.class.getName());
+    private final Storage storage;
 
     /**
      * Constructs a FindCoursesCommand with the specified storage.
