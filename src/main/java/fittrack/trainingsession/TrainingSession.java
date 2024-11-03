@@ -11,7 +11,9 @@ import fittrack.exercisestation.WalkAndRunStation;
 import fittrack.user.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 public class TrainingSession{
@@ -33,8 +35,10 @@ public class TrainingSession{
     private LocalDateTime sessionDatetime;
     private String sessionDescription;
     private User user;
+    private List<fittrack.trainingsession.MoodLog> moodLogs = new ArrayList<>();
 
     private Map<Exercise, ExerciseStation> exerciseStations = new EnumMap<>(Exercise.class);
+
 
     public TrainingSession(LocalDateTime datetime, String sessionDescription, User user) {
         this.sessionDatetime = datetime;
