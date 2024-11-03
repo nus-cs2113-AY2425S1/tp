@@ -202,8 +202,8 @@ public class Graph {
         int maxXHeaderLength = Math.max(DATETIME_LENGTH, TrainingSession.getLongestSessionDescription());
 
         String xHeaders = generateXHeader(numSessions, sessionList, maxXHeaderLength, yOffset);
-        String mainContents =
-                generateMainGraphPerformance(maxExercisePerformance, numSessions, maxXHeaderLength, sessionList, exercise);
+        String mainContents = generateMainGraphPerformance(maxExercisePerformance, numSessions,
+                maxXHeaderLength, sessionList, exercise);
 
         System.out.print(mainContents + xHeaders);
     }
