@@ -286,58 +286,59 @@ public class Parser {
                 return;
             }
             String moodDescription = moodParts.length > 3 ? moodParts[3] : "";
-            fittrack.trainingsession.MoodLog newMoodLog = new fittrack.trainingsession.MoodLog(mood, moodTimestamp, moodDescription);
+            fittrack.trainingsession.MoodLog newMoodLog =
+                new fittrack.trainingsession.MoodLog(mood, moodTimestamp, moodDescription);
             user.addMoodLog(newMoodLog);
             System.out.println("Mood log added: " + newMoodLog);
             break;
 
-            case "edit-mood":
-                String[] editMoodParts = description.split(" ", 5);
-                if (editMoodParts.length < 5) {
-                    System.out.println("Please specify the mood ID, new mood, date, time, and an optional description.");
-                    return;
-                }
-                try {
-                    int moodId = Integer.parseInt(editMoodParts[0]); // Mood ID from the first part
-                    String newMood = editMoodParts[1]; // New mood from the second part
-                    LocalDateTime newMoodTimestamp = parseMoodTimestamp(editMoodParts[2], editMoodParts[3]); // Date and time
-                    String newMoodDescription = editMoodParts.length > 4 ? editMoodParts[4] : ""; // Optional description
+        case "edit-mood":
+            String[] editMoodParts = description.split(" ", 5);
+            if (editMoodParts.length < 5) {
+                System.out.println("Please specify the mood ID, new mood, date, time, and an optional description.");
+                return;
+            }
+            try {
+                int moodId = Integer.parseInt(editMoodParts[0]); // Mood ID from the first part
+                String newMood = editMoodParts[1]; // New mood from the second part
+                LocalDateTime newMoodTimestamp =
+                    parseMoodTimestamp(editMoodParts[2], editMoodParts[3]); // Date and time
+                String newMoodDescription = editMoodParts.length > 4 ? editMoodParts[4] : ""; // Optional description
 
-                    // Call the edit method with the necessary arguments
-                    user.editMoodLog(moodId, newMood, newMoodTimestamp, newMoodDescription);
-                    System.out.println("Mood log updated: " + newMood);
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid mood ID. Please provide a numeric ID.");
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid date/time format: " + e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("An error occurred: " + e.getMessage());
-                    e.printStackTrace(); // Print stack trace for more details
-                }
+                // Call the edit method with the necessary arguments
+                user.editMoodLog(moodId, newMood, newMoodTimestamp, newMoodDescription);
+                System.out.println("Mood log updated: " + newMood);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid mood ID. Please provide a numeric ID.");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid date/time format: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("An error occurred: " + e.getMessage());
+                e.printStackTrace(); // Print stack trace for more details
+            }
+            break;
+
+        case "list-mood":
+            user.listMoodLogs(); // Assuming this method prints out the mood logs.
+            break;
+
+        case "delete-mood":
+            if (description.isEmpty()) { // Check if description is provided
+                System.out.println("Please provide a mood ID.");
                 break;
+            }
+            try {
+                int moodId = Integer.parseInt(description); // Convert the description to an integer
+                user.deleteMoodLog(moodId); // Call delete method
+                System.out.println("Mood log deleted with ID: " + moodId);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please provide a numeric mood ID.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("No mood log found with that ID.");
+            }
+            break;
 
-            case "list-mood":
-                user.listMoodLogs(); // Assuming this method prints out the mood logs.
-                break;
-
-            case "delete-mood":
-                if (description.isEmpty()) { // Check if description is provided
-                    System.out.println("Please provide a mood ID.");
-                    break;
-                }
-                try {
-                    int moodId = Integer.parseInt(description); // Convert the description to an integer
-                    user.deleteMoodLog(moodId); // Call delete method
-                    System.out.println("Mood log deleted with ID: " + moodId);
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please provide a numeric mood ID.");
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("No mood log found with that ID.");
-                }
-                break;
-
-
-            default:
+        default:
             printUnrecognizedInputMessage(); // Response to unrecognized inputs
             break;
         }
