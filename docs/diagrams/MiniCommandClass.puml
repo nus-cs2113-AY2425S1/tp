@@ -1,17 +1,12 @@
 @startuml
+'https://plantuml.com/class-diagram
 
-skinparam componentStyle rectangle
+!include .ClassDiagram.config
 
-component PersonalTrackerCommand <<{abstract}>>
-component CheckInformationCommand <<{abstract}>>
-component ListSchoolsCommand
-component DeleteCoursesCommand
-component Command <<{abstract}>>
-
-PersonalTrackerCommand -up-|> Command
-CheckInformationCommand -up-|> Command
-
-ListSchoolsCommand -up-|> CheckInformationCommand
-DeleteCoursesCommand -up-|> PersonalTrackerCommand
+abstract class Command as "{abstract} \nCommand"
+abstract class PersonalTrackerCommand as "{abstract} \nPersonalTrackerCommand" extends Command
+abstract class CheckInformationCommand as "{abstract} \nCheckInformationCommand" extends Command
+class ListSchoolCommand as "ListSchoolCommand" extends CheckInformationCommand
+class DeleteCoursesCommand as "DeleteCoursesCommand" extends PersonalTrackerCommand
 
 @enduml

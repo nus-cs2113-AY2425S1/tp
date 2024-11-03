@@ -1,4 +1,6 @@
 @startuml
+
+!include .SequenceDiagram.config
 hide footbox
 
 actor CEG_Student

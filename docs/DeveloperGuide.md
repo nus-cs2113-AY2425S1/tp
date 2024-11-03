@@ -419,7 +419,7 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 | v2.0    | CEG student | list out the mapped courses by calling the list command | I can track all the courses I have mapped to the different PUs |
 | v2.0    | CEG student | delete a course mapping plan for a PU                   | keep my list of saved plans organised                          |
 | v2.0    | CEG student | ask for help when I am in doubt                         | know what are the possible actions                             |
-| v2.0    | CEG student  | compare different mapping plans for each PU                     | find the university best fit for my academic schedule    |
+| v2.0    | CEG student | compare different mapping plans for each PU             | find the university best fit for my academic schedule          |
 
 
 ## Non-Functional Requirements
