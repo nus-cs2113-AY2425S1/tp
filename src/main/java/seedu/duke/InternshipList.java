@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
@@ -79,7 +80,8 @@ public class InternshipList {
      * @param field Specific attribute to update.
      * @param value Updated value
      */
-    public void updateField(int index, String field, String value) throws InvalidIndex, InvalidStatus {
+    public void updateField(int index, String field, String value)
+            throws InvalidIndex, InvalidStatus, InvalidDeadline {
         try {
             switch (field) {
             case "status":
@@ -100,6 +102,9 @@ public class InternshipList {
             case "to":
                 internships.get(index).setEndDate(value);
                 break;
+            case "deadline":
+                internships.get(index).updateDeadline(value);
+                break;
             default:
                 assert false: "All valid fields should we handled in individual cases";
                 break;
@@ -116,6 +121,9 @@ public class InternshipList {
             case "skills":
                 internships.get(index).removeSkill(value);
                 break;
+            case "deadline":
+                internships.get(index).removeDeadline(value);
+                break;
             default:
                 assert false: "All valid fields should we handled in individual cases";
                 break;
@@ -129,19 +137,11 @@ public class InternshipList {
     //@@author jadenlimjc
     // Method to list all internships
     public void listAllInternships() {
-        if (internships.isEmpty()) {
-            ui.showEmptyInternshipList();
-        } else {
-            ui.showInternships(internships);
-        }
+        ui.showInternships(internships, "list");
     }
 
     public void listAllInternships(ArrayList<Internship> internships) {
-        if (internships.isEmpty()) {
-            ui.showEmptyInternshipList();
-        } else {
-            ui.showInternships(internships);
-        }
+        ui.showInternships(internships, "list");
     }
 
     public List<Internship> getAllInternships() {
@@ -161,7 +161,7 @@ public class InternshipList {
         Collections.sort(sortedList, Comparator.comparing(internship -> internship.getRole().toLowerCase()));
 
         // Display the sorted list without changing IDs
-        ui.showInternships(sortedList);
+        ui.showInternships(sortedList, "role");
     }
 
     // Method to list all internships sorted by start date (year first), then end date
@@ -179,7 +179,7 @@ public class InternshipList {
         });
 
         // Display the sorted list without changing IDs
-        ui.showInternships(sortedInternships);
+        ui.showInternships(sortedInternships, "duration");
     }
 
     // Helper method to compare YearMonth strings in "MM/yy" format (year first, then month)
@@ -217,7 +217,7 @@ public class InternshipList {
             }
             return compareYearMonth(earliestDeadline1.getDate(), earliestDeadline2.getDate());
         });
-        ui.showInternships(sortedInternships);
+        ui.showInternships(sortedInternships, "deadline");
     }
 
     /**
@@ -233,7 +233,7 @@ public class InternshipList {
         }));
 
         // Display the sorted list without changing IDs
-        ui.showInternships(sortedList);
+        ui.showInternships(sortedList, "skills");
     }
 
     /**
@@ -246,7 +246,15 @@ public class InternshipList {
         Collections.sort(sortedList, Comparator.comparing(internship -> internship.getStatus().toLowerCase()));
 
         // Display the sorted list without changing IDs
-        ui.showInternships(sortedList);
+        ui.showInternships(sortedList, "status");
+    }
+
+    public void listInternshipsNotSorted() {
+        ui.showInternships(internships, "none");
+    }
+
+    public void listInternshipsInvalidFlag(String flag) {
+        ui.showInternships(internships, flag);
     }
 
 }

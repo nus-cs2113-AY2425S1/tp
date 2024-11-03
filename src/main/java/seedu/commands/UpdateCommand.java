@@ -1,11 +1,9 @@
 package seedu.commands;
 
-import seedu.duke.Deadline;
-import seedu.duke.Internship;
+import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.InvalidStatus;
 
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -28,20 +26,11 @@ public class UpdateCommand extends Command {
             uiCommand.clearInvalidFlags();
             uiCommand.clearUpdatedFields();
             uiCommand.clearInvalidFields();
-            if (args.get(0).startsWith("deadline")) {
-                String trimmedDescription = args.get(0).substring(args.get(0).indexOf(" ") + 1).trim();
-                String trimmedDate = args.size() > 1 ? args.get(1).substring(args.get(1).indexOf(" ") + 1) : "";
-                if (isValidDeadline(trimmedDescription,trimmedDate)) {
-                    updateDeadline(internshipIndex, trimmedDescription,trimmedDate);
-                }
 
-            } else {
-                for (String arg : args) {
-                    String[] words = arg.split(" ", 2);
-                    updateOneField(words, internshipIndex);
-                }
+            for (String arg : args) {
+                String[] words = arg.split(" ", 2);
+                updateOneField(words, internshipIndex);
             }
-
 
             uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
         } catch (NumberFormatException e) {
@@ -74,6 +63,7 @@ public class UpdateCommand extends Command {
             case "company":
             case "from":
             case "to":
+            case "deadline":
                 if (!isValidValue(words)) {
                     return;
                 }
@@ -87,6 +77,8 @@ public class UpdateCommand extends Command {
             }
         } catch (DateTimeParseException e) {
             uiCommand.addInvalidField(field, "Invalid date format");
+        } catch (InvalidDeadline e) {
+            uiCommand.addInvalidField(field, "Either description or date is missing.");
         } catch (InvalidStatus e) {
             String message = """
                     Status provided is not recognised:
@@ -98,48 +90,6 @@ public class UpdateCommand extends Command {
             uiCommand.addInvalidField(field, message);
         }
     }
-    //@@author jadenlimjc
-
-    private boolean isValidDeadline(String description, String date) throws DateTimeParseException {
-        if (description.isEmpty()) {
-            uiCommand.addInvalidFlag("deadline");
-            return false;
-        }
-        if (date.isEmpty()) {
-            uiCommand.addInvalidFlag("date");
-            return false;
-        }
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-            formatter.parse(date);
-        } catch (DateTimeParseException e) {
-            uiCommand.addInvalidField("date", "Invalid date format. use dd/MM/yy");
-            return false;
-        }
-        return true;
-    }
-
-    private void updateDeadline(int internshipIndex, String description, String date) throws InvalidIndex {
-        Internship internship = internships.getInternship(internshipIndex);
-
-        boolean deadlineFound = false;
-
-        for (Deadline deadline : internship.getDeadlines()) {
-            if (deadline.getDescription().equalsIgnoreCase(description)) {
-                deadline.setDate(date);
-                deadlineFound = true;
-                uiCommand.addUpdatedField(deadline.getDescription(), deadline.getDate(), "update");
-                break;
-            }
-        }
-
-        if (!deadlineFound) {
-            internship.addDeadline(description, date);
-            uiCommand.addCreatedField("Deadline", description);
-        }
-    }
-
-
 
     public String getUsage() {
         return """
@@ -153,6 +103,7 @@ public class UpdateCommand extends Command {
                 - company
                 - start (in MM/yy format)
                 - end (in MM/yy format)
+                - deadline ({description} {date (in dd/MM/yy format)}
                 
                 Choose from the following statuses:
                 - Application Pending

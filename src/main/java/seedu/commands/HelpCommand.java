@@ -18,6 +18,7 @@ public class HelpCommand extends Command {
         commands.add(new SortCommand());
         commands.add(new UpdateCommand());
         commands.add(new RemoveCommand());
+        commands.add(new CalendarCommand());
 
         uiCommand.showCommands(commands);
     }

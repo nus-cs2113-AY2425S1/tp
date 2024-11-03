@@ -1,0 +1,90 @@
+@startuml
+title UpdateCommand Sequence Diagram
+
+participant User
+participant UpdateCommand
+participant uiCommand
+participant Internship
+participant InternshipList
+participant UiInternshipList
+
+activate InternshipList #orange
+activate UiInternshipList #yellow
+activate Internship #lightblue
+
+User -> UpdateCommand:execute(args)
+activate UpdateCommand #red
+activate uiCommand #green
+
+UpdateCommand -> InternshipList:isWithinBounds(index)
+break Not in Bounds
+    InternshipList -> UiInternshipList:showInvalidIndex()
+    UiInternshipList --> User:show invalid index message
+    InternshipList --> UpdateCommand: false
+end
+
+InternshipList --> UpdateCommand: true
+
+UpdateCommand -> uiCommand:clearInvalidFlags()
+UpdateCommand -> uiCommand:clearUpdatedFields()
+UpdateCommand -> uiCommand:clearInvalidFields()
+
+loop for arg in args
+    UpdateCommand -> UpdateCommand:updateOneField(words, internshipIndex)
+    activate UpdateCommand #red
+    alt status || skills || role || company || from || to || deadline
+        UpdateCommand -> UpdateCommand:isValidWords()
+        activate UpdateCommand #red
+        UpdateCommand --> UpdateCommand
+        deactivate UpdateCommand
+
+        UpdateCommand -> InternshipList:updateField(internshipIndex, field, value)
+        alt status
+            InternshipList -> Internship:get(index)
+            Internship -> Internship:updateStatus(value)
+        else skills
+            InternshipList -> Internship:get(index)
+            Internship -> Internship:setSkills(value)
+        else role
+            InternshipList -> Internship:get(index)
+            Internship -> Internship:setRole(value)
+        else company
+            InternshipList -> Internship:get(index)
+            Internship -> Internship:setCompany(value)
+        else from
+            InternshipList -> Internship:get(index)
+            Internship -> Internship:setStartDate(value)
+        else to
+            InternshipList -> Internship:get(index)
+            Internship -> Internship:setEndDate(value)
+        else deadline
+            InternshipList -> Internship:get(index)
+            Internship -> Internship:updateDeadline(value)
+        end
+
+        UpdateCommand -> uiCommand:addUpdatedField(field, value, type)
+    else default
+        UpdateCommand -> uiCommand:addInvalidFlag(field)
+    end
+    UpdateCommand --> UpdateCommand
+    deactivate UpdateCommand
+end
+
+UpdateCommand -> uiCommand:showEditedInternships(internship, action)
+
+uiCommand -> uiCommand:getInvalidFlags();
+uiCommand -> uiCommand:getInvalidFields();
+
+alt add
+
+else word
+    uiCommand -> uiCommand:getUpdatedFields()
+
+else default
+
+end
+
+uiCommand -> uiCommand:showOutput(message)
+uiCommand --> User:print output
+
+@enduml

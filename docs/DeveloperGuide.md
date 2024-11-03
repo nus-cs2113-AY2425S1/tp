@@ -11,15 +11,20 @@
 ### EasInternship (main class)
 
 1. [Design](#design)
-    1. [Architecture](#architecture)
-    2. [UI Component](#ui-component)
-    3. [Logic Component](#logic-component)
-    4. [Model Component](#model-component)
-    5. [Storage Component](#storage-component)
+   1. [Architecture](#architecture)
+   2. [UI Component](#ui-component)
+   3. [Logic Component](#logic-component)
+   4. [Model Component](#model-component)
+   5. [Storage Component](#storage-component)
 2. [Implementation](#implementation)
-    1. [Parsing Input](#parsing-input)
-    2. [Command Execution](#command-execution)
-    3. [Task Management](#task-management)
+   1. [Parsing Input](#parsing-input)
+   2. [Command Execution](#command-execution)
+   3. [Task Management](#task-management) 
+   4. [AddCommand Implementation](#addcommand-implementation)
+   5. [DeleteCommand Implementation](#deletecommand-implementation)
+   6. [SortCommand Implementation](#sortcommand-implementation)
+   7. [UpdateCommand Implementation](#updatecommand-implementation)
+   8. [RemoveCommand Implementation](#)
 
 ---
 
@@ -117,7 +122,7 @@ If the user inputs an unknown command or a command fails during execution, the `
 
 ---
 
-### Add Command Implementation
+### AddCommand Implementation
 
 #### Overview:
 The `AddCommand` class is responsible for adding internship listings to the Internship List. It extends the `Command` class, providing the add functionality as part of the command execution framework.
@@ -144,7 +149,7 @@ The `AddCommand` class is responsible for adding internship listings to the Inte
 The following sequence diagram shows how the `AddCommand` is executed:
 ![AddCommandSequenceDiagram](UML/AddCommand_Sequence_Diagram.png)
 
-### Delete Command Implementation
+### DeleteCommand Implementation
 
 #### Overview: 
 The `DeleteCommand` class is responsible for deleting internship listings from the Internship List. It extends the `Command` class, providing the delete functionality as part of the command execution framework.
@@ -180,7 +185,7 @@ The `SortCommand` class is responsible for sorting the internship listings based
 
 #### Key Methods:
 - **`execute(ArrayList<String> args)`**: Handles sorting logic based on the first argument provided. The valid sort options include:
-   - `"alphabet"`: Sorts internships by role alphabetically.
+   - `"role"`: Sorts internships by role alphabetically.
    - `"duration"`: Sorts internships by duration (start and end dates).
    - `"deadline"`: Sorts internships by deadline.
    - `"skills"`: Sorts internships by the first skill in the skills list alphabetically.
@@ -190,13 +195,15 @@ The `SortCommand` class is responsible for sorting the internship listings based
 
 #### Example Usage Scenario:
 1. The user enters `sort alphabet`, and the `execute` method sorts the internships by role.
-2. The user enters `sort deadline`, and the internships are sorted by their start and end dates.
+2. The user enters `sort duration`, and the internships are sorted by their start and end dates.
 3. The user enters `sort skills`, and the internships are sorted by the first skill alphabetically.
 4. The user enters `sort status`, and the internships are sorted by their status alphabetically.
+5. The user enters `sort deadline`, and the internships are sorted by each of their earliest deadline.
 5. If the user enters an invalid sort option, the command returns an error and lists the internships by ID.
 
 #### Sequence Diagram:
 The following sequence diagram shows how the `SortCommand` is executed:
+![](UML/loadFromFile.png)
 
 ```plaintext
 User -> System: sort alphabet
@@ -204,6 +211,111 @@ System -> SortCommand: execute("alphabet")
 SortCommand -> InternshipList: listInternshipsSortedByRole()
 InternshipList -> UI: showSortedInternshipsByRole()
 ```
+### Filter Command Implementation
+
+#### Overview:
+
+The FilterCommand class is responsible for filtering internship listings in the InternshipList based on various criteria. It extends the Command class, providing the filter functionality as part of the command execution framework.
+
+#### Design:
+
+The FilterCommand class processes user input to determine which fields to filter by (e.g., role, company, start date, end date and/or favourite status) and then filters the internships based on the respective fields.
+
+Role and Company: Filters internships by checking the equality of the given role or company name against each internship's role or company name
+
+Start Date (-from) and End Date (-to): Filters internships by checking if the internship's duration is within the time interval specified by the start and end dates. if no -to flag is provided, all internships whose start date is greater than or equal to the given start date is listed. If no -from flag is provided, all internships whose end date is lesser than or equal to the given end date is listed.
+
+Favourite: Filters internships based on whether or not they are marked as a favourite (true or false).
+
+If an invalid flag, empty or invalid fields are provided, it prompts the user with an error message indicating which flags/fields are missing or erroneous.
+
+#### Key Methods:
+
+execute(ArrayList<String> args): Handles filtering logic based on the arguments provided. The command allows the user to filter internships by different criteria such as role, company, start date, end date and/or favourite status. If the arguments are invalid or missing, the user is notified accordingly.
+
+getUsage(): Returns a string showing the correct usage of the filter command and the expected inputs.
+
+#### Example Usage Scenario:
+
+The user enters `filter -role Software Engineer`, and the execute method filters the internships to only those with the role of "Software Engineer"
+
+The user enters `filter -company Google`, and the execute method filters internships from "Google"
+
+The user enters `filter -favourite true`, and the execute method filters internships that have been marked as favourites
+
+The user enters `filter -from 06/24`, and the execute method filters internships starting from June 2024
+
+The user enters `filter -role Software Engineer -from 02/24 -to 08/24`, the execute method filters internships whose duration is within the period of 02/24 to 08/24 and which has the role of "Software Engineer"
+
+The user enters `filter -favourite false -company Huawei`, the execute method filters internships from "Huawei" and which have not been marked as favourite by the user
+
+#### Sequence Diagram
+The following sequence diagram shows how the `FilterCommand` is executed:
+![FilterCommandSequenceDiagram](UML/FilterCommand_Execute_Method.png)
+
+### UpdateCommand Implementation
+
+#### Overview
+The `UpdateCommand` class is responsible for updating the fields of an internship. It extends the `Command` class, providing an updating functionality as part of the command execution framework.
+
+#### Design
+- The `UpdateCommand` class processes the user input to determine which internship and which field to update.
+- If the internship ID is not valid, it will print a message accordingly.
+- If the field is not valid, it will print a message indicating the erroneous field.
+- If the value provided with the field is not valid, it will also print a message indicating the erroneous value.
+
+#### Key Methods
+- `execute(ArrayList<String> args)`: Handles the logic to find the internship entry and determine which field to update. The valid fields include:
+  - `status`: Updates the status of the internship.
+  - `skills`: Adds skills to the relevant field of the internship
+  - `role`: Updates the role of the internship
+  - `company`: Updates the company of the internship
+  - `from`: Updates the start date of the internship
+  - `to`: Updates the end date of the internship
+  - `deadlines`: Updates the deadlines of the internship
+- `isValidValue(String[] words)`: Checks if there was a new value provided for the selected field.
+- `updateOneField(String[] words, int internshipIndex)`: Called within `execute(args)` to invoke the appropriate method to update the field.
+- `getUsage()`: Returns a string showing the correct usage of the `update` command.
+
+#### Example Usage Scenario:
+- The user enters `update 2 -status Application Completed`, and the `execute` method finds the internship with ID `2` and updates its `status` to `Application Completed`.
+- The user enters `update 4 -status Application Completed`, if `4` is not a valid ID, the `execute` method will print a message to show the ID is out of bounds.
+- The user enters `update 2 -skills`, no value is given after the `-skills` flag, the `isValidValue` method returns false and prints a message to indicate the need for a value.
+- The user enters `update 2 -from Tomorrow`, `Tomorrow` is not a valid date, the `execute` method prints message to indicate it is an invalid value.
+
+#### Sequence Diagram
+The following sequence diagram shows how the `UpdateCommand` is executed:
+![](UML/UpdateCommand_Sequence_Diagram.png)
+
+
+### RemoveCommand Implementation
+
+#### Overview
+The `RemoveCommand` class is responsible for removing the values within fields of an internship entry. It extends the `UpdateCommand` class, providing a removing functionality to the execution framework.
+
+#### Design
+- The `RemoveCommand` class process the user input to determine which internship and which field to empty.
+- If the internship ID is not valid, it will print a message accordingly.
+- If the field is not valid, it will print a message indicating the erroneous field, including fields that cannot be emptied.
+- If the valid provided does not exist in the field, it will also print a message indicating the erroneous value
+
+#### Key Methods
+- `execute(ArrayList<String> args)`: Handles the logic to find the internship entry (same as `UpdateCommand`) and determine which field to update. The valid fields include:
+  - `skills`: Removes the specific value from the skills field of the internship
+  - `deadline`: Removes the specified deadline from the internship.
+- `isValidValue(String[] words)`: Checks if there is a value provided to search and remove from the selected field.
+- `updateOneField(String[] words, int internshipIndex)`: Called within `execute(args)` to invoke the appropriate method to remove the value from the field.
+- `getUsage()`: Returns a string showing the correct usage of the `remove` command.
+
+#### Example Usage Scenario:
+- The user enters `remove 2 -skills Python`, the `execute` method finds the internship with ID `2` and removes `Python` from its list of `skills`.
+- The user enters `remove 4 -skills Python`, if `4` is not a valid ID, the `execute` method will print a message to show the ID is out of bounds.
+- The user enters `remove 2 -skills`, no value is given after the `-skills` flag, the `isValidValue` method returns false and prints a message to indicate the need for a value.
+- The user enters `remove 2 -skills Accounting`, if `Accounting` is not listed in `skills`, the `execute` method prints a message to indicate the value cannot be found.
+
+#### Sequence Diagram
+The following sequence diagram shows how the `RemoveCommand` is executed:
+![](UML/RemoveCommand_Sequence_Diagram.png)
 
 ### Product scope
 ### Target user profile
@@ -212,14 +324,34 @@ InternshipList -> UI: showSortedInternshipsByRole()
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+This product helps users streamline the process of tracking and managing their internship applications by allowing them to:
+
+- **Store Important Internship Information**: Users can input and store key details such as the role, company, duration, required skills, application deadlines, and any additional notes regarding each internship.
+
+- **Track Application Status**: Users can keep track of the current status of their applications (e.g., not applied, applied, interview scheduled, offer received) and update it as the application progresses.
+
+- **Edit and Manage Internships**: Users can edit saved internships, modify application statuses, update deadlines, or remove outdated internships from their list.
+
+- **Filter Internships by Key Criteria**: Users can filter tracked internships by relevant criteria such as required skills, application status, or upcoming deadlines, helping them find specific applications.
+
+- **Sort Internships by Key Criteria**: Users can sort tracked internships by relevant criteria such as required skills, application status, or upcoming deadlines, helping them prioritize applications.
+
+- **Monitor Deadlines Easily**: Users can stay on top of their internship deadlines by sorting or flagging applications with approaching deadlines, ensuring that no important opportunity is missed.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ...             | I want to ...                                  | So that I can ...                                      |
+|---------|----------------------|------------------------------------------------|--------------------------------------------------------|
+| v1.0    | new user              | see usage instructions                         | refer to them when I forget how to use the application  |
+| v1.0    | user                  | add an internship with all relevant details    | store information about the internships I’m applying to |
+| v1.0    | user                  | edit the details of an internship              | update information when I receive new details           |
+| v1.0    | user                  | delete an internship                           | remove outdated or irrelevant internships from my list  |
+| v1.0    | user                  | track the status of an internship              | know what stage my application is in                   |
+| v1.0    | user                  | sort internships by duration                   | focus on internships where I need to take action        |
+| v1.0    | user                  | sort internships by deadlines                  | prioritize internships with approaching deadlines       |
+| v1.0    | user                  | update the status of my internship application | keep track of my progress in the application process    |
+| v2.0    | user                  | receive alerts about upcoming deadlines        | ensure I don't miss important deadlines                 |
+| v2.0    | user                  | sort internships by required skills            | focus on internships that match my skill set            |
 
 ## Non-Functional Requirements
 
