@@ -1,5 +1,7 @@
 package seedu.utils;
 
+import seedu.message.ErrorMessages;
+
 /**
  * Utility class for validating and parsing monetary amounts.
  */
@@ -29,7 +31,7 @@ public class AmountUtils {
      */
     public static double parseAmount(String amountString) throws IllegalArgumentException {
         if (!isValidAmount(amountString)) {
-            throw new IllegalArgumentException("Invalid amount format: " + amountString);
+            throw new IllegalArgumentException(ErrorMessages.INVALID_AMOUNT_FORMAT + amountString);
         }
         return Double.parseDouble(amountString);
     }

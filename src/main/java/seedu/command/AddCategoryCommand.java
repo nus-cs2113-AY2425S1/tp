@@ -3,7 +3,10 @@ package seedu.command;
 import seedu.category.Category;
 import seedu.category.CategoryList;
 import seedu.datastorage.Storage;
+import seedu.message.ErrorMessages;
+import seedu.message.CommandResultMessages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Command class for adding a new category
@@ -22,18 +25,22 @@ public class AddCategoryCommand extends Command {
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
-            return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
+            List<String> messages = new ArrayList<>();
+            messages.add(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            messages.add(COMMAND_GUIDE);
+            return messages;
         }
+
         String categoryName = arguments.get("");
         Category category = new Category(categoryName);
         Category temp = categoryList.addCategory(category);
 
         if(temp == null){
-            return List.of("Duplicated category.");
+            return List.of(CommandResultMessages.ADD_CATEGORY_FAIL + ErrorMessages.DUPLICATED_CATEGORY);
         }
 
         Storage.saveCategory(categoryList.getCategories());
-        return List.of("Category added: " + categoryName);
+        return List.of(CommandResultMessages.ADD_CATEGORY_SUCCESS + categoryName);
     }
     @Override
     protected String[] getMandatoryKeywords() {

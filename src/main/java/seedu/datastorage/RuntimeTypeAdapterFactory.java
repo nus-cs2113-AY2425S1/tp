@@ -9,6 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import seedu.message.ErrorMessages;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -55,14 +56,14 @@ public class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
                 Class<?> srcType = value.getClass();
                 String label = subtypeToLabel.get(srcType);
                 if (label == null) {
-                    throw new JsonParseException("Cannot serialize subtype of " + srcType.getName()
-                            + "; did you forget to register a subtype?");
+                    throw new JsonParseException
+                    (String.format(ErrorMessages.UNKNOWN_SUBTYPE_SERIALIZATION, srcType.getName()));
                 }
                 @SuppressWarnings("unchecked")
                 TypeAdapter<R> delegate = (TypeAdapter<R>) subtypeToDelegate.get(srcType);
                 if (delegate == null) {
-                    throw new JsonParseException("Cannot serialize subtype of " + srcType.getName()
-                            + "; did you forget to register a subtype?");
+                    throw new JsonParseException
+                    (String.format(ErrorMessages.UNKNOWN_SUBTYPE_SERIALIZATION, srcType.getName()));
                 }
 
                 // Serialize the object using the delegate
@@ -75,7 +76,7 @@ public class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
                         jsonObject.add(entry.getKey(), entry.getValue());
                     }
                 } else {
-                    throw new JsonParseException("Expected delegate to serialize to a JsonObject");
+                    throw new JsonParseException(ErrorMessages.MISSING_TYPE_INFORMATION);
                 }
 
                 // Write the jsonObject to the output
@@ -88,14 +89,15 @@ public class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
                 JsonObject jsonObject = jsonElement.getAsJsonObject();
                 JsonElement labelJsonElement = jsonObject.remove(typeFieldName);
                 if (labelJsonElement == null) {
-                    throw new JsonParseException("Cannot deserialize without type information");
+                    throw new JsonParseException(ErrorMessages.MISSING_TYPE_INFORMATION);
                 }
                 String label = labelJsonElement.getAsString();
 
                 @SuppressWarnings("unchecked")
                 TypeAdapter<R> delegate = (TypeAdapter<R>) labelToDelegate.get(label);
                 if (delegate == null) {
-                    throw new JsonParseException("Unknown type label: " + label);
+                    throw new JsonParseException
+                    (String.format(ErrorMessages.UNKNOWN_TYPE_LABEL, label));
                 }
                 return delegate.fromJsonTree(jsonObject);
             }

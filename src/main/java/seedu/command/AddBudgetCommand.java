@@ -1,6 +1,8 @@
 package seedu.command;
 
 import seedu.budget.BudgetTracker;
+import seedu.message.ErrorMessages;
+import seedu.message.CommandResultMessages;
 import seedu.utils.AmountUtils;
 
 import java.util.List;
@@ -9,7 +11,6 @@ public class AddBudgetCommand extends Command {
     public static final String COMMAND_WORD = "add-budget";
     public static final String COMMAND_GUIDE = "add-budget a/ AMOUNT m/ MONTH : Add a new category";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = { "a/", "m/" };
-    public static final String ERROR_MESSAGE = "Error creating Budget!";
     private final BudgetTracker budgetTracker;
 
     public AddBudgetCommand(BudgetTracker budgetTracker) {
@@ -19,7 +20,7 @@ public class AddBudgetCommand extends Command {
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
-            return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
+            return List.of(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
         }
 
         String amountStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
@@ -27,17 +28,17 @@ public class AddBudgetCommand extends Command {
         try {
             amount = AmountUtils.parseAmount(amountStr);
         } catch (Exception e) {
-            return List.of(ERROR_MESSAGE + ": " + e.getMessage());
+            return List.of(CommandResultMessages.SET_BUDGET_FAIL + e.getMessage());
         }
 
         String monthStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[1]);
         try {
             budgetTracker.setBudget(monthStr, amount);
         } catch (Exception e) {
-            return List.of(ERROR_MESSAGE + ": " + e.getMessage());
+            return List.of(CommandResultMessages.SET_BUDGET_FAIL + e.getMessage());
         }
 
-        return List.of("Budget added successfully!");
+        return List.of(CommandResultMessages.SET_BUDGET_SUCCESS + amount);
     }
 
 

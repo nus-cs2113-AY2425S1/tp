@@ -3,7 +3,10 @@ package seedu.command;
 import seedu.category.Category;
 import seedu.category.CategoryList;
 import seedu.datastorage.Storage;
+import seedu.message.ErrorMessages;
+import seedu.message.CommandResultMessages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Command class for adding a new category
@@ -26,17 +29,20 @@ public class DeleteCategoryCommand extends Command {
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
-            return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
+            List<String> messages = new ArrayList<>();
+            messages.add(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            messages.add(COMMAND_GUIDE);
+            return messages;
         }
         String categoryName = arguments.get("");
         Category temp = categoryList.deleteCategory(categoryName);
 
         if(temp == null){
-            return List.of("Category not found.");
+            return List.of(CommandResultMessages.DELETE_CATEGORY_FAIL + ErrorMessages.CATEGORY_NOT_FOUND);
         }
 
         Storage.saveCategory(categoryList.getCategories());
-        return List.of("Category deleted: " + categoryName);
+        return List.of(CommandResultMessages.DELETE_CATEGORY_SUCCESS + categoryName);
     }
     @Override
     protected String[] getMandatoryKeywords() {

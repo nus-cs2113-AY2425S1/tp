@@ -1,5 +1,7 @@
 package seedu.utils;
 
+import seedu.message.ErrorMessages;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,9 +11,6 @@ import java.time.YearMonth;
  * Utility class for handling date-time parsing.
  */
 public class DateTimeUtils {
-    // Static error messages
-    public static final String MESSAGE_INVALID_DATE_FORMAT = "Your date and/or time is invalid!";
-    public static final String MESSAGE_INVALID_YEAR_MONTH_FORMAT = "Your year and month format is invalid!";
     // DateTimeFormatter for reading date-time strings in the specified format.
     private static final DateTimeFormatter DATETIME_READ_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter YEARMONTH_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM");
@@ -38,7 +37,7 @@ public class DateTimeUtils {
         try {
             result = LocalDateTime.parse(datetime, DATETIME_READ_FORMAT); // Parse the date-time string
         } catch (DateTimeParseException e) {
-            throw new Exception(MESSAGE_INVALID_DATE_FORMAT); // Throw custom exception
+            throw new Exception(ErrorMessages.MESSAGE_INVALID_DATE_FORMAT);
         }
 
         return result;
@@ -55,7 +54,7 @@ public class DateTimeUtils {
         try {
             return YearMonth.parse(yearMonthStr, YEARMONTH_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new Exception(MESSAGE_INVALID_YEAR_MONTH_FORMAT);
+            throw new Exception(ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT);
         }
     }
 

@@ -1,9 +1,9 @@
 package seedu.transaction;
 
-import java.time.LocalDate;
+import seedu.utils.DateTimeUtils;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 // Abstract Transaction class
 public abstract class Transaction {
@@ -43,19 +43,9 @@ public abstract class Transaction {
     public LocalDateTime getDate() {
         try {
             // Try parsing as LocalDateTime
-            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        } catch (DateTimeParseException e) {
-            try {
-                // Try parsing as LocalDate and convert to LocalDateTime at 23:59 of the day
-                LocalDate date = LocalDate.parse(dateTimeString, DateTimeFormatter.ISO_LOCAL_DATE);
-                return date.atTime(23, 59); // Sets time to 23:59
-            } catch (DateTimeParseException ex) {
-                // Handle invalid date format
-                System.err.println("Invalid date format: " + dateTimeString);
-                ex.printStackTrace();
-                // Return current date-time or handle accordingly
-                return LocalDateTime.now();
-            }
+            return DateTimeUtils.parseDateTime(dateTimeString);
+        } catch (Exception e) {
+            return null;
         }
     }
 
