@@ -27,8 +27,38 @@ public class RecurringExpenseList extends ExpenseList {
         return recurringExpenses;
     }
 
-    public int getIndexOf(RecurringExpense expense) {
-        return recurringExpenses.indexOf(expense);
+    public boolean isEmpty() {
+        return recurringExpenses.isEmpty();
+    }
+
+    /**
+     * Retrieves the {@code RecurringExpense} at the specified index in the list.
+     *
+     * @param index The index of the recurring expense to retrieve.
+     * @return The {@code RecurringExpense} object at the specified index.
+     * @throws WheresMyMoneyException If the index is out of bounds.
+     */
+    public RecurringExpense getRecurringExpenseAtIndex(int index) throws WheresMyMoneyException {
+        try {
+            return recurringExpenses.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new WheresMyMoneyException("Index is out of bounds.");
+        }
+    }
+
+    /**
+     * Returns the index of the specified {@code RecurringExpense} in the list.
+     *
+     * @param expense The {@code RecurringExpense} object to find the index of.
+     * @return The index of the specified {@code RecurringExpense}.
+     * @throws WheresMyMoneyException If the expense is not found in the list.
+     */
+    public int getIndexOf(RecurringExpense recurringExpense) throws WheresMyMoneyException {
+        int index = recurringExpenses.indexOf(recurringExpense);
+        if (index == -1) {
+            throw new WheresMyMoneyException("Expense not in list.");
+        }
+        return index;
     }
 
     /**
@@ -114,7 +144,7 @@ public class RecurringExpenseList extends ExpenseList {
      * 
      * @param index Index of recurring expense in the ArrayList
      */
-    public void deleteExpense(int index) throws WheresMyMoneyException {
+    public void deleteRecurringExpense(int index) throws WheresMyMoneyException {
         if (index < 0 || index >= recurringExpenses.size()) {
             throw new WheresMyMoneyException("Index out of range!");
         }
