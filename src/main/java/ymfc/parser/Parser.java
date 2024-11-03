@@ -135,7 +135,8 @@ public final class Parser {
         }
 
         String name = m.group("name").trim().substring(2); // n/ or N/ are 2 chars
-        return new AddIngredientCommand(new Ingredient(name));
+        String trimmedName = name.trim();
+        return new AddIngredientCommand(new Ingredient(trimmedName));
     }
 
     /**
@@ -156,7 +157,7 @@ public final class Parser {
                         // Match optional cuisine: c/ or C/ followed by any characters except '/'
                         + "(\\s+(?<cuisine>[cC]/[^/]+))?"
                         // Match optional time taken: t/ or T/ followed by digits
-                        + "(\\s+(?<time>[tT]/[0-9]+))?");
+                        + "(\\s+(?<time>[tT]/\\s*[0-9]+))?");
 
         String input = args.trim();
         Matcher m = addRecipeCommandFormat.matcher(input);
@@ -165,13 +166,16 @@ public final class Parser {
         }
 
         String name = m.group("name").trim().substring(2); // n/ or N/ are 2 chars
+        String trimmedName = name.trim();
         String ingredString = m.group("ingreds");
         String stepString = m.group("steps");
         ArrayList<Ingredient> ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
+                .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .map(Ingredient::new)
                 .collect(Collectors.toCollection(ArrayList::new));
         ArrayList<String> steps = Arrays.stream(stepString.split("\\s+[sS][0-9]+/"))
+                .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.toCollection(ArrayList::new));
 
@@ -183,10 +187,14 @@ public final class Parser {
 
         validateStepNumbers(stepIdentifiers); // Check for missing/duplicate numbers
 
-        String cuisine = m.group("cuisine") != null ? m.group("cuisine").trim().substring(2) : null;
+        String cuisineInput = m.group("cuisine");
+        String cuisine = null;
+        if (cuisineInput != null) {
+            cuisine = cuisineInput.trim().substring(2).trim();
+        }
         Integer timeTaken = getTimeTakenInteger(m);
 
-        return new AddRecipeCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
+        return new AddRecipeCommand(new Recipe(trimmedName, ingreds, steps, cuisine, timeTaken));
     }
 
     private static Integer getTimeTakenInteger(Matcher m) throws InvalidArgumentException {
@@ -196,7 +204,7 @@ public final class Parser {
 
         if (timeTakenString != null) {
             try {
-                timeTaken = Integer.parseInt(timeTakenString.trim().substring(2));
+                timeTaken = Integer.parseInt(timeTakenString.trim().substring(2).trim());
                 if (timeTaken <= 0) {
                     throw new InvalidArgumentException("Invalid time: " + timeTakenString);
                 }
@@ -272,7 +280,7 @@ public final class Parser {
                         // Match optional cuisine: c/ or C/ followed by any characters except '/'
                         + "(\\s+(?<cuisine>[cC]/[^/]+))?"
                         // Match optional time taken: t/ or T/ followed by digits
-                        + "(\\s+(?<time>[tT]/[0-9]+))?");
+                        + "(\\s+(?<time>[tT]/\\s*[0-9]+))?");
 
         String input = args.trim();
         Matcher m = editCommandFormat.matcher(input);
@@ -284,14 +292,20 @@ public final class Parser {
         String ingredString = m.group("ingreds");
         String stepString = m.group("steps");
         ArrayList<Ingredient> ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
+                .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .map(Ingredient::new)
                 .collect(Collectors.toCollection(ArrayList::new));
         ArrayList<String> steps = Arrays.stream(stepString.split("\\s+[sS][0-9]+/"))
+                .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        String cuisine = m.group("cuisine") != null ? m.group("cuisine").trim().substring(2) : null;
+        String cuisineInput = m.group("cuisine");
+        String cuisine = null;
+        if (cuisineInput != null) {
+            cuisine = cuisineInput.trim().substring(2).trim();
+        }
         Integer timeTaken = getTimeTakenInteger(m);
 
         return new EditCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
