@@ -66,7 +66,7 @@ public class TrainingSessionTest {
 
     @Test
     public void testGetSessionDescription(){
-        assertEquals(testDescription + " | " + testDatetimeOutput,
+        assertEquals(testDescription,
                 new TrainingSession(testDatetimeString, testDescription, testUser).getSessionDescription());
     }
 

@@ -30,6 +30,7 @@ public class TrainingSession{
     static final String BRONZE_STRING = "Bronze";
     static final String NO_AWARD = "No Award";
 
+    private static int longestSessionDescription = 0;
     private LocalDateTime sessionDatetime;
     private String sessionDescription;
     private User user;
@@ -41,6 +42,14 @@ public class TrainingSession{
         this.sessionDescription = sessionDescription;
         this.user = user;
         initialiseExerciseStations();
+        updateSessionDescriptionLength();
+    }
+
+    private void updateSessionDescriptionLength(){
+        int currentLength = this.sessionDescription.length();
+        if(currentLength > longestSessionDescription){
+            longestSessionDescription = currentLength;
+        }
     }
 
     private void initialiseExerciseStations(){
@@ -70,11 +79,31 @@ public class TrainingSession{
     //Edits session data
     public void editExercise(Exercise exerciseType, String reps) {
         int actualReps = processReps(exerciseType, reps);
-        ExerciseStation currentExercise = exerciseStations.get(exerciseType);
+        ExerciseStation currentExercise = this.exerciseStations.get(exerciseType);
         currentExercise.setPerformance(actualReps);
         currentExercise.getPoints(user);
         System.out.print("Exercise edited! Here's your new input: " +
                 currentExercise + System.lineSeparator());
+    }
+
+    public int getExercisePoints(Exercise exercise) {
+        return this.exerciseStations.get(exercise).getPoints(user);
+    }
+
+    public int getExercisePerformance(Exercise exercise){
+        return this.exerciseStations.get(exercise).getPerformance();
+    }
+
+    public static int getLongestSessionDescription(){
+        return longestSessionDescription;
+    }
+
+    public int getTotalPoints(){
+        int totalPoints = 0;
+        for(Map.Entry<Exercise, ExerciseStation> entry : exerciseStations.entrySet()){
+            totalPoints += entry.getValue().getPoints(user);
+        }
+        return totalPoints;
     }
 
     //Returns string for award attained
@@ -91,8 +120,11 @@ public class TrainingSession{
     }
 
     public String getSessionDescription() {
-        return (this.sessionDescription + " | " +
-                this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+        return this.sessionDescription;
+    }
+
+    public String getSessionDatetime(){
+        return this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 
     public void printSessionDescription() {
