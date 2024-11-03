@@ -15,10 +15,10 @@ import static seedu.exchangecoursemapper.constants.Messages.INDEX_OUT_OF_BOUNDS;
 
 public class CourseRepository {
 
+    private static final Logger logger = Logger.getLogger(CourseRepository.class.getName());
     public static final String MYLIST_FILE_PATH = "./data/myList.json";
     private final FileHandler fileHandler;
     private final DataIntegrityChecker dataIntegrityChecker;
-    private static final Logger logger = Logger.getLogger(CourseRepository.class.getName());
 
     public CourseRepository() {
         this.fileHandler = new FileHandler(MYLIST_FILE_PATH);

@@ -23,8 +23,8 @@ import static seedu.exchangecoursemapper.constants.Logs.APPEND_LINE;
 import static seedu.exchangecoursemapper.constants.Logs.APPEND_LINE_FAIL;
 
 public class FileHandler {
-    private final String filePath;
     private static final Logger logger = Logger.getLogger(FileHandler.class.getName());
+    private final String filePath;
 
     public FileHandler(String filePath) {
         this.filePath = filePath;
