@@ -151,8 +151,9 @@ public class Logic {
         }
 
         String description = commandArguments.getOrDefault("/des", entry.getDescription());
-
-        String date = commandArguments.getOrDefault("/d", entry.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
+        
+        String date = commandArguments.getOrDefault("/d", 
+                        entry.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
 
         Enum<?> category = parseCategory(commandArguments.get("/c"), entry);
         EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
