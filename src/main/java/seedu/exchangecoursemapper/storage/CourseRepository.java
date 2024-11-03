@@ -15,8 +15,8 @@ import static seedu.exchangecoursemapper.constants.Messages.INDEX_OUT_OF_BOUNDS;
 
 public class CourseRepository {
 
-    private static final Logger logger = Logger.getLogger(CourseRepository.class.getName());
     public static final String MYLIST_FILE_PATH = "./data/myList.json";
+    private static final Logger logger = Logger.getLogger(CourseRepository.class.getName());
     private final FileHandler fileHandler;
     private final DataIntegrityChecker dataIntegrityChecker;
 
