@@ -349,9 +349,9 @@ This product helps users streamline the process of tracking and managing their i
 | v1.0    | user                  | track the status of an internship              | know what stage my application is in                   |
 | v1.0    | user                  | sort internships by duration                   | focus on internships where I need to take action        |
 | v1.0    | user                  | sort internships by deadlines                  | prioritize internships with approaching deadlines       |
+| v1.0    | user                  | update the status of my internship application | keep track of my progress in the application process    |
 | v2.0    | user                  | receive alerts about upcoming deadlines        | ensure I don't miss important deadlines                 |
 | v2.0    | user                  | sort internships by required skills            | focus on internships that match my skill set            |
-| v2.0    | user                  | update the status of my internship application | keep track of my progress in the application process    |
 
 ## Non-Functional Requirements
 
