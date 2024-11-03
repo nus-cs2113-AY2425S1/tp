@@ -15,6 +15,8 @@ We used these third party libraries to develop our application:
 
 ### Meal Component
 
+
+
 ### Water Component
 
 ### History Component
@@ -299,13 +301,13 @@ The overall design that enables this functionality is described generically by t
 
 #### Sequence Diagram for "Add Meal" Command
 
-![Add Meal Sequence Diagram](images/AddMeal_Sequence_diagram.png)
+![Add Meal Sequence Diagram](images/addMealSequenceDiagram.png)
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Meal" command.
 
 #### Activity Diagram for "Add Meal" Feature
 
-![Add Meal Activity Diagram](images/AddMeal_Activity_diagram.png)
+![Add Meal Activity Diagram](images/addMealActivitydiagram.png)
 
 The diagram shows the overall operation flow, including:
 
