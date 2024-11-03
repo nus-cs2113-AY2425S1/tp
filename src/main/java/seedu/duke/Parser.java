@@ -9,6 +9,7 @@ import seedu.commands.FilterCommand;
 import seedu.commands.ListCommand;
 import seedu.commands.HelpCommand;
 import seedu.commands.RemoveCommand;
+import seedu.commands.FavouriteCommand;
 import seedu.commands.CalendarCommand;
 
 import seedu.ui.Ui;
@@ -38,6 +39,7 @@ public class Parser {
         commands.put("list", ListCommand::new);
         commands.put("help", HelpCommand::new);
         commands.put("remove", RemoveCommand::new);
+        commands.put("favourite", FavouriteCommand::new);
         commands.put("calendar", CalendarCommand::new);
     }
 
@@ -93,7 +95,9 @@ public class Parser {
         if (command instanceof FilterCommand) {
             return parseFilterCommandData(inputData);
         }
-
+        if (command instanceof FavouriteCommand) {
+            return parseFavouriteCommandData(inputData);
+        }
         assert false : "Should never be able to reach this statement if all commands are accounted for";
         return null;
     }
@@ -126,9 +130,6 @@ public class Parser {
         String id = splitArray[0].trim();
         try {
             String fields = splitArray[1].trim();
-            if (fields.isBlank()) {
-                throw new ArrayIndexOutOfBoundsException();
-            }
 
             ArrayList<String> commandArgs = parseFlagData(fields);
             if (commandArgs == null) {
@@ -140,9 +141,6 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showEmptyFlags();
             return null;
-        } catch (NumberFormatException e) {
-            ui.showOutput("Please input some ID for the command");
-            return null;
         }
     }
 
@@ -152,6 +150,15 @@ public class Parser {
 
     private ArrayList<String> parseFilterCommandData(String inputData) {
         return parseFlagData(inputData);
+    }
+
+    private ArrayList<String> parseFavouriteCommandData(String inputData) {
+        if (inputData.trim().isEmpty()) {
+            return null;
+        }
+        ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(inputData.trim().split(",")));
+        commandArgs.replaceAll(String::trim);
+        return commandArgs;
     }
 
 }

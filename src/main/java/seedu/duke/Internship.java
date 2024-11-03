@@ -27,6 +27,7 @@ public class Internship {
     private String company;
     private YearMonth startDate;
     private YearMonth endDate;
+    private String favourite = "false";
     private String status;
 
     private ArrayList<Deadline> deadlines;
@@ -119,6 +120,14 @@ public class Internship {
 
     public void setEndDate(String end) throws DateTimeParseException {
         this.endDate = YearMonth.parse(end, FORMATTER_MONTH_YEAR);
+    }
+
+    public String getFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(String favourite) {
+        this.favourite = favourite;
     }
 
 

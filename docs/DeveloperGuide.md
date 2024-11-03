@@ -324,14 +324,34 @@ The following sequence diagram shows how the `RemoveCommand` is executed:
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+This product helps users streamline the process of tracking and managing their internship applications by allowing them to:
+
+- **Store Important Internship Information**: Users can input and store key details such as the role, company, duration, required skills, application deadlines, and any additional notes regarding each internship.
+
+- **Track Application Status**: Users can keep track of the current status of their applications (e.g., not applied, applied, interview scheduled, offer received) and update it as the application progresses.
+
+- **Edit and Manage Internships**: Users can edit saved internships, modify application statuses, update deadlines, or remove outdated internships from their list.
+
+- **Filter Internships by Key Criteria**: Users can filter tracked internships by relevant criteria such as required skills, application status, or upcoming deadlines, helping them find specific applications.
+
+- **Sort Internships by Key Criteria**: Users can sort tracked internships by relevant criteria such as required skills, application status, or upcoming deadlines, helping them prioritize applications.
+
+- **Monitor Deadlines Easily**: Users can stay on top of their internship deadlines by sorting or flagging applications with approaching deadlines, ensuring that no important opportunity is missed.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ...             | I want to ...                                  | So that I can ...                                      |
+|---------|----------------------|------------------------------------------------|--------------------------------------------------------|
+| v1.0    | new user              | see usage instructions                         | refer to them when I forget how to use the application  |
+| v1.0    | user                  | add an internship with all relevant details    | store information about the internships I’m applying to |
+| v1.0    | user                  | edit the details of an internship              | update information when I receive new details           |
+| v1.0    | user                  | delete an internship                           | remove outdated or irrelevant internships from my list  |
+| v1.0    | user                  | track the status of an internship              | know what stage my application is in                   |
+| v1.0    | user                  | sort internships by duration                   | focus on internships where I need to take action        |
+| v1.0    | user                  | sort internships by deadlines                  | prioritize internships with approaching deadlines       |
+| v1.0    | user                  | update the status of my internship application | keep track of my progress in the application process    |
+| v2.0    | user                  | receive alerts about upcoming deadlines        | ensure I don't miss important deadlines                 |
+| v2.0    | user                  | sort internships by required skills            | focus on internships that match my skill set            |
 
 ## Non-Functional Requirements
 

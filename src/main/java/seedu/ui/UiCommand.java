@@ -156,45 +156,6 @@ public class UiCommand extends Ui {
         showOutput("Insufficient arguments! Please include a flag to filter by.");
     }
 
-    //@@author Toby-Yu
-    /**
-     * Prints message indicating how internships are sorted.
-     *
-     * @param field Criteria that internships are sorted by.
-     */
-    public void showSortedInternships(String field) {
-        printHeadDivider();
-        switch (field) {
-        case "none":
-            System.out.println("No sorting option provided. Listing internships by ID.");
-            break;
-        case "alphabet":
-            System.out.println("Sorted internships by role alphabetically (case-insensitive).");
-            break;
-        case "duration":
-            System.out.println("Sorted internships by start date (year first), then end date.");
-            break;
-        case "deadline":
-            System.out.println("Sorted internships by deadline.");
-            break;
-        default:
-            // Handling invalid sorting options
-            System.out.println("Error: Unknown or invalid sorting option: \"" + field + "\".");
-            System.out.println(getSortUsageMessage());
-            break;
-        }
-        printTailDivider();
-    }
-
-    /**
-     * Prints the correct usage message for the sort command.
-     */
-    public String getSortUsageMessage() {
-        return "Usage: sort [alphabet | deadline]\n" +
-                "alphabet: Sort internships alphabetically by role (case-insensitive).\n" +
-                "deadline: Sort internships by start date (year first), then end date.";
-    }
-
     //@@author Ridiculouswifi
     public void showCommands(ArrayList<Command> commands) {
         printHeadDivider();

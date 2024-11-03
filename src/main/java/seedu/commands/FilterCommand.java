@@ -17,8 +17,9 @@ public class FilterCommand extends Command {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
     private final Map<String, InternshipFieldGetter> fieldGetters = new HashMap<>();
-
+    
     private ArrayList<Internship> internshipList;
+    private ArrayList<Internship> favouriteInternshipList;
     private InternshipList filteredInternships;
 
     public FilterCommand() {
@@ -27,6 +28,7 @@ public class FilterCommand extends Command {
         fieldGetters.put("company", Internship::getCompany);
         fieldGetters.put("from", Internship::getStartDate);
         fieldGetters.put("to", Internship::getEndDate);
+        fieldGetters.put("favourite", Internship::getFavourite);
     }
 
     public InternshipList getFilteredInternships() {
@@ -35,8 +37,9 @@ public class FilterCommand extends Command {
 
     @Override
     public void execute(ArrayList<String> args) {
-        assert internships != null: "Internship list should always be set before a command can be executed";
+        assert internships != null : "Internship list should always be set before a command can be executed";
         internshipList = new ArrayList<>(internships.getAllInternships());
+        favouriteInternshipList = new ArrayList<>(internships.favouriteInternships);
         filteredInternships = new InternshipList(internshipList);
 
         if (args.isEmpty()) {
@@ -83,6 +86,10 @@ public class FilterCommand extends Command {
             filterByRoleAndCompany(getter, searchTerm);
             return;
 
+        case "favourite":
+            filterByFavouriteInternships(searchTerm);
+            return;
+
         case "from":
             dateComparator = YearMonth::isBefore;
             break;
@@ -92,7 +99,7 @@ public class FilterCommand extends Command {
             break;
 
         default:
-            assert false: "Should never be able to reach this statement if all flags are accounted for";
+            assert false : "Should never be able to reach this statement if all flags are accounted for";
         }
 
         filterByDate(getter, searchTerm, dateComparator);
@@ -108,6 +115,23 @@ public class FilterCommand extends Command {
             if (!isEqualToSearchTerm) {
                 internshipList.remove(internship);
             }
+        }
+    }
+
+    private void filterByFavouriteInternships(String searchTerm) {
+        // Iterate over the internships and retrieve favourites
+        switch (searchTerm) {
+        case "true":
+        case "True":
+            filteredInternships.internships.retainAll(favouriteInternshipList);
+            break;
+        case "false":
+        case "False":
+            filteredInternships.internships.removeAll(favouriteInternshipList);
+            break;
+        default:
+            uiCommand.showOutput("Please only input 'true'/'false' following the -fav flag");
+            throw new IllegalArgumentException();
         }
     }
 

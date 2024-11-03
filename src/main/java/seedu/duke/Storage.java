@@ -59,6 +59,14 @@ public class Storage {
                         + internship.getStatus() + " | "
                         + deadlinesBuilder + "\n");
             }
+
+            // After writing internships, write the favourite IDs
+            writer.write("FAVOURITES:");
+            for (Internship favInternship : internshipList.favouriteInternships) {
+                writer.write(" " + favInternship.getId());
+            }
+            writer.write("\n");
+
             writer.close();
         } catch (IOException e) {
             System.out.println("Error while saving tasks: " + e.getMessage());
@@ -78,25 +86,35 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] data = line.split(" \\| ");
-                String role = data[1];
-                String company = data[2];
-                String startDate = data[3];
-                String endDate = data[4];
-                String skills = data[5];
-                String status = data[6];
-                String deadlines = data[7];
+                if (!(line.startsWith("FAVOURITES:"))) {
+                    String[] data = line.split(" \\| ");
+                    String role = data[1];
+                    String company = data[2];
+                    String startDate = data[3];
+                    String endDate = data[4];
+                    String skills = data[5];
+                    String status = data[6];
+                    String deadlines = data[7];
 
-                Internship internship = new Internship(role, company, startDate, endDate);
-                internshipList.addInternship(internship);
-                internship.setSkills(skills);
-                internship.setStatus(status);
-
-                List<Deadline> loadedDeadlines = parseDeadlines(deadlines, internship.getId());
-                for (Deadline deadline : loadedDeadlines) {
-                    internship.addDeadline(deadline.getDescription(), deadline.getDate());
+                    Internship internship = new Internship(role, company, startDate, endDate);
+                    internshipList.addInternship(internship);
+                    internship.setSkills(skills);
+                    internship.setStatus(status);
+                    List<Deadline> loadedDeadlines = parseDeadlines(deadlines, internship.getId());
+                    for (Deadline deadline : loadedDeadlines) {
+                        internship.addDeadline(deadline.getDescription(), deadline.getDate());
+                    }
+                    continue;
                 }
 
+                // Parse favourite internships
+                String[] parts = line.substring("FAVOURITES:".length()).trim().split(" ");
+                for (String id : parts) {
+                    int favInternshipId = Integer.parseInt(id);
+                    int favInternshipIndex = favInternshipId - 1;
+                    Internship favInternship = internshipList.internships.get(favInternshipIndex);
+                    internshipList.favouriteInternships.add(favInternship);
+                }
             }
         } catch (IOException e) {
             System.out.println("Error while loading tasks: " + e.getMessage());

@@ -15,14 +15,17 @@ import java.util.Comparator;
 public class InternshipList {
     private static final UiInternshipList ui = new UiInternshipList();
     public ArrayList<Internship> internships;
+    public ArrayList<Internship> favouriteInternships;
 
     // Constructor
     public InternshipList() {
         internships = new ArrayList<>();
+        favouriteInternships = new ArrayList<>();
     }
 
     public InternshipList(ArrayList<Internship> internships) {
         this.internships = internships;
+        favouriteInternships = new ArrayList<>();
     }
 
     public void addInternship(Internship internship) {
@@ -134,11 +137,11 @@ public class InternshipList {
     //@@author jadenlimjc
     // Method to list all internships
     public void listAllInternships() {
-        if (internships.isEmpty()) {
-            ui.showEmptyInternshipList();
-        } else {
-            ui.showInternships(internships);
-        }
+        ui.showInternships(internships, "list");
+    }
+
+    public void listAllInternships(ArrayList<Internship> internships) {
+        ui.showInternships(internships, "list");
     }
 
     public List<Internship> getAllInternships() {
@@ -158,7 +161,7 @@ public class InternshipList {
         Collections.sort(sortedList, Comparator.comparing(internship -> internship.getRole().toLowerCase()));
 
         // Display the sorted list without changing IDs
-        ui.showInternships(sortedList);
+        ui.showInternships(sortedList, "role");
     }
 
     // Method to list all internships sorted by start date (year first), then end date
@@ -176,7 +179,7 @@ public class InternshipList {
         });
 
         // Display the sorted list without changing IDs
-        ui.showInternships(sortedInternships);
+        ui.showInternships(sortedInternships, "duration");
     }
 
     // Helper method to compare YearMonth strings in "MM/yy" format (year first, then month)
@@ -214,7 +217,7 @@ public class InternshipList {
             }
             return compareYearMonth(earliestDeadline1.getDate(), earliestDeadline2.getDate());
         });
-        ui.showInternships(sortedInternships);
+        ui.showInternships(sortedInternships, "deadline");
     }
 
     /**
@@ -230,7 +233,7 @@ public class InternshipList {
         }));
 
         // Display the sorted list without changing IDs
-        ui.showInternships(sortedList);
+        ui.showInternships(sortedList, "skills");
     }
 
     /**
@@ -243,7 +246,15 @@ public class InternshipList {
         Collections.sort(sortedList, Comparator.comparing(internship -> internship.getStatus().toLowerCase()));
 
         // Display the sorted list without changing IDs
-        ui.showInternships(sortedList);
+        ui.showInternships(sortedList, "status");
+    }
+
+    public void listInternshipsNotSorted() {
+        ui.showInternships(internships, "none");
+    }
+
+    public void listInternshipsInvalidFlag(String flag) {
+        ui.showInternships(internships, flag);
     }
 
 }
