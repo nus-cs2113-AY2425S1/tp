@@ -349,7 +349,7 @@ Parameters:
 
 ---
 
-### 10. View all history
+### 11. View all history
 View all records of workouts, meals and water intake
 
 Command: `history`
