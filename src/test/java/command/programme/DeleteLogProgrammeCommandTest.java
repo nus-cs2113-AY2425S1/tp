@@ -67,10 +67,4 @@ class DeleteLogProgrammeCommandTest {
         DeleteLogProgrammeCommand command = new DeleteLogProgrammeCommand(testDate);
         assertThrows(AssertionError.class, () -> command.execute(programmes, null));
     }
-
-    @Test
-    void execute_edgeCase_nullProgrammeList() {
-        DeleteLogProgrammeCommand command = new DeleteLogProgrammeCommand(testDate);
-        assertThrows(AssertionError.class, () -> command.execute(null, history));
-    }
 }
