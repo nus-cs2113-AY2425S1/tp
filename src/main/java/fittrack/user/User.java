@@ -16,10 +16,7 @@ public class User {
     private WaterIntake waterIntake;
     private FoodIntake foodIntake;
     private CalorieIntake calorieIntake;
-<<<<<<< HEAD
-=======
     private final ArrayList<fittrack.trainingsession.MoodLog> moodLogs; // Correctly defined as MoodLog
->>>>>>> 755efad16a09d930b5dc24cdbc92253ae8c26b9d
 
     public User(String gender, String age) {
         this.gender = Gender.valueOf(gender.toUpperCase());
@@ -28,10 +25,7 @@ public class User {
         this.waterIntake = new WaterIntake();
         this.foodIntake = new FoodIntake();
         this.calorieIntake = new CalorieIntake();
-<<<<<<< HEAD
-=======
         this.moodLogs = new ArrayList<>();
->>>>>>> 755efad16a09d930b5dc24cdbc92253ae8c26b9d
     }
 
     public void setGender(String gender) {
