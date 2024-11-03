@@ -4,7 +4,6 @@ import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.Scanner;
 
-
 public class Ui {
     private static final Scanner scanner = new Scanner(System.in);
 
