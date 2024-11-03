@@ -232,6 +232,12 @@ and South-East Asian universities. This command hence helps the users to keep tr
 
 #### Sequence Diagram on PlantUML
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
+Sequence Diagram for AddCourseCommand
+
+![Course Validator Sequence Diagram](images/CourseValidator.png)
+
+Sequence Diagram of Course Validator (extracted out of AddCourseCommand sequence diagram)
+
 
 ### 6. Delete Courses Command
 
