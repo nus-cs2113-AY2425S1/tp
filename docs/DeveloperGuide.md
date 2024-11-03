@@ -21,7 +21,6 @@ We used these third party libraries to develop our application:
 
 #### DailyRecord 
 
-API: `DailyRecord.java`
 ![Diagram for DailyRecord Component](./images/DailyRecord_API_UML.jpg)
 The `DailyRecord` component,
 
@@ -41,7 +40,6 @@ The `DailyRecord` component,
 
 #### Storage
 
-API: `Storage.java`
 ![Diagram for Storage Component](./images/Storage_API_UML.jpg)
 The `Storage` component,
 
@@ -57,7 +55,6 @@ The `Storage` component,
 
 #### FileManager
 
-API: `FileManager.java`
 ![Diagram for FileManager Component](./images/FileManager_API_UML.jpg)
 The `FileManager` component,
 
