@@ -2,6 +2,8 @@ package seedu.command;
 
 import seedu.category.Category;
 import seedu.datastorage.Storage;
+import seedu.message.ErrorMessages;
+import seedu.message.CommandResultMessages;
 import seedu.transaction.Expense;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
@@ -27,7 +29,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
-            return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
+            return List.of(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
         }
 
         // Handle missing description
@@ -41,7 +43,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
         try {
             amount = AmountUtils.parseAmount(amountStr);
         } catch (Exception e) {
-            return List.of(ERROR_MESSAGE + ": " + e.getMessage());
+            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
         }
 
         String dateString = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
@@ -52,7 +54,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
             try {
                 DateTimeUtils.parseDateTime(dateString);
             } catch (Exception e) {
-                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
+                return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
             }
         }
 
@@ -68,18 +70,18 @@ public class AddExpenseCommand extends AddTransactionCommand {
             try {
                 transaction = createTransaction(amount, expenseName, dateString, category);
             } catch (Exception e) {
-                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
+                return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
             }
         } else {
             try {
                 transaction = createTransaction(amount, expenseName, dateString);
             } catch (Exception e) {
-                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
+                return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
             }
         }
         transactions.addTransaction(transaction);
         Storage.saveTransaction(transactions.getTransactions());
-        return List.of("Expense added successfully!");
+        return List.of(CommandResultMessages.ADD_TRANSACTION_SUCCESS + transaction.toString());
     }
 
     @Override

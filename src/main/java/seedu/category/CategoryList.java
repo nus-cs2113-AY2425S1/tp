@@ -21,6 +21,10 @@ public class CategoryList {
         }
     }
 
+    public int size() {
+        return categories.size();
+    }
+
     // Initialize
     public void initializeDefaultCategories() {
         categories.add(new Category("Food"));
@@ -68,7 +72,14 @@ public class CategoryList {
         return categories;
     }
 
-
+    public Category findCategory(String categoryName) {
+        for (Category category: categories) {
+            if (category.getName().equalsIgnoreCase(categoryName)) {
+                return category;
+            }
+        }
+        return null;
+    }
     public void interactiveAddCategory(String categoryName) {
         Category newCategory = new Category(categoryName);
         addCategory(newCategory);
@@ -76,4 +87,3 @@ public class CategoryList {
 
 
 }
-

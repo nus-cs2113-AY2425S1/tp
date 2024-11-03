@@ -2,6 +2,8 @@ package seedu.transaction;
 
 import seedu.category.Category;
 
+import java.util.Objects;
+
 // Expense class extending Transaction
 public class Expense extends Transaction {
     private Category category;
@@ -41,5 +43,22 @@ public class Expense extends Transaction {
         String categoryString = (category != null) ? ", category=" + category.getName() : "";
         return "Expense [amount=" + amount + ", description=" + description + ", date="
                 + dateTimeString + categoryString + "]";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (!(o instanceof Expense expense)) {
+            return false;
+        }
+        return amount == expense.amount &&
+                Objects.equals(description, expense.description) &&
+                Objects.equals(dateTimeString, expense.dateTimeString) &&
+                Objects.equals(category, expense.category);
     }
 }

@@ -1,6 +1,7 @@
 package seedu.transaction;
 
 import seedu.category.Category;
+import seedu.message.ErrorMessages;
 import seedu.utils.DateTimeUtils;
 
 
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class TransactionList {
     private static final Logger logger = Logger.getLogger("TransactionList");
-    private static ArrayList<Transaction> transactions;
+    private ArrayList<Transaction> transactions;
     private final Map<String, List<Transaction>> invertedIndex;
 
     public TransactionList() {
@@ -107,7 +108,7 @@ public class TransactionList {
     }
 
     //get the spending of today
-    public static double getTodaySpending() {
+    public double getTodaySpending() {
         LocalDate today = LocalDate.now();
         return transactions.stream()
                 .filter(t -> t instanceof Expense && t.getDate().toLocalDate().isEqual(today))
@@ -116,15 +117,19 @@ public class TransactionList {
     }
 
 
-    public boolean updateCategory(int index, Category newCategory) {
-        if (index >= 0 && index < transactions.size()) {
-            Transaction transaction = transactions.get(index);
-            if (transaction instanceof Expense) {
-                ((Expense) transaction).setCategory(newCategory);
-                return true;
-            }
+    public Transaction updateCategory(int index, Category newCategory) throws Exception {
+        if (! (index >= 0 && index < transactions.size())) {
+            throw new IndexOutOfBoundsException(ErrorMessages.INDEX_OUT_OF_BOUNDS
+                    + transactions.size());
         }
-        return false;
+
+        Transaction transaction = transactions.get(index);
+        if (!(transaction instanceof Expense)) {
+            throw new Exception(ErrorMessages.NOT_AN_EXPENSE);
+        }
+
+        ((Expense) transaction).setCategory(newCategory);
+        return transaction;
     }
 
 

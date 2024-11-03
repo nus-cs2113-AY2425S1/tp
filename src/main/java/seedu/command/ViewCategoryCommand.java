@@ -2,6 +2,7 @@ package seedu.command;
 
 import seedu.category.Category;
 import seedu.category.CategoryList;
+import seedu.message.CommandResultMessages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,9 @@ public class ViewCategoryCommand extends Command{
     public List<String> execute() {
         List<String> messages = new ArrayList<>();
 
+        if (categoryList.size() == 0) {
+            return List.of(CommandResultMessages.VIEW_CATEGORY_EMPTY);
+        }
         int i = 1;
         for (Category category: categoryList.getCategories()) {
             messages.add(i + ". " + category.getName());
