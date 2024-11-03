@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-Nov 03, 2024 5:03:34 PM fittrack.logger.FitTrackLogger setupLogger
-INFO: Logger successfully initialized
-Nov 03, 2024 5:03:34 PM fittrack.storage.Storage initialiseSaveFile
-INFO: Accessing existing save file...
-Nov 03, 2024 5:03:34 PM fittrack.storage.Storage loadSaveFile
-=======
 Nov 03, 2024 11:26:18 AM fittrack.logger.FitTrackLogger setupLogger
 INFO: Logger successfully initialized
 Nov 03, 2024 11:26:18 AM fittrack.storage.Storage initialiseSaveFile
 INFO: Accessing existing save file...
 Nov 03, 2024 11:26:18 AM fittrack.storage.Storage loadSaveFile
->>>>>>> 755efad16a09d930b5dc24cdbc92253ae8c26b9d
 INFO: Save file successfully loaded.
