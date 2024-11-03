@@ -25,6 +25,7 @@ public class CreateDayProgrammeCommand extends EditProgrammeCommand {
         super(programmeIndex);
         assert createdDay != null : "created day cannot be null";
         this.createdDay = createdDay;
+        logger.log(Level.INFO, "CreateDayCommand created with day: {0}", createdDay);
     }
 
     /**

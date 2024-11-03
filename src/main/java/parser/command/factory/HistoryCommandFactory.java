@@ -1,5 +1,4 @@
 // @@author andreusxcarvalho
-
 package parser.command.factory;
 
 import command.Command;
@@ -50,6 +49,3 @@ public class HistoryCommandFactory {
         return new ListPersonalBestsCommand();
     }
 }
-
-
-

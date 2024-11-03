@@ -8,12 +8,12 @@ import history.History;
 
 import java.util.logging.Level;
 
-
 public class ViewProgrammeCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "view";
 
     public ViewProgrammeCommand(int programmeIndex) {
         super(programmeIndex);
+        logger.log(Level.INFO, "ViewCommand created with programme index: {0}", programmeIndex);
     }
 
     @Override

@@ -29,8 +29,9 @@ public class CreateExerciseProgrammeCommand extends EditProgrammeCommand {
      */
     public CreateExerciseProgrammeCommand(int programmeIndex, int dayIndex, Exercise createdExercise) {
         super(programmeIndex,dayIndex);
-        this.createdExercise = createdExercise;
         assert createdExercise != null : "created exercise must not be null";
+        this.createdExercise = createdExercise;
+        logger.log(Level.INFO, "CreateExerciseCommand created with exercise: {0}", createdExercise);
     }
 
     /**

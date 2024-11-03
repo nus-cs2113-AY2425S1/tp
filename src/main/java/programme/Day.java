@@ -105,4 +105,3 @@ public class Day {
                 Objects.equals(exercises, day.exercises);
     }
 }
-

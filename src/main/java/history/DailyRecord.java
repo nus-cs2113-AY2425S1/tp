@@ -1,5 +1,4 @@
 // @@author BevLow
-
 package history;
 
 import meal.Meal;
@@ -25,6 +24,10 @@ public class DailyRecord {
     }
 
     public Day deleteDayFromRecord() {
+        if (this.day == null) {
+            throw new IllegalStateException("No logged workout found for this day.");
+        }
+
         Day deleted = this.day;
         this.day = null;
         return deleted;
