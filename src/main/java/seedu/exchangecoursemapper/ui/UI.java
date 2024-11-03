@@ -226,4 +226,8 @@ public class UI {
     public void printLineSeparator() {
         System.out.println(LINE_SEPARATOR);
     }
+
+    public void printEmptyList() {
+        System.out.println("The list is empty.\nPlease make sure there is mapped courses in your tracker.");
+    }
 }

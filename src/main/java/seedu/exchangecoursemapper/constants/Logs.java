@@ -72,4 +72,12 @@ public class Logs {
     public static final String DISPLAYING_RESULTS = "Displaying comparison results between ";
     public static final String DISPLAYING_UNIQUE_MAPPINGS = "Displaying unique mappings for ";
 
+    //FindCoursesCommand
+    public static final String EXECUTE_GET_KEYWORD = "Executing getKeyword()...";
+    public static final String EXECUTE_FIND_COMMAND = "Executing findCommand with keyword";
+    public static final String MISSING_KEYWORD = "Keyword is missing.";
+    public static final String NO_MATCH_FOUND = "No courses found matching keyword.";
+    public static final String MATCH_FOUND = "Match found for course code";
+    public static final String EXTRACTED_COURSE_CODE = "Extracted mapped course code.";
+
 }

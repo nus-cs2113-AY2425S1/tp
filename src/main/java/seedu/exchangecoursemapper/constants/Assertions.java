@@ -37,4 +37,7 @@ public class Assertions {
     public static final String UNIVERSITY_NOT_NULL = "University name should not be null";
     public static final String UNIQUE_CODES_NOT_NULL = "Unique course codes set should not be null";
     public static final String LOADED_LIST_NOT_NULL = "Loaded modules list should not be null";
+
+    //FindCoursesCommand
+    public static final String COURSE_STRING_NOT_NULL = "Course string cannot be null";
 }
