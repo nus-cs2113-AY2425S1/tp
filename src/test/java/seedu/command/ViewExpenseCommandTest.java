@@ -3,6 +3,8 @@ package seedu.command;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.category.Category;
+import seedu.message.CommandResultMessages;
+import seedu.message.ErrorMessages;
 import seedu.transaction.Expense;
 import seedu.transaction.Income;
 import seedu.transaction.Transaction;
@@ -171,7 +173,8 @@ class ViewExpenseCommandTest {
         viewExpenseCommand.setArguments(arguments);
         // Expected messages
         List<String> expectedMessages = new ArrayList<>();
-        expectedMessages.add(DateTimeUtils.MESSAGE_INVALID_DATE_FORMAT);
+        expectedMessages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL +
+                ErrorMessages.MESSAGE_INVALID_DATE_FORMAT);
 
         // Execute the command
         List<String> messages = viewExpenseCommand.execute();
@@ -189,14 +192,13 @@ class ViewExpenseCommandTest {
         arguments.put("c/", "Lmao");
 
         viewExpenseCommand.setArguments(arguments);
-        // Expected messages
-        List<String> expectedMessages = new ArrayList<>();
-        expectedMessages.add(ViewExpenseCommand.EXPENSE_EMPTY_MESSAGE);
 
         // Execute the command
-        List<String> messages = viewExpenseCommand.execute();
+        List<String> result = viewExpenseCommand.execute();
 
-        // Verify the result
-        assertEquals(expectedMessages, messages);
+        // Assert
+        assertEquals(CommandResultMessages.VIEW_TRANSACTION_EMPTY,
+                result.get(0), "The result message should indicate that " +
+                        "the category was not found.");
     }
 }

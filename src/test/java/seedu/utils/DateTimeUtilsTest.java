@@ -1,8 +1,10 @@
 package seedu.utils;
 
 import org.junit.jupiter.api.Test;
+import seedu.message.ErrorMessages;
 
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -39,7 +41,7 @@ class DateTimeUtilsTest {
             DateTimeUtils.parseDateTime("2024/10/23 1011");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals(DateTimeUtils.MESSAGE_INVALID_DATE_FORMAT, e.getMessage());
+            assertEquals(ErrorMessages.MESSAGE_INVALID_DATE_FORMAT, e.getMessage());
         }
     }
 
@@ -49,7 +51,39 @@ class DateTimeUtilsTest {
             DateTimeUtils.parseDateTime("2024-12-32 1011");
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals(DateTimeUtils.MESSAGE_INVALID_DATE_FORMAT, e.getMessage());
+            assertEquals(ErrorMessages.MESSAGE_INVALID_DATE_FORMAT, e.getMessage());
+        }
+    }
+
+    @Test
+    void parseYearMonth_validYearMonth_successParse() throws Exception {
+        // Expected datetime
+        YearMonth expectedYearMonth =
+                YearMonth.of(2024, 10);
+
+        // Actual parsed datetime
+        YearMonth yearMonth = DateTimeUtils.parseYearMonth("2024-10");
+
+        assertEquals(expectedYearMonth, yearMonth);
+    }
+
+    @Test
+    public void parseYearMonth_invalidYearMonthFormat_exceptionThrown() {
+        try {
+            DateTimeUtils.parseYearMonth("2024/13");
+            fail(); // the test should not reach this line
+        } catch (Exception e) {
+            assertEquals(ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT, e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseYearMonth_invalidYearMonthContent_exceptionThrown() {
+        try {
+            DateTimeUtils.parseYearMonth("2024-13");
+            fail(); // the test should not reach this line
+        } catch (Exception e) {
+            assertEquals(ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT, e.getMessage());
         }
     }
 

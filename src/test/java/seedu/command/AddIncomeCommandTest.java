@@ -1,8 +1,14 @@
 package seedu.command;
 
 import org.junit.jupiter.api.Test;
+import seedu.category.Category;
+import seedu.message.ErrorMessages;
+import seedu.transaction.Expense;
+import seedu.transaction.Income;
+import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,29 +24,34 @@ class AddIncomeCommandTest {
         command.setArguments(Map.of("", "Salary", "a/", "1000", "d/", "2024-10-01 1800"));
         List<String> result = command.execute();
 
-        assertEquals("Income added successfully!", result.get(0));
+        ArrayList<Transaction> expectedList = new ArrayList<>();
+        Income expectedIncome = new Income(1000, "Salary", "2024-10-01 1800");
+        expectedList.add(expectedIncome);
+        assertEquals(transactionList.getTransactions(), expectedList);
     }
 
     @Test
-    public void execute_addIncomeInvalidDate_exceptionThrown() {
+    public void execute_addIncomeInvalidDate_noAdding() {
         TransactionList transactionList = new TransactionList();
         AddIncomeCommand command = new AddIncomeCommand(transactionList);
 
         command.setArguments(Map.of("", "Salary", "a/", "1000", "d/", "2024"));
-        List<String> result = command.execute();
+        command.execute();
 
-        assertEquals("Error creating Income!: Your date and/or time is invalid!", result.get(0));
+        ArrayList<Transaction> expectedList = new ArrayList<>();
+        assertEquals(transactionList.getTransactions(), expectedList);
     }
 
     @Test
-    public void execute_addIncomeInvalidAmount_exceptionThrown() {
+    public void execute_addIncomeInvalidAmount_noAdding() {
         TransactionList transactionList = new TransactionList();
         AddIncomeCommand command = new AddIncomeCommand(transactionList);
 
         command.setArguments(Map.of("", "Salary", "a/", "test", "d/", "2024-10-01"));
-        List<String> result = command.execute();
+        command.execute();
 
-        assertEquals("Error creating Income!: Invalid amount format: test", result.get(0));
+        ArrayList<Transaction> expectedList = new ArrayList<>();
+        assertEquals(transactionList.getTransactions(), expectedList);
     }
 
     @Test
@@ -51,7 +62,7 @@ class AddIncomeCommandTest {
         command.setArguments(Map.of("", "Salary"));
         List<String> result = command.execute();
 
-        assertEquals("Lack mandatory arguments.", result.get(0));
+        assertEquals(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE, result.get(0));
     }
 
     @Test
@@ -60,8 +71,12 @@ class AddIncomeCommandTest {
         AddIncomeCommand command = new AddIncomeCommand(transactionList);
 
         command.setArguments(Map.of("", "", "a/", "100", "d/", "2024-10-01 1800"));
-        List<String> result = command.execute();
 
-        assertEquals("Income added successfully!", result.get(0));
+        command.execute();
+
+        ArrayList<Transaction> expectedList = new ArrayList<>();
+        Income expectedIncome = new Income(100, "", "2024-10-01 1800");
+        expectedList.add(expectedIncome);
+        assertEquals(transactionList.getTransactions(), expectedList);
     }
 }
