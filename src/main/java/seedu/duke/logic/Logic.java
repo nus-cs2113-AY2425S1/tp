@@ -20,6 +20,7 @@ import seedu.duke.ui.AppUi;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The Logic class handles the core functionalities of FinanceBuddy, including
@@ -150,8 +151,9 @@ public class Logic {
         }
 
         String description = commandArguments.getOrDefault("/des", entry.getDescription());
-
-        String date = commandArguments.getOrDefault("/d", entry.getDate().toString());
+        
+        String date = commandArguments.getOrDefault("/d", 
+                        entry.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
 
         Enum<?> category = parseCategory(commandArguments.get("/c"), entry);
         EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
