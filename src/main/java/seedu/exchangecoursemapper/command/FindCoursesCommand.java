@@ -12,7 +12,6 @@ import java.util.logging.Level;
 
 import static seedu.exchangecoursemapper.constants.Assertions.COURSE_STRING_NOT_NULL;
 import static seedu.exchangecoursemapper.constants.Assertions.EMPTY_USER_INPUT;
-import static seedu.exchangecoursemapper.constants.Logs.*;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 import static seedu.exchangecoursemapper.constants.Regex.PIPE;
 
@@ -22,6 +21,11 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
     private static final UI ui = new UI();
     private static final Logger logger = Logger.getLogger(FindCoursesCommand.class.getName());
 
+    /**
+     * Constructs a FindCoursesCommand with the specified storage.
+     *
+     * @param storage The Storage instance used to retrieve course data.
+     */
     public FindCoursesCommand(Storage storage) {
         this.storage = storage;
     }
@@ -30,12 +34,11 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
     public void execute(String userInput, Storage storage) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
         try {
-            logger.log(Level.INFO, EXECUTE_GET_KEYWORD);
             String keyword = getKeyword(userInput);
-            logger.log(Level.INFO, EXECUTE_FIND_COMMAND);
+            logger.log(Level.INFO, Logs.EXECUTE_FIND_COMMAND);
             findCommand(keyword);
         } catch (IllegalArgumentException e) {
-            logger.log(Level.WARNING, MISSING_KEYWORD);
+            logger.log(Level.WARNING, Logs.MISSING_KEYWORD);
             System.out.println(e.getMessage());
             System.out.println(LINE_SEPARATOR);
         }
@@ -62,12 +65,14 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         }
 
         List<String> foundCourses = new ArrayList<>();
-
         matchKeyword(keyword, mappedCourses, foundCourses);
+        printFindCommand(foundCourses);
+    }
 
+    private static void printFindCommand(List<String> foundCourses) {
         if (foundCourses.isEmpty()) {
-            logger.log(Level.INFO, NO_MATCH_FOUND);
-            ui.printNoMatchFound();
+            logger.log(Level.WARNING, Logs.NO_MATCH_FOUND);
+            throw new IllegalArgumentException(Exception.noMatchFound());
         } else {
             for (int i = 0; i < foundCourses.size(); i++) {
                 ui.printFoundCourses(foundCourses.get(i));
@@ -81,7 +86,7 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
             String nusCourseCode = getMappedCode(course);
             if (nusCourseCode.equals(keyword)) {
                 foundCourses.add(course);
-                logger.log(Level.INFO, MATCH_FOUND);
+                logger.log(Level.INFO, Logs.MATCH_FOUND);
             }
         }
     }
@@ -90,7 +95,7 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         assert course != null: COURSE_STRING_NOT_NULL;
 
         String[] mappedParts = course.split(PIPE);
-        logger.log(Level.INFO, EXTRACTED_COURSE_CODE);
+        logger.log(Level.INFO, Logs.EXTRACTED_COURSE_CODE);
         return mappedParts[0].trim();
     }
 }

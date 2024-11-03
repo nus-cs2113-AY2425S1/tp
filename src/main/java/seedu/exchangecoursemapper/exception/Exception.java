@@ -78,4 +78,8 @@ public class Exception extends Throwable {
         return "Unknown university: " + puName;
     }
 
+    public static String noMatchFound() {
+        return "No match found.";
+    }
+
 }

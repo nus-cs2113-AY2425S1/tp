@@ -215,10 +215,6 @@ public class UI {
         System.out.println(LINE_SEPARATOR);
     }
 
-    public void printNoMatchFound(){
-        System.out.println(NO_MATCH_FOUND);
-    }
-
     public void printFoundCourses(String foundCourse) {
         System.out.println(foundCourse);
     }

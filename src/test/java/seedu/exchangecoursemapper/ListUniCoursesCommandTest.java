@@ -45,7 +45,7 @@ public class ListUniCoursesCommandTest {
 
     @Test
     public void getPuName_withNullUni_throwsException() {
-        String userInput = "";
+        String userInput = "set";
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> listUniCoursesCommand.getPuName(userInput));
 
@@ -119,7 +119,7 @@ public class ListUniCoursesCommandTest {
                 () -> listUniCoursesCommand.getUniCourses(jsonObject, invalidUniName));
 
 
-        assertEquals("University not found: Invalid Uni", exception.getMessage());
+        assertEquals("Unknown university: Invalid Uni", exception.getMessage());
     }
 
     @Test
@@ -179,7 +179,7 @@ public class ListUniCoursesCommandTest {
         listUniCoursesCommand.execute(userInput);
 
         String expectedOutput = """
-            University not found: Invalid Uni
+            Unknown university: Invalid Uni
             -----------------------------------------------------
             """;
 
