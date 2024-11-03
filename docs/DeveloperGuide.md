@@ -440,22 +440,32 @@ the following methods:
 The user invokes the command to list entries by entering the following command:
 ```list [income|expense] [/from START_DATE] [/to END_DATE]```.
 
-This is parsed by the InputParser, returning a HashMap `commandArgumets`, containing the following optional arguments:
+`Logic` invokes the `listHelper` method to create and execute the command to list the financial entries
+according to the following logic:
+
+![getArguments](UML/SeeAllEntriesGetArguments.png)
+
+The above diagram details the parsing of the user command by InputParser, which returns a HashMap `commandArgumets`
+containing the following optional arguments:
 - `argument`: Represents the type of Financial Entries to be printed. Can take 3 possible values:
   - `expense`: List only Expenses
   - `income`: List only Incomes
   - `null`: List both Expenses and Incomes
 - `/from`: Represents the starting date from which Financial Entries should be listed. If value is `null`,
-there is no defined starting date.
+  there is no defined starting date.
 - `/to`: Represents the ending date by which Financial Entries should be listed. If value is `null`,
   there is no defined ending date.
 
-`Logic` invokes the `listHelper` method to create and execute the command to list the financial entries
-according to the following logic.
+The start/end dates, currently represented as strings, are parsed by `DateParser` to
+obtain the start/end dates represented as `LocalDate`.
 
-![overview](UML/SeeAllEntriesOverview.png)
+The diagram below then depicts the details of the execute command section in the previous diagram,
+whereby `ListHelper` creates an instance of the corresponding command class, which then interacts with
+the FinancialList to display the relevant entries.
 
-The interaction between the command classes and the `FinancialList` is as follows,
+![overview](UML/SeeAllEntriesCreateCommand.png)
+
+The interaction between the command classes and `financialList` is as follows,
 using `SeeAllEntriesCommand` as an example:
 
 ![execution](UML/SeeAllEntriesExecution.png)
