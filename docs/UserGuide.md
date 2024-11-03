@@ -3,27 +3,12 @@ title: User Guide
 nav_order: 1
 ---
 
-
 # User Guide
 
 MediTask is a desktop application designed to help nurses efficiently manage and track their daily tasks via a Command Line Interface (CLI). This CLI tool streamlines task management, allowing nurses to quickly organize, monitor, and complete tasks, ensuring no important steps are missed.
 
-## Table of Contents
-1. [Quick Start](#quick-start)
-2. [Features](#features)
-   - [Adding a Patient: `add`](#adding-a-patient-add)
-   - [Deleting a Patient: `delete`](#deleting-a-patient-delete)
-   - [Finding a Patient: `find`](#finding-a-patient-find)
-   - [Listing All Patients: `list`](#listing-all-patients-list)
-   - [Selecting a Patient: `select`](#selecting-a-patient-select)
-   - [Returning to Main State: `back`](#returning-to-main-state-back)
-   - [Adding a deadline task: `deadline`](#adding-a-deadline-task-deadline)
-   - [Adding a recurring task: `repeat`](#adding-a-recurring-task-repeat)
-   - [Finding a task: `find`](#finding-task-find)
-   - 
-3. [FAQ](#faq)
-4. [Command Summary](#command-summary)
-
+* Table of Contents
+{:toc}
 
 ## Quick Start
 
@@ -61,6 +46,26 @@ MediTask is a desktop application designed to help nurses efficiently manage and
 
 ## Features
 
+{: .important }
+> ℹ️ Notes about the command format:
+>
+>- Extraneous parameters for commands that do not take in parameters (such as `help`, `list` and `exit`) will be ignored. e.g. if the command specifies `help 123`, it will be interpreted as help.
+>
+>- Parameters cannot be in any order. e.g. if the command specifies `add Alice /tag HighPriority`, `/tag HighPriority add Alice` is not acceptable.
+>
+>- Ensure that Patient is selected before adding a task. e.g. `select 1` before adding a task or simply look above the prompt `Patient: <patient_name>`.
+>
+>- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+### Viewing Help: `help`
+
+Prints a list of available commands and their formats.
+
+![Patient Help Screen](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/help_patient.png)
+![Task Help Screen](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/help_task.png)
+
+**Format**: `help`
+
 ### Adding a Patient: `add`
 Adds a patient to the hospital’s patient list.
 
@@ -79,6 +84,7 @@ Removes a patient from the hospital’s patient list by their index.
 
 **Format**: `delete INDEX`
 
+{: .highlight }
 >**Note**:
 >- The index refers to the position of the patient in the list and must be a valid, positive integer.
 
@@ -113,8 +119,9 @@ Switches the application state to `TASK_STATE`, enabling task management feature
 
 **Format**: `select INDEX`
 
->**Note**:
->- The index refers to the position of the patient in the list and must be a valid, positive integer.
+{: .highlight }
+> **Note**:
+> - The index refers to the position of the patient in the list and must be a valid, positive integer.
 
 **Examples**:
 - `select 1`
@@ -131,14 +138,29 @@ Returns to the `MAIN_STATE` from the patient-specific task management state.
 - `back`
     - Returns to the main menu from the selected patient's task management view.
 
+### Adding a to-do task: `todo`
+Adds a new item to the list of to-do items.
+Format: `todo TODO_NAME /tag TAG_NAME`
+
+{: .highlight }
+> **Note**:
+> - Patient must be selected before adding a to-do task.
 
 ### Adding a deadline task: `deadline`
 Adds a new item to the list of deadline items.
 Format: `deadline DEADLINE_NAME /by DATE_TIME /tag TAG_NAME `
 
+{: .highlight }
+> **Note**:
+> - Patient must be selected before adding a deadline task.
+
 ### Adding a recurring task: `repeat`
 Adds a new item to the list of recurring items.
 Format: `repeat TODO_NAME /every RECUR_BASIS /tag TAG_NAME`
+
+{: .highlight }
+> **Note**:
+> - Patient must be selected before adding a repeat task.
 
 ### Finding task: `find`
 Finds an existing item in the list of task items.
@@ -150,15 +172,32 @@ Example of usage:
 
 `todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
 
+### Exiting the application: `exit`
+
+Exits the application.
+
+**Format**: `exit`
+
+### Saving data
+
+MediTask data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+### Editing the data file
+
+MediTask data is saved as a JSON file [JAR file location]/data/hospital_data.json. Advanced users are welcome to update data directly by editing that data file.
+
+{: .warning }
+> ⚠️ Caution: If your changes to the data file makes its format invalid, MediTask will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+>
+> Furthermore, certain edits can cause the MediTask to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?
 
-**A**: {your answer here}
+**A**: Install the MediTask app on the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MediTask home folder.
 
 ## Command Summary
-
-{Give a 'cheat sheet' of commands here}
 
 - **add** `add PATIENT_NAME /tag TAG_NAME`: Adds a new patient to the list with an optional tag.
 - **select** `select INDEX`: Selects a patient and switches to task management mode.
@@ -173,3 +212,5 @@ Example of usage:
 - **deadline** `deadline DEADLINE_NAME /by DATE_TIME /tag TAG_NAME`: Adds a deadline task with a specified date and time, and an optional tag.
 - **repeat** `repeat TASK_NAME /every INTERVAL /tag TAG_NAME`: Adds a recurring task with a specified interval (e.g., daily, weekly) and an optional tag.
 - **find** `find KEYWORD`: Searches for a patient or task by the specified keyword.
+- **help** `help`: Displays a help window with a list of available commands and their formats.
+- **exit** `exit`: Exits the application.
