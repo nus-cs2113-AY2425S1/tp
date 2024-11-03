@@ -39,7 +39,7 @@ public class ViewMealCommandTest {
         when(mockHistory.getRecordByDate(date)).thenReturn(mockDailyRecord);
 
         // Set up DailyRecord mock to return a MealList
-        when(mockDailyRecord.getMealList()).thenReturn(mockMealList);
+        when(mockDailyRecord.getMealListFromRecord()).thenReturn(mockMealList);
 
         viewMealCommand = new ViewMealCommand(date);
     }
@@ -55,7 +55,7 @@ public class ViewMealCommandTest {
 
         // Assert
         verify(mockHistory).getRecordByDate(date);
-        verify(mockDailyRecord).getMealList();
+        verify(mockDailyRecord).getMealListFromRecord();
         assertEquals(expectedResult, result, "Execution should return a " +
                 "CommandResult with the correct meal list output.");
     }

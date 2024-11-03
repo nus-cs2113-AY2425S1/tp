@@ -40,7 +40,7 @@ public class ViewMealCommand extends MealCommand {
 
         DailyRecord dailyRecord = history.getRecordByDate(date);
         assert dailyRecord != null : "Daily record not found";
-        MealList meals = dailyRecord.getMealList();
+        MealList meals = dailyRecord.getMealListFromRecord();
 
         logger.log(Level.INFO, "Retrieved MealList for date {0}: {1}", new Object[]{date, meals});
 

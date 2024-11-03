@@ -30,7 +30,7 @@ class DeleteLogProgrammeCommandTest {
         testDate = LocalDate.of(2023, 10, 1);
         testDay = new Day("Test Day");
         dailyRecord = new DailyRecord();
-        dailyRecord.logDay(testDay);
+        dailyRecord.logDayToRecord(testDay);
         history.logRecord(testDate, dailyRecord);
     }
 

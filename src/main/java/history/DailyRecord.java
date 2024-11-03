@@ -66,7 +66,7 @@ public class DailyRecord {
      *
      * @return the {@code MealList} for the daily record
      */
-    public MealList getMealList() {
+    public MealList getMealListFromRecord() {
         return mealList;
     }
 
@@ -75,7 +75,7 @@ public class DailyRecord {
      *
      * @return the {@code Water} intake record for the day
      */
-    public Water getWater() {
+    public Water getWaterFromRecord() {
         return water;
     }
 
@@ -88,7 +88,7 @@ public class DailyRecord {
      *
      * @param newDay the {@code Day} object to log, which must not be {@code null}
      */
-    public void logDay(Day newDay) { //this replaces any current day recorded
+    public void logDayToRecord(Day newDay) { //this replaces any current day recorded
         assert newDay != null : "day must not be null";
 
         this.day = newDay;
