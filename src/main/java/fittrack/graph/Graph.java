@@ -2,9 +2,9 @@ package fittrack.graph;
 
 import fittrack.enums.Exercise;
 import fittrack.trainingsession.TrainingSession;
-import fittrack.user.User;
+//import fittrack.user.User;
 
-import java.time.LocalDateTime;
+//import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Graph {
@@ -39,20 +39,20 @@ public class Graph {
 
     //Print rows for points graph
     private static void printGraphRowsPoints(TrainingSession session, Exercise exercise, int descriptionLength) {
-            int description = session.getSessionDescription().length();
-            int blankDescLength = descriptionLength - description;
-            String descDatetime = session.getSessionDescription() + printChar(blankDescLength, ' ') + " | "
-                    + session.getSessionDatetime() + " | ";
+        int description = session.getSessionDescription().length();
+        int blankDescLength = descriptionLength - description;
+        String descDatetime = session.getSessionDescription() + printChar(blankDescLength, ' ') + " | "
+                + session.getSessionDatetime() + " | ";
 
-            int totalPoints;
-            StringBuilder asterisks = new StringBuilder();
-            if(exercise == null) {
-                totalPoints = session.getTotalPoints();
-            } else {
-                totalPoints = session.getExercisePoints(exercise);
-            }
-            asterisks.append("*".repeat(Math.max(0, totalPoints)));
-            System.out.print(descDatetime + asterisks + " (" + totalPoints + ")" + System.lineSeparator());
+        int totalPoints;
+        StringBuilder asterisks = new StringBuilder();
+        if(exercise == null) {
+            totalPoints = session.getTotalPoints();
+        } else {
+            totalPoints = session.getExercisePoints(exercise);
+        }
+        asterisks.append("*".repeat(Math.max(0, totalPoints)));
+        System.out.print(descDatetime + asterisks + " (" + totalPoints + ")" + System.lineSeparator());
     }
 
     //Prints the overall graph for points
