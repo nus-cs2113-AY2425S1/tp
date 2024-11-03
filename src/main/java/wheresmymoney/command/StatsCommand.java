@@ -4,6 +4,7 @@ import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
 import wheresmymoney.Ui;
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.ArrayList;
@@ -55,32 +56,17 @@ public class StatsCommand extends Command {
         }
         float mean = sum/filteredExpenses.size();
         Ui.displayMessage("HIGHEST EXPENSE:");
-        displayExpense(expenseList, highest);
+        Ui.displayExpense(expenseList, highest);
         Ui.displayMessage("LOWEST EXPENSE:");
-        displayExpense(expenseList, lowest);
+        Ui.displayExpense(expenseList, lowest);
         Ui.displayMessage("MEAN PRICE: " + mean);
-    }
-
-    /**
-     * Display index, category, description, price, and date added of the expense passed to it
-     *
-     * @param expenseList Main expense list to retrieve expense indices
-     * @param expense Expense to be displayed
-     */
-    private static void displayExpense(ExpenseList expenseList, Expense expense) throws WheresMyMoneyException {
-        String index = expenseList.getIndexOf(expense) + 1 + ". ";
-        String category = "CATEGORY: " + expense.getCategory();
-        String description = "DESCRIPTION: " + expense.getDescription();
-        String price = "PRICE: " + expense.getPrice();
-        String dateAdded = "DATE ADDED: " + expense.getDateAdded();
-        Ui.displayMessage(index + category + ", " + description + ", " + price + ", " + dateAdded);
     }
 
     /**
      * Display list expenses as requested by user
      */
     @Override
-    public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade) throws WheresMyMoneyException {
         ArrayList<Expense> listOfExpenses = getList(expenseList);
         displayStats(listOfExpenses, expenseList);
     }

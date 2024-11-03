@@ -24,7 +24,7 @@ public class ExpenseList {
         expenses = new ArrayList<>();
     }
 
-    public ArrayList<Expense> getList() {
+    public ArrayList<Expense> getExpenseList() {
         return expenses;
     }
 
@@ -36,6 +36,13 @@ public class ExpenseList {
         return expenses.isEmpty();
     }
 
+    /**
+     * Retrieves the {@code Expense} at the specified index in the list.
+     *
+     * @param index The index of the expense to retrieve.
+     * @return The {@code Expense} object at the specified index.
+     * @throws WheresMyMoneyException If the index is out of bounds.
+     */
     public Expense getExpenseAtIndex(int index) throws WheresMyMoneyException {
         try {
             return expenses.get(index);
@@ -44,6 +51,13 @@ public class ExpenseList {
         }
     }
     
+    /**
+     * Returns the index of the specified {@code Expense} in the list.
+     *
+     * @param expense The {@code Expense} object to find the index of.
+     * @return The index of the specified {@code Expense}.
+     * @throws WheresMyMoneyException If the expense is not found in the list.
+     */
     public int getIndexOf(Expense expense) throws WheresMyMoneyException {
         int index = expenses.indexOf(expense);
         if (index == -1) {
@@ -112,6 +126,12 @@ public class ExpenseList {
         }
     }
 
+    /**
+     * Deletes the expense at the specified index from the list.
+     *
+     * @param index The index of the expense to be deleted.
+     * @throws WheresMyMoneyException If the index is out of range.
+     */
     public void deleteExpense(int index) throws WheresMyMoneyException {
         if (index < 0 || index >= expenses.size()) {
             throw new WheresMyMoneyException("Index out of range!");

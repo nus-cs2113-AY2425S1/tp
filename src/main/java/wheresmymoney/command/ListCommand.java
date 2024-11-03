@@ -1,5 +1,6 @@
 package wheresmymoney.command;
 
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
@@ -42,30 +43,15 @@ public class ListCommand extends Command {
             return;
         }
         for (Expense expense: expensesToDisplay) {
-            displayExpense(expenseList, expense);
+            Ui.displayExpense(expenseList, expense);
         }
-    }
-
-    /**
-     * Display index, category, description, price, and date added of the expense passed to it
-     *
-     * @param expenseList Main expense list to retrieve expense indices
-     * @param expense Expense to be displayed
-     */
-    private static void displayExpense(ExpenseList expenseList, Expense expense) throws WheresMyMoneyException {
-        String index = expenseList.getIndexOf(expense) + 1 + ". ";
-        String category = "CATEGORY: " + expense.getCategory();
-        String description = "DESCRIPTION: " + expense.getDescription();
-        String price = "PRICE: " + expense.getPrice();
-        String dateAdded = "DATE ADDED: " + expense.getDateAdded();
-        Ui.displayMessage(index + category + ", " + description + ", " + price + ", " + dateAdded);
     }
 
     /**
      * Display list expenses as requested by user
      */
     @Override
-    public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade) throws WheresMyMoneyException {
         ArrayList<Expense> expensesToDisplay = getExpensesToDisplay(expenseList);
         displayExpenses(expensesToDisplay, expenseList);
     }
