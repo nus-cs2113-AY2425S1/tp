@@ -1,8 +1,8 @@
 package wheresmymoney;
 
-import wheresmymoney.exception.WheresMyMoneyException;
-
 import java.time.LocalDate;
+
+import wheresmymoney.exception.WheresMyMoneyException;
 
 /**
  * The {@code Expense} class represents an individual expense
@@ -14,6 +14,7 @@ import java.time.LocalDate;
  * </p>
  */
 public class Expense {
+
     protected Float price;
     protected String description;
     protected String category;
@@ -29,6 +30,7 @@ public class Expense {
         assert (price != null) && (description != null) && (category != null);
         assert (!description.isBlank()) && (!category.isBlank());
     }
+
     public Expense(Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
         if (!DateUtils.isInDateFormat(dateAdded)){
@@ -41,19 +43,24 @@ public class Expense {
         assert (price != null) && (description != null) && (category != null);
         assert (!description.isBlank()) && (!category.isBlank());
     }
+
+    public Expense() {}
     
     public Float getPrice() {
         assert price != null;
         return price;
     }
+
     public String getDescription() {
         assert (description != null) && (!description.isBlank());
         return description;
     }
+
     public String getCategory() {
         assert (category != null) && (!category.isBlank());
         return category;
     }
+
     public LocalDate getDateAdded() {
         assert dateAdded != null;
         return dateAdded;
@@ -65,6 +72,7 @@ public class Expense {
         }
         this.price = price;
     }
+
     public void setDescription(String description) throws WheresMyMoneyException {
         if (description == null) {
             throw new WheresMyMoneyException("Expense's description shouldn't be null.");
@@ -73,6 +81,7 @@ public class Expense {
         }
         this.description = description;
     }
+
     public void setCategory(String category) throws WheresMyMoneyException {
         if (category == null) {
             throw new WheresMyMoneyException("Expense's category shouldn't be null.");
@@ -81,11 +90,11 @@ public class Expense {
         }
         this.category = category;
     }
+
     public void setDateAdded(LocalDate dateAdded) throws WheresMyMoneyException {
         if (dateAdded == null) {
             throw new WheresMyMoneyException("Expense's date added shouldn't be null.");
         }
         this.dateAdded = dateAdded;
     }
-    
-}
+}   
