@@ -1,13 +1,13 @@
 @startuml
-participant "Main" as Main
+participant ":Main" as Main
 activate Main
-
 create "helpCommand:HelpCommand" as HelpCommand
 Main -> HelpCommand: new HelpCommand()
+
 activate HelpCommand
+
 HelpCommand --> Main: helpCommand:HelpCommand
 deactivate HelpCommand
-
 participant "parser:Parser" as Parser
 Main -> Parser: registerCommand(helpCommand)
 activate Parser
@@ -15,11 +15,15 @@ activate Parser
 participant "commands:LinkedHashMap" as CommandMap
 
 Parser -> HelpCommand: getClass()
+activate HelpCommand
 HelpCommand --> Parser: HelpCommand: class
+deactivate HelpCommand
 
 Parser -> HelpCommand: getField("COMMAND_WORD")
+activate HelpCommand
 alt Field found
     HelpCommand --> Parser: commandWord: String
+    deactivate HelpCommand
     Parser -> CommandMap: put(commandWord, helpCommand)
     activate CommandMap
 
@@ -32,14 +36,15 @@ end
 
 Parser --> Main: return
 deactivate Parser
+deactivate Main
 @enduml
 
 @startuml
 participant "Main" as Main
-activate Main
 
 participant "parser:Parser" as Parser
 Main -> Parser: parseCommand(commandWord:String)
+activate Main
 activate Parser
 
 Parser -> "commands: LinkedHashMap" as CommandMap: get(commandPart)
@@ -53,14 +58,15 @@ end
 
 Parser --> Main: command:Command or null
 deactivate Parser
+deactivate Main
 @enduml
 
 @startuml
 participant "Main" as Main
-activate Main
 
 participant "parser:Parser" as Parser
 Main -> Parser: extractArguments(command, argumentString)
+activate Main
 activate Parser
 
 participant "command:Command" as Command
@@ -76,6 +82,7 @@ deactivate Parser
 
 Parser --> Main: arguments:Map<String,String>
 deactivate Parser
+deactivate Main
 @enduml
 
 

@@ -200,19 +200,41 @@ The `AddIncomeCommand` class handles the logic for adding an income transaction 
     
 ## Product scope
 ### Target user profile
-
-{Describe the target user profile}
+#### Demographics:
+- Age: 18-25 years old
+- Education: College or university students
+- Income: Limited or variable income (part-time jobs, allowances, or scholarships)
+#### Psychographics:
+- Tech-Savvy: Comfortable using command-line interfaces and basic programming concepts.
+- Motivated to create good spending habit: Aware of personal finance status and developing better money management habits.
 
 ### Value proposition
-
-{Describe the value proposition: what problem does it solve?}
+uNivUSaver offers a practical solution for students who want to take control of their finances, avoid over-spending and manage their saving goal.
+- Customized budgeting tools: Helps users set up personalized budgets based on their income and expenses, allowing them to see where their money goes and how to optimize it.
+- Habit formation: Encourages regular check-ins and tracking of spending habits, helps students develop a consistent routine for managing their finances.
+- Limit tracking: Helps users to set specific monthly limit and monitor their progress to avoid over-spending.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a...                              | I want to...                                           | So that I can...                                                |
+|---------|--------------------------------------|--------------------------------------------------------|-----------------------------------------------------------------|
+| v1.0   | new user                              | see usage instructions                                 | refer to them when I forget how to use the application          |
+| v1.0   | student                               | input my expenses                                      | keep track of how much I spend daily                            |
+| v1.0   | student with part-time job            | input my income into the budget                        | my budget reflects my earnings                                  |
+| v1.0   | student                               | create categories for expenses                         | separate my expenses into the respective categories             |
+| v1.0   | user                                  | delete any expense                                     | remove any spending that was input wrongly                      |
+| v1.0   | user                                  | delete any income                                      | remove any income that was input wrongly                        |
+| v1.0   | student with changing spending purposes| delete any category                                    | clean up unecessary categories                                  |
+| v1.0   | student who wishes to manage my budget| view my transaction history                            | figure out my spending habits                                   |
+| v1.0   | student                               | view my budget amount                                  | know the current state of my budget                             |
+| v1.0   | student who wishes to manage spendings| view summary of my spending                            | have an idea of where my money goes in a period of time         |
+| v1.0   | student who wishes to manage incomes  | view summary of my incomes                             | have an idea of where my sources of income in a period of time  |
+| v1.0   | user                                  | view current category list                             | know the existing categories in my budget                       |
+| v1.0   | student with various spending purposes| keep track of my spending in each category             | see how much I spend for each category                          |
+| v2.0   | time-constrained student              | see fixed reminders to input daily expenses            | improve accuracy in recording and avoid missing any transactions|
+| v2.0   | student that easily overspending      | see fixed reminders of today expenses                  | stop myself from overspending in the rest of the day            |
+| v2.0   | student                               | find my expenses and incomes by keywords               | search for old transactions                                     |
+| v2.0   | who often changes my mind             | categorize my expenses after creating                  | easily change my expense category                               |
 
 ## Non-Functional Requirements
 
