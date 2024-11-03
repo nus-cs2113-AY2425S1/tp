@@ -17,7 +17,6 @@ public class ByeCommand extends Command {
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
             RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         Ui.displayMessage("Bye. Hope to see you again soon!");
-        Ui.displayMessage("");
     }
 
     @Override
