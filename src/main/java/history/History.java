@@ -1,6 +1,4 @@
 // @@author andreusxcarvalho
-
-
 package history;
 
 import programme.Exercise;
@@ -12,7 +10,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class History {
-
     private static final Logger logger = Logger.getLogger(History.class.getName());
     private final LinkedHashMap<LocalDate, DailyRecord> history;
 

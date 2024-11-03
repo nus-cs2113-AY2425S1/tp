@@ -13,7 +13,6 @@ import static parser.ParserUtils.parseInteger;
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.parseFloat;
 import static parser.ParserUtils.parseDate;
-import static parser.ParserUtils.parseString;
 import static parser.ParserUtils.splitArguments;
 
 /**
@@ -165,7 +164,7 @@ public class FlagParser {
     }
 
     /**
-     * Validates that all required flags are present in the parsed flags.
+     * Validates that all required flags are present in the parsed flags and contains a non-null value.
      *
      * @param requiredFlags The required flags to validate.
      * @throws IllegalArgumentException if any required flag is missing.
@@ -181,10 +180,11 @@ public class FlagParser {
                 logger.log(Level.WARNING, "Missing required flag: {0}", flag);
                 throw new IllegalArgumentException("Required flag: " + flag + " is missing.");
             }
+
             String value = getStringByFlag(flag);
 
             if (isNull(value)) {
-                logger.log(Level.WARNING, "Missing required flag has null value: {0}", flag);
+                logger.log(Level.WARNING, "Required flag has null value: {0}", flag);
                 throw new IllegalArgumentException("Required flag: " + flag + " has no associated value.");
             }
         }
@@ -253,10 +253,5 @@ public class FlagParser {
     public LocalDate getDateByFlag(String flag){
         String dateString = getStringByFlag(flag);
         return parseDate(dateString);
-    }
-
-    public String getNameByFlag(String flag){
-        String string = getStringByFlag(flag);
-        return parseString(string, flag);
     }
 }

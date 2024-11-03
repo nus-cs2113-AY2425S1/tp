@@ -10,6 +10,10 @@ public class ListProgrammeCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "list";
     public static final String SUCCESS_MESSAGE_FORMAT = "Listing programmes: %n%s";
 
+    public ListProgrammeCommand() {
+        logger.log(Level.INFO, "ListCommand created.");
+    }
+    
     @Override
     public CommandResult execute(ProgrammeList programmes, History history){
         assert programmes != null : "Programme list must not be null";
