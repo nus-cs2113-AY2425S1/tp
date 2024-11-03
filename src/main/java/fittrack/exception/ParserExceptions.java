@@ -81,47 +81,49 @@ public class ParserExceptions extends RuntimeException {
         }
 
         switch(exerciseAcronym) {
-            case "PU":
-                if(Integer.parseInt(exerciseData) < 0) {
-                    throw new IllegalArgumentException(INVALID_PULL_UP_REPETITIONS_MESSAGE + exerciseData);
-                }
-                break;
-            case "SR":
-                if(!exerciseData.contains(".")) {
-                    throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData);
-                }
-                exerciseData = exerciseData.replace(".", "");
-                if(Integer.parseInt(exerciseData) < 0) {
-                    throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData);
-                }
-                break;
-            case "SAR":
-                if(Integer.parseInt(exerciseData) < 0) {
-                    throw new IllegalArgumentException(INVALID_SIT_AND_REACH_DISTANCE_MESSAGE + exerciseData);
-                }
-                break;
-            case "SU":
-                if(Integer.parseInt(exerciseData) < 0) {
-                    throw new IllegalArgumentException(INVALID_SIT_UP_REPETITIONS_MESSAGE + exerciseData);
-                }
-                break;
-            case "SBJ":
-                if(Integer.parseInt(exerciseData) < 0) {
-                    throw new IllegalArgumentException(INVALID_STANDING_BROAD_JUMP_DISTANCE_MESSAGE + exerciseData);
-                }
-                break;
-            case "WAR":
-                if(!exerciseData.contains(":")) {
-                    throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
-                }
-                String[] warTime = exerciseData.split(":");
-                if(warTime.length != 2) {
-                    throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
-                }
-                if(Integer.parseInt(warTime[0]) < 0 || Integer.parseInt(warTime[1]) < 0) {
-                    throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
-                }
-                break;
+        case "PU":
+            if(Integer.parseInt(exerciseData) < 0) {
+                throw new IllegalArgumentException(INVALID_PULL_UP_REPETITIONS_MESSAGE + exerciseData);
+            }
+            break;
+        case "SR":
+            if(!exerciseData.contains(".")) {
+                throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData);
+            }
+            exerciseData = exerciseData.replace(".", "");
+            if(Integer.parseInt(exerciseData) < 0) {
+                throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData);
+            }
+            break;
+        case "SAR":
+            if(Integer.parseInt(exerciseData) < 0) {
+                throw new IllegalArgumentException(INVALID_SIT_AND_REACH_DISTANCE_MESSAGE + exerciseData);
+            }
+            break;
+        case "SU":
+            if(Integer.parseInt(exerciseData) < 0) {
+                throw new IllegalArgumentException(INVALID_SIT_UP_REPETITIONS_MESSAGE + exerciseData);
+            }
+            break;
+        case "SBJ":
+            if(Integer.parseInt(exerciseData) < 0) {
+                throw new IllegalArgumentException(INVALID_STANDING_BROAD_JUMP_DISTANCE_MESSAGE + exerciseData);
+            }
+            break;
+        case "WAR":
+            if(!exerciseData.contains(":")) {
+                throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
+            }
+            String[] warTime = exerciseData.split(":");
+            if(warTime.length != 2) {
+                throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
+            }
+            if(Integer.parseInt(warTime[0]) < 0 || Integer.parseInt(warTime[1]) < 0) {
+                throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
+            }
+            break;
+        default:
+            break;
         }
         return editDetails;
     }
