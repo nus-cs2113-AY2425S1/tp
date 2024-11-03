@@ -2,14 +2,14 @@ package ymfc.list;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
 import ymfc.recipe.Recipe;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class RecipeListTest {
 
@@ -68,23 +68,23 @@ public class RecipeListTest {
         testRecipeList.addRecipe(recipe2);
         testRecipeList.addRecipe(recipe3);
 
-        testRecipeList.removeRecipe(0);
+        testRecipeList.removeRecipeByName(recipe1.getName());
         assertEquals(2, testRecipeList.getCounter());
         assertSame(recipe3, testRecipeList.getRecipe(1));
 
-        testRecipeList.removeRecipe(1);
+        testRecipeList.removeRecipeByName(recipe3.getName());
         assertEquals(1, testRecipeList.getCounter());
         assertSame(recipe2, testRecipeList.getRecipe(0));
     }
 
     @Test
-    public void removeRecipe_inputOutOfBounds_exceptionThrown() {
+    public void removeRecipe_nonExistentRecipe_returnFalse() {
         testRecipeList = new RecipeList();
         testRecipeList.addRecipe(recipe1);
         testRecipeList.addRecipe(recipe2);
         testRecipeList.addRecipe(recipe3);
 
-        assertThrows(IndexOutOfBoundsException.class, () -> testRecipeList.removeRecipe(-1));
+        assertFalse(testRecipeList.removeRecipeByName("Potato Salad"));
     }
 
 

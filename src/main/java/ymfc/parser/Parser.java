@@ -1,16 +1,17 @@
 package ymfc.parser;
 
 import ymfc.commands.Command;
-import ymfc.commands.AddRecipeCommand;
-import ymfc.commands.AddIngredientCommand;
-import ymfc.commands.ByeCommand;
 import ymfc.commands.DeleteCommand;
+import ymfc.commands.DeleteIngredientCommand;
+import ymfc.commands.ListCommand;
+import ymfc.commands.AddIngredientCommand;
+import ymfc.commands.SortCommand;
+import ymfc.commands.ByeCommand;
+import ymfc.commands.HelpCommand;
 import ymfc.commands.EditCommand;
 import ymfc.commands.FindCommand;
-import ymfc.commands.HelpCommand;
-import ymfc.commands.ListCommand;
+import ymfc.commands.AddRecipeCommand;
 import ymfc.commands.ListIngredientsCommand;
-import ymfc.commands.SortCommand;
 import ymfc.commands.FindIngredCommand;
 
 import ymfc.exception.EmptyListException;
@@ -24,9 +25,12 @@ import ymfc.recipe.Recipe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.HashSet;
 
 /**
  * Parse user input commands
@@ -63,6 +67,11 @@ public final class Parser {
                 throw new EmptyListException("You can't remove something from nothing!");
             }
             return getDeleteCommand(args);
+        case "deleteI":
+            if (numIngredients <= 0) {
+                throw new EmptyListException("You can't remove something from nothing!");
+            }
+            return getDeleteIngredientCommand(args);
         case "listR":
             if (numRecipes <= 0) {
                 throw new EmptyListException("Your recipe list is empty!");
@@ -150,6 +159,14 @@ public final class Parser {
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.toCollection(ArrayList::new));
 
+        // Extract step identifiers (s1, s2, ...) and validate for duplicates or missing numbers
+        List<String> stepIdentifiers = Arrays.stream(stepString.split("\\s+"))
+                .filter(step -> step.matches("[sS][0-9]+/.*")) // Ensure the string matches the step format
+                .map(step -> step.split("/")[0]) // Extracts "s1", "s2", etc.
+                .toList();
+
+        validateStepNumbers(stepIdentifiers); // Check for missing/duplicate numbers
+
         String cuisine = m.group("cuisine") != null ? m.group("cuisine").trim().substring(2) : null;
         Integer timeTaken = getTimeTakenInteger(m);
 
@@ -190,6 +207,19 @@ public final class Parser {
         }
         String name = m.group("name").trim().substring(2);
         return new DeleteCommand(name);
+    }
+
+    private static DeleteIngredientCommand getDeleteIngredientCommand(String args) throws InvalidArgumentException {
+        final Pattern deleteIngredientCommandFormat =
+                Pattern.compile("(?<name>[nN]/[^/]+)");
+        String input = args.trim();
+        Matcher m = deleteIngredientCommandFormat.matcher(input);
+        if (!m.matches()) {
+            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n"
+                    + DeleteIngredientCommand.USAGE_EXAMPLE);
+        }
+        String name = m.group("name").trim().substring(2);
+        return new DeleteIngredientCommand(name);
     }
 
     private static SortCommand getSortCommand(String args) throws InvalidArgumentException {
@@ -303,4 +333,32 @@ public final class Parser {
     private static int countCharOccurrence(String options, String regex) {
         return options.replaceAll(regex, "").length();
     }
+
+    public static void validateStepNumbers(List<String> stepStrings) throws InvalidArgumentException {
+        Set<Integer> stepNumbers = new HashSet<>();
+        int maxStepNumber = 0;
+
+        for (String step : stepStrings) {
+            // Extract the step number (e.g., "s1" -> 1)
+            try {
+                int stepNumber = Integer.parseInt(step.split("/")[0].substring(1));
+                if (!stepNumbers.add(stepNumber)) {
+                    throw new InvalidArgumentException("Duplicate step number found: s" + stepNumber
+                            + "\nLearn to count!");
+                }
+                maxStepNumber = Math.max(maxStepNumber, stepNumber);
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException exception) {
+                throw new InvalidArgumentException("Invalid step format. Expected format: s1, s2, ...");
+            }
+        }
+
+        // Check for missing numbers in the range 1 to maxStepNumber
+        for (int i = 1; i <= maxStepNumber; i++) {
+            if (!stepNumbers.contains(i)) {
+                throw new InvalidArgumentException("Missing step number: s" + i
+                        + "\nLearn to count!");
+            }
+        }
+    }
+
 }
