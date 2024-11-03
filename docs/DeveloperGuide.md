@@ -80,8 +80,7 @@ CourseValidator Class Diagram:
 
 #### Overview:
 This command is responsible for displaying and retrieving the full list of universities
-from `database.json` file. It helps the users to identify the possible choices in
-and Oceania.
+from `database.json` file. It helps the users to identify the possible choices in Oceania.
 
 #### How the feature is implemented:
 * The `ListSchoolCommand` class extends `Command` class where it overrides the `execute` method for
@@ -264,7 +263,7 @@ The `ListCommandsCommand` provides users with a comprehensive list of all availa
 * **Help Command Integration**: Considered integrating `ListCommandsCommand` with the `HelpCommand` to provide a one-stop command for help-related requests, but separating them ensures clarity and keeps each command focused.
 
 #### Sequence Diagram:
-![List Commands Command Sequence Diagram](../uml-images/ListCommandsCommand.png)
+![List Commands Command Sequence Diagram](images/ListCommandsCommand.png)
 
 ### 8. ListPersonalTrackerCommand
 
@@ -311,7 +310,7 @@ Mapped Modules:
 ```
 
 #### Sequence Diagram:
-![List Personal Tracker Command Sequence Diagram](../uml-images/ListPersonalTrackerCommand.png)
+![List Personal Tracker Command Sequence Diagram](images/ListPersonalTrackerCommand.png)
 
 ### 9. Help Command
 
@@ -346,6 +345,52 @@ This allows users to navigate this program easily and effectively.
 - Represents when `execute()` method is called
   ![Help Command sequence diagram](images/HelpCommand.png)
 
+### 10. Compare Mapped Command
+
+#### Overview
+The `CompareMappedCommand` is responsible for comparing course mappings between two specified partner universities. 
+This command aids users in identifying common course mappings across the selected universities, as well as highlighting 
+unique course mappings specific to each university.
+
+#### How the Feature is Implemented
+The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides the `execute` method to define its custom behavior. Below is an outline of the execution flow:
+
+**Parsing User Input**:
+  - The command splits the user input based on the delimiter `pu/` to retrieve the names of the two universities specified by the user.
+    - If fewer than two universities are specified, the `printInvalidInputFormat` method in the `UI` class is called to inform the user of incorrect input format.
+
+**Loading Data and Initial Checks**:
+  - The command loads all course mappings from the `myList.json` file through the `Storage` class.
+  - It verifies that the loaded list is not `null` through assertions.
+
+**Filtering Modules by University**:
+  - The `filterModulesByUniversity` method takes the list of all modules and filters out only those associated with the specified university.
+  - Logging is used to track this filtering process.
+
+**Extracting Course Codes**:
+  - The `extractCourseCodes` method extracts the unique course codes for each university, enabling the subsequent comparison.
+
+**Identifying Common and Unique Course Codes**:
+  - The `getCommonCourseCodes` method calculates the intersection of course codes between the two universities, identifying courses available in both.
+  - The `getUniqueCourseCodes` method identifies unique courses by excluding the common course codes for each university.
+
+**Displaying Results**:
+  - The `displayComparisonResults` method provides output for the comparison:
+    - Common mappings are displayed first, showing courses available in both universities.
+    - Unique mappings are shown next, detailing courses specific to each university.
+  - The output format is controlled through methods in the `UI` class for better readability and user experience.
+
+#### Why it is Implemented this Way
+- **Separation of Concerns**: Methods are organized by function, with each handling a specific part of the comparison logic. This promotes code readability and maintainability.
+
+
+#### Alternatives Considered
+- **Combined Filtering and Extraction**: Initially, filtering and course code extraction were considered for a single method, but separating them simplified the debugging process and enhanced the code structure.
+- **Display Inline in `execute`**: Displaying results directly in the `execute` method was an option. However, using dedicated methods (e.g., `displayComparisonResults`) improved readability and made testing individual components easier.
+
+#### Sequence Diagram:
+![Compare Mapped Command Sequence Diagram](images/CompareMappedCommand.png)
+
 ## Product scope
 ### Target user profile
 
@@ -374,6 +419,7 @@ This allows users to navigate this program easily and effectively.
 | v2.0    | CEG student | list out the mapped courses by calling the list command | I can track all the courses I have mapped to the different PUs |
 | v2.0    | CEG student | delete a course mapping plan for a PU                   | keep my list of saved plans organised                          |
 | v2.0    | CEG student | ask for help when I am in doubt                         | know what are the possible actions                             |
+| v2.0    | CEG student  | compare different mapping plans for each PU                     | find the university best fit for my academic schedule    |
 
 
 ## Non-Functional Requirements
