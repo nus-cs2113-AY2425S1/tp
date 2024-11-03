@@ -39,7 +39,7 @@ public class Exception extends Throwable {
     }
 
     public static String invalidCommand() {
-        return "Invalid command. \nPlease check the commands available by typing commands.";
+        return "Invalid command.\nPlease check the commands available by typing commands.";
     }
 
     public static String noInputAfterDelete() {
