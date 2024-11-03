@@ -232,7 +232,7 @@ Parameters:
 - `/p PROGRAMME_INDEX`: index of the programme that was completed.
 - `/d DAY_INDEX`: index of the Day that was completed.
 
-Example: `prog log /t 12-12-2024 /p 1 /d 1`
+Example: `prog log /p 1 /d 1 /t 12-12-2024`
 
 ```
 ==================================================
@@ -261,6 +261,7 @@ Parameters:
 Chicken Breast | 250kcal has been added to 30-10-2024.
 ```
 ---
+
 ### 9. View Meals
 
 Displays all meals recorded for a specific date.
@@ -270,13 +271,14 @@ Command: `meal view /t DATE`
 Parameters:
 - `/t DATE`: Date in the format `dd-MM-yyyy`.
 
-**Example**: `meal view /t 30-10-2024`
+**Example**: `meal view 30-10-2024`
 ```
 Meals for 30-10-2024:
 
 1. Chicken Breast | 250 kcal
 2. Scrambled Eggs | 150 kcal
 ```
+
 ---
 
 ### 10. Delete a Meal
@@ -292,21 +294,106 @@ Parameters:
 ```
 Chicken Breast | 250kcal has been deleted from 30-10-2024
 ```
+
 ---
+
+### 11. Add a Water Log
+
+Adds a water log to the daily record of a specific date.
+
+Command: `water add /v WATER_VOLUME /t DATE`
+
+Parameters:
+- `/v WATER_VOLUME `: Volume of Water. (floating number)
+- `/t DATE`: Date in the format `dd-MM-yyyy`.
+
+**Example**: `water add /v 200.2 /t 30-10-2024`
+```
+200.2 liters of water has been added
+```
+
+---
+
+### 12. View Water Logs
+
+Displays all water logs recorded for a specific date.
+
+Command: `water view /t DATE`
+
+Parameters:
+- `/t DATE`: Date in the format `dd-MM-yyyy`.
+
+**Example**: `water view 30-10-2024`
+```
+Water intake for 30-10-2024:
+
+1: 100.0
+2. 200.2
+```
+
+---
+
+### 13. Delete a Water Log
+Deletes a water log from the daily record of a specific date.
+
+Command: `water delete /w WATER_INDEX /t DATE`
+
+Parameters:
+- `/w WATER_INDEX`: Index of the water to delete.
+- `/t DATE`: Date in the format `dd-MM-yyyy`.
+
+**Example**: `water delete /w 1 /t 30-10-2024`
+```
+100.0 liters of water has been deleted
+```
+
+---
+
+### 14. View All History
+Displays a comprehensive record of workouts, meals, and water intake for each logged day.
+
+Command: `history`
+
+**Example**: `history`
+```
+Completed On: 30-10-2024
+
+Day: 
+ONE
+1. Bench Press: 3 sets of 12 at 30 | Burnt 220 cals
+2. Squat: 3 sets of 12 at 50 | Burnt 300 cals
+
+Total Calories burnt: 520 kcal
+
+Meals: 
+1: pasta | 100kcal
+Total Calories from Meals: 100 kcal
+
+Water Intake: 
+1: 100.0
+Total Water Intake: 100.0 liters 
+
+Caloric Balance: -420 kcal
+
+```
 
 ## Command Summary
 
-| Command              | Description                                                 | Format                                                                                      | Example                                                                |
-|----------------------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
+| Command              | Description                                                   | Format                                                                                      | Example                                                          |
+|----------------------|---------------------------------------------------------------|---------------------------------------------------------------------------------------------|------------------------------------------------------------------|
 | **Add Programme**    | Creates a new workout Programme                               | `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SET /r REP /w WEIGHT /c CALORIES` | `prog create Starter /d ONE /e /n Bench_Press /s 3 /r 12 /w 30 /c 100` |
-| **View Programme**   | Displays the detailed workout routine of a specific Programme | `prog view [INDEX]`                                                                         | `prog view 1`                                                          |
-| **List Programmes**  | Lists all workout Programmes with their index and name        | `prog list`                                                                                 | `prog list`                                                            |
-| **Delete Programme** | Deletes a Programme by its index                              | `prog delete INDEX`                                                                         | `prog delete 1`                                                        |
-| **Edit Programme**   | Edits exercises or days within a Programme                    | `prog edit /p PROG_INDEX /d DAY [command] [args]`                                           | `prog edit /p 1 /d 1 /u 1 /w 30`                                       |
-| **Set Active**       | Sets a Programme as the active one                            | `prog start INDEX`                                                                          | `prog start 1`                                                         |
-| **Log Workout**      | Logs a workout for a specific day                           | `prog log /p PROGRAMME_INDEX /d DAY_INDEX /t DATE`                              | `log /p 1 /d 1 /t 12/10/2024`                                   |
-| **Add Meal**         | Adds a meal to a daily record                               | `meal add /n MEAL_NAME /c CALORIES /t DATE`                                                 | `meal add /n Chicken_Breast /c 250 /t 30-10-2024`                      |
-| **View Meals**       | Displays all meals for a specific date                      | `meal view /t DATE`                                                                         | `meal view /t 30-10-2024`                                              |
-| **Delete Meal**      | Deletes a meal from a daily record                          | `meal delete /m MEAL_INDEX /t DATE`                                                         | `meal delete /m 1 /t 30-10-2024`                                       |
+| **View Programme**   | Displays the detailed workout routine of a specific Programme | `prog view [INDEX]`                                                                         | `prog view 1`                                                    |
+| **List Programmes**  | Lists all workout Programmes with their index and name        | `prog list`                                                                                 | `prog list`                                                      |
+| **Delete Programme** | Deletes a Programme by its index                              | `prog delete INDEX`                                                                         | `prog delete 1`                                                  |
+| **Edit Programme**   | Edits exercises or days within a Programme                    | `prog edit /p PROG_INDEX /d DAY [command] [args]`                                           | `prog edit /p 1 /d 1 /u 1 /w 30`                                 |
+| **Set Active**       | Sets a Programme as the active one                            | `prog start INDEX`                                                                          | `prog start 1`                                                   |
+| **Log Workout**      | Logs a workout for a specific day                             | `prog log /p PROGRAMME_INDEX /d DAY_INDEX /t DATE`                                          | `log /p 1 /d 1 /t 12/10/2024`                                    |
+| **Add Meal**         | Adds a meal to a daily record                                 | `meal add /n MEAL_NAME /c CALORIES /t DATE`                                                 | `meal add /n Chicken_Breast /c 250 /t 30-10-2024`                |
+| **View Meals**       | Displays all meals for a specific date                        | `meal view /t DATE`                                                                         | `meal view 30-10-2024`                                           |
+| **Delete Meal**      | Deletes a meal from a daily record                            | `meal delete /m MEAL_INDEX /t DATE`                                                         | `meal delete /m 1 /t 30-10-2024`                                 |
+| **Add Water**        | Adds a water to a daily record                                | `water add /n MEAL_NAME /c CALORIES /t DATE`                                                | `water add /v 200.2 /t 30-10-2024`                               |
+| **View Water**       | Displays all water for a specific date                        | `water view /t DATE`                                                                        | `water view 30-10-2024`                                          |
+| **Delete Water**     | Deletes a water from a daily record                           | `water delete /m MEAL_INDEX /t DATE`                                                        | `water delete /w 1 /t 30-10-2024`                                |
+| **View History**     | Displays a comprehensive record of workouts, meals, and water intake for each logged day.| `history`                                                                                   | `history`                                |
 
 

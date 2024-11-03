@@ -1,4 +1,4 @@
-//@@author BevLow
+//@@author Bev-Low
 package command.water;
 
 import command.Command;

@@ -2,6 +2,7 @@
 package command.meals;
 
 import command.CommandResult;
+import common.Utils;
 import history.DailyRecord;
 import history.History;
 import meal.MealList;
@@ -37,14 +38,15 @@ public class ViewMealCommand extends MealCommand {
      */
     public CommandResult execute(History history) {
         logger.log(Level.INFO, "Executing ViewMealCommand for date: {0}", date);
+        String formattedDate = Utils.formatDate(date);
 
         DailyRecord dailyRecord = history.getRecordByDate(date);
         assert dailyRecord != null : "Daily record not found";
-        MealList meals = dailyRecord.getMealList();
+        MealList meals = dailyRecord.getMealListFromRecord();
 
         logger.log(Level.INFO, "Retrieved MealList for date {0}: {1}", new Object[]{date, meals});
 
-        return new CommandResult(meals.toString());
+        return new CommandResult("Meals for " + formattedDate +  ": \n\n" + meals.toString());
     }
 
     @Override

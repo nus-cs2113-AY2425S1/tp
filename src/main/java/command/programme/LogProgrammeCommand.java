@@ -46,7 +46,7 @@ public class LogProgrammeCommand extends ProgrammeCommand {
         Day completed = selectedProgramme.getDay(dayIndex);
 
         DailyRecord dailyRecord = history.getRecordByDate(date);
-        dailyRecord.logDay(completed);
+        dailyRecord.logDayToRecord(completed);
         history.logRecord(date, dailyRecord);
 
         logger.log(Level.INFO, "LogCommand executed successfully for day: {0}", completed);
