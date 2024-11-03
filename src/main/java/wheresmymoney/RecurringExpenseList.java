@@ -92,7 +92,6 @@ public class RecurringExpenseList extends ExpenseList {
      * @param price New price of expense
      * @param description New description of expense
      * @param category New category of expense
-     * @param lastAddedDate Date of when the expense was last updated
      * @param frequency Frequency of recurring expense
      */
     public void addRecurringExpense(Float price, String description, String category, String frequency) {
@@ -256,6 +255,8 @@ public class RecurringExpenseList extends ExpenseList {
                 case "monthly":
                     addMonthlyExpense(recurringExpense, lastAddedDate, currentDate);
                     break;
+                default:
+                    Ui.displayMessage("There was an error loading a recurring expense");
                 }
             }
         } catch (IOException ex) {

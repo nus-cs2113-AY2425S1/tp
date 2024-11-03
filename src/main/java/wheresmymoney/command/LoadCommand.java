@@ -25,8 +25,8 @@ public class LoadCommand extends Command {
      * @throws WheresMyMoneyException
      */
     @Override
-    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList) 
-            throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
+            RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         try {
             expenseList.loadFromCsv(this.EXPENSES_FILE_PATH);
             recurringExpenseList.loadFromCsv(this.RECURRING_EXPENSES_FILE_PATH);

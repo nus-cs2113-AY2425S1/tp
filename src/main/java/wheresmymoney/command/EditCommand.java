@@ -22,8 +22,8 @@ public class EditCommand extends Command {
      * @param recurringExpenseList List of recurring expenses
      */
     @Override
-    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList) 
-            throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
+            RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         try {
             int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
             String oldCategory = expenseList.getExpenseAtIndex(index).getCategory();

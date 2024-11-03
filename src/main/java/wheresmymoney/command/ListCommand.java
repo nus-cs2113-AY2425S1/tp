@@ -78,8 +78,8 @@ public class ListCommand extends Command {
      * Displays list expenses as requested by user
      */
     @Override
-    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList) 
-            throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade,
+            RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         if (this.isRecur()) {
             ArrayList<RecurringExpense> expensesToDisplay = getRecurringExpensesToDisplay(recurringExpenseList);
             assert (expensesToDisplay != null);

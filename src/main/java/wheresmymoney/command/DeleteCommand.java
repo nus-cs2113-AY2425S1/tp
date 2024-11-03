@@ -22,8 +22,8 @@ public class DeleteCommand extends Command {
      * @param recurringExpenseList List of recurring expenses
      */
     @Override
-    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList) 
-            throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
+            RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         try {
             int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
             if (this.isRecur()) {

@@ -21,8 +21,8 @@ public class AddCommand extends Command {
      * @param recurringExpenseList List of recurring expenses
      */
     @Override
-    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList) 
-            throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
+            RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         try {
             float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);

@@ -24,8 +24,8 @@ public class SaveCommand extends Command {
      * @param recurringExpenseList
      * @throws WheresMyMoneyException
      */
-    public void execute(ExpenseList expenseList,  CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList) 
-            throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList,  CategoryFacade categoryFacade, 
+            RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         try {
             expenseList.saveToCsv(this.EXPENSES_FILE_PATH);
             recurringExpenseList.saveToCsv(this.RECURRING_EXPENSES_FILE_PATH);

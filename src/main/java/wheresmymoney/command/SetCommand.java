@@ -15,7 +15,8 @@ public class SetCommand extends Command {
     }
     
     @Override
-    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpense) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
+            RecurringExpenseList recurringExpense) throws WheresMyMoneyException {
         try {
             String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
             float limit = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_LIMIT));
