@@ -7,6 +7,7 @@ import history.History;
 import water.Water;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,11 +22,14 @@ public class ViewWaterCommand extends WaterCommand {
     }
 
     public CommandResult execute(History history) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = date.format(formatter);
+
         DailyRecord dailyRecord = history.getRecordByDate(date);
         assert dailyRecord != null : "Daily record not found";
         Water water = dailyRecord.getWaterFromRecord();
 
         logger.log(Level.INFO, "Retrieved Water record for date: {0}, Water: {1}", new Object[]{date, water});
-        return new CommandResult(water.toString());
+        return new CommandResult("Water intake for " + formattedDate +  ": \n\n" + water.toString());
     }
 }
