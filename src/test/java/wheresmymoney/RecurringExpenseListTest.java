@@ -23,12 +23,17 @@ class RecurringExpenseListTest {
 
     private static String RECURRING_EXPENSES_FILE_PATH = "./recurring_expenses_data.csv";
 
-// RecurringExpense recurringExpense1 = new RecurringExpense(1.00F, "desc1", "cat1", JAN_START_OF_MONTH, "daily");
-// RecurringExpense recurringExpense2 = new RecurringExpense(2.50F, "desc2", "cat2", JAN_MIDDLE_OF_MONTH, "weekly");
-// RecurringExpense recurringExpense3 = new RecurringExpense(3.99F, "desc3", "cat3", JAN_END_OF_MONTH, "monthly");
-// RecurringExpense recurringExpense4 = new RecurringExpense(4.00F, "desc4", "cat4", JUNE_START_OF_MONTH, "daily");
-// RecurringExpense recurringExpense5 = new RecurringExpense(5.50F, "desc5", "cat5", JUNE_MIDDLE_OF_MONTH, "weekly");
-// RecurringExpense recurringExpense6 = new RecurringExpense(6.99F, "desc6", "cat6", JUNE_END_OF_MONTH, "monthly");
+    // RecurringExpense recurringExpense1 = 
+            // new RecurringExpense(1.00F, "desc1", "cat1", JAN_START_OF_MONTH, "daily");
+    // RecurringExpense recurringExpense2 = 
+            // new RecurringExpense(2.50F, "desc2", "cat2", JAN_MIDDLE_OF_MONTH, "weekly");
+    // RecurringExpense recurringExpense3 = new RecurringExpense(3.99F, "desc3", "cat3", JAN_END_OF_MONTH, "monthly");
+    // RecurringExpense recurringExpense4 = 
+            // new RecurringExpense(4.00F, "desc4", "cat4", JUNE_START_OF_MONTH, "daily");
+    // RecurringExpense recurringExpense5 = 
+            // new RecurringExpense(5.50F, "desc5", "cat5", JUNE_MIDDLE_OF_MONTH, "weekly");
+    // RecurringExpense recurringExpense6 = 
+            // new RecurringExpense(6.99F, "desc6", "cat6", JUNE_END_OF_MONTH, "monthly");
 
     private RecurringExpenseList initRecurringExpenseList() {
         
