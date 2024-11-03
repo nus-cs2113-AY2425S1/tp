@@ -291,61 +291,50 @@ __________________________________________________
 __________________________________________________
 Sorted internships by start date (year first), then end date.
 __________________________________________________
-__________________________________________________
-
-
-__________________________________________________
-__________________________________________________
-ID: 1	Status: Application Pending
+ID: 02
 Role: Software Engineer Intern
 Company: Google
+Duration: 05/23 to 08/25
+Skills: Not Stated
+Deadlines:
+     online assessment: 11/11/24
+__________________________________________________
+ID: 01
+Role: Embedded Software Engineer Intern
+Company: Continental
 Duration: 05/24 to 08/24
 Skills: No Skills Entered 
 Deadlines:
-	interview: 25/11/24
+    interview: 25/11/24
 __________________________________________________
-ID: 2	Status: Application Completed
+__________________________________________________
+```
+
+`sort -role`
+
+```
+__________________________________________________
+__________________________________________________
+Sorted internships by role alphabetically (case-insensitive).
+__________________________________________________
+ID: 01
 Role: Embedded Software Engineer Intern
 Company: Venti
 Duration: 04/25 to 08/25
 Skills: No Skills Entered 
 Deadlines:
-	online assessment: 11/11/24
+    interview: 25/11/24
 __________________________________________________
-__________________________________________________
-```
-
-`sort -deadline`
-
-```
-__________________________________________________
-__________________________________________________
-Sorted internships by deadline.
-__________________________________________________
-__________________________________________________
-
-
-__________________________________________________
-__________________________________________________
-ID: 2	Status: Application Completed
-Role: Embedded Software Engineer Intern
-Company: Venti
-Duration: 04/25 to 08/25
-Skills: No Skills Entered 
-Deadlines:
-	online assessment: 11/11/24
-__________________________________________________
-ID: 1	Status: Application Pending
+ID: 02
 Role: Software Engineer Intern
 Company: Google
-Duration: 05/24 to 08/24
-Skills: No Skills Entered 
+Duration: Not Stated
+Skills: Not Stated
 Deadlines:
-	interview: 25/11/24
+    online assessment: 11/11/24
 __________________________________________________
 __________________________________________________
 ```
-
 
 ## Filter command: `filter`
 
