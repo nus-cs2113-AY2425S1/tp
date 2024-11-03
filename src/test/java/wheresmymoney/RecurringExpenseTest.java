@@ -5,7 +5,7 @@ import wheresmymoney.exception.WheresMyMoneyException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ExpenseTest {
+class ReccuringExpenseTest {
     
     private RecurringExpense initRecurringExpenseWithNoNullParts() throws WheresMyMoneyException {
         return new RecurringExpense(0.0F, "desc", "category", "25-10-2024", "daily");
