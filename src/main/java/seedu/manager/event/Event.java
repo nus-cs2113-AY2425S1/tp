@@ -231,6 +231,13 @@ public class Event {
     }
 
     /**
+     * @return a String of the event priority.
+     */
+    public String getEventPriorityString() {
+        return String.format("%s", eventPriority);
+    }
+
+    /**
      * @return true if the event is marked done, false otherwise
      */
     public boolean isDone() {
@@ -286,8 +293,8 @@ public class Event {
     /**
      * @return 'Y' if event is marked done, 'N' otherwise
      */
-    public char markIfDone() {
-        return (this.isDone) ? 'Y' : 'N';
+    public String markIfDone() {
+        return (this.isDone) ? "Y" : "N";
     }
 
     /**
@@ -346,7 +353,7 @@ public class Event {
     @Override
     public String toString(){
         String eventTimeString = getEventTimeString();
-        return String.format("Event name: %s / Event time: %s / Event venue: %s / Event Priority: %s / Done: %c",
+        return String.format("Event name: %s / Event time: %s / Event venue: %s / Event Priority: %s / Done: %s",
                 eventName, eventTimeString, eventVenue, eventPriority, markIfDone());
     }
 

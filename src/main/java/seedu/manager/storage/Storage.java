@@ -1,5 +1,6 @@
 package seedu.manager.storage;
 
+import com.opencsv.CSVWriter;
 import seedu.manager.event.EventList;
 import seedu.manager.event.Event;
 import seedu.manager.item.Item;
@@ -9,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 //@@author KuanHsienn
 /**
@@ -45,11 +47,10 @@ public class Storage {
      * @throws IOException if there's an error writing to the file.
      */
     public void saveEvents(EventList events) throws IOException {
-        try (FileWriter writer = new FileWriter(eventFilePath)) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(eventFilePath))) {
             for (Event event : events.getList()) {
-                String eventTimeString = formatter.format(event.getEventTime());
-                writer.write(String.format(CSV_LINE_FORMAT, event.getEventName(), eventTimeString,
-                        event.getEventVenue(), event.getEventPriority(), event.markIfDone()));
+                String[] fields = getEventFields(event);
+                writer.writeNext(fields);
             }
         } catch (IOException exception) {
             throw new IOException("Error saving events to file: " + eventFilePath);
@@ -64,7 +65,7 @@ public class Storage {
      * @throws IOException if there is an error writing to the file.
      */
     public void saveParticipants(EventList events) throws IOException {
-        try (FileWriter writer = new FileWriter(participantFilePath)) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(participantFilePath))) {
             for (Event event : events.getList()) {
                 saveEventParticipants(event, writer);
             }
@@ -80,7 +81,7 @@ public class Storage {
      * @throws IOException if there is an error writing to the file.
      */
     public void saveItems(EventList events) throws IOException {
-        try (FileWriter writer = new FileWriter(itemFilePath)) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(itemFilePath))) {
             for (Event event : events.getList()) {
                 saveEventItems(event, writer);
             }
@@ -150,11 +151,11 @@ public class Storage {
      * @param writer the file writer.
      * @throws IOException if the participant cannot be written into the file.
      */
-    private void saveEventParticipants(Event event, FileWriter writer) throws IOException {
+    private void saveEventParticipants(Event event, CSVWriter writer) throws IOException {
         ArrayList<Participant> participants = event.getParticipantList();
         for (Participant participant : participants) {
-            writer.write(String.format(CSV_LINE_FORMAT, participant.getName(), participant.getNumber(),
-                    participant.getEmail(), participant.markFileLineIfPresent(), event.getEventName()));
+            String[] fields = getParticipantFields(participant, event);
+            writer.writeNext(fields);
         }
     }
 
@@ -165,12 +166,50 @@ public class Storage {
      * @param writer the file writer.
      * @throws IOException if the participant cannot be written into the file.
      */
-    private void saveEventItems(Event event, FileWriter writer) throws IOException {
+    private void saveEventItems(Event event, CSVWriter writer) throws IOException {
         ArrayList<Item> items = event.getItemList();
         for (Item item : items) {
-            writer.write(String.format(ITEM_CSV_LINE_FORMAT, item.getName(), item.markFileLineIfPresent(),
-                    event.getEventName()));
+            String[] fields = getItemFields(event, item);
+            writer.writeNext(fields);
         }
+    }
+
+    /**
+     * Returns an array of the fields for a given {@link Event}.
+     *
+     * @param event the given {@link Event}.
+     * @return an array of the fields of `event`.
+     */
+    private static String[] getEventFields(Event event) {
+        List<String> fieldsList = List.of(event.getEventName(), event.getEventTimeString(),
+                event.getEventVenue(), event.getEventPriorityString(), event.markIfDone());
+        return fieldsList.toArray(new String[5]);
+    }
+
+    /**
+     * Returns an array of the fields for a given {@link Participant} in a given {@link Event}.
+     *
+     * @param participant the given {@link Participant}.
+     * @param event the given {@link Event}.
+     * @return an array of the fields of `event`.
+     */
+    private String[] getParticipantFields(Participant participant, Event event) {
+        List<String> fieldsList = List.of(participant.getName(), participant.getNumber(),
+                participant.getEmail(), participant.markFileLineIfPresent(), event.getEventName());
+        return fieldsList.toArray(new String[5]);
+    }
+
+    /**
+     * Returns an array of the fields for a given {@link Item} in a given {@link Event}.
+     *
+     * @param item the given {@link Item}.
+     * @param event the given {@link Event}.
+     * @return an array of the fields of `event`.
+     */
+    private String[] getItemFields(Event event, Item item) {
+        List<String> fieldsList = List.of(item.getName(), item.markFileLineIfPresent(),
+                event.getEventName());
+        return fieldsList.toArray(new String[3]);
     }
 }
 

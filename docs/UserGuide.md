@@ -255,6 +255,8 @@ ITEM,STATUS,EVENT
 * `STATUS` must be either `Y` or `N`
 * An entry for the `Event` corresponding to `EVENT` must be present in `events.csv`.
 
+All fields added to the `.csv` files must also be enclosed within double quotation marks (`" "`) to be properly parsed.
+
 If the above format or parameter constraints are not followed, the `Event`, `Participant` or `Item` corresponding to the file line will not be loaded upon program startup.
 
 ## Command Summary

@@ -1,14 +1,17 @@
 package seedu.manager.storage;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvException;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static java.util.logging.Level.INFO;
@@ -44,10 +47,11 @@ public class FileParser {
         try {
             logger.log(INFO, "Loading events from file");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            for (String line : Files.readAllLines(Paths.get(filePath))) {
+            List<String[]> lines = getFileLines(filePath);
+            for (String[] line : lines) {
                 parseEventFileLine(events, line, formatter);
             }
-        } catch (IOException exception) {
+        } catch (IOException | CsvException exception) {
             throw new IOException("Error loading events from file: " + filePath + ".");
         }
     }
@@ -64,10 +68,11 @@ public class FileParser {
     public void parseParticipantsFile(EventList events, String filePath) throws IOException {
         try {
             logger.log(INFO, "Loading event participants from file");
-            for (String line : Files.readAllLines(Paths.get(filePath))) {
+            List<String[]> lines = getFileLines(filePath);
+            for (String[] line : lines) {
                 parseParticipantFileLine(events, line);
             }
-        } catch (IOException exception) {
+        } catch (IOException | CsvException exception) {
             throw new IOException("Error loading events from file: " + filePath + ".");
         }
     }
@@ -83,10 +88,11 @@ public class FileParser {
     public void parseItemsFile(EventList events, String filePath) throws IOException {
         try {
             logger.log(INFO, "Loading event items from file");
-            for (String line : Files.readAllLines(Paths.get(filePath))) {
+            List<String[]> lines = getFileLines(filePath);
+            for (String[] line : lines) {
                 parseItemFileLine(events, line);
             }
-        } catch (IOException exception) {
+        } catch (IOException | CsvException exception) {
             throw new IOException("Error loading events from file: " + filePath + ".");
         }
     }
@@ -96,18 +102,17 @@ public class FileParser {
      * Parses one line of the CSV file containing event details into a {@code Event} in the given event list.
      *
      * @param events the given event list.
-     * @param line the line of the CSV file being parsed.
+     * @param fields the fields of the line of the CSV file being parsed.
      * @param formatter the given date-time formatter (to parse event date and time).
      * @throws IOException if line cannot be parsed successfully.
      */
-    private void parseEventFileLine(EventList events, String line, DateTimeFormatter formatter) throws IOException {
-        String[] parts = line.split(",");
+    private void parseEventFileLine(EventList events, String[] fields, DateTimeFormatter formatter) throws IOException {
         try {
-            String eventName = parts[0].trim();
-            LocalDateTime time = LocalDateTime.parse(parts[1].trim(), formatter);
-            String venue = parts[2].trim();
-            Priority priority = Priority.valueOf(parts[3].trim().toUpperCase());
-            boolean isDone = getIsMarked(parts[4].trim());
+            String eventName = fields[0].trim();
+            LocalDateTime time = LocalDateTime.parse(fields[1].trim(), formatter);
+            String venue = fields[2].trim();
+            Priority priority = Priority.valueOf(fields[3].trim().toUpperCase());
+            boolean isDone = getIsMarked(fields[4].trim());
             events.addEvent(eventName, time, venue, priority, isDone);
         } catch (DateTimeParseException | IndexOutOfBoundsException | NullPointerException
                 | IllegalArgumentException exception) {
@@ -121,17 +126,16 @@ public class FileParser {
      *         {@code Event} in the given event list.
      *
      * @param events the given event list.
-     * @param line the line of the CSV file being parsed.
+     * @param fields the fields in the line of the CSV file being parsed.
      * @throws IOException if line cannot be parsed successfully.
      */
-    private void parseParticipantFileLine(EventList events, String line) throws IOException {
-        String[] parts = line.split(",");
+    private void parseParticipantFileLine(EventList events, String[] fields) throws IOException {
         try {
-            String participantName = parts[0].trim();
-            String number = parts[1].trim();
-            String email = parts[2].trim();
-            boolean isPresent = getIsMarked(parts[3].trim());
-            String eventName = parts[4].trim();
+            String participantName = fields[0].trim();
+            String number = fields[1].trim();
+            String email = fields[2].trim();
+            boolean isPresent = getIsMarked(fields[3].trim());
+            String eventName = fields[4].trim();
             boolean isLoaded = events.addParticipantToEvent(participantName, number, email,
                     isPresent, eventName);
             logOnUnsuccessfulLoad(isLoaded);
@@ -145,20 +149,34 @@ public class FileParser {
      *         {@code Event} in the given event list.
      *
      * @param events the given event list.
-     * @param line the line of the CSV file being parsed.
+     * @param fields the fields in the line of the CSV file being parsed.
      * @throws IOException if line cannot be parsed successfully.
      */
-    private void parseItemFileLine(EventList events, String line) throws IOException {
-        String[] parts = line.split(",");
+    private void parseItemFileLine(EventList events, String[] fields) throws IOException {
         try {
-            String itemName = parts[0].trim();
-            boolean isPresent = getIsMarked(parts[1].trim());
-            String eventName = parts[2].trim();
+            String itemName = fields[0].trim();
+            boolean isPresent = getIsMarked(fields[1].trim());
+            String eventName = fields[2].trim();
             boolean isLoaded = events.addItemToEvent(itemName, isPresent, eventName);
             logOnUnsuccessfulLoad(isLoaded);
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
             logger.log(WARNING, "File line cannot be parsed, item not loaded");
         }
+    }
+
+    /**
+     * Returns a list of fields for each line of a {@code .csv} file at a given file path.
+     *
+     * @param filePath the file path of the {@code .csv} file.
+     * @return a list of fields for each line of the file at filePath.
+     * @throws IOException if the file at the specified file path could not be read.
+     * @throws CsvException if the reader could not read the file.
+     */
+    private List<String[]> getFileLines(String filePath) throws IOException, CsvException {
+        CSVReader reader = new CSVReaderBuilder(new FileReader(filePath)).build();
+        List<String[]> lines = reader.readAll();
+        reader.close();
+        return lines;
     }
 
     /**

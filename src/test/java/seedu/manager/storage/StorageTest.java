@@ -20,9 +20,9 @@ import java.time.format.DateTimeFormatter;
 
 //@@author KuanHsienn
 public class StorageTest {
-    private static final String TEST_EVENTS_FILE_PATH = "test_events.txt";
-    private static final String TEST_PARTICIPANTS_FILE_PATH = "test_participants.txt";
-    private static final String TEST_ITEMS_FILE_PATH = "test_items.txt";
+    private static final String TEST_EVENTS_FILE_PATH = "test_events.csv";
+    private static final String TEST_PARTICIPANTS_FILE_PATH = "test_participants.csv";
+    private static final String TEST_ITEMS_FILE_PATH = "test_items.csv";
     private static final String NON_EXISTENT_FILE_PATH = "non_existent_file.txt";
 
     private Storage storage;
@@ -118,8 +118,8 @@ public class StorageTest {
 
         try {
             String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
-            String expectedContent = "Meeting,2024-10-25 10:00,Conference Room,HIGH,N\n"
-                    + "Workshop,2024-10-26 14:00,Main Hall,MEDIUM,N\n";
+            String expectedContent = "\"Meeting\",\"2024-10-25 10:00\",\"Conference Room\",\"HIGH\",\"N\"\n"
+                    + "\"Workshop\",\"2024-10-26 14:00\",\"Main Hall\",\"MEDIUM\",\"N\"\n";
             assertEquals(expectedContent, content, "The file content does not match the expected output.");
         } catch (IOException exception) {
             fail("Exception should not be thrown when reading the saved file: " + exception.getMessage());
@@ -207,7 +207,7 @@ public class StorageTest {
 
         try {
             String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
-            String expectedContent = "John Doe,9451 3230,jdoe@gmail.com,N,Meeting\n";
+            String expectedContent = "\"John Doe\",\"9451 3230\",\"jdoe@gmail.com\",\"N\",\"Meeting\"\n";
             assertEquals(expectedContent, content, "The file content does not match the expected output.");
         } catch (IOException exception) {
             fail("Exception should not be thrown when reading the saved file: " + exception.getMessage());
@@ -232,7 +232,7 @@ public class StorageTest {
 
         try {
             String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
-            String expectedContent = "Black pens,N,Meeting\n";
+            String expectedContent = "\"Black pens\",\"N\",\"Meeting\"\n";
             assertEquals(expectedContent, content, "The file content does not match the expected output.");
         } catch (IOException exception) {
             fail("Exception should not be thrown when reading the saved file: " + exception.getMessage());

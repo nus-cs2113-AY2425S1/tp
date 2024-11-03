@@ -75,6 +75,6 @@ class ParserIntegrationTest {
         command.setData(events);
         command.execute();
 
-        assertEquals('Y', events.getEventByName("Event 1").get().markIfDone());
+        assertEquals("Y", events.getEventByName("Event 1").get().markIfDone());
     }
 }
