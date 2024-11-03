@@ -6,6 +6,10 @@ import java.util.logging.Logger;
 
 import seedu.duke.data.hospital.Patient;
 
+/**
+ * Represents a command to find patients in the hospital system by a specified keyword.
+ * This command searches for patients whose names contain the keyword.
+ */
 public class FindPatientCommand extends HospitalCommand {
     public static final String COMMAND_WORD = "find";
     public static final String MESSAGE_SUCCESS = "Here are the matching patients in your list: \n%1$s";
@@ -19,10 +23,21 @@ public class FindPatientCommand extends HospitalCommand {
         logger.setLevel(Level.SEVERE);
     }
 
+    /**
+     * Constructs a {@code FindPatientCommand} with the specified keyword to search for.
+     *
+     * @param keyword the keyword to match against patient names.
+     */
     public FindPatientCommand(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * Executes the command to find patients matching the keyword in the hospital system.
+     * Logs if no matching patients are found.
+     *
+     * @return the result of the command, either listing matching patients or indicating no matches.
+     */
     @Override
     public CommandResult execute() {
         assert keyword != null : "Keyword should not be null";
@@ -38,9 +53,6 @@ public class FindPatientCommand extends HospitalCommand {
             return new CommandResult(String.format(MESSAGE_SUCCESS, foundListToString(foundPatients)));
         }
     }
-
-
-
 
     /**
      * Converts a list of found patients into a formatted string.

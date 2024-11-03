@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.patient;
 
 import seedu.duke.data.hospital.Hospital;
 import seedu.duke.data.hospital.Patient;

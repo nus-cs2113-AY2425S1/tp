@@ -8,6 +8,10 @@ import seedu.duke.data.hospital.Patient;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 
+/**
+ * Represents a command to select a specific patient from the hospital system.
+ * This command updates the global state to indicate the selected patient and switches to TASK_STATE.
+ */
 public class SelectPatientCommand extends HospitalCommand {
     public static final String COMMAND_WORD = "select";
     public static final String MESSAGE_SUCCESS = "Selected patient: %1$s";
@@ -22,11 +26,23 @@ public class SelectPatientCommand extends HospitalCommand {
         logger.setLevel(Level.SEVERE);
     }
 
+    /**
+     * Constructs a {@code SelectPatientCommand} with the specified index and global state.
+     *
+     * @param index the one-based index of the patient to select.
+     * @param state the global state object to update with the selected patient.
+     */
     public SelectPatientCommand(int index, State state) {
         this.index = index - 1;
         this.state = state;
     }
 
+    /**
+     * Executes the command to select a patient by index, updating the system state to TASK_STATE.
+     * If the patient is found, their name and tag are displayed; if not, an error is logged.
+     *
+     * @return the result of the command, indicating success or failure due to an invalid index.
+     */
     @Override
     public CommandResult execute() {
         assert index >= 0 : "Index should be non-negative";
