@@ -80,6 +80,7 @@ public class ExpenseList {
         expenses.add(expense);
         Logging.log(Level.INFO, "Successfully added expense.");
     }
+
     /**
      * Add an expense with a specified date to the end of the list
      *
@@ -102,9 +103,9 @@ public class ExpenseList {
      * Edit the details of an expense given its position in the list
      *
      * @param index index of Expense in the list that is to be edited
-     * @param category New category of expense
      * @param price New price of expense
      * @param description New description of expense
+     * @param category New category of expense
      */
     public void editExpense(int index, Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
@@ -179,6 +180,7 @@ public class ExpenseList {
             
             // closing writer connection
             reader.close();
+            csvReader.close();
         } catch (WheresMyMoneyException exc) {
             throw new StorageException("An expense's price, description, category and/or date added is missing");
         } catch (IOException ex) {
