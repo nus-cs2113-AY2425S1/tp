@@ -1,6 +1,8 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.storage.Storage;
+import seedu.exchangecoursemapper.ui.UI;
+import seedu.exchangecoursemapper.exception.Exception;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 public class FindCoursesCommand extends PersonalTrackerCommand{
 
     private final Storage storage;
+    private static final UI ui = new UI();
 
     public FindCoursesCommand(Storage storage) {
         this.storage = storage;
@@ -31,7 +34,7 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         String keyword = lowerCaseInput.replaceFirst("find", "").trim();
 
         if (keyword.isEmpty()) {
-            throw new IllegalArgumentException("Keyword is empty.");
+            throw new IllegalArgumentException(Exception.emptyKeyword());
         }
 
         return keyword;
@@ -41,17 +44,22 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         List<String> mappedCourses = storage.loadAllCourses();
         List<String> foundCourses = new ArrayList<>();
 
+        iterateKeyword(keyword, mappedCourses, foundCourses);
+
+        if (foundCourses.isEmpty()) {
+            ui.printNoMatchFound();
+        } else {
+            for (int i = 0; i < foundCourses.size(); i++) {
+                ui.printFoundCourses(foundCourses.get(i));
+            }
+            ui.printLineSeparator();
+        }
+    }
+
+    private static void iterateKeyword(String keyword, List<String> mappedCourses, List<String> foundCourses) {
         for (String course : mappedCourses) {
             if (course.contains(keyword)) {
                 foundCourses.add(course);
-            }
-        }
-
-        if (foundCourses.isEmpty()) {
-            System.out.println("Course not found.");
-        } else {
-            for (int i = 0; i < foundCourses.size(); i++) {
-                System.out.println(foundCourses.get(i));
             }
         }
     }

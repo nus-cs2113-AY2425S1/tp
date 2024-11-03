@@ -53,4 +53,5 @@ public class Messages {
     public static final String UNIQUE_MAPPINGS_HEADER = "Unique to ";
     public static final String NO_UNIQUE_MAPPINGS = "No unique mappings for ";
     public static final String INVALID_COURSE_MAPPING = "Invalid course mapping!";
+    public static final String NO_MATCH_FOUND = "No match found";
 }

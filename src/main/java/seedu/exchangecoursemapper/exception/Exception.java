@@ -70,4 +70,12 @@ public class Exception extends Throwable {
         return "No courses available for the partner university: " + pu;
     }
 
+    public static String emptyKeyword() {
+        return "Keyword to search for is empty.";
+    }
+
+    public static String unknownUniversity(String puName) {
+        return "Unknown university: " + puName;
+    }
+
 }

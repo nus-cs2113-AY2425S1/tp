@@ -31,6 +31,7 @@ import static seedu.exchangecoursemapper.constants.Messages.COMMON_MAPPINGS_HEAD
 import static seedu.exchangecoursemapper.constants.Messages.NO_COMMON_MAPPINGS;
 import static seedu.exchangecoursemapper.constants.Messages.UNIQUE_MAPPINGS_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.NO_UNIQUE_MAPPINGS;
+import static seedu.exchangecoursemapper.constants.Messages.NO_MATCH_FOUND;
 
 
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
@@ -211,6 +212,18 @@ public class UI {
                         .forEach(System.out::println);
             }
         }
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printNoMatchFound(){
+        System.out.println(NO_MATCH_FOUND);
+    }
+
+    public void printFoundCourses(String foundCourse) {
+        System.out.println(foundCourse);
+    }
+
+    public void printLineSeparator() {
         System.out.println(LINE_SEPARATOR);
     }
 }
