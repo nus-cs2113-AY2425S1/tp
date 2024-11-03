@@ -475,6 +475,14 @@ The interactions between classes during the saving of `Participant`s is shown in
 
 The logic for the loading of `Item`s is similar to that for `Participant`s.
 
+
+Reading and writing from and to the `.csv` storage files is done through operations from the **OpenCSV** library, namely:
+
+* `CSVReader#readAll()`, which is invoked by `FileParser` when loading data, to convert the file into a list of arrays of `String` to be parsed.
+* `CSVWriter#writeNext()`, which is invoked when saving data, to save the fields for an `Event`, `Participant`, or `Item` into the file.
+
+
+
 ## Product scope
 ### Target user profile
 
