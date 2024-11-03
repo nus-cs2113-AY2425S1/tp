@@ -30,6 +30,12 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         this.storage = storage;
     }
 
+    /**
+     * Executes to search for course mappings that match a keyword in personalised tracker.
+     *
+     * @param userInput the input provided by the user to execute the command.
+     * @param storage the Storage instance used to save or retrieve data.
+     */
     @Override
     public void execute(String userInput, Storage storage) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
@@ -44,6 +50,12 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         }
     }
 
+    /**
+     * Parses and returns the extracted keyword from user input.
+     *
+     * @param userInput A string containing the input from users.
+     * @return An extracted string containing the keyword.
+     */
     public String getKeyword(String userInput) {
         assert userInput != null: EMPTY_USER_INPUT;
 
@@ -57,6 +69,11 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         return keyword;
     }
 
+    /**
+     * Finds and prints the course mappings that matches with the keyword.
+     *
+     * @param keyword A string containing the keyword users want to search with.
+     */
     public void findCommand(String keyword) {
         List<String> mappedCourses = storage.loadAllCourses();
         if (mappedCourses.isEmpty()) {
@@ -69,6 +86,12 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         printFindCommand(foundCourses);
     }
 
+    /**
+     * Prints the course mappings that contains the keyword.
+     * If there is no courses that matches, it throws and IllegalArgumentException.
+     *
+     * @param foundCourses Contains all the mapped courses that contains the keyword.
+     */
     private static void printFindCommand(List<String> foundCourses) {
         if (foundCourses.isEmpty()) {
             logger.log(Level.WARNING, Logs.NO_MATCH_FOUND);
@@ -81,6 +104,13 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         }
     }
 
+    /**
+     * Loops and matches the keyword with NUS course codes in personalized tracker.
+     *
+     * @param keyword A string representing the keyword to search for.
+     * @param mappedCourses To represent all the mapped course mappings in the tracker.
+     * @param foundCourses To contain mappings that matches with the keyword.
+     */
     private static void matchKeyword(String keyword, List<String> mappedCourses, List<String> foundCourses) {
         for (String course : mappedCourses) {
             String nusCourseCode = getMappedCode(course);
@@ -91,6 +121,12 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         }
     }
 
+    /**
+     * Returns the NUS course code of the mapped courses in personalized tracker.
+     *
+     * @param course A string containing NUS course code, PU name and PU course code in personalized tracker.
+     * @return Extracted NUS course code in tracker
+     */
     private static String getMappedCode(String course) {
         assert course != null: COURSE_STRING_NOT_NULL;
 
