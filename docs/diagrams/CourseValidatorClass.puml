@@ -1,6 +1,6 @@
 @startuml
 'https://plantuml.com/class-diagram
-
+!include .ClassDiagram.config
 class CourseValidator {
     -logger: Logger {static}
     +isValidCourseMapping(nusCourseInput: String, puCourseInput: String, courses: JsonArray,pu: String): boolean
@@ -21,11 +21,11 @@ class AddCoursesCommand extends PersonalTrackerCommand {
     +execute(userInput: String, storage, Storage): void
 }
 
-abstract class PersonalTrackerCommand extends Command{
+abstract class PersonalTrackerCommand as "{abstract} \nPersonalTrackerCommand" extends Command{
     +execute(userInput: String,storage: Storage)
 }
 
-abstract class Command{
+abstract class Command as "{abstract} \nCommand"{
     +createJsonObject()
 }
 
