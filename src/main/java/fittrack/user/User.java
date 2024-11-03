@@ -15,9 +15,6 @@ public class User {
     private FoodIntake foodIntake;
     private CalorieIntake calorieIntake;
 
-
-
-
     public User(String gender, String age) {
         this.gender = Gender.valueOf(gender.toUpperCase());
         this.age = Integer.parseInt(age);
@@ -25,8 +22,6 @@ public class User {
         this.waterIntake = new WaterIntake();
         this.foodIntake = new FoodIntake();
         this.calorieIntake = new CalorieIntake();
-
-
     }
 
     public void setGender(String gender) {
