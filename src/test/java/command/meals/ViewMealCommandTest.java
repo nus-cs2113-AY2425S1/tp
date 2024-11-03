@@ -4,6 +4,7 @@ import command.CommandResult;
 import history.DailyRecord;
 import history.History;
 import meal.MealList;
+import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -48,7 +49,10 @@ public class ViewMealCommandTest {
     public void testExecuteHappyPath() {
         // Arrange
         when(mockMealList.toString()).thenReturn("Sample Meal List");
-        CommandResult expectedResult = new CommandResult("Sample Meal List");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = date.format(formatter);
+
+        CommandResult expectedResult = new CommandResult("Meals for " + formattedDate + ": \n\nSample Meal List");
 
         // Act
         CommandResult result = viewMealCommand.execute(mockHistory);
