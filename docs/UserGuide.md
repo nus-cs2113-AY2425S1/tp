@@ -349,8 +349,8 @@ Parameters:
 
 ---
 
-### 11. View all history
-View all records of workouts, meals and water intake
+### 11. View All History
+Displays a comprehensive record of workouts, meals, and water intake for each logged day.
 
 Command: `history`
 
@@ -394,5 +394,6 @@ Caloric Balance: -420 kcal
 | **Add Water**        | Adds a water to a daily record                                | `water add /n MEAL_NAME /c CALORIES /t DATE`                                                | `water add /v 200.2 /t 30-10-2024`                               |
 | **View Water**       | Displays all water for a specific date                        | `water view /t DATE`                                                                        | `water view 30-10-2024`                                          |
 | **Delete Water**     | Deletes a water from a daily record                           | `water delete /m MEAL_INDEX /t DATE`                                                        | `water delete /w 1 /t 30-10-2024`                                |
+| **View History**     | Displays a comprehensive record of workouts, meals, and water intake for each logged day.| `history`                                                                                   | `history`                                |
 
 
