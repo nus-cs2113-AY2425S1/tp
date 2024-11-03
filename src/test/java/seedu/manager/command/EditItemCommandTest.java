@@ -49,7 +49,7 @@ public class EditItemCommandTest {
     }
 
     @Test
-    public void editItem_InvalidEvent_failure() {
+    public void editItem_invalidEvent_failure() {
         eventList.addEvent(
                 "Event 1",
                 LocalDateTime.parse("2024-10-20 21:00", formatter),
@@ -78,7 +78,7 @@ public class EditItemCommandTest {
     }
 
     @Test
-    public void editItem_InvalidItem_failure() {
+    public void editItem_invalidItem_failure() {
         eventList.addEvent(
                 "Event 1",
                 LocalDateTime.parse("2024-10-20 21:00", formatter),
