@@ -15,22 +15,22 @@ loop For Each Session
     TrainingSession --> Graph : exercisePerformance
     deactivate TrainingSession
 end
-Graph <-- Graph : maxExercisePerformance
+Graph --> Graph : maxExercisePerformance
 deactivate Graph
 
 Graph -> Graph : generateXHeader(numSessions, sessionList, maxXHeaderLength, yOffset)
 activate Graph
 Graph -> Graph : formatXHeaderDesc(numSessions, sessionList, maxXHeaderLength)
 activate Graph
-Graph <-- Graph : XHeaderDesc
+Graph --> Graph : XHeaderDesc
 deactivate Graph
 
 Graph -> Graph : formatXHeaderDate(numSessions, sessionList, maxXHeaderLength)
 activate Graph
-Graph <-- Graph : XHeaderDate
+Graph --> Graph : XHeaderDate
 deactivate Graph
 
-Graph <-- Graph : XHeaders
+Graph --> Graph : XHeaders
 deactivate Graph
 
 Graph -> Graph : generateMainGraphPerformance(maxExercisePerformance, numSessions, maxXHeaderLength, sessionList, exercise)
@@ -39,11 +39,11 @@ activate Graph
 loop  until all rows are iterated
     Graph -> Graph : generatePerformanceRow(currentPerf, numSessions, maxXHeaderLength, sessionList, exercise)
     activate Graph
-    Graph <-- Graph : rowContents
+    Graph --> Graph : rowContents
     deactivate Graph
 end
 
-Graph <-- Graph : mainContents
+Graph --> Graph : mainContents
 deactivate Graph
 
 User <-- Graph : Display exercise performance graph output

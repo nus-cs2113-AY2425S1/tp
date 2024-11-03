@@ -10,41 +10,33 @@ Graph -> Graph : generatePointGraphs(sessionList, null)
 activate Graph
 Graph -> Graph : generateGraphHeaderPoints(descriptionLength)
 activate Graph
-Graph <-- Graph : Header
+Graph --> Graph : Header
 deactivate Graph
 
-Graph -> Graph : generateGraphRowsPoints(session, null, descriptionLength)
-activate Graph
+loop For each session in sessionList
+    Graph -> Graph : generateGraphRowsPoints(session, null, descriptionLength)
+    activate Graph
 
-Graph -> TrainingSession : getSessionDescription()
-activate TrainingSession
-TrainingSession --> Graph : Description string
-deactivate TrainingSession
+    Graph -> TrainingSession : getSessionDescription()
+    activate TrainingSession
+    TrainingSession --> Graph : description
+    deactivate TrainingSession
 
-Graph -> TrainingSession : getSessionDatetime()
-activate TrainingSession
-TrainingSession --> Graph : Datetime string
-deactivate TrainingSession
+    Graph -> TrainingSession : getSessionDatetime()
+    activate TrainingSession
+    TrainingSession --> Graph : datetime
+    deactivate TrainingSession
 
-Graph -> TrainingSession : getTotalPoints()
-activate TrainingSession
-TrainingSession --> Graph : Total points integer
-deactivate TrainingSession
+    Graph -> TrainingSession : getTotalPoints()
+    activate TrainingSession
+    TrainingSession --> Graph : points
+    deactivate TrainingSession
+    Graph --> Graph : row
+    deactivate Graph
 
-Graph -> Graph : generateChar(blankDescLength, ' ')
-activate Graph
-Graph <-- Graph : Blank string
-deactivate Graph
+end loop
 
-Graph -> Graph : asterisks.append("*".repeat(totalPoints))
-activate Graph
-Graph <-- Graph : Asterisk string
-deactivate Graph
-
-Graph <-- Graph : Row string
-deactivate Graph
-
-Graph <-- Graph : Graph output string
+Graph --> Graph : pointGraph
 deactivate Graph
 
 User <-- Graph : Display graph output

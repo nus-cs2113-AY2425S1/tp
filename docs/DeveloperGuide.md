@@ -149,8 +149,10 @@ It supports three types of graphing functions:
 
    1. `graphSessions(ArrayList<TrainingSession> sessionList)`
       - Displays the total points achieved per session, across training sessions.
+      
    2. `graphExercisePoints(Exercise exercise, ArrayList<TrainingSession> sessionList)`
       - Show points progression for a specific exercise across training sessions.
+      
    3. `graphExercisePerformance(Exercise exercise, ArrayList<TrainingSession> sessionList)`
       - Visualizes the reps or timings achieved for a specific exercise over training sessions.
    
@@ -172,7 +174,7 @@ Only `graphSessions` will be explained/shown for clarity. The core steps in the 
 3. **CLI Output**:
    - The accumulated graph string is printed to the CLI,
 
-//insert sequence diagram
+![Sequence_graphSessions.png](Images/Sequence_graphSessions.png)
 
 > Note: The difference between graphSessions and graphExercisePoints lies in the initial printed string and whether 
 > getTotalPoints or getExercisePoints is called within each row.
@@ -193,7 +195,6 @@ exercise across multiple sessions. The core steps in the workflow are as follows
    - Print the final performance graph to the CLI, providing a visual representation of the user's progress over time.
 
 ![Sequence_graphExercisePerformance.png](Images/Sequence_graphExercisePerformance.png)
-
 
 ## Product scope
 ### Target user profile
