@@ -11,11 +11,13 @@ import water.Water;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.doReturn;
@@ -48,8 +50,6 @@ public class DailyRecordTest {
     @Test
     public void testConstructor_default() {
         dailyRecord = new DailyRecord();
-        assertNotNull(dailyRecord.getDayFromRecord());
-        assertEquals("Empty Day", dailyRecord.getDayFromRecord().getName());
         assertNotNull(dailyRecord.getWater());
         assertNotNull(dailyRecord.getMealList());
     }
@@ -68,13 +68,6 @@ public class DailyRecordTest {
         Day emptyDay = new Day("Empty Day");
         dailyRecord.logDay(emptyDay);
         assertEquals(emptyDay, dailyRecord.getDayFromRecord());
-    }
-
-    @Test
-    public void logDay_nullDay() {
-        dailyRecord = new DailyRecord();
-        assertNotNull(dailyRecord.getDayFromRecord());
-        assertEquals(0, dailyRecord.getDayFromRecord().getExercisesCount());
     }
 
     @Test
@@ -166,8 +159,7 @@ public class DailyRecordTest {
     @Test
     public void getDayFromRecord_initialDay() {
         dailyRecord = new DailyRecord();
-        assertNotNull(dailyRecord.getDayFromRecord());
-        assertEquals(0, dailyRecord.getDayFromRecord().getExercisesCount());
+        assertNull(dailyRecord.getDayFromRecord());
     }
 
     @Test
@@ -175,13 +167,6 @@ public class DailyRecordTest {
         dailyRecord = new DailyRecord();
         dailyRecord.logDay(validDay);
         assertEquals("validDay", dailyRecord.getDayFromRecord().getName());
-    }
-
-    @Test
-    public void getDayFromRecord_nullDay() {
-        dailyRecord = new DailyRecord();
-        Day day = dailyRecord.getDayFromRecord();
-        assertNotNull(day);
     }
 
     @Test

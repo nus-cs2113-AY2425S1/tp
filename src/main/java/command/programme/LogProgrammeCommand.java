@@ -1,3 +1,5 @@
+// @@author andreusxcarvalho
+
 package command.programme;
 import command.CommandResult;
 import history.DailyRecord;
@@ -23,6 +25,10 @@ public class LogProgrammeCommand extends ProgrammeCommand {
         assert date != null : "Date must not be null";
 
         this.date = date;
+        logger.log(Level.INFO,
+                "LogCommand created with progIndex: {0}, dayIndex: {1}, date: {2}",
+                new Object[]{programmeIndex, dayIndex, date}
+        );
     }
 
     @Override

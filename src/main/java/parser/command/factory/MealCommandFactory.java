@@ -57,7 +57,7 @@ public class MealCommandFactory {
 
         flagParser.validateRequiredFlags("/n", "/c");
 
-        String mealName = flagParser.getNameByFlag("/n");
+        String mealName = flagParser.getStringByFlag("/n");
         int mealCalories = flagParser.getIntegerByFlag("/c");
         LocalDate date = flagParser.getDateByFlag("/t");
 
