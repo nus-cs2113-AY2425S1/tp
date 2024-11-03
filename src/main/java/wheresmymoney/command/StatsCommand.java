@@ -1,7 +1,11 @@
 package wheresmymoney.command;
 
-import wheresmymoney.*;
 import wheresmymoney.category.CategoryFacade;
+import wheresmymoney.Expense;
+import wheresmymoney.ExpenseList;
+import wheresmymoney.Parser;
+import wheresmymoney.RecurringExpenseList;
+import wheresmymoney.Ui;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.ArrayList;
