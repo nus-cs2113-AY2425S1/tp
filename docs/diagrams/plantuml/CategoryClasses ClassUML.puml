@@ -1,0 +1,70 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+' class "<<Facade>> \n CategoryFacade" {
+class CategoryFacade {
+'    -CategoryTracker categoryTracker
+'    -CategoryFilter categoryFilter
+'    -CategoryStorage categoryStorage
+
+'    +CategoryFacade()
+'    +getCategoryTracker(): CategoryTracker
+    +addCategory(category: String, price: float) : void
+    +deleteCategory(category: String, price: Float) : void
+    +editCategory(oldCategory: String, newCategory: String, price: float) : void
+    +loadCategoryInfo(expenseList: ExpenseList) : void
+    +displayFilteredCategories() : void
+    +saveCategoryInfo() : void
+    +setCategorySpendingLimit(category: String, limit: float) : void
+}
+
+class CategoryTracker {
+    - HashMap<String, CategoryData> tracker
+
+'    + CategoryTracker()
+'    + getTracker(): HashMap<String, CategoryData>
+'    + size(): int
+'    + contains(category: String): boolean
+    +getCategoryDataOf(category: String): CategoryData
+    +checkLimitOf(category: String): void
+    +addCategory(category: String, price: Float): void
+    +editCategory(oldCategory: String, newCategory: String, price: Float): void
+    +deleteCategory(category: String, price: Float): void
+    +setSpendingLimitFor(category: String, spendingLimit: Float): void
+}
+
+class CategoryData {
+    #currExpenditure: Float
+    #maxExpenditure: Float
+
+    + CategoryData(currExpenditure: Float): CategoryData
+    + CategoryData(currExpenditure: Float, maxExpenditure: Float): CategoryData
+'    + getCurrExpenditure(): Float
+'    + getMaxExpenditure(): Float
+'    + setCurrExpenditure(currExpenditure: Float): void
+'    + setMaxExpenditure(maxExpenditure: Float): void
+    + increaseCurrExpenditureBy(price: Float): void
+    + decreaseCurrExpenditureBy(price: Float): void
+    + isNearingLimit(): boolean
+    + hasExceededLimit(): boolean
+}
+
+class CategoryFilter {
+'    - CategoryFacade categoryFacade
+    - PriorityQueue<Map.Entry<String, CategoryData>> exceededCategories
+    - PriorityQueue<Map.Entry<String, CategoryData>> nearingCategories
+
+'    + setCategoryFacade(categoryFacade: CategoryFacade): void
+    -initMaxHeap(): PriorityQueue<Map.Entry<String, CategoryData>>
+    +getCategoriesFiltered(): void
+    -displayFilteredCategories(filtered: PriorityQueue<Map.Entry<String, CategoryData>>, messageIfFound: String, messageIfNoneFound: String): void
+    +displayExceededCategories(): void
+    +displayNearingCategories(): void
+}
+
+CategoryFacade " 1    " <-d-> " 1 " CategoryTracker
+CategoryFacade " 1 " <---d-> " 1 " CategoryFilter
+CategoryTracker " 0..1 " -d-> " * " CategoryData : " contains "
+
+@enduml

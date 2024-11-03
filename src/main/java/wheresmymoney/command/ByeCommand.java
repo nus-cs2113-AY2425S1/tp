@@ -1,5 +1,6 @@
 package wheresmymoney.command;
 
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Ui;
 import wheresmymoney.exception.WheresMyMoneyException;
@@ -12,7 +13,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute(ExpenseList expenseList) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade) throws WheresMyMoneyException {
         Ui.displayMessage("Bye. Hope to see you again soon!");
     }
 
