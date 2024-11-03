@@ -209,30 +209,32 @@ public class Graph {
     }
 
     //For testing purposes
-//    public static void main(String[] args){
-//        ArrayList<TrainingSession> trainingSessions = new ArrayList<>();
-//        User user = new User("male", "13"); // Assuming a default User constructor exists
-//
-//        for (int i = 0; i < 5; i++) {
-//            TrainingSession session = new TrainingSession(
-//                    LocalDateTime.now().minusDays(i),
-//                    "Session " + (i + 1),
-//                    user
-//            );
-//
-//            // Edit exercises with varied reps
-//            session.editExercise(Exercise.PULL_UP, String.valueOf(6 + i * 2));
-//            session.editExercise(Exercise.SHUTTLE_RUN, "11.2");
-//            session.editExercise(Exercise.SIT_AND_REACH, String.valueOf(30 + i * 3));
-//            session.editExercise(Exercise.SIT_UP, String.valueOf(20 + i * 4));
-//            session.editExercise(Exercise.STANDING_BROAD_JUMP, String.valueOf(150 + i * 10));
-//            session.editExercise(Exercise.WALK_AND_RUN, "12:30");
-//
-//            trainingSessions.add(session);
-//        }
-//
-//        graphSessions(trainingSessions);
-//        graphExercisePoints(Exercise.WALK_AND_RUN, trainingSessions);
-//        graphExercisePerformance(Exercise.SIT_AND_REACH, trainingSessions);
-//    }
+    /*
+    public static void main(String[] args){
+        ArrayList<TrainingSession> trainingSessions = new ArrayList<>();
+        User user = new User("male", "13"); // Assuming a default User constructor exists
+
+        for (int i = 0; i < 5; i++) {
+            TrainingSession session = new TrainingSession(
+                    LocalDateTime.now().minusDays(i),
+                    "Session " + (i + 1),
+                    user
+            );
+
+            // Edit exercises with varied reps
+            session.editExercise(Exercise.PULL_UP, String.valueOf(6 + i * 2));
+            session.editExercise(Exercise.SHUTTLE_RUN, "11.2");
+            session.editExercise(Exercise.SIT_AND_REACH, String.valueOf(30 + i * 3));
+            session.editExercise(Exercise.SIT_UP, String.valueOf(20 + i * 4));
+            session.editExercise(Exercise.STANDING_BROAD_JUMP, String.valueOf(150 + i * 10));
+            session.editExercise(Exercise.WALK_AND_RUN, "12:30");
+
+            trainingSessions.add(session);
+        }
+
+        graphSessions(trainingSessions);
+        graphExercisePoints(Exercise.WALK_AND_RUN, trainingSessions);
+        graphExercisePerformance(Exercise.SIT_AND_REACH, trainingSessions);
+    }
+    */
 }
