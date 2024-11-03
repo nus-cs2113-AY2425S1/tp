@@ -299,7 +299,35 @@ The interactions between components of `SortCommand#execute` are shown in the **
 
 ### Filter feature
 
+The `filter` feature allows users to filter events from the event list based on specified criteria. 
+This feature is implemented in the `FilterCommand` class, which extends the `Command` base class and uses flags to determine the filtering criteria.
+
+#### Feature Implementation
+
 ### Find feature
+
+The `find` feature allows users to locate participants within a specified event by their name.
+This feature is implemented in the `FindCommand` class, which extends the `Command` base class. 
+The feature provides detailed feedback, informing the user whether the event or participant was found.
+
+The above operation is implemented as `FindCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+#### Feature Implementation
+
+The `FindCommand` class performs a finding operation within an event of a specified participant. 
+Given below is an example usage scenario and the behaviour of the `find` feature at each step:
+
+1. The user enters the command `find -e EVENT -p PARTICIPANT` to find participants in the specified event given a specified name
+2. The `FindCommand` searches for the specified event within the eventList by calling `getEventByName(eventName)`, which returns an `Optional<Event>`
+3. If the event exists,  the method `findParticipants(personName)` is invoked on the retrieved event to get a list of participants matching `personName`
+    * If participants are found, `outputMessage` is appended with a success message followed by a formatted list of found participants
+    * Otherwise, if either the event is not found or participants is not found, a corresponding failure message is appended to `outputMessage`
+4. The final `outputMessage` is subsequently stored in `this.message` and displayed to the user.
+
+The interactions between components of `FindCommand#execute` are shown in the **Sequence Diagram** below:
+
+<img src="FindCommandSequenceDiagram.png">
 
 ## Product scope
 ### Target user profile
