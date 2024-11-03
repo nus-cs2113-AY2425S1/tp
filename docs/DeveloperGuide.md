@@ -143,6 +143,57 @@ respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), w
 3. **Calculator Logic**: The calculator class uses a lookup table, which maps the user's performance 
    to points based on their age and gender. The points are returned to the exercise station, where they are stored.
 
+### Points/Performance Visualisation 
+The `Graph` class is responsible for creating and displaying various visualizations of training session data. 
+It supports three types of graphing functions:
+
+   1. `graphSessions(ArrayList<TrainingSession> sessionList)`
+      - Displays the total points achieved per session, across training sessions.
+   2. `graphExercisePoints(Exercise exercise, ArrayList<TrainingSession> sessionList)`
+      - Show points progression for a specific exercise across training sessions.
+   3. `graphExercisePerformance(Exercise exercise, ArrayList<TrainingSession> sessionList)`
+      - Visualizes the reps or timings achieved for a specific exercise over training sessions.
+   
+> These functions are designed as static class methods because they work independently of instance-specific data, 
+> focusing on session data passed as parameters. Helper functions are primarily used to format and build graph strings, 
+> with the final output displayed directly to the CLI within these main functions.
+
+#### Displaying point graphs (Function 1 and 2)
+The functions `graphSessions` and `graphExercisePoints` follow a similar workflow to visualize points across sessions. 
+Only `graphSessions` will be explained/shown for clarity. The core steps in the workflow are as follows:
+
+1. **Header Generation**:
+   - The header string is generated first to provide context for each column in the visualization.
+
+2. **Row Generation**:
+   - Each row, representing a training session, is progressively generated.
+   - Rows are appended to the main `StringBuilder`, which accumulates the entire graph's content.
+
+3. **CLI Output**:
+   - The accumulated graph string is printed to the CLI,
+
+//insert sequence diagram
+
+> Note: The difference between graphSessions and graphExercisePoints lies in the initial printed string and whether 
+> getTotalPoints or getExercisePoints is called within each row.
+
+#### Displaying performance graphs (Function 3)
+The `graphExercisePerformance` function visualizes specific performance levels (like reps or timing) achieved for an 
+exercise across multiple sessions. The core steps in the workflow are as follows:
+
+1. **Identify Maximum Performance Level**:
+   - Locate the highest performance level recorded for the specified exercise across all sessions.
+   - This directly corresponds to the upper range of the Y axis.
+
+2. **Generate Headers and Graph Content**:
+   - Format the X-axis headers with session descriptions and dates.
+   - Build rows iteratively based on session performance, with asterisks indicating reps/timings for each session.
+
+3. **Display Graph Output**:
+   - Print the final performance graph to the CLI, providing a visual representation of the user's progress over time.
+
+![Sequence_graphExercisePerformance.png](Images/Sequence_graphExercisePerformance.png)
+
 
 ## Product scope
 ### Target user profile

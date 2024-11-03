@@ -1,0 +1,52 @@
+@startuml
+participant Ui as User
+participant Graph
+participant TrainingSession
+
+User -> Graph : graphSessions(sessionList)
+activate Graph
+
+Graph -> Graph : generatePointGraphs(sessionList, null)
+activate Graph
+Graph -> Graph : generateGraphHeaderPoints(descriptionLength)
+activate Graph
+Graph <-- Graph : Header
+deactivate Graph
+
+Graph -> Graph : generateGraphRowsPoints(session, null, descriptionLength)
+activate Graph
+
+Graph -> TrainingSession : getSessionDescription()
+activate TrainingSession
+TrainingSession --> Graph : Description string
+deactivate TrainingSession
+
+Graph -> TrainingSession : getSessionDatetime()
+activate TrainingSession
+TrainingSession --> Graph : Datetime string
+deactivate TrainingSession
+
+Graph -> TrainingSession : getTotalPoints()
+activate TrainingSession
+TrainingSession --> Graph : Total points integer
+deactivate TrainingSession
+
+Graph -> Graph : generateChar(blankDescLength, ' ')
+activate Graph
+Graph <-- Graph : Blank string
+deactivate Graph
+
+Graph -> Graph : asterisks.append("*".repeat(totalPoints))
+activate Graph
+Graph <-- Graph : Asterisk string
+deactivate Graph
+
+Graph <-- Graph : Row string
+deactivate Graph
+
+Graph <-- Graph : Graph output string
+deactivate Graph
+
+User <-- Graph : Display graph output
+deactivate Graph
+@enduml
