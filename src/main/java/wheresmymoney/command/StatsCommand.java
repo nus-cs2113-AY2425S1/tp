@@ -1,9 +1,6 @@
 package wheresmymoney.command;
 
-import wheresmymoney.Expense;
-import wheresmymoney.ExpenseList;
-import wheresmymoney.Parser;
-import wheresmymoney.Ui;
+import wheresmymoney.*;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -66,7 +63,8 @@ public class StatsCommand extends Command {
      * Display list expenses as requested by user
      */
     @Override
-    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade) throws WheresMyMoneyException {
+    public void execute(ExpenseList expenseList, CategoryFacade categoryFacade,
+                        RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         ArrayList<Expense> listOfExpenses = getList(expenseList);
         displayStats(listOfExpenses, expenseList);
     }
