@@ -31,6 +31,18 @@ class DeleteLogProgrammeCommandTest {
         history.logRecord(testDate, dailyRecord);
     }
 
+    // Test for constructor with valid inputs
+    @Test
+    void constructor_initializesWithValidParameters() {
+        assertDoesNotThrow(() -> new DeleteLogProgrammeCommand(testDate));
+    }
+
+    // Edge case for constructor: invalid programme ID
+    @Test
+    void constructor_initializesWithInvalidParameters() {
+        assertThrows(AssertionError.class, () -> new DeleteLogProgrammeCommand(null));
+    }
+
     @Test
     void execute_happyPath_logDeletedSuccessfully() {
         DeleteLogProgrammeCommand command = new DeleteLogProgrammeCommand(testDate);
@@ -52,4 +64,11 @@ class DeleteLogProgrammeCommandTest {
         DeleteLogProgrammeCommand command = new DeleteLogProgrammeCommand(testDate);
         assertThrows(AssertionError.class, () -> command.execute(programmes, null));
     }
-} 
+
+    @Test
+    void execute_edgeCase_nullProgrammeList() {
+        DeleteLogProgrammeCommand command = new DeleteLogProgrammeCommand(testDate);
+        assertThrows(AssertionError.class, () -> command.execute(null, history));
+    }
+
+}
