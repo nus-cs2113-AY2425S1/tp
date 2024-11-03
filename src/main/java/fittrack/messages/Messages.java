@@ -34,6 +34,9 @@ public class Messages {
     public static final String ADD_CALORIES_COMMAND = "add-calories";
     public static final String DELETE_CALORIES_COMMAND = "delete-calories";
     public static final String LIST_CALORIES_COMMAND = "list-calories";
+    public static final String ADD_MOOD = "add-mood";
+    public static final String DELETE_MOOD_COMMAND = "delete-mood";
+    public static final String LIST_MOOD_COMMAND = "list-mood";
 
     public static final String INIT_SENTENCE = "Hello! I'm FitTrack."
             + System.lineSeparator() + "Please input your gender and age:";
@@ -67,6 +70,10 @@ public class Messages {
             + System.lineSeparator() + "delete-calories (index)                                          "
             + "delete-calories 1"
             + System.lineSeparator() + "list-calories                                                    list-calories"
+            + System.lineSeparator() + "add-mood (mood description) (date) (time) (description)          add-mood"
+            + "happy 01/11/2024 18:30:00 feeling healthy"
+            + System.lineSeparator() + "delete-mood (mood ID)                                            delete-mood 1"
+            + System.lineSeparator() + "list-mood                                                        list-mood"
             + System.lineSeparator() + "exit                                                             exit";
     public static final String LIST_SESSION_MESSAGE = "Here are your training sessions:";
     public static final String LIST_SESSION_EMPTY_MESSAGE = "Your session list is currently empty.";
@@ -94,6 +101,10 @@ public class Messages {
     public static final String ADD_CALORIES_MESSAGE = "Got it. I've added calorie intake:";
     public static final String DELETE_CALORIES_MESSAGE = "Got it. I've deleted the calorie intake.";
     public static final String LIST_CALORIES_MESSAGE = "Here is your calorie intake:";
+
+    public static final String ADD_MOOD_MESSAGE = "Mood log added: ";
+    public static final String DELETE_MOOD_MESSAGE = "Mood log deleted with ID: ";
+    public static final String LIST_MOOD_MESSAGE = "Your mood logs: ";
 
     public static final String NONNUMERICAL_INDEX_MESSAGE = "Please provide a valid numerical index.";
     public static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Sorry, but that index is not within the list.";
