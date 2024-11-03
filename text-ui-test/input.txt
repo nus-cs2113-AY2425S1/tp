@@ -1,5 +1,0 @@
-add /recur /price 1.00 /description test1 /category cat1 /date 01-01-2024 /frequency daily
-add /recur /price 2.50 /description test2 /category cat2 /date 15-01-2024 /frequency weekly
-add /recur /price 3.99 /description test3 /category cat3 /date 31-01-2024 /frequency monthly
-list /recur
-save
