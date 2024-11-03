@@ -67,7 +67,9 @@ interact with a given component through its interface rather than the concrete c
 
 ### Class Diagrams
 Command Package:
-![Class diagram for Commands](images/CommandClass.png)
+![Class diagram for Commands](images/CommandClassInheritance.png)
+![Class diagram for CheckInformationCommand](images/CheckInformationCommandClass.png)
+![Class diagram for CheckInformationCommand](images/PersonalTrackerCommandClass.png)
 
 CourseValidator Class Diagram: 
 ![Class diagram for CourseValidator](images/CourseValidatorClass.png)
