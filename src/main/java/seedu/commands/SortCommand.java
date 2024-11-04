@@ -21,6 +21,7 @@ public class SortCommand extends Command {
     // Execute method for the SortCommand
     @Override
     public void execute(ArrayList<String> args) {
+        assert internships != null : "Internships list cannot be null";
         uiCommand.clearInvalidFlags();
 
         // Check if no arguments are provided after "sort"
@@ -35,34 +36,44 @@ public class SortCommand extends Command {
         // Handle valid sorting options
         switch (sortOption) {
         case "role":
+            assert internships.getAllInternships().size() > 0 : "Internships list should not be empty when sorting by role";
             internships.listInternshipsSortedByRole();  // Sort by role alphabetically (case-insensitive)
             break;
         case "duration":
+            assert internships.getAllInternships().stream().allMatch(internship -> internship.getStartDate() != null && internship.getEndDate() != null) : "Internships must have valid start and end dates to sort by duration";
             internships.listInternshipsSortedByDuration();  // Sort by start date, then end date (year first)
             break;
         case "deadline":
+            assert internships.getAllInternships().stream().anyMatch(internship -> internship.getEarliestDeadline() != null) : "At least one internship must have a deadline to sort by deadline";
             internships.listInternshipsSortedByDeadline();
             break;
         case "skills":
+            assert internships.getAllInternships().stream().anyMatch(internship -> !internship.getSkills().isEmpty()) : "At least one internship must have skills to sort by skills";
             internships.listInternshipsSortedByFirstSkill();  // Sort by first skill alphabetically
             break;
         case "status":
             internships.listInternshipsSortedByStatus();  // Sort by status alphabetically
             break;
+        case "company":
+            internships.listInternshipsSortedByCompany();  // Sort by company alphabetically
+            break;
         case "role in favourite":
-            internships.listFavouriteInternshipsSortedByRole();  // Sort by role alphabetically (case-insensitive)
+            internships.listFavouriteInternshipsSortedByRole();  // Sort favouriteInternships by role alphabetically (case-insensitive)
             break;
         case "duration in favourite":
-            internships.listFavouriteInternshipsSortedByDuration();  // Sort by start date, then end date (year first)
+            internships.listFavouriteInternshipsSortedByDuration();  // Sort favouriteInternships by start date, then end date (year first)
             break;
         case "deadline in favourite":
-            internships.listFavouriteInternshipsSortedByDeadline();
+            internships.listFavouriteInternshipsSortedByDeadline();  // Sort favouriteInternships by the earliest deadline
             break;
         case "skills in favourite":
-            internships.listFavouriteInternshipsSortedByFirstSkill();  // Sort by first skill alphabetically
+            internships.listFavouriteInternshipsSortedByFirstSkill();  // Sort favouriteInternships by first skill alphabetically
             break;
         case "status in favourite":
-            internships.listFavouriteInternshipsSortedByStatus();  // Sort by status alphabetically
+            internships.listFavouriteInternshipsSortedByStatus();  // Sort favouriteInternships by status alphabetically
+            break;
+        case "company in favourite":
+            internships.listFavouriteInternshipsSortedByCompany(); // Sort favouriteInternships by company alphabetically
             break;
         default:
             // Handle invalid sorting options
@@ -74,9 +85,9 @@ public class SortCommand extends Command {
     public String getUsage() {
         return """
                 sort
-                Usage: sort [role | duration | deadline | skills | status | role in favourite
-                            | duration in favourite | deadline in favourite
-                            | skills in favourite | status in favourite ]
+                Usage: sort [role | duration | deadline | skills | status | company
+                            | role in favourite | duration in favourite | deadline in favourite
+                            | skills in favourite | status in favourite | company in favourite ]
                 
                 role: Sort internships alphabetically by role (case-insensitive).
                 deadline: Sort internships by start date (year first), then end date.

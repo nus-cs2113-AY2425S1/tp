@@ -269,6 +269,16 @@ public class InternshipList {
     }
 
     /**
+     * Lists internships sorted by company alphabetically (case-insensitive).
+     */
+    public void listInternshipsSortedByCompany() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
+
+        Collections.sort(sortedInternships, Comparator.comparing(internship -> internship.getCompany().toLowerCase()));
+        ui.showInternships(sortedInternships, "company");
+    }
+
+    /**
      * List all favourite internships in sorted order by role alphabetically (case-insensitive)
      */
     public void listFavouriteInternshipsSortedByRole() {
@@ -313,6 +323,15 @@ public class InternshipList {
         ArrayList<Internship> sortedList = new ArrayList<>(favouriteInternships);
         Collections.sort(sortedList, Comparator.comparing(internship -> internship.getStatus().toLowerCase()));
         ui.showInternships(sortedList, "status in favourite");
+    }
+
+    /**
+     * Lists all favourite internships sorted by company alphabetically (case-insensitive).
+     */
+    public void listFavouriteInternshipsSortedByCompany() {
+        ArrayList<Internship> sortedList = new ArrayList<>(favouriteInternships);
+        Collections.sort(sortedList, Comparator.comparing(internship -> internship.getCompany().toLowerCase()));
+        ui.showInternships(sortedList, "company in favourite");
     }
 
 

@@ -49,23 +49,27 @@ public class UiInternshipList extends Ui {
         case "role":
             return messageForNormalInternships + "role alphabetically (case-insensitive).";
         case "duration":
-            return messageForNormalInternships + "start date (year first), then end date.";
+            return messageForNormalInternships + "duration with start date (year first), then end date.";
         case "deadline":
             return messageForNormalInternships + "deadline.";
         case "skills":
             return messageForNormalInternships + "skills.";
         case "status":
             return messageForNormalInternships + "status.";
+        case "company":
+            return messageForNormalInternships + "company.";
         case "role in favourite":
             return messageForInternshipsInFavourite + "role alphabetically (case-insensitive).";
         case "duration in favourite":
-            return messageForInternshipsInFavourite + "start date (year first), then end date.";
+            return messageForInternshipsInFavourite + "duration with start date (year first), then end date.";
         case "deadline in favourite":
             return messageForInternshipsInFavourite + "deadline.";
         case "skills in favourite":
             return messageForInternshipsInFavourite + "skills.";
         case "status in favourite":
             return messageForInternshipsInFavourite + "status.";
+        case "company in favourite":
+            return messageForInternshipsInFavourite + "company.";
         default:
             // Handling invalid sorting options
             return "Unknown flag: " + field + "\n Use \"help\" to view valid flags.";
