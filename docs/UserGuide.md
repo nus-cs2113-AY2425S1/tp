@@ -161,4 +161,6 @@ Please set your budget amount:
 * List by date `list [/from DATE] [/to DATE]`
 * Add expense `expense DESCRIPTION /a AMOUNT [/d DATE]`
 * Add income `income DESCRIPTION /a AMOUNT [/d DATE]`
+* Set budget `budget`
 * Delete transaction `delete INDEX`
+* Exit program `exit`
