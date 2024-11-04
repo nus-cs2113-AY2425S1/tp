@@ -13,7 +13,6 @@ class ViewHistoryCommand {
     + execute(ProgrammeList, History): CommandResult
 }
 
-
 HistoryCommand <|-- WeeklySummaryCommand
 HistoryCommand <|-- ViewHistoryCommand
 

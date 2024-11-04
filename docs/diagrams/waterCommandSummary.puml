@@ -1,7 +1,4 @@
 @startuml
-abstract class Command {
-    + {abstract} execute(ProgrammeList, History): CommandResult
-}
 
 abstract class WaterCommand {
     # date: LocalDate
@@ -22,7 +19,6 @@ class ViewWaterCommand {
     + execute(ProgrammeList, History): CommandResult
 }
 
-Command <|-- WaterCommand
 WaterCommand <|-- AddWaterCommand
 WaterCommand <|-- DeleteWaterCommand
 WaterCommand <|-- ViewWaterCommand
