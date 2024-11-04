@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+hide footbox
+
+Participant ":Main" as main
+Participant ":Storage" as storage STORAGE_COLOUR
+Participant ":FileParser" as parser PARSER_COLOUR
+Participant ":EventList" as events EVENT_COLOUR
+
+
+group sd Loading of event data
+main -> storage : loadParticipants(EventList)
+activate storage STORAGE_COLOUR
+
+create parser
+storage -> parser : FileParser()
+activate parser PARSER_COLOUR
+return
+
+storage -> parser : parseParticipantsFile(String)
+activate parser PARSER_COLOUR
+
+loop for line in file
+parser -> parser : parseParticipantFileLine(...)
+activate parser PARSER_COLOUR
+
+parser -> events : addParticipantToEvent(...)
+activate events EVENT_COLOUR
+
+return
+
+return
+
+end
+
+return
+
+return
+
+end
+
+@enduml

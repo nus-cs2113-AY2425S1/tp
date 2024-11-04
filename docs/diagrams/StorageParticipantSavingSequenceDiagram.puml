@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+hide footbox
+
+Participant ":Main" as main
+Participant ":Storage" as storage STORAGE_COLOUR
+Participant ":EventList" as eventList EVENT_COLOUR
+Participant "event:Event" as event EVENT_COLOUR
+
+group sd Saving of participant data
+main -> storage : saveParticipants(EventList)
+activate storage STORAGE_COLOUR
+storage -> eventList : getList()
+activate eventList EVENT_COLOUR
+return :ArrayList<Event>
+
+loop for event in event list
+
+storage -> storage : saveEventParticipants(...)
+activate storage STORAGE_COLOUR
+
+storage -> event : getParticipantsList()
+activate event EVENT_COLOUR
+return :ArrayList<Participant>
+
+return
+
+end
+
+return
+
+end
+
+@enduml
