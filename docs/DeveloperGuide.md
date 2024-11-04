@@ -148,7 +148,7 @@ Here’s the description for each method in the format you provided:
         - Looks up each `keyword` in the `invertedIndex` to find matching transactions.
         - Aggregates and counts relevance for each match.
         - Sorts the results by relevance and returns the list of matched transactions.
-![SearchByKeywords](./diagrams/TransactionList/transactionlist-class-SearchKeyword-diagram.png)
+        - 
 5. **getExpensesByCategory(category : Category) : List<Transaction>**
     - **Parameters**:
         - `category`: The `Category` to filter expenses by.
