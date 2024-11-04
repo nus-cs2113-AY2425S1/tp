@@ -43,7 +43,6 @@ public class AddBudgetCommand extends Command {
         return List.of(CommandResultMessages.SET_BUDGET_SUCCESS + amount);
     }
 
-
     @Override
     protected String[] getMandatoryKeywords() {
         return COMMAND_MANDATORY_KEYWORDS;
