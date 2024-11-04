@@ -25,15 +25,15 @@ public class FilterCommand extends Command {
 
     private static final String INVALID_DATE_FORMAT_MESSAGE = """
             Invalid date format!
-            Please use the following format for event time: YYYY-MM-DD
+            Please use the following format for date: YYYY-MM-DD
             """;
     private static final String INVALID_TIME_FORMAT_MESSAGE = """
             Invalid time format!
-            Please use the following format for event time: HH:mm
+            Please use the following format for time: HH:mm
             """;
     private static final String INVALID_DATE_TIME_FORMAT_MESSAGE = """
             Invalid date-time format!
-            Please use the following format for event time: YYYY-MM-DD HH:mm
+            Please use the following format for date-time: YYYY-MM-DD HH:mm
             """;
 
     protected String flag;
@@ -86,14 +86,14 @@ public class FilterCommand extends Command {
                 outputMessage.append(INVALID_TIME_FORMAT_MESSAGE);
             }
             break;
-        case "-dt":
+        case "-x":
             try {
                 LocalDateTime eventDateTime = LocalDateTime.parse(filterWord,
-                        DateTimeFormatter.ofPattern("YYYY-MM-DD HH:mm"));
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                 filteredEvents = eventList.filterByDateTime(eventDateTime);
                 outputMessage.append(FILTER_BY_DATE_TIME_MESSAGE + "\n");
             } catch (DateTimeException exception) {
-                outputMessage.append(INVALID_TIME_FORMAT_MESSAGE);
+                outputMessage.append(INVALID_DATE_TIME_FORMAT_MESSAGE);
             }
             break;
         case "-u":

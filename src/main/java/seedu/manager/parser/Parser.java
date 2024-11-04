@@ -109,7 +109,7 @@ public class Parser {
     private static final String INVALID_FILTER_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            filter -e/-t/-u FILTER_DESCRIPTION
+            filter -e/-d/-t/-x/-u FILTER_DESCRIPTION
             """;
     private static final String INVALID_FILTER_FLAG_MESSAGE = """
             Invalid filter flag!
@@ -457,10 +457,10 @@ public class Parser {
      */
     private Command getEditItemCommand(String input){
         String[] inputParts = input.split(ITEM_REGEX);
-        String ItemName = inputParts[1].split(ARROW)[0].trim();
-        String ItemNewName = inputParts[1].split(ARROW)[1].trim();
+        String itemName = inputParts[1].split(ARROW)[0].trim();
+        String itemNewName = inputParts[1].split(ARROW)[1].trim();
         String eventName = inputParts[2].trim();
-        return new EditItemCommand(ItemName, ItemNewName, eventName);
+        return new EditItemCommand(itemName, itemNewName, eventName);
     }
 
 
@@ -694,12 +694,12 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
 
         try {
-            String[] inputParts = input.split("(-e|-d|-t|-dt|-u)");
+            String[] inputParts = input.split("(-e|-d|-t|-x|-u)");
             if (inputParts.length < 2) {
                 throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
             }
 
-            Set<String> validFlags = Set.of(EVENT_FLAG, "-d", "-t", "-dt", "-u");
+            Set<String> validFlags = Set.of(EVENT_FLAG, "-d", "-t", "-x", "-u");
             if (validFlags.contains(commandParts[1].trim().toLowerCase())) {
                 return new FilterCommand(commandParts[1].trim().toLowerCase(), inputParts[1].trim());
             }
