@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class CategoryManager {
+    + addCategory(trackerData : TrackerData, categoryName: String) : void
+    + formatInput(input: String) : String
+}
+
+CategoryManager "1" --> "1" TrackerData : uses
+CategoryManager "1" ..> "many" Category : manages
+
+@enduml
