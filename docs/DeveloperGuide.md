@@ -187,8 +187,6 @@ contains the list of courses.
 #### Sequence Diagram:
 ![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
-
 ### 5. Add Courses Command
 
 #### Overview:
@@ -396,9 +394,13 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 
 * CEG students keen to go for SEP and need a clear and organised UI to see course mappings
 * CEG students who want to plan their schools and courses to take 
+* Can type fast 
+* Prefers typing to mouse interactions 
+* Is reasonably comfortable using CLI apps
 
 ### Value proposition
 
+* CEG students can manage SEP planning faster than a typical mouse/GUI driven app (EduRec)
 * CEG students can use ExchangeCourseMapper to expedite their for course mapping process by listing universities 
   and specific courses with their subject codes
 * CEG students can easily filter by either NUS-coded modules or partner universities (PU) to quickly identify relevant course options.
@@ -426,11 +428,11 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 
 1. Access to a computer with Java 17 installed and an IDE that supports Java programming
 2. A CEG Student in NUS planning to map out mainly BT/IS/EE/CS/CG-coded courses
-{TODO: Add more} 
 
 ## Glossary
-
-* *glossary item* - Definition
+* Mainstream OS: Windows, Linux, Unix, MacOS
+* CEG: Computer Engineering
+* PU - Partner University: The targeted university the user wish to go for their SEP
 
 ## Instructions for manual testing
 
