@@ -1,5 +1,20 @@
 # Developer Guide
 
+- [Acknowledgements](#acknowledgements)
+  - [Data source](#data-source)
+  - [Third Party Library Used](#third-party-library-used)
+- [Design](#design)
+  - [Architecture](#architecture)
+  - [Class Diagrams](#class-diagrams)
+- [Implementation](#implementation)
+- [Product scope](#product-scope)
+  - [Target user profile](#target-user-profile)
+  - [Value proposition](#value-proposition)
+- [User stories](#user-stories)
+- [Non-functional requirements](#non-functional-requirements)
+- [Glossary](#glossary)
+- [Manual testing](#instructions-for-manual-testing)
+
 ## Acknowledgements
 
 ### Data source
@@ -12,9 +27,6 @@
 
 #### 'javax.json:javax.json-api:1.1.4'
 * https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4
-
-#### Mockito
-* https://github.com/mockito/mockito
 
 ## Design
 
