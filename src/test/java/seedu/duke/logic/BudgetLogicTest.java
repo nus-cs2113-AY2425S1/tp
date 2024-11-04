@@ -77,7 +77,7 @@ class BudgetLogicTest {
     @Test
     void testModifyBalance() {
         budget.setBudgetAmount(1000);
-        budgetLogic.modifyBalance(1200);
+        budgetLogic.modifyBalance(200);
 
         assertEquals(1200, budget.getBalance());
     }
@@ -88,7 +88,7 @@ class BudgetLogicTest {
     @Test
     void testModifyBalanceNegative() {
         budget.setBudgetAmount(1000);
-        budgetLogic.modifyBalance(800);
+        budgetLogic.modifyBalance(-200);
 
         assertEquals(800, budget.getBalance());
     }
