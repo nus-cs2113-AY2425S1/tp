@@ -58,7 +58,7 @@ public class ProgrammeList {
 
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for getProgramme()", index);
-            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for programme list.");
+            throw new IndexOutOfBoundsException("Index " + index + 1 + " is out of bounds for programme list.");
         }
 
         logger.log(Level.INFO, "Retrieving programme at index {0}: {1}", new Object[]{index, programmeList.get(index)});

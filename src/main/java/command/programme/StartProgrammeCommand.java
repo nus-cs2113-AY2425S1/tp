@@ -13,6 +13,7 @@ public class StartProgrammeCommand extends ProgrammeCommand {
 
     public StartProgrammeCommand(int programmeIndex) {
         super(programmeIndex);
+        logger.log(Level.INFO, "StartCommand created with programme index: {0}", programmeIndex);
     }
 
     @Override

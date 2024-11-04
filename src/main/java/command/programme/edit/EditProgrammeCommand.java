@@ -6,6 +6,8 @@ import command.programme.ProgrammeCommand;
 import history.History;
 import programme.ProgrammeList;
 
+import java.util.logging.Logger;
+
 /**
  * Abstract command class for all editing operations on a programme.
  * <p>
@@ -15,8 +17,8 @@ import programme.ProgrammeList;
  * </p>
  */
 public abstract class EditProgrammeCommand extends ProgrammeCommand {
-
     public static final String COMMAND_WORD = "edit";
+    protected final Logger logger = Logger.getLogger(this.getClass().getName());
 
     protected int exerciseIndex;
 
