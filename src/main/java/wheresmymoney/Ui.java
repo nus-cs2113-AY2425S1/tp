@@ -1,7 +1,8 @@
 package wheresmymoney;
 
-import java.util.Scanner;
+import wheresmymoney.exception.WheresMyMoneyException;
 
+import java.util.Scanner;
 
 public class Ui {
     private static final Scanner scanner = new Scanner(System.in);
@@ -52,5 +53,20 @@ public class Ui {
     public static String getCommand(){
         Ui.displayCommandPrompt();
         return Ui.getUserInput();
+    }
+
+    /**
+     * Display index, category, description, price, and date added of the expense passed to it
+     *
+     * @param expenseList Main expense list to retrieve expense indices
+     * @param expense Expense to be displayed
+     */
+    public static void displayExpense(ExpenseList expenseList, Expense expense) throws WheresMyMoneyException {
+        String index = expenseList.getIndexOf(expense) + 1 + ". ";
+        String category = "CATEGORY: " + expense.getCategory();
+        String description = "DESCRIPTION: " + expense.getDescription();
+        String price = "PRICE: " + expense.getPrice();
+        String dateAdded = "DATE ADDED: " + expense.getDateAdded();
+        Ui.displayMessage(index + category + ", " + description + ", " + price + ", " + dateAdded);
     }
 }

@@ -90,7 +90,7 @@ public class CategoryFacade {
      * @throws StorageException if there is an error while saving category info
      */
     public void saveCategoryInfo() throws StorageException {
-        CategoryStorage.saveToCsv("./category_spending_limit.csv",
+        categoryStorage.saveToCsv("./category_spending_limit.csv",
                 categoryTracker.getTracker());
     }
     /**
