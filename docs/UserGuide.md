@@ -43,6 +43,7 @@ edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact in
 edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
 mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
+mark -m ITEM -e EVENT -s STATUS: Mark an item as accounted or unaccounted.
 copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
 sort -by KEYWORD: Sorts events by name/time/priority.
 filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
@@ -147,6 +148,19 @@ Examples:
 * `mark -p John Tan -e Origami workshop -s done` marks the participant `John Tan` in the `Origami workshop` event as present.
 * `mark -p John Tan -e Origami workshop -s undone` marks the participant `John Tan` in the `Origami workshop` event as absent.
 
+### Marks an item as accounted for: `mark`
+
+Marks an item for an event as accounted for or unaccounted for.
+
+Format: `mark -m ITEM -e EVENT -s STATUS`
+
+* The status parameter must be either `accounted` (to mark accounted) or `unaccounted` (to mark unaccounted).
+
+Examples:
+
+* `mark -m Origami paper -e Origami workshop -s done` marks the item `Origami paper` in the `Origami workshop` event as accounted.
+* `mark -m Origami paper -e Origami workshop -s undone` marks the item `Origami paper` in the `Origami workshop` event as unaccounted.
+* 
 ### Copies participant list: `copy`
 
 Copies the participant list from one event to another event.
@@ -273,6 +287,7 @@ If the above format or parameter constraints are not followed, the `Event`, `Par
 * Edit participant of an event: `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
+* Mark an item as accounted for: `mark -m ITEM -e EVENT -s STATUS`
 * Copy participant list: `copy FROM_EVENT > TO_EVENT`
 * Sort events: `sort -by KEYWORD`
 * Filter events: `filter -e/-t/-u FILTER_DESCRIPTION`
