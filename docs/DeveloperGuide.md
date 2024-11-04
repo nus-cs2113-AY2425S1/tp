@@ -222,15 +222,24 @@ The `DateUtils` class has the following key methods:
 |        Method        |                      Description                       |
 |:--------------------:|:------------------------------------------------------:|
 |   `isInDateFormat`   | checks if a given string is in the correct date format |
-|   `getCurrentDate`   |                 gets the current date                  |
-|    `stringToDate`    |         converts from a given string to a date         |
-| `dateFormatToString` |         converts from a given date to a string         |
+|   `getCurrentDate`   |      gets the current date in `LocalDate` format       |
+    |    `stringToDate`    |   converts from given string to a `LocalDate` object   |
+| `dateFormatToString` |   converts from given `LocalDate` object to a string   |
 
-The date format that `DateUtils` uses, and thus the WheresMyMoney program uses, is `dd-MM-yyyy`.
+The date format that `DateUtils` uses, and thus the WheresMyMoney program uses, is `dd-MM-yyyy`. This ensures consistency in date fomratting throughout the program.
 
 <u>Implementation Details</u>
 
-The `DateUtils` class is implemented as a Singleton as its methods are common to all other classes that require it.
+Most methods are essentially wrappers around the existing `java.time` API methods, but customised to fit this program's needs.
+
+- `isInDateFormat` is a wrapper for `java.time`'s `parse` method, but returns a boolean instead. 
+- `getCurrentDate` is a wrapper for `java.time`'s `now` method.
+- `stringToDate` is a wrapper for `java.time`'s `parse` method.
+- `dateFormatToString` is a wrapper for `java.time`'s `format` method.
+
+<u>Design Considerations</u>
+
+The `DateUtils` class is implemented using class-level methods because date utility operations do not require objects, making the methods reusable across the program without needing to instantiate `DateUtils`.
 
 ### Recurring Expense and Recurring Expense List
 
