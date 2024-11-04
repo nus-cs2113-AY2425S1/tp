@@ -1,6 +1,8 @@
 //@@author TVageesan
 package command;
 
+import java.util.Objects;
+
 public class CommandResult {
     private final String message;
 
@@ -22,5 +24,10 @@ public class CommandResult {
         }
         CommandResult that = (CommandResult) other;
         return message.equals(that.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message);
     }
 }

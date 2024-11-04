@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 import water.Water;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,21 +42,27 @@ public class ViewWaterCommandTest {
         // Set up DailyRecord mock to return a Water object
         when(mockDailyRecord.getWaterFromRecord()).thenReturn(mockWater);
 
+        when(mockWater.toString()).thenReturn("Sample Water Record");
+
         viewWaterCommand = new ViewWaterCommand(date);
     }
 
     @Test
     public void testExecuteHappyPath() {
-        when(mockWater.toString()).thenReturn("Sample Water Record");
-        CommandResult expectedResult = new CommandResult("Sample Water Record");
+        String expectedWaterMessage = "Water intake for " + date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                + ": \n\n" + "Sample Water Record";
+        CommandResult expectedResult = new CommandResult(expectedWaterMessage);
 
         CommandResult result = viewWaterCommand.execute(mockHistory);
 
         verify(mockHistory).getRecordByDate(date);
         verify(mockDailyRecord).getWaterFromRecord();
-        assertEquals(expectedResult, result, "Execution should return a " +
-                "CommandResult with the correct water record output.");
+
+        assertEquals(expectedResult, result,
+                "Execution should return a CommandResult with the correct water record output.");
     }
+
+
 
     @Test
     public void testExecuteEdgeCaseNullDailyRecord() {
