@@ -134,11 +134,20 @@ Examples:
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+**Q1**: How do I transfer my data to another computer? 
 
-**A**: You can save your expenses to a `.csv` file, which you can then transfer and load on another computer 
+**A1**: You can save your expenses to a `.csv` file, which you can then transfer and load on another computer 
 
-## Others
+
+**Q2**: Can I only update limits (via the set command)? What about adding, deleting or viewing?
+
+**A2**: In short, yes. 
+
+- Adding is automatically done when you add an expense with a category not already stored by the program, defaulted to $100.00. 
+- Deletion is not possible as every category will have a corresponding limit. No category can exist without a limit.
+- Viewing is not directly possible using commands, only indirectly by saving and viewing the csv file. 
+
+## Others 
 
 When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`
 
