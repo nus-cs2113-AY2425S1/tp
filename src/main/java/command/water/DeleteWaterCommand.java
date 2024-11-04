@@ -6,6 +6,7 @@ import history.DailyRecord;
 import history.History;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,5 +32,23 @@ public class DeleteWaterCommand extends WaterCommand {
         float deletedWater = dailyRecord.removeWaterFromRecord(indexWaterToDelete);
 
         return new CommandResult(deletedWater + " liters of water has been deleted");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof DeleteWaterCommand)) {
+            return false;
+        }
+        DeleteWaterCommand that = (DeleteWaterCommand) o;
+        return indexWaterToDelete == that.indexWaterToDelete &&
+                Objects.equals(date, that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(indexWaterToDelete, date);
     }
 }
