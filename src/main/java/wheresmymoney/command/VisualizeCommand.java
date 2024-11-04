@@ -1,6 +1,10 @@
 package wheresmymoney.command;
 
-import wheresmymoney.*;
+import wheresmymoney.Expense;
+import wheresmymoney.ExpenseList;
+import wheresmymoney.Parser;
+import wheresmymoney.RecurringExpenseList;
+import wheresmymoney.Ui;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.exception.WheresMyMoneyException;
 import wheresmymoney.visualizer.Visualizer;

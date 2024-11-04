@@ -27,8 +27,8 @@ public class Visualizer {
     private int dateRange;
     private List<String> timeSeries = new ArrayList<>();
     private List<Float> totalExpenses = new ArrayList<>();
-    private final int DAY_VISUALIZER_THRESHOLD = 32;
-    private final int MONTH_VISUALIZER_THRESHOLD = 1080;
+    private static final int DAY_VISUALIZER_THRESHOLD = 32;
+    private static final int MONTH_VISUALIZER_THRESHOLD = 1080;
 
     public Visualizer(ArrayList<Expense> expenses) {
         this.expenses = expenses;
