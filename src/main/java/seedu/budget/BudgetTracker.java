@@ -1,5 +1,6 @@
 package seedu.budget;
 
+import seedu.message.ErrorMessages;
 import seedu.transaction.Transaction;
 import seedu.transaction.Expense;
 import seedu.transaction.TransactionList;
@@ -7,7 +8,6 @@ import seedu.utils.DateTimeUtils;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,11 +49,11 @@ public class BudgetTracker {
             month = DateTimeUtils.parseYearMonth(monthStr);
         } catch (Exception e) {
             logger.log(Level.WARNING, "Invalid date format for budget month: " + e.getMessage());
-            throw new IllegalArgumentException("Invalid date format for budget month.");
+            throw new IllegalArgumentException(e.getMessage());
         }
 
         if (month.isBefore(YearMonth.now())) {
-            String message = "Budget can only be set for the current or future months.";
+            String message = ErrorMessages.MESSAGE_PAST_MONTH_BUDGET;
             logger.log(Level.WARNING, message);
             throw new IllegalArgumentException(message);
         }
@@ -65,6 +65,14 @@ public class BudgetTracker {
     public void setMonthlyBudgets(Map<YearMonth, Double> monthlyBudgets) {
         this.monthlyBudgets = monthlyBudgets;
         logger.log(Level.INFO, "Monthly budgets initialized.");
+    }
+
+    public Map<YearMonth, Double> getMonthlyBudgets() {
+        return monthlyBudgets;
+    }
+
+    public Double getMonthlyBudget(YearMonth month) {
+        return monthlyBudgets.get(month);
     }
 
     /**
@@ -121,20 +129,20 @@ public class BudgetTracker {
                 month, expense, budget);
     }
 
-    public List<String> checkBudgetProgress(YearMonth month) {
+    public String checkBudgetProgress(YearMonth month) {
         if (month.isAfter(YearMonth.now())) {
             logger.log(Level.WARNING, "Cannot check progress for future months.");
-            return List.of("Progress can only be checked for current or past months.");
+            return ErrorMessages.MESSAGE_TRACK_FUTURE_MONTH_BUDGET;
         }
 
         if (!monthlyBudgets.containsKey(month)) {
             logger.log(Level.WARNING, "No budget found for " + month);
-            return List.of("No budget set for this month.");
+            return ErrorMessages.BUDGET_NOT_FOUND;
         }
 
         if (month.equals(YearMonth.now())) {
-            return List.of(calculateCurrentProgress(month));
+            return calculateCurrentProgress(month);
         }
-        return List.of(calculatePastProgress(month));
+        return calculatePastProgress(month);
     }
 }
