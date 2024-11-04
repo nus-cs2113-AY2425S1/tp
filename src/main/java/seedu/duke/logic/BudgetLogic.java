@@ -79,7 +79,7 @@ public class BudgetLogic {
         // if difference is positive, net increase
         // if difference is negative, net decrease
         double difference = amount - currentBalance;
-        double newBalance = amount + difference;
+        double newBalance = currentBalance + difference;
         budget.updateBalance(newBalance);
     }
 }

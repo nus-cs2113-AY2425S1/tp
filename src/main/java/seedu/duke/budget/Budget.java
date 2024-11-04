@@ -9,7 +9,7 @@ public class Budget {
     private double budgetAmount;
     private double balance;
     private boolean isBudgetSet;
-    private LocalDate budgetSetDate;
+    LocalDate budgetSetDate;
 
     /**
      * Constructs a new Budget instance with default values.
