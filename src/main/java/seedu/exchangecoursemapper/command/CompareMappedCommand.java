@@ -1,5 +1,7 @@
 package seedu.exchangecoursemapper.command;
 
+import seedu.exchangecoursemapper.courses.Course;
+import seedu.exchangecoursemapper.storage.CourseRepository;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
 
@@ -37,6 +39,7 @@ import static seedu.exchangecoursemapper.constants.Logs.DISPLAYING_UNIQUE_MAPPIN
 public class CompareMappedCommand extends CheckInformationCommand {
 
     private static final Logger logger = Logger.getLogger(CompareMappedCommand.class.getName());
+    private static final CourseRepository courseRepository = new CourseRepository();
     private static final UI ui = new UI();
     private final Storage storage;
 
@@ -50,6 +53,10 @@ public class CompareMappedCommand extends CheckInformationCommand {
     public void execute(String userInput) {
         logger.log(Level.INFO, EXECUTE_COMPARE_MAPPED);
 
+        if(!courseRepository.isFileValid()){
+            return;
+        }
+
         String[] inputs = userInput.split("pu/");
         if (inputs.length < 3) {
             ui.printInvalidInputFormat();
@@ -59,12 +66,12 @@ public class CompareMappedCommand extends CheckInformationCommand {
         String university1 = inputs[1].trim();
         String university2 = inputs[2].trim();
 
-        List<String> allModules = storage.loadAllCourses();
+        List<Course> allModules = storage.loadAllCourses();
         assert allModules != null : LOADED_LIST_NOT_NULL;
         logger.log(Level.INFO, LOADED_MODULES);
 
-        List<String> uni1Modules = filterModulesByUniversity(allModules, university1);
-        List<String> uni2Modules = filterModulesByUniversity(allModules, university2);
+        List<Course> uni1Modules = filterModulesByUniversity(allModules, university1);
+        List<Course> uni2Modules = filterModulesByUniversity(allModules, university2);
 
         Set<String> uni1CourseCodes = extractCourseCodes(uni1Modules);
         Set<String> uni2CourseCodes = extractCourseCodes(uni2Modules);
@@ -77,17 +84,17 @@ public class CompareMappedCommand extends CheckInformationCommand {
                 uni1UniqueCourseCodes, uni2UniqueCourseCodes);
     }
 
-    private List<String> filterModulesByUniversity(List<String> modules, String university) {
+    private List<Course> filterModulesByUniversity(List<Course> modules, String university) {
         logger.log(Level.INFO, FILTERING_UNIVERSITY + university);
         return modules.stream()
-                .filter(module -> module.contains(" | " + university + " | "))
+                .filter(module -> module.getPartnerUniversity().equals(university))
                 .toList();
     }
 
-    private Set<String> extractCourseCodes(List<String> modules) {
+    private Set<String> extractCourseCodes(List<Course> modules) {
         logger.log(Level.INFO, COURSE_CODE_EXTRACTION);
         return modules.stream()
-                .map(module -> module.split(" \\| ")[0])
+                .map(Course::getNusCourseCode)
                 .collect(Collectors.toSet());
     }
 
@@ -106,7 +113,7 @@ public class CompareMappedCommand extends CheckInformationCommand {
     }
 
     private void displayComparisonResults(String university1, String university2, Set<String> commonCourseCodes,
-                                          List<String> uni1Modules, List<String> uni2Modules,
+                                          List<Course> uni1Modules, List<Course> uni2Modules,
                                           Set<String> uni1UniqueCourseCodes, Set<String> uni2UniqueCourseCodes) {
 
         assert university1 != null : UNIVERSITY1_NOT_NULL;
@@ -124,7 +131,7 @@ public class CompareMappedCommand extends CheckInformationCommand {
         logger.log(Level.INFO, DISPLAY_COMPLETE + university1 + " and " + university2);
     }
 
-    private void displayUniqueMappings(String university, List<String> modules, Set<String> uniqueCourseCodes) {
+    private void displayUniqueMappings(String university, List<Course> modules, Set<String> uniqueCourseCodes) {
 
         assert university != null : UNIVERSITY_NOT_NULL;
         assert modules != null : UNI_MODULES_NOT_NULL;
