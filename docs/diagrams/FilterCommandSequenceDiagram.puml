@@ -1,0 +1,36 @@
+@startuml
+hide footbox
+participant ":Main" as Main
+participant ":FilterCommand" as FC
+
+Main -> FC: execute()
+
+create participant "FilteredEventList :EventList" as FEL
+activate FC
+FC -> FEL: new EventList()
+activate FEL
+FEL --> FC
+deactivate FEL
+
+alt filter by name
+    FC -> FEL: filterByName()
+    activate FEL
+    FEL --> FC: return filtered list
+    deactivate FEL
+else filter by time
+    FC -> FEL: filterByTime()
+    activate FEL
+    FEL --> FC: return filtered list
+    deactivate FEL
+else filter by priority
+    FC -> FEL: filterByPriority(...)
+    activate FEL
+    FEL --> FC: return filtered list
+    deactivate FEL
+end alt
+
+FC --> Main: Display FilteredEventList and filter result message
+deactivate FC
+destroy FEL
+
+@enduml
