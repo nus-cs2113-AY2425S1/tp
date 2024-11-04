@@ -10,22 +10,22 @@ participant "event:Event" as event EVENT_COLOUR
 group sd Remove event
     activate command COMMAND_COLOUR
 
-    command -> eventList : removeEvent(String)
+    command -> eventList : removeEvent(eventName)
     activate eventList EVENT_COLOUR
     loop for event in eventList
         eventList -> event : getName()
         activate event EVENT_COLOUR
         return :String
 
-        opt name of event equals eventName
-            eventList -> list : remove(Event)
+        opt event exists in eventList
+            eventList -> list : remove(event)
             activate list EVENT_COLOUR
             destroy event
             return
-            eventList --> command : true : boolean
+            eventList --> command : :boolean
         end
     end
-    return false : boolean
+    return :boolean
 end
 
 @enduml

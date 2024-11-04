@@ -510,13 +510,16 @@ The user is able to organise and manage his events more quickly and efficiently 
 | v1.0    | user     | view the participant list of an event                           | know who is involved                                                                      |
 | v2.0    | user     | mark events as completed                                        | easily track all past events                                                              |
 | v2.0    | user     | mark participants present                                       | know exactly who signed up but did not attend the event                                   |
-| v2.0    | user     | save events info                                                | can still access the information if the program terminates                                |
-| v2.0    | user     | filter events by keywords                                       | can find relevant information efficiently                                                 |
-| v2.0    | user     | edit event details                                              | can update latest changes to events                                                       |
+| v2.0    | user     | save events info                                                | still access the information if the program terminates                                    |
+| v2.0    | user     | filter events by keywords                                       | find relevant information efficiently                                                     |
+| v2.0    | user     | edit event details                                              | update latest changes to events                                                           |
+| v2.0    | user     | add items to a specific event                                   | keep track of what I need for that event                                                  |
+| v2.0    | user     | mark items as accounted for                                     | make sure I do not prepare excess items for an event                                      |
 
 ## Non-Functional Requirements
 
 * Should work for any **mainstream OS** as long as Java 17 is installed.
+* Should be able to store data for up to 1000 events without any loss in performance.
 
 ## Glossary
 

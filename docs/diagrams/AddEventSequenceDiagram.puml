@@ -9,7 +9,7 @@ participant "newEvent:Event" as event EVENT_COLOUR
 
 group sd Add event
     activate command COMMAND_COLOUR
-    command -> eventList : addEvent(String, LocalDateTime, String, Priority)
+    command -> eventList : addEvent(eventName, eventTime, eventVenue, eventPriority)
     activate eventList EVENT_COLOUR
 
     eventList -> eventList : getEventByName(eventName)
@@ -18,16 +18,16 @@ group sd Add event
     return :Event
 
     alt event already present
-        eventList --> command : :DuplicateDataException
+        eventList --> command : throws DuplicateDataException
     else else
 
         create event
-        eventList -> event : Event(create xyzCommand)
+        eventList -> event : Event(eventName, eventTime, eventVenue, eventPriority)
         activate event EVENT_COLOUR
 
         return
 
-        eventList -> list : add(Event)
+        eventList -> list : add(newEvent)
         activate list EVENT_COLOUR
 
         return

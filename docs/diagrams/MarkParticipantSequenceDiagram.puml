@@ -10,21 +10,21 @@ participant "participant:Participant" as participant EVENT_COLOUR
 main -> markCommand : execute()
 activate markCommand COMMAND_COLOUR
 
-markCommand -> eventList : getEventByName(String)
+markCommand -> eventList : getEventByName(eventName)
 activate eventList EVENT_COLOUR
 
 eventList --> markCommand : event : Event
 deactivate eventList EVENT_COLOUR
 
-markCommand -> event : markParticipantByName(String)
+markCommand -> event : markParticipantByName(participantName)
 activate event EVENT_COLOUR
 
-event -> event : getParticipantByName(String)
+event -> event : getParticipantByName(participantName)
 activate event EVENT_COLOUR
 
 return participant : Participant
 
-event -> participant : setPresent(boolean)
+event -> participant : setPresent(isToMark)
 activate participant EVENT_COLOUR
 
 return
