@@ -230,12 +230,12 @@ The `RecurringExpense` class has no notable methods.
 
 The `RecurringExpenseList` class has the following key methods:
 
-|          Method          |                Description                 |
-|:------------------------:|:------------------------------------------:|
-|  `addRecurringExpense`   |    Adds a recurring expense to the list    |
-| `deleteRecurringExpense` | Removes a recurring expense from the list  |
-|  `editRecurringExpense`  |   Edits a recurring expense in the list    |
-| `loadFromCsv` | Adds the appropriate amount of `Expense` objects with the correct date to the `ExpenseList`|
+|          Method          |                                         Description                                         |
+|:------------------------:|:-------------------------------------------------------------------------------------------:|
+|  `addRecurringExpense`   |                            Adds a recurring expense to the list                             |
+| `deleteRecurringExpense` |                          Removes a recurring expense from the list                          |
+|  `editRecurringExpense`  |                            Edits a recurring expense in the list                            |
+|      `loadFromCsv`       | Adds the appropriate amount of `Expense` objects with the correct date to the `ExpenseList` |
 
 
 <u>Design Considerations</u>
@@ -274,34 +274,34 @@ The `CategoryFacade` class has key methods for:
 
 |          Method           |                                                    Description                                                    |
 |:-------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
-|        addCategory        |                           The interface for AddCommand when the user adds a new Expense                           |
-|      deleteCategory       |                         The interface for DeleteCommand when the user deletes an Expense.                         |
-|       editCategory        |                           The interface for EditCommand when the user edits an Expense.                           |
-|     loadCategoryInfo      |                    The interface for LoadCommand to load category information from a CSV file.                    |
-| displayFilteredCategories |                The interface for LoadCommand to show filtered categories based on spending limits.                |
-|     saveCategoryInfo      |                 The interface for SaveCommand to save current category information to a CSV file.                 |
-| setCategorySpendingLimit  |                  The interface for SetCommand to set a spending limit for a specified category.                   |
+|        `addCategory`        |                           The interface for AddCommand when the user adds a new Expense                           |
+|      `deleteCategory`       |                         The interface for DeleteCommand when the user deletes an Expense.                         |
+|       `editCategory`        |                           The interface for EditCommand when the user edits an Expense.                           |
+|     `loadCategoryInfo`      |                    The interface for LoadCommand to load category information from a CSV file.                    |
+| `displayFilteredCategories` |                The interface for LoadCommand to show filtered categories based on spending limits.                |
+|     `saveCategoryInfo`      |                 The interface for SaveCommand to save current category information to a CSV file.                 |
+| `setCategorySpendingLimit`  |                  The interface for SetCommand to set a spending limit for a specified category.                   |
 
 The `CategoryTracker` class has the following key methods: 
 
-|       Method        |                                                            Description                                                            |
-|:-------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
-|     addCategory     | Adds a new category to the tracker. If already in the tracker, then the total expenditure for that category is increased instead. |
-|   deleteCategory    |    Decreases total expenditure of a category. If that total drops to zero or below, the category is removed from the tracker.     |
-|    editCategory     |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed.                   |
-| setSpendingLimitFor |                                         Sets a spending limit for a particular category.                                          |
+|        Method         |                                                            Description                                                            |
+|:---------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
+|     `addCategory`     | Adds a new category to the tracker. If already in the tracker, then the total expenditure for that category is increased instead. |
+|   `deleteCategory`    |    Decreases total expenditure of a category. If that total drops to zero or below, the category is removed from the tracker.     |
+|    `editCategory`     |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed.                   |
+| `setSpendingLimitFor` |                                         Sets a spending limit for a particular category.                                          |
 
 The `CategoryData` class has no notable methods.
 
 The `CategoryFilter` class has key methods for:
 
-|          Method           |                                                    Description                                                    |
-|:-------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
-|        initMaxHeap        |              Initialises a custom max heap that sorts categories by their current total expenditure               |
-|   getCategoriesFiltered   | Sorts categories in the tracker, which are nearing or have exceeded the designated spending limit, into max-heaps |
-| displayFilteredCategories |              Displays the categories in the provided category-filtered max-heap, in a preset format.              |
-| displayExceededCategories |                          Displays the categories that have exceeded its spending limits.                          |
-| displayNearingCategories  |                 Displays the categories that are nearing, but not exceeded, its spending limits.                  |
+|           Method            |                                                    Description                                                    |
+|:---------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
+|        `initMaxHeap`        |              Initialises a custom max heap that sorts categories by their current total expenditure               |
+|   `getCategoriesFiltered`   | Sorts categories in the tracker, which are nearing or have exceeded the designated spending limit, into max-heaps |
+| `displayFilteredCategories` |              Displays the categories in the provided category-filtered max-heap, in a preset format.              |
+| `displayExceededCategories` |                          Displays the categories that have exceeded its spending limits.                          |
+| `displayNearingCategories`  |                 Displays the categories that are nearing, but not exceeded, its spending limits.                  |
 
 After the user adds or edits an `Expense`, it alerts the user if the spending limit is approached or exceeded for that `Expenses`'s category.
 
