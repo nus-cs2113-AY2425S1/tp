@@ -33,7 +33,8 @@ public class ErrorMessages {
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Your date and/or time is invalid!";
     public static final String MESSAGE_INVALID_YEAR_MONTH_FORMAT = "Your year and month format is invalid!";
     public static final String MESSAGE_PAST_MONTH_BUDGET = "Budget can only be set for the current or future months.";
-    public static final String MESSAGE_TRACK_FUTURE_MONTH_BUDGET = "Progress can only be checked for current or past months.";
+    public static final String MESSAGE_TRACK_FUTURE_MONTH_BUDGET =
+            "Progress can only be checked for current or past months.";
 
     // Amount
     public static final String INVALID_AMOUNT_FORMAT = "Invalid amount format: ";
