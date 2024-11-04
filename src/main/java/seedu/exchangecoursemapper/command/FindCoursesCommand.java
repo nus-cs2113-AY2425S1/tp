@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import static seedu.exchangecoursemapper.constants.Assertions.COURSE_STRING_NOT_NULL;
 import static seedu.exchangecoursemapper.constants.Assertions.EMPTY_USER_INPUT;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
-import static seedu.exchangecoursemapper.constants.Regex.PIPE;
 
 public class FindCoursesCommand extends PersonalTrackerCommand{
 
