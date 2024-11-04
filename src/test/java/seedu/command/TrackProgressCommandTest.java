@@ -49,7 +49,8 @@ public class TrackProgressCommandTest {
         trackProgressCommand.setArguments(Map.of("m/", "12-2024"));
         List<String> result = trackProgressCommand.execute();
 
-        assertEquals(CommandResultMessages.TRACK_PROGRESS_FAIL + ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT, result.get(0));
+        assertEquals(CommandResultMessages.TRACK_PROGRESS_FAIL +
+                ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT, result.get(0));
     }
 
     @Test
