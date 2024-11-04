@@ -7,8 +7,8 @@ class Expense {
     #description: String
     #category: String
     #dateAdded: LocalDate
-    +Expense(price: Float, description: String, category: String): Expense
-    +Expense(price: Float, description: String, category: String, dateAdded: LocalDate): Expense
+'    +Expense(price: Float, description: String, category: String): Expense
+'    +Expense(price: Float, description: String, category: String, dateAdded: LocalDate): Expense
 '    +getPrice(): Float
 '    +getDescription(): String
 '    +getCategory(): String
