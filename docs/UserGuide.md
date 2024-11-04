@@ -66,13 +66,16 @@ Adds an event to the event list, a participant to an event, or an item to an eve
 
 Format:  
 
-* `add -e EVENT -t TIME -v VENUE` for adding an event to the events list.
+* `add -e EVENT -t TIME -v VENUE -u PRIORITY` for adding an event to the events list.
 * `add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for adding a participant to an event.
 * `add -m ITEM -e EVENT` for adding an item to an event.
 
+Remarks:
+* `TIME` must be entered in the format `yyyy-mm-dd HH:mm`.
+
 Examples:
 
-* `add -e Origami workshop -t 2024-10-12 18:00 -v Building A` adds an event with name `Origami workshop`, time `2024-10-12 18:00` and venue `Building A` to the events list.
+* `add -e Origami workshop -t 2024-10-12 18:00 -v Building A -u HIGH` adds an event with name `Origami workshop`, time `2024-10-12 18:00`, venue `Building A` and priority `HIGH` to the events list.
 * `add -p John Tan -n 91583215 -email john@gmail.com -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
 * `add -m Origami paper -e Origami workshop` adds an item `Origami paper` to the event `Origami workshop`.
 
