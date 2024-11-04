@@ -30,8 +30,9 @@ The app is optimised for quick, command-based interactions, ideal for users who 
     * Managed release `v1.0` (1 release) on GitHub
 
 * **Enhancements to existing features**:
-    * Fixed input formats of email and phone number of participants (Pull request [#]())
-
+    * Fixed input formats of email and phone number of participants (Pull request [#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150))
+    * Fixed trailing whitespace bugs in causing invalid command (Pull request [#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150))
+  
 * **Documentation**
     * User Guide
         * Added documentation for `sort` and `find` commands.
