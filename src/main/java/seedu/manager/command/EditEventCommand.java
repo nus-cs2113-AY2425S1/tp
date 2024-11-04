@@ -21,8 +21,7 @@ public class EditEventCommand extends Command{
 
     //@@author MatchaRRR
     /**
-     * Constructs an EditCommand object with the specified participant name, participant number,
-     * participant email, and event name.
+     * Constructs an EditEventCommand object with the specified event name, event time, event venue and event priority.
      *
      * @param eventName The name of the event to be edited.
      * @param eventNewName The new name of the event.

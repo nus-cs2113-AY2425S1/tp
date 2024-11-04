@@ -8,12 +8,14 @@ Enter a command: Here are the possible commands:
 list: List events.
 view -e EVENT -y TYPE: View the list of participants or items of an event.
 add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
+add -m ITEM -e EVENT: Add an item to an even.
 add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Add a participant to an event.
 remove -e EVENT: Remove an event from the event list.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
 remove -m ITEM -e EVENT: Remove an item from an event.
-edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
 edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
+edit -m ITEM > NEW_ITEM -e EVENT: Edit an item in an event.
+edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
 mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
 copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
@@ -23,11 +25,10 @@ find -e EVENT -p PARTICIPANT: Finds all participants with specified name in an e
 exit: Exit program
 ------------------------
 Events saved successfully.
+
 ------------------------
 Enter a command: There are 0 events in your list! Here are your scheduled events:
 
-------------------------
-Events saved successfully.
 ------------------------
 Enter a command: Invalid command!
 Please enter your commands in the following format:
@@ -38,41 +39,25 @@ add -m ITEM -e EVENT
 ------------------------
 Enter a command: Event added successfully
 ------------------------
-Events saved successfully.
-------------------------
 Enter a command: There are 1 events in your list! Here are your scheduled events:
 1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: N
 
 ------------------------
-Events saved successfully.
-------------------------
 Enter a command: Event marked as done
-------------------------
-Events saved successfully.
 ------------------------
 Enter a command: There are 1 events in your list! Here are your scheduled events:
 1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
 
 ------------------------
-Events saved successfully.
-------------------------
 Enter a command: Event not found!
 ------------------------
-Events saved successfully.
-------------------------
 Enter a command: Event information successfully updated
-------------------------
-Events saved successfully.
 ------------------------
 Enter a command: There are 1 events in your list! Here are your scheduled events:
 1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
-Events saved successfully.
-------------------------
 Enter a command: Participant added successfully
-------------------------
-Events saved successfully.
 ------------------------
 Enter a command: Invalid command!
 Please enter your commands in the following format:
@@ -81,33 +66,38 @@ view -e EVENT -y TYPE
 ------------------------
 Enter a command: Participant contact information successfully updated
 ------------------------
-Events saved successfully.
-------------------------
 Enter a command: There are 1 participants in dinner party! Here are your participants:
 1. Name: Mary / Number: 98624759 / Email: Mary@gmail.com [ ]
 
 ------------------------
-Events saved successfully.
-------------------------
 Enter a command: Event added successfully
-------------------------
-Events saved successfully.
 ------------------------
 Enter a command: Events successfully sorted by name!
 1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 2. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
-Events saved successfully.
-------------------------
 Enter a command: Events successfully sorted by time!
 1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
-Events saved successfully.
+Enter a command: There are 2 events in your list! Here are your scheduled events:
+1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
+------------------------
+Enter a command: Item added successfully
+------------------------
+Enter a command: There are 1 items in anniversary celebration! Here are your items:
+1. balloon [ ]
+
+------------------------
+Enter a command: Item successfully updated
+------------------------
+Enter a command: There are 1 items in anniversary celebration! Here are your items:
+1. cake [ ]
+
 ------------------------
 Enter a command: Thank you for using EventManagerCLI. Goodbye!
-------------------------
-Events saved successfully.
 ------------------------

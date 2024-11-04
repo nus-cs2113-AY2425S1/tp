@@ -21,7 +21,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void editEventsuccess() {
+    public void edit_event_success() {
         eventList.addEvent(
                 "Event 1",
                 LocalDateTime.parse("2024-10-20 21:00", formatter),
