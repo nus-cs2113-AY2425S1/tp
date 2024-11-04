@@ -37,6 +37,8 @@ public class ExpenseList {
         return expenses.isEmpty();
     }
 
+    public void clear(){ expenses.clear(); }
+
     /**
      * Retrieves the {@code Expense} at the specified index in the list.
      *
@@ -168,6 +170,7 @@ public class ExpenseList {
      * @param filePath File Path to read csv
      */
     public void loadFromCsv(CategoryFacade categoryFacade, String filePath) throws StorageException {
+        clear();
         try {
             File file = new File(filePath);
             FileReader reader = new FileReader(file);
@@ -193,7 +196,7 @@ public class ExpenseList {
         } catch (WheresMyMoneyException exc) {
             throw new StorageException("An expense's price, description, category and/or date added is missing");
         } catch (IOException ex) {
-            throw new StorageException("Unable to read file!");
+            throw new StorageException("Unable to load Expense List from file: " + filePath);
         } catch (CsvValidationException e){
             throw new StorageException("File not in the correct format!");
         }
@@ -212,7 +215,7 @@ public class ExpenseList {
         try{
             outFile = new FileWriter(file);
         } catch (IOException e) {
-            throw new StorageException("Unable to save to file!");
+            throw new StorageException("Unable to save Expense List to file: " + filePath);
         }
 
 
@@ -237,7 +240,7 @@ public class ExpenseList {
         try {
             writer.close();
         } catch (IOException e) {
-            throw new StorageException("Unable to save to file!");
+            throw new StorageException("Unable to save Expense List to file: " + filePath);
         }
     }
 }

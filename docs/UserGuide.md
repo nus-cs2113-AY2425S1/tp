@@ -123,6 +123,7 @@ Notes:
   - `EXPENSE_FILE_PATH == "expenses_data.csv"`
   - `CATEGORY_FILE_PATH == "category_spending_limit.csv"`
   - `RECUR_FILE_PATH == "recurring_expenses_data.csv"`
+- It clears existing data on read for ease of usage.
 - On read failure, it loads whatever it could read from the corrupted files.
 
 Examples:

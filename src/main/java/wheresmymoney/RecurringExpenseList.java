@@ -31,6 +31,8 @@ public class RecurringExpenseList extends ExpenseList {
         return recurringExpenses.isEmpty();
     }
 
+    public void clear() { recurringExpenses.clear(); }
+
     /**
      * Retrieves the {@code RecurringExpense} at the specified index in the list.
      *
@@ -226,6 +228,7 @@ public class RecurringExpenseList extends ExpenseList {
      * @param filePath File Path to read csv
      */
     public void loadFromCsv(String filePath) throws StorageException {
+        clear();
         try {
             File file = new File(filePath);
             FileReader reader = new FileReader(file);
@@ -260,7 +263,7 @@ public class RecurringExpenseList extends ExpenseList {
                 }
             }
         } catch (IOException ex) {
-            throw new StorageException("Unable to read file!");
+            throw new StorageException("Unable to read Recurring Expense List from file: " + filePath);
         } catch (CsvValidationException e){
             throw new StorageException("File not in the correct format!");
         }
@@ -279,7 +282,7 @@ public class RecurringExpenseList extends ExpenseList {
         try{
             outFile = new FileWriter(file);
         } catch (IOException e) {
-            throw new StorageException("Unable to save to file!");
+            throw new StorageException("Unable to save Recurring Expense List to file: " + filePath);
         }
 
 
@@ -306,7 +309,7 @@ public class RecurringExpenseList extends ExpenseList {
         try{
             writer.close();
         } catch (IOException e) {
-            throw new StorageException("Unable to save to file!");
+            throw new StorageException("Unable to save Recurring Expense List to file: " + filePath);
         }
     }
 }
