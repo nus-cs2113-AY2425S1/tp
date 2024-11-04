@@ -207,9 +207,22 @@ The `ArrayList` is then returned to the caller.
 
 ### Date and Time Handling
 
+<u>Overview</u>
+
 The `DateUtils` class provides utility methods to handle date formatting, validation and conversion. 
 
-The `DateUtils` class has no notable methods.
+<u>Methods</u>
+
+The `DateUtils` class has the following key methods:
+
+|        Method        |                      Description                       |
+|:--------------------:|:------------------------------------------------------:|
+|   `isInDateFormat`   | checks if a given string is in the correct date format |
+|   `getCurrentDate`   |                 gets the current date                  |
+|    `stringToDate`    |         converts from a given string to a date         |
+| `dateFormatToString` |         converts from a given date to a string         |
+
+The date format that `DateUtils` uses, and thus the WheresMyMoney program uses, is `dd-MM-yyyy`.
 
 <u>Implementation Details</u>
 
@@ -272,15 +285,15 @@ The `CategoryFilter` class is responsible for filtering categories based on vari
 
 The `CategoryFacade` class has key methods for:
 
-|          Method           |                                                    Description                                                    |
-|:-------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
-|        `addCategory`        |                           The interface for AddCommand when the user adds a new Expense                           |
-|      `deleteCategory`       |                         The interface for DeleteCommand when the user deletes an Expense.                         |
-|       `editCategory`        |                           The interface for EditCommand when the user edits an Expense.                           |
-|     `loadCategoryInfo`      |                    The interface for LoadCommand to load category information from a CSV file.                    |
-| `displayFilteredCategories` |                The interface for LoadCommand to show filtered categories based on spending limits.                |
-|     `saveCategoryInfo`      |                 The interface for SaveCommand to save current category information to a CSV file.                 |
-| `setCategorySpendingLimit`  |                  The interface for SetCommand to set a spending limit for a specified category.                   |
+|           Method            |                                     Description                                     |
+|:---------------------------:|:-----------------------------------------------------------------------------------:|
+|        `addCategory`        |            The interface for AddCommand when the user adds a new Expense            |
+|      `deleteCategory`       |          The interface for DeleteCommand when the user deletes an Expense.          |
+|       `editCategory`        |            The interface for EditCommand when the user edits an Expense.            |
+|     `loadCategoryInfo`      |     The interface for LoadCommand to load category information from a CSV file.     |
+| `displayFilteredCategories` | The interface for LoadCommand to show filtered categories based on spending limits. |
+|     `saveCategoryInfo`      |  The interface for SaveCommand to save current category information to a CSV file.  |
+| `setCategorySpendingLimit`  |   The interface for SetCommand to set a spending limit for a specified category.    |
 
 The `CategoryTracker` class has the following key methods: 
 
