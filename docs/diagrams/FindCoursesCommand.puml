@@ -4,6 +4,66 @@ hide footbox
 
 !include .SequenceDiagram.config
 
+actor CEG_Student
+
+participant ":FindCoursesCommand" as FindCoursesCommand
+participant ":Storage" as Storage
+participant ":UI" as UI
+participant ":Course" as Course
+
+CEG_Student -> FindCoursesCommand: execute(userInput:String, storage:Storage)
+activate FindCoursesCommand
+
+FindCoursesCommand -> FindCoursesCommand: getKeyword(userInput:String)
+activate FindCoursesCommand
+opt keyword is null
+    FindCoursesCommand -> FindCoursesCommand: throw IllegalArgumentException
+end
+return keyword:String
+
+FindCoursesCommand -> FindCoursesCommand: findCommand(keyword:String)
+activate FindCoursesCommand
+FindCoursesCommand -> Storage: loadAllCourses()
+activate Storage
+return mappedCourses: List<Course>
+
+opt mappedCourses is empty
+FindCoursesCommand -> UI: printEmptyList()
+activate UI
+return
+end
+
+FindCoursesCommand -> FindCoursesCommand: matchKeyword(...)
+activate FindCoursesCommand
+loop For all course in mappedCourses
+FindCoursesCommand -> FindCoursesCommand: getMappedCode(course:Course)
+activate FindCoursesCommand
+FindCoursesCommand -> Course: getNusCourseCode()
+activate Course
+return nusCourseCode: String
+return nusCourseCode: String
+
+opt nusCourseCode equals to keyword
+FindCoursesCommand -> FindCoursesCommand: add course to foundCourses:List<Course>
+end
+end
+return
+
+FindCoursesCommand -> FindCoursesCommand: printFindCommand(foundCourses: List<Course>)
+activate FindCoursesCommand
+alt foundCourses is empty
+    FindCoursesCommand -> FindCoursesCommand: throw IllegalArgumentException
+else else
+    loop For all course in foundCourses
+        FindCoursesCommand -> UI: printFoundCourses(...)
+        activate UI
+        return
+    end
+end
+return
+return
+return
+
 
 
 @enduml
