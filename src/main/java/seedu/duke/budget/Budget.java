@@ -6,10 +6,10 @@ import java.time.LocalDate;
  * Represents a budget with an amount, balance, and budget status.
  */
 public class Budget {
+    LocalDate budgetSetDate;
     private double budgetAmount;
     private double balance;
     private boolean isBudgetSet;
-    LocalDate budgetSetDate;
 
     /**
      * Constructs a new Budget instance with default values.
