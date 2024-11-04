@@ -19,6 +19,9 @@ public class CommandResultMessages {
     public static final String SET_BUDGET_SUCCESS = "Budget set: ";
     public static final String SET_BUDGET_FAIL = "Error setting budget: ";
 
+    public static final String TRACK_PROGRESS_SUCCESS = "Track progress: ";
+    public static final String TRACK_PROGRESS_FAIL = "Error tracking progress: ";
+
     public static final String FIND_KEYWORD_EMPTY = "No match found";
 
     public static final String VIEW_TRANSACTION_FAIL= "Failed to retrieve transaction: ";

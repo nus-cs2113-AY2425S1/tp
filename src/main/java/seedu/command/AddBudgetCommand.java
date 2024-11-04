@@ -11,6 +11,8 @@ public class AddBudgetCommand extends Command {
     public static final String COMMAND_WORD = "add-budget";
     public static final String COMMAND_GUIDE = "add-budget a/ AMOUNT m/ MONTH : Add a new category";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = { "a/", "m/" };
+    public static final String[] COMMAND_EXTRA_KEYWORDS = {};
+
     private final BudgetTracker budgetTracker;
 
     public AddBudgetCommand(BudgetTracker budgetTracker) {
@@ -49,7 +51,7 @@ public class AddBudgetCommand extends Command {
 
     @Override
     protected String[] getExtraKeywords() {
-        return new String[0];
+        return COMMAND_EXTRA_KEYWORDS;
     }
 
     @Override
