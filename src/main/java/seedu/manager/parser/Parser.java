@@ -20,16 +20,12 @@ import seedu.manager.command.ViewCommand;
 import seedu.manager.command.FindCommand;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.InvalidCommandException;
-import seedu.manager.event.EventList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.io.IOException;
 
 import static java.util.logging.Level.WARNING;
 
@@ -142,10 +138,10 @@ public class Parser {
     private static final String PARTICIPANT_REGEX = "(-p|-n|-email|-e)";
     private static final String ITEM_REGEX = "(-m|-e)";
     private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
-    private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
-    private static final String VIEW_REGEX = "(-e|-y)";
     private static final String MARK_EVENT_REGEX = "-e|-s";
     private static final String MARK_PARTICIPANT_REGEX = "-p|-e|-s";
+    private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
+    private static final String VIEW_REGEX = "(-e|-y)";
     private static final String MARK_ITEM_REGEX = "-m|-e|-s";
 
     /**
@@ -465,10 +461,10 @@ public class Parser {
      */
     private Command getEditItemCommand(String input){
         String[] inputParts = input.split(ITEM_REGEX);
-        String ItemName = inputParts[1].split(ARROW)[0].trim();
-        String ItemNewName = inputParts[1].split(ARROW)[1].trim();
+        String itemName = inputParts[1].split(ARROW)[0].trim();
+        String itemNewName = inputParts[1].split(ARROW)[1].trim();
         String eventName = inputParts[2].trim();
-        return new EditItemCommand(ItemName, ItemNewName, eventName);
+        return new EditItemCommand(itemName, itemNewName, eventName);
     }
 
     //@@author glenn-chew
@@ -698,44 +694,6 @@ public class Parser {
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING, "Invalid command format");
             throw new InvalidCommandException(INVALID_SORT_MESSAGE);
-        }
-    }
-
-    //@@author KuanHsienn
-    /**
-     * Parses a CSV file containing event details and loads the events into the specified EventList.
-     *
-     * This method reads each line from the specified file, expecting the format to be:
-     * <pre>
-     * eventName, eventTime, eventVenue, eventPriority
-     * </pre>
-     * where:
-     * - eventName is a String representing the name of the event.
-     * - eventTime is a String formatted as "yyyy-MM-dd HH:mm" that will be parsed into a LocalDateTime object.
-     * - eventVenue is a String representing the venue of the event.
-     * - eventPriority is a String representing the priority level of the event.
-     *
-     * If a line does not contain exactly three parts, it is skipped.
-     *
-     * @param events The EventList where the parsed events will be added.
-     * @param filePath The path to the file containing the event details.
-     * @throws IOException If there is an error reading from the file or if the file cannot be found.
-     */
-    public void parseFile(EventList events, String filePath) throws IOException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            for (String line : Files.readAllLines(Paths.get(filePath))) {
-                String[] parts = line.split(","); // CSV format
-                if (parts.length == 4) {
-                    String eventName = parts[0].trim();
-                    LocalDateTime time = LocalDateTime.parse(parts[1].trim(), formatter);
-                    String venue = parts[2].trim();
-                    Priority priority = Priority.valueOf(parts[3].trim().toUpperCase());
-                    events.addEvent(eventName, time, venue, priority);
-                }
-            }
-        } catch (IOException exception) {
-            throw new IOException("Error loading events from file: " + filePath + ".");
         }
     }
 

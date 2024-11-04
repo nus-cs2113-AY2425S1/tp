@@ -1,0 +1,9 @@
+@startuml
+
+rectangle ":Main" as main
+rectangle ":Parser" as parser
+rectangle ":XYZCommand" as command
+
+command <.. main
+
+@enduml

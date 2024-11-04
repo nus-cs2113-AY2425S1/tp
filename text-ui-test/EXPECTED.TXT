@@ -25,8 +25,12 @@ filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
 find -e EVENT -p PARTICIPANT: Finds all participants with specified name in an event.
 exit: Exit program
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: There are 0 events in your list! Here are your scheduled events:
 
+------------------------
+Events saved successfully.
 ------------------------
 Enter a command: Invalid command!
 Please enter your commands in the following format:
@@ -37,25 +41,41 @@ add -m ITEM -e EVENT
 ------------------------
 Enter a command: Event added successfully
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: There are 1 events in your list! Here are your scheduled events:
 1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: N
 
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: Event marked as done
+------------------------
+Events saved successfully.
 ------------------------
 Enter a command: There are 1 events in your list! Here are your scheduled events:
 1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
 
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: Event not found!
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: Event information successfully updated
+------------------------
+Events saved successfully.
 ------------------------
 Enter a command: There are 1 events in your list! Here are your scheduled events:
 1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: Participant added successfully
+------------------------
+Events saved successfully.
 ------------------------
 Enter a command: Invalid command!
 Please enter your commands in the following format:
@@ -64,46 +84,74 @@ view -e EVENT -y TYPE
 ------------------------
 Enter a command: Participant contact information successfully updated
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: There are 1 participants in dinner party! Here are your participants:
 1. Name: Mary / Number: 98624759 / Email: Mary@gmail.com [ ]
 
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: Event added successfully
+------------------------
+Events saved successfully.
 ------------------------
 Enter a command: Events successfully sorted by name!
 1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 2. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: Events successfully sorted by time!
 1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: Item added successfully
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: Item accounted for.
+------------------------
+Events saved successfully.
 ------------------------
 Enter a command: There are 1 items in dinner party! Here are your items:
 1. curry chicken [X]
 
+------------------------
+Events saved successfully.
 ------------------------
 Enter a command: There are 2 events in your list! Here are your scheduled events:
 1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: Item added successfully
+------------------------
+Events saved successfully.
 ------------------------
 Enter a command: There are 1 items in anniversary celebration! Here are your items:
 1. balloon [ ]
 
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: Item successfully updated
+------------------------
+Events saved successfully.
 ------------------------
 Enter a command: There are 1 items in anniversary celebration! Here are your items:
 1. cake [ ]
 
 ------------------------
+Events saved successfully.
+------------------------
 Enter a command: Thank you for using EventManagerCLI. Goodbye!
+------------------------
+Events saved successfully.
 ------------------------

@@ -10,13 +10,14 @@ public class Item {
     protected boolean isPresent;
 
     /**
-     * Constructs a new Item with a given name.
+     * Constructs a new Item with a given name and if the item is to be accounted.
      *
      * @param name the given name.
+     * @param isPresent {@code true} if the item is accounted for, {@code false} otherwise.
      */
-    public Item(String name) {
+    public Item(String name, boolean isPresent) {
         this.name = name;
-        this.isPresent = false;
+        this.isPresent = isPresent;
     }
 
     /**
@@ -52,6 +53,15 @@ public class Item {
      */
     public String markIfPresent() {
         return (this.isPresent) ? "X" : " ";
+    }
+
+    /**
+     * Returns "Y" if isPresent is true, "N" otherwise. For saving the item's mark status to files.
+     *
+     * @return "Y" if isPresent is true, "N" otherwise.
+     */
+    public String markFileLineIfPresent() {
+        return (this.isPresent) ? "Y" : "N";
     }
 
     /**

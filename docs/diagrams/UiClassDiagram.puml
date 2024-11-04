@@ -2,20 +2,22 @@
 !include style.puml
 allowmixing
 
-package ui {
-    class "Ui" as Ui UI_COLOUR {
-        +greetUser() : void
-        +getCommand() : String
-        +showOutputToUser(command:Command) : void
-        +showErrorMessageToUser(exception:Exception) : void
-    }
+skinparam ClassAttributeIconSize 0
+hide circle
+
+class Ui {
+    +userInput : Scanner
+    +greetUser() : void
+    +getCommand() : String
+    +showOutputToUser() : void
+    +showErrorMessageToUser() : void
+    +showMessage() : void
 }
 
 rectangle Main
+rectangle Command
 
-rectangle Command COMMAND_COLOUR
-
-Main ..> Ui
-Ui .> Command
+Main .> Ui
+Ui ..> Command
 
 @enduml

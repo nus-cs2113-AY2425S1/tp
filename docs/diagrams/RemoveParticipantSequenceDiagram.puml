@@ -1,16 +1,27 @@
 @startuml
+!include style.puml
+hide footbox
 
-Main -> Parser: remove p/John Doe e/Meeting
-activate Parser
-Parser -> RemoveCommand: new RemoveCommand("John Doe", "Meeting")
-activate RemoveCommand
-RemoveCommand -> EventList: removeParticipantFromEvent("John Doe", "Meeting")
-activate EventList
-EventList --> RemoveCommand
-deactivate EventList
-RemoveCommand --> Parser
-deactivate RemoveCommand
-Parser --> Main
-deactivate Parser
+participant ":RemoveCommand" as command COMMAND_COLOUR
+participant ":EventList" as eventList EVENT_COLOUR
+
+group sd Remove participant
+    activate command COMMAND_COLOUR
+    command -> eventList : removeParticipantFromEvent(participantName,\n eventName)
+    activate eventList EVENT_COLOUR
+
+    eventList -> eventList : getEventByName()
+    activate eventList EVENT_COLOUR
+
+    return event:Event
+
+    alt event not found
+        eventList --> command : :boolean
+    else else
+        ref over eventList : Remove participant from event
+        eventList --> command : :boolean
+    end
+end
+
 
 @enduml

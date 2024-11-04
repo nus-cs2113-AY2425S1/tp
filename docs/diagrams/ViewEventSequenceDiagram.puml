@@ -3,20 +3,20 @@
 hide footbox
 
 participant ":Main" as main
-participant ":ViewCommand" as command
-participant ":EventList" as eventList
+participant ":ViewCommand" as command COMMAND_COLOUR
+participant ":EventList" as eventList EVENT_COLOUR
 
 main -> command : execute()
-activate command
+activate command COMMAND_COLOUR
 
-command -> eventList : getEventByName(eventName : String)
-activate eventList
+command -> eventList : getEventByName(eventName)
+activate eventList EVENT_COLOUR
 
 return eventToView : Event
 
-alt eventToView == null
+alt eventToView not found
     command --> main : Invalid event
-else isViewingParticipants
+else isViewingParticipants is true
     ref over command, eventList: view participants
 else else
     ref over command, eventList: view items

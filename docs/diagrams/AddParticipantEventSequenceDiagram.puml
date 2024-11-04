@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":EventList" as eventList EVENT_COLOUR
+participant ":Event" as event EVENT_COLOUR
+participant "participant:Participant" as participant EVENT_COLOUR
+participant "participantList:ArrayList<Participant>" as participantList EVENT_COLOUR
+
+group sd Add participant to event
+    activate eventList EVENT_COLOUR
+
+    eventList -> event : addParticipant(String, String, String)
+    activate event EVENT_COLOUR
+
+    event -> event : getParticipantByName(participantName)
+    activate event EVENT_COLOUR
+    return :Event
+
+    alt participant already present
+        event --> eventList:throws DuplicateDataException
+    else else
+        event -> participant : Participant(String, String, String)
+        activate participant EVENT_COLOUR
+        return participant : Participant
+
+        event -> participantList : add(participant)
+        activate participantList EVENT_COLOUR
+        return
+    end
+
+    return
+end
+@enduml
