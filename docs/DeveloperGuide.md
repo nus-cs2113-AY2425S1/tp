@@ -707,6 +707,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 1. Removing an `Event` from the `Event` list
 
    1. Prerequisite: An event with the name `Event 1` is present in the list.
+      An event with the name `Event 2` is not present in the list.
       List all `Event`s with `list` after each test case.
    
    2. Test case: `remove -e Event 1`
