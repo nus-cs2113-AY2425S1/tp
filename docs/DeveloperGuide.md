@@ -6,26 +6,21 @@
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
-
-### EasInternship (main class)
-
-1. [Design](#design)
-   1. [Architecture](#architecture)
-   2. [UI Component](#ui-component)
-   3. [Logic Component](#logic-component)
-   4. [Model Component](#model-component)
-   5. [Storage Component](#storage-component)
-2. [Implementation](#implementation)
-   1. [Parsing Input](#parsing-input)
-   2. [Command Execution](#command-execution)
-   3. [Task Management](#task-management) 
-   4. [AddCommand Implementation](#addcommand-implementation)
-   5. [DeleteCommand Implementation](#deletecommand-implementation)
-   6. [SortCommand Implementation](#sortcommand-implementation)
-   7. [UpdateCommand Implementation](#updatecommand-implementation)
-   8. [RemoveCommand Implementation](#)
-
+1. [Design](#1-design)
+    1. [Architecture](#11-architecture)
+    2. [UI Component](#12-UI-component)
+    3. [Logic Component](#13-logic-component)
+    4. [Model Component](#14-model-component)
+    5. [Storage Component](#15-storage-component)
+2. [Implementation](#2-implementation)
+    1. [Parsing Input](#21-parsing-input)
+    2. [Command Execution](#22-command-execution)
+    3. [Task Management](#23-task-management)
+    4. [AddCommand Implementation](#addcommand-implementation)
+    5. [DeleteCommand Implementation](#deletecommand-implementation)
+    6. [SortCommand Implementation](#sortcommand-implementation)
+    7. [UpdateCommand Implementation](#updatecommand-implementation)
+    8. [RemoveCommand Implementation](#removecommand-implementation)
 ---
 
 ## 1. Design
@@ -37,6 +32,17 @@ The architecture of EasInternship is designed to follow the MVC (Model-View-Cont
 - **Controller (Command and Parser)**: Responsible for parsing user input and invoking the appropriate commands.
 - **Model (InternshipList)**: Manages the state of the application, including the list of internships and tasks.
 - **Storage**: Responsible for loading and saving data from and to the disk.
+
+#### Overview
+
+The `EasInternship` class serves as the entry point of the application. It manages the application's main loop, where the user is continually prompted for input, and commands are processed in response. The class is responsible for initializing the UI, loading saved data, and handling user input until the user chooses to exit the program.
+
+### Key Responsibilities
+
+- **Initialization**: Initializes the necessary components for the application, such as the `Ui`, `InternshipList`, and `Parser` classes. It also loads any saved data from the storage into the `InternshipList`.
+- **Main Loop**: Continuously prompts the user for input. The input is parsed by the `Parser`, and the corresponding `Command` is executed. If the user enters the exit command, the loop terminates.
+- **Command Processing**: After parsing the user input, the corresponding `Command` object is executed. The application catches and displays any errors that occur during command execution.
+- **Saving State**: Upon exiting, the current state of the `InternshipList` is saved to a file to ensure persistence across sessions.
 
 ---
 
@@ -92,16 +98,6 @@ The `InternshipList` class handles adding, removing, and retrieving internships 
 
 ---
 
-### Overview
-
-The `EasInternship` class serves as the entry point of the application. It manages the application's main loop, where the user is continually prompted for input, and commands are processed in response. The class is responsible for initializing the UI, loading saved data, and handling user input until the user chooses to exit the program.
-
-### Key Responsibilities
-
-- **Initialization**: Initializes the necessary components for the application, such as the `Ui`, `InternshipList`, and `Parser` classes. It also loads any saved data from the storage into the `InternshipList`.
-- **Main Loop**: Continuously prompts the user for input. The input is parsed by the `Parser`, and the corresponding `Command` is executed. If the user enters the exit command, the loop terminates.
-- **Command Processing**: After parsing the user input, the corresponding `Command` object is executed. The application catches and displays any errors that occur during command execution.
-- **Saving State**: Upon exiting, the current state of the `InternshipList` is saved to a file to ensure persistence across sessions.
 
 ### Flow of Execution
 
