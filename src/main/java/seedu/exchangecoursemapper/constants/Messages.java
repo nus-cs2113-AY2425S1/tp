@@ -58,4 +58,6 @@ public class Messages {
     //Obtain contacts messages
     public static final String EMAIL_TAG = "Email for ";
     public static final String NUMBER_TAG = "Phone number for ";
+
+    public static final String INDEX_OUT_OF_BOUNDS = "Course index out of bounds";
 }

@@ -39,9 +39,14 @@ class StorageTest {
         storage.addCourse(course);
 
         // Verify the course is saved correctly
-        List<String> courses = storage.loadAllCourses();
+        List<Course> courses = storage.loadAllCourses();
         assertEquals(1, courses.size());
-        assertEquals("CS2102 | The University of Melbourne | INFO20003", courses.get(0));
+
+        // Check individual fields of the Course object
+        Course retrievedCourse = courses.get(0);
+        assertEquals("CS2102", retrievedCourse.getNusCourseCode());
+        assertEquals("The University of Melbourne", retrievedCourse.getPartnerUniversity());
+        assertEquals("INFO20003", retrievedCourse.getPuCourseCode());
     }
 
     @Test
@@ -65,9 +70,14 @@ class StorageTest {
 
         // Delete first course and verify the second one shifts up
         storage.deleteCourse(0);
-        List<String> courses = storage.loadAllCourses();
+        List<Course> courses = storage.loadAllCourses();
         assertEquals(1, courses.size());
-        assertEquals("CS3244 | The Australian National University | COMP3670", courses.get(0));
+
+        // Check fields of the remaining Course
+        Course remainingCourse = courses.get(0);
+        assertEquals("CS3244", remainingCourse.getNusCourseCode());
+        assertEquals("The Australian National University", remainingCourse.getPartnerUniversity());
+        assertEquals("COMP3670", remainingCourse.getPuCourseCode());
     }
 
     @Test
