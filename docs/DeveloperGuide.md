@@ -209,6 +209,8 @@ it would add the expense to a new `ArrayList` if all three checks are satisfied.
 
 The `ArrayList` is then returned to the caller.
 
+
+
 ### Date and Time Handling
 
 <u>Overview</u>
@@ -226,7 +228,7 @@ The `DateUtils` class has the following key methods:
     |    `stringToDate`    |   converts from given string to a `LocalDate` object   |
 | `dateFormatToString` |   converts from given `LocalDate` object to a string   |
 
-The date format that `DateUtils` uses, and thus the WheresMyMoney program uses, is `dd-MM-yyyy`. This ensures consistency in date fomratting throughout the program.
+The date format that `DateUtils` uses, and thus the WheresMyMoney program uses, is `dd-MM-yyyy`. This ensures consistency in date formatting throughout the program.
 
 <u>Implementation Details</u>
 
@@ -239,7 +241,13 @@ Most methods are essentially wrappers around the existing `java.time` API method
 
 <u>Design Considerations</u>
 
-The `DateUtils` class is implemented using class-level methods because date utility operations do not require objects, making the methods reusable across the program without needing to instantiate `DateUtils`.
+The `DateUtils` class' attributes and methods are all class-level, because:
+- Utility methods should be independent of object state 
+- No maintenance or storing of instance-specific date is needed 
+- Calling is easier, without requiring instantiation or to be passed through method parameters 
+- Utility functionality should not differ between instances.
+
+
 
 ### Recurring Expense and Recurring Expense List
 
