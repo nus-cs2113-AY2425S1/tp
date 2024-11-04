@@ -1,15 +1,7 @@
 package wheresmymoney.category;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvValidationException;
 
 import wheresmymoney.CsvUtils;
 import wheresmymoney.Expense;
@@ -50,7 +42,7 @@ public class CategoryStorage {
      */
     public void loadFromCsv(String filePath, CategoryTracker categoryTracker) throws StorageException {
         categoryTracker.clear();
-        CsvUtils.readCSV(filePath, line -> {
+        CsvUtils.readCsv(filePath, line -> {
             if (line.length != 2) {
                 return;
             }
@@ -70,37 +62,13 @@ public class CategoryStorage {
      * @param filePath File Path to save csv to
      */
     public void saveToCsv(String filePath, HashMap<String, CategoryData> tracker) throws StorageException {
-        File file = new File(filePath);
-
-        // create FileWriter object with file as parameter
-        FileWriter outFile;
-        try{
-            outFile = new FileWriter(file);
-        } catch (IOException e) {
-            throw new StorageException("Unable to save to file!");
-        }
-        
-        // create CSVWriter object filewriter object as parameter
-        CSVWriter writer = new CSVWriter(outFile);
-
-        // adding header to csv
         String[] header = { "Category", "SpendingLimit" };
-        writer.writeNext(header);
-        
-        for (String categoryName : tracker.keySet()) {
-            Float spendingLimit = tracker.get(categoryName).getMaxExpenditure();
-            String[] row = {
-                categoryName,
-                spendingLimit.toString()
-            };
-            writer.writeNext(row);
-        }
-
-        // closing writer connection
-        try {
-            writer.close();
-        } catch (IOException e) {
-            throw new StorageException("Unable to save to file!");
-        }
+        CsvUtils.writeCsv(filePath, header, (writer) -> {
+            for (String categoryName : tracker.keySet()) {
+                Float spendingLimit = tracker.get(categoryName).getMaxExpenditure();
+                String[] row = { categoryName, spendingLimit.toString() };
+                writer.writeNext(row);
+            }
+        });
     }
 }

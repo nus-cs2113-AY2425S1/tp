@@ -1,15 +1,8 @@
 package wheresmymoney;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvValidationException;
 import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.time.LocalDate;
@@ -229,7 +222,7 @@ public class RecurringExpenseList extends ExpenseList {
      */
     public void loadFromCsv(String filePath) throws StorageException {
         clear();
-        CsvUtils.readCSV(filePath, line -> {
+        CsvUtils.readCsv(filePath, line -> {
             addRecurringExpense(Float.parseFloat(line[2]), line[1], line[0], line[4], line[5]);
         });
 
@@ -259,41 +252,19 @@ public class RecurringExpenseList extends ExpenseList {
      * @param filePath File Path to save csv to
      */
     public void saveToCsv(String filePath) throws StorageException {
-        File file = new File(filePath);
-
-        // create FileWriter object with file as parameter
-        FileWriter outFile;
-        try{
-            outFile = new FileWriter(file);
-        } catch (IOException e) {
-            throw new StorageException("Unable to save Recurring Expense List to file: " + filePath);
-        }
-
-
-        // create CSVWriter object filewriter object as parameter
-        CSVWriter writer = new CSVWriter(outFile);
-
-        // adding header to csv
         String[] header = { "Category", "Description", "Price", "DateAdded", "LastAddedDate", "Frequency" };
-        writer.writeNext(header);
-
-        for (RecurringExpense recurringExpense: recurringExpenses) {
-            String[] row = {
-                recurringExpense.getCategory(),
-                recurringExpense.getDescription(),
-                recurringExpense.getPrice().toString(),
-                DateUtils.dateFormatToString(recurringExpense.getDateAdded()),
-                recurringExpense.getlastAddedDate(),
-                recurringExpense.getFrequency()
-            };
-            writer.writeNext(row);
-        }
-
-        // closing writer connection
-        try{
-            writer.close();
-        } catch (IOException e) {
-            throw new StorageException("Unable to save Recurring Expense List to file: " + filePath);
-        }
+        CsvUtils.writeCsv(filePath, header, (writer) -> {
+            for (RecurringExpense recurringExpense: recurringExpenses) {
+                String[] row = {
+                        recurringExpense.getCategory(),
+                        recurringExpense.getDescription(),
+                        recurringExpense.getPrice().toString(),
+                        DateUtils.dateFormatToString(recurringExpense.getDateAdded()),
+                        recurringExpense.getlastAddedDate(),
+                        recurringExpense.getFrequency()
+                };
+                writer.writeNext(row);
+            }
+        });
     }
 }

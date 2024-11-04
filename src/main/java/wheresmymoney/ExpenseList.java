@@ -1,17 +1,9 @@
 package wheresmymoney;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvValidationException;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -172,7 +164,7 @@ public class ExpenseList {
      */
     public void loadFromCsv(CategoryFacade categoryFacade, String filePath) throws StorageException {
         clear();
-        CsvUtils.readCSV(filePath, line -> {
+        CsvUtils.readCsv(filePath, line -> {
             try {
                 String category = line[0];
                 String description = line[1];
@@ -195,39 +187,17 @@ public class ExpenseList {
      * @param filePath File Path to save csv to
      */
     public void saveToCsv(String filePath) throws StorageException {
-        File file = new File(filePath);
-
-        // create FileWriter object with file as parameter
-        FileWriter outFile;
-        try{
-            outFile = new FileWriter(file);
-        } catch (IOException e) {
-            throw new StorageException("Unable to save Expense List to file: " + filePath);
-        }
-
-
-        // create CSVWriter object filewriter object as parameter
-        CSVWriter writer = new CSVWriter(outFile);
-
-        // adding header to csv
         String[] header = { "Category", "Description", "Price", "Date Added" };
-        writer.writeNext(header);
-
-        for (Expense expense: expenses) {
-            String[] row = {
-                    expense.getCategory(),
-                    expense.getDescription(),
-                    expense.getPrice().toString(),
-                    DateUtils.dateFormatToString(expense.getDateAdded())
-            };
-            writer.writeNext(row);
-        }
-
-        // closing writer connection
-        try {
-            writer.close();
-        } catch (IOException e) {
-            throw new StorageException("Unable to save Expense List to file: " + filePath);
-        }
+        CsvUtils.writeCsv(filePath, header, (writer) -> {
+            for (Expense expense: expenses) {
+                String[] row = {
+                        expense.getCategory(),
+                        expense.getDescription(),
+                        expense.getPrice().toString(),
+                        DateUtils.dateFormatToString(expense.getDateAdded())
+                };
+                writer.writeNext(row);
+            }
+        });
     }
 }
