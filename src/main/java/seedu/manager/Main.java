@@ -70,7 +70,6 @@ public class Main {
     private static void saveData() {
         try {
             storage.saveEvents(events);
-            ui.showMessage("Events saved successfully.");
         } catch (IOException e) {
             ui.showErrorMessageToUser(e);
         }

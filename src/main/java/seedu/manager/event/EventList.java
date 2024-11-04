@@ -227,6 +227,30 @@ public class EventList  {
         return false;
     }
 
+    //@@author MatchaRRR
+    /**
+     * Edits the details of an event in a specified event.
+     *
+     * <p>
+     * This method searches for the event with the given name in the event list and update the event's information.
+     * If the event is found and the participant is successfully updated, it returns {@code true}.
+     * If the event does not exist, it returns {@code false}.
+     * </p>
+     *
+     * @param itemName The name of original item.
+     * @param itemNewName The name of the new item.
+     * @return {@code true} if the item was successfully edited;
+     *         {@code false} if the item does not exist.
+     */
+    public boolean editItem(String itemName, String itemNewName, String eventName) {
+        for (Event event : eventList) {
+            if (event.getEventName().equals(eventName)) {
+                return event.updateItem(itemName, itemNewName);
+            }
+        }
+        return false;
+    }
+
 
 
     /**
