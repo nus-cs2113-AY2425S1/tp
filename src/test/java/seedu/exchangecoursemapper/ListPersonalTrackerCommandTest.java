@@ -16,7 +16,7 @@ import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
 class ListPersonalTrackerCommandTest {
 
-    private List<String> mockedStorageData;
+    private List<Course> mockedStorageData;
     private ListPersonalTrackerCommand command;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
@@ -27,15 +27,8 @@ class ListPersonalTrackerCommandTest {
 
         Storage mockStorage = new Storage() {
             @Override
-            public List<String> loadAllCourses() {
+            public List<Course> loadAllCourses() {
                 return mockedStorageData;
-            }
-
-            @Override
-            public void addCourse(Course course) {
-                mockedStorageData.add(course.getNusCourseCode() + " | " +
-                        course.getPartnerUniversity() + " | " +
-                        course.getPuCourseCode());
             }
         };
 
@@ -50,8 +43,8 @@ class ListPersonalTrackerCommandTest {
 
     @Test
     void execute_withMultipleMappedModules_displaysModulesWithIndexing() {
-        mockedStorageData.add("CS2040 | Victoria University of Wellington | COMP103");
-        mockedStorageData.add("CS2102 | The University of Melbourne | INFO20003");
+        mockedStorageData.add(new Course("COMP103", "CS2040", "Victoria University of Wellington"));
+        mockedStorageData.add(new Course("INFO20003", "CS2102", "The University of Melbourne"));
 
         command.execute("");
         String expectedOutput = "Mapped Modules:" + System.lineSeparator() +
@@ -66,7 +59,7 @@ class ListPersonalTrackerCommandTest {
 
     @Test
     void execute_withOneMappedModule_displaysSingleModuleWithIndexing() {
-        mockedStorageData.add("CS2102 | The University of Melbourne | INFO20003");
+        mockedStorageData.add(new Course("INFO20003", "CS2102", "The University of Melbourne"));
 
         command.execute("");
         String expectedOutput = "Mapped Modules:" + System.lineSeparator() +
