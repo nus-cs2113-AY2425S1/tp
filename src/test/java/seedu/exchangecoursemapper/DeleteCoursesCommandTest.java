@@ -1,5 +1,6 @@
 package seedu.exchangecoursemapper;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.exchangecoursemapper.command.AddCoursesCommand;
@@ -28,6 +29,13 @@ public class DeleteCoursesCommandTest {
         addCoursesCommand.execute("add cs2102 /pu the university of melbourne /coursepu info20003", storage);
         // Clear the output capture after add command
         outputStreamCaptor.reset();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(System.out);
+        DeleteCoursesCommand deleteCoursesCommand = new DeleteCoursesCommand();
+        deleteCoursesCommand.execute("delete 1", storage);
     }
 
     @Test
