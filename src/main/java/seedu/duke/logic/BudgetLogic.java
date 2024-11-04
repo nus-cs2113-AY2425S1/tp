@@ -69,17 +69,14 @@ public class BudgetLogic {
     }
 
     /**
-     * Modifies the balance of the budget by calculating the difference between
-     * the specified amount and the current balance, then updating the budget balance accordingly.
+     * Modifies the budget balance by adding the specified amount to the current balance.
+     * A positive amount increases the balance, while a negative amount decreases it.
      *
-     * @param amount the new amount to update the balance to.
+     * @param amount the amount to adjust the balance by.
      */
     public void modifyBalance(double amount) {
         double currentBalance = budget.getBalance();
-        // if difference is positive, net increase
-        // if difference is negative, net decrease
-        double difference = amount - currentBalance;
-        double newBalance = currentBalance + difference;
+        double newBalance = currentBalance + amount;
         budget.updateBalance(newBalance);
     }
 }
