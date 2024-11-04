@@ -167,6 +167,10 @@ The `ExpenseList` class has the following key methods:
 | `deleteExpense` | Removes an expense from the list  |
 |  `editExpense`  |   Edits an expense in the list    |
 
+There are 2 versions of `addExpense`: one with a date and one without a date.
+- The former is used when the user does not specify the date: the date is initialised as the current date. 
+- The latter is used when the user specifies the date: the date is initialised as that specified date. 
+
 <u>Design Considerations</u>
 
 The setters in `Expense` class checks for null and blank.
