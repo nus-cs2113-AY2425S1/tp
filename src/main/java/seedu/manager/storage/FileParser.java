@@ -56,7 +56,6 @@ public class FileParser {
         }
     }
 
-    //@@author jemehgoh
     /**
      * Parses a CSV file containing participant details and loads the item into the corresponding Event in
      *         the specified EventList.
@@ -97,7 +96,6 @@ public class FileParser {
         }
     }
 
-    //@@author KuanHsienn
     /**
      * Parses one line of the CSV file containing event details into a {@code Event} in the given event list.
      *
@@ -120,7 +118,6 @@ public class FileParser {
         }
     }
 
-    //@@author jemehgoh
     /**
      * Parses one line of the CSV file containing participant details into a {@code Participant} in an
      *         {@code Event} in the given event list.

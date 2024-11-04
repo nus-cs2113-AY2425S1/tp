@@ -8,7 +8,6 @@ import seedu.manager.item.Participant;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +17,9 @@ import java.util.List;
  *
  */
 public class Storage {
-    private static final String CSV_LINE_FORMAT = "%s,%s,%s,%s,%s\n";
-    private static final String ITEM_CSV_LINE_FORMAT = "%s,%s,%s\n";
-
     private final String eventFilePath;
     private final String participantFilePath;
     private final String itemFilePath;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Constructs a Storage object with the given file path.
@@ -57,7 +52,6 @@ public class Storage {
         }
     }
 
-    //@@author jemehgoh
     /**
      * Saves the participants stored in the events in the event list to the file.
      *
@@ -90,7 +84,6 @@ public class Storage {
         }
     }
 
-    //@@author KuanHsienn
     /**
      * Loads events from the file and returns an EventList.
      *
@@ -101,7 +94,6 @@ public class Storage {
         parser.parseEventsFile(events, eventFilePath);
     }
 
-    //@@author jemehgoh
     /**
      * Loads participants from the file into the specified Events in EventList.
      *
@@ -143,7 +135,6 @@ public class Storage {
         return "true".equals(System.getProperty("test.environment"));
     }
 
-    //@@author jemehgoh
     /**
      * Saves the data of the participants in a given event to a given file writer.
      *

@@ -126,7 +126,6 @@ public class StorageTest {
         }
     }
 
-    //@@author jemehgoh
     @Test
     public void loadParticipants_validEntry_success() {
         try {

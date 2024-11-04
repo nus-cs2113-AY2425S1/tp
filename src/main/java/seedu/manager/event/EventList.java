@@ -246,7 +246,7 @@ public class EventList  {
      *         {@code false} if the event does not exist.
      */
     public boolean editEvent(String eventName, String eventNewName, LocalDateTime eventTime, String eventVenue,
-                             Priority eventPriority) {
+            Priority eventPriority) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
                 event.updateEvent(eventNewName, eventTime, eventVenue, eventPriority);
@@ -279,8 +279,6 @@ public class EventList  {
         }
         return false;
     }
-
-
 
     //@@author jemehgoh
     /**
