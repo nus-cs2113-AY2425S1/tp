@@ -240,9 +240,121 @@ The `Parser` then checks this parameter for two values, `done` or `undone`, and 
 If the parameter value is `done`, the `MarkEventCommand` will set the event as done, and will do otherwise if the parameter value is `undone`.
 Any other values entered for the status parameter will be treated as invalid.
 
+### Copy Feature
+
+The copy feature allows users to copy the list of participants from one event to another. This feature is implemented in the `CopyCommand` class,  which extends `Command`,
+The `CopyCommand` copies participants from a source event to a destination event if both events exist in the event list.
+
+The main operations for `copy` feature include:
+* Checking if both source and destination events exists in `EventList`
+* Verifying that the source event contains a non-empty participant list
+* Copying the participant list from the source event to the destination event
+* Displaying an appropriate message based on the outcome of the operation
+
+The above operation is implemented as `CopyCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+#### Feature Implementation
+
+Given below is an example usage scenario and the behaviour of the `copy` feature at each step:
+1. The user enters the command `copy EventA > EventB` to copy participants from EventA to EventB. 
+2. `CopyCommand` calls `CopyCommand#execute`, where it attempts to get the participant list from EventA, and copy the participant list over to EventB if there are existing participants.
+The interactions between components of `CopyCommand#execute` are shown in the **Sequence Diagram** below:
+
+<img src="images/CopyCommandSequenceDiagram.png">
+
+3.  Upon execution of the command, the output message of `CopyCommand` is set to inform the user if the participants list has been copied,
+    or if the operation was unsuccessful (e.g. if the participant list that is meant to be copied is empty).
+
+### Sort feature
+
+The `sort` feature allows users to organize events in a chosen order based on different attributes, such as name, time, or priority.
+This feature is implemented in the `SortCommand` class, which extends the `Command` base class and utilises a keyword to determine the sorting criterion.
+
+The `SortCommand` supports the following sorting options:
+* **By Name:** Alphabetically sorts the events by name
+* **By Time:** Orders events bases on scheduled time
+* **By Priority:** Organises events by priority level, with the highest priority appearing first
+
+The above operation is implemented as `SortCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+#### Feature Implementation
+
+The `SortCommand` class is constructed with a specified sorting keyword and performs sorting operations based on this keyword.
+Given below is an example usage scenario and the behaviour of the `sort` feature at each step:
+1. The user enters the command sort followed by a keyword (name, time, or priority) e.g. `sort -by name` to specify the sorting criterion
+2. `SortCommand` calls `SortCommand#execute`, which based on the keyword invokes one of the following 3 methods
+    * `sortByName()` - Sort events alphabetically by name
+    * `sortByTime()` - Sort events chronologically by time
+    * `sortByPriority` - Sort events by priority level
+    
+    After sorting, a success message is appended to `outputMessage` which indicates the sorting criterion used
+3. The final sorted list is then formatted and appended to `outputMessage`,
+    which is subsequently stored in `this.message` and displayed to the user.
+
+The interactions between components of `SortCommand#execute` are shown in the **Sequence Diagram** below:
+
+<img src="images/SortCommandSequenceDiagram.png">
+
+### Filter feature
+
+The `filter` feature allows users to filter events from the event list based on specified criteria. 
+This feature is implemented in the `FilterCommand` class, which extends the `Command` base class and uses flags to determine the filtering criteria.
+
+The `FilterCommand` supports the following filter options:
+* **By Name:** Finds any events containing the specified name
+* **By Time:** Finds all events scheduled at the specified time
+* **By Priority:** Finds all events with the specified priority level
+
+The above operation is implemented as `FilterCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+#### Feature Implementation
+
+The `FilterCommand` class is constructed with a specified filter flag and keywords. It then performs filter operations based on both the flag and keywords.
+Given below is an example usage scenario and the behaviour of the `filter` feature at each step:
+1. The user enters the command filter followed by a flag (`-e: name, -t: time, or -u: priority`) and their search keyword e.g. `filter -e work` to specify the filtering criterion
+2. `FilterCommand` calls `FilterCommand#execute`, which based on the flag invokes one of the following 3 methods
+   * `filterByName()` - Finds events containing given name (keyword)
+   * `filterByTime()` - Finds events occurring during given time (keyword)
+   * `filterByPriority` - Finds events with given priority (keyword)
+   
+   After filtering, a success message is appended to `outputMessage` which indicates the filtering criterion used
+3. The final filtered list is then formatted and appended to `outputMessage`,
+   which is subsequently stored in `this.message` and displayed to the user.
+
+The interactions between components of `FilterCommand#execute` are shown in the **Sequence Diagram** below:
+
+<img src="images/FilterCommandSequenceDiagram.png">
+
+### Find feature
+
+The `find` feature allows users to locate participants within a specified event by their name.
+This feature is implemented in the `FindCommand` class, which extends the `Command` base class. 
+The feature provides detailed feedback, informing the user whether the event or participant was found.
+
+The above operation is implemented as `FindCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+#### Feature Implementation
+
+The `FindCommand` class performs a finding operation within an event of a specified participant. 
+Given below is an example usage scenario and the behaviour of the `find` feature at each step:
+
+1. The user enters the command `find -e EVENT -p PARTICIPANT` to find participants in the specified event given a specified name
+2. The `FindCommand` searches for the specified event within the eventList by calling `getEventByName(eventName)`, which returns an `Optional<Event>`
+3. If the event exists,  the method `findParticipants(personName)` is invoked on the retrieved event to get a list of participants matching `personName`
+    * If participants are found, `outputMessage` is appended with a success message followed by a formatted list of found participants
+    * Otherwise, if either the event is not found or participants is not found, a corresponding failure message is appended to `outputMessage`
+4. The final `outputMessage` is subsequently stored in `this.message` and displayed to the user.
+
+The interactions between components of `FindCommand#execute` are shown in the **Sequence Diagram** below:
+
+<img src="images/FindCommandSequenceDiagram.png">
+
 ## Product scope
 ### Target user profile
-
 The target user:
 
 * has a need to organise a large number of events
@@ -266,10 +378,13 @@ The user is able to organise and manage his events more quickly and efficiently 
 | v1.0    | user     | remove participants who are no longer coming to specific events | efficiently keep the participant list for that event up-to-date and relevant              |
 | v1.0    | user     | view the participant list of an event                           | know who is involved                                                                      |
 | v2.0    | user     | mark events as completed                                        | easily track all past events                                                              |
-| v2.0    | user     | mark participants present                                       | know exactly who signed up but did not attend the event                                   |
-| v2.0    | user     | save events info                                                | can still access the information if the program terminates                                |
-| v2.0    | user     | filter events by keywords                                       | can find relevant information efficiently                                                 |
-| v2.0    | user     | edit event details                                              | can update latest changes to events                                                       |
+| v2.0    | user     | mark participants present                                       | exactly know who signed up but did not attend the event                                   |
+| v2.0    | user     | save events info                                                | still access the information if the program terminates                                    |
+| v2.0    | user     | filter events by keywords                                       | find relevant information efficiently                                                     |
+| v2.0    | user     | edit event details                                              | update latest changes to events                                                           |
+| v2.0    | user     | copy participant details across events                          | update events with the same participants efficiently                                      |    
+| v2.0    | user     | sort events by certain order (e.g. Priority)                    | visually view events in a certain order                                                   |
+| v2.0    | user     | find if a person is in a certain event                          | quickly confirm a participant’s involvement in an event                                             |
 
 ## Non-Functional Requirements
 
