@@ -33,8 +33,7 @@ public class InternshipList {
             internship.setId(internships.size());
         }
 
-        assert internship.getId() >= 0 : "Internship ID should be non-negative after setting";
-        assert internship.getId() == internships.size() : "Internship ID should match the list size before adding";
+        assert internship.getId() == internships.size() + 1;
 
         internships.add(internship);
     }
