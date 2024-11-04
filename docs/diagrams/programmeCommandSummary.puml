@@ -1,52 +1,43 @@
 @startuml
 
-    abstract ProgrammeCommand {
-        <<abstract>>
-        #programmeIndex: int
-        #dayIndex: int
-        + ProgrammeCommand()
-        + ProgrammeCommand(programmeIndex: int)
-        + ProgrammeCommand(programmeIndex: int, dayIndex: int)
-        +equals(other: Object): boolean
-    }
+abstract class ProgrammeCommand {
+    # programmeIndex: int
+    # dayIndex: int
+    + equals(other: Object): boolean
+}
 
-    class CreateProgrammeCommand {
-        + programmeName : String
-        + programmeContents: ArrayList<Day>
-        + CreateProgrammeCommand(programmeName: String, programmeContents: ArrayList<Day>)
-        + execute(programmes: ProgrammeList, History history): CommandResult
-    }
+class CreateProgrammeCommand {
+    + programmeName: String
+    + programmeContents: ArrayList<Day>
+    + execute(programmes: ProgrammeList, history: History): CommandResult
+}
 
-    class DeleteProgrammeCommand {
-        + DeleteProgrammeCommand(programmeIndex: int)
-        + execute(programmes: ProgrammeList, History history): CommandResult
-    }
+class DeleteProgrammeCommand {
+    + execute(programmes: ProgrammeList, history: History): CommandResult
+}
 
-    class ViewProgrammeCommand {
-        + ViewProgrammeCommand(programmeIndex: int)
-        + execute(programmes: ProgrammeList, History history): CommandResult
-    }
+class ViewProgrammeCommand {
+    + execute(programmes: ProgrammeList, history: History): CommandResult
+}
 
-    class StartProgrammeCommand {
-        + StartProgrammeCommand(programmeIndex: int)
-        + execute(programmes: ProgrammeList, History history): CommandResult
-    }
+class StartProgrammeCommand {
+    + execute(programmes: ProgrammeList, history: History): CommandResult
+}
 
-    class LogProgrammeCommand {
-        # date: LocalDate
-        + LogProgrammeCommand(programmeIndex: int, dayIndex: int, date: LocalDate)
-        + execute(programmes: ProgrammeList, History history): CommandResult
-    }
+class LogProgrammeCommand {
+    # date: LocalDate
+    + execute(programmes: ProgrammeList, history: History): CommandResult
+}
 
-    class ListProgrammeCommand {
-        + execute(programmes: ProgrammeList, History history): CommandResult
-    }
+class ListProgrammeCommand {
+    + execute(programmes: ProgrammeList, history: History): CommandResult
+}
 
-    ProgrammeCommand <|-- EditCommand
-    ProgrammeCommand <|-- ViewProgrammeCommand
-    ProgrammeCommand <|-- LogProgrammeCommand
-    ProgrammeCommand <|-- StartProgrammeCommand
-    ProgrammeCommand <|-- ListProgrammeCommand
-    ProgrammeCommand <|-- CreateProgrammeCommand
-    ProgrammeCommand <|-- DeleteProgrammeCommand
+ProgrammeCommand <|-- CreateProgrammeCommand
+ProgrammeCommand <|-- DeleteProgrammeCommand
+ProgrammeCommand <|-- ViewProgrammeCommand
+ProgrammeCommand <|-- StartProgrammeCommand
+ProgrammeCommand <|-- LogProgrammeCommand
+ProgrammeCommand <|-- ListProgrammeCommand
+
 @enduml

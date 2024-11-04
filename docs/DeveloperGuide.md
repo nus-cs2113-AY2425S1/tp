@@ -15,11 +15,13 @@ We used these third party libraries to develop our application:
 
 ### Meal Component
 
+
+
 ### Water Component
 
 ### History Component
 
-#### DailyRecord 
+#### DailyRecord
 
 ![Diagram for DailyRecord Component](./images/DailyRecord_API_UML.jpg)
 The `DailyRecord` component,
@@ -83,13 +85,32 @@ Each abstract sub-class of `Command` represents a generalization of the various 
 
 #### Programme Commands
 
-`ProgrammeCommand` is an abstract class for all programme classes that interact with `ProgrammeList` and its encapsulated data. The following diagram documents all `ProgrammeCommand` subclasses.
+`ProgrammeCommand` is an abstract class for all `Command` classes that interact with `ProgrammeList` and its encapsulated data.
+The following diagram documents all `ProgrammeCommand` subclasses.
 
 ![Summary of Programme classes](images/programmeCommandSummary.png)
 
-`EditCommand` classes are a subset of `ProgrammeCommand` classes that focus specifically on editing the internal `ProgrammeList` data. As this data is concerned only with `ProgrammeList`, `EditCommand#execute()` has been narrowed through method overloading to only take in `ProgrammeList` as a parameter.
+`EditProgrammeCommand` classes are a subset of `ProgrammeCommand` classes that focus specifically on editing the internal `ProgrammeList` data. As this data is concerned only with `ProgrammeList`, `EditCommand#execute()` has been narrowed through method overloading to only take in `ProgrammeList` as a parameter.
 
 ![Summary of Edit classes](images/editCommandSummary.png)
+
+#### Meal Commands
+
+`MealCommand` is an abstract class for all `Command` classes that interact with meal-related data within the application. These commands allow users to log, edit, and manage their meal entries, ensuring that their dietary information is accurately tracked and updated. The following diagram documents all `MealCommand` subclasses.
+
+![Summary of Meal classes](images/mealCommandSummary.png)
+
+#### Water Commands
+
+`WaterCommand` is an abstract class for all `Command` classes that interact with water-related data within the application. These commands allow users to log, edit, and manage their water intake entries, ensuring that their hydration information is accurately tracked and updated. The following diagram documents all `WaterCommand` subclasses.
+
+![Summary of Water classes](images/waterCommandSummary.png)
+
+#### History Commands
+
+`HistoryCommand` is an abstract class for all `Command` classes that interact with `History` data within the application. These involve viewing weekly summaries, viewing their recorded data and getting their personal bests for each exercise. The following diagram documents all `HistoryCommand` subclasses.
+
+![Summary of History classes](images/historyCommandSummary.png)
 
 ### Common Component
 
@@ -274,6 +295,7 @@ The **Add Meal** command navigates through the following hierarchy:
 - Similarly, a new `Meal` object is created and added to the `MealList` if it doesn't already exist.
 
 These operations include:
+
 - Adding meals to a `MealList` in the `DailyRecord` of a particular date in the `History`.
 
 Given below is an example usage scenario for adding a meal and how the add meal command functions at each step.
@@ -296,13 +318,13 @@ The overall design that enables this functionality is described generically by t
 
 #### Sequence Diagram for "Add Meal" Command
 
-![Add Meal Sequence Diagram](images/AddMeal_Sequence_diagram.png)
+![Add Meal Sequence Diagram](images/addMealSequenceDiagram.png)
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Meal" command.
 
 #### Activity Diagram for "Add Meal" Feature
 
-![Add Meal Activity Diagram](images/AddMeal_Activity_diagram.png)
+![Add Meal Activity Diagram](images/addMealActivitydiagram.png)
 
 The diagram shows the overall operation flow, including:
 
@@ -369,24 +391,24 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 
 ## User Stories
 
-| Version | As a ...               | I want to ...                                           | So that I can ...                                      |
-| ------- |------------------------| ------------------------------------------------------- | ------------------------------------------------------ |
-| v1.0    | fitness enthusiast     | create a new workout plan/routine                       | tailor my workout to fit my needs                      |
-| v1.0    | fitness enthusiast     | create a workout entry (input sets, weights, rep, time) | keep track of my progress                              |
-| v1.0    | fitness enthusiast     | view my routine when I begin my workout                 | follow my plan more effectively                        |
-| v1.0    | fitness enthusiast     | view their logged workout entry for a specific day      | see what they have done previously                     |
-| v1.0    | fitness enthusiast     | delete a workout entry                                  | remove mistakenly created logs                         |
-| v1.0    | fitness enthusiast     | delete a fitness routine if I no longer use it          | ensure my routines remain relevant and organized       |
-| v1.0    | fitness enthusiast     | edit my existing fitness routine                        | further customize my routines after making them        |
-| v2.0    | progress tracking user | view a summary of my weekly workout activity            | measure my overall progress                            |
-| v2.0    | progress tracking user | track my personal bests for each exercise               | see improvements over time                             |
-| v2.0    | nutrition-focused user | track calories burned during my workout                 | align my fitness routine with my dietary goals         |
-| v2.0    | nutrition-focused user | add a meal I just ate                                   | track my meals over time                               |
-| v2.0    | nutrition-focused user | delete a meal I ate                                     | delete a wrongly inputted meal                         |
-| v2.0    | nutrition-focused user | view my meals I ate on a certain date                   | see how much calories I have eaten                     |
-| v2.0    | hydration-focused user | add my water intake                                     | track my water intake for each day                     |
-| v2.0    | hydration-focused user | view my water intake                                    | see how much water I have consumed across days/week    |
-| v2.0    | hydration-focused user | delete a water intake                                   | remove any mistakes made when inputting water intake   |
+| Version | As a ...               | I want to ...                                           | So that I can ...                                    |
+| ------- | ---------------------- | ------------------------------------------------------- | ---------------------------------------------------- |
+| v1.0    | fitness enthusiast     | create a new workout plan/routine                       | tailor my workout to fit my needs                    |
+| v1.0    | fitness enthusiast     | create a workout entry (input sets, weights, rep, time) | keep track of my progress                            |
+| v1.0    | fitness enthusiast     | view my routine when I begin my workout                 | follow my plan more effectively                      |
+| v1.0    | fitness enthusiast     | view their logged workout entry for a specific day      | see what they have done previously                   |
+| v1.0    | fitness enthusiast     | delete a workout entry                                  | remove mistakenly created logs                       |
+| v1.0    | fitness enthusiast     | delete a fitness routine if I no longer use it          | ensure my routines remain relevant and organized     |
+| v1.0    | fitness enthusiast     | edit my existing fitness routine                        | further customize my routines after making them      |
+| v2.0    | progress tracking user | view a summary of my weekly workout activity            | measure my overall progress                          |
+| v2.0    | progress tracking user | track my personal bests for each exercise               | see improvements over time                           |
+| v2.0    | nutrition-focused user | track calories burned during my workout                 | align my fitness routine with my dietary goals       |
+| v2.0    | nutrition-focused user | add a meal I just ate                                   | track my meals over time                             |
+| v2.0    | nutrition-focused user | delete a meal I ate                                     | delete a wrongly inputted meal                       |
+| v2.0    | nutrition-focused user | view my meals I ate on a certain date                   | see how much calories I have eaten                   |
+| v2.0    | hydration-focused user | add my water intake                                     | track my water intake for each day                   |
+| v2.0    | hydration-focused user | view my water intake                                    | see how much water I have consumed across days/week  |
+| v2.0    | hydration-focused user | delete a water intake                                   | remove any mistakes made when inputting water intake |
 
 ## Non-Functional Requirements
 

@@ -1,57 +1,52 @@
 @startuml
 
-    class Command {
-        <<abstract>>
-        +execute(programmes: ProgrammeList, history: History): CommandResult
-        +equals(other: Object): boolean
-    }
+abstract class Command {
+    + execute(programmes: ProgrammeList, history: History): CommandResult
+    + equals(other: Object): boolean
+}
 
-    class ExitCommand {
-    }
+class ExitCommand {
+}
 
-    class InvalidCommand {
-    }
+class InvalidCommand {
+}
 
-    class CommandResult {
-        -message: String
-        +CommandResult(message: String)
-        +getMessage(): String
-        +equals(other: Object): boolean
-    }
+class CommandResult {
+    - message: String
+    + CommandResult(message: String)
+    + getMessage(): String
+    + equals(other: Object): boolean
+}
 
-    class ProgrammeCommand {
-        <<abstract>>
-        #programmeIndex: int
-        #dayIndex: int
-        +equals(other: Object): boolean
-    }
+abstract class ProgrammeCommand {
+    # programmeIndex: int
+    # dayIndex: int
+    + equals(other: Object): boolean
+}
 
-    class EditCommand {
-        <<abstract>>
-        #exerciseIndex: int
-        +execute(programmes: ProgrammeList): CommandResult
-    }
+abstract class EditCommand {
+    # exerciseIndex: int
+    + execute(programmes: ProgrammeList): CommandResult
+}
 
-    class WaterCommand {
-        <<abstract>>
-        #date: LocalDate
-    }
+abstract class WaterCommand {
+    # date: LocalDate
+}
 
-    class MealCommand {
-        <<abstract>>
-        #date: LocalDate
-    }
+abstract class MealCommand {
+    # date: LocalDate
+}
 
-    class HistoryCommand{
-        <<abstract>>
-    }
+abstract class HistoryCommand {
+}
 
-    Command <|-- ProgrammeCommand
-    Command <|-- ExitCommand
-    Command <|-- InvalidCommand
-    Command <|-- WaterCommand
-    Command <|-- MealCommand
-    Command <|-- HistoryCommand
-    ProgrammeCommand <|-- EditCommand
-    Command ..> CommandResult
+Command <|-- ProgrammeCommand
+Command <|-- ExitCommand
+Command <|-- InvalidCommand
+Command <|-- WaterCommand
+Command <|-- MealCommand
+Command <|-- HistoryCommand
+ProgrammeCommand <|-- EditCommand
+Command ..> CommandResult
+
 @enduml

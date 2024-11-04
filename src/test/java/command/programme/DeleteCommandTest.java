@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class DeleteCommandTest {
+class DeleteProgrammeCommandTest {
 
     private static final int VALID_PROGRAMME_ID = 0;
     private static final int INVALID_PROGRAMME_ID = -2;
