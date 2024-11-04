@@ -21,4 +21,8 @@ Storage "1" ..> "1" ExpenseList
 Storage "1" ..> "1" CategoryFacade
 Storage "1" ..> "1" RecurringExpenseList
 
+CsvUtils "1" .up.> ExpenseList
+CsvUtils "1" .up.> CategoryFacade
+CsvUtils "1" .up.> RecurringExpenseList
+
 @enduml

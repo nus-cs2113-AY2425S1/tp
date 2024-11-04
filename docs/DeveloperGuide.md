@@ -137,8 +137,10 @@ Commands interact with `UI` and `Parser` classes via `Main`, as illustrated in t
 Storage is mostly handled by the different states themselves (`ExpenseList`, `RecurringExpenseList`, `CategoryStorage`).
 This is to keep the storage tightly coupled with the data and ensures that when the data format is updated,
 the storage format is updated accordingly, increasing cohesion.
-It also allows more flexible file formats between different classes, instead of relying solely on a certain format. 
+The current implementation abstracted out common Csv functions into the CsvUtils class, but this implementation
+also allows more flexible file formats between different classes, instead of relying solely on a certain format. 
 This might help for future expandability.
+
 
 However, we also do have a Storage class which handles how these file handling methods interact with one another. 
 This is to consolidate the overall file loading and saving logic in the program. 
@@ -153,6 +155,7 @@ for feature changes.
 Here is an illustration of the related classes involved.
 
 ![StorageInteraction.png](diagrams%2Fimages%2FStorageInteraction.png)
+
 <u>Design Considerations</u>
 
 OpenCSV is used for the storage format to allow for reliable handling of CSV files.
