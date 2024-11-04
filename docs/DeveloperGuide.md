@@ -429,11 +429,12 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 1. Access to a computer with Java 17 installed and an IDE that supports Java programming.
 2. A CEG student with above average typing speed for regular English text (i.e. not code, not system admin commands) 
    should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. A CEG student should be able to maintain long term usage without a noticeable sluggishness in performance for typical usage.
 
 ## Glossary
 * Mainstream OS: Windows, Linux, Unix, MacOS
 * CEG: Computer Engineering
-* PU - Partner University: The targeted university the user wish to go for their SEP
+* PU: Partner University
 
 ## Instructions for manual testing
 
