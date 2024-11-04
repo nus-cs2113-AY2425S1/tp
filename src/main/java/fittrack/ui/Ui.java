@@ -94,12 +94,12 @@ public class Ui {
             endSegment();
             return;
         }
-        int index = 0;
+        int sessionIndex = 0;
         System.out.println(LIST_SESSION_MESSAGE);
-        while (index < sessionList.size()) {
-            System.out.print(index + 1 + ". ");
-            System.out.println(sessionList.get(index).getSessionDescription());
-            index++;
+        while (sessionIndex < sessionList.size()) {
+            System.out.print(sessionIndex + 1 + ". ");
+            System.out.println(sessionList.get(sessionIndex).getSessionDescription());
+            sessionIndex++;
         }
         printSessionCount(sessionList);
         endSegment();

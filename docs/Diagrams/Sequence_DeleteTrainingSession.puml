@@ -1,0 +1,34 @@
+@startuml
+title Sequence Diagram for "delete <index of a training session>" Command
+
+participant FitTrack
+participant Parser
+participant Ui
+
+
+activate FitTrack
+FitTrack -> Parser: parse(...)
+activate Parser
+
+Parser --> FitTrack: sessionList.get(indexToDelete)
+
+FitTrack -> Parser: sessionToDelete
+
+Parser --> FitTrack: sessionList.remove(indexToDelete)
+
+Parser -> Ui: printDeletedSession(sessionList, sessionToDelete)
+deactivate Parser
+activate Ui
+
+Ui -> Ui: System.out.print(DELETE_SESSION_MESSAGE);
+activate Ui
+deactivate Ui
+Ui -> Ui: System.out.println(sessionToDelete.getSessionDescription());
+activate Ui
+deactivate Ui
+Ui -> Ui: printSessionCount(sessionList)
+activate Ui
+deactivate Ui
+deactivate Ui
+
+@enduml
