@@ -47,6 +47,11 @@ public class HelpCommand extends Command {
         Ui.displayMessage("Format:  delete [INDEX]");
         Ui.displayMessage("Examples: delete 2");
         Ui.displayMessage("");
+        
+        Ui.displayMessage("Use the set command to set a spending limit for a category");
+        Ui.displayMessage("Format: set [/category CATEGORY] [/limit LIMIT]");
+        Ui.displayMessage("Examples: set /category food /limit 100");
+        Ui.displayMessage("");
 
         Ui.displayMessage("Use the list command to display all expenses by category");
         Ui.displayMessage("Format:  list [/category CATEGORY]");
