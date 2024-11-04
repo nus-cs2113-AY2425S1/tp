@@ -1,7 +1,11 @@
 package seedu.duke.logic;
 
 import seedu.duke.budget.Budget;
+import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.parser.DateParser;
 import seedu.duke.ui.AppUi;
+
+import java.time.LocalDate;
 
 /**
  * Handles the logic related to setting and modifying the budget.
@@ -79,4 +83,22 @@ public class BudgetLogic {
         double newBalance = currentBalance + amount;
         budget.updateBalance(newBalance);
     }
+
+    public boolean isCurrentMonth(String date) throws FinanceBuddyException {
+        if (date == null) {
+            return true;
+        }
+        LocalDate parsedDate = DateParser.parse(date);
+        return LocalDate.now().getMonth().equals(parsedDate.getMonth());
+    }
+
+    public void changeBalanceFromExpense(double amount, String date) throws FinanceBuddyException {
+        if (!budget.isBudgetSet()) {
+            return;
+        }
+        if (isCurrentMonth(date)) {
+            modifyBalance(amount);
+        }
+    }
+
 }
