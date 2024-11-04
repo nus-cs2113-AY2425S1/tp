@@ -3,7 +3,9 @@ package seedu.manager.event;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.DuplicateDataException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
@@ -298,4 +300,82 @@ public class EventList  {
 
         return filteredList;
     }
+
+    //@@author glenn-chew
+    /**
+     *  Filters events in the event list to display only events that event name contains the keyword.
+     *
+     * @param keyword the keyword that the event is filtered by.
+     * @return an {@code EventList} containing only events that the keyword can be found in the event name.
+     */
+    public EventList filterByKeyword(String keyword) {
+        EventList filteredList = new EventList();
+
+        for (Event event : eventList) {
+            if (event.getEventName().toLowerCase().contains(keyword)) {
+                filteredList.addEvent(event);
+            }
+        }
+
+        return filteredList;
+    }
+
+    //@@author glenn-chew
+    /**
+     *  Filters events in the event list to display only events that of the specified date.
+     *
+     * @param eventDate the date that the event is filtered by.
+     * @return an {@code EventList} containing only events with of the specified date.
+     */
+    public EventList filterByDate(LocalDate eventDate) {
+        EventList filteredList = new EventList();
+
+        for (Event event : eventList) {
+            if (event.getEventTime().toLocalDate().equals(eventDate)) {
+                filteredList.addEvent(event);
+            }
+        }
+
+        return filteredList;
+    }
+
+    //@@author glenn-chew
+    /**
+     *  Filters events in the event list to display only events that of the specified time.
+     *
+     * @param eventTime the date that the event is filtered by.
+     * @return an {@code EventList} containing only events with of the specified time.
+     */
+    public EventList filterByTime(LocalTime eventTime) {
+        EventList filteredList = new EventList();
+
+        for (Event event : eventList) {
+            if (event.getEventTime().toLocalTime().equals(eventTime)) {
+                filteredList.addEvent(event);
+            }
+        }
+
+        return filteredList;
+    }
+
+    //@@author glenn-chew
+    /**
+     *  Filters events in the event list to display only events that of the specified date-time.
+     *
+     * @param eventDateTime the date that the event is filtered by.
+     * @return an {@code EventList} containing only events with of the specified date-time.
+     */
+    public EventList filterByDateTime(LocalDateTime eventDateTime) {
+        EventList filteredList = new EventList();
+
+        for (Event event : eventList) {
+            if (event.getEventTime().equals(eventDateTime)) {
+                filteredList.addEvent(event);
+            }
+        }
+
+        return filteredList;
+    }
+
+
 }
