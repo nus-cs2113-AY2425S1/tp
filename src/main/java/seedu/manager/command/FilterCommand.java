@@ -3,6 +3,12 @@ package seedu.manager.command;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 //@@author LTK-1606
 /**
  * Represents a command to filter out events from the event list.
@@ -11,7 +17,24 @@ import seedu.manager.event.EventList;
 public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
 
+    private static final String FILTER_BY_KEYWORD_MESSAGE = "Events successfully filtered by name!";
+    private static final String FILTER_BY_DATE_MESSAGE = "Events successfully filtered by date!";
+    private static final String FILTER_BY_TIME_MESSAGE = "Events successfully filtered by time!";
+    private static final String FILTER_BY_DATE_TIME_MESSAGE = "Events successfully filtered by date-time!";
     private static final String FILTER_BY_PRIORITY_MESSAGE = "Events successfully filtered by priority!";
+
+    private static final String INVALID_DATE_FORMAT_MESSAGE = """
+            Invalid date format!
+            Please use the following format for event time: YYYY-MM-DD
+            """;
+    private static final String INVALID_TIME_FORMAT_MESSAGE = """
+            Invalid time format!
+            Please use the following format for event time: HH:mm
+            """;
+    private static final String INVALID_DATE_TIME_FORMAT_MESSAGE = """
+            Invalid date-time format!
+            Please use the following format for event time: YYYY-MM-DD HH:mm
+            """;
 
     protected String flag;
     protected String filterWord;
@@ -39,8 +62,39 @@ public class FilterCommand extends Command {
 
         switch (flag) {
         case "-e":
+            String lowerCaseKeyword = filterWord.toLowerCase();
+            filteredEvents = eventList.filterByKeyword(lowerCaseKeyword);
+            outputMessage.append(FILTER_BY_KEYWORD_MESSAGE + "\n");
+            break;
+        case "-d":
+            try {
+                LocalDate eventDate = LocalDate.parse(filterWord,
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                filteredEvents = eventList.filterByDate(eventDate);
+                outputMessage.append(FILTER_BY_DATE_MESSAGE + "\n");
+            } catch (DateTimeException exception) {
+                outputMessage.append(INVALID_DATE_FORMAT_MESSAGE);
+            }
             break;
         case "-t":
+            try {
+                LocalTime eventTime = LocalTime.parse(filterWord,
+                        DateTimeFormatter.ofPattern("HH:mm"));
+                filteredEvents = eventList.filterByTime(eventTime);
+                outputMessage.append(FILTER_BY_TIME_MESSAGE + "\n");
+            } catch (DateTimeException exception) {
+                outputMessage.append(INVALID_TIME_FORMAT_MESSAGE);
+            }
+            break;
+        case "-dt":
+            try {
+                LocalDateTime eventDateTime = LocalDateTime.parse(filterWord,
+                        DateTimeFormatter.ofPattern("YYYY-MM-DD HH:mm"));
+                filteredEvents = eventList.filterByDateTime(eventDateTime);
+                outputMessage.append(FILTER_BY_DATE_TIME_MESSAGE + "\n");
+            } catch (DateTimeException exception) {
+                outputMessage.append(INVALID_TIME_FORMAT_MESSAGE);
+            }
             break;
         case "-u":
             Priority priority = Priority.valueOf(filterWord.trim().toUpperCase());
