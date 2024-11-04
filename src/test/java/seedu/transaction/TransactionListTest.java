@@ -7,6 +7,7 @@ import seedu.utils.DateTimeUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -104,5 +105,25 @@ public class TransactionListTest {
         transactionList.updateCategory(0, newCategory);
 
         assertEquals(newCategory, ((Expense) transactionList.getTransactions().get(0)).getCategory());
+    }
+
+    @Test
+    public void testSearchTransactionsByKeywords() {
+        TransactionList transactionList = new TransactionList();
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        transactionList.addTransaction(new Income(1000, "Salary", "2024-11-01"));
+        transactionList.addTransaction(new Expense(200, "Groceries", "2024-11-01"));
+        transactionList.addTransaction(new Expense(300, "Lunch", "2024-11-01"));
+        transactionList.addTransaction(new Expense(400, "Buy Groceries", "2024-11-01"));
+        List<String> keywords = new ArrayList<String>();
+        keywords.add("Buy");
+        List<Transaction> resultSingle = transactionList.searchTransactionsByKeywords(keywords);
+        List<Transaction> comparator = new ArrayList<Transaction>();
+        comparator.add(new Expense(400, "Buy Groceries", "2024-11-01"));
+        assertEquals(resultSingle, comparator);
+        keywords.add("Groceries");
+        List<Transaction> resultDouble = transactionList.searchTransactionsByKeywords(keywords);
+        comparator.add(new Expense(200, "Groceries", "2024-11-01"));
+        assertEquals(resultDouble, comparator);
     }
 }
