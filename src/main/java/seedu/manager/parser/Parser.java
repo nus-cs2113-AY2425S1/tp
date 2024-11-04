@@ -129,6 +129,8 @@ public class Parser {
     private static final String PARTICIPANT_REGEX = "(-p|-n|-email|-e)";
     private static final String ITEM_REGEX = "(-m|-e)";
     private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
+    private static final String MARK_EVENT_REGEX = "-e|-s";
+    private static final String MARK_PARTICIPANT_REGEX = "-p|-e|-s";
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
     private static final String VIEW_REGEX = "(-e|-y)";
     private static final String EVENT_FLAG = "-e";
@@ -453,10 +455,10 @@ public class Parser {
      */
     private Command getEditItemCommand(String input){
         String[] inputParts = input.split(ITEM_REGEX);
-        String ItemName = inputParts[1].split(ARROW)[0].trim();
-        String ItemNewName = inputParts[1].split(ARROW)[1].trim();
+        String itemName = inputParts[1].split(ARROW)[0].trim();
+        String itemNewName = inputParts[1].split(ARROW)[1].trim();
         String eventName = inputParts[2].trim();
-        return new EditItemCommand(ItemName, ItemNewName, eventName);
+        return new EditItemCommand(itemName, itemNewName, eventName);
     }
 
 
@@ -538,10 +540,10 @@ public class Parser {
             String commandFlag = commandParts[1];
 
             if (commandFlag.equalsIgnoreCase(EVENT_FLAG)) {
-                String[] inputParts = input.split("-e|-s");
+                String[] inputParts = input.split(MARK_EVENT_REGEX);
                 return getMarkEventCommand(inputParts[1].trim(), inputParts[2].trim());
             } else if (commandFlag.equalsIgnoreCase(PARTICIPANT_FLAG)) {
-                String[] inputParts = input.split("-p|-e|-s");
+                String[] inputParts = input.split(MARK_PARTICIPANT_REGEX);
                 return getMarkParticipantCommand(inputParts[1].trim(), inputParts[2].trim(), inputParts[3].trim());
             }
 

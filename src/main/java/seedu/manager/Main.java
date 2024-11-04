@@ -78,7 +78,7 @@ public class Main {
             storage.saveItems(events);
             ui.showMessage("Events saved successfully.");
         } catch (IOException exception) {
-            ui.showErrorMessageToUser(e);
+            ui.showErrorMessageToUser(exception);
         }
     }
 }
