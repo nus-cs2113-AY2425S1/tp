@@ -11,6 +11,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
+import wheresmymoney.CsvUtils;
 import wheresmymoney.Expense;
 import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
@@ -49,36 +50,18 @@ public class CategoryStorage {
      */
     public void loadFromCsv(String filePath, CategoryTracker categoryTracker) throws StorageException {
         categoryTracker.clear();
-        try {
-            File file = new File(filePath);
-            FileReader reader = new FileReader(file);
-            CSVReader csvReader = new CSVReader(reader);
-            
-            csvReader.readNext(); // Skip the header
-            String[] line;
-            while ((line = csvReader.readNext()) != null) {
-                if (line.length != 2) {
-                    continue;
-                }
-                
-                String categoryName = line[0];
-                Float spendingLimit = Float.parseFloat(line[1]);
-                if (categoryTracker.contains(categoryName)) {
-                    CategoryData categoryData = categoryTracker.getCategoryDataOf(categoryName);
-                    categoryData.setMaxExpenditure(spendingLimit);
-                }
+        CsvUtils.readCSV(filePath, line -> {
+            if (line.length != 2) {
+                return;
             }
-            
-            // closing writer connection
-            reader.close();
-            csvReader.close();
-        } catch (WheresMyMoneyException exc) {
-            throw new StorageException("An expense's price, description, category and/or date added is missing");
-        } catch (IOException ex) {
-            throw new StorageException("Unable to load CategoryInfo to file: " + filePath);
-        } catch (CsvValidationException e){
-            throw new StorageException("File not in the correct format!");
-        }
+
+            String categoryName = line[0];
+            Float spendingLimit = Float.parseFloat(line[1]);
+            if (categoryTracker.contains(categoryName)) {
+                CategoryData categoryData = categoryTracker.getCategoryDataOf(categoryName);
+                categoryData.setMaxExpenditure(spendingLimit);
+            }
+        });
     }
 
     /**

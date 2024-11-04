@@ -8,6 +8,7 @@ import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -171,14 +172,8 @@ public class ExpenseList {
      */
     public void loadFromCsv(CategoryFacade categoryFacade, String filePath) throws StorageException {
         clear();
-        try {
-            File file = new File(filePath);
-            FileReader reader = new FileReader(file);
-            CSVReader csvReader = new CSVReader(reader);
-            
-            csvReader.readNext(); // Skip the header
-            String[] line;
-            while ((line = csvReader.readNext()) != null) {
+        CsvUtils.readCSV(filePath, line -> {
+            try {
                 String category = line[0];
                 String description = line[1];
                 Float price = Float.parseFloat(line[2]);
@@ -188,18 +183,10 @@ public class ExpenseList {
                 if (categoryFacade != null) {
                     categoryFacade.addCategory(category, price);
                 }
+            } catch (Exception e) {
+                throw new StorageException("An expense's price, description, category and/or date added is missing");
             }
-            
-            // closing writer connection
-            reader.close();
-            csvReader.close();
-        } catch (WheresMyMoneyException exc) {
-            throw new StorageException("An expense's price, description, category and/or date added is missing");
-        } catch (IOException ex) {
-            throw new StorageException("Unable to load Expense List from file: " + filePath);
-        } catch (CsvValidationException e){
-            throw new StorageException("File not in the correct format!");
-        }
+        });
     }
 
     /**

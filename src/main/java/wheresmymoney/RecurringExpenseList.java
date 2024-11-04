@@ -229,43 +229,27 @@ public class RecurringExpenseList extends ExpenseList {
      */
     public void loadFromCsv(String filePath) throws StorageException {
         clear();
-        try {
-            File file = new File(filePath);
-            FileReader reader = new FileReader(file);
-            CSVReader csvReader = new CSVReader(reader);
+        CsvUtils.readCSV(filePath, line -> {
+            addRecurringExpense(Float.parseFloat(line[2]), line[1], line[0], line[4], line[5]);
+        });
 
-            csvReader.readNext(); // Skip the header
-            String[] line;
-            while ((line = csvReader.readNext()) != null) {
-                addRecurringExpense(Float.parseFloat(line[2]), line[1], line[0], line[4], line[5]);
+        LocalDate currentDate = LocalDate.now();
+        for (RecurringExpense recurringExpense: recurringExpenses) {
+            String frequency = recurringExpense.getFrequency();
+            String lastAddedDate = recurringExpense.getlastAddedDate();
+            switch (frequency) {
+            case "daily":
+                addDailyExpense(recurringExpense, lastAddedDate, currentDate);
+                break;
+            case "weekly":
+                addWeeklyExpense(recurringExpense, lastAddedDate, currentDate);
+                break;
+            case "monthly":
+                addMonthlyExpense(recurringExpense, lastAddedDate, currentDate);
+                break;
+            default:
+                Ui.displayMessage("There was an error loading a recurring expense");
             }
-
-            // closing writer connection
-            reader.close();
-            csvReader.close();
-
-            LocalDate currentDate = LocalDate.now();
-            for (RecurringExpense recurringExpense: recurringExpenses) {
-                String frequency = recurringExpense.getFrequency();
-                String lastAddedDate = recurringExpense.getlastAddedDate();
-                switch (frequency) {
-                case "daily":
-                    addDailyExpense(recurringExpense, lastAddedDate, currentDate);
-                    break;
-                case "weekly":
-                    addWeeklyExpense(recurringExpense, lastAddedDate, currentDate);
-                    break;
-                case "monthly":
-                    addMonthlyExpense(recurringExpense, lastAddedDate, currentDate);
-                    break;
-                default:
-                    Ui.displayMessage("There was an error loading a recurring expense");
-                }
-            }
-        } catch (IOException ex) {
-            throw new StorageException("Unable to read Recurring Expense List from file: " + filePath);
-        } catch (CsvValidationException e){
-            throw new StorageException("File not in the correct format!");
         }
     }
 
