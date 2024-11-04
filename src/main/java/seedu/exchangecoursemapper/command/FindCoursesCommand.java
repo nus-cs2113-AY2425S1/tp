@@ -1,6 +1,7 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.constants.Logs;
+import seedu.exchangecoursemapper.courses.Course;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
 import seedu.exchangecoursemapper.exception.Exception;
@@ -75,13 +76,13 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
      * @param keyword A string containing the keyword users want to search with.
      */
     public void findCommand(String keyword) {
-        List<String> mappedCourses = storage.loadAllCourses();
+        List<Course> mappedCourses = storage.loadAllCourses();
         if (mappedCourses.isEmpty()) {
             ui.printEmptyList();
             return;
         }
 
-        List<String> foundCourses = new ArrayList<>();
+        List<Course> foundCourses = new ArrayList<>();
         matchKeyword(keyword, mappedCourses, foundCourses);
         printFindCommand(foundCourses);
     }
@@ -92,7 +93,7 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
      *
      * @param foundCourses Contains all the mapped courses that contains the keyword.
      */
-    private static void printFindCommand(List<String> foundCourses) {
+    private static void printFindCommand(List<Course> foundCourses) {
         if (foundCourses.isEmpty()) {
             logger.log(Level.WARNING, Logs.NO_MATCH_FOUND);
             throw new IllegalArgumentException(Exception.noMatchFound());
@@ -111,8 +112,8 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
      * @param mappedCourses To represent all the mapped course mappings in the tracker.
      * @param foundCourses To contain mappings that matches with the keyword.
      */
-    private static void matchKeyword(String keyword, List<String> mappedCourses, List<String> foundCourses) {
-        for (String course : mappedCourses) {
+    private static void matchKeyword(String keyword, List<Course> mappedCourses, List<Course> foundCourses) {
+        for (Course course : mappedCourses) {
             String nusCourseCode = getMappedCode(course);
             if (nusCourseCode.equals(keyword)) {
                 foundCourses.add(course);
@@ -127,11 +128,10 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
      * @param course A string containing NUS course code, PU name and PU course code in personalized tracker.
      * @return Extracted NUS course code in tracker
      */
-    private static String getMappedCode(String course) {
-        assert course != null: COURSE_STRING_NOT_NULL;
-
-        String[] mappedParts = course.split(PIPE);
+    private static String getMappedCode(Course course) {
+        assert course != null : COURSE_STRING_NOT_NULL;
+        String nusCourseCode = course.getNusCourseCode();
         logger.log(Level.INFO, Logs.EXTRACTED_COURSE_CODE);
-        return mappedParts[0].trim();
+        return nusCourseCode;
     }
 }

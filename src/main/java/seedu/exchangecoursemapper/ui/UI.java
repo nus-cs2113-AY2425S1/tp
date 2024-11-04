@@ -246,8 +246,8 @@ public class UI {
         } while (!userInput.equalsIgnoreCase(BYE));
     }
 
-    public void printFoundCourses(String foundCourse) {
-        System.out.println(foundCourse);
+    public void printFoundCourses(Course foundCourse) {
+        System.out.println(foundCourse.formatOutput());
     }
 
     public void printLineSeparator() {
