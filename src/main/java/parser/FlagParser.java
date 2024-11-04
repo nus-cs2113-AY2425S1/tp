@@ -10,7 +10,10 @@ import java.util.logging.Logger;
 
 import static common.Utils.isNull;
 
-import static parser.FlagDefinitions.*;
+
+import static parser.FlagDefinitions.MEAL_INDEX;
+import static parser.FlagDefinitions.WATER_INDEX;
+import static parser.FlagDefinitions.VOLUME_FLAG;
 import static parser.ParserUtils.parseInteger;
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.parseFloat;
