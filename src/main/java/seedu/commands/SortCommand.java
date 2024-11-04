@@ -47,8 +47,6 @@ public class SortCommand extends Command {
             internships.listInternshipsSortedByDuration();  // Sort by start date, then end date (year first)
             break;
         case "deadline":
-            assert internships.getAllInternships().stream().anyMatch(internship -> internship.getEarliestDeadline() !=
-                    null) : "At least one internship must have a deadline to sort by deadline";
             internships.listInternshipsSortedByDeadline();
             break;
         case "skills":
