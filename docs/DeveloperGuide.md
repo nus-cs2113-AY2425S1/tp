@@ -392,8 +392,8 @@ The application can provide summaries and statistical insights to spending habit
 | v1.0    | user        | list expenses                                                                  | track my spending                                                  |
 | v1.0    | new user    | see usage instructions                                                         | refer to them when I forget how to use the application             |
 | v2.0    | user        | save and load my expenses from a file                                          | retain memory of past expenses from past runs of the program       |
-| v2.0    | frugal user | set spending limits for each category and month                                | control my spending                                                |
-| v2.0    | frugal user | be alerted when I exceed spending limits for each category and month           | control my spending                                                |
+| v2.0    | frugal user | set spending limits for each category                                          | control my spending                                                |
+| v2.0    | frugal user | be alerted when I exceed spending limits for each category                     | control my spending                                                |
 | v2.0    | user        | visualise my spending in the form of graphs                                    | better conceptualise and understand spending trends and patterns   |
 | v2.0    | user        | detailed statistical information about my spending (such as mean, median etc.) | better quantify and understand spending trends and patterns        |
 | v2.0    | user        | add recurring expenses                                                         | automate expense tracking and make it more convenient              |
