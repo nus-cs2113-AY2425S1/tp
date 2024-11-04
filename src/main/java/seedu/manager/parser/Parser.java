@@ -674,12 +674,12 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
 
         try {
-            String[] inputParts = input.split("(-e|-t|-u)");
+            String[] inputParts = input.split("(-e|-d|-t|-dt|-u)");
             if (inputParts.length < 2) {
                 throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
             }
 
-            Set<String> validFlags = Set.of(EVENT_FLAG, "-t", "-u");
+            Set<String> validFlags = Set.of(EVENT_FLAG, "-d", "-t", "-dt", "-u");
             if (validFlags.contains(commandParts[1].trim().toLowerCase())) {
                 return new FilterCommand(commandParts[1].trim().toLowerCase(), inputParts[1].trim());
             }
