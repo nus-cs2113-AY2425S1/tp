@@ -1,6 +1,8 @@
 //@@author andreusxcarvalho
 package command;
 
+import java.util.Objects;
+
 /**
  * Represents the result of a command execution.
  */
