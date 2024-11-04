@@ -265,7 +265,7 @@ To minimise the amount of checks that need to be done, the recurring expenses ar
 
 <u>Implementation Details</u>
 
-Below is the UML class diagram for `RecurringExpense` and `RecurringExpenseList`:
+Below is the UML class diagram for `RecurringExpense` and `RecurringExpenseList`: TEST
 
 ![RecurringExpenseAndRecurringExpenseList.png](diagrams%2Fimages%2FRecurringExpenseAndRecurringExpenseList.png "UML Class Diagram for RecurringExpense and RecurringExpenseList class")
 
