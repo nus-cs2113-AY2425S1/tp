@@ -47,6 +47,10 @@ public class AppUi {
         System.out.println(welcomeMessage);
     }
 
+    /**
+     * Displays the set budget message when FinanceBuddy starts.
+     * Asks if user would like to set a budget
+     */
     public void displaySetBudgetMessage() {
         System.out.println("Would you like to set a budget? (yes/no)");
         System.out.println("--------------------------------------------\n");
