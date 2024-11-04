@@ -5,6 +5,7 @@ public class ErrorMessages {
     public static final String INDEX_OUT_OF_BOUNDS = "Your index is out of bound! Current list size: ";
     public static final String INVALID_NUMBER_FORMAT = "Your index has invalid number format.";
     public static final String CATEGORY_NOT_FOUND = "Can not find the given category in the category list";
+    public static final String BUDGET_NOT_FOUND = "Missing budget for given month";
 
     // Update expense category
     public static final String NOT_AN_EXPENSE = "Your transaction is not an expense.";
@@ -31,6 +32,8 @@ public class ErrorMessages {
     // DateTime
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Your date and/or time is invalid!";
     public static final String MESSAGE_INVALID_YEAR_MONTH_FORMAT = "Your year and month format is invalid!";
+    public static final String MESSAGE_PAST_MONTH_BUDGET = "Budget can only be set for the current or future months.";
+    public static final String MESSAGE_TRACK_FUTURE_MONTH_BUDGET = "Progress can only be checked for current or past months.";
 
     // Amount
     public static final String INVALID_AMOUNT_FORMAT = "Invalid amount format: ";
