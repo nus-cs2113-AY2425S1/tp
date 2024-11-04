@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TransactionListTest {
 
@@ -35,7 +36,7 @@ public class TransactionListTest {
 
 
     @Test
-    public void testDeleteTransaction_ValidIndex() {
+    public void testDeleteTransactionValidIndex() {
         Income income = new Income(1000, "Salary", "2024-11-01");
         transactionList.addTransaction(income);
 
@@ -49,7 +50,7 @@ public class TransactionListTest {
     }
 
     @Test
-    public void testDeleteTransaction_InvalidIndex() {
+    public void testDeleteTransactionInvalidIndex() {
         assertNull(transactionList.deleteTransaction(0));
     }
 
