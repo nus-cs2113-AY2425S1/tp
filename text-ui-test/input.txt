@@ -20,6 +20,12 @@ add -m curry chicken -e dinner party
 mark -m curry chicken -e dinner party -s accounted
 view -e dinner party -y item
 list
+filter -e party
+filter -d 2024-10-10
+filter -t 12:34
+filter -x 2024-10-10 15:00
+filter -u medium
+list
 add -m balloon -e anniversary celebration
 view -e anniversary celebration -y item
 edit -m balloon > cake -e anniversary celebration
