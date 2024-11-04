@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static parser.FlagDefinitions.MEAL_INDEX;
 
 class FlagParserTest {
 
@@ -30,7 +31,7 @@ class FlagParserTest {
 
     @Test
     void testHasFlagMissingFlag() {
-        assertFalse(flagParser.hasFlag("/m"),
+        assertFalse(flagParser.hasFlag(MEAL_INDEX),
                 "Expected flag '/m' to be absent");
     }
 
@@ -49,9 +50,9 @@ class FlagParserTest {
     @Test
     void testValidateRequiredFlagsMissingFlag() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> flagParser.validateRequiredFlags("/p", "/m"),
+                () -> flagParser.validateRequiredFlags("/p", MEAL_INDEX),
                 "Expected IllegalArgumentException for missing required flag");
-        assertTrue(exception.getMessage().contains("/m"));
+        assertTrue(exception.getMessage().contains(MEAL_INDEX));
     }
 
     @Test
@@ -100,14 +101,14 @@ class FlagParserTest {
 
     @Test
     void testGetFloatByFlagValidCase() {
-        assertEquals(2.5f, flagParser.getFloatByFlag("/w"),
+        assertEquals(2.5f, flagParser.getFloatByFlag(WATER_INDEX),
                 "Expected float value '2.5' for flag '/w'");
     }
 
     @Test
     void testGetFloatByFlagInvalidFloat() {
         FlagParser invalidParser = new FlagParser("/w abc");
-        assertThrows(IllegalArgumentException.class, () -> invalidParser.getFloatByFlag("/w"),
+        assertThrows(IllegalArgumentException.class, () -> invalidParser.getFloatByFlag(WATER_INDEX),
                 "Expected IllegalArgumentException for invalid float");
     }
 

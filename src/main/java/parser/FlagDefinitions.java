@@ -21,6 +21,6 @@ public class FlagDefinitions {
     public static final String REMOVE_DAY_FLAG = "/xd";
 
     public static final String MEAL_INDEX = "/m";
-    public static final String WATER_INDEX = "/w";
+    public static final String WATER_INDEX = "w";
     public static final String VOLUME_FLAG = "/v";
 }

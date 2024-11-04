@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static common.Utils.isNull;
+import static parser.FlagDefinitions.*;
 import static parser.ParserUtils.parseInteger;
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.parseFloat;
@@ -96,7 +97,7 @@ public class FlagParser {
         aliasMap.put("/exercise", "/e");
         aliasMap.put("/set", "/s");
         aliasMap.put("/rep", "/r");
-        aliasMap.put("/weight", "/w");
+        aliasMap.put("/weight", WATER_INDEX);
         aliasMap.put("/calories", "/c");
 
         aliasMap.put("/createEx", "/a");
@@ -105,10 +106,10 @@ public class FlagParser {
         aliasMap.put("/createDay", "/ad");
         aliasMap.put("/removeDay", "/xd");
 
-        aliasMap.put("/meal", "/m");
+        aliasMap.put("/meal", MEAL_INDEX);
 
-        aliasMap.put("/volume", "/v");
-        aliasMap.put("/water", "/w");
+        aliasMap.put("/volume", VOLUME_FLAG);
+        aliasMap.put("/water", WATER_INDEX);
     }
 
     /**

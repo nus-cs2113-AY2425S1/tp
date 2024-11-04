@@ -10,6 +10,8 @@ import parser.FlagParser;
 
 import java.time.LocalDate;
 
+import static parser.FlagDefinitions.VOLUME_FLAG;
+import static parser.FlagDefinitions.WATER_INDEX;
 import static parser.ParserUtils.parseDate;
 import static parser.ParserUtils.splitArguments;
 
@@ -34,9 +36,9 @@ public class WaterCommandFactory {
     public Command prepareAddCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
-        flagParser.validateRequiredFlags("/v");
+        flagParser.validateRequiredFlags(VOLUME_FLAG);
 
-        float water = flagParser.getFloatByFlag("/v");
+        float water = flagParser.getFloatByFlag(VOLUME_FLAG);
         LocalDate date = flagParser.getDateByFlag("/t");
 
         return new AddWaterCommand(water, date);
@@ -45,9 +47,9 @@ public class WaterCommandFactory {
     public Command prepareDeleteCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
-        flagParser.validateRequiredFlags("/w");
+        flagParser.validateRequiredFlags(WATER_INDEX);
 
-        int waterIndexToDelete = flagParser.getIndexByFlag("/w");
+        int waterIndexToDelete = flagParser.getIndexByFlag(WATER_INDEX);
         LocalDate date = flagParser.getDateByFlag("/t");
 
         return new DeleteWaterCommand(waterIndexToDelete, date);

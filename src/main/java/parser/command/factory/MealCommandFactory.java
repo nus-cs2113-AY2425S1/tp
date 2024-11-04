@@ -11,6 +11,7 @@ import parser.FlagParser;
 
 import java.time.LocalDate;
 
+import static parser.FlagDefinitions.MEAL_INDEX;
 import static parser.ParserUtils.parseDate;
 import static parser.ParserUtils.splitArguments;
 
@@ -76,9 +77,9 @@ public class MealCommandFactory {
     public Command prepareDeleteCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
-        flagParser.validateRequiredFlags("/m");
+        flagParser.validateRequiredFlags(MEAL_INDEX);
 
-        int mealIndexToDelete = flagParser.getIndexByFlag("/m");
+        int mealIndexToDelete = flagParser.getIndexByFlag(MEAL_INDEX);
         LocalDate date = flagParser.getDateByFlag("/t");
 
         return new DeleteMealCommand(mealIndexToDelete, date);
