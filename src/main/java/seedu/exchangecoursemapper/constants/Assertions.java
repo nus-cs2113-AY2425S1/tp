@@ -24,6 +24,8 @@ public class Assertions {
     public static final String EMPTY_PU_WARNING = "Partner university should not be empty";
     public static final String EMPTY_PU_COURSE_WARNING = "Partner university course should not be empty";
     public static final String EMPTY_JSON_OBJECT_WARNING = "JSON object should not be empty";
+    public static final String THREE_COURSE_PARTS = "Course entry must contain exactly 3 parts";
+    public static final String FORMATTED_ENTRY = "Formatted course entry: {0}";
   
     // CompareMappedCommand assertions
     public static final String UNIVERSITY1_NOT_NULL = "University 1 name should not be null";
@@ -40,4 +42,7 @@ public class Assertions {
 
     //FindCoursesCommand
     public static final String COURSE_STRING_NOT_NULL = "Course string cannot be null";
+
+    // CourseRepository assertions
+
 }
