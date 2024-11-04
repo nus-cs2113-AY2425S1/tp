@@ -4,16 +4,16 @@ hide circle
 
 ' class "<<Facade>> \n CategoryFacade" {
 class CategoryFacade {
-'    -CategoryTracker categoryTracker
-'    -CategoryFilter categoryFilter
-'    -CategoryStorage categoryStorage
+'    # categoryTracker : CategoryTracker
+'    # categoryFilter : CategoryFilter
+'    # categoryStorage : CategoryStorage
 
 '    +CategoryFacade()
 '    +getCategoryTracker(): CategoryTracker
-    +addCategory(category: String, price: float) : void
-    +deleteCategory(category: String, price: Float) : void
-    +editCategory(oldCategory: String, newCategory: String, price: float) : void
-    +loadCategoryInfo(expenseList: ExpenseList) : void
+'    +addCategory(category: String, price: float) : void
+'    +deleteCategory(category: String, price: Float) : void
+'    +editCategory(oldCategory: String, newCategory: String, price: float) : void
+'    +loadCategoryInfo(expenseList: ExpenseList) : void
     +displayFilteredCategories() : void
     +saveCategoryInfo() : void
     +setCategorySpendingLimit(category: String, limit: float) : void
@@ -26,7 +26,7 @@ class CategoryTracker {
 '    + getTracker(): HashMap<String, CategoryData>
 '    + size(): int
 '    + contains(category: String): boolean
-    +getCategoryDataOf(category: String): CategoryData
+'    +getCategoryDataOf(category: String): CategoryData
     +checkLimitOf(category: String): void
     +addCategory(category: String, price: Float): void
     +editCategory(oldCategory: String, newCategory: String, price: Float): void
