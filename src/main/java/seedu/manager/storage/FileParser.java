@@ -15,9 +15,21 @@ import java.util.List;
 import java.util.logging.Logger;
 
 //@@author KuanHsienn
+/**
+ * This class is responsible for parsing event data from a CSV file.
+ * It handles the extraction of event, participant, and item information
+ * and adds them to the provided EventList.
+ */
 public class FileParser {
     private static final Logger logger = Logger.getLogger(FileParser.class.getName());
 
+    /**
+     * Parses the specified CSV file and populates the given EventList with the loaded data.
+     *
+     * @param events   The EventList to load events into.
+     * @param filePath The path to the CSV file to be parsed.
+     * @throws IOException If there is an error reading from the file.
+     */
     public void parseFile(EventList events, String filePath) throws IOException {
         try {
             logger.info("Loading data from file");
@@ -31,6 +43,13 @@ public class FileParser {
         }
     }
 
+    /**
+     * Parses a single line of CSV data and adds the corresponding event, participant, or item to the EventList.
+     *
+     * @param events   The EventList to populate.
+     * @param fields   The fields of the line to parse.
+     * @param formatter The DateTimeFormatter to use for parsing date and time.
+     */
     private void parseLine(EventList events, String[] fields, DateTimeFormatter formatter) {
         String type = fields[0];
         try {
@@ -52,6 +71,14 @@ public class FileParser {
         }
     }
 
+    /**
+     * Parses a line corresponding to an event and adds it to the EventList.
+     *
+     * @param events   The EventList to populate.
+     * @param fields   The fields of the event to parse.
+     * @param formatter The DateTimeFormatter to use for parsing date and time.
+     * @throws IOException If there is an error adding the event to the list.
+     */
     private void parseEventFileLine(EventList events, String[] fields, DateTimeFormatter formatter) throws IOException {
         try {
             String eventName = fields[1].trim();
@@ -65,6 +92,13 @@ public class FileParser {
         }
     }
 
+    /**
+     * Parses a line corresponding to a participant and adds it to the associated event in the EventList.
+     *
+     * @param events The EventList to populate.
+     * @param fields The fields of the participant to parse.
+     * @throws IOException If there is an error adding the participant to the event.
+     */
     private void parseParticipantFileLine(EventList events, String[] fields) throws IOException {
         try {
             String participantName = fields[1].trim();
@@ -79,6 +113,13 @@ public class FileParser {
         }
     }
 
+    /**
+     * Parses a line corresponding to an item and adds it to the associated event in the EventList.
+     *
+     * @param events The EventList to populate.
+     * @param fields The fields of the item to parse.
+     * @throws IOException If there is an error adding the item to the event.
+     */
     private void parseItemFileLine(EventList events, String[] fields) throws IOException {
         try {
             String itemName = fields[1].trim();
@@ -91,6 +132,14 @@ public class FileParser {
         }
     }
 
+    /**
+     * Reads all lines from the specified CSV file and returns them as a list of String arrays.
+     *
+     * @param filePath The path to the CSV file to be read.
+     * @return A list of String arrays, each representing a line in the CSV file.
+     * @throws IOException If there is an error reading the file.
+     * @throws CsvException If there is an error parsing the CSV data.
+     */
     private List<String[]> getFileLines(String filePath) throws IOException, CsvException {
         CSVReader reader = new CSVReaderBuilder(new FileReader(filePath)).build();
         List<String[]> lines = reader.readAll();
@@ -98,6 +147,12 @@ public class FileParser {
         return lines;
     }
 
+    /**
+     * Converts a mark status string to a boolean value.
+     *
+     * @param markStatus The mark status string, expected to be "Y" or "N".
+     * @return true if mark status is "Y"; false if it is "N".
+     */
     private boolean getIsMarked(String markStatus) {
         if (markStatus.equalsIgnoreCase("Y")) {
             return true;
@@ -109,6 +164,11 @@ public class FileParser {
         }
     }
 
+    /**
+     * Logs a warning if an event associated with a participant or item could not be loaded.
+     *
+     * @param isLoaded Indicates whether the loading was successful.
+     */
     private void eventUnsuccessfulLoad(boolean isLoaded) {
         if (!isLoaded) {
             logger.warning("Associated event not found, entry not loaded");
