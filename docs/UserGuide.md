@@ -72,6 +72,7 @@ Format:
 
 Remarks:
 * `TIME` must be entered in the format `yyyy-mm-dd HH:mm`.
+* `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
 
 Examples:
 
@@ -148,8 +149,8 @@ Format: `mark -p PARTICIPANT -e EVENT -s STATUS`
 
 Examples:
 
-* `mark -p John Tan -e Origami workshop -s done` marks the participant `John Tan` in the `Origami workshop` event as present.
-* `mark -p John Tan -e Origami workshop -s undone` marks the participant `John Tan` in the `Origami workshop` event as absent.
+* `mark -p John Tan -e Origami workshop -s present` marks the participant `John Tan` in the `Origami workshop` event as present.
+* `mark -p John Tan -e Origami workshop -s absent` marks the participant `John Tan` in the `Origami workshop` event as absent.
 
 ### Marks an item as accounted for: `mark`
 
@@ -161,8 +162,8 @@ Format: `mark -m ITEM -e EVENT -s STATUS`
 
 Examples:
 
-* `mark -m Origami paper -e Origami workshop -s done` marks the item `Origami paper` in the `Origami workshop` event as accounted.
-* `mark -m Origami paper -e Origami workshop -s undone` marks the item `Origami paper` in the `Origami workshop` event as unaccounted.
+* `mark -m Origami paper -e Origami workshop -s accounted` marks the item `Origami paper` in the `Origami workshop` event as accounted.
+* `mark -m Origami paper -e Origami workshop -s unaccounted` marks the item `Origami paper` in the `Origami workshop` event as unaccounted.
 * 
 ### Copies participant list: `copy`
 
