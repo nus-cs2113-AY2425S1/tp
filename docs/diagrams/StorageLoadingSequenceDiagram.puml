@@ -3,16 +3,16 @@
 hide footbox
 
 Participant ":Main" as main
-Participant ":Storage" as storage STORAGE_COLOUR
-Participant ":Parser" as parser PARSER_COLOUR
-Participant ":EventList" as event EVENT_COLOUR
+Participant ":Storage" as storage 
+Participant ":Parser" as parser 
+Participant ":EventList" as event 
 
 main -> storage : loadEvents(events : EventList)
-activate storage STORAGE_COLOUR
+activate storage 
 storage --> parser : parseFile(events, FILE_PATH)
-activate parser PARSER_COLOUR
+activate parser 
 parser -> event : addEvent(eventName, time, venue)
-activate event EVENT_COLOUR
+activate event 
 event --> parser
 deactivate event
 parser --> storage

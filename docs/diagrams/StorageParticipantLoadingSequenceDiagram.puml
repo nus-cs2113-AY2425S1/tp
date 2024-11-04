@@ -3,29 +3,29 @@
 hide footbox
 
 Participant ":Main" as main
-Participant ":Storage" as storage STORAGE_COLOUR
-Participant ":FileParser" as parser PARSER_COLOUR
-Participant ":EventList" as events EVENT_COLOUR
+Participant ":Storage" as storage 
+Participant ":FileParser" as parser 
+Participant ":EventList" as events 
 
 
 group sd Loading of event data
 main -> storage : loadParticipants(EventList)
-activate storage STORAGE_COLOUR
+activate storage 
 
 create parser
 storage -> parser : FileParser()
-activate parser PARSER_COLOUR
+activate parser 
 return
 
 storage -> parser : parseParticipantsFile(String)
-activate parser PARSER_COLOUR
+activate parser 
 
 loop for line in file
 parser -> parser : parseParticipantFileLine(...)
-activate parser PARSER_COLOUR
+activate parser 
 
 parser -> events : addParticipantToEvent(...)
-activate events EVENT_COLOUR
+activate events 
 
 return
 

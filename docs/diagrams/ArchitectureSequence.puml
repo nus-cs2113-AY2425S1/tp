@@ -3,12 +3,12 @@
 hide footbox
 
 Participant ":Main" as main
-Participant ":Ui" as ui UI_COLOUR
-Participant ":Storage" as storage STORAGE_COLOUR
-Participant ":EventList" as events EVENT_COLOUR
+Participant ":Ui" as ui 
+Participant ":Storage" as storage 
+Participant ":EventList" as events 
 
 main -> ui : greetUser()
-activate ui UI_COLOUR
+activate ui 
 return
 
 ref over main, storage, events : Loading of events list
