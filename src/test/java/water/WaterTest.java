@@ -31,7 +31,8 @@ public class WaterTest {
 
     @Test
     public void testAddWaterEdgeCaseNegativeWaterAmount() {
-        assertThrows(AssertionError.class, () -> water.addWater(-1.0f), "Adding negative water should throw AssertionError.");
+        assertThrows(AssertionError.class, () -> water.addWater(-1.0f),
+                "Adding negative water should throw AssertionError.");
     }
 
     @Test
@@ -56,7 +57,8 @@ public class WaterTest {
 
     @Test
     public void testDeleteWaterEdgeCaseInvalidIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> water.deleteWater(0), "Deleting from an empty list should throw IndexOutOfBoundsException.");
+        assertThrows(IndexOutOfBoundsException.class, () -> water.deleteWater(0),
+                "Deleting from an empty list should throw IndexOutOfBoundsException.");
     }
 
     @Test
@@ -74,7 +76,8 @@ public class WaterTest {
     @Test
     public void testToStringEmptyList() {
         // Test string output for an empty water list
-        assertEquals("No record.", water.toString(), "Empty water list should return 'No record.'");
+        assertEquals("No record.", water.toString(),
+                "Empty water list should return 'No record.'");
     }
 
     @Test
@@ -84,6 +87,7 @@ public class WaterTest {
         water.addWater(2.0f);
 
         String expectedOutput = "1: 1.0\n2: 2.0";
-        assertEquals(expectedOutput, water.toString(), "String representation should match the format of indexed entries.");
+        assertEquals(expectedOutput, water.toString(),
+                "String representation should match the format of indexed entries.");
     }
 }
