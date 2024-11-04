@@ -23,7 +23,6 @@ Enter a command:
 * Words in `UPPER_CASE` represent parameters that are to be supplied by the user.
 * Parameters listed have to be entered in the specified order.
 * Extraneous parameters for commands that do not take in parameters (e.g. `list`) will be ignored.
-* Events information and participants information are saved after each user command
 
 ### Viewing the command list: `menu`
 
@@ -44,6 +43,7 @@ edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact in
 edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
 mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
+mark -m ITEM -e EVENT -s STATUS: Mark an item as accounted or unaccounted.
 copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
 sort -by KEYWORD: Sorts events by name/time/priority.
 filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
@@ -148,6 +148,19 @@ Examples:
 * `mark -p John Tan -e Origami workshop -s done` marks the participant `John Tan` in the `Origami workshop` event as present.
 * `mark -p John Tan -e Origami workshop -s undone` marks the participant `John Tan` in the `Origami workshop` event as absent.
 
+### Marks an item as accounted for: `mark`
+
+Marks an item for an event as accounted for or unaccounted for.
+
+Format: `mark -m ITEM -e EVENT -s STATUS`
+
+* The status parameter must be either `accounted` (to mark accounted) or `unaccounted` (to mark unaccounted).
+
+Examples:
+
+* `mark -m Origami paper -e Origami workshop -s done` marks the item `Origami paper` in the `Origami workshop` event as accounted.
+* `mark -m Origami paper -e Origami workshop -s undone` marks the item `Origami paper` in the `Origami workshop` event as unaccounted.
+* 
 ### Copies participant list: `copy`
 
 Copies the participant list from one event to another event.
@@ -204,6 +217,62 @@ Exits the program.
 
 Format: `exit`
 
+### Saving of program data
+
+The program saves its stored data into three `.csv` files in the same directory as the application `.JAR`.
+
+These files are as follows:
+
+* `events.csv`, which stores data on the `Event`s stored in the program,
+* `participants.csv`, which stores data on the `Participant`s for all `Event`s,
+* `items.csv`, which stores data on the `Item`s for all `Event`s,
+
+The data is saved after the execution of every command and upon program startup.
+
+### Loading of program data
+
+The saved program data in the aforementioned three files is loaded into the program upon program startup.
+
+If any one of the files do not exist in the directory, the file will be created when the data is saved.
+
+### Editing of saved program data
+
+Experienced users may feel free to edit the saved data in the `.csv` files.
+
+The program data is stored in the following format:
+
+For `events.csv`:
+
+```
+EVENT,TIME,VENUE,PRIORITY,STATUS
+```
+
+* `TIME` must be in the format `yyyy-mm-dd hh:mm`.
+* `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
+* `STATUS` must be either `Y` or `N`
+
+For `participants.csv`:
+
+```
+PARTICIPANT,NUMBER,EMAIL,STATUS,EVENT
+```
+
+* `STATUS` must be either `Y` or `N`
+* An entry for the `Event` corresponding to `EVENT` must be present in `events.csv`.
+
+For `items.csv`:
+
+```
+ITEM,STATUS,EVENT
+```
+
+* `STATUS` must be either `Y` or `N`
+* An entry for the `Event` corresponding to `EVENT` must be present in `events.csv`.
+
+All fields added to the `.csv` files must also be enclosed within double quotation marks (`" "`) to be properly parsed.
+
+If the above format or parameter constraints are not followed, the `Event`, `Participant` or `Item` corresponding to the file line will not be loaded upon program startup.
+
 ## Command Summary
 
 * List all events: `list`
@@ -218,6 +287,7 @@ Format: `exit`
 * Edit participant of an event: `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
+* Mark an item as accounted for: `mark -m ITEM -e EVENT -s STATUS`
 * Copy participant list: `copy FROM_EVENT > TO_EVENT`
 * Sort events: `sort -by KEYWORD`
 * Filter events: `filter -e/-t/-u FILTER_DESCRIPTION`

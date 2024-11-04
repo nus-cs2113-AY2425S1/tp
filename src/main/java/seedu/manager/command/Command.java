@@ -42,7 +42,8 @@ public abstract class Command {
      * @return the command's message
      */
     public String getMessage() {
-        return this.message;
+        assert message != null : "Output message must be set before being retrieved";
+        return message;
     }
 
     /**

@@ -8,6 +8,7 @@ import seedu.manager.command.FilterCommand;
 import seedu.manager.command.ListCommand;
 import seedu.manager.command.MarkCommand;
 import seedu.manager.command.MarkEventCommand;
+import seedu.manager.command.MarkItemCommand;
 import seedu.manager.command.MarkParticipantCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.RemoveCommand;
@@ -19,16 +20,12 @@ import seedu.manager.command.ViewCommand;
 import seedu.manager.command.FindCommand;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.InvalidCommandException;
-import seedu.manager.event.EventList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.io.IOException;
 
 import static java.util.logging.Level.WARNING;
 
@@ -73,6 +70,7 @@ public class Parser {
             Please enter your commands in the following format:
             mark -e EVENT -s STATUS
             mark -p PARTICIPANT -e EVENT -s STATUS
+            mark -m ITEM -e EVENT -s STATUS
             """;
     private static final String INVALID_EVENT_STATUS_MESSAGE = """
             Invalid event status!
@@ -81,6 +79,10 @@ public class Parser {
     private static final String INVALID_PARTICIPANT_STATUS_MESSAGE = """
             Invalid participant status!
             Please set the event status as either "present" or "absent"
+            """;
+    private static final String INVALID_ITEM_STATUS_MESSAGE = """
+            Invalid mark status!
+            Please set the event status as either "accounted" or "unaccounted"
             """;
     private static final String INVALID_SORT_MESSAGE = """
             Invalid command!
@@ -109,7 +111,7 @@ public class Parser {
     private static final String INVALID_FILTER_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            filter -e/-t/-u FILTER_DESCRIPTION
+            filter -e/-d/-t/-x/-u FILTER_DESCRIPTION
             """;
     private static final String INVALID_FILTER_FLAG_MESSAGE = """
             Invalid filter flag!
@@ -124,6 +126,9 @@ public class Parser {
             Invalid find flag!
             Please set the find flag using "-e" and "-p""
             """;
+    private static final String EVENT_FLAG = "-e";
+    private static final String PARTICIPANT_FLAG = "-p";
+    private static final String ITEM_FLAG = "-m";
 
     private static final String SPACE = " ";
     private static final String ARROW = ">";
@@ -133,11 +138,11 @@ public class Parser {
     private static final String PARTICIPANT_REGEX = "(-p|-n|-email|-e)";
     private static final String ITEM_REGEX = "(-m|-e)";
     private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
+    private static final String MARK_EVENT_REGEX = "-e|-s";
+    private static final String MARK_PARTICIPANT_REGEX = "-p|-e|-s";
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
     private static final String VIEW_REGEX = "(-e|-y)";
-    private static final String EVENT_FLAG = "-e";
-    private static final String PARTICIPANT_FLAG = "-p";
-    private static final String ITEM_FLAG = "-m";
+    private static final String MARK_ITEM_REGEX = "-m|-e|-s";
 
     /**
      * Returns a command based on the given user command string.
@@ -424,7 +429,7 @@ public class Parser {
         return new EditParticipantCommand(participantName, newNumber, newEmail, eventName);
     }
 
-    //@@author MatcahRRR
+    //@@author MatchaRRR
     /**
      * Returns an {@link EditEventCommand} that edits an event with fields parsed from a given user input.
      *
@@ -443,11 +448,10 @@ public class Parser {
         String eventVenue = inputParts[4].trim();
         Priority eventPriority = Priority.valueOf(inputParts[5].trim().toUpperCase());
 
-
         return new EditEventCommand(eventName, eventNewName, eventTime, eventVenue, eventPriority);
     }
 
-    //@@author MatcahRRR
+    //@@author MatchaRRR
     /**
      * Returns an {@link EditItemCommand} that edits an event with fields parsed from a given user input.
      *
@@ -457,12 +461,11 @@ public class Parser {
      */
     private Command getEditItemCommand(String input){
         String[] inputParts = input.split(ITEM_REGEX);
-        String ItemName = inputParts[1].split(ARROW)[0].trim();
-        String ItemNewName = inputParts[1].split(ARROW)[1].trim();
+        String itemName = inputParts[1].split(ARROW)[0].trim();
+        String itemNewName = inputParts[1].split(ARROW)[1].trim();
         String eventName = inputParts[2].trim();
-        return new EditItemCommand(ItemName, ItemNewName, eventName);
+        return new EditItemCommand(itemName, itemNewName, eventName);
     }
-
 
     //@@author glenn-chew
     /**
@@ -521,19 +524,13 @@ public class Parser {
     }
 
     /**
-     * Parses the input string to create a {@link Command} based on the provided command parts.
-     *
-     * <p>
-     * This method checks the command flag extracted from the command parts. If the command
-     * flag is {@code "-e"}, it splits the input string to create a {@link MarkCommand}
-     * to mark an event done or undone. Otherwise, it throws an {@link InvalidCommandException}
-     * with an error message.
-     * </p>
+     * Returns a {@link MarkCommand} to mark an event, participant or item based on a given input string
+     *         and command parts.
      *
      * @param input        the input string containing the command details.
      * @param commandParts an array of strings representing the parsed command parts,
      *                     where the second element is the command flag.
-     * @return a {@link Command} object representing the parsed command.
+     * @return a {@link MarkCommand} with fields parsed from input.
      * @throws InvalidCommandException if the flag is not matched.
      */
     private Command parseMarkCommand(String input, String[] commandParts) throws InvalidCommandException {
@@ -541,16 +538,17 @@ public class Parser {
         try {
             String commandFlag = commandParts[1];
 
-            if (commandFlag.equalsIgnoreCase(EVENT_FLAG)) {
-                String[] inputParts = input.split("-e|-s");
-                return getMarkEventCommand(inputParts[1].trim(), inputParts[2].trim());
-            } else if (commandFlag.equalsIgnoreCase(PARTICIPANT_FLAG)) {
-                String[] inputParts = input.split("-p|-e|-s");
-                return getMarkParticipantCommand(inputParts[1].trim(), inputParts[2].trim(), inputParts[3].trim());
+            switch (commandFlag) {
+            case EVENT_FLAG:
+                return getMarkEventCommand(input);
+            case PARTICIPANT_FLAG:
+                return getMarkParticipantCommand(input);
+            case ITEM_FLAG:
+                return getMarkItemCommand(input);
+            default:
+                logger.log(WARNING, "Invalid command format");
+                throw new InvalidCommandException(INVALID_MARK_MESSAGE);
             }
-
-            logger.log(WARNING,"Invalid command format");
-            throw new InvalidCommandException(INVALID_MARK_MESSAGE);
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING,"Invalid command format");
             throw new InvalidCommandException(INVALID_MARK_MESSAGE);
@@ -558,19 +556,33 @@ public class Parser {
     }
 
     /**
-     * Returns a {@link MarkEventCommand} with a given event name and status. If the given status is invalid,
-     *     throws an {@link InvalidCommandException}.
+     * Returns a {@link MarkEventCommand} with fields from a given user input.
      *
-     * @param eventName the given event name.
-     * @param status the given event status.
-     * @return a MarkCommand with a given event name and status
-     * @throws InvalidCommandException if the given status is invalid.
+     * @param input the given user input.
+     * @return a {@link MarkEventCommand} with fields from input.
+     * @throws InvalidCommandException if the status parameter is invalid.
+     * @throws IndexOutOfBoundsException if not all fields are present.
      */
-    private Command getMarkEventCommand(String eventName, String status) throws InvalidCommandException {
+    private Command getMarkEventCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
+        String[] inputParts = input.split(MARK_EVENT_REGEX);
+        String eventName = inputParts[1].trim();
+        boolean isToMark = toMarkEvent(inputParts[2].trim());
+
+        return new MarkEventCommand(eventName, isToMark);
+    }
+
+    /**
+     * Returns true if status is "done", returns false if status is "undone".
+     *
+     * @param status the status parameter.
+     * @return true if status is "done", returns false if status is "undone".
+     * @throws InvalidCommandException if status is invalid.
+     */
+    private boolean toMarkEvent(String status) throws InvalidCommandException {
         if (status.equalsIgnoreCase("done")) {
-            return new MarkEventCommand(eventName, true);
+            return true;
         } else if (status.equalsIgnoreCase("undone")) {
-            return new MarkEventCommand(eventName, false);
+            return false;
         } else {
             logger.log(WARNING,"Invalid status keyword");
             throw new InvalidCommandException(INVALID_EVENT_STATUS_MESSAGE);
@@ -578,23 +590,73 @@ public class Parser {
     }
 
     /**
-     * Returns a {@link MarkCommand} with a given participant name, event name and status. If the given status is
-     *     invalid, throws an {@link InvalidCommandException}.
+     * Returns a {@link MarkParticipantCommand} with fields from a given user input.
      *
-     * @param participantName the given participant name.
-     * @param eventName the given event name.
-     * @param status the given event status.
-     * @return a MarkCommand with a given event name and status
-     * @throws InvalidCommandException if the given status is invalid.
+     * @param input the given user input.
+     * @return a {@link MarkParticipantCommand} with fields from input.
+     * @throws InvalidCommandException if the status parameter is invalid.
+     * @throws IndexOutOfBoundsException if not all fields are present.
      */
-    private Command getMarkParticipantCommand(String participantName, String eventName, String status) {
+    private Command getMarkParticipantCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
+        String[] inputParts = input.split(MARK_PARTICIPANT_REGEX);
+        String participantName = inputParts[1].trim();
+        String eventName = inputParts[2].trim();
+        boolean isToMark = toMarkParticipant(inputParts[3].trim());
+
+
+        return new MarkParticipantCommand(participantName, eventName, isToMark);
+    }
+
+    /**
+     * Returns true if status is "present", returns false if status is "absent".
+     *
+     * @param status the status parameter.
+     * @return true if status is "present", returns false if status is "absent".
+     * @throws InvalidCommandException if status is invalid.
+     */
+    private boolean toMarkParticipant(String status) throws InvalidCommandException {
         if (status.equalsIgnoreCase("present")) {
-            return new MarkParticipantCommand(participantName, eventName, true);
+            return true;
         } else if (status.equalsIgnoreCase("absent")) {
-            return new MarkParticipantCommand(participantName, eventName, false);
+            return false;
         } else {
-            logger.log(WARNING, "Invalid status keyword");
+            logger.log(WARNING,"Invalid status keyword");
             throw new InvalidCommandException(INVALID_PARTICIPANT_STATUS_MESSAGE);
+        }
+    }
+
+    /**
+     * Returns a {@link MarkItemCommand} with fields from a given user input.
+     *
+     * @param input the given user input.
+     * @return a {@link MarkItemCommand} with fields from input.
+     * @throws InvalidCommandException if the status parameter is invalid.
+     * @throws IndexOutOfBoundsException if not all fields are present.
+     */
+    private Command getMarkItemCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
+        String[] inputParts = input.split(MARK_ITEM_REGEX);
+        String itemName = inputParts[1].trim();
+        String eventName = inputParts[2].trim();
+        boolean isToMark = toMarkItem(inputParts[3].trim());
+
+        return new MarkItemCommand(itemName, eventName, isToMark);
+    }
+
+    /**
+     * Returns true if status is "accounted", returns false if status is "unaccounted".
+     *
+     * @param status the status parameter.
+     * @return true if status is "accounted", returns false if status is "unaccounted".
+     * @throws InvalidCommandException if status is invalid.
+     */
+    private boolean toMarkItem(String status) throws InvalidCommandException {
+        if (status.equalsIgnoreCase("accounted")) {
+            return true;
+        } else if (status.equalsIgnoreCase("unaccounted")) {
+            return false;
+        } else {
+            logger.log(WARNING,"Invalid status keyword");
+            throw new InvalidCommandException(INVALID_ITEM_STATUS_MESSAGE);
         }
     }
 
@@ -635,44 +697,6 @@ public class Parser {
         }
     }
 
-    //@@author KuanHsienn
-    /**
-     * Parses a CSV file containing event details and loads the events into the specified EventList.
-     *
-     * This method reads each line from the specified file, expecting the format to be:
-     * <pre>
-     * eventName, eventTime, eventVenue, eventPriority
-     * </pre>
-     * where:
-     * - eventName is a String representing the name of the event.
-     * - eventTime is a String formatted as "yyyy-MM-dd HH:mm" that will be parsed into a LocalDateTime object.
-     * - eventVenue is a String representing the venue of the event.
-     * - eventPriority is a String representing the priority level of the event.
-     *
-     * If a line does not contain exactly three parts, it is skipped.
-     *
-     * @param events The EventList where the parsed events will be added.
-     * @param filePath The path to the file containing the event details.
-     * @throws IOException If there is an error reading from the file or if the file cannot be found.
-     */
-    public void parseFile(EventList events, String filePath) throws IOException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            for (String line : Files.readAllLines(Paths.get(filePath))) {
-                String[] parts = line.split(","); // CSV format
-                if (parts.length == 4) {
-                    String eventName = parts[0].trim();
-                    LocalDateTime time = LocalDateTime.parse(parts[1].trim(), formatter);
-                    String venue = parts[2].trim();
-                    Priority priority = Priority.valueOf(parts[3].trim().toUpperCase());
-                    events.addEvent(eventName, time, venue, priority);
-                }
-            }
-        } catch (IOException exception) {
-            throw new IOException("Error loading events from file: " + filePath + ".");
-        }
-    }
-
     //@@author LTK-1606
     /**
      * Parses the input string and command parts to create a {@code FilterCommand} object.
@@ -694,12 +718,12 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
 
         try {
-            String[] inputParts = input.split("(-e|-t|-u)");
+            String[] inputParts = input.split("(-e|-d|-t|-x|-u)");
             if (inputParts.length < 2) {
                 throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
             }
 
-            Set<String> validFlags = Set.of(EVENT_FLAG, "-t", "-u");
+            Set<String> validFlags = Set.of(EVENT_FLAG, "-d", "-t", "-x", "-u");
             if (validFlags.contains(commandParts[1].trim().toLowerCase())) {
                 return new FilterCommand(commandParts[1].trim().toLowerCase(), inputParts[1].trim());
             }
