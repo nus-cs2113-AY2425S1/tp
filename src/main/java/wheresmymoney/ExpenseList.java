@@ -3,6 +3,7 @@ package wheresmymoney;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -166,7 +167,7 @@ public class ExpenseList {
      *
      * @param filePath File Path to read csv
      */
-    public void loadFromCsv(String filePath) throws StorageException {
+    public void loadFromCsv(CategoryFacade categoryFacade, String filePath) throws StorageException {
         try {
             File file = new File(filePath);
             FileReader reader = new FileReader(file);
@@ -175,7 +176,15 @@ public class ExpenseList {
             csvReader.readNext(); // Skip the header
             String[] line;
             while ((line = csvReader.readNext()) != null) {
-                addExpense(Float.parseFloat(line[2]), line[1], line[0], line[3]);
+                String category = line[0];
+                String description = line[1];
+                Float price = Float.parseFloat(line[2]);
+                String dateAdded = line[3];
+                addExpense(price, description, category, dateAdded);
+                // makes it slightly less cohesive, but to do so a refactor of the program state might be better.
+                if (categoryFacade != null) {
+                    categoryFacade.addCategory(category, price);
+                }
             }
             
             // closing writer connection
