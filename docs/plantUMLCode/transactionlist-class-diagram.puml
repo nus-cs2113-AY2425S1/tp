@@ -1,14 +1,52 @@
 @startuml
-participant "TransactionList" as TL
-participant "Stream<Transaction>" as Stream
-participant "List<Transaction>" as Result
+skinparam classAttributeIconSize 0
+class TransactionList {
+    - transactions : ArrayList<Transaction>
+    - invertedIndex : Map<String, List<Transaction>>
 
-TL -> Stream : transactions.stream()
-activate Stream
-Stream -> Stream : filter(transaction instanceof Expense)
-Stream -> Stream : map(transaction -> (Expense) transaction)
-Stream -> Stream : filter(expense.getCategory().equals(category))
-Stream -> Result : collect(Collectors.toList())
-Result --> Stream
-Stream --> TL : Result
+    + TransactionList()
+    + addTransaction(transaction : Transaction) : void
+    + deleteTransaction(index : int) : Transaction
+    + getTransactions() : ArrayList<Transaction>
+    + getTransactionsBetween(startTime : LocalDateTime, endTime : LocalDateTime) : List<Transaction>
+    + getExpensesByCategory(category : Category) : List<Transaction>
+    + searchTransactionsByKeywords(keywords : List<String>) : List<Transaction>
+    + getTodaySpending() : double
+    + updateCategory(index : int, newCategory : Category) : boolean
+}
+
+class Transaction {
+    -  amount : double
+    - description : String
+    - dateTimeString : String
+
+    + getAmount() : double
+    + getDescription() : String
+    + getDate() : LocalDateTime
+    + setDate(date : LocalDateTime) : void
+    + getTransactionType() : String
+}
+
+class Expense extends Transaction {
+    - category : Category
+
+    + getCategory() : Category
+    + setCategory(category : Category) : void
+}
+
+class Income extends Transaction {
+    + getTransactionType() : String
+}
+
+class Category {
+    - name : String
+
+    + getName() : String
+}
+
+TransactionList "1" --> "*" Transaction
+
+
+Expense --> Category
+
 @enduml
