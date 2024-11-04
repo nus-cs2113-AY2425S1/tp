@@ -26,6 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import static java.util.logging.Level.WARNING;
 
@@ -71,6 +72,14 @@ public class Parser {
             mark -e EVENT -s STATUS
             mark -p PARTICIPANT -e EVENT -s STATUS
             mark -m ITEM -e EVENT -s STATUS
+            """;
+    private static final String INVALID_PHONE_NUMBER_MESSAGE = """
+            Invalid phone number!
+            Please enter a valid phone number with digits only.
+            """;
+    private static final String INVALID_EMAIL_MESSAGE = """
+            Invalid email format!
+            Please enter a valid email address.
             """;
     private static final String INVALID_EVENT_STATUS_MESSAGE = """
             Invalid event status!
@@ -145,6 +154,8 @@ public class Parser {
     private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
     private static final String VIEW_REGEX = "(-e|-y)";
     private static final String MARK_ITEM_REGEX = "-m|-e|-s";
+    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("\\d{8}");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+\\.[A-Za-z0-9-]+$");
 
     /**
      * Returns a command based on the given user command string.
@@ -263,7 +274,7 @@ public class Parser {
      * @return an {@link AddCommand} that adds a participant with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
-    private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException {
+    private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException  {
         String[] inputParts = input.split(PARTICIPANT_REGEX);
         logger.info("Creating AddCommand for participant with details: " +
                 inputParts[1].trim() + ", " + inputParts[2].trim());
@@ -271,6 +282,17 @@ public class Parser {
         String participantNumber = inputParts[2].trim();
         String participantEmail = inputParts[3].trim();
         String eventName = inputParts[4].trim();
+
+        if (!isValidPhoneNumber(participantNumber)) {
+            logger.log(WARNING, "Invalid phone number format");
+            throw new InvalidCommandException(INVALID_PHONE_NUMBER_MESSAGE);
+        }
+
+        if (!isValidEmail(participantEmail)) {
+            logger.log(WARNING, "Invalid email format");
+            throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
+        }
+
         return new AddCommand(participantName, participantNumber, participantEmail, eventName);
     }
 
@@ -422,12 +444,23 @@ public class Parser {
      * @return an {@link EditParticipantCommand} that edits a participant with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
-    private Command getEditParticipantCommand(String input) throws IndexOutOfBoundsException {
+    private Command getEditParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
         String[] inputParts = input.split(PARTICIPANT_REGEX);
         String participantName = inputParts[1].trim();
         String newNumber = inputParts[2].trim();
         String newEmail = inputParts[3].trim();
         String eventName = inputParts[4].trim();
+
+        if (!isValidPhoneNumber(newNumber)) {
+            logger.log(WARNING, "Invalid phone number format");
+            throw new InvalidCommandException(INVALID_PHONE_NUMBER_MESSAGE);
+        }
+
+        if (!isValidEmail(newEmail)) {
+            logger.log(WARNING, "Invalid email format");
+            throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
+        }
+
         return new EditParticipantCommand(participantName, newNumber, newEmail, eventName);
     }
 
@@ -467,6 +500,28 @@ public class Parser {
         String itemNewName = inputParts[1].split(ARROW)[1].trim();
         String eventName = inputParts[2].trim();
         return new EditItemCommand(itemName, itemNewName, eventName);
+    }
+
+    //@@author KuanHsienn
+    /**
+     * Checks if the phone number is valid.
+     *
+     * @param phoneNumber the phone number to validate.
+     * @return true if the phone number is valid, false otherwise.
+     */
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        return PHONE_NUMBER_PATTERN.matcher(phoneNumber).matches();
+    }
+
+    //@@author KuanHsienn
+    /**
+     * Checks if the email address is valid.
+     *
+     * @param email the email address to validate.
+     * @return true if the email is valid, false otherwise.
+     */
+    private boolean isValidEmail(String email) {
+        return EMAIL_PATTERN.matcher(email).matches();
     }
 
     //@@author glenn-chew
