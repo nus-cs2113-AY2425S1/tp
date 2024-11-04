@@ -5,7 +5,6 @@ import wheresmymoney.Storage;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.RecurringExpenseList;
-import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;

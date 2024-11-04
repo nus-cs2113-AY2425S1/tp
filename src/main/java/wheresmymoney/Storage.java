@@ -5,9 +5,9 @@ import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 public class Storage {
-    private static String EXPENSES_FILE_PATH = "./expenses_data.csv";
-    private static String RECURRING_EXPENSES_FILE_PATH = "./recurring_expenses_data.csv";
-    private static String CATEGORIES_FILE_PATH = "./category_spending_limit.csv";
+    private static final String EXPENSES_FILE_PATH = "./expenses_data.csv";
+    private static final String RECURRING_EXPENSES_FILE_PATH = "./recurring_expenses_data.csv";
+    private static final String CATEGORIES_FILE_PATH = "./category_spending_limit.csv";
 
     public static void save(
             ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList,
