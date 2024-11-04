@@ -21,10 +21,10 @@ public class MarkParticipantCommand extends MarkCommand {
      *
      * @param participantName the name of the participant.
      * @param eventName the name of the event.
-     * @param toMark true if the participant is to be marked present, false if he is to be marked absent.
+     * @param isToMark true if the participant is to be marked present, false if he is to be marked absent.
      */
-    public MarkParticipantCommand(String participantName, String eventName, boolean toMark) {
-        super(eventName, toMark);
+    public MarkParticipantCommand(String participantName, String eventName, boolean isToMark) {
+        super(eventName, isToMark);
         this.participantName = participantName;
     }
 
@@ -40,10 +40,10 @@ public class MarkParticipantCommand extends MarkCommand {
             return;
         }
 
-        boolean isMarked = event.get().markParticipantByName(participantName, toMark);
+        boolean isMarked = event.get().markParticipantByName(participantName, isToMark);
 
         if (isMarked) {
-            message = (toMark) ? PARTICIPANT_MARK_MESSAGE : PARTICIPANT_UNMARK_MESSAGE;
+            message = (isToMark) ? PARTICIPANT_MARK_MESSAGE : PARTICIPANT_UNMARK_MESSAGE;
         } else {
             message = INVALID_PARTICIPANT_MESSAGE;
         }

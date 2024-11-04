@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+
+participant ":Main" as main
+participant ":MarkParticipantCommand" as markCommand COMMAND_COLOUR
+participant ":EventList" as eventList EVENT_COLOUR
+participant "event:Event" as event EVENT_COLOUR
+participant "participant:Participant" as participant EVENT_COLOUR
+
+main -> markCommand : execute()
+activate markCommand COMMAND_COLOUR
+
+markCommand -> eventList : getEventByName(eventName)
+activate eventList EVENT_COLOUR
+
+eventList --> markCommand : event : Event
+deactivate eventList EVENT_COLOUR
+
+markCommand -> event : markParticipantByName(participantName)
+activate event EVENT_COLOUR
+
+event -> event : getParticipantByName(participantName)
+activate event EVENT_COLOUR
+
+return participant : Participant
+
+event -> participant : setPresent(isToMark)
+activate participant EVENT_COLOUR
+
+return
+
+return
+
+markCommand --> main
+deactivate markCommand
+@enduml

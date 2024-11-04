@@ -5,6 +5,7 @@ rectangle event {
     rectangle EventList EVENT_COLOUR
     rectangle Event EVENT_COLOUR
     rectangle Participant EVENT_COLOUR
+    rectangle Item EVENT_COLOUR
 }
 
 rectangle Main
@@ -13,6 +14,8 @@ rectangle Storage STORAGE_COLOUR
 
 EventList *--> "*" Event : event
 Event *--> "*" Participant : participant
+Event *--> "*" Item : item
+Participant --|> Item
 
 Main .> EventList
 EventList <. Storage

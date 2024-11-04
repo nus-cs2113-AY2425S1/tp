@@ -1,20 +1,40 @@
 @startuml
+!include style.puml
+hide footbox
 
-Main -> Parser: add -e Meeting -t 2023-11-10T14:00 -v Room 101 -p HIGH
-activate Parser
-Parser -> AddCommand: new AddCommand("Meeting", time, "Room 101", Priority.HIGH)
-activate AddCommand
-AddCommand -> EventList: addEvent("Meeting", time, "Room 101", Priority.HIGH)
-activate EventList
-EventList -> Event: new Event("Meeting", time, "Room 101", Priority.HIGH)
-activate Event
-Event --> EventList
-deactivate Event
-EventList --> AddCommand
-deactivate EventList
-AddCommand --> Parser
-deactivate AddCommand
-Parser --> Main
-deactivate Parser
+participant ":AddCommand" as command COMMAND_COLOUR
+participant ":EventList" as eventList EVENT_COLOUR
+participant "eventList:ArrayList<Event>" as list EVENT_COLOUR
+participant "newEvent:Event" as event EVENT_COLOUR
+
+group sd Add event
+    activate command COMMAND_COLOUR
+    command -> eventList : addEvent(eventName, eventTime, eventVenue, eventPriority)
+    activate eventList EVENT_COLOUR
+
+    eventList -> eventList : getEventByName(eventName)
+    activate eventList EVENT_COLOUR
+
+    return :Event
+
+    alt event already present
+        eventList --> command : throws DuplicateDataException
+    else else
+
+        create event
+        eventList -> event : Event(eventName, eventTime, eventVenue, eventPriority)
+        activate event EVENT_COLOUR
+
+        return
+
+        eventList -> list : add(newEvent)
+        activate list EVENT_COLOUR
+
+        return
+
+        return
+    end
+
+end
 
 @enduml
