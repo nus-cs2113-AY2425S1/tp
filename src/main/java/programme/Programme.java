@@ -2,6 +2,8 @@
 
 package programme;
 
+import exceptions.IndexOutOfBoundsBuffBuddyException;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +31,7 @@ public class Programme {
     public Day getDay(int index){
         if (index < 0 || index >= dayList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for getDay()", index);
-            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for day list.");
+            throw new IndexOutOfBoundsBuffBuddyException(index, "day list");
         }
         logger.log(Level.INFO, "Retrieving day at index {0}: {1}", new Object[]{index, dayList.get(index)});
         return dayList.get(index);
@@ -50,7 +52,7 @@ public class Programme {
     public Day deleteDay(int index){
         if (index < 0 || index >= dayList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for deleteDay()", index);
-            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for day list.");
+            throw new IndexOutOfBoundsBuffBuddyException(index, "day list");
         }
         Day toBeDeleted = dayList.get(index);
         dayList.remove(index);

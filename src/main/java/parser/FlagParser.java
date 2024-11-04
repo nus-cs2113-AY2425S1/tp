@@ -1,6 +1,9 @@
 //@@author nirala-ts
 package parser;
 
+import exceptions.EmptyInputBuffBuddyException;
+import exceptions.MissingFlagBuffBuddyException;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +51,7 @@ public class FlagParser {
      */
     public FlagParser(String argumentString, String... ignoredFlags) {
         if (isNull(argumentString)){
-            throw new IllegalArgumentException("ArgumentString: " + argumentString + " is null");
+            throw new EmptyInputBuffBuddyException("Argument string");
         }
 
         initializeAliasMap();
@@ -183,14 +186,14 @@ public class FlagParser {
 
             if (!hasFlag(flag)) {
                 logger.log(Level.WARNING, "Missing required flag: {0}", flag);
-                throw new IllegalArgumentException("Required flag: " + flag + " is missing.");
+                throw new MissingFlagBuffBuddyException(flag);
             }
 
             String value = getStringByFlag(flag);
 
             if (isNull(value)) {
                 logger.log(Level.WARNING, "Required flag has null value: {0}", flag);
-                throw new IllegalArgumentException("Required flag: " + flag + " has no associated value.");
+                throw new MissingFlagBuffBuddyException(flag);
             }
         }
     }

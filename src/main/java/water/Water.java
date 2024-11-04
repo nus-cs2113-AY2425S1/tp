@@ -1,6 +1,8 @@
 // @@author Atulteja
 package water;
 
+import exceptions.IndexOutOfBoundsBuffBuddyException;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +31,7 @@ public class Water {
     public float deleteWater(int index) {
         if (index < 0 || index >= waterList.size()) {
             logger.log(Level.WARNING, "Invalid index for deletion: {0}", index);
-            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for the water list.");
+            throw new IndexOutOfBoundsBuffBuddyException(index, "water list");
         }
 
         float waterToBeDeleted = waterList.get(index);

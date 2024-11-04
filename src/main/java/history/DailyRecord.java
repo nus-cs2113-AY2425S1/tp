@@ -1,6 +1,7 @@
 //@@author Bev-Low
 package history;
 
+import exceptions.BuffBuddyException;
 import meal.Meal;
 import meal.MealList;
 import programme.Day;
@@ -52,7 +53,7 @@ public class DailyRecord {
      */
     public Day deleteDayFromRecord() {
         if (this.day == null) {
-            throw new IllegalStateException("No logged workout found for this day.");
+            throw new BuffBuddyException("No logged workout found for this day.");
         }
 
         Day deleted = this.day;
