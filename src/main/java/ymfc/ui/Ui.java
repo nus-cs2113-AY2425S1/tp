@@ -323,16 +323,44 @@ public class Ui {
     }
 
     /**
+     * Get the ID of the maximum value found in a float arraylist
+     *
+     * @param floatList Arraylist of floating point numbers
+     * @return ID of maximum float in arraylist
+     */
+    private int getMaxID (ArrayList<Float> floatList) {
+        assert !floatList.isEmpty();
+        int maxID = 0;
+        float maxFloat = floatList.get(0);
+        for (int i = 1; i < floatList.size(); i++) {
+            float currFloat = floatList.get(i);
+            if (currFloat > maxFloat) {
+                maxFloat = currFloat;
+                maxID = i;
+            }
+        }
+        return maxID;
+    }
+
+    /**
      * Display a list of recommended recipes to the user.
      *
      * @param recommendList List of recipes to be recommended
      */
-    public void printRecommendedRecipes(RecipeList recommendList) {
+    public void printRecommendedRecipes(RecipeList recommendList, ArrayList<Float> percentMatchList) {
         if (recommendList.getCounter() > 0) {
             System.out.println(LINE);
             System.out.println("\tAlright, here are my recommendations:");
-            for (int i = 0; i < recommendList.getCounter(); i++) {
-                System.out.println("\t" + recommendList.getRecipe(i));
+            while (recommendList.getCounter() > 0) {
+                int maxMatchID = getMaxID(percentMatchList);
+                System.out.printf("\tFor this recipe, you have %.2f%% of the ingredients needed"
+                        + System.lineSeparator(), percentMatchList.get(maxMatchID));
+                System.out.println("\t" + recommendList.getRecipe(maxMatchID));
+                System.out.println();
+
+                // Delete recipe and match percentage just displayed from respective lists
+                percentMatchList.remove(maxMatchID);
+                recommendList.removeRecipeByID(maxMatchID);
             }
             System.out.println(LINE);
         } else {

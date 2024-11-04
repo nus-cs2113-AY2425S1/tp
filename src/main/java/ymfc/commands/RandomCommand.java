@@ -32,10 +32,10 @@ public class RandomCommand extends Command {
      * Executes the {@code RandomCommand}, choosing a random recipe from {@code RecipeList}
      * and displaying that to the user.
      *
-     * @param recipes The {@code RecipeList} to edit the recipe from. Must not be {@code null}.
+     * @param recipes The {@code RecipeList} to choose the recipe from. Must not be {@code null}.
      * @param ingredients The {@code IngredientList}. Unused in this command.
-     * @param ui The {@code Ui} to inform the user of the edited recipe or error.
-     * @param storage The {@code Storage} to save the updated recipe list.
+     * @param ui The {@code Ui} to inform the user of the randomly chosen recipe.
+     * @param storage The {@code Storage}. Unused in this command
      */
     public void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) {
         logger.log(Level.FINEST, "Executing RandomCommand");
