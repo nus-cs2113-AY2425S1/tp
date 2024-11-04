@@ -429,6 +429,8 @@ to check and plan course mappings for that specified course.
   method focused and easier to manage. The `UI` class handles displaying messages to the user, which keeps 
   `FindCoursesCommand` focused solely on search logic, without managing user interactions directly.
 
+![FindCourseCommand Sequence diagram](images/FindCoursesCommand.png)
+
 ## Product scope
 ### Target user profile
 
@@ -458,6 +460,7 @@ to check and plan course mappings for that specified course.
 | v2.0    | CEG student  | delete a course mapping plan for a PU                           | keep my list of saved plans organised                    |
 | v2.0    | CEG student  | ask for help when I am in doubt                                 | know what are the possible actions                       |
 | v2.0    | CEG student  | compare different mapping plans for each PU                     | find the university best fit for my academic schedule    |
+| v2.0    | CEG student  | search for course mappings in my personalised tracker           | check if I have mappings for that course                 |
 
 
 ## Non-Functional Requirements
