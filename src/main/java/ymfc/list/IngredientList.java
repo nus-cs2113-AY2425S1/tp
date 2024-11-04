@@ -43,4 +43,12 @@ public class IngredientList {
     public void sortAlphabetically() {
         ingredients.sort(Comparator.comparing(Ingredient::getName, String.CASE_INSENSITIVE_ORDER));
     }
+
+    public ArrayList<String> getIngredientsString() {
+        ArrayList<String> ingredientsStringList = new ArrayList<>();
+        for (int i = 0; i < ingredients.size(); i++) {
+            ingredientsStringList.add(ingredients.get(i).getName());
+        }
+        return ingredientsStringList;
+    }
 }

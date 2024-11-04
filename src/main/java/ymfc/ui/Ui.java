@@ -1,6 +1,7 @@
 package ymfc.ui;
 
 import ymfc.ingredient.Ingredient;
+import ymfc.list.RecipeList;
 import ymfc.recipe.Recipe;
 
 import java.io.InputStream;
@@ -298,7 +299,7 @@ public class Ui {
     public void printEditedRecipe(String recipeName, Recipe editedRecipe) {
         System.out.println(LINE);
         System.out.println("\tYou got it boss, I have edited your recipe for " + recipeName + " to:");
-        System.out.println("\t " +  editedRecipe);
+        System.out.println("\t" +  editedRecipe);
         System.out.println(LINE);
     }
 
@@ -317,8 +318,31 @@ public class Ui {
         System.out.println("\t...");
         System.out.println("\tOkay who am I kidding, this is still a country for old men.");
         System.out.println("\tI will call it for you, here's your random recipe:");
-        System.out.println("\t " +  randomRecipe);
+        System.out.println("\t" +  randomRecipe);
         System.out.println(LINE);
+    }
+
+    /**
+     * Display a list of recommended recipes to the user.
+     *
+     * @param recommendList List of recipes to be recommended
+     */
+    public void printRecommendedRecipes(RecipeList recommendList) {
+        if (recommendList.getCounter() > 0) {
+            System.out.println(LINE);
+            System.out.println("\tAlright, here are my recommendations:");
+            for (int i = 0; i < recommendList.getCounter(); i++) {
+                System.out.println("\t" + recommendList.getRecipe(i));
+            }
+            System.out.println(LINE);
+        } else {
+            System.out.println(LINE);
+            System.out.println("\tUnfortunately I can't recommend you any recipes, ");
+            System.out.println("\tbecause you lack the ingredients for any recipes in my database.");
+            System.out.println("\tPerhaps you should hit up the grocery store.");
+            System.out.println("\tIt will do you some good to go outside once in a while.");
+            System.out.println(LINE);
+        }
     }
 
     public String getLine() {
