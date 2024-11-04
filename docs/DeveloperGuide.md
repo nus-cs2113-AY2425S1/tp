@@ -79,7 +79,7 @@ The `Event` component does the following:
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### List feature[TBD]
+### List feature
 
 The `list` feature allows users to view all scheduled events in the system. 
 It is implemented in the `ListCommand` class, which extends the base `Command` class and formats the output to display all events. 
@@ -108,6 +108,10 @@ Events are appended to `outputMessage` with numbered formatting for readability.
 
 4. Output Generation:
 The method stores the generated `outputMessage` in `this.message`, ready for display.
+
+The interactions between components during the execution of the `list` command are show in the **Sequence Diagram** below:
+
+<img src = "images/ListCommandSequenceDiagram.png">
 
 ### Add feature
 
