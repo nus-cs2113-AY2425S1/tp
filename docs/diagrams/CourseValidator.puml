@@ -3,6 +3,7 @@ hide footbox
 !include .SequenceDiagram.config
 participant ":AddCoursesCommand" as AddCoursesCommand
 participant ":CourseValidator" as CourseValidator
+participant ":Ui" as Ui
 
 activate AddCoursesCommand
 
@@ -15,10 +16,10 @@ activate CourseValidator
 alt matchPu != null
 CourseValidator -> CourseValidator: get JsonArray for Partner University
 else else
-CourseValidator -> CourseValidator:displayPartnerUniversities()
-activate CourseValidator
+CourseValidator -> Ui:displayPartnerUniversities()
+activate Ui
 deactivate
-CourseValidator -> CourseValidator: throw IllegalArgumentException
+CourseValidator --> AddCoursesCommand: throw no PU found exception
 end
 return courses: JsonArray
 
@@ -28,16 +29,15 @@ activate CourseValidator
 
 
 loop for each course in courses JsonArray
-CourseValidator -> CourseValidator:getJsonObject(course)
-CourseValidator -> CourseValidator:get puCourseCode from JsonArray
-CourseValidator -> CourseValidator:get nusCourseCode from JsonArray
 
 opt puCourseCode == puCourseCodeInput && nusCourseCode == nusCourseCodeInput
     CourseValidator --> AddCoursesCommand: true: Boolean
 end
 
 end
-  CourseValidator --> CourseValidator: displayAvailableMappings()
+  CourseValidator --> Ui: displayAvailableMappings()
+  activate Ui
+  deactivate
   CourseValidator --> AddCoursesCommand: false: Boolean
 deactivate
 
