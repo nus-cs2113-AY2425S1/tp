@@ -12,12 +12,21 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.logging.Level;
 
+/**
+ * Represents a command to log a specific day of a programme into the history.
+ */
 public class LogProgrammeCommand extends ProgrammeCommand {
     public static final String COMMAND_WORD = "log";
 
     private final LocalDate date;
 
-
+    /**
+     * Constructs a LogProgrammeCommand with the specified programme index, day index, and date.
+     *
+     * @param programmeIndex The index of the programme.
+     * @param dayIndex The index of the day.
+     * @param date The date to log the day into the history.
+     */
     public LogProgrammeCommand(int programmeIndex, int dayIndex, LocalDate date){
         super(programmeIndex, dayIndex);
 
@@ -31,6 +40,13 @@ public class LogProgrammeCommand extends ProgrammeCommand {
         );
     }
 
+    /**
+     * Executes the command to log a specific day of a programme into the history.
+     *
+     * @param programmes The list of programmes.
+     * @param history The history object to record the command execution.
+     * @return A CommandResult object containing the result of the command execution.
+     */
     @Override
     public CommandResult execute(ProgrammeList programmes, History history){
         logger.log(
@@ -55,6 +71,12 @@ public class LogProgrammeCommand extends ProgrammeCommand {
         return new CommandResult(result);
     }
 
+    /**
+     * Checks if this command is equal to another object.
+     *
+     * @param o The other object to compare to.
+     * @return true if the other object is equal to this command, false otherwise.
+     */
     @Override
     public boolean equals(Object o){
         if (this == o){

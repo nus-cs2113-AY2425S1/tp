@@ -18,10 +18,9 @@ public class ListProgrammeCommand extends ProgrammeCommand {
     public CommandResult execute(ProgrammeList programmes, History history){
         assert programmes != null : "Programme list must not be null";
 
-        String result = String.format(SUCCESS_MESSAGE_FORMAT, programmes);
-
         logger.log(Level.INFO, "ListCommand executed successfully.");
 
+        String result = String.format(SUCCESS_MESSAGE_FORMAT, programmes);
         return new CommandResult(result);
     }
 }
