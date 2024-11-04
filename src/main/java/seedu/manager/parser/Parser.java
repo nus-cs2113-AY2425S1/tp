@@ -111,7 +111,7 @@ public class Parser {
     private static final String INVALID_FILTER_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            filter -e/-t/-u FILTER_DESCRIPTION
+            filter -e/-d/-t/-x/-u FILTER_DESCRIPTION
             """;
     private static final String INVALID_FILTER_FLAG_MESSAGE = """
             Invalid filter flag!
@@ -718,12 +718,12 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
 
         try {
-            String[] inputParts = input.split("(-e|-t|-u)");
+            String[] inputParts = input.split("(-e|-d|-t|-x|-u)");
             if (inputParts.length < 2) {
                 throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
             }
 
-            Set<String> validFlags = Set.of(EVENT_FLAG, "-t", "-u");
+            Set<String> validFlags = Set.of(EVENT_FLAG, "-d", "-t", "-x", "-u");
             if (validFlags.contains(commandParts[1].trim().toLowerCase())) {
                 return new FilterCommand(commandParts[1].trim().toLowerCase(), inputParts[1].trim());
             }
