@@ -39,7 +39,7 @@ public class ViewWaterCommandTest {
         when(mockHistory.getRecordByDate(date)).thenReturn(mockDailyRecord);
 
         // Set up DailyRecord mock to return a Water object
-        when(mockDailyRecord.getWater()).thenReturn(mockWater);
+        when(mockDailyRecord.getWaterFromRecord()).thenReturn(mockWater);
 
         viewWaterCommand = new ViewWaterCommand(date);
     }
@@ -52,7 +52,7 @@ public class ViewWaterCommandTest {
         CommandResult result = viewWaterCommand.execute(mockHistory);
 
         verify(mockHistory).getRecordByDate(date);
-        verify(mockDailyRecord).getWater();
+        verify(mockDailyRecord).getWaterFromRecord();
         assertEquals(expectedResult, result, "Execution should return a " +
                 "CommandResult with the correct water record output.");
     }
