@@ -111,7 +111,7 @@ public class TransactionList {
     public double getTodaySpending() {
         LocalDate today = LocalDate.now();
         return transactions.stream()
-                .filter(t -> t instanceof Expense && t.getDate().toLocalDate().isEqual(today))
+                .filter(t -> t instanceof Expense && t.getDate().isAfter(today.atStartOfDay()))
                 .mapToDouble(Transaction::getAmount)
                 .sum();
     }
