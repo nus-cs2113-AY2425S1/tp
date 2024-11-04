@@ -4,6 +4,7 @@ import command.CommandResult;
 import history.DailyRecord;
 import history.History;
 import meal.MealList;
+import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -39,7 +40,7 @@ public class ViewMealCommandTest {
         when(mockHistory.getRecordByDate(date)).thenReturn(mockDailyRecord);
 
         // Set up DailyRecord mock to return a MealList
-        when(mockDailyRecord.getMealList()).thenReturn(mockMealList);
+        when(mockDailyRecord.getMealListFromRecord()).thenReturn(mockMealList);
 
         viewMealCommand = new ViewMealCommand(date);
     }
@@ -48,14 +49,17 @@ public class ViewMealCommandTest {
     public void testExecuteHappyPath() {
         // Arrange
         when(mockMealList.toString()).thenReturn("Sample Meal List");
-        CommandResult expectedResult = new CommandResult("Sample Meal List");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = date.format(formatter);
+
+        CommandResult expectedResult = new CommandResult("Meals for " + formattedDate + ": \n\nSample Meal List");
 
         // Act
         CommandResult result = viewMealCommand.execute(mockHistory);
 
         // Assert
         verify(mockHistory).getRecordByDate(date);
-        verify(mockDailyRecord).getMealList();
+        verify(mockDailyRecord).getMealListFromRecord();
         assertEquals(expectedResult, result, "Execution should return a " +
                 "CommandResult with the correct meal list output.");
     }

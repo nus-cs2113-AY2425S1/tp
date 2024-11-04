@@ -25,7 +25,10 @@ public class LogProgrammeCommand extends ProgrammeCommand {
         assert date != null : "Date must not be null";
 
         this.date = date;
-        logger.log(Level.INFO, "LogCommand created with progIndex: {0}, dayIndex: {1}, date: {2}", new Object[]{programmeIndex, dayIndex, date});
+        logger.log(Level.INFO,
+                "LogCommand created with progIndex: {0}, dayIndex: {1}, date: {2}",
+                new Object[]{programmeIndex, dayIndex, date}
+        );
     }
 
     @Override
@@ -43,7 +46,7 @@ public class LogProgrammeCommand extends ProgrammeCommand {
         Day completed = selectedProgramme.getDay(dayIndex);
 
         DailyRecord dailyRecord = history.getRecordByDate(date);
-        dailyRecord.logDay(completed);
+        dailyRecord.logDayToRecord(completed);
         history.logRecord(date, dailyRecord);
 
         logger.log(Level.INFO, "LogCommand executed successfully for day: {0}", completed);

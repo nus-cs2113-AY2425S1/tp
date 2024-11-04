@@ -10,7 +10,10 @@ import programme.ProgrammeList;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class DeleteLogProgrammeCommandTest {
 
@@ -27,8 +30,20 @@ class DeleteLogProgrammeCommandTest {
         testDate = LocalDate.of(2023, 10, 1);
         testDay = new Day("Test Day");
         dailyRecord = new DailyRecord();
-        dailyRecord.logDay(testDay);
+        dailyRecord.logDayToRecord(testDay);
         history.logRecord(testDate, dailyRecord);
+    }
+
+    // Test for constructor with valid inputs
+    @Test
+    void constructor_initializesWithValidParameters() {
+        assertDoesNotThrow(() -> new DeleteLogProgrammeCommand(testDate));
+    }
+
+    // Edge case for constructor: invalid programme ID
+    @Test
+    void constructor_initializesWithInvalidParameters() {
+        assertThrows(AssertionError.class, () -> new DeleteLogProgrammeCommand(null));
     }
 
     @Test
@@ -52,4 +67,4 @@ class DeleteLogProgrammeCommandTest {
         DeleteLogProgrammeCommand command = new DeleteLogProgrammeCommand(testDate);
         assertThrows(AssertionError.class, () -> command.execute(programmes, null));
     }
-} 
+}

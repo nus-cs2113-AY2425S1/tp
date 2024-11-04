@@ -28,7 +28,11 @@ public class DeleteExerciseProgrammeCommand extends EditProgrammeCommand {
      */
     public DeleteExerciseProgrammeCommand(int programmeIndex, int dayIndex, int exerciseIndex) {
         super(programmeIndex, dayIndex, exerciseIndex);
-        logger.log(Level.INFO, "DeleteExerciseCommand created with programme index: {0}, day index: {1}, and exercise index: {2}", new Object[]{programmeIndex, dayIndex, exerciseIndex});
+        logger.log(
+                Level.INFO,
+                "DeleteExerciseCommand created with programme index: {0}, day index: {1}, and exercise index: {2}",
+                new Object[]{programmeIndex, dayIndex, exerciseIndex}
+        );
     }
 
     /**

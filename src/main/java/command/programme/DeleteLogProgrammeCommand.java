@@ -39,7 +39,7 @@ public class DeleteLogProgrammeCommand extends ProgrammeCommand {
      *
      * @param programmes the ProgrammeList containing the programmes (not used in this command)
      * @param history the History object containing the workout logs
-     * @return a CommandResult containing a success message indicating the deleted log or a message indicating no log was found
+     * @return a CommandResult containing a success message
      */
     @Override
     public CommandResult execute(ProgrammeList programmes, History history){

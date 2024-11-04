@@ -26,7 +26,11 @@ public class DeleteDayProgrammeCommand extends EditProgrammeCommand {
      */
     public DeleteDayProgrammeCommand(int programmeIndex, int dayIndex) {
         super(programmeIndex, dayIndex);
-        logger.log(Level.INFO, "DeleteDayCommand created with programme index: {0} and day index: {1}", new Object[]{programmeIndex, dayIndex});
+        logger.log(
+                Level.INFO,
+                "DeleteDayCommand created with programme index: {0} and day index: {1}",
+                new Object[]{programmeIndex, dayIndex}
+        );
     }
 
     /**

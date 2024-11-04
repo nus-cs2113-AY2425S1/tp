@@ -17,8 +17,9 @@ import java.util.logging.Logger;
  * </p>
  */
 public abstract class EditProgrammeCommand extends ProgrammeCommand {
-    protected final Logger logger = Logger.getLogger(this.getClass().getName());
     public static final String COMMAND_WORD = "edit";
+    protected final Logger logger = Logger.getLogger(this.getClass().getName());
+
     protected int exerciseIndex;
 
     /**

@@ -37,7 +37,11 @@ public class EditExerciseProgrammeCommand extends EditProgrammeCommand {
         super(programmeIndex, dayIndex, exerciseIndex);
         assert update != null : "update object must not be null";
         this.update = update;
-        logger.log(Level.INFO, "EditExerciseCommand created with programme index: {0}, day index: {1}, and exercise index: {2}", new Object[]{programmeIndex, dayIndex, exerciseIndex});
+        logger.log(
+                Level.INFO,
+                "EditExerciseCommand created with programme index: {0}, day index: {1}, and exercise index: {2}",
+                new Object[]{programmeIndex, dayIndex, exerciseIndex}
+        );
     }
 
     /**
