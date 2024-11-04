@@ -20,7 +20,7 @@ mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
 copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
 sort -by KEYWORD: Sorts events by name/time/priority.
-filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
+filter -e/-d/-t/-x/-u FILTER_DESCRIPTION: Filters events by name/date/time/date-time/priority.
 find -e EVENT -p NAME: Finds all participants with specified name in an event.
 exit: Exit program.
 ------------------------
@@ -77,6 +77,31 @@ Enter a command: Events successfully sorted by name!
 Enter a command: Events successfully sorted by time!
 1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
+------------------------
+Enter a command: There are 2 events in your list! Here are your scheduled events:
+1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
+------------------------
+Enter a command: Events successfully filtered by name!
+1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+
+------------------------
+Enter a command: Events successfully filtered by date!
+1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+
+------------------------
+Enter a command: Events successfully filtered by time!
+1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
+------------------------
+Enter a command: Events successfully filtered by date-time!
+1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+
+------------------------
+Enter a command: Events successfully filtered by priority!
+1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
 Enter a command: There are 2 events in your list! Here are your scheduled events:
