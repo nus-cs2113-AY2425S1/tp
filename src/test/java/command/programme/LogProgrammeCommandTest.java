@@ -2,7 +2,6 @@
 
 package command.programme;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Null;
 
 import command.CommandResult;
 import history.History;
@@ -22,55 +21,55 @@ import static org.mockito.Mockito.when;
 
 public class LogProgrammeCommandTest {
 
-   @Test
-   public void testExecute_logsDayIntoHistory() {
-       ProgrammeList mockProgrammes = mock(ProgrammeList.class);
-       History mockHistory = mock(History.class);
-       Day mockDay = mock(Day.class);
-       DailyRecord mockDailyRecord = mock(DailyRecord.class);
-       Programme mockProgramme = mock(Programme.class);
+    @Test
+    public void testExecute_logsDayIntoHistory() {
+        ProgrammeList mockProgrammes = mock(ProgrammeList.class);
+        History mockHistory = mock(History.class);
+        Day mockDay = mock(Day.class);
+        DailyRecord mockDailyRecord = mock(DailyRecord.class);
+        Programme mockProgramme = mock(Programme.class);
 
-       int progIndex = 0;
-       int dayIndex = 0;
-       LocalDate date = LocalDate.of(2024, 12, 12);
+        int progIndex = 0;
+        int dayIndex = 0;
+        LocalDate date = LocalDate.of(2024, 12, 12);
 
-       // Mock ProgrammeList behavior to return the mock Programme when getProgramme() is called
-       when(mockProgrammes.getProgramme(progIndex)).thenReturn(mockProgramme);
-       when(mockProgramme.getDay(dayIndex)).thenReturn(mockDay);
-       when(mockHistory.getRecordByDate(date)).thenReturn(mockDailyRecord);
+        // Mock ProgrammeList behavior to return the mock Programme when getProgramme() is called
+        when(mockProgrammes.getProgramme(progIndex)).thenReturn(mockProgramme);
+        when(mockProgramme.getDay(dayIndex)).thenReturn(mockDay);
+        when(mockHistory.getRecordByDate(date)).thenReturn(mockDailyRecord);
 
-       LogProgrammeCommand logCommand = new LogProgrammeCommand(progIndex, dayIndex, date);
+        LogProgrammeCommand logCommand = new LogProgrammeCommand(progIndex, dayIndex, date);
 
-       CommandResult result = logCommand.execute(mockProgrammes, mockHistory);
+        CommandResult result = logCommand.execute(mockProgrammes, mockHistory);
 
-       verify(mockProgrammes).getProgramme(progIndex);
-       verify(mockProgramme).getDay(dayIndex);
-       verify(mockDailyRecord).logDayToRecord(mockDay);
-       assertNotNull(result);
-   }
+        verify(mockProgrammes).getProgramme(progIndex);
+        verify(mockProgramme).getDay(dayIndex);
+        verify(mockDailyRecord).logDayToRecord(mockDay);
+        assertNotNull(result);
+    }
 
-   @Test
-   public void testExecute_edgeCase_invalidProgrammeIndex() {
-       ProgrammeList mockProgrammes = mock(ProgrammeList.class);
-       History mockHistory = mock(History.class);
-       int invalidProgIndex = -1;
-       int dayIndex = 0;
-       LocalDate date = LocalDate.of(2024, 12, 12);
+    @Test
+    public void testExecute_edgeCase_invalidProgrammeIndex() {
+        ProgrammeList mockProgrammes = mock(ProgrammeList.class);
+        History mockHistory = mock(History.class);
+        int invalidProgIndex = -1;
+        int dayIndex = 0;
+        LocalDate date = LocalDate.of(2024, 12, 12);
 
-       LogProgrammeCommand logCommand = new LogProgrammeCommand(invalidProgIndex, dayIndex, date);
+        LogProgrammeCommand logCommand = new LogProgrammeCommand(invalidProgIndex, dayIndex, date);
 
-       assertThrows(NullPointerException.class, () -> logCommand.execute(mockProgrammes, mockHistory));
-   }
+        assertThrows(NullPointerException.class, () -> logCommand.execute(mockProgrammes, mockHistory));
+    }
 
-   @Test
-   public void testExecute_edgeCase_nullHistory() {
-       ProgrammeList mockProgrammes = mock(ProgrammeList.class);
-       int progIndex = 0;
-       int dayIndex = 0;
-       LocalDate date = LocalDate.of(2024, 12, 12);
+    @Test
+    public void testExecute_edgeCase_nullHistory() {
+        ProgrammeList mockProgrammes = mock(ProgrammeList.class);
+        int progIndex = 0;
+        int dayIndex = 0;
+        LocalDate date = LocalDate.of(2024, 12, 12);
 
-       LogProgrammeCommand logCommand = new LogProgrammeCommand(progIndex, dayIndex, date);
+        LogProgrammeCommand logCommand = new LogProgrammeCommand(progIndex, dayIndex, date);
 
-       assertThrows(AssertionError.class, () -> logCommand.execute(mockProgrammes, null));
-   }
+        assertThrows(AssertionError.class, () -> logCommand.execute(mockProgrammes, null));
+    }
 }
