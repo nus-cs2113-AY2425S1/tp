@@ -6,7 +6,6 @@ import ymfc.recipe.Recipe;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import static ymfc.YMFC.logger;
@@ -31,6 +30,9 @@ public class RecommendCommand extends Command {
 
     /**
      * Executes the {@code RecommendCommand}.
+     * Recipes from the {@code RecipeList} that has ingredients found in {@code IngredientList} are collated.
+     * Data about the percentage match of the ingredients and missing ingredients are also ascertained.
+     * These are then displayed to the user via {@code Ui}.
      *
      * @param recipes The {@code RecipeList} to choose the recipes from. Must not be {@code null}.
      * @param ingredients The {@code IngredientList} to ascertain user available ingredients.
@@ -42,8 +44,8 @@ public class RecommendCommand extends Command {
         assert recipes.getCounter() > 0;
 
         RecipeList recommendList = new RecipeList();
-        ArrayList<Float> percentMatchList = new ArrayList<Float>();
-        ArrayList<ArrayList<String>> mismatchList= new ArrayList<ArrayList<String>>();
+        ArrayList<Float> percentMatchList = new ArrayList<>();
+        ArrayList<ArrayList<String>> mismatchList= new ArrayList<>();
         ArrayList<String> ingredientsList = ingredients.getIngredientsString();
 
         // Iterate through all recipes and find recipes with matching ingredients
@@ -64,9 +66,14 @@ public class RecommendCommand extends Command {
                 // Calculate percentage of recipe's ingredient available to the user
                 float percentMatch = 100 * (float)matchIngredients.size() / (float)recipeIngredientsCount;
                 percentMatchList.add(percentMatch);
+
+                // Find list of missing ingredients
+                ArrayList<String> missingIngredients = (ArrayList<String>) targetRecipe.getIngredients().clone();
+                missingIngredients.removeAll(matchIngredients);
+                mismatchList.add(missingIngredients);
             }
         }
 
-        ui.printRecommendedRecipes(recommendList, percentMatchList);
+        ui.printRecommendedRecipes(recommendList, percentMatchList, mismatchList);
     }
 }

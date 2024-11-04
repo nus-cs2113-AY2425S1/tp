@@ -343,11 +343,29 @@ public class Ui {
     }
 
     /**
+     * Prints the list of missing ingredients
+     *
+     * @param missingIngredients List of missing ingredients
+     */
+    private void printMissingIngredients(ArrayList<String> missingIngredients) {
+        if (missingIngredients.isEmpty()) {
+            return;
+        }
+        System.out.println("\tYou are missing the following:");
+        for (int i = 0; i < missingIngredients.size(); i++) {
+            System.out.println("\t  - " + missingIngredients.get(i));
+        }
+    }
+
+    /**
      * Display a list of recommended recipes to the user.
+     * Information about what percentage of the recipe's ingredients that the user has,
+     * and what are the missing ingredients are also displayed.
      *
      * @param recommendList List of recipes to be recommended
      */
-    public void printRecommendedRecipes(RecipeList recommendList, ArrayList<Float> percentMatchList) {
+    public void printRecommendedRecipes(RecipeList recommendList, ArrayList<Float> percentMatchList,
+            ArrayList<ArrayList<String>> mismatchList) {
         if (recommendList.getCounter() > 0) {
             System.out.println(LINE);
             System.out.println("\tAlright, here are my recommendations:");
@@ -355,12 +373,14 @@ public class Ui {
                 int maxMatchID = getMaxID(percentMatchList);
                 System.out.printf("\tFor this recipe, you have %.2f%% of the ingredients needed"
                         + System.lineSeparator(), percentMatchList.get(maxMatchID));
+                printMissingIngredients(mismatchList.get(maxMatchID));
                 System.out.println("\t" + recommendList.getRecipe(maxMatchID));
                 System.out.println();
 
-                // Delete recipe and match percentage just displayed from respective lists
+                // Delete recipe, match percentage, and missing ingredients just displayed from respective lists
                 percentMatchList.remove(maxMatchID);
                 recommendList.removeRecipeByID(maxMatchID);
+                mismatchList.remove(maxMatchID);
             }
             System.out.println(LINE);
         } else {
