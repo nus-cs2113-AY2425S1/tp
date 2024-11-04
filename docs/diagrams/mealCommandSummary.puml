@@ -11,7 +11,7 @@ class AddMealCommand {
 }
 
 class DeleteMealCommand {
-    - mealIndex: int
+    - indexMealToDelete: int
     + execute(ProgrammeList, History): CommandResult
 }
 
