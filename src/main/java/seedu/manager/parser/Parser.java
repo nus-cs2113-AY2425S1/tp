@@ -14,6 +14,7 @@ import seedu.manager.command.MenuCommand;
 import seedu.manager.command.RemoveCommand;
 import seedu.manager.command.EditParticipantCommand;
 import seedu.manager.command.EditEventCommand;
+import seedu.manager.command.EditItemCommand;
 import seedu.manager.command.SortCommand;
 import seedu.manager.command.ViewCommand;
 import seedu.manager.command.FindCommand;
@@ -55,7 +56,9 @@ public class Parser {
     private static final String INVALID_EDIT_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT
+            edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
+            edit -m ITEM -e EVENT: Edit an item from an event.
+            edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
             """;
     private static final String INVALID_VIEW_MESSAGE = """
             Invalid command!
@@ -132,6 +135,7 @@ public class Parser {
     private static final String ITEM_FLAG = "-m";
 
     private static final String SPACE = " ";
+    private static final String ARROW = ">";
 
     private static final String EVENT_REGEX = "(-e|-t|-v|-u)";
     private static final String EVENT_ATTRIBUTE_REGEX ="(-e|-name|-t|-v|-u)";
@@ -207,7 +211,6 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
-            String[] inputParts;
 
             switch (commandFlag) {
             case EVENT_FLAG:
@@ -312,7 +315,6 @@ public class Parser {
         assert commandParts[0].equalsIgnoreCase(RemoveCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
-            String[] inputParts;
 
             switch (commandFlag) {
             case EVENT_FLAG:
@@ -396,9 +398,11 @@ public class Parser {
                 return getEditEventCommand(input);
             case PARTICIPANT_FLAG:
                 return getEditParticipantCommand(input);
+            case ITEM_FLAG:
+                return getEditItemCommand(input);
             default:
                 logger.log(WARNING, "Invalid command format");
-                throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
+                throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
             }
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING, "Invalid command format");
@@ -429,12 +433,12 @@ public class Parser {
         return new EditParticipantCommand(participantName, newNumber, newEmail, eventName);
     }
 
-    //@@author MatcahRRR
+    //@@author MatchaRRR
     /**
-     * Returns an {@link EditParticipantCommand} that edits an event with fields parsed from a given user input.
+     * Returns an {@link EditEventCommand} that edits an event with fields parsed from a given user input.
      *
      * @param input the given user input.
-     * @return an {@link EditParticipantCommand} that edits an event with fields parsed from input.
+     * @return an {@link EditEventCommand} that edits an event with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getEditEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
@@ -449,6 +453,22 @@ public class Parser {
         Priority eventPriority = Priority.valueOf(inputParts[5].trim().toUpperCase());
 
         return new EditEventCommand(eventName, eventNewName, eventTime, eventVenue, eventPriority);
+    }
+
+    //@@author MatchaRRR
+    /**
+     * Returns an {@link EditItemCommand} that edits an event with fields parsed from a given user input.
+     *
+     * @param input the given user input.
+     * @return an {@link EditEventCommand} that edits an event with fields parsed from input.
+     * @throws IndexOutOfBoundsException if not all fields are present.
+     */
+    private Command getEditItemCommand(String input){
+        String[] inputParts = input.split(ITEM_REGEX);
+        String ItemName = inputParts[1].split(ARROW)[0].trim();
+        String ItemNewName = inputParts[1].split(ARROW)[1].trim();
+        String eventName = inputParts[2].trim();
+        return new EditItemCommand(ItemName, ItemNewName, eventName);
     }
 
     //@@author glenn-chew
@@ -775,7 +795,7 @@ public class Parser {
 
         try {
             String commandInput = input.replaceFirst("^" + commandParts[0] + "\\s*", "");
-            String[] inputParts = commandInput.split(">");
+            String[] inputParts = commandInput.split(ARROW);
 
             if (inputParts.length != 2) {
                 throw new InvalidCommandException(INVALID_COPY_MESSAGE);

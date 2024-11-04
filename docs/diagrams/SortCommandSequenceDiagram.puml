@@ -1,0 +1,37 @@
+@startuml
+hide footbox
+participant ":Main" as Main
+participant ":SortCommand" as SC
+
+Main -> SC: execute()
+activate SC
+
+create participant "SortedEventList :EventList" as SEL
+SC -> SEL : new EventList(eventList)
+activate SEL
+SEL --> SC:
+deactivate SEL
+
+alt sort by name
+    SC -> SEL: sortByName()
+    activate SEL
+    SEL --> SC:
+    deactivate SEL
+else sort by time
+    SC -> SEL: sortByTime()
+    activate SEL
+    SEL --> SC:
+    deactivate SEL
+else sort by priority
+    SC -> SEL: sortByPriority()
+    activate SEL
+    SEL --> SC:
+    deactivate SEL
+
+end alt
+
+SC --> Main: Display SortedEventList and sort result message
+deactivate SC
+destroy SEL
+
+@enduml

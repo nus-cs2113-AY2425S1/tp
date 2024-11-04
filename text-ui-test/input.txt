@@ -19,4 +19,9 @@ sort -by time
 add -m curry chicken -e dinner party
 mark -m curry chicken -e dinner party -s accounted
 view -e dinner party -y item
+list
+add -m balloon -e anniversary celebration
+view -e anniversary celebration -y item
+edit -m balloon > cake -e anniversary celebration
+view -e anniversary celebration -y item
 exit

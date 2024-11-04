@@ -144,6 +144,23 @@ public class Event {
         this.eventPriority = eventPriority;
     }
 
+    //@@author MatchaRRR
+    /**
+     * Updates the details of an event.
+     *
+     * @param itemName The name of original item.
+     * @param itemNewName The name of the new item.
+     */
+    public boolean updateItem(String itemName, String itemNewName) {
+        for (Item item : this.itemList) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                item.setName(itemNewName);
+                item.setPresent(false);
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Retrieves the number of participants in the participant list.

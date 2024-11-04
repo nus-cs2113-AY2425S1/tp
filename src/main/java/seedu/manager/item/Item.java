@@ -6,7 +6,7 @@ import seedu.manager.event.Event;
  * Represents an item, in an item list of an {@link Event}.
  */
 public class Item {
-    protected final String name;
+    protected String name;
     protected boolean isPresent;
 
     /**
@@ -27,6 +27,14 @@ public class Item {
     public String getName() {
         return name;
     }
+
+    /**
+     * set the name of the item
+     */
+    public void setName(String itemNewName) {
+        this.name = itemNewName;
+    }
+
 
     /**
      * Sets the item as present or not present.
