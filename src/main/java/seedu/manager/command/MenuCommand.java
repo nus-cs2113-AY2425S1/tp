@@ -25,8 +25,8 @@ public class MenuCommand extends Command {
             copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
             sort -by KEYWORD: Sorts events by name/time/priority.
             filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
-            find -e EVENT -p NAME: Finds all participants with specified name in an event.
-            exit: Exit program.""";
+            find -e EVENT -p PARTICIPANT: Finds all participants with specified name in an event.
+            exit: Exit program""";
 
     /**
      * Constructs a new MenuCommand
