@@ -3,6 +3,7 @@ package wheresmymoney.command;
 import wheresmymoney.*;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.exception.WheresMyMoneyException;
+import wheresmymoney.visualizer.Visualizer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,19 +12,6 @@ public class VisualizeCommand extends Command {
 
     public VisualizeCommand(HashMap<String, String> argumentsMap) {
         super(argumentsMap);
-    }
-
-    /**
-     * Checks if given parameters are valid
-     *
-     * @author andrewnguyen4
-     * @return true if [category is null and at least one of (from, to) is not null],
-     *              or [category is not null and both (from, to) are null]
-     */
-    private boolean isValidParameters(String category, String from, String to) {
-        boolean hasNullCategory = (category == null);
-        boolean hasNullDate = (from == null && to == null);
-        return (hasNullCategory && !hasNullDate) || (!hasNullCategory && hasNullDate);
     }
 
     /**
@@ -42,15 +30,35 @@ public class VisualizeCommand extends Command {
         return expenseList.listByFilter(category, from, to);
     }
 
-
     @Override
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade,
                         RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         ArrayList<Expense> expensesToVisualize = getExpensesToVisualize(expenseList);
         if (expensesToVisualize.isEmpty()) {
             Ui.displayMessage("No matching expenses were found!");
+            return;
         }
+        assert (expensesToVisualize.size() > 0);
+
         // Execute by calling visualizer
+        Visualizer visualizer = new Visualizer(expensesToVisualize);
+        visualizer.drawChart();
     }
 
+    private boolean hasNullDate(String from, String to) {
+        return (from == null && to == null);
+    }
+
+    private boolean hasNullCategory(String category) {
+        return (category == null);
+    }
+    /**
+     * Checks if given parameters are valid
+     *
+     * @author andrewnguyen4
+     * @return true if exactly one of [category, (from/to)] is provided
+     */
+    private boolean isValidParameters(String category, String from, String to) {
+        return (hasNullCategory(category) ^ hasNullDate(from, to));
+    }
 }
