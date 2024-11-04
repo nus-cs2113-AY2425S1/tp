@@ -49,7 +49,7 @@ public class FinanceBuddy {
 
                 isRunning = logic.matchCommand(command, commandArguments);
             } catch (FinanceBuddyException e) {
-                ui.showErrorMessage(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
     }
