@@ -108,6 +108,20 @@ Enter a command: Events successfully sorted by time!
 ------------------------
 Events saved successfully.
 ------------------------
+Enter a command: Item added successfully
+------------------------
+Events saved successfully.
+------------------------
+Enter a command: Item accounted for.
+------------------------
+Events saved successfully.
+------------------------
+Enter a command: There are 1 items in dinner party! Here are your items:
+1. curry chicken [X]
+
+------------------------
+Events saved successfully.
+------------------------
 Enter a command: Thank you for using EventManagerCLI. Goodbye!
 ------------------------
 Events saved successfully.
