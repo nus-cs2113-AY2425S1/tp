@@ -97,6 +97,8 @@ public class Parser {
             Invalid date-time format!
             Please use the following format for event time:
             YYYY-MM-DD HH:mm
+            
+            MM-DD has to be between 01-01 and 12-31, and HH:mm has to be between 00:00 and 23:59.
             """;
     private static final String INVALID_COPY_MESSAGE = """
             Invalid command!
@@ -152,7 +154,7 @@ public class Parser {
      */
     public Command parseCommand(String command) throws InvalidCommandException {
         String[] commandParts = command.split(SPACE);
-        String commandWord = commandParts[0];
+        String commandWord = commandParts[0].toLowerCase();
 
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
