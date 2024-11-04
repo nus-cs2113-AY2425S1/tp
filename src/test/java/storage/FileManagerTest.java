@@ -44,6 +44,12 @@ public class FileManagerTest {
     }
 
     @Test
+    public void testLoadProgrammeList_fileNotFound() {
+        JsonObject result = fileManager.loadProgrammeList();
+        assertTrue(result.isJsonNull() || result.size() == 0, "ProgrammeList should be empty when the file doesn't exist.");
+    }
+
+    @Test
     public void testLoadProgrammeList_noProgrammeListKey() throws IOException {
         createTestFile("{}");
         JsonObject result = fileManager.loadProgrammeList();
@@ -60,11 +66,11 @@ public class FileManagerTest {
         assertTrue(result.has("date"), "History should contain the expected 'date' key.");
     }
 
-    //@Test
-    //public void testLoadHistory_fileNotFound() {
-    //    JsonObject result = fileManager.loadHistory();
-    //    assertTrue(result.isJsonNull() || result.size() == 0, "History should be empty when the file doesn't exist.");
-    //}
+    @Test
+    public void testLoadHistory_fileNotFound() {
+        JsonObject result = fileManager.loadHistory();
+        assertTrue(result.isJsonNull() || result.size() == 0, "History should be empty when the file doesn't exist.");
+    }
 
     @Test
     public void testLoadHistory_noHistoryKey() throws IOException {

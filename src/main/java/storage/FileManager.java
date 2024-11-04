@@ -41,13 +41,18 @@ public class FileManager {
      * @return the JSON object containing the programme list if available, or an empty JSON object if not found
      */
     public JsonObject loadProgrammeList() {
-        JsonObject jsonObject = load();
-        if(jsonObject == null || !jsonObject.has("programmeList")) {
-            logger.log(Level.INFO, "No programme list found.");
+        try {
+            JsonObject jsonObject = load();
+            if (jsonObject == null || !jsonObject.has("programmeList")) {
+                logger.log(Level.INFO, "No programme list found.");
+                return new JsonObject();
+            }
+            logger.log(Level.INFO, "Programme list Loaded");
+            return jsonObject.getAsJsonObject("programmeList");
+        } catch (RuntimeException e) {
+            logger.log(Level.WARNING, "Failed to load programme list: " + e.getMessage());
             return new JsonObject();
         }
-        logger.log(Level.INFO, "Programme list Loaded");
-        return jsonObject.getAsJsonObject("programmeList");
     }
 
     /**
@@ -59,13 +64,18 @@ public class FileManager {
      * @return the JSON object containing the history if available, or an empty JSON object if not found
      */
     public JsonObject loadHistory() {
-        JsonObject jsonObject = load();
-        if(jsonObject == null || !jsonObject.has("history")) {
-            logger.log(Level.INFO, "No history found.");
+        try {
+            JsonObject jsonObject = load();
+            if (jsonObject == null || !jsonObject.has("history")) {
+                logger.log(Level.INFO, "No history found.");
+                return new JsonObject();
+            }
+            logger.log(Level.INFO, "History Loaded");
+            return jsonObject.getAsJsonObject("history");
+        } catch (RuntimeException e) {
+            logger.log(Level.WARNING, "Failed to load history: " + e.getMessage());
             return new JsonObject();
         }
-        logger.log(Level.INFO, "History Loaded");
-        return jsonObject.getAsJsonObject("history");
     }
 
     /**
