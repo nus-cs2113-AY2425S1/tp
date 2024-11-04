@@ -1,63 +1,64 @@
 @startuml
-title AddCommand Sequence Diagram
+title ":AddCommand" Sequence Diagram
+hide footbox
 
-participant User
-participant AddCommand
-participant uiCommand
-participant Internship
-participant InternshipList
+participant ":User"
+participant ":AddCommand"
+participant ":uiCommand"
+participant ":Internship"
+participant ":InternshipList"
 
 
-User->AddCommand:execute(args)
-activate AddCommand #red
-AddCommand-->uiCommand:clearInvalidFlags()
-activate uiCommand #green
-AddCommand->AddCommand : Initialize variables
+":User"->":AddCommand":execute(args)
+activate ":AddCommand" #red
+":AddCommand"-->":uiCommand":clearInvalidFlags()
+activate ":uiCommand" #green
+":AddCommand"->":AddCommand" : Initialize variables
 
 loop for each arg in args
-  AddCommand -> AddCommand : split arg into flag and data
+  ":AddCommand" -> ":AddCommand" : split arg into flag and data
   alt flag == "role"
-    AddCommand -> AddCommand: hasRole = true
+    ":AddCommand" -> ":AddCommand": hasRole = true
     alt data is present
-      AddCommand-> AddCommand: set role
+      ":AddCommand"-> ":AddCommand": set role
     else
-      AddCommand -> uiCommand: addInvalidFlag("role")
+      ":AddCommand" -> ":uiCommand": addInvalidFlag("role")
     end
   else flag -- "company"
-    AddCommand -> AddCommand: hasCompany = true
+    ":AddCommand" -> ":AddCommand": hasCompany = true
     alt data is present
-      AddCommand->AddCommand: set company
+      ":AddCommand"->":AddCommand": set company
     else
-      AddCommand->uiCommand: addInvalidFlag("company")
+      ":AddCommand"->":uiCommand": addInvalidFlag("company")
     end
   else flag == "from"
         alt data is present
-            AddCommand -> AddCommand: set startDate
+            ":AddCommand" -> ":AddCommand": set startDate
         else
-            AddCommand -> uiCommand: addInvalidFlag("from")
+            ":AddCommand" -> ":uiCommand": addInvalidFlag("from")
         end
     else flag == "to"
         alt data is present
-            AddCommand -> AddCommand: set endDate
+            ":AddCommand" -> ":AddCommand": set endDate
         else
-            AddCommand -> uiCommand: addInvalidFlag("to")
+            ":AddCommand" -> ":uiCommand": addInvalidFlag("to")
         end
     else
-        AddCommand -> uiCommand: addInvalidFlag(flag)
+        ":AddCommand" -> ":uiCommand": addInvalidFlag(flag)
     end
 end
 
 alt invalid flags found
-  AddCommand->uiCommand: printInvalidFlags()
+  ":AddCommand"->":uiCommand": printInvalidFlags()
 else all required flags present
-  AddCommand -> Internship: new Internship(role, company, startDate, endDate)
-  activate Internship #blue
-  AddCommand-> InternshipList: addInternship(newInternship)
-  activate InternshipList #aquamarine
-  deactivate Internship
-  deactivate InternshipList
-  AddCommand -> uiCommand: showEditedInternship(newInternship, "add")
-  deactivate uiCommand
+  ":AddCommand" -> ":Internship": new ":Internship"(role, company, startDate, endDate)
+  activate ":Internship" #blue
+  ":AddCommand"-> ":InternshipList": addInternship(newInternship)
+  activate ":InternshipList" #aquamarine
+  deactivate ":Internship"
+  deactivate ":InternshipList"
+  ":AddCommand" -> ":uiCommand": showEditedInternship(newInternship, "add")
+  deactivate ":uiCommand"
 end
 
 @enduml

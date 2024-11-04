@@ -96,6 +96,7 @@ public class Internship {
     }
 
     public void setRole(String role) {
+        assert role != null;
         this.role = role;
     }
 
@@ -104,6 +105,7 @@ public class Internship {
     }
 
     public void setCompany(String company) {
+        assert company != null;
         this.company = company;
     }
     public String getStartDate() {
@@ -111,6 +113,7 @@ public class Internship {
     }
 
     public void setStartDate(String start) throws DateTimeParseException {
+        assert start != null;
         this.startDate = YearMonth.parse(start, FORMATTER_MONTH_YEAR);
     }
 
@@ -119,6 +122,7 @@ public class Internship {
     }
 
     public void setEndDate(String end) throws DateTimeParseException {
+        assert end != null;
         this.endDate = YearMonth.parse(end, FORMATTER_MONTH_YEAR);
     }
 
@@ -138,6 +142,8 @@ public class Internship {
      * @param date        deadline date in MM/yy format.
      */
     public void addDeadline(String description, String date) throws DateTimeParseException{
+        assert description != null && !description.isEmpty() : "Deadline cannot be null or empty";
+
         deadlines.add(new Deadline(getId(), description, date));
     }
 
@@ -159,6 +165,7 @@ public class Internship {
      * Clears all deadlines when the internship is deleted.
      */
     public void clearDeadlines() {
+
         deadlines.clear();
     }
 
