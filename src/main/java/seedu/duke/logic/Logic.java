@@ -74,6 +74,7 @@ public class Logic {
             category = parseExpenseCategory(commandArguments.get("/c"));
             AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date, category);
             addExpenseCommand.execute(financialList);
+            budgetLogic.changeBalanceFromExpense(-amount, date);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());  // Display error message when invalid date is provided
         }
@@ -157,6 +158,18 @@ public class Logic {
         String date = commandArguments.getOrDefault("/d", 
                         entry.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
 
+        if (entry instanceof Expense) {
+            double oldAmount = entry.getAmount();
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+            String oldDate = entry.getDate().format(pattern);
+            try {
+                budgetLogic.changeBalanceFromExpense(oldAmount, oldDate);
+                budgetLogic.changeBalanceFromExpense(-amount, date);
+            } catch (FinanceBuddyException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
         Enum<?> category = parseCategory(commandArguments.get("/c"), entry);
         EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
         editEntryCommand.execute(financialList);
@@ -177,6 +190,18 @@ public class Logic {
             index = Integer.parseInt(commandArguments.get("argument"));
         } catch (NumberFormatException e) {
             throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+        }
+
+        FinancialEntry entry = financialList.getEntry(index - 1);
+        if (entry instanceof Expense) {
+            double amount = entry.getAmount();
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+            String date = entry.getDate().format(pattern);
+            try {
+                budgetLogic.changeBalanceFromExpense(amount, date);
+            } catch (FinanceBuddyException e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         DeleteCommand deleteCommand = new DeleteCommand(index);
