@@ -13,18 +13,18 @@ group sd Add participant to event
     eventList -> event : addParticipant(String, String, String)
     activate event EVENT_COLOUR
 
-    event -> event : getParticipantByName(String)
+    event -> event : getParticipantByName(participantName)
     activate event EVENT_COLOUR
     return :Event
 
     alt participant already present
-        event --> eventList:DuplicateDataException
+        event --> eventList:throws DuplicateDataException
     else else
         event -> participant : Participant(String, String, String)
         activate participant EVENT_COLOUR
         return participant : Participant
 
-        event -> participantList : add(Participant)
+        event -> participantList : add(participant)
         activate participantList EVENT_COLOUR
         return
     end

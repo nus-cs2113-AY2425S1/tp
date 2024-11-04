@@ -9,7 +9,7 @@ participant "participant:Participant" as participant EVENT_COLOUR
 
 group sd Remove participant from event
     activate eventList EVENT_COLOUR
-    eventList -> event : removeParticipant(String)
+    eventList -> event : removeParticipant(participantName)
     activate event EVENT_COLOUR
 
     loop for participant in participantList
@@ -19,7 +19,7 @@ group sd Remove participant from event
         return :String
 
         opt name of participant equals participantName
-            event -> participantList : remove(Participant)
+            event -> participantList : remove(participant)
             activate participantList EVENT_COLOUR
             destroy participant
             return

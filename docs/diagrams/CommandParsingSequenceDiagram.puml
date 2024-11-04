@@ -11,10 +11,10 @@ main -> parser : Parser()
 activate parser PARSER_COLOUR
 return
 
-main -> parser : parseCommand(String)
+main -> parser : parseCommand(command)
 activate parser PARSER_COLOUR
 
-parser -> parser : parseXYZCommand(String, String[])
+parser -> parser : parseXYZCommand(input, commandParts)
 activate parser PARSER_COLOUR
 
 create xyzCommand
@@ -23,7 +23,7 @@ activate xyzCommand COMMAND_COLOUR
 return :XYZCommand
 return
 
-parser --> main : command :Command
+parser --> main : command : Command
 deactivate parser
 
 @enduml

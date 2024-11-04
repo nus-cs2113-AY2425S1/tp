@@ -8,7 +8,7 @@ participant "item:Item" as item EVENT_COLOUR
 
 group sd view items
 activate command COMMAND_COLOUR
-    command -> command : getItems(Event)
+    command -> command : getItems(event)
     activate command COMMAND_COLOUR
 
     command -> event : getItemsList()
