@@ -191,7 +191,7 @@ class ExpenseListTest {
         assertThrows(WheresMyMoneyException.class,
                 () -> expenseList.deleteExpense(1));
     }
-    
+
     @Test
     public void listByCategory_validListByCategory_success() {
         ExpenseList expenseList = new ExpenseList();
