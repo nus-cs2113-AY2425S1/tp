@@ -5,6 +5,7 @@ import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.courses.Course;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.storage.Storage;
+import seedu.exchangecoursemapper.storage.CourseRepository;
 import seedu.exchangecoursemapper.parser.CourseValidator;
 import seedu.exchangecoursemapper.ui.UI;
 
@@ -18,12 +19,14 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
 
     private static final Logger logger = Logger.getLogger(AddCoursesCommand.class.getName());
     private CourseValidator courseValidator;
+    private CourseRepository courseRepository;
     private UI ui;
 
     /** constructor */
     public AddCoursesCommand() {
         courseValidator = new CourseValidator();
         ui = new UI();
+        courseRepository = new CourseRepository();
     }
 
     /**
@@ -39,6 +42,10 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
     @Override
     public void execute(String userInput, Storage storage) {
         try {
+            if(!courseRepository.isFileValid()){
+                return;
+            }
+
             JsonObject jsonObject = super.createJsonObject();
             logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
             assert jsonObject != null : Assertions.NULL_JSON_FILE;
