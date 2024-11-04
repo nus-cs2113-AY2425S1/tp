@@ -211,6 +211,10 @@ Events are appended to `outputMessage` with numbered formatting for readability.
 4. Output Generation:
 The method stores the generated `outputMessage` in `this.message`, ready for display.
 
+The interactions between components during the execution of the `list` command are show in the **Sequence Diagram** below:
+
+<img src = "images/ListCommandSequenceDiagram.png">
+
 ### Add feature
 
 The `add` feature allows users to remove `Event`s from the `EventList`, `Participant`s or `Item`s from an `Event`.
