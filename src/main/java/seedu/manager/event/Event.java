@@ -329,6 +329,20 @@ public class Event {
         return markParticipant(participant, isPresent);
     }
 
+    /**
+     * Returns true if the item with the given name can be marked present or absent.
+     *         Returns false otherwise.
+     *
+     * @param itemName the name of the item.
+     * @param isPresent true if the item is to be marked present, false if it is to be marked absent.
+     * @return {@code true} if the item with itemName has been marked present or absent,
+     *         @code false} otherwise.
+     */
+    public boolean markItemByName(String itemName, boolean isPresent) {
+        Optional<Item> item = getItemByName(itemName);
+        return markItem(item, isPresent);
+    }
+
     //@@author LTK-1606
     /**
      * Finds participants in the event whose names contain the specified person name.
@@ -425,5 +439,21 @@ public class Event {
         }
         
         return Optional.empty();
+    }
+
+    /**
+     * Returns true if an item has been marked present or absent, returns false otherwise.
+     *
+     * @param item the name of the item to be marked.
+     * @param isPresent true if the item is to be marked present, false otherwise.
+     * @return true if the item has been successfully marked, false otherwise.
+     */
+    private boolean markItem(Optional<Item> item, boolean isPresent) {
+        if (item.isEmpty()) {
+            return false;
+        }
+
+        item.get().setPresent(isPresent);
+        return true;
     }
 }

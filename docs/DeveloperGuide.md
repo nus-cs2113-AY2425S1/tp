@@ -128,12 +128,16 @@ The `Event` component comprises an `EventList` class that is composed of multipl
 
 The `Event` component and its component classes are shown in the below **Class Diagram**:
 
-<img src = "images/EventClassDiagram.png">
+Each `Event` is composed of the following: 
 
-The `Event` component does the following:
+* Data on event details (the event name, date and venue), stored as separate variables.
+* Data on the event priority, stored as a `Priority` enumeration value (which can be `HIGH`, `MEDIUM`, or `LOW`).
+* A list of `Participant`s, each representing a participant at the event.
+* A list of `Items`s, each representing an item for the event.
 
-* Handle the addition, removal and marking of `Event`s stored in `EventList`.
-* Add, remove and mark `Participant`s for a specific `Event` in `EventList`.
+The component and its dependencies are shown in the below **Component Diagram**:
+
+<img src = "images/EventComponentDiagram.png">
 
 ## Implementation
 

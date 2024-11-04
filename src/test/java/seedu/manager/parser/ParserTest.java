@@ -5,6 +5,7 @@ import seedu.manager.command.AddCommand;
 import seedu.manager.command.Command;
 import seedu.manager.command.ExitCommand;
 import seedu.manager.command.MarkEventCommand;
+import seedu.manager.command.MarkItemCommand;
 import seedu.manager.command.MarkParticipantCommand;
 import seedu.manager.command.MenuCommand;
 import seedu.manager.command.ListCommand;
@@ -173,6 +174,24 @@ class ParserTest {
     public void parseCommand_markParticipantInvalidStatus_throwsException() {
         Parser parser = new Parser();
         String commandString = "mark -p John Doe -e event -s done";
+
+        assertThrows(InvalidCommandException.class,() -> {
+            parser.parseCommand(commandString);});
+    }
+
+    @Test
+    public void parseCommand_markItem_mark() {
+        Parser parser = new Parser();
+        String commandString = "mark -m paper -e event -s accounted";
+        Command command = parser.parseCommand(commandString);
+
+        assertInstanceOf(MarkItemCommand.class, command);
+    }
+
+    @Test
+    public void parseCommand_markItemInvalidStatus_mark() {
+        Parser parser = new Parser();
+        String commandString = "mark -m paper -e event -s done";
 
         assertThrows(InvalidCommandException.class,() -> {
             parser.parseCommand(commandString);});

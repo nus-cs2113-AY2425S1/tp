@@ -10,18 +10,18 @@ public abstract class MarkCommand extends Command {
     protected static final String INVALID_EVENT_MESSAGE = "Event not found!";
 
     protected String eventName;
-    protected boolean toMark;
+    protected boolean isToMark;
 
     /**
      * Constructs a new MarkCommand with the given event name.
      *
      * @param eventName the given event name.
-     * @param toMark true if the item is to be marked, false if it is to be unmarked.
+     * @param isToMark true if the item is to be marked, false if it is to be unmarked.
      */
-    public MarkCommand(String eventName, boolean toMark) {
+    public MarkCommand(String eventName, boolean isToMark) {
         super(false);
         this.eventName = eventName;
-        this.toMark = toMark;
+        this.isToMark = isToMark;
     }
 
     /**
