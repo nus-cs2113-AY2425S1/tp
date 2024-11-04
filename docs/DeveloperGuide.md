@@ -320,6 +320,7 @@ The `CategoryTracker` class has the following key methods:
 
 |        Method         |                                                            Description                                                            |
 |:---------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
+|    `checkLimitOf`     |                   Prints a message to output if total expenditure is nearing or has exceeded the spending limit                   |
 |     `addCategory`     | Adds a new category to the tracker. If already in the tracker, then the total expenditure for that category is increased instead. |
 |   `deleteCategory`    |    Decreases total expenditure of a category. If that total drops to zero or below, the category is removed from the tracker.     |
 |    `editCategory`     |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed.                   |
