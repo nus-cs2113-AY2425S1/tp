@@ -42,7 +42,7 @@ public class VisualizeCommand extends Command {
 
         // Execute by calling visualizer
         Visualizer visualizer = new Visualizer(expensesToVisualize);
-        visualizer.drawChart();
+        visualizer.visualize();
     }
 
     private boolean hasNullDate(String from, String to) {

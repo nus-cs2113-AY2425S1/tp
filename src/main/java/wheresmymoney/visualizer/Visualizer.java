@@ -1,7 +1,5 @@
 package wheresmymoney.visualizer;
 
-import org.knowm.xchart.*;
-import org.knowm.xchart.style.Styler;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -11,15 +9,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.CategoryChartBuilder;
+import org.knowm.xchart.SwingWrapper;
+
 import wheresmymoney.DateUtils;
 import wheresmymoney.Expense;
-import wheresmymoney.ExpenseList;
-import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
-import static java.util.stream.Collectors.groupingBy;
 
 public class Visualizer {
     private ArrayList<Expense> expenses;
@@ -27,7 +26,9 @@ public class Visualizer {
     private LocalDate endDate;
     private int dateRange;
     private List<String> timeSeries = new ArrayList<>();
-    private final int DAY_NUMBER_LIMIT = 900;
+    private List<Float> totalExpenses = new ArrayList<>();
+    private final int DAY_VISUALIZER_THRESHOLD = 32;
+    private final int MONTH_VISUALIZER_THRESHOLD = 1080;
 
     public Visualizer(ArrayList<Expense> expenses) {
         this.expenses = expenses;
@@ -113,21 +114,19 @@ public class Visualizer {
         return dateToExpenseMap;
     }
 
-
-    public void drawChart() throws WheresMyMoneyException {
-        // Calculate the time span in days
+    public void processChartData() throws WheresMyMoneyException {
         getBeginDate();
         getEndDate();
         getTimeRange();
 
-        if (dateRange > DAY_NUMBER_LIMIT) {
+        if (dateRange > MONTH_VISUALIZER_THRESHOLD) {
             throw new WheresMyMoneyException("This date range is too large to display!");
         }
 
         // Group expenses by day or month based on time range
         Map<String, Float> dateToExpenseMap;
 
-        if (dateRange <= 30) {  // For short durations (less than one month)
+        if (dateRange <= DAY_VISUALIZER_THRESHOLD) {  // For short durations (less than ~one month)
             timeSeries = createDateList();
             dateToExpenseMap = groupPriceByDay();
         } else {
@@ -136,21 +135,24 @@ public class Visualizer {
         }
 
         // Sort by date for clear plotting
-        List<Float> totalExpenses = timeSeries.stream().map(dateToExpenseMap::get).collect(Collectors.toList());
+        totalExpenses = timeSeries.stream().map(dateToExpenseMap::get).collect(Collectors.toList());
+    }
 
+    public void drawChart() {
         // Create chart
         CategoryChart chart = new CategoryChartBuilder()
-                .width(800)
-                .height(600)
+                .width(900)
+                .height(650)
                 .title("Spending Chart")
-                .xAxisTitle(dateRange <= 30 ? "Day" : "Month")
+                .xAxisTitle(dateRange <= DAY_VISUALIZER_THRESHOLD ? "Day" : "Month")
                 .yAxisTitle("Total Spending")
                 .build();
 
         // Customize chart
         chart.getStyler().setLegendVisible(false);
         chart.getStyler().setPlotGridLinesVisible(true);
-        // chart.getStyler().setDefaultSeriesRenderStyle(CategoryChart.SeriesRenderStyle.Bar);
+        chart.getStyler().setXAxisLabelRotation(45);
+        chart.getStyler().setXAxisTickMarkSpacingHint(150);
 
         // Add data to chart
         chart.addSeries("Spending", timeSeries, totalExpenses);
@@ -158,8 +160,14 @@ public class Visualizer {
         // Display chart
         SwingWrapper<CategoryChart> swingWrapper = new SwingWrapper<>(chart);
         JFrame chartFrame = swingWrapper.displayChart();
+        chartFrame.setTitle("WheresMyMoney Visualizer");
 
         // Set the default close operation to HIDE instead of EXIT
         chartFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }
+
+    public void visualize() throws WheresMyMoneyException {
+        processChartData();
+        drawChart();
     }
 }
