@@ -1,6 +1,6 @@
 @startuml
 
-Main -> Parser: add n/Meeting t/2023-11-10T14:00 v/Room 101 p/HIGH
+Main -> Parser: add -e Meeting -t 2023-11-10T14:00 -v Room 101 -p HIGH
 activate Parser
 Parser -> AddCommand: new AddCommand("Meeting", time, "Room 101", Priority.HIGH)
 activate AddCommand
