@@ -13,6 +13,7 @@ import ymfc.commands.FindCommand;
 import ymfc.commands.AddRecipeCommand;
 import ymfc.commands.ListIngredientsCommand;
 import ymfc.commands.FindIngredCommand;
+import ymfc.commands.RandomCommand;
 
 import ymfc.exception.EmptyListException;
 import ymfc.exception.InvalidArgumentException;
@@ -105,6 +106,11 @@ public final class Parser {
                 throw new EmptyListException("There are no ingredients to find!");
             }
             return getFindIngredCommand(args);
+        case "random":
+            if (numRecipes <= 0) {
+                throw new EmptyListException("Give me some recipes first, capisce?");
+            }
+            return new RandomCommand();
         default:
             throw new InvalidCommandException("Invalid command: " + command + "\ntype \"help\" for assistance");
         }

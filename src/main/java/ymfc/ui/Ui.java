@@ -302,6 +302,25 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Display a random recipe.
+     *
+     * @param randomRecipe Recipe that has been randomly chosen.
+     */
+    public void printRandomRecipe(Recipe randomRecipe) {
+        System.out.println(LINE);
+        System.out.println("\tYou want me to call you a random recipe?");
+        System.out.println("\t...");
+        System.out.println("\tYou need to call it. I can't call it for you.");
+        System.out.println("\tIt wouldn't be fair. It wouldn't be right.");
+        System.out.println("\tIt's either one or another, and you have to say. Call it.");
+        System.out.println("\t...");
+        System.out.println("\tOkay who am I kidding, this is still a country for old men.");
+        System.out.println("\tI will call it for you, here's your random recipe:");
+        System.out.println("\t " +  randomRecipe);
+        System.out.println(LINE);
+    }
+
     public String getLine() {
         return LINE;
     }
