@@ -201,7 +201,6 @@ contains the list of courses.
 #### Sequence on PlantUML:
 ![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ### 5. Add Courses Command
 
@@ -397,7 +396,6 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 #### Why it is Implemented this Way
 - **Separation of Concerns**: Methods are organized by function, with each handling a specific part of the comparison logic. This promotes code readability and maintainability.
 
-
 #### Alternatives Considered
 - **Combined Filtering and Extraction**: Initially, filtering and course code extraction were considered for a single method, but separating them simplified the debugging process and enhanced the code structure.
 - **Display Inline in `execute`**: Displaying results directly in the `execute` method was an option. However, using dedicated methods (e.g., `displayComparisonResults`) improved readability and made testing individual components easier.
@@ -405,6 +403,31 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 #### Sequence Diagram on PlantUML:
 ![Compare Mapped Command Sequence Diagram](images/CompareMappedCommand.png)
 
+
+### 11. Find course mapping command
+
+#### Overview
+This command is responsible for the searching of a particular NUS course in the personalised tracker. This allows users
+to check and plan course mappings for that specified course.
+
+#### How the feature is implemented:
+* The `FindCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method for 
+  custom behaviour specific to this class.
+* The input from the user is first parsed through the `getKeyword()` method to extract out the keyword(NUS course code) 
+  to search within the personalised tracker. If there is no keyword, an `IllegalArgumentException` will be thrown.
+* Then the keyword will be passed to the `findCommand()` method.
+* In the `findCommand` method, the mappings in the tracker are retrieved through 
+  `List<String> mappedCourses = storage.loadAllCourses()`. If the tracker is empty, a message indicating empty tracker 
+  will be printed.
+* Next, `matchKeyword()` will be called and it iterates the mappedCourses in the tracker to search for mappings that 
+  match the keyword and adds them into a `List<String> foundCourses`.
+* Lastly, `printFindCommand` will iterate and print the course mappings inside mappedCourses through 
+  `printFoundCourses()` in `UI` class. If mappedCourses is empty, an IllegalArgumentException is thrown.
+
+#### Why it is implemented this way:
+* ****Separation of concerns:**** Helper methods were used to isolate specific tasks within the command, making each
+  method focused and easier to manage. The `UI` class handles displaying messages to the user, which keeps 
+  `FindCoursesCommand` focused solely on search logic, without managing user interactions directly.
 
 ## Product scope
 ### Target user profile
