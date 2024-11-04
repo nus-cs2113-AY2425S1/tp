@@ -4,20 +4,49 @@ hide footbox
 
 Participant ":Main" as main
 Participant ":Storage" as storage STORAGE_COLOUR
-Participant ":Parser" as parser PARSER_COLOUR
-Participant ":EventList" as event EVENT_COLOUR
+Participant ":FileParser" as parser PARSER_COLOUR
+Participant ":EventList" as events EVENT_COLOUR
 
-main -> storage : loadEvents(events : EventList)
+group sd Loading of event data
+main -> storage : loadInfo(EventList)
 activate storage STORAGE_COLOUR
-storage --> parser : parseFile(events, FILE_PATH)
+
+create parser
+storage -> parser : FileParser(EventList, String)
 activate parser PARSER_COLOUR
-parser -> event : addEvent(eventName, time, venue)
-activate event EVENT_COLOUR
-event --> parser
-deactivate event
+return
+
+storage -> parser : parseFile(EventList, String)
+activate parser PARSER_COLOUR
+
+loop for line in file
+
+
+    parser -> parser : parseLine(events, fields, formatter)
+    activate parser PARSER_COLOUR
+
+    alt EVENT
+        parser -> events : addEvent(...)
+        activate events EVENT_COLOUR
+        return
+    else PARTICIPANT
+        parser -> events : addParticipantToEvent(...)
+        activate events EVENT_COLOUR
+        return
+    else ITEM
+        parser -> events : addItemToEvent(...)
+        activate events EVENT_COLOUR
+        return
+    end
+    return
+    deactivate events
+end
+
+
 parser --> storage
 deactivate parser
-storage -> main
+storage --> main
 deactivate storage
+end
 
 @enduml

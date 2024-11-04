@@ -8,27 +8,36 @@ Participant ":EventList" as eventList EVENT_COLOUR
 Participant "event:Event" as event EVENT_COLOUR
 
 group sd Saving of participant data
-main -> storage : saveParticipants(EventList)
+main -> storage : saveInfo(EventList)
 activate storage STORAGE_COLOUR
+
+loop for event in event list
+
 storage -> eventList : getList()
 activate eventList EVENT_COLOUR
 return :ArrayList<Event>
 
-loop for event in event list
+loop for participant in participant list
 
-storage -> storage : saveEventParticipants(...)
-activate storage STORAGE_COLOUR
-
-storage -> event : getParticipantsList()
+storage -> event : getParticipantList()
 activate event EVENT_COLOUR
 return :ArrayList<Participant>
 
-return
+end
+
+loop for item in participant list
+
+storage -> event : getItemList()
+activate event EVENT_COLOUR
+return :ArrayList<Item>
+
+end
 
 end
 
 return
 
 end
+
 
 @enduml
