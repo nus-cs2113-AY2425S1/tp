@@ -126,7 +126,7 @@ public class Graph {
     //Formats the asterisks and blank space for a session based on the current performance level (row of graph)
     private static String formatSessionPerformance(TrainingSession session, int currentPerf,
             Exercise exercise, int maxXHeaderLength) {
-        int exercisePerformance = session.getExercisePoints(exercise);
+        int exercisePerformance = session.getExercisePerformance(exercise);
         if (exercisePerformance >= currentPerf) {
             return centerText("*", maxXHeaderLength);
         } else if (exercisePerformance + 1 == currentPerf) {
@@ -231,10 +231,8 @@ public class Graph {
 
             trainingSessions.add(session);
         }
-
         graphSessions(trainingSessions);
         graphExercisePoints(Exercise.WALK_AND_RUN, trainingSessions);
         graphExercisePerformance(Exercise.SIT_AND_REACH, trainingSessions);
-    }
-    */
+    }*/
 }
