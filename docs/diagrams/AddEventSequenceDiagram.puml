@@ -2,18 +2,18 @@
 !include style.puml
 hide footbox
 
-participant ":AddCommand" as command COMMAND_COLOUR
-participant ":EventList" as eventList EVENT_COLOUR
-participant "eventList:ArrayList<Event>" as list EVENT_COLOUR
-participant "newEvent:Event" as event EVENT_COLOUR
+participant ":AddCommand" as command  
+participant ":EventList" as eventList  
+participant "eventList:ArrayList<Event>" as list  
+participant "newEvent:Event" as event  
 
 group sd Add event
-    activate command COMMAND_COLOUR
+    activate command  
     command -> eventList : addEvent(eventName, eventTime, eventVenue, eventPriority)
-    activate eventList EVENT_COLOUR
+    activate eventList  
 
     eventList -> eventList : getEventByName(eventName)
-    activate eventList EVENT_COLOUR
+    activate eventList  
 
     return :Event
 
@@ -23,12 +23,12 @@ group sd Add event
 
         create event
         eventList -> event : Event(eventName, eventTime, eventVenue, eventPriority)
-        activate event EVENT_COLOUR
+        activate event  
 
         return
 
         eventList -> list : add(newEvent)
-        activate list EVENT_COLOUR
+        activate list  
 
         return
 

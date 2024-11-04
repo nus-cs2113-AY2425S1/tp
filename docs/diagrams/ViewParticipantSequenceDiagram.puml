@@ -2,23 +2,23 @@
 !include style.puml
 hide footbox
 
-participant ":ViewCommand" as command COMMAND_COLOUR
-participant "eventToView:Event" as event EVENT_COLOUR
-participant "participant:Participant" as participant EVENT_COLOUR
+participant ":ViewCommand" as command  
+participant "eventToView:Event" as event  
+participant "participant:Participant" as participant  
 
 group sd view participants
-    activate command COMMAND_COLOUR
+    activate command  
     command -> command : getParticipants(event)
-    activate command COMMAND_COLOUR
+    activate command  
 
     command -> event : getParticipantsList()
-    activate event EVENT_COLOUR
+    activate event  
 
     return participants : ArrayList<Participant>
 
     loop for participant in participants
         command -> participant : toString()
-        activate participant EVENT_COLOUR
+        activate participant  
         return :String
     end
     return :String

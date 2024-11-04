@@ -2,24 +2,24 @@
 !include style.puml
 hide footbox
 
-participant ":RemoveCommand" as command COMMAND_COLOUR
-participant ":EventList" as eventList EVENT_COLOUR
-participant "eventList:ArrayList<Event>" as list EVENT_COLOUR
-participant "event:Event" as event EVENT_COLOUR
+participant ":RemoveCommand" as command  
+participant ":EventList" as eventList  
+participant "eventList:ArrayList<Event>" as list  
+participant "event:Event" as event  
 
 group sd Remove event
-    activate command COMMAND_COLOUR
+    activate command  
 
     command -> eventList : removeEvent(eventName)
-    activate eventList EVENT_COLOUR
+    activate eventList  
     loop for event in eventList
         eventList -> event : getName()
-        activate event EVENT_COLOUR
+        activate event  
         return :String
 
         opt event exists in eventList
             eventList -> list : remove(event)
-            activate list EVENT_COLOUR
+            activate list  
             destroy event
             return
             eventList --> command : :boolean

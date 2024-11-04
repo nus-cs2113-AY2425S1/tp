@@ -2,16 +2,16 @@
 !include style.puml
 hide footbox
 
-participant ":RemoveCommand" as command COMMAND_COLOUR
-participant ":EventList" as eventList EVENT_COLOUR
+participant ":RemoveCommand" as command  
+participant ":EventList" as eventList  
 
 group sd Remove participant
-    activate command COMMAND_COLOUR
+    activate command  
     command -> eventList : removeParticipantFromEvent(participantName,\n eventName)
-    activate eventList EVENT_COLOUR
+    activate eventList  
 
     eventList -> eventList : getEventByName()
-    activate eventList EVENT_COLOUR
+    activate eventList  
 
     return event:Event
 

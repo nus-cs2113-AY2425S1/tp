@@ -305,7 +305,7 @@ to indicate that the operation was unsuccessful. Otherwise, the operation return
 The interactions between components during the above operation are shown in the **Sequence Diagram** below:
 
 <img src = "images/RemoveParticipantSequenceDiagram.png">
-<img src = "images/RemoveParticipantEventSequenceDiagram.png">
+<img src = "images/RemoveParticipantFromEvent.png">
 
 The operation logic for `EventList#RemoveItemFromEvent()` is similar to that for `EventList#RemoveParticipantFromEvent()`.
 
