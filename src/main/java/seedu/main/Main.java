@@ -19,8 +19,10 @@ import seedu.command.ViewCategoryCommand;
 import seedu.command.ViewExpenseCommand;
 import seedu.command.ViewIncomeCommand;
 import seedu.command.ViewTotalCommand;
+import seedu.command.TrackProgressCommand;
 import seedu.datastorage.Storage;
 import seedu.transaction.TransactionList;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,6 +144,8 @@ public class Main {
         parser.registerCommands(new ViewIncomeCommand(transactions));
         parser.registerCommands(new ViewTotalCommand(transactions));
         parser.registerCommands(new HistoryCommand(transactions));
+
+        parser.registerCommands(new TrackProgressCommand(budgetTracker));
 
         parser.registerCommands(new KeywordsSearchCommand(transactions));
 
