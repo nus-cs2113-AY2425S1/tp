@@ -1,5 +1,5 @@
 Welcome to EventManagerCLI.
-Error loading data from file: information.csv.
+Error loading data from file: data.csv.
 ------------------------
 Enter a command: Invalid command!
 ------------------------
@@ -80,21 +80,13 @@ Enter a command: Events successfully sorted by time!
 2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
-Events saved successfully.
-------------------------
 Enter a command: Item added successfully
 ------------------------
-Events saved successfully.
-------------------------
 Enter a command: Item accounted for.
-------------------------
-Events saved successfully.
 ------------------------
 Enter a command: There are 1 items in dinner party! Here are your items:
 1. curry chicken [X]
 
-------------------------
-Events saved successfully.
 ------------------------
 Enter a command: There are 2 events in your list! Here are your scheduled events:
 1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
