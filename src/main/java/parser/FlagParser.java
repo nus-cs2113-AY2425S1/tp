@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static common.Utils.isNull;
+
 import static parser.FlagDefinitions.*;
 import static parser.ParserUtils.parseInteger;
 import static parser.ParserUtils.parseIndex;
