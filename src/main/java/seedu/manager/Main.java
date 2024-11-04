@@ -13,10 +13,8 @@ import java.io.IOException;
 public class Main {
     private static final Ui ui = new Ui();
     private static EventList events = new EventList();
-    private static final String EVENT_FILE_PATH = "events.csv";
-    private static final String PARTICIPANT_FILE_PATH = "participants.csv";
-    private static final String ITEM_FILE_PATH = "items.csv";
-    private static final Storage storage = new Storage(EVENT_FILE_PATH, PARTICIPANT_FILE_PATH, ITEM_FILE_PATH);
+    private static final String EVENT_FILE_PATH = "information.csv";
+    private static final Storage storage = new Storage(EVENT_FILE_PATH);
 
     /**
      * Main entry-point for the EventManagerCLI application.
@@ -58,9 +56,7 @@ public class Main {
      */
     private static void loadData() {
         try {
-            storage.loadEvents(events);
-            storage.loadParticipants(events);
-            storage.loadItems(events);
+            storage.loadInfo(events);
             ui.showMessage("Events loaded successfully.");
         } catch (IOException exception) {
             ui.showErrorMessageToUser(exception);
@@ -73,10 +69,7 @@ public class Main {
      */
     private static void saveData() {
         try {
-            storage.saveEvents(events);
-            storage.saveParticipants(events);
-            storage.saveItems(events);
-            ui.showMessage("Events saved successfully.");
+            storage.saveInfo(events);
         } catch (IOException exception) {
             ui.showErrorMessageToUser(exception);
         }

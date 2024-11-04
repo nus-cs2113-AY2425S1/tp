@@ -8,200 +8,118 @@ import seedu.manager.item.Participant;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 //@@author KuanHsienn
 /**
- * Represents the storage component for saving and loading events.
- *
+ * This class is responsible for handling the storage of event data.
+ * It provides methods to save and load event information from a CSV file.
  */
 public class Storage {
-    private final String eventFilePath;
-    private final String participantFilePath;
-    private final String itemFilePath;
+    private final String filePath;
 
     /**
-     * Constructs a Storage object with the given file path.
+     * Constructs a Storage object with the specified file path.
      *
-     * @param eventFilePath The path to the storage file.
+     * @param filePath The path to the file where event data will be stored.
+     * @throws AssertionError If the environment is not a test and the file path is invalid.
      */
-    public Storage(String eventFilePath, String participantFilePath, String itemFilePath) {
+    public Storage(String filePath) {
         if (!isTestEnvironment()) {
-            assert isValidFilePath(eventFilePath) : "Invalid file path: " + eventFilePath;
+            assert isValidFilePath(filePath) : "Invalid file path: " + filePath;
         }
-        this.eventFilePath = eventFilePath;
-        this.participantFilePath = participantFilePath;
-        this.itemFilePath = itemFilePath;
+        this.filePath = filePath;
     }
 
     /**
-     * Saves the list of events to the file.
+     * Saves the event information to the specified file.
      *
-     * @param events The EventList to be saved.
-     * @throws IOException if there's an error writing to the file.
+     * @param events The EventList containing the events to be saved.
+     * @throws IOException If there is an error saving data to the file.
      */
-    public void saveEvents(EventList events) throws IOException {
-        try (CSVWriter writer = new CSVWriter(new FileWriter(eventFilePath))) {
+    public void saveInfo(EventList events) throws IOException {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
             for (Event event : events.getList()) {
-                String[] fields = getEventFields(event);
-                writer.writeNext(fields);
+                writer.writeNext(getEventFields(event));
+
+                for (Participant participant : event.getParticipantList()) {
+                    writer.writeNext(getParticipantFields(participant, event));
+                }
+
+                for (Item item : event.getItemList()) {
+                    writer.writeNext(getItemFields(event, item));
+                }
             }
         } catch (IOException exception) {
-            throw new IOException("Error saving events to file: " + eventFilePath);
+            throw new IOException("Error saving data to file: " + filePath);
         }
     }
 
     /**
-     * Saves the participants stored in the events in the event list to the file.
+     * Loads the event information from the specified file.
      *
-     * @param events The event list with events containing participant data.
-     * @throws IOException if there is an error writing to the file.
+     * @param events The EventList to load events into.
+     * @throws IOException If there is an error loading data from the file.
      */
-    public void saveParticipants(EventList events) throws IOException {
-        try (CSVWriter writer = new CSVWriter(new FileWriter(participantFilePath))) {
-            for (Event event : events.getList()) {
-                saveEventParticipants(event, writer);
-            }
-        } catch (IOException exception) {
-            throw new IOException("Error saving events to file: " + participantFilePath);
-        }
-    }
-
-    /**
-     * Saves the items stored in the events in the event list to the file.
-     *
-     * @param events The event list with events containing item data.
-     * @throws IOException if there is an error writing to the file.
-     */
-    public void saveItems(EventList events) throws IOException {
-        try (CSVWriter writer = new CSVWriter(new FileWriter(itemFilePath))) {
-            for (Event event : events.getList()) {
-                saveEventItems(event, writer);
-            }
-        } catch (IOException exception) {
-            throw new IOException("Error saving events to file: " + itemFilePath);
-        }
-    }
-
-    /**
-     * Loads events from the file and returns an EventList.
-     *
-     * @throws IOException if there's an error reading from the file.
-     */
-    public void loadEvents(EventList events) throws IOException {
+    public void loadInfo(EventList events) throws IOException {
         FileParser parser = new FileParser();
-        parser.parseEventsFile(events, eventFilePath);
+        parser.parseFile(events, filePath);
     }
 
     /**
-     * Loads participants from the file into the specified Events in EventList.
+     * Checks if the provided file path is valid.
      *
-     * @throws IOException if there is an error reading from the file.
-     */
-    public void loadParticipants(EventList events) throws IOException {
-        FileParser parser = new FileParser();
-        parser.parseParticipantsFile(events, participantFilePath);
-    }
-
-    /**
-     * Loads items from the file into the specified Events in EventList.
-     *
-     * @throws IOException if there is an error reading from the file.
-     */
-    public void loadItems(EventList events) throws IOException {
-        FileParser parser = new FileParser();
-        parser.parseItemsFile(events, itemFilePath);
-    }
-
-    //@@author KuanHsienn
-    /**
-     * Checks if the given file path is valid and matches the expected path.
-     *
-     * @param filePath The path to check.
-     * @return True if valid and matches, false otherwise.
+     * @param filePath The file path to validate.
+     * @return true if the file path is valid; false otherwise.
      */
     private boolean isValidFilePath(String filePath) {
-        String expectedPath = "events.csv"; // You can change this if needed
+        String expectedPath = "data.csv";
         return filePath.equals(expectedPath);
     }
 
     /**
-     * Checks if the code is running in a test environment.
+     * Checks if the current environment is a test environment.
      *
-     * @return True if in test environment, false otherwise.
+     * @return true if the test environment property is set; false otherwise.
      */
     private boolean isTestEnvironment() {
         return "true".equals(System.getProperty("test.environment"));
     }
 
     /**
-     * Saves the data of the participants in a given event to a given file writer.
+     * Retrieves the fields of an event as a String array for CSV writing.
      *
-     * @param event the event containing the participant data.
-     * @param writer the file writer.
-     * @throws IOException if the participant cannot be written into the file.
-     */
-    private void saveEventParticipants(Event event, CSVWriter writer) throws IOException {
-        ArrayList<Participant> participants = event.getParticipantList();
-        for (Participant participant : participants) {
-            String[] fields = getParticipantFields(participant, event);
-            writer.writeNext(fields);
-        }
-    }
-
-    /**
-     * Saves the data of the items in a given event to a given file writer.
-     *
-     * @param event the event containing the item data.
-     * @param writer the file writer.
-     * @throws IOException if the participant cannot be written into the file.
-     */
-    private void saveEventItems(Event event, CSVWriter writer) throws IOException {
-        ArrayList<Item> items = event.getItemList();
-        for (Item item : items) {
-            String[] fields = getItemFields(event, item);
-            writer.writeNext(fields);
-        }
-    }
-
-    /**
-     * Returns an array of the fields for a given {@link Event}.
-     *
-     * @param event the given {@link Event}.
-     * @return an array of the fields of `event`.
+     * @param event The event to get fields from.
+     * @return A String array representing the event fields.
      */
     private static String[] getEventFields(Event event) {
-        List<String> fieldsList = List.of(event.getEventName(), event.getEventTimeString(),
+        List<String> fieldsList = List.of("EVENT", event.getEventName(), event.getEventTimeString(),
                 event.getEventVenue(), event.getEventPriorityString(), event.markIfDone());
-        return fieldsList.toArray(new String[5]);
+        return fieldsList.toArray(new String[6]);
     }
 
     /**
-     * Returns an array of the fields for a given {@link Participant} in a given {@link Event}.
+     * Retrieves the fields of a participant as a String array for CSV writing.
      *
-     * @param participant the given {@link Participant}.
-     * @param event the given {@link Event}.
-     * @return an array of the fields of `event`.
+     * @param participant The participant to get fields from.
+     * @param event      The event associated with the participant.
+     * @return A String array representing the participant fields.
      */
     private String[] getParticipantFields(Participant participant, Event event) {
-        List<String> fieldsList = List.of(participant.getName(), participant.getNumber(),
-                participant.getEmail(), participant.markFileLineIfPresent(), event.getEventName());
-        return fieldsList.toArray(new String[5]);
+        List<String> fieldsList = List.of("PARTICIPANT", participant.getName(), participant.getNumber(),
+                participant.getEmail(), event.getEventName(), participant.markFileLineIfPresent());
+        return fieldsList.toArray(new String[6]);
     }
 
     /**
-     * Returns an array of the fields for a given {@link Item} in a given {@link Event}.
+     * Retrieves the fields of an item as a String array for CSV writing.
      *
-     * @param item the given {@link Item}.
-     * @param event the given {@link Event}.
-     * @return an array of the fields of `event`.
+     * @param event The event associated with the item.
+     * @param item  The item to get fields from.
+     * @return A String array representing the item fields.
      */
     private String[] getItemFields(Event event, Item item) {
-        List<String> fieldsList = List.of(item.getName(), item.markFileLineIfPresent(),
-                event.getEventName());
-        return fieldsList.toArray(new String[3]);
+        List<String> fieldsList = List.of("ITEM", item.getName(), event.getEventName(), item.markFileLineIfPresent());
+        return fieldsList.toArray(new String[4]);
     }
 }
-
-
