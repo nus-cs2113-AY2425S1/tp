@@ -124,6 +124,26 @@ list income /from 03/10/24 /to 01/11/24
 
 ### Set/Edit Budget
 
+User can set a monthly budget when app is initialized and budget is not set, or by using the budget command.
+Budget command can also be used to edit budget after initial budget is set.
+
+**Example Usage**:
+``` java
+// Initial budget setting option 
+Would you like to set a budget? (yes/no)
+yes
+Please set your budget amount:
+1000
+
+// Budget modification option to change budget amount
+budget
+Your current budget is: 1000.0
+Would you like to modify your budget? (yes/no)
+yes
+Please set your budget amount:
+2000
+```
+
 ### Saving Data
 
 ## FAQ
@@ -134,6 +154,11 @@ list income /from 03/10/24 /to 01/11/24
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
-
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+* Help Menu `help`
+* List all transactions `list`
+* List all expenses `list expenses`
+* List all incomes `list income`
+* List by date `list [/from DATE] [/to DATE]`
+* Add expense `expense DESCRIPTION /a AMOUNT [/d DATE]`
+* Add income `income DESCRIPTION /a AMOUNT [/d DATE]`
+* Delete transaction `delete INDEX`
