@@ -6,6 +6,7 @@ import history.DailyRecord;
 import history.History;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,5 +51,22 @@ public class AddWaterCommand extends WaterCommand {
                 new Object[]{waterToAdd, date});
 
         return new CommandResult(waterToAdd + " liters of water has been added");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AddWaterCommand that)) {
+            return false;
+        }
+        return Objects.equals(waterToAdd, that.waterToAdd) &&
+                Objects.equals(date, that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(waterToAdd, date);
     }
 }
