@@ -1,7 +1,6 @@
 package parser.command.factory;
 
 import command.Command;
-import command.InvalidCommand;
 import command.water.AddWaterCommand;
 import command.water.DeleteWaterCommand;
 import command.water.ViewWaterCommand;
@@ -57,7 +56,8 @@ public class WaterCommandFactoryTest {
         // Missing /v (volume) flag
         String argumentString = "/t 31-10-2024";
 
-        assertThrows(IllegalArgumentException.class, () -> waterCommandFactory.prepareAddCommand(argumentString), "Missing required flag /v should throw IllegalArgumentException.");
+        assertThrows(IllegalArgumentException.class, () -> waterCommandFactory.prepareAddCommand(argumentString),
+                "Missing required flag /v should throw IllegalArgumentException.");
     }
 
     @Test
@@ -65,13 +65,15 @@ public class WaterCommandFactoryTest {
         // Missing /w (water index) flag
         String argumentString = "/t 31-10-2024";
 
-        assertThrows(IllegalArgumentException.class, () -> waterCommandFactory.prepareDeleteCommand(argumentString), "Missing required flag /w should throw IllegalArgumentException.");
+        assertThrows(IllegalArgumentException.class, () -> waterCommandFactory.prepareDeleteCommand(argumentString),
+                "Missing required flag /w should throw IllegalArgumentException.");
     }
 
     @Test
     public void testPrepareViewCommandInvalidDate() {
         String argumentString = "invalid-date";
 
-        assertThrows(IllegalArgumentException.class, () -> waterCommandFactory.prepareViewCommand(argumentString), "Invalid date format should throw IllegalArgumentException.");
+        assertThrows(IllegalArgumentException.class, () -> waterCommandFactory.prepareViewCommand(argumentString),
+                "Invalid date format should throw IllegalArgumentException.");
     }
 }
