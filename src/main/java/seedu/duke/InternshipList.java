@@ -209,11 +209,11 @@ public class InternshipList {
     public void listInternshipsSortedByDeadline() {
         ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
 
-        SortedByDeadlineFunction(sortedInternships);
+        sortedByDeadlineFunction(sortedInternships);
         ui.showInternships(sortedInternships, "deadline");
     }
 
-    private void SortedByDeadlineFunction(ArrayList<Internship> sortedInternships) {
+    private void sortedByDeadlineFunction(ArrayList<Internship> sortedInternships) {
         sortedInternships.sort((i1, i2) -> {
             Deadline earliestDeadline1 = i1.getEarliestDeadline();
             Deadline earliestDeadline2 = i2.getEarliestDeadline();
@@ -236,11 +236,11 @@ public class InternshipList {
     public void listInternshipsSortedByFirstSkill() {
         ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
 
-        SortedByFirstSkillFunction(sortedInternships);
+        sortedByFirstSkillFunction(sortedInternships);
         ui.showInternships(sortedInternships, "skills");
     }
 
-    private static void SortedByFirstSkillFunction(ArrayList<Internship> sortedList) {
+    private static void sortedByFirstSkillFunction(ArrayList<Internship> sortedList) {
         // Sort by the first skill alphabetically
         Collections.sort(sortedList, Comparator.comparing(internship -> {
             String firstSkill = internship.getFirstSkill();
@@ -282,7 +282,7 @@ public class InternshipList {
     public void listFavouriteInternshipsSortedByDeadline() {
         ArrayList<Internship> sortedInternships = new ArrayList<>(favouriteInternships);
 
-        SortedByDeadlineFunction(sortedInternships);
+        sortedByDeadlineFunction(sortedInternships);
         ui.showInternships(sortedInternships, "deadline in favourite");
     }
 
@@ -292,7 +292,7 @@ public class InternshipList {
     public void listFavouriteInternshipsSortedByFirstSkill() {
         ArrayList<Internship> sortedInternships= new ArrayList<>(favouriteInternships);
 
-        SortedByFirstSkillFunction(sortedInternships);
+        sortedByFirstSkillFunction(sortedInternships);
         ui.showInternships(sortedInternships, "skills in favourite");
     }
 
