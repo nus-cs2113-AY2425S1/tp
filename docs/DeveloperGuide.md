@@ -636,8 +636,11 @@ The user is able to organise and manage his events more quickly and efficiently 
 
 ## Non-Functional Requirements
 
-* Should work for any **mainstream OS** as long as Java 17 is installed.
-* Should be able to store data for up to 1000 events without any loss in performance.
+* Should work for any **mainstream OS** (Windows, MacOS, Linux) as long as Java 17 is installed.
+* Should be able to store data for up to 1000 `Event`s without any loss in performance.
+* Should be able to execute any command within 1 second of receiving user input.
+* Should be able to load a corrupted save file without crashing.
+* Should be able to work in any directory that the `JAR` is copied to.
 
 ## Glossary
 
