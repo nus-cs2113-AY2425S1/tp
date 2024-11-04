@@ -164,7 +164,7 @@ public class Parser {
      * @throws InvalidCommandException if the given command string cannot be parsed to a valid command.
      */
     public Command parseCommand(String command) throws InvalidCommandException {
-        String[] commandParts = command.split(SPACE);
+        String[] commandParts = command.trim().split(SPACE);
         String commandWord = commandParts[0].toLowerCase();
 
         switch (commandWord) {
