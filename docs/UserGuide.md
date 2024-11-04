@@ -12,7 +12,7 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
-2. Down the latest version of `ExchangeCourseMapper` from [here](http://link.to/duke).
+2. Down the latest version of `ExchangeCourseMapper` from [here](https://github.com/AY2425S1-CS2113-W10-2/tp/releases/).
 3. Download the JAR file and save it on your computer.
 4. Copy the absolute path of where the jar file is saved.
 5. In Terminal, run java -jar /path/to/ExchangeCourseMapper.jar

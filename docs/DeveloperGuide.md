@@ -2,7 +2,7 @@
 
 ## Acknowledgements
 
-### Database
+### Data source
 * Adapted from NUS EduRec, data was collected manually as a collective effort from the team.
 
 ### Third Party Library Used
@@ -12,6 +12,9 @@
 
 #### 'javax.json:javax.json-api:1.1.4'
 * https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4
+
+#### Mockito
+* https://github.com/mockito/mockito
 
 ## Design
 
@@ -70,8 +73,6 @@ Command Package:
 
 CourseValidator Class Diagram: 
 ![Class diagram for CourseValidator](images/CourseValidatorClass.png)
-
-{TODO: Object Diagram}
 
 ## Implementation
 
@@ -425,8 +426,9 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 
 ## Non-Functional Requirements
 
-1. Access to a computer with Java 17 installed and an IDE that supports Java programming
-2. A CEG Student in NUS planning to map out mainly BT/IS/EE/CS/CG-coded courses
+1. Access to a computer with Java 17 installed and an IDE that supports Java programming.
+2. A CEG student with above average typing speed for regular English text (i.e. not code, not system admin commands) 
+   should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 ## Glossary
 * Mainstream OS: Windows, Linux, Unix, MacOS
