@@ -1,4 +1,5 @@
 @startuml
+hide footbox
 participant ":Main" as Main
 participant ":CopyCommand" as CC
 participant ":EventList" as EL
@@ -21,7 +22,7 @@ deactivate EL
 opt Both Events Found
     CC -> SourceEvent: getParticipantList()
     activate SourceEvent
-    SourceEvent --> CC: return participantList
+    SourceEvent --> CC: return participantList: ArrayList<Participant>
     deactivate SourceEvent
 
     opt Participant List Not Empty

@@ -1,4 +1,5 @@
 @startuml
+hide footbox
 participant ":Main" as Main
 participant ":SortCommand" as SC
 
@@ -14,17 +15,17 @@ deactivate SEL
 alt sort by name
     SC -> SEL: sortByName()
     activate SEL
-    SEL --> SC: return sorted list
+    SEL --> SC:
     deactivate SEL
 else sort by time
     SC -> SEL: sortByTime()
     activate SEL
-    SEL --> SC: return sorted list
+    SEL --> SC:
     deactivate SEL
 else sort by priority
     SC -> SEL: sortByPriority()
     activate SEL
-    SEL --> SC: return sorted list
+    SEL --> SC:
     deactivate SEL
 
 end alt

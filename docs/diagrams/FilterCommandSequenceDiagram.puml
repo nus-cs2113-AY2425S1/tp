@@ -1,4 +1,5 @@
 @startuml
+hide footbox
 participant ":Main" as Main
 participant ":FilterCommand" as FC
 
