@@ -219,7 +219,8 @@ Invalid contact type.
 ```
 
 ### Find courses in personalised tracker
-This feature allows users to search for NUS courses in their course mappings.
+This feature allows users to search for NUS courses in their course mappings. So that they can check if they have
+mappings for that course.
 
 Format: `find [NUS_COURSE_CODE]`
 * Note that this feature is searching within the personalised tracker
