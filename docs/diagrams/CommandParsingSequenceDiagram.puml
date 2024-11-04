@@ -3,23 +3,23 @@
 hide footbox
 
 participant ":Main" as main
-participant ":Parser"  as parser PARSER_COLOUR
-participant ":XYZCommand" as xyzCommand COMMAND_COLOUR
+participant ":Parser"  as parser  
+participant ":XYZCommand" as xyzCommand  
 
 create parser
 main -> parser : Parser()
-activate parser PARSER_COLOUR
+activate parser  
 return
 
 main -> parser : parseCommand(command)
-activate parser PARSER_COLOUR
+activate parser  
 
 parser -> parser : parseXYZCommand(input, commandParts)
-activate parser PARSER_COLOUR
+activate parser  
 
 create xyzCommand
 parser -> xyzCommand : XYZCommand(...)
-activate xyzCommand COMMAND_COLOUR
+activate xyzCommand  
 return :XYZCommand
 return
 
