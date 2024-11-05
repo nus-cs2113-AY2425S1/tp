@@ -6,8 +6,9 @@ import javax.json.JsonReader;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static seedu.exchangecoursemapper.constants.Commands.FILE_PATH;
-
+/**
+ * Command class is an abstract base class representing a command that can be executed by ExchangeCourseMapper,
+ */
 public abstract class Command {
     protected static final String FILE_PATH = "/database.json";
 

@@ -1,5 +1,6 @@
 package seedu.exchangecoursemapper;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.exchangecoursemapper.command.AddCoursesCommand;
@@ -28,6 +29,13 @@ public class DeleteCoursesCommandTest {
         addCoursesCommand.execute("add cs2102 /pu the university of melbourne /coursepu info20003", storage);
         // Clear the output capture after add command
         outputStreamCaptor.reset();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(System.out);
+        DeleteCoursesCommand deleteCoursesCommand = new DeleteCoursesCommand();
+        deleteCoursesCommand.execute("delete 1", storage);
     }
 
     @Test
@@ -73,8 +81,8 @@ public class DeleteCoursesCommandTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
         });
-        assertEquals("Please provide a valid index of the course plan you would like to delete.",
-                e.getMessage());
+        assertEquals("Please provide a valid index of the course plan you would like to delete.\n" +
+                "Type `list mapped` to check your current list of saved plans!", e.getMessage());
     }
 
     @Test
@@ -83,8 +91,8 @@ public class DeleteCoursesCommandTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
         });
-        assertEquals("Please provide a valid index of the course plan you would like to delete.",
-                e.getMessage());
+        assertEquals("Please provide a valid index of the course plan you would like to delete.\n" +
+                        "Type `list mapped` to check your current list of saved plans!", e.getMessage());
     }
 
     @Test
@@ -93,8 +101,8 @@ public class DeleteCoursesCommandTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
         });
-        assertEquals("Please provide a valid index of the course plan you would like to delete.",
-                e.getMessage());
+        assertEquals("Please provide a valid index of the course plan you would like to delete.\n" +
+                "Type `list mapped` to check your current list of saved plans!", e.getMessage());
     }
 
     @Test
@@ -111,8 +119,14 @@ public class DeleteCoursesCommandTest {
     public void execute_inputWithInvalidIndex_expectErrorMessgae() {
         String userInput = "delete 1000";
         deleteCoursesCommand.execute(userInput, storage);
+        String expectedOutput = """
+                -----------------------------------------------------
+                Please provide a valid index of the course plan you would like to delete.
+                Type `list mapped` to check your current list of saved plans!
+                -----------------------------------------------------
+                """;
         String actualOutput = outputStreamCaptor.toString();
-        assertEquals("Please provide a valid index of the course plan you would like to delete.",
+        assertEquals(normalizeLineEndings(expectedOutput),
                 normalizeLineEndings(actualOutput));
     }
 

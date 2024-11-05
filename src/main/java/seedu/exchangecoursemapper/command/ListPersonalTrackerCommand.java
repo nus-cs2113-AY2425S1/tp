@@ -1,6 +1,9 @@
 package seedu.exchangecoursemapper.command;
 
+import seedu.exchangecoursemapper.courses.Course;
+import seedu.exchangecoursemapper.storage.CourseRepository;
 import seedu.exchangecoursemapper.storage.Storage;
+import seedu.exchangecoursemapper.ui.UI;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -11,15 +14,15 @@ import static seedu.exchangecoursemapper.constants.Assertions.NULL_STORAGE;
 import static seedu.exchangecoursemapper.constants.Logs.EXECUTE;
 import static seedu.exchangecoursemapper.constants.Logs.INIT_STORAGE_LIST_PT;
 import static seedu.exchangecoursemapper.constants.Logs.NO_MODULES;
-import static seedu.exchangecoursemapper.constants.Logs.NO_MODULES_MESSAGE;
 import static seedu.exchangecoursemapper.constants.Logs.DISPLAY_MODULES;
-import static seedu.exchangecoursemapper.constants.Logs.MAPPED_MODULES_HEADER;
 import static seedu.exchangecoursemapper.constants.Logs.EXECUTE_COMPLETE;
-import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
+
 
 public class ListPersonalTrackerCommand extends CheckInformationCommand {
 
     private static final Logger logger = Logger.getLogger(ListPersonalTrackerCommand.class.getName());
+    private static final CourseRepository courseRepository = new CourseRepository();
+    private static final UI ui = new UI();
     private final Storage storage;
 
     public ListPersonalTrackerCommand(Storage storage) {
@@ -31,24 +34,26 @@ public class ListPersonalTrackerCommand extends CheckInformationCommand {
     @Override
     public void execute(String userInput) {
         logger.log(Level.INFO, EXECUTE);
-        List<String> mappedModules = storage.loadAllCourses();
-        assert mappedModules != null : NULL_LIST;
-
-        if (mappedModules.isEmpty()) {
-            logger.log(Level.INFO, NO_MODULES);
-            System.out.println(NO_MODULES_MESSAGE);
-        } else {
-            logger.log(Level.INFO, DISPLAY_MODULES);
-            System.out.println(MAPPED_MODULES_HEADER);
-            System.out.println(LINE_SEPARATOR);
-            int moduleIndex = 1;
-            for (String module : mappedModules) {
-                System.out.println(moduleIndex + ". " + module);
-                moduleIndex += 1;
+        try {
+            if(!courseRepository.isFileValid()){
+                return;
             }
-            System.out.println(LINE_SEPARATOR);
-        }
 
-        logger.log(Level.INFO, EXECUTE_COMPLETE);
+            List<Course> mappedModules = storage.loadAllCourses();
+            assert mappedModules != null : NULL_LIST;
+
+            if (mappedModules.isEmpty()) {
+                logger.log(Level.INFO, NO_MODULES);
+                ui.printNoMappedModules();
+            } else {
+                logger.log(Level.INFO, DISPLAY_MODULES);
+                ui.printMappedModules(mappedModules);
+            }
+
+            logger.log(Level.INFO, EXECUTE_COMPLETE);
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.WARNING, e.getMessage());
+            System.out.println(e.getMessage());
+        }
     }
 }

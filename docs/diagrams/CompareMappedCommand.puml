@@ -1,0 +1,45 @@
+@startuml
+
+hide footbox 
+
+actor CEG_Student
+participant "CompareMappedCommand" as Command
+participant "Storage" as Storage
+participant "UI" as UI
+
+CEG_Student -> Command: execute(userInput)
+activate Command
+
+Command -> Storage: loadAllCourses()
+activate Storage
+Storage --> Command: allModules: List<String>
+deactivate Storage
+
+Command -> Command: displayComparisonResults(university1: String, university2: String, ...)
+activate Command
+Command -> UI: printCommonMappings(university1: String, university2: String, ...)
+activate UI
+UI --> Command : Print Common Mappings
+deactivate UI
+Command -> Command: displayUniqueMappings(university1: String, ...)
+activate Command
+Command -> UI: printUniqueMappings(university1: String, ...);
+activate UI
+UI --> Command : Print Unique Mappings
+deactivate UI
+Command --> Command 
+deactivate Command
+Command -> Command: displayUniqueMappings(university2: String, ...)
+activate Command
+Command -> UI: printUniqueMappings(university2: String, ...);
+activate UI
+UI --> Command : Print Unique Mappings
+deactivate UI
+Command --> Command
+deactivate Command
+Command --> Command
+deactivate Command
+Command --> CEG_Student
+deactivate Command
+
+@enduml

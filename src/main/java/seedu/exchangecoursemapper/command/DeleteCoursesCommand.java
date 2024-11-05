@@ -3,6 +3,7 @@ package seedu.exchangecoursemapper.command;
 import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.courses.Course;
+import seedu.exchangecoursemapper.storage.CourseRepository;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.ui.UI;
@@ -21,6 +22,7 @@ import static seedu.exchangecoursemapper.constants.Regex.SPACE;
  */
 public class DeleteCoursesCommand extends PersonalTrackerCommand {
     private static final Logger logger = Logger.getLogger(DeleteCoursesCommand.class.getName());
+    private CourseRepository courseRepository;
     private UI ui;
 
     /**
@@ -28,7 +30,9 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
      * */
     public DeleteCoursesCommand() {
         ui = new UI();
+        courseRepository = new CourseRepository();
     }
+
 
     /**
      * Executes the delete courses command, which deletes a course mapping plan from the list in the Storage,
@@ -41,13 +45,16 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
     public void execute(String userInput, Storage storage) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
         try {
+            if(!courseRepository.isFileValid()){
+                return;
+            }
             logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);
             String[] descriptionSubstrings = parseDeleteCommand(userInput);
             assert descriptionSubstrings.length == 2 : Assertions.MISSING_FIELDS;
             deleteCourse(descriptionSubstrings, storage);
         } catch (IllegalArgumentException e) {
             logger.log(Level.WARNING, e.getMessage());
-            System.out.println(e.getMessage());
+            ui.printMessage(e.getMessage());
         }
     }
 

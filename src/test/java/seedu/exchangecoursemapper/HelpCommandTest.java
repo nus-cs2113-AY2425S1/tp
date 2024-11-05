@@ -93,8 +93,11 @@ public class HelpCommandTest {
         String userInput = "help invalid";
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> helpCommand.getCommand(userInput));
-        String expectedOutput = "Invalid command.";
-        assertEquals(expectedOutput, exception.getMessage());
+        String expectedOutput = """
+                Invalid command.
+                Please check the commands available by typing commands.
+                """;
+        assertEquals(expectedOutput.trim(), exception.getMessage().trim());
     }
 
     @Test
@@ -116,10 +119,13 @@ public class HelpCommandTest {
     @Test
     public void printHelp_withInvalidCommand_expectException() {
         String command = "invalid";
-        String expectedOutput = "Invalid command";
+        String expectedOutput = """
+                Invalid command.
+                Please check the commands available by typing commands.
+                """;
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> helpCommand.printHelp(command));
-        assertEquals(expectedOutput, exception.getMessage());
+        assertEquals(expectedOutput.trim(), exception.getMessage());
     }
 
     @Test
@@ -144,12 +150,12 @@ public class HelpCommandTest {
         helpCommand.execute(userInput);
 
         String expectedOutput = """
-                Invalid command.\s
+                Invalid command.
                 Please check the commands available by typing commands.
                 """;
 
         String actualOutput = outputStreamCaptor.toString();
-        assertEquals(expectedOutput.trim(), normalizeLineEndings(actualOutput));
+        assertEquals(expectedOutput.trim(), normalizeLineEndings(actualOutput).trim());
     }
 
     String normalizeLineEndings(String input) {

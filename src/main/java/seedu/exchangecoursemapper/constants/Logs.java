@@ -2,13 +2,18 @@ package seedu.exchangecoursemapper.constants;
 
 public class Logs {
     public static final String EXECUTING_COMMAND  = "Executing command";
+    public static final String JSON_FILE_CONTAINS_DATA = "Validated JSON data is not null and not empty.";
     public static final String SUCCESS_READ_JSON_FILE = "Successfully read JSON file";
+    public static final String READING_JSON_FILE = "Attempting to read JSON data.";
     public static final String FAILURE_READ_JSON_FILE = "Failed to read JSON file";
     public static final String COMPLETE_EXECUTION  = "Execution complete";
     public static final String LIST_SCHOOLS_NAMES = "Displaying university names ...";
     public static final String LIST_MAPPABLE_COURSES = "Displaying mappable PU courses ...";
+    public static final String POSSIBLE_NULL_JSON_KEY = "Encountered an empty or null university name.";
     public static final String NO_NUS_COURSE_CODE_FILTER = "No NUS course code provided to filter";
     public static final String FILTER_COURSES_LIMIT = "More than one NUS course code provided to filter";
+
+    // ListUniCoursesCommand
     public static final String UNKNOWN_UNIVERSITY = "Unknown university encountered";
     public static final String EXTRACT_PU_NAME = "Extracted PU name";
     public static final String NO_PU_NAME = "Partner University name is empty";
@@ -16,7 +21,8 @@ public class Logs {
     public static final String UNIVERSITY_FOUND = "University found";
     public static final String NO_COURSES_FOUND = "No course found for PU";
     public static final String LISTING_COURSES = "Listing courses ...";
-    public static final String COURSE_DETAILS = "Printing course details ...";
+    public static final String NULL_UNIVERSITY = "No university name is given in the user input";
+
     public static final String RECEIVED_INPUT = "User input received: {0}";
     public static final String INVALID_INPUT = "Invalid command: {0}";
     public static final String EMPTY_INPUT_DETAILS = "Input details should not be empty after splitting";
@@ -52,11 +58,10 @@ public class Logs {
     // ListPersonalTrackerCommand
     public static final String INIT_STORAGE_LIST_PT = "ListPersonalTrackerCommand initialized with storage.";
     public static final String EXECUTE = "Executing ListPersonalTrackerCommand to list mapped modules.";
-    public static final String NO_MODULES = "No modules mapped in the personal tracker.";
+    public static final String NO_MODULES = "No modules loaded from the personal tracker.";
     public static final String DISPLAY_MODULES = "Displaying mapped modules from personal tracker.";
     public static final String EXECUTE_COMPLETE = "Completed execution of ListPersonalTrackerCommand.";
-    public static final String NO_MODULES_MESSAGE = "No modules mapped yet.";
-    public static final String MAPPED_MODULES_HEADER = "Mapped Modules:";
+
 
     // CompareMappedCommand logs
     public static final String INIT_STORAGE_COMPARE_MAPPED = "CompareMappedCommand initialized with storage.";
@@ -69,5 +74,32 @@ public class Logs {
     public static final String DISPLAY_COMPLETE = "Completed displaying comparison results for ";
     public static final String DISPLAYING_RESULTS = "Displaying comparison results between ";
     public static final String DISPLAYING_UNIQUE_MAPPINGS = "Displaying unique mappings for ";
+
+    //FindCoursesCommand
+    public static final String EXECUTE_FIND_COMMAND = "Executing findCommand with keyword";
+    public static final String MISSING_KEYWORD = "Keyword is missing.";
+    public static final String NO_MATCH_FOUND = "No courses found matching keyword.";
+    public static final String MATCH_FOUND = "Match found for course code";
+    public static final String EXTRACTED_COURSE_CODE = "Extracted mapped course code.";
+
+    // CourseRepository logs
+    public static final String COURSE_ENTRY = "Successfully added course: {0}";
+    public static final String COURSE_SIZE = "Loaded all courses, total courses: {0}";
+    public static final String INVALID_DELETE_INDEX = "Invalid index for deletion: {0}";
+    public static final String DELETE_INDEX = "Deleted course at index {0}";
+
+    // DataIntegrityChecker logs
+    public static final String DATA_MISMATCH = "Data mismatch on line {0}: {1}";
+    public static final String PARSING_ERROR_LINE = "Parsing error on line {0}: {1}";
+
+    // FileHandler logs
+    public static final String INITIALISE_FILE = "Initialized file at {0}";
+    public static final String INITIALISE_FILE_FAIL = "Initialized file at {0}";
+    public static final String LINES_SIZE = "Loaded all lines from file, total lines: {0}";
+    public static final String LINE_READ_FAIL = "Failed to read lines from file";
+    public static final String SAVE_LINE_SIZE = "Saved all lines to file, total lines: {0}";
+    public static final String LINE_WRITE_FAIL = "Failed to write lines to file";
+    public static final String APPEND_LINE = "Appended line to file: {0}";
+    public static final String APPEND_LINE_FAIL = "Failed to append line to file";
 
 }

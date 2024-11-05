@@ -2,7 +2,9 @@ package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
+import seedu.exchangecoursemapper.constants.Messages;
 import seedu.exchangecoursemapper.exception.Exception;
+import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonObject;
 import java.io.IOException;
@@ -16,6 +18,11 @@ import static seedu.exchangecoursemapper.constants.JsonKey.NUMBER_KEY;
 
 public class ObtainContactsCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ObtainContactsCommand.class.getName());
+    private static UI ui;
+
+    public ObtainContactsCommand() {
+        ui = new UI();
+    }
 
     /**
      * Executes the command to retrieve contact information for a university.
@@ -29,12 +36,15 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         try {
             JsonObject jsonObject = super.createJsonObject();
             logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
+
             assert jsonObject != null : Assertions.NULL_JSON_FILE;
             assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+
             String schoolName = getSchoolName(userInput).toLowerCase();
             String contactType = getContactType(userInput);
             String matchingSchool = findMatchingSchool(jsonObject, schoolName);
             JsonObject schoolInfo = jsonObject.getJsonObject(matchingSchool);
+
             if (schoolInfo == null) {
                 return;
             }
@@ -42,6 +52,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         } catch (IOException e) {
             logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
             System.err.println(Exception.fileReadError());
+            return;
         } catch (IllegalArgumentException e) {
             logger.log(Level.WARNING, e.getMessage());
         }
@@ -91,11 +102,11 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         switch (contactType) {
         case EMAIL_KEY:
             String email = schoolInfo.getString(EMAIL_KEY);
-            System.out.println("Email for " + schoolName + ": " + email);
+            ui.printContactInformation(Messages.EMAIL_TAG, schoolName, email);
             break;
         case NUMBER_KEY:
             String number = schoolInfo.getString(NUMBER_KEY);
-            System.out.println("Phone number for " + schoolName + ": " + number);
+            ui.printContactInformation(Messages.NUMBER_TAG, schoolName, number);
             break;
         default:
             logger.warning("Invalid contact type requested: " + contactType);
