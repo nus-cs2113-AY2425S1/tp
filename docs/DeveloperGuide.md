@@ -534,67 +534,62 @@ The interactions between components of `FindCommand#execute` are shown in the **
 
 ### Saving and loading of data
 
-As mentioned in the _Storage component_ section, the program automatically saves any stored data in `EventList` into several `.csv` files, and loads
-the data from these files when it is run.
+As mentioned in the _Storage component_ section, the program automatically saves any stored data in `EventList` into 'data.csv` file, and loads
+the data from this file when the program runs.
 
-There are three `.csv` files used for storing data, for `Event`s, `Participant`s and `Item`s respectively. Within each file, each
-object (like an `Event` in the `Event`s) file is stored in one line in the following format,
+In `data.csv`, each line represents an object (`Event`, `Participant`, or `Item`), organised in the following format:
 
 ```
-FIELD,FIELD,...
+EVENT,FIELD,FIELD,...
+PARTCIPANT,FIELD,FIELD,...
+ITEM,FIELD,FIELD,...
 ```
 
-where `FIELD` represents a value for a member of the object (like the name of an `Event`).
+where `FIELD` represents a value corresponding to a property of the object (e.g., `Event` name or `Participant` email).
 
-This functionality is implemented by the `Storage` and `FileParser` classes, and has two operations, namely:
+This functionality is implemented by the `Storage` and `FileParser` classes, encompassing two main operations:
+* `Main#loadData()`, which loads data from the `data.csv` file into `EventList`.
+* `Main#saveData()`, which saves all data stored in `EventList` (including its `Events`, `Participants`, and `Items`) into `data.csv`.
 
-* `Main#loadData()`, which loads the data from the `.csv` files into the `EventList` amd its `Events`,
-* `Main#saveData()`, which saves the data stored in `EventList` and its `Event`s into the `.csv` files.
+#### The `Main#loadData()` operation works as follows:
 
-The `Main#loadData()` operation works as follows:
+1. `Storage` initializes `FileParser` to read data from `data.csv` into `EventList`.
+2. `FileParser` processes each line, identifying whether it represents an `Event`, `Participant`, or `Item`, and appropriately adds each object to the relevant `Event` in `EventList`.
+3. Lines with insufficient or invalid fields are skipped, while lines with extra fields have the additional fields ignored.
 
-1. `Storage` loads the data for the `Event`s from the `.csv` file into `EventList`.
-2. `Storage` then loads the data for the `Event`s' `Participant`s into `EventList`.
-3. `Storage` then loads the data for the `Event`s' `Item`s into `EventList`.
+#### Loading Events, Participants and Items
 
-The interactions between classes during the `Main#loadData()` operation is shown in the **Sequence Diagram** below.
+For `Event` loading:
+* `Storage` creates an instance of `FileParser` and provides the file path to `data.csv`.
+* `FileParser` reads each line, and for `Event` lines, it adds a new `Event` to `EventList` using the fields from the line.
 
-<img src = "images/LoadingSequenceDiagram.png">
+For `Participant` and `Item` loading:
+* The logic mirrors the loading of `Events`, where each `Participant` or `Item` is associated with the correct `Event` based on its specified fields.
 
-The logic for the loading of `Event`s is as follows:
+The **Sequence Diagram** below demonstrates the interactions during loading.
 
-1. `Storage` creates a `FileParser`, and passes the event file's filepath to `FileParser`.
-2. `FileParser` adds a new `Event` to `EventList` with the fields in each line of the event file.
-3. If a line in the file has insufficient or invalid fields, the `FileParser` skips past the line.
-
-If a line has more fields than required, `FileParser` will ignore the additional fields.
-
-The interactions between classes during the loading of `Event`s is shown in the **Sequence Diagram** below.
-
-<img src = "images/StorageEventLoadingSequenceDiagram.png">
-
-The logic for the loading of `Participant`s and `Item`s is similar to that for `Event`s.
-
-The `Main#saveData()` operation saves data in the same order as `Main#loadData()`. The interactions between classes during the operation is shown in the **Sequence Diagram** below:
-
-<img src = "images/SavingSequenceDiagram.png">
-
-For the saving of `Event`s, `Storage` gets the list of `Event`s from `EventList`, and writes a line of event data into the `.csv` file for each `Event`.
-
-The interactions between classes during the saving of `Event`s is shown in the **Sequence Diagram** below.
-
-<img src= "images/StorageEventSavingSequenceDiagram.png">
-
-The logic for the saving of `Participant`s is as follows:
-1. `Storage` gets a list of `Event`s from `EventList`.
-2. For each `Event` in the list of `Event`s, `Storage` gets its list of `Participant`s.
-3. `Storage` then writes the `Participant` data for each participant into a line in the participant `.csv` file.
-
-The interactions between classes during the saving of `Participant`s is shown in the **Sequence Diagram** below.
-
-<img src= "images/StorageParticipantSavingSequenceDiagram.png">
+<img src = "images/StorageLoadingSequenceDiagram.png">
 
 The logic for the loading of `Item`s is similar to that for `Participant`s.
+
+#### The `Main#saveData()` operation saves data in the same order as `Main#loadData()` and works as follows.
+
+1. `Storage` retrieves `Events` from `EventList` and writes each `Event` and its associated `Participants` and `Items` to `data.csv`.
+2. Each line is formatted based on the object type, either as an `Event`, `Participant`, or `Item`.
+
+#### Saving Events, Participants, and Items
+
+For saving `Events`:
+* Storage obtains the list of Events from EventList and writes each Event line by line to data.csv.
+
+For `Participant` and `Item` saving:
+* For each Event, Storage retrieves the list of Participants and Items, writing each line in the respective format.
+
+  The class interactions during saving are displayed in the **Sequence Diagram** below.
+
+<img src= "images/StorageSavingSequenceDiagram.png">
+
+The logic for the saving of `Item`s is similar to that for `Participant`s.
 
 
 Reading and writing from and to the `.csv` storage files is done through operations from the **OpenCSV** library, namely:
@@ -914,10 +909,8 @@ The user is able to organise and manage his events more quickly and efficiently 
 1. Loading from a corrupted data file
 
    1. Prerequisite: Multiple `Event`s are present in the `Event` list.
-   
-   2. Exit the program by entering `exit`.
-   
-   3. Remove one field from one of the lines in the `data.csv` data file.
 
-   4. Run the program by opening a new terminal window and entering `java -jar manager.jar`.
+   2. Run the program by opening a new terminal window and entering `java -jar manager.jar`.
       The program would give a warning that a line cannot be loaded, and the `Event` represented by the line would not be present in the `Event`s list.
+      
+   3. Essentially all corrupted rows are ignored and file parsing will still work

@@ -224,59 +224,63 @@ Format: `exit`
 
 ### Saving of program data
 
-The program saves its stored data into three `.csv` files in the same directory as the application `.JAR`.
+The program saves its stored data into `data.csv` files in the same directory as the application `.JAR`.
 
-These files are as follows:
+This file consolidates information on `Events`, `Participants` and `Items` as follows:
 
-* `events.csv`, which stores data on the `Event`s stored in the program,
-* `participants.csv`, which stores data on the `Participant`s for all `Event`s,
-* `items.csv`, which stores data on the `Item`s for all `Event`s,
+* Each `Event` is stored with fields for its name, datetime, venue, priority, and completion status.
+* Each `Participant` entry is tied to a corresponding `Event` and includes the participant’s name, contact number, email, attendance status, and the event name.
+* Each `Item` entry, also tied to an `Event`, includes the item’s name, availability status, and event name.
 
-The data is saved after the execution of every command and upon program startup.
+The data is saved after the execution of every command and upon program termination.
 
 ### Loading of program data
 
-The saved program data in the aforementioned three files is loaded into the program upon program startup.
+Upon startup, the program loads data from the `data.csv` file.
 
-If any one of the files do not exist in the directory, the file will be created when the data is saved.
+If the file does not exist in the directory, it will be automatically created when data is saved.
 
 ### Editing of saved program data
 
-Experienced users may feel free to edit the saved data in the `.csv` files.
+Amendment of data is strictly restricted to the program.
+
+Direct amendment from `data.csv` files is not recommended to prevent data from being lost due to incorrect detail inputs.
 
 The program data is stored in the following format:
 
-For `events.csv`:
+For Events
 
 ```
-EVENT,TIME,VENUE,PRIORITY,STATUS
+EVENT,EVENT_NAME,TIME,VENUE,PRIORITY,STATUS
 ```
 
 * `TIME` must be in the format `yyyy-mm-dd hh:mm`.
 * `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
 * `STATUS` must be either `Y` or `N`
 
-For `participants.csv`:
+For Participants:
 
 ```
-PARTICIPANT,NUMBER,EMAIL,STATUS,EVENT
+PARTICIPANT,PARTICIPANT_NAME,NUMBER,EMAIL,EVENT,STATUS
 ```
 
+* `NUMBER` must be a 8-digit number
+* `EMAIL` must follow a similar format such as example@gmail.com
+* An entry for the `Event` corresponding to `EVENT` must be present in `data.csv`.
 * `STATUS` must be either `Y` or `N`
-* An entry for the `Event` corresponding to `EVENT` must be present in `events.csv`.
 
-For `items.csv`:
+For Items:
 
 ```
-ITEM,STATUS,EVENT
+ITEM,ITEM_NAME,EVENT,STATUS
 ```
 
+* An entry for the `Event` corresponding to `EVENT` must be present in `data.csv`.
 * `STATUS` must be either `Y` or `N`
-* An entry for the `Event` corresponding to `EVENT` must be present in `events.csv`.
 
-All fields added to the `.csv` files must also be enclosed within double quotation marks (`" "`) to be properly parsed.
+All fields added to `data.csv` must also be enclosed within double quotation marks (`" "`) to be properly parsed.
 
-If the above format or parameter constraints are not followed, the `Event`, `Participant` or `Item` corresponding to the file line will not be loaded upon program startup.
+If the above format or parameter constraints are not followed, the `Event`, `Participant` or `Item` corresponding to the file line will be ignored upon program startup.
 
 ## Command Summary
 

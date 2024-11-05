@@ -3,21 +3,62 @@
 hide footbox
 
 Participant ":Main" as main
-Participant ":Storage" as storage 
-Participant ":Parser" as parser 
-Participant ":EventList" as event 
+Participant ":Storage" as storage STORAGE_COLOUR
+Participant ":FileParser" as parser PARSER_COLOUR
+Participant ":EventList" as events EVENT_COLOUR
 
-main -> storage : loadEvents(events : EventList)
-activate storage 
-storage --> parser : parseFile(events, FILE_PATH)
-activate parser 
-parser -> event : addEvent(eventName, time, venue)
-activate event 
-event --> parser
-deactivate event
+main -> main : loadData()
+activate main
+main -> storage : loadInfo(eventList)
+activate storage STORAGE_COLOUR
+
+create parser
+storage -> parser : FileParser(eventList, filePath)
+activate parser PARSER_COLOUR
+return
+
+storage -> parser : parseFile(eventList, filePath)
+activate parser PARSER_COLOUR
+
+loop for line in file
+
+
+    parser -> parser : parseLine(events, fields, formatter)
+    activate parser PARSER_COLOUR
+
+    alt EVENT
+        parser -> parser : parseEventFileLine(events, fields, formatter)
+        activate parser PARSER_COLOUR
+        parser -> events : addEvent(...)
+        activate events EVENT_COLOUR
+        return
+        return
+    else PARTICIPANT
+        parser -> parser : parseParicipantFileLine(events, fields)
+        activate parser PARSER_COLOUR
+        parser -> events : addParticipantToEvent(...)
+        activate events EVENT_COLOUR
+        return
+        return
+    else ITEM
+        parser -> parser : parseItemFileLine(events, fields)
+        activate parser PARSER_COLOUR
+        parser -> events : addItemToEvent(...)
+        activate events EVENT_COLOUR
+        return
+        return
+    end
+    return
+    deactivate events
+end
+
+
 parser --> storage
 deactivate parser
-storage -> main
+storage --> main
 deactivate storage
+main --> main
+deactivate main
+
 
 @enduml
