@@ -762,6 +762,38 @@ The user is able to organise and manage his events more quickly and efficiently 
    2. Test case: `remove -m Item 1 -e Event 1`  
       Expected: No `Item` is removed. An error message is shown.
 
+### Editing an event
+
+1. Editing an `Event` in the `Event` list.
+
+   1. Prerequisite: An event with name `Event 1` and venue `Function Room` is present in the list.  
+      List all `Event`s with `list` after each test case.   
+   
+   2. Test case: `edit -e Event 1 -name Event 1 -t 2024-10-25 16:00 -v Billards Room -u HIGH`  
+      Expected: The venue for `Event 1` is changed to `Billards Room`. A success message is shown.
+
+### Editing a participant
+
+1. Editing a `Participant` in an `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+      A `Participant` with the name `Jonathan` and number `97835365` is present in `Event 1`'s `Participant` list.
+      List all `Participant`s with `view -e Event 1 -y participant` after each test case.
+   
+   2. Test case: `edit -p Jonathan -n 91823213 -email jona@gmail.com -e Event 1`  
+      Expected: The number for `Jonathan` is changed to `91823213`. A success message is shown.
+
+### Editing an item
+
+1. Editing an `Item` in an `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+      A `Item` with the name `Toilet roll` is present in `Event 1`'s `Item` list.
+      List all `Item`s with `view -e Event 1 -y item` after each test case.
+
+   2. Test case: `edit Toilet roll > Kitchen towel -e Event 1`  
+      Expected: `Toilet roll` is no longer present, and `Kitchen towel` is present, in the `Item`s list. A success message is shown.
+
 ### Viewing an event
 
 1. Viewing the `Participant`/`Item` list of an `Event`
@@ -783,7 +815,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 
 ### Marking a participant as present
 
-1. Marking an `Participant` from an `Event`
+1. Marking an `Participant` in an `Event`
 
    1. Prerequisite: An event with the name `Event 1` is present in the list.
       A `Participant` with the name `Participant 1` is present in `Event 1`'s `Participant` list.
@@ -799,7 +831,7 @@ The user is able to organise and manage his events more quickly and efficiently 
    4. Test case: `mark -p Participant 2 -e Event 1 -s present`  
       Expected: No `Participant` is marked. An error message is shown.
 
-2. Marking a `Participant` from an invalid `Event`
+2. Marking a `Participant` in an invalid `Event`
 
    1. Prerequisite: An event with the name `Event 1` is not present in the list.
       List all `Participant`s with `view -e Event 1 -y participant` after each test case.
@@ -809,7 +841,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 
 ### Marking an item as accounted for
 
-1. Marking an `Item` from an `Event`
+1. Marking an `Item` in an `Event`
 
    1. Prerequisite: An event with the name `Event 1` is present in the list.
       A `Item` with the name `Item 1` is present in `Event 1`'s `Item` list.
@@ -825,7 +857,7 @@ The user is able to organise and manage his events more quickly and efficiently 
    3. Test case: `mark -m Item 2 -e Event 1 -s accounted`  
       Expected: No `Item` is marked. An error message is shown.
 
-2. Marking an `Item` from an invalid `Event`
+2. Marking an `Item` in an invalid `Event`
 
    1. Prerequisite: An event with the name `Event 1` is not present in the list.
       List all `Item`s with `view -e Event 1 -y item` after each test case.
