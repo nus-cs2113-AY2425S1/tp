@@ -417,10 +417,10 @@ to check and plan course mappings for that specified course.
   to search within the personalised tracker. If there is no keyword, an `IllegalArgumentException` will be thrown.
 * Then the keyword will be passed to the `findCommand()` method.
 * In the `findCommand` method, the mappings in the tracker are retrieved through 
-  `List<String> mappedCourses = storage.loadAllCourses()`. If the tracker is empty, a message indicating empty tracker 
+  `List<Course> mappedCourses = storage.loadAllCourses()`. If the tracker is empty, a message indicating empty tracker 
   will be printed.
 * Next, `matchKeyword()` will be called and it iterates the mappedCourses in the tracker to search for mappings that 
-  match the keyword and adds them into a `List<String> foundCourses`.
+  match the keyword and adds them into a `List<Course> foundCourses`.
 * Lastly, `printFindCommand` will iterate and print the course mappings inside mappedCourses through 
   `printFoundCourses()` in `UI` class. If mappedCourses is empty, an IllegalArgumentException is thrown.
 
