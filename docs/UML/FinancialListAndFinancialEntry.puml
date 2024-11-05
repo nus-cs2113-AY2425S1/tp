@@ -1,36 +1,42 @@
-@startuml
-class FinancialList {
-    - ArrayList<FinancialEntry> entries
-    + addEntry(FinancialEntry entry)
-    + deleteEntry(int index)
-    + editEntry(int index, double amount, String description)
-    + getEntry(int index) : FinancialEntry
-    + getEntryCount() : int
-}
 
+@startuml
 abstract class FinancialEntry {
+    - String description
     - double amount
     - LocalDate date
-    - String description
-    + getAmount() : double
-    + getDescription() : String
-    + getDate() : LocalDate
-    + setAmount(double newAmount)
-    + setDescription(String newDescription)
-    + setDate(LocalDate newDate)
+    {abstract} + getCategory() : Enum<>
+}
+
+class FinancialList {
+    - ArrayList<FinancialEntry> entries
+    - Map<Expense.Category, Double> totalExpenseByCategory
+    - Map<Income.Category, Double> totalIncomeByCategory
+    + FinancialList()
+    + addEntry(FinancialEntry entry) : void
+    + deleteEntry(int index) : void
+    + editEntry(int index, double amount, String description, LocalDate date, Enum<?> category) : void
+    + getEntry(int index) : FinancialEntry
+    + getEntryCount() : int
+    + getTotalExpenseByCategory() : Map<Expense.Category, Double>
+    + getTotalIncomeByCategory() : Map<Income.Category, Double>
+    + getHighestExpenseCategory() : Map.Entry<Expense.Category, Double>
+    + getHighestIncomeCategory() : Map.Entry<Income.Category, Double>
+    + clearCategoryTotals() : void
 }
 
 class Income {
-    + toString() : String
-    + toStorageString() : String
+    - Category category
+    + Income(double amount, String description, LocalDate date, Category category)
+    + getCategory() : Income.Category
 }
 
 class Expense {
-    + toString() : String
-    + toStorageString() : String
+    - Category category
+    + Expense(double amount, String description, LocalDate date, Category category)
+    + getCategory() : Expense.Category
 }
 
-FinancialList "1" --> "*" FinancialEntry : manages
+FinancialList "1" --> "*" FinancialEntry
 FinancialEntry <|-- Income
 FinancialEntry <|-- Expense
 

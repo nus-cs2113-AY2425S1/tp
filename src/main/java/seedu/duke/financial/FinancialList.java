@@ -26,6 +26,13 @@ public class FinancialList {
         totalIncomeByCategory = new HashMap<>();
     }
 
+    /**
+     * Determines if the entry should decrement index based on the date ordering.
+     *
+     * @param entry The financial entry to be checked.
+     * @param insertIndex The index where the entry is considered to be inserted.
+     * @return true if the previous entry date is after the current entry date.
+     */
     private boolean shouldDecrementIndex(FinancialEntry entry, int insertIndex) {
         assert insertIndex >= 0 : "Negative Index entered.";
         if (insertIndex == 0){
@@ -173,6 +180,9 @@ public class FinancialList {
                 .orElse(Map.entry(Income.Category.UNCATEGORIZED, AMOUNTZERO));  // Default if no entries
     }
 
+    /**
+     * Clears all category totals for both expenses and income.
+     */
     public void clearCategoryTotals() {
         totalExpenseByCategory.clear();
         totalIncomeByCategory.clear();

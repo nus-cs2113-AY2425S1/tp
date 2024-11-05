@@ -1,16 +1,56 @@
-@startuml
-actor User
-participant AppUi
-participant InputParser
-participant AddCommand
-participant FinancialList
-participant FinancialEntry
 
-User -> AppUi: enters "add expense 50 groceries 10/27/2023"
-AppUi -> InputParser: parse("add expense 50 groceries 10/27/2023")
-InputParser -> AddCommand: create AddCommand with parsed details
-AddCommand -> FinancialEntry: create new Expense(50, "groceries", date)
-AddCommand -> FinancialList: addEntry(Expense)
-FinancialList -> entries: add Expense to entries list
-AddCommand -> AppUi: display "Expense added successfully!"
+@startuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor User
+participant "financialList:FinancialList" as FL
+participant "entry:FinancialEntry" as FE
+
+User -> FL : create FinancialList()
+User -> FE : create FinancialEntry(amount, description, date, category)
+
+User -> FL : addEntry(FinancialEntry entry)
+activate FL
+FL -> FE : validate and categorize entry
+activate FE
+return
+FL -> FL : insert entry in date order
+return
+
+loop i < FL.getEntryCount()
+    User -> FL : getEntry(i)
+    activate FL
+    return FE
+
+    User -> User : shouldIncludeEntry(FE)
+    activate User
+    return decision to include entry
+
+    opt entry should be included
+        User -> User : increment entryCount
+        User -> FE : toString()
+        activate FE
+        return entryString
+        User -> User : append entry to entryList
+        User -> User : update net cashflow with amount
+        FL -> FL : update total by category
+        activate FL
+        return
+    end
+end
+
+alt entryCount == 0
+    User -> User : print no entry message
+else
+    User -> User: print entryList and net cashflow
+    User -> FL : getHighestExpenseCategory()
+    activate FL
+    return highestExpenseCategory
+    User -> FL : getHighestIncomeCategory()
+    activate FL
+    return highestIncomeCategory
+    User -> User: print highest expense/income categories
+end
+
 @enduml
