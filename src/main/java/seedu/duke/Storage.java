@@ -1,8 +1,6 @@
 package seedu.duke;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 
 public class Storage {
@@ -40,5 +38,46 @@ public class Storage {
         Category newCategory = new Category(categoryName);
         trackerData.getCategories().add(newCategory);
         return newCategory;
+    }
+
+    public void loadData(TrackerData trackerData) throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            System.out.println("Data file not found.");
+            return;
+        }
+
+        //System.out.println("Loading data from file: " + filePath);
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            boolean isBudgetSection = true;
+
+            while ((line = reader.readLine()) != null) {
+                //System.out.println("Read line: " + line);
+                if (line.equals("Budgets")) {
+                    isBudgetSection = true;
+                    continue;
+                } else if (line.equals("Expenses")) {
+                    isBudgetSection = false;
+                    continue;
+                }
+
+                String[] parts = line.split(", ");
+                if (isBudgetSection) {
+                    String categoryName = parts[0];
+                    double limit = Double.parseDouble(parts[1]);
+                    Category category = new Category(categoryName);
+                    Budget budget = new Budget(category, limit);
+                    trackerData.getBudgets().put(category, budget);
+                } else {
+                    String expenseName = parts[0];
+                    double amount = Double.parseDouble(parts[1]);
+                    String categoryName = parts[2];
+                    Category category = loadCategory(trackerData, categoryName);
+                    Expense expense = new Expense(expenseName, amount, category);
+                    trackerData.getExpenses().add(expense);
+                }
+            }
+        }
     }
 }
