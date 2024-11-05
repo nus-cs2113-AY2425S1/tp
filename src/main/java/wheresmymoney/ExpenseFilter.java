@@ -32,7 +32,6 @@ public class ExpenseFilter {
      *
      * @return true if all criteria are either null or matched
      */
-
     public static boolean isFiltered(Expense expense, String category, String startDate, String endDate)
             throws WheresMyMoneyException {
         if (category != null && !isInCategory(expense, category)) {

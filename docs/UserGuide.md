@@ -123,14 +123,15 @@ Example: `set /category food /limit 100`
 
 Lists the command formats that the app recognises.
 
-Format: `help [/command COMMAND]`
+Format: `help [/method METHOD]`
 
 Notes:
-- `COMMAND` is any command's name that exists in our app.
+- `METHOD` is text.
+- `METHOD` exists in our app.
 
 Examples:
-- `help`              lists all commands of the app.
-- `help /command add` provides information on the `add` command.
+- `help`              lists all commands the app has since `METHOD` is not specified.
+- `help /method add` lists format of the “add” command since `METHOD` is specified.
 
 ### Save data to files: `save`
 
@@ -181,7 +182,7 @@ Only when you run the `load` command will these expenses generate "normal expens
 
 Adds a recurring expense to the system.
 
-Format:  `add /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]`
+Format:  `add /recur /price PRICE /description DESCRIPTION /category CATEGORY /date DATE /frequency FREQUENCY`
 
 Notes:
 - `/recur` is a command flag indicating that the command is for a recurring expense.
@@ -191,8 +192,8 @@ Notes:
 - `FREQUENCY` takes only 1 of 3 possible inputs: `daily`, `weekly`, or `monthly`. Any other input will throw an error.
 
 Examples: 
-- `add /price 4.50 /description chicken rice /category food /frequency daily`
-- `add /price 15 /description Spotify /category subscription /date 01-10-2024 /frequency monthly`
+- `add /recur /price 4.50 /description chicken rice /category food /frequency daily`
+- `add /recur /price 15 /description Spotify /category subscription /date 01-10-2024 /frequency monthly`
 
 ### Edit a recurring expense: `edit`
 
@@ -210,8 +211,8 @@ Notes:
 - All parameters except `INDEX` and `/recur` are optional. You can specify which attribute of the expense you want to edit.
  
 Examples: 
-- `edit 1 /price 5.50 /description chicken rice /category food`
-- `edit 2 /price 3.40 /frequency monthly /date 02-10-2024`
+- `edit 1 /recur /price 5.50 /description chicken rice /category food`
+- `edit 2 /recur /price 3.40 /frequency monthly /date 02-10-2024`
 
 ### Delete a recurring expense: `delete`
 
@@ -219,7 +220,7 @@ Deletes a recurring expense. Use `list /recur` to find the corresponding index.
 
 Format:  `delete /recur INDEX`
 
-Example: `delete 2` 
+Example: `delete /recur 2` 
 
 ### Get a list of all your transactions: `list`
 
@@ -264,19 +265,18 @@ On top of working the same way as normal expenses, this command also checks whet
 
 ## Command Summary
 
-
-| Command                           | Format                                                                      | 
-|-----------------------------------|-----------------------------------------------------------------------------|
-| Add Expense                       | `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`        |
-| Edit Expense                      | `edit [INDEX] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]` |
-| Delete Expense                    | `delete [INDEX]`                                                            |
-| List Expenses                     | `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                 | 
-| Get Statistics                    | `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                | 
-| Set Spending Limit for a Category | `set [/category CATEGORY] [/limit LIMIT]`                                   |
-| View Help                         | `help [/command COMMAND]`                                                   |
-| Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH`                                                                      |
-| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH`                                                                      |
-| Add Reccuring Expense             | `add [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]`        |
-| Edit Reccuring Expense            | `edit INDEX [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]` |
-| Delete Reccuring Expense          | `delete [INDEX]`                                                            |
-| List Reccuring Expenses           | `list [/recur] [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                 | 
+| Command                           | Format                                                                                                               | 
+|-----------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| Add Expense                       | `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                                    |
+| Edit Expense                      | `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                             |
+| Delete Expense                    | `delete [INDEX]`                                                                                                     |
+| List Expenses                     | `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                          | 
+| Get Statistics                    | `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                         | 
+| Set Spending Limit for a Category | `set [/category CATEGORY] [/limit LIMIT]`                                                                            |
+| View Help                         | `help [/method METHOD]`                                                                                              |
+| Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`   |
+| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`   |                                                             |
+| Add Recurring Expense             | `add [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]`    |
+| Edit Recurring Expense            | `edit INDEX [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                    |
+| Delete Recurring Expense          | `delete [INDEX]`                                                                                                     |
+| List Recurring Expenses           | `list [/recur] [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                 | 
