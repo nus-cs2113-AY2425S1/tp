@@ -67,7 +67,6 @@ public class EditEntryCommand extends Command {
             throw new IllegalArgumentException("Invalid date format: " + date, e);
         }
 
-        assert amount >= 0 : "Amount should be non-negative";
         assert description !=null && !description.isEmpty() : "Description should not be empty";
     }
 
