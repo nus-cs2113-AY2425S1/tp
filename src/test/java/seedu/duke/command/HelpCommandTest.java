@@ -58,8 +58,10 @@ class HelpCommandTest {
                 "    - Optional: Specify start/end date to only list transactions before/after specified dates\n" +
                 "2. expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]\n" +
                 "   - Adds a new expense with an optional date and category\n" +
+                "   - Categories include: FOOD, TRANSPORT, ENTERTAINMENT, UTILITIES, OTHER, UNCATEGORIZED\n" +
                 "3. income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]\n" +
                 "   - Adds a new income with an optional date and category\n" +
+                "   - Categories include: SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED\n" +
                 "4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]\n" +
                 "   - Edits the transaction at the specified INDEX with optional fields\n" +
                 "5. delete INDEX\n " +
