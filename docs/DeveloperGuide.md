@@ -449,5 +449,139 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 * PU: Partner University
 
 ## Instructions for manual testing
+> [NOTE!]
+>These instructions only provide a starting point for testers to work on;
+testers are expected to do more *exploratory* testing.
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### 1. Start ExchangeCourseMapper
+1. Ensure that you have Java 17 or above installed.
+2. Download the latest version of `ExchangeCourseMapper` from [here](http://link.to/duke).
+3. Download the JAR file and save it on your computer.
+4. Copy the absolute path of where the jar file is saved.
+5. In Terminal, run `java -jar /path/to/ExchangeCourseMapper.jar`
+6. Expected: Welcome message on the terminal, prompting for the user's input
+
+### 2. Test Cases
+#### 2.1 Start State
+* 2.1.1. Introduction to ExchangeCourseMapper
+   * Test Case: `commands` <br/>
+   * Expected: Prints out the summarised list of possible commands in ExchangeCourseMapper.
+* 2.1.2. More details for each command
+  * Test Case: `help ACTION`, where `ACTION` is one of the commands listed by `commands`.<br/>
+  * Expected: Prints out the function of each command and the valid command format.
+
+#### 2.2 Obtain names of Partner Universities in Oceania
+* 2.2.1 List all Partner Universities (PUs) in Oceania
+  * Prerequisites: None
+  * Test Case: `list schools` <br/>
+  * Expected: List of names of PUs in Oceania.
+
+#### 2.3 Find mappable courses in a specific PU in Oceania
+> [NOTE!]
+> SCHOOL_NAME is not case-sensitive, but must be the same as the name listed by the `list schools` command,
+> word for word!
+* 2.3.1 See all mappable courses from a valid PU
+  * Prerequisites: None
+  * Test Case: `set SCHOOL_NAME`, where `SCHOOL_NAME` is one of the PUs listed by `list schools` <br/>
+  * Expected: List of mappable courses, with information of the PU course code and name to the matching
+    NUS course code and name.
+
+
+* 2.3.2 See all mappable courses from an invalid PU
+  * Prerequisites: None
+  * Test Case: `set SCHOOL_NAME`, where `SCHOOL_NAME` is NOT one of the PUs listed by `list schools` <br/>
+  * Expected: Error message stating that input is an unknown university.
+
+
+#### 2.4 Obtain admin information of PUs in Oceania
+> [NOTE!]
+> SCHOOL_NAME is not case-sensitive, but must be the same as the name listed by the `list schools` command,
+> word for word!
+* 2.4.1 Obtain valid PU's email
+  * Prerequisites: None
+  * Test Case: `obtain The University of Melbourne /email`
+  * Expected: Prints out email of The University of Melbourne.
+
+
+* 2.4.2 Obtain invalid PU's email
+  * Prerequisites: None
+  * Test Case: `obtain tokyo university /email`
+  * Expected: Error message stating that input is an unknown university in the program.
+
+* 2.4.3 Obtain valid PU's email
+  * Prerequisites: None
+  * Test Case: `obtain The University of Melbourne /number`
+  * Expected: Prints out email The University of Melbourne.
+
+
+* 2.4.4 Obtain invalid PU's email
+  * Prerequisites: None
+  * Test Case: `obtain tokyo university /number`
+  * Expected: Error message stating that input is an unknown university in the program.
+
+
+#### 2.5 Filter and obtain mappable courses for a specific NUS SoC course code
+* 2.5.1 Filter using a valid SoC course code with possible mappings
+  * Prerequisites: None
+  * Test Case: `filter cs3241`<br/>
+  * Expected: Prints out all the courses offered by the PUs that can be mapped to cs3241.
+
+
+* 2.5.2 Filter using a valid SoC course code with no possible mappings
+  * Prerequisites: None
+  * Test Case: `filter cs1231`<br/>
+  * Expected: Prints out error message stating that there are no mappable courses for the given NUS course code.
+
+
+* 2.5.3 Filter using a non-SoC course code
+  * Prerequisites: None
+  * Test Case: `filter gess1010`<br/>
+  * Expected: Prints out error message stating that filter only works for CS/CG/BT/IS/EE courses.
+
+
+#### 2.6 Listing out all saved course mapping plans
+##### Non-corrupted data file
+* 2.6.1 Listing an empty data file
+  * Prerequisites: None
+  * Test Case: `list mapped`<br/>
+  * Expected: Prints out message that the user has not saved any course mapping plans yet.
+
+
+* 2.6.2 Listing a non-empty data file
+  * Prerequisites: At least one saved course mapping plan saved in myList.json
+  * Test Case: `list mapped`<br/>
+  * Expected: Prints out list of saved course mapping plans, each containing information on: NUS course code,
+    Partner University's name and the course that it offers which is mappable to the NUS course code.
+
+
+##### Corrupted data file
+* 2.6.3 Listing a non-empty data file
+  * Prerequisites: At least one saved course mapping plan saved in myList.json, then remove any of the information
+    (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code)
+    one line.
+  * Test Case: `list mapped`<br/>
+  * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
+
+
+#### 2.7 Compare saved course mapping plans between universities
+##### Non-corrupted data file
+* 2.7.1 Comparing with an empty data file
+  * Prerequisites: None
+  * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
+  * Expected: Prints out message that there are no unique mappings currently saved for each given PU.
+
+
+* 2.7.2 Comparing with a non-empty data file
+  * Prerequisites: At least one saved course mapping plan saved in myList.json, for either The University of Melbourne 
+    or The University of Western Australia.
+  * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
+  * Expected: Prints out message that the unique mappings currently saved for each given PU.
+
+
+##### Corrupted data file
+* 2.7.3 Listing a non-empty data file
+  * Prerequisites: At least one saved course mapping plan saved in myList.json, then remove any of the information
+    (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code)
+    one line.
+  * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
+  * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
