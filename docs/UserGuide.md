@@ -118,15 +118,15 @@ Examples: `set /category food /limit 100`
 
 Use the help command to list the command formats that the app recognises.
 
-Format: `help [/command COMMAND]`
+Format: `help [/method METHOD]`
 
 Notes:
-- `COMMAND` is text.
-- `COMMAND` exists in our app.
+- `METHOD` is text.
+- `METHOD` exists in our app.
 
 Examples:
-- `help`              lists all commands the app has since `COMMAND` is not specified.
-- `help /command add` lists format of the “add” command since `COMMAND` is specified.
+- `help`              lists all commands the app has since `METHOD` is not specified.
+- `help /method add` lists format of the “add” command since `METHOD` is specified.
 
 ### Save data to files: `save`
 
@@ -255,19 +255,18 @@ On top of working the same way as normal expenses, this command also checks whet
 
 ## Command Summary
 
-
-| Command                           | Format                                                                      | 
-|-----------------------------------|-----------------------------------------------------------------------------|
-| Add Expense                       | `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`        |
-| Edit Expense                      | `edit [INDEX] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]` |
-| Delete Expense                    | `delete [INDEX]`                                                            |
-| List Expenses                     | `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                 | 
-| Get Statistics                    | `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                | 
-| Set Spending Limit for a Category | `set [/category CATEGORY] [/limit LIMIT]`                                   |
-| View Help                         | `help [/command COMMAND]`                                                   |
-| Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH`                                                                      |
-| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH`                                                                      |
-| Add Reccuring Expense             | `add [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]`        |
-| Edit Reccuring Expense            | `edit INDEX [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]` |
-| Delete Reccuring Expense          | `delete [INDEX]`                                                            |
-| List Reccuring Expenses           | `list [/recur] [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                 | 
+| Command                           | Format                                                                                                               | 
+|-----------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| Add Expense                       | `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                                    |
+| Edit Expense                      | `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                             |
+| Delete Expense                    | `delete [INDEX]`                                                                                                     |
+| List Expenses                     | `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                          | 
+| Get Statistics                    | `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                         | 
+| Set Spending Limit for a Category | `set [/category CATEGORY] [/limit LIMIT]`                                                                            |
+| View Help                         | `help [/method METHOD]`                                                                                              |
+| Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`   |
+| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`   |                                                             |
+| Add Recurring Expense             | `add [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]`    |
+| Edit Recurring Expense            | `edit INDEX [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                    |
+| Delete Recurring Expense          | `delete [INDEX]`                                                                                                     |
+| List Recurring Expenses           | `list [/recur] [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                 | 
