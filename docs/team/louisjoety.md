@@ -31,7 +31,7 @@ Check out my contributions on the [TP Dashboard](https://nus-cs2113-ay2425s1.git
 
 ### Refactoring
 * General refactoring of code to ensure they follow SLAP on 
-* xxx
+* Help grp do QA to obtain bugs around code namely in storage and complex commands
 
 ## 3. User Guide
 {WIP}
