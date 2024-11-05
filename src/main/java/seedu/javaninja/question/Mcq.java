@@ -21,5 +21,4 @@ public class Mcq extends Question {
             System.out.println(option);
         }
     }
-
 }

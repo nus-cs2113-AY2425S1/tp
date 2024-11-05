@@ -19,9 +19,4 @@ public class Flashcard extends Question {
     public String getQuestionType () {
         return "FC";
     }
-
-
-
-
-
 }

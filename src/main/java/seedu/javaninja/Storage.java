@@ -95,7 +95,4 @@ public class Storage {
         writer.write(""); // Clear file content
         writer.close();
     }
-
-
-
 }

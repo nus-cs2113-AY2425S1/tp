@@ -13,9 +13,9 @@ import java.util.logging.Logger;
 
 public class TopicManager {
     private static final Logger logger = Logger.getLogger(TopicManager.class.getName());
-    private List<Topic> topics;
     private static final String QUESTIONS_FILE_PATH = "./data/Questions.txt";
     private static Storage questions;
+    private List<Topic> topics;
 
     public TopicManager() {
         this.topics = new ArrayList<>();
@@ -133,7 +133,7 @@ public class TopicManager {
             topic.addQuestion(new FillInTheBlank(questionText, correctAnswer));
             break;
         default:
-           logger.warning("Invalid question type: " + questionType);
+            logger.warning("Invalid question type: " + questionType);
         }
     }
 }
