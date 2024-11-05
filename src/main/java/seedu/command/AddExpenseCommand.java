@@ -74,7 +74,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
             ui.printMiddleMessage("No category specified. Enter a category or type 'no' to skip: ");
             categoryName = ui.getUserInput().trim();
             if (categoryName.equalsIgnoreCase("no")) {
-                return null; // Proceed without category
+                return new Category(""); // Proceed without category
             }
         }
 
@@ -84,7 +84,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
     private Category getOrCreateCategory(String categoryName) {
         Category category = categoryList.findCategory(categoryName);
         if (category != null) {
-            return new Category("");
+            return category;
         }
 
         while (true) {
