@@ -40,7 +40,8 @@ class QuizManagerTest {
         scanner.close();
 
         // Assert that past results remain empty since no valid quiz was selected
-        assertEquals("No past results available. You haven't completed any quizzes yet.", quizManager.getQuizResults().getPastResults());
+        assertEquals("No past results available. You haven't completed any quizzes yet.",
+            quizManager.getQuizResults().getPastResults());
 
     }
 

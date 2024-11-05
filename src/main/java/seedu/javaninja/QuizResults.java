@@ -58,5 +58,4 @@ public class QuizResults {
         pastResults.forEach(result -> results.append(result).append("\n"));
         return results.toString();
     }
-
 }

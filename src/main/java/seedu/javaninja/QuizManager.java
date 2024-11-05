@@ -81,5 +81,4 @@ public class QuizManager {
     public TopicManager getTopicManager() {
         return this.topicManager;
     }
-
 }

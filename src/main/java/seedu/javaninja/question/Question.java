@@ -18,5 +18,4 @@ public abstract class Question {
     public abstract boolean checkAnswer(String answer);
 
     public abstract void printOptions();
-
 }

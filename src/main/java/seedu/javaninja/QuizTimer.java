@@ -34,5 +34,4 @@ public class QuizTimer {
     public boolean isTimeUp() {
         return timeUp.get();
     }
-
 }

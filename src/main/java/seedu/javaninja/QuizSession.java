@@ -54,5 +54,4 @@ public class QuizSession {
         }
         return this.currentQuiz;
     }
-
 }
