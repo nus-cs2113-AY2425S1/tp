@@ -44,7 +44,7 @@ public class Reminder extends Saveable {
 
         String reminderDescription = stringData[1];
         LocalDateTime reminderDeadline = LocalDateTime.parse(stringData[2],
-                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
         String[] reminderUserData = stringData[3].split(" ");
 

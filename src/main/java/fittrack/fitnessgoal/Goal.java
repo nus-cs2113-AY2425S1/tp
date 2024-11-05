@@ -3,6 +3,7 @@ import fittrack.storage.Saveable;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Goal extends Saveable {
 
@@ -37,6 +38,7 @@ public class Goal extends Saveable {
                 deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "");
     }
 
+    // Parses a formatted string from a save-file to load a new goal.
     public static Goal fromSaveString(String saveString) {
         // Split the string by the " | " delimiter
         String[] stringData = saveString.split(" \\| ");
@@ -47,9 +49,15 @@ public class Goal extends Saveable {
         }
 
         String goalDescription = stringData[1];
-        LocalDateTime goalDeadline = LocalDateTime.parse(stringData[2],
-                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
 
-        return new Goal(goalDescription, goalDeadline);
+        try {
+            LocalDateTime goalDeadline = LocalDateTime.parse(stringData[2],
+                    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+            return new Goal(goalDescription, goalDeadline);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid save string format for Goal: " + saveString);
+        }
+
+        return null;
     }
 }

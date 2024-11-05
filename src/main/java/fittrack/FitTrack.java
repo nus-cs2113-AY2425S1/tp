@@ -1,6 +1,7 @@
 package fittrack;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,7 +28,7 @@ public class FitTrack {
     /**
      * Main entry-point for the FitTrack CLI application.
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         setupLogger();
 
         // Initialize scanner and and unified saveable-item list

@@ -7,10 +7,9 @@ public abstract class Saveable {
      *
      * @return String using format "{@code itemType} | {@code Description} | ...Misc-information... | {@code User}"
      */
-
     public abstract String toSaveString();
 
-    // Parses a formatted string to load task data from a save-file
+    // Parses a formatted string from a save-file to create a new Saveable item.
     public static Saveable fromSaveString(String saveString) {
         throw new UnsupportedOperationException("Must be implemented by subclass.");
     }
