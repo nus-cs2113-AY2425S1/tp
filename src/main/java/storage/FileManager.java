@@ -23,30 +23,71 @@ public class FileManager {
     private final String path;
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
+    /**
+     * Constructs a FileManager with a specified file path.
+     *
+     * @param path the path to the file for storing data
+     */
     public FileManager(String path) {
         this.path = path;
     }
 
+    /**
+     * Loads the JSON object containing the programme list from the data loaded by the {@link #load()} method.
+     * <p>
+     * This method retrieves the "programmeList" section from the JSON data. If the "programmeList" section
+     * is not found, returns an empty JSON object.
+     *
+     * @return the JSON object containing the programme list if available, or an empty JSON object if not found
+     */
     public JsonObject loadProgrammeList() {
-        JsonObject jsonObject = load();
-        if(jsonObject == null || !jsonObject.has("programmeList")) {
-            logger.log(Level.INFO, "No programme list found.");
+        try {
+            JsonObject jsonObject = load();
+            if (jsonObject == null || !jsonObject.has("programmeList")) {
+                logger.log(Level.INFO, "No programme list found.");
+                return new JsonObject();
+            }
+            logger.log(Level.INFO, "Programme list Loaded");
+            return jsonObject.getAsJsonObject("programmeList");
+        } catch (RuntimeException e) {
+            logger.log(Level.WARNING, "Failed to load programme list: " + e.getMessage());
             return new JsonObject();
         }
-        logger.log(Level.INFO, "Programme list Loaded");
-        return jsonObject.getAsJsonObject("programmeList");
     }
 
+    /**
+     * Loads the JSON object containing the history from the data loaded by the {@link #load()} method.
+     * <p>
+     * This method retrieves the "history" section from the JSON data. If the "history" section
+     * is not found, returns an empty JSON object.
+     *
+     * @return the JSON object containing the history if available, or an empty JSON object if not found
+     */
     public JsonObject loadHistory() {
-        JsonObject jsonObject = load();
-        if(jsonObject == null || !jsonObject.has("history")) {
-            logger.log(Level.INFO, "No history found.");
+        try {
+            JsonObject jsonObject = load();
+            if (jsonObject == null || !jsonObject.has("history")) {
+                logger.log(Level.INFO, "No history found.");
+                return new JsonObject();
+            }
+            logger.log(Level.INFO, "History Loaded");
+            return jsonObject.getAsJsonObject("history");
+        } catch (RuntimeException e) {
+            logger.log(Level.WARNING, "Failed to load history: " + e.getMessage());
             return new JsonObject();
         }
-        logger.log(Level.INFO, "History Loaded");
-        return jsonObject.getAsJsonObject("history");
     }
 
+    /**
+     * Loads data from the file specified by the path and converts it to a JSON object.
+     * <p>
+     * This method attempts to read the file at the specified path and parse its contents as a JSON object.
+     * If the file is empty or contains no data, an empty JSON object is returned. Any I/O errors encountered
+     * during file reading will result in a {@link RuntimeException}.
+     *
+     * @return a JSON object containing the data loaded from the file, or an empty JSON object if the file is empty
+     * @throws RuntimeException if an I/O error occurs during loading
+     */
     private JsonObject load() {
         logger.info("Attempting to load data from file: " + path);
         try (FileReader reader = new FileReader(path)){
@@ -63,6 +104,16 @@ public class FileManager {
         }
     }
 
+    /**
+     * Saves the specified JSON object to the file.
+     * <p>
+     * This method writes the contents of the provided JSON object to the file specified by the path.
+     * If the directory or file does not exist, it attempts to create them before writing. The data
+     * is saved in a pretty-printed JSON format for readability.
+     *
+     * @param data the JSON object containing the data to be saved
+     * @throws IOException if an I/O error occurs during saving
+     */
     public void save(JsonObject data) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -78,6 +129,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Creates the directory for the file if it does not exist.
+     *
+     * @throws IOException if the directory creation fails
+     */
     private void createDirIfNotExist() throws IOException {
         File dir = new File(path).getParentFile();
 
@@ -95,6 +151,11 @@ public class FileManager {
         logger.log(Level.INFO, "Directory created");
     }
 
+    /**
+     * Creates the file if it does not exist.
+     *
+     * @throws IOException if the file creation fails
+     */
     private void createFileIfNotExist() throws IOException {
         File file = new File(path);
         if (file.exists()) {

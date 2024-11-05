@@ -10,12 +10,22 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Represents a command to add a specified amount of water to the daily record for a given date.
+ */
 public class AddWaterCommand extends WaterCommand {
     public static final String COMMAND_WORD = "add";
     private static final Logger logger = Logger.getLogger(AddWaterCommand.class.getName());
 
     protected float waterToAdd;
 
+    /**
+     * Constructs an AddWaterCommand with the specified amount of water to add and the date.
+     *
+     * @param waterToAdd The amount of water to add in liters. Must be positive.
+     * @param date The date for which the water is to be added. Must not be null.
+     * @throws AssertionError if waterToAdd is not positive or date is null.
+     */
     public AddWaterCommand(float waterToAdd, LocalDate date) {
         super(date);
 
@@ -26,6 +36,13 @@ public class AddWaterCommand extends WaterCommand {
                 new Object[]{waterToAdd, date});
     }
 
+    /**
+     * Executes the command to add water to the daily record in the specified history.
+     *
+     * @param history The {@code History} object that contains daily records.
+     * @return A {@code CommandResult} containing a message indicating the success of the operation.
+     * @throws AssertionError if the daily record for the specified date is not found.
+     */
     public CommandResult execute(History history) {
         DailyRecord dailyRecord = history.getRecordByDate(date);
         assert dailyRecord != null : "Daily record not found";
