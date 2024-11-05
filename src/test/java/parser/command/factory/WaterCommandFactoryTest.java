@@ -67,7 +67,8 @@ public class WaterCommandFactoryTest {
         // Missing /w (water index) flag
         String argumentString = "/t 31-10-2024";
 
-        assertThrows(MissingFlagBuffBuddyException.class, () -> waterCommandFactory.prepareDeleteCommand(argumentString),
+        assertThrows(MissingFlagBuffBuddyException.class,
+                () -> waterCommandFactory.prepareDeleteCommand(argumentString),
                 "Missing required flag /w should throw MissingFlagBuffBuddyException.");
     }
 
@@ -75,7 +76,8 @@ public class WaterCommandFactoryTest {
     public void testPrepareViewCommandInvalidDate() {
         String argumentString = "invalid-date";
 
-        assertThrows(InvalidFormatBuffBuddyException.class, () -> waterCommandFactory.prepareViewCommand(argumentString),
+        assertThrows(InvalidFormatBuffBuddyException.class,
+                () -> waterCommandFactory.prepareViewCommand(argumentString),
                 "Invalid date format should throw InvalidFormatBuffBuddyException.");
     }
 }

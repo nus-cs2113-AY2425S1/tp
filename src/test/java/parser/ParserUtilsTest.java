@@ -175,7 +175,8 @@ class ParserUtilsTest {
         LocalDate expectedDate = LocalDate.of(2023, 8, 15);
         LocalDate actualDate = ParserUtils.parseDate(dateString);
 
-        assertEquals(expectedDate, actualDate, "The parsed date should match the expected date, ignoring extra spaces.");
+        assertEquals(expectedDate, actualDate,
+                "The parsed date should match the expected date, ignoring extra spaces.");
     }
 
     @Test

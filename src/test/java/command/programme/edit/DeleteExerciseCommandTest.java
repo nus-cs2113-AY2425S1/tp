@@ -1,6 +1,7 @@
 package command.programme.edit;
 
 import command.CommandResult;
+import exceptions.IndexOutOfBoundsBuffBuddyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import programme.Day;
@@ -102,7 +103,7 @@ class DeleteExerciseCommandTest {
         DeleteExerciseProgrammeCommand invalidCommand = new DeleteExerciseProgrammeCommand(
                 OUT_OF_RANGE_PROGRAMME_ID, VALID_DAY_ID, VALID_EXERCISE_ID
         );
-        assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
+        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> invalidCommand.execute(programmeList));
     }
 
     // Edge case for execute: Nonexistent day ID within existing programme
@@ -111,7 +112,7 @@ class DeleteExerciseCommandTest {
         DeleteExerciseProgrammeCommand invalidCommand = new DeleteExerciseProgrammeCommand(
                 VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID, VALID_EXERCISE_ID
         );
-        assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
+        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> invalidCommand.execute(programmeList));
     }
 
     // Edge case for execute: Nonexistent exercise ID within existing day
@@ -120,6 +121,6 @@ class DeleteExerciseCommandTest {
         DeleteExerciseProgrammeCommand invalidCommand = new DeleteExerciseProgrammeCommand(
                 VALID_PROGRAMME_ID, VALID_DAY_ID, OUT_OF_RANGE_EXERCISE_ID
         );
-        assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList));
+        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> invalidCommand.execute(programmeList));
     }
 }
