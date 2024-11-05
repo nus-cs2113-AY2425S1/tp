@@ -8,10 +8,11 @@ import wheresmymoney.command.DeleteCommand;
 import wheresmymoney.command.EditCommand;
 import wheresmymoney.command.HelpCommand;
 import wheresmymoney.command.ListCommand;
-import wheresmymoney.command.StatsCommand;
 import wheresmymoney.command.LoadCommand;
 import wheresmymoney.command.SaveCommand;
 import wheresmymoney.command.SetCommand;
+import wheresmymoney.command.StatsCommand;
+import wheresmymoney.command.VisualizeCommand;
 import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -144,6 +145,8 @@ public class Parser {
             return new ListCommand(argumentsMap);
         case "stats":
             return new StatsCommand(argumentsMap);
+        case "visualize":
+            return new VisualizeCommand(argumentsMap);
         case "load":
             return new LoadCommand(argumentsMap);
         case "save":

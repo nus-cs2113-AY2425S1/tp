@@ -16,7 +16,8 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Add a expense or recurring expense after prasing through arguments
+     * Add an expense or recurring expense after parsing through arguments
+     *
      * @param expenseList List of normal expenses
      * @param recurringExpenseList List of recurring expenses
      */
