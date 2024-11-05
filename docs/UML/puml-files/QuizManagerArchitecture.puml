@@ -16,7 +16,7 @@ rectangle TopicManager as TM
 rectangle QuizResults as QR
 
 QM *-down-> "1" QS : creates
-QM *-down-> "1" TM : manages
+QM *-down-\\ "1" TM : manages
 QM *-down-> "1" QR : manages
 
 rectangle Quiz as Q
@@ -45,7 +45,7 @@ rectangle storage as store
 QR *--left-> "1" store : loads past results
 Q *-> "1" store : saves results
 
-Q --> T
+Q --> "1 ..*" T : begins with
 
 
 @enduml
