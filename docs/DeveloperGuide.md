@@ -309,7 +309,7 @@ to indicate that the operation was unsuccessful. Otherwise, the operation return
 The interactions between components during the above operation are shown in the **Sequence Diagram** below:
 
 <img src = "images/RemoveParticipantSequenceDiagram.png">
-<img src = "images/RemoveParticipantEventSequenceDiagram.png">
+<img src = "images/RemoveParticipantFromEvent.png">
 
 The operation logic for `EventList#RemoveItemFromEvent()` is similar to that for `EventList#RemoveParticipantFromEvent()`.
 
@@ -635,8 +635,11 @@ The user is able to organise and manage his events more quickly and efficiently 
 
 ## Non-Functional Requirements
 
-* Should work for any **mainstream OS** as long as Java 17 is installed.
-* Should be able to store data for up to 1000 events without any loss in performance.
+* Should work for any **mainstream OS** (Windows, MacOS, Linux) as long as Java 17 is installed.
+* Should be able to store data for a large number of `Event`s without any loss in performance.
+* Should be able to execute any command within 1 second of receiving user input.
+* Should be able to load a corrupted save file without crashing.
+* Should be able to work in any directory that the `JAR` is copied to.
 
 ## Glossary
 
@@ -646,4 +649,270 @@ The user is able to organise and manage his events more quickly and efficiently 
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Launch and shutdown
+
+1. Initial launch
+
+   1. Download the `.jar` file and copy it to an empty folder.  
+   
+   2. Open a new terminal window in the folder the `.jar` file is in, and enter the command `java -jar manager.jar`.
+      Expected: The terminal will print a welcome message and prompt for user input.
+
+### Adding an event
+
+1. Adding an `Event` to the `Event` list
+
+   1. Prerequisite: An event with the name `Event 1` is not present in the `Event` list.
+      List all `Event`s with `list` after each test case.
+   
+   2. Test case: `add -e Event 1 -t 2024-10-10 -v Venue 1 -u high`
+      Expected: An `Event` with name `Event 1` is added to the `Event` list. A success message is shown.
+
+   3. Test case: `add -e Event 1 -t 2024-10-10 -v Venue 1 -u HIGH`  
+      Expected: No `Event` is added. A date-time format error message is shown.
+
+   4. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u top`  
+      Expected: No `Event` is added. An error message is shown.
+   
+2. Adding a duplicate `Event` to the `Event` list
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.  
+      List all `Event`s with `list` after each test case.
+   
+   2. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u HIGH`  
+      Expected: No `Event` is added. A duplicate entry error message is shown.
+
+### Adding a participant
+
+1. Adding a duplicate `Participant` to an `Event`
+   
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+      A `Participant` with the name `Participant 1` is present in `Event 1`'s `Participant` list.
+      List all `Participant`s with `view -e Event 1 -y participant` after each test case.
+   
+   2. Test case: `add -p Participant 1 -n 9212 8765 -email part@gmail.com -e Event 1`.   
+      Expected: No `Participant` is added. A duplicate entry error message is shown.
+
+### Adding an item
+
+1. Adding a duplicate `Item` to an `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+      A `Item` with the name `Item 1` is present in `Event 1`'s `Item` list.
+      List all `Item`s with `view -e Event 1 -y item` after each test case.
+
+   2. Test case: `add -p Item -e Event 1`.  
+      Expected: No `Item` is added. A duplicate entry error message is shown.
+
+### Removing an event
+
+1. Removing an `Event` from the `Event` list
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+      An event with the name `Event 2` is not present in the list.
+      List all `Event`s with `list` after each test case.
+   
+   2. Test case: `remove -e Event 1`  
+      Expected: The `Event` with name `Event 1` is removed. A success message is shown.
+
+   3. Test case: `remove -e Event 2`  
+      Expected: No `Event` is removed. An error message is shown.
+
+### Removing a participant
+
+1. Removing a `Participant` from an `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+      A `Participant` with the name `Participant 1` is present in `Event 1`'s `Participant` list.
+      A `Participant` with the name `Participant 2` is not present in `Event 1`'s `Participant` list.
+      List all `Participant`s with `view -e Event 1 -y participant` after each test case.
+
+   2. Test case: `remove -p Participant 1 -e Event 1`  
+      Expected: The `Participant` with name `Participant 1` is removed from `Event 1`'s `Participant` list. A success message is shown.
+
+   3. Test case: `remove -p Participant 2 -e Event 1`  
+      Expected: No `Participant` is removed. An error message is shown.
+
+2. Removing a `Participant` from an invalid `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is not present in the list.
+      List all `Participant`s with `view -e Event 1 -y participant` after each test case.
+   
+   2. Test case: `remove -p Participant 1 -e Event 1`  
+      Expected: No `Participant` is removed. An error message is shown.
+
+### Removing an item
+
+1. Removing a `Item` from an `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+      A `Item` with the name `Item 1` is present in `Event 1`'s `Item` list.
+      A `Item` with the name `Item 2` is not present in `Event 1`'s `Item` list.
+      List all `Item`s with `view -e Event 1 -y item` after each test case.
+
+   2. Test case: `remove -m Item 1 -e Event 1`  
+      Expected: The `Participant` with name `Participant 1` is removed from `Event 1`'s `Participant` list. A success message is shown.
+
+   3. Test case: `remove -m Item 2 -e Event 1`  
+      Expected: No `Item` is removed. An error message is shown.
+
+2. Removing a `Item` from an invalid `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is not present in the list.
+      List all `Item`s with `view -e Event 1 -y item` after each test case.
+
+   2. Test case: `remove -m Item 1 -e Event 1`  
+      Expected: No `Item` is removed. An error message is shown.
+
+### Editing an event
+
+1. Editing an `Event` in the `Event` list.
+
+   1. Prerequisite: An event with name `Event 1` and venue `Function Room` is present in the list.  
+      List all `Event`s with `list` after each test case.   
+   
+   2. Test case: `edit -e Event 1 -name Event 1 -t 2024-10-25 16:00 -v Billards Room -u HIGH`  
+      Expected: The venue for `Event 1` is changed to `Billards Room`. A success message is shown.
+
+### Editing a participant
+
+1. Editing a `Participant` in an `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+      A `Participant` with the name `Jonathan` and number `97835365` is present in `Event 1`'s `Participant` list.
+      List all `Participant`s with `view -e Event 1 -y participant` after each test case.
+   
+   2. Test case: `edit -p Jonathan -n 91823213 -email jona@gmail.com -e Event 1`  
+      Expected: The number for `Jonathan` is changed to `91823213`. A success message is shown.
+
+### Editing an item
+
+1. Editing an `Item` in an `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+      A `Item` with the name `Toilet roll` is present in `Event 1`'s `Item` list.
+      List all `Item`s with `view -e Event 1 -y item` after each test case.
+
+   2. Test case: `edit Toilet roll > Kitchen towel -e Event 1`  
+      Expected: `Toilet roll` is no longer present, and `Kitchen towel` is present, in the `Item`s list. A success message is shown.
+
+### Viewing an event
+
+1. Viewing the `Participant`/`Item` list of an `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+   
+   2. Test case: `view -e Event 1 -y person` 
+      Expected: An error message is shown.
+
+### Marking an event as done
+
+1. Marking an invalid `Event` as done
+
+   1. Prerequisite: An event with the name `Event 1` is not present in the list.
+      List all `Event`s with `list` after each test case.
+
+   2. Test case: `mark -e Event 1 -s done`  
+      Expected: No `Event` is marked. An error message is shown.
+
+### Marking a participant as present
+
+1. Marking an `Participant` in an `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+      A `Participant` with the name `Participant 1` is present in `Event 1`'s `Participant` list.
+      A `Participant` with the name `Participant 2` is not present in `Event 1`'s `Participant` list.
+      List all `Participant`s with `view -e Event 1 -y participant` after each test case.
+
+   2. Test case: `mark -p Participant 1 -e Event 1 -s present`  
+      Expected: The `Participant` with name `Participant 1` is marked as present. A success message is shown.
+
+   3. Test case: `mark -p Participant 1 -e Event 1 -s done`  
+      Expected: No `Participant` is marked. An invalid status error message is shown.
+   
+   4. Test case: `mark -p Participant 2 -e Event 1 -s present`  
+      Expected: No `Participant` is marked. An error message is shown.
+
+2. Marking a `Participant` in an invalid `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is not present in the list.
+      List all `Participant`s with `view -e Event 1 -y participant` after each test case.
+
+   2. Test case: `mark -p Participant 1 -e Event 1 -s present`  
+      Expected: No `Participant` is marked. An error message is shown.
+
+### Marking an item as accounted for
+
+1. Marking an `Item` in an `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is present in the list.
+      A `Item` with the name `Item 1` is present in `Event 1`'s `Item` list.
+      A `Item` with the name `Item 2` is not present in `Event 1`'s `Item` list.
+      List all `Item`s with `view -e Event 1 -y item` after each test case.
+
+   2. Test case: `mark -m Item 1 -e Event 1 -s accounted`  
+      Expected: The `Item` with name `Item 1` is marked as accounted for. A success message is shown.
+
+   2. Test case: `mark -m Item 1 -e Event 1 -s done`  
+      Expected: No `Item` is marked. An invalid status error message is shown.
+
+   3. Test case: `mark -m Item 2 -e Event 1 -s accounted`  
+      Expected: No `Item` is marked. An error message is shown.
+
+2. Marking an `Item` in an invalid `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is not present in the list.
+      List all `Item`s with `view -e Event 1 -y item` after each test case.
+
+   2. Test case: `mark -m Item 1 -e Event 1 -s accounted`  
+      Expected: No `Item` is marked. An error message is shown.
+
+### Copying the participant list
+
+1. Copying a `Participant` list of size 0
+
+   1. Prerequisite: Events with the names `Event 1` and `Event 2` are present in the list.
+      `Event 1` has no `Participant`s in its `Participant`s list.
+   
+   2. Test case: `copy Event 1 > Event 2`  
+      Expected: The `Participant` list in `Event 1` is not copied over to `Event 2`. An error message is shown.
+
+### Sorting the event list
+
+1. Sorting the `Event` list by name
+
+   1. Prerequisite: Events with the names `Doughnut making`, `Chocolate making` and `Bread making` are present in the `Event` list.
+   
+   2. Test case: `sort -by name`  
+      Expected: A list of `Event`s is shown, with `Bread making` coming before `Chocolate making`, and `Chocolate making` coming before `Doughnut making`.
+
+### Filtering the event list
+
+1. Filtering out `Event`s by name
+
+   1. Prerequisite: Events with the names `Knitting class` and `Crochet class` are present in the `Event` list.
+   
+   2. Test case: `filter -e class`  
+      Expected: A list of `Event`s, including `Knitting class` and `Crochet class`, is shown. 
+
+### Finding a participant
+
+1. Finding `Participant`s in an invalid `Event`
+
+   1. Prerequisite: An event with the name `Event 1` is not present in the `Event` list.
+   
+   2. Test case: `find -e Event 1 -p John`  
+      Expected: No `Participant`s are listed. An error message is shown.
+
+### Saving and loading of data
+
+1. Loading from a corrupted data file
+
+   1. Prerequisite: Multiple `Event`s are present in the `Event` list.
+   
+   2. Exit the program by entering `exit`.
+   
+   3. Remove one field from one of the lines in the `data.csv` data file.
+
+   4. Run the program by opening a new terminal window and entering `java -jar manager.jar`.
+      The program would give a warning that a line cannot be loaded, and the `Event` represented by the line would not be present in the `Event`s list.

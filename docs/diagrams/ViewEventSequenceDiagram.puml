@@ -3,14 +3,14 @@
 hide footbox
 
 participant ":Main" as main
-participant ":ViewCommand" as command COMMAND_COLOUR
-participant ":EventList" as eventList EVENT_COLOUR
+participant ":ViewCommand" as command  
+participant ":EventList" as eventList  
 
 main -> command : execute()
-activate command COMMAND_COLOUR
+activate command  
 
 command -> eventList : getEventByName(eventName)
-activate eventList EVENT_COLOUR
+activate eventList  
 
 return eventToView : Event
 

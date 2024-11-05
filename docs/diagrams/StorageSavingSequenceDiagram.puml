@@ -9,6 +9,8 @@ Participant "eventList:EventList" as eventlist EVENT_COLOUR
 Participant "participant:Participant" as participant
 Participant "item:Item" as item
 
+main -> main : saveData()
+activate main
 main -> storage : saveInfo(eventList)
 activate storage STORAGE_COLOUR
 
@@ -87,11 +89,11 @@ deactivate item
 return item fields
 
 end
-
 end
-
 return
 
+main --> main
+deactivate main
 
 
 

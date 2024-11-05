@@ -3,10 +3,10 @@
 hide footbox
 
 participant ":Main" as main
-participant ":RemoveCommand" as command COMMAND_COLOUR
+participant ":RemoveCommand" as command  
 
 main -> command : execute()
-activate command COMMAND_COLOUR
+activate command  
 
 alt participant name is not null
     ref over command : Remove participant

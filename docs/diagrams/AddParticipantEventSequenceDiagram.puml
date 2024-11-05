@@ -2,30 +2,30 @@
 !include style.puml
 hide footbox
 
-participant ":EventList" as eventList EVENT_COLOUR
-participant ":Event" as event EVENT_COLOUR
-participant "participant:Participant" as participant EVENT_COLOUR
-participant "participantList:ArrayList<Participant>" as participantList EVENT_COLOUR
+participant ":EventList" as eventList  
+participant ":Event" as event  
+participant "participant:Participant" as participant  
+participant "participantList:ArrayList<Participant>" as participantList  
 
 group sd Add participant to event
-    activate eventList EVENT_COLOUR
+    activate eventList  
 
     eventList -> event : addParticipant(String, String, String)
-    activate event EVENT_COLOUR
+    activate event  
 
     event -> event : getParticipantByName(participantName)
-    activate event EVENT_COLOUR
+    activate event  
     return :Event
 
     alt participant already present
         event --> eventList:throws DuplicateDataException
     else else
         event -> participant : Participant(String, String, String)
-        activate participant EVENT_COLOUR
+        activate participant  
         return participant : Participant
 
         event -> participantList : add(participant)
-        activate participantList EVENT_COLOUR
+        activate participantList  
         return
     end
 

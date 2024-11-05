@@ -7,6 +7,8 @@ Participant ":Storage" as storage STORAGE_COLOUR
 Participant ":FileParser" as parser PARSER_COLOUR
 Participant ":EventList" as events EVENT_COLOUR
 
+main -> main : loadData()
+activate main
 main -> storage : loadInfo(eventList)
 activate storage STORAGE_COLOUR
 
@@ -55,6 +57,8 @@ parser --> storage
 deactivate parser
 storage --> main
 deactivate storage
+main --> main
+deactivate main
 
 
 @enduml
