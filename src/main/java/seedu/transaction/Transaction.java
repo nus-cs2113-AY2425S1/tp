@@ -51,7 +51,7 @@ public abstract class Transaction {
 
     // Method to set date from LocalDateTime
     public void setDate(LocalDateTime date) {
-        this.dateTimeString = date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        this.dateTimeString = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
     }
 
     // Getter and setter for dateTimeString
