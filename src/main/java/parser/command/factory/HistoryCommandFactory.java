@@ -39,5 +39,5 @@ public class HistoryCommandFactory {
         }
         return new ViewPersonalBestCommand(argumentString);  // Pass exercise name to ViewPersonalBestCommand
     }
-    }
+}
 
