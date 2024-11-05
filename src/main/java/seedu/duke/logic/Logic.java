@@ -132,7 +132,8 @@ public class Logic {
         try {
             index = Integer.parseInt(commandArguments.get("argument"));
         } catch (NumberFormatException e) {
-            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+            throw new FinanceBuddyException(
+                    "Invalid index. Please provide a valid integer less than or equal to 2147483647.");
         }
 
         assert index > 0 : "Index of entry to edit must be greater than 0";
