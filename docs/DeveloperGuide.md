@@ -493,11 +493,13 @@ and is invoked when the latter operation is called.
 
 The `FilterCommand` class is constructed with a specified filter flag and keywords. It then performs filter operations based on both the flag and keywords.
 Given below is an example usage scenario and the behaviour of the `filter` feature at each step:
-1. The user enters the command filter followed by a flag (`-e: name, -t: time, or -u: priority`) and their search keyword e.g. `filter -e work` to specify the filtering criterion
+1. The user enters the command filter followed by a flag (`-e: name, -d : date, -t: time, -x date-time,  or -u: priority`) and their search keyword e.g. `filter -e work` to specify the filtering criterion
 2. `FilterCommand` calls `FilterCommand#execute`, which based on the flag invokes one of the following 3 methods
-   * `filterByName()` - Finds events containing given name (keyword)
-   * `filterByTime()` - Finds events occurring during given time (keyword)
-   * `filterByPriority` - Finds events with given priority (keyword)
+   * `filterEventsByName()` - Finds events containing given name (keyword)
+   * `filterEventsByDate()` - Finds events occurring during given date (keyword)
+   * `filterEventsByTime()` - Finds events occurring during given time (keyword)
+   * `filterEventsByDateTime()` - Finds events occurring during given date-time (keyword)
+   * `filterEventsByPriority()` - Finds events with given priority (keyword)
    
    After filtering, a success message is appended to `outputMessage` which indicates the filtering criterion used
 3. The final filtered list is then formatted and appended to `outputMessage`,
@@ -505,7 +507,7 @@ Given below is an example usage scenario and the behaviour of the `filter` featu
 
 The interactions between components of `FilterCommand#execute` are shown in the **Sequence Diagram** below:
 
-<img src="images/FilterCommandSequenceDiagram.png">
+<img src="images/FilterCommandSequenceDiagram2.png">
 
 ### Find feature
 
