@@ -1,21 +1,24 @@
 package seedu.command;
 
 import seedu.datastorage.Storage;
+import seedu.message.ErrorMessages;
+import seedu.message.CommandResultMessages;
 import seedu.transaction.Income;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
+import seedu.utils.AmountUtils;
 import seedu.utils.DateTimeUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddIncomeCommand extends AddTransactionCommand {
     public static final String COMMAND_WORD = "add-income";
-    public static final String COMMAND_GUIDE = "add-income [DESCRIPTION] [a/ AMOUNT] [d/ DATE]";
+    public static final String COMMAND_GUIDE = "add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/"};
-    public static final String ERROR_MESSAGE = "Error creating Income!";
 
     public AddIncomeCommand(TransactionList transactions) {
         super(transactions);
@@ -24,7 +27,10 @@ public class AddIncomeCommand extends AddTransactionCommand {
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
-            return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
+            List<String> messages = new ArrayList<>();
+            messages.add(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            messages.add(COMMAND_GUIDE);
+            return messages;
         }
 
         String incomeName = arguments.get("");
@@ -32,7 +38,13 @@ public class AddIncomeCommand extends AddTransactionCommand {
             incomeName = "";
         }
 
-        String amountString = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
+        String amountStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
+        Double amount = null;
+        try {
+            amount = AmountUtils.parseAmount(amountStr);
+        } catch (Exception e) {
+            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
+        }
 
         String dateString = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
         if (dateString == null || dateString.isEmpty()) {
@@ -42,24 +54,18 @@ public class AddIncomeCommand extends AddTransactionCommand {
             try {
                 DateTimeUtils.parseDateTime(dateString);
             } catch (Exception e) {
-                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
+                return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
             }
         }
 
-        double amount;
         try {
-            amount = Double.parseDouble(amountString);
-        } catch (NumberFormatException e) {
-            return List.of( ERROR_MESSAGE + ": " + "Invalid Amount");
-        }
-        try {
-            transactions.addTransaction(createTransaction(amount, incomeName, dateString));
+            Transaction transaction = createTransaction(amount, incomeName, dateString);
+            transactions.addTransaction(transaction);
 
             Storage.saveTransaction(transactions.getTransactions());
-
-            return List.of("Income added successfully!");
+            return List.of(CommandResultMessages.ADD_TRANSACTION_SUCCESS + transaction.toString());
         } catch (Exception e) {
-            return List.of(ERROR_MESSAGE + ": " + e.getMessage());
+            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
         }
 
     }

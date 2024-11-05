@@ -1,6 +1,7 @@
 package seedu.command;
 
 import seedu.category.Category;
+import seedu.message.CommandResultMessages;
 import seedu.transaction.Expense;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
@@ -72,7 +73,7 @@ public class ViewExpenseCommand extends Command {
                         .filter((t) -> t.getDate().isAfter(start) || t.getDate().isEqual(start))
                         .collect(Collectors.toList());
             } catch (Exception e) {
-                messages.add(e.getMessage());
+                messages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL + e.getMessage());
                 return messages;
             }
         }
@@ -83,13 +84,13 @@ public class ViewExpenseCommand extends Command {
                         .filter((t) -> t.getDate().isBefore(end) || t.getDate().isEqual(end))
                         .collect(Collectors.toList());
             } catch (Exception e) {
-                messages.add(e.getMessage());
+                messages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL + e.getMessage());
                 return messages;
             }
         }
 
         if (temp.isEmpty()) {
-            messages.add(EXPENSE_EMPTY_MESSAGE);
+            messages.add(CommandResultMessages.VIEW_TRANSACTION_EMPTY);
             return messages;
         }
 

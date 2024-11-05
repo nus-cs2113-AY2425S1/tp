@@ -1,9 +1,6 @@
 package seedu.main;
 
-import seedu.category.Category;
 import seedu.command.Command;
-import seedu.command.UpdateCategoryCommand;
-import seedu.transaction.TransactionEditor;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -62,42 +59,6 @@ public class Parser {
         assert commandPart != null && !commandPart.trim().isEmpty() : "Command string should not be null or empty.";
 
         return commands.get(commandPart);
-    }
-
-
-    public Command parseCommand(String commandPart, String argumentString, TransactionEditor transactionEditor) {
-        assert commandPart != null && !commandPart.trim().isEmpty() : "Command string should not be null or empty.";
-
-        Command command = commands.get(commandPart);
-
-
-        if (commandPart.equals("update-category")) {
-
-            Map<String, String> arguments = extractArguments(command, argumentString);
-
-            try {
-                int index = Integer.parseInt(arguments.get("index"));
-
-                String categoryName = arguments.get("category");
-                if (categoryName == null || categoryName.isEmpty()) {
-                    throw new IllegalArgumentException("Category name is missing.");
-                }
-
-                Category newCategory = new Category(categoryName);
-
-
-                return new UpdateCategoryCommand(index, newCategory, transactionEditor);
-
-            } catch (NumberFormatException e) {
-                logger.log(Level.WARNING, "Invalid index format in update-category command.");
-            } catch (IllegalArgumentException e) {
-                logger.log(Level.WARNING, e.getMessage());
-            }
-
-            return null;
-        }
-
-        return command;
     }
 
 

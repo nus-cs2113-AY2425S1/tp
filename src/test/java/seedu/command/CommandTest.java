@@ -2,6 +2,7 @@ package seedu.command;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.message.ErrorMessages;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,15 +86,11 @@ class CommandTest {
         // Set the arguments using the method
         testCommand.setArguments(arguments);
 
-        // Expected message list
-        List<String> expectedMessages = new ArrayList<>();
-        expectedMessages.add(Command.LACK_ARGUMENTS_ERROR_MESSAGE);
-
         // Actual message list
-        List<String> actualMessages = testCommand.execute();
+        List<String> result = testCommand.execute();
 
         // Assert that the actual messages match the expected messages
-        assertEquals(expectedMessages, actualMessages);
+        assertEquals(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE, result.get(0));
     }
 
     @Test
