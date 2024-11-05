@@ -88,10 +88,21 @@ public class BudgetLogic {
         budget.updateBalance(newBalance);
     }
 
+    /**
+     * Checks if the budget has been exceeded.
+     *
+     * @return true if the budget balance is less than or equal to zero, false otherwise.
+     */
     public boolean hasExceededBudget() {
         return budget.getBalance() <= 0;
     }
 
+    /**
+     * Checks if the given date is in the current month and year.
+     *
+     * @param date the date to check.
+     * @return true if the date is in the current month and year, false otherwise.
+     */
     public boolean isCurrentMonth(LocalDate date) {
         LocalDate currentDate = LocalDate.now();
         boolean isSameYear = currentDate.getYear() == date.getYear();
@@ -99,6 +110,14 @@ public class BudgetLogic {
         return isSameYear && isSameMonth;
     }
 
+    /**
+     * Adjusts the budget balance upon recording an expense,
+     * if the expense date is in the current year and month.
+     *
+     * @param amount the expense amount.
+     * @param date   the date of the expense.
+     * @throws FinanceBuddyException if an error occurs during parsing the date.
+     */
     public void changeBalanceFromExpense(double amount, String date) throws FinanceBuddyException {
         if (!budget.isBudgetSet()) {
             return;
@@ -109,7 +128,13 @@ public class BudgetLogic {
         }
     }
 
-    public void changeBalanceFromExpense(double amount, LocalDate date) throws FinanceBuddyException {
+    /**
+     * Adjusts the budget balance upon recording an expense, if the expense date is in the current month.
+     *
+     * @param amount the expense amount.
+     * @param date   the date of the expense.
+     */
+    public void changeBalanceFromExpense(double amount, LocalDate date) {
         if (!budget.isBudgetSet()) {
             return;
         }
@@ -118,6 +143,13 @@ public class BudgetLogic {
         }
     }
 
+    /**
+     * Recalculates the balance based on the budget amount and expenses in the financial list
+     * that occurred in the current month.
+     *
+     * @param financialList the list of financial entries to consider.
+     * @throws FinanceBuddyException if the financial list is null.
+     */
     public void recalculateBalance(FinancialList financialList) throws FinanceBuddyException {
         if (!budget.isBudgetSet()) {
             return;
@@ -135,5 +167,4 @@ public class BudgetLogic {
         }
         budget.updateBalance(balance);
     }
-
 }

@@ -86,6 +86,9 @@ class BudgetLogicTest {
         assertEquals(1000, budget.getBudgetAmount());
     }
 
+    /**
+     * Tests handling of a zero budget amount and ensures the prompt for a valid input.
+     */
     @Test
     void testHandleSetBudgetWithZeroAmount() throws FinanceBuddyException {
         ui.setInputs("yes", "0", "1000");
@@ -124,6 +127,9 @@ class BudgetLogicTest {
         assertEquals(800, budget.getBalance());
     }
 
+    /**
+     * Tests if the budget is exceeded when expenses exceed the budgeted amount.
+     */
     @Test
     void hasExceededBudget_expensesGreaterThanBudget_expectTrue() {
         budget.setBudgetAmount(1000);
@@ -132,6 +138,9 @@ class BudgetLogicTest {
         assertTrue(budgetLogic.hasExceededBudget());
     }
 
+    /**
+     * Tests if the budget is not exceeded when expenses are within the budgeted amount.
+     */
     @Test
     void hasExceededBudget_expensesSmallerThanBudget_expectFalse() {
         budget.setBudgetAmount(1000);
@@ -140,12 +149,18 @@ class BudgetLogicTest {
         assertFalse(budgetLogic.hasExceededBudget());
     }
 
+    /**
+     * Tests whether the date given is in the current month and year.
+     */
     @Test
     void isCurrentMonth_currentYearAndMonth_expectTrue() {
         LocalDate date = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1);
-        budgetLogic.isCurrentMonth(date);
+        assertTrue(budgetLogic.isCurrentMonth(date));
     }
 
+    /**
+     * Tests whether the date from the current year but month is identified as not current.
+     */
     @Test
     void isCurrentMonth_currentYearLastMonth_expectFalse() {
         int year;
@@ -154,56 +169,72 @@ class BudgetLogicTest {
         } else {
             year = LocalDate.now().getYear();
         }
-        LocalDate date = LocalDate.of(year, 1, 1);
-        budgetLogic.isCurrentMonth(date);
+        LocalDate date = LocalDate.of(year, LocalDate.now().getMonth().getValue() - 1, 1);
+        assertFalse(budgetLogic.isCurrentMonth(date));
     }
 
+    /**
+     * Tests whether the date from the current month but year is identified as not current.
+     */
     @Test
     void isCurrentMonth_lastYearCurrentMonth_expectFalse() {
         LocalDate date = LocalDate.of(LocalDate.now().getYear() - 1, LocalDate.now().getMonth(), 1);
-        budgetLogic.isCurrentMonth(date);
+        assertFalse(budgetLogic.isCurrentMonth(date));
     }
 
+    /**
+     * Tests that no balance changes occur from expenses when no budget is set.
+     */
     @Test
-    void changeBalanceFromExpenses_noBudgetSet_expectNothing() throws FinanceBuddyException {
-        budgetLogic.changeBalanceFromExpense(-20, LocalDate.now());
+    void changeBalanceFromExpenses_noBudgetSet_expectNothing() {
+        budgetLogic.changeBalanceFromExpense(-50, LocalDate.now());
 
         assertEquals(0, budget.getBalance());
     }
 
+    /**
+     * Tests that expenses recorded in the current month decrease the balance correctly.
+     */
     @Test
-    void changeBalanceFromExpenses_oneExpenseCurrentMonth_expectDecrease() throws FinanceBuddyException {
+    void changeBalanceFromExpenses_oneExpenseCurrentMonth_expectDecrease() {
         budget.setBudgetAmount(1000);
         budgetLogic.changeBalanceFromExpense(-20, LocalDate.now());
 
         assertEquals(980, budget.getBalance());
     }
 
+    /**
+     * Tests that expenses recorded in months other than the current do not affect the balance.
+     */
     @Test
     void changeBalanceFromExpenses_oneExpenseNotCurrentMonth_expectNoChange() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
-        budgetLogic.changeBalanceFromExpense(-20, "27/11/23");
+        budgetLogic.changeBalanceFromExpense(19, "27/11/23");
 
         assertEquals(1000, budget.getBalance());
     }
 
+    /**
+     * Tests decreases in the budget balance from multiple expenses recorded in the current month.
+     */
     @Test
     void changeBalanceFromExpenses_multipleExpenses_expectDecrease() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
-        budgetLogic.changeBalanceFromExpense(-20, LocalDate.now());
+        budgetLogic.changeBalanceFromExpense(20, LocalDate.now());
         budgetLogic.changeBalanceFromExpense(-50, "27/10/24");
         budgetLogic.changeBalanceFromExpense(-90, "27/11/23");
         budgetLogic.changeBalanceFromExpense(-230, LocalDate.now());
 
-        assertEquals(750, budget.getBalance());
+        assertEquals(790, budget.getBalance());
     }
 
+    /**
+     * Tests recalculation of balance when no budget is set, leaving the balance unchanged.
+     */
     @Test
     void recalculateBalance_noBudgetSet_expectNothing() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.now(),
-                Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.now(),
-                Expense.Category.TRANSPORT);
+        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.now(), null);
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.now(), null);
         financialList.addEntry(expense1);
         financialList.addEntry(expense2);
 
@@ -211,13 +242,14 @@ class BudgetLogicTest {
         assertEquals(0, budget.getBalance());
     }
 
+    /**
+     * Tests recalculation of budget balance including only current month expenses.
+     */
     @Test
     void recalculateBalance_currentMonthExpenses_expectNewBalance() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.now(),
-                Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.now(),
-                Expense.Category.TRANSPORT);
+        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.now(), null);
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.now(), null);
         financialList.addEntry(expense1);
         financialList.addEntry(expense2);
 
@@ -225,13 +257,14 @@ class BudgetLogicTest {
         assertEquals(985, budget.getBalance());
     }
 
+    /**
+     * Tests recalculation of balance when there are no expenses recorded for the current month.
+     */
     @Test
     void recalculateBalance_currentMonthNoExpenses_expectNoChange() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.now(),
-                Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.now(),
-                Income.Category.SALARY);
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.now(), null);
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.now(), null);
         financialList.addEntry(income1);
         financialList.addEntry(income2);
 
@@ -239,19 +272,17 @@ class BudgetLogicTest {
         assertEquals(1000, budget.getBalance());
     }
 
+    /**
+     * Tests recalculation of balance for mixed entries of income and expense in the current month.
+     */
     @Test
     void recalculateBalance_currentMonthMixedEntries_expectNewBalance() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.now(),
-                Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.now(),
-                Expense.Category.TRANSPORT);
-        FinancialEntry expense3 = new Expense(10.0, "table", LocalDate.now(),
-                Expense.Category.OTHER);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.now(),
-                Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.now(),
-                Income.Category.SALARY);
+        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.now(), null);
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.now(), null);
+        FinancialEntry expense3 = new Expense(10.0, "table", LocalDate.now(), null);
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.now(), null);
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.now(), null);
         financialList.addEntry(expense1);
         financialList.addEntry(expense2);
         financialList.addEntry(expense3);
@@ -262,20 +293,20 @@ class BudgetLogicTest {
         assertEquals(975, budget.getBalance());
     }
 
+    /**
+     * Tests recalculation of balance considering only current month expenses.
+     */
     @Test
     void recalculateBalance_mixedMonthsExpenses_expectNewBalance() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24, 10, 22),
-                Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.now(),
-                Expense.Category.TRANSPORT);
-        FinancialEntry expense3 = new Expense(15.5, "snacks", LocalDate.of(24, 10, 20),
-                Expense.Category.FOOD);
+        FinancialEntry expense1 = new Expense(10.0, "food",
+                LocalDate.of(2024, 10, 22), null);
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.now(), null);
+        FinancialEntry expense3 = new Expense(15.5, "snacks",
+                LocalDate.of(2024, 10, 20), null);
         FinancialEntry expense4 = new Expense(10.0, "table",
-                LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1),
-                Expense.Category.OTHER);
-        FinancialEntry expense5 = new Expense(7.0, "shampoo", LocalDate.now(),
-                Expense.Category.UTILITIES);
+                LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1), null);
+        FinancialEntry expense5 = new Expense(7.0, "shampoo", LocalDate.now(), null);
         financialList.addEntry(expense1);
         financialList.addEntry(expense2);
         financialList.addEntry(expense3);
@@ -286,20 +317,20 @@ class BudgetLogicTest {
         assertEquals(978, budget.getBalance());
     }
 
+    /**
+     * Tests recalculation of balance with mixed entries and dates, expecting updates based on current month.
+     */
     @Test
     void recalculateBalance_mixedMonthsMixedEntries_expectNewBalance() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.now(),
-                Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24, 10, 22),
-                Expense.Category.TRANSPORT);
+        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.now(), null);
+        FinancialEntry expense2 = new Expense(5.0, "transport",
+                LocalDate.of(2024, 10, 22), null);
         FinancialEntry expense3 = new Expense(10.0, "table",
-                LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1),
-                Expense.Category.OTHER);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.now(),
-                Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24, 10, 22),
-                Income.Category.SALARY);
+                LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1), null);
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.now(), null);
+        FinancialEntry income2 = new Income(15.5, "salary",
+                LocalDate.of(2024, 10, 22), null);
         financialList.addEntry(expense1);
         financialList.addEntry(expense2);
         financialList.addEntry(expense3);
@@ -355,7 +386,5 @@ class BudgetLogicTest {
         boolean wasSetBudgetMessageDisplayed() {
             return setBudgetMessageDisplayed;
         }
-
-
     }
 }
