@@ -188,11 +188,11 @@ public class Storage {
                     String line = sc.nextLine();
                     // parse the line and add the task to the list
                     if (line.charAt(0) == 'E') {
-                        String[] tokens = line.split(" \\¦ ");
+                        String[] tokens = line.split(" \\¦¦ ");
                         theList.addEntry(parseExpense(tokens));
                         loadedExpenseCount++;
                     } else if (line.charAt(0) == 'I') {
-                        String[] tokens = line.split(" \\¦ ");
+                        String[] tokens = line.split(" \\¦¦ ");
                         theList.addEntry(parseIncome(tokens));
                         loadedIncomeCount++;
                     } else{
