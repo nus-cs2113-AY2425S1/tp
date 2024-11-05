@@ -10,7 +10,7 @@ skinparam {
     SequenceGroupBackgroundColor COLOR_LIGHTRED
 }
 
-box Editing Recipes COLOR_PURPLE_BLUE
+box Editing Recipes COLOR_PALE_PINK
 participant "YMFC" as YMFC <<class>>
 participant "Parser" as Parser <<class>>
 participant ":EditCommand" as EditCommand
@@ -30,19 +30,20 @@ activate Parser
 create Recipe
 Parser -> Recipe : Recipe(name, ingreds, steps, cuisine, timeTaken)
 activate Recipe
-Recipe --> Parser : :Recipe
+Recipe --> Parser : recipe:Recipe
 deactivate Recipe
 
 create EditCommand
-Parser -> EditCommand : :Recipe
+Parser -> EditCommand : EditCommand(...)
 activate EditCommand
 EditCommand --> Parser
 deactivate EditCommand
 
 
-Parser --> Parser : :EditCommand
+Parser --> Parser : command:EditCommand
 deactivate Parser
-Parser --> YMFC : :EditCommand
+Parser --> YMFC : command:EditCommand
+deactivate Parser
 
 YMFC -> EditCommand : execute(recipeList, ingredientList, ui, storage)
 activate EditCommand

@@ -1,8 +1,9 @@
 '@@author: seanngja
 @startuml
 skinparam dpi 150
+skinparam componentStyle rectangle
 
-actor User as user #Red
+actor User as user
 package "YMFC (Main) " {
     [UI] #Green
     [Parser] #LIGHTBLUE

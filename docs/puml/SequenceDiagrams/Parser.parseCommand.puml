@@ -10,7 +10,7 @@ skinparam {
     SequenceGroupBackgroundColor COLOR_LIGHTRED
 }
 
-box Parser.parseCommand(String commandString, RecipeList recipes)
+box Parser.parseCommand(String commandString, RecipeList recipes) COLOR_PALE_PINK
 participant "YMFC" as YMFC <<class>>
 participant "Parser" as Parser <<class>>
 participant "GENERIC_FORMAT:Pattern" as Pattern

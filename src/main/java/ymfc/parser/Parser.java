@@ -78,6 +78,9 @@ public final class Parser {
             }
             return new ListCommand();
         case "listI":
+            if (numIngredients <= 0) {
+                throw new EmptyListException("Your ingredient list is empty!");
+            }
             return new ListIngredientsCommand();
         case "help":
             return new HelpCommand();

@@ -85,8 +85,8 @@ public class Storage {
                             Ui ui, Storage storage) {
         Scanner reader;
         try {
-            File tasksFile = new File(saveRecipeFilePath);
-            reader = new Scanner(tasksFile);
+            File saveFile = new File(saveRecipeFilePath);
+            reader = new Scanner(saveFile);
         } catch (FileNotFoundException exception) {
             logger.log(Level.INFO, "No recipes savefile found");
             return;
@@ -122,8 +122,8 @@ public class Storage {
                                 Ui ui, Storage storage) {
         Scanner reader;
         try {
-            File tasksFile = new File(saveIngredientFilePath);
-            reader = new Scanner(tasksFile);
+            File saveFile = new File(saveIngredientFilePath);
+            reader = new Scanner(saveFile);
         } catch (FileNotFoundException exception) {
             logger.log(Level.INFO ,"No ingredients savefile found");
             return;
