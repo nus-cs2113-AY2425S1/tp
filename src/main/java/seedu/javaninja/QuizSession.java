@@ -47,11 +47,12 @@ public class QuizSession {
         return Integer.parseInt(scanner.nextLine().trim());
     }
 
-    /* For QuizManagerTest */
+    /* For Tests */
     public Quiz getCurrentQuiz(Topic topic, Scanner scanner) {
         if (currentQuiz == null) {
             currentQuiz = new Quiz(topic, scanner);
         }
         return this.currentQuiz;
     }
+
 }
