@@ -9,6 +9,13 @@ public class Duke {
         Storage storage = new Storage(filePath);
         TrackerData trackerData = new TrackerData();
 
+        try {
+            storage.loadData(trackerData);
+            System.out.println("Data loaded successfully");
+        } catch (IOException e) {
+            System.out.println("Error loading data: " + e.getMessage());
+        }
+
         CategoryManager categoryManager = new CategoryManager();
         BudgetManager budgetManager = new BudgetManager();
         ExpenseManager expenseManager = new ExpenseManager();
