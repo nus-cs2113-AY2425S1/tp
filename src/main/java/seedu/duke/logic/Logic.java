@@ -139,12 +139,7 @@ public class Logic {
         assert index > 0 : "Index of entry to edit must be greater than 0";
         assert index <= financialList.getEntryCount() : "Index of entry to edit must be within the list size";
 
-        FinancialEntry entry = null;
-        try {
-            entry = financialList.getEntry(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
-        }
+        FinancialEntry entry = financialList.getEntry(index - 1);
 
         String amountStr = commandArguments.get("/a");
         double amount = 0;
