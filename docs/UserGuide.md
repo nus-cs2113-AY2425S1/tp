@@ -110,6 +110,24 @@ Notes:
 
 Example: `stats /category food /from 02-11-2024 /to 04-11-2024`
 
+### Visualize your expenditures: `visualize`
+
+Displays a bar graph showing your total expenditure over time, filtered by certain criteria.
+
+Format:  `visualize [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
+
+Notes:
+- `CATEGORY` is text.
+- `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
+- You need to provide either a category or at least one of `[/from, /to]` (but not all of them) for the command to work.
+- The command will filter out all expenses that satisfy your constraint and draw a bar graph.
+If the time range is small (under one month), a daily graph will be displayed. Otherwise, a monthly graph will be used.
+Note that this command currently has a time span limit of `1080 days`.
+
+Examples: 
+- `visualize /category food`
+- `visualize /from 01-02-2024`
+
 ### Set a spending limit for a category: `set`
 
 Allows you to set a spending limit for each category.
@@ -265,18 +283,19 @@ On top of working the same way as normal expenses, this command also checks whet
 
 ## Command Summary
 
-| Command                           | Format                                                                                                               | 
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| Add Expense                       | `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                                    |
-| Edit Expense                      | `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                             |
-| Delete Expense                    | `delete [INDEX]`                                                                                                     |
-| List Expenses                     | `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                          | 
-| Get Statistics                    | `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                         | 
-| Set Spending Limit for a Category | `set [/category CATEGORY] [/limit LIMIT]`                                                                            |
-| View Help                         | `help [/method METHOD]`                                                                                              |
-| Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`   |
-| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`   |                                                             |
-| Add Recurring Expense             | `add [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]`    |
-| Edit Recurring Expense            | `edit INDEX [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                    |
-| Delete Recurring Expense          | `delete [INDEX]`                                                                                                     |
-| List Recurring Expenses           | `list [/recur] [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                 | 
+| Command                           | Format                                                                                                                 | 
+|-----------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| Add Expense                       | `add /price PRICE /description DESCRIPTION /category CATEGORY [/date DATE]`                                            |
+| Edit Expense                      | `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                               |
+| Delete Expense                    | `delete INDEX`                                                                                                         |
+| List Expenses                     | `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                            | 
+| Get Statistics                    | `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                           | 
+| Visualize Expenditures            | `visualize [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                       |
+| Set Spending Limit for a Category | `set /category CATEGORY /limit LIMIT`                                                                                  |
+| View Help                         | `help [/method METHOD]`                                                                                                |
+| Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |
+| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |                                                             |
+| Add Recurring Expense             | `add /recur /price PRICE /description DESCRIPTION /category CATEGORY /date DATE /frequency FREQUENCY`                  |
+| Edit Recurring Expense            | `edit INDEX /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]` |
+| Delete Recurring Expense          | `delete /recur INDEX`                                                                                                  |
+| List Recurring Expenses           | `list /recur [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                     | 
