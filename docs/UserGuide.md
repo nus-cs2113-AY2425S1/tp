@@ -129,6 +129,22 @@ Examples:
 * `view -e Origami workshop -y participant` shows a list of all participants for the event `Origami workshop`.
 * `view -e Origami workshop -y item` shows a list of all items for the event `Origami workshop`. 
 
+### Edit the information of an event or a participant: `edit`
+
+Edit the information of an event/participant/item.
+
+Format:
+
+* `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
+* `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for editing a participant's contact information in an event.
+* `edit -m ITEM > NEW_ITEM -e EVENT` for editing an item's information in an event.
+
+Examples:
+
+* `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH` edits the information of the event CS2113.
+* `edit -p Mary -n 9182 3213 -email mary@gmail.com -e CS2113` edits the contact information of the Mary in CS2113.
+* `edit -m balloon > cake -e anniversary` edits the item balloon in the anniversary to cake.
+
 ### Mark an event as done: `mark`
 
 Marks an event in the event list as done or not done.
@@ -166,8 +182,8 @@ Format: `mark -m ITEM -e EVENT -s STATUS`
 Examples:
 
 * `mark -m Origami paper -e Origami workshop -s accounted` marks the item `Origami paper` in the `Origami workshop` event as accounted.
-* `mark -m Origami paper -e Origami workshop -s unaccounted` marks the item `Origami paper` in the `Origami workshop` event as unaccounted.
-* 
+* `mark -m Origami paper -e Origami workshop -s unaccounted` marks the item `Origami paper` in the `Origami workshop` event as unaccounted. 
+
 ### Copies participant list: `copy`
 
 Copies the participant list from one event to another event.
