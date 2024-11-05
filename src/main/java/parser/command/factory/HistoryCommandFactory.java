@@ -19,7 +19,6 @@ public class HistoryCommandFactory {
     public Command parse(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        // Handle empty argumentString by defaulting to HistoryCommand
         String parsedArgument = argumentString.isEmpty() ? HistoryCommand.COMMAND_WORD : argumentString;
         String[] inputArguments = splitArguments(parsedArgument);
         String subCommandString = inputArguments[0];
@@ -27,7 +26,8 @@ public class HistoryCommandFactory {
 
         return switch (subCommandString) {
             case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
-            case ListPersonalBestsCommand.COMMAND_WORD -> preparePersonalBestCommand(arguments);
+            case ListPersonalBestsCommand.COMMAND_WORD -> arguments.isEmpty() ?
+                    new ListPersonalBestsCommand() : new ViewPersonalBestCommand(arguments);
             case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();
             default -> new InvalidCommand();
         };
