@@ -25,6 +25,7 @@
 WheresMyMoney uses the following libraries
 
 1. [OpenCSV](https://opencsv.sourceforge.net/) - Used for saving/ loading expenses
+2. [XChart](https://knowm.org/open-source/xchart/) - Used for visualizing expenses
 
 WheresMyMoney uses the following tools for development:
 
@@ -45,6 +46,7 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Expense and Expense List](#expense-and-expense-list)
 - [Expense Filter](#expense-filter)
 - [Date and Time Handling](#date-and-time-handling)
+- Visualizer
 - [Exceptions and Logging](#exceptions-and-logging)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 - [Category Package](#category-package)
@@ -234,6 +236,23 @@ The `DateUtils` class has no notable methods.
 <u>Implementation Details</u>
 
 The `DateUtils` class is implemented as a Singleton as its methods are common to all other classes that require it.
+
+### Visualizer
+
+The `VisualizeCommand`, similar to the `list` command, takes in `category` and `from`/`to` dates.
+It uses `ExpenseFilter` to generate an `ArrayList<Expense>` of matched expenses and passes it to `Visualizer`.
+
+The `Visualizer` class, upon receiving `expenses`, performs the following steps:
++ Determine `beginDate` and `endDate` (the earliest and latest `dateAdded` among all expenses).
++ `getTimeRange()` - Calculate `dateRange` - the difference (in days) between `beginDate` and `endDate` plus one.
++ If `dateRange` is within a month (no more than 32 days):
+  + `createDateList()` - Generate a `List<String> timeSeries` of dates, spanning from `beginDate` to `endDate`.
+  + `groupPriceByDay()` - Create a `Hashmap<String, Float> dateToExpenseMap`. 
+  The keys are elements of `timeSeries`, and values are the total expenses in the corresponding day.
++ If `dateRange` is more than a month, perform similar operations where each element of `timeSeries` is a whole month.
++ `drawChart()` - Pass data to the `CategoryChart` object, customize and display the chart.
+
+Data is passed to the XChart library in the form of two series - a `timeSeries` and a `valueSeries`.
 
 ### Recurring Expense and Recurring Expense List
 
