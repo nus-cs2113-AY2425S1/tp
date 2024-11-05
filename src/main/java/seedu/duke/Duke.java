@@ -20,7 +20,7 @@ public class Duke {
         CategoryManager categoryManager = new CategoryManager();
         BudgetManager budgetManager = new BudgetManager();
         ExpenseManager expenseManager = new ExpenseManager();
-        Parser parser = new Parser(expenseManager, categoryManager, budgetManager);
+        Parser parser = new Parser(expenseManager, categoryManager, budgetManager, ui);
 
         Scanner in = new Scanner(System.in);
         ui.printWelcomeMessage();

@@ -4,11 +4,13 @@ public class Parser {
     private final ExpenseManager expenseManager;
     private final CategoryManager categoryManager;
     private final BudgetManager budgetManager;
+    private final UI ui;
 
-    public Parser(ExpenseManager expenseManager, CategoryManager categoryManager, BudgetManager budgetManager) {
+    public Parser(ExpenseManager expenseManager, CategoryManager categoryManager, BudgetManager budgetManager, UI ui) {
         this.expenseManager = expenseManager;
         this.categoryManager = categoryManager;
         this.budgetManager = budgetManager;
+        this.ui = ui;
     }
 
     public boolean parseCommand(String input, TrackerData trackerData) {
@@ -31,10 +33,10 @@ public class Parser {
         } else if (input.equalsIgnoreCase("toggle-reset")) {
             budgetManager.toggleAutoReset();
         } else if (input.equalsIgnoreCase("bye")) {
-            System.out.println("Goodbye! :> Hope to see you again soon!");
+            ui.printExitMessage();
             return true;
         } else {
-            System.out.println("Invalid input! Try again.");
+            ui.printParserInvalidInput();
         }
 
         return false;
