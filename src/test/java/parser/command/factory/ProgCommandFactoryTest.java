@@ -2,6 +2,8 @@ package parser.command.factory;
 
 import command.Command;
 import command.programme.LogProgrammeCommand;
+import exceptions.InvalidFormatBuffBuddyException;
+import exceptions.MissingFlagBuffBuddyException;
 import org.junit.jupiter.api.Test;
 import parser.Parser;
 
@@ -33,8 +35,8 @@ class ProgCommandFactoryTest {
     public void testPrepareLogCommandMissingFlags() {
         String fullCommand = "prog log /p 2";
 
-        assertThrows(IllegalArgumentException.class, () -> parser.parse(fullCommand),
-                "Expected IllegalArgumentException for missing required flags.");
+        assertThrows(MissingFlagBuffBuddyException.class, () -> parser.parse(fullCommand),
+                "Expected MissingFlagBuffBuddyException for missing required flags.");
     }
 
     @Test
@@ -42,8 +44,8 @@ class ProgCommandFactoryTest {
         // Test when programme index is invalid
         String fullCommand = "prog log /p abc /d 3 /t 21-12-2023";
 
-        assertThrows(IllegalArgumentException.class, () -> parser.parse(fullCommand),
-                "Expected IllegalArgumentException for non-numeric programme index.");
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> parser.parse(fullCommand),
+                "Expected InvalidFormatBuffBuddyException for non-numeric programme index.");
     }
 
     @Test
@@ -51,8 +53,8 @@ class ProgCommandFactoryTest {
         // Test when day index is invalid
         String fullCommand = "prog log /p 2 /d abc /t 21-12-2023";
 
-        assertThrows(IllegalArgumentException.class, () -> parser.parse(fullCommand),
-                "Expected IllegalArgumentException for non-numeric day index.");
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> parser.parse(fullCommand),
+                "Expected InvalidFormatBuffBuddyException for non-numeric day index.");
     }
 
     @Test
@@ -60,8 +62,8 @@ class ProgCommandFactoryTest {
         // Test with an incorrectly formatted date
         String fullCommand = "prog log /p 2 /d 3 /t 2023-12-21";
 
-        assertThrows(IllegalArgumentException.class, () -> parser.parse(fullCommand),
-                "Expected IllegalArgumentException for invalid date format.");
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> parser.parse(fullCommand),
+                "Expected InvalidFormatBuffBuddyException for invalid date format.");
     }
 
     @Test
@@ -78,3 +80,4 @@ class ProgCommandFactoryTest {
                 "to the parsed LogCommand with a future date.");
     }
 }
+

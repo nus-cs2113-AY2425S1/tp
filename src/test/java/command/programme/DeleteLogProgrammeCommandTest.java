@@ -1,6 +1,7 @@
 package command.programme;
 
 import command.CommandResult;
+import exceptions.BuffBuddyException;
 import history.DailyRecord;
 import history.History;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,7 +60,8 @@ class DeleteLogProgrammeCommandTest {
     void execute_edgeCase_noLogExists() {
         LocalDate nonExistentDate = LocalDate.of(2023, 10, 2);
         DeleteLogProgrammeCommand command = new DeleteLogProgrammeCommand(nonExistentDate);
-        assertThrows(IllegalStateException.class, () -> command.execute(programmes, history));
+        assertThrows(BuffBuddyException.class, () -> command.execute(programmes, history),
+                "Expected BuffBuddyException for non-existent log.");
     }
 
     @Test
@@ -68,3 +70,4 @@ class DeleteLogProgrammeCommandTest {
         assertThrows(AssertionError.class, () -> command.execute(programmes, null));
     }
 }
+

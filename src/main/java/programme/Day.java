@@ -1,6 +1,8 @@
 // @@author Atulteja
 package programme;
 
+import exceptions.IndexOutOfBoundsBuffBuddyException;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -42,7 +44,7 @@ public class Day {
 
     public Exercise getExercise(int index){
         if (index < 0 || index >= exercises.size()) {
-            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for exercise list.");
+            throw new IndexOutOfBoundsBuffBuddyException(index, "exercise list");
         }
 
         logger.log(Level.INFO, "Retrieving exercise at index {0}: {1}", new Object[]{index, exercises.get(index)});
@@ -57,7 +59,7 @@ public class Day {
 
     public Exercise deleteExercise(int index) {
         if (index < 0 || index >= exercises.size()) {
-            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for exercise list.");
+            throw new IndexOutOfBoundsBuffBuddyException(index, "exercise list");
         }
         Exercise toBeDeleted = exercises.get(index);
         exercises.remove(index);

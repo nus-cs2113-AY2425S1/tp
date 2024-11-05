@@ -1,6 +1,7 @@
 package command.programme;
 
 import command.CommandResult;
+import exceptions.IndexOutOfBoundsBuffBuddyException;
 import history.History;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class StartProgrammeCommandTest {
     void setUp() {
         programmeList = new ProgrammeList();
         history = new History();
-        
+
         // Add some programmes to the list for testing
         ArrayList<Day> days1 = new ArrayList<>();
         days1.add(new Day("Day 1", new ArrayList<>()));
@@ -48,7 +49,7 @@ public class StartProgrammeCommandTest {
     @Test
     void execute_invalidProgrammeIndex_throwsException() {
         command = new StartProgrammeCommand(5); // Invalid index
-        assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> {
             command.execute(programmeList, history);
         });
     }
@@ -61,3 +62,4 @@ public class StartProgrammeCommandTest {
         });
     }
 }
+

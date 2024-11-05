@@ -17,6 +17,8 @@ import command.programme.edit.DeleteExerciseProgrammeCommand;
 import command.programme.edit.CreateDayProgrammeCommand;
 import command.programme.edit.DeleteDayProgrammeCommand;
 
+import exceptions.EmptyInputBuffBuddyException;
+import exceptions.MissingFlagBuffBuddyException;
 import parser.FlagParser;
 import programme.Day;
 import programme.Exercise;
@@ -120,7 +122,7 @@ public class ProgCommandFactory {
         String progName = progParts[0].trim();
         if (progName.isEmpty()) {
             logger.log(Level.WARNING, "Programme name is empty");
-            throw new IllegalArgumentException("Programme name cannot be empty. Please enter a name.");
+            throw new EmptyInputBuffBuddyException("Programme name");
         }
 
         for (int i = 1; i < progParts.length; i++) {
@@ -262,7 +264,7 @@ public class ProgCommandFactory {
             return prepareDeleteDayCommand(flagParser);
         }
 
-        throw new IllegalArgumentException("Missing edit command flag. Please provide a valid command flag.");
+        throw new MissingFlagBuffBuddyException("Edit command");
     }
 
     /**
@@ -368,13 +370,13 @@ public class ProgCommandFactory {
      * @return a Day object representing the parsed day and its exercises.
      * @throws IllegalArgumentException if there are missing arguments to create a day.
      */
-    private  Day parseDay(String dayString) {
+    private Day parseDay(String dayString) {
         assert dayString != null : "Day string must not be null";
 
         String[] dayParts  = dayString.split(EXERCISE_FLAG);
         String dayName = dayParts[0].trim();
         if (dayName.isEmpty()) {
-            throw new IllegalArgumentException("Day name cannot be empty. Please enter a valid day name.");
+            throw new EmptyInputBuffBuddyException("Day");
         }
 
         Day day = new Day(dayName);

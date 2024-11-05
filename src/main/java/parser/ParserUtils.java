@@ -1,6 +1,11 @@
 // @@author nirala-ts
 package parser;
 
+//import exceptions.BuffBuddyException;
+import exceptions.EmptyInputBuffBuddyException;
+import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.InvalidFormatBuffBuddyException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -53,7 +58,7 @@ public class ParserUtils {
 
         if (trimmedString.isEmpty()){
             logger.log(Level.WARNING, "Trimmed input is empty");
-            throw new IllegalArgumentException("intString or dateString is empty.");
+            throw new EmptyInputBuffBuddyException("intString or dateString");
         }
 
         logger.log(Level.INFO, "Successfully trimmed input: {0}", trimmedString);
@@ -83,7 +88,7 @@ public class ParserUtils {
             return result;
         } catch (NumberFormatException e){
             logger.log(Level.WARNING, "Failed to parse integer from string: {0}", intString);
-            throw new IllegalArgumentException("intString is not an integer.");
+            throw new InvalidFormatBuffBuddyException("Integer");
         }
     }
 
@@ -110,7 +115,7 @@ public class ParserUtils {
             return result;
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Failed to parse float from string: {0}", floatString);
-            throw new IllegalArgumentException("floatString is not a valid float.");
+            throw new InvalidFormatBuffBuddyException("float");
         }
     }
 
@@ -131,7 +136,7 @@ public class ParserUtils {
         int index = parseInteger(indexString) - 1;
         if (index < 0){
             logger.log(Level.WARNING, "Invalid index: {0}. Index must be non-negative.", indexString);
-            throw new IllegalArgumentException("Index: " + indexString +" is not a valid index.");
+            throw new IndexOutOfBoundsBuffBuddyException("Index: " + indexString +" is not a valid index.");
         }
 
         logger.log(Level.INFO, "Successfully parsed index: {0}", index);
@@ -164,8 +169,7 @@ public class ParserUtils {
         } catch (DateTimeParseException e) {
             logger.log(Level.WARNING, "Invalid date format: {0}. Expected format: {1}",
                     new Object[]{dateString, DATE_FORMAT});
-            throw new IllegalArgumentException("Invalid date format. Expected format: dd-MM-yyyy. " +
-                    "Error: " + e.getParsedString(), e);
+            throw new InvalidFormatBuffBuddyException("dd-MM-yyyy.");
         }
     }
 }

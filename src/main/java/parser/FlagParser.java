@@ -1,6 +1,9 @@
 //@@author nirala-ts
 package parser;
 
+import exceptions.EmptyInputBuffBuddyException;
+import exceptions.MissingFlagBuffBuddyException;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +12,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static common.Utils.isNull;
+
+
+import static parser.FlagDefinitions.MEAL_INDEX;
+import static parser.FlagDefinitions.WATER_INDEX;
+import static parser.FlagDefinitions.VOLUME_FLAG;
 import static parser.ParserUtils.parseInteger;
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.parseFloat;
@@ -43,7 +51,7 @@ public class FlagParser {
      */
     public FlagParser(String argumentString, String... ignoredFlags) {
         if (isNull(argumentString)){
-            throw new IllegalArgumentException("ArgumentString: " + argumentString + " is null");
+            throw new EmptyInputBuffBuddyException("Argument string");
         }
 
         initializeAliasMap();
@@ -96,7 +104,7 @@ public class FlagParser {
         aliasMap.put("/exercise", "/e");
         aliasMap.put("/set", "/s");
         aliasMap.put("/rep", "/r");
-        aliasMap.put("/weight", "/w");
+        aliasMap.put("/weight", WATER_INDEX);
         aliasMap.put("/calories", "/c");
 
         aliasMap.put("/createEx", "/a");
@@ -105,10 +113,10 @@ public class FlagParser {
         aliasMap.put("/createDay", "/ad");
         aliasMap.put("/removeDay", "/xd");
 
-        aliasMap.put("/meal", "/m");
+        aliasMap.put("/meal", MEAL_INDEX);
 
-        aliasMap.put("/volume", "/v");
-        aliasMap.put("/water", "/w");
+        aliasMap.put("/volume", VOLUME_FLAG);
+        aliasMap.put("/water", WATER_INDEX);
     }
 
     /**
@@ -178,14 +186,14 @@ public class FlagParser {
 
             if (!hasFlag(flag)) {
                 logger.log(Level.WARNING, "Missing required flag: {0}", flag);
-                throw new IllegalArgumentException("Required flag: " + flag + " is missing.");
+                throw new MissingFlagBuffBuddyException(flag);
             }
 
             String value = getStringByFlag(flag);
 
             if (isNull(value)) {
                 logger.log(Level.WARNING, "Required flag has null value: {0}", flag);
-                throw new IllegalArgumentException("Required flag: " + flag + " has no associated value.");
+                throw new MissingFlagBuffBuddyException(flag);
             }
         }
     }
