@@ -7,16 +7,15 @@ Participant ":Storage" as storage STORAGE_COLOUR
 Participant ":FileParser" as parser PARSER_COLOUR
 Participant ":EventList" as events EVENT_COLOUR
 
-group sd Loading of event data
-main -> storage : loadInfo(EventList)
+main -> storage : loadInfo(eventList)
 activate storage STORAGE_COLOUR
 
 create parser
-storage -> parser : FileParser(EventList, String)
+storage -> parser : FileParser(eventList, filePath)
 activate parser PARSER_COLOUR
 return
 
-storage -> parser : parseFile(EventList, String)
+storage -> parser : parseFile(eventList, filePath)
 activate parser PARSER_COLOUR
 
 loop for line in file
@@ -26,16 +25,25 @@ loop for line in file
     activate parser PARSER_COLOUR
 
     alt EVENT
+        parser -> parser : parseEventFileLine(events, fields, formatter)
+        activate parser PARSER_COLOUR
         parser -> events : addEvent(...)
         activate events EVENT_COLOUR
         return
+        return
     else PARTICIPANT
+        parser -> parser : parseParicipantFileLine(events, fields)
+        activate parser PARSER_COLOUR
         parser -> events : addParticipantToEvent(...)
         activate events EVENT_COLOUR
         return
+        return
     else ITEM
+        parser -> parser : parseItemFileLine(events, fields)
+        activate parser PARSER_COLOUR
         parser -> events : addItemToEvent(...)
         activate events EVENT_COLOUR
+        return
         return
     end
     return
@@ -47,6 +55,6 @@ parser --> storage
 deactivate parser
 storage --> main
 deactivate storage
-end
+
 
 @enduml

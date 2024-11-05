@@ -4,32 +4,87 @@ hide footbox
 
 Participant ":Main" as main
 Participant ":Storage" as storage STORAGE_COLOUR
-Participant ":EventList" as eventList EVENT_COLOUR
 Participant "event:Event" as event EVENT_COLOUR
+Participant "eventList:EventList" as eventlist EVENT_COLOUR
+Participant "participant:Participant" as participant
+Participant "item:Item" as item
 
-group sd Saving of participant data
-main -> storage : saveInfo(EventList)
+main -> storage : saveInfo(eventList)
 activate storage STORAGE_COLOUR
+
+storage -> eventlist : getList()
+activate eventlist EVENT_COLOUR
+return event list
 
 loop for event in event list
 
-storage -> eventList : getList()
-activate eventList EVENT_COLOUR
-return :ArrayList<Event>
+storage -> storage : getEventFields()
+activate storage STORAGE_COLOUR
 
-loop for participant in participant list
+storage -> event : getEventName()
+activate event EVENT_COLOUR
+event --> storage
+storage -> event : getEventTime()
+event --> storage
+storage -> event : getEventVenue()
+event --> storage
+storage -> event : getEventPriorityString()
+event --> storage
+storage -> event : markIfDone()
+event --> storage
+deactivate event
+
+return event fields
 
 storage -> event : getParticipantList()
 activate event EVENT_COLOUR
-return :ArrayList<Participant>
+return participant list
+
+loop for participant in event's participant list
+
+storage -> storage : getParticipantFields()
+activate storage STORAGE_COLOUR
+
+storage -> participant : getName()
+activate participant
+participant --> storage
+storage -> participant : getNumber()
+participant --> storage
+storage -> participant : getEmail()
+participant --> storage
+storage -> event : getEventName()
+activate event EVENT_COLOUR
+event --> storage
+deactivate event
+storage -> participant : markFileLineIfPresent()
+participant --> storage
+deactivate participant
+
+return participant fields
 
 end
 
-loop for item in participant list
-
 storage -> event : getItemList()
 activate event EVENT_COLOUR
-return :ArrayList<Item>
+return item list
+
+loop for item in event's item list
+
+storage -> storage : getItemFields()
+activate storage STORAGE_COLOUR
+
+storage -> item : getName()
+activate item
+item --> storage
+storage -> event : getEventName()
+activate event EVENT_COLOUR
+event --> storage
+deactivate event
+storage -> item : markFileLineIfPresent()
+item --> storage
+deactivate item
+
+return item fields
 
 end
 
@@ -37,7 +92,7 @@ end
 
 return
 
-end
+
 
 
 @enduml

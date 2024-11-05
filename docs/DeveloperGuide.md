@@ -557,10 +557,6 @@ This functionality is implemented by the `Storage` and `FileParser` classes, enc
 2. `FileParser` processes each line, identifying whether it represents an `Event`, `Participant`, or `Item`, and appropriately adds each object to the relevant `Event` in `EventList`.
 3. Lines with insufficient or invalid fields are skipped, while lines with extra fields have the additional fields ignored.
 
-The interactions between classes during the `Main#loadData()` operation is shown in the **Sequence Diagram** below.
-
-<img src = "images/LoadingSequenceDiagram.png">
-
 #### Loading Events, Participants and Items
 
 For `Event` loading:
@@ -580,10 +576,6 @@ The logic for the loading of `Item`s is similar to that for `Participant`s.
 
 1. `Storage` retrieves `Events` from `EventList` and writes each `Event` and its associated `Participants` and `Items` to `data.csv`.
 2. Each line is formatted based on the object type, either as an `Event`, `Participant`, or `Item`.
-
-The **Sequence Diagram** below illustrates the class interactions during the `Main#saveData()` operation.
-
-<img src = "images/SavingSequenceDiagram.png">
 
 #### Saving Events, Participants, and Items
 
