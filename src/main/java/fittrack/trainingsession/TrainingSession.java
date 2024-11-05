@@ -134,13 +134,17 @@ public class TrainingSession extends Saveable {
     }
 
     /**
-     * Serializes this TrainingSession object into a string format suitable for saving to storage.
-     * The format consists of the session description, date-time, and exercise data for each type.
+     * Serializes this `TrainingSession` object into a formatted string suitable for saving to storage.
+     * The format includes the session description, session date-time, and data for each exercise type.
+     * <p>
+     * Format: {@code "TrainingSession" | sessionDescription | sessionDateTime | SU data | SBJ data | SR data |
+     * SAR data | PU data | WAR data}
      *
-     * @return A formatted string representing this TrainingSession, including session details and
-     *         performance data for each exercise type. The format follows:
-     *         "TrainingSession | {@code  sessionDescription} | {@code sessionDateTime} | {@code SU data} |
-     *         {@code SBJ data} | {@code SR data} | {@code SAR data} | {@code PU data} | {@code WAR data}"
+     * <p>
+     * The deadline format is expected to be "dd/MM/yyyy HH:mm" or "dd/MM/yyyy".
+     *
+     * @return A formatted string representing this `TrainingSession`, including the session details and
+     *         exercise performance data for each type.
      */
     @Override
     public String toSaveString(){

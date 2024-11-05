@@ -26,13 +26,30 @@ public class Reminder extends Saveable {
                 this.reminderDeadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + System.lineSeparator());
     }
 
-    // Saves in the format [ Reminder | Description | Deadline | User ]
+    /**
+     * Saves the `Reminder` object's data in a formatted string representation for storage.
+     * The format includes the reminder type, description, deadline, and user data.
+     * Format: {@code Reminder | Description | Deadline | User}.
+     *
+     * @return A string in the format {@code Reminder | Description | Deadline | User}.
+     */
     @Override
     public String toSaveString() {
         return "Reminder" + " | " + reminderDescription + " | " +
                 reminderDeadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + " | " + User.toString();
     }
 
+    /**
+     * Creates a `Reminder` object from a formatted string loaded from the save file.
+     * The format should match: {@code "Reminder" | Description | Deadline | User}.
+     * <p>
+     * This method parses the reminder description, deadline, and user information
+     * to reconstruct the `Reminder` object. The deadline format is expected to be "dd/MM/yyyy HH:mm" or "dd/MM/yyyy".
+     *
+     * @param saveString A formatted string representation of a `Reminder`.
+     * @return A new `Reminder` instance populated with the parsed data.
+     * @throws IllegalArgumentException If the format of `saveString` is invalid or does not match the expected format.
+     */
     public static Reminder fromSaveString(String saveString) {
         // Split the string by the " | " delimiter
         String[] stringData = saveString.split(" \\| ");

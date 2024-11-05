@@ -31,14 +31,32 @@ public class Goal extends Saveable {
         return "Goal: " + description + (deadline != null ? ", Deadline: " + deadline : "");
     }
 
-    // Saves in the format [ Goal | Description | Deadline | User ]
+    /**
+     * Saves the `Goal` object's data in a formatted string representation for storage.
+     * The format includes the goal type, description, and optional deadline.
+     * Format: {@code "Goal" | Description | Deadline}.
+     * <p>
+     * The deadline format is expected to be "dd/MM/yyyy HH:mm" or "dd/MM/yyyy".
+     *
+     * @return A string in the format {@code "Goal" | Description | Deadline}.
+     */
     @Override
     public String toSaveString() {
         return "Goal" + " | " + description + " | " + (deadline != null ?
                 deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "");
     }
 
-    // Parses a formatted string from a save-file to load a new goal.
+    /**
+     * Creates a `Goal` object from a formatted string loaded from the save file.
+     * The format should match: {@code "Goal" | Description | Deadline}.
+     * <p>
+     * This method parses the goal description and optional deadline to reconstruct
+     * the `Goal` object. If the deadline is provided, it must match the "dd/MM/yyyy HH:mm" or "dd/MM/yyyy" format.
+     *
+     * @param saveString A formatted string representation of a `Goal`.
+     * @return A new `Goal` instance populated with the parsed data, or `null` if the deadline format is invalid.
+     * @throws IllegalArgumentException If the format of `saveString` is invalid or does not match the expected format.
+     */
     public static Goal fromSaveString(String saveString) {
         // Split the string by the " | " delimiter
         String[] stringData = saveString.split(" \\| ");
