@@ -189,7 +189,8 @@ public class Logic {
         try {
             index = Integer.parseInt(commandArguments.get("argument"));
         } catch (NumberFormatException e) {
-            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+            throw new FinanceBuddyException(
+                    "Invalid index. Please provide a valid integer less than or equal to 2147483647.");
         }
 
         FinancialEntry entry = financialList.getEntry(index - 1);
