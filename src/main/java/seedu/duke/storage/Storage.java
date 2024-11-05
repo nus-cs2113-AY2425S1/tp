@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.io.FileNotFoundException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -125,7 +127,10 @@ public class Storage {
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Error parsing amount in expense: " + tokens[1]);
             throw e;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.WARNING, "Error parsing category in expense: " + tokens[4]);
+            throw e;
+        } catch (DateTimeParseException e) {
             logger.log(Level.WARNING, "Error parsing date in expense: " + tokens[3]);
             throw e;
         }
@@ -152,10 +157,13 @@ public class Storage {
             assert amount >= 0 : "Amount should be non-negative";
             assert description != null && !description.isEmpty() : "Description should not be empty";
             return new Income(amount, description, date, category);
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Error parsing amount in income: " + tokens[1]);
             throw e;
-        }catch (Exception e){
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.WARNING, "Error parsing category in income: " + tokens[4]);
+            throw e;
+        } catch (DateTimeParseException e) {
             logger.log(Level.WARNING, "Error parsing date in income: " + tokens[3]);
             throw e;
         }
@@ -168,33 +176,41 @@ public class Storage {
      * 
      * @return FinancialList containing the loaded financial entries, or null if an error occurs.
      */
-    public FinancialList loadFromFile(){
-        FinancialList theList = new FinancialList();
+    public FinancialList loadFromFile() {
         try {
+            FinancialList theList = new FinancialList();
             File file = getStorageFile();
             java.util.Scanner sc = new java.util.Scanner(file);
             Integer loadedExpenseCount = 0;
             Integer loadedIncomeCount = 0;
             while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                // parse the line and add the task to the list
-                if (line.charAt(0) == 'E') {
-                    String[] tokens = line.split(" \\| ");
-                    theList.addEntry(parseExpense(tokens));
-                    loadedExpenseCount++;
-                } else if (line.charAt(0) == 'I') {
-                    String[] tokens = line.split(" \\| ");
-                    theList.addEntry(parseIncome(tokens));
-                    loadedIncomeCount++;
+                try {
+                    String line = sc.nextLine();
+                    // parse the line and add the task to the list
+                    if (line.charAt(0) == 'E') {
+                        String[] tokens = line.split(" \\| ");
+                        theList.addEntry(parseExpense(tokens));
+                        loadedExpenseCount++;
+                    } else if (line.charAt(0) == 'I') {
+                        String[] tokens = line.split(" \\| ");
+                        theList.addEntry(parseIncome(tokens));
+                        loadedIncomeCount++;
+                    } else{
+                        logger.log(Level.WARNING, "Skiping logged transection cause storage formate invalid, " 
+                                + "unknown entry type: " + line.charAt(0));
+                    }
+                } catch (Exception e) {
+                    logger.log(Level.WARNING, "Skiping logged transection cause storage formate invalid");
                 }
             }
             sc.close();
             logger.log(Level.INFO, "Loaded " + loadedExpenseCount + " expenses and " + 
                     loadedIncomeCount + " incomes from file.");
             return theList;
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return null;
+        catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "File not found: " + e.getMessage() + "Creating new FinancialList.");
+            return new FinancialList();
+        }
     }
 }
