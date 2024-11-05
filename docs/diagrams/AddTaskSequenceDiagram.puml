@@ -1,10 +1,14 @@
 @startuml
+
+!include style.puml
+skinparam ArrowFormatStyle plain
+
 actor User
-participant MediTask
-participant Parser
-participant AddTaskCommand
-participant Task
-participant TaskList
+participant MediTask MAIN_COLOR
+participant Parser PARSER_COLOR
+participant AddTaskCommand COMMAND_COLOR
+participant Task COMMAND_COLOR
+participant TaskList COMMAND_COLOR
 
 User -> MediTask: Selects a patient
 MediTask -> Parser: Parse input command ("add <task_type> <args>")

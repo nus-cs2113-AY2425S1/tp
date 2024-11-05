@@ -58,7 +58,7 @@ public class Ui {
      *
      * @param message The error message to display.
      */
-    public void showToUserException(String message) {
+    public static void showToUserException(String message) {
         System.out.println(Colors.ANSI_RED + message + Colors.ANSI_RESET);
     }
 
