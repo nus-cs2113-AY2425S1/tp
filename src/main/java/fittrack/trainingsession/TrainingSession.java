@@ -133,6 +133,15 @@ public class TrainingSession extends Saveable {
                 "Overall Award: " + award(minPoint, totalPoints) + System.lineSeparator());
     }
 
+    /**
+     * Serializes this TrainingSession object into a string format suitable for saving to storage.
+     * The format consists of the session description, date-time, and exercise data for each type.
+     *
+     * @return A formatted string representing this TrainingSession, including session details and
+     *         performance data for each exercise type. The format follows:
+     *         "TrainingSession | {@code  sessionDescription} | {@code sessionDateTime} | {@code SU data} |
+     *         {@code SBJ data} | {@code SR data} | {@code SAR data} | {@code PU data} | {@code WAR data}"
+     */
     @Override
     public String toSaveString(){
 
@@ -151,6 +160,16 @@ public class TrainingSession extends Saveable {
                 + SRInfo + "|" + SARInfo + "|" + SUInfo + "|" + WARInfo;
     }
 
+    /**
+     * Deserializes a string representation of a TrainingSession and creates a new TrainingSession object.
+     * The input string is expected to contain session description, date-time, and exercise data.
+     *
+     * @param saveString The string to deserialize, which should follow the format produced by toSaveString().
+     *                   The format must include session details and exercise data separated by "|" symbols.
+     * @return A TrainingSession object constructed from the provided string.
+     * @throws InvalidSaveDataException If the input string is incomplete, improperly formatted, or contains
+     *                                  invalid date-time data.
+     */
     public static TrainingSession fromSaveString(String saveString) throws InvalidSaveDataException {
         String[] stringData = saveString.split("\\|");
 
@@ -180,7 +199,7 @@ public class TrainingSession extends Saveable {
             String repsData = stringData[3 + i];  // Start reading exercise data from index 3 onward
             Exercise exerciseType = Exercise.fromUserInput(EXERCISE_LIST[i]);
 
-            // If exercise data-value is same as default value, no need to update exercise.
+            // If exercise data-value is same as default value, skip updating exercise.
             if (repsData.equals("0") || repsData.equals("-1")) continue;
 
             loadedSession.editExercise(exerciseType, repsData, false);

@@ -61,9 +61,14 @@ public class Storage {
     }
 
     /**
-     * Loads Saveable items from the save file into a list.
+     * Loads Saveable items from a save file into the provided list.
+     * Each line in the save file represents a serialized Saveable item and is parsed to
+     * create the corresponding object. If an error occurs, loading terminates, and a
+     * message is logged.
      *
-     * @param loadList  A list of Saveable items loaded from the save file.
+     * @param loadList An ArrayList to store Saveable items loaded from the save file.
+     * @throws FileNotFoundException If the save file is not found.
+     * @throws InvalidSaveDataException If an invalid save format or unrecognized item type is encountered.
      */
     public static void loadSaveFile(ArrayList<Saveable> loadList) {
         try (Scanner scanner = new Scanner(SAVEFILE)) {
@@ -86,7 +91,16 @@ public class Storage {
         LOGGER.info("Save file successfully loaded.");
     }
 
-    // Factory method to create Saveable objects based on type
+    /**
+     * Factory method to create Saveable objects from their string representations.
+     * Based on the prefix of the string, this method determines the appropriate
+     * Saveable subclass (TrainingSession, Goal, or Reminder) and delegates to its
+     * fromSaveString method. If the descriptor is unrecognized, an exception is thrown.
+     *
+     * @param saveString A string representation of a Saveable item, prefixed by the item type.
+     * @return A Saveable object corresponding to the serialized data.
+     * @throws InvalidSaveDataException If the prefix does not match any recognized Saveable subclass.
+     */
     private static Saveable createSaveableFromString(String saveString) throws InvalidSaveDataException {
         if (saveString.startsWith("TrainingSession")) {
             return TrainingSession.fromSaveString(saveString);
@@ -99,10 +113,15 @@ public class Storage {
     }
 
     /**
-     * Updates the save file with the current list of sessions.
+     * Updates the save file with the latest information from the provided lists of
+     * `TrainingSession`, `Goal`, and `Reminder` objects. Each list item is serialized
+     * into its string representation and written to the save file, with each entry on
+     * a new line.
      *
-     * @param sessionList The list of sessions to be saved.
-     * @throws IOException If an I/O error occurs while writing to the file.
+     * @param sessionList The list of `TrainingSession` objects to be saved.
+     * @param goalList The list of `Goal` objects to be saved.
+     * @param reminderList The list of `Reminder` objects to be saved.
+     * @throws IOException If any of the provided lists are null or if an I/O error occurs during writing.
      */
     public static void updateSaveFile(ArrayList<TrainingSession> sessionList, ArrayList<Goal> goalList,
                                       ArrayList<Reminder> reminderList ) throws IOException {
@@ -123,15 +142,15 @@ public class Storage {
             for (Goal goal : goalList) {
                 // Assert that session objects are valid
                 assert goal != null : "Training session must not be null";
-                fw.write(goal.toSaveString()); // Write the session to the file
-                fw.write(System.lineSeparator()); // Add a new line after each session
+                fw.write(goal.toSaveString()); // Write the goal to the file
+                fw.write(System.lineSeparator()); // Add a new line after each goal
                 LOGGER.info("Save file successfully updated.");
             }
             for (Reminder reminder : reminderList) {
                 // Assert that session objects are valid
                 assert reminder != null : "Training session must not be null";
-                fw.write(reminder.toSaveString()); // Write the session to the file
-                fw.write(System.lineSeparator()); // Add a new line after each session
+                fw.write(reminder.toSaveString()); // Write the reminder to the file
+                fw.write(System.lineSeparator()); // Add a new line after each reminder
                 LOGGER.info("Save file successfully updated with.");
             }
         } catch (FileNotFoundException e) {
