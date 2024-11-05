@@ -213,14 +213,16 @@ Examples:
 
 Filters out events from the event list based on name, date-time or priority level.
 
-Format: `filter -e/-t/-u DESCRIPTION`
+Format: `filter -e/-d/-t/-x/-u DESCRIPTION`
 
-* `-e/-t/-u` are the flags for name, date-time and priority level respectively.
+* `-e/-d/-t/-x/-u` are the flags for name, date-time and priority level respectively.
 * `DESCRIPTION` is only case-insensitive when filtering using the priority level flag.
 
 Examples:
 * `filter -e workshop` will output all events with `workshop` in their event name.
-* `filter -t 2024` will output all events that are occurring in `2024`.
+* `filter -d 2024-03-02` will output all events that are occurring in `2024-03-02`.
+* `filter -t 12:00` will output all events that are occurring at `12:00`.
+* `filter -x 2024-03-02 12:00` will output all events that are occurring at `2024-03-02 12:00`. 
 * `filter -u high` with output all events with priority level `HIGH`.
 
 ### Find participant: `find`
