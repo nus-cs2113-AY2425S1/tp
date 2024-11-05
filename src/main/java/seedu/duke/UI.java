@@ -9,4 +9,32 @@ public class UI {
     public static final String ERROR_LOADING_DATA_MESSAGE = "Error loading data: ";
     public static final String ERROR_SAVING_DATA_MESSAGE = "Error saving data: ";
     public static final String INVALID_INPUT_MESSAGE = "Please enter a valid command!";
+
+    public void printWelcomeMessage() {
+        System.out.println(WELCOME_MESSAGE);
+    }
+
+    public void printExitMessage() {
+        System.out.println(EXIT_MESSAGE);
+    }
+
+    public void printDataLoaded() {
+        System.out.println(DATA_LOADED_MESSAGE);
+    }
+
+    public void printDataSaved() {
+        System.out.println(DATA_SAVED_MESSAGE);
+    }
+
+    public void printLoadingError(String errorMessage) {
+        System.out.println(ERROR_LOADING_DATA_MESSAGE + errorMessage);
+    }
+
+    public void printSavingError(String errorMessage) {
+        System.out.println(ERROR_SAVING_DATA_MESSAGE + errorMessage);
+    }
+
+    public void printParserInvalidInput() {
+        System.out.println(INVALID_INPUT_MESSAGE);
+    }
 }
