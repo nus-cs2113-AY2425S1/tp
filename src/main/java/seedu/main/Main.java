@@ -133,7 +133,7 @@ public class Main {
 
         parser.registerCommands(new AddCategoryCommand(categories));
         parser.registerCommands(new AddIncomeCommand(transactions));
-        parser.registerCommands(new AddExpenseCommand(transactions));
+        parser.registerCommands(new AddExpenseCommand(transactions, ui, categories));
         parser.registerCommands(new AddBudgetCommand(budgetTracker));
 
         parser.registerCommands(new DeleteCategoryCommand(categories));
