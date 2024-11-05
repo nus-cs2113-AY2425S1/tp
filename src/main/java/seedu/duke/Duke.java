@@ -1,10 +1,20 @@
 package seedu.duke;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        String filePath = "spendswift.txt";
+        Storage storage = new Storage(filePath);
         TrackerData trackerData = new TrackerData();
+
+        try {
+            storage.loadData(trackerData);
+            System.out.println("Data loaded successfully");
+        } catch (IOException e) {
+            System.out.println("Error loading data: " + e.getMessage());
+        }
 
         CategoryManager categoryManager = new CategoryManager();
         BudgetManager budgetManager = new BudgetManager();
@@ -41,6 +51,12 @@ public class Duke {
                 System.out.println("No input received.");
                 break;
             }
+        }
+        try {
+            storage.saveData(trackerData);
+            System.out.println("Data has been saved!");
+        } catch (IOException e) {
+            System.out.println("Error saving data: " + e.getMessage());
         }
     }
 }
