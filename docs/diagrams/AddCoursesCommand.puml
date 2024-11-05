@@ -19,7 +19,7 @@ AddCoursesCommand -> Command: createJsonObject()
 activate Command
 
 opt inputStream is null
-    Command -> AddCoursesCommand: throw new IOException()
+    Command --> AddCoursesCommand: throw new IOException()
 end
 
 Command --> AddCoursesCommand: jsonObject:JsonObject
