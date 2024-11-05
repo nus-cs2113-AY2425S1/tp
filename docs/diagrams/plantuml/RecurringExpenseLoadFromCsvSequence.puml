@@ -11,17 +11,18 @@ participant ":LoadCommand" as LC
 participant ":RecurringExpenseList" as REL
 participant ":CsvUtils" as CSV
 participant ":RecurringExpense" as RE
-participant ":LocalDate" as LD
+participant ":DateUtils" as DU
 
 LC -> REL: loadFromCsv(filePath)
 activate REL
 
-ref over REL, CSV : Retrieve recurring expenses
+REL -> CSV: Retrieve recurring expenses
+CSV --> REL
 
-REL -> LD: now()
-activate LD
-LD --> REL: currentDate
-deactivate LD
+REL -> DU: getCurrentDate()
+activate DU
+DU --> REL: currentDate
+deactivate DU
 
 loop for each RecurringExpense
     REL -> RE: getFrequency()
