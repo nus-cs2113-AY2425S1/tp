@@ -86,6 +86,12 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                if (!isValidFormat(line)) {
+                    System.out.println("Invalid file format detected. Resetting file...");
+                    resetFile();
+                    return;
+                }
+
                 if (!(line.startsWith("FAVOURITES:"))) {
                     String[] data = line.split(" \\| ");
                     String role = data[1];
@@ -108,18 +114,43 @@ public class Storage {
                 }
 
                 // Parse favourite internships
-                String[] parts = line.substring("FAVOURITES:".length()).trim().split(" ");
-                for (String id : parts) {
-                    int favInternshipId = Integer.parseInt(id);
-                    int favInternshipIndex = favInternshipId - 1;
-                    Internship favInternship = internshipList.internships.get(favInternshipIndex);
-                    internshipList.favouriteInternships.add(favInternship);
+                if (!internshipList.favouriteInternships.isEmpty()) {
+                    String[] parts = line.substring("FAVOURITES:".length()).trim().split(" ");
+                    for (String id : parts) {
+                        int favInternshipId = Integer.parseInt(id);
+                        int favInternshipIndex = favInternshipId - 1;
+                        Internship favInternship = internshipList.internships.get(favInternshipIndex);
+                        internshipList.favouriteInternships.add(favInternship);
+                    }
                 }
+
             }
         } catch (IOException e) {
             System.out.println("Error while loading tasks: " + e.getMessage());
         }
     }
+
+    private static boolean isValidFormat(String line) {
+        if (line.startsWith("FAVOURITES:")) {
+            return line.matches("FAVOURITES:( \\d+)*");
+        }
+        return line.matches(
+                "\\d+ \\| [^|]+ \\| [^|]"
+                        + "+ \\| \\d{2}/\\d{2}/\\d{4} \\| \\d{2}/\\d{2}/\\d{4} \\| [^|]"
+                        + "+ \\| [^|]+ \\| .*");
+    }
+
+    private static void resetFile() {
+        File file = new File(FILE_PATH);
+        if (file.delete()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error while creating new file: " + e.getMessage());
+            }
+        }
+    }
+
 
 
     private static List<Deadline> parseDeadlines(String deadlineString, int internshipId) {
