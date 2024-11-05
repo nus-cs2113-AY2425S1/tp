@@ -63,7 +63,7 @@ public class BudgetLogic {
                     if (amount >= 0.01) {
                         isValid = true;
                     } else {
-                        System.out.println("Budget amount must be >= $0.01. Please enter a valid amount:");
+                        System.out.println("Budget amount must be >= $0.01. Please enter a valid amount.");
                     }
 
                 } catch (NumberFormatException e) {

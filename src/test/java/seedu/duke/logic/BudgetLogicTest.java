@@ -10,10 +10,14 @@ import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
 import seedu.duke.ui.AppUi;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.Month;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * Tests for the {@link BudgetLogic} class.
@@ -23,6 +27,7 @@ class BudgetLogicTest {
     private TestAppUi ui;
     private BudgetLogic budgetLogic;
     private FinancialList financialList;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     /**
      * Sets up a new {@link Budget}, {@link TestAppUi}, and {@link BudgetLogic} instance before each test.
@@ -33,6 +38,7 @@ class BudgetLogicTest {
         ui = new TestAppUi();
         budgetLogic = new BudgetLogic(budget, ui);
         financialList = new FinancialList();
+        System.setOut(new PrintStream(outContent));
     }
 
     /**
@@ -78,6 +84,22 @@ class BudgetLogicTest {
         budgetLogic.handleSetBudget(financialList);
 
         assertEquals(1000, budget.getBudgetAmount());
+    }
+
+    @Test
+    void testHandleSetBudgetWithZeroAmount() throws FinanceBuddyException {
+        ui.setInputs("yes", "0", "1000");
+
+        budgetLogic.setBudget(financialList);
+
+        assertTrue(budget.isBudgetSet());
+        assertEquals(1000, budget.getBudgetAmount());
+        assertEquals(1000, budget.getBalance());
+        assertTrue(ui.wasSetBudgetMessageDisplayed());
+
+        String expectedOutput = "Please set your budget amount:" + System.lineSeparator() +
+                "Budget amount must be >= $0.01. Please enter a valid amount." + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**
@@ -137,7 +159,7 @@ class BudgetLogicTest {
     }
 
     @Test
-    void isCurrentMonth_LastYearCurrentMonth_expectFalse() {
+    void isCurrentMonth_lastYearCurrentMonth_expectFalse() {
         LocalDate date = LocalDate.of(LocalDate.now().getYear() - 1, LocalDate.now().getMonth(), 1);
         budgetLogic.isCurrentMonth(date);
     }
@@ -333,5 +355,7 @@ class BudgetLogicTest {
         boolean wasSetBudgetMessageDisplayed() {
             return setBudgetMessageDisplayed;
         }
+
+
     }
 }
