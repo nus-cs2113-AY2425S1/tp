@@ -1,4 +1,5 @@
 // @@author nirala-ts
+
 package parser.command.factory;
 
 import command.Command;
@@ -11,7 +12,6 @@ import command.programme.ViewProgrammeCommand;
 import command.programme.LogProgrammeCommand;
 import org.junit.jupiter.api.BeforeEach;
 import exceptions.EmptyInputBuffBuddyException;
-import exceptions.IndexOutOfBoundsBuffBuddyException;
 import exceptions.InvalidFormatBuffBuddyException;
 import exceptions.MissingFlagBuffBuddyException;
 import org.junit.jupiter.api.Test;
