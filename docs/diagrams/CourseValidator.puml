@@ -18,6 +18,7 @@ CourseValidator -> CourseValidator: get JsonArray for Partner University
 else else
 CourseValidator -> Ui:displayPartnerUniversities()
 activate Ui
+Ui --> CourseValidator
 deactivate
 CourseValidator --> AddCoursesCommand: throw no PU found exception
 end
@@ -37,6 +38,7 @@ end
 end
   CourseValidator --> Ui: displayAvailableMappings()
   activate Ui
+  Ui --> CourseValidator
   deactivate
   CourseValidator --> AddCoursesCommand: false: Boolean
 deactivate

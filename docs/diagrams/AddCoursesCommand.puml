@@ -45,10 +45,12 @@ deactivate
 AddCoursesCommand -> Storage :addCourse(courseToStore)
 AddCoursesCommand -> Ui: printAddMessage(courseToStore)
 activate Ui
+Ui --> AddCoursesCommand: display add message
 deactivate Ui
 else else
 AddCoursesCommand -> Ui: print error message
 activate Ui
+Ui --> AddCoursesCommand: display error message
 deactivate Ui
 end
 return
