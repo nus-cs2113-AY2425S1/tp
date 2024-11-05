@@ -10,17 +10,19 @@ they have exceeded, or are close to exceeding, their budget.
 ### Summary of Contributions
 
 - **New Feature:** Edit Command
-  - <ins>What it does:</ins> edit existing transection's property, ex: description, date, amount, categories.
-  - <ins>Justification:</ins> Allow users to modify transection after it's created.
+  - <ins>What it does:</ins> 
+  Allows users to edit existing transaction properties, such as description, date, amount, and categories.
+  - <ins>Justification:</ins> 
+  Provides users with the flexibility to modify a transaction after it has been created.
 
 - **New Feature:** Storage
-  - <ins>What it does:</ins> Store FinancialList into file.
-  - <ins>Justification:</ins> Allow users to restore progress after the program is closed.
+  - <ins>What it does:</ins> 
+  Saves the FinancialList to a file.
+  - <ins>Justification:</ins> 
+  Enables users to retain their financial data even after the program is closed, ensuring data persistence.
 
-
-- **Documentation:** 
-  - <ins>User Guide</ins>
-  - <ins>Developer Guide</ins>
-    
+- **Documentation:**
+  - <ins>User Guide</ins> 
+  - <ins>Developer Guide</ins> 
 
 - **Project Management**
