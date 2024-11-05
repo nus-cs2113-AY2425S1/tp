@@ -60,46 +60,26 @@ public class Storage {
         assert file.exists() : "Save file should exist after initialization";
     }
 
-
-    /**
-     * Saves a list of Saveable items to the save file.
-     *
-     * @param items The list of Saveable items to save.
-     * @throws IOException If an I/O error occurs while writing to the file.
-     */
-    public static void saveToFile(ArrayList<Saveable> saveableItems) throws IOException {
-        try (FileWriter fw = new FileWriter(SAVEFILE)) {
-            for (Saveable item : saveableItems) {
-                fw.write(item.toSaveString()); // Write the Saveable item's serialized string
-                fw.write(System.lineSeparator()); // Add a new line after each serialized string
-            }
-            LOGGER.info("Save file successfully updated.");
-        } catch (FileNotFoundException e) {
-            System.out.println("FileWriter object failed to initialise.");
-        }
-
-        LOGGER.info("Save file successfully updated.");
-    }
-
     /**
      * Loads Saveable items from the save file into a list.
      *
-     * @return A list of Saveable items loaded from the save file.
-     * @throws FileNotFoundException If the save file is not found.
+     * @param loadList  A list of Saveable items loaded from the save file.
      */
-    public static void loadFromFile(ArrayList<Saveable> loadList) {
+    public static void loadSaveFile(ArrayList<Saveable> loadList) {
         try (Scanner scanner = new Scanner(SAVEFILE)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Saveable item = createSaveableFromString(line);
-                if (item != null) {
-                    loadList.add(item);
-                }
+                loadList.add(item);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Scanner object failed to initialise.");
+            LOGGER.info("Scanner object failed to initialise.");
+            return;
         } catch (InvalidSaveDataException e) {
-            System.out.println("Invalid save data.");
+            System.out.println("Invalid save data found. Data loading terminated.");
+            LOGGER.info("Invalid save data found. Data loading terminated.");
+            return;
         }
 
         System.out.println("Save file successfully loaded.");
@@ -107,7 +87,7 @@ public class Storage {
     }
 
     // Factory method to create Saveable objects based on type
-    private static Saveable createSaveableFromString(String saveString) {
+    private static Saveable createSaveableFromString(String saveString) throws InvalidSaveDataException {
         if (saveString.startsWith("TrainingSession")) {
             return TrainingSession.fromSaveString(saveString);
         } else if (saveString.startsWith("Goal")) {
@@ -115,9 +95,8 @@ public class Storage {
         } else if (saveString.startsWith("Reminder")) {
             return Reminder.fromSaveString(saveString);
         }
-        return null;
+        throw new InvalidSaveDataException("Unrecognised Saveable descriptor detected.");
     }
-
 
     /**
      * Updates the save file with the current list of sessions.
@@ -125,44 +104,38 @@ public class Storage {
      * @param sessionList The list of sessions to be saved.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public static void updateSaveFile(ArrayList<TrainingSession> sessionList) throws IOException {
-        // Assert that the session list is not null before saving
-        assert sessionList != null : "Session list must not be null";
+    public static void updateSaveFile(ArrayList<TrainingSession> sessionList, ArrayList<Goal> goalList,
+                                      ArrayList<Reminder> reminderList ) throws IOException {
+
+        // Determine  provided lists are not null before saving
+        if (sessionList == null || goalList == null || reminderList == null) {
+            throw new IOException("Save file could not be updated. Invalid null list passed to function");
+        }
 
         try (FileWriter fw = new FileWriter(SAVEFILE)) {
             for (TrainingSession session : sessionList) {
                 // Assert that session objects are valid
                 assert session != null : "Training session must not be null";
-                fw.write(session.toString()); // Write the session to the file
+                fw.write(session.toSaveString()); // Write the session to the file
                 fw.write(System.lineSeparator()); // Add a new line after each session
                 LOGGER.info("Save file successfully updated.");
             }
-        }
-        // Assert that the file has been written to successfully
-        assert SAVEFILE.length() > 0 : "Save file should not be empty after update";
-    }
-
-    public static void updateGoalsFile(ArrayList<Goal> goals) throws IOException {
-        try (FileWriter fw = new FileWriter(SAVEFILE, true)) {
-            fw.write("Goals:\n");
-            for (Goal goal : goals) {
-                fw.write(goal.toString() + "\n");
+            for (Goal goal : goalList) {
+                // Assert that session objects are valid
+                assert goal != null : "Training session must not be null";
+                fw.write(goal.toSaveString()); // Write the session to the file
+                fw.write(System.lineSeparator()); // Add a new line after each session
+                LOGGER.info("Save file successfully updated.");
             }
-        }
-    }
-
-    public static void updateRemindersFile(ArrayList<Reminder> reminderList) throws IOException {
-        try (FileWriter fw = new FileWriter(SAVEFILE, true)) {
-            fw.write("Reminders:\n");
             for (Reminder reminder : reminderList) {
-                fw.write(reminder.toString() + "\n");
+                // Assert that session objects are valid
+                assert reminder != null : "Training session must not be null";
+                fw.write(reminder.toSaveString()); // Write the session to the file
+                fw.write(System.lineSeparator()); // Add a new line after each session
+                LOGGER.info("Save file successfully updated with.");
             }
-        }
-        catch (IOException e) {
-            // TODO:
+        } catch (FileNotFoundException e) {
+            System.out.println("Save file could not be updated (File could not be found).");
         }
     }
-
-
-
 }
