@@ -1,6 +1,8 @@
 @startuml
 
-class Hospital {
+!include style.puml
+
+class Hospital  DATA_COLOR{
     - static Patient selectedPatient
     - static Logger logger
     - List<Patient> patients
@@ -22,7 +24,7 @@ class Hospital {
     + calculateOverallCompletionRate(): double
 }
 
-class Patient {
+class Patient DATA_COLOR{
     - String name
     - TaskList taskList
     - String tag
@@ -42,11 +44,11 @@ class Patient {
     + toString(): String
 }
 
-class PatientNotFoundException {
+class PatientNotFoundException DATA_COLOR{
     + PatientNotFoundException()
 }
 
-class TaskList {
+class TaskList  DATA_COLOR{
     - tasks: ArrayList<Task>
     - completionRate: double
     + addTask(task: Task): void
@@ -56,9 +58,12 @@ class TaskList {
     + getTasks(): ArrayList<Task>
 }
 
+class Exception DATA_COLOR{
+}
+
 PatientNotFoundException .down.|> Exception : extends
 Hospital --> "0...*" Patient
 Hospital .down.> PatientNotFoundException
-Patient --> "0...*" TaskList
+Patient -->  TaskList
 
 @enduml

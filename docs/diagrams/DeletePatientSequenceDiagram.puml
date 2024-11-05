@@ -1,12 +1,15 @@
 @startuml
 
+!include style.puml
+skinparam ArrowFormatStyle plain
+
 actor User
-participant MediTask
-participant Parser
-participant DeleteParser
-participant DeletePatientCommand
-participant Hospital
-participant CommandResult
+participant ":MediTask" as MediTask MAIN_COLOR
+participant ":Parser" as Parser PARSER_COLOR
+participant ":DeleteParser" as DeleteParser PARSER_COLOR
+participant ":DeletePatientCommand" as DeletePatientCommand COMMAND_COLOR
+participant ":Hospital" as Hospital DATA_COLOR
+participant ":CommandResult" as CommandResult COMMAND_COLOR
 
 User -> MediTask : User input ("delete <index>")
 activate MediTask
