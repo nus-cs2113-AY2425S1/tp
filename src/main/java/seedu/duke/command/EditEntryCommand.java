@@ -79,6 +79,17 @@ public class EditEntryCommand extends Command {
      */
     @Override
     public void execute(FinancialList list) throws FinanceBuddyException {
+
+        if (amount < 0.01) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
+        }
+        if (amount > 9999999.00) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $9999999.00 or less.");
+        }
+        if (this.date.isAfter(LocalDate.now())) {
+            throw new FinanceBuddyException("Entered date cannot be after current date.");
+        }
+
         if (list == null) {
             logger.log(LogLevels.SEVERE, "Financial list is null");
             throw new FinanceBuddyException("Financial list cannot be null");
