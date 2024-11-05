@@ -1,5 +1,9 @@
 @startuml
 'https://plantuml.com/class-diagram
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor PARSER_COLOR
+skinparam classBackgroundColor PARSER_COLOR
 
 interface CommandParser {
 }
@@ -44,17 +48,17 @@ class Parser {
     +parseCommand(command: String): void
 }
 
-Parser --> AddDeadlineParser
-Parser --> AddParser
-Parser --> AddRepeatParser
-Parser --> AddTodoParser
-Parser --> BackParser
-Parser --> DeleteParser
-Parser --> ExitParser
-Parser --> FindParser
-Parser --> ListParser
-Parser --> MarkParser
-Parser --> SelectParser
-Parser --> UnmarkParser
+Parser -up-> AddDeadlineParser
+Parser -up-> AddParser
+Parser -up-> AddRepeatParser
+Parser -up-> AddTodoParser
+Parser -up-> BackParser
+Parser -up-> DeleteParser
+Parser -up-> ExitParser
+Parser -up-> FindParser
+Parser -up-> ListParser
+Parser -up-> MarkParser
+Parser -up-> SelectParser
+Parser -up-> UnmarkParser
 
 @enduml
