@@ -18,8 +18,11 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Handles the loading and saving of transactions and categories to and from JSON files.
+ * Provides methods to load and save both transactions and categories using Gson serialization.
+ */
 public class Storage {
-
 
     private static final String TRANSACTIONS_PATH = "transactions.json";
     private static final String CATEGORIES_PATH = "categories.json";
@@ -40,6 +43,12 @@ public class Storage {
                 .create();
     }
 
+    /**
+     * Loads transactions from the transactions JSON file.
+     * If the file does not exist, creates an empty transactions file.
+     *
+     * @return A list of transactions loaded from the file, or an empty list if no transactions are found.
+     */
     public static ArrayList<Transaction> loadTransactions() {
         File transactionsFile = new File(TRANSACTIONS_PATH);
 
@@ -66,6 +75,11 @@ public class Storage {
         return new ArrayList<>();
     }
 
+    /**
+     * Saves the list of transactions to the transactions JSON file.
+     *
+     * @param transactions The list of transactions to be saved.
+     */
     public static void saveTransaction(ArrayList<Transaction> transactions) {
         try (FileWriter writer = new FileWriter(TRANSACTIONS_PATH)) {
             gson.toJson(transactions, writer);
@@ -76,7 +90,12 @@ public class Storage {
         }
     }
 
-    // Similar methods for categories
+    /**
+     * Loads categories from the categories JSON file.
+     * If the file does not exist, creates an empty categories file.
+     *
+     * @return A list of categories loaded from the file, or an empty list if no categories are found.
+     */
     public static ArrayList<Category> loadCategories() {
         File categoriesFile = new File(CATEGORIES_PATH);
         if (!categoriesFile.exists()) {
@@ -97,6 +116,11 @@ public class Storage {
         return new ArrayList<>();
     }
 
+    /**
+     * Saves the list of categories to the categories JSON file.
+     *
+     * @param categories The list of categories to be saved.
+     */
     public static void saveCategory(ArrayList<Category> categories) {
         try (FileWriter writer = new FileWriter(CATEGORIES_PATH)) {
             gson.toJson(categories, writer);
