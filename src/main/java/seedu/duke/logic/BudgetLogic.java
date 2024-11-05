@@ -87,6 +87,10 @@ public class BudgetLogic {
     public boolean isCurrentMonth(String date) throws FinanceBuddyException {
         if (date == null) {
             return true;
+    public boolean hasExceededBudget() {
+        return budget.getBalance() <= 0;
+    }
+
         }
         LocalDate parsedDate = DateParser.parse(date);
         return LocalDate.now().getMonth().equals(parsedDate.getMonth());
