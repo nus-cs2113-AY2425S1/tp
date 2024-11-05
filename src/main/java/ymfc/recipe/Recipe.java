@@ -95,8 +95,18 @@ public class Recipe {
             return false;
         }
 
-        if (!ingredients.equals(recipeToCheck.getIngredients())) {
+        ArrayList<Ingredient> otherIngredients = recipeToCheck.getIngredients();
+        if (ingredients.size() != otherIngredients.size()) {
             return false;
+        }
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            Ingredient ingredient = ingredients.get(i);
+            Ingredient otherIngredient = otherIngredients.get(i);
+
+            if (!ingredient.equals(otherIngredient)) {
+                return false;
+            }
         }
 
         if (!steps.equals(recipeToCheck.getSteps())) {
