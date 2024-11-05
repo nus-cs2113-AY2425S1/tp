@@ -15,8 +15,6 @@ import java.time.format.DateTimeFormatter;
  * The filter command will filter out and display all events with the specified details
  */
 public class FilterCommand extends Command {
-    private EventList filteredEvents;
-
     public static final String COMMAND_WORD = "filter";
 
     private static final String FILTER_BY_NAME_MESSAGE = "Events successfully filtered by name!";
@@ -40,6 +38,7 @@ public class FilterCommand extends Command {
 
     protected String flag;
     protected String filterWord;
+    private EventList filteredEvents;
 
     /**
      * Constructs a {@code FilterCommand} with the specified flag and filter word.
