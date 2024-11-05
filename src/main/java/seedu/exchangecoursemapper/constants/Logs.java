@@ -12,6 +12,8 @@ public class Logs {
     public static final String POSSIBLE_NULL_JSON_KEY = "Encountered an empty or null university name.";
     public static final String NO_NUS_COURSE_CODE_FILTER = "No NUS course code provided to filter";
     public static final String FILTER_COURSES_LIMIT = "More than one NUS course code provided to filter";
+    public static final String NUMBER_SUCCESS = "Number successfully retrieved";
+    public static final String EMAIL_SUCCESS = "Email successfully retrieved";
 
     // ListUniCoursesCommand
     public static final String UNKNOWN_UNIVERSITY = "Unknown university encountered";
