@@ -39,7 +39,7 @@ The app is optimised for quick, command-based interactions, ideal for users who 
     * User Guide
         * Added documentation for storage features (Pull request [#156](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/156))
     * Developer Guide
-        * Added design details for `add`, `remove` and `view` components [#128](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/128)
+        * Added design details for `add`, `remove` and `view` components (Pull request [#128](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/128))
         * Added implementation details for the `add`, `remove`, `view`, `copy`, `sort` and `find` feature (Pull requests [#128](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/128), [#142](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/142)) 
         * Added documentation for storage features (Pull request [#156](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/156))
 
