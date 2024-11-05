@@ -256,4 +256,16 @@ public class UI {
             parser.processUserInput(userInput, storage);
         } while (!userInput.equalsIgnoreCase(BYE));
     }
+
+    public void printFoundCourses(Course foundCourse) {
+        System.out.println(foundCourse.formatOutput());
+    }
+
+    public void printLineSeparator() {
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printEmptyList() {
+        System.out.println("The list is empty.\nPlease make sure there is mapped courses in your tracker.");
+    }
 }
