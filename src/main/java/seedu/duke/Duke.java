@@ -8,21 +8,22 @@ public class Duke {
         String filePath = "spendswift.txt";
         Storage storage = new Storage(filePath);
         TrackerData trackerData = new TrackerData();
+        UI ui = new UI();
 
         try {
             storage.loadData(trackerData);
-            System.out.println("Data loaded successfully");
+            ui.printDataLoaded();
         } catch (IOException e) {
-            System.out.println("Error loading data: " + e.getMessage());
+            ui.printLoadingError(e.getMessage());
         }
 
         CategoryManager categoryManager = new CategoryManager();
         BudgetManager budgetManager = new BudgetManager();
         ExpenseManager expenseManager = new ExpenseManager();
-        Parser parser = new Parser(expenseManager, categoryManager, budgetManager);
+        Parser parser = new Parser(expenseManager, categoryManager, budgetManager, ui);
 
         Scanner in = new Scanner(System.in);
-        System.out.println("Hiya! How can I assist?");
+        ui.printWelcomeMessage();
         boolean isExit = false;
 
         while (!isExit && in.hasNextLine()) {
@@ -32,9 +33,9 @@ public class Duke {
 
         try {
             storage.saveData(trackerData);
-            System.out.println("Data has been saved!");
+            ui.printDataSaved();
         } catch (IOException e) {
-            System.out.println("Error saving data: " + e.getMessage());
+            ui.printSavingError(e.getMessage());
         }
     }
 }
