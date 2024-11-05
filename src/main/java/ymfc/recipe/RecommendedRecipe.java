@@ -1,5 +1,7 @@
 package ymfc.recipe;
 
+import ymfc.ingredient.Ingredient;
+
 import java.util.ArrayList;
 
 /**
@@ -15,9 +17,9 @@ public class RecommendedRecipe{
 
     private Recipe recipe;
     private int percentMatch;
-    private ArrayList<String> missingIngredients;
+    private ArrayList<Ingredient> missingIngredients;
 
-    public RecommendedRecipe(Recipe recipe, int percentMatch, ArrayList<String> missingIngredients) {
+    public RecommendedRecipe(Recipe recipe, int percentMatch, ArrayList<Ingredient> missingIngredients) {
         this.recipe = recipe;
         this.percentMatch = percentMatch;
         this.missingIngredients = missingIngredients;

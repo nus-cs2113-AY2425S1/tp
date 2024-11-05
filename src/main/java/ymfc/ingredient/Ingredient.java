@@ -17,6 +17,19 @@ public class Ingredient {
         return name.equals(ingredientToCheck.getName());
     }
 
+    /**
+     * Override equals function, so that java methods like retainAll and removeAll
+     * knows how to determine equality between two lists of ingredients.
+     *
+     * @param object The other ingredient object to be compared with
+     * @return Boolean denoting whether the name of both ingredients are equal
+     */
+    @Override
+    public boolean equals(Object object) {
+        Ingredient otherIngredient = (Ingredient) object;
+        return this.name.equals(otherIngredient.getName());
+    }
+
     @Override
     public String toString() {
         return name;

@@ -1,5 +1,6 @@
 package ymfc.commands;
 
+import ymfc.ingredient.Ingredient;
 import ymfc.list.IngredientList;
 import ymfc.list.RecipeList;
 import ymfc.recipe.Recipe;
@@ -47,7 +48,7 @@ public class RecommendCommand extends Command {
         assert recipes.getCounter() > 0;
 
 
-        ArrayList<String> ingredientsList = ingredients.getIngredientsString();
+        ArrayList<Ingredient> ingredientsList = ingredients.getIngredients();
         ArrayList<RecommendedRecipe> recommendedList = new ArrayList<>();
 
         // Iterate through all recipes and find recipes with matching ingredients
@@ -57,7 +58,7 @@ public class RecommendCommand extends Command {
             // Find ingredients of recipe that matches ingredient list
             // Clone is used so that a new arraylist is created
             // and the retainAll method doesn't overwrite the original recipe
-            ArrayList<String> matchIngredients = (ArrayList<String>) targetRecipe.getIngredients().clone();
+            ArrayList<Ingredient> matchIngredients = (ArrayList<Ingredient>) targetRecipe.getIngredients().clone();
             int recipeIngredientsCount = matchIngredients.size();
             matchIngredients.retainAll(ingredientsList);
 
@@ -67,7 +68,8 @@ public class RecommendCommand extends Command {
                 int percentMatch = 100 * matchIngredients.size() / recipeIngredientsCount;
 
                 // Find list of missing ingredients
-                ArrayList<String> missingIngredients = (ArrayList<String>) targetRecipe.getIngredients().clone();
+                ArrayList<Ingredient> missingIngredients = (ArrayList<Ingredient>) targetRecipe.
+                        getIngredients().clone();
                 missingIngredients.removeAll(matchIngredients);
 
                 recommendedList.add(new RecommendedRecipe(targetRecipe, percentMatch, missingIngredients));
