@@ -33,7 +33,6 @@ API: `MealList.java`
 - **Ensures data consistency:** The `MealList` class handles edge cases, such as attempts to delete meals at invalid indexes, by throwing appropriate exceptions. This helps maintain data integrity within the list.
 - **Facilitates efficient comparisons and storage:** The class overrides `equals()` and `hashCode()` methods, which enables comparison of two `MealList` objects and allows it to be used in collections, ensuring that meal tracking remains accurate and consistent.
 
-
 ### Water Component
 
 ### History Component
@@ -312,7 +311,7 @@ The **Add Meal** command navigates through the following hierarchy:
 
 - **History** → **DailyRecord** → **MealList**
 - If a `DailyRecord` does not exist for a given date, it is created before adding the meal.
-- Similarly, a new `Meal` object is created and added to the `MealList` if it doesn't already exist.
+- Similarly, a new `Meallist` object is created and added to the `DailyRecord` if it doesn't already exist. The meal is then added to the `MealList` object.
 
 These operations include:
 
@@ -328,7 +327,7 @@ meal add /n [mealName] /c [calories]
 
 - The command is parsed and translated into an `AddMealCommand` object, which contains the necessary details.
 
-**Step 2**: The command retrieves the `DailyRecord` for the specified date from the `History` using `History#getRecordByDate()`. If no record exists, a new one is created.
+**Step 2**: The command retrieves the `DailyRecord` for the specified date from the `History` using `getRecordByDate()`. If no record exists, a new one is created.
 
 **Step 3**: The `AddMealCommand` adds the meal to the `MealList` of the `DailyRecord`. If the meallist already exists, it updates the existing meallist instead.
 
@@ -345,13 +344,6 @@ The diagram shows the interactions among different classes and objects during th
 #### Activity Diagram for "Add Meal" Feature
 
 ![Add Meal Activity Diagram](images/addMealActivitydiagram.png)
-
-The diagram shows the overall operation flow, including:
-
-1. User input parsing.
-2. Daily record retrieval or creation.
-3. Meal addition.
-4. Data persistence.
 
 #### Summary of Feature
 

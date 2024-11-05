@@ -29,8 +29,9 @@ participant "Meal" as Meal
 
 User -> UI: Enter "meal add /n [mealName] /c [calories]"
 activate UI
-UI -> BB: Read command
+BB -> UI: Read command
 activate BB
+UI --> BB: return command
 BB -> Parser: Parse command
 activate Parser
 
@@ -42,13 +43,13 @@ AddCmd -> History: Get DailyRecord by date
 activate History
 
 alt DailyRecord exists
-  History -> AddCmd: Return existing DailyRecord
+  History --> AddCmd: Return existing DailyRecord
 else No DailyRecord exists
   History -> DailyRec: Create new DailyRecord
   activate DailyRec
-  DailyRec -> History: Add new DailyRecord to history
+  DailyRec --> History: Add new DailyRecord to history
   deactivate DailyRec
-  History -> AddCmd: Return new DailyRecord
+  History --> AddCmd: Return new DailyRecord
 end
 deactivate History
 
@@ -59,15 +60,15 @@ alt MealList exists
   DailyRec -> MealList: Add meal to existing MealList
   activate MealList
 else MealList does not exist
-  DailyRec -> MealList: Call MealList constructor (create new MealList)
+  DailyRec -> MealList: Create new MealList
   activate MealList
   MealList -> MealList: Add meal to new MealList
 end
 deactivate MealList
-DailyRec -> AddCmd: Confirm addition
+DailyRec --> AddCmd: Return added meal
 deactivate DailyRec
 
-AddCmd -> BB: Return CommandResult
+AddCmd --> BB: Return CommandResult
 deactivate AddCmd
 destroy AddCmd
 
