@@ -1,0 +1,43 @@
+@startuml
+
+hide circle
+
+skinparam classAttributeIconSize 0
+ class TopicManager {
+     - Logger logger
+     - String QUESTIONS_FILE_PATH
+     - Storage questions
+     - List<Topic> topics
+     + TopicManager()
+     + getOrCreateTopic(String topicName): Topic
+     + getTopic(String topicName): Topic
+     + addTopic(Topic topic): void
+     + printTopics(): void
+     + addFlashcardByUser(String input): void
+     + loadQuestions(): void
+     + parseTopic(String line): void
+ }
+
+ class Topic {
+     - String name
+     - List<Question> questions
+     + Topic(String name)
+     + getName(): String
+     + addQuestion(Question question): void
+ }
+
+ class Storage {
+     - String filePath
+     + Storage(String filePath)
+     + loadData(): List<String>
+     + saveQuestionToFile(String questionLine): void
+ }
+
+ TopicManager *--> "manages" Topic
+ TopicManager o--> Storage : "stores questions"
+ Storage --> TopicManager : "load questions"
+ @enduml
+
+
+TopicManager *--> "manages" Topic
+@enduml

@@ -24,7 +24,7 @@ public class TopicManager {
 
     public Topic getOrCreateTopic(String topicName) {
         for (Topic topic : topics) {
-            if (topic.getName().equalsIgnoreCase(topicName)) {
+            if (topic.getName().equals(topicName)) {
                 return topic;
             }
         }

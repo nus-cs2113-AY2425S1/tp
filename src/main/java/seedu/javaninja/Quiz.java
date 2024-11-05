@@ -65,7 +65,7 @@ public class Quiz {
             System.out.print("Enter your answer: ");
             String answer = scanner.nextLine().trim();
 
-            if (quizTimer.isTimeUp()) {  // Check if the time is up
+            if (quizTimer.isTimeUp()) {
                 break;
             }
 
