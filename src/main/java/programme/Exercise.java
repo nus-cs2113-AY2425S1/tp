@@ -7,6 +7,10 @@ import java.util.logging.Logger;
 
 import static common.Utils.isNull;
 
+/**
+ * Represents an exercise with sets, reps, weight, calories burned, and a name.
+ * Provides methods to update individual fields and retrieve key details.
+ */
 public class Exercise {
     private static final Logger logger = Logger.getLogger(Exercise.class.getName());
 
@@ -16,6 +20,16 @@ public class Exercise {
     private int calories;
     private String name;
 
+
+    /**
+     * Constructs an Exercise with the specified details.
+     *
+     * @param sets     the number of sets for the exercise
+     * @param reps     the number of reps for each set
+     * @param weight   the weight used for the exercise
+     * @param calories the calories burned by the exercise
+     * @param name     the name of the exercise
+     */
     public Exercise(int sets, int reps, int weight, int calories, String name) {
         this.sets = sets;
         this.reps = reps;
@@ -119,7 +133,12 @@ public class Exercise {
     public String getName() {
         return name;
     }
-    
+
+    /**
+     * Returns a string representation of the exercise, including name, sets, reps, weight, and calories burned.
+     *
+     * @return a string representation of the exercise
+     */
     @Override
     public String toString() {
         return String.format("%s: %d sets of %d at %d | Burnt %d cals", name, sets, reps, weight, calories);
