@@ -134,9 +134,9 @@ Format:
 
 Examples:
 
-* `edit -p Mary -n 9182 3213 -email mary@gmail.com -e CS2113`
-* `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH`
-* `edit -m balloon > cake -e anniversary`
+* `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH` edits the information of the event CS2113.
+* `edit -p Mary -n 9182 3213 -email mary@gmail.com -e CS2113` edits the contact information of the Mary in CS2113.
+* `edit -m balloon > cake -e anniversary` edits the item balloon in the anniversary to cake.
 
 ### Mark an event as done: `mark`
 
@@ -176,7 +176,7 @@ Examples:
 
 * `mark -m Origami paper -e Origami workshop -s done` marks the item `Origami paper` in the `Origami workshop` event as accounted.
 * `mark -m Origami paper -e Origami workshop -s undone` marks the item `Origami paper` in the `Origami workshop` event as unaccounted.
-* 
+
 ### Copies participant list: `copy`
 
 Copies the participant list from one event to another event.
