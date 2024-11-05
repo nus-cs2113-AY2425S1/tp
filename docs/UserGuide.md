@@ -9,6 +9,17 @@ along with the specific courses and subject codes offered by each school. You ca
 or by partner universities (PU) when you want to view the relevant options. For any course mappings you are interested in,
 you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
+- [Quick Start](#Quick-Start)
+- [Features](#features-)
+    - [List courses provided by the partner university: set](#list-courses-provided-by-the-partner-university-set)
+    - [Help Command: help](#help-command-help)
+    - [Add a course mapping: add](#adding-a-course-mapping-add)
+    - [Filter possible mappings: filter](#filtering-possible-mappings-filter)
+    - [Delete course mapping plans from Personal Tracker: delete](#delete-course-mapping-plans-from-personal-tracker-delete)
+    - [List out all the possible schools from the options: list schools](#list-out-all-the-possible-schools-from-the-options-list-schools)
+    - [Obtain contacts from the list of universities: obtain](#obtain-contacts-from-the-list-of-universities-obtain)
+- [FAQ](#FAQ)
+- [Command Summary](#Command-Summary)
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
@@ -238,15 +249,19 @@ Invalid contact type.
 
 **Q**: Can I `add` multiple courses and/or multiple schools at the same time?
 
-**A**: No you cannot
+**A**: No you cannot, you are only allowed to add one course mapping to one partner university at one time. 
 
 **Q**: Can I `add` schools not in the list of schools and/or add courses not in the list?
 
-**A**: No you cannot
+**A**: No you cannot, you are only allowed to add partner universities in Oceania. 
+
+**Q**: Can I `add` a course mapping to a particular partner university that is not in the database?
+
+**A**: No you cannot, you are only allowed to add course mappings in our list to ensure the course mapping is valid. 
 
 **Q**: Can I `obtain` multiple schools/contact types at the same time?
 
-**A**: No you cannot
+**A**: No you cannot 
 
 **Q**: Can I `obtain` contacts of schools not in the list?
 
@@ -259,18 +274,16 @@ Invalid contact type.
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
-
-* Add todo `todo n/TODO_NAME d/DEADLINE`
-
-| Action                         | Format, Examples                                                                                                         |
-|--------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-|                  | |
-|             ||
-|         ||
-|       ||
-||                                                                                                                |
-||                                                                                                                  |
-||                                                                                                                |
-||                                                                                                             |
-|             |  
+| Action           | Format, Examples                                                                                                                                                   |
+|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Set**          | Format: `set PARTNER_UNIVERISTY_NAME`  <br/> Example: `set The University of Western Australia`                                                                    |
+| **Help**         | Format: `help COMMAND`<br/> Example: `help filter`                                                                                                                 |
+| **Add**          | Format: ` add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE`<br/> Example: `add cs2102 /pu the university of melbourne /coursepu info20003` |
+| **Filter**       | Format: `filter NUS_COURSE_CODE` <br/> Example: `filter cs3241`                                                                                                    |
+| **Delete**       | Format:  `delete LIST_INDEX` <br/> Example: `delete 1`                                                                                                             |
+| **List Schools** | Format: `list schools`                                                                                                                                             |
+| **List Mapped**  | Format: `list mapped`                                                                                                                                              |
+| **Obtain**       | Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE` <br/>Example: `obtain victoria university of wellington /number`                                            |
+| **Find**         | Format: `find NUS_COURSE_CODE` <br/> Example: `find cs2102`                                                                                                        |
+| **Compare**      | Format: `compare pu/ UNI1 pu/ UNI2` <br/> Example: `compare pu/The University of Melbourne pu/The Australian National University`                                  |
+| **Bye**          | Format: `bye`                                                                                                                                                      |
