@@ -53,9 +53,10 @@ public class EditEntryCommand extends Command {
      * @param amount      The new amount for the entry. Must be non-negative.
      * @param description The new description for the entry. Must not be null or empty.
      * @param date The new date for the entry.
-     * @throws IllegalArgumentException if amount is negative or description is null/empty.
+     * @throws IllegalArgumentException if date is input with invalid format.
      */
     public EditEntryCommand(int index, double amount, String description, String date, Enum<?> category) {
+
         this.index = index;
         this.amount = amount;
         this.description = description;
