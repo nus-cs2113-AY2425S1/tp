@@ -64,10 +64,10 @@ public class FilterCoursesCommand extends CheckInformationCommand {
             displayMappableCourses(jsonObject, courseToFind.toLowerCase());
         } catch (IOException e) {
             logger.log(Level.WARNING, FAILURE_READ_JSON_FILE);
-            System.out.println(Exception.fileReadError());
+            ui.printMessage(Exception.fileReadError());
         } catch (IllegalArgumentException e) {
             logger.log(Level.WARNING, e.getMessage());
-            System.out.println(e.getMessage());
+            ui.printMessage(e.getMessage());
         }
         logger.log(Level.INFO, COMPLETE_EXECUTION);
     }
@@ -115,7 +115,6 @@ public class FilterCoursesCommand extends CheckInformationCommand {
      */
     public boolean isValidSocCourseCode(String nusCourseCode) {
         return nusCourseCode.startsWith("cs") | nusCourseCode.startsWith("ee") | nusCourseCode.startsWith("bt") |
-                nusCourseCode.startsWith("is");
                 nusCourseCode.startsWith("is") | nusCourseCode.startsWith("cg");
     }
 
@@ -137,7 +136,7 @@ public class FilterCoursesCommand extends CheckInformationCommand {
         }
 
         if (!isCourseFound) {
-            System.out.println(NO_MAPPABLE_COURSES_MESSAGE);
+            ui.printMessage(NO_MAPPABLE_COURSES_MESSAGE);
         }
     }
 
