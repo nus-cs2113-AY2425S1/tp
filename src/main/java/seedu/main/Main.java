@@ -1,28 +1,32 @@
 package seedu.main;
 
+import seedu.budget.BudgetTracker;
 import seedu.category.CategoryList;
+
+import seedu.command.AddBudgetCommand;
 import seedu.command.AddCategoryCommand;
+import seedu.command.AddExpenseCommand;
+import seedu.command.AddIncomeCommand;
 import seedu.command.ByeCommand;
 import seedu.command.Command;
 import seedu.command.DeleteCategoryCommand;
+import seedu.command.DeleteTransactionCommand;
 import seedu.command.HelpCommand;
 import seedu.command.HistoryCommand;
+import seedu.command.KeywordsSearchCommand;
+import seedu.command.UpdateCategoryCommand;
 import seedu.command.ViewCategoryCommand;
 import seedu.command.ViewExpenseCommand;
 import seedu.command.ViewIncomeCommand;
-import seedu.command.AddIncomeCommand;
-import seedu.command.AddExpenseCommand;
-import seedu.command.DeleteTransactionCommand;
 import seedu.command.ViewTotalCommand;
-import seedu.command.KeywordsSearchCommand;
-
+import seedu.command.TrackProgressCommand;
 import seedu.datastorage.Storage;
 import seedu.transaction.TransactionList;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,13 +34,7 @@ public class Main {
     public static final String NAME = "uNivUSaver";
     public static final String HI_MESSAGE = "Hello, %s is willing to help!";
     public static final String INVALID_COMMAND_ERROR_MESSAGE = "Invalid command.";
-    public static Scanner scanner; // Scanner for reading user input
     private static final Logger logger = Logger.getLogger("Main");
-
-    // Prefix for message formatting
-    private static final String PREFIX = "\t";
-    // Separator for message formatting
-    private static final String SEPARATOR = "-------------------------------------";
 
     private static Parser parser; //Parser to parse the commands
 
@@ -48,8 +46,9 @@ public class Main {
     // Singleton TransactionList for use across classes
     private static TransactionList transactions;
 
-    private static boolean isRunning = true;
+    private static BudgetTracker budgetTracker;
 
+    private static boolean isRunning = true;
 
 
     public static void main(String[] args) {
@@ -66,6 +65,16 @@ public class Main {
     public static void setRunning(boolean isRunning) {
         Main.isRunning = isRunning;
     }
+
+    /**
+     * Getter for the chatbot's running state.
+     *
+     * @return isRunning A boolean showing if the chatbot should continue running.
+     */
+    public static boolean getRunning() {
+        return isRunning;
+    }
+
 
     /**
      * Starts the chatbot and enters the command processing loop.
@@ -90,14 +99,26 @@ public class Main {
 
         categories = new CategoryList();
         categories.setCategories(Storage.loadCategories());
-        Storage.saveCategory(categories.getCategories()); //Save categories in case of initialization
+        Storage.saveCategory(categories.getCategories());
 
         transactions = new TransactionList();
         transactions.setTransactions(Storage.loadTransactions());
 
+        budgetTracker = new BudgetTracker(transactions);
+
         setupCommands();
 
         ui.printMessage(String.format(HI_MESSAGE, NAME));
+        printWelcomeMessage();
+    }
+
+    public static void printWelcomeMessage() {
+        ui.printMessage("Remember to record your spending today so you can track your spending accurately.");
+        ui.printMessage("");
+        double todaySpending = transactions.getTodaySpending();
+        String reminder = "Reminder: Please check if your spending is within your budget!";
+        ui.printMessage("Today's total spending: $" + todaySpending);
+        ui.printMessage(reminder);
     }
 
     /**
@@ -113,6 +134,7 @@ public class Main {
         parser.registerCommands(new AddCategoryCommand(categories));
         parser.registerCommands(new AddIncomeCommand(transactions));
         parser.registerCommands(new AddExpenseCommand(transactions));
+        parser.registerCommands(new AddBudgetCommand(budgetTracker));
 
         parser.registerCommands(new DeleteCategoryCommand(categories));
         parser.registerCommands(new DeleteTransactionCommand(transactions));
@@ -123,12 +145,13 @@ public class Main {
         parser.registerCommands(new ViewTotalCommand(transactions));
         parser.registerCommands(new HistoryCommand(transactions));
 
+        parser.registerCommands(new TrackProgressCommand(budgetTracker));
 
-        KeywordsSearchCommand keywordsSearchCommand = new KeywordsSearchCommand(transactions);
-        parser.registerCommands(keywordsSearchCommand);
+        parser.registerCommands(new KeywordsSearchCommand(transactions));
+
+        parser.registerCommands(new UpdateCategoryCommand(transactions, categories));
 
         parser.registerCommands(new ByeCommand());
-
 
         // Set command list for the help command
         logger.log(Level.INFO, "Setting command list for HelpCommand...");

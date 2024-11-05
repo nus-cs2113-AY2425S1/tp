@@ -1,8 +1,8 @@
 package seedu.command;
 
 import seedu.main.Main;
+import seedu.message.CommandResultMessages;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ByeCommand extends Command{
@@ -11,7 +11,7 @@ public class ByeCommand extends Command{
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {};
 
-    public static final String END_MESSAGE = "Closing! See you tomorrow!";
+
     /**
      * Executes the help command and returns a list of command guide messages.
      *
@@ -19,14 +19,9 @@ public class ByeCommand extends Command{
      */
     @Override
     public List<String> execute() {
-        List<String> messages = new ArrayList<>();
-
         Main.setRunning(false);
 
-        messages.add(END_MESSAGE);
-
-
-        return messages;
+        return List.of(CommandResultMessages.END_MESSAGE);
     }
 
     /**

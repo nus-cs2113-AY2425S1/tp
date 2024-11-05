@@ -1,0 +1,62 @@
+@startuml
+abstract class Command {
+    + execute(): List<String>
+}
+
+abstract class AddTransactionCommand {
+    + execute(): List<String>
+    # createTransaction(amount: double, description: String, date: String): Transaction
+}
+
+class AddIncomeCommand {
+    + execute(): List<String>
+}
+
+class TransactionList {
+    + addTransaction(transaction: Transaction): void
+    + getTransactions(): List<Transaction>
+}
+
+class Income {
+    + Income(amount: double, description: String, date: String)
+}
+
+AddTransactionCommand <|-- AddIncomeCommand
+Command <|-- AddTransactionCommand
+AddIncomeCommand --> "1" TransactionList : uses >
+TransactionList --> "*" Income : stores >
+@enduml
+
+@startuml
+participant "User" as User
+activate User
+
+participant "AddIncomeCommand" as AddIncomeCmd
+User -> AddIncomeCmd: execute()
+activate AddIncomeCmd
+
+alt Invalid arguments
+    AddIncomeCmd --> User: "Error: Missing or invalid arguments"
+else Valid arguments
+    participant "Income" as IncomeClass
+    AddIncomeCmd -> IncomeClass: createTransaction(amount, description, date)
+    activate IncomeClass
+    IncomeClass --> AddIncomeCmd: Income instance
+    deactivate IncomeClass
+
+    participant "TransactionList" as TransList
+    AddIncomeCmd -> TransList: addTransaction(Income)
+    activate TransList
+    TransList --> AddIncomeCmd: success
+    deactivate TransList
+
+    participant "Storage" as Storage
+    AddIncomeCmd -> Storage: saveTransaction(TransactionList.getTransactions())
+    activate Storage
+    Storage --> AddIncomeCmd: confirmation
+    deactivate Storage
+
+    AddIncomeCmd --> User: "Income added successfully!"
+end
+deactivate AddIncomeCmd
+@enduml

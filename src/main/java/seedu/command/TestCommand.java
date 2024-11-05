@@ -1,5 +1,7 @@
 package seedu.command;
 
+import seedu.message.ErrorMessages;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,8 @@ public class TestCommand extends Command {
         List<String> messages = new ArrayList<>();
 
         if (!isArgumentsValid()) {
-            messages.add(Command.LACK_ARGUMENTS_ERROR_MESSAGE);
+            messages.add(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            messages.add(COMMAND_GUIDE);
             return messages;
         }
 

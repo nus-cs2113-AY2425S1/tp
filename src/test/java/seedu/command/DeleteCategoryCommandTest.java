@@ -1,9 +1,13 @@
 package seedu.command;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.category.Category;
 import seedu.category.CategoryList;
+import seedu.message.CommandResultMessages;
+import seedu.message.ErrorMessages;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,12 +16,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DeleteCategoryCommandTest {
 
+    CategoryList categoryList;
+    DeleteCategoryCommand deleteCategoryCommand;
+
+    @BeforeEach
+    public void setUp() {
+        categoryList = new CategoryList();
+        deleteCategoryCommand = new DeleteCategoryCommand(categoryList);
+    }
+
     @Test
-    void execute() {
+    void execute_validArgument_categoryDeleted() {
         // Arrange
-        CategoryList categoryList = new CategoryList();
         categoryList.addCategory(new Category("Sports"));
-        DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categoryList);
         deleteCategoryCommand.setArguments(Map.of("", "Sports"));
 
         // Act
@@ -31,17 +42,31 @@ class DeleteCategoryCommandTest {
     }
 
     @Test
-    void executeCategoryNotFound() {
+    void execute_categoryNotFound_errorMessage() {
         // Arrange
-        CategoryList categoryList = new CategoryList();
-        DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(categoryList);
         deleteCategoryCommand.setArguments(Map.of("", "NonExistent"));
 
         // Act
         List<String> result = deleteCategoryCommand.execute();
 
         // Assert
-        assertEquals("Category not found.", result.get(0), "The result message should indicate that " +
+        assertEquals(CommandResultMessages.DELETE_CATEGORY_FAIL + ErrorMessages.CATEGORY_NOT_FOUND,
+                result.get(0), "The result message should indicate that " +
                 "the category was not found.");
+    }
+
+    @Test
+    public void execute_commandExecutedLackArgument_expectedOutput() {
+        // Prepare test arguments
+        Map<String, String> arguments = new HashMap<>();
+
+        // Set the arguments using the method
+        deleteCategoryCommand.setArguments(arguments);
+
+        // Actual message list
+        List<String> result = deleteCategoryCommand.execute();
+
+        // Assert that the actual messages match the expected messages
+        assertEquals(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE, result.get(0));
     }
 }

@@ -1,5 +1,28 @@
 # uNivUSaver User Guide
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Quick Start](#quick-start)
+3. [Features](#features)
+   - [Adding](#adding)
+     - [Add an expense: `add-expense`](#add-an-expense-add-expense)
+     - [Add an income: `add-income`](#add-an-income-add-income)
+     - [Add a category: `add-category`](#Add-a-category-add-category)
+   - [Deleting](#deleting)
+     - [Delete an expense/income: `delete-transaction`](#delete-an-expenseincome-delete-transaction)
+     - [Delete a category: `delete-category`](#delete-a-category-delete-category)
+   - [Viewing](#viewing)
+     - [List all categories: `view-category`](#list-all-categories-view-category)
+     - [View expenses: `view-expense`](#view-expenses-view-expense)
+     - [View income: `view-income`](#view-income-view-income)
+     - [View transaction history: `history`](#view-transaction-history-history)
+     - [View total amount in account: `view-total`](#view-total-amount-in-account-view-total)
+     - [View command list: `help`](#view-command-list-help)
+   - [Searching](#Searching)
+     - [Search transaction by keywords: `KeywordsSearchCommand`](#Search-transacrion-by-keywords)
+4. [FAQ](#faq)
+5. [Command Summary](#command-summary)
 
+---
 ## Introduction
 uNivUSaver is a CLI-based software that helps students to develop a better habit of managing money, which will help you avoid using up your money before the end of month
 
@@ -9,7 +32,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 3. Copy the file to the folder you want the program to stay in.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the ```java -jar uNivUSaver.jar``` command to start the program!
    
-## Features 
+## Features
 > **&#9432;** **NOTES ON THE COMMAND FORMAT:**
 >- Words in UPPER_CASE are the parameters to be supplied by the user.
 >- Parameters in [] are optional (e.g. `[f/ DATE]`)
@@ -19,7 +42,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 >- The date and time format for input is `dd/MM/yyyy [hhMM]`
 
 ### Adding
-#### Add an expense: `add-expense`  
+#### Add an expense: `add-expense`
 - Add an amount of expense into the history.
 - **Format:** `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]`
 - **Tips:**
@@ -32,7 +55,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   add-expense ChiCha San Chen a/ 6 d/ 09.09.2024 c/ FnB
   ```
 
-#### Add an income: `add-income`  
+#### Add an income: `add-income`
 - Add an amount of income into the history.
 - **Format:** `add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]`
 - **Tip:**
@@ -43,7 +66,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   add-income a/ 52 d/ 2024-09-19 1100
   ```
 
-#### Add a category: `add-category`  
+#### Add a category: `add-category`
 - Add a category into the category list.
 - **Format:** `add-category n/NAME`
 - **Tip:**
@@ -56,7 +79,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   
 ---
 ### Deleting
-#### Delete an expense/income: `delete-transaction`  
+#### Delete an expense/income: `delete-transaction`
 - Delete an expense or income from the history.
 - **Format:** `delete-transaction i/ INDEX`
 - **Example:**
@@ -64,7 +87,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   delete-transaction i/ 7
   ```
 
-#### Delete a category: `delete-category`  
+#### Delete a category: `delete-category`
 - Delete a category from the category list.
 - **Format:** `delete-category i/ INDEX`
 - **Example:**
@@ -75,11 +98,11 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 ---
 ### Viewing
 
-#### List all categories: `view-category`  
+#### List all categories: `view-category`
 - View the category list.
 - **Format:** `view-category`
 
-#### View expenses: `view-expense`  
+#### View expenses: `view-expense`
 - View the expenses with optional start/end time and category. If left blank, full history will be shown.
 - **Format:** `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`
 - **Examples:**
@@ -88,7 +111,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   view-expense f/ 2024-09-16 t/ 2024-09-19
   ```
 
-#### View income: `view-income`  
+#### View income: `view-income`
 - View the income in an optional start and end time. If start and end time are left blank, full history will be shown.
 - **Format:** `view-income [f/ DATE] [t/ DATE]`
 - **Example:**
@@ -97,7 +120,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   view-income
   ```
 
-#### View transaction history: `history`  
+#### View transaction history: `history`
 - View transaction history with an optional start and end time. If left blank, full history will be shown.
 - **Format:** `history [f/ DATE] [t/ DATE]`
 - **Examples:**
@@ -107,14 +130,26 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   ```
 
 ---
-### View total amount in account: `view-total`  
+### View total amount in account: `view-total`
 - View the total amount of money currently in the account.
 - **Format:** `view-total`
 
 ---
-### View command list: `help`  
+### View command list: `help`
 - View all available commands in the application.
 - **Format:** `help`
+
+---
+### Searching
+
+#### Search transaction by keywords: `KeywordsSearchCommand`
+- Search for transaction or transactions in the transactionList using one or multiple keywords.
+- **Format:** `search k/ [keyword_1] [keyword_2] ... [keyword_n]`
+- **Example:**
+  ```
+  search k/ school
+  search k/ school fee ABC
+  ```
 
 ## FAQ
 

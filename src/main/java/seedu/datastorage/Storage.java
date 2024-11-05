@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import seedu.category.Category;
+import seedu.main.UI;
+import seedu.message.ErrorMessages;
+import seedu.message.InfoMessages;
 import seedu.transaction.Transaction;
 import seedu.transaction.Expense;
 import seedu.transaction.Income;
@@ -15,12 +18,17 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Handles the loading and saving of transactions and categories to and from JSON files.
+ * Provides methods to load and save both transactions and categories using Gson serialization.
+ */
 public class Storage {
 
     private static final String TRANSACTIONS_PATH = "transactions.json";
     private static final String CATEGORIES_PATH = "categories.json";
 
     private static final Gson gson;
+    private static final UI ui = new UI();
 
     static {
         // Register the RuntimeTypeAdapterFactory for polymorphic types
@@ -35,11 +43,17 @@ public class Storage {
                 .create();
     }
 
+    /**
+     * Loads transactions from the transactions JSON file.
+     * If the file does not exist, creates an empty transactions file.
+     *
+     * @return A list of transactions loaded from the file, or an empty list if no transactions are found.
+     */
     public static ArrayList<Transaction> loadTransactions() {
         File transactionsFile = new File(TRANSACTIONS_PATH);
 
         if (!transactionsFile.exists()) {
-            System.out.println("No existing transaction file found. Starting fresh.");
+            ui.printMessage(InfoMessages.NO_TRANSACTION_FILE_FOUND);
             saveTransaction(new ArrayList<>()); // Create an empty transactions file
         }
 
@@ -48,34 +62,44 @@ public class Storage {
             ArrayList<Transaction> transactions = gson.fromJson(reader, listType);
             return (transactions != null) ? transactions : new ArrayList<>();
         } catch (IOException e) {
-            System.out.println("Error loading transactions: " + e.getMessage());
+            ui.printMessage(String.format(ErrorMessages.ERROR_LOADING_TRANSACTIONS, e.getMessage()));
         } catch (com.google.gson.JsonSyntaxException | com.google.gson.JsonIOException e) {
-            System.out.println("Invalid JSON format in transactions file. Re-initializing.");
+            System.out.println(ErrorMessages.INVALID_JSON_TRANSACTIONS);
             saveTransaction(new ArrayList<>());
             return new ArrayList<>();
         } catch (Exception e) {
-            System.out.println("Error deserializing transactions: " + e.getMessage());
+            ui.printMessage(String.format(ErrorMessages.ERROR_DESERIALIZING_TRANSACTIONS, e.getMessage()));
             e.printStackTrace();
         }
 
         return new ArrayList<>();
     }
 
+    /**
+     * Saves the list of transactions to the transactions JSON file.
+     *
+     * @param transactions The list of transactions to be saved.
+     */
     public static void saveTransaction(ArrayList<Transaction> transactions) {
         try (FileWriter writer = new FileWriter(TRANSACTIONS_PATH)) {
             gson.toJson(transactions, writer);
             writer.flush();
         } catch (IOException e) {
-            System.out.println("Error saving transactions: " + e.getMessage());
+            ui.printMessage(String.format(ErrorMessages.ERROR_SAVING_TRANSACTIONS, e.getMessage()));
             e.printStackTrace();
         }
     }
 
-    // Similar methods for categories
+    /**
+     * Loads categories from the categories JSON file.
+     * If the file does not exist, creates an empty categories file.
+     *
+     * @return A list of categories loaded from the file, or an empty list if no categories are found.
+     */
     public static ArrayList<Category> loadCategories() {
         File categoriesFile = new File(CATEGORIES_PATH);
         if (!categoriesFile.exists()) {
-            System.out.println("No existing category file found. Starting fresh.");
+            ui.printMessage(InfoMessages.NO_CATEGORY_FILE_FOUND);
             saveCategory(new ArrayList<>()); // Create an empty file if it doesn't exist
         }
 
@@ -84,20 +108,25 @@ public class Storage {
             ArrayList<Category> categories = gson.fromJson(reader, listType);
             return (categories != null) ? categories : new ArrayList<>();
         } catch (IOException e) {
-            System.out.println("Error loading categories: " + e.getMessage());
+            ui.printMessage(String.format(ErrorMessages.ERROR_LOADING_CATEGORIES, e.getMessage()));
         } catch (Exception e) {
-            System.out.println("Error deserializing categories: " + e.getMessage());
+            ui.printMessage(String.format(ErrorMessages.ERROR_DESERIALIZING_CATEGORIES, e.getMessage()));
             e.printStackTrace();
         }
         return new ArrayList<>();
     }
 
+    /**
+     * Saves the list of categories to the categories JSON file.
+     *
+     * @param categories The list of categories to be saved.
+     */
     public static void saveCategory(ArrayList<Category> categories) {
         try (FileWriter writer = new FileWriter(CATEGORIES_PATH)) {
             gson.toJson(categories, writer);
             writer.flush();
         } catch (IOException e) {
-            System.out.println("Error saving categories: " + e.getMessage());
+            ui.printMessage(String.format(ErrorMessages.ERROR_SAVING_CATEGORIES, e.getMessage()));
             e.printStackTrace();
         }
     }
