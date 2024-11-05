@@ -170,7 +170,17 @@ public class Logic {
             }
         }
 
-        Enum<?> category = parseCategory(commandArguments.get("/c"), entry);
+        Enum<?> category;
+        String categoryString = commandArguments.get("/c");
+        if (categoryString != null) {
+            category = parseCategory(categoryString, entry);
+        } else if (entry instanceof Income) {
+            category = ((Income) entry).getCategory();
+        } else {
+            assert entry instanceof Expense;
+            category = ((Expense) entry).getCategory();
+        }
+
         EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
         editEntryCommand.execute(financialList);
     }
