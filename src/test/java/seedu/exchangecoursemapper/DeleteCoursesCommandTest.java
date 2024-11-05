@@ -81,8 +81,8 @@ public class DeleteCoursesCommandTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
         });
-        assertEquals("Please provide a valid index of the course plan you would like to delete.",
-                e.getMessage());
+        assertEquals("Please provide a valid index of the course plan you would like to delete.\n" +
+                "Type `list mapped` to check your current list of saved plans!", e.getMessage());
     }
 
     @Test
@@ -91,8 +91,8 @@ public class DeleteCoursesCommandTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
         });
-        assertEquals("Please provide a valid index of the course plan you would like to delete.",
-                e.getMessage());
+        assertEquals("Please provide a valid index of the course plan you would like to delete.\n" +
+                        "Type `list mapped` to check your current list of saved plans!", e.getMessage());
     }
 
     @Test
@@ -101,8 +101,8 @@ public class DeleteCoursesCommandTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
         });
-        assertEquals("Please provide a valid index of the course plan you would like to delete.",
-                e.getMessage());
+        assertEquals("Please provide a valid index of the course plan you would like to delete.\n" +
+                "Type `list mapped` to check your current list of saved plans!", e.getMessage());
     }
 
     @Test
@@ -119,8 +119,14 @@ public class DeleteCoursesCommandTest {
     public void execute_inputWithInvalidIndex_expectErrorMessgae() {
         String userInput = "delete 1000";
         deleteCoursesCommand.execute(userInput, storage);
+        String expectedOutput = """
+                -----------------------------------------------------
+                Please provide a valid index of the course plan you would like to delete.
+                Type `list mapped` to check your current list of saved plans!
+                -----------------------------------------------------
+                """;
         String actualOutput = outputStreamCaptor.toString();
-        assertEquals("Please provide a valid index of the course plan you would like to delete.",
+        assertEquals(normalizeLineEndings(expectedOutput),
                 normalizeLineEndings(actualOutput));
     }
 

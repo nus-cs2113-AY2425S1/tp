@@ -55,7 +55,8 @@ public class Exception extends Throwable {
     }
 
     public static String invalidCourseListIndex() {
-        return "Please provide a valid index of the course plan you would like to delete.";
+        return "Please provide a valid index of the course plan you would like to delete.\n" +
+                "Type `list mapped` to check your current list of saved plans!";
     }
 
     public static String invalidContactType() {
