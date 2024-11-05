@@ -155,8 +155,9 @@ public final class Parser {
         String name = m.group("name").trim().substring(2); // n/ or N/ are 2 chars
         String ingredString = m.group("ingreds");
         String stepString = m.group("steps");
-        ArrayList<String> ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
+        ArrayList<Ingredient> ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
                 .filter(s -> !s.isEmpty())
+                .map(Ingredient::new)
                 .collect(Collectors.toCollection(ArrayList::new));
         ArrayList<String> steps = Arrays.stream(stepString.split("\\s+[sS][0-9]+/"))
                 .filter(s -> !s.isEmpty())
@@ -270,8 +271,9 @@ public final class Parser {
         String name = m.group("name").trim().substring(2); // e/ or E/ are 2 chars
         String ingredString = m.group("ingreds");
         String stepString = m.group("steps");
-        ArrayList<String> ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
+        ArrayList<Ingredient> ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
                 .filter(s -> !s.isEmpty())
+                .map(Ingredient::new)
                 .collect(Collectors.toCollection(ArrayList::new));
         ArrayList<String> steps = Arrays.stream(stepString.split("\\s+[sS][0-9]+/"))
                 .filter(s -> !s.isEmpty())

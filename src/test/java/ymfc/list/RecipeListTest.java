@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
 
+import ymfc.ingredient.Ingredient;
 import ymfc.recipe.Recipe;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,12 +23,12 @@ public class RecipeListTest {
     @BeforeEach
     void setUp() {
         // Sample ingredients and steps
-        ArrayList<String> ingredients1 = new ArrayList<>();
-        ingredients1.add("Rice");
-        ArrayList<String> ingredients2 = new ArrayList<>();
-        ingredients2.add("Flour");
-        ArrayList<String> ingredients3 = new ArrayList<>();
-        ingredients3.add("Potatoes");
+        ArrayList<Ingredient> ingredients1 = new ArrayList<>();
+        ingredients1.add(new Ingredient("Rice"));
+        ArrayList<Ingredient> ingredients2 = new ArrayList<>();
+        ingredients2.add(new Ingredient("Flour"));
+        ArrayList<Ingredient> ingredients3 = new ArrayList<>();
+        ingredients3.add(new Ingredient("Potatoes"));
 
         ArrayList<String> steps1 = new ArrayList<>();
         steps1.add("Boil rice in water for 15min.");
