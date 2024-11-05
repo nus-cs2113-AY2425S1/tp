@@ -44,6 +44,21 @@ public class FileParser {
     }
 
     /**
+     * Reads all lines from the specified CSV file and returns them as a list of String arrays.
+     *
+     * @param filePath The path to the CSV file to be read.
+     * @return A list of String arrays, each representing a line in the CSV file.
+     * @throws IOException If there is an error reading the file.
+     * @throws CsvException If there is an error parsing the CSV data.
+     */
+    private List<String[]> getFileLines(String filePath) throws IOException, CsvException {
+        CSVReader reader = new CSVReaderBuilder(new FileReader(filePath)).build();
+        List<String[]> lines = reader.readAll();
+        reader.close();
+        return lines;
+    }
+
+    /**
      * Parses a single line of CSV data and adds the corresponding event, participant, or item to the EventList.
      *
      * @param events   The EventList to populate.
@@ -130,21 +145,6 @@ public class FileParser {
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
             logger.warning("File line cannot be parsed, item not loaded");
         }
-    }
-
-    /**
-     * Reads all lines from the specified CSV file and returns them as a list of String arrays.
-     *
-     * @param filePath The path to the CSV file to be read.
-     * @return A list of String arrays, each representing a line in the CSV file.
-     * @throws IOException If there is an error reading the file.
-     * @throws CsvException If there is an error parsing the CSV data.
-     */
-    private List<String[]> getFileLines(String filePath) throws IOException, CsvException {
-        CSVReader reader = new CSVReaderBuilder(new FileReader(filePath)).build();
-        List<String[]> lines = reader.readAll();
-        reader.close();
-        return lines;
     }
 
     /**

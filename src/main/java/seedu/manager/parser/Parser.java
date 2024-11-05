@@ -62,16 +62,44 @@ public class Parser {
             Please enter your commands in the following format:
             view -e EVENT -y TYPE
             """;
-    private static final String INVALID_TYPE_MESSAGE = """
-            Invalid type!
-            Please set the type as either "participant" or "item"
-            """;
     private static final String INVALID_MARK_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
             mark -e EVENT -s STATUS
             mark -p PARTICIPANT -e EVENT -s STATUS
             mark -m ITEM -e EVENT -s STATUS
+            """;
+    private static final String INVALID_COPY_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            copy FROM_EVENT > TO_EVENT
+            """;
+    private static final String INVALID_SORT_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            sort -e EVENT -by name/time/priority
+            """;
+    private static final String INVALID_FILTER_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            filter -e/-d/-t/-x/-u FILTER_DESCRIPTION
+            """;
+    private static final String INVALID_FIND_MESSAGE = """
+            Invalid command!
+            Please enter your commands in the following format:
+            find -e EVENT -p NAME
+            """;
+    private static final String INVALID_DATE_TIME_MESSAGE = """
+            Invalid date-time format!
+            Please use the following format for event time:
+            YYYY-MM-DD HH:mm
+            
+            MM-DD has to be between 01-01 and 12-31, and HH:mm has to be between 00:00 and 23:59.
+            """;
+    private static final String INVALID_PRIORITY_MESSAGE = """
+            Invalid priority level status!
+            Please use the following format for priority level:
+            high/medium/low
             """;
     private static final String INVALID_PHONE_NUMBER_MESSAGE = """
             Invalid phone number!
@@ -80,6 +108,10 @@ public class Parser {
     private static final String INVALID_EMAIL_MESSAGE = """
             Invalid email format!
             Please enter a valid email address.
+            """;
+    private static final String INVALID_TYPE_MESSAGE = """
+            Invalid type!
+            Please set the type as either "participant" or "item"
             """;
     private static final String INVALID_EVENT_STATUS_MESSAGE = """
             Invalid event status!
@@ -93,50 +125,19 @@ public class Parser {
             Invalid mark status!
             Please set the event status as either "accounted" or "unaccounted"
             """;
-    private static final String INVALID_SORT_MESSAGE = """
-            Invalid command!
-            Please enter your commands in the following format:
-            sort -e EVENT -by name/time/priority
-            """;
     private static final String INVALID_SORT_KEYWORD_MESSAGE = """
             Invalid sort keyword!
             Please set the sort keyword as either "name"/"time"/"priority"
-            """;
-    private static final String INVALID_DATE_TIME_MESSAGE = """
-            Invalid date-time format!
-            Please use the following format for event time:
-            YYYY-MM-DD HH:mm
-            
-            MM-DD has to be between 01-01 and 12-31, and HH:mm has to be between 00:00 and 23:59.
-            """;
-    private static final String INVALID_COPY_MESSAGE = """
-            Invalid command!
-            Please enter your commands in the following format:
-            copy FROM_EVENT > TO_EVENT
-            """;
-    private static final String INVALID_PRIORITY_MESSAGE = """
-            Invalid priority level status!
-            Please use the following format for priority level:
-            high/medium/low
-            """;
-    private static final String INVALID_FILTER_MESSAGE = """
-            Invalid command!
-            Please enter your commands in the following format:
-            filter -e/-d/-t/-x/-u FILTER_DESCRIPTION
             """;
     private static final String INVALID_FILTER_FLAG_MESSAGE = """
             Invalid filter flag!
             Please set the filter flag as either "-e/-t/-u"
             """;
-    private static final String INVALID_FIND_MESSAGE = """
-            Invalid command!
-            Please enter your commands in the following format:
-            find -e EVENT -p NAME
-            """;
     private static final String INVALID_FIND_FLAG_MESSAGE = """
             Invalid find flag!
             Please set the find flag using "-e" and "-p""
             """;
+
     private static final String EVENT_FLAG = "-e";
     private static final String PARTICIPANT_FLAG = "-p";
     private static final String ITEM_FLAG = "-m";
@@ -168,30 +169,30 @@ public class Parser {
         String commandWord = commandParts[0].toLowerCase();
 
         switch (commandWord) {
+        case MenuCommand.COMMAND_WORD:
+            return new MenuCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
         case AddCommand.COMMAND_WORD:
             return parseAddCommand(command, commandParts);
         case RemoveCommand.COMMAND_WORD:
             return parseRemoveCommand(command, commandParts);
         case EditParticipantCommand.COMMAND_WORD:
             return parseEditCommand(command, commandParts);
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
         case ViewCommand.COMMAND_WORD:
             return parseViewCommand(command, commandParts);
-        case MenuCommand.COMMAND_WORD:
-            return new MenuCommand();
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
         case MarkCommand.COMMAND_WORD:
             return parseMarkCommand(command, commandParts);
         case CopyCommand.COMMAND_WORD:
             return parseCopyCommand(command, commandParts);
-        case FindCommand.COMMAND_WORD:
-            return parseFindCommand(command, commandParts);
         case SortCommand.COMMAND_WORD:
             return parseSortCommand(command, commandParts);
         case FilterCommand.COMMAND_WORD:
             return parseFilterCommand(command, commandParts);
+        case FindCommand.COMMAND_WORD:
+            return parseFindCommand(command, commandParts);
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
         default:
             throw new InvalidCommandException(INVALID_COMMAND_MESSAGE);
         }
@@ -717,6 +718,39 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input command to create a {@code CopyCommand} object.
+     * <p>
+     * This method checks if the command input starts with the specified command word
+     * and then removes it from the input. It splits the remaining input at the '>' character
+     * to separate the source and destination parts. If the split does not yield exactly
+     * two parts, an {@code InvalidCommandException} is thrown.
+     * </p>
+     *
+     * @param input the full command input string to be parsed
+     * @param commandParts the parts of the command, typically split by whitespace
+     * @return a {@code CopyCommand} object with the parsed source and destination
+     * @throws InvalidCommandException if the command is missing required parts or has an invalid format
+     */
+    private Command parseCopyCommand(String input, String[] commandParts) throws InvalidCommandException {
+        assert commandParts[0].equalsIgnoreCase(CopyCommand.COMMAND_WORD);
+
+        try {
+            String commandInput = input.replaceFirst("^" + commandParts[0] + "\\s*", "");
+            String[] inputParts = commandInput.split(ARROW);
+
+            if (inputParts.length != 2) {
+                throw new InvalidCommandException(INVALID_COPY_MESSAGE);
+            }
+
+            return new CopyCommand(inputParts[0].trim(), inputParts[1].trim());
+
+        } catch (IndexOutOfBoundsException exception) {
+            logger.log(WARNING,"Invalid command format");
+            throw new InvalidCommandException(INVALID_COPY_MESSAGE);
+        }
+    }
+
     //@@author MatchaRRR
     /**
      * Parses the input string to create a {@link Command} based on the provided command parts.
@@ -788,39 +822,6 @@ public class Parser {
         } catch (IndexOutOfBoundsException exception) {
             logger.log(WARNING,"Invalid command format");
             throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
-        }
-    }
-
-    /**
-     * Parses the input command to create a {@code CopyCommand} object.
-     * <p>
-     * This method checks if the command input starts with the specified command word
-     * and then removes it from the input. It splits the remaining input at the '>' character
-     * to separate the source and destination parts. If the split does not yield exactly
-     * two parts, an {@code InvalidCommandException} is thrown.
-      * </p>
-     *
-     * @param input the full command input string to be parsed
-     * @param commandParts the parts of the command, typically split by whitespace
-     * @return a {@code CopyCommand} object with the parsed source and destination
-     * @throws InvalidCommandException if the command is missing required parts or has an invalid format
-     */
-    private Command parseCopyCommand(String input, String[] commandParts) throws InvalidCommandException {
-        assert commandParts[0].equalsIgnoreCase(CopyCommand.COMMAND_WORD);
-
-        try {
-            String commandInput = input.replaceFirst("^" + commandParts[0] + "\\s*", "");
-            String[] inputParts = commandInput.split(ARROW);
-
-            if (inputParts.length != 2) {
-                throw new InvalidCommandException(INVALID_COPY_MESSAGE);
-            }
-
-            return new CopyCommand(inputParts[0].trim(), inputParts[1].trim());
-
-        } catch (IndexOutOfBoundsException exception) {
-            logger.log(WARNING,"Invalid command format");
-            throw new InvalidCommandException(INVALID_COPY_MESSAGE);
         }
     }
 
