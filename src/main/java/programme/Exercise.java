@@ -66,11 +66,10 @@ public class Exercise {
      * @param newSets the new number of sets; if null, the sets are not updated
      */
     private void updateSets(Integer newSets) {
-        if (isNull(newSets)) {
-            return;
+        if (newSets != null) {
+            logger.log(Level.INFO, "Updating sets from {0} to {1}", new Object[]{sets, newSets});
+            sets = newSets;
         }
-        logger.log(Level.INFO, "Updating sets from {0} to {1}", new Object[]{sets, newSets});
-        sets = newSets;
     }
 
     /**
@@ -79,11 +78,10 @@ public class Exercise {
      * @param newReps the new number of reps; if null, the reps are not updated
      */
     private void updateReps(Integer newReps) {
-        if (isNull(newReps)) {
-            return;
+        if (newReps != null) {
+            logger.log(Level.INFO, "Updating reps from {0} to {1}", new Object[]{reps, newReps});
+            reps = newReps;
         }
-        logger.log(Level.INFO, "Updating reps from {0} to {1}", new Object[]{reps, newReps});
-        reps = newReps;
     }
 
     /**
@@ -92,11 +90,10 @@ public class Exercise {
      * @param newWeight the new weight; if null, the weight is not updated
      */
     private void updateWeight(Integer newWeight) {
-        if (isNull(newWeight)) {
-            return;
+        if (newWeight != null) {
+            logger.log(Level.INFO, "Updating weight from {0} to {1}", new Object[]{weight, newWeight});
+            weight = newWeight;
         }
-        logger.log(Level.INFO, "Updating weight from {0} to {1}", new Object[]{weight, newWeight});
-        weight = newWeight;
     }
 
     /**
@@ -112,12 +109,16 @@ public class Exercise {
         name = newName;
     }
 
+    /**
+     * Updates the calories burned for this exercise.
+     *
+     * @param newCalories the new calorie count for the exercise; if null, the calories are not updated
+     */
     private void updateCalories(Integer newCalories) {
-        if (isNull(newCalories)) {
-            return;
+        if (newCalories != null) {
+            logger.log(Level.INFO, "Updating calories from {0} to {1}", new Object[]{calories, newCalories});
+            calories = newCalories;
         }
-        logger.log(Level.INFO, "Updating calories from {0} to {1}", new Object[]{calories, newCalories});
-        calories = newCalories;
     }
 
     // @@author Atulteja
