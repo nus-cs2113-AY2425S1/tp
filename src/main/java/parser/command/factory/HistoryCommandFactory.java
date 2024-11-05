@@ -8,7 +8,7 @@ import command.history.ListPersonalBestsCommand;
 import command.history.WeeklySummaryCommand;
 import command.InvalidCommand;
 import exceptions.IndexOutOfBoundsBuffBuddyException;
-import exceptions.InvalidFormatBuffBuddyException;
+
 //import parser.FlagParser;
 
 import static parser.ParserUtils.splitArguments;
@@ -25,11 +25,11 @@ public class HistoryCommandFactory {
         String arguments = inputArguments.length > 1 ? inputArguments[1] : "";
 
         return switch (subCommandString) {
-            case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
-            case ListPersonalBestsCommand.COMMAND_WORD -> arguments.isEmpty() ?
-                    new ListPersonalBestsCommand() : new ViewPersonalBestCommand(arguments);
-            case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();
-            default -> new InvalidCommand();
+        case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
+        case ListPersonalBestsCommand.COMMAND_WORD -> arguments.isEmpty() ?
+            new ListPersonalBestsCommand() : new ViewPersonalBestCommand(arguments);
+        case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();
+        default -> new InvalidCommand();
         };
     }
 
