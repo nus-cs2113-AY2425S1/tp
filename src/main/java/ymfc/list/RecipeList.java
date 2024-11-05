@@ -36,10 +36,6 @@ public class RecipeList {
         return false;
     }
 
-    public void removeRecipeByID(int id) {
-        recipes.remove(id);
-    }
-
     public boolean editRecipe(String name, Recipe editedRecipe) {
         assert !recipes.isEmpty() : "List should not be empty when editing recipe";
         assert name != null : "Recipe name should not be null";

@@ -2,6 +2,15 @@ package ymfc.recipe;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the parameters associated with a recipe to recommend to the user.
+ * Contains the {@code Recipe} itself, the percentage of the recipe's ingredients
+ * that matches what the user has, and the missing ingredients the user doesn't have.
+ *
+ * Works in conjunction with {@code SortByPercentMatch} such that an arraylist of
+ * {@code RecommendedRecipe} can be sorted by what is the most accessible to the user
+ * (how easily they can make the recipe without having to obtain additional ingredients).
+ */
 public class RecommendedRecipe{
 
     private Recipe recipe;
