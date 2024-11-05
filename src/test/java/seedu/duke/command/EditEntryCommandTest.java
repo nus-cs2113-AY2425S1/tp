@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
+import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import java.time.LocalDate;
 
@@ -22,7 +23,7 @@ class EditEntryCommandTest {
     @BeforeEach
     void setUp() throws FinanceBuddyException {
         financialList = new FinancialList();
-        financialList.addEntry(new Expense(100.0, "Initial Entry", LocalDate.now()));
+        financialList.addEntry(new Expense(100.0, "Initial Entry", LocalDate.now(), Expense.Category.UNCATEGORIZED));
     }
 
 
@@ -168,5 +169,97 @@ class EditEntryCommandTest {
         command.execute(financialList);
 
         assertEquals(1, financialList.getEntryCount());
+    }
+
+    /**
+     * Test the execute method of EditEntryCommand with a negative amount.
+     * Verifies that an exception is thrown.
+     */
+    @Test
+    void execute_setAmountToNegative_expectErrorMessage() throws FinanceBuddyException {
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            EditEntryCommand editEntryCommand = new EditEntryCommand(1, -5, "Groceries",
+                    "01/10/23", Expense.Category.FOOD);
+            editEntryCommand.execute(financialList);
+        });
+
+        // Verify error message
+        assertEquals("Invalid amount. Amount must be $0.01 or greater.", exception.getMessage());
+        // Verify entry is unchanged
+        FinancialEntry entry = financialList.getEntry(0);
+        assertEquals("Initial Entry", entry.getDescription());
+        assertEquals(100.0, entry.getAmount());
+        assertEquals(LocalDate.now(), entry.getDate());
+        assertEquals(Expense.Category.UNCATEGORIZED, ((Expense) entry).getCategory());
+    }
+
+    /**
+     * Test the execute method of EditEntryCommand with a very small amount.
+     * Verifies that an exception is thrown.
+     */
+    @Test
+    void execute_setAmountToVerySmallAmount_expectErrorMessage() throws FinanceBuddyException {
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            EditEntryCommand editEntryCommand = new EditEntryCommand(1, 0.0001, "Groceries",
+                    "01/10/23", Expense.Category.FOOD);
+            editEntryCommand.execute(financialList);
+        });
+
+        // Verify error message
+        assertEquals("Invalid amount. Amount must be $0.01 or greater.", exception.getMessage());
+        // Verify entry is unchanged
+        FinancialEntry entry = financialList.getEntry(0);
+        assertEquals("Initial Entry", entry.getDescription());
+        assertEquals(100.0, entry.getAmount());
+        assertEquals(LocalDate.now(), entry.getDate());
+        assertEquals(Expense.Category.UNCATEGORIZED, ((Expense) entry).getCategory());
+    }
+
+    /**
+     * Test the execute method of EditEntryCommand with a very large amount.
+     * Verifies that an exception is thrown.
+     */
+    @Test
+    void execute_setAmountToVeryLarge_expectErrorMessage() throws FinanceBuddyException {
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            EditEntryCommand editEntryCommand = new EditEntryCommand(1, 10000000, "Groceries",
+                    "01/10/23", Expense.Category.FOOD);
+            editEntryCommand.execute(financialList);
+        });
+
+        // Verify error message
+        assertEquals("Invalid amount. Amount must be $9999999.00 or less.", exception.getMessage());
+        // Verify entry is unchanged
+        FinancialEntry entry = financialList.getEntry(0);
+        assertEquals("Initial Entry", entry.getDescription());
+        assertEquals(100.0, entry.getAmount());
+        assertEquals(LocalDate.now(), entry.getDate());
+        assertEquals(Expense.Category.UNCATEGORIZED, ((Expense) entry).getCategory());
+    }
+
+    /**
+     * Test the execute method of EditEntryCommand with a very large amount.
+     * Verifies that an exception is thrown.
+     */
+    @Test
+    void execute_setDateToFutureDate_expectErrorMessage() throws FinanceBuddyException {
+        LocalDate laterDate = LocalDate.now().plusDays(1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        String laterDateAsString = laterDate.format(formatter);
+
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            EditEntryCommand editEntryCommand = new EditEntryCommand(1, 10, "Groceries",
+                    laterDateAsString, Expense.Category.FOOD);
+            editEntryCommand.execute(financialList);
+        });
+
+        // Verify error message
+        assertEquals("Entered date cannot be after current date.", exception.getMessage());
+        // Verify entry is unchanged
+        FinancialEntry entry = financialList.getEntry(0);
+        assertEquals("Initial Entry", entry.getDescription());
+        assertEquals(100.0, entry.getAmount());
+        assertEquals(LocalDate.now(), entry.getDate());
+        assertEquals(Expense.Category.UNCATEGORIZED, ((Expense) entry).getCategory());
     }
 }
