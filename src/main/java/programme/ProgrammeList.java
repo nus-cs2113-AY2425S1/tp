@@ -10,6 +10,11 @@ import java.util.logging.Logger;
 
 import static common.Utils.NULL_INTEGER;
 
+
+/**
+ * Represents a list of Programmes, providing functionality to add, retrieve, delete, and start a Programme.
+ * Maintains the current active Programme and supports basic Programme management operations.
+ */
 public class ProgrammeList {
 
     private static final Logger logger = Logger.getLogger(ProgrammeList.class.getName());
@@ -17,6 +22,9 @@ public class ProgrammeList {
     int currentActiveProgramme;
     private final ArrayList<Programme> programmeList;
 
+    /**
+     * Constructs an empty ProgrammeList.
+     */
     public ProgrammeList() {
         programmeList = new ArrayList<>();
         logger.log(Level.INFO, "ProgrammeList created with an empty list.");
@@ -31,12 +39,26 @@ public class ProgrammeList {
         return programmeList.size();
     }
 
+    /**
+     * Inserts a new Programme into the Programme list with the specified name and days.
+     *
+     * @param programmeName the name of the Programme
+     * @param days          the list of days associated with the Programme
+     * @return the Programme that was added
+     */
     public Programme insertProgramme(String programmeName, ArrayList<Day> days) {
         Programme programmeToAdd = new Programme(programmeName, days);
         programmeList.add(programmeToAdd);
         return programmeToAdd;
     }
 
+    /**
+     * Deletes a Programme at the specified index or at the current active Programme if index is NULL_INTEGER.
+     *
+     * @param index the index of the Programme to delete, or NULL_INTEGER to delete the active Programme
+     * @return the Programme that was deleted
+     * @throws IndexOutOfBoundsException if the index is out of bounds for the Programme list
+     */
     public Programme deleteProgram(int index){
         if (index == NULL_INTEGER){
             index = currentActiveProgramme;
@@ -53,6 +75,13 @@ public class ProgrammeList {
         return programmeToDelete;
     }
 
+    /**
+     * Retrieves a Programme at the specified index or at the current active Programme if index is NULL_INTEGER.
+     *
+     * @param index the index of the Programme to retrieve, or NULL_INTEGER to retrieve the active Programme
+     * @return the Programme at the specified index
+     * @throws IndexOutOfBoundsException if the index is out of bounds for the Programme list
+     */
     public Programme getProgramme(int index){
         if (index == NULL_INTEGER){
             index = currentActiveProgramme;
@@ -67,6 +96,13 @@ public class ProgrammeList {
         return programmeList.get(index);
     }
 
+    /**
+     * Sets a Programme at the specified index as the current active Programme.
+     *
+     * @param startIndex the index of the Programme to start
+     * @return the Programme that was started
+     * @throws IndexOutOfBoundsException if the startIndex is out of bounds for the Programme list
+     */
     public Programme startProgramme(int startIndex) {
         if (startIndex < 0 || startIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for startProgramme()", startIndex);
@@ -79,6 +115,11 @@ public class ProgrammeList {
         return activeProgramme;
     }
 
+    /**
+     * Returns a string representation of the Programme list, indicating the active Programme.
+     *
+     * @return a string representation of the Programme list
+     */
     @Override
     public String toString() {
         if (programmeList.isEmpty()){

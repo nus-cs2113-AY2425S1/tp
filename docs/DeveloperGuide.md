@@ -15,7 +15,23 @@ We used these third party libraries to develop our application:
 
 ### Meal Component
 
+API: `Meal.java`
+![Meal and MealList Class Diagram](./images/mealAndMealListClassDiagrams.png)
+The `Meal` component,
 
+- **Represents individual meals with nutritional information:** The `Meal` class encapsulates details about a meal, specifically its name and calorie count. This allows easy tracking of individual meals within a day.
+- **Attributes:** Each `Meal` object has two main attributes: `name` (the name of the meal) and `calories` (the calorie content of the meal).
+- **Validation:** The class enforces constraints during instantiation, ensuring that the `name` cannot be null or empty and that the calorie count is non-negative, reducing errors in meal tracking.
+- **Supports equality checks and hashing:** The `Meal` class overrides `equals()` and `hashCode()` methods to ensure that meals with identical names and calorie counts are considered equal, which is useful for meal comparison and for storing in collections like sets.
+- **Detailed representation:** The `toString()` method of `Meal` provides a concise, readable summary of the meal’s details, including the name and calorie count in the format `"[Meal Name] | [Calories] kcal"`. This makes it easy to display meal information in logs, summaries, or user interfaces.
+
+API: `MealList.java`
+
+- **Manages a collection of meals:** The `MealList` class provides functionality for managing a list of `Meal` objects, allowing for easy addition, deletion, and retrieval of meals throughout the day.
+- **Provides collection-based functionality:** The class includes methods for common operations, such as checking if the list is empty, getting the total number of meals, and adding or deleting meals from the list. Each action is logged for traceability.
+- **Supports detailed retrieval and representation:** The `getMeals()` method returns the list of all meals, and the `toString()` method generates a formatted string that lists each meal with its index, making it convenient for displaying meal information in a user interface or summary.
+- **Ensures data consistency:** The `MealList` class handles edge cases, such as attempts to delete meals at invalid indexes, by throwing appropriate exceptions. This helps maintain data integrity within the list.
+- **Facilitates efficient comparisons and storage:** The class overrides `equals()` and `hashCode()` methods, which enables comparison of two `MealList` objects and allows it to be used in collections, ensuring that meal tracking remains accurate and consistent.
 
 ### Water Component
 
@@ -292,7 +308,7 @@ The **Add Meal** command navigates through the following hierarchy:
 
 - **History** → **DailyRecord** → **MealList**
 - If a `DailyRecord` does not exist for a given date, it is created before adding the meal.
-- Similarly, a new `Meal` object is created and added to the `MealList` if it doesn't already exist.
+- Similarly, a new `Meallist` object is created and added to the `DailyRecord` if it doesn't already exist. The meal is then added to the `MealList` object.
 
 These operations include:
 
@@ -308,7 +324,7 @@ meal add /n [mealName] /c [calories]
 
 - The command is parsed and translated into an `AddMealCommand` object, which contains the necessary details.
 
-**Step 2**: The command retrieves the `DailyRecord` for the specified date from the `History` using `History#getRecordByDate()`. If no record exists, a new one is created.
+**Step 2**: The command retrieves the `DailyRecord` for the specified date from the `History` using `getRecordByDate()`. If no record exists, a new one is created.
 
 **Step 3**: The `AddMealCommand` adds the meal to the `MealList` of the `DailyRecord`. If the meallist already exists, it updates the existing meallist instead.
 
@@ -325,13 +341,6 @@ The diagram shows the interactions among different classes and objects during th
 #### Activity Diagram for "Add Meal" Feature
 
 ![Add Meal Activity Diagram](images/addMealActivitydiagram.png)
-
-The diagram shows the overall operation flow, including:
-
-1. User input parsing.
-2. Daily record retrieval or creation.
-3. Meal addition.
-4. Data persistence.
 
 #### Summary of Feature
 
