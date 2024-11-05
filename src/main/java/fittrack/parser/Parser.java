@@ -135,7 +135,8 @@ public class Parser {
             String exerciseData = sentence[2];
             assert sessionIndex >= 0 && sessionIndex < sessionList.size() : "Session index out of bounds";
             try {
-                sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);
+                sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData,
+                        true);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
