@@ -1,66 +1,72 @@
 @startuml
 title SortCommand Sequence Diagram
+hide footbox
 
-participant User
-participant SortCommand
-participant uiCommand
-participant Internships
-
-User->SortCommand: execute(args)
-activate SortCommand #red
-SortCommand --> uiCommand: clearInvalidFlags()
-activate uiCommand #green
-SortCommand -> SortCommand : Initialize variables
+":User" -> ":SortCommand": execute(args: ArrayList<String>)
+activate ":SortCommand" #red
 
 alt args are empty
-    SortCommand -> uiCommand: showSortedInternships("none")
-    SortCommand -> Internships: listAllInternships()
-    activate Internships #aquamarine
-    deactivate Internships
+    ":SortCommand" -> ":InternshipList": listInternshipsNotSorted()
+    activate ":InternshipList" #green
+    deactivate ":InternshipList" #green
 else args are not empty
-    SortCommand -> SortCommand : get first argument (sortOption)
+    ":SortCommand" -> ":SortCommand": get first argument (sortOption)
 
     alt sortOption == "role"
-        SortCommand -> uiCommand: showSortedInternships("role")
-        SortCommand -> Internships: listInternshipsSortedByRole()
-        activate Internships #blue
-        deactivate Internships
-
+        ":SortCommand" -> ":InternshipList": listInternshipsSortedByRole()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
     else sortOption == "duration"
-        SortCommand -> uiCommand: showSortedInternships("duration")
-        SortCommand -> Internships: listInternshipsSortedByDuration()
-        activate Internships #blue
-        deactivate Internships
-
+        ":SortCommand" -> ":InternshipList": listInternshipsSortedByDuration()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
     else sortOption == "deadline"
-        SortCommand -> uiCommand: showSortedInternships("deadline")
-        SortCommand -> Internships: listInternshipsSortedByDeadline()
-        activate Internships #blue
-        deactivate Internships
-
+        ":SortCommand" -> ":InternshipList": listInternshipsSortedByDeadline()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
     else sortOption == "skills"
-        SortCommand -> uiCommand: showSortedInternships("skills")
-        SortCommand -> Internships: listInternshipsSortedByFirstSkill()
-        activate Internships #blue
-        deactivate Internships
-
+        ":SortCommand" -> ":InternshipList": listInternshipsSortedByFirstSkill()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
     else sortOption == "status"
-        SortCommand -> uiCommand: showSortedInternships("status")
-        SortCommand -> Internships: listInternshipsSortedByStatus()
-        activate Internships #blue
-        deactivate Internships
+        ":SortCommand" -> ":InternshipList": listInternshipsSortedByStatus()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
+    else sortOption == "company"
+        ":SortCommand" -> ":InternshipList": listInternshipsSortedByCompany()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
+
+    else sortOption == "role in favourite"
+        ":SortCommand" -> ":InternshipList": listFavouriteInternshipsSortedByRole()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
+    else sortOption == "duration in favourite"
+        ":SortCommand" -> ":InternshipList": listFavouriteInternshipsSortedByDuration()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
+    else sortOption == "deadline in favourite"
+        ":SortCommand" -> ":InternshipList": listFavouriteInternshipsSortedByDeadline()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
+    else sortOption == "skills in favourite"
+        ":SortCommand" -> ":InternshipList": listFavouriteInternshipsSortedByFirstSkill()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
+    else sortOption == "status in favourite"
+        ":SortCommand" -> ":InternshipList": listFavouriteInternshipsSortedByStatus()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
+    else sortOption == "company in favourite"
+        ":SortCommand" -> ":InternshipList": listFavouriteInternshipsSortedByCompany()
+        activate ":InternshipList" #green
+        deactivate ":InternshipList" #green
 
     else invalid sortOption
-        SortCommand -> uiCommand: addInvalidFlag(sortOption)
-        SortCommand -> uiCommand: printInvalidFlags()
-        SortCommand -> Internships: listAllInternships()
-        activate Internships #aquamarine
-        deactivate Internships
+        ":SortCommand" -> ":UI": showOutput("Invalid sort option")
+        activate ":UI" #blue
+        deactivate ":UI"
     end
 end
-
-SortCommand -> User: Return result (sorted internships or error message)
-deactivate uiCommand
-deactivate SortCommand
 
 @enduml
