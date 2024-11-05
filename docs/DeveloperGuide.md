@@ -507,6 +507,7 @@ testers are expected to do more *exploratory* testing.
   * Test Case: `obtain tokyo university /email`
   * Expected: Error message stating that input is an unknown university in the program.
 
+
 * 2.4.3 Obtain valid PU's email
   * Prerequisites: None
   * Test Case: `obtain The University of Melbourne /number`
@@ -538,15 +539,56 @@ testers are expected to do more *exploratory* testing.
   * Expected: Prints out error message stating that filter only works for CS/CG/BT/IS/EE courses.
 
 
-#### 2.6 Listing out all saved course mapping plans
+#### 2.6 Add course mapping plans into Personal Tracker
+* 2.6.1 Add course mappings with the correct format and valid mapping
+  * Prerequisites: None
+  * Test case: `add CS2040 /pu The university of western australia /coursepu CITS2200`
+  * Expected: Prints out a confirmation message indicating success
+
+
+* 2.6.2 Add course mapping with incorrect format
+  * Prerequisites: None
+  * Test case 1: `add invalid format`
+  * Test case 2: `add cs2040 /pu invalid uni`
+  * Test case 3: `add cs2040 /pu the university of western australia`
+  * Expected: Prints out error message indicating to provide all valid parts
+
+
+* 2.6.3 Add course mappings with invalid NUS course code/ PU course code
+  * Prerequisites: None
+  * Test case 1: `add CS1231 /pu the university of western australia /coursepu CITS2200`
+  * Test case 2: `add CS2040 /pu the university of western australia /coursepu CITS1111`
+  * Expected: Prints out error message and a list of mappable courses offered by the PU in the format of `NUS COURSE | PU COURSE`
+
+
+* 2.6.4 Add course mappings with invalid partner university (PU) name
+  * Prerequisites: None
+  * Test case: `add CS2040 /pu the university of australia /coursepu CITS2200`
+  * Expected: Prints out error message and a list of partner universities
+
+
+#### 2.7 Delete course mapping plans into Personal Tracker
+* 2.7.1 Delete course mapping plan with valid task number
+  * Prerequisites: at least one course mapping plan in tracker
+  * Test case: `delete 1`
+  * Expected: Prints a confirmation message indicating a success in deletion of the course mapping
+
+
+* 2.7.2 Delete course mapping plan with invalid task number
+  * Prerequisites: one course mapping plan in tracker
+  * Test case: `delete 2`
+  * Expected: Prints out error message indicating to provide valid index and a prompt to list out the available mappings
+    in personal tracker
+
+#### 2.8 Listing out all saved course mapping plans in Personal Tracker
 ##### Non-corrupted data file
-* 2.6.1 Listing an empty data file
+* 2.8.1 Listing an empty data file
   * Prerequisites: None
   * Test Case: `list mapped`<br/>
   * Expected: Prints out message that the user has not saved any course mapping plans yet.
 
 
-* 2.6.2 Listing a non-empty data file
+* 2.8.2 Listing a non-empty data file
   * Prerequisites: At least one saved course mapping plan saved in myList.json
   * Test Case: `list mapped`<br/>
   * Expected: Prints out list of saved course mapping plans, each containing information on: NUS course code,
@@ -554,7 +596,7 @@ testers are expected to do more *exploratory* testing.
 
 
 ##### Corrupted data file
-* 2.6.3 Listing a non-empty data file
+* 2.8.3 Listing a non-empty data file
   * Prerequisites: At least one saved course mapping plan saved in myList.json, then remove any of the information
     (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code)
     one line.
@@ -562,15 +604,15 @@ testers are expected to do more *exploratory* testing.
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
 
 
-#### 2.7 Compare saved course mapping plans between universities
+#### 2.9 Compare saved course mapping plans between universities
 ##### Non-corrupted data file
-* 2.7.1 Comparing with an empty data file
+* 2.9.1 Comparing with an empty data file
   * Prerequisites: None
   * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
   * Expected: Prints out message that there are no unique mappings currently saved for each given PU.
 
 
-* 2.7.2 Comparing with a non-empty data file
+* 2.9.2 Comparing with a non-empty data file
   * Prerequisites: At least one saved course mapping plan saved in myList.json, for either The University of Melbourne 
     or The University of Western Australia.
   * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
@@ -578,9 +620,34 @@ testers are expected to do more *exploratory* testing.
 
 
 ##### Corrupted data file
-* 2.7.3 Listing a non-empty data file
+* 2.9.3 Listing a non-empty data file
   * Prerequisites: At least one saved course mapping plan saved in myList.json, then remove any of the information
     (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code)
     one line.
   * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
+
+#### 2.10 Find course mappings in Personal Tracker
+* 2.10.1 Find course mapping plan with NUS course that is in the personal tracker
+  * Prerequisites: This course mapping saved `CS2040 | The university of western australia | CITS2200`*
+  * Test case: `find cs2040`
+  * Expected: Prints out the course mappings in the format of *
+
+
+* 2.10.2 Find course mapping plan when the personal tracker is empty
+  * Prerequisites: No course mapping plan in the tracker
+  * Test case: `find cs2040`
+  * Expected: Prints out error message indicating the list is empty and to ensure there are course mappings in the list
+
+
+* 2.10.3 Find course mapping with invalid keywords  
+  * Prerequisites: At least one course mapping plan in the tracker
+  * Test case: `find cs`
+  * Expected: Prints out an error message indicating no match found
+  * Note that invalid keywords can mean a NUS course not in the tracker too
+
+
+* 2.10.4 Find course with no keyword
+  * Prerequisites: None
+  * Test case: `find`
+  * Expected: Prints out an error message indicating keyword is empty
