@@ -14,9 +14,9 @@ class CategoryFacade {
 '    +deleteCategory(category: String, price: Float) : void
 '    +editCategory(oldCategory: String, newCategory: String, price: float) : void
 '    +loadCategoryInfo(expenseList: ExpenseList) : void
-    +displayFilteredCategories() : void
-    +saveCategoryInfo() : void
-    +setCategorySpendingLimit(category: String, limit: float) : void
+'    +displayFilteredCategories() : void
+'    +saveCategoryInfo() : void
+'    +setCategorySpendingLimit(category: String, limit: float) : void
 }
 
 class CategoryTracker {
@@ -38,8 +38,8 @@ class CategoryData {
     #currExpenditure: Float
     #maxExpenditure: Float
 
-    + CategoryData(currExpenditure: Float): CategoryData
-    + CategoryData(currExpenditure: Float, maxExpenditure: Float): CategoryData
+'    + CategoryData(currExpenditure: Float): CategoryData
+'    + CategoryData(currExpenditure: Float, maxExpenditure: Float): CategoryData
 '    + getCurrExpenditure(): Float
 '    + getMaxExpenditure(): Float
 '    + setCurrExpenditure(currExpenditure: Float): void

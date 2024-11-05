@@ -168,8 +168,8 @@ The `ExpenseList` class has the following key methods:
 |  `editExpense`  |   Edits an expense in the list    |
 
 There are 2 versions of `addExpense`: one with a date and one without a date.
-- The former is used when the user does not specify the date: the date is initialised as the current date. 
-- The latter is used when the user specifies the date: the date is initialised as that specified date. 
+- The former is used when the user does not specify the date: dateAdded is initialised as the current date. 
+- The latter is used when the user specifies the date: dateAdded is initialised as that specified date. 
 
 <u>Design Considerations</u>
 
@@ -326,7 +326,14 @@ The `CategoryTracker` class has the following key methods:
 |    `editCategory`     |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed.                   |
 | `setSpendingLimitFor` |                                         Sets a spending limit for a particular category.                                          |
 
-The `CategoryData` class has no notable methods.
+The `CategoryData` class has these key methods: 
+
+|          Method           |                   Description                   |
+|:-------------------------:|:-----------------------------------------------:|
+| increaseCurrExpenditureBy |    Increments current total by a given price    |
+| decreaseCurrExpenditureBy |    Decrements current total by a given price    |
+|      isNearingLimit       | Checks if current total is 80% of limit or more |
+|     hasExceededLimit      |   Checks if current total is more than limit    |
 
 The `CategoryFilter` class has key methods for:
 
