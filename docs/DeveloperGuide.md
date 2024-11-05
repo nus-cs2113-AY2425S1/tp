@@ -45,6 +45,21 @@
 #### Duke class
 ![Duke Class Diagram](diagrams/dukeclass.png)
 
+**Version 2.0**
+
+#### BudgetManager class
+![BudgetManager Class Diagram](diagrams/budgetManager.png)
+
+#### CategoryManager class
+![CategoryManager Class Diagram](diagrams/categorymanager.png)
+
+#### ExpenseManager class
+![ExpenseManager Class Diagram](diagrams/expensemanager.png)
+
+#### TrackerData class
+![TrackerData Class Diagram](diagrams/trackerdata.png)
+
+
 
 ### Category
 #### Purpose
