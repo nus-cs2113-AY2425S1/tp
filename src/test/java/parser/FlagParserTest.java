@@ -18,20 +18,19 @@ class FlagParserTest {
 
     @BeforeEach
     void setUp() {
-        String argumentString = "/p 1 /d Day1 /t 12-12-2023 /w 2.5 /n TestExercise /s 3 /r 10";
+        String argumentString = "/p 1 /d Day1 /date 12-12-2023 /w 2.5 /n TestExercise /s 3 /r 10";
         flagParser = new FlagParser(argumentString);
     }
 
     @Test
     void testHasFlagValidCase() {
-        assertTrue(flagParser.hasFlag("/p"),
-                "Expected flag '/p' to be present");
+        assertTrue(flagParser.hasFlag("/p"));
+        assertTrue(flagParser.hasFlag("/t"));
     }
 
     @Test
     void testHasFlagMissingFlag() {
-        assertFalse(flagParser.hasFlag("/m"),
-                "Expected flag '/m' to be absent");
+        assertFalse(flagParser.hasFlag("/m"));
     }
 
     @Test
@@ -124,3 +123,4 @@ class FlagParserTest {
                 "Expected IllegalArgumentException for invalid date");
     }
 }
+
