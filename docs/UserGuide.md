@@ -173,6 +173,10 @@ Please set your budget amount:
 ```
 
 ### Saving Data
+Your Finantial List will be auto updated in to `data/FinancialList.txt` whenever your list been modified through FinanaceBuddy.
+When you start the FinanaceBuddy program, it will check if the `data/FinancialList.txt` exist.
+If do, it'll try to load the transections in the file row by row.
+Please do not modify this file maunaly, otherwise the transections with incorrect format will not be loaded.
 
 ## FAQ
 
