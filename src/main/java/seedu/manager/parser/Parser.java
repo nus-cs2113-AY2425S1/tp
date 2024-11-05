@@ -425,7 +425,6 @@ public class Parser {
     }
 
     //@@author KuanHsienn
-
     /**
      * Returns an {@link EditParticipantCommand} that edits a participant with fields parsed from a given user input.
      *
@@ -478,7 +477,6 @@ public class Parser {
     }
 
     //@@author MatchaRRR
-
     /**
      * Returns an {@link EditItemCommand} that edits an event with fields parsed from a given user input.
      *
@@ -615,16 +613,16 @@ public class Parser {
     }
 
     /**
-     * Returns true if status is "done", returns false if status is "undone".
+     * Returns true if status is to mark, returns false if status is to unmark.
      *
      * @param status the status parameter.
-     * @return true if status is "done", returns false if status is "undone".
+     * @return true if status is to mark, returns false if status is to unmark.
      * @throws InvalidCommandException if status is invalid.
      */
     private boolean toMarkEvent(String status) throws InvalidCommandException {
-        if (status.equalsIgnoreCase("done")) {
+        if (status.equalsIgnoreCase(MarkEventCommand.EVENT_MARK_STATUS)) {
             return true;
-        } else if (status.equalsIgnoreCase("undone")) {
+        } else if (status.equalsIgnoreCase(MarkEventCommand.EVENT_UNMARK_STATUS)) {
             return false;
         } else {
             logger.log(WARNING, "Invalid status keyword");
@@ -650,16 +648,16 @@ public class Parser {
     }
 
     /**
-     * Returns true if status is "present", returns false if status is "absent".
+     * Returns true if status is to mark, returns false if status is to unmark.
      *
      * @param status the status parameter.
-     * @return true if status is "present", returns false if status is "absent".
+     * @return true if status is to mark, returns false if status is to unmark.
      * @throws InvalidCommandException if status is invalid.
      */
     private boolean toMarkParticipant(String status) throws InvalidCommandException {
-        if (status.equalsIgnoreCase("present")) {
+        if (status.equalsIgnoreCase(MarkParticipantCommand.PARTICIPANT_MARK_STATUS)) {
             return true;
-        } else if (status.equalsIgnoreCase("absent")) {
+        } else if (status.equalsIgnoreCase(MarkParticipantCommand.PARTICIPANT_UNMARK_STATUS)) {
             return false;
         } else {
             logger.log(WARNING, "Invalid status keyword");
@@ -692,9 +690,9 @@ public class Parser {
      * @throws InvalidCommandException if status is invalid.
      */
     private boolean toMarkItem(String status) throws InvalidCommandException {
-        if (status.equalsIgnoreCase("accounted")) {
+        if (status.equalsIgnoreCase(MarkItemCommand.ITEM_MARK_STATUS)) {
             return true;
-        } else if (status.equalsIgnoreCase("unaccounted")) {
+        } else if (status.equalsIgnoreCase(MarkItemCommand.ITEM_UNMARK_STATUS)) {
             return false;
         } else {
             logger.log(WARNING, "Invalid status keyword");

@@ -9,6 +9,8 @@ import java.util.Optional;
  * Represents an executable mark command for marking participants.
  */
 public class MarkParticipantCommand extends MarkCommand {
+    public static final String PARTICIPANT_MARK_STATUS = "present";
+    public static final String PARTICIPANT_UNMARK_STATUS = "absent";
     private static final String PARTICIPANT_MARK_MESSAGE = "Participant marked present.";
     private static final String PARTICIPANT_UNMARK_MESSAGE = "Participant marked absent.";
     private static final String INVALID_PARTICIPANT_MESSAGE = "Participant not found!";

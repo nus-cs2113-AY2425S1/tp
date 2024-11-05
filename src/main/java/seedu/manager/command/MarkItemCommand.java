@@ -9,6 +9,8 @@ import java.util.Optional;
  * Represents an executable mark command for marking items.
  */
 public class MarkItemCommand extends MarkCommand {
+    public static final String ITEM_MARK_STATUS = "accounted";
+    public static final String ITEM_UNMARK_STATUS = "unaccounted";
     private static final String ITEM_MARK_MESSAGE = "Item accounted for.";
     private static final String ITEM_UNMARK_MESSAGE = "Item unaccounted for.";
     private static final String INVALID_ITEM_MESSAGE = "Item not found!";

@@ -9,6 +9,8 @@ import java.util.Optional;
  * Represents an executable mark command for marking events.
  */
 public class MarkEventCommand extends MarkCommand {
+    public static final String EVENT_MARK_STATUS = "done";
+    public static final String EVENT_UNMARK_STATUS = "undone";
     private static final String EVENT_MARK_MESSAGE = "Event marked as done";
     private static final String EVENT_UNMARK_MESSAGE = "Event marked not done";
 
