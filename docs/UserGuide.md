@@ -119,14 +119,13 @@ Format:  `visualize [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 Notes:
 - `CATEGORY` is text.
 - `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
-- You need to provide either a category or at least one of `[/from, /to]` (but not all of them) for the command to work.
 - The command will filter out all expenses that satisfy your constraint and draw a bar graph.
 If the time range is small (under one month), a daily graph will be displayed. Otherwise, a monthly graph will be used.
 Note that this command currently has a time span limit of `1080 days`.
 
 Examples: 
-- `visualize /category food`
-- `visualize /from 01-02-2024`
+- `visualize`
+- `visualize /from 01-02-2024 /category food`
 
 ### Set a spending limit for a category: `set`
 
