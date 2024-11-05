@@ -42,6 +42,9 @@ public class EditCommand extends Command {
             }
             if (argumentsMap.containsKey(Parser.ARGUMENT_PRICE)) {
                 price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
+                if (price <= 0) {
+                    throw new InvalidInputException("Price cannot be less than or equals to 0");
+                }
             }
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
             String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE);
