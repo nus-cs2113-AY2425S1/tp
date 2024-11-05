@@ -59,6 +59,7 @@ This architecture consist of:
 2. `Expense`, `ExpenseList`, `ExpenseFilter` classes: Model expenses that commands can interact with.
 3. `Storage` class: Stores information between sessions.
 4. Logger and other utility classes: Provide extra functionalities for the software.
+
 ### Ui and Parser
 
 <u>Overview</u>
