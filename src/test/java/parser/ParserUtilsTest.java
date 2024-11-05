@@ -1,5 +1,8 @@
 package parser;
 
+import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.InvalidFormatBuffBuddyException;
+import exceptions.EmptyInputBuffBuddyException;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static common.Utils.NULL_INTEGER;
 import static common.Utils.NULL_FLOAT;
-
 
 class ParserUtilsTest {
 
@@ -37,8 +39,8 @@ class ParserUtilsTest {
 
     @Test
     void testTrimInputEmptyString() {
-        assertThrows(IllegalArgumentException.class, () -> ParserUtils.trimInput(" "),
-                "Should throw exception on empty input.");
+        assertThrows(EmptyInputBuffBuddyException.class, () -> ParserUtils.trimInput(" "),
+                "Should throw EmptyInputBuffBuddyException on empty input.");
     }
 
     // Tests for parseInteger
@@ -48,7 +50,6 @@ class ParserUtilsTest {
         int result = ParserUtils.parseInteger(input);
         assertEquals(42, result, "Should parse valid integer correctly.");
     }
-
 
     @Test
     void testParseIntegerLargeNumberEdgeCase() {
@@ -72,8 +73,8 @@ class ParserUtilsTest {
 
     @Test
     void testParseIntegerNonNumericInputInvalid() {
-        assertThrows(IllegalArgumentException.class, () -> ParserUtils.parseInteger("abc"),
-                "Should throw exception on invalid integer.");
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> ParserUtils.parseInteger("abc"),
+                "Should throw InvalidFormatBuffBuddyException on invalid integer.");
     }
 
     // Tests for parseFloat
@@ -106,25 +107,23 @@ class ParserUtilsTest {
 
     @Test
     void testParseFloatNonNumericInputInvalid() {
-        assertThrows(IllegalArgumentException.class, () -> ParserUtils.parseFloat("abc"),
-                "Should throw exception on invalid float.");
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> ParserUtils.parseFloat("abc"),
+                "Should throw InvalidFormatBuffBuddyException on invalid float.");
     }
 
-    //Tests for parseIndex
+    // Tests for parseIndex
     @Test
     void testParseIndexValidIndex() {
         String input = "3";
         int result = ParserUtils.parseIndex(input);
-        assertEquals(2, result,
-                "Should parse and convert valid index to zero-based.");
+        assertEquals(2, result, "Should parse and convert valid index to zero-based.");
     }
 
     @Test
     void testParseIndexLargeIndexEdgeCase() {
         String input = "2147483647"; // Integer.MAX_VALUE
         int result = ParserUtils.parseIndex(input);
-        assertEquals(2147483646, result,
-                "Should handle large index correctly and convert to zero-based.");
+        assertEquals(2147483646, result, "Should handle large index correctly and convert to zero-based.");
     }
 
     @Test
@@ -136,8 +135,8 @@ class ParserUtilsTest {
 
     @Test
     void testParseIndexNegativeIndexInvalid() {
-        assertThrows(IllegalArgumentException.class, () -> ParserUtils.parseIndex("-1"),
-                "Should throw exception on negative index.");
+        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> ParserUtils.parseIndex("-1"),
+                "Should throw IndexOutOfBoundsBuffBuddyException on negative index.");
     }
 
     @Test
@@ -148,19 +147,18 @@ class ParserUtilsTest {
 
     @Test
     void testParseIndexNonNumericInputInvalid() {
-        assertThrows(IllegalArgumentException.class, () -> ParserUtils.parseIndex("abc"),
-                "Should throw exception on non-numeric index.");
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> ParserUtils.parseIndex("abc"),
+                "Should throw InvalidFormatBuffBuddyException on non-numeric index.");
     }
 
-    //Tests for parseDate
+    // Tests for parseDate
     @Test
     void testParseDateValidDate() {
         String dateString = "15-08-2023"; // assuming DATE_FORMAT = "dd-MM-yyyy"
         LocalDate expectedDate = LocalDate.of(2023, 8, 15);
         LocalDate actualDate = ParserUtils.parseDate(dateString);
 
-        assertEquals(expectedDate, actualDate,
-                "The parsed date should match the expected date.");
+        assertEquals(expectedDate, actualDate, "The parsed date should match the expected date.");
     }
 
     @Test
@@ -168,8 +166,7 @@ class ParserUtilsTest {
         LocalDate actualDate = ParserUtils.parseDate(null);
         LocalDate expectedDate = LocalDate.now();
 
-        assertEquals(expectedDate, actualDate,
-                "When the input is null, the parsed date should be today's date.");
+        assertEquals(expectedDate, actualDate, "When the input is null, the parsed date should be today's date.");
     }
 
     @Test
@@ -178,8 +175,7 @@ class ParserUtilsTest {
         LocalDate expectedDate = LocalDate.of(2023, 8, 15);
         LocalDate actualDate = ParserUtils.parseDate(dateString);
 
-        assertEquals(expectedDate, actualDate,
-                "The parsed date should match the expected date, ignoring extra spaces.");
+        assertEquals(expectedDate, actualDate, "The parsed date should match the expected date, ignoring extra spaces.");
     }
 
     @Test
@@ -188,7 +184,7 @@ class ParserUtilsTest {
         LocalDate expectedDate = LocalDate.of(2024, 2, 29);
         LocalDate actualDate = ParserUtils.parseDate(dateString);
 
-        assertEquals(expectedDate, actualDate,
-                "The parsed date should match the expected leap year date.");
+        assertEquals(expectedDate, actualDate, "The parsed date should match the expected leap year date.");
     }
 }
+

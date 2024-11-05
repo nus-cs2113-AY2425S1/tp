@@ -1,5 +1,6 @@
 package programme;
 
+import exceptions.IndexOutOfBoundsBuffBuddyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -67,8 +68,11 @@ public class ProgrammeListTest {
 
     @Test
     void testDeleteProgrammeInvalidIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> programmeList.deleteProgram(5));
+        // Update to expect IndexOutOfBoundsBuffBuddyException instead of IndexOutOfBoundsException
+        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> programmeList.deleteProgram(5),
+                "Expected IndexOutOfBoundsBuffBuddyException for invalid index");
 
+        // Verify that the size of the programme list remains unchanged
         assertEquals(2, programmeList.getProgrammeListSize());
     }
 
@@ -85,6 +89,7 @@ public class ProgrammeListTest {
         assertEquals(mockProgramme2, activeProgramme);
     }
 
+    @Test
     void testToString() {
         // Stub the toString() method of the mock programmes
         when(mockProgramme1.toString()).thenReturn("Mocked Programme 1");
@@ -98,5 +103,5 @@ public class ProgrammeListTest {
 
         assertEquals(expectedString, programmeListString);
     }
-
 }
+

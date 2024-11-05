@@ -1,5 +1,6 @@
 package meal;
 
+import exceptions.IndexOutOfBoundsBuffBuddyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -90,15 +91,15 @@ public class MealListTest {
 
     @Test
     public void testDeleteMealEdgeCaseNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> mealList.deleteMeal(-1),
-                "Deleting with a negative index should throw IndexOutOfBoundsException.");
+        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> mealList.deleteMeal(-1),
+                "Deleting with a negative index should throw IndexOutOfBoundsBuffBuddyException.");
     }
 
     @Test
     public void testDeleteMealEdgeCaseIndexOutOfBounds() {
         mealList.addMeal(sampleMeal);
-        assertThrows(IndexOutOfBoundsException.class, () -> mealList.deleteMeal(1),
-                "Deleting with an out-of-bounds index should throw IndexOutOfBoundsException.");
+        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> mealList.deleteMeal(1),
+                "Deleting with an out-of-bounds index should throw IndexOutOfBoundsBuffBuddyException.");
     }
 
     @Test

@@ -61,6 +61,7 @@ public class AddMealCommandTest {
         // Set up History mock to return null for the DailyRecord
         when(mockHistory.getRecordByDate(date)).thenReturn(null);
 
+        // If assertions are enabled, an AssertionError is expected; otherwise, replace with a custom exception if defined
         assertThrows(AssertionError.class, () -> addMealCommand.execute(mockHistory), "Executing " +
                 "AddMealCommand without a valid DailyRecord should throw an AssertionError.");
     }
@@ -68,7 +69,10 @@ public class AddMealCommandTest {
     @Test
     public void testExecuteEdgeCaseNullMeal() {
         // Attempting to create a command with a null meal should throw an AssertionError
+        // If a specific custom exception is defined for null meal, replace AssertionError with it
         assertThrows(AssertionError.class, () -> new AddMealCommand(null, date), "Creating " +
                 "AddMealCommand with null Meal should throw AssertionError.");
     }
 }
+
+

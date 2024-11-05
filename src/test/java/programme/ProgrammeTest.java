@@ -1,5 +1,6 @@
 package programme;
 
+import exceptions.IndexOutOfBoundsBuffBuddyException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
@@ -34,17 +35,17 @@ public class ProgrammeTest {
     }
 
     @Test
-    void testInsertDay(){
+    void testInsertDay() {
         Day mockDayToInsert = mock(Day.class);
         programme.insertDay(mockDayToInsert);
 
-        //Compare objects instead of string outputs
+        // Compare objects instead of string outputs
         assertEquals(mockDayToInsert, programme.getDay(2));
         assertEquals(3, programme.getDayCount());
     }
 
     @Test
-    void testDeleteDayValidIndex(){
+    void testDeleteDayValidIndex() {
         Day mockDayToDelete = programme.deleteDay(0);
 
         assertEquals(mockDay1, mockDayToDelete);
@@ -53,8 +54,9 @@ public class ProgrammeTest {
 
     @Test
     void testDeleteDayInvalidIndex() {
-        // Verify that an invalid index throws an IndexOutOfBoundsException
-        assertThrows(IndexOutOfBoundsException.class, () -> programme.deleteDay(5));
+        // Update to expect IndexOutOfBoundsBuffBuddyException instead of IndexOutOfBoundsException
+        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> programme.deleteDay(5),
+                "Expected IndexOutOfBoundsBuffBuddyException for invalid index");
 
         // Verify that the size of the day list remains unchanged
         assertEquals(2, programme.getDayCount());
@@ -78,5 +80,4 @@ public class ProgrammeTest {
         assertEquals(expectedString, programmeString);
     }
 }
-
 

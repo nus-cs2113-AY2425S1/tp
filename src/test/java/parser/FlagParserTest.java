@@ -1,5 +1,8 @@
 package parser;
 
+import exceptions.EmptyInputBuffBuddyException;
+import exceptions.MissingFlagBuffBuddyException;
+import exceptions.InvalidFormatBuffBuddyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,9 +53,9 @@ class FlagParserTest {
 
     @Test
     void testValidateRequiredFlagsMissingFlag() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        MissingFlagBuffBuddyException exception = assertThrows(MissingFlagBuffBuddyException.class,
                 () -> flagParser.validateRequiredFlags("/p", MEAL_INDEX),
-                "Expected IllegalArgumentException for missing required flag");
+                "Expected MissingFlagBuffBuddyException for missing required flag");
         assertTrue(exception.getMessage().contains(MEAL_INDEX));
     }
 
@@ -83,8 +86,8 @@ class FlagParserTest {
     @Test
     void testGetIndexByFlagInvalidIndex() {
         FlagParser invalidParser = new FlagParser("/p abc");
-        assertThrows(IllegalArgumentException.class, () -> invalidParser.getIndexByFlag("/p"),
-                "Expected IllegalArgumentException for invalid index");
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> invalidParser.getIndexByFlag("/p"),
+                "Expected InvalidFormatBuffBuddyException for invalid index");
     }
 
     @Test
@@ -96,8 +99,8 @@ class FlagParserTest {
     @Test
     void testGetIntegerByFlagInvalidInteger() {
         FlagParser invalidParser = new FlagParser("/s abc");
-        assertThrows(IllegalArgumentException.class, () -> invalidParser.getIntegerByFlag("/s"),
-                "Expected IllegalArgumentException for invalid integer");
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> invalidParser.getIntegerByFlag("/s"),
+                "Expected InvalidFormatBuffBuddyException for invalid integer");
     }
 
     @Test
@@ -109,8 +112,8 @@ class FlagParserTest {
     @Test
     void testGetFloatByFlagInvalidFloat() {
         FlagParser invalidParser = new FlagParser("/w abc");
-        assertThrows(IllegalArgumentException.class, () -> invalidParser.getFloatByFlag(WATER_INDEX),
-                "Expected IllegalArgumentException for invalid float");
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> invalidParser.getFloatByFlag(WATER_INDEX),
+                "Expected InvalidFormatBuffBuddyException for invalid float");
     }
 
     @Test
@@ -122,7 +125,14 @@ class FlagParserTest {
     @Test
     void testGetDateByFlagInvalidDate() {
         FlagParser invalidParser = new FlagParser("/t 32-12-2023");
-        assertThrows(IllegalArgumentException.class, () -> invalidParser.getDateByFlag("/t"),
-                "Expected IllegalArgumentException for invalid date");
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> invalidParser.getDateByFlag("/t"),
+                "Expected InvalidFormatBuffBuddyException for invalid date");
+    }
+
+    @Test
+    void testParseNullArgumentString() {
+        assertThrows(EmptyInputBuffBuddyException.class, () -> new FlagParser(null),
+                "Expected EmptyInputBuffBuddyException for null argument string");
     }
 }
+
