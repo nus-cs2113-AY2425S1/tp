@@ -59,25 +59,26 @@ public class FilterCoursesCommand extends CheckInformationCommand {
             logger.log(Level.INFO, SUCCESS_READ_JSON_FILE);
             assert jsonObject != null : NULL_JSON_FILE;
             assert !jsonObject.isEmpty() : EMPTY_JSON_FILE;
-            String courseToFind = getNusCourseCode(userInput);
+            String[] descriptionSubstrings = parseFilterCommand(userInput);
+            String courseToFind = getNusCourseCode(descriptionSubstrings);
             displayMappableCourses(jsonObject, courseToFind.toLowerCase());
         } catch (IOException e) {
             logger.log(Level.WARNING, FAILURE_READ_JSON_FILE);
-            System.out.println(Exception.fileReadError());
+            ui.printMessage(Exception.fileReadError());
         } catch (IllegalArgumentException e) {
             logger.log(Level.WARNING, e.getMessage());
-            System.out.println(e.getMessage());
+            ui.printMessage(e.getMessage());
         }
         logger.log(Level.INFO, COMPLETE_EXECUTION);
     }
 
     /**
-     * Returns the user specified NUS course code as a String to use as a filter.
+     * Parse the user input and extract out the NUS course code the user wants to use as a filter.
      *
-     * @param userInput A String containing the user's input.
-     * @return a String containing the extracted information: NUS course code.
+     * @param userInput a string containing the user input.
+     * @return a String[] containing the extracted information: NUS course code to use as a filter.
      */
-    public String getNusCourseCode(String userInput) throws IllegalArgumentException {
+    public String[] parseFilterCommand(String userInput) throws IllegalArgumentException {
         String input = userInput.trim().replaceAll(REPEATED_SPACES, SPACE);
         String[] inputDetails = input.split(SPACE);
         if (inputDetails.length == COMMAND_WORD_INDEX + ZERO_INDEX_OFFSET) {
@@ -88,8 +89,33 @@ public class FilterCoursesCommand extends CheckInformationCommand {
             logger.log(Level.WARNING, FILTER_COURSES_LIMIT);
             throw new IllegalArgumentException(Exception.filterCoursesLimitExceeded());
         }
-        assert inputDetails[1] != null : NO_NUS_COURSE_CODE_PARSED;
-        return inputDetails[1];
+        return inputDetails;
+    }
+
+    /**
+     * Returns the user specified NUS course code as a String to use as a filter.
+     *
+     * @param descriptionSubstrings A user's input separated into details containing the NUS course code.
+     * @return a String containing the extracted information: NUS course code.
+     */
+    public String getNusCourseCode(String[] descriptionSubstrings) throws IllegalArgumentException {
+        assert descriptionSubstrings[1] != null : NO_NUS_COURSE_CODE_PARSED;
+        String nusCourseCode = descriptionSubstrings[1].toLowerCase();
+        if (!isValidSocCourseCode(nusCourseCode)) {
+            throw new IllegalArgumentException(Exception.nonSocNusCourseGiven());
+        }
+        return nusCourseCode;
+    }
+
+    /**
+     * Returns true if the NUS course code provided is a School of Computing (SoC) course, false otherwise.
+     *
+     * @param nusCourseCode a String containing the extracted information: NUS course code.
+     * @return true if the NUS course code provided is an SoC offered course, false otherwise.
+     */
+    public boolean isValidSocCourseCode(String nusCourseCode) {
+        return nusCourseCode.startsWith("cs") | nusCourseCode.startsWith("ee") | nusCourseCode.startsWith("bt") |
+                nusCourseCode.startsWith("is") | nusCourseCode.startsWith("cg");
     }
 
     /**
@@ -110,7 +136,7 @@ public class FilterCoursesCommand extends CheckInformationCommand {
         }
 
         if (!isCourseFound) {
-            System.out.println(NO_MAPPABLE_COURSES_MESSAGE);
+            ui.printMessage(NO_MAPPABLE_COURSES_MESSAGE);
         }
     }
 

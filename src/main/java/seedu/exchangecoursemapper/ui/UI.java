@@ -233,6 +233,17 @@ public class UI {
     }
 
     /**
+     * Prints out a message wrapped in line separators.
+     *
+     * @param message Message to show user.
+     */
+    public void printMessage(String message) {
+        System.out.println(LINE_SEPARATOR);
+        System.out.println(message);
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    /**
      * Runs the main chat loop of the application. It continuously takes user input
      * and processes it through the {@code Parser} until the user types "bye".
      *
