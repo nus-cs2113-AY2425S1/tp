@@ -8,9 +8,7 @@ Participant ":Storage" as storage
 main -> main : saveData()
 activate main
 
-ref over main, storage : Saving of event data
-ref over main, storage : Saving of participant data
-ref over main, storage : Saving of item data
+ref over main, storage : Saving of event, participant and item data
 
 return
 

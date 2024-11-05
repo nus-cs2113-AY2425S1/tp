@@ -8,9 +8,7 @@ Participant ":Storage" as storage
 main -> main : loadData()
 activate main
 
-ref over main, storage : Loading of event data
-ref over main, storage : Loading of participant data
-ref over main, storage : Loading of item data
+ref over main, storage : Loading of event, participant and item data
 
 return
 

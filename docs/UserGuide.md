@@ -30,25 +30,27 @@ Shows a list of all valid user commands in the program.
 
 ```
 Here are the possible commands:
-           
+        
+menu: List commands   
 list: List events.
-view -e EVENT -y TYPE: View the list of participants or items of an event.
 add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
 add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Add a participant to an event.
-add -m ITEM -e EVENT: Add an item to an event.
+add -m ITEM -e EVENT: Add an item to an even.
 remove -e EVENT: Remove an event from the event list.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
 remove -m ITEM -e EVENT: Remove an item from an event.
-edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
 edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
+edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
+edit -m ITEM > NEW_ITEM -e EVENT: Edit an item in an event.
+view -e EVENT -y TYPE: View the list of participants or items of an event.
 mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
 mark -m ITEM -e EVENT -s STATUS: Mark an item as accounted or unaccounted.
 copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
 sort -by KEYWORD: Sorts events by name/time/priority.
-filter -e/-t/-u FILTER_DESCRIPTION: Filters events by name/time/priority.
+filter -e/-d/-t/-x/-u FILTER_DESCRIPTION: Filters events by name/date/time/date-time/priority.
 find -e EVENT -p NAME: Finds all participants with specified name in an event.
-exit: Exit program
+exit: Exit program.
 
 ```
 
@@ -66,13 +68,18 @@ Adds an event to the event list, a participant to an event, or an item to an eve
 
 Format:  
 
-* `add -e EVENT -t TIME -v VENUE` for adding an event to the events list.
+* `add -e EVENT -t TIME -v VENUE -u PRIORITY` for adding an event to the events list.
 * `add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for adding a participant to an event.
 * `add -m ITEM -e EVENT` for adding an item to an event.
 
+Remarks:
+* `TIME` must be entered in the format `yyyy-mm-dd HH:mm`.
+* `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
+  * The values entered for `PRIORITY` are case-insensitive.
+
 Examples:
 
-* `add -e Origami workshop -t 2024-10-12 18:00 -v Building A` adds an event with name `Origami workshop`, time `2024-10-12 18:00` and venue `Building A` to the events list.
+* `add -e Origami workshop -t 2024-10-12 18:00 -v Building A -u HIGH` adds an event with name `Origami workshop`, time `2024-10-12 18:00`, venue `Building A` and priority `HIGH` to the events list.
 * `add -p John Tan -n 91583215 -email john@gmail.com -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
 * `add -m Origami paper -e Origami workshop` adds an item `Origami paper` to the event `Origami workshop`.
 
@@ -161,8 +168,8 @@ Format: `mark -p PARTICIPANT -e EVENT -s STATUS`
 
 Examples:
 
-* `mark -p John Tan -e Origami workshop -s done` marks the participant `John Tan` in the `Origami workshop` event as present.
-* `mark -p John Tan -e Origami workshop -s undone` marks the participant `John Tan` in the `Origami workshop` event as absent.
+* `mark -p John Tan -e Origami workshop -s present` marks the participant `John Tan` in the `Origami workshop` event as present.
+* `mark -p John Tan -e Origami workshop -s absent` marks the participant `John Tan` in the `Origami workshop` event as absent.
 
 ### Marks an item as accounted for: `mark`
 
@@ -174,8 +181,8 @@ Format: `mark -m ITEM -e EVENT -s STATUS`
 
 Examples:
 
-* `mark -m Origami paper -e Origami workshop -s done` marks the item `Origami paper` in the `Origami workshop` event as accounted.
-* `mark -m Origami paper -e Origami workshop -s undone` marks the item `Origami paper` in the `Origami workshop` event as unaccounted.
+* `mark -m Origami paper -e Origami workshop -s accounted` marks the item `Origami paper` in the `Origami workshop` event as accounted.
+* `mark -m Origami paper -e Origami workshop -s unaccounted` marks the item `Origami paper` in the `Origami workshop` event as unaccounted. 
 
 ### Copies participant list: `copy`
 
@@ -235,72 +242,78 @@ Format: `exit`
 
 ### Saving of program data
 
-The program saves its stored data into three `.csv` files in the same directory as the application `.JAR`.
+The program saves its stored data into `data.csv` files in the same directory as the application `.JAR`.
 
-These files are as follows:
+This file consolidates information on `Events`, `Participants` and `Items` as follows:
 
-* `events.csv`, which stores data on the `Event`s stored in the program,
-* `participants.csv`, which stores data on the `Participant`s for all `Event`s,
-* `items.csv`, which stores data on the `Item`s for all `Event`s,
+* Each `Event` is stored with fields for its name, datetime, venue, priority, and completion status.
+* Each `Participant` entry is tied to a corresponding `Event` and includes the participant’s name, contact number, email, attendance status, and the event name.
+* Each `Item` entry, also tied to an `Event`, includes the item’s name, availability status, and event name.
 
-The data is saved after the execution of every command and upon program startup.
+The data is saved after the execution of every command and upon program termination.
 
 ### Loading of program data
 
-The saved program data in the aforementioned three files is loaded into the program upon program startup.
+Upon startup, the program loads data from the `data.csv` file.
 
-If any one of the files do not exist in the directory, the file will be created when the data is saved.
+If the file does not exist in the directory, it will be automatically created when data is saved.
 
 ### Editing of saved program data
 
-Experienced users may feel free to edit the saved data in the `.csv` files.
+Amendment of data is strictly restricted to the program.
+
+Direct amendment from `data.csv` files is not recommended to prevent data from being lost due to incorrect detail inputs.
 
 The program data is stored in the following format:
 
-For `events.csv`:
+For Events
 
 ```
-EVENT,TIME,VENUE,PRIORITY,STATUS
+EVENT,EVENT_NAME,TIME,VENUE,PRIORITY,STATUS
 ```
 
 * `TIME` must be in the format `yyyy-mm-dd hh:mm`.
 * `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
 * `STATUS` must be either `Y` or `N`
 
-For `participants.csv`:
+For Participants:
 
 ```
-PARTICIPANT,NUMBER,EMAIL,STATUS,EVENT
+PARTICIPANT,PARTICIPANT_NAME,NUMBER,EMAIL,EVENT,STATUS
 ```
 
+* `NUMBER` must be a 8-digit number
+* `EMAIL` must follow a similar format such as example@gmail.com
+* An entry for the `Event` corresponding to `EVENT` must be present in `data.csv`.
 * `STATUS` must be either `Y` or `N`
-* An entry for the `Event` corresponding to `EVENT` must be present in `events.csv`.
 
-For `items.csv`:
+For Items:
 
 ```
-ITEM,STATUS,EVENT
+ITEM,ITEM_NAME,EVENT,STATUS
 ```
 
+* An entry for the `Event` corresponding to `EVENT` must be present in `data.csv`.
 * `STATUS` must be either `Y` or `N`
-* An entry for the `Event` corresponding to `EVENT` must be present in `events.csv`.
 
-All fields added to the `.csv` files must also be enclosed within double quotation marks (`" "`) to be properly parsed.
+All fields added to `data.csv` must also be enclosed within double quotation marks (`" "`) to be properly parsed.
 
-If the above format or parameter constraints are not followed, the `Event`, `Participant` or `Item` corresponding to the file line will not be loaded upon program startup.
+If the above format or parameter constraints are not followed, the `Event`, `Participant` or `Item` corresponding to the file line will be ignored upon program startup.
 
 ## Command Summary
 
+* List possible commands: `menu`
 * List all events: `list`
-* View all participants for an event: `view -e EVENT`
-* Add event: `add -e EVENT -t TIME -v VENUE`
-* Add participant to an event: `add -p PARTICIPANT -e EVENT`
+* Add event: `add -e EVENT -t TIME -v VENUE -u PRIORITY`
+* Add participant to an event: `add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
 * Add item to an event: `add -m ITEM -e EVENT`
 * Remove event: `remove -e EVENT`
 * Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
 * Remove item from an event: `remove -m ITEM -e EVENT`
-* View all participants for an event: `view -e EVENT -y TYPE`
+* Edit event: `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY`
 * Edit participant of an event: `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
+* Edit item of an event: `edit -m ITEM > NEW_ITEM -e EVENT`
+* View all participants for an event: `view -e EVENT -y TYPE`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
 * Mark an item as accounted for: `mark -m ITEM -e EVENT -s STATUS`
