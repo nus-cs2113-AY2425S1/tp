@@ -1,6 +1,7 @@
 @startuml
 
 Title Model Component
+skinparam classAttributeIconSize 0
 class Internship {
     - int id
     - String role

@@ -196,29 +196,36 @@ The `SortCommand` class is responsible for sorting the internship listings based
    - `"deadline"`: Sorts internships by deadline.
    - `"skills"`: Sorts internships by the first skill in the skills list alphabetically.
    - `"status"`: Sorts internships by status alphabetically.
+   - `"company"`: Sorts internships by company alphabetically.
+   - `"role in favourite"`: Sorts internships in favourite by role alphabetically.
+   - `"duration in favourite"`: Sorts internships in favourite by duration (start and end dates).
+   - `"deadline in favourite"`: Sorts internships in favourite by deadline.
+   - `"skills in favourite"`: Sorts internships in favourite by the first skill in the skills list alphabetically.
+   - `"status in favourite"`: Sorts internships in favourite by status alphabetically.
+   - `"company in favourite"`: Sorts internships in favourite by company alphabetically.
 - If the user provides an invalid sort option, the command returns an error and defaults to listing internships by ID.
 - **`getUsage()`**: Returns a string showing the correct usage of the `sort` command, including valid options like "alphabet", "deadline", "duration", "skills", and "status".
 
 #### Example Usage Scenario:
-1. The user enters `sort alphabet`, and the `execute` method sorts the internships by role.
+1. The user enters `sort role`, and the `execute` method sorts the internships by role alphabetically.
 2. The user enters `sort duration`, and the internships are sorted by their start and end dates.
 3. The user enters `sort skills`, and the internships are sorted by the first skill alphabetically.
 4. The user enters `sort status`, and the internships are sorted by their status alphabetically.
 5. The user enters `sort deadline`, and the internships are sorted by each of their earliest deadline.
-5. If the user enters an invalid sort option, the command returns an error and lists the internships by ID.
+6. The user enters `sort company`, and the internships are sorted by their company alphabetically.
+7. The user enters `sort role in favourite`, and the `execute` method sorts the internships in favourite by role.
+8. The user enters `sort duration  in favourite`, and the internships in favourite are sorted by their start and end dates.
+9. The user enters `sort skills in favourite`, and the internships in favourite are sorted by the first skill alphabetically.
+10. The user enters `sort status in favourite`, and the internships in favourite are sorted by their status alphabetically.
+11. The user enters `sort deadline in favourite`, and the internships in favourite are sorted by each of their earliest deadline.
+12. The user enters `sort company in favourite`, and the internships in favourite are sorted by their company alphabetically.
+13. If the user enters an invalid sort option, the command returns an error and lists the internships by ID.
 
 #### Sequence Diagram:
 The following sequence diagram shows how the `SortCommand` is executed:
-![](UML/loadFromFile.png)
+![](UML/SortCommand_Sequence_Diagram.png)
 
 
-// can remove this if not necessary?
-```plaintext
-User -> System: sort alphabet
-System -> SortCommand: execute("alphabet")
-SortCommand -> InternshipList: listInternshipsSortedByRole()
-InternshipList -> UI: showSortedInternshipsByRole()
-```
 ### Filter Command Implementation
 
 #### Overview:
