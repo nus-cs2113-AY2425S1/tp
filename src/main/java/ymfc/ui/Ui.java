@@ -1,8 +1,8 @@
 package ymfc.ui;
 
 import ymfc.ingredient.Ingredient;
-import ymfc.list.RecipeList;
 import ymfc.recipe.Recipe;
+import ymfc.recipe.RecommendedRecipe;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -103,19 +103,6 @@ public class Ui {
         }
         assert !commandRead.isEmpty() : "User input is empty";
         return commandRead;
-    }
-
-    /**
-     * Display a specified message.
-     *
-     * @param input String array representing the message, each element representing one line.
-     */
-    public void printMessage(String[] input) {
-        System.out.println(LINE);
-        for (String line: input) {
-            System.out.println("\t" + line);
-        }
-        System.out.println(LINE);
     }
 
     public void printErrorMessage(String error) {
@@ -323,64 +310,18 @@ public class Ui {
     }
 
     /**
-     * Get the ID of the maximum value found in a float arraylist
-     *
-     * @param floatList Arraylist of floating point numbers
-     * @return ID of maximum float in arraylist
-     */
-    private int getMaxID (ArrayList<Float> floatList) {
-        assert !floatList.isEmpty();
-        int maxID = 0;
-        float maxFloat = floatList.get(0);
-        for (int i = 1; i < floatList.size(); i++) {
-            float currFloat = floatList.get(i);
-            if (currFloat > maxFloat) {
-                maxFloat = currFloat;
-                maxID = i;
-            }
-        }
-        return maxID;
-    }
-
-    /**
-     * Prints the list of missing ingredients
-     *
-     * @param missingIngredients List of missing ingredients
-     */
-    private void printMissingIngredients(ArrayList<String> missingIngredients) {
-        if (missingIngredients.isEmpty()) {
-            return;
-        }
-        System.out.println("\tYou are missing the following:");
-        for (int i = 0; i < missingIngredients.size(); i++) {
-            System.out.println("\t  - " + missingIngredients.get(i));
-        }
-    }
-
-    /**
      * Display a list of recommended recipes to the user.
      * Information about what percentage of the recipe's ingredients that the user has,
      * and what are the missing ingredients are also displayed.
      *
      * @param recommendList List of recipes to be recommended
      */
-    public void printRecommendedRecipes(RecipeList recommendList, ArrayList<Float> percentMatchList,
-            ArrayList<ArrayList<String>> mismatchList) {
-        if (recommendList.getCounter() > 0) {
+    public void printRecommendedRecipes(ArrayList<RecommendedRecipe> recommendList) {
+        if (!recommendList.isEmpty()) {
             System.out.println(LINE);
             System.out.println("\tAlright, here are my recommendations:");
-            while (recommendList.getCounter() > 0) {
-                int maxMatchID = getMaxID(percentMatchList);
-                System.out.printf("\tFor this recipe, you have %.2f%% of the ingredients needed"
-                        + System.lineSeparator(), percentMatchList.get(maxMatchID));
-                printMissingIngredients(mismatchList.get(maxMatchID));
-                System.out.println("\t" + recommendList.getRecipe(maxMatchID));
-                System.out.println();
-
-                // Delete recipe, match percentage, and missing ingredients just displayed from respective lists
-                percentMatchList.remove(maxMatchID);
-                recommendList.removeRecipeByID(maxMatchID);
-                mismatchList.remove(maxMatchID);
+            for (int i = 0; i < recommendList.size(); i++) {
+                System.out.println(recommendList.get(i));
             }
             System.out.println(LINE);
         } else {

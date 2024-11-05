@@ -5,8 +5,11 @@ import ymfc.list.RecipeList;
 import ymfc.recipe.Recipe;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
+import ymfc.recipe.RecommendedRecipe;
+import ymfc.recipe.SortByPercentMatch;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import static ymfc.YMFC.logger;
 
@@ -43,10 +46,9 @@ public class RecommendCommand extends Command {
         logger.log(Level.FINEST, "Executing RecommendCommand");
         assert recipes.getCounter() > 0;
 
-        RecipeList recommendList = new RecipeList();
-        ArrayList<Float> percentMatchList = new ArrayList<>();
-        ArrayList<ArrayList<String>> mismatchList= new ArrayList<>();
+
         ArrayList<String> ingredientsList = ingredients.getIngredientsString();
+        ArrayList<RecommendedRecipe> recommendedList = new ArrayList<>();
 
         // Iterate through all recipes and find recipes with matching ingredients
         for (int i = 0; i < recipes.getCounter(); i++) {
@@ -61,19 +63,20 @@ public class RecommendCommand extends Command {
 
             // Add recipe to list of recommended recipes if matching ingredients found
             if (!matchIngredients.isEmpty()) {
-                recommendList.addRecipe(targetRecipe);
-
                 // Calculate percentage of recipe's ingredient available to the user
-                float percentMatch = 100 * (float)matchIngredients.size() / (float)recipeIngredientsCount;
-                percentMatchList.add(percentMatch);
+                int percentMatch = 100 * matchIngredients.size() / recipeIngredientsCount;
 
                 // Find list of missing ingredients
                 ArrayList<String> missingIngredients = (ArrayList<String>) targetRecipe.getIngredients().clone();
                 missingIngredients.removeAll(matchIngredients);
-                mismatchList.add(missingIngredients);
+
+                recommendedList.add(new RecommendedRecipe(targetRecipe, percentMatch, missingIngredients));
             }
         }
 
-        ui.printRecommendedRecipes(recommendList, percentMatchList, mismatchList);
+        // Sort the recommendedList by each recipe's percentMatch value in descending order
+        Collections.sort(recommendedList, new SortByPercentMatch());
+
+        ui.printRecommendedRecipes(recommendedList);
     }
 }
