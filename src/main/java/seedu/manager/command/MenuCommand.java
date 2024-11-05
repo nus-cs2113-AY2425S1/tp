@@ -9,6 +9,7 @@ public class MenuCommand extends Command {
     private static final String MENU_MESSAGE = """
             Here are the possible commands:
            
+            menu: List commands.
             list: List events.
             add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
             add -m ITEM -e EVENT: Add an item to an even.

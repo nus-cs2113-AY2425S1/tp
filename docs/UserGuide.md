@@ -30,7 +30,8 @@ Shows a list of all valid user commands in the program.
 
 ```
 Here are the possible commands:
-           
+        
+menu: List commands   
 list: List events.
 add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
 add -m ITEM -e EVENT: Add an item to an even.
@@ -281,6 +282,7 @@ If the above format or parameter constraints are not followed, the `Event`, `Par
 
 ## Command Summary
 
+* List possible commands: `menu`
 * List all events: `list`
 * View all participants for an event: `view -e EVENT`
 * Add event: `add -e EVENT -t TIME -v VENUE`
