@@ -5,6 +5,7 @@ import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.Ui;
+import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
@@ -167,6 +168,8 @@ public class HelpCommand extends Command {
         case "load":
             loadHelp();
             break;
+        default:
+            throw new InvalidInputException("No valid command given!");
         }
     }
 
