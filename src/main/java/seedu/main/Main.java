@@ -23,7 +23,6 @@ import seedu.command.TrackProgressCommand;
 import seedu.datastorage.Storage;
 import seedu.transaction.TransactionList;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

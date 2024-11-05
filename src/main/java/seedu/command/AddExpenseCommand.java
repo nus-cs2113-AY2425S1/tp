@@ -84,7 +84,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
     private Category getOrCreateCategory(String categoryName) {
         Category category = categoryList.findCategory(categoryName);
         if (category != null) {
-            return category;
+            return new Category("");
         }
 
         while (true) {
