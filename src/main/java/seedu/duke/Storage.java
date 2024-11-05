@@ -30,4 +30,15 @@ public class Storage {
             }
         }
     }
+
+    private Category loadCategory(TrackerData trackerData, String categoryName) {
+        for (Category category : trackerData.getCategories()) {
+            if (category.getName().equalsIgnoreCase(categoryName)) {
+                return category;
+            }
+        }
+        Category newCategory = new Category(categoryName);
+        trackerData.getCategories().add(newCategory);
+        return newCategory;
+    }
 }
