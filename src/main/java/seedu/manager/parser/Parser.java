@@ -204,7 +204,6 @@ public class Parser {
     }
 
     //@@author LTK-1606
-
     /**
      * Parses the input string to create an {@link Command} object based on the provided command parts.
      * <p>
@@ -220,10 +219,12 @@ public class Parser {
      * @param commandParts an array of strings representing the parsed command parts, where the second element
      *                     is the command flag, indicating the type of command
      * @return a {@link Command} object representing the parsed command
-     * @throws InvalidCommandException if the command flag is invalid, or if there are missing or improperly
+     * @throws InvalidCommandException if the command flag is invalid, or if there are improperly
      *                                 formatted input details
+     * @throws IndexOutOfBoundsException if not all parameters are present
      */
-    public Command parseAddCommand(String input, String[] commandParts) throws InvalidCommandException {
+    public Command parseAddCommand(String input, String[] commandParts) throws InvalidCommandException,
+            IndexOutOfBoundsException {
         assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
         try {
             String commandFlag = commandParts[1];
@@ -278,6 +279,7 @@ public class Parser {
      * @param input the given user input.
      * @return an {@link AddCommand} that adds a participant with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
+     * @throws InvalidCommandException if the input phone number and email are not in the correct format.
      */
     private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
         String[] inputParts = input.split(PARTICIPANT_REGEX);
@@ -302,7 +304,6 @@ public class Parser {
     }
 
     //@@author jemehgoh
-
     /**
      * Returns an {@link AddCommand} that adds an item with fields parsed from a given user input.
      *
@@ -320,7 +321,6 @@ public class Parser {
     }
 
     //@@author LTK-1606
-
     /**
      * Parses the input string to create a {@link Command} based on the provided command parts.
      *
@@ -337,8 +337,10 @@ public class Parser {
      *                     where the second element is the command flag.
      * @return a {@link Command} object representing the parsed command.
      * @throws InvalidCommandException if the flags are not matched in the command parts.
+     * @throws IndexOutOfBoundsException if not all fields are present.
      */
-    private Command parseRemoveCommand(String input, String[] commandParts) throws InvalidCommandException {
+    private Command parseRemoveCommand(String input, String[] commandParts) throws InvalidCommandException,
+            IndexOutOfBoundsException {
         assert commandParts[0].equalsIgnoreCase(RemoveCommand.COMMAND_WORD);
         String commandFlag = commandParts[1];
 
@@ -356,7 +358,6 @@ public class Parser {
     }
 
     //@@author KuanHsienn
-
     /**
      * Returns a {@link RemoveCommand} that removes an event, with a given user input.
      *
@@ -432,7 +433,6 @@ public class Parser {
     }
 
     //@@author KuanHsienn
-
     /**
      * Returns an {@link EditParticipantCommand} that edits a participant with fields parsed from a given user input.
      *
@@ -461,7 +461,6 @@ public class Parser {
     }
 
     //@@author MatchaRRR
-
     /**
      * Returns an {@link EditEventCommand} that edits an event with fields parsed from a given user input.
      *
@@ -501,7 +500,6 @@ public class Parser {
     }
 
     //@@author KuanHsienn
-
     /**
      * Checks if the phone number is valid.
      *
@@ -513,7 +511,6 @@ public class Parser {
     }
 
     //@@author KuanHsienn
-
     /**
      * Checks if the email address is valid.
      *
@@ -525,7 +522,6 @@ public class Parser {
     }
 
     //@@author glenn-chew
-
     /**
      * Parses the input string to create a {@link Command} based on the provided command parts.
      *
@@ -541,10 +537,11 @@ public class Parser {
      *                     where the second element is the command flag.
      * @return a {@link Command} object representing the parsed command.
      * @throws InvalidCommandException if the flag is not matched.
+     * @throws IndexOutOfBoundsException if not all fields are present.
      */
-    private Command parseViewCommand(String input, String[] commandParts) throws InvalidCommandException {
+    private Command parseViewCommand(String input, String[] commandParts) throws InvalidCommandException,
+            IndexOutOfBoundsException {
         assert commandParts[0].equalsIgnoreCase(ViewCommand.COMMAND_WORD);
-        try {
             String commandFlag = commandParts[1];
 
             if (commandFlag.equals(EVENT_FLAG)) {
@@ -553,10 +550,6 @@ public class Parser {
 
             logger.log(WARNING, "Invalid command format");
             throw new InvalidCommandException(INVALID_VIEW_MESSAGE);
-        } catch (IndexOutOfBoundsException exception) {
-            logger.log(WARNING, "Invalid command format");
-            throw new InvalidCommandException(INVALID_VIEW_MESSAGE);
-        }
     }
 
     //@@author jemehgoh
@@ -590,9 +583,11 @@ public class Parser {
      * @param commandParts an array of strings representing the parsed command parts,
      *                     where the second element is the command flag.
      * @return a {@link MarkCommand} with fields parsed from input.
-     * @throws InvalidCommandException if the flag is not matched.
+     * @throws InvalidCommandException if the flag is not matched, or if the mark status is invalid.
+     * @throws IndexOutOfBoundsException if not all fields are present.
      */
-    private Command parseMarkCommand(String input, String[] commandParts) throws InvalidCommandException {
+    private Command parseMarkCommand(String input, String[] commandParts) throws InvalidCommandException,
+            IndexOutOfBoundsException {
         assert commandParts[0].equalsIgnoreCase(MarkCommand.COMMAND_WORD);
         String commandFlag = commandParts[1];
 
@@ -656,7 +651,6 @@ public class Parser {
         String participantName = inputParts[1].trim();
         String eventName = inputParts[2].trim();
         boolean isToMark = toMarkParticipant(inputParts[3].trim());
-
 
         return new MarkParticipantCommand(participantName, eventName, isToMark);
     }
@@ -741,7 +735,6 @@ public class Parser {
     }
 
     //@@author MatchaRRR
-
     /**
      * Parses the input string to create a {@link Command} based on the provided command parts.
      *
@@ -773,7 +766,6 @@ public class Parser {
     }
 
     //@@author LTK-1606
-
     /**
      * Parses the input string and command parts to create a {@code FilterCommand} object.
      * <p>
@@ -833,26 +825,23 @@ public class Parser {
         return new FindCommand(inputParts[1].trim(), inputParts[2].trim());
     }
 
+    //@@author jemehgoh
+    /**
+     * Returns an error message corresponding to the given command word.
+     *
+     * @param commandWord the command word entered.
+     * @return an error message corresponding to commandWord.
+     */
     private String getErrorMessage(String commandWord) {
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
             return INVALID_ADD_MESSAGE;
         case RemoveCommand.COMMAND_WORD:
             return INVALID_REMOVE_MESSAGE;
-        case EditParticipantCommand.COMMAND_WORD:
-            return INVALID_EDIT_MESSAGE;
         case ViewCommand.COMMAND_WORD:
             return INVALID_VIEW_MESSAGE;
         case MarkCommand.COMMAND_WORD:
             return INVALID_MARK_MESSAGE;
-        case CopyCommand.COMMAND_WORD:
-            return INVALID_COPY_MESSAGE;
-        case SortCommand.COMMAND_WORD:
-            return INVALID_SORT_MESSAGE;
-        case FilterCommand.COMMAND_WORD:
-            return INVALID_FILTER_MESSAGE;
-        case FindCommand.COMMAND_WORD:
-            return INVALID_FIND_MESSAGE;
         default:
             return INVALID_COMMAND_MESSAGE;
         }
