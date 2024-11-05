@@ -1,7 +1,7 @@
 package seedu.duke;
 
 public class UI {
-    public static final String SEPARATOR = "_".repeat(30);;
+    public static final String SEPARATOR = "_".repeat(30);
     public static final String WELCOME_MESSAGE = "Hiya! How can I assist?";
     public static final String EXIT_MESSAGE = "Goodbye! :> Hope to see you again soon!";
     public static final String DATA_LOADED_MESSAGE = "Data loaded successfully";
