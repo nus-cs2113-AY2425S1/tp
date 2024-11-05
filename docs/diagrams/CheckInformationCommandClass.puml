@@ -1,5 +1,12 @@
 @startuml
-!include .ClassDiagram.config
+hide circle
+!define ABSTRACT &#123;abstract&#125;
+skinparam {
+    groupInheritance 2
+    classAttributeIconSize 0
+    style strictuml
+    roundCorner 0
+}
 left to right direction
 
 class Command as "{abstract} \nCommand"{
@@ -39,8 +46,48 @@ class ListPersonalTrackerCommand extends CheckInformationCommand {
     +execute(userInput: String): void
 }
 
-ListPersonalTrackerCommand --> "storage 1" Storage
-Storage : +loadAllCourses(): void
+class CompareMappedCommand extends CheckInformationCommand {
+    +execute(userInput: String): void
+}
+
+class Storage {
+    +loadAllCourses(): List<Course>
+}
+
+class CourseRepository {
+    +isFileValid(): boolean
+}
+
+class UI {
+    +printMappableCourse(universityName: String, course: JsonObject): void
+    +printUniversityList(universityName: String): void
+    +displayPartnerUniversities(): void
+    +printListUniCoursesCommand(courseObject: JsonObject): void
+    +printCommandsList(): void
+    +printNoMappedModules(): void
+    +printMappedModules(mappedModules: List<Course>): void
+    +printInvalidInputFormat(): void
+    +printCommonMappings(university1: String, university2: String,commonCourseCodes: Set<String>,
+            uni1Modules: List<Course>, uni2Modules: List<Course>): void
+    +printUniqueMappings(university: String, modules: List<Course>, uniqueCourseCodes: Set<String>): void
+    +printInvalidCourseEntry(lineNumber: int, entry: String): void
+    +printInvalidEntryFormat(lineNumber: int, entry: String): void
+}
+
+ListPersonalTrackerCommand ---> "storage 1" Storage
+CompareMappedCommand ---> "storage 1" Storage
+
+ListPersonalTrackerCommand ---> "courseRepository 1" CourseRepository
+CompareMappedCommand ---> "courseRepository 1" CourseRepository
+
+ListPersonalTrackerCommand ----> "ui 1" UI
+FilterCoursesCommand ----> "ui 1" UI
+ListSchoolCommand ----> "ui 1" UI
+ListCommandsCommand ----> "ui 1" UI
+HelpCommand ----> "ui 1" UI
+ListUniCoursesCommand ----> "ui 1" UI
+ObtainContactsCommand ----> "ui 1" UI
+CompareMappedCommand ----> "ui 1" UI
 
 note "execute() methods are overridden by concrete classes" as N1
 N1..FilterCoursesCommand
