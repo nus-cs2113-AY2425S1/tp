@@ -95,7 +95,8 @@ public class JsonUtilTest {
 
     @Test
     void serialize_success() throws StorageOperationException {
-        String jsonSerialize = JsonUtil.toJson(hospital).trim();
+        JsonUtil jsonUtil = new JsonUtil();
+        String jsonSerialize = jsonUtil.toJson(hospital).trim();
         assertNotNull(jsonSerialize);
         // TODO: Failed on Windows System
         // assertTrue(jsonSerialize.equals(hospitalJson.trim()));
@@ -105,7 +106,8 @@ public class JsonUtilTest {
     void deserialize_success()
             throws JsonMappingException, JsonProcessingException, TaskNotFoundException, PatientNotFoundException,
             StorageOperationException {
-        Hospital hospitalDeserialized = JsonUtil.fromJson(hospitalJson);
+        JsonUtil jsonUtil = new JsonUtil();
+        Hospital hospitalDeserialized = jsonUtil.fromJson(hospitalJson);
         assertNotNull(hospitalDeserialized);
         assertEquals(hospital.getPatients().size(),
                 hospitalDeserialized.getPatients().size());
@@ -122,8 +124,9 @@ public class JsonUtilTest {
 
     @Test
     void loadFromFile_success() throws StorageOperationException, PatientNotFoundException, TaskNotFoundException {
+        JsonUtil jsonUtil = new JsonUtil();
 
-        Hospital hospitalDeserialized = JsonUtil.loadFromFile("src/test/java/seedu/duke/data/hospital_data.json");
+        Hospital hospitalDeserialized = jsonUtil.loadFromFile("src/test/java/seedu/duke/data/hospital_data.json");
         assertNotNull(hospitalDeserialized);
         assertEquals(hospital.getPatients().size(),
                 hospitalDeserialized.getPatients().size());
@@ -140,25 +143,32 @@ public class JsonUtilTest {
 
     @Test
     void deserialize_invalidJsonFormat_exceptionExpection() {
+        JsonUtil jsonUtil = new JsonUtil();
 
-        assertThrows(StorageOperationException.class, () -> JsonUtil.fromJson(hospitalJsonInvalid));
-        assertThrows(StorageOperationException.class, () -> JsonUtil.fromJson(jsonInvalid));
+        assertThrows(StorageOperationException.class, () -> jsonUtil.fromJson(hospitalJsonInvalid));
+        assertThrows(StorageOperationException.class, () -> jsonUtil.fromJson(jsonInvalid));
     }
 
     @Test
     void saveToFile_invalidFilePath_exceptionExpection() {
-        assertThrows(StorageOperationException.class, () -> JsonUtil.saveToFile("invalid/file/path"));
-        assertThrows(StorageOperationException.class, () -> JsonUtil.saveToFile(hospital, "invalid/file/path"));
+        JsonUtil jsonUtil = new JsonUtil();
+
+        assertThrows(StorageOperationException.class, () -> jsonUtil.saveToFile("invalid/file/path"));
+        assertThrows(StorageOperationException.class, () -> jsonUtil.saveToFile(hospital, "invalid/file/path"));
     }
 
     @Test
     void loadFromFile_invalidFilePath_exceptionExpection() {
-        assertThrows(StorageOperationException.class, () -> JsonUtil.loadFromFile("invalid/file/path"));
+        JsonUtil jsonUtil = new JsonUtil();
+
+        assertThrows(StorageOperationException.class, () -> jsonUtil.loadFromFile("invalid/file/path"));
     }
 
     @Test
     void loadFromFile_invalidJsonFormat_exceptionExpection() {
-        assertThrows(StorageOperationException.class, () -> JsonUtil.loadFromFile("data/json_invalid.json"));
+        JsonUtil jsonUtil = new JsonUtil();
+
+        assertThrows(StorageOperationException.class, () -> jsonUtil.loadFromFile("data/json_invalid.json"));
     }
 
 }

@@ -4,7 +4,12 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
-package "Storage" {
+package Storage as StoragePackage {
+    Class "<<interface>>\nStorage" as Storage {
+        +save(Hospital): void
+        +load(): Hospital
+    }
+
     class StorageFile {
         +StorageFile()
         +StorageFile(String)
@@ -33,11 +38,11 @@ package "Storage" {
     }
 }
 
-package "hospital" {
-    class Hospital {
-        // TODO: Get from Hospital class
-    }
-}
+' package "hospital" {
+'     class Hospital {
+'         // TODO: Get from Hospital class
+'     }
+' }
 
 
 
@@ -47,7 +52,11 @@ package "hospital" {
 '     }
 ' }
 
-StorageFile *-- "1" Hospital
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Storage
+
+StorageFile .up.|> Storage
+' StorageFile *-- "1" Hospital
 StorageFile --> "1" JsonUtil
 StorageFile ..> StorageBackup
 ' JsonUtil --> StorageOperationException : Throws

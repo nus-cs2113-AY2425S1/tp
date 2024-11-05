@@ -5,6 +5,10 @@ import seedu.duke.ui.Ui;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Represents a command to list all patients in the hospital system.
+ * This command displays the list of patients along with their task completion rates.
+ */
 public class ListPatientCommand extends HospitalCommand {
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_LIST_SUCCESS = "End of your patients list!";
@@ -18,9 +22,18 @@ public class ListPatientCommand extends HospitalCommand {
 
     Ui ui = new Ui();
 
+    /**
+     * Constructs a {@code ListPatientCommand}.
+     */
     public ListPatientCommand() {
     }
 
+    /**
+     * Executes the command to list all patients in the hospital system.
+     * If the patient list is empty, logs a warning and notifies the user.
+     *
+     * @return the result of the command, indicating success or that the list is empty.
+     */
     @Override
     public CommandResult execute() {
         assert hospital != null : "Hospital should not be null";

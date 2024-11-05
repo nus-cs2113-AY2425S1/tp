@@ -7,7 +7,7 @@ import seedu.duke.data.exception.UnknownStateFound;
 import seedu.duke.data.hospital.Hospital;
 
 /**
- * Manages the different states of the program.
+ * Manages and runs the different states of the program.
  */
 public class StateManager {
     private State currentState; // current state of the program
@@ -20,22 +20,52 @@ public class StateManager {
         assert currentState != null : "Current state should not be null.";
     }
 
+    /**
+     * Returns the current state of the program {@link State}.
+     *
+     * @return current state of the program
+     */
     public State getCurrentState() {
         return currentState;
     }
 
+
+    /**
+     * Sets the current state of the program {@link State}.
+     *
+     * @param currentState new state of the program
+     */
     public void setCurrentState(State currentState) {
         this.currentState = currentState;
     }
 
+    /**
+     * Changes the state of the program {@link State}.
+     *
+     * @param state new state of the program
+     */
     public void changeState(StateType state) {
         currentState.setState(state);
     }
 
+    /**
+     * Returns the current state of the program {@link StateType}.
+     *
+     * @return current state of the program
+     */
     public StateType getState() {
         return currentState.getState();
     }
 
+    /**
+     * Runs the command based on the current state of the program.
+     *
+     * @param commandInput user input command string
+     * @param command command to be executed {@link Command}
+     * @param hospital hospital object {@link Hospital}
+     * @return result of the command execution {@link CommandResult}
+     * @throws UnknownStateFound if the state is not recognized
+     */
     public CommandResult runState(String commandInput, Command command, Hospital hospital) throws UnknownStateFound {
         try {
             switch (currentState.getState()) {
@@ -51,6 +81,16 @@ public class StateManager {
         }
     }
 
+    /**
+     * Runs the command based on the MAIN_STATE of the program.
+     * If the command is a SelectPatientCommand, the patient will be selected.
+     *
+     * @param commandInput user input command string
+     * @param command command to be executed {@link Command}
+     * @param hospital hospital object {@link Hospital}
+     * @return result of the command execution {@link CommandResult}
+     * @throws InvalidCommandException if the command is invalid or patient is not selected
+     */
     public CommandResult runMainState(String commandInput, Command command, Hospital hospital)
             throws InvalidCommandException {
         if (command == null) {
@@ -75,6 +115,16 @@ public class StateManager {
         return command.execute();
     }
 
+    /**
+     * Runs the command based on the TASK_STATE of the program.
+     * If patient is not selected, an InvalidCommandException will be thrown.
+     *
+     * @param commandInput user input command string
+     * @param command command to be executed {@link Command}
+     * @param hospital hospital object {@link Hospital}
+     * @return result of the command execution {@link CommandResult}
+     * @throws InvalidCommandException if the command is invalid
+     */
     public CommandResult runTaskState(String commandInput, Command command, Hospital hospital)
             throws InvalidCommandException {
         if (command == null) {
