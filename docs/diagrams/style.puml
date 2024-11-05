@@ -42,7 +42,6 @@
 !define USER_COLOR #000000
 
 !define LOGGER_COLOR #aeff00
-
 skinparam classAttributeIconSize 0
 
 
@@ -59,6 +58,8 @@ skinparam Class {
     BorderColor #FFFFFF
     StereotypeFontColor #FFFFFF
     FontName Arial
+    AttributeFontColor white
+    MethodFontColor white
 }
 
 skinparam Actor {
