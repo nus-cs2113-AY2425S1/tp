@@ -57,7 +57,7 @@ public abstract class FinancialEntry {
     public void setDate(String newDate) {
         this.date = LocalDate.parse(newDate);
     }
-    
+
     /**
      * Updates the date of the transaction.
      *
@@ -81,10 +81,7 @@ public abstract class FinancialEntry {
      *
      * @param newAmount The new amount.
      */
-    public void setAmount(double newAmount) throws FinanceBuddyException {
-        if (amount < 0.01) {
-            throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
-        }
+    public void setAmount(double newAmount) {
         this.amount = newAmount;
     }
 
