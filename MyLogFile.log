@@ -790,3 +790,21 @@ Nov 03, 2024 9:15:28 PM wheresmymoney.Logging logMessage
 INFO: Parsing Line: byw
 Nov 03, 2024 9:15:30 PM wheresmymoney.Logging logMessage
 INFO: Parsing Line: bye
+Nov 05, 2024 12:00:26 PM wheresmymoney.Logging <init>
+INFO: Started Logging
+Nov 05, 2024 12:00:35 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: add /price 4.23423423 /description test /catgeory test
+Nov 05, 2024 12:00:35 PM wheresmymoney.Logging logMessage
+INFO: Adding expense with parameters: 4.234234, test, null
+Nov 05, 2024 12:00:44 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: add /price 4.23423423 /description test /category test
+Nov 05, 2024 12:00:44 PM wheresmymoney.Logging logMessage
+INFO: Adding expense with parameters: 4.234234, test, test
+Nov 05, 2024 12:00:44 PM wheresmymoney.Logging logMessage
+INFO: Successfully added expense.
+Nov 05, 2024 12:00:45 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: list
+Nov 05, 2024 12:00:45 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: test
+Nov 05, 2024 12:00:48 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: bye
