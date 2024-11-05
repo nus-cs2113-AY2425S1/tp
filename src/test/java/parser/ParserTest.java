@@ -44,6 +44,7 @@ class ParserTest {
     @Test
     void testParseExitCommand() {
         String fullCommand = "bye";
+        when(commandFactoryMock.createCommand("bye", "")).thenReturn(new ExitCommand());
         Command result = parser.parse(fullCommand);
 
         assertInstanceOf(ExitCommand.class, result);
@@ -52,6 +53,8 @@ class ParserTest {
     @Test
     void testParseInvalidCommand() {
         String fullCommand = "unknownCommand";
+        when(commandFactoryMock.createCommand("unknownCommand", "")).
+                thenReturn(new InvalidCommand());
         Command result = parser.parse(fullCommand);
 
         assertInstanceOf(InvalidCommand.class, result);

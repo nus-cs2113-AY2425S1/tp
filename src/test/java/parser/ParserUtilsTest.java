@@ -191,13 +191,13 @@ class ParserUtilsTest {
 
     @Test
     void testParseDateInvalidDayInMonth() {
-        assertThrows(IllegalArgumentException.class, () -> ParserUtils.parseDate("31-02-2023"),
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> ParserUtils.parseDate("31-02-2023"),
                 "Should throw exception on invalid date (February 31st).");
     }
 
     @Test
     void testParseDateInvalidMonth() {
-        assertThrows(IllegalArgumentException.class, () -> ParserUtils.parseDate("31-13-2023"),
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> ParserUtils.parseDate("31-13-2023"),
                 "Should throw exception on invalid month (13).");
     }
 }

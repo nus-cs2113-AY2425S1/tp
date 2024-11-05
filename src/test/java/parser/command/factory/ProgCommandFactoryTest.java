@@ -10,6 +10,8 @@ import command.programme.StartProgrammeCommand;
 import command.programme.ViewProgrammeCommand;
 import command.programme.LogProgrammeCommand;
 import org.junit.jupiter.api.BeforeEach;
+import exceptions.EmptyInputBuffBuddyException;
+import exceptions.IndexOutOfBoundsBuffBuddyException;
 import exceptions.InvalidFormatBuffBuddyException;
 import exceptions.MissingFlagBuffBuddyException;
 import org.junit.jupiter.api.Test;
@@ -137,7 +139,7 @@ class ProgCommandFactoryTest {
     public void testPrepareCreateCommandMissingProgrammeName() {
         String argumentString = "/d Day1 /e /name PushUps /set 3 /rep 15 /w 0 /c 50";
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(EmptyInputBuffBuddyException.class,
                 () -> progCommandFactory.parse("create " + argumentString));
     }
 
@@ -145,7 +147,7 @@ class ProgCommandFactoryTest {
     public void testPrepareCreateCommandInvalidDayFormat() {
         String argumentString = "MyProgram /d /e /name PushUps /set 3 /rep 15 /w 0 /c 50";
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(EmptyInputBuffBuddyException.class,
                 () -> progCommandFactory.parse("create " + argumentString));
     }
 
@@ -153,7 +155,7 @@ class ProgCommandFactoryTest {
     public void testPrepareCreateCommandInvalidExerciseFormat() {
         String argumentString = "MyProgram /d Day1 /e /name PushUps /set 3 /rep 15 /w invalid /c 50";
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(InvalidFormatBuffBuddyException.class,
                 () -> progCommandFactory.parse("create " + argumentString));
     }
 
@@ -161,7 +163,7 @@ class ProgCommandFactoryTest {
     public void testPrepareCreateCommandMissingExerciseName() {
         String argumentString = "MyProgram /d Day1 /e /name  /set 3 /rep 15 /w 0 /c 50";
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(MissingFlagBuffBuddyException.class,
                 () -> progCommandFactory.parse("create " + argumentString));
     }
 
@@ -169,7 +171,7 @@ class ProgCommandFactoryTest {
     public void testPrepareCreateCommandMissingExerciseFlag() {
         String argumentString = "MyProgram /d Day1 /e /name Lunges /rep 15 /w 0 /c 50";
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(MissingFlagBuffBuddyException.class,
                 () -> progCommandFactory.parse("create " + argumentString));
     }
 
@@ -189,7 +191,7 @@ class ProgCommandFactoryTest {
     public void testPrepareViewCommandInvalidIndexFormat() {
         String argumentString = "view invalidIndex";
 
-        assertThrows(IllegalArgumentException.class, () -> progCommandFactory.parse(argumentString));
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> progCommandFactory.parse(argumentString));
     }
 
     @Test
@@ -217,14 +219,14 @@ class ProgCommandFactoryTest {
     public void testPrepareStartCommandNoIndex() {
         String argumentString = "start";
 
-        assertThrows(IllegalArgumentException.class, () -> progCommandFactory.parse( argumentString));
+        assertThrows(EmptyInputBuffBuddyException.class, () -> progCommandFactory.parse( argumentString));
     }
 
     @Test
     public void testPrepareStartCommandInvalidIndexFormat() {
         String argumentString = "start invalidIndex";
 
-        assertThrows(IllegalArgumentException.class, () -> progCommandFactory.parse(argumentString));
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> progCommandFactory.parse(argumentString));
     }
 
     // Tests for prepareDeleteCommand
@@ -242,7 +244,7 @@ class ProgCommandFactoryTest {
     public void testPrepareDeleteCommandInvalidIndexFormat() {
         String argumentString = "delete invalidIndex";
 
-        assertThrows(IllegalArgumentException.class, () -> progCommandFactory.parse(argumentString));
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> progCommandFactory.parse(argumentString));
     }
 
     @Test
@@ -271,7 +273,7 @@ class ProgCommandFactoryTest {
     public void testPrepareLogCommandMissingDayFlag() {
         String argumentString = "log /p 1 /date 05-11-2023";
 
-        assertThrows(IllegalArgumentException.class, () -> progCommandFactory.parse( argumentString));
+        assertThrows(MissingFlagBuffBuddyException.class, () -> progCommandFactory.parse( argumentString));
     }
 
     @Test
@@ -279,7 +281,7 @@ class ProgCommandFactoryTest {
         //Expected format: dd-MM-yyyy
         String argumentString = "log /p 1 /d 0 /date 2023-11-05";
 
-        assertThrows(IllegalArgumentException.class, () -> progCommandFactory.parse( argumentString));
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> progCommandFactory.parse( argumentString));
     }
 
     @Test
