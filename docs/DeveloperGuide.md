@@ -97,7 +97,7 @@ As BuffBuddy contains many commands and thus many types of `Command` subclasses,
 
 ![Summary of Command classes](images/commandSummary.png)
 
-Each abstract sub-class of `Command` represents a generalization of the various commands available to BuffBuddy. In the following sections, each abstract class and their respective purposes will be elaborated on.
+Each abstract subclass of `Command` represents a generalization of the various commands available to BuffBuddy. In the following sections, each abstract class and their respective purposes will be elaborated on.
 
 #### Programme Commands
 
@@ -282,7 +282,7 @@ Step 2. The user executes `programme edit /p 1 /d 1 /x 1` to delete the first ex
 
 Step 3. After parsing this input, a `DeleteExerciseCommand` (inheriting from the generic `EditProgrammeCommand`) is created and executed.
 
-Step 4. The command first retrieves the chosen Progamme with `ProgrammeList#getProgramme()`.
+Step 4. The command first retrieves the chosen Programme with `ProgrammeList#getProgramme()`.
 
 Step 5. The command then retrieves the chosen Day with `Programme#getDay()`.
 
@@ -326,7 +326,7 @@ meal add /n [mealName] /c [calories]
 
 **Step 2**: The command retrieves the `DailyRecord` for the specified date from the `History` using `getRecordByDate()`. If no record exists, a new one is created.
 
-**Step 3**: The `AddMealCommand` adds the meal to the `MealList` of the `DailyRecord`. If the meallist already exists, it updates the existing meallist instead.
+**Step 3**: The `AddMealCommand` adds the meal to the `MealList` of the `DailyRecord`. If the mealList already exists, it updates the existing mealList instead.
 
 **Step 4**: The newly added `Meal` object is returned to the `AddMealCommand` to display as part of the `CommandResult`.
 
@@ -401,7 +401,7 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 ## User Stories
 
 | Version | As a ...               | I want to ...                                           | So that I can ...                                    |
-| ------- | ---------------------- | ------------------------------------------------------- | ---------------------------------------------------- |
+|---------|------------------------|---------------------------------------------------------|------------------------------------------------------|
 | v1.0    | fitness enthusiast     | create a new workout plan/routine                       | tailor my workout to fit my needs                    |
 | v1.0    | fitness enthusiast     | create a workout entry (input sets, weights, rep, time) | keep track of my progress                            |
 | v1.0    | fitness enthusiast     | view my routine when I begin my workout                 | follow my plan more effectively                      |
