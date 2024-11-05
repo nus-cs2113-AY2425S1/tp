@@ -231,10 +231,6 @@ Invalid contact type.
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer?
-
-**A**: {your answer here}
-
 **Q**: Are the commands case-sensitive?
 
 **A**: No they are not.
