@@ -50,7 +50,7 @@ class ParserIntegrationTest {
 
     @Test
     void parseCommand_addCommandAddParticipant_success() {
-        String commandString = "add -p John Doe -n 9213 8961 -email johndoe@gmail.com -e Event 1";
+        String commandString = "add -p John Doe -n 92138961 -email johndoe@gmail.com -e Event 1";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
         command.execute();
