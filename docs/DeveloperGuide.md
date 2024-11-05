@@ -47,7 +47,7 @@ The architecture of EasInternship is designed to follow the MVC (Model-View-Cont
 
 The `EasInternship` class serves as the entry point of the application. It manages the application's main loop, where the user is continually prompted for input, and commands are processed in response. The class is responsible for initializing the UI, loading saved data, and handling user input until the user chooses to exit the program.
 
-### Key Responsibilities
+#### Key Responsibilities
 
 - **Initialization**: Initializes the necessary components for the application, such as the `Ui`, `InternshipList`, and `Parser` classes. It also loads any saved data from the storage into the `InternshipList`.
 - **Main Loop**: Continuously prompts the user for input. The input is parsed by the `Parser`, and the corresponding `Command` is executed. If the user enters the exit command, the loop terminates.
@@ -397,7 +397,7 @@ This product helps users streamline the process of tracking and managing their i
 
 * *Internship* - The position of a student or trainee who works in an organisation, with associated role, company, duration and deadline information.
 *  *InternshipList* - A collection of Internships added by the user.
-*  *Deadline* - The date which an event is schedule for.
+*  *Deadline* - The date which an event is scheduled for.
 *  *Parser* - The component responsible for interpreting user commands and executing the appropriate actions.
 *  *Storage* - The component responsible for saving and loading the user's data to and from a file. 
 
@@ -405,6 +405,7 @@ This product helps users streamline the process of tracking and managing their i
 
 1. **Installation and Setup:**
    - Ensure Java Runtime Environment (JRE) is installed on your system.
+   - Ensure Java Version 17.0. Run `java -version` in a terminal to verify.
    - Download the EasInternship application JAR file.
    - Open a terminal or command prompt and navigate to the directory containing the JAR file.
 
@@ -425,7 +426,7 @@ This product helps users streamline the process of tracking and managing their i
 
    
 5. **Updating an Internship:**
-  - Enter the command `update {ID} {-field} {updated information}` eg. `update 1 -skills python, java`.
+  - Enter the command `update {ID} {-field} {updated information}` eg. `update 1 -skills python`.
   - Verify that the internship has been updated successfully.
 
 // rahul fill up pls
@@ -438,12 +439,12 @@ This product helps users streamline the process of tracking and managing their i
 
 
 8. **Sorting the InternshipList**
-   - Enter the command `sort {field}` eg. `sort deadline`.
+   - Enter the command `sort {-field}` eg. `sort deadline`.
    - Verify that the list displayed is sorted according to the entered field.
 
 
 9. **Filtering the InternshipList**
-   - Enter the command `filter {field} {field data}` eg. `filter -company Google`.
+   - Enter the command `filter {-field} {field data}` eg. `filter -company Google`.
    - Verify that the filtered list all contain the specified field data.
 
 
