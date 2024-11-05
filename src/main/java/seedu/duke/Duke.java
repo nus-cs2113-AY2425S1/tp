@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        String filePath = "spendswift.txt";
+        Storage storage = new Storage(filePath);
         TrackerData trackerData = new TrackerData();
 
         CategoryManager categoryManager = new CategoryManager();
