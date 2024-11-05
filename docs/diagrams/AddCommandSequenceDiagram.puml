@@ -3,10 +3,10 @@
 hide footbox
 
 participant ":Main" as main
-participant ":AddCommand" as command COMMAND_COLOUR
+participant ":AddCommand" as command  
 
 main -> command : execute()
-activate command COMMAND_COLOUR
+activate command  
 
 alt participantName is not null
     ref over command : Add participant

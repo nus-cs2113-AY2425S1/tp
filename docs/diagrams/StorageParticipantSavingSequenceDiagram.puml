@@ -3,24 +3,24 @@
 hide footbox
 
 Participant ":Main" as main
-Participant ":Storage" as storage STORAGE_COLOUR
-Participant ":EventList" as eventList EVENT_COLOUR
-Participant "event:Event" as event EVENT_COLOUR
+Participant ":Storage" as storage 
+Participant ":EventList" as eventList 
+Participant "event:Event" as event 
 
 group sd Saving of participant data
 main -> storage : saveParticipants(EventList)
-activate storage STORAGE_COLOUR
+activate storage 
 storage -> eventList : getList()
-activate eventList EVENT_COLOUR
+activate eventList 
 return :ArrayList<Event>
 
 loop for event in event list
 
 storage -> storage : saveEventParticipants(...)
-activate storage STORAGE_COLOUR
+activate storage 
 
 storage -> event : getParticipantsList()
-activate event EVENT_COLOUR
+activate event 
 return :ArrayList<Participant>
 
 return

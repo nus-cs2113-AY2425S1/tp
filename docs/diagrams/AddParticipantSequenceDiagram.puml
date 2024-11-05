@@ -2,16 +2,16 @@
 !include style.puml
 hide footbox
 
-participant ":AddCommand" as command COMMAND_COLOUR
-participant ":EventList" as eventList EVENT_COLOUR
+participant ":AddCommand" as command  
+participant ":EventList" as eventList  
 
 group sd Add participant
-    activate command COMMAND_COLOUR
+    activate command  
     command -> eventList : addParticipantToEvent(participantName, participantNumber,\n participantEmail, eventName)
-    activate eventList EVENT_COLOUR
+    activate eventList  
 
     eventList -> eventList : getEventByName(eventName)
-    activate eventList EVENT_COLOUR
+    activate eventList  
 
     return event:Event
 

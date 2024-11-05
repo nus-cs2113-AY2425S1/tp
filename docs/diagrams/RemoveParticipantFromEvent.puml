@@ -2,25 +2,25 @@
 !include style.puml
 hide footbox
 
-participant ":EventList" as eventList EVENT_COLOUR
-participant "event:Event" as event EVENT_COLOUR
-participant "participantList:ArrayList<Participant>" as participantList EVENT_COLOUR
-participant "participant:Participant" as participant EVENT_COLOUR
+participant ":EventList" as eventList  
+participant "event:Event" as event  
+participant "participantList:ArrayList<Participant>" as participantList  
+participant "participant:Participant" as participant  
 
 group sd Remove participant from event
-    activate eventList EVENT_COLOUR
+    activate eventList  
     eventList -> event : removeParticipant(participantName)
-    activate event EVENT_COLOUR
+    activate event  
 
     loop for participant in participantList
         event -> participant : getName()
-        activate participant EVENT_COLOUR
+        activate participant  
 
         return :String
 
         opt name of participant equals participantName
             event -> participantList : remove(participant)
-            activate participantList EVENT_COLOUR
+            activate participantList  
             destroy participant
             return
             event --> eventList : :boolean
