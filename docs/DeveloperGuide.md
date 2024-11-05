@@ -39,7 +39,7 @@ WheresMyMoney uses the following tools for development:
 Design and Implementation has been broken down into various sections, each tagged for ease of reference:
 
 - [Architecture](#architecture)
-- [UI and Parser](#ui-and-parser)
+- [Ui and Parser](#ui-and-parser)
 - [Commands](#commands)
 - [Storage](#storage)
 - [Expense and Expense List](#expense-and-expense-list)
@@ -55,11 +55,12 @@ A high-level overview of the system is shown in the Architecture Diagram below.
 ![ArchitectureDiagram.png](diagrams%2Fimages%2FArchitectureDiagram.png "Architecture Diagram of WheresMyMoney")
 
 This architecture consist of: 
-1. `UI`, `Main`, `Parser`, and `Command` classes: These classes stand between the user and the internal processing of the software.
+1. `Ui`, `Main`, `Parser`, and `Command` classes: These classes stand between the user and the internal processing of the software.
 2. `Expense`, `ExpenseList`, `ExpenseFilter` classes: Model expenses that commands can interact with.
 3. `Storage` class: Stores information between sessions.
 4. Logger and other utility classes: Provide extra functionalities for the software.
-### UI and Parser
+
+### Ui and Parser
 
 <u>Overview</u>
 
@@ -116,7 +117,7 @@ The abstract Command class has been implemented to introduce an additional layer
 
 <u>Implementation Details</u>
 
-The following diagram is an inheritance diagram for Command and its children classes. 
+The following diagram is a class diagram for Command and its children classes. 
 This has been heavily simplified and only shows the key commands.
 
 ![CommandInheritance.png](diagrams%2Fimages%2FCommandInheritance.png)
@@ -126,7 +127,7 @@ The following diagram is a sequence diagram for execution of Command.
 
 ![CommandExecutionSequence.png](diagrams%2Fimages%2FCommandExecutionSequence.png)
 
-Commands interact with `UI` and `Parser` classes via `Main`, as illustrated in the following class diagram:
+Commands interact with `Ui` and `Parser` classes via `Main`, as illustrated in the following class diagram:
 
 ![UiToCommand.png](diagrams%2Fimages%2FUiToCommand.png)
 
@@ -134,17 +135,36 @@ Commands interact with `UI` and `Parser` classes via `Main`, as illustrated in t
 
 <u>Overview</u>
 
-Majority of the storage handling occurs in the ExpenseList class. 
-This is to keep the storage tightly coupled with the expense data and ensures that when the expense list is updated,
-the storage format is updated accordingly.
+Storage is mostly handled by the different states themselves (`ExpenseList`, `RecurringExpenseList`, `CategoryStorage`).
+This is to keep the storage tightly coupled with the data and ensures that when the data format is updated,
+the storage format is updated accordingly, increasing cohesion.
+The current implementation abstracted out common Csv functions into the CsvUtils class, but this implementation
+also allows more flexible file formats between different classes, instead of relying solely on a certain format. 
+This might help for future expandability.
 
-OpenCSV is used for the storage format to allow for reliable handling of CSV files. 
+
+However, we also do have a Storage class which handles how these file handling methods interact with one another. 
+This is to consolidate the overall file loading and saving logic in the program. 
+This is useful for certain cases, such as standardising default file paths 
+It would be modified when there is a change of interaction between the various loading/ saving methods of the classes.
+
+The LoadCommand and SaveCommand would reference the Storage class, so ideally they would not need to be changed much 
+for feature changes.
+
+<u>Implementation Details</u>
+
+Here is an illustration of the related classes involved.
+
+![StorageInteraction.png](diagrams%2Fimages%2FStorageInteraction.png)
+
+<u>Design Considerations</u>
+
+OpenCSV is used for the storage format to allow for reliable handling of CSV files.
 The CSV file format was used to allow expenses to be easily exported/ imported to and from other programs (like Excel).
 
-In the future, if the state expands to be greater than an ExpenseList, it would be better for a separate class to be
-created for solely handling Storage. 
+Storage is also meant to be an intentional act by the user. 
+This means functionality such as autosave was not implemented due to the fact that it is not an intentional act.
 
-The list of categories in ExpenseList and the corresponding spending limit set for each of those categories can also be saved to storage.
 
 ### Expense and Expense List
 
@@ -387,7 +407,7 @@ The program implements Exception handling and Logging with the WheresMyMoneyExce
 
 WheresMyMoneyException has various children classes, such as `StorageException` and `InvalidInputException`. 
 These children classes are meant to provide more information on the error to the developer (beyond the message) such 
-that exception handling in the program could be better targetted in the future.
+that exception handling in the program could be better targeted in the future.
 
 The Logging class is implemented as a Singleton for ease of use. 
 Developers can log down certain actions in the program by simply calling the relevant class method `log(Level, String)`. 

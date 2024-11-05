@@ -1,15 +1,9 @@
 package wheresmymoney;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvValidationException;
+import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -35,6 +29,8 @@ public class ExpenseList {
     public boolean isEmpty() {
         return expenses.isEmpty();
     }
+
+    public void clear(){ expenses.clear(); }
 
     /**
      * Retrieves the {@code Expense} at the specified index in the list.
@@ -109,17 +105,25 @@ public class ExpenseList {
      */
     public void editExpense(int index, Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
-        if (!DateUtils.isInDateFormat(dateAdded)){
+        if (dateAdded != null && !DateUtils.isInDateFormat(dateAdded)){
             throw new WheresMyMoneyException("Invalid date format " + DateUtils.DATE_FORMAT);
         }
         try {
             Logging.log(Level.INFO, "Attempting to edit expense.");
             Expense expense = getExpenseAtIndex(index);
             assert (expense != null);
-            expense.setPrice(price);
-            expense.setDescription(description);
-            expense.setCategory(category);
-            expense.setDateAdded(DateUtils.stringToDate(dateAdded));
+            if (price != null) {
+                expense.setPrice(price);
+            }
+            if (description != null) {
+                expense.setDescription(description);
+            }
+            if (category != null) {
+                expense.setCategory(category);
+            }
+            if (dateAdded != null) {
+                expense.setDateAdded(DateUtils.stringToDate(dateAdded));
+            }
             Logging.log(Level.INFO, "Successfully edited expense.");
         } catch (WheresMyMoneyException e) {
             Logging.log(Level.INFO, "Failure when editing expense.");
@@ -166,28 +170,23 @@ public class ExpenseList {
      *
      * @param filePath File Path to read csv
      */
-    public void loadFromCsv(String filePath) throws StorageException {
-        try {
-            File file = new File(filePath);
-            FileReader reader = new FileReader(file);
-            CSVReader csvReader = new CSVReader(reader);
-            
-            csvReader.readNext(); // Skip the header
-            String[] line;
-            while ((line = csvReader.readNext()) != null) {
-                addExpense(Float.parseFloat(line[2]), line[1], line[0], line[3]);
+    public void loadFromCsv(CategoryFacade categoryFacade, String filePath) throws StorageException {
+        clear();
+        CsvUtils.readCsv(filePath, line -> {
+            try {
+                String category = line[0];
+                String description = line[1];
+                Float price = Float.parseFloat(line[2]);
+                String dateAdded = line[3];
+                addExpense(price, description, category, dateAdded);
+                // makes it slightly less cohesive, but to do so a refactor of the program state might be better.
+                if (categoryFacade != null) {
+                    categoryFacade.addCategory(category, price);
+                }
+            } catch (Exception e) {
+                throw new StorageException("An expense's price, description, category and/or date added is missing");
             }
-            
-            // closing writer connection
-            reader.close();
-            csvReader.close();
-        } catch (WheresMyMoneyException exc) {
-            throw new StorageException("An expense's price, description, category and/or date added is missing");
-        } catch (IOException ex) {
-            throw new StorageException("Unable to read file!");
-        } catch (CsvValidationException e){
-            throw new StorageException("File not in the correct format!");
-        }
+        });
     }
 
     /**
@@ -196,39 +195,17 @@ public class ExpenseList {
      * @param filePath File Path to save csv to
      */
     public void saveToCsv(String filePath) throws StorageException {
-        File file = new File(filePath);
-
-        // create FileWriter object with file as parameter
-        FileWriter outFile;
-        try{
-            outFile = new FileWriter(file);
-        } catch (IOException e) {
-            throw new StorageException("Unable to save to file!");
-        }
-
-
-        // create CSVWriter object filewriter object as parameter
-        CSVWriter writer = new CSVWriter(outFile);
-
-        // adding header to csv
         String[] header = { "Category", "Description", "Price", "Date Added" };
-        writer.writeNext(header);
-
-        for (Expense expense: expenses) {
-            String[] row = {
-                    expense.getCategory(),
-                    expense.getDescription(),
-                    expense.getPrice().toString(),
-                    DateUtils.dateFormatToString(expense.getDateAdded())
-            };
-            writer.writeNext(row);
-        }
-
-        // closing writer connection
-        try {
-            writer.close();
-        } catch (IOException e) {
-            throw new StorageException("Unable to save to file!");
-        }
+        CsvUtils.writeCsv(filePath, header, (writer) -> {
+            for (Expense expense: expenses) {
+                String[] row = {
+                        expense.getCategory(),
+                        expense.getDescription(),
+                        expense.getPrice().toString(),
+                        DateUtils.dateFormatToString(expense.getDateAdded())
+                };
+                writer.writeNext(row);
+            }
+        });
     }
 }

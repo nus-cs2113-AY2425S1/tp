@@ -19,10 +19,20 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 
 ## Quick Start
 
-1. Ensure you have Java 17 or above installed in your Computer.
-2. Download the latest .jar file from the Github Repository, under releases
-3. Copy the file to the folder you want to use as the home folder for your expenses
+1. Ensure you have Java 17 or above installed in your computer.
+2. Download the latest .jar file from the Github Repository, under releases.
+3. Copy the file to the folder you want to use as the home folder for your expenses.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar tp.jar` command to run the application.
+
+---
+
+## Notes
+
+- Text written in `SCREAMING_SNAKE_CASE` are user input fields.
+- Text preceded with a `/` are flags that need to be inputted for the programme to recognise.
+- When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`:
+  - eg. `<command> /argument \/value` -> `argument`: `/value`
+- Not all commands will give an output
 
 ---
 
@@ -30,36 +40,71 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 
 ### Add an expense: `add`
 
-Use the add command to add an expense
+Use the add command to add an expense.
 
-Format:  `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]`
+Format:  `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`
 
 Notes:
-- Price is a decimal number
-- Description and Category are Text
+- `PRICE` is a decimal number.
+- `DESCRIPTION` and `CATEGORY` are text.
+- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
 
-Examples: `add /price 4.50 /description chicken rice /category food`
+Examples: 
+- `add /price 4.50 /description chicken rice /category food`
+- `add /price 1 /description bus ride /category transport /date 01-10-2024`
 
 ### Edit your expense: `edit`
 
-Use the edit command to edit an expense
+Use the edit command to edit an expense.
 
-Format: `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]`
+Format: `edit [INDEX] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`
 
 Notes:
-- `PRICE` is a decimal number
-- `DESCRIPTION` and Category are Text
-- All parameters are optional and only the parameters that are inputted will be reflected after the edit
+- `INDEX` is an integer. To find the index of an expense, use the `list` command to see the corresponding index.
+- `PRICE` is a decimal number.
+- `DESCRIPTION` and `CATEGORY` are text.
+- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY.
+- All parameters except `INDEX` are optional and the user can choose exactly which attribute of the expense they want to edit.
  
-Examples: `edit 1 /price 5.50 /description chicken rice /category food`
+Examples: 
+- `edit 1 /price 5.50 /description chicken rice /category food`
+- `edit 2 /price 3.40`
 
 ### Delete an expense: `delete`
 
-Use the delete command to delete an expense
+Use the delete command to delete an expense.
 
 Format:  `delete [INDEX]`
 
 Examples: `delete 2`
+
+### Get a list of all your transactions: `list`
+
+Use the list command to display expenses according to specified filters.
+
+Format:  `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
+
+Notes:
+- `CATEGORY` is text.
+- `FROM_DATE` and `TO_DATE` are dates in DD-MM-YYYY format.
+- Lists all expenses the user has if filters are not specified.
+- Lists all expenses that pass through the filters if specified.
+
+Examples: `list /category food /from 02-11-2024 /to 04-11-2024`
+
+### Get statistics for your transactions: `stats`
+
+Use the stats command to display statistics for expenses according to specified filters.
+
+Format:  `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
+
+Notes:
+- `CATEGORY` is text.
+- `FROM_DATE` and `TO_DATE` are dates in DD-MM-YYYY format.
+- Lists statistics of all expenses the user has if filters are not specified.
+- Lists statistics of all expenses that pass through the filters if specified.
+
+Examples: `stats /category food /from 02-11-2024 /to 04-11-2024`
 
 ### Set a spending limit for a category `set`
 
@@ -69,58 +114,142 @@ Format: `set [/category CATEGORY] [/limit LIMIT]`
 
 Examples: `set /category food /limit 100` 
 
-### Get a list of all your transactions: `list`
+### View help: `help`
 
-Use the list command to display expenses and gives the sum of all expenses listed
+Use the help command to list the command formats that the app recognises.
 
-Format:  `list [/category CATEGORY]`
-
-Notes:
-- `CATEGORY` is text
-- Lists all expenses the user has if the category is not specified
-- Lists all expenses with that category if specified
-
-Examples: `list /category food`
-
-### Viewing help: `help`
-
-Lists to the user command formats that the app recognises
-
-Format: help [/command COMMAND]
+Format: `help [/command COMMAND]`
 
 Notes:
-- `COMMAND` is a text
-- `COMMAND` exists in our app
+- `COMMAND` is text.
+- `COMMAND` exists in our app.
 
 Examples:
-- `help`              lists all commands the app has if command is not specified
-- `help /command add` lists specified command “add” if a command is specified
+- `help`              lists all commands the app has since `COMMAND` is not specified.
+- `help /command add` lists format of the “add” command since `COMMAND` is specified.
 
-### Saves expenses to a file: `save`
+### Save data to files: `save`
 
-Saves all expenses to a csv file `./data.csv`, which can then  be loaded by the program.
+Use the save command to save data to files.
 
-Format: `save`
+Format: `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
 
-### Loads expenses from a file: `load`
+Notes:
+- If nothing at all is specified, it loads from the default paths:
+  - `EXPENSE_FILE_PATH = "expenses_data.csv"`
+  - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
+  - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
 
-Loads all expenses from a csv file `./data.csv`.
+Examples:
+- `save`                         saves data to the default paths.
+- `save /expenseList ./data.csv` saves only the expenseList to `./data.csv`.
 
-Format: `load`
+### Load data from files: `load`
+
+Use the load command to load data from files. 
+
+Format: `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
+
+Notes:
+- If nothing at all is specified, it loads from the default paths:
+  - `EXPENSE_FILE_PATH = "expenses_data.csv"`
+  - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
+  - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
+- It clears existing data on read for ease of usage.
+- On read failure, it loads whatever it could read from the corrupted files.
+
+Examples:
+- `load`                         loads data from the default paths.
+- `load /expenseList ./data.csv` loads only the expenseList from `./data.csv`.
+
+---
+
+## Recurring Expenses
+
+Users can add automate the process of adding expenses that occur on a regular basis. 
+
+### Add a recurring expense: `add`
+
+Use the add command to add a recurring expense.
+
+Format:  `add [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]`
+
+Notes:
+- `/recur` is a command flag that indicates that the add command is meant to add recurring expenses and not normal expenses.
+- `PRICE` is a decimal number.
+- `DESCRIPTION` and `CATEGORY` are text.
+- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
+- `FREQUENCY` takes only 1 of 3 possible inputs, `daily`, `weekly`, or `monthly`. Any other inputs will throw an error.
+
+Examples: 
+- `add /price 4.50 /description chicken rice /category food /frequency daily`
+- `add /price 1 /description bus ride /category transport /date 01-10-2024 /frequency weekly`
+
+### Edit your recurring expense: `edit`
+
+Use the edit command to edit an expense.
+
+Format: `edit INDEX [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`
+
+Notes:
+- `INDEX` is an integer. To find the index of an expense, use the `list` command to see the corresponding index.
+- `/recur` is a command flag that indicates that the add command is meant to add recurring expenses and not normal expenses.
+- `PRICE` is a decimal number.
+- `DESCRIPTION` and `CATEGORY` are text.
+- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
+- All parameters except `INDEX` and `/recur` are optional and the user can choose exactly which attribute of the expense that they want to edit.
+ 
+Examples: 
+- `edit 1 /price 5.50 /description chicken rice /category food`
+- `edit 2 /price 3.40 /frequency monthly /date 02-10-2024`
+
+### Delete an expense: `delete`
+
+Use the delete command to delete a recurring expense.
+
+Format:  `delete [/recur] [INDEX]`
+
+Examples: `delete 2` 
+
+### Get a list of all your transactions: `list`
+
+Use the list command to display recurring expenses according to specified filters.
+
+Format:  `list [/recur] [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
+
+Notes:
+- `/recur` is a command flag that indicates that the add command is meant to add recurring expenses and not normal expenses
+- `CATEGORY` is text.
+- `FROM_DATE` and `TO_DATE` are dates in DD-MM-YYYY format.
+- Lists all expenses the user has if filters are not specified.
+- Lists all expenses that pass through the filters if specified.
+
+Examples: `list /category food /from 02-11-2024 /to 04-11-2024`
+
+### Save data to files: `save`
+
+Works the same way as normal expenses
+
+### Load data from files: `load`
+
+On top of working the same way as normal expenses, this command also checks whether a recurring expense is past its due date and adds it as a normal expense to the expense list.
 
 ---
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+**Q1**: How do I transfer my data to another computer? 
 
-**A**: You can save your expenses to a `.csv` file, which you can then transfer and load on another computer 
+**A1**: You can save your expenses to a `.csv` file, which you can then transfer and load on another computer 
 
-## Others
 
-When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`
+**Q2**: Can I only update limits (via the set command)? What about adding, deleting or viewing?
 
-eg. `<command> /argument \/value` -> `argument`: `/value` 
+**A2**: In short, yes. 
+
+- Adding is automatically done when you add an expense with a category not already stored by the program, defaulted to $100.00. 
+- Deletion is not possible as every category will have a corresponding limit. No category can exist without a limit.
+- Viewing is not directly possible using commands, only indirectly by saving and viewing the csv file. 
 
 ---
 
@@ -129,11 +258,16 @@ eg. `<command> /argument \/value` -> `argument`: `/value`
 
 | Command                           | Format                                                                      | 
 |-----------------------------------|-----------------------------------------------------------------------------|
-| Add Expense                       | `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]`        |
- | Edit Expense                      | `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]` |
+| Add Expense                       | `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`        |
+| Edit Expense                      | `edit [INDEX] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]` |
 | Delete Expense                    | `delete [INDEX]`                                                            |
-| List all Expenses                 | `list [/category CATEGORY]`                                                 | 
-| Set spending limit for a category | `set [/category CATEGORY] [/limit LIMIT]`                                   |
-| Viewing help                      | `help`                                                                      |
-| Saves expenses to a file          | `save`                                                                      |
-| Loads expenses from a file        | `load`                                                                      |
+| List Expenses                     | `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                 | 
+| Get Statistics                    | `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                | 
+| Set Spending Limit for a Category | `set [/category CATEGORY] [/limit LIMIT]`                                   |
+| View Help                         | `help [/command COMMAND]`                                                   |
+| Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH`                                                                      |
+| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH`                                                                      |
+| Add Reccuring Expense             | `add [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]`        |
+| Edit Reccuring Expense            | `edit INDEX [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]` |
+| Delete Reccuring Expense          | `delete [INDEX]`                                                            |
+| List Reccuring Expenses           | `list [/recur] [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                 | 
