@@ -1,19 +1,22 @@
 # Finance Buddy User Guide
 
 ## Contents
-- [Introduction](#Introduction)
-- [Quick Start](#Quick-Start)
-- [Features](#Features)
-  - [Help](#Help)
-  - [Add Transaction](#Add-Transaction)
-  - [Edit Transaction](#Edit-Transaction)
-  - [Delete Transaction](#Delete-Transaction)
-  - [List Entries](#List-Entries)
-    - [List By Type](#List-By-Type)
-    - [List By Date](#List-By-Date)
-  - [Set/Edit Budget](#SetEdit-Budget)
-- [FAQ](#FAQ)
-- [Command Summary](#Command-Summary)
+- [Finance Buddy User Guide](#finance-buddy-user-guide)
+  - [Contents](#contents)
+  - [Introduction](#introduction)
+  - [Quick Start](#quick-start)
+  - [Features](#features)
+    - [Help](#help)
+    - [Add Transaction](#add-transaction)
+    - [Edit Transaction](#edit-transaction)
+    - [Delete Transaction](#delete-transaction)
+    - [List Entries](#list-entries)
+      - [List by Type](#list-by-type)
+      - [List by Date](#list-by-date)
+    - [Set/Edit Budget](#setedit-budget)
+    - [Saving Data](#saving-data)
+  - [FAQ](#faq)
+  - [Command Summary](#command-summary)
 
 ## Introduction
 
@@ -63,6 +66,31 @@ Adds an income or expense entry to your financial list.
 - `income Freelance Work /a 500 /d 15/10/24 /c SALARY`
 
 ### Edit Transaction
+Edits an existing transaction in your financial list.
+
+**Format**: `edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`
+
+ - Edits the transaction at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed financial list. 
+  `INDEX` must be a positive integer.
+ - `DATE` should follow `DD/MM/YY` format.
+ - `AMOUNT` must be a positive number. If it's a floating-point number, it will be rounded to two decimal places.
+ - `CATEGORY` should be one of the categories allowed in Expenses/Incomes.
+
+**Example Usages**:
+```java
+// Edits the description of the 1st entry to be breakfast
+edit 1 /des breakfast
+// Edits the amount of the 1st entry to be 5.99
+edit 1 /a 5.99
+// Edits the description and amount of the 2nd entry to be lunch and 20 respectively
+edit 2 /des lunch /a 20 
+// Edits the description and date of the 3rd entry to be dinner and 11/09/2024 respectively
+edit 3 /des dinner /d 11/09/24 
+// Edits the description, amount, and date of the 4th entry to be breakfast, 5 and 12/09/2024 respectively
+edit 4 /des breakfast /a 5 /d 12/09/24
+// Edits the category of the 5th entry to be FOOD
+edit 5 /c FOOD
+```
 
 ### Delete Transaction
 Deletes an entry from your financial list.
@@ -145,6 +173,10 @@ Please set your budget amount:
 ```
 
 ### Saving Data
+Your Finantial List will be auto updated in to `data/FinancialList.txt` whenever your list been modified through FinanaceBuddy.
+When you start the FinanaceBuddy program, it will check if the `data/FinancialList.txt` exist.
+If do, it'll try to load the transections in the file row by row.
+Please do not modify this file maunaly, otherwise the transections with incorrect format will not be loaded.
 
 ## FAQ
 
