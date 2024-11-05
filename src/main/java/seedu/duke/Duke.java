@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -43,6 +44,12 @@ public class Duke {
                 System.out.println("No input received.");
                 break;
             }
+        }
+        try {
+            storage.saveData(trackerData);
+            System.out.println("Data has been saved!");
+        } catch (IOException e) {
+            System.out.println("Error saving data: " + e.getMessage());
         }
     }
 }
