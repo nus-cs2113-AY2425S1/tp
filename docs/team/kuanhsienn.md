@@ -18,6 +18,7 @@ The app is optimised for quick, command-based interactions, ideal for users who 
 * **New feature**: Added the feature to save/load EventManager details to/from hard disk
     * What it does: Enables users to save event details (such as event list, participants, and items) to a file on the hard disk and load it back when the application is restarted. This ensures data persistence between sessions.
     * Justification: Persistent storage is a crucial feature for any event management tool, as it allows users to retrieve previously entered data and continue their work seamlessly.
+<div style="page-break-after: always;"></div>
     * Highlights: The storage feature supports loading from a single CSV file, handling all event-related data in one file. It includes validation checks to ensure data integrity, and if any data entry is corrupted or unreadable, a warning is logged without crashing the application.
 
 * **New feature**: Added feature to edit participant's contact info.
@@ -37,7 +38,7 @@ The app is optimised for quick, command-based interactions, ideal for users who 
     * User Guide
         * Added documentation for storage features (Pull request [#156](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/156))
     * Developer Guide
-        * Added design details for `add`, `remove` and `view` components
+        * Added design details for `add`, `remove` and `view` components [#128](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/128)
         * Added implementation details for the `add`, `remove`, `view`, `copy`, `sort` and `find` feature (Pull requests [#128](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/128), [#142](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/142)) 
         * Added documentation for storage features (Pull request [#156](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/156))
 
