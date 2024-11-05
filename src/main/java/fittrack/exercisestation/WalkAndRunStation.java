@@ -51,4 +51,11 @@ public class WalkAndRunStation extends ExerciseStation {
     public String toString() {
         return "Time: " + getTime() + " | " + points + " points";
     }
+
+    @Override
+    public String getSaveStringInfo() {
+        return Integer.toString(time);
+    }
+
+
 }
