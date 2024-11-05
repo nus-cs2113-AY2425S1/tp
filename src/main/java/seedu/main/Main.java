@@ -23,7 +23,6 @@ import seedu.command.TrackProgressCommand;
 import seedu.datastorage.Storage;
 import seedu.transaction.TransactionList;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -133,7 +132,7 @@ public class Main {
 
         parser.registerCommands(new AddCategoryCommand(categories));
         parser.registerCommands(new AddIncomeCommand(transactions));
-        parser.registerCommands(new AddExpenseCommand(transactions));
+        parser.registerCommands(new AddExpenseCommand(transactions, ui, categories));
         parser.registerCommands(new AddBudgetCommand(budgetTracker));
 
         parser.registerCommands(new DeleteCategoryCommand(categories));
