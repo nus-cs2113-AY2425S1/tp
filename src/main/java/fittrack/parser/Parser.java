@@ -4,6 +4,7 @@ import fittrack.trainingsession.TrainingSession;
 import fittrack.reminder.Reminder;
 import fittrack.user.User;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +25,7 @@ import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
 import static fittrack.messages.Messages.LIST_UPCOMING_REMINDER_COMMAND;
 import static fittrack.messages.Messages.SET_USER_COMMAND;
 import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
+import static fittrack.storage.Storage.updateSaveFile;
 import static fittrack.ui.Ui.beginSegment;
 import static fittrack.ui.Ui.printAddedReminder;
 import static fittrack.ui.Ui.printAddedSession;
@@ -88,7 +90,7 @@ public class Parser {
     }
 
     public static void parse(User user, String input, ArrayList<TrainingSession> sessionList,
-                             ArrayList<Reminder> reminderList, ArrayList<Goal> goalList) {
+                             ArrayList<Reminder> reminderList, ArrayList<Goal> goalList) throws IOException {
         assert input != null : "Input must not be null";
         assert user != null : "User object must not be null";
         assert sessionList != null : "Session list must not be null";
@@ -122,6 +124,7 @@ public class Parser {
             LocalDateTime currentTime = LocalDateTime.now();
             sessionList.add(new TrainingSession(currentTime, description, user));
             printAddedSession(sessionList);
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
         case EDIT_EXERCISE_COMMAND:
             sentence = description.split(" ", 3);
@@ -133,11 +136,11 @@ public class Parser {
             assert sessionIndex >= 0 && sessionIndex < sessionList.size() : "Session index out of bounds";
             try {
                 sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             printSessionView(sessionList, sessionIndex);
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
         case LIST_SESSIONS_COMMAND:
             printSessionList(sessionList); // Print the list of sessions
@@ -153,6 +156,7 @@ public class Parser {
             TrainingSession sessionToDelete = sessionList.get(indexToDelete);
             sessionList.remove(indexToDelete);
             printDeletedSession(sessionList, sessionToDelete);
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
         case ADD_REMINDER_COMMAND:
             sentence = description.split(" ", 2);
@@ -165,6 +169,7 @@ public class Parser {
             LocalDateTime deadline = parseReminderDeadline(inputDeadline);
             reminderList.add(new Reminder(description, deadline, user));
             printAddedReminder(reminderList);
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
         case DELETE_REMINDER_COMMAND:
             int reminderIndexToDelete = Integer.parseInt(description) - 1;
@@ -173,6 +178,7 @@ public class Parser {
             Reminder reminderToDelete = reminderList.get(reminderIndexToDelete);
             reminderList.remove(reminderIndexToDelete);
             printDeletedReminder(reminderList, reminderToDelete);
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
         case LIST_REMINDER_COMMAND:
             printReminderList(reminderList);
@@ -203,6 +209,7 @@ public class Parser {
             } else {
                 System.out.println("Please specify a goal to add.");
             }
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
 
         case "delete-goal":
@@ -217,6 +224,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 System.out.println("Please specify a valid index to delete.");
             }
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
 
         case "list-goal":
