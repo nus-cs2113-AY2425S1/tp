@@ -13,11 +13,11 @@ import java.util.List;
 
 public class AddExpenseCommand extends AddTransactionCommand {
     public static final String COMMAND_WORD = "add-expense";
-    public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] [a/ AMOUNT] [d/ DATE] [c/ hCATEGORY]";
+    public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] [a/ AMOUNT] [d/ DATE] [c/ CATEGORY]";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/", "c/"};
-
     public static final String ERROR_MESSAGE = "Error creating Expense!";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public AddExpenseCommand(TransactionList transactions) {
         super(transactions);
@@ -29,58 +29,55 @@ public class AddExpenseCommand extends AddTransactionCommand {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
         }
 
-        // Handle missing description
-        String expenseName = arguments.get("");
-        if (expenseName == null || expenseName.isEmpty()) {
-            expenseName = "";
-        }
-
-        // Retrieve and parse amount
-        String amountString = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
-        double amount;
         try {
-            amount = Double.parseDouble(amountString);
-        } catch (NumberFormatException e) {
-            return List.of(ERROR_MESSAGE + ": " + "Invalid amount");
+            Transaction transaction = buildTransaction();
+            transactions.addTransaction(transaction);
+            Storage.saveTransaction(transactions.getTransactions());
+            return List.of("Expense added successfully!");
+        } catch (Exception e) {
+            return List.of(ERROR_MESSAGE + ": " + e.getMessage());
         }
+    }
 
-        // Handle missing date
+    private Transaction buildTransaction() throws Exception {
+        String expenseName = getExpenseName();
+        double amount = parseAmount();
+        String dateString = getFormattedDate();
+        Category category = parseCategory();
+
+        return category != null
+                ? createTransaction(amount, expenseName, dateString, category)
+                : createTransaction(amount, expenseName, dateString);
+    }
+
+    private String getExpenseName() {
+        String expenseName = arguments.get("");
+        return (expenseName == null || expenseName.isEmpty()) ? "" : expenseName;
+    }
+
+    private double parseAmount() throws Exception {
+        String amountString = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
+        try {
+            return Double.parseDouble(amountString);
+        } catch (NumberFormatException e) {
+            throw new Exception("Invalid amount");
+        }
+    }
+
+    private String getFormattedDate() throws Exception {
         String dateString = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
         if (dateString == null || dateString.isEmpty()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            dateString = LocalDateTime.now().format(formatter);
-        } else {
-            try {
-                DateTimeUtils.parseDateTime(dateString);
-            } catch (Exception e) {
-                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
-            }
+            return LocalDateTime.now().format(DATE_TIME_FORMATTER);
         }
+        DateTimeUtils.parseDateTime(dateString);
+        return dateString;
+    }
 
-        // Handle category
+    private Category parseCategory() {
         String categoryString = arguments.get(COMMAND_EXTRA_KEYWORDS[1]);
-        Category category = null;
-        if (categoryString != null && !categoryString.isEmpty()) {
-            category = new Category(categoryString);
-        }
-
-        Transaction transaction;
-        if (category != null) {
-            try {
-                transaction = createTransaction(amount, expenseName, dateString, category);
-            } catch (Exception e) {
-                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
-            }
-        } else {
-            try {
-                transaction = createTransaction(amount, expenseName, dateString);
-            } catch (Exception e) {
-                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
-            }
-        }
-        transactions.addTransaction(transaction);
-        Storage.saveTransaction(transactions.getTransactions());
-        return List.of("Expense added successfully!");
+        return (categoryString != null && !categoryString.isEmpty())
+                ? new Category(categoryString)
+                : null;
     }
 
     @Override
