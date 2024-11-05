@@ -46,7 +46,8 @@ public class FileManagerTest {
     @Test
     public void testLoadProgrammeList_fileNotFound() {
         JsonObject result = fileManager.loadProgrammeList();
-        assertTrue(result.isJsonNull() || result.size() == 0, "ProgrammeList should be empty when the file doesn't exist.");
+        assertTrue(result.isJsonNull() || result.size() == 0, "ProgrammeList should " +
+                "be empty when the file doesn't exist.");
     }
 
     @Test
