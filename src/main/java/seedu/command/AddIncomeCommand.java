@@ -33,29 +33,20 @@ public class AddIncomeCommand extends AddTransactionCommand {
             return messages;
         }
 
-        String incomeName = arguments.get("");
-        if (incomeName == null || incomeName.isEmpty()) {
-            incomeName = "";
-        }
+        String incomeName = parseDescription(arguments);
 
-        String amountStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
-        Double amount = null;
+        Double amount;
         try {
-            amount = AmountUtils.parseAmount(amountStr);
+            amount = parseAmount(arguments.get(COMMAND_MANDATORY_KEYWORDS[0]));
         } catch (Exception e) {
             return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
         }
 
-        String dateString = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
-        if (dateString == null || dateString.isEmpty()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            dateString = LocalDateTime.now().format(formatter);
-        } else {
-            try {
-                DateTimeUtils.parseDateTime(dateString);
-            } catch (Exception e) {
-                return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
-            }
+        String dateString;
+        try {
+            dateString = parseDate(arguments.get(COMMAND_EXTRA_KEYWORDS[0]));
+        } catch (Exception e) {
+            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
         }
 
         try {
