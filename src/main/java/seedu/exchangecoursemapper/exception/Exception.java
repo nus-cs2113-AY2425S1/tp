@@ -43,7 +43,7 @@ public class Exception extends Throwable {
     }
 
     public static String invalidCommand() {
-        return "Invalid command. \nPlease check the commands available by typing commands.";
+        return "Invalid command.\nPlease check the commands available by typing commands.";
     }
 
     public static String noInputAfterDelete() {
@@ -73,6 +73,18 @@ public class Exception extends Throwable {
 
     public static String noCourseAvailable(String pu) {
         return "No courses available for the partner university: " + pu;
+    }
+
+    public static String emptyKeyword() {
+        return "Keyword to search for is empty.";
+    }
+
+    public static String unknownUniversity(String puName) {
+        return "Unknown university: " + puName;
+    }
+
+    public static String noMatchFound() {
+        return "No match found.";
     }
 
 }
