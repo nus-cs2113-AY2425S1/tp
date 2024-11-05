@@ -65,16 +65,9 @@ It processes input strings from the command-line interface and routes these comm
   - Default case: Prints an error message for unrecognized commands, suggesting the "help" command for guidance. 
 - Any IOException encountered during command execution is caught and logged
 
-#### Commands:
-
-- `view`: `INSERT SEQUENCE DIAGRAM`
-- `select`: `INSERT SEQUENCE DIAGRAM`
-- `review`: `INSERT SEQUENCE DIAGRAM`
-- `help`: `INSERT SEQUENCE DIAGRAM`
-- `add`: `INSERT SEQUENCE DIAGRAM`
 
 The sequence diagram below demonstrates the interactions within the `Parser` component when a user inputs the command `select Loops`:
-![ParserSequenceDiagram](https://github.com/user-attachments/assets/dc69d920-70e8-4d9c-8e59-0b93eb83095b)
+![ParserSequenceDiagram](https://github.com/user-attachments/assets/a5186ef9-a368-46d0-9031-32de40ec5003)
 
 ### `QuizManager` class: 
 The `QuizManager` class serves as the primary controller for quiz functionalities within the application. 
@@ -82,12 +75,15 @@ It manages quiz operations such as starting and tracking quizzes, handling topic
 
 Below is the class diagram for the `QuizManager` class, illustrating its attributes and methods.
 
-Firstly its architecture:
+Firstly, the overarching class diagram:
+
 ![QuizManagerArchitecture](https://github.com/user-attachments/assets/28efc5ae-9258-48d0-890b-2ee61498dbc0)
-Secondly its methods and attributes: 
+
+Additional details about its methods and attributes:
+
 ![QuizManager](https://github.com/user-attachments/assets/acf8bd44-f2fd-4f3d-b424-af77bd1e394f)
 
-####  How QuizManager Works
+####  How `QuizManager` Works
 - Manage Topic and Questions:
   - Manages quiz topics through TopicManager, enabling easy addition, retrieval, and organization of topics and questions.
   - Loads questions and topics from a file at startup, ensuring data availability when the application begins.
@@ -101,7 +97,27 @@ Secondly its methods and attributes:
   - Allows users to review their scores and feedback from previous quiz attempts, offering insights into their progress and areas for improvement.
 
 Over here is a continuation of `Select Loops` as a sequence diagram in a more detailed level:
-![QuizManagerSequenceDiagram](https://github.com/user-attachments/assets/05e903ec-b480-4dd8-92ba-3271468893d0)
+![QuizManagerSequenceDiagram](https://github.com/user-attachments/assets/8e41e10c-527a-45f3-87fc-0de21c506075)
+
+### `TopicManager` class:
+The `TopicManager` class is responsible for managing various topics within the application. It provides methods to add, retrieve, and organize topics, as well as handle loading and saving of question data. By interacting with `TopicManager`, users can create new topics, add questions to them, and persistently save or retrieve questions from an external storage file.
+
+#### How `TopicManager` works:
+- The `getOrCreateTopic(String topicName)` method allows users to retrieve an existing topic by name or create a new one if it doesn't exist, ensuring that topics are always unique.
+- The `addTopic(Topic topic)` method adds a new topic to the list only if it’s not already present, ensuring uniqueness and avoiding duplication.
+- The `printTopics()` method displays all topics currently managed by the application, logging each topic name to provide feedback to the user.
+- The `addFlashcardByUser(String input)` method parses user input, creates a `Flashcard` question, adds it to the designated "Flashcards" topic, and saves it to the file.
+- The `loadQuestions()` method reads questions from the specified file, parses each line, and adds the corresponding question to the appropriate topic by calling `parseTopic(String line)`.
+- The `parseTopic(String line)` method interprets the content of each line in the questions file and creates appropriate question objects, such as `Flashcard`, `Mcq`, `TrueFalse`, or `FillInTheBlank`. It uses the first part of the line to assign the question to the right topic, creating the topic if necessary.
+
+#### `TopicManager` class diagram:
+![TopicManager](https://github.com/user-attachments/assets/9dc6f906-28f9-4a50-9ecc-8672e55da39a)
+
+### Topic Instantiation
+When `loadQuestions()` reads each line from the storage file, `parseTopic()` is invoked to create or retrieve the correct topic. This ensures that each question in the file is organized within its corresponding topic. If the topic is already present, it is retrieved from the list of topics; if it does not exist, a new `Topic` instance is created and added to the list. This process ensures that topics and their associated questions are correctly structured, even if the file contains new topics or question types.
+
+The following sequence diagram shows the interactions within `TopicManager` during topic initialisation from the storage file.
+![TopicInstantiationSequenceDiagram](https://github.com/user-attachments/assets/562bffb0-c24e-422f-a16b-dadd988e8291)
 
 ### True/False Feature Implementation
 
