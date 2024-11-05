@@ -173,7 +173,7 @@ class EditEntryCommandTest {
 
     /**
      * Test the execute method of EditEntryCommand with a negative amount.
-     * Verifies that an exception is thrown.
+     * Verifies that an exception is thrown and entry is unchanged.
      */
     @Test
     void execute_setAmountToNegative_expectErrorMessage() throws FinanceBuddyException {
@@ -195,7 +195,7 @@ class EditEntryCommandTest {
 
     /**
      * Test the execute method of EditEntryCommand with a very small amount.
-     * Verifies that an exception is thrown.
+     * Verifies that an exception is thrown and entry is unchanged.
      */
     @Test
     void execute_setAmountToVerySmallAmount_expectErrorMessage() throws FinanceBuddyException {
@@ -217,7 +217,7 @@ class EditEntryCommandTest {
 
     /**
      * Test the execute method of EditEntryCommand with a very large amount.
-     * Verifies that an exception is thrown.
+     * Verifies that an exception is thrown and entry is unchanged.
      */
     @Test
     void execute_setAmountToVeryLarge_expectErrorMessage() throws FinanceBuddyException {
@@ -238,8 +238,8 @@ class EditEntryCommandTest {
     }
 
     /**
-     * Test the execute method of EditEntryCommand with a very large amount.
-     * Verifies that an exception is thrown.
+     * Test the execute method of EditEntryCommand with a date after current system date.
+     * Verifies that an exception is thrown and entry is unchanged.
      */
     @Test
     void execute_setDateToFutureDate_expectErrorMessage() throws FinanceBuddyException {
@@ -262,4 +262,5 @@ class EditEntryCommandTest {
         assertEquals(LocalDate.now(), entry.getDate());
         assertEquals(Expense.Category.UNCATEGORIZED, ((Expense) entry).getCategory());
     }
+
 }
