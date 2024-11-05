@@ -641,7 +641,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 ## Non-Functional Requirements
 
 * Should work for any **mainstream OS** (Windows, MacOS, Linux) as long as Java 17 is installed.
-* Should be able to store data for up to 1000 `Event`s without any loss in performance.
+* Should be able to store data for a large number of `Event`s without any loss in performance.
 * Should be able to execute any command within 1 second of receiving user input.
 * Should be able to load a corrupted save file without crashing.
 * Should be able to work in any directory that the `JAR` is copied to.
@@ -667,13 +667,16 @@ The user is able to organise and manage his events more quickly and efficiently 
 
 1. Adding an `Event` to the `Event` list
 
-   1. Prerequisite: An event with the name `Event 1` is not present in the list.
+   1. Prerequisite: An event with the name `Event 1` is not present in the `Event` list.
       List all `Event`s with `list` after each test case.
    
-   2. Test case: `add -e Event 1 -t 2024-10-10 -v Venue 1 -u HIGH`  
+   2. Test case: `add -e Event 1 -t 2024-10-10 -v Venue 1 -u high`
+      Expected: An `Event` with name `Event 1` is added to the `Event` list. A success message is shown.
+
+   3. Test case: `add -e Event 1 -t 2024-10-10 -v Venue 1 -u HIGH`  
       Expected: No `Event` is added. A date-time format error message is shown.
 
-   3. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u top`  
+   4. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u top`  
       Expected: No `Event` is added. An error message is shown.
    
 2. Adding a duplicate `Event` to the `Event` list

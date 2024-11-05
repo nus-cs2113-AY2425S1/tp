@@ -73,6 +73,7 @@ Format:
 Remarks:
 * `TIME` must be entered in the format `yyyy-mm-dd HH:mm`.
 * `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
+  * The values entered for `PRIORITY` are case-insensitive.
 
 Examples:
 
