@@ -101,8 +101,8 @@ Example: `prog list`
 
 ```
 Listing programmes:
-1. Starter -- Active
-2. PPL
+1. Advanced
+2. Starter -- Active
 ```
 
 ---
