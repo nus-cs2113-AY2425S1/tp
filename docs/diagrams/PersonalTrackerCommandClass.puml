@@ -17,6 +17,10 @@ class DeleteCoursesCommand extends PersonalTrackerCommand {
     +execute(userInput: String, storage: Storage): void
 }
 
+class FindCoursesCommand extends PersonalTrackerCommand {
+    +execute(userInput: String, storage: Storage): void
+}
+
 class CourseValidator {
     +isValidCourseMapping(nusCourseInput: String, puCourseInput: String, courses: JsonArray, pu: String): boolean
     +isValidInput(nusCourseInput: String, pu: String, puCourseInput: String, jsonObject: JsonObject): boolean
@@ -26,12 +30,21 @@ class CourseValidator {
 class UI {
     +printAddMessage(): void
     +printDeleteMessage(): void
+    +printFoundCourses(foundCourse: course): void
+    +printEmptyList(): void
+}
+
+class Storage {
+    +loadAllCourses(): List<Course>
 }
 
 AddCoursesCommand ---> "courseValidator 1" CourseValidator
-AddCoursesCommand --> "ui 1" UI
+AddCoursesCommand ---> "ui 1" UI
 
-DeleteCoursesCommand --> "ui 1" UI
+DeleteCoursesCommand ---> "ui 1" UI
+
+FindCoursesCommand --> "ui 1" UI
+FindCoursesCommand --> "storage 1" Storage
 
 note "execute() methods are overridden by concrete classes" as N3
 N3..AddCoursesCommand
