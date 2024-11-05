@@ -1,58 +1,72 @@
+// @@author nirala-ts
 package parser;
 
 import command.Command;
 import command.InvalidCommand;
+import command.ExitCommand;
 import parser.command.factory.CommandFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 class ParserTest {
 
     private Parser parser;
-    private CommandFactory commandFactory;
+    private CommandFactory commandFactoryMock;
 
     @BeforeEach
     void setUp() {
-        parser = new Parser();
-        commandFactory = mock(CommandFactory.class);
+        commandFactoryMock = mock(CommandFactory.class);
+        parser = new Parser(commandFactoryMock);
     }
 
     @Test
     void testParseValidCommand() {
-        Command mockCommand = mock(Command.class);
-        when(commandFactory.createCommand("test", "argument")).thenReturn(mockCommand);
+        String fullCommand = "prog start /p 1";
+        Command expectedCommand = mock(Command.class);
+        when(commandFactoryMock.createCommand("prog", "start /p 1")).thenReturn(expectedCommand);
 
-        Command command = parser.parse("test argument");
-        assertNotNull(command);
+        Command result = parser.parse(fullCommand);
+
+        assertNotNull(result);
+        assertEquals(expectedCommand, result);
+        verify(commandFactoryMock).createCommand("prog", "start /p 1");
+    }
+
+    @Test
+    void testParseExitCommand() {
+        String fullCommand = "bye";
+        Command result = parser.parse(fullCommand);
+
+        assertInstanceOf(ExitCommand.class, result);
     }
 
     @Test
     void testParseInvalidCommand() {
-        Command command = parser.parse("unknownCommand");
-        assertInstanceOf(InvalidCommand.class, command, "Expected InvalidCommand for unknown command");
+        String fullCommand = "unknownCommand";
+        Command result = parser.parse(fullCommand);
+
+        assertInstanceOf(InvalidCommand.class, result);
     }
 
     @Test
     void testParseEmptyCommand() {
-        assertThrows(IllegalArgumentException.class, () -> parser.parse(""),
-                "Should throw exception on empty command");
-    }
+        String emptyCommand = "   ";
 
-    @Test
-    void testParseOnlySpacesCommand() {
-        assertThrows(IllegalArgumentException.class, () -> parser.parse("   "),
-                "Should throw exception on empty command");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            parser.parse(emptyCommand);
+        });
     }
 
     @Test
     void testParseNullCommand() {
-        assertThrows(IllegalArgumentException.class, () -> parser.parse(null),
-                "Should throw exception on empty command");
+        assertThrows(IllegalArgumentException.class, () -> parser.parse(null));
     }
 }

@@ -159,7 +159,9 @@ public class ProgCommandFactory {
     private Command prepareStartCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        int progIndex = parseIndex(argumentString);
+        FlagParser flagParser = new FlagParser(argumentString);
+        flagParser.validateRequiredFlags(PROGRAMME_FLAG);
+        int progIndex = flagParser.getIndexByFlag(PROGRAMME_FLAG);
 
         logger.log(Level.INFO, "Successfully prepared StartCommand");
         return new StartProgrammeCommand(progIndex);
