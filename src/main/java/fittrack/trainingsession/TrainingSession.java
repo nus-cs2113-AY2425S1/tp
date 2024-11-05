@@ -18,7 +18,8 @@ import java.util.Map;
 
 public class TrainingSession extends Saveable {
 
-    static final int NUM_OF_EXERCISES = 6;
+    static final String[] EXERCISE_LIST = {"SU","SBJ", "SR", "SAR", "PU", "WAR"};
+    static final int NUM_OF_EXERCISES = EXERCISE_LIST.length;
     static final int MAX_POINT = 5;
     static final int GOLD_GRADE = 3;
     static final int GOLD_POINT = 21;
@@ -31,6 +32,7 @@ public class TrainingSession extends Saveable {
     static final String SILVER_STRING = "Silver";
     static final String BRONZE_STRING = "Bronze";
     static final String NO_AWARD = "No Award";
+
 
     private LocalDateTime sessionDatetime;
     private String sessionDescription;
@@ -60,24 +62,29 @@ public class TrainingSession extends Saveable {
             reps = reps.replace(".", "");
             return Integer.parseInt(reps);
         case WALK_AND_RUN:
-            String[] minutesSeconds = reps.split(":");
-            int minutesInSeconds = Integer.parseInt(minutesSeconds[0]) * 60;
-            int seconds = Integer.parseInt(minutesSeconds[1]);
-            return minutesInSeconds + seconds;
+            // Convert input to seconds if provided in mm:ss format
+            if (reps.contains(":")) {
+                String[] minutesSeconds = reps.split(":");
+                int minutesInSeconds = Integer.parseInt(minutesSeconds[0]) * 60;
+                int seconds = Integer.parseInt(minutesSeconds[1]);
+                return minutesInSeconds + seconds;
+            }
         default:
             return Integer.parseInt(reps);
         }
     }
 
     //Edits session data
-    public void editExercise(Exercise exerciseType, String reps) {
+    public void editExercise(Exercise exerciseType, String reps, Boolean printConfirmation) {
         int actualReps = processReps(exerciseType, reps);
         ExerciseStation currentExercise = exerciseStations.get(exerciseType);
         currentExercise.setPerformance(actualReps);
         currentExercise.getPoints(user);
-        System.out.print("Exercise edited! Here's your new input: " +
-                currentExercise + System.lineSeparator());
+        if (printConfirmation) {
+            System.out.print("Exercise edited! Here's your new input: " + currentExercise + System.lineSeparator());
+        }
     }
+
 
     //Returns string for award attained
     private String award(int minPoint, int totalPoints) {
@@ -93,7 +100,7 @@ public class TrainingSession extends Saveable {
     }
 
     public String getSessionDescription() {
-        return (this.sessionDescription + " | " +
+        return (this.sessionDescription + "|" +
                 this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
     }
 
@@ -129,37 +136,57 @@ public class TrainingSession extends Saveable {
     @Override
     public String toSaveString(){
 
-        String sessionInfo = this.getSessionDescription();
+        String sessionInfo = this.sessionDescription;
         String sessionDateTime = this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        String PUInfo = ""; // Pullups info
-        String SBJInfo = "";
-        String SRInfo = "";
-        String SARInfo = "";
-        String SUInfo = "";
-        String WARInfo = "";
 
-        return sessionInfo + " | " + sessionDateTime + " | " + PUInfo +  " | " + SBJInfo +  " | " + SRInfo + " | "
-                + SARInfo + " | " + SUInfo + " | " + WARInfo;
+        // Collect information for each exercise type
+        String PUInfo = exerciseStations.get(Exercise.PULL_UP).getSaveStringInfo();
+        String SBJInfo = exerciseStations.get(Exercise.STANDING_BROAD_JUMP).getSaveStringInfo();
+        String SRInfo = exerciseStations.get(Exercise.SHUTTLE_RUN).getSaveStringInfo();
+        String SARInfo = exerciseStations.get(Exercise.SIT_AND_REACH).getSaveStringInfo();
+        String SUInfo = exerciseStations.get(Exercise.SIT_UP).getSaveStringInfo();
+        String WARInfo = exerciseStations.get(Exercise.WALK_AND_RUN).getSaveStringInfo();
+
+        return "TrainingSession" + "|" + sessionInfo + "|" + sessionDateTime + "|" + PUInfo +  "|" + SBJInfo +  "|"
+                + SRInfo + "|" + SARInfo + "|" + SUInfo + "|" + WARInfo;
     }
 
-    public static Saveable fromSaveString(String saveString) throws InvalidSaveDataException {
+    public static TrainingSession fromSaveString(String saveString) throws InvalidSaveDataException {
         String[] stringData = saveString.split("\\|");
 
-        // Check for appropriate string length
-        if (stringData.length < 8) {
+        // Check for all exercise data is present (including Item-Type/description/DateTime information)
+        if (stringData.length < (NUM_OF_EXERCISES+3)) {
             throw new InvalidSaveDataException("Data missing from TrainingSession-apparent string");
         }
 
-        String sessionDescription = stringData[0];
-        LocalDateTime sessionDatetime = LocalDateTime.parse(stringData[1]);
-        String PUInfo = stringData[2];
-        String SBJInfo = stringData[3];
-        String SRInfo = stringData[4];
-        String SARInfo = stringData[5];
-        String SUInfo = stringData[6];
-        String WARInfo = stringData[7];
+        // Parse session description and date-time from their respective indices
+        String sessionDescription = stringData[1];
+        LocalDateTime sessionDatetime;
 
-        return new TrainingSession(sessionDatetime,sessionDescription, User);
+        try {
+            sessionDatetime = LocalDateTime.parse(stringData[2], DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        } catch (Exception e) {
+            throw new InvalidSaveDataException("Invalid date-time format in TrainingSession string.");
+        }
+
+        // TODO: Implement proper user data loading.
+        User user = new User("male", "19");
+
+        // Create new TrainingSession item to be added to load list at startup
+        TrainingSession loadedSession = new TrainingSession(sessionDatetime,sessionDescription, user);
+
+        // Load exercise data
+        for (int i = 0; i < NUM_OF_EXERCISES; i++) {
+            String repsData = stringData[3 + i];  // Start reading exercise data from index 3 onward
+            Exercise exerciseType = Exercise.fromUserInput(EXERCISE_LIST[i]);
+
+            // If exercise data-value is same as default value, no need to update exercise.
+            if (repsData.equals("0") || repsData.equals("-1")) continue;
+
+            loadedSession.editExercise(exerciseType, repsData, false);
+        }
+
+        return loadedSession;
     }
 
 }
