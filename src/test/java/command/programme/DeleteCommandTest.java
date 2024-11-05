@@ -1,6 +1,7 @@
 package command.programme;
 
 import command.CommandResult;
+import exceptions.IndexOutOfBoundsBuffBuddyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import programme.ProgrammeList;
@@ -67,6 +68,7 @@ class DeleteProgrammeCommandTest {
     @Test
     void execute_throwsIndexOutOfBoundsIfProgrammeIdDoesNotExist() {
         DeleteProgrammeCommand invalidCommand = new DeleteProgrammeCommand(OUT_OF_RANGE_PROGRAMME_ID);
-        assertThrows(IndexOutOfBoundsException.class, () -> invalidCommand.execute(programmeList, history));
+        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> invalidCommand.execute(programmeList, history),
+                "Expected IndexOutOfBoundsBuffBuddyException for an out-of-range programme ID");
     }
 }

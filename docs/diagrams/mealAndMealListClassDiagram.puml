@@ -7,9 +7,6 @@ class Meal {
     + Meal(String name, int calories)
     + getCalories() : Integer
     + getName() : String
-    + equals(Object o) : boolean
-    + hashCode() : int
-    + toString() : String
 }
 
 class MealList {
@@ -20,9 +17,6 @@ class MealList {
     + addMeal(Meal meal) : void
     + deleteMeal(int index) : Meal
     + getMeals() : ArrayList<Meal>
-    + toString() : String
-    + equals(Object o) : boolean
-    + hashCode() : int
 }
 
 MealList "1" *-- "0..*" Meal : contains

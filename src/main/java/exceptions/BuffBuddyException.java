@@ -1,5 +1,3 @@
-// @@author andreusxcarvalho
-
 package exceptions;
 
 /**
@@ -7,7 +5,7 @@ package exceptions;
  * All custom exceptions in BuffBuddy should inherit from this class to
  * allow unified handling of exceptions.
  */
-public class BuffBuddyException extends Exception {
+public class BuffBuddyException extends RuntimeException {
 
     /**
      * Default constructor with a generic error message.
