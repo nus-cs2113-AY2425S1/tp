@@ -909,10 +909,8 @@ The user is able to organise and manage his events more quickly and efficiently 
 1. Loading from a corrupted data file
 
    1. Prerequisite: Multiple `Event`s are present in the `Event` list.
-   
-   2. Exit the program by entering `exit`.
-   
-   3. Remove one field from one of the lines in the `data.csv` data file.
 
-   4. Run the program by opening a new terminal window and entering `java -jar manager.jar`.
+   2. Run the program by opening a new terminal window and entering `java -jar manager.jar`.
       The program would give a warning that a line cannot be loaded, and the `Event` represented by the line would not be present in the `Event`s list.
+      
+   3. Essentially all corrupted rows are ignored and file parsing will still work
