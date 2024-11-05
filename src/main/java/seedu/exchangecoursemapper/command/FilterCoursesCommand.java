@@ -116,6 +116,7 @@ public class FilterCoursesCommand extends CheckInformationCommand {
     public boolean isValidSocCourseCode(String nusCourseCode) {
         return nusCourseCode.startsWith("cs") | nusCourseCode.startsWith("ee") | nusCourseCode.startsWith("bt") |
                 nusCourseCode.startsWith("is");
+                nusCourseCode.startsWith("is") | nusCourseCode.startsWith("cg");
     }
 
     /**
