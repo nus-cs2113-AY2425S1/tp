@@ -235,7 +235,7 @@ public class RecurringExpenseList extends ExpenseList {
             addRecurringExpense(Float.parseFloat(line[2]), line[1], line[0], line[4], line[5]);
         });
 
-        LocalDate currentDate = LocalDate.now();
+        LocalDate currentDate = DateUtils.getCurrentDate();
         for (RecurringExpense recurringExpense: recurringExpenses) {
             String frequency = recurringExpense.getFrequency();
             String lastAddedDate = recurringExpense.getlastAddedDate();
