@@ -29,10 +29,9 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 ## Notes
 
 - Text written in `SCREAMING_SNAKE_CASE` are user input fields.
-- Text preceded with a `\` are flags that need to be inputted for the programme to recognise.
-- Any parameters that are optional are marked with `(optional)`
+- Text preceded with a `/` are flags that need to be inputted for the programme to recognise.
 - When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`:
- - eg. `<command> /argument \/value` -> `argument`: `/value`
+  - eg. `<command> /argument \/value` -> `argument`: `/value`
 - Not all commands will give an output
 
 ---
@@ -48,7 +47,7 @@ Format:  `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/d
 Notes:
 - `PRICE` is a decimal number.
 - `DESCRIPTION` and `CATEGORY` are text.
-- `DATE` is an optional parameter that takes a text format of dd-mm-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
+- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
 
 Examples: 
 - `add /price 4.50 /description chicken rice /category food`
@@ -64,8 +63,8 @@ Notes:
 - `INDEX` is an integer. To find the index of an expense, use the `list` command to see the corresponding index.
 - `PRICE` is a decimal number.
 - `DESCRIPTION` and `CATEGORY` are text.
-- `DATE` is an optional parameter that takes a text format of dd-mm-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
-- All parameters except `INDEX` are optional and the user can choose exactly which attribute of the expense that they want to edit.
+- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY.
+- All parameters except `INDEX` are optional and the user can choose exactly which attribute of the expense they want to edit.
  
 Examples: 
 - `edit 1 /price 5.50 /description chicken rice /category food`
@@ -137,9 +136,9 @@ Format: `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH
 
 Notes:
 - If nothing at all is specified, it loads from the default paths:
- - `EXPENSE_FILE_PATH = "expenses_data.csv"`
- - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
- - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
+  - `EXPENSE_FILE_PATH = "expenses_data.csv"`
+  - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
+  - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
 
 Examples:
 - `save`                         saves data to the default paths.
@@ -179,7 +178,7 @@ Notes:
 - `/recur` is a command flag that indicates that the add command is meant to add recurring expenses and not normal expenses.
 - `PRICE` is a decimal number.
 - `DESCRIPTION` and `CATEGORY` are text.
-- `DATE` is an optional parameter that takes a text format of dd-mm-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
+- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
 - `FREQUENCY` takes only 1 of 3 possible inputs, `daily`, `weekly`, or `monthly`. Any other inputs will throw an error.
 
 Examples: 
@@ -197,7 +196,7 @@ Notes:
 - `/recur` is a command flag that indicates that the add command is meant to add recurring expenses and not normal expenses.
 - `PRICE` is a decimal number.
 - `DESCRIPTION` and `CATEGORY` are text.
-- `DATE` is an optional parameter that takes a text format of dd-mm-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
+- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
 - All parameters except `INDEX` and `/recur` are optional and the user can choose exactly which attribute of the expense that they want to edit.
  
 Examples: 
