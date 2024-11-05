@@ -1,18 +1,20 @@
 package ymfc.recipe;
 
+import ymfc.ingredient.Ingredient;
+
 import java.util.ArrayList;
 
 public class Recipe {
 
     private String name;
-    private ArrayList<String> ingredients;
+    private ArrayList<Ingredient> ingredients;
     private ArrayList<String> steps;
 
     // Optional attributes
     private String cuisine;
     private Integer timeTaken;
 
-    public Recipe(String name, ArrayList<String> ingredients, ArrayList<String> steps) {
+    public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<String> steps) {
         this.name = name;
         this.ingredients = ingredients;
         this.steps = steps;
@@ -20,7 +22,7 @@ public class Recipe {
         this.timeTaken = null;
     }
 
-    public Recipe(String name, ArrayList<String> ingredients, ArrayList<String> steps,
+    public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<String> steps,
                   String cuisine, Integer timeTaken) {
         this.name = name;
         this.ingredients = ingredients;
@@ -29,7 +31,7 @@ public class Recipe {
         this.timeTaken = timeTaken;
     }
 
-    public Recipe(String name, ArrayList<String> ingredients, ArrayList<String> steps, String cuisine) {
+    public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<String> steps, String cuisine) {
         this.name = name;
         this.ingredients = ingredients;
         this.steps = steps;
@@ -37,7 +39,7 @@ public class Recipe {
         this.timeTaken = null;
     }
 
-    public Recipe(String name, ArrayList<String> ingredients, ArrayList<String> steps, Integer timeTaken) {
+    public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<String> steps, Integer timeTaken) {
         this.name = name;
         this.ingredients = ingredients;
         this.steps = steps;
@@ -53,11 +55,11 @@ public class Recipe {
         this.name = name;
     }
 
-    public ArrayList<String> getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<String> ingredients) {
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -93,8 +95,18 @@ public class Recipe {
             return false;
         }
 
-        if (!ingredients.equals(recipeToCheck.getIngredients())) {
+        ArrayList<Ingredient> otherIngredients = recipeToCheck.getIngredients();
+        if (ingredients.size() != otherIngredients.size()) {
             return false;
+        }
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            Ingredient ingredient = ingredients.get(i);
+            Ingredient otherIngredient = otherIngredients.get(i);
+
+            if (!ingredient.equals(otherIngredient)) {
+                return false;
+            }
         }
 
         if (!steps.equals(recipeToCheck.getSteps())) {
@@ -110,7 +122,7 @@ public class Recipe {
         recipeDetails.append("Recipe: ").append(name).append(System.lineSeparator());
 
         recipeDetails.append("\t" + "  Ingredients: ");
-        for (String ingredient : ingredients) {
+        for (Ingredient ingredient : ingredients) {
             recipeDetails.append(System.lineSeparator()).append("\t" + "    - ").append(ingredient);
         }
 
@@ -140,7 +152,7 @@ public class Recipe {
         StringBuilder recipeDetails = new StringBuilder();
         recipeDetails.append("add n/").append(name).append(" ");
 
-        for (String ingredient : ingredients) {
+        for (Ingredient ingredient : ingredients) {
             recipeDetails.append("i/").append(ingredient).append(" ");
         }
 
