@@ -26,6 +26,12 @@ public abstract class FinancialEntry {
         if (amount > 9999999.00) {
             throw new FinanceBuddyException("Invalid amount. Amount must be $9999999.00 or less.");
         }
+        if (description.isBlank()) {
+            throw new FinanceBuddyException("Description cannot be blank.");
+        }
+        if (date.isAfter(LocalDate.now())){
+            throw new FinanceBuddyException("Date cannot be after current date.");
+        }
         this.description = description;
         this.amount = amount;
         this.date = date;
