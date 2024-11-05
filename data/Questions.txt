@@ -32,3 +32,5 @@ Java Basics | FillInTheBlank | The keyword `____` is used to implement an interf
 Java Basics | FillInTheBlank | The keyword used to define a class is `____`. | class
 Java Basics | FillInTheBlank | A constructor in Java is used to create an instance of a `____`. | object
 Java Basics | FillInTheBlank | The keyword used to declare a constant in Java is ___ | final
+Flashcards | Flashcard | 2 + 3 | 5
+Flashcards | Flashcard | The keyword used to define a class is `____`. | class

@@ -101,4 +101,8 @@ public class Quiz {
         int totalQuestions = topic.getQuestions().size();
         return (int) ((double) correctAnswers / totalQuestions * 100);
     }
+
+    public int getQuestionCount () {
+        return topic.getQuestions().size();
+    }
 }
