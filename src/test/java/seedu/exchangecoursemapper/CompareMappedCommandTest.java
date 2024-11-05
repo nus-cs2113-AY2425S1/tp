@@ -22,7 +22,7 @@ import static seedu.exchangecoursemapper.constants.Messages.INVALID_INPUT_FORMAT
 
 class CompareMappedCommandTest {
 
-    private List<String> mockedStorageData;
+    private List<Course> mockedStorageData;
     private CompareMappedCommand command;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
@@ -33,15 +33,8 @@ class CompareMappedCommandTest {
 
         Storage mockStorage = new Storage() {
             @Override
-            public List<String> loadAllCourses() {
+            public List<Course> loadAllCourses() {
                 return mockedStorageData;
-            }
-
-            @Override
-            public void addCourse(Course course) {
-                mockedStorageData.add(course.getNusCourseCode() + " | " +
-                        course.getPartnerUniversity() + " | " +
-                        course.getPuCourseCode());
             }
         };
 
@@ -50,9 +43,9 @@ class CompareMappedCommandTest {
 
     @Test
     void execute_withValidUniversitiesAndCommonMappings_displaysCorrectOutput() {
-        mockedStorageData.add("CS3244 | The Australian National University | COMP3670");
-        mockedStorageData.add("CS2102 | The University of Melbourne | INFO20003");
-        mockedStorageData.add("CS3244 | The University of Melbourne | COMP30027");
+        mockedStorageData.add(new Course("COMP3670", "CS3244", "The Australian National University"));
+        mockedStorageData.add(new Course("INFO20003", "CS2102", "The University of Melbourne"));
+        mockedStorageData.add(new Course("COMP30027", "CS3244", "The University of Melbourne"));
 
         command.execute("compare pu/The Australian National University pu/The University of Melbourne");
 
@@ -81,8 +74,8 @@ class CompareMappedCommandTest {
 
     @Test
     void execute_withValidUniversitiesNoCommonMappings_displaysNoCommonMappings() {
-        mockedStorageData.add("CS3236 | The Australian National University | COMP2610");
-        mockedStorageData.add("CS3244 | The University of Melbourne | COMP30027");
+        mockedStorageData.add(new Course("COMP2610", "CS3236", "The Australian National University"));
+        mockedStorageData.add(new Course("COMP30027", "CS3244", "The University of Melbourne"));
 
         command.execute("compare pu/The Australian National University pu/The University of Melbourne");
 
@@ -143,10 +136,10 @@ class CompareMappedCommandTest {
 
     @Test
     void execute_withCommonAndUniqueMappings_displaysBothCorrectly() {
-        mockedStorageData.add("CS3244 | The Australian National University | COMP3670");
-        mockedStorageData.add("CS3244 | The University of Melbourne | COMP30027");
-        mockedStorageData.add("CS3236 | The Australian National University | COMP2610");
-        mockedStorageData.add("CS2105 | The University of Melbourne | COMP90007");
+        mockedStorageData.add(new Course("COMP3670", "CS3244", "The Australian National University"));
+        mockedStorageData.add(new Course("COMP30027", "CS3244", "The University of Melbourne"));
+        mockedStorageData.add(new Course("COMP2610", "CS3236", "The Australian National University"));
+        mockedStorageData.add(new Course("COMP90007", "CS2105", "The University of Melbourne"));
 
         command.execute("compare pu/The Australian National University pu/The University of Melbourne");
 

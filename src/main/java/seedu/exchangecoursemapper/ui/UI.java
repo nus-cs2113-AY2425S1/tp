@@ -167,12 +167,12 @@ public class UI {
         System.out.println(NO_MODULES_MESSAGE);
     }
 
-    public void printMappedModules(List<String> mappedModules){
+    public void printMappedModules(List<Course> mappedModules) {
         System.out.println(MAPPED_MODULES_HEADER);
         System.out.println(LINE_SEPARATOR);
         int moduleIndex = 1;
-        for (String module : mappedModules) {
-            System.out.println(moduleIndex + ". " + module);
+        for (Course module : mappedModules) {
+            System.out.println(moduleIndex + ". " + module.formatOutput());
             moduleIndex += 1;
         }
         System.out.println(LINE_SEPARATOR);
@@ -183,7 +183,7 @@ public class UI {
     }
 
     public void printCommonMappings(String university1, String university2, Set<String> commonCourseCodes,
-                                    List<String> uni1Modules, List<String> uni2Modules){
+                                    List<Course> uni1Modules, List<Course> uni2Modules) {
         System.out.println(COMPARISON_RESULTS_HEADER + university1 + " and " + university2 + ":");
 
         System.out.println("\n" + COMMON_MAPPINGS_HEADER);
@@ -193,18 +193,20 @@ public class UI {
         } else {
             for (String courseCode : commonCourseCodes) {
                 uni1Modules.stream()
-                        .filter(module -> module.startsWith(courseCode + " | "))
+                        .filter(module -> module.getNusCourseCode().equals(courseCode))
+                        .map(Course::formatOutput)
                         .forEach(System.out::println);
 
                 uni2Modules.stream()
-                        .filter(module -> module.startsWith(courseCode + " | "))
+                        .filter(module -> module.getNusCourseCode().equals(courseCode))
+                        .map(Course::formatOutput)
                         .forEach(System.out::println);
             }
         }
         System.out.println(LINE_SEPARATOR);
     }
 
-    public void printUniqueMappings(String university, List<String> modules, Set<String> uniqueCourseCodes){
+    public void printUniqueMappings(String university, List<Course> modules, Set<String> uniqueCourseCodes) {
         System.out.println("\n" + UNIQUE_MAPPINGS_HEADER + university + ":");
         System.out.println(LINE_SEPARATOR);
         if (uniqueCourseCodes.isEmpty()) {
@@ -212,10 +214,32 @@ public class UI {
         } else {
             for (String courseCode : uniqueCourseCodes) {
                 modules.stream()
-                        .filter(module -> module.startsWith(courseCode + " | "))
+                        .filter(module -> module.getNusCourseCode().equals(courseCode))
+                        .map(Course::formatOutput)
                         .forEach(System.out::println);
             }
         }
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printInvalidCourseEntry(int lineNumber, String entry) {
+        System.out.println("Error: Invalid course entry at line " + lineNumber + " in myList.json");
+        System.out.println("Course not found in database: " + entry);
+    }
+
+    public void printInvalidEntryFormat(int lineNumber, String entry) {
+        System.out.println("Error: Unable to parse course entry at line " + lineNumber + " in myList.json");
+        System.out.println("Invalid format: " + entry);
+    }
+
+    /**
+     * Prints out a message wrapped in line separators.
+     *
+     * @param message Message to show user.
+     */
+    public void printMessage(String message) {
+        System.out.println(LINE_SEPARATOR);
+        System.out.println(message);
         System.out.println(LINE_SEPARATOR);
     }
 

@@ -58,7 +58,7 @@ public class Logs {
     // ListPersonalTrackerCommand
     public static final String INIT_STORAGE_LIST_PT = "ListPersonalTrackerCommand initialized with storage.";
     public static final String EXECUTE = "Executing ListPersonalTrackerCommand to list mapped modules.";
-    public static final String NO_MODULES = "No modules mapped in the personal tracker.";
+    public static final String NO_MODULES = "No modules loaded from the personal tracker.";
     public static final String DISPLAY_MODULES = "Displaying mapped modules from personal tracker.";
     public static final String EXECUTE_COMPLETE = "Completed execution of ListPersonalTrackerCommand.";
 
@@ -74,5 +74,25 @@ public class Logs {
     public static final String DISPLAY_COMPLETE = "Completed displaying comparison results for ";
     public static final String DISPLAYING_RESULTS = "Displaying comparison results between ";
     public static final String DISPLAYING_UNIQUE_MAPPINGS = "Displaying unique mappings for ";
+
+    // CourseRepository logs
+    public static final String COURSE_ENTRY = "Successfully added course: {0}";
+    public static final String COURSE_SIZE = "Loaded all courses, total courses: {0}";
+    public static final String INVALID_DELETE_INDEX = "Invalid index for deletion: {0}";
+    public static final String DELETE_INDEX = "Deleted course at index {0}";
+
+    // DataIntegrityChecker logs
+    public static final String DATA_MISMATCH = "Data mismatch on line {0}: {1}";
+    public static final String PARSING_ERROR_LINE = "Parsing error on line {0}: {1}";
+
+    // FileHandler logs
+    public static final String INITIALISE_FILE = "Initialized file at {0}";
+    public static final String INITIALISE_FILE_FAIL = "Initialized file at {0}";
+    public static final String LINES_SIZE = "Loaded all lines from file, total lines: {0}";
+    public static final String LINE_READ_FAIL = "Failed to read lines from file";
+    public static final String SAVE_LINE_SIZE = "Saved all lines to file, total lines: {0}";
+    public static final String LINE_WRITE_FAIL = "Failed to write lines to file";
+    public static final String APPEND_LINE = "Appended line to file: {0}";
+    public static final String APPEND_LINE_FAIL = "Failed to append line to file";
 
 }
