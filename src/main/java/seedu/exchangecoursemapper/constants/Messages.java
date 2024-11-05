@@ -43,7 +43,8 @@ public class Messages {
                     To get more specific information of the commands, please use help <COMMAND>
                     """;
     // ListPersonalTrackerCommand
-    public static final String NO_MODULES_MESSAGE = "No modules mapped yet.";
+    public static final String NO_MODULES_MESSAGE = "No modules mapped yet or you may have changed the file/directory name." +
+            "Please start adding courses and check that the file/directory has not been changed.";
     public static final String MAPPED_MODULES_HEADER = "Mapped Modules:";
 
     // CompareMappedCommand messages
