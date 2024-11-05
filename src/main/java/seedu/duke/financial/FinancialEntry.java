@@ -24,7 +24,7 @@ public abstract class FinancialEntry {
             throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
         }
         if (amount > 9999999.00) {
-            throw new FinanceBuddyException("Invalid amount. Amount must be <= $9999999.00.");
+            throw new FinanceBuddyException("Invalid amount. Amount must be $9999999.00 or less.");
         }
         this.description = description;
         this.amount = amount;

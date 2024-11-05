@@ -228,7 +228,7 @@ class AddIncomeCommandTest {
         });
 
         // Verify the error message
-        assertEquals("Invalid amount. Amount must be <= $9999999.00.", exception.getMessage());
+        assertEquals("Invalid amount. Amount must be $9999999.00 or less.", exception.getMessage());
         assertEquals(0, financialList.getEntryCount());
     }
 }
