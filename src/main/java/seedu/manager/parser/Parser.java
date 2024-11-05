@@ -200,6 +200,12 @@ public class Parser {
             logger.log(WARNING, "Invalid command format");
             String errorMessage = getErrorMessage(commandWord);
             throw new InvalidCommandException(errorMessage);
+        } catch (DateTimeParseException exception) {
+            logger.log(WARNING, "Invalid date-time format");
+            throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
+        } catch (IllegalArgumentException exception) {
+            logger.log(WARNING, "Invalid priority level status");
+            throw new InvalidCommandException(INVALID_PRIORITY_MESSAGE);
         }
     }
 
@@ -219,33 +225,27 @@ public class Parser {
      * @param commandParts an array of strings representing the parsed command parts, where the second element
      *                     is the command flag, indicating the type of command
      * @return a {@link Command} object representing the parsed command
-     * @throws InvalidCommandException if the command flag is invalid, or if there are improperly
-     *                                 formatted input details
-     * @throws IndexOutOfBoundsException if not all parameters are present
+     * @throws InvalidCommandException   if the command flag is invalid, or if there are improperly
+     *                                   formatted input details
+     * @throws IndexOutOfBoundsException if not all parameters are present.
+     * @throws DateTimeParseException    if the time parameter is not entered in the correct format.
+     * @throws IllegalArgumentException  if the priority parameter is not valid.
      */
     public Command parseAddCommand(String input, String[] commandParts) throws InvalidCommandException,
-            IndexOutOfBoundsException {
+            IndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
         assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
-        try {
-            String commandFlag = commandParts[1];
+        String commandFlag = commandParts[1];
 
-            switch (commandFlag) {
-            case EVENT_FLAG:
-                return getAddEventCommand(input);
-            case PARTICIPANT_FLAG:
-                return getAddParticipantCommand(input);
-            case ITEM_FLAG:
-                return getAddItemCommand(input);
-            default:
-                logger.log(WARNING, "Invalid command format");
-                throw new InvalidCommandException(INVALID_ADD_MESSAGE);
-            }
-        } catch (DateTimeParseException exception) {
-            logger.log(WARNING, "Invalid date-time format");
-            throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
-        } catch (IllegalArgumentException exception) {
-            logger.log(WARNING, "Invalid priority level status");
-            throw new InvalidCommandException(INVALID_PRIORITY_MESSAGE);
+        switch (commandFlag) {
+        case EVENT_FLAG:
+            return getAddEventCommand(input);
+        case PARTICIPANT_FLAG:
+            return getAddParticipantCommand(input);
+        case ITEM_FLAG:
+            return getAddItemCommand(input);
+        default:
+            logger.log(WARNING, "Invalid command format");
+            throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         }
     }
 
@@ -272,14 +272,13 @@ public class Parser {
     }
 
     //@@author LTK-1606
-
     /**
      * Returns an {@link AddCommand} that adds a participant with fields parsed from a given user input.
      *
      * @param input the given user input.
      * @return an {@link AddCommand} that adds a participant with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
-     * @throws InvalidCommandException if the input phone number and email are not in the correct format.
+     * @throws InvalidCommandException   if the input phone number and email are not in the correct format.
      */
     private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
         String[] inputParts = input.split(PARTICIPANT_REGEX);
@@ -336,7 +335,7 @@ public class Parser {
      * @param commandParts an array of strings representing the parsed command parts,
      *                     where the second element is the command flag.
      * @return a {@link Command} object representing the parsed command.
-     * @throws InvalidCommandException if the flags are not matched in the command parts.
+     * @throws InvalidCommandException   if the flags are not matched in the command parts.
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command parseRemoveCommand(String input, String[] commandParts) throws InvalidCommandException,
@@ -358,6 +357,7 @@ public class Parser {
     }
 
     //@@author KuanHsienn
+
     /**
      * Returns a {@link RemoveCommand} that removes an event, with a given user input.
      *
@@ -371,7 +371,6 @@ public class Parser {
     }
 
     //@@author LTK-1606
-
     /**
      * Returns a {@link RemoveCommand} that removes a participant, with fields from a given user input.
      *
@@ -385,7 +384,6 @@ public class Parser {
     }
 
     //@@author jemehgoh
-
     /**
      * Returns a {@link RemoveCommand} that removes an item, with fields from a given user input.
      *
@@ -399,40 +397,35 @@ public class Parser {
     }
 
     /**
-     * Parses the input string to create an Command object based on the provided command parts.
+     * Parses the input string to create a Command object based on the provided command parts.
      * <p>
      * This method checks the command flag extracted from the command parts. If the command
      * flag is "-e", it splits the input string to create an EditCommand
      *
      * @return a Command object representing the parsed command.
      * @throws InvalidCommandException if the flags are not matched in the command parts.
+     * @throws DateTimeParseException    if the time parameter is not entered in the correct format.
+     * @throws IllegalArgumentException  if the priority parameter is not valid.
      */
     private Command parseEditCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(EditParticipantCommand.COMMAND_WORD);
-        try {
-            String commandFlag = commandParts[1];
+        String commandFlag = commandParts[1];
 
-            switch (commandFlag) {
-            case EVENT_FLAG:
-                return getEditEventCommand(input);
-            case PARTICIPANT_FLAG:
-                return getEditParticipantCommand(input);
-            case ITEM_FLAG:
-                return getEditItemCommand(input);
-            default:
-                logger.log(WARNING, "Invalid command format");
-                throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
-            }
-        } catch (DateTimeParseException exception) {
-            logger.log(WARNING, "Invalid date-time format");
-            throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
-        } catch (IllegalArgumentException exception) {
-            logger.log(WARNING, "Invalid priority level status");
-            throw new InvalidCommandException(INVALID_PRIORITY_MESSAGE);
+        switch (commandFlag) {
+        case EVENT_FLAG:
+            return getEditEventCommand(input);
+        case PARTICIPANT_FLAG:
+            return getEditParticipantCommand(input);
+        case ITEM_FLAG:
+            return getEditItemCommand(input);
+        default:
+            logger.log(WARNING, "Invalid command format");
+            throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
         }
     }
 
     //@@author KuanHsienn
+
     /**
      * Returns an {@link EditParticipantCommand} that edits a participant with fields parsed from a given user input.
      *
@@ -467,6 +460,8 @@ public class Parser {
      * @param input the given user input.
      * @return an {@link EditEventCommand} that edits an event with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
+     * @throws DateTimeParseException    if the time parameter is not entered in the correct format.
+     * @throws IllegalArgumentException  if the priority parameter is not valid.
      */
     private Command getEditEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
             IllegalArgumentException {
@@ -536,24 +531,23 @@ public class Parser {
      * @param commandParts an array of strings representing the parsed command parts,
      *                     where the second element is the command flag.
      * @return a {@link Command} object representing the parsed command.
-     * @throws InvalidCommandException if the flag is not matched.
+     * @throws InvalidCommandException   if the flag is not matched.
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command parseViewCommand(String input, String[] commandParts) throws InvalidCommandException,
             IndexOutOfBoundsException {
         assert commandParts[0].equalsIgnoreCase(ViewCommand.COMMAND_WORD);
-            String commandFlag = commandParts[1];
+        String commandFlag = commandParts[1];
 
-            if (commandFlag.equals(EVENT_FLAG)) {
-                return getViewCommand(input);
-            }
+        if (commandFlag.equals(EVENT_FLAG)) {
+            return getViewCommand(input);
+        }
 
-            logger.log(WARNING, "Invalid command format");
-            throw new InvalidCommandException(INVALID_VIEW_MESSAGE);
+        logger.log(WARNING, "Invalid command format");
+        throw new InvalidCommandException(INVALID_VIEW_MESSAGE);
     }
 
     //@@author jemehgoh
-
     /**
      * Returns a {@link ViewCommand} with fields parsed from a given user input.
      *
@@ -583,7 +577,7 @@ public class Parser {
      * @param commandParts an array of strings representing the parsed command parts,
      *                     where the second element is the command flag.
      * @return a {@link MarkCommand} with fields parsed from input.
-     * @throws InvalidCommandException if the flag is not matched, or if the mark status is invalid.
+     * @throws InvalidCommandException   if the flag is not matched, or if the mark status is invalid.
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command parseMarkCommand(String input, String[] commandParts) throws InvalidCommandException,
@@ -735,6 +729,7 @@ public class Parser {
     }
 
     //@@author MatchaRRR
+
     /**
      * Parses the input string to create a {@link Command} based on the provided command parts.
      *
@@ -838,6 +833,8 @@ public class Parser {
             return INVALID_ADD_MESSAGE;
         case RemoveCommand.COMMAND_WORD:
             return INVALID_REMOVE_MESSAGE;
+        case EditEventCommand.COMMAND_WORD:
+            return INVALID_EDIT_MESSAGE;
         case ViewCommand.COMMAND_WORD:
             return INVALID_VIEW_MESSAGE;
         case MarkCommand.COMMAND_WORD:
