@@ -4,7 +4,7 @@ import fittrack.calculator.PullUpCalculator;
 import fittrack.user.User;
 
 public class PullUpStation extends ExerciseStation {
-    private String name = "Pull Up Station";
+    private final String name = "Pull Up Station";
     private int reps;
 
     public PullUpStation() {
@@ -25,6 +25,11 @@ public class PullUpStation extends ExerciseStation {
     public int getPoints(User user) {
         points = PullUpCalculator.calculatePoints(user.gender, user.age, reps);
         return points;
+    }
+
+    @Override
+    public int getPerformance() {
+        return this.reps;
     }
 
     @Override

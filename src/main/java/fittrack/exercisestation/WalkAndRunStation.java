@@ -4,7 +4,7 @@ import fittrack.calculator.WalkAndRunCalculator;
 import fittrack.user.User;
 
 public class WalkAndRunStation extends ExerciseStation {
-    private String name = "Walk and Run Station";
+    private final String name = "Walk and Run Station";
     private int time;
 
     public WalkAndRunStation() {
@@ -40,6 +40,11 @@ public class WalkAndRunStation extends ExerciseStation {
         }
         points = WalkAndRunCalculator.calculatePoints(user.gender, user.age, time);
         return points;
+    }
+
+    @Override
+    public int getPerformance() {
+        return this.time;
     }
 
     @Override

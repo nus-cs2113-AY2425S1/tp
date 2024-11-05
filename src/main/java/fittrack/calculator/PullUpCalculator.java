@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 public class PullUpCalculator extends Calculator {
     private static final Map<LookUpKey, TreeMap<Integer, Integer>> pullUpTable = new HashMap<>();
-    private static final boolean reverseOrder = true;
+    private static final boolean SHOULD_SORT_DESCENDING = true;
 
     static {
         initialiseMaleData();
@@ -17,7 +17,7 @@ public class PullUpCalculator extends Calculator {
     }
 
     public static int calculatePoints(Gender gender, int age, int reps) {
-        return getPointsFromTable(pullUpTable, gender, age, reps, false);
+        return getPointsFromTable(pullUpTable, gender, age, reps, IS_HIGHER_NUMBER_BETTER);
     }
 
     private static void initialiseMaleData() {
@@ -33,7 +33,7 @@ public class PullUpCalculator extends Calculator {
                 {{11, 5}, {9, 4}, {7, 3}, {5, 2}, {3, 1}},
                 {{11, 5}, {9, 4}, {7, 3}, {5, 2}, {3, 1}}
         };
-        addAllTables(pullUpTable, Gender.MALE, ageTables, reverseOrder);
+        addAllTables(pullUpTable, Gender.MALE, ageTables, SHOULD_SORT_DESCENDING);
     }
 
     private static void initialiseFemaleData() {
@@ -48,6 +48,6 @@ public class PullUpCalculator extends Calculator {
                 {{18, 5}, {15, 4}, {11, 3}, {8, 2}, {5, 1}},
                 {{18, 5}, {15, 4}, {11, 3}, {8, 2}, {5, 1}}
         };
-        addAllTables(pullUpTable, Gender.FEMALE, ageTables, reverseOrder);
+        addAllTables(pullUpTable, Gender.FEMALE, ageTables, SHOULD_SORT_DESCENDING);
     }
 }

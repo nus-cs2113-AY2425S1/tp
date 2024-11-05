@@ -1,0 +1,67 @@
+@startuml
+title Sequence Diagram for "add <name of the training session>" Command
+
+actor User
+participant FitTrack
+participant Parser
+participant TrainingSession
+participant Ui
+participant PullUpStation
+participant ShuttleRunStation
+participant SitAndReachStation
+participant SitUpStation
+participant StandingBroadJumpStation
+participant WalkAndRunStation
+
+User -> FitTrack: add session name
+activate FitTrack
+
+FitTrack -> Parser: parse(...)
+activate Parser
+
+Parser -> TrainingSession: new TrainingSession(currentTime, description, user)
+activate TrainingSession
+
+' Initialize exercise stations
+TrainingSession -> TrainingSession: initialiseExerciseStations()
+activate TrainingSession
+
+TrainingSession -> PullUpStation: new PullUpStation()
+activate PullUpStation
+deactivate PullUpStation
+
+TrainingSession -> ShuttleRunStation: new ShuttleRunStation()
+activate ShuttleRunStation
+deactivate ShuttleRunStation
+
+TrainingSession -> SitAndReachStation: new SitAndReachStation()
+activate SitAndReachStation
+deactivate SitAndReachStation
+
+TrainingSession -> SitUpStation: new SitUpStation()
+activate SitUpStation
+deactivate SitUpStation
+
+TrainingSession -> StandingBroadJumpStation: new StandingBroadJumpStation()
+activate StandingBroadJumpStation
+deactivate StandingBroadJumpStation
+
+TrainingSession -> WalkAndRunStation: new WalkAndRunStation()
+activate WalkAndRunStation
+deactivate WalkAndRunStation
+
+deactivate TrainingSession
+
+return TrainingSession
+deactivate TrainingSession
+
+Parser -> FitTrack: sessionList.add(TrainingSession)
+activate FitTrack
+deactivate FitTrack
+
+Parser -> Ui: printAddedSession(sessionList)
+activate Ui
+deactivate Ui
+
+deactivate Parser
+@enduml

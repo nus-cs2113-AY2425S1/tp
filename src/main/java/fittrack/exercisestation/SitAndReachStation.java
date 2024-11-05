@@ -4,7 +4,7 @@ import fittrack.calculator.SitAndReachCalculator;
 import fittrack.user.User;
 
 public class SitAndReachStation extends ExerciseStation {
-    private String name = "Sit and Reach Station";
+    private final String name = "Sit and Reach Station";
     private int length;
 
     public SitAndReachStation() {
@@ -25,6 +25,11 @@ public class SitAndReachStation extends ExerciseStation {
     public int getPoints(User user) {
         points = SitAndReachCalculator.calculatePoints(user.gender, user.age, length);
         return points;
+    }
+
+    @Override
+    public int getPerformance() {
+        return this.length;
     }
 
     @Override

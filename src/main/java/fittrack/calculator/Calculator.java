@@ -14,18 +14,20 @@ public abstract class Calculator {
     protected static final int AGE_RANGE_LOWER_END = 19;
     protected static final int AGE_RANGE_UPPER_START = 20;
     protected static final int AGE_RANGE_UPPER_END = 24;
+    
+    protected static final boolean IS_HIGHER_NUMBER_BETTER = true;
 
     // Utility method to find the points based on performance in the given table.
     protected static int getPointsFromTable(Map<LookUpKey, TreeMap<Integer, Integer>> pointsTable,
-            Gender gender, int age, int performance, boolean reverseComparison) {
+            Gender gender, int age, int performance, boolean isHigherNumBetter) {
 
         try {
             LookUpKey key = new LookUpKey(gender, age);
             TreeMap<Integer, Integer> subTable = pointsTable.get(key);
 
             for (Map.Entry<Integer, Integer> entry : subTable.entrySet()) {
-                if ((reverseComparison && performance <= entry.getKey()) ||
-                        (!reverseComparison && performance >= entry.getKey())) {
+                if ((!isHigherNumBetter && performance <= entry.getKey()) ||
+                        (isHigherNumBetter && performance >= entry.getKey())) {
                     return entry.getValue();
                 }
             }
@@ -39,7 +41,8 @@ public abstract class Calculator {
     // Utility method to add age sub-table for a specific gender
     protected static void addAgeSubTable(Map<LookUpKey, TreeMap<Integer, Integer>> pointsTable,
                                          Gender gender, int age, int[][] points, boolean reverseOrder) {
-        assert age >= 12 && age <= 24 : "Age should be within 12 and 24 during table initialisation"; //
+        assert age >= AGE_RANGE_LOWER_START && age <= AGE_RANGE_UPPER_END :
+                "Age should be within 12 and 24 during table initialisation";
         TreeMap<Integer, Integer> ageSubTable;
         if (reverseOrder){
             ageSubTable = new TreeMap<>(Comparator.reverseOrder());
@@ -56,7 +59,7 @@ public abstract class Calculator {
         try {
             pointsTable.put(new LookUpKey(gender, age), ageSubTable);
         } catch (InvalidAgeException e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
     }
 

@@ -12,6 +12,7 @@ public abstract class ExerciseStation {
     protected int points;
 
     public abstract void setPerformance(int performanceResult);
+    public abstract int getPerformance();
     public abstract int getPoints(User user);
 
     public abstract String getName();
@@ -20,4 +21,5 @@ public abstract class ExerciseStation {
     public abstract String toString();
 
     public abstract String getSaveStringInfo();
+
 }

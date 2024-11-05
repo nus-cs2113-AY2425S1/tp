@@ -4,55 +4,124 @@
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
+## Setting up, getting started
+First , **fork** this repo, and clone the fork into your computer.
+1. **Configure the JDK**: Follow the guide [se-edu/guides] IDEA: Configuring the JDK to ensure Intellij is configured 
+   to use **JDK 17**.
+2. **Import the project as a Gradle project**: Follow the guide [se-edu/guides] IDEA: Importing a Gradle project
+   to import the project into IDEA.
+3. Verify the setup:
+   (i) Run the FitTrack.Main and try a few commands like `help`.
+   (ii) Run the tests to ensure that all of it pass.
+
 ## Design & implementation
 
-# High Level Functionalities - Zackermax
-![HighLevel.png](HighLevel.png)
+## Software Architecture
+![Architecture.png](Images/Archi_Architecture.png)
 
-**FitTrack** is the main class and entry point of the application.  
-It manages high level functionalities by coordinating the `FitTrackLogger`, `Storage`, `User`, `Parser`, `Ui`, `TrainingSession`, and `Exercise` classes.
+**FitTrack** is the main class and entry point of the application. It manages high level functionalities by coordinating the following classes:
 
-- **FitTrackLogger** manages logging for the application, ensuring errors and important events are properly recorded.
-- **Storage** manages saving and loading data from a persistent storage file.
-- **User** holds the user’s information, such as age and gender, and provides methods to modify or retrieve this data.
-- **Parser** handles parsing of user input, converting it into commands and actions.
-- **Ui** manages all output and user interaction, such as printing data and messages to the console.
-- **TrainingSession** represents a single training session, including exercises and metadata (like date and description).
-- **Exercise** represents different types of exercises available in the application, like pull-ups or shuttle runs.
+| Class           | Functionality                                                                                                |
+|-----------------|--------------------------------------------------------------------------------------------------------------|
+| FitTrackLogger  | Manages logging for the application, ensuring errors and important events are properly recorded              |
+| Storage         | Manages saving and loading data from a persistent storage file                                               |
+| User            | Records the user’s information, such as age and gender, and provides methods to modify or retrieve this data |
+| Parser          | Handles parsing of user input, converting it into commands and actions                                       |
+| Ui              | Handles user interaction and CLI output, printing messages and data to the console                           |
+| TrainingSession | Represents a single training session, including exercises and metadata (e.g. date and description)           |
+| Exercise        | Represents different types of exercises available in the application, like pull-ups or shuttle runs          |
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+## Features
 
-### Edit Exercise Feature
+### Storage
+![Class_Storage.png](Images/Class_Storage.png)
+
+### Set User
+When the application starts up, it will prompt the user for their gender and age via the Set User feature.
+Their input is processed by Parser and stored in an instance of the User class.
+Upon successful setting of the gender and age fields, a confirmation of the user's gender and age will be printed in the CLI via the Ui class.
+After this initialization process, if the user desires, they can set their gender and age again at any time by calling the "set" command.
+
+![Class_SetUser.png](Images/Class_SetUser.png)
+
+### Add Training Session
+![Class_AddTrainingSession.png](Images/Class_AddTrainingSession.png)
+
+#### 1. Class Interaction Overview
+When the user adds a new training session, an instance of the `TrainingSession` class is created. 
+This instance initializes an EnumMap, which instantiates the 6 `ExerciseStation` child classes with 
+their initial values.
+Below is a class diagram showing the EnumMap after an instance of `TrainingSession` is created.
+![Class_TrainingSessionInitialState.png](Images/Class_TrainingSessionInitialState.png)
+
+#### 2. Sequence of Event 
+![Sequence_addTrainingSessionCommand.png](Images%2FSequence_addTrainingSessionCommand.png)
+1) **User Inputs Add command**:The User initiates the "add <name of the training session>" command by 
+   calling Parser with the input.
+2) **Instantiation of TrainingSession**: The Parser creates a new TrainingSession object with the 
+   current time, description, and user.
+3) **Instantiation of Exercise Stations**: Within TrainingSession class, all 6 subclasses of exercise
+   stations are instantiated.
+4) **UI Interaction**: The Parser calls Ui.printAddedSession(sessionList), which:
+   (i) Begins a UI segment
+   (ii) Prints a session message
+   (iii) Prints the description of the last added session
+   (iv) Calls printSessionCount to show the total count
+   (v) Ends the segment.
+4) Refer to Section on Edit Exercise and Point Calculation for specific implementation of 
+   performance metric and point conversion.
+
+### Delete Training Session
+When Parser detects the "delete" command, the TrainingSession instance at the user's specified index in sessionList will be 
+copied into a new private TrainingSession instance called sessionToDelete. The original instance in sessionList will 
+then be deleted. The new private instance is used to print the details of the deleted session, giving the user 
+confirmation that the TrainingSession they wished to delete has been successfully deleted. The new TrainingSession
+instance is then disposed of.
+
+![Class_DeleteTrainingSession.png](Images/Class_DeleteTrainingSession.png)
+![Sequence_DeleteTrainingSession.png](Images/Sequence_DeleteTrainingSession.png)
+
+### List Training Sessions
+When Parser detects the "list" command, it calls printSessionList() followed by printSessionCount().
+printSessionList() first checks if sessionList is empty. If sessionList is empty, it prints a message saying so.
+If sessionList is not empty, it will be iterated through. 
+For each TrainingSession in sessionList, getSessionDescription will be called, returning its details as a String.
+The TrainingSession's index will be printed, followed by the session description before iterating to the next index.
+
+![Class_ListTrainingSessions.png](Images/Class_ListTrainingSessions.png)
+![Sequence_ListTrainingSessions.png](Images/Sequence_ListTrainingSessions.png)
+
+### View Training Session
+When Parser detects the "view" command, it calls printSessionView() on the user's specified session index.
+This in turn calls viewSession(), which outputs the details of the TrainingSession instance in the CLI.
+This process fetches the details of each of the 6 ExerciseStation classes, which fetch details from the Calculator classes.
+
+![Class_ViewTrainingSession.png](Images/Class_ViewTrainingSession.png)
+
+### Edit Exercise
 
 The **Edit Exercise** feature is managed by the `TrainingSession` class, and is primarily carried out by its 
 `editExercise()` function. This feature utilizes the `setPerformance()`and `getReps()` methods from the 
 `ExerciseStation` classes to edit the repetitions and timings for the user’s selected 
-exercises. Additionally, it calculates the points the user will earn for each exercise based on the updated values.
-
-#### Step 1: Logging a New Training Session
-
-When the user logs a new training session, an instance of the `TrainingSession` class is created. This instance 
-initializes an EnumMap, which populates the various `ExerciseStation` instances with their initial values. 
-Below is a representation of how the `ExerciseStations` are initialized:
-
-![TrainingSessionInitialState.png](TrainingSessionInitialState.png)  
+exercises. Additionally, it calculates the points the user will earn for each exercise based on the updated "rep" or
+"timing" values.
 
 #### Step 2: Editing a Training Session
 
-When the user wishes to edit a training session, they specify an `Exercise` Enum, and the reps/timing to be inputted,
-which is passed to the`editExercise` function. This function calls the relevant methods to update the repetitions or 
-timings and calculates the corresponding points for the specified exercise.
+When the user wishes to edit a training session, they specify an `Exercise` Enum, and the reps/timing to be inputted.
+These variables are then passed to the`editExercise` function. This function calls the relevant methods to update the 
+repetitions or timings and calculates the corresponding points for the specified exercise.
 
 The following sequence diagram illustrates the function calls involved in this process:
 
-![editExerciseSequenceDiagram.png](editExerciseSequenceDiagram.png)
+![Sequence_editExercise.png](Images/Sequence_editExercise.png)
 
 Additionally, the state diagram below shows the end state of the `editExercise` function after execution of the command,
-`editExercise(Exercise.PULL_UP, 1)`:
+`editExercise(Exercise.PULL_UP, 1)` and `editExercise(Exercise.SHUTTLE_RUN, "16.0")`:
 
-![TrainingSessionEditState.png](TrainingSessionEditState.png)
+![Class_TrainingSessionEditState.png](Images/Class_TrainingSessionEditState.png)
 
-### Points Calculation Feature
+### Points Calculation
 
 The **points calculation feature** is a significant part of the `ExerciseStation` system. It allows for the calculation
 of user-specific points based on their performance in various exercises (e.g., pull-ups, sit-ups). This process 
@@ -65,9 +134,8 @@ Each `ExerciseStation` subclass (e.g., `PullUpStation`, `SitUpStation`) has its 
 method. The main responsibility of this method is to invoke the `calculatePoints()` function from the 
 respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), which holds the points calculation logic.
 
+#### 2.  Sequence of Events:
 ![getPointsSequenceDiagram.png](getPointsSequenceDiagram.png)
-##### Sequence of Events:
-
 1. **User Inputs Performance**: The user’s performance (e.g., number of pull-ups) is passed to the
    `setPerformance()` method in the exercise station.
 
@@ -77,6 +145,58 @@ respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), w
 3. **Calculator Logic**: The calculator class uses a lookup table, which maps the user's performance 
    to points based on their age and gender. The points are returned to the exercise station, where they are stored.
 
+### Points/Performance Visualisation 
+The `Graph` class is responsible for creating and displaying various visualizations of training session data. 
+It supports three types of graphing functions:
+
+   1. `graphSessions(ArrayList<TrainingSession> sessionList)`
+      - Displays the total points achieved per session, across training sessions.
+      
+   2. `graphExercisePoints(Exercise exercise, ArrayList<TrainingSession> sessionList)`
+      - Show points progression for a specific exercise across training sessions.
+      
+   3. `graphExercisePerformance(Exercise exercise, ArrayList<TrainingSession> sessionList)`
+      - Visualizes the reps or timings achieved for a specific exercise over training sessions.
+   
+> These functions are designed as static class methods because they work independently of instance-specific data, 
+> focusing on session data passed as parameters. Helper functions are primarily used to format and build graph strings, 
+> with the final output displayed directly to the CLI within these main functions.
+
+#### Displaying point graphs (Function 1 and 2)
+The functions `graphSessions` and `graphExercisePoints` follow a similar workflow to visualize points across sessions. 
+Only `graphSessions` will be explained/shown for clarity. The core steps in the workflow are as follows:
+
+1. **Header Generation**:
+   - The header string is generated first to provide context for each column in the visualization.
+
+2. **Row Generation**:
+   - Each row, representing a training session, is progressively generated.
+   - Rows are appended to the main `StringBuilder`, which accumulates the entire graph's content.
+
+3. **CLI Output**:
+   - The accumulated graph string is printed to the CLI,
+
+![Sequence_graphSessions.png](Images/Sequence_graphSessions.png)
+
+> Note: The difference between graphSessions and graphExercisePoints lies in the initial printed string and whether 
+> getTotalPoints or getExercisePoints is called within each row.
+
+#### Displaying performance graphs (Function 3)
+The `graphExercisePerformance` function visualizes specific performance levels (like reps or timing) achieved for an 
+exercise across multiple sessions. The core steps in the workflow are as follows:
+
+1. **Identify Maximum Performance Level**:
+   - Locate the highest performance level recorded for the specified exercise across all sessions.
+   - This directly corresponds to the upper range of the Y axis.
+
+2. **Generate Headers and Graph Content**:
+   - Format the X-axis headers with session descriptions and dates.
+   - Build rows iteratively based on session performance, with asterisks indicating reps/timings for each session.
+
+3. **Display Graph Output**:
+   - Print the final performance graph to the CLI, providing a visual representation of the user's progress over time.
+
+![Sequence_graphExercisePerformance.png](Images/Sequence_graphExercisePerformance.png)
 
 ## Product scope
 ### Target user profile
@@ -89,10 +209,19 @@ respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), w
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
+
+| Priority | As a ... | I want to ...                          | So that I can ...                                   |
+|----------|----------|----------------------------------------|-----------------------------------------------------|
+| ***      | new user | see usage instructions                 | refer to them when I forget how to use the app      |
+| ***      | user     | add a new training session             | record my NAPFA training progress                   |
+| ***      | user     | edit my new training session           | record the reps/time I attained for each exercise   |
+| ***      | user     | delete a training session              | remove a session that was added by mistake          |
+| ***      | user     | view a list of past training sessions  | track the number of training sessions I have done   |
+| ***      | user     | view the details of a training session | have an overview of my performance for that session |
+| ***      | user     | store my training sessions             | keep a record of my sessions when the app is closed |
+| **       | user     | calculate my NAPFA points per exercise | conveniently view my standing for each station      |
+| *        | user     | know my NAPFA achievement level        | know my NAPFA standard at a glance                  |
 
 ## Non-Functional Requirements
 

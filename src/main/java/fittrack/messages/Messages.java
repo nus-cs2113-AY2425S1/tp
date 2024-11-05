@@ -25,6 +25,18 @@ public class Messages {
     public static final String SIT_UP_ACRONYM = "SU";
     public static final String STANDING_BROAD_JUMP_ACRONYM = "SBJ";
     public static final String WALK_AND_RUN_ACRONYM = "WAR";
+    public static final String ADD_WATER_COMMAND = "add-water";
+    public static final String DELETE_WATER_COMMAND = "delete-water";
+    public static final String LIST_WATER_COMMAND = "list-water";
+    public static final String ADD_FOOD_COMMAND = "add-food";
+    public static final String DELETE_FOOD_COMMAND = "delete-food";
+    public static final String LIST_FOOD_COMMAND = "list-food";
+    public static final String ADD_CALORIES_COMMAND = "add-calories";
+    public static final String DELETE_CALORIES_COMMAND = "delete-calories";
+    public static final String LIST_CALORIES_COMMAND = "list-calories";
+    public static final String ADD_MOOD = "add-mood";
+    public static final String DELETE_MOOD_COMMAND = "delete-mood";
+    public static final String LIST_MOOD_COMMAND = "list-mood";
 
     public static final String INIT_SENTENCE = "Hello! I'm FitTrack."
             + System.lineSeparator() + "Please input your gender and age:";
@@ -34,7 +46,7 @@ public class Messages {
             + System.lineSeparator() + "add (session name)                                               add session1"
             + System.lineSeparator() + "list                                                             list"
             + System.lineSeparator() + "view (session index)                                             view 1"
-            + System.lineSeparator() + "edit (session index) (exercise index) (repetitions/time)         edit 1 1 1"
+            + System.lineSeparator() + "edit (session index) (exercise acronym) (repetitions/time)       edit 1 PU 1"
             + System.lineSeparator() + "delete (session index)                                           delete 1"
             + System.lineSeparator() + "remind (Event / Task) (deadline)                                 remind " +
             "NAPFA DD/MM/YYYY"
@@ -47,6 +59,21 @@ public class Messages {
             " 12/12/2024 14:00:00"
             + System.lineSeparator() + "delete-goal (goal index)                                         delete-goal 1"
             + System.lineSeparator() + "list-goal                                                        list-goal"
+            + System.lineSeparator() + "add-water (amount)                                               add-water 500"
+            + System.lineSeparator() + "delete-water (index)                                             delete-water 1"
+            + System.lineSeparator() + "list-water                                                       list-water"
+            + System.lineSeparator() + "add-food (food item)                                             add-food apple"
+            + System.lineSeparator() + "delete-food (index)                                              delete-food 1"
+            + System.lineSeparator() + "list-food                                                        list-food"
+            + System.lineSeparator() + "add-calories (calorie amount)                                    add-calories"
+            + "200"
+            + System.lineSeparator() + "delete-calories (index)                                          "
+            + "delete-calories 1"
+            + System.lineSeparator() + "list-calories                                                    list-calories"
+            + System.lineSeparator() + "add-mood (mood description) (date) (time) (description)          add-mood"
+            + "happy 01/11/2024 18:30:00 feeling healthy"
+            + System.lineSeparator() + "delete-mood (mood ID)                                            delete-mood 1"
+            + System.lineSeparator() + "list-mood                                                        list-mood"
             + System.lineSeparator() + "exit                                                             exit";
     public static final String LIST_SESSION_MESSAGE = "Here are your training sessions:";
     public static final String LIST_SESSION_EMPTY_MESSAGE = "Your session list is currently empty.";
@@ -63,8 +90,40 @@ public class Messages {
     public static final String DELETE_GOALS_MESSAGE = "Got it. I've deleted this goal.";
     public static final String LIST_GOAL_MESSAGE = "Here is your goal list!";
 
+    public static final String ADD_WATER_MESSAGE = "Got it. I've added <WATER_ML> of water.";
+    public static final String DELETE_WATER_MESSAGE = "Got it. I've deleted <WATER_ML> of water.";
+    public static final String LIST_WATER_MESSAGE = "Here is your water intake (in ml):";
+
+    public static final String ADD_FOOD_MESSAGE = "Got it. I've added food item: ";
+    public static final String DELETE_FOOD_MESSAGE = "Got it. I've deleted food item: ";
+    public static final String LIST_FOOD_MESSAGE = "Here is your food intake list: ";
+
+    public static final String ADD_CALORIES_MESSAGE = "Got it. I've added calorie intake:";
+    public static final String DELETE_CALORIES_MESSAGE = "Got it. I've deleted the calorie intake.";
+    public static final String LIST_CALORIES_MESSAGE = "Here is your calorie intake:";
+
+    public static final String MALE_GENDER = "male";
+    public static final String FEMALE_GENDER = "female";
+    public static final String INVALID_USER_INFO_MESSAGE = "Please provide a valid gender and age (male/female 12-24).";
+    public static final String INVALID_SESSION_NAME_MESSAGE = "Please provide a valid session name.";
+    public static final String INVALID_SESSION_INDEX_MESSAGE = "Please provide a valid session index.";
+    public static final String INVALID_EXERCISE_DETAILS_MESSAGE =
+            "Please provide a valid session index, station and reps.";
+    public static final String INVALID_EXERCISE_ACRONYM_MESSAGE = "Invalid exercise acronym: ";
+    public static final String INVALID_PULL_UP_REPETITIONS_MESSAGE = "Invalid Pull Up repetitions: ";
+    public static final String INVALID_SHUTTLE_RUN_TIMING_MESSAGE = "Invalid Shuttle Run timing: ";
+    public static final String INVALID_SIT_AND_REACH_DISTANCE_MESSAGE = "Invalid Sit and Reach distance: ";
+    public static final String INVALID_SIT_UP_REPETITIONS_MESSAGE = "Invalid Sit Up repetitions: ";
+    public static final String INVALID_STANDING_BROAD_JUMP_DISTANCE_MESSAGE = "Invalid Standing Broad Jump distance: ";
+    public static final String INVALID_WALK_AND_RUN_TIMING_MESSAGE = "Invalid Walk and Run timing: ";
+
+    public static final String ADD_MOOD_MESSAGE = "Mood log added: ";
+    public static final String DELETE_MOOD_MESSAGE = "Mood log deleted with ID: ";
+    public static final String LIST_MOOD_MESSAGE = "Your mood logs: ";
+
     public static final String NONNUMERICAL_INDEX_MESSAGE = "Please provide a valid numerical index.";
     public static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Sorry, but that index is not within the list.";
+
     public static final String INVALID_INPUT_MESSAGE = "I'm sorry, I don't know what that means.";
     public static final String EXIT_MESSAGE = "Bye! Hope to see you again soon!";
 }

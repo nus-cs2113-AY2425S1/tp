@@ -23,4 +23,13 @@ public enum Exercise {
         }
         throw new IllegalArgumentException("Invalid exercise input: " + input);
     }
+
+    public static boolean isValidExercise(String input) {
+        for(Exercise exercise : Exercise.values()) {
+            if(exercise.userInput.equals(input)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

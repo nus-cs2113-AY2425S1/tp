@@ -4,7 +4,7 @@ import fittrack.calculator.StandingBroadJumpCalculator;
 import fittrack.user.User;
 
 public class StandingBroadJumpStation extends ExerciseStation {
-    private String name = "Standing Broad Jump Station";
+    private final String name = "Standing Broad Jump Station";
     private int distance;
 
     public StandingBroadJumpStation() {
@@ -25,6 +25,11 @@ public class StandingBroadJumpStation extends ExerciseStation {
     public int getPoints(User user) {
         points = StandingBroadJumpCalculator.calculatePoints(user.gender, user.age, distance);
         return points;
+    }
+
+    @Override
+    public int getPerformance() {
+        return this.distance;
     }
 
     @Override

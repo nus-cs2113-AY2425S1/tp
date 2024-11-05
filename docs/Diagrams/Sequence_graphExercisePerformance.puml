@@ -1,0 +1,51 @@
+@startuml
+participant Ui as User
+participant Graph
+participant TrainingSession
+
+User -> Graph : graphExercisePerformance(exercise, sessionList)
+activate Graph
+
+Graph -> Graph : getMaxExercisePerformance(sessionList, exercise, numSessions)
+activate Graph
+
+loop For Each Session
+    Graph -> TrainingSession : getExercisePerformance(exercise)
+    activate TrainingSession
+    TrainingSession --> Graph : exercisePerformance
+    deactivate TrainingSession
+end
+Graph --> Graph : maxExercisePerformance
+deactivate Graph
+
+Graph -> Graph : generateXHeader(numSessions, sessionList, maxXHeaderLength, yOffset)
+activate Graph
+Graph -> Graph : formatXHeaderDesc(numSessions, sessionList, maxXHeaderLength)
+activate Graph
+Graph --> Graph : XHeaderDesc
+deactivate Graph
+
+Graph -> Graph : formatXHeaderDate(numSessions, sessionList, maxXHeaderLength)
+activate Graph
+Graph --> Graph : XHeaderDate
+deactivate Graph
+
+Graph --> Graph : XHeaders
+deactivate Graph
+
+Graph -> Graph : generateMainGraphPerformance(maxExercisePerformance, numSessions, maxXHeaderLength, sessionList, exercise)
+activate Graph
+
+loop  until all rows are iterated
+    Graph -> Graph : generatePerformanceRow(currentPerf, numSessions, maxXHeaderLength, sessionList, exercise)
+    activate Graph
+    Graph --> Graph : rowContents
+    deactivate Graph
+end
+
+Graph --> Graph : mainContents
+deactivate Graph
+
+User <-- Graph : Display exercise performance graph output
+deactivate Graph
+@enduml

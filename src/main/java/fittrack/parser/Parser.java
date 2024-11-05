@@ -14,6 +14,11 @@ import java.util.Objects;
 
 import static fittrack.enums.Exercise.fromUserInput;
 
+import static fittrack.exception.ParserExceptions.validSession;
+import static fittrack.exception.ParserExceptions.validSessionIndex;
+import static fittrack.exception.ParserExceptions.validUser;
+import static fittrack.exception.ParserExceptions.parseUserInfo;
+import static fittrack.exception.ParserExceptions.validEditDetails;
 import static fittrack.messages.Messages.ADD_REMINDER_COMMAND;
 import static fittrack.messages.Messages.ADD_SESSION_COMMAND;
 import static fittrack.messages.Messages.DELETE_REMINDER_COMMAND;
@@ -41,15 +46,6 @@ import static fittrack.ui.Ui.printUser;
 
 
 public class Parser {
-
-    /**
-     * Parses the user's input and calls the corresponding method based on the command.
-     *
-     * @param user The user object to be manipulated based on the command.
-     * @param input The input string entered by the user.
-     * @param sessionList The list of sessions to be manipulated based on the command.
-     * @param reminderList The list of reminders to be manipulated based on the command.
-     */
 
     private static void printGoalList(ArrayList<String> goalList) {
         if (goalList.isEmpty()){
@@ -96,7 +92,6 @@ public class Parser {
         assert sessionList != null : "Session list must not be null";
         assert goalList != null : "Goal list must not be null";
 
-
         String[] sentence = {input, input};
         String command = input;
         String description = "";
@@ -109,55 +104,64 @@ public class Parser {
         }
 
         switch (command) {
-        case SET_USER_COMMAND:
-            assert description.contains(" ") : "Invalid user data format";
-            sentence = description.split(" ", 2);
-            user.setGender(sentence[0]);
-            user.setAge(sentence[1]);
-            printUser(user);
-            break;
         case HELP_COMMAND:
             printHelp();
             break;
-        case ADD_SESSION_COMMAND:
-            assert !description.isEmpty() : "Session description must not be empty";
-            LocalDateTime currentTime = LocalDateTime.now();
-            sessionList.add(new TrainingSession(currentTime, description, user));
-            printAddedSession(sessionList);
-            updateSaveFile(sessionList, goalList, reminderList);
+        case LIST_SESSIONS_COMMAND:
+            printSessionList(sessionList);
             break;
-        case EDIT_EXERCISE_COMMAND:
-            sentence = description.split(" ", 3);
-            System.out.println(sentence[0]);
-            assert sentence.length == 3 : "Edit exercise command requires exactly 3 arguments";
-            int sessionIndex = Integer.parseInt(sentence[0]) - 1;
-            String exerciseAcronym = sentence[1];
-            String exerciseData = sentence[2];
-            assert sessionIndex >= 0 && sessionIndex < sessionList.size() : "Session index out of bounds";
+        case SET_USER_COMMAND:
             try {
-                sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData,
-                        true);
+                String[] userInfo = parseUserInfo(description);
+                user = validUser(userInfo[0], userInfo[1]);
+                printUser(user);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            printSessionView(sessionList, sessionIndex);
-            updateSaveFile(sessionList, goalList, reminderList);
+            break;
+        case ADD_SESSION_COMMAND:
+            try {
+                LocalDateTime currentTime = LocalDateTime.now();
+                sessionList.add(new TrainingSession(currentTime, description, user));
+                printAddedSession(sessionList);
+                updateSaveFile(sessionList, goalList, reminderList);  
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+        case EDIT_EXERCISE_COMMAND:
+            try {
+                sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData,
+                        true);
+                printSessionView(sessionList, sessionIndex);
+                updateSaveFile(sessionList, goalList, reminderList);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             break;
         case LIST_SESSIONS_COMMAND:
             printSessionList(sessionList); // Print the list of sessions
             break;
         case VIEW_SESSION_COMMAND:
-            int viewIndex = Integer.parseInt(description) - 1;
-            assert viewIndex >= 0 && viewIndex < sessionList.size() : "View session index out of bounds";
-            printSessionView(sessionList, viewIndex); // Print the session view
+            try {
+                int indexToView = validSessionIndex(Integer.parseInt(description) - 1, sessionList.size());
+                printSessionView(sessionList, indexToView); // Print the session view
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             break;
         case DELETE_SESSION_COMMAND:
-            int indexToDelete = Integer.parseInt(description) - 1;
-            assert indexToDelete >= 0 && indexToDelete < sessionList.size() : "Delete session index out of bounds";
-            TrainingSession sessionToDelete = sessionList.get(indexToDelete);
-            sessionList.remove(indexToDelete);
-            printDeletedSession(sessionList, sessionToDelete);
-            updateSaveFile(sessionList, goalList, reminderList);
+            try {
+                int indexToDelete = validSessionIndex(Integer.parseInt(description) - 1, sessionList.size());
+                TrainingSession sessionToDelete = sessionList.get(indexToDelete);
+                sessionList.remove(indexToDelete);
+                printDeletedSession(sessionList, sessionToDelete);
+                updateSaveFile(sessionList, goalList, reminderList);
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             break;
         case ADD_REMINDER_COMMAND:
             sentence = description.split(" ", 2);
@@ -239,6 +243,114 @@ public class Parser {
             }
             break;
 
+        case "add-water":
+            int waterAmount = Integer.parseInt(description);
+            user.getWaterIntake().addWater(waterAmount);
+            break;
+
+        case "delete-water":
+            int waterIndex = Integer.parseInt(description) - 1;
+            user.getWaterIntake().deleteWater(waterIndex);
+            break;
+
+        case "list-water":
+            user.getWaterIntake().listWater();
+            break;
+
+        case "add-food":
+            user.getFoodIntake().addFood(description);
+            break;
+
+        case "delete-food":
+            int foodIndex = Integer.parseInt(description) - 1;
+            user.getFoodIntake().deleteFood(foodIndex);
+            break;
+
+        case "list-food":
+            user.getFoodIntake().listFood();
+            break;
+
+        case "add-calories":
+            int calorieAmount = Integer.parseInt(description);
+            user.getCalorieIntake().addCalories(calorieAmount);
+            break;
+
+        case "delete-calories":
+            int calorieIndex = Integer.parseInt(description) - 1;
+            user.getCalorieIntake().deleteCalories(calorieIndex);
+            break;
+
+        case "list-calories":
+            user.getCalorieIntake().listCalories();
+            break;
+
+        case "add-mood":
+            String[] moodParts = description.split(" ", 4);
+            if (moodParts.length < 3) {
+                System.out.println("Please specify mood, date, time, and an optional description.");
+                return;
+            }
+            String mood = moodParts[0];
+            LocalDateTime moodTimestamp;
+            try {
+                moodTimestamp = parseMoodTimestamp(moodParts[1], moodParts[2]);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid date/time format: " + e.getMessage());
+                return;
+            }
+            String moodDescription = moodParts.length > 3 ? moodParts[3] : "";
+            fittrack.trainingsession.MoodLog newMoodLog =
+                new fittrack.trainingsession.MoodLog(mood, moodTimestamp, moodDescription);
+            user.addMoodLog(newMoodLog);
+            System.out.println("Mood log added: " + newMoodLog);
+            break;
+
+        case "edit-mood":
+            String[] editMoodParts = description.split(" ", 5);
+            if (editMoodParts.length < 5) {
+                System.out.println("Please specify the mood ID, new mood, date, time, and an optional description.");
+                return;
+            }
+            try {
+                int moodId = Integer.parseInt(editMoodParts[0]); // Mood ID from the first part
+                String newMood = editMoodParts[1]; // New mood from the second part
+                LocalDateTime newMoodTimestamp =
+                    parseMoodTimestamp(editMoodParts[2], editMoodParts[3]); // Date and time
+                String newMoodDescription = editMoodParts.length > 4 ? editMoodParts[4] : ""; // Optional description
+
+                // Call the edit method with the necessary arguments
+                user.editMoodLog(moodId, newMood, newMoodTimestamp, newMoodDescription);
+                System.out.println("Mood log updated: " + newMood);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid mood ID. Please provide a numeric ID.");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid date/time format: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("An error occurred: " + e.getMessage());
+                e.printStackTrace(); // Print stack trace for more details
+            }
+            break;
+
+        case "list-mood":
+            user.listMoodLogs(); // Assuming this method prints out the mood logs.
+            break;
+
+        case "delete-mood":
+            if (description.isEmpty()) { // Check if description is provided
+                System.out.println("Please provide a mood ID.");
+                break;
+            }
+            try {
+                int moodId = Integer.parseInt(description); // Convert the description to an integer
+                user.deleteMoodLog(moodId); // Call delete method
+                System.out.println("Mood log deleted with ID: " + moodId);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please provide a numeric mood ID.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("No mood log found with that ID.");
+            }
+            break;
+
         default:
             printUnrecognizedInputMessage(); // Response to unrecognized inputs
             break;
@@ -285,5 +397,10 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Invalid date format. Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
         }
+    }
+    private static LocalDateTime parseMoodTimestamp(String date, String time) {
+        String dateTimeString = date + " " + time;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return LocalDateTime.parse(dateTimeString, formatter);
     }
 }
