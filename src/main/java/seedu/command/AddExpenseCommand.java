@@ -23,6 +23,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
         super(transactions);
     }
 
+
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
