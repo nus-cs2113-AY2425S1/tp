@@ -1,4 +1,10 @@
 @startuml
+
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor COMMAND_COLOR
+skinparam classBackgroundColor COMMAND_COLOR
 abstract class Command {
     - TaskList tasks
     + setData(TaskList tasks)
@@ -35,11 +41,11 @@ class HospitalCommand
 
 Command ..> CommandResult
 
-Command <|-- AddPatientCommand
-Command <|-- DeletePatientCommand
-Command <|-- FindPatientCommand
-Command <|-- ListPatientCommand
-Command <|-- SelectPatientCommand
+Command <|-up AddPatientCommand
+Command <|-up DeletePatientCommand
+Command <|-up FindPatientCommand
+Command <|-up ListPatientCommand
+Command <|-up SelectPatientCommand
 
 Command <|-- AddTaskCommand
 Command <|-- DeleteTaskCommand
@@ -48,8 +54,8 @@ Command <|-- ListTaskCommand
 Command <|-- MarkTaskCommand
 Command <|-- UnmarkTaskCommand
 
-Command <|-- BackCommand
-Command <|-- ExitCommand
-Command <|-- HospitalCommand
+Command <|-down BackCommand
+Command <|-down ExitCommand
+Command <|-down HospitalCommand
 
 @enduml
