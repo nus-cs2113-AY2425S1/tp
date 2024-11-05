@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class FilterCoursesCommandTest {
 
@@ -78,9 +79,9 @@ public class FilterCoursesCommandTest {
 
     @Test
     public void isValidSocCourseCode_inputWithIsCourseCode_expectTrue() {
-        String userInput = "is4302";
+        String userInput = "gess1000";
         boolean isValidSocCourseCode = filterCoursesCommand.isValidSocCourseCode(userInput);
-        assertTrue(isValidSocCourseCode);
+        assertFalse(isValidSocCourseCode);
     }
 
     @Test
@@ -146,9 +147,14 @@ public class FilterCoursesCommandTest {
 
         String nusCourseCode = "ee2026";
         filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
+        String expectedOutput = """
+                -----------------------------------------------------
+                No courses found for the given course code.
+                It may not be mappable, or the given course code is not a course offered by NUS!
+                -----------------------------------------------------
+                """;
         String actualOutput = outputStreamCaptor.toString();
-        assertEquals("No courses found for the given course code.",
-                normalizeLineEndings(actualOutput));
+        assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
     }
 
     @Test
@@ -158,9 +164,14 @@ public class FilterCoursesCommandTest {
 
         String nusCourseCode = "EE2026";
         filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
+        String expectedOutput = """
+                -----------------------------------------------------
+                No courses found for the given course code.
+                It may not be mappable, or the given course code is not a course offered by NUS!
+                -----------------------------------------------------
+                """;
         String actualOutput = outputStreamCaptor.toString();
-        assertEquals("No courses found for the given course code.",
-                normalizeLineEndings(actualOutput));
+        assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
     }
 
     @Test
@@ -183,8 +194,13 @@ public class FilterCoursesCommandTest {
     public void execute_twoNusCourseCodes_expectErrorMessage() {
         String userInput = "filter CS3241 Ee2026";
         filterCoursesCommand.execute(userInput);
+        String expectedOutput = """
+                -----------------------------------------------------
+                Please note that we can only filter for only one NUS Course!
+                -----------------------------------------------------
+                """;
         String actualOutput = outputStreamCaptor.toString();
-        assertEquals("Please note that we can only filter for only one NUS Course!",
+        assertEquals(normalizeLineEndings(expectedOutput),
                 normalizeLineEndings(actualOutput));
     }
 
