@@ -54,7 +54,6 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
             deleteCourse(descriptionSubstrings, storage);
         } catch (IllegalArgumentException e) {
             logger.log(Level.WARNING, e.getMessage());
-            System.out.println(e.getMessage());
             ui.printMessage(e.getMessage());
         }
     }
