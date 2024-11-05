@@ -892,3 +892,39 @@ Nov 05, 2024 1:45:54 PM wheresmymoney.Logging logMessage
 INFO: Parsing Line: edit 1 /price -0.1
 Nov 05, 2024 1:45:57 PM wheresmymoney.Logging logMessage
 INFO: Parsing Line: bye
+Nov 05, 2024 1:52:03 PM wheresmymoney.Logging <init>
+INFO: Started Logging
+Nov 05, 2024 1:52:17 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: add /price 2.00 /description liya /category liya
+Nov 05, 2024 1:52:17 PM wheresmymoney.Logging logMessage
+INFO: Adding expense with parameters: 2.000000, liya, liya
+Nov 05, 2024 1:52:17 PM wheresmymoney.Logging logMessage
+INFO: Successfully added expense.
+Nov 05, 2024 1:52:18 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: list
+Nov 05, 2024 1:52:18 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: liya
+Nov 05, 2024 1:52:25 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: add /price 2.234234 /description liya /category liya
+Nov 05, 2024 1:52:25 PM wheresmymoney.Logging logMessage
+INFO: Adding expense with parameters: 2.234234, liya, liya
+Nov 05, 2024 1:52:25 PM wheresmymoney.Logging logMessage
+INFO: Successfully added expense.
+Nov 05, 2024 1:52:26 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: list
+Nov 05, 2024 1:52:26 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: liya
+Nov 05, 2024 1:52:26 PM wheresmymoney.Logging logMessage
+INFO: Found matching expense: liya
+Nov 05, 2024 1:52:39 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: add /recur /price 43.2324234 /description liya /category liya
+Nov 05, 2024 1:52:45 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: add /recur /price 43.2324234 /description liya /category liya /frequency monthly
+Nov 05, 2024 1:52:45 PM wheresmymoney.Logging logMessage
+INFO: Adding recurring expense with parameters: 43.232422, liya, liya, monthly
+Nov 05, 2024 1:52:45 PM wheresmymoney.Logging logMessage
+INFO: Successfully added recurring expense.
+Nov 05, 2024 1:52:47 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: list /recur
+Nov 05, 2024 1:52:50 PM wheresmymoney.Logging logMessage
+INFO: Parsing Line: bye
