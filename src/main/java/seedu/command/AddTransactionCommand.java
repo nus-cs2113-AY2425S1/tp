@@ -1,6 +1,5 @@
 package seedu.command;
 
-import seedu.message.CommandResultMessages;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
 import seedu.utils.AmountUtils;

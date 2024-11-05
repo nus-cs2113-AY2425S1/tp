@@ -35,8 +35,10 @@ class AddExpenseCommandTest {
     @Test
     public void execute_addExpenseAllValidFields_success() {
         categoryList.addCategory(new Category("Food"));
-        command.setArguments(Map.of("", "dinner", "a/", "1000", "d/", "2024-10-01 1800", "c/", "Food"));
-        List<Transaction> expectedList = List.of(new Expense(1000, "dinner", "2024-10-01 1800", new Category("Food")));
+        command.setArguments(Map.of("", "dinner", "a/", "1000",
+                "d/", "2024-10-01 1800", "c/", "Food"));
+        List<Transaction> expectedList = List.of(new Expense(1000,
+                "dinner", "2024-10-01 1800", new Category("Food")));
 
         command.execute();
 
@@ -45,7 +47,8 @@ class AddExpenseCommandTest {
 
     @Test
     public void execute_addExpenseInvalidDate_notAdding() {
-        command.setArguments(Map.of("", "dinner", "a/", "1000", "d/", "2024", "c/", "Food"));
+        command.setArguments(Map.of("", "dinner", "a/",
+                "1000", "d/", "2024", "c/", "Food"));
         List<Transaction> expectedList = new ArrayList<>();
 
         command.execute();

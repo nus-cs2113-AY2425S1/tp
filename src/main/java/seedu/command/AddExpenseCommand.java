@@ -9,23 +9,18 @@ import seedu.message.CommandResultMessages;
 import seedu.transaction.Expense;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
-import seedu.utils.AmountUtils;
-import seedu.utils.DateTimeUtils;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 public class AddExpenseCommand extends AddTransactionCommand {
     public static final String COMMAND_WORD = "add-expense";
     public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/", "c/"};
+    public static final String ERROR_MESSAGE = "Error creating Expense!";
 
     private final UI ui;
     private final CategoryList categoryList;
-
-    public static final String ERROR_MESSAGE = "Error creating Expense!";
 
     public AddExpenseCommand(TransactionList transactions, UI ui, CategoryList categoryList) {
         super(transactions);
@@ -58,7 +53,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
         Category category = handleCategoryInput(arguments.get(COMMAND_EXTRA_KEYWORDS[1]));
         Transaction transaction = null;
         try {
-            transaction = (category != null) ?
+            transaction = (!Objects.equals(category.getName(), "")) ?
                     createTransaction(amount, expenseName, dateString, category) :
                     createTransaction(amount, expenseName, dateString);
         } catch (Exception e) {
