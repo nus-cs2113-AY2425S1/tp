@@ -34,8 +34,8 @@ Here are the possible commands:
 menu: List commands   
 list: List events.
 add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
-add -m ITEM -e EVENT: Add an item to an even.
 add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Add a participant to an event.
+add -m ITEM -e EVENT: Add an item to an even.
 remove -e EVENT: Remove an event from the event list.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
 remove -m ITEM -e EVENT: Remove an item from an event.
@@ -288,9 +288,8 @@ If the above format or parameter constraints are not followed, the `Event`, `Par
 
 * List possible commands: `menu`
 * List all events: `list`
-* View all participants for an event: `view -e EVENT`
-* Add event: `add -e EVENT -t TIME -v VENUE`
-* Add participant to an event: `add -p PARTICIPANT -e EVENT`
+* Add event: `add -e EVENT -t TIME -v VENUE -u PRIORITY`
+* Add participant to an event: `add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
 * Add item to an event: `add -m ITEM -e EVENT`
 * Remove event: `remove -e EVENT`
 * Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
