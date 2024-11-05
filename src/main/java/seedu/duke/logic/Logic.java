@@ -160,8 +160,7 @@ public class Logic {
 
         if (entry instanceof Expense) {
             double oldAmount = entry.getAmount();
-            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
-            String oldDate = entry.getDate().format(pattern);
+            LocalDate oldDate = entry.getDate();
             try {
                 budgetLogic.changeBalanceFromExpense(oldAmount, oldDate);
                 budgetLogic.changeBalanceFromExpense(-amount, date);
@@ -285,7 +284,7 @@ public class Logic {
             storage.update(financialList);
             break;
         case "budget":
-            budgetLogic.setBudget();
+            budgetLogic.setBudget(financialList);
             break;
         case "help":
             printHelpMenu();
