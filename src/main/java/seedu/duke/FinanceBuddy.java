@@ -35,7 +35,11 @@ public class FinanceBuddy {
 
         ui.displayWelcomeMessage();
 
-        budgetLogic.setBudget();
+        try {
+            budgetLogic.setBudget(financialList);
+        } catch (FinanceBuddyException e) {
+            System.out.println(e.getMessage());
+        }
 
         boolean isRunning = true;
         while (isRunning) {
