@@ -29,6 +29,10 @@ public class AddExpenseCommand extends AddTransactionCommand {
             return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
         }
 
+        if (!isArgumentsValid()) {
+            return List.of("Missing mandatory fields!");
+        }
+
         try {
             Transaction transaction = buildTransaction();
             transactions.addTransaction(transaction);
