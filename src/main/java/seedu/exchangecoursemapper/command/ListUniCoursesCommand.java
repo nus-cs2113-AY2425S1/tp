@@ -125,7 +125,7 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
      */
     private void handleUnknownUniversity(String puName) throws UnknownUniversityException {
         logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, puName);
-        throw new UnknownUniversityException("University not found: " + puName);
+        throw new UnknownUniversityException(Exception.unknownUniversity(puName));
     }
 
     /**
@@ -170,7 +170,7 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
         JsonArray courseArray = universityObject.getJsonArray("courses");
         if (courseArray == null) {
             logger.log(Level.WARNING, Logs.NO_COURSES_FOUND);
-            throw new IllegalArgumentException("No courses found for university: " + universityName);
+            throw new IllegalArgumentException(Exception.noCourseAvailable(universityName));
         }
         return courseArray;
     }
