@@ -363,9 +363,9 @@ The `edit` feature allows users to edit the information of an event, or the info
 This feature is implemented in the `EditEventCommand` `EditParticipantCommand` `EditItemCommand` classes, which extends the `Command` base class and utilises the flag to determine the edit content.
 
 The feature comprises three operations, namely:
-* `EditEventCommand#execute`, which edits the information of an event.
-* `EditParticipantCommand#execute`, which edits the information of a participant in an event.
-* `EditItemCommand#execute`, which edits the information of an item in an event.
+* `EditEventCommand#execute()`, which edits the information of an event.
+* `EditParticipantCommand#execute()`, which edits the information of a participant in an event.
+* `EditItemCommand#execute()`, which edits the information of an item in an event.
 
 The above three operations override the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
@@ -374,20 +374,23 @@ and is invoked when the latter operation is called.
 
 Given below is an example usage scenario and the behaviour of the `edit` feature at each step:
 1. The user enters the command edit followed by a flag (-e/-p/-m) to edit the information of event/participant/item.
-2. If the flag is `-e`, `EditEventCommand` calls `EditEventCommand#execute`, which calls `EventList#editEvent` to edit the event.
-3. If the flag is `-e`, `EditParticipatCommand` calls `EditParticipatCommand#execute`, which calls `EventList#editParticipant` to edit the participant.
-4. If the flag is `-e`, `EditItemCommand` calls `EditItemCommand#execute`, which calls `EventList#editItem` to edit the item.
-5. After Editing, a success message `outputMessage` will be printed.
+2. If the flag is `-e`, `EditEventCommand` calls `EditEventCommand#execute()`, which calls `EventList#editEvent()` to edit the event. 
+   It looks for the event, modifies the information and returns true if the event exits. Otherwise, it returns false.
+3. If the flag is `-p`, `EditParticipantCommand` calls `EditParticipantCommand#execute()`, which calls `EventList#editParticipant()` to edit the participant.
+   It looks for the event and the specified participant, and then modifies the contact information and returns true if the participant is found. Otherwise, it returns false.
+4. If the flag is `-m`, `EditItemCommand` calls `EditItemCommand#execute()`, which calls `EventList#editItem()` to edit the item.
+   It looks for the event and the specified item, modifies the item and returns true if the item is found. Otherwise, it returns false.
+5. After Editing, a message `outputMessage` will be printed.
 
-The interactions between components of `EditEventCommand#execute` are shown in the **Sequence Diagram** below:
+The interactions between components of `EditEventCommand#execute()` are shown in the **Sequence Diagram** below:
 
 <img src="images/EditEventCommandSequenceDiagram.png">
 
-The interactions between components of `EditParticipantCommand#execute` are shown in the **Sequence Diagram** below:
+The interactions between components of `EditParticipantCommand#execute()` are shown in the **Sequence Diagram** below:
 
 <img src="images/EditParticipantCommandSequenceDiagram.png">
 
-The interactions between components of `EditItemCommand#execute` are shown in the **Sequence Diagram** below:
+The interactions between components of `EditItemCommand#execute()` are shown in the **Sequence Diagram** below:
 
 <img src="images/EditItemCommandSequenceDiagram.png">
 
@@ -397,16 +400,16 @@ The `mark/unmark` feature allows users to mark and unmark `Event`s in the `Event
 which extends `Command`, and three child classes, `MarkEventCommand`, `MarkParticipantCommand`, and `MarkItemCommand`.
 
 The feature comprises three operations, namely:
-* `MarkEventCommand#execute`, which marks an event as done or not done.
-* `MarkParticipantCommand#execute`, which marks a participant as present or absent.
-* `MarkItemCommand#execute`, which marks an item as accounted or unaccounted.
+* `MarkEventCommand#execute()`, which marks an event as done or not done.
+* `MarkParticipantCommand#execute()`, which marks a participant as present or absent.
+* `MarkItemCommand#execute()`, which marks an item as accounted or unaccounted.
 
 The above three operations override the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
 #### Feature implementation
 
-Given below is an example usage scenario for `MarkEventCommand#execute`, and how it behaves at each step.
+Given below is an example usage scenario for `MarkEventCommand#execute()`, and how it behaves at each step.
 
 1. The user adds an event `Event 1` to the event list. The mark status for `Event 1` is initially `false` or not done, as shown in the **Object Diagram** below:
 

@@ -23,15 +23,12 @@ loop for each event in eventList
         activate event
         event --> eventList : item updated
         deactivate event
-        eventList --> editCommand : true
+        eventList --> editCommand : :boolean
 
     end
 
 end
 
-alt no match found
-    eventList --> editCommand : false
-end
 
 editCommand --> main : message
 deactivate eventList
