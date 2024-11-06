@@ -101,14 +101,14 @@ operations that enable user to add, delete, search by (date/ category/ keywords)
 The `Command` class is an abstract class that provide a common behavior that other commands can share.
 
 #### Class responsibilities
-1. **Defining common structure**: It provides common fields such as the COMMAND_WORD (trigger word for the command), COMMAND_GUIDE (description of the command), and arrays for mandatory and extra argument keywords (COMMAND_MANDATORY_KEYWORDS and COMMAND_EXTRA_KEYWORDS). This structure ensures consistency across all concrete command classes that extend Command.
+1. **Defining common structure**: It provides common fields that ensure consistency across all concrete command classes that extend Command.
 2. **Defining common behavior**: It provides a template for commands by the abstract methods (e.g. `getMandatoryKeywords()`, `execute()`, etc.), the class enables developers to add new commands by simply extending the base class and implementing the specific behavior for each command.
 3. **Defining some reusable methods**: It provides some common methods (e.g. `isArgumentsValid()`, `setArguments()`, `getArguments()`, etc.) across child classes.
 
 #### Class attributes
 1. **COMMAND_WORD**: `String`
     - Description: The keyword triggering the command. The inherit classes will override this static variable by their own values.
-2. **COMMAND_WORD**: `String`
+2. **COMMAND_GUIDE**: `String`
     - Description: Description of the command. The child classes will override this static variable by their own values.
 3. **COMMAND_MANDATORY_KEYWORDS**: `String[]`
     - Description: Array storing mandatory argument keywords. The child classes will override this static variable by their own values.
