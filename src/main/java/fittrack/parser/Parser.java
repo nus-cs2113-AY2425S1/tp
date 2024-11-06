@@ -134,8 +134,7 @@ public class Parser {
                 String exerciseAcronym = userinput[2];
                 String exerciseData = userinput[3];
 
-                sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData,
-                        true);
+                sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);
                 printSessionView(sessionList, sessionIndex);
                 updateSaveFile(sessionList, goalList, reminderList);
             } catch (Exception e) {
