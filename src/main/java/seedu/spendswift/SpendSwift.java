@@ -1,15 +1,16 @@
-package seedu.duke;
+//@@author glenda-1506
+package seedu.spendswift;
 
-import seedu.duke.command.BudgetManager;
-import seedu.duke.command.CategoryManager;
-import seedu.duke.command.ExpenseManager;
-import seedu.duke.command.TrackerData;
-import seedu.duke.parser.Parser;
+import seedu.spendswift.command.BudgetManager;
+import seedu.spendswift.command.CategoryManager;
+import seedu.spendswift.command.ExpenseManager;
+import seedu.spendswift.command.TrackerData;
+import seedu.spendswift.parser.Parser;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Duke {
+public class SpendSwift {
     public static void main(String[] args) {
         String filePath = "spendswift.txt";
         Storage storage = new Storage(filePath);

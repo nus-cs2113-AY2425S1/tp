@@ -1,13 +1,13 @@
 //@@author glenda-1506
-package seedu.duke;
+package seedu.spendswift;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.command.CategoryManager;
-import seedu.duke.command.ExpenseManager;
-import seedu.duke.command.TrackerData;
-import seedu.duke.command.Budget;
-import seedu.duke.command.Category;
-import seedu.duke.command.Expense;
+import seedu.spendswift.command.CategoryManager;
+import seedu.spendswift.command.ExpenseManager;
+import seedu.spendswift.command.TrackerData;
+import seedu.spendswift.command.Budget;
+import seedu.spendswift.command.Category;
+import seedu.spendswift.command.Expense;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

@@ -1,6 +1,6 @@
-package seedu.duke.command;
+package seedu.spendswift.command;
 
-import seedu.duke.Format;
+import seedu.spendswift.Format;
 
 //@@author MayFairMI6
 public class Budget {

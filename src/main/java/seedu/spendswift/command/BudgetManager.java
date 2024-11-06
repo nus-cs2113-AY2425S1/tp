@@ -1,13 +1,14 @@
-package seedu.duke.command;
+package seedu.spendswift.command;
 
-import seedu.duke.Format;
-import seedu.duke.parser.InputParser;
+import seedu.spendswift.Format;
+import seedu.spendswift.parser.InputParser;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//@@author kq2003
 public class BudgetManager {
     private int lastResetMonth;
     private boolean isAutoResetEnabled;
