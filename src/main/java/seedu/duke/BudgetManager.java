@@ -101,7 +101,8 @@ public class BudgetManager {
 
         if (budgets.containsKey(existingCategory)) {
             budgets.get(existingCategory).setLimit(limit);
-            System.out.println("Updated budget for category '" + existingCategory + "' to " + Format.formatAmount(limit));
+            System.out.println("Updated budget for category '" + existingCategory + "' to "
+                    + Format.formatAmount(limit));
         } else {
             Budget newBudget = new Budget(existingCategory, limit);
             budgets.put(existingCategory, newBudget);
