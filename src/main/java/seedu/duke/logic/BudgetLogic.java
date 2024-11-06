@@ -169,6 +169,9 @@ public class BudgetLogic {
         LocalDate parsedDate = DateParser.parse(date);
         if (isCurrentMonth(parsedDate)) {
             modifyBalance(amount);
+            if (hasExceededBudget()) {
+                ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
+            }
             ui.displayBudgetBalanceMessage(budget.getBalance());
         }
     }
@@ -185,6 +188,9 @@ public class BudgetLogic {
         }
         if (isCurrentMonth(date)) {
             modifyBalance(amount);
+            if (hasExceededBudget()) {
+                ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
+            }
             ui.displayBudgetBalanceMessage(budget.getBalance());
         }
     }
@@ -212,6 +218,9 @@ public class BudgetLogic {
             }
         }
         budget.updateBalance(balance);
+        if (hasExceededBudget()) {
+            ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
+        }
         ui.displayBudgetBalanceMessage(budget.getBalance());
     }
 }

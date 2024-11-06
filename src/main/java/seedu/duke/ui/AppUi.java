@@ -77,6 +77,13 @@ public class AppUi {
     }
 
     /**
+     * Displays warning that budget has been exceeded
+     */
+    public void displayBudgetBalanceExceededMessage(double amount) {
+        System.out.println("You have exceeded your monthly budget of: " + String.format("$ %.2f", amount) +"!");
+    }
+
+    /**
      * Displays a message indicating that an unrecognized command was entered.
      * Suggests using the "help" command to list valid commands.
      */
