@@ -2,10 +2,10 @@
 title Meal and MealList Class Diagram
 
 class Meal {
-    - calories : Integer
+    - calories : int
     - name : String
     + Meal(String name, int calories)
-    + getCalories() : Integer
+    + getCalories() : int
     + getName() : String
 }
 

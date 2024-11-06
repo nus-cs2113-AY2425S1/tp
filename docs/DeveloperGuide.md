@@ -15,7 +15,6 @@ We used these third party libraries to develop our application:
 
 ### Meal Component
 
-
 ![Meal and MealList Class Diagram](./images/mealAndMealListClassDiagrams.png)
 
 The `Meal` component,
@@ -35,6 +34,22 @@ API: `MealList.java`
 - **Facilitates efficient comparisons and storage:** The class overrides `equals()` and `hashCode()` methods, which enables comparison of two `MealList` objects and allows it to be used in collections, ensuring that meal tracking remains accurate and consistent.
 
 ### Water Component
+
+![Water Class Diagram](./images/waterClassDiagram.png)
+
+The `Water` component,
+
+**Tracks daily water intake:** The `Water` class allows for recording individual water consumption entries throughout the day, stored in liters. Each entry is logged, providing a detailed trace of daily water consumption.
+
+**Attributes:** The main attribute of the `Water` class is waterList, a list of Float values representing individual water intake entries in liters.
+
+**Validation and error handling:** When adding water entries, the `Water` class enforces that the water amount is positive. Deletion attempts with invalid indexes are handled with exceptions, ensuring safe and predictable usage.
+
+**Supports collection-based functionality:** The `Water` class includes methods for adding and deleting water entries, checking if the list is empty, and retrieving the entire list of entries. Each action is logged, allowing developers to track and troubleshoot any changes to the water intake log.
+
+**User-friendly representation:** The toString() method formats and returns a string representation of all water entries. Each entry is listed with an index, making it easy to display in user interfaces and summaries.
+
+**Efficient storage and retrieval:** The getWaterList() method returns the full list of water intake entries, while the class’s clear and consistent data structure facilitates straightforward water consumption tracking and data retrieval.
 
 ### History Component
 
