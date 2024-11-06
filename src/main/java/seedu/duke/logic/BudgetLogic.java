@@ -56,17 +56,17 @@ public class BudgetLogic {
             if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("no")) {
                 isValidInput = true;
             } else {
-                System.out.println("--------------------------------------------\n");
+                System.out.println("--------------------------------------------");
                 System.out.println("Invalid input. Please enter 'yes' or 'no'.");
-                System.out.println("--------------------------------------------\n");
+                System.out.println("--------------------------------------------");
 
             }
         }
 
         if (input.equalsIgnoreCase("yes")) {
-            System.out.println("--------------------------------------------\n");
+            System.out.println("--------------------------------------------");
             System.out.println("Please set your budget amount:");
-            System.out.println("--------------------------------------------\n");
+            System.out.println("--------------------------------------------");
 
 
             double amount = 0;
@@ -90,14 +90,14 @@ public class BudgetLogic {
 
             budget.setBudgetAmount(amount);
             recalculateBalance(financialList);
-            System.out.println("--------------------------------------------\n");
+            System.out.println("--------------------------------------------");
             System.out.println("Your budget has successfully been set to: " + budget.getBudgetAmount());
             System.out.println("Your current monthly balance is: " + budget.getBalance());
-            System.out.println("--------------------------------------------\n");
+            System.out.println("--------------------------------------------");
         } else {
-            System.out.println("--------------------------------------------\n");
+            System.out.println("--------------------------------------------");
             System.out.println("Budget setting skipped.");
-            System.out.println("--------------------------------------------\n");
+            System.out.println("--------------------------------------------");
         }
     }
 
