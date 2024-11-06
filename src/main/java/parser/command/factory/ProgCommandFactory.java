@@ -18,8 +18,7 @@ import command.programme.edit.DeleteExerciseProgrammeCommand;
 import command.programme.edit.CreateDayProgrammeCommand;
 import command.programme.edit.DeleteDayProgrammeCommand;
 
-import exceptions.EmptyInputBuffBuddyException;
-import exceptions.MissingFlagBuffBuddyException;
+import exceptions.ProgrammeExceptions;
 import parser.FlagParser;
 import programme.Day;
 import programme.Exercise;
@@ -109,6 +108,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString The argument string containing program details, including days and exercises.
      * @return A {@link CreateProgrammeCommand} object that represents the request to create a new program.
+     * @throws ProgrammeExceptions when programme is missing name.
      */
     private Command prepareCreateCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -121,7 +121,7 @@ public class ProgCommandFactory {
         String progName = progParts[0].trim();
         if (progName.isEmpty()) {
             logger.log(Level.WARNING, "Programme name is empty");
-            throw new EmptyInputBuffBuddyException("Programme name");
+            throw ProgrammeExceptions.programmeMissingName();
         }
 
         for (int i = 1; i < progParts.length; i++) {
@@ -144,7 +144,6 @@ public class ProgCommandFactory {
         if (argumentString.isEmpty()) {
             argumentString = null;
         }
-
 
         int progIndex = parseIndex(argumentString);
 
@@ -230,7 +229,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString A {@link String} containing arguments to parse.
      * @return The specific {@link EditProgrammeCommand} object that corresponds to the flag detected.
-     * @throws IllegalArgumentException If no recognized edit command flag is present in the argument string.
+     * @throws ProgrammeExceptions If no recognized edit command flag is present in the argument string.
      */
     private EditProgrammeCommand prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -264,7 +263,7 @@ public class ProgCommandFactory {
             return prepareDeleteDayCommand(flagParser);
         }
 
-        throw new MissingFlagBuffBuddyException("Edit command");
+        throw ProgrammeExceptions.programmeEditMissingFlags();
     }
 
     /**
@@ -392,7 +391,7 @@ public class ProgCommandFactory {
         String[] dayParts  = dayString.split(EXERCISE_FLAG);
         String dayName = dayParts[0].trim();
         if (dayName.isEmpty()) {
-            throw new EmptyInputBuffBuddyException("Day");
+            throw ProgrammeExceptions.missingDayName();
         }
 
         Day day = new Day(dayName);
