@@ -39,7 +39,7 @@ public class CourseRepository {
         List<Course> courses = new ArrayList<>();
         List<String> lines = fileHandler.readAllLines();
         for (String line : lines) {
-            courses.add(CourseFormatter.parseCourseEntry(line));
+            courses.add(Course.parseCourseEntry(line));
         }
 
         logger.log(Level.INFO, COURSE_SIZE, courses.size());
@@ -47,7 +47,7 @@ public class CourseRepository {
     }
 
     public void addCourse(Course course) {
-        String courseEntry = CourseFormatter.formatCourseEntry(course);
+        String courseEntry = course.formatOutput();
         fileHandler.appendLine(courseEntry);
         logger.log(Level.INFO, COURSE_ENTRY, courseEntry);
     }
@@ -69,7 +69,7 @@ public class CourseRepository {
             throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS);
         }
         String courseLine = allCourses.get(index);
-        return CourseFormatter.parseCourseEntry(courseLine);
+        return Course.parseCourseEntry(courseLine);
     }
 }
 

@@ -1,5 +1,7 @@
 package seedu.exchangecoursemapper.courses;
 
+import static seedu.exchangecoursemapper.constants.Assertions.THREE_COURSE_PARTS;
+
 public class Course {
 
     private String puCourseCode;
@@ -26,5 +28,11 @@ public class Course {
 
     public String formatOutput(){
         return getNusCourseCode() + " | " + getPartnerUniversity() + " | " + getPuCourseCode();
+    }
+
+    public static Course parseCourseEntry(String courseEntry) {
+        String[] parts = courseEntry.split(" \\| ");
+        assert parts.length == 3 : THREE_COURSE_PARTS;
+        return new Course(parts[2], parts[0], parts[1]);
     }
 }

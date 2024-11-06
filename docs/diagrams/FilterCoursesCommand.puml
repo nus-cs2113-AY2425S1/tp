@@ -4,6 +4,7 @@ hide footbox
 actor CEG_Student
 participant ":FilterCoursesCommand" as FilterCoursesCommand
 participant ":Command" as Command
+participant ":Ui" as Ui
 
 CEG_Student -> FilterCoursesCommand: execute (userInput:String)
 activate FilterCoursesCommand
@@ -12,14 +13,28 @@ FilterCoursesCommand -> Command: createJsonObject()
 activate Command
 
 opt inputStream is null
-    Command -> Command: throw new IOException()
+    Command --> FilterCoursesCommand: throw new IOException()
 end
 
 Command --> FilterCoursesCommand: JsonObject
 deactivate Command
 
-FilterCoursesCommand -> FilterCoursesCommand: getNusCourseCode(userInput: String)
+FilterCoursesCommand -> FilterCoursesCommand: parseFilterInput(userInput: String)
 activate FilterCoursesCommand
+opt inputDetails does not contain a NUS course code to filter
+    FilterCoursesCommand --> CEG_Student: throw new IllegalArgumentException()
+end
+opt inputDetails contains more than one NUS course code to filter
+    FilterCoursesCommand --> CEG_Student: throw new IllegalArgumentException()
+end
+return inputDetails : String[]
+
+FilterCoursesCommand -> FilterCoursesCommand: getNusCourseCode(inputDetails: String)
+activate FilterCoursesCommand
+
+opt inputDetails does not contain a NUS course code to filter
+    FilterCoursesCommand --> CEG_Student: throw new IllegalArgumentException()
+end
 return courseToFind : String
 
 FilterCoursesCommand -> FilterCoursesCommand: displayMappableCourses(jsonObject : JsonObject, courseToFind : String)

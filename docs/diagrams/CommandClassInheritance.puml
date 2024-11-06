@@ -1,0 +1,21 @@
+@startuml
+!include .ClassDiagram.config
+
+class Command as "{abstract} \nCommand"{
+    +createJsonObject(): JsonObject
+}
+
+class CheckInformationCommand as "{abstract} \nCheckInformationCommand" extends Command {
+    +execute(userInput: String): void ABSTRACT
+}
+
+class PersonalTrackerCommand as "{abstract} \nPersonalTrackerCommand" extends Command {
+    +execute(userInput: String, storage: Storage): void ABSTRACT
+}
+
+note "CheckInformationCommand lists out information stored \nin the database or saved list based on user request" as N1
+N1..CheckInformationCommand
+note "PersonalTrackerCommand modifies the \nsaved plans list in the storage class" as N2
+N2..PersonalTrackerCommand
+
+@enduml
