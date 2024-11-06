@@ -165,6 +165,13 @@ public class Logic {
             }
         }
 
+        Enum<?> category = getCategoryFromInput(commandArguments, entry);
+
+        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
+        editEntryCommand.execute(financialList);
+    }
+
+    private Enum<?> getCategoryFromInput(HashMap<String, String> commandArguments, FinancialEntry entry) {
         Enum<?> category;
         String categoryString = commandArguments.get("/c");
         if (categoryString != null) {
@@ -175,9 +182,7 @@ public class Logic {
             assert entry instanceof Expense;
             category = ((Expense) entry).getCategory();
         }
-
-        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
-        editEntryCommand.execute(financialList);
+        return category;
     }
 
     /**
