@@ -13,7 +13,7 @@ keep track of what ingredients you have on hand.
 
 #### Features Implemented
 - Created the base Command Class and RecipeList class (PR #39)
-  - The Command Class acts as an abstract class for all other specific command classes to inehrit from.
+  - The Command Class acts as an abstract class for all other specific command classes to inherit from.
   - The RecipeList class deals with Recipe objects created by the user, such as storing and modifying them.
 - Created Exception classes (PR #51)
   - Wrote 3 different exception classes for different uses and 1 main parent exception class for them to inherit from 
