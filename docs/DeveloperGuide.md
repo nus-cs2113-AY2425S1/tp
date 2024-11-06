@@ -30,6 +30,11 @@ First , **fork** this repo, and clone the fork into your computer.
 | Ui              | Handles user interaction and CLI output, printing messages and data to the console                           |
 | TrainingSession | Represents a single training session, including exercises and metadata (e.g. date and description)           |
 | Exercise        | Represents different types of exercises available in the application, like pull-ups or shuttle runs          |
+| MoodLog         | Allows users to add, view, and delete mood entries, tracking mental health progress over time                |
+| FitnessGoal     | Allows users to set, list, and delete specific goals related to fitness and overall well-being               |
+| FoodTracker     | Enables users to log, view, and delete food items, with calorie tracking for nutritional monitoring          |
+| WaterTracker    | Allows users to add, view, and delete water intake logs to monitor daily hydration levels                    |
+|-----------------|--------------------------------------------------------------------------------------------------------------|
 
 ## Features
 
@@ -121,6 +126,35 @@ Additionally, the state diagram below shows the end state of the `editExercise` 
 
 ![Class_TrainingSessionEditState.png](Images/Class_TrainingSessionEditState.png)
 
+### Goals
+
+Goals allow users to set specific objectives within the application. Users can add goals using the
+`add-goal <description> <date> <time>` command and view a list of all current goals via list-goal. 
+Goals can also be deleted by their unique IDs using the `delete-goal <goal ID>` command. 
+This feature provides users with a clear structure for setting, tracking, and managing their fitness objectives. 
+Goals are stored separately from training sessions and are accessible as a distinct list.
+
+### Mood Log
+
+The Mood Log feature allows users to record and monitor their emotional well-being over time. 
+Users can add a mood entry with a description and view a list of all mood logs. Mood entries can be 
+deleted to allow for privacy or to remove outdated logs. This feature helps users maintain a mental
+health record alongside their physical fitness data.
+
+### Food Intake
+
+The FoodTracker class enables users to log, view, and delete food entries. Each entry records a 
+food item's name, quantity, and calorie count. This data is used to calculate total calorie intake,
+which can be viewed as a summary. The functionality supports daily nutritional monitoring, helping 
+users align their diet with fitness goals.
+
+### Water Intake
+
+Water intake tracking helps users monitor their daily hydration. Users can add entries with the 
+amount of water consumed, view a list of past entries, and delete specific records if needed. 
+This feature aids in maintaining a balanced hydration level, which is essential for overall health 
+and fitness performance.
+
 ### Points Calculation
 
 The **points calculation feature** is a significant part of the `ExerciseStation` system. It allows for the calculation
@@ -198,6 +232,9 @@ exercise across multiple sessions. The core steps in the workflow are as follows
 
 ![Sequence_graphExercisePerformance.png](Images/Sequence_graphExercisePerformance.png)
 
+
+
+
 ## Product scope
 ### Target user profile
 
@@ -222,6 +259,10 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 | ***      | user     | store my training sessions             | keep a record of my sessions when the app is closed |
 | **       | user     | calculate my NAPFA points per exercise | conveniently view my standing for each station      |
 | *        | user     | know my NAPFA achievement level        | know my NAPFA standard at a glance                  |
+| ***      | user     | add, view, and delete goals            | keep track of my fitness objectives                 |
+| ***      | user     | log my mood regularly                  | monitor and improve my mental well-being            |
+| ***      | user     | log food intake and calorie count      | manage my diet alongside my fitness regimen         |
+
 
 ## Non-Functional Requirements
 
