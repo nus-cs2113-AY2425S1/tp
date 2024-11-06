@@ -39,7 +39,8 @@ public class HelpCommand extends Command {
 
     private static void editHelp() {
         Ui.displayMessage("Use the edit command to edit an expense.");
-        Ui.displayMessage("Format: edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]");
+        Ui.displayMessage("Format: edit INDEX [/price PRICE] [/description DESCRIPTION] " + 
+                "[/category CATEGORY] [/date DATE]");
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - PRICE is a decimal number.");
         Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
