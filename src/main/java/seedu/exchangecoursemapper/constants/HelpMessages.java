@@ -44,7 +44,7 @@ public class HelpMessages {
             "compare pu/[PU_1] pu/[PU_2]\n" +
             "For example, compare pu/the university of western australia pu/the university of melbourne";
     public static final String COMMAND_FIND = "The find function allows users to input a NUS course that they\n" +
-            "want to find and get the relevant information for the data found.\n" +
+            "want to find and get the relevant course mapping plans in their personal tracker.\n" +
             "The format to use this feature is shown below:\n" +
             "find [NUS_COURSE_CODE]\n" +
             "For example, find cs2040";

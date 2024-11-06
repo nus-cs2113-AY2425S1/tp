@@ -31,6 +31,32 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 ## Features 
 
+### List all commands: `commands`
+Displays a list of all available commands, along with a brief description of each.
+
+Format: `commands`
+
+Example of usage: commands
+
+Expected output:
+```
+-----------------------------------------------------
+Here are the available commands:
+filter <subject code>        - Filter courses by subject code.
+set <SCHOOL_NAME>            - Set a partner university for course mapping.
+list schools                 - List all available partner universities.
+add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE> - Add mapped courses between NUS and partner universities.
+obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
+obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
+delete <TASK_NUMBER>         - Delete a partner university.
+list mapped                  - List all course mapping saved.
+compare pu/<uni1> pu/<uni2>  - Compare course mappings between 2 universities.
+find <NUS_COURSE_CODE>       - Find courses with subject code in your list.
+bye                          - End the program.
+To get more specific information of the commands, please use help <COMMAND>
+
+-----------------------------------------------------
+```
 
 ### Help Command: `help`
 This feature allows users to ask for help when unsure of how the commands work or how to use the commands.
@@ -232,6 +258,54 @@ Expected Output:
 Please provide a valid index of the course plan you would like to delete.
 ```
 
+### List Personal Tracker courses: `list mapped`
+Lists all the courses saved in your Personal Tracker.
+
+Format: `list mapped`
+
+Example of usage:
+```
+list mapped
+```
+
+Expected output:
+```
+Mapped Modules:
+-----------------------------------------------------
+1. cs2102 | The University of Melbourne | INFO20003
+2. cs3244 | The Australian National University | COMP3670
+-----------------------------------------------------
+```
+
+### Compare mapped courses between two universities: `compare`
+Compares the mapped courses between two partner universities, listing common and unique mappings.
+
+**Format**: `compare pu/UNIVERSITY_1 pu/UNIVERSITY_2`
+
+**Example of usage**:
+```plaintext
+compare pu/the university of melbourne pu/the australian national university
+```
+
+**Expected output**:
+```plaintext
+Comparison Results for The University of Melbourne and The Australian National University:
+Common Mappings:
+-----------------------------------------------------
+CS3244 | The University of Melbourne | COMP30027
+CS3244 | The Australian National University | COMP3670
+-----------------------------------------------------
+
+Unique Mappings - The University of Melbourne:
+-----------------------------------------------------
+CS2102 | The University of Melbourne | INFO20003
+-----------------------------------------------------
+
+Unique Mappings - The Australian National University:
+-----------------------------------------------------
+No unique mappings for The Australian National University.
+-----------------------------------------------------
+```
 
 ### Find courses in personalised tracker
 This feature allows users to search for NUS courses in their course mappings.
