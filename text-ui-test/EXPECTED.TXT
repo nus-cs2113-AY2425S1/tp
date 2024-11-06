@@ -194,7 +194,7 @@
 	-------------------------------------
 	-------------------------------------
 	Lack mandatory arguments.
-	search k/[keyword_1] [keyword_2] ... [keyword_n]
+	search k/ [keyword_1] [keyword_2] ... [keyword_n]
 	-------------------------------------
 	-------------------------------------
 	Transaction updated: Expense [amount=15.0, description=, date=2024-11-01, category=Food]
