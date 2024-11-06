@@ -126,7 +126,7 @@ public class Main {
             double remaining = monthlyBudget - monthlyExpense;
             ui.printMessage("This month's budget remaining: $" + String.format("%.2f", remaining));
         }else{
-            System.out.print("You haven't add a budget");
+            ui.printMessage("You haven't add a budget");
         }
         ui.printMessage(reminder);
     }
