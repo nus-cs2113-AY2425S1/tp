@@ -327,12 +327,17 @@ public class Storage {
         }
     }
     
+    /**
+     * Loads the financial data from a file.
+     * This includes loading transactions and budget information.
+     *
+     * @param budgetLogic The logic to handle budget-related operations.
+     * @return A FinancialList containing the loaded transactions and budget information.
+     */
     public FinancialList loadFromFile(BudgetLogic budgetLogic) {
         try {
             FinancialList theList = loadTransactionsFromFile();
-
             loadBudgetFromFile(theList, budgetLogic);
-
             return theList;
         }
         catch (Exception e) {
