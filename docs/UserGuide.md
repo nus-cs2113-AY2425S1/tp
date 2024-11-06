@@ -144,6 +144,7 @@ Parameters:
   **Alias**: `/addDay` – Either `/ad` or `/addDay` can be used to add a day.
 
 Example: `prog edit /p 1 /ad "Cardio Day"`
+
 Creates a new empty Day named "Cardio Day" in Programme 1.
 
 ```plaintext
@@ -171,6 +172,7 @@ Parameters:
   **Alias**: `/removeDay` – Either `/xd` or `/removeDay` can be used to delete a day.
 
 Example: `prog edit /p 1 /xd 1`
+
 Deletes day 1 in programme 1
 
 ```plaintext
@@ -205,7 +207,8 @@ Parameters:
   **Alias**: `/calories` – Either `/c` or `/calories` can be used to specify the calorie count.
 
 Example: `prog edit /p 1 /d 1 /a /n Push-Up /w 30 /r 15 /s 3 /c 100`
-Add exercise of push up with weight of 30, 15 reps, 3 sets, burning 100 calories in day 1 of programme 1.
+
+Add an exercise called 'Push Up' with a weight of 30, 15 reps, 3 sets, and 100 calories burned to Day 1 of Programme 1.
 
 ```plaintext
 Created new exercise:
@@ -229,7 +232,8 @@ Parameters:
   **Alias**: `/removeExercise` – Either `/xe` or `/removeExercise` can be used to delete an exercise.
 
 Example: `prog edit /p 1 /d 1 /x 1`
-Delete exercise indexed 1 in day 1 of programme 1.
+
+Delete the exercise at index 1 in Day 1 of Programme 1.
 
 ```plaintext
 Deleted exercise:
@@ -266,7 +270,8 @@ This Edit Command must have at least 1 of the arguments below.
     **Alias**: `/calories` – Either `/c` or `/calories` can be used to specify the calorie count.
 
 Example: `prog edit /p 1 /d 1 /u 1 /w 30 /r 12`
-Updates Exercise 1 on Day 1 of Programme 1, setting the weight to 30 and resp to 12.
+
+Update Exercise 1 on Day 1 of Programme 1 by setting the weight to 30 and reps to 12.
 
 ```plaintext
 Updated exercise: Push-Up: 3 sets of 15 at 30 | Burnt 100 cals
