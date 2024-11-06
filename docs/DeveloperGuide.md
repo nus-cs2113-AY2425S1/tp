@@ -5,7 +5,7 @@
 Certain aspects of YMFC's code was inspired from the following member(s) IPs:
 
 [Sanjith](http://github.com/KSanjith/ip) : Referenced to develop the working mechanisms of YMFC's storage class
-
+[Sze Kang](https://github.com/gskang-22/ip) : Referenced to develop the working mechanisms of YMFC's command classes
 <div style="page-break-after: always;"></div>
 
 ## Design & implementation
@@ -59,7 +59,7 @@ A valid recipe object contains the following fields:
 The formatting of how a recipe is displayed and saved is handled by this class.
 
 ### RecipeList Class
-The RecipeList class represents a list of any non-negative integer number of recipes. 
+The RecipeList class represents a list of recipes. 
 This class handles the addition, deletion and editing of recipes.
 
 Shown below is a class diagram detailing the interaction between `RecipeList` and `Recipe`:
@@ -68,15 +68,54 @@ Shown below is a class diagram detailing the interaction between `RecipeList` an
 <div style="page-break-after: always;"></div>
 
 ### Ingredient Class
-The ingredient class represents a singular ingredient added by the user or loaded from the storage database.
-A valid ingredient object contains the following field:
-+ Name
+The 'Ingredient' class represents an individual ingredient added by the user or loaded from the storage database.
+
+#### Implementation Details
+
+1. Attributes:
+   - String Name
+     - Stores the name of the ingredient, which serves as its unique identifier
+2. Constructor:
+   - Ingredient(String name): 
+     - Initializes an Ingredient instance with the specified name
+3. Methods:
+   - boolean equals(Ingredient ingredientToCheck):
+     - Compares the current Ingredient with another Ingredient based on their names
+   - @Override boolean equals(Object object):
+     - An overridden method that supports Java collection operations like retainAll and removeAll, allowing ingredients 
+to be compared based on name alone in collections
+   - String toString():
+     - Returns the ingredient's name
+   - String toSaveString():
+     - Returns a formatted string for saving ingredient data to a text file
+     - Follows the format "new n/<ingredient_name>"
 
 The formatting of how an ingredient is displayed and saved is handled by this class.
 
 ### IngredientList Class
-The IngredientList class represents a list of any non-negative integer number of ingredients.
+The IngredientList class represents a list of ingredients.
 This class handles the addition, deletion and editing of ingredients.
+
+#### Implementation Details
+1. Attributes: 
+   - ArrayList<Ingredient> ingredients: Holds a list of Ingredient objects, representing the ingredients in the list
+2. Constructor:
+   - IngredientList():
+   Initializes an empty list of ingredients.
+3. Methods:
+   - void addIngredient(Ingredient ingredient):
+     - Adds an Ingredient to the list 
+   - ArrayList<Ingredient> getIngredients():
+     - Returns the current list of ingredients
+   - Ingredient getIngredient(int id):
+     - Retrieves an ingredient by its index in the list
+   - boolean removeIngredientByName(String name):
+     - Removes an Ingredient by name
+     - Returns true if the ingredient was found and removed, otherwise false
+   - int getCounter():
+     - Returns the number of ingredients in the list
+   - void sortAlphabetically():
+     - Sorts the ingredients list alphabetically by ingredient name
 
 Shown below is a class diagram detailing the interaction between `IngredientList` and `Ingredient`:
 ![ingredientClasses.png](img/ClassDiagrams/ingredientsClassDiagram.png)
@@ -110,7 +149,6 @@ Shown below is a class diagram detailing the interaction between the parent `Com
 2. Exit signal: If a command is meant to terminate the app (E.g. `ByeCommand`), set `isBye` to true
 3. Execution: Call `execute()`, performing the desired action and interacting with YMFC's data and UI components
 
-
 #### 3. Adding new `Command` Classes
 - Create a `Command` class:
   1. Inherit from `Command`: Each new command class extends `Command`, inheriting its structure and providing a specific 
@@ -123,11 +161,11 @@ implementation of the `execute()` method
 
 <div style="page-break-after: always;"></div>
 
-#### Example of `Command` Child Classes
+#### `Command` Child Classes
 
 1. `AddRecipeCommand` Class
-The AddRecipeCommand class adds a newly created Recipe object to the currentRecipeList object's ArrayList of Recipes.
-
+- The AddRecipeCommand class adds a newly created Recipe object to the currentRecipeList object's ArrayList of Recipes
+ 
 Shown below is a sequence diagram detailing how a new recipe is added using the AddRecipeCommand object,
 starting from parsing the user input to the addition of the recipe to the recipeList object,
 to finally printing the "recipe added" message to the User on the CLI:
@@ -136,7 +174,8 @@ to finally printing the "recipe added" message to the User on the CLI:
 <div style="page-break-after: always;"></div>
 
 2. `EditCommand` Class
-The EditCommand class finds an existing recipe in recipelist by name, and then replaces its parameter
+
+- The EditCommand class finds an existing recipe in recipelist by name, and then replaces its parameter
 with the new parameters that the user inputted.
 
 Shown below is a sequence diagram detailing how an existing recipe is modified using the EditCommand object,
@@ -145,6 +184,47 @@ to finally modifying and saving the recipe in the RecipeList:
 ![EditCommand.png](img/SequenceDiagrams/EditRecipesSequenceDiagram.png)
 
 <div style="page-break-after: always;"></div>
+
+3. `AddIngredientCommand` Class
+- The `AddRecipeCommand` class is responsible for adding a new recipe to `RecipeList`
+- When executed, it takes a `Recipe` object, adds it to the `RecipeList`, saves the updated list to the storage, and 
+notifies the user of the addition through the `Ui` component.
+4. `ByeCommand` Class
+- The `ByeCommand` class represents the command to terminate the application
+- When executed, it signals the application to exit by setting a flag (`isBye`) 
+and displays a farewell message to the user
+5. `DeleteCommand`
+- The `DeleteCommand` class represents the command to delete a recipe by its name from `RecipeList` 
+- When executed, this command searches `RecipeList` for the recipe, removes it if found, saves the updated list to the
+storage, and informs the user of the successful deletion or an error if the recipe is not found
+6. `DeleteIngredientCommand` Class
+- The `DeleteIngredientCommand` class is responsible for deleting an `Ingredient` from the `IngredientList` based on 
+its name
+- Upon execution, it removes the specified `Ingredient`, updates the `Ingredientlist` in the storage, and notifies 
+the user about the deletion
+7. `FindCommand` Class
+- 
+8. `FindIngredCommand` Class
+- 
+9. `HelpCommand` Class
+- The `HelpCommand` class is designed to provide the user with a list of available commands and detailed instructions 
+on how to use them
+- When executed, it calls the `printHelp()` method of the `Ui` to display help information
+10. `ListCommand` Class
+- The `ListCommand` class is designed to list all the recipes present in the `RecipeList`
+- When executed, it retrieves the list of recipes and displays them to the user through the UI
+11. `ListIngredientsCommand` Class
+- The `ListIngredientsCommand` class is responsible for listing all the ingredients currently stored in the 
+`IngredientList`
+- When executed, it retrieves the list of ingredients and displays them to the user through the UI
+12. `RandomCommand` Class
+- 
+13. `RecommendCommand` Class
+- 
+14. `SortCommand` Class
+- 
+15. `SortIngredientsCommand` Class
+- ~~~~
 
 ### Parser Class
 Self-explanatory, made for parsing user's input command. This class only consist of one public static method 
