@@ -189,6 +189,9 @@
 	Error tracking progress: Your year and month format is invalid!
 	-------------------------------------
 	-------------------------------------
+	Invalid command.
+	-------------------------------------
+	-------------------------------------
 	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	Expense [amount=1000000.0, description=Dinner, date=2024-11-01, category=LessLuxury]
 	-------------------------------------

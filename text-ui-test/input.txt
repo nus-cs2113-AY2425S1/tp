@@ -72,6 +72,8 @@ history
 track m/ 2024-11
 track m/ 13
 
+foo
+
 search k/ Dinner
 search k/
 
