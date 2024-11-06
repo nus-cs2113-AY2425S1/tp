@@ -87,9 +87,8 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (!isValidFormat(line)) {
-                    System.out.println("Invalid file format detected. Resetting file...");
-                    resetFile();
-                    return;
+                    System.out.println("Skipping invalid line in file: " + line);
+                    continue;  // Skip the invalid line instead of throwing an error
                 }
 
                 if (!(line.startsWith("FAVOURITES:"))) {
@@ -136,20 +135,11 @@ public class Storage {
         }
         return line.matches(
                 "\\d+ \\| [^|]+ \\| [^|]"
-                        + "+ \\| \\d{2}/\\d{2}/\\d{4} \\| \\d{2}/\\d{2}/\\d{4} \\| [^|]"
-                        + "+ \\| [^|]+ \\| .*");
+                        + "+ \\| \\d{2}/\\d{2} \\| \\d{2}/\\d{2} "
+                        + "\\| ([^|]*) \\| [^|]+ \\| .*"
+        );
     }
 
-    private static void resetFile() {
-        File file = new File(FILE_PATH);
-        if (file.delete()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error while creating new file: " + e.getMessage());
-            }
-        }
-    }
 
 
 
