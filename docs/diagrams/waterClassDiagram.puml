@@ -1,0 +1,13 @@
+@startuml
+title Meal and MealList Class Diagram
+
+class Water {
+    - waterList : ArrayList<Float>
+    + Water(): void
+    + isEmpty() : boolean
+    + addWater(float water) : void
+    + deleteWater(int index) : float
+    + getWaterList() : ArrayList<Float>
+}
+
+@enduml
