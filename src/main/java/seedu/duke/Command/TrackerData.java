@@ -1,8 +1,4 @@
-package seedu.duke;
-
-import seedu.duke.Command.Budget;
-import seedu.duke.Command.Category;
-import seedu.duke.Command.Expense;
+package seedu.duke.Command;
 
 import java.util.ArrayList;
 import java.util.HashMap;
