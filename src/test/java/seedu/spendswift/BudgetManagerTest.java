@@ -1,14 +1,31 @@
-package seedu.duke;
+package seedu.spendswift;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.api.function.Executable;
 
+import seedu.spendswift.command.BudgetManager;
+import seedu.spendswift.command.CategoryManager;
+import seedu.spendswift.command.ExpenseManager;
+import seedu.spendswift.command.TrackerData;
+import seedu.spendswift.command.Budget;
+import seedu.spendswift.command.Category;
+import seedu.spendswift.command.Expense;
+
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Calendar;
 import java.util.stream.Stream;
+
+// Static imports for specific assertion methods
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BudgetManagerTest {
 
