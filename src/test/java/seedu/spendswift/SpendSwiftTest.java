@@ -1,6 +1,6 @@
 //@@author glenda-1506
 package seedu.spendswift;
-
+import java.util.Calendar;
 import org.junit.jupiter.api.Test;
 import seedu.spendswift.command.CategoryManager;
 import seedu.spendswift.command.ExpenseManager;
@@ -10,9 +10,11 @@ import seedu.spendswift.command.Category;
 import seedu.spendswift.command.Expense;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ExpenseTest {
     @Test
@@ -315,3 +317,136 @@ class ExpenseManagerTest {
         assertEquals(1, trackerData.getExpenses().size());
     }
 }
+
+Class BudgetManagerTest {
+    private BudgetManager budgetManager;
+    private TrackerData trackerData;
+
+    @BeforeEach
+    void setUp() {
+        budgetManager = new BudgetManager();
+        trackerData = new TrackerData();
+    }
+
+    @Test
+    void testSetBudgetValidCategory() {
+        String categoryName = "Utilities";
+        double limit = 500.0;
+        CategoryManager.addCategory(trackerData, categoryName);
+        budgetManager.setBudgetLimit(trackerData, categoryName, limit);
+        Category category = findCategory(trackerData, categoryName);
+        assertNotNull(category);
+        assertTrue(trackerData.getBudgets().containsKey(category));
+        assertEquals(limit, trackerData.getBudgets().get(category).getLimit());
+    }
+
+    @Test
+    void testSetBudgetForNonExistingCategory() {
+        String categoryName = "Entertainment";
+        double limit = 300.0;
+        budgetManager.setBudgetLimit(trackerData, categoryName, limit);
+        Category category = findCategory(trackerData, categoryName);
+        assertNotNull(category);
+        assertTrue(trackerData.getBudgets().containsKey(category));
+        assertEquals(limit, trackerData.getBudgets().get(category).getLimit());
+    }
+
+    @Test
+    void testSetBudgetWithInvalidLimit() {
+        String categoryName = "Groceries";
+        double invalidLimit = -100.0;
+        CategoryManager.addCategory(trackerData, categoryName);
+        budgetManager.setBudgetLimit(trackerData, categoryName, invalidLimit);
+        Category category = findCategory(trackerData, categoryName);
+        assertNotNull(category);
+        assertEquals(invalidLimit, trackerData.getBudgets().get(category).getLimit());
+    }
+
+    @Test
+    void testAddExpenseWithinBudget() {
+        String categoryName = "Food";
+        double budgetLimit = 200.0;
+        double expenseAmount = 150.0;
+        CategoryManager.addCategory(trackerData, categoryName);
+        budgetManager.setBudgetLimit(trackerData, categoryName, budgetLimit);
+        ExpenseManager.addExpense(trackerData, "Lunch", expenseAmount, categoryName);
+        Category category = findCategory(trackerData, categoryName);
+        assertNotNull(category);
+        assertEquals(expenseAmount, trackerData.getExpenses().stream()
+                .filter(e -> e.getCategory().equals(category))
+                .mapToDouble(Expense::getAmount)
+                .sum());
+    }
+
+    @Test
+    void testAddExpenseExceedingBudget() {
+        String categoryName = "Travel";
+        double budgetLimit = 300.0;
+        double expenseAmount = 350.0;
+        CategoryManager.addCategory(trackerData, categoryName);
+        budgetManager.setBudgetLimit(trackerData, categoryName, budgetLimit);
+        ExpenseManager.addExpense(trackerData, "Train Ticket", expenseAmount, categoryName);
+        Category category = findCategory(trackerData, categoryName);
+        assertNotNull(category);
+        assertTrue(expenseAmount > budgetLimit);
+        assertEquals(expenseAmount, trackerData.getExpenses().stream()
+                .filter(e -> e.getCategory().equals(category))
+                .mapToDouble(Expense::getAmount)
+                .sum());
+    }
+
+    @Test
+    void testToggleAutoReset() {
+        budgetManager.toggleAutoReset();
+        assertTrue(getAutoResetStatus(budgetManager));
+        budgetManager.toggleAutoReset();
+        assertFalse(getAutoResetStatus(budgetManager));
+    }
+
+    @Test
+    void testSimulateMonthChangeWithAutoReset() {
+        budgetManager.toggleAutoReset();
+        simulateMonthChange(budgetManager);
+        budgetManager.checkAndResetBudgets(trackerData);
+        assertEquals(Calendar.getInstance().get(Calendar.MONTH), getLastResetMonth(budgetManager));
+    }
+
+    @Test
+    void testSimulateMonthChangeWithoutAutoReset() {
+        if (getAutoResetStatus(budgetManager)) {
+            budgetManager.toggleAutoReset();
+        }
+        simulateMonthChange(budgetManager);
+        budgetManager.checkAndResetBudgets(trackerData);
+        assertNotEquals(Calendar.getInstance().get(Calendar.MONTH), getLastResetMonth(budgetManager));
+    }
+
+    @Test
+    void testViewBudgetsWithBudgetsSet() {
+        String categoryName = "Category_ViewBudgetSet";
+        double budgetLimit = 500.0;
+        double expenseAmount = 250.0;
+        CategoryManager.addCategory(trackerData, categoryName);
+        budgetManager.setBudgetLimit(trackerData, categoryName, budgetLimit);
+        ExpenseManager.addExpense(trackerData, "Expense", expenseAmount, categoryName);
+        Category category = findCategory(trackerData, categoryName);
+        Budget budget = trackerData.getBudgets().get(category);
+        assertNotNull(budget);
+        double totalSpent = trackerData.getExpenses().stream()
+                .filter(e -> e.getCategory().equals(category))
+                .mapToDouble(Expense::getAmount)
+                .sum();
+        assertEquals(expenseAmount, totalSpent);
+        assertEquals(budgetLimit - expenseAmount, budget.getRemainingLimit());
+    }
+
+    @Test
+    void testViewBudgetsWithNoBudgetsSet() {
+        String categoryName = "Category_NoBudget";
+        ExpenseManager.addExpense(trackerData, "RandomExpense", 100.0, categoryName);
+        Category category = findCategory(trackerData, categoryName);
+        assertFalse(trackerData.getBudgets().containsKey(category));
+    }
+}
+
+
