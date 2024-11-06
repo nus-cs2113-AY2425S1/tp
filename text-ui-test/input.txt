@@ -1,2 +1,19 @@
 list
+delete 1
+select 1
+back
+add Tom /tag dead
+add Jany
+todo task1
+select 10
+select 1
+todo task1
+deadline task2
+deadline task2 /by error
+deadline task2 /by 2359
+deadline task3 /by 10 Jan 2040 2359
+back
+delete 10
+delete 2
+delete 1
 exit

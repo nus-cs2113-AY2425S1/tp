@@ -1,7 +1,19 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+!include style.puml
+skinparam ArrowFormatStyle plain
+
 actor User
+participant Parser PARSER_COLOR
+participant FindParser PARSER_COLOR
+participant Find PARSER_COLOR
+participant FindPatientCommand PARSER_COLOR
+participant Hospital PARSER_COLOR
+participant CommandResult PARSER_COLOR
+participant FindTaskCommand PARSER_COLOR
+participant TaskList PARSER_COLOR
+participant Logger LOGGER_COLOR
 
 User -> Parser : parseCommand(line, state)
 Parser -> FindParser : execute(line, state)

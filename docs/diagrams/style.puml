@@ -41,6 +41,7 @@
 
 !define USER_COLOR #000000
 
+!define LOGGER_COLOR #aeff00
 skinparam classAttributeIconSize 0
 
 

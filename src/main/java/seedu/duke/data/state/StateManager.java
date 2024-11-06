@@ -128,7 +128,7 @@ public class StateManager {
     public CommandResult runTaskState(String commandInput, Command command, Hospital hospital)
             throws InvalidCommandException {
         if (command == null) {
-            throw new InvalidCommandException("Invalid task command.");
+            throw new InvalidCommandException("");
         }
 
         if (hospital.getSelectedPatient() == null) {
