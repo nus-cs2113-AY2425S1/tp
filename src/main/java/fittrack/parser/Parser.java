@@ -24,7 +24,10 @@ import static fittrack.messages.Messages.ADD_SESSION_COMMAND;
 import static fittrack.messages.Messages.DELETE_REMINDER_COMMAND;
 import static fittrack.messages.Messages.DELETE_SESSION_COMMAND;
 import static fittrack.messages.Messages.EDIT_EXERCISE_COMMAND;
+import static fittrack.messages.Messages.EDIT_MOOD_COMMAND;
 import static fittrack.messages.Messages.HELP_COMMAND;
+import static fittrack.messages.Messages.INVALID_DATE_FORMAT_MESSAGE;
+import static fittrack.messages.Messages.INVALID_SESSION_INDEX_MESSAGE;
 import static fittrack.messages.Messages.LIST_REMINDER_COMMAND;
 import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
 import static fittrack.messages.Messages.LIST_UPCOMING_REMINDER_COMMAND;
@@ -129,10 +132,10 @@ public class Parser {
             try {
                 validEditDetails(description,sessionList.size());
 
-                String[] userinput = description.split(" ");
-                int sessionIndex = Integer.parseInt(userinput[1]);
-                String exerciseAcronym = userinput[2];
-                String exerciseData = userinput[3];
+                String[] userInput = description.split(" ");
+                int sessionIndex = Integer.parseInt(userInput[1]);
+                String exerciseAcronym = userInput[2];
+                String exerciseData = userInput[3];
 
                 sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData,
                         true);
@@ -285,71 +288,29 @@ public class Parser {
             user.getCalorieIntake().listCalories();
             break;
 
-        case "add-mood":
-            String[] moodParts = description.split(" ", 4);
-            if (moodParts.length < 3) {
-                System.out.println("Please specify mood, date, time, and an optional description.");
+        case EDIT_MOOD_COMMAND:
+            String[] editMoodParts = description.split(" ", 2);
+            if (editMoodParts.length < 2) {
+                System.out.println("Please specify the session-ID and new mood");
                 return;
             }
-            String mood = moodParts[0];
-            LocalDateTime moodTimestamp;
             try {
-                moodTimestamp = parseMoodTimestamp(moodParts[1], moodParts[2]);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid date/time format: " + e.getMessage());
-                return;
-            }
-            String moodDescription = moodParts.length > 3 ? moodParts[3] : "";
-            fittrack.trainingsession.MoodLog newMoodLog =
-                new fittrack.trainingsession.MoodLog(mood, moodTimestamp, moodDescription);
-            user.addMoodLog(newMoodLog);
-            System.out.println("Mood log added: " + newMoodLog);
-            break;
 
-        case "edit-mood":
-            String[] editMoodParts = description.split(" ", 5);
-            if (editMoodParts.length < 5) {
-                System.out.println("Please specify the mood ID, new mood, date, time, and an optional description.");
-                return;
-            }
-            try {
-                int moodId = Integer.parseInt(editMoodParts[0]); // Mood ID from the first part
+                // Parse session ID and new Mood String from provided user input
+                int sessionId = validSessionIndex(Integer.parseInt(editMoodParts[0]) - 1, sessionList.size());
                 String newMood = editMoodParts[1]; // New mood from the second part
-                LocalDateTime newMoodTimestamp =
-                    parseMoodTimestamp(editMoodParts[2], editMoodParts[3]); // Date and time
-                String newMoodDescription = editMoodParts.length > 4 ? editMoodParts[4] : ""; // Optional description
 
                 // Call the edit method with the necessary arguments
-                user.editMoodLog(moodId, newMood, newMoodTimestamp, newMoodDescription);
-                System.out.println("Mood log updated: " + newMood);
+                TrainingSession sessionToEdit = sessionList.get(sessionId);
+
+                sessionToEdit.setMood(newMood);
+                System.out.println("Mood updated: " + newMood);
             } catch (NumberFormatException e) {
-                System.out.println("Invalid mood ID. Please provide a numeric ID.");
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid date/time format: " + e.getMessage());
+                System.out.println(INVALID_SESSION_INDEX_MESSAGE);
             } catch (Exception e) {
                 System.out.println("An error occurred: " + e.getMessage());
-                e.printStackTrace(); // Print stack trace for more details
             }
-            break;
-
-        case "list-mood":
-            user.listMoodLogs(); // Assuming this method prints out the mood logs.
-            break;
-
-        case "delete-mood":
-            if (description.isEmpty()) { // Check if description is provided
-                System.out.println("Please provide a mood ID.");
-                break;
-            }
-            try {
-                int moodId = Integer.parseInt(description); // Convert the description to an integer
-                user.deleteMoodLog(moodId); // Call delete method
-                System.out.println("Mood log deleted with ID: " + moodId);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please provide a numeric mood ID.");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("No mood log found with that ID.");
-            }
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
 
         default:
@@ -396,7 +357,8 @@ public class Parser {
                 return date.atStartOfDay();
             }
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date format. Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
+            throw new IllegalArgumentException(INVALID_DATE_FORMAT_MESSAGE
+                    + "Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
         }
     }
     private static LocalDateTime parseMoodTimestamp(String date, String time) {
