@@ -264,8 +264,20 @@ public class Parser {
             break;
 
         case "add-food":
-            user.getFoodIntake().addFood(description);
+            String[] foodParts = description.split(" ", 2); // Split description into parts
+            if (foodParts.length > 1) { // Ensure there are both food name and calories
+                String foodName = foodParts[0];
+                try {
+                    int calories = Integer.parseInt(foodParts[1].trim());
+                    user.getFoodIntake().addFood(foodName, calories); // Assuming this is the correct method to add food
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a valid number for calories.");
+                }
+            } else {
+                System.out.println("Please provide both food name and calories.");
+            }
             break;
+
 
         case "delete-food":
             int foodIndex = Integer.parseInt(description) - 1;
@@ -274,20 +286,6 @@ public class Parser {
 
         case "list-food":
             user.getFoodIntake().listFood();
-            break;
-
-        case "add-calories":
-            int calorieAmount = Integer.parseInt(description);
-            user.getCalorieIntake().addCalories(calorieAmount);
-            break;
-
-        case "delete-calories":
-            int calorieIndex = Integer.parseInt(description) - 1;
-            user.getCalorieIntake().deleteCalories(calorieIndex);
-            break;
-
-        case "list-calories":
-            user.getCalorieIntake().listCalories();
             break;
 
         case "add-mood":
@@ -309,6 +307,20 @@ public class Parser {
                 new fittrack.trainingsession.MoodLog(mood, moodTimestamp, moodDescription);
             user.addMoodLog(newMoodLog);
             System.out.println("Mood log added: " + newMoodLog);
+            break;
+
+        case "list-intake":
+            // Combine water, food, and calorie lists into one daily intake summary
+            System.out.println("Here is your daily intake summary:");
+
+            // Water Intake
+            System.out.println("\nWater Intake:");
+            user.getWaterIntake().listWater();  // assuming listWater displays water intake
+
+            // Food Intake
+            System.out.println("\nFood Intake:");
+            user.getFoodIntake().listFood();  // assuming listFood displays food intake
+
             break;
 
         case "edit-mood":

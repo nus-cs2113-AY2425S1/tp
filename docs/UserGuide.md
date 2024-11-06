@@ -314,14 +314,14 @@ View a list of daily food intake
 to have a more comprehensive understanding
 of factors affecting my fitness.
 
-**Format**: `add-food (food name)`
+**Format**: `add-food (food name) (calories)`
 
-**Example**: `add-food apple`
+**Example**: `add-food apple 100`
 
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've added food item: apple
+Got it. I've added food item: apple (100 calories, 06/11/2024 17:32:07).
 ____________________________________________________________________________________________________
 ```
 
@@ -336,7 +336,7 @@ the daily food intake list.
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've deleted food item: apple
+Got it. I've deleted food item: apple (100 calories) at 06/11/2024 17:30:57
 ____________________________________________________________________________________________________
 ```
 
@@ -351,10 +351,8 @@ that have been added for the day.
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Here is your food intake list:
-1. apple
-2. banana
-There are 2 food items in your list.
+Here is your food intake list: 
+1. apple (100 calories) at 06/11/2024 17:32:07
 ____________________________________________________________________________________________________
 ```
 
@@ -369,7 +367,7 @@ to track hydration levels.
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've added 500 ml of water.
+Got it. I've added 500ml of water at 06/11/2024 17:33:05.
 ____________________________________________________________________________________________________
 ```
 
@@ -379,12 +377,12 @@ from the daily water intake record.
 
 **Format**: `delete-water (water ml)`
 
-**Example**: `delete-water 500`
+**Example**: `delete-water 1`
 
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've deleted 500 ml of water.
+Got it. I've deleted 500 ml (06/11/2024 17:30:46).
 ____________________________________________________________________________________________________
 ```
 
@@ -399,60 +397,35 @@ intake recorded for the day.
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Here is your water intake (in ml):
-1. 500 ml
-2. 300 ml
-There are 2 entries in your water intake list.
+Here is your water intake (in ml): 
+1. 500 ml (06/11/2024 17:34:14)
 ____________________________________________________________________________________________________
 ```
 
-### 24. Add Calorie Intake: add-calories
-**Purpose**: Add calorie intake for the day to 
-keep track of energy consumption.
+### 24. List Daily Intake: list-intake
+**Purpose**: Display the list of all food items
+and water items that have been added for the day.
 
-**Format**: `add-calories (calorie amount)`
+**Format**: `list-intake`
 
-**Example**: `add-calories 250`
+**Example**: `list-intake`
 
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've added calorie intake: 250
+Here is your daily intake summary:
+
+Water Intake:
+Here is your water intake (in ml): 
+1. 500 ml (06/11/2024 17:35:24)
+
+Food Intake:
+Here is your food intake list: 
+1. apple (100 calories) at 06/11/2024 17:35:18
 ____________________________________________________________________________________________________
 ```
 
-### 25. Delete Calorie Intake: delete-calories
-**Purpose**: Remove a specific calorie entry from the daily calorie record.
-
-**Format**: `delete-calories (calorie amount)`
-
-**Example**: `delete-calories 250`
-
-**Expected Output**:
-```
-____________________________________________________________________________________________________
-Got it. I've deleted the calorie intake: 250
-____________________________________________________________________________________________________
-```
-
-### 26. List Calorie Intake: list-calories
-**Purpose**: Display the total calorie intake recorded for the day.
-
-**Format**: `list-calories`
-
-**Example**: `list-calories`
-
-**Expected Output**:
-```
-____________________________________________________________________________________________________
-Here is your calorie intake:
-1. 250 calories
-2. 300 calories
-   There are 2 entries in your calorie intake list.
-____________________________________________________________________________________________________
-```
-
-### 27. Add Mood Log: add-mood
+### 28. Add Mood Log: add-mood
 
 **Purpose**: Record a mood entry for a specific date and time.
 
@@ -467,7 +440,7 @@ Mood log added: Mood: happy, Timestamp: 01/11/2024 18:30:00, Description: feelin
 ____________________________________________________________________________________________________
 ```
 
-### 28. Delete Mood Log: delete-mood
+### 29. Delete Mood Log: delete-mood
 **Purpose**: Remove a specific mood entry by its ID.
 
 **Format**: `delete-mood <mood ID>`
@@ -481,7 +454,7 @@ Mood log deleted with ID: 1
 ____________________________________________________________________________________________________
 ```
 
-### 29. List Mood Logs: list-mood
+### 30. List Mood Logs: list-mood
 **Purpose**: Display all recorded mood entries.
 
 **Format**: `list-mood`
@@ -497,33 +470,31 @@ ________________________________________________________________________________
 ```
 
 ## FitTrackCLI's Command Summary
-| Command             | Format                                                         | Example                            |
-|---------------------|----------------------------------------------------------------|------------------------------------|
-| **set**             | `set GENDER AGE`                                               | `set male 12`                      |
-| **help**            | `help`                                                         | `help`                             |
-| **add**             | `add SESSION_NAME`                                             | `add session1`                     |
-| **list**            | `list`                                                         | `list`                             |
-| **view**            | `view SESSION_INDEX`                                           | `view 1`                           |
-| **edit**            | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45`                     |
-| **delete**          | `delete SESSION_INDEX `                                        | `delete 1 `                        |
-| **exit**            | `exit`                                                         | `exit`                             |
-| **remind**          | `remind REMINDER_NAME DEADLINE`                                | `remind run 12/12/2024`            |
-| **list-remind**     | `list-goal`                                                    | `list-remind`                      |
-| **upcoming-remind** | `upcoming-remind`                                              | `upcoming-remind`                  |
-| **delete-remind**   | `delete-remind REMINDER_INDEX`                                 | `delete-remind 1`                  |
-| **add-goal**        | `add-goal GOAL_NAME DEADLINE`                                  | `add-goal run 12/12/2024 14:00:00` |
-| **delete-goal**     | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                    |
-| **list-goal**       | `list-goal`                                                    | `list-goal`                        |
-| **graph**           | `graph EXERCISE_ACRONYM`                                       | `graph PU`                         |
-| **add-water**       | `add-water`                                                    | `add-water 1.5`                    |
-| **delete-water**    | `delete-water`                                                 | `delete-water 1`                   |
-| **list-water**      | `list-water`                                                   | `list-water`                       |
-| **add-calories**    | `add-calories`                                                 | `delete-calories 1`                |
-| **delete-calories** | `delete-calories`                                              | `add-water 1.5`                    |
-| **list-calories**   | `list-calories`                                                | `list-water`                       |
-| **add-food**        | `add-food`                                                     | `add-food apple`                   |
-| **delete-food**     | `delete-food`                                                  | `delete-food 1`                    |
-| **list-food**       | `list-food`                                                    | `list-food`                        |
-| **add-mood**       | `add-food`                                                    | `add-mood happy 01/11/2024 18:30:00`  |
-| **delete-mood**       | `delete-mood`                                                    | `delete-mood 1`                        |
-| **list-mood**       | `list-mood`                                                    | `list-mood`                        |
+| Command             | Format                                                         | Example                              |
+|---------------------|----------------------------------------------------------------|--------------------------------------|
+| **set**             | `set GENDER AGE`                                               | `set male 12`                        |
+| **help**            | `help`                                                         | `help`                               |
+| **add**             | `add SESSION_NAME`                                             | `add session1`                       |
+| **list**            | `list`                                                         | `list`                               |
+| **view**            | `view SESSION_INDEX`                                           | `view 1`                             |
+| **edit**            | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45`                       |
+| **delete**          | `delete SESSION_INDEX `                                        | `delete 1 `                          |
+| **exit**            | `exit`                                                         | `exit`                               |
+| **remind**          | `remind REMINDER_NAME DEADLINE`                                | `remind run 12/12/2024`              |
+| **list-remind**     | `list-goal`                                                    | `list-remind`                        |
+| **upcoming-remind** | `upcoming-remind`                                              | `upcoming-remind`                    |
+| **delete-remind**   | `delete-remind REMINDER_INDEX`                                 | `delete-remind 1`                    |
+| **add-goal**        | `add-goal GOAL_NAME DEADLINE`                                  | `add-goal run 12/12/2024 14:00:00`   |
+| **delete-goal**     | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                      |
+| **list-goal**       | `list-goal`                                                    | `list-goal`                          |
+| **graph**           | `graph EXERCISE_ACRONYM`                                       | `graph PU`                           |
+| **add-water**       | `add-water`                                                    | `add-water 500`                      |
+| **delete-water**    | `delete-water`                                                 | `delete-water 1`                     |
+| **list-water**      | `list-water`                                                   | `list-water`                         |
+| **add-food**        | `add-food`                                                     | `add-food apple 100`                 |
+| **delete-food**     | `delete-food`                                                  | `delete-food 1`                      |
+| **list-food**       | `list-food`                                                    | `list-food`                          |
+| **list-calories**   | `list-intake`                                                  | `list-intake`                        |
+| **add-mood**       | `add-mood`                                                     | `add-mood happy 01/11/2024 18:30:00` |
+| **delete-mood**       | `delete-mood`                                                  | `delete-mood 1`                      |
+| **list-mood**       | `list-mood`                                                    | `list-mood`                          |
