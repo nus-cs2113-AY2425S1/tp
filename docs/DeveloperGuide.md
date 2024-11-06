@@ -92,6 +92,40 @@ CourseValidator Class Diagram:
 
 ## Implementation
 
+
+### 2. Help Command
+
+#### Overview
+This command provides users with detailed explanations of each feature and the ways to use them.
+This allows users to navigate this program easily and effectively.
+
+#### How the feature is implemented:
+* The `HelpCommand` class extends the `CheckInformationCommand` class where it overrides
+  the execute method for custom behaviour.
+* First, the user input is passed into the `getCommand()` method which extracts and processes the
+  command. It does so by using `switch` statements to determine if the input matches one of the valid commands.
+* If it does, it returns the command, if it does not, an `IllegalArgumentException` exception will be thrown to handle
+  invalid commands
+* Then, the `printHelp()` method will be called to display the detailed help messages for the specific command.
+  Another `switch` statement is used here to map each command to its corresponding help message.
+* Assertions and logging are implemented for error handling.
+
+#### Why it is implemented that way:
+- ****Separation of Concerns:**** Each method has a single responsibility. For example, `getCommand()` parses and
+  validates the input to extract a specific command and `printHelp()` prints the relevant help message for the
+  parsed command.
+- ****Switch Statement:**** The use of `switch` statement is an efficient way to match valid commands.
+  `switch` statements are also clearer and easier to read.
+
+#### Alternative Implementation considered:
+- The use of `if-else` statement
+  - However, since the condition is a single variable and not complex conditions, it will be cleaner and clearer to use
+    `switch` statements
+
+#### Sequence Diagram:
+- Represents when `execute()` method is called
+  ![Help Command sequence diagram](images/HelpCommand.png)
+
 ### 3. List Schools Command
 
 #### Overview:
@@ -110,6 +144,40 @@ from `database.json` file. It helps the users to identify the possible choices i
 
 #### Sequence Diagram:
 ![List School Command Sequence Diagram](images/ListSchoolsCommand.png)
+
+
+### 4. List University Courses Command
+
+#### Overview
+
+This command is responsible for listing out all the mappable partner university’s (PU) courses and NUS courses.
+This allows users to plan their course mapping as it lists out all the possible courses they can map in a specified
+partner university.
+
+#### How the feature is implemented:
+* The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method
+  for custom behaviour.
+* The command first reads a JSON file to obtain the JsonObject containing the names of all the partner universities.
+* The getPuName method then parses and extracts the PU name from the input (with the format of `set [PU_NAME]`).
+* Next, the extracted PU name is passed into the `getUniCourses()` method which will search for the specified PU in the
+  JsonObject with `findUniversityName()`.
+* If the university is not found, an exception `UnknownUniversityException` will be thrown.
+* If the PU is found, the `listCourses()` will be called. Then `getUniversityObject()` and `getCourseArray()` methods
+  will be called to get the JsonObject containing the PU and the JsonArray containing the list of courses it offers.
+* The two object will be passed into `iterateCourses()` method to iterate through the JsonArray `courseArray` which
+  contains the list of courses.
+* It then prints out the course details such as PU course code and NUS course code by calling the
+  `printListUniCoursesCommand` method in the UI class.
+* Assertions and logging are used for error handling.
+
+#### Why it is implemented this why:
+- ****Separation of Concerns:**** Each responsibility is seperated into smaller, well-defined methods
+  For example, `getPuName()` focuses on extracting the university name from user input and `findUniversityName()`
+  focuses on searching the university in the data set.
+
+#### Sequence Diagram:
+![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
+
 
 ### 5. Obtain Partner University Email and Contact Number Command
 
@@ -146,6 +214,35 @@ exchange opportunities.
 #### Sequence Diagram:
 ![Filter Courses Sequence Diagram](images/ObtainContactsCommand.png)
 
+
+### 11. Find course mapping command
+
+#### Overview
+This command is responsible for the searching of a particular NUS course in the personalised tracker. This allows users
+to check and plan course mappings for that specified course.
+
+#### How the feature is implemented:
+* The `FindCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method for
+  custom behaviour specific to this class.
+* The input from the user is first parsed through the `getKeyword()` method to extract out the keyword(NUS course code)
+  to search within the personalised tracker. If there is no keyword, an `IllegalArgumentException` will be thrown.
+* Then the keyword will be passed to the `findCommand()` method.
+* In the `findCommand` method, the mappings in the tracker are retrieved through
+  `List<Course> mappedCourses = storage.loadAllCourses()`. If the tracker is empty, a message indicating empty tracker
+  will be printed.
+* Next, `matchKeyword()` will be called and it iterates the mappedCourses in the tracker to search for mappings that
+  match the keyword and adds them into a `List<Course> foundCourses`.
+* Lastly, `printFindCommand` will iterate and print the course mappings inside mappedCourses through
+  `printFoundCourses()` in `UI` class. If mappedCourses is empty, an IllegalArgumentException is thrown.
+
+#### Why it is implemented this way:
+* ****Separation of concerns:**** Helper methods were used to isolate specific tasks within the command, making each
+  method focused and easier to manage. The `UI` class handles displaying messages to the user, which keeps
+  `FindCoursesCommand` focused solely on search logic, without managing user interactions directly.
+
+![FindCourseCommand Sequence diagram](images/FindCoursesCommand.png)
+
+
 ### 2. Filter Courses Command
 
 #### Overview:
@@ -173,37 +270,6 @@ that NUS course is suitable to be mapped overseas in South East Asia and Oceania
 #### Sequence Diagram on PlantUML:
 ![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
 
-### 4. List University Courses Command
-
-#### Overview
-
-This command is responsible for listing out all the mappable partner university’s (PU) courses and NUS courses. 
-This allows users to plan their course mapping as it lists out all the possible courses they can map in a specified
-partner university.
-
-#### How the feature is implemented:
-* The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method 
-for custom behaviour.
-* The command first reads a JSON file to obtain the JsonObject containing the names of all the partner universities.
-* The getPuName method then parses and extracts the PU name from the input (with the format of `set [PU_NAME]`).
-* Next, the extracted PU name is passed into the `getUniCourses()` method which will search for the specified PU in the
-JsonObject with `findUniversityName()`.
-* If the university is not found, an exception `UnknownUniversityException` will be thrown.
-* If the PU is found, the `listCourses()` will be called. Then `getUniversityObject()` and `getCourseArray()` methods
-will be called to get the JsonObject containing the PU and the JsonArray containing the list of courses it offers.
-* The two object will be passed into `iterateCourses()` method to iterate through the JsonArray `courseArray` which
-contains the list of courses.
-* It then prints out the course details such as PU course code and NUS course code by calling the 
-`printListUniCoursesCommand` method in the UI class.
-* Assertions and logging are used for error handling.
-
-#### Why it is implemented this why:
-- ****Separation of Concerns:**** Each responsibility is seperated into smaller, well-defined methods
-  For example, `getPuName()` focuses on extracting the university name from user input and `findUniversityName()`
-  focuses on searching the university in the data set.
-
-#### Sequence Diagram:
-![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
 
 ### 5. Add Courses Command
 
@@ -334,38 +400,7 @@ Mapped Modules:
 #### Sequence Diagram:
 ![List Personal Tracker Command Sequence Diagram](images/ListPersonalTrackerCommand.png)
 
-### 9. Help Command
 
-#### Overview
-This command provides users with detailed explanations of each feature and the ways to use them.
-This allows users to navigate this program easily and effectively.
-
-#### How the feature is implemented:
-* The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides
-  the execute method for custom behaviour.
-* First, the user input is passed into the `getCommand()` method which extracts and processes the
-  command. It does so by using `switch` statements to determine if the input matches one of the valid commands.
-* If it does, it returns the command, if it does not, an `IllegalArgumentException` exception will be thrown to handle
-  invalid commands
-* Then, the `printHelp()` method will be called to display the detailed help messages for the specific command.
-  Another `switch` statement is used here to map each command to its corresponding help message.
-* Assertions and logging are implemented for error handling.
-
-#### Why it is implemented that way:
-- ****Separation of Concerns:**** Each method has a single responsibility. For example, `getCommand()` parses and
-  validates the input to extract a specific command and `printHelp()` prints the relevant help message for the
-  parsed command.
-- ****Switch Statement:**** The use of `switch` statement is an efficient way to match valid commands.
-  `switch` statements are also clearer and easier to read.
-
-#### Alternative Implementation considered:
-- The use of `if-else` statement
-  - However, since the condition is a single variable and not complex conditions, it will be cleaner and clearer to use
-  `switch` statements
-
-#### Sequence Diagram:
-- Represents when `execute()` method is called
-  ![Help Command sequence diagram](images/HelpCommand.png)
 
 ### 10. Compare Mapped Command
 
@@ -413,32 +448,6 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 ![Compare Mapped Command Sequence Diagram](images/CompareMappedCommand.png)
 
 
-### 11. Find course mapping command
-
-#### Overview
-This command is responsible for the searching of a particular NUS course in the personalised tracker. This allows users
-to check and plan course mappings for that specified course.
-
-#### How the feature is implemented:
-* The `FindCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method for 
-  custom behaviour specific to this class.
-* The input from the user is first parsed through the `getKeyword()` method to extract out the keyword(NUS course code) 
-  to search within the personalised tracker. If there is no keyword, an `IllegalArgumentException` will be thrown.
-* Then the keyword will be passed to the `findCommand()` method.
-* In the `findCommand` method, the mappings in the tracker are retrieved through 
-  `List<Course> mappedCourses = storage.loadAllCourses()`. If the tracker is empty, a message indicating empty tracker 
-  will be printed.
-* Next, `matchKeyword()` will be called and it iterates the mappedCourses in the tracker to search for mappings that 
-  match the keyword and adds them into a `List<Course> foundCourses`.
-* Lastly, `printFindCommand` will iterate and print the course mappings inside mappedCourses through 
-  `printFoundCourses()` in `UI` class. If mappedCourses is empty, an IllegalArgumentException is thrown.
-
-#### Why it is implemented this way:
-* ****Separation of concerns:**** Helper methods were used to isolate specific tasks within the command, making each
-  method focused and easier to manage. The `UI` class handles displaying messages to the user, which keeps 
-  `FindCoursesCommand` focused solely on search logic, without managing user interactions directly.
-
-![FindCourseCommand Sequence diagram](images/FindCoursesCommand.png)
 
 ## Product scope
 ### Target user profile
