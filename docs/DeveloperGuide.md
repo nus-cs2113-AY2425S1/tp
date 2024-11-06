@@ -92,7 +92,7 @@ CourseValidator Class Diagram:
 
 ## Implementation
 
-### 1. List Schools Command
+### 3. List Schools Command
 
 #### Overview:
 This command is responsible for displaying and retrieving the full list of universities
@@ -110,6 +110,41 @@ from `database.json` file. It helps the users to identify the possible choices i
 
 #### Sequence Diagram:
 ![List School Command Sequence Diagram](images/ListSchoolsCommand.png)
+
+### 5. Obtain Partner University Email and Contact Number Command
+
+#### Overview:
+The command is responsible to retrieve the email contact and contact number data for a specified partner
+university. It helps users to reach out to the partner universities for any enquiries about programs or
+exchange opportunities.
+
+#### How the feature is implemented:
+* The `ObtainContactsCommand` class extends `Command` class where it overrides the `execute()` method for
+  custom behaviour.
+* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
+  superclass.
+* The `getSchoolName()` and `getContactType()` methods are used to parse the user input, extracting the requested
+  university name and contact type (email or phone number).
+* After parsing, the `findMatchingSchool()` method identifies the correct university entry within the JSON data.
+* The `handleContactType()` method retrieves and prints the requested contact information based on the input,
+  displaying either the university’s email address or phone number.
+* There are also assertions and logging in place for error handling.
+
+#### Why it is implemented that way:
+* The `execute` method is essential and unique to every command class so inheritance was used.
+* Every method in the class remains maintainable and has one responsibility this allows easy debugging and
+  refactoring.
+* By using inheritance, new command classes can easily extend the functionality of existing ones
+  which reducing redundancy in the code
+* Logging and assertions helps the team of developers to follow through the command execution.
+
+#### Alternatives considered:
+* Reading of the `database.json` was tricky and other libraries were considered.
+* Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
+  readability.
+
+#### Sequence Diagram:
+![Filter Courses Sequence Diagram](images/ObtainContactsCommand.png)
 
 ### 2. Filter Courses Command
 
@@ -135,43 +170,8 @@ that NUS course is suitable to be mapped overseas in South East Asia and Oceania
 * There are also assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
-#### Sequence Diagram:
+#### Sequence Diagram on PlantUML:
 ![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
-
-### 3. Obtain Partner University Email and Contact Number Command
-
-#### Overview:
-The command is responsible to retrieve the email contact and contact number data for a specified partner
-university. It helps users to reach out to the partner universities for any enquiries about programs or
-exchange opportunities.
-
-#### How the feature is implemented:
-* The `ObtainContactsCommand` class extends `Command` class where it overrides the `execute()` method for
-  custom behaviour.
-* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
-  superclass.
-* The `getSchoolName()` and `getContactType()` methods are used to parse the user input, extracting the requested 
-  university name and contact type (email or phone number).
-* After parsing, the `findMatchingSchool()` method identifies the correct university entry within the JSON data.
-* The `handleContactType()` method retrieves and prints the requested contact information based on the input, 
-  displaying either the university’s email address or phone number.
-* There are also assertions and logging in place for error handling.
-
-#### Why it is implemented that way:
-* The `execute` method is essential and unique to every command class so inheritance was used.
-* Every method in the class remains maintainable and has one responsibility this allows easy debugging and
-  refactoring.
-* By using inheritance, new command classes can easily extend the functionality of existing ones 
-  which reducing redundancy in the code
-* Logging and assertions helps the team of developers to follow through the command execution.
-
-#### Alternatives considered:
-* Reading of the `database.json` was tricky and other libraries were considered.
-* Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
-  readability.
-
-#### Sequence Diagram:
-![Filter Courses Sequence Diagram](images/ObtainContactsCommand.png)
 
 ### 4. List University Courses Command
 

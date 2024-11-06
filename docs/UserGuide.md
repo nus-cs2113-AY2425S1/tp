@@ -31,6 +31,64 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 ## Features 
 
+### List out all the possible schools from the options: `list schools`
+List out all the schools users could possibly go for their SEP.
+
+Format: `list schools`
+
+Expected Output:
+```
+-----------------------------------------------------
+The University of Melbourne
+The Australian National University
+Victoria University of Wellington
+The University of Western Australia
+-----------------------------------------------------
+```
+
+### Obtain contacts from the list of universities `obtain`
+Obtain the contact details of the university of interest from the list of schools available.
+
+Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
+
+* The `PARTNER_UNIVERSITY_NAME` is the name of the partner university from the list of schools.
+* The `CONTACT_TYPE` is the type of contact either number or email
+
+Example: `obtain victoria university of wellington /number`
+
+Expected Output:
+```
+Phone number for Victoria University of Wellington: +64 4 472 1000
+```
+
+Example: `obtain the university of western australia /email`
+
+Expected Output:
+```
+Email for The University of Western Australia: uwa-albany@uwa.edu.au
+```
+
+Example: `obtain`
+
+Expected Output:
+```
+Invalid input format
+```
+
+Example: `obtain NUS /email`
+
+Expected Output:
+```
+Unknown university - nus
+```
+
+Example: `obtain the university of melbourne /fax`
+
+Expected Output:
+```
+Invalid contact type.
+```
+
 ### List courses provided by the partner university: `set`
 This feature allows users to list out the available mappable course that are provided by a specific partner university.
 
@@ -171,79 +229,6 @@ Expected Output:
 Please provide a valid index of the course plan you would like to delete.
 ```
 
-### List out all the possible schools from the options: `list schools`
-List out all the schools users could possibly go for their SEP.
-
-Format: `list schools`
-
-Expected Output:
-```
------------------------------------------------------
-The University of Melbourne
-The Australian National University
-Victoria University of Wellington
-The University of Western Australia
------------------------------------------------------
-```
-
-### Obtain contacts from the list of universities `obtain`
-Obtain the contact details of the university of interest from the list of schools available. 
-
-Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
-
-* The `PARTNER_UNIVERSITY_NAME` is the name of the partner university from the list of schools.
-* The `CONTACT_TYPE` is the type of contact either number or email
-
-Example: `obtain victoria university of wellington /number`
-
-Expected Output:
-```
-Phone number for Victoria University of Wellington: +64 4 472 1000
-```
-
-Example: `obtain the university of western australia /email`
-
-Expected Output:
-```
-Email for The University of Western Australia: uwa-albany@uwa.edu.au
-```
-
-Example: `obtain`
-
-Expected Output:
-```
-Invalid input format
-```
-
-Example: `obtain NUS /email`
-
-Expected Output:
-```
-Unknown university - nus
-```
-
-Example: `obtain the university of melbourne /fax`
-
-Expected Output:
-```
-Invalid contact type.
-```
-
-### Find courses in personalised tracker
-This feature allows users to search for NUS courses in their course mappings. So that they can check if they have
-mappings for that course.
-
-Format: `find [NUS_COURSE_CODE]`
-* Note that this feature is searching within the personalised tracker
-
-Example of usage: `find cs2102`
-* Assuming that the course is already in the tracker.
-* If there is multiple course mappings containing that course, all the mappings will be shown.
-Expected output:
-```
-cs2102 | the university of melbourne | info20003
------------------------------------------------------
-```
 ## FAQ
 
 **Q**: Are the commands case-sensitive?
