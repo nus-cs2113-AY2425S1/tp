@@ -1,0 +1,63 @@
+@startuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+participant "FinanceBuddy" as FinanceBuddy
+participant "Storage" as storage
+participant "Budget" as budget
+participant "FinancialList" as financialList
+participant ":Logger" as logger
+
+
+FinanceBuddy -> storage
+activate storage
+
+== Load Financial List ==
+
+storage -> storage : loadFinancialList(filename)
+activate storage
+
+' Attempt to read file
+alt file found
+    storage -> financialList : load data into FinancialList
+    activate financialList
+    return financialList with entries
+
+else file not found
+    storage -> logger : log warning "File not found"
+    activate logger
+    return warning message
+    storage -> financialList : create new FinancialList()
+    activate financialList
+    return new empty FinancialList
+end
+return financialList
+return 
+
+== Load or Set Budget ==
+
+FinanceBuddy -> storage
+activate storage
+
+storage -> storage : loadBudget(filename)
+activate storage
+
+' Check if budget file exists
+alt budget file found
+    storage -> budget : load budget data
+    activate budget
+    return Budget (with amount and balance)
+
+else budget file not found
+    storage -> logger : log warning "Budget file not found"
+    activate logger
+    return return warning message
+    storage -> budget : create new Budget with default values
+    activate budget
+    return Budget (new with default values)
+end
+return
+return 
+deactivate storage
+
+@enduml

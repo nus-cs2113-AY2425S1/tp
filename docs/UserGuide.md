@@ -72,6 +72,7 @@ Edits an existing transaction in your financial list.
 
  - Edits the transaction at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed financial list. 
   `INDEX` must be a positive integer.
+ - `DESCRIPTION` shouldn't be blank. And DO NOT USE `¦¦` in `DESCRIPTION` cause it serve as the seperator token in storage file.
  - `DATE` should follow `DD/MM/YY` format.
  - `AMOUNT` must be a positive number. If it's a floating-point number, it will be rounded to two decimal places.
  - `CATEGORY` should be one of the categories allowed in Expenses/Incomes.
@@ -173,10 +174,11 @@ Please set your budget amount:
 ```
 
 ### Saving Data
-Your Finantial List will be auto updated in to `data/FinancialList.txt` whenever your list been modified through FinanaceBuddy.
-When you start the FinanaceBuddy program, it will check if the `data/FinancialList.txt` exist.
-If do, it'll try to load the transections in the file row by row.
-Please do not modify this file maunaly, otherwise the transections with incorrect format will not be loaded.
+Your Finantial List will be stored in to `data/FinancialList.txt`, while your budget is stored in `data/Budget.txt`.
+FinanaceBuddy will automatically update the files whenever your list or budget been modified through FinanaceBuddy.
+When you start the FinanaceBuddy program, it will check if the `data/FinancialList.txt` and `data/Budget.txt` exist.
+If do, it'll try to load the transections and budget in the file row by row.
+Please do not modify these files maunaly, otherwise the transections or the budget with incorrect format will not be loaded.
 
 ## FAQ
 
