@@ -115,6 +115,7 @@ public class Messages {
     public static final String INVALID_SIT_UP_REPETITIONS_MESSAGE = "Invalid Sit Up repetitions: ";
     public static final String INVALID_STANDING_BROAD_JUMP_DISTANCE_MESSAGE = "Invalid Standing Broad Jump distance: ";
     public static final String INVALID_WALK_AND_RUN_TIMING_MESSAGE = "Invalid Walk and Run timing: ";
+    public static final String INVALID_DATE_FORMAT_MESSAGE = "Invalid date format.";
 
     public static final String ADD_MOOD_MESSAGE = "Mood log added: ";
     public static final String DELETE_MOOD_MESSAGE = "Mood log deleted with ID: ";

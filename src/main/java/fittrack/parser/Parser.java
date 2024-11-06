@@ -175,7 +175,7 @@ public class Parser {
 
             assert !description.isEmpty() : "Reminder description must not be empty";
             assert !Objects.equals(inputDeadline, "") : "Reminder deadline must not be empty";
-            LocalDateTime deadline = parseReminderDeadline(inputDeadline);
+            LocalDateTime deadline = parseDeadline(inputDeadline);
             reminderList.add(new Reminder(description, deadline, user));
             printAddedReminder(reminderList);
             updateSaveFile(sessionList, goalList, reminderList);
@@ -336,14 +336,14 @@ public class Parser {
     }
 
     /**
-     * Parses user input indicating the deadline of a {@code reminder} object.
+     * Parses user input indicating the deadline of an object.
      * Throws an exception if user-input String is inappropriate or ill-formatted.
      *
      * @param inputDeadline A string input by the user. Intended format is DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.
      * @return A {@code LocalDateTime} object indicating reminder deadline
      * @throws IllegalArgumentException Thrown if an incorrectly formatted deadline is provided.
      */
-    static LocalDateTime parseReminderDeadline(String inputDeadline) throws IllegalArgumentException {
+    static LocalDateTime parseDeadline(String inputDeadline) throws IllegalArgumentException {
         try {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
