@@ -2,64 +2,66 @@
 skinparam sequenceMessageAlign center
 skinparam responseMessageBelowArrow true
 
-participant "FinanceBuddy" as fb
-participant "financialList:FinancialList" as list
-participant ":FinancialEntry" as entry
+
+participant "FinancialList" as list
+participant "FinancialEntry" as entry
 participant "Income" as income
 participant "Expense" as expense
 
-== Add Entries ==
-fb -> list : addEntry(FinancialEntry entry)
+== Add Entry ==
 activate list
-list -> entry : Validate and prepare entry
-activate entry
-return
-
-entry -> income : [if entry is Income] handleIncomeSpecificLogic()
-activate income
-return
-entry -> expense : [if entry is Expense] handleExpenseSpecificLogic()
-activate expense
-return
-
+list -> list : shouldDecrementIndex(entry, index)
+loop while shouldDecrementIndex == true
+    list -> entry : getDate()
+    list -> entry : getDate() for previous entry
+    return date
+end
+list -> entry : add(insertIndex, entry)
 list -> list : updateCategoryTotal(entry)
+alt entry instanceof Income
+    list -> income : instanceof?
+    return isIncome
+    list -> list : updateCategoryTotal(Income)
+else entry instanceof Expense
+    list -> expense : instanceof?
+    return isExpense
+    list -> list : updateCategoryTotal(Expense)
+end
+deactivate list
+
+== Delete Entry ==
+list -> list : deleteEntry(index)
 activate list
+list -> entry : remove(index)
 return
-return
+deactivate list
 
-== Delete Entries ==
-fb -> list : deleteEntry(int index)
+== Edit Entry ==
+list -> list : getEntry(index)
 activate list
-list -> list : Remove entry at index
-return
-return
-
-== View Entries ==
-fb -> list : getEntryCount()
-activate list
-return totalEntries
-
-loop i < totalEntries
-    fb -> list : getEntry(i)
-    activate list
-    return entry
-
-    fb -> entry : toString()
-    activate entry
-    return entryString
-
-    fb -> list : updateCategoryTotal(entry)
-    activate list
+list -> entry : setAmount(newAmount)
+deactivate list
+entry -> entry : setDescription(newDescription)
+entry -> entry : setDate(newDate)
+alt entry instanceof Income
+    entry -> income : setCategory(newCategory as Income.Category)
+    return
+else entry instanceof Expense
+    entry -> expense : setCategory(newCategory as Expense.Category)
     return
 end
 
-fb -> list : getHighestExpenseCategory()
+== View Entry ==
+list -> list : getEntry(index)
 activate list
-return highestExpenseCategory
+list -> entry : toString()
+deactivate list
+alt entry instanceof Income
+    entry -> income : toString()
+    return incomeString
+else entry instanceof Expense
+    entry -> expense : toString()
+    return expenseString
+end
 
-fb -> list : getHighestIncomeCategory()
-activate list
-return highestIncomeCategory
-
-fb -> fb : Display entries and category summaries
 @enduml
