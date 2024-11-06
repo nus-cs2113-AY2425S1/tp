@@ -1,10 +1,10 @@
 @startuml
-actor User as U
-participant "Main" as M
-participant "UI" as UI
-participant "Parser" as P
-participant "State" as S
-participant "Command" as C
+actor ":User" as U
+participant ":Main" as M
+participant ":UI" as UI
+participant ":Parser" as P
+participant ":State" as S
+participant ":Command" as C
 
 U -> M: Execute main()
 M -> UI: readCommand()

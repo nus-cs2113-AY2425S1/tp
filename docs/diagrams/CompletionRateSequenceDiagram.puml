@@ -1,9 +1,9 @@
 @startuml
-actor User as user
-participant Ui
-participant Hospital
-participant Patient
-participant TaskList
+actor ":User" as user
+participant ":Ui" as Ui
+participant ":Hospital" as Hospital
+participant ":Patient" as Patient
+participant ":TaskList" as TaskList
 
 == Show Task List for a Patient ==
 user -> Ui : showTaskList()
@@ -18,7 +18,7 @@ TaskList --> Ui : List<Task>, completionPercentage
 
 Ui -> Ui : formatTaskListDisplay()
 
-Ui -> User : displayTaskListWithCompletionRate()
+Ui -> user : displayTaskListWithCompletionRate()
 
 == Show Patient List with Completion Rate ==
 user -> Ui : showPatientListWithCompletionRate()
@@ -31,6 +31,6 @@ Hospital --> Ui : overallCompletionRate, List<Patient>
 
 Ui -> Ui : formatPatientListDisplay()
 
-Ui -> User : displayPatientListWithCompletionRate()
+Ui -> user : displayPatientListWithCompletionRate()
 
 @enduml
