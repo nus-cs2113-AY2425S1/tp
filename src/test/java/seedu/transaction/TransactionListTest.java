@@ -25,8 +25,8 @@ public class TransactionListTest {
     @Test
     public void testAddTransaction() {
         Income income = new Income(1000, "Salary", "2024-11-01");
-        Category Food = new Category("Food");
-        Expense expense = new Expense(1000, "Salary", "2024-11-01", Food);
+        Category food = new Category("Food");
+        Expense expense = new Expense(1000, "Salary", "2024-11-01", food);
         transactionList.addTransaction(income);
         transactionList.addTransaction(expense);
 

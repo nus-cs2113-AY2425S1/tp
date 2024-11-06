@@ -1,5 +1,6 @@
 package seedu.utils;
 
+import seedu.exceptions.InvalidDateFormatException;
 import seedu.message.ErrorMessages;
 
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class DateTimeUtils {
      * @return A LocalDateTime representing the parsed date and time.
      * @throws RuntimeException If the date-time format is invalid.
      */
-    public static LocalDateTime parseDateTime(String datetime) throws Exception {
+    public static LocalDateTime parseDateTime(String datetime) throws InvalidDateFormatException {
         String[] datetimeParts = datetime.trim().split(" ", 2);
 
         // If only the date is provided, append time as "2359" (11:59 PM)
@@ -37,7 +38,7 @@ public class DateTimeUtils {
         try {
             result = LocalDateTime.parse(datetime, DATETIME_READ_FORMAT); // Parse the date-time string
         } catch (DateTimeParseException e) {
-            throw new Exception(ErrorMessages.MESSAGE_INVALID_DATE_FORMAT);
+            throw new InvalidDateFormatException(ErrorMessages.MESSAGE_INVALID_DATE_FORMAT);
         }
 
         return result;
@@ -48,13 +49,13 @@ public class DateTimeUtils {
      *
      * @param yearMonthStr The year-month string to be parsed.
      * @return A YearMonth representing the parsed year and month.
-     * @throws Exception If the year-month format is invalid.
+     * @throws InvalidDateFormatException If the year-month format is invalid.
      */
-    public static YearMonth parseYearMonth(String yearMonthStr) throws Exception {
+    public static YearMonth parseYearMonth(String yearMonthStr) throws InvalidDateFormatException {
         try {
             return YearMonth.parse(yearMonthStr, YEARMONTH_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new Exception(ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT);
+            throw new InvalidDateFormatException(ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT);
         }
     }
 

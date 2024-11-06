@@ -1,6 +1,8 @@
 package seedu.command;
 
+import seedu.exceptions.InvalidDateFormatException;
 import seedu.message.CommandResultMessages;
+import seedu.message.ErrorMessages;
 import seedu.transaction.Income;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
@@ -62,8 +64,11 @@ public class ViewIncomeCommand extends Command {
                 temp = temp.stream()
                         .filter((t) -> t.getDate().isAfter(start) || t.getDate().isEqual(start))
                         .collect(Collectors.toList());
-            } catch (Exception e) {
+            } catch (InvalidDateFormatException e) {
                 messages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL + e.getMessage());
+                return messages;
+            } catch (Exception e) {
+                messages.add(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
                 return messages;
             }
         }
@@ -73,8 +78,12 @@ public class ViewIncomeCommand extends Command {
                 temp = temp.stream()
                         .filter((t) -> t.getDate().isBefore(end) || t.getDate().isEqual(end))
                         .collect(Collectors.toList());
+            } catch (InvalidDateFormatException e) {
+                messages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL
+                        + ErrorMessages.MESSAGE_INVALID_DATE_FORMAT);
+                return messages;
             } catch (Exception e) {
-                messages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL + e.getMessage());
+                messages.add(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
                 return messages;
             }
         }

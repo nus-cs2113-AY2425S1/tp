@@ -1,70 +1,29 @@
 # Developer Guide
 
+## Table of Contents
+1. [Acknowledgements](#acknowledgements)
+2. [Design & Implementation](#design--implementation)
+    - [Category](#category)
+    - [TransactionList](#transactionlist)
+    - [Command](#command)
+    - [AddIncomeCommand](#addincomecommand)
+    - [Command Parser](#command-parser)
+3. [Product Scope](#product-scope)
+    - [Target User Profile](#target-user-profile)
+    - [Value Proposition](#value-proposition)
+4. [User Stories](#user-stories)
+5. [Non-Functional Requirements](#non-functional-requirements)
+6. [Glossary](#glossary)
+7. [Instructions for Manual Testing](#instructions-for-manual-testing)
+
 ## Acknowledgements
 - The `Parser` is adapted from [Dan Linh's iP](https://github.com/DanLinhHuynh-Niwashi/ip/tree/master/src/main/java/niwa/parser) code, with changes to get on well with the current project 
 
 ## Design & implementation
-### Command Parser
-The `Parser` class is responsible for interpreting user commands and extracting the associated arguments. It facilitates interaction between the user and the underlying command execution logic.
-#### Class responsibilities
-1. **Command registration**: Maintain a mapping of command words to their corresponding `Command` objects.
-2. **Command parsing**: Convert a command string entered by the user into a `Command` object.
-3. **Argument extraction**: Extract and organize the arguments associated with a given command.
-#### Class attributes
-1. **commands: LinkedHashMap<String, Command>**
-  - Description: Associates command words (as keys) with their corresponding Command objects (as values).
-#### Class main methods
-1. **registerCommands(Command command): void**
-  - **Parameters**:
-    - `command`: The `Command` object to be registered.
-  - **Process**:
-    - Retrieves the `COMMAND_WORD` field from the `Command` object
-    - Adds the word and the command to the `commands` map.
-    
-    ![register_command](./diagrams/parser/register-command-sequence.png)
-    
-2. **parseCommand(String commandPart): Command**
-  - **Parameters**: 
-    - `commandPart`: A string representing the command word entered by the user.
-  - **Returns**: The corresponding `Command` object or `null` if the command is not found.
-  - **Process**: 
-    - Retrieves the associated `Command` object from the `commands` map, using the provided commandPart.
-
-  ![parse_command](./diagrams/parser/parse-command-sequence.png)
-  
-3. **extractArguments(Command command, String argumentString): Map<String, String>**
-  - **Parameters**: 
-    - `command`: The `Command` object for which arguments are to be extracted.
-    - `argumentString`: The string containing the arguments to be parsed.
-  - **Returns**: A map of argument keys and their corresponding values.
-  - **Process**: 
-    - Initializes an empty map for arguments
-    - Retrieves the expected argument keys from the command
-    - Invokes `splitCommandRecursively` to populate the arguments map.
-  
-  ![extract_arguments](./diagrams/parser/extract-arguments-sequence.png)
-  
-4. **splitCommandRecursively(String argumentString, String[] keywords, Map<String, String> arguments, String prevKeyword): void**
-  - **Parameters**: 
-    - `argumentString`: The string containing the arguments to be split.
-    - `keywords`: An array of expected keywords for argument extraction.
-    - `arguments`: The map where extracted arguments will be stored.
-    - `prevKeyword`: The keyword found in the previous recursive call.
-  - **Description**: Extracts values associated with keywords and updates the arguments map accordingly.
-  - **Process**:
-    - Base case: No argument left to split: `argumentString.isEmpty()`
-    - Find the first keyword in the list that appears in the argumentString
-    - If found:
-      - Attach the part before the keyword with the previously found keyword and put in to `arguments`.
-      - Delete the keyword from the `keywords` list (to not be considered in the next call)
-      - Pass the remaining `argumentString` after the keyword to the next recursive call
-    - If not found (mean that the last keyword reached):
-      - Attach the remaining part with the previously found keyword and put in to `arguments`.
-
 ### Category
 The `Category` class encapsulates the name of a category and provides functionality for equality checks, hash code generation, and string representation. It serves as the foundational representation of a category.
 
-#### Class Responsibilities
+#### Class responsibilities
 1. **Attribute Encapsulation**: Encapsulates the category name to prevent external modification.
 2. **Equality Checks**: Implements equality based on the category name, allowing categories with the same name to be considered equal.
 3. **String Representation**: Provides a `toString` method for convenient logging and debugging output.
@@ -73,7 +32,7 @@ The `Category` class encapsulates the name of a category and provides functional
 1. **name**:String
    - Description:Represents the category name, set as a read-only attribute.
 
-#### Class Main Methods
+#### Class main Methods
 1. **public Category(String name)**
    - **Parameters**:
      - **`name`**: The category name.
@@ -97,13 +56,13 @@ The `Category` class encapsulates the name of a category and provides functional
    - **Returns**: The formatted description of the category
    - **Process**: Generates a string representation of the `Category` object, useful for logging and debugging.
 
-![Category](./diagrams/category/category-class-diagram.png)
+    ![Category](./diagrams/category/category-class-diagram.png)
 
 ### TransactionList
 The `TransactionList` class is responsible for storing user transactions of different types. It also provides various
 operations that enable user to add, delete, search by (date/ category/ keywords).
-
-![TransactionList](./diagrams/TransactionList/transactionlist-class-diagram.png)
+    ![TransactionList](./diagrams/TransactionList/transactionlist-class-diagram.png)
+    
 #### Class Responsibilities
 
 1. **Storage for transactions**: Keeps an ArrayList of `Transaction` objects.
@@ -111,12 +70,10 @@ operations that enable user to add, delete, search by (date/ category/ keywords)
 3. **Search Transactions**: Search `Transaction` in the `TransactionList` based on multiple keywords, date range or `category` of `Transaction`.
 
 #### Class attributes
-1. **transactions: `ArrayList<Transaction>`**
+1. **transactions: `ArrayList<Transaction>**
     - Description: A List of `Transaction` objects stored that supports List operations.
-2. **InvertedIndex: `Map<String, List<Transaction>>`**
+2. **InvertedIndex: `Map<String, List<Transaction>>**
     - Description: An inverted index implemented as a map that associates each unique keyword from transaction descriptions with a list of Transaction objects containing that keyword in their descriptions.
-
-Here’s the description for each method in the format you provided:
 
 #### Class main methods
 
@@ -136,48 +93,72 @@ Here’s the description for each method in the format you provided:
         - Updates the `invertedIndex` to reflect the deletion.
         - Returns the removed `Transaction`.
 
-3. **getTransactions() : ArrayList<Transaction>**
+3. **getTransactions() : ArrayList&lt;Transaction&gt;**
     - **Parameters**: None
     - **Process**:
         - Returns the complete list of `Transaction` objects in `transactions`.
 
-4. **searchTransactionsByKeywords(keywords : List<String>) : List<Transaction>**
+4. **searchTransactionsByKeywords(keywords : List&lt;String&gt;) : List&lt;Transaction&gt;**
     - **Parameters**:
         - `keywords`: A list of keywords to search for within transaction descriptions.
     - **Process**:
         - Looks up each `keyword` in the `invertedIndex` to find matching transactions.
         - Aggregates and counts relevance for each match.
         - Sorts the results by relevance and returns the list of matched transactions.
-5. **getExpensesByCategory(category : Category) : List<Transaction>**
+5. **getExpensesByCategory(category : Category) : List&lt;Transaction&gt;**
     - **Parameters**:
         - `category`: The `Category` to filter expenses by.
     - **Process**:
         - Filters `transactions` to include only `Expense` objects with the specified `category`.
         - Returns the filtered list of expenses.
-![SearchByCategory](./diagrams/TransactionList/transactionlist-Sequence-SearchByCategoty-diagram.png)
+    ![SearchByCategory](./diagrams/TransactionList/transactionlist-Sequence-SearchByCategoty-diagram.png)
 
-### AddIncomeCommand
-The `AddIncomeCommand` class handles the logic for adding an income transaction to the `TransactionList` by parsing input arguments, creating a new `Income` instance, and updating the transaction list.
+### Command
+The `Command` class is an abstract class that provide a common behavior that other commands can share.
 
-![AddIncomeCommand](./diagrams/addincomecommand/addincomecommand-class-diagram.png)
+#### Class responsibilities
+1. **Defining common structure**: It provides common fields that ensure consistency across all concrete command classes that extend Command.
+2. **Defining common behavior**: It provides a template for commands by the abstract methods (e.g. `getMandatoryKeywords()`, `execute()`, etc.), the class enables developers to add new commands by simply extending the base class and implementing the specific behavior for each command.
+3. **Defining some reusable methods**: It provides some common methods (e.g. `isArgumentsValid()`, `setArguments()`, `getArguments()`, etc.) across child classes.
 
-### Class Responsibilities
-
-1. **Command Parsing and Validation**: The class validates required fields (e.g., amount) and parses optional fields (e.g., date).
-2. **Transaction Creation**: An `Income` transaction is instantiated and initialized with a description, amount, and date.
-3. **Transaction Storage**: Upon creation, the transaction is saved to the `TransactionList` and persisted using `Storage`.
-
-### Class Attributes
+#### Class attributes
 1. **COMMAND_WORD**: `String`
-    - **Description**: The keyword triggering this command.
-2. **COMMAND_MANDATORY_KEYWORDS**: `String[]`
-    - **Description**: Array storing mandatory argument keywords.
-3. **COMMAND_EXTRA_KEYWORDS**: `String[]`
-    - **Description**: Array storing optional argument keywords.
-4. **transactions**: `TransactionList`
-    - **Description**: Stores the current list of all transactions.
+    - Description: The keyword triggering the command. The inherit classes will override this static variable by their own values.
+2. **COMMAND_GUIDE**: `String`
+    - Description: Description of the command. The child classes will override this static variable by their own values.
+3. **COMMAND_MANDATORY_KEYWORDS**: `String[]`
+    - Description: Array storing mandatory argument keywords. The child classes will override this static variable by their own values.
+4. **COMMAND_EXTRA_KEYWORDS**: `String[]`
+    - Description: Array storing optional argument keywords. The child classes will override this static variable by their own values.
+5. **arguments**: `Map<String, String>`
+    - Description: A map storing argument strings along with its keyword.
 
-### Class Main Methods
+#### Class main methods
+1. **Abstract Getter for the static variables**
+    - **Returns**: The static variable associated with the getter.
+    - **Responsibility**: To help the outer world accessing the overridden static values of each child classes, without knowing the exact class
+
+2. **execute(): abstract void**
+    - **Responsibility**: Act as a template for the child classes.
+
+3. **isArgumentsValid(): boolean**
+    - **Returns**: `true` if the `arguments` map contains all the mandatory keywords, `false` otherwise. Can be reused by the child classes.
+      
+### AddIncomeCommand
+The `AddIncomeCommand` class inherits Command class, handles the logic for adding an income transaction to the `TransactionList` by parsing input arguments, creating a new `Income` instance, and updating the transaction list.
+    ![AddIncomeCommand](./diagrams/addincomecommand/addincomecommand-class-diagram.png)
+
+#### Class responsibilities
+
+1. **Command parsing and validation**: The class validates required fields (e.g., amount) and parses optional fields (e.g., date).
+2. **Transaction creation**: An `Income` transaction is instantiated and initialized with a description, amount, and date.
+3. **Transaction storage**: Upon creation, the transaction is saved to the `TransactionList` and persisted using `Storage`.
+
+#### Class attributes
+1. **transactions**: `TransactionList`
+    - Description: Stores the current list of all transactions.
+
+#### Class main methods
 
 1. **execute()**
     - **Returns**: `List<String>`
@@ -187,7 +168,7 @@ The `AddIncomeCommand` class handles the logic for adding an income transaction 
         3. Instantiates a new `Income` transaction and adds it to `TransactionList`.
         4. Calls `Storage.saveTransaction()` to persist data.
 
-![execute](./diagrams/addincomecommand/addincomecommand-class-diagram_001.png)
+    ![execute](./diagrams/addincomecommand/addincomecommand-class-diagram_001.png)
 
 2. **createTransaction(double amount, String description, String date) : Transaction**
     - **Parameters**:
@@ -196,13 +177,79 @@ The `AddIncomeCommand` class handles the logic for adding an income transaction 
         - `date`: Date when the income was received.
     - **Returns**: A new `Income` instance.
 
+### Command Parser
+The `Parser` class is responsible for interpreting user commands and extracting the associated arguments. It facilitates interaction between the user and the underlying command execution logic.
+
+#### Class responsibilities
+1. **Command registration**: Maintain a mapping of command words to their corresponding `Command` objects.
+2. **Command parsing**: Convert a command string entered by the user into a `Command` object.
+3. **Argument extraction**: Extract and organize the arguments associated with a given command.
+   
+#### Class attributes
+1. **commands: LinkedHashMap&lt;String, Command&gt;**
+   - Description: Associates command words (as keys) with their corresponding Command objects (as values).
+     
+#### Class main methods
+1. **registerCommands(Command command): void**
+   - **Parameters**:
+     - `command`: The `Command` object to be registered.
+   - **Process**:
+     - Retrieves the `COMMAND_WORD` field from the `Command` object
+     - Adds the word and the command to the `commands` map.
     
+    ![register_command](./diagrams/parser/register-command-sequence.png)
+    
+2. **parseCommand(String commandPart): Command**
+   - **Parameters**: 
+     - `commandPart`: A string representing the command word entered by the user.
+      
+   - **Returns**: The corresponding `Command` object or `null` if the command is not found.
+    
+   - **Process**: 
+     - Retrieves the associated `Command` object from the `commands` map, using the provided commandPart.
+
+    ![parse_command](./diagrams/parser/parse-command-sequence.png)
+  
+3. **extractArguments(Command command, String argumentString): Map&lt;String, String&gt;**
+   - **Parameters**: 
+     - `command`: The `Command` object for which arguments are to be extracted.
+     - `argumentString`: The string containing the arguments to be parsed.
+      
+   - **Returns**: A map of argument keys and their corresponding values.
+    
+   - **Process**: 
+     - Initializes an empty map for arguments
+     - Retrieves the expected argument keys from the command
+     - Invokes `splitCommandRecursively` to populate the arguments map.
+  
+    ![extract_arguments](./diagrams/parser/extract-arguments-sequence.png)
+  
+4. **splitCommandRecursively(String argumentString, String[] keywords, Map&lt;String, String&gt; arguments, String prevKeyword): void**
+   - **Parameters**: 
+     - `argumentString`: The string containing the arguments to be split.
+     - `keywords`: An array of expected keywords for argument extraction.
+     - `arguments`: The map where extracted arguments will be stored.
+     - `prevKeyword`: The keyword found in the previous recursive call.
+      
+   - **Description**: Extracts values associated with keywords and updates the arguments map accordingly.
+    
+   - **Process**:
+     - Base case: No argument left to split: `argumentString.isEmpty()`
+     - Find the first keyword in the list that appears in the argumentString
+     - If found:
+       - Attach the part before the keyword with the previously found keyword and put in to `arguments`.
+       - Delete the keyword from the `keywords` list (to not be considered in the next call)
+       - Pass the remaining `argumentString` after the keyword to the next recursive call
+     - If not found (mean that the last keyword reached):
+       - Attach the remaining part with the previously found keyword and put in to `arguments`.
+           
 ## Product scope
 ### Target user profile
 #### Demographics:
 - Age: 18-25 years old
 - Education: College or university students
 - Income: Limited or variable income (part-time jobs, allowances, or scholarships)
+  
 #### Psychographics:
 - Tech-Savvy: Comfortable using command-line interfaces and basic programming concepts.
 - Motivated to create good spending habit: Aware of personal finance status and developing better money management habits.

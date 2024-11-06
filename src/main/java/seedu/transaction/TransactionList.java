@@ -1,6 +1,7 @@
 package seedu.transaction;
 
 import seedu.category.Category;
+import seedu.exceptions.InvalidTransactionTypeException;
 import seedu.message.ErrorMessages;
 import seedu.utils.DateTimeUtils;
 
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
  * Represents a list of transactions, including expenses and incomes.
  * Provides methods to add, delete, and search transactions, as well as update their categories.
  * The class also maintains an inverted index for efficient keyword searching.
+ * Original Implementation is by @YukeeHong in commit SHA 392a1fbce1f760236c968b3edfca0f4b8d3b81e7
  */
 public class TransactionList {
     private static final Logger logger = Logger.getLogger("TransactionList");
@@ -173,16 +175,18 @@ public class TransactionList {
      * @param index The index of the transaction to update.
      * @param newCategory The new category to set.
      * @return The updated transaction.
-     * @throws Exception If the transaction is not an expense or the index is invalid.
+     * @throws IndexOutOfBoundsException If the index is invalid.
+     * @throws InvalidTransactionTypeException If the transaction is not an expense
      */
-    public Transaction updateCategory(int index, Category newCategory) throws Exception {
+    public Transaction updateCategory(int index, Category newCategory)
+            throws IndexOutOfBoundsException, InvalidTransactionTypeException {
         if (!(index >= 0 && index < transactions.size())) {
             throw new IndexOutOfBoundsException(ErrorMessages.INDEX_OUT_OF_BOUNDS + transactions.size());
         }
 
         Transaction transaction = transactions.get(index);
         if (!(transaction instanceof Expense)) {
-            throw new Exception(ErrorMessages.NOT_AN_EXPENSE);
+            throw new InvalidTransactionTypeException(ErrorMessages.NOT_AN_EXPENSE);
         }
 
         ((Expense) transaction).setCategory(newCategory);

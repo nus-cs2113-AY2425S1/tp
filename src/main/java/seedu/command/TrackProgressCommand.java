@@ -1,6 +1,7 @@
 package seedu.command;
 
 import seedu.budget.BudgetTracker;
+import seedu.exceptions.InvalidDateFormatException;
 import seedu.message.CommandResultMessages;
 import seedu.message.ErrorMessages;
 import java.time.YearMonth;
@@ -30,9 +31,11 @@ public class TrackProgressCommand extends Command {
         YearMonth month = null;
         try {
             month = parseYearMonth(monthStr);
-        } catch (Exception e) {
+        } catch (InvalidDateFormatException e) {
             return List.of(CommandResultMessages.TRACK_PROGRESS_FAIL +
                     ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT);
+        } catch (Exception e) {
+            return List.of(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
         }
 
         return List.of(budgetTracker.checkBudgetProgress(month));

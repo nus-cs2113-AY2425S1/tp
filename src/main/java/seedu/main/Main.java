@@ -31,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
+
     public static final String NAME = "uNivUSaver";
     public static final String HI_MESSAGE = "Hello, %s is willing to help!";
     public static final String INVALID_COMMAND_ERROR_MESSAGE = "Invalid command.";
@@ -52,6 +53,10 @@ public class Main {
 
 
     public static void main(String[] args) {
+        // Get the root logger and set its level to OFF to disable all logs
+        Logger rootLogger = Logger.getLogger("");
+        rootLogger.setLevel(Level.OFF);
+
         while (isRunning) {
             run();
         }
@@ -84,7 +89,7 @@ public class Main {
             start();
             runCommandLoop();
         } catch (Exception e) {
-            logger.log(Level.WARNING, e.getMessage());
+            logger.log(Level.WARNING, "Unknown error: " + e.getMessage());
         }
     }
 
@@ -105,6 +110,7 @@ public class Main {
         transactions.setTransactions(Storage.loadTransactions());
 
         budgetTracker = new BudgetTracker(transactions);
+        budgetTracker.setMonthlyBudgets(Storage.loadBudgets());
 
         setupCommands();
 
@@ -133,6 +139,7 @@ public class Main {
     private static void setupCommands() {
         assert categories != null : "Categories should be initialized.";
         assert transactions != null : "Transactions should be initialized.";
+        assert budgetTracker != null : "BudgetTracker should be initialized.";
 
         HelpCommand helpCommand = new HelpCommand();
         parser.registerCommands(helpCommand);
@@ -142,7 +149,7 @@ public class Main {
         parser.registerCommands(new AddExpenseCommand(transactions, ui, categories));
         parser.registerCommands(new AddBudgetCommand(budgetTracker));
 
-        parser.registerCommands(new DeleteCategoryCommand(categories));
+        parser.registerCommands(new DeleteCategoryCommand(categories, transactions));
         parser.registerCommands(new DeleteTransactionCommand(transactions));
 
         parser.registerCommands(new ViewCategoryCommand(categories));
@@ -168,7 +175,7 @@ public class Main {
      * Main command processing loop that retrieves user commands, processes, and displays the results.
      * The loop continues until the application is stopped.
      */
-    private static void runCommandLoop() throws Exception {
+    private static void runCommandLoop() {
         while (isRunning) {
             String commandString = ui.getUserInput();
             String[] commandParts = commandString.split(" ", 2);
