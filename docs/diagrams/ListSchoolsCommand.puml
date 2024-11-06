@@ -7,7 +7,6 @@ actor CEG_Student
 participant ":ListSchoolCommand" as ListSchoolCommand
 participant ":UI" as UI
 participant ":Command" as Command
-participant ":IOException" as IOException
 
 CEG_Student -> ListSchoolCommand: execute (userInput:String)
 activate ListSchoolCommand
@@ -17,10 +16,6 @@ activate ListSchoolCommand
 
 ListSchoolCommand -> Command: createJsonObject()
 activate Command
-
-opt inputStream is null
-    Command -> IOException: throw new IOException()
-end
 
 Command --> ListSchoolCommand: JsonObject
 deactivate Command
