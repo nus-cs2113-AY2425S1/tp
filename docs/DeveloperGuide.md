@@ -144,17 +144,17 @@ The logic of the `Parser` component is illustrated in the following use case:
 
 1. Upon receiving a user command input, `Main` constructs a new `Parser`. This state is represented in the following **Object Diagram**: 
 
-<img src = "images/ParserObjectDiagram0.png">
-<div style="page-break-after: always;"></div>
+    <img src = "images/ParserObjectDiagram0.png">
+    <div style="page-break-after: always;"></div>
 
 2. `Main` passes the user command input to `Parser`, which parses the input and constructs an `XYZCommand` object, which is returned to `Main`. 
 The `Parser` instance is no longer referenced. The current state is as shown in the **Object Diagram** below:
 
-<img src = "images/ParserObjectDiagram1.png">
+    <img src = "images/ParserObjectDiagram1.png">
 
 The interactions between `Parser` and the other components in the above procedure is shown in the sequence diagram in the [Command component](#command-component) section.
 
-Further details regarding command parsing can be found in the [Command parsing](#command-parsing) section.
+Further details regarding command parsing can be found in the [Command parsing](#command-parsing-) section.
 
 ### Command component
 
@@ -269,7 +269,7 @@ The `COMMAND_WORD` is set to "list", enabling the system to recognize the comman
 The `execute()` method retrieves each event from `eventList` and appends it to a formatted output message.
 It uses the `String.format` method with `LIST_MESSAGE` to include the total number of events in the message header.
 Events are appended to `outputMessage` with numbered formatting for readability.
-<div style="page-break-after: always;"></div>
+    <div style="page-break-after: always;"></div>
 
 4. Output Generation:
 The method stores the generated `outputMessage` in `this.message`, ready for display.
@@ -330,7 +330,7 @@ The operation logic for `EventList#addItemToEvent()` is similar to that for `Eve
 The interactions between components during the execution of the `EventList#addEvent()` operation are show in the **Sequence Diagram** below:
 
 1. `EventList` checks if there is a `Event` with the name in `eventName` in its list of `Events`s. If there is one, it throws a `DuplicateDataException`.
-3. Otherwise, `EventList` creates a new `Event` object with the parameters passed to it, and adds it to the `Event` list.
+2. Otherwise, `EventList` creates a new `Event` object with the parameters passed to it, and adds it to the `Event` list.
 
 <img src = "images/AddEventSequenceDiagram.png">
 
@@ -486,8 +486,8 @@ Given below is an example usage scenario for `MarkEventCommand#execute()`, and h
     <img src = "images/MarkEventObjectDiagram1.png">
 
 2. The user enters the command `mark -e Event 1 -s done` to mark `Event 1` as done. `MarkEventCommand` calls `MarkEventCommand#execute`,
-    in which it gets the event `Event 1` from the event list, and sets its mark status to `true` or done, as shown in the **Object Diagram** below.
-   
+in which it gets the event `Event 1` from the event list, and sets its mark status to `true` or done, as shown in the **Object Diagram** below.
+
     <img src = "images/MarkEventObjectDiagram2.png">
 
 3. The user then enters the command `mark -e Event 1 -s undone` to mark `Event 1` as not done. The `MarkEventCommand` again calls `MarkEventCommand#execute`,
@@ -553,8 +553,8 @@ The interactions between components of `CopyCommand#execute` are shown in the **
 
 <img src="images/CopyCommandSequenceDiagram.png">
 
-3.  Upon execution of the command, the output message of `CopyCommand` is set to inform the user if the participants list has been copied,
-    or if the operation was unsuccessful (e.g. if the participant list that is meant to be copied is empty).
+Upon execution of the command, the output message of `CopyCommand` is set to inform the user if the participants list has been copied,
+or if the operation was unsuccessful (e.g. if the participant list that is meant to be copied is empty).
 
 ### Sort feature
 
@@ -651,7 +651,7 @@ The interactions between components of `FindCommand#execute` are shown in the **
 
 ### Saving and loading of data
 
-As mentioned in the _Storage component_ section, the program automatically saves any stored data in `EventList` into 'data.csv` file, and loads
+As mentioned in the _Storage component_ section, the program automatically saves any stored data in `EventList` into `data.csv` file, and loads
 the data from this file when the program runs.
 
 In `data.csv`, each line represents an object (`Event`, `Participant`, or `Item`), organised in the following format:
@@ -760,7 +760,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 
 ## Appendix C: Non-Functional Requirements
 
-* Should work for any **mainstream OS** (Windows, MacOS, Linux) as long as Java 17 is installed.
+* Should work for any **mainstream OS** (Windows, macOS, Linux) as long as Java 17 is installed.
 * Should be able to store data for a large number of `Event`s without any loss in performance.
 * Should be able to execute any command within 1 second of receiving user input.
 * Should be able to load a corrupted save file without crashing.
@@ -982,10 +982,10 @@ The user is able to organise and manage his events more quickly and efficiently 
    2. Test case: `mark -m Item 1 -e Event 1 -s accounted`  
       Expected: The `Item` with name `Item 1` is marked as accounted for. A success message is shown.
 
-   2. Test case: `mark -m Item 1 -e Event 1 -s done`  
+   3. Test case: `mark -m Item 1 -e Event 1 -s done`  
       Expected: No `Item` is marked. An invalid status error message is shown.
 
-   3. Test case: `mark -m Item 2 -e Event 1 -s accounted`  
+   4. Test case: `mark -m Item 2 -e Event 1 -s accounted`  
       Expected: No `Item` is marked. An error message is shown.
 
 2. Marking an `Item` in an invalid `Event`
