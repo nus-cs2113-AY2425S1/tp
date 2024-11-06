@@ -35,16 +35,17 @@ import seedu.duke.logic.BudgetLogic;
  * <p>Methods:</p>
  * <ul>
  *   <li>{@link #getStorageFile()} - Retrieves the storage file, creating it if necessary.</li>
- *   <li>{@link #update(FinancialList)} - Updates the storage file with the entries from the given FinancialList.</li>
+ *   <li>{@link #update(FinancialList, BudgetLogic)} - Updates the storage file with the entries from the given FinancialList and BudgetLogic.</li>
  *   <li>{@link #parseExpense(String[])} - Parses a string array into an Expense object.</li>
  *   <li>{@link #parseIncome(String[])} - Parses a string array into an Income object.</li>
- *   <li>{@link #loadFromFile()} - Loads financial data from the storage file into a FinancialList.</li>
+ *   <li>{@link #loadFromFile(BudgetLogic)} - Loads financial data from the storage file into a FinancialList and updates the BudgetLogic.</li>
  * </ul>
  * 
  * <p>Fields:</p>
  * <ul>
  *   <li>{@link #logger} - Logger for logging information and errors.</li>
  *   <li>{@link #FINANCIAL_LIST_FILE_PATH} - Path to the storage file.</li>
+ *   <li>{@link #BUDGET_FILE_PATH} - Path to the budget file.</li>
  * </ul>
  */
 public class Storage {
