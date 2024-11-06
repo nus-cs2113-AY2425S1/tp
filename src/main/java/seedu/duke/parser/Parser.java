@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 
 import seedu.duke.commands.Command;
 import seedu.duke.data.state.State;
+import seedu.duke.ui.Ui;
+
 /**
  * Parses user input commands and executes the corresponding actions in the application.
  * This class handles various commands such as adding tasks, deleting tasks, marking tasks,
@@ -33,7 +35,7 @@ public class Parser {
             try{
                 return new AddTodoParser().execute(line, state);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The input cannot be empty");
+                Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Todo Command Error: Non-Numerical Error");
             }
             break;
@@ -42,7 +44,7 @@ public class Parser {
             try{
                 return new AddDeadlineParser().execute(line, state);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The input cannot be empty");
+                Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Deadline Command Error: Non-Numerical Error");
 
             }
@@ -52,7 +54,7 @@ public class Parser {
             try{
                 return new AddRepeatParser().execute(line, state);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The input cannot be empty");
+                Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Repeat Command Error: Non-Numerical Error");
             }
             break;
@@ -61,7 +63,7 @@ public class Parser {
             try{
                 return new AddParser().execute(line, state);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The input cannot be empty");
+                Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Add Command Error: Empty field");
             }
             break;
@@ -73,7 +75,7 @@ public class Parser {
             try{
                 return new DeleteParser().execute(line, state);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The input cannot be empty");
+                Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Delete Command Error: Non-Numerical Error");
             }
             break;
@@ -82,7 +84,7 @@ public class Parser {
             try{
                 return new SelectParser().execute(line, state);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The input cannot be empty");
+                Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Select Command Error: Non-Numerical Error");
             }
             break;
@@ -91,7 +93,7 @@ public class Parser {
             try{
                 return new MarkParser().execute(line, state);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The input cannot be empty");
+                Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Mark Command Error: Non-Numerical Error");
             }
             break;
@@ -100,7 +102,7 @@ public class Parser {
             try{
                 return new UnmarkParser().execute(line, state);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The input cannot be empty");
+                Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Unmark Command Error: Non-Numerical Error");
             }
             break;
@@ -112,7 +114,7 @@ public class Parser {
             try{
                 return new FindParser().execute(line, state);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The input cannot be empty");
+                Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Find Command Error: Non-Numerical Error");
             }
             break;
