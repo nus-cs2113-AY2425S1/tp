@@ -1,6 +1,8 @@
 @startuml
 
-class StateManager {
+!include style.puml
+
+class StateManager LOGIC_COLOR{
     - State currentState
     + StateManager()
     + getCurrentState(): State
@@ -12,7 +14,7 @@ class StateManager {
     + runTaskState(String commandInput, Command command, Hospital hospital): CommandResult
 }
 
-class State {
+class State LOGIC_COLOR{
     - StateType currentStage
     + State()
     + State(StateType state)
@@ -20,19 +22,19 @@ class State {
     + setState(StateType state): void
 }
 
-enum StateType {
+enum StateType LOGIC_COLOR{
     MAIN_STATE
     TASK_STATE
 }
 
-class CommandResult {
+class CommandResult COMMAND_COLOR{
     - feedbackToUser: String
     + CommandResult(String feedbackToUser)
     + getFeedbackToUser(): String
 }
 
-StateManager --> "0..1" State
-State --> "1" StateType
+StateManager .left.> "0..1" State
+State --> StateType
 StateManager --> CommandResult
 
 @enduml

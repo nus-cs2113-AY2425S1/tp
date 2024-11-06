@@ -62,7 +62,7 @@ class Exception DATA_COLOR{
 }
 
 PatientNotFoundException .down.|> Exception : extends
-Hospital --> "0...*" Patient
+Hospital .left.> "0...*" Patient
 Hospital .down.> PatientNotFoundException
 Patient -->  TaskList
 
