@@ -42,8 +42,6 @@ Progress is restored when FinanceBuddy is started up each time.
 
 ## Features
 
-{Give detailed description of each feature}
-
 ### Help
 
 Lists out the full list of usable commands.
@@ -52,6 +50,8 @@ Lists out the full list of usable commands.
 `help`
 
 **Output**:
+
+---
 
 ### Add Transaction
 
@@ -64,6 +64,8 @@ Adds an income or expense entry to your financial list.
 **Examples**:
 - `expense Lunch /a 10.50 /d 12/10/24 /c FOOD`
 - `income Freelance Work /a 500 /d 15/10/24 /c SALARY`
+
+---
 
 ### Edit Transaction
 Edits an existing transaction in your financial list.
@@ -93,6 +95,8 @@ edit 4 /des breakfast /a 5 /d 12/09/24
 edit 5 /c FOOD
 ```
 
+---
+
 ### Delete Transaction
 Deletes an entry from your financial list.
 
@@ -101,6 +105,8 @@ Deletes an entry from your financial list.
 **Example**:
 - `delete 3` - Deletes the entry at index 3.
 
+---
+
 ### List Entries
 
 Lists out entries in your financial list for your perusal. Entries can be filtered by type (income/expense)
@@ -108,23 +114,63 @@ or restricted to a stipulated period. The app will display the total cashflow/ex
 during the stipulated period depending on the financial entry type selected to be listed, as well as the
 category with the highest total expenditure/income.
 
-**Format**: `list [expense|income] [/from START_DATE] [/to END_DATE]`
+Format: `list [expense|income] [/from START_DATE] [/to END_DATE]`
 
 #### List by Type
 
 User can command app to list out only expenses, only incomes or both expenses and incomes.
 
-**Example Usage**:
+Example Usage:
 ``` java
-//Lists out all expenses and incomes. 
-//Displays total cashflow (income - expenditure), and shows categories with the highest total expenditure and income respectively
+//Input Command
 list
 
-//Lists out all expenses. Displays total expenditure, and shows category with highest total expenditure.
+//Output: Lists out all expenses and incomes. 
+//Displays total cashflow (income - expenditure), and shows categories with the highest total expenditure and income respectively
+--------------------------------------------
+Here's a list of all recorded entries:
+1. [Expense] - lunch $ 3.50 (on 22/10/24) [FOOD]
+2. [Income] - salary $ 3000.00 (on 22/10/24) [SALARY]
+3. [Expense] - dinner $ 4.50 (on 22/10/24) [FOOD]
+4. [Expense] - movie $ 20.00 (on 22/10/24) [ENTERTAINMENT]
+5. [Income] - allowance $ 100.00 (on 22/10/24) [GIFT]
+6. [Income] - ang pow money $ 15.00 (on 22/10/24) [GIFT]
+
+Net cashflow: $ 3087.00
+                
+Highest Expense Category: ENTERTAINMENT ($20.00)
+Highest Income Category: SALARY ($3000.00)
+--------------------------------------------
+
+//Input Command
 list expense 
 
-//Lists out all incomes. Displays total income, and shows category with highest total income.
-list income 
+//Output: Lists out all expenses. Displays total expenditure, and shows category with highest total expenditure.
+--------------------------------------------
+Here's a list of all recorded expenses:
+1. [Expense] - lunch $ 3.50 (on 22/10/24) [FOOD]
+2. [Expense] - dinner $ 4.50 (on 22/10/24) [FOOD]
+3. [Expense] - movie $ 20.00 (on 22/10/24) [ENTERTAINMENT]
+
+Total expense: $ 28.00
+                
+Highest Expense Category: ENTERTAINMENT ($20.00)
+--------------------------------------------
+
+//Input Command
+list income
+
+//Output: Lists out all incomes. Displays total income, and shows category with highest total income.
+--------------------------------------------
+Here's a list of all recorded incomes:
+1. [Income] - salary $ 3000.00 (on 22/10/24) [SALARY]
+2. [Income] - allowance $ 100.00 (on 22/10/24) [GIFT]
+3. [Income] - ang pow money $ 15.00 (on 22/10/24) [GIFT]
+
+Total income: $ 3115.00
+                
+Highest Income Category: SALARY ($3000.00)
+--------------------------------------------
 ```
 
 #### List by Date
@@ -135,21 +181,59 @@ and/or up to a certain date using the `/to` flag.
 Total cashflow/expenditure/income displayed will be restricted to the range of dates entered by the user.
 Category with highest expenditure/income displayed will also be based on the entered date range.
 
-**Example Usage**:
+Example Usage:
 ``` java
-//Lists out all expenses and incomes with date equal to or after 03/10/24.
-//Displays total cashflow (income - expenditure) during that period, and shows
-//categories with the highest total expenditure and income during that period respectively.
+//Input Command
 list /from 03/10/24
 
-//Lists out all expenses with dates before or equal to 03/10/24.
-//Displays total expenditure + category with highest total expenditure during that period.
+//Output: Lists out all expenses and incomes with date equal to or after 03/10/24.
+//Displays total cashflow (income - expenditure) during that period, and shows
+//categories with the highest total expenditure and income during that period respectively.
+--------------------------------------------
+Here's a list of all recorded entries:
+1. [Income] - salary $ 3000.00 (on 03/10/24) [SALARY]
+2. [Expense] - dinner $ 4.50 (on 05/10/24) [FOOD]
+3. [Income] - allowance $ 100.00 (on 10/10/24) [GIFT]
+4. [Expense] - movie $ 20.00 (on 27/10/24) [ENTERTAINMENT]
+5. [Income] - ang pow money $ 15.00 (on 01/11/24) [GIFT]
+
+Net cashflow: $ 3090.50
+                
+Highest Expense Category: ENTERTAINMENT ($20.00)
+Highest Income Category: SALARY ($3000.00)
+--------------------------------------------
+
+//Input Command
 list expense /to 03/10/24
 
-//Lists out all incomes with dates between 03/10/24 and 01/11/24 inclusive.
+//Output: Lists out all expenses with dates before or equal to 03/10/24.
+//Displays total expenditure + category with highest total expenditure during that period.
+--------------------------------------------
+Here's a list of all recorded expenses:
+1. [Expense] - lunch $ 3.50 (on 22/09/24) [FOOD]
+
+Total expense: $ 3.50
+                
+Highest Expense Category: FOOD ($3.50)
+--------------------------------------------
+
+//Input Command
+list income /from 03/10/24 /to 10/10/24
+
+//Output: Lists out all incomes with dates between 03/10/24 and 10/10/24 inclusive.
 //Displays total income + category with highest total income during that period.
-list income /from 03/10/24 /to 01/11/24
+--------------------------------------------
+Here's a list of all recorded incomes:
+1. [Income] - salary $ 3000.00 (on 03/10/24) [SALARY]
+3. [Income] - allowance $ 100.00 (on 10/10/24) [GIFT]
+
+Total income: $ 3100.00
+              
+Highest Income Category: SALARY ($3000.00)
+--------------------------------------------
 ```
+
+---
 
 ### Set/Edit Budget
 
@@ -179,12 +263,6 @@ FinanaceBuddy will automatically update the files whenever your list or budget b
 When you start the FinanaceBuddy program, it will check if the `data/FinancialList.txt` and `data/Budget.txt` exist.
 If do, it'll try to load the transections and budget in the file row by row.
 Please do not modify these files maunaly, otherwise the transections or the budget with incorrect format will not be loaded.
-
-## FAQ
-
-**Q**: How do I transfer my data to another computer? 
-
-**A**: {your answer here}
 
 ## Command Summary
 
