@@ -1,6 +1,5 @@
 package fittrack;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -31,19 +30,14 @@ public class FitTrack {
     public static void main(String[] args) throws IOException {
         setupLogger();
 
-        // Initialize scanner and and unified saveable-item list
+        // Initialize scanner and unified saveable-item list
         Scanner scan = new Scanner(System.in);
         ArrayList<Saveable> saveableList = new ArrayList<>();
 
 
         // Initialize and load the save file
-        try {
-          initialiseSaveFile();
-          loadSaveFile(saveableList);
-        }
-        catch (FileNotFoundException e) {
-          System.out.println(e.getMessage());
-        }
+        initialiseSaveFile();
+        loadSaveFile(saveableList);
 
         // Initialize separate Goal/Reminder/Training Session lists for easier access if needed
         ArrayList<TrainingSession> sessionList = new ArrayList<>();

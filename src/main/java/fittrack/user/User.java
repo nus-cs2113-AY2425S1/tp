@@ -59,7 +59,8 @@ public class User {
     @Override
     public String toString () {
         return gender + " " + age;
-  
+    }
+    
     public WaterIntake getWaterIntake() {
         return waterIntake;
     }

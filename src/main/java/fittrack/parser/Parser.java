@@ -107,9 +107,6 @@ public class Parser {
         case HELP_COMMAND:
             printHelp();
             break;
-        case LIST_SESSIONS_COMMAND:
-            printSessionList(sessionList);
-            break;
         case SET_USER_COMMAND:
             try {
                 String[] userInfo = parseUserInfo(description);
@@ -121,8 +118,7 @@ public class Parser {
             break;
         case ADD_SESSION_COMMAND:
             try {
-                LocalDateTime currentTime = LocalDateTime.now();
-                sessionList.add(new TrainingSession(currentTime, description, user));
+                sessionList.add(validSession(description, user));
                 printAddedSession(sessionList);
                 updateSaveFile(sessionList, goalList, reminderList);  
             } catch (Exception e) {
@@ -131,6 +127,13 @@ public class Parser {
             break;
         case EDIT_EXERCISE_COMMAND:
             try {
+                validEditDetails(description,sessionList.size());
+
+                String[] userinput = description.split(" ");
+                int sessionIndex = Integer.parseInt(userinput[1]);
+                String exerciseAcronym = userinput[2];
+                String exerciseData = userinput[3];
+
                 sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData,
                         true);
                 printSessionView(sessionList, sessionIndex);
@@ -379,7 +382,7 @@ public class Parser {
      *
      * @param inputDeadline A string input by the user. Intended format is DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.
      * @return A {@code LocalDateTime} object indicating reminder deadline
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException Thrown if an incorrectly formatted deadline is provided.
      */
     static LocalDateTime parseReminderDeadline(String inputDeadline) throws IllegalArgumentException {
         try {
