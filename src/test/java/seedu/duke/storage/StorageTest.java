@@ -204,6 +204,22 @@ public class StorageTest {
         assertEquals(null, budgetLogic.getBudget());
     }
 
+    /**
+     * Tests the storage format for various invalid cases and ensures that only valid entries are loaded.
+     * 
+     * The test writes several entries to the storage file with different types of invalid data:
+     * - Invalid category
+     * - Invalid date
+     * - Invalid amount
+     * - Invalid type
+     * - Missing fields
+     * 
+     * It then writes a valid budget to the budget file.
+     * 
+     * Finally, it loads the financial list from the storage and asserts that only the valid entry is loaded.
+     * 
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testStorageFormatInvalid() throws IOException {
         File file = Storage.getStorageFile();
