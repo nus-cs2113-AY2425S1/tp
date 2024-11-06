@@ -318,6 +318,7 @@ The `EventList#addParticipantToEvent()` operation works as follows:
 3. Otherwise, `Event` creates a new `Participant` object with the parameters passed to it, and adds it to the `Participant` list.
 
 If an `Event` with a name matching `eventName` is not found, the operation returns `false` to indicate that the operation was unsuccessful. Otherwise, the operation returns `true`.
+<div style="page-break-after: always;"></div>
 
 The interactions between components during the execution of the `EventList#addParticipantToEvent()` operation are show in the **Sequence Diagram** below:
 
@@ -703,8 +704,9 @@ For saving `Events`:
 
 For `Participant` and `Item` saving:
 * For each Event, Storage retrieves the list of Participants and Items, writing each line in the respective format.
+<div style="page-break-after: always;"></div>
 
-  The class interactions during saving are displayed in the **Sequence Diagram** below.
+The class interactions during saving are displayed in the **Sequence Diagram** below.
 
 <img src= "images/StorageSavingSequenceDiagram.png" width="550">
 
