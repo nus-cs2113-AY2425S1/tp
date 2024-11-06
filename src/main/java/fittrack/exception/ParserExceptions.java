@@ -49,11 +49,11 @@ public class ParserExceptions extends RuntimeException {
         return new TrainingSession(LocalDateTime.now(), description, user);
     }
 
-    public static int validSessionIndex(int indexToDelete, int sessionListSize) {
-        if(indexToDelete < 0 || indexToDelete >= sessionListSize) {
+    public static int validSessionIndex(int index, int sessionListSize) {
+        if(index < 0 || index >= sessionListSize) {
             throw new IllegalArgumentException(INVALID_SESSION_INDEX_MESSAGE);
         }
-        return indexToDelete;
+        return index;
     }
 
     public static String[] validEditDetails(String description, int sessionListSize)
@@ -127,4 +127,6 @@ public class ParserExceptions extends RuntimeException {
         }
         return editDetails;
     }
+
+
 }
