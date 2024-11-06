@@ -6,35 +6,51 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 package Storage as StoragePackage {
     Class "<<interface>>\nStorage" as Storage {
-        +save(Hospital): void
-        +load(): Hospital
+        +getFilePath(): String
+        +checkFileFound(filepath: String): void
+        +save(objectToSave: T): void
+        +load(): T
+        +toString(): String
     }
 
     class StorageFile {
         +StorageFile()
-        +StorageFile(String)
+        +StorageFile(filePath: String)
         +getFilePath(): String
-        +save(Hospital): void
+        +save(hospital: Hospital): void
         +load(): Hospital
         +toString(): String
-        -checkFileFound(String): void
-        {static} -logger: Logger
+        +checkFileFound(filePath: String): void
         {static} -DEFAULT_STORAGE_FILEPATH: String
         -filePath: String
+        -ui : UI
+        ' -jsonUtil : JsonUtil
     }
 
     class JsonUtil {
-        {static} +saveToFile(String): void
-        {static} +saveToFile(Hospital, String): void
-        {static} +loadFromFile(String): Hospital
-        {static} +toJson(Hospital): String
-        {static} +fromJson(String): Hospital
-        {static} -logger: Logger
+        +saveToFile(filePath: String): void
+        +saveToFile(filePath: String, objectToSave: Hospital): void
+        +loadFromFile(filePath: String): Hospital
+        +toJson(hospital: Hospital): String
+        +fromJson(json: String): Hospital
         {static} -objectMapper: ObjectMapper
     }
 
     class StorageBackup {
-        + createBackupFile(filePath : String)
+        +StorageBackup()
+        +StorageBackup(filePath: String)
+        {static} +getBackupFilePath(): String
+        {static} +createBackupFileName(filePath: String): String
+        {static} +createBackupFile(filePath: String)
+        {static} -BACKUP_PREFIX: String
+        {static} -BACKUP_EXTENSION: String
+        {static} -fileBackupPath: String
+    }
+
+    class StorageOperationException {
+    }
+
+    class Exception {
     }
 }
 
@@ -58,7 +74,9 @@ HiddenOutside ..> Storage
 StorageFile .up.|> Storage
 ' StorageFile *-- "1" Hospital
 StorageFile --> "1" JsonUtil
-StorageFile ..> StorageBackup
+StorageFile --> "1" StorageBackup
+JsonUtil ..> StorageOperationException
+StorageOperationException .down.|> Exception : extends
 ' JsonUtil --> StorageOperationException : Throws
 
 @enduml

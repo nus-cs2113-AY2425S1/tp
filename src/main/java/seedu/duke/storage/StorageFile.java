@@ -18,6 +18,7 @@ public class StorageFile<T> implements Storage<Hospital> {
 
     private Ui ui;
     private JsonUtil jsonUtil;
+    private StorageBackup storageBackup;
 
     static {
         logger.setLevel(Level.SEVERE);
@@ -34,6 +35,7 @@ public class StorageFile<T> implements Storage<Hospital> {
 
         ui = new Ui();
         jsonUtil = new JsonUtil();
+        storageBackup = new StorageBackup();
     }
 
     /**
@@ -121,7 +123,7 @@ public class StorageFile<T> implements Storage<Hospital> {
             return jsonUtil.loadFromFile(getFilePath());
         } catch (StorageOperationException e) {
             ui.showToUserException("File is Corrupted! " + e.getMessage());
-            StorageBackup.createBackupFile(filePath); // Create a backup file
+            storageBackup.createBackupFile(filePath); // Create a backup file
             return new Hospital(); // Return an empty hospital
         }
     }
