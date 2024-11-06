@@ -28,6 +28,7 @@
 * [Appendix B: User stories](#appendix-b-user-stories)
 * [Appendix C: Non-functional requirements](#appendix-c-non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d-glossary)
+<div style="page-break-after: always;"></div>
 * [Appendix E: Instructions for manual testing](#appendix-e-instructions-for-manual-testing)
   * [Launch and shutdown](#launch-and-shutdown)
   * [Adding an event](#adding-an-event)
@@ -56,6 +57,7 @@ This application uses the following dependencies:
 * [OpenCSV 5.9](https://mvnrepository.com/artifact/com.opencsv/opencsv/5.9) to read and write to `.csv` files.
 * [JUnit Jupiter API 5.10.0](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api/5.10.0) for unit testing.
 * [JUnit Jupiter Engine 5.10.0](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine/5.10.0) for unit testing.
+<div style="page-break-after: always;"></div>
 
 ## Design
 
@@ -73,6 +75,7 @@ The application comprises the following components:
 * `Parser`, which converts user input into commands.
 * `Command`, which are executed to modify the data stored in the program.
 * `Event`, which stores the program's data.
+<div style="page-break-after: always;"></div>
 
 ### Interactions between components
 
@@ -95,6 +98,7 @@ The above **Sequence Diagram** shows how the different components of the system 
 * `EventList` refers to the list of events in `Event` which the program's event data is stored (see the [Event component](#event-component) section for more details).
 
 The **Sequence Diagrams** within the reference frames in the above diagram can be found in the [Command component](#command-component) and [Saving and loading of data](#saving-and-loading-of-data) sections.
+<div style="page-break-after: always;"></div>
 
 ### UI component
 
