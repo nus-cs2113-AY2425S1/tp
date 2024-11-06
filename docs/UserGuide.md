@@ -8,7 +8,7 @@ nav_order: 1
 MediTask is a desktop application designed to help nurses efficiently manage and track their daily tasks via a Command Line Interface (CLI). This CLI tool streamlines task management, allowing nurses to quickly organize, monitor, and complete tasks, ensuring no important steps are missed.
 
 * Table of Contents
-{:toc}
+  {:toc}
 
 ## Quick Start
 
@@ -22,25 +22,25 @@ MediTask is a desktop application designed to help nurses efficiently manage and
    Some example commands you can try:
 
    Patient-related commands:
-   - `add Alice /tag patient` : Adds a patient named Alice to the list of patients.
+    - `add Alice /tag patient` : Adds a patient named Alice to the list of patients.
 
-   - `list` : Lists all patients.
+    - `list` : Lists all patients.
 
-   - `delete 1` : Deletes the 1st patient in the list.
+    - `delete 1` : Deletes the 1st patient in the list.
 
-   - `exit` : Exits the app.
+    - `exit` : Exits the app.
 
    Task-related commands:
 
-   - `todo Update patient records` : Adds a todo task named "Update patient records" to the list of tasks.
+    - `todo Update patient records` : Adds a todo task named "Update patient records" to the list of tasks.
 
-   - `list` : Lists all tasks.
+    - `list` : Lists all tasks.
 
-   - `delete 1` : Deletes the 1st task in the list.
+    - `delete 1` : Deletes the 1st task in the list.
 
-   - `mark 1` : Marks the 1st task in the list as done.
+    - `mark 1` : Marks the 1st task in the list as done.
 
-   - `unmark 1` : Marks the 1st task in the list as undone.
+    - `unmark 1` : Marks the 1st task in the list as undone.
 
 6. Refer to the [Features](#features) below for details of each command.
 
@@ -56,6 +56,25 @@ MediTask is a desktop application designed to help nurses efficiently manage and
 >- Ensure that Patient is selected before entering any task commands. e.g. `select 1` before adding a task or simply look above the prompt `Patient: <patient_name>`.
 >
 >- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+> - **Dates and Times** (only in the `deadline` command) must follow specific formats:
+>   - **Date Formats:**
+>     - `1/9/2024` (d/m/yyyy)
+>     - `01/09/2024` (dd/mm/yyyy)
+>     - `1-9-2024` (d-m-yyyy)
+>     - `2024-09-01` (yyyy-mm-dd)
+>   - **Time Formats:**
+>     - `930` (hmm)
+>     - `0930` (hhmm)
+>     - `9:30` (h:mm)
+>     - `09:30` (hh:mm)
+>     - `9:30AM` (h:mma)
+>   - **Datetime Formats:**
+>     - `1/9/2024 0930` (d/m/yyyy hhmm)
+>     - `01-09-2024 9:30AM` (dd-mm-yyyy h:mma)
+>     - `2024-09-01 09:30` (yyyy-mm-dd hh:mm)
+>
+> - **Supported Relative Terms** (only in the `deadline` command):
+>   - You may also use relative terms like `today` and `tomorrow`, which will be automatically converted to the current date or the next day.
 
 
 ### Viewing Help: `help`
@@ -85,9 +104,9 @@ Adds a patient to the hospital’s patient list.
 
 **Examples**:
 - `add Alice /tag HighPriority`
-   - Adds a patient named Alice with the tag "HighPriority."
+    - Adds a patient named Alice with the tag "HighPriority."
 - `add Bob`
-   - Adds a patient named Bob without any tags.
+    - Adds a patient named Bob without any tags.
 
 #### Deleting a Patient: `delete`
 Removes a patient from the hospital’s patient list by their index.
@@ -100,9 +119,9 @@ Removes a patient from the hospital’s patient list by their index.
 
 **Examples**:
 - `delete 1`
-   - Deletes the first patient in the patient list.
+    - Deletes the first patient in the patient list.
 - `delete 3`
-   - Deletes the third patient in the patient list.
+    - Deletes the third patient in the patient list.
 
 #### Finding a Patient: `find`
 Searches for patients in the hospital system whose names contain the specified keyword.
@@ -111,9 +130,9 @@ Searches for patients in the hospital system whose names contain the specified k
 
 **Examples**:
 - `find Alice`
-   - Displays all patients whose names contain "Alice."
+    - Displays all patients whose names contain "Alice."
 - `find Bob`
-   - Displays all patients whose names contain "Bob."
+    - Displays all patients whose names contain "Bob."
 
 #### Listing All Patients: `list`
 Displays all patients currently registered in the hospital system, along with their details and task completion rates.
@@ -122,7 +141,7 @@ Displays all patients currently registered in the hospital system, along with th
 
 **Examples**:
 - `list`
-   - Lists all patients in the hospital system.
+    - Lists all patients in the hospital system.
 
 #### Selecting a Patient: `select`
 Switches the application state to `TASK_STATE`, enabling task management features specifically for the selected patient by their index.
@@ -135,9 +154,9 @@ Switches the application state to `TASK_STATE`, enabling task management feature
 
 **Examples**:
 - `select 1`
-   - Selects the first patient in the patient list and enables task management features for that patient.
+    - Selects the first patient in the patient list and enables task management features for that patient.
 - `select 3`
-   - Selects the third patient in the patient list and enables task management features for that patient.
+    - Selects the third patient in the patient list and enables task management features for that patient.
 
 ### Task State
 The task state is used to control all task-related command. The application enters task state when user selects a patient in the patient list.
@@ -157,8 +176,8 @@ Adds a new task to the list of tasks.
 **Format**: `todo TODO_NAME /tag TAG_NAME`
 
 **Examples**:
-- `todo Check up /tag urgent` 
-   - Add task with description "Check up" with "urgent" tag to the bottom of selected patient's task list.
+- `todo Check up /tag urgent`
+    - Add task with description "Check up" with "urgent" tag to the bottom of selected patient's task list.
 
 {: .highlight }
 > **Note**:
@@ -170,11 +189,13 @@ Adds a task with deadline to the list of tasks.
 **Format**: `deadline DEADLINE_NAME /by DATE_TIME /tag TAG_NAME `
 
 **Examples**:
-- `deadline Have medicine /by 19:00 /tag urgent` 
-   - Add task with description "Have medicine" with "urgent" tag and deadline at 19:00 of the same day to the bottom of selected patient's task list.
-{: .highlight }
+- `deadline Have medicine /by 19:00 /tag urgent`
+    - Add task with description "Have medicine" with "urgent" tag and deadline at 19:00 of the same day to the bottom of selected patient's task list.
+      {: .highlight }
 > **Note**:
 > - Patient must be selected before adding a deadline task.
+> - Ensure that the date and time follow the accepted formats, Refer to the
+    [Notes about the command format](#Features) for valid date and time formats.
 
 #### Adding a recurring task: `repeat`
 Adds a task with reminder to repeat it to the list of tasks.
@@ -182,12 +203,14 @@ Adds a task with reminder to repeat it to the list of tasks.
 **Format**: `repeat TODO_NAME /every RECUR_BASIS /tag TAG_NAME`
 
 **Examples**:
-- `repeat Drink supplements /every day /tag important` 
-   - Add task with description "Drink supplements" with "important" tag and a reminder "repeat: every day" to the bottom of selected patient's task list.
+- `repeat Drink supplements /every day /tag important`
+    - Add task with description "Drink supplements" with "important" tag and a reminder "repeat: every day" to the bottom of selected patient's task list.
 
 {: .highlight }
 > **Note**:
 > - Patient must be selected before adding a repeat task.
+> - Relative terms are not supported here.
+
 
 #### Deleting a Task: `delete`
 Removes a task from the selected patient's list by their index.
@@ -200,7 +223,7 @@ Removes a task from the selected patient's list by their index.
 
 **Examples**:
 - `delete 1`
-   - Deletes the first task in the list.
+    - Deletes the first task in the list.
 
 #### Finding task: `find`
 Finds an existing task in the list of task.
@@ -209,7 +232,7 @@ Finds an existing task in the list of task.
 
 **Examples**:
 - `find Drink`
-   - Displays all tasks with description contains "Drink" in the selected patient's list.
+    - Displays all tasks with description contains "Drink" in the selected patient's list.
 
 #### Marking task: `mark`
 Checking the task as done by their index. This action will update the tasks' completion rate.
@@ -222,7 +245,7 @@ Checking the task as done by their index. This action will update the tasks' com
 
 **Examples**:
 - `mark 1`
-   - Mark the first task in the list as done.
+    - Mark the first task in the list as done.
 
 #### Unmarking task: `unmark`
 Checking the task as undone by their index. This action will update the tasks' completion rate.
@@ -235,7 +258,7 @@ Checking the task as undone by their index. This action will update the tasks' c
 
 **Examples**:
 - `unmark 1`
-   - Mark the first task in the list as undone.
+    - Mark the first task in the list as undone.
 
 
 ### Saving data
@@ -259,19 +282,19 @@ MediTask data is saved as a JSON file [JAR file location]/data/hospital_data.jso
 
 ## Command Summary
 
-- **add** `add PATIENT_NAME /tag TAG_NAME`: Adds a new patient to the list with an optional tag.
-- **select** `select INDEX`: Selects a patient and switches to task management mode.
-- **back** `back`: Returns to the main menu from the task management view.
-- **list** `list`:
-    - **In main state**: Lists all patients, showing overall task completion rates.
-    - **In task state**: Lists all tasks for the selected patient, showing each task’s completion status.
-- **delete** `delete INDEX`:
-    - **In main state**: Deletes the patient at the specified index.
-    - **In task state**: Deletes the task at the specified index for the selected patient.
-- **todo** `todo TODO_NAME /tag TAG_NAME`: Adds a new to-do task with an optional tag.
-- **deadline** `deadline DEADLINE_NAME /by DATE_TIME /tag TAG_NAME`: Adds a deadline task with a specified date and time, and an optional tag.
-- **repeat** `repeat TASK_NAME /every INTERVAL /tag TAG_NAME`: Adds a recurring task with a specified interval (e.g., daily, weekly) and an optional tag.
-- **find** `find KEYWORD`: Searches for a patient or task by the specified keyword.
-- **mark/unmark** `mark/unmark INDEX`: Mark the task's state at specified index as done or undone.
-- **help** `help`: Displays a help window with a list of available commands and their formats.
-- **exit** `exit`: Exits the application.
+| **Action**        | **Format, Examples**                                                                                                                                     |
+|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**    | ```add PATIENT_NAME /tag TAG_NAME```<br>e.g., ```add John Doe /tag VIP```                                                                                |
+| **Select** | ```select INDEX```<br>e.g., ```select 1```                                                                                                               |
+| **Back**          | ```back```                                                                                                                                               |
+| **List**          | ```list```<br>- In main state: Lists all patients, showing overall task completion rates.<br>- In task state: Lists all tasks for the selected patient, showing each task’s completion status. |
+| **Delete**        | ```delete INDEX```<br>- In main state: Deletes the patient at the specified index.<br>- In task state: Deletes the task at the specified index for the selected patient.<br>e.g., ```delete 2``` |
+| **Todo**          | ```todo TODO_NAME /tag TAG_NAME```<br>e.g., ```todo Check vitals /tag Urgent```                                                                          |
+| **Deadline**      | ```deadline DEADLINE_NAME /by DATE_TIME /tag TAG_NAME```<br>e.g., ```deadline Administer medication /by 15/09/2024 23:59 /tag Medication```              |
+| **Repeat**        | ```repeat TASK_NAME /every INTERVAL /tag TAG_NAME```<br>e.g., ```repeat Check blood pressure /every daily /tag Routine```                                |
+| **Find**          | ```find KEYWORD```<br>e.g., ```find John```                                                                                                              |
+| **Mark**          | ```mark INDEX```<br>e.g., ```mark 1```                                                                                                                   |
+| **Unmark**        | ```unmark INDEX```<br>e.g., ```unmark 1```                                                                                                               |
+| **Help**          | ```help```                                                                                                                                               |
+| **Exit**          | ```exit```                                                                                                                                               |
+
