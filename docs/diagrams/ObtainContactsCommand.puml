@@ -25,7 +25,7 @@ ObtainContactsCommand -> ObtainContactsCommand: getContactType(userInput: String
 activate ObtainContactsCommand
 
 alt inputParts.length != 2
-    ObtainContactsCommand -> CEG_Student: Displays Invalid Input Error
+    ObtainContactsCommand --> CEG_Student: Displays Invalid Input Error
 else else
     return contactType: String
 end
