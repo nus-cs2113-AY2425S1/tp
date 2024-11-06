@@ -1,12 +1,16 @@
 package seedu.transaction;
 
+import seedu.exceptions.InvalidDateFormatException;
 import seedu.utils.DateTimeUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 // Abstract Transaction class
 public abstract class Transaction {
+    private static final Logger logger = Logger.getLogger("Transaction");
     protected double amount;
     protected String description;
     protected String dateTimeString;  // Date stored as a string in ISO format
@@ -44,7 +48,11 @@ public abstract class Transaction {
         try {
             // Try parsing as LocalDateTime
             return DateTimeUtils.parseDateTime(dateTimeString);
+        } catch (InvalidDateFormatException e) {
+            logger.log(Level.WARNING, "InvalidDateFormatException: "+e.getMessage());
+            return null;
         } catch (Exception e) {
+            logger.log(Level.WARNING, "Unknown exception: "+e.getMessage());
             return null;
         }
     }

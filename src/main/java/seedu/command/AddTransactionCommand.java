@@ -1,5 +1,6 @@
 package seedu.command;
 
+import seedu.exceptions.InvalidDateFormatException;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
 import seedu.utils.AmountUtils;
@@ -28,7 +29,7 @@ public abstract class AddTransactionCommand extends Command {
         return AmountUtils.parseAmount(amountStr);
     }
 
-    protected String parseDate(String dateStr) throws Exception {
+    protected String parseDate(String dateStr) throws InvalidDateFormatException {
         if (dateStr == null || dateStr.isEmpty()) {
             return LocalDateTime.now().format(DEFAULT_FORMATTER);
         }

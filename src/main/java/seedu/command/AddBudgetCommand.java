@@ -36,8 +36,10 @@ public class AddBudgetCommand extends Command {
         String monthStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[1]);
         try {
             budgetTracker.setBudget(monthStr, amount);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             return List.of(CommandResultMessages.SET_BUDGET_FAIL + e.getMessage());
+        } catch (Exception e) {
+            return List.of(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
         }
 
         return List.of(CommandResultMessages.SET_BUDGET_SUCCESS + amount);
