@@ -37,7 +37,12 @@ public class EditCommand extends Command {
             }
             
             String newCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
-            float newPrice = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
+            float newPrice;
+            if (argumentsMap.containsKey(Parser.ARGUMENT_PRICE)) {
+                newPrice = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
+            } else {
+                newPrice = oldPrice;
+            }
             if (newCategory == null) {
                 newCategory = oldCategory;
             }
