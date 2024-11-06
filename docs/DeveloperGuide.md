@@ -142,14 +142,15 @@ The `Parser` class takes in a user input string, and constructs an `XYZCommand` 
 
 The logic of the `Parser` component is illustrated in the following use case:
 
-\1. Upon receiving a user command input, `Main` constructs a new `Parser`. This state is represented in the following **Object Diagram**:
+<ol>
+<li> Upon receiving a user command input, `Main` constructs a new `Parser`. This state is represented in the following **Object Diagram**: </li>
 
 <img src = "images/ParserObjectDiagram0.png">
 <div style="page-break-after: always;"></div>
 
-\2. `Main` passes the user command input to `Parser`, which parses the input and constructs an `XYZCommand` object, which is returned to `Main`. 
-The `Parser` instance is no longer referenced. The current state is as shown in the **Object Diagram** below:
-
+<li> `Main` passes the user command input to `Parser`, which parses the input and constructs an `XYZCommand` object, which is returned to `Main`. 
+The `Parser` instance is no longer referenced. The current state is as shown in the **Object Diagram** below:</li>
+</ol>
 <img src = "images/ParserObjectDiagram1.png">
 
 The interactions between `Parser` and the other components in the above procedure is shown in the sequence diagram in the [Command component](#command-component) section.
@@ -258,22 +259,22 @@ These operations are accessible through the `Command` and can be invoked when th
 #### Feature implementation
 
 Given below is an example usage scenario and the behavior of the list feature at each step:
+<ol>
+<li> User Command Input:
+The user enters the command `list` to view all scheduled events.</li>
 
-1. User Command Input:
-The user enters the command `list` to view all scheduled events.
+<li> Command Recognition:
+The `COMMAND_WORD` is set to "list", enabling the system to recognize the command input and invoke `ListCommand`.</li>
 
-2. Command Recognition:
-The `COMMAND_WORD` is set to "list", enabling the system to recognize the command input and invoke `ListCommand`.
-
-3. Execution of ListCommand#execute():
+<li> Execution of ListCommand#execute():
 The `execute()` method retrieves each event from `eventList` and appends it to a formatted output message.
 It uses the `String.format` method with `LIST_MESSAGE` to include the total number of events in the message header.
-Events are appended to `outputMessage` with numbered formatting for readability.
+Events are appended to `outputMessage` with numbered formatting for readability.</li>
 <div style="page-break-after: always;"></div>
 
-\4. Output Generation:
-The method stores the generated `outputMessage` in `this.message`, ready for display.
-
+<li> Output Generation:
+The method stores the generated `outputMessage` in `this.message`, ready for display.</li>
+</ol>
 The interactions between components during the execution of the `list` command are show in the **Sequence Diagram** below:
 
 <img src = "images/ListCommandSequenceDiagram.png">
@@ -686,12 +687,12 @@ The **Sequence Diagram** below demonstrates the interactions during loading.
 <img src = "images/StorageLoadingSequenceDiagram.png">
 
 The logic for the loading of `Item`s is similar to that for `Participant`s.
+<div style="page-break-after: always;"></div>
 
 #### The `Main#saveData()` operation saves data in the same order as `Main#loadData()` and works as follows.
 
 1. `Storage` retrieves `Events` from `EventList` and writes each `Event` and its associated `Participants` and `Items` to `data.csv`.
 2. Each line is formatted based on the object type, either as an `Event`, `Participant`, or `Item`.
-<div style="page-break-after: always;"></div>
 
 #### Saving Events, Participants, and Items
 
@@ -703,16 +704,18 @@ For `Participant` and `Item` saving:
 
   The class interactions during saving are displayed in the **Sequence Diagram** below.
 
-<img src= "images/StorageSavingSequenceDiagram.png" width="600">
+<img src= "images/StorageSavingSequenceDiagram.png" width="550">
 
 The logic for the saving of `Item`s is similar to that for `Participant`s.
 
+<div style="page-break-after: always;"></div>
 
 Reading and writing from and to the `.csv` storage files is done through operations from the **OpenCSV** library, namely:
 
 * `CSVReader#readAll()`, which is invoked by `FileParser` when loading data, to convert the file into a list of arrays of `String` to be parsed.
 * `CSVWriter#writeNext()`, which is invoked when saving data, to save the fields for an `Event`, `Participant`, or `Item` into the file.
 
+<div style="page-break-after: always;"></div>
 
 ## Appendix A: Product scope
 
@@ -749,6 +752,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 | v2.0    | user     | find if a person is in a certain event                          | quickly confirm a participant’s involvement in an event                                   |
 | v2.0    | user     | add items to a specific event                                   | keep track of what I need for that event                                                  |
 | v2.0    | user     | mark items as accounted for                                     | make sure I do not prepare excess items for an event                                      |
+<div style="page-break-after: always;"></div>
 
 ## Appendix C: Non-Functional Requirements
 
