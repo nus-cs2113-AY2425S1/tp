@@ -7,7 +7,7 @@ import command.history.ViewPersonalBestCommand;
 import command.history.ListPersonalBestsCommand;
 import command.history.WeeklySummaryCommand;
 import command.InvalidCommand;
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.HistoryExceptions;
 
 //import parser.FlagParser;
 
@@ -35,7 +35,7 @@ public class HistoryCommandFactory {
 
     private Command preparePersonalBestCommand(String argumentString) {
         if (argumentString == null || argumentString.isEmpty()) {
-            throw new IndexOutOfBoundsBuffBuddyException("Exercise name is required for viewing personal bests.");
+            throw HistoryExceptions.exerciseNameNotFound();
         }
         return new ViewPersonalBestCommand(argumentString);  // Pass exercise name to ViewPersonalBestCommand
     }

@@ -4,8 +4,8 @@ import command.Command;
 import command.meals.AddMealCommand;
 import command.meals.DeleteMealCommand;
 import command.meals.ViewMealCommand;
-import exceptions.InvalidFormatBuffBuddyException;
-import exceptions.MissingFlagBuffBuddyException;
+import exceptions.FlagExceptions;
+import exceptions.ParserExceptions;
 import meal.Meal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,31 +58,31 @@ public class MealCommandFactoryTest {
     public void testPrepareAddCommandMissingNameFlag() {
         String argumentString = "/c 300 /t 31-10-2024";
 
-        assertThrows(MissingFlagBuffBuddyException.class, () -> mealCommandFactory.prepareAddCommand(argumentString),
-                "Missing required flag /n should throw MissingFlagBuffBuddyException.");
+        assertThrows(FlagExceptions.class, () -> mealCommandFactory.prepareAddCommand(argumentString),
+                "Missing required flag /n should throw FlagException.");
     }
 
     @Test
     public void testPrepareAddCommandMissingCaloriesFlag() {
         String argumentString = "/n Sample meal /t 31-10-2024";
 
-        assertThrows(MissingFlagBuffBuddyException.class, () -> mealCommandFactory.prepareAddCommand(argumentString),
-                "Missing required flag /c should throw MissingFlagBuffBuddyException.");
+        assertThrows(FlagExceptions.class, () -> mealCommandFactory.prepareAddCommand(argumentString),
+                "Missing required flag /c should throw FlagException.");
     }
 
     @Test
     public void testPrepareDeleteCommandMissingIndexFlag() {
         String argumentString = "/t 31-10-2024";
 
-        assertThrows(MissingFlagBuffBuddyException.class, () -> mealCommandFactory.prepareDeleteCommand(argumentString),
-                "Missing required flag /m should throw MissingFlagBuffBuddyException.");
+        assertThrows(FlagExceptions.class, () -> mealCommandFactory.prepareDeleteCommand(argumentString),
+                "Missing required flag /m should throw FlagException.");
     }
 
     @Test
     public void testPrepareViewCommandInvalidDate() {
         String argumentString = "invalid-date";
 
-        assertThrows(InvalidFormatBuffBuddyException.class, () -> mealCommandFactory.prepareViewCommand(argumentString),
+        assertThrows(ParserExceptions.class, () -> mealCommandFactory.prepareViewCommand(argumentString),
                 "Invalid date format should throw InvalidFormatBuffBuddyException.");
     }
 }

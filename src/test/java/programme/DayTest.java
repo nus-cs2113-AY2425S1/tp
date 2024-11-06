@@ -2,7 +2,7 @@
 
 package programme;
 
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.ProgrammeExceptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -55,7 +55,7 @@ public class DayTest {
 
     @Test
     void testGetExerciseInvalidIndex() {
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> day.getExercise(0));
+        assertThrows(ProgrammeExceptions.class, () -> day.getExercise(0));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class DayTest {
 
     @Test
     void testDeleteExerciseInvalidIndex() {
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> day.deleteExercise(0));
+        assertThrows(ProgrammeExceptions.class, () -> day.deleteExercise(0));
     }
 
     @Test
@@ -92,8 +92,8 @@ public class DayTest {
         day.insertExercise(exercise2);
 
         String expectedOutput = "Push\n" +
-                "1. Bench_Press: 3 sets of 10 at 50 | Burnt 160 cals\n" +
-                "2. Triceps_Extension: 3 sets of 12 at 20 | Burnt 100 cals\n";
+                "1. Bench_Press: 3 sets of 10 at 50kg | Burnt 160 cals\n" +
+                "2. Triceps_Extension: 3 sets of 12 at 20kg | Burnt 100 cals\n";
         assertEquals(
                 expectedOutput.replace("\r\n", "\n").replace("\r", "\n"),
                 day.toString().replace("\r\n", "\n").replace("\r", "\n")

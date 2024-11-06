@@ -3,7 +3,7 @@
 package command.programme;
 
 import command.CommandResult;
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.ProgrammeExceptions;
 import history.History;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +51,7 @@ public class ViewProgrammeCommandTest {
     @Test
     void execute_invalidProgrammeIndex_throwsException() {
         command = new ViewProgrammeCommand(5); // Invalid index
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> command.execute(programmeList, history));
+        assertThrows(ProgrammeExceptions.class, () -> command.execute(programmeList, history));
     }
 
     @Test

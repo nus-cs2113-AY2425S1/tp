@@ -1,6 +1,6 @@
 package water;
 
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.WaterExceptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,8 +59,8 @@ public class WaterTest {
     @Test
     public void testDeleteWaterEdgeCaseInvalidIndex() {
         // Update to expect IndexOutOfBoundsBuffBuddyException instead of IndexOutOfBoundsException
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> water.deleteWater(0),
-                "Deleting from an empty list should throw IndexOutOfBoundsBuffBuddyException.");
+        assertThrows(WaterExceptions.class, () -> water.deleteWater(0),
+                "Deleting from an empty list should throw WaterExceptions.");
     }
 
     @Test

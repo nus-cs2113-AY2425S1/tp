@@ -1,7 +1,7 @@
 package command.programme.edit;
 
 import command.CommandResult;
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.ProgrammeExceptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import programme.Day;
@@ -94,7 +94,7 @@ class CreateExerciseCommandTest {
         CreateExerciseProgrammeCommand invalidCommand = new CreateExerciseProgrammeCommand(
                 OUT_OF_RANGE_PROGRAMME_ID, VALID_DAY_ID, exercise
         );
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> invalidCommand.execute(programmeList));
+        assertThrows(ProgrammeExceptions.class, () -> invalidCommand.execute(programmeList));
     }
 
     // Edge case for the execute method: Nonexistent day ID within an existing programme
@@ -103,7 +103,7 @@ class CreateExerciseCommandTest {
         CreateExerciseProgrammeCommand invalidCommand = new CreateExerciseProgrammeCommand(
                 VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID, exercise
         );
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> invalidCommand.execute(programmeList));
+        assertThrows(ProgrammeExceptions.class, () -> invalidCommand.execute(programmeList));
     }
 }
 
