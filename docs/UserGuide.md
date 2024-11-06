@@ -363,16 +363,17 @@ cs2040 | the university of western australia | cits2200
 
 ## Command Summary
 
-| Action           | Format, Examples                                                                                                                                                   |
-|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Set**          | Format: `set PARTNER_UNIVERISTY_NAME`  <br/> Example: `set The University of Western Australia`                                                                    |
-| **Help**         | Format: `help COMMAND`<br/> Example: `help filter`                                                                                                                 |
-| **Add**          | Format: ` add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE`<br/> Example: `add cs2102 /pu the university of melbourne /coursepu info20003` |
-| **Filter**       | Format: `filter NUS_COURSE_CODE` <br/> Example: `filter cs3241`                                                                                                    |
-| **Delete**       | Format:  `delete LIST_INDEX` <br/> Example: `delete 1`                                                                                                             |
-| **List Schools** | Format: `list schools`                                                                                                                                             |
-| **List Mapped**  | Format: `list mapped`                                                                                                                                              |
-| **Obtain**       | Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE` <br/>Example: `obtain victoria university of wellington /number`                                            |
-| **Find**         | Format: `find NUS_COURSE_CODE` <br/> Example: `find cs2102`                                                                                                        |
-| **Compare**      | Format: `compare pu/ UNI1 pu/ UNI2` <br/> Example: `compare pu/The University of Melbourne pu/The Australian National University`                                  |
-| **Bye**          | Format: `bye`                                                                                                                                                      |
+| Action           | Format,                                                                      | Examples                                                                             |
+|------------------|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| **Commands**     | `commands`                                                                   | -                                                                                    |
+| **Help**         | `help COMMAND`                                                               | `help filter`                                                                        |
+| **List Schools** | `list schools`                                                               | -                                                                                    |
+| **Set**          | `set PARTNER_UNIVERISTY_NAME`                                                | `set The University of Western Australia`                                            |
+| **Obtain**       | `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`                               | `obtain victoria university of wellington /number`                                   |
+| **Filter**       | `filter NUS_COURSE_CODE`                                                     | `filter cs3241`                                                                      |
+| **Add**          | ` add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE`  | `add cs2102 /pu the university of melbourne /coursepu info20003`                     |
+| **Delete**       | `delete LIST_INDEX`                                                          | `delete 1`                                                                           |
+| **List Mapped**  | `list mapped`                                                                | -                                                                                    |
+| **Compare**      | `compare pu/ UNI1 pu/ UNI2`                                                  | `compare pu/The University of Melbourne pu/The Australian National University`       |
+| **Find**         | `find NUS_COURSE_CODE`                                                       | `find cs2102`                                                                        |
+| **Bye**          | `bye`                                                                        |                                                                                      |
