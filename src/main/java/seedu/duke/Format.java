@@ -14,8 +14,8 @@ public class Format {
 
     public static String formatAmount(double amount) {
         BigDecimal roundedAmount = BigDecimal.valueOf(amount).setScale(2, RoundingMode.HALF_UP);
-        DecimalFormat wholeNumberFormat = new DecimalFormat("$#");
-        DecimalFormat decimalFormat = new DecimalFormat("$#.00");
+        DecimalFormat wholeNumberFormat = new DecimalFormat("$0");
+        DecimalFormat decimalFormat = new DecimalFormat("$0.00");
         if (roundedAmount.stripTrailingZeros().scale() <= 0) {
             return wholeNumberFormat.format(roundedAmount);
         } else {
