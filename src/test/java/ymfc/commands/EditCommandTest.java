@@ -15,11 +15,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EditCommandTest {
 
     private Storage storage;
     private RecipeList emptyList;
+    private RecipeList nonEmptyList;
     private IngredientList ingredientList;
     private Ui ui;
     private Recipe recipe;
@@ -30,6 +32,7 @@ public class EditCommandTest {
     @BeforeEach
     void setUp() {
         emptyList = new RecipeList();
+        nonEmptyList = new RecipeList();
         ingredientList = new IngredientList();
         ui = new Ui(System.in);
         storage = new Storage();
@@ -46,6 +49,7 @@ public class EditCommandTest {
 
         recipe = new Recipe("instant noodles", ingredients, steps);
         addRecipeCommand = new AddRecipeCommand(recipe);
+        nonEmptyList.addRecipe(recipe);
 
         // Sample ingredients and steps
         ArrayList<String> newSteps = new ArrayList<>();
@@ -58,7 +62,7 @@ public class EditCommandTest {
     }
 
     @Test
-    void testEditRecipe() throws IOException, InvalidArgumentException {
+    void testEditRecipe_success() throws IOException, InvalidArgumentException {
         addRecipeCommand.execute(emptyList, ingredientList, ui, storage);
 
         assertEquals(1, emptyList.getCounter());
@@ -67,5 +71,12 @@ public class EditCommandTest {
         editCommand.execute(emptyList, ingredientList, ui, storage);
         assertEquals(1, emptyList.getCounter());
         assertEquals(edittedRecipe, emptyList.getRecipe(0));
+    }
+
+    @Test
+    void testEditRecipe_fail() {
+        Recipe dummyRecipe = new Recipe("ramen", new ArrayList<Ingredient>(), new ArrayList<String>());
+        assertThrows(InvalidArgumentException.class,
+                () -> new EditCommand(dummyRecipe).execute(nonEmptyList, ingredientList, ui, storage));
     }
 }

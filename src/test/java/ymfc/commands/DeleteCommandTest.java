@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DeleteCommandTest {
     private Storage storage;
@@ -70,5 +71,12 @@ public class DeleteCommandTest {
         // Assertions to verify the recipe was removed
         assertEquals(1, recipeList.getCounter());  // Ensure that a recipe was deleted
         assertEquals("Salad", recipeList.getRecipe(0).getName());  // Verify that the correct recipe remains
+    }
+
+    @Test
+    void testDeleteRecipe_fail() {
+        DeleteCommand dummyDeleteCommand = new DeleteCommand("Hot garbage");
+        assertThrows(InvalidArgumentException.class,
+                () -> dummyDeleteCommand.execute(recipeList, ingredientList, ui, storage));
     }
 }
