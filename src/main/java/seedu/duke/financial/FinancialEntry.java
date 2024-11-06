@@ -52,16 +52,18 @@ public abstract class FinancialEntry {
      * @param newDescription The new description.
      */
     public void setDescription(String newDescription) {
+        assert !newDescription.isBlank() : "Attempted to set a null description";
         this.description = newDescription;
     }
 
     /**
      * Updates the date of the transaction.
      *
-     * @param newDate The new date.
+     * @param newDateString The new date as a String.
      */
-    public void setDate(String newDate) {
-        this.date = LocalDate.parse(newDate);
+    public void setDate(String newDateString) {
+        LocalDate newDate = LocalDate.parse(newDateString);
+        setDate(newDate);
     }
 
     /**
@@ -70,6 +72,7 @@ public abstract class FinancialEntry {
      * @param newDate The new date.
      */
     public void setDate(LocalDate newDate) {
+        assert !newDate.isAfter(LocalDate.now()) : "Attempted to set date after system date";
         this.date = newDate;
     }
 
@@ -88,9 +91,10 @@ public abstract class FinancialEntry {
      * @param newAmount The new amount.
      */
     public void setAmount(double newAmount) {
+        assert newAmount >= 0.01 : "Attempted to set amount less than 0.01";
+        assert newAmount <= 9999999.00 : "Attempted to set amount greater than 9999999.00";
         this.amount = newAmount;
     }
-
 
     /**
      * Returns the date of the transaction.
