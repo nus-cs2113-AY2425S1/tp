@@ -53,7 +53,7 @@ public class ExpenseManager {
         List<Expense> expenses = trackerData.getExpenses();
         List<Category> categories = trackerData.getCategories();
 
-        String formattedCategoryName = formatInput(categoryName.trim());
+        String formattedCategoryName = Format.formatInput(categoryName.trim());
         Category existingCategory = null;
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
@@ -180,7 +180,7 @@ public class ExpenseManager {
         List<Expense> expenses = trackerData.getExpenses();
         List<Category> categories = trackerData.getCategories();
 
-        String formattedCategoryName = formatInput(categoryName.trim());
+        String formattedCategoryName = Format.formatInput(categoryName.trim());
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
                 Expense expense = expenses.get(expenseIndex);
@@ -192,13 +192,6 @@ public class ExpenseManager {
 
         trackerData.setExpenses(expenses);
         System.out.println("Category '" + formattedCategoryName + "' does not exist.");
-    }
-
-    public String formatInput(String input) {
-        if (input == null || input.isEmpty()) {
-            return input;
-        }
-        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 }
 

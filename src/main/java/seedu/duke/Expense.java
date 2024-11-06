@@ -1,9 +1,5 @@
 package seedu.duke;
 
-import java.text.DecimalFormat;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 /**
  * Represents an expense with a name, amount, and category.
  */
@@ -54,17 +50,6 @@ public class Expense {
         this.category = category;
     }
 
-    public String formatAmount() {
-        BigDecimal roundedAmount = BigDecimal.valueOf(amount).setScale(2, RoundingMode.HALF_UP);
-        DecimalFormat wholeNumberFormat = new DecimalFormat("$#");
-        DecimalFormat decimalFormat = new DecimalFormat("$#.00");
-        if (roundedAmount.stripTrailingZeros().scale() <= 0) {
-            return wholeNumberFormat.format(roundedAmount);
-        } else {
-            return decimalFormat.format(roundedAmount);
-        }
-    }
-
 
     /**
      * Returns a string representation of the expense, including name, formatted amount, and category.
@@ -73,6 +58,6 @@ public class Expense {
      */
     @Override
     public String toString() {
-        return " Item: " + name + ", Amount: " + formatAmount() + ", Category: " + getCategory();
+        return " Item: " + name + ", Amount: " + Format.formatAmount(amount) + ", Category: " + getCategory();
     }
 }
