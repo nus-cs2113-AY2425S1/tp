@@ -74,6 +74,10 @@ public class Budget {
         this.budgetSetDate = date;
     }
 
+    public LocalDate getBudgetSetDate() {
+        return budgetSetDate;
+    }
+
     public String toStorageString() {
         return String.format("%.2f", budgetAmount) + "\n" + budgetSetDate;
     }
