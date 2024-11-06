@@ -16,7 +16,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 
@@ -74,10 +78,14 @@ public class StorageTest {
         LocalDate date = LocalDate.now();
 
         assertDoesNotThrow(() -> storage.checkParameters(100, "Description", formatter, date));
-        assertThrows(FinanceBuddyException.class, () -> storage.checkParameters(-1, "Description", formatter, date));
-        assertThrows(FinanceBuddyException.class, () -> storage.checkParameters(10000000, "Description", formatter, date));
-        assertThrows(FinanceBuddyException.class, () -> storage.checkParameters(100, "", formatter, date));
-        assertThrows(FinanceBuddyException.class, () -> storage.checkParameters(100, "Description", formatter, date.plusDays(1)));
+        assertThrows(FinanceBuddyException.class, 
+                    () -> storage.checkParameters(-1, "Description", formatter, date));
+        assertThrows(FinanceBuddyException.class, 
+                    () -> storage.checkParameters(10000000, "Description", formatter, date));
+        assertThrows(FinanceBuddyException.class, 
+                    () -> storage.checkParameters(100, "", formatter, date));
+        assertThrows(FinanceBuddyException.class, 
+                    () -> storage.checkParameters(100, "Description", formatter, date.plusDays(1)));
     }
 
     @Test
@@ -115,7 +123,8 @@ public class StorageTest {
         FinancialList loadedList = storage.loadFromFile(budgetLogic);
         assertEquals(1, loadedList.getEntryCount());
         assertEquals(500, budgetLogic.getBudget().getBudgetAmount());
-        assertEquals("01/11/24", budgetLogic.getBudget().getBudgetSetDate().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
+        assertEquals("01/11/24", 
+            budgetLogic.getBudget().getBudgetSetDate().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
     }
 
     @Test
