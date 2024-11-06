@@ -30,7 +30,9 @@ public class ExpenseList {
         return expenses.isEmpty();
     }
 
-    public void clear(){ expenses.clear(); }
+    public void clear() {
+        expenses.clear();
+    }
 
     /**
      * Retrieves the {@code Expense} at the specified index in the list.

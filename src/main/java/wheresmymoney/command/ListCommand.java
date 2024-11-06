@@ -91,6 +91,7 @@ public class ListCommand extends Command {
             displayRecurringExpenses(expensesToDisplay, recurringExpenseList);
         } else {
             ArrayList<Expense> expensesToDisplay = getExpensesToDisplay(expenseList);
-            displayExpenses(expensesToDisplay, expenseList);}
+            displayExpenses(expensesToDisplay, expenseList);
+        }
     }
 }
