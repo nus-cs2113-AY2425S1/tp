@@ -328,6 +328,16 @@ class BudgetManagerTest {
         trackerData = new TrackerData();
     }
 
+    private Category findCategory(TrackerData trackerData, String categoryName) {
+    for (Category category : trackerData.getCategories()) {
+        if (category.getName().equalsIgnoreCase(categoryName)) {
+            return category;
+        }
+    }
+    return null; // Return null if no category matches the given name
+}
+
+
     @Test
     void testSetBudgetValidCategory() {
         String categoryName = "Utilities";
