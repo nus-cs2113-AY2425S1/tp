@@ -25,6 +25,7 @@
 WheresMyMoney uses the following libraries
 
 1. [OpenCSV](https://opencsv.sourceforge.net/) - Used for saving/ loading expenses
+2. [XChart](https://knowm.org/open-source/xchart/) - Used for visualizing expenses
 
 WheresMyMoney uses the following tools for development:
 
