@@ -110,7 +110,11 @@ public class FinancialList {
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= entries.size()).
      */
     public void editEntry(int index, double amount, String description, LocalDate date,
-                          Enum<?> category) throws FinanceBuddyException{
+                          Enum<?> category) {
+        assert amount >= 0.01 : "Amount < 0.01 entered.";
+        assert amount <= 9999999.0 : "Amount > 9999999.0 entered.";
+        assert !description.isBlank() : "Description is blank.";
+        assert !date.isAfter(LocalDate.now()): "Date is after system date";
 
         FinancialEntry entry = entries.get(index);
         entry.setAmount(amount);
