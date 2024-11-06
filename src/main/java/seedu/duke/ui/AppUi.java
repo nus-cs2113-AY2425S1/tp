@@ -72,7 +72,6 @@ public class AppUi {
      * Displays the balance of the user's budget
      */
     public void displayBudgetBalanceMessage(double amount) {
-        System.out.println("--------------------------------------------\n");
         System.out.println("Your current monthly balance is: " + amount);
         System.out.println("--------------------------------------------\n");
     }

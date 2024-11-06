@@ -194,6 +194,10 @@ public class Logic {
         }
 
         FinancialEntry entry = financialList.getEntry(index - 1);
+
+        DeleteCommand deleteCommand = new DeleteCommand(index);
+        deleteCommand.execute(financialList);
+
         if (entry instanceof Expense) {
             double amount = entry.getAmount();
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
@@ -204,9 +208,6 @@ public class Logic {
                 System.out.println(e.getMessage());
             }
         }
-
-        DeleteCommand deleteCommand = new DeleteCommand(index);
-        deleteCommand.execute(financialList);
     }
 
     /**
