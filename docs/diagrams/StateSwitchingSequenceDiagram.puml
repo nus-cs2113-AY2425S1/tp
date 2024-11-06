@@ -1,10 +1,12 @@
 @startuml
-actor ":User" as U
-participant ":Main" as M
-participant ":UI" as UI
-participant ":Parser" as P
-participant ":State" as S
-participant ":Command" as C
+!include style.puml
+
+actor ":User" as U UI_COLOR
+participant ":Main" as M LOGIC_COLOR
+participant ":UI" as UI UI_COLOR
+participant ":Parser" as P PARSER_COLOR
+participant ":State" as S LOGIC_COLOR_T2
+participant ":Command" as C COMMAND_COLOR
 
 U -> M: Execute main()
 M -> UI: readCommand()
