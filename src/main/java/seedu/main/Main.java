@@ -30,6 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
+
     public static final String NAME = "uNivUSaver";
     public static final String HI_MESSAGE = "Hello, %s is willing to help!";
     public static final String INVALID_COMMAND_ERROR_MESSAGE = "Invalid command.";
@@ -51,6 +52,10 @@ public class Main {
 
 
     public static void main(String[] args) {
+        // Get the root logger and set its level to OFF to disable all logs
+        Logger rootLogger = Logger.getLogger("");
+        rootLogger.setLevel(Level.OFF);
+
         while (isRunning) {
             run();
         }
@@ -135,7 +140,7 @@ public class Main {
         parser.registerCommands(new AddExpenseCommand(transactions, ui, categories));
         parser.registerCommands(new AddBudgetCommand(budgetTracker));
 
-        parser.registerCommands(new DeleteCategoryCommand(categories));
+        parser.registerCommands(new DeleteCategoryCommand(categories, transactions));
         parser.registerCommands(new DeleteTransactionCommand(transactions));
 
         parser.registerCommands(new ViewCategoryCommand(categories));
