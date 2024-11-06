@@ -126,7 +126,8 @@ public abstract class FinancialEntry {
      */
     public abstract void setCategory(Enum<?> category);
 
-    private static void checkValidParameters(double amount, String description, LocalDate date) throws FinanceBuddyException {
+    private static void checkValidParameters(double amount, String description, LocalDate date)
+            throws FinanceBuddyException {
         if (amount < 0.01) {
             throw new FinanceBuddyException(Commons.ERROR_MESSAGE_AMOUNT_TOO_SMALL);
         }
