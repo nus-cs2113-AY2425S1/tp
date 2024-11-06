@@ -31,13 +31,17 @@ public class ListCommand extends Command {
         return expenseList.listByFilter(listCategory, from, to);
     }
 
+    
+    /**
+     * Get a list of expenses based on various filter metrics
+     * 
+     * @param recurringExpenseList
+     */
     private ArrayList<RecurringExpense> getRecurringExpensesToDisplay(RecurringExpenseList recurringExpenseList) {
         String listCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
-        if (listCategory == null) {
-            return recurringExpenseList.getRecurringExpenseList();
-        } else {
-            return recurringExpenseList.listByCategoryForRecurring(listCategory);
-        }
+        String from = argumentsMap.get(Parser.ARGUMENT_FROM);
+        String to = argumentsMap.get(Parser.ARGUMENT_TO);
+        return recurringExpenseList.listRecurringByFilter(listCategory, from, to);
     }
 
     /**
@@ -58,21 +62,21 @@ public class ListCommand extends Command {
         }
     }
 
+    /**
+     * Display the list of recurring expenses passed to it
+     * 
+     * @param expensesToDisplay
+     * @param recurringExpenseList
+     * @throws WheresMyMoneyException
+     */
     private void displayRecurringExpenses(ArrayList<RecurringExpense> expensesToDisplay,
-            RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
+            RecurringExpenseList recurringExpenseList) {
+        if (expensesToDisplay.isEmpty()) {
+            Ui.displayMessage("No matching recurring expenses were found!");
+            return;
+        }
         for (RecurringExpense recurringExpense: expensesToDisplay) {
-            try {
-                String index = recurringExpenseList.getIndexOf(recurringExpense) + 1 + ". ";
-                String category = "CATEGORY: " + recurringExpense.getCategory();
-                String description = "   DESCRIPTION: " + recurringExpense.getDescription();
-                String price = "   PRICE: " + String.format("%.2f", recurringExpense.getPrice());;
-                String lastAddedDate = "   LAST ADDED DATE: " + recurringExpense.getlastAddedDate();
-                String frequency = "   FREQUENCY: " + recurringExpense.getFrequency();
-                Ui.displayMessage(index + category + description + price + lastAddedDate + frequency);
-            } catch (WheresMyMoneyException e) {
-                throw new WheresMyMoneyException("displayRecurringExpenses has an error");
-            }
-
+            Ui.displayRecurringExpense(recurringExpenseList, recurringExpense);
         }
     }
 
@@ -84,7 +88,6 @@ public class ListCommand extends Command {
             RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         if (this.isRecur()) {
             ArrayList<RecurringExpense> expensesToDisplay = getRecurringExpensesToDisplay(recurringExpenseList);
-            assert (expensesToDisplay != null);
             displayRecurringExpenses(expensesToDisplay, recurringExpenseList);
         } else {
             ArrayList<Expense> expensesToDisplay = getExpensesToDisplay(expenseList);
