@@ -11,13 +11,17 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 - [Quick Start](#Quick-Start)
 - [Features](#features-)
-    - [List courses provided by the partner university: `set`](#list-courses-provided-by-the-partner-university-set)
+    - [List all commands: `commands`](#list-all-commands-commands)
     - [Help Command: `help`](#help-command-help)
-    - [Add a course mapping: `add`](#adding-a-course-mapping-add)
-    - [Filter possible mappings: `filter`](#filtering-possible-mappings-filter)
-    - [Delete course mapping plans from Personal Tracker: `delete`](#delete-course-mapping-plans-from-personal-tracker-delete)
     - [List out all the possible schools from the options: `list schools`](#list-out-all-the-possible-schools-from-the-options-list-schools)
+    - [List courses provided by the partner university: `set`](#list-courses-provided-by-the-partner-university-set)
     - [Obtain contacts from the list of universities: `obtain`](#obtain-contacts-from-the-list-of-universities-obtain)
+    - [Filter possible mappings: `filter`](#filtering-possible-mappings-filter)
+    - [Add a course mapping: `add`](#adding-a-course-mapping-add)
+    - [Delete course mapping plans from Personal Tracker: `delete`](#delete-course-mapping-plans-from-personal-tracker-delete)
+    - [List Personal Tracker courses: `list mapped`](#list-personal-tracker-courses-list-mapped)
+    - [Compare mapped courses between two universities: `compare`](#compare-mapped-courses-between-two-universities-compare)
+    - [Find courses in personalised tracker `find`](#find-courses-in-personalised-tracker-find)
 - [FAQ](#FAQ)
 - [Command Summary](#Command-Summary)
 ## Quick Start
@@ -307,14 +311,13 @@ No unique mappings for The Australian National University.
 -----------------------------------------------------
 ```
 
-### Find courses in personalised tracker
+### Find courses in personalised tracker `find`
 This feature allows users to search for NUS courses in their course mappings.
 
 Format: `find [NUS_COURSE_CODE]`
 * Note that this feature is searching within the personalised tracker
 
 Example: `find cs2040`
-*
 
 Expected output:
 ```
@@ -363,17 +366,17 @@ cs2040 | the university of western australia | cits2200
 
 ## Command Summary
 
-| Action           | Format,                                                                      | Examples                                                                             |
-|------------------|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| **Commands**     | `commands`                                                                   | -                                                                                    |
-| **Help**         | `help COMMAND`                                                               | `help filter`                                                                        |
-| **List Schools** | `list schools`                                                               | -                                                                                    |
-| **Set**          | `set PARTNER_UNIVERISTY_NAME`                                                | `set The University of Western Australia`                                            |
-| **Obtain**       | `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`                               | `obtain victoria university of wellington /number`                                   |
-| **Filter**       | `filter NUS_COURSE_CODE`                                                     | `filter cs3241`                                                                      |
-| **Add**          | ` add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE`  | `add cs2102 /pu the university of melbourne /coursepu info20003`                     |
-| **Delete**       | `delete LIST_INDEX`                                                          | `delete 1`                                                                           |
-| **List Mapped**  | `list mapped`                                                                | -                                                                                    |
-| **Compare**      | `compare pu/ UNI1 pu/ UNI2`                                                  | `compare pu/The University of Melbourne pu/The Australian National University`       |
-| **Find**         | `find NUS_COURSE_CODE`                                                       | `find cs2102`                                                                        |
-| **Bye**          | `bye`                                                                        |                                                                                      |
+| Action           | Format                                                                      | Examples                                                                       |
+|------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| **Commands**     | `commands`                                                                  | -                                                                              |
+| **Help**         | `help COMMAND`                                                              | `help filter`                                                                  |
+| **List Schools** | `list schools`                                                              | -                                                                              |
+| **Set**          | `set PARTNER_UNIVERISTY_NAME`                                               | `set The University of Western Australia`                                      |
+| **Obtain**       | `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`                              | `obtain victoria university of wellington /number`                             |
+| **Filter**       | `filter NUS_COURSE_CODE`                                                    | `filter cs3241`                                                                |
+| **Add**          | ` add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE` | `add cs2102 /pu the university of melbourne /coursepu info20003`               |
+| **Delete**       | `delete LIST_INDEX`                                                         | `delete 1`                                                                     |
+| **List Mapped**  | `list mapped`                                                               | -                                                                              |
+| **Compare**      | `compare pu/ UNI1 pu/ UNI2`                                                 | `compare pu/The University of Melbourne pu/The Australian National University` |
+| **Find**         | `find NUS_COURSE_CODE`                                                      | `find cs2102`                                                                  |
+| **Bye**          | `bye`                                                                       | -                                                                              |
