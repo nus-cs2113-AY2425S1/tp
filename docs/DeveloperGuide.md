@@ -142,12 +142,12 @@ The `Parser` class takes in a user input string, and constructs an `XYZCommand` 
 
 The logic of the `Parser` component is illustrated in the following use case:
 
-1. Upon receiving a user command input, `Main` constructs a new `Parser`. This state is represented in the following **Object Diagram**:
+\1. Upon receiving a user command input, `Main` constructs a new `Parser`. This state is represented in the following **Object Diagram**:
 
 <img src = "images/ParserObjectDiagram0.png">
 <div style="page-break-after: always;"></div>
 
-2. `Main` passes the user command input to `Parser`, which parses the input and constructs an `XYZCommand` object, which is returned to `Main`. 
+\2. `Main` passes the user command input to `Parser`, which parses the input and constructs an `XYZCommand` object, which is returned to `Main`. 
 The `Parser` instance is no longer referenced. The current state is as shown in the **Object Diagram** below:
 
 <img src = "images/ParserObjectDiagram1.png">
@@ -271,7 +271,7 @@ It uses the `String.format` method with `LIST_MESSAGE` to include the total numb
 Events are appended to `outputMessage` with numbered formatting for readability.
 <div style="page-break-after: always;"></div>
 
-4. Output Generation:
+\4. Output Generation:
 The method stores the generated `outputMessage` in `this.message`, ready for display.
 
 The interactions between components during the execution of the `list` command are show in the **Sequence Diagram** below:
@@ -479,16 +479,16 @@ and is invoked when the latter operation is called.
 
 Given below is an example usage scenario for `MarkEventCommand#execute()`, and how it behaves at each step.
 
-1. The user adds an event `Event 1` to the event list. The mark status for `Event 1` is initially `false` or not done, as shown in the **Object Diagram** below:
+\1. The user adds an event `Event 1` to the event list. The mark status for `Event 1` is initially `false` or not done, as shown in the **Object Diagram** below:
 
 <img src = "images/MarkEventObjectDiagram1.png">
 
-2. The user enters the command `mark -e Event 1 -s done` to mark `Event 1` as done. `MarkEventCommand` calls `MarkEventCommand#execute`,
+\2. The user enters the command `mark -e Event 1 -s done` to mark `Event 1` as done. `MarkEventCommand` calls `MarkEventCommand#execute`,
 in which it gets the event `Event 1` from the event list, and sets its mark status to `true` or done, as shown in the **Object Diagram** below.
 
 <img src = "images/MarkEventObjectDiagram2.png">
 
-3. The user then enters the command `mark -e Event 1 -s undone` to mark `Event 1` as not done. The `MarkEventCommand` again calls `MarkEventCommand#execute`,
+\3. The user then enters the command `mark -e Event 1 -s undone` to mark `Event 1` as not done. The `MarkEventCommand` again calls `MarkEventCommand#execute`,
 in which it gets the event `Event 1` from the event list, and sets its mark status to `false` or not done.
 <div style="page-break-after: always;"></div>
 
@@ -510,6 +510,7 @@ The operation would be unsuccessful if the specified `Event` in `EventList`, or 
 The interactions between components during the execution of `MarkParticipantCommand#execute` are shown in the **Sequence Diagram** below:
 
 <img src = "images/MarkParticipantSequenceDiagram.png">
+<div style="page-break-after: always;"></div>
 
 The output message of `MarkParticipantCommand` is set in a similar way as `MarkEventCommand`.
 
@@ -544,11 +545,13 @@ and is invoked when the latter operation is called.
 Given below is an example usage scenario and the behaviour of the `copy` feature at each step:
 1. The user enters the command `copy EventA > EventB` to copy participants from EventA to EventB. 
 2. `CopyCommand` calls `CopyCommand#execute`, where it attempts to get the participant list from EventA, and copy the participant list over to EventB if there are existing participants.
+<div style="page-break-after: always;"></div>
+
 The interactions between components of `CopyCommand#execute` are shown in the **Sequence Diagram** below:
 
 <img src="images/CopyCommandSequenceDiagram.png">
 
-3.  Upon execution of the command, the output message of `CopyCommand` is set to inform the user if the participants list has been copied,
+\3.  Upon execution of the command, the output message of `CopyCommand` is set to inform the user if the participants list has been copied,
     or if the operation was unsuccessful (e.g. if the participant list that is meant to be copied is empty).
 
 ### Sort feature
@@ -563,6 +566,7 @@ The `SortCommand` supports the following sorting options:
 
 The above operation is implemented as `SortCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
+<div style="page-break-after: always;"></div>
 
 #### Feature implementation
 
@@ -581,6 +585,7 @@ Given below is an example usage scenario and the behaviour of the `sort` feature
 The interactions between components of `SortCommand#execute` are shown in the **Sequence Diagram** below:
 
 <img src="images/SortCommandSequenceDiagram.png">
+<div style="page-break-after: always;"></div>
 
 ### Filter feature
 
@@ -639,6 +644,7 @@ Given below is an example usage scenario and the behaviour of the `find` feature
 The interactions between components of `FindCommand#execute` are shown in the **Sequence Diagram** below:
 
 <img src="images/FindCommandSequenceDiagram.png">
+<div style="page-break-after: always;"></div>
 
 ### Saving and loading of data
 
@@ -673,6 +679,7 @@ For `Event` loading:
 
 For `Participant` and `Item` loading:
 * The logic mirrors the loading of `Events`, where each `Participant` or `Item` is associated with the correct `Event` based on its specified fields.
+<div style="page-break-after: always;"></div>
 
 The **Sequence Diagram** below demonstrates the interactions during loading.
 
@@ -684,6 +691,7 @@ The logic for the loading of `Item`s is similar to that for `Participant`s.
 
 1. `Storage` retrieves `Events` from `EventList` and writes each `Event` and its associated `Participants` and `Items` to `data.csv`.
 2. Each line is formatted based on the object type, either as an `Event`, `Participant`, or `Item`.
+<div style="page-break-after: always;"></div>
 
 #### Saving Events, Participants, and Items
 
