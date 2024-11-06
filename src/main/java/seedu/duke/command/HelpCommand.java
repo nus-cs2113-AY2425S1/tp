@@ -23,12 +23,12 @@ public class HelpCommand extends Command{
                 "   - Shows a list of logged transactions\n" +
                 "    - Optional: Specify 'income' or 'expense' to filter the list\n" +
                 "    - Optional: Specify start/end date to only list transactions before/after specified dates\n" +
-                "2. expense DESCRIPTION /a AMOUNT\n " +
-                "   - Adds a new expense\n" +
-                "3. income DESCRIPTION /a AMOUNT\n " +
-                "   - Adds a new income\n" +
-                "4. edit INDEX [/des DESCRIPTION] [/a AMOUNT]\n " +
-                "   - Edits the transaction at the specified INDEX\n" +
+                "2. expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]\n" +
+                "   - Adds a new expense with an optional date and category\n" +
+                "3. income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]\n" +
+                "   - Adds a new income with an optional date and category\n" +
+                "4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]\n" +
+                "   - Edits the transaction at the specified INDEX with optional fields\n" +
                 "5. delete INDEX\n " +
                 "   - Deletes the transaction at the specified INDEX\n" +
                 "6. exit\n " +

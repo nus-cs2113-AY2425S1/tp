@@ -103,7 +103,7 @@ public class SeeAllExpensesCommandTest {
     }
 
     /**
-     * Test the execute method, specifying that only Expenses before 20/10/24 should be printed.
+     * Test the execute method, specifying that only Expenses up to 20/10/24 inclusive should be printed.
      */
     @Test
     public void execute_beforeDate_printSomeExpenses() throws FinanceBuddyException {
@@ -111,73 +111,8 @@ public class SeeAllExpensesCommandTest {
                 Expense.Category.FOOD);
         FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24, 10, 12),
                 Expense.Category.TRANSPORT);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24, 10, 22),
-                Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24, 10, 12),
-                Income.Category.SALARY);
-        financialList.addEntry(expense1);
-        financialList.addEntry(expense2);
-        financialList.addEntry(income1);
-        financialList.addEntry(income2);
-
-        seeAllExpensesCommand = new SeeAllExpensesCommand(null, LocalDate.of(24, 10, 20));
-        seeAllExpensesCommand.execute(financialList);
-
-        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
-                "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. " + expense2 + System.lineSeparator() +
-                System.lineSeparator() +
-                "Total expense: $ 5.00" + System.lineSeparator() +
-                System.lineSeparator() +
-                "Highest Expense Category: TRANSPORT ($5.00)" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator();
-        assertEquals(expectedOutput, outContent.toString());
-    }
-
-    /**
-     * Test the execute method, specifying that only Expenses after 20/10/24 should be printed.
-     */
-    @Test
-    public void execute_afterDate_printSomeExpenses() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24, 10, 22),
-                Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24, 10, 12),
-                Expense.Category.TRANSPORT);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24, 10, 22),
-                Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24, 10, 12),
-                Income.Category.SALARY);
-        financialList.addEntry(expense1);
-        financialList.addEntry(expense2);
-        financialList.addEntry(income1);
-        financialList.addEntry(income2);
-
-        seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(24, 10, 20), null);
-        seeAllExpensesCommand.execute(financialList);
-
-        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
-                "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. " + expense1 + System.lineSeparator() +
-                System.lineSeparator() +
-                "Total expense: $ 10.00" + System.lineSeparator() +
-                System.lineSeparator() +
-                "Highest Expense Category: FOOD ($10.00)" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator();
-        assertEquals(expectedOutput, outContent.toString());
-    }
-
-    /**
-     * Test the execute method, specifying that only Incomes
-     * between 15/10/24 and 21/10/24 exclusive should be printed.
-     */
-    @Test
-    public void execute_beforeAndAfterDate_printSomeExpenses() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24, 10, 22),
-                Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24, 10, 12),
-                Expense.Category.TRANSPORT);
-        FinancialEntry expense3 = new Expense(15.5, "snacks", LocalDate.of(24, 10, 20),
-                Expense.Category.FOOD);
+        FinancialEntry expense3 = new Expense(10.0, "table", LocalDate.of(24,10,20),
+                Expense.Category.OTHER);
         FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24, 10, 22),
                 Income.Category.GIFT);
         FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24, 10, 12),
@@ -188,14 +123,97 @@ public class SeeAllExpensesCommandTest {
         financialList.addEntry(income1);
         financialList.addEntry(income2);
 
-        seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(24, 10, 15), LocalDate.of(24, 10, 21));
+        seeAllExpensesCommand = new SeeAllExpensesCommand(null, LocalDate.of(24, 10, 20));
+        seeAllExpensesCommand.execute(financialList);
+
+        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+                "Here's a list of all recorded expenses:" + System.lineSeparator() +
+                "1. " + expense2 + System.lineSeparator() +
+                "2. " + expense3 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total expense: $ 15.00" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Highest Expense Category: OTHER ($10.00)" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    /**
+     * Test the execute method, specifying that only Expenses starting from 20/10/24 inclusive should be printed.
+     */
+    @Test
+    public void execute_afterDate_printSomeExpenses() throws FinanceBuddyException {
+        FinancialEntry expense1 = new Expense(9.0, "food", LocalDate.of(24, 10, 22),
+                Expense.Category.FOOD);
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24, 10, 12),
+                Expense.Category.TRANSPORT);
+        FinancialEntry expense3 = new Expense(10.0, "table", LocalDate.of(24,10,20),
+                Expense.Category.OTHER);
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24, 10, 22),
+                Income.Category.GIFT);
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24, 10, 12),
+                Income.Category.SALARY);
+      
+        financialList.addEntry(expense1);
+        financialList.addEntry(expense2);
+        financialList.addEntry(expense3);
+        financialList.addEntry(income1);
+        financialList.addEntry(income2);
+
+        seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(24, 10, 20), null);
         seeAllExpensesCommand.execute(financialList);
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense3 + System.lineSeparator() +
+                "2. " + expense1 + System.lineSeparator() +
                 System.lineSeparator() +
-                "Total expense: $ 15.50" + System.lineSeparator() +
+                "Total expense: $ 19.00" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Highest Expense Category: OTHER ($10.00)" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    /**
+     * Test the execute method, specifying that only Expenses
+     * between 15/10/24 and 21/10/24 inclusive should be printed.
+     */
+    @Test
+    public void execute_beforeAndAfterDate_printSomeExpenses() throws FinanceBuddyException {
+        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24, 10, 22),
+                Expense.Category.FOOD);
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24, 10, 12),
+                Expense.Category.TRANSPORT);
+        FinancialEntry expense3 = new Expense(15.5, "snacks", LocalDate.of(24, 10, 20),
+                Expense.Category.FOOD);
+        FinancialEntry expense4 = new Expense(10.0, "table", LocalDate.of(24, 10, 21),
+                Expense.Category.OTHER);
+        FinancialEntry expense5 = new Expense(7.0, "shampoo", LocalDate.of(24, 10, 15),
+                Expense.Category.UTILITIES);
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24, 10, 22),
+                Income.Category.GIFT);
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24, 10, 12),
+                Income.Category.SALARY);
+
+        financialList.addEntry(expense1);
+        financialList.addEntry(expense2);
+        financialList.addEntry(expense3);
+        financialList.addEntry(income1);
+        financialList.addEntry(income2);
+        financialList.addEntry(expense4);
+        financialList.addEntry(expense5);
+
+        seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(24, 10, 15), LocalDate.of(24, 10, 21));
+        seeAllExpensesCommand.execute(financialList);
+
+        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+                "Here's a list of all recorded expenses:" + System.lineSeparator() +
+                "1. " + expense5 + System.lineSeparator() +
+                "2. " + expense3 + System.lineSeparator() +
+                "3. " + expense4 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total expense: $ 32.50" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Highest Expense Category: FOOD ($15.50)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();

@@ -215,4 +215,20 @@ class AddIncomeCommandTest {
         assertEquals(0, financialList.getEntryCount());
     }
 
+    /**
+     * Test the execute method of AddIncomeCommand with a very large amount.
+     * Verifies that a FinanceBuddyException is thrown, and no entries are added to financiallist.
+     */
+    @Test
+    void execute_addIncomeWithVeryLargeAmount_expectErrorMessage() {
+
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addIncomeCommand = new AddIncomeCommand(999999999, "random", null, Income.Category.OTHER);
+            addIncomeCommand.execute(financialList);
+        });
+
+        // Verify the error message
+        assertEquals("Invalid amount. Amount must be $9999999.00 or less.", exception.getMessage());
+        assertEquals(0, financialList.getEntryCount());
+    }
 }

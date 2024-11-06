@@ -2,11 +2,13 @@ package seedu.duke.ui;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.budget.Budget;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.logic.BudgetLogic;
 import seedu.duke.logic.Logic;
 import seedu.duke.storage.Storage;
 
@@ -37,8 +39,10 @@ public class LogicTest {
     void setUp() {
         AppUi appUi = new AppUi();
         Storage storage = new Storage();
+        Budget budget = new Budget();
         FinancialList financialList = new FinancialList();
-        logic = new Logic(financialList, storage, appUi);
+        BudgetLogic budgetLogic = new BudgetLogic(budget, appUi);
+        logic = new Logic(financialList, storage, appUi, budgetLogic);
         System.setOut(new PrintStream(outputStream));
     }
 
@@ -147,6 +151,7 @@ public class LogicTest {
         commandArguments.put("argument", "1");
         commandArguments.put("/a", "25.00");
         commandArguments.put("/des", "Edited Description");
+        commandArguments.put("/d", "11/11/11");
 
         // Execute the command
         boolean result = logic.matchCommand("edit", commandArguments);
@@ -156,6 +161,7 @@ public class LogicTest {
         FinancialEntry editedEntry = logic.financialList.getEntry(0);
         assertEquals(25.00, editedEntry.getAmount());
         assertEquals("Edited Description", editedEntry.getDescription());
+        assertEquals(LocalDate.of(2011, 11, 11), editedEntry.getDate());
     }
 
     /**
