@@ -250,7 +250,7 @@ public class RecurringExpenseList extends ExpenseList {
         LocalDate currentDate = DateUtils.getCurrentDate();
         for (RecurringExpense recurringExpense: recurringExpenses) {
             String frequency = recurringExpense.getFrequency();
-            String lastAddedDate = recurringExpense.getlastAddedDate();
+            String lastAddedDate = recurringExpense.getLastAddedDate();
             switch (frequency) {
             case "daily":
                 addDailyExpense(recurringExpense, lastAddedDate, currentDate);
@@ -281,7 +281,7 @@ public class RecurringExpenseList extends ExpenseList {
                     recurringExpense.getDescription(),
                     recurringExpense.getPrice().toString(),
                     DateUtils.dateFormatToString(recurringExpense.getDateAdded()),
-                    recurringExpense.getlastAddedDate(),
+                    recurringExpense.getLastAddedDate(),
                     recurringExpense.getFrequency()
                 };
                 writer.writeNext(row);

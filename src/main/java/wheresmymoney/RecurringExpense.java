@@ -20,7 +20,7 @@ public class RecurringExpense extends Expense {
         setFrequency(frequency);
     }
 
-    public String getlastAddedDate() {
+    public String getLastAddedDate() {
         return this.lastDateAdded;
     }
 

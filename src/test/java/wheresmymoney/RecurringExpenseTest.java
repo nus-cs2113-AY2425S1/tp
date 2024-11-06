@@ -76,4 +76,16 @@ class ReccuringExpenseTest {
         assertThrows(WheresMyMoneyException.class,
                 () -> initRecurringExpenseWithNoNullParts().setFrequency(null));
     }
+
+    @Test
+    public void setFrequency_wrongInput_throwsWheresMyMoneyException() {
+        assertThrows(WheresMyMoneyException.class,
+                () -> initRecurringExpenseWithNoNullParts().setFrequency("test"));
+    }
+
+    @Test
+    public void setFrequency_emptyInput_throwsWheresMyMoneyException() {
+        assertThrows(WheresMyMoneyException.class,
+                () -> initRecurringExpenseWithNoNullParts().setFrequency(""));
+    }
 }

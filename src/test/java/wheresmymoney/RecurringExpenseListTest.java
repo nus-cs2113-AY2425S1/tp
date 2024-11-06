@@ -3,9 +3,7 @@ package wheresmymoney;
 import org.junit.jupiter.api.Test;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-// import java.util.ArrayList;
-
-// import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -106,35 +104,43 @@ class RecurringExpenseListTest {
                         new RecurringExpense(0.0F, "desc", "category", "25-10-2024")));
     }
 
-    // @Test
-    // public void addExpense_validExpenseWithDateSpecified_success() {
-    //     ExpenseList expenseList = new ExpenseList();
-    //     try {
-    //         expenseList.addExpense(0.01F, "desc", "cat", "25-10-2024");
-    //         Expense expense = expenseList.getExpenseAtIndex(0);
-    //         assertEquals(0.01F, expense.getPrice());
-    //         assertEquals("desc", expense.getDescription());
-    //         assertEquals("cat", expense.getCategory());
-    //         assertEquals("25-10-2024", DateUtils.dateFormatToString(expense.getDateAdded()));
-    //     } catch (WheresMyMoneyException e) {
-    //         fail("Exception thrown when all expense parameters are valid.");
-    //     }
-    // }
+    @Test
+    public void addRecurringExpense_validExpenseWithDateSpecified_success() {
+        ExpenseList expenseList = new ExpenseList();
+        RecurringExpenseList recurringExpenseList = new RecurringExpenseList(expenseList);
+        try {
+            recurringExpenseList.addRecurringExpense(0.01F, "desc", "cat", "05-11-2024", "daily");
+            RecurringExpense recurringExpense = recurringExpenseList.getRecurringExpenseAtIndex(0);
+            assertEquals(0.01F, recurringExpense.getPrice());
+            assertEquals("desc", recurringExpense.getDescription());
+            assertEquals("cat", recurringExpense.getCategory());
+            assertEquals("05-11-2024", DateUtils.dateFormatToString(recurringExpense.getDateAdded()));
+            assertEquals("05-11-2024", recurringExpense.getLastAddedDate());
+            assertEquals("daily", recurringExpense.getFrequency());
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when all expense parameters are valid.");
+        }
+    }
 
-    // @Test
-    // public void addExpense_validExpenseWithDateUnspecified_success() {
-    //     ExpenseList expenseList = new ExpenseList();
-    //     try {
-    //         expenseList.addExpense(0.01F, "desc", "cat");
-    //         Expense expense = expenseList.getExpenseAtIndex(0);
-    //         assertEquals(0.01F, expense.getPrice());
-    //         assertEquals("desc", expense.getDescription());
-    //         assertEquals("cat", expense.getCategory());
-    //         assertEquals(DateUtils.getCurrentDate(), expense.getDateAdded());
-    //     } catch (WheresMyMoneyException e) {
-    //         fail("Exception thrown when all expense parameters are valid.");
-    //     }
-    // }
+    @Test
+    public void addRecurringExpense_validExpenseWithDateUnspecified_success() {
+        ExpenseList expenseList = new ExpenseList();
+        RecurringExpenseList recurringExpenseList = new RecurringExpenseList(expenseList);
+        try {
+            recurringExpenseList.addRecurringExpense(0.01F, "desc", "cat", "daily");
+            RecurringExpense recurringExpense = recurringExpenseList.getRecurringExpenseAtIndex(0);
+            assertEquals(0.01F, recurringExpense.getPrice());
+            assertEquals("desc", recurringExpense.getDescription());
+            assertEquals("cat", recurringExpense.getCategory());
+            assertEquals(DateUtils.dateFormatToString(DateUtils.getCurrentDate()), 
+                    DateUtils.dateFormatToString(recurringExpense.getDateAdded()));
+            assertEquals(DateUtils.dateFormatToString(DateUtils.getCurrentDate()), 
+                    recurringExpense.getLastAddedDate());
+            assertEquals("daily", recurringExpense.getFrequency());
+        } catch (WheresMyMoneyException e) {
+            fail("Exception thrown when all expense parameters are valid.");
+        }
+    }
 
     // @Test
     // public void addExpense_invalidExpenseParameters_throwsWheresMyMoneyException() {
