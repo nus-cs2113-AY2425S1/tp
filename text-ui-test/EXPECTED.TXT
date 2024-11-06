@@ -189,7 +189,6 @@
 	Error tracking progress: Your year and month format is invalid!
 	-------------------------------------
 	-------------------------------------
-	Expense [amount=1000000.0, description=Dinner, date=2024-11-01, category=LessLuxury]
 	Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
 	-------------------------------------
 	-------------------------------------
