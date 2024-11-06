@@ -254,7 +254,8 @@ public class Graph {
         System.out.print(xHeaders);
     }
 
-    private static StringBuilder buildTimeHeader(Exercise exercise, ArrayList<TrainingSession> sessionList, int maxXHeaderLength) {
+    private static StringBuilder buildTimeHeader(Exercise exercise, ArrayList<TrainingSession> sessionList,
+            int maxXHeaderLength) {
         StringBuilder timeHeader = new StringBuilder(ALIGNMENT_SPACE_STRING); // Adjusted spacing for alignment
         for (TrainingSession session : sessionList) {
             int actualTime = session.getExercisePerformance(exercise);
