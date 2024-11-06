@@ -2,6 +2,7 @@ package ymfc.ui;
 
 import ymfc.ingredient.Ingredient;
 import ymfc.recipe.Recipe;
+import ymfc.recipe.RecommendedRecipe;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -102,19 +103,6 @@ public class Ui {
         }
         assert !commandRead.isEmpty() : "User input is empty";
         return commandRead;
-    }
-
-    /**
-     * Display a specified message.
-     *
-     * @param input String array representing the message, each element representing one line.
-     */
-    public void printMessage(String[] input) {
-        System.out.println(LINE);
-        for (String line: input) {
-            System.out.println("\t" + line);
-        }
-        System.out.println(LINE);
     }
 
     public void printErrorMessage(String error) {
@@ -298,8 +286,52 @@ public class Ui {
     public void printEditedRecipe(String recipeName, Recipe editedRecipe) {
         System.out.println(LINE);
         System.out.println("\tYou got it boss, I have edited your recipe for " + recipeName + " to:");
-        System.out.println("\t " +  editedRecipe);
+        System.out.println("\t" +  editedRecipe);
         System.out.println(LINE);
+    }
+
+    /**
+     * Display a random recipe.
+     *
+     * @param randomRecipe Recipe that has been randomly chosen.
+     */
+    public void printRandomRecipe(Recipe randomRecipe) {
+        System.out.println(LINE);
+        System.out.println("\tYou want me to call you a random recipe?");
+        System.out.println("\t...");
+        System.out.println("\tYou need to call it. I can't call it for you.");
+        System.out.println("\tIt wouldn't be fair. It wouldn't be right.");
+        System.out.println("\tIt's either one or another, and you have to say. Call it.");
+        System.out.println("\t...");
+        System.out.println("\tOkay who am I kidding, this is still a country for old men.");
+        System.out.println("\tI will call it for you, here's your random recipe:");
+        System.out.println("\t" +  randomRecipe);
+        System.out.println(LINE);
+    }
+
+    /**
+     * Display a list of recommended recipes to the user.
+     * Information about what percentage of the recipe's ingredients that the user has,
+     * and what are the missing ingredients are also displayed.
+     *
+     * @param recommendList List of recipes to be recommended
+     */
+    public void printRecommendedRecipes(ArrayList<RecommendedRecipe> recommendList) {
+        if (!recommendList.isEmpty()) {
+            System.out.println(LINE);
+            System.out.println("\tAlright, here are my recommendations:");
+            for (int i = 0; i < recommendList.size(); i++) {
+                System.out.println(recommendList.get(i));
+            }
+            System.out.println(LINE);
+        } else {
+            System.out.println(LINE);
+            System.out.println("\tUnfortunately I can't recommend you any recipes, ");
+            System.out.println("\tbecause you lack the ingredients for any recipes in my database.");
+            System.out.println("\tPerhaps you should hit up the grocery store.");
+            System.out.println("\tIt will do you some good to go outside once in a while.");
+            System.out.println(LINE);
+        }
     }
 
     public String getLine() {
