@@ -15,8 +15,9 @@ We used these third party libraries to develop our application:
 
 ### Meal Component
 
-API: `Meal.java`
+
 ![Meal and MealList Class Diagram](./images/mealAndMealListClassDiagrams.png)
+
 The `Meal` component,
 
 - **Represents individual meals with nutritional information:** The `Meal` class encapsulates details about a meal, specifically its name and calorie count. This allows easy tracking of individual meals within a day.
