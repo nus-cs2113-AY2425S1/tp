@@ -114,7 +114,6 @@ public class Main {
 
     public static void printWelcomeMessage() {
         ui.printMessage("Remember to record your spending today so you can track your spending accurately.");
-        ui.printMessage("");
         double todaySpending = transactions.getTodaySpending();
         String reminder = "Reminder: Please check if your spending is within your budget!";
         ui.printMessage("Today's total spending: $" + todaySpending);
@@ -125,10 +124,7 @@ public class Main {
             double monthlyExpense = budgetTracker.getMonthlyExpense(currentMonth);
             double remaining = monthlyBudget - monthlyExpense;
             ui.printMessage("This month's budget remaining: $" + String.format("%.2f", remaining));
-        }else{
-            ui.printMessage("You haven't add a budget");
         }
-        ui.printMessage(reminder);
     }
 
     /**

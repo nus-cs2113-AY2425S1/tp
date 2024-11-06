@@ -1,10 +1,6 @@
-	No existing category file found. Starting fresh.
-	No existing transaction file found. Starting fresh.
 	Hello, uNivUSaver is willing to help!
 	Remember to record your spending today so you can track your spending accurately.
-	
 	Today's total spending: $0.0
-	Reminder: Please check if your spending is within your budget!
 	-------------------------------------
 	Closing! See you tomorrow!
 	-------------------------------------
