@@ -14,7 +14,6 @@ import seedu.exchangecoursemapper.command.FindCoursesCommand;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
 
-
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -92,5 +91,4 @@ public class Parser {
             System.out.println(INVALID_COMMAND_MESSAGE);
         }
     }
-
 }

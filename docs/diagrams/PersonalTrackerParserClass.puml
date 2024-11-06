@@ -1,0 +1,57 @@
+@startuml
+
+!include.ClassDiagram.config
+
+left to right direction
+
+class Parser {
+    - logger: Logger
+    - scanner: Scanner
+    - mapperUI: UI
+    + getUserInput(): String
+    + processUserInput(userInput: String, storage: Storage): void
+}
+
+class UI {
+    + displayExitMessage(): void
+}
+
+class Storage
+
+class AddCoursesCommand {
+    + execute(input: String, storage: Storage): void
+}
+
+class DeleteCoursesCommand {
+    + execute(input: String, storage: Storage): void
+}
+
+class CompareMappedCommand {
+    + execute(input: String): void
+}
+
+class FindCoursesCommand {
+    + execute(input: String, storage: Storage): void
+}
+
+class ListPersonalTrackerCommand {
+    + execute(userInput: String): void
+    }
+
+Parser --> UI : "1"
+Parser --> Storage : "1"
+Parser ..> AddCoursesCommand : "0..1"
+Parser ..> DeleteCoursesCommand : "0..1"
+Parser ..> CompareMappedCommand : "0..1"
+Parser ..> FindCoursesCommand : "0..1"
+Parser ..> ListPersonalTrackerCommand : "0..1"
+
+
+AddCoursesCommand ..> Storage : "Uses"
+DeleteCoursesCommand ..> Storage : "Uses"
+FindCoursesCommand ..> Storage : "Uses"
+ListPersonalTrackerCommand ..> Storage : "Uses"
+CompareMappedCommand ..> Storage : "Uses"
+
+
+@enduml

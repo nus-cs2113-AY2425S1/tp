@@ -1,0 +1,48 @@
+@startuml
+
+!include.ClassDiagram.config
+
+class UI {
+    - static Logger logger
+
+    + displayGreeting(): void
+    + displayExitMessage(): void
+    + printMappableCourse(universityName: String, course: JsonObject): void
+    + printUniversityList(universityName: String): void
+    + printContactInformation(informationDescription: String, schoolName: String, customOutput: String): void
+    + displayPartnerUniversities(): void
+    + printAddMessage(course: Course): void
+    + displayAvailableMappings(courses: JsonArray, pu: String): void
+    + printDeleteMessage(deleteCourse: Course): void
+    + printListUniCoursesCommand(courseObject: JsonObject): void
+    + printCommandsList(): void
+    + printNoMappedModules(): void
+    + printMappedModules(mappedModules: List<Course>): void
+    + printInvalidInputFormat(): void
+    + printCommonMappings(university1: String, university2: String, commonCourseCodes: Set<String>, uni1Modules: List<Course>, uni2Modules: List<Course>): void
+    + printUniqueMappings(university: String, modules: List<Course>, uniqueCourseCodes: Set<String>): void
+    + printInvalidCourseEntry(lineNumber: int, entry: String): void
+    + printInvalidEntryFormat(lineNumber: int, entry: String): void
+    + printMessage(message: String): void
+    + runChat(parser: Parser, storage: Storage): void
+    + printFoundCourses(foundCourse: Course): void
+    + printLineSeparator(): void
+    + printEmptyList(): void
+}
+
+class Parser
+class Storage
+class Course {
+    + formatOutput(): String
+    + getNusCourseCode(): String
+}
+class JsonObject
+class JsonArray
+
+UI ..> Parser : "uses"
+UI ..> Storage : "uses"
+UI ..> Course : "uses"
+UI ..> JsonObject : "uses"
+UI ..> JsonArray : "uses"
+
+@enduml

@@ -16,19 +16,12 @@ activate ListUniCoursesCommand
 ListUniCoursesCommand -> Command : createJsonObject()
 activate Command
 
-opt inputStream is null
-    Command -> Command: throw new IOException()
-end
-
 Command --> ListUniCoursesCommand: jsonObject : JsonObject
 deactivate Command
 
 ListUniCoursesCommand -> ListUniCoursesCommand : getPuName(userInput: String)
 activate ListUniCoursesCommand
 
-opt puName is empty
-    ListUniCoursesCommand -> ListUniCoursesCommand : throw new IllegalArgumentException
-end
 return puName : String
 
 ListUniCoursesCommand -> ListUniCoursesCommand : getUniCourses(...)

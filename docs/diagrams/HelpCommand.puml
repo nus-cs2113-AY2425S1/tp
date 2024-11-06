@@ -14,20 +14,15 @@ activate HelpCommand
 HelpCommand -> HelpCommand : getCommand
 activate HelpCommand
 alt Valid Input
-    HelpCommand -> HelpCommand : return parsed command
-    else Invalid Input
-        HelpCommand -> HelpCommand : Throws IllegalArgumentException
+    return return parsed command
 end
-return
+
 
 HelpCommand -> HelpCommand
 activate HelpCommand
 alt Valid Command
-    HelpCommand -> HelpCommand : Print specific help messages
-    else Invalid Command
-        HelpCommand -> HelpCommand : Throws IllegalArgumentException
+    return Print specific help messages
 end
-return
 
 HelpCommand --> CEG_Student
 deactivate HelpCommand
