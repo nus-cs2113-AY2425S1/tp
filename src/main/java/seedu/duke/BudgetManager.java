@@ -86,6 +86,11 @@ public class BudgetManager {
         Map<Category, Budget> budgets = trackerData.getBudgets();
         String formattedCategoryName = Format.formatInput(categoryName.trim());
 
+        if (limit < 0) {
+            System.out.println("Invalid input! Please provide a positive amount!");
+            return;
+        }
+
         Category existingCategory = null;
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {

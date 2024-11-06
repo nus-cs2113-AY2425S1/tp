@@ -31,6 +31,11 @@ public class ExpenseManager {
                 return;
             }
 
+            if (amount < 0) {
+                System.out.println("Invalid input! Please provide a positive amount!");
+                return;
+            }
+
             expenseManager.addExpense(trackerData, name, amount, category);
         } catch (Exception e) {
             System.out.println("Error parsing the input. Please use the correct format for add-expense commands.");
