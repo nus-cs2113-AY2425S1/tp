@@ -1,5 +1,21 @@
 # Developer Guide
 
+## Table of Contents
+1. [Acknowledgements](#acknowledgements)
+2. [Design & Implementation](#design--implementation)
+    - [Category](#category)
+    - [TransactionList](#transactionlist)
+    - [Command](#command)
+    - [AddIncomeCommand](#addincomecommand)
+    - [Command Parser](#command-parser)
+3. [Product Scope](#product-scope)
+    - [Target User Profile](#target-user-profile)
+    - [Value Proposition](#value-proposition)
+4. [User Stories](#user-stories)
+5. [Non-Functional Requirements](#non-functional-requirements)
+6. [Glossary](#glossary)
+7. [Instructions for Manual Testing](#instructions-for-manual-testing)
+
 ## Acknowledgements
 - The `Parser` is adapted from [Dan Linh's iP](https://github.com/DanLinhHuynh-Niwashi/ip/tree/master/src/main/java/niwa/parser) code, with changes to get on well with the current project 
 
@@ -45,8 +61,8 @@ The `Category` class encapsulates the name of a category and provides functional
 ### TransactionList
 The `TransactionList` class is responsible for storing user transactions of different types. It also provides various
 operations that enable user to add, delete, search by (date/ category/ keywords).
-
     ![TransactionList](./diagrams/TransactionList/transactionlist-class-diagram.png)
+    
 #### Class Responsibilities
 
 1. **Storage for transactions**: Keeps an ArrayList of `Transaction` objects.
@@ -130,7 +146,6 @@ The `Command` class is an abstract class that provide a common behavior that oth
       
 ### AddIncomeCommand
 The `AddIncomeCommand` class inherits Command class, handles the logic for adding an income transaction to the `TransactionList` by parsing input arguments, creating a new `Income` instance, and updating the transaction list.
-
     ![AddIncomeCommand](./diagrams/addincomecommand/addincomecommand-class-diagram.png)
 
 #### Class responsibilities
