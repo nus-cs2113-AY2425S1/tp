@@ -31,9 +31,8 @@ The Parser component, comprising `DateParser` and `InputParser`, handles input p
 
 <ins>Implementation</ins>
 
-- **Class Diagram**: Displays the relationship between `AppUi`, `DateParser`, and `InputParser`. `AppUi` serves as the main interface for user interaction, utilizing `DateParser` and `InputParser` to interpret and process input effectively.
-![Ui Parser Class](UML/UiParserClass.png)
 - **Sequence Diagram**: Illustrates the flow of processing user input, from capturing input in `AppUi`, parsing it with `InputParser`, and validating date formats via `DateParser`.
+
 ![Ui Parser Sequence](UML/UiParserSequence.png)
 
 #### Ui Component
@@ -46,12 +45,6 @@ The `AppUi` class in the Ui component facilitates user interactions, including d
 
 - **Attributes**:
   - `scanner`: `Scanner` — Reads user input from the console
-
-<ins>Implementation Details</ins>
-
-*Class Diagram*: Illustrates `AppUi` with its methods for displaying messages and capturing user input.
-
-![AppUI Class](UML/AppUIClass.png)
 
 <ins>Methods</ins>
 
@@ -85,12 +78,6 @@ The Parser component includes `InputParser` and `DateParser`. `InputParser` proc
 - **Attributes**:
   - `formatter`: `DateTimeFormatter` — Defines a date format for parsing.
 
-<ins>Implementation Details</ins>
-
-*Class Diagram*: Shows `InputParser` parsing command input and `DateParser` handling date validation.
-
-![Parser Class](UML/ParserClass.png)
-
 <ins>Methods</ins>
 
 - **InputParser.parseCommands(String input)**: Breaks down commands and arguments.
@@ -123,9 +110,9 @@ It interacts with `FinancialList`, `AppUi` and `Storage`, and leverages command 
 
 <ins>Implementation Details</ins>
 
-*Class Diagram*: Shows Logic as the main controller interacting with `FinancialList`, `AppUi`, and various command classes for operations (e.g., `AddIncomeCommand`, `DeleteCommand`).
+*Sequence Diagram*: Shows Logic as the main controller interacting with `DateParser`, `AppUi`, and various command classes for operations (e.g., `SeeAllEntriesCommand`, `showUnknownCommandMessage`).
 
-![Logic Class](UML/LogicClass.png)
+![Logic Sequence](UML/LogicSequence.png)
 
 <ins>Class Structure</ins>
 
