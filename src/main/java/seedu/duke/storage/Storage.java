@@ -342,8 +342,7 @@ public class Storage {
             FinancialList theList = loadTransactionsFromFile();
             loadBudgetFromFile(theList, budgetLogic);
             return theList;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.log(Level.WARNING, "Error loading file: " + e.getMessage());
             return new FinancialList();
         }
