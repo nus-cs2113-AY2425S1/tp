@@ -31,6 +31,7 @@ public class Parser {
     public static final String ARGUMENT_FROM = "from";
     public static final String ARGUMENT_TO = "to";
     public static final String ARGUMENT_LIMIT = "limit";
+    public static final String ARGUMENT_METHOD = "method";
 
     public static final String ARGUMENT_EXPENSE_LIST = "expenseList";
     public static final String ARGUMENT_CATEGORY_INFO = "categoryInfo";

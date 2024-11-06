@@ -25,6 +25,7 @@
 WheresMyMoney uses the following libraries
 
 1. [OpenCSV](https://opencsv.sourceforge.net/) - Used for saving/ loading expenses
+2. [XChart](https://knowm.org/open-source/xchart/) - Used for visualizing expenses
 
 WheresMyMoney uses the following tools for development:
 
@@ -39,12 +40,13 @@ WheresMyMoney uses the following tools for development:
 Design and Implementation has been broken down into various sections, each tagged for ease of reference:
 
 - [Architecture](#architecture)
-- [UI and Parser](#ui-and-parser)
+- [Ui and Parser](#ui-and-parser)
 - [Commands](#commands)
 - [Storage](#storage)
 - [Expense and Expense List](#expense-and-expense-list)
 - [Expense Filter](#expense-filter)
 - [Date and Time Handling](#date-and-time-handling)
+- Visualizer
 - [Exceptions and Logging](#exceptions-and-logging)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 - [Category Package](#category-package)
@@ -55,11 +57,12 @@ A high-level overview of the system is shown in the Architecture Diagram below.
 ![ArchitectureDiagram.png](diagrams%2Fimages%2FArchitectureDiagram.png "Architecture Diagram of WheresMyMoney")
 
 This architecture consist of: 
-1. `UI`, `Main`, `Parser`, and `Command` classes: These classes stand between the user and the internal processing of the software.
+1. `Ui`, `Main`, `Parser`, and `Command` classes: These classes stand between the user and the internal processing of the software.
 2. `Expense`, `ExpenseList`, `ExpenseFilter` classes: Model expenses that commands can interact with.
 3. `Storage` class: Stores information between sessions.
 4. Logger and other utility classes: Provide extra functionalities for the software.
-### UI and Parser
+
+### Ui and Parser
 
 <u>Overview</u>
 
@@ -126,7 +129,7 @@ The following diagram is a sequence diagram for execution of Command.
 
 ![CommandExecutionSequence.png](diagrams%2Fimages%2FCommandExecutionSequence.png)
 
-Commands interact with `UI` and `Parser` classes via `Main`, as illustrated in the following class diagram:
+Commands interact with `Ui` and `Parser` classes via `Main`, as illustrated in the following class diagram:
 
 ![UiToCommand.png](diagrams%2Fimages%2FUiToCommand.png)
 
@@ -234,6 +237,23 @@ The `DateUtils` class has no notable methods.
 
 The `DateUtils` class is implemented as a Singleton as its methods are common to all other classes that require it.
 
+### Visualizer
+
+The `VisualizeCommand`, similar to the `list` command, takes in `category` and `from`/`to` dates.
+It uses `ExpenseFilter` to generate an `ArrayList<Expense>` of matched expenses and passes it to `Visualizer`.
+
+The `Visualizer` class, upon receiving `expenses`, performs the following steps:
++ Determine `beginDate` and `endDate` (the earliest and latest `dateAdded` among all expenses).
++ `getTimeRange()` - Calculate `dateRange` - the difference (in days) between `beginDate` and `endDate` plus one.
++ If `dateRange` is within a month (no more than 32 days):
+  + `createDateList()` - Generate a `List<String> timeSeries` of dates, spanning from `beginDate` to `endDate`.
+  + `groupPriceByDay()` - Create a `Hashmap<String, Float> dateToExpenseMap`. 
+  The keys are elements of `timeSeries`, and values are the total expenses in the corresponding day.
++ If `dateRange` is more than a month, perform similar operations where each element of `timeSeries` is a whole month.
++ `drawChart()` - Pass data to the `CategoryChart` object, customize and display the chart.
+
+Data is passed to the XChart library in the form of two series - a `timeSeries` and a `valueSeries`.
+
 ### Recurring Expense and Recurring Expense List
 
 <u>Overview</u>
@@ -249,12 +269,12 @@ The `RecurringExpense` class has no notable methods.
 
 The `RecurringExpenseList` class has the following key methods:
 
-|          Method          |                Description                 |
-|:------------------------:|:------------------------------------------:|
-|  `addRecurringExpense`   |    Adds a recurring expense to the list    |
-| `deleteRecurringExpense` | Removes a recurring expense from the list  |
-|  `editRecurringExpense`  |   Edits a recurring expense in the list    |
-| `loadFromCsv` | Adds the appropriate amount of `Expense` objects with the correct date to the `ExpenseList`|
+|          Method          |                                         Description                                         |
+|:------------------------:|:-------------------------------------------------------------------------------------------:|
+|  `addRecurringExpense`   |                            Adds a recurring expense to the list                             |
+| `deleteRecurringExpense` |                          Removes a recurring expense from the list                          |
+|  `editRecurringExpense`  |                            Edits a recurring expense in the list                            |
+|      `loadFromCsv`       | Adds the appropriate amount of `Expense` objects with the correct date to the `ExpenseList` |
 
 
 <u>Design Considerations</u>
@@ -288,18 +308,6 @@ The `CategoryData` class contains category-related information, namely the cumul
 The `CategoryFilter` class is responsible for filtering categories based on various criteria.
 
 <u>Methods</u>
-
-The `CategoryFacade` class has key methods for:
-
-|          Method           |                                                    Description                                                    |
-|:-------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
-|        addCategory        |                           The interface for AddCommand when the user adds a new Expense                           |
-|      deleteCategory       |                         The interface for DeleteCommand when the user deletes an Expense.                         |
-|       editCategory        |                           The interface for EditCommand when the user edits an Expense.                           |
-|     loadCategoryInfo      |                    The interface for LoadCommand to load category information from a CSV file.                    |
-| displayFilteredCategories |                The interface for LoadCommand to show filtered categories based on spending limits.                |
-|     saveCategoryInfo      |                 The interface for SaveCommand to save current category information to a CSV file.                 |
-| setCategorySpendingLimit  |                  The interface for SetCommand to set a spending limit for a specified category.                   |
 
 The `CategoryTracker` class has the following key methods: 
 
@@ -386,19 +394,19 @@ The application can provide summaries and statistical insights to spending habit
 
 ## User Stories
 
-| Version | As a ...    | I want to ...                                                                  | So that I can ...                                                  |
-|---------|-------------|--------------------------------------------------------------------------------|--------------------------------------------------------------------|
-| v1.0    | user        | add expenses                                                                   | track how much money I have spent so far                           |
-| v1.0    | user        | delete expenses                                                                | clear wrong expenses to ensure expense tracking is accurate        |
-| v1.0    | user        | edit expenses                                                                  | correct inaccurate expenses to ensure expense tracking is accurate |
-| v1.0    | user        | list expenses                                                                  | track my spending                                                  |
-| v1.0    | new user    | see usage instructions                                                         | refer to them when I forget how to use the application             |
-| v2.0    | user        | save and load my expenses from a file                                          | retain memory of past expenses from past runs of the program       |
-| v2.0    | frugal user | set spending limits for each category and month                                | control my spending                                                |
-| v2.0    | frugal user | be alerted when I exceed spending limits for each category and month           | control my spending                                                |
-| v2.0    | user        | visualise my spending in the form of graphs                                    | better conceptualise and understand spending trends and patterns   |
-| v2.0    | user        | detailed statistical information about my spending (such as mean, median etc.) | better quantify and understand spending trends and patterns        |
-| v2.0    | user        | add recurring expenses                                                         | automate expense tracking and make it more convenient              |
+| Version | As a ...    | I want to ...                                                            | So that I can ...                                                  |
+|---------|-------------|--------------------------------------------------------------------------|--------------------------------------------------------------------|
+| v1.0    | user        | add expenses                                                             | track how much money I have spent so far                           |
+| v1.0    | user        | delete expenses                                                          | clear wrong expenses to ensure expense tracking is accurate        |
+| v1.0    | user        | edit expenses                                                            | correct inaccurate expenses to ensure expense tracking is accurate |
+| v1.0    | user        | list expenses                                                            | track my spending                                                  |
+| v1.0    | new user    | see usage instructions                                                   | refer to them when I forget how to use the application             |
+| v2.0    | user        | save and load my expenses from a file                                    | retain memory of past expenses from past runs of the program       |
+| v2.0    | frugal user | set spending limits for each category                                    | control my spending                                                |
+| v2.0    | frugal user | be alerted when I exceed spending limits for each category and month     | control my spending                                                |
+| v2.0    | user        | visualise my spending in the form of graphs                              | better conceptualise and understand spending trends and patterns   |
+| v2.0    | user        | detailed statistical information about my spending (mean, highest, etc.) | better quantify and understand spending trends and patterns        |
+| v2.0    | user        | add recurring expenses                                                   | automate expense tracking and make it more convenient              |
 
 ## Non-Functional Requirements
 
