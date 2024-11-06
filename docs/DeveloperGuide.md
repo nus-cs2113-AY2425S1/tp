@@ -215,6 +215,58 @@ exchange opportunities.
 ![Filter Courses Sequence Diagram](images/ObtainContactsCommand.png)
 
 
+### 6. Filter Courses Command
+
+#### Overview:
+This command is responsible for displaying and retrieving the full list of mappable courses from the partner
+universities to a user specified NUS course from `database.json` file. It helps the users to identify whether
+that NUS course is suitable to be mapped overseas in South East Asia and Oceania.
+
+#### How the feature is implemented:
+* The `FilterCoursesCommand` class extends `Command` class where it overrides the `execute` method for
+  custom behaviour.
+* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
+  superclass.
+* The `parseFilterCommand` method then separates input, which parses the user input to extract the details in the input,
+  still of `String` type.
+* The `getNusCourseCode` method then extract out the user specified NUS course code from the parsed input, checking
+  if the course code is a School of Computing course.
+* The NUS course code is then passed into the `displayMappableCourses()` method along with teh Json object. The method
+  will iterate over the keys of the database which contains the University names, then obtain the array `courses`
+  stored in the "courses" field. The `courses` array is then iterated over, for each course,
+  if the value in the "nus_course_code" is equals to the NUS course code passed into the method, the university name and
+  "pu_course_code" value of the course will be printed to the CLI.
+* There are also assertions and logging in place for error handling.
+* Line Separator is used to ensure readability and ease of use for users.
+
+#### Sequence Diagram:
+![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
+
+
+### 8. Delete Courses Command
+
+#### Overview:
+This command is responsible for deleting users' existing course mapping plan from the `myList.json` file.
+This helps the users to keep track of their most recent course mapping plans, and to keep the `myList.json` file organised.
+
+#### How the feature is implemented:
+* The `DeleteCoursesCommand` class extends `Command` class where it overrides the `execute` method for
+  custom behaviour.
+* When `execute` is called, the command first passes the user's input into the `parseDeleteCommand` method, which parses
+  the user input to extract the list index, still of `String` type, of the course mapping plan
+  they would like to delete.
+* The parsed input is then passed into the `deleteCourse` method, along with the Storage object, which updates the
+  `myList.json` file. The list index is then converted to an `int` using the `Integer` class. If a valid list index
+  has been given by the user, the list index is passed into the storage object's `deleteCourse` method to delete the
+  plan stored at that index.
+* Lastly, the UI object's `printDeleteMessage` is called to inform the user of the course plan which is deleted.
+* Throughout the code, exceptions, assertions and logging are in place for better error handling.
+* Line Separator is used to ensure readability and ease of use for users.
+
+#### Sequence Diagram:
+![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
+
+
 ### 11. Find course mapping command
 
 #### Overview
@@ -241,34 +293,6 @@ to check and plan course mappings for that specified course.
   `FindCoursesCommand` focused solely on search logic, without managing user interactions directly.
 
 ![FindCourseCommand Sequence diagram](images/FindCoursesCommand.png)
-
-
-### 2. Filter Courses Command
-
-#### Overview:
-This command is responsible for displaying and retrieving the full list of mappable courses from the partner 
-universities to a user specified NUS course from `database.json` file. It helps the users to identify whether
-that NUS course is suitable to be mapped overseas in South East Asia and Oceania.
-
-#### How the feature is implemented:
-* The `FilterCoursesCommand` class extends `Command` class where it overrides the `execute` method for
-  custom behaviour.
-* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
-  superclass.
-* The `parseFilterCommand` method then separates input, which parses the user input to extract the details in the input, 
-  still of `String` type.
-* The `getNusCourseCode` method then extract out the user specified NUS course code from the parsed input, checking
-  if the course code is a School of Computing course.
-* The NUS course code is then passed into the `displayMappableCourses()` method along with teh Json object. The method
-  will iterate over the keys of the database which contains the University names, then obtain the array `courses`
-  stored in the "courses" field. The `courses` array is then iterated over, for each course,
-  if the value in the "nus_course_code" is equals to the NUS course code passed into the method, the university name and
-  "pu_course_code" value of the course will be printed to the CLI.
-* There are also assertions and logging in place for error handling.
-* Line Separator is used to ensure readability and ease of use for users.
-
-#### Sequence Diagram on PlantUML:
-![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
 
 
 ### 5. Add Courses Command
@@ -306,29 +330,6 @@ Sequence Diagram for AddCourseCommand
 
 Sequence Diagram of Course Validator (extracted out of AddCourseCommand sequence diagram)
 
-
-### 6. Delete Courses Command
-
-#### Overview:
-This command is responsible for deleting users' existing course mapping plan from the `myList.json` file.
-This helps the users to keep track of their most recent course mapping plans, and to keep the `myList.json` file organised.
-
-#### How the feature is implemented:
-* The `DeleteCoursesCommand` class extends `Command` class where it overrides the `execute` method for
-  custom behaviour.
-* When `execute` is called, the command first passes the user's input into the `parseDeleteCommand` method, which parses
-  the user input to extract the list index, still of `String` type, of the course mapping plan 
-  they would like to delete.
-* The parsed input is then passed into the `deleteCourse` method, along with the Storage object, which updates the
-  `myList.json` file. The list index is then converted to an `int` using the `Integer` class. If a valid list index
-  has been given by the user, the list index is passed into the storage object's `deleteCourse` method to delete the 
-  plan stored at that index.
-* Lastly, the UI object's `printDeleteMessage` is called to inform the user of the course plan which is deleted.
-* Throughout the code, exceptions, assertions and logging are in place for better error handling.
-* Line Separator is used to ensure readability and ease of use for users.
-
-#### Sequence Diagram:
-![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
 
 ### 7. List Commands Command
 
@@ -532,6 +533,7 @@ testers are expected to do more *exploratory* testing.
 > [NOTE!]
 > SCHOOL_NAME is not case-sensitive, but must be the same as the name listed by the `list schools` command,
 > word for word!
+
 * 2.3.1 See all mappable courses from a valid PU
   * Prerequisites: None
   * Test Case: `set SCHOOL_NAME`, where `SCHOOL_NAME` is one of the PUs listed by `list schools` <br/>
@@ -549,6 +551,7 @@ testers are expected to do more *exploratory* testing.
 > [NOTE!]
 > SCHOOL_NAME is not case-sensitive, but must be the same as the name listed by the `list schools` command,
 > word for word!
+
 * 2.4.1 Obtain valid PU's email
   * Prerequisites: None
   * Test Case: `obtain The University of Melbourne /email`

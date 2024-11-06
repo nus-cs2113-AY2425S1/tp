@@ -139,6 +139,35 @@ Invalid contact type.
 ```
 
 
+### Filtering possible mappings: `filter`
+Filters out all possible PU courses that can be mapped to a user specified NUS course.
+
+Format: `filter NUS_COURSE_CODE`
+
+* The `NUS_COURSE_CODE` is in NUS course code format.
+
+Example: `filter cs3241`
+
+Expected Output:
+
+```
+Partner University: The University of Melbourne
+Partner University Course Code: COMP30019
+-----------------------------------------------------
+Partner University: The Australian National University
+Partner University Course Code: COMP4610
+-----------------------------------------------------
+```
+
+Example: `filter ee2026`
+
+Output:
+
+```
+No courses found for the given course code.
+```
+
+
 ### Adding a course mapping: `add`
 Adds a new course mapping into `myList.json` file for storage.Course mapping is subject to validation 
 to ensure that the course mapping is valid and that the university provided is an Oceania university. 
@@ -183,34 +212,6 @@ NOTE: Instead of "Australian National University," please indicate "The Australi
 -----------------------------------------------------
 ```
 
-
-### Filtering possible mappings: `filter`
-Filters out all possible PU courses that can be mapped to a user specified NUS course.
-
-Format: `filter NUS_COURSE_CODE`
-
-* The `NUS_COURSE_CODE` is in NUS course code format.
-
-Example: `filter cs3241`
-
-Expected Output:
-   
-```agsl
-Partner University: The University of Melbourne
-Partner University Course Code: COMP30019
------------------------------------------------------
-Partner University: The Australian National University
-Partner University Course Code: COMP4610
------------------------------------------------------
-```
-
-Example: `filter ee2026`
-    
-Output:
-
-```
-No courses found for the given course code.
-```
 
 ### Delete course mapping plans from Personal Tracker: `delete`
 Delete a course mapping plan that was initially saved into the Personal Tracker.
