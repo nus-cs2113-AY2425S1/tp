@@ -1,5 +1,6 @@
 	No existing category file found. Starting fresh.
 	No existing transaction file found. Starting fresh.
+	No existing budget file found. Starting fresh.
 	Hello, uNivUSaver is willing to help!
 	Remember to record your spending today so you can track your spending accurately.
 	
