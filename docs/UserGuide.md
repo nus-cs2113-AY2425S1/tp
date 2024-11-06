@@ -131,34 +131,126 @@ Day 2: TWO
 
 ---
 
-### 5. Editing a Programme
+### 5. Add a New Day in an Existing Programme
 
-Edits a given Programme based on command and argument flags.
+Add a new Day in an existing programme
 
-Command: `prog edit [/p PROG_INDEX] [/d DAY_INDEX] [command] [args]`
+Command: `prog edit [/p PROG_INDEX] /ad DAY_NAME`
 
 Parameters:
-
 - **/p PROG_INDEX** _(optional)_: Specifies the Programme index. Defaults to the current active Programme if omitted.  
   **Alias**: `/programme` – Either `/p` or `/programme` can be used to specify the programme index.
+- **/ad DAY_NAME**: DAY_NAME is a string that names the day. 
+  **Alias**: `/addDay` – Either `/ad` or `/addDay` can be used to add a day.
 
-- **/d DAY_INDEX**: Specifies the day index within the Programme.  
-  **Alias**: `/day` – Either `/d` or `/day` can be used to specify the day index.
+Example: `prog edit /p 1 /ad "Cardio Day"`
+Creates a new empty Day named "Cardio Day" in Programme 1.
 
-- **command**: Determines the action type on the exercise or day:
+```plaintext
+Created new day: Cardio Day
+```
 
-  - `/a` : **Add a New Exercise** to the specified day.  
-    **Alias**: `/addExercise` – Either `/ae` or `/addExercise` can be used to add an exercise.
-  - `/u EXERICSE_INDEX` : **Update an Existing Exercise** within the specified day.  
-    **Alias**: `/updateExercise` – Either `/ue` or `/updateExercise` can be used to update an exercise.
-  - `/x EXERICSE_INDEX` : **Remove an Existing Exercise** from the specified day.  
-    **Alias**: `/removeExercise` – Either `/xe` or `/removeExercise` can be used to delete an exercise.
-  - `/ad`: **Create a New Day** in the Programme.  
-    **Alias**: `/addDay` – Either `/ad` or `/addDay` can be used to add a day.
-  - `/xd`: **Remove an Existing Day** from the Programme.  
-    **Alias**: `/removeDay` – Either `/xd` or `/removeDay` can be used to delete a day.
+_Note_: Advanced users can directly create days with exercises using the syntax found in `Create Programme`
 
-- **args**: These arguments set specific attributes for edit actions:
+```plaintext
+prog edit /p 1 /ad "Pull Day" /e /n "Push-Up /w 30 /r 15 /s 3 /c 100 /e ...
+```
+
+---
+
+### 6. Delete a Day in an Existing Programme
+
+Delete a day in an existing programme
+
+Command: `prog edit [/p PORG_INDEX] /xd DAY_INDEX`
+
+Parameters:
+- **/p PROG_INDEX** _(optional)_: Specifies the Programme index. Defaults to the current active Programme if omitted.  
+  **Alias**: `/programme` – Either `/p` or `/programme` can be used to specify the programme index.
+- **/xd DAY_INDEX**: DAY_INDEX is the index of the day in the programme that the user wants to delete.
+  **Alias**: `/removeDay` – Either `/xd` or `/removeDay` can be used to delete a day.
+
+Example: `prog edit /p 1 /xd 1`
+Deletes day 1 in programme 1
+
+```plaintext
+Deleted day:
+Cardio Day
+```
+
+---
+
+### 7. Add an Exercise of an Existing Day in an Existing Programme
+
+Add an exercise to an existing day in an existing programme
+
+Command: `prog edit [/p PORG_INDEX] /d DAY_INDEX /a /n EXERCISE_NAME /w WEIGHT /r REPS /s SETS /c CALORIES`
+
+Parameters:
+- **/p PROG_INDEX** _(optional)_: Specifies the Programme index. Defaults to the current active Programme if omitted.  
+  **Alias**: `/programme` – Either `/p` or `/programme` can be used to specify the programme index.
+- **/d DAY_INDEX**: Index of day the user wants to add exercise to.
+- **/a** : Flag to add exercise.
+  **Alias**: `/addExercise` – Either `/ae` or `/addExercise` can be used to add an exercise.
+- **/n NAME**: Sets or updates the name of the exercise on update.  
+  **Alias**: `/name` – Either `/n` or `/name` can be used to specify the exercise name.
+- **/w WEIGHT**: Sets the weight for the exercise on update.  
+  **Alias**: `/weight` – Either `/w` or `/weight` can be used to specify weight.
+- **/r REPS**: Sets the repetitions on update.  
+  **Alias**: `/reps` – Either `/r` or `/reps` can be used to specify repetitions.
+- **/s SETS**: Sets the number of sets on update.  
+  **Alias**: `/sets` – Either `/s` or `/sets` can be used to specify sets.
+- **/c CALORIES**: Sets the calories of the exercise on update.  
+  **Alias**: `/calories` – Either `/c` or `/calories` can be used to specify the calorie count.
+
+Example: `prog edit /p 1 /d 1 /a /n Push-Up /w 30 /r 15 /s 3 /c 100`
+Add exercise of push up with weight of 30, 15 reps, 3 sets, burning 100 calories in day 1 of programme 1.
+
+```plaintext
+Created new exercise:
+Push-Up: 3 sets of 15 at 30 | Burnt 100 cals
+```
+
+---
+
+### 8. Delete an Exercise of an Existing Day in an Existing Programme
+
+Delete an exercise to an existing day in an existing programme
+
+Command: `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX`
+
+Parameters:
+- **/p PROG_INDEX** _(optional)_: Specifies the Programme index. Defaults to the current active Programme if omitted.  
+  **Alias**: `/programme` – Either `/p` or `/programme` can be used to specify the programme index.
+- **/d DAY_INDEX**: Index of day the user wants to delete an exercise from.
+- **/x EXERCISE_INDEX** : **Remove an Existing Exercise** from the specified day.  
+  **Alias**: `/removeExercise` – Either `/xe` or `/removeExercise` can be used to delete an exercise.
+
+Example: `prog edit /p 1 /d 1 /x 1`
+Delete exercise indexed 1 in day 1 of programme 1.
+
+```plaintext
+Deleted exercise:
+Push-Up: 3 sets of 15 at 30 | Burnt 100 cals
+```
+
+---
+
+### 9. Update an Exercise of an Existing Day in an Existing Programme
+
+Update an exercise to a day in a programme
+
+Command: `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX [args]`
+
+Parameters:
+- **/p PROG_INDEX** _(optional)_: Specifies the Programme index. Defaults to the current active Programme if omitted.  
+  **Alias**: `/programme` – Either `/p` or `/programme` can be used to specify the programme index.
+- **/d DAY_INDEX**: Index of day the user wants to edit an exercise from.
+- **/u EXERICSE_INDEX** : EXERCISE_INDEX is the index of exercise the user wants to edit.  
+  **Alias**: `/updateExercise` – Either `/ue` or `/updateExercise` can be used to update an exercise.
+
+This Edit Command must have at least 1 of the arguments below.
+- **args**: These arguments set specific attributes for edit exercise actions:
   - **/w WEIGHT**: Sets the weight for the exercise on update.  
     **Alias**: `/weight` – Either `/w` or `/weight` can be used to specify weight.
   - **/r REPS**: Sets the repetitions on update.  
@@ -170,57 +262,16 @@ Parameters:
   - **/c CALORIES**: Sets the calories of the exercise on update.  
     **Alias**: `/calories` – Either `/c` or `/calories` can be used to specify the calorie count.
 
-Example Commands:
-
-**Create a New Exercise**:
-
-```plaintext
-prog edit /p 1 /d 1 /a "Push-Up /w 30 /r 15 /s 3 /c 100"
-```
-
-Adds a "Push-Up" exercise on Day 1 of Programme 1.
-
-**Update an Existing Exercise**:
-
-```plaintext
-prog edit /p 1 /d 1 /u 1 /w 30 /r 12
-```
-
+Example: `prog edit /p 1 /d 1 /u 1 /w 30 /r 12`
 Updates Exercise 1 on Day 1 of Programme 1, setting the weight to 30 and resp to 12.
 
-**Delete an Exercise**:
-
 ```plaintext
-prog edit /p 1 /d 1 /x 1
+Updated exercise: Push-Up: 3 sets of 15 at 30 | Burnt 100 cals
 ```
-
-Deletes Exercise 1 on Day 1 of Programme 1.
-
-**Create a New Day**:
-
-```plaintext
-prog edit /p 1 /ad "Cardio Day"
-```
-
-Creates a new empty Day named "Cardio Day" in Programme 1.
-
-_Note_: Advanced users can directly create days with exercises using the syntax found in `Create Programme`
-
-```plaintext
-prog edit /p 1 /ad "Pull Day" /e /n "Push-Up /w 30 /r 15 /s 3 /c 100 /e ...
-```
-
-**Remove an Existing Day**:
-
-```plaintext
-prog edit /p 1 /xd 1
-```
-
-Removes Day 1 of Programme 1.
 
 ---
 
-### 6. Set Program as Active
+### 10. Set Program as Active
 
 Sets given programme as the ‘active programme’, which other commands will default to if `programme_index` is not supplied.
 
@@ -244,7 +295,7 @@ Day 2: TWO
 
 ---
 
-### 7. Log a Workout
+### 11. Log a Workout
 
 Log the successful completion of a workout for a given day.
 
@@ -269,7 +320,7 @@ ONE
 
 ---
 
-### 8. Add a Meal
+### 12. Add a Meal
 
 Adds a meal to the daily record of a specific date.
 
@@ -289,7 +340,7 @@ Chicken Breast | 250kcal has been added to 30-10-2024.
 
 ---
 
-### 9. View Meals
+### 13. View Meals
 
 Displays all meals recorded for a specific date.
 
@@ -310,7 +361,7 @@ Meals for 30-10-2024:
 
 ---
 
-### 10. Delete a Meal
+### 14. Delete a Meal
 
 Deletes a meal from the daily record of a specific date.
 
@@ -329,7 +380,7 @@ Chicken Breast | 250kcal has been deleted from 30-10-2024
 
 ---
 
-### 11. Add a Water Log
+### 15. Add a Water Log
 
 Adds a water log to the daily record of a specific date.
 
@@ -348,7 +399,7 @@ Parameters:
 
 ---
 
-### 12. View Water Logs
+### 16. View Water Logs
 
 Displays all water logs recorded for a specific date.
 
@@ -369,7 +420,7 @@ Water intake for 30-10-2024:
 
 ---
 
-### 13. Delete a Water Log
+### 17. Delete a Water Log
 
 Deletes a water log from the daily record of a specific date.
 
@@ -388,7 +439,7 @@ Parameters:
 
 ---
 
-### 14. View All History
+### 18. View All History
 
 Displays a comprehensive record of workouts, meals, and water intake for each logged day.
 
@@ -420,13 +471,17 @@ Caloric Balance: -420 kcal
 
 ## Command Summary
 
-| Command              | Description                                                                               | Format                                                                                      | Example                                                                |
-| -------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| **Add Programme**    | Creates a new workout Programme                                                           | `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SET /r REP /w WEIGHT /c CALORIES` | `prog create Starter /d ONE /e /n Bench_Press /s 3 /r 12 /w 30 /c 100` |
-| **View Programme**   | Displays the detailed workout routine of a specific Programme                             | `prog view [INDEX]`                                                                         | `prog view 1`                                                          |
-| **List Programmes**  | Lists all workout Programmes with their index and name                                    | `prog list`                                                                                 | `prog list`                                                            |
-| **Delete Programme** | Deletes a Programme by its index                                                          | `prog delete INDEX`                                                                         | `prog delete 1`                                                        |
-| **Edit Programme**   | Edits exercises or days within a Programme                                                | `prog edit /p PROG_INDEX /d DAY [command] [args]`                                           | `prog edit /p 1 /d 1 /u 1 /w 30`                                       |
+| Command                                        | Description                                                    | Format                                                                                      | Example                                                                |
+|------------------------------------------------|----------------------------------------------------------------| ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **Add Programme**                              | Creates a new workout Programme                                | `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SET /r REP /w WEIGHT /c CALORIES` | `prog create Starter /d ONE /e /n Bench_Press /s 3 /r 12 /w 30 /c 100` |
+| **View Programme**                             | Displays the detailed workout routine of a specific Programme  | `prog view [INDEX]`                                                                         | `prog view 1`                                                          |
+| **List Programmes**                            | Lists all workout Programmes with their index and name         | `prog list`                                                                                 | `prog list`                                                            |
+| **Delete Programme**                           | Deletes a Programme by its index                               | `prog delete INDEX`                                                                         | `prog delete 1`                                                        |
+| **Add a Day to a Programme**                   | Add a new Day in an existing programme                         | `prog edit [/p PROG_INDEX] /ad DAY_NAME`                                           | `prog edit /p 1 /ad "Cardio Day"`                                     |
+| **Delete a Day in a Programme**                | Delete a Day in an existing programme                          | `prog edit [/p PORG_INDEX] /xd DAY_INDEX`                                           | `prog edit /p 1 /xd 1"`                                     |
+| **Add an Exercise in a Day in a Programme**    | Add an exercise to an existing day in an existing programme    | `prog edit [/p PORG_INDEX] /d DAY_INDEX /a /n EXERCISE_NAME /w WEIGHT /r REPS /s SETS /c CALORIES`                                           | `prog edit /p 1 /d 1 /a /n Push-Up /w 30 /r 15 /s 3 /c 100`                                     |
+| **Delete an Exercise in a Day in a Programme** | Delete an exercise in an existing day in an existing programme | `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX`                                           | `prog edit /p 1 /d 1 /x 1`                                     |
+| **Update an Exercise in a Day in a Programme** | Update an exercise in an existing day in an existing programme | `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX [args]`                                           | `prog edit /p 1 /d 1 /u 1 /w 30 /r 12`                                     |
 | **Set Active**       | Sets a Programme as the active one                                                        | `prog start INDEX`                                                                          | `prog start 1`                                                         |
 | **Log Workout**      | Logs a workout for a specific day                                                         | `prog log /p PROGRAMME_INDEX /d DAY_INDEX /t DATE`                                          | `log /p 1 /d 1 /t 12/10/2024`                                          |
 | **Add Meal**         | Adds a meal to a daily record                                                             | `meal add /n MEAL_NAME /c CALORIES /t DATE`                                                 | `meal add /n Chicken_Breast /c 250 /t 30-10-2024`                      |
