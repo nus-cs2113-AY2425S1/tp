@@ -46,6 +46,7 @@ public class EditCommand extends Command {
                     throw new InvalidInputException("Price cannot be less than or equals to 0");
                 }
             }
+            
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
             String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE);
             if (this.isRecur()) {

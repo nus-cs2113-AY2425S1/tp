@@ -66,7 +66,7 @@ public class Ui {
         String category = "CATEGORY: " + expense.getCategory();
         String description = "DESCRIPTION: " + expense.getDescription();
         String price = "PRICE: " + String.format("%.2f", expense.getPrice());
-        String dateAdded = "DATE ADDED: " + expense.getDateAdded();
+        String dateAdded = "DATE ADDED: " + DateUtils.dateFormatToString(expense.getDateAdded());
         Ui.displayMessage(index + category + ", " + description + ", " + price + ", " + dateAdded);
     }
 
