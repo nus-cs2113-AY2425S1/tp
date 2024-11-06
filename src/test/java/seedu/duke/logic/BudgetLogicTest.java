@@ -104,11 +104,11 @@ class BudgetLogicTest {
                 "Please set your budget amount:" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Budget amount must be >= $0.01. Please enter a valid amount." + System.lineSeparator()
-                + "Your current monthly balance is: 1000.0" + System.lineSeparator() +
+                + "Your current monthly balance is: $ 1000.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
-                "Your budget has successfully been set to: 1000.0" + System.lineSeparator() +
-                "Your current monthly balance is: 1000.0" + System.lineSeparator() +
+                "Your budget has successfully been set to: $ 1000.00" + System.lineSeparator() +
+                "Your current monthly balance is: $ 1000.00" + System.lineSeparator() +
                 "--------------------------------------------" +
                 System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());

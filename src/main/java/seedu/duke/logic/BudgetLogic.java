@@ -91,8 +91,10 @@ public class BudgetLogic {
             budget.setBudgetAmount(amount);
             recalculateBalance(financialList);
             System.out.println("--------------------------------------------");
-            System.out.println("Your budget has successfully been set to: " + budget.getBudgetAmount());
-            System.out.println("Your current monthly balance is: " + budget.getBalance());
+            System.out.println("Your budget has successfully been set to: " +
+                    String.format("$ %.2f", budget.getBudgetAmount()));
+            System.out.println("Your current monthly balance is: " +
+                    String.format("$ %.2f", budget.getBalance()));
             System.out.println("--------------------------------------------");
         } else {
             System.out.println("--------------------------------------------");

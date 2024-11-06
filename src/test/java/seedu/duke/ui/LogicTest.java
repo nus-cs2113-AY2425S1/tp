@@ -93,6 +93,8 @@ public class LogicTest {
                 "Total expense: $ 100.00" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Highest Expense Category: FOOD ($100.00)" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "No budget has been set." + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Validate that the expected output is equal to the actual output

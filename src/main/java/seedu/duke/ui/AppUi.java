@@ -63,7 +63,7 @@ public class AppUi {
      */
     public void displayModifyBudgetMessage(double amount) {
         System.out.println("--------------------------------------------");
-        System.out.println("Your current budget is: " + amount);
+        System.out.println("Your current budget is: " + String.format("$ %.2f", amount));
         System.out.println("Would you like to modify your budget? (yes/no)");
         System.out.println("--------------------------------------------");
     }
@@ -72,7 +72,7 @@ public class AppUi {
      * Displays the balance of the user's budget
      */
     public void displayBudgetBalanceMessage(double amount) {
-        System.out.println("Your current monthly balance is: " + amount);
+        System.out.println("Your current monthly balance is: " + String.format("$ %.2f", amount));
         System.out.println("--------------------------------------------");
     }
 
