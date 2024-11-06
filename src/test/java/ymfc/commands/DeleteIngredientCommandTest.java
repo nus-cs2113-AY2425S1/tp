@@ -9,16 +9,16 @@ import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DeleteIngredientCommandTest {
 
-    Storage storage = new Storage();
-    Ui ui = new Ui(System.in);
-    RecipeList recipeList = new RecipeList();
-    static IngredientList ingredientList = new IngredientList();
+    private static IngredientList ingredientList = new IngredientList();
+
+    private Storage storage = new Storage();
+    private Ui ui = new Ui(System.in);
+    private RecipeList recipeList = new RecipeList();
 
     @BeforeAll
     static void setUp() {
