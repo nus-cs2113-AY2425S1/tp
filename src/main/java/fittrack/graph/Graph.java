@@ -12,9 +12,16 @@ public class Graph {
     static final String SESSTION_DESCRIPTION_STRING = "Session Description";
     static final String DATE_STRING = "| Date ";
     static final String POINTS_STRING = "| Points";
+    static final String INVALID_TIME_STRING = "NIL";
+    static final String ALIGNMENT_SPACE_STRING = "       ";
     static final int SESSION_DESCRIPTION_LENGTH = 19; //Length of the String, "Session Description"
     static final int DATE_BLANK_LENGTH = 12; //Number of blank spaces to print after "| Date "
     static final int DATETIME_LENGTH = 16; //Length of Date format without spaces
+    static final int INVALID_TIME_VALUE = -1;
+    static final double LOWEST_NORMALISED_VALUE = 0.00;
+    static final double HIGHEST_NORMALISED_VALUE = 1.00;
+    static final double INCREMENT_SCALE = 0.05;
+    static final double INCREMENT_HALF_SCALE = 0.025;
 
     //Returns String of specified char
     private static String generateChar(int num, char character){
