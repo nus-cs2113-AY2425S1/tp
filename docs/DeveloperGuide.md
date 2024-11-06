@@ -3,7 +3,10 @@
 ---
 ## Acknowledgements
 
-No third-party code was used in this project.
+Finance Buddy uses the following tools for development:
+
+1. JUnit5 - Used for testing
+2. Gradle - Used for build automation
 
 ---
 
@@ -635,21 +638,21 @@ faster than a typical mouse/GUI driven app
 
 ## User Stories
 
-| Version | As a ...                       | I want to ...                                                                       | So that I can ...                                              |
-|---------|--------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| v1.0    | new user                       | see usage instructions                                                              | remember how to use the app in case I forget the commands      |
-| v1.0    | user                           | record my daily expenses                                                            | keep track on how much I spend and what I spend on             |
-| v1.0    | user                           | delete my logging records                                                           | remove a wrong record                                          |
-| v1.0    | user                           | edit my logs                                                                        | edit a wrong record                                            |
-| v1.0    | user                           | see my cash flows                                                                   | have an overview of my cash flow                               |
-| v2.0    | user                           | view my expenditure over a certain period                                           | see how much money I spent recently                            |
-| v2.0    | user                           | keep a log of my data                                                               | retain memory of past transactions in previous runs of the app |
-| v2.0    | user                           | set a monthly budget for myself                                                     | ensure that I am saving enough money                           |
-| v2.0    | user                           | be alerted when I exceed my allocated budget                                        | know when I spend too much money                               |
-| v2.0    | user                           | categorise my spendings                                                             | know my spending across different areas                        |
-| v2.0    | user                           | view my expenditure over different categories                                       | see where I spend the most                                     |
-| v2.0    | busy user                      | log my finances in the shortest possible time                                       | have more time for other activities                            |
-| v2.1    | busy user                      | use shortcuts to log frequent and similar expenses                                  | save time logging expenses                                     |
+| Version | As a ...                       | I want to ...                                                             | So that I can ...                                              |
+|---------|--------------------------------|---------------------------------------------------------------------------|----------------------------------------------------------------|
+| v1.0    | new user                       | see usage instructions                                                    | remember how to use the app in case I forget the commands      |
+| v1.0    | user                           | record my daily expenses                                                  | keep track on how much I spend and what I spend on             |
+| v1.0    | user                           | delete my logging records                                                 | remove a wrong record                                          |
+| v1.0    | user                           | edit my logs                                                              | edit a wrong record                                            |
+| v1.0    | user                           | see my cash flows                                                         | have an overview of my cash flow                               |
+| v2.0    | user                           | view my expenditure over a certain period                                 | see how much money I spent recently                            |
+| v2.0    | user                           | keep a log of my data                                                     | retain memory of past transactions in previous runs of the app |
+| v2.0    | user                           | set a monthly budget for myself                                           | ensure that I am saving enough money                           |
+| v2.0    | user                           | be alerted when I exceed my allocated budget                              | know when I spend too much money                               |
+| v2.0    | user                           | categorise my spendings                                                   | know my spending across different areas                        |
+| v2.0    | user                           | view my expenditure over different categories                             | see where I spend the most                                     |
+| v2.0    | busy user                      | log my finances in the shortest possible time                             | have more time for other activities                            |
+| v2.1    | busy user                      | edit/delete my last added/edited entry without needing to enter its index | save time undoing mistakes made when logging entries           |
 
 ## Use Cases
 
