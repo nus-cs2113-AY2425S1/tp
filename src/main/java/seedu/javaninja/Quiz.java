@@ -6,7 +6,6 @@ import seedu.javaninja.question.Question;
 import seedu.javaninja.question.TrueFalse;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class Quiz {
     private Topic topic;

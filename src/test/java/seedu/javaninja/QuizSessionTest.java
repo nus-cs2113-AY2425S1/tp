@@ -67,7 +67,9 @@ class QuizSessionTest {
             List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
 
         // Simulate inputs for time limit and question limit
-        ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nb\n".getBytes());  // 1 minute, 1 question, answer 'b'
+        // 1 minute, 1 question, answer 'b'
+        ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nb\n".getBytes());
+
         cli = new Cli(input);  // Reinitialize Cli with specific input
         quizSession = new QuizSession(cli); // Reinitialize QuizSession with updated Cli
 
@@ -85,7 +87,8 @@ class QuizSessionTest {
         topic.addQuestion(new Mcq("What is Java?", "a", List.of("a) A programming language", "b) A type of coffee")));
 
         // Simulate user answers to complete the quiz (answer 'b', which is incorrect)
-        ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nb\n".getBytes());  // 1 minute, 1 question, answer 'b'
+        // 1 minute, 1 question, answer 'b'
+        ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nb\n".getBytes());
         cli = new Cli(input);  // Reinitialize Cli with specific input
         quizSession = new QuizSession(cli); // Reinitialize QuizSession with updated Cli
 

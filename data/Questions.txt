@@ -36,3 +36,10 @@ Flashcards | Flashcard | 2 + 3 | 5
 Flashcards | Flashcard | The keyword used to define a class is `____`. | class
 Flashcards | Flashcard | What is Java? | A programming language
 Flashcards | Flashcard | What is Java? | A programming language
+Flashcards | Flashcard | What is Java? | A programming language
+Flashcards | Flashcard | What is Java? | A programming language
+Flashcards | Flashcard | What is Java? | A programming language
+Flashcards | Flashcard | What is Java? | A programming language
+Flashcards | Flashcard | What is Java? | A programming language
+Flashcards | Flashcard | What is Java? | A programming language
+Flashcards | Flashcard | What is Java? | A programming language

@@ -38,9 +38,13 @@ class QuizManagerTest {
         // Select quiz and verify result is added
         quizManager.getQuizSession().getCurrentQuiz(topic, cli).start(1,1);
 
+        quizManager.addResultsAndPrintScore();
+
         // Check if result was recorded
         String pastResults = quizManager.getPastResults();
-        assertTrue(pastResults.contains("Score"), "Past results should contain a score.");
+        System.out.println(pastResults);
+        assertTrue(pastResults.contains("Score: 0%, Comment: Better luck next time!"),
+            "Past results should contain a score.");
     }
 
     @Test
