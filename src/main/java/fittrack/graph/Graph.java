@@ -191,6 +191,20 @@ public class Graph {
         return maxExercisePerformance;
     }
 
+    // Return minimum height of graph
+    private static int getMinExercisePerformance(ArrayList<TrainingSession> sessionList, Exercise exercise,
+                                                 int numTrainingSessions){
+        int minExercisePerformance = sessionList.get(0).getExercisePerformance(exercise);
+        for (int i = 1; i < numTrainingSessions; i++) {
+            int exercisePerformance = sessionList.get(i).getExercisePerformance(exercise);
+            if (exercisePerformance < minExercisePerformance && exercisePerformance != INVALID_TIME_VALUE) {
+                minExercisePerformance = exercisePerformance;
+            }
+        }
+        return minExercisePerformance;
+    }
+
+
     //Graph the reps within each exercise
     public static void graphExercisePerformance(Exercise exercise, ArrayList<TrainingSession> sessionList) {
         System.out.print("Here's your progression for " + exercise.toString() + " over your training sessions:"
