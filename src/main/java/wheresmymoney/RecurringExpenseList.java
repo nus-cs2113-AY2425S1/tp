@@ -175,7 +175,7 @@ public class RecurringExpenseList extends ExpenseList {
             String description = recurringExpense.getDescription();
             String category = recurringExpense.getCategory();
 
-            while (nextDate.isBefore(currentDate) || nextDate.isEqual(currentDate)) {
+            while (nextDate.isBefore(currentDate)) {
                 nextDate = nextDate.plusDays(1);
                 expenseList.addExpense(price, description, category, DateUtils.dateFormatToString(nextDate));    
             }
