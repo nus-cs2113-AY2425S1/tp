@@ -722,16 +722,35 @@ faster than a typical mouse/GUI driven app
  - Project Scope Constraints: Data storage is only to be performed locally.
  - Quality Requirements: The application should be able to be used effectively by a novice with little experience with CLIs.
 
-
 ## Glossary
 
-* *FinancialEntry* - Refers to the base class for financial entries, containing common attributes such as description, amount, and date that define a financial transaction.
-* *description* - A brief text that provides context or details about the financial transaction, such as what the expense or income relates to.
-* *amount* - A numeric value representing the monetary value of the transaction. The amount must be a number greater than or equal to zero, with precision up to two decimal places.
-* *date* - Represents the date of the financial entry, recorded in the format dd/MM/YY, indicating the day, month, and year when the transaction occurred.
-* *Expense* - A subclass of FinancialEntry that represents a financial outflow or expenditure made by the user.
-* *Income* - A subclass of FinancialEntry that represents a financial inflow or income received by the user.
-* *FinancialList* - A class responsible for storing and managing all financial entries, including both expenses and incomes, allowing for the organization and manipulation of financial data.
+- **FinancialEntry**: Refers to the base class for financial entries, encompassing common attributes such as description, amount, date, and category, which collectively define a financial transaction.
+
+- **Description**: A brief text that provides context or details about the financial transaction, such as the nature or purpose of the expense or income.
+
+- **Amount**: A numeric value representing the monetary value of the transaction. The amount must be greater than or equal to zero, with precision up to two decimal places.
+
+- **Date**: Represents the date of the financial entry, recorded in the format `dd/MM/yy`, indicating the day, month, and year when the transaction occurred.
+
+- **Category**: A classification that groups similar types of expenses or incomes, such as "Food," "Transport," or "Salary," to help users organize their finances.
+
+- **Expense**: A subclass of `FinancialEntry` that represents a financial outflow or expenditure made by the user, categorized by specific types of spending.
+
+- **Income**: A subclass of `FinancialEntry` that represents a financial inflow or income received by the user, categorized by specific types of revenue.
+
+- **FinancialList**: A class responsible for storing and managing all `FinancialEntry` records, including both expenses and incomes, enabling organization and manipulation of financial data.
+
+- **Budget**: A user-defined monetary limit, typically set monthly, to manage or restrict the total expenditure within a given period.
+
+- **Command**: An instruction input by the user, parsed and executed by the application to perform actions such as adding, deleting, or editing financial entries.
+
+- **Parser**: A component responsible for interpreting user commands and date formats, translating them into structured data that the application can process.
+
+- **Storage**: A component that handles data persistence by saving and retrieving financial data and budget information to and from storage files, ensuring data retention across sessions.
+
+- **CLI (Command Line Interface)**: A text-based user interface allowing users to interact with the application by typing commands rather than using graphical elements like buttons or icons.
+
+- **Logger**: A component that records significant events or errors that occur during application execution, aiding in debugging and tracking application behavior.
 
 ## Instructions for manual testing
 
