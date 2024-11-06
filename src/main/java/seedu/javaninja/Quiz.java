@@ -6,21 +6,20 @@ import seedu.javaninja.question.Question;
 import seedu.javaninja.question.TrueFalse;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class Quiz {
     private Topic topic;
     private int currentQuestionIndex;
     private int correctAnswers;
-    private Scanner scanner;
     private QuizTimer quizTimer;
+    private Cli cli;
 
-    public Quiz(Topic topic, Scanner scanner) {
+    public Quiz(Topic topic, Cli cli) {
         assert topic != null : "Topic must not be null";
         assert !topic.getQuestions().isEmpty() : "Topic must contain at least one question";
         quizTimer = new QuizTimer();
         this.topic = topic;
-        this.scanner = scanner;
+        this.cli = cli;
         this.currentQuestionIndex = 0;
         this.correctAnswers = 0;
     }
@@ -40,10 +39,10 @@ public class Quiz {
             Question currentQuestion = questions.get(currentQuestionIndex);
             assert currentQuestion != null : "Current question must not be null";
 
-            System.out.println(currentQuestion.getText());
+            cli.printMessage(currentQuestion.getText());
 
             if (currentQuestion instanceof Mcq) {
-                currentQuestion.printOptions();
+                cli.printOptions(currentQuestion.getOptions());
             } else if (currentQuestion instanceof TrueFalse) {
                 System.out.println("Please answer with 'true' or 'false'.");
             } else if (currentQuestion instanceof FillInTheBlank) {
@@ -62,8 +61,8 @@ public class Quiz {
     private void handleQuestionInput(Question currentQuestion) {
         boolean validInput = false;
         while (!validInput) {
-            System.out.print("Enter your answer: ");
-            String answer = scanner.nextLine().trim();
+            cli.printMessage("Enter your answer: ");
+            String answer = cli.readInput();
 
             if (quizTimer.isTimeUp()) {
                 break;

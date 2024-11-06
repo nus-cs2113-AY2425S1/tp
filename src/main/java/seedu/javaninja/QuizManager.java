@@ -1,5 +1,6 @@
 package seedu.javaninja;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public class QuizManager {
@@ -7,11 +8,13 @@ public class QuizManager {
     private QuizSession quizSession;
     private QuizResults quizResults;
     private TopicManager topicManager;
+    private Cli cli;
 
 
-    public QuizManager() {
+    public QuizManager(Cli cli) {
         topicManager = new TopicManager();
         quizResults = new QuizResults();
+        this.cli = cli;
         loadDataFromFile();
     }
 
@@ -27,7 +30,7 @@ public class QuizManager {
             return;
         }
 
-        quizSession = new QuizSession();
+        quizSession = new QuizSession(cli);
         quizSession.startQuiz(selectedTopic);
 
         // quiz has completed
@@ -46,12 +49,12 @@ public class QuizManager {
         quizResults.loadResults();
     }
 
-    public void printQuizzesAvailable() {
-        topicManager.printTopics();
+    public List<String> getQuizzesAvailable() {
+        return topicManager.getTopicNames();
     }
 
-    public void printPastResults() {
-        System.out.println(quizResults.getPastResults());
+    public String getPastResults() {
+        return quizResults.getPastResults();
     }
 
     public void addInput (String input) {
@@ -69,7 +72,7 @@ public class QuizManager {
     /* For quizManagerTest */
     public QuizSession getQuizSession() {
         if (this.quizSession == null) {
-            this.quizSession = new QuizSession();
+            this.quizSession = new QuizSession(cli);
         }
         return this.quizSession;
     }

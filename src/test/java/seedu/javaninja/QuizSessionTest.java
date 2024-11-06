@@ -1,53 +1,59 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.javaninja.Cli;
 import seedu.javaninja.QuizSession;
-import seedu.javaninja.question.Mcq;
 import seedu.javaninja.Topic;
+import seedu.javaninja.question.Mcq;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class QuizSessionTest {
 
     private QuizSession quizSession;
+    private Cli cli;
 
     @BeforeEach
     public void setUp() {
-        quizSession = new QuizSession();
+        // Initialize with empty input; each test will set its own input for `Cli`.
+        cli = new Cli(new ByteArrayInputStream("".getBytes()));
+        quizSession = new QuizSession(cli);
     }
 
     // === Unit Tests ===
 
     @Test
     public void getTimeLimitInSeconds_withMinutesInput_returnsCorrectSeconds() {
-        // Simulate user input for minutes
-        ByteArrayInputStream input = new ByteArrayInputStream("2\n".getBytes());  // 2 minutes
-        Scanner scanner = new Scanner(input);
+        // Simulate user input for minutes (2 minutes)
+        ByteArrayInputStream input = new ByteArrayInputStream("2\n".getBytes());
+        cli = new Cli(input);  // Reinitialize Cli with specific input
+        quizSession = new QuizSession(cli); // Reinitialize QuizSession with updated Cli
 
-        int timeLimit = quizSession.getTimeLimitInSeconds(scanner);
-        assertEquals(120, timeLimit);  // Expecting 2 minutes = 120 seconds
+        int timeLimit = quizSession.getTimeLimitInSeconds();
+        assertEquals(120, timeLimit);  // 2 minutes should equal 120 seconds
     }
 
     @Test
     public void getTimeLimitInSeconds_withSecondsInput_returnsCorrectSeconds() {
-        // Simulate user input for seconds directly
-        ByteArrayInputStream input = new ByteArrayInputStream("0\n30\n".getBytes());  // 30 seconds
-        Scanner scanner = new Scanner(input);
+        // Simulate user input for seconds (0 for minutes, 30 for seconds)
+        ByteArrayInputStream input = new ByteArrayInputStream("0\n30\n".getBytes());
+        cli = new Cli(input);  // Reinitialize Cli with specific input
+        quizSession = new QuizSession(cli); // Reinitialize QuizSession with updated Cli
 
-        int timeLimit = quizSession.getTimeLimitInSeconds(scanner);
+        int timeLimit = quizSession.getTimeLimitInSeconds();
         assertEquals(30, timeLimit);  // Expecting 30 seconds directly
     }
 
     @Test
     public void getQuestionLimit_withValidInput_returnsCorrectLimit() {
-        // Simulate user input for number of questions
-        ByteArrayInputStream input = new ByteArrayInputStream("5\n".getBytes());  // 5 questions
-        Scanner scanner = new Scanner(input);
+        // Simulate user input for the number of questions (5 questions)
+        ByteArrayInputStream input = new ByteArrayInputStream("5\n".getBytes());
+        cli = new Cli(input);  // Reinitialize Cli with specific input
+        quizSession = new QuizSession(cli); // Reinitialize QuizSession with updated Cli
 
-        int questionLimit = quizSession.getQuestionLimit(scanner);
+        int questionLimit = quizSession.getQuestionLimit();
         assertEquals(5, questionLimit);  // Expecting question limit of 5
     }
 
@@ -61,37 +67,35 @@ class QuizSessionTest {
             List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
 
         // Simulate inputs for time limit and question limit
-        ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nb".getBytes());  // 1 minute, 1 question
-        Scanner scanner = new Scanner(input);
+        // 1 minute, 1 question, answer 'b'
+        ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nb\n".getBytes());
 
-        // Start the quiz and verify that the quiz has initialized with questions
-        int timeLimit = quizSession.getTimeLimitInSeconds(scanner);
-        int questionLimit = quizSession.getQuestionLimit(scanner);
+        cli = new Cli(input);  // Reinitialize Cli with specific input
+        quizSession = new QuizSession(cli); // Reinitialize QuizSession with updated Cli
 
-        quizSession.getCurrentQuiz(topic, scanner).start(timeLimit, questionLimit);
+        // Start quiz and verify initialization with questions
+        quizSession.startQuiz(topic);
 
-        assertEquals(1, quizSession.getCurrentQuiz(topic, scanner).getQuestionCount());
+        // Since startQuiz relies on topic's question count, check if the quiz initialized with 1 question
+        assertEquals(1, quizSession.getCurrentQuiz(topic, cli).getQuestionCount());
     }
 
     @Test
     public void getQuizScore_afterQuizCompletion_returnsCorrectScore() {
-        // Setup a topic and add it to a quiz
+        // Setup a topic with a question
         Topic topic = new Topic("General Knowledge");
         topic.addQuestion(new Mcq("What is Java?", "a", List.of("a) A programming language", "b) A type of coffee")));
 
-        // Simulate user answers to complete the quiz
-        ByteArrayInputStream input = new ByteArrayInputStream("1\n2\nb".getBytes());  // Incorrect answer
-        Scanner scanner = new Scanner(input);
+        // Simulate user answers to complete the quiz (answer 'b', which is incorrect)
+        // 1 minute, 1 question, answer 'b'
+        ByteArrayInputStream input = new ByteArrayInputStream("1\n1\nb\n".getBytes());
+        cli = new Cli(input);  // Reinitialize Cli with specific input
+        quizSession = new QuizSession(cli); // Reinitialize QuizSession with updated Cli
 
-        // Start the quiz and verify that the quiz has initialized with questions
-        int timeLimit = quizSession.getTimeLimitInSeconds(scanner);
-        int questionLimit = quizSession.getQuestionLimit(scanner);
+        // Start the quiz and verify score
+        quizSession.startQuiz(topic);
 
-        quizSession.getCurrentQuiz(topic, scanner).start(timeLimit, questionLimit);
-
-        // Assuming a quiz scoring method that calculates based on correctness
         int expectedScore = 0;  // Incorrect answer, expect 0% score
         assertEquals(expectedScore, quizSession.getQuizScore());
     }
 }
-

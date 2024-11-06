@@ -1,5 +1,7 @@
 package seedu.javaninja.question;
 
+import java.util.List;
+
 public class FillInTheBlank extends Question {
 
     public FillInTheBlank(String question, String answer) {
@@ -15,9 +17,9 @@ public class FillInTheBlank extends Question {
     }
 
     @Override
-    public void printOptions() {
+    public List<String> getOptions() {
         // No options to print for fill-in-the-blank questions
-        ;
+        return null;
     }
 
     // Method to normalize the answer for comparison

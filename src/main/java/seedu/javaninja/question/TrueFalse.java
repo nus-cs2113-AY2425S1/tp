@@ -1,5 +1,8 @@
 package seedu.javaninja.question;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TrueFalse extends Question {
     private boolean correctAnswer;
 
@@ -27,9 +30,11 @@ public class TrueFalse extends Question {
     }
 
     @Override
-    public void printOptions() {
-        System.out.println("1. True");
-        System.out.println("2. False");
+    public List<String> getOptions() {
+        List<String> options = new ArrayList<>();
+        options.add("true");
+        options.add("false");
+        return options;
     }
 
     @Override

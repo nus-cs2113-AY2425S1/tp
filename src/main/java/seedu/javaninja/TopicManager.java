@@ -55,13 +55,12 @@ public class TopicManager {
         }
     }
 
-    public void printTopics() {
-        if (topics.isEmpty()) {
-            System.out.println("No topics available.");
-        } else {
-            logger.info("Listing all available topics:");
-            topics.forEach(topic -> System.out.println(topic.getName()));
+    public List<String> getTopicNames() {
+        List<String> topicNames = new ArrayList<>();
+        for (Topic topic : topics) {
+            topicNames.add(topic.getName());
         }
+        return topicNames;
     }
 
     public void addFlashcardByUser(String input) {
