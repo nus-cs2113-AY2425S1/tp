@@ -29,6 +29,9 @@ public class ErrorMessages {
     public static final String ERROR_LOADING_CATEGORIES = "Error loading categories: %s";
     public static final String ERROR_DESERIALIZING_CATEGORIES = "Error deserializing categories: %s";
     public static final String ERROR_SAVING_CATEGORIES = "Error saving categories: %s";
+    public static final String ERROR_LOADING_BUDGETS = "Error loading budgets: %s";
+    public static final String ERROR_DESERIALIZING_BUDGETS = "Error deserializing budgets: %s";
+    public static final String ERROR_SAVING_BUDGETS = "Error saving budgets: %s";
 
     // DateTime
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Your date and/or time is invalid!";
@@ -39,4 +42,7 @@ public class ErrorMessages {
 
     // Amount
     public static final String INVALID_AMOUNT_FORMAT = "Invalid amount format: ";
+
+
+
 }
