@@ -10,6 +10,7 @@ import ymfc.ui.Ui;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class AddIngredientCommandTest {
 
@@ -25,5 +26,11 @@ class AddIngredientCommandTest {
         command.execute(emptyList, ingredientList, ui, storage);
         assertEquals(1, ingredientList.getIngredients().size());
         assertEquals(ingredient, ingredientList.getIngredients().get(0));
+
+        ingredientList.addIngredient(new Ingredient("Bad apple"));
+        ingredientList.sortAlphabetically(); // Make sure "Chicken" is not the first ingredient
+        command.execute(emptyList, ingredientList, ui, storage);
+        // Duplicate ingredient will not be added
+        assertNotEquals(3, ingredientList.getIngredients().size());
     }
 }

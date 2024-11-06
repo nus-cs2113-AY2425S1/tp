@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class AddRecipeCommandTest {
 
@@ -52,5 +53,10 @@ public class AddRecipeCommandTest {
         assertEquals(1, emptyList.getCounter());
         assertEquals(recipe, emptyList.getRecipe(0));
 
+        Recipe dummyRecipe = new Recipe("Jumbo", new ArrayList<>(), new ArrayList<>());
+        emptyList.addRecipe(dummyRecipe);
+        emptyList.sortAlphabetically(); // Make Pasta not the first recipe in list
+        addRecipeCommand.execute(emptyList, ingredientList, ui, storage);
+        assertNotEquals(3, emptyList.getCounter()); // Duplicate will not be added
     }
 }
