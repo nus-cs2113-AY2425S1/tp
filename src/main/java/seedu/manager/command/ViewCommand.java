@@ -19,8 +19,8 @@ public class ViewCommand extends Command {
             "Here are your items:";
     private static final String INVALID_EVENT_MESSAGE = "Event not found!";
 
-    protected String eventName;
-    private boolean isViewingParticipants;
+    private final String eventName;
+    private final boolean isViewingParticipants;
 
     /**
      * Constructs an ViewCommand object with the for the specified event.
@@ -48,7 +48,14 @@ public class ViewCommand extends Command {
         }
     }
 
+    /**
+     * Gets the list of {@link Participant}s for a specified {@link Event}.
+     *
+     * @param eventToView the specified {@link Event}.
+     * @return the list of {@link Participant}s stored in eventToView.
+     */
     private String getParticipants(Event eventToView) {
+        assert eventToView != null : "eventToView cannot be null";
         StringBuilder outputMessage = new StringBuilder(
                 String.format(VIEW_PARTICIPANT_MESSAGE, eventToView.getParticipantCount(), eventName) + "\n");
         int count = 1;
@@ -60,7 +67,14 @@ public class ViewCommand extends Command {
     }
 
     //@@author jemehgoh
+    /**
+     * Gets the list of {@link Item}s for a specified {@link Event}.
+     *
+     * @param eventToView the specified {@link Event}.
+     * @return the list of {@link Item}s stored in eventToView.
+     */
     private String getItems(Event eventToView) {
+        assert eventToView != null : "eventToView cannot be null";
         StringBuilder outputMessage = new StringBuilder(
                 String.format(VIEW_ITEM_MESSAGE, eventToView.getItemCount(), eventName) + "\n");
         int count = 1;
