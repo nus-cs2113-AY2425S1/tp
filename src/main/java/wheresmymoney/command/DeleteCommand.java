@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
         try {
             int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
             if (this.isRecur()) {
-                recurringExpenseList.deleteExpense(index);
+                recurringExpenseList.deleteRecurringExpense(index);
             } else {
                 Expense expense = expenseList.getExpenseAtIndex(index);
                 expenseList.deleteExpense(index);
