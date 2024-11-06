@@ -131,9 +131,9 @@ Day 2: TWO
 
 ---
 
-### 5. Add a New Day in an Existing Programme
+### 5. Add a New Day to an Existing Programme
 
-Add a new Day in an existing programme
+Add a new Day to an existing programme.
 
 Command: `prog edit [/p PROG_INDEX] /ad DAY_NAME`
 
@@ -158,9 +158,9 @@ prog edit /p 1 /ad "Pull Day" /e /n "Push-Up /w 30 /r 15 /s 3 /c 100 /e ...
 
 ---
 
-### 6. Delete a Day in an Existing Programme
+### 6. Delete a Day from an Existing Programme
 
-Delete a day in an existing programme
+Delete a day from an existing programme.
 
 Command: `prog edit [/p PORG_INDEX] /xd DAY_INDEX`
 
@@ -180,9 +180,10 @@ Cardio Day
 
 ---
 
-### 7. Add an Exercise of an Existing Day in an Existing Programme
+### 7. Add a New Exercise in a Programme
 
-Add an exercise to an existing day in an existing programme
+Add an exercise to an existing day in an existing programme.
+**NOTE:** The exercise is added to an **EXISTING** day.
 
 Command: `prog edit [/p PORG_INDEX] /d DAY_INDEX /a /n EXERCISE_NAME /w WEIGHT /r REPS /s SETS /c CALORIES`
 
@@ -213,9 +214,10 @@ Push-Up: 3 sets of 15 at 30 | Burnt 100 cals
 
 ---
 
-### 8. Delete an Exercise of an Existing Day in an Existing Programme
+### 8. Delete Exercise in a Programme
 
-Delete an exercise to an existing day in an existing programme
+Delete an exercise from an existing day in an existing programme.
+**NOTE:** The exercise is deleted from an **EXISTING** day.
 
 Command: `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX`
 
@@ -236,9 +238,10 @@ Push-Up: 3 sets of 15 at 30 | Burnt 100 cals
 
 ---
 
-### 9. Update an Exercise of an Existing Day in an Existing Programme
+### 9. Update Existing Exercise in Programme
 
-Update an exercise to a day in a programme
+Update an exercise in an existing day of an existing programme.
+**NOTE:** The exercise to be updated exist in an **EXISTING** day.
 
 Command: `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX [args]`
 
@@ -470,7 +473,7 @@ Caloric Balance: -420 kcal
 ```
 ---
 
-### View Weekly Summary
+### 19. View Weekly Summary
 
 Displays a summary of workouts, meals, and water intake for the past week
 
@@ -493,7 +496,7 @@ Completed On: 02-11-2024
 
 ---
 
-### View PB for exercise
+### 20. View PB for exercise
 
 Displays Personal Best for specified exercise
 
@@ -508,7 +511,7 @@ Personal best for bench press: Bench Press: 3 sets of 12 at 30
 ```
 ---
 
-### View PBs for exercises 
+### 21. View PBs for exercises 
 
 Displays Personal Bests for all exercises
 
@@ -528,26 +531,26 @@ Bicep Curl: Bicep Curl: 3 sets of 12 at 10
 
 ## Command Summary
 
-| Command                                        | Description                                                    | Format                                                                                             | Example                                                               |
-|------------------------------------------------|----------------------------------------------------------------|----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| **Add Programme**                              | Creates a new workout Programme                                | `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SET /r REP /w WEIGHT /c CALORIES`        | `prog create Starter /d ONE /e /n Bench_Press /s 3 /r 12 /w 30 /c 100` |
-| **View Programme**                             | Displays the detailed workout routine of a specific Programme  | `prog view [INDEX]`                                                                                | `prog view 1`                                                         |
-| **List Programmes**                            | Lists all workout Programmes with their index and name         | `prog list`                                                                                        | `prog list`                                                           |
-| **Delete Programme**                           | Deletes a Programme by its index                               | `prog delete INDEX`                                                                                | `prog delete 1`                                                       |
-| **Add a Day to a Programme**                   | Add a new Day in an existing programme                         | `prog edit [/p PROG_INDEX] /ad DAY_NAME`                                                           | `prog edit /p 1 /ad "Cardio Day"`                                     |
-| **Delete a Day in a Programme**                | Delete a Day in an existing programme                          | `prog edit [/p PORG_INDEX] /xd DAY_INDEX`                                                          | `prog edit /p 1 /xd 1"`                                               |
-| **Add an Exercise in a Day in a Programme**    | Add an exercise to an existing day in an existing programme    | `prog edit [/p PORG_INDEX] /d DAY_INDEX /a /n EXERCISE_NAME /w WEIGHT /r REPS /s SETS /c CALORIES` | `prog edit /p 1 /d 1 /a /n Push-Up /w 30 /r 15 /s 3 /c 100`           |
-| **Delete an Exercise in a Day in a Programme** | Delete an exercise in an existing day in an existing programme | `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX`                                         | `prog edit /p 1 /d 1 /x 1`                                            |
-| **Update an Exercise in a Day in a Programme** | Update an exercise in an existing day in an existing programme | `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX [args]`                                  | `prog edit /p 1 /d 1 /u 1 /w 30 /r 12`                                |
-| **Set Active**       | Sets a Programme as the active one                                                        | `prog start INDEX`                                                                                 | `prog start 1`                                                        |
-| **Log Workout**      | Logs a workout for a specific day                                                         | `prog log /p PROGRAMME_INDEX /d DAY_INDEX /t DATE`                                                 | `log /p 1 /d 1 /t 12/10/2024`                                         |
-| **Add Meal**         | Adds a meal to a daily record                                                             | `meal add /n MEAL_NAME /c CALORIES /t DATE`                                                        | `meal add /n Chicken_Breast /c 250 /t 30-10-2024`                     |
-| **View Meals**       | Displays all meals for a specific date                                                    | `meal view /t DATE`                                                                                | `meal view 30-10-2024`                                                |
-| **Delete Meal**      | Deletes a meal from a daily record                                                        | `meal delete /m MEAL_INDEX /t DATE`                                                                | `meal delete /m 1 /t 30-10-2024`                                      |
-| **Add Water**        | Adds a water to a daily record                                                            | `water add /n MEAL_NAME /c CALORIES /t DATE`                                                       | `water add /v 200.2 /t 30-10-2024`                                    |
-| **View Water**       | Displays all water for a specific date                                                    | `water view /t DATE`                                                                               | `water view 30-10-2024`                                               |
-| **Delete Water**     | Deletes a water from a daily record                                                       | `water delete /m MEAL_INDEX /t DATE`                                                               | `water delete /w 1 /t 30-10-2024`                                     |
-| **View History**     | Displays a comprehensive record of workouts, meals, and water intake for each logged day. | `history view`                                                                                     | `history view`                                                        |
-| **View Weekly Summary**    | Displays a summary of workouts, meals, and water intake for the past week                 | `history wk`                                                                                       | `history wk`                                                          |
-| **View PB for exercise**   | Displays Personal Best for specified exercise                                             | `history pb <exercise_name>`                                                                       | `history pb squat`                                                    |
-| **View PBs for exercises** | Displays Personal Bests for all exercises                                                 | `history pb`                                                                                       | `history pb`                                                          |
+| Command                                     | Description                                                                               | Format                                                                                             | Example                                                               |
+|---------------------------------------------|-------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| **Add Programme**                           | Creates a new workout Programme                                                           | `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SET /r REP /w WEIGHT /c CALORIES`        | `prog create Starter /d ONE /e /n Bench_Press /s 3 /r 12 /w 30 /c 100` |
+| **View Programme**                          | Displays the detailed workout routine of a specific Programme                             | `prog view [INDEX]`                                                                                | `prog view 1`                                                         |
+| **List Programmes**                         | Lists all workout Programmes with their index and name                                    | `prog list`                                                                                        | `prog list`                                                           |
+| **Delete Programme**                        | Deletes a Programme by its index                                                          | `prog delete INDEX`                                                                                | `prog delete 1`                                                       |
+| **Add a New Day to an Existing Programme**          | Add a new Day to an existing programme                                                    | `prog edit [/p PROG_INDEX] /ad DAY_NAME`                                                           | `prog edit /p 1 /ad "Cardio Day"`                                     |
+| **Delete a Day from an Existing Programme** | Delete a day from an existing programme.                                                  | `prog edit [/p PORG_INDEX] /xd DAY_INDEX`                                                          | `prog edit /p 1 /xd 1"`                                               |
+| **Add a New Exercise in a Programme**       | Add an exercise to an existing day in an existing programme                               | `prog edit [/p PORG_INDEX] /d DAY_INDEX /a /n EXERCISE_NAME /w WEIGHT /r REPS /s SETS /c CALORIES` | `prog edit /p 1 /d 1 /a /n Push-Up /w 30 /r 15 /s 3 /c 100`           |
+| **Delete Exercise in a Programme**          | Delete an exercise from an existing day in an existing programme                          | `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX`                                         | `prog edit /p 1 /d 1 /x 1`                                            |
+| **Update Existing Exercise in Programme**   | Update an exercise in an existing day of an existing programme                            | `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX [args]`                                  | `prog edit /p 1 /d 1 /u 1 /w 30 /r 12`                                |
+| **Set Active**                              | Sets a Programme as the active one                                                        | `prog start INDEX`                                                                                 | `prog start 1`                                                        |
+| **Log Workout**                             | Logs a workout for a specific day                                                         | `prog log /p PROGRAMME_INDEX /d DAY_INDEX /t DATE`                                                 | `log /p 1 /d 1 /t 12/10/2024`                                         |
+| **Add Meal**                                | Adds a meal to a daily record                                                             | `meal add /n MEAL_NAME /c CALORIES /t DATE`                                                        | `meal add /n Chicken_Breast /c 250 /t 30-10-2024`                     |
+| **View Meals**                              | Displays all meals for a specific date                                                    | `meal view /t DATE`                                                                                | `meal view 30-10-2024`                                                |
+| **Delete Meal**                             | Deletes a meal from a daily record                                                        | `meal delete /m MEAL_INDEX /t DATE`                                                                | `meal delete /m 1 /t 30-10-2024`                                      |
+| **Add Water**                               | Adds a water to a daily record                                                            | `water add /n MEAL_NAME /c CALORIES /t DATE`                                                       | `water add /v 200.2 /t 30-10-2024`                                    |
+| **View Water**                              | Displays all water for a specific date                                                    | `water view /t DATE`                                                                               | `water view 30-10-2024`                                               |
+| **Delete Water**                            | Deletes a water from a daily record                                                       | `water delete /m MEAL_INDEX /t DATE`                                                               | `water delete /w 1 /t 30-10-2024`                                     |
+| **View History**                            | Displays a comprehensive record of workouts, meals, and water intake for each logged day. | `history view`                                                                                     | `history view`                                                        |
+| **View Weekly Summary**                     | Displays a summary of workouts, meals, and water intake for the past week                 | `history wk`                                                                                       | `history wk`                                                          |
+| **View PB for exercise**                    | Displays Personal Best for specified exercise                                             | `history pb <exercise_name>`                                                                       | `history pb squat`                                                    |
+| **View PBs for exercises**                  | Displays Personal Bests for all exercises                                                 | `history pb`                                                                                       | `history pb`                                                          |
