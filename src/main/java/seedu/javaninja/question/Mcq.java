@@ -16,9 +16,8 @@ public class Mcq extends Question {
     }
 
     @Override
-    public void printOptions() {
-        for (String option : options) {
-            System.out.println(option);
-        }
+    // Returns formatted options as a single string
+    public List<String> getOptions() {
+        return options;
     }
 }

@@ -14,28 +14,38 @@ public class Parser {
     public void determineCommand(String input) throws IOException {
         switch (processCommand(input)) {
         case "view":
-            quizManager.printQuizzesAvailable();
+            cli.printEnclosure();
+            cli.printOptions(quizManager.getQuizzesAvailable());
+            cli.printEnclosure();
             break;
         case "select":
             String[] parts = input.split(" ", 2);
             if (parts.length > 1) {
                 quizManager.selectQuizToAttempt(parts[1].trim());
             } else {
-                System.out.println("Please provide a topic to select.");
+                cli.printMessage("Please provide a topic to select.");
             }
             break;
         case "review":
-            System.out.println("Reviewing your past results:");
-            quizManager.printPastResults();
+            cli.printEnclosure();
+            cli.printMessage("Reviewing your past results:");
+            cli.printPastResults(quizManager.getPastResults());
+            cli.printEnclosure();
             break;
         case "help":
+            cli.printEnclosure();
             cli.printHelp();
+            cli.printEnclosure();
             break;
         case "add":
+            cli.printEnclosure();
             quizManager.addInput(input);
+            cli.printEnclosure();
             break;
         default:
-            System.out.println("Invalid input. Type 'help' for a list of commands.");
+            cli.printEnclosure();
+            cli.printMessage("Invalid input. Type 'help' for a list of commands.");
+            cli.printEnclosure();
         }
     }
 

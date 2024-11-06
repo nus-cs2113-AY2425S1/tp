@@ -1,5 +1,7 @@
 package seedu.javaninja.question;
 
+import java.util.List;
+
 public class Flashcard extends Question {
 
     public Flashcard(String question, String answer) {
@@ -12,8 +14,8 @@ public class Flashcard extends Question {
     }
 
     @Override
-    public void printOptions() {
-        ;
+    public List<String> getOptions() {
+        return null;
     }
 
     public String getQuestionType () {

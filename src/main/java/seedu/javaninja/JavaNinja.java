@@ -9,12 +9,14 @@ public class JavaNinja {
 
     public JavaNinja() {
         this.cli = new Cli();
-        this.quizManager = new QuizManager();
+        this.quizManager = new QuizManager(cli);
         this.parser = new Parser(quizManager, cli);
     }
 
     public void run() {
+        cli.printEnclosure();
         cli.printStartMessage();
+        cli.printEnclosure();
         while (true) {
             try {
                 String input = cli.readInput().trim();

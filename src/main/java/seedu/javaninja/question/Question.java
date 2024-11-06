@@ -2,6 +2,8 @@ package seedu.javaninja.question;
 
 /* Represents a question that could be of different types (MCQ / True or False) */
 
+import java.util.List;
+
 public abstract class Question {
     protected String text;
     protected String correctAnswer;
@@ -17,5 +19,5 @@ public abstract class Question {
 
     public abstract boolean checkAnswer(String answer);
 
-    public abstract void printOptions();
+    public abstract List<String> getOptions();
 }
