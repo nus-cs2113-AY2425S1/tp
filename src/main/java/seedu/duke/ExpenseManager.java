@@ -205,13 +205,35 @@ public class ExpenseManager {
             String[] parts = input.split(" ");
             int expenseIndex = -1;
             String category = null;
+
+            StringBuilder categoryBuilder = new StringBuilder();
+            boolean isExpenseIndexSet = false;
+            boolean isCategorySet = false;
+
             for (String part : parts) {
                 if (part.startsWith("e/")) {
-                    expenseIndex = Integer.parseInt(part.substring(2).trim()) - 1; // 1-based index
+                    if (isExpenseIndexSet) {
+                        System.out.println("Error: Only one 'e/' (expense index) is allowed.");
+                        return;
+                    }
+                    expenseIndex = Integer.parseInt(part.substring(2).trim()) - 1; // Convert to 0-based index
+                    isExpenseIndexSet = true;
                 } else if (part.startsWith("c/")) {
-                    category = part.substring(2).trim();
+                    if (isCategorySet) {
+                        System.out.println("Error: Only one 'c/' (category) is allowed.");
+                        return;
+                    }
+                    categoryBuilder.append(part.substring(2).trim()).append(" ");
+                    isCategorySet = true;
+                } else {
+                    if (isCategorySet) {
+                        categoryBuilder.append(part).append(" ");
+                    }
                 }
             }
+
+            category = categoryBuilder.toString().trim();
+
             if (expenseIndex < 0 || category == null) {
                 System.out.println("Invalid input! Please provide an expense index and category.");
                 return;
