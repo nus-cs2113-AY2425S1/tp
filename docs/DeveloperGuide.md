@@ -80,6 +80,29 @@ CourseValidator Class Diagram:
 
 ## Implementation
 
+### 1. List Commands Command
+
+#### Overview:
+The `ListCommandsCommand` provides users with a comprehensive list of all available commands in the CLI. This is particularly useful for new users or those unfamiliar with specific command formats.
+
+#### How the feature is implemented:
+* The `ListCommandsCommand` class extends the `CheckInformationCommand` superclass and overrides the `execute` method.
+* In the `execute` method, `printCommandList` from the UI class is called.
+* A detailed list of commands with brief descriptions is printed to the CLI , providing users with command syntax and expected usage.
+* The command list is formatted for readability with each command on a new line, and `LINE_SEPARATOR` is used before and after the list to create a visually distinct section in the CLI.
+* Logging is implemented to track the start and completion of the command, facilitating debugging and traceability.
+
+#### Why it is implemented that way:
+* **Ease of Use**: Displaying all available commands in one place helps users quickly identify what actions are possible within the application.
+* **Logging**: Logging the start and end of execution helps developers track usage patterns and troubleshoot issues if the command is not functioning as expected.
+
+#### Alternatives considered:
+* **Dynamic Command List**: Considered dynamically generating the command list from all command classes in the codebase to avoid manually updating this list, but opted for simplicity to prevent added complexity.
+* **Help Command Integration**: Considered integrating `ListCommandsCommand` with the `HelpCommand` to provide a one-stop command for help-related requests, but separating them ensures clarity and keeps each command focused.
+
+#### Sequence Diagram on PlantUML:
+![List Commands Command Sequence Diagram](images/ListCommandsCommand.png)
+
 ### 1. List Schools Command
 
 #### Overview:
@@ -262,30 +285,7 @@ This helps the users to keep track of their most recent course mapping plans, an
 #### Sequence Diagram on PlantUML
 ![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
 
-### 7. List Commands Command
-
-#### Overview:
-The `ListCommandsCommand` provides users with a comprehensive list of all available commands in the CLI. This is particularly useful for new users or those unfamiliar with specific command formats.
-
-#### How the feature is implemented:
-* The `ListCommandsCommand` class extends the `CheckInformationCommand` superclass and overrides the `execute` method.
-* In the `execute` method, `printCommandList` from the UI class is called.
-* A detailed list of commands with brief descriptions is printed to the CLI , providing users with command syntax and expected usage.
-* The command list is formatted for readability with each command on a new line, and `LINE_SEPARATOR` is used before and after the list to create a visually distinct section in the CLI.
-* Logging is implemented to track the start and completion of the command, facilitating debugging and traceability.
-
-#### Why it is implemented that way:
-* **Ease of Use**: Displaying all available commands in one place helps users quickly identify what actions are possible within the application.
-* **Logging**: Logging the start and end of execution helps developers track usage patterns and troubleshoot issues if the command is not functioning as expected.
-
-#### Alternatives considered:
-* **Dynamic Command List**: Considered dynamically generating the command list from all command classes in the codebase to avoid manually updating this list, but opted for simplicity to prevent added complexity.
-* **Help Command Integration**: Considered integrating `ListCommandsCommand` with the `HelpCommand` to provide a one-stop command for help-related requests, but separating them ensures clarity and keeps each command focused.
-
-#### Sequence Diagram on PlantUML:
-![List Commands Command Sequence Diagram](images/ListCommandsCommand.png)
-
-### 8. ListPersonalTrackerCommand
+### 9. List Personal Tracker Command
 
 #### Overview:
 The `ListPersonalTrackerCommand` is responsible for listing all the mapped modules stored in the user’s personal tracker. This command retrieves all stored courses from `myList.json` via the Storage class and displays them in an indexed list format on the CLI.
@@ -332,7 +332,7 @@ Mapped Modules:
 #### Sequence Diagram on PlantUML:
 ![List Personal Tracker Command Sequence Diagram](images/ListPersonalTrackerCommand.png)
 
-### 9. Help Command
+### 10. Help Command
 
 #### Overview
 This command provides users with detailed explanations of each feature and the ways to use them.
