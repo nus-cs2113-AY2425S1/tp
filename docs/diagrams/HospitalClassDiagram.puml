@@ -2,55 +2,53 @@
 
 !include style.puml
 
-class Hospital  DATA_COLOR{
-    - static Patient selectedPatient
-    - static Logger logger
-    - List<Patient> patients
+class Hospital DATA_COLOR {
+    - selectedPatient: Patient
+    - logger: Logger
+    - patients: List<Patient>
 
     + Hospital()
     + clearSelectedPatient(): void
-    + addPatient(String name): void
-    + addPatient(String name, String tag): void
-    + deletePatient(int index): void
-    + getPatient(int index): Patient
-    + setSelectedPatient(int index): void
+    + addPatient(name: String): void
+    + addPatient(name: String, tag: String): void
+    + deletePatient(index: int): void
+    + getPatient(index: int): Patient
+    + setSelectedPatient(index: int): void
     + getSelectedPatient(): Patient
-    + isValidIndex(int index): boolean
+    + isValidIndex(index: int): boolean
     + getSize(): int
     + getPatients(): List<Patient>
     + printList(): void
-    + isDuplicatePatient(String name): boolean
-    + findPatients(String keyword): ArrayList<Patient>
+    + isDuplicatePatient(name: String): boolean
+    + findPatients(keyword: String): ArrayList<Patient>
     + calculateOverallCompletionRate(): double
 }
 
-class Patient DATA_COLOR{
-    - String name
-    - TaskList taskList
-    - String tag
+class Patient DATA_COLOR {
+    - name: String
+    - taskList: TaskList
+    - tag: String
 
     + Patient()
-    + Patient(String name)
-    + Patient(String name, int index)
-    + Patient(String name, String tag)
-    + Patient(String name, TaskList taskList)
+    + Patient(name: String)
+    + Patient(name: String, index: int)
+    + Patient(name: String, tag: String)
+    + Patient(name: String, taskList: TaskList)
     + getTag(): String
-    + setTag(String tag): void
+    + setTag(tag: String): void
     + getFormattedTag(): String
     + getName(): String
-    + setName(String name): void
+    + setName(name: String): void
     + getTaskList(): TaskList
-    + setTaskList(TaskList taskList): void
+    + setTaskList(taskList: TaskList): void
     + toString(): String
 }
 
-class PatientNotFoundException DATA_COLOR{
-    + PatientNotFoundException()
-}
 
-class TaskList  DATA_COLOR{
+class TaskList DATA_COLOR {
     - tasks: ArrayList<Task>
     - completionRate: double
+
     + addTask(task: Task): void
     + deleteTask(task: Task): void
     + findTasks(task: Task): ArrayList<Task>
@@ -58,12 +56,8 @@ class TaskList  DATA_COLOR{
     + getTasks(): ArrayList<Task>
 }
 
-class Exception DATA_COLOR{
-}
 
-PatientNotFoundException .down.|> Exception : extends
-Hospital .left.> "0...*" Patient
-Hospital .down.> PatientNotFoundException
-Patient -->  TaskList
+Hospital .> "0..*" Patient
+Patient .> TaskList
 
 @enduml
