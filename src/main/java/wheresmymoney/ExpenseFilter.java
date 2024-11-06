@@ -58,4 +58,15 @@ public class ExpenseFilter {
         return expenseByFilter;
     }
 
+    public static ArrayList<RecurringExpense> filterRecurringExpenses(ArrayList<RecurringExpense> recurringExpenses, 
+            String category, String from, String to) throws WheresMyMoneyException {
+        ArrayList<RecurringExpense> expenseByFilter = new ArrayList<>();
+        for (RecurringExpense recurringExpense : recurringExpenses) {
+            if (isFiltered(recurringExpense, category, from, to)) {
+                Logging.log(Level.INFO, "Found matching expense: " + recurringExpense.getDescription());
+                expenseByFilter.add(recurringExpense);
+            }
+        }
+        return expenseByFilter;
+    }
 }

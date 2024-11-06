@@ -29,23 +29,22 @@ public class AddCommand extends Command {
             if (price <= 0) {
                 throw new InvalidInputException("Price cannot take on a value that is less than or equal to 0");
             }
+
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
             String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
             boolean isContainDateKey = argumentsMap.containsKey(Parser.ARGUMENT_DATE);
-            if (isContainDateKey && !this.isRecur()) {
+            if (!this.isRecur() && isContainDateKey) {
                 String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE);
                 expenseList.addExpense(price, description, category, dateAdded);
                 categoryFacade.addCategory(category, price);
-            } else if (!isContainDateKey && !this.isRecur()) {
+            } else if (!this.isRecur() && !isContainDateKey) {
                 expenseList.addExpense(price, description, category);
                 categoryFacade.addCategory(category, price);
-            } else if (isContainDateKey && this.isRecur()) {
+            } else if (this.isRecur() && isContainDateKey) {
                 String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE);
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
                 if (frequency == null) {
                     throw new WheresMyMoneyException("Missing frequency argument");
-                } else if (lastAddedDate == null) {
-                    throw new WheresMyMoneyException("Where Date");
                 }
                 recurringExpenseList.addRecurringExpense(price, description, category, lastAddedDate, frequency);
             } else {
