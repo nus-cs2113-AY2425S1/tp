@@ -1,6 +1,7 @@
 package wheresmymoney.command;
 
 import wheresmymoney.category.CategoryFacade;
+import wheresmymoney.DateUtils;
 import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.Parser;
@@ -66,9 +67,10 @@ public class ListCommand extends Command {
                 String category = "CATEGORY: " + recurringExpense.getCategory();
                 String description = "   DESCRIPTION: " + recurringExpense.getDescription();
                 String price = "   PRICE: " + String.format("%.2f", recurringExpense.getPrice());;
+                String dateAdded = "   DATE ADDED: " + DateUtils.dateFormatToString(recurringExpense.getDateAdded());
                 String lastAddedDate = "   LAST ADDED DATE: " + recurringExpense.getlastAddedDate();
                 String frequency = "   FREQUENCY: " + recurringExpense.getFrequency();
-                Ui.displayMessage(index + category + description + price + lastAddedDate + frequency);
+                Ui.displayMessage(index + category + description + price + dateAdded + lastAddedDate + frequency);
             } catch (WheresMyMoneyException e) {
                 throw new WheresMyMoneyException("displayRecurringExpenses has an error");
             }
