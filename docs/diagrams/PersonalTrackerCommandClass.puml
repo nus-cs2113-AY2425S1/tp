@@ -40,8 +40,10 @@ class Storage {
 
 AddCoursesCommand ---> "courseValidator 1" CourseValidator
 AddCoursesCommand ---> "ui 1" UI
+AddCoursesCommand --> "storage 1" Storage
 
 DeleteCoursesCommand ---> "ui 1" UI
+DeleteCoursesCommand --> "storage 1" Storage
 
 FindCoursesCommand --> "ui 1" UI
 FindCoursesCommand --> "storage 1" Storage
