@@ -1,6 +1,8 @@
 package seedu.message;
 
 public class CommandResultMessages {
+    public static final String ACTION_CANCEL = "Action cancelled.";
+
     public static final String UPDATE_TRANSACTION_SUCCESS = "Transaction updated: ";
     public static final String UPDATE_TRANSACTION_FAIL = "Failed to update transaction: ";
 
