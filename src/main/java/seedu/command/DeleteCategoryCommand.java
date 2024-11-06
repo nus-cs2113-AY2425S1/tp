@@ -127,6 +127,13 @@ public class DeleteCategoryCommand extends Command {
         }
     }
 
+    //@@author YukeeHong
+    /**
+     * Processes the user input to re-categorize, or skip, or cancel the command
+     *
+     * @return null if the user cancel the command, empty category if they skip,
+     *      and a Category if they re-categorize
+     */
     private Category processUserInput(){
         Category temp = null;
         while (true) {
