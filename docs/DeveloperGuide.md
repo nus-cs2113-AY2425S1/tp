@@ -22,13 +22,13 @@
   * [Filter feature](#filter-feature)
   * [Find feature](#find-feature)
   * [Saving and loading of data](#saving-and-loading-of-data)
-* [Product scope](#product-scope)
+* [Appendix A: Product scope](#appendix-a-product-scope)
   * [Target user profile](#target-user-profile)
   * [Value proposition](#value-proposition)
-* [User stories](#user-stories)
-* [Non-functional requirements](#non-functional-requirements)
-* [Glossary](#glossary)
-* [Instructions for manual testing](#instructions-for-manual-testing)
+* [Appendix B: User stories](#appendix-b-user-stories)
+* [Appendix C: Non-functional requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
+* [Appendix E: Instructions for manual testing](#appendix-e-instructions-for-manual-testing)
   * [Launch and shutdown](#launch-and-shutdown)
   * [Adding an event](#adding-an-event)
   * [Adding a participant](#adding-a-participant)
@@ -688,7 +688,7 @@ Reading and writing from and to the `.csv` storage files is done through operati
 * `CSVWriter#writeNext()`, which is invoked when saving data, to save the fields for an `Event`, `Participant`, or `Item` into the file.
 
 
-## Product scope
+## Appendix A: Product scope
 
 ### Target user profile
 The target user:
@@ -702,7 +702,7 @@ The target user:
 
 The user is able to organise and manage his events more quickly and efficiently than with a mouse/GUI app
 
-## User Stories
+## Appendix B: User Stories
 
 | Version | As a ... | I want to ...                                                   | So that I can ...                                                                         |
 |---------|----------|-----------------------------------------------------------------|-------------------------------------------------------------------------------------------|
@@ -724,7 +724,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 | v2.0    | user     | add items to a specific event                                   | keep track of what I need for that event                                                  |
 | v2.0    | user     | mark items as accounted for                                     | make sure I do not prepare excess items for an event                                      |
 
-## Non-Functional Requirements
+## Appendix C: Non-Functional Requirements
 
 * Should work for any **mainstream OS** (Windows, MacOS, Linux) as long as Java 17 is installed.
 * Should be able to store data for a large number of `Event`s without any loss in performance.
@@ -732,13 +732,13 @@ The user is able to organise and manage his events more quickly and efficiently 
 * Should be able to load a corrupted save file without crashing.
 * Should be able to work in any directory that the `JAR` is copied to.
 
-## Glossary
+## Appendix D: Glossary
 
 * _Command_ - an action that is carried out in the program as a result of user input.
 * _List_ - a container class that stores multiple instances of an object. 
 * _Parameter_ - a value in the user command input that is used for the parsing of a command.
 
-## Instructions for manual testing
+## Appendix E: Instructions for manual testing
 
 ### Launch and shutdown
 
