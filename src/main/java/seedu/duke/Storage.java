@@ -1,5 +1,9 @@
 package seedu.duke;
 
+import seedu.duke.Command.Budget;
+import seedu.duke.Command.Category;
+import seedu.duke.Command.Expense;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

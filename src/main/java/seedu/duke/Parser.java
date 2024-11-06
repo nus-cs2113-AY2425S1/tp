@@ -1,5 +1,9 @@
 package seedu.duke;
 
+import seedu.duke.Command.BudgetManager;
+import seedu.duke.Command.CategoryManager;
+import seedu.duke.Command.ExpenseManager;
+
 public class Parser {
     private final ExpenseManager expenseManager;
     private final CategoryManager categoryManager;

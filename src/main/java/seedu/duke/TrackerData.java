@@ -1,5 +1,9 @@
 package seedu.duke;
 
+import seedu.duke.Command.Budget;
+import seedu.duke.Command.Category;
+import seedu.duke.Command.Expense;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.Command;
 
 public class Category {
     private String name;
