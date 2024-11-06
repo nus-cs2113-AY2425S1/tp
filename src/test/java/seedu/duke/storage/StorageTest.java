@@ -248,4 +248,111 @@ public class StorageTest {
         FinancialList financialList = storage.loadFromFile(budgetLogic);
         assertEquals(1, financialList.getEntryCount());
     }
+
+    /**
+     * Tests the scenario where an invalid budget amount is provided.
+     * This test writes an invalid budget amount to the budget file and verifies
+     * that the budget is not set in the budget logic.
+     *
+     * @throws IOException if an I/O error occurs during file operations.
+     */
+    @Test
+    public void testBudgetInvaildAmount() throws IOException {
+        File file = Storage.getStorageFile();
+        FileWriter writer = new FileWriter(file);
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.close();
+
+        File budgetFile = Storage.getBudgetFile();
+        FileWriter budgetWriter = new FileWriter(budgetFile);
+        // invalid amount
+        budgetWriter.write("-500\n2024-11-01\n");
+        budgetWriter.close();
+
+        FinancialList financialList = storage.loadFromFile(budgetLogic);
+        assertEquals(1, financialList.getEntryCount());
+        assertEquals(null, budgetLogic.getBudget());
+    }
+
+    /**
+     * Tests the behavior of the storage system when an invalid date is provided in the budget file.
+     * This test writes an entry with an invalid date format to the budget file and verifies that
+     * the system correctly handles the invalid date by setting the budget date to the current date.
+     *
+     * @throws IOException if an I/O error occurs during file operations.
+     */
+    @Test
+    public void testBudgetInvalidDate() throws IOException {
+        File file = Storage.getStorageFile();
+        FileWriter writer = new FileWriter(file);
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.close();
+
+        File budgetFile = Storage.getBudgetFile();
+        FileWriter budgetWriter = new FileWriter(budgetFile);
+        // invalid date
+        budgetWriter.write("500\n20???????1\n");
+        budgetWriter.close();
+
+        FinancialList financialList = storage.loadFromFile(budgetLogic);
+        assertEquals(1, financialList.getEntryCount());
+        assertEquals(LocalDate.now().toString()
+            , budgetLogic.getBudget().getBudgetSetDate().toString());
+    }
+
+    /**
+     * Tests the scenario where a budget is set with a future date.
+     * 
+     * This test writes a budget entry with a future date to the budget file and verifies
+     * that the budget date is reset to the current date when loaded.
+     * 
+     * @throws IOException if an I/O error occurs during file operations.
+     */
+    @Test
+    public void testBudgetFutureDate() throws IOException {
+        File file = Storage.getStorageFile();
+        FileWriter writer = new FileWriter(file);
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.close();
+
+        File budgetFile = Storage.getBudgetFile();
+        FileWriter budgetWriter = new FileWriter(budgetFile);
+        // invalid date
+        budgetWriter.write("500\n2099-11-01\n");
+        budgetWriter.close();
+
+        FinancialList financialList = storage.loadFromFile(budgetLogic);
+        assertEquals(1, financialList.getEntryCount());
+        assertEquals(LocalDate.now().toString()
+            , budgetLogic.getBudget().getBudgetSetDate().toString());
+    }
+
+    /**
+     * Tests the scenario where the budget file is missing a date.
+     * It writes a valid financial entry to the storage file and an invalid budget entry 
+     * (missing date) to the budget file.
+     * Then, it loads the financial list from the storage and checks:
+     * 1. The number of entries in the financial list is 1.
+     * 2. The budget set date is the current date.
+     *
+     * @throws IOException if an I/O error occurs.
+     */
+    @Test
+    public void testBudgetMissingDate() throws IOException {
+        File file = Storage.getStorageFile();
+        FileWriter writer = new FileWriter(file);
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.close();
+
+        File budgetFile = Storage.getBudgetFile();
+        FileWriter budgetWriter = new FileWriter(budgetFile);
+        // invalid date
+        budgetWriter.write("500\n\n");
+        budgetWriter.close();
+
+        FinancialList financialList = storage.loadFromFile(budgetLogic);
+        assertEquals(1, financialList.getEntryCount());
+        assertEquals(LocalDate.now().toString()
+            , budgetLogic.getBudget().getBudgetSetDate().toString());
+    }
 }
