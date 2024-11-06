@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import static seedu.exchangecoursemapper.constants.Logs.DATA_MISMATCH;
 import static seedu.exchangecoursemapper.constants.Logs.PARSING_ERROR_LINE;
 import static seedu.exchangecoursemapper.constants.Logs.FAILURE_READ_JSON_FILE;
-import static seedu.exchangecoursemapper.storage.CourseFormatter.parseCourseEntry;
 
 public class DataIntegrityChecker extends Command {
 
@@ -70,7 +69,7 @@ public class DataIntegrityChecker extends Command {
     private boolean isLineValid(String entry, int lineNumber, JsonObject databaseJson) {
         try {
             // Parse the entry
-            Course course = parseCourseEntry(entry);
+            Course course = Course.parseCourseEntry(entry);
 
             // Use CourseValidator to validate the course entry
             if (!courseValidator.isValidInput(course.getNusCourseCode(), course.getPartnerUniversity(),
