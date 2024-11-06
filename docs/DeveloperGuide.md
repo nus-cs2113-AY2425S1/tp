@@ -86,6 +86,22 @@ Command Package:
 ![Class diagram for CheckInformationCommand](images/CheckInformationCommandClass.jpg)
 ![Class diagram for CheckInformationCommand](images/PersonalTrackerCommandClass.jpg)
 
+Parser class diagram:
+The Parser class is responsible for handling and interpreting user input in the application. It reads user commands,
+processes them by splitting the input into command keywords and parameters, and then directs the flow of control to the
+appropriate command classes to execute the specified actions.
+
+As `ExchangeCourseMapper` is mainly split into two main parts; Check Information and Personal Tracker. We decided to
+split the `Parser` class diagram into the two parts respectively to increase readability and neatness.
+
+This class diagram represents the parsing of commands in Check Information. The multiplicities dependencies of the 
+command are 0 or 1 because the dependency is only formed when the command is called, else, it will be zero.
+![Class diagram for CheckInformationParser](images/CheckInformationParserClass.png)
+
+This class diagram represents the parsing of commands in Personal Tracker. The `Parser` class has associations with the
+`UI` class and `Storage` class and dependencies with the commands in Personal Tracker.
+![Class diagram for PersonalTrackerParser](images/PersonalTrackerParserClass.png)
+
 CourseValidator Class Diagram: 
 
 ![Class diagram for CourseValidator](images/CourseValidatorClass.png)

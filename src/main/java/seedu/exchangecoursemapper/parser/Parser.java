@@ -14,7 +14,6 @@ import seedu.exchangecoursemapper.command.FindCoursesCommand;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
 
-
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +30,7 @@ import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
 import static seedu.exchangecoursemapper.constants.Commands.HELP;
 import static seedu.exchangecoursemapper.constants.Commands.LIST_MAPPED;
 import static seedu.exchangecoursemapper.constants.Commands.COMPARE_PU;
+import static seedu.exchangecoursemapper.constants.Commands.FIND;
 import static seedu.exchangecoursemapper.constants.Logs.RECEIVED_INPUT;
 import static seedu.exchangecoursemapper.constants.Logs.NULL_INPUT;
 import static seedu.exchangecoursemapper.constants.Logs.EMPTY_INPUT_DETAILS;
@@ -82,7 +82,7 @@ public class Parser {
             new ListPersonalTrackerCommand(storage).execute(input);
         } else if (command.equals(COMPARE_PU)) {
             new CompareMappedCommand(storage).execute(userInput);
-        } else if (command.equals("find")) {
+        } else if (command.equals(FIND)) {
             new FindCoursesCommand(storage).execute(input, storage);
         } else if (command.equals(BYE)) {
             mapperUI.displayExitMessage();
@@ -91,5 +91,4 @@ public class Parser {
             System.out.println(INVALID_COMMAND_MESSAGE);
         }
     }
-
 }
