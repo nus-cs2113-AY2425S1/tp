@@ -108,23 +108,63 @@ or restricted to a stipulated period. The app will display the total cashflow/ex
 during the stipulated period depending on the financial entry type selected to be listed, as well as the
 category with the highest total expenditure/income.
 
-**Format**: `list [expense|income] [/from START_DATE] [/to END_DATE]`
+Format: `list [expense|income] [/from START_DATE] [/to END_DATE]`
 
 #### List by Type
 
 User can command app to list out only expenses, only incomes or both expenses and incomes.
 
-**Example Usage**:
+Example Usage:
 ``` java
-//Lists out all expenses and incomes. 
-//Displays total cashflow (income - expenditure), and shows categories with the highest total expenditure and income respectively
+//Input Command
 list
 
-//Lists out all expenses. Displays total expenditure, and shows category with highest total expenditure.
+//Output: Lists out all expenses and incomes. 
+//Displays total cashflow (income - expenditure), and shows categories with the highest total expenditure and income respectively
+--------------------------------------------
+Here's a list of all recorded entries:
+1. [Expense] - lunch $ 3.50 (on 22/10/24) [FOOD]
+2. [Income] - salary $ 3000.00 (on 22/10/24) [SALARY]
+3. [Expense] - dinner $ 4.50 (on 22/10/24) [FOOD]
+4. [Expense] - movie $ 20.00 (on 22/10/24) [ENTERTAINMENT]
+5. [Income] - allowance $ 100.00 (on 22/10/24) [GIFT]
+6. [Income] - ang pow money $ 15.00 (on 22/10/24) [GIFT]
+
+Net cashflow: $ 3087.00
+                
+Highest Expense Category: ENTERTAINMENT ($20.00)
+Highest Income Category: SALARY ($3000.00)
+--------------------------------------------
+
+//Input Command
 list expense 
 
-//Lists out all incomes. Displays total income, and shows category with highest total income.
-list income 
+//Output: Lists out all expenses. Displays total expenditure, and shows category with highest total expenditure.
+--------------------------------------------
+Here's a list of all recorded expenses:
+1. [Expense] - lunch $ 3.50 (on 22/10/24) [FOOD]
+2. [Expense] - dinner $ 4.50 (on 22/10/24) [FOOD]
+3. [Expense] - movie $ 20.00 (on 22/10/24) [ENTERTAINMENT]
+
+Total expense: $ 28.00
+                
+Highest Expense Category: ENTERTAINMENT ($20.00)
+--------------------------------------------
+
+//Input Command
+list income
+
+//Output: Lists out all incomes. Displays total income, and shows category with highest total income.
+--------------------------------------------
+Here's a list of all recorded incomes:
+1. [Income] - salary $ 3000.00 (on 22/10/24) [SALARY]
+2. [Income] - allowance $ 100.00 (on 22/10/24) [GIFT]
+3. [Income] - ang pow money $ 15.00 (on 22/10/24) [GIFT]
+
+Total income: $ 3115.00
+                
+Highest Income Category: SALARY ($3000.00)
+--------------------------------------------
 ```
 
 #### List by Date
@@ -135,21 +175,59 @@ and/or up to a certain date using the `/to` flag.
 Total cashflow/expenditure/income displayed will be restricted to the range of dates entered by the user.
 Category with highest expenditure/income displayed will also be based on the entered date range.
 
-**Example Usage**:
+Example Usage:
 ``` java
-//Lists out all expenses and incomes with date equal to or after 03/10/24.
-//Displays total cashflow (income - expenditure) during that period, and shows
-//categories with the highest total expenditure and income during that period respectively.
+//Input Command
 list /from 03/10/24
 
-//Lists out all expenses with dates before or equal to 03/10/24.
-//Displays total expenditure + category with highest total expenditure during that period.
+//Output: Lists out all expenses and incomes with date equal to or after 03/10/24.
+//Displays total cashflow (income - expenditure) during that period, and shows
+//categories with the highest total expenditure and income during that period respectively.
+--------------------------------------------
+Here's a list of all recorded entries:
+1. [Income] - salary $ 3000.00 (on 03/10/24) [SALARY]
+2. [Expense] - dinner $ 4.50 (on 05/10/24) [FOOD]
+3. [Income] - allowance $ 100.00 (on 10/10/24) [GIFT]
+4. [Expense] - movie $ 20.00 (on 27/10/24) [ENTERTAINMENT]
+5. [Income] - ang pow money $ 15.00 (on 01/11/24) [GIFT]
+
+Net cashflow: $ 3090.50
+                
+Highest Expense Category: ENTERTAINMENT ($20.00)
+Highest Income Category: SALARY ($3000.00)
+--------------------------------------------
+
+//Input Command
 list expense /to 03/10/24
 
-//Lists out all incomes with dates between 03/10/24 and 01/11/24 inclusive.
+//Output: Lists out all expenses with dates before or equal to 03/10/24.
+//Displays total expenditure + category with highest total expenditure during that period.
+--------------------------------------------
+Here's a list of all recorded expenses:
+1. [Expense] - lunch $ 3.50 (on 22/09/24) [FOOD]
+
+Total expense: $ 3.50
+                
+Highest Expense Category: FOOD ($3.50)
+--------------------------------------------
+
+//Input Command
+list income /from 03/10/24 /to 10/10/24
+
+//Output: Lists out all incomes with dates between 03/10/24 and 10/10/24 inclusive.
 //Displays total income + category with highest total income during that period.
-list income /from 03/10/24 /to 01/11/24
+--------------------------------------------
+Here's a list of all recorded incomes:
+1. [Income] - salary $ 3000.00 (on 03/10/24) [SALARY]
+3. [Income] - allowance $ 100.00 (on 10/10/24) [GIFT]
+
+Total income: $ 3100.00
+              
+Highest Income Category: SALARY ($3000.00)
+--------------------------------------------
 ```
+
+---
 
 ### Set/Edit Budget
 
