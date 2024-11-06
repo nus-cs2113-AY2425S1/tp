@@ -1,3 +1,5 @@
+// @@author nirala-ts
+
 package parser.command.factory;
 
 import command.Command;
@@ -10,60 +12,99 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 class CommandFactoryTest {
 
     private CommandFactory commandFactory;
-    private ProgCommandFactory progFactory;
-    private MealCommandFactory mealFactory;
-    private WaterCommandFactory waterFactory;
+    private ProgCommandFactory progFactoryMock;
+    private MealCommandFactory mealFactoryMock;
+    private WaterCommandFactory waterFactoryMock;
+    private HistoryCommandFactory historyFactoryMock;
 
     @BeforeEach
     void setUp() {
-        progFactory = mock(ProgCommandFactory.class);
-        mealFactory = mock(MealCommandFactory.class);
-        waterFactory = mock(WaterCommandFactory.class);
-        HistoryCommandFactory historyFactory = mock(HistoryCommandFactory.class);
+        progFactoryMock = mock(ProgCommandFactory.class);
+        mealFactoryMock = mock(MealCommandFactory.class);
+        waterFactoryMock = mock(WaterCommandFactory.class);
+        historyFactoryMock = mock(HistoryCommandFactory.class);
 
-        commandFactory = new CommandFactory(progFactory, mealFactory, waterFactory, historyFactory);
+        commandFactory = new CommandFactory(progFactoryMock, mealFactoryMock, waterFactoryMock, historyFactoryMock);
     }
 
     @Test
     void testCreateExitCommand() {
-        Command command = commandFactory.createCommand("bye", "");
-        assertInstanceOf(ExitCommand.class, command, "Expected ExitCommand for 'bye' command");
-    }
+        String commandString = "bye";
+        String argumentString = "";
 
-    @Test
-    void testCreateProgCommand() {
-        Command expectedCommand = mock(Command.class);
-        when(progFactory.parse("create")).thenReturn(expectedCommand);
+        Command result = commandFactory.createCommand(commandString, argumentString);
 
-        Command command = commandFactory.createCommand("prog", "create");
-        assertEquals(expectedCommand, command, "Expected command created by ProgCommandFactory");
-    }
-
-    @Test
-    void testCreateMealCommand() {
-        Command expectedCommand = mock(Command.class);
-        when(mealFactory.parse("log")).thenReturn(expectedCommand);
-
-        Command command = commandFactory.createCommand("meal", "log");
-        assertEquals(expectedCommand, command, "Expected command created by MealCommandFactory");
-    }
-
-    @Test
-    void testCreateWaterCommand() {
-        Command expectedCommand = mock(Command.class);
-        when(waterFactory.parse("track")).thenReturn(expectedCommand);
-
-        Command command = commandFactory.createCommand("water", "track");
-        assertEquals(expectedCommand, command, "Expected command created by WaterCommandFactory");
+        assertInstanceOf(ExitCommand.class, result);
     }
 
     @Test
     void testCreateInvalidCommand() {
-        Command command = commandFactory.createCommand("unknownCommand", "someArgs");
-        assertInstanceOf(InvalidCommand.class, command, "Expected InvalidCommand for unknown command");
+        String commandString = "unknownCommand";
+        String argumentString = "";
+
+        Command result = commandFactory.createCommand(commandString, argumentString);
+
+        assertInstanceOf(InvalidCommand.class, result);
+    }
+
+    @Test
+    void testCreateProgCommand() {
+        String commandString = "prog";
+        String argumentString = "start /p 1";
+        Command expectedCommand = mock(Command.class);
+
+        when(progFactoryMock.parse(argumentString)).thenReturn(expectedCommand);
+
+        Command result = commandFactory.createCommand(commandString, argumentString);
+
+        assertEquals(expectedCommand, result);
+        verify(progFactoryMock).parse(argumentString);
+    }
+
+    @Test
+    void testCreateMealCommand() {
+        String commandString = "meal";
+        String argumentString = "add /name Sample Meal";
+        Command expectedCommand = mock(Command.class);
+
+        when(mealFactoryMock.parse(argumentString)).thenReturn(expectedCommand);
+
+        Command result = commandFactory.createCommand(commandString, argumentString);
+
+        assertEquals(expectedCommand, result);
+        verify(mealFactoryMock).parse(argumentString);
+    }
+
+    @Test
+    void testCreateWaterCommand() {
+        String commandString = "water";
+        String argumentString = "log /volume 500";
+        Command expectedCommand = mock(Command.class);
+
+        when(waterFactoryMock.parse(argumentString)).thenReturn(expectedCommand);
+
+        Command result = commandFactory.createCommand(commandString, argumentString);
+
+        assertEquals(expectedCommand, result);
+        verify(waterFactoryMock).parse(argumentString);
+    }
+
+    @Test
+    void testCreateHistoryCommand() {
+        String commandString = "history";
+        String argumentString = "view /d 11-11-2023";
+        Command expectedCommand = mock(Command.class);
+
+        when(historyFactoryMock.parse(argumentString)).thenReturn(expectedCommand);
+
+        Command result = commandFactory.createCommand(commandString, argumentString);
+
+        assertEquals(expectedCommand, result);
+        verify(historyFactoryMock).parse(argumentString);
     }
 }

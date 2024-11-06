@@ -1,4 +1,5 @@
 //@@author nirala-ts
+
 package parser;
 
 import command.Command;
@@ -15,7 +16,6 @@ import static parser.ParserUtils.splitArguments;
  * within the BuffBuddy application. It interprets user-provided strings and generates appropriate
  * {@code Command} objects for execution.
  *
- * @author nirala-ts
  */
 public class Parser {
     private final Logger logger = Logger.getLogger(this.getClass().getName());
@@ -26,6 +26,14 @@ public class Parser {
      */
     public Parser() {
         this.commandFactory = new CommandFactory();
+    }
+
+    /**
+     * Constructs a new {@code Parser} instance, using the provided {@code CommandFactory}.
+     * This constructor is primarily for testing purposes.
+     */
+    public Parser(CommandFactory commandFactory) {
+        this.commandFactory = commandFactory;
     }
 
     /**

@@ -1,3 +1,5 @@
+// @@author nirala-ts
+
 package parser;
 
 import exceptions.IndexOutOfBoundsBuffBuddyException;
@@ -186,6 +188,18 @@ class ParserUtilsTest {
         LocalDate actualDate = ParserUtils.parseDate(dateString);
 
         assertEquals(expectedDate, actualDate, "The parsed date should match the expected leap year date.");
+    }
+
+    @Test
+    void testParseDateInvalidDayInMonth() {
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> ParserUtils.parseDate("31-02-2023"),
+                "Should throw exception on invalid date (February 31st).");
+    }
+
+    @Test
+    void testParseDateInvalidMonth() {
+        assertThrows(InvalidFormatBuffBuddyException.class, () -> ParserUtils.parseDate("31-13-2023"),
+                "Should throw exception on invalid month (13).");
     }
 }
 
