@@ -58,6 +58,19 @@ A valid recipe object contains the following fields:
 
 The formatting of how a recipe is displayed and saved is handled by this class.
 
+### RecommendedRecipe Class
+The RecommendedRecipe class represents a recipe to recommend to the user with relevant statistics.
+A RecommendedRecipe object contains the following:
++ Recipe (The Recipe being recommended)
++ Percentage Match (The percentage of the recipe's ingredients that the user has in their list of ingredients)
++ Missing Ingredients (A list of the recipe's ingredients that the user lack)
+
+#### SortByPercentMatch Class
+The SortByPercentMatch class inherits from the Java Comparator class to overload its compare method. 
+This is used to allow Java methods like sort which uses this method to know how to compare two RecommendedRecipe 
+objects based on their percentage match attribute. The compare method is implemented such that when used to sort 
+a list of RecommendedRecipe objects, they are sorted in descending order based on their percentage match attribute.
+
 ### RecipeList Class
 The RecipeList class represents a list of recipes. 
 This class handles the addition, deletion and editing of recipes.
@@ -218,9 +231,16 @@ on how to use them
 `IngredientList`
 - When executed, it retrieves the list of ingredients and displays them to the user through the UI
 12. `RandomCommand` Class
-- 
+- The `RandomCommand` class is designed to show the user a randomly selected recipe from their recipeList
+- When executed, it retrieves the list of recipes, pick a random valid index for the list, and display that recipe 
+through the `Ui`
 13. `RecommendCommand` Class
-- 
+- The `RecommendCommand` class is select all recipes from the RecipeList and display those that share common 
+ingredients with what is found in IngredientList. The percentage of the recipe's ingredients that are shared, as well 
+as the missing ingredients are also determined
+- When executed, it retrieves the list of ingredients, and search through the list of recipes for those that meet the 
+criteria. These recipes are then displayed through `Ui` with their accompanying statistics, listed by descending order 
+of their percentage match
 14. `SortCommand` Class
 - 
 15. `SortIngredientsCommand` Class
