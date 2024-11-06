@@ -57,6 +57,15 @@ public class AppUi {
     }
 
     /**
+     * Displays the modify budget message when user keys in the budget command.
+     * Asks if user would like to modify their existing budget
+     */
+    public void displayModifyBudgetMessage(double amount) {
+        System.out.println("Your current budget is: " + amount);
+        System.out.println("Would you like to modify your budget? (yes/no)");
+    }
+
+    /**
      * Displays a message indicating that an unrecognized command was entered.
      * Suggests using the "help" command to list valid commands.
      */
