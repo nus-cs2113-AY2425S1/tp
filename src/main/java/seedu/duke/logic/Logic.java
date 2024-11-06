@@ -236,9 +236,11 @@ public class Logic {
             if (type.equals("expense")) {
                 SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(startDate, endDate);
                 seeAllExpensesCommand.execute(financialList);
+                budgetLogic.getBudgetAndBalance();
             } else if (type.equals("income")) {
                 SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(startDate, endDate);
                 seeAllIncomesCommand.execute(financialList);
+                budgetLogic.getBudgetAndBalance();
             } else {
                 System.out.println("Unknown argument: " + type);
                 System.out.println("--------------------------------------------");
@@ -246,6 +248,7 @@ public class Logic {
         } else {
             SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(startDate, endDate);
             seeAllEntriesCommand.execute(financialList);
+            budgetLogic.getBudgetAndBalance();
         }
     }
 

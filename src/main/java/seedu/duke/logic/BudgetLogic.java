@@ -115,6 +115,19 @@ public class BudgetLogic {
         budget.updateBalance(newBalance);
     }
 
+    public void getBudgetAndBalance() {
+        if (!budget.isBudgetSet()) {
+            System.out.println("No budget has been set.");
+            System.out.println("--------------------------------------------");
+            return;
+        }
+        String budgetAmount = String.format("$ %.2f", budget.getBudgetAmount());
+        String balanceAmount = String.format("$ %.2f", budget.getBalance());
+        System.out.println("Your current budget is: " + budgetAmount);
+        System.out.println("Your current monthly balance is: " + balanceAmount);
+        System.out.println("--------------------------------------------");
+    }
+
     /**
      * Checks if the budget has been exceeded.
      *
