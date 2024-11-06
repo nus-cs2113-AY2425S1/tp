@@ -348,12 +348,12 @@ The `CategoryTracker` class has the following key methods:
 
 The `CategoryData` class has these key methods: 
 
-|          Method           |                   Description                   |
-|:-------------------------:|:-----------------------------------------------:|
-| increaseCurrExpenditureBy |    Increments current total by a given price    |
-| decreaseCurrExpenditureBy |    Decrements current total by a given price    |
-|      isNearingLimit       | Checks if current total is 80% of limit or more |
-|     hasExceededLimit      |   Checks if current total is more than limit    |
+|           Method            |                   Description                   |
+|:---------------------------:|:-----------------------------------------------:|
+| `increaseCurrExpenditureBy` |    Increments current total by a given price    |
+| `decreaseCurrExpenditureBy` |    Decrements current total by a given price    |
+|      `isNearingLimit`       | Checks if current total is 80% of limit or more |
+|      `hasExceededLimit`       |   Checks if current total is more than limit    |
 
 The `CategoryFilter` class has key methods for:
 
@@ -366,6 +366,14 @@ The `CategoryFilter` class has key methods for:
 | `displayNearingCategories`  |                  Displays the categories that are nearing, but not exceeded, its spending limits                  |
 
 After the user adds or edits an `Expense`, it alerts the user if the spending limit is approached or exceeded for that `Expenses`'s category.
+
+The `CategoryStorage` class has key methods for:
+
+|       Method        |                                         Description                                         |
+|:-------------------:|:-------------------------------------------------------------------------------------------:|
+| `trackCategoriesOf` |                     Creates a category tracker based on an expense list                     |
+|    `loadFromCsv`    | Loads spending limits from a CSV file, only for  |
+|     `saveToCsv`     |         Saves all categories and their corresponding spending limits to a CSV file          |
 
 After the user loads from file, all categories that have exceeded its designated spending limit will be displayed to the user, followed by all categories that have not exceeded its designated spending limit but are close to it.
 
