@@ -43,6 +43,10 @@ public class DataIntegrityChecker extends Command {
             return false;
         }
 
+        return isAllLineValid(entries, databaseJson);
+    }
+
+    private boolean isAllLineValid(List<String> entries, JsonObject databaseJson) {
         boolean isValid = true;
         for (int i = 0; i < entries.size(); i++) {
             String entry = entries.get(i);

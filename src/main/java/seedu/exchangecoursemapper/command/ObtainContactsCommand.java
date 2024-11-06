@@ -86,6 +86,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
 
         if (inputParts.length != 2) {
             System.out.println(Exception.invalidInputFormat());
+            logger.log(Level.WARNING, "Invalid input format.");
             throw new IllegalArgumentException(Exception.invalidInputFormat());
         }
         return inputParts[1].trim();
@@ -102,10 +103,12 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         switch (contactType) {
         case EMAIL_KEY:
             String email = schoolInfo.getString(EMAIL_KEY);
+            logger.log(Level.INFO, Logs.EMAIL_SUCCESS);
             ui.printContactInformation(Messages.EMAIL_TAG, schoolName, email);
             break;
         case NUMBER_KEY:
             String number = schoolInfo.getString(NUMBER_KEY);
+            logger.log(Level.INFO, Logs.NUMBER_SUCCESS);
             ui.printContactInformation(Messages.NUMBER_TAG, schoolName, number);
             break;
         default:
@@ -130,6 +133,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
                 return key;
             }
         }
+        logger.log(Level.WARNING, "Unknown university - {0}", schoolName);
         System.out.println("Unknown university - " + schoolName);
         return schoolName;
     }

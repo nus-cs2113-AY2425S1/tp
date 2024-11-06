@@ -1,39 +1,41 @@
 @startuml
+
+!include .SequenceDiagram.config
 hide footbox
 
 actor CEG_Student
-participant ":UI" #green
-participant ":Parser" #red
-participant ":Command" #gold
-participant ":Storage" #pink
+participant ":UI"
+participant ":Parser"
+participant ":Command"
+participant ":Storage"
 
 CEG_Student -> ":UI" : "delete 1"
-activate ":UI" #green
+activate ":UI"
 
-":UI" -[#green]> ":Parser" : execute("delete 1")
-activate ":Parser" #red
+":UI" -> ":Parser" : execute("delete 1")
+activate ":Parser"
 
-":Parser" -[#red]> ":Command" : allCourses.remove(index);
-activate ":Command" #gold
+":Parser" -> ":Command" : allCourses.remove(index);
+activate ":Command"
 
-":Command" -[#gold]> ":Storage" : saveAllCourses(allCourses);
-activate ":Storage" #pink
+":Command" -> ":Storage" : saveAllCourses(allCourses);
+activate ":Storage"
 
-":Storage" -[#pink]> ":Storage" : Save to mylist.json
-activate ":Storage" #pink
+":Storage" -> ":Storage" : Save to mylist.json
+activate ":Storage"
 
-":Storage" -[#pink]-> ":Storage"
+":Storage" --> ":Storage"
 deactivate ":Storage"
-":Storage" -[#pink]-> ":Command"
+":Storage" --> ":Command"
 deactivate ":Storage"
 
-":Command" -[#gold]-> ":Parser"
+":Command" --> ":Parser"
 deactivate ":Command"
 
-":Parser" -[#red]-> ":UI"
+":Parser" --> ":UI"
 deactivate ":Parser"
 
-":UI" -[#green]-> CEG_Student
+":UI" --> CEG_Student
 deactivate ":UI"
 
 @enduml

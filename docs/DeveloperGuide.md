@@ -1,8 +1,23 @@
 # Developer Guide
 
+- [Acknowledgements](#acknowledgements)
+  - [Data source](#data-source)
+  - [Third Party Library Used](#third-party-library-used)
+- [Design](#design)
+  - [Architecture](#architecture)
+  - [Class Diagrams](#class-diagrams)
+- [Implementation](#implementation)
+- [Product scope](#product-scope)
+  - [Target user profile](#target-user-profile)
+  - [Value proposition](#value-proposition)
+- [User stories](#user-stories)
+- [Non-functional requirements](#non-functional-requirements)
+- [Glossary](#glossary)
+- [Manual testing](#instructions-for-manual-testing)
+
 ## Acknowledgements
 
-### Database
+### Data source
 * Adapted from NUS EduRec, data was collected manually as a collective effort from the team.
 
 ### Third Party Library Used
@@ -13,7 +28,6 @@
 #### 'javax.json:javax.json-api:1.1.4'
 * https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 ## Design
 
 ### Architecture
@@ -76,16 +90,13 @@ CourseValidator Class Diagram:
 
 ![Class diagram for CourseValidator](images/CourseValidatorClass.png)
 
-{TODO: Object Diagram}
-
 ## Implementation
 
 ### 1. List Schools Command
 
 #### Overview:
 This command is responsible for displaying and retrieving the full list of universities
-from `database.json` file. It helps the users to identify the possible choices in South East Asia
-and Oceania.
+from `database.json` file. It helps the users to identify the possible choices in Oceania.
 
 #### How the feature is implemented:
 * The `ListSchoolCommand` class extends `Command` class where it overrides the `execute` method for
@@ -95,22 +106,9 @@ and Oceania.
 * The `displaySchoolList()` method will iterate over the keys of the database which contains the University
   names, upon acquiring the keys, they will be printed over the CLI.
 * There are also assertions and logging in place for error handling.
-* Line Separator is used to ensure readability and ease of use for users.  
+* Line Separator is used to ensure readability and ease of use for users.
 
-#### Why it is implemented that way:
-* The `execute` method is essential and unique to every command class so inheritance was used. 
-* Every method in the class remains maintainable and has one responsibility this allows easy debugging and
-  refactoring.
-* By using inheritance, new command classes can easily extend the functionality of existing ones
-  which reducing redundancy in the code
-* Logging and assertions helps the team of developers to follow through the command execution.
-
-#### Alternatives considered:
-* Reading of the `database.json` was tricky and other libraries were considered.
-* Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure 
-  readability.
-
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![List School Command Sequence Diagram](images/ListSchoolsCommand.png)
 
 ### 2. Filter Courses Command
@@ -137,7 +135,7 @@ that NUS course is suitable to be mapped overseas in South East Asia and Oceania
 * There are also assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
 
 ### 3. Obtain Partner University Email and Contact Number Command
@@ -172,7 +170,7 @@ exchange opportunities.
 * Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
   readability.
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![Filter Courses Sequence Diagram](images/ObtainContactsCommand.png)
 
 ### 4. List University Courses Command
@@ -204,9 +202,8 @@ contains the list of courses.
   For example, `getPuName()` focuses on extracting the university name from user input and `findUniversityName()`
   focuses on searching the university in the data set.
 
-#### Sequence on PlantUML:
+#### Sequence Diagram:
 ![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
-
 
 ### 5. Add Courses Command
 
@@ -235,7 +232,7 @@ and South-East Asian universities. This command hence helps the users to keep tr
 * Throughout the code, exceptions, assertions and logging are in place for better error handling. 
 * Line Separator is used to ensure readability and ease of use for users.
 
-#### Sequence Diagram on PlantUML
+#### Sequence Diagram:
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
 Sequence Diagram for AddCourseCommand
 
@@ -264,7 +261,7 @@ This helps the users to keep track of their most recent course mapping plans, an
 * Throughout the code, exceptions, assertions and logging are in place for better error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
-#### Sequence Diagram on PlantUML
+#### Sequence Diagram:
 ![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
 
 ### 7. List Commands Command
@@ -287,7 +284,7 @@ The `ListCommandsCommand` provides users with a comprehensive list of all availa
 * **Dynamic Command List**: Considered dynamically generating the command list from all command classes in the codebase to avoid manually updating this list, but opted for simplicity to prevent added complexity.
 * **Help Command Integration**: Considered integrating `ListCommandsCommand` with the `HelpCommand` to provide a one-stop command for help-related requests, but separating them ensures clarity and keeps each command focused.
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![List Commands Command Sequence Diagram](images/ListCommandsCommand.png)
 
 ### 8. ListPersonalTrackerCommand
@@ -334,7 +331,7 @@ Mapped Modules:
 -----------------------------------------------------
 ```
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![List Personal Tracker Command Sequence Diagram](images/ListPersonalTrackerCommand.png)
 
 ### 9. Help Command
@@ -366,7 +363,7 @@ This allows users to navigate this program easily and effectively.
   - However, since the condition is a single variable and not complex conditions, it will be cleaner and clearer to use
   `switch` statements
 
-#### Sequence diagram on PlantUML
+#### Sequence Diagram:
 - Represents when `execute()` method is called
   ![Help Command sequence diagram](images/HelpCommand.png)
 
@@ -412,7 +409,7 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 - **Combined Filtering and Extraction**: Initially, filtering and course code extraction were considered for a single method, but separating them simplified the debugging process and enhanced the code structure.
 - **Display Inline in `execute`**: Displaying results directly in the `execute` method was an option. However, using dedicated methods (e.g., `displayComparisonResults`) improved readability and made testing individual components easier.
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![Compare Mapped Command Sequence Diagram](images/CompareMappedCommand.png)
 
 
@@ -448,9 +445,13 @@ to check and plan course mappings for that specified course.
 
 * CEG students keen to go for SEP and need a clear and organised UI to see course mappings
 * CEG students who want to plan their schools and courses to take 
+* Can type fast 
+* Prefers typing to mouse interactions 
+* Is reasonably comfortable using CLI apps
 
 ### Value proposition
 
+* CEG students can manage SEP planning faster than a typical mouse/GUI driven app (EduRec)
 * CEG students can use ExchangeCourseMapper to expedite their for course mapping process by listing universities 
   and specific courses with their subject codes
 * CEG students can easily filter by either NUS-coded modules or partner universities (PU) to quickly identify relevant course options.
@@ -459,33 +460,35 @@ to check and plan course mappings for that specified course.
 
 ## User Stories
 
-| Version | As a ...     | I want to ...                                                   | So that I can ...                                        |
-|---------|--------------|-----------------------------------------------------------------|----------------------------------------------------------|
-| v1.0    | CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions             |
-| v1.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                        |
-| v1.0    | CEG student  | key in the school I want to go for exchange                     | view the available course offered by the school          |
-| v1.0    | CEG student  | want to see a list of commands                                  | know what to do to go to access the features             |
-| v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries                  |
-| v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries         |
-| v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU               |
-| v2.0    | CEG student  | list out the mapped courses by calling the list command         | track all the courses I have mapped to the different PUs |
-| v2.0    | CEG student  | delete a course mapping plan for a PU                           | keep my list of saved plans organised                    |
-| v2.0    | CEG student  | ask for help when I am in doubt                                 | know what are the possible actions                       |
-| v2.0    | CEG student  | compare different mapping plans for each PU                     | find the university best fit for my academic schedule    |
+| Version | As a ...    | I want to ...                                           | So that I can ...                                              |
+|---------|-------------|---------------------------------------------------------|----------------------------------------------------------------|
+| v1.0    | CEG student | see the possible Oceania Universities for CEG students  | see all my possible choices in those regions                   |
+| v1.0    | CEG student | search for NUS courses to map                           | search for related courses in PUs                              |
+| v1.0    | CEG student | key in the school I want to go for exchange             | view the available course offered by the school                |
+| v1.0    | CEG student | want to see a list of commands                          | know what to do to go to access the features                   |
+| v2.0    | CEG student | obtain the email address of the partner universities    | send an email should I have any queries                        |
+| v2.0    | CEG student | obtain the contact number of the partner universities   | call the number should I have any urgent queries               |
+| v2.0    | CEG student | add a course mapping plan for a PU                      | keep track of my courses for a specific PU                     |
+| v2.0    | CEG student | list out the mapped courses by calling the list command | I can track all the courses I have mapped to the different PUs |
+| v2.0    | CEG student | delete a course mapping plan for a PU                   | keep my list of saved plans organised                          |
+| v2.0    | CEG student | ask for help when I am in doubt                         | know what are the possible actions                             |
+| v2.0    | CEG student | compare different mapping plans for each PU             | find the university best fit for my academic schedule          |
 | v2.0    | CEG student  | search for course mappings in my personalised tracker           | check if I have mappings for that course                 |
 
 
 ## Non-Functional Requirements
 
-1. Access to a computer with Java 17 installed and an IDE that supports Java programming
-2. A CEG Student in NUS planning to map out mainly BT/IS/EE/CS/CG-coded courses
-3. A CEG student who is interested in planning SEP course mapping to universities in Oceania."
+1. Access to a computer with Java 17 installed and an IDE that supports Java programming.
+2. A CEG student with above average typing speed for regular English text (i.e. not code, not system admin commands) 
+   should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. A CEG student should be able to maintain long term usage without a noticeable sluggishness in performance for typical usage.
+4. CEG student who is interested in planning SEP course mapping to universities in Oceania.
 
 ## Glossary
-
-* CLI: Command Line Interface
-* PU: Partner University
+* Mainstream OS: Windows, Linux, Unix, MacOS
 * CEG: Computer Engineering
+* PU: Partner University
+* CLI: Command Line Interface
 * SEP: Student Exchange Programme
 
 ## Instructions for manual testing

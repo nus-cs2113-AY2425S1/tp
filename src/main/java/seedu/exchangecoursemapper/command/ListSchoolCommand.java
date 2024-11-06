@@ -81,10 +81,11 @@ public class ListSchoolCommand extends CheckInformationCommand {
         for (String universityName : universityNames) {
             if (universityName == null || universityName.isEmpty()) {
                 logger.log(Level.WARNING, Logs.POSSIBLE_NULL_JSON_KEY);
-                continue;
+                System.out.println(Logs.POSSIBLE_NULL_JSON_KEY);
+            } else {
+                logger.log(Level.INFO, Logs.LIST_SCHOOLS_NAMES);
+                ui.printUniversityList(universityName);
             }
-            logger.log(Level.INFO, Logs.LIST_SCHOOLS_NAMES);
-            ui.printUniversityList(universityName);
         }
         System.out.println(LINE_SEPARATOR);
     }

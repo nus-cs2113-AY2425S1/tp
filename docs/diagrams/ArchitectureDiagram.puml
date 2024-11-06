@@ -2,27 +2,27 @@
 
 skinparam componentStyle rectangle
 
-actor User
-database myList #lightblue
-database database #lightblue
+actor CEG_Student
+database myList_data
+database JSON_data
 
-component UI #green
-component Parser #red
-component Main #gray
-component Storage #pink
-component Command #gold
+component UI
+component Parser
+component Main
+component Storage
+component Command
 
-User -down.-> UI
-UI -[#green]right-> Parser
+CEG_Student -down.-> UI
+UI -right-> Parser
 
-Main -[#gray]down-> Parser
-Main -[#gray]down-> UI
-Main -[#gray]up-> Storage
+Main -down-> Parser
+Main -down-> UI
+Main -up-> Storage
 
-Command -[#gold]down-> Storage
-Parser -[#red]right-> Command
+Command -down-> Storage
+Parser -right-> Command
 
-Command -[#gold]right.-> database
-Storage -[#pink]right.-> myList
+Command -right.-> JSON_data
+Storage -right.-> myList_data
 
 @enduml
