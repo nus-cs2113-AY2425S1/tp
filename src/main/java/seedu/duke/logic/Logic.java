@@ -237,23 +237,25 @@ public class Logic {
         LocalDate startDate = start != null ? DateParser.parse(commandArguments.get("/from")) : null;
         LocalDate endDate = end != null ? DateParser.parse(commandArguments.get("/to")) : null;
 
-        if (type != null) {
-            if (type.equals("expense")) {
-                SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(startDate, endDate);
-                seeAllExpensesCommand.execute(financialList);
-                budgetLogic.getBudgetAndBalance();
-            } else if (type.equals("income")) {
-                SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(startDate, endDate);
-                seeAllIncomesCommand.execute(financialList);
-                budgetLogic.getBudgetAndBalance();
-            } else {
-                System.out.println("Unknown argument: " + type);
-                System.out.println("--------------------------------------------");
-            }
-        } else {
+        executeListCommand(type, startDate, endDate);
+    }
+
+    private void executeListCommand(String type, LocalDate startDate, LocalDate endDate) throws FinanceBuddyException {
+        if (type == null || type.isEmpty()) {
             SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(startDate, endDate);
             seeAllEntriesCommand.execute(financialList);
             budgetLogic.getBudgetAndBalance();
+        } else if (type.equals("expense")) {
+            SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(startDate, endDate);
+            seeAllExpensesCommand.execute(financialList);
+            budgetLogic.getBudgetAndBalance();
+        } else if (type.equals("income")) {
+            SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(startDate, endDate);
+            seeAllIncomesCommand.execute(financialList);
+            budgetLogic.getBudgetAndBalance();
+        } else {
+            System.out.println("Unknown argument: " + type);
+            System.out.println("--------------------------------------------");
         }
     }
 
