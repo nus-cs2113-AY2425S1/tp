@@ -11,11 +11,19 @@ import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static seedu.duke.ui.Ui.showToUserException;
+
 /**
  * Utility class for date and time parsing and validation. Converts dates, times, or date-times
  * to a standard format and supports relative terms like "today" and "tomorrow."
  */
 public class DateFormat {
+
+    public static final String MESSAGE_INVALID_DATE_INPUT = "Invalid input. " +
+            "Please use the following formats instead: " +
+            "\n'dd-MMM-yyyy' (e.g., 26-Oct-2024) for dates," +
+            "\n'HH:mm' (e.g., 15:30) for time, or" +
+            "\n'dd-MMM-yyyy HH:mm' (e.g., 26-Oct-2024 15:30) for date and time.";
 
     private static final Logger LOGGER = Logger.getLogger(DateFormat.class.getName());
 
@@ -154,6 +162,7 @@ public class DateFormat {
         try {
             return DayOfWeek.valueOf(dayName.toUpperCase());
         } catch (IllegalArgumentException e) {
+            showToUserException(MESSAGE_INVALID_DATE_INPUT);
             return null;
         }
     }
