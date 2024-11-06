@@ -52,19 +52,18 @@ public class Storage {
     }
 
     public void loadData(TrackerData trackerData) throws IOException {
+        UI ui = new UI();
         File file = new File(filePath);
         if (!file.exists()) {
-            System.out.println("Data file not found.");
+            ui.printFileNotFound();
             return;
         }
 
-        //System.out.println("Loading data from file: " + filePath);
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             boolean isBudgetSection = true;
 
             while ((line = reader.readLine()) != null) {
-                //System.out.println("Read line: " + line);
                 if (line.equals("Budgets")) {
                     isBudgetSection = true;
                     continue;
@@ -90,5 +89,6 @@ public class Storage {
                 }
             }
         }
+        ui.printDataLoaded();
     }
 }
