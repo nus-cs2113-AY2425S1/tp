@@ -563,6 +563,40 @@ FinancialList restoredList = storage.loadFromFile();
  - **Data Persistence**: Storage supports retention of records after application closure, aligning with needs for long-term financial tracking.
  - **Scalability**: Future improvements to Storage could incorporate encryption or remote storage options, enhancing data security and flexibility.
 
+### Budget
+
+<ins>Overview</ins>
+
+The `Budget` class serves as a representation of a user's budget in the application.
+It keeps track of the budget amount, remaining balance,
+the status of whether the budget has been set, and the date when the budget was last set.
+
+<ins>Class Structure</ins>
+
+The `Budget` class has the following attributes:
+- `budgetSetDate`: `LocalDate` date when the budget was last set
+- `budgetAmount`: `double` the budget amount
+- `balance`: `double` the remaining balance
+- `isBudgetSet`: `boolean` true if budget has been set
+
+The constructor of the `Budget` class:
+- sets `budgetAmount` and `balance` to 0
+- sets `isBudgetSet` to false
+- sets `budgetSetDate` to null
+
+The `Budget` class has the following methods:
+- `getBudgetAmount`: `double` returns the value of `budgetAmount`
+- `setBudgetAmount`: 
+  - sets the value of `budgetAmount` and `balance` to the provided value
+  - sets `isBudgetSet` to true
+  - sets `budgetSetDate` to the current date of the machine
+- `isBudgetSet`: `boolean` returns the value of `isBudgetSet`
+- `getBalance`: `double` returns the value of `balance`
+- `updateBalance`: sets the value of `balance` to the provided value
+
+<ins>Implementation Details</ins>
+
+<ins>Design Considerations</ins>
 
 ## Product scope
 
