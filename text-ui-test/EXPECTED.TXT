@@ -33,7 +33,7 @@
 	Transaction added: Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
 	-------------------------------------
 	No category specified. Enter a category or type 'no' to skip: 	-------------------------------------
-	Transaction added: Expense [amount=15.0, description=, date=2024-11-01, category=]
+	Transaction added: Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	-------------------------------------
 	No category specified. Enter a category or type 'no' to skip: 	-------------------------------------
 	Transaction added: Expense [amount=15.0, description=Dinner, date=2024-11-01, category=NewCategory]
@@ -49,7 +49,7 @@
 	Category 'Luxury' does not exist.
 	Type 'yes' to create a new category or enter an existing category name: 	New category 'Luxury' created.
 	-------------------------------------
-	Transaction added: Expense [amount=1000000.0, description=Dinner, date=2024-11-07, category=Luxury]
+	Transaction added: Expense [amount=1000000.0, description=, date=2024-11-07, category=Luxury]
 	-------------------------------------
 	-------------------------------------
 	Budget set: 2000.0
@@ -89,7 +89,7 @@
 	Category deleted: NewCategory
 	-------------------------------------
 	These expenses need modification: 
-	Expense [amount=1000000.0, description=Dinner, date=2024-11-07, category=Luxury]
+	Expense [amount=1000000.0, description=, date=2024-11-07, category=Luxury]
 	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	Category 'LessLuxury' does not exist. Current category:
 	Category: Food
 	Category: Entertainment
@@ -110,10 +110,10 @@
 	-------------------------------------
 	-------------------------------------
 	1. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
-	2. Expense [amount=15.0, description=, date=2024-11-01, category=]
+	2. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	3. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	4. Expense [amount=15.0, description=, date=2024-11-01, category=Groceries]
-	5. Expense [amount=1000000.0, description=Dinner, date=2024-11-07, category=LessLuxury]
+	5. Expense [amount=1000000.0, description=, date=2024-11-07, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
 	1. Food
@@ -145,10 +145,10 @@
 	-------------------------------------
 	-------------------------------------
 	1. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
-	2. Expense [amount=15.0, description=, date=2024-11-01, category=]
+	2. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	3. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	4. Expense [amount=15.0, description=, date=2024-11-01, category=Groceries]
-	5. Expense [amount=1000000.0, description=Dinner, date=2024-11-07, category=LessLuxury]
+	5. Expense [amount=1000000.0, description=, date=2024-11-07, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
 	Failed to retrieve transaction: Your date and/or time is invalid!
@@ -171,10 +171,10 @@
 	-------------------------------------
 	1. Income [amount=1000.0, description=, date=2024-11-01]
 	2. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
-	3. Expense [amount=15.0, description=, date=2024-11-01, category=]
+	3. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	4. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	5. Expense [amount=15.0, description=, date=2024-11-01, category=Groceries]
-	6. Expense [amount=1000000.0, description=Dinner, date=2024-11-07, category=LessLuxury]
+	6. Expense [amount=1000000.0, description=, date=2024-11-07, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
 	Failed to retrieve transaction: Your date and/or time is invalid!
@@ -193,7 +193,7 @@
 	-------------------------------------
 	-------------------------------------
 	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
-	Expense [amount=1000000.0, description=Dinner, date=2024-11-07, category=LessLuxury]
+	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	-------------------------------------
 	-------------------------------------
 	Lack mandatory arguments.

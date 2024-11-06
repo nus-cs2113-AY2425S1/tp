@@ -9,7 +9,7 @@ add-income Bonus a/ -100 d/ 2024-11-01
 add-income Salary a/ 1000 d/ invalid-date
 
 add-expense Lunch a/ 20 d/ 2024-11-01 c/ Groceries
-add-expense a/ 15 d/ 2024-11-01
+add-expense Dinner a/ 15 d/ 2024-11-01
 no
 
 add-expense Dinner a/ 15 d/ 2024-11-01
@@ -20,7 +20,7 @@ SomeCategory
 yes
 
 add-expense Coffee a/ 5 d/ invalid-date c/ Groceries
-add-expense Dinner a/ 1000000 d/ 2024-11-07 c/ Luxury
+add-expense a/ 1000000 d/ 2024-11-07 c/ Luxury
 yes
 
 add-budget a/ 2000 m/ 2024-11
