@@ -333,11 +333,11 @@ cs2040 | the university of western australia | cits2200
 
 **Q**: Can I `filter` multiple courses at the same time?
 
-**A**: No you cannot
+**A**: No, you are only allowed to filter one course at a time. 
 
 **Q**: Can I `set` multiple schools at the same time?
 
-**A**: No you cannot
+**A**: No, you are only allowed to list out all available course mappings by one partner university at a time. 
 
 **Q**: Can I `add` multiple courses and/or multiple schools at the same time?
 
@@ -353,15 +353,15 @@ cs2040 | the university of western australia | cits2200
 
 **Q**: Can I `obtain` multiple schools/contact types at the same time?
 
-**A**: No you cannot 
+**A**: No, you are only allowed to obtain the contact information of one partner university at a time. 
 
 **Q**: Can I `obtain` contacts of schools not in the list?
 
-**A**: No you cannot
+**A**: No, you are only allowed to obtain contact information of the schools within our list.
 
 **Q**: Can I `delete` multiple indices at the same time?
 
-**A**: No you cannot
+**A**: No, you can only delete one course mapping (one index) at a time. 
 
 
 ## Command Summary
