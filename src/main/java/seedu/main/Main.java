@@ -132,6 +132,7 @@ public class Main {
     private static void setupCommands() {
         assert categories != null : "Categories should be initialized.";
         assert transactions != null : "Transactions should be initialized.";
+        assert budgetTracker != null : "BudgetTracker should be initialized.";
 
         HelpCommand helpCommand = new HelpCommand();
         parser.registerCommands(helpCommand);
