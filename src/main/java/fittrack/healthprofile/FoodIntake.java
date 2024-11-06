@@ -56,7 +56,7 @@ public class FoodIntake {
 
     // Method to list daily food intake summary (food and calories together)
     public void listDailyIntake() {
-        System.out.println("Your daily intake summary:");
+        System.out.println("Here is your daily intake summary:");
 
         // Water Intake placeholder (just for completeness)
         System.out.println("Water Intake:\nNo water intake recorded.\n");

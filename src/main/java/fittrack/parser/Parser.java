@@ -306,7 +306,7 @@ public class Parser {
 
             case "list-intake":
                 // Combine water, food, and calorie lists into one daily intake summary
-                System.out.println("Your daily intake summary:");
+                System.out.println("Here is your daily intake summary:");
 
                 // Water Intake
                 System.out.println("\nWater Intake:");
