@@ -2,7 +2,6 @@
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.Command.BudgetManager;
 import seedu.duke.Command.CategoryManager;
 import seedu.duke.Command.ExpenseManager;
 import seedu.duke.Command.TrackerData;
