@@ -22,6 +22,7 @@
   * [Loading of program data](#loading-of-program-data)
   * [Editing of saved program data](#editing-of-saved-program-data)
 * [Command Summary](#command-summary)
+<div style="page-break-after: always;"></div>
 
 ## Introduction
 
@@ -46,6 +47,7 @@ Enter a command:
 * Words in `UPPER_CASE` represent parameters that are to be supplied by the user (unless otherwise specified).
 * Parameters listed have to be entered in the specified order.
 * Extraneous parameters for commands that do not take in parameters (e.g. `list`) will be ignored.
+<div style="page-break-after: always;"></div>
 
 ### Viewing the command list: `menu`
 
