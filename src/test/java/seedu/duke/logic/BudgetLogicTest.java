@@ -100,8 +100,17 @@ class BudgetLogicTest {
         assertEquals(1000, budget.getBalance());
         assertTrue(ui.wasSetBudgetMessageDisplayed());
 
-        String expectedOutput = "Please set your budget amount:" + System.lineSeparator() +
-                "Budget amount must be >= $0.01. Please enter a valid amount." + System.lineSeparator();
+        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+                "Please set your budget amount:" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "Budget amount must be >= $0.01. Please enter a valid amount." + System.lineSeparator()
+                + "Your current monthly balance is: 1000.0" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "Your budget has successfully been set to: 1000.0" + System.lineSeparator() +
+                "Your current monthly balance is: 1000.0" + System.lineSeparator() +
+                "--------------------------------------------" +
+                System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -209,7 +218,7 @@ class BudgetLogicTest {
     @Test
     void changeBalanceFromExpenses_oneExpenseNotCurrentMonth_expectNoChange() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
-        budgetLogic.changeBalanceFromExpense(19, "27/11/23");
+        budgetLogic.changeBalanceFromExpenseString(19, "27/11/23");
 
         assertEquals(1000, budget.getBalance());
     }
@@ -221,8 +230,8 @@ class BudgetLogicTest {
     void changeBalanceFromExpenses_multipleExpenses_expectDecrease() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
         budgetLogic.changeBalanceFromExpense(20, LocalDate.now());
-        budgetLogic.changeBalanceFromExpense(-50, "27/10/24");
-        budgetLogic.changeBalanceFromExpense(-90, "27/11/23");
+        budgetLogic.changeBalanceFromExpenseString(-50, "27/10/24");
+        budgetLogic.changeBalanceFromExpenseString(-90, "27/11/23");
         budgetLogic.changeBalanceFromExpense(-230, LocalDate.now());
 
         assertEquals(790, budget.getBalance());

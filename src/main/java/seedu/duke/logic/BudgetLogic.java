@@ -37,8 +37,7 @@ public class BudgetLogic {
             ui.displaySetBudgetMessage();
             handleSetBudget(financialList);
         } else {
-            System.out.println("Your current budget is: " + budget.getBudgetAmount());
-            System.out.println("Would you like to modify your budget? (yes/no)");
+            ui.displayModifyBudgetMessage(budget.getBudgetAmount());
             handleSetBudget(financialList);
         }
     }
@@ -48,20 +47,38 @@ public class BudgetLogic {
      * Validates that the input is a non-negative number before setting the budget.
      */
     public void handleSetBudget(FinancialList financialList) throws FinanceBuddyException {
-        String input = ui.getUserInput();
+        String input = "";
+        boolean isValidInput = false;
+
+        while (!isValidInput) {
+            input = ui.getUserInput();
+
+            if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("no")) {
+                isValidInput = true;
+            } else {
+                System.out.println("--------------------------------------------");
+                System.out.println("Invalid input. Please enter 'yes' or 'no'.");
+                System.out.println("--------------------------------------------");
+
+            }
+        }
+
         if (input.equalsIgnoreCase("yes")) {
+            System.out.println("--------------------------------------------");
             System.out.println("Please set your budget amount:");
+            System.out.println("--------------------------------------------");
+
 
             double amount = 0;
-            boolean isValid = false;
+            boolean isAmountValid = false;
 
-            while (!isValid) {
+            while (!isAmountValid) {
                 try {
                     String amountInput = ui.getUserInput();
                     amount = Double.parseDouble(amountInput);
 
                     if (amount >= 0.01) {
-                        isValid = true;
+                        isAmountValid = true;
                     } else {
                         System.out.println("Budget amount must be >= $0.01. Please enter a valid amount.");
                     }
@@ -73,8 +90,18 @@ public class BudgetLogic {
 
             budget.setBudgetAmount(amount);
             recalculateBalance(financialList);
+            System.out.println("--------------------------------------------");
+            System.out.println("Your budget has successfully been set to: " + budget.getBudgetAmount());
+            System.out.println("Your current monthly balance is: " + budget.getBalance());
+            System.out.println("--------------------------------------------");
+        } else {
+            System.out.println("--------------------------------------------");
+            System.out.println("Budget setting skipped.");
+            System.out.println("--------------------------------------------");
         }
     }
+
+
 
     /**
      * Modifies the budget balance by adding the specified amount to the current balance.
@@ -118,13 +145,14 @@ public class BudgetLogic {
      * @param date   the date of the expense.
      * @throws FinanceBuddyException if an error occurs during parsing the date.
      */
-    public void changeBalanceFromExpense(double amount, String date) throws FinanceBuddyException {
+    public void changeBalanceFromExpenseString(double amount, String date) throws FinanceBuddyException {
         if (!budget.isBudgetSet()) {
             return;
         }
         LocalDate parsedDate = DateParser.parse(date);
         if (isCurrentMonth(parsedDate)) {
             modifyBalance(amount);
+            ui.displayBudgetBalanceMessage(budget.getBalance());
         }
     }
 
@@ -140,6 +168,7 @@ public class BudgetLogic {
         }
         if (isCurrentMonth(date)) {
             modifyBalance(amount);
+            ui.displayBudgetBalanceMessage(budget.getBalance());
         }
     }
 
@@ -166,5 +195,6 @@ public class BudgetLogic {
             }
         }
         budget.updateBalance(balance);
+        ui.displayBudgetBalanceMessage(budget.getBalance());
     }
 }
