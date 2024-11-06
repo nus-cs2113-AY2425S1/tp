@@ -1,6 +1,8 @@
 @startuml
 
-class Task {
+!include style.puml
+
+class Task DATA_COLOR {
     - description: String
     - isDone: boolean
     + markAsDone(): void
@@ -9,23 +11,23 @@ class Task {
     + createTask(): Task
 }
 
-class Todo {
+class Todo DATA_COLOR{
     + Todo(description: String)
 }
 
-class Deadline {
+class Deadline DATA_COLOR{
     - by: String
     + Deadline(description: String, by: String)
     + getBy(): String
 }
 
-class Repeat {
+class Repeat DATA_COLOR{
     - repeat: String
     + Repeat(description: String, repeat: String)
     + getRepeat(): String
 }
 
-class TaskList {
+class TaskList DATA_COLOR{
     - tasks: ArrayList<Task>
     - completionRate: double
     + addTask(task: Task): void
@@ -41,5 +43,5 @@ Task <|-- Deadline
 Task <|-- Repeat
 
 '--- Association ---
-TaskList --> Task : contains *
+TaskList --> "0...*" Task
 @enduml
