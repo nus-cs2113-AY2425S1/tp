@@ -61,7 +61,8 @@ public class CategoryFacade {
      * @param newPrice    The new price of the {@code Expense}.
      * @throws WheresMyMoneyException if there is an error while editing the category
      */
-    public void editCategory(String oldCategory, String newCategory, Float oldPrice, Float newPrice) throws WheresMyMoneyException {
+    public void editCategory(String oldCategory, String newCategory, Float oldPrice, Float newPrice)
+            throws WheresMyMoneyException {
         categoryTracker.editCategory(oldCategory, newCategory, oldPrice, newPrice);
         categoryTracker.checkLimitOf(newCategory);
     }

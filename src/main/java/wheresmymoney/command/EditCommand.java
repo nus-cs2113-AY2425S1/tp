@@ -51,7 +51,8 @@ public class EditCommand extends Command {
             String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE);
             if (this.isRecur()) {
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
-                recurringExpenseList.editRecurringExpense(index, oldPrice, description, newCategory, dateAdded, frequency);
+                recurringExpenseList.editRecurringExpense(
+                        index, oldPrice, description, newCategory, dateAdded, frequency);
             } else {
                 expenseList.editExpense(index, oldPrice, description, newCategory, dateAdded);
                 categoryFacade.editCategory(oldCategory, newCategory, oldPrice, newPrice);
