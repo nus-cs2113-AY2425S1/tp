@@ -64,7 +64,7 @@ class DeleteCategoryCommandTest {
 
         deleteCategoryCommand.setUI(new TestUI("NewCategory"));
         // Act
-        List<String> result = deleteCategoryCommand.execute();
+        deleteCategoryCommand.execute();
         List<Category> categories = categoryList.getCategories();
         // Expected
         List<Transaction> expectedTransaction = new ArrayList<>();
@@ -89,7 +89,7 @@ class DeleteCategoryCommandTest {
 
         deleteCategoryCommand.setUI(new TestUI("skip"));
         // Act
-        List<String> result = deleteCategoryCommand.execute();
+        deleteCategoryCommand.execute();
         List<Category> categories = categoryList.getCategories();
         // Expected
         List<Transaction> expectedTransaction = new ArrayList<>();
@@ -114,7 +114,7 @@ class DeleteCategoryCommandTest {
 
         deleteCategoryCommand.setUI(new TestUI("NewCategory yes"));
         // Act
-        List<String> result = deleteCategoryCommand.execute();
+        deleteCategoryCommand.execute();
         List<Category> categories = categoryList.getCategories();
         // Expected
         List<Transaction> expectedTransaction = new ArrayList<>();
@@ -191,7 +191,9 @@ class TestUI extends UI {
     // Simulate getting user input
     @Override
     public String getUserInput() {
-        if(count == userInput.length) return "";
+        if(count == userInput.length) {
+            return "";
+        }
 
         return userInput[count++];  // Return the pre-set user input
     }
