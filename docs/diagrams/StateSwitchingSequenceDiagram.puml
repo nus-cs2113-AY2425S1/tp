@@ -17,14 +17,14 @@ alt MAIN_STATE
     P -> S: getState()
     S --> P: MAIN_STATE
     P -> C: create AddPatientCommand
-    C -> M: execute()
+    C --> M: execute()
 
 else TASK_STATE
     M -> P: parseCommand(commandInput, TASK_STATE)
     P -> S: getState()
     S --> P: TASK_STATE
     P -> C: create AddTaskCommand
-    C -> M: execute()
+    C --> M: execute()
 
 end
 
