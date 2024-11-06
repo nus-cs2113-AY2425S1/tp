@@ -94,7 +94,7 @@ public class Messages {
     public static final String ADD_FOOD_MESSAGE = "Got it. I've added food item: ";
     public static final String DELETE_FOOD_MESSAGE = "Got it. I've deleted food item: ";
     public static final String LIST_FOOD_MESSAGE = "Here is your food intake list: ";
-    
+
     public static final String LIST_INTAKE_MESSAGE = "Here is your daily intake summary: ";
 
     public static final String MALE_GENDER = "male";

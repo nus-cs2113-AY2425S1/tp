@@ -29,7 +29,7 @@ public class FoodIntake {
     // Method to add a food item with its calorie count
     public void addFood(String foodName, int calories) {
         foodItems.add(new FoodItem(foodName, calories));
-        System.out.println("Got it. I've added food item: " + foodName + " " + calories + "( calories).");
+        System.out.println("Got it. I've added food item: " + foodName + " (" + calories + " calories).");
     }
 
     // Method to delete a food item by index
