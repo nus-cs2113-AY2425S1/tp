@@ -1,5 +1,54 @@
 # Developer Guide
 
+* [Acknowledgements](#acknowledgements)
+* [Design](#design)
+  * [Main components](#main-components)
+  * [Interactions between components](#interactions-between-components)
+  * [UI component](#ui-component)
+  * [Storage component](#storage-component)
+  * [Parser component](#parser-component)
+  * [Command component](#command-component)
+  * [Event component](#event-component)
+* [Implementation](#implementation)
+  * [Command parsing](#command-parsing-)
+  * [List feature](#list-feature)
+  * [Add feature](#add-feature)
+  * [Remove feature](#remove-feature)
+  * [View feature](#view-feature)
+  * [Edit feature](#edit-feature)
+  * [Mark/unmark feature](#markunmark-feature)
+  * [Copy feature](#copy-feature)
+  * [Sort feature](#sort-feature)
+  * [Filter feature](#filter-feature)
+  * [Find feature](#find-feature)
+  * [Saving and loading of data](#saving-and-loading-of-data)
+* [Product scope](#product-scope)
+  * [Target user profile](#target-user-profile)
+  * [Value proposition](#value-proposition)
+* [User stories](#user-stories)
+* [Non-functional requirements](#non-functional-requirements)
+* [Glossary](#glossary)
+* [Instructions for manual testing](#instructions-for-manual-testing)
+  * [Launch and shutdown](#launch-and-shutdown)
+  * [Adding an event](#adding-an-event)
+  * [Adding a participant](#adding-a-participant)
+  * [Adding an item](#adding-an-item)
+  * [Removing an event](#removing-an-event)
+  * [Removing a participant](#removing-a-participant)
+  * [Removing an item](#removing-an-item)
+  * [Editing an event](#editing-an-event)
+  * [Editing a participant](#editing-a-participant)
+  * [Editing an item](#editing-an-item)
+  * [Viewing an event](#viewing-an-event)
+  * [Marking an event as done](#marking-an-event-as-done)
+  * [Marking a participant as present](#marking-a-participant-as-present)
+  * [Marking an item as accounted for](#marking-an-item-as-accounted-for)
+  * [Copying the participant list](#copying-the-participant-list)
+  * [Sorting the event list](#sorting-the-event-list)
+  * [Filtering the event list](#filtering-the-event-list)
+  * [Finding a participant](#finding-a-participant)
+  * [Saving and loading of data](#saving-and-loading-of-data)
+
 ## Acknowledgements
 
 This application uses the following dependencies:
@@ -43,9 +92,9 @@ The above **Sequence Diagram** shows how the different components of the system 
 * `Main` refers to the `Main` class in `Main`.
 * `Ui` refers to the `Ui` class in `Ui`.
 * `Storage` refers to the `Storage` class in `Storage`.
-* `EventList` refers to the list of events in `Event` which the program's event data is stored (see the _Event component_ section for more details).
+* `EventList` refers to the list of events in `Event` which the program's event data is stored (see the [Event component](#event-component) section for more details).
 
-The **Sequence Diagrams** within the reference frames in the above diagram can be found in the _Command component_ and _Saving and loading of data_ sections.
+The **Sequence Diagrams** within the reference frames in the above diagram can be found in the [Command component](#command-component) and [Saving and loading of data](#saving-and-loading-of-data) sections.
 
 ### UI component
 
@@ -75,7 +124,7 @@ The `Storage` component does the following:
 * Load event data from several `.csv` files into `EventList` upon program startup.
 * Save events data from `EventList` into the aforementioned `.csv` files each time a command is executed.
 
-Additional details on the implementation of the above operations can be found in the _Saving and loading of data_ section.
+Additional details on the implementation of the above operations can be found in the [Saving and loading of data](#saving-and-loading-of-data) section.
 
 ### Parser component
 
@@ -96,9 +145,9 @@ The `Parser` instance is no longer referenced. The current state is as shown in 
 
 <img src = "images/ParserObjectDiagram1.png">
 
-The interactions between `Parser` and the other components in the above procedure is shown in the sequence diagram in the _Command component_ section.
+The interactions between `Parser` and the other components in the above procedure is shown in the sequence diagram in the [Command component](#command-component) section.
 
-Further details regarding command parsing can be found under _Command parsing_ in _Implementation_.
+Further details regarding command parsing can be found in the [Command parsing](#command-parsing) section.
 
 ### Command component
 
