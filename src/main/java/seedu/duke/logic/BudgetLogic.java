@@ -155,11 +155,12 @@ public class BudgetLogic {
     }
 
     /**
-     * Adjusts the budget balance upon recording an expense,
-     * if the expense date is in the current year and month.
+     * Adjusts the budget balance upon recording an expense given as a string,
+     * if the expense date is in the current month and year. It notifies the user
+     * if the budget is exceeded.
      *
      * @param amount the expense amount.
-     * @param date   the date of the expense.
+     * @param date   the date of the expense as a string.
      * @throws FinanceBuddyException if an error occurs during parsing the date.
      */
     public void changeBalanceFromExpenseString(double amount, String date) throws FinanceBuddyException {
@@ -177,7 +178,9 @@ public class BudgetLogic {
     }
 
     /**
-     * Adjusts the budget balance upon recording an expense, if the expense date is in the current month.
+     * Adjusts the budget balance upon recording an expense,
+     * if the expense date is in the current month. It notifies the user
+     * if the budget is exceeded.
      *
      * @param amount the expense amount.
      * @param date   the date of the expense.
@@ -197,7 +200,7 @@ public class BudgetLogic {
 
     /**
      * Recalculates the balance based on the budget amount and expenses in the financial list
-     * that occurred in the current month.
+     * that occurred in the current month. It notifies the user if the budget is exceeded.
      *
      * @param financialList the list of financial entries to consider.
      * @throws FinanceBuddyException if the financial list is null.
