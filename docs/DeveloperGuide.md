@@ -177,37 +177,54 @@ Managing financial entries through two main components:
 - **Sequence Diagram**: Illustrates the process of adding a new entry, from parsing user input to creating and adding the entry to `FinancialList`.
   - {input sequence Diagram}
 
+
+### FinancialList and FinancialEntry
+<ins>Overview</ins>
+
+Managing financial entries through two main components:
+
+- **FinancialList**: A centralized data structure that stores and manages entries. It provides CRUD (Create, Read, Update, Delete) operations to handle financial records, such as adding new entries and modifying or retrieving existing ones.
+- **FinancialEntry**: An abstract base class representing a generic financial record. Subclasses include `Income` and `Expense`, which inherit shared attributes like `amount`, `description`, and `date`. Each has specific characteristics and categories that distinguish income from expenses.
+
+<ins>Implementation</ins>
+- **Class Diagram**: Displays the relationship between `FinancialList`, `FinancialEntry`, `Income`, and `Expense`. It highlights `FinancialList` as the main container managing `FinancialEntry` objects.
+![FinancialClassDiagram.png](UML/FinancialClassDiagram.png))
+- **Sequence Diagram**: Illustrates the process of adding a new entry, from parsing user input to creating and adding the entry to `FinancialList`.
+![FinancialSeq](UML/FinancialEntrySequence.png)
+
+---
+
 #### FinancialList Component
 <ins>Overview</ins>
 
-The `FinancialList` component is the main data structure responsible for managing all financial entries, specifically `Income` and `Expense`.
-It provides methods to **add**, **edit**, **delete**, and **retrieve** entries, serving as the application’s primary entry manager.
+The `FinancialList` component is the primary data structure responsible for managing all financial entries, specifically `Income` and `Expense`. It provides methods to **add**, **edit**, **delete**, and **retrieve** entries, serving as the application’s central entry manager.
 
 <ins>Class Structure</ins>
 
 - **Attributes**:
   - `entries`: `ArrayList<FinancialEntry>` — Stores both `Income` and `Expense` instances.
+  - `totalExpenseByCategory`: `Map<Expense.Category, Double>` — Tracks expenses by category.
+  - `totalIncomeByCategory`: `Map<Income.Category, Double>` — Tracks income by category.
 
 <ins>Implementation Details</ins>
 
 *Class Diagram*: Show `FinancialList` managing `FinancialEntry` objects (`Income` and `Expense` subclasses).
 
-{input diagram here }
-
-<ins>Class Structure</ins>
-
-The `FinancialList` constructor initializes an empty list of entries to support CRUD operations. Key Arguments: None
+- **Constructor**: Initializes an empty list of entries to support CRUD operations.
+  - **Key Arguments**: None
 
 <ins>Methods</ins>
 
-- **addEntry(FinancialEntry entry)**: Adds a `FinancialEntry` object to `entries`.
-- **deleteEntry(int index)**: Removes an entry at a specified index.
-- **editEntry(int index, double amount, String description)**: Updates the `amount` and `description` of a specified entry.
-- **getEntry(int index)**: Retrieves an entry by index.
-- **getEntryCount()**: Returns the total count of entries.
-- **getTotalExpenseByCategory()**: Calculates the total amount per expense category.
-- **getHighestExpenseCategory()**: Retrieves the highest expense category and amount.
-
+- **addEntry(FinancialEntry entry)**: Adds a `FinancialEntry` object to `entries` in ascending date order.
+- **deleteEntry(int index)**: Removes an entry at the specified index.
+- **editEntry(int index, double amount, String description, LocalDate date, Enum<?> category)**: Updates the `amount`, `description`, `date`, and `category` of a specified entry.
+- **getEntry(int index)**: Retrieves a `FinancialEntry` at the specified index.
+- **getEntryCount()**: Returns the total count of entries in the list.
+- **getTotalExpenseByCategory()**: Returns a map of expense categories with their respective totals.
+- **getTotalIncomeByCategory()**: Returns a map of income categories with their respective totals.
+- **getHighestExpenseCategory()**: Retrieves the highest expense category and its total, with ties resolved alphabetically.
+- **getHighestIncomeCategory()**: Retrieves the highest income category and its total, with ties resolved alphabetically.
+- **clearCategoryTotals()**: Clears all category totals for both expenses and income.
 
 <ins>Usage Example</ins>
 
@@ -216,51 +233,59 @@ FinancialList financialList = new FinancialList();
 Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27), Income.Category.SALARY);
 Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28), Expense.Category.FOOD);
 
+// Adding entries
 financialList.addEntry(income);
 financialList.addEntry(expense);
 
 // Edit an entry
-financialList.editEntry(1, 55.00, "Groceries & Snacks");
+financialList.editEntry(1, 55.00, "Groceries & Snacks", LocalDate.of(2023, 10, 29), Expense.Category.FOOD);
 
 // Retrieve an entry
 FinancialEntry entry = financialList.getEntry(0);
 System.out.println("Description: " + entry.getDescription());
+System.out.println("Amount: $" + entry.getAmount());
+System.out.println("Date: " + entry.getDate());
+
+// Display total expenses by category
+System.out.println("Total Expense by Category: " + financialList.getTotalExpenseByCategory());
+
+// Get and print highest expense category
+Map.Entry<Expense.Category, Double> highestExpenseCategory = financialList.getHighestExpenseCategory();
+System.out.println("Highest Expense Category: " + highestExpenseCategory.getKey() + " with $" + highestExpenseCategory.getValue());
 ```
 
 <ins>Design Considerations</ins>
 
 - **Future Audit and History Management**: To improve traceability and accountability, `FinancialList` could maintain a history log of changes (e.g., edits, deletions, additions). This could support undo operations or provide users with an audit trail of modifications to their financial entries.
 - **Security and Access Control**: Adding access control features to `FinancialList` could protect sensitive data. Methods for role-based access (e.g., view-only, edit permissions) could be introduced, along with data encryption for secure storage and retrieval.
+
 ---
+
 #### FinancialEntry Component
 <ins>Overview</ins>
 
-`FinancialEntry` is an abstract base class that represents a generic financial record.
-It defines shared attributes such as `amount`, `description`, and `date`, which are common across both `Income` and `Expense`.
-`Income` and `Expense` inherit these properties and methods, each adding specific functionality related to its type.
+`FinancialEntry` is an abstract base class that represents a generic financial record. It defines shared attributes such as `amount`, `description`, and `date`, which are common across both `Income` and `Expense`. `Income` and `Expense` inherit these properties and methods, each adding specific functionality related to its type.
 
 <ins>Implementation</ins>
 
 The class diagram above shows `FinancialEntry` as the base class with `Income` and `Expense` as specific implementations.
-{input diagram here}
+- {Input Class Diagram here}
 
 <ins>Class Structure</ins>
+
 - **Attributes**:
   - `amount`: `double` — Represents the monetary value of the entry.
   - `date`: `LocalDate` — The date associated with the transaction.
   - `description`: `String` — A description identifying the entry.
   - `category`: An `Enum` - A value representing either Income.Category or Expense.Category, specifying the type of each entry.
 
-<ins>Class Structure</ins>
+- **Constructor**: Initializes `amount`, `description`, `date`, and subclasses set their specific category.
 
-The `FinancialEntry` constructor initializes `amount`, `description`, `date` and the subclasses setting their specific category. .
-
-- **Key Arguments**:
-  - `double amount`: Monetary value for the entry.
-  - `String description`: Description or label for the entry.
-  - `LocalDate date`: Date of the entry.
-  - `Enum<?> category`: Represents the specific category for either income or expense.
-
+  - **Key Arguments**:
+    - `double amount`: Monetary value for the entry.
+    - `String description`: Description or label for the entry.
+    - `LocalDate date`: Date of the entry.
+    - `Enum<?> category`: Represents the specific category for either income or expense.
 
 <ins>Methods</ins>
 
@@ -274,21 +299,24 @@ The `FinancialEntry` constructor initializes `amount`, `description`, `date` and
     - `Expense`: Returns formatted string as `[Expense] - description $amount (on date) [category]`.
   - **toStorageString()**:
     - `Income`: Formats as `"I | amount | description | date | category"` for storage.
-    - `Expense`: Formats as `"E | amount | description | date" | category` for storage.
+    - `Expense`: Formats as `"E | amount | description | date | category"` for storage.
 
 <ins>Usage Example</ins>
 
 The following code segment demonstrates the creation of `Income` and `Expense` entries:
+
 ```
-Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27), Income.Category.SALARY);
-Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28),  Expense.Category.FOOD);
+Income income = new Income(500.00, "Freelancåe Project", LocalDate.of(2023, 10, 27), Income.Category.SALARY);
+Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28), Expense.Category.FOOD);
 
 System.out.println(income.toString());
 System.out.println(expense.toString());
 ```
 
 <ins>Design Considerations</ins>
+
 - **Abstract Base Class**: The design decision to make `FinancialEntry` abstract enables extensibility, allowing for new types of financial records without modifying `FinancialList` or existing subclasses.
+
 
 ---
 

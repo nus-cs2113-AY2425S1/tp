@@ -55,15 +55,38 @@ Lists out the full list of usable commands.
 
 ### Add Transaction
 
-Adds an income or expense entry to your financial list.
+The `Add Transaction` command allows you to add either an income or expense entry to your financial list. You can specify details like a description, amount, date, and category for better tracking.
 
 **Format**:
-- For Expense: `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`
-- For Income: `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`
+- **For Expense**: `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`
+- **For Income**: `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`
 
-**Examples**:
-- `expense Lunch /a 10.50 /d 12/10/24 /c FOOD`
-- `income Freelance Work /a 500 /d 15/10/24 /c SALARY`
+**Parameter Details**:
+- `DESCRIPTION`: A brief label describing the transaction (e.g., "Lunch" or "Freelance Work").
+- `AMOUNT`: The transaction amount. This should be a positive value.
+- `DATE` (optional): Date of the transaction in `dd/MM/yy` format. If omitted, today’s date is used.
+- `CATEGORY` (optional): Specifies a category for the transaction, aiding in detailed financial tracking. If omitted, it defaults to `UNCATEGORIZED`.
+
+**Category Options**:
+- **Expense**: Categories include `FOOD`, `TRANSPORT`, `ENTERTAINMENT`, `UTILITIES`, `OTHERS`, and `UNCATEGORIZED`.
+- **Income**: Categories include `SALARY`, `INVESTMENT`, `GIFT`, `OTHERS`, and `UNCATEGORIZED`.
+
+**Examples Usage**:
+``` java
+// Adds an expense of $10.50 for lunch on October 12, 2024, categorized as FOOD.
+expense Lunch /a 10.50 /d 12/10/24 /c FOOD
+
+// Adds an income of $500 from freelance work on October 15, 2024, categorized as SALARY.
+income Freelance Work /a 500 /d 15/10/24 /c SALARY
+Examples Without Optional Parameters (Date and Category omitted):
+
+// Adds an expense of $8.00 for coffee, using today’s date and the default category UNCATEGORIZED.
+expense Coffee /a 8.00
+
+// Adds an income of $200 from a gift, using today’s date and the default category UNCATEGORIZED.
+income Gift Money /a 200
+```
+
 
 ---
 
@@ -98,12 +121,22 @@ edit 5 /c FOOD
 ---
 
 ### Delete Transaction
-Deletes an entry from your financial list.
+
+The `Delete Transaction` command removes a specific entry from your financial list. This command uses the entry’s index to identify and delete it from the list.
 
 **Format**: `delete INDEX`
 
-**Example**:
-- `delete 3` - Deletes the entry at index 3.
+**Parameter Details**:
+- `INDEX`: The position of the transaction in the financial list, as displayed by the `list` command. Using an invalid index will produce an error.
+
+#### Example Usage
+``` java
+// Deletes the transaction at index 2 in the financial list.
+delete 2
+
+// Deletes the transaction at index 5 in the financial list.
+delete 5
+```
 
 ---
 
