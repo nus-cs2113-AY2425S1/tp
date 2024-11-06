@@ -1,4 +1,4 @@
-//@@author Bev-Low
+//@@author Bev-low
 
 package storage;
 import com.google.gson.JsonElement;

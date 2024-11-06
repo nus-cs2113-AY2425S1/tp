@@ -293,11 +293,11 @@ Chicken Breast | 250kcal has been added to 30-10-2024.
 
 Displays all meals recorded for a specific date.
 
-Command: `meal view /t DATE`
+Command: `meal view DATE`
 
 Parameters:
 
-- `/t DATE`: Date in the format `dd-MM-yyyy`.
+- `DATE`: Date in the format `dd-MM-yyyy`.
 
 **Example**: `meal view 30-10-2024`
 
@@ -352,11 +352,11 @@ Parameters:
 
 Displays all water logs recorded for a specific date.
 
-Command: `water view /t DATE`
+Command: `water view DATE`
 
 Parameters:
 
-- `/t DATE`: Date in the format `dd-MM-yyyy`.
+- `DATE`: Date in the format `dd-MM-yyyy`.
 
 **Example**: `water view 30-10-2024`
 
