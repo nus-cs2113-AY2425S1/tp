@@ -42,4 +42,9 @@ public class SitAndReachStation extends ExerciseStation {
         return "Distance: " + length + "cm | " + points + " points";
     }
 
+    @Override
+    public String getSaveStringInfo() {
+        return Integer.toString(length);
+    }
+
 }

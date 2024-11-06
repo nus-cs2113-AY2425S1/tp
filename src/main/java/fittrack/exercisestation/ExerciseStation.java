@@ -20,5 +20,6 @@ public abstract class ExerciseStation {
     @Override
     public abstract String toString();
 
+    public abstract String getSaveStringInfo();
 
 }

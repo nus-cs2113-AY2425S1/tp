@@ -1,6 +1,7 @@
 package fittrack.trainingsession;
 
 import fittrack.enums.Exercise;
+import fittrack.exception.InvalidSaveDataException;
 import fittrack.exercisestation.ExerciseStation;
 import fittrack.exercisestation.PullUpStation;
 import fittrack.exercisestation.ShuttleRunStation;
@@ -8,6 +9,7 @@ import fittrack.exercisestation.SitAndReachStation;
 import fittrack.exercisestation.SitUpStation;
 import fittrack.exercisestation.StandingBroadJumpStation;
 import fittrack.exercisestation.WalkAndRunStation;
+import fittrack.storage.Saveable;
 import fittrack.user.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,9 +18,10 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class TrainingSession{
+public class TrainingSession extends Saveable {
 
-    static final int NUM_OF_EXERCISES = 6;
+    static final String[] EXERCISE_LIST = {"SU","SBJ", "SR", "SAR", "PU", "WAR"};
+    static final int NUM_OF_EXERCISES = EXERCISE_LIST.length;
     static final int MAX_POINT = 5;
     static final int GOLD_GRADE = 3;
     static final int GOLD_POINT = 21;
@@ -33,6 +36,7 @@ public class TrainingSession{
     static final String NO_AWARD = "No Award";
 
     private static int longestSessionDescription = 0;
+
     private LocalDateTime sessionDatetime;
     private String sessionDescription;
     private User user;
@@ -71,23 +75,30 @@ public class TrainingSession{
             reps = reps.replace(".", "");
             return Integer.parseInt(reps);
         case WALK_AND_RUN:
-            String[] minutesSeconds = reps.split(":");
-            int minutesInSeconds = Integer.parseInt(minutesSeconds[0]) * 60;
-            int seconds = Integer.parseInt(minutesSeconds[1]);
-            return minutesInSeconds + seconds;
+            // Convert input to seconds if provided in mm:ss format
+            if (reps.contains(":")) {
+                String[] minutesSeconds = reps.split(":");
+                int minutesInSeconds = Integer.parseInt(minutesSeconds[0]) * 60;
+                int seconds = Integer.parseInt(minutesSeconds[1]);
+                return minutesInSeconds + seconds;
+            } else {
+                return Integer.parseInt(reps); // Data can be interpreted as given in seconds
+            }
+
         default:
             return Integer.parseInt(reps);
         }
     }
 
     //Edits session data
-    public void editExercise(Exercise exerciseType, String reps) {
+    public void editExercise(Exercise exerciseType, String reps, Boolean printConfirmation) {
         int actualReps = processReps(exerciseType, reps);
         ExerciseStation currentExercise = this.exerciseStations.get(exerciseType);
         currentExercise.setPerformance(actualReps);
         currentExercise.getPoints(user);
-        System.out.print("Exercise edited! Here's your new input: " +
-                currentExercise + System.lineSeparator());
+        if (printConfirmation) {
+            System.out.print("Exercise edited! Here's your new input: " + currentExercise + System.lineSeparator());
+        }
     }
 
     public int getExercisePoints(Exercise exercise) {
@@ -110,6 +121,7 @@ public class TrainingSession{
         return totalPoints;
     }
 
+
     //Returns string for award attained
     private String award(int minPoint, int totalPoints) {
         if(minPoint >= GOLD_GRADE && totalPoints >= GOLD_POINT) {
@@ -129,6 +141,7 @@ public class TrainingSession{
 
     public String getSessionDatetime(){
         return this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+
     }
 
     public void printSessionDescription() {
@@ -159,4 +172,86 @@ public class TrainingSession{
         System.out.print("Total points: " + totalPoints + System.lineSeparator() +
                 "Overall Award: " + award(minPoint, totalPoints) + System.lineSeparator());
     }
+
+    /**
+     * Serializes this `TrainingSession` object into a formatted string suitable for saving to storage.
+     * The format includes the session description, session date-time, and data for each exercise type.
+     * <p>
+     * Format: {@code "TrainingSession" | sessionDescription | sessionDateTime | SU data | SBJ data | SR data |
+     * SAR data | PU data | WAR data}
+     *
+     * <p>
+     * The deadline format is expected to be "dd/MM/yyyy HH:mm" or "dd/MM/yyyy".
+     *
+     * @return A formatted string representing this `TrainingSession`, including the session details and
+     *         exercise performance data for each type.
+     */
+    @Override
+    public String toSaveString(){
+
+        String sessionInfo = this.sessionDescription;
+        String sessionDateTime = this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+
+        // Collect information for each exercise type
+        String infoPU = exerciseStations.get(Exercise.PULL_UP).getSaveStringInfo();
+        String infoSBJ = exerciseStations.get(Exercise.STANDING_BROAD_JUMP).getSaveStringInfo();
+        String infoSR = exerciseStations.get(Exercise.SHUTTLE_RUN).getSaveStringInfo();
+        String infoSAR = exerciseStations.get(Exercise.SIT_AND_REACH).getSaveStringInfo();
+        String infoSU = exerciseStations.get(Exercise.SIT_UP).getSaveStringInfo();
+        String infoWAR = exerciseStations.get(Exercise.WALK_AND_RUN).getSaveStringInfo();
+
+        return "TrainingSession" + "|" + sessionInfo + "|" + sessionDateTime + "|" + infoPU +  "|" + infoSBJ +  "|"
+                + infoSR + "|" + infoSAR + "|" + infoSU + "|" + infoWAR;
+    }
+
+    /**
+     * Deserializes a string representation of a TrainingSession and creates a new TrainingSession object.
+     * The input string is expected to contain session description, date-time, and exercise data.
+     *
+     * @param saveString The string to deserialize, which should follow the format produced by toSaveString().
+     *                   The format must include session details and exercise data separated by "|" symbols.
+     * @return A TrainingSession object constructed from the provided string.
+     * @throws InvalidSaveDataException If the input string is incomplete, improperly formatted, or contains
+     *                                  invalid date-time data.
+     */
+    public static TrainingSession fromSaveString(String saveString) throws InvalidSaveDataException {
+        String[] stringData = saveString.split("\\|");
+
+        // Check for all exercise data is present (including Item-Type/description/DateTime information)
+        if (stringData.length < (NUM_OF_EXERCISES+3)) {
+            throw new InvalidSaveDataException("Data missing from TrainingSession-apparent string");
+        }
+
+        // Parse session description and date-time from their respective indices
+        String sessionDescription = stringData[1];
+        LocalDateTime sessionDatetime;
+
+        try {
+            sessionDatetime = LocalDateTime.parse(stringData[2], DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        } catch (Exception e) {
+            throw new InvalidSaveDataException("Invalid date-time format in TrainingSession string.");
+        }
+
+        // TODO: Implement proper user data loading.
+        User user = new User("male", "19");
+
+        // Create new TrainingSession item to be added to load list at startup
+        TrainingSession loadedSession = new TrainingSession(sessionDatetime,sessionDescription, user);
+
+        // Load exercise data
+        for (int i = 0; i < NUM_OF_EXERCISES; i++) {
+            String repsData = stringData[3 + i];  // Start reading exercise data from index 3 onward
+            Exercise exerciseType = Exercise.fromUserInput(EXERCISE_LIST[i]);
+
+            // If exercise data-value is same as default value, skip updating exercise.
+            if (repsData.equals("0") || repsData.equals("-1")) {
+                continue;
+            }
+
+            loadedSession.editExercise(exerciseType, repsData, false);
+        }
+
+        return loadedSession;
+    }
+
 }

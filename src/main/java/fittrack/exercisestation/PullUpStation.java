@@ -41,4 +41,9 @@ public class PullUpStation extends ExerciseStation {
     public String toString() {
         return "Reps: " + reps + " | " + points + " points";
     }
+
+    @Override
+    public String getSaveStringInfo() {
+        return String.valueOf(reps);
+    }
 }

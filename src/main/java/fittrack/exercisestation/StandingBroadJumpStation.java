@@ -41,4 +41,9 @@ public class StandingBroadJumpStation extends ExerciseStation {
     public String toString() {
         return "Distance: " + distance  + "cm | " + points + " points";
     }
+
+    @Override
+    public String getSaveStringInfo() {
+        return Integer.toString(distance);
+    }
 }

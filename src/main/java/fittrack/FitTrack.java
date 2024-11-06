@@ -1,11 +1,12 @@
 package fittrack;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import fittrack.parser.Parser;
 import fittrack.reminder.Reminder;
+import fittrack.storage.Saveable;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 
@@ -26,23 +27,32 @@ public class FitTrack {
     /**
      * Main entry-point for the FitTrack CLI application.
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         setupLogger();
 
-        // Initialize scanner and session / reminder list
+        // Initialize scanner and unified saveable-item list
         Scanner scan = new Scanner(System.in);
+        ArrayList<Saveable> saveableList = new ArrayList<>();
+
+
+        // Initialize and load the save file
+        initialiseSaveFile();
+        loadSaveFile(saveableList);
+
+        // Initialize separate Goal/Reminder/Training Session lists for easier access if needed
         ArrayList<TrainingSession> sessionList = new ArrayList<>();
         ArrayList<Reminder> reminderList = new ArrayList<>();
         ArrayList<Goal> goalList = new ArrayList<>();
 
-
-        // Initialize and load the save file
-        try {
-            initialiseSaveFile();
-            loadSaveFile(sessionList);
-        }
-        catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+        // Separate saveable items into specific lists based on their type
+        for (Saveable item : saveableList) {
+            if (item instanceof TrainingSession) {
+                sessionList.add((TrainingSession) item);
+            } else if (item instanceof Reminder) {
+                reminderList.add((Reminder) item);
+            } else if (item instanceof Goal) {
+                goalList.add((Goal) item);
+            }
         }
 
         printGreeting();

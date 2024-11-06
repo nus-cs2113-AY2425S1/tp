@@ -1,6 +1,8 @@
 package fittrack.storage;
 
+import fittrack.exception.InvalidSaveDataException;
 import fittrack.fitnessgoal.Goal;
+import fittrack.reminder.Reminder;
 import fittrack.trainingsession.TrainingSession;
 
 import java.io.File;
@@ -59,59 +61,100 @@ public class Storage {
     }
 
     /**
-     * Loads the sessions from the save file into the given session list.
+     * Loads Saveable items from a save file into the provided list.
+     * Each line in the save file represents a serialized Saveable item and is parsed to
+     * create the corresponding object. If an error occurs, loading terminates, and a
+     * message is logged.
      *
-     * @param sessionList The list to populate with sessions from the save file.
+     * @param loadList An ArrayList to store Saveable items loaded from the save file.
      * @throws FileNotFoundException If the save file is not found.
+     * @throws InvalidSaveDataException If an invalid save format or unrecognized item type is encountered.
      */
-    public static void loadSaveFile(ArrayList<TrainingSession> sessionList) throws FileNotFoundException {
-        // Assert that the session list is not null before loading
-        assert sessionList != null : "Session list must not be null";
-
-        Scanner s = new Scanner(SAVEFILE); // Create a Scanner to read the save file
-        while (s.hasNext()) {
-            String line = s.nextLine(); // Read each line from the file
-
-            // IMPLEMENT READ SAVE FILE HERE
-
+    public static void loadSaveFile(ArrayList<Saveable> loadList) {
+        try (Scanner scanner = new Scanner(SAVEFILE)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Saveable item = createSaveableFromString(line);
+                loadList.add(item);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Scanner object failed to initialise.");
+            LOGGER.info("Scanner object failed to initialise.");
+            return;
+        } catch (InvalidSaveDataException e) {
+            System.out.println("Invalid save data found. Data loading terminated.");
+            LOGGER.info("Invalid save data found. Data loading terminated.");
+            return;
         }
-
-        // Assert that the session list is populated after loading (if applicable)
-        assert !sessionList.isEmpty() : "Session list should be populated after loading";
 
         System.out.println("Save file successfully loaded.");
         LOGGER.info("Save file successfully loaded.");
     }
 
     /**
-     * Updates the save file with the current list of sessions.
+     * Factory method to create Saveable objects from their string representations.
+     * Based on the prefix of the string, this method determines the appropriate
+     * Saveable subclass (TrainingSession, Goal, or Reminder) and delegates to its
+     * fromSaveString method. If the descriptor is unrecognized, an exception is thrown.
      *
-     * @param sessionList The list of sessions to be saved.
-     * @throws IOException If an I/O error occurs while writing to the file.
+     * @param saveString A string representation of a Saveable item, prefixed by the item type.
+     * @return A Saveable object corresponding to the serialized data.
+     * @throws InvalidSaveDataException If the prefix does not match any recognized Saveable subclass.
      */
-    public static void updateSaveFile(ArrayList<TrainingSession> sessionList) throws IOException {
-        // Assert that the session list is not null before saving
-        assert sessionList != null : "Session list must not be null";
+    private static Saveable createSaveableFromString(String saveString) throws InvalidSaveDataException {
+        if (saveString.startsWith("TrainingSession")) {
+            return TrainingSession.fromSaveString(saveString);
+        } else if (saveString.startsWith("Goal")) {
+            return Goal.fromSaveString(saveString);
+        } else if (saveString.startsWith("Reminder")) {
+            return Reminder.fromSaveString(saveString);
+        }
+        throw new InvalidSaveDataException("Unrecognised Saveable descriptor detected.");
+    }
+
+    /**
+     * Updates the save file with the latest information from the provided lists of
+     * `TrainingSession`, `Goal`, and `Reminder` objects. Each list item is serialized
+     * into its string representation and written to the save file, with each entry on
+     * a new line.
+     *
+     * @param sessionList The list of `TrainingSession` objects to be saved.
+     * @param goalList The list of `Goal` objects to be saved.
+     * @param reminderList The list of `Reminder` objects to be saved.
+     * @throws IOException If any of the provided lists are null or if an I/O error occurs during writing.
+     */
+    public static void updateSaveFile(ArrayList<TrainingSession> sessionList, ArrayList<Goal> goalList,
+                                      ArrayList<Reminder> reminderList ) throws IOException {
+
+        // Determine  provided lists are not null before saving
+        if (sessionList == null || goalList == null || reminderList == null) {
+            throw new IOException("Save file could not be updated. Invalid null list passed to function");
+        }
 
         try (FileWriter fw = new FileWriter(SAVEFILE)) {
             for (TrainingSession session : sessionList) {
                 // Assert that session objects are valid
                 assert session != null : "Training session must not be null";
-                fw.write(session.toString()); // Write the session to the file
+                fw.write(session.toSaveString()); // Write the session to the file
                 fw.write(System.lineSeparator()); // Add a new line after each session
                 LOGGER.info("Save file successfully updated.");
             }
-        }
-
-        // Assert that the file has been written to successfully
-        assert SAVEFILE.length() > 0 : "Save file should not be empty after update";
-    }
-    public static void updateGoalsFile(ArrayList<Goal> goals) throws IOException {
-        try (FileWriter fw = new FileWriter(SAVEFILE, true)) {
-            fw.write("Goals:\n");
-            for (Goal goal : goals) {
-                fw.write(goal.toString() + "\n");
+            for (Goal goal : goalList) {
+                // Assert that session objects are valid
+                assert goal != null : "Training session must not be null";
+                fw.write(goal.toSaveString()); // Write the goal to the file
+                fw.write(System.lineSeparator()); // Add a new line after each goal
+                LOGGER.info("Save file successfully updated.");
             }
+            for (Reminder reminder : reminderList) {
+                // Assert that session objects are valid
+                assert reminder != null : "Training session must not be null";
+                fw.write(reminder.toSaveString()); // Write the reminder to the file
+                fw.write(System.lineSeparator()); // Add a new line after each reminder
+                LOGGER.info("Save file successfully updated with.");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Save file could not be updated (File could not be found).");
         }
     }
 }

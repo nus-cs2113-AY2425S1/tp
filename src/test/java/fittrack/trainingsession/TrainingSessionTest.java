@@ -27,7 +27,8 @@ public class TrainingSessionTest {
 
     @Test
     public void editExercisePullUpStation() {
-        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(Exercise.PULL_UP, "1");
+        new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(Exercise.PULL_UP, "1",
+                true);
         assertEquals("Exercise edited! Here's your new input: " +
                 "Reps: 1 | 0 points" + System.lineSeparator(), outContent.toString());
     }
@@ -35,7 +36,7 @@ public class TrainingSessionTest {
     @Test
     public void editExerciseShuttleRunStation() {
         new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(Exercise.SHUTTLE_RUN,
-                "11.0");
+                "11.0", true);
         assertEquals("Exercise edited! Here's your new input: " +
                 "Time: 11.0s | 3 points" + System.lineSeparator(), outContent.toString());
     }
@@ -43,7 +44,7 @@ public class TrainingSessionTest {
     @Test
     public void editWalkAndRunStation1() {
         new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(Exercise.WALK_AND_RUN,
-                "11:30");
+                "11:30",true);
         assertEquals("Exercise edited! Here's your new input: " +
                 "Time: 11:30 | 5 points" + System.lineSeparator(), outContent.toString());
     }
@@ -51,7 +52,7 @@ public class TrainingSessionTest {
     @Test
     public void editWalkAndRunStation2() {
         new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(Exercise.WALK_AND_RUN,
-                "08:30");
+                "08:30",true);
         assertEquals("Exercise edited! Here's your new input: " +
                 "Time: 08:30 | 5 points" + System.lineSeparator(), outContent.toString());
     }
@@ -59,7 +60,7 @@ public class TrainingSessionTest {
     @Test
     public void editWalkAndRunStation3() {
         new TrainingSession(testDatetimeString, testDescription, testUser).editExercise(Exercise.WALK_AND_RUN,
-                "11:03");
+                "11:03", true);
         assertEquals("Exercise edited! Here's your new input: " +
                 "Time: 11:03 | 5 points" + System.lineSeparator(), outContent.toString());
     }

@@ -41,4 +41,9 @@ public class SitUpStation extends ExerciseStation {
     public String toString() {
         return "Reps: " + reps + " | " + points + " points";
     }
+
+    @Override
+    public String getSaveStringInfo() {
+        return Integer.toString(reps);
+    }
 }

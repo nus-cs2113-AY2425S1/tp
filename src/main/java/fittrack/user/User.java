@@ -56,6 +56,11 @@ public class User {
         return goals;
     }
 
+    @Override
+    public String toString () {
+        return gender + " " + age;
+    }
+    
     public WaterIntake getWaterIntake() {
         return waterIntake;
     }

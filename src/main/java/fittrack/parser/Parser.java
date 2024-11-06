@@ -4,6 +4,7 @@ import fittrack.trainingsession.TrainingSession;
 import fittrack.reminder.Reminder;
 import fittrack.user.User;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +30,7 @@ import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
 import static fittrack.messages.Messages.LIST_UPCOMING_REMINDER_COMMAND;
 import static fittrack.messages.Messages.SET_USER_COMMAND;
 import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
+import static fittrack.storage.Storage.updateSaveFile;
 import static fittrack.ui.Ui.beginSegment;
 import static fittrack.ui.Ui.printAddedReminder;
 import static fittrack.ui.Ui.printAddedSession;
@@ -84,7 +86,7 @@ public class Parser {
     }
 
     public static void parse(User user, String input, ArrayList<TrainingSession> sessionList,
-                             ArrayList<Reminder> reminderList, ArrayList<Goal> goalList) {
+                             ArrayList<Reminder> reminderList, ArrayList<Goal> goalList) throws IOException {
         assert input != null : "Input must not be null";
         assert user != null : "User object must not be null";
         assert sessionList != null : "Session list must not be null";
@@ -105,9 +107,6 @@ public class Parser {
         case HELP_COMMAND:
             printHelp();
             break;
-        case LIST_SESSIONS_COMMAND:
-            printSessionList(sessionList);
-            break;
         case SET_USER_COMMAND:
             try {
                 String[] userInfo = parseUserInfo(description);
@@ -119,31 +118,38 @@ public class Parser {
             break;
         case ADD_SESSION_COMMAND:
             try {
-                sessionList.add(validSession(description,user));
+                sessionList.add(validSession(description, user));
                 printAddedSession(sessionList);
+                updateSaveFile(sessionList, goalList, reminderList);  
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             break;
         case EDIT_EXERCISE_COMMAND:
             try {
-                String[] editDetails = validEditDetails(description, sessionList.size());
-                int sessionIndex = Integer.parseInt(editDetails[0]) - 1;
-                String exerciseAcronym = editDetails[1];
-                String exerciseData = editDetails[2];
-                sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);
+                validEditDetails(description,sessionList.size());
+
+                String[] userinput = description.split(" ");
+                int sessionIndex = Integer.parseInt(userinput[1]);
+                String exerciseAcronym = userinput[2];
+                String exerciseData = userinput[3];
+
+                sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData,
+                        true);
                 printSessionView(sessionList, sessionIndex);
-            }
-            catch (Exception e) {
+                updateSaveFile(sessionList, goalList, reminderList);
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+            break;
+        case LIST_SESSIONS_COMMAND:
+            printSessionList(sessionList); // Print the list of sessions
             break;
         case VIEW_SESSION_COMMAND:
             try {
                 int indexToView = validSessionIndex(Integer.parseInt(description) - 1, sessionList.size());
                 printSessionView(sessionList, indexToView); // Print the session view
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             break;
@@ -153,8 +159,8 @@ public class Parser {
                 TrainingSession sessionToDelete = sessionList.get(indexToDelete);
                 sessionList.remove(indexToDelete);
                 printDeletedSession(sessionList, sessionToDelete);
-            }
-            catch (Exception e) {
+                updateSaveFile(sessionList, goalList, reminderList);
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             break;
@@ -169,6 +175,7 @@ public class Parser {
             LocalDateTime deadline = parseReminderDeadline(inputDeadline);
             reminderList.add(new Reminder(description, deadline, user));
             printAddedReminder(reminderList);
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
         case DELETE_REMINDER_COMMAND:
             int reminderIndexToDelete = Integer.parseInt(description) - 1;
@@ -177,6 +184,7 @@ public class Parser {
             Reminder reminderToDelete = reminderList.get(reminderIndexToDelete);
             reminderList.remove(reminderIndexToDelete);
             printDeletedReminder(reminderList, reminderToDelete);
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
         case LIST_REMINDER_COMMAND:
             printReminderList(reminderList);
@@ -207,6 +215,7 @@ public class Parser {
             } else {
                 System.out.println("Please specify a goal to add.");
             }
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
 
         case "delete-goal":
@@ -221,6 +230,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 System.out.println("Please specify a valid index to delete.");
             }
+            updateSaveFile(sessionList, goalList, reminderList);
             break;
 
         case "list-goal":
@@ -370,7 +380,7 @@ public class Parser {
      *
      * @param inputDeadline A string input by the user. Intended format is DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.
      * @return A {@code LocalDateTime} object indicating reminder deadline
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException Thrown if an incorrectly formatted deadline is provided.
      */
     static LocalDateTime parseReminderDeadline(String inputDeadline) throws IllegalArgumentException {
         try {
