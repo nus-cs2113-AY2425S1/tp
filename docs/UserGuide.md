@@ -143,7 +143,7 @@ Parameters:
 - **/ad DAY_NAME**: DAY_NAME is a string that names the day. 
   **Alias**: `/addDay` – Either `/ad` or `/addDay` can be used to add a day.
 
-Example: `prog edit /p 1 /ad "Cardio Day"`
+Example: `prog edit /p 1 /ad Cardio Day`
 
 Creates a new empty Day named "Cardio Day" in Programme 1.
 
@@ -154,7 +154,7 @@ Created new day: Cardio Day
 _Note_: Advanced users can directly create days with exercises using the syntax found in `Create Programme`
 
 ```plaintext
-prog edit /p 1 /ad "Pull Day" /e /n "Push-Up /w 30 /r 15 /s 3 /c 100 /e ...
+prog edit /p 1 /ad Pull Day /e /n "Push-Up /w 30 /r 15 /s 3 /c 100 /e ...
 ```
 
 ---
