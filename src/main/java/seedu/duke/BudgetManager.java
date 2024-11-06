@@ -87,7 +87,7 @@ public class BudgetManager {
     public void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
         List<Category> categories = trackerData.getCategories();
         Map<Category, Budget> budgets = trackerData.getBudgets();
-        String formattedCategoryName = formatInput(categoryName.trim());
+        String formattedCategoryName = Format.formatInput(categoryName.trim());
 
         Category existingCategory = null;
         for (Category category : categories) {
@@ -197,12 +197,5 @@ public class BudgetManager {
         BigDecimal roundedValue = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP);
         DecimalFormat decimalFormat = new DecimalFormat("$#.00");
         return decimalFormat.format(roundedValue);
-    }
-
-    private String formatInput(String input) {
-        if (input == null || input.isEmpty()) {
-            return input;
-        }
-        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 }

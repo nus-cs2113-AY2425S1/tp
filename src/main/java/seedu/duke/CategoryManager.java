@@ -13,7 +13,7 @@ public class CategoryManager {
             return;
         }
 
-        String formattedCategoryName = formatInput(trimmedCategoryName.trim());
+        String formattedCategoryName = Format.formatInput(trimmedCategoryName.trim());
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
                 System.out.println("Category '" + formattedCategoryName + "' already exists!");
@@ -24,13 +24,6 @@ public class CategoryManager {
         categories.add(newCategory);
         trackerData.setCategories(categories);
         System.out.println("Category '" + newCategory + "' added successfully.");
-    }
-
-    public String formatInput(String input) {
-        if (input == null || input.isEmpty()) {
-            return input;
-        }
-        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 }
 
