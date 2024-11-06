@@ -37,7 +37,7 @@ class EditEntryCommandTest {
      * that the exception message contains the expected message "Financial list cannot be null".
      */
     @Test
-    void testEditEntryCommand_nullFinancialList() {
+    void testEditEntryCommand_nullFinancialList() throws FinanceBuddyException {
         EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/23",
                 Expense.Category.FOOD);
 
@@ -263,4 +263,25 @@ class EditEntryCommandTest {
         assertEquals(Expense.Category.UNCATEGORIZED, ((Expense) entry).getCategory());
     }
 
+    /**
+     * Test the execute method of EditEntryCommand with an invalidly formatted date.
+     * Verifies that an exception is thrown and entry is unchanged.
+     */
+    @Test
+    void execute_setDateInvalidly_expectErrorMessage() throws FinanceBuddyException {
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            EditEntryCommand editEntryCommand = new EditEntryCommand(1, 5, "Groceries",
+                    "01.10.23", Expense.Category.FOOD);
+            editEntryCommand.execute(financialList);
+        });
+
+        // Verify error message
+        assertEquals("Invalid date format. Please use 'dd/MM/yy'.", exception.getMessage());
+        // Verify entry is unchanged
+        FinancialEntry entry = financialList.getEntry(0);
+        assertEquals("Initial Entry", entry.getDescription());
+        assertEquals(100.0, entry.getAmount());
+        assertEquals(LocalDate.now(), entry.getDate());
+        assertEquals(Expense.Category.UNCATEGORIZED, ((Expense) entry).getCategory());
+    }
 }
