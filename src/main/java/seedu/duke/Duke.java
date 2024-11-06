@@ -1,5 +1,11 @@
 package seedu.duke;
 
+import seedu.duke.command.BudgetManager;
+import seedu.duke.command.CategoryManager;
+import seedu.duke.command.ExpenseManager;
+import seedu.duke.command.TrackerData;
+import seedu.duke.parser.Parser;
+
 import java.io.IOException;
 import java.util.Scanner;
 

@@ -2,6 +2,13 @@
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
+import seedu.duke.command.CategoryManager;
+import seedu.duke.command.ExpenseManager;
+import seedu.duke.command.TrackerData;
+import seedu.duke.command.Budget;
+import seedu.duke.command.Category;
+import seedu.duke.command.Expense;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;

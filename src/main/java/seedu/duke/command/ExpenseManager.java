@@ -1,5 +1,8 @@
 //@@author glenda-1506
-package seedu.duke;
+package seedu.duke.command;
+
+import seedu.duke.Format;
+import seedu.duke.parser.InputParser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,57 +14,10 @@ public class ExpenseManager {
     //@@author kq2003
     public void addExpenseRequest(String input, ExpenseManager expenseManager, TrackerData trackerData) {
         try {
-            String[] parts = input.split(" ");
-            String name = null;
-            double amount = 0;
-            String category = null;
-
-            StringBuilder current = new StringBuilder();
-            String currentPrefix = "";
-
-            for (String part : parts) {
-                if (part.startsWith("n/")) {
-                    if (currentPrefix.equals("n/")) {
-                        name = current.toString().trim();
-                    } else if (currentPrefix.equals("c/")) {
-                        category = current.toString().trim();
-                    }
-                    current.setLength(0);
-                    current.append(part.substring(2)).append(" ");
-                    currentPrefix = "n/";
-                } else if (part.startsWith("a/")) {
-                    if (currentPrefix.equals("n/")) {
-                        name = current.toString().trim();
-                    } else if (currentPrefix.equals("c/")) {
-                        category = current.toString().trim();
-                    }
-                    current.setLength(0);
-
-                    try {
-                        amount = Double.parseDouble(part.substring(2).trim());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid amount format. Please enter a valid number after 'a/'.");
-                        return;
-                    }
-
-                    currentPrefix = "a/";
-                } else if (part.startsWith("c/")) {
-                    if (currentPrefix.equals("n/")) {
-                        name = current.toString().trim();
-                    }
-                    current.setLength(0);
-                    current.append(part.substring(2)).append(" ");
-                    currentPrefix = "c/";
-                } else {
-                    current.append(part).append(" ");
-                }
-            }
-
-            if (currentPrefix.equals("n/")) {
-                name = current.toString().trim();
-            } else if (currentPrefix.equals("c/")) {
-                category = current.toString().trim();
-            }
+            InputParser parser = new InputParser();
+            String name = parser.parseName(input);
+            double amount = parser.parseAmount(input);
+            String category = parser.parseCategory(input);
 
             if (name.isEmpty() || amount == 0) {
                 System.out.println("Invalid input! Please provide name, amount, and category.");
@@ -206,37 +162,9 @@ public class ExpenseManager {
     //@@author glenda-1506
     public void tagExpense(TrackerData trackerData, String input) {
         try {
-            String[] parts = input.split(" ");
-            int expenseIndex = -1;
-            String category = null;
-
-            StringBuilder categoryBuilder = new StringBuilder();
-            boolean isExpenseIndexSet = false;
-            boolean isCategorySet = false;
-
-            for (String part : parts) {
-                if (part.startsWith("e/")) {
-                    if (isExpenseIndexSet) {
-                        System.out.println("Error: Only one 'e/' (expense index) is allowed.");
-                        return;
-                    }
-                    expenseIndex = Integer.parseInt(part.substring(2).trim()) - 1; // Convert to 0-based index
-                    isExpenseIndexSet = true;
-                } else if (part.startsWith("c/")) {
-                    if (isCategorySet) {
-                        System.out.println("Error: Only one 'c/' (category) is allowed.");
-                        return;
-                    }
-                    categoryBuilder.append(part.substring(2).trim()).append(" ");
-                    isCategorySet = true;
-                } else {
-                    if (isCategorySet) {
-                        categoryBuilder.append(part).append(" ");
-                    }
-                }
-            }
-
-            category = categoryBuilder.toString().trim();
+            InputParser parser = new InputParser();
+            int expenseIndex = parser.parseIndex(input);
+            String category = parser.parseCategory(input);
 
             if (expenseIndex < 0 || category == null) {
                 System.out.println("Invalid input! Please provide an expense index and category.");

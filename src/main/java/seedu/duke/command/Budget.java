@@ -1,4 +1,6 @@
-package seedu.duke;
+package seedu.duke.command;
+
+import seedu.duke.Format;
 
 //@@author MayFairMI6
 public class Budget {

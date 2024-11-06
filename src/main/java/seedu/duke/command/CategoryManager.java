@@ -1,4 +1,6 @@
-package seedu.duke;
+package seedu.duke.command;
+
+import seedu.duke.Format;
 
 import java.util.List;
 
