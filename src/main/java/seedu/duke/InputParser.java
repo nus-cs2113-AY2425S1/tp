@@ -38,4 +38,14 @@ public class InputParser {
             return -1;
         }
     }
+
+    public double parseAmount(String input) {
+        String amountStr = parseComponent(input, "a/");
+        try {
+            return Double.parseDouble(amountStr);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount format. Please enter a valid number after 'a/'.");
+            return -1;
+        }
+    }
 }
