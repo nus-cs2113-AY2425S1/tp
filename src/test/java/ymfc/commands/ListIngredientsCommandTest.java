@@ -7,8 +7,6 @@ import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ListIngredientsCommandTest {
 
 
