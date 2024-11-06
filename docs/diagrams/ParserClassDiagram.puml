@@ -6,17 +6,10 @@ skinparam ClassAttributeIconSize  0
 
 class Parser {
     +parseCommand(command : String) : Command
-    +parseAddCommand(input : String, commandParts : String) : Command
-    +parseRemoveCommand(input : String, commandParts : String) : Command
-    +parseEditCommand(input : String, commandParts : String) : Command
-    +parseFilterCommand(input : String, commandParts : String) : Command
-    +parseFindCommand(input : String, commandParts : String) : Command
-    +parseMarkCommand(input : String, commandParts : String) : Command
-    +parseRemoveCommand(input : String, commandParts : String) : Command
-    +parseSortCommand(input : String, commandParts : String) : Command
+    +parseXYZCommand(input : String, commandParts : String) : Command
 }
 
-Main ..> Parser
-Parser ..> Command
+Main ..> Parser : invokes >
+Parser ..> Command : constructs >
 
 @enduml

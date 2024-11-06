@@ -121,8 +121,8 @@ These are:
 * A `FileParser` that parses through the file contents when loading event data.
 
 The `Storage` component does the following:
-* Load event data from several `.csv` files into `EventList` upon program startup.
-* Save events data from `EventList` into the aforementioned `.csv` files each time a command is executed.
+* Load event data from a`.csv` file into `EventList` upon program startup.
+* Save events data from `EventList` into the aforementioned `.csv` file each time a command is executed.
 
 Additional details on the implementation of the above operations can be found in the [Saving and loading of data](#saving-and-loading-of-data) section.
 
