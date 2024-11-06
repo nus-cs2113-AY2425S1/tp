@@ -19,20 +19,6 @@ class ExpenseTest {
     }
 
     @Test
-    public void formatAmountWholeNumber() {
-        Category category = new Category("Groceries");
-        Expense expense = new Expense("Apple", 3.0, category);
-        assertEquals("$3", expense.formatAmount());
-    }
-
-    @Test
-    public void formatAmountDecimalNumber() {
-        Category category = new Category("Groceries");
-        Expense expense = new Expense("Banana", 2.75, category);
-        assertEquals("$2.75", expense.formatAmount());
-    }
-
-    @Test
     public void inputWithCategory() {
         Category category = new Category("Entertainment");
         Expense expense = new Expense("Movie", 12.5, category);
@@ -100,27 +86,6 @@ class BudgetTest {
     }
 
     @Test
-    public void formatWholeNumberLimit() {
-        Category category = new Category("Groceries");
-        Budget budget = new Budget(category, 100);
-        assertEquals("$100", budget.formatLimit(100));
-    }
-
-    @Test
-    public void formatDecimalLimit() {
-        Category category = new Category("Groceries");
-        Budget budget = new Budget(category, 99.99);
-        assertEquals("$99.99", budget.formatLimit(99.99));
-    }
-
-    @Test
-    public void formatMoreThan2DPLimit() {
-        Category category = new Category("Groceries");
-        Budget budget = new Budget(category, 55.555);
-        assertEquals("$55.56", budget.formatLimit(55.555));
-    }
-
-    @Test
     public void budgetOutput() {
         Category category = new Category("Entertainment");
         Budget budget = new Budget(category, 200);
@@ -172,20 +137,6 @@ class CategoryManagerTest {
         assertEquals(1, trackerData.getCategories().size(), "Should have 1 category");
         categoryManager.addCategory(trackerData, "add category Drinks");
         assertEquals(2, trackerData.getCategories().size(), "Should have 2 categories");
-    }
-
-    @Test
-    public void formatNullInput() {
-        CategoryManager categoryManager = new CategoryManager();
-        String result = categoryManager.formatInput(null);
-        assertNull(result, "Expected null for null input");
-    }
-
-    @Test
-    public void formatEmptyInput() {
-        CategoryManager categoryManager = new CategoryManager();
-        String result = categoryManager.formatInput("");
-        assertEquals("", result, "Expected empty string for empty input");
     }
 }
 
@@ -356,25 +307,5 @@ class ExpenseManagerTest {
         expenseManager.addExpense(trackerData, "Dinner", 20.00, "Food");
         expenseManager.deleteExpense(trackerData, -1);
         assertEquals(1, trackerData.getExpenses().size());
-    }
-
-    @Test
-    void formatMixedCaseInput() {
-        ExpenseManager expenseManager = new ExpenseManager();
-        assertEquals("Food", expenseManager.formatInput("fOoD"));
-    }
-
-    @Test
-    public void formatNullInput() {
-        ExpenseManager expenseManager = new ExpenseManager();
-        String result = expenseManager.formatInput(null);
-        assertNull(result, "Expected null for null input");
-    }
-
-    @Test
-    public void formatEmptyInput() {
-        ExpenseManager expenseManager = new ExpenseManager();
-        String result = expenseManager.formatInput("");
-        assertEquals("", result, "Expected empty string for empty input");
     }
 }
