@@ -318,7 +318,7 @@ class ExpenseManagerTest {
     }
 }
 
-Class BudgetManagerTest {
+class BudgetManagerTest {
     private BudgetManager budgetManager;
     private TrackerData trackerData;
 
