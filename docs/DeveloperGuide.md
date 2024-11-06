@@ -34,7 +34,7 @@ The overall program execution is as follows:
 3. The program enters the command loop upon invocation of the `runCommandLoop()` method.
 4. In the command loop, the program gets, parses and executes commands entered by the user.
 5. `Storage` saves the event data in `Event` after the execution of each user command.
-6. The program exits the command loop once `IsGettingCommands` is set to `false`.
+6. The program exits the command loop once the `exit` command is entered by the user.
 
 <img src = "images/ArchitectureSequenceDiagram.png">
 
@@ -44,6 +44,8 @@ The above **Sequence Diagram** shows how the different components of the system 
 * `Ui` refers to the `Ui` class in `Ui`.
 * `Storage` refers to the `Storage` class in `Storage`.
 * `EventList` refers to the list of events in `Event` which the program's event data is stored (see the _Event component_ section for more details).
+
+The **Sequence Diagrams** within the reference frames in the above diagram can be found in the _Command component_ and _Saving and loading of data_ sections.
 
 ### UI component
 
@@ -222,9 +224,9 @@ It is implemented in the `AddCommand` class which extends the base `Command` cla
 
 The feature has three operations, namely:
 
-1. `EventList#AddParticipantToEvent()`, which adds a `Participant` to an `Event` in the `EventList`.
-2. `EventList#AddItemFromEvent()`, which adds an `Item` to an `Event` in the `EventList`.
-3. `EventList#AddEvent()`, which adds an `Event` to the `EventList`.
+1. `EventList#addParticipantToEvent()`, which adds a `Participant` to an `Event` in the `EventList`.
+2. `EventList#addItemFromEvent()`, which adds an `Item` to an `Event` in the `EventList`.
+3. `EventList#addEvent()`, which adds an `Event` to the `EventList`.
 
 These three operations are invoked from `AddCommand` through `AddCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
@@ -237,9 +239,9 @@ In `AddCommand#execute()`, one operation is selected based on the values stored 
 
 The operation selection logic is as follows:
 
-1. If `participantName` is not `null`, `EventList#AddParticipantToEvent()` will be invoked.
-2. Otherwise, if `itemName` is not `null`, `EventList#AddItemToEvent()` will be invoked.
-3. Otherwise, `EventList#AddEvent()` will be invoked.
+1. If `participantName` is not `null`, `EventList#addParticipantToEvent()` will be invoked.
+2. Otherwise, if `itemName` is not `null`, `EventList#addItemToEvent()` will be invoked.
+3. Otherwise, `EventList#addEvent()` will be invoked.
 
 This operation selection logic is executed upon the invocation of `AddCommand#execute()`.
 
@@ -247,7 +249,7 @@ The interactions between components during the operation selection in `AddComman
 
 <img src = "images/AddCommandSequenceDiagram.png">
 
-The `EventList#AddParticipantToEvent()` operation works as follows:
+The `EventList#addParticipantToEvent()` operation works as follows:
 
 1. `EventList` gets the `Event` with the event name `eventName` from the list of `Event`s stored within it.
 2. In the selected `Event`, `Event` checks if there is a `Participant` with the name in `participantName` in the list of `Participant`s. If there is one, it throws a `DuplicateDataException`.
@@ -255,14 +257,14 @@ The `EventList#AddParticipantToEvent()` operation works as follows:
 
 If an `Event` with a name matching `eventName` is not found, the operation returns `false` to indicate that the operation was unsuccessful. Otherwise, the operation returns `true`.
 
-The interactions between components during the execution of the `EventList#AddParticipantToEvent()` operation are show in the **Sequence Diagram** below:
+The interactions between components during the execution of the `EventList#addParticipantToEvent()` operation are show in the **Sequence Diagram** below:
 
 <img src = "images/AddParticipantSequenceDiagram.png">
 <img src = "images/AddParticipantEventSequenceDiagram.png">
 
-The operation logic for `EventList#AddItemToEvent()` is similar to that for `EventList#AddParticipantToEvent()`, and will not be elaborated upon.
+The operation logic for `EventList#addItemToEvent()` is similar to that for `EventList#addParticipantToEvent()`, and will not be elaborated upon.
 
-The interactions between components during the execution of the `EventList#AddEvent()` operation are show in the **Sequence Diagram** below:
+The interactions between components during the execution of the `EventList#addEvent()` operation are show in the **Sequence Diagram** below:
 
 1. `EventList` checks if there is a `Event` with the name in `eventName` in its list of `Events`s. If there is one, it throws a `DuplicateDataException`.
 3. Otherwise, `EventList` creates a new `Event` object with the parameters passed to it, and adds it to the `Event` list.
@@ -284,9 +286,9 @@ It is implemented in the `RemoveCommand` class which extends the base `Command` 
 
 The feature has three operations, namely:
 
-1. `EventList#RemoveParticipantFromEvent()`, which removes a `Participant` from an `Event` in the `EventList`.
-2. `EventList#RemoveItemFromEvent()`, which removes an `Item` from an `Event` in the `EventList`.
-3. `EventList#RemoveEvent()`, which removes an `Event` from the `EventList`.
+1. `EventList#removeParticipantFromEvent()`, which removes a `Participant` from an `Event` in the `EventList`.
+2. `EventList#removeItemFromEvent()`, which removes an `Item` from an `Event` in the `EventList`.
+3. `EventList#removeEvent()`, which removes an `Event` from the `EventList`.
 
 These three operations are invoked from `RemoveCommand` through `RemoveCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
@@ -297,7 +299,7 @@ The interactions between components during the operation selection in `RemoveCom
 
 <img src = "images/RemoveCommandSequenceDiagram.png">
 
-The `EventList#RemoveParticipantFromEvent()` operation works as follows:
+The `EventList#removeParticipantFromEvent()` operation works as follows:
 
 1. `EventList` gets the `Event` with the event name `eventName` from the list of `Event`s stored within it.
 2. The selected `Event` compares the names of the `Participant`s in its list of `Participant`s with `participantName`.
@@ -311,9 +313,9 @@ The interactions between components during the above operation are shown in the 
 <img src = "images/RemoveParticipantSequenceDiagram.png">
 <img src = "images/RemoveParticipantFromEvent.png">
 
-The operation logic for `EventList#RemoveItemFromEvent()` is similar to that for `EventList#RemoveParticipantFromEvent()`.
+The operation logic for `EventList#removeItemFromEvent()` is similar to that for `EventList#removeParticipantFromEvent()`.
 
-The `EventList#RemoveEvent()` operation works as follows:
+The `EventList#removeEvent()` operation works as follows:
 
 1. `EventList` compares the names of the `Event`s in its list of `Event`s with `eventName`.
 2. If an `Event` with a matching name is found, the `Event` is removed from the `Event` list of the `EventList`.

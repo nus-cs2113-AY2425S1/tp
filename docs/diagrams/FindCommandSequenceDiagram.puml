@@ -9,13 +9,13 @@ Main -> FC: execute()
 activate FC
 FC -> EL: getEventByName(eventName)
 activate EL
-EL --> FC: return event
+EL --> FC: event:Event
 deactivate EL
 
 opt Event found
     FC -> E: findParticipants(personName)
     activate E
-    E --> FC: return participantList: ArrayList<Participant>
+    E --> FC: participantList:ArrayList<Participant>
     deactivate E
 
 end opt
