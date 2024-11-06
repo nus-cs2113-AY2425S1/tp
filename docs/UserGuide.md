@@ -77,7 +77,7 @@ Edits an existing transaction in your financial list.
  - `CATEGORY` should be one of the categories allowed in Expenses/Incomes.
 
 **Example Usages**:
-```java
+``` java
 // Edits the description of the 1st entry to be breakfast
 edit 1 /des breakfast
 // Edits the amount of the 1st entry to be 5.99
@@ -190,9 +190,10 @@ Please do not modify this file maunaly, otherwise the transections with incorrec
 * List all transactions `list`
 * List all expenses `list expenses`
 * List all incomes `list income`
+* List by category `list CATEGORY`
 * List by date `list [/from DATE] [/to DATE]`
-* Add expense `expense DESCRIPTION /a AMOUNT [/d DATE]`
-* Add income `income DESCRIPTION /a AMOUNT [/d DATE]`
+* Add expense `expense DESCRIPTION /a AMOUNT [/c CATEGORY] [/d DATE]`
+* Add income `income DESCRIPTION /a AMOUNT [/c CATEGORY] [/d DATE]`
 * Set budget `budget`
 * Delete transaction `delete INDEX`
 * Exit program `exit`
