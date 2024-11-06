@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor CEG_Student
+
+participant ":Command" as Command
+
+opt inputStream is null
+    Command -> IOException: throw new IOException()
+end
+@enduml

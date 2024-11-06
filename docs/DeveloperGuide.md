@@ -92,6 +92,12 @@ CourseValidator Class Diagram:
 
 ## Implementation
 
+### General JSON file reading process
+![Class diagram](images/CommandFileRead.png)
+
+For commands that read through `database.json`, the process will be done in the `Command` class via a `createJsonObject()` method,
+where an `IOException` message will be displayed if reading fails. 
+
 
 ### 2. Help Command
 
