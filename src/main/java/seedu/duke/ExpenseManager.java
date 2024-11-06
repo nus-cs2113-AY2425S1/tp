@@ -155,37 +155,9 @@ public class ExpenseManager {
     //@@author glenda-1506
     public void tagExpense(TrackerData trackerData, String input) {
         try {
-            String[] parts = input.split(" ");
-            int expenseIndex = -1;
-            String category = null;
-
-            StringBuilder categoryBuilder = new StringBuilder();
-            boolean isExpenseIndexSet = false;
-            boolean isCategorySet = false;
-
-            for (String part : parts) {
-                if (part.startsWith("e/")) {
-                    if (isExpenseIndexSet) {
-                        System.out.println("Error: Only one 'e/' (expense index) is allowed.");
-                        return;
-                    }
-                    expenseIndex = Integer.parseInt(part.substring(2).trim()) - 1; // Convert to 0-based index
-                    isExpenseIndexSet = true;
-                } else if (part.startsWith("c/")) {
-                    if (isCategorySet) {
-                        System.out.println("Error: Only one 'c/' (category) is allowed.");
-                        return;
-                    }
-                    categoryBuilder.append(part.substring(2).trim()).append(" ");
-                    isCategorySet = true;
-                } else {
-                    if (isCategorySet) {
-                        categoryBuilder.append(part).append(" ");
-                    }
-                }
-            }
-
-            category = categoryBuilder.toString().trim();
+            InputParser parser = new InputParser();
+            int expenseIndex = parser.parseIndex(input);
+            String category = parser.parseCategory(input);
 
             if (expenseIndex < 0 || category == null) {
                 System.out.println("Invalid input! Please provide an expense index and category.");
