@@ -59,8 +59,8 @@ public class FilterCoursesCommand extends CheckInformationCommand {
             logger.log(Level.INFO, SUCCESS_READ_JSON_FILE);
             assert jsonObject != null : NULL_JSON_FILE;
             assert !jsonObject.isEmpty() : EMPTY_JSON_FILE;
-            String[] descriptionSubstrings = parseFilterCommand(userInput);
-            String courseToFind = getNusCourseCode(descriptionSubstrings);
+            String[] inputDetails = parseFilterCommand(userInput);
+            String courseToFind = getNusCourseCode(inputDetails);
             displayMappableCourses(jsonObject, courseToFind.toLowerCase());
         } catch (IOException e) {
             logger.log(Level.WARNING, FAILURE_READ_JSON_FILE);
