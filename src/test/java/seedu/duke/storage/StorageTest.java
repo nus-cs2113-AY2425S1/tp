@@ -97,12 +97,12 @@ public class StorageTest {
         budgetScanner.close();
     }
 
+    /**
+     * Creates a DateTimeFormatter with the pattern "dd/MM/yy".
+     * This formatter can be used to format or parse dates in the specified pattern.
+     */
     @Test
     public void testCheckParameters() {
-        /**
-         * Creates a DateTimeFormatter with the pattern "dd/MM/yy".
-         * This formatter can be used to format or parse dates in the specified pattern.
-         */
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
         LocalDate date = LocalDate.now();
 
@@ -202,5 +202,34 @@ public class StorageTest {
         FinancialList loadedList = storage.loadFromFile(budgetLogic);
         assertEquals(0, loadedList.getEntryCount());
         assertEquals(null, budgetLogic.getBudget());
+    }
+
+    @Test
+    public void testStorageFormatInvalid() throws IOException {
+        File file = Storage.getStorageFile();
+        FileWriter writer = new FileWriter(file);
+        // the CATEGORY is invalid
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ TAIWANGOOD\n");
+        // the DATE is invalid
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2323 ¦¦ FOOD\n");
+        // the AMOUNT is invalid
+        writer.write("E ¦¦ -100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        // the type is invalid
+        writer.write("F ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        // missing fields
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ 01/01/23 ¦¦ FOOD\n");
+        // all valid
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.close();
+
+        File budgetFile = Storage.getBudgetFile();
+        FileWriter budgetWriter = new FileWriter(budgetFile);
+        budgetWriter.write("500\n2024-11-01\n");
+        budgetWriter.close();
+
+        FinancialList financialList = storage.loadFromFile(budgetLogic);
+        assertEquals(1, financialList.getEntryCount());
     }
 }
