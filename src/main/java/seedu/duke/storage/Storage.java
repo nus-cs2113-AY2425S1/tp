@@ -251,8 +251,9 @@ public class Storage {
                 String amount = scBudget.nextLine();
                 Budget budget = new Budget();
                 if (Double.parseDouble(amount) < 0.01) {
-                    logger.log(Level.WARNING, "Budget amount should be non-negative, setting to 0.");
-                    amount = "0";
+                    logger.log(Level.WARNING, "Budget amount should be more than 0.01, the budget won't be set.");
+                    scBudget.close();
+                    return ;
                 }
                 budget.setBudgetAmount(Double.parseDouble(amount));
                 // parse the budget date
@@ -273,7 +274,7 @@ public class Storage {
                 budgetLogic.overwriteBudget(budget);
                 update(theList, budgetLogic);
             } catch (Exception e) {
-                logger.log(Level.WARNING, "Skiping logged budget cause storage formate invalid");
+                logger.log(Level.WARNING, "Budget formate invalid, the budget won't be set.");
                 logger.log(Level.WARNING, e.getMessage());
             }
             scBudget.close();
