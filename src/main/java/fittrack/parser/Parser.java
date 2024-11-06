@@ -149,8 +149,7 @@ public class Parser {
             try {
                 int indexToView = validSessionIndex(Integer.parseInt(description) - 1, sessionList.size());
                 printSessionView(sessionList, indexToView); // Print the session view
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             break;
@@ -161,8 +160,7 @@ public class Parser {
                 sessionList.remove(indexToDelete);
                 printDeletedSession(sessionList, sessionToDelete);
                 updateSaveFile(sessionList, goalList, reminderList);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             break;

@@ -81,7 +81,10 @@ public class TrainingSession extends Saveable {
                 int minutesInSeconds = Integer.parseInt(minutesSeconds[0]) * 60;
                 int seconds = Integer.parseInt(minutesSeconds[1]);
                 return minutesInSeconds + seconds;
+            } else {
+                return Integer.parseInt(reps); // Data can be interpreted as given in seconds
             }
+
         default:
             return Integer.parseInt(reps);
         }
@@ -190,15 +193,15 @@ public class TrainingSession extends Saveable {
         String sessionDateTime = this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
         // Collect information for each exercise type
-        String PUInfo = exerciseStations.get(Exercise.PULL_UP).getSaveStringInfo();
-        String SBJInfo = exerciseStations.get(Exercise.STANDING_BROAD_JUMP).getSaveStringInfo();
-        String SRInfo = exerciseStations.get(Exercise.SHUTTLE_RUN).getSaveStringInfo();
-        String SARInfo = exerciseStations.get(Exercise.SIT_AND_REACH).getSaveStringInfo();
-        String SUInfo = exerciseStations.get(Exercise.SIT_UP).getSaveStringInfo();
-        String WARInfo = exerciseStations.get(Exercise.WALK_AND_RUN).getSaveStringInfo();
+        String infoPU = exerciseStations.get(Exercise.PULL_UP).getSaveStringInfo();
+        String infoSBJ = exerciseStations.get(Exercise.STANDING_BROAD_JUMP).getSaveStringInfo();
+        String infoSR = exerciseStations.get(Exercise.SHUTTLE_RUN).getSaveStringInfo();
+        String infoSAR = exerciseStations.get(Exercise.SIT_AND_REACH).getSaveStringInfo();
+        String infoSU = exerciseStations.get(Exercise.SIT_UP).getSaveStringInfo();
+        String infoWAR = exerciseStations.get(Exercise.WALK_AND_RUN).getSaveStringInfo();
 
-        return "TrainingSession" + "|" + sessionInfo + "|" + sessionDateTime + "|" + PUInfo +  "|" + SBJInfo +  "|"
-                + SRInfo + "|" + SARInfo + "|" + SUInfo + "|" + WARInfo;
+        return "TrainingSession" + "|" + sessionInfo + "|" + sessionDateTime + "|" + infoPU +  "|" + infoSBJ +  "|"
+                + infoSR + "|" + infoSAR + "|" + infoSU + "|" + infoWAR;
     }
 
     /**
@@ -241,7 +244,9 @@ public class TrainingSession extends Saveable {
             Exercise exerciseType = Exercise.fromUserInput(EXERCISE_LIST[i]);
 
             // If exercise data-value is same as default value, skip updating exercise.
-            if (repsData.equals("0") || repsData.equals("-1")) continue;
+            if (repsData.equals("0") || repsData.equals("-1")) {
+                continue;
+            }
 
             loadedSession.editExercise(exerciseType, repsData, false);
         }

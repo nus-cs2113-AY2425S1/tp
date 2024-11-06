@@ -11,12 +11,12 @@ public class Reminder extends Saveable {
 
     private final LocalDateTime reminderDeadline;
     private final String reminderDescription;
-    private User User;
+    private User user;
 
     public Reminder(String description, LocalDateTime deadline, User user) {
         this.reminderDescription = description;
         this.reminderDeadline = deadline;
-        this.User = user;
+        this.user = user;
 
     }
 
@@ -36,7 +36,7 @@ public class Reminder extends Saveable {
     @Override
     public String toSaveString() {
         return "Reminder" + " | " + reminderDescription + " | " +
-                reminderDeadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + " | " + User.toString();
+                reminderDeadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + " | " + user.toString();
     }
 
     /**

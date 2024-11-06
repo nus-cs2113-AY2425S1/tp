@@ -1,6 +1,5 @@
-package fittrack.Calculator;
+package fittrack.calculator;
 
-import fittrack.calculator.ShuttleRunCalculator;
 import fittrack.enums.Gender;
 import org.junit.jupiter.api.Test;
 
