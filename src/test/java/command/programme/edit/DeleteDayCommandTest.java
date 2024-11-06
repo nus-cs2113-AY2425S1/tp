@@ -1,7 +1,7 @@
 package command.programme.edit;
 
 import command.CommandResult;
-import exceptions.IndexOutOfBoundsBuffBuddyException; // Import the custom exception
+import exceptions.ProgrammeExceptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import programme.Day;
@@ -79,7 +79,7 @@ class DeleteDayCommandTest {
         DeleteDayProgrammeCommand invalidCommand = new DeleteDayProgrammeCommand(
                 OUT_OF_RANGE_PROGRAMME_ID, VALID_DAY_ID
         );
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> invalidCommand.execute(programmeList));
+        assertThrows(ProgrammeExceptions.class, () -> invalidCommand.execute(programmeList));
     }
 
     // Edge case for execute: Nonexistent day ID within existing programme
@@ -88,7 +88,7 @@ class DeleteDayCommandTest {
         DeleteDayProgrammeCommand invalidCommand = new DeleteDayProgrammeCommand(
                 VALID_PROGRAMME_ID, OUT_OF_RANGE_DAY_ID
         );
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> invalidCommand.execute(programmeList));
+        assertThrows(ProgrammeExceptions.class, () -> invalidCommand.execute(programmeList));
     }
 }
 

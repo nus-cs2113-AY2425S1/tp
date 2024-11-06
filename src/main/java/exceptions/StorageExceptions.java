@@ -8,14 +8,14 @@ public class StorageExceptions extends IOException {
     }
 
     public static StorageExceptions unableToSave() {
-      return new StorageExceptions("Could not save storage file");
+        return new StorageExceptions("Could not save storage file");
     }
 
     public static StorageExceptions unableToCreateDirectory() {
-      return new StorageExceptions("Could not create directory");
+        return new StorageExceptions("Could not create directory");
     }
 
-  public static StorageExceptions unableToCreateFile() {
-      return new StorageExceptions("Could not create file");
-  }
+    public static StorageExceptions unableToCreateFile() {
+        return new StorageExceptions("Could not create file");
+    }
 }

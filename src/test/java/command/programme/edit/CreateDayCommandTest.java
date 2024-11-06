@@ -1,7 +1,7 @@
 package command.programme.edit;
 
 import command.CommandResult;
-import exceptions.IndexOutOfBoundsBuffBuddyException; // Import the custom exception
+import exceptions.ProgrammeExceptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import programme.Day;
@@ -69,7 +69,7 @@ class CreateDayCommandTest {
     @Test
     void execute_handlesNonexistentProgrammeIdGracefully() {
         CreateDayProgrammeCommand invalidCommand = new CreateDayProgrammeCommand(OUT_OF_RANGE_PROGRAMME_ID, day);
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> invalidCommand.execute(programme));
+        assertThrows(ProgrammeExceptions.class, () -> invalidCommand.execute(programme));
     }
 }
 

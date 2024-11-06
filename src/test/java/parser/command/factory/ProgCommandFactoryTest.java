@@ -10,7 +10,11 @@ import command.programme.ListProgrammeCommand;
 import command.programme.StartProgrammeCommand;
 import command.programme.ViewProgrammeCommand;
 import command.programme.LogProgrammeCommand;
-import exceptions.*;
+
+import exceptions.ProgrammeExceptions;
+import exceptions.ParserExceptions;
+import exceptions.FlagExceptions;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import programme.Day;
@@ -153,7 +157,7 @@ class ProgCommandFactoryTest {
     public void testPrepareCreateCommandInvalidExerciseFormat() {
         String argumentString = "MyProgram /d Day1 /e /name PushUps /set 3 /rep 15 /w invalid /c 50";
 
-        assertThrows(PaserExceptions.class,
+        assertThrows(ParserExceptions.class,
                 () -> progCommandFactory.parse("create " + argumentString));
     }
 
@@ -189,7 +193,7 @@ class ProgCommandFactoryTest {
     public void testPrepareViewCommandInvalidIndexFormat() {
         String argumentString = "view invalidIndex";
 
-        assertThrows(PaserExceptions.class, () -> progCommandFactory.parse(argumentString));
+        assertThrows(ParserExceptions.class, () -> progCommandFactory.parse(argumentString));
     }
 
     @Test
@@ -217,14 +221,14 @@ class ProgCommandFactoryTest {
     public void testPrepareStartCommandNoIndex() {
         String argumentString = "start";
 
-        assertThrows(ProgrammeExceptions.class, () -> progCommandFactory.parse( argumentString));
+        assertThrows(ParserExceptions.class, () -> progCommandFactory.parse( argumentString));
     }
 
     @Test
     public void testPrepareStartCommandInvalidIndexFormat() {
         String argumentString = "start invalidIndex";
 
-        assertThrows(ProgrammeExceptions.class, () -> progCommandFactory.parse(argumentString));
+        assertThrows(ParserExceptions.class, () -> progCommandFactory.parse(argumentString));
     }
 
     // Tests for prepareDeleteCommand
@@ -242,7 +246,7 @@ class ProgCommandFactoryTest {
     public void testPrepareDeleteCommandInvalidIndexFormat() {
         String argumentString = "delete invalidIndex";
 
-        assertThrows(PaserExceptions.class, () -> progCommandFactory.parse(argumentString));
+        assertThrows(ParserExceptions.class, () -> progCommandFactory.parse(argumentString));
     }
 
     @Test
@@ -279,7 +283,7 @@ class ProgCommandFactoryTest {
         //Expected format: dd-MM-yyyy
         String argumentString = "log /p 1 /d 0 /date 2023-11-05";
 
-        assertThrows(PaserExceptions.class, () -> progCommandFactory.parse( argumentString));
+        assertThrows(ParserExceptions.class, () -> progCommandFactory.parse( argumentString));
     }
 
     @Test

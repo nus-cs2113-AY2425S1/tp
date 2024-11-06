@@ -2,7 +2,7 @@
 
 package programme;
 
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.ProgrammeExceptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,7 +52,7 @@ public class ProgrammeTest {
 
     @Test
     void testGetDayInvalidIndex() {
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> programme.getDay(5));
+        assertThrows(ProgrammeExceptions.class, () -> programme.getDay(5));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ProgrammeTest {
 
     @Test
     void testDeleteDayInvalidIndex() {
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> programme.deleteDay(5));
+        assertThrows(ProgrammeExceptions.class, () -> programme.deleteDay(5));
     }
 
     @Test

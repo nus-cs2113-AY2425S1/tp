@@ -5,7 +5,7 @@ import command.meals.AddMealCommand;
 import command.meals.DeleteMealCommand;
 import command.meals.ViewMealCommand;
 import exceptions.FlagExceptions;
-import exceptions.PaserExceptions;
+import exceptions.ParserExceptions;
 import meal.Meal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -82,7 +82,7 @@ public class MealCommandFactoryTest {
     public void testPrepareViewCommandInvalidDate() {
         String argumentString = "invalid-date";
 
-        assertThrows(PaserExceptions.class, () -> mealCommandFactory.prepareViewCommand(argumentString),
+        assertThrows(ParserExceptions.class, () -> mealCommandFactory.prepareViewCommand(argumentString),
                 "Invalid date format should throw InvalidFormatBuffBuddyException.");
     }
 }

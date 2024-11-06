@@ -3,7 +3,7 @@
 package parser;
 
 import exceptions.FlagExceptions;
-import exceptions.PaserExceptions;
+import exceptions.ParserExceptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -86,7 +86,7 @@ class FlagParserTest {
     @Test
     void testGetIndexByFlagInvalidIndex() {
         FlagParser invalidParser = new FlagParser("/p abc");
-        assertThrows(PaserExceptions.class, () -> invalidParser.getIndexByFlag("/p"),
+        assertThrows(ParserExceptions.class, () -> invalidParser.getIndexByFlag("/p"),
                 "Expected InvalidFormatBuffBuddyException for invalid index");
     }
 
@@ -99,7 +99,7 @@ class FlagParserTest {
     @Test
     void testGetIntegerByFlagInvalidInteger() {
         FlagParser invalidParser = new FlagParser("/s abc");
-        assertThrows(PaserExceptions.class, () -> invalidParser.getIntegerByFlag("/s"),
+        assertThrows(ParserExceptions.class, () -> invalidParser.getIntegerByFlag("/s"),
                 "Expected InvalidFormatBuffBuddyException for invalid integer");
     }
 
@@ -112,7 +112,7 @@ class FlagParserTest {
     @Test
     void testGetFloatByFlagInvalidFloat() {
         FlagParser invalidParser = new FlagParser("/w abc");
-        assertThrows(PaserExceptions.class, () -> invalidParser.getFloatByFlag(WATER_INDEX),
+        assertThrows(ParserExceptions.class, () -> invalidParser.getFloatByFlag(WATER_INDEX),
                 "Expected InvalidFormatBuffBuddyException for invalid float");
     }
 
@@ -125,7 +125,7 @@ class FlagParserTest {
     @Test
     void testGetDateByFlagInvalidDate() {
         FlagParser invalidParser = new FlagParser("/t 32-12-2023");
-        assertThrows(PaserExceptions.class, () -> invalidParser.getDateByFlag("/t"),
+        assertThrows(ParserExceptions.class, () -> invalidParser.getDateByFlag("/t"),
                 "Expected InvalidFormatBuffBuddyException for invalid date");
     }
 

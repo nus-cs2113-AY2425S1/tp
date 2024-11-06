@@ -2,7 +2,8 @@
 
 package history;
 
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.MealException;
+import exceptions.WaterExceptions;
 import meal.Meal;
 import meal.MealList;
 import org.junit.jupiter.api.AfterEach;
@@ -109,16 +110,16 @@ public class DailyRecordTest {
     public void deleteMealFromRecord_negativeIndex() {
         dailyRecord = new DailyRecord();
         dailyRecord.addMealToRecord(meal1);
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> dailyRecord.deleteMealFromRecord(-1),
-                "Expected IndexOutOfBoundsBuffBuddyException for negative index in meal list.");
+        assertThrows(MealException.class, () -> dailyRecord.deleteMealFromRecord(-1),
+                "Expected MealException for negative index in meal list.");
     }
 
     @Test
     public void deleteMealFromRecord_outOfBoundsIndex() {
         dailyRecord = new DailyRecord();
         dailyRecord.addMealToRecord(meal1);
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> dailyRecord.deleteMealFromRecord(10),
-                "Expected IndexOutOfBoundsBuffBuddyException for out-of-bounds index in meal list.");
+        assertThrows(MealException.class, () -> dailyRecord.deleteMealFromRecord(10),
+                "Expected MealException for out-of-bounds index in meal list.");
     }
 
     @Test
@@ -151,16 +152,16 @@ public class DailyRecordTest {
     public void removeWaterFromRecord_negativeIndex() {
         dailyRecord = new DailyRecord();
         dailyRecord.addWaterToRecord(100.0f);
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> dailyRecord.removeWaterFromRecord(-1),
-                "Expected IndexOutOfBoundsBuffBuddyException for negative index in water list.");
+        assertThrows(WaterExceptions.class, () -> dailyRecord.removeWaterFromRecord(-1),
+                "Expected WaterExceptions for negative index in water list.");
     }
 
     @Test
     public void removeWaterFromRecord_outOfBoundsIndex() {
         dailyRecord = new DailyRecord();
         dailyRecord.addWaterToRecord(100.0f);
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> dailyRecord.removeWaterFromRecord(10),
-                "Expected IndexOutOfBoundsBuffBuddyException for out-of-bounds index in water list.");
+        assertThrows(WaterExceptions.class, () -> dailyRecord.removeWaterFromRecord(10),
+                "Expected WaterExceptions for out-of-bounds index in water list.");
     }
 
     @Test

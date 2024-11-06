@@ -5,6 +5,7 @@ import command.water.AddWaterCommand;
 import command.water.DeleteWaterCommand;
 import command.water.ViewWaterCommand;
 import exceptions.FlagExceptions;
+import exceptions.ParserExceptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -75,7 +76,7 @@ public class WaterCommandFactoryTest {
     public void testPrepareViewCommandInvalidDate() {
         String argumentString = "invalid-date";
 
-        assertThrows(FlagExceptions.class,
+        assertThrows(ParserExceptions.class,
                 () -> waterCommandFactory.prepareViewCommand(argumentString),
                 "Invalid date format should throw FlagException.");
     }
