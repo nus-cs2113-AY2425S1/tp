@@ -619,10 +619,11 @@ Given below is an example usage scenario and the behaviour of the `filter` featu
    After filtering, a success message is appended to `outputMessage` which indicates the filtering criterion used
 3. The final filtered list is then formatted and appended to `outputMessage`,
    which is subsequently stored in `this.message` and displayed to the user.
-
+<div style="page-break-after: always;"></div>
 The interactions between components of `FilterCommand#execute` are shown in the **Sequence Diagram** below:
 
-<img src="images/FilterCommandSequenceDiagram2.png">
+<img src="images/FilterCommandSequenceDiagram2.png" width="550">
+<div style="page-break-after: always;"></div>
 
 ### Find feature
 
