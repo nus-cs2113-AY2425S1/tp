@@ -38,7 +38,6 @@ class ListPersonalTrackerCommand {
     + execute(userInput: String): void
     }
 
-
 Parser --> UI : "1"
 Parser --> Storage : "1"
 Parser ..> AddCoursesCommand : "0..1"
@@ -53,5 +52,6 @@ DeleteCoursesCommand ..> Storage : "Uses"
 FindCoursesCommand ..> Storage : "Uses"
 ListPersonalTrackerCommand ..> Storage : "Uses"
 CompareMappedCommand ..> Storage : "Uses"
+
 
 @enduml
