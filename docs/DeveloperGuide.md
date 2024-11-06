@@ -507,7 +507,7 @@ These two values are as follows:
 
 Any other values entered for the status parameter will be treated as invalid.
 
-### Copy Feature
+### Copy feature
 
 The copy feature allows users to copy the list of participants from one event to another. This feature is implemented in the `CopyCommand` class,  which extends `Command`,
 The `CopyCommand` copies participants from a source event to a destination event if both events exist in the event list.
@@ -521,7 +521,7 @@ The main operations for `copy` feature include:
 The above operation is implemented as `CopyCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-#### Feature Implementation
+#### Feature implementation
 
 Given below is an example usage scenario and the behaviour of the `copy` feature at each step:
 1. The user enters the command `copy EventA > EventB` to copy participants from EventA to EventB. 
@@ -546,7 +546,7 @@ The `SortCommand` supports the following sorting options:
 The above operation is implemented as `SortCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-#### Feature Implementation
+#### Feature implementation
 
 The `SortCommand` class is constructed with a specified sorting keyword and performs sorting operations based on this keyword.
 Given below is an example usage scenario and the behaviour of the `sort` feature at each step:
@@ -577,7 +577,7 @@ The `FilterCommand` supports the following filter options:
 The above operation is implemented as `FilterCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-#### Feature Implementation
+#### Feature implementation
 
 The `FilterCommand` class is constructed with a specified filter flag and keywords. It then performs filter operations based on both the flag and keywords.
 Given below is an example usage scenario and the behaviour of the `filter` feature at each step:
@@ -606,7 +606,7 @@ The feature provides detailed feedback, informing the user whether the event or 
 The above operation is implemented as `FindCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-#### Feature Implementation
+#### Feature implementation
 
 The `FindCommand` class performs a finding operation within an event of a specified participant. 
 Given below is an example usage scenario and the behaviour of the `find` feature at each step:
@@ -689,6 +689,7 @@ Reading and writing from and to the `.csv` storage files is done through operati
 
 
 ## Product scope
+
 ### Target user profile
 The target user:
 

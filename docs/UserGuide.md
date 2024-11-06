@@ -1,5 +1,28 @@
 # User Guide
 
+* [Introduction](#introduction)
+* [Quick Start](#quick-start)
+* [Features](#features)
+  * [Notes about the command format](#notes-about-the-command-format)
+  * [Viewing the command list: `menu`](#viewing-the-command-list-menu)
+  * [List all events: `list`](#list-all-events-list)
+  * [Add an event, participant or item: `add`](#add-an-event-participant-or-item-add)
+  * [Remove an event or participant: `remove`](#remove-an-event-or-participant-remove-)
+  * [View all participants or items for an event: `view`](#view-all-participants-or-items-for-an-event-view)
+  * [Edit the information of an event or a participant: `edit`](#edit-the-information-of-an-event-or-a-participant-edit)
+  * [Mark an event as done: `mark`](#mark-an-event-as-done-mark)
+  * [Marks a participant as present: `mark`](#marks-a-participant-as-present-mark)
+  * [Marks an item as accounted for: `mark`](#marks-an-item-as-accounted-for-mark)
+  * [Copies participant list: `copy`](#copies-participant-list-copy)
+  * [Sorts event list: `sort`](#sorts-event-list-sort)
+  * [Filters event list: `filter`](#filters-event-list-filter)
+  * [Find participant: `find`](#find-participant-find)
+  * [Exiting the program: `exit`](#exiting-the-program-exit)
+  * [Saving of program data](#saving-of-program-data)
+  * [Loading of program data](#loading-of-program-data)
+  * [Editing of saved program data](#editing-of-saved-program-data)
+* [Command Summary](#command-summary)
+
 ## Introduction
 
 EventManager CLI is a CLI application that allows organisers of small-scale events to track
@@ -62,7 +85,7 @@ Shows a list of all events currently stored in the program.
 
 Format: `list`
 
-### Add an event or participant: `add`
+### Add an event, participant or item: `add`
 
 Adds an event to the event list, a participant to an event, or an item to an event.
 
@@ -98,20 +121,6 @@ Examples:
 * `remove -e Origami workshop` removes the event `Origami workshop` from the event list.
 * `remove -p John Tan -e Origami workshop` removes the participant `John Tan` from the event `Origami workshop`.
 * `remove -m Origami paper -e Origami workshop` removes the item `Origami paper` from the event `Origami workshop`.
-
-### Edit the information of an event or a participant: `edit`
-
-Edit the name/time/venue/priority of an event, or edit the number/email of a participant.
-
-Format:
-
-* `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for editing a participant's contact information in an event.
-* `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
-
-Examples:
-
-* `edit -p Mary -n 9182 3213 -email mary@gmail.com -e CS2113`
-* `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH`
 
 ### View all participants or items for an event: `view`
 
