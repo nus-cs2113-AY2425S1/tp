@@ -18,8 +18,8 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
     - [Delete course mapping plans from Personal Tracker: `delete`](#delete-course-mapping-plans-from-personal-tracker-delete)
     - [List out all the possible schools from the options: `list schools`](#list-out-all-the-possible-schools-from-the-options-list-schools)
     - [Obtain contacts from the list of universities: `obtain`](#obtain-contacts-from-the-list-of-universities-obtain)
-- [FAQ](#FAQ)
-- [Command Summary](#Command-Summary)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
@@ -235,7 +235,7 @@ Please provide a valid index of the course plan you would like to delete.
 ```
 
 
-### Find courses in personalised tracker
+### Find courses in personalised tracker `find`
 This feature allows users to search for NUS courses in their course mappings.
 
 Format: `find [NUS_COURSE_CODE]`
