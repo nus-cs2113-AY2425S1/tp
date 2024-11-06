@@ -197,6 +197,7 @@ Examples:
 
 * `mark -m Origami paper -e Origami workshop -s accounted` marks the item `Origami paper` in the `Origami workshop` event as accounted.
 * `mark -m Origami paper -e Origami workshop -s unaccounted` marks the item `Origami paper` in the `Origami workshop` event as unaccounted. 
+<div style="page-break-after: always;"></div>
 
 ### Copies participant list: `copy`
 
@@ -238,6 +239,7 @@ Examples:
 * `filter -t 12:00` will output all events that are occurring at `12:00`.
 * `filter -x 2024-03-02 12:00` will output all events that are occurring at `2024-03-02 12:00`. 
 * `filter -u high` with output all events with priority level `HIGH`.
+<div style="page-break-after: always;"></div>
 
 ### Find participant: `find`
 
@@ -273,6 +275,7 @@ The data is saved after the execution of every command and upon program terminat
 Upon startup, the program loads data from the `data.csv` file.
 
 If the file does not exist in the directory, it will be automatically created when data is saved.
+<div style="page-break-after: always;"></div>
 
 ### Editing of saved program data
 
@@ -317,6 +320,7 @@ The first field of each entry (`"EVENT"`, `"PARTICIPANT"`, `"ITEM"`) corresponds
 All fields added to `data.csv` must also be enclosed within double quotation marks (`" "`) to be properly parsed.
 
 If the above format or parameter constraints are not followed, the `Event`, `Participant` or `Item` corresponding to the file line will be ignored upon program startup.
+<div style="page-break-after: always;"></div>
 
 ## Command Summary
 
