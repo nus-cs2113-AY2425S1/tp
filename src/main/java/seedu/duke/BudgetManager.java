@@ -120,36 +120,9 @@ public class BudgetManager {
     //@@author kq2003
     public void setBudgetLimitRequest(String input, BudgetManager budgetManager, TrackerData trackerData) {
         try {
-            String[] parts = input.split(" ");
-            double limit = 0;
-            String category = null;
-            StringBuilder categoryBuilder = new StringBuilder();
-            boolean isCategorySet = false;
-            boolean isLimitSet = false;
-
-            for (String part : parts) {
-                if (part.startsWith("c/")) {
-                    if (isCategorySet) {
-                        System.out.println("Error: Only one 'c/' (category) is allowed.");
-                        return;
-                    }
-                    categoryBuilder.append(part.substring(2).trim()).append(" ");
-                    isCategorySet = true;
-                } else if (part.startsWith("l/")) {
-                    if (isLimitSet) {
-                        System.out.println("Error: Only one 'l/' (limit) is allowed.");
-                        return;
-                    }
-                    limit = Double.parseDouble(part.substring(2).trim());
-                    isLimitSet = true;
-                } else {
-                    if (isCategorySet && !isLimitSet) {
-                        categoryBuilder.append(part).append(" ");
-                    }
-                }
-            }
-
-            category = categoryBuilder.toString().trim();
+            InputParser parser = new InputParser();
+            String category = parser.parseCategory(input);
+            double limit = parser.parseLimit(input);
 
             if (category == null || category.isEmpty() || limit == 0) {
                 System.out.println("Invalid input! Please provide category name and limit.");
