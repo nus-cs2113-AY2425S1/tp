@@ -99,20 +99,6 @@ Examples:
 * `remove -p John Tan -e Origami workshop` removes the participant `John Tan` from the event `Origami workshop`.
 * `remove -m Origami paper -e Origami workshop` removes the item `Origami paper` from the event `Origami workshop`.
 
-### Edit the information of an event or a participant: `edit`
-
-Edit the name/time/venue/priority of an event, or edit the number/email of a participant.
-
-Format:
-
-* `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for editing a participant's contact information in an event.
-* `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
-
-Examples:
-
-* `edit -p Mary -n 9182 3213 -email mary@gmail.com -e CS2113`
-* `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH`
-
 ### View all participants or items for an event: `view`
 
 Shows a list of all participants or items for an event.

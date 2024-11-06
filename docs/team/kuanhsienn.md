@@ -20,7 +20,7 @@ The app is optimised for quick, command-based interactions, ideal for users who 
     * Justification: Persistent storage is a crucial feature for any event management tool, as it allows users to retrieve previously entered data and continue their work seamlessly.
     <div style="page-break-after: always;"></div>
 
-   * Highlights: The storage feature supports loading from a single CSV file, handling all event-related data in one file. It includes validation checks to ensure data integrity, and if any data entry is corrupted or unreadable, a warning is logged without crashing the application.
+  * Highlights: The storage feature supports loading from a single CSV file, handling all event-related data in one file. It includes validation checks to ensure data integrity, and if any data entry is corrupted or unreadable, a warning is logged without crashing the application.
 
 * **New feature**: Added feature to edit participant's contact info.
     * What it does: Allows the user to update the contact details (phone number and email) of participants associated with any event.
