@@ -40,9 +40,12 @@ Check out my contributions on the [TP Dashboard](https://nus-cs2113-ay2425s1.git
 * Help team do QA to obtain bugs around code namely in storage and complex more commands
 
 ## 4. User Guide
-{WIP}
+* Documented the FAQ section 
+* Documented List Schools Function
+* Documented Obtains Contacts function 
 
 ## 5. Developer Guide
+* Added the directory for the DG 
 * Documented the NFR
 * Documented the product scope
 * Documented the acknowledgements section
