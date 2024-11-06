@@ -21,14 +21,11 @@ dependencies {
     // JUnit 5 for testing
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}" // Add this line
 
-    // OkHttpClient for HTTP requests
+    // Other dependencies
     implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
-
-    // Gson for JSON parsing
     implementation "com.google.code.gson:gson:${gsonVersion}"
-
-    // SLF4J API and Logback for logging
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     runtimeOnly "ch.qos.logback:logback-classic:${logbackVersion}"
 }
