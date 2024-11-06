@@ -112,6 +112,7 @@ The `UI` does the following:
 * Take in command input from the user and pass the input to `Main` (through the `getCommand()` method).
 * Show output messages from `Command` to the user after command execution (through the `showOutputMessage()` method).
 * Show error messages from any caught exceptions (through the `showErrorMessageToUser()` method).
+<div style="page-break-after: always;"></div>
 
 ### Storage component
 
@@ -129,6 +130,7 @@ The `Storage` component does the following:
 * Save events data from `EventList` into the aforementioned `.csv` file each time a command is executed.
 
 Additional details on the implementation of the above operations can be found in the [Saving and loading of data](#saving-and-loading-of-data) section.
+<div style="page-break-after: always;"></div>
 
 ### Parser component
 
@@ -143,6 +145,7 @@ The logic of the `Parser` component is illustrated in the following use case:
 1. Upon receiving a user command input, `Main` constructs a new `Parser`. This state is represented in the following **Object Diagram**:
 
 <img src = "images/ParserObjectDiagram0.png">
+<div style="page-break-after: always;"></div>
 
 2. `Main` passes the user command input to `Parser`, which parses the input and constructs an `XYZCommand` object, which is returned to `Main`. 
 The `Parser` instance is no longer referenced. The current state is as shown in the **Object Diagram** below:
