@@ -1,6 +1,7 @@
 package seedu.command;
 
 import seedu.budget.BudgetTracker;
+import seedu.datastorage.Storage;
 import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
 import seedu.utils.AmountUtils;
@@ -36,8 +37,11 @@ public class AddBudgetCommand extends Command {
         String monthStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[1]);
         try {
             budgetTracker.setBudget(monthStr, amount);
-        } catch (Exception e) {
+            Storage.saveBudgets(budgetTracker.getMonthlyBudgets());
+        } catch (IllegalArgumentException e) {
             return List.of(CommandResultMessages.SET_BUDGET_FAIL + e.getMessage());
+        } catch (Exception e) {
+            return List.of(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
         }
 
         return List.of(CommandResultMessages.SET_BUDGET_SUCCESS + amount);

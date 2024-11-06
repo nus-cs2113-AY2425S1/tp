@@ -36,6 +36,8 @@ public class DeleteTransactionCommand extends Command {
             index = Integer.parseInt(indexString);
         } catch (NumberFormatException e) {
             return List.of(CommandResultMessages.DELETE_TRANSACTION_FAIL + ErrorMessages.INVALID_NUMBER_FORMAT);
+        } catch (Exception e) {
+            return List.of(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
         }
 
         int transactionListSize = transactions.size();

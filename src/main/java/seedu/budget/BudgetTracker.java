@@ -1,5 +1,6 @@
 package seedu.budget;
 
+import seedu.exceptions.InvalidDateFormatException;
 import seedu.message.ErrorMessages;
 import seedu.transaction.Transaction;
 import seedu.transaction.Expense;
@@ -47,8 +48,11 @@ public class BudgetTracker {
 
         try {
             month = DateTimeUtils.parseYearMonth(monthStr);
-        } catch (Exception e) {
+        } catch (InvalidDateFormatException e) {
             logger.log(Level.WARNING, "Invalid date format for budget month: " + e.getMessage());
+            throw new IllegalArgumentException(e.getMessage());
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Unknown exception: " + e.getMessage());
             throw new IllegalArgumentException(e.getMessage());
         }
 

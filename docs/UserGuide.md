@@ -6,7 +6,7 @@
    - [Adding](#adding)
      - [Add an expense: `add-expense`](#add-an-expense-add-expense)
      - [Add an income: `add-income`](#add-an-income-add-income)
-     - [Add a category: `add-category`](#Add-a-category-add-category)
+     - [Add a category: `add-category`](#add-a-category-add-category)
    - [Deleting](#deleting)
      - [Delete an expense/income: `delete-transaction`](#delete-an-expenseincome-delete-transaction)
      - [Delete a category: `delete-category`](#delete-a-category-delete-category)
@@ -17,8 +17,8 @@
      - [View transaction history: `history`](#view-transaction-history-history)
      - [View total amount in account: `view-total`](#view-total-amount-in-account-view-total)
      - [View command list: `help`](#view-command-list-help)
-   - [Searching](#Searching)
-     - [Search transaction by keywords: `KeywordsSearchCommand`](#Search-transacrion-by-keywords)
+   - [Searching](#searching)
+     - [Search transaction by keywords: `KeywordsSearchCommand`](#search-transaction-by-keywords-keywordssearchcommand)
 4. [FAQ](#faq)
 5. [Command Summary](#command-summary)
 
@@ -154,18 +154,22 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 ## FAQ
 
 ## Command Summary
-| **Command Word**      | **Syntax**                                              | **Example**                                       |
-|-----------------------|---------------------------------------------------------|---------------------------------------------------|
-| `add-expense`         | `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]` | `add-expense a/ 17 d/ 07.09.2024 c/ FnB`             |
-| `add-income`          | `add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]`              | `add-income Monthly allowance a/ 300 d/ 2024-09-19` |
-| `add-category`        | `add-category n/NAME`                                     | `add-category n/ FnB`                              |
-| `delete-transaction`  | `delete-transaction i/ INDEX`                              | `delete-transaction i/ 7`                          |
-| `delete-category`     | `delete-category i/ INDEX`                                 | `delete-category i/ 6`                             |
-| `view-category`       | `view-category`                                           | `view-category`                                   |
-| `view-expense`        | `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`             | `view-expense c/ food`                             |
-| `view-income`         | `view-income [f/ DATE] [t/ DATE]`                           | `view-income f/ 2024-09-16 t/ 2024-09-19`           |
-| `history`             | `history [f/ DATE] [t/ DATE]`                               | `history f/ 2024-09-16 t/ 2024-09-19`               |
-| `view-total`               | `view-total`                                                   | `view-total`                                           |
-| `help`                | `help`                                                    | `help`                                            |
+It seems like you're trying to format a table of commands, but the current format may not render properly in the application or website you're using. Here's a properly formatted version of your command list using markdown or a clean text format, which should display well in most environments:
+
+### Command List
+
+| **Command Word**       | **Syntax**                                                              | **Example**                                          |
+|------------------------|:-------------------------------------------------------------------------:|:------------------------------------------------------:|
+| `add-expense`           | `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]`          | `add-expense a/ 17 d/ 07.09.2024 c/ FnB`              |
+| `add-income`            | `add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]`                          | `add-income Monthly allowance a/ 300 d/ 2024-09-19`  |
+| `add-category`          | `add-category n/ NAME`                                                  | `add-category n/ FnB`                                |
+| `delete-transaction`    | `delete-transaction i/ INDEX`                                           | `delete-transaction i/ 7`                            |
+| `delete-category`       | `delete-category i/ INDEX`                                              | `delete-category i/ 6`                               |
+| `view-category`         | `view-category`                                                         | `view-category`                                      |
+| `view-expense`          | `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`                        | `view-expense c/ food`                               |
+| `view-income`           | `view-income [f/ DATE] [t/ DATE]`                                       | `view-income f/ 2024-09-16 t/ 2024-09-19`            |
+| `history`               | `history [f/ DATE] [t/ DATE]`                                           | `history f/ 2024-09-16 t/ 2024-09-19`                |
+| `view-total`            | `view-total`                                                            | `view-total`                                         |
+| `help`                  | `help`                                                                  | `help`                                               |
 
 `

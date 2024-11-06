@@ -4,12 +4,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.category.Category;
 import seedu.category.CategoryList;
+import seedu.main.UI;
 import seedu.message.CommandResultMessages;
 import seedu.message.ErrorMessages;
+import seedu.transaction.Expense;
+import seedu.transaction.Transaction;
+import seedu.transaction.TransactionList;
 
-import java.util.HashMap;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,16 +23,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DeleteCategoryCommandTest {
 
     CategoryList categoryList;
+    TransactionList transactionList;
     DeleteCategoryCommand deleteCategoryCommand;
 
     @BeforeEach
     public void setUp() {
         categoryList = new CategoryList();
-        deleteCategoryCommand = new DeleteCategoryCommand(categoryList);
+        transactionList = new TransactionList();
+        // Add sample data to test
+        transactionList.addTransaction(new Expense(1000, "",
+                "2024-10-10 2359", new Category("Default")));
+        transactionList.addTransaction(new Expense(1000, "",
+                "2024-10-10 2359", new Category("Default")));
+        deleteCategoryCommand = new DeleteCategoryCommand(categoryList, transactionList);
     }
 
     @Test
-    void execute_validArgument_categoryDeleted() {
+    void execute_validArgumentWithNoTransaction_categoryDeleted() {
         // Arrange
         categoryList.addCategory(new Category("Sports"));
         deleteCategoryCommand.setArguments(Map.of("", "Sports"));
@@ -36,9 +49,104 @@ class DeleteCategoryCommandTest {
         List<Category> categories = categoryList.getCategories();
 
         // Assert
-        assertEquals(0, categories.size(), "The category list should be empty after deletion.");
-        assertEquals("Category deleted: Sports", result.get(0), "The result message should confirm " +
-                "the category was deleted.");
+        assertEquals(0, categories.size(),
+                "The category list should be empty after deletion.");
+        assertEquals("Category deleted: Sports", result.get(0),
+                "The result message should confirm the category was deleted.");
+    }
+
+    @Test
+    void execute_validArgumentWithTransaction_recategorized() {
+        // Arrange
+        categoryList.addCategory(new Category("Default"));
+        categoryList.addCategory(new Category("NewCategory"));
+        deleteCategoryCommand.setArguments(Map.of("", "Default"));
+
+        deleteCategoryCommand.setUI(new TestUI("NewCategory"));
+        // Act
+        deleteCategoryCommand.execute();
+        List<Category> categories = categoryList.getCategories();
+        // Expected
+        List<Transaction> expectedTransaction = new ArrayList<>();
+        // Add sample data to test
+        expectedTransaction.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("NewCategory")));
+        expectedTransaction.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("NewCategory")));
+
+        // Assert
+        assertEquals(1, categories.size(),
+                "The category list should have 1 category left after deletion.");
+        assertEquals(expectedTransaction, transactionList.getTransactions(),
+                "The current transaction list should update its category.");
+    }
+
+    @Test
+    void execute_validArgumentWithTransaction_unCategorize() {
+        // Arrange
+        categoryList.addCategory(new Category("Default"));
+        deleteCategoryCommand.setArguments(Map.of("", "Default"));
+
+        deleteCategoryCommand.setUI(new TestUI("skip"));
+        // Act
+        deleteCategoryCommand.execute();
+        List<Category> categories = categoryList.getCategories();
+        // Expected
+        List<Transaction> expectedTransaction = new ArrayList<>();
+        // Add sample data to test
+        expectedTransaction.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("")));
+        expectedTransaction.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("")));
+
+        // Assert
+        assertEquals(0, categories.size(),
+                "The category list should have 0 category left after deletion.");
+        assertEquals(expectedTransaction, transactionList.getTransactions(),
+                "The current transaction list should update its category.");
+    }
+
+    @Test
+    void execute_validArgumentWithTransaction_newCategory() {
+        // Arrange
+        categoryList.addCategory(new Category("Default"));
+        deleteCategoryCommand.setArguments(Map.of("", "Default"));
+
+        deleteCategoryCommand.setUI(new TestUI("NewCategory yes"));
+        // Act
+        deleteCategoryCommand.execute();
+        List<Category> categories = categoryList.getCategories();
+        // Expected
+        List<Transaction> expectedTransaction = new ArrayList<>();
+        // Add sample data to test
+        expectedTransaction.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("NewCategory")));
+        expectedTransaction.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("NewCategory")));
+
+        // Assert
+        assertEquals(1, categories.size(),
+                "The category list should have 1 category left after deletion.");
+        assertEquals(expectedTransaction, transactionList.getTransactions(),
+                "The current transaction list should update its category.");
+    }
+
+    @Test
+    void execute_validArgumentWithTransaction_cancel() {
+        // Arrange
+        categoryList.addCategory(new Category("Default"));
+        deleteCategoryCommand.setArguments(Map.of("", "Default"));
+
+        deleteCategoryCommand.setUI(new TestUI("no"));
+        // Act
+        List<String> result = deleteCategoryCommand.execute();
+        List<Category> categories = categoryList.getCategories();
+
+        // Assert
+        assertEquals(1, categories.size(),
+                "The category list should have 1 category left after deletion.");
+        assertEquals(CommandResultMessages.ACTION_CANCEL, result.get(0),
+                "The current action should be cancelled.");
     }
 
     @Test
@@ -68,5 +176,25 @@ class DeleteCategoryCommandTest {
 
         // Assert that the actual messages match the expected messages
         assertEquals(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE, result.get(0));
+    }
+}
+
+/* Mock TestUI class to read the input */
+class TestUI extends UI {
+    private final String[] userInput;
+    private int count = 0;
+    // Constructor initializes the scanner and the output builder
+    public TestUI(String userInput) {
+        this.userInput = userInput.split(" ");
+    }
+
+    // Simulate getting user input
+    @Override
+    public String getUserInput() {
+        if(count == userInput.length) {
+            return "";
+        }
+
+        return userInput[count++];  // Return the pre-set user input
     }
 }

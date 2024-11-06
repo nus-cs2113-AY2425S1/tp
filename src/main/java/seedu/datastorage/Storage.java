@@ -16,16 +16,21 @@ import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
- * Handles the loading and saving of transactions and categories to and from JSON files.
- * Provides methods to load and save both transactions and categories using Gson serialization.
+ * Handles the loading and saving of transactions, categories, and budgets to and from JSON files.
+ * Provides methods to load and save transactions, categories, and budgets using Gson serialization.
  */
 public class Storage {
 
     private static final String TRANSACTIONS_PATH = "transactions.json";
     private static final String CATEGORIES_PATH = "categories.json";
+    private static final String BUDGETS_PATH = "budgets.json";
 
     private static final Gson gson;
     private static final UI ui = new UI();
@@ -127,6 +132,50 @@ public class Storage {
             writer.flush();
         } catch (IOException e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_SAVING_CATEGORIES, e.getMessage()));
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads budgets from the budgets JSON file.
+     * If the file does not exist, creates an empty budgets file.
+     *
+     * @return A map of YearMonth to budget amounts loaded from the file, or an empty map if no budgets are found.
+     */
+    public static Map<YearMonth, Double> loadBudgets() {
+        File budgetsFile = new File(BUDGETS_PATH);
+        if (!budgetsFile.exists()) {
+            ui.printMessage(InfoMessages.NO_BUDGET_FILE_FOUND);
+            saveBudgets(new HashMap<>()); // Create an empty file if it doesn't exist
+        }
+
+        try (FileReader reader = new FileReader(BUDGETS_PATH)) {
+            Type mapType = new TypeToken<Map<String, Double>>() {}.getType();
+            Map<String, Double> budgetsAsStringMap = gson.fromJson(reader, mapType);
+            return budgetsAsStringMap.entrySet().stream()
+                    .collect(Collectors.toMap(e -> YearMonth.parse(e.getKey()), Map.Entry::getValue));
+        } catch (IOException e) {
+            ui.printMessage(String.format(ErrorMessages.ERROR_LOADING_BUDGETS, e.getMessage()));
+        } catch (Exception e) {
+            ui.printMessage(String.format(ErrorMessages.ERROR_DESERIALIZING_BUDGETS, e.getMessage()));
+            e.printStackTrace();
+        }
+        return new HashMap<>();
+    }
+
+    /**
+     * Saves the map of YearMonth to budget amounts to the budgets JSON file.
+     *
+     * @param budgets The map of YearMonth to budget amounts to be saved.
+     */
+    public static void saveBudgets(Map<YearMonth, Double> budgets) {
+        Map<String, Double> budgetsAsStringMap = budgets.entrySet().stream()
+                .collect(Collectors.toMap(e -> e.getKey().toString(), Map.Entry::getValue));
+        try (FileWriter writer = new FileWriter(BUDGETS_PATH)) {
+            gson.toJson(budgetsAsStringMap, writer);
+            writer.flush();
+        } catch (IOException e) {
+            ui.printMessage(String.format(ErrorMessages.ERROR_SAVING_BUDGETS, e.getMessage()));
             e.printStackTrace();
         }
     }

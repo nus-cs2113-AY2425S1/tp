@@ -3,8 +3,13 @@ package seedu.command;
 import seedu.category.Category;
 import seedu.category.CategoryList;
 import seedu.datastorage.Storage;
+import seedu.exceptions.CategoryNotFoundException;
+import seedu.main.UI;
 import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
+import seedu.transaction.Expense;
+import seedu.transaction.Transaction;
+import seedu.transaction.TransactionList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +30,18 @@ public class DeleteCategoryCommand extends Command {
 
     /** The list of categories from which the category will be deleted. */
     private CategoryList categoryList;
-
+    /** The list of transactions to do follow-up clean-ups. */
+    private TransactionList transactionList;
+    /** UI for middle messages*/
+    private UI ui = new UI();
     /**
      * Constructs a DeleteCategoryCommand with the specified CategoryList.
      *
      * @param categoryList The list of categories from which the category will be deleted.
      */
-    public DeleteCategoryCommand(CategoryList categoryList) {
+    public DeleteCategoryCommand(CategoryList categoryList, TransactionList transactionList) {
         this.categoryList = categoryList;
+        this.transactionList = transactionList;
     }
 
     /**
@@ -40,6 +49,13 @@ public class DeleteCategoryCommand extends Command {
      */
     public DeleteCategoryCommand() {
         // Default constructor
+    }
+
+    /**
+     * Set UI for testing
+     */
+    public void setUI(UI ui) {
+        this.ui = ui;
     }
 
     /**
@@ -56,16 +72,107 @@ public class DeleteCategoryCommand extends Command {
             return messages;
         }
         String categoryName = arguments.get("");
-        Category temp = categoryList.deleteCategory(categoryName);
+        Category temp = new Category(categoryName);
 
-        if (temp == null) {
-            return List.of(CommandResultMessages.DELETE_CATEGORY_FAIL + ErrorMessages.CATEGORY_NOT_FOUND);
+        List<Transaction> transactionListByCategory = transactionList.getExpensesByCategory(temp);
+
+        boolean isContinue = true;
+        if (!transactionListByCategory.isEmpty()) {
+            isContinue = updateExistingTransactions(transactionListByCategory);
         }
 
-        Storage.saveCategory(categoryList.getCategories());
-        return List.of(CommandResultMessages.DELETE_CATEGORY_SUCCESS + categoryName);
+        if (isContinue) {
+            return deleteCategory(categoryName);
+        } else {
+            return List.of(CommandResultMessages.ACTION_CANCEL);
+        }
     }
 
+    /**
+     * Performs the deletion
+     *
+     * @return A list of message
+     */
+    List<String> deleteCategory(String categoryName) {
+        try {
+            Category temp = categoryList.deleteCategory(categoryName);
+
+            if (temp == null) {
+                throw new CategoryNotFoundException(ErrorMessages.CATEGORY_NOT_FOUND);
+            }
+
+            Storage.saveCategory(categoryList.getCategories());
+            return List.of(CommandResultMessages.DELETE_CATEGORY_SUCCESS + categoryName);
+        } catch (CategoryNotFoundException e) {
+            return List.of(CommandResultMessages.DELETE_CATEGORY_FAIL + e.getMessage());
+        }
+    }
+    /**
+     * Does follow-up confirmation to set category for remaining transactions
+     *
+     * @return false if user choose to cancel the action, true if user proceed
+     */
+    private boolean updateExistingTransactions(List<Transaction> transactionListByCategory) {
+        ui.printMessage("These expenses need modification: ");
+        for (Transaction transaction : transactionListByCategory) {
+            ui.printMessage(transaction.toString());
+        }
+        ui.printMiddleMessage("Type 'no' to cancel, " +
+                "'skip' to remove the category of these expenses," +
+                "or enter a category name to re-categorize: ");
+        Category temp = processUserInput();
+        if (temp == null) {
+            return false;
+        } else {
+            for (Transaction transaction : transactionListByCategory) {
+                ((Expense) transaction).setCategory(temp);
+            }
+            return true;
+        }
+    }
+
+    //@@author YukeeHong
+    /**
+     * Processes the user input to re-categorize, or skip, or cancel the command
+     *
+     * @return null if the user cancel the command, empty category if they skip,
+     *      and a Category if they re-categorize
+     */
+    private Category processUserInput(){
+        Category temp = null;
+        while (true) {
+            String response = ui.getUserInput().trim();
+            if (response.isEmpty()) {
+                continue;
+            }
+
+            // If the user enter a new category and proceed to 'yes'
+            if (response.equalsIgnoreCase("yes") && temp!=null) {
+                categoryList.addCategory(temp);
+                ui.printMessage("New category '" + temp.getName() + "' created.");
+                return temp;
+            } else if (response.equalsIgnoreCase("no")) {
+                return null;
+            } else if (response.equalsIgnoreCase("skip")) {
+                return new Category("");
+            } else {
+                temp = categoryList.findCategory(response);
+                if (temp != null) {
+                    return temp;
+                } else {
+                    ui.printMessage("Category '" + response + "' does not exist. Current category:");
+                    for (Category category:categoryList.getCategories()) {
+                        ui.printMessage(category.toString());
+                    }
+                    ui.printMiddleMessage("Type 'yes' to create a new category, or enter an existing category name. " +
+                            "Type 'no' to cancel, skip' to remove the category of these expenses: ");
+
+                    // Temporarily save the inserted category
+                    temp = new Category(response);
+                }
+            }
+        }
+    }
     /**
      * Returns the mandatory keywords for this command.
      *
