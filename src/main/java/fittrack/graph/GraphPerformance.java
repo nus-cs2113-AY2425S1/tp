@@ -80,6 +80,8 @@ public abstract class GraphPerformance extends GraphBase {
         // Prepare Y axis and main content
         if (exercise == Exercise.WALK_AND_RUN || exercise == Exercise.SHUTTLE_RUN) {
             yOffset = 6;
+            graph.append(GraphPerformanceTime.graphExerciseTime(exercise, sessionList, minExercisePerformance,
+                    maxExercisePerformance, maxXHeaderLength));
         } else {
             yOffset = String.valueOf(maxExercisePerformance).length() - 1;
             graph.append(GraphPerformanceRepsDistance.graphExerciseRepsDistance(exercise, sessionList,
