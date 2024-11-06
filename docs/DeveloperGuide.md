@@ -451,6 +451,7 @@ Given below is an example usage scenario and the behaviour of the `edit` feature
 The interactions between components of `EditEventCommand#execute()` are shown in the **Sequence Diagram** below:
 
 <img src="images/EditEventCommandSequenceDiagram.png">
+<div style="page-break-after: always;"></div>
 
 The interactions between components of `EditParticipantCommand#execute()` are shown in the **Sequence Diagram** below:
 
@@ -459,6 +460,7 @@ The interactions between components of `EditParticipantCommand#execute()` are sh
 The interactions between components of `EditItemCommand#execute()` are shown in the **Sequence Diagram** below:
 
 <img src="images/EditItemCommandSequenceDiagram.png">
+<div style="page-break-after: always;"></div>
 
 ### Mark/unmark feature
 
@@ -472,7 +474,6 @@ The feature comprises three operations, namely:
 
 The above three operations override the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
-<div style="page-break-after: always;"></div>
 
 #### Feature implementation
 
@@ -489,6 +490,7 @@ in which it gets the event `Event 1` from the event list, and sets its mark stat
 
 3. The user then enters the command `mark -e Event 1 -s undone` to mark `Event 1` as not done. The `MarkEventCommand` again calls `MarkEventCommand#execute`,
 in which it gets the event `Event 1` from the event list, and sets its mark status to `false` or not done.
+<div style="page-break-after: always;"></div>
 
 The interactions between components during the execution of `MarkEventCommand#execute` are shown in the **Sequence Diagram** below:
 
