@@ -20,6 +20,7 @@ import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import static fittrack.ui.Ui.printUser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UiTest {
@@ -41,7 +42,7 @@ public class UiTest {
     @Test
     public void testPrintUser() {
         User user = new User(Gender.MALE.toString(), "12");
-        Ui.printUser(user);
+        printUser(user.getAge(), user.getGender().toString().toLowerCase());
         assertEquals(SEPARATOR + System.lineSeparator() + "You are a 12 year old male."
                 + System.lineSeparator() + SEPARATOR + System.lineSeparator() + System.lineSeparator(),
                 outputStreamCaptor.toString());
@@ -53,7 +54,7 @@ public class UiTest {
         ArrayList<TrainingSession> sessions = new ArrayList<>();
         TrainingSession session = new TrainingSession(LocalDateTime.now(), "test1", user);
         sessions.add(session);
-        Ui.printAddedSession(sessions);
+        Ui.printAddedSession(sessions, session.getSessionDescription());
         assertEquals(SEPARATOR + System.lineSeparator() + ADD_SESSION_MESSAGE + System.lineSeparator()
                 + sessions.size() + ". " + session.getSessionDescription() + System.lineSeparator()
                 + "There are 1 sessions in the list." + System.lineSeparator() + SEPARATOR + System.lineSeparator()
@@ -66,7 +67,7 @@ public class UiTest {
         ArrayList<TrainingSession> sessions = new ArrayList<>();
         TrainingSession session = new TrainingSession(LocalDateTime.now(), "test1", user);
         sessions.add(session);
-        Ui.printDeletedSession(sessions, session);
+        Ui.printDeletedSession(sessions, session, session.getSessionDescription());
         assertEquals(SEPARATOR + System.lineSeparator() + DELETE_SESSION_MESSAGE
                 + session.getSessionDescription() + System.lineSeparator() + "There are 1 sessions in the list."
                 + System.lineSeparator() + SEPARATOR + System.lineSeparator() + System.lineSeparator(),

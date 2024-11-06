@@ -1,6 +1,8 @@
 @startuml
 ' Use right-angle straight lines for relationships
 skinparam linetype ortho
+skinparam nodesep 150
+skinparam ranksep 120
 hide circle
 skinparam classAttributeIconSize 0
 skinparam classBackgroundColor White
@@ -8,101 +10,50 @@ skinparam classBorderColor Black
 
 ' Define classes
 class FitTrack {
-    -sessionList : ArrayList<TrainingSession>
 }
 
 class Parser {
-    -command : String
-    -description : String
-    -currentTime : LocalDateTime
-    +parse()
 }
 
 class Ui {
-    +printGreeting()
-    +printUser()
-    +printHelp()
-    +printAddedSession()
-    +printDeletedSession()
-    +printSessionList()
-    +printSessionView()
-    +printSessionCount()
-    +printUnrecognizedInputMessage()
 }
 
 class Storage {
-    +initialiseSaveFile()
-    +loadSaveFile()
-    +updateSaveFile()
 }
 
 class TrainingSession {
-    -description : String
-    -sessionDateTime : LocalDateTime
-    -user : User
-    -exerciseStations : Map<Exercise, ExerciseStation>
-    -initialiseExerciseStations()
-    +editExercise()
-    +getSessionDescription()
-    +viewSession()
 }
 
 class User {
-    -gender : Gender
-    -age : int
-    +setGender()
-    +setAge()
-    +getGender()
-    +getAge()
-}
-
-enum Exercise <<enumeration>> {
-    PULL_UP
-    SHUTTLE_RUN
-    SIT_AND_REACH
-    SIT_UP
-    STANDING_BROAD_JUMP
-    WALK_AND_RUN
 }
 
 class FitTrackLogger {
-    +setupLogger()
 }
 
 class ExerciseStation {
-    +getName()
-    +toString()
 }
 
 class Calculator {
-    -getPointsFromTable()
-    -addAgeSubTable()
-    -addAllTables()
-    +calculatePoints()
 }
 
 ' Define relationships with right-angle arrows
-FitTrack "1" --> "1" Storage : uses
-FitTrack "1" --> "1" FitTrackLogger : uses
-FitTrack "1" --> "1" User : creates
-FitTrack "1" --> "1" Parser : uses
-FitTrack "1" --> "1" Ui : uses
+FitTrack "1" --> "1" Storage : uses >
+FitTrack "1" -up-> "1" FitTrackLogger : uses >
+FitTrack "1" -down-> "1" User : creates >
+FitTrack "1" -down-> "1" Parser : uses >
+FitTrack "1" -down-> "1" Ui : uses >
 
-Parser "1" --> "1" Ui : uses
-Parser "1" --> "1" User : manages
-Parser "1" --> "*" TrainingSession : manages
-Parser "1" --> Exercise : references
+Storage "1" --> "*" TrainingSession : manages >
 
-Ui "1" -> "1" User : displays
-Ui "1" --> "*" TrainingSession : displays
+Parser "1" -right-> "1" Ui : uses >
+Parser "1" -left-> "1" User : edits >
+Parser "1" --> "*" TrainingSession : manages >
 
-Storage "1" --> "*" TrainingSession : manages
-Storage "1" --> "1" FitTrackLogger : uses
+Ui "1" --> "*" TrainingSession : displays >
 
-TrainingSession "*" ---> "1" User : belongs to
-TrainingSession "*" --> Exercise : references
-TrainingSession "1" --> "6" ExerciseStation : contains
+TrainingSession "*" --> "1" User : belongs to >
+TrainingSession "1" -down-> "6" ExerciseStation : contains >
 
-ExerciseStation "1" --> "1" Calculator : uses
+ExerciseStation "1" -down-> "1" Calculator : uses >
 
 @enduml

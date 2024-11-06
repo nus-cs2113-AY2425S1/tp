@@ -111,7 +111,9 @@ public class Parser {
             try {
                 String[] userInfo = parseUserInfo(description);
                 user = validUser(userInfo[0], userInfo[1]);
-                printUser(user);
+                assert user.getAge() > 0 : "User age must be greater than 0";
+                assert user.getGender() != null : "User gender must not be null";
+                printUser(user.getAge(), user.getGender().toString().toLowerCase());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -119,7 +121,9 @@ public class Parser {
         case ADD_SESSION_COMMAND:
             try {
                 sessionList.add(validSession(description, user));
-                printAddedSession(sessionList);
+                int sessionIndex = sessionList.size() - 1;
+                String sessionDescription = sessionList.get(sessionIndex).getSessionDescription();
+                printAddedSession(sessionList, sessionDescription);
                 updateSaveFile(sessionList, goalList, reminderList);  
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -158,7 +162,8 @@ public class Parser {
                 int indexToDelete = validSessionIndex(Integer.parseInt(description) - 1, sessionList.size());
                 TrainingSession sessionToDelete = sessionList.get(indexToDelete);
                 sessionList.remove(indexToDelete);
-                printDeletedSession(sessionList, sessionToDelete);
+                String sessionDescription = sessionList.get(indexToDelete).getSessionDescription();
+                printDeletedSession(sessionList, sessionToDelete, sessionDescription);
                 updateSaveFile(sessionList, goalList, reminderList);
             } catch (Exception e) {
                 System.out.println(e.getMessage());

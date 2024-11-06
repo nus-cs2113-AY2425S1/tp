@@ -2,7 +2,6 @@ package fittrack.ui;
 
 import fittrack.reminder.Reminder;
 import fittrack.trainingsession.TrainingSession;
-import fittrack.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,14 +44,9 @@ public class Ui {
         endSegment();
     }
 
-    public static void printUser(User user) {
-        assert user != null : "User object must not be null";
-        assert user.getAge() > 0 : "User age must be greater than 0";
-        assert user.getGender() != null : "User gender must not be null";
-
+    public static void printUser(int userAge, String userGender) {
         beginSegment();
-        System.out.println("You are a " + user.getAge() + " year old "
-                + user.getGender().toString().toLowerCase() + ".");
+        System.out.println("You are a " + userAge + " year old " + userGender + ".");
         endSegment();
     }
 
@@ -62,25 +56,23 @@ public class Ui {
         endSegment();
     }
 
-    public static void printAddedSession(ArrayList<TrainingSession> sessionList) {
+    public static void printAddedSession(ArrayList<TrainingSession> sessionList, String sessionDescription) {
         assert sessionList != null : "Session list must not be null";
         assert !sessionList.isEmpty() : "Session list must not be empty";
-        int sessionIndex = sessionList.size() - 1;
-
         beginSegment();
         System.out.println(ADD_SESSION_MESSAGE);
-        System.out.println(sessionList.size() + ". " + sessionList.get(sessionIndex).getSessionDescription());
+        System.out.println(sessionList.size() + ". " + sessionDescription);
         printSessionCount(sessionList);
         endSegment();
     }
 
-    public static void printDeletedSession(ArrayList<TrainingSession> sessionList, TrainingSession sessionToDelete) {
+    public static void printDeletedSession(ArrayList<TrainingSession> sessionList, TrainingSession sessionToDelete,
+                                           String sessionDescription) {
         assert sessionList != null : "Session list must not be null";
         assert sessionToDelete != null : "Session to delete must not be null";
-
         beginSegment();
         System.out.print(DELETE_SESSION_MESSAGE);
-        System.out.println(sessionToDelete.getSessionDescription());
+        System.out.println(sessionDescription);
         printSessionCount(sessionList);
         endSegment();
     }
@@ -116,13 +108,11 @@ public class Ui {
 
     public static void printSessionCount(List<TrainingSession> sessionList) {
         assert sessionList != null : "Session list must not be null";
-
         System.out.println("There are " + sessionList.size() + " sessions in the list.");
     }
 
     public static void printReminderCount(ArrayList<Reminder> reminderList) {
         assert reminderList != null : "Reminder list must not be null";
-
         System.out.println("There are " + reminderList.size() + " reminders in your list.");
     }
 
