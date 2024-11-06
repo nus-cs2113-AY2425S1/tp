@@ -1,56 +1,65 @@
-
 @startuml
 skinparam sequenceMessageAlign center
 skinparam responseMessageBelowArrow true
 
-actor User
-participant "financialList:FinancialList" as FL
-participant "entry:FinancialEntry" as FE
+participant "FinanceBuddy" as fb
+participant "financialList:FinancialList" as list
+participant ":FinancialEntry" as entry
+participant "Income" as income
+participant "Expense" as expense
 
-User -> FL : create FinancialList()
-User -> FE : create FinancialEntry(amount, description, date, category)
-
-User -> FL : addEntry(FinancialEntry entry)
-activate FL
-FL -> FE : validate and categorize entry
-activate FE
-return
-FL -> FL : insert entry in date order
+== Add Entries ==
+fb -> list : addEntry(FinancialEntry entry)
+activate list
+list -> entry : Validate and prepare entry
+activate entry
 return
 
-loop i < FL.getEntryCount()
-    User -> FL : getEntry(i)
-    activate FL
-    return FE
+entry -> income : [if entry is Income] handleIncomeSpecificLogic()
+activate income
+return
+entry -> expense : [if entry is Expense] handleExpenseSpecificLogic()
+activate expense
+return
 
-    User -> User : shouldIncludeEntry(FE)
-    activate User
-    return decision to include entry
+list -> list : updateCategoryTotal(entry)
+activate list
+return
+return
 
-    opt entry should be included
-        User -> User : increment entryCount
-        User -> FE : toString()
-        activate FE
-        return entryString
-        User -> User : append entry to entryList
-        User -> User : update net cashflow with amount
-        FL -> FL : update total by category
-        activate FL
-        return
-    end
+== Delete Entries ==
+fb -> list : deleteEntry(int index)
+activate list
+list -> list : Remove entry at index
+return
+return
+
+== View Entries ==
+fb -> list : getEntryCount()
+activate list
+return totalEntries
+
+loop i < totalEntries
+    fb -> list : getEntry(i)
+    activate list
+    return entry
+
+    fb -> entry : toString()
+    activate entry
+    return entryString
+
+    fb -> list : updateCategoryTotal(entry)
+    activate list
+    return
 end
 
-alt entryCount == 0
-    User -> User : print no entry message
-else
-    User -> User: print entryList and net cashflow
-    User -> FL : getHighestExpenseCategory()
-    activate FL
-    return highestExpenseCategory
-    User -> FL : getHighestIncomeCategory()
-    activate FL
-    return highestIncomeCategory
-    User -> User: print highest expense/income categories
-end
+fb -> list : getHighestExpenseCategory()
+activate list
+return highestExpenseCategory
 
+fb -> list : getHighestIncomeCategory()
+activate list
+return highestIncomeCategory
+
+fb -> fb : Display entries and category summaries
 @enduml

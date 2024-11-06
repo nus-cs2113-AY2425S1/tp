@@ -181,7 +181,7 @@ Managing financial entries through two main components:
 
 <ins>Implementation</ins>
 - **Class Diagram**: Displays the relationship between `FinancialList`, `FinancialEntry`, `Income`, and `Expense`. It highlights `FinancialList` as the main container managing `FinancialEntry` objects.
-  - {Input Class diagram here}
+![FinancialClassDiagram.png](UML/FinancialClassDiagram.png))
 - **Sequence Diagram**: Illustrates the process of adding a new entry, from parsing user input to creating and adding the entry to `FinancialList`.
 ![FinancialSeq](UML/FinancialEntrySequence.png)
 
