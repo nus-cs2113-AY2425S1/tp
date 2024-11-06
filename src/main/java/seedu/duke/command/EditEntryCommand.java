@@ -53,9 +53,11 @@ public class EditEntryCommand extends Command {
      * @param amount      The new amount for the entry. Must be non-negative.
      * @param description The new description for the entry. Must not be null or empty.
      * @param date The new date for the entry.
-     * @throws IllegalArgumentException if amount is negative or description is null/empty.
+     * @throws IllegalArgumentException if date is input with invalid format.
      */
-    public EditEntryCommand(int index, double amount, String description, String date, Enum<?> category) {
+    public EditEntryCommand(int index, double amount, String description, String date, Enum<?> category)
+            throws FinanceBuddyException {
+
         this.index = index;
         this.amount = amount;
         this.description = description;
@@ -64,10 +66,9 @@ public class EditEntryCommand extends Command {
             this.date = DateParser.parse(date);
         } catch (FinanceBuddyException e) {
             logger.log(LogLevels.SEVERE, "Error parsing date: " + date, e);
-            throw new IllegalArgumentException("Invalid date format: " + date, e);
+            throw new FinanceBuddyException(e.getMessage());
         }
 
-        assert amount >= 0 : "Amount should be non-negative";
         assert description !=null && !description.isEmpty() : "Description should not be empty";
     }
 
@@ -79,6 +80,17 @@ public class EditEntryCommand extends Command {
      */
     @Override
     public void execute(FinancialList list) throws FinanceBuddyException {
+
+        if (amount < 0.01) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
+        }
+        if (amount > 9999999.00) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $9999999.00 or less.");
+        }
+        if (this.date.isAfter(LocalDate.now())) {
+            throw new FinanceBuddyException("Entered date cannot be after current date.");
+        }
+
         if (list == null) {
             logger.log(LogLevels.SEVERE, "Financial list is null");
             throw new FinanceBuddyException("Financial list cannot be null");

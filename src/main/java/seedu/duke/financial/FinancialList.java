@@ -95,7 +95,7 @@ public class FinancialList {
         try {
             return entries.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new FinanceBuddyException("Invalid entry. Please provide an index with a valid entry.");
+            throw new FinanceBuddyException("There is no entry at that index :(");
         }
     }
 

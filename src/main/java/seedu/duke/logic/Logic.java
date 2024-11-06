@@ -139,12 +139,7 @@ public class Logic {
         assert index > 0 : "Index of entry to edit must be greater than 0";
         assert index <= financialList.getEntryCount() : "Index of entry to edit must be within the list size";
 
-        FinancialEntry entry = null;
-        try {
-            entry = financialList.getEntry(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
-        }
+        FinancialEntry entry = financialList.getEntry(index - 1);
 
         String amountStr = commandArguments.get("/a");
         double amount = 0;
@@ -170,7 +165,17 @@ public class Logic {
             }
         }
 
-        Enum<?> category = parseCategory(commandArguments.get("/c"), entry);
+        Enum<?> category;
+        String categoryString = commandArguments.get("/c");
+        if (categoryString != null) {
+            category = parseCategory(categoryString, entry);
+        } else if (entry instanceof Income) {
+            category = ((Income) entry).getCategory();
+        } else {
+            assert entry instanceof Expense;
+            category = ((Expense) entry).getCategory();
+        }
+
         EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
         editEntryCommand.execute(financialList);
     }
