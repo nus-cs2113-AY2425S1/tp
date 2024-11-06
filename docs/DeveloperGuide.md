@@ -32,9 +32,9 @@ The Parser component, comprising `DateParser` and `InputParser`, handles input p
 <ins>Implementation</ins>
 
 - **Class Diagram**: Displays the relationship between `AppUi`, `DateParser`, and `InputParser`. `AppUi` serves as the main interface for user interaction, utilizing `DateParser` and `InputParser` to interpret and process input effectively.
-  - {Input Class diagram}
+![Ui Parser Class](UML/UiParserClass.png)
 - **Sequence Diagram**: Illustrates the flow of processing user input, from capturing input in `AppUi`, parsing it with `InputParser`, and validating date formats via `DateParser`.
-  - {input sequence Diagram}
+![Ui Parser Sequence](UML/UiParserSequence.png)
 
 #### Ui Component
 
@@ -51,11 +51,13 @@ The `AppUi` class in the Ui component facilitates user interactions, including d
 
 *Class Diagram*: Illustrates `AppUi` with its methods for displaying messages and capturing user input.
 
-{insert class diagram for UI Component here}
+![AppUI Class](UML/AppUIClass.png)
 
 <ins>Methods</ins>
 
+- **AppUi()**: Constructor that initializes the `AppUi` instance and prepares the `Scanner` for reading user input.
 - **displayWelcomeMessage()**: Outputs a startup message.
+- **displaySetBudgetMessage()**:  Outputs set budget message.
 - **getUserInput()**: Reads input from the user.
 - **showUnknownCommandMessage()**: Notifies the user of an unrecognized command.
 - **showErrorMessage(String message)**: Displays a specific error message.
@@ -87,7 +89,7 @@ The Parser component includes `InputParser` and `DateParser`. `InputParser` proc
 
 *Class Diagram*: Shows `InputParser` parsing command input and `DateParser` handling date validation.
 
-{insert class diagram for Parser Component here}
+![Parser Class](UML/ParserClass.png)
 
 <ins>Methods</ins>
 
@@ -123,20 +125,25 @@ It interacts with `FinancialList`, `AppUi` and `Storage`, and leverages command 
 
 *Class Diagram*: Shows Logic as the main controller interacting with `FinancialList`, `AppUi`, and various command classes for operations (e.g., `AddIncomeCommand`, `DeleteCommand`).
 
-{Insert Class Diagram for Logic Component here}
+![Logic Class](UML/LogicClass.png)
 
 <ins>Class Structure</ins>
 
-The Logic constructor initializes `FinancialList`, `AppUi`, and `Storage` components to support all operations.
+TThe Logic constructor initializes key components (FinancialList, AppUi, and Storage) to facilitate CRUD operations and manage interactions with users and stored data. 
 
 <ins>Methods</ins>
 
-- **executeCommand(String userInput)**: Parses and executes the command from `userInput`.
+- **Logic(FinancialList financialList, Storage storage, AppUi ui,  BudgetLogic budgetLogic)**: Constructor that initializes the `Logic` class with necessary components like financial list, storage, UI, and budget logic.
 - **addExpense(double amount, String description, LocalDate date, Expense.Category category)**: Adds a new `Expense` to `FinancialList` specified or default category.
 - **addIncome(double amount, String description, LocalDate date, Income.Category category)**: Adds a new `Income` to `FinancialList` specified or default category.
 - **deleteEntry(int index)**: Removes an entry at a given index.
 - **editEntry(int index, double amount, String description, String date, Enum<?> category)**: Updates an entry's amount, description, date and category.
-- **seeAllEntries()**: Displays all entries in `FinancialList`.
+- **listHelper(HashMap<String, String> commandArguments)**: Lists financial entries filtered by type (e.g., expenses, incomes) and date range based on command arguments.
+- **printHelpMenu()**: Executes the help command to display the available commands and their usage to the user.
+- **matchCommand(String command, HashMap<String, String> commandArguments)**: Matches a user command to the corresponding action, executes it, and determines if the application should continue running.
+- **parseExpenseCategory(String categoryStr)**: Parses and returns the `Expense.Category` from a string, defaulting to `UNCATEGORIZED` if invalid.
+- **parseIncomeCategory(String categoryStr)**: Parses and returns the `Income.Category` from a string, defaulting to `UNCATEGORIZED` if invalid.
+- **parseCategory(String categoryStr, FinancialEntry entry)**: Determines the category type (Expense or Income) of a financial entry based on the category string and entry type.
 
 <ins>Usage Example</ins>
 
@@ -707,6 +714,7 @@ faster than a typical mouse/GUI driven app
 ### Manual Testing
 
 View the [User Guide](UserGuide.md) for the list of UI commands and their related use case and expected outcomes.
+{Currently the link to the User Guide is not up yet}
 
 ### JUnit Testing
 

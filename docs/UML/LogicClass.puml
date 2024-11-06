@@ -1,0 +1,23 @@
+@startuml
+package seedu.duke.logic {
+    class Logic {
+        + financialList : FinancialList
+        - storage : Storage
+        - ui : AppUi
+        - budgetLogic : BudgetLogic
+
+        + Logic(financialList : FinancialList, storage : Storage, ui : AppUi, budgetLogic : BudgetLogic)
+        + addExpense(commandArguments : HashMap<String, String>) : void throws FinanceBuddyException
+        + addIncome(commandArguments : HashMap<String, String>) : void throws FinanceBuddyException
+        + editEntry(commandArguments : HashMap<String, String>) : void throws FinanceBuddyException
+        + deleteEntry(commandArguments : HashMap<String, String>) : void throws FinanceBuddyException
+        + listHelper(commandArguments : HashMap<String, String>) : void throws FinanceBuddyException
+        + printHelpMenu() : void
+        + matchCommand(command : String, commandArguments : HashMap<String, String>) : boolean throws FinanceBuddyException
+
+        - parseExpenseCategory(categoryStr : String) : Expense.Category
+        - parseIncomeCategory(categoryStr : String) : Income.Category
+        - parseCategory(categoryStr : String, entry : FinancialEntry) : Enum<?>
+    }
+}
+@enduml
