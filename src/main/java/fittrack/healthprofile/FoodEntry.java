@@ -1,6 +1,7 @@
 package fittrack.healthprofile;
 
 public class FoodEntry {
+
     private String foodName;
     private int calories;
 
