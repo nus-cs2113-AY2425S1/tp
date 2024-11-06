@@ -52,6 +52,7 @@ public class AppUi {
      * Asks if user would like to set a budget
      */
     public void displaySetBudgetMessage() {
+        System.out.println("--------------------------------------------\n");
         System.out.println("Would you like to set a budget? (yes/no)");
         System.out.println("--------------------------------------------\n");
     }
@@ -61,8 +62,19 @@ public class AppUi {
      * Asks if user would like to modify their existing budget
      */
     public void displayModifyBudgetMessage(double amount) {
+        System.out.println("--------------------------------------------\n");
         System.out.println("Your current budget is: " + amount);
         System.out.println("Would you like to modify your budget? (yes/no)");
+        System.out.println("--------------------------------------------\n");
+    }
+
+    /**
+     * Displays the balance of the user's budget
+     */
+    public void displayBudgetBalanceMessage(double amount) {
+        System.out.println("--------------------------------------------\n");
+        System.out.println("Your current monthly balance is: " + amount);
+        System.out.println("--------------------------------------------\n");
     }
 
     /**

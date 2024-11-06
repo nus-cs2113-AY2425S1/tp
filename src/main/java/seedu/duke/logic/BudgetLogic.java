@@ -145,13 +145,14 @@ public class BudgetLogic {
      * @param date   the date of the expense.
      * @throws FinanceBuddyException if an error occurs during parsing the date.
      */
-    public void changeBalanceFromExpense(double amount, String date) throws FinanceBuddyException {
+    public void changeBalanceFromExpenseString(double amount, String date) throws FinanceBuddyException {
         if (!budget.isBudgetSet()) {
             return;
         }
         LocalDate parsedDate = DateParser.parse(date);
         if (isCurrentMonth(parsedDate)) {
             modifyBalance(amount);
+            ui.displayBudgetBalanceMessage(budget.getBalance());
         }
     }
 
@@ -167,6 +168,7 @@ public class BudgetLogic {
         }
         if (isCurrentMonth(date)) {
             modifyBalance(amount);
+            ui.displayBudgetBalanceMessage(budget.getBalance());
         }
     }
 
@@ -193,5 +195,6 @@ public class BudgetLogic {
             }
         }
         budget.updateBalance(balance);
+        ui.displayBudgetBalanceMessage(budget.getBalance());
     }
 }

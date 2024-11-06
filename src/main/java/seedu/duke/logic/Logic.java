@@ -74,7 +74,7 @@ public class Logic {
             category = parseExpenseCategory(commandArguments.get("/c"));
             AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date, category);
             addExpenseCommand.execute(financialList);
-            budgetLogic.changeBalanceFromExpense(-amount, date);
+            budgetLogic.changeBalanceFromExpenseString(-amount, date);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());  // Display error message when invalid date is provided
         }
@@ -164,7 +164,7 @@ public class Logic {
             LocalDate oldDate = entry.getDate();
             try {
                 budgetLogic.changeBalanceFromExpense(oldAmount, oldDate);
-                budgetLogic.changeBalanceFromExpense(-amount, date);
+                budgetLogic.changeBalanceFromExpenseString(-amount, date);
             } catch (FinanceBuddyException e) {
                 System.out.println(e.getMessage());
             }
@@ -199,7 +199,7 @@ public class Logic {
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
             String date = entry.getDate().format(pattern);
             try {
-                budgetLogic.changeBalanceFromExpense(amount, date);
+                budgetLogic.changeBalanceFromExpenseString(amount, date);
             } catch (FinanceBuddyException e) {
                 System.out.println(e.getMessage());
             }
