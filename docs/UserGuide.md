@@ -99,20 +99,6 @@ Examples:
 * `remove -p John Tan -e Origami workshop` removes the participant `John Tan` from the event `Origami workshop`.
 * `remove -m Origami paper -e Origami workshop` removes the item `Origami paper` from the event `Origami workshop`.
 
-### Edit the information of an event or a participant: `edit`
-
-Edit the name/time/venue/priority of an event, or edit the number/email of a participant.
-
-Format:
-
-* `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for editing a participant's contact information in an event.
-* `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
-
-Examples:
-
-* `edit -p Mary -n 9182 3213 -email mary@gmail.com -e CS2113`
-* `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH`
-
 ### View all participants or items for an event: `view`
 
 Shows a list of all participants or items for an event.
@@ -213,14 +199,16 @@ Examples:
 
 Filters out events from the event list based on name, date-time or priority level.
 
-Format: `filter -e/-t/-u DESCRIPTION`
+Format: `filter -e/-d/-t/-x/-u DESCRIPTION`
 
-* `-e/-t/-u` are the flags for name, date-time and priority level respectively.
+* `-e/-d/-t/-x/-u` are the flags for name, date-time and priority level respectively.
 * `DESCRIPTION` is only case-insensitive when filtering using the priority level flag.
 
 Examples:
 * `filter -e workshop` will output all events with `workshop` in their event name.
-* `filter -t 2024` will output all events that are occurring in `2024`.
+* `filter -d 2024-03-02` will output all events that are occurring in `2024-03-02`.
+* `filter -t 12:00` will output all events that are occurring at `12:00`.
+* `filter -x 2024-03-02 12:00` will output all events that are occurring at `2024-03-02 12:00`. 
 * `filter -u high` with output all events with priority level `HIGH`.
 
 ### Find participant: `find`

@@ -370,12 +370,12 @@ public class EventList  {
 
     //@@author glenn-chew
     /**
-     *  Filters events in the event list to display only events that event name contains the keyword.
+     *  Filters events in the event list to display only events with names containing the keyword.
      *
      * @param keyword the keyword that the event is filtered by.
      * @return an {@code EventList} containing only events that the keyword can be found in the event name.
      */
-    public EventList filterByKeyword(String keyword) {
+    public EventList filterByName(String keyword) {
         EventList filteredList = new EventList();
 
         for (Event event : eventList) {

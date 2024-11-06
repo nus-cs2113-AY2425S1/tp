@@ -357,22 +357,59 @@ The values of `eventName` and `isViewingParticipants` are set by the user throug
 The `Parser` assigns the event parameter directly to `eventName`. Conversely, it sets `isViewingParticipants` to true if the type parameter value is `participant`, 
 to false if the type parameter value is `item`, and treats any other value entered as invalid.
 
-### Mark/unmark feature
+### Edit feature
 
-The `mark/unmark` feature allows users to mark and unmark `Event`s in the `EventList`, or `Participant`s or `Item`s stored in an `Event`. The feature comprises the abstract `MarkCommand` class,
-which extends `Command`, and three child classes, `MarkEventCommand`, `MarkParticipantCommand`, and `MarkItemCommand`.
+The `edit` feature allows users to edit the information of an event, or the information of a participant/item in an event.
+This feature is implemented in the `EditEventCommand` `EditParticipantCommand` `EditItemCommand` classes, which extends the `Command` base class and utilises the flag to determine the edit content.
 
 The feature comprises three operations, namely:
-* `MarkEventCommand#execute`, which marks an event as done or not done.
-* `MarkParticipantCommand#execute`, which marks a participant as present or absent.
-* `MarkItemCommand#execute`, which marks an item as accounted or unaccounted.
+* `EditEventCommand#execute()`, which edits the information of an event.
+* `EditParticipantCommand#execute()`, which edits the information of a participant in an event.
+* `EditItemCommand#execute()`, which edits the information of an item in an event.
 
 The above three operations override the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
 #### Feature implementation
 
-Given below is an example usage scenario for `MarkEventCommand#execute`, and how it behaves at each step.
+Given below is an example usage scenario and the behaviour of the `edit` feature at each step:
+1. The user enters the command edit followed by a flag (-e/-p/-m) to edit the information of event/participant/item.
+2. If the flag is `-e`, `EditEventCommand` calls `EditEventCommand#execute()`, which calls `EventList#editEvent()` to edit the event. 
+   It looks for the event, modifies the information and returns true if the event exits. Otherwise, it returns false.
+3. If the flag is `-p`, `EditParticipantCommand` calls `EditParticipantCommand#execute()`, which calls `EventList#editParticipant()` to edit the participant.
+   It looks for the event and the specified participant, and then modifies the contact information and returns true if the participant is found. Otherwise, it returns false.
+4. If the flag is `-m`, `EditItemCommand` calls `EditItemCommand#execute()`, which calls `EventList#editItem()` to edit the item.
+   It looks for the event and the specified item, modifies the item and returns true if the item is found. Otherwise, it returns false.
+5. After Editing, a message `outputMessage` will be printed.
+
+The interactions between components of `EditEventCommand#execute()` are shown in the **Sequence Diagram** below:
+
+<img src="images/EditEventCommandSequenceDiagram.png">
+
+The interactions between components of `EditParticipantCommand#execute()` are shown in the **Sequence Diagram** below:
+
+<img src="images/EditParticipantCommandSequenceDiagram.png">
+
+The interactions between components of `EditItemCommand#execute()` are shown in the **Sequence Diagram** below:
+
+<img src="images/EditItemCommandSequenceDiagram.png">
+
+### Mark/unmark feature
+
+The `mark/unmark` feature allows users to mark and unmark `Event`s in the `EventList`, or `Participant`s or `Item`s stored in an `Event`. The feature comprises the abstract `MarkCommand` class,
+which extends `Command`, and three child classes, `MarkEventCommand`, `MarkParticipantCommand`, and `MarkItemCommand`.
+
+The feature comprises three operations, namely:
+* `MarkEventCommand#execute()`, which marks an event as done or not done.
+* `MarkParticipantCommand#execute()`, which marks a participant as present or absent.
+* `MarkItemCommand#execute()`, which marks an item as accounted or unaccounted.
+
+The above three operations override the `Command#execute()` operation in `Command`,
+and is invoked when the latter operation is called.
+
+#### Feature implementation
+
+Given below is an example usage scenario for `MarkEventCommand#execute()`, and how it behaves at each step.
 
 1. The user adds an event `Event 1` to the event list. The mark status for `Event 1` is initially `false` or not done, as shown in the **Object Diagram** below:
 
@@ -493,11 +530,13 @@ and is invoked when the latter operation is called.
 
 The `FilterCommand` class is constructed with a specified filter flag and keywords. It then performs filter operations based on both the flag and keywords.
 Given below is an example usage scenario and the behaviour of the `filter` feature at each step:
-1. The user enters the command filter followed by a flag (`-e: name, -t: time, or -u: priority`) and their search keyword e.g. `filter -e work` to specify the filtering criterion
+1. The user enters the command filter followed by a flag (`-e: name, -d : date, -t: time, -x date-time,  or -u: priority`) and their search keyword e.g. `filter -e work` to specify the filtering criterion
 2. `FilterCommand` calls `FilterCommand#execute`, which based on the flag invokes one of the following 3 methods
-   * `filterByName()` - Finds events containing given name (keyword)
-   * `filterByTime()` - Finds events occurring during given time (keyword)
-   * `filterByPriority` - Finds events with given priority (keyword)
+   * `filterEventsByName()` - Finds events containing given name (keyword)
+   * `filterEventsByDate()` - Finds events occurring during given date (keyword)
+   * `filterEventsByTime()` - Finds events occurring during given time (keyword)
+   * `filterEventsByDateTime()` - Finds events occurring during given date-time (keyword)
+   * `filterEventsByPriority()` - Finds events with given priority (keyword)
    
    After filtering, a success message is appended to `outputMessage` which indicates the filtering criterion used
 3. The final filtered list is then formatted and appended to `outputMessage`,
@@ -505,7 +544,7 @@ Given below is an example usage scenario and the behaviour of the `filter` featu
 
 The interactions between components of `FilterCommand#execute` are shown in the **Sequence Diagram** below:
 
-<img src="images/FilterCommandSequenceDiagram.png">
+<img src="images/FilterCommandSequenceDiagram2.png">
 
 ### Find feature
 

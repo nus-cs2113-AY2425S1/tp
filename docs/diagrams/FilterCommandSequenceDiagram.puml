@@ -13,20 +13,50 @@ FEL --> FC
 deactivate FEL
 
 alt filter by name
-    FC -> FEL: filterByName()
+    FC -> FC : filterEventsByName()
+    activate FC
+    FC -> FEL: filterByName(...)
     activate FEL
     FEL --> FC: return filtered list
     deactivate FEL
+    FC --> FC : :String
+    deactivate FC
+else filter by date
+        FC -> FC : filterEventsByDate()
+        activate FC
+        FC -> FEL: filterByDate(...)
+        activate FEL
+        FEL --> FC: return filtered list
+        deactivate FEL
+        FC --> FC : :String
+        deactivate FC
 else filter by time
-    FC -> FEL: filterByTime()
+    FC -> FC : filterEventsByTime()
+    activate FC
+    FC -> FEL: filterByTime(...)
     activate FEL
     FEL --> FC: return filtered list
     deactivate FEL
+    FC --> FC : :String
+    deactivate FC
+else filter by date-time
+        FC -> FC : filterEventsByDateTime()
+        activate FC
+        FC -> FEL: filterByDateTime(...)
+        activate FEL
+        FEL --> FC: return filtered list
+        deactivate FEL
+        FC --> FC : :String
+        deactivate FC
 else filter by priority
+    FC -> FC: filterEventsByPriority()
+    activate FC
     FC -> FEL: filterByPriority(...)
     activate FEL
     FEL --> FC: return filtered list
     deactivate FEL
+    FC --> FC : :String
+    deactivate FC
 end alt
 
 FC --> Main: Display FilteredEventList and filter result message
