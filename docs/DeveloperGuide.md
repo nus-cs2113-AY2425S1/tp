@@ -546,6 +546,9 @@ The `Storage` class contains functions for retrieving, updating, and loading dat
   - `toString()` method returns: `[Expense] - Transport $5.00 (on 25/10/24) [TRANSPORT]`
   - `toStorageString()` method returns: `E ¦¦ 5.00 ¦¦ Transport ¦¦ 25/10/24 ¦¦ TRANSPORT`
 
+The figure below show how the program load data from the files:
+![execution](UML/StorageLoad.png)
+
 <ins>Methods</ins>
 
  - **getStorageFile()**: 
