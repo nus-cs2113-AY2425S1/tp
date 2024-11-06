@@ -55,7 +55,8 @@ public class EditEntryCommand extends Command {
      * @param date The new date for the entry.
      * @throws IllegalArgumentException if date is input with invalid format.
      */
-    public EditEntryCommand(int index, double amount, String description, String date, Enum<?> category) {
+    public EditEntryCommand(int index, double amount, String description, String date, Enum<?> category)
+            throws FinanceBuddyException {
 
         this.index = index;
         this.amount = amount;
@@ -65,7 +66,7 @@ public class EditEntryCommand extends Command {
             this.date = DateParser.parse(date);
         } catch (FinanceBuddyException e) {
             logger.log(LogLevels.SEVERE, "Error parsing date: " + date, e);
-            throw new IllegalArgumentException("Invalid date format: " + date, e);
+            throw new FinanceBuddyException(e.getMessage());
         }
 
         assert description !=null && !description.isEmpty() : "Description should not be empty";
