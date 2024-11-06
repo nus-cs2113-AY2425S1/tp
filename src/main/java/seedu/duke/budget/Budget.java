@@ -69,4 +69,13 @@ public class Budget {
     public void updateBalance(double newBalance) {
         this.balance = newBalance;
     }
+
+    public void setBudgetSetDate(LocalDate date) {
+        this.budgetSetDate = date;
+    }
+
+    public String toStorageString() {
+        return String.format("%.2f", budgetAmount) + " ¦¦ " + String.format("%.2f", balance) + 
+                        " ¦¦ " + budgetSetDate;
+    }
 }

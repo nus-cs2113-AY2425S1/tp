@@ -10,10 +10,12 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import seedu.duke.budget.Budget;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.logic.BudgetLogic;
 
 /**
  * The Storage class handles the reading and writing of financial data to a storage file.
@@ -87,15 +89,23 @@ public class Storage {
      * 
      * @param theList The FinancialList containing the entries to be written to the storage file.
      */
-    public void update(FinancialList theList) {
+    public void update(FinancialList theList, BudgetLogic budgetLogic) {
         try {
             // run through the list of tasks and write them to the file
             File file = getStorageFile();
             FileWriter fileWritter = new FileWriter(file);
+            // Store the transactions
+            fileWritter.write("Transactions:" + "\n");
             for (int i = 0; i < theList.getEntryCount(); i++) {
                 seedu.duke.financial.FinancialEntry entry = theList.getEntry(i);
                 fileWritter.write(entry.toStorageString() + "\n");
             }
+            fileWritter.write("End of transactions\n");
+            // Store the budget
+            Budget budget = budgetLogic.getBudget();
+            fileWritter.write("Budget:" + "\n");
+            fileWritter.write(budget.toStorageString() + "\n");
+            fileWritter.write("End of budget\n");
             fileWritter.close();
             logger.log(Level.INFO, "Updated file with " + theList.getEntryCount() + " entries.");
         } catch (Exception e) {
@@ -169,25 +179,33 @@ public class Storage {
         }
     }
 
-    /**
-     * Loads financial entries from a file and returns a FinancialList containing the entries.
-     * The file is expected to contain lines starting with 'E' for expenses and 'I' for incomes,
-     * followed by details separated by " | ".
-     * 
-     * @return FinancialList containing the loaded financial entries, or null if an error occurs.
-     */
-    public FinancialList loadFromFile() {
+    
+    public FinancialList loadFromFile(BudgetLogic budgetLogic) {
         try {
             FinancialList theList = new FinancialList();
             File file = getStorageFile();
             java.util.Scanner sc = new java.util.Scanner(file);
             Integer loadedExpenseCount = 0;
             Integer loadedIncomeCount = 0;
-            while (sc.hasNextLine()) {
+            // load transactions
+            String transactionHeader = sc.nextLine();
+            if (!transactionHeader.equals("Transactions:")) {
+                logger.log(Level.WARNING, "Storage file format invalid, missing 'Transactions:' header.");
+                sc.close();
+                return new FinancialList();
+            }else{
+                logger.log(Level.INFO, "Loading transactions from file.");
+            }
+            // start reading the transactions
+            Boolean transectionLoading = true;
+            while (sc.hasNextLine() && transectionLoading) {
                 try {
                     String line = sc.nextLine();
                     // parse the line and add the task to the list
-                    if (line.charAt(0) == 'E') {
+                    if (line.equals("End of transactions")) {
+                        logger.log(Level.INFO, "Finished loading transactions from file.");
+                        transectionLoading = false;
+                    }else if (line.charAt(0) == 'E') {
                         String[] tokens = line.split(" \\¦¦ ");
                         theList.addEntry(parseExpense(tokens));
                         loadedExpenseCount++;
@@ -195,13 +213,38 @@ public class Storage {
                         String[] tokens = line.split(" \\¦¦ ");
                         theList.addEntry(parseIncome(tokens));
                         loadedIncomeCount++;
-                    } else{
+                    } else {
                         logger.log(Level.WARNING, "Skiping logged transection cause storage formate invalid, " 
                                 + "unknown entry type: " + line.charAt(0));
                     }
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Skiping logged transection cause storage formate invalid");
+                    logger.log(Level.WARNING, e.getMessage());
                 }
+            }
+            // load budget
+            String budgetHeader = sc.nextLine();
+            System.out.println(budgetHeader);
+            if (!budgetHeader.equals("Budget:")) {
+                logger.log(Level.WARNING, "Storage file format invalid, missing 'Budget:' header.");
+                sc.close();
+                return theList;
+            }else{
+                logger.log(Level.INFO, "Loading budget from file.");
+            }
+            // start reading the budget
+            try {
+                String line = sc.nextLine();
+                String[] tokens = line.split(" \\¦¦ ");
+                Budget budget = new Budget();
+                budget.setBudgetAmount(Double.parseDouble(tokens[0]));
+                budget.updateBalance(Double.parseDouble(tokens[1]));
+                budget.setBudgetSetDate(LocalDate.parse(tokens[2]));
+                budgetLogic.overwriteBudget(budget);
+                update(theList, budgetLogic);
+            } catch (Exception e) {
+                logger.log(Level.WARNING, "Skiping logged budget cause storage formate invalid");
+                logger.log(Level.WARNING, e.getMessage());
             }
             sc.close();
             logger.log(Level.INFO, "Loaded " + loadedExpenseCount + " expenses and " + 

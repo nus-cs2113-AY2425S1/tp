@@ -270,19 +270,19 @@ public class Logic {
             break;
         case "expense":
             addExpense(commandArguments);
-            storage.update(financialList);
+            storage.update(financialList, budgetLogic);
             break;
         case "income":
             addIncome(commandArguments);
-            storage.update(financialList);
+            storage.update(financialList, budgetLogic);
             break;
         case "edit":
             editEntry(commandArguments);
-            storage.update(financialList);
+            storage.update(financialList, budgetLogic);
             break;
         case "delete":
             deleteEntry(commandArguments);
-            storage.update(financialList);
+            storage.update(financialList, budgetLogic);
             break;
         case "budget":
             budgetLogic.setBudget(financialList);
