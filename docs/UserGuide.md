@@ -229,6 +229,21 @@ Expected Output:
 Invalid contact type.
 ```
 
+### Find courses in personalised tracker
+This feature allows users to search for NUS courses in their course mappings. So that they can check if they have
+mappings for that course.
+
+Format: `find [NUS_COURSE_CODE]`
+* Note that this feature is searching within the personalised tracker
+
+Example of usage: `find cs2102`
+* Assuming that the course is already in the tracker.
+* If there is multiple course mappings containing that course, all the mappings will be shown.
+Expected output:
+```
+cs2102 | the university of melbourne | info20003
+-----------------------------------------------------
+```
 ## FAQ
 
 **Q**: Are the commands case-sensitive?

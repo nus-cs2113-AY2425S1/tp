@@ -2,6 +2,8 @@
 
 hide footbox
 
+!include .SequenceDiagram.config
+
 actor CEG_Student
 
 participant ":HelpCommand" as HelpCommand
