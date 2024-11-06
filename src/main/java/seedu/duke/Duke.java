@@ -3,6 +3,7 @@ package seedu.duke;
 import seedu.duke.Command.BudgetManager;
 import seedu.duke.Command.CategoryManager;
 import seedu.duke.Command.ExpenseManager;
+import seedu.duke.Parser.Parser;
 
 import java.io.IOException;
 import java.util.Scanner;

@@ -1,8 +1,10 @@
-package seedu.duke;
+package seedu.duke.Parser;
 
 import seedu.duke.Command.BudgetManager;
 import seedu.duke.Command.CategoryManager;
 import seedu.duke.Command.ExpenseManager;
+import seedu.duke.TrackerData;
+import seedu.duke.UI;
 
 public class Parser {
     private final ExpenseManager expenseManager;

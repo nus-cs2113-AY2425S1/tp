@@ -2,7 +2,7 @@
 package seedu.duke.Command;
 
 import seedu.duke.Format;
-import seedu.duke.InputParser;
+import seedu.duke.Parser.InputParser;
 import seedu.duke.TrackerData;
 
 import java.util.ArrayList;
