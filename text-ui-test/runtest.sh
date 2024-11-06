@@ -12,11 +12,6 @@ java  -jar $(find ../build/libs/ -mindepth 1 -print -quit) < input.txt > ACTUAL.
 
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
 dos2unix EXPECTED-UNIX.TXT ACTUAL.TXT
-
-echo "==== ACTUAL.TXT ===="
-cat ACTUAL.TXT
-echo "====================="
-
 diff EXPECTED-UNIX.TXT ACTUAL.TXT
 if [ $? -eq 0 ]
 then

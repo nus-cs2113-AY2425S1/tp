@@ -20,7 +20,7 @@ SomeCategory
 yes
 
 add-expense Coffee a/ 5 d/ invalid-date c/ Groceries
-add-expense Dinner a/ 1000000 d/ 2024-11-01 c/ Luxury
+add-expense Dinner a/ 1000000 d/ 2024-11-07 c/ Luxury
 yes
 
 add-budget a/ 2000 m/ 2024-11
