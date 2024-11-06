@@ -48,4 +48,12 @@ public class InputParser {
             return -1;
         }
     }
+
+    public String parseName(String input) {
+        return parseComponent(input, "n/");
+    }
+
+    public String parseCategory(String input) {
+        return parseComponent(input, "c/");
+    }
 }
