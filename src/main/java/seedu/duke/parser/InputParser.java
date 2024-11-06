@@ -1,4 +1,4 @@
-package seedu.duke.Parser;
+package seedu.duke.parser;
 
 public class InputParser {
     private String parseComponent(String input, String prefix) {

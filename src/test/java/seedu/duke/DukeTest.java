@@ -2,12 +2,12 @@
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.Command.CategoryManager;
-import seedu.duke.Command.ExpenseManager;
-import seedu.duke.Command.TrackerData;
-import seedu.duke.Command.Budget;
-import seedu.duke.Command.Category;
-import seedu.duke.Command.Expense;
+import seedu.duke.command.CategoryManager;
+import seedu.duke.command.ExpenseManager;
+import seedu.duke.command.TrackerData;
+import seedu.duke.command.Budget;
+import seedu.duke.command.Category;
+import seedu.duke.command.Expense;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

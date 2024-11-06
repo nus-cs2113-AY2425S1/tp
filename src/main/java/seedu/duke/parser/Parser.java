@@ -1,9 +1,9 @@
-package seedu.duke.Parser;
+package seedu.duke.parser;
 
-import seedu.duke.Command.BudgetManager;
-import seedu.duke.Command.CategoryManager;
-import seedu.duke.Command.ExpenseManager;
-import seedu.duke.Command.TrackerData;
+import seedu.duke.command.BudgetManager;
+import seedu.duke.command.CategoryManager;
+import seedu.duke.command.ExpenseManager;
+import seedu.duke.command.TrackerData;
 import seedu.duke.UI;
 
 public class Parser {
