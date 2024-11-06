@@ -7,6 +7,7 @@ class RecurringExpense {
     #description: String
     #category: String
     #dateAdded: LocalDate
+    #lastDateAdded: String
     #frequency: String
     +RecurringExpense(price: Float, description: String, category: String, frequency: String): Expense
     +RecurringExpense(price: Float, description: String, category: String, dateAdded: LocalDate, frequency: String): Expense
