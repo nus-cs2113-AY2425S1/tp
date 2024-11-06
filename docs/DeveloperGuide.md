@@ -703,7 +703,7 @@ For `Participant` and `Item` saving:
 
   The class interactions during saving are displayed in the **Sequence Diagram** below.
 
-<img src= "images/StorageSavingSequenceDiagram.png">
+<img src= "images/StorageSavingSequenceDiagram.png" width="600">
 
 The logic for the saving of `Item`s is similar to that for `Participant`s.
 
