@@ -1,13 +1,18 @@
 @startuml
 title Sequence Diagram for "set <gender, age>" Command
 
-actor User
+actor User.
 
-User -> FitTrack: User inputs Set User command
+User. -> FitTrack: User inputs Set User command
 
 activate FitTrack
 FitTrack -> Parser: parse(...)
 activate Parser
+
+Parser -> User: new User(gender, age)
+activate User
+User --> Parser: User
+deactivate User
 
 Parser -> Ui: printUser(userAge, userGender)
 activate Ui
@@ -19,7 +24,7 @@ Ui --> Parser
 deactivate Ui
 Parser --> FitTrack
 deactivate Parser
-FitTrack --> User
+FitTrack --> User.
 deactivate FitTrack
 
 @enduml

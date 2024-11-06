@@ -21,14 +21,18 @@ activate FitTrack
                             loop for each ExerciseStation
                                 TrainingSession -> ExerciseStation: exercise.getPoints(user)
                                 activate ExerciseStation
+                                    ExerciseStation -> Calculator: calculatePoints()
+                                    activate Calculator
+                                    Calculator --> ExerciseStation: calculatePoints
+                                    deactivate Calculator
                                 ExerciseStation --> TrainingSession: exercisePoint
                                 TrainingSession -> ExerciseStation: exercise.getName()
                                 ExerciseStation --> TrainingSession: exerciseName
-                                note over ExerciseStation
+                                note over TrainingSession
                                 Print exerciseName and exercise
                                 end note
                             end loop
-                            note over ExerciseStation
+                            note over TrainingSession
                             Print totalPoints and overallAward
                             end note
                             ExerciseStation --> TrainingSession

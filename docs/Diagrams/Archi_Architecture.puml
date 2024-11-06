@@ -7,9 +7,6 @@ skinparam classBorderColor Black
 rectangle User {
 }
 
-rectangle FitTrackLogger {
-}
-
 rectangle Exceptions {
 }
 
@@ -25,13 +22,7 @@ rectangle Parser {
 rectangle Ui {
 }
 
-rectangle TrainingSession {
-}
-
-rectangle ExerciseStation {
-}
-
-rectangle Calculator {
+rectangle Miscellaneous {
 }
 
 FitTrack  -->  Parser
@@ -39,17 +30,14 @@ FitTrack  -->  Ui
 FitTrack  -->  Storage
 FitTrack  -->  User
 
-Parser  -->  TrainingSession
+Parser  -->  Miscellaneous
 Parser  -left->  User
 Parser  -right->  Ui
 
-Ui  -->  TrainingSession
+Ui  -->  Miscellaneous
 
-Storage  -->  TrainingSession
+Storage  -->  Miscellaneous
 Storage -> User
-TrainingSession  -->  User
-TrainingSession  --> ExerciseStation
-
-ExerciseStation --> Calculator
+Miscellaneous  -->  User
 
 @enduml
