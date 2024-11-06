@@ -1,9 +1,5 @@
 package seedu.duke;
 
-import java.text.DecimalFormat;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 /**
  * Represents an expense with a name, amount, and category.
  */

@@ -1,10 +1,5 @@
 package seedu.duke;
 
-//@@author glenda-1506
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 //@@author MayFairMI6
 public class Budget {
     private Category category; // Private to prevent unauthorized access or changes
