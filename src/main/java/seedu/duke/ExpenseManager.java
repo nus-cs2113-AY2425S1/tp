@@ -11,57 +11,10 @@ public class ExpenseManager {
     //@@author kq2003
     public void addExpenseRequest(String input, ExpenseManager expenseManager, TrackerData trackerData) {
         try {
-            String[] parts = input.split(" ");
-            String name = null;
-            double amount = 0;
-            String category = null;
-
-            StringBuilder current = new StringBuilder();
-            String currentPrefix = "";
-
-            for (String part : parts) {
-                if (part.startsWith("n/")) {
-                    if (currentPrefix.equals("n/")) {
-                        name = current.toString().trim();
-                    } else if (currentPrefix.equals("c/")) {
-                        category = current.toString().trim();
-                    }
-                    current.setLength(0);
-                    current.append(part.substring(2)).append(" ");
-                    currentPrefix = "n/";
-                } else if (part.startsWith("a/")) {
-                    if (currentPrefix.equals("n/")) {
-                        name = current.toString().trim();
-                    } else if (currentPrefix.equals("c/")) {
-                        category = current.toString().trim();
-                    }
-                    current.setLength(0);
-
-                    try {
-                        amount = Double.parseDouble(part.substring(2).trim());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid amount format. Please enter a valid number after 'a/'.");
-                        return;
-                    }
-
-                    currentPrefix = "a/";
-                } else if (part.startsWith("c/")) {
-                    if (currentPrefix.equals("n/")) {
-                        name = current.toString().trim();
-                    }
-                    current.setLength(0);
-                    current.append(part.substring(2)).append(" ");
-                    currentPrefix = "c/";
-                } else {
-                    current.append(part).append(" ");
-                }
-            }
-
-            if (currentPrefix.equals("n/")) {
-                name = current.toString().trim();
-            } else if (currentPrefix.equals("c/")) {
-                category = current.toString().trim();
-            }
+            InputParser parser = new InputParser();
+            String name = parser.parseName(input);
+            double amount = parser.parseAmount(input);
+            String category = parser.parseCategory(input);
 
             if (name.isEmpty() || amount == 0) {
                 System.out.println("Invalid input! Please provide name, amount, and category.");
