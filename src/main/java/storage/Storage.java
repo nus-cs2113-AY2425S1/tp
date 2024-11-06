@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import exceptions.UnableToSave;
 import history.DailyRecord;
 import history.History;
 import programme.ProgrammeList;
@@ -48,7 +49,7 @@ public class Storage {
             JsonObject programmeListJson = fileManager.loadProgrammeList();
             logger.info("Loading programmeList");
             return programmeListFromJson(programmeListJson);
-        } catch (Exception e) {
+        } catch (Exception e ) {
             logger.info("No programme list found, empty list initialised");
             return new ProgrammeList();
         }
