@@ -137,6 +137,25 @@ public class Storage {
             e.printStackTrace();
         }
     }
+    
+    public void checkParameters(double amount, String description, DateTimeFormatter formatter,
+                                LocalDate date) throws FinanceBuddyException {
+        if (amount < 0) {
+            throw new FinanceBuddyException("Amount should be non-negative");
+        }
+        if (amount > 9999999.00) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $9999999.00 or less.");
+        }
+        if (description == null || description.isEmpty()) {
+            throw new FinanceBuddyException("Description should not be empty");
+        }
+        if (date == null) {
+            throw new FinanceBuddyException("Date should not be empty");
+        }
+        if (date.isAfter(LocalDate.now())){
+            throw new FinanceBuddyException("Date cannot be after current date.");
+        }
+    }
 
     /**
      * Parses an array of strings to create an Expense object.
@@ -156,8 +175,7 @@ public class Storage {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
             LocalDate date = LocalDate.parse(tokens[3], formatter);
             Expense.Category category = Expense.Category.valueOf(tokens[4].toUpperCase());
-            assert amount >= 0 : "Amount should be non-negative";
-            assert description != null && !description.isEmpty() : "Description should not be empty";
+            checkParameters(amount, description, formatter, date);
             return new Expense(amount, description, date, category);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Error parsing amount in expense: " + tokens[1]);
@@ -189,8 +207,7 @@ public class Storage {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
             LocalDate date = LocalDate.parse(tokens[3], formatter);
             Income.Category category = Income.Category.valueOf(tokens[4].toUpperCase());
-            assert amount >= 0 : "Amount should be non-negative";
-            assert description != null && !description.isEmpty() : "Description should not be empty";
+            checkParameters(amount, description, formatter, date);
             return new Income(amount, description, date, category);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Error parsing amount in income: " + tokens[1]);
