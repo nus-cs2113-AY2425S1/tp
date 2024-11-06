@@ -104,6 +104,7 @@ public class Main {
         transactions.setTransactions(Storage.loadTransactions());
 
         budgetTracker = new BudgetTracker(transactions);
+        budgetTracker.setMonthlyBudgets(Storage.loadBudgets());
 
         setupCommands();
 

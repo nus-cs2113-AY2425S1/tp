@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  * Represents a list of transactions, including expenses and incomes.
  * Provides methods to add, delete, and search transactions, as well as update their categories.
  * The class also maintains an inverted index for efficient keyword searching.
+ * Original Implementation is by @YukeeHong in commit SHA 392a1fbce1f760236c968b3edfca0f4b8d3b81e7
  */
 public class TransactionList {
     private static final Logger logger = Logger.getLogger("TransactionList");
