@@ -12,6 +12,11 @@ public class Mcq extends Question {
 
     @Override
     public boolean checkAnswer(String answer) {
+        if (!answer.matches("[abcdABCD]")) {
+            throw new IllegalArgumentException("Invalid answer. Please enter only 'a', 'b', 'c', or 'd'.");
+        }
+
+        // Check if the answer matches the correct answer
         return correctAnswer.equalsIgnoreCase(answer);
     }
 

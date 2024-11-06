@@ -1,41 +1,82 @@
-Loops | TrueFalse | Java is a programming language. | true
-Loops | TrueFalse | A while loop will execute at least once. | false
-Loops | TrueFalse | A for loop is used when the number of iterations is known. | true
-Loops | TrueFalse | A do-while loop will execute its body before checking the condition. | true
+Loops | FillInTheBlank | The `____` loop checks its condition before executing the loop body. | while
+Loops | FillInTheBlank | A `____` loop will execute its body at least once, regardless of the condition. | do-while
+Loops | FillInTheBlank | The `____` statement immediately stops the current loop iteration. | continue
+Loops | FillInTheBlank | The keyword used to exit a loop early is `____`. | break
+Loops | FillInTheBlank | In a `____` loop, the number of iterations is typically known beforehand. | for
+Loops | TrueFalse | A while loop will always execute at least once. | false
+Loops | TrueFalse | A do-while loop checks the condition after executing its body. | true
+Loops | TrueFalse | The break statement can only be used in while loops. | false
 Loops | TrueFalse | A for-each loop is primarily used for iterating over collections. | true
-Loops | TrueFalse | A while loop is best used when the number of iterations is known. | false
-Loops | TrueFalse | A break statement can be used to exit a loop early. | true
-Loops | TrueFalse | A continue statement skips the current iteration of a loop. | true
-Loops | TrueFalse | A do-while loop will never execute if the condition is false initially. | false
-Loops | TrueFalse | Infinite loops can only be created using a while loop. | false
-Loops | TrueFalse | You can nest loops inside one another in Java. | true
-Loops | Mcq | Which of the following is a loop structure in Java? | b | a) if-else | b) for | c) switch | d) try-catch
-Loops | Mcq | Which loop guarantees at least one iteration? | a | a) do-while | b) for | c) while | d) for-each
-Loops | Mcq | Which keyword is used to exit a loop early? | c | a) continue | b) return | c) break | d) stop
-Loops | Mcq | Which type of loop is used when the number of iterations is fixed? | b | a) while | b) for | c) do-while | d) foreach
-Loops | Mcq | What is the correct syntax for a for loop in Java? | a | a) for (int i = 0; i < 10; i++) | b) for (i = 0; i < 10; i++) | c) for int i : range(10) | d) foreach (int i in range(10))
-Loops | Mcq | Which of the following loop types can be infinite? | a | a) while | b) do-while | c) for | d) All of the above
-Loops | Mcq | Which of the following loops is suitable for iterating over a collection? | d | a) while | b) do-while | c) simple for | d) for-each
-Loops | Mcq | What happens if the condition in a for loop is omitted? | c | a) Compilation error | b) Infinite loop | c) The loop continues until it is explicitly broken | d) None of the above
-Loops | Mcq | Which keyword can be used to skip to the next iteration of a loop? | a | a) continue | b) skip | c) next | d) pass
-Loops | Mcq | What is the output of an infinite while loop without a condition? | b | a) Compilation error | b) Loop continues indefinitely | c) Loop runs once | d) None of the above
+Loops | TrueFalse | Nested loops are not allowed in Java. | false
+Loops | Mcq | Which loop checks the condition before each iteration? | a | a) while | b) do-while | c) foreach | d) infinite
+Loops | Mcq | Which loop type is guaranteed to execute at least once? | b | a) while | b) do-while | c) foreach | d) none
+Loops | Mcq | Which statement is used to skip to the next iteration of a loop? | c | a) break | b) stop | c) continue | d) skip
+Loops | Mcq | A for-each loop is best used for? | d | a) Infinite loops | b) Conditional execution | c) Single execution | d) Iterating collections
+Loops | Mcq | What happens if you forget to increment in a for loop? | b | a) The loop executes once | b) Infinite loop | c) Compilation error | d) None
+
 Java Basics | FillInTheBlank | The keyword used to declare a method that does not return a value is `____`. | void
 Java Basics | FillInTheBlank | The `____` keyword is used to create a new object in Java. | new
 Java Basics | FillInTheBlank | In Java, the method that runs when the program starts is called `____`. | main
 Java Basics | FillInTheBlank | The access modifier `____` allows visibility within the same package and subclasses. | protected
 Java Basics | FillInTheBlank | The `____` statement is used to terminate the execution of a method and return a value. | return
-Java Basics | FillInTheBlank | To compare two strings in Java, you use the `____` method. | equals
-Java Basics | FillInTheBlank | In Java, arrays have a fixed `____` once they are initialized. | size
-Java Basics | FillInTheBlank | A `____` is a block of code that can be called with a set of arguments and performs a specific task. | method
-Java Basics | FillInTheBlank | The `____` keyword is used to inherit properties and methods from another class. | extends
-Java Basics | FillInTheBlank | The keyword `____` is used to implement an interface in a class. | implements
-Java Basics | FillInTheBlank | The keyword used to define a class is `____`. | class
-Java Basics | FillInTheBlank | A constructor in Java is used to create an instance of a `____`. | object
-Java Basics | FillInTheBlank | The keyword used to declare a constant in Java is ___ | final
-Flashcards | Flashcard | 2 + 3 | 5
-Flashcards | Flashcard | The keyword used to define a class is `____`. | class
-Flashcards | Flashcard | What is Java? | A programming language
-Flashcards | Flashcard | What is Java? | A programming language
+Java Basics | TrueFalse | In Java, a class can extend multiple classes. | false
+Java Basics | TrueFalse | A constructor in Java does not have a return type. | true
+Java Basics | TrueFalse | The `static` keyword in Java makes a member associated with the class rather than instances. | true
+Java Basics | TrueFalse | Java supports multiple inheritance directly. | false
+Java Basics | TrueFalse | The `final` keyword makes a variable constant. | true
+Java Basics | Mcq | Which keyword is used to create an object? | b | a) create | b) new | c) obj | d) class
+Java Basics | Mcq | Which access modifier makes a member accessible only within its own package? | c | a) public | b) protected | c) package-private | d) private
+Java Basics | Mcq | What is the default access modifier in Java? | c | a) public | b) protected | c) package-private | d) private
+Java Basics | Mcq | Which of these keywords makes a variable constant? | a | a) final | b) const | c) static | d) none
+Java Basics | Mcq | Which method in Java is the entry point of any application? | a | a) main | b) start | c) init | d) run
+
+Conditionals | FillInTheBlank | The `____` statement is used to execute code based on a condition. | if
+Conditionals | FillInTheBlank | The `____` statement provides an alternative block if the condition is false. | else
+Conditionals | FillInTheBlank | The `____` operator is used for conditional expressions in one line. | ternary
+Conditionals | FillInTheBlank | The `____` statement allows multiple alternatives in branching. | switch
+Conditionals | FillInTheBlank | The `____` operator checks if two values are not equal. | !=
+Conditionals | TrueFalse | An if statement can have multiple else blocks. | false
+Conditionals | TrueFalse | The switch statement can evaluate string values. | true
+Conditionals | TrueFalse | Ternary operators can be nested. | true
+Conditionals | TrueFalse | Java allows the use of `else if` for multiple conditions. | true
+Conditionals | TrueFalse | `switch` works only with integer values. | false
+Conditionals | Mcq | Which keyword is used for conditional branching? | a | a) if | b) case | c) switch | d) when
+Conditionals | Mcq | What is the default keyword used in switch cases? | c | a) break | b) continue | c) default | d) exit
+Conditionals | Mcq | Which operator is used for a simple condition check? | a | a) == | b) != | c) <= | d) +=
+Conditionals | Mcq | Which conditional operator is known as ternary? | d | a) ?== | b) :: | c) -> | d) ?:
+Conditionals | Mcq | Which statement runs a block of code when all conditions are false? | b | a) if | b) else | c) switch | d) for
+
+Types | FillInTheBlank | A `____` is used to store integer values in Java. | int
+Types | FillInTheBlank | The `____` keyword is used for floating-point values. | float
+Types | FillInTheBlank | `____` represents true or false values. | boolean
+Types | FillInTheBlank | The `____` data type is used for single characters. | char
+Types | FillInTheBlank | The wrapper class for int is `____`. | Integer
+Types | TrueFalse | String is a primitive data type in Java. | false
+Types | TrueFalse | Java has four integer types. | true
+Types | TrueFalse | A double variable takes up more space than an int variable. | true
+Types | TrueFalse | The float type has higher precision than double. | false
+Types | TrueFalse | The `char` type can hold numbers. | true
+Types | Mcq | Which data type is used for true/false values? | b | a) int | b) boolean | c) double | d) char
+Types | Mcq | What is the default value of a boolean in Java? | c | a) true | b) 1 | c) false | d) null
+Types | Mcq | Which type has a precision of about 15 decimal places? | b | a) float | b) double | c) int | d) char
+Types | Mcq | What is the size of int in Java? | a | a) 4 bytes | b) 2 bytes | c) 8 bytes | d) 1 byte
+Types | Mcq | Which of these types holds the highest precision? | b | a) float | b) double | c) int | d) short
+
+Git | FillInTheBlank | The command to check the current branch is `git ____`. | branch
+Git | FillInTheBlank | `git ____` is used to update the local branch with remote changes. | pull
+Git | FillInTheBlank | `git ____` stages all changes in the working directory. | add
+Git | FillInTheBlank | `git ____` creates a copy of a repository on a local machine. | clone
+Git | FillInTheBlank | `git ____` creates a new branch. | checkout -b
+Git | TrueFalse | `git merge` combines the histories of two branches. | true
+Git | TrueFalse | `git pull` only downloads changes without merging them. | false
+Git | TrueFalse | Git stores snapshots, not differences between commits. | true
+Git | TrueFalse | `git reset` undoes commits and changes the working directory. | true
+Git | TrueFalse | `git fetch` brings changes into the working directory. | false
+Git | Mcq | Which command initializes a new Git repository? | a | a) git init | b) git start | c) git create | d) git repository
+Git | Mcq | Which command stages files for commit? | b | a) git stage | b) git add | c) git commit | d) git push
+Git | Mcq | Which command lists all branches? | c | a) git log | b) git branch -a | c) git branch | d) git show
+Git | Mcq | Which command updates the local repository with remote changes? | b | a) git fetch | b) git pull | c) git update | d) git merge
+Git | Mcq | Which command shows the commit history? | a | a) git log | b) git history | c) git status | d) git commits
 Flashcards | Flashcard | What is Java? | A programming language
 Flashcards | Flashcard | What is Java? | A programming language
 Flashcards | Flashcard | What is Java? | A programming language

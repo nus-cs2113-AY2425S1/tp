@@ -13,6 +13,7 @@ public class Quiz {
     private int correctAnswers;
     private QuizTimer quizTimer;
     private Cli cli;
+    private int questionLimit;
 
     public Quiz(Topic topic, Cli cli) {
         assert topic != null : "Topic must not be null";
@@ -22,10 +23,12 @@ public class Quiz {
         this.cli = cli;
         this.currentQuestionIndex = 0;
         this.correctAnswers = 0;
+        questionLimit = 0;
     }
 
     public void start(int timeLimitInSeconds, int questionLimit) {
-        List<Question> questions = topic.getQuestions();
+        this.questionLimit = questionLimit;
+        List<Question> questions = topic.getRandomQuestions(questionLimit);
         quizTimer.startTimer(timeLimitInSeconds);
 
         if (questions.isEmpty()) {
@@ -39,26 +42,30 @@ public class Quiz {
             Question currentQuestion = questions.get(currentQuestionIndex);
             assert currentQuestion != null : "Current question must not be null";
 
+            cli.printEnclosure();
             cli.printMessage(currentQuestion.getText());
 
             if (currentQuestion instanceof Mcq) {
                 cli.printOptions(currentQuestion.getOptions());
             } else if (currentQuestion instanceof TrueFalse) {
-                System.out.println("Please answer with 'true' or 'false'.");
+                cli.printMessage("Please answer with 'true' or 'false'.");
             } else if (currentQuestion instanceof FillInTheBlank) {
-                System.out.println("Please fill in the blank with the correct answer.");
+                cli.printMessage("Please fill in the blank with the correct answer.");
             }
+            cli.printEnclosure();
 
-            handleQuestionInput(currentQuestion);
+            if (!shouldContinueQuiz(currentQuestion)) {
+                break;
+            }
 
             currentQuestionIndex++;
         }
 
         quizTimer.cancelTimer();
-        System.out.println("Quiz finished. Your score is: " + getScore() + "%");
+        cli.printMessage("Quiz finished. Your score is: " + getScore() + "%");
     }
 
-    private void handleQuestionInput(Question currentQuestion) {
+    private boolean shouldContinueQuiz(Question currentQuestion) {
         boolean validInput = false;
         while (!validInput) {
             cli.printMessage("Enter your answer: ");
@@ -70,34 +77,35 @@ public class Quiz {
 
             // Check if the user wants to exit the quiz
             if (answer.equalsIgnoreCase("exit")) {
-                System.out.println("Exiting the quiz. Returning to main menu...");
-                return;  // Exit the quiz early without quitting the entire application
+                cli.printMessage("Exiting the quiz. Returning to main menu...");
+                return false;
             }
 
             try {
-                answerQuestion(answer);
+                answerQuestion(answer, currentQuestion);
                 validInput = true;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                cli.printMessage(e.getMessage());
             }
         }
+        return true;
     }
 
-    public void answerQuestion(String answer) {
+    public void answerQuestion(String answer, Question currentQuestion) {
         assert currentQuestionIndex < topic.getQuestions().size() : "Question index out of bounds";
         assert answer != null && !answer.trim().isEmpty() : "Answer must not be null or empty";
 
-        Question currentQuestion = topic.getQuestions().get(currentQuestionIndex);
         if (currentQuestion.checkAnswer(answer)) {
-            System.out.println("Correct!");
+            cli.printMessage("Correct!");
             correctAnswers++;
         } else {
-            System.out.println("Incorrect!");
+            cli.printMessage("Incorrect!");
+            cli.printMessage("The correct answer is: " + currentQuestion.getCorrectAnswer());
         }
     }
 
     public int getScore() {
-        int totalQuestions = topic.getQuestions().size();
+        int totalQuestions = questionLimit;
         return (int) ((double) correctAnswers / totalQuestions * 100);
     }
 

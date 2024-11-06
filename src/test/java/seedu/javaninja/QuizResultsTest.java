@@ -25,13 +25,22 @@ class QuizResultsTest {
     }
 
     @Test
-    public void addResult_withValidScoreAndComment_savesResultCorrectly() {
-        // Add a result
-        quizResults.addResult(85, "Good job!");
+    public void addResult_withValidDetails_savesResultCorrectly() {
+        // Add a result with new format details
+        quizResults.addResult("Loops", 100, 3, "Excellent!", 300);
 
-        // Check that the past results contain the added result
-        String expectedResult = "Score: 85%, Comment: Good job!\n";
-        assertEquals(expectedResult, quizResults.getPastResults());
+        // Define expected result format
+        String expectedResult = "{\n" +
+            "  Topic: Loops,\n" +
+            "  Score: 100%,\n" +
+            "  Time Limit: 300 seconds,\n" +
+            "  Questions Attempted: 3,\n" +
+            "  Comment: Excellent!\n" +
+            "}";
+
+        // Check that the past results contain the correctly formatted result
+        assertEquals(expectedResult.replaceAll("\\s+", " ").trim(),
+            quizResults.getPastResults().replaceAll("\\s+", " ").trim());
     }
 
     @Test
@@ -42,26 +51,42 @@ class QuizResultsTest {
     }
 
     @Test
-    public void saveResults_writesResultsToFile() throws IOException {
-        // Add a result and save it
-        quizResults.addResult(60, "Needs improvement.");
+    public void saveResults_writesFormattedResultsToFile() throws IOException {
+        // Add a result with new format and save it
+        quizResults.addResult("Loops", 60, 5, "Needs improvement.", 150);
         quizResults.saveResults();
+
+        // Define expected file content format
+        String expectedFileContents = "{\n" +
+            "  Topic: Loops,\n" +
+            "  Score: 60%,\n" +
+            "  Time Limit: 150 seconds,\n" +
+            "  Questions Attempted: 5,\n" +
+            "  Comment: Needs improvement.\n" +
+            "}";
 
         // Read the saved result from the file and verify
         Path path = Path.of(resultsFilePath);
-        String fileContents = Files.readString(path).trim();
-        assertEquals("Score: 60%, Comment: Needs improvement.", fileContents);
+        String fileContents = Files.readString(path);
+        assertEquals(expectedFileContents.replaceAll("\\s+", " ").trim(),
+            fileContents.replaceAll("\\s+", " ").trim());
     }
 
     @Test
-    public void loadResults_readsResultsFromFile() throws IOException {
-        // Write a simulated past result to the file
-        String previousResult = "Score: 75%, Comment: Good job!\n";
+    public void loadResults_readsFormattedResultsFromFile() throws IOException {
+        // Write a simulated formatted past result to the file
+        String previousResult = "{\n" +
+            "  Topic: Loops,\n" +
+            "  Score: 75%,\n" +
+            "  Time Limit: 200 seconds,\n" +
+            "  Questions Attempted: 4,\n" +
+            "  Comment: Good job!\n" +
+            "}\n";
         Files.writeString(Path.of(resultsFilePath), previousResult);
 
         // Load results from file and verify
         quizResults.loadResults();
-        assertEquals(previousResult, quizResults.getPastResults());
+        assertEquals(previousResult.trim(), quizResults.getPastResults().trim());
     }
 
     @Test
@@ -70,4 +95,3 @@ class QuizResultsTest {
         assertEquals("No past results available. You haven't completed any quizzes yet.", quizResults.getPastResults());
     }
 }
-

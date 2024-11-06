@@ -39,9 +39,12 @@ public class QuizManager {
     }
 
     public void addResultsAndPrintScore() {
+        String topicName = quizSession.getTopicName();
         int completedQuizScore = quizSession.getQuizScore();
         String comment = quizResults.generateComment(completedQuizScore);
-        quizResults.addResult(completedQuizScore, comment);
+        int questionLimit = quizSession.getQuestionLimit();
+        int timeLimit = quizSession.getTimeLimitInSeconds();
+        quizResults.addResult(topicName, completedQuizScore, questionLimit, comment, timeLimit);
     }
 
     private void loadDataFromFile() {

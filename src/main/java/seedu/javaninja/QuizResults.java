@@ -33,8 +33,16 @@ public class QuizResults {
         }
     }
 
-    public void addResult(int score, String comment) {
-        pastResults.add("Score: " + score + "%, Comment: " + comment);
+    public void addResult(String topicName, int score, int questionsAttempted, String comment, int timeLimitInSeconds) {
+        String resultEntry = String.format("{" +
+                "\n Topic: %s," +
+                "\n Score: %d%%," +
+                "\n Time Limit: %d seconds," +
+                "\n Questions Attempted: %d," +
+                "\n Comment: %s" +
+                "\n}",
+            topicName, score, timeLimitInSeconds, questionsAttempted, comment);
+        pastResults.add(resultEntry);
     }
 
     public String generateComment(int score) {
