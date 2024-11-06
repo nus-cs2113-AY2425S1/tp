@@ -1,3 +1,5 @@
+//@@author Bev-Low
+
 package exceptions;
 
 public class HistoryExceptions extends BuffBuddyExceptions {

@@ -1,3 +1,5 @@
+//@@author Bev-Low
+
 package exceptions;
 
 public class FlagExceptions extends BuffBuddyExceptions {

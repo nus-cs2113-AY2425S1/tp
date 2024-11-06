@@ -1,3 +1,5 @@
+//@@author Bev-Low
+
 package exceptions;
 
 public class ProgrammeExceptions extends BuffBuddyExceptions {
@@ -7,7 +9,7 @@ public class ProgrammeExceptions extends BuffBuddyExceptions {
     }
 
     public static ProgrammeExceptions programmeMissingName() {
-        return new ProgrammeExceptions("Programme is missing a name!");
+        return new ProgrammeExceptions("Programme is missing a name.");
     }
 
     public static ProgrammeExceptions programmeEditMissingFlags() {
