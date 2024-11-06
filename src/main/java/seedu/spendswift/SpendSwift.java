@@ -19,7 +19,6 @@ public class SpendSwift {
 
         try {
             storage.loadData(trackerData);
-            ui.printDataLoaded();
         } catch (IOException e) {
             ui.printLoadingError(e.getMessage());
         }
