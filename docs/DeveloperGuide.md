@@ -284,12 +284,28 @@ uNivUSaver offers a practical solution for students who want to take control of 
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+* **Error prevention** - The system must minimize the possibility of user mistakes by implementing robust validation, clear feedback, and safeguards against incorrect actions.
+* **Error recovery** - The system must provide a way for user to restart the session on error.
+* **Compatibility** - The system must run on modern operating systems (Windows, macOS, Linux) and should be compatible with major terminal emulators and shells such as Bash and Command Prompt.
+* **Feedback** - The system must provide real-time feedback for user actions.
 
 ## Glossary
-
-* *glossary item* - Definition
+* *Transaction* - A record of an income or expense that includes details such as the amount, description, date, and associated category.
+* *Income* - Money received by the user. An income transaction is recorded to track the user's earnings.
+* *Expense* - Money spent by the user. An expense transaction helps the user monitor their spending habits.
+* *Category* - A classification used to group expenses (e.g., "Food", "Transportation", "Entertainment"). Each expense in the system is assigned to a category.
+* *Budget* - A spending limit that the user set for each month, that the user can use to track if they're overspending.
 
 ## Instructions for manual testing
+* Ensure that you have Java 17 or above installed.
+* Down the latest version of `uNivUSaver` from [here](https://github.com/AY2425S1-CS2113-W10-4/tp/releases).
+* Copy the file to the folder you want the program to stay in, make sure the data files `(*.json)` is in the same folder with the `uNivUSaver.jar` file.
+* Open a command terminal, run the following:
+```
+cd Path/to/directory # Change directory into the folder you put the jar file in
+java -jar uNivUSaver.jar # Start the program.
+```
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+* The data files will be read automatically
+* Type `help` to view the command list and syntax.
+* Refer to [User Guide](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html) for detailed guide on command syntax.
