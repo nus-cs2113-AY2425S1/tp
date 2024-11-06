@@ -136,6 +136,28 @@ class BudgetLogicTest {
         assertEquals(800, budget.getBalance());
     }
 
+    @Test
+    void getBudgetAndBalance_noBudgetSet_printNoBudgetSetMessage() {
+        budgetLogic.getBudgetAndBalance();
+
+        String expectedOutput =
+                "No budget has been set." + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    @Test
+    void getBudgetAndBalance_budgetSet_printBudgetAndBalance() {
+        budget.setBudgetAmount(1000);
+        budgetLogic.modifyBalance(-600);
+        budgetLogic.getBudgetAndBalance();
+
+        String expectedOutput = "Your current budget is: $ 1000.00" + System.lineSeparator() +
+                        "Your current monthly balance is: $ 400.00" + System.lineSeparator() +
+                        "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
     /**
      * Tests if the budget is exceeded when expenses exceed the budgeted amount.
      */
