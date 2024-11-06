@@ -286,6 +286,7 @@ public class Logic {
             break;
         case "budget":
             budgetLogic.setBudget(financialList);
+            storage.update(financialList, budgetLogic);
             break;
         case "help":
             printHelpMenu();
