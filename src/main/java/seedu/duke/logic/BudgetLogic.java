@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * Handles the logic related to setting and modifying the budget.
  */
 public class BudgetLogic {
-    public final Budget budget;
+    public Budget budget;
     private final AppUi ui;
 
     /**
@@ -29,6 +29,15 @@ public class BudgetLogic {
     }
 
     /**
+     * Overwrites the current budget with the specified budget.
+     *
+     * @param budget The new budget to be set.
+     */
+    public void overwriteBudget(Budget budget){
+        this.budget = budget;
+    }
+
+    /**
      * Sets the budget if it has not been set. If the budget is already set,
      * prompts the user to confirm whether they want to modify it.
      */
@@ -40,6 +49,15 @@ public class BudgetLogic {
             ui.displayModifyBudgetMessage(budget.getBudgetAmount());
             handleSetBudget(financialList);
         }
+    }
+
+    /**
+     * Retrieves the current budget.
+     *
+     * @return the current budget
+     */
+    public Budget getBudget() {
+        return budget;
     }
 
     /**

@@ -86,11 +86,11 @@ public class Expense extends FinancialEntry {
      * all formatted in a specific structure.
      *
      * @return A formatted string representing the expense entry for storage.
-     *         The format is: "E | amount | description | date | category"
+     *         The format is: "E ¦¦ amount ¦¦ description ¦¦ date ¦¦ category"
      *         where the date is formatted as "dd/MM/yy".
      */
     public String toStorageString() {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
-        return String.format("E | %.2f | %s | %s | %s", amount, description, date.format(pattern),category);
+        return String.format("E ¦¦ %.2f ¦¦ %s ¦¦ %s ¦¦ %s", amount, description, date.format(pattern),category);
     }
 }
