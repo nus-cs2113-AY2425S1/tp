@@ -1,4 +1,5 @@
-package seedu.duke.parser;
+//@@author glenda-1506
+package seedu.spendswift.parser;
 
 public class InputParser {
     private String parseComponent(String input, String prefix) {

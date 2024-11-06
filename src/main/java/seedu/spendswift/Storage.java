@@ -1,9 +1,10 @@
-package seedu.duke;
+//@@author glenda-1506
+package seedu.spendswift;
 
-import seedu.duke.command.Budget;
-import seedu.duke.command.Category;
-import seedu.duke.command.Expense;
-import seedu.duke.command.TrackerData;
+import seedu.spendswift.command.Budget;
+import seedu.spendswift.command.Category;
+import seedu.spendswift.command.Expense;
+import seedu.spendswift.command.TrackerData;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

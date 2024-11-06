@@ -1,4 +1,5 @@
-package seedu.duke;
+//@@author glenda-1506
+package seedu.spendswift;
 
 public class UI {
     public static final String SEPARATOR = "_".repeat(30);

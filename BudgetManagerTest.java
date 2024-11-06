@@ -1,4 +1,5 @@
-package seedu.duke;
+//@@author MayFairMI6
+package seedu.spendswift;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

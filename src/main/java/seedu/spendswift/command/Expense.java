@@ -1,7 +1,8 @@
-package seedu.duke.command;
+package seedu.spendswift.command;
 
-import seedu.duke.Format;
+import seedu.spendswift.Format;
 
+//@@author kq2003
 /**
  * Represents an expense with a name, amount, and category.
  */

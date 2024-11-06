@@ -1,12 +1,12 @@
-package seedu.duke.command;
+//@@author glenda-1506
+package seedu.spendswift.command;
 
-import seedu.duke.Format;
+import seedu.spendswift.Format;
 
 import java.util.List;
 
 public class CategoryManager {
 
-    //@@author glenda-1506
     public void addCategory(TrackerData trackerData, String categoryName) {
         List<Category> categories = trackerData.getCategories();
         String trimmedCategoryName = categoryName.substring("add category".length()).trim();

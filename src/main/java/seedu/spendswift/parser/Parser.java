@@ -1,10 +1,11 @@
-package seedu.duke.parser;
+//@@author glenda-1506
+package seedu.spendswift.parser;
 
-import seedu.duke.command.BudgetManager;
-import seedu.duke.command.CategoryManager;
-import seedu.duke.command.ExpenseManager;
-import seedu.duke.command.TrackerData;
-import seedu.duke.UI;
+import seedu.spendswift.command.BudgetManager;
+import seedu.spendswift.command.CategoryManager;
+import seedu.spendswift.command.ExpenseManager;
+import seedu.spendswift.command.TrackerData;
+import seedu.spendswift.UI;
 
 public class Parser {
     private final ExpenseManager expenseManager;

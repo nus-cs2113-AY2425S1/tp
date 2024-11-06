@@ -1,4 +1,5 @@
-package seedu.duke.command;
+//@@author glenda-1506
+package seedu.spendswift.command;
 
 public class Category {
     private String name;
