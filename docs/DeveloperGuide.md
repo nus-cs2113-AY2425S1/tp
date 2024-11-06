@@ -106,8 +106,66 @@ CourseValidator Class Diagram:
 
 ![Class diagram for CourseValidator](images/CourseValidatorClass.png)
 
+#### Storage Class Diagram:
+
+![Class diagram for Storage](images/StorageClass.png)
+
+
+#### Storage System Overview
+
+The storage system is structured to manage the persistence and integrity of course data for the application. 
+It consists of the following key components:
+
+1. **Storage Class**: The main interface for adding, deleting, retrieving, and loading courses. It interacts with 
+   `CourseRepository` for data persistence, ensuring all course-related actions are directed to the appropriate storage 
+   location.
+
+2. **CourseRepository**: Acts as an intermediary layer, managing data access and defining the file path 
+   (`MYLIST_FILE_PATH`) for `myList.json`. It provides similar methods as `Storage` to add, delete, and retrieve course 
+   data, facilitating structured data storage.
+
+3. **FileHandler**: Responsible for file operations such as initializing, reading, writing, and appending to files. 
+   This class abstracts file manipulation, ensuring the storage system can perform reliable file operations without 
+   directly managing file-specific details.
+
+4. **DataIntegrityChecker**: Ensures the integrity of the stored data by validating file structure and content. It 
+   provides methods for validating the entire file or individual lines, helping maintain consistent data formatting 
+   and correctness.
+
+5. **CourseValidator**: Validates course inputs to check if they meet predefined criteria before being stored. This 
+   ensures that only valid data is added to the repository, reducing the likelihood of errors in the data storage.
+
+6. **UI**: Responsible for providing feedback to the user regarding any invalid entries or formats, enhancing user 
+   experience by notifying them of issues in a clear and informative way.
+
+Each component is designed to separate concerns, with `Storage` focusing on high-level operations, `CourseRepository` 
+on data organization, `FileHandler` on file I/O, and `DataIntegrityChecker` on data validation. This modular design 
+allows for maintainability, testability, and scalability in managing persistent course data.
+
 ## Implementation
 
+### 1. List Commands Command
+
+#### Overview:
+The `ListCommandsCommand` provides users with a comprehensive list of all available commands in the CLI. This is particularly useful for new users or those unfamiliar with specific command formats.
+
+#### How the feature is implemented:
+* The `ListCommandsCommand` class extends the `CheckInformationCommand` superclass and overrides the `execute` method.
+* In the `execute` method, `printCommandList` from the UI class is called.
+* A detailed list of commands with brief descriptions is printed to the CLI , providing users with command syntax and expected usage.
+* The command list is formatted for readability with each command on a new line, and `LINE_SEPARATOR` is used before and after the list to create a visually distinct section in the CLI.
+* Logging is implemented to track the start and completion of the command, facilitating debugging and traceability.
+
+#### Why it is implemented that way:
+* **Ease of Use**: Displaying all available commands in one place helps users quickly identify what actions are possible within the application.
+* **Logging**: Logging the start and end of execution helps developers track usage patterns and troubleshoot issues if the command is not functioning as expected.
+
+#### Alternatives considered:
+* **Dynamic Command List**: Considered dynamically generating the command list from all command classes in the codebase to avoid manually updating this list, but opted for simplicity to prevent added complexity.
+* **Help Command Integration**: Considered integrating `ListCommandsCommand` with the `HelpCommand` to provide a one-stop command for help-related requests, but separating them ensures clarity and keeps each command focused.
+
+#### Sequence Diagram:
+![List Commands Command Sequence Diagram](images/ListCommandsCommand.png)
 
 ### 2. Help Command
 
@@ -316,60 +374,7 @@ This helps the users to keep track of their most recent course mapping plans, an
 #### Sequence Diagram:
 ![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
 
-
-### 11. Find course mapping command
-
-#### Overview
-This command is responsible for the searching of a particular NUS course in the personalised tracker. This allows users
-to check and plan course mappings for that specified course.
-
-#### How the feature is implemented:
-* The `FindCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method for
-  custom behaviour specific to this class.
-* The input from the user is first parsed through the `getKeyword()` method to extract out the keyword(NUS course code)
-  to search within the personalised tracker. If there is no keyword, an `IllegalArgumentException` will be thrown.
-* Then the keyword will be passed to the `findCommand()` method.
-* In the `findCommand` method, the mappings in the tracker are retrieved through
-  `List<Course> mappedCourses = storage.loadAllCourses()`. If the tracker is empty, a message indicating empty tracker
-  will be printed.
-* Next, `matchKeyword()` will be called and it iterates the mappedCourses in the tracker to search for mappings that
-  match the keyword and adds them into a `List<Course> foundCourses`.
-* Lastly, `printFindCommand` will iterate and print the course mappings inside mappedCourses through
-  `printFoundCourses()` in `UI` class. If mappedCourses is empty, an IllegalArgumentException is thrown.
-
-#### Why it is implemented this way:
-* ****Separation of concerns:**** Helper methods were used to isolate specific tasks within the command, making each
-  method focused and easier to manage. The `UI` class handles displaying messages to the user, which keeps
-  `FindCoursesCommand` focused solely on search logic, without managing user interactions directly.
-
-![FindCourseCommand Sequence diagram](images/FindCoursesCommand.png)
-
-
-
-### 7. List Commands Command
-
-#### Overview:
-The `ListCommandsCommand` provides users with a comprehensive list of all available commands in the CLI. This is particularly useful for new users or those unfamiliar with specific command formats.
-
-#### How the feature is implemented:
-* The `ListCommandsCommand` class extends the `CheckInformationCommand` superclass and overrides the `execute` method.
-* In the `execute` method, `printCommandList` from the UI class is called.
-* A detailed list of commands with brief descriptions is printed to the CLI , providing users with command syntax and expected usage.
-* The command list is formatted for readability with each command on a new line, and `LINE_SEPARATOR` is used before and after the list to create a visually distinct section in the CLI.
-* Logging is implemented to track the start and completion of the command, facilitating debugging and traceability.
-
-#### Why it is implemented that way:
-* **Ease of Use**: Displaying all available commands in one place helps users quickly identify what actions are possible within the application.
-* **Logging**: Logging the start and end of execution helps developers track usage patterns and troubleshoot issues if the command is not functioning as expected.
-
-#### Alternatives considered:
-* **Dynamic Command List**: Considered dynamically generating the command list from all command classes in the codebase to avoid manually updating this list, but opted for simplicity to prevent added complexity.
-* **Help Command Integration**: Considered integrating `ListCommandsCommand` with the `HelpCommand` to provide a one-stop command for help-related requests, but separating them ensures clarity and keeps each command focused.
-
-#### Sequence Diagram:
-![List Commands Command Sequence Diagram](images/ListCommandsCommand.png)
-
-### 8. ListPersonalTrackerCommand
+### 9. ListPersonalTrackerCommand
 
 #### Overview:
 The `ListPersonalTrackerCommand` is responsible for listing all the mapped modules stored in the user’s personal tracker. This command retrieves all stored courses from `myList.json` via the Storage class and displays them in an indexed list format on the CLI.
@@ -416,42 +421,40 @@ Mapped Modules:
 #### Sequence Diagram:
 ![List Personal Tracker Command Sequence Diagram](images/ListPersonalTrackerCommand.png)
 
-
-
 ### 10. Compare Mapped Command
 
 #### Overview
-The `CompareMappedCommand` is responsible for comparing course mappings between two specified partner universities. 
-This command aids users in identifying common course mappings across the selected universities, as well as highlighting 
+The `CompareMappedCommand` is responsible for comparing course mappings between two specified partner universities.
+This command aids users in identifying common course mappings across the selected universities, as well as highlighting
 unique course mappings specific to each university.
 
 #### How the Feature is Implemented
 The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides the `execute` method to define its custom behavior. Below is an outline of the execution flow:
 
 **Parsing User Input**:
-  - The command splits the user input based on the delimiter `pu/` to retrieve the names of the two universities specified by the user.
-    - If fewer than two universities are specified, the `printInvalidInputFormat` method in the `UI` class is called to inform the user of incorrect input format.
+- The command splits the user input based on the delimiter `pu/` to retrieve the names of the two universities specified by the user.
+  - If fewer than two universities are specified, the `printInvalidInputFormat` method in the `UI` class is called to inform the user of incorrect input format.
 
 **Loading Data and Initial Checks**:
-  - The command loads all course mappings from the `myList.json` file through the `Storage` class.
-  - It verifies that the loaded list is not `null` through assertions.
+- The command loads all course mappings from the `myList.json` file through the `Storage` class.
+- It verifies that the loaded list is not `null` through assertions.
 
 **Filtering Modules by University**:
-  - The `filterModulesByUniversity` method takes the list of all modules and filters out only those associated with the specified university.
-  - Logging is used to track this filtering process.
+- The `filterModulesByUniversity` method takes the list of all modules and filters out only those associated with the specified university.
+- Logging is used to track this filtering process.
 
 **Extracting Course Codes**:
-  - The `extractCourseCodes` method extracts the unique course codes for each university, enabling the subsequent comparison.
+- The `extractCourseCodes` method extracts the unique course codes for each university, enabling the subsequent comparison.
 
 **Identifying Common and Unique Course Codes**:
-  - The `getCommonCourseCodes` method calculates the intersection of course codes between the two universities, identifying courses available in both.
-  - The `getUniqueCourseCodes` method identifies unique courses by excluding the common course codes for each university.
+- The `getCommonCourseCodes` method calculates the intersection of course codes between the two universities, identifying courses available in both.
+- The `getUniqueCourseCodes` method identifies unique courses by excluding the common course codes for each university.
 
 **Displaying Results**:
-  - The `displayComparisonResults` method provides output for the comparison:
-    - Common mappings are displayed first, showing courses available in both universities.
-    - Unique mappings are shown next, detailing courses specific to each university.
-  - The output format is controlled through methods in the `UI` class for better readability and user experience.
+- The `displayComparisonResults` method provides output for the comparison:
+  - Common mappings are displayed first, showing courses available in both universities.
+  - Unique mappings are shown next, detailing courses specific to each university.
+- The output format is controlled through methods in the `UI` class for better readability and user experience.
 
 #### Why it is Implemented this Way
 - **Separation of Concerns**: Methods are organized by function, with each handling a specific part of the comparison logic. This promotes code readability and maintainability.
@@ -464,6 +467,32 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 ![Compare Mapped Command Sequence Diagram](images/CompareMappedCommand.png)
 
 
+### 11. Find course mapping command
+
+#### Overview
+This command is responsible for the searching of a particular NUS course in the personalised tracker. This allows users
+to check and plan course mappings for that specified course.
+
+#### How the feature is implemented:
+* The `FindCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method for
+  custom behaviour specific to this class.
+* The input from the user is first parsed through the `getKeyword()` method to extract out the keyword(NUS course code)
+  to search within the personalised tracker. If there is no keyword, an `IllegalArgumentException` will be thrown.
+* Then the keyword will be passed to the `findCommand()` method.
+* In the `findCommand` method, the mappings in the tracker are retrieved through
+  `List<Course> mappedCourses = storage.loadAllCourses()`. If the tracker is empty, a message indicating empty tracker
+  will be printed.
+* Next, `matchKeyword()` will be called and it iterates the mappedCourses in the tracker to search for mappings that
+  match the keyword and adds them into a `List<Course> foundCourses`.
+* Lastly, `printFindCommand` will iterate and print the course mappings inside mappedCourses through
+  `printFoundCourses()` in `UI` class. If mappedCourses is empty, an IllegalArgumentException is thrown.
+
+#### Why it is implemented this way:
+* ****Separation of concerns:**** Helper methods were used to isolate specific tasks within the command, making each
+  method focused and easier to manage. The `UI` class handles displaying messages to the user, which keeps
+  `FindCoursesCommand` focused solely on search logic, without managing user interactions directly.
+
+![FindCourseCommand Sequence diagram](images/FindCoursesCommand.png)
 
 ## Product scope
 ### Target user profile
