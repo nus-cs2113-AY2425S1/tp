@@ -1,38 +1,48 @@
 package fittrack.healthprofile;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class FoodIntake {
     private ArrayList<FoodItem> foodItems;
 
-    // Constructor to initialize the foodItems list
     public FoodIntake() {
         this.foodItems = new ArrayList<>();
     }
 
-    // Class to represent a food item along with its calorie count
     public static class FoodItem {
         String foodName;
         int calories;
+        LocalDateTime dateTime;
 
         public FoodItem(String foodName, int calories) {
             this.foodName = foodName;
             this.calories = calories;
+            this.dateTime = LocalDateTime.now();
         }
 
         @Override
         public String toString() {
-            return foodName + " " + calories + " calories";
+            return foodName + " (" + calories + " calories) at " + formatDateTime(dateTime);
         }
     }
 
-    // Method to add a food item with its calorie count
     public void addFood(String foodName, int calories) {
         foodItems.add(new FoodItem(foodName, calories));
-        System.out.println("Got it. I've added food item: " + foodName + " (" + calories + " calories).");
+
+        // Format the current timestamp for printing without milliseconds
+        String formattedDateTime = formatDateTime(LocalDateTime.now());
+
+        System.out.println("Got it. I've added food item: " + foodName
+            + " (" + calories + " calories, " + formattedDateTime + ").");
     }
 
-    // Method to delete a food item by index
+    private static String formatDateTime(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return dateTime.format(formatter);  // Format date-time without milliseconds
+    }
+
     public void deleteFood(int index) {
         if (index >= 0 && index < foodItems.size()) {
             FoodItem removedFood = foodItems.remove(index);
@@ -42,7 +52,6 @@ public class FoodIntake {
         }
     }
 
-    // Method to list all food items and their calorie counts
     public void listFood() {
         if (foodItems.isEmpty()) {
             System.out.println("No food items recorded.");
@@ -54,12 +63,8 @@ public class FoodIntake {
         }
     }
 
-    // Method to list daily food intake summary (food and calories together)
     public void listDailyIntake() {
         System.out.println("Here is your daily intake summary:");
-
-        // Water Intake placeholder (just for completeness)
-        System.out.println("Water Intake:\nNo water intake recorded.\n");
 
         // Food Intake
         System.out.println("Food Intake:");

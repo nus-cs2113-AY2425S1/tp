@@ -321,7 +321,7 @@ of factors affecting my fitness.
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've added food item: Got it. I've added food item: apple (100 calories).
+Got it. I've added food item: apple (100 calories, 06/11/2024 17:32:07).
 ____________________________________________________________________________________________________
 ```
 
@@ -336,7 +336,7 @@ the daily food intake list.
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've deleted food item: apple
+Got it. I've deleted food item: apple (100 calories) at 06/11/2024 17:30:57
 ____________________________________________________________________________________________________
 ```
 
@@ -352,7 +352,7 @@ that have been added for the day.
 ```
 ____________________________________________________________________________________________________
 Here is your food intake list: 
-1. apple 3 calories
+1. apple (100 calories) at 06/11/2024 17:32:07
 ____________________________________________________________________________________________________
 ```
 
@@ -367,7 +367,7 @@ to track hydration levels.
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've added 500 ml of water.
+Got it. I've added 500ml of water at 06/11/2024 17:33:05.
 ____________________________________________________________________________________________________
 ```
 
@@ -377,12 +377,12 @@ from the daily water intake record.
 
 **Format**: `delete-water (water ml)`
 
-**Example**: `delete-water 500`
+**Example**: `delete-water 1`
 
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've deleted 500 ml of water.
+Got it. I've deleted 500 ml (06/11/2024 17:30:46).
 ____________________________________________________________________________________________________
 ```
 
@@ -397,10 +397,8 @@ intake recorded for the day.
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Here is your water intake (in ml):
-1. 500 ml
-2. 300 ml
-There are 2 entries in your water intake list.
+Here is your water intake (in ml): 
+1. 500 ml (06/11/2024 17:34:14)
 ____________________________________________________________________________________________________
 ```
 
@@ -415,9 +413,15 @@ and water items that have been added for the day.
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
+Here is your daily intake summary:
+
+Water Intake:
+Here is your water intake (in ml): 
+1. 500 ml (06/11/2024 17:35:24)
+
+Food Intake:
 Here is your food intake list: 
-1. apple 125 calories
-2. banana 124 calories
+1. apple (100 calories) at 06/11/2024 17:35:18
 ____________________________________________________________________________________________________
 ```
 
@@ -484,10 +488,10 @@ ________________________________________________________________________________
 | **delete-goal**     | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                      |
 | **list-goal**       | `list-goal`                                                    | `list-goal`                          |
 | **graph**           | `graph EXERCISE_ACRONYM`                                       | `graph PU`                           |
-| **add-water**       | `add-water`                                                    | `add-water 1.5`                      |
+| **add-water**       | `add-water`                                                    | `add-water 500`                      |
 | **delete-water**    | `delete-water`                                                 | `delete-water 1`                     |
 | **list-water**      | `list-water`                                                   | `list-water`                         |
-| **add-food**        | `add-food`                                                     | `add-food apple`                     |
+| **add-food**        | `add-food`                                                     | `add-food apple 100`                 |
 | **delete-food**     | `delete-food`                                                  | `delete-food 1`                      |
 | **list-food**       | `list-food`                                                    | `list-food`                          |
 | **list-calories**   | `list-intake`                                                  | `list-intake`                        |
