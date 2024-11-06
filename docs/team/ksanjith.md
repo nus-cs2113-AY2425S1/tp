@@ -22,6 +22,8 @@ keep track of what ingredients you have on hand.
   - Wrote code to allow YMFC to save and load recipes using a local .txt file.
 - Created Sort Command (PR #67)
   - Wrote code to allow users to sort their recipes either alphabetically (by name) or numerically (by time taken).
+- Created Sort Ingredients Command (PR #142)
+  - Wrote code to allow users to sort their ingredients alphabetically (by name).
 
 
 #### Enhancements Implemented
@@ -47,13 +49,15 @@ from an empty recipe list (PR #81)
 - Created a class diagram containing all Command Classes (PR #98)
 - Created a class diagram containing the Ingredient and IngredientList Classes (PR #108)
 - Contributed to sections such as Non-Functional Requirements, User Stories and Glossary (PR #111)
-
+- Made changes and fixes to the DG to settle all the feedback given by the TA during DG review (PR #128)
 
 #### Contributions to Team-Based Tasks
 - Fixed various bugs in the code (PR #93)
   - Fixed bug where the incorrect use of the add ingredient command returns the wrong message to the user
   - Fixed bug where sort command hangs when recipes without a time taken parameter are in the list
 - Enhanced code to reject user's input when they try to create a recipe with a name that has already been added (PR #98)
+- Enhanced code to reject user's input when they try to create an ingredient
+with a name that has already been added (PR #142)
 - Added JavaDoc headers to multiple methods
 - Helped routinely add new issues to work on and close issues that have been resolved
 

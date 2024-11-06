@@ -52,7 +52,7 @@ public class AddRecipeCommand extends Command {
         logger.log(Level.FINEST, "Executing AddRecipeCommand");
 
         assert recipes != null;
-        if (isDuplicateRecipe(recipe.getName(), recipes)) {
+        if (isDuplicateRecipe(recipe.getName().toLowerCase(), recipes)) {
             ui.printDuplicateRecipe(recipe.getName());
         } else {
             addNewRecipe(recipes, recipe, ui, storage);
@@ -68,7 +68,7 @@ public class AddRecipeCommand extends Command {
      */
     public boolean isDuplicateRecipe(String recipeName, RecipeList recipes) {
         for (int i = 0; i < recipes.getCounter(); i++) {
-            if (recipes.getRecipe(i).getName().equals(recipeName)) {
+            if (recipes.getRecipe(i).getName().toLowerCase().equals(recipeName)) {
                 return true;
             }
         }

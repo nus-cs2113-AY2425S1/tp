@@ -52,7 +52,28 @@ public class AddIngredientCommand extends Command {
         logger.log(Level.FINEST, "Executing AddIngredientCommand");
 
         assert ingredients != null;
-        addNewIngredient(ingredients, ingredient, ui, storage);
+
+        if (isDuplicateIngredient(ingredient.getName().toLowerCase(), ingredients)) {
+            ui.printDuplicateRecipe(ingredient.getName());
+        } else {
+            addNewIngredient(ingredients, ingredient, ui, storage);
+        }
+    }
+
+    /**
+     * Checks if the new ingredient is a duplicate (has same name) of an existing ingredient.
+     *
+     * @param ingredientName Name of the new ingredient to add
+     * @param ingredients The {@code IngredientList} to add the ingredient to. Must not be {@code null}.
+     * @return True if the new ingredient is a duplicate, else returns false
+     */
+    public boolean isDuplicateIngredient(String ingredientName, IngredientList ingredients) {
+        for (int i = 0; i < ingredients.getCounter(); i++) {
+            if (ingredients.getIngredient(i).getName().toLowerCase().equals(ingredientName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
