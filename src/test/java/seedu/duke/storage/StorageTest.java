@@ -117,4 +117,21 @@ public class StorageTest {
         assertEquals(500, budgetLogic.getBudget().getBudgetAmount());
         assertEquals("01/11/24", budgetLogic.getBudget().getBudgetSetDate().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
     }
+
+    @Test
+    public void testLoadFromFileEmpty() throws IOException {
+        File file = Storage.getStorageFile();
+        FileWriter writer = new FileWriter(file);
+        writer.write("");
+        writer.close();
+
+        File budgetFile = Storage.getBudgetFile();
+        FileWriter budgetWriter = new FileWriter(budgetFile);
+        budgetWriter.write("");
+        budgetWriter.close();
+
+        FinancialList loadedList = storage.loadFromFile(budgetLogic);
+        assertEquals(0, loadedList.getEntryCount());
+        assertEquals(null, budgetLogic.getBudget());
+    }
 }
