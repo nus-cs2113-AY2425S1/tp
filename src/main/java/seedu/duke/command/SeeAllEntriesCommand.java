@@ -5,10 +5,10 @@ import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.log.Log;
+import seedu.duke.log.LogLevels;
 
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Map.Entry;
 
 /**
@@ -16,7 +16,7 @@ import java.util.Map.Entry;
  */
 public class SeeAllEntriesCommand extends Command {
     protected static final String LINE_SEPARATOR = "--------------------------------------------";
-    protected static Logger logger = Logger.getLogger(SeeAllExpensesCommand.class.getName());
+    protected static Log logger = Log.getInstance();
     protected final String entriesListedMessage = "Here's a list of all recorded entries:";
     protected final String noEntriesMessage = "No entries found.";
     protected final String cashflowHeader = "Net cashflow: $ ";
@@ -62,6 +62,12 @@ public class SeeAllEntriesCommand extends Command {
         return this.cashflowHeader;
     }
 
+    /**
+     * Retrieves and formats the highest spending and income category information from the financial list.
+     *
+     * @param list The financial list containing all entries.
+     * @return A formatted string of highest spending and income categories and their respective amounts.
+     */
     protected String getHighestCategoryInfo(FinancialList list) {
         Entry<Expense.Category, Double> highestExpenseCategory = list.getHighestExpenseCategory();
         Entry<Income.Category, Double> highestIncomeCategory = list.getHighestIncomeCategory();
@@ -79,6 +85,12 @@ public class SeeAllEntriesCommand extends Command {
         return String.format("%.2f", cashflow);
     }
 
+    /**
+     * Checks if a given financial entry falls within the specified date range.
+     *
+     * @param entry The financial entry to check.
+     * @return true if entry is within the date range, false otherwise.
+     */
     protected boolean isWithinGivenDates(FinancialEntry entry) {
         boolean withinStartDate = (start == null || !entry.getDate().isBefore(start));
         boolean withinEndDate = (end == null || !entry.getDate().isAfter(end));
@@ -118,7 +130,7 @@ public class SeeAllEntriesCommand extends Command {
     @Override
     public void execute(FinancialList list) throws FinanceBuddyException {
         if (list == null) {
-            logger.log(Level.SEVERE, "Financial list is null");
+            logger.log(LogLevels.SEVERE, "Financial list is null");
             assert list != null : "Financial list cannot be null";
             throw new FinanceBuddyException("Financial list cannot be null");
         }
@@ -145,9 +157,6 @@ public class SeeAllEntriesCommand extends Command {
             }
         }
 
-        //Entry<Expense.Category, Double> highestExpenseCategory = list.getHighestExpenseCategory();
-        //Entry<Income.Category, Double> highestIncomeCategory = list.getHighestIncomeCategory();
-
         if (entryCount == 0) {
             System.out.println(this.getNoEntriesMessage());
             System.out.println(LINE_SEPARATOR);
@@ -162,5 +171,7 @@ public class SeeAllEntriesCommand extends Command {
         System.out.println();
         System.out.println(getHighestCategoryInfo(list));
         System.out.println(LINE_SEPARATOR);
+
+        logger.log(LogLevels.INFO, "Listed " + list.getEntryCount() + " valid entries.");
     }
 }
