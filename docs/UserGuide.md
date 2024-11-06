@@ -86,6 +86,7 @@ Format: `menu`
 Shows a list of all events currently stored in the program.
 
 Format: `list`
+<div style="page-break-after: always;"></div>
 
 ### Add an event, participant or item: `add`
 
@@ -123,6 +124,7 @@ Examples:
 * `remove -e Origami workshop` removes the event `Origami workshop` from the event list.
 * `remove -p John Tan -e Origami workshop` removes the participant `John Tan` from the event `Origami workshop`.
 * `remove -m Origami paper -e Origami workshop` removes the item `Origami paper` from the event `Origami workshop`.
+<div style="page-break-after: always;"></div>
 
 ### View all participants or items for an event: `view`
 
@@ -155,6 +157,7 @@ Examples:
 * `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH` edits the information of the event `CS2113`.
 * `edit -p Mary -n 9182 3213 -email mary@gmail.com -e CS2113` edits the contact information of the participant `Mary` in the event `CS2113`.
 * `edit -m balloon > cake -e anniversary` edits the item `balloon` in the event `anniversary` to `cake`.
+<div style="page-break-after: always;"></div>
 
 ### Mark an event as done: `mark`
 
