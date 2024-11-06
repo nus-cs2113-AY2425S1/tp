@@ -483,18 +483,16 @@ Given below is an example usage scenario for `MarkEventCommand#execute()`, and h
 
 1. The user adds an event `Event 1` to the event list. The mark status for `Event 1` is initially `false` or not done, as shown in the **Object Diagram** below:
 
-<img src = "images/MarkEventObjectDiagram1.png">
-
+    <img src = "images/MarkEventObjectDiagram1.png">
 
 2. The user enters the command `mark -e Event 1 -s done` to mark `Event 1` as done. `MarkEventCommand` calls `MarkEventCommand#execute`,
-in which it gets the event `Event 1` from the event list, and sets its mark status to `true` or done, as shown in the **Object Diagram** below.
-
-<img src = "images/MarkEventObjectDiagram2.png">
-
+    in which it gets the event `Event 1` from the event list, and sets its mark status to `true` or done, as shown in the **Object Diagram** below.
+   
+    <img src = "images/MarkEventObjectDiagram2.png">
 
 3. The user then enters the command `mark -e Event 1 -s undone` to mark `Event 1` as not done. The `MarkEventCommand` again calls `MarkEventCommand#execute`,
 in which it gets the event `Event 1` from the event list, and sets its mark status to `false` or not done.
-<div style="page-break-after: always;"></div>
+    <div style="page-break-after: always;"></div>
 
 The interactions between components during the execution of `MarkEventCommand#execute` are shown in the **Sequence Diagram** below:
 
@@ -549,7 +547,7 @@ and is invoked when the latter operation is called.
 Given below is an example usage scenario and the behaviour of the `copy` feature at each step:
 1. The user enters the command `copy EventA > EventB` to copy participants from EventA to EventB. 
 2. `CopyCommand` calls `CopyCommand#execute`, where it attempts to get the participant list from EventA, and copy the participant list over to EventB if there are existing participants.
-<div style="page-break-after: always;"></div>
+    <div style="page-break-after: always;"></div>
 
 The interactions between components of `CopyCommand#execute` are shown in the **Sequence Diagram** below:
 
