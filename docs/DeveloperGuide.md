@@ -1,8 +1,23 @@
 # Developer Guide
 
+- [Acknowledgements](#acknowledgements)
+  - [Data source](#data-source)
+  - [Third Party Library Used](#third-party-library-used)
+- [Design](#design)
+  - [Architecture](#architecture)
+  - [Class Diagrams](#class-diagrams)
+- [Implementation](#implementation)
+- [Product scope](#product-scope)
+  - [Target user profile](#target-user-profile)
+  - [Value proposition](#value-proposition)
+- [User stories](#user-stories)
+- [Non-functional requirements](#non-functional-requirements)
+- [Glossary](#glossary)
+- [Manual testing](#instructions-for-manual-testing)
+
 ## Acknowledgements
 
-### Database
+### Data source
 * Adapted from NUS EduRec, data was collected manually as a collective effort from the team.
 
 ### Third Party Library Used
@@ -13,7 +28,6 @@
 #### 'javax.json:javax.json-api:1.1.4'
 * https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 ## Design
 
 ### Architecture
@@ -67,21 +81,56 @@ interact with a given component through its interface rather than the concrete c
 
 ### Class Diagrams
 Command Package:
-![Class diagram for Commands](images/CommandClass.png)
+
+![Class diagram for Commands](images/CommandClassInheritance.png)
+![Class diagram for CheckInformationCommand](images/CheckInformationCommandClass.jpg)
+![Class diagram for CheckInformationCommand](images/PersonalTrackerCommandClass.jpg)
 
 CourseValidator Class Diagram: 
-![Class diagram for CourseValidator](images/CourseValidatorClass.png)
 
-{TODO: Object Diagram}
+![Class diagram for CourseValidator](images/CourseValidatorClass.png)
 
 ## Implementation
 
-### 1. List Schools Command
+
+### 2. Help Command
+
+#### Overview
+This command provides users with detailed explanations of each feature and the ways to use them.
+This allows users to navigate this program easily and effectively.
+
+#### How the feature is implemented:
+* The `HelpCommand` class extends the `CheckInformationCommand` class where it overrides
+  the execute method for custom behaviour.
+* First, the user input is passed into the `getCommand()` method which extracts and processes the
+  command. It does so by using `switch` statements to determine if the input matches one of the valid commands.
+* If it does, it returns the command, if it does not, an `IllegalArgumentException` exception will be thrown to handle
+  invalid commands
+* Then, the `printHelp()` method will be called to display the detailed help messages for the specific command.
+  Another `switch` statement is used here to map each command to its corresponding help message.
+* Assertions and logging are implemented for error handling.
+
+#### Why it is implemented that way:
+- ****Separation of Concerns:**** Each method has a single responsibility. For example, `getCommand()` parses and
+  validates the input to extract a specific command and `printHelp()` prints the relevant help message for the
+  parsed command.
+- ****Switch Statement:**** The use of `switch` statement is an efficient way to match valid commands.
+  `switch` statements are also clearer and easier to read.
+
+#### Alternative Implementation considered:
+- The use of `if-else` statement
+  - However, since the condition is a single variable and not complex conditions, it will be cleaner and clearer to use
+    `switch` statements
+
+#### Sequence Diagram:
+- Represents when `execute()` method is called
+  ![Help Command sequence diagram](images/HelpCommand.png)
+
+### 3. List Schools Command
 
 #### Overview:
 This command is responsible for displaying and retrieving the full list of universities
-from `database.json` file. It helps the users to identify the possible choices in South East Asia
-and Oceania.
+from `database.json` file. It helps the users to identify the possible choices in Oceania.
 
 #### How the feature is implemented:
 * The `ListSchoolCommand` class extends `Command` class where it overrides the `execute` method for
@@ -91,50 +140,46 @@ and Oceania.
 * The `displaySchoolList()` method will iterate over the keys of the database which contains the University
   names, upon acquiring the keys, they will be printed over the CLI.
 * There are also assertions and logging in place for error handling.
-* Line Separator is used to ensure readability and ease of use for users.  
-
-#### Why it is implemented that way:
-* The `execute` method is essential and unique to every command class so inheritance was used. 
-* Every method in the class remains maintainable and has one responsibility this allows easy debugging and
-  refactoring.
-* By using inheritance, new command classes can easily extend the functionality of existing ones
-  which reducing redundancy in the code
-* Logging and assertions helps the team of developers to follow through the command execution.
-
-#### Alternatives considered:
-* Reading of the `database.json` was tricky and other libraries were considered.
-* Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure 
-  readability.
-
-#### Sequence Diagram on PlantUML:
-![List School Command Sequence Diagram](images/ListSchoolsCommand.png)
-
-### 2. Filter Courses Command
-
-#### Overview:
-This command is responsible for displaying and retrieving the full list of mappable courses from the partner 
-universities to a user specified NUS course from `database.json` file. It helps the users to identify whether
-that NUS course is suitable to be mapped overseas in South East Asia and Oceania.
-
-#### How the feature is implemented:
-* The `FilterCoursesCommand` class extends `Command` class where it overrides the `execute` method for
-  custom behaviour.
-* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
-  superclass.
-* The `getNusCourseCode` method then extract out the user specified NUS course code from the input, which is in the
-  format: `filter COURSE_CODE`.
-* The NUS course code is then passed into the `displayMappableCourses()` method along with teh Json object. The method
-  will iterate over the keys of the database which contains the University names, then obtain the array `courses`
-  stored in the "courses" field. The `courses` array is then iterated over, for each course,
-  if the value in the "nus_course_code" is equals to the NUS course code passed into the method, the university name and
-  "pu_course_code" value of the course will be printed to the CLI.
-* There are also assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
-#### Sequence Diagram on PlantUML:
-![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
+#### Sequence Diagram:
+![List School Command Sequence Diagram](images/ListSchoolsCommand.png)
 
-### 3. Obtain Partner University Email and Contact Number Command
+
+### 4. List University Courses Command
+
+#### Overview
+
+This command is responsible for listing out all the mappable partner university’s (PU) courses and NUS courses.
+This allows users to plan their course mapping as it lists out all the possible courses they can map in a specified
+partner university.
+
+#### How the feature is implemented:
+* The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method
+  for custom behaviour.
+* The command first reads a JSON file to obtain the JsonObject containing the names of all the partner universities.
+* The getPuName method then parses and extracts the PU name from the input (with the format of `set [PU_NAME]`).
+* Next, the extracted PU name is passed into the `getUniCourses()` method which will search for the specified PU in the
+  JsonObject with `findUniversityName()`.
+* If the university is not found, an exception `UnknownUniversityException` will be thrown.
+* If the PU is found, the `listCourses()` will be called. Then `getUniversityObject()` and `getCourseArray()` methods
+  will be called to get the JsonObject containing the PU and the JsonArray containing the list of courses it offers.
+* The two object will be passed into `iterateCourses()` method to iterate through the JsonArray `courseArray` which
+  contains the list of courses.
+* It then prints out the course details such as PU course code and NUS course code by calling the
+  `printListUniCoursesCommand` method in the UI class.
+* Assertions and logging are used for error handling.
+
+#### Why it is implemented this why:
+- ****Separation of Concerns:**** Each responsibility is seperated into smaller, well-defined methods
+  For example, `getPuName()` focuses on extracting the university name from user input and `findUniversityName()`
+  focuses on searching the university in the data set.
+
+#### Sequence Diagram:
+![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
+
+
+### 5. Obtain Partner University Email and Contact Number Command
 
 #### Overview:
 The command is responsible to retrieve the email contact and contact number data for a specified partner
@@ -146,10 +191,10 @@ exchange opportunities.
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
-* The `getSchoolName()` and `getContactType()` methods are used to parse the user input, extracting the requested 
+* The `getSchoolName()` and `getContactType()` methods are used to parse the user input, extracting the requested
   university name and contact type (email or phone number).
 * After parsing, the `findMatchingSchool()` method identifies the correct university entry within the JSON data.
-* The `handleContactType()` method retrieves and prints the requested contact information based on the input, 
+* The `handleContactType()` method retrieves and prints the requested contact information based on the input,
   displaying either the university’s email address or phone number.
 * There are also assertions and logging in place for error handling.
 
@@ -157,7 +202,7 @@ exchange opportunities.
 * The `execute` method is essential and unique to every command class so inheritance was used.
 * Every method in the class remains maintainable and has one responsibility this allows easy debugging and
   refactoring.
-* By using inheritance, new command classes can easily extend the functionality of existing ones 
+* By using inheritance, new command classes can easily extend the functionality of existing ones
   which reducing redundancy in the code
 * Logging and assertions helps the team of developers to follow through the command execution.
 
@@ -166,42 +211,89 @@ exchange opportunities.
 * Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
   readability.
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![Filter Courses Sequence Diagram](images/ObtainContactsCommand.png)
 
-### 4. List University Courses Command
 
-#### Overview
+### 6. Filter Courses Command
 
-This command is responsible for listing out all the mappable partner university’s (PU) courses and NUS courses. 
-This allows users to plan their course mapping as it lists out all the possible courses they can map in a specified
-partner university.
+#### Overview:
+This command is responsible for displaying and retrieving the full list of mappable courses from the partner
+universities to a user specified NUS course from `database.json` file. It helps the users to identify whether
+that NUS course is suitable to be mapped overseas in South East Asia and Oceania.
 
 #### How the feature is implemented:
-* The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method 
-for custom behaviour.
-* The command first reads a JSON file to obtain the JsonObject containing the names of all the partner universities.
-* The getPuName method then parses and extracts the PU name from the input (with the format of `set [PU_NAME]`).
-* Next, the extracted PU name is passed into the `getUniCourses()` method which will search for the specified PU in the
-JsonObject with `findUniversityName()`.
-* If the university is not found, an exception `UnknownUniversityException` will be thrown.
-* If the PU is found, the `listCourses()` will be called. Then `getUniversityObject()` and `getCourseArray()` methods
-will be called to get the JsonObject containing the PU and the JsonArray containing the list of courses it offers.
-* The two object will be passed into `iterateCourses()` method to iterate through the JsonArray `courseArray` which
-contains the list of courses.
-* It then prints out the course details such as PU course code and NUS course code by calling the 
-`printListUniCoursesCommand` method in the UI class.
-* Assertions and logging are used for error handling.
+* The `FilterCoursesCommand` class extends `Command` class where it overrides the `execute` method for
+  custom behaviour.
+* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
+  superclass.
+* The `parseFilterCommand` method then separates input, which parses the user input to extract the details in the input,
+  still of `String` type.
+* The `getNusCourseCode` method then extract out the user specified NUS course code from the parsed input, checking
+  if the course code is a School of Computing course.
+* The NUS course code is then passed into the `displayMappableCourses()` method along with teh Json object. The method
+  will iterate over the keys of the database which contains the University names, then obtain the array `courses`
+  stored in the "courses" field. The `courses` array is then iterated over, for each course,
+  if the value in the "nus_course_code" is equals to the NUS course code passed into the method, the university name and
+  "pu_course_code" value of the course will be printed to the CLI.
+* There are also assertions and logging in place for error handling.
+* Line Separator is used to ensure readability and ease of use for users.
 
-#### Why it is implemented this why:
-- ****Separation of Concerns:**** Each responsibility is seperated into smaller, well-defined methods
-  For example, `getPuName()` focuses on extracting the university name from user input and `findUniversityName()`
-  focuses on searching the university in the data set.
+#### Sequence Diagram:
+![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
 
-#### Sequence on PlantUML:
-![ListUniCourseCommand sequence diagram](images/ListUniCoursesCommand.png)
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+### 8. Delete Courses Command
+
+#### Overview:
+This command is responsible for deleting users' existing course mapping plan from the `myList.json` file.
+This helps the users to keep track of their most recent course mapping plans, and to keep the `myList.json` file organised.
+
+#### How the feature is implemented:
+* The `DeleteCoursesCommand` class extends `Command` class where it overrides the `execute` method for
+  custom behaviour.
+* When `execute` is called, the command first passes the user's input into the `parseDeleteCommand` method, which parses
+  the user input to extract the list index, still of `String` type, of the course mapping plan
+  they would like to delete.
+* The parsed input is then passed into the `deleteCourse` method, along with the Storage object, which updates the
+  `myList.json` file. The list index is then converted to an `int` using the `Integer` class. If a valid list index
+  has been given by the user, the list index is passed into the storage object's `deleteCourse` method to delete the
+  plan stored at that index.
+* Lastly, the UI object's `printDeleteMessage` is called to inform the user of the course plan which is deleted.
+* Throughout the code, exceptions, assertions and logging are in place for better error handling.
+* Line Separator is used to ensure readability and ease of use for users.
+
+#### Sequence Diagram:
+![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
+
+
+### 11. Find course mapping command
+
+#### Overview
+This command is responsible for the searching of a particular NUS course in the personalised tracker. This allows users
+to check and plan course mappings for that specified course.
+
+#### How the feature is implemented:
+* The `FindCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method for
+  custom behaviour specific to this class.
+* The input from the user is first parsed through the `getKeyword()` method to extract out the keyword(NUS course code)
+  to search within the personalised tracker. If there is no keyword, an `IllegalArgumentException` will be thrown.
+* Then the keyword will be passed to the `findCommand()` method.
+* In the `findCommand` method, the mappings in the tracker are retrieved through
+  `List<Course> mappedCourses = storage.loadAllCourses()`. If the tracker is empty, a message indicating empty tracker
+  will be printed.
+* Next, `matchKeyword()` will be called and it iterates the mappedCourses in the tracker to search for mappings that
+  match the keyword and adds them into a `List<Course> foundCourses`.
+* Lastly, `printFindCommand` will iterate and print the course mappings inside mappedCourses through
+  `printFoundCourses()` in `UI` class. If mappedCourses is empty, an IllegalArgumentException is thrown.
+
+#### Why it is implemented this way:
+* ****Separation of concerns:**** Helper methods were used to isolate specific tasks within the command, making each
+  method focused and easier to manage. The `UI` class handles displaying messages to the user, which keeps
+  `FindCoursesCommand` focused solely on search logic, without managing user interactions directly.
+
+![FindCourseCommand Sequence diagram](images/FindCoursesCommand.png)
+
 
 ### 5. Add Courses Command
 
@@ -230,31 +322,14 @@ and South-East Asian universities. This command hence helps the users to keep tr
 * Throughout the code, exceptions, assertions and logging are in place for better error handling. 
 * Line Separator is used to ensure readability and ease of use for users.
 
-#### Sequence Diagram on PlantUML
+#### Sequence Diagram:
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
+Sequence Diagram for AddCourseCommand
 
-### 6. Delete Courses Command
+![Course Validator Sequence Diagram](images/CourseValidator.png)
 
-#### Overview:
-This command is responsible for deleting users' existing course mapping plan from the `myList.json` file.
-This helps the users to keep track of their most recent course mapping plans, and to keep the `myList.json` file organised.
+Sequence Diagram of Course Validator (extracted out of AddCourseCommand sequence diagram)
 
-#### How the feature is implemented:
-* The `DeleteCoursesCommand` class extends `Command` class where it overrides the `execute` method for
-  custom behaviour.
-* When `execute` is called, the command first passes the user's input into the `parseDeleteCommand` method, which parses
-  the user input to extract the list index, still of `String` type, of the course mapping plan 
-  they would like to delete.
-* The parsed input is then passed into the `deleteCourse` method, along with the Storage object, which updates the
-  `myList.json` file. The list index is then converted to an `int` using the `Integer` class. If a valid list index
-  has been given by the user, the list index is passed into the storage object's `deleteCourse` method to delete the 
-  plan stored at that index.
-* Lastly, the UI object's `printDeleteMessage` is called to inform the user of the course plan which is deleted.
-* Throughout the code, exceptions, assertions and logging are in place for better error handling.
-* Line Separator is used to ensure readability and ease of use for users.
-
-#### Sequence Diagram on PlantUML
-![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
 
 ### 7. List Commands Command
 
@@ -276,7 +351,7 @@ The `ListCommandsCommand` provides users with a comprehensive list of all availa
 * **Dynamic Command List**: Considered dynamically generating the command list from all command classes in the codebase to avoid manually updating this list, but opted for simplicity to prevent added complexity.
 * **Help Command Integration**: Considered integrating `ListCommandsCommand` with the `HelpCommand` to provide a one-stop command for help-related requests, but separating them ensures clarity and keeps each command focused.
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![List Commands Command Sequence Diagram](images/ListCommandsCommand.png)
 
 ### 8. ListPersonalTrackerCommand
@@ -323,41 +398,10 @@ Mapped Modules:
 -----------------------------------------------------
 ```
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![List Personal Tracker Command Sequence Diagram](images/ListPersonalTrackerCommand.png)
 
-### 9. Help Command
 
-#### Overview
-This command provides users with detailed explanations of each feature and the ways to use them.
-This allows users to navigate this program easily and effectively.
-
-#### How the feature is implemented:
-* The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides
-  the execute method for custom behaviour.
-* First, the user input is passed into the `getCommand()` method which extracts and processes the
-  command. It does so by using `switch` statements to determine if the input matches one of the valid commands.
-* If it does, it returns the command, if it does not, an `IllegalArgumentException` exception will be thrown to handle
-  invalid commands
-* Then, the `printHelp()` method will be called to display the detailed help messages for the specific command.
-  Another `switch` statement is used here to map each command to its corresponding help message.
-* Assertions and logging are implemented for error handling.
-
-#### Why it is implemented that way:
-- ****Separation of Concerns:**** Each method has a single responsibility. For example, `getCommand()` parses and
-  validates the input to extract a specific command and `printHelp()` prints the relevant help message for the
-  parsed command.
-- ****Switch Statement:**** The use of `switch` statement is an efficient way to match valid commands.
-  `switch` statements are also clearer and easier to read.
-
-#### Alternative Implementation considered:
-- The use of `if-else` statement
-  - However, since the condition is a single variable and not complex conditions, it will be cleaner and clearer to use
-  `switch` statements
-
-#### Sequence diagram on PlantUML
-- Represents when `execute()` method is called
-  ![Help Command sequence diagram](images/HelpCommand.png)
 
 ### 10. Compare Mapped Command
 
@@ -397,13 +441,13 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 #### Why it is Implemented this Way
 - **Separation of Concerns**: Methods are organized by function, with each handling a specific part of the comparison logic. This promotes code readability and maintainability.
 
-
 #### Alternatives Considered
 - **Combined Filtering and Extraction**: Initially, filtering and course code extraction were considered for a single method, but separating them simplified the debugging process and enhanced the code structure.
 - **Display Inline in `execute`**: Displaying results directly in the `execute` method was an option. However, using dedicated methods (e.g., `displayComparisonResults`) improved readability and made testing individual components easier.
 
-#### Sequence Diagram on PlantUML:
+#### Sequence Diagram:
 ![Compare Mapped Command Sequence Diagram](images/CompareMappedCommand.png)
+
 
 
 ## Product scope
@@ -411,9 +455,13 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 
 * CEG students keen to go for SEP and need a clear and organised UI to see course mappings
 * CEG students who want to plan their schools and courses to take 
+* Can type fast 
+* Prefers typing to mouse interactions 
+* Is reasonably comfortable using CLI apps
 
 ### Value proposition
 
+* CEG students can manage SEP planning faster than a typical mouse/GUI driven app (EduRec)
 * CEG students can use ExchangeCourseMapper to expedite their for course mapping process by listing universities 
   and specific courses with their subject codes
 * CEG students can easily filter by either NUS-coded modules or partner universities (PU) to quickly identify relevant course options.
@@ -422,31 +470,240 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 
 ## User Stories
 
-| Version | As a ...     | I want to ...                                                   | So that I can ...                                        |
-|---------|--------------|-----------------------------------------------------------------|----------------------------------------------------------|
-| v1.0    | CEG students | see the possible Oceania and South East Asia partner university | see all my possible choices in those regions             |
-| v1.0    | CEG student  | search for NUS courses to map                                   | search for related courses in PUs                        |
-| v1.0    | CEG student  | key in the school I want to go for exchange                     | view the available course offered by the school          |
-| v1.0    | CEG student  | want to see a list of commands                                  | know what to do to go to access the features             |
-| v2.0    | CEG student  | obtain the email address of the partner universities            | send an email should I have any queries                  |
-| v2.0    | CEG student  | obtain the contact number of the partner universities           | call the number should I have any urgent queries         |
-| v2.0    | CEG student  | add a course mapping plan for a PU                              | keep track of my courses for a specific PU               |
-| v2.0    | CEG student  | list out the mapped courses by calling the list command         | track all the courses I have mapped to the different PUs |
-| v2.0    | CEG student  | delete a course mapping plan for a PU                           | keep my list of saved plans organised                    |
-| v2.0    | CEG student  | ask for help when I am in doubt                                 | know what are the possible actions                       |
-| v2.0    | CEG student  | compare different mapping plans for each PU                     | find the university best fit for my academic schedule    |
+| Version | As a ...    | I want to ...                                           | So that I can ...                                              |
+|---------|-------------|---------------------------------------------------------|----------------------------------------------------------------|
+| v1.0    | CEG student | see the possible Oceania Universities for CEG students  | see all my possible choices in those regions                   |
+| v1.0    | CEG student | search for NUS courses to map                           | search for related courses in PUs                              |
+| v1.0    | CEG student | key in the school I want to go for exchange             | view the available course offered by the school                |
+| v1.0    | CEG student | want to see a list of commands                          | know what to do to go to access the features                   |
+| v2.0    | CEG student | obtain the email address of the partner universities    | send an email should I have any queries                        |
+| v2.0    | CEG student | obtain the contact number of the partner universities   | call the number should I have any urgent queries               |
+| v2.0    | CEG student | add a course mapping plan for a PU                      | keep track of my courses for a specific PU                     |
+| v2.0    | CEG student | list out the mapped courses by calling the list command | I can track all the courses I have mapped to the different PUs |
+| v2.0    | CEG student | delete a course mapping plan for a PU                   | keep my list of saved plans organised                          |
+| v2.0    | CEG student | ask for help when I am in doubt                         | know what are the possible actions                             |
+| v2.0    | CEG student | compare different mapping plans for each PU             | find the university best fit for my academic schedule          |
+| v2.0    | CEG student  | search for course mappings in my personalised tracker           | check if I have mappings for that course                 |
 
 
 ## Non-Functional Requirements
 
-1. Access to a computer with Java 17 installed and an IDE that supports Java programming
-2. A CEG Student in NUS planning to map out mainly BT/IS/EE/CS/CG-coded courses
-{TODO: Add more} 
+1. Access to a computer with Java 17 installed and an IDE that supports Java programming.
+2. A CEG student with above average typing speed for regular English text (i.e. not code, not system admin commands) 
+   should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. A CEG student should be able to maintain long term usage without a noticeable sluggishness in performance for typical usage.
+4. CEG student who is interested in planning SEP course mapping to universities in Oceania.
 
 ## Glossary
-
-* *glossary item* - Definition
+* Mainstream OS: Windows, Linux, Unix, MacOS
+* CEG: Computer Engineering
+* PU: Partner University
+* CLI: Command Line Interface
+* SEP: Student Exchange Programme
 
 ## Instructions for manual testing
+> [NOTE!]
+>These instructions only provide a starting point for testers to work on;
+testers are expected to do more *exploratory* testing.
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### 1. Start ExchangeCourseMapper
+1. Ensure that you have Java 17 or above installed.
+2. Download the latest version of `ExchangeCourseMapper` from [here](http://link.to/duke).
+3. Download the JAR file and save it on your computer.
+4. Copy the absolute path of where the jar file is saved.
+5. In Terminal, run `java -jar /path/to/ExchangeCourseMapper.jar`
+6. Expected: Welcome message on the terminal, prompting for the user's input
+
+### 2. Test Cases
+#### 2.1 Start State
+* 2.1.1. Introduction to ExchangeCourseMapper
+   * Test Case: `commands` <br/>
+   * Expected: Prints out the summarised list of possible commands in ExchangeCourseMapper.
+* 2.1.2. More details for each command
+  * Test Case: `help ACTION`, where `ACTION` is one of the commands listed by `commands`.<br/>
+  * Expected: Prints out the function of each command and the valid command format.
+
+#### 2.2 Obtain names of Partner Universities in Oceania
+* 2.2.1 List all Partner Universities (PUs) in Oceania
+  * Prerequisites: None
+  * Test Case: `list schools` <br/>
+  * Expected: List of names of PUs in Oceania.
+
+#### 2.3 Find mappable courses in a specific PU in Oceania
+> [NOTE!]
+> SCHOOL_NAME is not case-sensitive, but must be the same as the name listed by the `list schools` command,
+> word for word!
+
+* 2.3.1 See all mappable courses from a valid PU
+  * Prerequisites: None
+  * Test Case: `set SCHOOL_NAME`, where `SCHOOL_NAME` is one of the PUs listed by `list schools` <br/>
+  * Expected: List of mappable courses, with information of the PU course code and name to the matching
+    NUS course code and name.
+
+
+* 2.3.2 See all mappable courses from an invalid PU
+  * Prerequisites: None
+  * Test Case: `set SCHOOL_NAME`, where `SCHOOL_NAME` is NOT one of the PUs listed by `list schools` <br/>
+  * Expected: Error message stating that input is an unknown university.
+
+
+#### 2.4 Obtain admin information of PUs in Oceania
+> [NOTE!]
+> SCHOOL_NAME is not case-sensitive, but must be the same as the name listed by the `list schools` command,
+> word for word!
+
+* 2.4.1 Obtain valid PU's email
+  * Prerequisites: None
+  * Test Case: `obtain The University of Melbourne /email`
+  * Expected: Prints out email of The University of Melbourne.
+
+
+* 2.4.2 Obtain invalid PU's email
+  * Prerequisites: None
+  * Test Case: `obtain tokyo university /email`
+  * Expected: Error message stating that input is an unknown university in the program.
+
+
+* 2.4.3 Obtain valid PU's email
+  * Prerequisites: None
+  * Test Case: `obtain The University of Melbourne /number`
+  * Expected: Prints out email The University of Melbourne.
+
+
+* 2.4.4 Obtain invalid PU's email
+  * Prerequisites: None
+  * Test Case: `obtain tokyo university /number`
+  * Expected: Error message stating that input is an unknown university in the program.
+
+
+#### 2.5 Filter and obtain mappable courses for a specific NUS SoC course code
+* 2.5.1 Filter using a valid SoC course code with possible mappings
+  * Prerequisites: None
+  * Test Case: `filter cs3241`<br/>
+  * Expected: Prints out all the courses offered by the PUs that can be mapped to cs3241.
+
+
+* 2.5.2 Filter using a valid SoC course code with no possible mappings
+  * Prerequisites: None
+  * Test Case: `filter cs1231`<br/>
+  * Expected: Prints out error message stating that there are no mappable courses for the given NUS course code.
+
+
+* 2.5.3 Filter using a non-SoC course code
+  * Prerequisites: None
+  * Test Case: `filter gess1010`<br/>
+  * Expected: Prints out error message stating that filter only works for CS/CG/BT/IS/EE courses.
+
+
+#### 2.6 Add course mapping plans into Personal Tracker
+* 2.6.1 Add course mappings with the correct format and valid mapping
+  * Prerequisites: None
+  * Test case: `add CS2040 /pu The university of western australia /coursepu CITS2200`
+  * Expected: Prints out a confirmation message indicating success
+
+
+* 2.6.2 Add course mapping with incorrect format
+  * Prerequisites: None
+  * Test case 1: `add invalid format`
+  * Test case 2: `add cs2040 /pu invalid uni`
+  * Test case 3: `add cs2040 /pu the university of western australia`
+  * Expected: Prints out error message indicating to provide all valid parts
+
+
+* 2.6.3 Add course mappings with invalid NUS course code/ PU course code
+  * Prerequisites: None
+  * Test case 1: `add CS1231 /pu the university of western australia /coursepu CITS2200`
+  * Test case 2: `add CS2040 /pu the university of western australia /coursepu CITS1111`
+  * Expected: Prints out error message and a list of mappable courses offered by the PU in the format of `NUS COURSE | PU COURSE`
+
+
+* 2.6.4 Add course mappings with invalid partner university (PU) name
+  * Prerequisites: None
+  * Test case: `add CS2040 /pu the university of australia /coursepu CITS2200`
+  * Expected: Prints out error message and a list of partner universities
+
+
+#### 2.7 Delete course mapping plans into Personal Tracker
+* 2.7.1 Delete course mapping plan with valid task number
+  * Prerequisites: at least one course mapping plan in tracker
+  * Test case: `delete 1`
+  * Expected: Prints a confirmation message indicating a success in deletion of the course mapping
+
+
+* 2.7.2 Delete course mapping plan with invalid task number
+  * Prerequisites: one course mapping plan in tracker
+  * Test case: `delete 2`
+  * Expected: Prints out error message indicating to provide valid index and a prompt to list out the available mappings
+    in personal tracker
+
+#### 2.8 Listing out all saved course mapping plans in Personal Tracker
+##### Non-corrupted data file
+* 2.8.1 Listing an empty data file
+  * Prerequisites: None
+  * Test Case: `list mapped`<br/>
+  * Expected: Prints out message that the user has not saved any course mapping plans yet.
+
+
+* 2.8.2 Listing a non-empty data file
+  * Prerequisites: At least one saved course mapping plan saved in myList.json
+  * Test Case: `list mapped`<br/>
+  * Expected: Prints out list of saved course mapping plans, each containing information on: NUS course code,
+    Partner University's name and the course that it offers which is mappable to the NUS course code.
+
+
+##### Corrupted data file
+* 2.8.3 Listing a non-empty data file
+  * Prerequisites: At least one saved course mapping plan saved in myList.json, then remove any of the information
+    (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code)
+    one line.
+  * Test Case: `list mapped`<br/>
+  * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
+
+
+#### 2.9 Compare saved course mapping plans between universities
+##### Non-corrupted data file
+* 2.9.1 Comparing with an empty data file
+  * Prerequisites: None
+  * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
+  * Expected: Prints out message that there are no unique mappings currently saved for each given PU.
+
+
+* 2.9.2 Comparing with a non-empty data file
+  * Prerequisites: At least one saved course mapping plan saved in myList.json, for either The University of Melbourne 
+    or The University of Western Australia.
+  * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
+  * Expected: Prints out message that the unique mappings currently saved for each given PU.
+
+
+##### Corrupted data file
+* 2.9.3 Listing a non-empty data file
+  * Prerequisites: At least one saved course mapping plan saved in myList.json, then remove any of the information
+    (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code)
+    one line.
+  * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
+  * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
+
+#### 2.10 Find course mappings in Personal Tracker
+* 2.10.1 Find course mapping plan with NUS course that is in the personal tracker
+  * Prerequisites: This course mapping saved `CS2040 | The university of western australia | CITS2200`*
+  * Test case: `find cs2040`
+  * Expected: Prints out the course mappings in the format of *
+
+
+* 2.10.2 Find course mapping plan when the personal tracker is empty
+  * Prerequisites: No course mapping plan in the tracker
+  * Test case: `find cs2040`
+  * Expected: Prints out error message indicating the list is empty and to ensure there are course mappings in the list
+
+
+* 2.10.3 Find course mapping with invalid keywords  
+  * Prerequisites: At least one course mapping plan in the tracker
+  * Test case: `find cs`
+  * Expected: Prints out an error message indicating no match found
+  * Note that invalid keywords can mean a NUS course not in the tracker too
+
+
+* 2.10.4 Find course with no keyword
+  * Prerequisites: None
+  * Test case: `find`
+  * Expected: Prints out an error message indicating keyword is empty

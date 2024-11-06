@@ -2,11 +2,14 @@
 hide footbox
 
 actor CEG_Student
+!include .SequenceDiagram.config
 participant ":AddCoursesCommand" as AddCoursesCommand
+participant ":Ui" as Ui
 participant ":CourseValidator" as CourseValidator
 participant ":Command" as Command
 participant ":Course" as Course
 participant ":Storage" as Storage
+
 
 
 CEG_Student -> AddCoursesCommand: execute (userInput:String, storage:Storage)
@@ -16,7 +19,7 @@ AddCoursesCommand -> Command: createJsonObject()
 activate Command
 
 opt inputStream is null
-    Command -> Command: throw new IOException()
+    Command --> AddCoursesCommand: throw new IOException()
 end
 
 Command --> AddCoursesCommand: jsonObject:JsonObject
@@ -30,51 +33,26 @@ AddCoursesCommand -> AddCoursesCommand:parseAddCommand(input: String)
 activate AddCoursesCommand
 return descriptionSubstring: String[]
 
-AddCoursesCommand -> CourseValidator:isValidInput(nusCourseInput: String, pu: String, puCourseInput: String, jsonObject: JsonObject)
+AddCoursesCommand -> CourseValidator: isValidInput(nusCourseInput: String, pu: String, puCourseInput: String, jsonObject: JsonObject)
 activate CourseValidator
-
-CourseValidator -> CourseValidator:getPUCourseList
-activate CourseValidator
-
-alt matchPu != null
-CourseValidator -> CourseValidator: get JsonArray for Partner University
-else
-CourseValidator -> CourseValidator:displayPartnerUniversities()
-activate CourseValidator
-deactivate
-CourseValidator -> CourseValidator: throw IllegalArgumentException
-end
-return courses: JsonArray
-
-
-CourseValidator -> CourseValidator: isValidCourseMapping
-activate CourseValidator
-
-
-loop for each course in courses JsonArray
-CourseValidator -> CourseValidator:getJsonObject(course)
-CourseValidator -> CourseValidator:get puCourseCode from JsonArray
-CourseValidator -> CourseValidator:get nusCourseCode from JsonArray
-
-opt puCourseCode == puCourseCodeInput && nusCourseCode == nusCourseCodeInput
-    CourseValidator --> AddCoursesCommand: true: Boolean
-end
-end
-  CourseValidator --> CourseValidator: displayAvailableMappings()
-  CourseValidator --> AddCoursesCommand: false: Boolean
-  deactivate
-deactivate
+return isValidInput: Boolean
 
 alt isValidInput
-AddCoursesCommand -> Course: new Course(String puCourse, String nusCourse, String pu)
+AddCoursesCommand -> Course **: new Course(String puCourse, String nusCourse, String pu)
 activate Course
 Course --> AddCoursesCommand : returns Course
 deactivate
 AddCoursesCommand -> Storage :addCourse(courseToStore)
-AddCoursesCommand -> AddCoursesCommand: printAddMessage(courseToStore)
-else
-AddCoursesCommand -> AddCoursesCommand: print
+AddCoursesCommand -> Ui: printAddMessage(courseToStore)
+activate Ui
+Ui --> AddCoursesCommand: display add message
+deactivate Ui
+else else
+AddCoursesCommand -> Ui: print error message
+activate Ui
+Ui --> AddCoursesCommand: display error message
+deactivate Ui
 end
-deactivate
+return
 
 @enduml

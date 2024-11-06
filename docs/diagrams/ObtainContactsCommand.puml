@@ -1,18 +1,23 @@
 @startuml
+
+!include .SequenceDiagram.config
 hide footbox
 
-actor User
+actor CEG_Student
 participant ":ObtainContactsCommand" as ObtainContactsCommand
+participant ":IllegalArgumentException" as IllegalArgumentException
+participant ":UI" as UI
 participant ":Command" as Command
+participant ":IOException" as IOException
 
-User -> ObtainContactsCommand: execute(userInput: String)
+CEG_Student -> ObtainContactsCommand: execute(userInput: String)
 activate ObtainContactsCommand
 
 ObtainContactsCommand -> Command: createJsonObject()
 activate Command
 
 opt inputStream is null
-    Command -> Command: throw new IOException()
+    Command -> IOException: throw new IOException()
 end
 
 Command --> ObtainContactsCommand: JsonObject jsonObject
@@ -26,40 +31,40 @@ ObtainContactsCommand -> ObtainContactsCommand: getContactType(userInput: String
 activate ObtainContactsCommand
 
 alt inputParts.length != 2
-    ObtainContactsCommand -> ObtainContactsCommand: throw new IllegalArgumentException(Exception.invalidInputFormat())
-else
+    ObtainContactsCommand -> IllegalArgumentException: throw new IllegalArgumentException(Exception.invalidInputFormat())
+else else
     return contactType: String
 end
 
 ObtainContactsCommand -> ObtainContactsCommand: findMatchingSchool(jsonObject: JsonObject, schoolName: String)
 activate ObtainContactsCommand
 
-loop for each key in jsonObject.keySet()
-    opt key.toLowerCase() == schoolName
+loop for  each school found in the set of schools
+    opt checks if the school name matches
         return matchingSchool: String
     end
 end
 
-opt matchingSchool == null
-    ObtainContactsCommand --> User: Display "Unknown university - " + schoolName
+opt no matching School Names
+    ObtainContactsCommand --> CEG_Student: Display "Unknown university - " + schoolName
 end
 
 ObtainContactsCommand -> ObtainContactsCommand: handleContactType(schoolInfo: JsonObject, matchingSchool: String, contactType: String)
 activate ObtainContactsCommand
 
-alt contactType == EMAIL_KEY
-    ObtainContactsCommand --> User: Display Email for matchingSchool
-else contactType == NUMBER_KEY
-    ObtainContactsCommand --> User: Display Phone Number for matchingSchool
-else Invalid contactType
-    ObtainContactsCommand --> User: Display Invalid Contact Type Message
+alt EMAIL_KEY
+    ObtainContactsCommand -> UI: printContactInformation(EMAIL_TAG: String, schoolName: String, email:String)
+else NUMBER_KEY
+    ObtainContactsCommand -> UI: printContactInformation(NUMBER_TAG: String, schoolName: String, number:String)
+else Invalid
+    ObtainContactsCommand --> CEG_Student: Display Invalid Contact Type Message
 end
 
 
 ObtainContactsCommand --> ObtainContactsCommand
 deactivate ObtainContactsCommand
 
-ObtainContactsCommand --> User
+ObtainContactsCommand --> CEG_Student
 
 deactivate ObtainContactsCommand
 
