@@ -67,9 +67,13 @@ interact with a given component through its interface rather than the concrete c
 
 ### Class Diagrams
 Command Package:
-![Class diagram for Commands](images/CommandClass.png)
+
+![Class diagram for Commands](images/CommandClassInheritance.png)
+![Class diagram for CheckInformationCommand](images/CheckInformationCommandClass.jpg)
+![Class diagram for CheckInformationCommand](images/PersonalTrackerCommandClass.jpg)
 
 CourseValidator Class Diagram: 
+
 ![Class diagram for CourseValidator](images/CourseValidatorClass.png)
 
 {TODO: Object Diagram}
@@ -121,8 +125,10 @@ that NUS course is suitable to be mapped overseas in South East Asia and Oceania
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
-* The `getNusCourseCode` method then extract out the user specified NUS course code from the input, which is in the
-  format: `filter COURSE_CODE`.
+* The `parseFilterCommand` method then separates input, which parses the user input to extract the details in the input, 
+  still of `String` type.
+* The `getNusCourseCode` method then extract out the user specified NUS course code from the parsed input, checking
+  if the course code is a School of Computing course.
 * The NUS course code is then passed into the `displayMappableCourses()` method along with teh Json object. The method
   will iterate over the keys of the database which contains the University names, then obtain the array `courses`
   stored in the "courses" field. The `courses` array is then iterated over, for each course,
