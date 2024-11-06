@@ -142,7 +142,7 @@ The `Parser` class takes in a user input string, and constructs an `XYZCommand` 
 
 The logic of the `Parser` component is illustrated in the following use case:
 
-<ol>
+<ol style="list-style-type: decimal;">
 <li> Upon receiving a user command input, `Main` constructs a new `Parser`. This state is represented in the following **Object Diagram**: </li>
 
 <img src = "images/ParserObjectDiagram0.png">
@@ -752,6 +752,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 | v2.0    | user     | find if a person is in a certain event                          | quickly confirm a participant’s involvement in an event                                   |
 | v2.0    | user     | add items to a specific event                                   | keep track of what I need for that event                                                  |
 | v2.0    | user     | mark items as accounted for                                     | make sure I do not prepare excess items for an event                                      |
+
 <div style="page-break-after: always;"></div>
 
 ## Appendix C: Non-Functional Requirements
@@ -794,7 +795,8 @@ The user is able to organise and manage his events more quickly and efficiently 
 
    4. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u top`  
       Expected: No `Event` is added. An error message is shown.
-   
+   <div style="page-break-after: always;"></div>
+
 2. Adding a duplicate `Event` to the `Event` list
 
    1. Prerequisite: An event with the name `Event 1` is present in the list.  
@@ -838,6 +840,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 
    3. Test case: `remove -e Event 2`  
       Expected: No `Event` is removed. An error message is shown.
+<div style="page-break-after: always;"></div>
 
 ### Removing a participant
 
@@ -884,6 +887,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 
    2. Test case: `remove -m Item 1 -e Event 1`  
       Expected: No `Item` is removed. An error message is shown.
+<div style="page-break-after: always;"></div>
 
 ### Editing an event
 
@@ -925,6 +929,7 @@ The user is able to organise and manage his events more quickly and efficiently 
    
    2. Test case: `view -e Event 1 -y person` 
       Expected: An error message is shown.
+<div style="page-break-after: always;"></div>
 
 ### Marking an event as done
 
@@ -961,6 +966,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 
    2. Test case: `mark -p Participant 1 -e Event 1 -s present`  
       Expected: No `Participant` is marked. An error message is shown.
+<div style="page-break-after: always;"></div>
 
 ### Marking an item as accounted for
 
@@ -1006,6 +1012,7 @@ The user is able to organise and manage his events more quickly and efficiently 
    
    2. Test case: `sort -by name`  
       Expected: A list of `Event`s is shown, with `Bread making` coming before `Chocolate making`, and `Chocolate making` coming before `Doughnut making`.
+<div style="page-break-after: always;"></div>
 
 ### Filtering the event list
 
