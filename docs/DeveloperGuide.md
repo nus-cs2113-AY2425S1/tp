@@ -244,7 +244,7 @@ The `ListCommand` class performs the following key operations:
 
 These operations are accessible through the `Command` and can be invoked when the list command is entered by the user.
 
-#### Feature Implementation
+#### Feature implementation
 
 Given below is an example usage scenario and the behavior of the list feature at each step:
 
