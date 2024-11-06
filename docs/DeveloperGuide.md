@@ -15,8 +15,8 @@ We used these third party libraries to develop our application:
 
 ### Meal Component
 
-API: `Meal.java`
 ![Meal and MealList Class Diagram](./images/mealAndMealListClassDiagrams.png)
+
 The `Meal` component,
 
 - **Represents individual meals with nutritional information:** The `Meal` class encapsulates details about a meal, specifically its name and calorie count. This allows easy tracking of individual meals within a day.
@@ -34,6 +34,22 @@ API: `MealList.java`
 - **Facilitates efficient comparisons and storage:** The class overrides `equals()` and `hashCode()` methods, which enables comparison of two `MealList` objects and allows it to be used in collections, ensuring that meal tracking remains accurate and consistent.
 
 ### Water Component
+
+![Water Class Diagram](./images/waterClassDiagram.png)
+
+The `Water` component,
+
+**Tracks daily water intake:** The `Water` class allows for recording individual water consumption entries throughout the day, stored in liters. Each entry is logged, providing a detailed trace of daily water consumption.
+
+**Attributes:** The main attribute of the `Water` class is waterList, a list of Float values representing individual water intake entries in liters.
+
+**Validation and error handling:** When adding water entries, the `Water` class enforces that the water amount is positive. Deletion attempts with invalid indexes are handled with exceptions, ensuring safe and predictable usage.
+
+**Supports collection-based functionality:** The `Water` class includes methods for adding and deleting water entries, checking if the list is empty, and retrieving the entire list of entries. Each action is logged, allowing developers to track and troubleshoot any changes to the water intake log.
+
+**User-friendly representation:** The toString() method formats and returns a string representation of all water entries. Each entry is listed with an index, making it easy to display in user interfaces and summaries.
+
+**Efficient storage and retrieval:** The getWaterList() method returns the full list of water intake entries, while the class’s clear and consistent data structure facilitates straightforward water consumption tracking and data retrieval.
 
 ### History Component
 
@@ -384,6 +400,13 @@ This flow allows users to easily create structured workout routines, customizing
 The overall design that enables this functionality is described generically by the following sequence diagram.
 ![](images/createCommand.png)
 
+## Documentation, logging, testing, configuration, dev-ops
+
+* [Logging Guide](LoggingGuide.md)
+* [Testing Guide](TestingGuide.md)
+
+## Appendix
+
 ### Product scope
 
 BuffBuddy is a fitness tracking app that help you track workout, meals, water to aid you in achieving your body goals.
@@ -433,3 +456,5 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+
