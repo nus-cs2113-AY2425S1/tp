@@ -36,7 +36,7 @@ The `Parser` class is responsible for interpreting user commands and extracting 
    - **Process**: 
      - Retrieves the associated `Command` object from the `commands` map, using the provided commandPart.
 
-  ![parse_command](./diagrams/parser/parse-command-sequence.png)
+    ![parse_command](./diagrams/parser/parse-command-sequence.png)
   
 3. **extractArguments(Command command, String argumentString): Map&lt;String, String&gt;**
    - **Parameters**: 
@@ -50,7 +50,7 @@ The `Parser` class is responsible for interpreting user commands and extracting 
      - Retrieves the expected argument keys from the command
      - Invokes `splitCommandRecursively` to populate the arguments map.
   
-  ![extract_arguments](./diagrams/parser/extract-arguments-sequence.png)
+    ![extract_arguments](./diagrams/parser/extract-arguments-sequence.png)
   
 4. **splitCommandRecursively(String argumentString, String[] keywords, Map&lt;String, String&gt; arguments, String prevKeyword): void**
    - **Parameters**: 
@@ -107,13 +107,13 @@ The `Category` class encapsulates the name of a category and provides functional
    - **Returns**: The formatted description of the category
    - **Process**: Generates a string representation of the `Category` object, useful for logging and debugging.
 
-![Category](./diagrams/category/category-class-diagram.png)
+    ![Category](./diagrams/category/category-class-diagram.png)
 
 ### TransactionList
 The `TransactionList` class is responsible for storing user transactions of different types. It also provides various
 operations that enable user to add, delete, search by (date/ category/ keywords).
 
-![TransactionList](./diagrams/TransactionList/transactionlist-class-diagram.png)
+    ![TransactionList](./diagrams/TransactionList/transactionlist-class-diagram.png)
 #### Class Responsibilities
 
 1. **Storage for transactions**: Keeps an ArrayList of `Transaction` objects.
@@ -121,12 +121,10 @@ operations that enable user to add, delete, search by (date/ category/ keywords)
 3. **Search Transactions**: Search `Transaction` in the `TransactionList` based on multiple keywords, date range or `category` of `Transaction`.
 
 #### Class attributes
-1. **transactions: `ArrayList&lt;Transaction&gt;`**
+1. **transactions: `ArrayList<Transaction>**
     - Description: A List of `Transaction` objects stored that supports List operations.
-2. **InvertedIndex: `Map&lt;String, List&lt;Transaction&gt;&gt;`**
+2. **InvertedIndex: `Map<String, List<Transaction>>**
     - Description: An inverted index implemented as a map that associates each unique keyword from transaction descriptions with a list of Transaction objects containing that keyword in their descriptions.
-
-Here’s the description for each method in the format you provided:
 
 #### Class main methods
 
@@ -164,12 +162,12 @@ Here’s the description for each method in the format you provided:
     - **Process**:
         - Filters `transactions` to include only `Expense` objects with the specified `category`.
         - Returns the filtered list of expenses.
-![SearchByCategory](./diagrams/TransactionList/transactionlist-Sequence-SearchByCategoty-diagram.png)
+    ![SearchByCategory](./diagrams/TransactionList/transactionlist-Sequence-SearchByCategoty-diagram.png)
 
 ### AddIncomeCommand
 The `AddIncomeCommand` class handles the logic for adding an income transaction to the `TransactionList` by parsing input arguments, creating a new `Income` instance, and updating the transaction list.
 
-![AddIncomeCommand](./diagrams/addincomecommand/addincomecommand-class-diagram.png)
+    ![AddIncomeCommand](./diagrams/addincomecommand/addincomecommand-class-diagram.png)
 
 ### Class Responsibilities
 
@@ -190,14 +188,14 @@ The `AddIncomeCommand` class handles the logic for adding an income transaction 
 ### Class Main Methods
 
 1. **execute()**
-    - **Returns**: `List&lt;String&gt;`
+    - **Returns**: `List<String>`
     - **Process**:
         1. Validates the input arguments.
         2. Parses `amount` and `date` fields.
         3. Instantiates a new `Income` transaction and adds it to `TransactionList`.
         4. Calls `Storage.saveTransaction()` to persist data.
 
-![execute](./diagrams/addincomecommand/addincomecommand-class-diagram_001.png)
+    ![execute](./diagrams/addincomecommand/addincomecommand-class-diagram_001.png)
 
 2. **createTransaction(double amount, String description, String date) : Transaction**
     - **Parameters**:
