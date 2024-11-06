@@ -4,16 +4,19 @@
 skinparam ArrowFormatStyle plain
 
 actor User
-participant MediTask MAIN_COLOR
-participant Parser PARSER_COLOR
-participant AddTaskCommand COMMAND_COLOR
-participant Task COMMAND_COLOR
-participant TaskList COMMAND_COLOR
+participant ":MediTask" as MediTask MAIN_COLOR
+participant ":Parser" as Parser PARSER_COLOR
+participant ":AddTaskCommand" as AddTaskCommand COMMAND_COLOR
+participant ":Task" as Task DATA_COLOR
+participant ":TaskList" as TaskList DATA_COLOR
 
 User -> MediTask: Selects a patient
+activate MediTask
 MediTask -> Parser: Parse input command ("add <task_type> <args>")
+activate Parser
 Parser -> AddTaskCommand: Create AddTaskCommand (taskType, args)
-
+deactivate Parser
+activate AddTaskCommand
 AddTaskCommand -> Task: Create Task (taskType, args)
 activate Task
 alt Missing or invalid input
@@ -24,15 +27,17 @@ else Valid input
     Task --> AddTaskCommand: return :Task
     deactivate Task
     AddTaskCommand -> TaskList: Add task to list
+    activate TaskList
     alt Task exists
         TaskList --> AddTaskCommand: Throw DuplicateTaskException
         AddTaskCommand --> MediTask: Return "This task already exists"
         MediTask --> User: Display "This task already exists"
     else Task does not exist
         TaskList --> AddTaskCommand: Confirm task addition
+        deactivate TaskList
         AddTaskCommand --> MediTask: Return success message
+        deactivate AddTaskCommand
         MediTask --> User: Display "New task added: <task>"
-        destroy AddTaskCommand
     end
 end
 @enduml
