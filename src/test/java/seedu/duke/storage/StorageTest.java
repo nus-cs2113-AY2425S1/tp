@@ -268,10 +268,10 @@ public class StorageTest {
         // invalid amount
         budgetWriter.write("-500\n2024-11-01\n");
         budgetWriter.close();
-
+ 
         FinancialList financialList = storage.loadFromFile(budgetLogic);
         assertEquals(1, financialList.getEntryCount());
-        assertEquals(null, budgetLogic.getBudget());
+        assertEquals(0.0, budgetLogic.getBudget().getBudgetAmount());
     }
 
     /**
