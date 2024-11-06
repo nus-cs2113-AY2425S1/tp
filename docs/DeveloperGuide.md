@@ -142,15 +142,14 @@ The `Parser` class takes in a user input string, and constructs an `XYZCommand` 
 
 The logic of the `Parser` component is illustrated in the following use case:
 
-<ol style="list-style-type: decimal;">
-<li> Upon receiving a user command input, `Main` constructs a new `Parser`. This state is represented in the following **Object Diagram**: </li>
+1. Upon receiving a user command input, `Main` constructs a new `Parser`. This state is represented in the following **Object Diagram**: 
 
 <img src = "images/ParserObjectDiagram0.png">
 <div style="page-break-after: always;"></div>
 
-<li> `Main` passes the user command input to `Parser`, which parses the input and constructs an `XYZCommand` object, which is returned to `Main`. 
-The `Parser` instance is no longer referenced. The current state is as shown in the **Object Diagram** below:</li>
-</ol>
+2. `Main` passes the user command input to `Parser`, which parses the input and constructs an `XYZCommand` object, which is returned to `Main`. 
+The `Parser` instance is no longer referenced. The current state is as shown in the **Object Diagram** below:
+
 <img src = "images/ParserObjectDiagram1.png">
 
 The interactions between `Parser` and the other components in the above procedure is shown in the sequence diagram in the [Command component](#command-component) section.
@@ -259,22 +258,22 @@ These operations are accessible through the `Command` and can be invoked when th
 #### Feature implementation
 
 Given below is an example usage scenario and the behavior of the list feature at each step:
-<ol>
-<li> User Command Input:
-The user enters the command `list` to view all scheduled events.</li>
 
-<li> Command Recognition:
-The `COMMAND_WORD` is set to "list", enabling the system to recognize the command input and invoke `ListCommand`.</li>
+1. User Command Input:
+The user enters the command `list` to view all scheduled events.
 
-<li> Execution of ListCommand#execute():
+2. Command Recognition:
+The `COMMAND_WORD` is set to "list", enabling the system to recognize the command input and invoke `ListCommand`.
+
+3. Execution of ListCommand#execute():
 The `execute()` method retrieves each event from `eventList` and appends it to a formatted output message.
 It uses the `String.format` method with `LIST_MESSAGE` to include the total number of events in the message header.
-Events are appended to `outputMessage` with numbered formatting for readability.</li>
+Events are appended to `outputMessage` with numbered formatting for readability.
 <div style="page-break-after: always;"></div>
 
-<li> Output Generation:
-The method stores the generated `outputMessage` in `this.message`, ready for display.</li>
-</ol>
+4. Output Generation:
+The method stores the generated `outputMessage` in `this.message`, ready for display.
+
 The interactions between components during the execution of the `list` command are show in the **Sequence Diagram** below:
 
 <img src = "images/ListCommandSequenceDiagram.png">
@@ -480,16 +479,16 @@ and is invoked when the latter operation is called.
 
 Given below is an example usage scenario for `MarkEventCommand#execute()`, and how it behaves at each step.
 
-\1. The user adds an event `Event 1` to the event list. The mark status for `Event 1` is initially `false` or not done, as shown in the **Object Diagram** below:
+1. The user adds an event `Event 1` to the event list. The mark status for `Event 1` is initially `false` or not done, as shown in the **Object Diagram** below:
 
 <img src = "images/MarkEventObjectDiagram1.png">
 
-\2. The user enters the command `mark -e Event 1 -s done` to mark `Event 1` as done. `MarkEventCommand` calls `MarkEventCommand#execute`,
+2. The user enters the command `mark -e Event 1 -s done` to mark `Event 1` as done. `MarkEventCommand` calls `MarkEventCommand#execute`,
 in which it gets the event `Event 1` from the event list, and sets its mark status to `true` or done, as shown in the **Object Diagram** below.
 
 <img src = "images/MarkEventObjectDiagram2.png">
 
-\3. The user then enters the command `mark -e Event 1 -s undone` to mark `Event 1` as not done. The `MarkEventCommand` again calls `MarkEventCommand#execute`,
+3. The user then enters the command `mark -e Event 1 -s undone` to mark `Event 1` as not done. The `MarkEventCommand` again calls `MarkEventCommand#execute`,
 in which it gets the event `Event 1` from the event list, and sets its mark status to `false` or not done.
 <div style="page-break-after: always;"></div>
 
@@ -552,7 +551,7 @@ The interactions between components of `CopyCommand#execute` are shown in the **
 
 <img src="images/CopyCommandSequenceDiagram.png">
 
-\3.  Upon execution of the command, the output message of `CopyCommand` is set to inform the user if the participants list has been copied,
+3.  Upon execution of the command, the output message of `CopyCommand` is set to inform the user if the participants list has been copied,
     or if the operation was unsuccessful (e.g. if the participant list that is meant to be copied is empty).
 
 ### Sort feature
@@ -887,7 +886,6 @@ The user is able to organise and manage his events more quickly and efficiently 
 
    2. Test case: `remove -m Item 1 -e Event 1`  
       Expected: No `Item` is removed. An error message is shown.
-<div style="page-break-after: always;"></div>
 
 ### Editing an event
 
@@ -1003,6 +1001,7 @@ The user is able to organise and manage his events more quickly and efficiently 
    
    2. Test case: `copy Event 1 > Event 2`  
       Expected: The `Participant` list in `Event 1` is not copied over to `Event 2`. An error message is shown.
+<div style="page-break-after: always;"></div>
 
 ### Sorting the event list
 
@@ -1012,7 +1011,6 @@ The user is able to organise and manage his events more quickly and efficiently 
    
    2. Test case: `sort -by name`  
       Expected: A list of `Event`s is shown, with `Bread making` coming before `Chocolate making`, and `Chocolate making` coming before `Doughnut making`.
-<div style="page-break-after: always;"></div>
 
 ### Filtering the event list
 
