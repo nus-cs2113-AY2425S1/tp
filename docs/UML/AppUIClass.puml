@@ -1,0 +1,14 @@
+@startuml
+package seedu.duke.ui {
+    class AppUi {
+        - scanner : Scanner
+
+        + AppUi()
+        + getUserInput() : String
+        + displayWelcomeMessage() : void
+        + displaySetBudgetMessage() : void
+        + showUnknownCommandMessage() : void
+        + showErrorMessage(message : String) : void
+    }
+}
+@enduml

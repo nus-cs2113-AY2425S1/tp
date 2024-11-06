@@ -1,0 +1,25 @@
+@startuml
+actor User
+User -> AppUi : start()
+AppUi -> User : displayWelcomeMessage()
+User -> AppUi : enter command "expense /a 50 /d 01/01/24 /c food"
+
+AppUi -> InputParser : parseCommands("expense /a 50 /d 01/01/24 /c food")
+InputParser --> AppUi : HashMap<String, String> commandArguments
+
+AppUi -> Logic : addExpense(commandArguments)
+
+activate Logic
+Logic -> DateParser : parse(commandArguments.get("/d"))
+DateParser --> Logic : LocalDate
+
+Logic -> Logic : parseExpenseCategory("/c")
+Logic -> Logic : create AddExpenseCommand
+Logic -> AddExpenseCommand : execute(financialList)
+AddExpenseCommand --> Logic : update financialList
+
+Logic -> AppUi : display success message
+deactivate Logic
+
+AppUi -> User : Success message displayed
+@enduml
