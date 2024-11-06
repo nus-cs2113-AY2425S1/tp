@@ -1,15 +1,13 @@
 package seedu.javaninja;
 
-import seedu.javaninja.question.FillInTheBlank;
-import seedu.javaninja.question.Flashcard;
-import seedu.javaninja.question.Mcq;
-import seedu.javaninja.question.TrueFalse;
+import seedu.javaninja.question.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class TopicManager {
     private static final Logger logger = Logger.getLogger(TopicManager.class.getName());

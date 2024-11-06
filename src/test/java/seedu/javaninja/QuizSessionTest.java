@@ -31,7 +31,7 @@ class QuizSessionTest {
         cli = new Cli(input);  // Reinitialize Cli with specific input
         quizSession = new QuizSession(cli); // Reinitialize QuizSession with updated Cli
 
-        int timeLimit = quizSession.getTimeLimitInSeconds();
+        int timeLimit = quizSession.getTimeLimitInSecondsFromUser();
         assertEquals(120, timeLimit);  // 2 minutes should equal 120 seconds
     }
 
@@ -42,7 +42,7 @@ class QuizSessionTest {
         cli = new Cli(input);  // Reinitialize Cli with specific input
         quizSession = new QuizSession(cli); // Reinitialize QuizSession with updated Cli
 
-        int timeLimit = quizSession.getTimeLimitInSeconds();
+        int timeLimit = quizSession.getTimeLimitInSecondsFromUser();
         assertEquals(30, timeLimit);  // Expecting 30 seconds directly
     }
 

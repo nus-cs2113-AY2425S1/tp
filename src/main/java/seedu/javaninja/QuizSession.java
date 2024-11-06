@@ -6,17 +6,22 @@ public class QuizSession {
     private static final Logger logger = Logger.getLogger(QuizSession.class.getName());
     private Cli cli;
     private Quiz currentQuiz;
+    private int questionLimit;
+    private int timeLimitInSeconds;
+    private Topic topic;
 
     public QuizSession(Cli cli) {
         this.cli = cli;
+        this.topic = null;
         currentQuiz = null;
     }
 
     public void startQuiz(Topic topic) {
+        this.topic = topic;
         currentQuiz = new Quiz(topic, cli);
 
-        int timeLimitInSeconds = getTimeLimitInSeconds();
-        int questionLimit = getQuestionLimit();
+        timeLimitInSeconds = getTimeLimitInSecondsFromUser();
+        questionLimit = getQuestionLimitFromUser();
 
         currentQuiz.start(timeLimitInSeconds, questionLimit);
     }
@@ -25,7 +30,7 @@ public class QuizSession {
         return currentQuiz.getScore();
     }
 
-    public int getTimeLimitInSeconds() {
+    public int getTimeLimitInSecondsFromUser() {
         cli.printMessage("Set a time limit for the quiz.");
         cli.printMessage("Enter the number of minutes (or 0 if you want to set seconds): ");
 
@@ -42,9 +47,21 @@ public class QuizSession {
         return timeLimitInSeconds;
     }
 
-    public int getQuestionLimit() {
+    public int getQuestionLimitFromUser() {
         cli.printMessage("Enter the number of questions you want to attempt: ");
         return Integer.parseInt(cli.readInput());
+    }
+
+    public int getQuestionLimit() {
+        return questionLimit;
+    }
+
+    public int getTimeLimitInSeconds() {
+        return timeLimitInSeconds;
+    }
+
+    public String getTopicName() {
+        return topic.getName();
     }
 
     /* For Tests */

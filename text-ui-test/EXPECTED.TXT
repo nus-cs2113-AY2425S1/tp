@@ -1,3 +1,4 @@
+----------------------
 Welcome to Java Ninja!
 'view' to view topics
 'select [topic]' to select a topic
@@ -5,4 +6,5 @@ Welcome to Java Ninja!
 'help' for a list of commands
 'quit' to exit the program
 'exit' to exit the quiz, activate only while doing the quiz
+----------------------
 > Goodbye!
