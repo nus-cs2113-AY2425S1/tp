@@ -14,29 +14,20 @@ public abstract class FinancialEntry {
 
     /**
      * Constructs a FinancialEntry with the specified amount, description, and type.
+     * Ensures that FinancialEntry has an amount between 0.01 and 9999999.00, has a
+     * non-blank description and has date that is not after system date.
      *
      * @param amount The amount of the transaction.
      * @param description A description of the transaction.
      * @param date The date of the transaction (dd/mm/yy).
      */
     public FinancialEntry(double amount, String description, LocalDate date) throws FinanceBuddyException {
-        if (amount < 0.01) {
-            throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
-        }
-        if (amount > 9999999.00) {
-            throw new FinanceBuddyException("Invalid amount. Amount must be $9999999.00 or less.");
-        }
-        if (description.isBlank()) {
-            throw new FinanceBuddyException("Description cannot be blank.");
-        }
-        if (date.isAfter(LocalDate.now())){
-            throw new FinanceBuddyException("Date cannot be after current date.");
-        }
+        checkValidParameters(amount, description, date);
         this.description = description;
         this.amount = amount;
         this.date = date;
     }
-    
+
     /**
      * Returns the description of the transaction.
      *
@@ -133,4 +124,19 @@ public abstract class FinancialEntry {
      * @throws IllegalArgumentException if the provided category is invalid for the entry type.
      */
     public abstract void setCategory(Enum<?> category);
+
+    private static void checkValidParameters(double amount, String description, LocalDate date) throws FinanceBuddyException {
+        if (amount < 0.01) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
+        }
+        if (amount > 9999999.00) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $9999999.00 or less.");
+        }
+        if (description.isBlank()) {
+            throw new FinanceBuddyException("Description cannot be blank.");
+        }
+        if (date.isAfter(LocalDate.now())){
+            throw new FinanceBuddyException("Date cannot be after current date.");
+        }
+    }
 }
