@@ -262,8 +262,7 @@ public class Storage {
                 String[] tokens = line.split(" \\¦¦ ");
                 Budget budget = new Budget();
                 budget.setBudgetAmount(Double.parseDouble(tokens[0]));
-                budget.updateBalance(Double.parseDouble(tokens[1]));
-                budget.setBudgetSetDate(LocalDate.parse(tokens[2]));
+                budget.setBudgetSetDate(LocalDate.parse(tokens[1]));
                 budgetLogic.overwriteBudget(budget);
                 update(theList, budgetLogic);
             } catch (Exception e) {
