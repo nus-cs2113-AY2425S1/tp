@@ -7,6 +7,7 @@ import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
 import seedu.duke.log.Log;
 import seedu.duke.log.LogLevels;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
 import java.util.Map.Entry;
@@ -15,7 +16,6 @@ import java.util.Map.Entry;
  * Command to print all entries recorded in the financial list.
  */
 public class SeeAllEntriesCommand extends Command {
-    protected static final String LINE_SEPARATOR = "--------------------------------------------";
     protected static Log logger = Log.getInstance();
     protected final String entriesListedMessage = "Here's a list of all recorded entries:";
     protected final String noEntriesMessage = "No entries found.";
@@ -168,11 +168,11 @@ public class SeeAllEntriesCommand extends Command {
      * @param cashflow Net cashflow of entries to be printed.
      */
     private void printOutput(FinancialList list, int entryCount, String entryList, double cashflow) {
-        System.out.println(LINE_SEPARATOR);
+        System.out.println(Commons.LINE_SEPARATOR);
 
         if (entryCount == 0) {
             System.out.println(this.getNoEntriesMessage());
-            System.out.println(LINE_SEPARATOR);
+            System.out.println(Commons.LINE_SEPARATOR);
             return;
         }
 
@@ -182,6 +182,6 @@ public class SeeAllEntriesCommand extends Command {
         System.out.println(this.getCashflowHeader() + cashflowString);
         System.out.println();
         System.out.println(getHighestCategoryInfo(list));
-        System.out.println(LINE_SEPARATOR);
+        System.out.println(Commons.LINE_SEPARATOR);
     }
 }

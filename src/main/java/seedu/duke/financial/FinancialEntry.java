@@ -1,6 +1,7 @@
 package seedu.duke.financial;
 
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
 
@@ -127,16 +128,16 @@ public abstract class FinancialEntry {
 
     private static void checkValidParameters(double amount, String description, LocalDate date) throws FinanceBuddyException {
         if (amount < 0.01) {
-            throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_AMOUNT_TOO_SMALL);
         }
         if (amount > 9999999.00) {
-            throw new FinanceBuddyException("Invalid amount. Amount must be $9999999.00 or less.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_AMOUNT_TOO_LARGE);
         }
         if (description.isBlank()) {
-            throw new FinanceBuddyException("Description cannot be blank.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_BLANK_DESCRIPTION);
         }
         if (date.isAfter(LocalDate.now())){
-            throw new FinanceBuddyException("Date cannot be after current date.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_DATE_TOO_LATE);
         }
     }
 }

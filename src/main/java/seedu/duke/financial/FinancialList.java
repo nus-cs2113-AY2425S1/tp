@@ -1,6 +1,7 @@
 package seedu.duke.financial;
 
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -95,7 +96,7 @@ public class FinancialList {
         try {
             return entries.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new FinanceBuddyException("There is no entry at that index :(");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX);
         }
     }
 

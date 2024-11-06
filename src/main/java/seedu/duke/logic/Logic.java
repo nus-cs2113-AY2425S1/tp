@@ -17,6 +17,7 @@ import seedu.duke.financial.Income;
 import seedu.duke.parser.DateParser;
 import seedu.duke.storage.Storage;
 import seedu.duke.ui.AppUi;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -64,9 +65,9 @@ public class Logic {
         try {
             amount = Double.parseDouble(commandArguments.get("/a"));
         } catch (NumberFormatException e) {
-            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
         } catch (NullPointerException e) {
-            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_EMPTY_AMOUNT);
         }
         String date = commandArguments.get("/d");
 
@@ -99,9 +100,9 @@ public class Logic {
         try {
             amount = Double.parseDouble(commandArguments.get("/a"));
         } catch (NumberFormatException e) {
-            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
         } catch (NullPointerException e) {
-            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_EMPTY_AMOUNT);
         }
         String date = commandArguments.get("/d");
         String categoryInput = commandArguments.get("/c");
@@ -133,7 +134,7 @@ public class Logic {
             index = Integer.parseInt(commandArguments.get("argument"));
         } catch (NumberFormatException e) {
             throw new FinanceBuddyException(
-                    "Invalid index. Please provide a valid integer less than or equal to 2147483647.");
+                    Commons.ERROR_MESSAGE_INVALID_INDEX);
         }
 
         assert index > 0 : "Index of entry to edit must be greater than 0";
@@ -146,7 +147,7 @@ public class Logic {
         try {
             amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();
         } catch (NumberFormatException e) {
-            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
         }
 
         String description = commandArguments.getOrDefault("/des", entry.getDescription());
@@ -200,7 +201,7 @@ public class Logic {
             index = Integer.parseInt(commandArguments.get("argument"));
         } catch (NumberFormatException e) {
             throw new FinanceBuddyException(
-                    "Invalid index. Please provide a valid integer less than or equal to 2147483647.");
+                    Commons.ERROR_MESSAGE_INVALID_INDEX);
         }
 
         FinancialEntry entry = financialList.getEntry(index - 1);
@@ -251,7 +252,7 @@ public class Logic {
                 seeAllIncomesCommand.execute(financialList);
             } else {
                 System.out.println("Unknown argument: " + type);
-                System.out.println("--------------------------------------------");
+                System.out.println(Commons.LINE_SEPARATOR);
             }
         } else {
             SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(startDate, endDate);

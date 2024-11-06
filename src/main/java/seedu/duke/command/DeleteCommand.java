@@ -5,6 +5,7 @@ import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.log.Log;
 import seedu.duke.log.LogLevels;
+import seedu.duke.util.Commons;
 
 /**
  * Command to delete a financial entry from the financial list.
@@ -34,10 +35,10 @@ public class DeleteCommand extends Command {
         assert index > 0 && index <= list.getEntryCount();
         FinancialEntry entry = list.getEntry(index - 1);
         list.deleteEntry(index - 1);  // Index correction as list is 0-based
-        System.out.println("--------------------------------------------");
+        System.out.println(Commons.LINE_SEPARATOR);
         System.out.println("Okay! The following entry has been deleted: ");
         System.out.println(entry);
-        System.out.println("--------------------------------------------");
+        System.out.println(Commons.LINE_SEPARATOR);
         logger.log(LogLevels.INFO, "Entry deleted from list: " + entry);
     }
 }

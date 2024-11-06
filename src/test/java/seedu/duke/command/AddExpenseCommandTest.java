@@ -282,7 +282,7 @@ class AddExpenseCommandTest {
         });
 
         // Verify the error message
-        assertEquals("Date cannot be after current date.", exception.getMessage());
+        assertEquals("Entered date cannot be after current date.", exception.getMessage());
         assertEquals(0, financialList.getEntryCount());
     }
 

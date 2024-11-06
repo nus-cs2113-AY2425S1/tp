@@ -5,6 +5,7 @@ import seedu.duke.financial.Income;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.log.Log;
 import seedu.duke.log.LogLevels;
+import seedu.duke.util.Commons;
 
 import java.util.Map;
 
@@ -50,10 +51,10 @@ public class AddIncomeCommand extends AddEntryCommand {
         Map<Income.Category, Double> incomeTotals = list.getTotalIncomeByCategory();
         incomeTotals.put(category, incomeTotals.getOrDefault(category, incomeZero) + amount);
         assert list.getEntryCount() == preEntryCount + 1 : "Income not added";
-        System.out.println("--------------------------------------------");
+        System.out.println(Commons.LINE_SEPARATOR);
         System.out.println("Got it! I've added this income:");
         System.out.println(income);
-        System.out.println("--------------------------------------------");
+        System.out.println(Commons.LINE_SEPARATOR);
         logger.log(LogLevels.INFO, "Income added to list: " + income);
 
     }

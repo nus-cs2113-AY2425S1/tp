@@ -5,6 +5,7 @@ import seedu.duke.financial.FinancialList;
 import seedu.duke.log.Log;
 import seedu.duke.log.LogLevels;
 import seedu.duke.parser.DateParser;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
 /**
@@ -90,10 +91,10 @@ public class EditEntryCommand extends Command {
             list.editEntry(index - 1, amount, description, date, category);
             assert list.getEntry(index - 1).getAmount() == amount : "Amount should be updated";
             assert list.getEntry(index - 1).getDescription().equals(description) : "Description should be updated";
-            System.out.println("--------------------------------------------");
+            System.out.println(Commons.LINE_SEPARATOR);
             System.out.println("Got it. I've edited this expense:");
             System.out.println(list.getEntry(index - 1));
-            System.out.println("--------------------------------------------");
+            System.out.println(Commons.LINE_SEPARATOR);
             logger.log(LogLevels.INFO, "Edited entry at index " + index + " to " + amount + " " + description);
         } else {
             System.out.println("OOPS!!! The entry does not exist.");
@@ -105,13 +106,13 @@ public class EditEntryCommand extends Command {
 
     private void checkValidParams() throws FinanceBuddyException {
         if (amount < 0.01) {
-            throw new FinanceBuddyException("Invalid amount. Amount must be $0.01 or greater.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_AMOUNT_TOO_SMALL);
         }
         if (amount > 9999999.00) {
-            throw new FinanceBuddyException("Invalid amount. Amount must be $9999999.00 or less.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_AMOUNT_TOO_LARGE);
         }
         if (this.date.isAfter(LocalDate.now())) {
-            throw new FinanceBuddyException("Entered date cannot be after current date.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_DATE_TOO_LATE);
         }
     }
 }
