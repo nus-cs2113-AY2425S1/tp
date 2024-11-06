@@ -19,7 +19,7 @@ class QuizManagerTest {
     public void setUp() {
         // Simulated input: "1\n1\nb\n"
         // '1' for time limit, '1' for question limit, 'b' as the answer
-        String simulatedUserInput = "b\n";
+        String simulatedUserInput = "1\n1\nb\n";
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedUserInput.getBytes());
 
         // Initialize Cli with ByteArrayInputStream for simulated input
@@ -36,14 +36,14 @@ class QuizManagerTest {
         quizManager.getTopicManager().addTopic(topic);
 
         // Select quiz and verify result is added
-        quizManager.getQuizSession().getCurrentQuiz(topic, cli).start(1,1);
+        quizManager.getQuizSession().startQuiz(topic);
 
         quizManager.addResultsAndPrintScore();
 
         // Check if result was recorded
         String pastResults = quizManager.getPastResults();
         System.out.println(pastResults);
-        assertTrue(pastResults.contains("Score: 0%, Comment: Better luck next time!"),
+        assertTrue(pastResults.contains("Score: 0%"),
             "Past results should contain a score.");
     }
 

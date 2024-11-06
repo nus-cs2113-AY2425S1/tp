@@ -77,7 +77,7 @@ public class Quiz {
 
             // Check if the user wants to exit the quiz
             if (answer.equalsIgnoreCase("exit")) {
-               cli.printMessage("Exiting the quiz. Returning to main menu...");
+                cli.printMessage("Exiting the quiz. Returning to main menu...");
                 return false;
             }
 

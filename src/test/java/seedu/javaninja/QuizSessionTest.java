@@ -53,7 +53,7 @@ class QuizSessionTest {
         cli = new Cli(input);  // Reinitialize Cli with specific input
         quizSession = new QuizSession(cli); // Reinitialize QuizSession with updated Cli
 
-        int questionLimit = quizSession.getQuestionLimit();
+        int questionLimit = quizSession.getQuestionLimitFromUser();
         assertEquals(5, questionLimit);  // Expecting question limit of 5
     }
 
