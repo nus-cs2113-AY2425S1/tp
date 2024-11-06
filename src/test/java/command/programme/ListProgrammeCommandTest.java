@@ -1,3 +1,5 @@
+// @@author nirala-ts
+
 package command.programme;
 
 import command.CommandResult;
@@ -60,9 +62,6 @@ public class ListProgrammeCommandTest {
 
     @Test
     void execute_handlesNullProgrammeList() {
-        assertThrows(AssertionError.class, () -> {
-            command.execute(null, history);
-        });
+        assertThrows(AssertionError.class, () -> command.execute(null, history));
     }
 }
-

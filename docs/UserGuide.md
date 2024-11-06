@@ -101,8 +101,8 @@ Example: `prog list`
 
 ```
 Listing programmes:
-1. Starter -- Active
-2. PPL
+1. Advanced
+2. Starter -- Active
 ```
 
 ---
@@ -443,9 +443,9 @@ Parameters:
 
 Displays a comprehensive record of workouts, meals, and water intake for each logged day.
 
-Command: `history`
+Command: `history view`
 
-**Example**: `history`
+**Example**: `history view`
 
 ```
 Completed On: 30-10-2024
@@ -468,6 +468,63 @@ Total Water Intake: 100.0 liters
 Caloric Balance: -420 kcal
 
 ```
+---
+
+### View Weekly Summary
+
+Displays a summary of workouts, meals, and water intake for the past week
+
+Command: `history wk`
+
+**Example**: `history wk`
+
+```
+
+Your weekly workout summary: 
+Empty Day
+Completed On: 30-10-2024
+
+ONE
+1. Bench Press: 3 sets of 12 at 30 | Burnt 200 cals
+2. Squat: 3 sets of 12 at 50 | Burnt 200 cals
+Completed On: 02-11-2024
+
+```
+
+---
+
+### View PB for exercise
+
+Displays Personal Best for specified exercise
+
+Command: `history pb <exercise_name>`
+
+**Example**: `history pb bench_press`
+
+```
+
+Personal best for bench press: Bench Press: 3 sets of 12 at 30
+
+```
+---
+
+### View PBs for exercises 
+
+Displays Personal Bests for all exercises
+
+Command: `history pb`
+
+**Example**: `history pb`
+
+```
+
+Personal bests for all exercises:
+Bench Press: Bench Press: 3 sets of 12 at 30 
+Squat: Squat: 3 sets of 12 at 50 
+Bicep Curl: Bicep Curl: 3 sets of 12 at 10 
+
+```
+---
 
 ## Command Summary
 
@@ -491,3 +548,6 @@ Caloric Balance: -420 kcal
 | **View Water**       | Displays all water for a specific date                                                    | `water view /t DATE`                                                                        | `water view 30-10-2024`                                                |
 | **Delete Water**     | Deletes a water from a daily record                                                       | `water delete /m MEAL_INDEX /t DATE`                                                        | `water delete /w 1 /t 30-10-2024`                                      |
 | **View History**     | Displays a comprehensive record of workouts, meals, and water intake for each logged day. | `history`                                                                                   | `history`                                                              |
+| **View Weekly Summary**    | Displays a summary of workouts, meals, and water intake for the past week                 | `history wk`                                                                                | `history wk`                                                           |
+| **View PB for exercise**   | Displays Personal Best for specified exercise                                             | `history pb <exercise_name>`                                                                | `history pb squat`                                                     |
+| **View PBs for exercises** | Displays Personal Bests for all exercises                                                 | `history pb`                                                                                | `history pb`                                                           |

@@ -11,10 +11,10 @@ package programme;
  */
 public class ExerciseUpdate {
 
-    protected final int sets;
-    protected final int reps;
-    protected final int weight;
-    protected final int calories;
+    protected final Integer sets;
+    protected final Integer reps;
+    protected final Integer weight;
+    protected final Integer calories;
     protected final String name;
 
     /**
