@@ -1,5 +1,6 @@
 package seedu.command;
 
+import seedu.message.CommandResultMessages;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
 import seedu.utils.DateTimeUtils;
@@ -9,14 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class HistoryCommand extends Command{
     public static final String COMMAND_WORD = "history"; // The word associated with the command
     public static final String COMMAND_GUIDE = "history [f/ START_DATE] [t/ END_DATE]: "
             + "View your transaction history"; // A guide or description of the command
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {}; // Keywords for arguments
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"f/", "t/"}; // Keywords for arguments
-
-    public static final String TRANSACTION_EMPTY_MESSAGE = "No transaction to show!"; // Keywords for arguments
 
     private TransactionList transactionList = new TransactionList();
 
@@ -61,7 +61,7 @@ public class HistoryCommand extends Command{
                         .filter((t) -> t.getDate().isAfter(start) || t.getDate().isEqual(start))
                         .collect(Collectors.toList());
             } catch (Exception e) {
-                messages.add(e.getMessage());
+                messages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL + e.getMessage());
                 return messages;
             }
         }
@@ -72,13 +72,13 @@ public class HistoryCommand extends Command{
                         .filter((t) -> t.getDate().isBefore(end) || t.getDate().isEqual(end))
                         .collect(Collectors.toList());
             } catch (Exception e) {
-                messages.add(e.getMessage());
+                messages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL + e.getMessage());
                 return messages;
             }
         }
 
         if (temp.isEmpty()) {
-            messages.add(TRANSACTION_EMPTY_MESSAGE);
+            messages.add(CommandResultMessages.VIEW_TRANSACTION_EMPTY);
             return messages;
         }
 

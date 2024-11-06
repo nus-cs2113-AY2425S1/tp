@@ -3,11 +3,12 @@ package seedu.command;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.category.Category;
+import seedu.message.CommandResultMessages;
+import seedu.message.ErrorMessages;
 import seedu.transaction.Expense;
 import seedu.transaction.Income;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
-import seedu.utils.DateTimeUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ class ViewIncomeCommandTest {
     private Transaction item4;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         TransactionList transactionList = new TransactionList();
         viewIncomeCommand = new ViewIncomeCommand(transactionList);
 
@@ -151,7 +152,8 @@ class ViewIncomeCommandTest {
         viewIncomeCommand.setArguments(arguments);
         // Expected messages
         List<String> expectedMessages = new ArrayList<>();
-        expectedMessages.add(DateTimeUtils.MESSAGE_INVALID_DATE_FORMAT);
+        expectedMessages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL +
+                ErrorMessages.MESSAGE_INVALID_DATE_FORMAT);
 
         // Execute the command
         List<String> messages = viewIncomeCommand.execute();
@@ -171,7 +173,7 @@ class ViewIncomeCommandTest {
         viewIncomeCommand.setArguments(arguments);
         // Expected messages
         List<String> expectedMessages = new ArrayList<>();
-        expectedMessages.add(ViewIncomeCommand.INCOME_EMPTY_MESSAGE);
+        expectedMessages.add(CommandResultMessages.VIEW_TRANSACTION_EMPTY);
 
         // Execute the command
         List<String> messages = viewIncomeCommand.execute();

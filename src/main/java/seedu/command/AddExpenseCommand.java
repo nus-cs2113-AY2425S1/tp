@@ -1,78 +1,104 @@
 package seedu.command;
 
 import seedu.category.Category;
+import seedu.category.CategoryList;
+import seedu.datastorage.Storage;
+import seedu.main.UI;
+import seedu.message.ErrorMessages;
+import seedu.message.CommandResultMessages;
 import seedu.transaction.Expense;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 public class AddExpenseCommand extends AddTransactionCommand {
     public static final String COMMAND_WORD = "add-expense";
-    public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] [a/ AMOUNT] [d/ DATE] [c/ hCATEGORY]";
+    public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/", "c/"};
-
     public static final String ERROR_MESSAGE = "Error creating Expense!";
 
-    public AddExpenseCommand(TransactionList transactions) {
+    private final UI ui;
+    private final CategoryList categoryList;
+
+    public AddExpenseCommand(TransactionList transactions, UI ui, CategoryList categoryList) {
         super(transactions);
+        this.ui = ui;
+        this.categoryList = categoryList;
     }
 
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
-            return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
+            return List.of(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
         }
 
-        // Handle missing description
-        String expenseName = arguments.get("");
-        if (expenseName == null || expenseName.isEmpty()) {
-            expenseName = "";
-        }
+        String expenseName = parseDescription(arguments);
 
-        // Retrieve and parse amount
-        String amountString = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
-        double amount;
+        Double amount;
         try {
-            amount = Double.parseDouble(amountString);
-        } catch (NumberFormatException e) {
-            return List.of(ERROR_MESSAGE + ": " + "Invalid amount");
+            amount = parseAmount(arguments.get(COMMAND_MANDATORY_KEYWORDS[0]));
+        } catch (Exception e) {
+            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
         }
 
-        // Handle missing date
-        String dateString = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
-        if (dateString == null || dateString.isEmpty()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            dateString = LocalDateTime.now().format(formatter);
+        String dateString;
+        try {
+            dateString = parseDate(arguments.get(COMMAND_EXTRA_KEYWORDS[0]));
+        } catch (Exception e) {
+            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
         }
 
-        // Handle category
-        String categoryString = arguments.get(COMMAND_EXTRA_KEYWORDS[1]);
-        Category category = null;
-        if (categoryString != null && !categoryString.isEmpty()) {
-            category = new Category(categoryString);
-        }
-
-        Transaction transaction;
-        if (category != null) {
-            try {
-                transaction = createTransaction(amount, expenseName, dateString, category);
-            } catch (Exception e) {
-                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
-            }
-        } else {
-            try {
-                transaction = createTransaction(amount, expenseName, dateString);
-            } catch (Exception e) {
-                return List.of(ERROR_MESSAGE + ": " + e.getMessage());
-            }
+        Category category = handleCategoryInput(arguments.get(COMMAND_EXTRA_KEYWORDS[1]));
+        Transaction transaction = null;
+        try {
+            transaction = (!Objects.equals(category.getName(), "")) ?
+                    createTransaction(amount, expenseName, dateString, category) :
+                    createTransaction(amount, expenseName, dateString);
+        } catch (Exception e) {
+            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
         }
         transactions.addTransaction(transaction);
+        Storage.saveTransaction(transactions.getTransactions());
+        return List.of(CommandResultMessages.ADD_TRANSACTION_SUCCESS + transaction.toString());
+    }
 
-        return List.of("Expense added successfully!");
+    private Category handleCategoryInput(String categoryName) {
+        if (categoryName == null || categoryName.isEmpty()) {
+            ui.printMiddleMessage("No category specified. Enter a category or type 'no' to skip: ");
+            categoryName = ui.getUserInput().trim();
+            if (categoryName.equalsIgnoreCase("no")) {
+                return new Category(""); // Proceed without category
+            }
+        }
+
+        return getOrCreateCategory(categoryName);
+    }
+
+    private Category getOrCreateCategory(String categoryName) {
+        Category category = categoryList.findCategory(categoryName);
+        if (category != null) {
+            return category;
+        }
+
+        while (true) {
+            ui.printMessage("Category '" + categoryName + "' does not exist.");
+            ui.printMiddleMessage("Type 'yes' to create a new category or enter an existing category name: ");
+            String response = ui.getUserInput().trim();
+
+            if (response.equalsIgnoreCase("yes")) {
+                category = new Category(categoryName);
+                categoryList.addCategory(category);
+                ui.printMessage("New category '" + categoryName + "' created.");
+                return category;
+            } else {
+                category = categoryList.findCategory(response);
+                if (category != null) {
+                    return category;
+                }
+            }
+        }
     }
 
     @Override

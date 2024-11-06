@@ -1,7 +1,12 @@
 package seedu.command;
 
+import seedu.datastorage.Storage;
+import seedu.message.ErrorMessages;
+import seedu.message.CommandResultMessages;
+import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteTransactionCommand extends Command {
@@ -9,10 +14,6 @@ public class DeleteTransactionCommand extends Command {
     public static final String COMMAND_GUIDE = "delete-transaction i/ INDEX: Delete a transaction";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"i/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {};
-
-    public static final String INVALID_INDEX_MESSAGE = "Invalid index format. Please enter a valid integer index.";
-    public static final String INDEX_OUT_OF_BOUND_MESSAGE = "Index out of bound. " +
-            "Please enter a valid integer index.";
 
     protected TransactionList transactions;
 
@@ -23,7 +24,10 @@ public class DeleteTransactionCommand extends Command {
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
-            return List.of(LACK_ARGUMENTS_ERROR_MESSAGE);
+            List<String> messages = new ArrayList<>();
+            messages.add(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            messages.add(COMMAND_GUIDE);
+            return messages;
         }
 
         String indexString = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
@@ -31,16 +35,19 @@ public class DeleteTransactionCommand extends Command {
         try {
             index = Integer.parseInt(indexString);
         } catch (NumberFormatException e) {
-            return List.of(INVALID_INDEX_MESSAGE);
+            return List.of(CommandResultMessages.DELETE_TRANSACTION_FAIL + ErrorMessages.INVALID_NUMBER_FORMAT);
         }
 
         int transactionListSize = transactions.size();
         if (index < 1 || index > transactionListSize) {
-            return List.of(INDEX_OUT_OF_BOUND_MESSAGE);
+            return List.of(CommandResultMessages.DELETE_TRANSACTION_FAIL +
+                    ErrorMessages.INDEX_OUT_OF_BOUNDS + transactions.size());
         }
 
+        Transaction temp = transactions.getTransactions().get(index-1);
         transactions.deleteTransaction(index-1);
-        return List.of("Transaction deleted successfully!");
+        Storage.saveTransaction(transactions.getTransactions());
+        return List.of(CommandResultMessages.DELETE_TRANSACTION_SUCCESS + temp.toString());
     }
 
     @Override

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * The class {@code UI} is responsible for handling user interactions with {@code Niwa} chatbot.
+ * The class {@code UI} is responsible for handling user interactions with the app.
  * It provides methods for inputting commands and displaying messages.
  */
 public class UI {
