@@ -42,8 +42,6 @@ Progress is restored when FinanceBuddy is started up each time.
 
 ## Features
 
-{Give detailed description of each feature}
-
 ### Help
 
 Lists out the full list of usable commands.
@@ -52,6 +50,8 @@ Lists out the full list of usable commands.
 `help`
 
 **Output**:
+
+---
 
 ### Add Transaction
 
@@ -64,6 +64,8 @@ Adds an income or expense entry to your financial list.
 **Examples**:
 - `expense Lunch /a 10.50 /d 12/10/24 /c FOOD`
 - `income Freelance Work /a 500 /d 15/10/24 /c SALARY`
+
+---
 
 ### Edit Transaction
 Edits an existing transaction in your financial list.
@@ -93,6 +95,8 @@ edit 4 /des breakfast /a 5 /d 12/09/24
 edit 5 /c FOOD
 ```
 
+---
+
 ### Delete Transaction
 Deletes an entry from your financial list.
 
@@ -100,6 +104,8 @@ Deletes an entry from your financial list.
 
 **Example**:
 - `delete 3` - Deletes the entry at index 3.
+
+---
 
 ### List Entries
 
@@ -257,12 +263,6 @@ FinanaceBuddy will automatically update the files whenever your list or budget b
 When you start the FinanaceBuddy program, it will check if the `data/FinancialList.txt` and `data/Budget.txt` exist.
 If do, it'll try to load the transections and budget in the file row by row.
 Please do not modify these files maunaly, otherwise the transections or the budget with incorrect format will not be loaded.
-
-## FAQ
-
-**Q**: How do I transfer my data to another computer? 
-
-**A**: {your answer here}
 
 ## Command Summary
 
