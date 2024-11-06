@@ -7,7 +7,9 @@ import command.history.ViewPersonalBestCommand;
 import command.history.ListPersonalBestsCommand;
 import command.history.WeeklySummaryCommand;
 import command.InvalidCommand;
-import parser.FlagParser;
+import exceptions.IndexOutOfBoundsBuffBuddyException;
+
+//import parser.FlagParser;
 
 import static parser.ParserUtils.splitArguments;
 
@@ -17,7 +19,6 @@ public class HistoryCommandFactory {
     public Command parse(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
 
-        // Handle empty argumentString by defaulting to HistoryCommand
         String parsedArgument = argumentString.isEmpty() ? HistoryCommand.COMMAND_WORD : argumentString;
         String[] inputArguments = splitArguments(parsedArgument);
         String subCommandString = inputArguments[0];
@@ -25,27 +26,18 @@ public class HistoryCommandFactory {
 
         return switch (subCommandString) {
         case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
-        case ListPersonalBestsCommand.COMMAND_WORD -> prepareListPersonalBestsCommand();
-        case WeeklySummaryCommand.COMMAND_WORD -> prepareWeeklySummaryCommand();
-        case ViewPersonalBestCommand.COMMAND_WORD -> prepareViewPersonalBestCommand(arguments);
+        case ListPersonalBestsCommand.COMMAND_WORD -> arguments.isEmpty() ?
+            new ListPersonalBestsCommand() : new ViewPersonalBestCommand(arguments);
+        case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();
         default -> new InvalidCommand();
         };
     }
 
-    private Command prepareWeeklySummaryCommand() {
-        return new WeeklySummaryCommand();
-    }
-
-    private Command prepareViewPersonalBestCommand(String argumentString) {
-        FlagParser flagParser = new FlagParser(argumentString);
-        flagParser.validateRequiredFlags("/e");
-
-        String exerciseName = flagParser.getStringByFlag("/e");
-
-        return new ViewPersonalBestCommand(exerciseName);
-    }
-
-    private Command prepareListPersonalBestsCommand() {
-        return new ListPersonalBestsCommand();
+    private Command preparePersonalBestCommand(String argumentString) {
+        if (argumentString == null || argumentString.isEmpty()) {
+            throw new IndexOutOfBoundsBuffBuddyException("Exercise name is required for viewing personal bests.");
+        }
+        return new ViewPersonalBestCommand(argumentString);  // Pass exercise name to ViewPersonalBestCommand
     }
 }
+
