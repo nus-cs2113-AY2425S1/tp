@@ -58,7 +58,7 @@ public class CompareMappedCommand extends CheckInformationCommand {
         }
 
         String[] inputs = userInput.split("pu/");
-        if (inputs.length < 3) {
+        if (inputs.length != 3) {
             ui.printInvalidInputFormat();
             return;
         }

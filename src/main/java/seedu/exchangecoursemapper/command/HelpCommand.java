@@ -17,6 +17,7 @@ import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_OBTAIN;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_DELETE;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_LIST_MAPPED;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_COMPARE_PU;
+import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_FIND;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 
 public class HelpCommand extends CheckInformationCommand {
@@ -72,6 +73,7 @@ public class HelpCommand extends CheckInformationCommand {
         case "delete":
         case "list mapped":
         case "compare":
+        case "find":
             // Fallthrough is intentional between the cases
             return command;
         default:
@@ -120,6 +122,9 @@ public class HelpCommand extends CheckInformationCommand {
             break;
         case "compare":
             System.out.println(COMMAND_COMPARE_PU);
+            break;
+        case "find":
+            System.out.println(COMMAND_FIND);
             break;
         default:
             logger.log(Level.SEVERE, Logs.INVALID_COMMAND + command);
