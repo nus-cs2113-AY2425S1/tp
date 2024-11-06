@@ -166,6 +166,7 @@ After the command execution, `XYZCommand`'s output message is set depending on w
 The `Command` component and its component classes are shown in the below **Component Diagram**:
 
 <img src = "images/CommandClassDiagram.png">
+<div style="page-break-after: always;"></div>
 
 The logic of the command parsing and execution in `Command` is as follows:
 
@@ -179,6 +180,7 @@ The parameters of the `XYZCommand` instance are parsed from fields given in the 
 The interactions between `Command` and other components in the system for the above set of operations is shown in the following _Sequence Diagram_:
 
 <img src = "images/CommandSequenceDiagram.png">
+<div style="page-break-after: always;"></div>
 
 ### Event component
 
@@ -196,6 +198,7 @@ Each `Event` is composed of the following:
 The component and its dependencies are shown in the below **Component Diagram**:
 
 <img src = "images/EventComponentDiagram.png">
+<div style="page-break-after: always;"></div>
 
 ## Implementation
 
