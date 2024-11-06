@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CategoryManager {
 
-    public void addCategory(TrackerData trackerData, String categoryName) {
+    public static void addCategory(TrackerData trackerData, String categoryName) {
         List<Category> categories = trackerData.getCategories();
         String trimmedCategoryName = categoryName.substring("add category".length()).trim();
         if (trimmedCategoryName.isEmpty()) {
