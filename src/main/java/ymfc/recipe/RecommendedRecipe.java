@@ -39,8 +39,8 @@ public class RecommendedRecipe{
         // Add list of missing ingredients if there exists missing ingredients
         if (!missingIngredients.isEmpty()) {
             recommendedRecipeDetails.append("\tYou are missing the following:").append(System.lineSeparator());
-            for (int i = 0; i < missingIngredients.size(); i++) {
-                recommendedRecipeDetails.append("\t  - ").append(missingIngredients.get(i))
+            for (Ingredient missingIngredient : missingIngredients) {
+                recommendedRecipeDetails.append("\t  - ").append(missingIngredient)
                         .append(System.lineSeparator());
             }
         }
