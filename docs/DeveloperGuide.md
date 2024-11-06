@@ -369,6 +369,7 @@ The `EventList#removeParticipantFromEvent()` operation works as follows:
 
 If an `Event` with a name matching `eventName` or a `Participant` with name matching `participantName` is not found, the operation returns `false`
 to indicate that the operation was unsuccessful. Otherwise, the operation returns `true`.
+<div style="page-break-after: always;"></div>
 
 The interactions between components during the above operation are shown in the **Sequence Diagram** below:
 
@@ -483,10 +484,12 @@ Given below is an example usage scenario for `MarkEventCommand#execute()`, and h
 
 <img src = "images/MarkEventObjectDiagram1.png">
 
+
 2. The user enters the command `mark -e Event 1 -s done` to mark `Event 1` as done. `MarkEventCommand` calls `MarkEventCommand#execute`,
 in which it gets the event `Event 1` from the event list, and sets its mark status to `true` or done, as shown in the **Object Diagram** below.
 
 <img src = "images/MarkEventObjectDiagram2.png">
+
 
 3. The user then enters the command `mark -e Event 1 -s undone` to mark `Event 1` as not done. The `MarkEventCommand` again calls `MarkEventCommand#execute`,
 in which it gets the event `Event 1` from the event list, and sets its mark status to `false` or not done.
