@@ -319,8 +319,8 @@ class ExpenseManagerTest {
 }
 
 class BudgetManagerTest {
-    public BudgetManager budgetManager;
-    public TrackerData trackerData;
+    private BudgetManager budgetManager;
+    private TrackerData trackerData;
 
     @BeforeEach
     void setUp() {
