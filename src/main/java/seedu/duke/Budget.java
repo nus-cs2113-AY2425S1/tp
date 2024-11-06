@@ -30,21 +30,8 @@ public class Budget {
         this.limit = limit;
     }
 
-    //@@author glenda-1506
-    public String formatLimit(double limit) {
-        BigDecimal roundedLimit = BigDecimal.valueOf(limit).setScale(2, RoundingMode.HALF_UP);
-        DecimalFormat wholeNumberFormat = new DecimalFormat("$#");
-        DecimalFormat decimalFormat = new DecimalFormat("$#.00");
-
-        if (roundedLimit.stripTrailingZeros().scale() <= 0) {
-            return wholeNumberFormat.format(roundedLimit);
-        } else {
-            return decimalFormat.format(roundedLimit);
-        }
-    }
-
     @Override
     public String toString() {
-        return "Budget for category '" + category + "' is " + formatLimit(limit);
+        return "Budget for category '" + category + "' is " + Format.formatAmount(limit);
     }
 }
