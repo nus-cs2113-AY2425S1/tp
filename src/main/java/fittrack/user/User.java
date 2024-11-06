@@ -4,8 +4,6 @@ import fittrack.fitnessgoal.Goal;
 import fittrack.healthprofile.CalorieIntake;
 import fittrack.healthprofile.FoodIntake;
 import fittrack.healthprofile.WaterIntake;
-import fittrack.trainingsession.MoodLog;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class User {
