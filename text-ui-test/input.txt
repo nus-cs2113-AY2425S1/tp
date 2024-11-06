@@ -72,7 +72,7 @@ history
 track m/ 2024-11
 track m/ 13
 
-search k/ Lunch
+search k/ Dinner
 search k/
 
 categorize i/ 5 c/ Food
