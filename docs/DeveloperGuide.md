@@ -14,8 +14,6 @@ We used these third party libraries to develop our application:
 ### Programme Component
 
 ### Meal Component
-
-API: `Meal.java`
 ![Meal and MealList Class Diagram](./images/mealAndMealListClassDiagrams.png)
 The `Meal` component,
 
@@ -25,7 +23,7 @@ The `Meal` component,
 - **Supports equality checks and hashing:** The `Meal` class overrides `equals()` and `hashCode()` methods to ensure that meals with identical names and calorie counts are considered equal, which is useful for meal comparison and for storing in collections like sets.
 - **Detailed representation:** The `toString()` method of `Meal` provides a concise, readable summary of the meal’s details, including the name and calorie count in the format `"[Meal Name] | [Calories] kcal"`. This makes it easy to display meal information in logs, summaries, or user interfaces.
 
-API: `MealList.java`
+The `MealList` component,
 
 - **Manages a collection of meals:** The `MealList` class provides functionality for managing a list of `Meal` objects, allowing for easy addition, deletion, and retrieval of meals throughout the day.
 - **Provides collection-based functionality:** The class includes methods for common operations, such as checking if the list is empty, getting the total number of meals, and adding or deleting meals from the list. Each action is logged for traceability.
@@ -56,9 +54,8 @@ The `DailyRecord` component,
 
 ### Storage Component
 
-#### Storage
+![Diagram for Storage. FileManager Component](./images/Storage_API_UML.jpg)
 
-![Diagram for Storage Component](./images/Storage_API_UML.jpg)
 The `Storage` component,
 
 - **Handles the saving and loading of both `ProgrammeList` and `History` data in JSON format:** The `Storage` component is responsible
@@ -71,9 +68,6 @@ The `Storage` component,
 - **Utilizes custom serializers:** To properly handle date formats and other specific needs, Storage makes use of custom serializers for
   objects like LocalDate from the `DateSerilazer` class, ensuring that these objects are correctly serialized to and deserialized from JSON.
 
-#### FileManager
-
-![Diagram for FileManager Component](./images/FileManager_API_UML.jpg)
 The `FileManager` component,
 
 - **Manages the saving and loading of data:** The `FileManager` class is responsible for reading data from and writing data to the file
