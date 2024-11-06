@@ -18,4 +18,14 @@ public class InputParser {
         }
         return componentBuilder.toString().trim();
     }
+
+    public int parseExpenseIndex(String input) {
+        String indexStr = parseComponent(input, "e/");
+        try {
+            return Integer.parseInt(indexStr) - 1; // Convert to 0-based index
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid expense index format. Please enter a valid number after 'e/'.");
+            return -1;
+        }
+    }
 }
