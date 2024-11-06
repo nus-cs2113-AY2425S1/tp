@@ -242,6 +242,40 @@ that NUS course is suitable to be mapped overseas in South East Asia and Oceania
 #### Sequence Diagram:
 ![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
 
+### 7. Add Courses Command
+
+#### Overview:
+This command is responsible for adding users' desired course mapping into the `myList.json` file.
+Additionally, each course mapping is checked against the current course mapping found in the
+`database.json` file, ensuring that the course mapping is accurate and is limited to Oceania
+and South-East Asian universities. This command hence helps the users to keep track of their course mapping process.
+
+#### How the feature is implemented:
+* The `AddCoursesCommand` class extends `Command` class where it overrides the `execute` method for
+  custom behaviour.
+* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
+  superclass.
+* The `trimString` method then removes the `add` command and checks whether the user gave any input after the command.
+  The method would return the user's input without the command.
+* This input is then passed into the `parseAddCommand()` method to obtain the relevant information: NUS course code,
+  name of partner university and partner university course code.
+* Along with the JSON Object created from the `createJSONObject()` method, the information extracted from the
+  `parseAddCommand()` method would be passed to the `isValidInput()` method to verify the user's course mapping.
+* In the `isValidInput()` method, the `getPUCourseList()` method is called to verify the user's partner university is
+  included in the dataset. An exception is thrown if the university is not found in the dataset.
+* Afterward, the `isValidCourseMapping` checks whether the NUS course code and PU course code are compatible for
+  course mapping.
+* If both checks above are passed, the course mapping would be added to the `myList.json` file.
+* Throughout the code, exceptions, assertions and logging are in place for better error handling.
+* Line Separator is used to ensure readability and ease of use for users.
+
+#### Sequence Diagram:
+![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
+Sequence Diagram for AddCourseCommand
+
+![Course Validator Sequence Diagram](images/CourseValidator.png)
+
+Sequence Diagram of Course Validator (extracted out of AddCourseCommand sequence diagram)
 
 ### 8. Delete Courses Command
 
@@ -294,41 +328,6 @@ to check and plan course mappings for that specified course.
 
 ![FindCourseCommand Sequence diagram](images/FindCoursesCommand.png)
 
-
-### 5. Add Courses Command
-
-#### Overview:
-This command is responsible for adding users' desired course mapping into the `myList.json` file. 
-Additionally, each course mapping is checked against the current course mapping found in the
-`database.json` file, ensuring that the course mapping is accurate and is limited to Oceania 
-and South-East Asian universities. This command hence helps the users to keep track of their course mapping process.
-
-#### How the feature is implemented:
-* The `AddCoursesCommand` class extends `Command` class where it overrides the `execute` method for
-  custom behaviour.
-* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
-  superclass.
-* The `trimString` method then removes the `add` command and checks whether the user gave any input after the command. 
-  The method would return the user's input without the command.
-* This input is then passed into the `parseAddCommand()` method to obtain the relevant information: NUS course code, 
-  name of partner university and partner university course code.
-* Along with the JSON Object created from the `createJSONObject()` method, the information extracted from the 
- `parseAddCommand()` method would be passed to the `isValidInput()` method to verify the user's course mapping.
-* In the `isValidInput()` method, the `getPUCourseList()` method is called to verify the user's partner university is 
-  included in the dataset. An exception is thrown if the university is not found in the dataset.
-* Afterward, the `isValidCourseMapping` checks whether the NUS course code and PU course code are compatible for 
-  course mapping. 
-* If both checks above are passed, the course mapping would be added to the `myList.json` file.
-* Throughout the code, exceptions, assertions and logging are in place for better error handling. 
-* Line Separator is used to ensure readability and ease of use for users.
-
-#### Sequence Diagram:
-![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
-Sequence Diagram for AddCourseCommand
-
-![Course Validator Sequence Diagram](images/CourseValidator.png)
-
-Sequence Diagram of Course Validator (extracted out of AddCourseCommand sequence diagram)
 
 
 ### 7. List Commands Command

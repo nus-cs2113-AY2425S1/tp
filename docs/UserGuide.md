@@ -167,19 +167,18 @@ Output:
 No courses found for the given course code.
 ```
 
-
 ### Adding a course mapping: `add`
-Adds a new course mapping into `myList.json` file for storage.Course mapping is subject to validation 
-to ensure that the course mapping is valid and that the university provided is an Oceania university. 
+Adds a new course mapping into `myList.json` file for storage.Course mapping is subject to validation
+to ensure that the course mapping is valid and that the university provided is an Oceania university.
 
 Format: `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE`
 
 * All 3 parameters `NUS_COURSE_CODE`, `PARTNER_UNIVERISTY_NAME` and `PU_COURSE_CODE` are case-insensitive.
 * Do not add punctuation to the above three parameters
 * Indicate the full name of the partner university for `PARTNER_UNIVERISTY_NAME`. For example, indicate
-`The Australian National University` instead of `Australian National University` or `ANU`. 
+  `The Australian National University` instead of `Australian National University` or `ANU`.
 
-Example of usage: 
+Example of usage:
 `add cs2102 /pu the university of melbourne /coursepu info20003`
 
 Expected output:
@@ -211,7 +210,6 @@ NOTE: Please indicate the partner universities FULL NAME!
 NOTE: Instead of "Australian National University," please indicate "The Australian National University."
 -----------------------------------------------------
 ```
-
 
 ### Delete course mapping plans from Personal Tracker: `delete`
 Delete a course mapping plan that was initially saved into the Personal Tracker.
