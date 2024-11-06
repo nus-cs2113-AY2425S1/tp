@@ -22,7 +22,7 @@ group sd Add participant to event
     else else
         event -> participant : Participant(String, String, String)
         activate participant  
-        return participant : Participant
+        return participant:Participant
 
         event -> participantList : add(participant)
         activate participantList  

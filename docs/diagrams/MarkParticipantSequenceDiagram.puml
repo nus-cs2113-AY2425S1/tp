@@ -14,7 +14,7 @@ activate markCommand
 markCommand -> eventList : getEventByName(eventName)
 activate eventList  
 
-eventList --> markCommand : event : Event
+eventList --> markCommand : event:Event
 deactivate eventList  
 
 markCommand -> event : markParticipantByName(participantName)
@@ -23,7 +23,7 @@ activate event
 event -> event : getParticipantByName(participantName)
 activate event  
 
-return participant : Participant
+return participant:Participant
 
 event -> participant : setPresent(isToMark)
 activate participant  

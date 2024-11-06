@@ -13,7 +13,7 @@ activate markCommand
 markCommand -> eventList : getEventByName(eventName)
 activate eventList  
 
-eventList --> markCommand : eventToMark : Event
+eventList --> markCommand : eventToMark:Event
 deactivate eventList
 
 markCommand -> event : setDone(isToMark)

@@ -6,7 +6,7 @@ participant ":ViewCommand" as command
 participant "eventToView:Event" as event  
 participant "participant:Participant" as participant  
 
-group sd view participants
+group sd View participants
     activate command  
     command -> command : getParticipants(event)
     activate command  
@@ -14,7 +14,7 @@ group sd view participants
     command -> event : getParticipantsList()
     activate event  
 
-    return participants : ArrayList<Participant>
+    return participants:ArrayList<Participant>
 
     loop for participant in participants
         command -> participant : toString()

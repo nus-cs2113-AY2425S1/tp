@@ -23,7 +23,7 @@ activate xyzCommand
 return :XYZCommand
 return
 
-parser --> main : command : Command
+parser --> main : command:Command
 deactivate parser
 
 @enduml

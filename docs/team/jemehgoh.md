@@ -36,7 +36,8 @@ EventManagerCLI is a desktop CLI application meant for managing small-scale even
   * User Guide
     * Added documentation for `menu`, `list`, `exit`, `add`, `remove`, `view` and `mark` commands. (Pull requests [#63](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/63), [#104](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/104))
   * Developer Guide
-    * Added design details for all components
-    * Added implementation details for the `mark` feature
+    * Added design details for all components. (Pull requests [#109](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/109), [#137](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/137))
+    * Added implementation details for command parsing and the `mark` feature. (Pull requests [#109](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/109), [#137](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/137))
+    * Added instructions for manual testing. (Pull request [#158](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/158) ) 
 * **Community**
   * PRs reviewed (with non-trivial review comments): [#47](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/47), [#53](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/53), [#115](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/115), [#131](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/131)

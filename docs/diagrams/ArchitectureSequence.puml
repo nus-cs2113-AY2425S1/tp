@@ -16,7 +16,7 @@ ref over main, storage, events : Loading of events list
 main -> main : runCommandLoop()
 activate main
 
-loop isGettingCommands
+loop exit command not entered
 ref over main, events :  Command parsing and execution
 ref over main, storage, events : Saving of events list
 end

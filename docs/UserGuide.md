@@ -1,5 +1,28 @@
 # User Guide
 
+* [Introduction](#introduction)
+* [Quick Start](#quick-start)
+* [Features](#features)
+  * [Notes about the command format](#notes-about-the-command-format)
+  * [Viewing the command list: `menu`](#viewing-the-command-list-menu)
+  * [List all events: `list`](#list-all-events-list)
+  * [Add an event, participant or item: `add`](#add-an-event-participant-or-item-add)
+  * [Remove an event or participant: `remove`](#remove-an-event-or-participant-remove-)
+  * [View all participants or items for an event: `view`](#view-all-participants-or-items-for-an-event-view)
+  * [Edit the information of an event or a participant: `edit`](#edit-the-information-of-an-event-or-a-participant-edit)
+  * [Mark an event as done: `mark`](#mark-an-event-as-done-mark)
+  * [Marks a participant as present: `mark`](#marks-a-participant-as-present-mark)
+  * [Marks an item as accounted for: `mark`](#marks-an-item-as-accounted-for-mark)
+  * [Copies participant list: `copy`](#copies-participant-list-copy)
+  * [Sorts event list: `sort`](#sorts-event-list-sort)
+  * [Filters event list: `filter`](#filters-event-list-filter)
+  * [Find participant: `find`](#find-participant-find)
+  * [Exiting the program: `exit`](#exiting-the-program-exit)
+  * [Saving of program data](#saving-of-program-data)
+  * [Loading of program data](#loading-of-program-data)
+  * [Editing of saved program data](#editing-of-saved-program-data)
+* [Command Summary](#command-summary)
+
 ## Introduction
 
 EventManager CLI is a CLI application that allows organisers of small-scale events to track
@@ -20,7 +43,7 @@ Enter a command:
 
 ### Notes about the command format:
 
-* Words in `UPPER_CASE` represent parameters that are to be supplied by the user.
+* Words in `UPPER_CASE` represent parameters that are to be supplied by the user (unless otherwise specified).
 * Parameters listed have to be entered in the specified order.
 * Extraneous parameters for commands that do not take in parameters (e.g. `list`) will be ignored.
 
@@ -62,7 +85,7 @@ Shows a list of all events currently stored in the program.
 
 Format: `list`
 
-### Add an event or participant: `add`
+### Add an event, participant or item: `add`
 
 Adds an event to the event list, a participant to an event, or an item to an event.
 
@@ -117,7 +140,7 @@ Examples:
 
 ### Edit the information of an event or a participant: `edit`
 
-Edit the information of an event/participant/item.
+Edits the information of an event/participant/item.
 
 Format:
 
@@ -127,9 +150,9 @@ Format:
 
 Examples:
 
-* `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH` edits the information of the event CS2113.
-* `edit -p Mary -n 9182 3213 -email mary@gmail.com -e CS2113` edits the contact information of the Mary in CS2113.
-* `edit -m balloon > cake -e anniversary` edits the item balloon in the anniversary to cake.
+* `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH` edits the information of the event `CS2113`.
+* `edit -p Mary -n 9182 3213 -email mary@gmail.com -e CS2113` edits the contact information of the participant `Mary` in the event `CS2113`.
+* `edit -m balloon > cake -e anniversary` edits the item `balloon` in the event `anniversary` to `cake`.
 
 ### Mark an event as done: `mark`
 
@@ -176,7 +199,7 @@ Copies the participant list from one event to another event.
 
 Format: `copy FROM_EVENT > TO_EVENT`
 
-* Both events must already exist
+* Both events must already exist.
 
 Examples:
 
@@ -257,7 +280,7 @@ The program data is stored in the following format:
 For Events
 
 ```
-EVENT,EVENT_NAME,TIME,VENUE,PRIORITY,STATUS
+"EVENT",EVENT_NAME,TIME,VENUE,PRIORITY,STATUS
 ```
 
 * `TIME` must be in the format `yyyy-mm-dd hh:mm`.
@@ -267,10 +290,10 @@ EVENT,EVENT_NAME,TIME,VENUE,PRIORITY,STATUS
 For Participants:
 
 ```
-PARTICIPANT,PARTICIPANT_NAME,NUMBER,EMAIL,EVENT,STATUS
+"PARTICIPANT",PARTICIPANT_NAME,NUMBER,EMAIL,EVENT,STATUS
 ```
 
-* `NUMBER` must be a 8-digit number
+* `NUMBER` must be an 8-digit number
 * `EMAIL` must follow a similar format such as example@gmail.com
 * An entry for the `Event` corresponding to `EVENT` must be present in `data.csv`.
 * `STATUS` must be either `Y` or `N`
@@ -278,11 +301,13 @@ PARTICIPANT,PARTICIPANT_NAME,NUMBER,EMAIL,EVENT,STATUS
 For Items:
 
 ```
-ITEM,ITEM_NAME,EVENT,STATUS
+"ITEM",ITEM_NAME,EVENT,STATUS
 ```
 
 * An entry for the `Event` corresponding to `EVENT` must be present in `data.csv`.
 * `STATUS` must be either `Y` or `N`
+
+The first field of each entry (`"EVENT"`, `"PARTICIPANT"`, `"ITEM"`) corresponds to the object type being stored, and can only take the values specified in the above format line. 
 
 All fields added to `data.csv` must also be enclosed within double quotation marks (`" "`) to be properly parsed.
 

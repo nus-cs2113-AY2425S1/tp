@@ -1,5 +1,54 @@
 # Developer Guide
 
+* [Acknowledgements](#acknowledgements)
+* [Design](#design)
+  * [Main components](#main-components)
+  * [Interactions between components](#interactions-between-components)
+  * [UI component](#ui-component)
+  * [Storage component](#storage-component)
+  * [Parser component](#parser-component)
+  * [Command component](#command-component)
+  * [Event component](#event-component)
+* [Implementation](#implementation)
+  * [Command parsing](#command-parsing-)
+  * [List feature](#list-feature)
+  * [Add feature](#add-feature)
+  * [Remove feature](#remove-feature)
+  * [View feature](#view-feature)
+  * [Edit feature](#edit-feature)
+  * [Mark/unmark feature](#markunmark-feature)
+  * [Copy feature](#copy-feature)
+  * [Sort feature](#sort-feature)
+  * [Filter feature](#filter-feature)
+  * [Find feature](#find-feature)
+  * [Saving and loading of data](#saving-and-loading-of-data)
+* [Product scope](#product-scope)
+  * [Target user profile](#target-user-profile)
+  * [Value proposition](#value-proposition)
+* [User stories](#user-stories)
+* [Non-functional requirements](#non-functional-requirements)
+* [Glossary](#glossary)
+* [Instructions for manual testing](#instructions-for-manual-testing)
+  * [Launch and shutdown](#launch-and-shutdown)
+  * [Adding an event](#adding-an-event)
+  * [Adding a participant](#adding-a-participant)
+  * [Adding an item](#adding-an-item)
+  * [Removing an event](#removing-an-event)
+  * [Removing a participant](#removing-a-participant)
+  * [Removing an item](#removing-an-item)
+  * [Editing an event](#editing-an-event)
+  * [Editing a participant](#editing-a-participant)
+  * [Editing an item](#editing-an-item)
+  * [Viewing an event](#viewing-an-event)
+  * [Marking an event as done](#marking-an-event-as-done)
+  * [Marking a participant as present](#marking-a-participant-as-present)
+  * [Marking an item as accounted for](#marking-an-item-as-accounted-for)
+  * [Copying the participant list](#copying-the-participant-list)
+  * [Sorting the event list](#sorting-the-event-list)
+  * [Filtering the event list](#filtering-the-event-list)
+  * [Finding a participant](#finding-a-participant)
+  * [Saving and loading of data](#saving-and-loading-of-data)
+
 ## Acknowledgements
 
 This application uses the following dependencies:
@@ -34,7 +83,7 @@ The overall program execution is as follows:
 3. The program enters the command loop upon invocation of the `runCommandLoop()` method.
 4. In the command loop, the program gets, parses and executes commands entered by the user.
 5. `Storage` saves the event data in `Event` after the execution of each user command.
-6. The program exits the command loop once `IsGettingCommands` is set to `false`.
+6. The program exits the command loop once the `exit` command is entered by the user.
 
 <img src = "images/ArchitectureSequenceDiagram.png">
 
@@ -43,7 +92,9 @@ The above **Sequence Diagram** shows how the different components of the system 
 * `Main` refers to the `Main` class in `Main`.
 * `Ui` refers to the `Ui` class in `Ui`.
 * `Storage` refers to the `Storage` class in `Storage`.
-* `EventList` refers to the list of events in `Event` which the program's event data is stored (see the _Event component_ section for more details).
+* `EventList` refers to the list of events in `Event` which the program's event data is stored (see the [Event component](#event-component) section for more details).
+
+The **Sequence Diagrams** within the reference frames in the above diagram can be found in the [Command component](#command-component) and [Saving and loading of data](#saving-and-loading-of-data) sections.
 
 ### UI component
 
@@ -70,10 +121,10 @@ These are:
 * A `FileParser` that parses through the file contents when loading event data.
 
 The `Storage` component does the following:
-* Load event data from several `.csv` files into `EventList` upon program startup.
-* Save events data from `EventList` into the aforementioned `.csv` files each time a command is executed.
+* Load event data from a`.csv` file into `EventList` upon program startup.
+* Save events data from `EventList` into the aforementioned `.csv` file each time a command is executed.
 
-Additional details on the implementation of the above operations can be found in the _Saving and loading of data_ section.
+Additional details on the implementation of the above operations can be found in the [Saving and loading of data](#saving-and-loading-of-data) section.
 
 ### Parser component
 
@@ -94,9 +145,9 @@ The `Parser` instance is no longer referenced. The current state is as shown in 
 
 <img src = "images/ParserObjectDiagram1.png">
 
-The interactions between `Parser` and the other components in the above procedure is shown in the sequence diagram in the _Command component_ section.
+The interactions between `Parser` and the other components in the above procedure is shown in the sequence diagram in the [Command component](#command-component) section.
 
-Further details regarding command parsing can be found under _Command parsing_ in _Implementation_.
+Further details regarding command parsing can be found in the [Command parsing](#command-parsing) section.
 
 ### Command component
 
@@ -193,7 +244,7 @@ The `ListCommand` class performs the following key operations:
 
 These operations are accessible through the `Command` and can be invoked when the list command is entered by the user.
 
-#### Feature Implementation
+#### Feature implementation
 
 Given below is an example usage scenario and the behavior of the list feature at each step:
 
@@ -222,9 +273,9 @@ It is implemented in the `AddCommand` class which extends the base `Command` cla
 
 The feature has three operations, namely:
 
-1. `EventList#AddParticipantToEvent()`, which adds a `Participant` to an `Event` in the `EventList`.
-2. `EventList#AddItemFromEvent()`, which adds an `Item` to an `Event` in the `EventList`.
-3. `EventList#AddEvent()`, which adds an `Event` to the `EventList`.
+1. `EventList#addParticipantToEvent()`, which adds a `Participant` to an `Event` in the `EventList`.
+2. `EventList#addItemFromEvent()`, which adds an `Item` to an `Event` in the `EventList`.
+3. `EventList#addEvent()`, which adds an `Event` to the `EventList`.
 
 These three operations are invoked from `AddCommand` through `AddCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
@@ -237,9 +288,9 @@ In `AddCommand#execute()`, one operation is selected based on the values stored 
 
 The operation selection logic is as follows:
 
-1. If `participantName` is not `null`, `EventList#AddParticipantToEvent()` will be invoked.
-2. Otherwise, if `itemName` is not `null`, `EventList#AddItemToEvent()` will be invoked.
-3. Otherwise, `EventList#AddEvent()` will be invoked.
+1. If `participantName` is not `null`, `EventList#addParticipantToEvent()` will be invoked.
+2. Otherwise, if `itemName` is not `null`, `EventList#addItemToEvent()` will be invoked.
+3. Otherwise, `EventList#addEvent()` will be invoked.
 
 This operation selection logic is executed upon the invocation of `AddCommand#execute()`.
 
@@ -247,7 +298,7 @@ The interactions between components during the operation selection in `AddComman
 
 <img src = "images/AddCommandSequenceDiagram.png">
 
-The `EventList#AddParticipantToEvent()` operation works as follows:
+The `EventList#addParticipantToEvent()` operation works as follows:
 
 1. `EventList` gets the `Event` with the event name `eventName` from the list of `Event`s stored within it.
 2. In the selected `Event`, `Event` checks if there is a `Participant` with the name in `participantName` in the list of `Participant`s. If there is one, it throws a `DuplicateDataException`.
@@ -255,14 +306,14 @@ The `EventList#AddParticipantToEvent()` operation works as follows:
 
 If an `Event` with a name matching `eventName` is not found, the operation returns `false` to indicate that the operation was unsuccessful. Otherwise, the operation returns `true`.
 
-The interactions between components during the execution of the `EventList#AddParticipantToEvent()` operation are show in the **Sequence Diagram** below:
+The interactions between components during the execution of the `EventList#addParticipantToEvent()` operation are show in the **Sequence Diagram** below:
 
 <img src = "images/AddParticipantSequenceDiagram.png">
 <img src = "images/AddParticipantEventSequenceDiagram.png">
 
-The operation logic for `EventList#AddItemToEvent()` is similar to that for `EventList#AddParticipantToEvent()`, and will not be elaborated upon.
+The operation logic for `EventList#addItemToEvent()` is similar to that for `EventList#addParticipantToEvent()`, and will not be elaborated upon.
 
-The interactions between components during the execution of the `EventList#AddEvent()` operation are show in the **Sequence Diagram** below:
+The interactions between components during the execution of the `EventList#addEvent()` operation are show in the **Sequence Diagram** below:
 
 1. `EventList` checks if there is a `Event` with the name in `eventName` in its list of `Events`s. If there is one, it throws a `DuplicateDataException`.
 3. Otherwise, `EventList` creates a new `Event` object with the parameters passed to it, and adds it to the `Event` list.
@@ -284,9 +335,9 @@ It is implemented in the `RemoveCommand` class which extends the base `Command` 
 
 The feature has three operations, namely:
 
-1. `EventList#RemoveParticipantFromEvent()`, which removes a `Participant` from an `Event` in the `EventList`.
-2. `EventList#RemoveItemFromEvent()`, which removes an `Item` from an `Event` in the `EventList`.
-3. `EventList#RemoveEvent()`, which removes an `Event` from the `EventList`.
+1. `EventList#removeParticipantFromEvent()`, which removes a `Participant` from an `Event` in the `EventList`.
+2. `EventList#removeItemFromEvent()`, which removes an `Item` from an `Event` in the `EventList`.
+3. `EventList#removeEvent()`, which removes an `Event` from the `EventList`.
 
 These three operations are invoked from `RemoveCommand` through `RemoveCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
@@ -297,7 +348,7 @@ The interactions between components during the operation selection in `RemoveCom
 
 <img src = "images/RemoveCommandSequenceDiagram.png">
 
-The `EventList#RemoveParticipantFromEvent()` operation works as follows:
+The `EventList#removeParticipantFromEvent()` operation works as follows:
 
 1. `EventList` gets the `Event` with the event name `eventName` from the list of `Event`s stored within it.
 2. The selected `Event` compares the names of the `Participant`s in its list of `Participant`s with `participantName`.
@@ -311,9 +362,9 @@ The interactions between components during the above operation are shown in the 
 <img src = "images/RemoveParticipantSequenceDiagram.png">
 <img src = "images/RemoveParticipantFromEvent.png">
 
-The operation logic for `EventList#RemoveItemFromEvent()` is similar to that for `EventList#RemoveParticipantFromEvent()`.
+The operation logic for `EventList#removeItemFromEvent()` is similar to that for `EventList#removeParticipantFromEvent()`.
 
-The `EventList#RemoveEvent()` operation works as follows:
+The `EventList#removeEvent()` operation works as follows:
 
 1. `EventList` compares the names of the `Event`s in its list of `Event`s with `eventName`.
 2. If an `Event` with a matching name is found, the `Event` is removed from the `Event` list of the `EventList`.
@@ -456,7 +507,7 @@ These two values are as follows:
 
 Any other values entered for the status parameter will be treated as invalid.
 
-### Copy Feature
+### Copy feature
 
 The copy feature allows users to copy the list of participants from one event to another. This feature is implemented in the `CopyCommand` class,  which extends `Command`,
 The `CopyCommand` copies participants from a source event to a destination event if both events exist in the event list.
@@ -470,7 +521,7 @@ The main operations for `copy` feature include:
 The above operation is implemented as `CopyCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-#### Feature Implementation
+#### Feature implementation
 
 Given below is an example usage scenario and the behaviour of the `copy` feature at each step:
 1. The user enters the command `copy EventA > EventB` to copy participants from EventA to EventB. 
@@ -495,7 +546,7 @@ The `SortCommand` supports the following sorting options:
 The above operation is implemented as `SortCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-#### Feature Implementation
+#### Feature implementation
 
 The `SortCommand` class is constructed with a specified sorting keyword and performs sorting operations based on this keyword.
 Given below is an example usage scenario and the behaviour of the `sort` feature at each step:
@@ -526,7 +577,7 @@ The `FilterCommand` supports the following filter options:
 The above operation is implemented as `FilterCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-#### Feature Implementation
+#### Feature implementation
 
 The `FilterCommand` class is constructed with a specified filter flag and keywords. It then performs filter operations based on both the flag and keywords.
 Given below is an example usage scenario and the behaviour of the `filter` feature at each step:
@@ -555,7 +606,7 @@ The feature provides detailed feedback, informing the user whether the event or 
 The above operation is implemented as `FindCommand#execute()`. This overrides the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
 
-#### Feature Implementation
+#### Feature implementation
 
 The `FindCommand` class performs a finding operation within an event of a specified participant. 
 Given below is an example usage scenario and the behaviour of the `find` feature at each step:
@@ -638,6 +689,7 @@ Reading and writing from and to the `.csv` storage files is done through operati
 
 
 ## Product scope
+
 ### Target user profile
 The target user:
 
