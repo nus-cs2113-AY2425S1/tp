@@ -65,7 +65,7 @@ public class ListCommand extends Command {
                 String index = recurringExpenseList.getIndexOf(recurringExpense) + 1 + ". ";
                 String category = "CATEGORY: " + recurringExpense.getCategory();
                 String description = "   DESCRIPTION: " + recurringExpense.getDescription();
-                String price = "   PRICE: " + recurringExpense.getPrice();
+                String price = "   PRICE: " + String.format("%.2f", recurringExpense.getPrice());;
                 String lastAddedDate = "   LAST ADDED DATE: " + recurringExpense.getlastAddedDate();
                 String frequency = "   FREQUENCY: " + recurringExpense.getFrequency();
                 Ui.displayMessage(index + category + description + price + lastAddedDate + frequency);

@@ -37,7 +37,7 @@ public class CategoryTracker {
     public boolean contains(String category) {
         return tracker.containsKey(category);
     }
-    
+    public void clear() { tracker.clear(); }
     /**
      * Retrieves the {@code CategoryData} object for a given category.
      *
@@ -73,7 +73,7 @@ public class CategoryTracker {
     }
     
     /**
-     * Increases an existing category's running total by the given price.
+     * Increases an existing category's running total by the given price
      * or tracks a new category's expenditure details
      * <p>
      * If the category already exists, the current expenditure is increased by the given price.
