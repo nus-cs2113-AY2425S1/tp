@@ -237,6 +237,7 @@ switch (commandFlag) {
 
 * Otherwise, the `Parser` parses the user command input based on the values of the `FLAG`s in the input.
 * If any of the `FLAG`s in the user command input are not present or invalid, the `Parser` throws an `InvalidCommandException`.
+<div style="page-break-after: always;"></div>
 
 The interactions between classes for the parsing of a command with parameters is shown in the following **Sequence Diagram**:
 
@@ -268,6 +269,7 @@ The `COMMAND_WORD` is set to "list", enabling the system to recognize the comman
 The `execute()` method retrieves each event from `eventList` and appends it to a formatted output message.
 It uses the `String.format` method with `LIST_MESSAGE` to include the total number of events in the message header.
 Events are appended to `outputMessage` with numbered formatting for readability.
+<div style="page-break-after: always;"></div>
 
 4. Output Generation:
 The method stores the generated `outputMessage` in `this.message`, ready for display.
@@ -295,6 +297,7 @@ In `AddCommand#execute()`, one operation is selected based on the values stored 
 * `participantName`, the name of the `Participant` to be added to the specified `Event`,
 * `itemName`, the name of the `Item` to be added to the specified `Event`,
 * `eventName`, the name of the specified `Event`.
+<div style="page-break-after: always;"></div>
 
 The operation selection logic is as follows:
 
@@ -400,6 +403,7 @@ and is invoked when the latter operation is called.
 The output of the operation depends on two variables: 
 * `eventName`, the name of the selected event.
 * `isViewingParticipants`, which is true if a list of participants is to be shown, and false otherwise.
+<div style="page-break-after: always;"></div>
 
 The `ViewCommand#execute()` operation works as follows:
 
@@ -430,6 +434,7 @@ The feature comprises three operations, namely:
 
 The above three operations override the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
+<div style="page-break-after: always;"></div>
 
 #### Feature implementation
 
@@ -467,6 +472,7 @@ The feature comprises three operations, namely:
 
 The above three operations override the `Command#execute()` operation in `Command`,
 and is invoked when the latter operation is called.
+<div style="page-break-after: always;"></div>
 
 #### Feature implementation
 
