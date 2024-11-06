@@ -387,11 +387,11 @@ After the user adds or edits an `Expense`, it alerts the user if the spending li
 
 The `CategoryStorage` class has key methods for:
 
-|       Method        |                                         Description                                         |
-|:-------------------:|:-------------------------------------------------------------------------------------------:|
-| `trackCategoriesOf` |                     Creates a category tracker based on an expense list                     |
-|    `loadFromCsv`    | Loads spending limits from a CSV file, only for  |
-|     `saveToCsv`     |         Saves all categories and their corresponding spending limits to a CSV file          |
+|       Method        |                                Description                                 |
+|:-------------------:|:--------------------------------------------------------------------------:|
+| `trackCategoriesOf` |            Creates a category tracker based on an expense list             |
+|    `loadFromCsv`    |              Loads spending limits from a CSV file, only for               |
+|     `saveToCsv`     | Saves all categories and their corresponding spending limits to a CSV file |
 
 After the user loads from file, all categories that have exceeded its designated spending limit will be displayed to the user, followed by all categories that have not exceeded its designated spending limit but are close to it.
 
