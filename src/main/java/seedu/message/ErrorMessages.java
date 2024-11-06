@@ -1,6 +1,7 @@
 package seedu.message;
 
 public class ErrorMessages {
+    public static final String UNEXPECTED_ERROR_MESSAGE = "Unexpected error: ";
     public static final String LACK_ARGUMENTS_ERROR_MESSAGE = "Lack mandatory arguments.";
     public static final String INDEX_OUT_OF_BOUNDS = "Your index is out of bound! Current list size: ";
     public static final String INVALID_NUMBER_FORMAT = "Your index has invalid number format.";

@@ -3,6 +3,7 @@ package seedu.command;
 import seedu.category.Category;
 import seedu.category.CategoryList;
 import seedu.datastorage.Storage;
+import seedu.exceptions.CategoryNotFoundException;
 import seedu.main.UI;
 import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
@@ -93,15 +94,18 @@ public class DeleteCategoryCommand extends Command {
      * @return A list of message
      */
     List<String> deleteCategory(String categoryName) {
-        Category temp = categoryList.deleteCategory(categoryName);
+        try {
+            Category temp = categoryList.deleteCategory(categoryName);
 
-        if (temp == null) {
-            return List.of(CommandResultMessages.DELETE_CATEGORY_FAIL +
-                    ErrorMessages.CATEGORY_NOT_FOUND);
+            if (temp == null) {
+                throw new CategoryNotFoundException(ErrorMessages.CATEGORY_NOT_FOUND);
+            }
+
+            Storage.saveCategory(categoryList.getCategories());
+            return List.of(CommandResultMessages.DELETE_CATEGORY_SUCCESS + categoryName);
+        } catch (CategoryNotFoundException e) {
+            return List.of(CommandResultMessages.DELETE_CATEGORY_FAIL + e.getMessage());
         }
-
-        Storage.saveCategory(categoryList.getCategories());
-        return List.of(CommandResultMessages.DELETE_CATEGORY_SUCCESS + categoryName);
     }
     /**
      * Does follow-up confirmation to set category for remaining transactions

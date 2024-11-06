@@ -2,6 +2,8 @@ package seedu.command;
 
 import seedu.category.Category;
 import seedu.category.CategoryList;
+import seedu.exceptions.CategoryNotFoundException;
+import seedu.exceptions.InvalidTransactionTypeException;
 import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
 import seedu.transaction.Transaction;
@@ -42,7 +44,7 @@ public class UpdateCategoryCommand extends Command {
             Category newCategory = categories.findCategory(categoryString);
 
             if (newCategory == null) {
-                throw new Exception(ErrorMessages.CATEGORY_NOT_FOUND);
+                throw new CategoryNotFoundException(ErrorMessages.CATEGORY_NOT_FOUND);
             }
 
             Transaction temp = transactions.updateCategory(transactionIndex, newCategory);
@@ -50,8 +52,10 @@ public class UpdateCategoryCommand extends Command {
             return List.of(CommandResultMessages.UPDATE_TRANSACTION_SUCCESS + temp.toString());
         } catch (NumberFormatException e) {
             return List.of(CommandResultMessages.UPDATE_TRANSACTION_FAIL + ErrorMessages.INVALID_NUMBER_FORMAT);
-        } catch (Exception e) {
+        } catch (CategoryNotFoundException | InvalidTransactionTypeException | IndexOutOfBoundsException e) {
             return List.of(CommandResultMessages.UPDATE_TRANSACTION_FAIL + e.getMessage());
+        } catch (Exception e) {
+            return List.of(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
         }
     }
 

@@ -3,6 +3,7 @@ package seedu.command;
 import seedu.category.Category;
 import seedu.category.CategoryList;
 import seedu.datastorage.Storage;
+import seedu.exceptions.InvalidDateFormatException;
 import seedu.main.UI;
 import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
@@ -46,7 +47,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
         String dateString;
         try {
             dateString = parseDate(arguments.get(COMMAND_EXTRA_KEYWORDS[0]));
-        } catch (Exception e) {
+        } catch (InvalidDateFormatException e) {
             return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
         }
 
