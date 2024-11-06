@@ -136,21 +136,25 @@ public class ExpenseManager {
         }
         System.out.println("Expenses grouped by categories:");
         // Create a map to group expenses by their category
-        Map<Category, List<Expense>> expensesByCategory = new HashMap<>();
+        //@@author glenda-1506
+        Map<Category, List<Integer>> expenseIndexesByCategory = new HashMap<>();
         // Populate the map
-        for (Expense expense : expenses) {
+        for (int i = 0; i < expenses.size(); i++) {
+            Expense expense = expenses.get(i);
             Category category = expense.getCategory();
-            if (!expensesByCategory.containsKey(category)) {
-                expensesByCategory.put(category, new ArrayList<>());
-            }
-            expensesByCategory.get(category).add(expense);
+
+            expenseIndexesByCategory.putIfAbsent(category, new ArrayList<>());
+            expenseIndexesByCategory.get(category).add(i);
         }
-        // Display the expenses grouped by category
-        for (Category category : expensesByCategory.keySet()) {
+
+        // Display the expenses with correct indexes
+        for (Category category : expenseIndexesByCategory.keySet()) {
             System.out.println("Category: " + category);
-            List<Expense> categoryExpenses = expensesByCategory.get(category);
-            for (Expense expense : categoryExpenses) {
-                System.out.println("  " + expense);
+            List<Integer> expenseIndexes = expenseIndexesByCategory.get(category);
+
+            for (Integer index : expenseIndexes) {
+                Expense expense = expenses.get(index);
+                System.out.println(" " + expense + " [" + (index + 1) + "] ");
             }
         }
     }
