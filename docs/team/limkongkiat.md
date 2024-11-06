@@ -34,15 +34,18 @@ they have exceeded, or are close to exceeding, their budget.
     into a Commons class. 
   - <ins> Justification:</ins> Reduces the use of magic strings.
   
-
+  
+- **Code Contributed:** [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=limkongkiat&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other) 
 - **Documentation:** 
   - <ins>User Guide</ins>
-    - Added Contents Page
-    - Updated List Entries by date section
+    - Added Contents Page and Section Headers [#137](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/137)
+    - Updated List Entries by date section [#151](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/151)
   - <ins>Developer Guide</ins>
-    - Added overview of Desgin & Implementation
-    - Added section on List Entries feature
-    - Added Product Scope and User Stories section
+    - Added overview of Desgin & Implementation [#126](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/126)
+    - Added section on List Entries feature [#109](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/109), 
+    [#110](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/110), 
+    [#153](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/153)
+    - Added Product Scope and User Stories section [#110](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/110)
     
 
 - **Project Management**
