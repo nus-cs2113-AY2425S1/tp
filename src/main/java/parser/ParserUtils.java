@@ -1,4 +1,5 @@
 // @@author nirala-ts
+
 package parser;
 
 //import exceptions.BuffBuddyException;
@@ -27,7 +28,6 @@ public class ParserUtils {
     /**
      * Splits the argument string into the primary command and its arguments.
      *
-     * @author nirala-ts
      * @param argumentString The full argument string provided by the user.
      * @return A string array containing the command as the first element and the remaining arguments as the second.
      * @throws AssertionError if {@code argumentString} is null.
@@ -47,7 +47,6 @@ public class ParserUtils {
     /**
      * Trims the input string to remove leading and trailing whitespace.
      *
-     * @author nirala-ts
      * @param argumentString The string to trim.
      * @return The trimmed version of {@code argumentString}.
      * @throws IllegalArgumentException if {@code argumentString} is empty after trimming.
@@ -68,7 +67,6 @@ public class ParserUtils {
     /**
      * Parses a string as an integer, returning a default value if the string is null.
      *
-     * @author nirala-ts
      * @param intString The string to parse as an integer.
      * @return The parsed integer, or {@code NULL_INTEGER} if {@code intString} is null.
      * @throws IllegalArgumentException if {@code intString} cannot be parsed as an integer.
@@ -95,7 +93,6 @@ public class ParserUtils {
     /**
      * Parses a string as a float, returning a default value if the string is null.
      *
-     * @author nirala-ts
      * @param floatString The string to parse as a float.
      * @return The parsed float, or {@code NULL_FLOAT} if {@code floatString} is null.
      * @throws IllegalArgumentException if {@code floatString} cannot be parsed as a float.
@@ -122,7 +119,6 @@ public class ParserUtils {
     /**
      * Parses a string as an index, adjusting it to zero-based and returning a default if null.
      *
-     * @author nirala-ts
      * @param indexString The string to parse as an index.
      * @return The zero-based index, or {@code NULL_INTEGER} if {@code indexString} is null.
      * @throws IllegalArgumentException if the index is less than zero.
@@ -146,7 +142,6 @@ public class ParserUtils {
     /**
      * Parses a string as a date using the specified date format. If null, returns the current date.
      *
-     * @author nirala-ts
      * @param dateString The string to parse as a date.
      * @return The parsed {@code LocalDate} object, or today's date if {@code dateString} is null.
      * @throws IllegalArgumentException if the date format is invalid.
@@ -163,6 +158,16 @@ public class ParserUtils {
 
         try {
             LocalDate date = LocalDate.parse(trimmedDateString, formatter);
+            
+            String[] parts = trimmedDateString.split("-");
+            int inputDay = Integer.parseInt(parts[0]);
+            int inputMonth = Integer.parseInt(parts[1]);
+
+            // Check if the parsed date matches the input values as LocalDate.parse
+            // automatically adjusts invalid dates to the nearest valid one
+            if (date.getDayOfMonth() != inputDay || date.getMonthValue() != inputMonth) {
+                throw new DateTimeParseException("Invalid date: " + dateString, dateString, 0);
+            }
 
             logger.log(Level.INFO, "Successfully parsed date: {0}", date);
             return date;
