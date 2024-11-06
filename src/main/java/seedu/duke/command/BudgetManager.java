@@ -1,4 +1,7 @@
-package seedu.duke;
+package seedu.duke.command;
+
+import seedu.duke.Format;
+import seedu.duke.parser.InputParser;
 
 import java.util.Calendar;
 import java.util.HashMap;

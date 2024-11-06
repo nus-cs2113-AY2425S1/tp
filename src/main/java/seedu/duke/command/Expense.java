@@ -1,4 +1,6 @@
-package seedu.duke;
+package seedu.duke.command;
+
+import seedu.duke.Format;
 
 /**
  * Represents an expense with a name, amount, and category.
