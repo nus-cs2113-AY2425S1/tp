@@ -21,10 +21,29 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 
 
+/**
+ * Unit tests for the Storage class.
+ * 
+ * This class contains various test methods to verify the functionality of the Storage class,
+ * including methods for getting storage files, updating storage, parsing expenses and incomes,
+ * and loading data from files.
+ * 
+ * The tests cover the following scenarios:
+ * - Verifying the existence of storage and budget files.
+ * - Updating storage with financial entries and budget data.
+ * - Checking parameters for validity.
+ * - Parsing expenses and incomes from string arrays.
+ * - Loading data from files, including handling of empty files and invalid data formats.
+ * - Handling invalid budget amounts and dates.
+ * 
+ * Each test method is annotated with @Test and includes assertions to verify the expected behavior.
+ * The setUp method is annotated with @BeforeEach to initialize necessary objects before each test.
+ */
 public class StorageTest {
 
     private Storage storage;
@@ -80,6 +99,8 @@ public class StorageTest {
     @Test
     public void testUpdate() throws IOException, FinanceBuddyException {
         financialList.addEntry(new Expense(100, "Lunch", LocalDate.now(), Expense.Category.FOOD));
+        financialList.addEntry(new Income(200, "Salary", LocalDate.now(), Income.Category.SALARY));
+        financialList.addEntry(new Expense(300, "Dinner", LocalDate.parse("2023-01-01"), Expense.Category.FOOD));
         Budget tmpBudget = new Budget();
         tmpBudget.setBudgetAmount(500);
         budgetLogic.overwriteBudget(tmpBudget);
@@ -89,11 +110,22 @@ public class StorageTest {
         File file = Storage.getStorageFile();
         Scanner scanner = new Scanner(file);
         assertTrue(scanner.hasNextLine());
+        assertEquals("E ¦¦ 300.00 ¦¦ Dinner ¦¦ 01/01/23 ¦¦ FOOD", scanner.nextLine());
+        assertTrue(scanner.hasNextLine());
+        assertEquals("E ¦¦ 100.00 ¦¦ Lunch ¦¦ " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy")) 
+                    + " ¦¦ FOOD", scanner.nextLine());
+        assertTrue(scanner.hasNextLine());
+        assertEquals("I ¦¦ 200.00 ¦¦ Salary ¦¦ " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy")) 
+                    + " ¦¦ SALARY", scanner.nextLine());
+        assertFalse(scanner.hasNextLine());
         scanner.close();
 
         File budgetFile = Storage.getBudgetFile();
         Scanner budgetScanner = new Scanner(budgetFile);
         assertTrue(budgetScanner.hasNextLine());
+        assertEquals("500.00", budgetScanner.nextLine());
+        assertTrue(budgetScanner.hasNextLine());
+        assertEquals(LocalDate.now().toString(), budgetScanner.nextLine());
         budgetScanner.close();
     }
 
@@ -236,8 +268,11 @@ public class StorageTest {
         writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23\n");
         writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ FOOD\n");
         writer.write("E ¦¦ 100 ¦¦ 01/01/23 ¦¦ FOOD\n");
+        // duplicate fields
+        writer.write("E ¦¦ 1 ¦¦ 0 ¦¦ 0 ¦¦ L ¦¦ u ¦¦ n ¦¦ c ¦¦ h ¦¦ 01/01/23 ¦¦ FOOD ¦¦ FOOD\n");
         // all valid
-        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ TAIWANGOOD ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("I ¦¦ 100 ¦¦ TAIWANGOOD ¦¦ 01/01/23 ¦¦ SALARY\n");
         writer.close();
 
         File budgetFile = Storage.getBudgetFile();
@@ -246,7 +281,7 @@ public class StorageTest {
         budgetWriter.close();
 
         FinancialList financialList = storage.loadFromFile(budgetLogic);
-        assertEquals(1, financialList.getEntryCount());
+        assertEquals(2, financialList.getEntryCount());
     }
 
     /**
@@ -342,6 +377,8 @@ public class StorageTest {
         File file = Storage.getStorageFile();
         FileWriter writer = new FileWriter(file);
         writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
         writer.close();
 
         File budgetFile = Storage.getBudgetFile();
@@ -351,7 +388,7 @@ public class StorageTest {
         budgetWriter.close();
 
         FinancialList financialList = storage.loadFromFile(budgetLogic);
-        assertEquals(1, financialList.getEntryCount());
+        assertEquals(3, financialList.getEntryCount());
         assertEquals(LocalDate.now().toString()
             , budgetLogic.getBudget().getBudgetSetDate().toString());
     }
