@@ -571,6 +571,11 @@ The `Budget` class serves as a representation of a user's budget in the applicat
 It keeps track of the budget amount, remaining balance,
 the status of whether the budget has been set, and the date when the budget was last set.
 
+The `BudgetLogic` class serves as an intermediate class between the `Logic` and `Budget` class.
+The `BudgetLogic` class handles the logic directly related to the `Budget` class, including
+setting the budget, modifying the remaining balance when `Expense` is added, deleted or edited. It also
+recalculates the remaining balance, and prompts the user when the budget is exceeded.
+
 <ins>Class Structure</ins>
 
 The `Budget` class has the following attributes:
@@ -593,10 +598,17 @@ The `Budget` class has the following methods:
 - `isBudgetSet`: `boolean` returns the value of `isBudgetSet`
 - `getBalance`: `double` returns the value of `balance`
 - `updateBalance`: sets the value of `balance` to the provided value
+- `toStorageString`: `String` converts the budget attributes to a formatted `String`
+specifically for the `Storage` class
 
 <ins>Implementation Details</ins>
 
+The `Budget` class is instantiated with the `BudgetLogic` class.
+
 <ins>Design Considerations</ins>
+
+Given that the `Budget` class has a significant enough number of attributes and methods,
+the `BudgetLogic` class was created to specifically handle the logic related to `Budget`.
 
 ## Product scope
 
