@@ -6,7 +6,23 @@
 - [Design](#design)
   - [Architecture](#architecture)
   - [Class Diagrams](#class-diagrams)
+    - [Command Package](#command-package)
+    - [Parser Class](#parser-class-diagram)
+    - [Course Validator Class](#coursevalidator-class-diagram-)
+    - [Storage Class](#storage-class-diagram)
 - [Implementation](#implementation)
+  - [General JSON file reading process](#general-json-file-reading-process)
+  - [List Commands](#1-list-commands-command)
+  - [Help Command](#2-help-command)
+  - [List Schools Command](#3-list-schools-command)
+  - [Set Command](#4-list-university-courses-command)
+  - [Obtain Command](#5-obtain-partner-university-email-and-contact-number-command)
+  - [Filter Command](#6-filter-courses-command)
+  - [Add Command](#7-add-courses-command)
+  - [Delete Command](#8-delete-courses-command)
+  - [List Mapped Command](#9-listpersonaltrackercommand)
+  - [Compare Command](#10-compare-mapped-command)
+  - [Find Command](#11-find-course-mapping-command)
 - [Product scope](#product-scope)
   - [Target user profile](#target-user-profile)
   - [Value proposition](#value-proposition)
@@ -77,16 +93,17 @@ interact with a given component through its interface rather than the concrete c
 
 ![Sequence Diagram](images/MiniCommandClass.png)
 
-**The sections below give more details of each component.**
+**The sections below give more details of the components and additional components.**
 
 ### Class Diagrams
-Command Package:
+
+#### Command Package:
 
 ![Class diagram for Commands](images/CommandClassInheritance.png)
 ![Class diagram for CheckInformationCommand](images/CheckInformationCommandClass.jpg)
 ![Class diagram for CheckInformationCommand](images/PersonalTrackerCommandClass.jpg)
 
-Parser class diagram:
+#### Parser class diagram:
 The Parser class is responsible for handling and interpreting user input in the application. It reads user commands,
 processes them by splitting the input into command keywords and parameters, and then directs the flow of control to the
 appropriate command classes to execute the specified actions.
@@ -102,7 +119,7 @@ This class diagram represents the parsing of commands in Personal Tracker. The `
 `UI` class and `Storage` class and dependencies with the commands in Personal Tracker.
 ![Class diagram for PersonalTrackerParser](images/PersonalTrackerParserClass.png)
 
-CourseValidator Class Diagram: 
+#### CourseValidator Class Diagram: 
 
 ![Class diagram for CourseValidator](images/CourseValidatorClass.png)
 
@@ -110,8 +127,7 @@ CourseValidator Class Diagram:
 
 ![Class diagram for Storage](images/StorageClass.png)
 
-
-#### Storage System Overview
+**Storage System Overview**
 
 The storage system is structured to manage the persistence and integrity of course data for the application. 
 It consists of the following key components:
@@ -143,6 +159,12 @@ on data organization, `FileHandler` on file I/O, and `DataIntegrityChecker` on d
 allows for maintainability, testability, and scalability in managing persistent course data.
 
 ## Implementation
+
+### General JSON file reading process
+![Class diagram](images/CommandFileRead.png)
+
+For commands that read through `database.json`, the process will be done in the `Command` class via a `createJsonObject()` method,
+where an `IOException` message will be displayed if reading fails. 
 
 ### 1. List Commands Command
 
