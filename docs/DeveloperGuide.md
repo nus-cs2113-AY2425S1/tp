@@ -400,6 +400,13 @@ This flow allows users to easily create structured workout routines, customizing
 The overall design that enables this functionality is described generically by the following sequence diagram.
 ![](images/createCommand.png)
 
+## Documentation, logging, testing, configuration, dev-ops
+
+* [Logging Guide](LoggingGuide.md)
+* [Testing Guide](TestingGuide.md)
+
+## Appendix
+
 ### Product scope
 
 BuffBuddy is a fitness tracking app that help you track workout, meals, water to aid you in achieving your body goals.
@@ -449,3 +456,5 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+
