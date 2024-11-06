@@ -35,13 +35,17 @@ The following commands is for working with your recipes list
 6. edit e/name i/ingredients s1/step -  Edit an existing recipe's steps and ingredients
 	 add more ingredients using more i/ tags
 	 add more steps using more sx/ tags, where x starts from 1 and increases one by one
-7. delete n/name                     - Deletes the recipe of that name
-8. bye                               -  Ends the program
+7. delete n/name                     -  Deletes the recipe of that name
+8. recommend                         -  Ranks recipes based on how many ingredients are available
+9. random                            -  Picks a recipe at random and shows it to you
+10. bye                              -  Ends the program
 	__________________________________________________________________________________
 The following commands is for working with your ingredients list
-1. new n/ingredient                  - Add a new ingredient to your list
-2. listI                             - Lists out all your current ingredients
-3. findI ingredient                  - Looks for your ingredient in your ingredients list
+1. new n/name                        -  Add a new ingredient to your list
+2. listI                             -  Lists out all your current ingredients
+3. findI name                        -  Looks for your ingredient in your ingredients list
+4. deleteI n/name                    -  Deletes the ingredient of that name
+5. sortI                             -  Sorts your ingredients alphabetically by name
 	__________________________________________________________________________________
 Got it? Let's get back to cooking.
 

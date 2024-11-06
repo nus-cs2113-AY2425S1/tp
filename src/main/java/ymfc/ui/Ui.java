@@ -45,13 +45,17 @@ public class Ui {
             + "6. edit e/name i/ingredients s1/step -  Edit an existing recipe's steps and ingredients\n"
             + "\t add more ingredients using more i/ tags\n"
             + "\t add more steps using more sx/ tags, where x starts from 1 and increases one by one\n"
-            + "7. delete n/name                     - Deletes the recipe of that name\n"
-            + "8. bye                               -  Ends the program\n"
+            + "7. delete n/name                     -  Deletes the recipe of that name\n"
+            + "8. recommend                         -  Ranks recipes based on how many ingredients are available\n"
+            + "9. random                            -  Picks a recipe at random and shows it to you\n"
+            + "10. bye                              -  Ends the program\n"
             + LINE
             + "\nThe following commands is for working with your ingredients list\n"
-            + "1. new n/ingredient                  - Add a new ingredient to your list\n"
-            + "2. listI                             - Lists out all your current ingredients\n"
-            + "3. findI ingredient                  - Looks for your ingredient in your ingredients list\n"
+            + "1. new n/name                        -  Add a new ingredient to your list\n"
+            + "2. listI                             -  Lists out all your current ingredients\n"
+            + "3. findI name                        -  Looks for your ingredient in your ingredients list\n"
+            + "4. deleteI n/name                    -  Deletes the ingredient of that name\n"
+            + "5. sortI                             -  Sorts your ingredients alphabetically by name\n"
             + LINE
             + "\nGot it? Let's get back to cooking.\n";
 

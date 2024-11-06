@@ -26,6 +26,7 @@ public class SortCommandTest {
 
     @BeforeEach
     void setUp() {
+        ingredientList = new IngredientList();
         recipeList = new RecipeList();
         nameSortedRecipeList = new RecipeList();
         timeSortedRecipeList = new RecipeList();
