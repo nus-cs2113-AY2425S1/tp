@@ -244,44 +244,44 @@ public class Parser {
             }
             break;
 
-            case "add-water":
-                int waterAmount = Integer.parseInt(description);
-                user.getWaterIntake().addWater(waterAmount);
-                break;
+        case "add-water":
+            int waterAmount = Integer.parseInt(description);
+            user.getWaterIntake().addWater(waterAmount);
+            break;
 
-            case "delete-water":
-                int waterIndex = Integer.parseInt(description) - 1;
-                user.getWaterIntake().deleteWater(waterIndex);
-                break;
+        case "delete-water":
+            int waterIndex = Integer.parseInt(description) - 1;
+            user.getWaterIntake().deleteWater(waterIndex);
+            break;
 
-            case "list-water":
-                user.getWaterIntake().listWater();
-                break;
+        case "list-water":
+            user.getWaterIntake().listWater();
+            break;
 
-            case "add-food":
-                String[] foodParts = description.split(" ", 2); // Split description into parts
-                if (foodParts.length > 1) { // Ensure there are both food name and calories
-                    String foodName = foodParts[0];
-                    try {
-                        int calories = Integer.parseInt(foodParts[1].trim());
-                        user.getFoodIntake().addFood(foodName, calories); // Assuming this is the correct method to add food
-                    } catch (NumberFormatException e) {
-                        System.out.println("Please enter a valid number for calories.");
-                    }
-                } else {
-                    System.out.println("Please provide both food name and calories.");
+        case "add-food":
+            String[] foodParts = description.split(" ", 2); // Split description into parts
+            if (foodParts.length > 1) { // Ensure there are both food name and calories
+                String foodName = foodParts[0];
+                try {
+                    int calories = Integer.parseInt(foodParts[1].trim());
+                    user.getFoodIntake().addFood(foodName, calories); // Assuming this is the correct method to add food
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a valid number for calories.");
                 }
-                break;
+            } else {
+                System.out.println("Please provide both food name and calories.");
+            }
+            break;
 
 
-            case "delete-food":
-                int foodIndex = Integer.parseInt(description) - 1;
-                user.getFoodIntake().deleteFood(foodIndex);
-                break;
+        case "delete-food":
+            int foodIndex = Integer.parseInt(description) - 1;
+            user.getFoodIntake().deleteFood(foodIndex);
+            break;
 
-            case "list-food":
-                user.getFoodIntake().listFood();
-                break;
+        case "list-food":
+            user.getFoodIntake().listFood();
+            break;
 
         case "add-mood":
             String[] moodParts = description.split(" ", 4);
@@ -304,19 +304,19 @@ public class Parser {
             System.out.println("Mood log added: " + newMoodLog);
             break;
 
-            case "list-intake":
-                // Combine water, food, and calorie lists into one daily intake summary
-                System.out.println("Here is your daily intake summary:");
+        case "list-intake":
+            // Combine water, food, and calorie lists into one daily intake summary
+            System.out.println("Here is your daily intake summary:");
 
-                // Water Intake
-                System.out.println("\nWater Intake:");
-                user.getWaterIntake().listWater();  // assuming listWater displays water intake
+            // Water Intake
+            System.out.println("\nWater Intake:");
+            user.getWaterIntake().listWater();  // assuming listWater displays water intake
 
-                // Food Intake
-                System.out.println("\nFood Intake:");
-                user.getFoodIntake().listFood();  // assuming listFood displays food intake
+            // Food Intake
+            System.out.println("\nFood Intake:");
+            user.getFoodIntake().listFood();  // assuming listFood displays food intake
 
-                break;
+            break;
 
         case "edit-mood":
             String[] editMoodParts = description.split(" ", 5);
