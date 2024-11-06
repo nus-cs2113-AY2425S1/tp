@@ -26,7 +26,7 @@ public class ExpenseManager {
                 }
             }
 
-            if (name == null || amount == 0) {
+            if (name.isEmpty() || amount == 0) {
                 System.out.println("Invalid input! Please provide name, amount, and category.");
                 return;
             }
@@ -57,6 +57,10 @@ public class ExpenseManager {
     public void addExpense(TrackerData trackerData, String name, double amount, String categoryName) {
         List<Expense> expenses = trackerData.getExpenses();
         List<Category> categories = trackerData.getCategories();
+
+        if (categoryName == null || categoryName.trim().isEmpty()) {
+            categoryName = "Uncategorized";
+        }
 
         String formattedCategoryName = Format.formatInput(categoryName.trim());
         Category existingCategory = null;
