@@ -238,6 +238,12 @@ and South-East Asian universities. This command hence helps the users to keep tr
 
 #### Sequence Diagram on PlantUML
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
+Sequence Diagram for AddCourseCommand
+
+![Course Validator Sequence Diagram](images/CourseValidator.png)
+
+Sequence Diagram of Course Validator (extracted out of AddCourseCommand sequence diagram)
+
 
 ### 6. Delete Courses Command
 
@@ -447,11 +453,14 @@ The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides
 
 1. Access to a computer with Java 17 installed and an IDE that supports Java programming
 2. A CEG Student in NUS planning to map out mainly BT/IS/EE/CS/CG-coded courses
-{TODO: Add more} 
+3. A CEG student who is interested in planning SEP course mapping to universities in Oceania."
 
 ## Glossary
 
-* *glossary item* - Definition
+* CLI: Command Line Interface
+* PU: Partner University
+* CEG: Computer Engineering
+* SEP: Student Exchange Programme
 
 ## Instructions for manual testing
 > [NOTE!]

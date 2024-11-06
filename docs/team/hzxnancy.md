@@ -35,22 +35,22 @@ Click here to view my code contributions: [Nancy's TP Code Dashboard](https://nu
 + `Course` class is subsequently used in `AddCoursesCommand` and `Storage` classes.
 
 ## User Guide Contribution
-{To be added}
+
++ Added documentation for add course mapping feature `add`
++ Added command summary for all features found in the application
++ Added the directory for the user guide
 
 ## Developer Guide Contribution
 
-+ Add documentation for the add course mapping implementation, including a detailed explanation of the `AddCourseCommand` and `CourseValidator` classes. 
-+ Create a sequence diagram of adding a course mapping, which includes the following classes: 
-    1. AddCoursesCommand
-    2. CourseValidator
-    3. Command
-    4. Course
-    5. Storage
-+ Create a class diagram for the `CourseValidator` class.
++ Add documentation for the add course mapping implementation, including a detailed explanation of the `AddCourseCommand`and `CourseValidator` classes.  [#112](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/112)
++ Create a sequence diagram of AddCoursesCommand and CourseValidator.  [#112](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/112)
++ Create a class diagram for the `CourseValidator` class. [#165](https://github.com/AY2425S1-CS2113-W10-2/tp/issues/165)
++ Update the glossary with clarifications of valid terms. 
 
 ## Contribution to team-based tasks
 + Maintaining the issue tracker
 + Add a Course class to enhance the modularity and reusability of course mapping across the project
++ Documenting command summary in the user guide and glossary for developer guide
 ## Review/mentoring contributions
 
 PR Reviews with non-trivial comments: 
@@ -62,9 +62,7 @@ Actively participates in weekly meeting and clarify doubts from my teammates on 
 
 ## Contribution beyond the project team
 Provided useful feedback for FinanceBuddy Developer Guide: [Comments Given](https://github.com/nus-cs2113-AY2425S1/tp/pull/25#pullrequestreview-2403417754)
-## Contributions to the Developer Guide (Extracts):
-![Class Diagram](../images/AddCoursesCommand.png)
-*Sequence Diagram for AddCoursesCommand*
+
 
 
 
