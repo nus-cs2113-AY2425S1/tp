@@ -75,6 +75,6 @@ public class Budget {
     }
 
     public String toStorageString() {
-        return String.format("%.2f", budgetAmount) + " ¦¦ " + budgetSetDate;
+        return String.format("%.2f", budgetAmount) + "\n" + budgetSetDate;
     }
 }

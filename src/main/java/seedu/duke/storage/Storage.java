@@ -138,6 +138,15 @@ public class Storage {
         }
     }
     
+    /**
+     * Checks the parameters for validity.
+     *
+     * @param amount The amount to be checked. It should be non-negative and not exceed $9999999.00.
+     * @param description The description to be checked. It should not be null or empty.
+     * @param formatter The DateTimeFormatter used for formatting dates.
+     * @param date The date to be checked. It should not be null and should not be after the current date.
+     * @throws FinanceBuddyException If any of the parameters are invalid.
+     */
     public void checkParameters(double amount, String description, DateTimeFormatter formatter,
                                 LocalDate date) throws FinanceBuddyException {
         if (amount < 0) {
@@ -221,9 +230,65 @@ public class Storage {
         }
     }
 
-    
-    public FinancialList loadFromFile(BudgetLogic budgetLogic) {
-        try {
+
+    /**
+     * Loads the budget from a file and updates the budget logic and financial list.
+     *
+     * @param theList The financial list to be updated.
+     * @param budgetLogic The budget logic to be updated.
+     */
+    public void loadBudgetFromFile(FinancialList theList, BudgetLogic budgetLogic){
+        try{
+            // load budget
+            File budgetFile = getBudgetFile();
+            java.util.Scanner scBudget = new java.util.Scanner(budgetFile);
+            // start reading the budget
+            try {
+                // parse the budget amout
+                String amount = scBudget.nextLine();
+                Budget budget = new Budget();
+                if (Double.parseDouble(amount) < 0.01) {
+                    logger.log(Level.WARNING, "Budget amount should be non-negative, setting to 0.");
+                    amount = "0";
+                }
+                budget.setBudgetAmount(Double.parseDouble(amount));
+                // parse the budget date
+                String date = scBudget.nextLine();
+                try{
+                    LocalDate.parse(date);
+                } catch (DateTimeParseException e) {
+                    logger.log(Level.WARNING, "Error parsing date in budget: " + date + ", setting to current date.");
+                    date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                }
+                // check if the date is in past 
+                if (LocalDate.parse(date).isAfter(LocalDate.now())) {
+                    budget.setBudgetSetDate(LocalDate.now());
+                    logger.log(Level.WARNING, "Budget date is in the future, setting to current date.");
+                } else {
+                    budget.setBudgetSetDate(LocalDate.parse(date));
+                }
+                budgetLogic.overwriteBudget(budget);
+                update(theList, budgetLogic);
+            } catch (Exception e) {
+                logger.log(Level.WARNING, "Skiping logged budget cause storage formate invalid");
+                logger.log(Level.WARNING, e.getMessage());
+            }
+            scBudget.close();
+        } catch(FileNotFoundException e){
+            logger.log(Level.WARNING, "File not found: " + e.getMessage() );
+        }
+    }
+
+    /**
+     * Loads transactions from a file and returns a FinancialList containing the transactions.
+     * The file is expected to contain lines representing either expenses or incomes.
+     * Each line should start with 'E' for expenses or 'I' for incomes, followed by the transaction details.
+     * 
+     * @return FinancialList containing the loaded transactions.
+     * @throws FileNotFoundException if the storage file is not found.
+     */
+    public FinancialList loadTransactionsFromFile(){
+        try{
             FinancialList theList = new FinancialList();
             File file = getStorageFile();
             java.util.Scanner sc = new java.util.Scanner(file);
@@ -252,31 +317,29 @@ public class Storage {
                     logger.log(Level.WARNING, e.getMessage());
                 }
             }
-            sc.close();
-            // load budget
-            File budgetFile = getBudgetFile();
-            java.util.Scanner scBudget = new java.util.Scanner(budgetFile);
-            // start reading the budget
-            try {
-                String line = scBudget.nextLine();
-                String[] tokens = line.split(" \\¦¦ ");
-                Budget budget = new Budget();
-                budget.setBudgetAmount(Double.parseDouble(tokens[0]));
-                budget.setBudgetSetDate(LocalDate.parse(tokens[1]));
-                budgetLogic.overwriteBudget(budget);
-                update(theList, budgetLogic);
-            } catch (Exception e) {
-                logger.log(Level.WARNING, "Skiping logged budget cause storage formate invalid");
-                logger.log(Level.WARNING, e.getMessage());
-            }
-            scBudget.close();
             logger.log(Level.INFO, "Loaded " + loadedExpenseCount + " expenses and " + 
                     loadedIncomeCount + " incomes from file.");
+            sc.close();
             return theList;
-        }
-        catch (FileNotFoundException e) {
+        } catch(FileNotFoundException e){
             logger.log(Level.WARNING, "File not found: " + e.getMessage() + "Creating new FinancialList.");
             return new FinancialList();
         }
     }
+    
+    public FinancialList loadFromFile(BudgetLogic budgetLogic) {
+        try {
+            FinancialList theList = loadTransactionsFromFile();
+
+            loadBudgetFromFile(theList, budgetLogic);
+
+            return theList;
+        }
+        catch (Exception e) {
+            logger.log(Level.WARNING, "Error loading file: " + e.getMessage());
+            return new FinancialList();
+        }
+    }
 }
+
+
