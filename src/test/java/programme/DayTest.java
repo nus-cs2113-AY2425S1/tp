@@ -91,13 +91,13 @@ public class DayTest {
         day.insertExercise(exercise1);
         day.insertExercise(exercise2);
 
-        String expectedOutput = """
-                Push
-                1. Bench_Press: 3 sets of 10 at 50 | Burnt 160 cals\
-                
-                2. Triceps_Extension: 3 sets of 12 at 20 | Burnt 100 cals
-                """;
-        assertEquals(expectedOutput, day.toString());
+        String expectedOutput = "Push\n" +
+                "1. Bench_Press: 3 sets of 10 at 50 | Burnt 160 cals\n" +
+                "2. Triceps_Extension: 3 sets of 12 at 20 | Burnt 100 cals\n";
+        assertEquals(
+                expectedOutput.replace("\r\n", "\n").replace("\r", "\n"),
+                day.toString().replace("\r\n", "\n").replace("\r", "\n")
+        );
     }
 
     @Test
