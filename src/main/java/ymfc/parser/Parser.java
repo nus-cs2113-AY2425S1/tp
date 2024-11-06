@@ -307,6 +307,16 @@ public final class Parser {
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.toCollection(ArrayList::new));
 
+        //@@author gskang
+        // Extract step identifiers (s1, s2, ...) and validate for duplicates or missing numbers
+        List<String> stepIdentifiers = Arrays.stream(stepString.split("\\s+"))
+                .filter(step -> step.matches("[sS][0-9]+/.*")) // Ensure the string matches the step format
+                .map(step -> step.split("/")[0]) // Extracts "s1", "s2", etc.
+                .toList();
+
+        validateStepNumbers(stepIdentifiers); // Check for missing/duplicate numbers
+        //@@author
+
         String cuisineInput = m.group("cuisine");
         String cuisine = null;
         if (cuisineInput != null) {
