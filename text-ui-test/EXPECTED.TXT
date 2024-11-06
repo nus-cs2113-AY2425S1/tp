@@ -36,7 +36,7 @@
 	Transaction added: Expense [amount=15.0, description=, date=2024-11-01, category=]
 	-------------------------------------
 	No category specified. Enter a category or type 'no' to skip: 	-------------------------------------
-	Transaction added: Expense [amount=15.0, description=, date=2024-11-01, category=NewCategory]
+	Transaction added: Expense [amount=15.0, description=Dinner, date=2024-11-01, category=NewCategory]
 	-------------------------------------
 	No category specified. Enter a category or type 'no' to skip: 	Category 'SomeCategory' does not exist.
 	Type 'yes' to create a new category or enter an existing category name: 	New category 'SomeCategory' created.
@@ -64,12 +64,12 @@
 	Category deleted: EmptyCategory
 	-------------------------------------
 	These expenses need modification: 
-	Expense [amount=15.0, description=, date=2024-11-01, category=NewCategory]
+	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=NewCategory]
 	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	-------------------------------------
 	Action cancelled.
 	-------------------------------------
 	These expenses need modification: 
-	Expense [amount=15.0, description=, date=2024-11-01, category=NewCategory]
+	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=NewCategory]
 	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	Category 'Lmao' does not exist. Current category:
 	Category: Food
 	Category: Entertainment
@@ -84,7 +84,7 @@
 	Action cancelled.
 	-------------------------------------
 	These expenses need modification: 
-	Expense [amount=15.0, description=, date=2024-11-01, category=NewCategory]
+	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=NewCategory]
 	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	-------------------------------------
 	Category deleted: NewCategory
 	-------------------------------------
@@ -111,7 +111,7 @@
 	-------------------------------------
 	1. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
 	2. Expense [amount=15.0, description=, date=2024-11-01, category=]
-	3. Expense [amount=15.0, description=, date=2024-11-01, category=]
+	3. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	4. Expense [amount=15.0, description=, date=2024-11-01, category=Groceries]
 	5. Expense [amount=1000000.0, description=Dinner, date=2024-11-01, category=LessLuxury]
 	-------------------------------------
@@ -146,7 +146,7 @@
 	-------------------------------------
 	1. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
 	2. Expense [amount=15.0, description=, date=2024-11-01, category=]
-	3. Expense [amount=15.0, description=, date=2024-11-01, category=]
+	3. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	4. Expense [amount=15.0, description=, date=2024-11-01, category=Groceries]
 	5. Expense [amount=1000000.0, description=Dinner, date=2024-11-01, category=LessLuxury]
 	-------------------------------------
@@ -172,7 +172,7 @@
 	1. Income [amount=1000.0, description=, date=2024-11-01]
 	2. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
 	3. Expense [amount=15.0, description=, date=2024-11-01, category=]
-	4. Expense [amount=15.0, description=, date=2024-11-01, category=]
+	4. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	5. Expense [amount=15.0, description=, date=2024-11-01, category=Groceries]
 	6. Expense [amount=1000000.0, description=Dinner, date=2024-11-01, category=LessLuxury]
 	-------------------------------------
@@ -189,6 +189,7 @@
 	Error tracking progress: Your year and month format is invalid!
 	-------------------------------------
 	-------------------------------------
+	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
 	Expense [amount=1000000.0, description=Dinner, date=2024-11-01, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
