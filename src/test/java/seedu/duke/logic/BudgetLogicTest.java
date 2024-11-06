@@ -136,6 +136,10 @@ class BudgetLogicTest {
         assertEquals(800, budget.getBalance());
     }
 
+    /**
+     * Tests retrieving the budget and balance when no budget is set.
+     * Verifies that the appropriate message is printed.
+     */
     @Test
     void getBudgetAndBalance_noBudgetSet_printNoBudgetSetMessage() {
         budgetLogic.getBudgetAndBalance();
@@ -146,6 +150,10 @@ class BudgetLogicTest {
         assertEquals(expectedOutput, outContent.toString());
     }
 
+    /**
+     * Tests retrieving the budget and current balance when budget is set.
+     * Verifies that the appropriate message is printed.
+     */
     @Test
     void getBudgetAndBalance_budgetSet_printBudgetAndBalance() {
         budget.setBudgetAmount(1000);

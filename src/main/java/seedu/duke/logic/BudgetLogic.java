@@ -103,8 +103,6 @@ public class BudgetLogic {
         }
     }
 
-
-
     /**
      * Modifies the budget balance by adding the specified amount to the current balance.
      * A positive amount increases the balance, while a negative amount decreases it.
@@ -117,6 +115,10 @@ public class BudgetLogic {
         budget.updateBalance(newBalance);
     }
 
+    /**
+     * Displays the current budget and balance, if the budget is set.
+     * Otherwise, notifies the user that the budget is not set.
+     */
     public void getBudgetAndBalance() {
         if (!budget.isBudgetSet()) {
             System.out.println("No budget has been set.");
