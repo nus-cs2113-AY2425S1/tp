@@ -1,5 +1,6 @@
 package seedu.commands;
 
+import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.InvalidStatus;
 
@@ -23,6 +24,7 @@ public class UpdateCommand extends Command {
             }
             args.remove(0);
 
+
             uiCommand.clearInvalidFlags();
             uiCommand.clearUpdatedFields();
             uiCommand.clearInvalidFields();
@@ -31,6 +33,7 @@ public class UpdateCommand extends Command {
                 String[] words = arg.split(" ", 2);
                 updateOneField(words, internshipIndex);
             }
+
             uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
         } catch (NumberFormatException e) {
             uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
@@ -62,6 +65,7 @@ public class UpdateCommand extends Command {
             case "company":
             case "from":
             case "to":
+            case "deadline":
                 if (!isValidValue(words)) {
                     return;
                 }
@@ -75,10 +79,12 @@ public class UpdateCommand extends Command {
             }
         } catch (DateTimeParseException e) {
             uiCommand.addInvalidField(field, "Invalid date format");
+        } catch (InvalidDeadline e) {
+            uiCommand.addInvalidField(field, "Either description or date is missing.");
         } catch (InvalidStatus e) {
             String message = """
                     Status provided is not recognised:
-                    Please provide one of the following:
+                    Please provide one of the following:i
                     - Application Pending
                     - Application Completed
                     - Accepted
@@ -99,6 +105,7 @@ public class UpdateCommand extends Command {
                 - company
                 - start (in MM/yy format)
                 - end (in MM/yy format)
+                - deadline ({description} {date (in dd/MM/yy format)}
                 
                 Choose from the following statuses:
                 - Application Pending

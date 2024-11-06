@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
+import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
@@ -23,7 +24,7 @@ class InternshipListTest {
 
     //@@author Ridiculouswifi
     @Test
-    void updateField_validIndexStatus_expectUpdated() throws InvalidIndex, InvalidStatus {
+    void updateField_validIndexStatus_expectUpdated() throws InvalidIndex, InvalidStatus, InvalidDeadline {
         initialiseInternshipList();
         internshipList.updateField(0, "status", "Application Completed");
 
@@ -50,7 +51,18 @@ class InternshipListTest {
 
     //@@author Ridiculouswifi
     @Test
-    void removeField_validSkill_expectUpdated() throws InvalidIndex, InvalidStatus, MissingValue {
+    void updateField_validDeadline_expectUpdated() throws InvalidDeadline, InvalidStatus, InvalidIndex {
+        initialiseInternshipList();
+        internshipList.updateField(0, "deadline", "Interview 11/11/25");
+
+        assertEquals("Interview",
+                internshipList.getInternship(0).getDeadlines().get(0).getDescription());
+        assertEquals("11/11/25", internshipList.getInternship(0).getDeadlines().get(0).getDate());
+    }
+
+    //@@author Ridiculouswifi
+    @Test
+    void removeField_validSkill_expectUpdated() throws InvalidIndex, InvalidStatus, MissingValue, InvalidDeadline {
         initialiseInternshipList();
         internshipList.updateField(0, "skills", "Java, Python");
 
@@ -61,7 +73,7 @@ class InternshipListTest {
 
     //@@author Ridiculouswifi
     @Test
-    void removeField_invalidSkill_expectThrow() throws InvalidIndex, InvalidStatus {
+    void removeField_invalidSkill_expectThrow() throws InvalidIndex, InvalidStatus, InvalidDeadline {
         initialiseInternshipList();
         internshipList.updateField(0, "skills", "Java, Python");
 
@@ -83,5 +95,17 @@ class InternshipListTest {
 
         assertThrows(InvalidIndex.class,
                 () -> internshipList.removeField(1, "skills", "Java"));
+    }
+
+    //@@author Ridiculouswifi
+    @Test
+    void removeField_validDeadline_expectUpdated() throws InvalidIndex, InvalidStatus, MissingValue, InvalidDeadline {
+        initialiseInternshipList();
+        internshipList.updateField(0, "deadline", "Interview Deadline 11/11/25");
+
+        internshipList.removeField(0, "deadline", "    Interview Deadline   ");
+
+        assertThrows(IndexOutOfBoundsException.class,
+                () -> internshipList.getInternship(0).getDeadlines().get(0));
     }
 }

@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
@@ -14,16 +15,29 @@ import java.util.Comparator;
 public class InternshipList {
     private static final UiInternshipList ui = new UiInternshipList();
     public ArrayList<Internship> internships;
+    public ArrayList<Internship> favouriteInternships;
 
     // Constructor
     public InternshipList() {
         internships = new ArrayList<>();
+        favouriteInternships = new ArrayList<>();
+    }
+
+    public InternshipList(ArrayList<Internship> internships) {
+        this.internships = internships;
+        favouriteInternships = new ArrayList<>();
     }
 
     public void addInternship(Internship internship) {
+
+        assert internship != null : "Internship object cannot be null";
+
         if (internship.getId() == -1) {
             internship.setId(internships.size());
         }
+
+        assert internship.getId() == internships.size() + 1;
+
         internships.add(internship);
     }
 
@@ -41,8 +55,13 @@ public class InternshipList {
 
     // Method to remove an internship by index (0-based)
     public void removeInternship(int index) {
+        assert isWithinBounds(index) : "Index is out of bounds for removal";
+
         if (isWithinBounds(index)) {
-            internships.remove(index);
+            Internship internship = internships.remove(index);
+            assert internship != null : "Removed internship should not be null";
+
+            internship.clearDeadlines();
             ui.showDeletedInternship(index + 1);
             updateIds(); // Reassign IDs after removal
         }
@@ -71,7 +90,8 @@ public class InternshipList {
      * @param field Specific attribute to update.
      * @param value Updated value
      */
-    public void updateField(int index, String field, String value) throws InvalidIndex, InvalidStatus {
+    public void updateField(int index, String field, String value)
+            throws InvalidIndex, InvalidStatus, InvalidDeadline {
         try {
             switch (field) {
             case "status":
@@ -92,6 +112,9 @@ public class InternshipList {
             case "to":
                 internships.get(index).setEndDate(value);
                 break;
+            case "deadline":
+                internships.get(index).updateDeadline(value);
+                break;
             default:
                 assert false: "All valid fields should we handled in individual cases";
                 break;
@@ -108,6 +131,9 @@ public class InternshipList {
             case "skills":
                 internships.get(index).removeSkill(value);
                 break;
+            case "deadline":
+                internships.get(index).removeDeadline(value);
+                break;
             default:
                 assert false: "All valid fields should we handled in individual cases";
                 break;
@@ -118,13 +144,14 @@ public class InternshipList {
         }
     }
 
+    //@@author jadenlimjc
     // Method to list all internships
     public void listAllInternships() {
-        if (internships.isEmpty()) {
-            ui.showEmptyInternshipList();
-        } else {
-            ui.showInternships(internships);
-        }
+        ui.showInternships(internships, "list");
+    }
+
+    public void listAllInternships(ArrayList<Internship> internships) {
+        ui.showInternships(internships, "list");
     }
 
     public List<Internship> getAllInternships() {
@@ -136,21 +163,29 @@ public class InternshipList {
     }
 
     //@@author Toby-Yu
-    // Method to list all internships in sorted order by role (case-insensitive)
+
+    /**
+     * List all internships in sorted order by role alphabetically (case-insensitive)
+     */
     public void listInternshipsSortedByRole() {
-        ArrayList<Internship> sortedList = new ArrayList<>(internships);
-
-        // Sort roles alphabetically, ignoring case sensitivity
-        Collections.sort(sortedList, Comparator.comparing(internship -> internship.getRole().toLowerCase()));
-
-        // Display the sorted list without changing IDs
-        ui.showInternships(sortedList);
-    }
-
-    // Method to list all internships sorted by start date (year first), then end date
-    public void listInternshipsSortedByDeadline() {
         ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
 
+        // Sort roles alphabetically, ignoring case sensitivity
+        Collections.sort(sortedInternships, Comparator.comparing(internship -> internship.getRole().toLowerCase()));
+        ui.showInternships(sortedInternships, "role");
+    }
+
+    /**
+     * List all internships sorted by duration (year first, then month) in start date first, then end date
+     */
+    public void listInternshipsSortedByDuration() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
+
+        sortedByDurationFunction(sortedInternships);
+        ui.showInternships(sortedInternships, "duration");
+    }
+
+    private void sortedByDurationFunction(ArrayList<Internship> sortedInternships) {
         Collections.sort(sortedInternships, (i1, i2) -> {
             // First compare start dates (year then month)
             int startComparison = compareYearMonth(i1.getStartDate(), i2.getStartDate());
@@ -160,9 +195,6 @@ public class InternshipList {
             // If start dates are equal, compare end dates (year then month)
             return compareYearMonth(i1.getEndDate(), i2.getEndDate());
         });
-
-        // Display the sorted list without changing IDs
-        ui.showInternships(sortedInternships);
     }
 
     // Helper method to compare YearMonth strings in "MM/yy" format (year first, then month)
@@ -180,4 +212,135 @@ public class InternshipList {
         }
         return Integer.compare(month1, month2);
     }
+
+    /**
+     * List all internships sorted by the earliest deadline
+     */
+    public void listInternshipsSortedByDeadline() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
+
+        sortedByDeadlineFunction(sortedInternships);
+        ui.showInternships(sortedInternships, "deadline");
+    }
+
+    private void sortedByDeadlineFunction(ArrayList<Internship> sortedInternships) {
+        sortedInternships.sort((i1, i2) -> {
+            Deadline earliestDeadline1 = i1.getEarliestDeadline();
+            Deadline earliestDeadline2 = i2.getEarliestDeadline();
+
+            // Place internships with no deadlines last
+            if (earliestDeadline1 == null && earliestDeadline2 == null) {
+                return 0; // Both have no deadlines, so they are considered equal
+            } else if (earliestDeadline1 == null) {
+                return 1; // i1 has no deadline, so it goes after i2
+            } else if (earliestDeadline2 == null) {
+                return -1; // i2 has no deadline, so it goes after i1
+            }
+            return compareYearMonth(earliestDeadline1.getDate(), earliestDeadline2.getDate());
+        });
+    }
+
+    /**
+     * Lists internships sorted by the first skill alphabetically (case-insensitive).
+     */
+    public void listInternshipsSortedByFirstSkill() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
+
+        sortedByFirstSkillFunction(sortedInternships);
+        ui.showInternships(sortedInternships, "skills");
+    }
+
+    private static void sortedByFirstSkillFunction(ArrayList<Internship> sortedList) {
+        // Sort by the first skill alphabetically
+        Collections.sort(sortedList, Comparator.comparing(internship -> {
+            String firstSkill = internship.getFirstSkill();
+            return firstSkill.isEmpty() ? "No skills" : firstSkill.toLowerCase();// Sort internships with no skills last
+        }));
+    }
+
+    /**
+     * Lists internships sorted by status alphabetically (case-insensitive).
+     */
+    public void listInternshipsSortedByStatus() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
+
+        Collections.sort(sortedInternships, Comparator.comparing(internship -> internship.getStatus().toLowerCase()));
+        ui.showInternships(sortedInternships, "status");
+    }
+
+    /**
+     * Lists internships sorted by company alphabetically (case-insensitive).
+     */
+    public void listInternshipsSortedByCompany() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
+
+        Collections.sort(sortedInternships, Comparator.comparing(internship -> internship.getCompany().toLowerCase()));
+        ui.showInternships(sortedInternships, "company");
+    }
+
+    /**
+     * List all favourite internships in sorted order by role alphabetically (case-insensitive)
+     */
+    public void listFavouriteInternshipsSortedByRole() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(favouriteInternships);
+        Collections.sort(sortedInternships, Comparator.comparing(internship -> internship.getRole().toLowerCase()));
+        ui.showInternships(sortedInternships, "role in favourite");
+    }
+
+    /**
+     * List all internships sorted by duration (year first), then end date
+     */
+    public void listFavouriteInternshipsSortedByDuration() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(favouriteInternships);
+        sortedByDurationFunction(sortedInternships);
+        ui.showInternships(sortedInternships, "duration in favourite");
+    }
+
+    /**
+     * List all favourite internships sorted by the earliest deadline
+     */
+    public void listFavouriteInternshipsSortedByDeadline() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(favouriteInternships);
+
+        sortedByDeadlineFunction(sortedInternships);
+        ui.showInternships(sortedInternships, "deadline in favourite");
+    }
+
+    /**
+     * Lists all favourite internships sorted by the first skill alphabetically (case-insensitive).
+     */
+    public void listFavouriteInternshipsSortedByFirstSkill() {
+        ArrayList<Internship> sortedInternships= new ArrayList<>(favouriteInternships);
+
+        sortedByFirstSkillFunction(sortedInternships);
+        ui.showInternships(sortedInternships, "skills in favourite");
+    }
+
+    /**
+     * Lists all favourite internships sorted by status alphabetically (case-insensitive).
+     */
+    public void listFavouriteInternshipsSortedByStatus() {
+        ArrayList<Internship> sortedList = new ArrayList<>(favouriteInternships);
+        Collections.sort(sortedList, Comparator.comparing(internship -> internship.getStatus().toLowerCase()));
+        ui.showInternships(sortedList, "status in favourite");
+    }
+
+    /**
+     * Lists all favourite internships sorted by company alphabetically (case-insensitive).
+     */
+    public void listFavouriteInternshipsSortedByCompany() {
+        ArrayList<Internship> sortedList = new ArrayList<>(favouriteInternships);
+        Collections.sort(sortedList, Comparator.comparing(internship -> internship.getCompany().toLowerCase()));
+        ui.showInternships(sortedList, "company in favourite");
+    }
+
+
+    public void listInternshipsNotSorted() {
+        ui.showInternships(internships, "none");
+    }
+
+    public void listInternshipsInvalidFlag(String flag) {
+        ui.showInternships(internships, flag);
+    }
+
 }

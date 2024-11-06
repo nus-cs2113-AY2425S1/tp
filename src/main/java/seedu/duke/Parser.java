@@ -9,6 +9,8 @@ import seedu.commands.FilterCommand;
 import seedu.commands.ListCommand;
 import seedu.commands.HelpCommand;
 import seedu.commands.RemoveCommand;
+import seedu.commands.FavouriteCommand;
+import seedu.commands.CalendarCommand;
 
 import seedu.ui.Ui;
 
@@ -20,7 +22,7 @@ import java.util.function.Supplier;
 
 public class Parser {
     private static final Ui ui = new Ui();
-    private Map<String, Supplier<Command>> commands = new HashMap<>();
+    private final Map<String, Supplier<Command>> commands = new HashMap<>();
 
     public Parser() {
         // Initialize command map
@@ -37,51 +39,75 @@ public class Parser {
         commands.put("list", ListCommand::new);
         commands.put("help", HelpCommand::new);
         commands.put("remove", RemoveCommand::new);
+        commands.put("favourite", FavouriteCommand::new);
+        commands.put("calendar", CalendarCommand::new);
     }
 
     public Command parseCommand(String input) {
-        String inputCommand = input.split(" ")[0];
-        if (commands.containsKey(inputCommand)) {
-            Supplier<Command> commandSupplier = commands.get(inputCommand);
-            return commandSupplier.get();
+        if (input.isBlank()) {
+            ui.showOutput("Please enter a command");
+            return null;
         }
-        return null;
+
+        String[] inputArgs = input.trim().split(" ", 2);
+
+        assert inputArgs[0].equals(inputArgs[0].trim());
+        String inputCommand = inputArgs[0].trim();
+
+        if (!commands.containsKey(inputCommand)) {
+            ui.showUnknownCommand(inputCommand);
+            return null;
+        }
+
+        Supplier<Command> commandSupplier = commands.get(inputCommand);
+        return commandSupplier.get();
     }
 
     public ArrayList<String> parseData(Command command, String input) {
-        if (command instanceof ListCommand || command instanceof HelpCommand) {
+        if (command instanceof ListCommand || command instanceof HelpCommand || command instanceof CalendarCommand) {
             return new ArrayList<>();
         }
 
-        try {
-            String inputData = input.trim().split(" ", 2)[1];
-            if (command instanceof AddCommand) {
-                return parseAddCommandData(inputData);
+        String[] inputArgs = input.trim().split(" ", 2);
+
+        if (inputArgs.length < 2) {
+            if (!(command instanceof SortCommand)) {
+                ui.showOutput("Please input some ID or flag following the command");
+                return null;
             }
-            if (command instanceof DeleteCommand) {
-                return parseDeleteCommandData(inputData);
-            }
-            if (command instanceof UpdateCommand) {
-                return parseUpdateCommandData(inputData);
-            }
-            if (command instanceof SortCommand) {
-                return parseSortCommandData(inputData);
-            }
-            if (command instanceof FilterCommand) {
-                return parseFilterCommandData(inputData);
-            }
-            if (command instanceof RemoveCommand) {
-                return parseUpdateCommandData(inputData);
-            }
-            throw new IllegalArgumentException("Unknown command type");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showOutput("Please input some ID or flag following the command");
-            return null;
+            return new ArrayList<>();
         }
+
+        String inputData = inputArgs[1];
+
+        if (command instanceof AddCommand) {
+            return parseAddCommandData(inputData);
+        }
+        if (command instanceof DeleteCommand) {
+            return parseDeleteCommandData(inputData);
+        }
+        if (command instanceof UpdateCommand) {
+            return parseUpdateCommandData(inputData);
+        }
+        if (command instanceof SortCommand) {
+            return parseSortCommandData(inputData);
+        }
+        if (command instanceof FilterCommand) {
+            return parseFilterCommandData(inputData);
+        }
+        if (command instanceof FavouriteCommand) {
+            return parseFavouriteCommandData(inputData);
+        }
+        assert false : "Should never be able to reach this statement if all commands are accounted for";
+        return null;
     }
 
     private ArrayList<String> parseFlagData(String inputData) {
-        ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(inputData.split("-")));
+        ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(inputData.trim().split("-")));
+        if (commandArgs.isEmpty()) {
+            ui.showOutput("Empty flag detected\n" + "Please input a flag following the '-' symbol");
+            return null;
+        }
         commandArgs.remove(0);
         commandArgs.replaceAll(String::trim);
         return commandArgs;
@@ -94,27 +120,26 @@ public class Parser {
     private ArrayList<String> parseDeleteCommandData(String inputData) {
         ArrayList<String> commandArgs = new ArrayList<>();
         commandArgs.add(inputData);
-        commandArgs.set(0, commandArgs.get(0).trim());
+        commandArgs.set(0, inputData.trim());
         return commandArgs;
     }
 
     private ArrayList<String> parseUpdateCommandData(String inputData) {
-        String[] splitArray = inputData.split(" ", 2);
+        String[] splitArray = inputData.trim().split(" ", 2);
+        assert splitArray[0].equals(splitArray[0].trim());
+        String id = splitArray[0].trim();
         try {
-            String id = splitArray[0];
-            Integer.parseInt(id);
-            String fields = splitArray[1];
-            if (fields.isBlank()) {
-                throw new ArrayIndexOutOfBoundsException();
-            }
+            String fields = splitArray[1].trim();
+
             ArrayList<String> commandArgs = parseFlagData(fields);
+            if (commandArgs == null) {
+                return null;
+            }
+
             commandArgs.add(0, id);
             return commandArgs;
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showEmptyFlags();
-            return null;
-        } catch (NumberFormatException e) {
-            ui.showOutput("Please input some ID for the command");
             return null;
         }
     }
@@ -125,6 +150,15 @@ public class Parser {
 
     private ArrayList<String> parseFilterCommandData(String inputData) {
         return parseFlagData(inputData);
+    }
+
+    private ArrayList<String> parseFavouriteCommandData(String inputData) {
+        if (inputData.trim().isEmpty()) {
+            return null;
+        }
+        ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(inputData.trim().split(",")));
+        commandArgs.replaceAll(String::trim);
+        return commandArgs;
     }
 
 }

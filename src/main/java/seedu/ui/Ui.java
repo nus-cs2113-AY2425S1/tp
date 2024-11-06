@@ -3,16 +3,17 @@ package seedu.ui;
 import java.util.Scanner;
 
 //@@author Ridiculouswifi
+
 /**
  * Class to facilitate program interactions with the user.
  */
 public class Ui {
     protected static final String DIVIDER = "__________________________________________________\n";
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     private static final String MESSAGE_WELCOME = """
-                Hello! Welcome to EasInternship!
-                Ready to rock some internships?? :)""";
+            Hello! Welcome to EasInternship!
+            Ready to rock some internships?? :)""";
     private static final String MESSAGE_GOODBYE = "Peace out! Have fun at the internship.";
 
     /**
@@ -62,7 +63,7 @@ public class Ui {
     /**
      * Prints when there is an error executing the commands.
      *
-     * @param errorMessage  Message given by exception.
+     * @param errorMessage Message given by exception.
      */
     public void showErrorCommand(String errorMessage) {
         showOutput("Error executing command: " + errorMessage);
