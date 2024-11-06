@@ -34,6 +34,12 @@ class ReccuringExpenseTest {
         assertThrows(WheresMyMoneyException.class,
             () -> new RecurringExpense(0.0F, "desc", "category", null, "daily"));
     }
+
+    @Test
+    public void createRecurringExpense_nullFrequencyAdded_throwsWheresMyMoneyException() {
+        assertThrows(WheresMyMoneyException.class,
+            () -> new RecurringExpense(0.0F, "desc", "category", "25-10-2024", null));
+    }
     
     @Test
     public void setPrice_nullInput_throwsWheresMyMoneyException() {
