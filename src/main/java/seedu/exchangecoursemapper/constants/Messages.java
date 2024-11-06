@@ -39,7 +39,7 @@ public class Messages {
                     delete: delete <TASK_NUMBER> - Delete a partner university.
                     list mapped: list mapped - List all course mapping saved.
                     compare: compare pu/<uni1> pu/<uni2> - Compare course mappings between 2 universities.
-                    compare: find <NUS_COURSE_CODE> - Find courses with subject code in your list.
+                    find: find <NUS_COURSE_CODE> - Find courses with subject code in your list.
                     bye: bye - End the program.
                     To get more specific information of the commands, please use help <COMMAND>
                     """;
