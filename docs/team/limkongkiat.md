@@ -9,6 +9,13 @@ they have exceeded, or are close to exceeding, their budget.
 
 ### Summary of Contributions
 
+- **New Feature:** Add Help Command
+  - <ins> What it does:</ins> Displays a summary of available commands and their respective formats for the users' 
+    reference
+  - <ins> Justification: </ins> Provides a quick and easy avenue for new users to learn how to use the app, 
+    or for users to refer to in case they forget the command formats.
+
+  
 - **New Feature:** List Entries by date
   - <ins>What it does:</ins> Expand upon the list entries feature to allow users to limit the
     entries listed to those within a stipulated date range.
@@ -20,12 +27,18 @@ they have exceeded, or are close to exceeding, their budget.
     in ascending order of date.
   - <ins>Justification:</ins> This allows users to see the log of their transactions in chronological order even if they did
     not key in their entries in that order.
+
+
+- **General Contribution:** Refactoring of repeated messages into Commons class
+  - <ins> What it does:</ins> Refactors strings that are printed multiple times (e.g. line separator, error messages)
+    into a Commons class. 
+  - <ins> Justification:</ins> Reduces the use of magic strings.
   
 
 - **Documentation:** 
   - <ins>User Guide</ins>
     - Added Contents Page
-    - [TODO] Updated List Entries by date section
+    - Updated List Entries by date section
   - <ins>Developer Guide</ins>
     - Added overview of Desgin & Implementation
     - Added section on List Entries feature
