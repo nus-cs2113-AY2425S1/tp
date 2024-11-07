@@ -8,7 +8,7 @@ import ymfc.commands.DeleteCommand;
 import ymfc.commands.DeleteIngredientCommand;
 import ymfc.commands.EditCommand;
 import ymfc.commands.FindCommand;
-import ymfc.commands.FindIngredCommand;
+import ymfc.commands.FindIngredientCommand;
 import ymfc.commands.HelpCommand;
 import ymfc.commands.ListCommand;
 import ymfc.commands.ListIngredientCommand;
@@ -370,11 +370,11 @@ public final class Parser {
         Matcher m = findCommandPattern.matcher(input);
         if (!m.matches()) {
             throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" +
-                    FindIngredCommand.USAGE_EXAMPLE);
+                    FindIngredientCommand.USAGE_EXAMPLE);
         }
 
         String query = m.group("query").trim();
-        return new FindIngredCommand(query); // No options, only the query is needed
+        return new FindIngredientCommand(query); // No options, only the query is needed
     }
 
     private static int countCharOccurrence(String options, String regex) {

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import static ymfc.YMFC.logger;
 
-public class FindIngredCommand extends Command {
+public class FindIngredientCommand extends Command {
     public static final String USAGE_EXAMPLE = """
             Use example:
             \t findI spaghetti // Default: find by name
@@ -22,7 +22,7 @@ public class FindIngredCommand extends Command {
     private String query;
     private int numMatches = 0;
 
-    public FindIngredCommand(String query) {
+    public FindIngredientCommand(String query) {
         this.query = query;
     }
 
