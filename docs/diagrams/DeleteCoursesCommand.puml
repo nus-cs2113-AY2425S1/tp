@@ -12,21 +12,18 @@ activate DeleteCoursesCommand
 
 DeleteCoursesCommand -> DeleteCoursesCommand: parseDeleteCommand(userInput: String)
 activate DeleteCoursesCommand
-opt No NUS course code input
-    DeleteCoursesCommand->DeleteCoursesCommand: throw IllegalArgumentException()
-end
-opt More than one NUS course code input
-    DeleteCoursesCommand->DeleteCoursesCommand: throw IllegalArgumentException()
-end
 return descriptionSubstrings : String[]
 
-DeleteCoursesCommand -> DeleteCoursesCommand: deleteCourse(descriptionSubstrings : String[], Storage storage)
+DeleteCoursesCommand -> DeleteCoursesCommand: getListIndex(descriptionSubstrings : String[])
 activate DeleteCoursesCommand
 
 DeleteCoursesCommand -> Integer: parseInt(descriptionSubstrings[1] : String)
 activate Integer
 return listIndex : int
+return listIndex: int
 
+DeleteCoursesCommand -> DeleteCoursesCommand: deleteCourse(listIndex : int, storage: Storage)
+activate DeleteCoursesCommand
 DeleteCoursesCommand -> Storage: getCourse(listIndex : int)
 activate Storage
 Storage --> DeleteCoursesCommand: courseToDelete : Course

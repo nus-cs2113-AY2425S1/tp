@@ -56,6 +56,7 @@ public class Logs {
     public static final String DELETE_COURSE_MAPPING = "Deleting course mapping from storage..";
     public static final String RETURN_PARSED_DELETE_COMMAND = "Returning separated user input...";
     public static final String GET_COURSE_TO_DELETE = "Obtaining information on the course to be deleted.";
+    public static final String GET_INDEX_OF_COURSE_TO_DELETE = "Obtaining list index of the course to be deleted.";
 
     // ListPersonalTrackerCommand
     public static final String INIT_STORAGE_LIST_PT = "ListPersonalTrackerCommand initialized with storage.";

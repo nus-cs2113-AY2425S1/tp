@@ -6,7 +6,23 @@
 - [Design](#design)
   - [Architecture](#architecture)
   - [Class Diagrams](#class-diagrams)
+    - [Command Package](#command-package)
+    - [Parser Class](#parser-class-diagram)
+    - [Course Validator Class](#coursevalidator-class-diagram-)
+    - [Storage Class](#storage-class-diagram)
 - [Implementation](#implementation)
+  - [General JSON file reading process](#general-json-file-reading-process)
+  - [List Commands](#1-list-commands-command)
+  - [Help Command](#2-help-command)
+  - [List Schools Command](#3-list-schools-command)
+  - [Set Command](#4-list-university-courses-command)
+  - [Obtain Command](#5-obtain-partner-university-email-and-contact-number-command)
+  - [Filter Command](#6-filter-courses-command)
+  - [Add Command](#7-add-courses-command)
+  - [Delete Command](#8-delete-courses-command)
+  - [List Mapped Command](#9-listpersonaltrackercommand)
+  - [Compare Command](#10-compare-mapped-command)
+  - [Find Command](#11-find-course-mapping-command)
 - [Product scope](#product-scope)
   - [Target user profile](#target-user-profile)
   - [Value proposition](#value-proposition)
@@ -77,16 +93,62 @@ interact with a given component through its interface rather than the concrete c
 
 ![Sequence Diagram](images/MiniCommandClass.png)
 
-**The sections below give more details of each component.**
+**The sections below give more details of the components and additional components.**
 
 ### Class Diagrams
-Command Package:
+
+#### Command Structure:
 
 ![Class diagram for Commands](images/CommandClassInheritance.png)
+
+The abstract command classes for our two main features, `CheckInformationCommand` and `PersonalTrackerCommand`.
+must inherit from the abstract `Command` class, which has the method to read the Json file containing course 
+information. Each child class has the abstract `execute` method, to be implemented by their concrete child classes,
+specific to the command functionality.
+
 ![Class diagram for CheckInformationCommand](images/CheckInformationCommandClass.jpg)
+
+
+`CheckInformationCommands` list out information from the JSON file containing course mapping information, or from the
+user's Personal Tracker.
+
+Possible `CheckInformationCommands` are:
+1. `ListCommandsCommand`
+2. `HelpCommand`
+3. `ListSchoolsCommand`
+4. `ListUniCoursesCommand`
+5. `ObtainContactsCommand`
+6. `FilterCoursesCommand`
+7. `ListPersonalTrackerCommand`
+8. `CompareMappedCommand`
+
+The above list of Command classes are concrete classes, and must implement the abstract 
+`execute(userInput)` method.
+
+
 ![Class diagram for CheckInformationCommand](images/PersonalTrackerCommandClass.jpg)
 
-Parser class diagram:
+
+`PersonalTrackerCommands` are commands that can modify the user's saved mapping plans from the Personal Tracker,
+as well as access the list of saved mappings.
+
+Possible `CheckInformationCommands` are:
+1. `AddCoursesCommand`
+2. `DeleteCoursesCommand`
+3. `FindCoursesCommand`
+
+The above list of Command classes are concrete classes, and must implement the abstract
+`execute(userInput, storage)` method.
+
+
+#### Addition of new command features
+When adding new command classes, developers should make sure that the concrete class inherits from either the
+`CheckInformationCommand` or `PersonalTrackerCommand` classes, depending on the new command's functionality.
+The new command class should also have an implementation of the `execute` method, and uses the `UI` class to 
+print messages on the CLI interface.
+
+
+#### Parser class diagram:
 The Parser class is responsible for handling and interpreting user input in the application. It reads user commands,
 processes them by splitting the input into command keywords and parameters, and then directs the flow of control to the
 appropriate command classes to execute the specified actions.
@@ -102,7 +164,7 @@ This class diagram represents the parsing of commands in Personal Tracker. The `
 `UI` class and `Storage` class and dependencies with the commands in Personal Tracker.
 ![Class diagram for PersonalTrackerParser](images/PersonalTrackerParserClass.png)
 
-CourseValidator Class Diagram: 
+#### CourseValidator Class Diagram: 
 
 ![Class diagram for CourseValidator](images/CourseValidatorClass.png)
 
@@ -110,8 +172,7 @@ CourseValidator Class Diagram:
 
 ![Class diagram for Storage](images/StorageClass.png)
 
-
-#### Storage System Overview
+**Storage System Overview**
 
 The storage system is structured to manage the persistence and integrity of course data for the application. 
 It consists of the following key components:
@@ -143,6 +204,12 @@ on data organization, `FileHandler` on file I/O, and `DataIntegrityChecker` on d
 allows for maintainability, testability, and scalability in managing persistent course data.
 
 ## Implementation
+
+### General JSON file reading process
+![Class diagram](images/CommandFileRead.png)
+
+For commands that read through `database.json`, the process will be done in the `Command` class via a `createJsonObject()` method,
+where an `IOException` message will be displayed if reading fails. 
 
 ### 1. List Commands Command
 
@@ -363,10 +430,12 @@ This helps the users to keep track of their most recent course mapping plans, an
 * When `execute` is called, the command first passes the user's input into the `parseDeleteCommand` method, which parses
   the user input to extract the list index, still of `String` type, of the course mapping plan
   they would like to delete.
-* The parsed input is then passed into the `deleteCourse` method, along with the Storage object, which updates the
-  `myList.json` file. The list index is then converted to an `int` using the `Integer` class. If a valid list index
-  has been given by the user, the list index is passed into the storage object's `deleteCourse` method to delete the
-  plan stored at that index.
+* The parsed input is then passed into the `getListIndex` method. The list index is then converted to an `int` using the 
+  `Integer` class. If a valid list index format has been given by the user, the list index is returned.
+* The list index, along with the Storage object, is passed into the `deleteCourse` method, which calls the `getCourse` 
+  method from the Storage object, and accesses the line in the `myList.json` file as specified by the list index to 
+  obtain information of the course to delete, then deletes the course using the `deleteCourse` method from the 
+  Storage object.
 * Lastly, the UI object's `printDeleteMessage` is called to inform the user of the course plan which is deleted.
 * Throughout the code, exceptions, assertions and logging are in place for better error handling.
 * Line Separator is used to ensure readability and ease of use for users.

@@ -1,10 +1,11 @@
 @startuml
+!include .SequenceDiagram.config
 hide footbox
 
 actor CEG_Student
 participant ":FilterCoursesCommand" as FilterCoursesCommand
 participant ":Command" as Command
-participant ":Ui" as Ui
+participant ":Ui" as UI
 
 CEG_Student -> FilterCoursesCommand: execute (userInput:String)
 activate FilterCoursesCommand
@@ -12,40 +13,39 @@ activate FilterCoursesCommand
 FilterCoursesCommand -> Command: createJsonObject()
 activate Command
 
-opt inputStream is null
-    Command --> FilterCoursesCommand: throw new IOException()
-end
-
 Command --> FilterCoursesCommand: JsonObject
 deactivate Command
 
 FilterCoursesCommand -> FilterCoursesCommand: parseFilterInput(userInput: String)
 activate FilterCoursesCommand
-opt inputDetails does not contain a NUS course code to filter
-    FilterCoursesCommand --> CEG_Student: throw new IllegalArgumentException()
-end
-opt inputDetails contains more than one NUS course code to filter
-    FilterCoursesCommand --> CEG_Student: throw new IllegalArgumentException()
-end
 return inputDetails : String[]
 
 FilterCoursesCommand -> FilterCoursesCommand: getNusCourseCode(inputDetails: String)
 activate FilterCoursesCommand
 
-opt inputDetails does not contain a NUS course code to filter
-    FilterCoursesCommand --> CEG_Student: throw new IllegalArgumentException()
-end
 return courseToFind : String
 
 FilterCoursesCommand -> FilterCoursesCommand: displayMappableCourses(jsonObject : JsonObject, courseToFind : String)
 activate FilterCoursesCommand
 
 loop for each universityName in universityNames
-        loop for each course in courses
-            opt course == courseToFind
-                FilterCoursesCommand -> FilterCoursesCommand: Print PU and PU course code
-            end
+    FilterCoursesCommand -> FilterCoursesCommand: isCourseFound(...)
+    activate FilterCoursesCommand
+    loop for each course in courses
+        opt course == courseToFind
+            FilterCoursesCommand -> UI: printMappableCourse(universityName: String, course: JsonObject)
+            activate UI
+            UI --> FilterCoursesCommand: Print mappable course information
         end
+    end
+    FilterCoursesCommand --> FilterCoursesCommand: isCourseFound: boolean
+    deactivate FilterCoursesCommand
+end
+
+opt isCourseFound == false
+    FilterCoursesCommand -> UI: printMessage(No mappable courses message)
+    UI --> FilterCoursesCommand: Print no mappable courses message
+    deactivate UI
 end
 
 FilterCoursesCommand --> FilterCoursesCommand

@@ -67,8 +67,8 @@ public class DeleteCoursesCommandTest {
 
     @Test
     public void deleteCourse_inputWithValidIndex_success() {
-        String[] descriptionSubstrings = new String[] {"delete", "1"};
-        deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
+        int listIndex = 1;
+        deleteCoursesCommand.deleteCourse(listIndex, storage);
         String expectedOutput = "You have deleted the course from your plan: " +
                 "cs2102 | the university of melbourne | info20003";
         String actualOutput = outputStreamCaptor.toString();
@@ -77,9 +77,9 @@ public class DeleteCoursesCommandTest {
 
     @Test
     public void deleteCourse_inputWithPositiveInvalidIndex_expectException() {
-        String[] descriptionSubstrings = new String[]{"delete", "1000"};
+        int listIndex = 1000;
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
-            deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
+            deleteCoursesCommand.deleteCourse(listIndex, storage);
         });
         assertEquals("Please provide a valid index of the course plan you would like to delete.\n" +
                 "Type `list mapped` to check your current list of saved plans!", e.getMessage());
@@ -87,9 +87,9 @@ public class DeleteCoursesCommandTest {
 
     @Test
     public void deleteCourse_inputWithZeroIndex_expectException() {
-        String[] descriptionSubstrings = new String[]{"delete", "0"};
+        int listIndex = 0;
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
-            deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
+            deleteCoursesCommand.deleteCourse(listIndex, storage);
         });
         assertEquals("Please provide a valid index of the course plan you would like to delete.\n" +
                         "Type `list mapped` to check your current list of saved plans!", e.getMessage());
@@ -97,9 +97,9 @@ public class DeleteCoursesCommandTest {
 
     @Test
     public void deleteCourse_inputWithNegativeIndex_expectException() {
-        String[] descriptionSubstrings = new String[]{"delete", "-10"};
+        int listIndex = -1;
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
-            deleteCoursesCommand.deleteCourse(descriptionSubstrings, storage);
+            deleteCoursesCommand.deleteCourse(listIndex, storage);
         });
         assertEquals("Please provide a valid index of the course plan you would like to delete.\n" +
                 "Type `list mapped` to check your current list of saved plans!", e.getMessage());
