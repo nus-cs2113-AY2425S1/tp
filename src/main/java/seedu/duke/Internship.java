@@ -27,6 +27,7 @@ public class Internship {
     private String company;
     private YearMonth startDate;
     private YearMonth endDate;
+    private String favourite = "false";
     private String status;
 
     private ArrayList<Deadline> deadlines;
@@ -63,6 +64,8 @@ public class Internship {
      * @param userStatus user-inputted status.
      */
     public void updateStatus(String userStatus) throws InvalidStatus {
+        assert !userStatus.isEmpty() : "Status cannot be empty";
+
         List<String> statuses = Arrays.asList("Application Pending", "Application Completed", "Accepted", "Rejected");
         for (String status : statuses) {
             if (status.equalsIgnoreCase(userStatus)) {
@@ -125,6 +128,14 @@ public class Internship {
         this.endDate = YearMonth.parse(end, FORMATTER_MONTH_YEAR);
     }
 
+    public String getFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(String favourite) {
+        this.favourite = favourite;
+    }
+
 
     /**
      * Adds a new deadline for this internship.
@@ -172,13 +183,11 @@ public class Internship {
         String[] words = value.split(" ");
         String description = "";
         String date = "";
-        boolean hasFoundDate = false;
 
         for (String word : words) {
             String trimmedWord = word.trim();
             if (isValidDate(trimmedWord)) {
                 date = trimmedWord;
-                hasFoundDate = true;
             } else {
                 description += trimmedWord + " ";
             }

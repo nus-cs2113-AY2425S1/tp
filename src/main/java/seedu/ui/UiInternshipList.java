@@ -39,34 +39,41 @@ public class UiInternshipList extends Ui {
      * @param field Criteria that internships are sorted by.
      */
     public String getSortField(String field) {
-        String message = "Sorted internships by ";
+        String messageForNormalInternships = "Sorted internships by ";
+        String messageForInternshipsInFavourite = "Sorted internships in favourite by ";
         switch (field) {
         case "list":
             return "";
         case "none":
             return "No sorting option provided. Listing internships by ID.";
         case "role":
-            return message + "role alphabetically (case-insensitive).";
+            return messageForNormalInternships + "role alphabetically (case-insensitive).";
         case "duration":
-            return message + "start date (year first), then end date.";
+            return messageForNormalInternships + "duration with start date (year first), then end date.";
         case "deadline":
-            return message + "deadline.";
+            return messageForNormalInternships + "deadline.";
         case "skills":
-            return message + "skills.";
+            return messageForNormalInternships + "skills.";
         case "status":
-            return message + "status.";
+            return messageForNormalInternships + "status.";
+        case "company":
+            return messageForNormalInternships + "company.";
+        case "role in favourite":
+            return messageForInternshipsInFavourite + "role alphabetically (case-insensitive).";
+        case "duration in favourite":
+            return messageForInternshipsInFavourite + "duration with start date (year first), then end date.";
+        case "deadline in favourite":
+            return messageForInternshipsInFavourite + "deadline.";
+        case "skills in favourite":
+            return messageForInternshipsInFavourite + "skills.";
+        case "status in favourite":
+            return messageForInternshipsInFavourite + "status.";
+        case "company in favourite":
+            return messageForInternshipsInFavourite + "company.";
         default:
             // Handling invalid sorting options
             return "Unknown flag: " + field + "\n Use \"help\" to view valid flags.";
         }
-    }
-
-    //author Ridiculouswifi
-    /**
-     * Prints message when index provided is out of bounds.
-     */
-    public void showInvalidIndex() {
-        showOutput("Invalid index!\nPlease use list to find internship ID");
     }
 
     /**
