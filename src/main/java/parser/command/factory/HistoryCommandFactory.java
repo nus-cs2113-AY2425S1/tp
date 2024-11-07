@@ -25,19 +25,12 @@ public class HistoryCommandFactory {
         String arguments = inputArguments.length > 1 ? inputArguments[1] : "";
 
         return switch (subCommandString) {
-        case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
-        case ListPersonalBestsCommand.COMMAND_WORD -> arguments.isEmpty() ?
-            new ListPersonalBestsCommand() : new ViewPersonalBestCommand(arguments);
-        case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();
-        default -> new InvalidCommand();
+            case HistoryCommand.COMMAND_WORD -> new HistoryCommand();
+            case ListPersonalBestsCommand.COMMAND_WORD -> arguments.isEmpty() ?
+                    new ListPersonalBestsCommand() : new ViewPersonalBestCommand(arguments);
+            case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();
+            default -> new InvalidCommand();
         };
     }
 
-    private Command preparePersonalBestCommand(String argumentString) {
-        if (argumentString == null || argumentString.isEmpty()) {
-            throw HistoryExceptions.exerciseNameNotFound();
-        }
-        return new ViewPersonalBestCommand(argumentString);  // Pass exercise name to ViewPersonalBestCommand
-    }
 }
-

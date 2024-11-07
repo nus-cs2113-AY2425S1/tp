@@ -1,77 +1,104 @@
 package history;
 
-//
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import programme.Day;
 import programme.Exercise;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HistoryTest {
+
     private History history;
-    private Day day1;
-    private Day day2;
-    private LocalDate date1;
-    private LocalDate date2;
+    private Day sampleDay;
 
     @BeforeEach
     public void setUp() {
         history = new History();
-
-        // Create exercises for Day 1
-        ArrayList<Exercise> exercisesDay1 = new ArrayList<>();
-        exercisesDay1.add(new Exercise(3, 12, 50, 160,"Bench_Press"));
-        exercisesDay1.add(new Exercise(3, 12, 80, 200,"Squat"));
-
-        // Create exercises for Day 2
-        ArrayList<Exercise> exercisesDay2 = new ArrayList<>();
-        exercisesDay2.add(new Exercise(3, 10, 100, 200,"Deadlift"));
-        exercisesDay2.add(new Exercise(4, 8, 0, 100,"Pull_Up"));  // No weight for Pull_Up
-
-        // Create Day objects
-        day1 = new Day("Day 1", exercisesDay1);
-        day2 = new Day("Day 2", exercisesDay2);
-
-        // Dates for logging the days (now using LocalDate)
-        date1 = LocalDate.of(2024, 10, 12);
-        date2 = LocalDate.of(2024, 10, 13);
+        sampleDay = new Day("Leg Day");
+        Exercise sampleExercise = new Exercise(3, 10, 100, 200, "Squat");
+        sampleDay.insertExercise(sampleExercise);
     }
 
     @Test
-    public void testLogDayAndToString() {
-        // Log the days into history
-        //DailyRecord dailyrecord1 = history.getRecordByDate(date1);
-        //DailyRecord dailyrecord2 = history.getRecordByDate(date1);
-        //dailyrecord1.logDay(day1);
-        //dailyrecord2.logDay(day2);
+    public void testLogRecordAndGetRecordByDate() {
+        LocalDate date = LocalDate.now();
+        DailyRecord dailyRecord = new DailyRecord();
+        dailyRecord.logDayToRecord(sampleDay);
 
-        // Object-based comparison
-        //assertEquals(day1, history.getRecordByDate(date1).getDayFromRecord());
-        //assertEquals(day2, history.getRecordByDate(date2).getDayFromRecord());
+        history.logRecord(date, dailyRecord);
+
+        DailyRecord retrievedRecord = history.getRecordByDate(date);
+        assertNotNull(retrievedRecord, "Retrieved record should not be null.");
+        assertEquals(dailyRecord, retrievedRecord, "Retrieved record should match the logged record.");
     }
 
     @Test
-    public void testEmptyHistory() {
-        // Ensure that history returns "No workout history available" when empty
-        //assertEquals("No workout history available.", history.toString());
+    public void testGetWeeklyWorkoutSummaryWithData() {
+        LocalDate date = LocalDate.now();
+        DailyRecord dailyRecord = new DailyRecord();
+        dailyRecord.logDayToRecord(sampleDay);
+
+        history.logRecord(date, dailyRecord);
+
+        String weeklySummary = history.getWeeklyWorkoutSummary();
+        assertTrue(weeklySummary.contains("Leg Day"), "Weekly summary should contain the day's name.");
+        assertTrue(weeklySummary.contains("Squat"), "Weekly summary should contain the exercise name.");
     }
 
     @Test
-    public void testOverwriteDay() {
-        // Log day1 with date1, then log another day with the same date to overwrite
-        //history.getRecordByDate(date1).logDay(day1);
+    public void testGetWeeklyWorkoutSummaryWithoutData() {
+        String weeklySummary = history.getWeeklyWorkoutSummary();
+        assertEquals("No workout history available.", weeklySummary, "Weekly summary should indicate no data available.");
+    }
 
-        // Modify day1 with a different exercise
-        //Day modifiedDay = new Day("Day 1");
-        //modifiedDay.insertExercise(new Exercise(3, 12, 15, "Bicep_Curl"));
+    @Test
+    public void testGetPersonalBestForExercise() {
+        LocalDate date = LocalDate.now();
+        DailyRecord dailyRecord = new DailyRecord();
+        dailyRecord.logDayToRecord(sampleDay);
 
-        // Log the modified day with the same date
-        //history.getRecordByDate(date1).logDay(modifiedDay);
+        history.logRecord(date, dailyRecord);
 
-        // Object-based comparison
-        //assertEquals(modifiedDay, history.getRecordByDate(date1).getDayFromRecord());
+        String personalBest = history.getPersonalBestForExercise("Squat");
+        assertTrue(personalBest.contains("Personal best for Squat"), "Personal best output should contain exercise name.");
+        assertTrue(personalBest.contains("100kg"), "Personal best output should contain correct weight.");
+    }
+
+    @Test
+    public void testGetFormattedPersonalBests() {
+        LocalDate date = LocalDate.now();
+        DailyRecord dailyRecord = new DailyRecord();
+        dailyRecord.logDayToRecord(sampleDay);
+
+        history.logRecord(date, dailyRecord);
+
+        String formattedPersonalBests = history.getFormattedPersonalBests();
+        assertTrue(formattedPersonalBests.contains("Personal bests for all exercises:"), "Output should contain header.");
+        assertTrue(formattedPersonalBests.contains("Squat: 3 sets of 10 at 100kg"), "Output should contain exercise details.");
+    }
+
+    @Test
+    public void testToStringNoHistory() {
+        String historyString = history.toString();
+        assertEquals("No history available.", historyString, "Output should indicate no history available.");
+    }
+
+    @Test
+    public void testToStringWithHistory() {
+        LocalDate date = LocalDate.now();
+        DailyRecord dailyRecord = new DailyRecord();
+        dailyRecord.logDayToRecord(sampleDay);
+
+        history.logRecord(date, dailyRecord);
+
+        String historyString = history.toString();
+        assertTrue(historyString.contains("Completed On:"), "Output should contain 'Completed On' date.");
+        assertTrue(historyString.contains("Leg Day"), "Output should contain the day's name.");
     }
 }
 

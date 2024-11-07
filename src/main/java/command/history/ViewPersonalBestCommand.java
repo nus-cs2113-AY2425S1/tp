@@ -23,13 +23,8 @@ public class ViewPersonalBestCommand extends Command {
             return new CommandResult(personalBest);
         }
 
-        // If no specific exercise is specified, display all personal bests
-        String allPersonalBests = history.getFormattedPersonalBests();
-        if (allPersonalBests.isEmpty()) {
-            return new CommandResult("Please specify an exercise to view its personal best.");
-        }
-
-        return new CommandResult(allPersonalBests);
+        // If no specific exercise is specified, prompt for exercise name
+        return new CommandResult("Please specify an exercise to view its personal best.");
     }
 }
 
