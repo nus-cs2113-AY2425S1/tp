@@ -11,7 +11,12 @@ import java.util.Map;
 //@@author kq2003
 public class BudgetManager {
     public int lastResetMonth;
-    public boolean isAutoResetEnabled;
+  
+    public boolean isAutoResetEnabled = false;  // Default state
+
+    public boolean getAutoResetStatus() {
+        return this.isAutoResetEnabled;
+    }
 
     public BudgetManager() {
         this.lastResetMonth = -1;
