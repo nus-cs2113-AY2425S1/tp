@@ -34,9 +34,8 @@ The Parser component, comprising `DateParser` and `InputParser`, handles input p
 
 <ins>Implementation</ins>
 
-- **Sequence Diagram**: Illustrates the flow of processing user input, from capturing input in `AppUi`, parsing it with `InputParser`, and validating date formats via `DateParser`.
-
-Example when user starts the application and adds an expense
+- **Sequence Diagram**:
+This sequence diagram illustrates the flow of how the `AppUi`, `InputParser` and `DateParser` classes work together to parse and validate the user's expense input.
 ![Ui Parser Sequence](UML/UiParserSequence.png)
 
 #### Ui Component
@@ -120,7 +119,12 @@ It interacts with `FinancialList`, `AppUi` and `Storage`, and leverages command 
 
 <ins>Class Structure</ins>
 
-TThe Logic constructor initializes key components (FinancialList, AppUi, and Storage) to facilitate CRUD operations and manage interactions with users and stored data. 
+The Logic constructor initializes key components (FinancialList, AppUi, and Storage) to facilitate CRUD operations and manage interactions with users and stored data. 
+
+<ins>Implementation</ins>
+
+- **Sequence Diagram**:
+
 
 <ins>Methods</ins>
 
@@ -591,7 +595,7 @@ The figure below show how the program load data from the files:
 
 <ins>Usage Example</ins>
 
-```java
+``` java
 // Instantiate the Storage class and provide the file paths for financial data and budget
 Storage storage = new Storage();
 

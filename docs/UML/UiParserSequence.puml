@@ -9,10 +9,10 @@ deactivate AppUi
 FinanceBuddy --> User : show welcome message
 
 loop Command Processing Loop
-    User -> FinanceBuddy : enter command "expense /a 50 /d 01/01/24 /c food"
+    User -> FinanceBuddy : enter command "expense lunch /a 50 /d 01/01/24 /c food"
     FinanceBuddy -> AppUi : getUserInput()
     activate AppUi
-    AppUi -> InputParser : parseCommands("expense /a 50 /d 01/01/24 /c food")
+    AppUi -> InputParser : parseCommands("expense lunch /a 50 /d 01/01/24 /c food")
     activate InputParser
     InputParser --> AppUi : HashMap<String, String> commandArguments
     deactivate InputParser
