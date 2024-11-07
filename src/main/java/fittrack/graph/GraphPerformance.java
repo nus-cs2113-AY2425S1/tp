@@ -8,7 +8,7 @@ public abstract class GraphPerformance extends GraphBase {
 
     static final int INVALID_TIME_VALUE = -1;
     static final int DATETIME_LENGTH = 16; //Length of Date format without spaces
-    public static final int Y_OFFSET = 6;
+    public static final int OPTIMAL_OFFSET = 6;
 
     //Returns line with properly spaced descriptions for the X axis
     private static String formatXHeaderDesc(int numSessions,
@@ -116,7 +116,7 @@ public abstract class GraphPerformance extends GraphBase {
 
         // Prepare Y axis and main content
         if (exercise == Exercise.WALK_AND_RUN || exercise == Exercise.SHUTTLE_RUN) {
-            yOffset = Y_OFFSET;
+            yOffset = OPTIMAL_OFFSET;
             graph.append(GraphPerformanceTime.graphExerciseTime(exercise, sessionList, minExercisePerformance,
                     maxExercisePerformance, maxXHeaderLength));
         } else {
