@@ -217,8 +217,10 @@ its name
 the user about the deletion
 7. `FindCommand` Class
 - 
-8. `FindIngredCommand` Class
-- 
+8. `FindIngredientCommand` Class
+- The `FindIngredientCommand` attempts to find an existing `Ingredient` in `IngredientList` by name
+- When executed, it calls the `printFindIngred()` method of the `Ui` to display the matching ingredients found
+- If no matching ingredients are found, the `printEmptyFindIngred()` of `Ui` method is called instead 
 9. `HelpCommand` Class
 - The `HelpCommand` class is designed to provide the user with a list of available commands and detailed instructions 
 on how to use them
@@ -295,14 +297,20 @@ and recommend random recipes that closely match the criteria.
 
 ## User Stories
 
-| Version | As a ...      | I want to ...                                    | So that I can ...                                                 |
-|---------|---------------|--------------------------------------------------|-------------------------------------------------------------------|
-| v1.0    | new user      | see list of available commands                   | refer to them when I forget how to use the application            |
-| v1.0    | constant user | see list of all my added recipes                 | glance at all my recipes in one go                                |
-| v1.0    | picky user    | remove recipes from database                     | remove recipes that do not fit my changing tastebuds              |
-| v1.0    | busy user     | store information about my recipes in a database | have a tool to organise my recipes                                |
-| v2.0    | user          | sort my recipes by preparation time              | find a recipe that I can cook within my current time limit        |
-| v2.0    | heavy user    | find specific recipes by name/ingredients/steps  | filter through my huge list of recipes easily to find what I want |
+| Version | As a ...              | I want to ...                                              | So that I can ...                                                 |
+|---------|-----------------------|------------------------------------------------------------|-------------------------------------------------------------------|
+| v1.0    | new user              | see list of available commands                             | refer to them when I forget how to use the application            |
+| v1.0    | constant user         | see list of all my added recipes                           | glance at all my recipes in one go                                |
+| v1.0    | picky user            | remove recipes from database                               | remove recipes that do not fit my changing taste buds             |
+| v1.0    | busy user             | store information about my recipes in a database           | have a tool to organise my recipes                                |
+| v2.0    | busy user             | sort my recipes by preparation time                        | find a recipe that I can cook within my current time limit        |
+| v2.0    | heavy user            | find specific recipes by name/ingredients/steps            | filter through my huge list of recipes easily to find what I want |
+| v2.0    | unimaginative cook    | get random recipe suggestions                              | find and cook recipes that I have not cooked recently             |
+| v2.0    | broke college student | get recipe suggestions based on my current ingredient list | get recipes that I can currently cook with my limited ingredients |
+| v2.0    | user                  | sort my recipes alphabetically                             | glance through my recipes more easily                             |
+| v2.0    | forgetful user        | store information about my ingredients in a database       | have a tool to organise my ingredients                            |
+| v2.0    |                       |                                                            |                                                                   |
+
 
 
 <div style="page-break-after: always;"></div>
