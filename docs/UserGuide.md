@@ -36,6 +36,11 @@ For details on all available commands, refer to the Features section below.
 
    Example: If the command specifies `view-expenses 123`, it will be interpreted as `list`.
 
+6. Avoid using command prefixes (e.g., n/, a/, c/, etc.) within parameter values, as they may interfere with parsing. 
+
+    Example: `add-expense n/Coffee 2023/02/12 a/5.50 c/Food` is valid, but `n/Coffee a/s/a/a/a/ a/5.50 c/Food` is not, 
+as `a/` is used within the `NAME` parameter, causing confusion with the `a/AMOUNT` prefix.
+
 ### Add an Expense: add-expense
 This command allows you to record a new expense.
 
