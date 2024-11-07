@@ -3,9 +3,10 @@ package seedu.duke.command;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.log.Log;
+import seedu.duke.log.LogLevels;
+import seedu.duke.util.Commons;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Map;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 public class AddExpenseCommand extends AddEntryCommand {
 
-    private static final Logger logger = Logger.getLogger(AddExpenseCommand.class.getName());
+    private static final Log logger = Log.getInstance();
     private static final double expenseZero = 0.0;
     private final Expense.Category category;
 
@@ -33,8 +34,6 @@ public class AddExpenseCommand extends AddEntryCommand {
     ) throws FinanceBuddyException {
         super(amount, description, date);
         this.category = category;
-        assert amount > 0 : "Amount should be positive";
-        assert description != null && !description.isEmpty() : "Description should not be null or empty";
     }
 
     /**
@@ -45,8 +44,8 @@ public class AddExpenseCommand extends AddEntryCommand {
     @Override
     public void execute(FinancialList list) throws FinanceBuddyException {
         if (list == null) {
-            logger.log(Level.SEVERE, "Financial list is null");
-            throw new IllegalArgumentException("Financial list cannot be null");
+            logger.log(LogLevels.SEVERE, "Financial list is null");
+            throw new FinanceBuddyException("Financial list cannot be null");
         }
 
         int preEntryCount = list.getEntryCount();
@@ -55,11 +54,11 @@ public class AddExpenseCommand extends AddEntryCommand {
         Map<Expense.Category, Double> expenseTotals = list.getTotalExpenseByCategory();
         expenseTotals.put(category, expenseTotals.getOrDefault(category, expenseZero) + amount);
         assert list.getEntryCount() == preEntryCount + 1 : "Expense not added";
-        System.out.println("--------------------------------------------");
+        System.out.println(Commons.LINE_SEPARATOR);
         System.out.println("Got it! I've added this expense:");
         System.out.println(expense);
-        System.out.println("--------------------------------------------");
-        logger.log(Level.INFO, "Expense added to list: " + expense);
+        System.out.println(Commons.LINE_SEPARATOR);
+        logger.log(LogLevels.INFO, "Expense added to list: " + expense);
 
     }
 }

@@ -10,9 +10,8 @@ into the app as well as list out all their logged transactions.
 
 ### Code Contributed
 
-The link below is the RepoSense report of code contributed to this project.
-
-https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=ctzeyong&breakdown=true
+Click [here](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=ctzeyong&breakdown=true)
+to see the RepoSense report of code contributed to this project.
 
 ### Enhancements Implemented
 

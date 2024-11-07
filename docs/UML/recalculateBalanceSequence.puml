@@ -1,0 +1,69 @@
+@startuml
+
+participant BudgetLogic
+participant Budget
+participant FinancialList
+participant FinancialEntry
+participant AppUi
+
+BudgetLogic -> BudgetLogic: recalculateBalance(financialList)
+activate BudgetLogic
+BudgetLogic -> Budget: isBudgetSet()
+activate Budget
+Budget --> BudgetLogic: return isBudgetSet
+deactivate Budget
+
+opt budget is set
+    BudgetLogic -> Budget: getBudgetAmount()
+    activate Budget
+    Budget --> BudgetLogic: return balance
+    deactivate Budget
+
+    BudgetLogic -> FinancialList: getEntryCount()
+    activate FinancialList
+    FinancialList --> BudgetLogic: return count
+    deactivate FinancialList
+
+    loop over financial entries
+        BudgetLogic -> FinancialList: getEntry(index)
+        activate FinancialList
+        FinancialList --> BudgetLogic: return FinancialEntry
+        deactivate FinancialList
+
+        BudgetLogic -> FinancialEntry: getDate()
+        activate FinancialEntry
+        FinancialEntry --> BudgetLogic: return date
+        deactivate FinancialEntry
+
+        BudgetLogic -> BudgetLogic: isCurrentMonth(date)
+        activate BudgetLogic
+        BudgetLogic --> BudgetLogic: return boolean
+        deactivate BudgetLogic
+
+        opt entry is an instance of Expense and date is current month
+            BudgetLogic -> FinancialEntry: getAmount()
+            activate FinancialEntry
+            FinancialEntry --> BudgetLogic: return amount
+            deactivate FinancialEntry
+        end
+    end
+
+    BudgetLogic -> Budget: updateBalance(newBalance)
+    activate Budget
+    Budget --> BudgetLogic
+    deactivate Budget
+
+    BudgetLogic -> BudgetLogic: hasExceededBudget()
+    activate BudgetLogic
+    BudgetLogic --> BudgetLogic: return boolean
+    deactivate BudgetLogic
+
+    opt budget has exceeded
+        BudgetLogic -> AppUi: displayBudgetBalanceExceededMessage(budgetAmount)
+    end
+
+    BudgetLogic -> AppUi: displayBudgetBalanceMessage(balance)
+end
+BudgetLogic --> BudgetLogic
+deactivate BudgetLogic
+@enduml

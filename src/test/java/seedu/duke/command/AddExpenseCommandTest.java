@@ -222,13 +222,13 @@ class AddExpenseCommandTest {
     @Test
     void execute_addExpenseWithNegativeAmount_expectErrorMessage() {
 
-        AssertionError error = assertThrows(AssertionError.class, () -> {
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
             addExpenseCommand = new AddExpenseCommand(-15.20, "grab", null, Expense.Category.TRANSPORT);
             addExpenseCommand.execute(financialList);
         });
 
         // Verify the error message
-        assertEquals("Amount should be positive", error.getMessage());
+        assertEquals("Invalid amount. Amount must be $0.01 or greater.", exception.getMessage());
         assertEquals(0, financialList.getEntryCount());
     }
 
@@ -249,5 +249,70 @@ class AddExpenseCommandTest {
         assertEquals(0, financialList.getEntryCount());
     }
 
+    /**
+     * Test the execute method of AddExpenseCommand with a very large amount.
+     * Verifies that a FinanceBuddyException is thrown, and no entries are added to financiallist.
+     */
+    @Test
+    void execute_addExpenseWithVeryLargeAmount_expectErrorMessage() {
 
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addExpenseCommand = new AddExpenseCommand(999999999, "random", null, Expense.Category.OTHER);
+            addExpenseCommand.execute(financialList);
+        });
+
+        // Verify the error message
+        assertEquals("Invalid amount. Amount must be $9999999.00 or less.", exception.getMessage());
+        assertEquals(0, financialList.getEntryCount());
+    }
+
+    /**
+     * Test the execute method of AddExpenseCommand with a date after the system date.
+     * Verifies that a FinanceBuddyException is thrown, and no entries are added to financiallist.
+     */
+    @Test
+    void execute_addExpenseWithDateAfterCurrentDate_expectErrorMessage() {
+        LocalDate laterDate = LocalDate.now().plusDays(1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        String laterDateAsString = laterDate.format(formatter);
+
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addExpenseCommand = new AddExpenseCommand(1, "random", laterDateAsString, Expense.Category.OTHER);
+            addExpenseCommand.execute(financialList);
+        });
+
+        // Verify the error message
+        assertEquals("Entered date cannot be after current date.", exception.getMessage());
+        assertEquals(0, financialList.getEntryCount());
+    }
+
+    /**
+     * Test the execute method of AddExpenseCommand with an empty description.
+     * Verifies that a FinanceBuddyException is thrown, and no entries are added to financiallist.
+     */
+    @Test
+    void execute_addExpenseWithEmptyDescription_expectErrorMessage() {
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addExpenseCommand = new AddExpenseCommand(1, "", "01/11/24", Expense.Category.OTHER);
+            addExpenseCommand.execute(financialList);
+        });
+
+        assertEquals("Description cannot be blank.", exception.getMessage());
+        assertEquals(0, financialList.getEntryCount());
+    }
+
+    /**
+     * Test the execute method of AddExpenseCommand with a blank description.
+     * Verifies that a FinanceBuddyException is thrown, and no entries are added to financiallist.
+     */
+    @Test
+    void execute_addExpenseWithBlankDescription_expectErrorMessage() {
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addExpenseCommand = new AddExpenseCommand(1, " ", "01/11/24", Expense.Category.OTHER);
+            addExpenseCommand.execute(financialList);
+        });
+
+        assertEquals("Description cannot be blank.", exception.getMessage());
+        assertEquals(0, financialList.getEntryCount());
+    }
 }

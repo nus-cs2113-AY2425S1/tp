@@ -1,0 +1,43 @@
+@startuml
+participant Logic
+participant BudgetLogic
+participant Budget
+participant AppUi
+
+
+Logic -> BudgetLogic: changeBalanceFromExpense(amount, date)
+activate BudgetLogic
+
+BudgetLogic -> Budget: isBudgetSet()
+activate Budget
+Budget --> BudgetLogic: return boolean
+deactivate Budget
+
+opt budget is set
+    BudgetLogic -> BudgetLogic: isCurrentMonth(date)
+    activate BudgetLogic
+    BudgetLogic --> BudgetLogic: return boolean
+    deactivate BudgetLogic
+
+    opt date is in current month
+        BudgetLogic -> BudgetLogic: modifyBalance(amount)
+        activate BudgetLogic
+        BudgetLogic --> BudgetLogic
+        deactivate BudgetLogic
+
+        BudgetLogic -> BudgetLogic: hasExceededBudget()
+        activate BudgetLogic
+        BudgetLogic --> BudgetLogic: return boolean
+        deactivate BudgetLogic
+
+        opt budget has exceeded
+            BudgetLogic -> AppUi: displayBudgetBalanceExceededMessage(budgetAmount)
+        end
+
+        BudgetLogic -> AppUi: displayBudgetBalanceMessage(balance)
+    end
+end
+
+BudgetLogic --> Logic
+deactivate BudgetLogic
+@enduml
