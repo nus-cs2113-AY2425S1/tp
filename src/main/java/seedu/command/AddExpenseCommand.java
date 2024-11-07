@@ -18,7 +18,6 @@ public class AddExpenseCommand extends AddTransactionCommand {
     public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/", "c/"};
-    public static final String ERROR_MESSAGE = "Error creating Expense!";
 
     private final UI ui;
     private final CategoryList categoryList;

@@ -17,10 +17,10 @@
 	Error creating category: Duplicated category.
 	-------------------------------------
 	-------------------------------------
-	Transaction added: Income [amount=5000.0, description=Salary, date=2024-11-01]
+	Transaction added: Income [amount=5000.0, description=Salary, date=2024-11-01 2359]
 	-------------------------------------
 	-------------------------------------
-	Transaction added: Income [amount=1000.0, description=, date=2024-11-01]
+	Transaction added: Income [amount=1000.0, description=, date=2024-11-01 2359]
 	-------------------------------------
 	-------------------------------------
 	Error creating transaction: Invalid amount format: -100
@@ -29,18 +29,18 @@
 	Error creating transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
 	-------------------------------------
 	-------------------------------------
-	Transaction added: Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
+	Transaction added: Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
 	-------------------------------------
 	No category specified. Enter a category or type 'no' to skip: 	-------------------------------------
-	Transaction added: Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
+	Transaction added: Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
 	-------------------------------------
 	No category specified. Enter a category or type 'no' to skip: 	-------------------------------------
-	Transaction added: Expense [amount=15.0, description=Dinner, date=2024-11-01, category=NewCategory]
+	Transaction added: Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=NewCategory]
 	-------------------------------------
 	No category specified. Enter a category or type 'no' to skip: 	Category 'SomeCategory' does not exist.
 	Type 'yes' to create a new category or enter an existing category name: 	New category 'SomeCategory' created.
 	-------------------------------------
-	Transaction added: Expense [amount=15.0, description=, date=2024-11-01, category=SomeCategory]
+	Transaction added: Expense [amount=15.0, description=, date=2024-11-01 2359, category=SomeCategory]
 	-------------------------------------
 	-------------------------------------
 	Error creating transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
@@ -48,7 +48,7 @@
 	Category 'Luxury' does not exist.
 	Type 'yes' to create a new category or enter an existing category name: 	New category 'Luxury' created.
 	-------------------------------------
-	Transaction added: Expense [amount=1000000.0, description=, date=2024-11-07, category=Luxury]
+	Transaction added: Expense [amount=1000000.0, description=, date=2024-11-07 2359, category=Luxury]
 	-------------------------------------
 	-------------------------------------
 	Budget set: 2000.0
@@ -63,12 +63,12 @@
 	Category deleted: EmptyCategory
 	-------------------------------------
 	These expenses need modification: 
-	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=NewCategory]
+	Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=NewCategory]
 	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	-------------------------------------
 	Action cancelled.
 	-------------------------------------
 	These expenses need modification: 
-	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=NewCategory]
+	Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=NewCategory]
 	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	Category 'Lmao' does not exist. Current category:
 	Category: Food
 	Category: Entertainment
@@ -83,12 +83,12 @@
 	Action cancelled.
 	-------------------------------------
 	These expenses need modification: 
-	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=NewCategory]
+	Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=NewCategory]
 	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	-------------------------------------
 	Category deleted: NewCategory
 	-------------------------------------
 	These expenses need modification: 
-	Expense [amount=1000000.0, description=, date=2024-11-07, category=Luxury]
+	Expense [amount=1000000.0, description=, date=2024-11-07 2359, category=Luxury]
 	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	Category 'LessLuxury' does not exist. Current category:
 	Category: Food
 	Category: Entertainment
@@ -103,16 +103,16 @@
 	Category deleted: Luxury
 	-------------------------------------
 	These expenses need modification: 
-	Expense [amount=15.0, description=, date=2024-11-01, category=SomeCategory]
+	Expense [amount=15.0, description=, date=2024-11-01 2359, category=SomeCategory]
 	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	-------------------------------------
 	Category deleted: SomeCategory
 	-------------------------------------
 	-------------------------------------
-	1. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
-	2. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
-	3. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
-	4. Expense [amount=15.0, description=, date=2024-11-01, category=Groceries]
-	5. Expense [amount=1000000.0, description=, date=2024-11-07, category=LessLuxury]
+	1. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
+	2. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	3. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	4. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
+	5. Expense [amount=1000000.0, description=, date=2024-11-07 2359, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
 	1. Food
@@ -130,7 +130,7 @@
 	Failed to delete category: Can not find the given category in the category list
 	-------------------------------------
 	-------------------------------------
-	Transaction deleted: Income [amount=5000.0, description=Salary, date=2024-11-01]
+	Transaction deleted: Income [amount=5000.0, description=Salary, date=2024-11-01 2359]
 	-------------------------------------
 	-------------------------------------
 	Failed to delete transaction: Your index is out of bound! Current list size: 6
@@ -139,25 +139,25 @@
 	Failed to delete transaction: Your index has invalid number format.
 	-------------------------------------
 	-------------------------------------
-	1. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
-	2. Expense [amount=15.0, description=, date=2024-11-01, category=Groceries]
+	1. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
+	2. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
 	-------------------------------------
 	-------------------------------------
-	1. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
-	2. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
-	3. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
-	4. Expense [amount=15.0, description=, date=2024-11-01, category=Groceries]
-	5. Expense [amount=1000000.0, description=, date=2024-11-07, category=LessLuxury]
+	1. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
+	2. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	3. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	4. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
+	5. Expense [amount=1000000.0, description=, date=2024-11-07 2359, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
 	Failed to retrieve transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
 	-------------------------------------
 	-------------------------------------
-	1. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
-	2. Expense [amount=15.0, description=, date=2024-11-01, category=Groceries]
+	1. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
+	2. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
 	-------------------------------------
 	-------------------------------------
-	1. Income [amount=1000.0, description=, date=2024-11-01]
+	1. Income [amount=1000.0, description=, date=2024-11-01 2359]
 	-------------------------------------
 	-------------------------------------
 	Failed to retrieve transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
@@ -168,12 +168,12 @@
 	Net Total: $-999065.00
 	-------------------------------------
 	-------------------------------------
-	1. Income [amount=1000.0, description=, date=2024-11-01]
-	2. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
-	3. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
-	4. Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
-	5. Expense [amount=15.0, description=, date=2024-11-01, category=Groceries]
-	6. Expense [amount=1000000.0, description=, date=2024-11-07, category=LessLuxury]
+	1. Income [amount=1000.0, description=, date=2024-11-01 2359]
+	2. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
+	3. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	4. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	5. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
+	6. Expense [amount=1000000.0, description=, date=2024-11-07 2359, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
 	Failed to retrieve transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
@@ -194,15 +194,15 @@
 	Invalid command.
 	-------------------------------------
 	-------------------------------------
-	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
-	Expense [amount=15.0, description=Dinner, date=2024-11-01, category=]
+	Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
 	-------------------------------------
 	-------------------------------------
 	Lack mandatory arguments.
 	search k/ [keyword_1] [keyword_2] ... [keyword_n]
 	-------------------------------------
 	-------------------------------------
-	Transaction updated: Expense [amount=15.0, description=, date=2024-11-01, category=Food]
+	Transaction updated: Expense [amount=15.0, description=, date=2024-11-01 2359, category=Food]
 	-------------------------------------
 	-------------------------------------
 	Failed to update transaction: Can not find the given category in the category list
