@@ -1,0 +1,29 @@
+@startuml
+
+class DailyRecord {
+    - logger : Logger
+    - getCaloriesFromMeal() : int
+    - getTotalWaterIntake() : float
+    + getDayFromRecord() : Day
+    + getMealList() : MealList
+    + getWater() : Water
+    + logDay(day : Day) : void
+    + addMealToRecord(meal : Meal) : void
+    + deleteMealFromRecord(index : int) : Meal
+    + addWaterToRecord(water : Water) : void
+    + removeWaterFromRecord(index : int) : Water
+    + toString() : String
+}
+
+class Day
+class MealList
+class Water
+class Meal
+
+DailyRecord "1" --> "1" Day : day
+DailyRecord "1" --> "1" MealList : mealList
+DailyRecord "1" --> "1" Water : water
+
+DailyRecord ..> Meal
+
+@enduml
