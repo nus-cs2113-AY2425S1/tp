@@ -51,7 +51,7 @@ Lists out the full list of usable commands.
 
 ![UG_add1](screenshots/UG_Help.png)
 
----
+<hr>
 
 ### Add Transaction
 
@@ -80,7 +80,7 @@ The `Add Transaction` command allows you to add either an income or expense entr
 Examples Without Optional Parameters (Date and Category omitted):<br>
 ![UG_add2](screenshots/UG_add2.png)
 
----
+<hr>
 
 ### Edit Transaction
 Edits an existing transaction in your financial list.
@@ -115,7 +115,7 @@ Edits the description, amount, and date of the 4th entry to be breakfast, 5 and 
 ![edit](screenshots/UG_edit5.png)<br>
 Edits the category of the 5th entry to be FOOD.
 
----
+<hr>
 
 ### Delete Transaction
 
@@ -131,7 +131,7 @@ The `Delete Transaction` command removes a specific entry from your financial li
 ![delete](screenshots/UG_delete.png)<br>
 Deletes the transaction at index 5 and 2 respectively in the financial list.
 
----
+<hr>
 
 ### List Transactions
 
@@ -154,8 +154,12 @@ Example Usage:
 Lists out all expenses and incomes. 
 Displays total cashflow (income - expenditure), and shows categories with the highest total expenditure and income respectively.
 
+<br>
+
 ![list](screenshots/UG_list2.png)<br>
 Lists out all expenses. Displays total expenditure, and shows category with highest total expenditure.
+
+<br>
 
 ![list](screenshots/UG_list3.png)<br>
 Lists out all incomes. Displays total income, and shows category with highest total income.
@@ -177,9 +181,13 @@ Lists out all expenses and incomes with date equal to or after 03/10/24.
 Displays total cashflow (income - expenditure) during that period, and shows
 categories with the highest total expenditure and income during that period respectively.
 
+<br>
+
 ![list](screenshots/UG_list5.png)<br>
 Lists out all expenses with dates before or equal to 03/10/24.
 Displays total expenditure + category with highest total expenditure during that period.
+
+<br>
 
 ![list](screenshots/UG_list6.png)<br>
 Lists out all incomes with dates between 03/10/24 and 10/10/24 inclusive.
@@ -196,7 +204,7 @@ Example Usage:
 
 ![list](screenshots/UG_List_wBudget.png)
 
----
+<hr>
 
 ### Set/Edit Budget
 
@@ -221,7 +229,7 @@ Initial budget setting option.
 ![budget](screenshots/UG_budget2.png)<br>
 Budget modification option to change budget amount.
 
----
+<hr>
 
 ### Saving Data
 Your Financial List will be stored in to `data/FinancialList.txt`, while your budget is stored in `data/Budget.txt`.
@@ -230,7 +238,7 @@ When you start the FinanceBuddy program, it will check if the `data/FinancialLis
 If do, it'll try to load the transactions and budget in the file row by row.
 Please do not modify these files manually, otherwise the transactions or the budget with incorrect format will not be loaded.
 
----
+<div style="page-break-after: always;"></div>
 
 ## Command Summary
 
