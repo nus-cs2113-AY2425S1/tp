@@ -7,7 +7,7 @@ public class ErrorMessages {
     public static final String INVALID_NUMBER_FORMAT = "Your index has invalid number format.";
     public static final String CATEGORY_NOT_FOUND = "Can not find the given category in the category list";
     public static final String BUDGET_NOT_FOUND = "Missing budget for given month";
-
+    public static final String NEGATIVE_BUDGET_AMOUNT = "Budget amount cannot be negative";
     // Update expense category
     public static final String NOT_AN_EXPENSE = "Your transaction is not an expense.";
 
