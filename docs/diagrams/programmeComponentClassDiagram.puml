@@ -1,0 +1,61 @@
+@startuml
+
+class ProgrammeList {
+    + currentActiveProgramme : int
+    + getProgrammeList() : ArrayList<Programme>
+    + getProgrammeListSize() : int
+    + insertProgramme(String programmeName, ArrayList<Day> days) : Programme
+    + deleteProgram(int index) : Programme
+    + getProgramme(int index) : Programme
+    + startProgramme(int index) : Programme
+}
+
+class Programme {
+    - programmeName : String
+    + getProgrammeName() : String
+    + getDay(int index) : Day
+    + insertDay(Day day) : void
+    + getDayCount() : int
+    + deleteDay(int index) : Day
+}
+
+class Day {
+    - name : String
+    + getName() : String
+    + getExercise(int index) : Exercise
+    + insertExercise(Exercise exercise) : void
+    + deleteExercise(int index) : Exercise
+    + getTotalCaloriesBurnt() : int
+}
+
+class Exercise {
+    - sets : int
+    - reps : int
+    - weight : int
+    - calories : int
+    - name : String
+    - updateSets(Integer newSets) : void
+    - updateReps(Integer newReps) : void
+    - updateWeight(Integer newWeight) : void
+    - updateName(String newName) : void
+    - updateCalories(Integer newCalories) : void
+    + updateExercise(ExerciseUpdate update) : void
+    + getCalories() : int
+    + getWeight() : int
+    + getName() : String
+}
+
+class ExerciseUpdate {
+    - sets : Integer
+    - reps : Integer
+    - weight : Integer
+    - calories : Integer
+    - name : String
+}
+
+ProgrammeList "1" --> "*" Programme : programmeList
+Programme "1" --> "*" Day : dayList
+Day "1" --> "*" Exercise : exerciseList
+Exercise ..> ExerciseUpdate
+
+@enduml
