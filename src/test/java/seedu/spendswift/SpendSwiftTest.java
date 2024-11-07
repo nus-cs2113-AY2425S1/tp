@@ -9,6 +9,7 @@ import seedu.spendswift.command.Budget;
 import seedu.spendswift.command.Category;
 import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.BudgetManager;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -353,16 +354,41 @@ class BudgetManagerTest {
 
     @Test
     void testSetBudgetForNonExistingCategory() {
-        BudgetManager budgetManager = new BudgetManager();
-        TrackerData trackerData = new TrackerData();
-        String categoryName = "Entertainment";
-        double limit = 300.0;
-        budgetManager.setBudgetLimit(trackerData, categoryName, limit);
-        Category category = findCategory(trackerData, categoryName);
-        assertNotNull(category);
-        assertTrue(trackerData.getBudgets().containsKey(category));
-        assertEquals(limit, trackerData.getBudgets().get(category).getLimit());
-    }
+    BudgetManager budgetManager = new BudgetManager();
+    TrackerData trackerData = new TrackerData();
+    Random random = new Random();
+
+    // Generate a unique random category name
+    String uniqueCategoryName;
+    do {
+        uniqueCategoryName = generateRandomWord(random, 10); // Generate a random word of length 10
+    } while (findCategory(trackerData, uniqueCategoryName) != null); // Ensure the name is not already in use
+
+    double limit = 300.0;
+
+    // Confirm that the unique category does not exist initially
+    Category category = findCategory(trackerData, uniqueCategoryName);
+    assertNull(category, "Category should initially be null, indicating it doesn't exist.");
+
+    // Set the budget for the non-existing unique category
+    budgetManager.setBudgetLimit(trackerData, uniqueCategoryName, limit);
+
+    // Verify that the category now exists
+    category = findCategory(trackerData, uniqueCategoryName);
+    assertNotNull(category, "Category should not be null after setting budget limit.");
+    
+    // Verify the budget limit was set correctly
+    assertTrue(trackerData.getBudgets().containsKey(category), "Budget should contain the new category.");
+    assertEquals(limit, trackerData.getBudgets().get(category).getLimit(), "Budget limit should match the set limit.");
+}
+
+// Method to generate a random word of specified length
+private String generateRandomWord(Random random, int wordLength) {
+    return random.ints('a', 'z' + 1)
+                 .limit(wordLength)
+                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                 .toString();
+}
 
     @Test
     void testSetBudgetWithInvalidLimit() {
