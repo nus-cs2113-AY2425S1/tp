@@ -320,11 +320,13 @@ class ExpenseManagerTest {
 }
 
 class BudgetManagerTest {
-
+    private BudgetManager budgetManager;
+    private TrackerData  trackerData;
+    
     @BeforeEach
     void setUp() {
-        BudgetManager budgetManager = new BudgetManager();
-        TrackerData trackerData = new TrackerData();
+         budgetManager = new BudgetManager();
+         trackerData = new TrackerData();
     }
 
     private Category findCategory(TrackerData trackerData, String categoryName) {
