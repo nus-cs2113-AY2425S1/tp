@@ -79,6 +79,7 @@ public class Parser {
         if (inputArgs.length < 2) {
             if (!(command instanceof SortCommand)) {
                 ui.showOutput("Please input some ID or flag following the command");
+                logger.log(Level.WARNING, "Invalid Command: " + input);
                 return null;
             }
             return new ArrayList<>();
