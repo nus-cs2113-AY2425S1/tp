@@ -240,7 +240,9 @@ The `Parser` class is responsible for interpreting user commands and extracting 
        - Pass the remaining `argumentString` after the keyword to the next recursive call
      - If not found (mean that the last keyword reached):
        - Attach the remaining part with the previously found keyword and put in to `arguments`.
-           
+
+     ![getArguments](./diagrams/parser/parse-arguments-activity.png)
+   
 ## Product scope
 ### Target user profile
 #### Demographics:

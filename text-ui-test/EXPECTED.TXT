@@ -3,6 +3,8 @@
 	No existing budget file found. Starting fresh.
 	Hello, uNivUSaver is willing to help!
 	Remember to record your spending today so you can track your spending accurately.
+	Expenses for NOVEMBER: $0.0
+	Incomes for NOVEMBER: $0.0
 	Today's total spending: $0.0
 	-------------------------------------
 	Category added: Groceries
