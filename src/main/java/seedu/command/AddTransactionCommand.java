@@ -33,6 +33,13 @@ public abstract class AddTransactionCommand extends Command {
         if (dateStr == null || dateStr.isEmpty()) {
             return LocalDateTime.now().format(DEFAULT_FORMATTER);
         }
+        String[] datetimeParts = dateStr.trim().split(" ", 2);
+
+        // If only the date is provided, append time as "2359" (23:59 AM)
+        if (datetimeParts.length == 1) {
+            dateStr += " 2359";
+        }
+
         DateTimeUtils.parseDateTime(dateStr); // Validates the date
         return dateStr;
     }
