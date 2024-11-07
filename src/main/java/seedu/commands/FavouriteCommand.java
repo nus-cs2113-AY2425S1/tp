@@ -33,11 +33,10 @@ public class FavouriteCommand extends Command {
         uiCommand.showOutput("The list of favourite internships have been displayed above");
     }
 
-    // rahul can change here also
     @Override
     public String getUsage() {
         return """
-                filter
-                Usage: filter -{flag} {field data}""";
+                favourite
+                Usage: favourite {Internship ID}""";
     }
 }
