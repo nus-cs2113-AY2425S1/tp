@@ -59,7 +59,7 @@ The `ExerciseUpdate` component,
 
 ### Meal Component
 
-![Meal and MealList Class Diagram](./images/mealAndMealListClassDiagrams.png)
+![Meal and MealList Class Diagram](./images/mealAndMealListClassDiagram.png)
 
 The `Meal` component,
 
@@ -184,6 +184,8 @@ The following diagram documents all `ProgrammeCommand` subclasses.
 
 `common` package contains utility classes that are used across the multiple packages.
 
+---
+
 ## Implementation
 
 ### Save/Load Feature
@@ -236,6 +238,8 @@ The following sequence diagram shows how a load operation for ProgrammeList goes
 
 The following sequence diagram shows how a save operation goes through the Storage component:
 ![Sequence Diagram for Save operation](./images/saveSeqeunceDiagram.png)
+
+---
 
 ## WeeklySummary Feature
 
@@ -398,6 +402,8 @@ The diagram shows the interactions among different classes and objects during th
 
 The **Add Meal** feature uses a **hierarchical command pattern** to manage meal additions while maintaining good encapsulation and separation of concerns. The chosen design allows easy extensibility and maintainability.
 
+---
+
 ### Create Programme Feature
 
 #### Feature Overview
@@ -435,6 +441,7 @@ This flow allows users to easily create structured workout routines, customizing
 
 The overall design that enables this functionality is described generically by the following sequence diagram.
 ![](images/createCommand.png)
+
 
 ## Documentation, logging, testing, configuration, dev-ops
 
