@@ -176,19 +176,17 @@ Transport: $45 spent, $55 remaining
 Entertainment: No budget set
 ```
 
-### Set Regular Monthly Reset of Budget: set-budget-reset
-Automatically resets the budget for each category at the start of a new month.
+### Set Regular Monthly Reset of Budget: toggle-reset
+Automatically resets the budget for each category at the start of a new month when turned on.
 
 Format:
-`set-budget-reset ON/OFF`
+`toggle-reset`
 
-- `ON/OFF`
-  - This parameter is required.
-  - on: Enables automatic monthly budget reset.
-  - off: Disables automatic monthly budget reset.
+- No parameters are required.
+- It would automatically switch to the other setting. 
+  - If automatic budget reset is off, `toggle-reset` would turn it on, vice versa.
 
-Example:
-- `set-budget-reset on`
+Example output:
 
 ## V2 Features (Coming soon)
 ### Menu
