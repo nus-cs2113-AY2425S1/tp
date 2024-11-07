@@ -17,26 +17,23 @@ public class Messages {
     public static final String LIST_UPCOMING_REMINDER_COMMAND = "upcoming-remind";
     public static final String EDIT_MOOD_COMMAND = "edit-mood";
     public static final String EXIT_COMMAND = "exit";
-    public static final String ADD_GOAL = "add_goal";
-    public static final String DELETE_GOAL = "delete_goal";
-    public static final String LIST_GOAL = "LIST_goal";
-    public static final String PULL_UP_ACRONYM = "PU";
-    public static final String SHUTTLE_RUN_ACRONYM = "SR";
-    public static final String SIT_AND_REACH_ACRONYM = "SAR";
-    public static final String SIT_UP_ACRONYM = "SU";
-    public static final String STANDING_BROAD_JUMP_ACRONYM = "SBJ";
-    public static final String WALK_AND_RUN_ACRONYM = "WAR";
+    public static final String ADD_GOAL_COMMAND = "add-goal";
+    public static final String DELETE_GOAL_COMMAND = "delete-goal";
+    public static final String LIST_GOAL_COMMAND = "list-goal";
     public static final String ADD_WATER_COMMAND = "add-water";
     public static final String DELETE_WATER_COMMAND = "delete-water";
     public static final String LIST_WATER_COMMAND = "list-water";
     public static final String ADD_FOOD_COMMAND = "add-food";
     public static final String DELETE_FOOD_COMMAND = "delete-food";
     public static final String LIST_FOOD_COMMAND = "list-food";
-    public static final String ADD_CALORIES_COMMAND = "add-calories";
-    public static final String DELETE_CALORIES_COMMAND = "delete-calories";
-    public static final String LIST_CALORIES_COMMAND = "list-calories";
+    public static final String LIST_INTAKE_COMMAND = "list-intake";
 
-
+    public static final String PULL_UP_ACRONYM = "PU";
+    public static final String SHUTTLE_RUN_ACRONYM = "SR";
+    public static final String SIT_AND_REACH_ACRONYM = "SAR";
+    public static final String SIT_UP_ACRONYM = "SU";
+    public static final String STANDING_BROAD_JUMP_ACRONYM = "SBJ";
+    public static final String WALK_AND_RUN_ACRONYM = "WAR";
 
     public static final String INIT_SENTENCE = "Hello! I'm FitTrack."
             + System.lineSeparator() + "Please input your gender and age:";
@@ -47,6 +44,8 @@ public class Messages {
             + System.lineSeparator() + "list                                                             list"
             + System.lineSeparator() + "view (session index)                                             view 1"
             + System.lineSeparator() + "edit (session index) (exercise acronym) (repetitions/time)       edit 1 PU 1"
+            + System.lineSeparator() + "edit-mood (session index) (mood description)                     "
+            + "edit-mood 1 Sad"
             + System.lineSeparator() + "delete (session index)                                           delete 1"
             + System.lineSeparator() + "remind (Event / Task) (deadline)                                 remind " +
             "NAPFA DD/MM/YYYY"
@@ -66,12 +65,6 @@ public class Messages {
             + "100"
             + System.lineSeparator() + "delete-food (index)                                              delete-food 1"
             + System.lineSeparator() + "list-food                                                        list-food"
-            + System.lineSeparator() + "add-calories (calorie amount)                                    add-calories"
-            + "200"
-            + System.lineSeparator() + "delete-calories (index)                                          "
-            + "delete-calories 1"
-            + System.lineSeparator() + "list-calories                                                    list-calories"
-            + System.lineSeparator() + "edit-mood (session index) (mood description)                     add-mood 1 Sad"
             + System.lineSeparator() + "list-intake                                                      list-intake"
             + System.lineSeparator() + "exit                                                             exit";
     public static final String LIST_SESSION_MESSAGE = "Here are your training sessions:";

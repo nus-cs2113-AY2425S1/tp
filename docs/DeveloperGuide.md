@@ -33,16 +33,18 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 **Commons** and **Exceptions** represent a collection of lower level Classes and Exceptions used by the main classes above.
 **Commons** classes are as follows:
 
-| Class           | Functionality                                                                                                |
-|-----------------|--------------------------------------------------------------------------------------------------------------|
-| FitTrackLogger  | Manages logging for the application, ensuring errors and important events are properly recorded              |
-| TrainingSession | Represents a single training session, including exercises and metadata (e.g. date and description)           |
-| Exercise        | Represents different types of exercises available in the application, like pull-ups or shuttle runs          |
-| MoodLog         | Allows users to add, view, and delete mood entries, tracking mental health progress over time                |
-| FitnessGoal     | Allows users to set, list, and delete specific goals related to fitness and overall well-being               |
-| FoodTracker     | Enables users to log, view, and delete food items, with calorie tracking for nutritional monitoring          |
-| WaterTracker    | Allows users to add, view, and delete water intake logs to monitor daily hydration levels                    |
-|-----------------|--------------------------------------------------------------------------------------------------------------|
+| Class             | Functionality                                                                                                   |
+|-------------------|-----------------------------------------------------------------------------------------------------------------|
+| FitTrackLogger    | Manages logging for the application, ensuring errors and important events are properly recorded                 |
+| TrainingSession   | Represents a single training session, including exercises and metadata (e.g. date and description)              |
+| Exercise          | Represents different types of exercises available in the application, like pull-ups or shuttle runs             |
+| GraphPerformance  | Visualises performance metrics for a specific exercise, adapting for time-based or rep-based tracking.          |
+| GraphPoints       | Illustrates the cumulative points earned across sessions, showcasing overall fitness progress and achievements. |
+| MoodLog           | Allows users to add, view, and delete mood entries, tracking mental health progress over time                   |
+| FitnessGoal       | Allows users to set, list, and delete specific goals related to fitness and overall well-being                  |
+| FoodTracker       | Enables users to log, view, and delete food items, with calorie tracking for nutritional monitoring             |
+| WaterTracker      | Allows users to add, view, and delete water intake logs to monitor daily hydration levels                       |
+| ----------------- | --------------------------------------------------------------------------------------------------------------  |
 
 The following Class Diagram elaborates on the interactions between all the classes and their multiplicities.
 
@@ -198,7 +200,7 @@ method. The main responsibility of this method is to invoke the `calculatePoints
 respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), which holds the points calculation logic.
 
 #### 2.  Sequence of Events:
-![getPointsSequenceDiagram.png](getPointsSequenceDiagram.png)
+![getPointsSequenceDiagram.png](Images/getPointsSequenceDiagram.png)
 
 1. **User Inputs Performance**: The user’s performance (e.g., number of pull-ups) is passed to the
    `setPerformance()` method in the exercise station.
@@ -209,60 +211,85 @@ respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), w
 3. **Calculator Logic**: The calculator class uses a lookup table, which maps the user's performance 
    to points based on their age and gender. The points are returned to the exercise station, where they are stored.
 
-### Points/Performance Visualisation 
-The `Graph` class is responsible for creating and displaying various visualizations of training session data. 
-It supports three types of graphing functions:
+### Training Data Visualisation (Points/Performance)
+This **visualization feature** called from the `Ui` class enables users to generate various visualizations of training 
+session data, providing insights into progress and performance. This feature, due to its size and complexity, is 
+implemented in helper classes instead of directly within `Ui`.
+
+The `GraphPerformance` and `GraphPoints` classes handle data visualization for training sessions, each designed to offer 
+targeted graphing capabilities:
+   - `GraphPoints`: Displays points accumulated across training sessions.
+   - `GraphPerformance`: Focuses on visualising performance metrics (reps or timings) for specific exercises.
+
+These classes inherit from the abstract `GraphBase` class, which consolidates shared methods for both subclasses.
+A class diagram is provided below to illustrate the structure and inheritance of the these classes:
+
+![Class_GraphOverview.png](Images/Class_GraphOverview.png)
+
+#### `GraphPoints` Class
+The `GraphPoints` class provides two main functions to visualise points across training sessions, as outlined below:
 
    1. `graphSessions(ArrayList<TrainingSession> sessionList)`
-      - Displays the total points achieved per session, across training sessions.
+      - Purpose: Display the total points achieved in each training session.
+      - Usage: Takes a list of `TrainingSession` objects and outputs a graph showing cumulative points per session.
       
    2. `graphExercisePoints(Exercise exercise, ArrayList<TrainingSession> sessionList)`
-      - Show points progression for a specific exercise across training sessions.
-      
-   3. `graphExercisePerformance(Exercise exercise, ArrayList<TrainingSession> sessionList)`
-      - Visualizes the reps or timings achieved for a specific exercise over training sessions.
-   
-> These functions are designed as static class methods because they work independently of instance-specific data, 
-> focusing on session data passed as parameters. Helper functions are primarily used to format and build graph strings, 
-> with the final output displayed directly to the CLI within these main functions.
+      - Purpose: Visualise points progression for a specified exercise over multiple sessions.
+      - Usage: Takes an `Exercise` object and a list of `TrainingSession` objects, displaying a points graph focused on 
+the specified exercise.
 
-#### Displaying point graphs (Function 1 and 2)
-The functions `graphSessions` and `graphExercisePoints` follow a similar workflow to visualize points across sessions. 
-Only `graphSessions` will be explained/shown for clarity. The core steps in the workflow are as follows:
+#### Workflow of the graphing functions
+For both `graphSessions` and `graphExercisePoints`, the workflow is as follows:
 
-1. **Header Generation**:
-   - The header string is generated first to provide context for each column in the visualization.
+   1. **Header Generation**:
+      - The header string is generated to provide context for each column in the visualization.
 
-2. **Row Generation**:
-   - Each row, representing a training session, is progressively generated.
-   - Rows are appended to the main `StringBuilder`, which accumulates the entire graph's content.
+   2. **Row Generation**:
+      - Each row, representing a training session, is iteratively generated.
+      - Rows are appended to the main `StringBuilder`, which accumulates the entire graph's content.
 
-3. **CLI Output**:
-   - The accumulated graph string is printed to the CLI,
+   3. **CLI Output**:
+      - The accumulated graph string is printed to the CLI.
+
+A sequence diagram is shown below to illustrate the workflow:
 
 ![Sequence_graphSessions.png](Images/Sequence_graphSessions.png)
 
-> Note: The difference between graphSessions and graphExercisePoints lies in the initial printed string and whether 
-> getTotalPoints or getExercisePoints is called within each row.
+> Note: The primary difference between `graphSessions` and `graphExercisePoints` lies in the initial printed string and 
+> the calculation method called. (`getTotalPoints` for sessions, `getExercisePoints` for specific exercises).
+   
+#### `GraphPerformance` Class
+The `GraphPerformance` class is an abstract base for generating visual representations of exercise performance across 
+multiple training sessions. Given the need for varied visualisation styles based on exercise type, `GraphPerformance` is 
+extended by two specific subclasses:
 
-#### Displaying performance graphs (Function 3)
-The `graphExercisePerformance` function visualizes specific performance levels (like reps or timing) achieved for an 
-exercise across multiple sessions. The core steps in the workflow are as follows:
+   - `GraphPerformanceTime`: Handles time-based exercises. 
+   - `GraphPerformanceRepsDistance`: Manages rep-based and distance-based exercises.
 
-1. **Identify Maximum Performance Level**:
-   - Locate the highest performance level recorded for the specified exercise across all sessions.
-   - This directly corresponds to the upper range of the Y axis.
+Each subclass customizes the graph body content generation to reflect the nature of the exercise data.
+The shared aspects, including headers and basic layout, are handled in `GraphPerformance` to avoid repetitive code.
+The primary method of `GraphPerformance` is `graphExercisePerformance`, and handles both time based and rep based 
+visualisations for performance. Its workflow is described below. 
 
-2. **Generate Headers and Graph Content**:
-   - Format the X-axis headers with session descriptions and dates.
-   - Build rows iteratively based on session performance, with asterisks indicating reps/timings for each session.
+#### Workflow of `graphExercisePerformance` 
+   1. **Generate X-Axis Headers**
+      - Create a String for X-Axis headers, including session descriptions and dates.
 
-3. **Display Graph Output**:
-   - Print the final performance graph to the CLI, providing a visual representation of the user's progress over time.
+   2. **Generate Graph Body Content**
+      - Subclasses `GraphPerformanceTime` and `GraphPerformanceRepsDistance` generate their respective row content for 
+time or reps data, represented by asterisks. This row content is compiled in a String.
 
-![Sequence_graphExercisePerformance.png](Images/Sequence_graphExercisePerformance.png)
+   3. **Display Output to CLI** 
+      - Compiles the X-Axis headers, and body content in a String to display a complete graph. This is directly output 
+to the command line, allowing users to visualize exercise progress.          
 
+#### Static Design Rationale
+> All methods within `GraphPoints and `GraphPerformance` are static as they work independently of instance-specific
+> data. 
 
+#### `GraphPerformanceRepsDistance` Class
+
+#### `GraphPerformanceTime` Class
 
 
 ## Product scope
@@ -399,3 +426,27 @@ Any mainstream OS with Java 17 installed
    `Walk and Run Station | Time: NA | 0 points` <br>
    `Total points: 5` <br>
    `Overall Award: No Award` <br>
+
+**Delete a Training Session**
+1. Prerequisites: None. <br> <br>
+
+2. Test case 1: `delete` (No session index is inputted) <br>
+   Expected: `Please provide a valid session index.` <br> <br>
+
+   Test case 2: `delete -1` (Invalid session inputted) <br>
+   Expected: `Please provide a valid session index.` <br> <br>
+
+   Test case 3: `delete 1` (Input session index is valid) <br>
+   Expected:
+   `Got it. I've deleted this training session:session1` <br>
+   `There are 1 sessions in the list.` <br>
+
+**Exit FitTrackCLI**
+1. Prerequisites: None. <br> <br>
+
+2. Test case 1: `exit 1` (User's exit input contains extraneous non-empty characters) <br>
+   Expected: `I'm sorry, I don't know what that means.` <br> <br>
+
+   Test case 2: `exit` (User's exit input only contains the exit command.) <br>
+   Expected:
+   `Bye! Hope to see you again soon!` <br>

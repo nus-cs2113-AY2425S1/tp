@@ -19,18 +19,28 @@ import static fittrack.exception.ParserExceptions.validSessionIndex;
 import static fittrack.exception.ParserExceptions.validUser;
 import static fittrack.exception.ParserExceptions.parseUserInfo;
 import static fittrack.exception.ParserExceptions.validEditDetails;
+import static fittrack.messages.Messages.ADD_FOOD_COMMAND;
+import static fittrack.messages.Messages.ADD_GOAL_COMMAND;
 import static fittrack.messages.Messages.ADD_REMINDER_COMMAND;
 import static fittrack.messages.Messages.ADD_SESSION_COMMAND;
+import static fittrack.messages.Messages.ADD_WATER_COMMAND;
+import static fittrack.messages.Messages.DELETE_FOOD_COMMAND;
+import static fittrack.messages.Messages.DELETE_GOAL_COMMAND;
 import static fittrack.messages.Messages.DELETE_REMINDER_COMMAND;
 import static fittrack.messages.Messages.DELETE_SESSION_COMMAND;
+import static fittrack.messages.Messages.DELETE_WATER_COMMAND;
 import static fittrack.messages.Messages.EDIT_EXERCISE_COMMAND;
 import static fittrack.messages.Messages.EDIT_MOOD_COMMAND;
 import static fittrack.messages.Messages.HELP_COMMAND;
 import static fittrack.messages.Messages.INVALID_DATE_FORMAT_MESSAGE;
 import static fittrack.messages.Messages.INVALID_SESSION_INDEX_MESSAGE;
+import static fittrack.messages.Messages.LIST_FOOD_COMMAND;
+import static fittrack.messages.Messages.LIST_GOAL_COMMAND;
+import static fittrack.messages.Messages.LIST_INTAKE_COMMAND;
 import static fittrack.messages.Messages.LIST_REMINDER_COMMAND;
 import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
 import static fittrack.messages.Messages.LIST_UPCOMING_REMINDER_COMMAND;
+import static fittrack.messages.Messages.LIST_WATER_COMMAND;
 import static fittrack.messages.Messages.SET_USER_COMMAND;
 import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
 import static fittrack.storage.Storage.updateSaveFile;
@@ -45,6 +55,7 @@ import static fittrack.ui.Ui.printSessionList;
 import static fittrack.ui.Ui.printSessionView;
 import static fittrack.ui.Ui.printUnrecognizedInputMessage;
 import static fittrack.ui.Ui.printUpcomingReminders;
+import static fittrack.ui.Ui.printUpdatedMood;
 import static fittrack.ui.Ui.printUser;
 
 
@@ -126,7 +137,7 @@ public class Parser {
                 sessionList.add(validSession(description, user));
                 int sessionIndex = sessionList.size() - 1;
                 String sessionDescription = sessionList.get(sessionIndex).getSessionDescription();
-                printAddedSession(sessionList, sessionDescription);
+                printAddedSession(sessionList, sessionIndex);
                 updateSaveFile(sessionList, goalList, reminderList);  
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -199,7 +210,7 @@ public class Parser {
             printUpcomingReminders(reminderList);
             break;
 
-        case "add-goal":  // use "add-goal" consistently in input and command handling
+        case ADD_GOAL_COMMAND:  // use "add-goal" consistently in input and command handling
             if (!description.isEmpty()) {
                 String[] goalParts = description.split(" ", 2);
                 String goalDescription = goalParts[0];
@@ -223,7 +234,7 @@ public class Parser {
             updateSaveFile(sessionList, goalList, reminderList);
             break;
 
-        case "delete-goal":
+        case DELETE_GOAL_COMMAND:
             try {
                 int index = Integer.parseInt(description) - 1;
                 if (index >= 0 && index < goalList.size()) {
@@ -238,7 +249,7 @@ public class Parser {
             updateSaveFile(sessionList, goalList, reminderList);
             break;
 
-        case "list-goal":
+        case LIST_GOAL_COMMAND:
             if (goalList.isEmpty()) {
                 System.out.println("No goals to display.");
             } else {
@@ -249,21 +260,21 @@ public class Parser {
             }
             break;
 
-        case "add-water":
+        case ADD_WATER_COMMAND:
             int waterAmount = Integer.parseInt(description);
             user.getWaterIntake().addWater(waterAmount);
             break;
 
-        case "delete-water":
+        case DELETE_WATER_COMMAND:
             int waterIndex = Integer.parseInt(description) - 1;
             user.getWaterIntake().deleteWater(waterIndex);
             break;
 
-        case "list-water":
+        case LIST_WATER_COMMAND:
             user.getWaterIntake().listWater();
             break;
 
-        case "add-food":
+        case ADD_FOOD_COMMAND:
             String[] foodParts = description.split(" ", 2); // Split description into parts
             if (foodParts.length > 1) { // Ensure there are both food name and calories
                 String foodName = foodParts[0];
@@ -277,17 +288,14 @@ public class Parser {
                 System.out.println("Please provide both food name and calories.");
             }
             break;
-
-
-        case "delete-food":
+        case DELETE_FOOD_COMMAND:
             int foodIndex = Integer.parseInt(description) - 1;
             user.getFoodIntake().deleteFood(foodIndex);
             break;
 
-        case "list-food":
+        case LIST_FOOD_COMMAND:
             user.getFoodIntake().listFood();
             break;
-
 
         case EDIT_MOOD_COMMAND:
             String[] editMoodParts = description.split(" ", 2);
@@ -304,9 +312,9 @@ public class Parser {
 
                 // Call the edit method with the necessary arguments
                 TrainingSession sessionToEdit = sessionList.get(sessionId);
-
                 sessionToEdit.setMood(newMood);
-                System.out.println("Mood updated: " + newMood);
+                printUpdatedMood(sessionId, newMood);
+
             } catch (NumberFormatException e) {
                 System.out.println(INVALID_SESSION_INDEX_MESSAGE);
             } catch (Exception e) {
@@ -315,7 +323,7 @@ public class Parser {
             updateSaveFile(sessionList, goalList, reminderList);
             break;
 
-        case "list-intake":
+        case LIST_INTAKE_COMMAND:
             // Combine water, food, and calorie lists into one daily intake summary
             System.out.println("Here is your daily intake summary:");
 

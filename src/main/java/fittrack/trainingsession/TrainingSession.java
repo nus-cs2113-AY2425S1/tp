@@ -152,7 +152,7 @@ public class TrainingSession extends Saveable {
 
     }
 
-    public void printSessionDescription() {
+    public void printSessionInformation() {
         System.out.print(this.sessionDescription + " | " +
                 this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + System.lineSeparator());
     }
