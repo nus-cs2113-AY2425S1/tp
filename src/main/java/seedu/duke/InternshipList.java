@@ -28,6 +28,8 @@ public class InternshipList {
         favouriteInternships = new ArrayList<>();
     }
 
+    //@@author Ridiculouswifi
+
     public void addInternship(Internship internship) {
 
         assert internship != null : "Internship object cannot be null";
@@ -41,30 +43,27 @@ public class InternshipList {
         internships.add(internship);
     }
 
-    //@@author Ridiculouswifi
     /**
      * Returns whether the index given is within the boundaries of the list.
      */
     public boolean isWithinBounds(int index) {
-        if (index < 0 || index > internships.size()) {
-            ui.showInvalidIndex();
+        if (index < 0 || index >= internships.size()) {
             return false;
         }
         return true;
     }
 
     // Method to remove an internship by index (0-based)
-    public void removeInternship(int index) {
-        assert isWithinBounds(index) : "Index is out of bounds for removal";
-
-        if (isWithinBounds(index)) {
-            Internship internship = internships.remove(index);
-            assert internship != null : "Removed internship should not be null";
-
-            internship.clearDeadlines();
-            ui.showDeletedInternship(index + 1);
-            updateIds(); // Reassign IDs after removal
+    public void removeInternship(int index) throws InvalidIndex {
+        if (!isWithinBounds(index)) {
+            throw new InvalidIndex(index);
         }
+        Internship internship = internships.remove(index);
+        assert internship != null : "Removed internship should not be null";
+
+        internship.clearDeadlines();
+        ui.showDeletedInternship(index + 1);
+        updateIds(); // Reassign IDs after removal
     }
 
     // Private method to update the IDs after a removal
@@ -74,15 +73,21 @@ public class InternshipList {
         }
     }
 
+    //@@author Ridiculouswifi
+
     // Method to get an internship by index
     public Internship getInternship(int index) {
-        if (!isWithinBounds(index)) {
+        try {
+            if (!isWithinBounds(index)) {
+                throw new InvalidIndex(index);
+            }
+            return internships.get(index);
+        } catch (InvalidIndex ie) {
+            ui.showOutput(ie.getMessage());
             return null;
         }
-        return internships.get(index);
     }
 
-    //@@author Ridiculouswifi
     /**
      * Updates the specified field with new values.
      *
@@ -90,57 +95,46 @@ public class InternshipList {
      * @param field Specific attribute to update.
      * @param value Updated value
      */
-    public void updateField(int index, String field, String value)
-            throws InvalidIndex, InvalidStatus, InvalidDeadline {
-        try {
-            switch (field) {
-            case "status":
-                internships.get(index).updateStatus(value);
-                break;
-            case "skills":
-                internships.get(index).setSkills(value);
-                break;
-            case "role":
-                internships.get(index).setRole(value);
-                break;
-            case "company":
-                internships.get(index).setCompany(value);
-                break;
-            case "from":
-                internships.get(index).setStartDate(value);
-                break;
-            case "to":
-                internships.get(index).setEndDate(value);
-                break;
-            case "deadline":
-                internships.get(index).updateDeadline(value);
-                break;
-            default:
-                assert false: "All valid fields should we handled in individual cases";
-                break;
-            }
-        } catch (IndexOutOfBoundsException e) {
-            ui.showInvalidIndex();
-            throw new InvalidIndex();
+    public void updateField(int index, String field, String value) throws InvalidStatus, InvalidDeadline {
+        switch (field) {
+        case "status":
+            internships.get(index).updateStatus(value);
+            break;
+        case "skills":
+            internships.get(index).setSkills(value);
+            break;
+        case "role":
+            internships.get(index).setRole(value);
+            break;
+        case "company":
+            internships.get(index).setCompany(value);
+            break;
+        case "from":
+            internships.get(index).setStartDate(value);
+            break;
+        case "to":
+            internships.get(index).setEndDate(value);
+            break;
+        case "deadline":
+            internships.get(index).updateDeadline(value);
+            break;
+        default:
+            assert false : "All valid fields should we handled in individual cases";
+            break;
         }
     }
 
-    public void removeField(int index, String field, String value) throws InvalidIndex, MissingValue {
-        try {
-            switch (field) {
-            case "skills":
-                internships.get(index).removeSkill(value);
-                break;
-            case "deadline":
-                internships.get(index).removeDeadline(value);
-                break;
-            default:
-                assert false: "All valid fields should we handled in individual cases";
-                break;
-            }
-        } catch (IndexOutOfBoundsException e) {
-            ui.showInvalidIndex();
-            throw new InvalidIndex();
+    public void removeField(int index, String field, String value) throws MissingValue {
+        switch (field) {
+        case "skills":
+            internships.get(index).removeSkill(value);
+            break;
+        case "deadline":
+            internships.get(index).removeDeadline(value);
+            break;
+        default:
+            assert false : "All valid fields should we handled in individual cases";
+            break;
         }
     }
 
@@ -150,19 +144,23 @@ public class InternshipList {
         ui.showInternships(internships, "list");
     }
 
-    public void listAllInternships(ArrayList<Internship> internships) {
-        ui.showInternships(internships, "list");
+    public void listFavouriteInternshipsBySortedByID() {
+        ArrayList<Internship> sortedInternships = new ArrayList<>(favouriteInternships);
+
+        // Sort roles alphabetically, ignoring case sensitivity
+        sortedInternships.sort(Comparator.comparing(Internship::getId));
+        ui.showInternships(sortedInternships, "list");
     }
 
     public List<Internship> getAllInternships() {
         return Collections.unmodifiableList(internships);
     }
 
+    //@@author Toby-Yu
+
     public int getSize() {
         return internships.size();
     }
-
-    //@@author Toby-Yu
 
     /**
      * List all internships in sorted order by role alphabetically (case-insensitive)
@@ -310,7 +308,7 @@ public class InternshipList {
      * Lists all favourite internships sorted by the first skill alphabetically (case-insensitive).
      */
     public void listFavouriteInternshipsSortedByFirstSkill() {
-        ArrayList<Internship> sortedInternships= new ArrayList<>(favouriteInternships);
+        ArrayList<Internship> sortedInternships = new ArrayList<>(favouriteInternships);
 
         sortedByFirstSkillFunction(sortedInternships);
         ui.showInternships(sortedInternships, "skills in favourite");

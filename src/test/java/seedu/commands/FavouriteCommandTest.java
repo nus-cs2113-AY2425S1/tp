@@ -101,7 +101,9 @@ public class FavouriteCommandTest {
 
         favouriteCommand.execute(args);
 
-        assertFalse(favouriteCommand.functionComplete);
+        ArrayList<Internship> favouriteInternships = internships.favouriteInternships;
+
+        assert(favouriteInternships.isEmpty());
     }
 
     @Test
@@ -116,7 +118,9 @@ public class FavouriteCommandTest {
 
         favouriteCommand.execute(args);
 
-        assertFalse(favouriteCommand.functionComplete);
+        ArrayList<Internship> favouriteInternships = internships.favouriteInternships;
+
+        assertEquals(3, favouriteInternships.size());
     }
 
     @Test
@@ -131,6 +135,8 @@ public class FavouriteCommandTest {
 
         favouriteCommand.execute(args);
 
-        assertFalse(favouriteCommand.functionComplete);
+        ArrayList<Internship> favouriteInternships = internships.favouriteInternships;
+
+        assertEquals(3, favouriteInternships.size());
     }
 }

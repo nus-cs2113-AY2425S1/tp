@@ -33,15 +33,6 @@ class InternshipListTest {
 
     //@@author Ridiculouswifi
     @Test
-    void updateField_outOfBoundsIndex_expectThrow() {
-        initialiseInternshipList();
-
-        assertThrows(InvalidIndex.class,
-                () -> internshipList.updateField(1, "status", "Application Completed"));
-    }
-
-    //@@author Ridiculouswifi
-    @Test
     void updateField_invalidStartDate_expectThrow() {
         initialiseInternshipList();
 
@@ -86,15 +77,6 @@ class InternshipListTest {
         initialiseInternshipList();
 
         assertThrows(AssertionError.class, ()->internshipList.removeField(0, "status", "Java"));
-    }
-
-    //@@author Ridiculouswifi
-    @Test
-    void removeField_outOfBoundsIndex_expectThrow() {
-        initialiseInternshipList();
-
-        assertThrows(InvalidIndex.class,
-                () -> internshipList.removeField(1, "skills", "Java"));
     }
 
     //@@author Ridiculouswifi
