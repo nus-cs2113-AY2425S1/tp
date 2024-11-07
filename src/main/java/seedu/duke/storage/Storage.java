@@ -7,14 +7,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.io.FileNotFoundException;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import seedu.duke.budget.Budget;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.log.Log;
+import seedu.duke.log.LogLevels;
 import seedu.duke.logic.BudgetLogic;
 
 /**
@@ -53,7 +52,7 @@ import seedu.duke.logic.BudgetLogic;
 public class Storage {
     public static final String FINANCIAL_LIST_FILE_PATH = "data/FinancialList.txt";
     public static final String BUDGET_FILE_PATH = "data/Budget.txt";
-    private static final Logger logger = Logger.getLogger(Storage.class.getName());
+    private static final Log logger = Log.getInstance();
 
     public Storage() {
     }
@@ -135,7 +134,7 @@ public class Storage {
             Budget budget = budgetLogic.getBudget();
             budgetFileWritter.write(budget.toStorageString() + "\n");
             budgetFileWritter.close();
-            logger.log(Level.INFO, "Updated file with " + theList.getEntryCount() + " entries.");
+            logger.log(LogLevels.INFO, "Updated file with " + theList.getEntryCount() + " entries.");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -190,13 +189,13 @@ public class Storage {
             checkParameters(amount, description, formatter, date);
             return new Expense(amount, description, date, category);
         } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Error parsing amount in expense: " + tokens[1]);
+            logger.log(LogLevels.WARNING, "Error parsing amount in expense: " + tokens[1], e);
             throw e;
         } catch (IllegalArgumentException e) {
-            logger.log(Level.WARNING, "Error parsing category in expense: " + tokens[4]);
+            logger.log(LogLevels.WARNING, "Error parsing category in expense: " + tokens[4], e);
             throw e;
         } catch (DateTimeParseException e) {
-            logger.log(Level.WARNING, "Error parsing date in expense: " + tokens[3]);
+            logger.log(LogLevels.WARNING, "Error parsing date in expense: " + tokens[3], e);
             throw e;
         }
     }
@@ -222,13 +221,13 @@ public class Storage {
             checkParameters(amount, description, formatter, date);
             return new Income(amount, description, date, category);
         } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Error parsing amount in income: " + tokens[1]);
+            logger.log(LogLevels.WARNING, "Error parsing amount in income: " + tokens[1], e);
             throw e;
         } catch (IllegalArgumentException e) {
-            logger.log(Level.WARNING, "Error parsing category in income: " + tokens[4]);
+            logger.log(LogLevels.WARNING, "Error parsing category in income: " + tokens[4], e);
             throw e;
         } catch (DateTimeParseException e) {
-            logger.log(Level.WARNING, "Error parsing date in income: " + tokens[3]);
+            logger.log(LogLevels.WARNING, "Error parsing date in income: " + tokens[3], e);
             throw e;
         }
     }
@@ -251,7 +250,8 @@ public class Storage {
                 String amount = scBudget.nextLine();
                 Budget budget = new Budget();
                 if (Double.parseDouble(amount) < 0.01) {
-                    logger.log(Level.WARNING, "Budget amount should be more than 0.01, the budget won't be set.");
+                    logger.log(LogLevels.WARNING,
+                            "Budget amount should be more than 0.01, the budget won't be set.");
                     scBudget.close();
                     return ;
                 }
@@ -261,25 +261,26 @@ public class Storage {
                 try{
                     LocalDate.parse(date);
                 } catch (DateTimeParseException e) {
-                    logger.log(Level.WARNING, "Error parsing date in budget: " + date + ", setting to current date.");
+                    logger.log(LogLevels.WARNING,
+                            "Error parsing date in budget: " + date + ", setting to current date.");
                     date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 }
                 // check if the date is in past 
                 if (LocalDate.parse(date).isAfter(LocalDate.now())) {
                     budget.setBudgetSetDate(LocalDate.now());
-                    logger.log(Level.WARNING, "Budget date is in the future, setting to current date.");
+                    logger.log(LogLevels.WARNING, "Budget date is in the future, setting to current date.");
                 } else {
                     budget.setBudgetSetDate(LocalDate.parse(date));
                 }
                 budgetLogic.overwriteBudget(budget);
                 update(theList, budgetLogic);
             } catch (Exception e) {
-                logger.log(Level.WARNING, "Budget formate invalid, the budget won't be set.");
-                logger.log(Level.WARNING, e.getMessage());
+                logger.log(LogLevels.WARNING, "Budget formate invalid, the budget won't be set.");
+                logger.log(LogLevels.WARNING, e.getMessage());
             }
             scBudget.close();
         } catch(FileNotFoundException e){
-            logger.log(Level.WARNING, "File not found: " + e.getMessage() );
+            logger.log(LogLevels.WARNING, "File not found: " + e.getMessage() );
         }
     }
 
@@ -313,20 +314,21 @@ public class Storage {
                         theList.addEntry(parseIncome(tokens));
                         loadedIncomeCount++;
                     } else {
-                        logger.log(Level.WARNING, "Skiping logged transection cause storage formate invalid, " 
+                        logger.log(LogLevels.WARNING,
+                                "Skiping logged transection cause storage formate invalid, "
                                 + "unknown entry type: " + line.charAt(0));
                     }
                 } catch (Exception e) {
-                    logger.log(Level.WARNING, "Skiping logged transection cause storage formate invalid");
-                    logger.log(Level.WARNING, e.getMessage());
+                    logger.log(LogLevels.WARNING, "Skiping logged transection cause storage formate invalid");
+                    logger.log(LogLevels.WARNING, e.getMessage());
                 }
             }
-            logger.log(Level.INFO, "Loaded " + loadedExpenseCount + " expenses and " + 
+            logger.log(LogLevels.INFO, "Loaded " + loadedExpenseCount + " expenses and " +
                     loadedIncomeCount + " incomes from file.");
             sc.close();
             return theList;
         } catch(FileNotFoundException e){
-            logger.log(Level.WARNING, "File not found: " + e.getMessage() + "Creating new FinancialList.");
+            logger.log(LogLevels.WARNING, "File not found: " + e.getMessage() + "Creating new FinancialList.");
             return new FinancialList();
         }
     }
@@ -344,7 +346,7 @@ public class Storage {
             loadBudgetFromFile(theList, budgetLogic);
             return theList;
         } catch (Exception e) {
-            logger.log(Level.WARNING, "Error loading file: " + e.getMessage());
+            logger.log(LogLevels.WARNING, "Error loading file: " + e.getMessage());
             return new FinancialList();
         }
     }

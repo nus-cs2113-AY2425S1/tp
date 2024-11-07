@@ -5,6 +5,8 @@ import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.log.Log;
+import seedu.duke.log.LogLevels;
 import seedu.duke.parser.DateParser;
 import seedu.duke.ui.AppUi;
 
@@ -14,6 +16,7 @@ import java.time.LocalDate;
  * Handles the logic related to setting and modifying the budget.
  */
 public class BudgetLogic {
+    private static final Log logger = Log.getInstance();
     public Budget budget;
     private final AppUi ui;
 
@@ -43,6 +46,7 @@ public class BudgetLogic {
      */
     public void setBudget(FinancialList financialList) throws FinanceBuddyException {
         if (!budget.isBudgetSet()) {
+            logger.log(LogLevels.INFO, "Budget has not been set.");
             ui.displaySetBudgetMessage();
             handleSetBudget(financialList);
         } else {
@@ -77,7 +81,6 @@ public class BudgetLogic {
                 System.out.println("--------------------------------------------");
                 System.out.println("Invalid input. Please enter 'yes' or 'no'.");
                 System.out.println("--------------------------------------------");
-
             }
         }
 
@@ -99,10 +102,12 @@ public class BudgetLogic {
                         isAmountValid = true;
                     } else {
                         System.out.println("Budget amount must be >= $0.01. Please enter a valid amount.");
+                        logger.log(LogLevels.WARNING, "Amount less than $0.01 entered.");
                     }
 
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid input. Please enter a valid number:");
+                    logger.log(LogLevels.WARNING, "Invalid number entered.");
                 }
             }
 
@@ -114,10 +119,12 @@ public class BudgetLogic {
             System.out.println("Your current monthly balance is: " +
                     String.format("$ %.2f", budget.getBalance()));
             System.out.println("--------------------------------------------");
+            logger.log(LogLevels.INFO, "Budget set to " + String.format("$ %.2f", budget.getBudgetAmount()) + ".");
         } else {
             System.out.println("--------------------------------------------");
             System.out.println("Budget setting skipped.");
             System.out.println("--------------------------------------------");
+            logger.log(LogLevels.INFO, "Budget setting skipped.");
         }
     }
 
@@ -190,9 +197,12 @@ public class BudgetLogic {
             modifyBalance(amount);
             if (hasExceededBudget()) {
                 ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
+                logger.log(LogLevels.INFO, "Budget has been exceeded.");
             }
             ui.displayBudgetBalanceMessage(budget.getBalance());
+            logger.log(LogLevels.INFO, "Balance updated to " + String.format("$ %.2f", budget.getBalance()) + ".");
         }
+
     }
 
     /**
@@ -211,8 +221,10 @@ public class BudgetLogic {
             modifyBalance(amount);
             if (hasExceededBudget()) {
                 ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
+                logger.log(LogLevels.INFO, "Budget has been exceeded.");
             }
             ui.displayBudgetBalanceMessage(budget.getBalance());
+            logger.log(LogLevels.INFO, "Balance updated to " + String.format("$ %.2f", budget.getBalance()) + ".");
         }
     }
 
@@ -243,5 +255,6 @@ public class BudgetLogic {
             ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
         }
         ui.displayBudgetBalanceMessage(budget.getBalance());
+        logger.log(LogLevels.INFO, "Recalculation of balance complete.");
     }
 }
