@@ -56,7 +56,7 @@ public final class Parser {
             throw new InvalidCommandException("Invalid command: " + commandString);
         }
 
-        String command = m.group("command");
+        String command = m.group("command").trim();
         String args = m.group("args") == null ? "" : m.group("args").trim();
 
         int numRecipes = recipes.getCounter();
@@ -340,7 +340,7 @@ public final class Parser {
             throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + FindCommand.USAGE_EXAMPLE);
         }
 
-        String query = m.group("query");
+        String query = m.group("query").trim();
         String options = m.group("options");
         if (options == null) {
             return new FindCommand(query); // Default case, no option provided
