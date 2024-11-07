@@ -2,11 +2,13 @@ package seedu.duke.ui;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.budget.Budget;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.logic.BudgetLogic;
 import seedu.duke.logic.Logic;
 import seedu.duke.storage.Storage;
 
@@ -37,8 +39,10 @@ public class LogicTest {
     void setUp() {
         AppUi appUi = new AppUi();
         Storage storage = new Storage();
+        Budget budget = new Budget();
         FinancialList financialList = new FinancialList();
-        logic = new Logic(financialList, storage, appUi);
+        BudgetLogic budgetLogic = new BudgetLogic(budget, appUi);
+        logic = new Logic(financialList, storage, appUi, budgetLogic);
         System.setOut(new PrintStream(outputStream));
     }
 
@@ -65,7 +69,7 @@ public class LogicTest {
      */
     @Test
     void testMatchCommand_seeAllExpensesCommand() throws FinanceBuddyException {
-        LocalDate date1 = LocalDate.of(2024, 12, 29);
+        LocalDate date1 = LocalDate.of(2024, 10, 29);
         LocalDate date2 = LocalDate.of(2024, 10, 14);
 
         // add an expense to the financial list
@@ -89,6 +93,8 @@ public class LogicTest {
                 "Total expense: $ 100.00" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Highest Expense Category: FOOD ($100.00)" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "No budget has been set." + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         // Validate that the expected output is equal to the actual output
@@ -137,7 +143,7 @@ public class LogicTest {
      */
     @Test
     void testMatchCommand_editCommand() throws FinanceBuddyException {
-        LocalDate date1 = LocalDate.of(2024, 12, 17);
+        LocalDate date1 = LocalDate.of(2024, 10, 17);
 
         // Add an entry first to edit it later
         logic.financialList.addEntry(new Expense(100, "Initial Entry", date1, Expense.Category.UNCATEGORIZED));

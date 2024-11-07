@@ -33,8 +33,6 @@ public class AddExpenseCommand extends AddEntryCommand {
     ) throws FinanceBuddyException {
         super(amount, description, date);
         this.category = category;
-        assert amount > 0 : "Amount should be positive";
-        assert description != null && !description.isEmpty() : "Description should not be null or empty";
     }
 
     /**
