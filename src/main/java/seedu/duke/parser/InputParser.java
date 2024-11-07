@@ -42,7 +42,8 @@ public class InputParser {
     /**
      * Helper method to parse the arguments from the input array.
      */
-    private static void parseArguments(String[] splitInput, HashMap<String, String> commandArguments) throws FinanceBuddyException {
+    private static void parseArguments(String[] splitInput, HashMap<String, String> commandArguments)
+            throws FinanceBuddyException {
         String currentKey = ARGUMENT;
         StringBuilder currentValue = new StringBuilder();
 
@@ -75,7 +76,8 @@ public class InputParser {
     /**
      * Adds an argument to the map after validating it is not empty.
      */
-    private static void addArgument(HashMap<String, String> commandArguments, String key, String value) throws FinanceBuddyException {
+    private static void addArgument(HashMap<String, String> commandArguments, String key, String value)
+            throws FinanceBuddyException {
         if (!value.isEmpty()) {
             commandArguments.put(key, value);
         } else {
