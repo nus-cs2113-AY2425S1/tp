@@ -28,9 +28,9 @@ import java.util.stream.Collectors;
  */
 public class Storage {
 
-    private static final String TRANSACTIONS_PATH = "transactions.json";
-    private static final String CATEGORIES_PATH = "categories.json";
-    private static final String BUDGETS_PATH = "budgets.json";
+    private static String TRANSACTIONS_PATH = "transactions.json";
+    private static String CATEGORIES_PATH = "categories.json";
+    private static String BUDGETS_PATH = "budgets.json";
 
     private static final Gson gson;
     private static final UI ui = new UI();
@@ -178,5 +178,11 @@ public class Storage {
             ui.printMessage(String.format(ErrorMessages.ERROR_SAVING_BUDGETS, e.getMessage()));
             e.printStackTrace();
         }
+    }
+
+    public static void setPaths(String transactionsPath, String categoriesPath, String budgetsPath) {
+        TRANSACTIONS_PATH = transactionsPath;
+        CATEGORIES_PATH = categoriesPath;
+        BUDGETS_PATH = budgetsPath;
     }
 }
