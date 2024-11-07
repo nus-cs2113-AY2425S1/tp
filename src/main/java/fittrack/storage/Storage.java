@@ -131,7 +131,8 @@ public class Storage {
      * @throws IOException If any of the provided lists are null or if an I/O error occurs during writing.
      */
     public static void updateSaveFile(ArrayList<TrainingSession> sessionList, ArrayList<Goal> goalList,
-                                      ArrayList<Reminder> reminderList, FoodWaterIntake foodWaterList) throws IOException {
+                                      ArrayList<Reminder> reminderList,
+                                      FoodWaterIntake foodWaterList) throws IOException {
 
         // Determine  provided lists are not null before saving
         if (sessionList == null || goalList == null || reminderList == null) {

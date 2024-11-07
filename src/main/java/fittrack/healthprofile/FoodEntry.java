@@ -1,6 +1,5 @@
 package fittrack.healthprofile;
 
-import fittrack.fitnessgoal.Goal;
 import fittrack.storage.Saveable;
 
 import java.time.LocalDate;
