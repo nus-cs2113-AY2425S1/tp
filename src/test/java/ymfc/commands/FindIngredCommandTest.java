@@ -17,7 +17,7 @@ class FindIngredCommandTest {
     private RecipeList recipeList;
     private IngredientList ingredientList;
     private Ui ui;
-    private FindIngredCommand findIngredCommand;
+    private FindIngredientCommand findIngredCommand;
 
     @BeforeEach
     void setUp() {
@@ -56,7 +56,7 @@ class FindIngredCommandTest {
         assertEquals(1, recipeList.getCounter());
         assertEquals(4, ingredientList.getCounter());
 
-        findIngredCommand = new FindIngredCommand("tomato");
+        findIngredCommand = new FindIngredientCommand("tomato");
         try {
             findIngredCommand.execute(recipeList, ingredientList, ui, storage);
         } catch (Exception e) {
@@ -71,7 +71,7 @@ class FindIngredCommandTest {
         assertEquals(1, recipeList.getCounter());
         assertEquals(4, ingredientList.getCounter());
 
-        findIngredCommand = new FindIngredCommand("heavy cream");
+        findIngredCommand = new FindIngredientCommand("heavy cream");
         try {
             findIngredCommand.execute(recipeList, ingredientList, ui, storage);
         } catch (Exception e) {

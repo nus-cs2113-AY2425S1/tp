@@ -14,7 +14,7 @@ import ymfc.commands.DeleteCommand;
 import ymfc.commands.DeleteIngredientCommand;
 import ymfc.commands.EditCommand;
 import ymfc.commands.FindCommand;
-import ymfc.commands.FindIngredCommand;
+import ymfc.commands.FindIngredientCommand;
 import ymfc.commands.HelpCommand;
 import ymfc.commands.ListCommand;
 import ymfc.commands.ListIngredientCommand;
@@ -535,7 +535,7 @@ class ParserTest {
     })
     void parseCommand_findIngredientCommand_success(String command) {
         try {
-            assertInstanceOf(FindIngredCommand.class, parseCommand(command, recipes, ingredients));
+            assertInstanceOf(FindIngredientCommand.class, parseCommand(command, recipes, ingredients));
         } catch (Exception exception) {
             fail(exception.getMessage());
         }
