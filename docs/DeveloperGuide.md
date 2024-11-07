@@ -558,9 +558,9 @@ private double parseAmount(String amountStr) throws FinanceBuddyException {
   try {
     return Double.parseDouble(amountStr);
   } catch (NumberFormatException e) {
-    throw new FinanceBuddyException("Invalid amount. Please use a number.");
+    throw new FinanceBuddyException("Invalid amount.");
   } catch (NullPointerException e) {
-    throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
+    throw new FinanceBuddyException("Invalid argument.");
   }
 }
 ```
