@@ -40,13 +40,11 @@ The sequence diagram below shows how the components interact with each other whe
 
 ![ApplicationStartUp.png](img/SequenceDiagrams/ApplicationStartUp.png)
 
-(Note: The lifelines of objects cannot be hidden after the X in the PlantUML software used to make this class diagram)
-
 <div style="page-break-after: always;"></div>
 
 ### Ui Class
 The Ui class deals with taking in inputs from an input stream (in this case, the user input through `System.in`), 
-and then printing messages read-able by the user (through `System.out`). 
+and then printing messages read-able by the user (through `System.out`).
 
 ### Recipe Class
 The Recipe class represents a singular recipe added by the user or loaded from the storage database. 
@@ -79,8 +77,6 @@ This class handles the addition, deletion and editing of recipes.
 Shown below is a class diagram detailing the interaction between `RecipeList` and `Recipe`:
 ![RecipeClassDiagram.png](img/ClassDiagrams/recipesClassDiagram.png)
 
-<div style="page-break-after: always;"></div>
-
 ### Ingredient Class
 The 'Ingredient' class represents an individual ingredient added by the user or loaded from the storage database.
 
@@ -105,6 +101,8 @@ to be compared based on name alone in collections
      - Follows the format "new n/<ingredient_name>"
 
 The formatting of how an ingredient is displayed and saved is handled by this class.
+
+<div style="page-break-after: always;"></div>
 
 ### IngredientList Class
 The IngredientList class represents a list of ingredients.
@@ -281,8 +279,6 @@ Note: The getXYZCommand(args) method is used for commands that further need to e
 beyond just the command name, such as for the sort command which needs to extract from the input, the type of sort that
 is requested. In the example of the sort command, the getXYZCommand(args) method is called `getSortCommand()`.
 
-<div style="page-break-after: always;"></div>
-
 ### Storage Class
 The Storage class 
 - saves the User's added recipes to a .txt file
@@ -292,8 +288,6 @@ The Storage class
 
 ![saveRecipes.png](img/SequenceDiagrams/SaveRecipesSequenceDiagram.png)
 
-(Note: The lifelines of objects cannot be hidden after the X in the PlantUML software used to make this class diagram)
-
 <div style="page-break-after: always;"></div>
 
 - reads the .txt save file to load in past saved recipes when app is launched
@@ -301,8 +295,6 @@ The Storage class
     loads in past saved recipes from the .txt file when the app is first launched
 
 ![loadRecipes.png](img/SequenceDiagrams/LoadRecipesSequenceDiagram.png)
-
-(Note: The lifelines of objects cannot be hidden after the X in the PlantUML software used to make this class diagram)
 
 The Storage class also saves and loads the list of user's available ingredients to another .txt save file.
 The mechanisms with which it does so is highly similar to the 2 sequence diagrams above.
@@ -320,6 +312,8 @@ Cooks these days have more recipes than they know how to handle, and our product
 search through their recipes with ease. Users can also store their available inventory of ingredients. 
 Prompts, tags and ingredients can be used to search a curated database, and even recommend recipes that contain 
 whatever ingredients the user has on hand.
+
+<div style="page-break-after: always;"></div>
 
 ## User Stories
 
