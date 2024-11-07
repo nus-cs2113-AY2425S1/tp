@@ -310,18 +310,40 @@ Goals:
 ____________________________________________________________________________________________________
 ```
 
-### 17. Display Non-Time Station Graph
-**Purpose**: View the progress of User's performance for SitUpStation, PullUpStation, StandingBroadJumpStation
-and SitAndReachStation class in the form of a bar chart.
+### 17. Display Points Graph
+**Purpose**: Display the points the user has accumulated across different training sessions. Points can either reflect 
+the user’s total overall points or be specific to a chosen exercise.
 
-**Format**: `graph [exercise acronym]`
+**Format**: 
+    - **Overall Points**: Use `gpoints` to view total points for the training sessions.
+    - **Exercise specific points**: Use `gpoints [exercise acronmy]` to view points for a specific exercise in the 
+training session.
 
-**Example**: `graph ______` 
+**Example 1**: `gpoints` 
 
-**Expected Output**:
+**Expected Output 1**:
 ```
+Here's your point progression over the various training sessions:
+Session Description | Date             | Points
+--------------------|------------------|
+session1            | 07/11/2024 16:57 | ********* (9)
+session2            | 07/11/2024 16:57 | ************** (14)
+session3            | 07/11/2024 16:57 | *** (3)
+session4            | 07/11/2024 16:57 | ******* (7)
 ```
 
+**Example 2**: `gpoints PU`
+
+**Expected Output 2**:
+```
+Here's your point progression for PULL_UP over your training sessions:
+Session Description | Date             | Points
+--------------------|------------------|
+session1            | 07/11/2024 16:57 | * (1)
+session2            | 07/11/2024 16:57 | ** (2)
+session3            | 07/11/2024 16:57 | *** (3)
+session4            | 07/11/2024 16:57 | ***** (5)
+```
 
 ### 18. Display Time Station Graph
 **Purpose**: View the progress of User's performance for WalkAndRunStation class and ShuttleRunStation class 
