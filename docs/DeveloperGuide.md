@@ -458,8 +458,9 @@ The `ListPersonalTrackerCommand` is responsible for listing all the mapped modul
 
 #### How the Feature is Implemented:
 - The `ListPersonalTrackerCommand` class extends `CheckInformationCommand` and overrides the `execute` method to define custom behavior.
-- **Constructor:** The constructor accepts a `Storage` object to access stored course mappings.
+- The constructor accepts a `Storage` object to access stored course mappings.
 - **Execution Flow in `execute` Method:**
+  - Checks the data integrity of `myList.json` using `courseRepository.isFileValid`. If the data integrity fails, the command exits without further execution.
   - Calls `loadAllCourses` from the Storage class to retrieve the list of mapped modules.
   - If the list is empty, a message is displayed to inform the user that no modules have been mapped.
   - If there are mapped modules, it logs that modules will be displayed and then:
@@ -511,28 +512,19 @@ This command aids users in identifying common course mappings across the selecte
 unique course mappings specific to each university.
 
 #### How the Feature is Implemented
-The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides the `execute` method to define its custom behavior. Below is an outline of the execution flow:
+The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides the `execute` method to define its custom behavior. 
+Below is an outline of the execution flow:
 
-**Parsing User Input**:
+- Checks the data integrity of `myList.json` using `courseRepository.isFileValid`. If the data integrity fails, the command exits without further execution.
 - The command splits the user input based on the delimiter `pu/` to retrieve the names of the two universities specified by the user.
   - If fewer than two universities are specified, the `printInvalidInputFormat` method in the `UI` class is called to inform the user of incorrect input format.
-
-**Loading Data and Initial Checks**:
 - The command loads all course mappings from the `myList.json` file through the `Storage` class.
 - It verifies that the loaded list is not `null` through assertions.
-
-**Filtering Modules by University**:
 - The `filterModulesByUniversity` method takes the list of all modules and filters out only those associated with the specified university.
 - Logging is used to track this filtering process.
-
-**Extracting Course Codes**:
 - The `extractCourseCodes` method extracts the unique course codes for each university, enabling the subsequent comparison.
-
-**Identifying Common and Unique Course Codes**:
 - The `getCommonCourseCodes` method calculates the intersection of course codes between the two universities, identifying courses available in both.
 - The `getUniqueCourseCodes` method identifies unique courses by excluding the common course codes for each university.
-
-**Displaying Results**:
 - The `displayComparisonResults` method provides output for the comparison:
   - Common mappings are displayed first, showing courses available in both universities.
   - Unique mappings are shown next, detailing courses specific to each university.
