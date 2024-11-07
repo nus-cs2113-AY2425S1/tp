@@ -43,9 +43,9 @@ class CompareMappedCommandTest {
 
     @Test
     void execute_withValidUniversitiesAndCommonMappings_displaysCorrectOutput() {
-        mockedStorageData.add(new Course("COMP3670", "CS3244", "The Australian National University"));
-        mockedStorageData.add(new Course("INFO20003", "CS2102", "The University of Melbourne"));
-        mockedStorageData.add(new Course("COMP30027", "CS3244", "The University of Melbourne"));
+        mockedStorageData.add(new Course("comp3670", "cs3244", "the australian national university"));
+        mockedStorageData.add(new Course("info20003", "cs2102", "the university of melbourne"));
+        mockedStorageData.add(new Course("comp30027", "cs3244", "the university of melbourne"));
 
         command.execute("compare pu/The Australian National University pu/The University of Melbourne");
 
@@ -74,8 +74,8 @@ class CompareMappedCommandTest {
 
     @Test
     void execute_withValidUniversitiesNoCommonMappings_displaysNoCommonMappings() {
-        mockedStorageData.add(new Course("COMP2610", "CS3236", "The Australian National University"));
-        mockedStorageData.add(new Course("COMP30027", "CS3244", "The University of Melbourne"));
+        mockedStorageData.add(new Course("comp2610", "cs3236", "the australian national university"));
+        mockedStorageData.add(new Course("comp30027", "cs3244", "the university of melbourne"));
 
         command.execute("compare pu/The Australian National University pu/The University of Melbourne");
 
@@ -136,10 +136,10 @@ class CompareMappedCommandTest {
 
     @Test
     void execute_withCommonAndUniqueMappings_displaysBothCorrectly() {
-        mockedStorageData.add(new Course("COMP3670", "CS3244", "The Australian National University"));
-        mockedStorageData.add(new Course("COMP30027", "CS3244", "The University of Melbourne"));
-        mockedStorageData.add(new Course("COMP2610", "CS3236", "The Australian National University"));
-        mockedStorageData.add(new Course("COMP90007", "CS2105", "The University of Melbourne"));
+        mockedStorageData.add(new Course("comp3670", "cs3244", "the australian national university"));
+        mockedStorageData.add(new Course("comp30027", "cs3244", "the university of melbourne"));
+        mockedStorageData.add(new Course("comp2610", "cs3236", "the australian national university"));
+        mockedStorageData.add(new Course("comp90007", "cs2105", "the university of melbourne"));
 
         command.execute("compare pu/The Australian National University pu/The University of Melbourne");
 
