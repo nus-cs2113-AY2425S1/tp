@@ -8,7 +8,7 @@ public abstract class GraphPerformance extends GraphBase {
 
     static final int INVALID_TIME_VALUE = -1;
     static final int DATETIME_LENGTH = 16; //Length of Date format without spaces
-    public static final int OPTIMAL_GAP_LENGTH = 6;
+    static final int OPTIMAL_GAP_LENGTH = 6;
 
     //Returns line with properly spaced descriptions for the X axis
     private static String formatXHeaderDesc(int numSessions,
