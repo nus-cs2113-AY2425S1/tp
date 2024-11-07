@@ -163,7 +163,7 @@ The Logic constructor initializes key components (FinancialList, AppUi, and Stor
 **Sequence Diagram**:
 This sequence diagram illustrates how the `Logic` class works with other classes to execute an edit entry command
 
-<img src="UML/LogicSequence.png" alt="Logic Sequence" width="auto" height="auto">
+<img src="UML/LogicSequence.png" alt="Logic Sequence" width="auto" height="450">
 
 <ins>Methods</ins>
 
