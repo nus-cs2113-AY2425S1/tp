@@ -1,0 +1,121 @@
+@startuml
+
+actor User as user
+participant BuffBuddy
+participant Ui
+participant Parser
+participant CommandFactory
+participant ProgCommandFactory
+participant CreateProgrammeCommand
+participant ProgrammeList
+participant CommandResult
+
+
+user -> BuffBuddy: start BuffBuddy
+activate BuffBuddy
+
+BuffBuddy -> Ui: readCommand()
+activate Ui
+
+Ui --> BuffBuddy: fullCommand
+
+
+BuffBuddy -> Parser: parse(fullCommand)
+activate Parser
+
+Parser -> CommandFactory: createCommand(commandString, argumentString)
+activate CommandFactory
+
+alt commandString is prog command
+    CommandFactory -> ProgCommandFactory: parse(argumentString)
+    activate ProgCommandFactory
+
+    alt subcommand is create command
+        ProgCommandFactory -> ProgCommandFactory: prepareCreateCommand(arguments)
+        activate ProgCommandFactory
+
+
+        loop for each day
+            ProgCommandFactory -> ProgCommandFactory: parseDay(dayString)
+            activate ProgCommandFactory
+
+            ProgCommandFactory -> Day: Day()
+            activate Day
+
+            Day --> ProgCommandFactory
+            deactivate Day
+
+
+            loop for each exercise
+                ProgCommandFactory -> ProgCommandFactory: parseExercise(exerciseString)
+                activate ProgCommandFactory
+            end
+
+            ProgCommandFactory -> Exercise: Exercise()
+            activate Exercise
+
+            Exercise --> ProgCommandFactory
+            deactivate Exercise
+
+           return return Exercise
+
+           ProgCommandFactory -> Day: insertExercise()
+
+        end
+        return return Day
+
+    else subcommand is other commands
+    end
+
+    ProgCommandFactory -> CreateProgrammeCommand: CreateProgrammeCommand()
+    activate CreateProgrammeCommand
+
+    CreateProgrammeCommand --> ProgCommandFactory
+    deactivate CreateProgrammeCommand
+
+    return return CreateProgrammeCommand
+
+    ProgCommandFactory --> CommandFactory: Return CreateProgrammeCommand
+    deactivate ProgCommandFactory
+
+
+else commandString is other commands
+end
+CommandFactory --> Parser: Return CreateProgrammeCommand
+deactivate CommandFactory
+
+
+Parser --> BuffBuddy: Return CreateProgrammeCommand
+deactivate Parser
+
+BuffBuddy -> CreateProgrammeCommand: execute()
+activate CreateProgrammeCommand
+
+CreateProgrammeCommand -> ProgrammeList: insertProgramme(programmeName, programmeContents)
+activate ProgrammeList
+
+ProgrammeList -> Programme: Programme()
+activate Programme
+
+Programme --> ProgrammeList:
+deactivate Programme
+
+ProgrammeList --> CreateProgrammeCommand: Return Programme
+deactivate ProgrammeList
+
+CreateProgrammeCommand -> CommandResult: CommandResult()
+
+activate CommandResult
+
+CommandResult --> CreateProgrammeCommand
+deactivate CommandResult
+
+CreateProgrammeCommand --> BuffBuddy: Return CommandResult
+deactivate CreateProgrammeCommand
+
+
+BuffBuddy -> Ui: showMessage(result)
+Ui --> user: Display result
+deactivate Ui
+
+@enduml
