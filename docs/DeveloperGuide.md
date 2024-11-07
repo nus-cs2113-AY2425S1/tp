@@ -15,6 +15,7 @@ We used these third party libraries to develop our application:
 
 ### Meal Component
 ![Meal and MealList Class Diagram](./images/mealAndMealListClassDiagrams.png)
+
 The `Meal` component,
 
 - **Represents individual meals with nutritional information:** The `Meal` class encapsulates details about a meal, specifically its name and calorie count. This allows easy tracking of individual meals within a day.
@@ -37,7 +38,8 @@ The `MealList` component,
 
 #### DailyRecord
 
-![Diagram for DailyRecord Component](./images/DailyRecord_API_UML.jpg)
+![Diagram for DailyRecord Component](./images/DailyRecordClass.png)
+
 The `DailyRecord` component,
 
 - **Tracks daily workout, meals, and water intake:** The `DailyRecord` class maintains a log of the day’s activities, meals consumed,
@@ -54,7 +56,7 @@ The `DailyRecord` component,
 
 ### Storage Component
 
-![Diagram for Storage. FileManager Component](./images/Storage_API_UML.jpg)
+![Diagram for Storage. FileManager Component](./images/storageAndFileManager.png)
 
 The `Storage` component,
 
