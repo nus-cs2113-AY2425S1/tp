@@ -30,8 +30,8 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 | Parser          | Handles parsing of user input, converting it into commands and actions                                       |
 | Ui              | Handles user interaction and CLI output, printing messages and data to the console                           |
 
-**Miscellaneous** and **Exceptions** represent a collection of lower level Classes and Exceptions used by the main classes above.
-**Miscellaneous** classes are as follows:
+**Commons** and **Exceptions** represent a collection of lower level Classes and Exceptions used by the main classes above.
+**Commons** classes are as follows:
 
 | Class           | Functionality                                                                                                |
 |-----------------|--------------------------------------------------------------------------------------------------------------|
@@ -268,11 +268,13 @@ exercise across multiple sessions. The core steps in the workflow are as follows
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+FitTrack is made for students who are training for NAPFA, who should not be distracted by a GUI interface.
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+FitTrack provides a convenient way of recording and tracking their NAPFA performance. 
+It automatically computes their scores and awards, saving them time and hassle. 
+It is optimized to be simple, lightweight and minimalistic so that students do not have to exit their study environment.
 
 ## User Stories
 
@@ -296,12 +298,104 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+Any mainstream OS with Java 17 installed
 
 ## Glossary
 
-* *glossary item* - Definition
+* NAPFA: National Physical Fitness Award
+* Mainstream OS: Windows, Linux, Unix, macOS
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+**Help Function**
+1. Prerequisites: None. <br> <br>
+
+2. Test case 1: `help`<br>
+   Expected: The help message will be printed, guiding the user on valid commands. <br> <br>
+
+   Test case 2: `help blah`<br>
+   Expected: The help message will be printed, guiding the user on valid commands. <br>
+
+**Set User**
+1. Prerequisites: None. <br> <br>
+
+2. Test case 1: `set male 12`<br>
+   Expected: The user's gender and age will be set to `male` and `12`. <br> <br>
+
+   Test case 2: `set female 15`<br>
+   Expected: The user's gender and age will be set to `female` and `15`.
+
+**Add Training Session**
+1. Prerequisites: User's gender and age must be valid. <br> <br>
+
+2. Test case 1: `add session1`<br>
+   Expected: <br>
+   `Got it. I've added a new training session:` <br>
+   `1. session1`<br>
+   `There are 1 sessions in the list.`<br> <br>
+
+   Test case 2: `add session2 blah`<br>
+   Expected: <br>
+   `Got it. I've added a new training session:` <br>
+   `2. session2 blah`<br>
+   `There are 2 sessions in the list.`<br> <br>
+
+   Test case 3: `add 07/11/2024`<br>
+   Expected: <br>
+   `Got it. I've added a new training session:` <br>
+   `3. 07/11/2024`<br>
+   `There are 3 sessions in the list.`<br> <br>
+
+   Test case 4: `add `<br>
+   Expected: `Please provide a valid session name`.
+
+**List all Training Sessions**
+1. Prerequisites: None. <br> <br>
+
+2. Test case 1: `list` (sessionList is empty) <br>
+   Expected: `Your session list is currently empty.` <br> <br>
+   
+   Test case 2: `list` (sessionList has 2 TrainingSessions) <br>
+   Expected: <br>
+   `Here are your training sessions:` <br>
+   `session1 | 29/10/2024 12:40`<br>
+   `session2 | 29/10/2024 12:41`<br>
+   `There are 2 sessions in the list.`<br>
+
+**View a Training Session**
+1. Prerequisites: None. <br> <br>
+
+2. Test case 1: `view 1` (sessionList is empty) <br>
+   Expected: `Please provide a valid session index.` <br> <br>
+
+   Test case 2: `view 1` (sessionList contains at least 1 TrainingSession)<br>
+   Expected: <br>
+   `Training Session: session1`<br>
+   `Training Datetime: 07/11/2024 12:40`<br>
+   `Pull Up Station | Reps: 0 | 0 points`<br>
+   `Shuttle Run Station | Time: NA | 0 points`<br>
+   `Sit and Reach Station | Distance: 0cm | 0 points`<br>
+   `Sit Up Station | Reps: 0 | 0 points`<br>
+   `Standing Broad Jump Station | Distance: 0cm | 0 points`<br>
+   `Walk and Run Station | Time: NA | 0 points`<br>
+   `Total points: 0`<br>
+   `Overall Award: No Award`<br>
+
+**Edit a Training Session**
+1. Prerequisites: None. <br> <br>
+
+2. Test case 1: `edit 1 PU 30` (sessionList is Empty) <br>
+   Expected: `Please provide a valid session index, station and reps.` <br> <br>
+
+   Test case 2: `edit 1 PU 30` (sessionList contains at least 1 TrainingSession) <br>
+   Expected: 
+   `Training Session: session1` <br>
+   `Training Datetime: 07/11/2024 12:40` <br>
+   `Pull Up Station | Reps: 30 | 5 points` <br>
+   `Shuttle Run Station | Time: NA | 0 points` <br>
+   `Sit and Reach Station | Distance: 0cm | 0 points` <br>
+   `Sit Up Station | Reps: 30 | 0 points` <br>
+   `Standing Broad Jump Station | Distance: 0cm | 0 points` <br>
+   `Walk and Run Station | Time: NA | 0 points` <br>
+   `Total points: 5` <br>
+   `Overall Award: No Award` <br>
