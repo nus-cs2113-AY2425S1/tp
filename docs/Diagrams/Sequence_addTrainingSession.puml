@@ -1,5 +1,4 @@
 @startuml
-title Sequence Diagram for "add <name of the training session>" Command
 
 actor User
 participant FitTrack
@@ -28,40 +27,48 @@ activate TrainingSession
 
 TrainingSession -> PullUpStation: new PullUpStation()
 activate PullUpStation
+return
 deactivate PullUpStation
 
 TrainingSession -> ShuttleRunStation: new ShuttleRunStation()
 activate ShuttleRunStation
+return
 deactivate ShuttleRunStation
 
 TrainingSession -> SitAndReachStation: new SitAndReachStation()
 activate SitAndReachStation
+return
 deactivate SitAndReachStation
 
 TrainingSession -> SitUpStation: new SitUpStation()
 activate SitUpStation
+return
 deactivate SitUpStation
 
 TrainingSession -> StandingBroadJumpStation: new StandingBroadJumpStation()
 activate StandingBroadJumpStation
+return
 deactivate StandingBroadJumpStation
 
 TrainingSession -> WalkAndRunStation: new WalkAndRunStation()
 activate WalkAndRunStation
+return
 deactivate WalkAndRunStation
 
-deactivate TrainingSession
-
-return TrainingSession
+TrainingSession --> Parser
 deactivate TrainingSession
 
 Parser -> FitTrack: sessionList.add(TrainingSession)
+
 activate FitTrack
-deactivate FitTrack
+return
 
 Parser -> Ui: printAddedSession(sessionList)
 activate Ui
+Ui --> Parser
 deactivate Ui
+
+Parser --> FitTrack
 
 deactivate Parser
 @enduml

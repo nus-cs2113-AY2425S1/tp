@@ -1,8 +1,7 @@
 # Developer Guide
 
 ## Acknowledgements
-
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* The structure of this Developer Guide is inspired by [AB-3](https://se-education.org/addressbook-level3/DeveloperGuide.html).
 
 ## Setting up, getting started
 First , **fork** this repo, and clone the fork into your computer.
@@ -38,13 +37,12 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 | FitTrackLogger    | Manages logging for the application, ensuring errors and important events are properly recorded                 |
 | TrainingSession   | Represents a single training session, including exercises and metadata (e.g. date and description)              |
 | Exercise          | Represents different types of exercises available in the application, like pull-ups or shuttle runs             |
-| GraphPerformance  | Visualises performance metrics for a specific exercise, adapting for time-based or rep-based tracking.          |
+| Calculator        |                                                                                                                 |
 | GraphPoints       | Illustrates the cumulative points earned across sessions, showcasing overall fitness progress and achievements. |
-| MoodLog           | Allows users to add, view, and delete mood entries, tracking mental health progress over time                   |
-| FitnessGoal       | Allows users to set, list, and delete specific goals related to fitness and overall well-being                  |
-| FoodTracker       | Enables users to log, view, and delete food items, with calorie tracking for nutritional monitoring             |
-| WaterTracker      | Allows users to add, view, and delete water intake logs to monitor daily hydration levels                       |
-| ----------------- | --------------------------------------------------------------------------------------------------------------  |
+| GraphPerformance  | Visualises performance metrics for a specific exercise, adapting for time-based or rep-based tracking.          |
+| Reminder          |                                                                                                                 |
+| Goal              | Allows users to set, list, and delete specific goals related to fitness and overall well-being                  |
+| DailyIntake       | Allows users to add, view, and delete water and food intake logs to monitor daily hydration levels              |
 
 The following Class Diagram elaborates on the interactions between all the classes and their multiplicities.
 
@@ -317,7 +315,39 @@ Below is a sequence diagram detailing the above workflow:
 ![Sequence_GraphPerformanceRepsDistance.png](Images/Sequence_GraphPerformanceRepsDistance.png)
 
 #### `GraphPerformanceTime` Class
+##### Purpose
+The `GraphPerformanceTime` class is a specialized subclass of `GraphPerformance`, designed to handle the visual 
+representation of time-based performance data for *Shuttle Run* and *Walk and Run* stations. This class formats 
+and prints a scatter graph of normalized time data against sessions to the command line. Normalized data points
+are represented with an asterisk (`*`).
 
+##### Normalization Process
+The class uses a normalization technique to represent the data points on a scale from 0 to 1, ensuring that the
+graph maintains a consistent appearance regardless of the raw performance range. This scaling allows for a 
+uniform distribution of data across the graph, enhancing readability.
+
+**$ \text{Normalized Performance} = \frac{\text{Performance} - \text{Min Performance}} 
+{\text{Max Performance} - \text{Min Performance}}$**
+
+##### Implementation Details of graph body
+1. **Generating Main Graph Content**:
+   - The `buildMainContents` method is responsible for constructing the main body of the graph. It iterates through a
+     range of normalized values, decrementing by 0.05 to create rows representing performance levels from 1.00 to 0.00.
+   - For each row, the `processResultToPoint` method checks whether the normalized performance of each training session
+     aligns with the current level. If it matches within a tolerance (e.g., 0.025), an asterisk (`*`) is placed on the 
+     graph.
+
+2. **Formatting Display Time**:
+   - The `processDisplayTime` method formats the raw time data depending on the type of exercise. 
+   -  (i) For *Shuttle Run*, the time is shown in seconds to one decimal place.
+   - (ii) For *Walk and Run* exercises are displayed in `mm:ss` format, with leading zeros added for consistency.
+   - If there are no time data found in a specfic session, `NIL` is displayed.
+
+##### Edge Cases Handled
+- **No Data Available**: If no valid performance time data exists, the graph will not display any asterisk (`*`) for 
+  that session.
+- **Consistent Performance**: When all performance values are the same, the class ensures that a line of points is 
+  printed at the top of the graph to indicate uniformity.
 
 ## Product scope
 ### Target user profile

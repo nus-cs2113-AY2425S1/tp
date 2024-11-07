@@ -17,6 +17,8 @@ public class TrainingSessionTest {
     private final LocalDateTime testDatetime = LocalDateTime.now();
     private final LocalDateTime testDatetimeString = testDatetime;
     private final String testDatetimeOutput = testDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+    private final String testDefaultMood = "No mood recorded";
+    private final String testEditedMood = "Feeling happy";
     private final User testUser = new User("MALE", "13");
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
@@ -66,14 +68,34 @@ public class TrainingSessionTest {
     }
 
     @Test
+    public void editSessionMood() {
+        TrainingSession test = new TrainingSession(testDatetimeString, testDescription, testUser);
+        test.setMood(testEditedMood);
+        test.viewSession();
+
+        assertEquals("Training Session: " + testDescription + System.lineSeparator() +
+                        "Training Datetime: " + testDatetimeOutput + System.lineSeparator() +
+                        "Mood: " + testEditedMood + System.lineSeparator() +
+                        "Pull Up Station | Reps: 0 | 0 points" + System.lineSeparator() +
+                        "Shuttle Run Station | Time: NA | 0 points" + System.lineSeparator() +
+                        "Sit and Reach Station | Distance: 0cm | 0 points" + System.lineSeparator() +
+                        "Sit Up Station | Reps: 0 | 0 points" + System.lineSeparator() +
+                        "Standing Broad Jump Station | Distance: 0cm | 0 points" + System.lineSeparator() +
+                        "Walk and Run Station | Time: NA | 0 points" + System.lineSeparator() +
+                        "Total points: " + 0 + System.lineSeparator() +
+                        "Overall Award: No Award" + System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
     public void testGetSessionDescription(){
         assertEquals(testDescription,
                 new TrainingSession(testDatetimeString, testDescription, testUser).getSessionDescription());
     }
 
     @Test
-    public void testPrintSessionDescription(){
-        new TrainingSession(testDatetimeString, testDescription, testUser).printSessionDescription();
+    public void testPrintSessionInformation(){
+        new TrainingSession(testDatetimeString, testDescription, testUser).printSessionInformation();
         assertEquals(testDescription + " | " + testDatetimeOutput + System.lineSeparator(),
                 outContent.toString());
     }
@@ -83,6 +105,7 @@ public class TrainingSessionTest {
         new TrainingSession(testDatetimeString, testDescription, testUser).viewSession();
         assertEquals("Training Session: " + testDescription + System.lineSeparator() +
                 "Training Datetime: " + testDatetimeOutput + System.lineSeparator() +
+                "Mood: " + testDefaultMood + System.lineSeparator() +
                 "Pull Up Station | Reps: 0 | 0 points" + System.lineSeparator() +
                 "Shuttle Run Station | Time: NA | 0 points" + System.lineSeparator() +
                 "Sit and Reach Station | Distance: 0cm | 0 points" + System.lineSeparator() +
