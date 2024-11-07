@@ -112,12 +112,16 @@ public class Messages {
     public static final String INVALID_STANDING_BROAD_JUMP_DISTANCE_MESSAGE = "Invalid Standing Broad Jump distance: ";
     public static final String INVALID_WALK_AND_RUN_TIMING_MESSAGE = "Invalid Walk and Run timing: ";
 
+    public static final String EXAMPLE_PULL_UP_REPETITIONS_FORMAT = "Example format: 1 PU 30";
+    public static final String EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT = "Example format: 1 SR 10.0";
+    public static final String EXAMPLE_SIT_AND_REACH_DISTANCE_FORMAT = "Example format: 1 SAR 40";
+    public static final String EXAMPLE_SIT_UP_REPETITIONS_FORMAT = "Example format: 1 SU 60";
+    public static final String EXAMPLE_STANDING_BROAD_JUMP_DISTANCE_FORMAT = "Example format: 1 SBJ 200";
+    public static final String EXAMPLE_WALK_AND_RUN_TIMING_FORMAT = "Example format: 1 WAR 12:00";
+
     public static final String ADD_MOOD_MESSAGE = "Mood log added: ";
     public static final String DELETE_MOOD_MESSAGE = "Mood log deleted with ID: ";
     public static final String LIST_MOOD_MESSAGE = "Your mood logs: ";
-
-    public static final String NONNUMERICAL_INDEX_MESSAGE = "Please provide a valid numerical index.";
-    public static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Sorry, but that index is not within the list.";
 
     public static final String INVALID_INPUT_MESSAGE = "I'm sorry, I don't know what that means.";
     public static final String EXIT_MESSAGE = "Bye! Hope to see you again soon!";
