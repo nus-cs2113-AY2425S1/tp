@@ -68,8 +68,7 @@ Format:
   - This parameter is optional. If not provided, the category will be set to `Uncategorized`.
 
 Example:
-- `add-expense n/Coffee a/5.50 c/Food`
-- `add-expense n/Book a/12.00`
+![add-expense](userguidepictures/add-expense.png)
 
 ### Delete an Expense: delete-expense
 This command removes an existing expense from the record.
@@ -84,7 +83,7 @@ Format:
   - This parameter is required.
 
 Example:
-- `delete-expense e/3`
+![delete-expense](userguidepictures/delete-expense.png)
 
 ### Add a Category: add-category
 Create a new category under which expenses can be categorised.
@@ -98,7 +97,7 @@ Format:
   - The category is case-insensitive. It can be typed in any combination of upper or lower case.
 
 Example:
-- `add-category Transport`
+![add-category](userguidepictures/add-category.png)
 
 ### Tag an Expense to a Category: tag-expense
 Assign or change the category of an existing expense.
@@ -119,7 +118,7 @@ Format:
   - This parameter is required.
 
 Example:
-- `tag-expense e/2 c/Transport`
+![tag-expense](userguidepictures/tag-expense.png)
 
 ### Add Budget Limit to a Category: set-budget
 Set a maximum spending limit for a category for the current month.
@@ -142,7 +141,7 @@ Format:
     If the input has more than 2 decimal places, it would be rounded off to the nearest 2 decimal places.
 
 Example:
-- `set-budget c/Food l/300`
+![set-budget](userguidepictures/set-budget.png)
 
 ### View All Expenses: view-expenses
 Displays all expenses recorded, grouped by its categories.
@@ -154,11 +153,7 @@ Format:
 - Displays a list of all recorded expenses, showing the name, amount, category, and its index.
 
 Example output:
-``` 
-1. Coffee - $5.50 - Food
-2. Book - $12.00 - null
-3. Taxi - $15.00 - Transport
-```
+![view-expenses](userguidepictures/view-expenses.png)
 
 ### View Budget for Each Category: view-budget
 View the total expenses for each category in the current month and how much remains before the budget limit is reached.
@@ -170,11 +165,7 @@ Format:
 - Displays a summary of spending and remaining budget for all categories with a budget limit.
 
 Example output:
-``` 
-Food: $120 spent, $180 remaining  
-Transport: $45 spent, $55 remaining  
-Entertainment: No budget set
-```
+![view-budget](userguidepictures/view-budget.png)
 
 ### Set Regular Monthly Reset of Budget: toggle-reset
 Automatically resets the budget for each category at the start of a new month when turned on.
@@ -187,6 +178,7 @@ Format:
   - If automatic budget reset is off, `toggle-reset` would turn it on, vice versa.
 
 Example output:
+![toggle-reset](userguidepictures/toggle-reset.png)
 
 ## V2 Features (Coming soon)
 ### Menu
@@ -210,7 +202,7 @@ Exits the program, and saves the data for that session.
 If the data file has yet to be created, this command would also create the data file.
 
 Format:
-`bye`
+![bye](userguidepictures/bye.png)
 
 
 ## FAQ
