@@ -25,8 +25,6 @@ public class ObtainContactsCommand extends CheckInformationCommand {
      */
     public ObtainContactsCommand() {
         ui = new UI();
-        logger.setLevel(Level.WARNING);
-        logger.setLevel(Level.SEVERE);
     }
 
     /**
@@ -117,7 +115,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
             ui.printContactInformation(Messages.NUMBER_TAG, schoolName, number);
             break;
         default:
-            logger.warning("Invalid contact type requested: " + contactType);
+            logger.log(Level.WARNING, "Invalid contact type requested: " + contactType);
             System.out.println(Exception.invalidContactType());
         }
     }
