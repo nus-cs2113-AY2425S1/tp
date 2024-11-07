@@ -9,8 +9,8 @@ along with the specific courses and subject codes offered by each school. You ca
 or by partner universities (PU) when you want to view the relevant options. For any course mappings you are interested in,
 you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
-- [Quick Start](#Quick-Start)
-- [Features](#features-)
+- [Quick Start](#quick-start)
+- [Features](#features)
     - [List all commands: `commands`](#list-all-commands-commands)
     - [Help Command: `help`](#help-command-help)
     - [List out all the possible schools from the options: `list schools`](#list-out-all-the-possible-schools-from-the-options-list-schools)
