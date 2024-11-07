@@ -10,13 +10,20 @@ import java.util.Map;
 
 //@@author kq2003
 public class BudgetManager {
-    private int lastResetMonth;
-    private boolean isAutoResetEnabled;
+    public int lastResetMonth;
+  
+    public boolean isAutoResetEnabled = false;  // Default state
 
     public BudgetManager() {
         this.lastResetMonth = -1;
         this.isAutoResetEnabled = false;
     }
+
+    public boolean getAutoResetStatus() {
+        return this.isAutoResetEnabled;
+    }
+
+  
 
     public void toggleAutoReset() {
         isAutoResetEnabled = !isAutoResetEnabled;
@@ -60,7 +67,7 @@ public class BudgetManager {
      * limit as per the current configuration. By default, it maintains the same limit
      * for each budget, but the reset logic can be adjusted if needed.
      */
-    private void resetBudgets(TrackerData trackerData) {
+    public void resetBudgets(TrackerData trackerData) {
         Map<Category, Budget> budgets = trackerData.getBudgets();
 
         for (Budget budget : budgets.values()) {
@@ -85,7 +92,7 @@ public class BudgetManager {
      * @param categoryName The name of the category to set the budget for
      * @param limit The budget limit to be set for the category (in dollars)
      */
-    public void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
+    public  void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
         List<Category> categories = trackerData.getCategories();
         Map<Category, Budget> budgets = trackerData.getBudgets();
         String formattedCategoryName = Format.formatInput(categoryName.trim());
@@ -120,6 +127,11 @@ public class BudgetManager {
 
         trackerData.setBudgets(budgets);
     }
+    //@author MayFairMI6
+    public int getLastResetMonth() {
+        return lastResetMonth;
+    }
+
 
     //@@author kq2003
     public void setBudgetLimitRequest(String input, BudgetManager budgetManager, TrackerData trackerData) {
@@ -139,6 +151,11 @@ public class BudgetManager {
         }
     }
 
+    //@@author MayFairMI6
+    public void simulateMonthChange() {
+        Calendar calendar = Calendar.getInstance();
+        lastResetMonth = (calendar.get(Calendar.MONTH) + 1) % 12;  // Simulate advancing by one month
+    }
     /**
      * Displays the current budget status for each category.
      *

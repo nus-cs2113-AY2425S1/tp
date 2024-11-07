@@ -6,10 +6,11 @@ import seedu.spendswift.Format;
 public class Budget {
     private Category category; // Private to prevent unauthorized access or changes
     private double limit; // Private to control modifications to the budget
-
+    private TrackerData trackerData;
     public Budget(Category category, double limit) {
         this.category = category;
         this.limit = limit;
+        this.trackerData= trackerData;
     }
 
     public Category getCategory() {
@@ -25,6 +26,14 @@ public class Budget {
             throw new IllegalArgumentException("Budget limit cannot be negative.");
         }
         this.limit = limit;
+    }
+
+    public double getRemainingLimit() {
+        double totalExpenses = trackerData.getExpenses().stream()
+            .filter(e -> e.getCategory().equals(category))
+            .mapToDouble(Expense::getAmount)
+            .sum();
+        return limit - totalExpenses;
     }
 
     @Override
