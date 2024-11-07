@@ -19,9 +19,13 @@ import java.util.HashMap;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.function.Supplier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Parser {
     private static final Ui ui = new Ui();
+    private static final Logger logger = Logger.getLogger("EasInternship");
+
     private final Map<String, Supplier<Command>> commands = new HashMap<>();
 
     public Parser() {
@@ -56,10 +60,12 @@ public class Parser {
 
         if (!commands.containsKey(inputCommand)) {
             ui.showUnknownCommand(inputCommand);
+            logger.log(Level.WARNING, "Invalid Command: " + inputCommand);
             return null;
         }
 
         Supplier<Command> commandSupplier = commands.get(inputCommand);
+        logger.log(Level.INFO, "Command Parsed: " + inputCommand);
         return commandSupplier.get();
     }
 

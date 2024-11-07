@@ -64,6 +64,8 @@ public class Internship {
      * @param userStatus user-inputted status.
      */
     public void updateStatus(String userStatus) throws InvalidStatus {
+        assert !userStatus.isEmpty() : "Status cannot be empty";
+
         List<String> statuses = Arrays.asList("Application Pending", "Application Completed", "Accepted", "Rejected");
         for (String status : statuses) {
             if (status.equalsIgnoreCase(userStatus)) {
@@ -181,13 +183,11 @@ public class Internship {
         String[] words = value.split(" ");
         String description = "";
         String date = "";
-        boolean hasFoundDate = false;
 
         for (String word : words) {
             String trimmedWord = word.trim();
             if (isValidDate(trimmedWord)) {
                 date = trimmedWord;
-                hasFoundDate = true;
             } else {
                 description += trimmedWord + " ";
             }

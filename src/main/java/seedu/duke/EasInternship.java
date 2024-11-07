@@ -5,6 +5,11 @@ import seedu.ui.Ui;
 
 import java.util.ArrayList;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
+
 //@@author Toby-Yu
 /**
  * The EasInternship class contains the main method which is the entry point for the application.
@@ -19,6 +24,11 @@ public class EasInternship {
      * @param args Command-line arguments (not used in this application)
      */
     public static void main(String[] args) {
+        setUpLogger();
+        Logger logger = Logger.getLogger("EasInternship");
+
+        logger.log(Level.INFO, "Starting Program");
+
         Ui ui = new Ui();
         InternshipList internshipList = new InternshipList();
         Storage.loadFromFile(internshipList);
@@ -40,6 +50,7 @@ public class EasInternship {
                 continue;
             }
 
+            logger.log(Level.INFO, "Handling Command");
             Command command = parser.parseCommand(input);
 
             if (command == null) {
@@ -58,6 +69,22 @@ public class EasInternship {
             } catch (Exception e) {
                 ui.showErrorCommand(e.getMessage());
             }
+        }
+
+        logger.log(Level.INFO, "Ending Program");
+    }
+
+    //@@author Ridiculouswifi
+    protected static void setUpLogger() {
+        Logger logger = Logger.getLogger("EasInternship");
+        logger.setUseParentHandlers(false);
+
+        try {
+            FileHandler fileHandler = new FileHandler("./data/EasInternshipLogs.txt");
+            fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(fileHandler);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 }

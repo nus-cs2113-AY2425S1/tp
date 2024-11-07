@@ -15,6 +15,8 @@ public class UpdateCommand extends Command {
     @Override
     public void execute(ArrayList<String> args) {
         try {
+            assert !args.get(0).startsWith("update") : "Parser should have removed the command";
+
             int internshipId = Integer.parseInt(args.get(0));
             int internshipIndex = internshipId - 1;
             if (!internships.isWithinBounds(internshipIndex)) {
