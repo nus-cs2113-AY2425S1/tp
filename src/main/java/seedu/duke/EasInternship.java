@@ -31,7 +31,7 @@ public class EasInternship {
 
         setUpLogger();
 
-        Logger logger = Logger.getLogger("TestLogger");
+        Logger logger = Logger.getLogger("EasInternship");
 
         ui.showWelcome();
         logger.log(Level.INFO, "Starting Program");
@@ -76,7 +76,7 @@ public class EasInternship {
 
     //@@author Ridiculouswifi
     protected static void setUpLogger() {
-        Logger logger = Logger.getLogger("TestLogger");
+        Logger logger = Logger.getLogger("EasInternship");
         logger.setUseParentHandlers(false);
 
         try {

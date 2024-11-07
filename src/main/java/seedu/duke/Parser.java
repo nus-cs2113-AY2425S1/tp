@@ -26,7 +26,7 @@ public class Parser {
     private static final Ui ui = new Ui();
     private final Map<String, Supplier<Command>> commands = new HashMap<>();
 
-    private static final Logger logger = Logger.getLogger("TestLogger");
+    private static final Logger logger = Logger.getLogger("EasInternship");
 
     public Parser() {
         // Initialize command map
