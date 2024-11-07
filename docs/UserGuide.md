@@ -23,11 +23,6 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 
 ## Features
 
-> **Important Notes**
->
-> When entering a multi-word input for any string argument, i.e. "My Starter Programme", please enter it with a "\_" between the spaces like so: "My_Starter_Programme".
-> Lowercase words indicate the required command structure, while uppercase words show where users should input their specific values.
-
 ### 1. Add New Programme
 
 This feature adds a new empty workout programme with a specified name.
@@ -48,8 +43,8 @@ _Note_: Advanced users can create a detailed programme with multiple days and ex
 
 Command: `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES /e ...`
 
-Example: `prog create Advanced_Starter /d Monday /e /n Bench_Press /s 3 /r 15 /w 30 /c 200 /e /n Squat /s 3 /r 15 /w 50 /c 200 /d Wednesday /e /n Bicep_Curl /s 3 /r 10 /w 10 /c 100`
-
+Example: `prog create Advanced Starter /d Monday /e /n Bench_Press /s 3 /r 15 /w 30 /c 200 /e /n Squat /s 3 /r 15 /w 50 /c 200 /d Wednesday /e /n Bicep_Curl /s 3 /r 10 /w 10 /c 100`
+ 
 ```
 ==================================================
 New programme created: 
@@ -459,9 +454,9 @@ Parameters:
 
 Displays a comprehensive record of workouts, meals, and water intake for each logged day.
 
-Command: `history view`
+Command: `history list`
 
-**Example**: `history view`
+**Example**: `history list`
 
 ```
 Completed On: 30-10-2024
@@ -486,7 +481,35 @@ Caloric Balance: -420 kcal
 ```
 ---
 
-### 19. View Weekly Summary
+### 19. View Specific Record
+Displays the recorded information for a specified day.
+
+Command: `history view [DATE]`
+
+If `DATE` is not provided, command will default to showing the record for the current date.
+
+**Example**: `history view 30-10-2024` 
+```
+Day:
+ONE
+1. Bench Press: 3 sets of 12 at 30 | Burnt 220 cals
+2. Squat: 3 sets of 12 at 50 | Burnt 300 cals
+
+Total Calories burnt: 520 kcal
+
+Meals:
+1: pasta | 100kcal
+Total Calories from Meals: 100 kcal
+
+Water Intake:
+1: 100.0
+Total Water Intake: 100.0 liters
+
+Caloric Balance: -420 kcal
+```
+---
+
+### 20. View Weekly Summary
 
 Displays a summary of workouts, meals, and water intake for the past week
 
@@ -509,11 +532,11 @@ Completed On: 02-11-2024
 
 ---
 
-### 20. View PB for exercise
+### 21. View PB for exercise
 
 Displays Personal Best for specified exercise
 
-Command: `history pb <exercise_name>`
+Command: `history pb EXERICSE_NAME`
 
 **Example**: `history pb bench_press`
 
@@ -524,7 +547,7 @@ Personal best for bench press: Bench Press: 3 sets of 12 at 30
 ```
 ---
 
-### 21. View PBs for exercises 
+### 22. View PBs for exercises 
 
 Displays Personal Bests for all exercises
 
@@ -541,6 +564,37 @@ Bicep Curl: Bicep Curl: 3 sets of 12 at 10
 
 ```
 ---
+
+### 23. Delete Record 
+
+Delete a record at a specific date.
+
+Command: `history delete [DATE]`
+If `DATE` is not provided, default to the current date.
+
+**Example**: `history delete 30-10-24`
+```
+Deleted Record:
+Day: 
+ONE
+1. Bench Press: 3 sets of 12 at 30kg | Burnt 200 cals
+2. Squat: 3 sets of 12 at 50kg | Burnt 200 cals
+
+Total Calories burnt: 400 kcal
+
+Meals: 
+1: pasta | 560kcal
+Total Calories from Meals: 560 kcal
+
+Water Intake: 
+1: 300.0
+Total Water Intake: 300.0 liters 
+
+Caloric Balance: 160 kcal
+```
+
+
+
 
 ## Command Summary
 
@@ -563,7 +617,9 @@ Bicep Curl: Bicep Curl: 3 sets of 12 at 10
 | **Add Water**                               | Adds a water to a daily record                                                            | `water add /n MEAL_NAME /c CALORIES /t DATE`                                                       | `water add /v 200.2 /t 30-10-2024`                                     |
 | **View Water**                              | Displays all water for a specific date                                                    | `water view /t DATE`                                                                               | `water view 30-10-2024`                                                |
 | **Delete Water**                            | Deletes a water from a daily record                                                       | `water delete /m MEAL_INDEX /t DATE`                                                               | `water delete /w 1 /t 30-10-2024`                                      |
-| **View History**                            | Displays a comprehensive record of workouts, meals, and water intake for each logged day. | `history view`                                                                                     | `history view`                                                         |
+| **List History**                            | Displays a comprehensive record of workouts, meals, and water intake for each logged day. | `history list`                                                                                     | `history list`                                                         |
+| **View History**                            | Displays a given daily record for a specific date | `history view [DATE]` | `history view 30-10-2024`|                                                 |
 | **View Weekly Summary**                     | Displays a summary of workouts, meals, and water intake for the past week                 | `history wk`                                                                                       | `history wk`                                                           |
 | **View PB for exercise**                    | Displays Personal Best for specified exercise                                             | `history pb <exercise_name>`                                                                       | `history pb squat`                                                     |
 | **View PBs for exercises**                  | Displays Personal Bests for all exercises                                                 | `history pb`                                                                                       | `history pb`                                                           |
+| **Delete Record**                           | Delete a daily record for  a given day                                                    | `history delete [DATE]`                                                                            | `histroy delete 30-10-2024`                                            |

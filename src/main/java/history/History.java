@@ -96,6 +96,10 @@ public class History {
     }
     // @@author
 
+    public boolean hasRecord( LocalDate date) {
+        return history.containsKey(date);
+    }
+
     public int getHistorySize() {
         return history.size();
     }

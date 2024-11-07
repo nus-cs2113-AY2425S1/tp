@@ -42,7 +42,6 @@ public class DailyRecord {
         return day;
     }
 
-    //@@author TVageesan
     /**
      * Deletes the current day record from the daily record.
      * <p>
@@ -61,7 +60,6 @@ public class DailyRecord {
         this.day = null;
         return deleted;
     }
-    //@@author
 
     /**
      * Retrieves the mealList object containing all meals recorded for the day.
@@ -92,8 +90,8 @@ public class DailyRecord {
      */
     public void logDayToRecord(Day newDay) { //this replaces any current day recorded
         assert newDay != null : "day must not be null";
-
-        this.day = newDay;
+        
+        this.day = new Day(newDay);
         logger.info("Day updated: " + day);
     }
 

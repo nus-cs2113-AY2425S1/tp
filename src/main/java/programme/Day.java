@@ -20,6 +20,16 @@ public class Day {
     private final ArrayList<Exercise> exercises;
 
     /**
+     * Deep copies a new Day by copying the name and exercises from an existing Day.
+     *
+     * @param day the Day to copy
+     */
+    public Day(Day day) {
+        this.name = day.name;
+        this.exercises = new ArrayList<>(day.exercises);
+    }
+
+    /**
      * Constructs a Day with a specified name and an empty list of exercises.
      *
      * @param name the name of the day
