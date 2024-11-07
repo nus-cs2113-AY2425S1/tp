@@ -316,7 +316,7 @@ the user’s total overall points or be specific to a chosen exercise.
 
 **Format**: 
     - **Overall Points**: Use `gpoints` to view total points for the training sessions.
-    - **Exercise specific points**: Use `gpoints [exercise acronmy]` to view points for a specific exercise in the 
+    - **Exercise specific points**: Use `gpoints [exercise acronym]` to view points for a specific exercise in the 
 training session.
 
 **Example 1**: `gpoints` 
@@ -491,7 +491,8 @@ ________________________________________________________________________________
 | **add-goal**        | `add-goal GOAL_NAME DEADLINE`                                  | `add-goal run 12/12/2024 14:00:00`   |
 | **delete-goal**     | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                      |
 | **list-goal**       | `list-goal`                                                    | `list-goal`                          |
-| **graph**           | `graph EXERCISE_ACRONYM`                                       | `graph PU`                           |
+| **gpoints**         | `gpoints` / `gpoints EXERCISE_ACRONYM`                         | `gpoints` / `gpoints PU`             |
+| **gperformance**    | `gpeformance EXERCISE_ACRONYM`                                 | `gperformance PU`                    |
 | **add-water**       | `add-water`                                                    | `add-water 500`                      |
 | **delete-water**    | `delete-water`                                                 | `delete-water 1`                     |
 | **list-water**      | `list-water`                                                   | `list-water`                         |
@@ -499,6 +500,6 @@ ________________________________________________________________________________
 | **delete-food**     | `delete-food`                                                  | `delete-food 1`                      |
 | **list-food**       | `list-food`                                                    | `list-food`                          |
 | **list-calories**   | `list-intake`                                                  | `list-intake`                        |
-| **add-mood**       | `add-mood`                                                     | `add-mood happy 01/11/2024 18:30:00` |
-| **delete-mood**       | `delete-mood`                                                  | `delete-mood 1`                      |
+| **add-mood**        | `add-mood`                                                     | `add-mood happy 01/11/2024 18:30:00` |
+| **delete-mood**     | `delete-mood`                                                  | `delete-mood 1`                      |
 | **list-mood**       | `list-mood`                                                    | `list-mood`                          |
