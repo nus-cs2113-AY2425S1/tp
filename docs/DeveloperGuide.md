@@ -390,15 +390,15 @@ following arguments:
 <ins>Overview</ins>
 
 The feature to delete entries is facilitated by the `DeleteCommand`. Both `Income` and `Expense`
-entries can be deleted using this single command.
+entries can be deleted using this class.
 
 <ins>Class Structure</ins>
 
 The `DeleteCommand` class has the following attribute:
-- *index*: An integer representing the position of the entry in the financial list that is to be deleted.
+- `index`: `int` An integer representing the position of the entry in the financial list that is to be deleted.
 
 The `DeleteCommand` class has the following method:
-- *execute*: Removes the specified entry from the `FinancialList`.
+- `execute` Removes the specified entry from the `FinancialList`.
 
 <ins>Implementation</ins>
 
@@ -418,19 +418,19 @@ updating the list and storage.
 <ins>Overview</ins>
 
 The feature to add entries is facilitated by the `EditEntryCommand`. Both `Income` and `Expense`
-can be edited using this one class.
+can be edited using this class.
 
 <ins>Class Structure</ins>
 
 The `EditEntryCommand` class has the following attributes:
-- *index*: An object representing the index of the entry in the full financial list.
-- *amount*: An object representing the amount of money used in the transaction.
-- *description*: An object representing the description of the transaction.
-- *date*: An object representing the date on which the transaction occurred.
-- *category*: New category of the transaction.
+- `index`: `int` An object representing the index of the entry in the full financial list.
+- `amount`: `double` An object representing the amount of money used in the transaction.
+- `description`: `String` An object representing the description of the transaction.
+- `date`: `LocalDate` An object representing the date on which the transaction occurred.
+- `category`: `Enum<?>` New category of the transaction.
 
 The `EditEntryCommand` class has the following method:
-- *execute*
+- `execute`: Edits the entry according to the arguments inputted.
 
 <ins>Implementation</ins>
 
@@ -538,10 +538,74 @@ with the only difference being the criteria for printing the entries, we made `S
 
 ### Exceptions and Logging
 
+<ins>Overview</ins>
+
 An exception class `FinanceBuddyException` is thrown when users use the product wrongly.
 Exceptions are caught at the nearest instance that they occur.
 
-Logging is handled by the `Logger` class. 
+Logging is handled by the `Log` class. The `Log` class uses the singleton pattern to prevent
+multiple instances of the class.
+
+<ins>Class Structure</ins>
+
+Below is a class diagram of the `Log` class, its associated class `LogHelper`,
+and the enumeration `LogLevels`.
+
+![Log](UML/Log.png)
+
+<ins>Implementation Details</ins>
+
+The `Log` class has a private constructor to prevent multiple instances of the class.
+The `Log` class is instantiated through the `LogHelper` class, and is accessed through the
+`getInstance()` method.
+
+The `LogLevels` enumeration is used to indicate the level of a particular log.
+- `INFO` Represents informational messages that highlight the progress of the application.
+- `WARNING` Denotes potentially harmful situations that are not errors but could lead to
+problems, often due to user error.
+-  `SEVERE` Indicates a serious failure that might prevent part of the application
+from functioning properly.
+
+Logs appear on the command line while running the application. To prevent logs from appearing in
+the final `jar` product, the method `isRunningFromJar()` is used to check if the application is
+running from a `jar` file. If it is running from a `jar` file, the logging level is set to `OFF`.
+Otherwise, the logging level is set to `INFO`.
+
+<ins>Example Usage</ins>
+
+Example usage of `FinanceBuddyException`:
+``` java
+private double parseAmount(String amountStr) throws FinanceBuddyException {
+  try {
+    return Double.parseDouble(amountStr);
+  } catch (NumberFormatException e) {
+    throw new FinanceBuddyException("Invalid amount.");
+  } catch (NullPointerException e) {
+    throw new FinanceBuddyException("Invalid argument.");
+  }
+}
+```
+
+The exception messages from `FinanceBuddyException` can be displayed using the following code example:
+``` java
+try {
+  ...
+} catch (FinanceBuddyException e) {
+  System.out.println(e.getMessage());
+}
+```
+
+The `Log` class can be used in other classes using the following code example:
+```java
+private static final Log logger = Log.getInstance();
+```
+
+Logging can then be done by invoking `logger.log()`. For example:
+```java
+logger.log(LogLevels.INFO, "Expense added successfully.");
+logger.log(LogLevels.WARNING, "Invalid index inputted.");
+logger.log(LogLevels.SEVERE, "FinancialList is null.", exception);
+```
 
 ### Storage
 
@@ -559,7 +623,7 @@ and stores and retrieves budget information to maintain data consistency across 
       Default path: `"data/FinancialList.txt"`.
    - `BUDGET_FILE_PATH`: `String` constant storing the path to the file where budget data is saved. 
       Default path: `"data/Budget.txt"`.
-   - `logger`: `Logger` instance for logging information and errors for debugging and tracking purposes.
+   - `logger`: `Log` instance for logging information and errors for debugging and tracking purposes.
 
 <ins>Implementation Details</ins>
 
