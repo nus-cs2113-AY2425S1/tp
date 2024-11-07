@@ -46,6 +46,12 @@ public class Storage {
                 return category;
             }
         }
+        for (Category category : trackerData.getBudgets().keySet()) {
+            if (category.getName().equalsIgnoreCase(categoryName)) {
+                return category;
+            }
+        }
+
         Category newCategory = new Category(categoryName);
         trackerData.getCategories().add(newCategory);
         return newCategory;
