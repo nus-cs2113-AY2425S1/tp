@@ -15,7 +15,6 @@
       - [List by Date](#list-by-date)
     - [Set/Edit Budget](#setedit-budget)
     - [Saving Data](#saving-data)
-  - [FAQ](#faq)
   - [Command Summary](#command-summary)
 
 ## Introduction
