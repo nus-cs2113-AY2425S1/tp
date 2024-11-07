@@ -114,6 +114,7 @@ Format:
 
 - `CATEGORY`
   - The name of the category to assign the expense to.
+  - The category is case-insensitive. It can be typed in any combination of upper or lower case.
   - This must be an existing category.
   - This parameter is required.
 
