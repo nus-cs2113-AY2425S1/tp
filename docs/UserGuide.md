@@ -302,6 +302,7 @@ Please do not modify these files manually, otherwise the transactions or the bud
 
 | **Command**                   | **Usage**                                                                                  |
 |-------------------------------|---------------------------------------------------------------------------------------------|
+| **Help**                      | `help`                                                                                     |
 | **List All Transactions**     | `list`                                                                                      |
 | **List Income Transactions**  | `list income`                                                                               |
 | **List Expense Transactions** | `list expense`                                                                              |
@@ -323,7 +324,6 @@ Please do not modify these files manually, otherwise the transactions or the bud
 | **Delete Entry**              | `delete INDEX`                                                                             |
 | **Set Budget**                | `budget`                                                                                   |
 | **Exit Program**              | `exit`                                                                                     |
-| **Help**                      | `help`                                                                                     |
 
 **Defined Categories**:
 
