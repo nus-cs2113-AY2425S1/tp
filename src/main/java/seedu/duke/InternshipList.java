@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //@@author jadenlimjc
 public class InternshipList {
     private static final UiInternshipList ui = new UiInternshipList();
+    private static final Logger logger = Logger.getLogger("EasInternship");
     public ArrayList<Internship> internships;
     public ArrayList<Internship> favouriteInternships;
 
@@ -39,6 +42,7 @@ public class InternshipList {
         assert internship.getId() == internships.size() + 1;
 
         internships.add(internship);
+        logger.log(Level.INFO, "Internship added");
     }
 
     //@@author Ridiculouswifi
@@ -65,6 +69,7 @@ public class InternshipList {
             ui.showDeletedInternship(index + 1);
             updateIds(); // Reassign IDs after removal
         }
+        logger.log(Level.INFO, "Internship removed");
     }
 
     // Private method to update the IDs after a removal
@@ -119,8 +124,10 @@ public class InternshipList {
                 assert false: "All valid fields should we handled in individual cases";
                 break;
             }
+            logger.log(Level.INFO, "Internship " + (index + 1) + " updated: " + field);
         } catch (IndexOutOfBoundsException e) {
             ui.showInvalidIndex();
+            logger.log(Level.INFO, "Internship out of bounds");
             throw new InvalidIndex();
         }
     }
@@ -138,8 +145,10 @@ public class InternshipList {
                 assert false: "All valid fields should we handled in individual cases";
                 break;
             }
+            logger.log(Level.INFO, "Internship " + (index + 1) + " removed: " + field);
         } catch (IndexOutOfBoundsException e) {
             ui.showInvalidIndex();
+            logger.log(Level.INFO, "Internship out of bounds");
             throw new InvalidIndex();
         }
     }
