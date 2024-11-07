@@ -104,11 +104,11 @@ class BudgetLogicTest {
                 "Please set your budget amount:" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Budget amount must be >= $0.01. Please enter a valid amount." + System.lineSeparator()
-                + "Your current monthly balance is: 1000.0" + System.lineSeparator() +
+                + "Your current monthly balance is: $ 1000.00" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
-                "Your budget has successfully been set to: 1000.0" + System.lineSeparator() +
-                "Your current monthly balance is: 1000.0" + System.lineSeparator() +
+                "Your budget has successfully been set to: $ 1000.00" + System.lineSeparator() +
+                "Your current monthly balance is: $ 1000.00" + System.lineSeparator() +
                 "--------------------------------------------" +
                 System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
@@ -134,6 +134,36 @@ class BudgetLogicTest {
         budgetLogic.modifyBalance(-200);
 
         assertEquals(800, budget.getBalance());
+    }
+
+    /**
+     * Tests retrieving the budget and balance when no budget is set.
+     * Verifies that the appropriate message is printed.
+     */
+    @Test
+    void getBudgetAndBalance_noBudgetSet_printNoBudgetSetMessage() {
+        budgetLogic.getBudgetAndBalance();
+
+        String expectedOutput =
+                "No budget has been set." + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    /**
+     * Tests retrieving the budget and current balance when budget is set.
+     * Verifies that the appropriate message is printed.
+     */
+    @Test
+    void getBudgetAndBalance_budgetSet_printBudgetAndBalance() {
+        budget.setBudgetAmount(1000);
+        budgetLogic.modifyBalance(-600);
+        budgetLogic.getBudgetAndBalance();
+
+        String expectedOutput = "Your current budget is: $ 1000.00" + System.lineSeparator() +
+                        "Your current monthly balance is: $ 400.00" + System.lineSeparator() +
+                        "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**
@@ -199,42 +229,62 @@ class BudgetLogicTest {
         budgetLogic.changeBalanceFromExpense(-50, LocalDate.now());
 
         assertEquals(0, budget.getBalance());
+
+        String expectedOutput = "";
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**
      * Tests that expenses recorded in the current month decrease the balance correctly.
      */
     @Test
-    void changeBalanceFromExpenses_oneExpenseCurrentMonth_expectDecrease() {
+    void changeBalanceFromExpenses_oneExpenseCurrentMonth_printDecrease() {
         budget.setBudgetAmount(1000);
         budgetLogic.changeBalanceFromExpense(-20, LocalDate.now());
 
         assertEquals(980, budget.getBalance());
+
+        String expectedOutput = "Your current monthly balance is: $ 980.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**
      * Tests that expenses recorded in months other than the current do not affect the balance.
      */
     @Test
-    void changeBalanceFromExpenses_oneExpenseNotCurrentMonth_expectNoChange() throws FinanceBuddyException {
+    void changeBalanceFromExpenses_oneExpenseNotCurrentMonth_expectNothing() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
         budgetLogic.changeBalanceFromExpenseString(19, "27/11/23");
 
         assertEquals(1000, budget.getBalance());
+
+        String expectedOutput = "";
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**
      * Tests decreases in the budget balance from multiple expenses recorded in the current month.
      */
     @Test
-    void changeBalanceFromExpenses_multipleExpenses_expectDecrease() throws FinanceBuddyException {
+    void changeBalanceFromExpenses_multipleExpensesExceedBudget_printDecrease() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
-        budgetLogic.changeBalanceFromExpense(20, LocalDate.now());
+        budgetLogic.changeBalanceFromExpense(-230, LocalDate.now());
         budgetLogic.changeBalanceFromExpenseString(-50, "27/10/24");
         budgetLogic.changeBalanceFromExpenseString(-90, "27/11/23");
-        budgetLogic.changeBalanceFromExpense(-230, LocalDate.now());
+        budgetLogic.changeBalanceFromExpense(20, LocalDate.now());
+        budgetLogic.changeBalanceFromExpense(-900, LocalDate.now());
 
-        assertEquals(790, budget.getBalance());
+        assertEquals(-110, budget.getBalance());
+
+        String expectedOutput = "Your current monthly balance is: $ 770.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "Your current monthly balance is: $ 790.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "You have exceeded your monthly budget of: $ 1000.00!" + System.lineSeparator() +
+                "Your current monthly balance is: $ -110.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**
@@ -249,13 +299,16 @@ class BudgetLogicTest {
 
         budgetLogic.recalculateBalance(financialList);
         assertEquals(0, budget.getBalance());
+
+        String expectedOutput = "";
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**
      * Tests recalculation of budget balance including only current month expenses.
      */
     @Test
-    void recalculateBalance_currentMonthExpenses_expectNewBalance() throws FinanceBuddyException {
+    void recalculateBalance_currentMonthExpenses_printNewBalance() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
         FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.now(), null);
         FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.now(), null);
@@ -264,13 +317,17 @@ class BudgetLogicTest {
 
         budgetLogic.recalculateBalance(financialList);
         assertEquals(985, budget.getBalance());
+
+        String expectedOutput = "Your current monthly balance is: $ 985.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**
      * Tests recalculation of balance when there are no expenses recorded for the current month.
      */
     @Test
-    void recalculateBalance_currentMonthNoExpenses_expectNoChange() throws FinanceBuddyException {
+    void recalculateBalance_currentMonthNoExpenses_printSameBalance() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
         FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.now(), null);
         FinancialEntry income2 = new Income(15.5, "salary", LocalDate.now(), null);
@@ -279,13 +336,17 @@ class BudgetLogicTest {
 
         budgetLogic.recalculateBalance(financialList);
         assertEquals(1000, budget.getBalance());
+
+        String expectedOutput = "Your current monthly balance is: $ 1000.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**
      * Tests recalculation of balance for mixed entries of income and expense in the current month.
      */
     @Test
-    void recalculateBalance_currentMonthMixedEntries_expectNewBalance() throws FinanceBuddyException {
+    void recalculateBalance_currentMonthMixedEntries_printNewBalance() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
         FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.now(), null);
         FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.now(), null);
@@ -300,20 +361,24 @@ class BudgetLogicTest {
 
         budgetLogic.recalculateBalance(financialList);
         assertEquals(975, budget.getBalance());
+
+        String expectedOutput = "Your current monthly balance is: $ 975.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**
      * Tests recalculation of balance considering only current month expenses.
      */
     @Test
-    void recalculateBalance_mixedMonthsExpenses_expectNewBalance() throws FinanceBuddyException {
+    void recalculateBalance_mixedMonthsExpensesExceedBudget_printNewBalance() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
         FinancialEntry expense1 = new Expense(10.0, "food",
                 LocalDate.of(2024, 10, 22), null);
         FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.now(), null);
         FinancialEntry expense3 = new Expense(15.5, "snacks",
                 LocalDate.of(2024, 10, 20), null);
-        FinancialEntry expense4 = new Expense(10.0, "table",
+        FinancialEntry expense4 = new Expense(1000.0, "table",
                 LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1), null);
         FinancialEntry expense5 = new Expense(7.0, "shampoo", LocalDate.now(), null);
         financialList.addEntry(expense1);
@@ -323,14 +388,19 @@ class BudgetLogicTest {
         financialList.addEntry(expense5);
 
         budgetLogic.recalculateBalance(financialList);
-        assertEquals(978, budget.getBalance());
+        assertEquals(-12, budget.getBalance());
+
+        String expectedOutput = "You have exceeded your monthly budget of: $ 1000.00!" + System.lineSeparator() +
+                "Your current monthly balance is: $ -12.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**
      * Tests recalculation of balance with mixed entries and dates, expecting updates based on current month.
      */
     @Test
-    void recalculateBalance_mixedMonthsMixedEntries_expectNewBalance() throws FinanceBuddyException {
+    void recalculateBalance_mixedMonthsMixedEntries_printNewBalance() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
         FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.now(), null);
         FinancialEntry expense2 = new Expense(5.0, "transport",
@@ -348,6 +418,10 @@ class BudgetLogicTest {
 
         budgetLogic.recalculateBalance(financialList);
         assertEquals(980, budget.getBalance());
+
+        String expectedOutput = "Your current monthly balance is: $ 980.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**

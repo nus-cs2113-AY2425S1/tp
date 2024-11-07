@@ -65,7 +65,7 @@ public class AppUi {
      */
     public void displayModifyBudgetMessage(double amount) {
         System.out.println(Commons.LINE_SEPARATOR);
-        System.out.println("Your current budget is: " + amount);
+        System.out.println("Your current budget is: " + String.format("$ %.2f", amount));
         System.out.println("Would you like to modify your budget? (yes/no)");
         System.out.println(Commons.LINE_SEPARATOR);
     }
@@ -74,8 +74,15 @@ public class AppUi {
      * Displays the balance of the user's budget
      */
     public void displayBudgetBalanceMessage(double amount) {
-        System.out.println("Your current monthly balance is: " + amount);
+        System.out.println("Your current monthly balance is: " + String.format("$ %.2f", amount));
         System.out.println(Commons.LINE_SEPARATOR);
+    }
+
+    /**
+     * Displays warning that budget has been exceeded
+     */
+    public void displayBudgetBalanceExceededMessage(double amount) {
+        System.out.println("You have exceeded your monthly budget of: " + String.format("$ %.2f", amount) +"!");
     }
 
     /**
