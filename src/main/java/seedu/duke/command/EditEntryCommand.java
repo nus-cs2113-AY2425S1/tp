@@ -1,7 +1,10 @@
 package seedu.duke.command;
 
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.financial.Expense;
+import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.financial.Income;
 import seedu.duke.log.Log;
 import seedu.duke.log.LogLevels;
 import seedu.duke.parser.DateParser;
@@ -87,21 +90,27 @@ public class EditEntryCommand extends Command {
             logger.log(LogLevels.SEVERE, "Financial list is null");
             throw new FinanceBuddyException("Financial list cannot be null");
         }
-        if (index >= 0 && index <= list.getEntryCount()) {
-            list.editEntry(index - 1, amount, description, date, category);
-            assert list.getEntry(index - 1).getAmount() == amount : "Amount should be updated";
-            assert list.getEntry(index - 1).getDescription().equals(description) : "Description should be updated";
-            System.out.println(Commons.LINE_SEPARATOR);
-            System.out.println("Got it. I've edited this expense:");
-            System.out.println(list.getEntry(index - 1));
-            System.out.println(Commons.LINE_SEPARATOR);
-            logger.log(LogLevels.INFO, "Edited entry at index " + index + " to " + amount + " " + description);
+
+        int zeroBasedIndex = index - 1;
+        FinancialEntry entry = list.getEntry(zeroBasedIndex);
+        FinancialEntry replacementEntry;
+
+        if (entry instanceof Expense) {
+            replacementEntry = new Expense(amount, description, date, (Expense.Category) category);
         } else {
-            System.out.println("OOPS!!! The entry does not exist.");
-            System.out.println(index);
-            System.out.println(list.getEntryCount());
-            logger.log(LogLevels.WARNING, "Entry does not exist at index " + index);
+            replacementEntry = new Income(amount, description, date, (Income.Category) category);
         }
+
+        list.deleteEntry(zeroBasedIndex);
+        list.addEntry(replacementEntry);
+        assert list.getEntry(zeroBasedIndex).getAmount() == amount : "Amount should be updated";
+        assert list.getEntry(zeroBasedIndex).getDescription().equals(description) : "Description should be updated";
+
+        System.out.println(Commons.LINE_SEPARATOR);
+        System.out.println("Got it. I've edited this expense:");
+        System.out.println(replacementEntry);
+        System.out.println(Commons.LINE_SEPARATOR);
+        logger.log(LogLevels.INFO, "Edited entry at index " + index + " to " + amount + " " + description);
     }
 
     private void checkValidParams() throws FinanceBuddyException {
