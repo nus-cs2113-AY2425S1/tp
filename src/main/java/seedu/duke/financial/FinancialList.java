@@ -1,6 +1,7 @@
 package seedu.duke.financial;
 
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -102,7 +103,7 @@ public class FinancialList {
         try {
             return entries.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new FinanceBuddyException("There is no entry at that index :(");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX);
         }
     }
 
@@ -117,7 +118,11 @@ public class FinancialList {
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= entries.size()).
      */
     public void editEntry(int index, double amount, String description, LocalDate date,
-                          Enum<?> category) throws FinanceBuddyException{
+                          Enum<?> category) {
+        assert amount >= 0.01 : "Amount < 0.01 entered.";
+        assert amount <= 9999999.0 : "Amount > 9999999.0 entered.";
+        assert !description.isBlank() : "Description is blank.";
+        assert !date.isAfter(LocalDate.now()): "Date is after system date";
 
         FinancialEntry entry = entries.get(index);
         entry.setAmount(amount);
