@@ -20,7 +20,7 @@ CourseValidator -> Ui:displayPartnerUniversities()
 activate Ui
 Ui --> CourseValidator
 deactivate
-CourseValidator --> AddCoursesCommand: throw no PU found exception
+CourseValidator --> AddCoursesCommand: throw no PU found error
 end
 return courses: JsonArray
 

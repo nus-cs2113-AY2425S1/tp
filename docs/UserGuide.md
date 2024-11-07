@@ -11,15 +11,20 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 - [Quick Start](#Quick-Start)
 - [Features](#features-)
-    - [List courses provided by the partner university: `set`](#list-courses-provided-by-the-partner-university-set)
+    - [List all commands: `commands`](#list-all-commands-commands)
     - [Help Command: `help`](#help-command-help)
-    - [Add a course mapping: `add`](#adding-a-course-mapping-add)
-    - [Filter possible mappings: `filter`](#filtering-possible-mappings-filter)
-    - [Delete course mapping plans from Personal Tracker: `delete`](#delete-course-mapping-plans-from-personal-tracker-delete)
     - [List out all the possible schools from the options: `list schools`](#list-out-all-the-possible-schools-from-the-options-list-schools)
+    - [List courses provided by the partner university: `set`](#list-courses-provided-by-the-partner-university-set)
     - [Obtain contacts from the list of universities: `obtain`](#obtain-contacts-from-the-list-of-universities-obtain)
+    - [Filter possible mappings: `filter`](#filtering-possible-mappings-filter)
+    - [Add a course mapping: `add`](#adding-a-course-mapping-add)
+    - [Delete course mapping plans from Personal Tracker: `delete`](#delete-course-mapping-plans-from-personal-tracker-delete)
+    - [List Personal Tracker courses: `list mapped`](#list-personal-tracker-courses-list-mapped)
+    - [Compare mapped courses between two universities: `compare`](#compare-mapped-courses-between-two-universities-compare)
+    - [Find courses in personalised tracker `find`](#find-courses-in-personalised-tracker-find)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
+
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
@@ -314,7 +319,6 @@ Format: `find [NUS_COURSE_CODE]`
 * Note that this feature is searching within the personalised tracker
 
 Example: `find cs2040`
-*
 
 Expected output:
 ```
@@ -330,11 +334,11 @@ cs2040 | the university of western australia | cits2200
 
 **Q**: Can I `filter` multiple courses at the same time?
 
-**A**: No you cannot
+**A**: No, you are only allowed to filter one course at a time. 
 
 **Q**: Can I `set` multiple schools at the same time?
 
-**A**: No you cannot
+**A**: No, you are only allowed to list out all available course mappings by one partner university at a time. 
 
 **Q**: Can I `add` multiple courses and/or multiple schools at the same time?
 
@@ -350,29 +354,30 @@ cs2040 | the university of western australia | cits2200
 
 **Q**: Can I `obtain` multiple schools/contact types at the same time?
 
-**A**: No you cannot 
+**A**: No, you are only allowed to obtain the contact information of one partner university at a time. 
 
 **Q**: Can I `obtain` contacts of schools not in the list?
 
-**A**: No you cannot
+**A**: No, you are only allowed to obtain contact information of the schools within our list.
 
 **Q**: Can I `delete` multiple indices at the same time?
 
-**A**: No you cannot
+**A**: No, you can only delete one course mapping (one index) at a time. 
 
 
 ## Command Summary
 
-| Action           | Format, Examples                                                                                                                                                   |
-|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Set**          | Format: `set PARTNER_UNIVERISTY_NAME`  <br/> Example: `set The University of Western Australia`                                                                    |
-| **Help**         | Format: `help COMMAND`<br/> Example: `help filter`                                                                                                                 |
-| **Add**          | Format: ` add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE`<br/> Example: `add cs2102 /pu the university of melbourne /coursepu info20003` |
-| **Filter**       | Format: `filter NUS_COURSE_CODE` <br/> Example: `filter cs3241`                                                                                                    |
-| **Delete**       | Format:  `delete LIST_INDEX` <br/> Example: `delete 1`                                                                                                             |
-| **List Schools** | Format: `list schools`                                                                                                                                             |
-| **List Mapped**  | Format: `list mapped`                                                                                                                                              |
-| **Obtain**       | Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE` <br/>Example: `obtain victoria university of wellington /number`                                            |
-| **Find**         | Format: `find NUS_COURSE_CODE` <br/> Example: `find cs2102`                                                                                                        |
-| **Compare**      | Format: `compare pu/ UNI1 pu/ UNI2` <br/> Example: `compare pu/The University of Melbourne pu/The Australian National University`                                  |
-| **Bye**          | Format: `bye`                                                                                                                                                      |
+| Action           | Format                                                                      | Examples                                                                       |
+|------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| **Commands**     | `commands`                                                                  | -                                                                              |
+| **Help**         | `help COMMAND`                                                              | `help filter`                                                                  |
+| **List Schools** | `list schools`                                                              | -                                                                              |
+| **Set**          | `set PARTNER_UNIVERISTY_NAME`                                               | `set The University of Western Australia`                                      |
+| **Obtain**       | `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`                              | `obtain victoria university of wellington /number`                             |
+| **Filter**       | `filter NUS_COURSE_CODE`                                                    | `filter cs3241`                                                                |
+| **Add**          | ` add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE` | `add cs2102 /pu the university of melbourne /coursepu info20003`               |
+| **Delete**       | `delete LIST_INDEX`                                                         | `delete 1`                                                                     |
+| **List Mapped**  | `list mapped`                                                               | -                                                                              |
+| **Compare**      | `compare pu/ UNI1 pu/ UNI2`                                                 | `compare pu/The University of Melbourne pu/The Australian National University` |
+| **Find**         | `find NUS_COURSE_CODE`                                                      | `find cs2102`                                                                  |
+| **Bye**          | `bye`                                                                       | -                                                                              |

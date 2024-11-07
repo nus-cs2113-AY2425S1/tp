@@ -410,6 +410,14 @@ and South-East Asian universities. This command hence helps the users to keep tr
 * Throughout the code, exceptions, assertions and logging are in place for better error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
+#### Why is it implemented this way
+- The code is seperated into distinct methods that addresses a separate concern, achieving Separation of concerns principle (SoC). This help achieve better modularity and readability. 
+- Each method includes numerous exception handlers to cover as many potential errors and edge cases as possible. 
+
+#### Alternatives Considered
+- Initially, one way to validate a course mapping is by adding all course mappings to a hashmap. This allows indexing to locate the relevant course mapping. However, this approach may lead to unnecessary repetition since each course mapping is already stored in the JSON file.
+- At first, each course mapping is stored as a formatted string. However, this format makes it challenging to check course mappings and implement methods that require accessing course mappings from storage.
+
 #### Sequence Diagram:
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
 Sequence Diagram for AddCourseCommand
@@ -460,12 +468,17 @@ The `ListPersonalTrackerCommand` is responsible for listing all the mapped modul
     - Prints a closing line separator.
 
 #### Why It Is Implemented This Way:
-- **Single Responsibility:** This command is focused on a single responsibility—displaying the list of mapped modules—making it easy to maintain and test.
-- **User-Friendly Output:** By indexing the output and adding line separators, the command ensures a clean and readable output format for users.
+- **Single Responsibility:** This command is focused on a single responsibility—displaying the list of mapped 
+modules—making it easy to maintain and test.
+- **User-Friendly Output:** By indexing the output and adding line separators, the command ensures a clean and 
+readable output format for users.
 
 #### Alternative Implementations Considered:
-- **Direct Output from Storage:** An alternative could have been to let the Storage class directly output the list. However, separating the command logic maintains a cleaner architecture and allows more flexibility in how the data is displayed.
-- **Skipping Indexing:** Displaying the list without indexing was considered, but indexing improves readability, especially if the list of modules is long.
+- **Direct Output from Storage:** An alternative could have been to let the Storage class directly output the list. 
+However, separating the command logic maintains a cleaner architecture and allows more flexibility in 
+how the data is displayed.
+- **Skipping Indexing:** Displaying the list without indexing was considered, but indexing improves readability, 
+especially if the list of modules is long.
 
 #### Example Usage and Expected Output:
 If the `myList.json` file contains the following entries:

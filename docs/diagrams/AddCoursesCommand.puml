@@ -18,10 +18,6 @@ activate AddCoursesCommand
 AddCoursesCommand -> Command: createJsonObject()
 activate Command
 
-opt inputStream is null
-    Command --> AddCoursesCommand: throw new IOException()
-end
-
 Command --> AddCoursesCommand: jsonObject:JsonObject
 deactivate Command
 
