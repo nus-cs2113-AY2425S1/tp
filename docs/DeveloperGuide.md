@@ -521,6 +521,7 @@ Below is an outline of the execution flow:
 - Checks the data integrity of `myList.json` using `courseRepository.isFileValid`. If the data integrity fails, the command exits without further execution.
 - The command splits the user input based on the delimiter `pu/` to retrieve the names of the two universities specified by the user.
   - If fewer than two universities are specified, the `printInvalidInputFormat` method in the `UI` class is called to inform the user of incorrect input format.
+- The command calls `isValidUniversity` to check if the input is a valid university. Otherwise it will print an error message with the wrong university name and a suggestion.
 - The command loads all course mappings from the `myList.json` file through the `Storage` class.
 - It verifies that the loaded list is not `null` through assertions.
 - The `filterModulesByUniversity` method takes the list of all modules and filters out only those associated with the specified university.
