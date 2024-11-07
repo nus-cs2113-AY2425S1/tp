@@ -290,7 +290,39 @@ to the command line, allowing users to visualize exercise progress.
 #### `GraphPerformanceRepsDistance` Class
 
 #### `GraphPerformanceTime` Class
+##### Purpose
+The `GraphPerformanceTime` class is a specialized subclass of `GraphPerformance`, designed to handle the visual 
+representation of time-based performance data for *Shuttle Run* and *Walk and Run* stations. This class formats 
+and prints a scatter graph of normalized time data against sessions to the command line. Normalized data points
+are represented with an asterisk (`*`).
 
+##### Normalization Process
+The class uses a normalization technique to represent the data points on a scale from 0 to 1, ensuring that the
+graph maintains a consistent appearance regardless of the raw performance range. This scaling allows for a 
+uniform distribution of data across the graph, enhancing readability.
+
+**$ \text{Normalized Performance} = \frac{\text{Performance} - \text{Min Performance}} 
+{\text{Max Performance} - \text{Min Performance}}$**
+
+##### Implementation Details of graph body
+1. **Generating Main Graph Content**:
+   - The `buildMainContents` method is responsible for constructing the main body of the graph. It iterates through a
+     range of normalized values, decrementing by 0.05 to create rows representing performance levels from 1.00 to 0.00.
+   - For each row, the `processResultToPoint` method checks whether the normalized performance of each training session
+     aligns with the current level. If it matches within a tolerance (e.g., 0.025), an asterisk (`*`) is placed on the 
+     graph.
+
+2. **Formatting Display Time**:
+   - The `processDisplayTime` method formats the raw time data depending on the type of exercise. 
+   -  (i) For *Shuttle Run*, the time is shown in seconds to one decimal place.
+   - (ii) For *Walk and Run* exercises are displayed in `mm:ss` format, with leading zeros added for consistency.
+   - If there are no time data found in a specfic session, `NIL` is displayed.
+
+##### Edge Cases Handled
+- **No Data Available**: If no valid performance time data exists, the graph will not display any asterisk (`*`) for 
+  that session.
+- **Consistent Performance**: When all performance values are the same, the class ensures that a line of points is 
+  printed at the top of the graph to indicate uniformity.
 
 ## Product scope
 ### Target user profile
