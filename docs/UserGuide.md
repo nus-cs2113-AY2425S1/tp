@@ -150,6 +150,17 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   search k/ school
   search k/ school fee ABC
   ```
+  
+### Tracking
+
+#### Track the progress towards budget for a certain moth: `track m/ Month`
+- Track your spending progress to make sure you are within the budget
+- **Format:** `track m/ MONTH`
+- **Example:**
+  ```
+  track m/ 2024-11
+  ```
+ 
 
 ## FAQ
 
@@ -171,5 +182,5 @@ It seems like you're trying to format a table of commands, but the current forma
 | `history`               | `history [f/ DATE] [t/ DATE]`                                           | `history f/ 2024-09-16 t/ 2024-09-19`                |
 | `view-total`            | `view-total`                                                            | `view-total`                                         |
 | `help`                  | `help`                                                                  | `help`                                               |
+| `track`                 | `track m/ MONTH`                                                        | `track m/ 2024-11`                                   |           
 
-`
