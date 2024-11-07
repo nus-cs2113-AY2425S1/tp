@@ -3,8 +3,6 @@ package seedu.duke.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import seedu.duke.data.hospital.Hospital;
-import seedu.duke.data.hospital.Hospital.PatientNotFoundException;
 import seedu.duke.data.task.TaskList;
 import seedu.duke.data.task.TaskList.DuplicateTaskException;
 import seedu.duke.data.task.Todo;
