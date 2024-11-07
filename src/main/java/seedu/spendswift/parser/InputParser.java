@@ -3,21 +3,25 @@ package seedu.spendswift.parser;
 
 public class InputParser {
     private String parseComponent(String input, String prefix) {
-        String[] parts = input.split(" ");
-        StringBuilder componentBuilder = new StringBuilder();
-        boolean isComponentStarted = false;
+        int startIndex = input.indexOf(prefix);
+        if (startIndex == -1) {
+            return "";
+        }
 
-        for (String part : parts) {
-            if (part.startsWith(prefix)) {
-                isComponentStarted = true;
-                componentBuilder.append(part.substring(prefix.length())).append(" ");
-            } else if (isComponentStarted && !part.contains("/")) {
-                componentBuilder.append(part).append(" ");
-            } else if (isComponentStarted) {
-                break;
+        startIndex += prefix.length();
+        int endIndex = input.length();
+        String[] prefixes = {"n/", "a/", "c/", "e/", "l/"};
+
+        for (String otherPrefix : prefixes) {
+            if (!otherPrefix.equals(prefix)) {
+                int prefixIndex = input.indexOf(otherPrefix, startIndex);
+                if (prefixIndex != -1 && prefixIndex < endIndex) {
+                    endIndex = prefixIndex;
+                }
             }
         }
-        return componentBuilder.toString().trim();
+
+        return input.substring(startIndex, endIndex).trim();
     }
 
     public int parseIndex(String input) {
