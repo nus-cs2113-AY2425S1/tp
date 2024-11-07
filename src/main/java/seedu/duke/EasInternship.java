@@ -24,17 +24,17 @@ public class EasInternship {
      * @param args Command-line arguments (not used in this application)
      */
     public static void main(String[] args) {
+        setUpLogger();
+        Logger logger = Logger.getLogger("EasInternship");
+
+        logger.log(Level.INFO, "Starting Program");
+
         Ui ui = new Ui();
         InternshipList internshipList = new InternshipList();
         Storage.loadFromFile(internshipList);
         Parser parser = new Parser();
 
-        setUpLogger();
-
-        Logger logger = Logger.getLogger("EasInternship");
-
         ui.showWelcome();
-        logger.log(Level.INFO, "Starting Program");
 
         // Main loop
         boolean isExit = false;
