@@ -20,7 +20,7 @@ public class UpdateCommand extends Command {
             int internshipId = Integer.parseInt(args.get(0));
             int internshipIndex = internshipId - 1;
             if (!internships.isWithinBounds(internshipIndex)) {
-                throw new InvalidIndex();
+                throw new InvalidIndex(internshipIndex);
             }
             args.remove(0);
 
@@ -37,8 +37,8 @@ public class UpdateCommand extends Command {
             uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
         } catch (NumberFormatException e) {
             uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
-        } catch (InvalidIndex e) {
-            // Exception message is already handled in InternshipList class
+        } catch (InvalidIndex ie) {
+            uiCommand.showOutput(ie.getMessage());
         }
     }
 
@@ -55,7 +55,7 @@ public class UpdateCommand extends Command {
         }
     }
 
-    protected void updateOneField(String[] words, int internshipIndex) throws InvalidIndex {
+    protected void updateOneField(String[] words, int internshipIndex) {
         String field = words[INDEX_FIELD];
         try {
             switch (field) {

@@ -8,7 +8,6 @@ import seedu.duke.InternshipList;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class FavouriteCommandTest {
 
@@ -101,7 +100,9 @@ public class FavouriteCommandTest {
 
         favouriteCommand.execute(args);
 
-        assertFalse(favouriteCommand.functionComplete);
+        ArrayList<Internship> favouriteInternships = internships.favouriteInternships;
+
+        assert(favouriteInternships.isEmpty());
     }
 
     @Test
@@ -116,7 +117,9 @@ public class FavouriteCommandTest {
 
         favouriteCommand.execute(args);
 
-        assertFalse(favouriteCommand.functionComplete);
+        ArrayList<Internship> favouriteInternships = internships.favouriteInternships;
+
+        assertEquals(3, favouriteInternships.size());
     }
 
     @Test
@@ -131,6 +134,8 @@ public class FavouriteCommandTest {
 
         favouriteCommand.execute(args);
 
-        assertFalse(favouriteCommand.functionComplete);
+        ArrayList<Internship> favouriteInternships = internships.favouriteInternships;
+
+        assertEquals(3, favouriteInternships.size());
     }
 }
