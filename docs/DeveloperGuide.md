@@ -61,7 +61,8 @@ The `Category` class encapsulates the name of a category and provides functional
 ### TransactionList
 The `TransactionList` class is responsible for storing user transactions of different types. It also provides various
 operations that enable user to add, delete, search by (date/ category/ keywords).
-    ![TransactionList](./diagrams/TransactionList/transactionlist-class-diagram.png)
+
+![TransactionList](./diagrams/TransactionList/transactionlist-class-diagram.png)
     
 #### Class Responsibilities
 
@@ -142,7 +143,8 @@ The `Command` class is an abstract class that provide a common behavior that oth
       
 ### AddIncomeCommand
 The `AddIncomeCommand` class inherits Command class, handles the logic for adding an income transaction to the `TransactionList` by parsing input arguments, creating a new `Income` instance, and updating the transaction list.
-    ![AddIncomeCommand](./diagrams/addincomecommand/addincomecommand-class-diagram.png)
+
+![AddIncomeCommand](./diagrams/addincomecommand/addincomecommand-class-diagram.png)
 
 #### Class responsibilities
 
