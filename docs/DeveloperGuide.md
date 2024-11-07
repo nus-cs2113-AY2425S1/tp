@@ -643,9 +643,9 @@ testers are expected to do more *exploratory* testing.
 * 2.1.1. Introduction to ExchangeCourseMapper
    * Test Case: `commands` <br/>
    * Expected: Prints out the summarised list of possible commands in ExchangeCourseMapper.
-* 2.1.2. More details for each command
-  * Test Case: `help ACTION`, where `ACTION` is one of the commands listed by `commands`.<br/>
-  * Expected: Prints out the function of each command and the valid command format.
+* 2.1.2. More details for each command listed by the `commands` command
+  * Test Case: `help add` <br/>
+  * Expected: Prints out the function of the add function and the valid command format.
 
 #### 2.2 Obtain names of Partner Universities in Oceania
 * 2.2.1 List all Partner Universities (PUs) in Oceania
@@ -660,15 +660,15 @@ testers are expected to do more *exploratory* testing.
 
 * 2.3.1 See all mappable courses from a valid PU
   * Prerequisites: None
-  * Test Case: `set SCHOOL_NAME`, where `SCHOOL_NAME` is one of the PUs listed by `list schools` <br/>
+  * Test Case: `set The University of Western Australia` <br/>
   * Expected: List of mappable courses, with information of the PU course code and name to the matching
     NUS course code and name.
 
 
 * 2.3.2 See all mappable courses from an invalid PU
   * Prerequisites: None
-  * Test Case: `set SCHOOL_NAME`, where `SCHOOL_NAME` is NOT one of the PUs listed by `list schools` <br/>
-  * Expected: Error message stating that input is an unknown university.
+  * Test Case: `set tokyo university` <br/>
+  * Expected: Error message stating that input is an unknown university to ExchangeCourseMapper.
 
 
 #### 2.4 Obtain admin information of PUs in Oceania
@@ -679,21 +679,15 @@ testers are expected to do more *exploratory* testing.
   * Expected: Prints out email of The University of Melbourne.
 
 
-* 2.4.2 Obtain invalid PU's email
-  * Prerequisites: None
-  * Test Case: `obtain tokyo university /email`
-  * Expected: Error message stating that input is an unknown university in the program.
-
-
 * 2.4.3 Obtain valid PU's email
   * Prerequisites: None
   * Test Case: `obtain The University of Melbourne /number`
   * Expected: Prints out email The University of Melbourne.
 
 
-* 2.4.4 Obtain invalid PU's email
+* 2.4.2 Obtain invalid PU's email or number
   * Prerequisites: None
-  * Test Case: `obtain tokyo university /number`
+  * Test Case: `obtain tokyo university /email` or `obtain tokyo university /number`
   * Expected: Error message stating that input is an unknown university in the program.
 
 
