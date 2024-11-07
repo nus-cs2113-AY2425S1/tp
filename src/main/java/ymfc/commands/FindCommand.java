@@ -31,10 +31,12 @@ public class FindCommand extends Command {
 
 
     public FindCommand(String query) {
+        assert !query.isEmpty();
         this.query = query;
     }
 
     public FindCommand(String query, boolean isByName, boolean isByIngredient, boolean isByStep) {
+        assert !query.isEmpty();
         this.query = query;
         this.isByName = isByName;
         this.isByIngredient = isByIngredient;
