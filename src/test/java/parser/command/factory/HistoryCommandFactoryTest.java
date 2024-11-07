@@ -31,21 +31,24 @@ public class HistoryCommandFactoryTest {
     public void testParseListPersonalBestsCommand() {
         // Test that "history pb" with no additional arguments returns a ListPersonalBestsCommand instance
         Command command = historyCommandFactory.parse("pb");
-        assertInstanceOf(ListPersonalBestsCommand.class, command, "Expected ListPersonalBestsCommand instance for 'history pb'.");
+        assertInstanceOf(ListPersonalBestsCommand.class, command,
+                "Expected ListPersonalBestsCommand instance for 'history pb'.");
     }
 
     @Test
     public void testParseViewPersonalBestCommand() {
         // Test that "history pb [exercise]" returns a ViewPersonalBestCommand instance
         Command command = historyCommandFactory.parse("pb Bench_Press");
-        assertInstanceOf(ViewPersonalBestCommand.class, command, "Expected ViewPersonalBestCommand instance for 'history pb Bench_Press'.");
+        assertInstanceOf(ViewPersonalBestCommand.class, command,
+                "Expected ViewPersonalBestCommand instance for 'history pb Bench_Press'.");
     }
 
     @Test
     public void testParseWeeklySummaryCommand() {
         // Test that "history wk" returns a WeeklySummaryCommand instance
         Command command = historyCommandFactory.parse("wk");
-        assertInstanceOf(WeeklySummaryCommand.class, command, "Expected WeeklySummaryCommand instance for 'history wk'.");
+        assertInstanceOf(WeeklySummaryCommand.class, command,
+                "Expected WeeklySummaryCommand instance for 'history wk'.");
     }
 
     @Test

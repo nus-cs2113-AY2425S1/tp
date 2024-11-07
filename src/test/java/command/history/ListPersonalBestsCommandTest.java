@@ -41,7 +41,8 @@ public class ListPersonalBestsCommandTest {
         CommandResult result = listPersonalBestsCommand.execute(programmeList, history);
 
         // Assert
-        assertEquals(expectedResult, result, "Execution with a single exercise should return the correct personal best.");
+        assertEquals(expectedResult, result,
+                "Execution with a single exercise should return the correct personal best.");
     }
 
     @Test
@@ -82,7 +83,8 @@ public class ListPersonalBestsCommandTest {
         CommandResult result = listPersonalBestsCommand.execute(programmeList, history);
 
         // Assert
-        assertEquals(expectedResult, result, "Execution with multiple exercises should return the correct personal bests.");
+        assertEquals(expectedResult, result,
+                "Execution with multiple exercises should return the correct personal bests.");
     }
 }
 

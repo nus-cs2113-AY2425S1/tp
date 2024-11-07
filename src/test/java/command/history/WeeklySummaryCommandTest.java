@@ -75,6 +75,7 @@ public class WeeklySummaryCommandTest {
 
         // Assert
         String expectedMessage = "Your weekly workout summary: \nNo workout history available for the past week.";
-        assertEquals(expectedMessage, result.getMessage(), "Execution should indicate no recent workout history available.");
+        assertEquals(expectedMessage, result.getMessage(),
+                "Execution should indicate no recent workout history available.");
     }
 }

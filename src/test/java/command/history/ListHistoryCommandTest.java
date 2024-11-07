@@ -11,15 +11,15 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class HistoryCommandTest {
+public class ListHistoryCommandTest {
 
-    private HistoryCommand historyCommand;
+    private ListHistoryCommand listHistoryCommand;
     private History history;
     private ProgrammeList programmeList;
 
     @BeforeEach
     public void setUp() {
-        historyCommand = new HistoryCommand();
+        listHistoryCommand = new ListHistoryCommand();
         history = new History();
         programmeList = new ProgrammeList(); // Assuming ProgrammeList is initialized this way
     }
@@ -34,7 +34,7 @@ public class HistoryCommandTest {
         CommandResult expectedResult = new CommandResult(history.toString());
 
         // Act
-        CommandResult result = historyCommand.execute(programmeList, history);
+        CommandResult result = listHistoryCommand.execute(programmeList, history);
 
         // Assert
         assertEquals(expectedResult, result, "Execution with a single record should output the correct history.");
@@ -46,7 +46,7 @@ public class HistoryCommandTest {
         CommandResult expectedResult = new CommandResult("No history available.");
 
         // Act
-        CommandResult result = historyCommand.execute(programmeList, history);
+        CommandResult result = listHistoryCommand.execute(programmeList, history);
 
         // Assert
         assertEquals(expectedResult, result, "Execution with an empty history should return 'No history available.'");
@@ -67,7 +67,7 @@ public class HistoryCommandTest {
         CommandResult expectedResult = new CommandResult(history.toString());
 
         // Act
-        CommandResult result = historyCommand.execute(programmeList, history);
+        CommandResult result = listHistoryCommand.execute(programmeList, history);
 
         // Assert
         assertEquals(expectedResult, result, "Execution with multiple records should output the correct history.");

@@ -53,7 +53,8 @@ public class HistoryTest {
     @Test
     public void testGetWeeklyWorkoutSummaryWithoutData() {
         String weeklySummary = history.getWeeklyWorkoutSummary();
-        assertEquals("No workout history available.", weeklySummary, "Weekly summary should indicate no data available.");
+        assertEquals("No workout history available.", weeklySummary,
+                "Weekly summary should indicate no data available.");
     }
 
     @Test
@@ -65,7 +66,8 @@ public class HistoryTest {
         history.logRecord(date, dailyRecord);
 
         String personalBest = history.getPersonalBestForExercise("Squat");
-        assertTrue(personalBest.contains("Personal best for Squat"), "Personal best output should contain exercise name.");
+        assertTrue(personalBest.contains("Personal best for Squat"),
+                "Personal best output should contain exercise name.");
         assertTrue(personalBest.contains("100kg"), "Personal best output should contain correct weight.");
     }
 
@@ -78,8 +80,10 @@ public class HistoryTest {
         history.logRecord(date, dailyRecord);
 
         String formattedPersonalBests = history.getFormattedPersonalBests();
-        assertTrue(formattedPersonalBests.contains("Personal bests for all exercises:"), "Output should contain header.");
-        assertTrue(formattedPersonalBests.contains("Squat: 3 sets of 10 at 100kg"), "Output should contain exercise details.");
+        assertTrue(formattedPersonalBests.contains("Personal bests for all exercises:"),
+                "Output should contain header.");
+        assertTrue(formattedPersonalBests.contains("Squat: 3 sets of 10 at 100kg"),
+                "Output should contain exercise details.");
     }
 
     @Test

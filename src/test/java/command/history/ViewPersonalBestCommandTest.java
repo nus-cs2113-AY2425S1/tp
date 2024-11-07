@@ -34,8 +34,7 @@ public class ViewPersonalBestCommandTest {
         CommandResult result = command.execute(programmeList, history);
 
         // Assert
-        String expectedMessage = "Personal best for " + exerciseName + ": " +
-                "Bench Press: 3 sets of 12 at 50kg | Burnt 200 cals";
+        String expectedMessage = "Personal best for " + exerciseName + ": 3 sets of 12 at 50kg";
         assertEquals(expectedMessage, result.getMessage(), "Execution should return correct personal best message.");
     }
 
@@ -50,20 +49,33 @@ public class ViewPersonalBestCommandTest {
 
         // Assert
         String expectedMessage = "No personal best found for " + exerciseName;
-        assertEquals(expectedMessage, result.getMessage(), "Execution should return message indicating no personal best found.");
+        assertEquals(expectedMessage, result.getMessage(),
+                "Execution should return message indicating no personal best found.");
     }
 
     @Test
-    public void testExecuteEdgeCaseNoExerciseSpecified() {
+    public void testExecuteEdgeCaseSimilarExerciseNames() {
         // Arrange
-        ViewPersonalBestCommand command = new ViewPersonalBestCommand("");
+        String exerciseName1 = "Bench Press";
+        String exerciseName2 = "Bench Press Incline";
+
+        history.getRecordByDate(java.time.LocalDate.now()).logDayToRecord(new programme.Day("Day 1"));
+        history.getRecordByDate(java.time.LocalDate.now()).getDayFromRecord().insertExercise(
+                new programme.Exercise(3, 12, 50, 200, exerciseName1)
+        );
+        history.getRecordByDate(java.time.LocalDate.now()).getDayFromRecord().insertExercise(
+                new programme.Exercise(3, 10, 45, 180, exerciseName2)
+        );
+
+        ViewPersonalBestCommand command = new ViewPersonalBestCommand(exerciseName2);
 
         // Act
         CommandResult result = command.execute(programmeList, history);
 
         // Assert
-        String expectedMessage = "Please specify an exercise to view its personal best.";
-        assertEquals(expectedMessage, result.getMessage(), "Execution with no exercise specified should prompt for exercise name.");
+        String expectedMessage = "Personal best for " + exerciseName2 + ": 3 sets of 10 at 45kg";
+        assertEquals(expectedMessage, result.getMessage(),
+                "Execution should return the correct personal best for a similarly named exercise.");
     }
 }
 
