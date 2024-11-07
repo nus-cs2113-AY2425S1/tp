@@ -427,7 +427,7 @@ TrackerData trackerData = new TrackerData();
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
         budgetManager.toggleAutoReset();
-        simulateMonthChange(budgetManager);
+        budgetManager.simulateMonthChange();
         budgetManager.checkAndResetBudgets(trackerData);
         assertEquals(Calendar.getInstance().get(Calendar.MONTH), getLastResetMonth(budgetManager));
     }
@@ -439,7 +439,7 @@ TrackerData trackerData = new TrackerData();
         if (getAutoResetStatus(budgetManager)) {
             budgetManager.toggleAutoReset();
         }
-        simulateMonthChange(budgetManager);
+        budgetManager.simulateMonthChange();
         budgetManager.checkAndResetBudgets(trackerData);
         assertNotEquals(Calendar.getInstance().get(Calendar.MONTH), getLastResetMonth(budgetManager));
     }
