@@ -1,10 +1,14 @@
 package seedu.duke.command;
 
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.financial.Expense;
+import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.financial.Income;
 import seedu.duke.log.Log;
 import seedu.duke.log.LogLevels;
 import seedu.duke.parser.DateParser;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
 /**
@@ -53,9 +57,11 @@ public class EditEntryCommand extends Command {
      * @param amount      The new amount for the entry. Must be non-negative.
      * @param description The new description for the entry. Must not be null or empty.
      * @param date The new date for the entry.
-     * @throws IllegalArgumentException if amount is negative or description is null/empty.
+     * @throws IllegalArgumentException if date is input with invalid format.
      */
-    public EditEntryCommand(int index, double amount, String description, String date, Enum<?> category) {
+    public EditEntryCommand(int index, double amount, String description, String date, Enum<?> category)
+            throws FinanceBuddyException {
+
         this.index = index;
         this.amount = amount;
         this.description = description;
@@ -64,10 +70,9 @@ public class EditEntryCommand extends Command {
             this.date = DateParser.parse(date);
         } catch (FinanceBuddyException e) {
             logger.log(LogLevels.SEVERE, "Error parsing date: " + date, e);
-            throw new IllegalArgumentException("Invalid date format: " + date, e);
+            throw new FinanceBuddyException(e.getMessage());
         }
 
-        assert amount >= 0 : "Amount should be non-negative";
         assert description !=null && !description.isEmpty() : "Description should not be empty";
     }
 
@@ -79,24 +84,42 @@ public class EditEntryCommand extends Command {
      */
     @Override
     public void execute(FinancialList list) throws FinanceBuddyException {
+        checkValidParams();
+
         if (list == null) {
             logger.log(LogLevels.SEVERE, "Financial list is null");
             throw new FinanceBuddyException("Financial list cannot be null");
         }
-        if (index >= 0 && index <= list.getEntryCount()) {
-            list.editEntry(index - 1, amount, description, date, category);
-            assert list.getEntry(index - 1).getAmount() == amount : "Amount should be updated";
-            assert list.getEntry(index - 1).getDescription().equals(description) : "Description should be updated";
-            System.out.println("--------------------------------------------");
-            System.out.println("Got it. I've edited this expense:");
-            System.out.println(list.getEntry(index - 1));
-            System.out.println("--------------------------------------------");
-            logger.log(LogLevels.INFO, "Edited entry at index " + index + " to " + amount + " " + description);
+
+        int zeroBasedIndex = index - 1;
+        FinancialEntry entry = list.getEntry(zeroBasedIndex);
+        FinancialEntry replacementEntry;
+
+        if (entry instanceof Expense) {
+            replacementEntry = new Expense(amount, description, date, (Expense.Category) category);
         } else {
-            System.out.println("OOPS!!! The entry does not exist.");
-            System.out.println(index);
-            System.out.println(list.getEntryCount());
-            logger.log(LogLevels.WARNING, "Entry does not exist at index " + index);
+            replacementEntry = new Income(amount, description, date, (Income.Category) category);
+        }
+
+        list.deleteEntry(zeroBasedIndex);
+        list.addEntry(replacementEntry);
+
+        System.out.println(Commons.LINE_SEPARATOR);
+        System.out.println("Got it. I've edited this expense:");
+        System.out.println(replacementEntry);
+        System.out.println(Commons.LINE_SEPARATOR);
+        logger.log(LogLevels.INFO, "Edited entry at index " + index + " to " + amount + " " + description);
+    }
+
+    private void checkValidParams() throws FinanceBuddyException {
+        if (amount < 0.01) {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_AMOUNT_TOO_SMALL);
+        }
+        if (amount > 9999999.00) {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_AMOUNT_TOO_LARGE);
+        }
+        if (this.date.isAfter(LocalDate.now())) {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_DATE_TOO_LATE);
         }
     }
 }

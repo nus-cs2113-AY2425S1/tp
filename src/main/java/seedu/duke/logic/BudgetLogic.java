@@ -5,8 +5,11 @@ import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.log.Log;
+import seedu.duke.log.LogLevels;
 import seedu.duke.parser.DateParser;
 import seedu.duke.ui.AppUi;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
 
@@ -14,7 +17,8 @@ import java.time.LocalDate;
  * Handles the logic related to setting and modifying the budget.
  */
 public class BudgetLogic {
-    public final Budget budget;
+    private static final Log logger = Log.getInstance();
+    public Budget budget;
     private final AppUi ui;
 
     /**
@@ -29,18 +33,36 @@ public class BudgetLogic {
     }
 
     /**
+     * Overwrites the current budget with the specified budget.
+     *
+     * @param budget The new budget to be set.
+     */
+    public void overwriteBudget(Budget budget){
+        this.budget = budget;
+    }
+
+    /**
      * Sets the budget if it has not been set. If the budget is already set,
      * prompts the user to confirm whether they want to modify it.
      */
     public void setBudget(FinancialList financialList) throws FinanceBuddyException {
         if (!budget.isBudgetSet()) {
+            logger.log(LogLevels.INFO, "Budget has not been set.");
             ui.displaySetBudgetMessage();
             handleSetBudget(financialList);
         } else {
-            System.out.println("Your current budget is: " + budget.getBudgetAmount());
-            System.out.println("Would you like to modify your budget? (yes/no)");
+            ui.displayModifyBudgetMessage(budget.getBudgetAmount());
             handleSetBudget(financialList);
         }
+    }
+
+    /**
+     * Retrieves the current budget.
+     *
+     * @return the current budget
+     */
+    public Budget getBudget() {
+        return budget;
     }
 
     /**
@@ -48,31 +70,62 @@ public class BudgetLogic {
      * Validates that the input is a non-negative number before setting the budget.
      */
     public void handleSetBudget(FinancialList financialList) throws FinanceBuddyException {
-        String input = ui.getUserInput();
+        String input = "";
+        boolean isValidInput = false;
+
+        while (!isValidInput) {
+            input = ui.getUserInput();
+
+            if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("no")) {
+                isValidInput = true;
+            } else {
+                System.out.println(Commons.LINE_SEPARATOR);
+                System.out.println("Invalid input. Please enter 'yes' or 'no'.");
+                System.out.println(Commons.LINE_SEPARATOR);
+            }
+        }
+
         if (input.equalsIgnoreCase("yes")) {
+            System.out.println(Commons.LINE_SEPARATOR);
             System.out.println("Please set your budget amount:");
+            System.out.println(Commons.LINE_SEPARATOR);
+
 
             double amount = 0;
-            boolean isValid = false;
+            boolean isAmountValid = false;
 
-            while (!isValid) {
+            while (!isAmountValid) {
                 try {
                     String amountInput = ui.getUserInput();
                     amount = Double.parseDouble(amountInput);
 
                     if (amount >= 0.01) {
-                        isValid = true;
+                        isAmountValid = true;
                     } else {
                         System.out.println("Budget amount must be >= $0.01. Please enter a valid amount.");
+                        logger.log(LogLevels.WARNING, "Amount less than $0.01 entered.");
                     }
 
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid input. Please enter a valid number:");
+                    logger.log(LogLevels.WARNING, "Invalid number entered.");
                 }
             }
 
             budget.setBudgetAmount(amount);
             recalculateBalance(financialList);
+            System.out.println(Commons.LINE_SEPARATOR);
+            System.out.println("Your budget has successfully been set to: " +
+                    String.format("$ %.2f", budget.getBudgetAmount()));
+            System.out.println("Your current monthly balance is: " +
+                    String.format("$ %.2f", budget.getBalance()));
+            System.out.println(Commons.LINE_SEPARATOR);
+            logger.log(LogLevels.INFO, "Budget set to " + String.format("$ %.2f", budget.getBudgetAmount()) + ".");
+        } else {
+            System.out.println(Commons.LINE_SEPARATOR);
+            System.out.println("Budget setting skipped.");
+            System.out.println(Commons.LINE_SEPARATOR);
+            logger.log(LogLevels.INFO, "Budget setting skipped.");
         }
     }
 
@@ -86,6 +139,23 @@ public class BudgetLogic {
         double currentBalance = budget.getBalance();
         double newBalance = currentBalance + amount;
         budget.updateBalance(newBalance);
+    }
+
+    /**
+     * Displays the current budget and balance, if the budget is set.
+     * Otherwise, notifies the user that the budget is not set.
+     */
+    public void getBudgetAndBalance() {
+        if (!budget.isBudgetSet()) {
+            System.out.println("No budget has been set.");
+            System.out.println("--------------------------------------------");
+            return;
+        }
+        String budgetAmount = String.format("$ %.2f", budget.getBudgetAmount());
+        String balanceAmount = String.format("$ %.2f", budget.getBalance());
+        System.out.println("Your current budget is: " + budgetAmount);
+        System.out.println("Your current monthly balance is: " + balanceAmount);
+        System.out.println("--------------------------------------------");
     }
 
     /**
@@ -111,25 +181,35 @@ public class BudgetLogic {
     }
 
     /**
-     * Adjusts the budget balance upon recording an expense,
-     * if the expense date is in the current year and month.
+     * Adjusts the budget balance upon recording an expense given as a string,
+     * if the expense date is in the current month and year. It notifies the user
+     * if the budget is exceeded.
      *
      * @param amount the expense amount.
-     * @param date   the date of the expense.
+     * @param date   the date of the expense as a string.
      * @throws FinanceBuddyException if an error occurs during parsing the date.
      */
-    public void changeBalanceFromExpense(double amount, String date) throws FinanceBuddyException {
+    public void changeBalanceFromExpenseString(double amount, String date) throws FinanceBuddyException {
         if (!budget.isBudgetSet()) {
             return;
         }
         LocalDate parsedDate = DateParser.parse(date);
         if (isCurrentMonth(parsedDate)) {
             modifyBalance(amount);
+            if (hasExceededBudget()) {
+                ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
+                logger.log(LogLevels.INFO, "Budget has been exceeded.");
+            }
+            ui.displayBudgetBalanceMessage(budget.getBalance());
+            logger.log(LogLevels.INFO, "Balance updated to " + String.format("$ %.2f", budget.getBalance()) + ".");
         }
+
     }
 
     /**
-     * Adjusts the budget balance upon recording an expense, if the expense date is in the current month.
+     * Adjusts the budget balance upon recording an expense,
+     * if the expense date is in the current month. It notifies the user
+     * if the budget is exceeded.
      *
      * @param amount the expense amount.
      * @param date   the date of the expense.
@@ -140,12 +220,18 @@ public class BudgetLogic {
         }
         if (isCurrentMonth(date)) {
             modifyBalance(amount);
+            if (hasExceededBudget()) {
+                ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
+                logger.log(LogLevels.INFO, "Budget has been exceeded.");
+            }
+            ui.displayBudgetBalanceMessage(budget.getBalance());
+            logger.log(LogLevels.INFO, "Balance updated to " + String.format("$ %.2f", budget.getBalance()) + ".");
         }
     }
 
     /**
      * Recalculates the balance based on the budget amount and expenses in the financial list
-     * that occurred in the current month.
+     * that occurred in the current month. It notifies the user if the budget is exceeded.
      *
      * @param financialList the list of financial entries to consider.
      * @throws FinanceBuddyException if the financial list is null.
@@ -166,5 +252,10 @@ public class BudgetLogic {
             }
         }
         budget.updateBalance(balance);
+        if (hasExceededBudget()) {
+            ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
+        }
+        ui.displayBudgetBalanceMessage(budget.getBalance());
+        logger.log(LogLevels.INFO, "Recalculation of balance complete.");
     }
 }
