@@ -11,15 +11,17 @@
    - [Deleting](#deleting)
      - [Delete an expense/income: `delete-transaction`](#delete-an-expenseincome-delete-transaction)
      - [Delete a category: `delete-category`](#delete-a-category-delete-category)
-   - [Viewing](#viewing)
+   - [Updating](#updating)
+     - [Update an expense category: `categorize`](#update-an-expense-category-categorize)
+   - [Viewing list](#viewing-list)
      - [List all categories: `view-category`](#list-all-categories-view-category)
      - [View expenses: `view-expense`](#view-expenses-view-expense)
      - [View income: `view-income`](#view-income-view-income)
      - [View transaction history: `history`](#view-transaction-history-history)
    - [View total amount in account: `view-total`](#view-total-amount-in-account-view-total)
+   - [Searching: `search`](#searching-search)
+   - [Tracking: `track`](#tracking-track)
    - [View command list: `help`](#view-command-list-help)
-   - [Searching](#searching)
-     - [Search transaction by keywords: `KeywordsSearchCommand`](#search-transaction-by-keywords-keywordssearchcommand)
 4. [Command Summary](#command-summary)
 
 ---
@@ -114,7 +116,16 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   ```
   delete-category i/ 6
   ```
-  
+---
+### Updating
+
+#### Update an expense category: `categorize`
+- Update the category field of an expense.
+- **Format:** `categorize i/ INDEX c/ CATEGORY`
+- **Example:**
+  ```
+  categorize i/ 6 c/ Food
+  ```
 ---
 ### Viewing list
 
@@ -154,15 +165,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - View the total amount of money currently in the account.
 - **Format:** `view-total`
 
----
-### View command list: `help`
-- View all available commands in the application.
-- **Format:** `help`
-
----
-### Searching
-
-#### Search transaction by keywords: `KeywordsSearchCommand`
+### Searching: `search`
 - Search for transaction or transactions in the transactionList using one or multiple keywords. The command counts exact match, with case ignore.
 - **Format:** `search k/ [keyword_1] [keyword_2] ... [keyword_n]`
 - **Example:**
@@ -171,10 +174,8 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   search k/ school fee ABC
   ```
   
-### Tracking
-
-#### Track the progress towards budget for a certain moth: `track m/ Month`
-- Track your spending progress to make sure you are within the budget
+### Tracking: `track`
+- Track the progress towards budget for a certain month to make sure you are within the budget
 - **Format:** `track m/ MONTH`
 - **Tips:**
   - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
@@ -184,6 +185,10 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   track m/ 2024-11
   track m/ 2020-10
   ```
+
+### View command list: `help`
+- View all available commands in the application.
+- **Format:** `help`
 
 ## Command Summary
 It seems like you're trying to format a table of commands, but the current format may not render properly in the application or website you're using. Here's a properly formatted version of your command list using markdown or a clean text format, which should display well in most environments:
@@ -198,11 +203,14 @@ It seems like you're trying to format a table of commands, but the current forma
 | `add-budget`         |                `add-budget a/ AMOUNT m/ MONTH`                |           `add-budget a/ 1000 m/ 2024-12`           |
 | `delete-transaction` |                 `delete-transaction i/ INDEX`                 |              `delete-transaction i/ 7`              |
 | `delete-category`    |                  `delete-category i/ INDEX`                   |               `delete-category i/ 6`                |
+| `categorize`         |              `categorize i/ INDEX c/ CATEGORY`                |              `categorize i/ 6 c/ Food`              |
 | `view-category`      |                        `view-category`                        |                   `view-category`                   |
 | `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        |               `view-expense c/ food`                |
 | `view-income`        |               `view-income [f/ DATE] [t/ DATE]`               |      `view-income f/ 2024-09-16 t/ 2024-09-19`      |
 | `history`            |                 `history [f/ DATE] [t/ DATE]`                 |        `history f/ 2024-09-16 t/ 2024-09-19`        |
 | `view-total`         |                         `view-total`                          |                    `view-total`                     |
+| `search`             |     `search k/ [keyword_1] [keyword_2] ... [keyword_n]`       |                 search k/ school fee ABC            |
+| `track`              |                       `track m/ MONTH`                        |                 `track m/ 2024-11`                  |
 | `help`               |                            `help`                             |                       `help`                        |
-| `track`              |                       `track m/ MONTH`                        |                 `track m/ 2024-11`                  |           
+           
 
