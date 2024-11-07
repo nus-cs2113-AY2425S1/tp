@@ -54,7 +54,7 @@ public class AddIngredientCommand extends Command {
         assert ingredients != null;
 
         if (isDuplicateIngredient(ingredient.getName().toLowerCase(), ingredients)) {
-            ui.printDuplicateRecipe(ingredient.getName());
+            ui.printDuplicateIngredient(ingredient.getName());
         } else {
             addNewIngredient(ingredients, ingredient, ui, storage);
         }

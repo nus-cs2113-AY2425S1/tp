@@ -109,6 +109,11 @@ public class Ui {
         return commandRead;
     }
 
+    /**
+     * Displays an error message.
+     *
+     * @param error Error message to be displayed.
+     */
     public void printErrorMessage(String error) {
         System.out.println(error);
     }
@@ -217,7 +222,13 @@ public class Ui {
      */
     public void printDuplicateRecipe(String duplicateName){
         System.out.println(LINE);
-        System.out.println("\tThere already exists a recipe called: " + duplicateName + " !");
+        System.out.println("\tThere already exists a recipe called: " + duplicateName + "!");
+        System.out.println(LINE);
+    }
+
+    public void printDuplicateIngredient(String duplicateName) {
+        System.out.println(LINE);
+        System.out.println("\tThere already exists an ingredient called: " + duplicateName + "!");
         System.out.println(LINE);
     }
 
@@ -338,10 +349,21 @@ public class Ui {
         }
     }
 
+    /**
+     * Retrieves the line separator used to format outputs in the UI.
+     *
+     * @return A string representing the line separator.
+     */
     public String getLine() {
         return LINE;
     }
 
+    /**
+     * Retrieves a list of all available commands and their usage instructions.
+     * Used in testing of HelpCommand
+     *
+     * @return A string containing all available commands and their descriptions.
+     */
     public String getListOfCommands() {
         return listOfCommands;
     }
