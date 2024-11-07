@@ -264,7 +264,8 @@ public class UI {
     public void printUnknownUniversity(String university) {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Error: The university \"" + university + "\" is not recognized.");
-        System.out.println("Please check the spelling or refer to the list of available universities using the 'list schools' command.");
+        System.out.println("Please check the spelling or refer to the list of available universities using the " +
+                "'list schools' command.");
         System.out.println(LINE_SEPARATOR);    }
 
 
