@@ -32,8 +32,8 @@ public class ViewPersonalBestCommand extends HistoryCommand {
      * Executes the command to retrieve and display the personal best for the specified exercise.
      *
      * @param history the {@link History} object containing workout records
-     * @return a {@link CommandResult} containing the personal best for the specified exercise or a message
-     * indicating that no record was found
+     * @return a {@link CommandResult} containing the personal best for the specified exercise or a 
+     *     message indicating that no record was found
      */
     @Override
     public CommandResult execute(History history) {
