@@ -1,24 +1,28 @@
 @startuml
 
 class Storage {
-    - logger : Logger
-    + loadProgrammeList() : ProgrammeList
-    + loadHistory() : History
-    + saveData(programmeList : ProgrammeList, history : History) : void
     - createJson(programmeList : ProgrammeList, history : History) : JsonObject
     - programmeListToJson(programmeList : ProgrammeList) : JsonObject
     - historyToJson(history : History) : JsonObject
+    + loadProgrammeList() : ProgrammeList
+    + loadHistory() : History
+    + saveData(programmeList : ProgrammeList, history : History) : void
 }
 
 class FileManager {
     - path : String
-    - logger : Logger
-    + loadProgrammeList() : JsonObject
-    + loadHistory() : JsonObject
-    + save(data : JsonObject) : void
     - load() : JsonObject
     - createDirIfNotExists() : void
     - createFileIfNotExists() : void
+    + loadProgrammeList() : JsonObject
+    + loadHistory() : JsonObject
+    + save(data : JsonObject) : void
+}
+
+class DateSerializer {
+    - formatter : DateTimeFormatter
+    + serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) : JsonElement
+    + deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) : LocalDate
 }
 
 Storage "1" --> "1" FileManager : contains
