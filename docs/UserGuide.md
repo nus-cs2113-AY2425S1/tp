@@ -16,12 +16,11 @@
      - [View expenses: `view-expense`](#view-expenses-view-expense)
      - [View income: `view-income`](#view-income-view-income)
      - [View transaction history: `history`](#view-transaction-history-history)
-     - [View total amount in account: `view-total`](#view-total-amount-in-account-view-total)
-     - [View command list: `help`](#view-command-list-help)
+   - [View total amount in account: `view-total`](#view-total-amount-in-account-view-total)
+   - [View command list: `help`](#view-command-list-help)
    - [Searching](#searching)
      - [Search transaction by keywords: `KeywordsSearchCommand`](#search-transaction-by-keywords-keywordssearchcommand)
-4. [FAQ](#faq)
-5. [Command Summary](#command-summary)
+4. [Command Summary](#command-summary)
 
 ---
 ## Introduction
@@ -29,18 +28,25 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 
 ## Quick Start
 1. Ensure that you have Java 17 or above installed.
-2. Down the latest version of `uNivUSaver` from [here](https://github.com/AY2425S1-CS2113-W10-4/tp/releases/tag/v1.0).
-3. Copy the file to the folder you want the program to stay in.
-4. Open a command terminal, cd into the folder you put the jar file in, and use the ```java -jar uNivUSaver.jar``` command to start the program!
-   
+2. Download the latest version of `uNivUSaver` from [here](https://github.com/AY2425S1-CS2113-W10-4/tp/releases).
+3. Copy the file to the folder you want the program to stay in, make sure the data files `(*.json)` is in the same folder with the `uNivUSaver.jar` file.
+4. Open a command terminal, run the following:
+   ```
+   cd Path/to/directory # Change directory into the folder you put the jar file in
+   java -jar uNivUSaver.jar # Start the program.
+   ```
+5. The data files will be read automatically
+6. Type `help` to view the command list and syntax.
+
 ## Features
 > **&#9432;** **NOTES ON THE COMMAND FORMAT:**
 >- Words in UPPER_CASE are the parameters to be supplied by the user.
 >- Parameters in [] are optional (e.g. `[f/ DATE]`)
->- The keywords must be followed by at least one space before adding the associated parameter (e.g. `d/ DATE`)
+>- The keywords must be followed by **at least one space** before adding the associated parameter (e.g. `d/ DATE`)
 >- Parameters can be in any order, except for the parameters without keyword (e.g. `DESCRIPTION`)
 >- Extraneous parameters for commands that do not take in parameters (such as help, list, bye and clear) will be ignored.
->- The date and time format for input is `dd/MM/yyyy [hhMM]`
+>- The date and time format for input is `yyyy-MM-dd [hhMM]`. Time is optional, the system will automatically take '2359' or '0000' for time.
+>- The month format for input is `yyyy-MM-dd`
 
 ### Adding
 #### Add an expense: `add-expense`
@@ -110,7 +116,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   ```
   
 ---
-### Viewing
+### Viewing list
 
 #### List all categories: `view-category`
 - View the category list.
@@ -157,7 +163,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 ### Searching
 
 #### Search transaction by keywords: `KeywordsSearchCommand`
-- Search for transaction or transactions in the transactionList using one or multiple keywords.
+- Search for transaction or transactions in the transactionList using one or multiple keywords. The command counts exact match, with case ignore.
 - **Format:** `search k/ [keyword_1] [keyword_2] ... [keyword_n]`
 - **Example:**
   ```
@@ -178,9 +184,6 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   track m/ 2024-11
   track m/ 2020-10
   ```
-
-
-## FAQ
 
 ## Command Summary
 It seems like you're trying to format a table of commands, but the current format may not render properly in the application or website you're using. Here's a properly formatted version of your command list using markdown or a clean text format, which should display well in most environments:
