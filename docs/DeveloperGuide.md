@@ -390,7 +390,7 @@ that NUS course is suitable to be mapped overseas in Oceania.
 #### Overview:
 This command is responsible for adding users' desired course mapping into the `myList.json` file.
 Additionally, each course mapping is checked against the current course mapping found in the
-`database.json` file, ensuring that the course mapping is accurate and is limited to Oceania 
+`database.json` file, ensuring that the course mapping is accurate and is limited to Oceania
 universities. This command hence helps the users to keep track of their course mapping process.
 
 #### How the feature is implemented:
