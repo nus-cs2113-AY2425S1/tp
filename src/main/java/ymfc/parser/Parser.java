@@ -15,7 +15,7 @@ import ymfc.commands.ListIngredientCommand;
 import ymfc.commands.RandomCommand;
 import ymfc.commands.RecommendCommand;
 import ymfc.commands.SortCommand;
-import ymfc.commands.SortIngredientsCommand;
+import ymfc.commands.SortIngredientCommand;
 
 import ymfc.exception.EmptyListException;
 import ymfc.exception.InvalidArgumentException;
@@ -75,7 +75,7 @@ public final class Parser {
                 throw new EmptyListException("You can't remove something from nothing!");
             }
             return getDeleteIngredientCommand(args);
-        case "listR":
+        case "list":
             if (numRecipes <= 0) {
                 throw new EmptyListException("Your recipe list is empty!");
             }
@@ -98,7 +98,7 @@ public final class Parser {
             if (numIngredients <= 0) {
                 throw new EmptyListException("There is nothing to sort!");
             }
-            return new SortIngredientsCommand();
+            return new SortIngredientCommand();
         case "new":
             return getAddIngredientCommand(args);
         case "edit":

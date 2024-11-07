@@ -16,7 +16,7 @@ participant ":Storage" as Storage
 participant ":File" as File
 participant ":Scanner" as Scanner
 participant "Parser" as Parser <<class>>
-participant ":AddRecipeCommand" as AddRecipeCommand
+participant ":AddCommand" as AddRecipeCommand
 participant ":ListCommand" as ListCommand
 end box
 
@@ -57,12 +57,12 @@ loop COLOR_GREEN until reader.hasNext() == false
     end ref
 
     create AddRecipeCommand
-    Parser -> AddRecipeCommand : AddRecipeCommand(..)
+    Parser -> AddRecipeCommand : AddCommand(..)
     activate AddRecipeCommand
-    AddRecipeCommand --> Parser : command:AddRecipeCommand
+    AddRecipeCommand --> Parser : command:AddCommand
     deactivate AddRecipeCommand
 
-    Parser --> Storage : command:AddRecipeCommand
+    Parser --> Storage : command:AddCommand
     deactivate Parser
 
     Storage -> AddRecipeCommand : addLoadedRecipe(recipes)
@@ -86,7 +86,7 @@ destroy Scanner
 create ListCommand
 Storage -> ListCommand : ListCommand()
 activate ListCommand
-ListCommand --> Storage : lister:ListIngredientsCommand
+ListCommand --> Storage : lister:ListIngredientCommand
 deactivate ListCommand
 
 Storage -> ListCommand : execute(recipes, ...)

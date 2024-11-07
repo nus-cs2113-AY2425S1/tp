@@ -353,20 +353,20 @@ class ParserTest {
     }
 
     @ParameterizedTest
-    @DisplayName("parseCommand_listRCommand_emptyListExceptionThrown")
+    @DisplayName("parseCommand_listCommand_emptyListExceptionThrown")
     @ValueSource(strings = {
-        "listR"     // Valid command but empty list
+        "list"     // Valid command but empty list
     })
-    void parseCommand_listRCommand_emptyListExceptionThrown(String command) {
+    void parseCommand_listCommand_emptyListExceptionThrown(String command) {
         assertThrows(EmptyListException.class, () -> parseCommand(command, new RecipeList(), new IngredientList()));
     }
 
     @ParameterizedTest
-    @DisplayName("parseCommand_listRCommand_success")
+    @DisplayName("parseCommand_listCommand_success")
     @ValueSource(strings = {
-        "listR"
+        "list"
     })
-    void parseCommand_listRCommand_success(String command) {
+    void parseCommand_listCommand_success(String command) {
         try {
             assertInstanceOf(ListCommand.class, parseCommand(command, recipes, ingredients));
         } catch (Exception exception) {
