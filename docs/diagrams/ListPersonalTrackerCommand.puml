@@ -8,9 +8,15 @@ actor CEG_Student
 participant ":ListPersonalTrackerCommand" as Command
 participant ":Storage" as Storage
 participant ":UI" as UI
+participant ":CourseRepository" as CR
 
 CEG_Student -> Command: execute(userInput)
 activate Command
+
+Command -> CR: isFileValid()
+activate CR
+CR --> Command: validity: boolean
+deactivate CR
 
 Command -> Storage: loadAllCourses()
 activate Storage
