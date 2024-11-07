@@ -39,6 +39,8 @@ public class Parser {
             expenseManager.viewExpensesByCategory(trackerData);
         } else if (input.startsWith("toggle-reset")) {
             budgetManager.toggleAutoReset();
+        } else if (input.startsWith("help")) {
+            ui.printHelpMessage();
         } else if (input.startsWith("bye")) {
             ui.printExitMessage();
             return true;
