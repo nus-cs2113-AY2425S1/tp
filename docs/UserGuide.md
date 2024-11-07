@@ -594,7 +594,7 @@ __________________________________________________
 
 This feature removes an entire listing from the tracker.
 
-**Format:** `del {ID}`
+**Format:** `delete {ID}`
 
 **Example:**
 
@@ -698,6 +698,16 @@ __________________________________________________
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
+| Command           | Format                                                                  |
+|-------------------|-------------------------------------------------------------------------|
+| Add Internship    | `add -role {Role name} -company {Company name} -from {date} -to {date}` |
+| Update Fields     | `update {ID} -{field} {updated information}`                            |
+| Remove Fields     | `remove {ID} -{field} {value}`                                          |
+| List              | `list`                                                                  |
+| Sort              | `sort -{field}`                                                         |
+| Filter            | `filter -{field} {value}`                                               |
+| Delete Internship | `delete {ID}`                                                           |
+| Calendar          | `calendar`                                                              |
+| Help              | `help`                                                                  |
+| Exit              | `exit`                                                                  |
 
-* Add todo `todo n/TODO_NAME d/DEADLINE`
