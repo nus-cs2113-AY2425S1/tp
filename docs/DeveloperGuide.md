@@ -175,7 +175,7 @@ implementation of the `execute()` method
 
 <div style="page-break-after: always;"></div>
 
-#### `Command` Child Classes
+### `Command` Child Classes
 
 1. `AddRecipeCommand` Class
 - The AddRecipeCommand class adds a newly created Recipe object to the currentRecipeList object's ArrayList of Recipes
