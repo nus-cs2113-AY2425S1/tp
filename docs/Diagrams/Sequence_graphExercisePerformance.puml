@@ -1,10 +1,16 @@
 @startuml
-participant Ui as User
-participant Graph
-participant TrainingSession
 
-User -> Graph : graphExercisePerformance(exercise, sessionList)
+participant Ui as Ui
+participant GraphPerformance as Graph
+participant TrainingSession as TrainingSession
+participant GraphPerformanceTime as GraphTime
+participant GraphPerformanceRepsDistance as GraphRepsDistance
+
+Ui -> Graph : graphExercisePerformance(exercise, sessionList)
 activate Graph
+note over Graph
+    Print header text
+end note
 
 Graph -> Graph : getMaxExercisePerformance(sessionList, exercise, numSessions)
 activate Graph
@@ -18,34 +24,33 @@ end
 Graph --> Graph : maxExercisePerformance
 deactivate Graph
 
-Graph -> Graph : generateXHeader(numSessions, sessionList, maxXHeaderLength, yOffset)
+Graph -> Graph : getMinTimePerformance(sessionList, exercise, numSessions)
 activate Graph
-Graph -> Graph : formatXHeaderDesc(numSessions, sessionList, maxXHeaderLength)
-activate Graph
-Graph --> Graph : XHeaderDesc
+Graph --> Graph : minTimePerformance
 deactivate Graph
 
-Graph -> Graph : formatXHeaderDate(numSessions, sessionList, maxXHeaderLength)
-activate Graph
-Graph --> Graph : XHeaderDate
-deactivate Graph
-
-Graph --> Graph : XHeaders
-deactivate Graph
-
-Graph -> Graph : generateMainGraphPerformance(maxExercisePerformance, numSessions, maxXHeaderLength, sessionList, exercise)
-activate Graph
-
-loop  until all rows are iterated
-    Graph -> Graph : generatePerformanceRow(currentPerf, numSessions, maxXHeaderLength, sessionList, exercise)
-    activate Graph
-    Graph --> Graph : rowContents
-    deactivate Graph
+alt WalkAndRun or ShuttleRun
+    Graph -> GraphTime : graphExerciseTime(exercise, sessionList, minExercisePerformance, maxExercisePerformance, maxXHeaderLength)
+    activate GraphTime
+    GraphTime --> Graph : body for time graph
+    deactivate GraphTime
+else
+    Graph -> GraphRepsDistance : graphExerciseRepsDistance(exercise, sessionList, maxExercisePerformance, maxXHeaderLength, numSessions)
+    activate GraphRepsDistance
+    GraphRepsDistance --> Graph : body for distance_reps graph
+    deactivate GraphRepsDistance
 end
 
-Graph --> Graph : mainContents
+Graph -> Graph : generateXHeader(numSessions, sessionList, maxXHeaderLength, yOffset)
+activate Graph
+Graph --> Graph : XHeader
 deactivate Graph
 
-User <-- Graph : Display exercise performance graph output
+note over Graph
+    Print overall performance graph
+end note
+
+Ui <-- Graph :
 deactivate Graph
+
 @enduml
