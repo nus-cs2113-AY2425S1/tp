@@ -387,15 +387,15 @@ following arguments:
 <ins>Overview</ins>
 
 The feature to delete entries is facilitated by the `DeleteCommand`. Both `Income` and `Expense`
-entries can be deleted using this single command.
+entries can be deleted using this class.
 
 <ins>Class Structure</ins>
 
 The `DeleteCommand` class has the following attribute:
-- *index*: An integer representing the position of the entry in the financial list that is to be deleted.
+- `index`: `int` An integer representing the position of the entry in the financial list that is to be deleted.
 
 The `DeleteCommand` class has the following method:
-- *execute*: Removes the specified entry from the `FinancialList`.
+- `execute` Removes the specified entry from the `FinancialList`.
 
 <ins>Implementation</ins>
 
@@ -415,19 +415,19 @@ updating the list and storage.
 <ins>Overview</ins>
 
 The feature to add entries is facilitated by the `EditEntryCommand`. Both `Income` and `Expense`
-can be edited using this one class.
+can be edited using this class.
 
 <ins>Class Structure</ins>
 
 The `EditEntryCommand` class has the following attributes:
-- *index*: An object representing the index of the entry in the full financial list.
-- *amount*: An object representing the amount of money used in the transaction.
-- *description*: An object representing the description of the transaction.
-- *date*: An object representing the date on which the transaction occurred.
-- *category*: New category of the transaction.
+- `index`: `int` An object representing the index of the entry in the full financial list.
+- `amount`: `double` An object representing the amount of money used in the transaction.
+- `description`: `String` An object representing the description of the transaction.
+- `date`: `LocalDate` An object representing the date on which the transaction occurred.
+- `category`: `Enum<?>` New category of the transaction.
 
 The `EditEntryCommand` class has the following method:
-- *execute*
+- `execute`: Edits the entry according to the arguments inputted.
 
 <ins>Implementation</ins>
 
