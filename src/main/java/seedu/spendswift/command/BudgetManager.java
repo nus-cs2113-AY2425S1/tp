@@ -128,7 +128,7 @@ public class BudgetManager {
         trackerData.setBudgets(budgets);
     }
 //@author MayFairMI6
-public int getLastResetMonth() {
+    public int getLastResetMonth() {
         return lastResetMonth;
     }
 
