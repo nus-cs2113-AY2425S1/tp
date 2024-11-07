@@ -89,8 +89,8 @@ public class UiTest {
         sessions.add(session);
         Ui.printSessionList(sessions);
         assertEquals(SEPARATOR + System.lineSeparator() + LIST_SESSION_MESSAGE + System.lineSeparator() + "1. "
-                + session.getSessionDescription() + System.lineSeparator() + "There are 1 sessions in the list."
-                + System.lineSeparator() + SEPARATOR + System.lineSeparator()
+                + session.getSessionDescription() + " | " + session.getSessionDatetime() + System.lineSeparator()
+                + "There are 1 sessions in the list." + System.lineSeparator() + SEPARATOR + System.lineSeparator()
                 + System.lineSeparator(), outputStreamCaptor.toString());
     }
 
