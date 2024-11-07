@@ -1,21 +1,19 @@
 // @@author andreusxcarvalho
 package command.history;
 
-import command.Command;
 import command.CommandResult;
-import programme.ProgrammeList;
 import history.History;
 
 /**
  * Command to list personal bests for all exercises.
  */
-public class ListPersonalBestsCommand extends Command {
+public class ListPersonalBestsCommand extends HistoryCommand {
     public static final String COMMAND_WORD = "pb";
 
     @Override
-    public CommandResult execute(ProgrammeList pList, History history) {
-        // Directly retrieve the formatted personal bests message from History
-        return new CommandResult(history.getFormattedPersonalBests());
+    public CommandResult execute(History history) {
+        String result = history.getFormattedPersonalBests();
+        return new CommandResult(result);
     }
 }
 

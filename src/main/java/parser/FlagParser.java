@@ -110,6 +110,7 @@ public class FlagParser {
         aliasMap.put("/createEx", "/a");
         aliasMap.put("/updateEx", "/u");
         aliasMap.put("/removeEx", "/x");
+
         aliasMap.put("/createDay", "/ad");
         aliasMap.put("/removeDay", "/xd");
 
