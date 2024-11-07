@@ -290,19 +290,6 @@ public class Parser {
             user.getFoodIntake().listFood();
             break;
 
-        case "add-calories":
-            int calorieAmount = Integer.parseInt(description);
-            user.getCalorieIntake().addCalories(calorieAmount);
-            break;
-
-        case "delete-calories":
-            int calorieIndex = Integer.parseInt(description) - 1;
-            user.getCalorieIntake().deleteCalories(calorieIndex);
-            break;
-
-        case "list-calories":
-            user.getCalorieIntake().listCalories();
-            break;
 
         case EDIT_MOOD_COMMAND:
             String[] editMoodParts = description.split(" ", 2);
