@@ -33,6 +33,7 @@ The Parser component, comprising `DateParser` and `InputParser`, handles input p
 
 - **Sequence Diagram**: Illustrates the flow of processing user input, from capturing input in `AppUi`, parsing it with `InputParser`, and validating date formats via `DateParser`.
 
+Example when user starts the application and adds an expense
 ![Ui Parser Sequence](UML/UiParserSequence.png)
 
 #### Ui Component
@@ -78,6 +79,12 @@ The Parser component includes `InputParser` and `DateParser`. `InputParser` proc
 - **Attributes**:
   - `formatter`: `DateTimeFormatter` — Defines a date format for parsing.
 
+<ins>Implementation Details</ins>
+
+**InputParser**
+- This method takes a raw input string, parses it, and returns a HashMap where keys represent the command and argument names, and values represent the argument contents.
+- 
+
 <ins>Methods</ins>
 
 - **InputParser.parseCommands(String input)**: Breaks down commands and arguments.
@@ -107,12 +114,6 @@ It interacts with `FinancialList`, `AppUi` and `Storage`, and leverages command 
   - `financialList`: `FinancialList` — Stores financial entries.
   - `ui`: `AppUi` - Manages user interactions.
   - `storage`: `Storage` - Handles data persistence
-
-<ins>Implementation Details</ins>
-
-*Sequence Diagram*: Shows Logic as the main controller interacting with `DateParser`, `AppUi`, and various command classes for operations (e.g., `SeeAllEntriesCommand`, `showUnknownCommandMessage`).
-
-![Logic Sequence](UML/LogicSequence.png)
 
 <ins>Class Structure</ins>
 
