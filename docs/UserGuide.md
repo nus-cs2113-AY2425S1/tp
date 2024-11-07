@@ -125,20 +125,24 @@ Example:
 Set a maximum spending limit for a category for the current month.
 
 Format:
-`set-budget c/CATEGORY a/AMOUNT`
+`set-budget c/CATEGORY l/LIMIT`
 
 - `CATEGORY`
   - The name of the category to set the budget for.
+  - The category is case-insensitive. It can be typed in any combination of upper or lower case.
   - This must be an existing category.
   - This parameter is required.
 
-- `AMOUNT`
+- `LIMIT`
   - The maximum spending limit for this category in the current month.
   - This input must be an integer or a double.
   - This parameter is required.
+  - When the input is an integer, the input would be saved as an integer.
+  - When the input is a double, the input would be saved to 2 decimal places.
+    If the input has more than 2 decimal places, it would be rounded off to the nearest 2 decimal places.
 
 Example:
-- `set-budget c/Food a/300`
+- `set-budget c/Food l/300`
 
 ### View All Expenses: view-expenses
 Displays all expenses recorded, in the order they were input.
