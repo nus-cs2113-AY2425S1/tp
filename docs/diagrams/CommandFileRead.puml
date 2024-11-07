@@ -1,6 +1,8 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+!include .SequenceDiagram.config
+hide footbox
 actor CEG_Student
 
 participant ":Command" as Command

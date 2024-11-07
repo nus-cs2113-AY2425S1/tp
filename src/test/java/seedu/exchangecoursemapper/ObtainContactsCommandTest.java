@@ -48,8 +48,7 @@ public class ObtainContactsCommandTest {
 
     @Test
     public void execute_validEmail_success() throws IOException {
-        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
-        jsonReader.close();
+        JsonObject jsonObject = getJsonObject();
 
         String userInput = "obtain The University of Melbourne /email";
         obtainContactsCommand.execute(userInput);
@@ -70,8 +69,7 @@ public class ObtainContactsCommandTest {
 
     @Test
     public void execute_validNumber_success() throws IOException {
-        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
-        jsonReader.close();
+        JsonObject jsonObject = getJsonObject();
 
         String userInput = "obtain The University of Melbourne /number";
         obtainContactsCommand.execute(userInput);
@@ -92,9 +90,7 @@ public class ObtainContactsCommandTest {
 
     @Test
     public void execute_invalidUniversity_displaysError() throws IOException {
-        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
-        JsonObject jsonObject = jsonReader.readObject();
-        jsonReader.close();
+        JsonObject jsonObject = getJsonObject();
 
         String userInput = "NUS";
         String name = obtainContactsCommand.getSchoolName(userInput);
@@ -106,7 +102,9 @@ public class ObtainContactsCommandTest {
     }
 
     @Test
-    public void execute_invalidInputFormat_throwsException() {
+    public void execute_invalidInputFormat_throwsException() throws FileNotFoundException {
+        JsonObject jsonObject = getJsonObject();
+
         String userInput = " ";
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -118,8 +116,7 @@ public class ObtainContactsCommandTest {
 
     @Test
     public void execute_invalidContactType_displaysError() throws IOException {
-        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
-        jsonReader.close();
+        JsonObject jsonReader = getJsonObject();
 
         String userInput = "obtain The University of Melbourne /fax";
         obtainContactsCommand.execute(userInput);
@@ -143,5 +140,12 @@ public class ObtainContactsCommandTest {
         String actualOutput = outContent.toString().trim();
 
         assertTrue(actualOutput.contains(expectedMessage), "Expected " + expectedMessage);
+    }
+
+    private static JsonObject getJsonObject() throws FileNotFoundException {
+        JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
+        JsonObject jsonObject = jsonReader.readObject();
+        jsonReader.close();
+        return jsonObject;
     }
 }

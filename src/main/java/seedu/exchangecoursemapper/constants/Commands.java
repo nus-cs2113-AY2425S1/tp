@@ -12,11 +12,11 @@ public class Commands {
     public static final String LISTING_SCHOOLS = "list schools";
     public static final String OBTAIN = "obtain";
     public static final String LIST_MAPPED = "list mapped";
+    public static final String FIND = "find";
     public static final String COMPARE_PU = "compare";
     public static final int COMMAND_WORD_INDEX = 0;
     public static final int PLAN_INDEX_TO_DELETE = 1;
     public static final int FILTER_COURSES_MAX_ARGS = 2;
     public static final int ZERO_INDEX_OFFSET = 1;
     public static final String HELP = "help";
-    public static final String FIND = "find";
 }

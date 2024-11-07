@@ -5,20 +5,14 @@ hide footbox
 
 actor CEG_Student
 participant ":ObtainContactsCommand" as ObtainContactsCommand
-participant ":IllegalArgumentException" as IllegalArgumentException
 participant ":UI" as UI
 participant ":Command" as Command
-participant ":IOException" as IOException
 
 CEG_Student -> ObtainContactsCommand: execute(userInput: String)
 activate ObtainContactsCommand
 
 ObtainContactsCommand -> Command: createJsonObject()
 activate Command
-
-opt inputStream is null
-    Command -> IOException: throw new IOException()
-end
 
 Command --> ObtainContactsCommand: JsonObject jsonObject
 deactivate Command
@@ -31,7 +25,7 @@ ObtainContactsCommand -> ObtainContactsCommand: getContactType(userInput: String
 activate ObtainContactsCommand
 
 alt inputParts.length != 2
-    ObtainContactsCommand -> IllegalArgumentException: throw new IllegalArgumentException(Exception.invalidInputFormat())
+    ObtainContactsCommand --> CEG_Student: Displays Invalid Input Error
 else else
     return contactType: String
 end

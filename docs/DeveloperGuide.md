@@ -47,7 +47,7 @@
 ## Design
 
 ### Architecture
-![Sequence Diagram](images/ArchitectureDiagram.png)
+![Diagram](images/ArchitectureDiagram.png)
 
 The **Architecture Diagram** given above explains the high-level design of the App.
 
@@ -76,7 +76,7 @@ Only some of the commands will need all 4 main components for example the Delete
 The Sequence Diagram below shows how the components interact with each other for the scenario 
 where the user issues the command `delete 1`.
 
-![Sequence Diagram](images/DesignSequenceDiagram.png)
+![Diagram](images/DesignSequenceDiagram.png)
 
 The `UI`, `Parser` and `Storage` components (also shown in the diagram above),
 * defines its API in a class with the same name as the Package
@@ -91,9 +91,9 @@ For example, the `Command` component defines its API in the `Command.java` abstr
 interact with a given component through its interface rather than the concrete class 
 (reason: to prevent outside component’s being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-![Sequence Diagram](images/MiniCommandClass.png)
+![Diagram](images/MiniCommandClass.png)
 
-**The sections below give more details of the components and additional components.**
+**The sections below give more details of the components and any additional components.**
 
 ### Class Diagrams
 
