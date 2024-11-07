@@ -59,6 +59,15 @@
 #### TrackerData class
 ![TrackerData Class Diagram](diagrams/trackerdata.png)
 
+### UI Class
+![UI Class Diagram](diagrams/UI.png)
+
+### Storage Class
+![Storage Class Diagram](diagrams/Storage.png)
+
+### Format Class
+![Format Class Diagram](diagrams/Format.png)
+
 
 
 ### Category

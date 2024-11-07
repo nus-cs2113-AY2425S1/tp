@@ -1,0 +1,7 @@
+@startuml
+class Format {
+    + formatInput(input : String) : String
+    + formatAmount(amount : double) : String
+}
+
+@enduml
