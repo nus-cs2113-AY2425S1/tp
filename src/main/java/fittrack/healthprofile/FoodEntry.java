@@ -1,18 +1,20 @@
 package fittrack.healthprofile;
 
+import fittrack.storage.Saveable;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class FoodEntry {
+public class FoodEntry extends Saveable {
     private String foodName;
     private int calories;
     private LocalDateTime dateTime;  // Timestamp of when the food item is added
 
-    public FoodEntry(String foodName, int calories) {
-        this.foodName = foodName;
-        this.calories = calories;
-        this.dateTime = LocalDateTime.now();  // Set the timestamp to current time when food is added
-    }
+    public FoodEntry(String inputFoodName, int inputCalories, LocalDateTime inputDateTime) {
+        this.foodName = inputFoodName ;
+        this.calories = inputCalories;
+        this.dateTime = inputDateTime;  }
 
     public String getFoodName() {
         return foodName;
@@ -22,18 +24,23 @@ public class FoodEntry {
         return calories;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;  // Return the timestamp of the food entry
-    }
-
     // Method to format the timestamp without milliseconds
     public String getFormattedDateTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         return dateTime.format(formatter);  // Format date-time without milliseconds
     }
 
+    public LocalDate getLocalDate() {
+        return dateTime.toLocalDate();
+    }
+
     @Override
     public String toString() {
         return foodName + " - " + calories + " calories, added on " + getFormattedDateTime();
+    }
+
+    @Override
+    public String toSaveString() {
+        return foodName + " | " + calories + " | " + getFormattedDateTime();
     }
 }

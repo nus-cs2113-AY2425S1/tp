@@ -1,6 +1,7 @@
 package fittrack.exception;
 
 import fittrack.trainingsession.TrainingSession;
+import fittrack.healthprofile.FoodEntry;
 import fittrack.user.User;
 
 import java.time.LocalDateTime;
@@ -149,6 +150,14 @@ public class ParserExceptions extends RuntimeException {
             break;
         }
         return editDetails;
+    }
+
+    public static FoodEntry validFood(String foodDescription, int foodCalories) {
+        if (foodDescription.trim().isEmpty() || foodCalories <= 0) {
+            // TODO: WRITE_EXCEPTION_MESSAGE
+            throw new IllegalArgumentException();
+        }
+        return new FoodEntry(foodDescription, foodCalories, LocalDateTime.now());
     }
 
     public static int stringToValidInteger(String str) {
