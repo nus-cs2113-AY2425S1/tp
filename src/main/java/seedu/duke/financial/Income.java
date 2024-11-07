@@ -75,11 +75,11 @@ public class Income extends FinancialEntry {
      * all formatted in a specific structure.
      *
      * @return A formatted string representing the income entry for storage.
-     *         The format is: "I | amount | description | date | category"
+     *         The format is: "I ¦¦ amount ¦¦ description ¦¦ date ¦¦ category"
      *         where the date is formatted as "dd/MM/yy".
      */
     public String toStorageString() {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
-        return String.format("I | %.2f | %s | %s | %s", amount, description, date.format(pattern), category);
+        return String.format("I ¦¦ %.2f ¦¦ %s ¦¦ %s ¦¦ %s", amount, description, date.format(pattern), category);
     }
 }

@@ -52,8 +52,35 @@ public class AppUi {
      * Asks if user would like to set a budget
      */
     public void displaySetBudgetMessage() {
+        System.out.println("--------------------------------------------");
         System.out.println("Would you like to set a budget? (yes/no)");
-        System.out.println("--------------------------------------------\n");
+        System.out.println("--------------------------------------------");
+    }
+
+    /**
+     * Displays the modify budget message when user keys in the budget command.
+     * Asks if user would like to modify their existing budget
+     */
+    public void displayModifyBudgetMessage(double amount) {
+        System.out.println("--------------------------------------------");
+        System.out.println("Your current budget is: " + String.format("$ %.2f", amount));
+        System.out.println("Would you like to modify your budget? (yes/no)");
+        System.out.println("--------------------------------------------");
+    }
+
+    /**
+     * Displays the balance of the user's budget
+     */
+    public void displayBudgetBalanceMessage(double amount) {
+        System.out.println("Your current monthly balance is: " + String.format("$ %.2f", amount));
+        System.out.println("--------------------------------------------");
+    }
+
+    /**
+     * Displays warning that budget has been exceeded
+     */
+    public void displayBudgetBalanceExceededMessage(double amount) {
+        System.out.println("You have exceeded your monthly budget of: " + String.format("$ %.2f", amount) +"!");
     }
 
     /**

@@ -74,7 +74,7 @@ public class Logic {
             category = parseExpenseCategory(commandArguments.get("/c"));
             AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date, category);
             addExpenseCommand.execute(financialList);
-            budgetLogic.changeBalanceFromExpense(-amount, date);
+            budgetLogic.changeBalanceFromExpenseString(-amount, date);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());  // Display error message when invalid date is provided
         }
@@ -139,12 +139,7 @@ public class Logic {
         assert index > 0 : "Index of entry to edit must be greater than 0";
         assert index <= financialList.getEntryCount() : "Index of entry to edit must be within the list size";
 
-        FinancialEntry entry = null;
-        try {
-            entry = financialList.getEntry(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
-        }
+        FinancialEntry entry = financialList.getEntry(index - 1);
 
         String amountStr = commandArguments.get("/a");
         double amount = 0;
@@ -164,13 +159,23 @@ public class Logic {
             LocalDate oldDate = entry.getDate();
             try {
                 budgetLogic.changeBalanceFromExpense(oldAmount, oldDate);
-                budgetLogic.changeBalanceFromExpense(-amount, date);
+                budgetLogic.changeBalanceFromExpenseString(-amount, date);
             } catch (FinanceBuddyException e) {
                 System.out.println(e.getMessage());
             }
         }
 
-        Enum<?> category = parseCategory(commandArguments.get("/c"), entry);
+        Enum<?> category;
+        String categoryString = commandArguments.get("/c");
+        if (categoryString != null) {
+            category = parseCategory(categoryString, entry);
+        } else if (entry instanceof Income) {
+            category = ((Income) entry).getCategory();
+        } else {
+            assert entry instanceof Expense;
+            category = ((Expense) entry).getCategory();
+        }
+
         EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
         editEntryCommand.execute(financialList);
     }
@@ -194,19 +199,20 @@ public class Logic {
         }
 
         FinancialEntry entry = financialList.getEntry(index - 1);
+
+        DeleteCommand deleteCommand = new DeleteCommand(index);
+        deleteCommand.execute(financialList);
+
         if (entry instanceof Expense) {
             double amount = entry.getAmount();
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
             String date = entry.getDate().format(pattern);
             try {
-                budgetLogic.changeBalanceFromExpense(amount, date);
+                budgetLogic.changeBalanceFromExpenseString(amount, date);
             } catch (FinanceBuddyException e) {
                 System.out.println(e.getMessage());
             }
         }
-
-        DeleteCommand deleteCommand = new DeleteCommand(index);
-        deleteCommand.execute(financialList);
     }
 
     /**
@@ -231,20 +237,25 @@ public class Logic {
         LocalDate startDate = start != null ? DateParser.parse(commandArguments.get("/from")) : null;
         LocalDate endDate = end != null ? DateParser.parse(commandArguments.get("/to")) : null;
 
-        if (type != null) {
-            if (type.equals("expense")) {
-                SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(startDate, endDate);
-                seeAllExpensesCommand.execute(financialList);
-            } else if (type.equals("income")) {
-                SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(startDate, endDate);
-                seeAllIncomesCommand.execute(financialList);
-            } else {
-                System.out.println("Unknown argument: " + type);
-                System.out.println("--------------------------------------------");
-            }
-        } else {
+        executeListCommand(type, startDate, endDate);
+    }
+
+    private void executeListCommand(String type, LocalDate startDate, LocalDate endDate) throws FinanceBuddyException {
+        if (type == null || type.isEmpty()) {
             SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(startDate, endDate);
             seeAllEntriesCommand.execute(financialList);
+            budgetLogic.getBudgetAndBalance();
+        } else if (type.equals("expense")) {
+            SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(startDate, endDate);
+            seeAllExpensesCommand.execute(financialList);
+            budgetLogic.getBudgetAndBalance();
+        } else if (type.equals("income")) {
+            SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(startDate, endDate);
+            seeAllIncomesCommand.execute(financialList);
+            budgetLogic.getBudgetAndBalance();
+        } else {
+            System.out.println("Unknown argument: " + type);
+            System.out.println("--------------------------------------------");
         }
     }
 
@@ -271,22 +282,23 @@ public class Logic {
             break;
         case "expense":
             addExpense(commandArguments);
-            storage.update(financialList);
+            storage.update(financialList, budgetLogic);
             break;
         case "income":
             addIncome(commandArguments);
-            storage.update(financialList);
+            storage.update(financialList, budgetLogic);
             break;
         case "edit":
             editEntry(commandArguments);
-            storage.update(financialList);
+            storage.update(financialList, budgetLogic);
             break;
         case "delete":
             deleteEntry(commandArguments);
-            storage.update(financialList);
+            storage.update(financialList, budgetLogic);
             break;
         case "budget":
             budgetLogic.setBudget(financialList);
+            storage.update(financialList, budgetLogic);
             break;
         case "help":
             printHelpMenu();

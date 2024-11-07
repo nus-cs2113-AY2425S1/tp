@@ -29,14 +29,15 @@ public class FinanceBuddy {
         Storage storage = new Storage();
         Budget budget = new Budget();
 
-        FinancialList financialList = storage.loadFromFile();
         BudgetLogic budgetLogic = new BudgetLogic(budget, ui);
+        FinancialList financialList = storage.loadFromFile(budgetLogic);
         Logic logic = new Logic(financialList, storage, ui, budgetLogic);
 
         ui.displayWelcomeMessage();
 
         try {
             budgetLogic.setBudget(financialList);
+            storage.update(financialList, budgetLogic);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());
         }

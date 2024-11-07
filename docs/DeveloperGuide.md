@@ -3,7 +3,10 @@
 ---
 ## Acknowledgements
 
-No third-party code was used in this project.
+Finance Buddy uses the following tools for development:
+
+1. JUnit5 - Used for testing
+2. Gradle - Used for build automation
 
 ---
 
@@ -165,37 +168,54 @@ Managing financial entries through two main components:
 - **Sequence Diagram**: Illustrates the process of adding a new entry, from parsing user input to creating and adding the entry to `FinancialList`.
   - {input sequence Diagram}
 
+
+### FinancialList and FinancialEntry
+<ins>Overview</ins>
+
+Managing financial entries through two main components:
+
+- **FinancialList**: A centralized data structure that stores and manages entries. It provides CRUD (Create, Read, Update, Delete) operations to handle financial records, such as adding new entries and modifying or retrieving existing ones.
+- **FinancialEntry**: An abstract base class representing a generic financial record. Subclasses include `Income` and `Expense`, which inherit shared attributes like `amount`, `description`, and `date`. Each has specific characteristics and categories that distinguish income from expenses.
+
+<ins>Implementation</ins>
+- **Class Diagram**: Displays the relationship between `FinancialList`, `FinancialEntry`, `Income`, and `Expense`. It highlights `FinancialList` as the main container managing `FinancialEntry` objects.
+![FinancialClassDiagram.png](UML/FinancialClassDiagram.png))
+- **Sequence Diagram**: Illustrates the process of adding a new entry, from parsing user input to creating and adding the entry to `FinancialList`.
+![FinancialSeq](UML/FinancialEntrySequence.png)
+
+---
+
 #### FinancialList Component
 <ins>Overview</ins>
 
-The `FinancialList` component is the main data structure responsible for managing all financial entries, specifically `Income` and `Expense`.
-It provides methods to **add**, **edit**, **delete**, and **retrieve** entries, serving as the application’s primary entry manager.
+The `FinancialList` component is the primary data structure responsible for managing all financial entries, specifically `Income` and `Expense`. It provides methods to **add**, **edit**, **delete**, and **retrieve** entries, serving as the application’s central entry manager.
 
 <ins>Class Structure</ins>
 
 - **Attributes**:
   - `entries`: `ArrayList<FinancialEntry>` — Stores both `Income` and `Expense` instances.
+  - `totalExpenseByCategory`: `Map<Expense.Category, Double>` — Tracks expenses by category.
+  - `totalIncomeByCategory`: `Map<Income.Category, Double>` — Tracks income by category.
 
 <ins>Implementation Details</ins>
 
 *Class Diagram*: Show `FinancialList` managing `FinancialEntry` objects (`Income` and `Expense` subclasses).
 
-{input diagram here }
-
-<ins>Class Structure</ins>
-
-The `FinancialList` constructor initializes an empty list of entries to support CRUD operations. Key Arguments: None
+- **Constructor**: Initializes an empty list of entries to support CRUD operations.
+  - **Key Arguments**: None
 
 <ins>Methods</ins>
 
-- **addEntry(FinancialEntry entry)**: Adds a `FinancialEntry` object to `entries`.
-- **deleteEntry(int index)**: Removes an entry at a specified index.
-- **editEntry(int index, double amount, String description)**: Updates the `amount` and `description` of a specified entry.
-- **getEntry(int index)**: Retrieves an entry by index.
-- **getEntryCount()**: Returns the total count of entries.
-- **getTotalExpenseByCategory()**: Calculates the total amount per expense category.
-- **getHighestExpenseCategory()**: Retrieves the highest expense category and amount.
-
+- **addEntry(FinancialEntry entry)**: Adds a `FinancialEntry` object to `entries` in ascending date order.
+- **deleteEntry(int index)**: Removes an entry at the specified index.
+- **editEntry(int index, double amount, String description, LocalDate date, Enum<?> category)**: Updates the `amount`, `description`, `date`, and `category` of a specified entry.
+- **getEntry(int index)**: Retrieves a `FinancialEntry` at the specified index.
+- **getEntryCount()**: Returns the total count of entries in the list.
+- **getTotalExpenseByCategory()**: Returns a map of expense categories with their respective totals.
+- **getTotalIncomeByCategory()**: Returns a map of income categories with their respective totals.
+- **getHighestExpenseCategory()**: Retrieves the highest expense category and its total, with ties resolved alphabetically.
+- **getHighestIncomeCategory()**: Retrieves the highest income category and its total, with ties resolved alphabetically.
+- **clearCategoryTotals()**: Clears all category totals for both expenses and income.
 
 <ins>Usage Example</ins>
 
@@ -204,51 +224,59 @@ FinancialList financialList = new FinancialList();
 Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27), Income.Category.SALARY);
 Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28), Expense.Category.FOOD);
 
+// Adding entries
 financialList.addEntry(income);
 financialList.addEntry(expense);
 
 // Edit an entry
-financialList.editEntry(1, 55.00, "Groceries & Snacks");
+financialList.editEntry(1, 55.00, "Groceries & Snacks", LocalDate.of(2023, 10, 29), Expense.Category.FOOD);
 
 // Retrieve an entry
 FinancialEntry entry = financialList.getEntry(0);
 System.out.println("Description: " + entry.getDescription());
+System.out.println("Amount: $" + entry.getAmount());
+System.out.println("Date: " + entry.getDate());
+
+// Display total expenses by category
+System.out.println("Total Expense by Category: " + financialList.getTotalExpenseByCategory());
+
+// Get and print highest expense category
+Map.Entry<Expense.Category, Double> highestExpenseCategory = financialList.getHighestExpenseCategory();
+System.out.println("Highest Expense Category: " + highestExpenseCategory.getKey() + " with $" + highestExpenseCategory.getValue());
 ```
 
 <ins>Design Considerations</ins>
 
 - **Future Audit and History Management**: To improve traceability and accountability, `FinancialList` could maintain a history log of changes (e.g., edits, deletions, additions). This could support undo operations or provide users with an audit trail of modifications to their financial entries.
 - **Security and Access Control**: Adding access control features to `FinancialList` could protect sensitive data. Methods for role-based access (e.g., view-only, edit permissions) could be introduced, along with data encryption for secure storage and retrieval.
+
 ---
+
 #### FinancialEntry Component
 <ins>Overview</ins>
 
-`FinancialEntry` is an abstract base class that represents a generic financial record.
-It defines shared attributes such as `amount`, `description`, and `date`, which are common across both `Income` and `Expense`.
-`Income` and `Expense` inherit these properties and methods, each adding specific functionality related to its type.
+`FinancialEntry` is an abstract base class that represents a generic financial record. It defines shared attributes such as `amount`, `description`, and `date`, which are common across both `Income` and `Expense`. `Income` and `Expense` inherit these properties and methods, each adding specific functionality related to its type.
 
 <ins>Implementation</ins>
 
 The class diagram above shows `FinancialEntry` as the base class with `Income` and `Expense` as specific implementations.
-{input diagram here}
+- {Input Class Diagram here}
 
 <ins>Class Structure</ins>
+
 - **Attributes**:
   - `amount`: `double` — Represents the monetary value of the entry.
   - `date`: `LocalDate` — The date associated with the transaction.
   - `description`: `String` — A description identifying the entry.
   - `category`: An `Enum` - A value representing either Income.Category or Expense.Category, specifying the type of each entry.
 
-<ins>Class Structure</ins>
+- **Constructor**: Initializes `amount`, `description`, `date`, and subclasses set their specific category.
 
-The `FinancialEntry` constructor initializes `amount`, `description`, `date` and the subclasses setting their specific category. .
-
-- **Key Arguments**:
-  - `double amount`: Monetary value for the entry.
-  - `String description`: Description or label for the entry.
-  - `LocalDate date`: Date of the entry.
-  - `Enum<?> category`: Represents the specific category for either income or expense.
-
+  - **Key Arguments**:
+    - `double amount`: Monetary value for the entry.
+    - `String description`: Description or label for the entry.
+    - `LocalDate date`: Date of the entry.
+    - `Enum<?> category`: Represents the specific category for either income or expense.
 
 <ins>Methods</ins>
 
@@ -262,21 +290,24 @@ The `FinancialEntry` constructor initializes `amount`, `description`, `date` and
     - `Expense`: Returns formatted string as `[Expense] - description $amount (on date) [category]`.
   - **toStorageString()**:
     - `Income`: Formats as `"I | amount | description | date | category"` for storage.
-    - `Expense`: Formats as `"E | amount | description | date" | category` for storage.
+    - `Expense`: Formats as `"E | amount | description | date | category"` for storage.
 
 <ins>Usage Example</ins>
 
 The following code segment demonstrates the creation of `Income` and `Expense` entries:
+
 ```
-Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27), Income.Category.SALARY);
-Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28),  Expense.Category.FOOD);
+Income income = new Income(500.00, "Freelancåe Project", LocalDate.of(2023, 10, 27), Income.Category.SALARY);
+Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28), Expense.Category.FOOD);
 
 System.out.println(income.toString());
 System.out.println(expense.toString());
 ```
 
 <ins>Design Considerations</ins>
+
 - **Abstract Base Class**: The design decision to make `FinancialEntry` abstract enables extensibility, allowing for new types of financial records without modifying `FinancialList` or existing subclasses.
+
 
 ---
 
@@ -501,51 +532,78 @@ Logging is handled by the `Logger` class.
 
 <ins>Overview</ins>
 
-The `Storage` class has been implemented to store the `FinancialList` into a file. 
-Also, it's responsible for restoring users' progress even if they have terminated the program using the saved file.
+The `Storage` class has been implemented to manage reading and writing financial data (both expenses and incomes) 
+and budget data to and from storage files within the Finance Buddy application. 
+This class creates necessary directories and files if they do not exist, parses data into `Expense` and `Income` objects, 
+and stores and retrieves budget information to maintain data consistency across application sessions.
 
 <ins>Class Structure</ins>
 
- - Attributes:
-   - `STORAGE_FILE_PATH`: `String` — Specifies the file path for storing financial data.
+ - **Attributes**:
+   - `FINANCIAL_LIST_FILE_PATH`: `String` constant storing the path to the file where financial transaction data is saved. 
+      Default path: `"data/FinancialList.txt"`.
+   - `BUDGET_FILE_PATH`: `String` constant storing the path to the file where budget data is saved. 
+      Default path: `"data/Budget.txt"`.
+   - `logger`: `Logger` instance for logging information and errors for debugging and tracking purposes.
 
 <ins>Implementation Details</ins>
 
-The function `updateStorage` should be called whenever the `FinancialList` in an `AppUi` object. 
-It will override the `data/FinancialList.txt` file with the up-to-date `FinancialList` that has been converted to string.
-Note: if the `data/FinancialList.txt` file doesn't exist, the program should generate one.
+The `Storage` class contains functions for retrieving, updating, and loading data. Key details include:
 
-The storage format of an `Expense` or `Income`, handled by `toStorageString()` method is different from the format generate by `toString()` method for CLS display.
+- **update(FinancialList theList, BudgetLogic budgetLogic)**: 
+  This method is called whenever the financial list or budget needs to be saved. 
+  It updates the storage files with up-to-date information from the `FinancialList` and `BudgetLogic` instances. 
+  If the storage files do not exist, it generates them. 
+  - The storage format of `Expense` and `Income` entries, generated by `toStorageString()`, differs from their CLI display format (`toString()`). 
 
-EX:
-For an `Income` entry with description "Lunch," amount "10.90," date "2024/10/25," and category `FOOD`:
-- The `toString()` method returns `[Income] - Lunch $10.90 (on 25/10/24) [FOOD]`
-- The `toStorageString()` method returns `I | 10.90 | Lunch | 25/10/24 | FOOD`
+  **Example Storage Formats**:
+  For an `Income` entry with a description "Lunch," amount "10.90," date "25/10/24," and category `FOOD`:
+  - `toString()` method returns: `[Income] - Lunch $10.90 (on 25/10/24) [FOOD]`
+  - `toStorageString()` method returns: `I ¦¦ 10.90 ¦¦ Lunch ¦¦ 25/10/24 ¦¦ FOOD`
 
-For an `Expense` entry with description "Transport," amount "5.00," date "2024/10/25," and category `TRANSPORT`:
-- The `toString()` method returns `[Expense] - Transport $5.00 (on 25/10/24) [TRANSPORT]`
-- The `toStorageString()` method returns `E | 5.00 | Transport | 25/10/24 | TRANSPORT`
+  For an `Expense` entry with a description "Transport," amount "5.00," date "25/10/24," and category `TRANSPORT`:
+  - `toString()` method returns: `[Expense] - Transport $5.00 (on 25/10/24) [TRANSPORT]`
+  - `toStorageString()` method returns: `E ¦¦ 5.00 ¦¦ Transport ¦¦ 25/10/24 ¦¦ TRANSPORT`
+
+The figure below show how the program load data from the files:
+![execution](UML/StorageLoad.png)
 
 <ins>Methods</ins>
 
- - **getStorageFile()**: Ensures the storage file and its parent directories exist. If not, they are created. Returns the storage file.
- - **update(FinancialList theList)**: Writes all entries from FinancialList to the storage file, creating or overwriting the file with current entries. Logs the update upon completion.
- - **parseExpense(String[] tokens)**: Parses a string array into an Expense object. Expects tokens to contain amount, description, date, and category information.
- - **parseIncome(String[] tokens)**: Parses a string array into an Income object. Similar to parseExpense, it requires tokens for amount, description, date, and category.
- - **loadFromFile()**: Loads financial entries from the storage file into a FinancialList. Interprets each line as either an Expense or Income based on its starting character and parses the details accordingly.
+ - **getStorageFile()**: 
+  Ensures the financial transaction storage file and its parent directories exist. If not, they are created. Returns the file handle to the storage file.
+ - **getBudgetFile()**: 
+  Ensures the budget storage file and its parent directories exist. If not, they are created. Returns the file handle to the budget file.
+ - **update(FinancialList theList, BudgetLogic budgetLogic)**: 
+  Writes the current entries in `FinancialList` to the storage file and updates the budget data in `BudgetLogic` to the budget file. Logs the number of entries saved or any encountered exceptions.
+ - **checkParameters(double amount, String description, DateTimeFormatter formatter, LocalDate date)**: 
+  Validates financial entry parameters, ensuring they are non-negative, within limits, and the date is not in the future. Throws `FinanceBuddyException` for invalid values.
+ - **parseExpense(String[] tokens)**: 
+  Parses an array of strings representing an `Expense` entry. Throws exceptions if any values (amount, date, category) are invalid, which are logged as warnings.
+ - **parseIncome(String[] tokens)**: 
+  Parses an array of strings representing an `Income` entry. Similar to `parseExpense`, handles exceptions and logs warnings for invalid values.
+ - **loadBudgetFromFile(FinancialList theList, BudgetLogic budgetLogic)**: 
+  Reads budget data from the budget file, validates it, and updates the `BudgetLogic` object. If any values are invalid, defaults are set, and warnings are logged.
+ - **loadTransactionsFromFile()**: 
+  Loads `Expense` and `Income` entries from the financial transaction storage file into a `FinancialList`. Logs warnings for invalid or unrecognized formats and the count of successfully loaded entries.
+ - **loadFromFile(BudgetLogic budgetLogic)**: 
+  High-level method that loads both transactions and budget data, returning a populated `FinancialList`. Catches exceptions to ensure a new `FinancialList` is returned even if loading fails.
 
-<ins>Useage Example</ins>
+<ins>Usage Example</ins>
 
+```java
+// Instantiate the Storage class and provide the file paths for financial data and budget
+Storage storage = new Storage();
+
+// Load financial and budget data from the files
+BudgetLogic budgetLogic = new BudgetLogic();
+FinancialList financialList = storage.loadFromFile(budgetLogic);
+
+// Example of updating financial data and budget to the files
+financialList.addEntry(new Expense(10.0, "Transport", LocalDate.now(), Expense.Category.TRANSPORT));
+budgetLogic.setBudgetAmount(1000.0);
+storage.update(financialList, budgetLogic);
 ```
-Storage storage = new Storage("data/FinancialList.txt");
-
-// Save the current financial list to a file
-storage.update(financialList);
-
-// Load the financial list from the file
-FinancialList restoredList = storage.loadFromFile();
-```
-
 <ins>Design Considerations</ins>
 
  - **Data Persistence**: Storage supports retention of records after application closure, aligning with needs for long-term financial tracking.
@@ -568,21 +626,21 @@ faster than a typical mouse/GUI driven app
 
 ## User Stories
 
-| Version | As a ...                       | I want to ...                                                                       | So that I can ...                                              |
-|---------|--------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| v1.0    | new user                       | see usage instructions                                                              | remember how to use the app in case I forget the commands      |
-| v1.0    | user                           | record my daily expenses                                                            | keep track on how much I spend and what I spend on             |
-| v1.0    | user                           | delete my logging records                                                           | remove a wrong record                                          |
-| v1.0    | user                           | edit my logs                                                                        | edit a wrong record                                            |
-| v1.0    | user                           | see my cash flows                                                                   | have an overview of my cash flow                               |
-| v2.0    | user                           | view my expenditure over a certain period                                           | see how much money I spent recently                            |
-| v2.0    | user                           | keep a log of my data                                                               | retain memory of past transactions in previous runs of the app |
-| v2.0    | user                           | set a monthly budget for myself                                                     | ensure that I am saving enough money                           |
-| v2.0    | user                           | be alerted when I exceed my allocated budget                                        | know when I spend too much money                               |
-| v2.0    | user                           | categorise my spendings                                                             | know my spending across different areas                        |
-| v2.0    | user                           | view my expenditure over different categories                                       | see where I spend the most                                     |
-| v2.0    | busy user                      | log my finances in the shortest possible time                                       | have more time for other activities                            |
-| v2.1    | busy user                      | use shortcuts to log frequent and similar expenses                                  | save time logging expenses                                     |
+| Version | As a ...                       | I want to ...                                                             | So that I can ...                                              |
+|---------|--------------------------------|---------------------------------------------------------------------------|----------------------------------------------------------------|
+| v1.0    | new user                       | see usage instructions                                                    | remember how to use the app in case I forget the commands      |
+| v1.0    | user                           | record my daily expenses                                                  | keep track on how much I spend and what I spend on             |
+| v1.0    | user                           | delete my logging records                                                 | remove a wrong record                                          |
+| v1.0    | user                           | edit my logs                                                              | edit a wrong record                                            |
+| v1.0    | user                           | see my cash flows                                                         | have an overview of my cash flow                               |
+| v2.0    | user                           | view my expenditure over a certain period                                 | see how much money I spent recently                            |
+| v2.0    | user                           | keep a log of my data                                                     | retain memory of past transactions in previous runs of the app |
+| v2.0    | user                           | set a monthly budget for myself                                           | ensure that I am saving enough money                           |
+| v2.0    | user                           | be alerted when I exceed my allocated budget                              | know when I spend too much money                               |
+| v2.0    | user                           | categorise my spendings                                                   | know my spending across different areas                        |
+| v2.0    | user                           | view my expenditure over different categories                             | see where I spend the most                                     |
+| v2.0    | busy user                      | log my finances in the shortest possible time                             | have more time for other activities                            |
+| v2.1    | busy user                      | edit/delete my last added/edited entry without needing to enter its index | save time undoing mistakes made when logging entries           |
 
 ## Use Cases
 
@@ -686,16 +744,35 @@ faster than a typical mouse/GUI driven app
  - Project Scope Constraints: Data storage is only to be performed locally.
  - Quality Requirements: The application should be able to be used effectively by a novice with little experience with CLIs.
 
-
 ## Glossary
 
-* *FinancialEntry* - Refers to the base class for financial entries, containing common attributes such as description, amount, and date that define a financial transaction.
-* *description* - A brief text that provides context or details about the financial transaction, such as what the expense or income relates to.
-* *amount* - A numeric value representing the monetary value of the transaction. The amount must be a number greater than or equal to zero, with precision up to two decimal places.
-* *date* - Represents the date of the financial entry, recorded in the format dd/MM/YY, indicating the day, month, and year when the transaction occurred.
-* *Expense* - A subclass of FinancialEntry that represents a financial outflow or expenditure made by the user.
-* *Income* - A subclass of FinancialEntry that represents a financial inflow or income received by the user.
-* *FinancialList* - A class responsible for storing and managing all financial entries, including both expenses and incomes, allowing for the organization and manipulation of financial data.
+- **FinancialEntry**: Refers to the base class for financial entries, encompassing common attributes such as description, amount, date, and category, which collectively define a financial transaction.
+
+- **Description**: A brief text that provides context or details about the financial transaction, such as the nature or purpose of the expense or income.
+
+- **Amount**: A numeric value representing the monetary value of the transaction. The amount must be greater than or equal to zero, with precision up to two decimal places.
+
+- **Date**: Represents the date of the financial entry, recorded in the format `dd/MM/yy`, indicating the day, month, and year when the transaction occurred.
+
+- **Category**: A classification that groups similar types of expenses or incomes, such as "Food," "Transport," or "Salary," to help users organize their finances.
+
+- **Expense**: A subclass of `FinancialEntry` that represents a financial outflow or expenditure made by the user, categorized by specific types of spending.
+
+- **Income**: A subclass of `FinancialEntry` that represents a financial inflow or income received by the user, categorized by specific types of revenue.
+
+- **FinancialList**: A class responsible for storing and managing all `FinancialEntry` records, including both expenses and incomes, enabling organization and manipulation of financial data.
+
+- **Budget**: A user-defined monetary limit, typically set monthly, to manage or restrict the total expenditure within a given period.
+
+- **Command**: An instruction input by the user, parsed and executed by the application to perform actions such as adding, deleting, or editing financial entries.
+
+- **Parser**: A component responsible for interpreting user commands and date formats, translating them into structured data that the application can process.
+
+- **Storage**: A component that handles data persistence by saving and retrieving financial data and budget information to and from storage files, ensuring data retention across sessions.
+
+- **CLI (Command Line Interface)**: A text-based user interface allowing users to interact with the application by typing commands rather than using graphical elements like buttons or icons.
+
+- **Logger**: A component that records significant events or errors that occur during application execution, aiding in debugging and tracking application behavior.
 
 ## Instructions for manual testing
 
