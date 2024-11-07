@@ -9,7 +9,7 @@ import seedu.spendswift.command.Budget;
 import seedu.spendswift.command.Category;
 import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.BudgetManager;
-import java.util.Random;
+//import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+//import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 class ExpenseTest {
@@ -351,9 +351,9 @@ class BudgetManagerTest {
         assertNotNull(category);
         assertTrue(trackerData.getBudgets().containsKey(category));
         assertEquals(limit, trackerData.getBudgets().get(category).getLimit());
-    } */
+    } 
 
-  /*  @Test
+    @Test
     void testSetBudgetForNonExistingCategory() {
     BudgetManager budgetManager = new BudgetManager();
     TrackerData trackerData = new TrackerData();
