@@ -63,7 +63,7 @@ public class ParserExceptions extends RuntimeException {
         if (indexToDelete < 0 || indexToDelete >= sessionListSize) {
             throw new IllegalArgumentException(INVALID_SESSION_INDEX_MESSAGE);
         }
-        return index;
+        return indexToDelete;
     }
 
     public static String[] validEditDetails(String description, int sessionListSize)
