@@ -22,12 +22,15 @@ public class SortCommand extends Command{
 
     public SortCommand(String listBy) {
         super();
+        assert !listBy.isEmpty();
         this.listBy = listBy;
     }
 
 
     public void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) {
         logger.log(Level.FINEST, "Executing SortCommand");
+
+        assert !listBy.isEmpty();
 
         if (listBy.equals("name")) {
             recipes.sortAlphabetically();
