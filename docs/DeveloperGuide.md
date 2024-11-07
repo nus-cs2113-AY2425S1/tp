@@ -198,7 +198,7 @@ method. The main responsibility of this method is to invoke the `calculatePoints
 respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), which holds the points calculation logic.
 
 #### 2.  Sequence of Events:
-![getPointsSequenceDiagram.png](getPointsSequenceDiagram.png)
+![getPointsSequenceDiagram.png](Images/getPointsSequenceDiagram.png)
 
 1. **User Inputs Performance**: The user’s performance (e.g., number of pull-ups) is passed to the
    `setPerformance()` method in the exercise station.
