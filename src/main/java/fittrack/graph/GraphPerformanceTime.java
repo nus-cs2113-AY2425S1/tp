@@ -4,6 +4,7 @@ import fittrack.enums.Exercise;
 import fittrack.trainingsession.TrainingSession;
 import java.util.ArrayList;
 
+
 public class GraphPerformanceTime extends GraphPerformance {
     static final String INVALID_TIME_STRING = "NIL";
     static final String ALIGNMENT_SPACE_STRING = "       ";
@@ -11,6 +12,7 @@ public class GraphPerformanceTime extends GraphPerformance {
     static final double HIGHEST_NORMALISED_VALUE = 1.00;
     static final double INCREMENT_SCALE = 0.05;
     static final double INCREMENT_HALF_SCALE = 0.025;
+    private static final int SMALLEST_DOUBLE_DIGIT = 10;
 
     private static StringBuilder buildTimeHeader(Exercise exercise, ArrayList<TrainingSession> sessionList,
             int maxXHeaderLength) {
@@ -42,9 +44,16 @@ public class GraphPerformanceTime extends GraphPerformance {
             // invariant: exercise == Exercise.WALK_AND_RUN
             int minutes = actualTime / 60;
             int seconds = actualTime % 60;
-            displayTime =  minutes + ":" + seconds;
+            displayTime =  padStartingZero(minutes) + minutes + ":" + padStartingZero(seconds) + seconds;
         }
         return displayTime;
+    }
+
+    private static String padStartingZero(int time){
+        if(time < SMALLEST_DOUBLE_DIGIT) {
+            return "0";
+        }
+        return "";
     }
 
     private static StringBuilder buildMainContents(Exercise exercise, ArrayList<TrainingSession> sessionList,
@@ -71,8 +80,9 @@ public class GraphPerformanceTime extends GraphPerformance {
     private static void addAsteriskToTimeGraph(int minPerformance, int maxPerformance, int maxXHeaderLength,
             double normalizedValue, StringBuilder mainContents, double normalizedPerformance) {
         boolean isAllPerformanceSame = maxPerformance == minPerformance;
-
-        if (isAllPerformanceSame && normalizedValue < INCREMENT_SCALE) {
+        if (normalizedPerformance == INVALID_TIME_VALUE) {
+            mainContents.append(generateChar(maxXHeaderLength + 2, ' '));
+        } else if (isAllPerformanceSame && normalizedValue == HIGHEST_NORMALISED_VALUE) {
             mainContents.append(centerText("*", maxXHeaderLength));
         } else if (Math.abs(normalizedPerformance - normalizedValue) < INCREMENT_HALF_SCALE) {
             // mark space with * if normalized value == current row level with tolerance of 1/2 the scale
@@ -80,21 +90,25 @@ public class GraphPerformanceTime extends GraphPerformance {
         } else if (normalizedPerformance == 0 && Math.abs(normalizedPerformance - normalizedValue) < INCREMENT_SCALE) {
             // mark space with * if normalised value == 0
             mainContents.append(centerText("*", maxXHeaderLength));
-        }else {
+        } else {
             // do not mark space with *
             mainContents.append(generateChar(maxXHeaderLength + 2, ' ')); // Spacer for alignment
         }
     }
 
     private static double getNormalizePerformance(Exercise exercise, int minPerformance,
-                                                  int maxPerformance, TrainingSession session) {
+            int maxPerformance, TrainingSession session) {
         double performance = session.getExercisePerformance(exercise);
+
+        if (performance == INVALID_TIME_VALUE) {
+            return INVALID_TIME_VALUE;
+        }
         double normalizedPerformance = (performance - minPerformance) / (double) (maxPerformance - minPerformance);
         return normalizedPerformance;
     }
 
     static String graphExerciseTime(Exercise exercise, ArrayList<TrainingSession> sessionList,
-                                    int minPerformance, int maxPerformance, int maxXHeaderLength) {
+            int minPerformance, int maxPerformance, int maxXHeaderLength) {
         // Build header with actual time values for each session
         StringBuilder timeHeader = buildTimeHeader(exercise, sessionList, maxXHeaderLength);
 
