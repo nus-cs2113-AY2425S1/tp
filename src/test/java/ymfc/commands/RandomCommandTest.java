@@ -24,7 +24,7 @@ public class RandomCommandTest {
     private IngredientList ingredientList;
     private Ui ui;
     private Recipe recipe;
-    private AddRecipeCommand addRecipeCommand;
+    private AddCommand addCommand;
     private RandomCommand randomCommand;
 
     @BeforeEach
@@ -45,13 +45,13 @@ public class RandomCommandTest {
         steps.add("wait 5 min");
 
         recipe = new Recipe("instant noodles", ingredients, steps);
-        addRecipeCommand = new AddRecipeCommand(recipe);
+        addCommand = new AddCommand(recipe);
         randomCommand = new RandomCommand();
     }
 
     @Test
     void testRandomRecipe() throws IOException {
-        addRecipeCommand.execute(emptyList, ingredientList, ui, storage);
+        addCommand.execute(emptyList, ingredientList, ui, storage);
 
         // Capture System.out printing
         ByteArrayOutputStream message = new ByteArrayOutputStream();

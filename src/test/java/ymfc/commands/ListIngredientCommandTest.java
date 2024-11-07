@@ -7,7 +7,7 @@ import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
-class ListIngredientsCommandTest {
+class ListIngredientCommandTest {
 
 
     private Storage storage = new Storage();
@@ -19,7 +19,7 @@ class ListIngredientsCommandTest {
 
     @Test
     void listIngredients_success() {
-        ListIngredientsCommand command = new ListIngredientsCommand();
+        ListIngredientCommand command = new ListIngredientCommand();
         ingredientList.addIngredient(ingredient);
         command.execute(emptyList, ingredientList, ui, storage);
 

@@ -26,7 +26,7 @@ public class EditCommandTest {
     private Ui ui;
     private Recipe recipe;
     private Recipe edittedRecipe;
-    private AddRecipeCommand addRecipeCommand;
+    private AddCommand addCommand;
     private EditCommand editCommand;
 
     @BeforeEach
@@ -48,7 +48,7 @@ public class EditCommandTest {
         steps.add("wait 5 min");
 
         recipe = new Recipe("instant noodles", ingredients, steps);
-        addRecipeCommand = new AddRecipeCommand(recipe);
+        addCommand = new AddCommand(recipe);
         nonEmptyList.addRecipe(recipe);
 
         // Sample ingredients and steps
@@ -63,7 +63,7 @@ public class EditCommandTest {
 
     @Test
     void testEditRecipe_success() throws IOException, InvalidArgumentException {
-        addRecipeCommand.execute(emptyList, ingredientList, ui, storage);
+        addCommand.execute(emptyList, ingredientList, ui, storage);
 
         assertEquals(1, emptyList.getCounter());
         assertEquals(recipe, emptyList.getRecipe(0));

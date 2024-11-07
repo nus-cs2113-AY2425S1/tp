@@ -2,9 +2,9 @@ package ymfc.storage;
 
 import static ymfc.YMFC.logger;
 import ymfc.commands.AddIngredientCommand;
-import ymfc.commands.AddRecipeCommand;
+import ymfc.commands.AddCommand;
 import ymfc.commands.ListCommand;
-import ymfc.commands.ListIngredientsCommand;
+import ymfc.commands.ListIngredientCommand;
 import ymfc.exception.EmptyListException;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
@@ -143,13 +143,13 @@ public class Storage {
         if (isEmpty) {
             return;
         }
-        ListIngredientsCommand lister = new ListIngredientsCommand();
+        ListIngredientCommand lister = new ListIngredientCommand();
         lister.execute(recipes, ingredients, ui, storage);
     }
 
     private void addRecipe(RecipeList recipes, IngredientList ingredients, String line)
             throws InvalidArgumentException, InvalidCommandException, EmptyListException {
-        AddRecipeCommand command = (AddRecipeCommand) Parser.parseCommand(line, recipes, ingredients);
+        AddCommand command = (AddCommand) Parser.parseCommand(line, recipes, ingredients);
         command.addLoadedRecipe(recipes);
     }
 

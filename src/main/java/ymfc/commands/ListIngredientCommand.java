@@ -8,9 +8,9 @@ import ymfc.ui.Ui;
 import java.util.logging.Level;
 import static ymfc.YMFC.logger;
 
-public class ListIngredientsCommand extends Command {
+public class ListIngredientCommand extends Command {
 
-    public ListIngredientsCommand() {
+    public ListIngredientCommand() {
         super();
 
         logger.log(Level.FINEST, "Creating ListIngredientsCommand");

@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class AddRecipeCommandTest {
+public class AddCommandTest {
 
     private Storage storage;
     private RecipeList emptyList;
     private Ui ui;
     private Recipe recipe;
-    private AddRecipeCommand addRecipeCommand;
+    private AddCommand addCommand;
     private IngredientList ingredientList;
 
     @BeforeEach
@@ -43,12 +43,12 @@ public class AddRecipeCommandTest {
         steps.add("Cook for 10 minutes.");
 
         recipe = new Recipe("Pasta", ingredients, steps);
-        addRecipeCommand = new AddRecipeCommand(recipe);
+        addCommand = new AddCommand(recipe);
     }
 
     @Test
     void testAddNewRecipe() throws IOException {
-        addRecipeCommand.execute(emptyList, ingredientList, ui, storage);
+        addCommand.execute(emptyList, ingredientList, ui, storage);
 
         assertEquals(1, emptyList.getCounter());
         assertEquals(recipe, emptyList.getRecipe(0));
@@ -56,7 +56,7 @@ public class AddRecipeCommandTest {
         Recipe dummyRecipe = new Recipe("Jumbo", new ArrayList<>(), new ArrayList<>());
         emptyList.addRecipe(dummyRecipe);
         emptyList.sortAlphabetically(); // Make Pasta not the first recipe in list
-        addRecipeCommand.execute(emptyList, ingredientList, ui, storage);
+        addCommand.execute(emptyList, ingredientList, ui, storage);
         assertNotEquals(3, emptyList.getCounter()); // Duplicate will not be added
     }
 }
