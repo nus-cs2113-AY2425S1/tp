@@ -59,6 +59,10 @@ public class Exception extends Throwable {
                 "Type `list mapped` to check your current list of saved plans!";
     }
 
+    public static String nonNumericListIndexInput() {
+        return "Please provide a numeric index of the course plan you would like to delete.";
+    }
+
     public static String invalidContactType() {
         return "Invalid contact type.";
     }

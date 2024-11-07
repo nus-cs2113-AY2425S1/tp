@@ -51,7 +51,8 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
             logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);
             String[] descriptionSubstrings = parseDeleteCommand(userInput);
             assert descriptionSubstrings.length == 2 : Assertions.MISSING_FIELDS;
-            deleteCourse(descriptionSubstrings, storage);
+            int listIndex = getListIndex(descriptionSubstrings);
+            deleteCourse(listIndex, storage);
         } catch (IllegalArgumentException e) {
             logger.log(Level.WARNING, e.getMessage());
             ui.printMessage(e.getMessage());
@@ -79,25 +80,38 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
     }
 
     /**
-     * Executes the main logic of the deletion of a course mapping plan.
+     * Returns the index of the course to be deleted.
      *
      * @param descriptionSubstrings a String[] containing the extracted information: list index of the course
      *                              mapping to be deleted.
-     * @param storage refers to the storage class from the execute function.
+     * @return an integer that represents the list index of the course to be deleted.
      */
-    public void deleteCourse(String[] descriptionSubstrings, Storage storage) {
+    public int getListIndex(String[] descriptionSubstrings) {
         try {
             assert descriptionSubstrings.length == 2 |  descriptionSubstrings[1].trim().isEmpty() :
                     Assertions.MISSING_FIELDS;
-            int listIndex = Integer.parseInt(descriptionSubstrings[PLAN_INDEX_TO_DELETE]) - ZERO_INDEX_OFFSET;
-            logger.log(Level.INFO, Logs.GET_COURSE_TO_DELETE);
-            Course courseToDelete = storage.getCourse(listIndex);
-            logger.log(Level.INFO, Logs.DELETE_COURSE_MAPPING);
-            storage.deleteCourse(listIndex);
-            ui.printDeleteMessage(courseToDelete);
-        } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
-            throw new IllegalArgumentException(Exception.invalidCourseListIndex());
+            logger.log(Level.INFO, Logs.GET_INDEX_OF_COURSE_TO_DELETE);
+            return Integer.parseInt(descriptionSubstrings[PLAN_INDEX_TO_DELETE]);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(Exception.nonNumericListIndexInput());
         }
     }
 
+    /**
+     * Executes the main logic of the deletion of a course mapping plan.
+     *
+     * @param listIndex an integer that represents the list index of the course to be deleted.
+     * @param storage refers to the storage class from the execute function.
+     */
+    public void deleteCourse(int listIndex, Storage storage) {
+        try {
+            logger.log(Level.INFO, Logs.GET_COURSE_TO_DELETE);
+            Course courseToDelete = storage.getCourse(listIndex - ZERO_INDEX_OFFSET);
+            logger.log(Level.INFO, Logs.DELETE_COURSE_MAPPING);
+            storage.deleteCourse(listIndex);
+            ui.printDeleteMessage(courseToDelete);
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(Exception.invalidCourseListIndex());
+        }
+    }
 }
