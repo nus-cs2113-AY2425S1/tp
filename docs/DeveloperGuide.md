@@ -360,16 +360,16 @@ and are used to add expenses and incomes respectively.
 <ins>Class Structure</ins>
 
 The `AddEntryCommand` class has the following attributes:
-- *amount*: An object representing the amount of money in the transaction.
-- *description*: An object representing the description of the transaction.
-- *date*: An object representing the date on which the transaction occurred.
-- *category*: Specifies the category of the entry for income or expense.
+- `amount`: `double` An object representing the amount of money in the transaction.
+- `description`: `String` An object representing the description of the transaction.
+- `date`: `LocalDate` An object representing the date on which the transaction occurred.
+- `category`: `Enum<?>` Specifies the category of the entry for income or expense.
 
 The `AddExpenseCommand` and `AddIncomeCommand` classes inherit all attributes
 from the `AddEntryCommand` class and have no additional attributes.
 
 The `AddExpenseCommand` and `AddIncomeCommand` classes have the following method:
-- *execute*
+- `execute` Adds `Expense` or `Income` to the `financialList`
 
 <ins>Implementation</ins>
 
@@ -384,6 +384,11 @@ following arguments:
 - `/d`: Represents the date on which the transaction occurred. If this argument is not used,
   the current date is used. An exception occurs if this argument is used but the value is left blank.
 - `/c`: Category of the transaction, defaulting to UNCATEGORIZED if unspecified or invalid.
+
+Below is a simplified sequence diagram of the user adding an income. 
+A similar sequence happens when an expense is added.
+
+![addIncomeCommand](UML/addIncomeCommandSequence.png)
 
 ### Deleting Entries
 
@@ -430,21 +435,25 @@ The `EditEntryCommand` class has the following attributes:
 - `category`: `Enum<?>` New category of the transaction.
 
 The `EditEntryCommand` class has the following method:
-- `execute`: Edits the entry according to the arguments inputted.
+- `execute` Edits the entry according to the arguments inputted.
 
 <ins>Implementation</ins>
 
-The user invokes the command to add entries by entering the following command:
+The user invokes the command to edit entries by entering the following command:
 `edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`.
 
 This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
 following arguments:
-- `argument`: Represents the index of the entry in the full financial list.
+- `argument` Represents the index of the entry in the full financial list.
   This is a compulsory argument.
-- `/des`: Represents the description of the transaction. This is an optional argument.
-- `/a`: Represents the amount of money used in the transaction. This is an optional argument.
-- `/d`: Represents the date on which the transaction occurred. This is an optional argument.
-- `/c`: Represents the category used in the transaction. If an invalid category is provided, the entry will default to UNCATEGORIZED. This is an optional argument.
+- `/des` Represents the description of the transaction. This is an optional argument.
+- `/a` Represents the amount of money used in the transaction. This is an optional argument.
+- `/d` Represents the date on which the transaction occurred. This is an optional argument.
+- `/c` Represents the category used in the transaction. If an invalid category is provided, the entry will default to UNCATEGORIZED. This is an optional argument.
+
+Below is a simplified sequence diagram of the user editing an entry.
+
+![editEntryCommand](UML/editEntryCommandSequence.png)
 
 ### Listing Entries
 <ins>Overview</ins>

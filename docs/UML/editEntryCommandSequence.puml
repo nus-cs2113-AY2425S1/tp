@@ -1,0 +1,80 @@
+@startuml
+
+actor  User
+
+participant Logic
+participant FinancialList
+
+
+User -> Logic: editCommand(commandArguments)
+activate Logic
+
+Logic -> FinancialList: getEntry()
+activate FinancialList
+return entry
+
+Logic -> Logic: parseAmountOrDefault(amount from input, original amount)
+activate Logic
+return amount
+
+Logic -> Logic: parseDateOrDefault(date from input, original date)
+activate Logic
+return date
+
+Logic -> Logic: getCategoryFromInput(commandArguments, entry)
+activate Logic
+return category
+
+create EditEntryCommand
+Logic -> EditEntryCommand: new EditEntryCommand(index, amount, description, date, category)
+activate EditEntryCommand
+EditEntryCommand --> Logic: editCommand
+
+Logic -> EditEntryCommand: execute(financialList)
+activate EditEntryCommand
+
+EditEntryCommand -> EditEntryCommand: checkValidParams()
+activate EditEntryCommand
+return
+
+EditEntryCommand -> FinancialList: getEntry(index)
+activate FinancialList
+return entry
+
+alt entry instanceof Expense
+    Create Expense
+    EditEntryCommand -> Expense: new(amount, description, date, category)
+    activate Expense
+    Expense --> EditEntryCommand: replacementEntry
+    EditEntryCommand -> FinancialList: deleteEntry(index)
+    activate FinancialList
+    return
+    EditEntryCommand -> FinancialList: addEntry(replacementEntry)
+    activate FinancialList
+    return
+    deactivate Expense
+    destroy Expense
+else
+    Create Income
+    EditEntryCommand -> Income: new(amount, description, date, category)
+    activate Income
+    Income --> EditEntryCommand: replacementEntry
+    EditEntryCommand -> FinancialList: deleteEntry(index)
+    activate FinancialList
+    return
+    EditEntryCommand -> FinancialList: addEntry(replacementEntry)
+    activate FinancialList
+    return
+end
+
+EditEntryCommand -> AppUi: display entry edited message
+
+EditEntryCommand --> Logic
+
+deactivate Income
+destroy Income
+deactivate EditEntryCommand
+destroy EditEntryCommand
+deactivate Logic
+
+@enduml
