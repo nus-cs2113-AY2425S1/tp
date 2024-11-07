@@ -5,11 +5,11 @@ participant Logic
 User -> Logic: addIncome(commandArguments)
 activate Logic
 
-Logic -> Logic: parseAmount(amount)
+Logic -> Logic: parseAmount(amount from input)
 activate Logic
 return amount
 
-Logic -> Logic: parseIncomeCategoryOrDefault(category)
+Logic -> Logic: parseIncomeCategoryOrDefault(category from input)
 activate Logic
 return category
 
@@ -18,6 +18,7 @@ Logic -> AddIncomeCommand: new(amount, description, date, category)
 activate AddIncomeCommand
 AddIncomeCommand --> Logic: addIncomeCommand
 Logic -> AddIncomeCommand: execute(list)
+activate AddIncomeCommand
 
 create Income
 AddIncomeCommand -> Income: new(amount, description, date, category)
@@ -38,9 +39,12 @@ activate FinancialList
 return incomeTotals
 
 AddIncomeCommand -> AppUi: display income added message
-
 AddIncomeCommand --> Logic
-deactivate Income
 deactivate AddIncomeCommand
+
+deactivate Income
+destroy Income
+deactivate AddIncomeCommand
+destroy AddIncomeCommand
 deactivate Logic
 @enduml

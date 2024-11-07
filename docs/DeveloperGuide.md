@@ -385,8 +385,8 @@ following arguments:
   the current date is used. An exception occurs if this argument is used but the value is left blank.
 - `/c`: Category of the transaction, defaulting to UNCATEGORIZED if unspecified or invalid.
 
-Below is a sequence diagram of the user adding an income. A similar sequence happens when an
-expense is added. Note that the sequence within the `Logic` class has been simplified.
+Below is a simplified sequence diagram of the user adding an income. 
+A similar sequence happens when an expense is added.
 
 ![addIncomeCommand](UML/addIncomeCommandSequence.png)
 
@@ -435,21 +435,25 @@ The `EditEntryCommand` class has the following attributes:
 - `category`: `Enum<?>` New category of the transaction.
 
 The `EditEntryCommand` class has the following method:
-- `execute`: Edits the entry according to the arguments inputted.
+- `execute` Edits the entry according to the arguments inputted.
 
 <ins>Implementation</ins>
 
-The user invokes the command to add entries by entering the following command:
+The user invokes the command to edit entries by entering the following command:
 `edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`.
 
 This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
 following arguments:
-- `argument`: Represents the index of the entry in the full financial list.
+- `argument` Represents the index of the entry in the full financial list.
   This is a compulsory argument.
-- `/des`: Represents the description of the transaction. This is an optional argument.
-- `/a`: Represents the amount of money used in the transaction. This is an optional argument.
-- `/d`: Represents the date on which the transaction occurred. This is an optional argument.
-- `/c`: Represents the category used in the transaction. If an invalid category is provided, the entry will default to UNCATEGORIZED. This is an optional argument.
+- `/des` Represents the description of the transaction. This is an optional argument.
+- `/a` Represents the amount of money used in the transaction. This is an optional argument.
+- `/d` Represents the date on which the transaction occurred. This is an optional argument.
+- `/c` Represents the category used in the transaction. If an invalid category is provided, the entry will default to UNCATEGORIZED. This is an optional argument.
+
+Below is a simplified sequence diagram of the user editing an entry.
+
+![editEntryCommand](UML/editEntryCommandSequence.png)
 
 ### Listing Entries
 <ins>Overview</ins>
