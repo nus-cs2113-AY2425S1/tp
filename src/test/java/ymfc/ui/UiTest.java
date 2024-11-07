@@ -2,7 +2,6 @@
 package ymfc.ui;
 
 import org.junit.jupiter.api.Test;
-import ymfc.exception.InvalidArgumentException;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
