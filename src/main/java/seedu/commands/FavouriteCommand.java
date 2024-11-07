@@ -1,13 +1,10 @@
 package seedu.commands;
 
 import seedu.duke.Internship;
-import seedu.exceptions.InvalidIndex;
 
 import java.util.ArrayList;
 
 public class FavouriteCommand extends Command {
-    public boolean functionComplete = false;
-
     @Override
     public void execute(ArrayList<String> args) {
 

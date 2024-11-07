@@ -8,7 +8,6 @@ import seedu.duke.InternshipList;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class FavouriteCommandTest {
 

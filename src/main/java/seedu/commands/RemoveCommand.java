@@ -1,6 +1,5 @@
 package seedu.commands;
 
-import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.MissingValue;
 
 //@@author Ridiculouswifi
