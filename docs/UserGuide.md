@@ -11,7 +11,7 @@ SpendSwift is a simple budgeting tool designed for budget-conscious users. With 
 3. Copy the file to the folder you want to use as the home folder for your Task Manager.
 4. Open a command terminal, cd into the folder where you placed the jar file, and run the following command to start the application: `java -jar tp.jar`
 5. The application will start, and any existing tasks will be loaded from the file spendswift.txt. If this file doesn't exist, it will be created automatically when tasks are saved after exiting the program properly.
-6. Type commands below the outputs and press Enter to execute them. For example:
+6. Type commands below the outputs and press Enter to execute them.
 
 For details on all available commands, refer to the Features section below.
 
@@ -64,6 +64,7 @@ Format:
   - This parameter is optional. If not provided, the category will be set to `Uncategorized`.
 
 Example:
+
 ![add-expense](userguidepictures/add-expense.png)
 
 ### Delete an Expense: delete-expense
@@ -79,6 +80,7 @@ Format:
   - This parameter is required.
 
 Example:
+
 ![delete-expense](userguidepictures/delete-expense.png)
 
 ### Add a Category: add-category
@@ -93,6 +95,7 @@ Format:
   - The category is case-insensitive. It can be typed in any combination of upper or lower case.
 
 Example:
+
 ![add-category](userguidepictures/add-category.png)
 
 ### Tag an Expense to a Category: tag-expense
@@ -114,6 +117,7 @@ Format:
   - This parameter is required.
 
 Example:
+
 ![tag-expense](userguidepictures/tag-expense.png)
 
 ### Add Budget Limit to a Category: set-budget
@@ -137,6 +141,7 @@ Format:
     If the input has more than 2 decimal places, it would be rounded off to the nearest 2 decimal places.
 
 Example:
+
 ![set-budget](userguidepictures/set-budget.png)
 
 ### View All Expenses: view-expenses
@@ -149,6 +154,7 @@ Format:
 - Displays a list of all recorded expenses, showing the name, amount, category, and its index.
 
 Example output:
+
 ![view-expenses](userguidepictures/view-expenses.png)
 
 ### View Budget for Each Category: view-budget
@@ -161,6 +167,7 @@ Format:
 - Displays a summary of spending and remaining budget for all categories with a budget limit.
 
 Example output:
+
 ![view-budget](userguidepictures/view-budget.png)
 
 ### Set Regular Monthly Reset of Budget: toggle-reset
@@ -174,6 +181,7 @@ Format:
   - If automatic budget reset is off, `toggle-reset` would turn it on, vice versa.
 
 Example output:
+
 ![toggle-reset](userguidepictures/toggle-reset.png)
 
 ### Help
@@ -184,6 +192,7 @@ Format:
 `help`
 
 Example output:
+
 ![help](userguidepictures/help.png)
 
 ### Exiting the program: bye
@@ -191,6 +200,7 @@ Exits the program, and saves the data for that session.
 If the data file has yet to be created, this command would also create the data file.
 
 Format:
+
 ![bye](userguidepictures/bye.png)
 
 
