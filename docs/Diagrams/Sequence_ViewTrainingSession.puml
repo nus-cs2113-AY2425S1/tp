@@ -28,6 +28,7 @@ activate FitTrack
                                 ExerciseStation --> TrainingSession: exercisePoint
                                 TrainingSession -> ExerciseStation: exercise.getName()
                                 ExerciseStation --> TrainingSession: exerciseName
+                                deactivate ExerciseStation
                                 note over TrainingSession
                                 Print exerciseName and exercise
                                 end note
@@ -35,7 +36,6 @@ activate FitTrack
                             note over TrainingSession
                             Print totalPoints and overallAward
                             end note
-                            ExerciseStation --> TrainingSession
                             deactivate ExerciseStation
                             TrainingSession --> Ui
                         deactivate TrainingSession
@@ -43,7 +43,6 @@ activate FitTrack
                 deactivate Ui
             Parser --> FitTrack
         deactivate Parser
-    FitTrack --> User
 deactivate FitTrack
 
 'activate FitTrack

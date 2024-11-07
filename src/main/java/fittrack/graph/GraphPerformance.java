@@ -41,7 +41,14 @@ public abstract class GraphPerformance extends GraphBase {
                 + generateChar(yOffset, ' ') + xHeadersDate;
     }
 
-    // Return minimum height of graph
+    /**
+     * Returns the minimum exercise performance time from a list of training sessions.
+     *
+     * @param sessionList The list of training sessions.
+     * @param exercise The type of exercise for which the minimum time is calculated.
+     * @param numTrainingSessions The number of training sessions in the list.
+     * @return The minimum exercise performance time, or INVALID_TIME_VALUE if no valid data is found.
+     */
     static int getMinTimePerformance(ArrayList<TrainingSession> sessionList, Exercise exercise,
             int numTrainingSessions){
         // case 1: There are no data found in All sessions;
@@ -49,7 +56,7 @@ public abstract class GraphPerformance extends GraphBase {
         if (isAllDataInvalid) {
             return INVALID_TIME_VALUE;
         }
-        // invariant: there exist 1 session that has data
+        // invariant: there exist at least 1 session that has data
         // case 2: return the minPerformance of the session
         int sessionIndex = 0;
         int minExercisePerformance;
@@ -57,16 +64,26 @@ public abstract class GraphPerformance extends GraphBase {
         return minExercisePerformance;
     }
 
+    /**
+     * Extracts the minimum valid exercise performance from a list of training sessions.
+     *
+     * @param sessionList The list of training sessions.
+     * @param exercise The type of exercise for which the minimum is calculated.
+     * @param numTrainingSessions The number of training sessions in the list.
+     * @param sessionIndex The starting index to find the first valid performance.
+     * @return The minimum valid exercise performance found in the session list.
+     */
     private static int extractMin(ArrayList<TrainingSession> sessionList, Exercise exercise,
             int numTrainingSessions, int sessionIndex) {
         int minExercisePerformance;
-        // find the first session that has valid data and set as min
+
+        // Find the first session with valid data to initialize the minimum value.
         do {
             minExercisePerformance = sessionList.get(sessionIndex).getExercisePerformance(exercise);
             sessionIndex += 1;
         } while (minExercisePerformance == INVALID_TIME_VALUE);
 
-        // find existence of session that has a smaller valid data
+        // Search for any smaller valid performance values in subsequent sessions.
         for (int i = sessionIndex; i < numTrainingSessions; i++) {
             int exercisePerformance = sessionList.get(i).getExercisePerformance(exercise);
             if (exercisePerformance < minExercisePerformance && exercisePerformance != INVALID_TIME_VALUE) {
@@ -76,13 +93,20 @@ public abstract class GraphPerformance extends GraphBase {
         return minExercisePerformance;
     }
 
-    // check if there is a single valid data in sessions
+    /**
+     * Checks if there is any valid exercise performance data in the given list of training sessions.
+     *
+     * @param sessionList The list of training sessions.
+     * @param exercise The type of exercise for which the validity is checked.
+     * @param numTrainingSessions The number of training sessions in the list.
+     * @return True if all data is invalid, otherwise false.
+     */
     private static boolean checkDataValidity(ArrayList<TrainingSession> sessionList,
             Exercise exercise, int numTrainingSessions) {
         boolean isAllDataInvalid = true;
         for (int i = 0; i < numTrainingSessions; i++) {
             int exercisePerformance = sessionList.get(i).getExercisePerformance(exercise);
-            if (exercisePerformance != -1) {
+            if (exercisePerformance != INVALID_TIME_VALUE) {
                 isAllDataInvalid = false;
                 break;
             }
@@ -117,8 +141,8 @@ public abstract class GraphPerformance extends GraphBase {
         // Prepare Y axis and main content
         if (exercise == Exercise.WALK_AND_RUN || exercise == Exercise.SHUTTLE_RUN) {
             yOffset = OPTIMAL_GAP_LENGTH;
-            graph.append(GraphPerformanceTime.graphExerciseTime(exercise, sessionList, minExercisePerformance,
-                    maxExercisePerformance, maxXHeaderLength));
+            graph.append(GraphPerformanceTime.generateMainGraphPerformance(exercise, sessionList,
+                    minExercisePerformance, maxExercisePerformance, maxXHeaderLength));
         } else {
             yOffset = String.valueOf(maxExercisePerformance).length() - 1;
             graph.append(GraphPerformanceRepsDistance.graphExerciseRepsDistance(exercise, sessionList,
