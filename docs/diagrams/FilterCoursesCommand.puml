@@ -5,7 +5,7 @@ hide footbox
 actor CEG_Student
 participant ":FilterCoursesCommand" as FilterCoursesCommand
 participant ":Command" as Command
-participant ":Ui" as Ui
+participant ":Ui" as UI
 
 CEG_Student -> FilterCoursesCommand: execute (userInput:String)
 activate FilterCoursesCommand

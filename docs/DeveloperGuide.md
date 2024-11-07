@@ -97,7 +97,7 @@ interact with a given component through its interface rather than the concrete c
 
 ### Class Diagrams
 
-#### Command Struture:
+#### Command Structure:
 
 ![Class diagram for Commands](images/CommandClassInheritance.png)
 
