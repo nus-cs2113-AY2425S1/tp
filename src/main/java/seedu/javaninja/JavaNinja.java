@@ -1,6 +1,9 @@
 package seedu.javaninja;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class JavaNinja {
     private Cli cli;
@@ -34,6 +37,8 @@ public class JavaNinja {
     }
 
     public static void main(String[] args) {
+        Logger rootLogger = Logger.getLogger(""); // Get the root logger
+        rootLogger.setLevel(Level.OFF);
         new JavaNinja().run();
     }
 }

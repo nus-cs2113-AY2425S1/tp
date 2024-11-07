@@ -25,11 +25,13 @@ public class QuizResults {
         }
     }
 
-    public void saveResults() {
+    public boolean isResultsSaved() {
         try {
             results.saveToFile(RESULTS_FILE_PATH, pastResults, false);
+            return true;
         } catch (IOException e) {
             logger.warning(e.getMessage());
+            return false;
         }
     }
 

@@ -77,10 +77,3 @@ Git | Mcq | Which command stages files for commit? | b | a) git stage | b) git a
 Git | Mcq | Which command lists all branches? | c | a) git log | b) git branch -a | c) git branch | d) git show
 Git | Mcq | Which command updates the local repository with remote changes? | b | a) git fetch | b) git pull | c) git update | d) git merge
 Git | Mcq | Which command shows the commit history? | a | a) git log | b) git history | c) git status | d) git commits
-Flashcards | Flashcard | What is Java? | A programming language
-Flashcards | Flashcard | What is Java? | A programming language
-Flashcards | Flashcard | What is Java? | A programming language
-Flashcards | Flashcard | What is Java? | A programming language
-Flashcards | Flashcard | What is Java? | A programming language
-Flashcards | Flashcard | What is Java? | A programming language
-Flashcards | Flashcard | What is Java? | A programming language

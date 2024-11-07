@@ -73,7 +73,7 @@ class QuizManagerTest {
     @Test
     public void addInput_addsFlashcardToTopic() {
         // Add a flashcard via addInput
-        quizManager.addInput("add Flashcard /q What is Java? /a A programming language");
+        quizManager.addInput("add Flashcards /q What is Java? /a A programming language");
 
         // Verify that the flashcard topic exists
         Topic flashcardTopic = quizManager.getTopicManager().getTopic("Flashcards");

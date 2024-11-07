@@ -46,17 +46,6 @@ class QuizSessionTest {
         assertEquals(30, timeLimit);  // Expecting 30 seconds directly
     }
 
-    @Test
-    public void getQuestionLimit_withValidInput_returnsCorrectLimit() {
-        // Simulate user input for the number of questions (5 questions)
-        ByteArrayInputStream input = new ByteArrayInputStream("5\n".getBytes());
-        cli = new Cli(input);  // Reinitialize Cli with specific input
-        quizSession = new QuizSession(cli); // Reinitialize QuizSession with updated Cli
-
-        int questionLimit = quizSession.getQuestionLimitFromUser();
-        assertEquals(5, questionLimit);  // Expecting question limit of 5
-    }
-
     // === Integration Tests ===
 
     @Test

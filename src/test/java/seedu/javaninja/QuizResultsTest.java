@@ -54,7 +54,7 @@ class QuizResultsTest {
     public void saveResults_writesFormattedResultsToFile() throws IOException {
         // Add a result with new format and save it
         quizResults.addResult("Loops", 60, 5, "Needs improvement.", 150);
-        quizResults.saveResults();
+        boolean isDataSaved = quizResults.isResultsSaved();
 
         // Define expected file content format
         String expectedFileContents = "{\n" +
