@@ -322,7 +322,7 @@ class BudgetManagerTest {
 
     
 BudgetManager budgetManager = new BudgetManager();
-rackerData trackerData = new TrackerData();
+TrackerData trackerData = new TrackerData();
   
 
     private Category findCategory(TrackerData trackerData, String categoryName) {
