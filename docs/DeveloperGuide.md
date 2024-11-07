@@ -137,6 +137,12 @@ The `FileManager` component,
 - **Performs error handling and logging:** `FileManager` employs detailed logging to track the progress of saving and loading operations.
   If any issues arise during file operations (e.g., missing files, failed directory creation), they are logged, and exceptions are thrown to handle errors gracefully.
 
+The `DateSerializer` component, 
+
+- **Custom serialization and deserialization for `LocalDate`**: The `DateSerializer` class provides a way to serialize and deserialize `LocalDate` objects to and from JSON strings formatted as `dd-MM-yyyy`. This ensures that date data in JSON format remains consistent and human-readable.
+- **Implements `JsonSerializer` and `JsonDeserializer` interfaces**: The class implements both `JsonSerializer<LocalDate>` and `JsonDeserializer<LocalDate>` from the Gson library, allowing it to handle JSON conversion for `LocalDate` objects.
+- **Uses a standardized date format**: The `DateTimeFormatter` is configured with the pattern `dd-MM-yyyy`, which ensures that all serialized and deserialized dates conform to this format.
+
 ### Parser Component
 
 ### Command Component
