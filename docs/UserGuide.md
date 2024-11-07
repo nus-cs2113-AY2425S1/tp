@@ -46,6 +46,7 @@ add (session name)                                               add session1
 list                                                             list
 view (session index)                                             view 1
 edit (session index) (exercise acronym) (repetitions/time)       edit 1 PU 1
+edit-mood (session index) (mood description)                     edit-mood Happy
 delete (session index)                                           delete 1
 remind (Event / Task) (deadline)                                 remind NAPFA DD/MM/YYYY
 list-remind                                                      list-remind 
@@ -61,9 +62,7 @@ add-food (food item) (calories)                                  add-food apple1
 delete-food (index)                                              delete-food 1
 list-food                                                        list-food
 list-intake                                                      list-intake
-add-mood (mood description) (date) (time) (description)          add-moodhappy 01/11/2024 18:30:00 feeling healthy
-delete-mood (mood ID)                                            delete-mood 1
-list-mood                                                        list-mood
+                                                    list-mood
 exit                                                             exit
 ____________________________________________________________________________________________________
 ```
@@ -137,6 +136,7 @@ Exercise edited! Here's your new input: Reps: 45 | 5 points
 ____________________________________________________________________________________________________
 Training Session: session1
 Training Datetime: 29/10/2024 12:40
+Mood: No mood recorded
 Pull Up Station | Reps: 45 | 5 points
 Shuttle Run Station | Time: NA | 0 points
 Sit and Reach Station | Distance: 0cm | 0 points
@@ -148,7 +148,23 @@ Overall Award: No Award
 ____________________________________________________________________________________________________
 ```
 
-### 7. Deleting a Training Session: `delete`
+### 7. Edit your post-Training Session mood: `edit-mood`
+**Purpose**: Edit the post-training mood of a training session.
+
+**Format**: `edit-mood [session index] [mood description]`
+
+**Example**: `edit-mood 1 Happy`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+
+"Mood for Training Session 1 updated: Happy"
+____________________________________________________________________________________________________
+```
+
+
+### 8. Deleting a Training Session: `delete`
 **Purpose**: Removes a Training Session from the list.
 
 **Format**: `delete [session index]`
@@ -163,7 +179,7 @@ There are 1 sessions in the list.
 ____________________________________________________________________________________________________
 ```
 
-### 8. Exiting the program: `exit`
+### 9. Exiting the program: `exit`
 **Purpose**: Ends FitTrack CLI task and exits.
 
 **Format**: `exit`
@@ -175,7 +191,7 @@ Bye! Hope to see you again soon!
 ____________________________________________________________________________________________________
 ```
 
-### 9. Add a Reminder: `remind`
+### 10. Add a Reminder: `remind`
 **Purpose**: Adds a Reminder with the specified description and due date.
 
 **Format**: `remind [description] [deadline]`
@@ -194,7 +210,7 @@ There are 1 reminders in your list.
 ____________________________________________________________________________________________________
 ```
 
-### 10. List all Reminders: `list-remind`
+### 11. List all Reminders: `list-remind`
 **Purpose**: Displays all active Reminders the user has added.
 
 **Format**: `list-remind`
@@ -210,7 +226,7 @@ There are 3 reminders in your list.
 ____________________________________________________________________________________________________
 ```
 
-### 11. List soon-due Reminders: `upcoming-remind`
+### 12. List soon-due Reminders: `upcoming-remind`
 **Purpose**: Displays all Reminders the user has added that are due in the next week (7 days).
 
 **Format**: `upcoming-remind`
@@ -224,7 +240,7 @@ You have 2 reminders in total. View them with 'list-remind'.
 ____________________________________________________________________________________________________
 ```
 
-### 12. Delete a Reminder: `delete-remind`
+### 13. Delete a Reminder: `delete-remind`
 **Purpose**: Removes a reminder from your list.
 
 **Format**: `delete-remind [reminder index]`
@@ -240,7 +256,7 @@ There are 0 reminders in your list.
 ____________________________________________________________________________________________________
 ```
 
-### 13. Add Goal: `add-goal`
+### 14. Add Goal: `add-goal`
 **Purpose**: User can add a fitness goal to the the list
 of goals and attach a deadline to it in order to
 have clear targets to prepare for the NAPFA test.
@@ -257,7 +273,7 @@ Deadline: 12/12/2024 14:00:00
 ____________________________________________________________________________________________________
 ```
 
-### 14. Delete Goal: `delete-goal`
+### 15. Delete Goal: `delete-goal`
 User can delete a fitness goal to the the list
 of goals to moderate a fitness goal.
 
@@ -272,7 +288,7 @@ Goal at index 1 has been removed.
 ____________________________________________________________________________________________________
 ```
 
-### 15. List of Goals: `list-goal`
+### 16. List of Goals: `list-goal`
 View a list of all fitness goals and deadlines
 to keep track of progress in preparation for the NAPFA test
 
@@ -294,7 +310,7 @@ Goals:
 ____________________________________________________________________________________________________
 ```
 
-### 16. Display Non-Time Station Graph
+### 17. Display Non-Time Station Graph
 **Purpose**: View the progress of User's performance for SitUpStation, PullUpStation, StandingBroadJumpStation
 and SitAndReachStation class in the form of a bar chart.
 
@@ -307,7 +323,7 @@ and SitAndReachStation class in the form of a bar chart.
 ```
 
 
-### 17. Display Time Station Graph
+### 18. Display Time Station Graph
 **Purpose**: View the progress of User's performance for WalkAndRunStation class and ShuttleRunStation class 
 in the form of a point graph.
 
@@ -319,7 +335,7 @@ in the form of a point graph.
 ```
 ```
 
-### 18. Add Food Intake: `add-food`
+### 19. Add Food Intake: `add-food`
 View a list of daily food intake
 to have a more comprehensive understanding
 of factors affecting my fitness.
@@ -335,7 +351,7 @@ Got it. I've added food item: apple (100 calories, 06/11/2024 17:32:07).
 ____________________________________________________________________________________________________
 ```
 
-### 19. Delete Food Intake: delete-food
+### 20. Delete Food Intake: delete-food
 **Purpose**: Remove a food item from 
 the daily food intake list.
 
@@ -350,7 +366,7 @@ Got it. I've deleted food item: apple (100 calories) at 06/11/2024 17:30:57
 ____________________________________________________________________________________________________
 ```
 
-### 20. List Food Intake: list-food
+### 21. List Food Intake: list-food
 **Purpose**: Display the list of all food items 
 that have been added for the day.
 
@@ -366,7 +382,7 @@ Here is your food intake list:
 ____________________________________________________________________________________________________
 ```
 
-### 21. Add Water Intake: add-water
+### 22. Add Water Intake: add-water
 **Purpose**: Add water intake in milliliters 
 to track hydration levels.
 
@@ -381,7 +397,7 @@ Got it. I've added 500ml of water at 06/11/2024 17:33:05.
 ____________________________________________________________________________________________________
 ```
 
-### 22. Delete Water Intake: delete-water
+### 23. Delete Water Intake: delete-water
 **Purpose**: Remove a specified amount of water 
 from the daily water intake record.
 
@@ -396,7 +412,7 @@ Got it. I've deleted 500 ml (06/11/2024 17:30:46).
 ____________________________________________________________________________________________________
 ```
 
-### 23. List Water Intake: list-water
+### 24. List Water Intake: list-water
 **Purpose**: Display the total water 
 intake recorded for the day.
 
@@ -412,7 +428,7 @@ Here is your water intake (in ml):
 ____________________________________________________________________________________________________
 ```
 
-### 24. List Daily Intake: list-intake
+### 25. List Daily Intake: list-intake
 **Purpose**: Display the list of all food items
 and water items that have been added for the day.
 
@@ -432,50 +448,6 @@ Here is your water intake (in ml):
 Food Intake:
 Here is your food intake list: 
 1. apple (100 calories) at 06/11/2024 17:35:18
-____________________________________________________________________________________________________
-```
-
-### 28. Add Mood Log: add-mood
-
-**Purpose**: Record a mood entry for a specific date and time.
-
-**Format**: `add-mood <mood description> <date> <time> <optional description>`
-
-**Example**: `add-mood happy 01/11/2024 18:30:00 feeling rejuvenated`
-
-**Expected Output**:
-```
-____________________________________________________________________________________________________
-Mood log added: Mood: happy, Timestamp: 01/11/2024 18:30:00, Description: feeling rejuvenated
-____________________________________________________________________________________________________
-```
-
-### 29. Delete Mood Log: delete-mood
-**Purpose**: Remove a specific mood entry by its ID.
-
-**Format**: `delete-mood <mood ID>`
-
-**Example**: `delete-mood 2`
-
-**Expected Output**:
-```
-____________________________________________________________________________________________________
-Mood log deleted with ID: 1
-____________________________________________________________________________________________________
-```
-
-### 30. List Mood Logs: list-mood
-**Purpose**: Display all recorded mood entries.
-
-**Format**: `list-mood`
-
-**Example**: `list-mood`
-
-**Expected Output**:
-```
-____________________________________________________________________________________________________
-Your mood logs:
-1. Mood: happy, Timestamp: 01/11/2024 18:30:00, Description: feeling rejuvenated
 ____________________________________________________________________________________________________
 ```
 

@@ -55,6 +55,7 @@ import static fittrack.ui.Ui.printSessionList;
 import static fittrack.ui.Ui.printSessionView;
 import static fittrack.ui.Ui.printUnrecognizedInputMessage;
 import static fittrack.ui.Ui.printUpcomingReminders;
+import static fittrack.ui.Ui.printUpdatedMood;
 import static fittrack.ui.Ui.printUser;
 
 
@@ -311,9 +312,9 @@ public class Parser {
 
                 // Call the edit method with the necessary arguments
                 TrainingSession sessionToEdit = sessionList.get(sessionId);
-
                 sessionToEdit.setMood(newMood);
-                System.out.println("Mood updated: " + newMood);
+                printUpdatedMood(sessionId, newMood);
+
             } catch (NumberFormatException e) {
                 System.out.println(INVALID_SESSION_INDEX_MESSAGE);
             } catch (Exception e) {

@@ -66,6 +66,10 @@ public class Ui {
         endSegment();
     }
 
+    public static void printUpdatedMood(int sessionId, String newMood) {
+        System.out.println("Mood for Training Session " + (sessionId + 1) + " updated: " + newMood);
+    }
+
     public static void printDeletedSession(ArrayList<TrainingSession> sessionList, TrainingSession sessionToDelete,
                                            String sessionDescription) {
         assert sessionList != null : "Session list must not be null";
@@ -90,7 +94,7 @@ public class Ui {
         System.out.println(LIST_SESSION_MESSAGE);
         while (sessionIndex < sessionList.size()) {
             System.out.print(sessionIndex + 1 + ". ");
-            sessionList.get(sessionIndex).printSessionDescription();
+            sessionList.get(sessionIndex).printSessionInformation();
             sessionIndex++;
         }
         printSessionCount(sessionList);
