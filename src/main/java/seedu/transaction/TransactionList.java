@@ -141,11 +141,20 @@ public class TransactionList {
      */
     public List<Transaction> searchTransactionsByKeywords(List<String> keywords) {
         Map<Transaction, Integer> relevanceMap = new HashMap<>();
+        // Loop through each keyword
         for (String keyword : keywords) {
-            List<Transaction> matchingTransaction = invertedIndex.get(keyword.toLowerCase());
-            if (matchingTransaction != null) {
-                for (Transaction transaction : matchingTransaction) {
-                    relevanceMap.put(transaction, relevanceMap.getOrDefault(transaction, 0) + 1);
+            // Convert the keyword to lowercase for case-insensitive matching
+            String lowerCaseKeyword = keyword.toLowerCase();
+
+            // Iterate over the inverted index and check if the key contains the keyword
+            for (Map.Entry<String, List<Transaction>> entry : invertedIndex.entrySet()) {
+                String key = entry.getKey().toLowerCase();
+                if (key.contains(lowerCaseKeyword)) {
+                    // If the key contains the keyword, increment the relevance count for each transaction
+                    List<Transaction> matchingTransactions = entry.getValue();
+                    for (Transaction transaction : matchingTransactions) {
+                        relevanceMap.put(transaction, relevanceMap.getOrDefault(transaction, 0) + 1);
+                    }
                 }
             }
         }

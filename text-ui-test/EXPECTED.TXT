@@ -198,6 +198,10 @@
 	Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
 	-------------------------------------
 	-------------------------------------
+	Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	-------------------------------------
+	-------------------------------------
 	Lack mandatory arguments.
 	search k/ [keyword_1] [keyword_2] ... [keyword_n]
 	-------------------------------------
