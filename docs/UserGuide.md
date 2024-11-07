@@ -7,6 +7,7 @@
      - [Add an expense: `add-expense`](#add-an-expense-add-expense)
      - [Add an income: `add-income`](#add-an-income-add-income)
      - [Add a category: `add-category`](#add-a-category-add-category)
+     - [Add a budget: `add-budget`](#add-a-budget-add-budget)
    - [Deleting](#deleting)
      - [Delete an expense/income: `delete-transaction`](#delete-an-expenseincome-delete-transaction)
      - [Delete a category: `delete-category`](#delete-a-category-delete-category)
@@ -46,7 +47,8 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - Add an amount of expense into the history.
 - **Format:** `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]`
 - **Tips:**
-  - The category is from the category list.
+  - If the category is not entered, the programme will prompt you to enter a category or to leave it empty
+  - You may either fill in a category already in the category list or create a new category if it is not present in the list
   - If the date is not entered, the system will take the current day.
 - **Examples:**
   ```
@@ -76,7 +78,19 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   add-category n/ FnB
   add-category n/ Laundry
   ```
-  
+#### Add a budget: `add-budget`
+- Sets a monthly budget to track spending against.
+- **Format:** `add-budget m/ MONTH a/ AMOUNT`
+- **Tips:**
+  - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
+  - The amount represents the budget limit for that month.
+  - Budget can only be set for current or future months
+- **Examples:**
+  ```
+  add-budget a/ 1000 m/ 2024-11 
+  add-budget a/ 200 m/ 2025-02
+  ```
+
 ---
 ### Deleting
 #### Delete an expense/income: `delete-transaction`
@@ -156,11 +170,15 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 #### Track the progress towards budget for a certain moth: `track m/ Month`
 - Track your spending progress to make sure you are within the budget
 - **Format:** `track m/ MONTH`
+- **Tips:**
+  - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
+  - Tracking of progress is only available for current or past months.
 - **Example:**
   ```
   track m/ 2024-11
+  track m/ 2020-10
   ```
- 
+
 
 ## FAQ
 
@@ -169,18 +187,19 @@ It seems like you're trying to format a table of commands, but the current forma
 
 ### Command List
 
-| **Command Word**       | **Syntax**                                                              | **Example**                                          |
-|------------------------|:-------------------------------------------------------------------------:|:------------------------------------------------------:|
-| `add-expense`           | `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]`          | `add-expense a/ 17 d/ 07.09.2024 c/ FnB`              |
-| `add-income`            | `add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]`                          | `add-income Monthly allowance a/ 300 d/ 2024-09-19`  |
-| `add-category`          | `add-category n/ NAME`                                                  | `add-category n/ FnB`                                |
-| `delete-transaction`    | `delete-transaction i/ INDEX`                                           | `delete-transaction i/ 7`                            |
-| `delete-category`       | `delete-category i/ INDEX`                                              | `delete-category i/ 6`                               |
-| `view-category`         | `view-category`                                                         | `view-category`                                      |
-| `view-expense`          | `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`                        | `view-expense c/ food`                               |
-| `view-income`           | `view-income [f/ DATE] [t/ DATE]`                                       | `view-income f/ 2024-09-16 t/ 2024-09-19`            |
-| `history`               | `history [f/ DATE] [t/ DATE]`                                           | `history f/ 2024-09-16 t/ 2024-09-19`                |
-| `view-total`            | `view-total`                                                            | `view-total`                                         |
-| `help`                  | `help`                                                                  | `help`                                               |
-| `track`                 | `track m/ MONTH`                                                        | `track m/ 2024-11`                                   |           
+| **Command Word**     |                          **Syntax**                           |                     **Example**                     |
+|----------------------|:-------------------------------------------------------------:|:---------------------------------------------------:|
+| `add-expense`        | `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]` |      `add-expense a/ 17 d/ 07.09.2024 c/ FnB`       |
+| `add-income`         |        `add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]`         | `add-income Monthly allowance a/ 300 d/ 2024-09-19` |
+| `add-category`       |                    `add-category n/ NAME`                     |                `add-category n/ FnB`                |
+| `add-budget`         |                `add-budget a/ AMOUNT m/ MONTH`                |           `add-budget a/ 1000 m/ 2024-12`           |
+| `delete-transaction` |                 `delete-transaction i/ INDEX`                 |              `delete-transaction i/ 7`              |
+| `delete-category`    |                  `delete-category i/ INDEX`                   |               `delete-category i/ 6`                |
+| `view-category`      |                        `view-category`                        |                   `view-category`                   |
+| `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        |               `view-expense c/ food`                |
+| `view-income`        |               `view-income [f/ DATE] [t/ DATE]`               |      `view-income f/ 2024-09-16 t/ 2024-09-19`      |
+| `history`            |                 `history [f/ DATE] [t/ DATE]`                 |        `history f/ 2024-09-16 t/ 2024-09-19`        |
+| `view-total`         |                         `view-total`                          |                    `view-total`                     |
+| `help`               |                            `help`                             |                       `help`                        |
+| `track`              |                       `track m/ MONTH`                        |                 `track m/ 2024-11`                  |           
 
