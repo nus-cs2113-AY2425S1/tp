@@ -25,7 +25,6 @@ import static fittrack.messages.Messages.DELETE_REMINDER_COMMAND;
 import static fittrack.messages.Messages.DELETE_SESSION_COMMAND;
 import static fittrack.messages.Messages.EDIT_EXERCISE_COMMAND;
 import static fittrack.messages.Messages.HELP_COMMAND;
-import static fittrack.messages.Messages.INVALID_SESSION_INDEX_MESSAGE;
 import static fittrack.messages.Messages.LIST_REMINDER_COMMAND;
 import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
 import static fittrack.messages.Messages.LIST_UPCOMING_REMINDER_COMMAND;
