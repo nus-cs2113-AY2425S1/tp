@@ -1,0 +1,16 @@
+@startuml
+class Storage {
+    - filePath : String
+    + Storage(filePath : String)
+    + saveData(trackerData : TrackerData) : void
+    - loadCategory(trackerData : TrackerData, categoryName : String) : Category
+    + loadData(trackerData : TrackerData) : void
+}
+
+Storage "1" *-- "1" TrackerData : interacts with
+Storage "1" *-- "1" UI : uses
+Storage "1" *-- "*" Category : loads
+Storage "1" *-- "*" Budget : saves/loads
+Storage "1" *-- "*" Expense : saves/loads
+
+@enduml
