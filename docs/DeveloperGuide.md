@@ -209,7 +209,7 @@ The following sequence diagram shows how a load operation for ProgrammeList goes
 ![Sequence Diagram for Load operation](./images/loadProgrammeListSeqenceDiagram.png)
 
 The following sequence diagram shows how a save operation goes through the Storage component:
-![Sequence Diagram for Save operation](./images/Save_Seq-Dia.jpg)
+![Sequence Diagram for Save operation](./images/saveSequenceDiagram.png)
 
 ## WeeklySummary Feature
 
