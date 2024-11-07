@@ -20,6 +20,9 @@ public class ObtainContactsCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ObtainContactsCommand.class.getName());
     private static UI ui;
 
+    /**
+     * Class Constructor
+     */
     public ObtainContactsCommand() {
         ui = new UI();
     }
@@ -60,7 +63,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
     }
 
     /**
-     * Filters the school name from the user input.
+     * Returns the school name from the user input.
      *
      * @param userInput the input string provided by the user.
      * @return the school name as a string.
@@ -74,7 +77,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
     }
 
     /**
-     * Filters the contact type from the user input.
+     * Returns the contact type from the user input.
      *
      * @param userInput the input string provided by the user.
      * @return the contact type as a string.
@@ -93,7 +96,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
     }
 
     /**
-     * Handles output of different contact types and outputs a string of the details.
+     * Executes the output of different contact types and outputs a string of the details.
      *
      * @param schoolInfo  the JSON object containing the school's information.
      * @param schoolName  the name of the school as a string
@@ -118,7 +121,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
     }
 
     /**
-     * Looks for a matching school name from the database.
+     * Returns the name of the matching school name from the database.
      *
      * @param jsonObject the JSON object containing all school information.
      * @param schoolName the school name to search for.

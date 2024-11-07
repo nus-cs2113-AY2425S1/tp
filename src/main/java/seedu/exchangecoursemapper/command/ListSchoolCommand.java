@@ -17,6 +17,9 @@ public class ListSchoolCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ListSchoolCommand.class.getName());
     private static UI ui;
 
+    /**
+     * Class Constructor
+     */
     public ListSchoolCommand() {
         ui = new UI();
     }
@@ -44,7 +47,7 @@ public class ListSchoolCommand extends CheckInformationCommand {
     }
 
     /**
-     * Fetches the JSON object containing school data.
+     * Returns the JSON object containing school data.
      *
      * @return A JsonObject representing the school data.
      * @throws IOException If there is an issue reading the JSON file.
@@ -57,7 +60,7 @@ public class ListSchoolCommand extends CheckInformationCommand {
     }
 
     /**
-     * Validates the provided JSON object to ensure it contains data.
+     * Executes the validation of the  provided JSON object to ensure it contains data.
      *
      * @param jsonObject The JSON object to validate.
      * @throws AssertionError if jsonObject is null or empty.
@@ -69,7 +72,7 @@ public class ListSchoolCommand extends CheckInformationCommand {
     }
 
     /**
-     * Displays the list of university names from the JSON object.
+     * Returns the list of university names from the JSON object.
      *
      * @param jsonObject The JSON object containing university names.
      */
