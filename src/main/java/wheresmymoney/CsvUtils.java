@@ -14,6 +14,13 @@ import java.util.function.Consumer;
 
 
 public class CsvUtils {
+    /**
+     * Reads a csv file and processes it using the given Consumer.
+     *
+     * @param filePath CSV file path to read from
+     * @param read_action Consumer that runs on each line on the csv (excluding the header)
+     * @throws WheresMyMoneyException If there are any reading errors
+     */
     public static void readCsv(String filePath, Consumer<? super String[]> read_action) throws WheresMyMoneyException {
         FileReader reader;
         CSVReader csvReader;
@@ -36,6 +43,14 @@ public class CsvUtils {
         }
     }
 
+    /**
+     * Writes to a csv file.
+     *
+     * @param filePath CSV file path to read from
+     * @param header Header of new CSV file to write to
+     * @param write_action Consumer that runs on the CSV writer to write the data
+     * @throws WheresMyMoneyException If there are any writing errors
+     */
     public static void writeCsv(String filePath, String[] header, Consumer<? super CSVWriter> write_action)
             throws WheresMyMoneyException{
         File file = new File(filePath);
