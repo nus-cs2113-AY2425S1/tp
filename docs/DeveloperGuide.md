@@ -5,6 +5,7 @@
 Certain aspects of YMFC's code was inspired from the following member(s) IPs:
 
 [Sanjith](http://github.com/KSanjith/ip) : Referenced to develop the working mechanisms of YMFC's storage class
+
 [Sze Kang](https://github.com/gskang-22/ip) : Referenced to develop the working mechanisms of YMFC's command classes
 <div style="page-break-after: always;"></div>
 
@@ -216,11 +217,14 @@ its name
 - Upon execution, it removes the specified `Ingredient`, updates the `Ingredientlist` in the storage, and notifies 
 the user about the deletion
 7. `FindCommand` Class
-- 
+- The `FindCommand` class is used to find recipes based on user's query and options
+- When executed, a list of matching recipes extracted from `RecipeList` will be printed out using the 
+`printFind()` method from the `Ui` class
+- If no matching recipe is found, method `printEmptyFind()` will be used instead
 8. `FindIngredientCommand` Class
 - The `FindIngredientCommand` attempts to find an existing `Ingredient` in `IngredientList` by name
 - When executed, it calls the `printFindIngred()` method of the `Ui` to display the matching ingredients found
-- If no matching ingredients are found, the `printEmptyFindIngred()` of `Ui` method is called instead 
+- If no matching ingredient is found, the `printEmptyFindIngred()` of `Ui` method is called instead
 9. `HelpCommand` Class
 - The `HelpCommand` class is designed to provide the user with a list of available commands and detailed instructions 
 on how to use them
