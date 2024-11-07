@@ -255,7 +255,6 @@ public class BudgetLogic {
         if (hasExceededBudget()) {
             ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
         }
-        ui.displayBudgetBalanceMessage(budget.getBalance());
         logger.log(LogLevels.INFO, "Recalculation of balance complete.");
     }
 }
