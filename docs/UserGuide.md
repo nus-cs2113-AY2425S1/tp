@@ -310,7 +310,7 @@ Goals:
 ____________________________________________________________________________________________________
 ```
 
-### 17. Display Points Graph
+### 17. Display Points Graph: `gpoints`
 **Purpose**: Display the points the user has accumulated across different training sessions. Points can either reflect 
 the user’s total overall points or be specific to a chosen exercise.
 
