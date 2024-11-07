@@ -39,10 +39,10 @@
 ### Third Party Library Used
 
 #### 'org.glassfish:javax.json:1.1.4'
-* https://mvnrepository.com/artifact/org.glassfish/javax.json/1.1.4
+* [Link to official website](https://mvnrepository.com/artifact/org.glassfish/javax.json/1.1.4)
 
 #### 'javax.json:javax.json-api:1.1.4'
-* https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4
+* [Link to official website](https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4)
 
 ## Design
 
