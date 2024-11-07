@@ -37,14 +37,15 @@ Finance Buddy uses the following tools for development:
 
 The simplified UML class diagram below provides an overview of the classes and their interactions with each other. 
 
-![Overall Archi](UML/overallArchi.png)
+<img src="UML/overallArchi.png" alt="overall archi" width="auto" height="50%">
+
 
 In the above diagram, Command and FinancialEntry are representative of the subclasses of 
 the `Command` and `FinancialEntry` classes, which are elaborated on in their respective sections.
 
 The high-level overview of the program is shown in the diagram below as well.
 
-![Overall Flow](UML/overallFlow.png)
+<img src="UML/overallFlow.png" alt="overall flow" width="auto" height="500" class="centre">
 
 ---
 ### Ui and Parser
@@ -59,7 +60,7 @@ The Parser component, comprising `DateParser` and `InputParser`, handles input p
 **Sequence Diagram**:
 This sequence diagram illustrates the flow of how the `AppUi`, `InputParser` and `DateParser` classes work together to parse and validate the user's expense input.
 
-![Ui Parser Sequence](UML/UiParserSequence.png)
+<img src="UML/UiParserSequence.png" alt="UiParserSequence" width="auto" height="auto">
 
 #### Ui Component
 
@@ -150,7 +151,7 @@ The Logic constructor initializes key components (FinancialList, AppUi, and Stor
 **Sequence Diagram**:
 This sequence diagram illustrates how the `Logic` class works with other classes to execute an edit entry command
 
-![Logic Sequence](UML/LogicSequence.png)
+<img src="UML/LogicSequence.png" alt="Logic Sequence" width="auto" height="auto">
 
 <ins>Methods</ins>
 
@@ -192,20 +193,6 @@ logic.seeAllEntries();
 - **Future Extension**: External APIs could be integrated in the future for features like currency conversion or market updates, making Logic an ideal candidate for adaptability.
 
 ---
-### FinancialList and FinancialEntry
-<ins>Overview</ins>
-
-Managing financial entries through two main components:
-
-- **FinancialList**: A centralized data structure that stores and manages entries. It provides CRUD (Create, Read, Update, Delete) operations to handle financial records, such as adding new entries and modifying or retrieving existing ones.
-- **FinancialEntry**: An abstract base class representing a generic financial record. Subclasses include `Income` and `Expense`, which inherit shared attributes like `amount`, `description`, and `date`. Each with specific characteristics and categories that distinguish income from expenses.
-
-<ins>Implementation</ins>
-- **Class Diagram**: Displays the relationship between `FinancialList`, `FinancialEntry`, `Income`, and `Expense`. It highlights `FinancialList` as the main container managing `FinancialEntry` objects.
-  - {Input Class diagram}
-- **Sequence Diagram**: Illustrates the process of adding a new entry, from parsing user input to creating and adding the entry to `FinancialList`.
-  - {input sequence Diagram}
-
 
 ### FinancialList and FinancialEntry
 <ins>Overview</ins>
@@ -217,10 +204,12 @@ Managing financial entries through two main components:
 
 <ins>Implementation</ins>
 - **Class Diagram**: Displays the relationship between `FinancialList`, `FinancialEntry`, `Income`, and `Expense`. It highlights `FinancialList` as the main container managing `FinancialEntry` objects.
-![FinancialClassDiagram.png](UML/FinancialClassDiagram.png)
+
+<img src="UML/FinancialClassDiagram.png" alt="Financial Class Diagram" width="500" height="auto">
+
 - **Sequence Diagram**: Illustrates the process of adding a new entry, from parsing user input to creating and adding the entry to `FinancialList`.
 
-<img src="UML/FinancialEntrySequence.png" alt="Financial List Sequence Diagram" width="270" height="500">
+<img src="UML/FinancialEntrySequence.png" alt="Financial List Sequence Diagram" width="auto" height="500">
 
 ---
 
@@ -369,7 +358,7 @@ allowing for separation of handling command keywords and executing commands.
 The diagram below shows the inheritance of the `Command` class. The diagram is only meant to show
 the hierarchy of classes and have been greatly simplified.
 
-![Command_Inheritance_Diagram](UML/CommandInheritance.png)
+<img src="UML/CommandInheritance.png" alt="Command Inheritance Diagram" width="auto" height="auto">
 
 <ins>Constructor</ins>
 
@@ -420,7 +409,7 @@ following arguments:
 Below is a simplified sequence diagram of the user adding an income. 
 A similar sequence happens when an expense is added.
 
-![addIncomeCommand](UML/addIncomeCommandSequence.png)
+<img src="UML/addIncomeCommandSequence.png" alt="Financial List Sequence Diagram" width="auto" height="500">
 
 ### Deleting Entries
 
@@ -485,7 +474,7 @@ following arguments:
 
 Below is a simplified sequence diagram of the user editing an entry.
 
-![editEntryCommand](UML/editEntryCommandSequence.png)
+<img src="UML/editEntryCommandSequence.png" alt="Edit Entry Sequence Diagram" width="auto" height="500">
 
 ### Listing Entries
 <ins>Overview</ins>
@@ -545,12 +534,12 @@ The diagram below then depicts the details of the execute command section in the
 whereby `ListHelper` creates an instance of the corresponding command class, which then interacts with
 the FinancialList to display the relevant entries.
 
-![overview](UML/SeeAllEntriesCreateCommand.png)
+<img src="UML/SeeAllEntriesCreateCommand.png" alt="See All Entries Diagram" width="auto" height="500">
 
 The interaction between the command classes and `financialList` is as follows,
 using `SeeAllEntriesCommand` as an example:
 
-![execution](UML/SeeAllEntriesExecution.png)
+<img src="UML/SeeAllEntriesExecution.png" alt="See All Entries Execution" width="auto" height="500">
 
 `SeeAllExpensesCommand` and `SeeAllIncomesCommand` work in a similar fashion,
 but only marks `Expense`s and `Income`s respectively as to be included.
@@ -690,7 +679,8 @@ The `Storage` class contains functions for retrieving, updating, and loading dat
   - `toStorageString()` method returns: `E ¦¦ 5.00 ¦¦ Transport ¦¦ 25/10/24 ¦¦ TRANSPORT`
 
 The figure below show how the program load data from the files:
-![execution](UML/StorageLoad.png)
+
+<img src="UML/StorageLoad.png" alt="Storage Load Diagram" width="auto" height="500">
 
 <ins>Methods</ins>
 
@@ -801,15 +791,15 @@ The sequence diagrams below show 3 main methods of `BudgetLogic` class.
 The `setBudget()` method is invoked by the `Logic` class or `FinanceBuddy` main class.
 The sequence diagram shows an example of the method being called by the `Logic` class.
 
-<img src="UML/setBudgetSequence.png" alt="Set Budget Sequence Diagram" width="270" height="500">
+<img src="UML/setBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="600">
 
 The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class.
 
-![recalculateBalance](UML/recalculateBalanceSequence.png)
+<img src="UML/recalculateBalanceSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="500">
 
 The `changeBalanceFromExpense()` method is shown below.
 
-![changeBalanceFromExpense](UML/changeExpenseFromExpense.png)
+<img src="UML/changeExpenseFromExpense.png" alt="Set Budget Sequence Diagram" width="auto" height="500">
 
 <ins>Design Considerations</ins>
 
