@@ -68,7 +68,7 @@ public class History {
      * </p>
      *
      * @return a string containing the summary of the past week's workout history,
-     * or a message if no history is available
+     *     or a message if no history is available
      */
     public String getWeeklyWorkoutSummary() {
         if (history.isEmpty()) {
