@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class SortIngredientsCommandTest {
+public class SortIngredientCommandTest {
     private Storage storage;
     private RecipeList recipeList;
     private IngredientList ingredientList;
     private IngredientList nameSortedIngredientList;
     private Ui ui;
-    private SortIngredientsCommand sortByNameCommand;
+    private SortIngredientCommand sortByNameCommand;
 
     @BeforeEach
     void setUp() {
@@ -46,7 +46,7 @@ public class SortIngredientsCommandTest {
         nameSortedIngredientList.addIngredient(pastaIngredientFour);
         nameSortedIngredientList.addIngredient(pastaIngredientThree);
 
-        sortByNameCommand = new SortIngredientsCommand();
+        sortByNameCommand = new SortIngredientCommand();
     }
 
     @Test

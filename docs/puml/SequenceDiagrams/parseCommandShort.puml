@@ -67,8 +67,8 @@ alt COLOR_GREEN command == "add" | "help" | "bye" | "new"
 	end ref
 	Parser --> YMFC: returns a newly instanced object of the appropriate command class
 
-else command == "delete" | "listR" | "listI" | "sort" | "edit" | "find"
-	opt COLOR_GREEN numRecipes <= 0 | numIngredients <= 0
+else command == "delete" | "deleteI" | "list" | "listI" | "sort" | "sortI" | "edit" | "find" | "findI" | "random" | "recommend"
+	opt COLOR_GREEN numRecipes <= 0 | numIngredients <= 0 respectively
 		Parser ->> YMFC: throw new EmptyListException("empty list message")
 		deactivate YMFC
 	end

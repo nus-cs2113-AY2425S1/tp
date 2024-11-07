@@ -17,103 +17,252 @@
 	Need your dishes washed? Get off your couch.
 	__________________________________________________________________________________
 	__________________________________________________________________________________
-This is all the things you can do with me:
-0. help                              -  Lists out all the available commands and their usage
+	This is all the things you can do with me:
+		0. help                              -  Lists out all the available commands and their usage
 	__________________________________________________________________________________
-The following commands is for working with your recipes list
-1. listR                             -  Lists out all the existing recipes
-2. add n/name i/ingredients s1/step  -  Adds a new recipe.
-	 add more ingredients using more i/ tags
-	 add more steps using more sx/ tags, where x starts from 1 and increases one by one
-3. sort s/name                       -  Sorts the recipes alphabetically by name
-4. sort s/time                       -  Sorts the recipes by time, from least to most
-5. find KEYWORDS                     -  Looks for the keyword in recipes' 
-	 find name             = name
-	 find i/keyword        = ingredients
-	 find ns/keyword       = name or steps
-	 find nis/keyword      = name or ingredients or steps
-6. edit e/name i/ingredients s1/step -  Edit an existing recipe's steps and ingredients
-	 add more ingredients using more i/ tags
-	 add more steps using more sx/ tags, where x starts from 1 and increases one by one
-7. delete n/name                     -  Deletes the recipe of that name
-8. recommend                         -  Ranks recipes based on how many ingredients are available
-9. random                            -  Picks a recipe at random and shows it to you
-10. bye                              -  Ends the program
+	The following commands is for working with your recipes list
+		1. list                             -  Lists out all the existing recipes
+		2. add n/name i/ingredients s1/step c/cuisine t/time     -  Adds a new recipe.
+			 the cuisine and time parameters are optional
+			 add more ingredients using more i/ tags
+			 add more steps using more sx/ tags, where x starts from 1 and increases one by one
+		3. sort s/name                       -  Sorts the recipes alphabetically by name
+		4. sort s/time                       -  Sorts the recipes by time, in ascending order
+		5. find KEYWORDS                     -  Looks for the keyword in recipes' 
+			 find name             = name
+			 find i/keyword        = ingredients
+			 find ns/keyword       = name or steps
+			 find nis/keyword      = name or ingredients or steps
+		6. edit e/name i/ingredients s1/step c/cuisine t/time    -  Edit an existing recipe
+			 the cuisine and time parameters are optional
+			 add more ingredients using more i/ tags
+			 add more steps using more sx/ tags, where x starts from 1 and increases one by one
+		7. delete n/name                     -  Deletes the recipe of that name
+		8. recommend                         -  Ranks recipes based on how many ingredients are available
+		9. random                            -  Picks a recipe at random and shows it to you
+		10. bye                              -  Ends the program
 	__________________________________________________________________________________
-The following commands is for working with your ingredients list
-1. new n/name                        -  Add a new ingredient to your list
-2. listI                             -  Lists out all your current ingredients
-3. findI name                        -  Looks for your ingredient in your ingredients list
-4. deleteI n/name                    -  Deletes the ingredient of that name
-5. sortI                             -  Sorts your ingredients alphabetically by name
+	The following commands is for working with your ingredients list
+		1. new n/name                        -  Add a new ingredient to your list
+		2. listI                             -  Lists out all your current ingredients
+		3. findI name                        -  Looks for your ingredient in your ingredients list
+		4. deleteI n/name                    -  Deletes the ingredient of that name
+		5. sortI                             -  Sorts your ingredients alphabetically by name
 	__________________________________________________________________________________
-Got it? Let's get back to cooking.
+	Got it? Let's get back to cooking.
 
 	__________________________________________________________________________________
 	__________________________________________________________________________________
 	Okie dokie, one more recipe for me:
-	 Recipe: grilled cheese sandwich
+	 Recipe: Omelette
 	  Ingredients: 
 	    - eggs
-	    - sandwich
-	    - cheese
-	    - butter
+	    - salt
 	  Steps: 
-	    1. add butter to hot pan
-	    2. etc
+	    1. crack eggs in pan
+	    2. add salt
+	  Time taken: 4
 	You currently have 1 recipe in your list.
 	__________________________________________________________________________________
 	__________________________________________________________________________________
 	Okie dokie, one more recipe for me:
-	 Recipe: ramen eggs
+	 Recipe: Pasta
 	  Ingredients: 
-	    - eggs
-	    - soya sauce
+	    - pasta
+	    - tomato paste
 	  Steps: 
-	    1. boil eggs for 6.5 min
-	    2. cool eggs in ice bath
-	  Cuisine: Japanese
+	    1. boil pasta
+	    2. mix pasta with tomato paste
+	  Cuisine: Italian
 	  Time taken: 15
 	You currently have 2 recipes in your list.
 	__________________________________________________________________________________
 	__________________________________________________________________________________
-	Here's everything in my collection so far:
-	1. Recipe: grilled cheese sandwich
+	Okie dokie, one more recipe for me:
+	 Recipe: Apple Juice
 	  Ingredients: 
-	    - eggs
-	    - sandwich
-	    - cheese
-	    - butter
+	    - apples
+	    - sugar
+	    - water
 	  Steps: 
-	    1. add butter to hot pan
-	    2. etc
+	    1. throw apples, sugar and water into a blender and blend
+	  Time taken: 2
+	You currently have 3 recipes in your list.
 	__________________________________________________________________________________
-	2. Recipe: ramen eggs
+	__________________________________________________________________________________
+	Here's everything in my collection so far:
+	1. Recipe: Omelette
 	  Ingredients: 
 	    - eggs
-	    - soya sauce
+	    - salt
 	  Steps: 
-	    1. boil eggs for 6.5 min
-	    2. cool eggs in ice bath
-	  Cuisine: Japanese
+	    1. crack eggs in pan
+	    2. add salt
+	  Time taken: 4
+	__________________________________________________________________________________
+	2. Recipe: Pasta
+	  Ingredients: 
+	    - pasta
+	    - tomato paste
+	  Steps: 
+	    1. boil pasta
+	    2. mix pasta with tomato paste
+	  Cuisine: Italian
+	  Time taken: 15
+	__________________________________________________________________________________
+	3. Recipe: Apple Juice
+	  Ingredients: 
+	    - apples
+	    - sugar
+	    - water
+	  Steps: 
+	    1. throw apples, sugar and water into a blender and blend
+	  Time taken: 2
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	Here's everything in my collection so far:
+	1. Recipe: Apple Juice
+	  Ingredients: 
+	    - apples
+	    - sugar
+	    - water
+	  Steps: 
+	    1. throw apples, sugar and water into a blender and blend
+	  Time taken: 2
+	__________________________________________________________________________________
+	2. Recipe: Omelette
+	  Ingredients: 
+	    - eggs
+	    - salt
+	  Steps: 
+	    1. crack eggs in pan
+	    2. add salt
+	  Time taken: 4
+	__________________________________________________________________________________
+	3. Recipe: Pasta
+	  Ingredients: 
+	    - pasta
+	    - tomato paste
+	  Steps: 
+	    1. boil pasta
+	    2. mix pasta with tomato paste
+	  Cuisine: Italian
 	  Time taken: 15
 	__________________________________________________________________________________
 	__________________________________________________________________________________
-	Aww, I shall begrudgingly let go of this recipe:
-	  ramen eggs
-	You currently have 1 recipe in your list.
-	__________________________________________________________________________________
-	__________________________________________________________________________________
 	Here's everything in my collection so far:
-	1. Recipe: grilled cheese sandwich
+	1. Recipe: Apple Juice
+	  Ingredients: 
+	    - apples
+	    - sugar
+	    - water
+	  Steps: 
+	    1. throw apples, sugar and water into a blender and blend
+	  Time taken: 2
+	__________________________________________________________________________________
+	2. Recipe: Omelette
 	  Ingredients: 
 	    - eggs
-	    - sandwich
-	    - cheese
-	    - butter
+	    - salt
 	  Steps: 
-	    1. add butter to hot pan
-	    2. etc
+	    1. crack eggs in pan
+	    2. add salt
+	  Time taken: 4
+	__________________________________________________________________________________
+	3. Recipe: Pasta
+	  Ingredients: 
+	    - pasta
+	    - tomato paste
+	  Steps: 
+	    1. boil pasta
+	    2. mix pasta with tomato paste
+	  Cuisine: Italian
+	  Time taken: 15
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	Sorry I didn't find anything! :(
+	Perhaps you should ask your mom for more recipes and add them here!
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	You got it boss, I have edited your recipe for Pasta to:
+	Recipe: Pasta
+	  Ingredients: 
+	    - pasta
+	    - olive oil
+	    - garlic
+	  Steps: 
+	    1. saute garlic in oil
+	    2. boil paste
+	    3. add pasta to garlic and mix
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	Aww, I shall begrudgingly let go of this recipe:
+	  Apple Juice
+	You currently have 2 recipes in your list.
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	I'll add that to your inventory:
+	 eggs
+	You currently have 1 ingredient in your inventory.
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	I'll add that to your inventory:
+	 garlic
+	You currently have 2 ingredients in your inventory.
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	I'll add that to your inventory:
+	 salt
+	You currently have 3 ingredients in your inventory.
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	Here's all the ingredients you currently have: 
+	1. eggs
+	2. garlic
+	3. salt
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	Here's all the ingredients you currently have: 
+	1. eggs
+	2. garlic
+	3. salt
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	Here's everything that I've found so far:
+	1. salt
+	Total: 1 ingredients found!
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	Alright, here are my recommendations:
+	For this recipe, you have 100% of the ingredients needed
+	Recipe: Omelette
+	  Ingredients: 
+	    - eggs
+	    - salt
+	  Steps: 
+	    1. crack eggs in pan
+	    2. add salt
+	  Time taken: 4
+
+	For this recipe, you have 33% of the ingredients needed
+	You are missing the following:
+	  - pasta
+	  - olive oil
+	Recipe: Pasta
+	  Ingredients: 
+	    - pasta
+	    - olive oil
+	    - garlic
+	  Steps: 
+	    1. saute garlic in oil
+	    2. boil paste
+	    3. add pasta to garlic and mix
+
+	__________________________________________________________________________________
+	__________________________________________________________________________________
+	Aww, I shall begrudgingly let go of this recipe:
+	  eggs
+	You currently have 2 recipes in your list.
 	__________________________________________________________________________________
 	__________________________________________________________________________________
                  (\

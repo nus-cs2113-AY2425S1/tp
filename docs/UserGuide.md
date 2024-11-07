@@ -76,7 +76,7 @@ This is all the things you can do with me:
 0. help                              -  Lists out all the available commands and their usage
 __________________________________________________________________________________
 The following commands is for working with your recipes list
-1. listR                             -  Lists out all the existing recipes
+1. list                             -  Lists out all the existing recipes
 2. add n/name i/ingredients s1/step  -  Adds a new recipe.
 	 add more ingredients using more i/ tags
 	 add more steps using more sx/ tags, where x starts from 1 and increases one by one
@@ -165,7 +165,7 @@ ________________________________________________________________________________
 
 ### Listing out Existing Recipes
 
-Format: `listR`
+Format: `list`
 
 Lists out all the recipes currently stored in YMFC.
 
@@ -309,17 +309,17 @@ and paste it in your other computer in the same directory where YMFC.jar is loca
 
 ## YMFC\.Command Summary
 
-| Command                                                         | Usage                                                                                                     |
-|-----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| `help`                                                          | List out all the available commands and their usage                                                       |
-| `bye`                                                           | Terminate the program                                                                                     |
-| `listR`                                                         | List out all the existing recipes                                                                         |
-| `add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`  | Add a new recipe                                                                                          |
-| `sort s/name`                                                   | Sort the recipes alphabetically by name                                                                   |
-| `sort s/time`                                                   | Sort the recipes by time, from least to most                                                              |
-| `find [OPTIONS/]KEYWORDS`                                       | Look for the KEYWORDS in sections of recipes (provided by `OPTIONS`)<br/>(Find in recipe name by default) |
+| Command                                                        | Usage                                                                                                     |
+|----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| `help`                                                         | List out all the available commands and their usage                                                       |
+| `bye`                                                          | Terminate the program                                                                                     |
+| `list`                                                         | List out all the existing recipes                                                                         |
+| `add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]` | Add a new recipe                                                                                          |
+| `sort s/name`                                                  | Sort the recipes alphabetically by name                                                                   |
+| `sort s/time`                                                  | Sort the recipes by time, from least to most                                                              |
+| `find [OPTIONS/]KEYWORDS`                                      | Look for the KEYWORDS in sections of recipes (provided by `OPTIONS`)<br/>(Find in recipe name by default) |
 | `edit e/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]` | Edit an existing recipe                                                                                   |
-| `delete n/NAME`                                                 | Delete the recipe of that name                                                                            |
-| `new n/INGREDIENT`                                              | Add a new ingredient to your list                                                                         |
-| `listI`                                                         | List out all your current ingredients                                                                     |
-| `findI INGREDIENT`                                              | Search ingredient list with input ingredient name                                                         |                                             
+| `delete n/NAME`                                                | Delete the recipe of that name                                                                            |
+| `new n/INGREDIENT`                                             | Add a new ingredient to your list                                                                         |
+| `listI`                                                        | List out all your current ingredients                                                                     |
+| `findI INGREDIENT`                                             | Search ingredient list with input ingredient name                                                         |                                             
