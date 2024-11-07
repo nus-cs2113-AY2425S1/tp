@@ -76,6 +76,7 @@ track m/ 13
 foo
 
 search k/ Dinner
+search k/ din
 search k/
 
 categorize i/ 5 c/ Food
