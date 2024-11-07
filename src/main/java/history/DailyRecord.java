@@ -1,8 +1,8 @@
-//@@author Bev-Low
+//@@author Bev-low
 package history;
 
-import exceptions.BuffBuddyException;
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.HistoryExceptions;
+import exceptions.MealException;
 import meal.Meal;
 import meal.MealList;
 import programme.Day;
@@ -54,7 +54,7 @@ public class DailyRecord {
      */
     public Day deleteDayFromRecord() {
         if (this.day == null) {
-            throw new BuffBuddyException("No logged workout found for this day.");
+            throw HistoryExceptions.dayNotFound();
         }
 
         Day deleted = this.day;
@@ -124,7 +124,7 @@ public class DailyRecord {
      */
     public Meal deleteMealFromRecord(int index) {
         if (index < 0 || index >= mealList.getSize()) {
-            throw new IndexOutOfBoundsBuffBuddyException("Index " + index + " is out of bounds for meal list.");
+            throw MealException.doesNotExist();
         }
         logger.info("meal deleted, index: " + index);
         return mealList.deleteMeal(index);

@@ -2,7 +2,7 @@
 
 package programme;
 
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.ProgrammeExceptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -80,7 +80,7 @@ public class ProgrammeListTest {
 
     @Test
     void testDeleteProgrammeInvalidIndex() {
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> programmeList.deleteProgram(5));
+        assertThrows(ProgrammeExceptions.class, () -> programmeList.deleteProgram(5));
 
         assertEquals(2, programmeList.getProgrammeListSize());
     }
@@ -102,7 +102,7 @@ public class ProgrammeListTest {
 
     @Test
     void testGetProgrammeInvalidIndex() {
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> programmeList.getProgramme(5));
+        assertThrows(ProgrammeExceptions.class, () -> programmeList.getProgramme(5));
     }
 
     @Test
@@ -114,7 +114,7 @@ public class ProgrammeListTest {
 
     @Test
     void testStartProgrammeInvalidIndex() {
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> programmeList.startProgramme(5));
+        assertThrows(ProgrammeExceptions.class, () -> programmeList.startProgramme(5));
     }
 
     @Test

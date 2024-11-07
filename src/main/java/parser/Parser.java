@@ -3,7 +3,7 @@
 package parser;
 
 import command.Command;
-import exceptions.EmptyInputBuffBuddyException;
+import exceptions.ParserExceptions;
 import parser.command.factory.CommandFactory;
 
 import java.util.logging.Logger;
@@ -46,7 +46,7 @@ public class Parser {
     public Command parse(String fullCommand) {
         if (fullCommand == null || fullCommand.trim().isEmpty()) {
             logger.log(Level.WARNING, "Command is empty");
-            throw new EmptyInputBuffBuddyException("command");
+            throw ParserExceptions.missingCommand();
         }
 
         /*
