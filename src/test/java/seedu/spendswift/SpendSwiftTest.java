@@ -11,7 +11,6 @@ import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.BudgetManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import  org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -320,14 +319,12 @@ class ExpenseManagerTest {
 }
 
 class BudgetManagerTest {
-    public BudgetManager;
-    public TrackerData;
+
     
-    @BeforeEach
-    void setUp() {
+
          budgetManager = new BudgetManager();
          trackerData = new TrackerData();
-    }
+  
 
     private Category findCategory(TrackerData trackerData, String categoryName) {
     for (Category category : trackerData.getCategories()) {
@@ -341,6 +338,8 @@ class BudgetManagerTest {
 
     @Test
     void testSetBudgetValidCategory() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
         String categoryName = "Utilities";
         double limit = 500.0;
         CategoryManager.addCategory(trackerData, categoryName);
@@ -353,6 +352,8 @@ class BudgetManagerTest {
 
     @Test
     void testSetBudgetForNonExistingCategory() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
         String categoryName = "Entertainment";
         double limit = 300.0;
         budgetManager.setBudgetLimit(trackerData, categoryName, limit);
@@ -364,6 +365,8 @@ class BudgetManagerTest {
 
     @Test
     void testSetBudgetWithInvalidLimit() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
         String categoryName = "Groceries";
         double invalidLimit = -100.0;
         CategoryManager.addCategory(trackerData, categoryName);
@@ -375,6 +378,8 @@ class BudgetManagerTest {
 
     @Test
     void testAddExpenseWithinBudget() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
         String categoryName = "Food";
         double budgetLimit = 200.0;
         double expenseAmount = 150.0;
@@ -391,6 +396,8 @@ class BudgetManagerTest {
 
     @Test
     void testAddExpenseExceedingBudget() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
         String categoryName = "Travel";
         double budgetLimit = 300.0;
         double expenseAmount = 350.0;
@@ -408,6 +415,8 @@ class BudgetManagerTest {
 
     @Test
     void testToggleAutoReset() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
         budgetManager.toggleAutoReset();
         assertTrue(getAutoResetStatus(budgetManager));
         budgetManager.toggleAutoReset();
@@ -416,6 +425,8 @@ class BudgetManagerTest {
 
     @Test
     void testSimulateMonthChangeWithAutoReset() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
         budgetManager.toggleAutoReset();
         simulateMonthChange(budgetManager);
         budgetManager.checkAndResetBudgets(trackerData);
@@ -424,6 +435,8 @@ class BudgetManagerTest {
 
     @Test
     void testSimulateMonthChangeWithoutAutoReset() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
         if (getAutoResetStatus(budgetManager)) {
             budgetManager.toggleAutoReset();
         }
@@ -434,6 +447,8 @@ class BudgetManagerTest {
 
     @Test
     void testViewBudgetsWithBudgetsSet() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
         String categoryName = "Category_ViewBudgetSet";
         double budgetLimit = 500.0;
         double expenseAmount = 250.0;
@@ -453,6 +468,8 @@ class BudgetManagerTest {
 
     @Test
     void testViewBudgetsWithNoBudgetsSet() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
         String categoryName = "Category_NoBudget";
         ExpenseManager.addExpense(trackerData, "RandomExpense", 100.0, categoryName);
         Category category = findCategory(trackerData, categoryName);
