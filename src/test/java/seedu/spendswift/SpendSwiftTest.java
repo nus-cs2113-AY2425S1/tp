@@ -339,7 +339,7 @@ class BudgetManagerTest {
     }
 
 
-  /* @Test
+    /* @Test
     void testSetBudgetValidCategory() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
@@ -391,7 +391,7 @@ private String generateRandomWord(Random random, int wordLength) {
                  .toString();
 } */
 
-/*    @Test
+    /*@Test
     void testSetBudgetWithInvalidLimit() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
@@ -473,7 +473,7 @@ private String generateRandomWord(Random random, int wordLength) {
         assertNotEquals(Calendar.getInstance().get(Calendar.MONTH), budgetManager.getLastResetMonth());
     }
 
-/*    @Test
+    /*    @Test
     void testViewBudgetsWithBudgetsSet() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
