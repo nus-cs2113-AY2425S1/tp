@@ -1,4 +1,9 @@
-//@@author Gao327-unused
+//@@author YukeeHong-unused
+/**
+ * This class provides JUnit Tests for the LocalDateTimeAdapter.
+ * The class is not used because LocalDateTimeAdapter is not in use.
+ */
+
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import org.junit.jupiter.api.BeforeEach;
