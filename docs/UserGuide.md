@@ -30,6 +30,8 @@ they have exceeded, or are close to exceeding their budget.
 The current progress of the logging will be saved after each successful command.
 Progress is restored when FinanceBuddy is started up each time.
 
+<div style="page-break-after: always;"></div>
+
 ## Quick Start
 
 1. Ensure that Java 17 or above is installed.
@@ -52,6 +54,7 @@ Lists out the full list of usable commands.
 ![UG_add1](screenshots/UG_Help.png)
 
 <hr>
+<div style="page-break-after: always;"></div>
 
 ### Add Transaction
 
@@ -81,6 +84,7 @@ Examples Without Optional Parameters (Date and Category omitted):<br>
 ![UG_add2](screenshots/UG_add2.png)
 
 <hr>
+<div style="page-break-after: always;"></div>
 
 ### Edit Transaction
 Edits an existing transaction in your financial list.
@@ -116,6 +120,7 @@ Edits the description, amount, and date of the 4th entry to be breakfast, 5 and 
 Edits the category of the 5th entry to be FOOD.
 
 <hr>
+<div style="page-break-after: always;"></div>
 
 ### Delete Transaction
 
@@ -132,6 +137,7 @@ The `Delete Transaction` command removes a specific entry from your financial li
 Deletes the transaction at index 5 and 2 respectively in the financial list.
 
 <hr>
+<div style="page-break-after: always;"></div>
 
 ### List Transactions
 
@@ -205,6 +211,7 @@ If a budget has been set by the user, the user's set monthly budget as well as h
 ![list](screenshots/UG_List_wBudget.png)
 
 <hr>
+<div style="page-break-after: always;"></div>
 
 ### Set/Edit Budget
 
@@ -221,7 +228,7 @@ The budget amount and balance will also be viewable by the user under the list c
 
 **Example Usage**:
 
-![budgt](screenshots/UG_budget1.png)<br>
+![budget](screenshots/UG_budget1.png)<br>
 Initial budget setting option.
 
 <br>
