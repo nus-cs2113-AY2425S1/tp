@@ -276,7 +276,7 @@ This command is responsible for displaying and retrieving the full list of unive
 from `database.json` file. It helps the users to identify the possible choices in Oceania.
 
 #### How the feature is implemented:
-* The `ListSchoolCommand` class extends `Command` class where it overrides the `execute` method for
+* The `ListSchoolCommand` class extends the `CheckInformationCommand` class where it overrides the `execute` method for
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
@@ -330,7 +330,7 @@ university. It helps users to reach out to the partner universities for any enqu
 exchange opportunities.
 
 #### How the feature is implemented:
-* The `ObtainContactsCommand` class extends `Command` class where it overrides the `execute()` method for
+* The `ObtainContactsCommand` class extends the `CheckInformationCommand` class where it overrides the `execute()` method for
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
@@ -350,6 +350,7 @@ exchange opportunities.
 * Logging and assertions helps the team of developers to follow through the command execution.
 
 #### Alternatives considered:
+* Split the contacts into 2 different class for obtaining email and number for better separation of concerns
 * Reading of the `database.json` was tricky and other libraries were considered.
 * Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
   readability.
