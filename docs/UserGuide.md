@@ -78,17 +78,17 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 
 #### Add a category: `add-category`
 - Add a category into the category list.
-- **Format:** `add-category n/NAME`
+- **Format:** `add-category CATEGORY_NAME`
 - **Tip:**
   - Category name must be unique.
 - **Examples:**
   ```
-  add-category n/ FnB
-  add-category n/ Laundry
+  add-category FnB
+  add-category Laundry
   ```
 #### Add a budget: `add-budget`
 - Sets a monthly budget to track spending against.
-- **Format:** `add-budget m/ MONTH a/ AMOUNT`
+- **Format:** `add-budget a/ AMOUNT m/ MONTH`
 - **Tips:**
   - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
   - The amount represents the budget limit for that month.
@@ -111,10 +111,10 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 
 #### Delete a category: `delete-category`
 - Delete a category from the category list.
-- **Format:** `delete-category i/ INDEX`
+- **Format:** `delete-category CATEGORY_NAME`
 - **Example:**
   ```
-  delete-category i/ 6
+  delete-category FnB
   ```
 ---
 ### Updating
@@ -197,19 +197,19 @@ It seems like you're trying to format a table of commands, but the current forma
 
 | **Command Word**     |                          **Syntax**                           |                     **Example**                     |
 |----------------------|:-------------------------------------------------------------:|:---------------------------------------------------:|
-| `add-expense`        | `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]` |      `add-expense a/ 17 d/ 07.09.2024 c/ FnB`       |
+| `add-expense`        | `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]` |    `add-expense Food a/ 17 d/ 07.09.2024 c/ FnB`    |
 | `add-income`         |        `add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]`         | `add-income Monthly allowance a/ 300 d/ 2024-09-19` |
-| `add-category`       |                    `add-category n/ NAME`                     |                `add-category n/ FnB`                |
+| `add-category`       |                    `add-category CATEGORY_NAME`               |                `add-category FnB`                   |
 | `add-budget`         |                `add-budget a/ AMOUNT m/ MONTH`                |           `add-budget a/ 1000 m/ 2024-12`           |
 | `delete-transaction` |                 `delete-transaction i/ INDEX`                 |              `delete-transaction i/ 7`              |
-| `delete-category`    |                  `delete-category i/ INDEX`                   |               `delete-category i/ 6`                |
+| `delete-category`    |             `delete-category CATEGORY_NAME`                   |               `delete-category FnB`                 |
 | `categorize`         |              `categorize i/ INDEX c/ CATEGORY`                |              `categorize i/ 6 c/ Food`              |
 | `view-category`      |                        `view-category`                        |                   `view-category`                   |
-| `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        |               `view-expense c/ food`                |
+| `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        |   `view-expense c/ food f/ 2024-09-16 t/ 2024-09-19`|
 | `view-income`        |               `view-income [f/ DATE] [t/ DATE]`               |      `view-income f/ 2024-09-16 t/ 2024-09-19`      |
 | `history`            |                 `history [f/ DATE] [t/ DATE]`                 |        `history f/ 2024-09-16 t/ 2024-09-19`        |
 | `view-total`         |                         `view-total`                          |                    `view-total`                     |
-| `search`             |     `search k/ [keyword_1] [keyword_2] ... [keyword_n]`       |                 search k/ school fee ABC            |
+| `search`             |     `search k/ [keyword_1] [keyword_2] ... [keyword_n]`       |                 `search k/ school fee ABC`          |
 | `track`              |                       `track m/ MONTH`                        |                 `track m/ 2024-11`                  |
 | `help`               |                            `help`                             |                       `help`                        |
            
