@@ -72,6 +72,11 @@ public class ProgrammeList {
         Programme programmeToDelete = programmeList.get(index);
         programmeList.remove(index);
         logger.log(Level.INFO, "Deleted programme at index {0}: {1}", new Object[]{index, programmeToDelete});
+
+        if (currentActiveProgramme == index){
+            currentActiveProgramme = NULL_INTEGER;
+        }
+
         return programmeToDelete;
     }
 

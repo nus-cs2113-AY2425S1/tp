@@ -1,7 +1,6 @@
 //@@author Bev-Low
 package history;
 
-import exceptions.BuffBuddyException;
 import exceptions.IndexOutOfBoundsBuffBuddyException;
 import meal.Meal;
 import meal.MealList;
@@ -41,28 +40,6 @@ public class DailyRecord {
     public Day getDayFromRecord() {
         return day;
     }
-
-    //@@author TVageesan
-    /**
-     * Deletes the current day record from the daily record.
-     * <p>
-     * If no day has been logged, this method throws an {@link IllegalStateException}.
-     * </p>
-     *
-     * @return the deleted {@code Day} object
-     * @throws IllegalStateException if there is no logged workout for the day
-     */
-    public Day deleteDayFromRecord() {
-        if (this.day == null) {
-            throw new BuffBuddyException("No logged workout found for this day.");
-        }
-
-        Day deleted = this.day;
-        this.day = null;
-        return deleted;
-    }
-    //@@author
-
     /**
      * Retrieves the mealList object containing all meals recorded for the day.
      *
@@ -92,8 +69,8 @@ public class DailyRecord {
      */
     public void logDayToRecord(Day newDay) { //this replaces any current day recorded
         assert newDay != null : "day must not be null";
-
-        this.day = newDay;
+        
+        this.day = new Day(newDay);
         logger.info("Day updated: " + day);
     }
 

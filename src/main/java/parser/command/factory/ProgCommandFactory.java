@@ -9,7 +9,6 @@ import command.programme.ViewProgrammeCommand;
 import command.programme.ListProgrammeCommand;
 import command.programme.StartProgrammeCommand;
 import command.programme.LogProgrammeCommand;
-import command.programme.DeleteLogProgrammeCommand;
 import command.programme.edit.EditProgrammeCommand;
 import command.programme.edit.EditExerciseProgrammeCommand;
 import command.programme.edit.CreateExerciseProgrammeCommand;
@@ -46,7 +45,6 @@ import static parser.FlagDefinitions.REMOVE_EXERCISE_FLAG;
 
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.splitArguments;
-import static parser.ParserUtils.parseDate;
 
 /**
  * The {@code ProgCommandFactory} class is a factory responsible for creating all program-related commands.
@@ -99,7 +97,6 @@ public class ProgCommandFactory {
         case StartProgrammeCommand.COMMAND_WORD -> prepareStartCommand(arguments);
         case DeleteProgrammeCommand.COMMAND_WORD ->  prepareDeleteCommand(arguments);
         case LogProgrammeCommand.COMMAND_WORD -> prepareLogCommand(arguments);
-        case DeleteLogProgrammeCommand.COMMAND_WORD -> prepareDeleteLogCommand(arguments);
         default -> new InvalidCommand();
         };
     }
@@ -207,23 +204,6 @@ public class ProgCommandFactory {
     }
 
     // @@author TVageesan
-
-    /**
-     * Prepares a command to delete a log entry based on the specified date.
-     * <p>
-     * This method parses the given argument string to obtain a date, which is then used
-     * to create a {@code DeleteLogProgrammeCommand} with the specified date.
-     * </p>
-     *
-     * @param argumentString the string representing the date to be parsed and deleted
-     * @return a {@code DeleteLogProgrammeCommand} configured with the parsed date
-     * @throws IllegalArgumentException if the date format in {@code argumentString} is invalid
-     */
-    private Command prepareDeleteLogCommand(String argumentString){
-        LocalDate date = parseDate(argumentString);
-        return new DeleteLogProgrammeCommand(date);
-    }
-
     /**
      * Prepares and returns an appropriate {@link EditProgrammeCommand} based on the flags parsed
      * from the provided argument string.
