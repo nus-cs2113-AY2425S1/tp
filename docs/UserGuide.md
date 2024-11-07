@@ -273,6 +273,8 @@ Highest Income Category: SALARY ($3000.00)
 User can set a monthly budget when app is initialized and budget is not set, or by using the budget command.
 Budget command can also be used to edit budget after initial budget is set.
 
+**Format**: `budget`
+
 **Example Usage**:
 ``` java
 // Initial budget setting option 
@@ -291,11 +293,11 @@ Please set your budget amount:
 ```
 
 ### Saving Data
-Your Finantial List will be stored in to `data/FinancialList.txt`, while your budget is stored in `data/Budget.txt`.
-FinanaceBuddy will automatically update the files whenever your list or budget been modified through FinanaceBuddy.
-When you start the FinanaceBuddy program, it will check if the `data/FinancialList.txt` and `data/Budget.txt` exist.
-If do, it'll try to load the transections and budget in the file row by row.
-Please do not modify these files maunaly, otherwise the transections or the budget with incorrect format will not be loaded.
+Your Financial List will be stored in to `data/FinancialList.txt`, while your budget is stored in `data/Budget.txt`.
+FinanceBuddy will automatically update the files whenever your list or budget been modified through FinanceBuddy.
+When you start the FinanceBuddy program, it will check if the `data/FinancialList.txt` and `data/Budget.txt` exist.
+If do, it'll try to load the transactions and budget in the file row by row.
+Please do not modify these files manually, otherwise the transactions or the budget with incorrect format will not be loaded.
 
 ## Command Summary
 
