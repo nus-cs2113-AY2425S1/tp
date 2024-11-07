@@ -399,3 +399,27 @@ Any mainstream OS with Java 17 installed
    `Walk and Run Station | Time: NA | 0 points` <br>
    `Total points: 5` <br>
    `Overall Award: No Award` <br>
+
+**Delete a Training Session**
+1. Prerequisites: None. <br> <br>
+
+2. Test case 1: `delete` (No session index is inputted) <br>
+   Expected: `Please provide a valid session index.` <br> <br>
+
+   Test case 2: `delete -1` (Invalid session inputted) <br>
+   Expected: `Please provide a valid session index.` <br> <br>
+
+   Test case 3: `delete 1` (Input session index is valid) <br>
+   Expected:
+   `Got it. I've deleted this training session:session1` <br>
+   `There are 1 sessions in the list.` <br>
+
+**Exit FitTrackCLI**
+1. Prerequisites: None. <br> <br>
+
+2. Test case 1: `exit 1` (User's exit input contains extraneous non-empty characters) <br>
+   Expected: `I'm sorry, I don't know what that means.` <br> <br>
+
+   Test case 2: `exit` (User's exit input only contains the exit command.) <br>
+   Expected:
+   `Bye! Hope to see you again soon!` <br>
