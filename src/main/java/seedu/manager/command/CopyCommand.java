@@ -45,7 +45,6 @@ public class CopyCommand extends Command {
     public void execute() {
         StringBuilder outputMessage = new StringBuilder();
 
-        ArrayList<Participant> participants;
         Optional<Event> eventTo = eventList.getEventByName(copyTo);
         Optional<Event> eventFrom = eventList.getEventByName(copyFrom);
 
@@ -53,8 +52,9 @@ public class CopyCommand extends Command {
             if (eventFrom.get().getParticipantList().isEmpty()) {
                 outputMessage.append(PARTICIPANT_NOT_FOUND);
             } else {
-                participants = eventFrom.get().getParticipantList();
-                eventTo.get().setParticipantList(participants);
+                ArrayList<Participant> participants = eventFrom.get().getParticipantList();
+                ArrayList<Participant> copyOfParticipants = copyParticipantList(participants);
+                eventTo.get().setParticipantList(copyOfParticipants);
                 outputMessage.append(COPY_SUCCESSFUL);
             }
         } else {
@@ -64,4 +64,34 @@ public class CopyCommand extends Command {
         this.message = outputMessage.toString();
     }
 
+    /**
+     * Returns a copy of a given list of {@link Participant}s.
+     *
+     * @param participants the list of Participants.
+     * @return a copy of participants.
+     */
+    private ArrayList<Participant> copyParticipantList(ArrayList<Participant> participants) {
+        ArrayList<Participant> copyOfParticipants = new ArrayList<>();
+        for (Participant participant : participants) {
+            Participant participantCopy = copyParticipant(participant);
+            copyOfParticipants.add(participantCopy);
+        }
+
+        return copyOfParticipants;
+    }
+
+    /**
+     * Returns a copy of a given {@link Participant}.
+     *
+     * @param participant the participant to be copied.
+     * @return a copy of participant.
+     */
+    private Participant copyParticipant(Participant participant) {
+        String name = participant.getName();
+        String number = participant.getNumber();
+        String email = participant.getEmail();
+        boolean isPresent = participant.isPresent();
+
+        return new Participant(name, number, email, isPresent);
+    }
 }
