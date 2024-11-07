@@ -15,7 +15,6 @@
       - [List by Date](#list-by-date)
     - [Set/Edit Budget](#setedit-budget)
     - [Saving Data](#saving-data)
-  - [FAQ](#faq)
   - [Command Summary](#command-summary)
 
 ## Introduction
@@ -132,7 +131,7 @@ Edits an existing transaction in your financial list.
  - `CATEGORY` should be one of the categories allowed in Expenses/Incomes.
 
 **Example Usages**:
-```java
+``` java
 // Edits the description of the 1st entry to be breakfast
 edit 1 /des breakfast
 // Edits the amount of the 1st entry to be 5.99
@@ -300,7 +299,15 @@ Highest Income Category: SALARY ($3000.00)
 ### Set/Edit Budget
 
 User can set a monthly budget when app is initialized and budget is not set, or by using the budget command.
-Budget command can also be used to edit budget after initial budget is set.
+If the user has already set a budget, the app will prompt the user to ask if they would like to modify their budget at start up.
+
+Budget command can be used to set budget if `no` is keyed in for the initial prompt. 
+The command can also be used to edit budget after initial budget is set.
+
+After budget is set by user, adding, deleting or editing expenses will show the budget and remaining balance for the month.
+The budget amount and balance will also be viewable by the user under the list command.
+
+**Format**: `budget`
 
 **Example Usage**:
 ``` java
@@ -320,21 +327,43 @@ Please set your budget amount:
 ```
 
 ### Saving Data
-Your Finantial List will be stored in to `data/FinancialList.txt`, while your budget is stored in `data/Budget.txt`.
-FinanaceBuddy will automatically update the files whenever your list or budget been modified through FinanaceBuddy.
-When you start the FinanaceBuddy program, it will check if the `data/FinancialList.txt` and `data/Budget.txt` exist.
-If do, it'll try to load the transections and budget in the file row by row.
-Please do not modify these files maunaly, otherwise the transections or the budget with incorrect format will not be loaded.
+Your Financial List will be stored in to `data/FinancialList.txt`, while your budget is stored in `data/Budget.txt`.
+FinanceBuddy will automatically update the files whenever your list or budget been modified through FinanceBuddy.
+When you start the FinanceBuddy program, it will check if the `data/FinancialList.txt` and `data/Budget.txt` exist.
+If do, it'll try to load the transactions and budget in the file row by row.
+Please do not modify these files manually, otherwise the transactions or the budget with incorrect format will not be loaded.
 
 ## Command Summary
 
-* Help Menu `help`
-* List all transactions `list`
-* List all expenses `list expenses`
-* List all incomes `list income`
-* List by date `list [/from DATE] [/to DATE]`
-* Add expense `expense DESCRIPTION /a AMOUNT [/d DATE]`
-* Add income `income DESCRIPTION /a AMOUNT [/d DATE]`
-* Set budget `budget`
-* Delete transaction `delete INDEX`
-* Exit program `exit`
+| **Command**                   | **Usage**                                                                                  |
+|-------------------------------|---------------------------------------------------------------------------------------------|
+| **Help**                      | `help`                                                                                     |
+| **List All Transactions**     | `list`                                                                                      |
+| **List Income Transactions**  | `list income`                                                                               |
+| **List Expense Transactions** | `list expense`                                                                              |
+| **List Transactions by Date** | `list [/from START_DATE] [/to END_DATE]`                                                    |
+| **Add Expense**               | `expense DESCRIPTION /a AMOUNT`                                                             |
+| **Add Expense with Date**     | `expense DESCRIPTION /a AMOUNT /d DATE`                                                     |
+| **Add Expense with Category** | `expense DESCRIPTION /a AMOUNT /c CATEGORY`                                                 |
+| **Add Expense with Date and Category** | `expense DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                |
+| **Add Income**                | `income DESCRIPTION /a AMOUNT`                                                              |
+| **Add Income with Date**      | `income DESCRIPTION /a AMOUNT /d DATE`                                                      |
+| **Add Income with Category**  | `income DESCRIPTION /a AMOUNT /c CATEGORY`                                                  |
+| **Add Income with Date and Category**  | `income DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                 |
+| **Edit Entry**                | `edit INDEX`                                                                               |
+| **Edit Entry Description**    | `edit INDEX /des DESCRIPTION`                                                               |
+| **Edit Entry Amount**         | `edit INDEX /a AMOUNT`                                                                      |
+| **Edit Entry Date**           | `edit INDEX /d DATE`                                                                       |
+| **Edit Entry Category**       | `edit INDEX /c CATEGORY`                                                                    |
+| **Edit Entry with All Fields**| `edit INDEX /des DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                 |
+| **Delete Entry**              | `delete INDEX`                                                                             |
+| **Set Budget**                | `budget`                                                                                   |
+| **Exit Program**              | `exit`                                                                                     |
+
+**Defined Categories**:
+
+| **Category Type**  | **Categories**                                  |
+|--------------------|-------------------------------------------------|
+| **Expense**        | FOOD, TRANSPORT, ENTERTAINMENT, UTILITIES, OTHER, UNCATEGORIZED |
+| **Income**         | SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED  |
+

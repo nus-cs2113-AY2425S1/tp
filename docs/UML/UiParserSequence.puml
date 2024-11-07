@@ -1,25 +1,42 @@
 @startuml
 actor User
-User -> AppUi : start()
-AppUi -> User : displayWelcomeMessage()
-User -> AppUi : enter command "expense /a 50 /d 01/01/24 /c food"
+User -> FinanceBuddy : start application
+activate FinanceBuddy
+FinanceBuddy -> AppUi : displayWelcomeMessage()
+activate AppUi
+AppUi --> FinanceBuddy : welcome message
+deactivate AppUi
+FinanceBuddy --> User : show welcome message
 
-AppUi -> InputParser : parseCommands("expense /a 50 /d 01/01/24 /c food")
-InputParser --> AppUi : HashMap<String, String> commandArguments
+loop Command Processing Loop
+    User -> FinanceBuddy : enter command "expense lunch /a 50 /d 01/01/24 /c food"
+    FinanceBuddy -> AppUi : getUserInput()
+    activate AppUi
+    AppUi -> InputParser : parseCommands("expense lunch /a 50 /d 01/01/24 /c food")
+    activate InputParser
+    InputParser --> AppUi : HashMap<String, String> commandArguments
+    deactivate InputParser
+    AppUi --> FinanceBuddy : commandArguments
+    deactivate AppUi
 
-AppUi -> Logic : addExpense(commandArguments)
+    FinanceBuddy -> Logic : matchCommand("expense", commandArguments)
+    activate Logic
 
-activate Logic
-Logic -> DateParser : parse(commandArguments.get("/d"))
-DateParser --> Logic : LocalDate
+    Logic -> DateParser : parse(commandArguments.get("/d"))
+    activate DateParser
+    DateParser --> Logic : LocalDate
+    deactivate DateParser
 
-Logic -> Logic : parseExpenseCategory("/c")
-Logic -> Logic : create AddExpenseCommand
-Logic -> AddExpenseCommand : execute(financialList)
-AddExpenseCommand --> Logic : update financialList
+    ref over Logic : process command
+    Logic --> FinanceBuddy : command processed
 
-Logic -> AppUi : display success message
-deactivate Logic
+    deactivate Logic
 
-AppUi -> User : Success message displayed
+    FinanceBuddy -> AppUi : display success message
+    activate AppUi
+    AppUi --> FinanceBuddy : success message
+    deactivate AppUi
+    FinanceBuddy --> User : show success message
+    deactivate FinanceBuddy
+end
 @enduml
