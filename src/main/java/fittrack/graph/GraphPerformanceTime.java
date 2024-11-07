@@ -107,7 +107,7 @@ public class GraphPerformanceTime extends GraphPerformance {
         return normalizedPerformance;
     }
 
-    static String graphExerciseTime(Exercise exercise, ArrayList<TrainingSession> sessionList,
+    static String generateMainGraphPerformance(Exercise exercise, ArrayList<TrainingSession> sessionList,
             int minPerformance, int maxPerformance, int maxXHeaderLength) {
         // Build header with actual time values for each session
         StringBuilder timeHeader = buildTimeHeader(exercise, sessionList, maxXHeaderLength);
