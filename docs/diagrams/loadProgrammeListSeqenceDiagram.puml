@@ -1,0 +1,53 @@
+@startuml
+
+actor Client
+
+Client -> Storage : loadProgrammeList()
+activate Storage
+
+Storage -> FileManager : loadProgrammeList()
+activate FileManager
+
+FileManager -> FileManager : load()
+activate FileManager
+alt element == null or element.isJsonNull()
+    FileManager -> JsonObject : new JsonObject()
+    activate JsonObject
+    JsonObject --> FileManager : Empty JsonObject
+    deactivate JsonObject
+else
+    FileManager -> JsonObject : getAsJsonObject()
+    activate JsonObject
+    JsonObject --> FileManager : JsonObject containing all data
+    deactivate JsonObject
+end
+
+FileManager --> FileManager : JsonObject (entire data file)
+deactivate FileManager
+
+alt jsonObject == null or !jsonObject.has("programmeList")
+    FileManager -> JsonObject : new JsonObject()
+    activate JsonObject
+    FileManager --> Storage : Empty JsonObject
+    deactivate JsonObject
+else
+    FileManager -> JsonObject : getAsJsonObject("programmeList")
+    activate JsonObject
+    JsonObject --> FileManager : JsonObject containing programmeList
+    deactivate JsonObject
+    FileManager --> Storage : JsonObject containing programmeList
+end
+deactivate FileManager
+
+alt programmeListJson == null
+    Storage --> Client : new ProgrammeList()
+else
+    Storage -> Storage : programmeListFromJson(programmeListJson)
+    activate Storage
+    Storage -> Storage : loadedProgrammeList
+    Storage --> Client : ProgrammeList object
+    deactivate Storage
+end
+deactivate Storage
+
+@enduml
