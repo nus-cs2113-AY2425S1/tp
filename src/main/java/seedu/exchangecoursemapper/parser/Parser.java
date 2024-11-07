@@ -64,11 +64,13 @@ public class Parser {
 
         if (input.equals(LISTING_SCHOOLS)) {
             new ListSchoolCommand().execute(input);
+        } else if (input.equals(COMMANDS)) {
+            new ListCommandsCommand().execute(input);
+        } else if (input.equals(LIST_MAPPED)) {
+            new ListPersonalTrackerCommand(storage).execute(input);
         } else if (command.equals(FILTER_COURSES)) {
             new FilterCoursesCommand().execute(input);
-        } else if (command.equals(COMMANDS)) {
-            new ListCommandsCommand().execute(input);
-        } else if (command.equals(DELETE_COURSES)) {
+        }  else if (command.equals(DELETE_COURSES)) {
             new DeleteCoursesCommand().execute(input, storage);
         } else if (command.equals(ADD_COURSES)) {
             new AddCoursesCommand().execute(input, storage);
@@ -78,9 +80,7 @@ public class Parser {
             new HelpCommand().execute(input);
         } else if (command.equals(OBTAIN)) {
             new ObtainContactsCommand().execute(input);
-        } else if (input.equals(LIST_MAPPED)) {
-            new ListPersonalTrackerCommand(storage).execute(input);
-        } else if (command.equals(COMPARE_PU)) {
+        }  else if (command.equals(COMPARE_PU)) {
             new CompareMappedCommand(storage).execute(userInput);
         } else if (command.equals(FIND)) {
             new FindCoursesCommand(storage).execute(input, storage);
