@@ -1,8 +1,6 @@
 @startuml
 
 !include style.puml
-scale 1.5
-
 
 class Hospital DATA_COLOR {
     - selectedPatient: Patient
@@ -59,7 +57,7 @@ class TaskList DATA_COLOR {
 }
 
 
-Hospital .down.> "0..*" Patient
-Patient .down.> TaskList
+Hospital .right.> "0..*" Patient
+Patient .right.> TaskList
 
 @enduml
