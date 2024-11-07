@@ -12,9 +12,10 @@ public class QuizManager {
 
 
     public QuizManager(Cli cli) {
-        topicManager = new TopicManager();
-        quizResults = new QuizResults();
         this.cli = cli;
+        topicManager = new TopicManager(cli);
+        quizResults = new QuizResults();
+
         loadDataFromFile();
     }
 
@@ -49,6 +50,7 @@ public class QuizManager {
 
     private void loadDataFromFile() {
         topicManager.loadQuestions();
+        topicManager.loadFlashcards();
         quizResults.loadResults();
     }
 
@@ -69,7 +71,17 @@ public class QuizManager {
     }
 
     public void saveResults () {
-        quizResults.saveResults();
+        if (quizResults.isResultsSaved()) {
+            cli.printMessage("Goodbye! Your quiz results have been successfully saved");
+        } else {
+            cli.printMessage("Your quiz results have not been successfully saved unfortunately");
+        }
+
+        if (topicManager.isFlashcardsSaved()) {
+            cli.printMessage("Flashcards have been successfully saved");
+        } else {
+            cli.printMessage("Flashcards have not been successfully saved unfortunately");
+        }
     }
 
     /* For quizManagerTest */

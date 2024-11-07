@@ -34,6 +34,8 @@ public class Cli {
         System.out.println("'help' for a list of commands");
         System.out.println("'quit' to exit the program");
         System.out.println("'exit' to exit the quiz, activate only while doing the quiz");
+        System.out.println("'add Flashcards /q <DESCRIPTION> " +
+            "/a <ANSWER>' to input for your own revision as well!");
     }
 
     // Help message
@@ -44,10 +46,12 @@ public class Cli {
         System.out.println("'review' - Review all your quiz results");
         System.out.println("'help' - Show this help message");
         System.out.println("'quit' - Exit the program");
+        System.out.println("add Flashcards /q <DESCRIPTION> /a " +
+            "<ANSWER> to input for your own revision as well!");
     }
 
     public void printGoodByeMessage() {
-        System.out.println("Goodbye!");
+        System.out.println("Thank you for using Java Ninja!");
     }
 
     public void printMessage(String message) {

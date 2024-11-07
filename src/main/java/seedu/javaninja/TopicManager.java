@@ -1,26 +1,27 @@
 package seedu.javaninja;
 
-import seedu.javaninja.question.FillInTheBlank;
-import seedu.javaninja.question.Mcq;
-import seedu.javaninja.question.Flashcard;
-import seedu.javaninja.question.TrueFalse;
+import seedu.javaninja.question.*;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class TopicManager {
     private static final Logger logger = Logger.getLogger(TopicManager.class.getName());
     private static final String QUESTIONS_FILE_PATH = "./data/Questions.txt";
+    private static final String FLASHCARDS_FILE_PATH = "./data/Flashcards.txt";
     private static Storage questions;
+    private static Storage flashcards;
     private List<Topic> topics;
+    private Cli cli;
 
-    public TopicManager() {
+    public TopicManager(Cli cli) {
         this.topics = new ArrayList<>();
         this.questions = new Storage(QUESTIONS_FILE_PATH);
+        this.flashcards = new Storage(FLASHCARDS_FILE_PATH);
+        this.cli = cli;
     }
 
     public Topic getOrCreateTopic(String topicName) {
@@ -65,26 +66,62 @@ public class TopicManager {
     }
 
     public void addFlashcardByUser(String input) {
-        if (input.startsWith("add Flashcard")) {
-            String[] parts = input.split("/q|/a");
-            if (parts.length < 3) {
-                System.out.println("Invalid command format. Please provide both question and answer.");
-                return;
-            }
+        if (!input.startsWith("add Flashcards") || !input.contains("/q") || !input.contains("/a")) {
+            cli.printMessage("Invalid command format. Use: add Flashcards /q [question] /a [answer]");
+            return;
+        }
 
-            String questionText = parts[1].trim();
-            String correctAnswer = parts[2].trim();
+        // Split first by "/q" to separate the command from the question and answer
+        String[] questionSplit = input.split("/q", 2);
+        String[] answerSplit = questionSplit[1].split("/a", 2);
 
-            Topic topic = getOrCreateTopic("Flashcards");
-            topic.addQuestion(new Flashcard(questionText, correctAnswer));
+        if (answerSplit.length < 2) {
+            cli.printMessage("Invalid command format. Please provide both question and answer.");
+            return;
+        }
 
-            String questionLine = "Flashcards | Flashcard | " + questionText + " | " + correctAnswer;
-            try {
-                questions.saveToFile(QUESTIONS_FILE_PATH, Collections.singletonList(questionLine), true);
-            } catch (IOException e) {
-                e.printStackTrace();
+        // Extract the question and answer text, and trim to remove extra whitespace
+        String questionText = answerSplit[0].trim();
+        String correctAnswer = answerSplit[1].trim();
+
+        // Add the Flashcard to the "Flashcards" topic
+        Topic topic = getOrCreateTopic("Flashcards");
+        topic.addQuestion(new Flashcard(questionText, correctAnswer));
+
+        cli.printMessage("Added flashcard: " + "Q: " + questionText + " A: " + correctAnswer);
+    }
+
+    public boolean isFlashcardsSaved () {
+        Topic flashcardsTopic = getTopic("Flashcards");
+
+        if (flashcardsTopic == null) {
+            logger.warning("No 'flashcards' topic found to save.");
+            return false;
+        }
+
+        List<String> flashcardLines = new ArrayList<>();
+
+        for (Question question : flashcardsTopic.getQuestions()) {
+            if (question instanceof Flashcard) {
+                Flashcard flashcard = (Flashcard) question;
+
+                String questionLine = String.format("Flashcards | Fc | %s | %s",
+                    flashcard.getText(),
+                    flashcard.getCorrectAnswer());
+
+                flashcardLines.add(questionLine);
             }
         }
+
+        try {
+            questions.saveToFile(FLASHCARDS_FILE_PATH, flashcardLines, false);
+            logger.info("All flashcards saved successfully");
+            return true;
+        } catch (IOException e) {
+            logger.warning("Failed to save flashcards");
+            return false;
+        }
+
     }
 
     public void loadQuestions() {
@@ -98,6 +135,20 @@ public class TopicManager {
         } catch (IOException e) {
             logger.warning("No questions found.");
         }
+    }
+
+    public void loadFlashcards() {
+        try {
+            List<String> flashcardData = flashcards.loadData();
+            for (String flashcard : flashcardData) {
+                if (!flashcard.trim().isEmpty()) {
+                    parseTopic(flashcard);
+                }
+            }
+        } catch (IOException e) {
+            logger.warning("No questions found.");
+        }
+
     }
 
     public void parseTopic(String line) {
@@ -126,7 +177,7 @@ public class TopicManager {
             boolean correctAnswerBoolean = Boolean.parseBoolean(correctAnswer);
             topic.addQuestion(new TrueFalse(questionText, correctAnswerBoolean));
             break;
-        case "Flashcard":
+        case "Fc":
             topic.addQuestion(new Flashcard(questionText, correctAnswer));
             break;
         case "FillInTheBlank":
