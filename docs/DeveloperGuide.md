@@ -552,28 +552,6 @@ and the enumeration `LogLevels`.
 
 <ins>Implementation Details</ins>
 
-Example usage of `FinanceBuddyException`:
-``` java
-private double parseAmount(String amountStr) throws FinanceBuddyException {
-  try {
-    return Double.parseDouble(amountStr);
-  } catch (NumberFormatException e) {
-    throw new FinanceBuddyException("Invalid amount.");
-  } catch (NullPointerException e) {
-    throw new FinanceBuddyException("Invalid argument.");
-  }
-}
-```
-
-The exception messages can be displayed using the following code example:
-``` java
-try {
-  ...
-} catch (FinanceBuddyException e) {
-  System.out.println(e.getMessage());
-}
-```
-
 The `Log` class has a private constructor to prevent multiple instances of the class.
 The `Log` class is instantiated through the `LogHelper` class, and is accessed through the
 `getInstance()` method.
@@ -589,6 +567,30 @@ Logs appear on the command line while running the application. To prevent logs f
 the final `jar` product, the method `isRunningFromJar()` is used to check if the application is
 running from a `jar` file. If it is running from a `jar` file, the logging level is set to `OFF`.
 Otherwise, the logging level is set to `INFO`.
+
+<ins>Example Usage</ins>
+
+Example usage of `FinanceBuddyException`:
+``` java
+private double parseAmount(String amountStr) throws FinanceBuddyException {
+  try {
+    return Double.parseDouble(amountStr);
+  } catch (NumberFormatException e) {
+    throw new FinanceBuddyException("Invalid amount.");
+  } catch (NullPointerException e) {
+    throw new FinanceBuddyException("Invalid argument.");
+  }
+}
+```
+
+The exception messages from `FinanceBuddyException` can be displayed using the following code example:
+``` java
+try {
+  ...
+} catch (FinanceBuddyException e) {
+  System.out.println(e.getMessage());
+}
+```
 
 The `Log` class can be used in other classes using the following code example:
 ```java
