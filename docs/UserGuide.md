@@ -24,17 +24,21 @@ For details on all available commands, refer to the Features section below.
 
    Example: In `add n/NAME`, `NAME` is a parameter, which can be used as `add n/Udon`.
 
-3. All parameters are required unless specified: Every parameter must be supplied unless marked optional (e.g., square brackets [ ]).
+3. All parameters are required unless specified: Every parameter must be supplied unless marked optional using square brackets `[ ]`.
 
-   Example: `add-expense n/Coffee a/5.50` is valid because `c/CATEGORY` is optional, while `add-expense` with no parameters will fail.
+   Example: In `add-expense n/NAME a/AMOUNT [c/CATEGORY]`, `add-expense n/Coffee a/5.50` is valid because `c/CATEGORY` is optional, while `add-expense` with no parameters will fail.
 
-4. Order of parameters: Parameters can be provided in any order, unless otherwise specified.
+4. Order of parameters: Parameters can be provided in any order.
 
    Example: `add-expense n/Coffee a/5.50 c/Food` is equivalent to `add-expense a/5.50 n/Coffee c/Food`.
 
-5. `INDEX`: Refers to the number corresponding to an expense in the list of expenses displayed. Always an integer.
+5. Extraneous parameters for commands that do not take in parameters (such as `view-expenses` and `bye`) will be ignored.
 
-   Example: `delete-expense 2` deletes the second expense listed in the expense list.
+   Example: If the command specifies `view-expenses 123`, it will be interpreted as `list`.
+
+6. Avoid including special characters or symbols.
+
+   Example: Do not use `|`, `<`, `>`.
 
 ### Add an Expense: add-expense
 This command allows you to record a new expense.
