@@ -64,6 +64,7 @@ The `Add Transaction` command allows you to add either an income or expense entr
 - **For Expense**: `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`
 - **For Income**: `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`
 
+<a id="param_details"></a>
 **Parameter Details**:
 - `DESCRIPTION`: A brief label describing the transaction (e.g., "Lunch" or "Freelance Work").
 - `AMOUNT`: The transaction amount. This should be a positive value.
@@ -91,8 +92,10 @@ Edits an existing transaction in your financial list.
 
 **Format**: `edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`
 
- - Edits the transaction at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed financial list. 
-  `INDEX` must be a positive integer.
+ - Edits the transaction at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed 
+financial list when [`list`](#list-transactions) is called. `INDEX` must be a positive integer.
+
+**Parameter Details:** (Refer to [here](#param_details) for what each parameter represents)
  - `DESCRIPTION` shouldn't be blank. And DO NOT USE `¦¦` in `DESCRIPTION` cause it serve as the seperator token in storage file.
  - `DATE` should follow `DD/MM/YY` format and cannot be after the system date.
  - `AMOUNT` must be a positive number with a maximum value of $9999999.00. If it's a floating-point number, it will be rounded to two decimal places.
@@ -129,7 +132,7 @@ The `Delete Transaction` command removes a specific entry from your financial li
 **Format**: `delete INDEX`
 
 **Parameter Details**:
-- `INDEX`: The position of the transaction in the financial list, as displayed by the `list` command. Using an invalid index will produce an error.
+- `INDEX`: The position of the transaction in the financial list, as displayed by the [`list`](#list-transactions) command. Using an invalid index will produce an error.
 
 #### Example Usage
 
@@ -203,8 +206,8 @@ Displays total income + category with highest total income during that period.
 
 #### Viewing budget
 
-If a budget has been set by the user, the user's set monthly budget as well as his/her balance
-(budget - total expenditure that month) will be displayed when the `list` command is executed.
+If a budget has been set by the user (refer to section on [Set/Edit Budget](#setedit-budget), the user's set monthly 
+budget as well as his/her balance (budget - total expenditure that month) will be displayed when the `list` command is executed.
 
 **Example Usage:**
 
