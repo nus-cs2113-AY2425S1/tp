@@ -459,32 +459,53 @@ Command: `history list`
 **Example**: `history list`
 
 ```
-Completed On: 30-10-2024
+Completed On: 12-12-2024
 
-Day:
+Day: 
 ONE
-1. Bench Press: 3 sets of 12 at 30 | Burnt 220 cals
-2. Squat: 3 sets of 12 at 50 | Burnt 300 cals
+1. Bench Press: 3 sets of 12 at 30kg | Burnt 200 cals
+2. Squat: 3 sets of 12 at 50kg | Burnt 200 cals
 
-Total Calories burnt: 520 kcal
+Total Calories burnt: 400 kcal
 
-Meals:
-1: pasta | 100kcal
-Total Calories from Meals: 100 kcal
+Meals: 
+1: pasta | 560kcal
+Total Calories from Meals: 560 kcal
 
-Water Intake:
-1: 100.0
-Total Water Intake: 100.0 liters
+Water Intake: 
+1: 300.0
+Total Water Intake: 300.0 liters 
 
-Caloric Balance: -420 kcal
+Caloric Balance: 160 kcal
+
+==============
+
+Completed On: 06-11-2024
+
+Day: 
+ONE
+1. Bench Press: 3 sets of 12 at 30kg | Burnt 200 cals
+2. Squat: 3 sets of 12 at 50kg | Burnt 200 cals
+
+Total Calories burnt: 400 kcal
+
+Meals: 
+No Meals.
+
+Water Intake: 
+No Water.
+
+Caloric Balance: -400 kcal
 
 ```
+
 ---
 
 ### 19. View Specific Record
 Displays the recorded information for a specified day.
 
 Command: `history view [DATE]`
+- **[DATE]:** Date is in format dd-MM-yyyy
 
 If `DATE` is not provided, command will default to showing the record for the current date.
 
@@ -507,18 +528,21 @@ Total Water Intake: 100.0 liters
 
 Caloric Balance: -420 kcal
 ```
+
 ---
 
 ### 20. View Weekly Summary
 
 Displays a summary of workouts, meals, and water intake for the past week
 
-Command: `history wk`
+Command: `history wk [DATE]`
+- **[DATE]:** Date is in format dd-MM-yyyy
+
+If `DATE` is not provided, command will default to showing the record for the current date.
 
 **Example**: `history wk`
 
 ```
-
 Your weekly workout summary: 
 Empty Day
 Completed On: 30-10-2024
@@ -538,13 +562,14 @@ Displays Personal Best for specified exercise
 
 Command: `history pb EXERICSE_NAME`
 
+**Note:** Must use underscores ('_') to connect words in Exercise_Name if it consists of multiple words. 
+
 **Example**: `history pb bench_press`
 
 ```
-
-Personal best for bench press: Bench Press: 3 sets of 12 at 30
-
+Personal best for bench press: sets of 12 at 30
 ```
+
 ---
 
 ### 22. View PBs for exercises 
@@ -556,13 +581,12 @@ Command: `history pb`
 **Example**: `history pb`
 
 ```
-
 Personal bests for all exercises:
-Bench Press: Bench Press: 3 sets of 12 at 30 
-Squat: Squat: 3 sets of 12 at 50 
-Bicep Curl: Bicep Curl: 3 sets of 12 at 10 
-
+Bench Press: 3 sets of 12 at 30 
+Squat: 3 sets of 12 at 50 
+Bicep Curl:  3 sets of 12 at 10 
 ```
+
 ---
 
 ### 23. Delete Record 
@@ -593,7 +617,7 @@ Total Water Intake: 300.0 liters
 Caloric Balance: 160 kcal
 ```
 
-
+___
 
 
 ## Command Summary
@@ -618,8 +642,8 @@ Caloric Balance: 160 kcal
 | **View Water**                              | Displays all water for a specific date                                                    | `water view /t DATE`                                                                               | `water view 30-10-2024`                                                |
 | **Delete Water**                            | Deletes a water from a daily record                                                       | `water delete /m MEAL_INDEX /t DATE`                                                               | `water delete /w 1 /t 30-10-2024`                                      |
 | **List History**                            | Displays a comprehensive record of workouts, meals, and water intake for each logged day. | `history list`                                                                                     | `history list`                                                         |
-| **View History**                            | Displays a given daily record for a specific date | `history view [DATE]` | `history view 30-10-2024`|                                                 |
-| **View Weekly Summary**                     | Displays a summary of workouts, meals, and water intake for the past week                 | `history wk`                                                                                       | `history wk`                                                           |
+| **View History**                            | Displays a given daily record for a specific date | `history view [DATE]`                                                                              | `history view 30-10-2024`                                              |                                                 |
+| **View Weekly Summary**                     | Displays a summary of workouts, meals, and water intake for the past week                 | `history wk [DATE]`                                                                                | `history wk 30-10-2024`                                                 |
 | **View PB for exercise**                    | Displays Personal Best for specified exercise                                             | `history pb <exercise_name>`                                                                       | `history pb squat`                                                     |
 | **View PBs for exercises**                  | Displays Personal Bests for all exercises                                                 | `history pb`                                                                                       | `history pb`                                                           |
 | **Delete Record**                           | Delete a daily record for  a given day                                                    | `history delete [DATE]`                                                                            | `histroy delete 30-10-2024`                                            |
