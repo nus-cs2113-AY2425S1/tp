@@ -15,6 +15,7 @@ public class Messages {
     public static final String DELETE_REMINDER_COMMAND = "delete-remind";
     public static final String LIST_REMINDER_COMMAND = "list-remind";
     public static final String LIST_UPCOMING_REMINDER_COMMAND = "upcoming-remind";
+    public static final String EDIT_MOOD_COMMAND = "edit-mood";
     public static final String EXIT_COMMAND = "exit";
     public static final String ADD_GOAL = "add_goal";
     public static final String DELETE_GOAL = "delete_goal";
@@ -34,9 +35,8 @@ public class Messages {
     public static final String ADD_CALORIES_COMMAND = "add-calories";
     public static final String DELETE_CALORIES_COMMAND = "delete-calories";
     public static final String LIST_CALORIES_COMMAND = "list-calories";
-    public static final String ADD_MOOD = "add-mood";
-    public static final String DELETE_MOOD_COMMAND = "delete-mood";
-    public static final String LIST_MOOD_COMMAND = "list-mood";
+
+
 
     public static final String INIT_SENTENCE = "Hello! I'm FitTrack."
             + System.lineSeparator() + "Please input your gender and age:";
@@ -66,11 +66,13 @@ public class Messages {
             + "100"
             + System.lineSeparator() + "delete-food (index)                                              delete-food 1"
             + System.lineSeparator() + "list-food                                                        list-food"
+            + System.lineSeparator() + "add-calories (calorie amount)                                    add-calories"
+            + "200"
+            + System.lineSeparator() + "delete-calories (index)                                          "
+            + "delete-calories 1"
+            + System.lineSeparator() + "list-calories                                                    list-calories"
+            + System.lineSeparator() + "edit-mood (session index) (mood description)                     add-mood 1 Sad"
             + System.lineSeparator() + "list-intake                                                      list-intake"
-            + System.lineSeparator() + "add-mood (mood description) (date) (time) (description)          add-mood"
-            + "happy 01/11/2024 18:30:00 feeling healthy"
-            + System.lineSeparator() + "delete-mood (mood ID)                                            delete-mood 1"
-            + System.lineSeparator() + "list-mood                                                        list-mood"
             + System.lineSeparator() + "exit                                                             exit";
     public static final String LIST_SESSION_MESSAGE = "Here are your training sessions:";
     public static final String LIST_SESSION_EMPTY_MESSAGE = "Your session list is currently empty.";
@@ -86,6 +88,8 @@ public class Messages {
     public static final String ADD_GOAL_MESSAGE = "Got it. I've added a new goal:";
     public static final String DELETE_GOALS_MESSAGE = "Got it. I've deleted this goal.";
     public static final String LIST_GOAL_MESSAGE = "Here is your goal list!";
+
+    public static final String DEFAULT_MOOD_MSG = "No mood recorded";
 
     public static final String ADD_WATER_MESSAGE = "Got it. I've added <WATER_ML> of water.";
     public static final String DELETE_WATER_MESSAGE = "Got it. I've deleted <WATER_ML> of water.";
@@ -111,6 +115,7 @@ public class Messages {
     public static final String INVALID_SIT_UP_REPETITIONS_MESSAGE = "Invalid Sit Up repetitions: ";
     public static final String INVALID_STANDING_BROAD_JUMP_DISTANCE_MESSAGE = "Invalid Standing Broad Jump distance: ";
     public static final String INVALID_WALK_AND_RUN_TIMING_MESSAGE = "Invalid Walk and Run timing: ";
+    public static final String INVALID_DATE_FORMAT_MESSAGE = "Invalid date format.";
 
     public static final String EXAMPLE_PULL_UP_REPETITIONS_FORMAT = "Example format: 1 PU 30";
     public static final String EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT = "Example format: 1 SR 10.0";
