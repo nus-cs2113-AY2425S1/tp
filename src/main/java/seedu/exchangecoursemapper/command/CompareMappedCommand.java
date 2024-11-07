@@ -54,8 +54,10 @@ public class CompareMappedCommand extends CheckInformationCommand {
     }
 
     private boolean isValidUniversity(String universityName, JsonObject databaseJson) {
-        Set<String> universityKeys = databaseJson.keySet(); // Get all university names from the JSON keys
-        return universityKeys.contains(universityName);
+        Set<String> universityKeys = databaseJson.keySet().stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toSet());
+        return universityKeys.contains(universityName.toLowerCase());
     }
 
     @Override
@@ -72,8 +74,8 @@ public class CompareMappedCommand extends CheckInformationCommand {
             return;
         }
 
-        String university1 = inputs[1].trim();
-        String university2 = inputs[2].trim();
+        String university1 = inputs[1].trim().toLowerCase();
+        String university2 = inputs[2].trim().toLowerCase();
 
         // Load the database JSON
         JsonObject databaseJson;
