@@ -1,7 +1,4 @@
----
-layout: page
-title: Dan Linh's Project Portfolio Page
----
+# Huynh Le Dan Linh - Project Portfolio Page
 
 ### Project: uNivUSaver
 
