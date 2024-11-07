@@ -48,7 +48,7 @@ public class Parser {
 
     public Parser(){
         logger.setLevel(Level.WARNING);
-    }
+        logger.setLevel(Level.SEVERE);    }
 
     public String getUserInput() {
         return scanner.nextLine();
