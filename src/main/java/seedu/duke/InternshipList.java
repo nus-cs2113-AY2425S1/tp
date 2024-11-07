@@ -52,7 +52,6 @@ public class InternshipList {
 
     // Method to remove an internship by index (0-based)
     public void removeInternship(int index) {
-        assert isWithinBounds(index) : "Index is out of bounds for removal";
 
         if (isWithinBounds(index)) {
             Internship internship = internships.remove(index);
