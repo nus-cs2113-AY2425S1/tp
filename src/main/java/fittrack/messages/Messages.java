@@ -28,7 +28,7 @@ public class Messages {
     public static final String ADD_FOOD_COMMAND = "add-food";
     public static final String DELETE_FOOD_COMMAND = "delete-food";
     public static final String LIST_FOOD_COMMAND = "list-food";
-    public static final String LIST_INTAKE_COMMAND = "list-intake";
+    public static final String LIST_DAILY_INTAKE_COMMAND = "list-intake";
 
     public static final String PULL_UP_ACRONYM = "PU";
     public static final String SHUTTLE_RUN_ACRONYM = "SR";

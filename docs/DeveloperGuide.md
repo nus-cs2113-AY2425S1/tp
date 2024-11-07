@@ -40,7 +40,7 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 | Calculator        | look up points achieved by user based on age, gender and performance result of each exercise station            |
 | GraphPoints       | Illustrates the cumulative points earned across sessions, showcasing overall fitness progress and achievements. |
 | GraphPerformance  | Visualises performance metrics for a specific exercise, adapting for time-based or rep-based tracking.          |
-| Reminder          |                                                                                                                 |
+| Reminder          | Allows users to set reminders to be track deadlines and upcoming events.                                        |
 | Goal              | Allows users to set, list, and delete specific goals related to fitness and overall well-being                  |
 | FoodWaterIntake   | Allows users to add, view, and delete water and food intake logs to monitor daily hydration levels              |
 
@@ -52,16 +52,88 @@ The following Class Diagram elaborates on the interactions between major classes
 ## Features
 
 ### Storage
-# TO BE UPDATED
+### Storage Overview
+
+The `Storage` class handles the reading and writing of data for the application, interacting with various objects such 
+as `TrainingSession`, `Goal`, `Reminder`, `FoodEntry`, and `WaterEntry`. The data is saved in a file located at 
+`data/saveFile.txt`, with functionality to initialize the save file, load data from it, and update the file with the 
+latest information. Below is a breakdown of the methods used for these tasks:
+
+#### 1. Initializing the Save File
+The `initialiseSaveFile()` method ensures that the necessary directory and save file exist. If the "data" directory or 
+"saveFile.txt" file is not found, the method attempts to create them. If successful, a message is logged confirming the 
+creation of the new save file or the access to an existing one. This method also asserts that the file exists after the 
+initialization.
+
+- **Helper Functions:**
+   - `Files.createDirectories(dirPath)`: Creates the necessary directory for the save file.
+   - `file.createNewFile()`: Creates the save file if it doesn't already exist.
+
+#### 2. Loading the Save File
+The `loadSaveFile(ArrayList<Saveable> loadList)` method reads the save file and populates the provided list (`loadList`)
+with objects that are deserialized from the file. It uses a `Scanner` to read the file line by line. Each line 
+corresponds to a serialized object (such as `TrainingSession`, `Goal`, or `Reminder`), and the method delegates the 
+parsing to the `createSaveableFromString(String saveString)` method, which identifies the type of object based on the 
+prefix of the line.
+
+- **Helper Functions:**
+   - `createSaveableFromString(String saveString)`: This method inspects the prefix of each line in the save file and 
+   - creates the appropriate object by invoking the `fromSaveString` method of the corresponding class 
+   - (e.g., `TrainingSession.fromSaveString(saveString)`).
+   - `Scanner`: Reads the file content line by line.
+
+#### 3. Updating the Save File
+The `updateSaveFile()` method writes the latest data to the save file. It serializes objects from the provided lists 
+(`sessionList`, `goalList`, `reminderList`, and `foodWaterList`) and writes each object’s string representation to the 
+save file. It ensures that the lists are non-null before attempting to write, and for each object, it calls the 
+`toSaveString()` method to retrieve the string representation. After each entry, a newline is added to separate entries.
+The method uses `FileWriter` to perform the writing operation.
+
+- **Helper Functions:**
+   - `toSaveString()`: Called for each object to retrieve its serialized string representation.
+   - `FileWriter`: Writes the serialized data to the save file.
+
+#### 4. Error Handling and Logging
+Throughout these operations, appropriate error handling is implemented. If the save file cannot be found or created, or 
+if an invalid data format is encountered during loading, an exception is thrown or logged. For instance, 
+`InvalidSaveDataException` is thrown if an unrecognized descriptor is found in the save file. Additionally, the 
+`LOGGER` object is used extensively to log the success or failure of various operations, providing insight into the 
+application's file handling processes.
+
+### Sequence of Events for Each Operation
+
+1. **Initialization of Save File:**
+   - The method checks for the existence of the directory and file.
+   - If they do not exist, it creates them and logs the event.
+   - If successful, the method ensures the file exists with an assertion.
+
+2. **Loading Data from Save File:**
+   - The method initializes a `Scanner` to read the save file.
+   - For each line, it calls `createSaveableFromString()` to convert the line into an appropriate object.
+   - Each object is added to the `loadList`.
+   - On success, a message is logged indicating successful loading.
+
+3. **Saving Data to File:**
+   - The method iterates through each list (`sessionList`, `goalList`, `reminderList`, `foodWaterList`).
+   - For each object in the list, it calls `toSaveString()` to convert the object to a string representation.
+   - The string is written to the save file using `FileWriter`.
+   - After each entry, a newline character is added.
+   - The process concludes with a log indicating that the file has been successfully updated.
+
+This system provides an efficient and reliable way to persist and retrieve application data, ensuring data integrity and
+ease of maintenance.
 
 [//]: # (![Class_Storage.png]&#40;Images/Class_Storage.png&#41;)
 
 ### Set User
 When the application starts up, it will prompt the user for their gender and age via the Set User feature.
-Their input is processed by Parser and stored in a newly created instance of the User class, which is assigned to the object "user".
-Upon successful setting of the gender and age fields, a confirmation of the user's gender and age will be printed in the CLI via the Ui class.
+Their input is processed by Parser and stored in a newly created instance of the User class, which is assigned to the 
+object "user".
+Upon successful setting of the gender and age fields, a confirmation of the user's gender and age will be printed in the
+CLI via the Ui class.
 
-If the user wants to update their age or gender after the initialization process, they can set it again at any time by calling the "set" command.
+If the user wants to update their age or gender after the initialization process, they can set it again at any time by 
+calling the "set" command.
 This performs the same operations, re-instantiating the "user" object with a new User instance with the updated details.
 
 The sequence diagram for this process is shown below. 
@@ -102,7 +174,8 @@ Below is a class diagram showing the EnumMap after an instance of `TrainingSessi
    performance metric and point conversion.
 
 ### Delete Training Session
-When Parser detects the "delete" command, the TrainingSession instance at the user's specified index in sessionList will be 
+When Parser detects the "delete" command, the TrainingSession instance at the user's specified index in sessionList will
+be 
 copied into a new private TrainingSession instance called sessionToDelete. The original instance in sessionList will 
 then be deleted. The new private instance is used to print the details of the deleted session, giving the user 
 confirmation that the TrainingSession they wished to delete has been successfully deleted. The new TrainingSession
@@ -118,7 +191,8 @@ printSessionList() first checks if sessionList is empty. If sessionList is empty
 If sessionList is not empty, it will be iterated through. 
 For each TrainingSession in sessionList, getSessionDescription will be called, returning its details as a String.
 The TrainingSession's index will be printed, followed by the session description before iterating to the next index.
-When all the TrainingSessions have been printed, Ui calls printSessionCount() to display the total number of TrainingSessions in sessionList.
+When all the TrainingSessions have been printed, Ui calls printSessionCount() to display the total number of 
+TrainingSessions in sessionList.
 
 [//]: # (![Class_ListTrainingSessions.png]&#40;Images/Class_ListTrainingSessions.png&#41;)
 
@@ -127,7 +201,8 @@ When all the TrainingSessions have been printed, Ui calls printSessionCount() to
 ### View Training Session
 When Parser detects the "view" command, it calls printSessionView() on the user's specified session index.
 This in turn calls viewSession(), which outputs the details of the TrainingSession instance in the CLI.
-This process fetches the details of each of the 6 ExerciseStation classes, which fetch details from the Calculator classes.
+This process fetches the details of each of the 6 ExerciseStation classes, which fetch details from the Calculator 
+classes.
 These details are then printed to the CLI.
 
 [//]: # (![Class_ViewTrainingSession.png]&#40;Images/Class_ViewTrainingSession.png&#41;)
@@ -155,34 +230,99 @@ Additionally, the state diagram below shows the end state of the `editExercise` 
 
 ![Class_TrainingSessionEditState.png](Images/Class_TrainingSessionEditState.png)
 
+### Add Reminder
+When a user inputs the command to add a new reminder (`remind <description> <deadline>`), a new instance of 
+the Reminder class is created. This Reminder object is initialized via the constructor function with the provided 
+description, deadline, and user information. This object is then added to the main reminder list passed from the main 
+`Fittrack` class. After addition, `printReminderDescription()` is invoked to display details of the new reminder to 
+confirm successful addition. The `updateSaveFile` function is then called within the `Parser` class, using the local 
+`toSaveFile` helper method to write a formatted string to the SaveFile Document - for information permanence between 
+user sessions.
+
+### List Reminder
+The "view reminders" command triggers a sequence that iterates through the main reminder list. For each reminder, 
+`printReminderDescription()` is called, displaying the description and deadline of each reminder. If the list is empty, 
+the system outputs a message indicating no reminders are available. This functionality lets users view all saved 
+reminders at a glance. 
+
+### List Upcoming Reminders
+The "list upcoming reminders" command (`list-remind`) invokes the 
+`findUpcomingReminders(ArrayList<Reminder> mainReminderList)` helper method. This method iterates through 
+`remainderList`, checking if each reminder’s deadline is within one week from the current date. For reminders that 
+match this condition, they are added to an `upcomingReminderList`. Finally, for each reminder in `upcomingReminderList`,
+`printReminderDescription()` is called, displaying only those reminders with due 
+dates in the upcoming week. This function is called automatically at program initialisation to provide a summary 
+reminder for users starting the program.
+
+### Delete Reminder
+The delete command (`delete-remind <index>`) removes a reminder at the specified index from the main list. 
+Before removal, the specified reminder is copied to a temporary instance, `sessionToDelete`, which holds the reminder's 
+data for confirmation. Following deletion, the details of the deleted reminder are printed by invoking 
+`printReminderDescription()` on `sessionToDelete`, confirming successful removal. The `sessionToDelete `instance is 
+then discarded, ensuring efficient memory use. The `updateSaveFile` function is then called within the `Parser` class, 
+using the local `toSaveFile` helper method to write a formatted string to the SaveFile Document - for information 
+permanence between user sessions.
+
+### Add
+
 ### Goals
 
 Goals allow users to set specific objectives within the application. Users can add goals using the
 `add-goal <description> <date> <time>` command and view a list of all current goals via list-goal. 
 Goals can also be deleted by their unique IDs using the `delete-goal <goal ID>` command. 
 This feature provides users with a clear structure for setting, tracking, and managing their fitness objectives. 
-Goals are stored separately from training sessions and are accessible as a distinct list.
+Goals are stored separately from training sessions and are accessible as a distinct list. After both the addition 
+(`add-goal`) and deletion (`delete-goal`) functions are executed, the `updateSaveFile` function is called within the 
+`Parser` class, using local `toSaveFile` helper methods to write a formatted string to the SaveFile Document - for 
+information permanence between user sessions.
 
-### Mood Log
+### Add Food Intake
 
-The Mood Log feature allows users to record and monitor their emotional well-being over time. 
-Users can add a mood entry with a description and view a list of all mood logs. Mood entries can be 
-deleted to allow for privacy or to remove outdated logs. This feature helps users maintain a mental
-health record alongside their physical fitness data.
-
-### Food Intake
-
-The FoodTracker class enables users to log, view, and delete food entries. Each entry records a 
+Food intake tracking helps users monitor their daily calorie intake. Each entry records a 
 food item's name, quantity, and calorie count. This data is used to calculate total calorie intake,
 which can be viewed as a summary. The functionality supports daily nutritional monitoring, helping 
 users align their diet with fitness goals.
 
-### Water Intake
+When the user inputs the command to add a new food item (`add-food <food name> <calories>`), an instance of FoodEntry is
+created, containing details like the food name, calorie count, and timestamp. This FoodEntry instance is then passed to 
+the `addFood(FoodEntry food)` method in the FoodWaterIntake class. Here, the food item is added to the `foodList`, 
+a list that stores all the user’s food entries. UI confirmation output is generated once the call returns to the 
+`Parser` class. The `updateSaveFile` function is then called within the `Parser` class, using the local
+`toSaveFile` helper method to write a formatted string to the SaveFile Document - for information permanence between
+user sessions.
+
+### Delete Food Intake
+When the user enters a command to delete a food item (`delete-food <index>`), the system calls the 
+`deleteFood(int foodIndex)` method with the specified index in the `FoodWaterIntake` class. Inside this method, an index
+validation checks if the provided index is within the range of `foodList`. If valid, `remove(int index)` is invoked to 
+remove the specified `FoodEntry` from `foodList`. The removed item is temporarily stored in a `FoodEntry` instance named 
+`removed`, allowing it to be printed with a confirmation message If the index is invalid, the system outputs an error 
+message. The `updateSaveFile` function is then called within the `Parser` class, using the local
+`toSaveFile` helper method to write a formatted string to the SaveFile Document - for information permanence between
+user sessions.
+
+### Add Water Intake
 
 Water intake tracking helps users monitor their daily hydration. Users can add entries with the 
 amount of water consumed, view a list of past entries, and delete specific records if needed. 
 This feature aids in maintaining a balanced hydration level, which is essential for overall health 
 and fitness performance.
+
+The command to add water intake (`add-water <amount in ml>`) creates a new instance of WaterEntry, encapsulating the 
+amount of water consumed and the timestamp. This instance is then passed to `addWater(WaterEntry water)`, where it is 
+appended to waterList, a collection of all water entries. This addition is stored in waterList for later retrieval or 
+display. Like `addFood`, this method returns a UI confirmation to the user, then the `updateSaveFile` function is then 
+called within the `Parser` class, using the local `toSaveFile` helper method to write a formatted string to the SaveFile Document - for information permanence between
+user sessions.
+
+### Delete Water Intake
+Upon parsing the command `delete water <index>`, `deleteWater(int waterIndex)` is invoked within the `FoodWaterIntake` 
+class, which checks the validity of the specified index against `waterList`. If the index is valid, `remove(int index)` 
+is used to delete the specified WaterEntry from waterList, storing it temporarily in a WaterEntry instance named 
+`removed`. This instance data is then used to confirm deletion via a UI message to the user. If the index is invalid, 
+a message is displayed to notify the user. The `updateSaveFile` function is then called within the `Parser` class, using the local
+`toSaveFile` helper method to write a formatted string to the SaveFile Document - for information permanence between
+user sessions.
 
 ### Points Calculation
 
@@ -459,6 +599,7 @@ Any mainstream OS with Java 17 installed
    Expected: <br>
    `Training Session: session1`<br>
    `Training Datetime: 07/11/2024 12:40`<br>
+   `Mood: No mood recorded` <br>
    `Pull Up Station | Reps: 0 | 0 points`<br>
    `Shuttle Run Station | Time: NA | 0 points`<br>
    `Sit and Reach Station | Distance: 0cm | 0 points`<br>
@@ -478,6 +619,7 @@ Any mainstream OS with Java 17 installed
    Expected: 
    `Training Session: session1` <br>
    `Training Datetime: 07/11/2024 12:40` <br>
+`Mood: No mood recorded` <br>
    `Pull Up Station | Reps: 30 | 5 points` <br>
    `Shuttle Run Station | Time: NA | 0 points` <br>
    `Sit and Reach Station | Distance: 0cm | 0 points` <br>

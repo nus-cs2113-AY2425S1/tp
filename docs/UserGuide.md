@@ -524,32 +524,29 @@ ________________________________________________________________________________
 ```
 
 ## FitTrackCLI's Command Summary
-| Command             | Format                                                         | Example                              |
-|---------------------|----------------------------------------------------------------|--------------------------------------|
-| **set**             | `set GENDER AGE`                                               | `set male 12`                        |
-| **help**            | `help`                                                         | `help`                               |
-| **add**             | `add SESSION_NAME`                                             | `add session1`                       |
-| **list**            | `list`                                                         | `list`                               |
-| **view**            | `view SESSION_INDEX`                                           | `view 1`                             |
-| **edit**            | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45`                       |
-| **delete**          | `delete SESSION_INDEX `                                        | `delete 1 `                          |
-| **exit**            | `exit`                                                         | `exit`                               |
-| **remind**          | `remind REMINDER_NAME DEADLINE`                                | `remind run 12/12/2024`              |
-| **list-remind**     | `list-goal`                                                    | `list-remind`                        |
-| **upcoming-remind** | `upcoming-remind`                                              | `upcoming-remind`                    |
-| **delete-remind**   | `delete-remind REMINDER_INDEX`                                 | `delete-remind 1`                    |
-| **add-goal**        | `add-goal GOAL_NAME DEADLINE`                                  | `add-goal run 12/12/2024 14:00:00`   |
-| **delete-goal**     | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                      |
-| **list-goal**       | `list-goal`                                                    | `list-goal`                          |
-| **gpoints**         | `gpoints` / `gpoints EXERCISE_ACRONYM`                         | `gpoints` / `gpoints PU`             |
-| **gperformance**    | `gpeformance EXERCISE_ACRONYM`                                 | `gperformance PU`                    |
-| **add-water**       | `add-water`                                                    | `add-water 500`                      |
-| **delete-water**    | `delete-water`                                                 | `delete-water 1`                     |
-| **list-water**      | `list-water`                                                   | `list-water`                         |
-| **add-food**        | `add-food`                                                     | `add-food apple 100`                 |
-| **delete-food**     | `delete-food`                                                  | `delete-food 1`                      |
-| **list-food**       | `list-food`                                                    | `list-food`                          |
-| **list-calories**   | `list-intake`                                                  | `list-intake`                        |
-| **add-mood**        | `add-mood`                                                     | `add-mood happy 01/11/2024 18:30:00` |
-| **delete-mood**     | `delete-mood`                                                  | `delete-mood 1`                      |
-| **list-mood**       | `list-mood`                                                    | `list-mood`                          |
+| Command             | Format                                                         | Example                            |
+|---------------------|----------------------------------------------------------------|------------------------------------|
+| **set**             | `set GENDER AGE`                                               | `set male 12`                      |
+| **help**            | `help`                                                         | `help`                             |
+| **add**             | `add SESSION_NAME`                                             | `add session1`                     |
+| **list**            | `list`                                                         | `list`                             |
+| **view**            | `view SESSION_INDEX`                                           | `view 1`                           |
+| **edit**            | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45`                     |
+| **delete**          | `delete SESSION_INDEX `                                        | `delete 1 `                        |
+| **exit**            | `exit`                                                         | `exit`                             |
+| **remind**          | `remind REMINDER_NAME DEADLINE`                                | `remind run 12/12/2024`            |
+| **list-remind**     | `list-goal`                                                    | `list-remind`                      |
+| **upcoming-remind** | `upcoming-remind`                                              | `upcoming-remind`                  |
+| **delete-remind**   | `delete-remind REMINDER_INDEX`                                 | `delete-remind 1`                  |
+| **add-goal**        | `add-goal GOAL_NAME DEADLINE`                                  | `add-goal run 12/12/2024 14:00:00` |
+| **delete-goal**     | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                    |
+| **list-goal**       | `list-goal`                                                    | `list-goal`                        |
+| **gpoints**         | `gpoints` / `gpoints EXERCISE_ACRONYM`                         | `gpoints` / `gpoints PU`           |
+| **gperformance**    | `gpeformance EXERCISE_ACRONYM`                                 | `gperformance PU`                  |
+| **add-water**       | `add-water`                                                    | `add-water 500`                    |
+| **delete-water**    | `delete-water`                                                 | `delete-water 1`                   |
+| **list-water**      | `list-water`                                                   | `list-water`                       |
+| **add-food**        | `add-food`                                                     | `add-food apple 100`               |
+| **delete-food**     | `delete-food`                                                  | `delete-food 1`                    |
+| **list-food**       | `list-food`                                                    | `list-food`                        |
+| **list-intake**     | `list-intake`                                                  | `list-intake`                      |

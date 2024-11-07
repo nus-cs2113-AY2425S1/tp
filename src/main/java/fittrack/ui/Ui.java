@@ -71,7 +71,9 @@ public class Ui {
     }
 
     public static void printUpdatedMood(int sessionId, String newMood) {
+        System.out.println(SEPARATOR);
         System.out.println("Mood for Training Session " + (sessionId + 1) + " updated: " + newMood);
+        System.out.println(SEPARATOR);
     }
 
     public static void printDeletedSession(ArrayList<TrainingSession> sessionList, TrainingSession sessionToDelete,
