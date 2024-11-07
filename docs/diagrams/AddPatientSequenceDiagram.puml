@@ -2,7 +2,6 @@
 
 !include style.puml
 skinparam ArrowFormatStyle plain
-scale 0.5
 
 scale 1.5
 
@@ -42,6 +41,7 @@ else Name is not null or empty
         end
     end
 end
+
 deactivate AddPatientCommand
 destroy AddPatientCommand
 deactivate MediTask
