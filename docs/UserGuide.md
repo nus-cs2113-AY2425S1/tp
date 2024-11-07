@@ -209,38 +209,26 @@ Format: `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_COD
 * Indicate the full name of the partner university for `PARTNER_UNIVERISTY_NAME`. For example, indicate
   `The Australian National University` instead of `Australian National University` or `ANU`.
 
-Example of usage:
+Example of usage (lowercase):
 `add cs2102 /pu the university of melbourne /coursepu info20003`
 
 Expected output:
-```
-You have successfully added the course: cs2102 | the university of melbourne | info20003
-```
-Example of usage:
+
+![Add Courses Lowercase Output](images/AddCoursesCommandLowercaseScreenshot.png)
+
+Example of usage (normal case):
 `add CS3244 /pu The Australian National University /coursepu COMP3670`
 
 Expected output:
-```
-You have successfully added the course: cs3244 | the australian national university | comp3670
-```
+
+![Add Courses Normal Case Output](images/AddCoursesCommandNormalCaseScreenshot.png)
 
 Example of usage:
 `add CS3244 /pu Australian National University /coursepu COMP3670`
 
 Expected output:
-```
-Invalid university input!
------------------------------------------------------
-The relevant universities are (non-case sensitive):
-1. The University of Melbourne
-2.The Australian National University
-3. Victoria University of Wellington
-4.The University of Western Australia
 
-NOTE: Please indicate the partner universities FULL NAME!
-NOTE: Instead of "Australian National University," please indicate "The Australian National University."
------------------------------------------------------
-```
+![Add Courses Invalid University](images/InvalidUniversityInputScreenshot.png)
 
 ### Delete course mapping plans from Personal Tracker: `delete`
 Delete a course mapping plan that was initially saved into the Personal Tracker.
