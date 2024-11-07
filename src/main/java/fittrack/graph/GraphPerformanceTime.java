@@ -101,7 +101,7 @@ public class GraphPerformanceTime extends GraphPerformance {
         double performance = session.getExercisePerformance(exercise);
 
         if (performance == INVALID_TIME_VALUE) {
-             return INVALID_TIME_VALUE;
+            return INVALID_TIME_VALUE;
         }
         double normalizedPerformance = (performance - minPerformance) / (double) (maxPerformance - minPerformance);
         return normalizedPerformance;

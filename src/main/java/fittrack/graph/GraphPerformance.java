@@ -8,7 +8,7 @@ public abstract class GraphPerformance extends GraphBase {
 
     static final int INVALID_TIME_VALUE = -1;
     static final int DATETIME_LENGTH = 16; //Length of Date format without spaces
-    public static final int Y_TIME_OFFSET = 6;
+    public static final int Y_OFFSET = 6;
 
     //Returns line with properly spaced descriptions for the X axis
     private static String formatXHeaderDesc(int numSessions,
@@ -57,7 +57,8 @@ public abstract class GraphPerformance extends GraphBase {
         return minExercisePerformance;
     }
 
-    private static int extractMin(ArrayList<TrainingSession> sessionList, Exercise exercise, int numTrainingSessions, int sessionIndex) {
+    private static int extractMin(ArrayList<TrainingSession> sessionList, Exercise exercise,
+            int numTrainingSessions, int sessionIndex) {
         int minExercisePerformance;
         // find the first session that has valid data and set as min
         do {
@@ -76,7 +77,8 @@ public abstract class GraphPerformance extends GraphBase {
     }
 
     // check if there is a single valid data in sessions
-    private static boolean checkDataValidity(ArrayList<TrainingSession> sessionList, Exercise exercise, int numTrainingSessions) {
+    private static boolean checkDataValidity(ArrayList<TrainingSession> sessionList,
+            Exercise exercise, int numTrainingSessions) {
         boolean isAllDataInvalid = true;
         for (int i = 0; i < numTrainingSessions; i++) {
             int exercisePerformance = sessionList.get(i).getExercisePerformance(exercise);
@@ -114,7 +116,7 @@ public abstract class GraphPerformance extends GraphBase {
 
         // Prepare Y axis and main content
         if (exercise == Exercise.WALK_AND_RUN || exercise == Exercise.SHUTTLE_RUN) {
-            yOffset = Y_TIME_OFFSET;
+            yOffset = Y_OFFSET;
             graph.append(GraphPerformanceTime.graphExerciseTime(exercise, sessionList, minExercisePerformance,
                     maxExercisePerformance, maxXHeaderLength));
         } else {
