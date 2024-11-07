@@ -80,8 +80,9 @@ public class GraphPerformanceTime extends GraphPerformance {
     private static void addAsteriskToTimeGraph(int minPerformance, int maxPerformance, int maxXHeaderLength,
             double normalizedValue, StringBuilder mainContents, double normalizedPerformance) {
         boolean isAllPerformanceSame = maxPerformance == minPerformance;
-
-        if (isAllPerformanceSame && normalizedValue < INCREMENT_SCALE) {
+        if (normalizedPerformance == INVALID_TIME_VALUE) {
+            mainContents.append(generateChar(maxXHeaderLength + 2, ' '));
+        } else if (isAllPerformanceSame && normalizedValue == HIGHEST_NORMALISED_VALUE) {
             mainContents.append(centerText("*", maxXHeaderLength));
         } else if (Math.abs(normalizedPerformance - normalizedValue) < INCREMENT_HALF_SCALE) {
             // mark space with * if normalized value == current row level with tolerance of 1/2 the scale

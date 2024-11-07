@@ -2,9 +2,6 @@ package fittrack.graph;
 
 import fittrack.enums.Exercise;
 import fittrack.trainingsession.TrainingSession;
-import fittrack.user.User;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public abstract class GraphPerformance extends GraphBase {
