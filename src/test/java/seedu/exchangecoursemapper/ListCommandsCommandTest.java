@@ -27,14 +27,34 @@ public class ListCommandsCommandTest {
         listCommandsCommand.execute("");
 
         // Check if the output contains the expected list of commands
-        String expectedCommand1 = "filter <subject code>";
-        String expectedCommand2 = "set <SCHOOL_NAME>";
-        String expectedCommand3 = "list schools";
-        String expectedCommand4 = "add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE>";
+        String expectedCommand1 = "Here are the available commands:";
+        String expectedCommand2 = "filter <subject code> - Filter courses by subject code.";
+        String expectedCommand3 = "set <SCHOOL_NAME>     - Set a partner university for course mapping.";
+        String expectedCommand4 = "list schools          - List all available partner universities.";
+        String expectedCommand5 = "add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE>";
+        String expectedCommand6 = "- Add mapped courses between NUS and partner universities.";
+        String expectedCommand7 = "obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.";
+        String expectedCommand8 = "obtain <SCHOOL_NAME> /number - Obtain partner university contact number.";
+        String expectedCommand9 = "delete <TASK_NUMBER>         - Delete a partner university.";
+        String expectedCommand10 = "list mapped                  - List all course mapping saved.";
+        String expectedCommand11 = "compare pu/<uni1> pu/<uni2>  - Compare course mappings between 2 universities.";
+        String expectedCommand12 = "find <NUS_COURSE_CODE>       - Find courses with subject code in your list.";
+        String expectedCommand13 = "bye                          - End the program.";
+        String expectedCommand14 = "To get more specific information of the commands, please use help <COMMAND>";
 
         assertTrue(outputStreamCaptor.toString().contains(expectedCommand1));
         assertTrue(outputStreamCaptor.toString().contains(expectedCommand2));
         assertTrue(outputStreamCaptor.toString().contains(expectedCommand3));
         assertTrue(outputStreamCaptor.toString().contains(expectedCommand4));
+        assertTrue(outputStreamCaptor.toString().contains(expectedCommand5));
+        assertTrue(outputStreamCaptor.toString().contains(expectedCommand6));
+        assertTrue(outputStreamCaptor.toString().contains(expectedCommand7));
+        assertTrue(outputStreamCaptor.toString().contains(expectedCommand8));
+        assertTrue(outputStreamCaptor.toString().contains(expectedCommand9));
+        assertTrue(outputStreamCaptor.toString().contains(expectedCommand10));
+        assertTrue(outputStreamCaptor.toString().contains(expectedCommand11));
+        assertTrue(outputStreamCaptor.toString().contains(expectedCommand12));
+        assertTrue(outputStreamCaptor.toString().contains(expectedCommand13));
+
     }
 }

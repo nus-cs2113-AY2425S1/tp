@@ -73,5 +73,23 @@ class ListPersonalTrackerCommandTest {
         assertEquals(expectedOutput.trim(), outContent.toString().trim());
     }
 
+    @Test
+    void execute_illegalArgumentExceptionThrown_logsWarningAndPrintsMessage() {
+        // Create a custom Storage class that throws an exception
+        Storage mockStorage = new Storage() {
+            @Override
+            public List<Course> loadAllCourses() {
+                throw new IllegalArgumentException("Test exception for logging");
+            }
+        };
+
+        command = new ListPersonalTrackerCommand(mockStorage);
+
+        // Execute the command to trigger the exception
+        command.execute("");
+
+        // Verify output contains the exception message
+        assertEquals("Test exception for logging", outContent.toString().trim());
+    }
 }
 
