@@ -208,7 +208,8 @@ Example:
 `menu`
 
 ### Exiting the program: bye
-Exits the program.
+Exits the program, and saves the data for that session. 
+If the data file has yet to be created, this command would also create the data file.
 
 Format:
 `bye`
