@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+participant "Format" as Format
+
+actor User
+User -> Format : formatAmount(amount)
+activate Format
+
+
+Format -> Format : Create BigDecimal for amount\nRound to 2 decimal places
+Format -> Format : Create DecimalFormat: wholeNumberFormat = "$0"
+Format -> Format : Create DecimalFormat: decimalFormat = "$0.00"
+
+alt Amount is a whole number
+    Format -> User : Return wholeNumberFormat.format(roundedAmount)
+else Amount has decimals
+    Format -> User : Return decimalFormat.format(roundedAmount)
+
+end
+deactivate Format
+@enduml
