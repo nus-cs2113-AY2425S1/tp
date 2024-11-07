@@ -212,7 +212,12 @@ Format:
 **A**: {your answer here}
 
 ## Command Summary
-
-{Give a 'cheat sheet' of commands here}
-
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+- Add expense `add-expense n/NAME a/AMOUNT [c/CATEGORY]`
+- Delete expense `delete-expense e/INDEX`
+- Add category `add-category CATEGORY`
+- Tag expense to category `tag-expense e/INDEX c/CATEGORY`
+- View expenses `view-expenses`
+- Set budget `set-budget c/CATEGORY l/LIMIT`
+- View budget `view-budget`
+- On/Off automatic budget reset `toggle-reset`
+- Exit `bye`
