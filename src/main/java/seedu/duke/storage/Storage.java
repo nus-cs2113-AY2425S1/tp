@@ -250,7 +250,8 @@ public class Storage {
                 String amount = scBudget.nextLine();
                 Budget budget = new Budget();
                 if (Double.parseDouble(amount) < 0.01) {
-                    logger.log(LogLevels.WARNING, "Budget amount should be more than 0.01, the budget won't be set.");
+                    logger.log(LogLevels.WARNING,
+                            "Budget amount should be more than 0.01, the budget won't be set.");
                     scBudget.close();
                     return ;
                 }
@@ -260,7 +261,8 @@ public class Storage {
                 try{
                     LocalDate.parse(date);
                 } catch (DateTimeParseException e) {
-                    logger.log(LogLevels.WARNING, "Error parsing date in budget: " + date + ", setting to current date.");
+                    logger.log(LogLevels.WARNING,
+                            "Error parsing date in budget: " + date + ", setting to current date.");
                     date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 }
                 // check if the date is in past 
@@ -312,7 +314,8 @@ public class Storage {
                         theList.addEntry(parseIncome(tokens));
                         loadedIncomeCount++;
                     } else {
-                        logger.log(LogLevels.WARNING, "Skiping logged transection cause storage formate invalid, "
+                        logger.log(LogLevels.WARNING,
+                                "Skiping logged transection cause storage formate invalid, "
                                 + "unknown entry type: " + line.charAt(0));
                     }
                 } catch (Exception e) {
