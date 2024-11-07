@@ -7,15 +7,23 @@ left to right direction
 
 class Recipe #COLOR_RED{
     - name: String
-    - ingredients: String[]
-    - steps: String[]
+    - ingredients: ArrayList<Ingredient>
+    - steps: ArrayList<String>
     - cuisine: String = null
     - timeTaken: Integer = null
     __
-    + Recipe(name: String, ingredients: String[], steps: String[])
-    + Recipe(name: String, ingredients: String[], steps: String[], cuisine: String, timeTaken: Integer)
-    + Recipe(name: String, ingredients: String[], steps: String[], cuisine: String)
-    + Recipe(name: String, ingredients: String[], steps: String[]. timeTaken: Integer)
+    + Recipe(name: String, ingredients: ArrayList<Ingredient>, steps: ArrayList<String>)
+    + Recipe(name: String, ingredients: ArrayList<Ingredient>, steps: ArrayList<String>, cuisine: String, timeTaken: Integer)
+    + Recipe(name: String, ingredients: ArrayList<Ingredient>, steps: ArrayList<String>, cuisine: String)
+    + Recipe(name: String, ingredients: ArrayList<Ingredient>, steps: ArrayList<String>, timeTaken: Integer)
+    + getName(): String
+    + setName(name: String): void
+    + getIngredients(): ArrayList<Ingredient>
+    + setIngredients(ingredients: ArrayList<Ingredient>): void
+    + getSteps(): ArrayList<String>
+    + setSteps(steps: ArrayList<String>): void
+    + getCuisine(): String
+    + setCuisine(cuisine: String): void
     + getTimeTaken(): Integer
     + setTimeTaken(timeTaken: Integer): void
     + equals(recipeToCheck: Recipe): boolean
@@ -30,9 +38,8 @@ class RecipeList #COLOR_PURPLE_BLUE{
     __
     + RecipeList()
     + addRecipe(recipe: Recipe): void
-    + getRecipes(): Recipe[]
+    + getRecipes(): ArrayList<Recipe>
     + getRecipe(id: int): Recipe
-    + removeRecipe(id: int): void
     + removeRecipeByName(name: String): boolean
     + editRecipe(name: String, editedRecipe: Recipe): boolean
     + getCounter(): int

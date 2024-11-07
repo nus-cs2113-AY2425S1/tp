@@ -10,19 +10,19 @@ import java.util.logging.Level;
 
 import static ymfc.YMFC.logger;
 
-public class SortIngredientsCommand extends Command{
+public class SortIngredientCommand extends Command{
     public static final String USAGE_EXAMPLE = """
             Use example:
             \tsortI
             """;
 
-    public SortIngredientsCommand() {
+    public SortIngredientCommand() {
         super();
     }
 
 
     public void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) {
-        logger.log(Level.FINEST, "Executing SortIngredientsCommand");
+        logger.log(Level.FINEST, "Executing SortIngredientCommand");
 
         ingredients.sortAlphabetically();
 

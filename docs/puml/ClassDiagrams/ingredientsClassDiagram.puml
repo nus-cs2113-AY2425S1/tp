@@ -11,6 +11,7 @@ class Ingredient #COLOR_RED{
     + Ingredient(name: String)
     + getName(): String
     + equals(ingredientToCheck: Ingredient): boolean
+    + equals(object: Object): boolean
     + toString(): String
     + toSaveString(): String
 }

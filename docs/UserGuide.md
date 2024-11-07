@@ -164,7 +164,7 @@ ________________________________________________________________________________
 
 ### Listing out Existing Recipes
 
-Format: `listR`
+Format: `list`
 
 Lists out all the recipes currently stored in YMFC.
 
@@ -353,7 +353,7 @@ and paste it in your other computer in the same directory where YMFC.jar is loca
 |-----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
 | `help`                                                          | List out all the available commands and their usage                                                       |
 | `bye`                                                           | Terminate the program                                                                                     |
-| `listR`                                                         | List out all the existing recipes                                                                         |
+| `list`                                                          | List out all the existing recipes                                                                         |
 | `add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`  | Add a new recipe                                                                                          |
 | `sort s/name`                                                   | Sort the recipes alphabetically by name                                                                   |
 | `sort s/time`                                                   | Sort the recipes by time, from least to most                                                              |
