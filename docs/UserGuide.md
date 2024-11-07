@@ -177,10 +177,11 @@ Example output:
 ![toggle-reset](userguidepictures/toggle-reset.png)
 
 ### Help
+Provides a summary of available commands and their functionalities.
+It serves as a quick reference for users to understand how to use different features and commands in the system.
+
 Format:
 `help`
-
-- Displays command summary.
 
 Example output:
 ![help](userguidepictures/help.png)
