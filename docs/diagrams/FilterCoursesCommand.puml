@@ -35,7 +35,7 @@ loop for each universityName in universityNames
         opt course == courseToFind
             FilterCoursesCommand -> UI: printMappableCourse(universityName: String, course: JsonObject)
             activate UI
-            UI --> FilterCoursesCommand: Print mappable course information
+            return Print mappable course information
         end
     end
     FilterCoursesCommand --> FilterCoursesCommand: isCourseFound: boolean
@@ -44,8 +44,8 @@ end
 
 opt isCourseFound == false
     FilterCoursesCommand -> UI: printMessage(No mappable courses message)
-    UI --> FilterCoursesCommand: Print no mappable courses message
-    deactivate UI
+    activate UI
+    return Print no mappable courses message
 end
 
 FilterCoursesCommand --> FilterCoursesCommand
