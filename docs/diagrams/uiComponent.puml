@@ -1,0 +1,33 @@
+@startuml
+title Ui Class Diagram
+
+!define CLASS(x) class x
+
+class Ui {
+    - <u>ERROR_HEADER: String
+    - <u>GREETING: String
+    - <u>LOGO: String
+    - <u>PROMPT: String
+    - <u>FAREWELL: String
+    - in: Scanner
+    - out: PrintStream
+
+    + readCommand(): String
+    + showMessage(String msg): void
+    + showMessage(Exception e): void
+    + showMessage(CommandResult result): void
+    + showWelcome(): void
+    + showFarewell(): void
+}
+
+class CommandResult {
+  - message: String
+
+  + getMessage(): String
+}
+
+Ui ..> Scanner
+Ui ..> PrintStream
+Ui ..> CommandResult
+
+@enduml

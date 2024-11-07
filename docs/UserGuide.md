@@ -161,7 +161,7 @@ Day 2: Wednesday
 
 ### 6. Log Workout
 
-This feature records the successful completion of a workout for the specified day within the chosen program.
+This feature records the successful completion of a workout for the specified day within the chosen programme.
 
 Command: `prog log /p PROG_INDEX /d DAY_INDEX /t DATE`
 
