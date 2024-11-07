@@ -10,6 +10,7 @@ We used these third party libraries to develop our application:
 ## Design
 
 ### UI Component
+![Class_Diagram_of_Ui_Component](images/uiComponent.png)
 
 ### Programme Component
 
