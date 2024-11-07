@@ -33,6 +33,6 @@ public class FlagExceptions extends BuffBuddyExceptions {
      *         after the flag.
      */
     public static FlagExceptions missingArguments() {
-        return new FlagExceptions("Missing arugments after flag, please refer to User Guide");
+        return new FlagExceptions("Missing arguments after flag, please refer to User Guide");
     }
 }

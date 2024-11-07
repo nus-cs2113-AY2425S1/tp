@@ -217,35 +217,36 @@ This class also manages alias mapping to provide flexibility in flag usage, allo
 `ParserUtils` is a utility class that contains common parsing methods used across the parser classes, including methods for splitting arguments, parsing integers, floats, indices, and dates.
 It provides standardized parsing functionality to avoid redundancy.
 
-#### FlagDefinitions
-The `FlagDefinitions` class contains predefined constants for the various flags used across commands, such as flags for dates, programs, days, exercises, names, sets, reps, weights, and calories.
-It standardizes flag usage throughout the component, ensuring consistency in flag names.
-
-
 #### CommandFactory
 The `CommandFactory` class acts as a central factory that distributes command creation requests to specific factories such as `ProgCommandFactory`, `MealCommandFactory`, `WaterCommandFactory`, and `HistoryCommandFactory`. 
 If an unrecognized command is provided, it returns an `InvalidCommand`.
 
-##### ProgCommandFactory
+#### ProgCommandFactory
 
 The `ProgCommandFactory` is responsible for creating program-related commands. 
 It supports commands for creating, viewing, starting, deleting, logging, and editing programs, as well as adding or removing days and exercises from programs. 
 It relies on helper methods like `parseDay` and `parseExercise` to streamline parsing of day and exercise arguments.
 
-##### MealCommandFactory
+#### MealCommandFactory
 
 The `MealCommandFactory` handles commands related to meal management, including adding, deleting, and viewing meals. It uses flags to parse meal details such as the meal name, calories, and date. 
 The factory generates specific commands like `AddMealCommand`, `DeleteMealCommand`, and `ViewMealCommand` based on the parsed input.
 
 
-##### WaterCommandFactory
+#### WaterCommandFactory
 The `WaterCommandFactory` is responsible for water-related commands. It parses arguments to identify commands for adding, deleting, and viewing water intake entries. 
 This factory ensures that water logs can be managed with commands such as `AddWaterCommand`, `DeleteWaterCommand`, and `ViewWaterCommand`.
 
-##### HistoryCommandFactory**
+#### HistoryCommandFactory
 The `HistoryCommandFactory` manages history-related commands. It supports viewing, listing, deleting history entries, and managing personal bests and weekly summaries. 
 The factory can generate commands such as `ViewHistoryCommand`, `DeleteHistoryCommand`, `WeeklySummaryCommand`, and `ViewPersonalBestCommand` depending on the parsed input.
 
+
+![Class_Diagram_of_FlagDefinitions_Component](images/FlagDefinitionsComponent.png)
+
+#### FlagDefinitions
+The `FlagDefinitions` class contains predefined constants for the various flags used across commands, such as flags for dates, programs, days, exercises, names, sets, reps, weights, and calories.
+It standardizes flag usage throughout the component, ensuring consistency in flag names.
 
 ### Command Component
 
@@ -398,6 +399,76 @@ The following example illustrates the usage scenario and behavior of the Weekly 
 ![Sequence Diagram for WeeklySummary feature](./images/History%20WeeklySummary%20UML%20Sequence%20Diagram.png)
 
 ---
+
+### Create Programme
+
+#### Overview 
+The **Create Programme** feature allows users to create a new workout programme, which can be either empty (with only a name) 
+or contain multiple days with specific exercises.
+
+### Flow of Operations
+
+1. **User Starts BuffBuddy**:
+    - The user initiates the BuffBuddy application.
+    - `BuffBuddy` begins by calling `Ui` to read a command.
+
+2. **User Inputs Command**:
+    - `Ui` reads the command from the user and returns it to `BuffBuddy` as `fullCommand`.
+
+3. **Parsing the Command**:
+    - `BuffBuddy` calls `Parser.parse(fullCommand)` to interpret the command.
+    - `Parser` calls `CommandFactory.createCommand(commandString, argumentString)` to create an appropriate command based on `commandString`.
+
+4. **Delegating to Specific Command Factory**:
+    - `CommandFactory` checks if `commandString` is related to program commands. If it is, `CommandFactory` calls `ProgCommandFactory.parse(argumentString)`.
+
+5. **Handling Create Subcommand**:
+    - `ProgCommandFactory` checks if the subcommand is "create" and calls `prepareCreateCommand(arguments)` if it is.
+
+6. **Parsing Program Details**:
+    - In `prepareCreateCommand`, `ProgCommandFactory` iterates through each day specified in the `arguments`:
+        - For each day:
+            - `ProgCommandFactory.parseDay(dayString)` is called to parse details of the day.
+            - A new `Day` object is created.
+            - The parsed `Day` object is returned to `ProgCommandFactory`.
+
+            - For each exercise within the day:
+                - `ProgCommandFactory.parseExercise(exerciseString)` is called to parse exercise details.
+                - A new `Exercise` object is created.
+                - The parsed `Exercise` is inserted into the `Day` object.
+
+        - The fully populated `Day` object, containing all exercises, and the programme name is returned.
+
+7. **Creating `CreateProgrammeCommand`**:
+    - After parsing the program structure, `ProgCommandFactory` creates a new `CreateProgrammeCommand` object with `progName` and parsed `days`.
+
+8. **Returning to `CommandFactory`**:
+    - `ProgCommandFactory` returns the `CreateProgrammeCommand` object to `CommandFactory`, which then passes it back to `Parser`.
+    - `Parser` returns the command object to `BuffBuddy`.
+
+9. **Executing `CreateProgrammeCommand`**:
+    - `BuffBuddy` calls `CreateProgrammeCommand.execute()` to perform the action.
+    - Inside `execute()`, `CreateProgrammeCommand` calls `ProgrammeList.insertProgramme(programmeName, programmeContents)` to add the new program to the list.
+
+10. **Creating Program in `ProgrammeList`**:
+    - `ProgrammeList` creates a new `Programme` object with the provided name and content.
+    - The `Programme` object is added to the `ProgrammeList`.
+
+11. **Generating Command Result**:
+    - `CreateProgrammeCommand` creates a new `CommandResult` object, containing the result message of the operation.
+
+12. **Returning the Result**:
+    - `CreateProgrammeCommand` returns the `CommandResult` to `BuffBuddy`.
+
+13. **Displaying the Result to the User**:
+    - `BuffBuddy` calls `Ui.showMessage(result)` to display the result message.
+    - `Ui` formats and displays the result to the user, completing the flow of operations for the "Create Programme" feature.
+
+This process illustrates how BuffBuddy handles the creation of a workout program, from parsing user input to structuring program details and finally displaying the result back to the user.
+
+#### Sequence Diagram
+
+![Sequence Diagram for createProgramme feature](./images/createProgramme.png)
 
 ### Edit Programme
 

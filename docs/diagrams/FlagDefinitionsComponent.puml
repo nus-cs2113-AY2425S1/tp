@@ -1,0 +1,28 @@
+@startuml
+
+class FlagDefinitions {
+  + <u>DATE_FLAG: String
+  + <u>PROGRAMME_FLAG: String
+  + <u>DAY_FLAG: String
+  + <u>EXERCISE_FLAG: String
+  + <u>NAME_FLAG: String
+  + <u>SETS_FLAG: String
+  + <u>REPS_FLAG: String
+  + <u>WEIGHT_FLAG: String
+  + <u>CALORIES_FLAG: String
+  + <u>REMOVE_EXERCISE_FLAG: String
+  + <u>ADD_EXERCISE_FLAG: String
+  + <u>UPDATE_EXERCISE_FLAG: String
+  + <u>ADD_DAY_FLAG: String
+  + <u>REMOVE_DAY_FLAG: String
+  + <u>MEAL_INDEX: String
+  + <u>WATER_INDEX: String
+  + <u>VOLUME_FLAG: String
+}
+
+MealCommandFactory "1" --> "*" FlagDefinitions : uses
+ProgCommandFactory "1" --> "*" FlagDefinitions : uses
+WaterCommandFactory "1" --> "*" FlagDefinitions : uses
+FlagParser "1" --> "*" FlagDefinitions : uses
+
+@enduml
