@@ -1,6 +1,7 @@
 package seedu.commands;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 //@@author Toby-Yu
 /**
@@ -82,6 +83,8 @@ public class SortCommand extends Command {
             // Handle invalid sorting options
             internships.listInternshipsInvalidFlag(sortOption);
         }
+
+        logger.log(Level.INFO, "SortCommand Executed");
     }
 
     @Override

@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //@@author jadenlimjc
 public class InternshipList {
     private static final UiInternshipList ui = new UiInternshipList();
+    private static final Logger logger = Logger.getLogger("EasInternship");
     public ArrayList<Internship> internships;
     public ArrayList<Internship> favouriteInternships;
 
@@ -28,8 +31,6 @@ public class InternshipList {
         favouriteInternships = new ArrayList<>();
     }
 
-    //@@author Ridiculouswifi
-
     public void addInternship(Internship internship) {
 
         assert internship != null : "Internship object cannot be null";
@@ -41,8 +42,10 @@ public class InternshipList {
         assert internship.getId() == internships.size() + 1;
 
         internships.add(internship);
+        logger.log(Level.INFO, "Internship added");
     }
 
+    //@@author Ridiculouswifi
     /**
      * Returns whether the index given is within the boundaries of the list.
      */
@@ -66,6 +69,8 @@ public class InternshipList {
         internship.clearDeadlines();
         ui.showDeletedInternship(index + 1);
         updateIds(); // Reassign IDs after removal
+
+        logger.log(Level.INFO, "Internship removed");
     }
 
     // Private method to update the IDs after a removal
@@ -90,6 +95,7 @@ public class InternshipList {
         }
     }
 
+    //@@author Ridiculouswifi
     /**
      * Updates the specified field with new values.
      *
@@ -124,6 +130,7 @@ public class InternshipList {
             assert false : "All valid fields should we handled in individual cases";
             break;
         }
+        logger.log(Level.INFO, "Internship " + (index + 1) + " updated: " + field);
     }
 
     public void removeField(int index, String field, String value) throws MissingValue {
@@ -138,6 +145,7 @@ public class InternshipList {
             assert false : "All valid fields should we handled in individual cases";
             break;
         }
+        logger.log(Level.INFO, "Internship " + (index + 1) + " removed: " + field);
     }
 
     //@@author jadenlimjc

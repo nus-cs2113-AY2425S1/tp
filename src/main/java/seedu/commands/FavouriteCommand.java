@@ -3,6 +3,7 @@ package seedu.commands;
 import seedu.duke.Internship;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class FavouriteCommand extends Command {
     @Override
@@ -21,6 +22,8 @@ public class FavouriteCommand extends Command {
                     continue;
                 }
                 favouriteInternships.add(internship);
+
+                logger.log(Level.INFO, "FavouriteCommand Executed");
             } catch (NumberFormatException e) {
                 uiCommand.showOutput("Invalid integer: " + arg + "\nPlease provide a valid internship ID");
             }

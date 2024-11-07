@@ -6,6 +6,7 @@ import seedu.exceptions.InvalidStatus;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 //@@author Ridiculouswifi
 /**
@@ -35,6 +36,8 @@ public class UpdateCommand extends Command {
             }
 
             uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
+
+            logger.log(Level.INFO, "UpdateCommand Executed");
         } catch (NumberFormatException e) {
             uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
         } catch (InvalidIndex ie) {
