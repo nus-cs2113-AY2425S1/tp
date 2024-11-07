@@ -13,9 +13,21 @@ We used these third party libraries to develop our application:
 
 ### Programme Component
 
+![Programme Component Classes Diagram](./images/programmeComponentClassDiagram.png)
+
+The `ProgrammeList` component,
+
+The `programme` component,
+
+The `day` component,
+
+The `exercise` component,
+
+The `updateExercise` component, 
+
+
 ### Meal Component
 
-API: `Meal.java`
 ![Meal and MealList Class Diagram](./images/mealAndMealListClassDiagrams.png)
 
 The `Meal` component,
