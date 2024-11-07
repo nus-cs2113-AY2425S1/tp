@@ -54,7 +54,7 @@ public class Parser {
             Invalid command!
             Please enter your commands in the following format:
             edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
-            edit -m ITEM -e EVENT: Edit an item from an event.
+            edit -m ITEM > NEW_ITEM -e EVENT: Edit an item from an event.
             edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
             """;
     private static final String INVALID_VIEW_MESSAGE = """
