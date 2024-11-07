@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AddBudgetCommand extends Command {
     public static final String COMMAND_WORD = "add-budget";
-    public static final String COMMAND_GUIDE = "add-budget a/ AMOUNT m/ MONTH : Add a new category";
+    public static final String COMMAND_GUIDE = "add-budget a/ AMOUNT m/ MONTH : Set a new month budget";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = { "a/", "m/" };
     public static final String[] COMMAND_EXTRA_KEYWORDS = {};
 
