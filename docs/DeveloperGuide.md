@@ -535,10 +535,72 @@ with the only difference being the criteria for printing the entries, we made `S
 
 ### Exceptions and Logging
 
+<ins>Overview</ins>
+
 An exception class `FinanceBuddyException` is thrown when users use the product wrongly.
 Exceptions are caught at the nearest instance that they occur.
 
-Logging is handled by the `Logger` class. 
+Logging is handled by the `Log` class. The `Log` class uses the singleton pattern to prevent
+multiple instances of the class.
+
+<ins>Class Structure</ins>
+
+Below is a class diagram of the `Log` class, its associated class `LogHelper`,
+and the enumeration `LogLevels`.
+
+![Log](UML/Log.png)
+
+<ins>Implementation Details</ins>
+
+Example usage of `FinanceBuddyException`:
+``` java
+private double parseAmount(String amountStr) throws FinanceBuddyException {
+  try {
+    return Double.parseDouble(amountStr);
+  } catch (NumberFormatException e) {
+    throw new FinanceBuddyException("Invalid amount. Please use a number.");
+  } catch (NullPointerException e) {
+    throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
+  }
+}
+```
+
+The exception messages can be displayed using the following code example:
+``` java
+try {
+  ...
+} catch (FinanceBuddyException e) {
+  System.out.println(e.getMessage());
+}
+```
+
+The `Log` class has a private constructor to prevent multiple instances of the class.
+The `Log` class is instantiated through the `LogHelper` class, and is accessed through the
+`getInstance()` method.
+
+The `LogLevels` enumeration is used to indicate the level of a particular log.
+- `INFO` Represents informational messages that highlight the progress of the application.
+- `WARNING` Denotes potentially harmful situations that are not errors but could lead to
+problems, often due to user error.
+-  `SEVERE` Indicates a serious failure that might prevent part of the application
+from functioning properly.
+
+Logs appear on the command line while running the application. To prevent logs from appearing in
+the final `jar` product, the method `isRunningFromJar()` is used to check if the application is
+running from a `jar` file. If it is running from a `jar` file, the logging level is set to `OFF`.
+Otherwise, the logging level is set to `INFO`.
+
+The `Log` class can be used in other classes using the following code example:
+```java
+private static final Log logger = Log.getInstance();
+```
+
+Logging can then be done by invoking `logger.log()`. For example:
+```java
+logger.log(LogLevels.INFO, "Expense added successfully.");
+logger.log(LogLevels.WARNING, "Invalid index inputted.");
+logger.log(LogLevels.SEVERE, "FinancialList is null.", exception);
+```
 
 ### Storage
 
@@ -556,7 +618,7 @@ and stores and retrieves budget information to maintain data consistency across 
       Default path: `"data/FinancialList.txt"`.
    - `BUDGET_FILE_PATH`: `String` constant storing the path to the file where budget data is saved. 
       Default path: `"data/Budget.txt"`.
-   - `logger`: `Logger` instance for logging information and errors for debugging and tracking purposes.
+   - `logger`: `Log` instance for logging information and errors for debugging and tracking purposes.
 
 <ins>Implementation Details</ins>
 
