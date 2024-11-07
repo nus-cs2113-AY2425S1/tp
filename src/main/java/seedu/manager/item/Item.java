@@ -29,14 +29,23 @@ public class Item {
         return name;
     }
 
+    //@@author MatchaRRR
     /**
-     * set the name of the item
+     * Sets the name of the item.
      */
     public void setName(String itemNewName) {
         this.name = itemNewName;
     }
 
+    //@@author LTK-1606
+    /**
+     * @return {@code true} if isPresent is true, {@code false} otherwise.
+     */
+    public boolean isPresent() {
+        return isPresent;
+    }
 
+    //@@author jemehgoh
     /**
      * Sets the item as present or not present.
      *
@@ -56,7 +65,8 @@ public class Item {
     }
 
     /**
-     * Returns "Y" if isPresent is true, "N" otherwise. For saving the item's mark status to files.
+     * Returns "Y" if isPresent is true, "N" otherwise.
+     * For saving the item's mark status to files.
      *
      * @return "Y" if isPresent is true, "N" otherwise.
      */
