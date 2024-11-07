@@ -21,7 +21,7 @@ class FileManager {
     - createFileIfNotExists() : void
 }
 
-Storage --> FileManager : fileManager
+Storage "1" --> "1" FileManager : contains
 
 Storage ..> History
 Storage ..> ProgrammeList
