@@ -21,14 +21,18 @@ import seedu.command.ViewIncomeCommand;
 import seedu.command.ViewTotalCommand;
 import seedu.command.TrackProgressCommand;
 import seedu.datastorage.Storage;
+
 import seedu.transaction.TransactionList;
 
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+
 
 public class Main {
 
@@ -121,6 +125,11 @@ public class Main {
     public static void printWelcomeMessage() {
         ui.printMessage("Remember to record your spending today so you can track your spending accurately.");
         double todaySpending = transactions.getTodaySpending();
+
+        double monthSpending = transactions.getMonthSpending();
+        ui.printMessage("Expenses for " + LocalDateTime.now().getMonth() + ": $" + monthSpending);
+        double monthIncome = transactions.getMonthIncome();
+        ui.printMessage("Incomes for " + LocalDateTime.now().getMonth() + ": $" + monthIncome);
         String reminder = "Reminder: Please check if your spending is within your budget!";
         ui.printMessage("Today's total spending: $" + todaySpending);
         YearMonth currentMonth = YearMonth.now();
@@ -132,6 +141,9 @@ public class Main {
             ui.printMessage("This month's budget remaining: $" + String.format("%.2f", remaining));
         }
     }
+
+
+
 
     /**
      * Signs up the Command objects.
