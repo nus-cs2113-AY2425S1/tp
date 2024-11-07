@@ -182,7 +182,7 @@
 	Failed to retrieve transaction: Your date and/or time is invalid!
 	-------------------------------------
 	-------------------------------------
-	Missing budget for given month
+	Progress can only be checked for current or past months.
 	-------------------------------------
 	-------------------------------------
 	Missing budget for given month

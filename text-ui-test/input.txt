@@ -69,7 +69,7 @@ history f/ 2024-11-01 t/ 2024-11-30
 history f/ invalid-date t/ 2024-11-30
 history
 
-track m/ 2024-11
+track m/ 2027-11
 track m/ 2024-10
 track m/ 13
 
