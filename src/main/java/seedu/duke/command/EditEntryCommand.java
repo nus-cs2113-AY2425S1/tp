@@ -103,8 +103,6 @@ public class EditEntryCommand extends Command {
 
         list.deleteEntry(zeroBasedIndex);
         list.addEntry(replacementEntry);
-        assert list.getEntry(zeroBasedIndex).getAmount() == amount : "Amount should be updated";
-        assert list.getEntry(zeroBasedIndex).getDescription().equals(description) : "Description should be updated";
 
         System.out.println(Commons.LINE_SEPARATOR);
         System.out.println("Got it. I've edited this expense:");
