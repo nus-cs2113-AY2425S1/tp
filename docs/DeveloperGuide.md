@@ -484,26 +484,6 @@ how the data is displayed.
 - **Skipping Indexing:** Displaying the list without indexing was considered, but indexing improves readability, 
 especially if the list of modules is long.
 
-#### Example Usage and Expected Output:
-If the `myList.json` file contains the following entries:
-
-```
-CS3244 | The Australian National University | COMP3670
-CS2105 | The University of Western Australia | CITS3002
-CS2102 | The University of Melbourne | INFO20003
-```
-
-Running the `ListPersonalTrackerCommand` would output:
-
-```
-Mapped Modules:
------------------------------------------------------
-1. CS3244 | The Australian National University | COMP3670
-2. CS2105 | The University of Western Australia | CITS3002
-3. CS2102 | The University of Melbourne | INFO20003
------------------------------------------------------
-```
-
 #### Sequence Diagram:
 ![List Personal Tracker Command Sequence Diagram](images/ListPersonalTrackerCommand.png)
 
@@ -521,7 +501,7 @@ Below is an outline of the execution flow:
 - Checks the data integrity of `myList.json` using `courseRepository.isFileValid`. If the data integrity fails, the command exits without further execution.
 - The command splits the user input based on the delimiter `pu/` to retrieve the names of the two universities specified by the user.
   - If fewer than two universities are specified, the `printInvalidInputFormat` method in the `UI` class is called to inform the user of incorrect input format.
-- The command calls `isValidUniversity` to check if the input is a valid university. Otherwise it will print an error message with the wrong university name and a suggestion.
+- The command calls `isValidUniversity` to check if the input is a valid university. Otherwise, it will print an error message with the wrong university name and a suggestion.
 - The command loads all course mappings from the `myList.json` file through the `Storage` class.
 - It verifies that the loaded list is not `null` through assertions.
 - The `filterModulesByUniversity` method takes the list of all modules and filters out only those associated with the specified university.
@@ -605,7 +585,7 @@ to check and plan course mappings for that specified course.
 | v2.0    | CEG student | delete a course mapping plan for a PU                   | keep my list of saved plans organised                          |
 | v2.0    | CEG student | ask for help when I am in doubt                         | know what are the possible actions                             |
 | v2.0    | CEG student | compare different mapping plans for each PU             | find the university best fit for my academic schedule          |
-| v2.0    | CEG student  | search for course mappings in my personalised tracker           | check if I have mappings for that course                 |
+| v2.0    | CEG student | search for course mappings in my personalised tracker   | check if I have mappings for that course                       |
 
 
 ## Non-Functional Requirements

@@ -49,24 +49,9 @@ Format: `commands`
 Example of usage: commands
 
 Expected output:
-```
------------------------------------------------------
-Here are the available commands:
-filter <subject code>        - Filter courses by subject code.
-set <SCHOOL_NAME>            - Set a partner university for course mapping.
-list schools                 - List all available partner universities.
-add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE> - Add mapped courses between NUS and partner universities.
-obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
-obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
-delete <TASK_NUMBER>         - Delete a partner university.
-list mapped                  - List all course mapping saved.
-compare pu/<uni1> pu/<uni2>  - Compare course mappings between 2 universities.
-find <NUS_COURSE_CODE>       - Find courses with subject code in your list.
-bye                          - End the program.
-To get more specific information of the commands, please use help <COMMAND>
 
------------------------------------------------------
-```
+![ListCommandsCommand message](images/ListCommandsCommandMessage.png)
+
 
 ### Help Command: `help`
 This feature allows users to ask for help when unsure of how the commands work or how to use the commands.
