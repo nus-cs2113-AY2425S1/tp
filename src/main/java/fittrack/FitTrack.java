@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import fittrack.healthprofile.FoodEntry;
+import fittrack.healthprofile.FoodWaterIntake;
+import fittrack.healthprofile.WaterEntry;
 import fittrack.parser.Parser;
 import fittrack.reminder.Reminder;
 import fittrack.storage.Saveable;
@@ -44,6 +47,9 @@ public class FitTrack {
         ArrayList<Reminder> reminderList = new ArrayList<>();
         ArrayList<Goal> goalList = new ArrayList<>();
 
+        // Initialise Food/Water lists
+        FoodWaterIntake foodWaterList = new FoodWaterIntake();
+
         // Separate saveable items into specific lists based on their type
         for (Saveable item : saveableList) {
             if (item instanceof TrainingSession) {
@@ -52,6 +58,10 @@ public class FitTrack {
                 reminderList.add((Reminder) item);
             } else if (item instanceof Goal) {
                 goalList.add((Goal) item);
+            } else if (item instanceof WaterEntry) {
+                foodWaterList.addWater((WaterEntry) item);
+            } else if (item instanceof FoodEntry) {
+                foodWaterList.addFood((FoodEntry) item);
             }
         }
 
@@ -83,7 +93,7 @@ public class FitTrack {
 
         // Until the exit command is entered, execute command then read user input
         while (!input.trim().equals(EXIT_COMMAND)) {
-            Parser.parse(user, input, sessionList, reminderList, goalList);
+            Parser.parse(user, input, sessionList, reminderList, goalList, foodWaterList);
             input = scan.nextLine();
         }
 
