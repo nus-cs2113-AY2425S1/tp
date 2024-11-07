@@ -40,7 +40,7 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 | Calculator        |                                                                                                                 |
 | GraphPoints       | Illustrates the cumulative points earned across sessions, showcasing overall fitness progress and achievements. |
 | GraphPerformance  | Visualises performance metrics for a specific exercise, adapting for time-based or rep-based tracking.          |
-| Reminder          |                                                                                                                 |
+| Reminder          | Allows users to set reminders to be track deadlines and upcoming events.                                        |
 | Goal              | Allows users to set, list, and delete specific goals related to fitness and overall well-being                  |
 | DailyIntake       | Allows users to add, view, and delete water and food intake logs to monitor daily hydration levels              |
 
@@ -155,6 +155,8 @@ Additionally, the state diagram below shows the end state of the `editExercise` 
 
 ![Class_TrainingSessionEditState.png](Images/Class_TrainingSessionEditState.png)
 
+### Add
+
 ### Goals
 
 Goals allow users to set specific objectives within the application. Users can add goals using the
@@ -162,13 +164,6 @@ Goals allow users to set specific objectives within the application. Users can a
 Goals can also be deleted by their unique IDs using the `delete-goal <goal ID>` command. 
 This feature provides users with a clear structure for setting, tracking, and managing their fitness objectives. 
 Goals are stored separately from training sessions and are accessible as a distinct list.
-
-### Mood Log
-
-The Mood Log feature allows users to record and monitor their emotional well-being over time. 
-Users can add a mood entry with a description and view a list of all mood logs. Mood entries can be 
-deleted to allow for privacy or to remove outdated logs. This feature helps users maintain a mental
-health record alongside their physical fitness data.
 
 ### Food Intake
 
