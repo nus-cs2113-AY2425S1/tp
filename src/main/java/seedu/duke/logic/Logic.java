@@ -113,14 +113,14 @@ public class Logic {
      * Parses the expense category from a string or returns the default if null.
      */
     private Expense.Category parseExpenseCategoryOrDefault(String categoryStr) throws FinanceBuddyException {
-        return (categoryStr == null) ? Expense.Category.OTHER : parseExpenseCategory(categoryStr);
+        return (categoryStr == null) ? Expense.Category.UNCATEGORIZED : parseExpenseCategory(categoryStr);
     }
 
     /**
      * Parses the income category from a string or returns the default if null.
      */
     private Income.Category parseIncomeCategoryOrDefault(String categoryStr) throws FinanceBuddyException {
-        return (categoryStr == null) ? Income.Category.OTHER : parseIncomeCategory(categoryStr);
+        return (categoryStr == null) ? Income.Category.UNCATEGORIZED : parseIncomeCategory(categoryStr);
     }
 
     /**
