@@ -436,7 +436,7 @@ TrackerData trackerData = new TrackerData();
     void testSimulateMonthChangeWithoutAutoReset() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
-        if (getAutoResetStatus(budgetManager)) {
+        if (budgetManager.getAutoResetStatus()) {
             budgetManager.toggleAutoReset();
         }
         budgetManager.simulateMonthChange();
