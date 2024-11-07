@@ -7,7 +7,7 @@ SpendSwift is a simple budgeting tool designed for budget-conscious users. With 
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed on your computer.
-2. Download the latest [CS2113-T10-4][SpendSwift].jar file.
+2. Download the latest CS2113-T10-4SpendSwift.jar file.
 3. Copy the file to the folder you want to use as the home folder for your Task Manager.
 4. Open a command terminal, cd into the folder where you placed the jar file, and run the following command to start the application: `java -jar "[CS2113-T10-4][SpendSwift].jar".`
 5. The application will start, and any existing tasks will be loaded from the file spendswift.txt. If this file doesn't exist, it will be created automatically when tasks are saved after exiting the program properly.
