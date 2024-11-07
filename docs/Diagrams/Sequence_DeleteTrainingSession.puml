@@ -32,7 +32,6 @@ Ui --> Parser
 deactivate Ui
 Parser --> FitTrack
 deactivate Parser
-FitTrack --> User
 deactivate FitTrack
 
 @enduml

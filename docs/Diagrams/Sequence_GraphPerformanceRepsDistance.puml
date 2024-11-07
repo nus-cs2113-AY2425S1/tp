@@ -1,0 +1,38 @@
+@startuml
+participant Ui
+participant "GraphPerformanceRepsDistance" as Graph
+participant "TrainingSession" as Session
+
+Ui -> Graph : graphExerciseRepsDistance()
+activate Graph
+
+Graph -> Graph : generateMainGraphPerformance()
+activate Graph
+
+loop For each performance level
+    Graph -> Graph : generatePerformanceRow()
+    activate Graph
+
+    loop For each session
+        Graph -> Session : getExercisePerformance(exercise)
+        activate Session
+        Session --> Graph : exercise performance
+        deactivate Session
+
+        Graph -> Graph : formatSessionPerformance(session, currentPerf, exercise, maxXHeaderLength)
+        activate Graph
+        Graph --> Graph : formatted row
+        deactivate Graph
+    end
+
+    Graph -> Graph : append formatted row to main graph
+    Graph -> Graph : adjust row for Y-axis offset
+    deactivate Graph
+
+end
+
+Graph --> Graph : main graph
+deactivate Graph
+
+Ui <-- Graph : graph output
+@enduml

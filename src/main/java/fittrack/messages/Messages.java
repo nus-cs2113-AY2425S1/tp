@@ -11,6 +11,8 @@ public class Messages {
     public static final String VIEW_SESSION_COMMAND = "view";
     public static final String EDIT_EXERCISE_COMMAND = "edit";
     public static final String DELETE_SESSION_COMMAND = "delete";
+    public static final String GRAPH_POINTS_COMMAND = "gpoints";
+    public static final String GRAPH_PERFORMANCE_COMMAND = "gperformance";
     public static final String ADD_REMINDER_COMMAND = "remind";
     public static final String DELETE_REMINDER_COMMAND = "delete-remind";
     public static final String LIST_REMINDER_COMMAND = "list-remind";

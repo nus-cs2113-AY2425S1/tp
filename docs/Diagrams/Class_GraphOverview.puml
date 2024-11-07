@@ -6,11 +6,6 @@ skinparam classAttributeIconSize 0
 skinparam classBackgroundColor White
 skinparam classBorderColor Black
 
-class Ui {
-    + generateSessionPointsGraph(): void
-    + generateExercisePerformanceGraph(): void
-}
-
 class GraphBase {
     ~ generateChar(num: int, character: char): String
     ~ centerText(text: String, maxLength: int): String
@@ -34,8 +29,6 @@ class GraphPerformanceRepsDistance {
 }
 
 ' Relationships
-Ui --> GraphPoints : uses
-Ui --> GraphPerformance : uses
 GraphBase <|-- GraphPoints
 GraphBase <|-- GraphPerformance
 GraphPerformance <|-- GraphPerformanceTime

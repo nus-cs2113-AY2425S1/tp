@@ -34,6 +34,8 @@ import static fittrack.messages.Messages.DELETE_SESSION_COMMAND;
 import static fittrack.messages.Messages.DELETE_WATER_COMMAND;
 import static fittrack.messages.Messages.EDIT_EXERCISE_COMMAND;
 import static fittrack.messages.Messages.EDIT_MOOD_COMMAND;
+import static fittrack.messages.Messages.GRAPH_PERFORMANCE_COMMAND;
+import static fittrack.messages.Messages.GRAPH_POINTS_COMMAND;
 import static fittrack.messages.Messages.HELP_COMMAND;
 import static fittrack.messages.Messages.INVALID_DATE_FORMAT_MESSAGE;
 import static fittrack.messages.Messages.INVALID_SESSION_INDEX_MESSAGE;
@@ -54,6 +56,8 @@ import static fittrack.ui.Ui.printAddedSession;
 import static fittrack.ui.Ui.printDeletedReminder;
 import static fittrack.ui.Ui.printDeletedSession;
 import static fittrack.ui.Ui.printHelp;
+import static fittrack.ui.Ui.printPerformanceGraph;
+import static fittrack.ui.Ui.printPointGraph;
 import static fittrack.ui.Ui.printReminderList;
 import static fittrack.ui.Ui.printSessionList;
 import static fittrack.ui.Ui.printSessionView;
@@ -188,6 +192,28 @@ public class Parser {
                 System.out.println(e.getMessage());
             }
             break;
+
+        case GRAPH_POINTS_COMMAND:
+            description = description.trim();
+            if(description.isEmpty()){
+                printPointGraph(null, sessionList);
+            } else {
+                try {
+                    printPointGraph(fromUserInput(description), sessionList);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            break;
+
+        case GRAPH_PERFORMANCE_COMMAND:
+            try {
+                printPerformanceGraph(fromUserInput(description), sessionList);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+
         case ADD_REMINDER_COMMAND:
             sentence = description.split(" ", 2);
 

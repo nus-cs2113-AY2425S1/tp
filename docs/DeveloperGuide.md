@@ -37,14 +37,14 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 | FitTrackLogger    | Manages logging for the application, ensuring errors and important events are properly recorded                 |
 | TrainingSession   | Represents a single training session, including exercises and metadata (e.g. date and description)              |
 | Exercise          | Represents different types of exercises available in the application, like pull-ups or shuttle runs             |
-| Calculator        |                                                                                                                 |
+| Calculator        | look up points achieved by user based on age, gender and performance result of each exercise station            |
 | GraphPoints       | Illustrates the cumulative points earned across sessions, showcasing overall fitness progress and achievements. |
 | GraphPerformance  | Visualises performance metrics for a specific exercise, adapting for time-based or rep-based tracking.          |
 | Reminder          | Allows users to set reminders to be track deadlines and upcoming events.                                        |
 | Goal              | Allows users to set, list, and delete specific goals related to fitness and overall well-being                  |
-| DailyIntake       | Allows users to add, view, and delete water and food intake logs to monitor daily hydration levels              |
+| FoodWaterIntake   | Allows users to add, view, and delete water and food intake logs to monitor daily hydration levels              |
 
-The following Class Diagram elaborates on the interactions between all the classes and their multiplicities.
+The following Class Diagram elaborates on the interactions between major classes and their multiplicities.
 
 ### Overall Class Diagram
 ![Class_Overall.png](Images/Class_Overall.png)
@@ -184,7 +184,7 @@ and fitness performance.
 The **points calculation feature** is a significant part of the `ExerciseStation` system. It allows for the calculation
 of user-specific points based on their performance in various exercises (e.g., pull-ups, sit-ups). This process 
 involves interaction between the `ExerciseStation` and the `Calculator` classes, ensuring that the correct points are
-assigned based on predefined lookup tables.
+assigned based on predefined lookup tables found [here](https://www.dunmansec.moe.edu.sg/files/pe_napfa.pdf).
 
 #### 1. Class Interaction Overview
 
@@ -205,11 +205,12 @@ respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), w
    to points based on their age and gender. The points are returned to the exercise station, where they are stored.
 
 ### Training Data Visualisation (Points/Performance)
-This **visualization feature** called from the `Ui` class enables users to generate various visualizations of training 
-session data, providing insights into progress and performance. This feature, due to its size and complexity, is 
-implemented in helper classes instead of directly within `Ui`.
 
-The `GraphPerformance` and `GraphPoints` classes handle data visualization for training sessions, each designed to offer 
+This **visualisation feature** called from the `Ui` class enables users to generate various visualisations of training 
+session data, providing insights into progress and performance. This feature, due to its size and complexity, is 
+implemented in helper classes (expanded below) instead of directly within `Ui`.
+
+The `GraphPerformance` and `GraphPoints` classes handle data visualisation for training sessions, each designed to offer 
 targeted graphing capabilities:
    - `GraphPoints`: Displays points accumulated across training sessions.
    - `GraphPerformance`: Focuses on visualising performance metrics (reps or timings) for specific exercises.
@@ -219,7 +220,8 @@ A class diagram is provided below to illustrate the structure and inheritance of
 
 ![Class_GraphOverview.png](Images/Class_GraphOverview.png)
 
-#### `GraphPoints` Class
+#### 1. `GraphPoints` Class
+
 The `GraphPoints` class provides two main functions to visualise points across training sessions, as outlined below:
 
    1. `graphSessions(ArrayList<TrainingSession> sessionList)`
@@ -231,15 +233,14 @@ The `GraphPoints` class provides two main functions to visualise points across t
       - Usage: Takes an `Exercise` object and a list of `TrainingSession` objects, displaying a points graph focused on 
 the specified exercise.
 
-#### Workflow of the graphing functions
-For both `graphSessions` and `graphExercisePoints`, the workflow is as follows:
+##### Workflow of the graph points functions
 
    1. **Header Generation**:
-      - The header string is generated to provide context for each column in the visualization.
+      - The header string is generated for each column in the visualisation.
 
    2. **Row Generation**:
       - Each row, representing a training session, is iteratively generated.
-      - Rows are appended to the main `StringBuilder`, which accumulates the entire graph's content.
+      - Rows are appended to the a `StringBuilder`, which accumulates the entire graph's content.
 
    3. **CLI Output**:
       - The accumulated graph string is printed to the CLI.
@@ -248,10 +249,11 @@ A sequence diagram is shown below to illustrate the workflow:
 
 ![Sequence_graphSessions.png](Images/Sequence_graphSessions.png)
 
-> Note: The primary difference between `graphSessions` and `graphExercisePoints` lies in the initial printed string and 
+> Note: The primary difference between `graphSessions` and `graphExercisePoints` lies in the initial header string and 
 > the calculation method called. (`getTotalPoints` for sessions, `getExercisePoints` for specific exercises).
    
-#### `GraphPerformance` Class
+#### 2. `GraphPerformance` Class
+
 The `GraphPerformance` class is an abstract base for generating visual representations of exercise performance across 
 multiple training sessions. Given the need for varied visualisation styles based on exercise type, `GraphPerformance` is 
 extended by two specific subclasses:
@@ -259,12 +261,13 @@ extended by two specific subclasses:
    - `GraphPerformanceTime`: Handles time-based exercises. 
    - `GraphPerformanceRepsDistance`: Manages rep-based and distance-based exercises.
 
-Each subclass customizes the graph body content generation to reflect the nature of the exercise data.
+Each subclass customises the graph body content generation to reflect the nature of the exercise data.
 The shared aspects, including headers and basic layout, are handled in `GraphPerformance` to avoid repetitive code.
-The primary method of `GraphPerformance` is `graphExercisePerformance`, and handles both time based and rep based 
+The primary method of `GraphPerformance` is `graphExercisePerformance` which handles both time based and rep based 
 visualisations for performance. Its workflow is described below. 
 
-#### Workflow of `graphExercisePerformance` 
+##### Workflow of `graphExercisePerformance` 
+
    1. **Generate X-Axis Headers**
       - Create a String for X-Axis headers, including session descriptions and dates.
 
@@ -274,16 +277,75 @@ time or reps data, represented by asterisks. This row content is compiled in a S
 
    3. **Display Output to CLI** 
       - Compiles the X-Axis headers, and body content in a String to display a complete graph. This is directly output 
-to the command line, allowing users to visualize exercise progress.          
+to the command line, allowing users to visualize exercise progress.       
+
+![Sequence_graphExercisePerformance.png](Images/Sequence_graphExercisePerformance.png)
 
 #### Static Design Rationale
+
 > All methods within `GraphPoints and `GraphPerformance` are static as they work independently of instance-specific
 > data. 
 
 #### `GraphPerformanceRepsDistance` Class
 
-#### `GraphPerformanceTime` Class
+This class is responsible for visualising reps or distance, over time. It generates a **bar** graph where the y-axis 
+represents the units of performance (reps or distance), and each training session is represented by a column on the 
+x-axis. Each row within a column contains asterisks (`*`), where each asterisks represents one unit of performance.
+In addition, the total points for each session displayed at the top of the column. 
 
+##### Workflow 
+   1. **Building the String for a row**
+      - For each level of performance (row), iterate through each training session.
+      - If that session's performance is greater than or equal to the current level, an asterisk (`*`) is placed in that 
+column.
+      - If that session's performance is greater than the current level by 1 performance metric, append the points 
+achieved for that exercise in that particular training session.
+      
+   2. **Repeat for all performance levels**
+      - Iteratively place asterisks for each level of performance, starting from the maximum, 
+until the minimum level is reached.
+
+Below is a sequence diagram detailing the above workflow:
+
+![Sequence_GraphPerformanceRepsDistance.png](Images/Sequence_GraphPerformanceRepsDistance.png)
+
+#### `GraphPerformanceTime` Class
+##### Purpose
+The `GraphPerformanceTime` class is a specialized subclass of `GraphPerformance`, designed to handle the visual 
+representation of time-based performance data for *Shuttle Run* and *Walk and Run* stations. This class formats 
+and prints a scatter graph of normalized time data against sessions to the command line. Normalized data points
+are represented with an asterisk (`*`).
+
+##### Normalization Process
+The class uses a normalization technique to represent the data points on a scale from 0 to 1, ensuring that the
+graph maintains a consistent appearance regardless of the raw performance range. This scaling allows for a 
+uniform distribution of data across the graph, enhancing readability.
+
+**$ \text{Normalized Performance} = \frac{\text{Performance} - \text{Min Performance}} 
+{\text{Max Performance} - \text{Min Performance}}$**
+
+##### Implementation Details of graph body
+1. **Generating Main Graph Content**:
+   - The `buildMainContents` method is responsible for constructing the main body of the graph. It iterates through a
+     range of normalized values, decrementing by 0.05 to create rows representing performance levels from 1.00 to 0.00.
+   - For each row, the `processResultToPoint` method checks whether the normalized performance of each training session
+     aligns with the current level. If it matches within a tolerance (e.g., 0.025), an asterisk (`*`) is placed on the 
+     graph.
+
+2. **Formatting Display Time**:
+   - The `processDisplayTime` method formats the raw time data depending on the type of exercise. 
+   -  (i) For *Shuttle Run*, the time is shown in seconds to one decimal place.
+   - (ii) For *Walk and Run* exercises are displayed in `mm:ss` format, with leading zeros added for consistency.
+   - If there are no time data found in a specfic session, `NIL` is displayed.
+
+##### Edge Cases Handled
+- **No Data Available**: If no valid performance time data exists, the graph will not display any asterisk (`*`) for 
+  that session.
+- **Consistent Performance**: When all performance values are the same, the class ensures that a line of points is 
+  printed at the top of the graph to indicate uniformity.
+
+Below is a sequence diagram detailing the above workflow:
+![Sequence_graphPerformanceTime.png](Images%2FSequence_graphPerformanceTime.png)
 
 ## Product scope
 ### Target user profile

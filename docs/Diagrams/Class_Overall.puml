@@ -1,8 +1,8 @@
 @startuml
 ' Use right-angle straight lines for relationships
 skinparam linetype ortho
-skinparam nodesep 200
-skinparam ranksep 150
+skinparam nodesep 150
+skinparam ranksep 100
 hide circle
 skinparam classAttributeIconSize 0
 skinparam classBackgroundColor White
@@ -48,27 +48,32 @@ class Reminder {
 class Goal {
 }
 
-class DailyIntake {
+class FoodWaterIntake {
+}
+
+class FoodEntry {
+}
+
+class WaterEntry {
 }
 
 ' Define relationships with right-angle arrows
 FitTrack -up-> FitTrackLogger : uses >
 FitTrack --> Reminder : uses >
+FitTrack --> FoodWaterIntake : uses >
 FitTrack --> Storage : uses >
 FitTrack --> Goal : uses >
 FitTrack --> "1" User : creates >
 FitTrack --> Parser : uses >
 FitTrack --> Ui : uses >
 
-User "1" --> "1" DailyIntake: uses >
-
-
 Parser --> Ui : uses >
 Parser -left-> "1" User : edits >
 Parser --> "*" TrainingSession : manages >
 Parser -right-> "*" Storage : manages >
-Parser -right-> "1" Goal : uses >
-Parser -right-> "1" Reminder : uses >
+Parser -up-> "1" Goal : uses >
+Parser -up-> "1" Reminder : uses >
+Parser -up-> "1" FoodWaterIntake : uses >
 
 Ui -left-> GraphPerformance: Uses >
 Ui --> GraphPoints: Uses >
@@ -77,5 +82,8 @@ TrainingSession "*" -left-> "1" User : belongs to >
 TrainingSession "1" -down-> "6" ExerciseStation : contains >
 
 ExerciseStation "1" -down-> "1" Calculator : uses >
+
+FoodWaterIntake -> FoodEntry : uses >
+FoodWaterIntake --> WaterEntry : uses >
 
 @enduml

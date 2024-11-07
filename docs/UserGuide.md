@@ -9,7 +9,7 @@ The user can:
 3. Set fitness goals.
 4. Visualise their training progress.
 
-The NAPFA score sheet used for this chatbot can be found here:
+The NAPFA score sheet used for this chatbot can be found [here](https://www.dunmansec.moe.edu.sg/files/pe_napfa.pdf)
 This guide will bring you through the various features of FitTrackCLI, and how to utilise them!
 
 
@@ -310,29 +310,102 @@ Goals:
 ____________________________________________________________________________________________________
 ```
 
-### 17. Display Non-Time Station Graph
-**Purpose**: View the progress of User's performance for SitUpStation, PullUpStation, StandingBroadJumpStation
-and SitAndReachStation class in the form of a bar chart.
+### 17. Display Points Graph: `gpoints`
+**Purpose**: Display the points the user has accumulated across different training sessions. Points can either reflect 
+the user’s total overall points or be specific to a chosen exercise.
 
-**Format**: `graph [exercise acronym]`
+**Format**: 
+    - **Overall Points**: Use `gpoints` to view total points for the training sessions.
+    - **Exercise specific points**: Use `gpoints [exercise acronym]` to view points for a specific exercise in the 
+training session.
 
-**Example**: `graph ______` 
+**Example 1**: `gpoints` 
+
+**Expected Output 1**:
+```
+Here's your point progression over the various training sessions:
+Session Description | Date             | Points
+--------------------|------------------|
+session1            | 07/11/2024 16:57 | ********* (9)
+session2            | 07/11/2024 16:57 | ************** (14)
+session3            | 07/11/2024 16:57 | *** (3)
+session4            | 07/11/2024 16:57 | ******* (7)
+```
+
+**Example 2**: `gpoints PU`
+
+**Expected Output 2**:
+```
+Here's your point progression for PULL_UP over your training sessions:
+Session Description | Date             | Points
+--------------------|------------------|
+session1            | 07/11/2024 16:57 | * (1)
+session2            | 07/11/2024 16:57 | ** (2)
+session3            | 07/11/2024 16:57 | *** (3)
+session4            | 07/11/2024 16:57 | ***** (5)
+```
+
+### 18. Display Performance Graph: `gperformance`
+**Purpose**:
+(1) For non-time based station, command displays a bar graph of the raw performance metric (i.e. distance/length/rep) 
+    against session index.
+(2) For time based station, command displays a scatter graph of the normalised performance metric (i.e. time) 
+    against session index.
+
+
+**Format**: `gperformance [EXERCISE_ACRONYM]`
+
+**Example 1**: `gperformance PU`
+```
+Here's your progression for PULL_UP over your training sessions:
+
+16                                                                            2 points     
+15                                                                                *        
+14                                                          2 points              *        
+13                                                              *                 *        
+12                      1 points                                *                 *        
+11                          *                                   *                 *        
+10                          *                                   *                 *        
+9                           *                                   *                 *        
+8                           *                                   *                 *        
+7     0 points              *                                   *                 *        
+6         *                 *                                   *                 *        
+5         *                 *                                   *                 *        
+4         *                 *                                   *                 *        
+3         *                 *                                   *                 *        
+2         *                 *                                   *                 *        
+1         *                 *             0 points              *                 *        
+      Session 1         Session 2         Session 3         Session 4         Session 5    
+  07/11/2024 17:45  08/11/2024 17:45  09/11/2024 17:45  10/11/2024 17:45  11/11/2024 17:45 
+```
+
+**Example 2**: `gperformance WAR`
 
 **Expected Output**:
 ```
-```
-
-
-### 18. Display Time Station Graph
-**Purpose**: View the progress of User's performance for WalkAndRunStation class and ShuttleRunStation class 
-in the form of a point graph.
-
-**Format**: `graph [exercise acronym]`
-
-**Example**: `graph ______`
-
-**Expected Output**:
-```
+              09:11             08:05              NIL              10:15             09:55      
+1.00                                                                  *                          
+0.95                                                                                             
+0.90                                                                                             
+0.85                                                                                    *        
+0.80                                                                                             
+0.75                                                                                             
+0.70                                                                                             
+0.65                                                                                             
+0.60                                                                                             
+0.55                                                                                             
+0.50            *                                                                                
+0.45                                                                                             
+0.40                                                                                             
+0.35                                                                                             
+0.30                                                                                             
+0.25                                                                                             
+0.20                                                                                             
+0.15                                                                                             
+0.10                                                                                             
+0.05                              *                                                              
+           Session 1         Session 2         Session 3         Session 4         Session 5    
+       07/11/2024 17:46  08/11/2024 17:46  09/11/2024 17:46  10/11/2024 17:46  11/11/2024 17:46
 ```
 
 ### 19. Add Food Intake: `add-food`
@@ -469,7 +542,8 @@ ________________________________________________________________________________
 | **add-goal**        | `add-goal GOAL_NAME DEADLINE`                                  | `add-goal run 12/12/2024 14:00:00`   |
 | **delete-goal**     | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                      |
 | **list-goal**       | `list-goal`                                                    | `list-goal`                          |
-| **graph**           | `graph EXERCISE_ACRONYM`                                       | `graph PU`                           |
+| **gpoints**         | `gpoints` / `gpoints EXERCISE_ACRONYM`                         | `gpoints` / `gpoints PU`             |
+| **gperformance**    | `gpeformance EXERCISE_ACRONYM`                                 | `gperformance PU`                    |
 | **add-water**       | `add-water`                                                    | `add-water 500`                      |
 | **delete-water**    | `delete-water`                                                 | `delete-water 1`                     |
 | **list-water**      | `list-water`                                                   | `list-water`                         |
@@ -477,6 +551,6 @@ ________________________________________________________________________________
 | **delete-food**     | `delete-food`                                                  | `delete-food 1`                      |
 | **list-food**       | `list-food`                                                    | `list-food`                          |
 | **list-calories**   | `list-intake`                                                  | `list-intake`                        |
-| **add-mood**       | `add-mood`                                                     | `add-mood happy 01/11/2024 18:30:00` |
-| **delete-mood**       | `delete-mood`                                                  | `delete-mood 1`                      |
+| **add-mood**        | `add-mood`                                                     | `add-mood happy 01/11/2024 18:30:00` |
+| **delete-mood**     | `delete-mood`                                                  | `delete-mood 1`                      |
 | **list-mood**       | `list-mood`                                                    | `list-mood`                          |
