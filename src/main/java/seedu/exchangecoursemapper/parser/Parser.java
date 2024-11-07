@@ -60,7 +60,7 @@ public class Parser {
 
         assert inputDetails.length > 0 : EMPTY_INPUT_DETAILS;
 
-        String command = inputDetails[COMMAND_WORD_INDEX];
+        String command = inputDetails[COMMAND_WORD_INDEX].toLowerCase();
 
         if (input.equals(LISTING_SCHOOLS)) {
             new ListSchoolCommand().execute(input);

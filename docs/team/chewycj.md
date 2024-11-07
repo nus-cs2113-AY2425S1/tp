@@ -3,10 +3,11 @@
 By: Chiew Chun Jia (@chewycj)
 
 ## 1. Overview
-ExchangeCourseMapper is a convenient tool to allow users to plan their exchange course mapping.
-It includes features to list the partner university available, the courses it offers and allows for the filtering of
-courses. There is also a personalised tracker that allows users to add and delete course mapping, list out the mapped
-courses and compare the course mapping between two schools.
+ExchangeCourseMapper is a convenient CLI tool that aids users in their Student Exchange Programme (SEP) planning.
+It has two main features: One for users to check information on the partner universities and their courses, 
+the second to manage a personal tracker that saves potential course mappings the user would like to consider. These 
+features go hand in hand to help users manage with the amount of information required in SEP planning.
+
 
 ## 2. Summary of Contributions
 ### Code contributed:
@@ -16,7 +17,7 @@ the `DeleteCoursesCommand`, as well as factored out constants into the `constant
 
 Check out my contributions to ExchangeCourseMapper on the [TP Dashboard](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=chewycj&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false)!
 
-#### Database
+#### JSON file
 * Add course details for The University of Melbourne.
 
 #### PersonalTrackerCommand
@@ -53,14 +54,17 @@ Check out my contributions to ExchangeCourseMapper on the [TP Dashboard](https:/
 ![Class diagram for Commands](../images/CommandClass.png)
 
 ### Implementation Section
-I wrote an overview for the FilterCourses and DeleteCourses commands, as well as how the features are implemented, and why they were implemented that way.
+I wrote an overview for the FilterCourses and DeleteCourses commands, as well as how the features are implemented, 
+and why they were implemented that way.
 
 #### UML diagrams
+* Command package class diagrams
 * Filter Courses Sequence Diagram
 * Delete Courses Sequence Diagram
 
 ## 5. Contributions to team-based tasks
 * Set up the GitHub team organisation, tP repository, and issue tracker, while discussing with the team through a call.
+* Provided the idea of a CLI application to help with Student Exchange Programme planning
 * Added the database as a resource to Java in order to package it with the JAR.
 * Creation of the `constants` package, for the use of named constants in our team code.
 * Maintained the issue tracker alongside the team.
@@ -72,4 +76,4 @@ I wrote an overview for the FilterCourses and DeleteCourses commands, as well as
     * https://github.com/AY2425S1-CS2113-W10-2/tp/pull/125 (Discussion on SLAP)
 
 ## Contributions beyond the project team:
-[Peer reviewed](https://github.com/nus-cs2113-AY2425S1/tp/pull/9#pullrequestreview-2403433893) the DG done by team CS2113-T10-3.
+[Peer reviewed](https://github.com/nus-cs2113-AY2425S1/tp/pull/9#pullrequestreview-2403433893) the DG done by team CS2113-T10-3 for their application MangaTantou.
