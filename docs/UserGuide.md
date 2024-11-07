@@ -301,14 +301,35 @@ Please do not modify these files manually, otherwise the transactions or the bud
 
 ## Command Summary
 
-* Help Menu `help`
-* List all transactions `list`
-* List all expenses `list expenses`
-* List all incomes `list income`
-* List by category `list CATEGORY`
-* List by date `list [/from DATE] [/to DATE]`
-* Add expense `expense DESCRIPTION /a AMOUNT [/c CATEGORY] [/d DATE]`
-* Add income `income DESCRIPTION /a AMOUNT [/c CATEGORY] [/d DATE]`
-* Set budget `budget`
-* Delete transaction `delete INDEX`
-* Exit program `exit`
+| **Command**                   | **Usage**                                                                                  |
+|-------------------------------|---------------------------------------------------------------------------------------------|
+| **List All Transactions**     | `list`                                                                                      |
+| **List Income Transactions**  | `list income`                                                                               |
+| **List Expense Transactions** | `list expense`                                                                              |
+| **List Transactions by Date** | `list [/from START_DATE] [/to END_DATE]`                                                    |
+| **Add Expense**               | `expense DESCRIPTION /a AMOUNT`                                                             |
+| **Add Expense with Date**     | `expense DESCRIPTION /a AMOUNT /d DATE`                                                     |
+| **Add Expense with Category** | `expense DESCRIPTION /a AMOUNT /c CATEGORY`                                                 |
+| **Add Expense with Date and Category** | `expense DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                |
+| **Add Income**                | `income DESCRIPTION /a AMOUNT`                                                              |
+| **Add Income with Date**      | `income DESCRIPTION /a AMOUNT /d DATE`                                                      |
+| **Add Income with Category**  | `income DESCRIPTION /a AMOUNT /c CATEGORY`                                                  |
+| **Add Income with Date and Category**  | `income DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                 |
+| **Edit Entry**                | `edit INDEX`                                                                               |
+| **Edit Entry Description**    | `edit INDEX /des DESCRIPTION`                                                               |
+| **Edit Entry Amount**         | `edit INDEX /a AMOUNT`                                                                      |
+| **Edit Entry Date**           | `edit INDEX /d DATE`                                                                       |
+| **Edit Entry Category**       | `edit INDEX /c CATEGORY`                                                                    |
+| **Edit Entry with All Fields**| `edit INDEX /des DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                 |
+| **Delete Entry**              | `delete INDEX`                                                                             |
+| **Set Budget**                | `budget`                                                                                   |
+| **Exit Program**              | `exit`                                                                                     |
+| **Help**                      | `help`                                                                                     |
+
+**Defined Categories**:
+
+| **Category Type**  | **Categories**                                  |
+|--------------------|-------------------------------------------------|
+| **Expense**        | FOOD, TRANSPORT, ENTERTAINMENT, UTILITIES, OTHER, UNCATEGORIZED |
+| **Income**         | SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED  |
+
