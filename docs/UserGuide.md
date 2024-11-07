@@ -30,9 +30,10 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 
 - Text written in `SCREAMING_SNAKE_CASE` are user input fields.
 - Text preceded with a `/` are flags that need to be inputted for the programme to recognise.
-- When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`:
-  - eg. `<command> /argument \/value` -> `argument`: `/value`
-- Not all commands will give an output
+- Square brackets `[...]` indicate optional parameters. Refer to the specifications for each command.
+- When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`.
+  - e.g. `<command> /argument \/value` -> `argument`: `/value`
+- Not all commands will give an output.
 
 ---
 
@@ -40,14 +41,15 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 
 ### Add an expense: `add`
 
-Use the add command to add an expense.
+Adds an expense to the tracker.
 
-Format:  `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`
+Format:  `add /price PRICE /description DESCRIPTION /category CATEGORY [/date DATE]`
 
 Notes:
-- `PRICE` is a decimal number.
+- `PRICE` is a positive decimal number.
 - `DESCRIPTION` and `CATEGORY` are text.
-- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
+- `DATE` is optional and formatted as `DD-MM-YYYY`. 
+If no `DATE` is specified, it will be defaulted to the current (system) date.
 
 Examples: 
 - `add /price 4.50 /description chicken rice /category food`
@@ -55,16 +57,17 @@ Examples:
 
 ### Edit your expense: `edit`
 
-Use the edit command to edit an expense.
+Edits an existing expense.
 
-Format: `edit [INDEX] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`
+Format: `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`
 
 Notes:
-- `INDEX` is an integer. To find the index of an expense, use the `list` command to see the corresponding index.
+- `INDEX` is an integer. You can use the `list` command to find the corresponding index.
 - `PRICE` is a decimal number.
 - `DESCRIPTION` and `CATEGORY` are text.
-- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY.
-- All parameters except `INDEX` are optional and the user can choose exactly which attribute of the expense they want to edit.
+- `DATE` takes a text format of `DD-MM-YYYY`.
+- All parameters except `INDEX` are optional. You can specify only edited attributes.
+- `edit INDEX ` (i.e. blank optional parameters) has no effect.
  
 Examples: 
 - `edit 1 /price 5.50 /description chicken rice /category food`
@@ -72,53 +75,72 @@ Examples:
 
 ### Delete an expense: `delete`
 
-Use the delete command to delete an expense.
+Deletes an expense from the system.
 
-Format:  `delete [INDEX]`
+Format:  `delete INDEX`
 
-Examples: `delete 2`
+You can use the `list` command to see the corresponding index.
+
+Example: `delete 2`
 
 ### Get a list of all your transactions: `list`
 
-Use the list command to display expenses according to specified filters.
+Displays all expenses with an optional filter.
 
 Format:  `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 
 Notes:
 - `CATEGORY` is text.
-- `FROM_DATE` and `TO_DATE` are dates in DD-MM-YYYY format.
-- Lists all expenses the user has if filters are not specified.
-- Lists all expenses that pass through the filters if specified.
+- `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
+- Lists all expenses the user has.
+- If filters are specified, only matching expenses are shown.
 
-Examples: `list /category food /from 02-11-2024 /to 04-11-2024`
+Example: `list /category food /from 02-11-2024 /to 04-11-2024`
 
 ### Get statistics for your transactions: `stats`
 
-Use the stats command to display statistics for expenses according to specified filters.
+Provides statistics for expenses according to specified filters.
 
 Format:  `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 
 Notes:
 - `CATEGORY` is text.
-- `FROM_DATE` and `TO_DATE` are dates in DD-MM-YYYY format.
-- Lists statistics of all expenses the user has if filters are not specified.
-- Lists statistics of all expenses that pass through the filters if specified.
+- `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
+- Lists statistics for all expenses matching the provided filter.
 
-Examples: `stats /category food /from 02-11-2024 /to 04-11-2024`
+Example: `stats /category food /from 02-11-2024 /to 04-11-2024`
 
-### Set a spending limit for a category `set`
+### Visualize your expenditures: `visualize`
 
-Use the set command to set a spending limit for a category.
+Displays a bar graph showing your total expenditure over time, filtered by certain criteria.
 
-Format: `set [/category CATEGORY] [/limit LIMIT]`
+Format:  `visualize [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 
-Examples: `set /category food /limit 100` 
+Notes:
+- `CATEGORY` is text.
+- `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
+- The command will filter out all expenses that satisfy your constraint and draw a bar graph.
+If the time range is small (under one month), a daily graph will be displayed. Otherwise, a monthly graph will be used.
+Note that this command currently has a time span limit of `1080 days`.
+
+Examples: 
+- `visualize`
+- `visualize /from 01-02-2024 /category food`
+
+### Set a spending limit for a category: `set`
+
+Allows you to set a spending limit for each category.
+If this limit is exceeded (or nearly exceeded), you might receive warnings from the app.
+
+Format: `set /category CATEGORY /limit LIMIT`
+
+Example: `set /category food /limit 100` 
 
 ### View help: `help`
 
-Use the help command to list the command formats that the app recognises.
+Lists the command formats that the app recognises.
 
-Format: `help [/method METHOD]`
+Format: `help [/recur] [/method METHOD]`
 
 Notes:
 - `METHOD` is text.
@@ -127,10 +149,11 @@ Notes:
 Examples:
 - `help`              lists all commands the app has since `METHOD` is not specified.
 - `help /method add` lists format of the “add” command since `METHOD` is specified.
+- `help /recur edit` lists format of the "edit" command since `METHOD` and `/recur` are specified.
 
 ### Save data to files: `save`
 
-Use the save command to save data to files.
+Saves data to files and stores them in a directory of your choice.
 
 Format: `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
 
@@ -139,14 +162,16 @@ Notes:
   - `EXPENSE_FILE_PATH = "expenses_data.csv"`
   - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
   - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
+- If some of the fields are specified, only the corresponding field(s) are saved.
+- The save files are designed to be human-readable and editable. Be careful of the syntax while editing!
 
 Examples:
-- `save`                         saves data to the default paths.
+- `save`                         saves all data to the default paths.
 - `save /expenseList ./data.csv` saves only the expenseList to `./data.csv`.
 
 ### Load data from files: `load`
 
-Use the load command to load data from files. 
+Loads data from files into the app.
 
 Format: `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
 
@@ -166,69 +191,72 @@ Examples:
 
 ## Recurring Expenses
 
-Users can add automate the process of adding expenses that occur on a regular basis. 
+Recurring expenses allow you to automate adding expenses that occur on a regular basis.
+
+Recurring expenses are saved to a separate `recurringExpenseList`. They do not affect calculations and visualizations.
+Only when you run the `load` command will these expenses generate "normal expenses"  and add them to the `expenseList`.
 
 ### Add a recurring expense: `add`
 
-Use the add command to add a recurring expense.
+Adds a recurring expense to the system.
 
-Format:  `add [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]`
+Format:  `add /recur /price PRICE /description DESCRIPTION /category CATEGORY /date DATE /frequency FREQUENCY`
 
 Notes:
-- `/recur` is a command flag that indicates that the add command is meant to add recurring expenses and not normal expenses.
-- `PRICE` is a decimal number.
+- `/recur` is a command flag indicating that the command is for a recurring expense.
+- `PRICE` is a positive decimal number.
 - `DESCRIPTION` and `CATEGORY` are text.
-- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
-- `FREQUENCY` takes only 1 of 3 possible inputs, `daily`, `weekly`, or `monthly`. Any other inputs will throw an error.
+- `DATE` takes a text format of `DD-MM-YYYY`. If no `DATE` is specified, it will be defaulted to the current date.
+- `FREQUENCY` takes only 1 of 3 possible inputs: `daily`, `weekly`, or `monthly`. Any other input will throw an error.
 
 Examples: 
-- `add /price 4.50 /description chicken rice /category food /frequency daily`
-- `add /price 1 /description bus ride /category transport /date 01-10-2024 /frequency weekly`
+- `add /recur /price 4.50 /description chicken rice /category food /frequency daily`
+- `add /recur /price 15 /description Spotify /category subscription /date 01-10-2024 /frequency monthly`
 
-### Edit your recurring expense: `edit`
+### Edit a recurring expense: `edit`
 
-Use the edit command to edit an expense.
+Allows you to edit a recurring expense.
 
-Format: `edit INDEX [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`
+Format: `edit INDEX /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]`
 
 Notes:
-- `INDEX` is an integer. To find the index of an expense, use the `list` command to see the corresponding index.
-- `/recur` is a command flag that indicates that the add command is meant to add recurring expenses and not normal expenses.
-- `PRICE` is a decimal number.
+- `INDEX` is an integer. Use the `list` command to find the corresponding index.
+- `/recur` is a command flag indicating that the command is for a recurring expense.
+- `PRICE` is a positive decimal number.
 - `DESCRIPTION` and `CATEGORY` are text.
-- `DATE` is an optional parameter that takes a text format of DD-MM-YYYY. If no `DATE` is specified, it will be defaulted to the current date.
-- All parameters except `INDEX` and `/recur` are optional and the user can choose exactly which attribute of the expense that they want to edit.
+- `DATE` takes a text format of `DD-MM-YYYY`. If no `DATE` is specified, it will be defaulted to the current date.
+- `FREQUENCY` takes only 1 of 3 possible inputs: `daily`, `weekly`, or `monthly`. Any other input will throw an error.
+- All parameters except `INDEX` and `/recur` are optional. You can specify which attribute of the expense you want to edit.
  
 Examples: 
-- `edit 1 /price 5.50 /description chicken rice /category food`
-- `edit 2 /price 3.40 /frequency monthly /date 02-10-2024`
+- `edit 1 /recur /price 5.50 /description chicken rice /category food`
+- `edit 2 /recur /price 3.40 /frequency monthly /date 02-10-2024`
 
-### Delete an expense: `delete`
+### Delete a recurring expense: `delete`
 
-Use the delete command to delete a recurring expense.
+Deletes a recurring expense. Use `list /recur` to find the corresponding index.
 
-Format:  `delete [/recur] [INDEX]`
+Format:  `delete /recur INDEX`
 
-Examples: `delete 2` 
+Example: `delete /recur 2` 
 
 ### Get a list of all your transactions: `list`
 
 Use the list command to display recurring expenses according to specified filters.
 
-Format:  `list [/recur] [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
+Format:  `list /recur [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 
 Notes:
-- `/recur` is a command flag that indicates that the add command is meant to add recurring expenses and not normal expenses
+- `/recur` is a command flag indicating that the command is for a recurring expense.
 - `CATEGORY` is text.
-- `FROM_DATE` and `TO_DATE` are dates in DD-MM-YYYY format.
-- Lists all expenses the user has if filters are not specified.
-- Lists all expenses that pass through the filters if specified.
+- `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
+- Lists all recurring expenses that satisfy the given filter (if any).
 
-Examples: `list /category food /from 02-11-2024 /to 04-11-2024`
+Examples: `list /recur /category food /from 02-11-2024 /to 04-11-2024`
 
 ### Save data to files: `save`
 
-Works the same way as normal expenses
+Works the same way as normal expenses.
 
 ### Load data from files: `load`
 
@@ -251,22 +279,31 @@ On top of working the same way as normal expenses, this command also checks whet
 - Deletion is not possible as every category will have a corresponding limit. No category can exist without a limit.
 - Viewing is not directly possible using commands, only indirectly by saving and viewing the csv file. 
 
+**Q3**: Why don't my total expense per category reset at the start of every month?
+
+**A3**: The backend currently does not support different totals per month, but it will be implemented soon.
+
+**Q4**: Why does my total expenditure for this category not exactly match what I've calculated? /  Why does the alerts/warnings show up even though my total is not yet nearing or exceeding the limit?
+
+**A4**: The backend uses floats to represent prices, which may cause inaccuracies of about 1 cent.
+
 ---
 
 ## Command Summary
 
-| Command                           | Format                                                                                                               | 
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| Add Expense                       | `add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                                    |
-| Edit Expense                      | `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                             |
-| Delete Expense                    | `delete [INDEX]`                                                                                                     |
-| List Expenses                     | `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                          | 
-| Get Statistics                    | `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                         | 
-| Set Spending Limit for a Category | `set [/category CATEGORY] [/limit LIMIT]`                                                                            |
-| View Help                         | `help [/method METHOD]`                                                                                              |
-| Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`   |
-| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`   |                                                             |
-| Add Recurring Expense             | `add [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]`    |
-| Edit Recurring Expense            | `edit INDEX [/recur] [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                    |
-| Delete Recurring Expense          | `delete [INDEX]`                                                                                                     |
-| List Recurring Expenses           | `list [/recur] [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                 | 
+| Command                           | Format                                                                                                                 | 
+|-----------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| Add Expense                       | `add /price PRICE /description DESCRIPTION /category CATEGORY [/date DATE]`                                            |
+| Edit Expense                      | `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE]`                               |
+| Delete Expense                    | `delete INDEX`                                                                                                         |
+| List Expenses                     | `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                            | 
+| Get Statistics                    | `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                           | 
+| Visualize Expenditures            | `visualize [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                       |
+| Set Spending Limit for a Category | `set /category CATEGORY /limit LIMIT`                                                                                  |
+| View Help                         | `help [/recur] [/method METHOD]`                                                                                       |
+| Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |
+| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |                                                             |
+| Add Recurring Expense             | `add /recur /price PRICE /description DESCRIPTION /category CATEGORY /date DATE /frequency FREQUENCY`                  |
+| Edit Recurring Expense            | `edit INDEX /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]` |
+| Delete Recurring Expense          | `delete /recur INDEX`                                                                                                  |
+| List Recurring Expenses           | `list /recur [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                     | 

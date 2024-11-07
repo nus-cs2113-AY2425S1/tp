@@ -19,25 +19,32 @@ public class HelpCommand extends Command {
     private static void introHelp() {
         Ui.displayMessage("Below is the complete list of all valid commands.");
         Ui.displayMessage("Take note that any word in SCREAMING_SNAKE_CASE is a parameter.");
+        Ui.displayMessage("Square brackets [...] indicate optional parameters. Refer to the " +
+                "specifications for each command.");
+        Ui.displayMessage("Type help [/method METHOD] for deatils on specific commands");
         Ui.displayMessage("");
     }
 
     private static void addHelp() {
         Ui.displayMessage("Use the add command to add an expense.");
-        Ui.displayMessage("Format:  add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]");
+        Ui.displayMessage("Format:  add /price PRICE /description DESCRIPTION /category CATEGORY /date DATE");
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - PRICE is a decimal number.");
         Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
-        Ui.displayMessage("Examples: add /price 4.50 /description chicken rice /category food");
+        Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
+        Ui.displayMessage("    - If no date is specified, it will be defaulted to the current date.");
+        Ui.displayMessage("Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2024");
         Ui.displayMessage("");
     }
 
     private static void editHelp() {
         Ui.displayMessage("Use the edit command to edit an expense.");
-        Ui.displayMessage("Format: edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]");
+        Ui.displayMessage("Format: edit INDEX [/price PRICE] [/description DESCRIPTION] " + 
+                "[/category CATEGORY] [/date DATE]");
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - PRICE is a decimal number.");
         Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
+        Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
         Ui.displayMessage("    - All parameters are optional and only the parameters that are" +
                 "inputted will be reflected after the edit.");
         Ui.displayMessage("Examples: edit 1 /price 5.50 /description chicken rice /category food");
@@ -46,7 +53,7 @@ public class HelpCommand extends Command {
 
     private static void deleteHelp() {
         Ui.displayMessage("Use the delete command to delete an expense.");
-        Ui.displayMessage("Format:  delete [INDEX]");
+        Ui.displayMessage("Format:  delete INDEX");
         Ui.displayMessage("Examples: delete 2");
         Ui.displayMessage("");
     }
@@ -59,7 +66,7 @@ public class HelpCommand extends Command {
     }
 
     private static void listHelp() {
-        Ui.displayMessage("Use the list command to display all expenses by category.");
+        Ui.displayMessage("Use the list command to display expenses by category.");
         Ui.displayMessage("Format:  list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]");
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - CATEGORY is text.");
@@ -84,13 +91,13 @@ public class HelpCommand extends Command {
 
     private static void helpHelp() {
         Ui.displayMessage("Use the help command to list the command formats that the app recognises.");
-        Ui.displayMessage("Format:  help [/method METHOD]");
+        Ui.displayMessage("Format:  help [/recur] [/method METHOD]");
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - METHOD is text");
         Ui.displayMessage("    - METHOD exists in our app.");
-        Ui.displayMessage("    - Lists statistics of all expenses the user has if filters are not specified.");
-        Ui.displayMessage("    - Lists statistics of all expenses that pass through the filters if specified.");
+        Ui.displayMessage("    - Use the /recur flag to get more information about commands for recurring expenses");
         Ui.displayMessage("Example: help /method add");
+        Ui.displayMessage("Example: help /recur /method edit");
         Ui.displayMessage("");
     }
 
@@ -126,17 +133,84 @@ public class HelpCommand extends Command {
         Ui.displayMessage("");
     }
 
+    private static void recurHelp() {
+        Ui.displayMessage("Recurring expenses allow you to automate adding expenses that occur on a regular basis.");
+        Ui.displayMessage("Recurring expenses are saved to a separate recurringExpenseList. They do not affect " +
+                "calculations and visualizations. Only when you run the load command will these expenses generate " + 
+                "normal expenses and add them to the expenseList");
+        Ui.displayMessage("Recurring expenses have 4 commands: ");
+        Ui.displayMessage("    - add");
+        Ui.displayMessage("    - edit");
+        Ui.displayMessage("    - delete");
+        Ui.displayMessage("    - list");
+        Ui.displayMessage("");
+    }
+
+    private static void addRecurHelp() {
+        Ui.displayMessage("Use the add command to add an recurring expense.");
+        Ui.displayMessage("Format:  add /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] " + 
+                "[/date DATE] [/frequency FREQUENCY]");
+        Ui.displayMessage("Notes:");
+        Ui.displayMessage("    - PRICE is a decimal number.");
+        Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
+        Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
+        Ui.displayMessage("    - If no date is specified, it will be defaulted to the current date.");
+        Ui.displayMessage("    - FREQUENCY can only be \"daily\", \"weekly\" or \"monthly\".");
+        Ui.displayMessage("Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2024 " +
+                "/frequency daily");
+        Ui.displayMessage("");
+    }
+
+    private static void editRecurHelp() {
+        Ui.displayMessage("Use the edit command to edit an recurring expense.");
+        Ui.displayMessage("Format: edit INDEX /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] " + 
+                "[/date DATE] [/frequency FREQUENCY]");
+        Ui.displayMessage("Notes:");
+        Ui.displayMessage("    - PRICE is a decimal number.");
+        Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
+        Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
+        Ui.displayMessage("    - FREQUENCY can only be \"daily\", \"weekly\" or \"monthly\".");
+        Ui.displayMessage("    - All parameters are optional and only the parameters that are" +
+                "inputted will be reflected after the edit.");
+        Ui.displayMessage("Examples: edit 1 /price 5.50 /description chicken rice /category food /frequency weekly");
+        Ui.displayMessage("");
+    }
+
+    private static void deleteRecurHelp() {
+        Ui.displayMessage("Use the delete command to delete a recurring expense.");
+        Ui.displayMessage("Format:  delete INDEX /recur");
+        Ui.displayMessage("Examples: delete 2 /recur");
+        Ui.displayMessage("");
+    }
+
+    private static void listRecurHelp() {
+        Ui.displayMessage("Use the list command to display recurring expenses.");
+        Ui.displayMessage("Format:  list /recur [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]");
+        Ui.displayMessage("Notes:");
+        Ui.displayMessage("    - CATEGORY is text.");
+        Ui.displayMessage("    - FROM_DATE and TO_DATE are dates in DD-MM-YYYY format.");
+        Ui.displayMessage("    - Lists all expenses the user has if filters are not specified");
+        Ui.displayMessage("    - Lists all expenses that pass through the filters if specified.");
+        Ui.displayMessage("Example: list /recur /category food /from 02-11-2024 /to 04-11-2024");
+        Ui.displayMessage("");
+    }
+
     private static void allHelp() {
         introHelp();
+        helpHelp();
         addHelp();
         editHelp();
         deleteHelp();
         setHelp();
         listHelp();
         statsHelp();
-        helpHelp();
         saveHelp();
         loadHelp();
+        recurHelp();
+        addRecurHelp();
+        editRecurHelp();
+        deleteRecurHelp();
+        listRecurHelp();
     }
 
     private static void commandSwitch(String command) {
@@ -173,6 +247,29 @@ public class HelpCommand extends Command {
         }
     }
 
+    private static void recurCommandSwitch(String command) {
+        if (command == null) {
+            recurHelp();
+            return;
+        }
+        switch(command) {
+        case "add":
+            addRecurHelp();
+            break;
+        case "edit":
+            editRecurHelp();
+            break;
+        case "delete":
+            deleteRecurHelp();
+            break;
+        case "list":
+            listRecurHelp();
+            break;
+        default:
+            throw new InvalidInputException("No valid command given!");
+        }
+    }
+
     /**
      * Displays list expenses as requested by user
      */
@@ -180,10 +277,12 @@ public class HelpCommand extends Command {
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade,
                         RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         String command = argumentsMap.get(Parser.ARGUMENT_METHOD);
-        if (command == null) {
+        if (!this.isRecur() && command == null) {
             allHelp();
-        } else {
+        } else if (!this.isRecur()) {
             commandSwitch(command);
+        } else {
+            recurCommandSwitch(command);
         }
     }
 }

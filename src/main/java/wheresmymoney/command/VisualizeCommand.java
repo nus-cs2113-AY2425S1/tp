@@ -28,9 +28,6 @@ public class VisualizeCommand extends Command {
         String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
         String from = argumentsMap.get(Parser.ARGUMENT_FROM);
         String to = argumentsMap.get(Parser.ARGUMENT_TO);
-        if (!isValidParameters(category, from, to)) {
-            throw new WheresMyMoneyException("Please provide either category or from/to date!");
-        }
         return expenseList.listByFilter(category, from, to);
     }
 
@@ -47,22 +44,5 @@ public class VisualizeCommand extends Command {
         // Execute by calling visualizer
         Visualizer visualizer = new Visualizer(expensesToVisualize);
         visualizer.visualize();
-    }
-
-    private boolean hasNullDate(String from, String to) {
-        return (from == null && to == null);
-    }
-
-    private boolean hasNullCategory(String category) {
-        return (category == null);
-    }
-    /**
-     * Checks if given parameters are valid
-     *
-     * @author andrewnguyen4
-     * @return true if exactly one of [category, (from/to)] is provided
-     */
-    private boolean isValidParameters(String category, String from, String to) {
-        return (hasNullCategory(category) ^ hasNullDate(from, to));
     }
 }

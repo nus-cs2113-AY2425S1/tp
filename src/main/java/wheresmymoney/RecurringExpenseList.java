@@ -24,7 +24,9 @@ public class RecurringExpenseList extends ExpenseList {
         return recurringExpenses.isEmpty();
     }
 
-    public void clear() { recurringExpenses.clear(); }
+    public void clear() { 
+        recurringExpenses.clear(); 
+    }
 
     /**
      * Retrieves the {@code RecurringExpense} at the specified index in the list.
@@ -57,7 +59,7 @@ public class RecurringExpenseList extends ExpenseList {
     }
 
     /**
-     * Add a recurring expense with a specified dateto the end of the list
+     * Add a recurring expense with a specified date to the end of the list
      *
      * @param price New price of expense
      * @param description New description of expense
@@ -77,12 +79,12 @@ public class RecurringExpenseList extends ExpenseList {
             recurringExpenses.add(recurringExpense);
             Logging.log(Level.INFO, "Successfully added recurring expense.");
         } catch (WheresMyMoneyException e) {
-            Ui.displayMessage(e.getMessage());
+            throw new WheresMyMoneyException(e.getMessage());
         }
     }
 
     /**
-     * Add a recurring expense to the end of the list
+     * Add a recurring expense to the end of the list. Date is defaulted to the current date
      *
      * @param price New price of expense
      * @param description New description of expense
@@ -99,7 +101,7 @@ public class RecurringExpenseList extends ExpenseList {
             recurringExpenses.add(recurringExpense);
             Logging.log(Level.INFO, "Successfully added recurring expense.");
         } catch (WheresMyMoneyException e) {
-            Ui.displayMessage(e.getMessage());
+            throw new WheresMyMoneyException(e.getMessage());
         }
     }
 
@@ -154,59 +156,69 @@ public class RecurringExpenseList extends ExpenseList {
         recurringExpenses.remove(index);
     }
     
-    /**
-     * Returns the list of all recurring expenses from the specified category
-     *
-     * @param category Category of expense
-     */
-    public ArrayList<RecurringExpense> listByCategoryForRecurring (String category) {
-        ArrayList<RecurringExpense> recurringExpensesFromCategory = new ArrayList<>();
-        for (RecurringExpense recurringExpense: recurringExpenses) {
-            if (recurringExpense.category.equals(category)) {
-                Logging.log(Level.INFO, "Found matching recurring expense: " + recurringExpense.description);
-                recurringExpensesFromCategory.add(recurringExpense);
-            }
-        }
-        return recurringExpensesFromCategory;
+    public ArrayList<RecurringExpense> listRecurringByFilter(String category, String from, String to)
+            throws WheresMyMoneyException {
+        return ExpenseFilter.filterRecurringExpenses(recurringExpenses, category, from, to);
     }
 
+    /**
+     * Adds daily expenses to the expense list from the last added date to the current date
+     * 
+     * @param recurringExpense
+     * @param lastAddedDate
+     * @param currentDate
+     */
     private void addDailyExpense(RecurringExpense recurringExpense, String lastAddedDate, LocalDate currentDate) {
         try {
-            LocalDate lastDate = DateUtils.stringToDate(lastAddedDate).plusDays(1);
+            LocalDate nextDate = DateUtils.stringToDate(lastAddedDate).plusDays(1);
             Float price = recurringExpense.getPrice();
             String description = recurringExpense.getDescription();
             String category = recurringExpense.getCategory();
 
-            while (lastDate.isBefore(currentDate) || lastDate.isEqual(currentDate)) {
-                lastDate = lastDate.plusDays(1);
-                expenseList.addExpense(price, description, category, DateUtils.dateFormatToString(lastDate));    
+            while (nextDate.isBefore(currentDate)) {
+                nextDate = nextDate.plusDays(1);
+                expenseList.addExpense(price, description, category, DateUtils.dateFormatToString(nextDate));    
             }
         } catch (WheresMyMoneyException e) {
-            Ui.displayMessage(e.getMessage());
+            throw new WheresMyMoneyException(e.getMessage());
         }
     }
 
+    /**
+     * Adds weekly expenses to the expense list from the last added date to the current date
+     * 
+     * @param recurringExpense
+     * @param lastAddedDate
+     * @param currentDate
+     */
     private void addWeeklyExpense(RecurringExpense recurringExpense, String lastAddedDate, LocalDate currentDate) {
         try {
-            LocalDate lastDate = DateUtils.stringToDate(lastAddedDate).plusDays(7);
+            LocalDate nextDate = DateUtils.stringToDate(lastAddedDate).plusDays(7);
             Float price = recurringExpense.getPrice();
             String description = recurringExpense.getDescription();
             String category = recurringExpense.getCategory();
 
-            while (lastDate.isBefore(currentDate) || lastDate.isEqual(currentDate)) {
-                expenseList.addExpense(price, description, category, DateUtils.dateFormatToString(lastDate));
-                lastDate = lastDate.plusDays(7);
+            while (nextDate.isBefore(currentDate) || nextDate.isEqual(currentDate)) {
+                expenseList.addExpense(price, description, category, DateUtils.dateFormatToString(nextDate));
+                nextDate = nextDate.plusDays(7);
             }
         } catch (WheresMyMoneyException e) {
             Ui.displayMessage(e.getMessage());
         }
     }
 
+    /**
+     * Adds monthly expenses to the expense list from the last added date to the current date
+     * 
+     * @param recurringExpense
+     * @param lastAddedDate
+     * @param currentDate
+     */
     private void addMonthlyExpense(RecurringExpense recurringExpense, String lastAddedDate, LocalDate currentDate) {
         try {
             LocalDate dateAdded = recurringExpense.getDateAdded();
-            LocalDate lastDate = DateUtils.stringToDate(lastAddedDate);
-            int numberOfMonthsToAdd = dateAdded.getMonthValue() - lastDate.getMonthValue() + 1;
+            LocalDate nextDate = DateUtils.stringToDate(lastAddedDate);
+            int numberOfMonthsToAdd = dateAdded.getMonthValue() - nextDate.getMonthValue() + 1;
             
             LocalDate newDate = dateAdded.plusMonths(numberOfMonthsToAdd);
             Float price = recurringExpense.getPrice();
@@ -217,7 +229,7 @@ public class RecurringExpenseList extends ExpenseList {
                 String date =  DateUtils.dateFormatToString(newDate);
                 expenseList.addExpense(price, description, category, date);    
                 numberOfMonthsToAdd += 1;
-                newDate = lastDate.plusMonths(numberOfMonthsToAdd);
+                newDate = nextDate.plusMonths(numberOfMonthsToAdd);
             }
         } catch (WheresMyMoneyException e) {
             Ui.displayMessage(e.getMessage());
@@ -238,7 +250,7 @@ public class RecurringExpenseList extends ExpenseList {
         LocalDate currentDate = DateUtils.getCurrentDate();
         for (RecurringExpense recurringExpense: recurringExpenses) {
             String frequency = recurringExpense.getFrequency();
-            String lastAddedDate = recurringExpense.getlastAddedDate();
+            String lastAddedDate = recurringExpense.getLastAddedDate();
             switch (frequency) {
             case "daily":
                 addDailyExpense(recurringExpense, lastAddedDate, currentDate);
@@ -265,12 +277,12 @@ public class RecurringExpenseList extends ExpenseList {
         CsvUtils.writeCsv(filePath, header, (writer) -> {
             for (RecurringExpense recurringExpense: recurringExpenses) {
                 String[] row = {
-                        recurringExpense.getCategory(),
-                        recurringExpense.getDescription(),
-                        recurringExpense.getPrice().toString(),
-                        DateUtils.dateFormatToString(recurringExpense.getDateAdded()),
-                        recurringExpense.getlastAddedDate(),
-                        recurringExpense.getFrequency()
+                    recurringExpense.getCategory(),
+                    recurringExpense.getDescription(),
+                    recurringExpense.getPrice().toString(),
+                    DateUtils.dateFormatToString(recurringExpense.getDateAdded()),
+                    recurringExpense.getLastAddedDate(),
+                    recurringExpense.getFrequency()
                 };
                 writer.writeNext(row);
             }

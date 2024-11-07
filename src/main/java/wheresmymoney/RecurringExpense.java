@@ -9,18 +9,18 @@ public class RecurringExpense extends Expense {
     public RecurringExpense(Float price, String description, String category, String frequency) 
             throws WheresMyMoneyException {
         super(price, description, category);
-        this.lastDateAdded = DateUtils.dateFormatToString(DateUtils.getCurrentDate());
-        this.frequency = frequency;
+        setLastAddedDate(DateUtils.dateFormatToString(DateUtils.getCurrentDate()));
+        setFrequency(frequency);
     }
 
     public RecurringExpense(Float price, String description, String category, 
             String lastAddedDate, String frequency) throws WheresMyMoneyException{
         super(price, description, category, lastAddedDate);
-        this.lastDateAdded = lastAddedDate;
-        this.frequency = frequency;
+        setLastAddedDate(lastAddedDate);
+        setFrequency(frequency);
     }
 
-    public String getlastAddedDate() {
+    public String getLastAddedDate() {
         return this.lastDateAdded;
     }
 

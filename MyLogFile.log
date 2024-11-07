@@ -790,96 +790,6 @@ Nov 03, 2024 9:15:28 PM wheresmymoney.Logging logMessage
 INFO: Parsing Line: byw
 Nov 03, 2024 9:15:30 PM wheresmymoney.Logging logMessage
 INFO: Parsing Line: bye
-Nov 04, 2024 7:35:21 PM wheresmymoney.Logging <init>
-INFO: Started Logging
-Nov 04, 2024 7:38:47 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help
-Nov 04, 2024 7:39:14 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: add /price 4.50 /description chicken rice /category food
-Nov 04, 2024 7:39:14 PM wheresmymoney.Logging logMessage
-INFO: Adding expense with parameters: 4.500000, chicken rice, food
-Nov 04, 2024 7:39:14 PM wheresmymoney.Logging logMessage
-INFO: Successfully added expense.
-Nov 04, 2024 7:39:23 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: add /price 5.50 /description rice /category food
-Nov 04, 2024 7:39:23 PM wheresmymoney.Logging logMessage
-INFO: Adding expense with parameters: 5.500000, rice, food
-Nov 04, 2024 7:39:23 PM wheresmymoney.Logging logMessage
-INFO: Successfully added expense.
-Nov 04, 2024 7:39:35 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: add /price 4.50 /description chicken /category food
-Nov 04, 2024 7:39:35 PM wheresmymoney.Logging logMessage
-INFO: Adding expense with parameters: 4.500000, chicken, food
-Nov 04, 2024 7:39:35 PM wheresmymoney.Logging logMessage
-INFO: Successfully added expense.
-Nov 04, 2024 7:39:38 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: list
-Nov 04, 2024 7:39:38 PM wheresmymoney.Logging logMessage
-INFO: Found matching expense: chicken rice
-Nov 04, 2024 7:39:38 PM wheresmymoney.Logging logMessage
-INFO: Found matching expense: rice
-Nov 04, 2024 7:39:38 PM wheresmymoney.Logging logMessage
-INFO: Found matching expense: chicken
-Nov 04, 2024 7:41:29 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: list /from 2024-11-04
-Nov 04, 2024 7:41:52 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: list /from 04-11-2024
-Nov 04, 2024 7:41:52 PM wheresmymoney.Logging logMessage
-INFO: Found matching expense: chicken rice
-Nov 04, 2024 7:41:52 PM wheresmymoney.Logging logMessage
-INFO: Found matching expense: rice
-Nov 04, 2024 7:41:52 PM wheresmymoney.Logging logMessage
-INFO: Found matching expense: chicken
-Nov 05, 2024 6:06:08 PM wheresmymoney.Logging <init>
-INFO: Started Logging
-Nov 05, 2024 6:06:16 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help /command add
-Nov 05, 2024 6:07:21 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help
-Nov 05, 2024 6:09:26 PM wheresmymoney.Logging <init>
-INFO: Started Logging
-Nov 05, 2024 6:09:31 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help
-Nov 05, 2024 6:09:48 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help /command help
-Nov 05, 2024 6:16:05 PM wheresmymoney.Logging <init>
-INFO: Started Logging
-Nov 05, 2024 6:16:11 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help
-Nov 05, 2024 6:16:43 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help /command add
-Nov 05, 2024 6:36:10 PM wheresmymoney.Logging <init>
-INFO: Started Logging
-Nov 05, 2024 6:36:17 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help
-Nov 05, 2024 6:36:23 PM wheresmymoney.Logging <init>
-INFO: Started Logging
-Nov 05, 2024 6:36:31 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help /method add
-Nov 05, 2024 6:37:43 PM wheresmymoney.Logging <init>
-INFO: Started Logging
-Nov 05, 2024 6:37:53 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help /method add
-Nov 05, 2024 6:38:09 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help /method list
-Nov 05, 2024 6:38:19 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help
-Nov 05, 2024 7:57:20 PM wheresmymoney.Logging <init>
-INFO: Started Logging
-Nov 05, 2024 7:57:30 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help
-Nov 05, 2024 7:58:16 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help /method add
-Nov 05, 2024 8:12:04 PM wheresmymoney.Logging <init>
-INFO: Started Logging
-Nov 05, 2024 8:12:12 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help
-Nov 05, 2024 8:12:39 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help /method add
-Nov 05, 2024 8:12:46 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help /method edit
-Nov 05, 2024 8:12:53 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: help
 Nov 05, 2024 12:00:26 PM wheresmymoney.Logging <init>
 INFO: Started Logging
 Nov 05, 2024 12:00:35 PM wheresmymoney.Logging logMessage
@@ -901,11 +811,11 @@ INFO: Parsing Line: bye
 Nov 05, 2024 1:38:47 PM wheresmymoney.Logging <init>
 INFO: Started Logging
 Nov 05, 2024 1:38:52 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: add /price
+INFO: Parsing Line: add /price 
 Nov 05, 2024 1:38:56 PM wheresmymoney.Logging logMessage
 INFO: Parsing Line: add /price /category liya
 Nov 05, 2024 1:39:05 PM wheresmymoney.Logging logMessage
-INFO: Parsing Line: add /price -1.0 /category liya
+INFO: Parsing Line: add /price -1.0 /category liya 
 Nov 05, 2024 1:39:05 PM wheresmymoney.Logging logMessage
 INFO: Adding expense with parameters: -1.000000, null, liya
 Nov 05, 2024 1:41:21 PM wheresmymoney.Logging logMessage

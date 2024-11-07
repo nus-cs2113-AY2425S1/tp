@@ -37,7 +37,10 @@ public class CategoryTracker {
     public boolean contains(String category) {
         return tracker.containsKey(category);
     }
-    public void clear() { tracker.clear(); }
+    public void clear() {
+        tracker.clear();
+    }
+    
     /**
      * Retrieves the {@code CategoryData} object for a given category.
      *
@@ -104,14 +107,14 @@ public class CategoryTracker {
      *
      * @param oldCategory The current category of the {@code Expense}.
      * @param newCategory The new category of the {@code Expense}.
-     * @param price       The {@code Expense}'s price for categories' details to change by.
+     * @param oldPrice    The current price of the {@code Expense}.
+     * @param newPrice    The new price of the {@code Expense}.
      * @throws WheresMyMoneyException If the category does not exist in the tracker.
      */
-    public void editCategory(String oldCategory, String newCategory, Float price) throws WheresMyMoneyException {
-        if (!oldCategory.equals(newCategory)) {
-            deleteCategory(oldCategory, price);
-            addCategory(newCategory, price);
-        }
+    public void editCategory(String oldCategory, String newCategory, Float oldPrice, Float newPrice)
+            throws WheresMyMoneyException {
+        deleteCategory(oldCategory, oldPrice);
+        addCategory(newCategory, newPrice);
     }
     /**
      * Decreases an existing category's running total by the given price.
