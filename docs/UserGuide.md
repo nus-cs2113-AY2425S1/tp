@@ -70,38 +70,37 @@ Format: `help`
 Lists out all the available commands and their proper format for use.
 
 ````
-help
 __________________________________________________________________________________
 This is all the things you can do with me:
 0. help                              -  Lists out all the available commands and their usage
 __________________________________________________________________________________
 The following commands is for working with your recipes list
-1. list                             -  Lists out all the existing recipes
+1. list                              -  Lists out all the existing recipes
 2. add n/name i/ingredients s1/step  -  Adds a new recipe.
-	 add more ingredients using more i/ tags
-	 add more steps using more sx/ tags, where x starts from 1 and increases one by one
+         add more ingredients using more i/ tags
+         add more steps using more sx/ tags, where x starts from 1 and increases one by one
 3. sort s/name                       -  Sorts the recipes alphabetically by name
 4. sort s/time                       -  Sorts the recipes by time, from least to most
 5. find KEYWORDS                     -  Looks for the keyword in recipes' 
-	 find name             = name
-	 find i/keyword        = ingredients
-	 find ns/keyword       = name or steps
-	 find nis/keyword      = name or ingredients or steps
+         find name             = name
+         find i/keyword        = ingredients
+         find ns/keyword       = name or steps
+         find nis/keyword      = name or ingredients or steps
 6. edit e/name i/ingredients s1/step -  Edit an existing recipe's steps and ingredients
-	 add more ingredients using more i/ tags
-	 add more steps using more sx/ tags, where x starts from 1 and increases one by one
-7. delete n/name                     - Deletes the recipe of that name
-8. bye                               -  Ends the program
+         add more ingredients using more i/ tags
+         add more steps using more sx/ tags, where x starts from 1 and increases one by one
+7. delete n/name                     -  Deletes the recipe of that name
+8. recommend                         -  Ranks recipes based on how many ingredients are available
+9. random                            -  Picks a recipe at random and shows it to you
+10. bye                              -  Ends the program
 __________________________________________________________________________________
 The following commands is for working with your ingredients list
-1. new n/ingredient                  - Add a new ingredient to your list
-2. listI                             - Lists out all your current ingredients
-3. findI ingredient                  - Looks for your ingredient in your ingredients list"
+1. new n/name                        -  Add a new ingredient to your list
+2. listI                             -  Lists out all your current ingredients
+3. findI name                        -  Looks for your ingredient in your ingredients list
+4. deleteI n/name                    -  Deletes the ingredient of that name
+5. sortI                             -  Sorts your ingredients alphabetically by name
 __________________________________________________________________________________
-Got it? Let's get back to cooking.
-
-__________________________________________________________________________________
-
 ````
 
 ### Exiting YMFC: `bye`
@@ -133,33 +132,33 @@ Expected Outcome:
 ````
 __________________________________________________________________________________
 Okie dokie, one more recipe for me:
-Recipe: Ramen Eggs
-Ingredients:
-- eggs
-- soya sauce
-- water
-Steps:
-1. boil eggs for 6.5 min
-2. cool eggs in ice bath
-Cuisine: Japanese
-Time taken: 4
-You currently have 1 recipes in your list.
+ Recipe: Ramen Eggs
+  Ingredients: 
+    - eggs
+    - soya sauce
+    - water
+  Steps: 
+    1. boil eggs for 6.5 min
+    2. cool eggs in ice bath
+  Cuisine: Japanese
+  Time taken: 4
+You currently have 1 recipe in your list.
 __________________________________________________________________________________
 ````
 
 ````
 __________________________________________________________________________________
 Okie dokie, one more recipe for me:
-Recipe: Grilled Cheese Sandwhich
-Ingredients: 
-  - bread
-  - cheese slice
-  - butter
-Steps: 
-  1. heat pan with butter
-  2. grill bread on pan, and add cheese on top
-  3. remove from grill after 3 minutes
-  You currently have 2 recipes in your list.
+ Recipe: Grilled Cheese Sandwhich
+  Ingredients: 
+    - bread
+    - cheese slice
+    - butter
+  Steps: 
+    1. heat pan with butter
+    2. grill bread on pan, and add cheese on top
+    3. remove from grill after 3 minutes
+You currently have 2 recipes in your list.
 __________________________________________________________________________________
 ````
 
@@ -207,7 +206,7 @@ Expected Outcome:
 ````
 __________________________________________________________________________________
 Here's everything that I've found so far:
-1.Recipe: Ramen Eggs
+1. Recipe: Ramen Eggs
   Ingredients: 
     - eggs
     - soya sauce
@@ -237,9 +236,22 @@ s4/remove from grill after 3 minutes`
 
 Expected Outcome:
 ````
+__________________________________________________________________________________
+You got it boss, I have edited your recipe for Grilled Cheese Sandwhich to:
+Recipe: Grilled Cheese Sandwhich
+  Ingredients: 
+    - bread
+    - mayonaise
+    - cheese slice
+    - butter
+  Steps: 
+    1. heat pan with butter
+    2. spread mayonaise on outside of bread
+    3. grill bread on pan, and add cheese on top
+    4. remove from grill after 3 minutes
+__________________________________________________________________________________
 
 ````
-**TODO:** Finalise edit command
 
 ### Deleting an existing Recipe
 
@@ -289,12 +301,40 @@ Format: `listI`
 
 Lists out all of your available ingredients in your inventory
 
-
-## Finding ingredients 
+## Finding Ingredients 
 
 Format: `findI INGREDIENT`
 
 Search through your inventory list based on the ingredient name given
+
+### Deleting an Existing Ingredient
+
+Format: `deleteI n/NAME`
+
+Will find the ingredient of the entered name and delete it from YMFC, name must be exact
+* This action is not reversible
+
+### Sorting Ingredients by Ingredient Name
+
+Format: `sortI`
+
+Sorts all the stored ingredients alphabetically by name, from 'a' to 'z'
+
+## Features and Command - Getting Recipe Inspirations
+
+### Displaying a Randomly-chosen Recipe
+
+Format: `random`
+
+Picks a recipe at random and displays it
+
+### Recommend Recipes Based on Available Ingredients
+
+Format: `recommend`
+
+Find recipes that share common ingredients with what is in your ingredient inventory. 
+Recipes are then recommended from having the highest percentage of shared common ingredients 
+to the least.
 
 ## FAQ
 
@@ -309,17 +349,21 @@ and paste it in your other computer in the same directory where YMFC.jar is loca
 
 ## YMFC\.Command Summary
 
-| Command                                                        | Usage                                                                                                     |
-|----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| `help`                                                         | List out all the available commands and their usage                                                       |
-| `bye`                                                          | Terminate the program                                                                                     |
-| `list`                                                         | List out all the existing recipes                                                                         |
-| `add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]` | Add a new recipe                                                                                          |
-| `sort s/name`                                                  | Sort the recipes alphabetically by name                                                                   |
-| `sort s/time`                                                  | Sort the recipes by time, from least to most                                                              |
-| `find [OPTIONS/]KEYWORDS`                                      | Look for the KEYWORDS in sections of recipes (provided by `OPTIONS`)<br/>(Find in recipe name by default) |
+| Command                                                         | Usage                                                                                                     |
+|-----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| `help`                                                          | List out all the available commands and their usage                                                       |
+| `bye`                                                           | Terminate the program                                                                                     |
+| `list`                                                          | List out all the existing recipes                                                                         |
+| `add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`  | Add a new recipe                                                                                          |
+| `sort s/name`                                                   | Sort the recipes alphabetically by name                                                                   |
+| `sort s/time`                                                   | Sort the recipes by time, from least to most                                                              |
+| `find [OPTIONS/]KEYWORDS`                                       | Look for the KEYWORDS in sections of recipes (provided by `OPTIONS`)<br/>(Find in recipe name by default) |
 | `edit e/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]` | Edit an existing recipe                                                                                   |
-| `delete n/NAME`                                                | Delete the recipe of that name                                                                            |
-| `new n/INGREDIENT`                                             | Add a new ingredient to your list                                                                         |
-| `listI`                                                        | List out all your current ingredients                                                                     |
-| `findI INGREDIENT`                                             | Search ingredient list with input ingredient name                                                         |                                             
+| `delete n/NAME`                                                 | Delete the recipe of that name                                                                            |
+| `new n/INGREDIENT`                                              | Add a new ingredient to your list                                                                         |
+| `listI`                                                         | List out all your current ingredients                                                                     |
+| `findI INGREDIENT`                                              | Search ingredient list with input ingredient name                                                         |
+| `deleteI n/Name`                                                | Delete the ingredient of that name                                                                        |
+| `sortI`                                                         | Sort the ingredients alphabetically by name                                                               |
+| `random`                                                        | Display a randomly-chosen recipe                                                                          |
+| `recommend`                                                     | Display all recipes that share common ingredients with the ingredient list                                |

@@ -189,7 +189,7 @@ to finally printing the "recipe added" message to the User on the CLI:
 
 2. `EditCommand` Class
 
-- The EditCommand class finds an existing recipe in recipeList by name, and then replaces its parameter
+- The EditCommand class finds an existing recipe in RecipeList by name, and then replaces its parameter
 with the new parameters that the user inputted.
 
 Shown below is a sequence diagram detailing how an existing recipe is modified using the EditCommand object,
