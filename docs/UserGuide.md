@@ -145,13 +145,13 @@ Example:
 - `set-budget c/Food l/300`
 
 ### View All Expenses: view-expenses
-Displays all expenses recorded, in the order they were input.
+Displays all expenses recorded, grouped by its categories.
 
 Format:
 `view-expenses`
 
 - No parameters are required.
-- Displays a list of all recorded expenses, showing the name, amount, and category.
+- Displays a list of all recorded expenses, showing the name, amount, category, and its index.
 
 Example output:
 ``` 
