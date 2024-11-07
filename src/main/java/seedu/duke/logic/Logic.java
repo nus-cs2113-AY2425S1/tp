@@ -59,27 +59,19 @@ public class Logic {
      */
     public void addExpense(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String description = commandArguments.get("argument");
-        double amount = 0;
-        Expense.Category category = Expense.Category.OTHER;
-        try {
-            amount = Double.parseDouble(commandArguments.get("/a"));
-        } catch (NumberFormatException e) {
-            throw new FinanceBuddyException("Invalid amount. Please use a number.");
-        } catch (NullPointerException e) {
-            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
-        }
+        double amount = parseAmount(commandArguments.get("/a"));
         String date = commandArguments.get("/d");
+        Expense.Category category = parseExpenseCategoryOrDefault(commandArguments.get("/c"));
 
         try {
-            category = parseExpenseCategory(commandArguments.get("/c"));
             AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date, category);
             addExpenseCommand.execute(financialList);
             budgetLogic.changeBalanceFromExpenseString(-amount, date);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());  // Display error message when invalid date is provided
         }
-
     }
+
 
     /**
      * Adds a new income entry to the financial list based on the provided command arguments.
@@ -92,28 +84,44 @@ public class Logic {
      */
     public void addIncome(HashMap<String, String> commandArguments) throws FinanceBuddyException {
         String description = commandArguments.get("argument");
-        double amount = 0;
-        Income.Category category = Income.Category.OTHER;
-        ;
-
-        try {
-            amount = Double.parseDouble(commandArguments.get("/a"));
-        } catch (NumberFormatException e) {
-            throw new FinanceBuddyException("Invalid amount. Please use a number.");
-        } catch (NullPointerException e) {
-            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
-        }
+        double amount = parseAmount(commandArguments.get("/a"));
         String date = commandArguments.get("/d");
-        String categoryInput = commandArguments.get("/c");
+        Income.Category category = parseIncomeCategoryOrDefault(commandArguments.get("/c"));
 
         try {
-            category = parseIncomeCategory(categoryInput);
             AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description, date, category);
             addIncomeCommand.execute(financialList);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());  // Display error message when invalid date is provided
         }
+    }
 
+    /**
+     * Parses the amount from a string. Throws a FinanceBuddyException if invalid.
+     */
+    private double parseAmount(String amountStr) throws FinanceBuddyException {
+        try {
+            return Double.parseDouble(amountStr);
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+        } catch (NullPointerException e) {
+            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
+        }
+    }
+
+    /**
+     * Parses the expense category from a string or returns the default if null.
+     */
+    private Expense.Category parseExpenseCategoryOrDefault(String categoryStr) throws FinanceBuddyException {
+        return (categoryStr == null) ? Expense.Category.OTHER : parseExpenseCategory(categoryStr);
+    }
+
+
+    /**
+     * Parses the income category from a string or returns the default if null.
+     */
+    private Income.Category parseIncomeCategoryOrDefault(String categoryStr) throws FinanceBuddyException {
+        return (categoryStr == null) ? Income.Category.OTHER : parseIncomeCategory(categoryStr);
     }
 
     /**
@@ -128,56 +136,80 @@ public class Logic {
      *                         optional new values for the amount ("/a") and description ("/des").
      */
     public void editEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
-        int index = 0;
-        try {
-            index = Integer.parseInt(commandArguments.get("argument"));
-        } catch (NumberFormatException e) {
-            throw new FinanceBuddyException(
-                    "Invalid index. Please provide a valid integer less than or equal to 2147483647.");
-        }
-
-        assert index > 0 : "Index of entry to edit must be greater than 0";
-        assert index <= financialList.getEntryCount() : "Index of entry to edit must be within the list size";
-
+        int index = parseIndex(commandArguments.get("argument"));
         FinancialEntry entry = financialList.getEntry(index - 1);
 
-        String amountStr = commandArguments.get("/a");
-        double amount = 0;
+        double amount = parseAmountOrDefault(commandArguments.get("/a"), entry.getAmount());
+        String description = commandArguments.getOrDefault("/des", entry.getDescription());
+        String date = parseDateOrDefault(commandArguments.get("/d"), entry.getDate());
+
+        updateBalanceIfExpense(entry, amount, date);
+
+        Enum<?> category = parseCategoryOrDefault(commandArguments.get("/c"), entry);
+
+        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
+        editEntryCommand.execute(financialList);
+    }
+
+    /**
+     * Parses the index from the argument string.
+     */
+    private int parseIndex(String indexStr) throws FinanceBuddyException {
         try {
-            amount = (amountStr != null) ? Double.parseDouble(amountStr) : entry.getAmount();
+            int index = Integer.parseInt(indexStr);
+            if (index <= 0 || index > financialList.getEntryCount()) {
+                throw new FinanceBuddyException("Index out of bounds. Please provide a valid index.");
+            }
+            return index;
+        } catch (NumberFormatException e) {
+            throw new FinanceBuddyException("Invalid index. Please provide a valid integer.");
+        }
+    }
+
+    /**
+     * Parses the amount or returns the default amount if null.
+     */
+    private double parseAmountOrDefault(String amountStr, double defaultAmount) throws FinanceBuddyException {
+        try {
+            return (amountStr != null) ? Double.parseDouble(amountStr) : defaultAmount;
         } catch (NumberFormatException e) {
             throw new FinanceBuddyException("Invalid amount. Please use a number.");
         }
+    }
 
-        String description = commandArguments.getOrDefault("/des", entry.getDescription());
-        
-        String date = commandArguments.getOrDefault("/d", 
-                        entry.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
+    /**
+     * Parses the date or returns the default date if null.
+     */
+    private String parseDateOrDefault(String dateStr, LocalDate defaultDate) {
+        return (dateStr != null) ? dateStr : defaultDate.format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+    }
 
+    /**
+     * Updates the balance if the entry is an expense.
+     */
+    private void updateBalanceIfExpense(FinancialEntry entry, double newAmount, String newDate) {
         if (entry instanceof Expense) {
-            double oldAmount = entry.getAmount();
-            LocalDate oldDate = entry.getDate();
             try {
-                budgetLogic.changeBalanceFromExpense(oldAmount, oldDate);
-                budgetLogic.changeBalanceFromExpenseString(-amount, date);
+                budgetLogic.changeBalanceFromExpense(entry.getAmount(), entry.getDate());
+                budgetLogic.changeBalanceFromExpenseString(-newAmount, newDate);
             } catch (FinanceBuddyException e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
 
-        Enum<?> category;
-        String categoryString = commandArguments.get("/c");
-        if (categoryString != null) {
-            category = parseCategory(categoryString, entry);
+    /**
+     * Parses the category or returns the entry's category if null.
+     */
+    private Enum<?> parseCategoryOrDefault(String categoryStr, FinancialEntry entry) throws FinanceBuddyException {
+        if (categoryStr != null) {
+            return parseCategory(categoryStr, entry);
         } else if (entry instanceof Income) {
-            category = ((Income) entry).getCategory();
+            return ((Income) entry).getCategory();
         } else {
             assert entry instanceof Expense;
-            category = ((Expense) entry).getCategory();
+            return ((Expense) entry).getCategory();
         }
-
-        EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
-        editEntryCommand.execute(financialList);
     }
 
     /**
