@@ -3,6 +3,7 @@
 !include <office/Concepts/documents>
 !include <office/Users/user>
 !include style.puml
+scale 0.5
 
 !include <material/common>
 !include <material/account>

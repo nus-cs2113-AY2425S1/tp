@@ -99,7 +99,7 @@ public class TaskList {
     public ArrayList<Task> findTasks(String keyword) throws TaskNotFoundException {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.add(task);
             }
         }

@@ -1,14 +1,18 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+!include style.puml
+skinparam ArrowFormatStyle plain
+
 actor User
-participant "Parser" as parser
-participant "AddTodoParser" as todoParser
-participant "AddDeadlineParser" as deadlineParser
-participant "AddRepeatParser" as repeatParser
-participant "AddTaskCommand" as addTaskCommand
-participant "TaskList" as taskList
-participant "Task" as task
+participant "Parser" as parser PARSER_COLOR
+participant "AddTodoParser" as todoParser PARSER_COLOR
+participant "AddDeadlineParser" as deadlineParser PARSER_COLOR
+participant "AddRepeatParser" as repeatParser PARSER_COLOR
+participant "AddTaskCommand" as addTaskCommand COMMAND_COLOR
+participant "TaskList" as taskList DATA_COLOR
+participant "Task" as task DATA_COLOR
+scale 0.5
 
 User -> parser : parseCommand("todo Buy groceries", state)
 parser -> todoParser : execute(line, state)
@@ -22,7 +26,7 @@ addTaskCommand -> taskList : addTask(task)
 activate taskList
 taskList --> addTaskCommand : void
 deactivate taskList
-addTaskCommand -> User : CommandResult(MESSAGE_SUCCESS)
+addTaskCommand --> User : CommandResult(MESSAGE_SUCCESS)
 deactivate addTaskCommand
 
 User -> parser : parseCommand("deadline Submit report by Friday", state)
@@ -37,7 +41,7 @@ addTaskCommand -> taskList : addTask(task)
 activate taskList
 taskList --> addTaskCommand : void
 deactivate taskList
-addTaskCommand -> User : CommandResult(MESSAGE_SUCCESS)
+addTaskCommand --> User : CommandResult(MESSAGE_SUCCESS)
 deactivate addTaskCommand
 
 User -> parser : parseCommand("repeat Feed the cat every day", state)
@@ -52,6 +56,6 @@ addTaskCommand -> taskList : addTask(task)
 activate taskList
 taskList --> addTaskCommand : void
 deactivate taskList
-addTaskCommand -> User : CommandResult(MESSAGE_SUCCESS)
+addTaskCommand --> User : CommandResult(MESSAGE_SUCCESS)
 deactivate addTaskCommand
 @enduml

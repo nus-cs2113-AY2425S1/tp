@@ -1,6 +1,7 @@
 @startuml
 
 !include style.puml
+scale 1.5
 
 ' Define the StateManager class
 class StateManager LOGIC_COLOR {
@@ -40,6 +41,6 @@ class CommandResult COMMAND_COLOR {
 ' Relationships
 StateManager .left.> "0..1" State
 State --> StateType : "uses"
-StateManager --> CommandResult : "returns"
+StateManager -down-> CommandResult : "returns"
 
 @enduml

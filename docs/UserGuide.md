@@ -53,7 +53,7 @@ MediTask is a desktop application designed to help nurses efficiently manage and
 >
 >- Parameters cannot be in any order. e.g. if the command specifies `add Alice /tag HighPriority`, `/tag HighPriority add Alice` is not acceptable.
 >
->- Ensure that Patient is selected before entering any task commands. e.g. `select 1` before adding a task or simply look above the prompt `Patient: <patient_name>`.
+>- Ensure that Patient is selected before entering any task-related commands. e.g. `select 1` before adding a task or simply look above the prompt `Patient: <patient_name>`.
 >
 >- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 > - **Dates and Times** (only in the `deadline` command) must follow specific formats:
@@ -95,7 +95,7 @@ Exits the application.
 ### Main State
 The main state is used to control all patient-related command.
 
-#### Adding a Patient: `add`
+#### **Adding a Patient**: `add`
 Adds a patient to the hospital’s patient list.
 
 **Format**: `add NAME /tag TAG_NAME`
@@ -108,7 +108,7 @@ Adds a patient to the hospital’s patient list.
 - `add Bob`
     - Adds a patient named Bob without any tags.
 
-#### Deleting a Patient: `delete`
+#### **Deleting a Patient**: `delete`
 Removes a patient from the hospital’s patient list by their index.
 
 **Format**: `delete INDEX`
@@ -123,7 +123,7 @@ Removes a patient from the hospital’s patient list by their index.
 - `delete 3`
     - Deletes the third patient in the patient list.
 
-#### Finding a Patient: `find`
+#### **Finding a Patient**: `find`
 Searches for patients in the hospital system whose names contain the specified keyword.
 
 **Format**: `find KEYWORD`
@@ -134,7 +134,7 @@ Searches for patients in the hospital system whose names contain the specified k
 - `find Bob`
     - Displays all patients whose names contain "Bob."
 
-#### Listing All Patients: `list`
+#### **Listing All Patients**: `list`
 Displays all patients currently registered in the hospital system, along with their details and task completion rates.
 
 **Format**: `list`
@@ -143,7 +143,7 @@ Displays all patients currently registered in the hospital system, along with th
 - `list`
     - Lists all patients in the hospital system.
 
-#### Selecting a Patient: `select`
+#### **Selecting a Patient**: `select`
 Switches the application state to `TASK_STATE`, enabling task management features specifically for the selected patient by their index.
 
 **Format**: `select INDEX`
@@ -161,7 +161,7 @@ Switches the application state to `TASK_STATE`, enabling task management feature
 ### Task State
 The task state is used to control all task-related command. The application enters task state when user selects a patient in the patient list.
 
-#### Returning to Main State: `back`
+#### **Returning to Main State**: `back`
 Returns to the `MAIN_STATE` from the patient-specific task management state.
 
 **Format**: `back`
@@ -170,7 +170,7 @@ Returns to the `MAIN_STATE` from the patient-specific task management state.
 - `back`
     - Returns to the main menu from the selected patient's task management view.
 
-#### Adding a to-do task: `todo`
+#### **Adding a to-do task**: `todo`
 Adds a new task to the list of tasks.
 
 **Format**: `todo TODO_NAME /tag TAG_NAME`
@@ -183,7 +183,7 @@ Adds a new task to the list of tasks.
 > **Note**:
 > - Patient must be selected before adding a to-do task.
 
-#### Adding a deadline task: `deadline`
+#### **Adding a deadline task**: `deadline`
 Adds a task with deadline to the list of tasks.
 
 **Format**: `deadline DEADLINE_NAME /by DATE_TIME /tag TAG_NAME `
@@ -197,7 +197,7 @@ Adds a task with deadline to the list of tasks.
 > - Ensure that the date and time follow the accepted formats, Refer to the
     [Notes about the command format](#Features) for valid date and time formats.
 
-#### Adding a recurring task: `repeat`
+#### **Adding a recurring task**: `repeat`
 Adds a task with reminder to repeat it to the list of tasks.
 
 **Format**: `repeat TODO_NAME /every RECUR_BASIS /tag TAG_NAME`
@@ -212,7 +212,7 @@ Adds a task with reminder to repeat it to the list of tasks.
 > - Relative terms are not supported here.
 
 
-#### Deleting a Task: `delete`
+#### **Deleting a task**: `delete`
 Removes a task from the selected patient's list by their index.
 
 **Format**: `delete INDEX`
@@ -225,7 +225,7 @@ Removes a task from the selected patient's list by their index.
 - `delete 1`
     - Deletes the first task in the list.
 
-#### Finding task: `find`
+#### **Finding a task**: `find`
 Finds an existing task in the list of task.
 
 **Format**: `find KEYWORD`
@@ -234,7 +234,7 @@ Finds an existing task in the list of task.
 - `find Drink`
     - Displays all tasks with description contains "Drink" in the selected patient's list.
 
-#### Marking task: `mark`
+#### **Marking a task**: `mark`
 Checking the task as done by their index. This action will update the tasks' completion rate.
 
 **Format**: `mark INDEX`
@@ -247,7 +247,7 @@ Checking the task as done by their index. This action will update the tasks' com
 - `mark 1`
     - Mark the first task in the list as done.
 
-#### Unmarking task: `unmark`
+#### **Unmarking a task**: `unmark`
 Checking the task as undone by their index. This action will update the tasks' completion rate.
 
 **Format**: `unmark INDEX`

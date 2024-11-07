@@ -3,6 +3,8 @@
 !include style.puml
 skinparam ArrowFormatStyle plain
 
+scale 1.5
+
 actor User
 participant ":MediTask" as MediTask MAIN_COLOR
 participant ":Parser" as Parser PARSER_COLOR
@@ -39,6 +41,7 @@ else Name is not null or empty
         end
     end
 end
+
 deactivate AddPatientCommand
 destroy AddPatientCommand
 deactivate MediTask

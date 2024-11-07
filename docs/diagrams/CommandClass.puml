@@ -5,6 +5,7 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor COMMAND_COLOR
 skinparam classBackgroundColor COMMAND_COLOR
+scale 0.5
 abstract class Command {
     - TaskList tasks
     + setData(TaskList tasks)

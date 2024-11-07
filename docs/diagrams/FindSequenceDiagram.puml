@@ -14,6 +14,8 @@ participant CommandResult PARSER_COLOR
 participant FindTaskCommand PARSER_COLOR
 participant TaskList PARSER_COLOR
 participant Logger LOGGER_COLOR
+scale 0.5
+skinparam defaultFontSize 20
 
 User -> Parser : parseCommand(line, state)
 Parser -> FindParser : execute(line, state)

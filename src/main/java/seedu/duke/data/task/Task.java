@@ -149,7 +149,7 @@ public class Task {
     public boolean equals(Object obj) {
         if (obj instanceof Task) {
             Task other = (Task) obj;
-            return description.equals(other.description);
+            return description.toLowerCase().equals(other.description.toLowerCase());
         }
         return false;
     }

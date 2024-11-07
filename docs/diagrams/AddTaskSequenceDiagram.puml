@@ -2,6 +2,8 @@
 
 !include style.puml
 skinparam ArrowFormatStyle plain
+scale 0.5
+skinparam defaultFontSize 20
 
 actor User
 participant ":MediTask" as MediTask MAIN_COLOR
