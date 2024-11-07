@@ -40,13 +40,14 @@ end
 deactivate FileManager
 
 alt programmeListJson == null
-    Storage -> Storage : new ProgrammeList()
+    Storage -> Client : new ProgrammeList()
 else
     Storage -> Storage : programmeListFromJson(programmeListJson)
+    activate Storage
+    Storage -> Storage : loadedProgrammeList
+    Storage --> Client : ProgrammeList object
+    deactivate Storage
 end
-
-Storage --> Client : ProgrammeList object
 deactivate Storage
 
 @enduml
-
