@@ -12,6 +12,15 @@ We used these third party libraries to develop our application:
 ### UI Component
 ![Class_Diagram_of_Ui_Component](images/uiComponent.png)
 
+The `UI` component manages the input and output interface between the user and the system, allowing interaction through command input and message displays. It enables seamless communication of user requests and system feedback in an organized and formatted manner.
+
+- **Handles user inputs and outputs**: The `UI` component relies on `Scanner` for capturing user input and `PrintStream` for outputting messages to the console. The `readCommand()` method reads a line of text, typically representing a user command, and returns it for processing.
+- **Displays feedback messages**: The component provides `showMessage(String msg)`, `showMessage(Exception e)`, and `showMessage(CommandResult result)` methods to present different types of feedback to users, including general messages, error messages, and results of command executions. These methods ensure messages are formatted and include consistent visual separators.
+- **Shows program start and end messages**: The component features `showWelcome()` and `showFarewell()` methods to display welcome and farewell messages, respectively, creating a friendly user experience from start to finish.
+- **Ensures consistency with static properties**: The class defines constants for formatting, including `ERROR_HEADER`, `LINE_CHAR`, and `LINE_LENGTH`, used to standardize message presentation throughout the application.
+- **Keeps input and output streams flexible for testing**: The `UI` component is constructed with a `Scanner` and `PrintStream`, which can be replaced or redirected as needed, allowing easy adaptability for testing and debugging purposes.
+
+
 ### Programme Component
 
 ![Programme Component Classes Diagram](./images/programmeComponentClassDiagram.png)
@@ -146,7 +155,56 @@ The `DateSerializer` component,
 
 ### Parser Component
 
+#### Overview
+
+The Parser Component is a key part of the application, responsible for interpreting user input and creating appropriate command objects for execution. 
+It handles the delegation of command creation to specialized factories and manages flag parsing for a range of commands related to program management, meals, water intake, and history. 
+This component includes several classes and factories to ensure organized and efficient parsing and command generation.
+
 ![Class_Diagram_of_Parser_Component](images/parserComponent.png)
+
+#### Parser Component
+The `Parser` class serves as the main entry point for parsing user input. 
+It splits the command string into a main command and arguments, identifies the appropriate factory, and delegates the command creation process. 
+It uses the CommandFactory to create command objects based on user input.
+
+#### FlagParser
+The `FlagParser` is a utility class for parsing flagged arguments within commands. It simplifies the extraction of specific values from arguments, supporting formats like integer, date, string, and index.
+This class also manages alias mapping to provide flexibility in flag usage, allowing different aliases for the same flag.
+
+#### ParserUtils
+`ParserUtils` is a utility class that contains common parsing methods used across the parser classes, including methods for splitting arguments, parsing integers, floats, indices, and dates.
+It provides standardized parsing functionality to avoid redundancy.
+
+#### FlagDefinitions
+The `FlagDefinitions` class contains predefined constants for the various flags used across commands, such as flags for dates, programs, days, exercises, names, sets, reps, weights, and calories.
+It standardizes flag usage throughout the component, ensuring consistency in flag names.
+
+
+#### CommandFactory
+The `CommandFactory` class acts as a central factory that distributes command creation requests to specific factories such as `ProgCommandFactory`, `MealCommandFactory`, `WaterCommandFactory`, and `HistoryCommandFactory`. 
+If an unrecognized command is provided, it returns an `InvalidCommand`.
+
+##### ProgCommandFactory
+
+The `ProgCommandFactory` is responsible for creating program-related commands. 
+It supports commands for creating, viewing, starting, deleting, logging, and editing programs, as well as adding or removing days and exercises from programs. 
+It relies on helper methods like `parseDay` and `parseExercise` to streamline parsing of day and exercise arguments.
+
+##### MealCommandFactory
+
+The `MealCommandFactory` handles commands related to meal management, including adding, deleting, and viewing meals. It uses flags to parse meal details such as the meal name, calories, and date. 
+The factory generates specific commands like `AddMealCommand`, `DeleteMealCommand`, and `ViewMealCommand` based on the parsed input.
+
+
+##### WaterCommandFactory
+The `WaterCommandFactory` is responsible for water-related commands. It parses arguments to identify commands for adding, deleting, and viewing water intake entries. 
+This factory ensures that water logs can be managed with commands such as `AddWaterCommand`, `DeleteWaterCommand`, and `ViewWaterCommand`.
+
+##### HistoryCommandFactory**
+The `HistoryCommandFactory` manages history-related commands. It supports viewing, listing, deleting history entries, and managing personal bests and weekly summaries. 
+The factory can generate commands such as `ViewHistoryCommand`, `DeleteHistoryCommand`, `WeeklySummaryCommand`, and `ViewPersonalBestCommand` depending on the parsed input.
+
 
 ### Command Component
 
