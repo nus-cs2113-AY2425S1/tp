@@ -94,8 +94,8 @@ public class TrainingSessionTest {
     }
 
     @Test
-    public void testPrintSessionDescription(){
-        new TrainingSession(testDatetimeString, testDescription, testUser).printSessionDescription();
+    public void testPrintSessionInformation(){
+        new TrainingSession(testDatetimeString, testDescription, testUser).printSessionInformation();
         assertEquals(testDescription + " | " + testDatetimeOutput + System.lineSeparator(),
                 outContent.toString());
     }
