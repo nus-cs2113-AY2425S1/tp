@@ -1,5 +1,8 @@
 package fittrack.parser;
 import fittrack.fitnessgoal.Goal;
+import fittrack.healthprofile.FoodEntry;
+import fittrack.healthprofile.FoodWaterIntake;
+import fittrack.healthprofile.WaterEntry;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.reminder.Reminder;
 import fittrack.user.User;
@@ -36,11 +39,12 @@ import static fittrack.messages.Messages.INVALID_DATE_FORMAT_MESSAGE;
 import static fittrack.messages.Messages.INVALID_SESSION_INDEX_MESSAGE;
 import static fittrack.messages.Messages.LIST_FOOD_COMMAND;
 import static fittrack.messages.Messages.LIST_GOAL_COMMAND;
-import static fittrack.messages.Messages.LIST_INTAKE_COMMAND;
+import static fittrack.messages.Messages.LIST_DAILY_INTAKE_COMMAND;
 import static fittrack.messages.Messages.LIST_REMINDER_COMMAND;
 import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
 import static fittrack.messages.Messages.LIST_UPCOMING_REMINDER_COMMAND;
 import static fittrack.messages.Messages.LIST_WATER_COMMAND;
+import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.messages.Messages.SET_USER_COMMAND;
 import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
 import static fittrack.storage.Storage.updateSaveFile;
@@ -100,7 +104,8 @@ public class Parser {
     }
 
     public static void parse(User user, String input, ArrayList<TrainingSession> sessionList,
-                             ArrayList<Reminder> reminderList, ArrayList<Goal> goalList) throws IOException {
+                             ArrayList<Reminder> reminderList, ArrayList<Goal> goalList, FoodWaterIntake
+                                     foodWaterList) throws IOException {
         assert input != null : "Input must not be null";
         assert user != null : "User object must not be null";
         assert sessionList != null : "Session list must not be null";
@@ -109,6 +114,9 @@ public class Parser {
         String[] sentence = {input, input};
         String command = input;
         String description = "";
+
+        LocalDateTime timeNow = LocalDateTime.now();
+        String formattedTimeNow = timeNow.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
         // Split the input into command and description if applicable
         if (input.contains(" ")) {
@@ -261,17 +269,38 @@ public class Parser {
             break;
 
         case ADD_WATER_COMMAND:
+
+            // Check if description is empty or not a valid single numeral
+            if (description.isEmpty() || !description.matches("\\d+")) {
+                System.out.println("Please provide a valid amount of water.");
+                break;
+            }
+
             int waterAmount = Integer.parseInt(description);
-            user.getWaterIntake().addWater(waterAmount);
+
+            foodWaterList.addWater(new WaterEntry(waterAmount, LocalDateTime.now()));
+
+            System.out.println(SEPARATOR);
+            System.out.println("Got it. I've added " + waterAmount + "ml of water at " + formattedTimeNow + ".");
+            System.out.println(SEPARATOR);
+
             break;
 
         case DELETE_WATER_COMMAND:
+            // Check if description is empty or not a valid single numeral
+            if (description.isEmpty() || !description.matches("\\d+")) {
+                System.out.println("Please provide a valid water index number.");
+                break;
+            }
+
             int waterIndex = Integer.parseInt(description) - 1;
-            user.getWaterIntake().deleteWater(waterIndex);
+            foodWaterList.deleteWater(waterIndex);
             break;
 
         case LIST_WATER_COMMAND:
-            user.getWaterIntake().listWater();
+            System.out.println(SEPARATOR);
+            foodWaterList.listDailyWaterIntake();
+            System.out.println(SEPARATOR);
             break;
 
         case ADD_FOOD_COMMAND:
@@ -280,7 +309,11 @@ public class Parser {
                 String foodName = foodParts[0];
                 try {
                     int calories = Integer.parseInt(foodParts[1].trim());
-                    user.getFoodIntake().addFood(foodName, calories); // Assuming this is the correct method to add food
+                    foodWaterList.addFood(new FoodEntry(foodName,calories,LocalDateTime.now()));
+                    System.out.println(SEPARATOR);
+                    System.out.println("Got it. I've added food item: " + foodName
+                            + " (" + calories + " calories, " + formattedTimeNow + ").");
+                    System.out.println(SEPARATOR);
                 } catch (NumberFormatException e) {
                     System.out.println("Please enter a valid number for calories.");
                 }
@@ -288,13 +321,22 @@ public class Parser {
                 System.out.println("Please provide both food name and calories.");
             }
             break;
+
         case DELETE_FOOD_COMMAND:
+            // Check if description is empty or not a valid single numeral
+            if (description.isEmpty() || !description.matches("\\d+")) {
+                System.out.println("Please provide a valid food index number.");
+                break;
+            }
+
             int foodIndex = Integer.parseInt(description) - 1;
-            user.getFoodIntake().deleteFood(foodIndex);
+            foodWaterList.deleteFood(foodIndex);
             break;
 
         case LIST_FOOD_COMMAND:
-            user.getFoodIntake().listFood();
+            System.out.println(SEPARATOR);
+            foodWaterList.listDailyFoodIntake();
+            System.out.println(SEPARATOR);
             break;
 
         case EDIT_MOOD_COMMAND:
@@ -323,18 +365,10 @@ public class Parser {
             updateSaveFile(sessionList, goalList, reminderList);
             break;
 
-        case LIST_INTAKE_COMMAND:
+        case LIST_DAILY_INTAKE_COMMAND:
             // Combine water, food, and calorie lists into one daily intake summary
             System.out.println("Here is your daily intake summary:");
-
-            // Water Intake
-            System.out.println("\nWater Intake:");
-            user.getWaterIntake().listWater();  // assuming listWater displays water intake
-
-            // Food Intake
-            System.out.println("\nFood Intake:");
-            user.getFoodIntake().listFood();  // assuming listFood displays food intake
-
+            foodWaterList.listDailyIntake();
             break;
 
         default:
@@ -385,6 +419,7 @@ public class Parser {
                     + "Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
         }
     }
+
     private static LocalDateTime parseMoodTimestamp(String date, String time) {
         String dateTimeString = date + " " + time;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
