@@ -310,7 +310,7 @@ Goals:
 ____________________________________________________________________________________________________
 ```
 
-### 17. Display Points Graph
+### 17. Display Points Graph: `gpoints`
 **Purpose**: Display the points the user has accumulated across different training sessions. Points can either reflect 
 the user’s total overall points or be specific to a chosen exercise.
 
@@ -345,16 +345,67 @@ session3            | 07/11/2024 16:57 | *** (3)
 session4            | 07/11/2024 16:57 | ***** (5)
 ```
 
-### 18. Display Time Station Graph
-**Purpose**: View the progress of User's performance for WalkAndRunStation class and ShuttleRunStation class 
-in the form of a point graph.
+### 18. Display Performance Graph: `gperformance`
+**Purpose**:
+(1) For non-time based station, command displays a bar graph of the raw performance metric (i.e. distance/length/rep) 
+    against session index.
+(2) For time based station, command displays a scatter graph of the normalised performance metric (i.e. time) 
+    against session index.
 
-**Format**: `graph [exercise acronym]`
 
-**Example**: `graph ______`
+**Format**: `gperformance [EXERCISE_ACRONYM]`
+
+**Example 1**: `gperformance PU`
+```
+Here's your progression for PULL_UP over your training sessions:
+
+16                                                                            2 points     
+15                                                                                *        
+14                                                          2 points              *        
+13                                                              *                 *        
+12                      1 points                                *                 *        
+11                          *                                   *                 *        
+10                          *                                   *                 *        
+9                           *                                   *                 *        
+8                           *                                   *                 *        
+7     0 points              *                                   *                 *        
+6         *                 *                                   *                 *        
+5         *                 *                                   *                 *        
+4         *                 *                                   *                 *        
+3         *                 *                                   *                 *        
+2         *                 *                                   *                 *        
+1         *                 *             0 points              *                 *        
+      Session 1         Session 2         Session 3         Session 4         Session 5    
+  07/11/2024 17:45  08/11/2024 17:45  09/11/2024 17:45  10/11/2024 17:45  11/11/2024 17:45 
+```
+
+**Example 2**: `gperformance WAR`
 
 **Expected Output**:
 ```
+              09:11             08:05              NIL              10:15             09:55      
+1.00                                                                  *                          
+0.95                                                                                             
+0.90                                                                                             
+0.85                                                                                    *        
+0.80                                                                                             
+0.75                                                                                             
+0.70                                                                                             
+0.65                                                                                             
+0.60                                                                                             
+0.55                                                                                             
+0.50            *                                                                                
+0.45                                                                                             
+0.40                                                                                             
+0.35                                                                                             
+0.30                                                                                             
+0.25                                                                                             
+0.20                                                                                             
+0.15                                                                                             
+0.10                                                                                             
+0.05                              *                                                              
+           Session 1         Session 2         Session 3         Session 4         Session 5    
+       07/11/2024 17:46  08/11/2024 17:46  09/11/2024 17:46  10/11/2024 17:46  11/11/2024 17:46
 ```
 
 ### 19. Add Food Intake: `add-food`
