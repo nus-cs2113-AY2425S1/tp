@@ -6,10 +6,14 @@ SpendSwift is a simple budgeting tool designed for budget-conscious users. With 
 
 ## Quick Start
 
-{Give steps to get started quickly}
+1. Ensure that you have Java 17 or above installed on your computer.
+2. Download the latest tp.jar file.
+3. Copy the file to the folder you want to use as the home folder for your Task Manager.
+4. Open a command terminal, cd into the folder where you placed the jar file, and run the following command to start the application: `java -jar tp.jar`
+5. The application will start, and any existing tasks will be loaded from the file spendswift.txt. If this file doesn't exist, it will be created automatically when tasks are saved after exiting the program properly.
+6. Type commands below the outputs and press Enter to execute them. For example:
 
-1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+For details on all available commands, refer to the Features section below.
 
 ## Features
 ### Command Format Notes
@@ -20,17 +24,17 @@ SpendSwift is a simple budgeting tool designed for budget-conscious users. With 
 
    Example: In `add n/NAME`, `NAME` is a parameter, which can be used as `add n/Udon`.
 
-3. All parameters are required unless specified: Every parameter must be supplied unless marked optional (e.g., square brackets [ ]).
+3. All parameters are required unless specified: Every parameter must be supplied unless marked optional using square brackets `[ ]`.
 
-   Example: `add-expense n/Coffee a/5.50` is valid because `c/CATEGORY` is optional, while `add-expense` with no parameters will fail.
+   Example: In `add-expense n/NAME a/AMOUNT [c/CATEGORY]`, `add-expense n/Coffee a/5.50` is valid because `c/CATEGORY` is optional, while `add-expense` with no parameters will fail.
 
-4. Order of parameters: Parameters can be provided in any order, unless otherwise specified.
+4. Order of parameters: Parameters can be provided in any order.
 
    Example: `add-expense n/Coffee a/5.50 c/Food` is equivalent to `add-expense a/5.50 n/Coffee c/Food`.
 
-5. `INDEX`: Refers to the number corresponding to an expense in the list of expenses displayed. Always an integer.
+5. Extraneous parameters for commands that do not take in parameters (such as `view-expenses` and `bye`) will be ignored.
 
-   Example: `delete-expense 2` deletes the second expense listed in the expense list.
+   Example: If the command specifies `view-expenses 123`, it will be interpreted as `list`.
 
 ### Add an Expense: add-expense
 This command allows you to record a new expense.
@@ -48,15 +52,19 @@ Format:
   - The monetary value of the expense.
   - This input must be an integer or a double.
   - This parameter is required.
+  - When the input is an integer, the input would be saved as an integer.
+  - When the input is a double, the input would be saved to 2 decimal places. 
+  If the input has more than 2 decimal places, it would be rounded off to the nearest 2 decimal places.
 
 - `CATEGORY`
 
   - The category under which the expense will be recorded.
-  - This parameter is optional. If not provided, the category will be set to `null`.
+  - The category is case-insensitive. It can be typed in any combination of upper or lower case.
+  - If the category has not be created, this command will automatically create the category.
+  - This parameter is optional. If not provided, the category will be set to `Uncategorized`.
 
 Example:
-- `add-expense n/Coffee a/5.50 c/Food`
-- `add-expense n/Book a/12.00`
+![add-expense](userguidepictures/add-expense.png)
 
 ### Delete an Expense: delete-expense
 This command removes an existing expense from the record.
@@ -71,20 +79,21 @@ Format:
   - This parameter is required.
 
 Example:
-- `delete-expense e/3`
+![delete-expense](userguidepictures/delete-expense.png)
 
 ### Add a Category: add-category
 Create a new category under which expenses can be categorised.
 
 Format:
-`add-category c/CATEGORY`
+`add-category CATEGORY`
 
 - `CATEGORY`
   - The name of the new category.
-  - This parameter is required.
+  - This parameter is required. 
+  - The category is case-insensitive. It can be typed in any combination of upper or lower case.
 
 Example:
-- `add-category c/Transport`
+![add-category](userguidepictures/add-category.png)
 
 ### Tag an Expense to a Category: tag-expense
 Assign or change the category of an existing expense.
@@ -100,46 +109,47 @@ Format:
 
 - `CATEGORY`
   - The name of the category to assign the expense to.
+  - The category is case-insensitive. It can be typed in any combination of upper or lower case.
   - This must be an existing category.
   - This parameter is required.
 
 Example:
-- `tag-expense e/2 c/Transport`
+![tag-expense](userguidepictures/tag-expense.png)
 
 ### Add Budget Limit to a Category: set-budget
 Set a maximum spending limit for a category for the current month.
 
 Format:
-`set-budget c/CATEGORY a/AMOUNT`
+`set-budget c/CATEGORY l/LIMIT`
 
 - `CATEGORY`
   - The name of the category to set the budget for.
+  - The category is case-insensitive. It can be typed in any combination of upper or lower case.
   - This must be an existing category.
   - This parameter is required.
 
-- `AMOUNT`
+- `LIMIT`
   - The maximum spending limit for this category in the current month.
   - This input must be an integer or a double.
   - This parameter is required.
+  - When the input is an integer, the input would be saved as an integer.
+  - When the input is a double, the input would be saved to 2 decimal places.
+    If the input has more than 2 decimal places, it would be rounded off to the nearest 2 decimal places.
 
 Example:
-- `set-budget c/Food a/300`
+![set-budget](userguidepictures/set-budget.png)
 
 ### View All Expenses: view-expenses
-Displays all expenses recorded, in the order they were input.
+Displays all expenses recorded, grouped by its categories.
 
 Format:
 `view-expenses`
 
 - No parameters are required.
-- Displays a list of all recorded expenses, showing the name, amount, and category.
+- Displays a list of all recorded expenses, showing the name, amount, category, and its index.
 
 Example output:
-``` 
-1. Coffee - $5.50 - Food
-2. Book - $12.00 - null
-3. Taxi - $15.00 - Transport
-```
+![view-expenses](userguidepictures/view-expenses.png)
 
 ### View Budget for Each Category: view-budget
 View the total expenses for each category in the current month and how much remains before the budget limit is reached.
@@ -151,58 +161,75 @@ Format:
 - Displays a summary of spending and remaining budget for all categories with a budget limit.
 
 Example output:
-``` 
-Food: $120 spent, $180 remaining  
-Transport: $45 spent, $55 remaining  
-Entertainment: No budget set
-```
+![view-budget](userguidepictures/view-budget.png)
 
-### Set Regular Monthly Reset of Budget: set-budget-reset
-Automatically resets the budget for each category at the start of a new month.
+### Set Regular Monthly Reset of Budget: toggle-reset
+Automatically resets the budget for each category at the start of a new month when turned on.
 
 Format:
-`set-budget-reset ON/OFF`
+`toggle-reset`
 
-- `ON/OFF`
-  - This parameter is required.
-  - on: Enables automatic monthly budget reset.
-  - off: Disables automatic monthly budget reset.
+- No parameters are required.
+- It would automatically switch to the other setting. 
+  - If automatic budget reset is off, `toggle-reset` would turn it on, vice versa.
 
-Example:
-- `set-budget-reset on`
+Example output:
+![toggle-reset](userguidepictures/toggle-reset.png)
 
-## V2 Features (Coming soon)
-### Menu
+### Help
+Provides a summary of available commands and their functionalities.
+It serves as a quick reference for users to understand how to use different features and commands in the system.
+
 Format:
-`menu`
-- Displays a list of all available commands and short descriptions, such as:
-  - tap-expense - Record a new expense
-  - delete-expense - Remove an expense
-  - tag-expense - Assign an expense to a category
-  - add-category - Assign an expense to a category
-  - set-budget - Set a budget limit for a category
-  - view-expenses - View all recorded expenses
-  - view-budget - Display current budget status for each category
-  - set-budget-reset - Toggle monthly budget reset on or off
+`help`
 
-Example:
-`menu`
+Example output:
+![help](userguidepictures/help.png)
 
 ### Exiting the program: bye
-Exits the program.
+Exits the program, and saves the data for that session. 
+If the data file has yet to be created, this command would also create the data file.
 
 Format:
-`bye`
+![bye](userguidepictures/bye.png)
 
 
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
+**A**: Copy the `spendswift.txt` file from your SpendSwift home folder to the same folder on your new computer. 
+Ensure the tp.jar file is also in the same folder. When you start the application on the new computer, 
+it will load your saved expenses and categories from `spendswift.txt`.
 
-**A**: {your answer here}
+**Q**: What happens if I enter an invalid command or make a typo?  
+**A**: SpendSwift will display an error message if it doesn't recognize the command. 
+Double-check the command format and ensure all required parameters are included. 
+You can type `help` to see the correct command syntax and available options.
+
+**Q**: Can I update or change an expense’s details after adding it?  
+**A**: Currently, SpendSwift doesn't support direct editing of expenses. 
+To make changes, delete the existing expense using `delete-expense` and add a new one with the updated details.
+
+**Q**: What if I forget to set a category when adding an expense?  
+**A**: If no category is provided, the expense will be set to "Uncategorized" by default. 
+You can later assign it to a specific category using `tag-expense`.
+
+**Q**: How are expenses rounded off if I enter an amount with more than two decimal places?  
+**A**: SpendSwift automatically rounds amounts to two decimal places. 
+For example, if you enter an amount of 5.678, it will be saved as 5.68.
+
+**Q**: How do I check if my budgets reset automatically each month?  
+**A**: Use the `toggle-reset` command to switch the automatic monthly budget reset on or off. 
+If the feature is currently off, typing the command will turn it on, and vice versa.
+
 
 ## Command Summary
-
-{Give a 'cheat sheet' of commands here}
-
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+- Add expense `add-expense n/NAME a/AMOUNT [c/CATEGORY]`
+- Delete expense `delete-expense e/INDEX`
+- Add category `add-category CATEGORY`
+- Tag expense to category `tag-expense e/INDEX c/CATEGORY`
+- View expenses `view-expenses`
+- Set budget `set-budget c/CATEGORY l/LIMIT`
+- View budget `view-budget`
+- On/Off automatic budget reset `toggle-reset`
+- Exit `bye`

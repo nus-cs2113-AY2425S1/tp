@@ -31,17 +31,17 @@ public class Parser {
             expenseManager.deleteExpenseRequest(input, expenseManager, trackerData);
         } else if (input.startsWith("tag-expense")) {
             expenseManager.tagExpense(trackerData, input);
-        } else if (input.equalsIgnoreCase("view-budget")) {
+        } else if (input.startsWith("view-budget")) {
             budgetManager.viewBudget(trackerData);
         } else if (input.startsWith("set-budget")) {
             budgetManager.setBudgetLimitRequest(input, budgetManager, trackerData);
         } else if (input.startsWith("view-expenses")) {
             expenseManager.viewExpensesByCategory(trackerData);
-        } else if (input.equalsIgnoreCase("toggle-reset")) {
+        } else if (input.startsWith("toggle-reset")) {
             budgetManager.toggleAutoReset();
         } else if (input.startsWith("help")) {
             ui.printHelpMessage();
-        } else if (input.equalsIgnoreCase("bye")) {
+        } else if (input.startsWith("bye")) {
             ui.printExitMessage();
             return true;
         } else {
