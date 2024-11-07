@@ -284,7 +284,7 @@ On top of working the same way as normal expenses, this command also checks whet
 
 **Q4**: Why does my total expenditure for this category not exactly match what I've calculated? /  Why does the alerts/warnings show up even though my total is not yet nearing or exceeding the limit?
 
-**A4**: The backend uses floats to represent prices, which may cause inaccuracies when calculating total expenditures, or when determining .
+**A4**: The backend uses floats to represent prices, which may cause inaccuracies of about 1 cent.
 
 ---
 
