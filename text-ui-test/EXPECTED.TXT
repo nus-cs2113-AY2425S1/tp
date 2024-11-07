@@ -182,7 +182,10 @@
 	Failed to retrieve transaction: Your date and/or time is invalid!
 	-------------------------------------
 	-------------------------------------
-	Warning! You've already exceeded your budget for 2024-11. Spent: $1000065.00, Budget: $2000.00.
+	Missing budget for given month
+	-------------------------------------
+	-------------------------------------
+	Missing budget for given month
 	-------------------------------------
 	-------------------------------------
 	Error tracking progress: Your year and month format is invalid!

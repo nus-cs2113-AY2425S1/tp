@@ -17,4 +17,3 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 categories.json
 transactions.json
-budgets.json

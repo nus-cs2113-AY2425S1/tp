@@ -23,7 +23,7 @@ add-expense Coffee a/ 5 d/ invalid-date c/ Groceries
 add-expense a/ 1000000 d/ 2024-11-07 c/ Luxury
 yes
 
-add-budget a/ 2000 m/ 2024-11
+add-budget a/ 2000 m/ 2027-11
 add-budget a/ 500 m/ 2024-10
 add-budget a/ 500 m/ 13
 
@@ -70,6 +70,7 @@ history f/ invalid-date t/ 2024-11-30
 history
 
 track m/ 2024-11
+track m/ 2024-10
 track m/ 13
 
 foo
