@@ -14,14 +14,16 @@ public class BudgetManager {
   
     public boolean isAutoResetEnabled = false;  // Default state
 
-    public boolean getAutoResetStatus() {
-        return this.isAutoResetEnabled;
-    }
-
     public BudgetManager() {
         this.lastResetMonth = -1;
         this.isAutoResetEnabled = false;
     }
+
+    public boolean getAutoResetStatus() {
+        return this.isAutoResetEnabled;
+    }
+
+  
 
     public void toggleAutoReset() {
         isAutoResetEnabled = !isAutoResetEnabled;
@@ -126,7 +128,7 @@ public class BudgetManager {
         trackerData.setBudgets(budgets);
     }
 //@author MayFairMI6
-      public int getLastResetMonth() {
+public int getLastResetMonth() {
         return lastResetMonth;
     }
 
