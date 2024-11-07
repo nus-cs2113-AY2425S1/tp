@@ -177,8 +177,8 @@ implementation of the `execute()` method
 
 ### `Command` Child Classes
 
-1. `AddCommand` Class
-- The AddCommand class adds a newly created Recipe object to the current RecipeList object's ArrayList of Recipes
+#### 1. `AddCommand` Class
+- The `AddCommand` class adds a newly created Recipe object to the current RecipeList object's ArrayList of Recipes
  
 Shown below is a sequence diagram detailing how a new recipe is added using the AddCommand object,
 starting from parsing the user input to the addition of the recipe to the recipeList object,
@@ -187,7 +187,7 @@ to finally printing the "recipe added" message to the User on the CLI:
 
 <div style="page-break-after: always;"></div>
 
-2. `EditCommand` Class
+#### 2. `EditCommand` Class
 
 - The EditCommand class finds an existing recipe in RecipeList by name, and then replaces its parameter
 with the new parameters that the user inputted.
@@ -199,60 +199,60 @@ to finally modifying and saving the recipe in the RecipeList:
 
 <div style="page-break-after: always;"></div>
 
-3. `AddIngredientCommand` Class
+#### 3. `AddIngredientCommand` Class
 - The `AddIngredientCommand` class is responsible for adding a new ingredient to `IngredientList`
 - When executed, it takes an `Ingredient` object, adds it to the `IngredientList`, saves the updated list to the storage, and 
 notifies the user of the addition through the `Ui` component.
-4. `ByeCommand` Class
+#### 4. `ByeCommand` Class
 - The `ByeCommand` class represents the command to terminate the application
 - When executed, it signals the application to exit by setting a flag (`isBye`) 
 and displays a farewell message to the user
-5. `DeleteCommand`
+#### 5. `DeleteCommand`
 - The `DeleteCommand` class represents the command to delete a recipe by its name from `RecipeList` 
 - When executed, this command searches `RecipeList` for the recipe, removes it if found, saves the updated list to the
 storage, and informs the user of the successful deletion or an error if the recipe is not found
-6. `DeleteIngredientCommand` Class
+#### 6. `DeleteIngredientCommand` Class
 - The `DeleteIngredientCommand` class is responsible for deleting an `Ingredient` from the `IngredientList` based on 
 its name
 - Upon execution, it removes the specified `Ingredient`, updates the `Ingredientlist` in the storage, and notifies 
 the user about the deletion
-7. `FindCommand` Class
+#### 7. `FindCommand` Class
 - The `FindCommand` class is used to find recipes based on user's query and options
 - When executed, a list of matching recipes extracted from `RecipeList` will be printed out using the 
 `printFind()` method from the `Ui` class
 - If no matching recipe is found, method `printEmptyFind()` will be used instead
-8. `FindIngredientCommand` Class
+#### 8. `FindIngredientCommand` Class
 - The `FindIngredientCommand` attempts to find an existing `Ingredient` in `IngredientList` by name
 - When executed, it calls the `printFindIngred()` method of the `Ui` to display the matching ingredients found
 - If no matching ingredient is found, the `printEmptyFindIngred()` of `Ui` method is called instead
-9. `HelpCommand` Class
+#### 9. `HelpCommand` Class
 - The `HelpCommand` class is designed to provide the user with a list of available commands and detailed instructions 
 on how to use them
 - When executed, it calls the `printHelp()` method of the `Ui` to display help information
-10. `ListCommand` Class
+#### 10. `ListCommand` Class
 - The `ListCommand` class is designed to list all the recipes present in the `RecipeList`
 - When executed, it retrieves the list of recipes and displays them to the user through the UI
-11. `ListIngredientCommand` Class
+#### 11. `ListIngredientCommand` Class
 - The `ListIngredientCommand` class is responsible for listing all the ingredients currently stored in the 
 `IngredientList`
 - When executed, it retrieves the list of ingredients and displays them to the user through the UI
-12. `RandomCommand` Class
+#### 12. `RandomCommand` Class
 - The `RandomCommand` class is designed to show the user a randomly selected recipe from their recipeList
 - When executed, it retrieves the list of recipes, pick a random valid index for the list, and display that recipe 
 through the `Ui`
-13. `RecommendCommand` Class
+#### 13. `RecommendCommand` Class
 - The `RecommendCommand` class selects all recipes from the RecipeList and displays those that share common 
 ingredients with what is found in IngredientList. The percentage of the recipe's ingredients that are shared, as well 
 as the missing ingredients are also determined
 - When executed, it retrieves the list of ingredients, and search through the list of recipes for those that meet the 
 criteria. These recipes are then displayed through `Ui` with their accompanying statistics, listed by descending order 
 of their percentage match
-14. `SortCommand` Class
+#### 14. `SortCommand` Class
 - The `SortCommand`class is designed to sort all the existing recipes in the `RecipeList`
 - When executed, depending on the user's input parameter, it will either sort the recipes alphabetically by name,
 or in ascending numerical order of time taken
 - It will then list out the newly ordered recipes to the user, and update the save file with the new order of recipes
-15. `SortIngredientCommand` Class
+#### 15. `SortIngredientCommand` Class
 - The `SortIngredientCommand`class is designed to sort all the existing ingredients in the `IngredientList`
 - When executed, it will sort the ingredients alphabetically by name
 - It will then list out the newly ordered ingredients to the user, and update the save file with the new order of ingredients
