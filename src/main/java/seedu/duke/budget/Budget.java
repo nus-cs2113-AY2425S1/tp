@@ -70,12 +70,32 @@ public class Budget {
         this.balance = newBalance;
     }
 
+    /**
+     * Sets the date when the budget was established.
+     *
+     * @param date The date to set as the budget establishment date.
+     */
     public void setBudgetSetDate(LocalDate date) {
         this.budgetSetDate = date;
     }
 
+    /**
+     * Returns the date when the budget was set.
+     *
+     * @return the budget set date
+     */
+    public LocalDate getBudgetSetDate() {
+        return budgetSetDate;
+    }
+
+    /**
+     * Converts the budget information to a string format suitable for storage.
+     * The string contains the budget amount formatted to two decimal places,
+     * followed by a newline character and the date the budget was set.
+     *
+     * @return A string representation of the budget amount and set date for storage.
+     */
     public String toStorageString() {
-        return String.format("%.2f", budgetAmount) + " ¦¦ " + String.format("%.2f", balance) + 
-                        " ¦¦ " + budgetSetDate;
+        return String.format("%.2f", budgetAmount) + "\n" + budgetSetDate;
     }
 }

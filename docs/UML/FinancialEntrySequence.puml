@@ -1,16 +1,67 @@
 @startuml
-actor User
-participant AppUi
-participant InputParser
-participant AddCommand
-participant FinancialList
-participant FinancialEntry
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
 
-User -> AppUi: enters "add expense 50 groceries 10/27/2023"
-AppUi -> InputParser: parse("add expense 50 groceries 10/27/2023")
-InputParser -> AddCommand: create AddCommand with parsed details
-AddCommand -> FinancialEntry: create new Expense(50, "groceries", date)
-AddCommand -> FinancialList: addEntry(Expense)
-FinancialList -> entries: add Expense to entries list
-AddCommand -> AppUi: display "Expense added successfully!"
+
+participant "FinancialList" as list
+participant "FinancialEntry" as entry
+participant "Income" as income
+participant "Expense" as expense
+
+== Add Entry ==
+activate list
+list -> list : shouldDecrementIndex(entry, index)
+loop while shouldDecrementIndex == true
+    list -> entry : getDate()
+    list -> entry : getDate() for previous entry
+    return date
+end
+list -> entry : add(insertIndex, entry)
+list -> list : updateCategoryTotal(entry)
+alt entry instanceof Income
+    list -> income : instanceof?
+    return isIncome
+    list -> list : updateCategoryTotal(Income)
+else entry instanceof Expense
+    list -> expense : instanceof?
+    return isExpense
+    list -> list : updateCategoryTotal(Expense)
+end
+deactivate list
+
+== Delete Entry ==
+list -> list : deleteEntry(index)
+activate list
+list -> entry : remove(index)
+return
+deactivate list
+
+== Edit Entry ==
+list -> list : getEntry(index)
+activate list
+list -> entry : setAmount(newAmount)
+deactivate list
+entry -> entry : setDescription(newDescription)
+entry -> entry : setDate(newDate)
+alt entry instanceof Income
+    entry -> income : setCategory(newCategory as Income.Category)
+    return
+else entry instanceof Expense
+    entry -> expense : setCategory(newCategory as Expense.Category)
+    return
+end
+
+== View Entry ==
+list -> list : getEntry(index)
+activate list
+list -> entry : toString()
+deactivate list
+alt entry instanceof Income
+    entry -> income : toString()
+    return incomeString
+else entry instanceof Expense
+    entry -> expense : toString()
+    return expenseString
+end
+
 @enduml

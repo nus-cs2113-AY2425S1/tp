@@ -35,20 +35,24 @@ import seedu.duke.logic.BudgetLogic;
  * <p>Methods:</p>
  * <ul>
  *   <li>{@link #getStorageFile()} - Retrieves the storage file, creating it if necessary.</li>
- *   <li>{@link #update(FinancialList)} - Updates the storage file with the entries from the given FinancialList.</li>
+ *   <li>{@link #update(FinancialList, BudgetLogic)} - Updates the storage file with the entries 
+ *          from the given FinancialList and BudgetLogic.</li>
  *   <li>{@link #parseExpense(String[])} - Parses a string array into an Expense object.</li>
  *   <li>{@link #parseIncome(String[])} - Parses a string array into an Income object.</li>
- *   <li>{@link #loadFromFile()} - Loads financial data from the storage file into a FinancialList.</li>
+ *   <li>{@link #loadFromFile(BudgetLogic)} - Loads financial data from the storage file into a 
+ *          FinancialList and updates the BudgetLogic.</li>
  * </ul>
  * 
  * <p>Fields:</p>
  * <ul>
  *   <li>{@link #logger} - Logger for logging information and errors.</li>
- *   <li>{@link #STORAGE_FILE_PATH} - Path to the storage file.</li>
+ *   <li>{@link #FINANCIAL_LIST_FILE_PATH} - Path to the storage file.</li>
+ *   <li>{@link #BUDGET_FILE_PATH} - Path to the budget file.</li>
  * </ul>
  */
 public class Storage {
-    public static final String STORAGE_FILE_PATH = "data/FinancialList.txt";
+    public static final String FINANCIAL_LIST_FILE_PATH = "data/FinancialList.txt";
+    public static final String BUDGET_FILE_PATH = "data/Budget.txt";
     private static final Logger logger = Logger.getLogger(Storage.class.getName());
 
     public Storage() {
@@ -61,7 +65,31 @@ public class Storage {
      * @return The storage file.
      */
     public static File getStorageFile() {
-        File file = new File(STORAGE_FILE_PATH);
+        File file = new File(FINANCIAL_LIST_FILE_PATH);
+        // check if the file exists
+        if (!file.exists()) {
+            try {
+                // check if the dictionary exists
+                File directory = new File(file.getParent());
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                file.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return file;
+    }
+
+    /**
+     * Retrieves the budget file. If the file does not exist, it creates the necessary directories
+     * and the file itself.
+     *
+     * @return The budget file.
+     */
+    public static File getBudgetFile() {
+        File file = new File(BUDGET_FILE_PATH);
         // check if the file exists
         if (!file.exists()) {
             try {
@@ -95,21 +123,49 @@ public class Storage {
             File file = getStorageFile();
             FileWriter fileWritter = new FileWriter(file);
             // Store the transactions
-            fileWritter.write("Transactions:" + "\n");
             for (int i = 0; i < theList.getEntryCount(); i++) {
                 seedu.duke.financial.FinancialEntry entry = theList.getEntry(i);
                 fileWritter.write(entry.toStorageString() + "\n");
             }
-            fileWritter.write("End of transactions\n");
+            fileWritter.close();
+
+            File budgetFile = getBudgetFile();
+            FileWriter budgetFileWritter = new FileWriter(budgetFile);
             // Store the budget
             Budget budget = budgetLogic.getBudget();
-            fileWritter.write("Budget:" + "\n");
-            fileWritter.write(budget.toStorageString() + "\n");
-            fileWritter.write("End of budget\n");
-            fileWritter.close();
+            budgetFileWritter.write(budget.toStorageString() + "\n");
+            budgetFileWritter.close();
             logger.log(Level.INFO, "Updated file with " + theList.getEntryCount() + " entries.");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Checks the parameters for validity.
+     *
+     * @param amount The amount to be checked. It should be non-negative and not exceed $9999999.00.
+     * @param description The description to be checked. It should not be null or empty.
+     * @param formatter The DateTimeFormatter used for formatting dates.
+     * @param date The date to be checked. It should not be null and should not be after the current date.
+     * @throws FinanceBuddyException If any of the parameters are invalid.
+     */
+    public void checkParameters(double amount, String description, DateTimeFormatter formatter,
+                                LocalDate date) throws FinanceBuddyException {
+        if (amount < 0) {
+            throw new FinanceBuddyException("Amount should be non-negative");
+        }
+        if (amount > 9999999.00) {
+            throw new FinanceBuddyException("Invalid amount. Amount must be $9999999.00 or less.");
+        }
+        if (description == null || description.isEmpty()) {
+            throw new FinanceBuddyException("Description should not be empty");
+        }
+        if (date == null) {
+            throw new FinanceBuddyException("Date should not be empty");
+        }
+        if (date.isAfter(LocalDate.now())){
+            throw new FinanceBuddyException("Date cannot be after current date.");
         }
     }
 
@@ -131,8 +187,7 @@ public class Storage {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
             LocalDate date = LocalDate.parse(tokens[3], formatter);
             Expense.Category category = Expense.Category.valueOf(tokens[4].toUpperCase());
-            assert amount >= 0 : "Amount should be non-negative";
-            assert description != null && !description.isEmpty() : "Description should not be empty";
+            checkParameters(amount, description, formatter, date);
             return new Expense(amount, description, date, category);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Error parsing amount in expense: " + tokens[1]);
@@ -164,8 +219,7 @@ public class Storage {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
             LocalDate date = LocalDate.parse(tokens[3], formatter);
             Income.Category category = Income.Category.valueOf(tokens[4].toUpperCase());
-            assert amount >= 0 : "Amount should be non-negative";
-            assert description != null && !description.isEmpty() : "Description should not be empty";
+            checkParameters(amount, description, formatter, date);
             return new Income(amount, description, date, category);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Error parsing amount in income: " + tokens[1]);
@@ -179,33 +233,78 @@ public class Storage {
         }
     }
 
-    
-    public FinancialList loadFromFile(BudgetLogic budgetLogic) {
-        try {
+
+    /**
+     * Loads the budget from a file and updates the budget logic and financial list.
+     *
+     * @param theList The financial list to be updated.
+     * @param budgetLogic The budget logic to be updated.
+     */
+    public void loadBudgetFromFile(FinancialList theList, BudgetLogic budgetLogic){
+        try{
+            // load budget
+            File budgetFile = getBudgetFile();
+            java.util.Scanner scBudget = new java.util.Scanner(budgetFile);
+            // start reading the budget
+            try {
+                // parse the budget amout
+                String amount = scBudget.nextLine();
+                Budget budget = new Budget();
+                if (Double.parseDouble(amount) < 0.01) {
+                    logger.log(Level.WARNING, "Budget amount should be more than 0.01, the budget won't be set.");
+                    scBudget.close();
+                    return ;
+                }
+                budget.setBudgetAmount(Double.parseDouble(amount));
+                // parse the budget date
+                String date = scBudget.nextLine();
+                try{
+                    LocalDate.parse(date);
+                } catch (DateTimeParseException e) {
+                    logger.log(Level.WARNING, "Error parsing date in budget: " + date + ", setting to current date.");
+                    date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                }
+                // check if the date is in past 
+                if (LocalDate.parse(date).isAfter(LocalDate.now())) {
+                    budget.setBudgetSetDate(LocalDate.now());
+                    logger.log(Level.WARNING, "Budget date is in the future, setting to current date.");
+                } else {
+                    budget.setBudgetSetDate(LocalDate.parse(date));
+                }
+                budgetLogic.overwriteBudget(budget);
+                update(theList, budgetLogic);
+            } catch (Exception e) {
+                logger.log(Level.WARNING, "Budget formate invalid, the budget won't be set.");
+                logger.log(Level.WARNING, e.getMessage());
+            }
+            scBudget.close();
+        } catch(FileNotFoundException e){
+            logger.log(Level.WARNING, "File not found: " + e.getMessage() );
+        }
+    }
+
+    /**
+     * Loads transactions from a file and returns a FinancialList containing the transactions.
+     * The file is expected to contain lines representing either expenses or incomes.
+     * Each line should start with 'E' for expenses or 'I' for incomes, followed by the transaction details.
+     * 
+     * @return FinancialList containing the loaded transactions.
+     * @throws FileNotFoundException if the storage file is not found.
+     */
+    public FinancialList loadTransactionsFromFile(){
+        try{
             FinancialList theList = new FinancialList();
             File file = getStorageFile();
             java.util.Scanner sc = new java.util.Scanner(file);
             Integer loadedExpenseCount = 0;
             Integer loadedIncomeCount = 0;
-            // load transactions
-            String transactionHeader = sc.nextLine();
-            if (!transactionHeader.equals("Transactions:")) {
-                logger.log(Level.WARNING, "Storage file format invalid, missing 'Transactions:' header.");
-                sc.close();
-                return new FinancialList();
-            }else{
-                logger.log(Level.INFO, "Loading transactions from file.");
-            }
             // start reading the transactions
             Boolean transectionLoading = true;
             while (sc.hasNextLine() && transectionLoading) {
                 try {
                     String line = sc.nextLine();
                     // parse the line and add the task to the list
-                    if (line.equals("End of transactions")) {
-                        logger.log(Level.INFO, "Finished loading transactions from file.");
-                        transectionLoading = false;
-                    }else if (line.charAt(0) == 'E') {
+                    if (line.charAt(0) == 'E') {
                         String[] tokens = line.split(" \\¦¦ ");
                         theList.addEntry(parseExpense(tokens));
                         loadedExpenseCount++;
@@ -222,38 +321,33 @@ public class Storage {
                     logger.log(Level.WARNING, e.getMessage());
                 }
             }
-            // load budget
-            String budgetHeader = sc.nextLine();
-            System.out.println(budgetHeader);
-            if (!budgetHeader.equals("Budget:")) {
-                logger.log(Level.WARNING, "Storage file format invalid, missing 'Budget:' header.");
-                sc.close();
-                return theList;
-            }else{
-                logger.log(Level.INFO, "Loading budget from file.");
-            }
-            // start reading the budget
-            try {
-                String line = sc.nextLine();
-                String[] tokens = line.split(" \\¦¦ ");
-                Budget budget = new Budget();
-                budget.setBudgetAmount(Double.parseDouble(tokens[0]));
-                budget.updateBalance(Double.parseDouble(tokens[1]));
-                budget.setBudgetSetDate(LocalDate.parse(tokens[2]));
-                budgetLogic.overwriteBudget(budget);
-                update(theList, budgetLogic);
-            } catch (Exception e) {
-                logger.log(Level.WARNING, "Skiping logged budget cause storage formate invalid");
-                logger.log(Level.WARNING, e.getMessage());
-            }
-            sc.close();
             logger.log(Level.INFO, "Loaded " + loadedExpenseCount + " expenses and " + 
                     loadedIncomeCount + " incomes from file.");
+            sc.close();
             return theList;
-        }
-        catch (FileNotFoundException e) {
+        } catch(FileNotFoundException e){
             logger.log(Level.WARNING, "File not found: " + e.getMessage() + "Creating new FinancialList.");
             return new FinancialList();
         }
     }
+    
+    /**
+     * Loads the financial data from a file.
+     * This includes loading transactions and budget information.
+     *
+     * @param budgetLogic The logic to handle budget-related operations.
+     * @return A FinancialList containing the loaded transactions and budget information.
+     */
+    public FinancialList loadFromFile(BudgetLogic budgetLogic) {
+        try {
+            FinancialList theList = loadTransactionsFromFile();
+            loadBudgetFromFile(theList, budgetLogic);
+            return theList;
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Error loading file: " + e.getMessage());
+            return new FinancialList();
+        }
+    }
 }
+
+
