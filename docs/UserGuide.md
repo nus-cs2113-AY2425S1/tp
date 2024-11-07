@@ -183,6 +183,7 @@ Format:
 - Displays command summary.
 
 Example output:
+![help](userguidepictures/help.png)
 
 ### Exiting the program: bye
 Exits the program, and saves the data for that session. 
