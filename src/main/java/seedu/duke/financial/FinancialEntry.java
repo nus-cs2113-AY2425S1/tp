@@ -134,7 +134,7 @@ public abstract class FinancialEntry {
         if (amount > 9999999.00) {
             throw new FinanceBuddyException(Commons.ERROR_MESSAGE_AMOUNT_TOO_LARGE);
         }
-        if (description.isBlank()) {
+        if (description == null || description.isBlank()) {
             throw new FinanceBuddyException(Commons.ERROR_MESSAGE_BLANK_DESCRIPTION);
         }
         if (date.isAfter(LocalDate.now())){
