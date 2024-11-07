@@ -116,6 +116,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   ```
   delete-category FnB
   ```
+  
 ---
 ### Updating
 
@@ -126,6 +127,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   ```
   categorize i/ 6 c/ Food
   ```
+  
 ---
 ### Viewing list
 
