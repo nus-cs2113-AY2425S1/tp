@@ -98,19 +98,19 @@ Edits an existing transaction in your financial list.
 
 ![edit](screenshots/UG_edit1.png)<br>
 Edits the description of the 1st entry to be breakfast.
-
+<br><br>
 
 ![edit](screenshots/UG_edit2.png)<br>
 Edits the description and amount of the 2nd entry to be lunch and 20 respectively.
-
+<br><br>
 
 ![edit](screenshots/UG_edit3.png)<br>
 Edits the description and date of the 3rd entry to be dinner and 11/09/2024 respectively.
-
+<br><br>
 
 ![edit](screenshots/UG_edit4.png)<br>
 Edits the description, amount, and date of the 4th entry to be breakfast, 5 and 12/09/2024 respectively.
-
+<br><br>
 
 ![edit](screenshots/UG_edit5.png)<br>
 Edits the category of the 5th entry to be FOOD.
@@ -135,12 +135,12 @@ Deletes the transaction at index 5 and 2 respectively in the financial list.
 
 ### List Transactions
 
-Lists out transactions in your financial list for your perusal. Transactions can be filtered by type (income/expense)
-or restricted to a stipulated period. The app will display the total cashflow/expenditure/income 
-during the stipulated period depending on the transaction type selected to be listed, as well as the
-category with the highest total expenditure/income.
+Lists out transactions in your financial list in ascending order of date for your perusal. Transactions can be 
+filtered by type (income/expense) or restricted to a stipulated period. The app will display the total
+cashflow/expenditure/income during the stipulated period depending on the transaction type selected to be listed,
+as well as the category with the highest total expenditure/income.
 
-Format: `list [expense|income] [/from START_DATE] [/to END_DATE]`
+**Format:** `list [expense|income] [/from START_DATE] [/to END_DATE]`
 
 <br>
 
@@ -148,18 +148,18 @@ Format: `list [expense|income] [/from START_DATE] [/to END_DATE]`
 
 User can command app to list out only expenses, only incomes or both expenses and incomes.
 
-Example Usage:
+**Example Usage:**
 
 ![list](screenshots/UG_list1.png)<br>
 Lists out all expenses and incomes. 
 Displays total cashflow (income - expenditure), and shows categories with the highest total expenditure and income respectively.
 
-<br>
+<br><br>
 
 ![list](screenshots/UG_list2.png)<br>
 Lists out all expenses. Displays total expenditure, and shows category with highest total expenditure.
 
-<br>
+<br><br>
 
 ![list](screenshots/UG_list3.png)<br>
 Lists out all incomes. Displays total income, and shows category with highest total income.
@@ -174,20 +174,20 @@ and/or up to a certain date using the `/to` flag.
 Total cashflow/expenditure/income displayed will be restricted to the range of dates entered by the user.
 Category with highest expenditure/income displayed will also be based on the entered date range.
 
-Example Usage:
+**Example Usage:**
 
 ![list](screenshots/UG_list4.png)<br>
 Lists out all expenses and incomes with date equal to or after 03/10/24.
 Displays total cashflow (income - expenditure) during that period, and shows
 categories with the highest total expenditure and income during that period respectively.
 
-<br>
+<br><br>
 
 ![list](screenshots/UG_list5.png)<br>
 Lists out all expenses with dates before or equal to 03/10/24.
 Displays total expenditure + category with highest total expenditure during that period.
 
-<br>
+<br><br>
 
 ![list](screenshots/UG_list6.png)<br>
 Lists out all incomes with dates between 03/10/24 and 10/10/24 inclusive.
@@ -200,7 +200,7 @@ Displays total income + category with highest total income during that period.
 If a budget has been set by the user, the user's set monthly budget as well as his/her balance
 (budget - total expenditure that month) will be displayed when the `list` command is executed.
 
-Example Usage:
+**Example Usage:**
 
 ![list](screenshots/UG_List_wBudget.png)
 
