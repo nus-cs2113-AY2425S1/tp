@@ -10,7 +10,8 @@ import ui.Ui;
 import programme.ProgrammeList;
 
 public class
-BuffBuddy {
+    BuffBuddy {
+
     private static final String DEFAULT_FILE_PATH = "./data/data.json";
     private final Ui ui;
 

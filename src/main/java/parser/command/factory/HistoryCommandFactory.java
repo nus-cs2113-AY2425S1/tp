@@ -7,9 +7,6 @@ import command.history.ViewPersonalBestCommand;
 import command.history.ListPersonalBestsCommand;
 import command.history.WeeklySummaryCommand;
 import command.InvalidCommand;
-import exceptions.HistoryExceptions;
-
-//import parser.FlagParser;
 
 import static parser.ParserUtils.splitArguments;
 
@@ -34,3 +31,4 @@ public class HistoryCommandFactory {
     }
 
 }
+
