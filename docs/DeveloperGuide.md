@@ -547,7 +547,7 @@ the FinancialList to display the relevant entries.
 The interaction between the command classes and `financialList` is as follows,
 using `SeeAllEntriesCommand` as an example:
 
-<img src="UML/SeeAllEntriesExecution.png" alt="See All Entries Execution" width="auto" height="450">
+<img src="UML/SeeAllEntriesExecution.png" alt="See All Entries Execution" width="auto" height="500">
 
 `SeeAllExpensesCommand` and `SeeAllIncomesCommand` work in a similar fashion,
 but only marks `Expense`s and `Income`s respectively as to be included.
