@@ -1,5 +1,6 @@
 package ymfc.commands;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ymfc.ingredient.Ingredient;
 import ymfc.list.IngredientList;
@@ -7,18 +8,30 @@ import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+//@@author Sukkaito
 class AddIngredientCommandTest {
 
-    private Storage storage = new Storage();
-    private RecipeList emptyList = new RecipeList();
-    private Ui ui = new Ui(System.in);
-    private IngredientList ingredientList = new IngredientList();
-    private Ingredient ingredient = new Ingredient("Chicken");
+    private Storage storage;
+    private RecipeList emptyList;
+    private Ui ui;
+    private IngredientList ingredientList;
+    private Ingredient ingredient;
+
+    @BeforeEach
+    void setUp() {
+        storage = new Storage();
+        emptyList = new RecipeList();
+        ui = new Ui(System.in);
+        ingredientList = new IngredientList();
+        ingredient = new Ingredient("Chicken");
+    }
 
     @Test
     void addIngredientCommand_success() throws IOException {
@@ -26,11 +39,31 @@ class AddIngredientCommandTest {
         command.execute(emptyList, ingredientList, ui, storage);
         assertEquals(1, ingredientList.getIngredients().size());
         assertEquals(ingredient, ingredientList.getIngredients().get(0));
+    }
 
-        ingredientList.addIngredient(new Ingredient("Bad apple"));
-        ingredientList.sortAlphabetically(); // Make sure "Chicken" is not the first ingredient
+    @Test
+    void testAddDuplicateIngredients() throws IOException {
+        AddIngredientCommand command = new AddIngredientCommand(ingredient);
         command.execute(emptyList, ingredientList, ui, storage);
-        // Duplicate ingredient will not be added
-        assertNotEquals(3, ingredientList.getIngredients().size());
+        assertEquals(1, ingredientList.getIngredients().size());
+
+        // Capture System.out printing
+        ByteArrayOutputStream message = new ByteArrayOutputStream();
+        PrintStream testingStream = new PrintStream(message);
+        PrintStream systemStream = System.out;
+        System.setOut(testingStream);
+
+        command.execute(emptyList, ingredientList, ui, storage); // Ensure duplicate ingredient will not be added
+        assertEquals(1, ingredientList.getIngredients().size());
+
+        System.out.flush();
+        System.setOut(systemStream);
+
+        String expected = ui.getLine() + System.lineSeparator()
+                + "\tThere already exists an ingredient called: Chicken!"
+                + System.lineSeparator()
+                + ui.getLine() + System.lineSeparator();
+
+        assertEquals(expected, message.toString());
     }
 }

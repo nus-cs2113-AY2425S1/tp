@@ -9,7 +9,9 @@ import ymfc.ui.Ui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,15 +20,14 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class AddCommandTest {
 
     private Storage storage;
-    private RecipeList emptyList;
+    private RecipeList recipeList;
     private Ui ui;
     private Recipe recipe;
-    private AddCommand addCommand;
     private IngredientList ingredientList;
 
     @BeforeEach
     void setUp() {
-        emptyList = new RecipeList();
+        recipeList = new RecipeList();
         ingredientList = new IngredientList();
         ui = new Ui(System.in);
         storage = new Storage();
@@ -43,20 +44,40 @@ public class AddCommandTest {
         steps.add("Cook for 10 minutes.");
 
         recipe = new Recipe("Pasta", ingredients, steps);
-        addCommand = new AddCommand(recipe);
     }
 
     @Test
     void testAddNewRecipe() throws IOException {
-        addCommand.execute(emptyList, ingredientList, ui, storage);
+        AddCommand addCommand = new AddCommand(recipe);
+        addCommand.execute(recipeList, ingredientList, ui, storage);
 
-        assertEquals(1, emptyList.getCounter());
-        assertEquals(recipe, emptyList.getRecipe(0));
+        assertEquals(1, recipeList.getCounter());
+        assertEquals(recipe, recipeList.getRecipe(0));
+    }
 
-        Recipe dummyRecipe = new Recipe("Jumbo", new ArrayList<>(), new ArrayList<>());
-        emptyList.addRecipe(dummyRecipe);
-        emptyList.sortAlphabetically(); // Make Pasta not the first recipe in list
-        addCommand.execute(emptyList, ingredientList, ui, storage);
-        assertNotEquals(3, emptyList.getCounter()); // Duplicate will not be added
+    @Test
+    void testNoDuplicateRecipe() throws IOException {
+        AddCommand addCommand = new AddCommand(recipe);
+        addCommand.execute(recipeList, ingredientList, ui, storage);
+        assertEquals(1, recipeList.getCounter());
+
+        // Capture System.out printing
+        ByteArrayOutputStream message = new ByteArrayOutputStream();
+        PrintStream testingStream = new PrintStream(message);
+        PrintStream systemStream = System.out;
+        System.setOut(testingStream);
+
+        addCommand.execute(recipeList, ingredientList, ui, storage); // attempt to add duplicate recipe
+        assertEquals(1, recipeList.getCounter()); // confirms that there is still only 1 recipe in recipeList
+
+        System.out.flush();
+        System.setOut(systemStream);
+
+        String expected = ui.getLine() + System.lineSeparator()
+                + "\tThere already exists a recipe called: Pasta!"
+                + System.lineSeparator()
+                + ui.getLine() + System.lineSeparator();
+
+        assertEquals(expected, message.toString());
     }
 }

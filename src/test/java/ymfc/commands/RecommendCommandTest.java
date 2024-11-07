@@ -105,8 +105,7 @@ public class RecommendCommandTest {
         System.out.flush();
         System.setOut(systemStream);
 
-        String expected = "\t__________________________________________________________________________________"
-                + System.lineSeparator()
+        String expected = ui.getLine() + System.lineSeparator()
                 + "\tUnfortunately I can't recommend you any recipes, "
                 + System.lineSeparator()
                 + "\tbecause you lack the ingredients for any recipes in my database."
@@ -115,8 +114,7 @@ public class RecommendCommandTest {
                 + System.lineSeparator()
                 + "\tIt will do you some good to go outside once in a while."
                 + System.lineSeparator()
-                + "\t__________________________________________________________________________________"
-                + System.lineSeparator();
+                + ui.getLine() + System.lineSeparator();
 
         assertEquals(expected, message.toString());
     }
