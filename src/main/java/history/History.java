@@ -165,7 +165,7 @@ public class History {
         }
 
         return personalBest != null
-                ? "Personal best for " + exerciseName + ": " + personalBest
+                ? "Personal best for " + exerciseName + ": " + personalBest.toStringPb()
                 : "No personal best found for " + exerciseName;
     }
 

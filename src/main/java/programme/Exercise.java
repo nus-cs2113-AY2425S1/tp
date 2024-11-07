@@ -149,6 +149,10 @@ public class Exercise {
         return String.format("%s: %d sets of %d at %dkg | Burnt %d cals", name, sets, reps, weight, calories);
     }
 
+    public String toStringPb() {
+        return String.format("%d sets of %d at %dkg", sets, reps, weight);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
