@@ -80,21 +80,25 @@ public class GraphPerformanceTime extends GraphPerformance {
         } else if (normalizedPerformance == 0 && Math.abs(normalizedPerformance - normalizedValue) < INCREMENT_SCALE) {
             // mark space with * if normalised value == 0
             mainContents.append(centerText("*", maxXHeaderLength));
-        }else {
+        } else {
             // do not mark space with *
             mainContents.append(generateChar(maxXHeaderLength + 2, ' ')); // Spacer for alignment
         }
     }
 
     private static double getNormalizePerformance(Exercise exercise, int minPerformance,
-                                                  int maxPerformance, TrainingSession session) {
+            int maxPerformance, TrainingSession session) {
         double performance = session.getExercisePerformance(exercise);
+
+        if (performance == INVALID_TIME_VALUE) {
+             return INVALID_TIME_VALUE;
+        }
         double normalizedPerformance = (performance - minPerformance) / (double) (maxPerformance - minPerformance);
         return normalizedPerformance;
     }
 
     static String graphExerciseTime(Exercise exercise, ArrayList<TrainingSession> sessionList,
-                                    int minPerformance, int maxPerformance, int maxXHeaderLength) {
+            int minPerformance, int maxPerformance, int maxXHeaderLength) {
         // Build header with actual time values for each session
         StringBuilder timeHeader = buildTimeHeader(exercise, sessionList, maxXHeaderLength);
 
