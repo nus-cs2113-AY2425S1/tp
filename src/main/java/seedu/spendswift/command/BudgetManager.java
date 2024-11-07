@@ -10,8 +10,8 @@ import java.util.Map;
 
 //@@author kq2003
 public class BudgetManager {
-    private int lastResetMonth;
-    private boolean isAutoResetEnabled;
+    public int lastResetMonth;
+    public boolean isAutoResetEnabled;
 
     public BudgetManager() {
         this.lastResetMonth = -1;
@@ -60,7 +60,7 @@ public class BudgetManager {
      * limit as per the current configuration. By default, it maintains the same limit
      * for each budget, but the reset logic can be adjusted if needed.
      */
-    private void resetBudgets(TrackerData trackerData) {
+    public void resetBudgets(TrackerData trackerData) {
         Map<Category, Budget> budgets = trackerData.getBudgets();
 
         for (Budget budget : budgets.values()) {
