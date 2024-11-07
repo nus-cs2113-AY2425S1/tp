@@ -26,7 +26,7 @@
 	Error creating transaction: Invalid amount format: -100
 	-------------------------------------
 	-------------------------------------
-	Error creating transaction: Your date and/or time is invalid!
+	Error creating transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
 	-------------------------------------
 	-------------------------------------
 	Transaction added: Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
@@ -43,7 +43,7 @@
 	Transaction added: Expense [amount=15.0, description=, date=2024-11-01, category=SomeCategory]
 	-------------------------------------
 	-------------------------------------
-	Error creating transaction: Your date and/or time is invalid!
+	Error creating transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
 	-------------------------------------
 	Category 'Luxury' does not exist.
 	Type 'yes' to create a new category or enter an existing category name: 	New category 'Luxury' created.
@@ -57,7 +57,7 @@
 	Error setting budget: Budget can only be set for the current or future months.
 	-------------------------------------
 	-------------------------------------
-	Error setting budget: Your year and month format is invalid!
+	Error setting budget: Your year and month format is invalid. Should be: yyyy-MM
 	-------------------------------------
 	-------------------------------------
 	Category deleted: EmptyCategory
@@ -150,7 +150,7 @@
 	5. Expense [amount=1000000.0, description=, date=2024-11-07, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
-	Failed to retrieve transaction: Your date and/or time is invalid!
+	Failed to retrieve transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
 	-------------------------------------
 	-------------------------------------
 	1. Expense [amount=20.0, description=Lunch, date=2024-11-01, category=Groceries]
@@ -160,7 +160,7 @@
 	1. Income [amount=1000.0, description=, date=2024-11-01]
 	-------------------------------------
 	-------------------------------------
-	Failed to retrieve transaction: Your date and/or time is invalid!
+	Failed to retrieve transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
 	-------------------------------------
 	-------------------------------------
 	Total Income: $1000.00
@@ -176,10 +176,10 @@
 	6. Expense [amount=1000000.0, description=, date=2024-11-07, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
-	Failed to retrieve transaction: Your date and/or time is invalid!
+	Failed to retrieve transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
 	-------------------------------------
 	-------------------------------------
-	Failed to retrieve transaction: Your date and/or time is invalid!
+	Failed to retrieve transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
 	-------------------------------------
 	-------------------------------------
 	Progress can only be checked for current or past months.
@@ -188,7 +188,7 @@
 	Missing budget for given month
 	-------------------------------------
 	-------------------------------------
-	Error tracking progress: Your year and month format is invalid!
+	Error tracking progress: Your year and month format is invalid. Should be: yyyy-MM
 	-------------------------------------
 	-------------------------------------
 	Invalid command.

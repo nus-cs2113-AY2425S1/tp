@@ -94,7 +94,7 @@ class AddExpenseCommandTest {
 
         // Assert
         assertEquals(expectedList, transactionList.getTransactions());
-        assertEquals(CommandResultMessages.ADD_TRANSACTION_FAIL + "Your date and/or time is invalid!",
+        assertEquals(CommandResultMessages.ADD_TRANSACTION_FAIL + ErrorMessages.MESSAGE_INVALID_DATE_FORMAT,
                 result.get(0));
     }
 
