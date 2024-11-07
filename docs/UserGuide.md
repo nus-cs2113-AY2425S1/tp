@@ -62,7 +62,6 @@ add-food (food item) (calories)                                  add-food apple1
 delete-food (index)                                              delete-food 1
 list-food                                                        list-food
 list-intake                                                      list-intake
-                                                    list-mood
 exit                                                             exit
 ____________________________________________________________________________________________________
 ```
