@@ -1,8 +1,7 @@
 # Developer Guide
 
 ## Acknowledgements
-
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* The structure of this Developer Guide is inspired by [AB-3](https://se-education.org/addressbook-level3/DeveloperGuide.html).
 
 ## Setting up, getting started
 First , **fork** this repo, and clone the fork into your computer.
@@ -38,13 +37,12 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 | FitTrackLogger    | Manages logging for the application, ensuring errors and important events are properly recorded                 |
 | TrainingSession   | Represents a single training session, including exercises and metadata (e.g. date and description)              |
 | Exercise          | Represents different types of exercises available in the application, like pull-ups or shuttle runs             |
-| GraphPerformance  | Visualises performance metrics for a specific exercise, adapting for time-based or rep-based tracking.          |
+| Calculator        |                                                                                                                 |
 | GraphPoints       | Illustrates the cumulative points earned across sessions, showcasing overall fitness progress and achievements. |
-| MoodLog           | Allows users to add, view, and delete mood entries, tracking mental health progress over time                   |
-| FitnessGoal       | Allows users to set, list, and delete specific goals related to fitness and overall well-being                  |
-| FoodTracker       | Enables users to log, view, and delete food items, with calorie tracking for nutritional monitoring             |
-| WaterTracker      | Allows users to add, view, and delete water intake logs to monitor daily hydration levels                       |
-| ----------------- | --------------------------------------------------------------------------------------------------------------  |
+| GraphPerformance  | Visualises performance metrics for a specific exercise, adapting for time-based or rep-based tracking.          |
+| Reminder          |                                                                                                                 |
+| Goal              | Allows users to set, list, and delete specific goals related to fitness and overall well-being                  |
+| DailyIntake       | Allows users to add, view, and delete water and food intake logs to monitor daily hydration levels              |
 
 The following Class Diagram elaborates on the interactions between all the classes and their multiplicities.
 
