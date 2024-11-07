@@ -27,6 +27,14 @@ public class Budget {
         this.limit = limit;
     }
 
+    public double getRemainingLimit() {
+        double totalExpenses = trackerData.getExpenses().stream()
+            .filter(e -> e.getCategory().equals(category))
+            .mapToDouble(Expense::getAmount)
+            .sum();
+        return limit - totalExpenses;
+    }
+
     @Override
     public String toString() {
         return "Budget for category '" + category + "' is " + Format.formatAmount(limit);
