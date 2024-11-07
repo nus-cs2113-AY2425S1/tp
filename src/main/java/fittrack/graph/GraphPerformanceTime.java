@@ -61,7 +61,7 @@ public class GraphPerformanceTime extends GraphPerformance {
      * @param exercise The exercise type.
      * @param actualTime The actual time recorded for the exercise performance.
      * @return A formatted string showing the time in seconds to 1 decimal place for Shuttle Run or
-     * the time in minutes and seconds for Walk And Run.
+     *     the time in minutes and seconds for Walk And Run.
      */
     private static String processDisplayTime(Exercise exercise, int actualTime) {
         String displayTime;
