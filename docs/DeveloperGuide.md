@@ -189,7 +189,7 @@ and fitness performance.
 The **points calculation feature** is a significant part of the `ExerciseStation` system. It allows for the calculation
 of user-specific points based on their performance in various exercises (e.g., pull-ups, sit-ups). This process 
 involves interaction between the `ExerciseStation` and the `Calculator` classes, ensuring that the correct points are
-assigned based on predefined lookup tables.
+assigned based on predefined lookup tables found [here](https://www.dunmansec.moe.edu.sg/files/pe_napfa.pdf).
 
 #### 1. Class Interaction Overview
 
