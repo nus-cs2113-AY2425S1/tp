@@ -22,7 +22,7 @@ rectangle Parser {
 rectangle Ui {
 }
 
-rectangle Miscellaneous {
+rectangle Commons {
 }
 
 FitTrack  -->  Parser
@@ -30,14 +30,14 @@ FitTrack  -->  Ui
 FitTrack  -->  Storage
 FitTrack  -->  User
 
-Parser  -->  Miscellaneous
+Parser  -->  Commons
 Parser  -left->  User
 Parser  -right->  Ui
 
-Ui  -->  Miscellaneous
+Ui  -->  Commons
 
-Storage  -->  Miscellaneous
+Storage  -->  Commons
 Storage -> User
-Miscellaneous  -->  User
+Commons  -->  User
 
 @enduml
