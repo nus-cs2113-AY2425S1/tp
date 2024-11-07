@@ -2,6 +2,8 @@
 
 class DailyRecord {
     - logger : Logger
+    - getCaloriesFromMeal() : int
+    - getTotalWaterIntake() : float
     + getDayFromRecord() : Day
     + getMealList() : MealList
     + getWater() : Water
@@ -11,8 +13,6 @@ class DailyRecord {
     + addWaterToRecord(water : Water) : void
     + removeWaterFromRecord(index : int) : Water
     + toString() : String
-    - getCaloriesFromMeal() : int
-    - getTotalWaterIntake() : float
 }
 
 class Day
