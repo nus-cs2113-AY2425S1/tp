@@ -34,8 +34,9 @@ The Parser component, comprising `DateParser` and `InputParser`, handles input p
 
 <ins>Implementation</ins>
 
-- **Sequence Diagram**:
+**Sequence Diagram**:
 This sequence diagram illustrates the flow of how the `AppUi`, `InputParser` and `DateParser` classes work together to parse and validate the user's expense input.
+
 ![Ui Parser Sequence](UML/UiParserSequence.png)
 
 #### Ui Component
@@ -123,16 +124,26 @@ The Logic constructor initializes key components (FinancialList, AppUi, and Stor
 
 <ins>Implementation</ins>
 
-- **Sequence Diagram**:
+**Sequence Diagram**:
+This sequence diagram illustrates how the `Logic` class works with other classes to execute an edit entry command
 
+![Logic Sequence](UML/LogicSequence.png)
 
 <ins>Methods</ins>
 
 - **Logic(FinancialList financialList, Storage storage, AppUi ui,  BudgetLogic budgetLogic)**: Constructor that initializes the `Logic` class with necessary components like financial list, storage, UI, and budget logic.
 - **addExpense(double amount, String description, LocalDate date, Expense.Category category)**: Adds a new `Expense` to `FinancialList` specified or default category.
 - **addIncome(double amount, String description, LocalDate date, Income.Category category)**: Adds a new `Income` to `FinancialList` specified or default category.
-- **deleteEntry(int index)**: Removes an entry at a given index.
+- **parseAmount(String amountStr)**: Parses and validates the `amountStr` as a double, throwing a `FinanceBuddyException` for invalid values.
+- **parseExpenseCategoryOrDefault(String categoryStr)**: Parses the expense category from `categoryStr`, or returns a default category if `categoryStr` is null.
+- **parseIncomeCategoryOrDefault(String categoryStr)**: Parses the income category from `categoryStr`, or returns a default category if `categoryStr` is null.
 - **editEntry(int index, double amount, String description, String date, Enum<?> category)**: Updates an entry's amount, description, date and category.
+- **parseIndex(String indexStr)**: Parses and validates an index from `indexStr`, throwing a `FinanceBuddyException` if the index is invalid.
+- **parseAmountOrDefault(String amountStr, double defaultAmount)**: Parses `amountStr` as a double, or returns `defaultAmount` if `amountStr` is null.
+- **parseDateOrDefault(String dateStr, LocalDate defaultDate)**: Parses `dateStr` as a date, or returns `defaultDate` if `dateStr` is null.
+- **updateExpenseBalance(Expense entry, double newAmount, String newDate)**: Updates the balance when an expense entry is edited, based on the old and new amounts and dates of the entry.
+- **getCategoryFromInput(HashMap<String, String> commandArguments, FinancialEntry entry)**: Retrieves or parses the category based on command input in `commandArguments` and the type of `entry` (income or expense). 
+- **deleteEntry(int index)**: Removes an entry at a given index.
 - **listHelper(HashMap<String, String> commandArguments)**: Lists financial entries filtered by type (e.g., expenses, incomes) and date range based on command arguments.
 - **printHelpMenu()**: Executes the help command to display the available commands and their usage to the user.
 - **matchCommand(String command, HashMap<String, String> commandArguments)**: Matches a user command to the corresponding action, executes it, and determines if the application should continue running.
@@ -855,7 +866,6 @@ faster than a typical mouse/GUI driven app
 ### Manual Testing
 
 View the [User Guide](UserGuide.md) for the list of UI commands and their related use case and expected outcomes.
-{Currently the link to the User Guide is not up yet}
 
 ### JUnit Testing
 
