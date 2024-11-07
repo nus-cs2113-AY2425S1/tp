@@ -4,6 +4,7 @@ import seedu.duke.Internship;
 import seedu.exceptions.InvalidIndex;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class FavouriteCommand extends Command {
     public boolean functionComplete = false;
@@ -24,6 +25,8 @@ public class FavouriteCommand extends Command {
                 }
                 functionComplete = true;
                 favouriteInternships.add(internship);
+
+                logger.log(Level.INFO, "FavouriteCommand Executed");
             } catch (NumberFormatException e) {
                 uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
                 functionComplete = false;

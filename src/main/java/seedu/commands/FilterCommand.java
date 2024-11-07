@@ -11,6 +11,7 @@ import java.util.Map;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.function.BiPredicate;
+import java.util.logging.Level;
 
 public class FilterCommand extends Command {
     public boolean functionComplete = false; // For testing purposes
@@ -58,6 +59,8 @@ public class FilterCommand extends Command {
 
         functionComplete = true;
         filteredInternships.listAllInternships();
+
+        logger.log(Level.INFO, "FilterCommand Executed");
     }
 
     private void executeFilterByOneFlag(String[] words) {

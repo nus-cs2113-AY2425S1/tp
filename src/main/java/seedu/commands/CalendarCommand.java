@@ -8,6 +8,7 @@ import seedu.duke.Internship;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Subclass of <code>Command</code> to display all deadlines from every <code>Internship</code> entry.
@@ -18,6 +19,8 @@ public class CalendarCommand extends Command {
         ArrayList<Deadline> deadlines = getDeadlines();
         ArrayList<Deadline> sortedDeadlines = sortDeadlines(deadlines);
         uiCommand.showCalendar(sortedDeadlines);
+
+        logger.log(Level.INFO, "CalendarCommand Executed");
     }
 
     protected ArrayList<Deadline> getDeadlines() {

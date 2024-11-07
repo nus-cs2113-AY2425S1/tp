@@ -3,6 +3,7 @@ package seedu.commands;
 import seedu.duke.Internship;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 //@@author jadenlimjc
 public class AddCommand extends Command {
@@ -72,6 +73,8 @@ public class AddCommand extends Command {
         Internship newInternship = new Internship(role, company, startDate, endDate);
         internships.addInternship(newInternship);
         uiCommand.showEditedInternship(newInternship, "add");
+
+        logger.log(Level.INFO, "AddCommand Executed");
     }
 
     @Override

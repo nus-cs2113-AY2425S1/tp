@@ -1,6 +1,7 @@
 package seedu.commands;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 //@@ Ridiculouswifi
 
@@ -21,6 +22,8 @@ public class HelpCommand extends Command {
         commands.add(new CalendarCommand());
 
         uiCommand.showCommands(commands);
+
+        logger.log(Level.INFO, "HelpCommand Executed");
     }
 
     @Override
