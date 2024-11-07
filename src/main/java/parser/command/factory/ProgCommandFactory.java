@@ -17,6 +17,7 @@ import command.programme.edit.DeleteExerciseProgrammeCommand;
 import command.programme.edit.CreateDayProgrammeCommand;
 import command.programme.edit.DeleteDayProgrammeCommand;
 
+import exceptions.FlagExceptions;
 import exceptions.ProgrammeExceptions;
 import parser.FlagParser;
 import programme.Day;
@@ -185,7 +186,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString The string containing flags for the date, program index, and day index.
      * @return A {@link LogProgrammeCommand} initialized with the specified date and indices.
-     * @throws IllegalArgumentException If required flags are missing.
+     * @throws FlagExceptions If required flags are missing.
      */
     public Command prepareLogCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
@@ -363,7 +364,7 @@ public class ProgCommandFactory {
      *
      * @param dayString the input string representing a day and its exercises, not null.
      * @return a Day object representing the parsed day and its exercises.
-     * @throws IllegalArgumentException if there are missing arguments to create a day.
+     * @throws ProgrammeExceptions if there are missing arguments to create a day.
      */
     private Day parseDay(String dayString) {
         assert dayString != null : "Day string must not be null";
@@ -393,7 +394,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString The string containing exercise details and flags.
      * @return An {@link Exercise} object initialized with the specified attributes.
-     * @throws IllegalArgumentException If required flags are missing.
+     * @throws FlagExceptions If required flags are missing.
      * */
     private Exercise parseExercise(String argumentString) {
         assert argumentString != null : "Argument string must not be null";

@@ -98,9 +98,4 @@ ProgCommandFactory "1" --> "*" ParserUtils : uses
 WaterCommandFactory "1" --> "*" ParserUtils : uses
 FlagParser "1" --> "*" ParserUtils : uses
 
-MealCommandFactory "1" --> "*" FlagDefinitions : uses
-ProgCommandFactory "1" --> "*" FlagDefinitions : uses
-WaterCommandFactory "1" --> "*" FlagDefinitions : uses
-FlagParser "1" --> "*" FlagDefinitions : uses
-
 @enduml

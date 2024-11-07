@@ -46,7 +46,7 @@ public class ParserUtils {
      *
      * @param argumentString The string to trim.
      * @return The trimmed version of {@code argumentString}.
-     * @throws IllegalArgumentException if {@code argumentString} is empty after trimming.
+     * @throws ParserExceptions if {@code argumentString} is empty after trimming.
      */
     static String trimInput(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -141,7 +141,7 @@ public class ParserUtils {
      *
      * @param dateString The string to parse as a date.
      * @return The parsed {@code LocalDate} object, or today's date if {@code dateString} is null.
-     * @throws IllegalArgumentException if the date format is invalid.
+     * @throws ParserExceptions if the date format is invalid.
      */
     public static LocalDate parseDate(String dateString) {
         if (dateString == null || dateString.trim().isEmpty()) {
