@@ -125,7 +125,7 @@ public class BudgetManager {
             System.out.println("Set budget for category '" + existingCategory + "' to " + Format.formatAmount(limit));
         }
 
-        trackerData.setBudgets(budgets);
+        //trackerData.setBudgets(budgets);
     }
     //@author MayFairMI6
     public int getLastResetMonth() {
