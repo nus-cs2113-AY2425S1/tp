@@ -219,8 +219,8 @@ Managing financial entries through two main components:
 - **Class Diagram**: Displays the relationship between `FinancialList`, `FinancialEntry`, `Income`, and `Expense`. It highlights `FinancialList` as the main container managing `FinancialEntry` objects.
 ![FinancialClassDiagram.png](UML/FinancialClassDiagram.png)
 - **Sequence Diagram**: Illustrates the process of adding a new entry, from parsing user input to creating and adding the entry to `FinancialList`.
-<img src=UML/FinancialEntrySequence.png alt="Financial List Sequence Diagram" width="270" height="500">
-![FinancialSeq](UML/FinancialEntrySequence.png)
+
+<img src="UML/FinancialEntrySequence.png" alt="Financial List Sequence Diagram" width="270" height="500">
 
 ---
 
@@ -801,7 +801,7 @@ The sequence diagrams below show 3 main methods of `BudgetLogic` class.
 The `setBudget()` method is invoked by the `Logic` class or `FinanceBuddy` main class.
 The sequence diagram shows an example of the method being called by the `Logic` class.
 
-<img src=UML/setBudgetSequence.png alt="Set Budget Sequence Diagram" width="270" height="500">
+<img src="UML/setBudgetSequence.png" alt="Set Budget Sequence Diagram" width="270" height="500">
 
 The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class.
 
