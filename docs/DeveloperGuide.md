@@ -217,8 +217,10 @@ its name
 the user about the deletion
 7. `FindCommand` Class
 - 
-8. `FindIngredCommand` Class
-- 
+8. `FindIngredientCommand` Class
+- The `FindIngredientCommand` attempts to find an existing `Ingredient` in `IngredientList` by name
+- When executed, it calls the `printFindIngred()` method of the `Ui` to display the matching ingredients found
+- If no matching ingredients are found, the `printEmptyFindIngred()` of `Ui` method is called instead 
 9. `HelpCommand` Class
 - The `HelpCommand` class is designed to provide the user with a list of available commands and detailed instructions 
 on how to use them
