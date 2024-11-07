@@ -76,14 +76,6 @@ public class UiInternshipList extends Ui {
         }
     }
 
-    //author Ridiculouswifi
-    /**
-     * Prints message when index provided is out of bounds.
-     */
-    public void showInvalidIndex() {
-        showOutput("Invalid index!\nPlease use list to find internship ID");
-    }
-
     /**
      * Prints message to show internship of specified id has been deleted from <code>InternshipList</code>.
      */
