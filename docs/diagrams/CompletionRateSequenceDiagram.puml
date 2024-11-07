@@ -1,9 +1,11 @@
 @startuml
-actor User as user
-participant Ui
-participant Hospital
-participant Patient
-participant TaskList
+!include style.puml
+
+actor ":User" as user UI_COLOR
+participant ":Ui" as Ui UI_COLOR
+participant ":Hospital" as Hospital MODEL_COLOR
+participant ":Patient" as Patient MODEL_COLOR_T2
+participant ":TaskList" as TaskList LOGIC_COLOR
 
 == Show Task List for a Patient ==
 user -> Ui : showTaskList()
@@ -18,7 +20,7 @@ TaskList --> Ui : List<Task>, completionPercentage
 
 Ui -> Ui : formatTaskListDisplay()
 
-Ui -> User : displayTaskListWithCompletionRate()
+Ui -> user : displayTaskListWithCompletionRate()
 
 == Show Patient List with Completion Rate ==
 user -> Ui : showPatientListWithCompletionRate()
@@ -31,6 +33,6 @@ Hospital --> Ui : overallCompletionRate, List<Patient>
 
 Ui -> Ui : formatPatientListDisplay()
 
-Ui -> User : displayPatientListWithCompletionRate()
+Ui -> user : displayPatientListWithCompletionRate()
 
 @enduml

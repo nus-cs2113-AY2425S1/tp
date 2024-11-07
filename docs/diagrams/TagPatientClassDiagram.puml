@@ -1,16 +1,20 @@
 @startuml
 
-class Ui {
+!include style.puml
+
+skinparam classAttributeIconSize 0
+
+class Ui UI_COLOR {
     + showTaskScreen(patient: Patient)
 }
 
-class Hospital {
+class Hospital MODEL_COLOR {
     - patients: List<Patient>
     + addPatient(name: String, tag: String)
     + getPatient(index: int): Patient
 }
 
-class Patient {
+class Patient MODEL_COLOR {
     - name: String
     - tag: String
     + getTag(): String
@@ -18,11 +22,11 @@ class Patient {
     + getFormattedTag(): String
 }
 
-abstract class Command {
+abstract class Command COMMAND_COLOR {
     + execute(): CommandResult
 }
 
-class AddPatientCommand extends Command {
+class AddPatientCommand COMMAND_COLOR {
     - name: String
     - tag: String
     + execute(): CommandResult
