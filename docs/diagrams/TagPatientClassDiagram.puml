@@ -3,6 +3,7 @@
 !include style.puml
 
 skinparam classAttributeIconSize 0
+show methods
 
 class Ui UI_COLOR {
     + showTaskScreen(patient: Patient)
@@ -26,7 +27,7 @@ abstract class Command COMMAND_COLOR {
     + execute(): CommandResult
 }
 
-class AddPatientCommand COMMAND_COLOR {
+class AddPatientCommand COMMAND_COLOR extends Command{
     - name: String
     - tag: String
     + execute(): CommandResult
