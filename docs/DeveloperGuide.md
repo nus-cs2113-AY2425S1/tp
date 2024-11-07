@@ -761,6 +761,7 @@ testers are expected to do more *exploratory* testing.
     one line.
   * Test Case: `list mapped`<br/>
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
+  * Please revert back to the file original stage (prior to  corruption) before continuing on with the manual testing. 
 
 
 #### 2.9 Compare saved course mapping plans between universities
@@ -785,6 +786,7 @@ testers are expected to do more *exploratory* testing.
     one line.
   * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
+  * Please revert back to the file original stage (prior to  corruption) before continuing on with the manual testing.
 
 #### 2.10 Find course mappings in Personal Tracker
 * 2.10.1 Find course mapping plan with NUS course that is in the personal tracker

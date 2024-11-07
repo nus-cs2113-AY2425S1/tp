@@ -36,6 +36,11 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 ## Features 
 
+> NOTE: Your stored course mapping is located in the `myList.json` file, found in the `data` folder at the same file path where you executed the JAR file.
+> 
+> NOTE:  Do not corrupt the `myList.json` file when executing the program! If you corrupted the file, please revert back to its original state before continuing with the program. 
+ 
+
 ### List all commands: `commands`
 Displays a list of all available commands, along with a brief description of each.
 
