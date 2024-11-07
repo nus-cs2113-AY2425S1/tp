@@ -54,6 +54,16 @@ upcoming-remind                                                  upcoming-remind
 add-goal (goal name) (deadline)                                  add-goal run 12/12/2024 14:00:00
 delete-goal (goal index)                                         delete-goal 1
 list-goal                                                        list-goal
+add-water (amount)                                               add-water 500
+delete-water (index)                                             delete-water 1
+list-water                                                       list-water
+add-food (food item) (calories)                                  add-food apple100
+delete-food (index)                                              delete-food 1
+list-food                                                        list-food
+list-intake                                                      list-intake
+add-mood (mood description) (date) (time) (description)          add-moodhappy 01/11/2024 18:30:00 feeling healthy
+delete-mood (mood ID)                                            delete-mood 1
+list-mood                                                        list-mood
 exit                                                             exit
 ____________________________________________________________________________________________________
 ```

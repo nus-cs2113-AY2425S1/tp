@@ -90,7 +90,7 @@ public class Ui {
         System.out.println(LIST_SESSION_MESSAGE);
         while (sessionIndex < sessionList.size()) {
             System.out.print(sessionIndex + 1 + ". ");
-            System.out.println(sessionList.get(sessionIndex).getSessionDescription());
+            sessionList.get(sessionIndex).printSessionDescription();
             sessionIndex++;
         }
         printSessionCount(sessionList);

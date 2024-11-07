@@ -6,6 +6,12 @@ import fittrack.user.User;
 import java.time.LocalDateTime;
 
 import static fittrack.enums.Exercise.isValidExercise;
+import static fittrack.messages.Messages.EXAMPLE_PULL_UP_REPETITIONS_FORMAT;
+import static fittrack.messages.Messages.EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT;
+import static fittrack.messages.Messages.EXAMPLE_SIT_AND_REACH_DISTANCE_FORMAT;
+import static fittrack.messages.Messages.EXAMPLE_SIT_UP_REPETITIONS_FORMAT;
+import static fittrack.messages.Messages.EXAMPLE_STANDING_BROAD_JUMP_DISTANCE_FORMAT;
+import static fittrack.messages.Messages.EXAMPLE_WALK_AND_RUN_TIMING_FORMAT;
 import static fittrack.messages.Messages.FEMALE_GENDER;
 import static fittrack.messages.Messages.INVALID_EXERCISE_ACRONYM_MESSAGE;
 import static fittrack.messages.Messages.INVALID_EXERCISE_DETAILS_MESSAGE;
@@ -22,11 +28,11 @@ import static fittrack.messages.Messages.MALE_GENDER;
 
 public class ParserExceptions extends RuntimeException {
     public static String[] parseUserInfo(String userInput) {
-        if(!userInput.contains(" ")) {
+        if (!userInput.contains(" ")) {
             throw new IllegalArgumentException(INVALID_USER_INFO_MESSAGE);
         }
         String[] userInfo = userInput.split(" ");
-        if(userInfo.length != 2) {
+        if (userInfo.length != 2) {
             throw new IllegalArgumentException(INVALID_USER_INFO_MESSAGE);
         }
         return userInfo;
@@ -49,8 +55,12 @@ public class ParserExceptions extends RuntimeException {
         return new TrainingSession(LocalDateTime.now(), description, user);
     }
 
-    public static int validSessionIndex(int indexToDelete, int sessionListSize) {
-        if(indexToDelete < 0 || indexToDelete >= sessionListSize) {
+    public static int validSessionIndex(String description, int sessionListSize) {
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException(INVALID_SESSION_INDEX_MESSAGE);
+        }
+        int indexToDelete = stringToValidInteger(description) - 1;
+        if (indexToDelete < 0 || indexToDelete >= sessionListSize) {
             throw new IllegalArgumentException(INVALID_SESSION_INDEX_MESSAGE);
         }
         return indexToDelete;
@@ -58,67 +68,80 @@ public class ParserExceptions extends RuntimeException {
 
     public static String[] validEditDetails(String description, int sessionListSize)
             throws IllegalArgumentException, NullPointerException {
-        if(!description.contains(" ")) {
+        if (!description.contains(" ")) {
             throw new IllegalArgumentException(INVALID_EXERCISE_DETAILS_MESSAGE);
         }
 
         String[] editDetails = description.split(" ", 3);
 
-        if(editDetails.length != 3) {
+        if (editDetails.length != 3) {
             throw new IllegalArgumentException(INVALID_EXERCISE_DETAILS_MESSAGE);
         }
 
-        int sessionIndex = Integer.parseInt(editDetails[0]) - 1;
-        String exerciseAcronym = editDetails[1];
-        String exerciseData = editDetails[2];
+        for (String editDetail : editDetails) {
+            if (editDetail.trim().isEmpty()) {
+                throw new IllegalArgumentException(INVALID_EXERCISE_DETAILS_MESSAGE);
+            }
+        }
 
-        if(sessionIndex < 0 || sessionIndex >= sessionListSize) {
+        int sessionIndex = stringToValidInteger(editDetails[0]) - 1;
+        String exerciseAcronym = editDetails[1].trim();
+        String exerciseData = editDetails[2].trim();
+
+        if (sessionIndex < 0 || sessionIndex >= sessionListSize) {
             throw new IllegalArgumentException(INVALID_SESSION_INDEX_MESSAGE);
         }
 
-        if(!isValidExercise(exerciseAcronym)) {
+        if (!isValidExercise(exerciseAcronym)) {
             throw new IllegalArgumentException(INVALID_EXERCISE_ACRONYM_MESSAGE + exerciseAcronym);
         }
 
-        switch(exerciseAcronym) {
+        switch (exerciseAcronym) {
         case "PU":
-            if(Integer.parseInt(exerciseData) < 0) {
-                throw new IllegalArgumentException(INVALID_PULL_UP_REPETITIONS_MESSAGE + exerciseData);
+            if (stringToValidInteger(exerciseData) == -1) {
+                throw new IllegalArgumentException(INVALID_PULL_UP_REPETITIONS_MESSAGE + exerciseData
+                        + System.lineSeparator() + EXAMPLE_PULL_UP_REPETITIONS_FORMAT);
             }
             break;
         case "SR":
-            if(!exerciseData.contains(".")) {
-                throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData);
+            if (!exerciseData.contains(".")) {
+                throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData
+                        + System.lineSeparator() + EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT);
             }
             exerciseData = exerciseData.replace(".", "");
-            if(Integer.parseInt(exerciseData) < 0) {
-                throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData);
+            if (stringToValidInteger(exerciseData) == -1) {
+                throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData
+                        + System.lineSeparator() + EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT);
             }
             break;
         case "SAR":
-            if(Integer.parseInt(exerciseData) < 0) {
-                throw new IllegalArgumentException(INVALID_SIT_AND_REACH_DISTANCE_MESSAGE + exerciseData);
+            if (stringToValidInteger(exerciseData) == -1) {
+                throw new IllegalArgumentException(INVALID_SIT_AND_REACH_DISTANCE_MESSAGE + exerciseData
+                        + System.lineSeparator() + EXAMPLE_SIT_AND_REACH_DISTANCE_FORMAT);
             }
             break;
         case "SU":
-            if(Integer.parseInt(exerciseData) < 0) {
-                throw new IllegalArgumentException(INVALID_SIT_UP_REPETITIONS_MESSAGE + exerciseData);
+            if (stringToValidInteger(exerciseData) == -1) {
+                throw new IllegalArgumentException(INVALID_SIT_UP_REPETITIONS_MESSAGE + exerciseData
+                        + System.lineSeparator() + EXAMPLE_SIT_UP_REPETITIONS_FORMAT);
             }
             break;
         case "SBJ":
-            if(Integer.parseInt(exerciseData) < 0) {
-                throw new IllegalArgumentException(INVALID_STANDING_BROAD_JUMP_DISTANCE_MESSAGE + exerciseData);
+            if (stringToValidInteger(exerciseData) == -1) {
+                throw new IllegalArgumentException(INVALID_STANDING_BROAD_JUMP_DISTANCE_MESSAGE + exerciseData
+                        + System.lineSeparator() + EXAMPLE_STANDING_BROAD_JUMP_DISTANCE_FORMAT);
             }
             break;
         case "WAR":
-            if(!exerciseData.contains(":")) {
-                throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
+            if (!exerciseData.contains(":")) {
+                throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData
+                        + System.lineSeparator() + EXAMPLE_WALK_AND_RUN_TIMING_FORMAT);
             }
             String[] warTime = exerciseData.split(":");
-            if(warTime.length != 2) {
+            if (warTime.length != 2) {
                 throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
             }
-            if(Integer.parseInt(warTime[0]) < 0 || Integer.parseInt(warTime[1]) < 0) {
+            if (stringToValidInteger(warTime[0]) == -1 || stringToValidInteger(warTime[1]) == -1) {
                 throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
             }
             break;
@@ -126,5 +149,17 @@ public class ParserExceptions extends RuntimeException {
             break;
         }
         return editDetails;
+    }
+
+    public static int stringToValidInteger(String str) {
+        try {
+            int result = Integer.parseInt(str);
+            if(result >= 0) {
+                return result;
+            }
+            return -1;
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 }

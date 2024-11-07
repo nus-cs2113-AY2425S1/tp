@@ -13,15 +13,19 @@ import fittrack.storage.Saveable;
 import fittrack.user.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
+
+import static fittrack.messages.Messages.DEFAULT_MOOD_MSG;
 
 public class TrainingSession extends Saveable {
 
     static final String[] EXERCISE_LIST = {"SU","SBJ", "SR", "SAR", "PU", "WAR"};
     static final int NUM_OF_EXERCISES = EXERCISE_LIST.length;
+
+    // Number of non-exercise fields parsed from each string during initialisation
+    static final int NUM_OF_NON_EXERCISE_FIELDS = 6;
+
     static final int MAX_POINT = 5;
     static final int GOLD_GRADE = 3;
     static final int GOLD_POINT = 21;
@@ -40,7 +44,7 @@ public class TrainingSession extends Saveable {
     private LocalDateTime sessionDatetime;
     private String sessionDescription;
     private User user;
-    private List<fittrack.trainingsession.MoodLog> moodLogs = new ArrayList<>();
+    private String mood = DEFAULT_MOOD_MSG;
 
     private Map<Exercise, ExerciseStation> exerciseStations = new EnumMap<>(Exercise.class);
 
@@ -126,7 +130,6 @@ public class TrainingSession extends Saveable {
         return totalPoints;
     }
 
-
     //Returns string for award attained
     private String award(int minPoint, int totalPoints) {
         if(minPoint >= GOLD_GRADE && totalPoints >= GOLD_POINT) {
@@ -164,6 +167,8 @@ public class TrainingSession extends Saveable {
                 "Training Datetime: " + this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
                 + System.lineSeparator());
 
+        System.out.print("Mood: " + this.mood + System.lineSeparator());
+
         for(ExerciseStation exercise : exerciseStations.values()) {
             exercisePoint = exercise.getPoints(user);
             totalPoints += exercisePoint;
@@ -178,12 +183,15 @@ public class TrainingSession extends Saveable {
                 "Overall Award: " + award(minPoint, totalPoints) + System.lineSeparator());
     }
 
+    public void setMood(String mood) {
+        this.mood = mood;
+    }
     /**
      * Serializes this `TrainingSession` object into a formatted string suitable for saving to storage.
      * The format includes the session description, session date-time, and data for each exercise type.
      * <p>
-     * Format: {@code "TrainingSession" | sessionDescription | sessionDateTime | SU data | SBJ data | SR data |
-     * SAR data | PU data | WAR data}
+     * Format: {@code "TrainingSession" | sessionDescription | sessionDateTime | User Sex | User age | Mood data
+     * | SU data | SBJ data | SR data | SAR data | PU data | WAR data}
      *
      * <p>
      * The deadline format is expected to be "dd/MM/yyyy HH:mm" or "dd/MM/yyyy".
@@ -196,6 +204,9 @@ public class TrainingSession extends Saveable {
 
         String sessionInfo = this.sessionDescription;
         String sessionDateTime = this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        String userSex = user.getGender().toString();
+        String userAge = String.valueOf(user.getAge());
+        String moodInfo = this.mood;
 
         // Collect information for each exercise type
         String infoPU = exerciseStations.get(Exercise.PULL_UP).getSaveStringInfo();
@@ -205,8 +216,9 @@ public class TrainingSession extends Saveable {
         String infoSU = exerciseStations.get(Exercise.SIT_UP).getSaveStringInfo();
         String infoWAR = exerciseStations.get(Exercise.WALK_AND_RUN).getSaveStringInfo();
 
-        return "TrainingSession" + "|" + sessionInfo + "|" + sessionDateTime + "|" + infoPU +  "|" + infoSBJ +  "|"
-                + infoSR + "|" + infoSAR + "|" + infoSU + "|" + infoWAR;
+        return "TrainingSession" + "|" + sessionInfo + "|" + sessionDateTime + "|" + userSex + "|" + userAge + "|"
+                + moodInfo + "|" + infoPU + "|" + infoSBJ +  "|" + infoSR + "|" + infoSAR + "|" + infoSU + "|"
+                + infoWAR + "|";
     }
 
     /**
@@ -222,30 +234,36 @@ public class TrainingSession extends Saveable {
     public static TrainingSession fromSaveString(String saveString) throws InvalidSaveDataException {
         String[] stringData = saveString.split("\\|");
 
-        // Check for all exercise data is present (including Item-Type/description/DateTime information)
-        if (stringData.length < (NUM_OF_EXERCISES+3)) {
+        // Check for all exercise data is present (including Item-Type/description/DateTime/Mood information)
+        if (stringData.length < (NUM_OF_EXERCISES+NUM_OF_NON_EXERCISE_FIELDS)) {
             throw new InvalidSaveDataException("Data missing from TrainingSession-apparent string");
         }
 
         // Parse session description and date-time from their respective indices
         String sessionDescription = stringData[1];
         LocalDateTime sessionDatetime;
-
         try {
             sessionDatetime = LocalDateTime.parse(stringData[2], DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         } catch (Exception e) {
             throw new InvalidSaveDataException("Invalid date-time format in TrainingSession string.");
         }
 
-        // TODO: Implement proper user data loading.
-        User user = new User("male", "19");
+        // Parse user data
+        String userSex = stringData[3];
+        String userAge = stringData[4];
+        User sessionUser = new User(userSex, userAge);
 
         // Create new TrainingSession item to be added to load list at startup
-        TrainingSession loadedSession = new TrainingSession(sessionDatetime,sessionDescription, user);
+        TrainingSession loadedSession = new TrainingSession(sessionDatetime,sessionDescription, sessionUser);
 
-        // Load exercise data
+        // Parse and load mood data
+        String sessionMood = stringData[5];
+        loadedSession.setMood(sessionMood);
+
+        // Parse and load exercise data
         for (int i = 0; i < NUM_OF_EXERCISES; i++) {
-            String repsData = stringData[3 + i];  // Start reading exercise data from index 3 onward
+            // Start reading exercise data
+            String repsData = stringData[NUM_OF_NON_EXERCISE_FIELDS + i];
             Exercise exerciseType = Exercise.fromUserInput(EXERCISE_LIST[i]);
 
             // If exercise data-value is same as default value, skip updating exercise.
@@ -253,7 +271,9 @@ public class TrainingSession extends Saveable {
                 continue;
             }
 
+            // Else, update exercise data
             loadedSession.editExercise(exerciseType, repsData, false);
+
         }
 
         return loadedSession;
