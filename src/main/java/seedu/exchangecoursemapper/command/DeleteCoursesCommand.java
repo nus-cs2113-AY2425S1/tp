@@ -106,9 +106,10 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
     public void deleteCourse(int listIndex, Storage storage) {
         try {
             logger.log(Level.INFO, Logs.GET_COURSE_TO_DELETE);
-            Course courseToDelete = storage.getCourse(listIndex - ZERO_INDEX_OFFSET);
+            int listIndexWithOffset = listIndex - ZERO_INDEX_OFFSET;
+            Course courseToDelete = storage.getCourse(listIndexWithOffset);
             logger.log(Level.INFO, Logs.DELETE_COURSE_MAPPING);
-            storage.deleteCourse(listIndex);
+            storage.deleteCourse(listIndexWithOffset);
             ui.printDeleteMessage(courseToDelete);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             throw new IllegalArgumentException(Exception.invalidCourseListIndex());
