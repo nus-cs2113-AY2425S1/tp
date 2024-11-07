@@ -60,12 +60,12 @@ class Water {
     + toString() : String
 }
 
-History "1" *-- "0..*" DailyRecord : contains
+History "1" *-- "0.*" DailyRecord : contains
 DailyRecord "1" *-- "1" Day : day
 DailyRecord "1" *-- "1" MealList : mealList
 DailyRecord "1" *-- "1" Water : water
-Day "1" *-- "0..*" Exercise : exercises
-MealList "1" *-- "0..*" Meal : meals
+Day "1" *-- "0.*" Exercise : exercises
+MealList "1" *-- "0.*" Meal : meals
 
 @enduml
 
