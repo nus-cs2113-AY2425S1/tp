@@ -235,14 +235,13 @@ Delete a course mapping plan that was initially saved into the Personal Tracker.
 
 Format: `delete LIST_INDEX`
 
-* The `LIST_INDEX` is the list index of the course mapping plan to be deleted.
+* The `LIST_INDEX` is the integer list index of the course mapping plan to be deleted.
 
 Example: `delete 1` when there are plans stored in the Personal Tracker.
 
 Expected Output:
-```
-You have deleted the course from your plan: cs2102 | the university of melbourne | info20003
-```
+
+![Successful delete message](images/SuccessfulDeleteMessage.png)
 
 Example: `delete 0`
 
