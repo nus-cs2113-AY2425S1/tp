@@ -90,14 +90,15 @@ Example:
 Create a new category under which expenses can be categorised.
 
 Format:
-`add-category c/CATEGORY`
+`add-category CATEGORY`
 
 - `CATEGORY`
   - The name of the new category.
-  - This parameter is required.
+  - This parameter is required. 
+  - The category is case-insensitive. It can be typed in any combination of upper or lower case.
 
 Example:
-- `add-category c/Transport`
+- `add-category Transport`
 
 ### Tag an Expense to a Category: tag-expense
 Assign or change the category of an existing expense.
