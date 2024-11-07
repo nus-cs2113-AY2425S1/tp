@@ -1,5 +1,8 @@
 package seedu.duke.log;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,10 +18,34 @@ public class Log {
     private final Logger logger;
 
     /**
-     * Private constructor initializes the logger instance.
+     * Private constructor initializes the logger instance and sets appropriate logging level.
      */
     private Log() {
         logger = Logger.getLogger("FinanceBuddy Log");
+        if (isRunningFromJar()) {
+            logger.setLevel(Level.OFF); // Disable logging when running from JAR file
+        } else {
+            logger.setLevel(Level.INFO); // Default logging level during development/testing
+        }
+    }
+
+    /**
+     * Determines if the application is running from a JAR file.
+     *
+     * @return true if running from JAR, false otherwise
+     */
+    private boolean isRunningFromJar() {
+        try {
+            URL location = getClass().getProtectionDomain().getCodeSource().getLocation();
+            // Check if the path ends with .jar
+            if (location != null) {
+                File file = new File(location.toURI());
+                return file.isFile() && file.getName().endsWith(".jar");
+            }
+        } catch (URISyntaxException e) {
+            logger.log(Level.WARNING, "Failed to determine environment running from.", e);
+        }
+        return false;
     }
 
     /**

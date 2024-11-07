@@ -37,7 +37,7 @@ Progress is restored when FinanceBuddy is started up each time.
 2. Download the latest version of `FinanceBuddy` [here](https://github.com/AY2425S1-CS2113-W14-3/tp/releases).
 3. Download the `.jar` file and save it on the computer.
 4. In the directory where the jar file is saved, open Terminal.
-5. In Terminal, run `java -jar FinanceBuddy.jar`.
+5. In Terminal, run `java -jar [filename].jar`.
 6. Happy logging!
 
 ## Features
@@ -50,6 +50,35 @@ Lists out the full list of usable commands.
 `help`
 
 **Output**:
+
+```
+--------------------------------------------
+List of commands:
+--------------------------------------------
+1. list [income|expense] [/from START_DATE] [/to END_DATE]
+   - Shows a list of logged transactions
+    - Also displays categories with highest income/expenditure, monthly budget and balance
+    - Optional: Specify 'income' or 'expense' to filter the list
+    - Optional: Specify start/end date to only list transactions before/after specified dates
+2. expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]
+   - Adds a new expense with an optional date and category
+    - Categories include: FOOD, TRANSPORT, ENTERTAINMENT, UTILITIES, OTHER, UNCATEGORIZED
+3. income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]
+   - Adds a new income with an optional date and category
+    - Categories include: SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED
+4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]
+   - Edits the transaction at the specified INDEX with optional fields
+5. delete INDEX
+   - Deletes the transaction at the specified INDEX
+6. budget
+   - Set/modify your monthly budget
+7. exit
+   - Exits the program
+8. help
+   - Shows a list of all valid commands
+--------------------------------------------
+
+```
 
 ---
 

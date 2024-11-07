@@ -10,6 +10,8 @@ import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.util.Commons;
+
 import java.time.LocalDate;
 
 import java.time.format.DateTimeFormatter;
@@ -79,7 +81,7 @@ class EditEntryCommandTest {
      * <p>This test adds an initial expense entry to the financial list, then creates and executes
      * an EditEntryCommand to modify the entry's amount, description, date, and category. 
      * It verifies that the entry count remains the same, and that the entry's details are 
-     * updated correctly.</p>
+     * updated correctly and also inserted into the financial list in ascending order of date.</p>
      * 
      * @throws FinanceBuddyException if there is an error during the execution of the command
      */
@@ -91,10 +93,10 @@ class EditEntryCommandTest {
         command.execute(financialList);
 
         assertEquals(2, financialList.getEntryCount());
-        assertEquals(50.0, financialList.getEntry(1).getAmount());
-        assertEquals("Salary", financialList.getEntry(1).getDescription());
-        assertEquals(LocalDate.of(2023, 10, 1), financialList.getEntry(1).getDate());
-        assertEquals(Expense.Category.FOOD, ((Expense) financialList.getEntry(1)).getCategory());
+        assertEquals(50.0, financialList.getEntry(0).getAmount());
+        assertEquals("Salary", financialList.getEntry(0).getDescription());
+        assertEquals(LocalDate.of(2023, 10, 1), financialList.getEntry(0).getDate());
+        assertEquals(Expense.Category.FOOD, ((Expense) financialList.getEntry(0)).getCategory());
     }
 
     /**
@@ -157,17 +159,18 @@ class EditEntryCommandTest {
     }
 
     /**
-     * Tests the EditEntryCommand with an invalid index.
+     * Tests the EditEntryCommand with an index out of bounds of the financial List.
      * Ensures that the entry count in the financial list remains unchanged.
-     *
-     * @throws FinanceBuddyException if there is an error during command execution
      */
     @Test
-    void testEditEntryCommand_invalidIndex() throws FinanceBuddyException {
-        EditEntryCommand command = new EditEntryCommand(2, 50.0, "Groceries", "01/10/23",
-                Expense.Category.FOOD);
-        command.execute(financialList);
+    void execute_editOutOfBoundsIndex_expectErrorMessage() {
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            EditEntryCommand editEntryCommand = new EditEntryCommand(0, 5, "Groceries",
+                    "01/10/23", Expense.Category.FOOD);
+            editEntryCommand.execute(financialList);
+        });
 
+        assertEquals(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX, exception.getMessage());
         assertEquals(1, financialList.getEntryCount());
     }
 

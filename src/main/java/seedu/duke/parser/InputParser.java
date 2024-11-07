@@ -1,5 +1,6 @@
 package seedu.duke.parser;
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.util.Commons;
 
 import java.util.HashMap;
 
@@ -21,49 +22,66 @@ public class InputParser {
      */
     public static HashMap<String, String> parseCommands(String input) throws FinanceBuddyException {
         HashMap<String, String> commandArguments = new HashMap<>();
-        String[] splitInput = input.split(" ");
+        String[] splitInput = input.trim().split(" ");
 
-        // check if input is empty
-        if (splitInput.length == 0) {
-            commandArguments.put(InputParser.COMMAND, "");
+        // Check if input is empty
+        if (splitInput.length == 0 || splitInput[0].isEmpty()) {
+            commandArguments.put(COMMAND, "");
             return commandArguments;
         }
 
-        // set first element as command
-        commandArguments.put(InputParser.COMMAND, splitInput[0]);
+        // Set first element as command
+        commandArguments.put(COMMAND, splitInput[0]);
 
-        String argumentDescription = InputParser.ARGUMENT;
-        StringBuilder argument = new StringBuilder();
-
-        // parse remaining input
-        for (int i = 1; i < splitInput.length; i++) {
-            String arg = splitInput[i];
-
-            if (arg.startsWith("/")) {
-                if (!argumentDescription.isEmpty()) {
-                    try {
-                        commandArguments.put(argumentDescription, argument.toString().strip());
-                    } catch (NullPointerException e) {
-                        throw new FinanceBuddyException("'/' command cannot be empty");
-                    }
-                }
-
-                argumentDescription = arg;
-                argument.setLength(0);
-            } else {
-                argument.append(" ").append(arg);
-            }
-        }
-
-        // add last argument
-        if (!argument.isEmpty()) {
-            try {
-                commandArguments.put(argumentDescription, argument.toString().strip());
-            } catch (NullPointerException e) {
-                throw new FinanceBuddyException("argument cannot be empty or blank");
-            }
-        }
+        // Parse remaining input into arguments
+        parseArguments(splitInput, commandArguments);
 
         return commandArguments;
+    }
+
+    /**
+     * Helper method to parse the arguments from the input array.
+     */
+    private static void parseArguments(String[] splitInput, HashMap<String, String> commandArguments)
+            throws FinanceBuddyException {
+        String currentKey = ARGUMENT;
+        StringBuilder currentValue = new StringBuilder();
+
+        for (int i = 1; i < splitInput.length; i++) {
+            String token = splitInput[i];
+
+            if (token.startsWith("/")) {
+                // If we already have a value for the previous argument, add it
+                if (currentValue.length() > 0) {
+                    addArgument(commandArguments, currentKey, currentValue.toString().strip());
+                }
+                // Update currentKey to the new argument and reset the currentValue
+                currentKey = token;
+                currentValue.setLength(0);
+            } else {
+                // Append the current token to the currentValue
+                if (currentValue.length() > 0) {
+                    currentValue.append(" ");
+                }
+                currentValue.append(token);
+            }
+        }
+
+        // Add the last argument after the loop
+        if (currentValue.length() > 0) {
+            addArgument(commandArguments, currentKey, currentValue.toString().strip());
+        }
+    }
+
+    /**
+     * Adds an argument to the map after validating it is not empty.
+     */
+    private static void addArgument(HashMap<String, String> commandArguments, String key, String value)
+            throws FinanceBuddyException {
+        if (!value.isEmpty()) {
+            commandArguments.put(key, value);
+        } else {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_ARGUMENT_NULL);
+        }
     }
 }
