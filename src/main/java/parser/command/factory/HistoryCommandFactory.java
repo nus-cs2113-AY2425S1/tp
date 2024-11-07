@@ -45,12 +45,12 @@ public class HistoryCommandFactory {
         String arguments = inputArguments[1];
 
         return switch (subCommandString) {
-            case ViewHistoryCommand.COMMAND_WORD -> prepareViewHistoryCommand(arguments);
-            case ListHistoryCommand.COMMAND_WORD -> new ListHistoryCommand();
-            case ListPersonalBestsCommand.COMMAND_WORD -> preparePersonalBestCommand(arguments);
-            case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();
-            case DeleteHistoryCommand.COMMAND_WORD -> prepareDeleteHistoryCommand(arguments);
-            default -> new InvalidCommand();
+        case ViewHistoryCommand.COMMAND_WORD -> prepareViewHistoryCommand(arguments);
+        case ListHistoryCommand.COMMAND_WORD -> new ListHistoryCommand();
+        case ListPersonalBestsCommand.COMMAND_WORD -> preparePersonalBestCommand(arguments);
+        case WeeklySummaryCommand.COMMAND_WORD -> new WeeklySummaryCommand();
+        case DeleteHistoryCommand.COMMAND_WORD -> prepareDeleteHistoryCommand(arguments);
+        default -> new InvalidCommand();
         };
     }
 
