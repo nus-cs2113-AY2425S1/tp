@@ -48,7 +48,7 @@ class Reminder {
 class Goal {
 }
 
-class DailyIntake {
+class FoodWaterIntake {
 }
 
 class FoodEntry {
@@ -60,7 +60,7 @@ class WaterEntry {
 ' Define relationships with right-angle arrows
 FitTrack -up-> FitTrackLogger : uses >
 FitTrack --> Reminder : uses >
-FitTrack --> DailyIntake : uses >
+FitTrack --> FoodWaterIntake : uses >
 FitTrack --> Storage : uses >
 FitTrack --> Goal : uses >
 FitTrack --> "1" User : creates >
@@ -73,7 +73,7 @@ Parser --> "*" TrainingSession : manages >
 Parser -right-> "*" Storage : manages >
 Parser -up-> "1" Goal : uses >
 Parser -up-> "1" Reminder : uses >
-Parser -up-> "1" DailyIntake : uses >
+Parser -up-> "1" FoodWaterIntake : uses >
 
 Ui -left-> GraphPerformance: Uses >
 Ui --> GraphPoints: Uses >
@@ -83,7 +83,7 @@ TrainingSession "1" -down-> "6" ExerciseStation : contains >
 
 ExerciseStation "1" -down-> "1" Calculator : uses >
 
-DailyIntake -> FoodEntry : uses >
-DailyIntake --> WaterEntry : uses >
+FoodWaterIntake -> FoodEntry : uses >
+FoodWaterIntake --> WaterEntry : uses >
 
 @enduml

@@ -42,7 +42,7 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 | GraphPerformance  | Visualises performance metrics for a specific exercise, adapting for time-based or rep-based tracking.          |
 | Reminder          |                                                                                                                 |
 | Goal              | Allows users to set, list, and delete specific goals related to fitness and overall well-being                  |
-| DailyIntake       | Allows users to add, view, and delete water and food intake logs to monitor daily hydration levels              |
+| FoodWaterIntake   | Allows users to add, view, and delete water and food intake logs to monitor daily hydration levels              |
 
 The following Class Diagram elaborates on the interactions between major classes and their multiplicities.
 
