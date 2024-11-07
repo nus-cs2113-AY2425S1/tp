@@ -1,8 +1,8 @@
 @startuml
 ' Use right-angle straight lines for relationships
 skinparam linetype ortho
-skinparam nodesep 150
-skinparam ranksep 120
+skinparam nodesep 200
+skinparam ranksep 150
 hide circle
 skinparam classAttributeIconSize 0
 skinparam classBackgroundColor White
@@ -36,22 +36,44 @@ class ExerciseStation {
 class Calculator {
 }
 
+class GraphPerformance {
+}
+
+class GraphPoints {
+}
+
+class Reminder {
+}
+
+class Goal {
+}
+
+class DailyIntake {
+}
+
 ' Define relationships with right-angle arrows
-FitTrack "1" --> "1" Storage : uses >
-FitTrack "1" -up-> "1" FitTrackLogger : uses >
-FitTrack "1" -down-> "1" User : creates >
-FitTrack "1" -down-> "1" Parser : uses >
-FitTrack "1" -down-> "1" Ui : uses >
+FitTrack -up-> FitTrackLogger : uses >
+FitTrack --> Reminder : uses >
+FitTrack --> Storage : uses >
+FitTrack --> Goal : uses >
+FitTrack --> "1" User : creates >
+FitTrack --> Parser : uses >
+FitTrack --> Ui : uses >
 
-Storage "1" --> "*" TrainingSession : manages >
+User "1" --> "1" DailyIntake: uses >
 
-Parser "1" -right-> "1" Ui : uses >
-Parser "1" -left-> "1" User : edits >
-Parser "1" --> "*" TrainingSession : manages >
 
-Ui "1" --> "*" TrainingSession : displays >
+Parser --> Ui : uses >
+Parser -left-> "1" User : edits >
+Parser --> "*" TrainingSession : manages >
+Parser -right-> "*" Storage : manages >
+Parser -right-> "1" Goal : uses >
+Parser -right-> "1" Reminder : uses >
 
-TrainingSession "*" --> "1" User : belongs to >
+Ui -left-> GraphPerformance: Uses >
+Ui --> GraphPoints: Uses >
+
+TrainingSession "*" -left-> "1" User : belongs to >
 TrainingSession "1" -down-> "6" ExerciseStation : contains >
 
 ExerciseStation "1" -down-> "1" Calculator : uses >
