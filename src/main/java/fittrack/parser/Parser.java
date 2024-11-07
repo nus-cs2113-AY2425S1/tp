@@ -189,11 +189,12 @@ public class Parser {
             description = description.trim();
             if(description.isEmpty()){
                 printPointGraph(null, sessionList);
-            }
-            try{
-                printPointGraph(fromUserInput(description), sessionList);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } else {
+                try {
+                    printPointGraph(fromUserInput(description), sessionList);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
             break;
 
