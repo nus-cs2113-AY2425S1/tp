@@ -16,7 +16,7 @@ import static ymfc.YMFC.logger;
  * This command takes a {@code Recipe} object and adds it to the provided recipe list.
  * The command also handles saving the updated recipe list to storage and notifying the user through the UI.
  */
-public class AddRecipeCommand extends Command {
+public class AddCommand extends Command {
 
     public static final String USAGE_EXAMPLE = """
             Use example:
@@ -30,7 +30,7 @@ public class AddRecipeCommand extends Command {
      *
      * @param recipe The {@code Recipe} to be added. Must not be {@code null}.
      */
-    public AddRecipeCommand(Recipe recipe) {
+    public AddCommand(Recipe recipe) {
         super();
 
         logger.log(Level.FINEST, "Creating AddRecipeCommand");

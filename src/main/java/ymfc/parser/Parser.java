@@ -2,7 +2,7 @@ package ymfc.parser;
 
 import ymfc.commands.Command;
 import ymfc.commands.AddIngredientCommand;
-import ymfc.commands.AddRecipeCommand;
+import ymfc.commands.AddCommand;
 import ymfc.commands.ByeCommand;
 import ymfc.commands.DeleteCommand;
 import ymfc.commands.DeleteIngredientCommand;
@@ -11,7 +11,7 @@ import ymfc.commands.FindCommand;
 import ymfc.commands.FindIngredCommand;
 import ymfc.commands.HelpCommand;
 import ymfc.commands.ListCommand;
-import ymfc.commands.ListIngredientsCommand;
+import ymfc.commands.ListIngredientCommand;
 import ymfc.commands.RandomCommand;
 import ymfc.commands.RecommendCommand;
 import ymfc.commands.SortCommand;
@@ -84,7 +84,7 @@ public final class Parser {
             if (numIngredients <= 0) {
                 throw new EmptyListException("Your ingredient list is empty!");
             }
-            return new ListIngredientsCommand();
+            return new ListIngredientCommand();
         case "help":
             return new HelpCommand();
         case "bye":
@@ -146,12 +146,12 @@ public final class Parser {
     }
 
     /**
-     * Parser for {@link AddRecipeCommand <code>AddRecipeCommand</code>}
+     * Parser for {@link AddCommand <code>AddRecipeCommand</code>}
      * @param args List of arguments as <code>String</code>
      * @return <code>AddRecipeCommand</code> object, waiting to be executed
      * @throws InvalidArgumentException If invalid format of arguments is found
      */
-    private static AddRecipeCommand getAddRecipeCommand(String args) throws InvalidArgumentException {
+    private static AddCommand getAddRecipeCommand(String args) throws InvalidArgumentException {
 
         final Pattern addRecipeCommandFormat =
                 // <n or N>/<String without forward slash>
@@ -168,7 +168,7 @@ public final class Parser {
         String input = args.trim();
         Matcher m = addRecipeCommandFormat.matcher(input);
         if (!m.matches()) {
-            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + AddRecipeCommand.USAGE_EXAMPLE);
+            throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + AddCommand.USAGE_EXAMPLE);
         }
 
         String name = m.group("name").trim().substring(2); // n/ or N/ are 2 chars
@@ -200,7 +200,7 @@ public final class Parser {
         }
         Integer timeTaken = getTimeTakenInteger(m);
 
-        return new AddRecipeCommand(new Recipe(trimmedName, ingreds, steps, cuisine, timeTaken));
+        return new AddCommand(new Recipe(trimmedName, ingreds, steps, cuisine, timeTaken));
     }
 
     private static Integer getTimeTakenInteger(Matcher m) throws InvalidArgumentException {

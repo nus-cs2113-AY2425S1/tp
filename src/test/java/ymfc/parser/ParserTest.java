@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import ymfc.commands.AddIngredientCommand;
-import ymfc.commands.AddRecipeCommand;
+import ymfc.commands.AddCommand;
 import ymfc.commands.ByeCommand;
 import ymfc.commands.DeleteCommand;
 import ymfc.commands.DeleteIngredientCommand;
@@ -17,7 +17,7 @@ import ymfc.commands.FindCommand;
 import ymfc.commands.FindIngredCommand;
 import ymfc.commands.HelpCommand;
 import ymfc.commands.ListCommand;
-import ymfc.commands.ListIngredientsCommand;
+import ymfc.commands.ListIngredientCommand;
 import ymfc.commands.RandomCommand;
 import ymfc.commands.RecommendCommand;
 import ymfc.commands.SortCommand;
@@ -199,7 +199,7 @@ class ParserTest {
         IngredientList iList = new IngredientList();
         Ui ui = new Ui(System.in);
         try {
-            AddRecipeCommand addCommand = (AddRecipeCommand) parseCommand(command, rList, iList);
+            AddCommand addCommand = (AddCommand) parseCommand(command, rList, iList);
             assert addCommand != null;
             addCommand.execute(rList, iList, ui, new Storage());
             assertTrue(recipe.equals(rList.getRecipe(rList.getCounter() - 1)));
@@ -390,7 +390,7 @@ class ParserTest {
     })
     void parseCommand_listICommand_success(String command) {
         try {
-            assertInstanceOf(ListIngredientsCommand.class, parseCommand(command, recipes, ingredients));
+            assertInstanceOf(ListIngredientCommand.class, parseCommand(command, recipes, ingredients));
         } catch (Exception exception) {
             fail(exception.getMessage());
         }
