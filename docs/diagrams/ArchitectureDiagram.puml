@@ -17,6 +17,7 @@ Package " "<<Rectangle>>{
     Class Common LOGIC_COLOR_T2
     Class Parser PARSER_COLOR
     Class Commands COMMAND_COLOR
+    Class Logger LOGGER_COLOR
 }
 
 Class "<$ma_account>" as User MODEL_COLOR_T2
@@ -35,6 +36,7 @@ MediTask -[#grey]-> Parser
 MediTask -[#grey]-> Storage
 MediTask -up[#grey]-> Data
 MediTask -down[hidden]-> Common
+MediTask -down[hidden]-> Logger
 
 Storage -up[STORAGE_COLOR].> Data
 Storage .right[STORAGE_COLOR].>File

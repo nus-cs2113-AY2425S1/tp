@@ -41,7 +41,8 @@
 
 !define USER_COLOR #000000
 
-!define LOGGER_COLOR #aeff00
+!define LOGGER_COLOR #black
+
 skinparam classAttributeIconSize 0
 
 
@@ -89,5 +90,5 @@ skinparam DefaultTextAlignment center
 skinparam packageStyle Rectangle
 
 hide footbox
-' hide members
+hide members
 hide circle

@@ -43,13 +43,13 @@ Given below is a quick overview of main components and how they interact with ea
 
 The bulk of the CLI's work id done by the following components:
 
-- **UI**: Handles the user interface and user interactions.
-- **Parser**: Interprets user commands and executes them.
-- **Command**: Contains the logic for executing user commands.
-- **StateManager**: Manages the state logic of the application and keeps track of the current state of the application.
-- **Storage**: Handles reading and writing data from and to the hard disk.
-- **Data**: Holds the data of the App in memory.
-- **Common**: Contains common classes used by other components.
+- [**`UI`**](#ui): Handles the user interface and user interactions.
+- [**`Parser`**](#parser): Interprets user commands and executes them.
+- [**`Command`**](#command): Contains the logic for executing user commands.
+- [**`StateManager`**](#state-manger): Manages the state logic of the application and keeps track of the current state of the application.
+- [**`Storage`**](#storage): Handles reading and writing data from and to the hard disk.
+- [**`Data`**](#data): Holds the data of the App in memory.
+- [**`Common`**](#common): Contains common classes used by other components.
 
 ### UI
 
@@ -102,9 +102,9 @@ The following diagram illustrates the structure of the `Hospital` class and its 
 - **Logging**: All major actions, such as adding and deleting patients, are logged at an appropriate level to facilitate debugging and monitoring.
 - **Error Handling**: Throws `PatientNotFoundException` for invalid indices, ensuring robustness in data handling.
 
-### State
+### State Management
 
-### State Class
+#### State Class
 
 The `State` class manages the application’s current operational mode, allowing the system to handle different types of commands depending on whether it is in the `MAIN_STATE` or `TASK_STATE`.
 
@@ -113,12 +113,12 @@ The `State` class manages the application’s current operational mode, allowing
 
 The state ensures that certain commands, like task-related commands, are only available when a patient is selected.
 
-### **State Manager**
+#### State Manager
 
 The `StateManager` class coordinates the application’s state transitions, managing the current state and delegating command execution based on the active state.
 
-1. **Attributes**: - `currentState`: Stores the current state as a `State` object.
-2. **Methods**: - `changeState(StateType state)`: Changes the application state. - `runState(String commandInput, Command command, Hospital hospital)`: Executes commands based on the active state. It distinguishes between `MAIN_STATE` for patient-related commands and `TASK_STATE` for task-related commands. - `runMainState` and `runTaskState`: Helper methods to handle specific command logic within each state.
+- **Attributes**: - `currentState`: Stores the current state as a `State` object.
+- **Methods**: - `changeState(StateType state)`: Changes the application state. - `runState(String commandInput, Command command, Hospital hospital)`: Executes commands based on the active state. It distinguishes between `MAIN_STATE` for patient-related commands and `TASK_STATE` for task-related commands. - `runMainState` and `runTaskState`: Helper methods to handle specific command logic within each state.
 
 #### Class Diagram
 
@@ -133,14 +133,23 @@ The following class diagram shows the structure of the `StateManager`:
 
 ### Storage
 
+#### Class Diagram
+
+The following class diagram shows the structure of the `Storage` component:
+
 ![Storage_Class_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/StorageClassDiagram.png)
 
 **API** : [`StorageFile.java`](https://github.com/AY2425S1-CS2113-T11-1/tp/tree/master/src/main/java/seedu/duke/storage/StorageFile.java)
 
-The `Storage` component,
-
-- Can save hospital data in Json format to a file, and read it back into hospital class.
 - Depends on the `Hospital` class in `Data` component as `Storage` component's job to save retrieve objects that belongs to `Data` gracefully.
+
+#### Implementation Considerations
+
+- **Data Persistence**: The `Storage` component ensures that patient and task data is saved to disk and loaded back into the system when the application starts.
+- **Error Handling**: `StorageFile` provide error handling for file I/O operations to prevent data loss and maintain data integrity in JSON format.
+- **Data Serialization**: The `Storage` component uses JSON serialization to save and load hospital data, ensuring data consistency and compatibility.
+- **Data Backup**: The `Storage` component includes a backup mechanism to safeguard critical data and provide a safety net for accidental deletions or corruption.
+
 
 ### Common Classes
 
