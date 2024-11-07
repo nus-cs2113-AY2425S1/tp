@@ -1,7 +1,7 @@
 @startuml
 !include .ClassDiagram.config
 'https://plantuml.com/class-diagram
-!include .ClassDiagram.config
+
 class CourseValidator {
     -logger: Logger {static}
     +isValidCourseMapping(nusCourseInput: String, puCourseInput: String, courses: JsonArray,pu: String): boolean
@@ -16,7 +16,7 @@ class UI{
     +displayAvailableMappings(courses:JsonArray, pu String): void
 }
 
-class AddCoursesCommand as "{abstract} \nAddCoursesCommand" extends PersonalTrackerCommand {
+class AddCoursesCommand as "AddCoursesCommand" extends PersonalTrackerCommand {
     -logger: Logger {static}
     -courseValidator: CourseValidator
     +execute(userInput: String, storage, Storage): void
