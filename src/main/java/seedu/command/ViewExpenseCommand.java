@@ -68,42 +68,43 @@ public class ViewExpenseCommand extends Command {
             Category tempCategory = new Category(categoryName);
             temp = transactionList.getExpensesByCategory(tempCategory);
         }
-        if (startDate != null) {
-            try {
+        try {
+            if (startDate != null) {
+
+                String[] datetimeParts = startDate.trim().split(" ", 2);
+
+                // If only the date is provided, append time as "0000" (00:00 AM)
+                if (datetimeParts.length == 1) {
+                    startDate += " 0000";
+                }
                 LocalDateTime start = DateTimeUtils.parseDateTime(startDate);
                 temp = temp.stream()
                         .filter((t) -> t.getDate().isAfter(start) || t.getDate().isEqual(start))
                         .collect(Collectors.toList());
-            } catch (InvalidDateFormatException e) {
-                messages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL + e.getMessage());
-                return messages;
-            } catch (Exception e) {
-                messages.add(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
-                return messages;
+
             }
-        }
-        if (endDate != null) {
-            try {
+            if (endDate != null) {
+
                 LocalDateTime end = DateTimeUtils.parseDateTime(endDate);
                 temp = temp.stream()
                         .filter((t) -> t.getDate().isBefore(end) || t.getDate().isEqual(end))
                         .collect(Collectors.toList());
-            } catch (InvalidDateFormatException e) {
-                messages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL + e.getMessage());
-                return messages;
-            } catch (Exception e) {
-                messages.add(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
-                return messages;
-            }
-        }
 
+            }
+        } catch (InvalidDateFormatException e) {
+            messages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL + e.getMessage());
+            return messages;
+        } catch (Exception e) {
+            messages.add(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
+            return messages;
+        }
         if (temp.isEmpty()) {
             messages.add(CommandResultMessages.VIEW_TRANSACTION_EMPTY);
             return messages;
         }
 
         int i = 1;
-        for (Transaction transaction: temp) {
+        for (Transaction transaction : temp) {
             messages.add(i + ". " + transaction.toString());
             i++;
         }
