@@ -192,10 +192,15 @@ Looks through the stored recipes to find those with matching names/steps/ingredi
 > If `OPTIONS` were not provided, the command will find recipes based on recipe name by default.
 > * E.g: `find ramen`
 * More examples:
+
   1) `find i/egg`: Find recipes which have the ingredients consist of "egg".
+
   2) `find ns/spaghetti`: Find recipes which have "spaghetti" in name or steps.
+
   3) `find sn/spaghetti`: Same results as (ii).
+
   4) `find nis/tomato`: Find recipes which have "tomato" anywhere.
+
   5) `find isn/tomato`: Same results as (iv).
 
 Example of usage:
@@ -233,6 +238,8 @@ Example of usage:
 `edit e/Grilled Cheese Sandwhich i/bread i/mayonaise i/cheese slice i/butter s1/heat pan with butter 
 s2/spread mayonaise on outside of bread s3/grill bread on pan, and add cheese on top 
 s4/remove from grill after 3 minutes`
+
+<div style="page-break-after: always;"></div>
 
 Expected Outcome:
 ````
@@ -301,7 +308,7 @@ Format: `listI`
 
 Lists out all of your available ingredients in your inventory
 
-## Finding Ingredients 
+### Finding Ingredients 
 
 Format: `findI INGREDIENT`
 
@@ -328,6 +335,8 @@ Format: `random`
 
 Picks a recipe at random and displays it
 
+<div style="page-break-after: always;"></div>
+
 ### Recommend Recipes Based on Available Ingredients
 
 Format: `recommend`
@@ -346,6 +355,8 @@ and paste it in your other computer in the same directory where YMFC.jar is loca
 **Q**: Can I edit the .txt files directly?
 
 **A**: Yes, but you must ensure that the format of how recipes and ingredients are saved is followed.
+
+<div style="page-break-after: always;"></div>
 
 ## YMFC\.Command Summary
 
