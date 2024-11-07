@@ -1,7 +1,10 @@
 package seedu.javaninja;
 
-import seedu.javaninja.question.*;
-
+import seedu.javaninja.question.FillInTheBlank;
+import seedu.javaninja.question.Flashcard;
+import seedu.javaninja.question.TrueFalse;
+import seedu.javaninja.question.Mcq;
+import seedu.javaninja.question.Question;
 
 import java.io.IOException;
 import java.util.ArrayList;
