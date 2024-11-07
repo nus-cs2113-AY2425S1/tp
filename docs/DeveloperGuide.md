@@ -46,7 +46,7 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Expense and Expense List](#expense-and-expense-list)
 - [Expense Filter](#expense-filter)
 - [Date and Time Handling](#date-and-time-handling)
-- [Visualizer](#visualizer)
+- Visualizer
 - [Exceptions and Logging](#exceptions-and-logging)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 - [Category Package](#category-package)
@@ -189,6 +189,10 @@ The `ExpenseList` class has the following key methods:
 | `deleteExpense` | Removes an expense from the list  |
 |  `editExpense`  |   Edits an expense in the list    |
 
+There are 2 versions of `addExpense`: one with a date and one without a date.
+- The former is used when the user does not specify the date: dateAdded is initialised as the current date. 
+- The latter is used when the user specifies the date: dateAdded is initialised as that specified date. 
+
 <u>Design Considerations</u>
 
 The setters in `Expense` class checks for null and blank.
@@ -227,15 +231,45 @@ it would add the expense to a new `ArrayList` if all three checks are satisfied.
 
 The `ArrayList` is then returned to the caller.
 
+
+
 ### Date and Time Handling
+
+<u>Overview</u>
 
 The `DateUtils` class provides utility methods to handle date formatting, validation and conversion. 
 
-The `DateUtils` class has no notable methods.
+<u>Methods</u>
+
+The `DateUtils` class has the following key methods:
+
+|        Method        |                      Description                       |
+|:--------------------:|:------------------------------------------------------:|
+|   `isInDateFormat`   | checks if a given string is in the correct date format |
+|   `getCurrentDate`   |      gets the current date in `LocalDate` format       |
+|    `stringToDate`    |   converts from given string to a `LocalDate` object   |
+| `dateFormatToString` |   converts from given `LocalDate` object to a string   |
+
+The date format that `DateUtils` uses, and thus the WheresMyMoney program uses, is `dd-MM-yyyy`. This ensures consistency in date formatting throughout the program.
 
 <u>Implementation Details</u>
 
-The `DateUtils` class is implemented as a Singleton as its methods are common to all other classes that require it.
+Most methods are essentially wrappers around the existing `java.time` API methods, but customised to fit this program's needs.
+
+- `isInDateFormat` is a wrapper for `java.time`'s `parse` method, but returns a boolean instead. 
+- `getCurrentDate` is a wrapper for `java.time`'s `now` method.
+- `stringToDate` is a wrapper for `java.time`'s `parse` method.
+- `dateFormatToString` is a wrapper for `java.time`'s `format` method.
+
+<u>Design Considerations</u>
+
+The `DateUtils` class' attributes and methods are all class-level, because:
+- Utility methods should be independent of object state 
+- No maintenance or storing of instance-specific date is needed 
+- Calling is easier, without requiring instantiation or to be passed through method parameters 
+- Utility functionality should not differ between instances.
+
+
 
 ### Visualizer
 
@@ -309,16 +343,36 @@ The `CategoryFilter` class is responsible for filtering categories based on vari
 
 <u>Methods</u>
 
+The `CategoryFacade` class has key methods for:
+
+|           Method            |                                    Description                                     |
+|:---------------------------:|:----------------------------------------------------------------------------------:|
+|        `addCategory`        |           The interface for AddCommand when the user adds a new Expense            |
+|      `deleteCategory`       |          The interface for DeleteCommand when the user deletes an Expense          |
+|       `editCategory`        |            The interface for EditCommand when the user edits an Expense            |
+|     `loadCategoryInfo`      |     The interface for LoadCommand to load category information from a CSV file     |
+| `displayFilteredCategories` | The interface for LoadCommand to show filtered categories based on spending limits |
+|     `saveCategoryInfo`      |  The interface for SaveCommand to save current category information to a CSV file  |
+| `setCategorySpendingLimit`  |   The interface for SetCommand to set a spending limit for a specified category    |
+
 The `CategoryTracker` class has the following key methods: 
 
-|       Method        |                                                            Description                                                            |
-|:-------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
-|     `addCategory`     | Adds a new category to the tracker. If already in the tracker, then the total expenditure for that category is increased instead. |
-|   `deleteCategory`    |    Decreases total expenditure of a category. If that total drops to zero or below, the category is removed from the tracker.     |
-|    `editCategory`     |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed.                   |
-| `setSpendingLimitFor` |                                         Sets a spending limit for a particular category.                                          |
+|        Method         |                                                           Description                                                            |
+|:---------------------:|:--------------------------------------------------------------------------------------------------------------------------------:|
+|    `checkLimitOf`     |                  Prints a message to output if total expenditure is nearing or has exceeded the spending limit                   |
+|     `addCategory`     | Adds a new category to the tracker. If already in the tracker, then the total expenditure for that category is increased instead |
+|   `deleteCategory`    |    Decreases total expenditure of a category. If that total drops to zero or below, the category is removed from the tracker     |
+|    `editCategory`     |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed                   |
+| `setSpendingLimitFor` |                                         Sets a spending limit for a particular category                                          |
 
-The `CategoryData` class has no notable methods.
+The `CategoryData` class has these key methods: 
+
+|           Method            |                   Description                   |
+|:---------------------------:|:-----------------------------------------------:|
+| `increaseCurrExpenditureBy` |    Increments current total by a given price    |
+| `decreaseCurrExpenditureBy` |    Decrements current total by a given price    |
+|      `isNearingLimit`       | Checks if current total is 80% of limit or more |
+|     `hasExceededLimit`      |   Checks if current total is more than limit    |
 
 The `CategoryFilter` class has key methods for:
 
@@ -326,11 +380,19 @@ The `CategoryFilter` class has key methods for:
 |:---------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
 |        `initMaxHeap`        |              Initialises a custom max heap that sorts categories by their current total expenditure               |
 |   `getCategoriesFiltered`   | Sorts categories in the tracker, which are nearing or have exceeded the designated spending limit, into max-heaps |
-| `displayFilteredCategories` |              Displays the categories in the provided category-filtered max-heap, in a preset format.              |
-| `displayExceededCategories` |                          Displays the categories that have exceeded its spending limits.                          |
-| `displayNearingCategories`  |                 Displays the categories that are nearing, but not exceeded, its spending limits.                  |
+| `displayFilteredCategories` |              Displays the categories in the provided category-filtered max-heap, in a preset format               |
+| `displayExceededCategories` |                          Displays the categories that have exceeded its spending limits                           |
+| `displayNearingCategories`  |                  Displays the categories that are nearing, but not exceeded, its spending limits                  |
 
 After the user adds or edits an `Expense`, it alerts the user if the spending limit is approached or exceeded for that `Expenses`'s category.
+
+The `CategoryStorage` class has key methods for:
+
+|       Method        |                                Description                                 |
+|:-------------------:|:--------------------------------------------------------------------------:|
+| `trackCategoriesOf` |            Creates a category tracker based on an expense list             |
+|    `loadFromCsv`    |              Loads spending limits from a CSV file, only for               |
+|     `saveToCsv`     | Saves all categories and their corresponding spending limits to a CSV file |
 
 After the user loads from file, all categories that have exceeded its designated spending limit will be displayed to the user, followed by all categories that have not exceeded its designated spending limit but are close to it.
 

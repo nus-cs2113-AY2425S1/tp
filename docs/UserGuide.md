@@ -140,7 +140,7 @@ Example: `set /category food /limit 100`
 
 Lists the command formats that the app recognises.
 
-Format: `help [/method METHOD]`
+Format: `help [/recur] [/method METHOD]`
 
 Notes:
 - `METHOD` is text.
@@ -149,6 +149,7 @@ Notes:
 Examples:
 - `help`              lists all commands the app has since `METHOD` is not specified.
 - `help /method add` lists format of the “add” command since `METHOD` is specified.
+- `help /recur edit` lists format of the "edit" command since `METHOD` and `/recur` are specified.
 
 ### Save data to files: `save`
 
@@ -299,7 +300,7 @@ On top of working the same way as normal expenses, this command also checks whet
 | Get Statistics                    | `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                           | 
 | Visualize Expenditures            | `visualize [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                       |
 | Set Spending Limit for a Category | `set /category CATEGORY /limit LIMIT`                                                                                  |
-| View Help                         | `help [/method METHOD]`                                                                                                |
+| View Help                         | `help [/recur] [/method METHOD]`                                                                                       |
 | Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |
 | Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |                                                             |
 | Add Recurring Expense             | `add /recur /price PRICE /description DESCRIPTION /category CATEGORY /date DATE /frequency FREQUENCY`                  |
