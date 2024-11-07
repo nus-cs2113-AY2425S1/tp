@@ -10,7 +10,7 @@
   - [List Command: `list`](#list-command-list)
   - [Sort Command: `sort`](#sort-command-sort)
   - [Filter Command: `filter`](#filter-command-filter)
-  - [Favourite Command: `favourite`]()
+  - [Favourite Command: `favourite`](#favourite-command-favourite)
   - [Delete Command: `delete`](#delete-command-delete)
   - [Calendar Command: `calendar`](#calendar-command-calendar)
   - [Help Command: `help`](#help-command-help)
