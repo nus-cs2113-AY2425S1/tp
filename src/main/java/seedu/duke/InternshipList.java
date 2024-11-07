@@ -62,6 +62,7 @@ public class InternshipList {
         assert internship != null : "Removed internship should not be null";
 
         internship.clearDeadlines();
+        favouriteInternships.remove(internship);
         ui.showDeletedInternship(index + 1);
         updateIds(); // Reassign IDs after removal
     }
