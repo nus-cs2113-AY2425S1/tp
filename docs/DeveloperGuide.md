@@ -34,9 +34,9 @@ The Parser component, comprising `DateParser` and `InputParser`, handles input p
 
 <ins>Implementation</ins>
 
-- **Class Diagram**: Displays the relationship between `AppUi`, `DateParser`, and `InputParser`. `AppUi` serves as the main interface for user interaction, utilizing `DateParser` and `InputParser` to interpret and process input effectively.
-![Ui Parser Class](UML/UiParserClass.png)
-- **Sequence Diagram**: Illustrates the flow of processing user input, from capturing input in `AppUi`, parsing it with `InputParser`, and validating date formats via `DateParser`.
+**Sequence Diagram**:
+This sequence diagram illustrates the flow of how the `AppUi`, `InputParser` and `DateParser` classes work together to parse and validate the user's expense input.
+
 ![Ui Parser Sequence](UML/UiParserSequence.png)
 
 #### Ui Component
@@ -49,12 +49,6 @@ The `AppUi` class in the Ui component facilitates user interactions, including d
 
 - **Attributes**:
   - `scanner`: `Scanner` — Reads user input from the console
-
-<ins>Implementation Details</ins>
-
-*Class Diagram*: Illustrates `AppUi` with its methods for displaying messages and capturing user input.
-
-![AppUI Class](UML/AppUIClass.png)
 
 <ins>Methods</ins>
 
@@ -90,9 +84,9 @@ The Parser component includes `InputParser` and `DateParser`. `InputParser` proc
 
 <ins>Implementation Details</ins>
 
-*Class Diagram*: Shows `InputParser` parsing command input and `DateParser` handling date validation.
-
-![Parser Class](UML/ParserClass.png)
+**InputParser**
+- This method takes a raw input string, parses it, and returns a HashMap where keys represent the command and argument names, and values represent the argument contents.
+- 
 
 <ins>Methods</ins>
 
@@ -124,23 +118,32 @@ It interacts with `FinancialList`, `AppUi` and `Storage`, and leverages command 
   - `ui`: `AppUi` - Manages user interactions.
   - `storage`: `Storage` - Handles data persistence
 
-<ins>Implementation Details</ins>
-
-*Class Diagram*: Shows Logic as the main controller interacting with `FinancialList`, `AppUi`, and various command classes for operations (e.g., `AddIncomeCommand`, `DeleteCommand`).
-
-![Logic Class](UML/LogicClass.png)
-
 <ins>Class Structure</ins>
 
-TThe Logic constructor initializes key components (FinancialList, AppUi, and Storage) to facilitate CRUD operations and manage interactions with users and stored data. 
+The Logic constructor initializes key components (FinancialList, AppUi, and Storage) to facilitate CRUD operations and manage interactions with users and stored data. 
+
+<ins>Implementation</ins>
+
+**Sequence Diagram**:
+This sequence diagram illustrates how the `Logic` class works with other classes to execute an edit entry command
+
+![Logic Sequence](UML/LogicSequence.png)
 
 <ins>Methods</ins>
 
 - **Logic(FinancialList financialList, Storage storage, AppUi ui,  BudgetLogic budgetLogic)**: Constructor that initializes the `Logic` class with necessary components like financial list, storage, UI, and budget logic.
 - **addExpense(double amount, String description, LocalDate date, Expense.Category category)**: Adds a new `Expense` to `FinancialList` specified or default category.
 - **addIncome(double amount, String description, LocalDate date, Income.Category category)**: Adds a new `Income` to `FinancialList` specified or default category.
-- **deleteEntry(int index)**: Removes an entry at a given index.
+- **parseAmount(String amountStr)**: Parses and validates the `amountStr` as a double, throwing a `FinanceBuddyException` for invalid values.
+- **parseExpenseCategoryOrDefault(String categoryStr)**: Parses the expense category from `categoryStr`, or returns a default category if `categoryStr` is null.
+- **parseIncomeCategoryOrDefault(String categoryStr)**: Parses the income category from `categoryStr`, or returns a default category if `categoryStr` is null.
 - **editEntry(int index, double amount, String description, String date, Enum<?> category)**: Updates an entry's amount, description, date and category.
+- **parseIndex(String indexStr)**: Parses and validates an index from `indexStr`, throwing a `FinanceBuddyException` if the index is invalid.
+- **parseAmountOrDefault(String amountStr, double defaultAmount)**: Parses `amountStr` as a double, or returns `defaultAmount` if `amountStr` is null.
+- **parseDateOrDefault(String dateStr, LocalDate defaultDate)**: Parses `dateStr` as a date, or returns `defaultDate` if `dateStr` is null.
+- **updateExpenseBalance(Expense entry, double newAmount, String newDate)**: Updates the balance when an expense entry is edited, based on the old and new amounts and dates of the entry.
+- **getCategoryFromInput(HashMap<String, String> commandArguments, FinancialEntry entry)**: Retrieves or parses the category based on command input in `commandArguments` and the type of `entry` (income or expense). 
+- **deleteEntry(int index)**: Removes an entry at a given index.
 - **listHelper(HashMap<String, String> commandArguments)**: Lists financial entries filtered by type (e.g., expenses, incomes) and date range based on command arguments.
 - **printHelpMenu()**: Executes the help command to display the available commands and their usage to the user.
 - **matchCommand(String command, HashMap<String, String> commandArguments)**: Matches a user command to the corresponding action, executes it, and determines if the application should continue running.
@@ -603,7 +606,7 @@ The figure below show how the program load data from the files:
 
 <ins>Usage Example</ins>
 
-```java
+``` java
 // Instantiate the Storage class and provide the file paths for financial data and budget
 Storage storage = new Storage();
 
@@ -863,7 +866,6 @@ faster than a typical mouse/GUI driven app
 ### Manual Testing
 
 View the [User Guide](UserGuide.md) for the list of UI commands and their related use case and expected outcomes.
-{Currently the link to the User Guide is not up yet}
 
 ### JUnit Testing
 
