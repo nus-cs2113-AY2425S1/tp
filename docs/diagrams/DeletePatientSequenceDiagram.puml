@@ -49,7 +49,7 @@ deactivate Parser
 
 MediTask <-- Parser : CommandResult
 destroy DeletePatientCommand
-MediTask -> User : Display CommandResult
+MediTask --> User : Display CommandResult
 
 deactivate MediTask
 
