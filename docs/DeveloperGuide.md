@@ -17,13 +17,44 @@ We used these third party libraries to develop our application:
 
 The `ProgrammeList` component,
 
-The `programme` component,
+- **Manages a collection of programmes**: The `ProgrammeList` class is designed to manage a list of `Programme` objects, supporting easy addition, retrieval, and deletion of programmes. It also allows tracking and setting an active programme.
+- **Provides collection-based functionality**: The class includes essential methods for operations such as retrieving the current list size, adding a new programme, and deleting or retrieving a programme by index. All key actions are logged for better traceability and debugging.
+- **Supports programme activation and management**: The `startProgramme()` method sets a specific `Programme` as the active programme, enabling users to track which programme is currently in use. This ensures a seamless way to handle active programme operations.
+- **Handles edge cases and maintains data integrity**: The `ProgrammeList` class checks for out-of-bounds access and throws appropriate exceptions when invalid indexes are provided. This helps maintain data consistency and prevents runtime errors.
+- **Detailed representation**: The `toString()` method returns a comprehensive representation of the programme list, indicating the active programme for better user interface display and reporting.
 
-The `day` component,
+The `Programme` component,
 
-The `exercise` component,
+- **Manages a collection of days**: The `Programme` class consists of multiple day objects, supporting easy addition, retrieval and deletion of days.
+- **Ensures data consistency and error handling**: The `Programme` class includes validations to handle cases such as null programme names or invalid indexes when accessing days. These validations help maintain data integrity and prevent unexpected runtime issues. Methods that attempt to access invalid indexes throw appropriate exceptions, maintaining robust error handling.
+- **Detailed representation**: The `toString()` method returns a formatted string that includes the programme name and all the days in the programme, making it suitable for displaying programme information in user interfaces or summaries.
+- **Maintains programme organization**: The class structure, with methods for inserting, retrieving, and deleting days, supports seamless organization and updates within a `Programme`, ensuring that users can easily manage the content and structure of their training schedules.
 
-The `updateExercise` component, 
+The `Day` component,
+
+- **Represents a single day of exercises**: The `Day` class models a day that can contain multiple exercises. It serves as a building block for a structured workout or training programme.
+- **Manages exercises within a day**: The class supports adding, retrieving, and deleting exercises through methods like `insertExercise()`, `getExercise()`, and `deleteExercise()`. This makes it easy to modify the list of exercises for a particular day.
+- **Ensures data consistency and error handling**: The `Day` class checks for edge cases, such as invalid indexes when accessing or deleting exercises, and throws appropriate exceptions. Assertions are used to enforce that the day name and exercises are not null or empty upon initialization.
+- **Calculates total calories burnt**: The `getTotalCaloriesBurnt()` method sums up the calories from all exercises in the day's list, providing a quick overview of the total effort for that day.
+- **Detailed representation**: The `toString()` method returns a formatted string listing the day's name and each exercise, making it convenient for displaying in user interfaces or summaries.
+- **Enables object comparison and usage in collections**: The `equals()` and `hashCode()` methods are overridden to facilitate comparisons between `Day` objects and to support their use in collections, ensuring that days can be managed accurately.
+
+The `Exercise` component,
+
+- **Models an individual exercise**: The `Exercise` class represents a specific exercise, detailing its sets, reps, weight, calories burned, and name. It provides a structured way to encapsulate exercise data within a day.
+- **Allows for detailed updates**: The `updateExercise()` method accepts an `ExerciseUpdate` object and selectively updates fields of the `Exercise` based on the non-null values in the `ExerciseUpdate`. This ensures flexibility in modifying only the required fields without affecting the others.
+- **Includes validation**: Each update method validates inputs, ensuring that null values do not update existing fields.
+- **Facilitates data retrieval**: The class provides getters such as `getCalories()`, `getWeight()`, and `getName()` for accessing specific details of the exercise.
+- **Detailed representation**: The `toString()` method returns a formatted string summarizing the exercise, including its name, number of sets, reps, weight used, and calories burned. This makes it easy to display exercise details in user interfaces or reports.
+- **Enables object comparison and consistent storage**: The `equals()` and `hashCode()` methods are overridden to allow for the comparison of `Exercise` objects and ensure consistency when storing them in collections. This helps in managing and tracking unique exercises within larger structures like days or programmes.
+
+The `ExerciseUpdate` component,
+
+- **Facilitates partial updates to Exercise objects**: The `ExerciseUpdate` class is designed to enable the modification of specific fields in an `Exercise` object. Each field in the `ExerciseUpdate` can be null, indicating that the corresponding attribute in the target `Exercise` should not be updated.
+- **Holds update data for exercises**: The class includes fields such as `sets`, `reps`, `weight`, `calories`, and `name`, which can be used to selectively update an `Exercise`. This enables targeted updates without altering other unchanged fields.
+- **Ensures flexibility in exercise management**: By accepting nulls for unmodified fields, the `ExerciseUpdate` class provides a flexible way to update only the required attributes of an `Exercise`, streamlining the process of making changes to specific exercise details.
+- **Supports integration with update methods**: The `ExerciseUpdate` class can be passed as a parameter to methods in the `Exercise` class (e.g., `updateExercise()`), facilitating a seamless process for applying partial updates based on provided non-null values.
+- **Simplifies exercise modification logic**: With this class, the logic for updating exercises is consolidated, simplifying the code and ensuring consistency when modifying `Exercise` objects in various contexts.
 
 
 ### Meal Component
@@ -52,17 +83,12 @@ The `MealList` component,
 
 The `Water` component,
 
-**Tracks daily water intake:** The `Water` class allows for recording individual water consumption entries throughout the day, stored in liters. Each entry is logged, providing a detailed trace of daily water consumption.
-
-**Attributes:** The main attribute of the `Water` class is waterList, a list of Float values representing individual water intake entries in liters.
-
-**Validation and error handling:** When adding water entries, the `Water` class enforces that the water amount is positive. Deletion attempts with invalid indexes are handled with exceptions, ensuring safe and predictable usage.
-
-**Supports collection-based functionality:** The `Water` class includes methods for adding and deleting water entries, checking if the list is empty, and retrieving the entire list of entries. Each action is logged, allowing developers to track and troubleshoot any changes to the water intake log.
-
-**User-friendly representation:** The toString() method formats and returns a string representation of all water entries. Each entry is listed with an index, making it easy to display in user interfaces and summaries.
-
-**Efficient storage and retrieval:** The getWaterList() method returns the full list of water intake entries, while the class’s clear and consistent data structure facilitates straightforward water consumption tracking and data retrieval.
+- **Tracks daily water intake:** The `Water` class allows for recording individual water consumption entries throughout the day, stored in liters. Each entry is logged, providing a detailed trace of daily water consumption.
+- **Attributes:** The main attribute of the `Water` class is waterList, a list of Float values representing individual water intake entries in liters.
+- **Validation and error handling:** When adding water entries, the `Water` class enforces that the water amount is positive. Deletion attempts with invalid indexes are handled with exceptions, ensuring safe and predictable usage.
+- **Supports collection-based functionality:** The `Water` class includes methods for adding and deleting water entries, checking if the list is empty, and retrieving the entire list of entries. Each action is logged, allowing developers to track and troubleshoot any changes to the water intake log.
+- **User-friendly representation:** The toString() method formats and returns a string representation of all water entries. Each entry is listed with an index, making it easy to display in user interfaces and summaries.
+- **Efficient storage and retrieval:** The getWaterList() method returns the full list of water intake entries, while the class’s clear and consistent data structure facilitates straightforward water consumption tracking and data retrieval.
 
 ### History Component
 
@@ -209,7 +235,7 @@ The following sequence diagram shows how a load operation for ProgrammeList goes
 ![Sequence Diagram for Load operation](./images/loadProgrammeListSeqenceDiagram.png)
 
 The following sequence diagram shows how a save operation goes through the Storage component:
-![Sequence Diagram for Save operation](./images/saveSequenceDiagram.png)
+![Sequence Diagram for Save operation](./images/saveSeqeunceDiagram.png)
 
 ## WeeklySummary Feature
 
