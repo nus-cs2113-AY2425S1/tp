@@ -1,8 +1,12 @@
 package fittrack.ui;
 
+import fittrack.enums.Exercise;
+import fittrack.graph.GraphPerformance;
+import fittrack.graph.GraphPoints;
 import fittrack.reminder.Reminder;
 import fittrack.trainingsession.TrainingSession;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,6 +118,18 @@ public class Ui {
     public static void printSessionCount(List<TrainingSession> sessionList) {
         assert sessionList != null : "Session list must not be null";
         System.out.println("There are " + sessionList.size() + " sessions in the list.");
+    }
+
+    public static void printPointGraph(Exercise exercise, ArrayList<TrainingSession> sessionList){
+        if(exercise == null){
+            GraphPoints.graphSessions(sessionList);
+        } else {
+            GraphPoints.graphExercisePoints(exercise, sessionList);
+        }
+    }
+
+    public static void printPerformanceGraph(Exercise exercise, ArrayList<TrainingSession> sessionList){
+        GraphPerformance.graphExercisePerformance(exercise, sessionList);
     }
 
     public static void printReminderCount(ArrayList<Reminder> reminderList) {
