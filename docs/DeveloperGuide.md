@@ -1,3 +1,13 @@
+<style>
+img
+{
+    display:block;
+    float:none;
+    margin-left:auto;
+    margin-right:auto;
+}
+</style>
+
 # Developer Guide
 
 ## Table of Contents
@@ -37,7 +47,7 @@ Finance Buddy uses the following tools for development:
 
 The simplified UML class diagram below provides an overview of the classes and their interactions with each other. 
 
-<img src="UML/overallArchi.png" alt="overall archi" width="auto" height="50%">
+<img src="UML/overallArchi.png" alt="overall archi" width="auto" height="300">
 
 
 In the above diagram, Command and FinancialEntry are representative of the subclasses of 
@@ -47,7 +57,8 @@ The high-level overview of the program is shown in the diagram below as well.
 
 <img src="UML/overallFlow.png" alt="overall flow" width="auto" height="500" class="centre">
 
----
+<div style="page-break-after: always;"></div>
+
 ### Ui and Parser
 <ins>Overview</ins>
 
@@ -128,7 +139,8 @@ LocalDate parsedDate = DateParser.parse("12/10/24");
 
 - **Future Extension**: To support more complex commands and argument parsing, the Parser component could introduce additional parsers, such as `CommandParser` and `ArgumentParser`, extending from an abstract base. Supporting alternative date formats in `DateParser` could enhance flexibility, accommodating user input from different locales or formats.
 
----
+<div style="page-break-after: always;"></div>
+
 ### Logic
 <ins>Overview</ins>
 
@@ -192,7 +204,7 @@ logic.seeAllEntries();
 
 - **Future Extension**: External APIs could be integrated in the future for features like currency conversion or market updates, making Logic an ideal candidate for adaptability.
 
----
+<div style="page-break-after: always;"></div>
 
 ### FinancialList and FinancialEntry
 <ins>Overview</ins>
@@ -291,11 +303,6 @@ System.out.println("Highest Expense Category: " + highestExpenseCategory.getKey(
 
 `FinancialEntry` is an abstract base class that represents a generic financial record. It defines shared attributes such as `amount`, `description`, and `date`, which are common across both `Income` and `Expense`. `Income` and `Expense` inherit these properties and methods, each adding specific functionality related to its type.
 
-<ins>Implementation</ins>
-
-The class diagram above shows `FinancialEntry` as the base class with `Income` and `Expense` as specific implementations.
-- {Input Class Diagram here}
-
 <ins>Class Structure</ins>
 
 - **Attributes**:
@@ -344,8 +351,7 @@ System.out.println(expense.toString());
 
 - **Abstract Base Class**: The design decision to make `FinancialEntry` abstract enables extensibility, allowing for new types of financial records without modifying `FinancialList` or existing subclasses.
 
-
----
+<div style="page-break-after: always;"></div>
 
 ### Commands
 
@@ -411,6 +417,8 @@ A similar sequence happens when an expense is added.
 
 <img src="UML/addIncomeCommandSequence.png" alt="Financial List Sequence Diagram" width="auto" height="500">
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting Entries
 
 <ins>Overview</ins>
@@ -475,6 +483,8 @@ following arguments:
 Below is a simplified sequence diagram of the user editing an entry.
 
 <img src="UML/editEntryCommandSequence.png" alt="Edit Entry Sequence Diagram" width="auto" height="500">
+
+<div style="page-break-after: always;"></div>
 
 ### Listing Entries
 <ins>Overview</ins>
@@ -570,6 +580,8 @@ Given that the logic for `SeeAllEntriesCommand`, `SeeAllExpensesCommand` and `Se
 with the only difference being the criteria for printing the entries, we made `SeeAllExpensesCommand` and 
 `SeeAllIncomesCommand` inherit `SeeAllEntriesCommand` to reduce the amount of duplicated code written.
 
+<div style="page-break-after: always;"></div>
+
 ### Exceptions and Logging
 
 <ins>Overview</ins>
@@ -640,6 +652,8 @@ logger.log(LogLevels.INFO, "Expense added successfully.");
 logger.log(LogLevels.WARNING, "Invalid index inputted.");
 logger.log(LogLevels.SEVERE, "FinancialList is null.", exception);
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Storage
 
@@ -724,6 +738,8 @@ storage.update(financialList, budgetLogic);
  - **Data Persistence**: Storage supports retention of records after application closure, aligning with needs for long-term financial tracking.
  - **Scalability**: Future improvements to Storage could incorporate encryption or remote storage options, enhancing data security and flexibility.
 
+<div style="page-break-after: always;"></div>
+
 ### Budget and BudgetLogic
 
 <ins>Overview</ins>
@@ -742,7 +758,7 @@ recalculates the remaining balance, and prompts the user when the budget is exce
 The class diagram below shows the structure of `Budget` and `BudgetLogic`. The `Logic` class
 has been greatly simplified to simply show the association between these classes.
 
-![Budget](UML/Budget.png)
+<img src="UML/Budget.png" alt="Budget Diagram" width="auto" height="400">
 
 <ins>Methods</ins>
 
@@ -791,20 +807,22 @@ The sequence diagrams below show 3 main methods of `BudgetLogic` class.
 The `setBudget()` method is invoked by the `Logic` class or `FinanceBuddy` main class.
 The sequence diagram shows an example of the method being called by the `Logic` class.
 
-<img src="UML/setBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="600">
+<img src="UML/setBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
 
 The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class.
 
-<img src="UML/recalculateBalanceSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="500">
+<img src="UML/recalculateBalanceSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
 
 The `changeBalanceFromExpense()` method is shown below.
 
-<img src="UML/changeExpenseFromExpense.png" alt="Set Budget Sequence Diagram" width="auto" height="500">
+<img src="UML/changeExpenseFromExpense.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
 
 <ins>Design Considerations</ins>
 
 Given that the `Budget` class has a significant enough number of attributes and methods,
 the `BudgetLogic` class was created to specifically handle the logic related to `Budget`.
+
+<div style="page-break-after: always;"></div>
 
 ## Product scope
 
@@ -819,6 +837,8 @@ the `BudgetLogic` class was created to specifically handle the logic related to 
 ### Value proposition
 Finance Buddy allows our target user profile to keep track of their income/expenditures
 faster than a typical mouse/GUI driven app
+
+<div style="page-break-after: always;"></div>
 
 ## User Stories
 
@@ -837,6 +857,8 @@ faster than a typical mouse/GUI driven app
 | v2.0    | user                           | view my expenditure over different categories                             | see where I spend the most                                     |
 | v2.0    | busy user                      | log my finances in the shortest possible time                             | have more time for other activities                            |
 | v2.1    | busy user                      | edit/delete my last added/edited entry without needing to enter its index | save time undoing mistakes made when logging entries           |
+
+<div style="page-break-after: always;"></div>
 
 ## Use Cases
 
@@ -861,7 +883,6 @@ faster than a typical mouse/GUI driven app
     - 3a1. FinanceBuddy shows an error message.
     - 3a2. FinanceBuddy prompts the user to re-enter the information.
     - **Use case resumes at step 2.**
-
 
 #### Use Case: Edit an Expense
 
@@ -932,6 +953,7 @@ faster than a typical mouse/GUI driven app
     - 3a2. FinanceBuddy prompts the user to re-enter the information.
     - **Use case resumes at step 2.**
 
+<div style="page-break-after: always;"></div>
 
 ## Non-Functional Requirements
 
