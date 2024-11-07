@@ -9,8 +9,6 @@ import programme.Exercise;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class HistoryTest {
     private History history;
     private Day day1;

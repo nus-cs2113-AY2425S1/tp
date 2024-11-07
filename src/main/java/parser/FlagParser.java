@@ -1,8 +1,8 @@
 //@@author nirala-ts
+
 package parser;
 
-import exceptions.EmptyInputBuffBuddyException;
-import exceptions.MissingFlagBuffBuddyException;
+import exceptions.FlagExceptions;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -47,11 +47,11 @@ public class FlagParser {
      *
      * @param argumentString The argument string to parse.
      * @param ignoredFlags   Flags that are optional for this instance.
-     * @throws IllegalArgumentException if {@code argumentString} is null.
+     * @throws FlagExceptions if {@code argumentString} is null.
      */
     public FlagParser(String argumentString, String... ignoredFlags) {
         if (isNull(argumentString)){
-            throw new EmptyInputBuffBuddyException("Argument string");
+            throw FlagExceptions.missingArguments();
         }
 
         initializeAliasMap();
@@ -176,7 +176,7 @@ public class FlagParser {
      * Validates that all required flags are present in the parsed flags and contains a non-null value.
      *
      * @param requiredFlags The required flags to validate.
-     * @throws IllegalArgumentException if any required flag is missing.
+     * @throws FlagExceptions if any required flag is missing.
      */
     public void validateRequiredFlags(String... requiredFlags) {
         assert requiredFlags != null : "Required flags string must not be null";
@@ -187,14 +187,14 @@ public class FlagParser {
 
             if (!hasFlag(flag)) {
                 logger.log(Level.WARNING, "Missing required flag: {0}", flag);
-                throw new MissingFlagBuffBuddyException(flag);
+                throw FlagExceptions.missingFlag(flag);
             }
 
             String value = getStringByFlag(flag);
 
             if (isNull(value)) {
                 logger.log(Level.WARNING, "Required flag has null value: {0}", flag);
-                throw new MissingFlagBuffBuddyException(flag);
+                throw FlagExceptions.missingFlag(flag);
             }
         }
     }

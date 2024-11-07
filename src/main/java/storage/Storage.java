@@ -1,4 +1,4 @@
-//@@author Bev-Low
+//@@author Bev-low
 
 package storage;
 
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public class Storage {
 
     private static final Logger logger = Logger.getLogger(Storage.class.getName());
-    private final FileManager fileManager;
+    private FileManager fileManager;
 
     /**
      * Constructs a Storage object with a specified file path.
@@ -46,9 +46,12 @@ public class Storage {
     public ProgrammeList loadProgrammeList() {
         try {
             JsonObject programmeListJson = fileManager.loadProgrammeList();
+            if (programmeListJson == null) {
+                return new ProgrammeList();
+            }
             logger.info("Loading programmeList");
             return programmeListFromJson(programmeListJson);
-        } catch (Exception e) {
+        } catch (Exception e ) {
             logger.info("No programme list found, empty list initialised");
             return new ProgrammeList();
         }
@@ -65,6 +68,9 @@ public class Storage {
     public History loadHistory() {
         try {
             JsonObject historyJson = fileManager.loadHistory();
+            if (historyJson == null) {
+                return new History();
+            }
             logger.info("Loading history");
             return historyFromJson(historyJson);
         } catch (Exception e) {
@@ -88,9 +94,8 @@ public class Storage {
 
         try{
             fileManager.save(jsonObject);
-        } catch (Exception ignored) {
-            // For now, leave this as a quiet failure for simplicity
-            // User will be notified of corrupted data when next loading app
+        } catch (Exception e) {
+            logger.info("Failed to save data");
         }
     }
 
@@ -184,5 +189,14 @@ public class Storage {
         }
         logger.log(Level.INFO, "historyJson converted from Json for loading.");
         return history;
+    }
+
+    /**
+     * Sets the FileManager instance for testing purposes.
+     *
+     * @param mockFileManager the mocked FileManager to be used for testing.
+     */
+    public void setFileManager(FileManager mockFileManager) {
+        this.fileManager = mockFileManager;
     }
 }

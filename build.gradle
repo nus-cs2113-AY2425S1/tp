@@ -47,3 +47,9 @@ run{
     standardInput = System.in
     enableAssertions = true
 }
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}

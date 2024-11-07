@@ -1,10 +1,8 @@
 // @@author nirala-ts
+
 package parser;
 
-//import exceptions.BuffBuddyException;
-import exceptions.EmptyInputBuffBuddyException;
-import exceptions.IndexOutOfBoundsBuffBuddyException;
-import exceptions.InvalidFormatBuffBuddyException;
+import exceptions.ParserExceptions;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +25,6 @@ public class ParserUtils {
     /**
      * Splits the argument string into the primary command and its arguments.
      *
-     * @author nirala-ts
      * @param argumentString The full argument string provided by the user.
      * @return A string array containing the command as the first element and the remaining arguments as the second.
      * @throws AssertionError if {@code argumentString} is null.
@@ -47,7 +44,6 @@ public class ParserUtils {
     /**
      * Trims the input string to remove leading and trailing whitespace.
      *
-     * @author nirala-ts
      * @param argumentString The string to trim.
      * @return The trimmed version of {@code argumentString}.
      * @throws IllegalArgumentException if {@code argumentString} is empty after trimming.
@@ -58,7 +54,7 @@ public class ParserUtils {
 
         if (trimmedString.isEmpty()){
             logger.log(Level.WARNING, "Trimmed input is empty");
-            throw new EmptyInputBuffBuddyException("intString or dateString");
+            throw ParserExceptions.missingArguments();
         }
 
         logger.log(Level.INFO, "Successfully trimmed input: {0}", trimmedString);
@@ -68,10 +64,9 @@ public class ParserUtils {
     /**
      * Parses a string as an integer, returning a default value if the string is null.
      *
-     * @author nirala-ts
      * @param intString The string to parse as an integer.
      * @return The parsed integer, or {@code NULL_INTEGER} if {@code intString} is null.
-     * @throws IllegalArgumentException if {@code intString} cannot be parsed as an integer.
+     * @throws ParserExceptions if {@code intString} cannot be parsed as an integer.
      */
     public static int parseInteger(String intString){
         if (intString == null) {
@@ -88,17 +83,16 @@ public class ParserUtils {
             return result;
         } catch (NumberFormatException e){
             logger.log(Level.WARNING, "Failed to parse integer from string: {0}", intString);
-            throw new InvalidFormatBuffBuddyException("Integer");
+            throw ParserExceptions.invalidInt(trimmedIntString);
         }
     }
 
     /**
      * Parses a string as a float, returning a default value if the string is null.
      *
-     * @author nirala-ts
      * @param floatString The string to parse as a float.
      * @return The parsed float, or {@code NULL_FLOAT} if {@code floatString} is null.
-     * @throws IllegalArgumentException if {@code floatString} cannot be parsed as a float.
+     * @throws ParserExceptions if {@code floatString} cannot be parsed as a float.
      */
     public static float parseFloat(String floatString) {
         if (floatString == null) {
@@ -115,17 +109,16 @@ public class ParserUtils {
             return result;
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Failed to parse float from string: {0}", floatString);
-            throw new InvalidFormatBuffBuddyException("float");
+            throw ParserExceptions.invalidFloat(trimmedFloatString);
         }
     }
 
     /**
      * Parses a string as an index, adjusting it to zero-based and returning a default if null.
      *
-     * @author nirala-ts
      * @param indexString The string to parse as an index.
      * @return The zero-based index, or {@code NULL_INTEGER} if {@code indexString} is null.
-     * @throws IllegalArgumentException if the index is less than zero.
+     * @throws ParserExceptions if the index is less than zero.
      */
     public static int parseIndex(String indexString) {
         if (indexString == null) {
@@ -136,7 +129,7 @@ public class ParserUtils {
         int index = parseInteger(indexString) - 1;
         if (index < 0){
             logger.log(Level.WARNING, "Invalid index: {0}. Index must be non-negative.", indexString);
-            throw new IndexOutOfBoundsBuffBuddyException("Index: " + indexString +" is not a valid index.");
+            throw ParserExceptions.indexOutOfBounds(indexString);
         }
 
         logger.log(Level.INFO, "Successfully parsed index: {0}", index);
@@ -146,7 +139,6 @@ public class ParserUtils {
     /**
      * Parses a string as a date using the specified date format. If null, returns the current date.
      *
-     * @author nirala-ts
      * @param dateString The string to parse as a date.
      * @return The parsed {@code LocalDate} object, or today's date if {@code dateString} is null.
      * @throws IllegalArgumentException if the date format is invalid.
@@ -163,13 +155,23 @@ public class ParserUtils {
 
         try {
             LocalDate date = LocalDate.parse(trimmedDateString, formatter);
+            
+            String[] parts = trimmedDateString.split("-");
+            int inputDay = Integer.parseInt(parts[0]);
+            int inputMonth = Integer.parseInt(parts[1]);
+
+            // Check if the parsed date matches the input values as LocalDate.parse
+            // automatically adjusts invalid dates to the nearest valid one
+            if (date.getDayOfMonth() != inputDay || date.getMonthValue() != inputMonth) {
+                throw new DateTimeParseException("Invalid date: " + dateString, dateString, 0);
+            }
 
             logger.log(Level.INFO, "Successfully parsed date: {0}", date);
             return date;
         } catch (DateTimeParseException e) {
             logger.log(Level.WARNING, "Invalid date format: {0}. Expected format: {1}",
                     new Object[]{dateString, DATE_FORMAT});
-            throw new InvalidFormatBuffBuddyException("dd-MM-yyyy.");
+            throw ParserExceptions.invalidDate(trimmedDateString);
         }
     }
 }

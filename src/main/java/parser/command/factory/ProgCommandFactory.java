@@ -1,4 +1,5 @@
 // @@author nirala-ts
+
 package parser.command.factory;
 
 import command.Command;
@@ -16,8 +17,7 @@ import command.programme.edit.DeleteExerciseProgrammeCommand;
 import command.programme.edit.CreateDayProgrammeCommand;
 import command.programme.edit.DeleteDayProgrammeCommand;
 
-import exceptions.EmptyInputBuffBuddyException;
-import exceptions.MissingFlagBuffBuddyException;
+import exceptions.ProgrammeExceptions;
 import parser.FlagParser;
 import programme.Day;
 import programme.Exercise;
@@ -71,7 +71,6 @@ public class ProgCommandFactory {
     /**
      * Parses the provided argument string to identify and create the appropriate command.
      *
-     * @author nirala-ts
      * @param argumentString The command's argument string, which contains the subcommand and arguments.
      * @return The created {@code Command} object based on the subcommand specified in the argument string.
      */
@@ -104,9 +103,9 @@ public class ProgCommandFactory {
     /**
      * Prepares and returns a {@link CreateProgrammeCommand} to create a new program with a specified name and days.
      *
-     * @author nirala-ts
      * @param argumentString The argument string containing program details, including days and exercises.
      * @return A {@link CreateProgrammeCommand} object that represents the request to create a new program.
+     * @throws ProgrammeExceptions when programme is missing name.
      */
     private Command prepareCreateCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -119,7 +118,7 @@ public class ProgCommandFactory {
         String progName = progParts[0].trim();
         if (progName.isEmpty()) {
             logger.log(Level.WARNING, "Programme name is empty");
-            throw new EmptyInputBuffBuddyException("Programme name");
+            throw ProgrammeExceptions.programmeMissingName();
         }
 
         for (int i = 1; i < progParts.length; i++) {
@@ -135,12 +134,13 @@ public class ProgCommandFactory {
     /**
      * Prepares and returns a {@link ViewProgrammeCommand} to view a specific program by its index.
      *
-     * @author nirala-ts
      * @param argumentString The string containing the program index to view.
      * @return A {@link ViewProgrammeCommand} initialized with the specified program index.
      */
     private Command prepareViewCommand(String argumentString) {
-        assert argumentString != null : "Argument string must not be null";
+        if (argumentString.isEmpty()) {
+            argumentString = null;
+        }
 
         int progIndex = parseIndex(argumentString);
 
@@ -151,7 +151,6 @@ public class ProgCommandFactory {
     /**
      * Prepares and returns a {@link StartProgrammeCommand} to activate a specific program by its index.
      *
-     * @author nirala-ts
      * @param argumentString The string containing the program index to start.
      * @return A {@link StartProgrammeCommand} initialized with the specified program index.
      */
@@ -167,12 +166,13 @@ public class ProgCommandFactory {
     /**
      * Prepares and returns a {@link DeleteProgrammeCommand} to remove a specific program by its index.
      *
-     * @author nirala-ts
      * @param argumentString The string containing the program index to delete.
      * @return A {@link DeleteProgrammeCommand} initialized with the specified program index.
      */
     private Command prepareDeleteCommand(String argumentString){
-        assert argumentString != null : "Argument string must not be null";
+        if (argumentString.isEmpty()) {
+            argumentString = null;
+        }
 
         int progIndex = parseIndex(argumentString);
 
@@ -183,12 +183,11 @@ public class ProgCommandFactory {
     /**
      * Prepares and returns a {@link LogProgrammeCommand} to log activity in a specific program on a particular date.
      *
-     * @author nirala-ts
      * @param argumentString The string containing flags for the date, program index, and day index.
      * @return A {@link LogProgrammeCommand} initialized with the specified date and indices.
      * @throws IllegalArgumentException If required flags are missing.
      */
-    private Command prepareLogCommand(String argumentString) {
+    public Command prepareLogCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
 
         flagParser.validateRequiredFlags(DAY_FLAG);
@@ -210,7 +209,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString A {@link String} containing arguments to parse.
      * @return The specific {@link EditProgrammeCommand} object that corresponds to the flag detected.
-     * @throws IllegalArgumentException If no recognized edit command flag is present in the argument string.
+     * @throws ProgrammeExceptions If no recognized edit command flag is present in the argument string.
      */
     private EditProgrammeCommand prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -244,7 +243,7 @@ public class ProgCommandFactory {
             return prepareDeleteDayCommand(flagParser);
         }
 
-        throw new MissingFlagBuffBuddyException("Edit command");
+        throw ProgrammeExceptions.programmeEditMissingFlags();
     }
 
     /**
@@ -343,6 +342,22 @@ public class ProgCommandFactory {
         );
     }
 
+    private ExerciseUpdate parseExerciseUpdate(String argumentString){
+        assert argumentString != null : "Argument string must not be null";
+
+        FlagParser flagParser = new FlagParser(argumentString);
+
+        return new ExerciseUpdate(
+                flagParser.getIntegerByFlag(SETS_FLAG),
+                flagParser.getIntegerByFlag(REPS_FLAG),
+                flagParser.getIntegerByFlag(WEIGHT_FLAG),
+                flagParser.getIntegerByFlag(CALORIES_FLAG),
+                flagParser.getStringByFlag(NAME_FLAG)
+        );
+    }
+
+    // @@author nirala-ts
+
     /**
      * Parses a string of day related arguments and returns a Day object.
      *
@@ -356,7 +371,7 @@ public class ProgCommandFactory {
         String[] dayParts  = dayString.split(EXERCISE_FLAG);
         String dayName = dayParts[0].trim();
         if (dayName.isEmpty()) {
-            throw new EmptyInputBuffBuddyException("Day");
+            throw ProgrammeExceptions.missingDayName();
         }
 
         Day day = new Day(dayName);
@@ -371,10 +386,11 @@ public class ProgCommandFactory {
         return day;
     }
 
+    // @@author nirala-ts
+
     /**
      * Parses an exercise string to create an {@link Exercise} object with required attributes.
      *
-     * @author nirala-ts
      * @param argumentString The string containing exercise details and flags.
      * @return An {@link Exercise} object initialized with the specified attributes.
      * @throws IllegalArgumentException If required flags are missing.
@@ -397,20 +413,6 @@ public class ProgCommandFactory {
                 "Weight: {3}, Calories: {4}", new Object[]{name, sets, reps, weight, calories});
 
         return new Exercise(sets, reps, weight, calories, name);
-    }
-
-    private ExerciseUpdate parseExerciseUpdate(String argumentString){
-        assert argumentString != null : "Argument string must not be null";
-
-        FlagParser flagParser = new FlagParser(argumentString);
-
-        return new ExerciseUpdate(
-                flagParser.getIntegerByFlag(SETS_FLAG),
-                flagParser.getIntegerByFlag(REPS_FLAG),
-                flagParser.getIntegerByFlag(WEIGHT_FLAG),
-                flagParser.getIntegerByFlag(CALORIES_FLAG),
-                flagParser.getStringByFlag(NAME_FLAG)
-        );
     }
 }
 

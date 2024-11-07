@@ -1,7 +1,8 @@
-//@@author Bev-Low
+//@@author Bev-low
 package history;
 
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.HistoryExceptions;
+import exceptions.MealException;
 import meal.Meal;
 import meal.MealList;
 import programme.Day;
@@ -40,6 +41,26 @@ public class DailyRecord {
     public Day getDayFromRecord() {
         return day;
     }
+
+    /**
+     * Deletes the current day record from the daily record.
+     * <p>
+     * If no day has been logged, this method throws an {@link IllegalStateException}.
+     * </p>
+     *
+     * @return the deleted {@code Day} object
+     * @throws IllegalStateException if there is no logged workout for the day
+     */
+    public Day deleteDayFromRecord() {
+        if (this.day == null) {
+            throw HistoryExceptions.dayNotFound();
+        }
+
+        Day deleted = this.day;
+        this.day = null;
+        return deleted;
+    }
+
     /**
      * Retrieves the mealList object containing all meals recorded for the day.
      *
@@ -101,7 +122,7 @@ public class DailyRecord {
      */
     public Meal deleteMealFromRecord(int index) {
         if (index < 0 || index >= mealList.getSize()) {
-            throw new IndexOutOfBoundsBuffBuddyException("Index " + index + " is out of bounds for meal list.");
+            throw MealException.doesNotExist();
         }
         logger.info("meal deleted, index: " + index);
         return mealList.deleteMeal(index);

@@ -66,7 +66,7 @@ public class Exercise {
      * @param newSets the new number of sets; if null, the sets are not updated
      */
     private void updateSets(Integer newSets) {
-        if (isNull(newSets)) {
+        if (newSets == null) {
             return;
         }
         logger.log(Level.INFO, "Updating sets from {0} to {1}", new Object[]{sets, newSets});
@@ -79,7 +79,7 @@ public class Exercise {
      * @param newReps the new number of reps; if null, the reps are not updated
      */
     private void updateReps(Integer newReps) {
-        if (isNull(newReps)) {
+        if (newReps == null) {
             return;
         }
         logger.log(Level.INFO, "Updating reps from {0} to {1}", new Object[]{reps, newReps});
@@ -92,7 +92,7 @@ public class Exercise {
      * @param newWeight the new weight; if null, the weight is not updated
      */
     private void updateWeight(Integer newWeight) {
-        if (isNull(newWeight)) {
+        if (newWeight == null) {
             return;
         }
         logger.log(Level.INFO, "Updating weight from {0} to {1}", new Object[]{weight, newWeight});
@@ -112,8 +112,13 @@ public class Exercise {
         name = newName;
     }
 
+    /**
+     * Updates the calories burned for this exercise.
+     *
+     * @param newCalories the new calorie count for the exercise; if null, the calories are not updated
+     */
     private void updateCalories(Integer newCalories) {
-        if (isNull(newCalories)) {
+        if (newCalories == null) {
             return;
         }
         logger.log(Level.INFO, "Updating calories from {0} to {1}", new Object[]{calories, newCalories});
@@ -141,7 +146,7 @@ public class Exercise {
      */
     @Override
     public String toString() {
-        return String.format("%s: %d sets of %d at %d | Burnt %d cals", name, sets, reps, weight, calories);
+        return String.format("%s: %d sets of %d at %dkg | Burnt %d cals", name, sets, reps, weight, calories);
     }
 
     @Override

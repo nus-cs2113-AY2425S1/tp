@@ -1,14 +1,16 @@
+// @@author nirala-ts
+
 package programme;
 
-import exceptions.IndexOutOfBoundsBuffBuddyException;
-import org.junit.jupiter.api.Test;
+import exceptions.ProgrammeExceptions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class ProgrammeTest {
 
@@ -17,67 +19,83 @@ public class ProgrammeTest {
     private Day mockDay2;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mockDay1 = mock(Day.class);
         mockDay2 = mock(Day.class);
 
         ArrayList<Day> dayList = new ArrayList<>();
         dayList.add(mockDay1);
-        dayList.add(mockDay2);
-
-        programme = new Programme("My Programme", dayList);
+        programme = new Programme("Mocked Programme", dayList);
     }
 
     @Test
-    void testGetDay() {
+    void testConstructor() {
+        ArrayList<Day> dayList = new ArrayList<>();
+        dayList.add(mockDay1);
+        Programme newProgramme = new Programme("Test Programme", dayList);
+
+        assertEquals("Test Programme", newProgramme.getProgrammeName());
+        assertEquals(1, newProgramme.getDayCount());
+    }
+
+    @Test
+    void testGetProgrammeName() {
+        assertEquals("Mocked Programme", programme.getProgrammeName());
+    }
+
+    @Test
+    void testGetDayValidIndex() {
         Day day = programme.getDay(0);
+
         assertEquals(mockDay1, day);
     }
 
     @Test
-    void testInsertDay() {
-        Day mockDayToInsert = mock(Day.class);
-        programme.insertDay(mockDayToInsert);
+    void testGetDayInvalidIndex() {
+        assertThrows(ProgrammeExceptions.class, () -> programme.getDay(5));
+    }
 
-        // Compare objects instead of string outputs
-        assertEquals(mockDayToInsert, programme.getDay(2));
-        assertEquals(3, programme.getDayCount());
+    @Test
+    void testInsertDay() {
+        programme.insertDay(mockDay2);
+
+        assertEquals(2, programme.getDayCount());
+        assertEquals(mockDay2, programme.getDay(1));
     }
 
     @Test
     void testDeleteDayValidIndex() {
-        Day mockDayToDelete = programme.deleteDay(0);
+        Day deletedDay = programme.deleteDay(0);
 
-        assertEquals(mockDay1, mockDayToDelete);
-        assertEquals(1, programme.getDayCount());
+        assertEquals(mockDay1, deletedDay);
+        assertEquals(0, programme.getDayCount());
     }
 
     @Test
     void testDeleteDayInvalidIndex() {
-        // Update to expect IndexOutOfBoundsBuffBuddyException instead of IndexOutOfBoundsException
-        assertThrows(IndexOutOfBoundsBuffBuddyException.class, () -> programme.deleteDay(5),
-                "Expected IndexOutOfBoundsBuffBuddyException for invalid index");
+        assertThrows(ProgrammeExceptions.class, () -> programme.deleteDay(5));
+    }
 
-        // Verify that the size of the day list remains unchanged
+    @Test
+    void testGetDayCount() {
+        assertEquals(1, programme.getDayCount());
+        programme.insertDay(mockDay2);
         assertEquals(2, programme.getDayCount());
     }
 
     @Test
     void testToString() {
-        // Stub the toString method of the mock days
-        when(mockDay1.toString()).thenReturn("Mocked Day 1");
-        when(mockDay2.toString()).thenReturn("Mocked Day 2");
+        programme.insertDay(mockDay2);
+        String expectedString = "Mocked Programme\n\nDay 1: " + mockDay1 + "\nDay 2: " + mockDay2 + "\n";
 
-        String programmeString = programme.toString();
+        assertEquals(expectedString, programme.toString());
+    }
 
-        String expectedString = """
-                My Programme
-                
-                Day 1: Mocked Day 1
-                Day 2: Mocked Day 2
-                """;
+    @Test
+    void testToStringEmptyProgramme() {
+        Programme emptyProgramme = new Programme("Empty Programme", new ArrayList<>());
+        String expectedString = "Empty Programme\n\n";
 
-        assertEquals(expectedString, programmeString);
+        assertEquals(expectedString, emptyProgramme.toString());
     }
 }
-

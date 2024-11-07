@@ -9,6 +9,7 @@ import command.history.ListHistoryCommand;
 import command.history.ViewPersonalBestCommand;
 import command.history.WeeklySummaryCommand;
 import command.InvalidCommand;
+import exceptions.HistoryExceptions;
 
 import java.time.LocalDate;
 

@@ -1,8 +1,9 @@
 //@@author nirala-ts
+
 package parser;
 
 import command.Command;
-import exceptions.EmptyInputBuffBuddyException;
+import exceptions.ParserExceptions;
 import parser.command.factory.CommandFactory;
 
 import java.util.logging.Logger;
@@ -15,7 +16,6 @@ import static parser.ParserUtils.splitArguments;
  * within the BuffBuddy application. It interprets user-provided strings and generates appropriate
  * {@code Command} objects for execution.
  *
- * @author nirala-ts
  */
 public class Parser {
     private final Logger logger = Logger.getLogger(this.getClass().getName());
@@ -29,6 +29,14 @@ public class Parser {
     }
 
     /**
+     * Constructs a new {@code Parser} instance, using the provided {@code CommandFactory}.
+     * This constructor is primarily for testing purposes.
+     */
+    public Parser(CommandFactory commandFactory) {
+        this.commandFactory = commandFactory;
+    }
+
+    /**
      * Parses the given command string and returns the corresponding {@code Command} object.
      *
      * @param fullCommand The complete user input, containing the command and any arguments.
@@ -38,7 +46,7 @@ public class Parser {
     public Command parse(String fullCommand) {
         if (fullCommand == null || fullCommand.trim().isEmpty()) {
             logger.log(Level.WARNING, "Command is empty");
-            throw new EmptyInputBuffBuddyException("command");
+            throw ParserExceptions.missingCommand();
         }
 
         /*

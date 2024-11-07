@@ -1,44 +1,7 @@
 {
   "programmeList": {
-    "currentActiveProgramme": 0,
-    "programmeList": [
-      {
-        "programmeName": "Starter",
-        "dayList": [
-          {
-            "name": "ONE",
-            "exercises": [
-              {
-                "sets": 3,
-                "reps": 12,
-                "weight": 30,
-                "calories": 200,
-                "name": "Bench_Press"
-              },
-              {
-                "sets": 3,
-                "reps": 12,
-                "weight": 50,
-                "calories": 200,
-                "name": "Squat"
-              }
-            ]
-          },
-          {
-            "name": "TWO",
-            "exercises": [
-              {
-                "sets": 3,
-                "reps": 12,
-                "weight": 10,
-                "calories": 100,
-                "name": "Bicep_Curl"
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "currentActiveProgramme": 1,
+    "programmeList": []
   },
   "history": {
     "12-12-2024": {
@@ -49,14 +12,14 @@
             "sets": 3,
             "reps": 12,
             "weight": 30,
-            "calories": 0,
+            "calories": 200,
             "name": "Bench_Press"
           },
           {
             "sets": 3,
             "reps": 12,
             "weight": 50,
-            "calories": 0,
+            "calories": 200,
             "name": "Squat"
           }
         ]
@@ -64,63 +27,18 @@
       "mealList": {
         "meals": [
           {
-            "calories": 100,
+            "calories": 560,
             "name": "pasta"
           }
         ]
       },
       "water": {
         "waterList": [
-          100.0
+          300.0
         ]
       }
     },
-    "13-12-2024": {
-      "day": {
-        "name": "TWO",
-        "exercises": [
-          {
-            "sets": 3,
-            "reps": 12,
-            "weight": 10,
-            "calories": 0,
-            "name": "Bicep_Curl"
-          }
-        ]
-      },
-      "mealList": {
-        "meals": []
-      },
-      "water": {
-        "waterList": []
-      }
-    },
-    "30-10-2024": {
-      "day": {
-        "name": "Empty Day",
-        "exercises": []
-      },
-      "mealList": {
-        "meals": [
-          {
-            "calories": 250,
-            "name": "chicken"
-          },
-          {
-            "calories": 1000,
-            "name": "gulab jamun"
-          },
-          {
-            "calories": 250,
-            "name": "chicken"
-          }
-        ]
-      },
-      "water": {
-        "waterList": []
-      }
-    },
-    "02-11-2024": {
+    "06-11-2024": {
       "day": {
         "name": "ONE",
         "exercises": [

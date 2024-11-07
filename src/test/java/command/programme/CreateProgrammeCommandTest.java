@@ -1,3 +1,5 @@
+// @@author nirala-ts
+
 package command.programme;
 
 import command.CommandResult;
@@ -22,7 +24,6 @@ public class CreateProgrammeCommandTest {
     private static final ArrayList<Day> NULL_PROGRAMME_CONTENTS = null;
     private ProgrammeList programmeList;
     private History history;
-    private CreateProgrammeCommand command;
 
     @BeforeEach
     void setUp() {
@@ -35,7 +36,6 @@ public class CreateProgrammeCommandTest {
         assertDoesNotThrow(() -> new CreateProgrammeCommand(VALID_PROGRAMME_NAME, VALID_PROGRAMME_CONTENTS));
     }
 
-    // Edge case test: Programme list is null
     @Test
     void constructor_throwsAssertionErrorIfProgrammesIsNull() {
         assertThrows(AssertionError.class, () -> new CreateProgrammeCommand(
@@ -43,7 +43,6 @@ public class CreateProgrammeCommandTest {
         );
     }
 
-    // Edge case test: Programme name is empty
     @Test
     void constructor_createsProgrammeWithEmptyName() {
         assertThrows(AssertionError.class, () -> new CreateProgrammeCommand(
@@ -51,7 +50,6 @@ public class CreateProgrammeCommandTest {
         );
     }
 
-    // Happy path test for the "execute" method
     @Test
     void execute_createsProgrammeSuccessfully_returnsSuccessMessage() {
         CreateProgrammeCommand command = new CreateProgrammeCommand(VALID_PROGRAMME_NAME, VALID_PROGRAMME_CONTENTS);
@@ -63,6 +61,5 @@ public class CreateProgrammeCommandTest {
         CommandResult actualResult = command.execute(programmeList, history);
         assertEquals(expectedResult, actualResult);
     }
-
-
 }
+

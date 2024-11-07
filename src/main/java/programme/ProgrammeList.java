@@ -2,7 +2,7 @@
 
 package programme;
 
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.ProgrammeExceptions;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -66,7 +66,7 @@ public class ProgrammeList {
 
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for deleteProgram()", index);
-            throw new IndexOutOfBoundsBuffBuddyException(index, "programme list");
+            throw ProgrammeExceptions.doesNotExist("programme");
         }
 
         Programme programmeToDelete = programmeList.get(index);
@@ -94,7 +94,7 @@ public class ProgrammeList {
 
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for getProgramme()", index);
-            throw new IndexOutOfBoundsBuffBuddyException(index, "programme list");
+            throw ProgrammeExceptions.doesNotExist("programme");
         }
 
         logger.log(Level.INFO, "Retrieving programme at index {0}: {1}", new Object[]{index, programmeList.get(index)});
@@ -111,7 +111,7 @@ public class ProgrammeList {
     public Programme startProgramme(int startIndex) {
         if (startIndex < 0 || startIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for startProgramme()", startIndex);
-            throw new IndexOutOfBoundsBuffBuddyException(startIndex, "programme list");
+            throw ProgrammeExceptions.doesNotExist("programme");
         }
 
         currentActiveProgramme = startIndex;

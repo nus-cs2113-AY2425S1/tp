@@ -1,4 +1,4 @@
-// @@author Bev-Low
+//@@author Bev-low
 package parser.command.factory;
 
 import command.Command;

@@ -1,4 +1,4 @@
-//@@author Bev-Low
+//@@author Bev-low
 
 package storage;
 
@@ -7,6 +7,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
+import exceptions.StorageExceptions;
+
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -83,10 +85,10 @@ public class FileManager {
      * <p>
      * This method attempts to read the file at the specified path and parse its contents as a JSON object.
      * If the file is empty or contains no data, an empty JSON object is returned. Any I/O errors encountered
-     * during file reading will result in a {@link RuntimeException}.
+     * during file reading will result in a {@link StorageExceptions}.
      *
      * @return a JSON object containing the data loaded from the file, or an empty JSON object if the file is empty
-     * @throws RuntimeException if an I/O error occurs during loading
+     * @throws StorageExceptions if an I/O error occurs during loading
      */
     private JsonObject load() {
         logger.info("Attempting to load data from file: " + path);
@@ -98,9 +100,9 @@ public class FileManager {
             }
             logger.info("Data successfully loaded from file");
             return element.getAsJsonObject();
-        } catch(IOException e){
+        } catch(Exception e){
             logger.log(Level.WARNING, "Failed to load data from file: " + path, e);
-            throw new RuntimeException("Failed to load data due to: " + e.getMessage());
+            return new JsonObject();
         }
     }
 
@@ -123,9 +125,9 @@ public class FileManager {
         try (FileWriter writer = new FileWriter(path)) {
             gson.toJson(data, writer);
             logger.info("Data successfully saved to file.");
-        } catch (IOException e) {
+        } catch (StorageExceptions e) {
             logger.log(Level.WARNING, "Failed to save data to file: " + path, e);
-            throw new IOException("Failed to save data due to: " + e.getMessage());
+            throw StorageExceptions.unableToSave();
         }
     }
 
@@ -146,7 +148,7 @@ public class FileManager {
 
         if (!isSuccess){
             logger.log(Level.WARNING, "Failed to create directory.");
-            throw new IOException("Failed to create directory: " + dir.getAbsolutePath());
+            throw StorageExceptions.unableToCreateDirectory();
         }
         logger.log(Level.INFO, "Directory created");
     }
@@ -167,7 +169,7 @@ public class FileManager {
 
         if (!isSuccess) {
             logger.log(Level.WARNING, "Failed to create file.");
-            throw new IOException("Failed to create file: " + file.getAbsolutePath());
+            throw StorageExceptions.unableToCreateFile();
         }
         logger.log(Level.INFO, "File created");
     }
