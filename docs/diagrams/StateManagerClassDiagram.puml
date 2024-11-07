@@ -2,39 +2,44 @@
 
 !include style.puml
 
-class StateManager LOGIC_COLOR{
-    - State currentState
+' Define the StateManager class
+class StateManager LOGIC_COLOR {
+    - currentState: State
     + StateManager()
     + getCurrentState(): State
-    + setCurrentState(State currentState): void
-    + changeState(StateType state): void
+    + setCurrentState(currentState: State): void
+    + changeState(state: StateType): void
     + getState(): StateType
-    + runState(String commandInput, Command command, Hospital hospital): CommandResult
-    + runMainState(String commandInput, Command command, Hospital hospital): CommandResult
-    + runTaskState(String commandInput, Command command, Hospital hospital): CommandResult
+    + runState(commandInput: String, command: Command, hospital: Hospital): CommandResult
+    + runMainState(commandInput: String, command: Command, hospital: Hospital): CommandResult
+    + runTaskState(commandInput: String, command: Command, hospital: Hospital): CommandResult
 }
 
-class State LOGIC_COLOR{
-    - StateType currentStage
+' Define the State class
+class State LOGIC_COLOR {
+    - currentStage: StateType
     + State()
-    + State(StateType state)
+    + State(state: StateType)
     + getState(): StateType
-    + setState(StateType state): void
+    + setState(state: StateType): void
 }
 
-enum StateType LOGIC_COLOR{
+' Define the StateType enum
+enum "<<enumeration>> \n StateType" as StateType LOGIC_COLOR  {
     MAIN_STATE
     TASK_STATE
 }
 
-class CommandResult COMMAND_COLOR{
+' Define the CommandResult class
+class CommandResult COMMAND_COLOR {
     - feedbackToUser: String
-    + CommandResult(String feedbackToUser)
+    + CommandResult(feedbackToUser: String)
     + getFeedbackToUser(): String
 }
 
+' Relationships
 StateManager .left.> "0..1" State
-State --> StateType
-StateManager --> CommandResult
+State --> StateType : "uses"
+StateManager --> CommandResult : "returns"
 
 @enduml
