@@ -111,7 +111,7 @@ public class Event {
      * @return the event's participant list
      */
     public ArrayList<Participant> getParticipantList() {
-        return participantList;
+        return new ArrayList<>(participantList);
     }
 
     //@@author jemehgoh
