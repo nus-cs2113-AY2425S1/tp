@@ -54,7 +54,7 @@ public class UiTest {
         ArrayList<TrainingSession> sessions = new ArrayList<>();
         TrainingSession session = new TrainingSession(LocalDateTime.now(), "test1", user);
         sessions.add(session);
-        Ui.printAddedSession(sessions, session.getSessionDescription());
+        Ui.printAddedSession(sessions, sessions.size()-1);
         assertEquals(SEPARATOR + System.lineSeparator() + ADD_SESSION_MESSAGE + System.lineSeparator()
                 + sessions.size() + ". " + session.getSessionDescription() + System.lineSeparator()
                 + "There are 1 sessions in the list." + System.lineSeparator() + SEPARATOR + System.lineSeparator()
