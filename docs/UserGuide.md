@@ -10,7 +10,7 @@ SpendSwift is a simple budgeting tool designed for budget-conscious users. With 
 2. Download the latest tp.jar file.
 3. Copy the file to the folder you want to use as the home folder for your Task Manager.
 4. Open a command terminal, cd into the folder where you placed the jar file, and run the following command to start the application:java -jar tp.jar
-5. The application will start, and any existing tasks will be loaded from the file spendswift.txt. If this file doesn't exist, it will be created automatically when tasks are added.
+5. The application will start, and any existing tasks will be loaded from the file spendswift.txt. If this file doesn't exist, it will be created automatically when tasks are saved after exiting the program properly.
 6. Type commands below the outputs and press Enter to execute them. For example:
 
 For details on all available commands, refer to the Features section below.
@@ -56,11 +56,16 @@ Format:
   - The monetary value of the expense.
   - This input must be an integer or a double.
   - This parameter is required.
+  - When the input is an integer, the input would be saved as an integer.
+  - When the input is a double, the input would be saved to 2 decimal places. 
+  If the input has more than 2 decimal places, it would be rounded off to the nearest 2 decimal places.
 
 - `CATEGORY`
 
   - The category under which the expense will be recorded.
-  - This parameter is optional. If not provided, the category will be set to `null`.
+  - The category is case-insensitive. It can be typed in any combination of upper or lower case.
+  - If the category has not be created, this command will automatically create the category.
+  - This parameter is optional. If not provided, the category will be set to `Uncategorized`.
 
 Example:
 - `add-expense n/Coffee a/5.50 c/Food`
