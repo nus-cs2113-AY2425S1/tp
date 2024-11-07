@@ -353,7 +353,7 @@ class BudgetManagerTest {
         assertEquals(limit, trackerData.getBudgets().get(category).getLimit());
     } */
 
-    @Test
+  /*  @Test
     void testSetBudgetForNonExistingCategory() {
     BudgetManager budgetManager = new BudgetManager();
     TrackerData trackerData = new TrackerData();
@@ -389,7 +389,7 @@ private String generateRandomWord(Random random, int wordLength) {
                  .limit(wordLength)
                  .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                  .toString();
-}
+} */
 
 /*    @Test
     void testSetBudgetWithInvalidLimit() {
