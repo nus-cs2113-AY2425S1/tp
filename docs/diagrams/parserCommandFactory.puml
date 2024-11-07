@@ -1,0 +1,106 @@
+@startuml
+title Parser Component Class Diagram
+
+class CommandFactory {
+  - ProgCommandFactory progFactory
+  - MealCommandFactory mealFactory
+  - WaterCommandFactory waterFactory
+  - HistoryCommandFactory historyFactory
+
+  + createCommand(String commandString, String argumentString): Command
+}
+
+class HistoryCommandFactory {
+  - <u>COMMAND_WORD: String
+
+  + parse(String argumentString): Command
+  + Command preparePersonalBestCommand(String argumentString): Command
+}
+
+class MealCommandFactory {
+  - <u>COMMAND_WORD: String
+
+  + parse(String argumentString): Command
+  + prepareAddCommand(String argumentString): Command
+  + prepareDeleteCommand(String argumentString): Command
+  + prepareViewCommand(String argumentString): Command
+}
+
+class ProgCommandFactory {
+  - <u>COMMAND_WORD: String
+
+  + parse(String argumentString): Command
+  - prepareCreateCommand(String argumentString): CreateProgrammeCommand
+  - prepareViewCommand(String argumentString): ViewProgrammeCommand
+  - prepareStartCommand(String argumentString): StartProgrammeCommand
+  - prepareDeleteCommand(String argumentString): DeleteProgrammeCommand
+  - prepareLogCommand(String argumentString): LogProgrammeCommand
+  - prepareDeleteLogCommand(String argumentString): DeleteLogProgrammeCommand
+  - prepareEditCommand(String argumentString): EditProgrammeCommand
+}
+
+class WaterCommandFactory {
+  - <u>COMMAND_WORD: String
+
+  + parse(String argumentString): Command
+  - prepareAddCommand(String argumentString): AddWaterCommand
+  - prepareDeleteCommand(String argumentString): DeleteWaterCommand
+  - prepareViewCommand(String argumentString): ViewWaterCommand
+}
+
+
+class FlagParser {
+  - parsedFlags: HashMap
+  - aliasMap: HashMap
+
+  - generateSplitBy(String... ignoredFlags): String
+  - initializeAliasMap(): void
+  - parse(String argumentString, String splitBy): void
+  - resolveAlias(String flag): String
+  + hasFlag(String flag): boolean
+  + validateRequiredFlags(String... requiredFlags): void
+  + getStringByFlag(String flag): String
+  + getIndexByFlag(String flag): int
+  + getIntegerByFlag(String flag): int
+  + getFloatByFlag(String flag): float
+  + getDateByFlag(String flag): LocalDate
+}
+
+class Parser {
+  - CommandFactory commandFactory
+  + parse(String fullCommand): Command
+}
+
+
+class ParserUtils {
+  + <u>splitArguments(String argumentString): String[]
+  + <u>parseInteger(String intString): int
+  + <u>parseFloat(String floatString): float
+  + <u>parseIndex(String indexString): int
+  + <u>parseDate(String dateString): LocalDate
+}
+
+
+
+Parser "1" --> "1" CommandFactory : uses
+CommandFactory "1" *-- "1" ProgCommandFactory : creates
+CommandFactory "1" *-- "1" MealCommandFactory : creates
+CommandFactory "1" *-- "1" WaterCommandFactory : creates
+CommandFactory "1" *-- "1" HistoryCommandFactory : creates
+
+ProgCommandFactory "1" --> "1" FlagParser : uses
+WaterCommandFactory "1" --> "1" FlagParser : uses
+MealCommandFactory "1" --> "1" FlagParser : uses
+HistoryCommandFactory "1" --> "1" FlagParser : uses
+
+Parser "1" --> "*" ParserUtils : uses
+ProgCommandFactory "1" --> "*" ParserUtils : uses
+WaterCommandFactory "1" --> "*" ParserUtils : uses
+FlagParser "1" --> "*" ParserUtils : uses
+
+MealCommandFactory "1" --> "*" FlagDefinitions : uses
+ProgCommandFactory "1" --> "*" FlagDefinitions : uses
+WaterCommandFactory "1" --> "*" FlagDefinitions : uses
+FlagParser "1" --> "*" FlagDefinitions : uses
+
+@enduml

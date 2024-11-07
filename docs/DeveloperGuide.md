@@ -103,6 +103,8 @@ The `FileManager` component,
 
 ### Parser Component
 
+![Class_Diagram_of_Parser_Component](images/parserComponent.png)
+
 ### Command Component
 
 #### Overview
@@ -370,35 +372,34 @@ The "Create Programme" feature enables users to build a structured fitness progr
 
 #### Programme Flow
 
-1. **User Input and Command Handling**:
+##### 1. **User Input and Command Handling**:
 
 - Upon startup, BuffBuddy welcomes the user and continuously prompts for commands.
 - The command input is read, parsed, and handled by `handleCommand`. If the user enters a valid command (e.g., `create`), it is executed, producing a `CommandResult`.
 
-2. **Command Parsing and Execution**:
+##### 2. **Command Parsing and Execution**:
 
 - `Parser.parse()` analyzes the user’s input to identify the command type and arguments.
 - `CommandFactory.createCommand()` determines the specific command (e.g., `CreateCommand`) and forwards it to the relevant command factory (`ProgCommandFactory` for programme-related commands).
 
-3. **Creating a Programme**:
+##### 3. **Creating a Programme**:
 
 - Within `ProgCommandFactory`, `prepareCreateCommand()` splits the input string by `/d` (indicating separate days) and `/e` (indicating exercises within each day).
 - Each **Day** is parsed by `parseDay`, and each **Exercise** is created using `parseExercise`, which extracts details such as name, sets, reps, weight, and calories using flag parsing (`/n`, `/s`, `/r`, `/w`, and `/c` flags).
 - The `CreateCommand` is then prepared with the programme name and its associated days.
 
-4. **Inserting and Storing Programmes**:
+###### 4. **Inserting and Storing Programmes**:
 
 - The `execute()` method of `CreateCommand` uses `ProgrammeList` to insert a new programme, which is then stored for future access and manipulation.
 - `ProgrammeList.insertProgramme()` creates a `Programme` object and adds it to the list, ensuring it is available for subsequent commands (e.g., viewing, editing, or deleting).
 
-5. **Execution Feedback**:
+###### 5. **Execution Feedback**:
 
 - A successful creation logs the programme details and returns a `CommandResult`, notifying the user of the new programme with its full structure.
 
 This flow allows users to easily create structured workout routines, customizing their fitness journey directly within BuffBuddy.
 
 The overall design that enables this functionality is described generically by the following sequence diagram.
-![](images/createCommand.png)
 
 ## Documentation, logging, testing, configuration, dev-ops
 
