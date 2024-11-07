@@ -37,14 +37,14 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 | FitTrackLogger    | Manages logging for the application, ensuring errors and important events are properly recorded                 |
 | TrainingSession   | Represents a single training session, including exercises and metadata (e.g. date and description)              |
 | Exercise          | Represents different types of exercises available in the application, like pull-ups or shuttle runs             |
-| Calculator        |                                                                                                                 |
+| Calculator        | look up points achieved by user based on age, gender and performance result of each exercise station            |
 | GraphPoints       | Illustrates the cumulative points earned across sessions, showcasing overall fitness progress and achievements. |
 | GraphPerformance  | Visualises performance metrics for a specific exercise, adapting for time-based or rep-based tracking.          |
 | Reminder          |                                                                                                                 |
 | Goal              | Allows users to set, list, and delete specific goals related to fitness and overall well-being                  |
 | FoodWaterIntake   | Allows users to add, view, and delete water and food intake logs to monitor daily hydration levels              |
 
-The following Class Diagram elaborates on the interactions between all the classes and their multiplicities.
+The following Class Diagram elaborates on the interactions between major classes and their multiplicities.
 
 ### Overall Class Diagram
 ![Class_Overall.png](Images/Class_Overall.png)
@@ -348,6 +348,9 @@ uniform distribution of data across the graph, enhancing readability.
   that session.
 - **Consistent Performance**: When all performance values are the same, the class ensures that a line of points is 
   printed at the top of the graph to indicate uniformity.
+
+Below is a sequence diagram detailing the above workflow:
+![Sequence_graphPerformanceTime.png](Images%2FSequence_graphPerformanceTime.png)
 
 ## Product scope
 ### Target user profile
