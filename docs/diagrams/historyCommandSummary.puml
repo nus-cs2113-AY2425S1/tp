@@ -1,19 +1,51 @@
 @startuml
-
 abstract class HistoryCommand {
-    + execute(ProgrammeList, History): CommandResult
+    - date : LocalDate
+    + HistoryCommand()
+    + HistoryCommand(date : LocalDate)
+    + execute(programmes : ProgrammeList, history : History) : CommandResult
+    + execute(history : History) : CommandResult
 }
 
-class WeeklySummaryCommand {
-    + execute(ProgrammeList, History): CommandResult
+class DeleteHistoryCommand {
+    + COMMAND_WORD : String = "delete"
+    + DeleteHistoryCommand(date : LocalDate)
+    + execute(history : History) : CommandResult
+}
+
+class ListHistoryCommand {
+    + COMMAND_WORD : String = "list"
+    + execute(history : History) : CommandResult
+}
+
+class ListPersonalBestsCommand {
+    + COMMAND_WORD : String = "pb"
+    + execute(history : History) : CommandResult
 }
 
 class ViewHistoryCommand {
-    - date: LocalDate
-    + execute(ProgrammeList, History): CommandResult
+    + COMMAND_WORD : String = "view"
+    + ViewHistoryCommand(date : LocalDate)
+    + execute(history : History) : CommandResult
 }
 
-HistoryCommand <|-- WeeklySummaryCommand
-HistoryCommand <|-- ViewHistoryCommand
+class ViewPersonalBestCommand {
+    + COMMAND_WORD : String = "pb"
+    - exerciseName : String
+    + ViewPersonalBestCommand(exerciseName : String)
+    + execute(history : History) : CommandResult
+}
 
+class WeeklySummaryCommand {
+    + COMMAND_WORD : String = "wk"
+    + execute(history : History) : CommandResult
+}
+
+HistoryCommand <|-- DeleteHistoryCommand
+HistoryCommand <|-- ListHistoryCommand
+HistoryCommand <|-- ListPersonalBestsCommand
+HistoryCommand <|-- ViewHistoryCommand
+HistoryCommand <|-- ViewPersonalBestCommand
+HistoryCommand <|-- WeeklySummaryCommand
 @enduml
+

@@ -9,10 +9,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Manages and tracks the workout history, including daily workout records, weekly summaries,
+ * and personal best exercises.
+ * <p>
+ * This class provides methods to add, retrieve, delete, and summarize workout records, as well as
+ * manage personal bests for exercises. Workout records are stored in a chronological order
+ * using a {@link LinkedHashMap} to preserve the insertion order by date.
+ * </p>
+ */
 public class History {
     private static final Logger logger = Logger.getLogger(History.class.getName());
     private final LinkedHashMap<LocalDate, DailyRecord> history;
 
+    /**
+     * Initializes a new empty workout history.
+     */
     public History() {
         history = new LinkedHashMap<>();
     }
@@ -21,7 +33,7 @@ public class History {
     /**
      * Retrieves the daily record for a specific date.
      * <p>
-     * This method checks if a record exists in the {@code history} map for the specified date.
+     * Checks if a record exists in the {@code history} map for the specified date.
      * If a record is found, it is returned. If no record exists, a new {@link DailyRecord} is
      * created, added to the {@code history} map, and then returned.
      * </p>
@@ -39,10 +51,25 @@ public class History {
     }
     // @@author
 
+    /**
+     * Returns the entire workout history.
+     *
+     * @return the {@code LinkedHashMap} containing dates and corresponding daily records
+     */
     public LinkedHashMap<LocalDate, DailyRecord> getHistory() {
         return history;
     }
 
+    /**
+     * Retrieves a summary of workout activities from the past week.
+     * <p>
+     * This method iterates over the daily records from the last seven days
+     * and generates a formatted summary of completed exercises.
+     * </p>
+     *
+     * @return a string containing the summary of the past week's workout history,
+     *     or a message if no history is available
+     */
     public String getWeeklyWorkoutSummary() {
         if (history.isEmpty()) {
             return "No workout history available.";
@@ -72,6 +99,12 @@ public class History {
         return weeklySummary.toString();
     }
 
+    /**
+     * Logs a daily record on a specific date into the history.
+     *
+     * @param date   the date of the workout record
+     * @param record the daily record to add to the history
+     */
     public void logRecord(LocalDate date, DailyRecord record) {
         history.put(date, record);
     }
@@ -96,15 +129,30 @@ public class History {
     }
     // @@author
 
-    public boolean hasRecord( LocalDate date) {
+    /**
+     * Checks if a workout record exists for a specific date.
+     *
+     * @param date the date to check for a workout record
+     * @return {@code true} if a record exists for the specified date, {@code false} otherwise
+     */
+    public boolean hasRecord(LocalDate date) {
         return history.containsKey(date);
     }
 
+    /**
+     * Returns the number of records in the workout history.
+     *
+     * @return the size of the workout history
+     */
     public int getHistorySize() {
         return history.size();
     }
 
-    // Returns a preformatted string of personal bests for all exercises
+    /**
+     * Returns a formatted string of personal bests for all exercises.
+     *
+     * @return a string listing personal bests for each exercise, or a message indicating no personal bests found
+     */
     public String getFormattedPersonalBests() {
         Map<String, Exercise> personalBests = getPersonalBestsMap();
 
@@ -123,7 +171,11 @@ public class History {
         return bestsMessage.toString();
     }
 
-    // Helper method to generate a map of personal bests for each exercise
+    /**
+     * Builds a map of the personal best exercise for each type based on weight.
+     *
+     * @return a map of exercise names and their corresponding best {@link Exercise} entries
+     */
     private Map<String, Exercise> getPersonalBestsMap() {
         Map<String, Exercise> personalBests = new LinkedHashMap<>();
 
@@ -142,11 +194,23 @@ public class History {
         return personalBests;
     }
 
+    /**
+     * Compares two exercises to determine if the current exercise is better based on weight.
+     *
+     * @param current the current exercise to evaluate
+     * @param best    the existing best exercise to compare against
+     * @return {@code true} if the current exercise is better, {@code false} otherwise
+     */
     private boolean isBetter(Exercise current, Exercise best) {
         return current.getWeight() > best.getWeight();
     }
 
-    // Returns a formatted string for the personal best of a specified exercise
+    /**
+     * Retrieves a formatted personal best entry for a specific exercise.
+     *
+     * @param exerciseName the name of the exercise to look up
+     * @return a formatted string showing the personal best for the specified exercise, or a message if not found
+     */
     public String getPersonalBestForExercise(String exerciseName) {
         Exercise personalBest = null;
 
