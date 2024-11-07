@@ -57,8 +57,6 @@ The high-level overview of the program is shown in the diagram below as well.
 
 <img src="UML/overallFlow.png" alt="overall flow" width="auto" height="500" class="centre">
 
-<div style="page-break-after: always;"></div>
-
 ### Ui and Parser
 <ins>Overview</ins>
 
@@ -364,7 +362,7 @@ allowing for separation of handling command keywords and executing commands.
 The diagram below shows the inheritance of the `Command` class. The diagram is only meant to show
 the hierarchy of classes and have been greatly simplified.
 
-<img src="UML/CommandInheritance.png" alt="Command Inheritance Diagram" width="auto" height="auto">
+<img src="UML/CommandInheritance.png" alt="Command Inheritance Diagram" width="auto" height="200">
 
 <ins>Constructor</ins>
 
@@ -415,7 +413,7 @@ following arguments:
 Below is a simplified sequence diagram of the user adding an income. 
 A similar sequence happens when an expense is added.
 
-<img src="UML/addIncomeCommandSequence.png" alt="Financial List Sequence Diagram" width="auto" height="500">
+<img src="UML/addIncomeCommandSequence.png" alt="Financial List Sequence Diagram" width="auto" height="400">
 
 <div style="page-break-after: always;"></div>
 
@@ -544,12 +542,12 @@ The diagram below then depicts the details of the execute command section in the
 whereby `ListHelper` creates an instance of the corresponding command class, which then interacts with
 the FinancialList to display the relevant entries.
 
-<img src="UML/SeeAllEntriesCreateCommand.png" alt="See All Entries Diagram" width="auto" height="500">
+<img src="UML/SeeAllEntriesCreateCommand.png" alt="See All Entries Diagram" width="auto" height="400">
 
 The interaction between the command classes and `financialList` is as follows,
 using `SeeAllEntriesCommand` as an example:
 
-<img src="UML/SeeAllEntriesExecution.png" alt="See All Entries Execution" width="auto" height="500">
+<img src="UML/SeeAllEntriesExecution.png" alt="See All Entries Execution" width="auto" height="400">
 
 `SeeAllExpensesCommand` and `SeeAllIncomesCommand` work in a similar fashion,
 but only marks `Expense`s and `Income`s respectively as to be included.
