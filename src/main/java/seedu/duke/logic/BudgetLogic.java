@@ -9,6 +9,7 @@ import seedu.duke.log.Log;
 import seedu.duke.log.LogLevels;
 import seedu.duke.parser.DateParser;
 import seedu.duke.ui.AppUi;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
 
@@ -78,16 +79,16 @@ public class BudgetLogic {
             if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("no")) {
                 isValidInput = true;
             } else {
-                System.out.println("--------------------------------------------");
+                System.out.println(Commons.LINE_SEPARATOR);
                 System.out.println("Invalid input. Please enter 'yes' or 'no'.");
-                System.out.println("--------------------------------------------");
+                System.out.println(Commons.LINE_SEPARATOR);
             }
         }
 
         if (input.equalsIgnoreCase("yes")) {
-            System.out.println("--------------------------------------------");
+            System.out.println(Commons.LINE_SEPARATOR);
             System.out.println("Please set your budget amount:");
-            System.out.println("--------------------------------------------");
+            System.out.println(Commons.LINE_SEPARATOR);
 
 
             double amount = 0;
@@ -113,17 +114,17 @@ public class BudgetLogic {
 
             budget.setBudgetAmount(amount);
             recalculateBalance(financialList);
-            System.out.println("--------------------------------------------");
+            System.out.println(Commons.LINE_SEPARATOR);
             System.out.println("Your budget has successfully been set to: " +
                     String.format("$ %.2f", budget.getBudgetAmount()));
             System.out.println("Your current monthly balance is: " +
                     String.format("$ %.2f", budget.getBalance()));
-            System.out.println("--------------------------------------------");
+            System.out.println(Commons.LINE_SEPARATOR);
             logger.log(LogLevels.INFO, "Budget set to " + String.format("$ %.2f", budget.getBudgetAmount()) + ".");
         } else {
-            System.out.println("--------------------------------------------");
+            System.out.println(Commons.LINE_SEPARATOR);
             System.out.println("Budget setting skipped.");
-            System.out.println("--------------------------------------------");
+            System.out.println(Commons.LINE_SEPARATOR);
             logger.log(LogLevels.INFO, "Budget setting skipped.");
         }
     }
