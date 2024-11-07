@@ -4,6 +4,8 @@
 skinparam ArrowFormatStyle plain
 scale 0.5
 
+scale 1.5
+
 actor User
 participant ":MediTask" as MediTask MAIN_COLOR
 participant ":Parser" as Parser PARSER_COLOR

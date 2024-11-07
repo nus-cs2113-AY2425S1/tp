@@ -3,6 +3,8 @@
 !include style.puml
 skinparam ArrowFormatStyle plain
 
+scale 1.5
+
 actor User
 participant ":MediTask" as MediTask MAIN_COLOR
 participant ":Parser" as Parser PARSER_COLOR
@@ -48,7 +50,7 @@ deactivate Parser
 
 MediTask <-- Parser : CommandResult
 destroy DeletePatientCommand
-MediTask -> User : Display CommandResult
+MediTask --> User : Display CommandResult
 
 deactivate MediTask
 

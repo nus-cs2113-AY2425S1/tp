@@ -41,6 +41,6 @@ class CommandResult COMMAND_COLOR {
 ' Relationships
 StateManager .left.> "0..1" State
 State --> StateType : "uses"
-StateManager --> CommandResult : "returns"
+StateManager -right-> CommandResult : "returns"
 
 @enduml
