@@ -313,22 +313,22 @@ The `CategoryTracker` class has the following key methods:
 
 |       Method        |                                                            Description                                                            |
 |:-------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
-|     addCategory     | Adds a new category to the tracker. If already in the tracker, then the total expenditure for that category is increased instead. |
-|   deleteCategory    |    Decreases total expenditure of a category. If that total drops to zero or below, the category is removed from the tracker.     |
-|    editCategory     |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed.                   |
-| setSpendingLimitFor |                                         Sets a spending limit for a particular category.                                          |
+|     `addCategory`     | Adds a new category to the tracker. If already in the tracker, then the total expenditure for that category is increased instead. |
+|   `deleteCategory`    |    Decreases total expenditure of a category. If that total drops to zero or below, the category is removed from the tracker.     |
+|    `editCategory`     |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed.                   |
+| `setSpendingLimitFor` |                                         Sets a spending limit for a particular category.                                          |
 
 The `CategoryData` class has no notable methods.
 
 The `CategoryFilter` class has key methods for:
 
-|          Method           |                                                    Description                                                    |
-|:-------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
-|        initMaxHeap        |              Initialises a custom max heap that sorts categories by their current total expenditure               |
-|   getCategoriesFiltered   | Sorts categories in the tracker, which are nearing or have exceeded the designated spending limit, into max-heaps |
-| displayFilteredCategories |              Displays the categories in the provided category-filtered max-heap, in a preset format.              |
-| displayExceededCategories |                          Displays the categories that have exceeded its spending limits.                          |
-| displayNearingCategories  |                 Displays the categories that are nearing, but not exceeded, its spending limits.                  |
+|           Method            |                                                    Description                                                    |
+|:---------------------------:|:-----------------------------------------------------------------------------------------------------------------:|
+|        `initMaxHeap`        |              Initialises a custom max heap that sorts categories by their current total expenditure               |
+|   `getCategoriesFiltered`   | Sorts categories in the tracker, which are nearing or have exceeded the designated spending limit, into max-heaps |
+| `displayFilteredCategories` |              Displays the categories in the provided category-filtered max-heap, in a preset format.              |
+| `displayExceededCategories` |                          Displays the categories that have exceeded its spending limits.                          |
+| `displayNearingCategories`  |                 Displays the categories that are nearing, but not exceeded, its spending limits.                  |
 
 After the user adds or edits an `Expense`, it alerts the user if the spending limit is approached or exceeded for that `Expenses`'s category.
 
