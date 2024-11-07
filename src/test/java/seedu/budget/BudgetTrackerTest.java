@@ -13,7 +13,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 class BudgetTrackerTest {
 
@@ -28,7 +30,7 @@ class BudgetTrackerTest {
     }
 
     @Test
-    public void testSetBudget_negativeAmount_ErrorMessage() {
+    public void testSetBudget_negativeAmount_errorMessage() {
         // Get the current month to make sure the test always run
         LocalDateTime currentDateTime = LocalDateTime.now();
 
@@ -44,7 +46,7 @@ class BudgetTrackerTest {
     }
 
     @Test
-    public void testCalculatePastProgress_budgetExceeded_ErrorMessage() {
+    public void testCalculatePastProgress_budgetExceeded_errorMessage() {
         // Given: Budget for May 2024 is set to 500.00, but expenses exceed the budget.
         YearMonth month = YearMonth.of(2024, 5);
         Map<YearMonth, Double> budgets = new HashMap<>();
@@ -65,7 +67,7 @@ class BudgetTrackerTest {
     }
 
     @Test
-    public void testCalculatePastProgress_budgetWithin_ErrorMessage() {
+    public void testCalculatePastProgress_budgetWithin_errorMessage() {
         // Given: Budget for May 2024 is set to 500.00, but expenses exceed the budget.
         YearMonth month = YearMonth.of(2024, 5);
         Map<YearMonth, Double> budgets = new HashMap<>();
