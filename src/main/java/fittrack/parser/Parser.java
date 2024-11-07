@@ -25,6 +25,7 @@ import static fittrack.messages.Messages.DELETE_REMINDER_COMMAND;
 import static fittrack.messages.Messages.DELETE_SESSION_COMMAND;
 import static fittrack.messages.Messages.EDIT_EXERCISE_COMMAND;
 import static fittrack.messages.Messages.HELP_COMMAND;
+import static fittrack.messages.Messages.INVALID_SESSION_INDEX_MESSAGE;
 import static fittrack.messages.Messages.LIST_REMINDER_COMMAND;
 import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
 import static fittrack.messages.Messages.LIST_UPCOMING_REMINDER_COMMAND;
@@ -99,8 +100,8 @@ public class Parser {
         // Split the input into command and description if applicable
         if (input.contains(" ")) {
             sentence = input.split(" ", 2);
-            command = sentence[0];
-            description = sentence[1];
+            command = sentence[0].trim();
+            description = sentence[1].trim();
         }
 
         switch (command) {
@@ -148,7 +149,7 @@ public class Parser {
             break;
         case VIEW_SESSION_COMMAND:
             try {
-                int indexToView = validSessionIndex(Integer.parseInt(description) - 1, sessionList.size());
+                int indexToView = validSessionIndex(description, sessionList.size());
                 printSessionView(sessionList, indexToView); // Print the session view
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -156,7 +157,7 @@ public class Parser {
             break;
         case DELETE_SESSION_COMMAND:
             try {
-                int indexToDelete = validSessionIndex(Integer.parseInt(description) - 1, sessionList.size());
+                int indexToDelete = validSessionIndex(description, sessionList.size());
                 TrainingSession sessionToDelete = sessionList.get(indexToDelete);
                 String sessionDescription = sessionList.get(indexToDelete).getSessionDescription();
                 sessionList.remove(indexToDelete);
