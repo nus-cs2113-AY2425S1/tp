@@ -90,4 +90,34 @@ public class RecommendCommandTest {
 
         assertEquals(expected, message.toString());
     }
+    @Test
+    void testEmptyIngredientList() {
+        // Capture System.out printing
+        ByteArrayOutputStream message = new ByteArrayOutputStream();
+        PrintStream testingStream = new PrintStream(message);
+        PrintStream systemStream = System.out;
+        System.setOut(testingStream);
+
+        ingredientList = new IngredientList();
+        recommendCommand = new RecommendCommand();
+        recommendCommand.execute(recipeList, ingredientList, ui, storage);
+
+        System.out.flush();
+        System.setOut(systemStream);
+
+        String expected = "\t__________________________________________________________________________________"
+                + System.lineSeparator()
+                + "\tUnfortunately I can't recommend you any recipes, "
+                + System.lineSeparator()
+                + "\tbecause you lack the ingredients for any recipes in my database."
+                + System.lineSeparator()
+                + "\tPerhaps you should hit up the grocery store."
+                + System.lineSeparator()
+                + "\tIt will do you some good to go outside once in a while."
+                + System.lineSeparator()
+                + "\t__________________________________________________________________________________"
+                + System.lineSeparator();
+
+        assertEquals(expected, message.toString());
+    }
 }
