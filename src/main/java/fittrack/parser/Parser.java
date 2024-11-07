@@ -146,7 +146,7 @@ public class Parser {
                 int sessionIndex = sessionList.size() - 1;
                 String sessionDescription = sessionList.get(sessionIndex).getSessionDescription();
                 printAddedSession(sessionList, sessionIndex);
-                updateSaveFile(sessionList, goalList, reminderList);  
+                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -160,7 +160,7 @@ public class Parser {
 
                 sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);
                 printSessionView(sessionList, sessionIndex);
-                updateSaveFile(sessionList, goalList, reminderList);
+                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -183,7 +183,7 @@ public class Parser {
                 String sessionDescription = sessionList.get(indexToDelete).getSessionDescription();
                 sessionList.remove(indexToDelete);
                 printDeletedSession(sessionList, sessionToDelete, sessionDescription);
-                updateSaveFile(sessionList, goalList, reminderList);
+                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -199,7 +199,7 @@ public class Parser {
             LocalDateTime deadline = parseDeadline(inputDeadline);
             reminderList.add(new Reminder(description, deadline, user));
             printAddedReminder(reminderList);
-            updateSaveFile(sessionList, goalList, reminderList);
+            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             break;
         case DELETE_REMINDER_COMMAND:
             int reminderIndexToDelete = Integer.parseInt(description) - 1;
@@ -208,7 +208,7 @@ public class Parser {
             Reminder reminderToDelete = reminderList.get(reminderIndexToDelete);
             reminderList.remove(reminderIndexToDelete);
             printDeletedReminder(reminderList, reminderToDelete);
-            updateSaveFile(sessionList, goalList, reminderList);
+            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             break;
         case LIST_REMINDER_COMMAND:
             printReminderList(reminderList);
@@ -239,7 +239,7 @@ public class Parser {
             } else {
                 System.out.println("Please specify a goal to add.");
             }
-            updateSaveFile(sessionList, goalList, reminderList);
+            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case DELETE_GOAL_COMMAND:
@@ -254,7 +254,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 System.out.println("Please specify a valid index to delete.");
             }
-            updateSaveFile(sessionList, goalList, reminderList);
+            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case LIST_GOAL_COMMAND:
@@ -283,7 +283,7 @@ public class Parser {
             System.out.println(SEPARATOR);
             System.out.println("Got it. I've added " + waterAmount + "ml of water at " + formattedTimeNow + ".");
             System.out.println(SEPARATOR);
-
+            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case DELETE_WATER_COMMAND:
@@ -295,6 +295,7 @@ public class Parser {
 
             int waterIndex = Integer.parseInt(description) - 1;
             foodWaterList.deleteWater(waterIndex);
+            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case LIST_WATER_COMMAND:
@@ -312,8 +313,9 @@ public class Parser {
                     foodWaterList.addFood(new FoodEntry(foodName,calories,LocalDateTime.now()));
                     System.out.println(SEPARATOR);
                     System.out.println("Got it. I've added food item: " + foodName
-                            + " (" + calories + " calories, " + formattedTimeNow + ").");
+                            + " (" + calories + " calories) at " + formattedTimeNow + ").");
                     System.out.println(SEPARATOR);
+                    updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
                 } catch (NumberFormatException e) {
                     System.out.println("Please enter a valid number for calories.");
                 }
@@ -331,6 +333,7 @@ public class Parser {
 
             int foodIndex = Integer.parseInt(description) - 1;
             foodWaterList.deleteFood(foodIndex);
+            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case LIST_FOOD_COMMAND:
@@ -362,7 +365,7 @@ public class Parser {
             } catch (Exception e) {
                 System.out.println("An error occurred: " + e.getMessage());
             }
-            updateSaveFile(sessionList, goalList, reminderList);
+            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case LIST_DAILY_INTAKE_COMMAND:

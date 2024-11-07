@@ -2,6 +2,9 @@ package fittrack.storage;
 
 import fittrack.exception.InvalidSaveDataException;
 import fittrack.fitnessgoal.Goal;
+import fittrack.healthprofile.FoodEntry;
+import fittrack.healthprofile.FoodWaterIntake;
+import fittrack.healthprofile.WaterEntry;
 import fittrack.reminder.Reminder;
 import fittrack.trainingsession.TrainingSession;
 
@@ -108,6 +111,10 @@ public class Storage {
             return Goal.fromSaveString(saveString);
         } else if (saveString.startsWith("Reminder")) {
             return Reminder.fromSaveString(saveString);
+        } else if (saveString.startsWith("Water")) {
+            return WaterEntry.fromSaveString(saveString);
+        } else if (saveString.startsWith("Food")) {
+            return FoodEntry.fromSaveString(saveString);
         }
         throw new InvalidSaveDataException("Unrecognised Saveable descriptor detected.");
     }
@@ -124,7 +131,7 @@ public class Storage {
      * @throws IOException If any of the provided lists are null or if an I/O error occurs during writing.
      */
     public static void updateSaveFile(ArrayList<TrainingSession> sessionList, ArrayList<Goal> goalList,
-                                      ArrayList<Reminder> reminderList ) throws IOException {
+                                      ArrayList<Reminder> reminderList, FoodWaterIntake foodWaterList) throws IOException {
 
         // Determine  provided lists are not null before saving
         if (sessionList == null || goalList == null || reminderList == null) {
@@ -151,7 +158,21 @@ public class Storage {
                 assert reminder != null : "Training session must not be null";
                 fw.write(reminder.toSaveString()); // Write the reminder to the file
                 fw.write(System.lineSeparator()); // Add a new line after each reminder
-                LOGGER.info("Save file successfully updated with.");
+                LOGGER.info("Save file successfully updated.");
+            }
+            for (FoodEntry entry : foodWaterList.getFoodList()) {
+                // Assert that session objects are valid
+                assert entry != null : "Entry must not be null";
+                fw.write(entry.toSaveString()); // Write the reminder to the file
+                fw.write(System.lineSeparator()); // Add a new line after each reminder
+                LOGGER.info("Save file successfully updated.");
+            }
+            for (WaterEntry entry : foodWaterList.getWaterList()) {
+                // Assert that session objects are valid
+                assert entry != null : "Entry must not be null";
+                fw.write(entry.toSaveString()); // Write the reminder to the file
+                fw.write(System.lineSeparator()); // Add a new line after each reminder
+                LOGGER.info("Save file successfully updated.");
             }
         } catch (FileNotFoundException e) {
             System.out.println("Save file could not be updated (File could not be found).");
