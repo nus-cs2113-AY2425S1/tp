@@ -26,7 +26,7 @@ public class DeleteHistoryCommand extends HistoryCommand {
             return new CommandResult("No record found at " + formatDate(date));
         }
         String result = record.toString();
-        return new CommandResult(result);
+        return new CommandResult("Deleted record: \n" + result);
     }
 }
 
