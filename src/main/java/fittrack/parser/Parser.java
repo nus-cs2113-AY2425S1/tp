@@ -299,7 +299,7 @@ public class Parser {
             try {
               
                 // Parse session ID and new Mood String from provided user input
-                int sessionId = validSessionIndex(editMoodParts[0]) - 1, sessionList.size());
+                int sessionId = validSessionIndex(editMoodParts[0] - 1, sessionList.size());
                 String newMood = editMoodParts[1]; // New mood from the second part
 
                 // Call the edit method with the necessary arguments
