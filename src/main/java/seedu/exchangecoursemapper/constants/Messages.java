@@ -29,18 +29,18 @@ public class Messages {
     public static final String COMMANDS_LIST =
             """
                     Here are the available commands:
-                    filter: filter <subject code> - Filter courses by subject code.
-                    set: set <SCHOOL_NAME> - Set a partner university for course mapping.
-                    list schools: list schools - List all available partner universities.
-                    add: add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE> \
+                    filter <subject code> - Filter courses by subject code.
+                    set <SCHOOL_NAME>     - Set a partner university for course mapping.
+                    list schools          - List all available partner universities.
+                    add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE> \
                     - Add mapped courses between NUS and partner universities.
-                    obtain: obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
-                    obtain: obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
-                    delete: delete <TASK_NUMBER> - Delete a partner university.
-                    list mapped: list mapped - List all course mapping saved.
-                    compare: compare pu/<uni1> pu/<uni2> - Compare course mappings between 2 universities.
-                    find: find <NUS_COURSE_CODE> - Find courses with subject code in your list.
-                    bye: bye - End the program.
+                    obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
+                    obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
+                    delete <TASK_NUMBER>         - Delete a partner university.
+                    list mapped                  - List all course mapping saved.
+                    compare pu/<uni1> pu/<uni2>  - Compare course mappings between 2 universities.
+                    find <NUS_COURSE_CODE>       - Find courses with subject code in your list.
+                    bye                          - End the program.
                     To get more specific information of the commands, please use help <COMMAND>
                     """;
     // ListPersonalTrackerCommand

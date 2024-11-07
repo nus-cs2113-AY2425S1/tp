@@ -39,10 +39,10 @@
 ### Third Party Library Used
 
 #### 'org.glassfish:javax.json:1.1.4'
-* https://mvnrepository.com/artifact/org.glassfish/javax.json/1.1.4
+* [Link to official website](https://mvnrepository.com/artifact/org.glassfish/javax.json/1.1.4)
 
 #### 'javax.json:javax.json-api:1.1.4'
-* https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4
+* [Link to official website](https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4)
 
 ## Design
 
@@ -276,7 +276,7 @@ This command is responsible for displaying and retrieving the full list of unive
 from `database.json` file. It helps the users to identify the possible choices in Oceania.
 
 #### How the feature is implemented:
-* The `ListSchoolCommand` class extends `Command` class where it overrides the `execute` method for
+* The `ListSchoolCommand` class extends the `CheckInformationCommand` class where it overrides the `execute` method for
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
@@ -330,7 +330,7 @@ university. It helps users to reach out to the partner universities for any enqu
 exchange opportunities.
 
 #### How the feature is implemented:
-* The `ObtainContactsCommand` class extends `Command` class where it overrides the `execute()` method for
+* The `ObtainContactsCommand` class extends the `CheckInformationCommand` class where it overrides the `execute()` method for
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
@@ -350,6 +350,7 @@ exchange opportunities.
 * Logging and assertions helps the team of developers to follow through the command execution.
 
 #### Alternatives considered:
+* Split the contacts into 2 different class for obtaining email and number for better separation of concerns
 * Reading of the `database.json` was tricky and other libraries were considered.
 * Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
   readability.
@@ -390,7 +391,7 @@ that NUS course is suitable to be mapped overseas in Oceania.
 #### Overview:
 This command is responsible for adding users' desired course mapping into the `myList.json` file.
 Additionally, each course mapping is checked against the current course mapping found in the
-`database.json` file, ensuring that the course mapping is accurate and is limited to Oceania 
+`database.json` file, ensuring that the course mapping is accurate and is limited to Oceania
 universities. This command hence helps the users to keep track of their course mapping process.
 
 #### How the feature is implemented:
@@ -520,6 +521,7 @@ Below is an outline of the execution flow:
 - Checks the data integrity of `myList.json` using `courseRepository.isFileValid`. If the data integrity fails, the command exits without further execution.
 - The command splits the user input based on the delimiter `pu/` to retrieve the names of the two universities specified by the user.
   - If fewer than two universities are specified, the `printInvalidInputFormat` method in the `UI` class is called to inform the user of incorrect input format.
+- The command calls `isValidUniversity` to check if the input is a valid university. Otherwise it will print an error message with the wrong university name and a suggestion.
 - The command loads all course mappings from the `myList.json` file through the `Storage` class.
 - It verifies that the loaded list is not `null` through assertions.
 - The `filterModulesByUniversity` method takes the list of all modules and filters out only those associated with the specified university.
