@@ -144,6 +144,11 @@ public class BudgetManager {
         }
     }
 
+    //@@author MayFairMI6
+    public void simulateMonthChange() {
+        Calendar calendar = Calendar.getInstance();
+        lastResetMonth = (calendar.get(Calendar.MONTH) + 1) % 12;  // Simulate advancing by one month
+    }
     /**
      * Displays the current budget status for each category.
      *
