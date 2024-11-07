@@ -56,12 +56,13 @@ public class Ui {
         endSegment();
     }
 
-    public static void printAddedSession(ArrayList<TrainingSession> sessionList, String sessionDescription) {
+    public static void printAddedSession(ArrayList<TrainingSession> sessionList, int sessionIndex) {
         assert sessionList != null : "Session list must not be null";
         assert !sessionList.isEmpty() : "Session list must not be empty";
         beginSegment();
         System.out.println(ADD_SESSION_MESSAGE);
-        System.out.println(sessionList.size() + ". " + sessionDescription);
+        System.out.print(sessionList.size() + ". ");
+        sessionList.get(sessionIndex).printSessionInformation();
         printSessionCount(sessionList);
         endSegment();
     }

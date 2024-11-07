@@ -137,7 +137,7 @@ public class Parser {
                 sessionList.add(validSession(description, user));
                 int sessionIndex = sessionList.size() - 1;
                 String sessionDescription = sessionList.get(sessionIndex).getSessionDescription();
-                printAddedSession(sessionList, sessionDescription);
+                printAddedSession(sessionList, sessionIndex);
                 updateSaveFile(sessionList, goalList, reminderList);  
             } catch (Exception e) {
                 System.out.println(e.getMessage());
