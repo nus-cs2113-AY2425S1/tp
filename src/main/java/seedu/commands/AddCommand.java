@@ -17,6 +17,8 @@ public class AddCommand extends Command {
         boolean hasCompany = false;
 
         uiCommand.clearInvalidFlags();
+        uiCommand.clearUpdatedFields();
+        uiCommand.clearInvalidFields();
         for (String arg : args) {
             String[] words = arg.split(" ", 2);
             String flag = words[0];

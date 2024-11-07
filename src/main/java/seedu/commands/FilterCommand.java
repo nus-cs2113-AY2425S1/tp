@@ -68,10 +68,15 @@ public class FilterCommand extends Command {
         // Retrieve the corresponding getter method based on the flag
         InternshipFieldGetter getter = fieldGetters.get(flag);
 
-        if (getter == null) {
+        if (!fieldGetters.containsKey(flag)) {
             uiCommand.clearInvalidFlags();
             uiCommand.addInvalidFlag(flag);
             uiCommand.printInvalidFlags();
+            throw new IllegalArgumentException();
+        }
+
+        if (getter == null) {
+            uiCommand.showOutput(flag + " flag has been repeated\nPlease input a flag only once");
             throw new IllegalArgumentException();
         }
 
@@ -79,6 +84,8 @@ public class FilterCommand extends Command {
             uiCommand.showOutput(words[INDEX_FIELD] + " field cannot be empty");
             throw new IllegalArgumentException();
         }
+
+        fieldGetters.put(flag, null);
 
         String searchTerm = words[INDEX_DATA];
         BiPredicate<YearMonth, YearMonth> dateComparator = null;

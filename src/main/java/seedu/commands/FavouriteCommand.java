@@ -1,16 +1,14 @@
 package seedu.commands;
 
 import seedu.duke.Internship;
-import seedu.exceptions.InvalidIndex;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class FavouriteCommand extends Command {
-    public boolean functionComplete = false;
-
     @Override
     public void execute(ArrayList<String> args) {
+
         for (String arg : args) {
             try {
                 int internshipId = Integer.parseInt(arg);
@@ -18,34 +16,24 @@ public class FavouriteCommand extends Command {
                 Internship internship = internships.getInternship(internshipIndex);
                 ArrayList<Internship> favouriteInternships = internships.favouriteInternships;
                 if (internship == null) {
-                    throw new InvalidIndex();
+                    continue;
                 }
                 if (favouriteInternships.contains(internship)) {
                     continue;
                 }
-                functionComplete = true;
                 favouriteInternships.add(internship);
 
                 logger.log(Level.INFO, "FavouriteCommand Executed");
             } catch (NumberFormatException e) {
-                uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
-                functionComplete = false;
-                return;
-            } catch (InvalidIndex e) {
-                functionComplete = false;
-                return;
-                // Exception message is already handled in InternshipList class
+                uiCommand.showOutput("Invalid integer: " + arg + "\nPlease provide a valid internship ID");
             }
         }
         if (args.isEmpty()) {
             uiCommand.showEmptyFlags();
             return;
         }
-        internships.listAllInternships(internships.favouriteInternships);
-        if (!functionComplete) {
-            uiCommand.showOutput("All id's provided were marked as favourite already");
-        }
-        functionComplete = true;
+        internships.listFavouriteInternshipsBySortedByID();
+        uiCommand.showOutput("The list of favourite internships have been displayed above");
     }
 
     // rahul can change here also
