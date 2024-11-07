@@ -64,7 +64,7 @@ public class FitTrack {
                 String userInput = scan.nextLine();
                 String[] userInfo = parseUserInfo(userInput);
                 user = validUser(userInfo[0], userInfo[1]);
-                printUser(user);
+                printUser(user.getAge(), user.getGender().toString().toLowerCase());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

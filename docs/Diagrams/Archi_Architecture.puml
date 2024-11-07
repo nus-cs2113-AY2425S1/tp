@@ -4,13 +4,10 @@ skinparam classAttributeIconSize 0
 skinparam classBackgroundColor White
 skinparam classBorderColor Black
 
-rectangle Exercise <<enumeration>> {
-}
-
 rectangle User {
 }
 
-rectangle FitTrackLogger {
+rectangle Exceptions {
 }
 
 rectangle Storage {
@@ -25,36 +22,22 @@ rectangle Parser {
 rectangle Ui {
 }
 
-rectangle TrainingSession {
-}
-
-rectangle ExerciseStation {
-}
-
-rectangle Calculator {
+rectangle Miscellaneous {
 }
 
 FitTrack  -->  Parser
 FitTrack  -->  Ui
 FitTrack  -->  Storage
 FitTrack  -->  User
-FitTrack  -->  FitTrackLogger
 
-Parser  -->  TrainingSession
-Parser  --> Exercise
-Parser  -->  User
-Parser  -->  Ui
+Parser  -->  Miscellaneous
+Parser  -left->  User
+Parser  -right->  Ui
 
-Ui  -->  User
-Ui  -->  TrainingSession
+Ui  -->  Miscellaneous
 
-Storage  -->  TrainingSession
-Storage  -->  FitTrackLogger
-
-TrainingSession  -->  User
-TrainingSession  --> Exercise
-TrainingSession  --> ExerciseStation
-
-ExerciseStation --> Calculator
+Storage  -->  Miscellaneous
+Storage -> User
+Miscellaneous  -->  User
 
 @enduml

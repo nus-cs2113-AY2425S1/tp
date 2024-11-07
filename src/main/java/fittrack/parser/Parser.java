@@ -114,7 +114,9 @@ public class Parser {
             try {
                 String[] userInfo = parseUserInfo(description);
                 user = validUser(userInfo[0], userInfo[1]);
-                printUser(user);
+                assert user.getAge() > 0 : "User age must be greater than 0";
+                assert user.getGender() != null : "User gender must not be null";
+                printUser(user.getAge(), user.getGender().toString().toLowerCase());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -122,7 +124,9 @@ public class Parser {
         case ADD_SESSION_COMMAND:
             try {
                 sessionList.add(validSession(description, user));
-                printAddedSession(sessionList);
+                int sessionIndex = sessionList.size() - 1;
+                String sessionDescription = sessionList.get(sessionIndex).getSessionDescription();
+                printAddedSession(sessionList, sessionDescription);
                 updateSaveFile(sessionList, goalList, reminderList);  
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -137,8 +141,7 @@ public class Parser {
                 String exerciseAcronym = userInput[2];
                 String exerciseData = userInput[3];
 
-                sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData,
-                        true);
+                sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);
                 printSessionView(sessionList, sessionIndex);
                 updateSaveFile(sessionList, goalList, reminderList);
             } catch (Exception e) {
@@ -161,7 +164,8 @@ public class Parser {
                 int indexToDelete = validSessionIndex(Integer.parseInt(description) - 1, sessionList.size());
                 TrainingSession sessionToDelete = sessionList.get(indexToDelete);
                 sessionList.remove(indexToDelete);
-                printDeletedSession(sessionList, sessionToDelete);
+                String sessionDescription = sessionList.get(indexToDelete).getSessionDescription();
+                printDeletedSession(sessionList, sessionToDelete, sessionDescription);
                 updateSaveFile(sessionList, goalList, reminderList);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -262,8 +266,20 @@ public class Parser {
             break;
 
         case "add-food":
-            user.getFoodIntake().addFood(description);
+            String[] foodParts = description.split(" ", 2); // Split description into parts
+            if (foodParts.length > 1) { // Ensure there are both food name and calories
+                String foodName = foodParts[0];
+                try {
+                    int calories = Integer.parseInt(foodParts[1].trim());
+                    user.getFoodIntake().addFood(foodName, calories); // Assuming this is the correct method to add food
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a valid number for calories.");
+                }
+            } else {
+                System.out.println("Please provide both food name and calories.");
+            }
             break;
+
 
         case "delete-food":
             int foodIndex = Integer.parseInt(description) - 1;
@@ -292,10 +308,11 @@ public class Parser {
             String[] editMoodParts = description.split(" ", 2);
             if (editMoodParts.length < 2) {
                 System.out.println("Please specify the session-ID and new mood");
+
                 return;
             }
             try {
-
+              
                 // Parse session ID and new Mood String from provided user input
                 int sessionId = validSessionIndex(Integer.parseInt(editMoodParts[0]) - 1, sessionList.size());
                 String newMood = editMoodParts[1]; // New mood from the second part
@@ -311,6 +328,20 @@ public class Parser {
                 System.out.println("An error occurred: " + e.getMessage());
             }
             updateSaveFile(sessionList, goalList, reminderList);
+            break;
+
+        case "list-intake":
+            // Combine water, food, and calorie lists into one daily intake summary
+            System.out.println("Here is your daily intake summary:");
+
+            // Water Intake
+            System.out.println("\nWater Intake:");
+            user.getWaterIntake().listWater();  // assuming listWater displays water intake
+
+            // Food Intake
+            System.out.println("\nFood Intake:");
+            user.getFoodIntake().listFood();  // assuming listFood displays food intake
+
             break;
 
         default:

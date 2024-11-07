@@ -105,6 +105,11 @@ public class TrainingSession extends Saveable {
         }
     }
 
+    //Override method to default true value
+    public void editExercise(Exercise exerciseType, String reps) {
+        editExercise(exerciseType, reps, true);
+    }
+
     public int getExercisePoints(Exercise exercise) {
         return this.exerciseStations.get(exercise).getPoints(user);
     }

@@ -62,7 +62,8 @@ public class Messages {
             + System.lineSeparator() + "add-water (amount)                                               add-water 500"
             + System.lineSeparator() + "delete-water (index)                                             delete-water 1"
             + System.lineSeparator() + "list-water                                                       list-water"
-            + System.lineSeparator() + "add-food (food item)                                             add-food apple"
+            + System.lineSeparator() + "add-food (food item) (calories)                                  add-food apple"
+            + "100"
             + System.lineSeparator() + "delete-food (index)                                              delete-food 1"
             + System.lineSeparator() + "list-food                                                        list-food"
             + System.lineSeparator() + "add-calories (calorie amount)                                    add-calories"
@@ -71,6 +72,7 @@ public class Messages {
             + "delete-calories 1"
             + System.lineSeparator() + "list-calories                                                    list-calories"
             + System.lineSeparator() + "edit-mood (session index) (mood description)                     add-mood 1 Sad"
+            + System.lineSeparator() + "list-intake                                                      list-intake"
             + System.lineSeparator() + "exit                                                             exit";
     public static final String LIST_SESSION_MESSAGE = "Here are your training sessions:";
     public static final String LIST_SESSION_EMPTY_MESSAGE = "Your session list is currently empty.";
@@ -97,9 +99,7 @@ public class Messages {
     public static final String DELETE_FOOD_MESSAGE = "Got it. I've deleted food item: ";
     public static final String LIST_FOOD_MESSAGE = "Here is your food intake list: ";
 
-    public static final String ADD_CALORIES_MESSAGE = "Got it. I've added calorie intake:";
-    public static final String DELETE_CALORIES_MESSAGE = "Got it. I've deleted the calorie intake.";
-    public static final String LIST_CALORIES_MESSAGE = "Here is your calorie intake:";
+    public static final String LIST_INTAKE_MESSAGE = "Here is your daily intake summary: ";
 
     public static final String MALE_GENDER = "male";
     public static final String FEMALE_GENDER = "female";

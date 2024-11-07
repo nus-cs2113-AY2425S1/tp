@@ -1,6 +1,8 @@
 @startuml
 ' Use right-angle straight lines for relationships
 skinparam linetype ortho
+skinparam nodesep 150
+skinparam ranksep 150
 hide circle
 skinparam classAttributeIconSize 0
 skinparam classBackgroundColor White
@@ -30,12 +32,12 @@ class User {
 }
 
 ' Define relationships with right-angle arrows
-FitTrack "1" -> "1" Parser : uses
-FitTrack "1" --> "1" User : creates
+FitTrack "1" -> "1" Parser : uses >
+FitTrack "1" --> "1" User : creates >
 
-Parser "1" -> "1" Ui : uses
-Parser "1" --> "1" User : manages
+Parser "1" -> "1" Ui : uses >
+Parser "1" --> "1" User : manages >
 
-Ui "1" --> "1" User : displays
+Ui "1" --> "1" User : displays >
 
 @enduml
