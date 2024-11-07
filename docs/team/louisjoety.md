@@ -9,9 +9,11 @@ courses. There is also a personalised tracker that allows users to add and delet
 courses and compare the course mapping between two schools.
 
 ### 2. Code contributed:
-I played a key role in developing my team's Information Checker feature, specifically the `ObtainContactsCommand` and `ListSchoolsCommand`. I also created the `Command` parent class,
-which serves as the backbone of the application, allowing for easy extension to other child classes in line with object-oriented programming (OOP) standards. 
-Additionally, I crafted detailed user and developer guides to ensure a smooth experience for both end-users and my team of developers.
+I played a key role in developing my team's Information Checker feature, specifically the `ObtainContactsCommand` and 
+`ListSchoolsCommand`. I also created the `Command` parent class, which serves as the backbone of the application, 
+allowing for easy extension to other child classes in line with object-oriented programming (OOP) standards. 
+Additionally, I crafted detailed user and developer guides to ensure a smooth experience for both end-users and 
+my team of developers.
 
 Check out my contributions on the [TP Dashboard](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=louisjoety&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false).
 
@@ -25,11 +27,13 @@ Check out my contributions on the [TP Dashboard](https://nus-cs2113-ay2425s1.git
 * Updated Database with new contact number and email information
 * Managed controls to allow users to retrieve either email or number
 * J-unit test, assertions and logging were done to gracefully handle errors
+* JavaDocs for non-trivial methods were also written
 
 ### List Schools Command Class
 * Updated Database with school names and courses available
 * Managed controls to allow users to obtain a list of schools available in the database
 * J-unit test, assertions and logging were done to gracefully handle errors
+* JavaDocs for non-trivial methods were also written
 
 ### Miscellaneous
 * Implemented starting points for 4 major components: `Parser`, `UI`, `Commands`, `Storage`
@@ -37,7 +41,7 @@ Check out my contributions on the [TP Dashboard](https://nus-cs2113-ay2425s1.git
 
 ### Refactoring
 * General refactoring of code to ensure they follow SLAP on 
-* Help team do QA to obtain bugs around code namely in storage and complex more commands
+* Help team do QA to obtain bugs around code namely in storage and more complex commands
 
 ## 4. User Guide
 * Documented the FAQ section 
@@ -54,6 +58,7 @@ Check out my contributions on the [TP Dashboard](https://nus-cs2113-ay2425s1.git
   * Partial Class Diagram of `Commands`
   * Flow of an example of Sequence Diagram 
 * Implementation Section: 
+  * General JSON Processing Section
   * List Schools Section
   * Obtain Contacts Section
 
