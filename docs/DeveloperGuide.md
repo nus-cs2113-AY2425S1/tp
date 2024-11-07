@@ -347,7 +347,7 @@ The `Command` constructor updates the attributes based on the input arguments.
 
 The abstract `Command` class and its related children classes have the following method:
 
-- *execute*: Effect the command based on the corresponding child class.
+- `execute`: Effect the command based on the corresponding child class.
 
 ### Adding Entries
 
@@ -761,8 +761,17 @@ The constructor of the `Budget` class
 
 The sequence diagrams below show 3 main methods of `BudgetLogic` class.
 
+The `setBudget()` method is invoked by the `Logic` class or `FinanceBuddy` main class.
+The sequence diagram shows an example of the method being called by the `Logic` class.
+
 ![setBudget](UML/setBudgetSequence.png)
+
+The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class.
+
 ![recalculateBalance](UML/recalculateBalanceSequence.png)
+
+The `changeBalanceFromExpense()` method is shown below.
+
 ![changeExpenseFromExpense](UML/changeExpenseFromExpense.png)
 
 <ins>Design Considerations</ins>
