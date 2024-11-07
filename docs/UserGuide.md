@@ -9,7 +9,7 @@ The user can:
 3. Set fitness goals.
 4. Visualise their training progress.
 
-The NAPFA score sheet used for this chatbot can be found here:
+The NAPFA score sheet used for this chatbot can be found [here](https://www.dunmansec.moe.edu.sg/files/pe_napfa.pdf)
 This guide will bring you through the various features of FitTrackCLI, and how to utilise them!
 
 
