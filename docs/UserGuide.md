@@ -8,7 +8,7 @@ nav_order: 1
 MediTask is a desktop application designed to help nurses efficiently manage and track their daily tasks via a Command Line Interface (CLI). This CLI tool streamlines task management, allowing nurses to quickly organize, monitor, and complete tasks, ensuring no important steps are missed.
 
 * Table of Contents
-  {:toc}
+{:toc}
 
 ## Quick Start
 
@@ -297,4 +297,3 @@ MediTask data is saved as a JSON file [JAR file location]/data/hospital_data.jso
 | **Unmark**        | ```unmark INDEX```<br>e.g., ```unmark 1```                                                                                                               |
 | **Help**          | ```help```                                                                                                                                               |
 | **Exit**          | ```exit```                                                                                                                                               |
-
