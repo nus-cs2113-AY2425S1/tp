@@ -44,7 +44,7 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 | Goal              | Allows users to set, list, and delete specific goals related to fitness and overall well-being                  |
 | DailyIntake       | Allows users to add, view, and delete water and food intake logs to monitor daily hydration levels              |
 
-The following Class Diagram elaborates on the interactions between all the classes and their multiplicities.
+The following Class Diagram elaborates on the interactions between major classes and their multiplicities.
 
 ### Overall Class Diagram
 ![Class_Overall.png](Images/Class_Overall.png)
