@@ -2,7 +2,7 @@
 !include style.puml
 scale 0.5
 
-actor ":User" as U UI_COLOR
+actor ":User" as U
 participant ":Main" as M LOGIC_COLOR
 participant ":UI" as UI UI_COLOR
 participant ":Parser" as P PARSER_COLOR
