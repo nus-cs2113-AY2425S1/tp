@@ -195,8 +195,31 @@ Format:
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
+**A**: Copy the `spendswift.txt` file from your SpendSwift home folder to the same folder on your new computer. 
+Ensure the tp.jar file is also in the same folder. When you start the application on the new computer, 
+it will load your saved expenses and categories from `spendswift.txt`.
 
-**A**: {your answer here}
+**Q**: What happens if I enter an invalid command or make a typo?  
+**A**: SpendSwift will display an error message if it doesn't recognize the command. 
+Double-check the command format and ensure all required parameters are included. 
+You can type `help` to see the correct command syntax and available options.
+
+**Q**: Can I update or change an expense’s details after adding it?  
+**A**: Currently, SpendSwift doesn't support direct editing of expenses. 
+To make changes, delete the existing expense using `delete-expense` and add a new one with the updated details.
+
+**Q**: What if I forget to set a category when adding an expense?  
+**A**: If no category is provided, the expense will be set to "Uncategorized" by default. 
+You can later assign it to a specific category using `tag-expense`.
+
+**Q**: How are expenses rounded off if I enter an amount with more than two decimal places?  
+**A**: SpendSwift automatically rounds amounts to two decimal places. 
+For example, if you enter an amount of 5.678, it will be saved as 5.68.
+
+**Q**: How do I check if my budgets reset automatically each month?  
+**A**: Use the `toggle-reset` command to switch the automatic monthly budget reset on or off. 
+If the feature is currently off, typing the command will turn it on, and vice versa.
+
 
 ## Command Summary
 - Add expense `add-expense n/NAME a/AMOUNT [c/CATEGORY]`
