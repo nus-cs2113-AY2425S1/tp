@@ -7,6 +7,7 @@ public class Commons {
     public static final String ERROR_MESSAGE_NON_NUMBER_AMOUNT = "Invalid amount. Please use a number.";
     public static final String ERROR_MESSAGE_EMPTY_AMOUNT
             = "Invalid argument. Please do not leave compulsory arguments blank.";
+    public static final String ERROR_MESSAGE_ARGUMENT_NULL = "Argument cannot be empty or blank.";
     public static final String ERROR_MESSAGE_AMOUNT_TOO_SMALL = "Invalid amount. Amount must be $0.01 or greater.";
     public static final String ERROR_MESSAGE_AMOUNT_TOO_LARGE = "Invalid amount. Amount must be $9999999.00 or less.";
     public static final String ERROR_MESSAGE_DATE_TOO_LATE = "Entered date cannot be after current date.";
