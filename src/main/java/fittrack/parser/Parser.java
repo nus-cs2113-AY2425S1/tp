@@ -131,12 +131,10 @@ public class Parser {
             break;
         case EDIT_EXERCISE_COMMAND:
             try {
-                validEditDetails(description,sessionList.size());
-
-                String[] userinput = description.split(" ");
-                int sessionIndex = Integer.parseInt(userinput[1]);
-                String exerciseAcronym = userinput[2];
-                String exerciseData = userinput[3];
+                String[] userInput = validEditDetails(description,sessionList.size());
+                int sessionIndex = Integer.parseInt(userInput[0]) - 1;
+                String exerciseAcronym = userInput[1];
+                String exerciseData = userInput[2];
 
                 sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);
                 printSessionView(sessionList, sessionIndex);
@@ -160,8 +158,8 @@ public class Parser {
             try {
                 int indexToDelete = validSessionIndex(Integer.parseInt(description) - 1, sessionList.size());
                 TrainingSession sessionToDelete = sessionList.get(indexToDelete);
-                sessionList.remove(indexToDelete);
                 String sessionDescription = sessionList.get(indexToDelete).getSessionDescription();
+                sessionList.remove(indexToDelete);
                 printDeletedSession(sessionList, sessionToDelete, sessionDescription);
                 updateSaveFile(sessionList, goalList, reminderList);
             } catch (Exception e) {
