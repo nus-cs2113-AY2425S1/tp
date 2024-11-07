@@ -1,5 +1,6 @@
 @startuml
 !include style.puml
+scale 0.5
 
 actor ":User" as U UI_COLOR
 participant ":Main" as M LOGIC_COLOR

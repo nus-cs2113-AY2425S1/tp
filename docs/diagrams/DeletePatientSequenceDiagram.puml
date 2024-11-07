@@ -10,6 +10,7 @@ participant ":DeleteParser" as DeleteParser PARSER_COLOR
 participant ":DeletePatientCommand" as DeletePatientCommand COMMAND_COLOR
 participant ":Hospital" as Hospital DATA_COLOR
 participant ":CommandResult" as CommandResult COMMAND_COLOR
+scale 0.5
 
 User -> MediTask : User input ("delete <index>")
 activate MediTask

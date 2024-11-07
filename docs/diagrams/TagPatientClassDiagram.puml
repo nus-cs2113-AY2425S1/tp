@@ -1,6 +1,7 @@
 @startuml
 
 !include style.puml
+scale 0.5
 
 skinparam classAttributeIconSize 0
 

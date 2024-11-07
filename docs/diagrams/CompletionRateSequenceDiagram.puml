@@ -1,11 +1,12 @@
 @startuml
 !include style.puml
 
-actor ":User" as user UI_COLOR
+actor ":User" as user
 participant ":Ui" as Ui UI_COLOR
 participant ":Hospital" as Hospital MODEL_COLOR
 participant ":Patient" as Patient MODEL_COLOR_T2
 participant ":TaskList" as TaskList LOGIC_COLOR
+scale 0.5
 
 == Show Task List for a Patient ==
 user -> Ui : showTaskList()
