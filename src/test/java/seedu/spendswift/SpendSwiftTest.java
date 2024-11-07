@@ -323,18 +323,18 @@ class ExpenseManagerTest {
 class BudgetManagerTest {
 
     
-BudgetManager budgetManager = new BudgetManager();
+   BudgetManager budgetManager = new BudgetManager();
 TrackerData trackerData = new TrackerData();
   
 
     private Category findCategory(TrackerData trackerData, String categoryName) {
-    for (Category category : trackerData.getCategories()) {
-        if (category.getName().equalsIgnoreCase(categoryName)) {
-            return category;
+        for (Category category : trackerData.getCategories()) {
+            if (category.getName().equalsIgnoreCase(categoryName)) {
+                return category;
+            }
         }
+        return null; // Return null if no category matches the given name
     }
-    return null; // Return null if no category matches the given name
-}
 
 
     @Test
