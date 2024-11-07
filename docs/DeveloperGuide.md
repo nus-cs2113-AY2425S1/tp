@@ -613,6 +613,78 @@ storage.update(financialList, budgetLogic);
  - **Data Persistence**: Storage supports retention of records after application closure, aligning with needs for long-term financial tracking.
  - **Scalability**: Future improvements to Storage could incorporate encryption or remote storage options, enhancing data security and flexibility.
 
+### Budget
+
+<ins>Overview</ins>
+
+The `Budget` class serves as a representation of a user's budget in the application.
+It keeps track of the budget amount, remaining balance,
+the status of whether the budget has been set, and the date when the budget was last set.
+
+The `BudgetLogic` class serves as an intermediate class between the `Logic` and `Budget` class.
+The `BudgetLogic` class handles the logic directly related to the `Budget` class, including
+setting the budget, modifying the remaining balance when `Expense` is added, deleted or edited. It also
+recalculates the remaining balance, and prompts the user when the budget is exceeded.
+
+<ins>Class Structure</ins>
+
+The class diagram below shows the structure of `Budget` and `BudgetLogic`. The `Logic` class
+has been greatly simplified to simply show the association between these classes.
+
+![Budget](UML/Budget.png)
+
+<ins>Methods</ins>
+
+The `Budget` class has the following methods:
+- `getBudgetAmount()`: `double` Returns the value of `budgetAmount`
+- `setBudgetAmount(double)`
+  - Sets the value of `budgetAmount` and `balance` to the provided value
+  - Sets `isBudgetSet` to true
+  - Sets `budgetSetDate` to the current date of the machine
+- `isBudgetSet()`: `boolean` Returns the value of `isBudgetSet`
+- `getBalance()`: `double` Returns the value of `balance`
+- `updateBalance(double)` Sets the value of `balance` to the provided value
+- `toStorageString`: `String` Converts the budget attributes to a formatted `String`
+  specifically for the `Storage` class
+
+The `BudgetLogic` class has the following methods:
+- `getBudget()`: `Budget` Returns `budget`
+- `overwriteBudget(Budget)` Replaces `budget` with a new instance of `Budget` class
+- `setBudget(FinancialList)` Displays different messages depending on whether a budget has been set,
+- `handleSetBudget(FinancialList)`
+  - Handles the user input of whether to set a budget, and of the budget amount
+  - Rejects inputs that are not "yes" or "no" when asking user whether to set a budget
+  - Rejects non-number inputs, or numbers smaller than 0.01 when asking user for budget amount
+- `modifyBalance(double)` Deducts the remaining balance of the budget by the provided value
+- `getBudgetAndBalance()` Displays budget amount and remaining balance
+- `hasExceededBudget()`: `boolean` Returns true if remaining balance is 0 or less
+- `isCurrentMonth(LocalDate)`: `boolean` Returns true if the date provided is in the
+same year and month as the current date
+- `changeBalanceFromExpenseString(double, String)` and `changeBalanceFromExpense(double, LocalDate)`
+  - Both methods achieve the same result, but `changeBalanceFromExpenseString(double, String)`
+  first parses the date in `String` into `LocalDate`
+  - Modifies remaining balance if the `Expense` happened in the current month
+  - Displays message to warn user if budget has been exceeded
+- `recalculateBalance(FinancialList)` Resets the remaining balance to the budget amount,
+then scans through the whole `FinancialList` and deducts the remaining balance accordingly
+
+<ins>Implementation Details</ins>
+
+The constructor of the `Budget` class
+- Sets `budgetAmount` and `balance` to 0
+- Sets `isBudgetSet` to false
+- Sets `budgetSetDate` to null
+
+The sequence diagrams below show 3 main methods of `BudgetLogic` class.
+
+![setBudget](UML/setBudgetSequence.png)
+![recalculateBalance](UML/recalculateBalanceSequence.png)
+![changeExpenseFromExpense](UML/changeExpenseFromExpense.png)
+
+<ins>Design Considerations</ins>
+
+Given that the `Budget` class has a significant enough number of attributes and methods,
+the `BudgetLogic` class was created to specifically handle the logic related to `Budget`.
 
 ## Product scope
 
