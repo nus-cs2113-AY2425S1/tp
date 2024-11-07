@@ -23,6 +23,7 @@ import seedu.command.TrackProgressCommand;
 import seedu.datastorage.Storage;
 import seedu.transaction.TransactionList;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -119,11 +120,17 @@ public class Main {
 
     public static void printWelcomeMessage() {
         ui.printMessage("Remember to record your spending today so you can track your spending accurately.");
-        ui.printMessage("");
         double todaySpending = transactions.getTodaySpending();
         String reminder = "Reminder: Please check if your spending is within your budget!";
         ui.printMessage("Today's total spending: $" + todaySpending);
-        ui.printMessage(reminder);
+        YearMonth currentMonth = YearMonth.now();
+        Double monthlyBudget = budgetTracker.getMonthlyBudget(currentMonth);
+        //System.out.println(monthlyBudget);
+        if (monthlyBudget != null) {
+            double monthlyExpense = budgetTracker.getMonthlyExpense(currentMonth);
+            double remaining = monthlyBudget - monthlyExpense;
+            ui.printMessage("This month's budget remaining: $" + String.format("%.2f", remaining));
+        }
     }
 
     /**

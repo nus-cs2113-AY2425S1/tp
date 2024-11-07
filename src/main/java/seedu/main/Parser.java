@@ -52,7 +52,7 @@ public class Parser {
     /**
      * Parses a command string into a {@code Command} and assign its arguments.
      *
-     * @param commandPart The first word of thẻ command string entered by the user.
+     * @param commandPart The first word of the command string entered by the user.
      * @return The {@code Command} associated with the command string.
      */
     public Command parseCommand(String commandPart) {
