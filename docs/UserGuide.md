@@ -291,21 +291,29 @@ __________________________________________________
 __________________________________________________
 Sorted internships by start date (year first), then end date.
 __________________________________________________
-ID: 02
-Role: Software Engineer Intern
-Company: Google
-Duration: 05/23 to 08/25
-Skills: Not Stated
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
 Deadlines:
-     online assessment: 11/11/24
-__________________________________________________
-ID: 01
+	certificate submit: 15/04/24
+_________________________________________________
+ID: 1	Status: Rejected
 Role: Embedded Software Engineer Intern
 Company: Continental
-Duration: 05/24 to 08/24
-Skills: No Skills Entered 
+Duration: 05/25 to 08/25
+Skills: C++ 
 Deadlines:
-    interview: 25/11/24
+	online interview: 12/06/24
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
+Company: Google
+Duration: 05/25 to 09/25
+Skills: Python SQL 
+Deadlines:
+	interview reply: 12/04/24
 __________________________________________________
 __________________________________________________
 ```
@@ -317,26 +325,213 @@ __________________________________________________
 __________________________________________________
 Sorted internships by role alphabetically (case-insensitive).
 __________________________________________________
-ID: 01
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
+Company: Google
+Duration: 05/25 to 09/25
+Skills: Python SQL 
+Deadlines:
+	interview reply: 12/04/24
+__________________________________________________
+ID: 1	Status: Rejected
 Role: Embedded Software Engineer Intern
-Company: Venti
-Duration: 04/25 to 08/25
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: C++ 
+Deadlines:
+	online interview: 12/06/24
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
+__________________________________________________
+__________________________________________________
+```
+
+`sort -deadline`
+
+```
+__________________________________________________
+__________________________________________________
+Sorted internships by deadline.
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
+Company: Google
+Duration: 05/25 to 09/25
+Skills: Python SQL 
+Deadlines:
+	interview reply: 12/04/24
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
+__________________________________________________
+ID: 1	Status: Rejected
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: C++ 
+Deadlines:
+	online interview: 12/06/24
+__________________________________________________
+__________________________________________________
+```
+
+`sort -skills`
+
+```
+__________________________________________________
+__________________________________________________
+Sorted internships by skills.
+__________________________________________________
+ID: 1	Status: Rejected
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: C++ 
+Deadlines:
+	online interview: 12/06/24
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
+Company: Google
+Duration: 05/25 to 09/25
+Skills: Python SQL 
+Deadlines:
+	interview reply: 12/04/24
+__________________________________________________
+__________________________________________________
+```
+
+`sort -status`
+
+```
+__________________________________________________
+__________________________________________________
+Sorted internships by status.
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
+Company: Google
+Duration: 05/25 to 09/25
+Skills: Python SQL 
+Deadlines:
+	interview reply: 12/04/24
+__________________________________________________
+ID: 1	Status: Rejected
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: C++ 
+Deadlines:
+	online interview: 12/06/24
+__________________________________________________
+__________________________________________________
+```
+
+`sort -company`
+
+```
+__________________________________________________
+__________________________________________________
+Sorted internships by company.
+__________________________________________________
+ID: 1	Status: Rejected
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: C++ 
+Deadlines:
+	online interview: 12/06/24
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
+Company: Google
+Duration: 05/25 to 09/25
+Skills: Python SQL 
+Deadlines:
+	interview reply: 12/04/24
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
+__________________________________________________
+__________________________________________________
+```
+
+`sort -role in favourite`
+
+```
+__________________________________________________
+__________________________________________________
+Sorted internships in favourite by role in favourite.
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
+Company: Google
+Duration: 05/25 to 09/25
+Skills: Python SQL 
+Deadlines:
+	interview reply: 12/04/24
+__________________________________________________
+ID: 1	Status: Rejected
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: C++ 
+Deadlines:
+	online interview: 12/06/24
+=======
+ID: 1	Status: Application Pending
+Role: engineer
+Company: ABS
+Duration: 01/01 to 01/01
 Skills: No Skills Entered 
 Deadlines:
-    interview: 25/11/24
+	No deadlines set.
 __________________________________________________
-ID: 02
-Role: Software Engineer Intern
-Company: Google
-Duration: Not Stated
-Skills: Not Stated
+ID: 2	Status: Application Pending
+Role: accountant
+Company: XYZ
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
 Deadlines:
-    online assessment: 11/11/24
+	No deadlines set.
 __________________________________________________
 __________________________________________________
 ```
 
 ## Filter command: `filter`
+`filter`
 
 This feature is an extension of the previous list feature. It allows the user to specify certain values for any of the role name, company name or duration parameters based on which only the relevant internships are shown. 
 

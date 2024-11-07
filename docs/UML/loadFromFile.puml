@@ -1,39 +1,42 @@
 @startuml
 Title loadFromFile
+hide footbox
+participant ":User"
+participant ":EasInternship"
+participant ":Storage"
+participant ":InternshipList"
+participant ":Internship"
+participant ":FileReader"
 
-participant User
-participant EasInternship
-participant Storage
-participant InternshipList
-participant Internship
-participant FileReader
-
-User->EasInternship: start program
-activate EasInternship #green
-EasInternship->InternshipList: new InternshipList()
-activate InternshipList #aquamarine
-EasInternship->Storage: loadFromFile(internshipList)
-activate Storage #orange
-Storage->FileReader :read(file)
-activate FileReader #red
-FileReader-> Storage: data lines
+":User"->":EasInternship": start program
+activate ":EasInternship" #green
+":EasInternship"->":InternshipList": new ":InternshipList"()
+activate ":InternshipList" #aquamarine
+":EasInternship"->":Storage": loadFromFile(internshipList)
+activate ":Storage" #orange
+":Storage"->":FileReader" :read(file)
+activate ":FileReader" #red
+":FileReader"-> ":Storage": data lines
 
 loop for each line in file
-    Storage-> Internship : new Internship(role, company, startDate, endDate)
-    activate Internship #blue
-    Internship->InternshipList: addInternship
-    Storage -> Internship :setSkills(skills)
-    Storage -> Internship : setStatus(status)
-    deactivate Internship
+    ":Storage"-> ":Internship" : new ":Internship"(role, company, startDate, endDate)
+    activate ":Internship" #blue
+    ":Internship"->":InternshipList": addInternship
+    ":Storage" -> ":Internship" :setSkills(skills)
+    ":Storage" -> ":Internship" : setStatus(status)
+    deactivate ":Internship"
 
-    Storage -> Storage: parseDeadlines(deadlineString, internshipId)
-    activate Storage #orange
-    Storage -> Deadline: new Deadline (description, date)
-    deactivate Storage
+    ":Storage" -> ":Storage": parseDeadlines(deadlineString, internshipId)
+        activate ":Storage" #orange
 
-    Internship -> Deadline : addDeadline(deadline)
+        ":Storage" -> ":Deadline": new Deadline (description, date)
+        activate ":Deadline" #purple
+        deactivate ":Deadline"
+        deactivate ":Storage"
+
+        ":Internship" -> ":Deadline" : addDeadline(deadline)
 end
-deactivate FileReader
-deactivate Storage
+deactivate ":FileReader"
+deactivate ":Storage"
 @enduml
 

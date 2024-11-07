@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Handles the saving and loading of internships from a file.
@@ -15,6 +17,7 @@ import java.util.List;
 public class Storage {
     //define filepath
     private static final String FILE_PATH = "./data/EasInternship.txt";
+    private static final Logger logger = Logger.getLogger("EasInternship");
 
 
     /**
@@ -28,6 +31,7 @@ public class Storage {
             //create directory if file does not exist
             if (!dir.exists()) {
                 dir.mkdirs();
+                logger.log(Level.INFO, "Directory created");
             }
             FileWriter writer = new FileWriter(FILE_PATH);
             List<Internship> internships = internshipList.getAllInternships();
@@ -66,10 +70,12 @@ public class Storage {
                 writer.write(" " + favInternship.getId());
             }
             writer.write("\n");
+            logger.log(Level.INFO, "Data saved");
 
             writer.close();
         } catch (IOException e) {
             System.out.println("Error while saving tasks: " + e.getMessage());
+            logger.log(Level.WARNING, "Error while saving tasks", e);
         }
     }
 
@@ -81,11 +87,17 @@ public class Storage {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             System.out.println("No data file found.");
+            logger.log(Level.INFO, "No data file found.");
             return;
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                if (!isValidFormat(line)) {
+                    System.out.println("Skipping invalid line in file: " + line);
+                    continue;  // Skip the invalid line instead of throwing an error
+                }
+
                 if (!(line.startsWith("FAVOURITES:"))) {
                     String[] data = line.split(" \\| ");
                     String role = data[1];
@@ -108,18 +120,36 @@ public class Storage {
                 }
 
                 // Parse favourite internships
-                String[] parts = line.substring("FAVOURITES:".length()).trim().split(" ");
-                for (String id : parts) {
-                    int favInternshipId = Integer.parseInt(id);
-                    int favInternshipIndex = favInternshipId - 1;
-                    Internship favInternship = internshipList.internships.get(favInternshipIndex);
-                    internshipList.favouriteInternships.add(favInternship);
+                if (!internshipList.favouriteInternships.isEmpty()) {
+                    String[] parts = line.substring("FAVOURITES:".length()).trim().split(" ");
+                    for (String id : parts) {
+                        int favInternshipId = Integer.parseInt(id);
+                        int favInternshipIndex = favInternshipId - 1;
+                        Internship favInternship = internshipList.internships.get(favInternshipIndex);
+                        internshipList.favouriteInternships.add(favInternship);
+                    }
                 }
+
             }
+            logger.log(Level.INFO, "Data loaded");
         } catch (IOException e) {
             System.out.println("Error while loading tasks: " + e.getMessage());
+            logger.log(Level.WARNING, "Error while loading tasks", e);
         }
     }
+
+    private static boolean isValidFormat(String line) {
+        if (line.startsWith("FAVOURITES:")) {
+            return line.matches("FAVOURITES:( \\d+)*");
+        }
+        return line.matches(
+                "\\d+ \\| [^|]+ \\| [^|]"
+                        + "+ \\| \\d{2}/\\d{2} \\| \\d{2}/\\d{2} "
+                        + "\\| ([^|]*) \\| [^|]+ \\| .*"
+        );
+    }
+
+
 
 
     private static List<Deadline> parseDeadlines(String deadlineString, int internshipId) {
