@@ -299,7 +299,13 @@ Highest Income Category: SALARY ($3000.00)
 ### Set/Edit Budget
 
 User can set a monthly budget when app is initialized and budget is not set, or by using the budget command.
-Budget command can also be used to edit budget after initial budget is set.
+If the user has already set a budget, the app will prompt the user to ask if they would like to modify their budget at start up.
+
+Budget command can be used to set budget if `no` is keyed in for the initial prompt. 
+The command can also be used to edit budget after initial budget is set.
+
+After budget is set by user, adding, deleting or editing expenses will show the budget and remaining balance for the month.
+The budget amount and balance will also be viewable by the user under the list command.
 
 **Format**: `budget`
 
@@ -331,6 +337,7 @@ Please do not modify these files manually, otherwise the transactions or the bud
 
 | **Command**                   | **Usage**                                                                                  |
 |-------------------------------|---------------------------------------------------------------------------------------------|
+| **Help**                      | `help`                                                                                     |
 | **List All Transactions**     | `list`                                                                                      |
 | **List Income Transactions**  | `list income`                                                                               |
 | **List Expense Transactions** | `list expense`                                                                              |
@@ -352,7 +359,6 @@ Please do not modify these files manually, otherwise the transactions or the bud
 | **Delete Entry**              | `delete INDEX`                                                                             |
 | **Set Budget**                | `budget`                                                                                   |
 | **Exit Program**              | `exit`                                                                                     |
-| **Help**                      | `help`                                                                                     |
 
 **Defined Categories**:
 
