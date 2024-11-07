@@ -177,10 +177,10 @@ implementation of the `execute()` method
 
 #### `Command` Child Classes
 
-1. `AddRecipeCommand` Class
-- The AddRecipeCommand class adds a newly created Recipe object to the currentRecipeList object's ArrayList of Recipes
+1. `AddCommand` Class
+- The AddCommand class adds a newly created Recipe object to the current RecipeList object's ArrayList of Recipes
  
-Shown below is a sequence diagram detailing how a new recipe is added using the AddRecipeCommand object,
+Shown below is a sequence diagram detailing how a new recipe is added using the AddCommand object,
 starting from parsing the user input to the addition of the recipe to the recipeList object,
 to finally printing the "recipe added" message to the User on the CLI:
 ![AddCommand.png](img/SequenceDiagrams/AddRecipesSequenceDiagram.png)
@@ -189,7 +189,7 @@ to finally printing the "recipe added" message to the User on the CLI:
 
 2. `EditCommand` Class
 
-- The EditCommand class finds an existing recipe in recipelist by name, and then replaces its parameter
+- The EditCommand class finds an existing recipe in recipeList by name, and then replaces its parameter
 with the new parameters that the user inputted.
 
 Shown below is a sequence diagram detailing how an existing recipe is modified using the EditCommand object,
@@ -200,8 +200,8 @@ to finally modifying and saving the recipe in the RecipeList:
 <div style="page-break-after: always;"></div>
 
 3. `AddIngredientCommand` Class
-- The `AddRecipeCommand` class is responsible for adding a new recipe to `RecipeList`
-- When executed, it takes a `Recipe` object, adds it to the `RecipeList`, saves the updated list to the storage, and 
+- The `AddIngredientCommand` class is responsible for adding a new ingredient to `IngredientList`
+- When executed, it takes an `Ingredient` object, adds it to the `IngredientList`, saves the updated list to the storage, and 
 notifies the user of the addition through the `Ui` component.
 4. `ByeCommand` Class
 - The `ByeCommand` class represents the command to terminate the application
@@ -232,8 +232,8 @@ on how to use them
 10. `ListCommand` Class
 - The `ListCommand` class is designed to list all the recipes present in the `RecipeList`
 - When executed, it retrieves the list of recipes and displays them to the user through the UI
-11. `ListIngredientsCommand` Class
-- The `ListIngredientsCommand` class is responsible for listing all the ingredients currently stored in the 
+11. `ListIngredientCommand` Class
+- The `ListIngredientCommand` class is responsible for listing all the ingredients currently stored in the 
 `IngredientList`
 - When executed, it retrieves the list of ingredients and displays them to the user through the UI
 12. `RandomCommand` Class
@@ -241,16 +241,21 @@ on how to use them
 - When executed, it retrieves the list of recipes, pick a random valid index for the list, and display that recipe 
 through the `Ui`
 13. `RecommendCommand` Class
-- The `RecommendCommand` class is select all recipes from the RecipeList and display those that share common 
+- The `RecommendCommand` class selects all recipes from the RecipeList and displays those that share common 
 ingredients with what is found in IngredientList. The percentage of the recipe's ingredients that are shared, as well 
 as the missing ingredients are also determined
 - When executed, it retrieves the list of ingredients, and search through the list of recipes for those that meet the 
 criteria. These recipes are then displayed through `Ui` with their accompanying statistics, listed by descending order 
 of their percentage match
 14. `SortCommand` Class
-- 
-15. `SortIngredientsCommand` Class
-- ~~~~
+- The `SortCommand`class is designed to sort all the existing recipes in the `RecipeList`
+- When executed, depending on the user's input parameter, it will either sort the recipes alphabetically by name,
+or in ascending numerical order of time taken
+- It will then list out the newly ordered recipes to the user, and update the save file with the new order of recipes
+15. `SortIngredientCommand` Class
+- The `SortIngredientCommand`class is designed to sort all the existing ingredients in the `IngredientList`
+- When executed, it will sort the ingredients alphabetically by name
+- It will then list out the newly ordered ingredients to the user, and update the save file with the new order of ingredients
 
 ### Parser Class
 Self-explanatory, made for parsing user's input command. This class only consist of one public static method 
@@ -259,17 +264,21 @@ The remaining private methods represent separated cases for different commands.
 
 Shown below is a sequence diagram detailing how the Parser class interprets the user's CLI input
 and returns the appropriate command object containing the user's input parameters.
-![parseCommandShort.png](img/SequenceDiagrams/parseCommandShortSequenceDiagram.png)
+![parseCommandShort.png](img/SequenceDiagrams/ParseCommandShortSequenceDiagram.png)
+Note: The getXYZCommand(args) method is used for commands that further need to extract parameters from the user's input
+beyond just the command name, such as for the sort command which needs to extract from the input, the type of sort that
+is requested. In the example of the sort command, the getXYZCommand(args) method is called `getSortCommand()`.
 
 <div style="page-break-after: always;"></div>
 
 ### Storage Class
 The Storage class 
 - saves the User's added recipes to a .txt file
+  - This is done every time the recipes are modified in any way (such as added, deleted, sorted or edited)
   - The following Sequence diagram shows how the saveRecipes() method in the Storage class
-  saves all the created recipes into the .txt file
+    saves all the created recipes into the .txt file
 
-![saveRecipes.png](img/SequenceDiagrams/saveRecipesSequenceDiagram.png)
+![saveRecipes.png](img/SequenceDiagrams/SaveRecipesSequenceDiagram.png)
 
 (Note: The lifelines of objects cannot be hidden after the X in the PlantUML software used to make this class diagram)
 
@@ -279,11 +288,11 @@ The Storage class
   - The following Sequence diagram shows how the loadRecipes() method in the Storage class
     loads in past saved recipes from the .txt file when the app is first launched
 
-![loadRecipes.png](img/SequenceDiagrams/loadRecipesSequenceDiagram.png)
+![loadRecipes.png](img/SequenceDiagrams/LoadRecipesSequenceDiagram.png)
 
 (Note: The lifelines of objects cannot be hidden after the X in the PlantUML software used to make this class diagram)
 
-The Storage class also saves and loads the list of user's available ingredients to another .txt save file
+The Storage class also saves and loads the list of user's available ingredients to another .txt save file.
 The mechanisms with which it does so is highly similar to the 2 sequence diagrams above.
 
 <div style="page-break-after: always;"></div>
@@ -296,8 +305,9 @@ Cooks who want to quickly search up recipes or get recipe suggestions based on t
 ### Value proposition
 
 Cooks these days have more recipes than they know how to handle, and our product will help them store, retrieve and
-search through their recipes with ease. Prompts, tags and ingredients can be used to search a curated database,
-and recommend random recipes that closely match the criteria.
+search through their recipes with ease. Users can also store their available inventory of ingredients. 
+Prompts, tags and ingredients can be used to search a curated database, and even recommend recipes that contain 
+whatever ingredients the user has on hand.
 
 ## User Stories
 
@@ -338,5 +348,48 @@ steps to take, cuisine and time taken to cook
 
 ## Instructions for manual testing
 
+**Here is a sample list of inputs that can be used to test the available features:**
+
+At any point in the following sequence (after the current command has fully executed), you can close YMFC and reopen it,
+and your database of recipes and ingredients would have been saved and loaded in fully.
+
+1. `help`
+   - Lists out all available commands
+2. `add n/Omelette i/eggs i/salt s1/crack eggs in pan s2/add salt t/4`
+3. `add n/Pasta i/pasta i/tomato paste s1/boil pasta s2/mix pasta with tomato paste c/Italian t/15`
+4. `add n/Apple Juice i/apples i/sugar i/water s1/throw apples, sugar and water into a blender and blend t/2`
+   - Steps 2 to 4 adds three new recipes to the recipe list
+5. `list`
+   - Lists out all the added recipes
+6. `sort s/name`
+   - Sorts and lists the added recipes alphabetically by name
+7. `sort s/time`
+   - Sorts and lists the added recipes by time, in ascending order
+8. `find i/sugar`
+   - Lists out all recipes that have an ingredient called sugar
+9. `edit e/Pasta i/pasta i/olive oil i/garlic s1/saute garlic in oil s2/boil paste s3/add pasta to garlic and mix`
+   - Edits the existing recipe and changes it's ingredients and steps
+10. `random`
+    - Picks an added recipe at random and displays it
+11. `delete n/Apple Juice`
+    - Deletes the recipe named "Apple Juice"
+12. `new n/eggs`
+13. `new n/garlic`
+14. `new n/salt`
+    - Steps 12 to 14 adds three new ingredients to the ingredient list
+15. `listI`
+    - Lists out all the added ingredients
+16. `sortI`
+    - Sorts and lists the added ingredients alphabetically by name
+17. `findI salt`
+    - Lists out all ingredients that contain the word 'salt'
+18. `recommend`
+    - Ranks recipes based on how many of the ingredients it needs are available in the ingredient list
+19. `deleteI n/eggs`
+    - Deletes the ingredient named "eggs"
+20. `bye`
+    - Ends the app
+
+
 Refer to the [UserGuide](https://ay2425s1-cs2113-w13-1.github.io/tp/UserGuide.html) 
-for the list of available commands and their expected behaviour
+for the full list of available commands, their syntax, and their expected behaviour.

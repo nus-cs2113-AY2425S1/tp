@@ -1,7 +1,19 @@
 help
-add n/grilled cheese sandwich i/eggs i/sandwich i/cheese i/butter s1/add butter to hot pan s2/etc
-add n/ramen eggs i/eggs i/soya sauce s1/boil eggs for 6.5 min s2/cool eggs in ice bath c/Japanese t/15
-listR
-delete n/ramen eggs
-listR
+add n/Omelette i/eggs i/salt s1/crack eggs in pan s2/add salt t/4
+add n/Pasta i/pasta i/tomato paste s1/boil pasta s2/mix pasta with tomato paste c/Italian t/15
+add n/Apple Juice i/apples i/sugar i/water s1/throw apples, sugar and water into a blender and blend t/2
+list
+sort s/name
+sort s/time
+find i/sugar`
+edit e/Pasta i/pasta i/olive oil i/garlic s1/saute garlic in oil s2/boil paste s3/add pasta to garlic and mix
+delete n/Apple Juice
+new n/eggs
+new n/garlic
+new n/salt
+listI
+sortI
+findI salt
+recommend
+deleteI n/eggs
 bye

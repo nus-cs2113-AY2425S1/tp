@@ -13,12 +13,12 @@ class COMMAND {
 }
 hide COMMAND circle
 
-class AddRecipeCommand {
+class AddCommand {
     - recipe: Recipe
     __
-    + AddRecipeCommand(recipe: Recipe)
+    + AddCommand(recipe: Recipe)
 }
-hide AddRecipeCommand circle
+hide AddCommand circle
 
 class AddIngredientCommand {
     - ingredient: Ingredient
@@ -40,6 +40,13 @@ class DeleteCommand {
 }
 hide DeleteCommand circle
 
+class DeleteIngredientCommand {
+    - ingredientName: String
+    --
+    + DeleteIngredientCommand(ingredientName: String)
+}
+hide DeleteIngredientCommand circle
+
 class EditCommand {
     - recipe: Recipe
     --
@@ -58,13 +65,13 @@ class FindCommand {
 }
 hide FindCommand circle
 
-class FindIngredCommand {
+class FindIngredientCommand {
     - query: String
     - numMatches: int = 0
     __
-    + FindIngredCommand(query: String)
+    + FindIngredientCommand(query: String)
 }
-hide FindIngredCommand circle
+hide FindIngredientCommand circle
 
 class HelpCommand {
     __
@@ -78,11 +85,23 @@ class ListCommand {
 }
 hide ListCommand circle
 
-class ListIngredientsCommand {
+class ListIngredientCommand {
     __
-    + ListIngredientsCommand()
+    + ListIngredientCommand()
 }
-hide ListIngredientsCommand circle
+hide ListIngredientCommand circle
+
+class RandomCommand {
+    --
+    + RandomCommand()
+}
+hide RandomCommand circle
+
+class RecommendCommand {
+    __
+    + RecommendCommand()
+}
+hide RecommendCommand circle
 
 class SortCommand {
     - listBy: String
@@ -91,16 +110,27 @@ class SortCommand {
 }
 hide SortCommand circle
 
-AddRecipeCommand --d|> COMMAND
-AddIngredientCommand --d|> COMMAND
-ByeCommand --d|> COMMAND
+class SortIngredientCommand {
+    --
+    + SortIngredientCommand()
+}
+hide SortIngredientCommand circle
+
+
+AddCommand --u|> COMMAND
+AddIngredientCommand --u|> COMMAND
+ByeCommand --|> COMMAND
 DeleteCommand --u|> COMMAND
-EditCommand --u|> COMMAND
-FindCommand --u|> COMMAND
-FindIngredCommand --u|> COMMAND
-HelpCommand --u|> COMMAND
-ListCommand --l|> COMMAND
-ListIngredientsCommand --r|> COMMAND
-SortCommand --d|> COMMAND
+DeleteIngredientCommand --u|> COMMAND
+EditCommand --|> COMMAND
+FindCommand --r|> COMMAND
+FindIngredientCommand --l|> COMMAND
+HelpCommand --|> COMMAND
+ListCommand --|> COMMAND
+ListIngredientCommand --|> COMMAND
+RandomCommand --|> COMMAND
+RecommendCommand --u|> COMMAND
+SortCommand --|> COMMAND
+SortIngredientCommand --|> COMMAND
 
 @enduml

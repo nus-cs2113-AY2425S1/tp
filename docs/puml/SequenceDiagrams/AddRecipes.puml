@@ -13,7 +13,8 @@ skinparam {
 box Adding Recipes COLOR_PALE_PINK
 participant "YMFC" as YMFC <<class>>
 participant "Parser" as Parser <<class>>
-participant ":AddRecipeCommand" as AddRecipeCommand
+participant ":AddCommand" as AddRecipeCommand
+participant ":Recipe" as Recipe
 participant ":Storage" as Storage
 participant ":RecipeList" as RecipeList
 participant ":Storage" as Storage
@@ -26,16 +27,22 @@ activate Parser
 Parser -> Parser : getAddRecipeCommand(args)
 activate Parser
 
+create Recipe
+Parser -> Recipe : Recipe(name, ingreds, steps, cuisine, timeTaken)
+activate Recipe
+Recipe -> Parser : recipe:Recipe
+deactivate Recipe
+
 create AddRecipeCommand
-Parser -> AddRecipeCommand : Recipe(name, ingreds, steps, cuisine, timeTaken)
+Parser -> AddRecipeCommand : AddCommand(recipe)
 activate AddRecipeCommand
 AddRecipeCommand --> Parser
 deactivate AddRecipeCommand
 
 
-Parser --> Parser : command:AddRecipeCommand
+Parser --> Parser : command:AddCommand
 deactivate Parser
-Parser --> YMFC : command:AddRecipeCommand
+Parser --> YMFC : command:AddCommand
 deactivate Parser
 
 YMFC -> AddRecipeCommand : execute(recipeList, ingredientList, ui, storage)
