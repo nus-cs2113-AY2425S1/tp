@@ -192,11 +192,17 @@ Looks through the stored recipes to find those with matching names/steps/ingredi
 > If `OPTIONS` were not provided, the command will find recipes based on recipe name by default.
 > * E.g: `find ramen`
 * More examples:
-  1) `find i/egg`: Find recipes which have the ingredients consist of "egg".
-  2) `find ns/spaghetti`: Find recipes which have "spaghetti" in name or steps.
-  3) `find sn/spaghetti`: Same results as (ii).
-  4) `find nis/tomato`: Find recipes which have "tomato" anywhere.
-  5) `find isn/tomato`: Same results as (iv).
+    1) `find i/egg`: Find recipes which have the ingredients consist of "egg".
+
+    2) `find ns/spaghetti`: Find recipes which have "spaghetti" in name or steps.
+
+    3) `find sn/spaghetti`: Same results as (ii).
+
+    4) `find nis/tomato`: Find recipes which have "tomato" anywhere.
+
+    5) `find isn/tomato`: Same results as (iv).
+
+<div style="page-break-after: always;"></div>
 
 Example of usage:
 
@@ -301,7 +307,7 @@ Format: `listI`
 
 Lists out all of your available ingredients in your inventory
 
-## Finding Ingredients 
+### Finding Ingredients 
 
 Format: `findI INGREDIENT`
 
