@@ -4,6 +4,7 @@ import fittrack.enums.Exercise;
 import fittrack.trainingsession.TrainingSession;
 import java.util.ArrayList;
 
+
 public class GraphPerformanceTime extends GraphPerformance {
     static final String INVALID_TIME_STRING = "NIL";
     static final String ALIGNMENT_SPACE_STRING = "       ";
@@ -11,6 +12,7 @@ public class GraphPerformanceTime extends GraphPerformance {
     static final double HIGHEST_NORMALISED_VALUE = 1.00;
     static final double INCREMENT_SCALE = 0.05;
     static final double INCREMENT_HALF_SCALE = 0.025;
+    private static final int SMALLEST_DOUBLE_DIGIT = 10;
 
     private static StringBuilder buildTimeHeader(Exercise exercise, ArrayList<TrainingSession> sessionList,
             int maxXHeaderLength) {
@@ -42,9 +44,16 @@ public class GraphPerformanceTime extends GraphPerformance {
             // invariant: exercise == Exercise.WALK_AND_RUN
             int minutes = actualTime / 60;
             int seconds = actualTime % 60;
-            displayTime =  minutes + ":" + seconds;
+            displayTime =  padStartingZero(minutes) + minutes + ":" + padStartingZero(seconds) + seconds;
         }
         return displayTime;
+    }
+
+    private static String padStartingZero(int time){
+        if(time < SMALLEST_DOUBLE_DIGIT) {
+            return "0";
+        }
+        return "";
     }
 
     private static StringBuilder buildMainContents(Exercise exercise, ArrayList<TrainingSession> sessionList,
