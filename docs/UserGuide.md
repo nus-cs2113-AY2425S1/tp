@@ -36,10 +36,6 @@ For details on all available commands, refer to the Features section below.
 
    Example: If the command specifies `view-expenses 123`, it will be interpreted as `list`.
 
-6. Avoid including special characters or symbols.
-
-   Example: Do not use `|`, `<`, `>`.
-
 ### Add an Expense: add-expense
 This command allows you to record a new expense.
 
