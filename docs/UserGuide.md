@@ -279,6 +279,14 @@ On top of working the same way as normal expenses, this command also checks whet
 - Deletion is not possible as every category will have a corresponding limit. No category can exist without a limit.
 - Viewing is not directly possible using commands, only indirectly by saving and viewing the csv file. 
 
+**Q3**: Why don't my total expense per category reset at the start of every month?
+
+**A3**: The backend currently does not support different totals per month, but it will be implemented soon.
+
+**Q4**: Why does my total expenditure for this category not exactly match what I've calculated? /  Why does the alerts/warnings show up even though my total is not yet nearing or exceeding the limit?
+
+**A4**: The backend uses floats to represent prices, which may cause inaccuracies of about 1 cent.
+
 ---
 
 ## Command Summary
