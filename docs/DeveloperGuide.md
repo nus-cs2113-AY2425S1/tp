@@ -254,10 +254,10 @@ This allows users to navigate this program easily and effectively.
 * Assertions and logging are implemented for error handling.
 
 #### Why it is implemented that way:
-- ****Separation of Concerns:**** Each method has a single responsibility. For example, `getCommand()` parses and
+- **Separation of Concerns:** Each method has a single responsibility. For example, `getCommand()` parses and
   validates the input to extract a specific command and `printHelp()` prints the relevant help message for the
   parsed command.
-- ****Switch Statement:**** The use of `switch` statement is an efficient way to match valid commands.
+- **Switch Statement:** The use of `switch` statement is an efficient way to match valid commands.
   `switch` statements are also clearer and easier to read.
 
 #### Alternative Implementation considered:
@@ -314,7 +314,7 @@ partner university.
 * Assertions and logging are used for error handling.
 
 #### Why it is implemented this why:
-- ****Separation of Concerns:**** Each responsibility is seperated into smaller, well-defined methods
+- **Separation of Concerns:** Each responsibility is seperated into smaller, well-defined methods
   For example, `getPuName()` focuses on extracting the university name from user input and `findUniversityName()`
   focuses on searching the university in the data set.
 
@@ -451,6 +451,12 @@ This helps the users to keep track of their most recent course mapping plans, an
 * Throughout the code, exceptions, assertions and logging are in place for better error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
+#### Why It Is Implemented This Way:
+- **Ease of deletion:** This command ensures that maintaining the Personal Tracker is quick and fast, and is 
+  complemented by the `list mapped` command, which shows the index of the saved course mapping plans.
+- **User-Friendly Output:** The user is notified of the course mapping plan that was deleted, making sure that they have
+  deleted the correct plan.
+
 #### Sequence Diagram:
 ![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
 
@@ -566,7 +572,7 @@ to check and plan course mappings for that specified course.
   `printFoundCourses()` in `UI` class. If mappedCourses is empty, an IllegalArgumentException is thrown.
 
 #### Why it is implemented this way:
-* ****Separation of concerns:**** Helper methods were used to isolate specific tasks within the command, making each
+* **Separation of concerns:** Helper methods were used to isolate specific tasks within the command, making each
   method focused and easier to manage. The `UI` class handles displaying messages to the user, which keeps
   `FindCoursesCommand` focused solely on search logic, without managing user interactions directly.
 
