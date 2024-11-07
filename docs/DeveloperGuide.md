@@ -1,6 +1,31 @@
 # Developer Guide
 
----
+## Table of Contents
+
+- [Acknowledgements](#acknowledgements)
+- [Design and Implementation](#design--implementation)
+  - [Ui and Parser](#ui-and-parser)
+  - [Logic](#logic)
+  - [FinancialList and FinancialEntry](#financiallist-and-financialentry)
+  - [Commands](#commands)
+    - [Adding Entries](#adding-entries)
+    - [Deleting Entries](#deleting-entries)
+    - [Editing Entries](#editing-entries)
+    - [Listing Entries](#listing-entries)
+  - [Exceptions and Logging](#exceptions-and-logging)
+  - [Storage](#storage)
+  - [Budget and BudgetLogic](#budget-and-budgetlogic)
+- [Product Scope](#product-scope)
+  - [Target User Profile](#target-user-profile)
+  - [Value Proposition](#value-proposition)
+- [User Stories](#user-stories)
+- [Use Cases](#use-cases)
+- [Non-Functional Requirements](#non-functional-requirements)
+- [Glossary](#glossary)
+- [Instructions for Manual Testing](#instructions-for-manual-testing)
+  - [Manual Testing](#manual-testing)
+  - [JUnit Testing](#junit-testing)
+
 ## Acknowledgements
 
 Finance Buddy uses the following tools for development:
@@ -8,9 +33,7 @@ Finance Buddy uses the following tools for development:
 1. JUnit5 - Used for testing
 2. Gradle - Used for build automation
 
----
-
-## Design & implementation
+## Design and Implementation
 
 The simplified UML class diagram below provides an overview of the classes and their interactions with each other. 
 
@@ -22,7 +45,6 @@ the `Command` and `FinancialEntry` classes, which are elaborated on in their res
 The high-level overview of the program is shown in the diagram below as well.
 
 ![Overall Flow](UML/overallFlow.png)
-
 
 ---
 ### Ui and Parser
@@ -96,7 +118,8 @@ The Parser component includes `InputParser` and `DateParser`. `InputParser` proc
 <ins>Usage Example</ins>
 
 ```
-HashMap<String, String> commandArgs = InputParser.parseCommands("add /date 12/10/24 /amount 500");
+HashMap<String, String> commandArgs = 
+        InputParser.parseCommands("add /date 12/10/24 /amount 500");
 LocalDate parsedDate = DateParser.parse("12/10/24");
 ```
 
@@ -194,8 +217,9 @@ Managing financial entries through two main components:
 
 <ins>Implementation</ins>
 - **Class Diagram**: Displays the relationship between `FinancialList`, `FinancialEntry`, `Income`, and `Expense`. It highlights `FinancialList` as the main container managing `FinancialEntry` objects.
-![FinancialClassDiagram.png](UML/FinancialClassDiagram.png))
+![FinancialClassDiagram.png](UML/FinancialClassDiagram.png)
 - **Sequence Diagram**: Illustrates the process of adding a new entry, from parsing user input to creating and adding the entry to `FinancialList`.
+<img src=UML/FinancialEntrySequence.png alt="Financial List Sequence Diagram" width="270" height="500">
 ![FinancialSeq](UML/FinancialEntrySequence.png)
 
 ---
@@ -236,15 +260,18 @@ The `FinancialList` component is the primary data structure responsible for mana
 
 ```
 FinancialList financialList = new FinancialList();
-Income income = new Income(500.00, "Freelance Project", LocalDate.of(2023, 10, 27), Income.Category.SALARY);
-Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28), Expense.Category.FOOD);
+Income income = new Income(500.00, "Freelance Project",
+        LocalDate.of(2023, 10, 27), Income.Category.SALARY);
+Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28),
+        Expense.Category.FOOD);
 
 // Adding entries
 financialList.addEntry(income);
 financialList.addEntry(expense);
 
 // Edit an entry
-financialList.editEntry(1, 55.00, "Groceries & Snacks", LocalDate.of(2023, 10, 29), Expense.Category.FOOD);
+financialList.editEntry(1, 55.00, "Groceries & Snacks", LocalDate.of(2023, 10, 29),
+        Expense.Category.FOOD);
 
 // Retrieve an entry
 FinancialEntry entry = financialList.getEntry(0);
@@ -253,11 +280,14 @@ System.out.println("Amount: $" + entry.getAmount());
 System.out.println("Date: " + entry.getDate());
 
 // Display total expenses by category
-System.out.println("Total Expense by Category: " + financialList.getTotalExpenseByCategory());
+System.out.println("Total Expense by Category: " 
+        + financialList.getTotalExpenseByCategory());
 
 // Get and print highest expense category
-Map.Entry<Expense.Category, Double> highestExpenseCategory = financialList.getHighestExpenseCategory();
-System.out.println("Highest Expense Category: " + highestExpenseCategory.getKey() + " with $" + highestExpenseCategory.getValue());
+Map.Entry<Expense.Category, Double> highestExpenseCategory = 
+        financialList.getHighestExpenseCategory();
+System.out.println("Highest Expense Category: " + highestExpenseCategory.getKey() +
+        " with $" + highestExpenseCategory.getValue());
 ```
 
 <ins>Design Considerations</ins>
@@ -312,8 +342,10 @@ The class diagram above shows `FinancialEntry` as the base class with `Income` a
 The following code segment demonstrates the creation of `Income` and `Expense` entries:
 
 ```
-Income income = new Income(500.00, "Freelancåe Project", LocalDate.of(2023, 10, 27), Income.Category.SALARY);
-Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28), Expense.Category.FOOD);
+Income income = new Income(500.00, "Freelancåe Project",
+        LocalDate.of(2023, 10, 27), Income.Category.SALARY);
+Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28),
+        Expense.Category.FOOD);
 
 System.out.println(income.toString());
 System.out.println(expense.toString());
@@ -525,17 +557,21 @@ but only marks `Expense`s and `Income`s respectively as to be included.
 
 <ins>Usage Examples</ins>
 
-```
+``` java
 // Listing all entries in the financial list
 SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(null, null);
 seeAllEntriesCommand.execute(financialList);
 
 // Listing all expenses starting from 12/10/24 in the financial list
-SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(DateParser.parse("12/10/24"), null);
+SeeAllExpensesCommand seeAllExpensesCommand = 
+        new SeeAllExpensesCommand(DateParser.parse("12/10/24"), null);
 seeAllExpensesCommand.execute(financialList);
 
 // Listing all expenses starting from 12/10/24 until 24/10/24 in the financial list
-SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(DateParser.parse("12/10/24"), DateParser.parse("24/10/24"));
+LocalDate startDate = DateParser.parse("12/10/24");
+LocalDate endDate = DateParser.parse("24/10/24");
+SeeAllIncomesCommand seeAllIncomesCommand = 
+        new SeeAllIncomesCommand(startDate, endDate);
 seeAllIncomesCommand.execute(financialList);
 ```
 
@@ -680,7 +716,7 @@ The figure below show how the program load data from the files:
 <ins>Usage Example</ins>
 
 ``` java
-// Instantiate the Storage class and provide the file paths for financial data and budget
+// Instantiate the Storage class and provide the file paths for financial data/budget
 Storage storage = new Storage();
 
 // Load financial and budget data from the files
@@ -688,7 +724,8 @@ BudgetLogic budgetLogic = new BudgetLogic();
 FinancialList financialList = storage.loadFromFile(budgetLogic);
 
 // Example of updating financial data and budget to the files
-financialList.addEntry(new Expense(10.0, "Transport", LocalDate.now(), Expense.Category.TRANSPORT));
+financialList.addEntry(new Expense(10.0, "Transport", LocalDate.now(),
+        Expense.Category.TRANSPORT));
 budgetLogic.setBudgetAmount(1000.0);
 storage.update(financialList, budgetLogic);
 ```
@@ -697,7 +734,7 @@ storage.update(financialList, budgetLogic);
  - **Data Persistence**: Storage supports retention of records after application closure, aligning with needs for long-term financial tracking.
  - **Scalability**: Future improvements to Storage could incorporate encryption or remote storage options, enhancing data security and flexibility.
 
-### Budget
+### Budget and BudgetLogic
 
 <ins>Overview</ins>
 
@@ -764,7 +801,7 @@ The sequence diagrams below show 3 main methods of `BudgetLogic` class.
 The `setBudget()` method is invoked by the `Logic` class or `FinanceBuddy` main class.
 The sequence diagram shows an example of the method being called by the `Logic` class.
 
-![setBudget](UML/setBudgetSequence.png)
+<img src=UML/setBudgetSequence.png alt="Set Budget Sequence Diagram" width="270" height="500">
 
 The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class.
 
@@ -772,7 +809,7 @@ The `recalculateBudget()` method is called by other methods in the `BudgetLogic`
 
 The `changeBalanceFromExpense()` method is shown below.
 
-![changeExpenseFromExpense](UML/changeExpenseFromExpense.png)
+![changeBalanceFromExpense](UML/changeExpenseFromExpense.png)
 
 <ins>Design Considerations</ins>
 
