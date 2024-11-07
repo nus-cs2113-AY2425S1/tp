@@ -113,16 +113,18 @@ public class Storage {
                 }
 
                 // Parse favourite internships
-                if (!internshipList.favouriteInternships.isEmpty()) {
-                    String[] parts = line.substring("FAVOURITES:".length()).trim().split(" ");
-                    for (String id : parts) {
-                        int favInternshipId = Integer.parseInt(id);
-                        int favInternshipIndex = favInternshipId - 1;
-                        Internship favInternship = internshipList.internships.get(favInternshipIndex);
-                        internshipList.favouriteInternships.add(favInternship);
-                    }
+                String favouritesString = line.substring("FAVOURITES:".length());
+                if (favouritesString.isBlank()) {
+                    return;
                 }
 
+                String[] parts = favouritesString.trim().split(" ", -1);
+                for (String id : parts) {
+                    int favInternshipId = Integer.parseInt(id);
+                    int favInternshipIndex = favInternshipId - 1;
+                    Internship favInternship = internshipList.internships.get(favInternshipIndex);
+                    internshipList.favouriteInternships.add(favInternship);
+                }
             }
         } catch (IOException e) {
             System.out.println("Error while loading tasks: " + e.getMessage());
