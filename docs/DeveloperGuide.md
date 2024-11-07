@@ -360,16 +360,16 @@ and are used to add expenses and incomes respectively.
 <ins>Class Structure</ins>
 
 The `AddEntryCommand` class has the following attributes:
-- *amount*: An object representing the amount of money in the transaction.
-- *description*: An object representing the description of the transaction.
-- *date*: An object representing the date on which the transaction occurred.
-- *category*: Specifies the category of the entry for income or expense.
+- `amount`: `double` An object representing the amount of money in the transaction.
+- `description`: `String` An object representing the description of the transaction.
+- `date`: `LocalDate` An object representing the date on which the transaction occurred.
+- `category`: `Enum<?>` Specifies the category of the entry for income or expense.
 
 The `AddExpenseCommand` and `AddIncomeCommand` classes inherit all attributes
 from the `AddEntryCommand` class and have no additional attributes.
 
 The `AddExpenseCommand` and `AddIncomeCommand` classes have the following method:
-- *execute*
+- `execute` Adds `Expense` or `Income` to the `financialList`
 
 <ins>Implementation</ins>
 
@@ -384,6 +384,11 @@ following arguments:
 - `/d`: Represents the date on which the transaction occurred. If this argument is not used,
   the current date is used. An exception occurs if this argument is used but the value is left blank.
 - `/c`: Category of the transaction, defaulting to UNCATEGORIZED if unspecified or invalid.
+
+Below is a sequence diagram of the user adding an income. A similar sequence happens when an
+expense is added. Note that the sequence within the `Logic` class has been simplified.
+
+![addIncomeCommand](UML/addIncomeCommandSequence.png)
 
 ### Deleting Entries
 
