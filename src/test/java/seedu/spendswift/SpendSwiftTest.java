@@ -322,8 +322,8 @@ class BudgetManagerTest {
 
     @BeforeEach
     void setUp() {
-        budgetManager = new BudgetManager();
-        trackerData = new TrackerData();
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
     }
 
     private Category findCategory(TrackerData trackerData, String categoryName) {
