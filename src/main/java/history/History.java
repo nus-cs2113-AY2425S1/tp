@@ -116,7 +116,7 @@ public class History {
         for (Map.Entry<String, Exercise> entry : personalBests.entrySet()) {
             bestsMessage.append(entry.getKey())
                     .append(": ")
-                    .append(entry.getValue().toString())
+                    .append(entry.getValue().toStringPb())
                     .append("\n");
         }
 
@@ -165,7 +165,7 @@ public class History {
         }
 
         return personalBest != null
-                ? "Personal best for " + exerciseName + ": " + personalBest
+                ? "Personal best for " + exerciseName + ": " + personalBest.toStringPb()
                 : "No personal best found for " + exerciseName;
     }
 
