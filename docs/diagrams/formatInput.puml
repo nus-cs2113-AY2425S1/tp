@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+participant "Format" as Format
+
+actor User
+User -> Format : formatInput(input)
+activate Format
+alt Input is null or empty
+    Format -> User : Return (input)
+else Input is non-empty
+    Format -> Format: Capitalize first letter, and rest to lower case
+    Format -> User : Return formatted string
+
+end
+deactivate Format
+@enduml

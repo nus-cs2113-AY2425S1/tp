@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+participant "Storage" as Storage
+participant "BufferedWriter" as BufferedWriter
+participant "TrackerData" as TrackerData
+actor User
+
+User -> Storage : saveData(trackerData)
+activate Storage
+
+Storage -> BufferedWriter : new BufferedWriter(filePath)
+activate BufferedWriter
+
+Storage -> BufferedWriter : Write "Budgets\n"
+Storage -> TrackerData : Get budgets
+
+loop for each entry in budegts
+    TrackerData --> Storage : Return Category, Budget
+    Storage -> BufferedWriter : Write expense name, amount, category
+@enduml
+BufferedWriter -> Storage : Close writer
+deactivate BufferedWriter
+deactivate Storage
+@enduml
