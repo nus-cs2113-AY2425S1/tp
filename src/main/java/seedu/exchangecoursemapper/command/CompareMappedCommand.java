@@ -1,16 +1,20 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.courses.Course;
+import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.storage.CourseRepository;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.json.JsonObject;
 
 import static seedu.exchangecoursemapper.constants.Assertions.UNIVERSITY1_NOT_NULL;
 import static seedu.exchangecoursemapper.constants.Assertions.UNIVERSITY2_NOT_NULL;
@@ -49,6 +53,13 @@ public class CompareMappedCommand extends CheckInformationCommand {
         logger.log(Level.INFO, INIT_STORAGE_COMPARE_MAPPED);
     }
 
+    private boolean isValidUniversity(String universityName, JsonObject databaseJson) {
+        Set<String> universityKeys = databaseJson.keySet().stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toSet());
+        return universityKeys.contains(universityName.toLowerCase());
+    }
+
     @Override
     public void execute(String userInput) {
         logger.log(Level.INFO, EXECUTE_COMPARE_MAPPED);
@@ -63,8 +74,27 @@ public class CompareMappedCommand extends CheckInformationCommand {
             return;
         }
 
-        String university1 = inputs[1].trim();
-        String university2 = inputs[2].trim();
+        String university1 = inputs[1].trim().toLowerCase();
+        String university2 = inputs[2].trim().toLowerCase();
+
+        // Load the database JSON
+        JsonObject databaseJson;
+        try {
+            databaseJson = createJsonObject();
+        } catch (IOException e) {
+            System.out.println(Exception.fileReadError());
+            return;
+        }
+
+        // Validate universities
+        if (!isValidUniversity(university1, databaseJson)) {
+            ui.printUnknownUniversity(university1);
+            return;
+        }
+        if (!isValidUniversity(university2, databaseJson)) {
+            ui.printUnknownUniversity(university2);
+            return;
+        }
 
         List<Course> allModules = storage.loadAllCourses();
         assert allModules != null : LOADED_LIST_NOT_NULL;

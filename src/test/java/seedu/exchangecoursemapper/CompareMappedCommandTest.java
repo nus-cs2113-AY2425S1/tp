@@ -43,30 +43,30 @@ class CompareMappedCommandTest {
 
     @Test
     void execute_withValidUniversitiesAndCommonMappings_displaysCorrectOutput() {
-        mockedStorageData.add(new Course("COMP3670", "CS3244", "The Australian National University"));
-        mockedStorageData.add(new Course("INFO20003", "CS2102", "The University of Melbourne"));
-        mockedStorageData.add(new Course("COMP30027", "CS3244", "The University of Melbourne"));
+        mockedStorageData.add(new Course("comp3670", "cs3244", "the australian national university"));
+        mockedStorageData.add(new Course("info20003", "cs2102", "the university of melbourne"));
+        mockedStorageData.add(new Course("comp30027", "cs3244", "the university of melbourne"));
 
         command.execute("compare pu/The Australian National University pu/The University of Melbourne");
 
         String expectedOutput =
-                COMPARISON_RESULTS_HEADER + "The Australian National University and The University of Melbourne:"
+                COMPARISON_RESULTS_HEADER + "the australian national university and the university of melbourne:"
                 + System.lineSeparator() +
 
                 "\n" + COMMON_MAPPINGS_HEADER  + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
-                "CS3244 | The Australian National University | COMP3670" + System.lineSeparator() +
-                "CS3244 | The University of Melbourne | COMP30027" + System.lineSeparator() +
+                "cs3244 | the australian national university | comp3670" + System.lineSeparator() +
+                "cs3244 | the university of melbourne | comp30027" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
 
-                "\n" + UNIQUE_MAPPINGS_HEADER + "The Australian National University:" + System.lineSeparator() +
+                "\n" + UNIQUE_MAPPINGS_HEADER + "the australian national university:" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
-                NO_UNIQUE_MAPPINGS + "The Australian National University" + System.lineSeparator() +
+                NO_UNIQUE_MAPPINGS + "the australian national university" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
 
-                "\n" + UNIQUE_MAPPINGS_HEADER + "The University of Melbourne:" + System.lineSeparator() +
+                "\n" + UNIQUE_MAPPINGS_HEADER + "the university of melbourne:" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
-                "CS2102 | The University of Melbourne | INFO20003" + System.lineSeparator() +
+                "cs2102 | the university of melbourne | info20003" + System.lineSeparator() +
                 LINE_SEPARATOR;
 
         assertEquals(expectedOutput.trim(), outContent.toString().trim());
@@ -74,13 +74,13 @@ class CompareMappedCommandTest {
 
     @Test
     void execute_withValidUniversitiesNoCommonMappings_displaysNoCommonMappings() {
-        mockedStorageData.add(new Course("COMP2610", "CS3236", "The Australian National University"));
-        mockedStorageData.add(new Course("COMP30027", "CS3244", "The University of Melbourne"));
+        mockedStorageData.add(new Course("comp2610", "cs3236", "the australian national university"));
+        mockedStorageData.add(new Course("comp30027", "cs3244", "the university of melbourne"));
 
         command.execute("compare pu/The Australian National University pu/The University of Melbourne");
 
         String expectedOutput =
-                COMPARISON_RESULTS_HEADER + "The Australian National University and The University of Melbourne:"
+                COMPARISON_RESULTS_HEADER + "the australian national university and the university of melbourne:"
                 + System.lineSeparator() +
 
                 "\n" + COMMON_MAPPINGS_HEADER  + System.lineSeparator() +
@@ -88,14 +88,14 @@ class CompareMappedCommandTest {
                 NO_COMMON_MAPPINGS + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
 
-                "\n" + UNIQUE_MAPPINGS_HEADER + "The Australian National University:" + System.lineSeparator() +
+                "\n" + UNIQUE_MAPPINGS_HEADER + "the australian national university:" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
-                "CS3236 | The Australian National University | COMP2610" + System.lineSeparator() +
+                "cs3236 | the australian national university | comp2610" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
 
-                "\n" + UNIQUE_MAPPINGS_HEADER + "The University of Melbourne:" + System.lineSeparator() +
+                "\n" + UNIQUE_MAPPINGS_HEADER + "the university of melbourne:" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
-                "CS3244 | The University of Melbourne | COMP30027" + System.lineSeparator() +
+                "cs3244 | the university of melbourne | comp30027" + System.lineSeparator() +
                 LINE_SEPARATOR;
 
         assertEquals(expectedOutput.trim(), outContent.toString().trim());
@@ -106,7 +106,7 @@ class CompareMappedCommandTest {
         command.execute("compare pu/The Australian National University pu/The University of Melbourne");
 
         String expectedOutput =
-                COMPARISON_RESULTS_HEADER + "The Australian National University and The University of Melbourne:"
+                COMPARISON_RESULTS_HEADER + "the australian national university and the university of melbourne:"
                 + System.lineSeparator() +
 
                 "\n" + COMMON_MAPPINGS_HEADER  + System.lineSeparator() +
@@ -114,14 +114,14 @@ class CompareMappedCommandTest {
                 NO_COMMON_MAPPINGS + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
 
-                "\n" + UNIQUE_MAPPINGS_HEADER + "The Australian National University:" + System.lineSeparator() +
+                "\n" + UNIQUE_MAPPINGS_HEADER + "the australian national university:" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
-                NO_UNIQUE_MAPPINGS + "The Australian National University" + System.lineSeparator() +
+                NO_UNIQUE_MAPPINGS + "the australian national university" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
 
-                "\n" + UNIQUE_MAPPINGS_HEADER + "The University of Melbourne:" + System.lineSeparator() +
+                "\n" + UNIQUE_MAPPINGS_HEADER + "the university of melbourne:" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
-                NO_UNIQUE_MAPPINGS + "The University of Melbourne" + System.lineSeparator() +
+                NO_UNIQUE_MAPPINGS + "the university of melbourne" + System.lineSeparator() +
                 LINE_SEPARATOR;
 
         assertEquals(expectedOutput.trim(), outContent.toString().trim());
@@ -136,31 +136,31 @@ class CompareMappedCommandTest {
 
     @Test
     void execute_withCommonAndUniqueMappings_displaysBothCorrectly() {
-        mockedStorageData.add(new Course("COMP3670", "CS3244", "The Australian National University"));
-        mockedStorageData.add(new Course("COMP30027", "CS3244", "The University of Melbourne"));
-        mockedStorageData.add(new Course("COMP2610", "CS3236", "The Australian National University"));
-        mockedStorageData.add(new Course("COMP90007", "CS2105", "The University of Melbourne"));
+        mockedStorageData.add(new Course("comp3670", "cs3244", "the australian national university"));
+        mockedStorageData.add(new Course("comp30027", "cs3244", "the university of melbourne"));
+        mockedStorageData.add(new Course("comp2610", "cs3236", "the australian national university"));
+        mockedStorageData.add(new Course("comp90007", "cs2105", "the university of melbourne"));
 
         command.execute("compare pu/The Australian National University pu/The University of Melbourne");
 
         String expectedOutput =
-                COMPARISON_RESULTS_HEADER + "The Australian National University and The University of Melbourne:"
+                COMPARISON_RESULTS_HEADER + "the australian national university and the university of melbourne:"
                 + System.lineSeparator() +
 
                 "\n" + COMMON_MAPPINGS_HEADER  + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
-                "CS3244 | The Australian National University | COMP3670" + System.lineSeparator() +
-                "CS3244 | The University of Melbourne | COMP30027" + System.lineSeparator() +
+                "cs3244 | the australian national university | comp3670" + System.lineSeparator() +
+                "cs3244 | the university of melbourne | comp30027" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
 
-                "\n" + UNIQUE_MAPPINGS_HEADER + "The Australian National University:" + System.lineSeparator() +
+                "\n" + UNIQUE_MAPPINGS_HEADER + "the australian national university:" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
-                "CS3236 | The Australian National University | COMP2610" + System.lineSeparator() +
+                "cs3236 | the australian national university | comp2610" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
 
-                "\n" + UNIQUE_MAPPINGS_HEADER + "The University of Melbourne:" + System.lineSeparator() +
+                "\n" + UNIQUE_MAPPINGS_HEADER + "the university of melbourne:" + System.lineSeparator() +
                 LINE_SEPARATOR + System.lineSeparator() +
-                "CS2105 | The University of Melbourne | COMP90007" + System.lineSeparator() +
+                "cs2105 | the university of melbourne | comp90007" + System.lineSeparator() +
                 LINE_SEPARATOR;
 
         assertEquals(expectedOutput.trim(), outContent.toString().trim());

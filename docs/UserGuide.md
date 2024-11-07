@@ -9,8 +9,8 @@ along with the specific courses and subject codes offered by each school. You ca
 or by partner universities (PU) when you want to view the relevant options. For any course mappings you are interested in,
 you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
-- [Quick Start](#Quick-Start)
-- [Features](#features-)
+- [Quick Start](#quick-start)
+- [Features](#features)
     - [List all commands: `commands`](#list-all-commands-commands)
     - [Help Command: `help`](#help-command-help)
     - [List out all the possible schools from the options: `list schools`](#list-out-all-the-possible-schools-from-the-options-list-schools)
@@ -36,6 +36,11 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 ## Features 
 
+> NOTE: Your stored course mapping is located in the `myList.json` file, found in the `data` folder at the same file path where you executed the JAR file.
+> 
+> NOTE:  Do not corrupt the `myList.json` file when executing the program! If you corrupted the file, please revert back to its original state before continuing with the program. 
+ 
+
 ### List all commands: `commands`
 Displays a list of all available commands, along with a brief description of each.
 
@@ -44,24 +49,9 @@ Format: `commands`
 Example of usage: commands
 
 Expected output:
-```
------------------------------------------------------
-Here are the available commands:
-filter <subject code>        - Filter courses by subject code.
-set <SCHOOL_NAME>            - Set a partner university for course mapping.
-list schools                 - List all available partner universities.
-add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE> - Add mapped courses between NUS and partner universities.
-obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
-obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
-delete <TASK_NUMBER>         - Delete a partner university.
-list mapped                  - List all course mapping saved.
-compare pu/<uni1> pu/<uni2>  - Compare course mappings between 2 universities.
-find <NUS_COURSE_CODE>       - Find courses with subject code in your list.
-bye                          - End the program.
-To get more specific information of the commands, please use help <COMMAND>
 
------------------------------------------------------
-```
+![ListCommandsCommand message](images/ListCommandsCommandMessage.png)
+
 
 ### Help Command: `help`
 This feature allows users to ask for help when unsure of how the commands work or how to use the commands.
@@ -209,52 +199,39 @@ Format: `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_COD
 * Indicate the full name of the partner university for `PARTNER_UNIVERISTY_NAME`. For example, indicate
   `The Australian National University` instead of `Australian National University` or `ANU`.
 
-Example of usage:
+Example of usage (lowercase):
 `add cs2102 /pu the university of melbourne /coursepu info20003`
 
 Expected output:
-```
-You have successfully added the course: cs2102 | the university of melbourne | info20003
-```
-Example of usage:
+
+![Add Courses Lowercase Output](images/AddCoursesCommandLowercaseScreenshot.png)
+
+Example of usage (normal case):
 `add CS3244 /pu The Australian National University /coursepu COMP3670`
 
 Expected output:
-```
-You have successfully added the course: cs3244 | the australian national university | comp3670
-```
+
+![Add Courses Normal Case Output](images/AddCoursesCommandNormalCaseScreenshot.png)
 
 Example of usage:
 `add CS3244 /pu Australian National University /coursepu COMP3670`
 
 Expected output:
-```
-Invalid university input!
------------------------------------------------------
-The relevant universities are (non-case sensitive):
-1. The University of Melbourne
-2.The Australian National University
-3. Victoria University of Wellington
-4.The University of Western Australia
 
-NOTE: Please indicate the partner universities FULL NAME!
-NOTE: Instead of "Australian National University," please indicate "The Australian National University."
------------------------------------------------------
-```
+![Add Courses Invalid University](images/InvalidUniversityInputScreenshot.png)
 
 ### Delete course mapping plans from Personal Tracker: `delete`
 Delete a course mapping plan that was initially saved into the Personal Tracker.
 
 Format: `delete LIST_INDEX`
 
-* The `LIST_INDEX` is the list index of the course mapping plan to be deleted.
+* The `LIST_INDEX` is the integer list index of the course mapping plan to be deleted.
 
 Example: `delete 1` when there are plans stored in the Personal Tracker.
 
 Expected Output:
-```
-You have deleted the course from your plan: cs2102 | the university of melbourne | info20003
-```
+
+![Successful delete message](images/SuccessfulDeleteMessage.png)
 
 Example: `delete 0`
 

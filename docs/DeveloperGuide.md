@@ -6,7 +6,7 @@
 - [Design](#design)
   - [Architecture](#architecture)
   - [Class Diagrams](#class-diagrams)
-    - [Command Package](#command-package)
+    - [Command Structure](#command-structure)
     - [Parser Class](#parser-class-diagram)
     - [Course Validator Class](#coursevalidator-class-diagram-)
     - [Storage Class](#storage-class-diagram)
@@ -39,10 +39,10 @@
 ### Third Party Library Used
 
 #### 'org.glassfish:javax.json:1.1.4'
-* https://mvnrepository.com/artifact/org.glassfish/javax.json/1.1.4
+* [Link to official website](https://mvnrepository.com/artifact/org.glassfish/javax.json/1.1.4)
 
 #### 'javax.json:javax.json-api:1.1.4'
-* https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4
+* [Link to official website](https://mvnrepository.com/artifact/javax.json/javax.json-api/1.1.4)
 
 ## Design
 
@@ -106,6 +106,13 @@ must inherit from the abstract `Command` class, which has the method to read the
 information. Each child class has the abstract `execute` method, to be implemented by their concrete child classes,
 specific to the command functionality.
 
+**Addition of new command features**
+
+When adding new command classes, developers should make sure that the concrete class inherits from either the
+`CheckInformationCommand` or `PersonalTrackerCommand` classes, depending on the new command's functionality.
+The new command class should also have an implementation of the `execute` method, and uses the `UI` class to
+print messages on the CLI interface.
+
 ![Class diagram for CheckInformationCommand](images/CheckInformationCommandClass.jpg)
 
 
@@ -141,13 +148,6 @@ The above list of Command classes are concrete classes, and must implement the a
 `execute(userInput, storage)` method.
 
 
-#### Addition of new command features
-When adding new command classes, developers should make sure that the concrete class inherits from either the
-`CheckInformationCommand` or `PersonalTrackerCommand` classes, depending on the new command's functionality.
-The new command class should also have an implementation of the `execute` method, and uses the `UI` class to 
-print messages on the CLI interface.
-
-
 #### Parser class diagram:
 The Parser class is responsible for handling and interpreting user input in the application. It reads user commands,
 processes them by splitting the input into command keywords and parameters, and then directs the flow of control to the
@@ -158,10 +158,12 @@ split the `Parser` class diagram into the two parts respectively to increase rea
 
 This class diagram represents the parsing of commands in Check Information. The multiplicities dependencies of the 
 command are 0 or 1 because the dependency is only formed when the command is called, else, it will be zero.
+
 ![Class diagram for CheckInformationParser](images/CheckInformationParserClass.png)
 
 This class diagram represents the parsing of commands in Personal Tracker. The `Parser` class has associations with the
 `UI` class and `Storage` class and dependencies with the commands in Personal Tracker.
+
 ![Class diagram for PersonalTrackerParser](images/PersonalTrackerParserClass.png)
 
 #### CourseValidator Class Diagram: 
@@ -252,10 +254,10 @@ This allows users to navigate this program easily and effectively.
 * Assertions and logging are implemented for error handling.
 
 #### Why it is implemented that way:
-- ****Separation of Concerns:**** Each method has a single responsibility. For example, `getCommand()` parses and
+- **Separation of Concerns:** Each method has a single responsibility. For example, `getCommand()` parses and
   validates the input to extract a specific command and `printHelp()` prints the relevant help message for the
   parsed command.
-- ****Switch Statement:**** The use of `switch` statement is an efficient way to match valid commands.
+- **Switch Statement:** The use of `switch` statement is an efficient way to match valid commands.
   `switch` statements are also clearer and easier to read.
 
 #### Alternative Implementation considered:
@@ -274,7 +276,7 @@ This command is responsible for displaying and retrieving the full list of unive
 from `database.json` file. It helps the users to identify the possible choices in Oceania.
 
 #### How the feature is implemented:
-* The `ListSchoolCommand` class extends `Command` class where it overrides the `execute` method for
+* The `ListSchoolCommand` class extends the `CheckInformationCommand` class where it overrides the `execute` method for
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
@@ -312,7 +314,7 @@ partner university.
 * Assertions and logging are used for error handling.
 
 #### Why it is implemented this why:
-- ****Separation of Concerns:**** Each responsibility is seperated into smaller, well-defined methods
+- **Separation of Concerns:** Each responsibility is seperated into smaller, well-defined methods
   For example, `getPuName()` focuses on extracting the university name from user input and `findUniversityName()`
   focuses on searching the university in the data set.
 
@@ -328,7 +330,7 @@ university. It helps users to reach out to the partner universities for any enqu
 exchange opportunities.
 
 #### How the feature is implemented:
-* The `ObtainContactsCommand` class extends `Command` class where it overrides the `execute()` method for
+* The `ObtainContactsCommand` class extends the `CheckInformationCommand` class where it overrides the `execute()` method for
   custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
@@ -348,6 +350,7 @@ exchange opportunities.
 * Logging and assertions helps the team of developers to follow through the command execution.
 
 #### Alternatives considered:
+* Split the contacts into 2 different class for obtaining email and number for better separation of concerns
 * Reading of the `database.json` was tricky and other libraries were considered.
 * Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
   readability.
@@ -361,7 +364,7 @@ exchange opportunities.
 #### Overview:
 This command is responsible for displaying and retrieving the full list of mappable courses from the partner
 universities to a user specified NUS course from `database.json` file. It helps the users to identify whether
-that NUS course is suitable to be mapped overseas in South East Asia and Oceania.
+that NUS course is suitable to be mapped overseas in Oceania.
 
 #### How the feature is implemented:
 * The `FilterCoursesCommand` class extends `Command` class where it overrides the `execute` method for
@@ -389,7 +392,7 @@ that NUS course is suitable to be mapped overseas in South East Asia and Oceania
 This command is responsible for adding users' desired course mapping into the `myList.json` file.
 Additionally, each course mapping is checked against the current course mapping found in the
 `database.json` file, ensuring that the course mapping is accurate and is limited to Oceania
-and South-East Asian universities. This command hence helps the users to keep track of their course mapping process.
+universities. This command hence helps the users to keep track of their course mapping process.
 
 #### How the feature is implemented:
 * The `AddCoursesCommand` class extends `Command` class where it overrides the `execute` method for
@@ -448,6 +451,12 @@ This helps the users to keep track of their most recent course mapping plans, an
 * Throughout the code, exceptions, assertions and logging are in place for better error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
+#### Why It Is Implemented This Way:
+- **Ease of deletion:** This command ensures that maintaining the Personal Tracker is quick and fast, and is 
+  complemented by the `list mapped` command, which shows the index of the saved course mapping plans.
+- **User-Friendly Output:** The user is notified of the course mapping plan that was deleted, making sure that they have
+  deleted the correct plan.
+
 #### Sequence Diagram:
 ![Delete Courses Sequence Diagram](images/DeleteCoursesCommand.png)
 
@@ -458,8 +467,9 @@ The `ListPersonalTrackerCommand` is responsible for listing all the mapped modul
 
 #### How the Feature is Implemented:
 - The `ListPersonalTrackerCommand` class extends `CheckInformationCommand` and overrides the `execute` method to define custom behavior.
-- **Constructor:** The constructor accepts a `Storage` object to access stored course mappings.
+- The constructor accepts a `Storage` object to access stored course mappings.
 - **Execution Flow in `execute` Method:**
+  - Checks the data integrity of `myList.json` using `courseRepository.isFileValid`. If the data integrity fails, the command exits without further execution.
   - Calls `loadAllCourses` from the Storage class to retrieve the list of mapped modules.
   - If the list is empty, a message is displayed to inform the user that no modules have been mapped.
   - If there are mapped modules, it logs that modules will be displayed and then:
@@ -480,26 +490,6 @@ how the data is displayed.
 - **Skipping Indexing:** Displaying the list without indexing was considered, but indexing improves readability, 
 especially if the list of modules is long.
 
-#### Example Usage and Expected Output:
-If the `myList.json` file contains the following entries:
-
-```
-CS3244 | The Australian National University | COMP3670
-CS2105 | The University of Western Australia | CITS3002
-CS2102 | The University of Melbourne | INFO20003
-```
-
-Running the `ListPersonalTrackerCommand` would output:
-
-```
-Mapped Modules:
------------------------------------------------------
-1. CS3244 | The Australian National University | COMP3670
-2. CS2105 | The University of Western Australia | CITS3002
-3. CS2102 | The University of Melbourne | INFO20003
------------------------------------------------------
-```
-
 #### Sequence Diagram:
 ![List Personal Tracker Command Sequence Diagram](images/ListPersonalTrackerCommand.png)
 
@@ -511,28 +501,20 @@ This command aids users in identifying common course mappings across the selecte
 unique course mappings specific to each university.
 
 #### How the Feature is Implemented
-The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides the `execute` method to define its custom behavior. Below is an outline of the execution flow:
+The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides the `execute` method to define its custom behavior. 
+Below is an outline of the execution flow:
 
-**Parsing User Input**:
+- Checks the data integrity of `myList.json` using `courseRepository.isFileValid`. If the data integrity fails, the command exits without further execution.
 - The command splits the user input based on the delimiter `pu/` to retrieve the names of the two universities specified by the user.
   - If fewer than two universities are specified, the `printInvalidInputFormat` method in the `UI` class is called to inform the user of incorrect input format.
-
-**Loading Data and Initial Checks**:
+- The command calls `isValidUniversity` to check if the input is a valid university. Otherwise, it will print an error message with the wrong university name and a suggestion.
 - The command loads all course mappings from the `myList.json` file through the `Storage` class.
 - It verifies that the loaded list is not `null` through assertions.
-
-**Filtering Modules by University**:
 - The `filterModulesByUniversity` method takes the list of all modules and filters out only those associated with the specified university.
 - Logging is used to track this filtering process.
-
-**Extracting Course Codes**:
 - The `extractCourseCodes` method extracts the unique course codes for each university, enabling the subsequent comparison.
-
-**Identifying Common and Unique Course Codes**:
 - The `getCommonCourseCodes` method calculates the intersection of course codes between the two universities, identifying courses available in both.
 - The `getUniqueCourseCodes` method identifies unique courses by excluding the common course codes for each university.
-
-**Displaying Results**:
 - The `displayComparisonResults` method provides output for the comparison:
   - Common mappings are displayed first, showing courses available in both universities.
   - Unique mappings are shown next, detailing courses specific to each university.
@@ -564,13 +546,13 @@ to check and plan course mappings for that specified course.
 * In the `findCommand` method, the mappings in the tracker are retrieved through
   `List<Course> mappedCourses = storage.loadAllCourses()`. If the tracker is empty, a message indicating empty tracker
   will be printed.
-* Next, `matchKeyword()` will be called and it iterates the mappedCourses in the tracker to search for mappings that
+* Next, `matchKeyword()` will be called, and it iterates the mappedCourses in the tracker to search for mappings that
   match the keyword and adds them into a `List<Course> foundCourses`.
 * Lastly, `printFindCommand` will iterate and print the course mappings inside mappedCourses through
   `printFoundCourses()` in `UI` class. If mappedCourses is empty, an IllegalArgumentException is thrown.
 
 #### Why it is implemented this way:
-* ****Separation of concerns:**** Helper methods were used to isolate specific tasks within the command, making each
+* **Separation of concerns:** Helper methods were used to isolate specific tasks within the command, making each
   method focused and easier to manage. The `UI` class handles displaying messages to the user, which keeps
   `FindCoursesCommand` focused solely on search logic, without managing user interactions directly.
 
@@ -609,7 +591,7 @@ to check and plan course mappings for that specified course.
 | v2.0    | CEG student | delete a course mapping plan for a PU                   | keep my list of saved plans organised                          |
 | v2.0    | CEG student | ask for help when I am in doubt                         | know what are the possible actions                             |
 | v2.0    | CEG student | compare different mapping plans for each PU             | find the university best fit for my academic schedule          |
-| v2.0    | CEG student  | search for course mappings in my personalised tracker           | check if I have mappings for that course                 |
+| v2.0    | CEG student | search for course mappings in my personalised tracker   | check if I have mappings for that course                       |
 
 
 ## Non-Functional Requirements
@@ -621,7 +603,7 @@ to check and plan course mappings for that specified course.
 4. CEG student who is interested in planning SEP course mapping to universities in Oceania.
 
 ## Glossary
-* Mainstream OS: Windows, Linux, Unix, MacOS
+* Mainstream OS: Windows, Linux, Unix, macOS
 * CEG: Computer Engineering
 * PU: Partner University
 * CLI: Command Line Interface
@@ -633,21 +615,17 @@ to check and plan course mappings for that specified course.
 testers are expected to do more *exploratory* testing.
 
 ### 1. Start ExchangeCourseMapper
-1. Ensure that you have Java 17 or above installed.
-2. Download the latest version of `ExchangeCourseMapper` from [here](http://link.to/duke).
-3. Download the JAR file and save it on your computer.
-4. Copy the absolute path of where the jar file is saved.
-5. In Terminal, run `java -jar /path/to/ExchangeCourseMapper.jar`
-6. Expected: Welcome message on the terminal, prompting for the user's input
+1. Follow the instructions in our [User Guide Quick Start](UserGuide.md#quick-start)
+2. Expected: Welcome message on the terminal, prompting for the user's input
 
 ### 2. Test Cases
 #### 2.1 Start State
 * 2.1.1. Introduction to ExchangeCourseMapper
    * Test Case: `commands` <br/>
    * Expected: Prints out the summarised list of possible commands in ExchangeCourseMapper.
-* 2.1.2. More details for each command
-  * Test Case: `help ACTION`, where `ACTION` is one of the commands listed by `commands`.<br/>
-  * Expected: Prints out the function of each command and the valid command format.
+* 2.1.2. More details for each command listed by the `commands` command
+  * Test Case: `help add` <br/>
+  * Expected: Prints out the function of the add function and the valid command format.
 
 #### 2.2 Obtain names of Partner Universities in Oceania
 * 2.2.1 List all Partner Universities (PUs) in Oceania
@@ -662,32 +640,23 @@ testers are expected to do more *exploratory* testing.
 
 * 2.3.1 See all mappable courses from a valid PU
   * Prerequisites: None
-  * Test Case: `set SCHOOL_NAME`, where `SCHOOL_NAME` is one of the PUs listed by `list schools` <br/>
+  * Test Case: `set The University of Western Australia` <br/>
   * Expected: List of mappable courses, with information of the PU course code and name to the matching
     NUS course code and name.
 
 
 * 2.3.2 See all mappable courses from an invalid PU
   * Prerequisites: None
-  * Test Case: `set SCHOOL_NAME`, where `SCHOOL_NAME` is NOT one of the PUs listed by `list schools` <br/>
-  * Expected: Error message stating that input is an unknown university.
+  * Test Case: `set tokyo university` <br/>
+  * Expected: Error message stating that input is an unknown university to ExchangeCourseMapper.
 
 
 #### 2.4 Obtain admin information of PUs in Oceania
-> [NOTE!]
-> SCHOOL_NAME is not case-sensitive, but must be the same as the name listed by the `list schools` command,
-> word for word!
 
 * 2.4.1 Obtain valid PU's email
   * Prerequisites: None
   * Test Case: `obtain The University of Melbourne /email`
   * Expected: Prints out email of The University of Melbourne.
-
-
-* 2.4.2 Obtain invalid PU's email
-  * Prerequisites: None
-  * Test Case: `obtain tokyo university /email`
-  * Expected: Error message stating that input is an unknown university in the program.
 
 
 * 2.4.3 Obtain valid PU's email
@@ -696,9 +665,9 @@ testers are expected to do more *exploratory* testing.
   * Expected: Prints out email The University of Melbourne.
 
 
-* 2.4.4 Obtain invalid PU's email
+* 2.4.2 Obtain invalid PU's email or number
   * Prerequisites: None
-  * Test Case: `obtain tokyo university /number`
+  * Test Case: `obtain tokyo university /email` or `obtain tokyo university /number`
   * Expected: Error message stating that input is an unknown university in the program.
 
 
@@ -707,12 +676,6 @@ testers are expected to do more *exploratory* testing.
   * Prerequisites: None
   * Test Case: `filter cs3241`<br/>
   * Expected: Prints out all the courses offered by the PUs that can be mapped to cs3241.
-
-
-* 2.5.2 Filter using a valid SoC course code with no possible mappings
-  * Prerequisites: None
-  * Test Case: `filter cs1231`<br/>
-  * Expected: Prints out error message stating that there are no mappable courses for the given NUS course code.
 
 
 * 2.5.3 Filter using a non-SoC course code
@@ -757,8 +720,8 @@ testers are expected to do more *exploratory* testing.
 
 
 * 2.7.2 Delete course mapping plan with invalid task number
-  * Prerequisites: one course mapping plan in tracker
-  * Test case: `delete 2`
+  * Prerequisites: only one course mapping plan in tracker
+  * Test case: `delete 100`
   * Expected: Prints out error message indicating to provide valid index and a prompt to list out the available mappings
     in personal tracker
 
@@ -784,6 +747,7 @@ testers are expected to do more *exploratory* testing.
     one line.
   * Test Case: `list mapped`<br/>
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
+  * Please revert back to the file original stage (prior to  corruption) before continuing on with the manual testing. 
 
 
 #### 2.9 Compare saved course mapping plans between universities
@@ -808,6 +772,7 @@ testers are expected to do more *exploratory* testing.
     one line.
   * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
+  * Please revert back to the file original stage (prior to  corruption) before continuing on with the manual testing.
 
 #### 2.10 Find course mappings in Personal Tracker
 * 2.10.1 Find course mapping plan with NUS course that is in the personal tracker
