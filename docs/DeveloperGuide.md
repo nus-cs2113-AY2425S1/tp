@@ -46,7 +46,7 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Expense and Expense List](#expense-and-expense-list)
 - [Expense Filter](#expense-filter)
 - [Date and Time Handling](#date-and-time-handling)
-- Visualizer
+- [Visualizer](#visualizer)
 - [Exceptions and Logging](#exceptions-and-logging)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 - [Category Package](#category-package)
