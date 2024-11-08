@@ -3,6 +3,14 @@
 <!-- ## Acknoledgements -->
 
 ## Design & Implementation
+### SpendSwift
+#### Purpose
+Interface for command-line interactions.
+
+#### Main flow
+- The system starts and displays a greeting.
+- Continuously processes user commands until "bye".
+
 ### Core Classes Overview
 ![CoreManagement](diagrams/CoreManagement.png)
 #### TrackerData
@@ -10,55 +18,41 @@
 TrackerData centralizes and manages the lists of categories, expenses, and budgets, 
 providing a unified data source for other classes.
 
-Attributes:
-
-   - List<Category> categories: Stores all categories.
-   - List<Expense> expenses: Stores all expenses.
-   - List<Budget> budgets: Stores all budget limits.
-   
-Methods:
-
-   - getCategoryList(): Returns the list of categories.
-   - getExpenseList(): Returns the list of expenses.
-   - getBudgetList(): Returns the list of budgets.
-   
-   Usage:
+##### Usage
 TrackerData is utilized by the manager classes to store and retrieve categorized data. 
 Each manager accesses TrackerData to perform operations.
 
 #### CategoryManager
 Handles all category-related operations, including adding and formatting categories.
 
-Attributes and Methods:
+##### Operations
 
-- addCategory(name: String): Adds a new category.
-- formatCategoryInput(input: String): Formats category input, ensuring consistency.
+- `addCategory(String)`: Adds a new category.
+- `formatCategoryInput(String)`: Formats category input, ensuring consistency.
 
-Relationship: 
+##### Relationship
 - Dependency: Accesses TrackerData to add and retrieve categories.
 
 #### BudgetManager
 Handles budget-related functionalities like setting and viewing budget limits for categories.
 
-Attributes and Methods:
+##### Operations
+- `addBudgetLimit(String, double)`: Adds a budget limit for a specific category.
+- `viewBudget()`: Views current budget limits and spending against them.
+- `resetMonthlyBudget()`: Resets budgets at the start of each month.
 
-- addBudgetLimit(category: String, limit: double): Adds a budget limit for a specific category.
-- viewBudget(): Views current budget limits and spending against them.
-- resetMonthlyBudget(): Resets budgets at the start of each month.
-
-Relationship:
+##### Relationship
 - Dependency: Accesses TrackerData to manage budget data associated with categories.
 
 #### ExpenseManager
 Manages expenses, including adding, deleting, and viewing expenses categorized by spending areas.
 
-Attributes and Methods:
+##### Operations
+- `addExpense(String, double, String)`: Adds a new expense.
+- `deleteExpense(int)`: Deletes an expense by index.
+- `viewExpensesByCategory()`: Displays expenses grouped by category.
 
-- addExpense(name: String, amount: double, category: String): Adds a new expense.
-- deleteExpense(index: int): Deletes an expense by index.
-- viewExpensesByCategory(): Displays expenses grouped by category.
-
-Relationship:
+##### Relationship
 - Dependency: Accesses TrackerData to add, delete, and view expenses categorized by spending areas.
 
 ### Command Parsing and Input Handling
@@ -66,10 +60,10 @@ Relationship:
 #### Parser
 The Parser class interprets user input commands, delegating them to appropriate manager classes for processing.
 
-Methods:
-- parseCommand(input: String): Parses the command and creates a Command object based on the input.
+##### Operations
+- `parseCommand(String)`: Parses the command and creates a Command object based on the input.
 
-Relationship:
+##### Relationship
 - Composition: Uses InputParser for handling command-specific parsing.
 - Dependency: Delegates tasks to CategoryManager, BudgetManager, and ExpenseManager.
 
@@ -77,33 +71,39 @@ Relationship:
 InputParser processes specific components within commands (such as names, amounts, categories) 
 and breaks down inputs for more manageable handling.
 
-Methods:
-- parseComponent(input: String): Breaks down input components into a map for easy retrieval.
+##### Operations
+- `parseComponent(String)`: Breaks down input components into a map for easy retrieval.
 
 ### Expense, Category, and Budget Entities
 ![Entities](diagrams/Entities.png)
+
 #### Expense
+##### Purpose
 Represents an expense with its name, amount, and associated category.
 
-Attributes:
-- String name: The name of the expense.
-- double amount: The expense amount.
-- Category category: Category linked to the expense.
+##### Operations
+- `getName()`, `getAmount()`: Retrieve the expense's name and amount.
+- `getCategory()`, `setCategory(Category)`: Manage the expense's category association.
+- `formatAmount()`: Formats the expense amount for display.
 
 #### Category
+##### Purpose
 Represents a category, allowing expenses and budgets to be organized under specific areas.
+
+##### Operations
+- `getName()`: Returns the category name.
+- `toString()`: Provides the string representation of the category.
 
 Attributes:
 - String name: The name of the category.
 
 #### Budget
+##### Purpose
 Represents a budget limit associated with a category, enabling users to track and manage spending.
 
-Attributes:
-
-- double limit: Budget limit for the category.
-- Category category: The category associated with the budget.
-Relationship:
+##### Operations
+- `setLimit(double)`: Ensures limits are non-negative.
+- `formatLimit(double)`: Formats the budget limit for display.
 
 - Each Expense is linked to exactly one Category, while each Budget is also associated with one Category.
 
@@ -132,58 +132,6 @@ Relationship:
 #### toggle-reset
 ![Toggle Auto Reset Sequence Diagram](diagrams/ToggleAutoReset.png)
 
-
-<!-- ### Category
-#### Purpose
-Represents a category for expenses.
-#### Operations
-- `getName()`: Returns the category name.
-- `toString()`: Provides the string representation of the category.
-
-### Expense
-#### Purpose
-Represents an individual expense within the system.
-#### Operations
-- `getName()`, `getAmount()`: Retrieve the expense's name and amount.
-- `getCategory()`, `setCategory(Category)`: Manage the expense's category association.
-- `formatAmount()`: Formats the expense amount for display.
-
-### Budget
-#### Purpose
-Handle monetary constraints per category.
-#### Operations
-- `setLimit(double)`: Ensures limits are non-negative.
-- `formatLimit(double)`: Formats the budget limit for display.
-
-### ExpenseTracker
-#### Purpose
-Track and manage expenses and categories.
-#### Operations
-##### Adding Expenses and Categories
-- `addExpense`: Adds an expense after verifying or creating the necessary category.
-- `addCategory`: Adds a new category if it does not exist.
-
-##### Monthly Budget Reset Functionality
-- `toggleAutoReset`: Toggles automatic budget resets on or off.
-- `checkAndResetBudgets`: Checks for a new month and triggers budget resets if enabled.
-- `resetBudgets`: Resets all budgets to their predefined limits.
-
-##### Viewing and Organizing Data
-- `viewExpensesByCategory`: Displays expenses organized by categories.
-- `viewBudget`: Displays budget limits and current expenditures for each category.
-
-##### Modifying Data
-- `deleteExpense`: Deletes an expense based on its index.
-- `tagExpense`: Reassigns an expense to a different category based on user input.
-
-### Duke
-#### Purpose
-Interface for command-line interactions.
-#### Main flow
-- The system starts and displays a greeting.
-- Continuously processes user commands until "bye".
-- Directly invokes methods from ExpenseTracker based on input.
--->
 ## Product Scope
 <!-- @@author glenda-1506 -->
 ### Target User Profile
