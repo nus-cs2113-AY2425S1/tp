@@ -80,6 +80,9 @@ Here is a class diagram highlighting the structure of the `Cli` class:
        - printGoodByeMessage(): Prints a farewell message when the application is closing.
        - closeScanner(): Closes the Scanner instance to release system resources after the application terminates.
 
+The sequence diagram below demonstrates the interactions within the `Cli` component:
+![CliSequenceDiagram](https://github.com/user-attachments/assets/8dbe3481-6ee4-4f7d-aebe-2f7b048db325)
+
 ### `Parser` class:
 The `Parser` class is responsible for interpreting and handling user commands. 
 It processes input strings from the command-line interface and routes these commands to the appropriate methods within QuizManager or Cli to execute corresponding actions.
