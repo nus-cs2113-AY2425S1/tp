@@ -1,5 +1,7 @@
 # Developer Guide for SpendSwift
 
+<!-- ## Acknoledgements -->
+
 ## Design & Implementation
 ### Core Classes Overview
 ![CoreManagement](diagrams/CoreManagement.png)
@@ -217,8 +219,9 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 | 5   | Automated Tasks     | Support automated budget resets at the start of each month.                                | Minimizes user effort in maintaining accurate monthly tracking.                             |
 | 6   | Accessibility       | The chat interface should be simple and intuitive.                                         | Ensures that all users can effectively interact with the system without extensive training. |
 
-## Glossary
+<!-- ## Glossary
 - **glossary item**: Definition
+-->
 
 ## Instructions for Manual Testing
 {Provide instructions on how to conduct manual product testing, e.g., how to load sample data to be used for testing.}
