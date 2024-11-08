@@ -1,0 +1,73 @@
+@startuml
+
+actor User
+
+participant ":Cli" as CLI
+
+activate CLI
+User -> CLI : Create instance (new Cli())
+CLI -> CLI : Initialize scanner
+deactivate CLI
+
+participant ":readInput" as readInput
+activate readInput
+User -> readInput : Call readInput()
+readInput -> CLI : Print "> "
+readInput -> User : Return user input
+deactivate readInput
+
+participant ":printStartMessage" as printStart
+activate printStart
+User -> printStart : Call printStartMessage()
+printStart -> CLI : Print welcome and command instructions
+deactivate printStart
+
+participant ":printHelp" as printHelp
+activate printHelp
+User -> printHelp : Call printHelp()
+printHelp -> CLI : Print list of available commands
+deactivate printHelp
+
+participant ":printGoodByeMessage" as printGoodBye
+activate printGoodBye
+User -> printGoodBye : Call printGoodByeMessage()
+printGoodBye -> CLI : Print goodbye message
+@startuml
+
+actor User
+
+participant ":Cli" as CLI
+
+activate CLI
+User -> CLI : Create instance (new Cli())
+CLI -> CLI : Initialize scanner
+deactivate CLI
+
+User -> CLI : readInput()
+CLI -> CLI : Print "> "
+CLI -> User : Return user input
+
+User -> CLI : printStartMessage()
+CLI -> CLI : Print welcome and command instructions
+
+User -> CLI : printHelp()
+CLI -> CLI : Print list of available commands
+
+User -> CLI : printGoodByeMessage()
+CLI -> CLI : Print goodbye message
+
+User -> CLI : printMessage("Sample message")
+CLI -> CLI : Print "Sample message"
+
+User -> CLI : printOptions(options)
+CLI -> CLI : Print each option in the options list
+
+User -> CLI : printPastResults(results)
+CLI -> CLI : Print results
+
+User -> CLI : printEnclosure()
+CLI -> CLI : Print enclosure line (ENCLOSURE)
+
+@enduml
+
+
