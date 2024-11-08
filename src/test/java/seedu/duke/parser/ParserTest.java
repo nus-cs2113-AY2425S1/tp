@@ -1,6 +1,7 @@
 package seedu.duke.parser;
 import org.junit.jupiter.api.Test;
 import seedu.duke.commands.Command;
+import seedu.duke.data.exception.IllegalValueException;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 
@@ -136,7 +137,7 @@ public class ParserTest {
      */
 
     @Test
-    public void parseCommandDel() {
+    public void parseCommandDel() throws IllegalValueException {
         State mainState = new State(StateType.MAIN_STATE);
         Command returnedCommand = new DeleteParser().execute("delete 0", mainState);
         assertEquals(true, returnedCommand != null);
