@@ -14,7 +14,11 @@ public class Budget {
         this.limit = limit;
         this.trackerData= trackerData;
         this.homeCurrency= homeCurrency;
-        this.currencyConverter= new CurrencyConverter(homeCurrency);
+         try {
+            this.currencyConverter = new CurrencyConverter(homeCurrency);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Category getCategory() {
