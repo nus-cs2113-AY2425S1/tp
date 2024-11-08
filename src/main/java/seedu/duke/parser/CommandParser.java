@@ -2,6 +2,8 @@ package seedu.duke.parser;
 
 import seedu.duke.commands.Command;
 import seedu.duke.data.state.State;
+import seedu.duke.data.exception.IllegalValueException;
+
 /**
  * Represents a parser for commands in the application.
  * Implementing classes should provide the logic to parse and execute specific commands
@@ -16,6 +18,7 @@ public interface CommandParser {
      *              used to determine if the command is valid in the current context.
      * @return A {@link Command} object representing the result of the executed command
      *      or {@code null} if the command could not be executed.
+     * @throws IllegalValueException if the command input contains invalid values.
      */
-    Command execute(String line, State state);
+    Command execute(String line, State state) throws IllegalValueException;
 }
