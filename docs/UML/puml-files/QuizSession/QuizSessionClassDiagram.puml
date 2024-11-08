@@ -1,0 +1,54 @@
+@startuml
+hide stereotype
+
+hide circle
+
+skinparam classAttributeIconSize 0
+
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    FontColor Black
+}
+
+
+class Cli {
+    + readInput(): String
+    + printMessage(String message): void
+    + printOptions(List<String> options): void
+    + printGoodByeMessage(): void
+}
+
+class QuizSession {
+    - static Logger logger
+    - Cli cli
+    - Quiz currentQuiz
+    - int questionLimit
+    - int timeLimitInSeconds
+    - Topic topic
+
+    + QuizSession(Cli cli)
+    + startQuiz(Topic topic): void
+    + getQuizScore(): int
+    + getTimeLimitInSecondsFromUser(): int
+    + getQuestionLimitFromUser(): int
+    + getQuestionLimit(): int
+    + getTimeLimitInSeconds(): int
+}
+
+class Quiz {
+    + Quiz(cli: Cli)
+    + start(timeLimitInSeconds: int, questionLimit: int): void
+    + getScore(): int
+}
+
+class Topic {
+    + getName(): String
+    + getQuestions(): List<Question>
+}
+
+QuizSession *-- Quiz
+QuizSession --> Cli : uses
+QuizSession --> Topic : uses
+
+@enduml

@@ -1,0 +1,47 @@
+@startuml
+
+hide circle
+
+hide stereotype
+
+skinparam classAttributeIconSize 0
+
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    FontColor Black
+}
+
+top to bottom direction
+
+class JavaNinja
+
+class Cli {
+    - static String ENCLOSURE
+    - Scanner scanner
+    + Cli()
+    + Cli(inputStream: InputStream)
+    + closeScanner(): void
+    + readInput(): String
+    + printStartMessage(): void
+    + printHelp(): void
+    + printGoodByeMessage(): void
+    + printMessage(message: String): void
+    + printOptions(options: List<String>): void
+    + printPastResults(results: String): void
+    + printEnclosure(): void
+}
+
+class QuizManager
+class TopicManager
+class QuizSession
+class Parser
+
+JavaNinja *--> Cli : composed of
+Cli --> JavaNinja : associated with
+Cli --> QuizManager : associated with
+Cli --> TopicManager : associated with
+Cli --> QuizSession : associated with
+Cli --> Parser : associated with
+
+@enduml

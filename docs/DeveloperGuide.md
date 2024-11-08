@@ -37,7 +37,7 @@ Here is the class diagram highlighting the structure of the `JavaNinja` class:
 
 #### How `JavaNinja` works:
 1. **Application Initialization**:
-   - Upon instantiation, JavaNinja initializes the core components: Cli, Parser, and QuizManager.
+   - Upon instantiation, JavaNinja initializes the core components: `Cli`, `Parser`, and `QuizManager`. Bulk of the work is being done here
    - Cli is responsible for managing user input and output, while Parser interprets user commands and directs actions to QuizManager, which handles quiz operations.
 2. **Application Flow**:
    - JavaNinja uses a loop in the run() method to keep the application active until the user decides to quit.
@@ -50,6 +50,35 @@ Here is the class diagram highlighting the structure of the `JavaNinja` class:
    - QuizManager saves any unsaved quiz results, and Cli displays a goodbye message and closes any open resources like the input scanner.
 
 The `JavaNinja` class acts as a controller that organizes interactions between `Cli`, `Parser`, and `QuizManager`, ensuring a modular and maintainable structure where each component has distinct responsibilities.
+
+Here is a simple sequence diagram that describes how the components interact with each other:
+![image](https://github.com/user-attachments/assets/3a70c3ef-2627-462b-a102-9b2ddca4bb3d)
+
+### `Cli` class: 
+The `Cli` class is responsible for managing user interactions in the command-line interface.
+It handles user input, displays messages, and provides guidance on available commands, making it the primary interface between the user and the application.
+
+Here is a class diagram highlighting the structure of the `Cli` class:
+![CliClassDiagram](https://github.com/user-attachments/assets/dcb19a6b-d9d7-4e25-ae2e-a9d6737dd9da)
+
+
+#### How `Cli` works:
+1. Initialization and Input Handling:
+   - The Cli class can be instantiated with either the default system input (System.in) or a custom input stream for flexibility, especially useful for testing.
+   - The readInput() method prompts the user with a > symbol, reads the input from the console, trims any whitespace, and returns the input as a string for further processing by other components.
+2. Displaying Messages:
+   - Start and Help Messages:
+     - printStartMessage(): Prints a welcome message with available commands to help users get started.
+     - printHelp(): Prints a detailed list of commands and their descriptions, helping users understand how to interact with the application.
+   - Custom Messages:
+     - printMessage(String message): Prints any custom message passed to it, allowing other components to display relevant feedback or information to the user.
+     - printOptions(List<String> options): Prints a list of options (e.g., multiple-choice options in a quiz), making it easier for users to view and select options.
+     - printPastResults(String results): Prints past quiz results, allowing users to review their performance history.
+     - printEnclosure(): Prints a decorative line (ENCLOSURE) to visually separate sections, enhancing readability.
+3. Application Shutdown:
+     - Goodbye Message and Resource Cleanup:
+       - printGoodByeMessage(): Prints a farewell message when the application is closing.
+       - closeScanner(): Closes the Scanner instance to release system resources after the application terminates.
 
 ### `Parser` class:
 The `Parser` class is responsible for interpreting and handling user commands. 
@@ -67,7 +96,7 @@ It processes input strings from the command-line interface and routes these comm
 
 
 The sequence diagram below demonstrates the interactions within the `Parser` component when a user inputs the command `select Loops`:
-![ParserSequenceDiagram](https://github.com/user-attachments/assets/a5186ef9-a368-46d0-9031-32de40ec5003)
+![ParserSequenceDiagram](https://github.com/user-attachments/assets/0abce220-17ed-4df6-b64f-411afe3f5bb6)
 
 ### `QuizManager` class: 
 The `QuizManager` class serves as the primary controller for quiz functionalities within the application. 
@@ -75,11 +104,11 @@ It manages quiz operations such as starting and tracking quizzes, handling topic
 
 Below is the class diagram for the `QuizManager` class, illustrating its attributes and methods.
 
-Firstly, the overarching class diagram:
+#### Firstly, the overarching class diagram:
 
 ![QuizManagerArchitecture](https://github.com/user-attachments/assets/28efc5ae-9258-48d0-890b-2ee61498dbc0)
 
-Additional details about its methods and attributes:
+#### Additional details about its methods and attributes:
 
 ![QuizManager](https://github.com/user-attachments/assets/acf8bd44-f2fd-4f3d-b424-af77bd1e394f)
 
@@ -119,135 +148,33 @@ When `loadQuestions()` reads each line from the storage file, `parseTopic()` is 
 The following sequence diagram shows the interactions within `TopicManager` during topic initialisation from the storage file.
 ![TopicInstantiationSequenceDiagram](https://github.com/user-attachments/assets/562bffb0-c24e-422f-a16b-dadd988e8291)
 
-### True/False Feature Implementation
+### `QuizSession` class: 
+The `QuizSession` class is responsible for managing a single quiz session.
+It interacts with the user through the Cli class to set up quiz parameters (time limit and question limit), initialises and starts the Quiz, and retrieves the final score.
+The class maintains the current quiz, selected topic, and session limits for each session.
 
-The `TrueFalse` class is responsible for handling true/false questions within the quiz application. This section describes its design, implementation details, and the rationale behind design choices.
+#### `QuizSession` class diagram:
+![QuizSessionClassDiagram.png](UML/puml-files/QuizSession/QuizSessionClassDiagram.png)
 
-#### Feature Overview
-The `TrueFalse` class represents a true/false question. It stores the question text and the correct answer as a boolean. Additionally, it includes methods to validate user answers and display answer options.
+#### How `QuizSession` works:
+- `QuizSession(Cli cli)`: Constructor that initializes `QuizSession` with a `Cli` instance for user interaction.
+- `startQuiz(Topic topic)`: Starts a quiz for the specified Topic, initializes Quiz, and prompts the user for time and question limits before starting the quiz.
+- `QuizScore()`: Returns the final score from the current quiz.
+- `TimeLimitInSecondsFromUser()`: Prompts the user to set the quiz time limit, either in minutes or seconds. Validates input to ensure it’s positive and non-zero.
+- `QuestionLimitFromUser()`: Prompts the user for the number of questions they want to attempt. Validates the input to ensure it’s within the available questions for the selected topic.
+- `QuestionLimit()`: Returns the question limit set for the current session.
+- `TimeLimitInSeconds()`: Returns the time limit in seconds for the current session.
+- `TopicName()`: Returns the name of the selected topic for display purposes.
+- `CurrentQuiz(Topic topic, Cli cli)`: For testing purposes; returns the current `Quiz` instance or creates one if it doesn’t exist.
 
-#### Implementation Details
-
-1. **Attributes**:
-   - `boolean correctAnswer`: Stores the correct answer for the question.
-
-2. **Constructor**:
-   - `TrueFalse(String questionText, boolean correctAnswer)`:
-     Initializes the question text and the correct answer. The constructor checks that `questionText` is non-null and non-empty, ensuring a valid question is always provided.
-
-3. **Methods**:
-   - `checkAnswer(String userAnswer)`:
-     This method converts the user's input (`"true"` or `"false"`) into a boolean and compares it to the correct answer. It throws an `IllegalArgumentException` for invalid inputs, ensuring only `"true"` or `"false"` strings are accepted.
-   - `printOptions()`:
-     Displays answer choices ("1. True" and "2. False") for the user. This makes it clear what options are available for true/false questions.
-   - `toString()`:
-     Returns a string representation of the question with a "(True/False)" label to indicate its type.
-
-#### Design Rationale
-
-- **Boolean Storage for Correct Answer**: Storing the answer as a boolean simplifies the process of validating the user’s response since the comparison is a straightforward boolean check.
-- **Input Validation in `checkAnswer`**: This method ensures only `"true"` or `"false"` strings are accepted as valid answers, which prevents user input errors.
-- **Assertion Usage**: Assertions check that the question text and user answer are valid. This adds an additional layer of error handling during development.
-
-#### Alternative Considerations
-
-An alternative approach considered was to store `correctAnswer` as a `String` (`"true"` or `"false"`), which would simplify displaying it as text but would complicate validation. Using `boolean` was chosen for its simplicity and efficiency in logic checks.
-
-#### UML Class Diagram
-
-![TrueFalse Class Diagram](https://github.com/Lucky-Yuan00/tp/blob/jinlin-dev/docs/UML/TrueFalseClassDiagram.png?raw=true)
-
-The class diagram above shows the structure of the `TrueFalse` class, including its attributes and methods, and its inheritance relationship with the `Question` superclass.
-
-### Fill-in-the-Blank Feature Implementation
-
-The `FillInTheBlank` class handles fill-in-the-blank questions in the quiz application. This section provides an in-depth overview of its design, implementation details, and the reasoning behind key design choices.
-
-#### Feature Overview
-The `FillInTheBlank` class represents a fill-in-the-blank question, where users provide an exact text answer to complete the question. It stores the question text with a placeholder for the blank and the correct answer as a string. It includes methods to validate the user’s answer and present the question in a way that indicates where the blank is located.
-
-#### Implementation Details
-
-1. **Attributes**:
-    - `String correctAnswer`: Stores the correct answer text for the blank in the question.
-    - `String questionText`: Stores the question text with a placeholder (e.g., `The `____` keyword is used to create a new object in Java.`).
-
-2. **Constructor**:
-    - `FillInTheBlank(String questionText, String correctAnswer)`: Initializes both the question text and correct answer. The constructor ensures that `questionText` includes a blank placeholder and that `correctAnswer` is non-null and non-empty, validating that the question is properly structured.
-
-3. **Methods**:
-    - `checkAnswer(String userAnswer)`:
-      Compares the user’s answer to `correctAnswer`, ignoring case sensitivity to allow for minor capitalization differences. Throws an `IllegalArgumentException` for null or empty inputs, ensuring only valid responses are considered.
-    - `printQuestion()`:
-      Displays the question text with the blank to the user, making it clear where they need to provide an answer.
-    - `toString()`:
-      Returns a formatted string representation of the question, clearly marking it as a fill-in-the-blank question for clarity within the quiz.
-
-#### Design Rationale
-
-- **String Storage for Correct Answer**: The answer is stored as a string to allow precise text matching, which is necessary for fill-in-the-blank questions. This simplifies checking whether the user's input matches the correct answer exactly (or approximately, if extended to support partial matching).
-- **Input Validation in `checkAnswer`**: By ensuring only non-null, non-empty strings are accepted as answers, `checkAnswer` reduces the risk of invalid input and enhances robustness.
-- **Placeholder in Question Text**: Using a placeholder (e.g., `"_____"`) in the question text makes it clear to users where they should mentally "fill in the blank," improving usability.
-
-#### Alternative Considerations
-
-1. **Implementing Case-Sensitive Comparison**: An initial approach was to use case-sensitive comparison for `checkAnswer`, but it was modified to ignore case for a more forgiving user experience.
-2. **Approximate Matching for Answers**: To increase flexibility, an alternative approach could involve approximate matching, allowing answers that closely resemble the correct answer to be accepted (e.g., `"paris"` vs. `"Paris"`). This would, however, add complexity to the validation process and was ultimately deemed unnecessary for this basic implementation.
-
-#### UML Class Diagram
-
-![FillInTheBlank UML Class Diagram](https://github.com/YubotKwng/tp/blob/e3358e1cc869012c202864071fbb75f2f8261712/docs/UML/FITBClassDiagram.png)
-
-The diagram illustrates the `FillInTheBlank` class with its attributes and methods, and its inheritance relationship with the `Question` superclass. This setup allows `FillInTheBlank` to share common functionality with other question types while implementing unique behavior specific to fill-in-the-blank questions.
-
-### Topic Class Implementation
-The `Topic` class is responsible for organizing questions under specific programming topics in the quiz application. It allows for modular storage of questions, making it easy for users to select topics and for developers to manage quiz content.
-
-#### **Feature Overview**
-The `Topic` class encapsulates a programming topic along with its related questions. It helps in grouping relevant questions, enabling quizzes to be topic-based, and provides essential methods to add and access questions within each topic.
-
-#### **Implementation Details**
-
-1. **Attributes**:
-    - `String name`: Stores the name of the topic.
-    - `List<Question> questions`: Holds a list of questions related to this topic.
-
-2. **Constructor**:
-    - `Topic(String name)`:  
-      Initializes the topic with a specified name and creates an empty list to hold its questions. Ensures that the `name` is non-null to prevent invalid topics.
-
-3. **Methods**:
-    - `addQuestion(Question question)`:  
-      Adds a `Question` object to the topic’s question list.
-    - `List<Question> getQuestions()`:  
-      Returns the list of questions under the topic.
-    - `String getName()`:  
-      Returns the name of the topic as a string.
-
-#### **Design Rationale**
-
-- **Encapsulation**: Storing questions inside a `Topic` object allows better separation of concerns and makes the quiz system more modular and extendable.
-- **Modularity for Scalability**: Organizing questions by topics makes the quiz system scalable, as more topics and questions can be easily added.
-- **Single Responsibility Principle (SRP)**: The `Topic` class focuses only on managing a single topic and its related questions, adhering to SRP.
-
-#### **Alternative Considerations**
-
-1. **Global List for Questions**:
-    - *Drawback*: Having a global list would make it harder to categorize questions logically and efficiently.
-
-2. **Direct Integration into QuizManager**:
-    - *Drawback*: This would tightly couple topic management with quiz functionality, making the code harder to maintain and less reusable.
-
-#### UML Class Diagram
-Below is the class diagram for the `Topic` class, illustrating its attributes and methods.
-![Topic Class Diagram](https://github.com/naveen42x/tp/blob/dg/docs/UML/TopicClasDiagram.png?raw=true)
-
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+#### `QuizSession` sequence diagram with `select loops`: 
+![QuizSessionSequenceDiagram](https://github.com/user-attachments/assets/c2eb232d-f03c-46ff-b457-e5a4a179c95f)
 
 ## Product scope
 ### Target user profile
 
-Beginner programmers looking to improve their proficiency in Java and command-line skills.
+This tool is designed for beginner programmers who want to enhance their skills in Java programming and command-line operations. Ideal for those who have a basic understanding of coding concepts but are looking for practical, hands-on experience to build confidence and proficiency in these areas.
+
 
 ### Value proposition
 
@@ -255,10 +182,22 @@ This tool will offer an interactive learning experience through a series of task
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ...              | I want to ...                                      | So that I can ...                                         | Notes                              |
+|---------|-----------------------|----------------------------------------------------|-----------------------------------------------------------|-------------------------------------|
+| v1.0    | user                  | see usage instructions                             | learn how to use the app                                  | can be displayed on app open       |
+| v1.1    | user                  | take quizzes on Java fundamentals                  | test my knowledge and practice programming concepts       |                                     |
+| v1.2    | user                  | see my quiz score at the end of the quiz           | track my progress and improve                             |                                     |
+| v2.0    | user                  | receive feedback after each quiz question          | understand the correct answer and learn from my mistakes  |                                     |
+| v2.1    | user                  | access a review mode after completing a quiz       | go through all the questions again with detailed explanations |                         |
+| v2.0    | user                  | practice different CS topics individually (e.g., OOP, data structures, algorithms) | focus on weak areas and strengthen my knowledge |               |
+| v2.0    | user                  | keep track of my quiz history                      | monitor my improvement over time and revisit past mistakes |                                     |
+| v2.0    | user                  | attempt timed quizzes                              | simulate real exam conditions and manage my time efficiently |                                |
+| v2.0    | user                  | exit the quiz at any point                         | take a break or do something else                         |                                     |
+| v2.1    | busy user on the move | save the progress of my quiz                       | revisit the quiz once more                                |                                     |
+| v2.0    | user                  | see the correct answer to quiz questions           | learn and improve                                         |                                     |
+| v1.0    | user                  | submit quiz                                        | complete the assessment                                   |                                     |
+| v2.0    | user                  | take quizzes in MCQ or true/false format           | get used to typing out answers                            |                                     |
+| v2.0    | user                  | take quizzes in FITB format                        | be exposed to multiple formats of assessment              |                                     |
 
 ## Non-Functional Requirements
 
@@ -269,14 +208,120 @@ This tool will offer an interactive learning experience through a series of task
 
 ## Glossary
 
-* *glossary item* - Definition
+- All definitions are self explanatory
 
 ## Instructions for manual testing
+> **Note**: These test cases provide a starting point. Testers are encouraged to perform additional exploratory testing.
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+---
 
-### Manual Testing
-View the [User Guide](https://AY2425S1-CS2113-W12-4.github.io/tp/UserGuide.html) for the full list of UI commands and their related use case and expected outcomes.
+### 1. Start Java Ninja Quiz Application
+1. Launch the application by following the steps in the [Quick Start Guide](UserGuide.md#quick-start).
+2. **Expected**: A welcome message appears on the terminal, prompting for user input.
+
+---
+
+### 2. Test Cases
+
+#### 2.1 Initial Commands
+* **2.1.1 View Commands List**
+    * **Test Case**: `help`
+    * **Expected**: Displays a list of available commands with brief descriptions.
+
+* **2.1.2 View Topics**
+    * **Test Case**: `view`
+    * **Expected**: Lists all quiz topics available for selection, such as loops, conditionals, and data types.
+
+---
+
+#### 2.2 Select a Quiz Topic and Start Quiz
+* **2.2.1 Start Quiz with Valid Topic**
+    * **Prerequisites**: None
+    * **Test Case**: `select loops`
+    * **Expected**: Prompts the user to enter a time limit and number of questions for the quiz.
+
+* **2.2.2 Start Quiz with Invalid Topic**
+    * **Prerequisites**: None
+    * **Test Case**: `select invalidtopic`
+    * **Expected**: Error message indicating that the specified topic is not available.
+
+---
+
+#### 2.3 Taking a Quiz
+* **2.3.1 Answer Quiz Questions**
+    * **Prerequisites**: Quiz must be in progress.
+    * **Test Case**: Respond to questions in the quiz with valid answers.
+    * **Expected**: Each answer is processed, and the quiz proceeds to the next question.
+
+* **2.3.2 Exit Quiz Early**
+    * **Prerequisites**: Quiz must be in progress.
+    * **Test Case**: `exit`
+    * **Expected**: Quiz ends immediately with a message confirming the early exit.
+
+* **2.3.3 Automatic Quiz End**
+    * **Prerequisites**: Set a time limit and question limit.
+    * **Test Case**: Allow the quiz to reach the time or question limit.
+    * **Expected**: Quiz ends automatically when the limit is reached, and the score is displayed.
+
+---
+
+#### 2.4 Add a Custom Question
+* **2.4.1 Add Valid Flashcard Question**
+    * **Prerequisites**: None
+    * **Test Case**: `add Flashcard /q What is the Java keyword to define a class? /a class`
+    * **Expected**: Confirmation message indicating that the flashcard was added successfully.
+
+* **2.4.2 Add Flashcard Question with Invalid Format**
+    * **Prerequisites**: None
+    * **Test Case 1**: `add Flashcard /q Invalid format`
+    * **Test Case 2**: `add Flashcard`
+    * **Expected**: Error message indicating that the correct format is required.
+
+---
+
+#### 2.5 Reviewing Past Results
+* **2.5.1 View Past Quiz Results**
+    * **Prerequisites**: At least one quiz completed in the session.
+    * **Test Case**: `review`
+    * **Expected**: Displays a summary of past quiz scores and feedback.
+
+* **2.5.2 View Results with No Quiz History**
+    * **Prerequisites**: No quizzes taken in the current session.
+    * **Test Case**: `review`
+    * **Expected**: Message indicating that no quiz history is available.
+
+---
+
+#### 2.6 Get Help Information
+* **2.6.1 View Help for All Commands**
+    * **Prerequisites**: None
+    * **Test Case**: `help`
+    * **Expected**: Displays descriptions of all available commands.
+
+* **2.6.2 View Help for Specific Command**
+    * **Prerequisites**: None
+    * **Test Case**: `help select`
+    * **Expected**: Displays detailed information about the `select` command.
+
+---
+
+#### 2.7 Exiting the Application
+* **2.7.1 Exit the Application Mid-Session**
+    * **Prerequisites**: None
+    * **Test Case**: `quit`
+    * **Expected**: Program terminates with a goodbye message.
+
+* **2.7.2 Exit Application During Quiz**
+    * **Prerequisites**: Quiz in progress.
+    * **Test Case**: `quit`
+    * **Expected**: Program terminates immediately, ending the quiz and returning to the command line.
+
+---
+
+### Additional Notes for Testers
+- Test various scenarios for each command, including edge cases.
+- Verify error handling for invalid input formats, such as incorrect command syntax or unsupported topics.
+- Ensure that the feedback provided to users is clear, concise, and informative.
 
 ### JUnit Testing
 JUnit tests are written in the subdirectory `test` and serve to test key methods part of the application.

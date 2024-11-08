@@ -1,26 +1,27 @@
 @startuml
 
-autoactivate on
-
 actor User
 
 participant ":Cli" as CLI
 participant ":Parser" as P
 participant ":QuizManager" as QM
 
+activate CLI
 User -> CLI : readInput() (e.g., "select Loops")
 CLI -> P : determineCommand("select Loops")
 deactivate CLI
+
+activate P
 P -> P : processCommand("select Loops")
+activate P
 return
+
 P -> QM : selectTopic("Loops")
 deactivate P
+
+activate QM
 QM -> QM : Starts Quiz on "Loops"
 QM -> User : Quiz Start on Loops
-
-deactivate CLI
 deactivate QM
-deactivate P
-deactivate CLI
 
 @enduml
