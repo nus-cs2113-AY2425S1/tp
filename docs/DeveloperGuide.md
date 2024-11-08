@@ -224,4 +224,24 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 -->
 
 ## Instructions for Manual Testing
-{Provide instructions on how to conduct manual product testing, e.g., how to load sample data to be used for testing.}
+### 1. Start SpendSwift
+Follow the Quick Start instructions in the [User Guide](UserGuide.md).
+   
+#### 1.1 No Data File
+Expected Outcome:  
+
+![No Data File](developerguidepictures/No%20Data%20File.png)
+
+#### 1.2 Data File Present
+Expected Outcome:  
+
+![Data File](developerguidepictures/Data%20File.png)
+
+### 3. End SpendSwift
+Prerequisite: None
+
+Test Case: `bye`
+
+Expected Outcome:  
+
+![Bye](developerguidepictures/bye.png)
