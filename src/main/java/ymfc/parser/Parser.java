@@ -171,7 +171,8 @@ public final class Parser {
      * @return AddIngredientCommand object containing the proper input parameters
      * @throws InvalidSaveLineException If the save line is of an improper format
      */
-    public static AddIngredientCommand parseIngredientSaveLine(String saveIngredientString) throws InvalidSaveLineException {
+    public static AddIngredientCommand parseIngredientSaveLine(String saveIngredientString)
+            throws InvalidSaveLineException {
         Matcher m = GENERIC_FORMAT.matcher(saveIngredientString);
         if (!m.matches()) {
             throw new InvalidSaveLineException("Invalid line found in Ingredient save file: "
