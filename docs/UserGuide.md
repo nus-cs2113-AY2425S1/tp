@@ -38,7 +38,7 @@ Progress is restored when FinanceBuddy is started up each time.
 2. Download the latest version of `FinanceBuddy` [here](https://github.com/AY2425S1-CS2113-W14-3/tp/releases).
 3. Download the `.jar` file and save it on the computer.
 4. In the directory where the jar file is saved, open Terminal.
-5. In Terminal, run `java -jar [filename].jar`.
+5. In Terminal, run `java -jar FinanceBuddy.jar`.
 6. Happy logging!
 
 ## Features
