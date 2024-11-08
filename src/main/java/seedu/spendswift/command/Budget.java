@@ -1,6 +1,8 @@
 package seedu.spendswift.command;
 
 import seedu.spendswift.Format;
+import java.io.IOException;
+
 
 //@@author MayFairMI6
 public class Budget {
