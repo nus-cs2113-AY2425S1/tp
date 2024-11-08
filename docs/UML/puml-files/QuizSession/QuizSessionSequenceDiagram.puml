@@ -1,0 +1,37 @@
+@startuml
+
+actor User
+
+participant ":Cli" as CLI
+participant ":QuizSession" as QS
+participant ":Quiz" as Q
+
+User -> CLI : readInput("select Loops")
+activate CLI
+CLI -> QS : startQuiz()
+activate QS
+QS -> CLI : "Set a time limit for the quiz"
+CLI -> User : display message
+User -> CLI : enter time limit in seconds
+CLI --> QS : return timeLimitInSeconds
+
+QS -> CLI : "Enter the number of questions"
+CLI -> User : display message
+User -> CLI : enter question limit
+CLI --> QS : return questionLimit
+
+QS -> Q : new Quiz(cli)
+activate Q
+QS -> Q : start(timeLimitInSeconds, questionLimit)
+Q -> CLI : "Quiz starting... Answer the questions"
+CLI -> User : display questions and handle input
+
+Q --> QS : return quiz score
+deactivate Q
+QS -> CLI : printMessage("Quiz finished. Your score is X%")
+CLI -> User : display final score
+
+deactivate QS
+deactivate CLI
+
+@enduml
