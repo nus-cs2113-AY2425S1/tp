@@ -16,7 +16,7 @@ public class Budget {
         this.limit = limit;
         this.trackerData= trackerData;
         this.homeCurrency= homeCurrency;
-         try {
+        try {
             this.currencyConverter = new CurrencyConverter(homeCurrency);
         } catch (IOException e) {
             e.printStackTrace();
