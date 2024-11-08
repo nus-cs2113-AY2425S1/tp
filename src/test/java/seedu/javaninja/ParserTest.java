@@ -22,25 +22,20 @@ class ParserTest {
 
     @BeforeEach
     public void setUp() {
-        // Simulated input for the Cli class
         String simulatedUserInput = "Sample input\n";
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedUserInput.getBytes());
 
-        // Initialize Cli with ByteArrayInputStream for simulated input
         cli = new Cli(inputStream);
         quizManager = new QuizManager(cli);
 
-        // Capture the printed output for verification
         outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
-        // Initialize the Parser with real dependencies
         parser = new Parser(quizManager, cli);
     }
 
     @Test
     public void determineCommand_viewCommand_displaysAvailableTopics() throws IOException {
-        // Add sample topics to QuizManager for the test
         quizManager.getTopicManager().addTopic(new Topic("Java Basics"));
         quizManager.getTopicManager().addTopic(new Topic("Data Structures"));
 
@@ -56,7 +51,6 @@ class ParserTest {
 
     @Test
     public void determineCommand_selectCommandWithTopic_verifiesQuizExecution() throws IOException {
-        // Add a topic to ensure it can be selected
         quizManager.getTopicManager().addTopic(new Topic("Java Basics"));
 
         // Simulate "select Java Basics" command

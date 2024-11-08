@@ -20,6 +20,10 @@ public class TopicManager {
     private List<Topic> topics;
     private Cli cli;
 
+    /**
+     * Constructs a TopicManager object, initializing the topic list, storage paths, and Cli.
+     * @param cli The Cli instance used for user interaction.
+     */
     public TopicManager(Cli cli) {
         this.topics = new ArrayList<>();
         this.questions = new Storage(QUESTIONS_FILE_PATH);
@@ -27,6 +31,11 @@ public class TopicManager {
         this.cli = cli;
     }
 
+    /**
+     * Retrieves an existing topic by name or creates a new one if it doesn't exist.
+     * @param topicName The name of the topic to retrieve or create.
+     * @return The retrieved or newly created Topic object.
+     */
     public Topic getOrCreateTopic(String topicName) {
         for (Topic topic : topics) {
             if (topic.getName().equals(topicName)) {
@@ -38,6 +47,11 @@ public class TopicManager {
         return newTopic;
     }
 
+    /**
+     * Retrieves a topic by name.
+     * @param topicName The name of the topic to retrieve.
+     * @return The Topic object if found; otherwise, null.
+     */
     public Topic getTopic(String topicName) {
         for (Topic topic : topics) {
             if (topic.getName().equalsIgnoreCase(topicName)) {
@@ -47,6 +61,10 @@ public class TopicManager {
         return null;
     }
 
+    /**
+     * Adds a topic to the list if it doesn't already exist.
+     * @param topic The Topic object to add.
+     */
     public void addTopic(Topic topic) {
         if (topic == null) {
             logger.warning("Cannot add a null topic.");
@@ -60,6 +78,10 @@ public class TopicManager {
         }
     }
 
+    /**
+     * Retrieves the names of all topics as a list.
+     * @return A list of topic names.
+     */
     public List<String> getTopicNames() {
         List<String> topicNames = new ArrayList<>();
         for (Topic topic : topics) {
@@ -68,6 +90,10 @@ public class TopicManager {
         return topicNames;
     }
 
+    /**
+     * Adds a flashcard question from user input and appends it to the flashcards topic.
+     * @param input The input string containing the flashcard command and details.
+     */
     public void addFlashcardByUser(String input) {
         if (!input.startsWith("add Flashcards") || !input.contains("/q") || !input.contains("/a")) {
             cli.printMessage("Invalid command format. Use: add Flashcards /q [question] /a [answer]");
@@ -94,6 +120,10 @@ public class TopicManager {
         cli.printMessage("Added flashcard: " + "Q: " + questionText + " A: " + correctAnswer);
     }
 
+    /**
+     * Checks if flashcards are saved and attempts to save them if necessary.
+     * @return True if flashcards are saved successfully; false otherwise.
+     */
     public boolean isFlashcardsSaved () {
         Topic flashcardsTopic = getTopic("Flashcards");
 
@@ -127,6 +157,9 @@ public class TopicManager {
 
     }
 
+    /**
+     * Loads questions from the storage file and parses them into topics.
+     */
     public void loadQuestions() {
         try {
             List<String> questionData = questions.loadData();
@@ -140,6 +173,9 @@ public class TopicManager {
         }
     }
 
+    /**
+     * Loads flashcards from the storage file and parses them into topics.
+     */
     public void loadFlashcards() {
         try {
             List<String> flashcardData = flashcards.loadData();
@@ -154,6 +190,10 @@ public class TopicManager {
 
     }
 
+    /**
+     * Parses a line of data to create and add a question to the corresponding topic.
+     * @param line The line of data representing a question in a specific format.
+     */
     public void parseTopic(String line) {
         String[] parts = line.split("\\|");
         if (parts.length < 4) {
