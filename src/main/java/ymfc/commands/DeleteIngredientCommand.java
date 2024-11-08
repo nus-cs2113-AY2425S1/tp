@@ -34,7 +34,7 @@ public class DeleteIngredientCommand extends Command {
 
         boolean isRemoved = ingredients.removeIngredientByName(ingredientName);
         if (isRemoved) {
-            ui.printDeletedTask(ingredientName, recipes.getCounter());
+            ui.printDeletedIngredient(ingredientName, ingredients.getCounter());
             try {
                 storage.saveIngredients(ingredients);
             } catch (IOException exception) {

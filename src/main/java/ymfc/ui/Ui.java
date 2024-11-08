@@ -204,7 +204,22 @@ public class Ui {
         System.out.println("\t  " + deletedRecipe);
         // Conditional operator to pluralize "recipe" when listCount above 1
         System.out.println("\tYou currently have " + listCount +
-                (listCount <= 1 ? " recipe" : " recipes") + " in your list.");
+                (listCount == 1 ? " recipe" : " recipes") + " in your list.");
+        System.out.println(LINE);
+    }
+
+    /**
+     * Display an ingredient that been deleted.
+     *
+     * @param deletedIngredient Ingredient that has been deleted.
+     * @param listCount Integer representing number of ingredients in the list currently.
+     */
+    public void printDeletedIngredient(String deletedIngredient, int listCount) {
+        System.out.println(LINE);
+        System.out.println("\tAww, I shall begrudgingly let go of this ingredient:");
+        System.out.println("\t  " + deletedIngredient);
+        System.out.println("\tYou currently have " + listCount +
+                (listCount == 1 ? " ingredient" : " ingredients") + " in your list.");
         System.out.println(LINE);
     }
 
