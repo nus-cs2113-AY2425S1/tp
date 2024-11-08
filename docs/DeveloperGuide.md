@@ -226,22 +226,118 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 ## Instructions for Manual Testing
 ### 1. Start SpendSwift
 Follow the Quick Start instructions in the [User Guide](UserGuide.md).
-   
-#### 1.1 No Data File
-Expected Outcome:  
 
-![No Data File](developerguidepictures/No%20Data%20File.png)
+Expected Outcome: Load data, if data file present, and welcome message on the terminal.
 
-#### 1.2 Data File Present
-Expected Outcome:  
+### 2. Test Cases
+#### 2.1 Introduction to SpendSwift
 
-![Data File](developerguidepictures/Data%20File.png)
+Test Case: `help`
+
+Expected Outcome: Prints a summarized list of possible commands in SpendSwift.
+
+#### 2.2 Adding Expenses
+##### 2.2.1 Add a Valid Expense
+
+Prerequisites: None
+
+Test Case: `add-expense n/Coffee a/5.50 c/Food`
+
+Expected Outcome: "Coffee" expense of $5.50 is added under "Food" category.
+
+##### 2.2.2 Add an Expense Without Category (Defaults to 'Uncategorized')
+
+Prerequisites: None
+
+Test Case: `add-expense n/Book a/15`
+
+Expected Outcome: "Book" expense of $15 is added under "Uncategorized".
+
+#### 2.3 Deleting Expenses
+##### 2.3.1 Delete an Existing Expense by Index
+
+Prerequisites: At least one expense added.
+
+Test Case: `delete-expense e/1`
+
+Expected Outcome: The expense at index 1 is removed.
+
+##### 2.3.2 Attempt to Delete a Non-Existing Index
+
+Prerequisites: None
+
+Test Case: `delete-expense e/100`
+
+Expected Outcome: Error message indicating an invalid index.
+
+#### 2.4 Adding and Managing Categories
+##### 2.4.1 Add a New Category
+
+Prerequisites: None
+
+Test Case: `add-category Transportation`
+
+Expected Outcome: "Transportation" category is created and available for tagging.
+
+##### 2.4.2 Tag an Expense to an Existing Category
+
+Prerequisites: At least one expense and category added.
+
+Test Case: `tag-expense e/1 c/Transportation`
+
+Expected Outcome: Expense at index 1 is tagged to "Transportation".
+
+##### 2.4.3 Tag an Expense to a Non-Existing Category
+
+Prerequisites: At least one expense added.
+
+Test Case: `tag-expense e/1 c/Luxury`
+
+Expected Outcome: Error message indicating category "Luxury" does not exist.
+
+#### 2.5 Setting and Viewing Budget Limits
+##### 2.5.1 Set Budget Limit for a Category
+
+Prerequisites: Category "Food" added.
+
+Test Case: `set-budget c/Food l/100.00`
+
+Expected Outcome: Budget of $100.00 is set for "Food", viewable in view-budget.
+
+##### 2.5.2 Set Budget for a Non-Existing Category
+
+Prerequisites: None
+
+Test Case: `set-budget c/Luxury l/100.00`
+
+Expected Outcome: Error message indicating the category does not exist.
+
+#### 2.6 Viewing Expenses and Budgets
+##### 2.6.1 View All Expenses
+
+Prerequisites: None
+
+Test Case: `view-expenses`
+
+Expected Outcome: Displays a list of all recorded expenses, categorized.
+
+##### 2.6.2 View Budget Summary for Each Category
+
+Prerequisites: Budget set for at least one category.
+Test Case: `view-budget`
+
+Expected Outcome: Displays summary of spending and remaining budget for categories with budget limits.
+
+#### 2.7 Toggle Automatic Budget Reset
+Prerequisites: None
+
+Test Case: `toggle-reset`
+
+Expected Outcome: Toggles the automatic monthly budget reset between "on" and "off".
 
 ### 3. End SpendSwift
 Prerequisite: None
 
 Test Case: `bye`
 
-Expected Outcome:  
-
-![Bye](developerguidepictures/bye.png)
+Expected Outcome: Application exits and data is saved in spendswift.txt.
