@@ -96,13 +96,22 @@ public class Ui {
         // display each patient
         System.out.println(Colors.ANSI_BLUE + "Here are the patients in your list:" + Colors.ANSI_RESET);
         List<Patient> patients = hospital.getPatients();
+
         for (int i = 0; i < patients.size(); i++) {
             Patient patient = patients.get(i);
 
-            // retrieve and display completion rate for each patient
+            // Retrieve the task list for each patient
             TaskList taskList = patient.getTaskList();
-            String completionPercentage = taskList.completionRatePercentageToString();
 
+            // Check if there are tasks in the task list
+            String completionPercentage;
+            if (taskList.getSize() == 0) {
+                completionPercentage = "No tasks available";  // No tasks
+            } else {
+                completionPercentage = taskList.completionRatePercentageToString(); // Get the completion rate as a string
+            }
+
+            // Print patient information with completion rate or no tasks
             System.out.printf("%s%d.%s %s %s [Tasks Completed: %s] %n",
                     Colors.ANSI_BLUE, i + 1, Colors.ANSI_RESET,
                     patient.getName(), patient.getFormattedTag(), completionPercentage);
@@ -118,8 +127,12 @@ public class Ui {
     public void showCompletionRate(Hospital hospital) {
         // Calculate and display the overall task completion rate
         double completionRate = hospital.calculateOverallCompletionRate();
-        System.out.printf("%s%.0f%% of all tasks are completed.%s%n", Colors.ANSI_GREEN, completionRate,
-                Colors.ANSI_RESET);
+        if (completionRate < 0) {
+            System.out.println(Colors.ANSI_GREEN + "No current tasks." + Colors.ANSI_RESET);
+        } else {
+            System.out.printf("%s%.0f%% of all tasks are completed.%s%n", Colors.ANSI_GREEN, completionRate,
+                    Colors.ANSI_RESET);
+        }
     }
 
     /**
