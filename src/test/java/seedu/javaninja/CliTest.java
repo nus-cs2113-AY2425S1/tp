@@ -36,30 +36,36 @@ class CliTest {
     public void printStartMessage_displaysCorrectOutput() {
         cli.printStartMessage();
         String printedOutput = outputStream.toString();
-        assertTrue(printedOutput.contains("Welcome to Java Ninja!"), "Output should contain the welcome message.");
-        assertTrue(printedOutput.contains("'view' to view topics"), "Output should contain the 'view' command instructions.");
+        assertTrue(printedOutput.contains("Welcome to Java Ninja!"),
+                "Output should contain the welcome message.");
+        assertTrue(printedOutput.contains("'view' to view topics"),
+                "Output should contain the 'view' command instructions.");
     }
 
     @Test
     public void printHelp_displaysHelpInstructions() {
         cli.printHelp();
         String printedOutput = outputStream.toString();
-        assertTrue(printedOutput.contains("List of available commands:"), "Output should contain the list of commands.");
-        assertTrue(printedOutput.contains("'help' - Show this help message"), "Output should contain 'help' command instructions.");
+        assertTrue(printedOutput.contains("List of available commands:"),
+                "Output should contain the list of commands.");
+        assertTrue(printedOutput.contains("'help' - Show this help message"),
+                "Output should contain 'help' command instructions.");
     }
 
     @Test
     public void printGoodByeMessage_displaysGoodbyeMessage() {
         cli.printGoodByeMessage();
         String printedOutput = outputStream.toString();
-        assertTrue(printedOutput.contains("Thank you for using Java Ninja!"), "Output should contain the goodbye message.");
+        assertTrue(printedOutput.contains("Thank you for using Java Ninja!"),
+                "Output should contain the goodbye message.");
     }
 
     @Test
     public void printMessage_displaysCustomMessage() {
         cli.printMessage("This is a test message.");
         String printedOutput = outputStream.toString();
-        assertTrue(printedOutput.contains("This is a test message."), "Output should contain the custom message.");
+        assertTrue(printedOutput.contains("This is a test message."),
+                "Output should contain the custom message.");
     }
 
     @Test
@@ -83,6 +89,7 @@ class CliTest {
     public void printEnclosure_displaysEnclosureLine() {
         cli.printEnclosure();
         String printedOutput = outputStream.toString();
-        assertTrue(printedOutput.contains("----------------------"), "Output should contain the enclosure line.");
+        assertTrue(printedOutput.contains("----------------------"),
+                "Output should contain the enclosure line.");
     }
 }
