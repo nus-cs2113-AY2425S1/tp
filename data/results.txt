@@ -12,3 +12,10 @@
  Questions Attempted: 3,
  Comment: Better luck next time!
 }
+{
+ Topic: Java Basics,
+ Score: 0%,
+ Time Limit: 10 seconds,
+ Questions Attempted: 10,
+ Comment: Better luck next time!
+}
