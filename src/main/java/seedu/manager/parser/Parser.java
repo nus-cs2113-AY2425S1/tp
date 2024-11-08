@@ -26,6 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.logging.Level.WARNING;
@@ -145,16 +146,22 @@ public class Parser {
     private static final String SPACE = " ";
     private static final String ARROW = ">";
 
-    private static final String EVENT_REGEX = "(-e|-t|-v|-u)";
-    private static final String EVENT_ATTRIBUTE_REGEX = "(-e|-name|-t|-v|-u)";
-    private static final String PARTICIPANT_REGEX = "(-p|-n|-email|-e)";
-    private static final String ITEM_REGEX = "(-m|-e)";
-    private static final String REMOVE_PARTICIPANT_REGEX = "(-p|-e)";
-    private static final String MARK_EVENT_REGEX = "-e|-s";
-    private static final String MARK_PARTICIPANT_REGEX = "-p|-e|-s";
-    private static final String FIND_REGEX = "\\s*(-e|-p)\\s*";
-    private static final String VIEW_REGEX = "(-e|-y)";
-    private static final String MARK_ITEM_REGEX = "-m|-e|-s";
+    private static final String ADD_EVENT_REGEX = "add\\s+-e\\s+(.*?)\\s+-t\\s+(.*?)\\s+-v\\s+(.*?)\\s+-u\\s+(.*)";
+    private static final String EDIT_EVENT_ATTRIBUTE_REGEX = "edit\\s+-e\\s+(.*?)\\s+" +
+            "-name\\s+(.*?)\\s+-t\\s+(.*?)\\s+-v\\s+(.*?)\\s+-u\\s+(.*)";
+    private static final String ADD_PARTICIPANT_REGEX = "add\\s+-p\\s+(.*?)\\s+" +
+            "-n\\s+(.*?)\\s+-email\\s+(.*?)\\s+-e\\s+(.*)";
+    private static final String EDIT_PARTICIPANT_REGEX = "edit\\s+-p\\s+(.*?)\\s+" +
+            "-n\\s+(.*?)\\s+-email\\s+(.*?)\\s+-e\\s+(.*)";
+    private static final String ADD_ITEM_REGEX = "add\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
+    private static final String REMOVE_ITEM_REGEX = "remove\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
+    private static final String EDIT_ITEM_REGEX = "edit\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
+    private static final String REMOVE_PARTICIPANT_REGEX = "remove\\s+-p\\s+(.*?)\\s+-e\\s+(.*)";
+    private static final String MARK_EVENT_REGEX = "mark\\s+-e\\s+(.*?)\\s+-s\\s+(.*)";
+    private static final String MARK_PARTICIPANT_REGEX = "mark\\s+-p\\s+(.*?)\\s+-e\\s+(.*?)\\s+-s\\s+(.*)";
+    private static final String FIND_REGEX = "find\\s+-e\\s+(.*?)\\s+-p\\s+(.*)";
+    private static final String VIEW_REGEX = "view\\s+-e\\s+(.*?)\\s+-y\\s+(.*)";
+    private static final String MARK_ITEM_REGEX = "mark\\s+-m\\s+(.*?)\\s+-e\\s+(.*?)\\s+-s\\s+(.*)";
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("\\d{8}");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+\\.[A-Za-z0-9-]+$");
 
@@ -260,14 +267,25 @@ public class Parser {
      */
     private Command getAddEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
             IllegalArgumentException {
-        String[] inputParts = input.split(EVENT_REGEX);
-        logger.info("Creating AddCommand for event with details: " +
-                inputParts[1].trim() + ", " + inputParts[2].trim() + ", " + inputParts[3].trim());
-        String eventName = inputParts[1].trim();
-        LocalDateTime eventTime = LocalDateTime.parse(inputParts[2].trim(),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        String venue = inputParts[3].trim();
-        Priority eventPriority = Priority.valueOf(inputParts[4].trim().toUpperCase());
+        Pattern pattern = Pattern.compile(ADD_EVENT_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        String eventName;
+        LocalDateTime eventTime;
+        String venue;
+        Priority eventPriority;
+
+        if (matcher.matches()) {
+            logger.info("Creating AddCommand for event with details: " +
+                    matcher.group(1).trim() + ", " + matcher.group(2).trim() + ", " + matcher.group(3).trim());
+            eventName = matcher.group(1).trim();
+            eventTime = LocalDateTime.parse(matcher.group(2).trim(),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            venue = matcher.group(3).trim();
+            eventPriority = Priority.valueOf(matcher.group(4).trim().toUpperCase());
+        } else {
+            throw new InvalidCommandException(INVALID_ADD_MESSAGE);
+        }
         return new AddCommand(eventName, eventTime, venue, eventPriority);
     }
 
@@ -281,22 +299,33 @@ public class Parser {
      * @throws InvalidCommandException   if the input phone number and email are not in the correct format.
      */
     private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
-        String[] inputParts = input.split(PARTICIPANT_REGEX);
-        logger.info("Creating AddCommand for participant with details: " +
-                inputParts[1].trim() + ", " + inputParts[2].trim());
-        String participantName = inputParts[1].trim();
-        String participantNumber = inputParts[2].trim();
-        String participantEmail = inputParts[3].trim();
-        String eventName = inputParts[4].trim();
+        Pattern pattern = Pattern.compile(ADD_PARTICIPANT_REGEX);
+        Matcher matcher = pattern.matcher(input);
 
-        if (!isValidPhoneNumber(participantNumber)) {
-            logger.log(WARNING, "Invalid phone number format");
-            throw new InvalidCommandException(INVALID_PHONE_NUMBER_MESSAGE);
-        }
+        String participantName;
+        String participantEmail;
+        String eventName;
+        String participantNumber;
 
-        if (!isValidEmail(participantEmail)) {
-            logger.log(WARNING, "Invalid email format");
-            throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
+        if (matcher.matches()) {
+            logger.info("Creating AddCommand for participant with details: " +
+                    matcher.group(1).trim() + ", " + matcher.group(2).trim());
+            participantName = matcher.group(1).trim();
+            participantNumber = matcher.group(2).trim();
+            participantEmail = matcher.group(3).trim();
+            eventName = matcher.group(4).trim();
+
+            if (!isValidPhoneNumber(participantNumber)) {
+                logger.log(WARNING, "Invalid phone number format");
+                throw new InvalidCommandException(INVALID_PHONE_NUMBER_MESSAGE);
+            }
+
+            if (!isValidEmail(participantEmail)) {
+                logger.log(WARNING, "Invalid email format");
+                throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
+            }
+        } else {
+            throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         }
 
         return new AddCommand(participantName, participantNumber, participantEmail, eventName);
@@ -311,11 +340,21 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getAddItemCommand(String input) throws IndexOutOfBoundsException {
-        String[] inputParts = input.split(ITEM_REGEX);
-        String itemName = inputParts[1].trim();
-        String eventName = inputParts[2].trim();
-        logger.info(String.format("Creating AddCommand for item with details: %s, %s", itemName,
-                eventName));
+        Pattern pattern = Pattern.compile(ADD_ITEM_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        String itemName;
+        String eventName;
+
+        if (matcher.matches()) {
+            itemName = matcher.group(1).trim();
+            eventName = matcher.group(2).trim();
+            logger.info(String.format("Creating AddCommand for item with details: %s, %s", itemName,
+                    eventName));
+        } else {
+            throw new InvalidCommandException(INVALID_ADD_MESSAGE);
+        }
+
         return new AddCommand(itemName, eventName);
     }
 
@@ -379,8 +418,14 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present in input.
      */
     private RemoveCommand getRemoveParticipantCommand(String input) throws IndexOutOfBoundsException {
-        String[] inputParts = input.split(REMOVE_PARTICIPANT_REGEX);
-        return new RemoveCommand(inputParts[1].trim(), inputParts[2].trim(), true);
+        Pattern pattern = Pattern.compile(REMOVE_PARTICIPANT_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.matches()) {
+            return new RemoveCommand(matcher.group(1).trim(), matcher.group(2).trim(), true);
+        } else {
+            throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
+        }
     }
 
     //@@author jemehgoh
@@ -392,8 +437,14 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present in input.
      */
     private RemoveCommand getRemoveItemCommand(String input) throws IndexOutOfBoundsException {
-        String[] inputParts = input.split(ITEM_REGEX);
-        return new RemoveCommand(inputParts[1].trim(), inputParts[2].trim(), false);
+        Pattern pattern = Pattern.compile(REMOVE_ITEM_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.matches()) {
+            return new RemoveCommand(matcher.group(1).trim(), matcher.group(2).trim(), false);
+        } else {
+            throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
+        }
     }
 
     /**
@@ -433,20 +484,31 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getEditParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
-        String[] inputParts = input.split(PARTICIPANT_REGEX);
-        String participantName = inputParts[1].trim();
-        String newNumber = inputParts[2].trim();
-        String newEmail = inputParts[3].trim();
-        String eventName = inputParts[4].trim();
+        Pattern pattern = Pattern.compile(EDIT_PARTICIPANT_REGEX);
+        Matcher matcher = pattern.matcher(input);
 
-        if (!isValidPhoneNumber(newNumber)) {
-            logger.log(WARNING, "Invalid phone number format");
-            throw new InvalidCommandException(INVALID_PHONE_NUMBER_MESSAGE);
-        }
+        String participantName;
+        String newNumber;
+        String newEmail;
+        String eventName;
 
-        if (!isValidEmail(newEmail)) {
-            logger.log(WARNING, "Invalid email format");
-            throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
+        if (matcher.matches()) {
+            participantName = matcher.group(1).trim();
+            newNumber = matcher.group(2).trim();
+            newEmail = matcher.group(3).trim();
+            eventName = matcher.group(4).trim();
+
+            if (!isValidPhoneNumber(newNumber)) {
+                logger.log(WARNING, "Invalid phone number format");
+                throw new InvalidCommandException(INVALID_PHONE_NUMBER_MESSAGE);
+            }
+
+            if (!isValidEmail(newEmail)) {
+                logger.log(WARNING, "Invalid email format");
+                throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
+            }
+        } else {
+            throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
         }
 
         return new EditParticipantCommand(participantName, newNumber, newEmail, eventName);
@@ -464,14 +526,25 @@ public class Parser {
      */
     private Command getEditEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
             IllegalArgumentException {
-        String[] inputParts = input.split(EVENT_ATTRIBUTE_REGEX);
+        Pattern pattern = Pattern.compile(EDIT_EVENT_ATTRIBUTE_REGEX);
+        Matcher matcher = pattern.matcher(input);
 
-        String eventName = inputParts[1].trim();
-        String eventNewName = inputParts[2].trim();
-        LocalDateTime eventTime = LocalDateTime.parse(inputParts[3].trim(),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        String eventVenue = inputParts[4].trim();
-        Priority eventPriority = Priority.valueOf(inputParts[5].trim().toUpperCase());
+        String eventName;
+        String eventNewName;
+        LocalDateTime eventTime;
+        Priority eventPriority;
+        String eventVenue;
+
+        if (matcher.matches()) {
+            eventName = matcher.group(1).trim();
+            eventNewName = matcher.group(2).trim();
+            eventTime = LocalDateTime.parse(matcher.group(3).trim(),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            eventVenue = matcher.group(4).trim();
+            eventPriority = Priority.valueOf(matcher.group(5).trim().toUpperCase());
+        } else {
+            throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
+        }
 
         return new EditEventCommand(eventName, eventNewName, eventTime, eventVenue, eventPriority);
     }
@@ -485,10 +558,20 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getEditItemCommand(String input) {
-        String[] inputParts = input.split(ITEM_REGEX);
-        String itemName = inputParts[1].split(ARROW)[0].trim();
-        String itemNewName = inputParts[1].split(ARROW)[1].trim();
-        String eventName = inputParts[2].trim();
+        Pattern pattern = Pattern.compile(EDIT_ITEM_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        String itemName;
+        String itemNewName;
+        String eventName;
+
+        if (matcher.matches()) {
+            itemName = matcher.group(1).split(ARROW)[0].trim();
+            itemNewName = matcher.group(1).split(ARROW)[1].trim();
+            eventName = matcher.group(2).trim();
+        } else {
+            throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
+        }
         return new EditItemCommand(itemName, itemNewName, eventName);
     }
 
@@ -555,15 +638,22 @@ public class Parser {
      * @throws InvalidCommandException   if the status parameter in input is invalid.
      */
     private ViewCommand getViewCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
-        String[] inputParts = input.split(VIEW_REGEX);
-        String eventName = inputParts[1].trim();
-        String viewType = inputParts[2].trim();
-        if (viewType.equalsIgnoreCase("participant")) {
-            return new ViewCommand(eventName, true);
-        } else if (viewType.equalsIgnoreCase("item")) {
-            return new ViewCommand(eventName, false);
+        Pattern pattern = Pattern.compile(VIEW_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.matches()) {
+            String eventName = matcher.group(1).trim();
+            String viewType = matcher.group(2).trim();
+
+            if (viewType.equalsIgnoreCase("participant")) {
+                return new ViewCommand(eventName, true);
+            } else if (viewType.equalsIgnoreCase("item")) {
+                return new ViewCommand(eventName, false);
+            } else {
+                throw new InvalidCommandException(INVALID_TYPE_MESSAGE);
+            }
         } else {
-            throw new InvalidCommandException(INVALID_TYPE_MESSAGE);
+            throw new InvalidCommandException(INVALID_VIEW_MESSAGE);
         }
     }
 
@@ -605,9 +695,18 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getMarkEventCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
-        String[] inputParts = input.split(MARK_EVENT_REGEX);
-        String eventName = inputParts[1].trim();
-        boolean isToMark = toMarkEvent(inputParts[2].trim());
+        Pattern pattern = Pattern.compile(MARK_EVENT_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        String eventName;
+        boolean isToMark;
+
+        if (matcher.matches()) {
+            eventName = matcher.group(1).trim();
+            isToMark = toMarkEvent(matcher.group(2).trim());
+        } else {
+            throw new InvalidCommandException(INVALID_MARK_MESSAGE);
+        }
 
         return new MarkEventCommand(eventName, isToMark);
     }
@@ -639,10 +738,20 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getMarkParticipantCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
-        String[] inputParts = input.split(MARK_PARTICIPANT_REGEX);
-        String participantName = inputParts[1].trim();
-        String eventName = inputParts[2].trim();
-        boolean isToMark = toMarkParticipant(inputParts[3].trim());
+        Pattern pattern = Pattern.compile(MARK_PARTICIPANT_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        String participantName;
+        String eventName;
+        boolean isToMark;
+
+        if (matcher.matches()) {
+            participantName = matcher.group(1).trim();
+            eventName = matcher.group(2).trim();
+            isToMark = toMarkParticipant(matcher.group(3).trim());
+        } else {
+            throw new InvalidCommandException(INVALID_MARK_MESSAGE);
+        }
 
         return new MarkParticipantCommand(participantName, eventName, isToMark);
     }
@@ -674,10 +783,20 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getMarkItemCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
-        String[] inputParts = input.split(MARK_ITEM_REGEX);
-        String itemName = inputParts[1].trim();
-        String eventName = inputParts[2].trim();
-        boolean isToMark = toMarkItem(inputParts[3].trim());
+        Pattern pattern = Pattern.compile(MARK_ITEM_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        String itemName;
+        String eventName;
+        boolean isToMark;
+
+        if (matcher.matches()) {
+            itemName = matcher.group(1).trim();
+            eventName = matcher.group(2).trim();
+            isToMark = toMarkItem(matcher.group(3).trim());
+        } else {
+            throw new InvalidCommandException(INVALID_MARK_MESSAGE);
+        }
 
         return new MarkItemCommand(itemName, eventName, isToMark);
     }
@@ -810,12 +929,19 @@ public class Parser {
             throw new InvalidCommandException(INVALID_FIND_FLAG_MESSAGE);
         }
 
-        String[] inputParts = input.split(FIND_REGEX);
-        if (inputParts.length < 3 || inputParts[1].isBlank()) {
+        Pattern pattern = Pattern.compile(FIND_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.matches()) {
+            if (matcher.groupCount() < 3 || matcher.group(1).isBlank()) {
+                throw new InvalidCommandException(INVALID_FIND_MESSAGE);
+            }
+
+            return new FindCommand(matcher.group(1).trim(), matcher.group(2).trim());
+        } else {
             throw new InvalidCommandException(INVALID_FIND_MESSAGE);
         }
 
-        return new FindCommand(inputParts[1].trim(), inputParts[2].trim());
     }
 
     //@@author jemehgoh
