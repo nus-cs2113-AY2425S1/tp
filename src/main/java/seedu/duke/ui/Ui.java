@@ -106,9 +106,9 @@ public class Ui {
             // Check if there are tasks in the task list
             String completionPercentage;
             if (taskList.getSize() == 0) {
-                completionPercentage = "No tasks available";  // No tasks
+                completionPercentage = "No tasks available";
             } else {
-                completionPercentage = taskList.completionRatePercentageToString(); // Get the completion rate as a string
+                completionPercentage = taskList.completionRatePercentageToString();
             }
 
             // Print patient information with completion rate or no tasks
