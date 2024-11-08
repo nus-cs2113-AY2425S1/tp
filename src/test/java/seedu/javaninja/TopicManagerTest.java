@@ -106,4 +106,3 @@ class TopicManagerTest {
         assertNotNull(flashcardTopic, "Flashcards topic should be loaded and added.");
     }
 }
-
