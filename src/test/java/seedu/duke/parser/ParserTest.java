@@ -162,7 +162,7 @@ public class ParserTest {
      */
 
     @Test
-    public void parseCommandSelect() {
+    public void parseCommandSelect() throws IllegalValueException {
         State mainState = new State(StateType.MAIN_STATE);
         Command returnedCommand = new SelectParser().execute("select 0", mainState);
         assertNotNull(returnedCommand);

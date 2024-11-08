@@ -90,6 +90,9 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Select Command Error: Non-Numerical Error");
+            } catch (IllegalValueException e) {
+                Ui.showToUserException(e.getMessage());
+                LOGGER.log(Level.WARNING, "Select Command Error: {0}", e.getMessage());
             }
             break;
 
