@@ -103,7 +103,7 @@ public class Logic {
         try {
             return Double.parseDouble(amountStr);
         } catch (NumberFormatException e) {
-            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
         } catch (NullPointerException e) {
             throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
         }
