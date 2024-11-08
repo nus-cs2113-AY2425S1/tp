@@ -1,17 +1,15 @@
 package seedu.duke.parser.parserutils;
 
 import seedu.duke.data.exception.DateParseException;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import static seedu.duke.ui.Ui.showToUserException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static seedu.duke.ui.Ui.showToUserException;
 
 /**
  * Utility class for date and time parsing and validation. Converts dates, times, or date-times
@@ -45,27 +43,22 @@ public class DateFormat {
      */
     public static String validateAndParseToStandardFormat(String dateStr) throws DateParseException {
         try {
-            String parsedDateStr = parseToStandardFormat(dateStr);
+            LocalDateTime dateTime = parseToStandardFormat(dateStr);
 
-            if (parsedDateStr.matches("\\d{2}-[A-Za-z]{3}-\\d{4}")) {  // Date-only format
-                LocalDate parsedDate = LocalDate.parse(parsedDateStr, STANDARD_DATE_FORMAT);
-                if (parsedDate.isBefore(LocalDate.now())) {
-                    throw new DateParseException("The deadline date is in the past: " + parsedDateStr);
-                }
-            } else if (parsedDateStr.matches("\\d{2}-[A-Za-z]{3}-\\d{4} \\d{2}:\\d{2}")) {  // Date-time format
-                LocalDateTime parsedDateTime = LocalDateTime.parse(parsedDateStr, STANDARD_DATE_TIME_FORMAT);
-                if (parsedDateTime.isBefore(LocalDateTime.now())) {
-                    throw new DateParseException("The deadline date-time is in the past: " + parsedDateStr);
-                }
-            } else {
-                throw new DateParseException("Unrecognized date/time format: " + dateStr);
+            // Check if the parsed date-time is in the past.
+            if (dateTime.isBefore(LocalDateTime.now())) {
+                showToUserException("The deadline date/time is in the past: "
+                        + dateTime.format(STANDARD_DATE_TIME_FORMAT));
+                throw new DateParseException("The deadline date/time is in the past: "
+                        + dateTime.format(STANDARD_DATE_TIME_FORMAT));
             }
 
-            return parsedDateStr;
+            return dateTime.format(STANDARD_DATE_TIME_FORMAT);
 
         } catch (DateTimeParseException e) {
+            showToUserException("Failed to parse date/time:" + dateStr);
             LOGGER.log(Level.SEVERE, "Failed to parse date/time: {0}", dateStr);
-            throw new DateParseException("Invalid date/time format: " + dateStr);
+            throw new DateParseException(MESSAGE_INVALID_DATE_INPUT);
         }
     }
 
@@ -74,40 +67,30 @@ public class DateFormat {
      * Supports relative terms like "today", "tomorrow", "yesterday", and day names.
      *
      * @param dateStr the input date, time, or date-time string
-     * @return the formatted date/time string in the appropriate standard format
+     * @return the parsed LocalDateTime object in standard format
      * @throws DateParseException if the format is unrecognized or invalid
      */
-    public static String parseToStandardFormat(String dateStr) throws DateParseException {
-        try {
-            if (isRelativeOrDayOfWeek(dateStr)) {
-                return parseRelativeOrDayOfWeek(dateStr);
-            }
-
-            LocalDate date = tryParseDate(dateStr);
-            if (date != null) {
-                return date.format(STANDARD_DATE_FORMAT) + " 23:59";
-            }
-
-            LocalTime time = tryParseTime(dateStr);
-            if (time != null) {
-                LocalDateTime dateTime = LocalDateTime.of(LocalDate.now(), time);
-                return dateTime.format(STANDARD_DATE_TIME_FORMAT);
-            }
-
-            LocalDateTime dateTime = tryParseDateTime(dateStr);
-            if (dateTime != null) {
-                return dateTime.format(STANDARD_DATE_TIME_FORMAT);
-            }
-
-        } catch (DateTimeParseException e) {
-            LOGGER.log(Level.SEVERE, "Failed to parse date/time: Unrecognized or invalid format for input: {0}",
-                    dateStr);
-            throw new DateParseException("Unrecognized or invalid date/time format: " + dateStr);
+    public static LocalDateTime parseToStandardFormat(String dateStr) throws DateParseException {
+        if (isRelativeOrDayOfWeek(dateStr)) {
+            return LocalDateTime.parse(parseRelativeOrDayOfWeek(dateStr), STANDARD_DATE_TIME_FORMAT);
         }
 
-        LOGGER.log(Level.SEVERE, "Failed to parse date/time: Unrecognized or invalid format for input: {0}",
-                dateStr);
-        throw new DateParseException("Unrecognized or invalid date/time format: " + dateStr);
+        LocalDateTime dateTime = tryParseDateTime(dateStr);
+        if (dateTime != null) {
+            return dateTime;
+        }
+
+        LocalDate date = tryParseDate(dateStr);
+        if (date != null) {
+            return date.atTime(23, 59);  // If date-only, add 23:59 as default time
+        }
+
+        LocalTime time = tryParseTime(dateStr);
+        if (time != null) {
+            return LocalDateTime.of(LocalDate.now(), time);  // If time-only, add current date
+        }
+        showToUserException(MESSAGE_INVALID_DATE_INPUT);
+        throw new DateParseException(MESSAGE_INVALID_DATE_INPUT);
     }
 
     /**
@@ -146,6 +129,7 @@ public class DateFormat {
             if (targetDay != null) {
                 date = calculateNextOccurrenceOfDay(targetDay);
             } else {
+                showToUserException("Invalid relative date or day of the week: " + dateStr);
                 throw new IllegalArgumentException("Invalid relative date or day of the week: " + dateStr);
             }
         }
@@ -153,31 +137,20 @@ public class DateFormat {
     }
 
     /**
-     * Parses a string to a DayOfWeek enum value (e.g., "Monday" to DayOfWeek.MONDAY).
+     * Tries to parse the input string as a time using known time formats from TimeFormats enum.
      *
-     * @param dayName the name of the day
-     * @return the DayOfWeek enum value, or null if invalid
+     * @param timeStr the input time string
+     * @return the parsed LocalTime, or null if parsing fails
      */
-    private static DayOfWeek parseDayOfWeek(String dayName) {
-        try {
-            return DayOfWeek.valueOf(dayName.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            showToUserException(MESSAGE_INVALID_DATE_INPUT);
-            return null;
+    private static LocalTime tryParseTime(String timeStr) {
+        for (TimeFormats format : TimeFormats.values()) {
+            try {
+                return LocalTime.parse(timeStr, format.getFormatter());
+            } catch (DateTimeParseException e) {
+                // Continue to the next format if parsing fails
+            }
         }
-    }
-
-    /**
-     * Calculates the next occurrence of the specified day of the week.
-     * If today is the specified day, returns today's date.
-     *
-     * @param targetDay the target day of the week
-     * @return the next occurrence of the target day
-     */
-    private static LocalDate calculateNextOccurrenceOfDay(DayOfWeek targetDay) {
-        LocalDate today = LocalDate.now();
-        int daysUntilNext = (targetDay.getValue() - today.getDayOfWeek().getValue() + 7) % 7;
-        return today.plusDays(daysUntilNext);
+        return null;
     }
 
     /**
@@ -190,23 +163,6 @@ public class DateFormat {
         for (DateFormats format : DateFormats.values()) {
             try {
                 return LocalDate.parse(dateStr, format.getFormatter());
-            } catch (DateTimeParseException e) {
-                // Continue to the next format if parsing fails
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Tries to parse the input string as a time using known time formats.
-     *
-     * @param timeStr the input time string
-     * @return the parsed LocalTime, or null if parsing fails
-     */
-    private static LocalTime tryParseTime(String timeStr) {
-        for (TimeFormats format : TimeFormats.values()) {
-            try {
-                return LocalTime.parse(timeStr, format.getFormatter());
             } catch (DateTimeParseException e) {
                 // Continue to the next format if parsing fails
             }
@@ -229,5 +185,32 @@ public class DateFormat {
             }
         }
         return null;
+    }
+
+    /**
+     * Parses a string to a DayOfWeek enum value (e.g., "Monday" to DayOfWeek.MONDAY).
+     *
+     * @param dayName the name of the day
+     * @return the DayOfWeek enum value, or null if invalid
+     */
+    private static DayOfWeek parseDayOfWeek(String dayName) {
+        try {
+            return DayOfWeek.valueOf(dayName.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Calculates the next occurrence of the specified day of the week.
+     * If today is the specified day, returns today's date.
+     *
+     * @param targetDay the target day of the week
+     * @return the next occurrence of the target day
+     */
+    private static LocalDate calculateNextOccurrenceOfDay(DayOfWeek targetDay) {
+        LocalDate today = LocalDate.now();
+        int daysUntilNext = (targetDay.getValue() - today.getDayOfWeek().getValue() + 7) % 7;
+        return today.plusDays(daysUntilNext);
     }
 }

@@ -11,6 +11,7 @@ import seedu.duke.parser.parserutils.TaskName;
 import seedu.duke.parser.parserutils.Tag;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  * Parses and executes the "add deadline" command to create a task with a deadline.
  * Implements the {@link CommandParser} interface.
@@ -37,7 +38,6 @@ public class AddDeadlineParser implements CommandParser {
                 // Parse, validate, and format the date using DateFormat
                 by = DateFormat.validateAndParseToStandardFormat(by);
             } catch (DateParseException e) {
-                // TODO: NCF3535 Add Exception
                 LOGGER.log(Level.SEVERE, "Invalid date/time format for deadline: {0}", by);
                 return null;
             }
