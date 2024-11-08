@@ -11,6 +11,10 @@ import java.util.Scanner;
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object and ensures that the directory for the file path exists.
+     * @param filePath The path to the file that the Storage class will manage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         File file = new File(filePath);
