@@ -30,6 +30,7 @@ Java Ninja is a command-line interface (CLI) learning tool focused on helping be
    - `review`: Displays a summary of quiz results.
    - `exit`: Exits the quiz, activate only while doing the quiz.
    - `quit`: Exits the program.
+   - `add Flashcards` : Adds a flashcard for your own quick revision
 6. Refer to the features below for each command.
 
 ---
@@ -75,22 +76,22 @@ Once a topic is selected, the quiz starts with questions in multiple-choice, Tru
    Enter the number of questions you want to attempt: 10
    ```
 
-### 4. Adding a Custom Question: `add Flashcard`
+### 4. Adding a Custom Question: `add Flashcards`
 Allows users to add their own quiz questions.
 
-Format: `add Flashcard /q [QUESTION] /a [ANSWER]`
+Format: `add Flashcards /q [QUESTION] /a [ANSWER]`
 
-* The `QUESITION` can be in a natural language format.
+* The `QUESTION` can be in a natural language format.
 * The `ANSWER` cannot contain punctuation.  
 
 **Example**:
 ```shell
-add Flashcard /q The keyword used to define a class is `____`. /a class
+add Flashcards /q The keyword used to define a class is `____`. /a class
 ```
 
 **Output Expected**:
 ```shell
-NIL need to add an output for this
+Added flashcard: Q: The keyword used to define a class is `____`. A: class
 ```
 
 ### 5. Reviewing Past Results: `review`
@@ -106,7 +107,13 @@ review
 **Expected Output**:
 ```shell
 Reviewing your past results:
-Score: 0%, Comment: Better luck next time!
+{
+ Topic: Loops,
+ Score: 0%,
+ Time Limit: 60 seconds,
+ Questions Attempted: 1,
+ Comment: Better luck next time!
+}
 ```
 
 
