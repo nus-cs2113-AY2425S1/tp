@@ -14,10 +14,10 @@ skinparam {
 actor User
 box Start Up COLOR_PALE_PINK
 participant ":YMFC" as Main <<class>>
-participant ":Ui" as UI
-participant ":Storage" as S
-participant ":RecipeList" as RL
-participant ":IngredientList" as IL
+participant "ui:Ui" as UI
+participant "storage:Storage" as S
+participant "recipeList:RecipeList" as RL
+participant "ingredientList:IngredientList" as IL
 participant ":Parser" as P <<class>>
 end box
 
