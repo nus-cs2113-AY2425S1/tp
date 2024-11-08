@@ -3,8 +3,6 @@ import org.junit.jupiter.api.Test;
 import seedu.javaninja.Cli;
 import seedu.javaninja.Topic;
 import seedu.javaninja.TopicManager;
-import seedu.javaninja.question.Flashcard;
-import seedu.javaninja.question.Mcq;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
