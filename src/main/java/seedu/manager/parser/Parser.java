@@ -24,6 +24,7 @@ import seedu.manager.exception.InvalidCommandException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -138,6 +139,15 @@ public class Parser {
             Invalid find flag!
             Please set the find flag using "-e" and "-p""
             """;
+    private static final String DUPLICATE_FLAG_MESSAGE = """
+            Duplicate flags found!
+            Please only use each flag once!
+            """;
+    private static final String UNRECOGNISED_FLAG_MESSAGE = """
+            Invalid flag used!
+            Please only use flags related to the command!
+            Use the 'menu' command to see which flags are allowed!
+            """;
 
     private static final String EVENT_FLAG = "-e";
     private static final String PARTICIPANT_FLAG = "-p";
@@ -145,6 +155,18 @@ public class Parser {
 
     private static final String SPACE = " ";
     private static final String ARROW = ">";
+
+    private static final String EVENT_FLAG_REGEX = "(-e|-t|-v|-u)";
+    private static final String EDIT_EVENT_ATTRIBUTE_FLAG_REGEX = "(-e|-name|-t|-v|-u)";
+    private static final String PARTICIPANT_FLAG_REGEX = "(-p|-n|-email|-e)";
+    private static final String REMOVE_PARTICIPANT_FLAG_REGEX = "(-p|-e)";
+    private static final String ITEM_FLAG_REGEX = "(-m|-e)";
+    private static final String MARK_EVENT_FLAG_REGEX = "-e|-s";
+    private static final String MARK_PARTICIPANT_FLAG_REGEX = "-p|-e|-s";
+    private static final String FIND_FLAG_REGEX = "\\s*(-e|-p)\\s*";
+    private static final String VIEW_FLAG_REGEX = "(-e|-y)";
+    private static final String MARK_ITEM_FLAG_REGEX = "-m|-e|-s";
+    private static final String REMOVE_EVENT_FLAG_REGEX = "-e";
 
     private static final String ADD_EVENT_REGEX = "add\\s+-e\\s+(.*?)\\s+-t\\s+(.*?)\\s+-v\\s+(.*?)\\s+-u\\s+(.*)";
     private static final String EDIT_EVENT_ATTRIBUTE_REGEX = "edit\\s+-e\\s+(.*?)\\s+" +
@@ -162,6 +184,7 @@ public class Parser {
     private static final String FIND_REGEX = "find\\s+-e\\s+(.*?)\\s+-p\\s+(.*)";
     private static final String VIEW_REGEX = "view\\s+-e\\s+(.*?)\\s+-y\\s+(.*)";
     private static final String MARK_ITEM_REGEX = "mark\\s+-m\\s+(.*?)\\s+-e\\s+(.*?)\\s+-s\\s+(.*)";
+    private static final String REMOVE_EVENT_REGEX = "remove\\s+-e\\s+(.*)";
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("\\d{8}");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+\\.[A-Za-z0-9-]+$");
 
@@ -267,6 +290,8 @@ public class Parser {
      */
     private Command getAddEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
             IllegalArgumentException {
+        checkForDuplicateFlags(input, EVENT_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(ADD_EVENT_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -299,6 +324,8 @@ public class Parser {
      * @throws InvalidCommandException   if the input phone number and email are not in the correct format.
      */
     private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
+        checkForDuplicateFlags(input, PARTICIPANT_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(ADD_PARTICIPANT_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -340,6 +367,8 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getAddItemCommand(String input) throws IndexOutOfBoundsException {
+        checkForDuplicateFlags(input, ITEM_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(ADD_ITEM_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -405,8 +434,16 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present in input.
      */
     private RemoveCommand getRemoveEventCommand(String input) throws IndexOutOfBoundsException {
-        String[] inputParts = input.split(EVENT_FLAG);
-        return new RemoveCommand(inputParts[1].trim());
+        checkForDuplicateFlags(input, REMOVE_EVENT_FLAG_REGEX);
+
+        Pattern pattern = Pattern.compile(REMOVE_EVENT_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.matches()) {
+            return new RemoveCommand(matcher.group(1).trim());
+        } else {
+            throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
+        }
     }
 
     //@@author LTK-1606
@@ -418,6 +455,8 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present in input.
      */
     private RemoveCommand getRemoveParticipantCommand(String input) throws IndexOutOfBoundsException {
+        checkForDuplicateFlags(input, REMOVE_PARTICIPANT_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(REMOVE_PARTICIPANT_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -437,6 +476,8 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present in input.
      */
     private RemoveCommand getRemoveItemCommand(String input) throws IndexOutOfBoundsException {
+        checkForDuplicateFlags(input, ITEM_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(REMOVE_ITEM_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -484,6 +525,8 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getEditParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
+        checkForDuplicateFlags(input, PARTICIPANT_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(EDIT_PARTICIPANT_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -526,6 +569,8 @@ public class Parser {
      */
     private Command getEditEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
             IllegalArgumentException {
+        checkForDuplicateFlags(input, EDIT_EVENT_ATTRIBUTE_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(EDIT_EVENT_ATTRIBUTE_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -558,6 +603,8 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getEditItemCommand(String input) {
+        checkForDuplicateFlags(input, ITEM_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(EDIT_ITEM_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -638,6 +685,8 @@ public class Parser {
      * @throws InvalidCommandException   if the status parameter in input is invalid.
      */
     private ViewCommand getViewCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
+        checkForDuplicateFlags(input, VIEW_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(VIEW_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -695,6 +744,8 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getMarkEventCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
+        checkForDuplicateFlags(input, MARK_EVENT_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(MARK_EVENT_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -738,6 +789,8 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getMarkParticipantCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
+        checkForDuplicateFlags(input, MARK_PARTICIPANT_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(MARK_PARTICIPANT_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -783,6 +836,8 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command getMarkItemCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
+        checkForDuplicateFlags(input, MARK_ITEM_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(MARK_ITEM_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -929,6 +984,8 @@ public class Parser {
             throw new InvalidCommandException(INVALID_FIND_FLAG_MESSAGE);
         }
 
+        checkForDuplicateFlags(input, FIND_FLAG_REGEX);
+
         Pattern pattern = Pattern.compile(FIND_REGEX);
         Matcher matcher = pattern.matcher(input);
 
@@ -967,4 +1024,33 @@ public class Parser {
             return INVALID_COMMAND_MESSAGE;
         }
     }
+
+    //@@author LTK-1606
+    /**
+     * Checks for duplicate flags in the specified input string based on the provided flag regex.
+     * <p>
+     * This method uses a regular expression pattern to match flags within the input string.
+     * If any flag appears more than once, an {@code InvalidCommandException} is thrown.
+     * </p>
+     *
+     * @param input     The input string to be checked for duplicate flags.
+     * @param flagRegex The regular expression pattern used to identify flags in the input string.
+     * @throws InvalidCommandException if a duplicate flag is found in the input string.
+     */
+    private static void checkForDuplicateFlags(String input, String flagRegex) throws InvalidCommandException {
+
+        Pattern flagPattern = Pattern.compile(flagRegex);
+        Matcher flagMatcher = flagPattern.matcher(input);
+
+        Set<String> seenFlags = new HashSet<>();
+
+        while (flagMatcher.find()) {
+            String flag = flagMatcher.group();
+
+            if (!seenFlags.add(flag)) {
+                throw new InvalidCommandException(DUPLICATE_FLAG_MESSAGE);
+            }
+        }
+    }
+
 }
