@@ -8,6 +8,7 @@ import ymfc.commands.ListIngredientCommand;
 import ymfc.exception.EmptyListException;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
+import ymfc.exception.InvalidSaveLineException;
 import ymfc.parser.Parser;
 import ymfc.list.IngredientList;
 import ymfc.list.RecipeList;
@@ -34,6 +35,8 @@ public class Storage {
      * @throws IOException If the save file cannot be properly accessed.
      */
     public void saveRecipes(RecipeList recipes) throws IOException {
+        logger.log(Level.FINEST, "Attempting to save recipes.");
+
         File dir = new File("./data");
         if (!dir.isDirectory()) {
             dir.mkdir();
@@ -48,6 +51,8 @@ public class Storage {
             }
         }
         writer.close();
+
+        logger.log(Level.FINEST, "Recipes saved.");
     }
 
     /**
@@ -57,6 +62,8 @@ public class Storage {
      * @throws IOException If the save file cannot be properly accessed.
      */
     public void saveIngredients(IngredientList ingredients) throws IOException {
+        logger.log(Level.FINEST, "Attempting to save ingredients.");
+
         File dir = new File("./data");
         if (!dir.isDirectory()) {
             dir.mkdir();
@@ -71,10 +78,13 @@ public class Storage {
             }
         }
         writer.close();
+
+        logger.log(Level.FINEST, "Ingredients saved.");
     }
 
     /**
      * Load in all the previously saved recipes from the recipes.txt save file to the RecipeList object.
+     * Saves the properly added recipes back to the save file again (to deal with faulty save lines).
      *
      * @param recipes Object containing the ArrayList of recipes to be saved.
      * @param ingredients Object for user's ingredients.
@@ -88,17 +98,17 @@ public class Storage {
             File saveFile = new File(saveRecipeFilePath);
             reader = new Scanner(saveFile);
         } catch (FileNotFoundException exception) {
-            logger.log(Level.INFO, "No recipes savefile found");
+            logger.log(Level.INFO, "No recipes save file found");
             return;
         }
 
         boolean isEmpty = true;
         while (reader.hasNext()) {
             String line = reader.nextLine();
-            isEmpty = false;
             try {
-                addRecipe(recipes, ingredients, line);
-            } catch (InvalidArgumentException | InvalidCommandException | EmptyListException exception) {
+                addRecipe(recipes, line);
+                isEmpty = false;
+            } catch (InvalidSaveLineException exception) {
                 System.out.println(exception.getMessage());
             }
         }
@@ -106,6 +116,13 @@ public class Storage {
         if (isEmpty) {
             return;
         }
+
+        try {
+            saveRecipes(recipes);
+        } catch (IOException exception) {
+            System.out.println(exception.getMessage());
+        }
+
         ListCommand lister = new ListCommand();
         lister.execute(recipes, ingredients, ui, storage);
     }
@@ -125,17 +142,17 @@ public class Storage {
             File saveFile = new File(saveIngredientFilePath);
             reader = new Scanner(saveFile);
         } catch (FileNotFoundException exception) {
-            logger.log(Level.INFO ,"No ingredients savefile found");
+            logger.log(Level.INFO ,"No ingredients save file found");
             return;
         }
 
         boolean isEmpty = true;
         while (reader.hasNext()) {
             String line = reader.nextLine();
-            isEmpty = false;
             try {
-                addIngredient(recipes, ingredients, line);
-            } catch (InvalidArgumentException | InvalidCommandException | EmptyListException exception) {
+                addIngredient(ingredients, line);
+                isEmpty = false;
+            } catch (InvalidSaveLineException exception) {
                 System.out.println(exception.getMessage());
             }
         }
@@ -143,19 +160,26 @@ public class Storage {
         if (isEmpty) {
             return;
         }
+
+        try {
+            saveIngredients(ingredients);
+        } catch (IOException exception) {
+            System.out.println(exception.getMessage());
+        }
+
         ListIngredientCommand lister = new ListIngredientCommand();
         lister.execute(recipes, ingredients, ui, storage);
     }
 
-    private void addRecipe(RecipeList recipes, IngredientList ingredients, String line)
-            throws InvalidArgumentException, InvalidCommandException, EmptyListException {
-        AddCommand command = (AddCommand) Parser.parseCommand(line, recipes, ingredients);
+    private void addRecipe(RecipeList recipes, String line)
+            throws InvalidSaveLineException {
+        AddCommand command = Parser.parseRecipeSaveLine(line);
         command.addLoadedRecipe(recipes);
     }
 
-    private void addIngredient(RecipeList recipes, IngredientList ingredients, String line)
-            throws InvalidArgumentException, InvalidCommandException, EmptyListException {
-        AddIngredientCommand command = (AddIngredientCommand) Parser.parseCommand(line, recipes, ingredients);
+    private void addIngredient(IngredientList ingredients, String line)
+            throws InvalidSaveLineException {
+        AddIngredientCommand command = Parser.parseIngredientSaveLine(line);
         command.addLoadedIngredient(ingredients);
     }
 }

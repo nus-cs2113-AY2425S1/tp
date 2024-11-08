@@ -4,6 +4,8 @@ import ymfc.list.IngredientList;
 import ymfc.list.RecipeList;
 import ymfc.storage.Storage;
 import ymfc.ui.Ui;
+
+import java.io.IOException;
 import java.util.logging.Level;
 import static ymfc.YMFC.logger;
 
@@ -27,13 +29,18 @@ public class ByeCommand extends Command {
 
     /**
      * Executes the {@code ByeCommand}, which outputs a farewell message to the user.
+     * Also saves the recipes and ingredients to the local save files.
      *
      * @param recipes The RecipeList, not used in this method.
      * @param ingredients The IngredientList. Unused in this command.
      * @param ui The Ui to interact with the user. Displays the farewell message.
      * @param storage The Storage, not used in this method.
      */
-    public void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) {
+    public void execute(RecipeList recipes, IngredientList ingredients, Ui ui, Storage storage) throws IOException {
+        storage.saveRecipes(recipes);
+
+        storage.saveIngredients(ingredients);
+
         logger.log(Level.FINEST, "Executing ByeCommand");
 
         ui.bidFarewell();
