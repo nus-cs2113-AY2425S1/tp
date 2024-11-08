@@ -133,7 +133,7 @@ Relationship:
 ![Toggle Auto Reset Sequence Diagram](diagrams/ToggleAutoReset.png)
 
 
-### Category
+<!-- ### Category
 #### Purpose
 Represents a category for expenses.
 #### Operations
@@ -183,7 +183,7 @@ Interface for command-line interactions.
 - The system starts and displays a greeting.
 - Continuously processes user commands until "bye".
 - Directly invokes methods from ExpenseTracker based on input.
-
+-->
 ## Product Scope
 <!-- @@author glenda-1506 -->
 ### Target User Profile
