@@ -154,7 +154,7 @@ It interacts with the user through the Cli class to set up quiz parameters (time
 The class maintains the current quiz, selected topic, and session limits for each session.
 
 #### `QuizSession` class diagram:
-![QuizSessionClassDiagram.png](UML/puml-files/QuizSession/QuizSessionClassDiagram.png)
+![QuizSessionClassDiagram](https://github.com/user-attachments/assets/08a4bab8-2a42-4112-a489-e8d682857932)
 
 #### How `QuizSession` works:
 - `QuizSession(Cli cli)`: Constructor that initializes `QuizSession` with a `Cli` instance for user interaction.
