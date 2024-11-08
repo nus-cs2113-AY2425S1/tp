@@ -4,7 +4,7 @@ public class Commons {
     public static final String LINE_SEPARATOR = "--------------------------------------------";
     public static final String ERROR_MESSAGE_INVALID_INDEX
             = "Invalid index. Please provide a valid integer less than or equal to 2147483647.";
-    public static final String ERROR_MESSAGE_NON_NUMBER_AMOUNT = "Invalid amount. Please use a number.";
+    public static final String ERROR_MESSAGE_NON_NUMBER_AMOUNT = "Invalid amount. Please use a number (e.g. 13.00).";
     public static final String ERROR_MESSAGE_EMPTY_AMOUNT
             = "Invalid argument. Please do not leave compulsory arguments blank.";
     public static final String ERROR_MESSAGE_ARGUMENT_NULL = "Argument cannot be empty or blank.";

@@ -68,7 +68,8 @@ The `Add Transaction` command allows you to add either an income or expense entr
 **Parameter Details**:
 - `DESCRIPTION`: A brief label describing the transaction (e.g., "Lunch" or "Freelance Work").
 - `AMOUNT`: The transaction amount. This should be a positive value.
-  - Note: The app does not allow transactions to have an amount greater than $9999999.00.
+  - Note: Input amounts are rounded off to the nearest 2 decimal places.
+  - Note: The app does not allow transactions to have an amount greater than $9999999.00 after rounding of to the nearest 2 d.p.
 - `DATE` (optional): Date of the transaction in `dd/MM/yy` format. If omitted, today’s date is used.
   - Note: The app does not allow transactions to be entered with a date later than the system date.
 - `CATEGORY` (optional): Specifies a category for the transaction, aiding in detailed financial tracking. If omitted, it defaults to `UNCATEGORIZED`.

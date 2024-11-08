@@ -23,9 +23,10 @@ public abstract class FinancialEntry {
      * @param date The date of the transaction (dd/mm/yy).
      */
     public FinancialEntry(double amount, String description, LocalDate date) throws FinanceBuddyException {
-        checkValidParameters(amount, description, date);
+        double roundedAmount = Math.round(amount * 100.0) / 100.0;
+        checkValidParameters(roundedAmount, description, date);
         this.description = description;
-        this.amount = amount;
+        this.amount = roundedAmount;
         this.date = date;
     }
 
