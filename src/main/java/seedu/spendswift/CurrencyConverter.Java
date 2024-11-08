@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class CurrencyConverter {
 
-    private static final String API_KEY = "YOUR_API_KEY_HERE"; // Replace with your actual API key
+    private static final String API_KEY = "04a6ee8bec44c7f011340564e098b97e"; // Replace with your actual API key
     private static final String BASE_URL = "https://api.exchangeratesapi.io/latest";
 
     private Map<String, Double> exchangeRates;
