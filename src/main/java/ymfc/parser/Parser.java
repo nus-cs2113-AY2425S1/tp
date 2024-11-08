@@ -236,7 +236,7 @@ public final class Parser {
             throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + DeleteCommand.USAGE_EXAMPLE);
         }
         String name = m.group("name").trim().substring(2);
-        return new DeleteCommand(name);
+        return new DeleteCommand(name.trim());
     }
 
     private static DeleteIngredientCommand getDeleteIngredientCommand(String args) throws InvalidArgumentException {
@@ -249,7 +249,7 @@ public final class Parser {
                     + DeleteIngredientCommand.USAGE_EXAMPLE);
         }
         String name = m.group("name").trim().substring(2);
-        return new DeleteIngredientCommand(name);
+        return new DeleteIngredientCommand(name.trim());
     }
 
     private static SortCommand getSortCommand(String args) throws InvalidArgumentException {

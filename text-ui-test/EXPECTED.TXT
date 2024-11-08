@@ -260,9 +260,9 @@
 
 	__________________________________________________________________________________
 	__________________________________________________________________________________
-	Aww, I shall begrudgingly let go of this recipe:
+	Aww, I shall begrudgingly let go of this ingredient:
 	  eggs
-	You currently have 2 recipes in your list.
+	You currently have 2 ingredients in your list.
 	__________________________________________________________________________________
 	__________________________________________________________________________________
                  (\
