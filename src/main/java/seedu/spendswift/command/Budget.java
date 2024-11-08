@@ -4,6 +4,8 @@ import seedu.spendswift.Format;
 
 //@@author MayFairMI6
 public class Budget {
+    private String homeCurrency;
+    private CurrencyConverter currencyConverter;
     private Category category; // Private to prevent unauthorized access or changes
     private double limit; // Private to control modifications to the budget
     private TrackerData trackerData;
@@ -11,6 +13,8 @@ public class Budget {
         this.category = category;
         this.limit = limit;
         this.trackerData= trackerData;
+        this.homeCurrency= homeCurrency;
+        this.currencyConverter= new CurrencyConverter(homeCurrency);
     }
 
     public Category getCategory() {
