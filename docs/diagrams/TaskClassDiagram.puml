@@ -44,5 +44,5 @@ Task <|-- Deadline
 Task <|-- Repeat
 
 '--- Association ---
-TaskList --> "0...*" Task
+TaskList --> "*" Task
 @enduml
