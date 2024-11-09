@@ -136,32 +136,10 @@ public class ExpenseManager {
         List<Expense> expenses = trackerData.getExpenses();
 
         if (expenses.isEmpty()) {
-            System.out.println("No expenses to display.");
+            SuccessMessage.printNoExpense();
             return;
         }
-        System.out.println("Expenses grouped by categories:");
-        // Create a map to group expenses by their category
-        //@@author glenda-1506
-        Map<Category, List<Integer>> expenseIndexesByCategory = new HashMap<>();
-        // Populate the map
-        for (int i = 0; i < expenses.size(); i++) {
-            Expense expense = expenses.get(i);
-            Category category = expense.getCategory();
-
-            expenseIndexesByCategory.putIfAbsent(category, new ArrayList<>());
-            expenseIndexesByCategory.get(category).add(i);
-        }
-
-        // Display the expenses with correct indexes
-        for (Category category : expenseIndexesByCategory.keySet()) {
-            System.out.println("Category: " + category);
-            List<Integer> expenseIndexes = expenseIndexesByCategory.get(category);
-
-            for (Integer index : expenseIndexes) {
-                Expense expense = expenses.get(index);
-                System.out.println(" " + expense + " [" + (index + 1) + "] ");
-            }
-        }
+        SuccessMessage.printExpensesByCategory(expenses);
     }
 
     //@@author glenda-1506
