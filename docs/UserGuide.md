@@ -7,12 +7,10 @@
   * [Viewing the command list: `menu`](#viewing-the-command-list-menu)
   * [Listing all events: `list`](#listing-all-events-list)
   * [Adding an event, participant or item: `add`](#adding-an-event-participant-or-item-add)
-  * [Removing an event or participant: `remove`](#removing-an-event-or-participant-remove-)
+  * [Removing an event, participant or item: `remove`](#removing-an-event-participant-or-item-remove-)
   * [Viewing all participants or items for an event: `view`](#viewing-all-participants-or-items-for-an-event-view)
-  * [Editing the information of an event or a participant: `edit`](#editing-the-information-of-an-event-or-a-participant-edit)
-  * [Marking an event as done: `mark`](#marking-an-event-as-done-mark)
-  * [Marking a participant as present: `mark`](#marking-a-participant-as-present-mark)
-  * [Marking an item as accounted for: `mark`](#marking-an-item-as-accounted-for-mark)
+  * [Editing the information of an event, participant or item: `edit`](#editing-the-information-of-an-event-participant-or-item-edit)
+  * [Marking events, participants, or items: `mark`](#marking-events-participants-or-items-mark)
   * [Copying the participant list: `copy`](#copying-the-participant-list-copy)
   * [Sorting the event list: `sort`](#sorting-the-event-list-sort)
   * [Filtering the event list: `filter`](#filtering-the-event-list-filter)
@@ -111,7 +109,7 @@ Examples:
 * `add -p John Tan -n 91583215 -email john@gmail.com -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
 * `add -m Origami paper -e Origami workshop` adds an item `Origami paper` to the event `Origami workshop`.
 
-### Removing an event or participant: `remove` 
+### Removing an event, participant or item: `remove` 
 
 Removes an event from the event list, a participant from an event, or an item from an event.
 
@@ -144,7 +142,7 @@ Examples:
 * `view -e Origami workshop -y participant` shows a list of all participants for the event `Origami workshop`.
 * `view -e Origami workshop -y item` shows a list of all items for the event `Origami workshop`. 
 
-### Editing the information of an event or a participant: `edit`
+### Editing the information of an event, participant or item: `edit`
 
 Edits the information of an event/participant/item.
 
