@@ -41,6 +41,17 @@ import seedu.duke.logic.BudgetLogic;
  *   <li>{@link #parseIncome(String[])} - Parses a string array into an Income object.</li>
  *   <li>{@link #loadFromFile(BudgetLogic)} - Loads financial data from the storage file into a 
  *          FinancialList and updates the BudgetLogic.</li>
+ *   <li>{@link #loadTransactionsFromFile()} - Loads transactions from the storage file into a
+ *      FinancialList.</li>
+ *   <li>{@link #loadBudgetFromFile(FinancialList, BudgetLogic)} - Loads the budget from the storage
+ *          file and updates the FinancialList and BudgetLogic.</li>
+ *   <li>{@link #checkParameters(double, String, DateTimeFormatter, LocalDate)} - Checks the parameters
+ *          for validity.</li>
+ *   <li>{@link #getInvalidLines()} - Retrieves the list of invalid lines encountered during processing.</li>
+ *   <li>{@link #clearInvalidLines()} - Clears all the invalid lines stored in the invalidLines list.</li>
+ *   <li>{@link #printInvalidLines()} - Prints the invalid lines stored in the invalidLines list.</li>
+ *   <li>{@link #printLoadingResult()} - Prints the result of loading data from storage.</li>
+ *  
  * </ul>
  * 
  * <p>Fields:</p>
@@ -48,6 +59,13 @@ import seedu.duke.logic.BudgetLogic;
  *   <li>{@link #logger} - Logger for logging information and errors.</li>
  *   <li>{@link #FINANCIAL_LIST_FILE_PATH} - Path to the storage file.</li>
  *   <li>{@link #BUDGET_FILE_PATH} - Path to the budget file.</li>
+ *   <li>{@link #storageFileNotFoundMsg} - Message indicating that the storage file was not found.</li>
+ *   <li>{@link #budgetFileNotFoundMsg} - Message indicating that the budget file was not found.</li>
+ *   <li>{@link #loadedTransactionsMsg} - Message indicating that transactions were loaded from the file.</li>
+ *   <li>{@link #failedLoadingBudgetMsg} - Message indicating that the budget failed to load.</li>
+ *   <li>{@link #loadedBudgetMsg} - Message indicating that the budget was loaded from the file.</li>
+ *   <li>{@link #invalidLines} - List of invalid lines encountered during processing.</li>
+ * 
  * </ul>
  */
 public class Storage {
@@ -375,14 +393,28 @@ public class Storage {
         }
     }
 
+    /**
+     * Retrieves the list of invalid lines encountered during processing.
+     *
+     * @return An ArrayList containing the invalid lines.
+     */
     public ArrayList<String> getInvalidLines() {
         return invalidLines;
     }
 
+    /**
+     * Clears all the invalid lines stored in the invalidLines list.
+     */
     public void clearInvalidLines() {
         invalidLines.clear();
     }
 
+    /**
+     * Prints the invalid lines stored in the invalidLines list.
+     * If there are no invalid lines, the method returns without printing anything.
+     * Otherwise, it prints a message indicating that invalid lines are being deleted,
+     * followed by each invalid line.
+     */
     public void printInvalidLines() {
         if (invalidLines.isEmpty()) {
             return;
@@ -394,6 +426,17 @@ public class Storage {
         System.out.println();
     }
 
+    /**
+     * Prints the result of loading data from storage.
+     * 
+     * This method prints various messages related to the loading process:
+     * - If the storage file was not found, it prints the corresponding message.
+     * - If the budget file was not found, it prints the corresponding message.
+     * - It prints any invalid lines encountered during loading.
+     * - It prints a message indicating the transactions that were loaded.
+     * - If there was a failure in loading the budget, it prints the corresponding message.
+     * - Otherwise, it prints a message indicating the budget was successfully loaded.
+     */
     public void printLoadingResult() {
         if (!storageFileNotFoundMsg.isEmpty()) {
             System.out.println(storageFileNotFoundMsg);
@@ -408,6 +451,7 @@ public class Storage {
         } else if(!loadedBudgetMsg.isEmpty() ){
             System.out.println(loadedBudgetMsg);
         }
+        clearInvalidLines();
     }
 }
 
