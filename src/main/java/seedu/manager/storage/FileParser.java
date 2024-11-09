@@ -26,10 +26,8 @@ public class FileParser {
 
     /**
      * Constructs a new FileParser.
-     *
-     * @throws IOException if the log file cannot be written to.
      */
-    public FileParser() throws IOException {
+    public FileParser(){
         logger = Logger.getLogger(FileParser.class.getName());
         logger.setUseParentHandlers(false);
     }
@@ -43,7 +41,7 @@ public class FileParser {
      */
     public void parseFile(EventList events, String filePath) throws IOException {
         try {
-            logger.info("Loading data from file");
+            logInfo("Loading data from file");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             List<String[]> lines = getFileLines(filePath);
             for (String[] line : lines) {
@@ -91,10 +89,10 @@ public class FileParser {
                 parseItemFileLine(events, fields);
                 break;
             default:
-                logWarningMessage("Unknown entry type in file");
+                logWarning("Unknown entry type in file");
             }
         } catch (Exception exception) {
-            logWarningMessage("File line cannot be parsed, entry not loaded");
+            logWarning("File line cannot be parsed, entry not loaded");
         }
     }
 
@@ -104,7 +102,7 @@ public class FileParser {
      * @param events   The EventList to populate.
      * @param fields   The fields of the event to parse.
      * @param formatter The DateTimeFormatter to use for parsing date and time.
-     * @throws IOException If there is an error adding the event to the list.
+     * @throws IOException If there is an error adding the event to the list, or if the log file cannot be written to.
      */
     private void parseEventFileLine(EventList events, String[] fields, DateTimeFormatter formatter) throws IOException {
         try {
@@ -115,7 +113,7 @@ public class FileParser {
             boolean isDone = getIsMarked(fields[5].trim());
             events.addEvent(eventName, time, venue, priority, isDone);
         } catch (DateTimeParseException | IndexOutOfBoundsException | NullPointerException exception) {
-            logWarningMessage("File line cannot be parsed, event not loaded");
+            logWarning("File line cannot be parsed, event not loaded");
         }
     }
 
@@ -136,7 +134,7 @@ public class FileParser {
             boolean isLoaded = events.addParticipantToEvent(participantName, number, email, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
-            logWarningMessage("File line cannot be parsed, participant not loaded");
+            logWarning("File line cannot be parsed, participant not loaded");
         }
     }
 
@@ -145,7 +143,8 @@ public class FileParser {
      *
      * @param events The EventList to populate.
      * @param fields The fields of the item to parse.
-     * @throws IOException If there is an error adding the item to the event.
+     * @throws IOException If there is an error adding the item to the event, or if
+     *         the log file cannot be written to.
      */
     private void parseItemFileLine(EventList events, String[] fields) throws IOException {
         try {
@@ -155,7 +154,7 @@ public class FileParser {
             boolean isLoaded = events.addItemToEvent(itemName, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
-            logWarningMessage("File line cannot be parsed, item not loaded");
+            logWarning("File line cannot be parsed, item not loaded");
         }
     }
 
@@ -164,6 +163,7 @@ public class FileParser {
      *
      * @param markStatus The mark status string, expected to be "Y" or "N".
      * @return true if mark status is "Y"; false if it is "N".
+     * @throws IOException if the log file cannot be written to.
      */
     private boolean getIsMarked(String markStatus) throws IOException {
         if (markStatus.equalsIgnoreCase("Y")) {
@@ -171,29 +171,46 @@ public class FileParser {
         } else if (markStatus.equalsIgnoreCase("N")) {
             return false;
         } else {
-            logWarningMessage("Cannot parse mark status, setting to false");
+            logWarning("Cannot parse mark status, setting to false");
             return false;
         }
-    }
-
-    private void logWarningMessage(String message) throws IOException {
-        FileHandler handler = new FileHandler("logs.txt");
-        logger.addHandler(handler);
-        logger.warning(message);
-        handler.close();
     }
 
     /**
      * Logs a warning if an event associated with a participant or item could not be loaded.
      *
      * @param isLoaded Indicates whether the loading was successful.
+     * @throws IOException if the log file cannot be written to.
      */
     private void eventUnsuccessfulLoad(boolean isLoaded) throws IOException {
         if (!isLoaded) {
-            FileHandler handler = new FileHandler("logs.txt");
-            logger.addHandler(handler);
-            logger.warning("Associated event not found, entry not loaded");
-            handler.close();
+            logWarning("Associated event not found, entry not loaded");
         }
+    }
+
+    /**
+     * Logs an info message to a log file.
+     *
+     * @param message the given warning message.
+     * @throws IOException if the log file cannot be written to.
+     */
+    private void logInfo(String message) throws IOException {
+        FileHandler handler = new FileHandler("logs.txt", true);
+        logger.addHandler(handler);
+        logger.info(message);
+        handler.close();
+    }
+
+    /**
+     * Logs a warning message to a log file.
+     *
+     * @param message the given warning message.
+     * @throws IOException if the log file cannot be written to.
+     */
+    private void logWarning(String message) throws IOException {
+        FileHandler handler = new FileHandler("logs.txt", true);
+        logger.addHandler(handler);
+        logger.warning(message);
+        handler.close();
     }
 }
