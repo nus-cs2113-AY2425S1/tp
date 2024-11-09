@@ -19,8 +19,8 @@ public class ExpenseManager {
             double amount = parser.parseAmount(input);
             String category = parser.parseCategory(input);
 
-            if (name.isEmpty() || amount == 0) {
-                System.out.println("Invalid input! Please provide name, amount, and category.");
+            if (name.isEmpty()) {
+                System.out.println("Invalid input! Please provide a name for your expense.");
                 return;
             }
 
