@@ -50,6 +50,7 @@ public class FinancialList {
 
     /**
      * Adds a new financial entry to the list in ascending order of date.
+     * Updates last amended index after adding the entry.
      *
      * @param entry The financial entry (income or expense) to be added.
      */
@@ -62,6 +63,18 @@ public class FinancialList {
         entries.add(insertIndex, entry);
         lastAmendedIndex = insertIndex;
         updateCategoryTotal(entry);
+    }
+
+    /**
+     * Adds a new financial entry to the list at a specified index.
+     * Updates last amended index after adding the entry.
+     *
+     * @param entry The financial entry (income or expense) to be added.
+     * @param insertIndex The index at which the new entry should be inserted into the list at.
+     */
+    public void addEntryAtSpecificIndex(FinancialEntry entry, int insertIndex) {
+        entries.add(insertIndex, entry);
+        lastAmendedIndex = insertIndex;
     }
 
     /**
