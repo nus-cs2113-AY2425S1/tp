@@ -111,7 +111,7 @@ public class BudgetManager {
             return;
         }
 
-        if (preciseLimit.compareTo(MAX_LIMIT) > 0) {
+        if (preciseLimit.compareTo(maxLimit) > 0) {
             System.out.println("Budget limit exceeds the maximum allowed amount of " + MAX_LIMIT.toPlainString());
             return;
         }
