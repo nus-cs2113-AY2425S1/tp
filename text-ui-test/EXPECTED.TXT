@@ -1,5 +1,5 @@
 Welcome to EventManagerCLI.
-Error loading data from file: data.csv.
+Error loading data from file: data.txt. New file will be created since it does not exists.
 ------------------------
 Enter a command: Invalid command!
 ------------------------
