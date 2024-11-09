@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 
 public class CsvUtils {
-    public static void readCsv(String filePath, Consumer<? super String[]> read_action) throws WheresMyMoneyException {
+    public static void readCsv(String filePath, Consumer<? super String[]> readAction) throws WheresMyMoneyException {
         FileReader reader;
         CSVReader csvReader;
         try {
@@ -28,16 +28,17 @@ public class CsvUtils {
 
         try{
             csvReader.readNext(); // Skip the header
-            csvReader.readAll().forEach(read_action);
+            csvReader.readAll().forEach(readAction);
             // closing writer connection
             reader.close();
             csvReader.close();
         } catch (CsvException | IOException | WheresMyMoneyException e) {
-            throw new StorageException("File is corrupted! Some data might have been salvaged.\nRelated Error (if any): "+e.getMessage());
+            throw new StorageException("File is corrupted! Some data might have been salvaged." +
+                    "\nRelated Error (if any): "+e.getMessage());
         }
     }
 
-    public static void writeCsv(String filePath, String[] header, Consumer<? super CSVWriter> write_action)
+    public static void writeCsv(String filePath, String[] header, Consumer<? super CSVWriter> writeAction)
             throws WheresMyMoneyException{
         File file = new File(filePath);
 
@@ -55,7 +56,7 @@ public class CsvUtils {
         // adding header to csv
         writer.writeNext(header);
 
-        write_action.accept(writer);
+        writeAction.accept(writer);
 
         // closing writer connection
         try {
