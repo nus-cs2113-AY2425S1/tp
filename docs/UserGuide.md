@@ -144,7 +144,8 @@ Notes:
 - `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
 - The command will filter out all expenses that satisfy your constraint and draw a bar graph.
 If the time range is small (under one month), a daily graph will be displayed. Otherwise, a monthly graph will be used.
-Note that this command currently has a time span limit of `1080 days`.
+
+Note that this command currently has a time span limit of `1080 days` (approximately 36 months). Exceeding this limit will return an error.
 
 Examples: 
 - `visualize`
