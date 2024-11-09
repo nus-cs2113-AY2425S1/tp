@@ -69,7 +69,7 @@ public class Logic {
             addExpenseCommand.execute(financialList);
             budgetLogic.changeBalanceFromExpenseString(-amount, date);
         } catch (FinanceBuddyException e) {
-            System.out.println(e.getMessage());  // Display error message when invalid date is provided
+            Commons.printSingleLineWithBars(e.getMessage());  // Display error message when invalid date is provided
         }
     }
 
@@ -92,7 +92,7 @@ public class Logic {
             AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description, date, category);
             addIncomeCommand.execute(financialList);
         } catch (FinanceBuddyException e) {
-            System.out.println(e.getMessage());  // Display error message when invalid date is provided
+            Commons.printSingleLineWithBars(e.getMessage());  // Display error message when invalid date is provided
         }
     }
 
@@ -159,7 +159,7 @@ public class Logic {
         try {
             int index = Integer.parseInt(indexStr);
             if (index <= 0 || index > financialList.getEntryCount()) {
-                throw new FinanceBuddyException(Commons.ERROR_MESSAGE_INVALID_INDEX);
+                throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX);
             }
             return index;
         } catch (NumberFormatException e) {
@@ -289,8 +289,7 @@ public class Logic {
             seeAllIncomesCommand.execute(financialList);
             budgetLogic.getBudgetAndBalance();
         } else {
-            System.out.println("Unknown argument: " + type);
-            System.out.println(Commons.LINE_SEPARATOR);
+            Commons.printSingleLineWithBars("Unknown argument: " + type);
         }
     }
 
