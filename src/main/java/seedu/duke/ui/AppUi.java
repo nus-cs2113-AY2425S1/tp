@@ -96,13 +96,4 @@ public class AppUi {
                 Commons.LINE_SEPARATOR + "\n";
         System.out.println(unrecognizedCommand);
     }
-
-    /**
-     * Displays an error message to the user.
-     *
-     * @param message The error message to be displayed.
-     */
-    public void showErrorMessage(String message) {
-        System.out.println("Error: " + message);
-    }
 }

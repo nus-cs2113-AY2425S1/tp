@@ -8,6 +8,7 @@ import seedu.duke.logic.Logic;
 import seedu.duke.parser.InputParser;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.util.Commons;
 
 import java.util.HashMap;
 
@@ -54,7 +55,7 @@ public class FinanceBuddy {
 
                 isRunning = logic.matchCommand(command, commandArguments);
             } catch (FinanceBuddyException e) {
-                System.out.println(e.getMessage());
+                Commons.printSingleLineWithBars(e.getMessage());
             }
         }
     }

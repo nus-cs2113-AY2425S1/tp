@@ -79,17 +79,12 @@ public class BudgetLogic {
             if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("no")) {
                 isValidInput = true;
             } else {
-                System.out.println(Commons.LINE_SEPARATOR);
-                System.out.println("Invalid input. Please enter 'yes' or 'no'.");
-                System.out.println(Commons.LINE_SEPARATOR);
+                Commons.printSingleLineWithBars("Invalid input. Please enter 'yes' or 'no'.");
             }
         }
 
         if (input.equalsIgnoreCase("yes")) {
-            System.out.println(Commons.LINE_SEPARATOR);
-            System.out.println("Please set your budget amount:");
-            System.out.println(Commons.LINE_SEPARATOR);
-
+            Commons.printSingleLineWithBars("Please set your budget amount:");
 
             double amount = 0;
             boolean isAmountValid = false;
@@ -102,12 +97,13 @@ public class BudgetLogic {
                     if (amount >= 0.01) {
                         isAmountValid = true;
                     } else {
-                        System.out.println("Budget amount must be >= $0.01. Please enter a valid amount.");
+                        Commons.printSingleLineWithBars(
+                                "Budget amount must be >= $0.01. Please enter a valid amount.");
                         logger.log(LogLevels.WARNING, "Amount less than $0.01 entered.");
                     }
 
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter a valid number:");
+                    Commons.printSingleLineWithBars("Invalid input. Please enter a valid number:");
                     logger.log(LogLevels.WARNING, "Invalid number entered.");
                 }
             }
@@ -122,9 +118,7 @@ public class BudgetLogic {
             System.out.println(Commons.LINE_SEPARATOR);
             logger.log(LogLevels.INFO, "Budget set to " + String.format("$ %.2f", budget.getBudgetAmount()) + ".");
         } else {
-            System.out.println(Commons.LINE_SEPARATOR);
-            System.out.println("Budget setting skipped.");
-            System.out.println(Commons.LINE_SEPARATOR);
+            Commons.printSingleLineWithBars("Budget setting skipped.");
             logger.log(LogLevels.INFO, "Budget setting skipped.");
         }
         recalculateBalance(financialList);

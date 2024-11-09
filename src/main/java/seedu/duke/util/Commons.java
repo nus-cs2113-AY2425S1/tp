@@ -13,4 +13,16 @@ public class Commons {
     public static final String ERROR_MESSAGE_DATE_TOO_LATE = "Entered date cannot be after current date.";
     public static final String ERROR_MESSAGE_BLANK_DESCRIPTION = "Description cannot be blank.";
     public static final String ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX = "There is no entry at that index :(";
+
+    /**
+     * Prints a message enclosed in line separators.
+     * Primarily used for error messages.
+     *
+     * @param message message to be printed.
+     */
+    public static void printSingleLineWithBars(String message){
+        System.out.println(Commons.LINE_SEPARATOR);
+        System.out.println(message);
+        System.out.println(Commons.LINE_SEPARATOR);
+    }
 }
