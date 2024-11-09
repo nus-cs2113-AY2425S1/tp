@@ -54,26 +54,12 @@ public class Storage {
     public static final String FINANCIAL_LIST_FILE_PATH = "data/FinancialList.txt";
     public static final String BUDGET_FILE_PATH = "data/Budget.txt";
     private static final Log logger = Log.getInstance();
-    private static final String FILE_NOT_FOUND_MESSAGE = "Storage file(s) not found: ";
 
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-
+    private static String storageFileNotFoundMsg = "";
+    private static String budgetFileNotFoundMsg = "";
+    private String loadedTransactionsMsg = "";
+    private String failedLoadingBudgetMsg = "";
+    private String loadedBudgetMsg = "";
     private ArrayList<String> invalidLines = new ArrayList<>();
 
     public Storage() {
@@ -89,6 +75,7 @@ public class Storage {
         File file = new File(FINANCIAL_LIST_FILE_PATH);
         // check if the file exists
         if (!file.exists()) {
+            storageFileNotFoundMsg = "File not found: " + FINANCIAL_LIST_FILE_PATH + " Creating new one.";
             try {
                 // check if the dictionary exists
                 File directory = new File(file.getParent());
@@ -113,6 +100,7 @@ public class Storage {
         File file = new File(BUDGET_FILE_PATH);
         // check if the file exists
         if (!file.exists()) {
+            budgetFileNotFoundMsg = "File not found: " + BUDGET_FILE_PATH + " Creating new one.";
             try {
                 // check if the dictionary exists
                 File directory = new File(file.getParent());
@@ -275,7 +263,8 @@ public class Storage {
                     logger.log(LogLevels.WARNING,
                             "Budget amount should be more than 0.01, the budget won't be set.");
                     scBudget.close();
-                    return ;
+                    failedLoadingBudgetMsg = "Budget format in file is invalid, the budget won't be set.";
+                return ;
                 }
                 budget.setBudgetAmount(Double.parseDouble(amount));
                 // parse the budget date
@@ -286,6 +275,7 @@ public class Storage {
                     logger.log(LogLevels.WARNING,
                             "Error parsing date in budget: " + date + ", setting to current date.");
                     date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    failedLoadingBudgetMsg = "Date in budget file is invalid, setting to current date.";
                 }
                 // check if the date is in past 
                 if (LocalDate.parse(date).isAfter(LocalDate.now())) {
@@ -297,10 +287,12 @@ public class Storage {
                 budgetLogic.overwriteBudget(budget);
                 update(theList, budgetLogic);
             } catch (Exception e) {
-                logger.log(LogLevels.WARNING, "Budget formate invalid, the budget won't be set.");
+                logger.log(LogLevels.WARNING, "Budget format invalid, the budget won't be set.");
                 logger.log(LogLevels.WARNING, e.getMessage());
+                failedLoadingBudgetMsg = "Budget format in file is invalid, the budget won't be set.";
             }
             scBudget.close();
+            loadedBudgetMsg = "Budget loaded from file.";
         } catch(FileNotFoundException e){
             logger.log(LogLevels.WARNING, "File not found: " + e.getMessage() );
         }
@@ -339,15 +331,21 @@ public class Storage {
                         loadedIncomeCount++;
                     } else {
                         logger.log(LogLevels.WARNING,
-                                "Skiping logged transection cause storage formate invalid, "
+                                "Skiping logged transection cause storage format invalid, "
                                 + "unknown entry type: " + line.charAt(0));
                     }
                 } catch (Exception e) {
-                    logger.log(LogLevels.WARNING, "Skiping logged transection cause storage formate invalid");
+                    logger.log(LogLevels.WARNING, "Skiping logged transection cause storage format invalid");
                     logger.log(LogLevels.WARNING, e.getMessage());
-                    this.invalidLines.add("Deleting invalid line from file: "
-                        + ANSI_RED + tmpLine + ANSI_RESET );
+                    // add the invalid line to the invalid lines list
+                    this.invalidLines.add("\t" + tmpLine);
                 }
+            }
+            if (loadedExpenseCount > 0 || loadedIncomeCount > 0) {
+                loadedTransactionsMsg = "I have loaded " + loadedExpenseCount + " expenses and " +
+                        loadedIncomeCount + " incomes from file." ;
+            }else{
+                loadedTransactionsMsg =  "No transactions loaded from file.";
             }
             logger.log(LogLevels.INFO, "Loaded " + loadedExpenseCount + " expenses and " +
                     loadedIncomeCount + " incomes from file.");
@@ -386,8 +384,29 @@ public class Storage {
     }
 
     public void printInvalidLines() {
+        if (invalidLines.isEmpty()) {
+            return;
+        }
+        System.out.println("Deleting invalid line from file: ");
         for (String line : invalidLines) {
             System.out.println(line);
+        }
+        System.out.println();
+    }
+
+    public void printLoadingResult() {
+        if (!storageFileNotFoundMsg.isEmpty()) {
+            System.out.println(storageFileNotFoundMsg);
+        }
+        if (!budgetFileNotFoundMsg.isEmpty()) {
+            System.out.println(budgetFileNotFoundMsg);
+        }
+        printInvalidLines();   
+        System.out.println(loadedTransactionsMsg);
+        if(!failedLoadingBudgetMsg.isEmpty()){
+            System.out.println(failedLoadingBudgetMsg);
+        } else if(!loadedBudgetMsg.isEmpty() ){
+            System.out.println(loadedBudgetMsg);
         }
     }
 }
