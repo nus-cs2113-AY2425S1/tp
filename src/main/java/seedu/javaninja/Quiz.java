@@ -38,7 +38,8 @@ public class Quiz {
     }
 
     /**
-     * Starts the quiz session by setting the time limit and question limit, and begins prompting the user with questions.
+     * Starts the quiz session by setting the time limit and question limit,
+     * and begins prompting the user with questions.
      *
      * @param timeLimitInSeconds The time limit for the quiz in seconds.
      * @param questionLimit      The number of questions to attempt in the quiz.
