@@ -162,7 +162,7 @@ class ParserTest {
      */
     @Test
     public void parseLineToArgumentsMap_commandWithRestrictedArguments_arguments() {
-        String inputLine = "command main /command value1 /main value2 /extra extra";
+        String inputLine = "command main /command value1 /index value2 /extra extra";
         assertThrows(InvalidInputException.class,
                 ()->Parser.parseLineToArgumentsMap(inputLine));
     }
