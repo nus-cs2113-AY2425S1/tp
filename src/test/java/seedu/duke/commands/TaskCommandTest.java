@@ -3,6 +3,7 @@ package seedu.duke.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
+import seedu.duke.data.exception.MissingTaskArgument;
 import seedu.duke.data.task.Deadline;
 import seedu.duke.data.task.Repeat;
 import seedu.duke.data.task.Task;
@@ -190,7 +191,7 @@ public class TaskCommandTest {
     }
 
     @Test
-    void testFindTaskCommand_foundMatches() throws DuplicateTaskException{
+    void testFindTaskCommand_foundMatches() throws DuplicateTaskException, MissingTaskArgument{
         TaskList tasks = new TaskList();
         Task task1 = new Deadline("Read book", "2pm");
         Task task2 = new Todo ("Meomeo");
@@ -209,7 +210,7 @@ public class TaskCommandTest {
     }
     
     @Test
-    void testFindTaskCommand_caseInsensitive() throws DuplicateTaskException{
+    void testFindTaskCommand_caseInsensitive() throws DuplicateTaskException, MissingTaskArgument{
         TaskList tasks = new TaskList();
         Task task1 = new Deadline("Read book", "2pm");
         Task task2 = new Todo ("Meomeo");
@@ -228,7 +229,7 @@ public class TaskCommandTest {
     }
 
     @Test
-    void testFindTaskCommand_noMatch() throws DuplicateTaskException{
+    void testFindTaskCommand_noMatch() throws DuplicateTaskException, MissingTaskArgument{
         TaskList tasks = new TaskList();
         Task task1 = new Deadline("Read book", "2pm");
         Task task2 = new Todo ("Meomeo");

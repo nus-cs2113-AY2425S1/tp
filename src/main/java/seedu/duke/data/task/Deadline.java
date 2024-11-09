@@ -1,5 +1,7 @@
 package seedu.duke.data.task;
 
+import seedu.duke.data.exception.MissingTaskArgument;
+
 public class Deadline extends Task{
     protected String by;
 
@@ -8,22 +10,27 @@ public class Deadline extends Task{
         super();
     }
 
-    public Deadline(String description) {
+    public Deadline(String description, String by) throws MissingTaskArgument {
         super(description);
-    }
-
-    public Deadline(String description, String by) {
-        super(description);
+        if(by == null || by.isEmpty() || by.isBlank()) {
+            throw new MissingTaskArgument("deadline");
+        }
         this.by = by;
     }
 
-    public Deadline(String description, String by, String tag) {
+    public Deadline(String description, String by, String tag) throws MissingTaskArgument {
         super(description, tag);
+        if(by == null || by.isEmpty() || by.isBlank()) {
+            throw new MissingTaskArgument("deadline");
+        }
         this.by = by;
     }
 
-    public Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, String by, boolean isDone) throws MissingTaskArgument {
         super(description, isDone);
+        if(by == null || by.isEmpty() || by.isBlank()) {
+            throw new MissingTaskArgument("deadline");
+        }
         this.by = by;
     }
 

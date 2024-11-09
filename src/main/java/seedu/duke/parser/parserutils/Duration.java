@@ -3,7 +3,7 @@ package seedu.duke.parser.parserutils;
 public class Duration implements StringExtraction {
     @Override
     public String extract(String input) {
-        String result = "No repeats";  //default if dont have /by or /every
+        String result = "";  //default if dont have /by or /every
 
         if (input.contains("/by ")) {
             //extract the part after /by, and split by /tag if present

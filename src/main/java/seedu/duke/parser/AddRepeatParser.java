@@ -5,8 +5,8 @@ import seedu.duke.commands.Command;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 import seedu.duke.parser.parserutils.Duration;
-import seedu.duke.parser.parserutils.TaskName;
 import seedu.duke.parser.parserutils.Tag;
+import seedu.duke.parser.parserutils.TaskName;
 /**
  * Parses and executes the "add repeat" command to create a repeating task.
  * Implements the {@link CommandParser} interface.
