@@ -1,7 +1,6 @@
 package wheresmymoney.utils;
 
 import wheresmymoney.exception.InvalidInputException;
-import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
 

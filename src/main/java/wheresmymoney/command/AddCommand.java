@@ -5,7 +5,6 @@ import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.utils.Parser;
 import wheresmymoney.RecurringExpenseList;
-import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 public class AddCommand extends Command {
@@ -23,7 +22,7 @@ public class AddCommand extends Command {
     @Override
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
             RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
-        float price = argumentsMap.getRequiredPrice(); //Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
+        float price = argumentsMap.getRequiredPrice();
         String description = argumentsMap.getRequired(Parser.ARGUMENT_DESCRIPTION);
         String category = argumentsMap.getRequired(Parser.ARGUMENT_CATEGORY);
 

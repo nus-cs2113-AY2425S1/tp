@@ -3,7 +3,6 @@ package wheresmymoney.command;
 import wheresmymoney.utils.ArgumentsMap;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
-import wheresmymoney.utils.Parser;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.exception.WheresMyMoneyException;
 
