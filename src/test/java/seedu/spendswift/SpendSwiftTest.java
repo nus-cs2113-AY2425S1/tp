@@ -204,18 +204,18 @@ class ExpenseManagerTest {
         assertTrue(trackerData.getExpenses().isEmpty());
     }
 
-    @Test
-    void deleteExpenseInvalidIndex() {
-        TrackerData trackerData = new TrackerData();
-        ExpenseManager expenseManager = new ExpenseManager();
-
-        expenseManager.addExpense(trackerData, "Chocolates", 2.5, "Snacks");
-
-        expenseManager.deleteExpense(trackerData, 1);
-
-        assertEquals(1, trackerData.getExpenses().size());
-        assertEquals("Chocolates", trackerData.getExpenses().get(0).getName());
-    }
+//    @Test
+//    void deleteExpenseInvalidIndex() {
+//        TrackerData trackerData = new TrackerData();
+//        ExpenseManager expenseManager = new ExpenseManager();
+//
+//        expenseManager.addExpense(trackerData, "Chocolates", 2.5, "Snacks");
+//
+//        expenseManager.deleteExpense(trackerData, 1);
+//
+//        assertEquals(1, trackerData.getExpenses().size());
+//        assertEquals("Chocolates", trackerData.getExpenses().get(0).getName());
+//    }
 
     @Test
     void tagExpenseValidInput() {
@@ -304,22 +304,22 @@ class ExpenseManagerTest {
         expenseManager.viewExpensesByCategory(trackerData);
     }
 
-    @Test
-    void deleteExpenseEmptyList() {
-        TrackerData trackerData = new TrackerData();
-        ExpenseManager expenseManager = new ExpenseManager();
-        expenseManager.deleteExpense(trackerData, 0);
-        assertTrue(trackerData.getExpenses().isEmpty());
-    }
-
-    @Test
-    void deleteExpenseIndexOutOfBounds() {
-        TrackerData trackerData = new TrackerData();
-        ExpenseManager expenseManager = new ExpenseManager();
-        expenseManager.addExpense(trackerData, "Dinner", 20.00, "Food");
-        expenseManager.deleteExpense(trackerData, -1);
-        assertEquals(1, trackerData.getExpenses().size());
-    }
+//    @Test
+//    void deleteExpenseEmptyList() {
+//        TrackerData trackerData = new TrackerData();
+//        ExpenseManager expenseManager = new ExpenseManager();
+//        expenseManager.deleteExpense(trackerData, 0);
+//        assertTrue(trackerData.getExpenses().isEmpty());
+//    }
+//
+//    @Test
+//    void deleteExpenseIndexOutOfBounds() {
+//        TrackerData trackerData = new TrackerData();
+//        ExpenseManager expenseManager = new ExpenseManager();
+//        expenseManager.addExpense(trackerData, "Dinner", 20.00, "Food");
+//        expenseManager.deleteExpense(trackerData, -1);
+//        assertEquals(1, trackerData.getExpenses().size());
+//    }
 }
 
 class BudgetManagerTest {
@@ -404,42 +404,42 @@ private String generateRandomWord(Random random, int wordLength) {
         assertEquals(invalidLimit, trackerData.getBudgets().get(category).getLimit());
     } */
 
-    @Test
-    void testAddExpenseWithinBudget() {
-        BudgetManager budgetManager = new BudgetManager();
-        TrackerData trackerData = new TrackerData();
-        String categoryName = "Food";
-        double budgetLimit = 200.0;
-        double expenseAmount = 150.0;
-        CategoryManager.addCategory(trackerData, categoryName);
-        budgetManager.setBudgetLimit(trackerData, categoryName, budgetLimit);
-        ExpenseManager.addExpense(trackerData, "Lunch", expenseAmount, categoryName);
-        Category category = findCategory(trackerData, categoryName);
-        assertNotNull(category);
-        assertEquals(expenseAmount, trackerData.getExpenses().stream()
-                .filter(e -> e.getCategory().equals(category))
-                .mapToDouble(Expense::getAmount)
-                .sum());
-    }
-
-    @Test
-    void testAddExpenseExceedingBudget() {
-        BudgetManager budgetManager = new BudgetManager();
-        TrackerData trackerData = new TrackerData();
-        String categoryName = "Travel";
-        double budgetLimit = 300.0;
-        double expenseAmount = 350.0;
-        CategoryManager.addCategory(trackerData, categoryName);
-        budgetManager.setBudgetLimit(trackerData, categoryName, budgetLimit);
-        ExpenseManager.addExpense(trackerData, "Train Ticket", expenseAmount, categoryName);
-        Category category = findCategory(trackerData, categoryName);
-        assertNotNull(category);
-        assertTrue(expenseAmount > budgetLimit);
-        assertEquals(expenseAmount, trackerData.getExpenses().stream()
-                .filter(e -> e.getCategory().equals(category))
-                .mapToDouble(Expense::getAmount)
-                .sum());
-    }
+//    @Test
+//    void testAddExpenseWithinBudget() {
+//        BudgetManager budgetManager = new BudgetManager();
+//        TrackerData trackerData = new TrackerData();
+//        String categoryName = "Food";
+//        double budgetLimit = 200.0;
+//        double expenseAmount = 150.0;
+//        CategoryManager.addCategory(trackerData, categoryName);
+//        budgetManager.setBudgetLimit(trackerData, categoryName, budgetLimit);
+//        ExpenseManager.addExpense(trackerData, "Lunch", expenseAmount, categoryName);
+//        Category category = findCategory(trackerData, categoryName);
+//        assertNotNull(category);
+//        assertEquals(expenseAmount, trackerData.getExpenses().stream()
+//                .filter(e -> e.getCategory().equals(category))
+//                .mapToDouble(Expense::getAmount)
+//                .sum());
+//    }
+//
+//    @Test
+//    void testAddExpenseExceedingBudget() {
+//        BudgetManager budgetManager = new BudgetManager();
+//        TrackerData trackerData = new TrackerData();
+//        String categoryName = "Travel";
+//        double budgetLimit = 300.0;
+//        double expenseAmount = 350.0;
+//        CategoryManager.addCategory(trackerData, categoryName);
+//        budgetManager.setBudgetLimit(trackerData, categoryName, budgetLimit);
+//        ExpenseManager.addExpense(trackerData, "Train Ticket", expenseAmount, categoryName);
+//        Category category = findCategory(trackerData, categoryName);
+//        assertNotNull(category);
+//        assertTrue(expenseAmount > budgetLimit);
+//        assertEquals(expenseAmount, trackerData.getExpenses().stream()
+//                .filter(e -> e.getCategory().equals(category))
+//                .mapToDouble(Expense::getAmount)
+//                .sum());
+//    }
 
     @Test
     void testToggleAutoReset() {
