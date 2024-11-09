@@ -131,8 +131,8 @@ public class Exercise {
         return calories;
     }
 
-    public boolean isHeavierThan(Exercise other) {
-        return this.weight > other.weight;
+    public int getWeight(){
+        return weight;
     }
 
     public String getName() {

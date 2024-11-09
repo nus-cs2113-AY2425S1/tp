@@ -121,4 +121,7 @@ class ExerciseTest {
     void testGetName() {
         assertEquals("Bench_Press", exercise.getName());
     }
+
+    @Test
+    void testGetWeight() { assertEquals(3, exercise.getWeight()); }
 }
