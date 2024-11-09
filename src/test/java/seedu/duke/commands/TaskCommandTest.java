@@ -189,12 +189,16 @@ public class TaskCommandTest {
         assertEquals(AddTaskCommand.MESSAGE_DUPLICATE_TASK, commandResult.getFeedbackToUser());
     }
 
+    //@Metanyu
     @Test
     void testFindTaskCommand_foundMatches() throws DuplicateTaskException{
         TaskList tasks = new TaskList();
         Task task1 = new Deadline("Read book", "2pm");
         Task task2 = new Todo ("Meomeo");
         Task task3 = new Repeat("Meomeomeomeo", "2 days");
+        task1.setTag("No tag");
+        task2.setTag("No tag");
+        task3.setTag("No tag");
 
         tasks.addTask(task1);
         tasks.addTask(task2);
@@ -203,17 +207,22 @@ public class TaskCommandTest {
         FindTaskCommand findTaskCommand = new FindTaskCommand("meo");
         findTaskCommand.setData(tasks);
         CommandResult commandResult = findTaskCommand.execute();
-        assertEquals("Here are the matching tasks in your list: " + 
-            "\n1. [T][ ] Meomeo\n2. [R][ ] Meomeomeomeo (repeat: every 2 days)\n", 
-            commandResult.getFeedbackToUser());
+        assertEquals("Here are the matching tasks in your list: \n" +
+                        "1. [T][ ] Meomeo [No tag]\n" +
+                        "2. [R][ ] Meomeomeomeo [No tag] (repeat: every 2 days)\n",
+                commandResult.getFeedbackToUser());
     }
-    
+
+    //@metanyu
     @Test
     void testFindTaskCommand_caseInsensitive() throws DuplicateTaskException{
         TaskList tasks = new TaskList();
         Task task1 = new Deadline("Read book", "2pm");
         Task task2 = new Todo ("Meomeo");
         Task task3 = new Repeat("Meomeomeomeo", "2 days");
+        task1.setTag("No tag");
+        task2.setTag("No tag");
+        task3.setTag("No tag");
 
         tasks.addTask(task1);
         tasks.addTask(task2);
@@ -222,17 +231,21 @@ public class TaskCommandTest {
         FindTaskCommand findTaskCommand = new FindTaskCommand("MeO");
         findTaskCommand.setData(tasks);
         CommandResult commandResult = findTaskCommand.execute();
-        assertEquals("Here are the matching tasks in your list: " + 
-            "\n1. [T][ ] Meomeo\n2. [R][ ] Meomeomeomeo (repeat: every 2 days)\n", 
-            commandResult.getFeedbackToUser());
+        assertEquals("Here are the matching tasks in your list: \n" +
+                        "1. [T][ ] Meomeo [No tag]\n" +
+                        "2. [R][ ] Meomeomeomeo [No tag] (repeat: every 2 days)\n",
+                commandResult.getFeedbackToUser());
     }
 
     @Test
     void testFindTaskCommand_noMatch() throws DuplicateTaskException{
         TaskList tasks = new TaskList();
         Task task1 = new Deadline("Read book", "2pm");
+        task1.setTag("No tag");
         Task task2 = new Todo ("Meomeo");
+        task2.setTag("No tag");
         Task task3 = new Repeat("Meomeomeomeo", "2 days");
+        task3.setTag("No tag");
 
         tasks.addTask(task1);
         tasks.addTask(task2);
