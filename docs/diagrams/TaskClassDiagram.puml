@@ -1,7 +1,6 @@
 @startuml
 
 !include style.puml
-scale 0.5
 
 class Task DATA_COLOR {
     - description: String
@@ -44,5 +43,5 @@ Task <|-- Deadline
 Task <|-- Repeat
 
 '--- Association ---
-TaskList --> "0...*" Task
+TaskList --> "*" Task
 @enduml
