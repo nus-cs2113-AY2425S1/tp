@@ -5,18 +5,18 @@
 * [Features](#features)
   * [Notes about the command format](#notes-about-the-command-format)
   * [Viewing the command list: `menu`](#viewing-the-command-list-menu)
-  * [List all events: `list`](#list-all-events-list)
-  * [Add an event, participant or item: `add`](#add-an-event-participant-or-item-add)
-  * [Remove an event or participant: `remove`](#remove-an-event-or-participant-remove-)
-  * [View all participants or items for an event: `view`](#view-all-participants-or-items-for-an-event-view)
-  * [Edit the information of an event or a participant: `edit`](#edit-the-information-of-an-event-or-a-participant-edit)
-  * [Mark an event as done: `mark`](#mark-an-event-as-done-mark)
-  * [Marks a participant as present: `mark`](#marks-a-participant-as-present-mark)
-  * [Marks an item as accounted for: `mark`](#marks-an-item-as-accounted-for-mark)
-  * [Copies participant list: `copy`](#copies-participant-list-copy)
-  * [Sorts event list: `sort`](#sorts-event-list-sort)
-  * [Filters event list: `filter`](#filters-event-list-filter)
-  * [Find participant: `find`](#find-participant-find)
+  * [Listing all events: `list`](#listing-all-events-list)
+  * [Adding an event, participant or item: `add`](#adding-an-event-participant-or-item-add)
+  * [Removing an event or participant: `remove`](#removing-an-event-or-participant-remove-)
+  * [Viewing all participants or items for an event: `view`](#viewing-all-participants-or-items-for-an-event-view)
+  * [Editing the information of an event or a participant: `edit`](#editing-the-information-of-an-event-or-a-participant-edit)
+  * [Marking an event as done: `mark`](#marking-an-event-as-done-mark)
+  * [Marking a participant as present: `mark`](#marking-a-participant-as-present-mark)
+  * [Marking an item as accounted for: `mark`](#marking-an-item-as-accounted-for-mark)
+  * [Copying the participant list: `copy`](#copying-the-participant-list-copy)
+  * [Sorting the event list: `sort`](#sorting-the-event-list-sort)
+  * [Filtering the event list: `filter`](#filtering-the-event-list-filter)
+  * [Finding a participant: `find`](#finding-a-participant-find)
   * [Exiting the program: `exit`](#exiting-the-program-exit)
   * [Saving of program data](#saving-of-program-data)
   * [Loading of program data](#loading-of-program-data)
@@ -83,14 +83,14 @@ exit: Exit program.
 
 Format: `menu`
 
-### List all events: `list`
+### Listing all events: `list`
 
 Shows a list of all events currently stored in the program.
 
 Format: `list`
 <div style="page-break-after: always;"></div>
 
-### Add an event, participant or item: `add`
+### Adding an event, participant or item: `add`
 
 Adds an event to the event list, a participant to an event, or an item to an event.
 
@@ -111,7 +111,7 @@ Examples:
 * `add -p John Tan -n 91583215 -email john@gmail.com -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
 * `add -m Origami paper -e Origami workshop` adds an item `Origami paper` to the event `Origami workshop`.
 
-### Remove an event or participant: `remove` 
+### Removing an event or participant: `remove` 
 
 Removes an event from the event list, a participant from an event, or an item from an event.
 
@@ -128,7 +128,7 @@ Examples:
 * `remove -m Origami paper -e Origami workshop` removes the item `Origami paper` from the event `Origami workshop`.
 <div style="page-break-after: always;"></div>
 
-### View all participants or items for an event: `view`
+### Viewing all participants or items for an event: `view`
 
 Shows a list of all participants or items for an event.
 
@@ -144,7 +144,7 @@ Examples:
 * `view -e Origami workshop -y participant` shows a list of all participants for the event `Origami workshop`.
 * `view -e Origami workshop -y item` shows a list of all items for the event `Origami workshop`. 
 
-### Edit the information of an event or a participant: `edit`
+### Editing the information of an event or a participant: `edit`
 
 Edits the information of an event/participant/item.
 
@@ -161,7 +161,7 @@ Examples:
 * `edit -m balloon > cake -e anniversary` edits the item `balloon` in the event `anniversary` to `cake`.
 <div style="page-break-after: always;"></div>
 
-### Mark an event as done: `mark`
+### Marking an event as done: `mark`
 
 Marks an event in the event list as done or not done.
 
@@ -174,7 +174,7 @@ Examples:
 * `mark -e Origami workshop -s done` marks the event `Origami workshop` as done.
 * `mark -e Origami workshop -s undone` marks the event `Origami workshop` as not done.
 
-### Marks a participant as present: `mark`
+### Marking a participant as present: `mark`
 
 Marks a participant for an event as present or absent.
 
@@ -187,7 +187,7 @@ Examples:
 * `mark -p John Tan -e Origami workshop -s present` marks the participant `John Tan` in the `Origami workshop` event as present.
 * `mark -p John Tan -e Origami workshop -s absent` marks the participant `John Tan` in the `Origami workshop` event as absent.
 
-### Marks an item as accounted for: `mark`
+### Marking an item as accounted for: `mark`
 
 Marks an item for an event as accounted for or unaccounted for.
 
@@ -201,7 +201,7 @@ Examples:
 * `mark -m Origami paper -e Origami workshop -s unaccounted` marks the item `Origami paper` in the `Origami workshop` event as unaccounted. 
 <div style="page-break-after: always;"></div>
 
-### Copies participant list: `copy`
+### Copying the participant list: `copy`
 
 Copies the participant list from one event to another event.
 
@@ -214,7 +214,7 @@ Examples:
 
 * `copy Origami workshop > Coding workshop` copies the participant list from the `Origami workshop` event to the `Coding workshop` event.
 
-### Sorts event list: `sort`
+### Sorting the event list: `sort`
 
 Sorts events according to event name, event date-time or event priority level.
 
@@ -227,14 +227,14 @@ Examples:
 * `sort -by time` will output a list of all the user's events chronologically (earliest to latest).
 * `sort -by priority` will output a list of all the user's events in terms of urgency (most to least important).
 
-### Filters event list: `filter`
+### Filtering the event list: `filter`
 
 Filters out events from the event list based on name, date-time or priority level.
 
 Format: `filter -e/-d/-t/-x/-u DESCRIPTION`
 
 * `-e/-d/-t/-x/-u` are the flags for name, date-time and priority level respectively.
-* `DESCRIPTION` is only case-insensitive when filtering using the priority level flag.
+* `DESCRIPTION` is case-insensitive.
 
 Examples:
 * `filter -e workshop` will output all events with `workshop` in their event name.
@@ -244,13 +244,13 @@ Examples:
 * `filter -u high` with output all events with priority level `HIGH`.
 <div style="page-break-after: always;"></div>
 
-### Find participant: `find`
+### Finding a participant: `find`
 
 Finds all participants with a specified name in a specified event.
 
 Format: `find -e EVENT -p NAME`
 
-* The `NAME` keywords are case-insensitive.
+* The `NAME` keyword is case-insensitive.
 
 Examples:
 * `find -e Origami workshop -p john` will output all participants with `john` in their name in the event `Origami workshop`.
