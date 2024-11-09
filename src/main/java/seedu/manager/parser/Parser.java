@@ -143,10 +143,10 @@ public class Parser {
             Duplicate flags found!
             Please only use each flag once!
             """;
-    private static final String UNRECOGNISED_FLAG_MESSAGE = """
-            Invalid flag used!
-            Please only use flags related to the command!
-            Use the 'menu' command to see which flags are allowed!
+    private static final String EMPTY_INPUT_MESSAGE = """
+            Invalid input!
+            One of your input fields are empty!
+            Please fill in every field appropriately!
             """;
 
     private static final String EVENT_FLAG = "-e";
@@ -301,6 +301,10 @@ public class Parser {
         Priority eventPriority;
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
+                    || matcher.group(3).isBlank() || matcher.group(4).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
             logger.info("Creating AddCommand for event with details: " +
                     matcher.group(1).trim() + ", " + matcher.group(2).trim() + ", " + matcher.group(3).trim());
             eventName = matcher.group(1).trim();
@@ -335,6 +339,11 @@ public class Parser {
         String participantNumber;
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
+                    || matcher.group(3).isBlank() || matcher.group(4).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             logger.info("Creating AddCommand for participant with details: " +
                     matcher.group(1).trim() + ", " + matcher.group(2).trim());
             participantName = matcher.group(1).trim();
@@ -376,6 +385,10 @@ public class Parser {
         String eventName;
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             itemName = matcher.group(1).trim();
             eventName = matcher.group(2).trim();
             logger.info(String.format("Creating AddCommand for item with details: %s, %s", itemName,
@@ -440,6 +453,10 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             return new RemoveCommand(matcher.group(1).trim());
         } else {
             throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
@@ -461,6 +478,10 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             return new RemoveCommand(matcher.group(1).trim(), matcher.group(2).trim(), true);
         } else {
             throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
@@ -482,6 +503,10 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             return new RemoveCommand(matcher.group(1).trim(), matcher.group(2).trim(), false);
         } else {
             throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
@@ -536,6 +561,11 @@ public class Parser {
         String eventName;
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
+                    || matcher.group(3).isBlank() || matcher.group(4).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             participantName = matcher.group(1).trim();
             newNumber = matcher.group(2).trim();
             newEmail = matcher.group(3).trim();
@@ -581,6 +611,11 @@ public class Parser {
         String eventVenue;
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
+                    || matcher.group(3).isBlank() || matcher.group(4).isBlank() || matcher.group(5).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             eventName = matcher.group(1).trim();
             eventNewName = matcher.group(2).trim();
             eventTime = LocalDateTime.parse(matcher.group(3).trim(),
@@ -613,6 +648,10 @@ public class Parser {
         String eventName;
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             itemName = matcher.group(1).split(ARROW)[0].trim();
             itemNewName = matcher.group(1).split(ARROW)[1].trim();
             eventName = matcher.group(2).trim();
@@ -691,6 +730,10 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             String eventName = matcher.group(1).trim();
             String viewType = matcher.group(2).trim();
 
@@ -753,6 +796,10 @@ public class Parser {
         boolean isToMark;
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || !matcher.group(2).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             eventName = matcher.group(1).trim();
             isToMark = toMarkEvent(matcher.group(2).trim());
         } else {
@@ -799,6 +846,10 @@ public class Parser {
         boolean isToMark;
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank() || matcher.group(3).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             participantName = matcher.group(1).trim();
             eventName = matcher.group(2).trim();
             isToMark = toMarkParticipant(matcher.group(3).trim());
@@ -846,6 +897,10 @@ public class Parser {
         boolean isToMark;
 
         if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank() || matcher.group(3).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
             itemName = matcher.group(1).trim();
             eventName = matcher.group(2).trim();
             isToMark = toMarkItem(matcher.group(3).trim());
@@ -956,6 +1011,10 @@ public class Parser {
             throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
         }
 
+        if (inputParts[1].isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
         Set<String> validFlags = Set.of(EVENT_FLAG, "-d", "-t", "-x", "-u");
         if (validFlags.contains(commandParts[1].trim().toLowerCase())) {
             return new FilterCommand(commandParts[1].trim().toLowerCase(), inputParts[1].trim());
@@ -990,7 +1049,11 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
-            if (matcher.groupCount() < 3 || matcher.group(1).isBlank()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
+            if (matcher.groupCount() < 2 || matcher.group(1).isBlank()) {
                 throw new InvalidCommandException(INVALID_FIND_MESSAGE);
             }
 
