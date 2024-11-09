@@ -153,35 +153,35 @@ The following sequence diagram shows the interactions within `TopicManager` duri
 
 ### `QuizSession` class: 
 The `QuizSession` class is responsible for managing a single quiz session.
-It interacts with the user through the Cli class to set up quiz parameters (time limit and question limit), initialises and starts the Quiz, and retrieves the final score.
+It interacts with the user through the `Cli` class to set up quiz parameters (time limit and question limit), initializes and starts the `Quiz`, and retrieves the final score.
 The class maintains the current quiz, selected topic, and session limits for each session.
 
 #### `QuizSession` class diagram:
-![QuizSessionClassDiagram](https://github.com/user-attachments/assets/08a4bab8-2a42-4112-a489-e8d682857932)
+![QuizSessionClassDiagram](https://github.com/user-attachments/assets/d51e24bb-bf10-4242-bce7-d114b66a6d67)
+
 
 #### How `QuizSession` works:
 - `QuizSession(Cli cli)`: Constructor that initializes `QuizSession` with a `Cli` instance for user interaction.
-- `startQuiz(Topic topic)`: Starts a quiz for the specified Topic, initializes Quiz, and prompts the user for time and question limits before starting the quiz.
-- `QuizScore()`: Returns the final score from the current quiz.
-- `TimeLimitInSecondsFromUser()`: Prompts the user to set the quiz time limit, either in minutes or seconds. Validates input to ensure it’s positive and non-zero.
-- `QuestionLimitFromUser()`: Prompts the user for the number of questions they want to attempt. Validates the input to ensure it’s within the available questions for the selected topic.
-- `QuestionLimit()`: Returns the question limit set for the current session.
-- `TimeLimitInSeconds()`: Returns the time limit in seconds for the current session.
-- `TopicName()`: Returns the name of the selected topic for display purposes.
-- `CurrentQuiz(Topic topic, Cli cli)`: For testing purposes; returns the current `Quiz` instance or creates one if it doesn’t exist.
+- `startQuiz(Topic topic)`: Starts a quiz for the specified `Topic`, initializes `Quiz`, and prompts the user for time and question limits before starting the quiz.
+- `getQuizScore()`: Returns the final score from the current quiz.
+- `getTimeLimitInSecondsFromUser()`: Prompts the user to set the quiz time limit, either in minutes or seconds. Validates input to ensure it’s positive and non-zero.
+- `getQuestionLimitFromUser()`: Prompts the user for the number of questions they want to attempt. Validates the input to ensure it’s within the available questions for the selected topic.
+- `getQuestionLimit()`: Returns the question limit set for the current session.
+- `getTimeLimitInSeconds()`: Returns the time limit in seconds for the current session.
+- `getTopicName()`: Returns the name of the selected topic for display purposes.
+- `getCurrentQuiz(Topic topic, Cli cli)`: For testing purposes; returns the current `Quiz` instance or creates one if it doesn’t exist.
 
 #### `QuizSession` sequence diagram with `select loops`: 
-![QuizSessionSequenceDiagram](https://github.com/user-attachments/assets/c2eb232d-f03c-46ff-b457-e5a4a179c95f)
+![QuizSessionSequenceDiagram](https://github.com/user-attachments/assets/15b4b889-7335-4443-a554-7afc122b3831)
 
 ## Product scope
 ### Target user profile
-
-This tool is designed for beginner programmers who want to enhance their skills in Java programming and command-line operations. Ideal for those who have a basic understanding of coding concepts but are looking for practical, hands-on experience to build confidence and proficiency in these areas.
-
+This tool is designed for beginner programmers who want to enhance their skills in Java programming and command-line operations.
+It is ideal for those who have a basic understanding of coding concepts but are looking for practical, hands-on experience to build confidence and proficiency in these areas.
 
 ### Value proposition
+This tool offers an interactive learning experience through a series of tasks and challenges designed to deepen users' understanding and proficiency in both command-line operations and Java programming.
 
-This tool will offer an interactive learning experience through a series of tasks and challenges designed to deepen users' understanding and proficiency in both command-line operations and Java language.
 
 ## User Stories
 
