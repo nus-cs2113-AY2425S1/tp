@@ -123,7 +123,7 @@ Notes:
 
 Example: 
 
-```angular2html
+```
 > stats /category food /from 02-11-2024 /to 09-11-2024
 HIGHEST EXPENSE:
 1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 09-11-2024
@@ -174,7 +174,7 @@ Examples:
 - `help /method add` lists format of the “add” command since `METHOD` is specified.
 - `help /recur edit` lists format of the "edit" command since `METHOD` and `/recur` are specified.
 
-```angular2html
+```
 > help /method add
 Use the add command to add an expense.
 Format:  add /price PRICE /description DESCRIPTION /category CATEGORY /date DATE
@@ -187,47 +187,6 @@ Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2
 
 >
 ```
-
-### Save data to files: `save`
-
-Saves data to files and stores them in a directory of your choice.
-
-Format: `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
-
-Notes:
-- If nothing at all is specified, it loads from the default paths:
-  - `EXPENSE_FILE_PATH = "expenses_data.csv"`
-  - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
-  - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
-- If some of the fields are specified, only the corresponding field(s) are saved.
-- The save files are designed to be human-readable and editable. Be careful of the syntax while editing!
-- Users are allowed to save to paths with their desired file extension in the csv file format.
-  - They do not have to save to a `.csv` file. (e.g. they can save to `expenses_data.txt`)
-
-Examples:
-- `save`                         saves all data to the default paths.
-- `save /expenseList ./data.csv` saves only the expenseList to `./data.csv`.
-
-### Load data from files: `load`
-
-Loads data from files into the app.
-
-Format: `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
-
-Notes:
-- If nothing at all is specified, it loads from the default paths:
-  - `EXPENSE_FILE_PATH = "expenses_data.csv"`
-  - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
-  - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
-- It clears existing data on read for ease of usage.
-- On read failure, it loads whatever it could read from the corrupted files.
-- Users are allowed to load from files with their desired file extension, as long as it follows the csv file format.
-  - They do not have to load from `.csv` files (e.g. they can load from `expenses_data.txt`)
-
-Examples:
-- `load`                         loads data from the default paths.
-- `load /expenseList ./data.csv` loads only the expenseList from `./data.csv`.
-
 ---
 
 ## Recurring Expenses
@@ -295,13 +254,51 @@ Notes:
 
 Examples: `list /recur /category food /from 02-11-2024 /to 04-11-2024`
 
+
+---
+
+## Storage
+
 ### Save data to files: `save`
 
-Works the same way as normal expenses.
+Saves data to files and stores them in a directory of your choice.
+
+Format: `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
+
+Notes:
+- If nothing at all is specified, it loads from the default paths:
+  - `EXPENSE_FILE_PATH = "expenses_data.csv"`
+  - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
+  - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
+- If some of the fields are specified, only the corresponding field(s) are saved.
+- The save files are designed to be human-readable and editable. Be careful of the syntax while editing!
+- Users are allowed to save to paths with their desired file extension in the csv file format.
+  - They do not have to save to a `.csv` file. (e.g. they can save to `expenses_data.txt`)
+
+Examples:
+- `save`                         saves all data to the default paths.
+- `save /expenseList ./data.csv` saves only the expenseList to `./data.csv`.
 
 ### Load data from files: `load`
 
-On top of working the same way as normal expenses, this command also checks whether a recurring expense is past its due date and adds it as a normal expense to the expense list.
+Loads data from files into the app.
+
+Format: `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
+
+Notes:
+- If nothing at all is specified, it loads from the default paths:
+  - `EXPENSE_FILE_PATH = "expenses_data.csv"`
+  - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
+  - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
+- It clears existing data on read for ease of usage.
+- On read failure, it loads whatever it could read from the corrupted files.
+- Users are allowed to load from files with their desired file extension, as long as it follows the csv file format.
+  - They do not have to load from `.csv` files (e.g. they can load from `expenses_data.txt`)
+- For recurring expenses, It checks whether a recurring expense is past its due date and adds it as a normal expense to the expense list.
+
+Examples:
+- `load`                         loads data from the default paths.
+- `load /expenseList ./data.csv` loads only the expenseList from `./data.csv`.
 
 ---
 
