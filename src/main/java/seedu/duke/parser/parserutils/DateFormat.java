@@ -25,9 +25,6 @@ public class DateFormat {
 
     private static final Logger LOGGER = Logger.getLogger(DateFormat.class.getName());
 
-    static {
-        LOGGER.setLevel(Level.SEVERE);
-    }
 
     private static final DateTimeFormatter STANDARD_DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
     private static final DateTimeFormatter STANDARD_TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
@@ -57,7 +54,7 @@ public class DateFormat {
 
         } catch (DateTimeParseException e) {
             showToUserException("Failed to parse date/time:" + dateStr);
-            LOGGER.log(Level.SEVERE, "Failed to parse date/time: {0}", dateStr);
+            LOGGER.log(Level.WARNING, "Failed to parse date/time: {0}", dateStr);
             throw new DateParseException(MESSAGE_INVALID_DATE_INPUT);
         }
     }

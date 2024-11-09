@@ -17,9 +17,7 @@ public class FindTaskCommand extends Command{
     
     private final String keyword;
 
-    static {
-        LOGGER.setLevel(Level.SEVERE); // Only show warnings and errors
-    }
+
     public FindTaskCommand(String keyword) {
         this.keyword = keyword;
     }
@@ -32,7 +30,7 @@ public class FindTaskCommand extends Command{
             ArrayList<Task> foundTasks = tasks.findTasks(keyword);
             return new CommandResult(String.format(MESSAGE_SUCCESS, foundListToString(foundTasks)));
         } catch (TaskList.TaskNotFoundException e) {
-            LOGGER.log(Level.SEVERE, "No matching tasks found: {0}", keyword);
+            LOGGER.log(Level.WARNING, "No matching tasks found: {0}", keyword);
             return new CommandResult(MESSAGE_NO_MATCH);
         } 
     }

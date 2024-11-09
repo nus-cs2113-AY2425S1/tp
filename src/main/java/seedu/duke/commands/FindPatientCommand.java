@@ -19,9 +19,6 @@ public class FindPatientCommand extends HospitalCommand {
 
     private final String keyword;
 
-    static {
-        logger.setLevel(Level.SEVERE);
-    }
 
     /**
      * Constructs a {@code FindPatientCommand} with the specified keyword to search for.
@@ -47,7 +44,7 @@ public class FindPatientCommand extends HospitalCommand {
 
         // Check if any patients were found
         if (foundPatients.isEmpty()) {
-            logger.log(Level.SEVERE, "No matching patients found: {0}", keyword);
+            logger.log(Level.WARNING, "No matching patients found: {0}", keyword);
             return new CommandResult(MESSAGE_NO_MATCH);
         } else {
             return new CommandResult(String.format(MESSAGE_SUCCESS, foundListToString(foundPatients)));

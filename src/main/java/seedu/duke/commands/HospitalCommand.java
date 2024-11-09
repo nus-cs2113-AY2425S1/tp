@@ -10,9 +10,6 @@ public abstract class HospitalCommand extends Command {
 
     private static final Logger logger = Logger.getLogger(HospitalCommand.class.getName());
 
-    static {
-        logger.setLevel(Level.SEVERE); // Only show warnings and errors
-    }
 
     public static void setHospital(Hospital hospital) {
         assert hospital != null : "Hospital instance should not be null";

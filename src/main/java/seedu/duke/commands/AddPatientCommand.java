@@ -17,9 +17,7 @@ public class AddPatientCommand extends HospitalCommand {
     private String name;
     private String tag;
 
-    static {
-        logger.setLevel(Level.SEVERE); // Only show warnings and errors
-    }
+
 
     /**
      * Constructs an {@code AddPatientCommand} with the specified patient name and optional tag.
@@ -43,7 +41,7 @@ public class AddPatientCommand extends HospitalCommand {
         assert name != null && !name.isEmpty() : "Patient name should not be null or empty";
 
         if (hospital.isDuplicatePatient(name)) {
-            logger.log(Level.SEVERE, "Duplicate patient detected: {0}", name);
+            logger.log(Level.WARNING, "Duplicate patient detected: {0}", name);
             return new CommandResult(MESSAGE_DUPLICATE_PATIENT);
         }
 

@@ -13,10 +13,7 @@ public class UnmarkTaskCommand extends Command {
     private static final Logger logger = Logger.getLogger(UnmarkTaskCommand.class.getName());
     
     private final int index;
-    
-    static {
-        logger.setLevel(Level.SEVERE);
-    }
+
     public UnmarkTaskCommand(int index) {
         this.index = index - 1;
     }
@@ -30,7 +27,7 @@ public class UnmarkTaskCommand extends Command {
             tasks.markAsUndone(index);
             return new CommandResult(String.format(MESSAGE_SUCCESS, tasks.getTask(index)));
         } catch (TaskList.TaskNotFoundException e) {
-            logger.log(Level.SEVERE, "Attempted to unmark a task at an invalid index: {0}", index);
+            logger.log(Level.WARNING, "Attempted to unmark a task at an invalid index: {0}", index);
             return new CommandResult(MESSAGE_TASK_NOT_FOUND);
         }
     }

@@ -18,10 +18,6 @@ public class DeletePatientCommand extends HospitalCommand {
 
     private int index;
 
-    static {
-        logger.setLevel(Level.SEVERE);
-    }
-
     /**
      * Constructs a {@code DeletePatientCommand} with the specified index of the patient to delete.
      * The index is adjusted to be zero-based for internal list access.
@@ -50,7 +46,7 @@ public class DeletePatientCommand extends HospitalCommand {
             // System.out.println(resultMessage);
             return new CommandResult(resultMessage);
         } catch (Hospital.PatientNotFoundException e) {
-            logger.log(Level.SEVERE, "Attempted to delete a patient at an invalid index: {0}", index);
+            logger.log(Level.WARNING, "Attempted to delete a patient at an invalid index: {0}", index);
             // System.out.println(MESSAGE_PATIENT_NOT_FOUND);
             return new CommandResult(MESSAGE_PATIENT_NOT_FOUND);
         }

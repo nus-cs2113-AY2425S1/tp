@@ -27,3 +27,4 @@ data/hospital_backup_*.json
 .classpath
 .project
 .settings/org.eclipse.buildship.core.prefs
+logs/

@@ -14,9 +14,6 @@ public class MarkTaskCommand extends Command {
 
     private final int index;
 
-    static {
-        logger.setLevel(Level.SEVERE);
-    }
 
     public MarkTaskCommand(int index) {
         this.index = index - 1;
@@ -31,7 +28,7 @@ public class MarkTaskCommand extends Command {
             tasks.markAsDone(index);
             return new CommandResult(String.format(MESSAGE_SUCCESS, tasks.getTask(index)));
         } catch (TaskList.TaskNotFoundException e) {
-            logger.log(Level.SEVERE, "Attempted to mark a task at an invalid index: {0}", index);
+            logger.log(Level.WARNING, "Attempted to mark a task at an invalid index: {0}", index);
             return new CommandResult(MESSAGE_TASK_NOT_FOUND);
         }
     }

@@ -38,7 +38,7 @@ public class AddDeadlineParser implements CommandParser {
                 // Parse, validate, and format the date using DateFormat
                 by = DateFormat.validateAndParseToStandardFormat(by);
             } catch (DateParseException e) {
-                LOGGER.log(Level.SEVERE, "Invalid date/time format for deadline: {0}", by);
+                LOGGER.log(Level.WARNING, "Invalid date/time format for deadline: {0}", by);
                 return null;
             }
             return new AddTaskCommand("deadline", taskName, by, tag);
