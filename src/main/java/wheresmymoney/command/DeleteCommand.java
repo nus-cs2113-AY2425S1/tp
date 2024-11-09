@@ -1,18 +1,16 @@
 package wheresmymoney.command;
 
+import wheresmymoney.utils.ArgumentsMap;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
-import wheresmymoney.Parser;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.util.HashMap;
-
 public class DeleteCommand extends Command {
 
-    public DeleteCommand(HashMap<String, String> argumentsMap) {
+    public DeleteCommand(ArgumentsMap argumentsMap) {
         super(argumentsMap);
     }
 
@@ -24,8 +22,8 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
             RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
+        int index = argumentsMap.getIndex();
         try {
-            int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
             if (this.isRecur()) {
                 recurringExpenseList.deleteRecurringExpense(index);
             } else {

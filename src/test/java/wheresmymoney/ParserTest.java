@@ -3,6 +3,7 @@ package wheresmymoney;
 import org.junit.jupiter.api.Test;
 import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
+import wheresmymoney.utils.Parser;
 
 import java.util.HashMap;
 

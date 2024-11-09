@@ -1,17 +1,16 @@
 package wheresmymoney.command;
 
+import wheresmymoney.utils.ArgumentsMap;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
-import wheresmymoney.Parser;
+import wheresmymoney.utils.Parser;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.util.HashMap;
-
 public class AddCommand extends Command {
 
-    public AddCommand(HashMap<String, String> argumentsMap) {
+    public AddCommand(ArgumentsMap argumentsMap) {
         super(argumentsMap);
     }
 
