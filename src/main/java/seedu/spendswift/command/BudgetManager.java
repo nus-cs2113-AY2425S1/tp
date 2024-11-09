@@ -140,8 +140,17 @@ public class BudgetManager {
             String category = parser.parseCategory(input);
             double limit = parser.parseLimit(input);
 
-            if (category == null || category.isEmpty() || limit < 0) {
-                System.out.println("Invalid input! Please provide category name and limit.");
+            if (category == null || category.isEmpty()) {
+                System.out.println("Invalid input! Please provide category name.");
+                return;
+            }
+
+            if (Double.isNaN(limit)) {
+                return;
+            }
+
+            if (limit < 0) {
+                System.out.println("Invalid input! Please provide a positive limit!");
                 return;
             }
 
