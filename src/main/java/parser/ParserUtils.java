@@ -75,16 +75,21 @@ public class ParserUtils {
         }
 
         String trimmedIntString = trimInput(intString);
+        int result;
 
         try{
-            int result = Integer.parseInt(trimmedIntString);
-
+            result = Integer.parseInt(trimmedIntString);
             logger.log(Level.INFO, "Successfully parsed integer: {0}", result);
-            return result;
         } catch (NumberFormatException e){
             logger.log(Level.WARNING, "Failed to parse integer from string: {0}", intString);
             throw ParserExceptions.invalidInt(trimmedIntString);
         }
+
+        if (result < 0){
+            throw ParserExceptions.invalidInt(trimmedIntString);
+        }
+
+        return result;
     }
 
     /**
@@ -101,16 +106,21 @@ public class ParserUtils {
         }
 
         String trimmedFloatString = trimInput(floatString);
+        float result;
 
         try {
-            float result = Float.parseFloat(trimmedFloatString);
-
+            result = Float.parseFloat(trimmedFloatString);
             logger.log(Level.INFO, "Successfully parsed float: {0}", result);
-            return result;
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Failed to parse float from string: {0}", floatString);
             throw ParserExceptions.invalidFloat(trimmedFloatString);
         }
+
+        if (result < 0){
+            throw ParserExceptions.invalidFloat(trimmedFloatString);
+        }
+
+        return result;
     }
 
     /**
