@@ -111,7 +111,7 @@ public class Storage {
                         trackerData.getExpenses().add(expense);
                     }
                 } catch (NumberFormatException e) {
-                        System.out.println("Invalid format in line: " + line);
+                    System.out.println("Invalid format in line: " + line);
                 }
             }
         }
