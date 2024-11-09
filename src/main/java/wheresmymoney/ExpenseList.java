@@ -178,7 +178,7 @@ public class ExpenseList {
             try {
                 String category = line[0];
                 String description = line[1];
-                Float price = Float.parseFloat(line[2]);
+                Float price = CsvUtils.parseFloat(line[2]);
                 String dateAdded = line[3];
                 addExpense(price, description, category, dateAdded);
                 // makes it slightly less cohesive, but to do so a refactor of the program state might be better.

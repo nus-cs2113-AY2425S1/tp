@@ -3,6 +3,7 @@ package wheresmymoney;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
+import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -31,8 +32,8 @@ public class CsvUtils {
             // closing writer connection
             reader.close();
             csvReader.close();
-        } catch (CsvException | IOException e) {
-            throw new StorageException("File is corrupted! Some data might have been salvaged.");
+        } catch (CsvException | IOException | WheresMyMoneyException e) {
+            throw new StorageException("File is corrupted! Some data might have been salvaged.\nRelated Error (if any): "+e.getMessage());
         }
     }
 
@@ -61,6 +62,21 @@ public class CsvUtils {
             writer.close();
         } catch (IOException e) {
             throw new StorageException("Unable to save Expense List to file: " + filePath);
+        }
+    }
+
+    /**
+     * Parses a String field into a Float, with exception handling.
+     *
+     * @param string String with the number
+     * @return Float parsed from the string
+     * @throws WheresMyMoneyException
+     */
+    public static Float parseFloat(String string) throws WheresMyMoneyException {
+        try {
+            return Float.parseFloat(string);
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException("Cannot parse string to float.");
         }
     }
 }
