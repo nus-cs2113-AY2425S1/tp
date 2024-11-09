@@ -23,7 +23,6 @@ public class UI {
     private static final String HELP_EXIT = "Exit: bye";
 
     public void printWelcomeMessage() {
-        System.out.println(SEPARATOR);
         System.out.println(WELCOME_MESSAGE);
         System.out.println(SEPARATOR);
     }
@@ -37,7 +36,6 @@ public class UI {
     public void printDataLoaded() {
         System.out.println(SEPARATOR);
         System.out.println(DATA_LOADED_MESSAGE);
-        System.out.println(SEPARATOR);
     }
 
     public void printDataSaved() {
@@ -49,7 +47,6 @@ public class UI {
     public void printLoadingError(String errorMessage) {
         System.out.println(SEPARATOR);
         System.out.println(ERROR_LOADING_DATA_MESSAGE + errorMessage);
-        System.out.println(SEPARATOR);
     }
 
     public void printSavingError(String errorMessage) {
@@ -67,7 +64,6 @@ public class UI {
     public void printFileNotFound() {
         System.out.println(SEPARATOR);
         System.out.println(FILE_NOT_FOUND);
-        System.out.println(SEPARATOR);
     }
 
     public void printHelpMessage() {
