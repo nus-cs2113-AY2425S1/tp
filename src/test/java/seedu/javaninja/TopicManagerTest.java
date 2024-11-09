@@ -12,11 +12,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+/**
+ * Unit tests for the `TopicManager` class.
+ * Tests various methods for managing topics, adding flashcards, and loading questions.
+ */
 class TopicManagerTest {
 
-    private TopicManager topicManager;
-    private Cli cli;
+    private TopicManager topicManager;  // Instance of `TopicManager` for testing
+    private Cli cli;  // CLI instance to simulate user interaction
 
+    /**
+     * Sets up the test environment by initializing `TopicManager` and a simulated `Cli` instance.
+     */
     @BeforeEach
     public void setUp() {
         String simulatedUserInput = "Sample input\n";
@@ -26,6 +33,9 @@ class TopicManagerTest {
         topicManager = new TopicManager(cli);
     }
 
+    /**
+     * Tests if `getOrCreateTopic()` creates a new topic if it doesn't exist.
+     */
     @Test
     public void getOrCreateTopic_createsNewTopicIfNotExists() {
         Topic topic = topicManager.getOrCreateTopic("New Topic");
@@ -33,6 +43,9 @@ class TopicManagerTest {
         assertEquals("New Topic", topic.getName(), "Topic name should match the input name.");
     }
 
+    /**
+     * Tests if `getOrCreateTopic()` returns an existing topic when requested.
+     */
     @Test
     public void getOrCreateTopic_returnsExistingTopic() {
         Topic topic = new Topic("Existing Topic");
@@ -42,12 +55,18 @@ class TopicManagerTest {
         assertEquals(topic, retrievedTopic, "getOrCreateTopic should return the existing topic.");
     }
 
+    /**
+     * Tests if `getTopic()` returns null when a topic does not exist.
+     */
     @Test
     public void getTopic_returnsNullIfNotExists() {
         Topic topic = topicManager.getTopic("NonExistentTopic");
         assertEquals(null, topic, "getTopic should return null for a non-existent topic.");
     }
 
+    /**
+     * Tests if `addTopic()` successfully adds a new topic.
+     */
     @Test
     public void addTopic_addsNewTopic() {
         Topic topic = new Topic("Java Basics");
@@ -57,16 +76,22 @@ class TopicManagerTest {
         assertTrue(topicNames.contains("Java Basics"), "TopicManager should contain the newly added topic.");
     }
 
+    /**
+     * Tests if `addTopic()` does not add a duplicate topic.
+     */
     @Test
     public void addTopic_doesNotAddDuplicateTopic() {
         Topic topic = new Topic("Duplicate Topic");
         topicManager.addTopic(topic);
-        topicManager.addTopic(topic); // Add the same topic again
+        topicManager.addTopic(topic); // Attempt to add the same topic again
 
         long topicCount = topicManager.getTopicNames().stream().filter(name -> name.equals("Duplicate Topic")).count();
         assertEquals(1, topicCount, "Duplicate topics should not be added.");
     }
 
+    /**
+     * Tests if `addFlashcardByUser()` successfully adds a flashcard with valid input.
+     */
     @Test
     public void addFlashcardByUser_validInput_addsFlashcard() {
         String input = "add Flashcards /q What is Java? /a A programming language";
@@ -79,10 +104,13 @@ class TopicManagerTest {
                 "Flashcards topic should contain the added question.");
     }
 
+    /**
+     * Tests if `addFlashcardByUser()` does not add an incomplete flashcard with invalid input.
+     */
     @Test
     public void addFlashcardByUser_invalidInput_doesNotAddFlashcard() {
-        String input = "add Flashcards /q What is Java?";
-        topicManager.addFlashcardByUser(input); // Missing "/a" for the answer
+        String input = "add Flashcards /q What is Java?"; // Missing answer part
+        topicManager.addFlashcardByUser(input);
 
         Topic flashcardTopic = topicManager.getTopic("Flashcards");
         if (flashcardTopic != null) {
@@ -92,6 +120,9 @@ class TopicManagerTest {
         }
     }
 
+    /**
+     * Tests if `loadQuestions()` parses and adds questions from storage.
+     */
     @Test
     public void loadQuestions_parsesAndAddsQuestions() {
         topicManager.loadQuestions();
@@ -99,6 +130,9 @@ class TopicManagerTest {
         assertFalse(topicNames.isEmpty(), "Topics should be loaded and added.");
     }
 
+    /**
+     * Tests if `loadFlashcards()` parses and adds flashcards from storage.
+     */
     @Test
     public void loadFlashcards_parsesAndAddsFlashcards() {
         topicManager.loadFlashcards();
