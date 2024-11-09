@@ -1,7 +1,7 @@
 @startuml
 
 !include style.puml
-skinparam ArrowFormatStyle plain
+skinparam style strictuml
 
 scale 1.5
 
@@ -12,38 +12,52 @@ participant ":AddParser" as AddParser PARSER_COLOR
 participant ":AddPatientCommand" as AddPatientCommand COMMAND_COLOR
 participant ":Hospital" as hospital DATA_COLOR
 
-User -> MediTask : enter "add John Doe [tag]"
+User -> MediTask : "add NAME [tag]"
 activate MediTask
-MediTask -> Parser : parseCommand("add John Doe [tag]", currentState)
+MediTask -> Parser : parse()
 activate Parser
-Parser -> AddParser : execute("add John Doe [tag]", currentState)
-deactivate Parser
-activate AddParser
-AddParser -> AddPatientCommand : new AddPatientCommand(name, tag)
-deactivate AddParser
-activate AddPatientCommand
+Parser -> AddParser : execute()
 
-alt Name is null or empty
-    AddPatientCommand --> MediTask : throw AssertionError
-else Name is not null or empty
-    AddPatientCommand -> hospital : isDuplicatePatient(name)
-    alt Duplicate patient
-        AddPatientCommand --> MediTask : return "This patient already exists in the hospital"
-        MediTask --> User : Display "This patient already exists in the hospital"
-    else No duplicate
-        AddPatientCommand -> hospital : addPatient(name, tag)
-        alt tag is not null or empty
-            AddPatientCommand --> MediTask : return "New patient added: John Doe [tag]"
-            MediTask --> User : Display "New patient added: John Doe [tag]"
-        else tag is null or empty
-            AddPatientCommand --> MediTask : return "New patient added: John Doe"
-            MediTask --> User : Display "New patient added: John Doe"
-        end
-    end
+activate AddParser
+create AddPatientCommand
+AddParser -> AddPatientCommand : AddPatientCommand(name, tag)
+
+alt Name is invalid
+    activate AddPatientCommand
+    AddPatientCommand --> AddParser : return error
+    deactivate AddPatientCommand
+    AddParser --> Parser : return error
+    Parser --> MediTask : return error
+    MediTask --> User : "Error: Patient name cannot be empty"
+else Patient already exists
+
+    AddPatientCommand -> hospital : checkDuplicate(name)
+    activate AddPatientCommand
+    activate hospital
+    hospital --> AddPatientCommand : duplicate = true
+    deactivate hospital
+    AddPatientCommand --> AddParser : return duplicate
+    deactivate AddPatientCommand
+    AddParser --> Parser : return duplicate
+    Parser --> MediTask : return duplicate
+    MediTask --> User : "This patient already exists in the hospital"
+else New patient
+
+    AddPatientCommand -> hospital : addPatient(name, tag)
+    activate AddPatientCommand
+    activate hospital
+    hospital --> AddPatientCommand : return success
+    deactivate hospital
+    AddPatientCommand --> AddParser : return success
+    deactivate AddPatientCommand
+    AddParser --> Parser : return success
+    deactivate AddParser
+    Parser --> MediTask : return success
+    deactivate Parser
+    MediTask --> User : "New patient added: NAME [tag]"
+    deactivate MediTask
 end
 
-deactivate AddPatientCommand
 destroy AddPatientCommand
-deactivate MediTask
 
 @enduml
