@@ -30,22 +30,6 @@ public class Messages {
     public static final String MESSAGE_WELCOME = "Welcome to " + APPLICATION_NAME + "!";
     public static final String MESSAGE_GOODBYE = "Goodbye! Hope to see you again soon!";
 
-// public static final String MESSAGE_HELP_PATIENT = Colors.ANSI_BLUE + """
-//         Here are the list of commands you can use in patient mode:
-//         """ + Colors.ANSI_RESET + Colors.ANSI_YELLOW + """
-
-//         COMMANDS:
-//         """ + Colors.ANSI_RESET +
-//         Colors.ANSI_GREEN + """
-//             1. add    """ + Colors.ANSI_RESET + """ - Add a patient to the system (e.g. add John Doe)
-//             """ + Colors.ANSI_GREEN + """2. delete """ + Colors.ANSI_RESET + """ - Delete a patient from the system
-//             """ + Colors.ANSI_GREEN + """3. list   """ + Colors.ANSI_RESET + """ - List all patients in the system
-//             """ + Colors.ANSI_GREEN + """4. select """ + Colors.ANSI_RESET + """ - Select a patient in the system
-//             """ + Colors.ANSI_GREEN + """5. find   """ + Colors.ANSI_RESET + """ - Find a patient in the system
-//             """ + Colors.ANSI_GREEN + """6. help   """ + Colors.ANSI_RESET + """ - Show help message
-//             """ + Colors.ANSI_GREEN + """7. exit   """ + Colors.ANSI_RESET + """ - Exit the program
-//         """;
-
 public static final String MESSAGE_HELP_PATIENT = Colors.ANSI_BLUE + """
     Here are the list of commands you can use in patient mode:
     """ + Colors.ANSI_RESET + Colors.ANSI_YELLOW + """
@@ -88,21 +72,6 @@ public static final String MESSAGE_HELP_PATIENT = Colors.ANSI_BLUE + """
             """
                             Example: exit
             """;
-
-
-
-    // public static final String MASSAGE_HELP_TASK = """
-    //         Here are the list of commands you can use in task mode:
-
-    //         1. add      - Add a task to the system
-    //         2. delete   - Delete a task from the system
-    //         3. list     - List all tasks in the system
-    //         4. find     - Find a task in the system
-    //         5. mark     - Mark a task as done
-    //         6. unmark   - Mark a task as undone
-    //         7. help     - Show help message
-    //         8. exit     - Exit the program
-    //         """;
 
     public static final String MESSAGE_HELP_TASK = Colors.ANSI_BLUE + """
         Here are the list of commands you can use in task mode:
