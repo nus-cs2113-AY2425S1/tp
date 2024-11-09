@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.math.BigDecimal;
+
 
 //@@author kq2003
 public class BudgetManager {
@@ -92,41 +94,53 @@ public class BudgetManager {
      * @param categoryName The name of the category to set the budget for
      * @param limit The budget limit to be set for the category (in dollars)
      */
-    public  void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
-        List<Category> categories = trackerData.getCategories();
-        Map<Category, Budget> budgets = trackerData.getBudgets();
-        String formattedCategoryName = Format.formatInput(categoryName.trim());
+  
 
-        if (limit < 0) {
-            System.out.println("Invalid input! Please provide a positive amount!");
-            return;
-        }
+public void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
+    // Adjusted for potentially enormous values typical in some currencies
+    final BigDecimal MAX_LIMIT = new BigDecimal("1000000000000000"); // 1 quadrillion for example
 
-        Category existingCategory = null;
-        for (Category category : categories) {
-            if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
-                existingCategory = category;
-                break;
-            }
-        }
+    BigDecimal preciseLimit = BigDecimal.valueOf(limit);
 
-        if (existingCategory == null) {
-            System.out.println("Category '" + formattedCategoryName + "' not found. Please add the category first.");
-            return;
-        }
+    List<Category> categories = trackerData.getCategories();
+    Map<Category, Budget> budgets = trackerData.getBudgets();
+    String formattedCategoryName = Format.formatInput(categoryName.trim());
 
-        if (budgets.containsKey(existingCategory)) {
-            budgets.get(existingCategory).setLimit(limit);
-            System.out.println("Updated budget for category '" + existingCategory + "' to "
-                    + Format.formatAmount(limit));
-        } else {
-            Budget newBudget = new Budget(existingCategory, limit);
-            budgets.put(existingCategory, newBudget);
-            System.out.println("Set budget for category '" + existingCategory + "' to " + Format.formatAmount(limit));
-        }
-
-        trackerData.setBudgets(budgets);
+    if (preciseLimit.compareTo(BigDecimal.ZERO) < 0) {
+        System.out.println("Invalid input! Please provide a positive amount!");
+        return;
     }
+
+    if (preciseLimit.compareTo(MAX_LIMIT) > 0) {
+        System.out.println("Budget limit exceeds the maximum allowed amount of " + MAX_LIMIT.toPlainString());
+        return;
+    }
+
+    Category existingCategory = null;
+    for (Category category : categories) {
+        if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
+            existingCategory = category;
+            break;
+        }
+    }
+
+    if (existingCategory == null) {
+        System.out.println("Category '" + formattedCategoryName + "' not found. Please add the category first.");
+        return;
+    }
+
+    if (budgets.containsKey(existingCategory)) {
+        budgets.get(existingCategory).setLimit(preciseLimit.doubleValue()); // Convert back to double if necessary
+        System.out.println("Updated budget for category '" + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
+    } else {
+        Budget newBudget = new Budget(existingCategory, preciseLimit.doubleValue());
+        budgets.put(existingCategory, newBudget);
+        System.out.println("Set budget for category '" + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
+    }
+
+    trackerData.setBudgets(budgets);
+}
+
     //@author MayFairMI6
     public int getLastResetMonth() {
         return lastResetMonth;
