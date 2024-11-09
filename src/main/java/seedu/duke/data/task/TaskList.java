@@ -135,17 +135,23 @@ public class TaskList {
         return tasks.size();
     }
 
-    public void markAsDone(int index) throws TaskNotFoundException {
+    public void markAsDone(int index) throws TaskNotFoundException, DuplicateMarkingTaskException {
         if(!contains(index)) {
             throw new TaskNotFoundException();
+        }
+        if(tasks.get(index).isDone()) {
+            throw new DuplicateMarkingTaskException();
         }
         tasks.get(index).markAsDone();
         setCompletionRate(calCompletionRate());
     }
 
-    public void markAsUndone(int index) throws TaskNotFoundException {
+    public void markAsUndone(int index) throws TaskNotFoundException, DuplicateMarkingTaskException {
         if(!contains(index)) {
             throw new TaskNotFoundException();
+        }
+        if(!tasks.get(index).isDone()) {
+            throw new DuplicateMarkingTaskException();
         }
         tasks.get(index).markAsUndone();
         setCompletionRate(calCompletionRate());
@@ -199,6 +205,12 @@ public class TaskList {
     public static class DuplicateTaskException extends Exception {
         public DuplicateTaskException() {
             super("Input task is already in the list.");
+        }
+    }
+    
+    public static class DuplicateMarkingTaskException extends Exception {
+        public DuplicateMarkingTaskException() {
+            super("Input task is already marked/unmarked.");
         }
     }
 }
