@@ -21,7 +21,7 @@ public class Parser {
     }
 
     public boolean parseCommand(String input, TrackerData trackerData) {
-        input = input.trim();
+        input = input.trim().toLowerCase();
 
         if (input.startsWith("add-expense")) {
             expenseManager.addExpenseRequest(input, expenseManager, trackerData);
