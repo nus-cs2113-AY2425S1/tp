@@ -6,7 +6,6 @@
 - [Quick Start](#quick-start)
 - [Features](#features-)
 - [FAQ](#faq)
-- [Others](#others)
 - [Command Summary](#command-summary)
 
 ---
@@ -100,7 +99,15 @@ Notes:
 - Lists all expenses the user has.
 - If filters are specified, only matching expenses are shown.
 
-Example: `list /category food /from 02-11-2024 /to 04-11-2024`
+Example: 
+```
+> list
+1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 09-11-2024
+2. CATEGORY: transport, DESCRIPTION: bus ride, PRICE: 1.00, DATE ADDED: 01-10-2024
+> list /category food /from 02-11-2024 /to 09-11-2024
+1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 09-11-2024
+> 
+```
 
 ### Get statistics for your transactions: `stats`
 
@@ -111,9 +118,20 @@ Format:  `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 Notes:
 - `CATEGORY` is text.
 - `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
-- Lists statistics for all expenses matching the provided filter.
+- Lists statistics for all expenses matching the provided filter. 
+  - This includes the highest expense, lowest expense, and the mean price.
 
-Example: `stats /category food /from 02-11-2024 /to 04-11-2024`
+Example: 
+
+```angular2html
+> stats /category food /from 02-11-2024 /to 09-11-2024
+HIGHEST EXPENSE:
+1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 09-11-2024
+LOWEST EXPENSE:
+1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 09-11-2024
+MEAN PRICE: 4.5
+> 
+```
 
 ### Visualize your expenditures: `visualize`
 
@@ -155,6 +173,20 @@ Examples:
 - `help`              lists all commands the app has since `METHOD` is not specified.
 - `help /method add` lists format of the “add” command since `METHOD` is specified.
 - `help /recur edit` lists format of the "edit" command since `METHOD` and `/recur` are specified.
+
+```angular2html
+> help /method add
+Use the add command to add an expense.
+Format:  add /price PRICE /description DESCRIPTION /category CATEGORY /date DATE
+Notes:
+    - PRICE is a decimal number.
+    - DESCRIPTION and CATEGORY are text.
+    - DATE is a string in DD-MM-YYYY format.
+    - If no date is specified, it will be defaulted to the current date.
+Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2024
+
+>
+```
 
 ### Save data to files: `save`
 
