@@ -21,6 +21,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    public void savedData(TrackerData trackerData, Storage storage, UI ui) {
+        try {
+            storage.saveData(trackerData);
+        } catch (IOException e) {
+            ui.printSavingError(e.getMessage());
+        }
+    }
+
     public void saveData(TrackerData trackerData) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write("Budgets\n");
