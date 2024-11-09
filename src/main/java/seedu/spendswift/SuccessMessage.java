@@ -13,4 +13,10 @@ public class SuccessMessage {
         System.out.println("Added" + expense);
         System.out.println(UI.SEPARATOR);
     }
+
+    public static void printDeleteExpense(Expense expense) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Deleted expense: " + expense);
+        System.out.println(UI.SEPARATOR);
+    }
 }

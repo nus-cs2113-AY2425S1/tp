@@ -40,7 +40,7 @@ public class InputParser {
         try {
             return Double.parseDouble(limitStr);
         } catch (NumberFormatException e) {
-            ErrorMessage.printInputParserInvalidLimit();
+            ErrorMessage.printInvalidLimit();
             return Double.NaN;
         }
     }
@@ -50,7 +50,7 @@ public class InputParser {
         try {
             return Double.parseDouble(amountStr);
         } catch (NumberFormatException e) {
-            ErrorMessage.printInputParserInvalidAmount();
+            ErrorMessage.printInvalidAmount();
             return Double.NaN;
         }
     }

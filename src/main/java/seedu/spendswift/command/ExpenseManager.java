@@ -85,23 +85,24 @@ public class ExpenseManager {
         SuccessMessage.printAddExpense(newExpense);
     }
 
-    //@@author AdiMangalam
+    //@@glenda-1506
     public void deleteExpenseRequest(String input, ExpenseManager expenseManager, TrackerData trackerData) {
         try {
-            String[] parts = input.split(" ");
-            if (parts.length < 2 || !parts[1].startsWith("e/")) {
-                System.out.println("Invalid input! Please provide an expense index to delete.");
+            InputParser parser = new InputParser();
+            int expenseIndex = parser.parseIndex(input);
+            if (expenseIndex < 0) {
+                ErrorMessage.printInvalidIndex();
                 return;
             }
-            int expenseIndex = Integer.parseInt(parts[1].substring(2).trim()) - 1; // 1-based index
             expenseManager.deleteExpense(trackerData, expenseIndex);
-        } catch (NumberFormatException e) {
-            System.out.println("Error parsing the expense index. Please use the correct format.");
+        } catch (IndexOutOfBoundsException e) {
+            ErrorMessage.printOutOfBoundsIndex();
         } catch (Exception e) {
-            System.out.println("An unexpected error occurred: " + e.getMessage());
+            ErrorMessage.printUnexpectedError(e);
         }
     }
 
+    //@@author AdiMangalam
     /**
      * Deletes an expense at the specified index in the expense list.
      *
@@ -115,12 +116,8 @@ public class ExpenseManager {
     public void deleteExpense(TrackerData trackerData, int expenseIndex) {
         List<Expense> expenses = trackerData.getExpenses();
 
-        if (expenseIndex < 0 || expenseIndex >= expenses.size()) {
-            System.out.println("Invalid index. Unable to delete expense.");
-            return;
-        }
         Expense removedExpense = expenses.remove(expenseIndex);
-        System.out.println("Deleted expense: " + removedExpense);
+        SuccessMessage.printDeleteExpense(removedExpense);
         trackerData.setExpenses(expenses);
     }
 
