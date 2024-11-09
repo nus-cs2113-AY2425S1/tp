@@ -36,7 +36,7 @@ File --> Storage : saveFile:File
 deactivate File
 
 create Scanner
-Storage -> Scanner : Scanner(tasksFile)
+Storage -> Scanner : Scanner(saveFile)
 activate Scanner
 Scanner --> Storage : reader:Scanner
 deactivate Scanner
@@ -49,15 +49,16 @@ loop COLOR_GREEN until reader.hasNext() == false
 
     Storage -> Storage : addRecipe(recipes, line)
     activate Storage
-    Storage -> Parser : parseCommand(line, ...)
+    Storage -> Parser : parseRecipeSaveLine(line)
     activate Parser
     ref over Parser
-        Read in recipe
-        details from line
+        Interpret and seperate recipe's
+        parameters from the save line
+        and store it in a new Recipe object
     end ref
 
     create AddRecipeCommand
-    Parser -> AddRecipeCommand : AddCommand(..)
+    Parser -> AddRecipeCommand : AddCommand(recipe)
     activate AddRecipeCommand
     AddRecipeCommand --> Parser : command:AddCommand
     deactivate AddRecipeCommand
@@ -69,7 +70,7 @@ loop COLOR_GREEN until reader.hasNext() == false
     activate AddRecipeCommand
     ref over AddRecipeCommand
         Store loaded recipe
-        into recipes ArrayList
+        into current RecipeList
     end ref
     AddRecipeCommand --> Storage
     deactivate AddRecipeCommand
@@ -83,10 +84,20 @@ end
 destroy File
 destroy Scanner
 
+Storage -> Storage : saveRecipes(recipes)
+activate Storage
+ref over Storage
+    Refer to Save Recipes
+    Sequence Diagram
+end ref
+Storage --> Storage
+deactivate Storage
+
+
 create ListCommand
 Storage -> ListCommand : ListCommand()
 activate ListCommand
-ListCommand --> Storage : lister:ListIngredientCommand
+ListCommand --> Storage : lister:ListCommand
 deactivate ListCommand
 
 Storage -> ListCommand : execute(recipes, ...)
@@ -95,12 +106,12 @@ ref over ListCommand
     Prints to the CLI
     all the loaded recipes
 end ref
-ListCommand -->Storage
+ListCommand --> Storage
 deactivate ListCommand
-
-destroy ListCommand
 
 Storage --> YMFC
 deactivate Storage
+
+destroy ListCommand
 
 @enduml

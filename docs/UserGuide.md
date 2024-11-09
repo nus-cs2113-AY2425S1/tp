@@ -5,7 +5,8 @@
 - [Introduction](#introduction)
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Auto-Save Databases](#auto-save-databases)
+  - [Recipes and Ingredients](#recipes-and-ingredients)
+  - [Save-Load System](#save-load-system)
   - [Input Formatting Guide](#input-formatting-guide)
   - [Getting Help](#getting-helphelp)
   - [Exiting YMFC](#exiting-ymfc-bye)
@@ -44,13 +45,34 @@ It can also keep track of what ingredients you have on hand, and recommend recip
 
 ## Features
 
-### Auto-Save Databases
+### Recipes and Ingredients
+* There are 2 categories of data that YMFC will help you store: Recipes and Ingredients
+* The **Recipes** are stored in the **cookbook** database while **Ingredients** are stored in the **inventory** database
+
+
+* **Recipes** are what you would expect in a **cookbook** and contain details such as ingredients needed, steps to take,
+cuisine of the meal and time taken to prepare the meal
+  * They are essentially descriptions of a meal and steps on how to prepare those meals
+
+
+* **Ingredients** in the **inventory** refer to ingredients that you as a cook have on hand at the moment
+  * i.e. The inventory database of ingredients contains items that the user currently has available to cook with
+* NOTE: These ingredients are **COMPLETELY DISTINCT** from the ingredients contained within recipes!!!
+  * As such, when creating and adding recipes to the cookbook, the ingredients mentioned within them **WILL NOT** 
+be automatically added to the ingredients inventory! 
+  * Because the ingredients within recipes and ingredients within the inventory refer to 2 completely different things!
+  * The only way to add ingredients to your inventory is through the `new` command, which will be described later
+
+
+### Save-Load System
 * YMFC keeps 2 separate databases, stored locally in 2 text files.
   * The cookbook database stores your Recipes, located at `[JAR File Location]/data/recipes.txt`.
   * The inventory database stores your available Ingredients, located at `[JAR File Location]/data/ingredients.txt`.
-* YMFC loads your recipes and ingredients from these 2 databases when launched
-* If the databases don't yet exist, YMFC will create them automatically
-* Your recipes and ingredients are saved automatically every time they are added, edited or removed
+* YMFC automatically loads your recipes and ingredients from these 2 databases when launched
+* If the databases don't yet exist, YMFC will create them automatically upon launch of the app
+* Your recipes and ingredients are saved automatically every time they are added, edited, removed or modified in any way
+  * i.e. There is no manual way nor need to initiate this save process, as it is taken care of by YMFC itself.
+
 
 ### Input Formatting Guide
 * If the command format is in uppercase letters, then it means it is to be substituted for the user's desired phrase
