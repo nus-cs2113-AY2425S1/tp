@@ -168,10 +168,14 @@ public class Parser {
      * @throws IOException if the log output file cannot be written to.
      */
     public Parser() throws IOException {
-        logger = Logger.getLogger(Parser.class.getName());
-        logger.setUseParentHandlers(false);
-        handler = new FileHandler("manager.log");
-        logger.addHandler(handler);
+        try {
+            logger = Logger.getLogger(Parser.class.getName());
+            logger.setUseParentHandlers(false);
+            handler = new FileHandler("manager.log");
+            logger.addHandler(handler);
+        } catch (IOException exception) {
+            throw new IOException("Log file cannot be written to.");
+        }
     }
 
     /**

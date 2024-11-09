@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 //@@author KuanHsienn
@@ -21,7 +22,23 @@ import java.util.logging.Logger;
  * and adds them to the provided EventList.
  */
 public class FileParser {
-    private static final Logger logger = Logger.getLogger(FileParser.class.getName());
+    private final Logger logger;
+
+    /**
+     * Constructs a new FileParser.
+     *
+     * @throws IOException if the log file cannot be written to.
+     */
+    public FileParser() throws IOException{
+        try {
+            logger = Logger.getLogger(FileParser.class.getName());
+            logger.setUseParentHandlers(false);
+            FileHandler handler = new FileHandler("manager.log");
+            logger.addHandler(handler);
+        } catch (IOException exception) {
+            throw new IOException("Log file cannot be written to.");
+        }
+    }
 
     /**
      * Parses the specified CSV file and populates the given EventList with the loaded data.
