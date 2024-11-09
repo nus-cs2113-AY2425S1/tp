@@ -39,9 +39,6 @@ public abstract class Command {
     }
 
     public boolean isRecur() {
-        if (argumentsMap.containsKey(Parser.ARGUMENT_RECUR)) {
-            return true;
-        }
-        return false;
+        return argumentsMap.isRecur();
     }
 }

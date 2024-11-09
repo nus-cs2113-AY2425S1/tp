@@ -6,6 +6,9 @@ import wheresmymoney.exception.WheresMyMoneyException;
 import java.util.HashMap;
 
 public class ArgumentsMap extends HashMap<String, String> {
+    public boolean isRecur() {
+        return containsKey(Parser.ARGUMENT_RECUR);
+    }
     public String getRequired(String argumentName)
             throws InvalidInputException {
         String errorMessage = "Required argument not given: " + argumentName;
