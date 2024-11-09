@@ -151,7 +151,7 @@ public final class Parser {
         String args = m.group("args") == null ? "" : m.group("args").trim();
 
         if (!command.equals("add")) {
-            throw new InvalidSaveLineException("Invalid command syntax found in Recipe save file: "
+            throw new InvalidSaveLineException("Invalid line found in Recipe save file: "
                     + saveRecipeString + System.lineSeparator());
         }
 
@@ -183,7 +183,7 @@ public final class Parser {
         String args = m.group("args") == null ? "" : m.group("args").trim();
 
         if (!command.equals("new")) {
-            throw new InvalidSaveLineException("Invalid command syntax found in Ingredient save file: "
+            throw new InvalidSaveLineException("Invalid line found in Ingredient save file: "
                     + saveIngredientString + System.lineSeparator());
         }
 
