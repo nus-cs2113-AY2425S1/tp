@@ -40,7 +40,7 @@ public class YMFC {
 
                 if (command.isBye()) {
                     saidBye = true;
-                    logger.log(Level.INFO, "User said bye");
+                    logger.log(Level.FINE, "User said bye");
                 }
             } catch (Exception exception) {
                 ui.printErrorMessage(exception.getMessage());

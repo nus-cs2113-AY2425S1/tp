@@ -23,6 +23,29 @@ public class Storage {
     private static final String saveIngredientFilePath = "./data/ingredients.txt";
 
     public Storage() {
+        File dir = new File("./data");
+        if (!dir.isDirectory()) {
+            dir.mkdir();
+        }
+
+        File recipeFile = new File(saveRecipeFilePath);
+        File ingredientFile = new File(saveIngredientFilePath);
+
+        try {
+            if (!recipeFile.exists()) {
+                recipeFile.createNewFile();
+            }
+        } catch (IOException e) {
+            logger.log(Level.INFO, "Failed to create Recipes save file");
+        }
+
+        try {
+            if (!ingredientFile.exists()) {
+                ingredientFile.createNewFile();
+            }
+        } catch (IOException e) {
+            logger.log(Level.INFO, "Failed to create Ingredients save file");
+        }
     }
 
     /**
