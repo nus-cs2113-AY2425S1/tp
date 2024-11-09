@@ -63,7 +63,7 @@ public class EditEntryCommand extends Command {
             throws FinanceBuddyException {
 
         this.index = index;
-        this.amount = amount;
+        this.amount = Math.round(amount * 100.0)/100.0;
         this.description = description;
         this.category = category;
         try {
