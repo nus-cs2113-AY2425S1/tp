@@ -298,7 +298,7 @@ public class Ui {
     }
 
     /**
-     * Display list of inrgedients with order of each ingredient.
+     * Display list of ingredients with order of each ingredient.
      *
      * @param list ArrayList of ingredients to be displayed.
      * @param listCount Integer representing total number of ingredients in <code>list</code>.

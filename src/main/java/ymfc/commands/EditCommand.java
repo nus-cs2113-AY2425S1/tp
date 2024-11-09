@@ -1,5 +1,6 @@
 package ymfc.commands;
 
+import ymfc.ingredient.Ingredient;
 import ymfc.list.IngredientList;
 import ymfc.recipe.Recipe;
 import ymfc.exception.InvalidArgumentException;
@@ -8,6 +9,7 @@ import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import static ymfc.YMFC.logger;
 
@@ -23,25 +25,90 @@ public class EditCommand extends Command {
             \tedit e/instant noodles i/magi mee i/water s1/boil water s2/eat magi mee s3/drink water
             """;
 
-    private Recipe recipe;
+    private String matchName;
+    private String newName;
+    private ArrayList<Ingredient> newIngredients;
+    private ArrayList<String> newSteps;
+    private String newCuisine;
+    private Integer newTimeTaken;
 
-    /**
-     * Constructs a {@code EditCommand} with the specified recipe name.
-     *
-     * @param recipe The edit information of the recipe. Must not be {@code null}.
-     */
-    public EditCommand(Recipe recipe) {
+    public EditCommand(String matchName, String newName, ArrayList<Ingredient> newIngredients,
+                       ArrayList<String> newSteps, String newCuisine, Integer newTimeTaken) {
         super();
-
         logger.log(Level.FINEST, "Creating EditCommand");
-        assert recipe != null;
-        this.recipe = recipe;
+        assert matchName != null;
+        this.matchName = matchName;
+        this.newName = newName;
+        this.newIngredients = newIngredients;
+        this.newSteps = newSteps;
+        this.newCuisine = newCuisine;
+        this.newTimeTaken = newTimeTaken;
+    }
+
+    private Recipe craftEditedRecipe(Recipe toEditRecipe) {
+        // Use new recipe parameters if they are specified (not null), else use original parameters
+        String editedName;
+        ArrayList<Ingredient> editedIngredients;
+        ArrayList<String> editedSteps;
+        String editedCuisine;
+        Integer editedTimeTaken;
+        if (newName != null) {
+            editedName = newName;
+        } else {
+            editedName = toEditRecipe.getName();
+        }
+        if (newIngredients != null) {
+            editedIngredients = newIngredients;
+        } else {
+            editedIngredients = toEditRecipe.getIngredients();
+        }
+        if (newSteps != null) {
+            editedSteps = newSteps;
+        } else {
+            editedSteps = toEditRecipe.getSteps();
+        }
+        if (newCuisine != null) {
+            if (newCuisine.isEmpty()) {
+                editedCuisine = null;
+            } else {
+                editedCuisine = newCuisine;
+            }
+        } else {
+            editedCuisine = toEditRecipe.getCuisine();
+        }
+        if (newTimeTaken != null) {
+            if (newTimeTaken <= 0) {
+                editedTimeTaken = null;
+            } else {
+                editedTimeTaken = newTimeTaken;
+            }
+        } else {
+            // If original time taken is null, 0 will be returned by getTimeTaken, so return null back
+            editedTimeTaken = toEditRecipe.getTimeTaken();
+            if (editedTimeTaken == 0) {
+                editedTimeTaken = null;
+            }
+        }
+
+        return new Recipe(editedName, editedIngredients, editedSteps, editedCuisine, editedTimeTaken);
+    }
+
+    private boolean isNameTaken(RecipeList recipes) {
+        if (newName.equalsIgnoreCase(matchName)) {
+            return false;
+        }
+        for (int i = 0; i < recipes.getCounter(); i++) {
+            if (recipes.getRecipe(i).getName().equalsIgnoreCase(newName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
      * Executes the {@code EditCommand}, finding a recipe matching the name inputted by the user
      * and then editing it based on the new parameters inputted. If the recipe of the specified name
-     * is found and then editted, the {@code Storage} is updated and a confirmation message is displayed.
+     * is found and then edited, the {@code Storage} is updated and a confirmation message is displayed.
      *
      * @param recipes The {@code RecipeList} to edit the recipe from. Must not be {@code null}.
      * @param ingredients The {@code IngredientList}. Unused in this command.
@@ -52,19 +119,36 @@ public class EditCommand extends Command {
     public void execute(RecipeList recipes, IngredientList ingredients,
                         Ui ui, Storage storage) throws InvalidArgumentException {
         logger.log(Level.FINEST, "Executing EditCommand");
-        assert recipes != null;
+        assert matchName != null;
 
-        String recipeName = recipe.getName();
-        boolean isEdited = recipes.editRecipe(recipeName, recipe);
-        if (!isEdited) {
+        // Find recipe in recipes that match the name of recipe to edit
+        int toEditRecipeIndex = recipes.getIndexByName(matchName);
+        if (toEditRecipeIndex < 0) {
             throw new InvalidArgumentException("You want me to edit a non-existent recipe? How about no.");
         }
+        Recipe toEditRecipe = recipes.getRecipe(toEditRecipeIndex);
+        String originalName = toEditRecipe.getName();
+
+        // If newName is already taken by an existing recipe name that isn't matchName, throw error
+        if (newName != null) {
+            if (isNameTaken(recipes)) {
+                throw new InvalidArgumentException("Hey that new name already belongs to another existing recipe.");
+            }
+        }
+
+        // Craft edited recipe based on pre-existing recipe and parameters to edit
+        Recipe editedRecipe = craftEditedRecipe(toEditRecipe);
+
+        // Update the newly edited recipe in recipes
+        recipes.updateRecipe(toEditRecipeIndex, editedRecipe);
+
+        // Save edited recipes back to storage
         try {
             storage.saveRecipes(recipes);
         } catch (IOException exception) {
             System.out.println(exception.getMessage());
         }
 
-        ui.printEditedRecipe(recipeName, recipe);
+        ui.printEditedRecipe(originalName, editedRecipe);
     }
 }

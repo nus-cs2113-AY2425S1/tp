@@ -341,17 +341,22 @@ public final class Parser {
      * @throws InvalidArgumentException If invalid format of arguments is found
      */
     private static EditCommand getEditCommand(String args) throws InvalidArgumentException {
+        // Pattern for an edit command, everything is optional except for the name of the recipe to be edited
         final Pattern editCommandFormat =
                 // <e or E>/<String without forward slash>
-                Pattern.compile("(?<name>[eE]/[^/]+)"
-                        // Match ingredients: at least one i/ or I/ followed by any characters except '/'
-                        + "(?<ingreds>(\\s+[iI]/[^/]+)+)"
-                        // Match steps: at least one sX/ or SX/ (X is a number) followed by any characters except '/'
-                        + "(?<steps>(\\s+[sS][0-9]+/[^/]+)+)"
+                Pattern.compile("(?<matchName>[eE]/[^/]+)"
+                        // Match optional new name: n/ or N/ followed by any characters except '/'
+                        + "(\\s+(?<newName>[nN]/[^/]+))?"
+                        // Match optional ingredients: i/ or I/ followed by any characters except '/'
+                        + "(?<ingreds>(\\s+[iI]/[^/]+)+)?"
+                        // Match optional steps: sX/ or SX/ (X is a number) followed by any characters except '/'
+                        + "(?<steps>(\\s+[sS][0-9]+/[^/]+)+)?"
                         // Match optional cuisine: c/ or C/ followed by any characters except '/'
-                        + "(\\s+(?<cuisine>[cC]/[^/]+))?"
+                        // Accepts empty field after c/ or C/ to indicate no cuisine
+                        + "(\\s+(?<cuisine>[cC]/[^/]*))?"
                         // Match optional time taken: t/ or T/ followed by digits
-                        + "(\\s+(?<time>[tT]/\\s*[0-9]+))?");
+                        // Accepts empty field after t/ T/ to indicate no time
+                        + "(\\s+(?<time>[tT]/\\s*[0-9]*))?");
 
         String input = args.trim();
         Matcher m = editCommandFormat.matcher(input);
@@ -359,37 +364,76 @@ public final class Parser {
             throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + EditCommand.USAGE_EXAMPLE);
         }
 
-        String name = m.group("name").trim().substring(2); // e/ or E/ are 2 chars
+        // Get the name of the recipe to be edited
+        String matchName = m.group("matchName").trim().substring(2).trim(); // e/ or E/ are 2 chars
+
+        // Get optional new name to replace the existing one
+        String newName = null;
+        String newNameInput = m.group("newName");
+        if (newNameInput != null) {
+            newName = newNameInput.trim().substring(2).trim(); // e/ or E/ are 2 chars
+        }
+
+        // Get optional new ingredient list to replace the existing one
         String ingredString = m.group("ingreds");
+        ArrayList<Ingredient> ingreds = null;
+        if (ingredString != null) {
+            ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .map(Ingredient::new)
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
+
+        // Get optional new steps list to replace the existing one
         String stepString = m.group("steps");
-        ArrayList<Ingredient> ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
-                .map(String::trim)
-                .filter(s -> !s.isEmpty())
-                .map(Ingredient::new)
-                .collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<String> steps = Arrays.stream(stepString.split("\\s+[sS][0-9]+/"))
-                .map(String::trim)
-                .filter(s -> !s.isEmpty())
-                .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> steps = null;
+        if (stepString != null) {
+            //@@author gskang
+            // Extract step identifiers (s1, s2, ...) and validate for duplicates or missing numbers
+            List<String> stepIdentifiers = Arrays.stream(stepString.split("\\s+"))
+                    .filter(step -> step.matches("[sS][0-9]+/.*")) // Ensure the string matches the step format
+                    .map(step -> step.split("/")[0]) // Extracts "s1", "s2", etc.
+                    .toList();
 
-        //@@author gskang
-        // Extract step identifiers (s1, s2, ...) and validate for duplicates or missing numbers
-        List<String> stepIdentifiers = Arrays.stream(stepString.split("\\s+"))
-                .filter(step -> step.matches("[sS][0-9]+/.*")) // Ensure the string matches the step format
-                .map(step -> step.split("/")[0]) // Extracts "s1", "s2", etc.
-                .toList();
+            validateStepNumbers(stepIdentifiers); // Check for missing/duplicate numbers
+            //@@author
 
-        validateStepNumbers(stepIdentifiers); // Check for missing/duplicate numbers
-        //@@author
+            steps = Arrays.stream(stepString.split("\\s+[sS][0-9]+/"))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
 
+        // Get optional new cuisine to replace the existing one
         String cuisineInput = m.group("cuisine");
         String cuisine = null;
         if (cuisineInput != null) {
+            // Trim all leading whitespaces from cuisineInput
+            String trimmedCuisineInput = cuisineInput.replaceAll("^\\s+", "");
             cuisine = cuisineInput.trim().substring(2).trim();
         }
-        Integer timeTaken = getTimeTakenInteger(m);
 
-        return new EditCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
+        // Get optional new time to replace the existing one
+        String timeInput = m.group("time");
+        Integer timeTaken = null;
+        if (timeInput != null) {
+            // Remove t/ or T/ from the timeInput
+            String timeInputEdited = timeInput.replaceAll("[tT]/", "");
+            if (timeInputEdited.trim().isEmpty()) {
+                timeTaken = -1; // Negative invalid TimeTaken to indicate deletion later on
+            } else {
+                timeTaken = getTimeTakenInteger(m);
+            }
+        }
+
+        // If all optional parameters are null, inform the user
+        if (newName == null && ingreds == null && steps == null && cuisine == null && timeTaken == null) {
+            throw new InvalidArgumentException("So you are giving me nothing to edit about your recipe?"
+                    + System.lineSeparator() + "Look up what \"edit\" means in the dictionary.");
+        }
+
+        return new EditCommand(matchName, newName, ingreds, steps, cuisine, timeTaken);
     }
 
     private static Command getFindCommand(String args) throws InvalidArgumentException {
