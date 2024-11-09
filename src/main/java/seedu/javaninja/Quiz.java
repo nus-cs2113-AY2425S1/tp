@@ -130,7 +130,8 @@ public class Quiz {
             correctAnswers++;
         } else {
             cli.printMessage("Incorrect!");
-            cli.printMessage("The correct answer is: " + currentQuestion.getCorrectAnswer());
+            cli.printMessage("The correct answer is: "
+                    + currentQuestion.getCorrectAnswer());
         }
     }
 
