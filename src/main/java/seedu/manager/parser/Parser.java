@@ -796,7 +796,7 @@ public class Parser {
         boolean isToMark;
 
         if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || !matcher.group(2).isBlank()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
                 throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
             }
 
