@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
             RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
-        int index = argumentsMap.getIndex();
+        int index = argumentsMap.getRequiredIndex();
         try {
             if (this.isRecur()) {
                 recurringExpenseList.deleteRecurringExpense(index);

@@ -6,8 +6,8 @@ import wheresmymoney.exception.WheresMyMoneyException;
 import java.util.HashMap;
 
 public class ArgumentsMap extends HashMap<String, String> {
-    public String getRequiredArgument(String argumentName)
-            throws WheresMyMoneyException {
+    public String getRequired(String argumentName)
+            throws InvalidInputException {
         String errorMessage = "Required argument not given: " + argumentName;
         if (argumentName.equals(Parser.ARGUMENT_MAIN)) {
             errorMessage = errorMessage.concat("\nThe " + argumentName +
@@ -22,9 +22,9 @@ public class ArgumentsMap extends HashMap<String, String> {
         return get(argumentName);
     }
 
-    public Integer getIndex()
-            throws WheresMyMoneyException {
-        String indexArgument = getRequiredArgument(Parser.ARGUMENT_MAIN);
+    public Integer getRequiredIndex()
+            throws InvalidInputException {
+        String indexArgument = getRequired(Parser.ARGUMENT_MAIN);
         try {
             return Integer.parseInt(indexArgument) - 1;
         } catch (Exception e) {
@@ -32,8 +32,7 @@ public class ArgumentsMap extends HashMap<String, String> {
         }
     }
 
-    public Float getPrice() {
-        String priceString = get(Parser.ARGUMENT_PRICE);
+    private Float parsePrice(String priceString) throws InvalidInputException {
         Float price;
         try {
             price = Float.parseFloat(priceString);
@@ -41,6 +40,19 @@ public class ArgumentsMap extends HashMap<String, String> {
             throw new InvalidInputException("Price given is invalid.");
         }
         assert price != null;
+        if (price <= 0) {
+            throw new InvalidInputException("Price cannot take on a value that is less than or equal to 0");
+        }
         return price;
+    }
+
+    public Float getPrice() throws InvalidInputException {
+        String priceString = get(Parser.ARGUMENT_PRICE);
+        return parsePrice(priceString);
+    }
+
+    public Float getRequiredPrice() throws InvalidInputException {
+        String priceString = getRequired(Parser.ARGUMENT_PRICE);
+        return parsePrice(priceString);
     }
 }
