@@ -15,7 +15,8 @@ public class Parser {
     private final UI ui;
     private Storage storage;
 
-    public Parser(ExpenseManager expenseManager, CategoryManager categoryManager, BudgetManager budgetManager, UI ui, Storage storage) {
+    public Parser(ExpenseManager expenseManager, CategoryManager categoryManager, BudgetManager budgetManager, UI ui,
+                  Storage storage) {
         this.expenseManager = expenseManager;
         this.categoryManager = categoryManager;
         this.budgetManager = budgetManager;
