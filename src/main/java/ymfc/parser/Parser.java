@@ -341,7 +341,7 @@ public final class Parser {
      * @throws InvalidArgumentException If invalid format of arguments is found
      */
     private static EditCommand getEditCommand(String args) throws InvalidArgumentException {
-        final Pattern editCommandFormat =
+        /*final Pattern editCommandFormat =
                 // <e or E>/<String without forward slash>
                 Pattern.compile("(?<name>[eE]/[^/]+)"
                         // Match ingredients: at least one i/ or I/ followed by any characters except '/'
@@ -351,6 +351,21 @@ public final class Parser {
                         // Match optional cuisine: c/ or C/ followed by any characters except '/'
                         + "(\\s+(?<cuisine>[cC]/[^/]+))?"
                         // Match optional time taken: t/ or T/ followed by digits
+                        + "(\\s+(?<time>[tT]/\\s*[0-9]+))?");*/
+
+        // Pattern for an edit command, everything is optional except for naming the recipe to edit
+        final Pattern editCommandFormat =
+                // <e or E>/<String without forward slash>
+                Pattern.compile("(?<matchName>[eE]/[^/]+)"
+                        // Match optional new name: n/ or N/ followed by any characters except '/'
+                        + "(?<newName>[nN]/[^/]+)?"
+                        // Match optional ingredients: i/ or I/ followed by any characters except '/'
+                        + "(?<ingreds>(\\s+[iI]/[^/]+)+)?"
+                        // Match optional steps: sX/ or SX/ (X is a number) followed by any characters except '/'
+                        + "(?<steps>(\\s+[sS][0-9]+/[^/]+)+)?"
+                        // Match optional cuisine: c/ or C/ followed by any characters except '/'
+                        + "(\\s+(?<cuisine>[cC]/[^/]*))?"
+                        // Match optional time taken: t/ or T/ followed by digits
                         + "(\\s+(?<time>[tT]/\\s*[0-9]+))?");
 
         String input = args.trim();
@@ -359,7 +374,12 @@ public final class Parser {
             throw new InvalidArgumentException("Invalid argument(s): " + input + "\n" + EditCommand.USAGE_EXAMPLE);
         }
 
-        String name = m.group("name").trim().substring(2); // e/ or E/ are 2 chars
+        String matchName = m.group("matchName").trim().substring(2).trim(); // e/ or E/ are 2 chars
+        String newName = null;
+        String newNameInput = m.group("newName");
+        if (newNameInput != null) {
+            newName = newNameInput.trim().substring(2).trim(); // e/ or E/ are 2 chars
+        }
         String ingredString = m.group("ingreds");
         String stepString = m.group("steps");
         ArrayList<Ingredient> ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
@@ -389,7 +409,7 @@ public final class Parser {
         }
         Integer timeTaken = getTimeTakenInteger(m);
 
-        return new EditCommand(new Recipe(name, ingreds, steps, cuisine, timeTaken));
+        return new EditCommand(new Recipe(matchName, ingreds, steps, cuisine, timeTaken));
     }
 
     private static Command getFindCommand(String args) throws InvalidArgumentException {
