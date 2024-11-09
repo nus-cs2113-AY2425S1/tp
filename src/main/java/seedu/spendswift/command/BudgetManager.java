@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 //@@author kq2003
 public class BudgetManager {
     public int lastResetMonth;
-  
+
     public boolean isAutoResetEnabled = false;  // Default state
 
     public BudgetManager() {
@@ -25,7 +25,7 @@ public class BudgetManager {
         return this.isAutoResetEnabled;
     }
 
-  
+
 
     public void toggleAutoReset() {
         isAutoResetEnabled = !isAutoResetEnabled;
@@ -80,24 +80,24 @@ public class BudgetManager {
         trackerData.setBudgets(budgets);
         System.out.println("Budgets have been reset for all categories.");
     }
-    
-    
+
+
 //@@author MayFairMI6
-/**
-* Sets a budget limit for a specific category.
-*
-* If the category already has a budget, this method updates the budget limit.
-* If the category does not have a budget set, it creates a new budget for the category.
-*
-* This method is used to track and control spending limits for different categories.
-* After setting the budget, a message is displayed to confirm the action.
-*
-* @param categoryName The name of the category to set the budget for
-* @param limit The budget limit to be set for the category (in dollars)
-*/
-  
+    /**
+     * Sets a budget limit for a specific category.
+     *
+     * If the category already has a budget, this method updates the budget limit.
+     * If the category does not have a budget set, it creates a new budget for the category.
+     *
+     * This method is used to track and control spending limits for different categories.
+     * After setting the budget, a message is displayed to confirm the action.
+     *
+     * @param categoryName The name of the category to set the budget for
+     * @param limit The budget limit to be set for the category (in dollars)
+     */
+
     public void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
-    // Adjusted for potentially enormous values typical in some currencies
+        // Adjusted for potentially enormous values typical in some currencies
         final BigDecimal MAX_LIMIT = new BigDecimal("1000000000000000"); // 1 quadrillion for example
 
         BigDecimal preciseLimit = BigDecimal.valueOf(limit);
@@ -107,36 +107,36 @@ public class BudgetManager {
         String formattedCategoryName = Format.formatInput(categoryName.trim());
 
         if (preciseLimit.compareTo(BigDecimal.ZERO) < 0) {
-        System.out.println("Invalid input! Please provide a positive amount!");
-        return;
+            System.out.println("Invalid input! Please provide a positive amount!");
+            return;
         }
 
         if (preciseLimit.compareTo(MAX_LIMIT) > 0) {
-        System.out.println("Budget limit exceeds the maximum allowed amount of " + MAX_LIMIT.toPlainString());
-        return;
+            System.out.println("Budget limit exceeds the maximum allowed amount of " + MAX_LIMIT.toPlainString());
+            return;
         }
 
         Category existingCategory = null;
         for (Category category : categories) {
-        if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
-            existingCategory = category;
-            break;
-        }
+            if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
+                existingCategory = category;
+                break;
+            }
         }
 
         if (existingCategory == null) {
-        System.out.println("Category '" + formattedCategoryName + "' not found. Please add the category first.");
-        return;
+            System.out.println("Category '" + formattedCategoryName + "' not found. Please add the category first.");
+            return;
         }
 
         if (budgets.containsKey(existingCategory)) {
-        budgets.get(existingCategory).setLimit(preciseLimit.doubleValue()); // Convert back to double if necessary
-        System.out.println("Updated budget for category '" + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
+            budgets.get(existingCategory).setLimit(preciseLimit.doubleValue()); // Convert back to double if necessary
+            System.out.println("Updated budget for category '" + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
         } else {
-        Budget newBudget = new Budget(existingCategory, preciseLimit.doubleValue());
-        budgets.put(existingCategory, newBudget);
-        System.out.println("Set budget for category '" + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
-            }
+            Budget newBudget = new Budget(existingCategory, preciseLimit.doubleValue());
+            budgets.put(existingCategory, newBudget);
+            System.out.println("Set budget for category '" + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
+        }
 
         trackerData.setBudgets(budgets);
     }
