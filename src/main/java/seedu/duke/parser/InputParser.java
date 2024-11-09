@@ -1,8 +1,11 @@
 package seedu.duke.parser;
+
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.util.Commons;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The InputParser class is responsible for parsing user input into commands and arguments.
@@ -11,6 +14,18 @@ import java.util.HashMap;
 public class InputParser {
     public static final String COMMAND = "command";
     public static final String ARGUMENT = "argument";
+
+    // Predefined list of valid arguments
+    private static final Set<String> VALID_ARGUMENTS = new HashSet<>();
+
+    static {
+        VALID_ARGUMENTS.add("/des");
+        VALID_ARGUMENTS.add("/a");
+        VALID_ARGUMENTS.add("/d");
+        VALID_ARGUMENTS.add("/c");
+        VALID_ARGUMENTS.add("/from");
+        VALID_ARGUMENTS.add("/to");
+    }
 
     /**
      * Parses the user's input into a command and associated arguments.
@@ -51,10 +66,23 @@ public class InputParser {
             String token = splitInput[i];
 
             if (token.startsWith("/")) {
+                // Validate the argument
+                if (!VALID_ARGUMENTS.contains(token)) {
+                    final String message = token + " : " + Commons.ERROR_MESSAGE_INVALID_ARGUMENT;
+                    throw new FinanceBuddyException(message);
+                }
+
+                // Check if the previous argument has no description
+                if (currentValue.length() == 0 && !currentKey.equals(ARGUMENT)) {
+                    final String message = currentKey + " : " + Commons.ERROR_MESSAGE_ARGUMENT_NULL;
+                    throw new FinanceBuddyException(message);
+                }
+
                 // If we already have a value for the previous argument, add it
                 if (currentValue.length() > 0) {
                     addArgument(commandArguments, currentKey, currentValue.toString().strip());
                 }
+
                 // Update currentKey to the new argument and reset the currentValue
                 currentKey = token;
                 currentValue.setLength(0);
@@ -68,6 +96,11 @@ public class InputParser {
         }
 
         // Add the last argument after the loop
+        if (currentValue.length() == 0 && !currentKey.equals(ARGUMENT)) {
+            final String message = currentKey + " : " + Commons.ERROR_MESSAGE_ARGUMENT_NULL;
+            throw new FinanceBuddyException(message);
+        }
+
         if (currentValue.length() > 0) {
             addArgument(commandArguments, currentKey, currentValue.toString().strip());
         }
