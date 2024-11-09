@@ -4,7 +4,6 @@ package seedu.spendswift.command;
 import seedu.spendswift.ErrorMessage;
 import seedu.spendswift.Format;
 import seedu.spendswift.SuccessMessage;
-import seedu.spendswift.UI;
 
 import java.util.List;
 

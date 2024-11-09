@@ -4,13 +4,9 @@ package seedu.spendswift.command;
 import seedu.spendswift.ErrorMessage;
 import seedu.spendswift.Format;
 import seedu.spendswift.SuccessMessage;
-import seedu.spendswift.UI;
 import seedu.spendswift.parser.InputParser;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ExpenseManager {
 
