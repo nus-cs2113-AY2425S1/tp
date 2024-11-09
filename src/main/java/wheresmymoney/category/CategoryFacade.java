@@ -74,6 +74,7 @@ public class CategoryFacade {
      * @throws WheresMyMoneyException if there is an error while loading category info
      */
     public void loadCategoryInfo(ExpenseList expenseList, String filePath) throws WheresMyMoneyException {
+        categoryTracker.clear();
         categoryTracker = categoryStorage.loadFromCsv(
                 filePath, categoryStorage.trackCategoriesOf(expenseList.getExpenseList()));
     }
