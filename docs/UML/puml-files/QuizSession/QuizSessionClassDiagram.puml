@@ -1,16 +1,13 @@
 @startuml
 hide stereotype
-
 hide circle
 
 skinparam classAttributeIconSize 0
-
 skinparam class {
     BackgroundColor White
     BorderColor Black
     FontColor Black
 }
-
 
 class Cli {
     + readInput(): String
@@ -27,17 +24,19 @@ class QuizSession {
     - int timeLimitInSeconds
     - Topic topic
 
-    + QuizSession(Cli cli)
-    + startQuiz(Topic topic): void
+    + QuizSession(cli: Cli)
+    + startQuiz(topic: Topic): void
     + getQuizScore(): int
     + getTimeLimitInSecondsFromUser(): int
     + getQuestionLimitFromUser(): int
     + getQuestionLimit(): int
     + getTimeLimitInSeconds(): int
+    + getTopicName(): String
+    + getCurrentQuiz(topic: Topic, cli: Cli): Quiz
 }
 
 class Quiz {
-    + Quiz(cli: Cli)
+    + Quiz(topic: Topic, cli: Cli)
     + start(timeLimitInSeconds: int, questionLimit: int): void
     + getScore(): int
 }
@@ -47,8 +46,8 @@ class Topic {
     + getQuestions(): List<Question>
 }
 
-QuizSession *-- Quiz
-QuizSession --> Cli : uses
-QuizSession --> Topic : uses
+QuizSession "1" *-- "1" Quiz : manages
+QuizSession "1" --> "1" Cli : uses
+QuizSession "1" o-- "1" Topic : accesses
 
 @enduml
