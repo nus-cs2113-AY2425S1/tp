@@ -57,7 +57,7 @@ class TaskList DATA_COLOR {
 }
 
 
-Hospital .right.> "0..*" Patient
+Hospital .right.> "*" Patient
 Patient .right.> TaskList
 
 @enduml
