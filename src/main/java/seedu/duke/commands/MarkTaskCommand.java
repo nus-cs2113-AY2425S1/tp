@@ -9,6 +9,7 @@ public class MarkTaskCommand extends Command {
     public static final String COMMAND_WORD = "mark";
     public static final String MESSAGE_SUCCESS = "Task marked successfully: %1$s";
     public static final String MESSAGE_TASK_NOT_FOUND = "Task not found in the list!";
+    public static final String MESSAGE_TASK_ALREADY_MARKED = "Task is already marked as done!";
     
     private static final Logger logger = Logger.getLogger(MarkTaskCommand.class.getName());
 
@@ -30,6 +31,9 @@ public class MarkTaskCommand extends Command {
         } catch (TaskList.TaskNotFoundException e) {
             logger.log(Level.WARNING, "Attempted to mark a task at an invalid index: {0}", index);
             return new CommandResult(MESSAGE_TASK_NOT_FOUND);
+        } catch (TaskList.DuplicateMarkingTaskException e) {
+            logger.log(Level.WARNING, "Attempted to mark a task that is already marked: {0}", index);
+            return new CommandResult(MESSAGE_TASK_ALREADY_MARKED);
         }
     }
 }

@@ -9,6 +9,7 @@ public class UnmarkTaskCommand extends Command {
     public static final String COMMAND_WORD = "mark";
     public static final String MESSAGE_SUCCESS = "Task unmarked successfully: %1$s";
     public static final String MESSAGE_TASK_NOT_FOUND = "Task not found in the list!";
+    public static final String MESSAGE_TASK_ALREADY_UNMARKED = "Task is already unmarked!";
     
     private static final Logger logger = Logger.getLogger(UnmarkTaskCommand.class.getName());
     
@@ -29,6 +30,9 @@ public class UnmarkTaskCommand extends Command {
         } catch (TaskList.TaskNotFoundException e) {
             logger.log(Level.WARNING, "Attempted to unmark a task at an invalid index: {0}", index);
             return new CommandResult(MESSAGE_TASK_NOT_FOUND);
+        } catch (TaskList.DuplicateMarkingTaskException e) {
+            logger.log(Level.WARNING, "Attempted to unmark a task that is already unmarked: {0}", index);
+            return new CommandResult(MESSAGE_TASK_ALREADY_UNMARKED);
         }
     }
 }

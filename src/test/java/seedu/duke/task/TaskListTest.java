@@ -1,14 +1,14 @@
 package seedu.duke.task;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.duke.data.task.Task;
 import seedu.duke.data.task.TaskList;
+import seedu.duke.data.task.TaskList.DuplicateMarkingTaskException;
 import seedu.duke.data.task.TaskList.DuplicateTaskException;
 import seedu.duke.data.task.TaskList.TaskNotFoundException;
 import seedu.duke.data.task.Todo;
@@ -75,7 +75,8 @@ public class TaskListTest {
     }
 
     @Test
-    public void testMarkTask_successful() throws DuplicateTaskException, TaskNotFoundException {
+    public void testMarkTask_successful() 
+            throws DuplicateTaskException, TaskNotFoundException, DuplicateMarkingTaskException {
         TaskList tasks = new TaskList();
         Task task = new Todo("Read book");
         tasks.addTask(task);
@@ -89,6 +90,16 @@ public class TaskListTest {
         assertThrows(TaskNotFoundException.class, () -> tasks.markAsDone(0));
     }
 
+    @Test
+    public void testMarkTask_alreadyMarked() 
+            throws DuplicateTaskException, TaskNotFoundException, DuplicateMarkingTaskException {
+        TaskList tasks = new TaskList();
+        Task task = new Todo("Read book");
+        tasks.addTask(task);
+        tasks.markAsDone(0);
+        assertThrows(DuplicateMarkingTaskException.class, () -> tasks.markAsDone(0));
+    }
+    
     @Test
     public void testGetCompletionRate() throws DuplicateTaskException {
         TaskList tasks = new TaskList();

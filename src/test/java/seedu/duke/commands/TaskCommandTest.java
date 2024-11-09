@@ -3,12 +3,12 @@ package seedu.duke.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import seedu.duke.data.task.TaskList;
-import seedu.duke.data.task.TaskList.DuplicateTaskException;
-import seedu.duke.data.task.Todo;
 import seedu.duke.data.task.Deadline;
 import seedu.duke.data.task.Repeat;
 import seedu.duke.data.task.Task;
+import seedu.duke.data.task.TaskList;
+import seedu.duke.data.task.TaskList.DuplicateTaskException;
+import seedu.duke.data.task.Todo;
 
 public class TaskCommandTest {
     @Test
@@ -132,6 +132,30 @@ public class TaskCommandTest {
         assertEquals(UnmarkTaskCommand.MESSAGE_TASK_NOT_FOUND, commandResult.getFeedbackToUser());
     }
 
+    @Test
+    void testMarkTaskCommand_alreadyMarked() throws DuplicateTaskException{
+        TaskList tasks = new TaskList();
+        Task task = new Todo ("Read book");
+        task.markAsDone();
+        tasks.addTask(task);
+        
+        MarkTaskCommand command = new MarkTaskCommand(1);
+        command.setData(tasks);
+        CommandResult commandResult = command.execute();
+        assertEquals(MarkTaskCommand.MESSAGE_TASK_ALREADY_MARKED, commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    void testUnmarkTaskCommand_alreadyUnmarked() throws DuplicateTaskException{
+        TaskList tasks = new TaskList();
+        Task task = new Todo ("Read book");
+        tasks.addTask(task);
+        
+        UnmarkTaskCommand command = new UnmarkTaskCommand(1);
+        command.setData(tasks);
+        CommandResult commandResult = command.execute();
+        assertEquals(UnmarkTaskCommand.MESSAGE_TASK_ALREADY_UNMARKED, commandResult.getFeedbackToUser());
+    }
     @Test
     void testListTaskCommand_emptyList(){
         TaskList tasks = new TaskList();
