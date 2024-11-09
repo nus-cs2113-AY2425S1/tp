@@ -236,9 +236,9 @@ the existing parameters of that type is untouched (e.g. don't need to add `c/CUI
 wish to keep the cuisine parameter of the recipe unedited).
 - The `e/NAME` refers to the current name of the recipe you wish to edit
 - The `n/NAME` refers to the new name you wish to rename the recipe to
-- The `i/INGREDIENTS...` refers to the new list of ingredients for the recipe (note that the current list of all 
+- The `i/INGREDIENTS...` refers to the new list of ingredients for the recipe (note that the entire current list of  
 ingredients for the recipe is overwritten with the new list inputted)
-- The `sn/STEPn...` refers to the new list of steps for the recipe (note that the current list of all
+- The `sn/STEPn...` refers to the new list of steps for the recipe (note that the entire current list of 
 steps for the recipe is overwritten with the new list inputted)
 - The `c/CUISINE` refers to the new cuisine you wish to edit the recipe to have, leaving CUISINE blank
 (e.g. typing `c/ `) will delete the existing cuisine parameter of the recipe
