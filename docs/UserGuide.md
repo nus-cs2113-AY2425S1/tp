@@ -107,7 +107,17 @@ Adds a patient to the hospital’s patient list.
     - Adds a patient named Alice with the tag "HighPriority."
 - `add Bob`
     - Adds a patient named Bob without any tags.
+  
+**Sample Outputs**:
 
+```
+MediTask > add Alice /tag HighPriority
+New patient added: Alice [HighPriority]
+```
+```
+MediTask > add Bob
+New patient added: Bob [No tag]
+```
 #### **Deleting a Patient**: `delete`
 Removes a patient from the hospital’s patient list by their index.
 
@@ -123,6 +133,13 @@ Removes a patient from the hospital’s patient list by their index.
 - `delete 3`
     - Deletes the third patient in the patient list.
 
+**Sample Output**:
+
+```
+MediTask > delete 2
+Deleted patient: Bob
+```
+
 #### **Finding a Patient**: `find`
 Searches for patients in the hospital system whose names contain the specified keyword.
 
@@ -134,6 +151,19 @@ Searches for patients in the hospital system whose names contain the specified k
 - `find Bob`
     - Displays all patients whose names contain "Bob."
 
+**Sample Outputs**:
+```
+MediTask > find Alice
+Here are the matching patients in your list: 
+1. Alice
+```
+```
+MediTask > find Bob
+Here are the matching patients in your list: 
+1. Bob
+2. Bobby
+```
+
 #### **Listing All Patients**: `list`
 Displays all patients currently registered in the hospital system, along with their details and task completion rates.
 
@@ -142,6 +172,18 @@ Displays all patients currently registered in the hospital system, along with th
 **Examples**:
 - `list`
     - Lists all patients in the hospital system.
+
+**Sample Output**:
+```
+MediTask > list
+────────────────────────────────────────────────────────────
+0% of all tasks are completed.
+Here are the patients in your list:
+1. Alice  [HighPriority] [Tasks Completed: 0.00%] 
+2. Bob  [No tag] [Tasks Completed: 0.00%] 
+3. Bobby  [No tag] [Tasks Completed: 0.00%] 
+End of your patients list!
+```
 
 #### **Selecting a Patient**: `select`
 Switches the application state to `TASK_STATE`, enabling task management features specifically for the selected patient by their index.
@@ -157,6 +199,13 @@ Switches the application state to `TASK_STATE`, enabling task management feature
     - Selects the first patient in the patient list and enables task management features for that patient.
 - `select 3`
     - Selects the third patient in the patient list and enables task management features for that patient.
+
+
+**Sample Output**:
+```
+MediTask > select 1
+Selected patient: Alice [HighPriority]
+```
 
 ### Task State
 The task state is used to control all task-related command. The application enters task state when user selects a patient in the patient list.
@@ -270,9 +319,9 @@ MediTask data is saved in the hard disk automatically after any command that cha
 MediTask data is saved as a JSON file [JAR file location]/data/hospital_data.json. Advanced users are welcome to update data directly by editing that data file.
 
 {: .warning }
-> ⚠️ Caution: If your changes to the data file makes its format invalid, MediTask will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+> ⚠️ Caution: If your changes to the data file makes its format invalid, MediTask will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it
 >
-> Furthermore, certain edits can cause the MediTask to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+> Furthermore, certain edits can cause the MediTask to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range or data entered is a duplicate, etc.). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 ## FAQ
 
