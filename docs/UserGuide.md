@@ -42,7 +42,7 @@ MediTask is a desktop application designed to help nurses efficiently manage and
 
     - `unmark 1` : Marks the 1st task in the list as undone.
 
-6. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#Features) below for details of each command.
 
 ## Features
 
@@ -195,7 +195,7 @@ Adds a task with deadline to the list of tasks.
 > **Note**:
 > - Patient must be selected before adding a deadline task.
 > - Ensure that the date and time follow the accepted formats, Refer to the
-    [Notes about the command format](#Features) for valid date and time formats.
+    [Notes about the command format](#features) for valid date and time formats.
 
 #### **Adding a recurring task**: `repeat`
 Adds a task with reminder to repeat it to the list of tasks.
