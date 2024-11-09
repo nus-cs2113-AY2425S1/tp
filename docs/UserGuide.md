@@ -29,11 +29,16 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 ## Notes
 
 - Text written in `SCREAMING_SNAKE_CASE` are user input fields.
-- Text preceded with a `/` are flags that need to be inputted for the programme to recognise.
-- Square brackets `[...]` indicate optional parameters. Refer to the specifications for each command.
+- Text preceded with a `/` are flags that need to be inputted for the programme to recognise the argument.
+- Square brackets `[...]` indicate optional arguments. Refer to the specifications for each command.
+- Values in the argument can include spaces.
+  - e.g. `<command> /argument value 1 and 2` -> `argument`: `value 1 and 2`
+  - e.g. `<command> main value` -> `main`: `main value` (The main argument is the value following the command, such as `INDEX` in `delete INDEX`)
 - When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`.
   - e.g. `<command> /argument \/value` -> `argument`: `/value`
-- Not all commands will give an output.
+- Commands default to no output on successful completion unless
+  - The command produces an output by its nature (eg. `list`) or
+  - There is an error in the command.
 
 ---
 
