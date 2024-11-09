@@ -80,11 +80,14 @@ class PatientTest {
 
     // Test Case: Searching for patients (case-insensitive search)
     @Test
-    public void testFindPatientCaseInsensitive() {
+    public void testFindPatientCaseInsensitive() throws Hospital.PatientNotFoundException {
         Hospital hospital = new Hospital();
         hospital.addPatient("Alice");
         hospital.addPatient("bob");
-
+        Patient patient1 = hospital.getPatient(0); // Alice
+        Patient patient2 = hospital.getPatient(1); // bob
+        patient1.setTag("No tag");
+        patient2.setTag("No tag");
         // Find with lower case
         assertTrue(hospital.findPatients("alice").size() == 1);
         assertEquals("Alice", hospital.findPatients("alice").get(0).getName());

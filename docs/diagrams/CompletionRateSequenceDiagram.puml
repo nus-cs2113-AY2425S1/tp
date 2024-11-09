@@ -29,7 +29,7 @@ Ui -> Hospital : calculateOverallCompletionRate()
 Hospital -> Patient : getTaskList() for each patient
 Patient -> TaskList : calculateCompletionRate()
 TaskList --> Patient : completion rate
-Patient --> Hospital : completion rate
+Patient --> Hospital : completion rated
 Hospital --> Ui : overallCompletionRate, List<Patient>
 
 Ui -> Ui : formatPatientListDisplay()

@@ -73,7 +73,7 @@ class PatientCommandTest {
         findPatientCommand.setHospital(hospital);
         CommandResult result = findPatientCommand.execute();
 
-        String expectedOutput = "Here are the matching patients in your list: \n1. Alice\n";
+        String expectedOutput = "Here are the matching patients in your list: \n1. Alice [S1234567A]\n";
         assertEquals(expectedOutput, result.getFeedbackToUser());
     }
 
@@ -96,7 +96,7 @@ class PatientCommandTest {
         findPatientCommand.setHospital(hospital);
         CommandResult result = findPatientCommand.execute();
 
-        String expectedOutput = "Here are the matching patients in your list: \n1. Alice\n";
+        String expectedOutput = "Here are the matching patients in your list: \n1. Alice [S1234567A]\n";
         assertEquals(expectedOutput, result.getFeedbackToUser());
     }
 

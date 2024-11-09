@@ -139,7 +139,8 @@ public class Hospital {
     public ArrayList<Patient> findPatients(String keyword) {
         ArrayList<Patient> matchingPatients = new ArrayList<>();
         for (Patient patient : patients) {
-            if (patient.getName().toLowerCase().contains(keyword.toLowerCase())) {
+            if (patient.getName().toLowerCase().contains(keyword.toLowerCase()) ||
+                patient.getTag().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingPatients.add(patient);
             }
         }
