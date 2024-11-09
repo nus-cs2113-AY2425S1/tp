@@ -39,6 +39,9 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 > NOTE: Your stored course mapping is located in the `myList.json` file, found in the `data` folder at the same file path where you executed the JAR file.
 > 
 > NOTE:  Do not corrupt the `myList.json` file when executing the program! If you corrupted the file, please revert back to its original state before continuing with the program. 
+> 
+> NOTE: Ensure that all the commands given are placed in one line. Do not separate the command into multiple lines in the terminal.
+
  
 
 ### List all commands: `commands`
@@ -189,36 +192,99 @@ No courses found for the given course code.
 ```
 
 ### Adding a course mapping: `add`
-Adds a new course mapping into `myList.json` file for storage.Course mapping is subject to validation
+Adds a new course mapping into `myList.json` file for storage. Course mapping is subject to validation
 to ensure that the course mapping is valid and that the university provided is an Oceania university.
 
 Format: `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE`
 
 * All 3 parameters `NUS_COURSE_CODE`, `PARTNER_UNIVERISTY_NAME` and `PU_COURSE_CODE` are case-insensitive.
-* Do not add punctuation to the above three parameters
+* Do not add punctuation to the above three parameters.
+* Do not switch the order of parameters. Keyword `/pu` must come before `/coursepu` keyword.
 * Indicate the full name of the partner university for `PARTNER_UNIVERISTY_NAME`. For example, indicate
   `The Australian National University` instead of `Australian National University` or `ANU`.
 
 Example of usage (lowercase):
+
 `add cs2102 /pu the university of melbourne /coursepu info20003`
 
 Expected output:
 
-![Add Courses Lowercase Output](images/AddCoursesCommandLowercaseScreenshot.png)
+![Add Courses Normal Case Output](images/AddCoursesCommandLowercaseScreenshot.png)
 
 Example of usage (normal case):
+
 `add CS3244 /pu The Australian National University /coursepu COMP3670`
 
 Expected output:
 
-![Add Courses Normal Case Output](images/AddCoursesCommandNormalCaseScreenshot.png)
+![Add Courses Lowercase Output](images/AddCoursesCommandNormalCaseScreenshot.png)
 
-Example of usage:
+Example of usage (invalid university):
+
 `add CS3244 /pu Australian National University /coursepu COMP3670`
 
 Expected output:
 
-![Add Courses Invalid University](images/InvalidUniversityInputScreenshot.png)
+```
+-----------------------------------------------------
+The relevant universities are (non-case sensitive):
+1. The University of Melbourne
+2.The Australian National University
+3. Victoria University of Wellington
+4.The University of Western Australia
+
+NOTE: Please indicate the partner universities FULL NAME!
+EXAMPLE: Instead of "VUW" please indicate "Victoria University of Wellington".
+-----------------------------------------------------
+Invalid university input!
+```
+
+Example of usage (invalid course mapping):
+
+`add cs2100 /pu the university of melbourne /coursepu info20003`
+
+Expected output: 
+```
+Invalid course mapping!
+The available mappings for the university of melbourne are:
+-----------------------------------------------------
+cs3241 computer graphics | comp30019 graphics and interaction
+
+cs3240 interaction design | info10003 fundamentals of interaction design
+
+cs4246 ai planning and decision making | comp90054 ai planning for autonomy
+
+cs2107 introduction to information security | comp30006 information security and privacy
+
+cs3244 machine learning | comp30027 machine learning
+
+cs3243 introduction to artificial intelligence | comp30024 artificial intelligence
+
+cs3235 computer security | comp90043 cryptography and security
+
+cs2102 database systems | info20003 database systems
+
+cs2105 introduction to computer networks | comp90007 internet technologies
+
+cs3230 design and analysis of algorithms | comp90038 algorithms and complexity
+
+cs4269 fundamentals of logic in computer science | comp90038 algorithms and complexity
+
+cs3223 database systems implementation | comp90050 advanced database systems
+
+cs3223 database systems implementation | comp90050 advanced database systems
+
+cs5224 cloud computing | comp90024 cluster and cloud computing
+
+cs5224 cloud computing | comp90024 cluster and cloud computing
+
+cs4211 formal methods for software engineering | swen90016 software processes and management
+
+cs4243 computer vision and pattern recognition | comp90086 computer vision
+
+-----------------------------------------------------
+Please add a new course mapping!
+```
 
 ### Delete course mapping plans from Personal Tracker: `delete`
 Delete a course mapping plan that was initially saved into the Personal Tracker.

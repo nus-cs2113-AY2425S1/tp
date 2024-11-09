@@ -24,8 +24,8 @@ public class Messages {
             "3. Victoria University of Wellington\n" +
             "4.The University of Western Australia\n\n" +
             "NOTE: Please indicate the partner universities FULL NAME!\n" +
-            "NOTE: Instead of \"Australian National University,\" " +
-            "please indicate \"The Australian National University.\"";
+            "EXAMPLE: Instead of \"VUW\" " +
+            "please indicate \"Victoria University of Wellington\".";
     public static final String COMMANDS_LIST =
             """
                     Here are the available commands:

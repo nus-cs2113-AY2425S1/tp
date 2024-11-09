@@ -95,8 +95,6 @@ public class UI {
      * Prints out all relevant partner universities available in our database.
      */
     public void displayPartnerUniversities() {
-        System.out.println(Logs.INVALID_UNIVERSITY_INPUT);
-
         logger.log(Level.INFO, Logs.DISPLAY_PARTNER_UNIVERSITIES);
         System.out.println(LINE_SEPARATOR);
         System.out.println(LIST_RELEVANT_PU);
