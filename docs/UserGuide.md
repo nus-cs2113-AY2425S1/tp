@@ -164,6 +164,8 @@ Notes:
   - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
 - If some of the fields are specified, only the corresponding field(s) are saved.
 - The save files are designed to be human-readable and editable. Be careful of the syntax while editing!
+- Users are allowed to save to paths with their desired file extension in the csv file format.
+  - They do not have to save to a `.csv` file. (e.g. they can save to `expenses_data.txt`)
 
 Examples:
 - `save`                         saves all data to the default paths.
@@ -182,6 +184,8 @@ Notes:
   - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
 - It clears existing data on read for ease of usage.
 - On read failure, it loads whatever it could read from the corrupted files.
+- Users are allowed to load from files with their desired file extension, as long as it follows the csv file format.
+  - They do not have to load from `.csv` files (e.g. they can load from `expenses_data.txt`)
 
 Examples:
 - `load`                         loads data from the default paths.
