@@ -61,12 +61,16 @@ Selects a specific topic and initiates a quiz. Before the quiz starts, you will 
    ```
 
 ### 3. Taking a Quiz
-Upon selecting a topic, the quiz begins with a series of questions. Depending on the type of question, you will see prompts for multiple-choice, True/False, or fill-in-the-blank responses.
-
-Once a topic is selected, the quiz starts with questions in multiple-choice, True/False, or fill-in-the-blank formats.
+Once a topic is selected, the quiz begins with a series of questions in multiple-choice, True/False, or fill-in-the-blank formats.
 
 * **Exit Quiz**: Type `exit` anytime during the quiz to end it early.
 * **Automatic Termination**: The quiz ends automatically if the time limit expires or the specified number of questions is completed.
+* **Display Time Left**: During the quiz, Java Ninja provides reminders on the remaining time to help users manage their pace. When the remaining time reaches certain milestones, a message is displayed:
+   - **1 minute left**: Reminder to finish soon.
+   - **30 seconds left**: Urgent reminder to wrap up answers.
+   - **10 seconds left**: Final countdown warning.
+
+This countdown feature ensures that users are aware of time constraints, enhancing the user experience and preventing unexpected quiz terminations.
 
 **Example**:
    ```shell
