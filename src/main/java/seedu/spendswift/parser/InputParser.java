@@ -27,7 +27,7 @@ public class InputParser {
     public int parseIndex(String input) {
         String indexStr = parseComponent(input, "e/");
         try {
-            return Integer.parseInt(indexStr) - 1; // Convert to 0-based index
+            return Integer.parseInt(indexStr) - 1;
         } catch (NumberFormatException e) {
             return -1;
         }
