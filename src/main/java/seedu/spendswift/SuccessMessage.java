@@ -102,4 +102,30 @@ public class SuccessMessage {
         System.out.println("Budgets have been reset for all categories.");
         System.out.println(UI.SEPARATOR);
     }
+
+    public static void printNoBudgetForAll(){
+        System.out.println(UI.SEPARATOR);
+        System.out.println("No budgets set for any category.");
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printOverBudget(Category category, double expense, Double budget) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println(category + ": " + Format.formatAmount(expense) + " spent, " +
+                "Over budget by " + Format.formatAmount(budget));
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printWithinBudget(Category category, double expense, double budget) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println(category + ": " + Format.formatAmount(expense) + " spent, " +
+                Format.formatAmount(budget) + " remaining");
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printNoBudget(Category category) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println(category + ": No budget set");
+        System.out.println(UI.SEPARATOR);
+    }
 }

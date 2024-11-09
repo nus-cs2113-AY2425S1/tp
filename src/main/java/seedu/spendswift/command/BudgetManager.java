@@ -176,7 +176,7 @@ public class BudgetManager {
         Map<Category, Budget> budgets = trackerData.getBudgets();
 
         if (budgets.isEmpty()) {
-            System.out.println("No budgets set for any category.");
+            SuccessMessage.printNoBudgetForAll();
             return;
         }
 
@@ -198,19 +198,17 @@ public class BudgetManager {
             double remainingBudget = budget.getLimit() - totalExpense;
 
             if (remainingBudget >= 0) {
-                System.out.println(category + ": " + Format.formatAmount(totalExpense) + " spent, " +
-                        Format.formatAmount(remainingBudget) + " remaining");
+                SuccessMessage.printWithinBudget(category, totalExpense, remainingBudget);
             } else {
                 Double positive = Math.abs(remainingBudget);
-                System.out.println(category + ": " + Format.formatAmount(totalExpense) + " spent, " +
-                        "Over budget by " + Format.formatAmount(positive));
+                SuccessMessage.printOverBudget(category, totalExpense, positive);
             }
         }
 
         // if no budget set for certain category
         for (Category category: totalExpensesToCategory.keySet()) {
             if (!budgets.containsKey(category)) {
-                System.out.println(category + ": No budget set");
+                SuccessMessage.printNoBudget(category);
             }
         }
     }
