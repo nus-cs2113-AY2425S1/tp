@@ -398,21 +398,19 @@ public class Parser {
         Pattern pattern = Pattern.compile(ADD_ITEM_REGEX);
         Matcher matcher = pattern.matcher(input);
 
-        String itemName;
-        String eventName;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            itemName = matcher.group(1).trim();
-            eventName = matcher.group(2).trim();
-            logInfo(String.format("Creating AddCommand for item with details: %s, %s", itemName,
-                    eventName));
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String itemName = matcher.group(1).trim();
+        String eventName = matcher.group(2).trim();
+        logInfo(String.format("Creating AddCommand for item with details: %s, %s", itemName,
+                eventName));
+
         return new AddCommand(itemName, eventName);
     }
 
@@ -748,23 +746,23 @@ public class Parser {
         Pattern pattern = Pattern.compile(VIEW_REGEX);
         Matcher matcher = pattern.matcher(input);
 
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            String eventName = matcher.group(1).trim();
-            String viewType = matcher.group(2).trim();
-
-            if (viewType.equalsIgnoreCase("participant")) {
-                return new ViewCommand(eventName, true);
-            } else if (viewType.equalsIgnoreCase("item")) {
-                return new ViewCommand(eventName, false);
-            } else {
-                throw new InvalidCommandException(INVALID_TYPE_MESSAGE);
-            }
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_VIEW_MESSAGE);
+        }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String eventName = matcher.group(1).trim();
+        String viewType = matcher.group(2).trim();
+
+        if (viewType.equalsIgnoreCase("participant")) {
+            return new ViewCommand(eventName, true);
+        } else if (viewType.equalsIgnoreCase("item")) {
+            return new ViewCommand(eventName, false);
+        } else {
+            throw new InvalidCommandException(INVALID_TYPE_MESSAGE);
         }
     }
 
@@ -814,19 +812,17 @@ public class Parser {
         Pattern pattern = Pattern.compile(MARK_EVENT_REGEX);
         Matcher matcher = pattern.matcher(input);
 
-        String eventName;
-        boolean isToMark;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            eventName = matcher.group(1).trim();
-            isToMark = toMarkEvent(matcher.group(2).trim());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_MARK_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String eventName = matcher.group(1).trim();
+        boolean isToMark = toMarkEvent(matcher.group(2).trim());
+
         return new MarkEventCommand(eventName, isToMark);
     }
 
@@ -865,21 +861,18 @@ public class Parser {
         Pattern pattern = Pattern.compile(MARK_PARTICIPANT_REGEX);
         Matcher matcher = pattern.matcher(input);
 
-        String participantName;
-        String eventName;
-        boolean isToMark;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank() || matcher.group(3).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            participantName = matcher.group(1).trim();
-            eventName = matcher.group(2).trim();
-            isToMark = toMarkParticipant(matcher.group(3).trim());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_MARK_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank() || matcher.group(3).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String participantName = matcher.group(1).trim();
+        String eventName = matcher.group(2).trim();
+        boolean isToMark = toMarkParticipant(matcher.group(3).trim());
+
         return new MarkParticipantCommand(participantName, eventName, isToMark);
     }
 
@@ -918,21 +911,17 @@ public class Parser {
         Pattern pattern = Pattern.compile(MARK_ITEM_REGEX);
         Matcher matcher = pattern.matcher(input);
 
-        String itemName;
-        String eventName;
-        boolean isToMark;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank() || matcher.group(3).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            itemName = matcher.group(1).trim();
-            eventName = matcher.group(2).trim();
-            isToMark = toMarkItem(matcher.group(3).trim());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_MARK_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank() || matcher.group(3).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String itemName = matcher.group(1).trim();
+        String eventName = matcher.group(2).trim();
+        boolean isToMark = toMarkItem(matcher.group(3).trim());
 
         return new MarkItemCommand(itemName, eventName, isToMark);
     }
@@ -1115,6 +1104,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Logs an info message to a file.
+     *
+     * @param message the message to be logged.
+     * @throws IOException if the log file cannot be written to.
+     */
     private void logInfo(String message) throws IOException {
         FileHandler handler = new FileHandler("logs.txt", true);
         logger.addHandler(handler);
@@ -1125,6 +1120,7 @@ public class Parser {
     /**
      * Logs a warning message to a file.
      *
+     * @param message the message to be logged.
      * @throws IOException if the log file cannot be written to.
      */
     private void logWarning(String message) throws IOException {
