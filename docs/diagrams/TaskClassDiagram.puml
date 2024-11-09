@@ -1,7 +1,6 @@
 @startuml
 
 !include style.puml
-scale 0.5
 
 class Task DATA_COLOR {
     - description: String
