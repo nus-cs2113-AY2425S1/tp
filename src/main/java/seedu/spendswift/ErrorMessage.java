@@ -13,6 +13,7 @@ public class ErrorMessage {
     private static final String PARSING_ERROR = "Error parsing the input. Please use the correct format.";
     private static final String OUTOFBOUNDS_INDEX = "Invalid input! The specified expense index does not exist. " +
             "Please provide a valid expense index.";
+    private static final String MISSING_CATEGORY = "Invalid input! Please provide a category.";
 
     public static void printInvalidLimit(){
         System.out.println(UI.SEPARATOR);
@@ -65,6 +66,12 @@ public class ErrorMessage {
     public static void printParsingError(){
         System.out.println(UI.SEPARATOR);
         System.out.println(PARSING_ERROR);
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printMissingCategory(){
+        System.out.println(UI.SEPARATOR);
+        System.out.println(MISSING_CATEGORY);
         System.out.println(UI.SEPARATOR);
     }
 }

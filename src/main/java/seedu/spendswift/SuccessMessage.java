@@ -71,4 +71,16 @@ public class SuccessMessage {
         System.out.println("Category '" + category + "' does not exist.");
         System.out.println(UI.SEPARATOR);
     }
+
+    public static void printExistingCategory(String category) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Category '" + category + "' already exists!");
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printAddCategory(Category category) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Category '" + category + "' added successfully.");
+        System.out.println(UI.SEPARATOR);
+    }
 }
