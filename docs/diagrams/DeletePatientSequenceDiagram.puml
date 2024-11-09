@@ -2,8 +2,7 @@
 
 !include style.puml
 skinparam ArrowFormatStyle plain
-
-scale 1.5
+skinparam style strictuml
 
 actor User
 participant ":MediTask" as MediTask MAIN_COLOR
@@ -11,10 +10,8 @@ participant ":Parser" as Parser PARSER_COLOR
 participant ":DeleteParser" as DeleteParser PARSER_COLOR
 participant ":DeletePatientCommand" as DeletePatientCommand COMMAND_COLOR
 participant ":Hospital" as Hospital DATA_COLOR
-participant ":CommandResult" as CommandResult COMMAND_COLOR
-scale 0.5
 
-User -> MediTask : User input ("delete <index>")
+User -> MediTask : "delete <index>"
 activate MediTask
 
 MediTask -> Parser : parseCommand(input, state)
@@ -22,9 +19,8 @@ activate Parser
 
 Parser -> DeleteParser : execute(input, state)
 activate DeleteParser
-
+create DeletePatientCommand
 DeleteParser -> DeletePatientCommand : new DeletePatientCommand(index)
-deactivate DeleteParser
 activate DeletePatientCommand
 
 DeletePatientCommand -> Hospital : getPatient(index)
@@ -33,25 +29,34 @@ activate Hospital
 alt Index valid
     Hospital --> DeletePatientCommand : Patient
     DeletePatientCommand -> Hospital : deletePatient(index)
-    Hospital --> DeletePatientCommand : void
+    DeletePatientCommand --> DeleteParser : "Deleted patient: <patient name>"
+    deactivate DeletePatientCommand
 
-    DeletePatientCommand -> CommandResult : new CommandResult("Deleted patient: <patient name>")
-    deactivate DeletePatientCommand
+    DeleteParser --> Parser : "Result message"
+    deactivate DeleteParser
+
+    Parser --> MediTask : "Result message"
+    deactivate Parser
+
+    MediTask --> User : Display result message
+    deactivate MediTask
 else Index invalid
-    Hospital --> DeletePatientCommand : throws PatientNotFoundException
-    DeletePatientCommand -> CommandResult : new CommandResult("Patient not found in the list!")
+    Hospital --> DeletePatientCommand : throw Exception
+    activate DeletePatientCommand
+    deactivate Hospital
+    DeletePatientCommand --> DeleteParser : "Patient not found in the list!"
     deactivate DeletePatientCommand
+    activate DeleteParser
+    DeleteParser --> Parser : "Error message"
+    deactivate DeleteParser
+    activate Parser
+    Parser --> MediTask : "Error message"
+    deactivate Parser
+    activate MediTask
+    MediTask --> User : Display error message
+    deactivate MediTask
 end
 
-deactivate Hospital
-
-Parser <-- DeletePatientCommand : CommandResult
-deactivate Parser
-
-MediTask <-- Parser : CommandResult
 destroy DeletePatientCommand
-MediTask --> User : Display CommandResult
-
-deactivate MediTask
 
 @enduml
