@@ -100,7 +100,7 @@ Adds a patient to the hospital’s patient list.
 
 **Format**: `add NAME /tag TAG_NAME`
 
-**Tip**: A patient can have any number of tags (including none).
+**Tip**: A patient can have a tag (including none).
 
 **Examples**:
 - `add Alice /tag HighPriority`
