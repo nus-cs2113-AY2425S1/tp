@@ -33,6 +33,7 @@ public class FinanceBuddy {
         BudgetLogic budgetLogic = new BudgetLogic(budget, ui);
         FinancialList financialList = storage.loadFromFile(budgetLogic);
         Logic logic = new Logic(financialList, storage, ui, budgetLogic);
+        financialList.resetLastAmendedIndex();
 
         ui.displayWelcomeMessage();
 
