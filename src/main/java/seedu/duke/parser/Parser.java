@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seedu.duke.commands.Command;
+import seedu.duke.data.exception.IllegalValueException;
 import seedu.duke.data.state.State;
 import seedu.duke.ui.Ui;
 
@@ -77,6 +78,9 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Delete Command Error: Non-Numerical Error");
+            }catch (IllegalValueException e) {
+                Ui.showToUserException(e.getMessage());
+                LOGGER.log(Level.WARNING, "Delete Command Error: Non-Numerical Error", e);
             }
             break;
 
@@ -86,6 +90,9 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Select Command Error: Non-Numerical Error");
+            } catch (IllegalValueException e) {
+                Ui.showToUserException(e.getMessage());
+                LOGGER.log(Level.WARNING, "Select Command Error: {0}", e.getMessage());
             }
             break;
 

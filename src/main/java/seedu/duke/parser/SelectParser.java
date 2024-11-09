@@ -2,6 +2,7 @@ package seedu.duke.parser;
 
 import seedu.duke.commands.Command;
 import seedu.duke.commands.SelectPatientCommand;
+import seedu.duke.data.exception.IllegalValueException;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateType;
 import seedu.duke.parser.parserutils.Index;
@@ -21,10 +22,14 @@ public class SelectParser implements CommandParser{
      *         if the command cannot be executed in the current state.
      */
     @Override
-    public Command execute(String line, State state) {
+    public Command execute(String line, State state) throws IllegalValueException {
         if(state.getState() == StateType.MAIN_STATE){
-            int id = parseInt(new Index().extract(line));
-            return new SelectPatientCommand(id, state);
+            try {
+                int id = parseInt(new Index().extract(line));
+                return new SelectPatientCommand(id, state);
+            } catch (NumberFormatException e) {
+                throw new IllegalValueException("Invalid Input. Please enter an integer.");
+            }
         }
         return null;
     }
