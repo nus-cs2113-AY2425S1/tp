@@ -17,9 +17,6 @@ public class AddTaskCommand extends Command {
     private String[] args;
     private Task toAdd = null;
 
-    static {
-        LOGGER.setLevel(Level.SEVERE); // Only show warnings and errors
-    }
 
     public AddTaskCommand(String taskType, String... parameters) {
         this.taskType = taskType;
@@ -40,16 +37,16 @@ public class AddTaskCommand extends Command {
             tasks.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (TaskList.DuplicateTaskException e) {
-            LOGGER.log(Level.SEVERE, "Duplicate task detected: {0}", toAdd);
+            LOGGER.log(Level.WARNING, "Duplicate task detected: {0}", toAdd);
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (Task.UnknownTaskType e) {
-            LOGGER.log(Level.SEVERE, "Invalid task type: {0}", taskType);
+            LOGGER.log(Level.WARNING, "Invalid task type: {0}", taskType);
             return new CommandResult(e.getMessage());
         } catch (Task.EmptyTaskDescription e){
-            LOGGER.log(Level.SEVERE, "Empty task description");
+            LOGGER.log(Level.WARNING, "Empty task description");
             return new CommandResult(e.getMessage());
         } catch (Task.MissingTaskArgument e) {
-            LOGGER.log(Level.SEVERE, "Missing task argument for type: {0}", taskType);
+            LOGGER.log(Level.WARNING, "Missing task argument for type: {0}", taskType);
             return new CommandResult(e.getMessage());
         }
     }

@@ -15,9 +15,6 @@ public class ListTaskCommand extends Command {
     
     private static final Logger logger = Logger.getLogger(ListPatientCommand.class.getName());
 
-    static {
-        logger.setLevel(Level.SEVERE);
-    }
 
     Ui ui = new Ui();
     Patient currentPatient = Hospital.getSelectedPatient();

@@ -22,9 +22,6 @@ public class SelectPatientCommand extends HospitalCommand {
     private State state; // To hold reference to the global state object
     private int index;
 
-    static {
-        logger.setLevel(Level.SEVERE);
-    }
 
     /**
      * Constructs a {@code SelectPatientCommand} with the specified index and global state.
@@ -59,7 +56,7 @@ public class SelectPatientCommand extends HospitalCommand {
             // System.out.println(resultMessage);
             return new CommandResult(resultMessage);
         } catch (Hospital.PatientNotFoundException e) {
-            logger.log(Level.SEVERE, "Attempted to select a patient at an invalid index: {0}", index);
+            logger.log(Level.WARNING, "Attempted to select a patient at an invalid index: {0}", index);
             // System.out.println(MESSAGE_PATIENT_NOT_FOUND);
             return new CommandResult(MESSAGE_PATIENT_NOT_FOUND);
         }

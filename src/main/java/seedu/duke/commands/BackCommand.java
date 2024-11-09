@@ -16,9 +16,7 @@ public class BackCommand extends Command {
 
     private State state;
 
-    static {
-        logger.setLevel(Level.SEVERE); // Only show warnings and errors
-    }
+
 
     public BackCommand(State state) {
         this.state = state;

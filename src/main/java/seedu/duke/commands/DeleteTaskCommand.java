@@ -17,9 +17,6 @@ public class DeleteTaskCommand extends Command {
         this.index = index - 1;
     }
 
-    static {
-        logger.setLevel(Level.SEVERE);
-    }
 
     @Override
     public CommandResult execute() {
@@ -30,7 +27,7 @@ public class DeleteTaskCommand extends Command {
             tasks.deleteTask(index);
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (TaskList.TaskNotFoundException e) {
-            logger.log(Level.SEVERE, "Attempted to delete a task at an invalid index: {0}", index);
+            logger.log(Level.WARNING, "Attempted to delete a task at an invalid index: {0}", index);
             return new CommandResult(MESSAGE_TASK_NOT_FOUND);
         }
     }
