@@ -333,7 +333,7 @@ public class EventList  {
      * Sort the event list by name, alphabetically.
      */
     public void sortByName(){
-        eventList.sort(Comparator.comparing(Event::getEventName));
+        eventList.sort(Comparator.comparing(event -> event.getEventName().toLowerCase()));
     }
 
     /**
