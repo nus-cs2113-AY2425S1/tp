@@ -28,7 +28,9 @@
 * [Appendix B: User stories](#appendix-b-user-stories)
 * [Appendix C: Non-functional requirements](#appendix-c-non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d-glossary)
+
 <div style="page-break-after: always;"></div>
+
 * [Appendix E: Instructions for manual testing](#appendix-e-instructions-for-manual-testing)
   * [Launch and shutdown](#launch-and-shutdown)
   * [Adding an event](#adding-an-event)
@@ -790,7 +792,7 @@ The user is able to organise and manage his events more quickly and efficiently 
    1. Prerequisite: An event with the name `Event 1` is not present in the `Event` list.
       List all `Event`s with `list` after each test case.
    
-   2. Test case: `add -e Event 1 -t 2024-10-10 -v Venue 1 -u high`
+   2. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u high`
       Expected: An `Event` with name `Event 1` is added to the `Event` list. A success message is shown.
 
    3. Test case: `add -e Event 1 -t 2024-10-10 -v Venue 1 -u HIGH`  
@@ -898,8 +900,8 @@ The user is able to organise and manage his events more quickly and efficiently 
    1. Prerequisite: An event with name `Event 1` and venue `Function Room` is present in the list.  
       List all `Event`s with `list` after each test case.   
    
-   2. Test case: `edit -e Event 1 -name Event 1 -t 2024-10-25 16:00 -v Billards Room -u HIGH`  
-      Expected: The venue for `Event 1` is changed to `Billards Room`. A success message is shown.
+   2. Test case: `edit -e Event 1 -name Event 1 -t 2024-10-25 16:00 -v Billiards Room -u HIGH`  
+      Expected: The venue for `Event 1` is changed to `Billiards Room`. A success message is shown.
 
 ### Editing a participant
 

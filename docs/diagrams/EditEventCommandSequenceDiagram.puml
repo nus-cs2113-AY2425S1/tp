@@ -18,7 +18,7 @@ loop for each event in eventList
     event --> eventList : eventName
     deactivate event
 
-    alt eventName matches
+    opt eventName matches
         eventList -> event : updateEvent(eventNewName, eventTime, eventVenue, eventPriority)
         activate event
         event --> eventList : updated

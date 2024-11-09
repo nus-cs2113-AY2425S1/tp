@@ -18,7 +18,7 @@ loop for each event in eventList
     event --> eventList : eventName:String
     deactivate event
 
-    alt eventName matches
+    opt eventName matches
         eventList -> event : updateItem(itemName, itemNewName)
         activate event
         event --> eventList : item updated
