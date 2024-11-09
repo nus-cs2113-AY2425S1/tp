@@ -299,6 +299,7 @@ public class Storage {
                 if (LocalDate.parse(date).isAfter(LocalDate.now())) {
                     budget.setBudgetSetDate(LocalDate.now());
                     logger.log(LogLevels.WARNING, "Budget date is in the future, setting to current date.");
+                    failedLoadingBudgetMsg = "Date in budget file is invalid, setting to current date.";
                 } else {
                     budget.setBudgetSetDate(LocalDate.parse(date));
                 }
