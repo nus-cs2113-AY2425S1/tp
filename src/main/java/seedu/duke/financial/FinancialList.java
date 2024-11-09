@@ -14,11 +14,11 @@ import java.util.Map;
  */
 public class FinancialList {
     private static final Double AMOUNTZERO = 0.0;
+    private static final int DEFAULT_LAST_AMENDED_INDEX = -1;
     private ArrayList<FinancialEntry> entries;
     private Map<Expense.Category, Double> totalExpenseByCategory = new HashMap<>();
     private Map<Income.Category, Double> totalIncomeByCategory = new HashMap<>();
     private int lastAmendedIndex;
-    private static final int DEFAULT_LAST_AMENDED_INDEX = -1;
 
     /**
      * Constructs a FinancialList object with an empty list.
