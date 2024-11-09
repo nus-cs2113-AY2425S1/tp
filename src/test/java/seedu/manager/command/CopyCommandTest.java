@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+//@@author LTK-1606
 public class CopyCommandTest {
     EventList eventList = new EventList();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -65,5 +66,4 @@ public class CopyCommandTest {
         assertEquals(expectedMessage, copyCommand.getMessage());
         assertFalse(copyCommand.getCanExit());
     }
-
 }
