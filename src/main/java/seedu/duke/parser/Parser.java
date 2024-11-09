@@ -78,9 +78,12 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Delete Command Error: Non-Numerical Error");
-            }catch (IllegalValueException e) {
+            } catch (IllegalValueException e) {
                 Ui.showToUserException(e.getMessage());
                 LOGGER.log(Level.WARNING, "Delete Command Error: Non-Numerical Error", e);
+            } catch (NumberFormatException e) {
+                Ui.showToUserException("The input is invalid");
+                LOGGER.log(Level.WARNING, "Mark Command Error: Non-Numerical Error");
             }
             break;
 
@@ -102,6 +105,9 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Mark Command Error: Non-Numerical Error");
+            } catch (NumberFormatException e) {
+                Ui.showToUserException("The input is invalid");
+                LOGGER.log(Level.WARNING, "Mark Command Error: Non-Numerical Error");
             }
             break;
 
@@ -111,6 +117,9 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 Ui.showToUserException("The input cannot be empty");
                 LOGGER.log(Level.WARNING, "Unmark Command Error: Non-Numerical Error");
+            } catch (NumberFormatException e) {
+                Ui.showToUserException("The input is invalid");
+                LOGGER.log(Level.WARNING, "Mark Command Error: Non-Numerical Error");
             }
             break;
 
