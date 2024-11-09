@@ -159,45 +159,41 @@ Examples:
 * `edit -m balloon > cake -e anniversary` edits the item `balloon` in the event `anniversary` to `cake`.
 <div style="page-break-after: always;"></div>
 
-### Marking an event as done: `mark`
+### Marking events, participants, or items: `mark`
 
-Marks an event in the event list as done or not done.
+Marks an event in the event list, a participant in an event, or an item in an event.
 
-Format: `mark -e EVENT -s STATUS`
+Events can be marked as done or not done, participants marked as present or absent, and items marked as accounted for or unaccounted for.
 
-* The status parameter must be either `done` (to mark done) or `undone` (to mark not done).
+Format: 
 
-Examples:
+* `mark -e EVENT -s STATUS` to mark an event as done or not done.
+* `mark -p PARTICIPANT -e EVENT -s STATUS` to mark a participant in an event as present or absent.
+* `mark -m ITEM -e EVENT -s STATUS` to mark an item in an event as accounted for or unaccounted for.
 
-* `mark -e Origami workshop -s done` marks the event `Origami workshop` as done.
-* `mark -e Origami workshop -s undone` marks the event `Origami workshop` as not done.
+Remarks:
 
-### Marking a participant as present: `mark`
-
-Marks a participant for an event as present or absent.
-
-Format: `mark -p PARTICIPANT -e EVENT -s STATUS`
-
-* The status parameter must be either `present` (to mark present) or `absent` (to mark absent).
+* The `STATUS` parameter takes in the following values:
+  * For marking events: `done` to mark as done, `undone` to mark as not done.
+  * For marking participants: `present` to mark present, `absent` to mark absent.
+  * For marking items: `accounted` to mark accounted, `unaccounted` to mark unaccounted.
 
 Examples:
 
-* `mark -p John Tan -e Origami workshop -s present` marks the participant `John Tan` in the `Origami workshop` event as present.
-* `mark -p John Tan -e Origami workshop -s absent` marks the participant `John Tan` in the `Origami workshop` event as absent.
+* Marking events:
 
-### Marking an item as accounted for: `mark`
+  * `mark -e Origami workshop -s done` marks the event `Origami workshop` as done.
+  * `mark -e Origami workshop -s undone` marks the event `Origami workshop` as not done.
+  
+* Marking participants:
 
-Marks an item for an event as accounted for or unaccounted for.
+  * `mark -p John Tan -e Origami workshop -s present` marks the participant `John Tan` in the `Origami workshop` event as present.
+  * `mark -p John Tan -e Origami workshop -s absent` marks the participant `John Tan` in the `Origami workshop` event as absent.
 
-Format: `mark -m ITEM -e EVENT -s STATUS`
+* Marking items:
 
-* The status parameter must be either `accounted` (to mark accounted) or `unaccounted` (to mark unaccounted).
-
-Examples:
-
-* `mark -m Origami paper -e Origami workshop -s accounted` marks the item `Origami paper` in the `Origami workshop` event as accounted.
-* `mark -m Origami paper -e Origami workshop -s unaccounted` marks the item `Origami paper` in the `Origami workshop` event as unaccounted. 
-<div style="page-break-after: always;"></div>
+  * `mark -m Origami paper -e Origami workshop -s accounted` marks the item `Origami paper` in the `Origami workshop` event as accounted.
+  * `mark -m Origami paper -e Origami workshop -s unaccounted` marks the item `Origami paper` in the `Origami workshop` event as unaccounted.
 
 ### Copying the participant list: `copy`
 
