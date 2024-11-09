@@ -24,6 +24,11 @@ public class ExpenseManager {
                 return;
             }
 
+            if (category.isEmpty()) {
+                System.out.println("Invalid input! Please provide a category for your expense.");
+                return;
+            }
+
             if (Double.isNaN(amount)) {
                 return;
             }
@@ -54,10 +59,6 @@ public class ExpenseManager {
     public static void addExpense(TrackerData trackerData, String name, double amount, String categoryName) {
         List<Expense> expenses = trackerData.getExpenses();
         List<Category> categories = trackerData.getCategories();
-
-        if (categoryName == null || categoryName.trim().isEmpty()) {
-            categoryName = "Uncategorized";
-        }
 
         String formattedCategoryName = Format.formatInput(categoryName.trim());
         Category existingCategory = null;
