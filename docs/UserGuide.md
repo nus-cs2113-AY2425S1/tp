@@ -75,8 +75,8 @@ The `Add Transaction` command allows you to add either an income or expense entr
 - `CATEGORY` (optional): Specifies a category for the transaction, aiding in detailed financial tracking. If omitted, it defaults to `UNCATEGORIZED`.
 
 **Category Options**:
-- **Expense**: Categories include `FOOD`, `TRANSPORT`, `ENTERTAINMENT`, `UTILITIES`, `OTHERS`, and `UNCATEGORIZED`.
-- **Income**: Categories include `SALARY`, `INVESTMENT`, `GIFT`, `OTHERS`, and `UNCATEGORIZED`.
+- **Expense**: Categories include `FOOD`, `TRANSPORT`, `ENTERTAINMENT`, `UTILITIES`, `OTHER`, and `UNCATEGORIZED`.
+- **Income**: Categories include `SALARY`, `INVESTMENT`, `GIFT`, `OTHER`, and `UNCATEGORIZED`.
 
 **Examples Usage**:
 
