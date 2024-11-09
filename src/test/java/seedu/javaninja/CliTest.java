@@ -10,11 +10,18 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Unit tests for the `Cli` class.
+ * Tests various methods related to user interaction and console output.
+ */
 class CliTest {
 
-    private Cli cli;
-    private ByteArrayOutputStream outputStream;
+    private Cli cli;  // Instance of the `Cli` class for testing
+    private ByteArrayOutputStream outputStream;  // Captures printed console output
 
+    /**
+     * Sets up the test environment by initializing `Cli` and redirecting system output.
+     */
     @BeforeEach
     public void setUp() {
         String simulatedUserInput = "Sample input\n";
@@ -26,12 +33,18 @@ class CliTest {
         System.setOut(new PrintStream(outputStream));
     }
 
+    /**
+     * Tests if `readInput()` returns the user input correctly.
+     */
     @Test
     public void readInput_returnsUserInput() {
         String input = cli.readInput();
         assertEquals("Sample input", input, "Cli should return the user input correctly.");
     }
 
+    /**
+     * Tests if `printStartMessage()` displays the correct start message.
+     */
     @Test
     public void printStartMessage_displaysCorrectOutput() {
         cli.printStartMessage();
@@ -42,6 +55,9 @@ class CliTest {
                 "Output should contain the 'view' command instructions.");
     }
 
+    /**
+     * Tests if `printHelp()` displays the help instructions.
+     */
     @Test
     public void printHelp_displaysHelpInstructions() {
         cli.printHelp();
@@ -52,6 +68,9 @@ class CliTest {
                 "Output should contain 'help' command instructions.");
     }
 
+    /**
+     * Tests if `printGoodByeMessage()` displays the correct goodbye message.
+     */
     @Test
     public void printGoodByeMessage_displaysGoodbyeMessage() {
         cli.printGoodByeMessage();
@@ -60,6 +79,9 @@ class CliTest {
                 "Output should contain the goodbye message.");
     }
 
+    /**
+     * Tests if `printMessage()` displays a custom message.
+     */
     @Test
     public void printMessage_displaysCustomMessage() {
         cli.printMessage("This is a test message.");
@@ -68,6 +90,9 @@ class CliTest {
                 "Output should contain the custom message.");
     }
 
+    /**
+     * Tests if `printOptions()` displays a list of options correctly.
+     */
     @Test
     public void printOptions_displaysOptionsList() {
         cli.printOptions(List.of("Option 1", "Option 2"));
@@ -76,6 +101,9 @@ class CliTest {
         assertTrue(printedOutput.contains("- Option 2"), "Output should contain 'Option 2'.");
     }
 
+    /**
+     * Tests if `printPastResults()` displays quiz results correctly.
+     */
     @Test
     public void printPastResults_displaysResults() {
         String results = "Score: 90%\nScore: 75%";
@@ -85,6 +113,9 @@ class CliTest {
         assertTrue(printedOutput.contains("Score: 75%"), "Output should contain 'Score: 75%'.");
     }
 
+    /**
+     * Tests if `printEnclosure()` displays the separator line.
+     */
     @Test
     public void printEnclosure_displaysEnclosureLine() {
         cli.printEnclosure();

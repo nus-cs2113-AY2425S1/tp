@@ -77,3 +77,148 @@ Git | Mcq | Which command stages files for commit? | b | a) git stage | b) git a
 Git | Mcq | Which command lists all branches? | c | a) git log | b) git branch -a | c) git branch | d) git show
 Git | Mcq | Which command updates the local repository with remote changes? | b | a) git fetch | b) git pull | c) git update | d) git merge
 Git | Mcq | Which command shows the commit history? | a | a) git log | b) git history | c) git status | d) git commits
+
+OOP | FillInTheBlank | The `____` principle ensures that a class hides its internal implementation. | encapsulation
+OOP | FillInTheBlank | The `____` keyword is used to inherit from another class in Java. | extends
+OOP | FillInTheBlank | A class that cannot be instantiated is declared as `____`. | abstract
+OOP | FillInTheBlank | The process of defining multiple methods with the same name but different parameters is called `____`. | overloading
+OOP | FillInTheBlank | `____` is the principle of using a single interface to represent different underlying forms. | polymorphism
+OOP | TrueFalse | An interface can extend multiple interfaces in Java. | true
+OOP | TrueFalse | A final class can be subclassed in Java. | false
+OOP | TrueFalse | Constructors can be inherited. | false
+OOP | TrueFalse | Static methods can be overridden. | false
+OOP | TrueFalse | A class can implement multiple interfaces. | true
+OOP | Mcq | Which keyword is used to create a subclass? | b | a) implements | b) extends | c) inherit | d) subclass
+OOP | Mcq | Which type of method cannot be overridden? | c | a) private | b) protected | c) final | d) abstract
+OOP | Mcq | What is used to achieve abstraction in Java? | d | a) Constructors | b) Variables | c) Loops | d) Abstract classes and interfaces
+OOP | Mcq | Which of the following defines encapsulation best? | a | a) Hiding internal details and showing only functionality | b) Using a loop to iterate | c) Extending classes | d) Overloading constructors
+OOP | Mcq | What is it called when a method in a subclass has the same name and parameters as in the parent class? | b | a) Overloading | b) Overriding | c) Inheriting | d) Extending
+
+Java Inheritance | FillInTheBlank | `____` is the keyword used to inherit a class in Java. | extends
+Java Inheritance | FillInTheBlank | Inheritance in Java follows a `____` relationship. | is-a
+Java Inheritance | FillInTheBlank | A `____` is a class that is inherited from another class. | subclass
+Java Inheritance | FillInTheBlank | The `____` method can be used to call a superclass constructor. | super
+Java Inheritance | FillInTheBlank | A `____` relationship between classes indicates inheritance. | hierarchical
+Java Inheritance | TrueFalse | Java supports multiple inheritance through classes. | false
+Java Inheritance | TrueFalse | The `super` keyword is used to access methods from the subclass. | false
+Java Inheritance | TrueFalse | All Java classes inherit from the `Object` class. | true
+Java Inheritance | TrueFalse | A subclass can inherit only one superclass. | true
+Java Inheritance | TrueFalse | An inherited method can be overridden in the subclass. | true
+Java Inheritance | Mcq | Which of the following is true about Java inheritance? | d | a) Java supports multiple class inheritance | b) Interfaces cannot be inherited | c) Inheritance violates OOP principles | d) Java supports single inheritance with classes
+Java Inheritance | Mcq | What is the purpose of the `super` keyword? | c | a) To create an object | b) To declare a method as final | c) To call the parent class constructor | d) To access private methods
+Java Inheritance | Mcq | If a method in a subclass has the same signature as a method in its superclass, it is called: | b | a) Overloading | b) Overriding | c) Shadowing | d) Hiding
+Java Inheritance | Mcq | Which of these keywords restricts a class from being inherited? | a | a) final | b) static | c) private | d) protected
+Java Inheritance | Mcq | The default access modifier allows class members to be accessed: | c | a) From any class | b) Only from the same class | c) Within the same package | d) From subclasses only
+
+Threads | FillInTheBlank | The `____` interface must be implemented to create a thread. | Runnable
+Threads | FillInTheBlank | The `____` method is called to start a thread. | start
+Threads | FillInTheBlank | The `____` method is used to pause the execution of a thread. | sleep
+Threads | FillInTheBlank | The `____` method is used to check if a thread is still active. | isAlive
+Threads | FillInTheBlank | Threads can be synchronized using the `____` keyword. | synchronized
+Threads | TrueFalse | Java supports multithreading. | true
+Threads | TrueFalse | A thread automatically stops execution when the `stop()` method is called. | false
+Threads | TrueFalse | The `join()` method ensures that a thread waits for another thread to complete. | true
+Threads | TrueFalse | A thread can only be started once. | true
+Threads | TrueFalse | The `yield()` method stops a thread permanently. | false
+Threads | Mcq | Which method is used to put a thread to sleep for a specified time? | a | a) sleep() | b) pause() | c) halt() | d) stop()
+Threads | Mcq | Which interface must be implemented to create a thread? | c | a) Serializable | b) Iterable | c) Runnable | d) EventListener
+Threads | Mcq | What does the `join()` method do? | b | a) Pauses the thread | b) Waits for a thread to die | c) Interrupts a thread | d) Terminates a thread
+Threads | Mcq | Which keyword is used to synchronize a block of code? | d | a) lock | b) monitor | c) thread-safe | d) synchronized
+Threads | Mcq | Which of these methods is not in the `Thread` class? | c | a) start() | b) sleep() | c) halt() | d) join()
+
+Exceptions | FillInTheBlank | The `____` block is used to handle exceptions in Java. | catch
+Exceptions | FillInTheBlank | The `____` keyword is used to throw an exception. | throw
+Exceptions | FillInTheBlank | The `____` class is the superclass of all exceptions. | Throwable
+Exceptions | FillInTheBlank | An exception that must be caught or declared is called a `____` exception. | checked
+Exceptions | FillInTheBlank | The `____` block executes regardless of whether an exception is thrown. | finally
+Exceptions | TrueFalse | All exceptions are checked exceptions in Java. | false
+Exceptions | TrueFalse | The `finally` block executes only if an exception is thrown. | false
+Exceptions | TrueFalse | A `try` block must always be followed by a `catch` block. | false
+Exceptions | TrueFalse | The `throw` keyword is used to catch exceptions. | false
+Exceptions | TrueFalse | The `throws` keyword is used to declare an exception. | true
+Exceptions | Mcq | Which block executes whether or not an exception is thrown? | c | a) try | b) catch | c) finally | d) throw
+Exceptions | Mcq | Which of these is a checked exception? | b | a) NullPointerException | b) IOException | c) ArrayIndexOutOfBoundsException | d) ArithmeticException
+Exceptions | Mcq | What does the `throw` keyword do? | a | a) Throws an exception | b) Catches an exception | c) Declares an exception | d) None of the above
+Exceptions | Mcq | Which class is the parent of all exceptions? | d | a) Exception | b) RuntimeException | c) Error | d) Throwable
+Exceptions | Mcq | What is the use of the `throws` keyword? | b | a) To catch exceptions | b) To declare exceptions | c) To execute exceptions | d) To print exceptions
+
+Collections | FillInTheBlank | The `____` class is used to create a dynamic array. | ArrayList
+Collections | FillInTheBlank | The `____` interface represents a collection that cannot contain duplicate elements. | Set
+Collections | FillInTheBlank | A `____` is a collection that maps keys to values. | Map
+Collections | FillInTheBlank | The `____` interface is implemented by classes like ArrayList and LinkedList. | List
+Collections | FillInTheBlank | The `____` method is used to add elements to a list. | add
+Collections | TrueFalse | A `HashSet` allows duplicate elements. | false
+Collections | TrueFalse | A `TreeSet` sorts its elements in ascending order. | true
+Collections | TrueFalse | `HashMap` allows null keys and null values. | true
+Collections | TrueFalse | An `ArrayList` can store elements of different data types without generics. | true
+Collections | TrueFalse | A `LinkedHashMap` maintains the insertion order of its elements. | true
+Collections | Mcq | Which collection class maintains the insertion order of its elements? | b | a) HashSet | b) LinkedHashMap | c) TreeMap | d) PriorityQueue
+Collections | Mcq | Which interface does `HashSet` implement? | d | a) List | b) Map | c) Queue | d) Set
+Collections | Mcq | What is used to map keys to values in Java? | c | a) List | b) Set | c) Map | d) Queue
+Collections | Mcq | Which of these collections does not allow duplicate values? | d | a) ArrayList | b) LinkedList | c) PriorityQueue | d) Set
+Collections | Mcq | Which of the following allows duplicate keys? | a | a) TreeMap | b) HashMap | c) ArrayList | d) Set
+
+Streams | FillInTheBlank | The `____` method is used to filter elements in a stream. | filter
+Streams | FillInTheBlank | The `____` method transforms each element in a stream. | map
+Streams | FillInTheBlank | The `____` method returns the number of elements in a stream. | count
+Streams | FillInTheBlank | The `____` method in a stream is used for sorting. | sorted
+Streams | FillInTheBlank | The `____` method is used to collect stream results into a list. | collect
+Streams | TrueFalse | Streams in Java can modify the original data source. | false
+Streams | TrueFalse | The `forEach` method in streams consumes each element for processing. | true
+Streams | TrueFalse | Streams support parallel processing to enhance performance. | true
+Streams | TrueFalse | The `filter` method changes each element of the stream. | false
+Streams | TrueFalse | A stream pipeline must end with a terminal operation. | true
+Streams | Mcq | Which method filters elements of a stream? | a | a) filter | b) map | c) sorted | d) limit
+Streams | Mcq | What does the `map` method do in a stream? | b | a) Filters elements | b) Transforms elements | c) Counts elements | d) Terminates the stream
+Streams | Mcq | Which method in a stream is used to count elements? | c | a) collect | b) filter | c) count | d) reduce
+Streams | Mcq | Which stream method is used to sort elements? | d | a) filter | b) map | c) forEach | d) sorted
+Streams | Mcq | Which operation is not terminal in a stream? | a | a) map | b) forEach | c) reduce | d) collect
+
+Java Arrays | FillInTheBlank | The `____` method is used to copy elements from one array to another. | System.arraycopy
+Java Arrays | FillInTheBlank | The `____` method returns the length of an array. | length
+Java Arrays | FillInTheBlank | An array's index starts at `____`. | 0
+Java Arrays | FillInTheBlank | The `____` method can be used to sort an array. | Arrays.sort
+Java Arrays | FillInTheBlank | Multidimensional arrays are also called `____` arrays. | nested
+Java Arrays | TrueFalse | Java supports arrays with more than one dimension. | true
+Java Arrays | TrueFalse | Arrays in Java are dynamic in size. | false
+Java Arrays | TrueFalse | Array indices can be negative. | false
+Java Arrays | TrueFalse | Arrays in Java can hold multiple data types. | false
+Java Arrays | TrueFalse | The `length` property is a method. | false
+Java Arrays | Mcq | What is the correct way to declare an array in Java? | b | a) int[] arr() | b) int[] arr | c) array int arr | d) int arr[]
+Java Arrays | Mcq | How do you access the last element of an array? | c | a) arr[0] | b) arr[length] | c) arr[arr.length - 1] | d) arr[-1]
+Java Arrays | Mcq | Which method is used to fill an array with a specific value? | a | a) Arrays.fill | b) Arrays.populate | c) Arrays.insert | d) Arrays.assign
+Java Arrays | Mcq | What happens if you try to access an index outside the array's bounds? | b | a) Array is resized | b) ArrayIndexOutOfBoundsException | c) Returns null | d) Compiles but throws no error
+Java Arrays | Mcq | What keyword is used to create an array? | c | a) newarray | b) create | c) new | d) array
+
+Java Methods | FillInTheBlank | A method with no return type uses the `____` keyword. | void
+Java Methods | FillInTheBlank | The `____` keyword indicates a method is accessible without an object. | static
+Java Methods | FillInTheBlank | Methods with the same name but different parameters demonstrate `____`. | overloading
+Java Methods | FillInTheBlank | The method signature includes the method name and `____`. | parameters
+Java Methods | FillInTheBlank | The `____` keyword can be used to refer to the current object within a method. | this
+Java Methods | TrueFalse | A method can return multiple values in Java. | false
+Java Methods | TrueFalse | Method overloading is determined by the return type. | false
+Java Methods | TrueFalse | Static methods can be overridden. | false
+Java Methods | TrueFalse | The `return` statement can be used in a `void` method. | true
+Java Methods | TrueFalse | Constructors are methods in Java. | false
+Java Methods | Mcq | What is a method in Java that does not return a value called? | d | a) null method | b) main method | c) constructor | d) void method
+Java Methods | Mcq | Which of the following is the correct way to define a method in Java? | a | a) public void myMethod() | b) method myMethod() | c) public myMethod() | d) void method()
+Java Methods | Mcq | What is the keyword to call the current class's method? | b | a) super | b) this | c) self | d) method
+Java Methods | Mcq | Which statement is used to exit a method? | d | a) end | b) stop | c) halt | d) return
+Java Methods | Mcq | Which of the following is used to indicate that a method has no parameters? | a | a) () | b) {} | c) <> | d) []
+
+Java Classes/Objects | FillInTheBlank | A `____` is an instance of a class. | object
+Java Classes/Objects | FillInTheBlank | The `____` keyword is used to create an object. | new
+Java Classes/Objects | FillInTheBlank | Class attributes are often referred to as `____`. | fields
+Java Classes/Objects | FillInTheBlank | A constructor does not have a `____` type. | return
+Java Classes/Objects | FillInTheBlank | `____` are used to access attributes of a class. | methods
+Java Classes/Objects | TrueFalse | A Java class can extend multiple classes. | false
+Java Classes/Objects | TrueFalse | Each object has its own copy of class methods. | false
+Java Classes/Objects | TrueFalse | Constructors can be overloaded. | true
+Java Classes/Objects | TrueFalse | The keyword `this` is used to reference the current object. | true
+Java Classes/Objects | TrueFalse | A class can implement multiple interfaces. | true
+Java Classes/Objects | Mcq | Which keyword is used to create a new instance of a class? | b | a) instance | b) new | c) create | d) object
+Java Classes/Objects | Mcq | Which of these is not a type of class member? | d | a) Field | b) Method | c) Constructor | d) Interface
+Java Classes/Objects | Mcq | What does a constructor return? | d | a) Object | b) Null | c) Void | d) Nothing
+Java Classes/Objects | Mcq | What is a blueprint for creating objects called? | c | a) Method | b) Interface | c) Class | d) Object
+Java Classes/Objects | Mcq | Which keyword is used to inherit a class? | a | a) extends | b) implements | c) inherits | d) uses
+
