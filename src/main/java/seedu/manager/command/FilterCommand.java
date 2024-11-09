@@ -35,6 +35,10 @@ public class FilterCommand extends Command {
             Invalid date-time format!
             Please use the following format for date-time: YYYY-MM-DD HH:mm
             """;
+    private static final String INVALID_PRIORITY_FORMAT_MESSAGE = """
+            Invalid priority format!
+            Please use the following format for priority: high/medium/low
+            """;
 
     protected String flag;
     protected String filterWord;
@@ -152,8 +156,12 @@ public class FilterCommand extends Command {
      * @return successful message for filter by priority
      */
     private String filterEventsByPriority() {
-        Priority priority = Priority.valueOf(filterWord.trim().toUpperCase());
-        filteredEvents = eventList.filterByPriority(priority);
-        return FILTER_BY_PRIORITY_MESSAGE + "\n";
+        try {
+            Priority priority = Priority.valueOf(filterWord.trim().toUpperCase());
+            filteredEvents = eventList.filterByPriority(priority);
+            return FILTER_BY_PRIORITY_MESSAGE + "\n";
+        } catch(IllegalArgumentException exception) {
+            return INVALID_PRIORITY_FORMAT_MESSAGE;
+        }
     }
 }
