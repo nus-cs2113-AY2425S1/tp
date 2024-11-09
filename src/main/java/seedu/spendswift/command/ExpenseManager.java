@@ -1,7 +1,10 @@
 //@@author glenda-1506
 package seedu.spendswift.command;
 
+import seedu.spendswift.ErrorMessage;
 import seedu.spendswift.Format;
+import seedu.spendswift.SuccessMessage;
+import seedu.spendswift.UI;
 import seedu.spendswift.parser.InputParser;
 
 import java.util.ArrayList;
@@ -20,12 +23,12 @@ public class ExpenseManager {
             String category = parser.parseCategory(input);
 
             if (name.isEmpty()) {
-                System.out.println("Invalid input! Please provide a name for your expense.");
+                ErrorMessage.printExpensesManagerEmptyName();
                 return;
             }
 
             if (category.isEmpty()) {
-                System.out.println("Invalid input! Please provide a category for your expense.");
+                ErrorMessage.printExpensesManagerEmptyCategory();
                 return;
             }
 
@@ -34,13 +37,13 @@ public class ExpenseManager {
             }
 
             if (amount < 0) {
-                System.out.println("Invalid input! Please provide a positive amount!");
+                ErrorMessage.printExpensesManagerNegativeAmount();
                 return;
             }
 
             expenseManager.addExpense(trackerData, name, amount, category);
         } catch (Exception e) {
-            System.out.println("Error parsing the input. Please use the correct format for add-expense commands.");
+            ErrorMessage.printParsingError();
         }
     }
 
@@ -71,7 +74,7 @@ public class ExpenseManager {
         if (existingCategory == null) {
             existingCategory = new Category(formattedCategoryName);
             categories.add(existingCategory);
-            System.out.println("Category '" + formattedCategoryName + "' added successfully.");
+            SuccessMessage.printAddExpenseAddCategory(formattedCategoryName);
         }
         Expense newExpense = new Expense(name, amount, existingCategory);
         expenses.add(newExpense);
@@ -79,7 +82,7 @@ public class ExpenseManager {
         // update categories and expenses
         trackerData.setExpenses(expenses);
         trackerData.setCategories(categories);
-        System.out.println("Added" + newExpense);
+        SuccessMessage.printAddExpense(newExpense);
     }
 
     //@@author AdiMangalam
