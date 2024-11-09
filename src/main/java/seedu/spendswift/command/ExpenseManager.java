@@ -41,7 +41,7 @@ public class ExpenseManager {
                 return;
             }
 
-            expenseManager.addExpense(trackerData, name, amount, category);
+            addExpense(trackerData, name, amount, category);
         } catch (Exception e) {
             ErrorMessage.printParsingError();
         }

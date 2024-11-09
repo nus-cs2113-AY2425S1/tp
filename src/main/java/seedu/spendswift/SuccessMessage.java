@@ -83,4 +83,17 @@ public class SuccessMessage {
         System.out.println("Category '" + category + "' added successfully.");
         System.out.println(UI.SEPARATOR);
     }
+
+    public static void printNewBudget(double limit, Category category) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Set budget for category '" + category + "' to " + Format.formatAmount(limit));
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printExistingBudget(double limit, Category category) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Updated budget for category '" + category + "' to "
+                + Format.formatAmount(limit));
+        System.out.println(UI.SEPARATOR);
+    }
 }

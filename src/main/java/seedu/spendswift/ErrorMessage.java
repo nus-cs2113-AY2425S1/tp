@@ -10,6 +10,7 @@ public class ErrorMessage {
     private static final String EXPENSEMANAGER_EMPTY_CATEGORY = "Invalid input! " +
             "Please provide a category.";
     private static final String EXPENSEMANAGER_NEGATIVE_AMOUNT = "Invalid input! Please provide a positive amount!";
+    private static final String NEGATIVE_LIMIT = "Invalid input! Please provide a positive limit!";
     private static final String PARSING_ERROR = "Error parsing the input. Please use the correct format.";
     private static final String OUTOFBOUNDS_INDEX = "Invalid input! The specified expense index does not exist. " +
             "Please provide a valid expense index.";
@@ -60,6 +61,12 @@ public class ErrorMessage {
     public static void printExpensesManagerNegativeAmount(){
         System.out.println(UI.SEPARATOR);
         System.out.println(EXPENSEMANAGER_NEGATIVE_AMOUNT);
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printNegativeLimit(){
+        System.out.println(UI.SEPARATOR);
+        System.out.println(NEGATIVE_LIMIT);
         System.out.println(UI.SEPARATOR);
     }
 
