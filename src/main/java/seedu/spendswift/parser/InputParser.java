@@ -50,7 +50,7 @@ public class InputParser {
             return Double.parseDouble(amountStr);
         } catch (NumberFormatException e) {
             System.out.println("Invalid amount format. Please enter a valid number after 'a/'.");
-            return -1;
+            return Double.NaN;
         }
     }
 

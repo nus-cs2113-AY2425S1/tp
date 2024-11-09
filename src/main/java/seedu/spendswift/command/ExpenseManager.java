@@ -24,6 +24,10 @@ public class ExpenseManager {
                 return;
             }
 
+            if (Double.isNaN(amount)) {
+                return;  // Stop further execution if there's a parsing error
+            }
+
             if (amount < 0) {
                 System.out.println("Invalid input! Please provide a positive amount!");
                 return;
