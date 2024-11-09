@@ -3,6 +3,7 @@ package seedu.duke.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
+import seedu.duke.data.exception.MissingTaskArgument;
 import seedu.duke.data.task.Deadline;
 import seedu.duke.data.task.Repeat;
 import seedu.duke.data.task.Task;
@@ -49,13 +50,22 @@ public class TaskCommandTest {
     }
 
     @Test
-    void testAddTaskCommand_missingArguments(){
-        AddTaskCommand addTaskCommand = new AddTaskCommand("deadline");
+    void testAddTaskCommand_deadline_missingArguments(){
+        AddTaskCommand addTaskCommand = new AddTaskCommand("deadline", "meo");
         TaskList tasks = new TaskList();
         addTaskCommand.setData(tasks);
         CommandResult commandResult = addTaskCommand.execute();
-        assertEquals("Missing arguments for task type: deadline\n" + 
-            "The required arguments for task type: deadline are: description, due date", 
+        assertEquals(MissingTaskArgument.createErrorMessage("deadline"), 
+            commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    void testAddTaskCommand_repeat_missingArguments(){
+        AddTaskCommand addTaskCommand = new AddTaskCommand("repeat", "meo");
+        TaskList tasks = new TaskList();
+        addTaskCommand.setData(tasks);
+        CommandResult commandResult = addTaskCommand.execute();
+        assertEquals(MissingTaskArgument.createErrorMessage("repeat"), 
             commandResult.getFeedbackToUser());
     }
 
@@ -191,7 +201,7 @@ public class TaskCommandTest {
 
     //@Metanyu
     @Test
-    void testFindTaskCommand_foundMatches() throws DuplicateTaskException{
+    void testFindTaskCommand_foundMatches() throws DuplicateTaskException, MissingTaskArgument{
         TaskList tasks = new TaskList();
         Task task1 = new Deadline("Read book", "2pm");
         Task task2 = new Todo ("Meomeo");
@@ -215,7 +225,7 @@ public class TaskCommandTest {
 
     //@metanyu
     @Test
-    void testFindTaskCommand_caseInsensitive() throws DuplicateTaskException{
+    void testFindTaskCommand_caseInsensitive() throws DuplicateTaskException, MissingTaskArgument{
         TaskList tasks = new TaskList();
         Task task1 = new Deadline("Read book", "2pm");
         Task task2 = new Todo ("Meomeo");
@@ -238,7 +248,7 @@ public class TaskCommandTest {
     }
 
     @Test
-    void testFindTaskCommand_noMatch() throws DuplicateTaskException{
+    void testFindTaskCommand_noMatch() throws DuplicateTaskException, MissingTaskArgument{
         TaskList tasks = new TaskList();
         Task task1 = new Deadline("Read book", "2pm");
         task1.setTag("No tag");

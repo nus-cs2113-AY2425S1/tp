@@ -3,6 +3,7 @@ package seedu.duke.commands;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import seedu.duke.data.exception.MissingTaskArgument;
 import seedu.duke.data.task.Task;
 import seedu.duke.data.task.TaskList;
 
@@ -45,7 +46,7 @@ public class AddTaskCommand extends Command {
         } catch (Task.EmptyTaskDescription e){
             LOGGER.log(Level.WARNING, "Empty task description");
             return new CommandResult(e.getMessage());
-        } catch (Task.MissingTaskArgument e) {
+        } catch (MissingTaskArgument e) {
             LOGGER.log(Level.WARNING, "Missing task argument for type: {0}", taskType);
             return new CommandResult(e.getMessage());
         }

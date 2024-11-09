@@ -1,5 +1,7 @@
 package seedu.duke.data.task;
 
+import seedu.duke.data.exception.MissingTaskArgument;
+
 public class Repeat extends Task{
     protected String repeat;
 
@@ -8,22 +10,27 @@ public class Repeat extends Task{
         super();
     }
 
-    public Repeat(String description) {
+    public Repeat(String description, String repeat) throws MissingTaskArgument {
         super(description);
-    }
-
-    public Repeat(String description, String repeat) {
-        super(description);
+        if(repeat == null || repeat.isEmpty() || repeat.isBlank()) {
+            throw new MissingTaskArgument("repeat");
+        }
         this.repeat = repeat;
     }
 
-    public Repeat(String description, String repeat, String tag) {
+    public Repeat(String description, String repeat, String tag) throws MissingTaskArgument {
         super(description, tag);
+        if(repeat == null || repeat.isEmpty() || repeat.isBlank()) {
+            throw new MissingTaskArgument("repeat");
+        }
         this.repeat = repeat;
     }
 
-    public Repeat(String description, String repeat, boolean isDone) {
+    public Repeat(String description, String repeat, boolean isDone) throws MissingTaskArgument {
         super(description, isDone);
+        if(repeat == null || repeat.isEmpty() || repeat.isBlank()) {
+            throw new MissingTaskArgument("repeat");
+        }
         this.repeat = repeat;
     }
 
