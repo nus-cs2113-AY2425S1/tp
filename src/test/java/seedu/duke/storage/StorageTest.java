@@ -1,14 +1,10 @@
 package seedu.duke.storage;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.duke.budget.Budget;
-import seedu.duke.exception.FinanceBuddyException;
-import seedu.duke.financial.Expense;
-import seedu.duke.financial.FinancialList;
-import seedu.duke.financial.Income;
-import seedu.duke.logic.BudgetLogic;
-import seedu.duke.ui.AppUi;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -19,11 +15,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.duke.budget.Budget;
+import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.financial.Expense;
+import seedu.duke.financial.FinancialList;
+import seedu.duke.financial.Income;
+import seedu.duke.logic.BudgetLogic;
+import seedu.duke.ui.AppUi;
 
 
 
@@ -219,8 +220,8 @@ public class StorageTest {
 
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "I have loaded 1 expenses and 0 incomes from file.\n" +
-                            "Budget loaded from file.\n";
+        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
+                            "Budget loaded from file." + System.lineSeparator();
         assertEquals(expection, output);
     }
 
@@ -248,8 +249,8 @@ public class StorageTest {
 
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "No transactions loaded from file.\n" +
-                            "Budget format in file is invalid, the budget won't be set.\n";
+        String expection = "No transactions loaded from file." + System.lineSeparator() +
+                            "Budget format in file is invalid, the budget won't be set." + System.lineSeparator();
         assertEquals(expection, output);
     }
 
@@ -301,16 +302,16 @@ public class StorageTest {
         assertEquals(2, financialList.getEntryCount());
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "Deleting invalid line from file: \n" +
-                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ TAIWANGOOD\n" +
-                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2323 ¦¦ FOOD\n" +
-                                "\tE ¦¦ -100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n" +
-                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23\n" +
-                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ FOOD\n" +
-                                "\tE ¦¦ 100 ¦¦ 01/01/23 ¦¦ FOOD\n" +
-                                "\tE ¦¦ 1 ¦¦ 0 ¦¦ 0 ¦¦ L ¦¦ u ¦¦ n ¦¦ c ¦¦ h ¦¦ 01/01/23 ¦¦ FOOD ¦¦ FOOD\n\n" +
-                            "I have loaded 1 expenses and 1 incomes from file.\n" +
-                            "Budget loaded from file.\n";
+        String expection = "Deleting invalid line from file: " + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ TAIWANGOOD" + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2323 ¦¦ FOOD" + System.lineSeparator() +
+                                "\tE ¦¦ -100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD" + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23" + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ FOOD" + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ 01/01/23 ¦¦ FOOD" + System.lineSeparator() +
+                                "\tE ¦¦ 1 ¦¦ 0 ¦¦ 0 ¦¦ L ¦¦ u ¦¦ n ¦¦ c ¦¦ h ¦¦ 01/01/23 ¦¦ FOOD ¦¦ FOOD" + System.lineSeparator() + System.lineSeparator() +
+                            "I have loaded 1 expenses and 1 incomes from file." + System.lineSeparator() +
+                            "Budget loaded from file." + System.lineSeparator();
         assertEquals(expection, output);
     }
 
@@ -340,8 +341,8 @@ public class StorageTest {
 
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "I have loaded 1 expenses and 0 incomes from file.\n" +
-                            "Budget format in file is invalid, the budget won't be set.\n";
+        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
+                            "Budget format in file is invalid, the budget won't be set." + System.lineSeparator();
         assertEquals(expection, output);
     }
 
@@ -372,8 +373,8 @@ public class StorageTest {
         
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "I have loaded 1 expenses and 0 incomes from file.\n" +
-                            "Date in budget file is invalid, setting to current date.\n";
+        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
+                            "Date in budget file is invalid, setting to current date." + System.lineSeparator();
         assertEquals(expection, output);
     }
 
@@ -405,8 +406,8 @@ public class StorageTest {
         
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "I have loaded 1 expenses and 0 incomes from file.\n" +
-                            "Date in budget file is invalid, setting to current date.\n";
+        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
+                            "Date in budget file is invalid, setting to current date." + System.lineSeparator();
         assertEquals(expection, output);
     }
 
@@ -442,8 +443,8 @@ public class StorageTest {
 
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "I have loaded 3 expenses and 0 incomes from file.\n" +
-                            "Date in budget file is invalid, setting to current date.\n";
+        String expection = "I have loaded 3 expenses and 0 incomes from file." + System.lineSeparator() +
+                            "Date in budget file is invalid, setting to current date." + System.lineSeparator();
         assertEquals(expection, output);
     }
 }
