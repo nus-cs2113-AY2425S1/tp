@@ -29,7 +29,6 @@ public class InputParser {
         try {
             return Integer.parseInt(indexStr) - 1; // Convert to 0-based index
         } catch (NumberFormatException e) {
-            System.out.println("Invalid expense index format. Please enter a valid number after 'e/'.");
             return -1;
         }
     }

@@ -169,14 +169,25 @@ public class ExpenseManager {
         try {
             InputParser parser = new InputParser();
             int expenseIndex = parser.parseIndex(input);
+
+            if (expenseIndex < 0) {
+                System.out.println("Invalid expense index format. Please enter a valid positive integer after 'e/'.");
+                return;
+            }
+
             String category = parser.parseCategory(input);
 
-            if (expenseIndex < 0 || category == null) {
+            if (category == null) {
                 System.out.println("Invalid input! Please provide an expense index and category.");
                 return;
             }
             tagExpenseHelper(trackerData, expenseIndex, category);
-        } catch (Exception e) {
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid input!  The specified expense index does not exist. " +
+                    "Please provide a valid expense index.");
+        }
+        catch (Exception e) {
             System.out.println("Error parsing the input. Please use correct format for tag expense commands.");
         }
     }
@@ -186,6 +197,12 @@ public class ExpenseManager {
         List<Category> categories = trackerData.getCategories();
 
         String formattedCategoryName = Format.formatInput(categoryName.trim());
+
+        if (formattedCategoryName.isEmpty()) {
+            System.out.println("Invalid input! Please provide a category for your expense.");
+            return;
+        }
+
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
                 Expense expense = expenses.get(expenseIndex);
