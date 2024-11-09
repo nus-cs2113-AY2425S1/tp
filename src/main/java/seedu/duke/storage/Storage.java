@@ -282,7 +282,7 @@ public class Storage {
                             "Budget amount should be more than 0.01, the budget won't be set.");
                     scBudget.close();
                     failedLoadingBudgetMsg = "Budget format in file is invalid, the budget won't be set.";
-                return ;
+                    return ;
                 }
                 budget.setBudgetAmount(Double.parseDouble(amount));
                 // parse the budget date
