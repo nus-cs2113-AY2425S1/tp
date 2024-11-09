@@ -48,11 +48,11 @@ package Storage as StoragePackage {
         {static} -fileBackupPath: String
     }
 
-    class StorageOperationException {
-    }
+    ' class StorageOperationException {
+    ' }
 
-    class Exception {
-    }
+    ' class Exception {
+    ' }
 }
 
 ' package "hospital" {
@@ -76,8 +76,8 @@ StorageFile .up.|> Storage
 ' StorageFile *-- "1" Hospital
 StorageFile --> "1" JsonUtil
 StorageFile --> "1" StorageBackup
-JsonUtil ..> StorageOperationException
-StorageOperationException .down.|> Exception : extends
+' JsonUtil ..> StorageOperationException
+' StorageOperationException .down.|> Exception : extends
 ' JsonUtil --> StorageOperationException : Throws
 
 @enduml
