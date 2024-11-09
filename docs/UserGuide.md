@@ -67,6 +67,7 @@ The `Add Transaction` command allows you to add either an income or expense entr
 <a id="param_details"></a>
 **Parameter Details**:
 - `DESCRIPTION`: A brief label describing the transaction (e.g., "Lunch" or "Freelance Work").
+  - Note: Shouldn't be blank. And DO NOT USE `¦¦` and `/` in `DESCRIPTION` cause it serve as the separator token in storage file and the prefix for command arguments.
 - `AMOUNT`: The transaction amount. This should be a positive value.
   - Note: Input amounts are rounded off to the nearest 2 decimal places.
   - Note: The app does not allow transactions to have an amount greater than $9999999.00 after rounding of to the nearest 2 d.p.
