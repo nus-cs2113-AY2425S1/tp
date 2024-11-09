@@ -228,10 +228,24 @@ ________________________________________________________________________________
 
 ### Editing an existing Recipe
 
-Format: `edit e/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`
+Format: `edit e/NAME [n/NAME] [i/INGREDIENTS...] [sn/STEPn...] [c/CUISINE] [t/TIME]`
 
-Will find the recipe of the entered name and change its details to the newly entered parameters
-* The name of the recipe cannot be changed, only it's details (ingredients, steps, cuisine, time)
+Will find the recipe of the entered name and change its parameters to the newly entered parameters.
+- All parameters are optional except for `e/NAME`, leaving any of the optional parameters out of the command means 
+the existing parameters of that type is untouched (e.g. don't need to add `c/CUISINE` to your command if you 
+wish to keep the cuisine parameter of the recipe unedited).
+- The `e/NAME` refers to the current name of the recipe you wish to edit
+- The `n/NAME` refers to the new name you wish to rename the recipe to
+- The `i/INGREDIENTS...` refers to the new list of ingredients for the recipe (note that the current list of all 
+ingredients for the recipe is overwritten with the new list inputted)
+- The `sn/STEPn...` refers to the new list of steps for the recipe (note that the current list of all
+steps for the recipe is overwritten with the new list inputted)
+- The `c/CUISINE` refers to the new cuisine you wish to edit the recipe to have, leaving CUISINE blank
+(e.g. typing `c/ `) will delete the existing cuisine parameter of the recipe
+- The `t/TIME` refers to the new time taken you wish to edit the recipe to have, leaving TIME blank
+(e.g. typing `c/ `) will delete the existing time parameter of the recipe
+* Parameters follow the same rule as adding a new recipe
+* Existing recipes cannot be renamed to a name already used by another recipe (this is case-insensitive)
 
 Example of usage:
 
