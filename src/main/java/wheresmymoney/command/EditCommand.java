@@ -27,33 +27,41 @@ public class EditCommand extends Command {
         try {
             int index = Integer.parseInt(argumentsMap.get(Parser.ARGUMENT_MAIN)) - 1;
             String oldCategory;
-            float price;
+            float oldPrice;
             if (!this.isRecur()) {
                 oldCategory = expenseList.getExpenseAtIndex(index).getCategory();
-                price = expenseList.getExpenseAtIndex(index).getPrice();
+                oldPrice = expenseList.getExpenseAtIndex(index).getPrice();
             } else {
                 oldCategory = recurringExpenseList.getRecurringExpenseAtIndex(index).getCategory();
-                price = recurringExpenseList.getRecurringExpenseAtIndex(index).getPrice();
+                oldPrice = recurringExpenseList.getRecurringExpenseAtIndex(index).getPrice();
             }
             
             String newCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
+            float newPrice;
+            if (argumentsMap.containsKey(Parser.ARGUMENT_PRICE)) {
+                newPrice = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
+            } else {
+                newPrice = oldPrice;
+            }
             if (newCategory == null) {
                 newCategory = oldCategory;
             }
             if (argumentsMap.containsKey(Parser.ARGUMENT_PRICE)) {
-                price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
-                if (price <= 0) {
-                    throw new InvalidInputException("Price cannot be less than or equals to 0");
+                oldPrice = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
+                if (oldPrice <= 0) {
+                    throw new InvalidInputException("Price cannot be less than or equal to 0.");
                 }
             }
+            
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
             String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE);
             if (this.isRecur()) {
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
-                recurringExpenseList.editRecurringExpense(index, price, description, newCategory, dateAdded, frequency);
+                recurringExpenseList.editRecurringExpense(
+                        index, oldPrice, description, newCategory, dateAdded, frequency);
             } else {
-                expenseList.editExpense(index, price, description, newCategory, dateAdded);
-                categoryFacade.editCategory(oldCategory, newCategory, price);
+                expenseList.editExpense(index, oldPrice, description, newCategory, dateAdded);
+                categoryFacade.editCategory(oldCategory, newCategory, oldPrice, newPrice);
             }
         } catch (NullPointerException | NumberFormatException e) {
             throw new InvalidInputException("Invalid Arguments.");

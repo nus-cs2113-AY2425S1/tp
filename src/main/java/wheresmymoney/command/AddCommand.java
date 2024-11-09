@@ -25,38 +25,47 @@ public class AddCommand extends Command {
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
             RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         try {
+            if (argumentsMap.get(Parser.ARGUMENT_PRICE) == null) {
+                throw new InvalidInputException("Missing price argument");
+            }
             float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
             if (price <= 0) {
                 throw new InvalidInputException("Price cannot take on a value that is less than or equal to 0");
             }
+
             String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
+            if (description == null) {
+                throw new InvalidInputException("Missing description argument");
+            }
             String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
+            if (category == null) {
+                throw new InvalidInputException("Missing category argument");
+            }
+
             boolean isContainDateKey = argumentsMap.containsKey(Parser.ARGUMENT_DATE);
-            if (isContainDateKey && !this.isRecur()) {
+            if (!this.isRecur() && isContainDateKey) {
                 String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE);
                 expenseList.addExpense(price, description, category, dateAdded);
                 categoryFacade.addCategory(category, price);
-            } else if (!isContainDateKey && !this.isRecur()) {
+            } else if (!this.isRecur() && !isContainDateKey) {
                 expenseList.addExpense(price, description, category);
                 categoryFacade.addCategory(category, price);
-            } else if (isContainDateKey && this.isRecur()) {
+            } else if (this.isRecur() && isContainDateKey) {
                 String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE);
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
                 if (frequency == null) {
-                    throw new WheresMyMoneyException("Missing frequency argument");
-                } else if (lastAddedDate == null) {
-                    throw new WheresMyMoneyException("Where Date");
+                    throw new InvalidInputException("Missing frequency argument");
                 }
                 recurringExpenseList.addRecurringExpense(price, description, category, lastAddedDate, frequency);
             } else {
                 String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
                 if (frequency == null) {
-                    throw new WheresMyMoneyException("Missing frequency argument");
+                    throw new InvalidInputException("Missing frequency argument");
                 }
                 recurringExpenseList.addRecurringExpense(price, description, category, frequency);
             }
         } catch (NullPointerException | NumberFormatException e) {
-            throw new InvalidInputException("Invalid Arguments");
+            throw new InvalidInputException("Invalid argument values provided");
         }
     }
     
