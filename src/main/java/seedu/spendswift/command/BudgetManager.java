@@ -98,7 +98,7 @@ public class BudgetManager {
 
     public void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
         // Adjusted for potentially enormous values typical in some currencies
-        final BigDecimal MAX_LIMIT = new BigDecimal("1000000000000000"); // 1 quadrillion for example
+        final BigDecimal maxLimit = new BigDecimal("1000000000000000"); // 1 quadrillion for example
 
         BigDecimal preciseLimit = BigDecimal.valueOf(limit);
 
