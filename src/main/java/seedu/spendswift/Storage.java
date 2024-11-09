@@ -87,19 +87,31 @@ public class Storage {
                 }
 
                 String[] parts = line.split(", ");
-                if (isBudgetSection) {
-                    String categoryName = parts[0];
-                    double limit = Double.parseDouble(parts[1]);
-                    Category category = new Category(categoryName);
-                    Budget budget = new Budget(category, limit);
-                    trackerData.getBudgets().put(category, budget);
-                } else {
-                    String expenseName = parts[0];
-                    double amount = Double.parseDouble(parts[1]);
-                    String categoryName = parts[2];
-                    Category category = loadCategory(trackerData, categoryName);
-                    Expense expense = new Expense(expenseName, amount, category);
-                    trackerData.getExpenses().add(expense);
+                try {
+                    if (isBudgetSection) {
+                        if (parts.length < 2) {
+                            System.out.println("Invalid budget data format. Skipping line: " + line);
+                            continue;
+                        }
+                        String categoryName = parts[0];
+                        double limit = Double.parseDouble(parts[1]);
+                        Category category = new Category(categoryName);
+                        Budget budget = new Budget(category, limit);
+                        trackerData.getBudgets().put(category, budget);
+                    } else {
+                        if (parts.length < 3) {
+                            System.out.println("Invalid expense data format. Skipping line: " + line);
+                            continue;
+                        }
+                        String expenseName = parts[0];
+                        double amount = Double.parseDouble(parts[1]);
+                        String categoryName = parts[2];
+                        Category category = loadCategory(trackerData, categoryName);
+                        Expense expense = new Expense(expenseName, amount, category);
+                        trackerData.getExpenses().add(expense);
+                    }
+                } catch (NumberFormatException e) {
+                        System.out.println("Invalid format in line: " + line);
                 }
             }
         }
