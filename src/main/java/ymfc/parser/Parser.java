@@ -21,6 +21,7 @@ import ymfc.exception.EmptyListException;
 import ymfc.exception.InvalidArgumentException;
 import ymfc.exception.InvalidCommandException;
 
+import ymfc.exception.InvalidSaveLineException;
 import ymfc.ingredient.Ingredient;
 import ymfc.list.IngredientList;
 import ymfc.list.RecipeList;
@@ -130,6 +131,70 @@ public final class Parser {
             throw new InvalidCommandException("Invalid command: " + command + "\ntype \"help\" for assistance");
         }
     }
+
+    /**
+     * Checks if the recipe save line is of the proper format.
+     * Then, interprets the recipe save line to extract out its parameters.
+     *
+     * @param saveRecipeString Save line from recipes.txt to check and interpret
+     * @return AddCommand object containing the proper input parameters
+     * @throws InvalidSaveLineException If the save line is of an improper format
+     */
+    public static AddCommand parseRecipeSaveLine(String saveRecipeString) throws InvalidSaveLineException {
+        Matcher m = GENERIC_FORMAT.matcher(saveRecipeString);
+        if (!m.matches()) {
+            throw new InvalidSaveLineException("Invalid line found in Recipe save file: "
+                    + saveRecipeString + System.lineSeparator());
+        }
+
+        String command = m.group("command").trim();
+        String args = m.group("args") == null ? "" : m.group("args").trim();
+
+        if (!command.equals("add")) {
+            throw new InvalidSaveLineException("Invalid command syntax found in Recipe save file: "
+                    + saveRecipeString + System.lineSeparator());
+        }
+
+        try {
+            return getAddRecipeCommand(args);
+        } catch (InvalidArgumentException exception) {
+            throw new InvalidSaveLineException("Invalid parameters found in Recipe save file: "
+                    + saveRecipeString + System.lineSeparator());
+        }
+    }
+
+    /**
+     * Checks if the ingredient save line is of the proper format.
+     * Then, interprets the ingredient save line to extract out its parameters.
+     *
+     * @param saveIngredientString Save line from ingredients.txt to check and interpret
+     * @return AddIngredientCommand object containing the proper input parameters
+     * @throws InvalidSaveLineException If the save line is of an improper format
+     */
+    public static AddIngredientCommand parseIngredientSaveLine(String saveIngredientString)
+            throws InvalidSaveLineException {
+        Matcher m = GENERIC_FORMAT.matcher(saveIngredientString);
+        if (!m.matches()) {
+            throw new InvalidSaveLineException("Invalid line found in Ingredient save file: "
+                    + saveIngredientString + System.lineSeparator());
+        }
+
+        String command = m.group("command").trim();
+        String args = m.group("args") == null ? "" : m.group("args").trim();
+
+        if (!command.equals("new")) {
+            throw new InvalidSaveLineException("Invalid command syntax found in Ingredient save file: "
+                    + saveIngredientString + System.lineSeparator());
+        }
+
+        try {
+            return getAddIngredientCommand(args);
+        } catch (InvalidArgumentException exception) {
+            throw new InvalidSaveLineException("Invalid parameters found in Ingredient save file: "
+                    + saveIngredientString + System.lineSeparator());
+        }
+    }
+
 
     private static AddIngredientCommand getAddIngredientCommand(String args) throws InvalidArgumentException {
         final Pattern addIngredientCommandFormat = Pattern.compile("(?<name>[nN]/[^/]+)");
