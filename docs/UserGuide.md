@@ -70,7 +70,7 @@ The `Add Transaction` command allows you to add either an income or expense entr
 - `AMOUNT`: The transaction amount. This should be a positive value.
   - Note: Input amounts are rounded off to the nearest 2 decimal places.
   - Note: The app does not allow transactions to have an amount greater than $9999999.00 after rounding of to the nearest 2 d.p.
-- `DATE` (optional): Date of the transaction in `dd/MM/yy` format. If omitted, today’s date is used.
+- `DATE` (optional): Date of the transaction in `dd/MM/yyyy` format. If omitted, today’s date is used.
   - Note: The app does not allow transactions to be entered with a date later than the system date.
 - `CATEGORY` (optional): Specifies a category for the transaction, aiding in detailed financial tracking. If omitted, it defaults to `UNCATEGORIZED`.
 
@@ -98,7 +98,7 @@ financial list when [`list`](#list-transactions) is called. `INDEX` must be a po
 
 **Parameter Details:** (Refer to [here](#param_details) for what each parameter represents)
  - `DESCRIPTION` shouldn't be blank. And DO NOT USE `¦¦` in `DESCRIPTION` cause it serve as the seperator token in storage file.
- - `DATE` should follow `DD/MM/YY` format and cannot be after the system date.
+ - `DATE` should follow `DD/MM/YYYY` format and cannot be after the system date.
  - `AMOUNT` must be a positive number with a maximum value of $9999999.00. If it's a floating-point number, it will be rounded to two decimal places.
  - `CATEGORY` should be one of the categories allowed in Expenses/Incomes.
 

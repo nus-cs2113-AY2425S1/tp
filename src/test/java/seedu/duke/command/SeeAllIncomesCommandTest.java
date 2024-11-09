@@ -54,17 +54,17 @@ class SeeAllIncomesCommandTest {
     @Test
     void execute_mixedList_expectPrintedIncomes() throws FinanceBuddyException {
         testCommand = new SeeAllIncomesCommand(null, null);
-        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24,10,22),
+        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(2024,10,22),
                 Expense.Category.FOOD));
-        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24,10,22),
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(2024,10,22),
                 Income.Category.SALARY));
-        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24,10,22),
+        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(2024,10,22),
                 Expense.Category.FOOD));
-        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24,10,22),
+        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(2024,10,22),
                 Expense.Category.ENTERTAINMENT));
-        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24,10,22),
+        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(2024,10,22),
                 Income.Category.GIFT));
-        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(24,10,22),
+        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(2024,10,22),
                 Income.Category.GIFT));
 
         testCommand.execute(financialList);
@@ -73,9 +73,9 @@ class SeeAllIncomesCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
-                "1. [Income] - salary $ 3000.00 (on 22/10/24) [SALARY]" + System.lineSeparator() +
-                "2. [Income] - allowance $ 100.00 (on 22/10/24) [GIFT]" + System.lineSeparator() +
-                "3. [Income] - ang pow money $ 15.00 (on 22/10/24) [GIFT]" + System.lineSeparator() +
+                "1. [Income] - salary $ 3000.00 (on 22/10/2024) [SALARY]" + System.lineSeparator() +
+                "2. [Income] - allowance $ 100.00 (on 22/10/2024) [GIFT]" + System.lineSeparator() +
+                "3. [Income] - ang pow money $ 15.00 (on 22/10/2024) [GIFT]" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total income: $ 3115.00" + System.lineSeparator() +
                 System.lineSeparator() +
@@ -111,18 +111,18 @@ class SeeAllIncomesCommandTest {
      */
     @Test
     void execute_mixedListBeforeCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
-        testCommand = new SeeAllIncomesCommand(null, LocalDate.of(24, 10, 10));
-        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10),
+        testCommand = new SeeAllIncomesCommand(null, LocalDate.of(2024, 10, 10));
+        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(2024, 10, 10),
                 Expense.Category.FOOD));
-        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1),
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(2024, 10, 1),
                 Income.Category.SALARY));
-        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 10, 10),
+        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(2024, 10, 10),
                 Expense.Category.FOOD));
-        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 10),
+        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(2024, 10, 10),
                 Expense.Category.ENTERTAINMENT));
-        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 11, 2),
+        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(2024, 11, 2),
                 Income.Category.GIFT));
-        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(24, 9, 12),
+        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(2024, 9, 12),
                 Income.Category.GIFT));
 
         testCommand.execute(financialList);
@@ -131,8 +131,8 @@ class SeeAllIncomesCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
-                "1. [Income] - ang pow money $ 15.00 (on 12/09/24) [GIFT]" + System.lineSeparator() +
-                "2. [Income] - salary $ 3000.00 (on 01/10/24) [SALARY]" + System.lineSeparator() +
+                "1. [Income] - ang pow money $ 15.00 (on 12/09/2024) [GIFT]" + System.lineSeparator() +
+                "2. [Income] - salary $ 3000.00 (on 01/10/2024) [SALARY]" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total income: $ 3015.00" + System.lineSeparator() +
                 System.lineSeparator() +
@@ -147,18 +147,18 @@ class SeeAllIncomesCommandTest {
      */
     @Test
     void execute_mixedListAfterCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
-        testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 10, 10), null);
-        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10),
+        testCommand = new SeeAllIncomesCommand(LocalDate.of(2024, 10, 10), null);
+        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(2024, 10, 10),
                 Expense.Category.FOOD));
-        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 10),
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(2024, 10, 10),
                 Income.Category.SALARY));
-        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(24, 10, 10),
+        financialList.addEntry(new Expense(4.50, "dinner", LocalDate.of(2024, 10, 10),
                 Expense.Category.FOOD));
-        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 10),
+        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(2024, 10, 10),
                 Expense.Category.ENTERTAINMENT));
-        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 11, 2),
+        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(2024, 11, 2),
                 Income.Category.GIFT));
-        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(24, 9, 12),
+        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(2024, 9, 12),
                 Income.Category.GIFT));
 
         testCommand.execute(financialList);
@@ -167,8 +167,8 @@ class SeeAllIncomesCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
-                "1. [Income] - salary $ 3000.00 (on 10/10/24) [SALARY]" + System.lineSeparator() +
-                "2. [Income] - allowance $ 100.00 (on 02/11/24) [GIFT]" + System.lineSeparator() +
+                "1. [Income] - salary $ 3000.00 (on 10/10/2024) [SALARY]" + System.lineSeparator() +
+                "2. [Income] - allowance $ 100.00 (on 02/11/2024) [GIFT]" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total income: $ 3100.00" + System.lineSeparator() +
                 System.lineSeparator() +
@@ -184,20 +184,20 @@ class SeeAllIncomesCommandTest {
      */
     @Test
     void execute_mixedListBeforeAndAfterCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
-        testCommand = new SeeAllIncomesCommand(LocalDate.of(24, 9, 20), LocalDate.of(24, 10, 10));
-        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(24, 10, 10),
+        testCommand = new SeeAllIncomesCommand(LocalDate.of(2024, 9, 20), LocalDate.of(2024, 10, 10));
+        financialList.addEntry(new Expense(3.50, "lunch", LocalDate.of(2024, 10, 10),
                 Expense.Category.FOOD));
-        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(24, 10, 1),
+        financialList.addEntry(new Income(3000.00, "salary", LocalDate.of(2024, 10, 1),
                 Income.Category.SALARY));
-        financialList.addEntry(new Income(5.0, "voucher", LocalDate.of(24, 10, 10),
+        financialList.addEntry(new Income(5.0, "voucher", LocalDate.of(2024, 10, 10),
                 Income.Category.GIFT));
-        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(24, 10, 10),
+        financialList.addEntry(new Expense(20.00, "movie ticket", LocalDate.of(2024, 10, 10),
                 Expense.Category.ENTERTAINMENT));
-        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(24, 11, 2),
+        financialList.addEntry(new Income(100.00, "allowance", LocalDate.of(2024, 11, 2),
                 Income.Category.GIFT));
-        financialList.addEntry(new Income(15.00, "birthday money", LocalDate.of(24, 9, 20),
+        financialList.addEntry(new Income(15.00, "birthday money", LocalDate.of(2024, 9, 20),
                 Income.Category.GIFT));
-        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(24, 9, 12),
+        financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(2024, 9, 12),
                 Income.Category.GIFT));
         testCommand.execute(financialList);
 
@@ -205,9 +205,9 @@ class SeeAllIncomesCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
-                "1. [Income] - birthday money $ 15.00 (on 20/09/24) [GIFT]" + System.lineSeparator() +
-                "2. [Income] - salary $ 3000.00 (on 01/10/24) [SALARY]" + System.lineSeparator() +
-                "3. [Income] - voucher $ 5.00 (on 10/10/24) [GIFT]" + System.lineSeparator() +
+                "1. [Income] - birthday money $ 15.00 (on 20/09/2024) [GIFT]" + System.lineSeparator() +
+                "2. [Income] - salary $ 3000.00 (on 01/10/2024) [SALARY]" + System.lineSeparator() +
+                "3. [Income] - voucher $ 5.00 (on 10/10/2024) [GIFT]" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total income: $ 3020.00" + System.lineSeparator() +
                 System.lineSeparator() +

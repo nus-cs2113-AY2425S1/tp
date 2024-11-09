@@ -968,7 +968,7 @@ faster than a typical mouse/GUI driven app
 
 - **Amount**: A numeric value representing the monetary value of the transaction. The amount must be greater than or equal to zero, with precision up to two decimal places.
 
-- **Date**: Represents the date of the financial entry, recorded in the format `dd/MM/yy`, indicating the day, month, and year when the transaction occurred.
+- **Date**: Represents the date of the financial entry, recorded in the format `dd/MM/yyyy`, indicating the day, month, and year when the transaction occurred.
 
 - **Category**: A classification that groups similar types of expenses or incomes, such as "Food," "Transport," or "Salary," to help users organize their finances.
 

@@ -183,7 +183,7 @@ public class Storage {
         try {
             double amount = Double.parseDouble(tokens[1]);
             String description = tokens[2];
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate date = LocalDate.parse(tokens[3], formatter);
             Expense.Category category = Expense.Category.valueOf(tokens[4].toUpperCase());
             checkParameters(amount, description, formatter, date);
@@ -215,7 +215,7 @@ public class Storage {
         try{
             double amount = Double.parseDouble(tokens[1]);
             String description = tokens[2];
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate date = LocalDate.parse(tokens[3], formatter);
             Income.Category category = Income.Category.valueOf(tokens[4].toUpperCase());
             checkParameters(amount, description, formatter, date);

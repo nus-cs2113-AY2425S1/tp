@@ -52,9 +52,9 @@ public class SeeAllExpensesCommandTest {
      */
     @Test
     public void execute_noExpenses_printsNoRecordedExpenses() throws FinanceBuddyException {
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24,10,22),
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(2024,10,22),
                 Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24,10,22),
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(2024,10,22),
                 Income.Category.SALARY);
         financialList.addEntry(income1);
         financialList.addEntry(income2);
@@ -74,13 +74,13 @@ public class SeeAllExpensesCommandTest {
      */
     @Test
     public void execute_withExpenses_printsAllExpenses() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24, 10, 22),
+        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(2024, 10, 22),
                 Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24, 10, 12),
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(2024, 10, 12),
                 Expense.Category.TRANSPORT);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24, 10, 22),
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(2024, 10, 22),
                 Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24, 10, 12),
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(2024, 10, 12),
                 Income.Category.SALARY);
         financialList.addEntry(expense1);
         financialList.addEntry(expense2);
@@ -107,15 +107,15 @@ public class SeeAllExpensesCommandTest {
      */
     @Test
     public void execute_beforeDate_printSomeExpenses() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24, 10, 22),
+        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(2024, 10, 22),
                 Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24, 10, 12),
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(2024, 10, 12),
                 Expense.Category.TRANSPORT);
-        FinancialEntry expense3 = new Expense(10.0, "table", LocalDate.of(24,10,20),
+        FinancialEntry expense3 = new Expense(10.0, "table", LocalDate.of(2024,10,20),
                 Expense.Category.OTHER);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24, 10, 22),
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(2024, 10, 22),
                 Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24, 10, 12),
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(2024, 10, 12),
                 Income.Category.SALARY);
         financialList.addEntry(expense1);
         financialList.addEntry(expense2);
@@ -123,7 +123,7 @@ public class SeeAllExpensesCommandTest {
         financialList.addEntry(income1);
         financialList.addEntry(income2);
 
-        seeAllExpensesCommand = new SeeAllExpensesCommand(null, LocalDate.of(24, 10, 20));
+        seeAllExpensesCommand = new SeeAllExpensesCommand(null, LocalDate.of(2024, 10, 20));
         seeAllExpensesCommand.execute(financialList);
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
@@ -143,15 +143,15 @@ public class SeeAllExpensesCommandTest {
      */
     @Test
     public void execute_afterDate_printSomeExpenses() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(9.0, "food", LocalDate.of(24, 10, 22),
+        FinancialEntry expense1 = new Expense(9.0, "food", LocalDate.of(2024, 10, 22),
                 Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24, 10, 12),
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(2024, 10, 12),
                 Expense.Category.TRANSPORT);
-        FinancialEntry expense3 = new Expense(10.0, "table", LocalDate.of(24,10,20),
+        FinancialEntry expense3 = new Expense(10.0, "table", LocalDate.of(2024,10,20),
                 Expense.Category.OTHER);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24, 10, 22),
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(2024, 10, 22),
                 Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24, 10, 12),
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(2024, 10, 12),
                 Income.Category.SALARY);
       
         financialList.addEntry(expense1);
@@ -160,7 +160,7 @@ public class SeeAllExpensesCommandTest {
         financialList.addEntry(income1);
         financialList.addEntry(income2);
 
-        seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(24, 10, 20), null);
+        seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(2024, 10, 20), null);
         seeAllExpensesCommand.execute(financialList);
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
@@ -181,19 +181,19 @@ public class SeeAllExpensesCommandTest {
      */
     @Test
     public void execute_beforeAndAfterDate_printSomeExpenses() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(24, 10, 22),
+        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(2024, 10, 22),
                 Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(24, 10, 12),
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(2024, 10, 12),
                 Expense.Category.TRANSPORT);
-        FinancialEntry expense3 = new Expense(15.5, "snacks", LocalDate.of(24, 10, 20),
+        FinancialEntry expense3 = new Expense(15.5, "snacks", LocalDate.of(2024, 10, 20),
                 Expense.Category.FOOD);
-        FinancialEntry expense4 = new Expense(10.0, "table", LocalDate.of(24, 10, 21),
+        FinancialEntry expense4 = new Expense(10.0, "table", LocalDate.of(2024, 10, 21),
                 Expense.Category.OTHER);
-        FinancialEntry expense5 = new Expense(7.0, "shampoo", LocalDate.of(24, 10, 15),
+        FinancialEntry expense5 = new Expense(7.0, "shampoo", LocalDate.of(2024, 10, 15),
                 Expense.Category.UTILITIES);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(24, 10, 22),
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(2024, 10, 22),
                 Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(24, 10, 12),
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(2024, 10, 12),
                 Income.Category.SALARY);
 
         financialList.addEntry(expense1);
@@ -204,7 +204,7 @@ public class SeeAllExpensesCommandTest {
         financialList.addEntry(expense4);
         financialList.addEntry(expense5);
 
-        seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(24, 10, 15), LocalDate.of(24, 10, 21));
+        seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(2024, 10, 15), LocalDate.of(2024, 10, 21));
         seeAllExpensesCommand.execute(financialList);
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +

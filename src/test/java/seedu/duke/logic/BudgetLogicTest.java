@@ -255,7 +255,7 @@ class BudgetLogicTest {
     @Test
     void changeBalanceFromExpenses_oneExpenseNotCurrentMonth_expectNothing() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
-        budgetLogic.changeBalanceFromExpenseString(19, "27/11/23");
+        budgetLogic.changeBalanceFromExpenseString(19, "27/11/2023");
 
         assertEquals(1000, budget.getBalance());
 
@@ -270,8 +270,8 @@ class BudgetLogicTest {
     void changeBalanceFromExpenses_multipleExpensesExceedBudget_printDecrease() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
         budgetLogic.changeBalanceFromExpense(-230, LocalDate.now());
-        budgetLogic.changeBalanceFromExpenseString(-50, "27/10/24");
-        budgetLogic.changeBalanceFromExpenseString(-90, "27/11/23");
+        budgetLogic.changeBalanceFromExpenseString(-50, "27/10/2024");
+        budgetLogic.changeBalanceFromExpenseString(-90, "27/11/2023");
         budgetLogic.changeBalanceFromExpense(20, LocalDate.now());
         budgetLogic.changeBalanceFromExpense(-900, LocalDate.now());
 
