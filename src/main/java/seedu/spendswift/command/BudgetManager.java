@@ -82,7 +82,7 @@ public class BudgetManager {
     }
 
 
-//@@author MayFairMI6
+    //@@author MayFairMI6
     /**
      * Sets a budget limit for a specific category.
      *
@@ -131,11 +131,13 @@ public class BudgetManager {
 
         if (budgets.containsKey(existingCategory)) {
             budgets.get(existingCategory).setLimit(preciseLimit.doubleValue()); // Convert back to double if necessary
-            System.out.println("Updated budget for category '" + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
+            System.out.println("Updated budget for category '" + existingCategory.getName() + 
+            "' to " + preciseLimit.toPlainString());
         } else {
             Budget newBudget = new Budget(existingCategory, preciseLimit.doubleValue());
             budgets.put(existingCategory, newBudget);
-            System.out.println("Set budget for category '" + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
+            System.out.println("Set budget for category '" 
+            + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
         }
 
         trackerData.setBudgets(budgets);
