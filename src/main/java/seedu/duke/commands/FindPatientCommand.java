@@ -60,7 +60,9 @@ public class FindPatientCommand extends HospitalCommand {
     private String foundListToString(ArrayList<Patient> foundPatients) {
         StringBuilder foundList = new StringBuilder();
         for (int i = 0; i < foundPatients.size(); i++) {
-            foundList.append(i + 1).append(". ").append(foundPatients.get(i).getName()).append("\n");
+            foundList.append(i + 1).append(". ").append(foundPatients.get(i).getName())
+                    .append(foundPatients.get(i).getFormattedTag())
+                    .append("\n");
         }
         return foundList.toString();
     }
