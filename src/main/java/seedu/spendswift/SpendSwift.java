@@ -26,7 +26,7 @@ public class SpendSwift {
         CategoryManager categoryManager = new CategoryManager();
         BudgetManager budgetManager = new BudgetManager();
         ExpenseManager expenseManager = new ExpenseManager();
-        Parser parser = new Parser(expenseManager, categoryManager, budgetManager, ui);
+        Parser parser = new Parser(expenseManager, categoryManager, budgetManager, ui, storage);
 
         Scanner in = new Scanner(System.in);
         ui.printWelcomeMessage();
@@ -35,13 +35,6 @@ public class SpendSwift {
         while (!isExit && in.hasNextLine()) {
             String input = in.nextLine();
             isExit = parser.parseCommand(input, trackerData);
-        }
-
-        try {
-            storage.saveData(trackerData);
-            ui.printDataSaved();
-        } catch (IOException e) {
-            ui.printSavingError(e.getMessage());
         }
     }
 }
