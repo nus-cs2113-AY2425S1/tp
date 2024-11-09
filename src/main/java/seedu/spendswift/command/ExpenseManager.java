@@ -25,7 +25,7 @@ public class ExpenseManager {
             }
 
             if (Double.isNaN(amount)) {
-                return;  // Stop further execution if there's a parsing error
+                return;
             }
 
             if (amount < 0) {

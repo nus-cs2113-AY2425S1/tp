@@ -40,7 +40,7 @@ public class InputParser {
             return Double.parseDouble(limitStr);
         } catch (NumberFormatException e) {
             System.out.println("Invalid limit format. Please enter a valid number after 'l/'.");
-            return -1;
+            return Double.NaN;
         }
     }
 
