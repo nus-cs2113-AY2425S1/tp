@@ -327,4 +327,75 @@ This tool offers an interactive learning experience through a series of tasks an
 - Ensure that the feedback provided to users is clear, concise, and informative.
 
 ### JUnit Testing
-JUnit tests are written in the subdirectory `test` and serve to test key methods part of the application.
+`JUnit` tests are located in the `test` subdirectory and serve to verify the reliability of key functions in the application. Each test class targets a specific component of the system, ensuring stability across various scenarios. Below is a description of each test file and its functions.
+
+#### `CliTest`
+Tests the `Cli` class, responsible for handling user input and output in the CLI interface.
+- **Test Contents**:
+  - **`readInput`**: Verifies correct capture of user input.
+  - **`printStartMessage`**: Confirms that the welcome message is displayed correctly.
+  - **`printHelp`**: Ensures that help information is displayed accurately.
+  - **`printGoodByeMessage`**: Verifies the display of the goodbye message on exit.
+  - **`printMessage`**: Tests if custom messages are output as expected.
+  - **`printOptions`**: Verifies that options are displayed correctly in multiple-choice scenarios.
+  - **`printPastResults`**: Ensures accurate display of past quiz results.
+  - **`printEnclosure`**: Confirms that visual separator lines are printed correctly.
+
+#### `FillInTheBlankTest`
+Tests the `FillInTheBlank` class, which represents fill-in-the-blank questions.
+- **Test Contents**:
+  - **`checkAnswer`**: Verifies correct and incorrect answer checks.
+  - **`checkAnswer_caseInsensitiveComparison`**: Ensures answer checking is case-insensitive.
+  - **`normalizeAnswer`**: Checks proper handling of empty input.
+  - **`getQuestionType`**: Confirms that the question type is correctly identified as "FITB."
+
+#### `JavaNinjaTest`
+Tests the main application class `JavaNinja`.
+- **Test Contents**:
+  - **`testRun_withQuitCommand`**: Verifies normal exit on issuing the "quit" command.
+  - **`testRun_withInvalidCommand`**: Ensures help information is shown for invalid commands.
+
+#### `ParserTest`
+Tests the `Parser` class, responsible for interpreting user commands.
+- **Test Contents**:
+  - **`determineCommand_viewCommand`**: Checks if available topics are displayed.
+  - **`determineCommand_selectCommandWithTopic`**: Verifies quiz initiation when a topic is selected.
+  - **`determineCommand_selectCommandWithoutTopic`**: Tests error handling for missing topic selection.
+  - **`determineCommand_reviewCommand`**: Confirms past results display when using the "review" command.
+  - **`determineCommand_helpCommand`**: Verifies that help information is displayed correctly.
+
+#### `QuizManagerTest`
+Tests the `QuizManager` class, which manages quiz operations.
+- **Test Contents**:
+  - **`selectQuizToAttempt_validTopic`**: Verifies result recording when a valid topic is selected.
+  - **`selectQuizToAttempt_invalidTopic`**: Confirms appropriate logging when a nonexistent topic is selected.
+  - **`getQuizzesAvailable`**: Tests retrieval of available topics.
+  - **`addInput`**: Verifies the functionality of adding flashcards.
+
+#### `QuizSessionTest`
+Tests the `QuizSession` class, which manages a single quiz session.
+- **Test Contents**:
+  - **`getTimeLimitInSeconds`**: Confirms correct retrieval of the time limit from user input.
+  - **`startQuiz_withValidTopic`**: Verifies quiz initialization with a valid topic.
+  - **`getQuizScore`**: Ensures accurate score calculation upon quiz completion.
+
+#### `QuizResultsTest`
+Tests the `QuizResults` class, which handles the storage and retrieval of quiz results.
+- **Test Contents**:
+  - **`addResult`**: Verifies formatting and saving of quiz results.
+  - **`generateComment`**: Confirms appropriate feedback generation based on the score.
+  - **`saveResults`**: Checks file-writing functionality for saving results.
+  - **`loadResults`**: Tests the retrieval of formatted results from a file.
+
+#### `TopicManagerTest`
+Tests the `TopicManager` class, which is responsible for managing topics and their associated questions.
+- **Test Contents**:
+  - **`getOrCreateTopic_existingTopic`**: Verifies that an existing topic is retrieved correctly without duplication.
+  - **`getOrCreateTopic_newTopic`**: Ensures a new topic is created when it does not already exist.
+  - **`addTopic`**: Checks that a topic is added to the topic list only if it’s unique.
+  - **`loadQuestions`**: Tests loading of questions from an external file into the correct topics.
+  - **`printTopics`**: Confirms that all topics are displayed accurately to the user.
+  - **`addFlashcardByUser`**: Verifies that a flashcard question created by the user is added to the designated "Flashcards" topic.
+
+#### `StorageTest`
+Tests data persistence in `Storage`, ensuring data integrity for quiz results and configuration settings.
