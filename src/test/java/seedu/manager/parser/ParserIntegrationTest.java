@@ -30,7 +30,7 @@ class ParserIntegrationTest {
     }
 
     @Test
-    void parseCommand_addCommandAddEvent_success() {
+    void parseCommand_addCommandAddEvent_success() throws IOException {
         String commandString = "add -e Event 2 -t 2024-10-21 16:00 -v Venue 1 -u HIGH";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
@@ -40,7 +40,7 @@ class ParserIntegrationTest {
     }
 
     @Test
-    void parseCommand_addCommandDuplicateEvent_throwsException() {
+    void parseCommand_addCommandDuplicateEvent_throwsException() throws IOException {
         String commandString = "add -e Event 1 -t 2024-10-21 16:00 -v Venue 1 -u HIGH";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
@@ -51,7 +51,7 @@ class ParserIntegrationTest {
     }
 
     @Test
-    void parseCommand_addCommandAddParticipant_success() {
+    void parseCommand_addCommandAddParticipant_success() throws IOException {
         String commandString = "add -p John Doe -n 92138961 -email johndoe@gmail.com -e Event 1";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
@@ -61,7 +61,7 @@ class ParserIntegrationTest {
     }
 
     @Test
-    void parseCommand_removeCommandRemoveEvent_success() {
+    void parseCommand_removeCommandRemoveEvent_success() throws IOException {
         String commandString = "remove -e Event 1";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
@@ -71,7 +71,7 @@ class ParserIntegrationTest {
     }
 
     @Test
-    void parseCommand_markCommandMarkEvent_success() {
+    void parseCommand_markCommandMarkEvent_success() throws IOException {
         String commandString = "mark -e Event 1 -s done";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
