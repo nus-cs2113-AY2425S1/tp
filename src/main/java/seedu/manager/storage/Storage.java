@@ -74,7 +74,7 @@ public class Storage {
      * @return true if the file path is valid; false otherwise.
      */
     private boolean isValidFilePath(String filePath) {
-        String expectedPath = "data.csv";
+        String expectedPath = "data.txt";
         return filePath.equals(expectedPath);
     }
 
