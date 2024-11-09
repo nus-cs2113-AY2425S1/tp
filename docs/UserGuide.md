@@ -153,7 +153,7 @@ Examples:
 ### Set a spending limit for a category: `set`
 
 Allows you to set a spending limit for each category.
-If this limit is exceeded (or nearly exceeded), you might receive warnings from the app.
+If this limit is exceeded (or nearly exceeded), you will receive warnings from the app.
 
 Format: `set /category CATEGORY /limit LIMIT`
 
