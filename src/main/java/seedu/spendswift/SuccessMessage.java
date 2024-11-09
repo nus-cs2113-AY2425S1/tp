@@ -59,4 +59,16 @@ public class SuccessMessage {
         }
         System.out.println(UI.SEPARATOR);
     }
+
+    public static void printTaggedExpense(Expense expense) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Tagged expense: " + expense);
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printMissingCategory(String category) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Category '" + category + "' does not exist.");
+        System.out.println(UI.SEPARATOR);
+    }
 }

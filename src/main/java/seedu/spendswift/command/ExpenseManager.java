@@ -98,7 +98,7 @@ public class ExpenseManager {
         } catch (IndexOutOfBoundsException e) {
             ErrorMessage.printOutOfBoundsIndex();
         } catch (Exception e) {
-            ErrorMessage.printUnexpectedError(e);
+            ErrorMessage.printParsingError();
         }
     }
 
@@ -149,24 +149,21 @@ public class ExpenseManager {
             int expenseIndex = parser.parseIndex(input);
 
             if (expenseIndex < 0) {
-                System.out.println("Invalid expense index format. Please enter a valid positive integer after 'e/'.");
+                ErrorMessage.printInvalidIndex();
                 return;
             }
 
             String category = parser.parseCategory(input);
 
-            if (category == null) {
-                System.out.println("Invalid input! Please provide an expense index and category.");
+            if (category == null || category.isEmpty()) {
+                ErrorMessage.printExpensesManagerEmptyCategory();
                 return;
             }
             tagExpenseHelper(trackerData, expenseIndex, category);
-        }
-        catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid input!  The specified expense index does not exist. " +
-                    "Please provide a valid expense index.");
-        }
-        catch (Exception e) {
-            System.out.println("Error parsing the input. Please use correct format for tag expense commands.");
+        } catch (IndexOutOfBoundsException e) {
+            ErrorMessage.printOutOfBoundsIndex();
+        } catch (Exception e) {
+            ErrorMessage.printParsingError();
         }
     }
 
@@ -176,22 +173,17 @@ public class ExpenseManager {
 
         String formattedCategoryName = Format.formatInput(categoryName.trim());
 
-        if (formattedCategoryName.isEmpty()) {
-            System.out.println("Invalid input! Please provide a category for your expense.");
-            return;
-        }
-
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
                 Expense expense = expenses.get(expenseIndex);
                 expense.setCategory(category);
-                System.out.println("Tagged expense: " + expense);
+                SuccessMessage.printTaggedExpense(expense);
                 return;
             }
         }
 
         trackerData.setExpenses(expenses);
-        System.out.println("Category '" + formattedCategoryName + "' does not exist.");
+        SuccessMessage.printMissingCategory(formattedCategoryName);
     }
 }
 
