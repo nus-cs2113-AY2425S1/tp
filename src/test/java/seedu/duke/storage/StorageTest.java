@@ -77,6 +77,11 @@ public class StorageTest {
     public void testGetStorageFile() {
         File file = Storage.getStorageFile();
         assertTrue(file.exists());
+
+        storage.printLoadingResult();
+        String output = outputStream.toString();
+        String expection =  System.lineSeparator();
+        assertEquals(expection, output);
     }
 
     /**
@@ -87,6 +92,11 @@ public class StorageTest {
     public void testGetBudgetFile() {
         File file = Storage.getBudgetFile();
         assertTrue(file.exists());
+
+        storage.printLoadingResult();
+        String output = outputStream.toString();
+        String expection =  System.lineSeparator();
+        assertEquals(expection, output);
     }
 
     /**
@@ -309,7 +319,8 @@ public class StorageTest {
                                 "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23" + System.lineSeparator() +
                                 "\tE ¦¦ 100 ¦¦ Lunch ¦¦ FOOD" + System.lineSeparator() +
                                 "\tE ¦¦ 100 ¦¦ 01/01/23 ¦¦ FOOD" + System.lineSeparator() +
-                                "\tE ¦¦ 1 ¦¦ 0 ¦¦ 0 ¦¦ L ¦¦ u ¦¦ n ¦¦ c ¦¦ h ¦¦ 01/01/23 ¦¦ FOOD ¦¦ FOOD" + System.lineSeparator() + System.lineSeparator() +
+                                "\tE ¦¦ 1 ¦¦ 0 ¦¦ 0 ¦¦ L ¦¦ u ¦¦ n ¦¦ c ¦¦ h ¦¦ 01/01/23 ¦¦ FOOD ¦¦ FOOD" + 
+                                        System.lineSeparator() + System.lineSeparator() +
                             "I have loaded 1 expenses and 1 incomes from file." + System.lineSeparator() +
                             "Budget loaded from file." + System.lineSeparator();
         assertEquals(expection, output);
