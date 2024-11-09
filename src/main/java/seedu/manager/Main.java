@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Main {
     private static final Ui ui = new Ui();
     private static EventList events = new EventList();
-    private static final String EVENT_FILE_PATH = "data.csv";
+    private static final String EVENT_FILE_PATH = "data.txt";
     private static final Storage storage = new Storage(EVENT_FILE_PATH);
 
     /**

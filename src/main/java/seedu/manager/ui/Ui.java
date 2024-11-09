@@ -3,6 +3,8 @@ package seedu.manager.ui;
 import seedu.manager.command.Command;
 
 import java.util.Scanner;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 
 //@@author jemehgoh
 /**
@@ -14,26 +16,28 @@ public class Ui {
     private static final String SEPARATOR = "------------------------";
 
     private final Scanner userInput;
+    private final PrintStream utf8;
 
     /**
      * Constructs a new Ui
      */
     public Ui() {
         this.userInput = new Scanner(System.in);
+        this.utf8 = new PrintStream(System.out, true, StandardCharsets.UTF_8);
     }
 
     /**
      * Greets user upon program startup
      */
     public void greetUser() {
-        System.out.println(WELCOME_MESSAGE);
+        utf8.println(WELCOME_MESSAGE);
     }
 
     /**
      * Gets input from the user, and executes commands based on that input
      */
     public String getCommand() {
-        System.out.print(COMMAND_PROMPT_MESSAGE);
+        utf8.print(COMMAND_PROMPT_MESSAGE);
         return this.userInput.nextLine();
     }
 
@@ -42,8 +46,8 @@ public class Ui {
      * Shows the output message of a command to the users.
      */
     public void showOutputToUser(Command command) {
-        System.out.println(command.getMessage());
-        System.out.println(SEPARATOR);
+        utf8.println(command.getMessage());
+        utf8.println(SEPARATOR);
     }
 
     //@@author jemehgoh
@@ -51,8 +55,8 @@ public class Ui {
      * Shows the error message of an exception to the user.
      */
     public void showErrorMessageToUser(Exception exception) {
-        System.out.println(exception.getMessage());
-        System.out.println(SEPARATOR);
+        utf8.println(exception.getMessage());
+        utf8.println(SEPARATOR);
     }
 
     //@@author KuanHsienn
@@ -62,7 +66,7 @@ public class Ui {
      * @param message The message to display to the user.
      */
     public void showMessage(String message) {
-        System.out.println(message);
-        System.out.println(SEPARATOR);
+        utf8.println(message);
+        utf8.println(SEPARATOR);
     }
 }

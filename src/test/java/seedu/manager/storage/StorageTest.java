@@ -54,7 +54,8 @@ public class StorageTest {
             nonExistentFileStorage.loadInfo(eventList);
         });
 
-        assertEquals("Error loading data from file: " + NON_EXISTENT_FILE_PATH + ".", exception.getMessage());
+        assertEquals("Error loading data from file: " + NON_EXISTENT_FILE_PATH +
+                ". New file will be created since it does not exists.", exception.getMessage());
     }
 
     @Test
