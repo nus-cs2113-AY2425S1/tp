@@ -330,15 +330,19 @@ ONE
 
 ### 12. Add a Meal
 
-Adds a meal to the daily record of a specific date.
+Adds a meal to the daily record of a specific date. If date is not specified, meal will be added to the current date. 
 
 Command: `meal add /n MEAL_NAME /c CALORIES /t DATE`
+
+OR
+
+Command: `meal add /n MEAL_NAME /c CALORIES`
 
 Parameters:
 
 - `/n MEAL_NAME`: Name of the meal.
 - `/c CALORIES`: Number of calories in the meal.
-- `/t DATE`: Date in the format `dd-MM-yyyy`.
+- `/t DATE `_(optional)_: Date in the format `dd-MM-yyyy`.
 
 **Example**: `meal add /n Chicken_Breast /c 250 /t 30-10-2024`
 
@@ -350,13 +354,17 @@ Chicken Breast | 250kcal has been added to 30-10-2024.
 
 ### 13. View Meals
 
-Displays all meals recorded for a specific date.
+Displays all meals recorded for a specific date. If date is not specified, meals of the current date will be displayed. 
 
 Command: `meal view DATE`
 
+OR
+
+Command: `meal view`
+
 Parameters:
 
-- `DATE`: Date in the format `dd-MM-yyyy`.
+- `DATE`_(optional)_ : Date in the format `dd-MM-yyyy`.
 
 **Example**: `meal view 30-10-2024`
 
