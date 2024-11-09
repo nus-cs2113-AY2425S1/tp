@@ -118,11 +118,10 @@ public class FileParser {
     private void parseParticipantFileLine(EventList events, String[] fields) throws IOException {
         try {
             String participantName = fields[1].trim();
-            String number = fields[2].trim();
-            String email = fields[3].trim();
-            String eventName = fields[4].trim();
-            boolean isPresent = getIsMarked(fields[5].trim());
-            boolean isLoaded = events.addParticipantToEvent(participantName, number, email, isPresent, eventName);
+            String email = fields[2].trim();
+            String eventName = fields[3].trim();
+            boolean isPresent = getIsMarked(fields[4].trim());
+            boolean isLoaded = events.addParticipantToEvent(participantName, email, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
             logger.warning("File line cannot be parsed, participant not loaded");

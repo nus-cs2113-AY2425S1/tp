@@ -9,9 +9,9 @@ list
 mark -e Saturday brunch -s done
 edit -e dinner party -name dinner party -t 2024-10-10 15:00 -v Bob's House -u LOW
 list
-add -p Mary -n 98512525 -email example@gmail.com -e dinner party
+add -p Mary -email example@gmail.com -e dinner party
 view -e dinner party
-edit -p Mary -n 98624759 -email Mary@gmail.com -e dinner party
+edit -p Mary -email Mary@gmail.com -e dinner party
 view -e dinner party -y participant
 add -e anniversary celebration -t 2024-10-23 12:34 -v hotel -u medium
 sort -by name
