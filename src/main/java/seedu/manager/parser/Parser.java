@@ -21,10 +21,12 @@ import seedu.manager.command.FindCommand;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.InvalidCommandException;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Set;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -34,7 +36,6 @@ import static java.util.logging.Level.WARNING;
  * Represents the command parser for EventManagerCLI
  */
 public class Parser {
-    private static final Logger logger = Logger.getLogger(Parser.class.getName());
     private static final String INVALID_COMMAND_MESSAGE = "Invalid command!";
     private static final String INVALID_ADD_MESSAGE = """
             Invalid command!
@@ -157,6 +158,21 @@ public class Parser {
     private static final String MARK_ITEM_REGEX = "-m|-e|-s";
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("\\d{8}");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+\\.[A-Za-z0-9-]+$");
+
+    private final FileHandler handler;
+    private final Logger logger;
+
+    /**
+     * Constructs a new Parser.
+     *
+     * @throws IOException if the log output file cannot be written to.
+     */
+    public Parser() throws IOException {
+        logger = Logger.getLogger(Parser.class.getName());
+        logger.setUseParentHandlers(false);
+        handler = new FileHandler("manager.log");
+        logger.addHandler(handler);
+    }
 
     /**
      * Returns a command based on the given user command string.

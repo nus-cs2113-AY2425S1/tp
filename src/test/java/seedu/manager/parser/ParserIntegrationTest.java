@@ -7,6 +7,7 @@ import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 import seedu.manager.exception.DuplicateDataException;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,7 +20,7 @@ class ParserIntegrationTest {
     private DateTimeFormatter formatter;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         events = new EventList();
         parser = new Parser();
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -45,7 +46,8 @@ class ParserIntegrationTest {
         command.setData(events);
 
         assertThrows(DuplicateDataException.class, () -> {
-            command.execute();});
+            command.execute();
+        });
     }
 
     @Test
