@@ -2,6 +2,8 @@
 
 package meal;
 
+import exceptions.IndexOutOfBoundsBuffBuddyException;
+
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,10 @@ public class Meal {
      * @throws AssertionError if the name is null, empty, or if the calories are negative
      */
     public Meal(String name, int calories) {
+        if (calories < 0) {
+            throw new IndexOutOfBoundsBuffBuddyException("Calories cannot be negative");
+        }
+
         assert name != null && !name.isEmpty() : "Meal name cannot be null or empty";
         assert calories >= 0 : "Calories cannot be negative";
 
