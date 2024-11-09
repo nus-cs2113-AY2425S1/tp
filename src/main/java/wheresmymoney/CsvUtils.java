@@ -3,6 +3,7 @@ package wheresmymoney;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
+import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.StorageException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
@@ -14,7 +15,7 @@ import java.util.function.Consumer;
 
 
 public class CsvUtils {
-    public static void readCsv(String filePath, Consumer<? super String[]> read_action) throws WheresMyMoneyException {
+    public static void readCsv(String filePath, Consumer<? super String[]> readAction) throws WheresMyMoneyException {
         FileReader reader;
         CSVReader csvReader;
         try {
@@ -27,16 +28,17 @@ public class CsvUtils {
 
         try{
             csvReader.readNext(); // Skip the header
-            csvReader.readAll().forEach(read_action);
+            csvReader.readAll().forEach(readAction);
             // closing writer connection
             reader.close();
             csvReader.close();
-        } catch (CsvException | IOException e) {
-            throw new StorageException("File is corrupted! Some data might have been salvaged.");
+        } catch (CsvException | IOException | WheresMyMoneyException e) {
+            throw new StorageException("File is corrupted! Some data might have been salvaged." +
+                    "\nRelated Error (if any): "+e.getMessage());
         }
     }
 
-    public static void writeCsv(String filePath, String[] header, Consumer<? super CSVWriter> write_action)
+    public static void writeCsv(String filePath, String[] header, Consumer<? super CSVWriter> writeAction)
             throws WheresMyMoneyException{
         File file = new File(filePath);
 
@@ -54,13 +56,28 @@ public class CsvUtils {
         // adding header to csv
         writer.writeNext(header);
 
-        write_action.accept(writer);
+        writeAction.accept(writer);
 
         // closing writer connection
         try {
             writer.close();
         } catch (IOException e) {
             throw new StorageException("Unable to save Expense List to file: " + filePath);
+        }
+    }
+
+    /**
+     * Parses a String field into a Float, with exception handling.
+     *
+     * @param string String with the number
+     * @return Float parsed from the string
+     * @throws WheresMyMoneyException
+     */
+    public static Float parseFloat(String string) throws WheresMyMoneyException {
+        try {
+            return Float.parseFloat(string);
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException("Cannot parse string to float.");
         }
     }
 }
