@@ -186,7 +186,7 @@ public class Parser {
     private static final String MARK_ITEM_REGEX = "mark\\s+-m\\s+(.*?)\\s+-e\\s+(.*?)\\s+-s\\s+(.*)";
     private static final String REMOVE_EVENT_REGEX = "remove\\s+-e\\s+(.*)";
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("\\d{8}");
-    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+\\.[A-Za-z0-9.-]+$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$");
 
     /**
      * Returns a command based on the given user command string.
