@@ -7,6 +7,8 @@ import seedu.spendswift.command.ExpenseManager;
 import seedu.spendswift.command.TrackerData;
 import seedu.spendswift.UI;
 
+import java.util.Locale;
+
 public class Parser {
     private final ExpenseManager expenseManager;
     private final CategoryManager categoryManager;
@@ -21,7 +23,7 @@ public class Parser {
     }
 
     public boolean parseCommand(String input, TrackerData trackerData) {
-        input = input.trim();
+        input = input.trim().toLowerCase();
 
         if (input.startsWith("add-expense")) {
             expenseManager.addExpenseRequest(input, expenseManager, trackerData);
