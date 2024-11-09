@@ -9,6 +9,7 @@ import seedu.manager.item.Participant;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.nio.charset.StandardCharsets;
 
 //@@author KuanHsienn
 /**
@@ -38,7 +39,7 @@ public class Storage {
      * @throws IOException If there is an error saving data to the file.
      */
     public void saveInfo(EventList events) throws IOException {
-        try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(filePath, StandardCharsets.UTF_8))) {
             for (Event event : events.getList()) {
                 writer.writeNext(getEventFields(event));
 
@@ -51,7 +52,7 @@ public class Storage {
                 }
             }
         } catch (IOException exception) {
-            throw new IOException("Error saving data to file: " + filePath);
+            throw new IOException("Error saving data to file: " + filePath + ". Kindly close any opened files.");
         }
     }
 
