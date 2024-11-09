@@ -7,8 +7,6 @@ import seedu.spendswift.command.ExpenseManager;
 import seedu.spendswift.command.TrackerData;
 import seedu.spendswift.UI;
 
-import java.util.Locale;
-
 public class Parser {
     private final ExpenseManager expenseManager;
     private final CategoryManager categoryManager;
