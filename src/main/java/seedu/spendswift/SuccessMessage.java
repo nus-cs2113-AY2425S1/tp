@@ -96,4 +96,10 @@ public class SuccessMessage {
                 + Format.formatAmount(limit));
         System.out.println(UI.SEPARATOR);
     }
+
+    public static void printBudgetReset(){
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Budgets have been reset for all categories.");
+        System.out.println(UI.SEPARATOR);
+    }
 }

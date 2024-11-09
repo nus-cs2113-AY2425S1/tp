@@ -26,11 +26,11 @@ public class BudgetManager {
         return this.isAutoResetEnabled;
     }
 
-  
-
     public void toggleAutoReset() {
         isAutoResetEnabled = !isAutoResetEnabled;
+        System.out.println(UI.SEPARATOR);
         System.out.println("Automatic budget reset is now " + (isAutoResetEnabled ? "ON" : "OFF") + ".");
+        System.out.println(UI.SEPARATOR);
     }
 
     //@@author AdiMangalam
@@ -79,7 +79,7 @@ public class BudgetManager {
         }
 
         trackerData.setBudgets(budgets);
-        System.out.println("Budgets have been reset for all categories.");
+        SuccessMessage.printBudgetReset();
     }
 
     //@@author MayFairMI6
