@@ -1,6 +1,9 @@
 package seedu.spendswift.command;
 
+import seedu.spendswift.ErrorMessage;
 import seedu.spendswift.Format;
+import seedu.spendswift.SuccessMessage;
+import seedu.spendswift.UI;
 import seedu.spendswift.parser.InputParser;
 
 import java.util.Calendar;
@@ -23,11 +26,11 @@ public class BudgetManager {
         return this.isAutoResetEnabled;
     }
 
-  
-
     public void toggleAutoReset() {
         isAutoResetEnabled = !isAutoResetEnabled;
+        System.out.println(UI.SEPARATOR);
         System.out.println("Automatic budget reset is now " + (isAutoResetEnabled ? "ON" : "OFF") + ".");
+        System.out.println(UI.SEPARATOR);
     }
 
     //@@author AdiMangalam
@@ -76,7 +79,7 @@ public class BudgetManager {
         }
 
         trackerData.setBudgets(budgets);
-        System.out.println("Budgets have been reset for all categories.");
+        SuccessMessage.printBudgetReset();
     }
 
     //@@author MayFairMI6
@@ -92,15 +95,10 @@ public class BudgetManager {
      * @param categoryName The name of the category to set the budget for
      * @param limit The budget limit to be set for the category (in dollars)
      */
-    public  void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
+    public void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
         List<Category> categories = trackerData.getCategories();
         Map<Category, Budget> budgets = trackerData.getBudgets();
         String formattedCategoryName = Format.formatInput(categoryName.trim());
-
-        if (limit < 0) {
-            System.out.println("Invalid input! Please provide a positive amount!");
-            return;
-        }
 
         Category existingCategory = null;
         for (Category category : categories) {
@@ -111,22 +109,22 @@ public class BudgetManager {
         }
 
         if (existingCategory == null) {
-            System.out.println("Category '" + formattedCategoryName + "' not found. Please add the category first.");
+            SuccessMessage.printMissingCategory(formattedCategoryName);
             return;
         }
 
         if (budgets.containsKey(existingCategory)) {
             budgets.get(existingCategory).setLimit(limit);
-            System.out.println("Updated budget for category '" + existingCategory + "' to "
-                    + Format.formatAmount(limit));
+            SuccessMessage.printExistingBudget(limit, existingCategory);
         } else {
             Budget newBudget = new Budget(existingCategory, limit);
             budgets.put(existingCategory, newBudget);
-            System.out.println("Set budget for category '" + existingCategory + "' to " + Format.formatAmount(limit));
+            SuccessMessage.printNewBudget(limit, existingCategory);
         }
 
         trackerData.setBudgets(budgets);
     }
+
     //@author MayFairMI6
     public int getLastResetMonth() {
         return lastResetMonth;
@@ -140,8 +138,8 @@ public class BudgetManager {
             String category = parser.parseCategory(input);
             double limit = parser.parseLimit(input);
 
-            if (category == null || category.isEmpty()) {
-                System.out.println("Invalid input! Please provide category name.");
+            if (category.isEmpty()) {
+                ErrorMessage.printExpensesManagerEmptyCategory();
                 return;
             }
 
@@ -150,13 +148,13 @@ public class BudgetManager {
             }
 
             if (limit < 0) {
-                System.out.println("Invalid input! Please provide a positive limit!");
+                ErrorMessage.printNegativeLimit();
                 return;
             }
 
             budgetManager.setBudgetLimit(trackerData, category, limit);
         } catch (Exception e) {
-            System.out.println("Error parsing the input. Please use the correct format for set-budget commands.");
+            ErrorMessage.printParsingError();
         }
     }
 
@@ -178,7 +176,7 @@ public class BudgetManager {
         Map<Category, Budget> budgets = trackerData.getBudgets();
 
         if (budgets.isEmpty()) {
-            System.out.println("No budgets set for any category.");
+            SuccessMessage.printNoBudgetForAll();
             return;
         }
 
@@ -200,19 +198,17 @@ public class BudgetManager {
             double remainingBudget = budget.getLimit() - totalExpense;
 
             if (remainingBudget >= 0) {
-                System.out.println(category + ": " + Format.formatAmount(totalExpense) + " spent, " +
-                        Format.formatAmount(remainingBudget) + " remaining");
+                SuccessMessage.printWithinBudget(category, totalExpense, remainingBudget);
             } else {
                 Double positive = Math.abs(remainingBudget);
-                System.out.println(category + ": " + Format.formatAmount(totalExpense) + " spent, " +
-                        "Over budget by " + Format.formatAmount(positive));
+                SuccessMessage.printOverBudget(category, totalExpense, positive);
             }
         }
 
         // if no budget set for certain category
         for (Category category: totalExpensesToCategory.keySet()) {
             if (!budgets.containsKey(category)) {
-                System.out.println(category + ": No budget set");
+                SuccessMessage.printNoBudget(category);
             }
         }
     }

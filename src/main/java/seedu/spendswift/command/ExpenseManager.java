@@ -1,13 +1,12 @@
 //@@author glenda-1506
 package seedu.spendswift.command;
 
+import seedu.spendswift.ErrorMessage;
 import seedu.spendswift.Format;
+import seedu.spendswift.SuccessMessage;
 import seedu.spendswift.parser.InputParser;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ExpenseManager {
 
@@ -20,12 +19,12 @@ public class ExpenseManager {
             String category = parser.parseCategory(input);
 
             if (name.isEmpty()) {
-                System.out.println("Invalid input! Please provide a name for your expense.");
+                ErrorMessage.printExpensesManagerEmptyName();
                 return;
             }
 
             if (category.isEmpty()) {
-                System.out.println("Invalid input! Please provide a category for your expense.");
+                ErrorMessage.printExpensesManagerEmptyCategory();
                 return;
             }
 
@@ -34,13 +33,13 @@ public class ExpenseManager {
             }
 
             if (amount < 0) {
-                System.out.println("Invalid input! Please provide a positive amount!");
+                ErrorMessage.printExpensesManagerNegativeAmount();
                 return;
             }
 
-            expenseManager.addExpense(trackerData, name, amount, category);
+            addExpense(trackerData, name, amount, category);
         } catch (Exception e) {
-            System.out.println("Error parsing the input. Please use the correct format for add-expense commands.");
+            ErrorMessage.printParsingError();
         }
     }
 
@@ -71,7 +70,7 @@ public class ExpenseManager {
         if (existingCategory == null) {
             existingCategory = new Category(formattedCategoryName);
             categories.add(existingCategory);
-            System.out.println("Category '" + formattedCategoryName + "' added successfully.");
+            SuccessMessage.printAddExpenseAddCategory(formattedCategoryName);
         }
         Expense newExpense = new Expense(name, amount, existingCategory);
         expenses.add(newExpense);
@@ -79,26 +78,27 @@ public class ExpenseManager {
         // update categories and expenses
         trackerData.setExpenses(expenses);
         trackerData.setCategories(categories);
-        System.out.println("Added" + newExpense);
+        SuccessMessage.printAddExpense(newExpense);
     }
 
-    //@@author AdiMangalam
+    //@@glenda-1506
     public void deleteExpenseRequest(String input, ExpenseManager expenseManager, TrackerData trackerData) {
         try {
-            String[] parts = input.split(" ");
-            if (parts.length < 2 || !parts[1].startsWith("e/")) {
-                System.out.println("Invalid input! Please provide an expense index to delete.");
+            InputParser parser = new InputParser();
+            int expenseIndex = parser.parseIndex(input);
+            if (expenseIndex < 0) {
+                ErrorMessage.printInvalidIndex();
                 return;
             }
-            int expenseIndex = Integer.parseInt(parts[1].substring(2).trim()) - 1; // 1-based index
             expenseManager.deleteExpense(trackerData, expenseIndex);
-        } catch (NumberFormatException e) {
-            System.out.println("Error parsing the expense index. Please use the correct format.");
+        } catch (IndexOutOfBoundsException e) {
+            ErrorMessage.printOutOfBoundsIndex();
         } catch (Exception e) {
-            System.out.println("An unexpected error occurred: " + e.getMessage());
+            ErrorMessage.printParsingError();
         }
     }
 
+    //@@author AdiMangalam
     /**
      * Deletes an expense at the specified index in the expense list.
      *
@@ -112,12 +112,8 @@ public class ExpenseManager {
     public void deleteExpense(TrackerData trackerData, int expenseIndex) {
         List<Expense> expenses = trackerData.getExpenses();
 
-        if (expenseIndex < 0 || expenseIndex >= expenses.size()) {
-            System.out.println("Invalid index. Unable to delete expense.");
-            return;
-        }
         Expense removedExpense = expenses.remove(expenseIndex);
-        System.out.println("Deleted expense: " + removedExpense);
+        SuccessMessage.printDeleteExpense(removedExpense);
         trackerData.setExpenses(expenses);
     }
 
@@ -136,32 +132,10 @@ public class ExpenseManager {
         List<Expense> expenses = trackerData.getExpenses();
 
         if (expenses.isEmpty()) {
-            System.out.println("No expenses to display.");
+            SuccessMessage.printNoExpense();
             return;
         }
-        System.out.println("Expenses grouped by categories:");
-        // Create a map to group expenses by their category
-        //@@author glenda-1506
-        Map<Category, List<Integer>> expenseIndexesByCategory = new HashMap<>();
-        // Populate the map
-        for (int i = 0; i < expenses.size(); i++) {
-            Expense expense = expenses.get(i);
-            Category category = expense.getCategory();
-
-            expenseIndexesByCategory.putIfAbsent(category, new ArrayList<>());
-            expenseIndexesByCategory.get(category).add(i);
-        }
-
-        // Display the expenses with correct indexes
-        for (Category category : expenseIndexesByCategory.keySet()) {
-            System.out.println("Category: " + category);
-            List<Integer> expenseIndexes = expenseIndexesByCategory.get(category);
-
-            for (Integer index : expenseIndexes) {
-                Expense expense = expenses.get(index);
-                System.out.println(" " + expense + " [" + (index + 1) + "] ");
-            }
-        }
+        SuccessMessage.printExpensesByCategory(expenses);
     }
 
     //@@author glenda-1506
@@ -171,24 +145,21 @@ public class ExpenseManager {
             int expenseIndex = parser.parseIndex(input);
 
             if (expenseIndex < 0) {
-                System.out.println("Invalid expense index format. Please enter a valid positive integer after 'e/'.");
+                ErrorMessage.printInvalidIndex();
                 return;
             }
 
             String category = parser.parseCategory(input);
 
-            if (category == null) {
-                System.out.println("Invalid input! Please provide an expense index and category.");
+            if (category == null || category.isEmpty()) {
+                ErrorMessage.printExpensesManagerEmptyCategory();
                 return;
             }
             tagExpenseHelper(trackerData, expenseIndex, category);
-        }
-        catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid input!  The specified expense index does not exist. " +
-                    "Please provide a valid expense index.");
-        }
-        catch (Exception e) {
-            System.out.println("Error parsing the input. Please use correct format for tag expense commands.");
+        } catch (IndexOutOfBoundsException e) {
+            ErrorMessage.printOutOfBoundsIndex();
+        } catch (Exception e) {
+            ErrorMessage.printParsingError();
         }
     }
 
@@ -198,22 +169,17 @@ public class ExpenseManager {
 
         String formattedCategoryName = Format.formatInput(categoryName.trim());
 
-        if (formattedCategoryName.isEmpty()) {
-            System.out.println("Invalid input! Please provide a category for your expense.");
-            return;
-        }
-
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
                 Expense expense = expenses.get(expenseIndex);
                 expense.setCategory(category);
-                System.out.println("Tagged expense: " + expense);
+                SuccessMessage.printTaggedExpense(expense);
                 return;
             }
         }
 
         trackerData.setExpenses(expenses);
-        System.out.println("Category '" + formattedCategoryName + "' does not exist.");
+        SuccessMessage.printMissingCategory(formattedCategoryName);
     }
 }
 

@@ -1,6 +1,8 @@
 //@@author glenda-1506
 package seedu.spendswift.parser;
 
+import seedu.spendswift.ErrorMessage;
+
 public class InputParser {
     private String parseComponent(String input, String prefix) {
         int startIndex = input.indexOf(prefix);
@@ -27,7 +29,7 @@ public class InputParser {
     public int parseIndex(String input) {
         String indexStr = parseComponent(input, "e/");
         try {
-            return Integer.parseInt(indexStr) - 1; // Convert to 0-based index
+            return Integer.parseInt(indexStr) - 1;
         } catch (NumberFormatException e) {
             return -1;
         }
@@ -38,7 +40,7 @@ public class InputParser {
         try {
             return Double.parseDouble(limitStr);
         } catch (NumberFormatException e) {
-            System.out.println("Invalid limit format. Please enter a valid number after 'l/'.");
+            ErrorMessage.printInvalidLimit();
             return Double.NaN;
         }
     }
@@ -48,7 +50,7 @@ public class InputParser {
         try {
             return Double.parseDouble(amountStr);
         } catch (NumberFormatException e) {
-            System.out.println("Invalid amount format. Please enter a valid number after 'a/'.");
+            ErrorMessage.printInvalidAmount();
             return Double.NaN;
         }
     }
