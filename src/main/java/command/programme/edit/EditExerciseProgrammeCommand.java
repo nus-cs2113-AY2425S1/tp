@@ -58,8 +58,6 @@ public class EditExerciseProgrammeCommand extends EditProgrammeCommand {
         Day selectedDay = selectedProgramme.getDay(dayIndex);
         Exercise selectedExercise = selectedDay.getExercise(exerciseIndex);
 
-        System.out.println("Selected: " + selectedExercise);
-        System.out.println("Update: " + update);
         selectedExercise.updateExercise(update);
 
         logger.log(Level.INFO, "EditExerciseCommand executed successfully.");
