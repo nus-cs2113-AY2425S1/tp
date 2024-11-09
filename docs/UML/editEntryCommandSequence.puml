@@ -54,11 +54,17 @@ alt entry instanceof Expense
     return
     deactivate Expense
     destroy Expense
+    note over Expense
+            Lifeline of Expense should be
+            terminated, but still continues
+            due to limitations of plantuml
+        endnote
 else
     Create Income
     EditEntryCommand -> Income: new(amount, description, date, category)
     activate Income
     Income --> EditEntryCommand: replacementEntry
+
     EditEntryCommand -> FinancialList: deleteEntry(index)
     activate FinancialList
     return
