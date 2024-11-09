@@ -50,13 +50,22 @@ public class TaskCommandTest {
     }
 
     @Test
-    void testAddTaskCommand_missingArguments(){
-        AddTaskCommand addTaskCommand = new AddTaskCommand("deadline");
+    void testAddTaskCommand_deadline_missingArguments(){
+        AddTaskCommand addTaskCommand = new AddTaskCommand("deadline", "meo");
         TaskList tasks = new TaskList();
         addTaskCommand.setData(tasks);
         CommandResult commandResult = addTaskCommand.execute();
-        assertEquals("Missing arguments for task type: deadline\n" + 
-            "The required arguments for task type: deadline are: description, due date", 
+        assertEquals(MissingTaskArgument.createErrorMessage("deadline"), 
+            commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    void testAddTaskCommand_repeat_missingArguments(){
+        AddTaskCommand addTaskCommand = new AddTaskCommand("repeat", "meo");
+        TaskList tasks = new TaskList();
+        addTaskCommand.setData(tasks);
+        CommandResult commandResult = addTaskCommand.execute();
+        assertEquals(MissingTaskArgument.createErrorMessage("repeat"), 
             commandResult.getFeedbackToUser());
     }
 

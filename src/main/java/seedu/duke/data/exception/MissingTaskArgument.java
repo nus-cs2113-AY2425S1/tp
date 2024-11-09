@@ -5,7 +5,7 @@ public class MissingTaskArgument extends Exception {
         super(createErrorMessage(type));
     }
 
-    private static String createErrorMessage(String type) {
+    public static String createErrorMessage(String type) {
         StringBuilder sb = new StringBuilder();
         sb.append("Missing arguments for task type: ").append(type).append("\n");
         sb.append("The required arguments for task type ").append(type).append(" are: [");
