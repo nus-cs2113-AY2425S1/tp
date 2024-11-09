@@ -105,5 +105,6 @@ public class CategoryFacade {
      */
     public void setCategorySpendingLimit(String category, float limit) throws WheresMyMoneyException {
         categoryTracker.setSpendingLimitFor(category, limit);
+        categoryTracker.checkLimitOf(category);
     }
 }
