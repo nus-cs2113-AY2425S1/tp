@@ -45,7 +45,7 @@ public class EditCommand extends Command {
         this.newTimeTaken = newTimeTaken;
     }
 
-    public Recipe craftEditedRecipe(Recipe toEditRecipe) {
+    private Recipe craftEditedRecipe(Recipe toEditRecipe) {
         // Use new recipe parameters if they are specified (not null), else use original parameters
         String editedName;
         ArrayList<Ingredient> editedIngredients;
@@ -93,10 +93,19 @@ public class EditCommand extends Command {
         return new Recipe(editedName,editedIngredients, editedSteps, editedCuisine, editedTimeTaken);
     }
 
+    private boolean isDuplicateRecipe(String recipeName, RecipeList recipes) {
+        for (int i = 0; i < recipes.getCounter(); i++) {
+            if (recipes.getRecipe(i).getName().toLowerCase().equals(recipeName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Executes the {@code EditCommand}, finding a recipe matching the name inputted by the user
      * and then editing it based on the new parameters inputted. If the recipe of the specified name
-     * is found and then editted, the {@code Storage} is updated and a confirmation message is displayed.
+     * is found and then edited, the {@code Storage} is updated and a confirmation message is displayed.
      *
      * @param recipes The {@code RecipeList} to edit the recipe from. Must not be {@code null}.
      * @param ingredients The {@code IngredientList}. Unused in this command.
@@ -109,6 +118,10 @@ public class EditCommand extends Command {
         logger.log(Level.FINEST, "Executing EditCommand");
         assert matchName != null;
 
+        // If newName is a duplicate of an existing recipe name, throw error
+        if (newName!= null && isDuplicateRecipe(newName.toLowerCase(), recipes)) {
+            throw new InvalidArgumentException("Hey that new name already belongs to an existing recipe.");
+        }
         // Find recipe in recipes that match the name of recipe to edit
         int toEditRecipeIndex = recipes.getIndexByName(matchName);
         if (toEditRecipeIndex < 0) {
