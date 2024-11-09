@@ -219,16 +219,12 @@ The sequence to add tasks involves:
 - **Deadline Task**: The `Parser` parses the input and creates an `AddDeadlineParser` object.
 - **Repeat Task**: The `Parser` parses the input and creates an `AddRepeatParser` object.
 
-3. **Execution**: The `AddTaskCommand` adds the task.
+3. **Execution**: The `AddTaskCommand` verifies if the input has a valid taskType and has sufficient arguments for selected type. If the input is valid, it is then verified if a task with the same description already exists within selected patient's task list. If there isn't, new task will be added to the list and user will be notified of the addition.
 4. **Storage Update**: The updated patient's data, now containing the new task, is saved to storage.
 
 #### Sequence Diagram
 
-The following sequence diagram illustrates how `Parser` parse command for `AddTaskCommand`:
-
-![Parse_Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/ParseAddTaskSequenceDiagram.png)
-
-A closer look on how `AddTaskCommand` is executed is shown below:
+The following sequence diagram illustrates how `AddTaskCommand` is executed:
 
 ![Add_Task_Diagram](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/AddTaskSequenceDiagram.png)
 

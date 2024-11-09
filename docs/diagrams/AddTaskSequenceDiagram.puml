@@ -1,9 +1,9 @@
 @startuml
 
 !include style.puml
-skinparam ArrowFormatStyle plain
-scale 0.5
-skinparam defaultFontSize 20
+skinparam style strictuml
+
+scale 1.5
 
 actor User
 participant ":MediTask" as MediTask MAIN_COLOR
@@ -14,16 +14,18 @@ participant ":TaskList" as TaskList DATA_COLOR
 
 User -> MediTask: Selects a patient
 activate MediTask
-MediTask -> Parser: Parse input command ("add <task_type> <args>")
+MediTask -> Parser: parse()
 activate Parser
-Parser -> AddTaskCommand: Create AddTaskCommand (taskType, args)
-deactivate Parser
+create AddTaskCommand
+Parser -> AddTaskCommand: AddTaskCommand(type, args)
 activate AddTaskCommand
-AddTaskCommand -> Task: Create Task (taskType, args)
+create Task
+AddTaskCommand -> Task: Task (type, args)
 activate Task
 alt Missing or invalid input
-    Task --> AddTaskCommand: Throw EmptyTaskDescription or MissingTaskArgument
-    AddTaskCommand --> MediTask: Return error message
+    Task --> AddTaskCommand: return error
+    AddTaskCommand --> Parser: Return error message
+    Parser --> MediTask: return error
     MediTask --> User: Display error
 else Valid input
     Task --> AddTaskCommand: return :Task
@@ -32,14 +34,17 @@ else Valid input
     activate TaskList
     alt Task exists
         TaskList --> AddTaskCommand: Throw DuplicateTaskException
-        AddTaskCommand --> MediTask: Return "This task already exists"
-        MediTask --> User: Display "This task already exists"
+        AddTaskCommand --> Parser: Return duplicate error
+        Parser --> MediTask: return duplicate
+        MediTask --> User: "This task already exists"
     else Task does not exist
         TaskList --> AddTaskCommand: Confirm task addition
         deactivate TaskList
-        AddTaskCommand --> MediTask: Return success message
+        AddTaskCommand --> Parser: return success
         deactivate AddTaskCommand
-        MediTask --> User: Display "New task added: <task>"
+        Parser --> MediTask: return success
+        deactivate Parser
+        MediTask --> User: "New task added: <task>"
     end
 end
 @enduml
