@@ -224,6 +224,15 @@ public class ProgCommandFactory {
                 NAME_FLAG, REPS_FLAG,SETS_FLAG,WEIGHT_FLAG,EXERCISE_FLAG,CALORIES_FLAG
         );
 
+        // Validate that the argument only contains one command flag
+        flagParser.validateUniqueFlag(
+                UPDATE_EXERCISE_FLAG,
+                ADD_EXERCISE_FLAG,
+                REMOVE_EXERCISE_FLAG,
+                ADD_DAY_FLAG,
+                REMOVE_DAY_FLAG
+        );
+
         if (flagParser.hasFlag(UPDATE_EXERCISE_FLAG)) {
             return prepareEditExerciseCommand(flagParser);
         }
@@ -343,22 +352,6 @@ public class ProgCommandFactory {
         );
     }
 
-    private ExerciseUpdate parseExerciseUpdate(String argumentString){
-        assert argumentString != null : "Argument string must not be null";
-
-        FlagParser flagParser = new FlagParser(argumentString);
-
-        return new ExerciseUpdate(
-                flagParser.getIntegerByFlag(SETS_FLAG),
-                flagParser.getIntegerByFlag(REPS_FLAG),
-                flagParser.getIntegerByFlag(WEIGHT_FLAG),
-                flagParser.getIntegerByFlag(CALORIES_FLAG),
-                flagParser.getStringByFlag(NAME_FLAG)
-        );
-    }
-
-    // @@author nirala-ts
-
     /**
      * Parses a string of day related arguments and returns a Day object.
      *
@@ -387,8 +380,6 @@ public class ProgCommandFactory {
         return day;
     }
 
-    // @@author nirala-ts
-
     /**
      * Parses an exercise string to create an {@link Exercise} object with required attributes.
      *
@@ -404,16 +395,33 @@ public class ProgCommandFactory {
         // Ensures the exercise contains all necessary information before creating a new Exercise
         flagParser.validateRequiredFlags(SETS_FLAG, REPS_FLAG, WEIGHT_FLAG, CALORIES_FLAG, NAME_FLAG);
 
-        int sets = flagParser.getIntegerByFlag(SETS_FLAG);
-        int reps = flagParser.getIntegerByFlag(REPS_FLAG);
-        int weight = flagParser.getIntegerByFlag(WEIGHT_FLAG);
-        int calories = flagParser.getIntegerByFlag(CALORIES_FLAG);
-        String name = flagParser.getStringByFlag(NAME_FLAG);
+        return new Exercise(
+                flagParser.getIntegerByFlag(SETS_FLAG),
+                flagParser.getIntegerByFlag(REPS_FLAG),
+                flagParser.getIntegerByFlag(WEIGHT_FLAG),
+                flagParser.getIntegerByFlag(CALORIES_FLAG),
+                flagParser.getStringByFlag(NAME_FLAG)
+        );
+    }
 
-        logger.log(Level.INFO, "Successfully parsed exercise details - Name: {0}, Sets: {1}, Reps: {2}, " +
-                "Weight: {3}, Calories: {4}", new Object[]{name, sets, reps, weight, calories});
+    /**
+     * Parses an exercise string to create an {@link ExerciseUpdate} object with required attributes.
+     *
+     * @param argumentString The string containing exercise details and flags.
+     * @return An {@link ExerciseUpdate} object initialized with the specified attributes.
+     * */
+    private ExerciseUpdate parseExerciseUpdate(String argumentString){
+        assert argumentString != null : "Argument string must not be null";
 
-        return new Exercise(sets, reps, weight, calories, name);
+        FlagParser flagParser = new FlagParser(argumentString);
+
+        return new ExerciseUpdate(
+                flagParser.getIntegerByFlag(SETS_FLAG),
+                flagParser.getIntegerByFlag(REPS_FLAG),
+                flagParser.getIntegerByFlag(WEIGHT_FLAG),
+                flagParser.getIntegerByFlag(CALORIES_FLAG),
+                flagParser.getStringByFlag(NAME_FLAG)
+        );
     }
 }
 

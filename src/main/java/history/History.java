@@ -186,23 +186,12 @@ public class History {
                 Exercise exercise = dailyRecord.getDayFromRecord().getExercise(i);
                 String exerciseName = exercise.getName();
 
-                if (!personalBests.containsKey(exerciseName) || isBetter(exercise, personalBests.get(exerciseName))) {
+                if (!personalBests.containsKey(exerciseName) | exercise.isHeavierThan(personalBests.get(exerciseName))){
                     personalBests.put(exerciseName, exercise);
                 }
             }
         }
         return personalBests;
-    }
-
-    /**
-     * Compares two exercises to determine if the current exercise is better based on weight.
-     *
-     * @param current the current exercise to evaluate
-     * @param best    the existing best exercise to compare against
-     * @return {@code true} if the current exercise is better, {@code false} otherwise
-     */
-    private boolean isBetter(Exercise current, Exercise best) {
-        return current.getWeight() > best.getWeight();
     }
 
     /**
@@ -221,7 +210,7 @@ public class History {
                 Exercise exercise = dailyRecord.getDayFromRecord().getExercise(i);
 
                 if (exercise.getName().equalsIgnoreCase(exerciseName)) {
-                    if (personalBest == null || isBetter(exercise, personalBest)) {
+                    if (personalBest == null || exercise.isHeavierThan(personalBest)) {
                         personalBest = exercise;
                     }
                 }
@@ -272,6 +261,5 @@ public class History {
 
         return historyString.toString();
     }
-    //@@author
 }
 

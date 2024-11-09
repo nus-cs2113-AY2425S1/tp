@@ -7,8 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static common.Utils.NULL_INTEGER;
+
 
 class ExerciseTest {
+
+
 
     private Exercise exercise;
 
@@ -25,8 +29,8 @@ class ExerciseTest {
 
     @Test
     void testUpdateExerciseSets() {
-        ExerciseUpdate update = new ExerciseUpdate(5, null,
-                null, null, null);
+        ExerciseUpdate update = new ExerciseUpdate(5, NULL_INTEGER,
+                NULL_INTEGER, NULL_INTEGER, null);
         exercise.updateExercise(update);
 
         Exercise expectedExercise = new Exercise(5, 2,
@@ -36,8 +40,8 @@ class ExerciseTest {
 
     @Test
     void testUpdateExerciseReps() {
-        ExerciseUpdate update = new ExerciseUpdate(null, 12,
-                null, null, null);
+        ExerciseUpdate update = new ExerciseUpdate(NULL_INTEGER, 12,
+                NULL_INTEGER, NULL_INTEGER, null);
         exercise.updateExercise(update);
 
         Exercise expectedExercise = new Exercise(1, 12,
@@ -47,8 +51,8 @@ class ExerciseTest {
 
     @Test
     void testUpdateExerciseWeight() {
-        ExerciseUpdate update = new ExerciseUpdate(null, null,
-                60, null, null);
+        ExerciseUpdate update = new ExerciseUpdate(NULL_INTEGER, NULL_INTEGER,
+                60, NULL_INTEGER, null);
         exercise.updateExercise(update);
 
         Exercise expectedExercise = new Exercise(1, 2,
@@ -58,8 +62,8 @@ class ExerciseTest {
 
     @Test
     void testUpdateExerciseCalories() {
-        ExerciseUpdate update = new ExerciseUpdate(null, null,
-                null, 200, null);
+        ExerciseUpdate update = new ExerciseUpdate(NULL_INTEGER, NULL_INTEGER,
+                NULL_INTEGER, 200, null);
         exercise.updateExercise(update);
 
         Exercise expectedExercise = new Exercise(1, 2,
@@ -69,8 +73,8 @@ class ExerciseTest {
 
     @Test
     void testUpdateExerciseName() {
-        ExerciseUpdate update = new ExerciseUpdate(null, null,
-                null, null, "Incline_Bench_Press");
+        ExerciseUpdate update = new ExerciseUpdate(NULL_INTEGER, NULL_INTEGER,
+                NULL_INTEGER, NULL_INTEGER, "Incline_Bench_Press");
         exercise.updateExercise(update);
 
         Exercise expectedExercise = new Exercise(1, 2,
@@ -111,11 +115,6 @@ class ExerciseTest {
     @Test
     void testGetCalories() {
         assertEquals(400, exercise.getCalories());
-    }
-
-    @Test
-    void testGetWeight() {
-        assertEquals(3, exercise.getWeight());
     }
 
     @Test

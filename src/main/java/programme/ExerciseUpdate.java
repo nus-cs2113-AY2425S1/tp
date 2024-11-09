@@ -11,10 +11,10 @@ package programme;
  */
 public class ExerciseUpdate {
 
-    protected final Integer sets;
-    protected final Integer reps;
-    protected final Integer weight;
-    protected final Integer calories;
+    protected final int sets;
+    protected final int reps;
+    protected final int weight;
+    protected final int calories;
     protected final String name;
 
     /**
@@ -27,7 +27,7 @@ public class ExerciseUpdate {
      * @param calories the updated calorie count, or null if not updating
      * @param name     the updated name, or null if not updating
      */
-    public ExerciseUpdate(Integer sets, Integer reps, Integer weight, Integer calories, String name) {
+    public ExerciseUpdate(int sets, int reps, int weight, int calories, String name) {
         this.sets = sets;
         this.reps = reps;
         this.weight = weight;

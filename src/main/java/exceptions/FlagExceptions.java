@@ -35,4 +35,23 @@ public class FlagExceptions extends BuffBuddyExceptions {
     public static FlagExceptions missingArguments() {
         return new FlagExceptions("Missing arguments after flag, please refer to User Guide");
     }
+
+    /**
+     * Returns a FlagException indicating that a specific flag has been provided more than once
+     * @param flag The name of the duplicate flag.
+     * @return A {@code FlagExceptions} with a message indicating that the specified flag has been duplicated.
+     */
+
+    public static FlagExceptions duplicateFlag(String flag) {
+        return new FlagExceptions("Flag " + flag + " was provided more than once.");
+    }
+
+    /**
+     * Returns a FlagException indicating that more than one unique flag was provided
+     * @param flags The list of clashing unique flags.
+     * @return A {@code FlagExceptions} with a message indicating that more than one unique flag was provided.
+     */
+    public static FlagExceptions nonUniqueFlag(String flags) {
+        return new FlagExceptions("Flags " + flags + "cannot be provided in the same command.");
+    }
 }
