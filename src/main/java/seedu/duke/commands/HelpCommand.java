@@ -21,7 +21,7 @@ public class HelpCommand extends Command {
         assert state != null : "State object should not be null";
 
         if (state.getState() == StateType.TASK_STATE) {
-            return new CommandResult(Messages.MASSAGE_HELP_TASK);
+            return new CommandResult(Messages.MESSAGE_HELP_TASK);
         } else {
             return new CommandResult(Messages.MESSAGE_HELP_PATIENT);
         }

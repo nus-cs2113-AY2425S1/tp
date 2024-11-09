@@ -297,4 +297,3 @@ MediTask data is saved as a JSON file [JAR file location]/data/hospital_data.jso
 | **Unmark**        | ```unmark INDEX```<br>e.g., ```unmark 1```                                                                                                               |
 | **Help**          | ```help```                                                                                                                                               |
 | **Exit**          | ```exit```                                                                                                                                               |
-
