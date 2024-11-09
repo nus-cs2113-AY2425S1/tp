@@ -26,14 +26,14 @@
 
 ## Introduction
 
-EventManager CLI is a CLI application that allows organisers of small-scale events to track
+EventManagerCLI is a CLI application that allows organisers of small-scale events to track
 the participants and logistics of such events.
 
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
-2. Down the latest version of `EventManagerCLI` from [here](https://github.com/AY2425S1-CS2113-W13-3/tp/releases).
-3. Open a new terminal in the folder that you put the JAR file in, and run the program with the command ```java -jar EventManagerCLI.jar```.
+2. Download the latest version of `EventManagerCLI` from [here](https://github.com/AY2425S1-CS2113-W13-3/tp/releases).
+3. Open a new terminal in the folder that you put the JAR file in, and run the program with the command ```java -jar manager.jar```.
 The following message would be printed:
 ```
 Welcome to EventManagerCLI.
@@ -46,7 +46,9 @@ Enter a command:
 
 * Words in `UPPER_CASE` represent parameters that are to be supplied by the user (unless otherwise specified).
 * Parameters listed have to be entered in the specified order.
+  * e.g. `add -e Origami workshop -v Building A -t 2024-10-12 18:00 -u HIGH` will be interpreted as an invalid command.
 * Extraneous parameters for commands that do not take in parameters (e.g. `list`) will be ignored.
+  * e.g. `list 1234` and `list -e event` will be interpreted by the program as `list`.
 <div style="page-break-after: always;"></div>
 
 ### Viewing the command list: `menu`
@@ -206,6 +208,7 @@ Copies the participant list from one event to another event.
 Format: `copy FROM_EVENT > TO_EVENT`
 
 * Both events must already exist.
+* If the event `TO_EVENT` already has an existing participant list, `TO_EVENT`'s participant list will be overwritten.
 
 Examples:
 
@@ -335,7 +338,7 @@ If the above format or parameter constraints are not followed, the `Event`, `Par
 * Edit event: `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY`
 * Edit participant of an event: `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
 * Edit item of an event: `edit -m ITEM > NEW_ITEM -e EVENT`
-* View all participants for an event: `view -e EVENT -y TYPE`
+* View all participants or items for an event: `view -e EVENT -y TYPE`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
 * Mark an item as accounted for: `mark -m ITEM -e EVENT -s STATUS`
