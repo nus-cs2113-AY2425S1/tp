@@ -236,9 +236,9 @@ Examples:
 
 Deletes a recurring expense. Use `list /recur` to find the corresponding index.
 
-Format:  `delete /recur INDEX`
+Format:  `delete INDEX /recur `
 
-Example: `delete /recur 2` 
+Example: `delete 2 /recur`
 
 ### Get a list of all your transactions: `list`
 
