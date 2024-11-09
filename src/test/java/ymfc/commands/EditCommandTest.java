@@ -25,7 +25,7 @@ public class EditCommandTest {
     private IngredientList ingredientList;
     private Ui ui;
     private Recipe recipe;
-    private Recipe edittedRecipe;
+    private Recipe editedRecipe;
     private AddCommand addCommand;
     private EditCommand editCommand;
 
@@ -57,8 +57,8 @@ public class EditCommandTest {
         newSteps.add("eat magi mee");
         newSteps.add("drink water");
 
-        edittedRecipe = new Recipe("instant noodles", ingredients, newSteps);
-        editCommand = new EditCommand(edittedRecipe);
+        editedRecipe = new Recipe("instant noodles", ingredients, newSteps);
+        editCommand = new EditCommand(editedRecipe);
     }
 
     @Test
