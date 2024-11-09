@@ -30,6 +30,8 @@ they have exceeded, or are close to exceeding their budget.
 The current progress of the logging will be saved after each successful command.
 Progress is restored when FinanceBuddy is started up each time.
 
+<div style="page-break-after: always;"></div>
+
 ## Quick Start
 
 1. Ensure that Java 17 or above is installed.
@@ -45,41 +47,14 @@ Progress is restored when FinanceBuddy is started up each time.
 
 Lists out the full list of usable commands.
 
-**Format**:
-`help`
+**Format**: `help`
 
 **Output**:
 
-```
---------------------------------------------
-List of commands:
---------------------------------------------
-1. list [income|expense] [/from START_DATE] [/to END_DATE]
-   - Shows a list of logged transactions
-    - Also displays categories with highest income/expenditure, monthly budget and balance
-    - Optional: Specify 'income' or 'expense' to filter the list
-    - Optional: Specify start/end date to only list transactions before/after specified dates
-2. expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]
-   - Adds a new expense with an optional date and category
-    - Categories include: FOOD, TRANSPORT, ENTERTAINMENT, UTILITIES, OTHER, UNCATEGORIZED
-3. income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]
-   - Adds a new income with an optional date and category
-    - Categories include: SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED
-4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]
-   - Edits the transaction at the specified INDEX with optional fields
-5. delete INDEX
-   - Deletes the transaction at the specified INDEX
-6. budget
-   - Set/modify your monthly budget
-7. exit
-   - Exits the program
-8. help
-   - Shows a list of all valid commands
---------------------------------------------
+![UG_add1](screenshots/UG_Help.png)
 
-```
-
----
+<hr>
+<div style="page-break-after: always;"></div>
 
 ### Add Transaction
 
@@ -89,10 +64,14 @@ The `Add Transaction` command allows you to add either an income or expense entr
 - **For Expense**: `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`
 - **For Income**: `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`
 
+<a id="param_details"></a>
 **Parameter Details**:
 - `DESCRIPTION`: A brief label describing the transaction (e.g., "Lunch" or "Freelance Work").
 - `AMOUNT`: The transaction amount. This should be a positive value.
+  - Note: Input amounts are rounded off to the nearest 2 decimal places.
+  - Note: The app does not allow transactions to have an amount greater than $9999999.00 after rounding of to the nearest 2 d.p.
 - `DATE` (optional): Date of the transaction in `dd/MM/yy` format. If omitted, today’s date is used.
+  - Note: The app does not allow transactions to be entered with a date later than the system date.
 - `CATEGORY` (optional): Specifies a category for the transaction, aiding in detailed financial tracking. If omitted, it defaults to `UNCATEGORIZED`.
 
 **Category Options**:
@@ -100,53 +79,52 @@ The `Add Transaction` command allows you to add either an income or expense entr
 - **Income**: Categories include `SALARY`, `INVESTMENT`, `GIFT`, `OTHERS`, and `UNCATEGORIZED`.
 
 **Examples Usage**:
-``` java
-// Adds an expense of $10.50 for lunch on October 12, 2024, categorized as FOOD.
-expense Lunch /a 10.50 /d 12/10/24 /c FOOD
 
-// Adds an income of $500 from freelance work on October 15, 2024, categorized as SALARY.
-income Freelance Work /a 500 /d 15/10/24 /c SALARY
-Examples Without Optional Parameters (Date and Category omitted):
+![UG_add1](screenshots/UG_add1.png)
 
-// Adds an expense of $8.00 for coffee, using today’s date and the default category UNCATEGORIZED.
-expense Coffee /a 8.00
+Examples Without Optional Parameters (Date and Category omitted):<br>
+![UG_add2](screenshots/UG_add2.png)
 
-// Adds an income of $200 from a gift, using today’s date and the default category UNCATEGORIZED.
-income Gift Money /a 200
-```
-
-
----
+<hr>
+<div style="page-break-after: always;"></div>
 
 ### Edit Transaction
 Edits an existing transaction in your financial list.
 
 **Format**: `edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`
 
- - Edits the transaction at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed financial list. 
-  `INDEX` must be a positive integer.
+ - Edits the transaction at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed 
+financial list when [`list`](#list-transactions) is called. `INDEX` must be a positive integer.
+
+**Parameter Details:** (Refer to [here](#param_details) for what each parameter represents)
  - `DESCRIPTION` shouldn't be blank. And DO NOT USE `¦¦` in `DESCRIPTION` cause it serve as the seperator token in storage file.
- - `DATE` should follow `DD/MM/YY` format.
- - `AMOUNT` must be a positive number. If it's a floating-point number, it will be rounded to two decimal places.
+ - `DATE` should follow `DD/MM/YY` format and cannot be after the system date.
+ - `AMOUNT` must be a positive number with a maximum value of $9999999.00. If it's a floating-point number, it will be rounded to two decimal places.
  - `CATEGORY` should be one of the categories allowed in Expenses/Incomes.
 
 **Example Usages**:
-``` java
-// Edits the description of the 1st entry to be breakfast
-edit 1 /des breakfast
-// Edits the amount of the 1st entry to be 5.99
-edit 1 /a 5.99
-// Edits the description and amount of the 2nd entry to be lunch and 20 respectively
-edit 2 /des lunch /a 20 
-// Edits the description and date of the 3rd entry to be dinner and 11/09/2024 respectively
-edit 3 /des dinner /d 11/09/24 
-// Edits the description, amount, and date of the 4th entry to be breakfast, 5 and 12/09/2024 respectively
-edit 4 /des breakfast /a 5 /d 12/09/24
-// Edits the category of the 5th entry to be FOOD
-edit 5 /c FOOD
-```
 
----
+![edit](screenshots/UG_edit1.png)<br>
+Edits the description of the 1st entry to be breakfast.
+<br><br>
+
+![edit](screenshots/UG_edit2.png)<br>
+Edits the description and amount of the 2nd entry to be lunch and 20 respectively.
+<br><br>
+
+![edit](screenshots/UG_edit3.png)<br>
+Edits the description and date of the 3rd entry to be dinner and 11/09/2024 respectively.
+<br><br>
+
+![edit](screenshots/UG_edit4.png)<br>
+Edits the description, amount, and date of the 4th entry to be breakfast, 5 and 12/09/2024 respectively.
+<br><br>
+
+![edit](screenshots/UG_edit5.png)<br>
+Edits the category of the 5th entry to be FOOD.
+
+<hr>
+<div style="page-break-after: always;"></div>
 
 ### Delete Transaction
 
@@ -155,146 +133,89 @@ The `Delete Transaction` command removes a specific entry from your financial li
 **Format**: `delete INDEX`
 
 **Parameter Details**:
-- `INDEX`: The position of the transaction in the financial list, as displayed by the `list` command. Using an invalid index will produce an error.
+- `INDEX`: The position of the transaction in the financial list, as displayed by the [`list`](#list-transactions) command. Using an invalid index will produce an error.
 
 #### Example Usage
-``` java
-// Deletes the transaction at index 2 in the financial list.
-delete 2
 
-// Deletes the transaction at index 5 in the financial list.
-delete 5
-```
+![delete](screenshots/UG_delete.png)<br>
+Deletes the transaction at index 5 and 2 respectively in the financial list.
 
----
+<hr>
+<div style="page-break-after: always;"></div>
 
-### List Entries
+### List Transactions
 
-Lists out entries in your financial list for your perusal. Entries can be filtered by type (income/expense)
-or restricted to a stipulated period. The app will display the total cashflow/expenditure/income 
-during the stipulated period depending on the financial entry type selected to be listed, as well as the
-category with the highest total expenditure/income.
+Lists out transactions in your financial list in ascending order of date for your perusal. Transactions can be 
+filtered by type (income/expense) or restricted to a stipulated period. The app will display the total
+cashflow/expenditure/income during the stipulated period depending on the transaction type selected to be listed,
+as well as the category with the highest total expenditure/income.
 
-Format: `list [expense|income] [/from START_DATE] [/to END_DATE]`
+**Format:** `list [expense|income] [/from START_DATE] [/to END_DATE]`
+
+<br>
 
 #### List by Type
 
 User can command app to list out only expenses, only incomes or both expenses and incomes.
 
-Example Usage:
-``` java
-//Input Command
-list
+**Example Usage:**
 
-//Output: Lists out all expenses and incomes. 
-//Displays total cashflow (income - expenditure), and shows categories with the highest total expenditure and income respectively
---------------------------------------------
-Here's a list of all recorded entries:
-1. [Expense] - lunch $ 3.50 (on 22/10/24) [FOOD]
-2. [Income] - salary $ 3000.00 (on 22/10/24) [SALARY]
-3. [Expense] - dinner $ 4.50 (on 22/10/24) [FOOD]
-4. [Expense] - movie $ 20.00 (on 22/10/24) [ENTERTAINMENT]
-5. [Income] - allowance $ 100.00 (on 22/10/24) [GIFT]
-6. [Income] - ang pow money $ 15.00 (on 22/10/24) [GIFT]
+![list](screenshots/UG_list1.png)<br>
+Lists out all expenses and incomes. 
+Displays total cashflow (income - expenditure), and shows categories with the highest total expenditure and income respectively.
 
-Net cashflow: $ 3087.00
-                
-Highest Expense Category: ENTERTAINMENT ($20.00)
-Highest Income Category: SALARY ($3000.00)
---------------------------------------------
+<br><br>
 
-//Input Command
-list expense 
+![list](screenshots/UG_list2.png)<br>
+Lists out all expenses. Displays total expenditure, and shows category with highest total expenditure.
 
-//Output: Lists out all expenses. Displays total expenditure, and shows category with highest total expenditure.
---------------------------------------------
-Here's a list of all recorded expenses:
-1. [Expense] - lunch $ 3.50 (on 22/10/24) [FOOD]
-2. [Expense] - dinner $ 4.50 (on 22/10/24) [FOOD]
-3. [Expense] - movie $ 20.00 (on 22/10/24) [ENTERTAINMENT]
+<br><br>
 
-Total expense: $ 28.00
-                
-Highest Expense Category: ENTERTAINMENT ($20.00)
---------------------------------------------
+![list](screenshots/UG_list3.png)<br>
+Lists out all incomes. Displays total income, and shows category with highest total income.
 
-//Input Command
-list income
-
-//Output: Lists out all incomes. Displays total income, and shows category with highest total income.
---------------------------------------------
-Here's a list of all recorded incomes:
-1. [Income] - salary $ 3000.00 (on 22/10/24) [SALARY]
-2. [Income] - allowance $ 100.00 (on 22/10/24) [GIFT]
-3. [Income] - ang pow money $ 15.00 (on 22/10/24) [GIFT]
-
-Total income: $ 3115.00
-                
-Highest Income Category: SALARY ($3000.00)
---------------------------------------------
-```
+<br>
 
 #### List by Date
 
-User can command app to only list out financial entries starting from a certain date using the `/from` flag, 
+User can command app to only list out transactions starting from a certain date using the `/from` flag, 
 and/or up to a certain date using the `/to` flag.
 
 Total cashflow/expenditure/income displayed will be restricted to the range of dates entered by the user.
 Category with highest expenditure/income displayed will also be based on the entered date range.
 
-Example Usage:
-``` java
-//Input Command
-list /from 03/10/24
+**Example Usage:**
 
-//Output: Lists out all expenses and incomes with date equal to or after 03/10/24.
-//Displays total cashflow (income - expenditure) during that period, and shows
-//categories with the highest total expenditure and income during that period respectively.
---------------------------------------------
-Here's a list of all recorded entries:
-1. [Income] - salary $ 3000.00 (on 03/10/24) [SALARY]
-2. [Expense] - dinner $ 4.50 (on 05/10/24) [FOOD]
-3. [Income] - allowance $ 100.00 (on 10/10/24) [GIFT]
-4. [Expense] - movie $ 20.00 (on 27/10/24) [ENTERTAINMENT]
-5. [Income] - ang pow money $ 15.00 (on 01/11/24) [GIFT]
+![list](screenshots/UG_list4.png)<br>
+Lists out all expenses and incomes with date equal to or after 03/10/24.
+Displays total cashflow (income - expenditure) during that period, and shows
+categories with the highest total expenditure and income during that period respectively.
 
-Net cashflow: $ 3090.50
-                
-Highest Expense Category: ENTERTAINMENT ($20.00)
-Highest Income Category: SALARY ($3000.00)
---------------------------------------------
+<br><br>
 
-//Input Command
-list expense /to 03/10/24
+![list](screenshots/UG_list5.png)<br>
+Lists out all expenses with dates before or equal to 03/10/24.
+Displays total expenditure + category with highest total expenditure during that period.
 
-//Output: Lists out all expenses with dates before or equal to 03/10/24.
-//Displays total expenditure + category with highest total expenditure during that period.
---------------------------------------------
-Here's a list of all recorded expenses:
-1. [Expense] - lunch $ 3.50 (on 22/09/24) [FOOD]
+<br><br>
 
-Total expense: $ 3.50
-                
-Highest Expense Category: FOOD ($3.50)
---------------------------------------------
+![list](screenshots/UG_list6.png)<br>
+Lists out all incomes with dates between 03/10/24 and 10/10/24 inclusive.
+Displays total income + category with highest total income during that period.
 
-//Input Command
-list income /from 03/10/24 /to 10/10/24
+<br>
 
-//Output: Lists out all incomes with dates between 03/10/24 and 10/10/24 inclusive.
-//Displays total income + category with highest total income during that period.
---------------------------------------------
-Here's a list of all recorded incomes:
-1. [Income] - salary $ 3000.00 (on 03/10/24) [SALARY]
-3. [Income] - allowance $ 100.00 (on 10/10/24) [GIFT]
+#### Viewing budget
 
-Total income: $ 3100.00
-              
-Highest Income Category: SALARY ($3000.00)
---------------------------------------------
-```
+If a budget has been set by the user (refer to section on [Set/Edit Budget](#setedit-budget), the user's set monthly 
+budget as well as his/her balance (budget - total expenditure that month) will be displayed when the `list` command is executed.
 
----
+**Example Usage:**
+
+![list](screenshots/UG_List_wBudget.png)
+
+<hr>
+<div style="page-break-after: always;"></div>
 
 ### Set/Edit Budget
 
@@ -310,21 +231,16 @@ The budget amount and balance will also be viewable by the user under the list c
 **Format**: `budget`
 
 **Example Usage**:
-``` java
-// Initial budget setting option 
-Would you like to set a budget? (yes/no)
-yes
-Please set your budget amount:
-1000
 
-// Budget modification option to change budget amount
-budget
-Your current budget is: 1000.0
-Would you like to modify your budget? (yes/no)
-yes
-Please set your budget amount:
-2000
-```
+![budget](screenshots/UG_budget1.png)<br>
+Initial budget setting option.
+
+<br>
+
+![budget](screenshots/UG_budget2.png)<br>
+Budget modification option to change budget amount.
+
+<hr>
 
 ### Saving Data
 Your Financial List will be stored in to `data/FinancialList.txt`, while your budget is stored in `data/Budget.txt`.
@@ -332,6 +248,8 @@ FinanceBuddy will automatically update the files whenever your list or budget be
 When you start the FinanceBuddy program, it will check if the `data/FinancialList.txt` and `data/Budget.txt` exist.
 If do, it'll try to load the transactions and budget in the file row by row.
 Please do not modify these files manually, otherwise the transactions or the budget with incorrect format will not be loaded.
+
+<div style="page-break-after: always;"></div>
 
 ## Command Summary
 

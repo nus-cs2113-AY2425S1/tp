@@ -103,7 +103,7 @@ public class Logic {
         try {
             return Double.parseDouble(amountStr);
         } catch (NumberFormatException e) {
-            throw new FinanceBuddyException("Invalid amount. Please use a number.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
         } catch (NullPointerException e) {
             throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
         }
@@ -142,14 +142,14 @@ public class Logic {
         String description = commandArguments.getOrDefault("/des", entry.getDescription());
         String date = parseDateOrDefault(commandArguments.get("/d"), entry.getDate());
 
-        if (entry instanceof Expense) {
-            updateExpenseBalance((Expense) entry, amount, date);
-        }
-
         Enum<?> category = getCategoryFromInput(commandArguments, entry);
 
         EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
         editEntryCommand.execute(financialList);
+
+        if (entry instanceof Expense) {
+            updateExpenseBalance((Expense) entry, amount, date);
+        }
     }
 
     /**
@@ -310,7 +310,8 @@ public class Logic {
      * @return A boolean indicating if the application should continue running.
      * @throws FinanceBuddyException if the command execution encounters an error.
      */
-    public boolean matchCommand(String command, HashMap<String, String> commandArguments) throws FinanceBuddyException {
+    public boolean matchCommand(String command, HashMap<String, String> commandArguments)
+            throws FinanceBuddyException {
         switch (command) {
         case "list":
             listHelper(commandArguments);
