@@ -39,7 +39,7 @@ public class FileParser {
                 parseLine(events, line, formatter);
             }
         } catch (IOException | CsvException exception) {
-            throw new IOException("Error loading data from file: " + filePath + ".");
+            throw new IOException("Error loading data from file: " + filePath + ". New file will be created since it does not exists.");
         }
     }
 
