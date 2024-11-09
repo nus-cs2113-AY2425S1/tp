@@ -132,12 +132,12 @@ public class BudgetManager {
         if (budgets.containsKey(existingCategory)) {
             budgets.get(existingCategory).setLimit(preciseLimit.doubleValue()); // Convert back to double if necessary
             System.out.println("Updated budget for category '" + existingCategory.getName() + 
-            "' to " + preciseLimit.toPlainString());
+                "' to " + preciseLimit.toPlainString());
         } else {
             Budget newBudget = new Budget(existingCategory, preciseLimit.doubleValue());
             budgets.put(existingCategory, newBudget);
             System.out.println("Set budget for category '" 
-            + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
+                + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
         }
 
         trackerData.setBudgets(budgets);
