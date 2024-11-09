@@ -68,22 +68,22 @@ public final class Parser {
             return getAddRecipeCommand(args);
         case "delete":
             if (numRecipes <= 0) {
-                throw new EmptyListException("\tYou can't remove something from nothing!");
+                throw new EmptyListException("You can't remove something from nothing!");
             }
             return getDeleteCommand(args);
         case "deleteI":
             if (numIngredients <= 0) {
-                throw new EmptyListException("\tYou can't remove something from nothing!");
+                throw new EmptyListException("You can't remove something from nothing!");
             }
             return getDeleteIngredientCommand(args);
         case "list":
             if (numRecipes <= 0) {
-                throw new EmptyListException("\tYour recipe list is empty!");
+                throw new EmptyListException("Your recipe list is empty!");
             }
             return new ListCommand();
         case "listI":
             if (numIngredients <= 0) {
-                throw new EmptyListException("\tYour ingredient list is empty!");
+                throw new EmptyListException("Your ingredient list is empty!");
             }
             return new ListIngredientCommand();
         case "help":
@@ -92,39 +92,39 @@ public final class Parser {
             return new ByeCommand();
         case "sort":
             if (numRecipes <= 0) {
-                throw new EmptyListException("\tThere is nothing to sort!");
+                throw new EmptyListException("There is nothing to sort!");
             }
             return getSortCommand(args);
         case "sortI":
             if (numIngredients <= 0) {
-                throw new EmptyListException("\tThere is nothing to sort!");
+                throw new EmptyListException("There is nothing to sort!");
             }
             return new SortIngredientCommand();
         case "new":
             return getAddIngredientCommand(args);
         case "edit":
             if (numRecipes <= 0) {
-                throw new EmptyListException("\tThere is nothing to edit!");
+                throw new EmptyListException("There is nothing to edit!");
             }
             return getEditCommand(args);
         case "find":
             if (numRecipes <= 0) {
-                throw new EmptyListException("\tThere is nothing to find!");
+                throw new EmptyListException("There is nothing to find!");
             }
             return getFindCommand(args);
         case "findI":
             if (numIngredients <= 0) {
-                throw new EmptyListException("\tThere are no ingredients to find!");
+                throw new EmptyListException("There are no ingredients to find!");
             }
             return getFindIngredCommand(args);
         case "random":
             if (numRecipes <= 0) {
-                throw new EmptyListException("\tA random recipe from a pool of nothing, is nothing.");
+                throw new EmptyListException("A random recipe from a pool of nothing, is nothing.");
             }
             return new RandomCommand();
         case "recommend":
             if (numRecipes <= 0) {
-                throw new EmptyListException("\tI don't have any recipes, what do you want me to recommend?");
+                throw new EmptyListException("I don't have any recipes, what do you want me to recommend?");
             }
             return new RecommendCommand();
         default:
