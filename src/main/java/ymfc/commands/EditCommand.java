@@ -33,7 +33,7 @@ public class EditCommand extends Command {
     private Integer newTimeTaken;
 
     public EditCommand(String matchName, String newName, ArrayList<Ingredient> newIngredients,
-                       ArrayList<String> newSteps,String newCuisine, Integer newTimeTaken) {
+                       ArrayList<String> newSteps, String newCuisine, Integer newTimeTaken) {
         super();
         logger.log(Level.FINEST, "Creating EditCommand");
         assert matchName != null;
@@ -90,7 +90,7 @@ public class EditCommand extends Command {
             }
         }
 
-        return new Recipe(editedName,editedIngredients, editedSteps, editedCuisine, editedTimeTaken);
+        return new Recipe(editedName, editedIngredients, editedSteps, editedCuisine, editedTimeTaken);
     }
 
     private boolean isDuplicateRecipe(String recipeName, RecipeList recipes) {

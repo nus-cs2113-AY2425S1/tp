@@ -476,7 +476,14 @@ class ParserTest {
     @ParameterizedTest
     @DisplayName("parseCommand_editCommand_success")
     @ValueSource(strings = {
-        "edit e/Pasta i/Potato i/Tomato i/Pasta s1/Boil pasta in water s2/Ice bath the pasta"
+        "edit e/Pasta i/Potato i/Tomato i/Pasta s1/Boil pasta in water s2/Ice bath the pasta",
+        "edit e/Pasta",
+        "edit e/Pasta i/Potato i/Tomato",
+        "edit e/Pasta s1/Boil pasta in water s2/Ice bath the pasta",
+        "edit e/Pasta c/Italian",
+        "edit e/Pasta c/",
+        "edit e/Pasta t/5",
+        "edit e/Pasta t/"
     })
     void parseCommand_editCommand_success(String command) {
         try {
@@ -498,30 +505,18 @@ class ParserTest {
     @ParameterizedTest
     @DisplayName("parseCommand_editCommand_invalidArgumentExceptionThrown")
     @ValueSource(strings = {
-        "edit e/Plain Water",                                                            // Missing ingreds and steps
-        "edit e/Salad i/lettuce i/tomato i/cucumber",                                    // Missing steps
-        "edit e/Walking s1/start walking s2/keep walking",                               // Missing ingreds
         "edit i/eggs i/milk s1/whisk together",                                          // Missing name
-        "edit e/Toast bread butter s1/spread butter on bread",                           // Missing i/
-        "edit e/Smoothie i/banana i/yogurt blend all ingredients",                       // Missing s/
         "edit e/Pizza i/dough i/cheese s1/make dough s1/bake pizza",                     // Repeated step numbers
         "edit e/Sandwich i/bread i/ham i/cheese s1/spread butter s3/grill sandwich",     // Steps not in order
         "edit e/Soup i/ i/onion s1/cook onions s2/",                                     // Empty ingredient or step
         "edit e/  Porridge  i/ oats  i/milk s1 / cook oats",                             // Whitespace before slash
         "edit nPorridge i oats i milk s1 cook oats",                                     // No slashes
         "edit e//Omelette i/eggs// s1/fry/",                                             // Too many slashes
-        "edit e/RamenEggs i/eggsi/soya sauce i/water s1/boil eggss2/eggs in ice bath",    // Missing spaces
+        "edit e/RamenEggs i/eggsi/soya sauce i/water s1/boil eggss2/eggs in ice bath",   // Missing spaces
 
         // Test cases for invalid cuisine and time
-        "edit e/Spicy Wings i/chicken wings 5pcs c/Asian",                               // Missing steps and time
-        "edit e/Grilled Vegetable Salad i/zucchini i/bell pepper c/Mediterranean t/10",  // Missing steps
-        "edit e/Spicy Wings c/Asian t/15",                                               // Missing ingredient and step
-        "edit e/Salad i/lettuce i/tomato c/Healthy",                                     // Missing steps
         "edit e/Pasta i/pasta i/sauce s1/cook pasta c/Italian t/abc",                    // Invalid time format
-        "edit e/Smoothie i/banana i/yogurt blend all ingredients c/Fruit t/5",           // Missing steps
-        "edit e/Breakfast c/English",                                                    // Missing ingredient and step
         "edit e/Omelette i/eggs c/Breakfast s1/fry t/-10",                               // Invalid time (negative)
-        "edit e/Pancakes i/flour i/milk s1/mix c/Breakfast t/",                          // Missing time
         "edit e/Sandwich i/bread i/ham s1/spread butter c/Quick t/0"                     // Invalid time (zero)
     })
     void parseCommand_editCommand_invalidArgumentsExceptionThrown(String command) {

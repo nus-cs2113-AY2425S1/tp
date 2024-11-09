@@ -51,14 +51,15 @@ public class EditCommandTest {
         addCommand = new AddCommand(recipe);
         nonEmptyList.addRecipe(recipe);
 
-        // Sample ingredients and steps
+        // Sample edited steps
         ArrayList<String> newSteps = new ArrayList<>();
         newSteps.add("boil water");
         newSteps.add("eat magi mee");
         newSteps.add("drink water");
 
         editedRecipe = new Recipe("instant noodles", ingredients, newSteps);
-        editCommand = new EditCommand(editedRecipe);
+        editCommand = new EditCommand("instant noodles", null, null,
+                newSteps, null, null);
     }
 
     @Test
@@ -70,13 +71,14 @@ public class EditCommandTest {
 
         editCommand.execute(emptyList, ingredientList, ui, storage);
         assertEquals(1, emptyList.getCounter());
-        assertEquals(edittedRecipe, emptyList.getRecipe(0));
+        assertEquals(editedRecipe.toString(), emptyList.getRecipe(0).toString());
     }
 
     @Test
     void testEditRecipe_fail() {
-        Recipe dummyRecipe = new Recipe("ramen", new ArrayList<Ingredient>(), new ArrayList<String>());
+        EditCommand dummyEditCommand = new EditCommand("ramen", null, null,
+                null, null, null);
         assertThrows(InvalidArgumentException.class,
-                () -> new EditCommand(dummyRecipe).execute(nonEmptyList, ingredientList, ui, storage));
+                () -> dummyEditCommand.execute(nonEmptyList, ingredientList, ui, storage));
     }
 }
