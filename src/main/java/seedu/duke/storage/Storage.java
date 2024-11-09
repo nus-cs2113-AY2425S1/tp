@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import seedu.duke.budget.Budget;
 import seedu.duke.exception.FinanceBuddyException;
@@ -53,6 +54,27 @@ public class Storage {
     public static final String FINANCIAL_LIST_FILE_PATH = "data/FinancialList.txt";
     public static final String BUDGET_FILE_PATH = "data/Budget.txt";
     private static final Log logger = Log.getInstance();
+    private static final String FILE_NOT_FOUND_MESSAGE = "Storage file(s) not found: ";
+
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
+    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
+    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+
+    private ArrayList<String> invalidLines = new ArrayList<>();
 
     public Storage() {
     }
@@ -302,8 +324,10 @@ public class Storage {
             // start reading the transactions
             Boolean transectionLoading = true;
             while (sc.hasNextLine() && transectionLoading) {
+                String tmpLine = "";
                 try {
                     String line = sc.nextLine();
+                    tmpLine = line;
                     // parse the line and add the task to the list
                     if (line.charAt(0) == 'E') {
                         String[] tokens = line.split(" \\¦¦ ");
@@ -321,6 +345,8 @@ public class Storage {
                 } catch (Exception e) {
                     logger.log(LogLevels.WARNING, "Skiping logged transection cause storage formate invalid");
                     logger.log(LogLevels.WARNING, e.getMessage());
+                    this.invalidLines.add("Deleting invalid line from file: "
+                        + ANSI_RED + tmpLine + ANSI_RESET );
                 }
             }
             logger.log(LogLevels.INFO, "Loaded " + loadedExpenseCount + " expenses and " +
@@ -348,6 +374,20 @@ public class Storage {
         } catch (Exception e) {
             logger.log(LogLevels.WARNING, "Error loading file: " + e.getMessage());
             return new FinancialList();
+        }
+    }
+
+    public ArrayList<String> getInvalidLines() {
+        return invalidLines;
+    }
+
+    public void clearInvalidLines() {
+        invalidLines.clear();
+    }
+
+    public void printInvalidLines() {
+        for (String line : invalidLines) {
+            System.out.println(line);
         }
     }
 }

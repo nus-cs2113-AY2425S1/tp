@@ -37,6 +37,8 @@ public class FinanceBuddy {
 
         ui.displayWelcomeMessage();
 
+        storage.printInvalidLines();
+
         try {
             budgetLogic.setBudget(financialList);
             storage.update(financialList, budgetLogic);
