@@ -477,7 +477,6 @@ class ParserTest {
     @DisplayName("parseCommand_editCommand_success")
     @ValueSource(strings = {
         "edit e/Pasta i/Potato i/Tomato i/Pasta s1/Boil pasta in water s2/Ice bath the pasta",
-        "edit e/Pasta",
         "edit e/Pasta i/Potato i/Tomato",
         "edit e/Pasta s1/Boil pasta in water s2/Ice bath the pasta",
         "edit e/Pasta c/Italian",
@@ -513,6 +512,7 @@ class ParserTest {
         "edit nPorridge i oats i milk s1 cook oats",                                     // No slashes
         "edit e//Omelette i/eggs// s1/fry/",                                             // Too many slashes
         "edit e/RamenEggs i/eggsi/soya sauce i/water s1/boil eggss2/eggs in ice bath",   // Missing spaces
+        "edit e/Pasta",                                                                  // No changes made
 
         // Test cases for invalid cuisine and time
         "edit e/Pasta i/pasta i/sauce s1/cook pasta c/Italian t/abc",                    // Invalid time format

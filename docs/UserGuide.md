@@ -234,6 +234,8 @@ Will find the recipe of the entered name and change its parameters to the newly 
 - All parameters are optional except for `e/NAME`, leaving any of the optional parameters out of the command means 
 the existing parameters of that type is untouched (e.g. don't need to add `c/CUISINE` to your command if you 
 wish to keep the cuisine parameter of the recipe unedited).
+- However, leaving every single optional parameter out will basically do nothing, 
+so that isn't really an edit now, is it? (You will get a reminder from YMFC for this)
 - The `e/NAME` refers to the current name of the recipe you wish to edit
 - The `n/NAME` refers to the new name you wish to rename the recipe to
 - The `i/INGREDIENTS...` refers to the new list of ingredients for the recipe (note that the entire current list of  

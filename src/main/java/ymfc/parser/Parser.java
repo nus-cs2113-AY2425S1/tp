@@ -427,6 +427,12 @@ public final class Parser {
             }
         }
 
+        // If all optional parameters are null, inform the user
+        if (newName == null && ingreds == null && steps == null && cuisine == null && timeTaken == null) {
+            throw new InvalidArgumentException("So you are giving me nothing to edit about your recipe?"
+                    + System.lineSeparator() + "Look up what \"edit\" means in the dictionary.");
+        }
+
         return new EditCommand(matchName, newName, ingreds, steps, cuisine, timeTaken);
     }
 
