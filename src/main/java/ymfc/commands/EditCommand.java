@@ -93,9 +93,12 @@ public class EditCommand extends Command {
         return new Recipe(editedName, editedIngredients, editedSteps, editedCuisine, editedTimeTaken);
     }
 
-    private boolean isDuplicateRecipe(String recipeName, RecipeList recipes) {
+    private boolean isNameTaken(RecipeList recipes) {
+        if (newName.equalsIgnoreCase(matchName)) {
+            return false;
+        }
         for (int i = 0; i < recipes.getCounter(); i++) {
-            if (recipes.getRecipe(i).getName().toLowerCase().equals(recipeName)) {
+            if (recipes.getRecipe(i).getName().equalsIgnoreCase(newName)) {
                 return true;
             }
         }
@@ -118,10 +121,6 @@ public class EditCommand extends Command {
         logger.log(Level.FINEST, "Executing EditCommand");
         assert matchName != null;
 
-        // If newName is a duplicate of an existing recipe name, throw error
-        if (newName!= null && isDuplicateRecipe(newName.toLowerCase(), recipes)) {
-            throw new InvalidArgumentException("Hey that new name already belongs to an existing recipe.");
-        }
         // Find recipe in recipes that match the name of recipe to edit
         int toEditRecipeIndex = recipes.getIndexByName(matchName);
         if (toEditRecipeIndex < 0) {
@@ -129,6 +128,13 @@ public class EditCommand extends Command {
         }
         Recipe toEditRecipe = recipes.getRecipe(toEditRecipeIndex);
         String originalName = toEditRecipe.getName();
+
+        // If newName is already taken by an existing recipe name that isn't matchName, throw error
+        if (newName != null) {
+            if (isNameTaken(recipes)) {
+                throw new InvalidArgumentException("Hey that new name already belongs to another existing recipe.");
+            }
+        }
 
         // Craft edited recipe based on pre-existing recipe and parameters to edit
         Recipe editedRecipe = craftEditedRecipe(toEditRecipe);

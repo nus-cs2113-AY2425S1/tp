@@ -194,6 +194,8 @@
 	    1. saute garlic in oil
 	    2. boil paste
 	    3. add pasta to garlic and mix
+	  Cuisine: Italian
+	  Time taken: 15
 	__________________________________________________________________________________
 	__________________________________________________________________________________
 	Aww, I shall begrudgingly let go of this recipe:
@@ -257,6 +259,8 @@
 	    1. saute garlic in oil
 	    2. boil paste
 	    3. add pasta to garlic and mix
+	  Cuisine: Italian
+	  Time taken: 15
 
 	__________________________________________________________________________________
 	__________________________________________________________________________________
