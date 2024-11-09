@@ -1,4 +1,4 @@
-package seedu.spendswift.command;
+package seedu.spendswift;
 
-public class ErrorMessages {
+public class ErrorMessage {
 }
