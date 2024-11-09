@@ -6,7 +6,6 @@
 - [Quick Start](#quick-start)
 - [Features](#features-)
 - [FAQ](#faq)
-- [Others](#others)
 - [Command Summary](#command-summary)
 
 ---
@@ -29,11 +28,16 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 ## Notes
 
 - Text written in `SCREAMING_SNAKE_CASE` are user input fields.
-- Text preceded with a `/` are flags that need to be inputted for the programme to recognise.
-- Square brackets `[...]` indicate optional parameters. Refer to the specifications for each command.
+- Text preceded with a `/` are flags that need to be inputted for the programme to recognise the argument.
+- Square brackets `[...]` indicate optional arguments. Refer to the specifications for each command.
+- Values in the argument can include spaces.
+  - e.g. `<command> /argument value 1 and 2` -> `argument`: `value 1 and 2`
+  - e.g. `<command> main value` -> `main`: `main value` (The main argument is the value following the command, such as `INDEX` in `delete INDEX`)
 - When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`.
   - e.g. `<command> /argument \/value` -> `argument`: `/value`
-- Not all commands will give an output.
+- Commands default to no output on successful completion unless
+  - The command produces an output by its nature (eg. `list`) or
+  - There is an error in the command.
 
 ---
 
@@ -95,7 +99,15 @@ Notes:
 - Lists all expenses the user has.
 - If filters are specified, only matching expenses are shown.
 
-Example: `list /category food /from 02-11-2024 /to 04-11-2024`
+Example: 
+```
+> list
+1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 09-11-2024
+2. CATEGORY: transport, DESCRIPTION: bus ride, PRICE: 1.00, DATE ADDED: 01-10-2024
+> list /category food /from 02-11-2024 /to 09-11-2024
+1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 09-11-2024
+> 
+```
 
 ### Get statistics for your transactions: `stats`
 
@@ -106,9 +118,20 @@ Format:  `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 Notes:
 - `CATEGORY` is text.
 - `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
-- Lists statistics for all expenses matching the provided filter.
+- Lists statistics for all expenses matching the provided filter. 
+  - This includes the highest expense, lowest expense, and the mean price.
 
-Example: `stats /category food /from 02-11-2024 /to 04-11-2024`
+Example: 
+
+```
+> stats /category food /from 02-11-2024 /to 09-11-2024
+HIGHEST EXPENSE:
+1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 09-11-2024
+LOWEST EXPENSE:
+1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 09-11-2024
+MEAN PRICE: 4.5
+> 
+```
 
 ### Visualize your expenditures: `visualize`
 
@@ -130,7 +153,7 @@ Examples:
 ### Set a spending limit for a category: `set`
 
 Allows you to set a spending limit for each category.
-If this limit is exceeded (or nearly exceeded), you might receive warnings from the app.
+If this limit is exceeded (or nearly exceeded), you will receive warnings from the app.
 
 Format: `set /category CATEGORY /limit LIMIT`
 
@@ -151,42 +174,19 @@ Examples:
 - `help /method add` lists format of the “add” command since `METHOD` is specified.
 - `help /recur edit` lists format of the "edit" command since `METHOD` and `/recur` are specified.
 
-### Save data to files: `save`
-
-Saves data to files and stores them in a directory of your choice.
-
-Format: `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
-
+```
+> help /method add
+Use the add command to add an expense.
+Format:  add /price PRICE /description DESCRIPTION /category CATEGORY /date DATE
 Notes:
-- If nothing at all is specified, it loads from the default paths:
-  - `EXPENSE_FILE_PATH = "expenses_data.csv"`
-  - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
-  - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
-- If some of the fields are specified, only the corresponding field(s) are saved.
-- The save files are designed to be human-readable and editable. Be careful of the syntax while editing!
+    - PRICE is a decimal number.
+    - DESCRIPTION and CATEGORY are text.
+    - DATE is a string in DD-MM-YYYY format.
+    - If no date is specified, it will be defaulted to the current date.
+Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2024
 
-Examples:
-- `save`                         saves all data to the default paths.
-- `save /expenseList ./data.csv` saves only the expenseList to `./data.csv`.
-
-### Load data from files: `load`
-
-Loads data from files into the app.
-
-Format: `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
-
-Notes:
-- If nothing at all is specified, it loads from the default paths:
-  - `EXPENSE_FILE_PATH = "expenses_data.csv"`
-  - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
-  - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
-- It clears existing data on read for ease of usage.
-- On read failure, it loads whatever it could read from the corrupted files.
-
-Examples:
-- `load`                         loads data from the default paths.
-- `load /expenseList ./data.csv` loads only the expenseList from `./data.csv`.
-
+>
+```
 ---
 
 ## Recurring Expenses
@@ -236,9 +236,9 @@ Examples:
 
 Deletes a recurring expense. Use `list /recur` to find the corresponding index.
 
-Format:  `delete /recur INDEX`
+Format:  `delete INDEX /recur `
 
-Example: `delete /recur 2` 
+Example: `delete 2 /recur`
 
 ### Get a list of all your transactions: `list`
 
@@ -254,13 +254,51 @@ Notes:
 
 Examples: `list /recur /category food /from 02-11-2024 /to 04-11-2024`
 
+
+---
+
+## Storage
+
 ### Save data to files: `save`
 
-Works the same way as normal expenses.
+Saves data to files and stores them in a directory of your choice.
+
+Format: `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
+
+Notes:
+- If nothing at all is specified, it loads from the default paths:
+  - `EXPENSE_FILE_PATH = "expenses_data.csv"`
+  - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
+  - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
+- If some of the fields are specified, only the corresponding field(s) are saved.
+- The save files are designed to be human-readable and editable. Be careful of the syntax while editing!
+- Users are allowed to save to paths with their desired file extension in the csv file format.
+  - They do not have to save to a `.csv` file. (e.g. they can save to `expenses_data.txt`)
+
+Examples:
+- `save`                         saves all data to the default paths.
+- `save /expenseList ./data.csv` saves only the expenseList to `./data.csv`.
 
 ### Load data from files: `load`
 
-On top of working the same way as normal expenses, this command also checks whether a recurring expense is past its due date and adds it as a normal expense to the expense list.
+Loads data from files into the app.
+
+Format: `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`
+
+Notes:
+- If nothing at all is specified, it loads from the default paths:
+  - `EXPENSE_FILE_PATH = "expenses_data.csv"`
+  - `CATEGORY_FILE_PATH = "category_spending_limit.csv"`
+  - `RECUR_FILE_PATH = "recurring_expenses_data.csv"`
+- It clears existing data on read for ease of usage.
+- On read failure, it loads whatever it could read from the corrupted files.
+- Users are allowed to load from files with their desired file extension, as long as it follows the csv file format.
+  - They do not have to load from `.csv` files (e.g. they can load from `expenses_data.txt`)
+- For recurring expenses, It checks whether a recurring expense is past its due date and adds it as a normal expense to the expense list.
+
+Examples:
+- `load`                         loads data from the default paths.
+- `load /expenseList ./data.csv` loads only the expenseList from `./data.csv`.
 
 ---
 

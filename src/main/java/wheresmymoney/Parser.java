@@ -65,7 +65,7 @@ public class Parser {
     private static void packArgumentToExistingArgumentsMap(HashMap<String, String> argumentsMap,
             String currArgumentName, String currArgument) throws InvalidInputException {
         if (argumentsMap.containsKey(currArgumentName)) {
-            throw new InvalidInputException("Duplicate arguments or Invalid Arguments (eg. /command, /main");
+            throw new InvalidInputException("Duplicate arguments or Invalid Arguments (eg. /command, /main)");
         }
         argumentsMap.put(currArgumentName, currArgument.replace("\\/", "/").strip());
     }

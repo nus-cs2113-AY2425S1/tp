@@ -244,7 +244,7 @@ public class RecurringExpenseList extends ExpenseList {
     public void loadFromCsv(String filePath) throws StorageException {
         clear();
         CsvUtils.readCsv(filePath, line -> {
-            addRecurringExpense(Float.parseFloat(line[2]), line[1], line[0], line[4], line[5]);
+            addRecurringExpense(CsvUtils.parseFloat(line[2]), line[1], line[0], line[4], line[5]);
         });
 
         LocalDate currentDate = DateUtils.getCurrentDate();
