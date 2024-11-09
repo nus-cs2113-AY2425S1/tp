@@ -2,7 +2,7 @@
 package seedu.spendswift;
 
 public class UI {
-    //public static final String SEPARATOR = "_".repeat(30);
+    public static final String SEPARATOR = "_".repeat(50);
     public static final String WELCOME_MESSAGE = "Hiya! How can I assist?";
     public static final String EXIT_MESSAGE = "Goodbye! :> Hope to see you again soon!";
     public static final String FILE_NOT_FOUND = "Data file not found.";
@@ -23,38 +23,55 @@ public class UI {
     public static final String HELP_EXIT = "Exit: bye";
 
     public void printWelcomeMessage() {
+        System.out.println(SEPARATOR);
         System.out.println(WELCOME_MESSAGE);
+        System.out.println(SEPARATOR);
     }
 
     public void printExitMessage() {
+        System.out.println(SEPARATOR);
         System.out.println(EXIT_MESSAGE);
+        System.out.println(SEPARATOR);
     }
 
     public void printDataLoaded() {
+        System.out.println(SEPARATOR);
         System.out.println(DATA_LOADED_MESSAGE);
+        System.out.println(SEPARATOR);
     }
 
     public void printDataSaved() {
+        System.out.println(SEPARATOR);
         System.out.println(DATA_SAVED_MESSAGE);
+        System.out.println(SEPARATOR);
     }
 
     public void printLoadingError(String errorMessage) {
+        System.out.println(SEPARATOR);
         System.out.println(ERROR_LOADING_DATA_MESSAGE + errorMessage);
+        System.out.println(SEPARATOR);
     }
 
     public void printSavingError(String errorMessage) {
+        System.out.println(SEPARATOR);
         System.out.println(ERROR_SAVING_DATA_MESSAGE + errorMessage);
+        System.out.println(SEPARATOR);
     }
 
     public void printParserInvalidInput() {
+        System.out.println(SEPARATOR);
         System.out.println(INVALID_INPUT_MESSAGE);
+        System.out.println(SEPARATOR);
     }
 
     public void printFileNotFound() {
+        System.out.println(SEPARATOR);
         System.out.println(FILE_NOT_FOUND);
+        System.out.println(SEPARATOR);
     }
 
     public void printHelpMessage() {
+        System.out.println(SEPARATOR);
         System.out.println(HELP_INTRO_MESSAGE);
         System.out.println(HELP_ADD_EXPENSE);
         System.out.println(HELP_DELETE_EXPENSE);
@@ -65,5 +82,6 @@ public class UI {
         System.out.println(HELP_VIEW_BUDGET);
         System.out.println(HELP_TOGGLE_RESET);
         System.out.println(HELP_EXIT);
+        System.out.println(SEPARATOR);
     }
 }
