@@ -182,9 +182,6 @@ public class ExpenseList {
                 String dateAdded = line[3];
                 addExpense(price, description, category, dateAdded);
                 // makes it slightly less cohesive, but to do so a refactor of the program state might be better.
-                if (categoryFacade != null) {
-                    categoryFacade.addCategory(category, price);
-                }
             } catch (Exception e) {
                 throw new StorageException("An expense's price, description, category and/or date added is missing");
             }

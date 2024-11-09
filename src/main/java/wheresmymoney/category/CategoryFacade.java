@@ -68,15 +68,18 @@ public class CategoryFacade {
     }
     
     /**
-     * Calls {@code CategoryStorage} to load category information from a CSV file.
+     * Calls {@code CategoryStorage} to load category information from a CSV file,
+     * then calls {@code CategoryFilter} to display the categories which are
+     * nearing or exceeding the limit.
      *
      * @param expenseList the list of expenses to track category information
      * @throws WheresMyMoneyException if there is an error while loading category info
      */
     public void loadCategoryInfo(ExpenseList expenseList, String filePath) throws WheresMyMoneyException {
         categoryTracker.clear();
-        categoryTracker = categoryStorage.loadFromCsv(
-                filePath, categoryStorage.trackCategoriesOf(expenseList.getExpenseList()));
+        categoryTracker = categoryStorage.trackCategoriesOf(expenseList.getExpenseList());
+        categoryStorage.loadFromCsv(filePath, categoryTracker);
+        displayFilteredCategories();
     }
 
 
