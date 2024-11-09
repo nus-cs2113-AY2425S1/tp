@@ -73,6 +73,7 @@ The `Add Transaction` command allows you to add either an income or expense entr
 - `DATE` (optional): Date of the transaction in `dd/MM/yy` format. If omitted, today’s date is used.
   - Note: The app does not allow transactions to be entered with a date later than the system date.
 - `CATEGORY` (optional): Specifies a category for the transaction, aiding in detailed financial tracking. If omitted, it defaults to `UNCATEGORIZED`.
+  - Note: Category are not case-sensitive.
 
 **Category Options**:
 - **Expense**: Categories include `FOOD`, `TRANSPORT`, `ENTERTAINMENT`, `UTILITIES`, `OTHER`, and `UNCATEGORIZED`.
