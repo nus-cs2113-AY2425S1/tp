@@ -42,6 +42,26 @@ public class BudgetLogic {
     }
 
     /**
+     * Retrieves the current budget.
+     *
+     * @return the current budget
+     */
+    public Budget getBudget() {
+        return budget;
+    }
+
+    public void promptUserToSetBudget(FinancialList financialList) throws FinanceBuddyException {
+        LocalDate budgetSetDate = budget.getBudgetSetDate();
+        if (!isCurrentMonth(budgetSetDate)) {
+            System.out.println("Your budget was set in a previous month.");
+            setBudget(financialList);
+        }
+        if (!budget.isBudgetSet()) {
+            setBudget(financialList);
+        }
+    }
+
+    /**
      * Sets the budget if it has not been set. If the budget is already set,
      * prompts the user to confirm whether they want to modify it.
      */
@@ -54,15 +74,6 @@ public class BudgetLogic {
             ui.displayModifyBudgetMessage(budget.getBudgetAmount());
             handleSetBudget(financialList);
         }
-    }
-
-    /**
-     * Retrieves the current budget.
-     *
-     * @return the current budget
-     */
-    public Budget getBudget() {
-        return budget;
     }
 
     /**
