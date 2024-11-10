@@ -11,7 +11,6 @@ import seedu.exchangecoursemapper.command.ObtainContactsCommand;
 import seedu.exchangecoursemapper.command.ListPersonalTrackerCommand;
 import seedu.exchangecoursemapper.command.CompareMappedCommand;
 import seedu.exchangecoursemapper.command.FindCoursesCommand;
-import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
 
@@ -106,12 +105,13 @@ public class Parser {
     /**
      * Parses an abbreviated partner university name and returns the full name.
      *
-     * @param Pu User's partner university input.
+     * @param PU User's partner university input.
+     *
      * @return the full name of the partner university if it matches a known abbreviation.
      * It will return the original string if no match with the formatted abbreviation is found.
      */
-    public String parsePUAbbreviations(String Pu) {
-        String formattedPU = Pu.toLowerCase().trim();
+    public String parsePUAbbreviations(String PU) {
+        String formattedPU = PU.toLowerCase().trim();
         if (formattedPU.equals(THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION)) {
             formattedPU = THE_UNIVERSITY_OF_WESTERN_AUSTRALIA;
         } else if (formattedPU.equals(THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION)) {
