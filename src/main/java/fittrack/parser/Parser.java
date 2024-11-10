@@ -218,17 +218,17 @@ public class Parser {
 
         case ADD_REMINDER_COMMAND:
             try {
-            sentence = description.split(" ", 2);
+                sentence = description.split(" ", 2);
 
-            String inputDeadline = sentence[1];
-            description = sentence[0];
+                String inputDeadline = sentence[1];
+                description = sentence[0];
 
-            assert !description.isEmpty() : "Reminder description must not be empty";
-            assert !Objects.equals(inputDeadline, "") : "Reminder deadline must not be empty";
-            LocalDateTime deadline = parseDeadline(inputDeadline);
-            reminderList.add(new Reminder(description, deadline, user));
-            printAddedReminder(reminderList);
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+                assert !description.isEmpty() : "Reminder description must not be empty";
+                assert !Objects.equals(inputDeadline, "") : "Reminder deadline must not be empty";
+                LocalDateTime deadline = parseDeadline(inputDeadline);
+                reminderList.add(new Reminder(description, deadline, user));
+                printAddedReminder(reminderList);
+                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
 
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date format. Please use 'dd/MM/yyyy HH:mm'.");
@@ -253,33 +253,33 @@ public class Parser {
             break;
 
         case ADD_GOAL_COMMAND:  // use "add-goal" consistently in input and command handling
-           try {
-            if (!description.isEmpty()) {
-                String[] goalParts = description.split(" ", 2);
-                String goalDescription = goalParts[0];
-                LocalDateTime goalDeadline = null;
+            try {
+                if (!description.isEmpty()) {
+                    String[] goalParts = description.split(" ", 2);
+                    String goalDescription = goalParts[0];
+                    LocalDateTime goalDeadline = null;
 
-                if (goalParts.length > 1) {
-                    String goalDeadlineInput = goalParts[1];
-                    try {
-                        goalDeadline = parseGoalDeadline(goalDeadlineInput);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Invalid date format: " + e.getMessage());
-                        return;
+                    if (goalParts.length > 1) {
+                        String goalDeadlineInput = goalParts[1];
+                        try {
+                            goalDeadline = parseGoalDeadline(goalDeadlineInput);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Invalid date format: " + e.getMessage());
+                            return;
+                        }
                     }
+                    Goal newGoal = new Goal(goalDescription, goalDeadline);
+                    goalList.add(newGoal);
+                    printAddedGoal(goalList);
+                } else {
+                    System.out.println("Please specify a goal to add.");
                 }
-                Goal newGoal = new Goal(goalDescription, goalDeadline);
-                goalList.add(newGoal);
-                printAddedGoal(goalList);
-            } else {
-                System.out.println("Please specify a goal to add.");
+                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format for goal deadline. Please use 'dd/MM/yyyy HH:mm'.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format for goal deadline. Please use 'dd/MM/yyyy HH:mm'.");
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
             break;
 
         case DELETE_GOAL_COMMAND:
