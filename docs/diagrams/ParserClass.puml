@@ -4,7 +4,6 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor PARSER_COLOR
 skinparam classBackgroundColor PARSER_COLOR
-scale 0.5
 skinparam defaultFontSize 40
 
 interface CommandParser {

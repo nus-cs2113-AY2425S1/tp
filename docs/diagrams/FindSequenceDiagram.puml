@@ -1,51 +1,84 @@
 @startuml
 'https://plantuml.com/sequence-diagram
-
 !include style.puml
 skinparam ArrowFormatStyle plain
+skinparam style strictuml
+
+<style>
+sequenceDiagram  {
+  group {
+    FontColor white
+    FontStyle normal
+  }
+}
+</STYLE>
 
 actor User
-participant Parser PARSER_COLOR
-participant FindParser PARSER_COLOR
-participant Find PARSER_COLOR
-participant FindPatientCommand PARSER_COLOR
-participant Hospital PARSER_COLOR
-participant CommandResult PARSER_COLOR
-participant FindTaskCommand PARSER_COLOR
-participant TaskList PARSER_COLOR
-participant Logger LOGGER_COLOR
-scale 0.5
-skinparam defaultFontSize 20
+participant ":Parser" as Parser PARSER_COLOR
+participant ":FindParser" as FindParser PARSER_COLOR
+participant ":Find" as Find COMMAND_COLOR
+participant ":FindPatientCommand" as FindPatientCommand COMMAND_COLOR
+participant ":Hospital" as Hospital DATA_COLOR
+participant ":CommandResult" as CommandResult COMMAND_COLOR
+participant ":FindTaskCommand" as FindTaskCommand COMMAND_COLOR
+participant ":TaskList" as TaskList DATA_COLOR
+scale 1.5
 
 User -> Parser : parseCommand(line, state)
+activate Parser
 Parser -> FindParser : execute(line, state)
+activate FindParser
 
 alt State is MAIN_STATE
     FindParser -> Find : extract(line)
-    Find -> FindParser : keyword
+    activate Find
+    Find --> FindParser : keyword
+    deactivate Find
+    create FindPatientCommand
     FindParser -> FindPatientCommand : new FindPatientCommand(keyword)
+    activate FindPatientCommand
     FindPatientCommand -> FindPatientCommand : execute()
     FindPatientCommand -> Hospital : findPatients(keyword)
-    alt No matching patients found
-        FindPatientCommand -> CommandResult : new CommandResult(MESSAGE_NO_MATCH)
-    else Patients found
-        FindPatientCommand -> CommandResult : new CommandResult(MESSAGE_SUCCESS)
+    activate Hospital
+    Hospital --> FindPatientCommand
+    deactivate Hospital
+    alt <color: black>   [No matching patients found] </color>
+    create CommandResult
+        FindPatientCommand -> CommandResult : new CommandResult()
+        activate CommandResult
+        deactivate CommandResult
+        CommandResult --> FindPatientCommand
+    else alt <color: black>             [Patients found] </color>
+        FindPatientCommand -> CommandResult : new CommandResult()
+        activate CommandResult
+        deactivate CommandResult
+        CommandResult --> FindPatientCommand
     end
+    deactivate FindPatientCommand
 else State is TASK_STATE
     FindParser -> Find : extract(line)
-    Find -> FindParser : keyword
+    activate Find
+    Find --> FindParser : keyword
+    deactivate Find
+    create FindTaskCommand
     FindParser -> FindTaskCommand : new FindTaskCommand(keyword)
+    activate FindTaskCommand
     FindTaskCommand -> FindTaskCommand : execute()
     FindTaskCommand -> TaskList : findTasks(keyword)
-    alt No matching tasks found
-        FindTaskCommand -> CommandResult : new CommandResult(MESSAGE_NO_MATCH)
+    activate TaskList
+    TaskList --> FindTaskCommand
+    deactivate TaskList
+    alt No tasks found
+        FindTaskCommand --> CommandResult : new CommandResult()
     else Tasks found
-        FindTaskCommand -> CommandResult : new CommandResult(MESSAGE_SUCCESS)
+        FindTaskCommand --> CommandResult : new CommandResult()
     end
-end
+    FindTaskCommand --> FindParser
+    deactivate FindTaskCommand
+    FindParser --> Parser
+    deactivate Parser
+    Parser --> User
 
-alt Invalid command
-    Parser -> Logger : log WARNING "Invalid command"
 end
 
 @enduml
