@@ -7,7 +7,7 @@
 ## Design & implementation
 
 1. [Design](#1-design)
-    1. [Architecture](#11-architecture)
+    1. [Architecture](#11-Architecture)
     2. [UI Component](#12-UI-component)
     3. [Logic Component](#13-logic-component)
     4. [Model Component](#14-model-component)
@@ -20,12 +20,12 @@
     5. [DeleteCommand Implementation](#deletecommand-implementation)
     6. [SortCommand Implementation](#sortcommand-implementation)
     7. [UpdateCommand Implementation](#updatecommand-implementation)
-    8. [RemoveCommand Implementation](#removecommand-implementation)
+    8. [RemoveCommand Implementation](#RemoveCommand-implementation)
 ---
 
 ## About the Product
 1. [Product Scope](#Product-Scope)
-   1. [Target User Profile](#Target-user-profile)
+   1. [Target User Profile](#Target-User-Profile)
    2. [Value Proposition](#Value-proposition)
 2. [User Stories](#User-Stories)
 3. [Non-Functional Requirements](#Non-Functional-Requirements)
@@ -332,8 +332,8 @@ The `RemoveCommand` class is responsible for removing the values within fields o
 The following sequence diagram shows how the `RemoveCommand` is executed:
 ![](UML/RemoveCommand_Sequence_Diagram.png)
 
-## Product scope
-### Target user profile
+## Product Scope
+### Target User Profile
 
 The target user profile for EasInternship includes:
     
@@ -350,7 +350,7 @@ For example, John is a Computer Engineering Junior with the following characteri
 
 These traits make John a suitable candidate to use EasInternship.
 
-### Value proposition
+### Value Proposition
 
 This product helps users streamline the process of tracking and managing their internship applications by allowing them to:
 
