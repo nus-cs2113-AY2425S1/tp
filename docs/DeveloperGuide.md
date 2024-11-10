@@ -629,7 +629,7 @@ Given below is an example usage scenario and the behaviour of the `filter` featu
 <div style="page-break-after: always;"></div>
 The interactions between components of `FilterCommand#execute` are shown in the **Sequence Diagram** below:
 
-<img src="images/FilterCommandSequenceDiagram2.png" width="550">
+<img src="images/FilterCommandSequenceDiagram.png" width="550">
 <div style="page-break-after: always;"></div>
 
 ### Find feature

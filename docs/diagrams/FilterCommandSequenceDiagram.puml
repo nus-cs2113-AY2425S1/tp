@@ -59,8 +59,14 @@ else filter by priority
     deactivate FC
 end alt
 
-return Display FilteredEventList and filter result message
-
 destroy FEL
+
+note left of FEL
+    The lifeline does not
+    end here due to a
+    PlantUML limitation.
+end note
+
+return Display FilteredEventList and filter result message
 
 @enduml
