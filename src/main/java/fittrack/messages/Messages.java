@@ -46,6 +46,8 @@ public class Messages {
             + System.lineSeparator() + "list                                                             list"
             + System.lineSeparator() + "view (session index)                                             view 1"
             + System.lineSeparator() + "edit (session index) (exercise acronym) (repetitions/time)       edit 1 PU 1"
+            + System.lineSeparator() + " Pull Ups : PU           Shuttle Run: SR                 Sit And Reach: SAR"
+            + System.lineSeparator() + " Sit Ups: SU             Standing Broad Jump: SBJ        Walk And Run: WAR"
             + System.lineSeparator() + "edit-mood (session index) (mood description)                     "
             + "edit-mood 1 Sad"
             + System.lineSeparator() + "delete (session index)                                           delete 1"

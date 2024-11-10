@@ -1,8 +1,9 @@
 @startuml
 
-participant "Parser" as parser
-participant "TrainingSession" as ts
-participant "ExerciseStation" as es
+participant ":Parser" as parser
+participant ":TrainingSession" as ts
+participant ":ExerciseStation" as es
+skinparam style strictuml
 
 parser -> ts: editExercise(Exercise, reps)
 activate ts

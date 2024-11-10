@@ -47,7 +47,7 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 The following Class Diagram elaborates on the interactions between major classes and their multiplicities.
 
 ### Overall Class Diagram
-![Class_Overall.png](Images/Class_Overall.png)
+![Class_Overall.png](Images/Class_Overall.svg)
 
 ## Features
 

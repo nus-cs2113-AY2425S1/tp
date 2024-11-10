@@ -46,7 +46,9 @@ add (session name)                                               add session1
 list                                                             list
 view (session index)                                             view 1
 edit (session index) (exercise acronym) (repetitions/time)       edit 1 PU 1
-edit-mood (session index) (mood description)                     edit-mood Happy
+ Pull Ups : PU           Shuttle Run: SR                 Sit And Reach: SAR
+ Sit Ups: SU             Standing Broad Jump: SBJ        Walk And Run: WAR
+edit-mood (session index) (mood description)                     edit-mood 1 Sad
 delete (session index)                                           delete 1
 remind (Event / Task) (deadline)                                 remind NAPFA DD/MM/YYYY
 list-remind                                                      list-remind 

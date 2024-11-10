@@ -1,49 +1,50 @@
 @startuml
 title Sequence Diagram for "view <Training Session Index>" Command
+skinparam style strictuml
 
-actor User
+actor ":User"
 
-User -> FitTrack: Training Sessions Command
-activate FitTrack
-    FitTrack -> Parser: parse(...)
-        activate Parser
-            Parser -> Ui: printSessionView(...)
-                activate Ui
-                    Ui -> FitTrack : sessionList.get(...)
-                        activate FitTrack
-                            FitTrack --> Ui: TrainingSession
-                        deactivate FitTrack
-                    Ui -> TrainingSession: TrainingSession.viewSession()
-                        activate TrainingSession
-                            note over TrainingSession
-                            Print TrainingSession description and datetime
+":User" -> ":FitTrack": Training Sessions Command
+activate ":FitTrack"
+    ":FitTrack" -> ":Parser": parse(...)
+        activate ":Parser"
+            ":Parser" -> ":Ui": printSessionView(...)
+                activate ":Ui"
+                    ":Ui" -> ":FitTrack" : sessionList.get(...)
+                        activate ":FitTrack"
+                            ":FitTrack" --> ":Ui": ":TrainingSession"
+                        deactivate ":FitTrack"
+                    ":Ui" -> ":TrainingSession": TrainingSession.viewSession()
+                        activate ":TrainingSession"
+                            note over ":TrainingSession"
+                            Print ":TrainingSession" description and datetime
                             end note
-                            loop for each ExerciseStation
-                                TrainingSession -> ExerciseStation: exercise.getPoints(user)
-                                activate ExerciseStation
-                                    ExerciseStation -> Calculator: calculatePoints()
-                                    activate Calculator
-                                    Calculator --> ExerciseStation: calculatePoints
-                                    deactivate Calculator
-                                ExerciseStation --> TrainingSession: exercisePoint
-                                TrainingSession -> ExerciseStation: exercise.getName()
-                                ExerciseStation --> TrainingSession: exerciseName
-                                deactivate ExerciseStation
-                                note over TrainingSession
+                            loop for each ":ExerciseStation"
+                                ":TrainingSession" -> ":ExerciseStation": exercise.getPoints(user)
+                                activate ":ExerciseStation"
+                                    ":ExerciseStation" -> ":Calculator": calculatePoints()
+                                    activate ":Calculator"
+                                    ":Calculator" --> ":ExerciseStation": calculatePoints
+                                    deactivate ":Calculator"
+                                ":ExerciseStation" --> ":TrainingSession": exercisePoint
+                                ":TrainingSession" -> ":ExerciseStation": exercise.getName()
+                                ":ExerciseStation" --> ":TrainingSession": exerciseName
+                                deactivate ":ExerciseStation"
+                                note over ":TrainingSession"
                                 Print exerciseName and exercise
                                 end note
                             end loop
-                            note over TrainingSession
+                            note over ":TrainingSession"
                             Print totalPoints and overallAward
                             end note
-                            deactivate ExerciseStation
-                            TrainingSession --> Ui
-                        deactivate TrainingSession
-                Ui --> Parser
-                deactivate Ui
-            Parser --> FitTrack
-        deactivate Parser
-deactivate FitTrack
+                            deactivate ":ExerciseStation"
+                            ":TrainingSession" --> ":Ui"
+                        deactivate ":TrainingSession"
+                ":Ui" --> ":Parser"
+                deactivate ":Ui"
+            ":Parser" --> ":FitTrack"
+        deactivate ":Parser"
+deactivate ":FitTrack"
 
 'activate FitTrack
 'FitTrack -> Parser: parse(...)
