@@ -5,7 +5,7 @@
 - [Developer Guide](#wheresmymoney-developer-guide)
     - [Table of Contents](#table-of-contents)
     - [Acknowledgements](#acknowledgements)
-    - [Design & Implementation](#design-&-implementation)
+    - [Design & Implementation](#design--implementation)
     - [Product Scope](#product-scope)
         - [Target User Profile](#target-user-profile)
         - [Value Proposition](#value-proposition)
