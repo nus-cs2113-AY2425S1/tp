@@ -4,6 +4,7 @@ import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.constants.Messages;
 import seedu.exchangecoursemapper.exception.Exception;
+import seedu.exchangecoursemapper.parser.Parser;
 import seedu.exchangecoursemapper.parser.SchoolContactValidator;
 import seedu.exchangecoursemapper.ui.UI;
 
@@ -21,6 +22,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ObtainContactsCommand.class.getName());
     private static UI ui;
     private static SchoolContactValidator schoolContactValidator;
+    private static Parser parser;
 
     /**
      * Class Constructor
@@ -29,6 +31,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         logger.setLevel(Level.OFF);
         ui = new UI();
         schoolContactValidator = new SchoolContactValidator();
+        parser = new Parser();
     }
 
     /**
@@ -78,6 +81,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         String inputWithoutCommand = userInput.substring(userInput.indexOf(SPACE) + 1).trim();
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
         assert inputParts.length > 0 : Assertions.EMPTY_SCHOOL_NAME;
+        inputParts[0] = parser.parsePUAbbreviations(inputParts[0]);
         return inputParts[0].trim();
     }
 
