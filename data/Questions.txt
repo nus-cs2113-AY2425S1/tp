@@ -62,21 +62,53 @@ Types | Mcq | Which type has a precision of about 15 decimal places? | b | a) fl
 Types | Mcq | What is the size of int in Java? | a | a) 4 bytes | b) 2 bytes | c) 8 bytes | d) 1 byte
 Types | Mcq | Which of these types holds the highest precision? | b | a) float | b) double | c) int | d) short
 
-Git | FillInTheBlank | The command to check the current branch is `git ____`. | branch
-Git | FillInTheBlank | `git ____` is used to update the local branch with remote changes. | pull
-Git | FillInTheBlank | `git ____` stages all changes in the working directory. | add
-Git | FillInTheBlank | `git ____` creates a copy of a repository on a local machine. | clone
-Git | FillInTheBlank | `git ____` creates a new branch. | checkout -b
-Git | TrueFalse | `git merge` combines the histories of two branches. | true
-Git | TrueFalse | `git pull` only downloads changes without merging them. | false
-Git | TrueFalse | Git stores snapshots, not differences between commits. | true
-Git | TrueFalse | `git reset` undoes commits and changes the working directory. | true
-Git | TrueFalse | `git fetch` brings changes into the working directory. | false
-Git | Mcq | Which command initializes a new Git repository? | a | a) git init | b) git start | c) git create | d) git repository
-Git | Mcq | Which command stages files for commit? | b | a) git stage | b) git add | c) git commit | d) git push
-Git | Mcq | Which command lists all branches? | c | a) git log | b) git branch -a | c) git branch | d) git show
-Git | Mcq | Which command updates the local repository with remote changes? | b | a) git fetch | b) git pull | c) git update | d) git merge
-Git | Mcq | Which command shows the commit history? | a | a) git log | b) git history | c) git status | d) git commits
+Arrays | FillInTheBlank | The `____` method is used to copy elements from one array to another. | System.arraycopy
+Arrays | FillInTheBlank | The `____` method returns the length of an array. | length
+Arrays | FillInTheBlank | An array's index starts at `____`. | 0
+Arrays | FillInTheBlank | The `____` method can be used to sort an array. | Arrays.sort
+Arrays | FillInTheBlank | Multidimensional arrays are also called `____` arrays. | nested
+Arrays | TrueFalse | Java supports arrays with more than one dimension. | true
+Arrays | TrueFalse | Arrays in Java are dynamic in size. | false
+Arrays | TrueFalse | Array indices can be negative. | false
+Arrays | TrueFalse | Arrays in Java can hold multiple data types. | false
+Arrays | TrueFalse | The `length` property is a method. | false
+Arrays | Mcq | What is the correct way to declare an array in Java? | b | a) int[] arr() | b) int[] arr | c) array int arr | d) int arr[]
+Arrays | Mcq | How do you access the last element of an array? | c | a) arr[0] | b) arr[length] | c) arr[arr.length - 1] | d) arr[-1]
+Arrays | Mcq | Which method is used to fill an array with a specific value? | a | a) Arrays.fill | b) Arrays.populate | c) Arrays.insert | d) Arrays.assign
+Arrays | Mcq | What happens if you try to access an index outside the array's bounds? | b | a) Array is resized | b) ArrayIndexOutOfBoundsException | c) Returns null | d) Compiles but throws no error
+Arrays | Mcq | What keyword is used to create an array? | c | a) newarray | b) create | c) new | d) array
+
+Methods | FillInTheBlank | A method with no return type uses the `____` keyword. | void
+Methods | FillInTheBlank | The `____` keyword indicates a method is accessible without an object. | static
+Methods | FillInTheBlank | Methods with the same name but different parameters demonstrate `____`. | overloading
+Methods | FillInTheBlank | The method signature includes the method name and `____`. | parameters
+Methods | FillInTheBlank | The `____` keyword can be used to refer to the current object within a method. | this
+Methods | TrueFalse | A method can return multiple values in Java. | false
+Methods | TrueFalse | Method overloading is determined by the return type. | false
+Methods | TrueFalse | Static methods can be overridden. | false
+Methods | TrueFalse | The `return` statement can be used in a `void` method. | true
+Methods | TrueFalse | Constructors are methods in Java. | false
+Methods | Mcq | What is a method in Java that does not return a value called? | d | a) null method | b) main method | c) constructor | d) void method
+Methods | Mcq | Which of the following is the correct way to define a method in Java? | a | a) public void myMethod() | b) method myMethod() | c) public myMethod() | d) void method()
+Methods | Mcq | What is the keyword to call the current class's method? | b | a) super | b) this | c) self | d) method
+Methods | Mcq | Which statement is used to exit a method? | d | a) end | b) stop | c) halt | d) return
+Methods | Mcq | Which of the following is used to indicate that a method has no parameters? | a | a) () | b) {} | c) <> | d) []
+
+Classes | FillInTheBlank | A `____` is an instance of a class. | object
+Classes | FillInTheBlank | The `____` keyword is used to create an object. | new
+Classes | FillInTheBlank | Class attributes are often referred to as `____`. | fields
+Classes | FillInTheBlank | A constructor does not have a `____` type. | return
+Classes | FillInTheBlank | `____` are used to access attributes of a class. | methods
+Classes | TrueFalse | A Java class can extend multiple classes. | false
+Classes | TrueFalse | Each object has its own copy of class methods. | false
+Classes | TrueFalse | Constructors can be overloaded. | true
+Classes | TrueFalse | The keyword `this` is used to reference the current object. | true
+Classes | TrueFalse | A class can implement multiple interfaces. | true
+Classes | Mcq | Which keyword is used to create a new instance of a class? | b | a) instance | b) new | c) create | d) object
+Classes | Mcq | Which of these is not a type of class member? | d | a) Field | b) Method | c) Constructor | d) Interface
+Classes | Mcq | What does a constructor return? | d | a) Object | b) Null | c) Void | d) Nothing
+Classes | Mcq | What is a blueprint for creating objects called? | c | a) Method | b) Interface | c) Class | d) Object
+Classes | Mcq | Which keyword is used to inherit a class? | a | a) extends | b) implements | c) inherits | d) uses
 
 OOP | FillInTheBlank | The `____` principle ensures that a class hides its internal implementation. | encapsulation
 OOP | FillInTheBlank | The `____` keyword is used to inherit from another class in Java. | extends
@@ -109,6 +141,102 @@ Inheritance | Mcq | What is the purpose of the `super` keyword? | c | a) To crea
 Inheritance | Mcq | If a method in a subclass has the same signature as a method in its superclass, it is called: | b | a) Overloading | b) Overriding | c) Shadowing | d) Hiding
 Inheritance | Mcq | Which of these keywords restricts a class from being inherited? | a | a) final | b) static | c) private | d) protected
 Inheritance | Mcq | The default access modifier allows class members to be accessed: | c | a) From any class | b) Only from the same class | c) Within the same package | d) From subclasses only
+
+Polymorphism | FillInTheBlank | `____` is the process of using a single method signature to represent different behaviors. | Polymorphism
+Polymorphism | FillInTheBlank | The `____` keyword is used to override a method in a subclass. | @Override
+Polymorphism | FillInTheBlank | Polymorphism allows for `____` to decide which method implementation to execute. | runtime
+Polymorphism | FillInTheBlank | Method `____` means having multiple methods with the same name but different parameters. | overloading
+Polymorphism | FillInTheBlank | Polymorphism in Java is achieved using method overriding and method `____`. | overloading
+Polymorphism | TrueFalse | Polymorphism allows one interface to be used for different underlying data types. | true
+Polymorphism | TrueFalse | Static methods can participate in runtime polymorphism. | false
+Polymorphism | TrueFalse | Method overloading is an example of compile-time polymorphism. | true
+Polymorphism | TrueFalse | Polymorphism applies only to methods, not classes or fields. | true
+Polymorphism | TrueFalse | Polymorphism can lead to dynamic method invocation in Java. | true
+Polymorphism | Mcq | Which keyword is used to indicate a method is being overridden? | a | a) @Override | b) extends | c) final | d) abstract
+Polymorphism | Mcq | Which type of polymorphism occurs during compile time? | b | a) Method overriding | b) Method overloading | c) Inheritance | d) Interface
+Polymorphism | Mcq | Which type of polymorphism occurs during runtime? | a | a) Method overriding | b) Method overloading | c) Constructor chaining | d) Static method call
+Polymorphism | Mcq | What is polymorphism? | d | a) Using different classes in one package | b) Inheriting multiple classes | c) Storing different data types | d) Using one method signature for different behaviors
+Polymorphism | Mcq | What is required for method overriding? | c | a) Same name and different parameters | b) Different name and parameters | c) Same name, same parameters | d) Different name, same parameters
+
+Encapsulation | FillInTheBlank | The process of hiding data and providing access through methods is called `____`. | encapsulation
+Encapsulation | FillInTheBlank | The `____` keyword restricts access to class members within the class itself. | private
+Encapsulation | FillInTheBlank | Getters and setters are used to access `____` members of a class. | private
+Encapsulation | FillInTheBlank | The `____` principle ensures that class details are hidden from the outside. | encapsulation
+Encapsulation | FillInTheBlank | The main purpose of encapsulation is to provide `____` control. | access
+Encapsulation | TrueFalse | Encapsulation only involves making fields private. | false
+Encapsulation | TrueFalse | Encapsulation helps to protect the state of an object. | true
+Encapsulation | TrueFalse | Fields in a class can be made accessible directly by using the `public` modifier. | true
+Encapsulation | TrueFalse | Encapsulation breaks the OOP principle of hiding implementation. | false
+Encapsulation | TrueFalse | Using getters and setters violates encapsulation. | false
+Encapsulation | Mcq | Which of these best defines encapsulation? | a | a) Wrapping data and methods together and restricting access | b) Creating an abstract class | c) Inheriting from multiple classes | d) Using static methods
+Encapsulation | Mcq | How do you make a field private in Java? | c | a) protected | b) public | c) private | d) static
+Encapsulation | Mcq | What is the main advantage of encapsulation? | d | a) Faster execution | b) Increased memory efficiency | c) Simplified syntax | d) Controlled access to data
+Encapsulation | Mcq | Which methods are commonly used to modify private fields? | b | a) Static methods | b) Getters and setters | c) Constructors | d) Abstract methods
+Encapsulation | Mcq | Which keyword is used to prevent a method from being accessed directly outside its class? | c | a) public | b) protected | c) private | d) final
+
+Abstraction | FillInTheBlank | The `____` keyword is used to declare an abstract class in Java. | abstract
+Abstraction | FillInTheBlank | Abstract classes cannot be `____`. | instantiated
+Abstraction | FillInTheBlank | An abstract method does not have a method `____`. | body
+Abstraction | FillInTheBlank | Only `____` classes can have abstract methods. | abstract
+Abstraction | FillInTheBlank | Abstraction focuses on `____` details instead of implementation details. | essential
+Abstraction | TrueFalse | An abstract class can be instantiated directly. | false
+Abstraction | TrueFalse | An abstract method must be implemented by subclasses. | true
+Abstraction | TrueFalse | All methods in an abstract class must be abstract. | false
+Abstraction | TrueFalse | An interface is a type of abstraction in Java. | true
+Abstraction | TrueFalse | Abstract classes can have constructors. | true
+Abstraction | Mcq | Which keyword is used to declare an abstract method? | c | a) public | b) static | c) abstract | d) private
+Abstraction | Mcq | Which of the following is true about abstract classes? | a | a) They cannot be instantiated | b) They cannot have constructors | c) They cannot have fields | d) They cannot have any methods
+Abstraction | Mcq | What must a subclass do when inheriting an abstract method? | b | a) Ignore it | b) Implement it | c) Overload it | d) Call it in the constructor
+Abstraction | Mcq | Which of the following cannot be abstract? | d | a) Class | b) Method | c) Interface | d) Variable
+Abstraction | Mcq | Abstract classes are primarily used for what purpose? | a | a) To provide a base with incomplete implementations | b) To prevent instantiation | c) For memory efficiency | d) To improve performance
+
+Syntax | FillInTheBlank | A statement in Java ends with a `____`. | semicolon
+Syntax | FillInTheBlank | `____` are used to define code blocks in Java. | Curly braces
+Syntax | FillInTheBlank | Java is a case-____ language. | sensitive
+Syntax | FillInTheBlank | A method declaration includes an access modifier, return type, and `____`. | name
+Syntax | FillInTheBlank | The `____` keyword is used to import packages in Java. | import
+Syntax | TrueFalse | Java is a case-insensitive programming language. | false
+Syntax | TrueFalse | Method names in Java cannot start with numbers. | true
+Syntax | TrueFalse | Java requires every line of code to end with a semicolon. | false
+Syntax | TrueFalse | The main method is where the execution of a Java program begins. | true
+Syntax | TrueFalse | The `import` statement is used to bring external libraries into the Java program. | true
+Syntax | Mcq | Which symbol is used to end a statement in Java? | b | a) : | b) ; | c) . | d) ,
+Syntax | Mcq | Which of these is a correct Java variable name? | d | a) 123name | b) name-1 | c) $name@ | d) name123
+Syntax | Mcq | What does "case-sensitive" mean in Java? | a | a) Upper and lower case letters are distinct | b) Only uppercase letters are allowed | c) Lowercase letters are ignored | d) Uppercase letters are converted to lowercase
+Syntax | Mcq | What is the proper way to begin a Java class? | c | a) private class MyClass | b) static class MyClass | c) public class MyClass | d) void class MyClass
+Syntax | Mcq | Which keyword is used to import a package in Java? | d | a) package | b) class | c) include | d) import
+
+Interfaces | FillInTheBlank | The `____` keyword is used to declare an interface in Java. | interface
+Interfaces | FillInTheBlank | An interface can contain only `____` methods until Java 8. | abstract
+Interfaces | FillInTheBlank | A class uses the `____` keyword to implement an interface. | implements
+Interfaces | FillInTheBlank | Multiple interfaces can be implemented by a single `____`. | class
+Interfaces | FillInTheBlank | Interfaces provide a way to achieve `____` in Java. | abstraction
+Interfaces | TrueFalse | An interface can contain concrete methods before Java 8. | false
+Interfaces | TrueFalse | A class can implement multiple interfaces in Java. | true
+Interfaces | TrueFalse | An interface can have private methods in Java 9 and above. | true
+Interfaces | TrueFalse | Interfaces can contain constructors. | false
+Interfaces | TrueFalse | Interfaces can contain static methods starting from Java 8. | true
+Interfaces | Mcq | Which keyword is used to implement an interface in a class? | c | a) extends | b) interface | c) implements | d) import
+Interfaces | Mcq | What can an interface contain in Java 8 and above? | a | a) Default methods | b) Constructors | c) Private fields | d) Concrete classes
+Interfaces | Mcq | What is the main purpose of an interface? | d | a) To encapsulate data | b) To inherit classes | c) To prevent instantiation | d) To specify methods that must be implemented
+Interfaces | Mcq | How many interfaces can a class implement? | b | a) Only one | b) Multiple | c) None | d) Only two
+Interfaces | Mcq | Which of the following is NOT allowed in an interface before Java 8? | c | a) abstract methods | b) public static final fields | c) concrete methods | d) public fields
+
+Git | FillInTheBlank | The command to check the current branch is `git ____`. | branch
+Git | FillInTheBlank | `git ____` is used to update the local branch with remote changes. | pull
+Git | FillInTheBlank | `git ____` stages all changes in the working directory. | add
+Git | FillInTheBlank | `git ____` creates a copy of a repository on a local machine. | clone
+Git | FillInTheBlank | `git ____` creates a new branch. | checkout -b
+Git | TrueFalse | `git merge` combines the histories of two branches. | true
+Git | TrueFalse | `git pull` only downloads changes without merging them. | false
+Git | TrueFalse | Git stores snapshots, not differences between commits. | true
+Git | TrueFalse | `git reset` undoes commits and changes the working directory. | true
+Git | TrueFalse | `git fetch` brings changes into the working directory. | false
+Git | Mcq | Which command initializes a new Git repository? | a | a) git init | b) git start | c) git create | d) git repository
+Git | Mcq | Which command stages files for commit? | b | a) git stage | b) git add | c) git commit | d) git push
+Git | Mcq | Which command lists all branches? | c | a) git log | b) git branch -a | c) git branch | d) git show
+Git | Mcq | Which command updates the local repository with remote changes? | b | a) git fetch | b) git pull | c) git update | d) git merge
+Git | Mcq | Which command shows the commit history? | a | a) git log | b) git history | c) git status | d) git commits
 
 Threads | FillInTheBlank | The `____` interface must be implemented to create a thread. | Runnable
 Threads | FillInTheBlank | The `____` method is called to start a thread. | start
@@ -173,52 +301,4 @@ Streams | Mcq | What does the `map` method do in a stream? | b | a) Filters elem
 Streams | Mcq | Which method in a stream is used to count elements? | c | a) collect | b) filter | c) count | d) reduce
 Streams | Mcq | Which stream method is used to sort elements? | d | a) filter | b) map | c) forEach | d) sorted
 Streams | Mcq | Which operation is not terminal in a stream? | a | a) map | b) forEach | c) reduce | d) collect
-
-Arrays | FillInTheBlank | The `____` method is used to copy elements from one array to another. | System.arraycopy
-Arrays | FillInTheBlank | The `____` method returns the length of an array. | length
-Arrays | FillInTheBlank | An array's index starts at `____`. | 0
-Arrays | FillInTheBlank | The `____` method can be used to sort an array. | Arrays.sort
-Arrays | FillInTheBlank | Multidimensional arrays are also called `____` arrays. | nested
-Arrays | TrueFalse | Java supports arrays with more than one dimension. | true
-Arrays | TrueFalse | Arrays in Java are dynamic in size. | false
-Arrays | TrueFalse | Array indices can be negative. | false
-Arrays | TrueFalse | Arrays in Java can hold multiple data types. | false
-Arrays | TrueFalse | The `length` property is a method. | false
-Arrays | Mcq | What is the correct way to declare an array in Java? | b | a) int[] arr() | b) int[] arr | c) array int arr | d) int arr[]
-Arrays | Mcq | How do you access the last element of an array? | c | a) arr[0] | b) arr[length] | c) arr[arr.length - 1] | d) arr[-1]
-Arrays | Mcq | Which method is used to fill an array with a specific value? | a | a) Arrays.fill | b) Arrays.populate | c) Arrays.insert | d) Arrays.assign
-Arrays | Mcq | What happens if you try to access an index outside the array's bounds? | b | a) Array is resized | b) ArrayIndexOutOfBoundsException | c) Returns null | d) Compiles but throws no error
-Arrays | Mcq | What keyword is used to create an array? | c | a) newarray | b) create | c) new | d) array
-
-Methods | FillInTheBlank | A method with no return type uses the `____` keyword. | void
-Methods | FillInTheBlank | The `____` keyword indicates a method is accessible without an object. | static
-Methods | FillInTheBlank | Methods with the same name but different parameters demonstrate `____`. | overloading
-Methods | FillInTheBlank | The method signature includes the method name and `____`. | parameters
-Methods | FillInTheBlank | The `____` keyword can be used to refer to the current object within a method. | this
-Methods | TrueFalse | A method can return multiple values in Java. | false
-Methods | TrueFalse | Method overloading is determined by the return type. | false
-Methods | TrueFalse | Static methods can be overridden. | false
-Methods | TrueFalse | The `return` statement can be used in a `void` method. | true
-Methods | TrueFalse | Constructors are methods in Java. | false
-Methods | Mcq | What is a method in Java that does not return a value called? | d | a) null method | b) main method | c) constructor | d) void method
-Methods | Mcq | Which of the following is the correct way to define a method in Java? | a | a) public void myMethod() | b) method myMethod() | c) public myMethod() | d) void method()
-Methods | Mcq | What is the keyword to call the current class's method? | b | a) super | b) this | c) self | d) method
-Methods | Mcq | Which statement is used to exit a method? | d | a) end | b) stop | c) halt | d) return
-Methods | Mcq | Which of the following is used to indicate that a method has no parameters? | a | a) () | b) {} | c) <> | d) []
-
-Classes | FillInTheBlank | A `____` is an instance of a class. | object
-Classes | FillInTheBlank | The `____` keyword is used to create an object. | new
-Classes | FillInTheBlank | Class attributes are often referred to as `____`. | fields
-Classes | FillInTheBlank | A constructor does not have a `____` type. | return
-Classes | FillInTheBlank | `____` are used to access attributes of a class. | methods
-Classes | TrueFalse | A Java class can extend multiple classes. | false
-Classes | TrueFalse | Each object has its own copy of class methods. | false
-Classes | TrueFalse | Constructors can be overloaded. | true
-Classes | TrueFalse | The keyword `this` is used to reference the current object. | true
-Classes | TrueFalse | A class can implement multiple interfaces. | true
-Classes | Mcq | Which keyword is used to create a new instance of a class? | b | a) instance | b) new | c) create | d) object
-Classes | Mcq | Which of these is not a type of class member? | d | a) Field | b) Method | c) Constructor | d) Interface
-Classes | Mcq | What does a constructor return? | d | a) Object | b) Null | c) Void | d) Nothing
-Classes | Mcq | What is a blueprint for creating objects called? | c | a) Method | b) Interface | c) Class | d) Object
-Classes | Mcq | Which keyword is used to inherit a class? | a | a) extends | b) implements | c) inherits | d) uses
 
