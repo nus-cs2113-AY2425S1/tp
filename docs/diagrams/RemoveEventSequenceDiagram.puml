@@ -19,8 +19,7 @@ group sd Remove event
 
         opt event exists in eventList
             eventList -> list : remove(event)
-            activate list  
-            destroy event
+            activate list
             return
         end
     end

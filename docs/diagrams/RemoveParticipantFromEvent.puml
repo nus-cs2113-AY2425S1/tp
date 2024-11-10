@@ -20,8 +20,7 @@ group sd Remove participant from event
 
         opt name of participant equals participantName
             event -> participantList : remove(participant)
-            activate participantList  
-            destroy participant
+            activate participantList
             return
         end
     end
