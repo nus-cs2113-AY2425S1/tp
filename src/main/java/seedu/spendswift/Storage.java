@@ -44,7 +44,8 @@ public class Storage {
     private void saveExpenses(TrackerData trackerData) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(expenseFilePath))) {
             for (Expense expense : trackerData.getExpenses()) {
-                writer.write(expense.getName().trim() + " | " + expense.getAmount() + " | " + expense.getCategory().getName().trim() + "\n");
+                writer.write(expense.getName().trim() + " | " + expense.getAmount() + " | " +
+                        expense.getCategory().getName().trim() + "\n");
             }
         }
     }
@@ -67,7 +68,9 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
-                if (line.isEmpty()) continue;
+                if (line.isEmpty()) {
+                    continue;
+                }
 
                 String[] parts = line.split(" \\| ");
                 String categoryName = parts[0].trim();
@@ -99,7 +102,9 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
-                if (line.isEmpty()) continue;
+                if (line.isEmpty()) {
+                    continue;
+                }
 
                 String[] parts = line.split(" \\| ");
                 if (parts.length != 3) {
@@ -114,7 +119,8 @@ public class Storage {
 
                     Category category = loadOrCreateCategory(trackerData, categoryName);
                     if (!validCategories.contains(categoryName)) {
-                        System.out.println("Warning: Expense has an undefined category. Adding category: " + categoryName);
+                        System.out.println("Warning: Expense has an undefined category. Adding category: " +
+                                categoryName);
                         validCategories.add(categoryName);
                     }
 
