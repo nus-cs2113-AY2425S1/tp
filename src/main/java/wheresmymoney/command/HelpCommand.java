@@ -190,6 +190,9 @@ public class HelpCommand extends Command {
         Ui.displayMessage("Use the delete command to delete a recurring expense.");
         Ui.displayMessage("Format:  delete INDEX /recur");
         Ui.displayMessage("Examples: delete 2 /recur");
+        Ui.displayMessage("Notes:");
+        Ui.displayMessage("    - Deleting a recurring expense will not delete the normal expenses that are " + 
+                "associated with the recurring expense. You will need to delete the normal expenses yourself.");
         Ui.displayMessage("");
     }
 

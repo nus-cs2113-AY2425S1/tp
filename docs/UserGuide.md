@@ -251,7 +251,10 @@ Examples:
 
 Deletes a recurring expense. Use `list /recur` to find the corresponding index.
 
-Format:  `delete INDEX /recur `
+Format:  `delete INDEX /recur`
+
+Notes:
+- Deleting a recurring expense will not delete the normal expenses that are associated with the recurring expense. You will need to delete the normal expenses yourself.
 
 Example: `delete 2 /recur`
 

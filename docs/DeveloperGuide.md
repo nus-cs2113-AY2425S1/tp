@@ -315,7 +315,13 @@ The `RecurringExpenseList` class has the following key methods:
 
 Since the programme does not have an auto-save function upon closing the programme or auto-load when starting the programme, it is up to the user to save their work and to load it again.
 
-To minimise the amount of checks that need to be done, the recurring expenses are only added after the user calls the `load` command.
+Adding a recurring expense will only add a singular normal expense for that specified date (or current date if a date was not specified). All other valid expenses will by added after a `save` and a `load` command is used.
+- The `save` command is needed to register the recurring expense into the system.
+- The `load` command is used to trigger the mechanism to add all other valid expenses according to the date specified. More details can be found in the Developer Guide.
+
+Editing a recurring expense will not edit the normal expenses that are asscociated with the recurring expense. You will need to edit the normal expenses yourself.
+
+Deleting a recurring expense will not delete the normal expenses that are associated with the recurring expense. You will need to delete the normal expenses yourself.
 
 <u>Implementation Details</u>
 
