@@ -2,6 +2,7 @@ package wheresmymoney;
 
 import java.time.LocalDate;
 
+import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 /**
@@ -34,7 +35,7 @@ public class Expense {
     public Expense(Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
         if (!DateUtils.isInDateFormat(dateAdded)){
-            throw new WheresMyMoneyException("Invalid date format" + DateUtils.DATE_FORMAT);
+            throw new InvalidInputException("Invalid date format " + DateUtils.DATE_FORMAT);
         }
         this.setPrice(price);
         this.setDescription(description);

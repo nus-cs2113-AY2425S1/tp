@@ -1,15 +1,14 @@
 package wheresmymoney.command;
 
+import wheresmymoney.utils.ArgumentsMap;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.Ui;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.util.HashMap;
-
 public class ByeCommand extends Command {
-    public ByeCommand(HashMap<String, String> argumentsMap) {
+    public ByeCommand(ArgumentsMap argumentsMap) {
         super(argumentsMap);
     }
 

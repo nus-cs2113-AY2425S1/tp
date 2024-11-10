@@ -3,6 +3,7 @@ package wheresmymoney;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.command.Command;
 import wheresmymoney.exception.WheresMyMoneyException;
+import wheresmymoney.utils.Parser;
 
 
 public class Main {

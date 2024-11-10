@@ -1,19 +1,19 @@
 package wheresmymoney.command;
 
+import wheresmymoney.utils.ArgumentsMap;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
-import wheresmymoney.Parser;
+import wheresmymoney.utils.Parser;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.Ui;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class StatsCommand extends Command {
 
-    public StatsCommand(HashMap<String, String> argumentsMap) {
+    public StatsCommand(ArgumentsMap argumentsMap) {
         super(argumentsMap);
     }
 

@@ -1,6 +1,7 @@
-package wheresmymoney;
+package wheresmymoney.utils;
 
 
+import wheresmymoney.Logging;
 import wheresmymoney.command.AddCommand;
 import wheresmymoney.command.ByeCommand;
 import wheresmymoney.command.Command;
@@ -21,7 +22,7 @@ import java.util.logging.Level;
 
 public class Parser {
     public static final String ARGUMENT_COMMAND = "command";
-    public static final String ARGUMENT_MAIN = "main";
+    public static final String ARGUMENT_MAIN = "index";
     public static final String ARGUMENT_CATEGORY = "category";
     public static final String ARGUMENT_PRICE = "price";
     public static final String ARGUMENT_DESCRIPTION = "description";
@@ -58,7 +59,7 @@ public class Parser {
      * @param argumentsMap Arguments Mapping
      * @param words String list of arguments
      */
-    private static void packCommandToExistingArgumentsMap(HashMap<String, String> argumentsMap, String[] words) {
+    private static void packCommandToExistingArgumentsMap(ArgumentsMap argumentsMap, String[] words) {
         argumentsMap.put(Parser.ARGUMENT_COMMAND,getCommandFromWords(words));
     }
 
@@ -75,7 +76,7 @@ public class Parser {
      * @param argumentsMap Arguments Mapping
      * @param words String list of arguments
      */
-    private static void packFollowingArgumentsToExistingArgumentsMap(HashMap<String, String> argumentsMap,
+    private static void packFollowingArgumentsToExistingArgumentsMap(ArgumentsMap argumentsMap,
                                                                      String[] words) throws InvalidInputException {
         // Arguments
         String currArgumentName = Parser.ARGUMENT_MAIN;
@@ -105,8 +106,8 @@ public class Parser {
      *
      * @param words String list of arguments/words
      */
-    private static HashMap<String, String> packWordsToArgumentsMap(String[] words) throws WheresMyMoneyException {
-        HashMap<String, String> argumentsList = new HashMap<>();
+    private static ArgumentsMap packWordsToArgumentsMap(String[] words) throws WheresMyMoneyException {
+        ArgumentsMap argumentsList = new ArgumentsMap();
         packFollowingArgumentsToExistingArgumentsMap(argumentsList, words);
         packCommandToExistingArgumentsMap(argumentsList, words);
         return argumentsList;
@@ -118,7 +119,7 @@ public class Parser {
      * @param line Line that a user inputs
      * @return HashMap of Arguments, mapping the argument to its value given
      */
-    public static HashMap<String, String> parseLineToArgumentsMap(String line) throws WheresMyMoneyException {
+    public static ArgumentsMap parseLineToArgumentsMap(String line) throws WheresMyMoneyException {
         Logging.log(Level.INFO, "Parsing Line: " + line);
         String[] words = line.trim().split(" ");
         return packWordsToArgumentsMap(words);
@@ -131,7 +132,7 @@ public class Parser {
      * @return Command to run with the respective configurations
      * @throws WheresMyMoneyException If no valid command can be matched
      */
-    public static Command commandMatching(HashMap<String, String> argumentsMap)
+    public static Command commandMatching(ArgumentsMap argumentsMap)
             throws WheresMyMoneyException {
         switch(argumentsMap.get(Parser.ARGUMENT_COMMAND)) {
         case "bye":
@@ -171,4 +172,5 @@ public class Parser {
     public static Command parseInputToCommand(String line) throws WheresMyMoneyException {
         return commandMatching(parseLineToArgumentsMap(line));
     }
+
 }

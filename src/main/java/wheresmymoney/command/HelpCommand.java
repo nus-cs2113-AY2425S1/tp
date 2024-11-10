@@ -1,6 +1,7 @@
 package wheresmymoney.command;
 
-import wheresmymoney.Parser;
+import wheresmymoney.utils.ArgumentsMap;
+import wheresmymoney.utils.Parser;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.RecurringExpenseList;
@@ -8,11 +9,9 @@ import wheresmymoney.Ui;
 import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.util.HashMap;
-
 public class HelpCommand extends Command {
 
-    public HelpCommand(HashMap<String, String> argumentsMap) {
+    public HelpCommand(ArgumentsMap argumentsMap) {
         super(argumentsMap);
     }
 
