@@ -59,6 +59,7 @@ public class ViewExpenseCommand extends Command {
         String startDate = arguments.get(COMMAND_EXTRA_KEYWORDS[1]);
         String endDate = arguments.get(COMMAND_EXTRA_KEYWORDS[2]);
 
+
         List<Transaction> temp;
 
         temp = transactionList.getTransactions().stream()
@@ -67,7 +68,10 @@ public class ViewExpenseCommand extends Command {
 
         if (categoryName != null) {
             Category tempCategory = new Category(categoryName);
-            temp = transactionList.getExpensesByCategory(tempCategory);
+            temp = temp.stream()
+                    .map(transaction -> (Expense) transaction)
+                    .filter(expense -> expense.getCategory().equals(tempCategory))
+                    .collect(Collectors.toList());;
         }
         try {
             LocalDateTime start;
@@ -117,10 +121,10 @@ public class ViewExpenseCommand extends Command {
             return messages;
         }
 
-        int i = 1;
+        List<Transaction> originalList = transactionList.getTransactions();
+
         for (Transaction transaction : temp) {
-            messages.add(i + ". " + transaction.toString());
-            i++;
+            messages.add((originalList.indexOf(transaction)+1) + ". " + transaction.toString());
         }
 
         return messages;

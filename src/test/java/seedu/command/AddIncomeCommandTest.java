@@ -1,7 +1,9 @@
 package seedu.command;
 
 import org.junit.jupiter.api.Test;
+import seedu.category.Category;
 import seedu.message.ErrorMessages;
+import seedu.transaction.Expense;
 import seedu.transaction.Income;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
@@ -20,12 +22,12 @@ class AddIncomeCommandTest {
         AddIncomeCommand command = new AddIncomeCommand(transactionList);
 
         command.setArguments(Map.of("", "Salary", "a/", "1000", "d/", "2024-10-01 1800"));
-        List<String> result = command.execute();
+        command.execute();
 
-        ArrayList<Transaction> expectedList = new ArrayList<>();
         Income expectedIncome = new Income(1000, "Salary", "2024-10-01 1800");
-        expectedList.add(expectedIncome);
-        assertEquals(transactionList.getTransactions(), expectedList);
+
+        assertEquals(1, transactionList.size());
+        assertEquals(expectedIncome.toString(), transactionList.getTransactions().get(0).toString());
     }
 
     @Test
@@ -72,9 +74,10 @@ class AddIncomeCommandTest {
 
         command.execute();
 
-        ArrayList<Transaction> expectedList = new ArrayList<>();
         Income expectedIncome = new Income(100, "", "2024-10-01 1800");
-        expectedList.add(expectedIncome);
-        assertEquals(transactionList.getTransactions(), expectedList);
+
+
+        assertEquals(1, transactionList.size());
+        assertEquals(expectedIncome.toString(), transactionList.getTransactions().get(0).toString());
     }
 }

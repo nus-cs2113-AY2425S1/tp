@@ -67,17 +67,22 @@ class DeleteCategoryCommandTest {
         deleteCategoryCommand.execute();
         List<Category> categories = categoryList.getCategories();
         // Expected
-        List<Transaction> expectedTransaction = new ArrayList<>();
+        List<String> expectedTransactions = new ArrayList<>();
         // Add sample data to test
-        expectedTransaction.add(new Expense(1000, "",
-                "2024-10-10 2359", new Category("NewCategory")));
-        expectedTransaction.add(new Expense(1000, "",
-                "2024-10-10 2359", new Category("NewCategory")));
+        expectedTransactions.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("NewCategory")).toString());
+        expectedTransactions.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("NewCategory")).toString());
 
+        List<String> actualTransactions = new ArrayList<>();
+        for (Transaction transaction:transactionList.getTransactions())
+        {
+            actualTransactions.add(transaction.toString());
+        }
         // Assert
         assertEquals(1, categories.size(),
                 "The category list should have 1 category left after deletion.");
-        assertEquals(expectedTransaction, transactionList.getTransactions(),
+        assertEquals(expectedTransactions, actualTransactions,
                 "The current transaction list should update its category.");
     }
 
@@ -92,17 +97,23 @@ class DeleteCategoryCommandTest {
         deleteCategoryCommand.execute();
         List<Category> categories = categoryList.getCategories();
         // Expected
-        List<Transaction> expectedTransaction = new ArrayList<>();
+        List<String> expectedTransactions = new ArrayList<>();
         // Add sample data to test
-        expectedTransaction.add(new Expense(1000, "",
-                "2024-10-10 2359", new Category("")));
-        expectedTransaction.add(new Expense(1000, "",
-                "2024-10-10 2359", new Category("")));
+        expectedTransactions.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("")).toString());
+        expectedTransactions.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("")).toString());
 
+        // Assert
+        List<String> actualTransactions = new ArrayList<>();
+        for (Transaction transaction:transactionList.getTransactions())
+        {
+            actualTransactions.add(transaction.toString());
+        }
         // Assert
         assertEquals(0, categories.size(),
                 "The category list should have 0 category left after deletion.");
-        assertEquals(expectedTransaction, transactionList.getTransactions(),
+        assertEquals(expectedTransactions, actualTransactions,
                 "The current transaction list should update its category.");
     }
 
@@ -117,17 +128,23 @@ class DeleteCategoryCommandTest {
         deleteCategoryCommand.execute();
         List<Category> categories = categoryList.getCategories();
         // Expected
-        List<Transaction> expectedTransaction = new ArrayList<>();
+        List<String> expectedTransactions = new ArrayList<>();
         // Add sample data to test
-        expectedTransaction.add(new Expense(1000, "",
-                "2024-10-10 2359", new Category("NewCategory")));
-        expectedTransaction.add(new Expense(1000, "",
-                "2024-10-10 2359", new Category("NewCategory")));
+        expectedTransactions.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("NewCategory")).toString());
+        expectedTransactions.add(new Expense(1000, "",
+                "2024-10-10 2359", new Category("NewCategory")).toString());
 
+        // Assert
+        List<String> actualTransactions = new ArrayList<>();
+        for (Transaction transaction:transactionList.getTransactions())
+        {
+            actualTransactions.add(transaction.toString());
+        }
         // Assert
         assertEquals(1, categories.size(),
                 "The category list should have 1 category left after deletion.");
-        assertEquals(expectedTransaction, transactionList.getTransactions(),
+        assertEquals(expectedTransactions, actualTransactions,
                 "The current transaction list should update its category.");
     }
 

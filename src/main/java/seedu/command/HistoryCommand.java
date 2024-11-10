@@ -104,10 +104,10 @@ public class HistoryCommand extends Command{
             return messages;
         }
 
-        int i = 1;
+        List<Transaction> originalList = transactionList.getTransactions();
+
         for (Transaction transaction : temp) {
-            messages.add(i + ". " + transaction.toString());
-            i++;
+            messages.add((originalList.indexOf(transaction)+1) + ". " + transaction.toString());
         }
 
         return messages;

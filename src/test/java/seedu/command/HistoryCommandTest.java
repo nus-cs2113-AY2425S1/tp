@@ -50,7 +50,9 @@ class HistoryCommandTest {
         item6 = new Expense(300, "", "2024-05-15", new Category("Abc"));
         inputTransactionList.addTransaction(item6);
     }
-
+    int getIndex (Transaction item) {
+        return inputTransactionList.getTransactions().indexOf(item)+1;
+    }
     @Test
     void setTransactionList_newTransactionList_equalTransactionList()
             throws NoSuchFieldException, IllegalAccessException{
@@ -74,12 +76,12 @@ class HistoryCommandTest {
 
         // Expected messages
         List<String> expectedMessages = new ArrayList<>();
-        expectedMessages.add("1. "+item1.toString());
-        expectedMessages.add("2. "+item4.toString());
-        expectedMessages.add("3. "+item2.toString());
-        expectedMessages.add("4. "+item3.toString());
-        expectedMessages.add("5. "+item6.toString());
-        expectedMessages.add("6. "+item5.toString());
+        expectedMessages.add(getIndex(item1) + ". "+item1.toString());
+        expectedMessages.add(getIndex(item4) + ". "+item4.toString());
+        expectedMessages.add(getIndex(item2) + ". "+item2.toString());
+        expectedMessages.add(getIndex(item3) + ". "+item3.toString());
+        expectedMessages.add(getIndex(item6) + ". "+item6.toString());
+        expectedMessages.add(getIndex(item5) + ". "+item5.toString());
         // Execute the command
         List<String> messages = historyCommand.execute();
 
@@ -98,10 +100,10 @@ class HistoryCommandTest {
         historyCommand.setArguments(arguments);
         // Expected messages
         List<String> expectedMessages = new ArrayList<>();
-        expectedMessages.add("1. "+item2.toString());
-        expectedMessages.add("2. "+item3.toString());
-        expectedMessages.add("3. "+item6.toString());
-        expectedMessages.add("4. "+item5.toString());
+        expectedMessages.add(getIndex(item2) + ". "+item2.toString());
+        expectedMessages.add(getIndex(item3) + ". "+item3.toString());
+        expectedMessages.add(getIndex(item6) + ". "+item6.toString());
+        expectedMessages.add(getIndex(item5) + ". "+item5.toString());
 
         // Execute the command
         List<String> messages = historyCommand.execute();
@@ -121,9 +123,9 @@ class HistoryCommandTest {
         historyCommand.setArguments(arguments);
         // Expected messages
         List<String> expectedMessages = new ArrayList<>();
-        expectedMessages.add("1. "+item1.toString());
-        expectedMessages.add("2. "+item4.toString());
-        expectedMessages.add("3. "+item2.toString());
+        expectedMessages.add(getIndex(item1) + ". "+item1.toString());
+        expectedMessages.add(getIndex(item4) + ". "+item4.toString());
+        expectedMessages.add(getIndex(item2) + ". "+item2.toString());
 
         // Execute the command
         List<String> messages = historyCommand.execute();
@@ -144,7 +146,7 @@ class HistoryCommandTest {
         historyCommand.setArguments(arguments);
         // Expected messages
         List<String> expectedMessages = new ArrayList<>();
-        expectedMessages.add("1. "+item2.toString());
+        expectedMessages.add(getIndex(item2) + ". "+item2.toString());
 
         // Execute the command
         List<String> messages = historyCommand.execute();

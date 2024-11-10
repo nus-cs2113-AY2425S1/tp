@@ -83,27 +83,4 @@ public class Expense extends Transaction {
         return "Expense [amount=" + amount + ", description=" + description + ", date="
                 + dateTimeString + categoryString + "]";
     }
-
-    /**
-     * Compares this expense transaction to the specified object.
-     *
-     * @param o The object to compare this expense transaction against.
-     * @return true if the specified object is equal to this expense transaction; false otherwise.
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null) {
-            return false;
-        }
-        if (!(o instanceof Expense expense)) {
-            return false;
-        }
-        return amount == expense.amount &&
-                Objects.equals(description, expense.description) &&
-                Objects.equals(dateTimeString, expense.dateTimeString) &&
-                Objects.equals(category, expense.category);
-    }
 }
