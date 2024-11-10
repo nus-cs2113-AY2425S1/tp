@@ -77,6 +77,10 @@ public class ParserUtils {
         String trimmedIntString = trimInput(intString);
         int result;
 
+        if (trimmedIntString.length() > 10) { // 10 digits is the maximum for Integer.MAX_VALUE (2,147,483,647)
+            throw ParserExceptions.infinityInt(trimmedIntString);
+        }
+
         try{
             result = Integer.parseInt(trimmedIntString);
             logger.log(Level.INFO, "Successfully parsed integer: {0}", result);
@@ -114,6 +118,10 @@ public class ParserUtils {
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Failed to parse float from string: {0}", floatString);
             throw ParserExceptions.invalidFloat(trimmedFloatString);
+        }
+
+        if (result == Double.POSITIVE_INFINITY) {
+            throw ParserExceptions.infinityFloat(trimmedFloatString);
         }
 
         if (result < 0){

@@ -74,4 +74,12 @@ public class ParserExceptions extends BuffBuddyExceptions {
     public static ParserExceptions indexOutOfBounds(String indexString) {
         return new ParserExceptions("Index is not a valid, it should be more than 0");
     }
+
+    public static ParserExceptions infinityFloat(String trimmedFloatString) {
+        return new ParserExceptions("Float is too large, please key in a smaller number.");
+    }
+
+    public static ParserExceptions infinityInt(String trimmedIntString) {
+        return new ParserExceptions("Integer is too large, please key in a smaller number.");
+    }
 }
