@@ -2,6 +2,7 @@ package wheresmymoney.category;
 
 import java.util.HashMap;
 
+import wheresmymoney.Ui;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 /**
@@ -67,11 +68,15 @@ public class CategoryTracker {
         float currExpenditure = categoryData.getCurrExpenditure();
         float maxExpenditure = categoryData.getMaxExpenditure();
         if (categoryData.hasExceededLimit()) {
-            System.out.println("Alert! You have exceeded the spending limit of " + maxExpenditure +
-                    " for the category of " + category + ", with a total expenditure of " + currExpenditure + ". ");
+            Ui.displayMessage(
+                    "Alert! You have exceeded the spending limit of " + String.format("%.2f", maxExpenditure) +
+                    " for the category of " + category +
+                    ", with a total expenditure of " + String.format("%.2f", currExpenditure) + ". ");
         } else if (categoryData.isNearingLimit()) {
-            System.out.println("Warning! You are close to the spending limit of " + maxExpenditure +
-                    " for the category of " + category  + ", with a total expenditure of " + currExpenditure + ". ");
+            Ui.displayMessage(
+                    "Warning! You are close to the spending limit of " + String.format("%.2f", maxExpenditure) +
+                    " for the category of " + category +
+                    ", with a total expenditure of " + String.format("%.2f", currExpenditure) + ". ");
         }
     }
     
