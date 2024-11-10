@@ -2,6 +2,8 @@
 
 package exceptions;
 
+import programme.Day;
+
 /**
  * Represents exceptions related to history operations in the application.
  */
@@ -35,6 +37,11 @@ public class HistoryExceptions extends BuffBuddyExceptions {
     public static HistoryExceptions exerciseNameNotFound() {
         return new HistoryExceptions("Exercise name not provided. Please specify the exercise to " +
                 "view your personal best.");
+    }
+
+    public static HistoryExceptions existingDay(Day existingDay) {
+        return new HistoryExceptions("A record already exists for this date. Please delete the current day entry if " +
+                "you wish to make any changes.");
     }
 }
 
