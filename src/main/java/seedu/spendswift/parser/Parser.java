@@ -25,34 +25,26 @@ public class Parser {
     }
 
     public boolean parseCommand(String input, TrackerData trackerData) {
-        String filePath = "spendswift.txt";
-        storage = new Storage(filePath);
         input = input.trim().toLowerCase();
 
         if (input.startsWith("add-expense")) {
             expenseManager.addExpenseRequest(input, expenseManager, trackerData);
-            storage.savedData(trackerData, storage, ui);
         } else if (input.startsWith("add-category")) {
             CategoryManager.addCategory(trackerData, input);
-            storage.savedData(trackerData, storage, ui);
         } else if (input.startsWith("delete-expense")) {
             expenseManager.deleteExpenseRequest(input, expenseManager, trackerData);
-            storage.savedData(trackerData, storage, ui);
         } else if (input.startsWith("tag-expense")) {
             expenseManager.tagExpense(trackerData, input);
-            storage.savedData(trackerData, storage, ui);
         } else if (input.startsWith("view-budget")) {
             budgetManager.viewBudget(trackerData);
         } else if (input.startsWith("view-category")) {
             CategoryManager.viewAllCategories(trackerData);
         } else if (input.startsWith("set-budget")) {
             budgetManager.setBudgetLimitRequest(input, budgetManager, trackerData);
-            storage.savedData(trackerData, storage, ui);
         } else if (input.startsWith("view-expenses")) {
             expenseManager.viewExpensesByCategory(trackerData);
         } else if (input.startsWith("toggle-reset")) {
             budgetManager.toggleAutoReset();
-            storage.savedData(trackerData, storage, ui);
         } else if (input.startsWith("help")) {
             ui.printHelpMessage();
         } else if (input.startsWith("bye")) {
