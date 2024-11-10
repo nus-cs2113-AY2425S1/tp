@@ -573,8 +573,8 @@ public class Parser {
 
             participantName = matcher.group(1).trim();
             newParticipantName = matcher.group(2).trim();
-            newEmail = matcher.group(2).trim();
-            eventName = matcher.group(3).trim();
+            newEmail = matcher.group(3).trim();
+            eventName = matcher.group(4).trim();
 
             if (!isValidEmail(newEmail)) {
                 logWarning("Invalid email format");
