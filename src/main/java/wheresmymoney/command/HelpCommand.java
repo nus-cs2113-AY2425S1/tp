@@ -95,7 +95,7 @@ public class HelpCommand extends Command {
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - METHOD is text");
         Ui.displayMessage("    - METHOD exists in our app.");
-        Ui.displayMessage("    - Use the /recur flag to get more information about commands for recurring expenses");
+        Ui.displayMessage("    - Use the `/recur` flag to get information on the methods for recurring expenses");
         Ui.displayMessage("Example: help /method add");
         Ui.displayMessage("Example: help /recur /method edit");
         Ui.displayMessage("");
