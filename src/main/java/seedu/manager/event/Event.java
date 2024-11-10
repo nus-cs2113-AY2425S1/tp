@@ -374,7 +374,7 @@ public class Event {
      * Returns the {@code Item} with the given name in the item list.
      *
      * @param itemName the given item name
-     * @return the {@code Item} with name itemName, or null if the item is not founc
+     * @return the {@code Item} with name itemName, or null if the item is not found.
      */
     private Optional<Item> getItemByName(String itemName) {
         for (Item item : itemList) {
@@ -467,6 +467,7 @@ public class Event {
         return duplicateName;
     }
 
+    //@@author jemehgoh
     /**
      * Returns an item's name with an indexed suffix.
      * The suffix value varies based on the number of items with the same name.

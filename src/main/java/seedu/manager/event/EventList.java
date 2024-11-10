@@ -436,6 +436,14 @@ public class EventList  {
         return filteredList;
     }
 
+    //author jemehgoh
+    /**
+     * Returns an event's name with an indexed suffix.
+     * The suffix value varies based on the number of event with the same name in the event list.
+     *
+     * @param name the given event name.
+     * @return name with an indexed suffix.
+     */
     private String getDuplicateEventName(String name) {
         int index = 1;
         String duplicateName = name;
