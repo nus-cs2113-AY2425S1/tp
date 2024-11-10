@@ -93,7 +93,9 @@ public class SeeAllExpensesCommandTest {
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense2 + System.lineSeparator() +
-                "2. " + expense1 + System.lineSeparator() +
+                "3. " + expense1 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total count: 2" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total expense: $ 15.00" + System.lineSeparator() +
                 System.lineSeparator() +
@@ -129,7 +131,9 @@ public class SeeAllExpensesCommandTest {
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + expense2 + System.lineSeparator() +
-                "2. " + expense3 + System.lineSeparator() +
+                "3. " + expense3 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total count: 2" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total expense: $ 15.00" + System.lineSeparator() +
                 System.lineSeparator() +
@@ -165,8 +169,10 @@ public class SeeAllExpensesCommandTest {
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. " + expense3 + System.lineSeparator() +
-                "2. " + expense1 + System.lineSeparator() +
+                "3. " + expense3 + System.lineSeparator() +
+                "4. " + expense1 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total count: 2" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total expense: $ 19.00" + System.lineSeparator() +
                 System.lineSeparator() +
@@ -209,9 +215,11 @@ public class SeeAllExpensesCommandTest {
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. " + expense5 + System.lineSeparator() +
-                "2. " + expense3 + System.lineSeparator() +
-                "3. " + expense4 + System.lineSeparator() +
+                "3. " + expense5 + System.lineSeparator() +
+                "4. " + expense3 + System.lineSeparator() +
+                "5. " + expense4 + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total count: 3" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total expense: $ 32.50" + System.lineSeparator() +
                 System.lineSeparator() +

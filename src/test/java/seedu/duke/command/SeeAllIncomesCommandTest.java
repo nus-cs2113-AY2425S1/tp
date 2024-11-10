@@ -73,9 +73,11 @@ class SeeAllIncomesCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
-                "1. [Income] - salary $ 3000.00 (on 22/10/2024) [SALARY]" + System.lineSeparator() +
-                "2. [Income] - allowance $ 100.00 (on 22/10/2024) [GIFT]" + System.lineSeparator() +
-                "3. [Income] - ang pow money $ 15.00 (on 22/10/2024) [GIFT]" + System.lineSeparator() +
+                "2. [Income] - salary $ 3000.00 (on 22/10/2024) [SALARY]" + System.lineSeparator() +
+                "5. [Income] - allowance $ 100.00 (on 22/10/2024) [GIFT]" + System.lineSeparator() +
+                "6. [Income] - ang pow money $ 15.00 (on 22/10/2024) [GIFT]" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total count: 3" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total income: $ 3115.00" + System.lineSeparator() +
                 System.lineSeparator() +
@@ -134,6 +136,8 @@ class SeeAllIncomesCommandTest {
                 "1. [Income] - ang pow money $ 15.00 (on 12/09/2024) [GIFT]" + System.lineSeparator() +
                 "2. [Income] - salary $ 3000.00 (on 01/10/2024) [SALARY]" + System.lineSeparator() +
                 System.lineSeparator() +
+                "Total count: 2" + System.lineSeparator() +
+                System.lineSeparator() +
                 "Total income: $ 3015.00" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Highest Income Category: SALARY ($3000.00)" + System.lineSeparator() +
@@ -167,8 +171,10 @@ class SeeAllIncomesCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
-                "1. [Income] - salary $ 3000.00 (on 10/10/2024) [SALARY]" + System.lineSeparator() +
-                "2. [Income] - allowance $ 100.00 (on 02/11/2024) [GIFT]" + System.lineSeparator() +
+                "3. [Income] - salary $ 3000.00 (on 10/10/2024) [SALARY]" + System.lineSeparator() +
+                "6. [Income] - allowance $ 100.00 (on 02/11/2024) [GIFT]" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total count: 2" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total income: $ 3100.00" + System.lineSeparator() +
                 System.lineSeparator() +
@@ -205,9 +211,11 @@ class SeeAllIncomesCommandTest {
         String expectedOutput =
                 "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded incomes:" + System.lineSeparator() +
-                "1. [Income] - birthday money $ 15.00 (on 20/09/2024) [GIFT]" + System.lineSeparator() +
-                "2. [Income] - salary $ 3000.00 (on 01/10/2024) [SALARY]" + System.lineSeparator() +
-                "3. [Income] - voucher $ 5.00 (on 10/10/2024) [GIFT]" + System.lineSeparator() +
+                "2. [Income] - birthday money $ 15.00 (on 20/09/2024) [GIFT]" + System.lineSeparator() +
+                "3. [Income] - salary $ 3000.00 (on 01/10/2024) [SALARY]" + System.lineSeparator() +
+                "5. [Income] - voucher $ 5.00 (on 10/10/2024) [GIFT]" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Total count: 3" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total income: $ 3020.00" + System.lineSeparator() +
                 System.lineSeparator() +
