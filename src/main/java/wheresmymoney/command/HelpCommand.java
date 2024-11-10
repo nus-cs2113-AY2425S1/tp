@@ -45,7 +45,7 @@ public class HelpCommand extends Command {
         Ui.displayMessage("    - PRICE is a decimal number.");
         Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
         Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
-        Ui.displayMessage("    - All parameters are optional and only the parameters that are" +
+        Ui.displayMessage("    - All parameters are optional and only the parameters that are " +
                 "inputted will be reflected after the edit.");
         Ui.displayMessage("Examples: edit 1 /price 5.50 /description chicken rice /category food");
         Ui.displayMessage("");
@@ -156,7 +156,7 @@ public class HelpCommand extends Command {
         Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
         Ui.displayMessage("    - If no date is specified, it will be defaulted to the current date.");
         Ui.displayMessage("    - FREQUENCY can only be \"daily\", \"weekly\" or \"monthly\".");
-        Ui.displayMessage("Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2024 " +
+        Ui.displayMessage("Examples: add /recur /price 4.50 /description chicken rice /category food /date 01-01-2024 " +
                 "/frequency daily");
         Ui.displayMessage("");
     }
@@ -170,9 +170,9 @@ public class HelpCommand extends Command {
         Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
         Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
         Ui.displayMessage("    - FREQUENCY can only be \"daily\", \"weekly\" or \"monthly\".");
-        Ui.displayMessage("    - All parameters are optional and only the parameters that are" +
+        Ui.displayMessage("    - All parameters (except /recur) are optional and only the parameters that are " +
                 "inputted will be reflected after the edit.");
-        Ui.displayMessage("Examples: edit 1 /price 5.50 /description chicken rice /category food /frequency weekly");
+        Ui.displayMessage("Examples: edit 1 /recur /price 5.50 /description chicken rice /category food /frequency weekly");
         Ui.displayMessage("");
     }
 

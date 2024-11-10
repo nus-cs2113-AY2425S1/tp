@@ -169,11 +169,12 @@ Format: `help [/recur] [/method METHOD]`
 Notes:
 - `METHOD` is text.
 - `METHOD` exists in our app.
+- Use the `/recur` flag to get information on the methods for recurring expenses
 
 Examples:
 - `help`              lists all commands the app has since `METHOD` is not specified.
 - `help /method add` lists format of the “add” command since `METHOD` is specified.
-- `help /recur edit` lists format of the "edit" command since `METHOD` and `/recur` are specified.
+- `help /recur /method edit` lists format of the "edit" command since `/recur` and `METHOD` are specified.
 
 ```
 > help /method add
@@ -195,13 +196,20 @@ Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2
 Recurring expenses allow you to automate adding expenses that occur on a regular basis.
 
 Recurring expenses are saved to a separate `recurringExpenseList`. They do not affect calculations and visualizations.
-Only when you run the `load` command will these expenses generate "normal expenses"  and add them to the `expenseList`.
+Only when you run the `load` command will "normal expenses" added to the `expenseList`.
+
+Recurring expenses share some of the same commands as normal expenses. Such as:
+- `add`
+- `edit`
+- `delete`
+- `list`
+To use these command for recurring expenses, a `/recur` flag must be added.
 
 ### Add a recurring expense: `add`
 
 Adds a recurring expense to the system.
 
-Format:  `add /recur /price PRICE /description DESCRIPTION /category CATEGORY /date DATE /frequency FREQUENCY`
+Format:  `add /recur /price PRICE /description DESCRIPTION /category CATEGORY [/date DATE] /frequency FREQUENCY`
 
 Notes:
 - `/recur` is a command flag indicating that the command is for a recurring expense.
@@ -248,7 +256,7 @@ Use the list command to display recurring expenses according to specified filter
 Format:  `list /recur [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 
 Notes:
-- `/recur` is a command flag indicating that the command is for a recurring expense.
+- `/recur` is a command flag indicating that the command is for recurring expenses.
 - `CATEGORY` is text.
 - `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
 - Lists all recurring expenses that satisfy the given filter (if any).
@@ -344,5 +352,5 @@ Examples:
 | Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |                                                             |
 | Add Recurring Expense             | `add /recur /price PRICE /description DESCRIPTION /category CATEGORY /date DATE /frequency FREQUENCY`                  |
 | Edit Recurring Expense            | `edit INDEX /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]` |
-| Delete Recurring Expense          | `delete /recur INDEX`                                                                                                  |
+| Delete Recurring Expense          | `delete INDEX /recur`                                                                                                  |
 | List Recurring Expenses           | `list /recur [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                     | 
