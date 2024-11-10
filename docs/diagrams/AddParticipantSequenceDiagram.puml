@@ -7,7 +7,7 @@ participant ":EventList" as eventList
 
 group sd Add participant
     activate command  
-    command -> eventList : addParticipantToEvent(participantName, participantNumber,\n participantEmail, eventName)
+    command -> eventList : addParticipantToEvent(participantName,\n participantEmail, eventName)
     activate eventList  
 
     eventList -> eventList : getEventByName(eventName)
@@ -15,12 +15,10 @@ group sd Add participant
 
     return event:Event
 
-    alt event not found
-        eventList --> command : Invalid event
-    else else
+    opt Event found
         ref over eventList : Add participant to event
     end
 
-    return
+    return :boolean
 end
 @enduml

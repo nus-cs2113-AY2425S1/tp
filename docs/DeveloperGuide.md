@@ -28,7 +28,9 @@
 * [Appendix B: User stories](#appendix-b-user-stories)
 * [Appendix C: Non-functional requirements](#appendix-c-non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d-glossary)
+
 <div style="page-break-after: always;"></div>
+
 * [Appendix E: Instructions for manual testing](#appendix-e-instructions-for-manual-testing)
   * [Launch and shutdown](#launch-and-shutdown)
   * [Adding an event](#adding-an-event)
@@ -236,7 +238,7 @@ switch (commandFlag) {
 ```
 
 * Otherwise, the `Parser` parses the user command input based on the values of the `FLAG`s in the input.
-* If any of the `FLAG`s in the user command input are not present or invalid, the `Parser` throws an `InvalidCommandException`.
+* If any of the `FLAG`s in the user command input are not present, invalid or in the wrong order, the `Parser` throws an `InvalidCommandException`.
 <div style="page-break-after: always;"></div>
 
 The interactions between classes for the parsing of a command with parameters is shown in the following **Sequence Diagram**:
@@ -314,8 +316,11 @@ The interactions between components during the operation selection in `AddComman
 The `EventList#addParticipantToEvent()` operation works as follows:
 
 1. `EventList` gets the `Event` with the event name `eventName` from the list of `Event`s stored within it.
-2. In the selected `Event`, `Event` checks if there is a `Participant` with the name in `participantName` in the list of `Participant`s. If there is one, it throws a `DuplicateDataException`.
+2. In the selected `Event`, `Event` checks if there is a `Participant` with the name in `participantName` in the list of `Participant`s. If there is one, it adds an indexed suffix to `participantName`.
 3. Otherwise, `Event` creates a new `Participant` object with the parameters passed to it, and adds it to the `Participant` list.
+
+The indexed suffix added for duplicate `Participant` names takes the form `NAME (INDEX)`. For each duplicate added, the index is increased.
+For example, three participants with the name `John Tan` will be stored as `John Tan`, `John Tan (1)` and `John Tan (2)`.
 
 If an `Event` with a name matching `eventName` is not found, the operation returns `false` to indicate that the operation was unsuccessful. Otherwise, the operation returns `true`.
 <div style="page-break-after: always;"></div>
@@ -329,7 +334,7 @@ The operation logic for `EventList#addItemToEvent()` is similar to that for `Eve
 
 The interactions between components during the execution of the `EventList#addEvent()` operation are show in the **Sequence Diagram** below:
 
-1. `EventList` checks if there is a `Event` with the name in `eventName` in its list of `Events`s. If there is one, it throws a `DuplicateDataException`.
+1. `EventList` checks if there is a `Event` with the name in `eventName` in its list of `Events`s. If there is one, it adds an indexed suffix to `eventName`.
 2. Otherwise, `EventList` creates a new `Event` object with the parameters passed to it, and adds it to the `Event` list.
 
 <img src = "images/AddEventSequenceDiagram.png">
@@ -448,7 +453,10 @@ Given below is an example usage scenario and the behaviour of the `edit` feature
    It looks for the event and the specified participant, and then modifies the contact information and returns true if the participant is found. Otherwise, it returns false.
 4. If the flag is `-m`, `EditItemCommand` calls `EditItemCommand#execute()`, which calls `EventList#editItem()` to edit the item.
    It looks for the event and the specified item, modifies the item and returns true if the item is found. Otherwise, it returns false.
-5. After Editing, a message `outputMessage` will be printed.
+5. After editing, a message `outputMessage` will be printed.
+
+If the new name of the `Event`, `Participant`, or `Item` is a duplicate of that of an existing `Event`, `Participant`, or `Item`, an indexed suffix will be added to the name.
+This is done in the same way as described in [Add feature](#add-feature);
 
 The interactions between components of `EditEventCommand#execute()` are shown in the **Sequence Diagram** below:
 
@@ -607,7 +615,8 @@ and is invoked when the latter operation is called.
 The `FilterCommand` class is constructed with a specified filter flag and keywords. It then performs filter operations based on both the flag and keywords.
 Given below is an example usage scenario and the behaviour of the `filter` feature at each step:
 1. The user enters the command filter followed by a flag (`-e: name, -d : date, -t: time, -x date-time,  or -u: priority`) and their search keyword e.g. `filter -e work` to specify the filtering criterion
-2. `FilterCommand` calls `FilterCommand#execute`, which based on the flag invokes one of the following 3 methods
+2. `FilterCommand` calls `FilterCommand#execute`, which based on the flag invokes one of the following 3 methods:
+
    * `filterEventsByName()` - Finds events containing given name (keyword)
    * `filterEventsByDate()` - Finds events occurring during given date (keyword)
    * `filterEventsByTime()` - Finds events occurring during given time (keyword)
@@ -620,7 +629,7 @@ Given below is an example usage scenario and the behaviour of the `filter` featu
 <div style="page-break-after: always;"></div>
 The interactions between components of `FilterCommand#execute` are shown in the **Sequence Diagram** below:
 
-<img src="images/FilterCommandSequenceDiagram2.png" width="550">
+<img src="images/FilterCommandSequenceDiagram.png" width="550">
 <div style="page-break-after: always;"></div>
 
 ### Find feature
@@ -651,10 +660,10 @@ The interactions between components of `FindCommand#execute` are shown in the **
 
 ### Saving and loading of data
 
-As mentioned in the _Storage component_ section, the program automatically saves any stored data in `EventList` into `data.csv` file, and loads
+As mentioned in the _Storage component_ section, the program automatically saves any stored data in `EventList` into `data.txt` file, and loads
 the data from this file when the program runs.
 
-In `data.csv`, each line represents an object (`Event`, `Participant`, or `Item`), organised in the following format:
+In `data.txt`, each line represents an object (`Event`, `Participant`, or `Item`), organised in the following format:
 
 ```
 EVENT,FIELD,FIELD,...
@@ -665,19 +674,19 @@ ITEM,FIELD,FIELD,...
 where `FIELD` represents a value corresponding to a property of the object (e.g., `Event` name or `Participant` email).
 
 This functionality is implemented by the `Storage` and `FileParser` classes, encompassing two main operations:
-* `Main#loadData()`, which loads data from the `data.csv` file into `EventList`.
-* `Main#saveData()`, which saves all data stored in `EventList` (including its `Events`, `Participants`, and `Items`) into `data.csv`.
+* `Main#loadData()`, which loads data from the `data.txt` file into `EventList`.
+* `Main#saveData()`, which saves all data stored in `EventList` (including its `Events`, `Participants`, and `Items`) into `data.txt`.
 
 #### The `Main#loadData()` operation works as follows:
 
-1. `Storage` initializes `FileParser` to read data from `data.csv` into `EventList`.
+1. `Storage` initializes `FileParser` to read data from `data.txt` into `EventList`.
 2. `FileParser` processes each line, identifying whether it represents an `Event`, `Participant`, or `Item`, and appropriately adds each object to the relevant `Event` in `EventList`.
 3. Lines with insufficient or invalid fields are skipped, while lines with extra fields have the additional fields ignored.
 
 #### Loading Events, Participants and Items
 
 For `Event` loading:
-* `Storage` creates an instance of `FileParser` and provides the file path to `data.csv`.
+* `Storage` creates an instance of `FileParser` and provides the file path to `data.txt`.
 * `FileParser` reads each line, and for `Event` lines, it adds a new `Event` to `EventList` using the fields from the line.
 
 For `Participant` and `Item` loading:
@@ -693,13 +702,13 @@ The logic for the loading of `Item`s is similar to that for `Participant`s.
 
 #### The `Main#saveData()` operation saves data in the same order as `Main#loadData()` and works as follows.
 
-1. `Storage` retrieves `Events` from `EventList` and writes each `Event` and its associated `Participants` and `Items` to `data.csv`.
+1. `Storage` retrieves `Events` from `EventList` and writes each `Event` and its associated `Participants` and `Items` to `data.txt`.
 2. Each line is formatted based on the object type, either as an `Event`, `Participant`, or `Item`.
 
 #### Saving Events, Participants, and Items
 
 For saving `Events`:
-* Storage obtains the list of Events from EventList and writes each Event line by line to data.csv.
+* Storage obtains the list of Events from EventList and writes each Event line by line to data.txt.
 
 For `Participant` and `Item` saving:
 * For each Event, Storage retrieves the list of Participants and Items, writing each line in the respective format.
@@ -790,7 +799,7 @@ The user is able to organise and manage his events more quickly and efficiently 
    1. Prerequisite: An event with the name `Event 1` is not present in the `Event` list.
       List all `Event`s with `list` after each test case.
    
-   2. Test case: `add -e Event 1 -t 2024-10-10 -v Venue 1 -u high`
+   2. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u high`
       Expected: An `Event` with name `Event 1` is added to the `Event` list. A success message is shown.
 
    3. Test case: `add -e Event 1 -t 2024-10-10 -v Venue 1 -u HIGH`  
@@ -806,7 +815,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       List all `Event`s with `list` after each test case.
    
    2. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u HIGH`  
-      Expected: No `Event` is added. A duplicate entry error message is shown.
+      Expected: A `Event` with name `Event 1 (1)` is added. A success message is shown.
 
 ### Adding a participant
 
@@ -816,8 +825,8 @@ The user is able to organise and manage his events more quickly and efficiently 
       A `Participant` with the name `Participant 1` is present in `Event 1`'s `Participant` list.
       List all `Participant`s with `view -e Event 1 -y participant` after each test case.
    
-   2. Test case: `add -p Participant 1 -n 9212 8765 -email part@gmail.com -e Event 1`.   
-      Expected: No `Participant` is added. A duplicate entry error message is shown.
+   2. Test case: `add -p Participant 1 -email part@gmail.com -e Event 1`.   
+      Expected: A `Participant` with name `Participant 1 (1)` is added. A success message is shown.
 
 ### Adding an item
 
@@ -828,7 +837,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       List all `Item`s with `view -e Event 1 -y item` after each test case.
 
    2. Test case: `add -p Item -e Event 1`.  
-      Expected: No `Item` is added. A duplicate entry error message is shown.
+      Expected: A `Item` with name `Item (1)` is added. A success message is shown.
 
 ### Removing an event
 
@@ -898,19 +907,19 @@ The user is able to organise and manage his events more quickly and efficiently 
    1. Prerequisite: An event with name `Event 1` and venue `Function Room` is present in the list.  
       List all `Event`s with `list` after each test case.   
    
-   2. Test case: `edit -e Event 1 -name Event 1 -t 2024-10-25 16:00 -v Billards Room -u HIGH`  
-      Expected: The venue for `Event 1` is changed to `Billards Room`. A success message is shown.
+   2. Test case: `edit -e Event 1 -name Event 1 -t 2024-10-25 16:00 -v Billiards Room -u HIGH`  
+      Expected: The venue for `Event 1` is changed to `Billiards Room`. A success message is shown.
 
 ### Editing a participant
 
 1. Editing a `Participant` in an `Event`
 
    1. Prerequisite: An event with the name `Event 1` is present in the list.
-      A `Participant` with the name `Jonathan` and number `97835365` is present in `Event 1`'s `Participant` list.
+      A `Participant` with the name `Jonathan` and email `than@gmail.com` is present in `Event 1`'s `Participant` list.
       List all `Participant`s with `view -e Event 1 -y participant` after each test case.
    
    2. Test case: `edit -p Jonathan -n 91823213 -email jona@gmail.com -e Event 1`  
-      Expected: The number for `Jonathan` is changed to `91823213`. A success message is shown.
+      Expected: The email for `Jonathan` is changed to `jona@gmail.com`. A success message is shown.
 
 ### Editing an item
 
@@ -1005,6 +1014,14 @@ The user is able to organise and manage his events more quickly and efficiently 
    
    2. Test case: `copy Event 1 > Event 2`  
       Expected: The `Participant` list in `Event 1` is not copied over to `Event 2`. An error message is shown.
+
+2. Copying a `Participant` list to an event with an existing `Participant` list.
+
+    1. Prerequisite: Events with the names `Event 1` and `Event 2` are present in the list.
+       Both `Event 1` and `Event 2` have `Participant`s in their `Participant` lists.
+
+    2. Test case: `copy Event 1 > Event 2`  
+       Expected: The `Participant` list in `Event 1` is copied over to `Event 2`, overwriting `Event 2`'s `Participant` list. A success message is shown.
 <div style="page-break-after: always;"></div>
 
 ### Sorting the event list
@@ -1043,4 +1060,4 @@ The user is able to organise and manage his events more quickly and efficiently 
    2. Run the program by opening a new terminal window and entering `java -jar manager.jar`.
       The program would give a warning that a line cannot be loaded, and the `Event` represented by the line would not be present in the `Event`s list.
       
-   3. Essentially all corrupted rows are ignored and file parsing will still work
+   3. Essentially all corrupted rows are ignored and file parsing will still work.

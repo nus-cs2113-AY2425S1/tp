@@ -1,12 +1,11 @@
 @startuml
 hide footbox
 
-participant ":Main" as main
 participant ":EditItemCommand" as editCommand
 participant ":EventList" as eventList
 participant ":Event" as event
 
-main -> editCommand : execute()
+[-> editCommand : execute()
 activate editCommand
 
 editCommand -> eventList : editItem(itemName, itemNewName, eventName)
@@ -18,21 +17,19 @@ loop for each event in eventList
     event --> eventList : eventName:String
     deactivate event
 
-    alt eventName matches
+    opt eventName matches
         eventList -> event : updateItem(itemName, itemNewName)
         activate event
         event --> eventList : item updated
         deactivate event
-        eventList --> editCommand : :boolean
-
     end
 
 end
 
+return :boolean
 
-editCommand --> main : message
-deactivate eventList
-deactivate editCommand
+return
+
 @enduml
  39 changes: 39 additions & 0 deletions39
 docs/diagrams/EditParticipantCommandSequenceDiagram.puml

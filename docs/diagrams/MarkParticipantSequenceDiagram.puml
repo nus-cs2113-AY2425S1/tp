@@ -2,13 +2,12 @@
 !include style.puml
 hide footbox
 
-participant ":Main" as main
 participant ":MarkParticipantCommand" as markCommand  
 participant ":EventList" as eventList  
 participant "event:Event" as event  
 participant "participant:Participant" as participant  
 
-main -> markCommand : execute()
+[-> markCommand : execute()
 activate markCommand  
 
 markCommand -> eventList : getEventByName(eventName)
@@ -32,6 +31,6 @@ return
 
 return
 
-markCommand --> main
-deactivate markCommand
+return
+
 @enduml

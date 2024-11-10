@@ -2,11 +2,10 @@
 !include style.puml
 hide footbox
 
-participant ":Main" as main
 participant ":ViewCommand" as command  
 participant ":EventList" as eventList  
 
-main -> command : execute()
+[-> command : execute()
 activate command  
 
 command -> eventList : getEventByName(eventName)
@@ -15,7 +14,7 @@ activate eventList
 return eventToView:Event
 
 alt eventToView not found
-    command --> main : Invalid event
+    command -->[ : Invalid event
 else isViewingParticipants is true
     ref over command, eventList: View participants
 else else

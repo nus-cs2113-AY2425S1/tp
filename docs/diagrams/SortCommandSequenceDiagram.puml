@@ -1,9 +1,9 @@
 @startuml
 hide footbox
-participant ":Main" as Main
+
 participant ":SortCommand" as SC
 
-Main -> SC: execute()
+[-> SC: execute()
 activate SC
 
 create participant "SortedEventList :EventList" as SEL
@@ -30,8 +30,14 @@ else sort by priority
 
 end alt
 
-SC --> Main: Display SortedEventList and sort result message
-deactivate SC
 destroy SEL
+
+note left of SEL
+    The lifeline does not
+    end here due to a
+    PlantUML limitation.
+end note
+
+return Display SortedEventList and sort result message
 
 @enduml

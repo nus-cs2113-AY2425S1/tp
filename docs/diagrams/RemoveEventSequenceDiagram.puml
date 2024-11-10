@@ -19,10 +19,14 @@ group sd Remove event
 
         opt event exists in eventList
             eventList -> list : remove(event)
-            activate list  
+            activate list
             destroy event
+            note right of event
+                The lifeline does not end
+                here due to a PlantUML
+                limitation.            
+            end note
             return
-            eventList --> command : :boolean
         end
     end
     return :boolean

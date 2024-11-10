@@ -1,11 +1,10 @@
 @startuml
 hide footbox
 
-participant ":Main" as Main
 participant ":ListCommand" as ListCommand
 participant ":EventList" as EventList
 
-Main -> ListCommand:  execute()
+[-> ListCommand: execute()
 activate ListCommand
 
 
@@ -21,9 +20,6 @@ loop for each event in EventList
     deactivate EventList
 end loop
 
-ListCommand --> Main : outputMessage
-deactivate ListCommand
+return
 
-
-deactivate Main
 @enduml

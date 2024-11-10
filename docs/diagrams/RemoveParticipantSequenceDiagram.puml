@@ -15,12 +15,11 @@ group sd Remove participant
 
     return event:Event
 
-    alt event not found
-        eventList --> command : :boolean
-    else else
+    opt Event found
         ref over eventList : Remove participant from event
-        eventList --> command : :boolean
     end
+
+    return :boolean
 end
 
 
