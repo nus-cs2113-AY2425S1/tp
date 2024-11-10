@@ -20,10 +20,14 @@ group sd Remove participant from event
 
         opt name of participant equals participantName
             event -> participantList : remove(participant)
-            activate participantList  
+            activate participantList
             destroy participant
+            note left of participant
+                The lifeline does not end
+                here due to a PlantUML
+                limitation.
+            end note
             return
-            event --> eventList : :boolean
         end
     end
     return :boolean

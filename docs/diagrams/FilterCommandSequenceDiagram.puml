@@ -1,9 +1,9 @@
 @startuml
 hide footbox
-participant ":Main" as Main
+
 participant ":FilterCommand" as FC
 
-Main -> FC: execute()
+[-> FC: execute()
 
 create participant "FilteredEventList :EventList" as FEL
 activate FC
@@ -59,8 +59,14 @@ else filter by priority
     deactivate FC
 end alt
 
-FC --> Main: Display FilteredEventList and filter result message
-deactivate FC
 destroy FEL
+
+note left of FEL
+    The lifeline does not
+    end here due to a
+    PlantUML limitation.
+end note
+
+return Display FilteredEventList and filter result message
 
 @enduml

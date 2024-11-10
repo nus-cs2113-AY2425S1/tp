@@ -1,12 +1,12 @@
 @startuml
 hide footbox
-participant ":Main" as Main
+
 participant ":CopyCommand" as CC
 participant ":EventList" as EL
 participant "eventFrom:Event" as SourceEvent
 participant "eventTo:Event" as DestEvent
 
-Main -> CC: execute()
+[-> CC: execute()
 activate CC
 
 CC -> EL: getEventByName(copyTo)
@@ -34,7 +34,6 @@ opt Both Events Found
 
 end opt
 
-CC --> Main: Display copy result message
-deactivate CC
+return Display copy result message
 
 @enduml
