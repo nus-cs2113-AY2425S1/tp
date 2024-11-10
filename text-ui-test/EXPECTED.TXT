@@ -129,4 +129,3 @@ Enter a command: There are 1 items in anniversary celebration! Here are your ite
 ------------------------
 Enter a command: Thank you for using EventManagerCLI. Goodbye!
 ------------------------
-
