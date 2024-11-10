@@ -11,6 +11,7 @@ import seedu.exchangecoursemapper.command.ObtainContactsCommand;
 import seedu.exchangecoursemapper.command.ListPersonalTrackerCommand;
 import seedu.exchangecoursemapper.command.CompareMappedCommand;
 import seedu.exchangecoursemapper.command.FindCoursesCommand;
+import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
 
@@ -37,6 +38,16 @@ import static seedu.exchangecoursemapper.constants.Logs.EMPTY_INPUT_DETAILS;
 import static seedu.exchangecoursemapper.constants.Logs.INVALID_INPUT;
 import static seedu.exchangecoursemapper.constants.Messages.INVALID_COMMAND_MESSAGE;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
+
+import static seedu.exchangecoursemapper.constants.Logs.THE_AUSTRALIAN_NATIONAL_UNIVERSITY;
+import static seedu.exchangecoursemapper.constants.Logs.THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION;
+import static seedu.exchangecoursemapper.constants.Logs.THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION ;
+import static seedu.exchangecoursemapper.constants.Logs.THE_UNIVERSITY_OF_WESTERN_AUSTRALIA;
+import static seedu.exchangecoursemapper.constants.Logs.THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION;
+import static seedu.exchangecoursemapper.constants.Logs.THE_UNIVERSITY_OF_MELBOURNE;
+import static seedu.exchangecoursemapper.constants.Logs.VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION;
+import static seedu.exchangecoursemapper.constants.Logs.VICTORIA_UNIVERSITY_OF_WELLINGTON;
+
 
 public class Parser {
 
@@ -92,7 +103,6 @@ public class Parser {
         }
     }
 
-
     /**
      * Parses an abbreviated partner university name and returns the full name.
      *
@@ -102,14 +112,14 @@ public class Parser {
      */
     public String parsePUAbbreviations(String Pu) {
         String formattedPU = Pu.toLowerCase().trim();
-        if (formattedPU.equals("uwa")) {
-            formattedPU = "The University of Western Australia";
-        } else if (formattedPU.equals("unimelb")) {
-            formattedPU = "The University of Melbourne";
-        } else if (formattedPU.equals("anu")) {
-            formattedPU = "The Australian National University";
-        } else if (formattedPU.equals("wgtn")) {
-            formattedPU = "Victoria University of Wellington";
+        if (formattedPU.equals(THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION)) {
+            formattedPU = THE_UNIVERSITY_OF_WESTERN_AUSTRALIA;
+        } else if (formattedPU.equals(THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION)) {
+            formattedPU = THE_UNIVERSITY_OF_MELBOURNE;
+        } else if (formattedPU.equals(THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION)) {
+            formattedPU = THE_AUSTRALIAN_NATIONAL_UNIVERSITY;
+        } else if (formattedPU.equals(VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION)) {
+            formattedPU = VICTORIA_UNIVERSITY_OF_WELLINGTON;
         }
         return formattedPU;
     }
