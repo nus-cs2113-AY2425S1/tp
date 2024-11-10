@@ -42,6 +42,7 @@ public class FilterCoursesCommand extends CheckInformationCommand {
      * Class Constructor
      */
     public FilterCoursesCommand() {
+        logger.setLevel(Level.SEVERE);
         ui = new UI();
     }
 
