@@ -173,10 +173,15 @@ Below is a class diagram showing the EnumMap after an instance of `TrainingSessi
 4) Refer to Section on Edit Exercise and Point Calculation for specific implementation of 
    performance metric and point conversion.
 
+### Modify the DateTime of a Training Session
+When Parser detects the "modify" command, the TrainingSession instance at the user's specified index in sessionList will
+be overwritten with the new DateTime as specified by the user via the setDateTime function call.
+
+![Sequence_ModifyTrainingSession.png](Images/Sequence_ModifyTrainingSession.png)
+
 ### Delete Training Session
 When Parser detects the "delete" command, the TrainingSession instance at the user's specified index in sessionList will
-be 
-copied into a new private TrainingSession instance called sessionToDelete. The original instance in sessionList will 
+ be copied into a new private TrainingSession instance called sessionToDelete. The original instance in sessionList will 
 then be deleted. The new private instance is used to print the details of the deleted session, giving the user 
 confirmation that the TrainingSession they wished to delete has been successfully deleted. The new TrainingSession
 instance is then disposed of.
@@ -575,6 +580,22 @@ Any mainstream OS with Java 17 installed
 
    Test case 4: `add `<br>
    Expected: `Please provide a valid session name`.
+
+**Modify Training Session DateTime**
+1. Prerequisites: None. <br> <br>
+
+2. Test case 1: `modify 0`<br>
+   Expected: <br>
+   `Please provide a valid session index and DateTime (e.g. 2007-12-03 10:15:30).` <br>
+
+   Test case 2: `modify 1 blah`<br>
+   Expected: <br>
+   `Please provide a valid session index and DateTime (e.g. 2007-12-03 10:15:30).` <br>
+
+   Test case 3: `modify 1 1986-04-08 12:30`<br>
+   Expected: <br>
+   `Session 1 has been modified:` <br>
+   `New Date/Time: 10/11/2024 12:56` <br>
 
 **List all Training Sessions**
 1. Prerequisites: None. <br> <br>
