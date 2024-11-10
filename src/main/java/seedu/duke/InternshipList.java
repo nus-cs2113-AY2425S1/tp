@@ -286,22 +286,22 @@ public class InternshipList {
         for (Internship internship : internships) {
             String status = internship.getStatus().toLowerCase();
             switch (status) {
-                case "application pending":
-                    pendingList.add(internship);
-                    break;
-                case "application completed":
-                    completedList.add(internship);
-                    break;
-                case "accepted":
-                    acceptedList.add(internship);
-                    break;
-                case "rejected":
-                    rejectedList.add(internship);
-                    break;
-                default:
-                    // If there's an unknown status, you might want to handle it or ignore it
-                    logger.log(Level.WARNING, "Unknown status: " + status);
-                    break;
+            case "application pending":
+                pendingList.add(internship);
+                break;
+            case "application completed":
+                completedList.add(internship);
+                break;
+            case "accepted":
+                acceptedList.add(internship);
+                break;
+            case "rejected":
+                rejectedList.add(internship);
+                break;
+            default:
+                // If there's an unknown status, you might want to handle it or ignore it
+                logger.log(Level.WARNING, "Unknown status: " + status);
+                break;
             }
         }
 
@@ -390,22 +390,22 @@ public class InternshipList {
         for (Internship internship : favouriteInternships) {
             String status = internship.getStatus().toLowerCase();
             switch (status) {
-                case "application pending":
-                    pendingList.add(internship);
-                    break;
-                case "application completed":
-                    completedList.add(internship);
-                    break;
-                case "accepted":
-                    acceptedList.add(internship);
-                    break;
-                case "rejected":
-                    rejectedList.add(internship);
-                    break;
-                default:
-                    // If there's an unknown status, you might want to handle it or ignore it
-                    logger.log(Level.WARNING, "Unknown status: " + status);
-                    break;
+            case "application pending":
+                pendingList.add(internship);
+                break;
+            case "application completed":
+                completedList.add(internship);
+                break;
+            case "accepted":
+                acceptedList.add(internship);
+                break;
+            case "rejected":
+                rejectedList.add(internship);
+                break;
+            default:
+                // If there's an unknown status, you might want to handle it or ignore it
+                logger.log(Level.WARNING, "Unknown status: " + status);
+                break;
             }
         }
 
