@@ -137,14 +137,21 @@ public class Parser {
             break;
         case SET_USER_COMMAND:
             try {
+                // Check if details are appropriate
                 String[] userInfo = parseUserInfo(description);
-                user = validUser(userInfo[0], userInfo[1]);
-                assert user.getAge() > 0 : "User age must be greater than 0";
-                assert user.getGender() != null : "User gender must not be null";
+                validUser(userInfo[0], userInfo[1]);
+
+                user.setGender(userInfo[0]);
+                user.setAge(userInfo[1]);
+
+                // Report updated user details to user
                 printUser(user.getAge(), user.getGender().toString().toLowerCase());
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+
+
             break;
         case ADD_SESSION_COMMAND:
             try {

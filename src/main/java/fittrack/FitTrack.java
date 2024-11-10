@@ -69,6 +69,7 @@ public class FitTrack {
 
         // Set user gender and age
         User user = null;
+
         while(user == null) {
             try {
                 String userInput = scan.nextLine();
@@ -77,7 +78,8 @@ public class FitTrack {
                     return;
                 }
                 String[] userInfo = parseUserInfo(userInput);
-                user = validUser(userInfo[0], userInfo[1]);
+                validUser(userInfo[0], userInfo[1]);
+                user = new User(userInfo[0], userInfo[1]);
                 printUser(user.getAge(), user.getGender().toString().toLowerCase());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
