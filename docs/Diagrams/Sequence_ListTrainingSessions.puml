@@ -1,52 +1,53 @@
 @startuml
 title Sequence Diagram for "list" (all Training Sessions) Command
+skinparam style strictuml
 
 actor User
-participant FitTrack
-participant Parser
-participant Ui
-participant TrainingSession
+participant ":FitTrack"
+participant ":Parser"
+participant ":Ui"
+participant ":TrainingSession"
 
-User -> FitTrack: List all Training Sessions Command
-activate FitTrack
-FitTrack -> Parser: parse(...)
-activate Parser
-Parser -> Ui: printSessionList(...)
+User -> ":FitTrack": List all Training Sessions Command
+activate ":FitTrack"
+":FitTrack" -> ":Parser": parse(...)
+activate ":Parser"
+":Parser" -> ":Ui": printSessionList(...)
 
-activate Ui
+activate ":Ui"
 
 alt sessionList.isEmpty()
-    note over Ui
+    note over ":Ui"
         Print LIST_SESSION_EMPTY_MESSAGE
     end note
 else !sessionList.isEmpty()
-    note over Ui
+    note over ":Ui"
         Print LIST_SESSION_MESSAGE
     end note
     loop for each in sessionList
-        Ui --> FitTrack: sessionList.get(sessionIndex)
-        activate FitTrack
-        FitTrack --> Ui: TrainingSession
-        deactivate FitTrack
+        ":Ui" --> ":FitTrack": sessionList.get(sessionIndex)
+        activate ":FitTrack"
+        ":FitTrack" --> ":Ui": ":TrainingSession"
+        deactivate ":FitTrack"
 
-        Ui -> TrainingSession: getSessionDescription()
-        activate TrainingSession
-        TrainingSession --> Ui: sessionDescription
-        deactivate TrainingSession
+        ":Ui" -> ":TrainingSession": getSessionDescription()
+        activate ":TrainingSession"
+        ":TrainingSession" --> ":Ui": sessionDescription
+        deactivate ":TrainingSession"
 
-        note over Ui
+        note over ":Ui"
             Print sessionDescription
         end note
     end
-    Ui -> Ui: printSessionCount()
-    activate Ui
-    Ui --> Ui
-    deactivate Ui
+    ":Ui" -> ":Ui": printSessionCount()
+    activate ":Ui"
+    ":Ui" --> ":Ui"
+    deactivate ":Ui"
 end
-Ui --> Parser
-deactivate Ui
-Parser --> FitTrack
-deactivate Parser
-deactivate FitTrack
+":Ui" --> ":Parser"
+deactivate ":Ui"
+":Parser" --> ":FitTrack"
+deactivate ":Parser"
+deactivate ":FitTrack"
 
 @enduml
