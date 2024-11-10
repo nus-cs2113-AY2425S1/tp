@@ -36,10 +36,28 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 ## Features 
 
-> NOTE: Your stored course mapping is located in the `myList.json` file, found in the `data` folder at the same file path where you executed the JAR file.
+> **NOTE:** Your stored course mapping is located in the `myList.json` file, found in the `data` folder at the 
+> same file path where you executed the JAR file.
+>
+> **NOTE:** Ensure that all the commands given are placed in **one line**. 
+> Do not separate the command into multiple lines in the terminal.
 > 
-> NOTE:  Do not corrupt the `myList.json` file when executing the program! If you corrupted the file, please revert back to its original state before continuing with the program. 
- 
+> **NOTE:** For all command flags, ensure that your input is placed a single space after the flag.
+> 
+> **NOTE:** If the file is **corrupted**, please restore it to its **original state** before proceeding with the program.
+> 
+>You may try one of the following:
+>- Remove the corrupted line (delete one course mapping),
+>- Remove any empty lines in the file.
+>
+> **This list is non-exhaustive.**
+> 
+> **TIP:** You may use the partner universities' **official abbreviation** instead of typing the full name into the CLI, 
+> as shown in the chart below:
+> - The University of Melbourne - unimelb
+> - The Australian National University - anu
+> - Victoria University of Wellington - wgtn
+> - The University of Western Australia - uwa
 
 ### List all commands: `commands`
 Displays a list of all available commands, along with a brief description of each.
@@ -185,36 +203,33 @@ No mappable courses found for the given course code.
 ```
 
 ### Adding a course mapping: `add`
-Adds a new course mapping into `myList.json` file for storage.Course mapping is subject to validation
+Adds a new course mapping into `myList.json` file for storage. Course mapping is subject to validation
 to ensure that the course mapping is valid and that the university provided is an Oceania university.
 
 Format: `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE`
 
 * All 3 parameters `NUS_COURSE_CODE`, `PARTNER_UNIVERISTY_NAME` and `PU_COURSE_CODE` are case-insensitive.
-* Do not add punctuation to the above three parameters
+* Do not add punctuation to the above three parameters.
+* Do not switch the order of parameters. Keyword `/pu` must come before `/coursepu` keyword.
 * Indicate the full name of the partner university for `PARTNER_UNIVERISTY_NAME`. For example, indicate
   `The Australian National University` instead of `Australian National University` or `ANU`.
 
 Example of usage (lowercase):
+
 `add cs2102 /pu the university of melbourne /coursepu info20003`
 
 Expected output:
 
-![Add Courses Lowercase Output](images/AddCoursesCommandLowercaseScreenshot.png)
+![Add Courses Normal Case Output](images/AddCoursesCommandLowercaseScreenshot.png)
 
 Example of usage (normal case):
+
 `add CS3244 /pu The Australian National University /coursepu COMP3670`
 
 Expected output:
 
-![Add Courses Normal Case Output](images/AddCoursesCommandNormalCaseScreenshot.png)
+![Add Courses Lowercase Output](images/AddCoursesCommandNormalCaseScreenshot.png)
 
-Example of usage:
-`add CS3244 /pu Australian National University /coursepu COMP3670`
-
-Expected output:
-
-![Add Courses Invalid University](images/InvalidUniversityInputScreenshot.png)
 
 ### Delete course mapping plans from Personal Tracker: `delete`
 Delete a course mapping plan that was initially saved into the Personal Tracker.

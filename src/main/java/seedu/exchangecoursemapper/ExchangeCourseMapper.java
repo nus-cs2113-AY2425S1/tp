@@ -8,10 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ExchangeCourseMapper {
+
     /**
      * Main entry-point for the ExchangeCourseMapper application.
      */
-
     private static Storage savedCourses;
 
     public static void main(String[] args) {
