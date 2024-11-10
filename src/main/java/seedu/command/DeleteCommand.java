@@ -5,6 +5,7 @@ import seedu.exceptions.InventraInvalidFlagException;
 import seedu.exceptions.InventraInvalidNumberException;
 import seedu.exceptions.InventraMissingArgsException;
 import seedu.exceptions.InventraOutOfBoundsException;
+import seedu.exceptions.InventraRangeOutOfBoundsException;
 import seedu.model.Inventory;
 import seedu.ui.Ui;
 import seedu.storage.Csv;
@@ -27,6 +28,15 @@ public class DeleteCommand extends Command {
         if (part.isEmpty()) {
             throw new InventraMissingArgsException("Record Number");
         }
+
+        if (part.contains("-") && !part.startsWith("-")) {
+            // If the input contains a range without the -r flag
+            throw new InventraInvalidFlagException(
+                    "Invalid usage of range. Use 'delete -r <start>-<end>'" +
+                            " for deleting a range of records."
+            );
+        }
+
         if (!part.startsWith("-")) {
             int index = parseIndex(part);
             deleteSingleRecord(index);
@@ -53,6 +63,9 @@ public class DeleteCommand extends Command {
                     throw new InventraMissingArgsException("Range");
                 }
                 String[] numbers = args[2].trim().split("-");
+                if (numbers.length != 2) {
+                    throw new InventraInvalidFlagException("Invalid range format. Expected format: <start>-<end>");
+                }
                 deleteRangeRecords(parseIndex(numbers[0]), parseIndex(numbers[1]));
                 break;
             default:
@@ -74,18 +87,16 @@ public class DeleteCommand extends Command {
         return (index > 0 && index <= size);
     }
 
-    private void deleteRangeRecords(int start, int end) throws InventraOutOfBoundsException {
+    private void deleteRangeRecords(int start, int end) throws InventraRangeOutOfBoundsException {
         List<Map<String, String>> records = inventory.getRecords();
-        if (!isWithinBounds(start, records.size())) {
-            throw new InventraOutOfBoundsException(start, 1, records.size());
+        if (!isWithinBounds(start, records.size()) || !isWithinBounds(end, records.size())) {
+            throw new InventraRangeOutOfBoundsException(start, end, 1, records.size());
         }
-        if (!isWithinBounds(end, records.size())) {
-            throw new InventraOutOfBoundsException(end, 1, records.size());
+        if (end < start) {
+            throw new InventraRangeOutOfBoundsException(start, end, 1, records.size());
         }
-        if (end >= start) {
-            inventory.getRecords().subList(start - 1, end).clear();
-            csv.updateCsvAfterDeletion(inventory);
-        }
+        inventory.getRecords().subList(start - 1, end).clear();
+        csv.updateCsvAfterDeletion(inventory);
     }
 
     private void deleteAllRecords() {
@@ -115,8 +126,7 @@ public class DeleteCommand extends Command {
         try {
             return Integer.parseInt(indexString);
         } catch (NumberFormatException e) {
-            throw new InventraInvalidNumberException("Error: The input "
-                    + indexString + " could not be parsed as an integer.");
+            throw new InventraInvalidNumberException(indexString);
         }
     }
 

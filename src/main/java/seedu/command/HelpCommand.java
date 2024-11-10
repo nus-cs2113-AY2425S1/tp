@@ -2,6 +2,7 @@ package seedu.command;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import seedu.ui.Ui;
 
 public class HelpCommand extends Command {
@@ -17,39 +18,42 @@ public class HelpCommand extends Command {
                 "View records:\n" +
                         "   - Command to view all items: view -a\n" +
                         "   - Command to view specific item by ID: view <ID>\n" +
-                        "   - Example: view 1\n");
+                        "   - Example: view 1\n" +
+                        "   - Command to find specific item by string: view -f <STRING>\n" +
+                        "   - Example: view -f Apple\n");
 
         helpMessages.put("add -h",
                 "Add custom fields with specific types:\n" +
                         "Note: Types: s - String, i - Integer, f - Float, d - Date\n" +
                         "   - Command: add -h <type/field, type/field, ...>\n" +
-                        "   - Example: add -h s/name, i/quantity, f/price\n");
+                        "   - Example: add -h s/name, i/quantity, f/price, d/date\n");
 
         helpMessages.put("add -d",
                 "Add Records to custom fields created:\n" +
                         "   - Command: add -d <value1, value2, ...>\n" +
+                        "   - Example: add -d Apple, 100, 1.50, 01/10/2024\n" +
+                        "   - Note: Date format must be DD/MM/YYYY or DD/MM/YY\n" +
                         "   - Example: add -d Apple, 100, 1.50, 01/10/2024\n");
 
         helpMessages.put("delete",
                 "Delete Specific Records:\n" +
                         "   - Command: delete <record number>\n" +
-                        "   - Example: delete 2\n");
-
-        helpMessages.put("delete -a",
-                "Delete All Records:\n" +
-                        "   - Command: delete -a\n");
-
-        helpMessages.put("delete -e",
-                "Delete Entire Table:\n" +
-                        "   - Command: delete -e\n");
-
-        helpMessages.put("delete -h",
-                "Delete a header it's corresponding column:\n"+
-                        "   - Command: delete -h <header_name>\n");
-
-        helpMessages.put("delete -r",
-                "Delete a range of records using index range:\n"+
+                        "   - Example: delete 2\n\n" +
+                        "Delete All Records:\n" +
+                        "   - Command: delete -a\n\n" +
+                        "Delete Entire Table:\n" +
+                        "   - Command: delete -e\n\n" +
+                        "Delete a header and its corresponding column:\n" +
+                        "   - Command: delete -h <header_name>\n\n" +
+                        "Delete a range of records using index range:\n" +
                         "   - Command: delete -r <start_index>-<end_index>\n");
+
+        helpMessages.put("update",
+                "Update Records or Fields:\n" +
+                        "   - Update a record: update -d <index_number>,<field_name>,<new_value>\n" +
+                        "   - Example: update -d 1,name,Orange\n" +
+                        "   - Update a header: update -h <old_header_name>,<new_header_name>\n" +
+                        "   - Example: update -h name,product_name\n");
 
         helpMessages.put("exit",
                 "Exit program:\n" +
@@ -72,6 +76,7 @@ public class HelpCommand extends Command {
 
         switch (command) {
         case "view":
+        case "view -f":
             System.out.println(helpMessages.get("view"));
             break;
 
@@ -90,10 +95,10 @@ public class HelpCommand extends Command {
         case "delete -h":
         case "delete -r":
             System.out.println(helpMessages.get("delete"));
-            System.out.println(helpMessages.get("delete -a"));
-            System.out.println(helpMessages.get("delete -e"));
-            System.out.println(helpMessages.get("delete -h"));
-            System.out.println(helpMessages.get("delete -r"));
+            break;
+
+        case "update":
+            System.out.println(helpMessages.get("update"));
             break;
 
         case "exit":

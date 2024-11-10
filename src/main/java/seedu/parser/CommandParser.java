@@ -6,6 +6,7 @@ import seedu.command.AddCommand;
 import seedu.command.DeleteCommand;
 import seedu.command.UpdateCommand;
 import seedu.exceptions.InventraException;
+import seedu.exceptions.InventraExcessArgsException;
 import seedu.exceptions.InventraInvalidCommandException;
 import seedu.model.Inventory;
 import seedu.ui.Ui;
@@ -13,7 +14,10 @@ import seedu.storage.Csv;
 
 public class CommandParser {
     public static void parseCommand(String input, Inventory inventory, Ui ui, Csv csv) {
-        String[] parts = input.split(" ", 3);
+        // Normalize input by trimming
+        input = input.trim().replaceAll("\\s+", " ");
+
+        String[] parts = input.split("\\s+", 3);
         String command = parts[0];
 
         try {
@@ -34,6 +38,9 @@ public class CommandParser {
                 new HelpCommand(ui).execute(parts);
                 break;
             case "exit":
+                if (parts.length > 1) {
+                    throw new InventraExcessArgsException(1, parts.length);
+                }
                 ui.printMessage("Program exit successfully.");
                 break;
             default:
