@@ -2,7 +2,6 @@
 
 package command.programme;
 import command.CommandResult;
-import exceptions.HistoryExceptions;
 import history.DailyRecord;
 import programme.Programme;
 import programme.ProgrammeList;

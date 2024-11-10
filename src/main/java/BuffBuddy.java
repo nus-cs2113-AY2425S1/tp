@@ -2,7 +2,6 @@
 import command.Command;
 import command.CommandResult;
 import command.ExitCommand;
-import exceptions.StorageExceptions;
 import storage.Storage;
 import history.History;
 import parser.Parser;
