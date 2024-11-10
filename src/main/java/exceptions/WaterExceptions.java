@@ -25,4 +25,14 @@ public class WaterExceptions extends BuffBuddyExceptions {
     public static WaterExceptions doesNotExist() {
         return new WaterExceptions("Water log does not exist");
     }
+
+    /**
+     * Returns a WaterExceptions indicating that the water volume is less than 0.
+     *
+     * @return A {@code WaterExceptions} with a message indicating that the water volume \
+     *                                  is less than 0.
+     */
+    public static WaterExceptions volumeOutOfBounds() {
+        return new WaterExceptions("Water amount cannot be negative");
+    }
 }

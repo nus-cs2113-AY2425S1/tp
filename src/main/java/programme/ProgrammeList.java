@@ -2,7 +2,6 @@
 
 package programme;
 
-import exceptions.BuffBuddyException;
 import exceptions.ProgrammeExceptions;
 
 import java.util.ArrayList;
@@ -132,7 +131,7 @@ public class ProgrammeList {
         if (programmeList.isEmpty()){
             currentActiveProgramme = NULL_INTEGER;
             logger.log(Level.WARNING, "Attempted to start a programme but the list is empty");
-            throw new BuffBuddyException("Programme list is empty");
+            throw ProgrammeExceptions.programmeListEmpty();
         }
 
         if (startIndex < 0 || startIndex >= programmeList.size()) {
@@ -141,7 +140,7 @@ public class ProgrammeList {
         }
 
         if (currentActiveProgramme == startIndex) {
-            throw new BuffBuddyException("Program " + (startIndex + 1) + " has already been started");
+            throw ProgrammeExceptions.programmeAlreadyActive(startIndex);
         }
 
         currentActiveProgramme = startIndex;

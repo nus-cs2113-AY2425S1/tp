@@ -25,4 +25,14 @@ public class MealException extends BuffBuddyExceptions {
     public static MealException doesNotExist() {
         return new MealException("Meal does not exist");
     }
+
+    /**
+     * Returns a MealException indicating that the number of calories are less than 0.
+     *
+     * @return A {@code MealException} with a message indicating that the number of calories
+     *                                  is less than 0.
+     */
+    public static MealException caloriesOutOfBounds() {
+        return new MealException("Calories cannot be negative");
+    }
 }

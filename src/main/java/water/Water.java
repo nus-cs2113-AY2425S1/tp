@@ -29,10 +29,6 @@ public class Water {
      * @throws AssertionError if the amount of water is not positive
      */
     public void addWater(float water) {
-        if (water < 0){
-            throw new IndexOutOfBoundsBuffBuddyException("Water amount must be positive");
-        }
-
         assert water > 0 : "Water amount must be positive";
 
         waterList.add(water);

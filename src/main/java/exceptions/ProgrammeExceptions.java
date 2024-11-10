@@ -26,6 +26,25 @@ public class ProgrammeExceptions extends BuffBuddyExceptions {
     }
 
     /**
+     * Returns a ProgrammeExceptions indicating that a programme list is empty.
+     *
+     * @return A {@code ProgrammeExceptions} with a message indicating an empty programme list
+     */
+    public static ProgrammeExceptions programmeListEmpty() {
+        return new ProgrammeExceptions("Programme list is empty");
+    }
+
+    /**
+     * Returns a ProgrammeExceptions indicating that tha programme has already been set to active.
+     *
+     * @return A {@code ProgrammeExceptions} with a message indicating the programme has already started.
+     */
+    public static ProgrammeExceptions programmeAlreadyActive(int index) {
+        return new ProgrammeExceptions("Program " + (index + 1) + " has already been started");
+    }
+
+
+    /**
      * Returns a ProgrammeExceptions indicating that the programme edit command
      * is missing required flags.
      *
