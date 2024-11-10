@@ -9,13 +9,13 @@ import java.util.logging.Logger;
 
 public class ExchangeCourseMapper {
     /**
-     * Main entry-point for the java.duke.Duke application.
+     * Main entry-point for the ExchangeCourseMapper application.
      */
     private static Storage savedCourses;
 
     public static void main(String[] args) {
         Logger rootLogger = Logger.getLogger("");
-        rootLogger.setLevel(Level.WARNING);
+        rootLogger.setLevel(Level.OFF);
 
         runMapper();
     }
