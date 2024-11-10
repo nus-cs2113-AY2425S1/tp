@@ -653,10 +653,10 @@ The interactions between components of `FindCommand#execute` are shown in the **
 
 ### Saving and loading of data
 
-As mentioned in the _Storage component_ section, the program automatically saves any stored data in `EventList` into `data.csv` file, and loads
+As mentioned in the _Storage component_ section, the program automatically saves any stored data in `EventList` into `data.txt` file, and loads
 the data from this file when the program runs.
 
-In `data.csv`, each line represents an object (`Event`, `Participant`, or `Item`), organised in the following format:
+In `data.txt`, each line represents an object (`Event`, `Participant`, or `Item`), organised in the following format:
 
 ```
 EVENT,FIELD,FIELD,...
@@ -667,19 +667,19 @@ ITEM,FIELD,FIELD,...
 where `FIELD` represents a value corresponding to a property of the object (e.g., `Event` name or `Participant` email).
 
 This functionality is implemented by the `Storage` and `FileParser` classes, encompassing two main operations:
-* `Main#loadData()`, which loads data from the `data.csv` file into `EventList`.
-* `Main#saveData()`, which saves all data stored in `EventList` (including its `Events`, `Participants`, and `Items`) into `data.csv`.
+* `Main#loadData()`, which loads data from the `data.txt` file into `EventList`.
+* `Main#saveData()`, which saves all data stored in `EventList` (including its `Events`, `Participants`, and `Items`) into `data.txt`.
 
 #### The `Main#loadData()` operation works as follows:
 
-1. `Storage` initializes `FileParser` to read data from `data.csv` into `EventList`.
+1. `Storage` initializes `FileParser` to read data from `data.txt` into `EventList`.
 2. `FileParser` processes each line, identifying whether it represents an `Event`, `Participant`, or `Item`, and appropriately adds each object to the relevant `Event` in `EventList`.
 3. Lines with insufficient or invalid fields are skipped, while lines with extra fields have the additional fields ignored.
 
 #### Loading Events, Participants and Items
 
 For `Event` loading:
-* `Storage` creates an instance of `FileParser` and provides the file path to `data.csv`.
+* `Storage` creates an instance of `FileParser` and provides the file path to `data.txt`.
 * `FileParser` reads each line, and for `Event` lines, it adds a new `Event` to `EventList` using the fields from the line.
 
 For `Participant` and `Item` loading:
@@ -695,13 +695,13 @@ The logic for the loading of `Item`s is similar to that for `Participant`s.
 
 #### The `Main#saveData()` operation saves data in the same order as `Main#loadData()` and works as follows.
 
-1. `Storage` retrieves `Events` from `EventList` and writes each `Event` and its associated `Participants` and `Items` to `data.csv`.
+1. `Storage` retrieves `Events` from `EventList` and writes each `Event` and its associated `Participants` and `Items` to `data.txt`.
 2. Each line is formatted based on the object type, either as an `Event`, `Participant`, or `Item`.
 
 #### Saving Events, Participants, and Items
 
 For saving `Events`:
-* Storage obtains the list of Events from EventList and writes each Event line by line to data.csv.
+* Storage obtains the list of Events from EventList and writes each Event line by line to data.txt.
 
 For `Participant` and `Item` saving:
 * For each Event, Storage retrieves the list of Participants and Items, writing each line in the respective format.
@@ -1007,6 +1007,14 @@ The user is able to organise and manage his events more quickly and efficiently 
    
    2. Test case: `copy Event 1 > Event 2`  
       Expected: The `Participant` list in `Event 1` is not copied over to `Event 2`. An error message is shown.
+
+2. Copying a `Participant` list to an event with an existing `Participant` list.
+
+    1. Prerequisite: Events with the names `Event 1` and `Event 2` are present in the list.
+       Both `Event 1` and `Event 2` have `Participant`s in their `Participant` lists.
+
+    2. Test case: `copy Event 1 > Event 2`  
+       Expected: The `Participant` list in `Event 1` is copied over to `Event 2`, overwriting `Event 2`'s `Participant` list. A success message is shown.
 <div style="page-break-after: always;"></div>
 
 ### Sorting the event list
@@ -1045,4 +1053,4 @@ The user is able to organise and manage his events more quickly and efficiently 
    2. Run the program by opening a new terminal window and entering `java -jar manager.jar`.
       The program would give a warning that a line cannot be loaded, and the `Event` represented by the line would not be present in the `Event`s list.
       
-   3. Essentially all corrupted rows are ignored and file parsing will still work
+   3. Essentially all corrupted rows are ignored and file parsing will still work.
