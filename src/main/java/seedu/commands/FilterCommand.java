@@ -140,7 +140,7 @@ public class FilterCommand extends Command {
             filteredInternships.internships.removeAll(favouriteInternshipList);
             break;
         default:
-            uiCommand.showOutput("Please only input 'true'/'false' following the -fav flag");
+            uiCommand.showOutput("Please only input 'true'/'false' following the -favourite flag");
             throw new IllegalArgumentException();
         }
     }
