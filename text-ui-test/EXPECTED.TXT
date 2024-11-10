@@ -53,53 +53,49 @@ Enter a command: Event not found!
 Enter a command: Event information successfully updated
 ------------------------
 Enter a command: There are 1 events in your list! Here are your scheduled events:
-1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
-Enter a command: Participant added successfully
+Enter a command: Event not found!
 ------------------------
 Enter a command: Invalid command!
 Please enter your commands in the following format:
 view -e EVENT -y TYPE
 
 ------------------------
-Enter a command: Participant contact information successfully updated
+Enter a command: Event/Participant not found!
 ------------------------
-Enter a command: There are 1 participants in dinner party! Here are your participants:
-1. Name: Mary / Number: 98624759 / Email: Mary@gmail.com [ ]
-
+Enter a command: Event not found!
 ------------------------
 Enter a command: Event added successfully
 ------------------------
 Enter a command: Events successfully sorted by name!
 1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
-2. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Enter a command: Events successfully sorted by time!
-1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
-Enter a command: Item added successfully
+Enter a command: Event not found!
 ------------------------
-Enter a command: Item accounted for.
+Enter a command: Event not found!
 ------------------------
-Enter a command: There are 1 items in dinner party! Here are your items:
-1. curry chicken [X]
-
+Enter a command: Event not found!
 ------------------------
 Enter a command: There are 2 events in your list! Here are your scheduled events:
-1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
 Enter a command: Events successfully filtered by name!
-1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Enter a command: Events successfully filtered by date!
-1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Enter a command: Events successfully filtered by time!
@@ -107,7 +103,7 @@ Enter a command: Events successfully filtered by time!
 
 ------------------------
 Enter a command: Events successfully filtered by date-time!
-1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Enter a command: Events successfully filtered by priority!
@@ -115,7 +111,7 @@ Enter a command: Events successfully filtered by priority!
 
 ------------------------
 Enter a command: There are 2 events in your list! Here are your scheduled events:
-1. Event name: dinner party / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
@@ -133,3 +129,4 @@ Enter a command: There are 1 items in anniversary celebration! Here are your ite
 ------------------------
 Enter a command: Thank you for using EventManagerCLI. Goodbye!
 ------------------------
+
