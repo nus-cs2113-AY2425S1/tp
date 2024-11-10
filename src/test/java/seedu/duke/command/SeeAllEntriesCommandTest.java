@@ -111,7 +111,7 @@ class SeeAllEntriesCommandTest {
     }
 
     /**
-     * Test the execute method, specifying that only Entries up to 10/10/24 inclusive should be printed.
+     * Test the execute method, specifying that only Entries up to 10/10/2024 inclusive should be printed.
      */
     @Test
     void execute_listBeforeCertainDate_expectSomeEntries() throws FinanceBuddyException {
@@ -148,7 +148,7 @@ class SeeAllEntriesCommandTest {
     }
 
     /**
-     * Test the execute method, specifying that only Entries starting from 10/10/24 inclusive should be printed.
+     * Test the execute method, specifying that only Entries starting from 10/10/2024 inclusive should be printed.
      */
     @Test
     void execute_listAfterCertainDate_expectSomeEntries() throws FinanceBuddyException {
@@ -186,7 +186,7 @@ class SeeAllEntriesCommandTest {
 
     /**
      * Test the execute method, specifying that only Entries
-     * between 01/10/2024 and 01/11/24 inclusive should be printed.
+     * between 01/10/2024 and 01/11/2024 inclusive should be printed.
      */
     @Test
     void execute_listBeforeAndAfterCertainDate_expectSomeEntries() throws FinanceBuddyException {

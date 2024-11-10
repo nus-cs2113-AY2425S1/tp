@@ -103,7 +103,7 @@ public class SeeAllExpensesCommandTest {
     }
 
     /**
-     * Test the execute method, specifying that only Expenses up to 20/10/24 inclusive should be printed.
+     * Test the execute method, specifying that only Expenses up to 20/10/2024 inclusive should be printed.
      */
     @Test
     public void execute_beforeDate_printSomeExpenses() throws FinanceBuddyException {
@@ -139,7 +139,7 @@ public class SeeAllExpensesCommandTest {
     }
 
     /**
-     * Test the execute method, specifying that only Expenses starting from 20/10/24 inclusive should be printed.
+     * Test the execute method, specifying that only Expenses starting from 20/10/2024 inclusive should be printed.
      */
     @Test
     public void execute_afterDate_printSomeExpenses() throws FinanceBuddyException {
@@ -177,7 +177,7 @@ public class SeeAllExpensesCommandTest {
 
     /**
      * Test the execute method, specifying that only Expenses
-     * between 15/10/24 and 21/10/24 inclusive should be printed.
+     * between 15/10/2024 and 21/10/2024 inclusive should be printed.
      */
     @Test
     public void execute_beforeAndAfterDate_printSomeExpenses() throws FinanceBuddyException {

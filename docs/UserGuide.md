@@ -167,12 +167,12 @@ Displays total cashflow (income - expenditure), and shows categories with the hi
 <br><br>
 
 ![list](screenshots/UG_list2.png)<br>
-Lists out all expenses. Displays total expenditure, and shows category with highest total expenditure.
+Lists out all expenses. Displays total expenditure, and shows category with the highest total expenditure.
 
 <br><br>
 
 ![list](screenshots/UG_list3.png)<br>
-Lists out all incomes. Displays total income, and shows category with highest total income.
+Lists out all incomes. Displays total income, and shows category with the highest total income.
 
 <br>
 
@@ -182,26 +182,26 @@ User can command app to only list out transactions starting from a certain date 
 and/or up to a certain date using the `/to` flag.
 
 Total cashflow/expenditure/income displayed will be restricted to the range of dates entered by the user.
-Category with highest expenditure/income displayed will also be based on the entered date range.
+Category with the highest expenditure/income displayed will also be based on the entered date range.
 
 **Example Usage:**
 
 ![list](screenshots/UG_list4.png)<br>
-Lists out all expenses and incomes with date equal to or after 03/10/24.
+Lists out all expenses and incomes with date equal to or after 03/10/2024.
 Displays total cashflow (income - expenditure) during that period, and shows
 categories with the highest total expenditure and income during that period respectively.
 
 <br><br>
 
 ![list](screenshots/UG_list5.png)<br>
-Lists out all expenses with dates before or equal to 03/10/24.
-Displays total expenditure + category with highest total expenditure during that period.
+Lists out all expenses with dates before or equal to 03/10/2024.
+Displays total expenditure + category with the highest total expenditure during that period.
 
 <br><br>
 
 ![list](screenshots/UG_list6.png)<br>
-Lists out all incomes with dates between 03/10/24 and 10/10/24 inclusive.
-Displays total income + category with highest total income during that period.
+Lists out all incomes with dates between 03/10/2024 and 10/10/2024 inclusive.
+Displays total income + category with the highest total income during that period.
 
 <br>
 

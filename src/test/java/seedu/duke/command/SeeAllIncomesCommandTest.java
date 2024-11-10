@@ -107,7 +107,7 @@ class SeeAllIncomesCommandTest {
     }
 
     /**
-     * Test the execute method, specifying that only Incomes up to 10/10/24 inclusive should be printed.
+     * Test the execute method, specifying that only Incomes up to 10/10/2024 inclusive should be printed.
      */
     @Test
     void execute_mixedListBeforeCertainDate_expectPrintedIncomes() throws FinanceBuddyException {
