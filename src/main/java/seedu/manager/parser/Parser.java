@@ -972,6 +972,11 @@ public class Parser {
                 throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
             }
 
+            if (!matcher.group(1).equals("time") && !matcher.group(1).equals("name") &&
+                    !matcher.group(1).equals("priority")) {
+                throw new InvalidCommandException(INVALID_SORT_KEYWORD_MESSAGE);
+            }
+
             return new SortCommand(matcher.group(1).trim());
         } else {
             throw new InvalidCommandException(INVALID_SORT_MESSAGE);
