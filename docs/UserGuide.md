@@ -24,6 +24,7 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 - All records, including logged days, meals, and water intake, are saved in a structured format within a designated file (./data/data.json).
 - The JSON format is human-readable, allowing users to view their stored data easily if needed.
 - The system automatically creates the file if it does not exist.
+- If the file is messed with, the file will reset the programme list and history or 
 
 ---
 
