@@ -512,20 +512,21 @@ It is optimized to be simple, lightweight and minimalistic so that students do n
 
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
 
-| Priority | As a ... | I want to ...                          | So that I can ...                                   |
-|----------|----------|----------------------------------------|-----------------------------------------------------|
-| ***      | new user | see usage instructions                 | refer to them when I forget how to use the app      |
-| ***      | user     | add a new training session             | record my NAPFA training progress                   |
-| ***      | user     | edit my new training session           | record the reps/time I attained for each exercise   |
-| ***      | user     | delete a training session              | remove a session that was added by mistake          |
-| ***      | user     | view a list of past training sessions  | track the number of training sessions I have done   |
-| ***      | user     | view the details of a training session | have an overview of my performance for that session |
-| ***      | user     | store my training sessions             | keep a record of my sessions when the app is closed |
-| **       | user     | calculate my NAPFA points per exercise | conveniently view my standing for each station      |
-| *        | user     | know my NAPFA achievement level        | know my NAPFA standard at a glance                  |
-| ***      | user     | add, view, and delete goals            | keep track of my fitness objectives                 |
-| ***      | user     | log my mood regularly                  | monitor and improve my mental well-being            |
-| ***      | user     | log food intake and calorie count      | manage my diet alongside my fitness regimen         |
+| Priority | As a ... | I want to ...                                | So that I can ...                                   |
+|----------|----------|----------------------------------------------|-----------------------------------------------------|
+| ***      | new user | see usage instructions                       | refer to them when I forget how to use the app      |
+| ***      | user     | add a new training session                   | record my NAPFA training progress                   |
+| ***      | user     | edit my new training session                 | record the reps/time I attained for each exercise   |
+| ***      | user     | modify the DateTime of an existing session   | correct errors in TrainingSession creation          |
+| ***      | user     | delete a training session                    | remove a session that was added by mistake          |
+| ***      | user     | view a list of past training sessions        | track the number of training sessions I have done   |
+| ***      | user     | view the details of a training session       | have an overview of my performance for that session |
+| ***      | user     | store my training sessions                   | keep a record of my sessions when the app is closed |
+| **       | user     | calculate my NAPFA points per exercise       | conveniently view my standing for each station      |
+| *        | user     | know my NAPFA achievement level              | know my NAPFA standard at a glance                  |
+| ***      | user     | add, view, and delete goals                  | keep track of my fitness objectives                 |
+| ***      | user     | log my mood regularly                        | monitor and improve my mental well-being            |
+| ***      | user     | log food intake and calorie count            | manage my diet alongside my fitness regimen         |
 
 
 ## Non-Functional Requirements
