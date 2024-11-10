@@ -100,8 +100,50 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         return inputParts[1].trim();
     }
 
+
     /**
-     * Executes the output of different contact types and outputs a string of the details.
+     * Returns the school name that matches the provided school name.
+     *
+     * @param jsonObject the JSON object containing school information.
+     * @param schoolName the name of the school to search for.
+     * @return the matching school name or null if not found.
+     */
+    public static String getMatchingSchoolName(JsonObject jsonObject, String schoolName) {
+        for (String key : jsonObject.keySet()) {
+            if (key.toLowerCase().equals(schoolName.toLowerCase())) {
+                return key;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the matching school in the provided JSON object.
+     *
+     * @param jsonObject the JSON object containing all school information.
+     * @param schoolName the school name to search for.
+     * @return the matching school name if found, or the input school name if not found.
+     * @throws AssertionError if jsonObject or schoolName is null.
+     */
+    public String findMatchingSchool(JsonObject jsonObject, String schoolName) {
+        assert jsonObject != null : Assertions.NULL_JSON_OBJECT;
+        assert schoolName != null : Assertions.NULL_SCHOOL_NAME;
+
+        if (schoolContactValidator.isSchoolValid(jsonObject, schoolName)) {
+            String key = getMatchingSchoolName(jsonObject, schoolName);
+            if (key != null) {
+                return key;
+            }
+        } else {
+            logger.log(Level.WARNING, "Unknown university - {0}", schoolName);
+            System.out.println("Unknown university - " + schoolName);
+        }
+
+        return schoolName;
+    }
+
+    /**
+     * Executes the checking of contact type and retrieves the corresponding contact information
      *
      * @param schoolInfo  the JSON object containing the school's information.
      * @param schoolName  the name of the school as a string
@@ -116,6 +158,13 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         }
     }
 
+    /**
+     * Returns the contact type and displays the appropriate contact information.
+     *
+     * @param schoolInfo  the JSON object containing the school's information.
+     * @param schoolName  the name of the school as a string.
+     * @param contactType the contact type (either "email" or "number").
+     */
     public static void contactTypeIdentifier(JsonObject schoolInfo, String schoolName, String contactType) {
         switch (contactType) {
         case EMAIL_KEY:
@@ -132,39 +181,4 @@ public class ObtainContactsCommand extends CheckInformationCommand {
             break;
         }
     }
-
-    /**
-     * Returns the name of the matching school name from the database.
-     *
-     * @param jsonObject the JSON object containing all school information.
-     * @param schoolName the school name to search for.
-     * @return the matching school name if found, or the input school name if not found.
-     * @throws AssertionError if jsonObject or schoolName is null.
-     */
-    public String findMatchingSchool(JsonObject jsonObject, String schoolName) {
-        assert jsonObject != null : Assertions.NULL_JSON_OBJECT;
-        assert schoolName != null : Assertions.NULL_SCHOOL_NAME;
-
-        if (schoolContactValidator.isSchoolValid(jsonObject, schoolName)) {
-            String key = getSchoolName(jsonObject, schoolName);
-            if (key != null) {
-                return key;
-            }
-        } else {
-            logger.log(Level.WARNING, "Unknown university - {0}", schoolName);
-            System.out.println("Unknown university - " + schoolName);
-        }
-
-        return schoolName;
-    }
-
-    public static String getSchoolName(JsonObject jsonObject, String schoolName) {
-        for (String key : jsonObject.keySet()) {
-            if (key.toLowerCase().equals(schoolName.toLowerCase())) {
-                return key;
-            }
-        }
-        return null;
-    }
-
 }
