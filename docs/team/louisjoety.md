@@ -4,7 +4,7 @@ By: Joe Tien You (@louisjoety)
 
 ## 1. Overview:
 ExchangeCourseMapper is a tool to allow users to plan their exchange course mapping.
-It includes features to list partner universities available, the courses and the filtering of courses. 
+It includes features to list partner universities, their courses and filtering of courses. 
 There is also a tracker that allows users to add and delete mappings, display the saved courses and 
 compare between two schools.
 
@@ -34,8 +34,8 @@ support usability and team collaboration. Check out my contributions on the [TP 
 ### Miscellaneous
 * Implemented starting points for 4 major components: `Parser`, `UI`, `Commands`, `Storage`
 * Trivial features: Creating `Assertions`, `Logs` file and getting rid of magic strings
-* Test case for Parser Class
-* Help team do QA to obtain bugs around code namely in storage and more complex commands
+* J-unit test for Parser Class
+* Help team do QA to obtain bugs around code namely in more complex commands
 
 ## 4. User Guide:
 * Documented the FAQ section and the Command Summary
@@ -45,7 +45,7 @@ support usability and team collaboration. Check out my contributions on the [TP 
 * Added the directory for the DG 
 * Documented the NFR, product scope, acknowledgements section
 * Design Section: 
-  * Architecture Diagram, Partial Class Diagram of `Commands`, Flow of an example of Sequence Diagram 
+  * Architecture Diagram, Partial Class Diagram of `Commands`, Example of Sequence Diagram 
 * Implementation Section: 
   * General JSON Processing Section, List Schools Section, Obtain Contacts Section
 
