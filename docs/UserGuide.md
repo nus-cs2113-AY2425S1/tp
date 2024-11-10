@@ -100,7 +100,9 @@ Format:
 
 Remarks:
 
-* `TIME` must be entered in the format `yyyy-mm-dd HH:mm`.
+* `TIME` must be entered in the format `yyyy-mm-dd HH:mm`. 
+  * There is no year 0000, no month 0 and no day 0 in the AD Calendar. Using such inputs will throw an error.
+  * Using date-time inputs from the past (before the current date-time) will throw an error.
 * `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
   * The values entered for `PRIORITY` are case-insensitive.
 * If the event list has an `Event` with the name `EVENT`, or the specified event has a `Participant` or `Item` with the name of the `Participant`/`Item` to be added, an indexed suffix is added to differentiate the different entries.
@@ -160,6 +162,7 @@ Remarks:
 
 * If there is already an `Event` with the name `NEW_EVENT_NAME` in the event list, or an `Item` with the name `NEW_ITEM_NAME` in the specified event, an indexed suffix is added to differentiate the events.
   * e.g. given that an `Event` named `Wood workshop` is already present in the list, editing another `Event` to have the name `Wood workshop` would result in it being named `Wood workshop (1)`.
+* `TIME` cannot be edited to a date-time in the past.
 
 Examples:
 
@@ -237,7 +240,7 @@ Filters out events from the event list based on name, date-time or priority leve
 
 Format: `filter -e/-d/-t/-x/-u DESCRIPTION`
 
-* `-e/-d/-t/-x/-u` are the flags for name, date-time and priority level respectively.
+* `-e/-d/-t/-x/-u` are the flags for name, date, time, date-time and priority level respectively.
 * `DESCRIPTION` is case-insensitive.
 
 Examples:
