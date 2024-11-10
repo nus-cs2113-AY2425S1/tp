@@ -21,7 +21,7 @@ public class ViewCommandTest {
         Command command;
         eventList = new EventList();
 
-        command = new Parser().parseCommand("add -e Event 1 -t 2024-10-10 10:00 -v Venue A -u high");
+        command = new Parser().parseCommand("add -e Event 1 -t 2025-10-10 10:00 -v Venue A -u high");
         command.setData(eventList);
         command.execute();
 
