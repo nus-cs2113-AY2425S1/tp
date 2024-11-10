@@ -57,12 +57,15 @@ List of commands:
 --------------------------------------------
 1. list [income|expense] [/from START_DATE] [/to END_DATE]
    - Shows a list of logged transactions
-    - Also displays categories with highest income/expenditure, monthly budget and balance
+    - Also displays categories with highest income/expenditure, monthly
+      budget and balance
     - Optional: Specify 'income' or 'expense' to filter the list
-    - Optional: Specify start/end date to only list transactions before/after specified dates
+    - Optional: Specify start/end date to only list transactions before/after
+      specified dates
 2. expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]
    - Adds a new expense with an optional date and category
-    - Categories include: FOOD, TRANSPORT, ENTERTAINMENT, UTILITIES, OTHER, UNCATEGORIZED
+    - Categories include: FOOD, TRANSPORT, ENTERTAINMENT, UTILITIES, OTHER,
+      UNCATEGORIZED
 3. income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]
    - Adds a new income with an optional date and category
     - Categories include: SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED
@@ -78,6 +81,8 @@ List of commands:
    - Shows a list of all valid commands
 --------------------------------------------
 ```
+Note: The formatting of the above sample output is slightly different from what you will see in the program.
+A few line breaks have been added to allow the sample output to fit within the boundaries of the PDF page.
 
 <hr>
 <div style="page-break-after: always;"></div>
