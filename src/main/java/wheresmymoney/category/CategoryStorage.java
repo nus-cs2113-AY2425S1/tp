@@ -40,13 +40,9 @@ public class CategoryStorage {
      *
      * @param filePath File Path to read CSV from
      */
-    public CategoryTracker loadFromCsv(String filePath, CategoryTracker categoryTracker) throws StorageException {
+    public void loadFromCsv(String filePath, CategoryTracker categoryTracker) throws StorageException {
         CsvUtils.readCsv(filePath, line -> {
             try {
-                if (line.length != 2) {
-                    return;
-                }
-
                 String categoryName = line[0];
                 Float spendingLimit = CsvUtils.parseFloat(line[1]);
                 assert spendingLimit != null;
@@ -60,7 +56,6 @@ public class CategoryStorage {
                 throw new StorageException("Loading Error");
             }
         });
-        return categoryTracker;
     }
 
     /**
