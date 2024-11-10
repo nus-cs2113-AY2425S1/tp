@@ -22,8 +22,6 @@ loop for each event in eventList
         activate event
         event --> eventList : item updated
         deactivate event
-        eventList --> editCommand : :boolean
-
     end
 
 end

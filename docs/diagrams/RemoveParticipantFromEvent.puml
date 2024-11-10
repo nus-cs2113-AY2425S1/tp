@@ -23,7 +23,6 @@ group sd Remove participant from event
             activate participantList  
             destroy participant
             return
-            event --> eventList : :boolean
         end
     end
     return :boolean

@@ -8,7 +8,7 @@ participant ":Event" as event
 [-> editCommand : execute()
 activate editCommand
 
-editCommand -> eventList : editEvent(eventName, eventNewName, eventTime, eventVenue, eventPriority)
+editCommand -> eventList : editEvent(eventName, eventNewName,\n eventTime, eventVenue, eventPriority)
 activate eventList
 
 loop for each event in eventList
@@ -18,11 +18,10 @@ loop for each event in eventList
     deactivate event
 
     opt eventName matches
-        eventList -> event : updateEvent(eventNewName, eventTime, eventVenue, eventPriority)
+        eventList -> event : updateEvent(eventNewName,\n eventTime, eventVenue, eventPriority)
         activate event
         event --> eventList : updated
         deactivate event
-        eventList --> editCommand : :boolean
     end
 
 end

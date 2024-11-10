@@ -22,7 +22,6 @@ group sd Remove event
             activate list  
             destroy event
             return
-            eventList --> command : :boolean
         end
     end
     return :boolean

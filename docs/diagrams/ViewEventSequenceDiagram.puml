@@ -14,7 +14,7 @@ activate eventList
 return eventToView:Event
 
 alt eventToView not found
-    command --> main : Invalid event
+    command -->[ : Invalid event
 else isViewingParticipants is true
     ref over command, eventList: View participants
 else else

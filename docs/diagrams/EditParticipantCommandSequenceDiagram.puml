@@ -22,7 +22,6 @@
          activate event
          event --> eventList : updated
          deactivate event
-         eventList --> editCommand : :boolean
      end
 
 end
