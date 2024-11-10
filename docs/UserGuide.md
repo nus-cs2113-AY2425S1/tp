@@ -121,7 +121,7 @@ General Format: `view [FLAG] [INPUT]`
 
 #### View Records related to Keyword
 * Command: `view -f KEYWORD`
-    * Display records that contains the keyword
+    * Display records that contains the keyword inputted by the user.
     * Example: ``` view -f apple ```
       
 ### Updating Fields and Records: `update`
@@ -165,7 +165,6 @@ General Format: `delete [FLAG] [INPUT]`
 * Command: `delete -h FIELD`
     * Example: delete -h quantity
     * Deletes the entire column from the inventory based on mentioned field
-    * 
 #### Delete Specific Record
 * Command: `delete RECORD_ID`
 * Delete a single record based on specific ID (1-based indexing).
@@ -182,6 +181,7 @@ Terminates the program.
         * Exit Inventra.
         * Example:
         ``` exit ```
+* Note: Input extra arguments after `exit` command will count as invalid command.
 
 ## FAQ
 
@@ -211,6 +211,8 @@ Ensure that the file remains in the same directory as `inventra.jar` file when r
 |                          | Example: `view -a`                             |
 | **View Specific Record** | `view RECORD_ID`                               |
 |                          | Example: `view 1`                              |
+| **Search for Records**   | `view -f KEYWORD`                              |
+|                          | Example: `view -f Apple`                       | 
 | **Update Field**         | `update -h OLDFIELD, NEWFIELD`                 |
 |                          | Example: `update -h name, product_name`        |
 | **Update Record**        | `update -d RECORD_ID, FIELD, NEWVALUE`         |
