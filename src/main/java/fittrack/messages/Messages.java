@@ -103,6 +103,16 @@ public class Messages {
     public static final String INVALID_SESSION_INDEX_MESSAGE = "Please provide a valid session index.";
     public static final String INVALID_EXERCISE_DETAILS_MESSAGE =
             "Please provide a valid session index, station and reps.";
+
+    public static final String INVALID_DATETIME_MESSAGE = "Invalid date/time. Please enter a valid date/time using " +
+            "the [DD/MM/YYYY] or [DD/MM/YYYY HH:mm] format.";
+    public static final String DATE_OUT_OF_RANGE = "Date out of valid range. Please use a date between " +
+            "01/01/1900 and 31/12/2100.";
+    public static final String INVALID_INDEX_NON_NUMERIC_MESSAGE = "Non-numeric index provided. Please enter a " +
+            "positive number corresponding to the item you want to edit/delete";
+    public static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Invalid index provided. Please enter a positive number " +
+            "corresponding to the existing item you want to edit/delete";
+
     public static final String INVALID_EXERCISE_ACRONYM_MESSAGE = "Invalid exercise acronym: ";
     public static final String INVALID_PULL_UP_REPETITIONS_MESSAGE = "Invalid Pull Up repetitions: ";
     public static final String INVALID_SHUTTLE_RUN_TIMING_MESSAGE = "Invalid Shuttle Run timing: ";
@@ -110,7 +120,6 @@ public class Messages {
     public static final String INVALID_SIT_UP_REPETITIONS_MESSAGE = "Invalid Sit Up repetitions: ";
     public static final String INVALID_STANDING_BROAD_JUMP_DISTANCE_MESSAGE = "Invalid Standing Broad Jump distance: ";
     public static final String INVALID_WALK_AND_RUN_TIMING_MESSAGE = "Invalid Walk and Run timing: ";
-    public static final String INVALID_DATE_FORMAT_MESSAGE = "Invalid date format.";
 
     public static final String EXAMPLE_PULL_UP_REPETITIONS_FORMAT = "Example format: 1 PU 30";
     public static final String EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT = "Example format: 1 SR 10.0";
