@@ -88,7 +88,9 @@ public class LogicTest {
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. [Expense] - Lunch $ 100.00 (on " + date1.format(pattern) + ") [FOOD]" + System.lineSeparator()  +
+                "2. [Expense] - Lunch $ 100.00 (on " + date1.format(pattern) + ") [FOOD]" + System.lineSeparator()  +
+                System.lineSeparator() +
+                "Total count: 1" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total expense: $ 100.00" + System.lineSeparator() +
                 System.lineSeparator() +
