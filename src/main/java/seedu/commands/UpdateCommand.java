@@ -73,8 +73,8 @@ public class UpdateCommand extends Command {
                     return;
                 }
                 String value = words[INDEX_DATA].trim();
-                internships.updateField(internshipIndex, field, value);
-                uiCommand.addUpdatedField(field, value, "update");
+                String updatedValue = internships.updateField(internshipIndex, field, value);
+                uiCommand.addUpdatedField(field, updatedValue, "update");
                 break;
             default:
                 uiCommand.addInvalidFlag(field);

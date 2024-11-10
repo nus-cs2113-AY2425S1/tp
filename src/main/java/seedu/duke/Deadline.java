@@ -51,4 +51,8 @@ public class Deadline {
     public String toString() {
         return description + ": " + getDate();
     }
+
+    public String toStringMessage() {
+        return description + " (" + getDate() + ")";
+    }
 }

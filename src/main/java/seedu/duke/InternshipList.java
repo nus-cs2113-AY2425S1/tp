@@ -101,10 +101,11 @@ public class InternshipList {
      * @param field Specific attribute to update.
      * @param value Updated value
      */
-    public void updateField(int index, String field, String value) throws InvalidStatus, InvalidDeadline {
+    public String updateField(int index, String field, String value) throws InvalidStatus, InvalidDeadline {
+        String updatedValue = value;
         switch (field) {
         case "status":
-            internships.get(index).updateStatus(value);
+            updatedValue = internships.get(index).updateStatus(value);
             break;
         case "skills":
             internships.get(index).setSkills(value);
@@ -122,13 +123,14 @@ public class InternshipList {
             internships.get(index).setEndDate(value);
             break;
         case "deadline":
-            internships.get(index).updateDeadline(value);
+            updatedValue = internships.get(index).updateDeadline(value);
             break;
         default:
             assert false : "All valid fields should we handled in individual cases";
             break;
         }
         logger.log(Level.INFO, "Internship " + (index + 1) + " updated: " + field);
+        return updatedValue;
     }
 
     public void removeField(int index, String field, String value) throws MissingValue {

@@ -69,14 +69,16 @@ public class Internship {
      * Does not update with invalid statuses and will prompt for a valid status.
      *
      * @param userStatus user-inputted status.
+     *
+     * @return Updated status as reflected in the entry.
      */
-    public void updateStatus(String userStatus) throws InvalidStatus {
+    public String updateStatus(String userStatus) throws InvalidStatus {
         assert !userStatus.isEmpty() : "Status cannot be empty";
 
         for (String status : STATUSES) {
             if (status.equalsIgnoreCase(userStatus)) {
                 this.status = status;
-                return;
+                return status;
             }
         }
         throw new InvalidStatus();
@@ -184,19 +186,25 @@ public class Internship {
      *
      * @param value             <code>String</code> with description and deadline.
      * @throws InvalidDeadline  Either description is empty or there is no parsable date.
+     *
+     * @return Updated deadline as reflected in <code>Internship</code> entry.
      */
-    public void updateDeadline(String value) throws InvalidDeadline {
+    public String updateDeadline(String value) throws InvalidDeadline {
         String[] words = value.split(" ");
         String description = "";
         String date = "";
+        boolean hasFoundDate = false;
 
-        for (String word : words) {
-            String trimmedWord = word.trim();
+        int wordsIndex = 0;
+        while (!hasFoundDate && wordsIndex < words.length) {
+            String trimmedWord = words[wordsIndex].trim();
             if (isValidDate(trimmedWord)) {
                 date = trimmedWord;
+                hasFoundDate = true;
             } else {
                 description += trimmedWord + " ";
             }
+            wordsIndex++;
         }
 
         if (description.trim().isEmpty() || date.trim().isEmpty()) {
@@ -208,9 +216,11 @@ public class Internship {
         assert deadlineIndex >= -1 : "The index must be -1 minimally";
         if (deadlineIndex != -1) {
             deadlines.get(deadlineIndex).setDate(date);
-        } else {
-            deadlines.add(new Deadline(getId(), description.trim(), date));
+            return deadlines.get(deadlineIndex).toStringMessage();
         }
+        Deadline newDeadline = new Deadline(getId(), description.trim(), date);
+        deadlines.add(newDeadline);
+        return newDeadline.toStringMessage();
     }
 
     //@@author Ridiculouswifi
