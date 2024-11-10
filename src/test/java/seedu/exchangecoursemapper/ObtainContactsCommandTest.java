@@ -47,7 +47,7 @@ public class ObtainContactsCommandTest {
     }
 
     @Test
-    public void execute_validEmail_shortenedSchoolName_success() throws IOException {
+    public void execute_withShortenedSchoolName_success() throws IOException {
         JsonObject jsonObject = getJsonObject();
 
         String userInput = "obtain unimelb /email";
