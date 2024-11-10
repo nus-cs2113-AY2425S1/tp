@@ -65,8 +65,7 @@ public class Ui {
     public void showMessage(String msg) {
         showLine();
         String strippedMsg = msg.trim();
-        String formattedMsg = strippedMsg.replace("_", " ");
-        out.println(formattedMsg);
+        out.println(strippedMsg);
         showLine();
     }
 

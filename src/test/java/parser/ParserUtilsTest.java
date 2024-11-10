@@ -61,8 +61,7 @@ class ParserUtilsTest {
     @Test
     void testParseIntegerNegativeEdgeCase() {
         String input = "-1";
-        int result = ParserUtils.parseInteger(input);
-        assertEquals(-1, result, "Should throw exception on invalid integer.");
+        assertThrows(ParserExceptions.class, () -> ParserUtils.parseInteger(input));
     }
 
     @Test
@@ -95,8 +94,7 @@ class ParserUtilsTest {
     @Test
     void testParseFloatSmallNegativeEdgeCase() {
         String input = "-0.0001";
-        float result = ParserUtils.parseFloat(input);
-        assertEquals(-0.0001f, result, 0.001, "Should parse valid float correctly.");
+        assertThrows(ParserExceptions.class, () -> ParserUtils.parseFloat(input));
     }
 
     @Test

@@ -3,65 +3,52 @@ import command.Command;
 import command.CommandResult;
 import command.ExitCommand;
 import storage.Storage;
-
 import history.History;
 import parser.Parser;
 import ui.Ui;
 import programme.ProgrammeList;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class BuffBuddy {
     private static final String DEFAULT_FILE_PATH = "./data/data.json";
-    private final Ui ui;
 
+    private final Ui ui;
     private final History history;
     private final ProgrammeList programmes;
     private final Storage storage;
     private final Parser parser;
-    private boolean isRunning;
-
 
     public BuffBuddy(String filePath) {
         ui = new Ui();
         parser = new Parser();
         storage = new Storage(filePath);
-
         programmes = storage.loadProgrammeList();
         history = storage.loadHistory();
-
-        isRunning = true;
     }
 
     public static void main(String[] args) {
-        Logger rootLogger = Logger.getLogger("");
-        rootLogger.setLevel(Level.OFF);
         new BuffBuddy(DEFAULT_FILE_PATH).run();
     }
 
     public void run() {
         ui.showWelcome();
-        while (isRunning) {
-            handleCommand();
-        }
+        handleCommands();
         ui.showFarewell();
-        storage.saveData(programmes, history);
     }
 
-    private void handleCommand() {
-        try {
-            String fullCommand = ui.readCommand();
-            Command command = parser.parse(fullCommand);
-            CommandResult result = command.execute(programmes, history);
-            ui.showMessage(result);
-
-            if (command instanceof ExitCommand) {
-                isRunning = false;
+    private void handleCommands() {
+        while(true) {
+            try {
+                String fullCommand = ui.readCommand();
+                Command command = parser.parse(fullCommand);
+                CommandResult result = command.execute(programmes, history);
+                ui.showMessage(result);
+                if (command instanceof ExitCommand) {
+                    return;
+                }
+                storage.saveData(programmes,history);
+            } catch (Exception e) {
+                ui.showMessage(e);
             }
-
-        } catch (Exception e) {
-            ui.showMessage(e);
         }
     }
 }

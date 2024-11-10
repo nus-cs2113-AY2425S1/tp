@@ -66,7 +66,7 @@ public class Exercise {
      * @param newSets the new number of sets; if null, the sets are not updated
      */
     private void updateSets(Integer newSets) {
-        if (newSets == null) {
+        if (isNull(newSets)) {
             return;
         }
         logger.log(Level.INFO, "Updating sets from {0} to {1}", new Object[]{sets, newSets});
@@ -79,7 +79,7 @@ public class Exercise {
      * @param newReps the new number of reps; if null, the reps are not updated
      */
     private void updateReps(Integer newReps) {
-        if (newReps == null) {
+        if (isNull(newReps)) {
             return;
         }
         logger.log(Level.INFO, "Updating reps from {0} to {1}", new Object[]{reps, newReps});
@@ -92,7 +92,7 @@ public class Exercise {
      * @param newWeight the new weight; if null, the weight is not updated
      */
     private void updateWeight(Integer newWeight) {
-        if (newWeight == null) {
+        if (isNull(newWeight)) {
             return;
         }
         logger.log(Level.INFO, "Updating weight from {0} to {1}", new Object[]{weight, newWeight});
@@ -118,7 +118,7 @@ public class Exercise {
      * @param newCalories the new calorie count for the exercise; if null, the calories are not updated
      */
     private void updateCalories(Integer newCalories) {
-        if (newCalories == null) {
+        if (isNull(newCalories)) {
             return;
         }
         logger.log(Level.INFO, "Updating calories from {0} to {1}", new Object[]{calories, newCalories});
@@ -131,7 +131,7 @@ public class Exercise {
         return calories;
     }
 
-    public int getWeight() {
+    public int getWeight(){
         return weight;
     }
 

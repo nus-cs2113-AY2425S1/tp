@@ -138,6 +138,10 @@ public class FlagParser {
             String value = argParts[1].trim();
             flag = resolveAlias(flag);
 
+            if (hasFlag(flag)) {
+                throw FlagExceptions.duplicateFlag(flag);
+            }
+
             logger.log(Level.INFO, "Successfully parsed flag: {0} with value: {1}", new Object[]{flag, value});
             parsedFlags.put(flag, value);
         }
@@ -196,6 +200,26 @@ public class FlagParser {
                 logger.log(Level.WARNING, "Required flag has null value: {0}", flag);
                 throw FlagExceptions.missingFlag(flag);
             }
+        }
+    }
+
+    public void validateUniqueFlag(String... uniqueFlags){
+        int count = 0;
+        StringBuilder seenFlags = new StringBuilder();
+
+        for (String flag : uniqueFlags) {
+            if (hasFlag(flag)) {
+                count++;
+                seenFlags.append(flag).append(" ");
+            }
+        }
+
+        if (count == 0){
+            throw FlagExceptions.missingArguments();
+        }
+
+        if (count > 1){
+            throw FlagExceptions.nonUniqueFlag(seenFlags.toString());
         }
     }
 
