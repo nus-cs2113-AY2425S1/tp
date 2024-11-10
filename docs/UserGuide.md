@@ -542,7 +542,8 @@ __________________________________________________
 
 ## Sort Command: `sort`
 
-Lists out all the Internships / Internships in favourite, sorted by a specified field. The default list in increasing order of their IDs and it can only sort by exactly one field in each time.
+Lists out all the Internships / Internships in favourite, sorted by a specified field.
+The default list in increasing order of their IDs and it can only sort by exactly one field in each time.
 
 Valid Fields:
 - `role`
