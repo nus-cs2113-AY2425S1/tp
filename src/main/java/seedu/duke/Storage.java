@@ -90,15 +90,25 @@ public class Storage {
             logger.log(Level.INFO, "No data file found.");
             return;
         }
+        List<Integer> favouriteIds = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
+
             while ((line = reader.readLine()) != null) {
-                if (!isValidFormat(line)) {
-                    System.out.println("Skipping invalid line in file: " + line);
-                    continue;  // Skip the invalid line instead of throwing an error
+                if (line.startsWith("FAVOURITES:")) {
+                    // add IDs to favouriteIDs list
+                    String favouritesString = line.substring("FAVOURITES:".length()).trim();
+                    if (!favouritesString.isEmpty()) {
+                        String[] parts = favouritesString.split(" ");
+                        for (String id : parts) {
+                            int favInternshipId = Integer.parseInt(id);
+                            int favInternshipIndex = favInternshipId - 1;
+                            favouriteIds.add(favInternshipIndex);
+                        }
+                    }
                 }
 
-                if (!(line.startsWith("FAVOURITES:"))) {
+                else if (isValidFormat(line)) {
                     String[] data = line.split(" \\| ");
                     String role = data[1];
                     String company = data[2];
@@ -116,21 +126,23 @@ public class Storage {
                     for (Deadline deadline : loadedDeadlines) {
                         internship.addDeadline(deadline.getDescription(), deadline.getDate());
                     }
-                    continue;
                 }
 
-                // Parse favourite internships
-                String favouritesString = line.substring("FAVOURITES:".length());
-                if (favouritesString.isBlank()) {
-                    return;
+                else {
+                    System.out.println("Skipping invalid line in file: " + line);
                 }
 
-                String[] parts = favouritesString.trim().split(" ", -1);
-                for (String id : parts) {
-                    int favInternshipId = Integer.parseInt(id);
-                    int favInternshipIndex = favInternshipId - 1;
-                    Internship favInternship = internshipList.internships.get(favInternshipIndex);
-                    internshipList.favouriteInternships.add(favInternship);
+            }
+            //process favourite internships
+            for (Integer favInternshipId : favouriteIds) {
+                if (favInternshipId > 0 && favInternshipId <= internshipList.getSize()) {
+                    Internship favInternship = internshipList.getInternship(favInternshipId);
+                    if (favInternship != null) {
+                        internshipList.favouriteInternships.add(favInternship);
+                    } else {
+                        logger.log(Level.WARNING, "Internship with ID " + favInternshipId + " not found.");
+                    }
+
                 }
             }
             logger.log(Level.INFO, "Data loaded");
