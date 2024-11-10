@@ -5,6 +5,8 @@ hide footbox
 
 actor CEG_Student
 participant ":ObtainContactsCommand" as ObtainContactsCommand
+participant ":SchoolContactValidator" as SchoolContactValidator
+
 participant ":UI" as UI
 participant ":Command" as Command
 
@@ -33,28 +35,46 @@ end
 ObtainContactsCommand -> ObtainContactsCommand: findMatchingSchool(jsonObject: JsonObject, schoolName: String)
 activate ObtainContactsCommand
 
-loop for  each school found in the set of schools
-    opt checks if the school name matches
-        return matchingSchool: String
+ObtainContactsCommand -> SchoolContactValidator
+activate SchoolContactValidator
+SchoolContactValidator --> ObtainContactsCommand: isSchoolValid(jsonObject : JsonObject, schoolName : String)
+deactivate SchoolContactValidator
+
+alt school is valid
+    ObtainContactsCommand -> ObtainContactsCommand: getMatchingSchoolName(jsonObject : JsonObject, schoolName : String)
+    activate ObtainContactsCommand
+    loop for  each school found in the set of schools
+        opt checks if the school name matches
+            return matchingSchool: String
+        end
     end
+else else
+        ObtainContactsCommand --> CEG_Student: Display "Unknown university - " + schoolName
 end
+deactivate ObtainContactsCommand
 
-opt no matching School Names
-    ObtainContactsCommand --> CEG_Student: Display "Unknown university - " + schoolName
-end
-
-ObtainContactsCommand -> ObtainContactsCommand: handleContactType(schoolInfo: JsonObject, matchingSchool: String, contactType: String)
+ObtainContactsCommand -> ObtainContactsCommand: checkValidContact(schoolInfo: JsonObject, matchingSchool: String, contactType: String)
 activate ObtainContactsCommand
 
-alt EMAIL_KEY
-    ObtainContactsCommand -> UI: printContactInformation(EMAIL_TAG: String, schoolName: String, email:String)
-else NUMBER_KEY
-    ObtainContactsCommand -> UI: printContactInformation(NUMBER_TAG: String, schoolName: String, number:String)
-else Invalid
+ObtainContactsCommand -> SchoolContactValidator
+activate SchoolContactValidator
+SchoolContactValidator --> ObtainContactsCommand: isValidContactType(contactType : String)
+deactivate SchoolContactValidator
+
+alt contact type is valid
+    ObtainContactsCommand -> ObtainContactsCommand: contactTypeIdentifier(schoolInfo: String, schoolName : String, contactType : String)
+    activate ObtainContactsCommand
+
+    alt EMAIL_KEY
+        ObtainContactsCommand -> UI: printContactInformation(EMAIL_TAG: String, schoolName: String, email:String)
+    else NUMBER_KEY
+        ObtainContactsCommand -> UI: printContactInformation(NUMBER_TAG: String, schoolName: String, number:String)
+    end
+else else
     ObtainContactsCommand --> CEG_Student: Display Invalid Contact Type Message
 end
 
-
+deactivate ObtainContactsCommand
 ObtainContactsCommand --> ObtainContactsCommand
 deactivate ObtainContactsCommand
 
