@@ -156,13 +156,6 @@ Expected Output:
 Email for The University of Western Australia: uwa-albany@uwa.edu.au
 ```
 
-Example: `obtain the australian national university /number`
-
-Expected Output:
-```
-Phone number for The Australian National University: +61 2 6125 7257
-```
-
 Example: `obtain anu /number`
 
 Expected Output:
