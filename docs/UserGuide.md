@@ -64,9 +64,9 @@ add -m ITEM -e EVENT: Add an item to an event.
 remove -e EVENT: Remove an event from the event list.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
 remove -m ITEM -e EVENT: Remove an item from an event.
-edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
+edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
 edit -p PARTICIPANT -email EMAIL -e EVENT: Edit participant contact info.
-edit -m ITEM > NEW_ITEM -e EVENT: Edit an item in an event.
+edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT: Edit an item in an event.
 view -e EVENT -y TYPE: View the list of participants or items of an event.
 mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
@@ -103,7 +103,10 @@ Remarks:
 * `TIME` must be entered in the format `yyyy-mm-dd HH:mm`.
 * `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
   * The values entered for `PRIORITY` are case-insensitive.
-
+* If the event list has an `Event` with the name `EVENT`, or the specified event has a `Participant` or `Item` with the name of the `Participant`/`Item` to be added, an indexed suffix is added to differentiate the different entries.
+  * e.g. adding two `Event`s with the same name `Wood workshop` would result in the second `Event` being named `Wood workshop (1)`.
+* The index value increases as more `Event`s, `Item`s or `Participant`s are added.
+  
 Examples:
 
 * `add -e Origami workshop -t 2024-10-12 18:00 -v Building A -u HIGH` adds an event with name `Origami workshop`, time `2024-10-12 18:00`, venue `Building A` and priority `HIGH` to the events list.
@@ -149,9 +152,14 @@ Edits the information of an event/participant/item.
 
 Format:
 
-* `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
+* `edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
 * `edit -p PARTICIPANT -email EMAIL -e EVENT` for editing a participant's contact information in an event.
-* `edit -m ITEM > NEW_ITEM -e EVENT` for editing an item's information in an event.
+* `edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT` for editing an item's information in an event.
+
+Remarks:
+
+* If there is already an `Event` with the name `NEW_EVENT_NAME` in the event list, or an `Item` with the name `NEW_ITEM_NAME` in the specified event, an indexed suffix is added to differentiate the events.
+  * e.g. given that an `Event` named `Wood workshop` is already present in the list, editing another `Event` to have the name `Wood workshop` would result in it being named `Wood workshop (1)`.
 
 Examples:
 
@@ -330,9 +338,9 @@ If the above format or parameter constraints are not followed, the `Event`, `Par
 * Remove event: `remove -e EVENT`
 * Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
 * Remove item from an event: `remove -m ITEM -e EVENT`
-* Edit event: `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY`
+* Edit event: `edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY`
 * Edit participant of an event: `edit -p PARTICIPANT -email EMAIL -e EVENT`
-* Edit item of an event: `edit -m ITEM > NEW_ITEM -e EVENT`
+* Edit item of an event: `edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT`
 * View all participants or items for an event: `view -e EVENT -y TYPE`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`

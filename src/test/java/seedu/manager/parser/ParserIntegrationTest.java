@@ -5,14 +5,12 @@ import org.junit.jupiter.api.Test;
 import seedu.manager.command.Command;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
-import seedu.manager.exception.DuplicateDataException;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParserIntegrationTest {
     private EventList events;
@@ -40,14 +38,13 @@ class ParserIntegrationTest {
     }
 
     @Test
-    void parseCommand_addCommandDuplicateEvent_throwsException() throws IOException {
+    void parseCommand_addCommandDuplicateEvent_success() throws IOException {
         String commandString = "add -e Event 1 -t 2024-10-21 16:00 -v Venue 1 -u HIGH";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
+        command.execute();
 
-        assertThrows(DuplicateDataException.class, () -> {
-            command.execute();
-        });
+        assertEquals(2, events.getListSize());
     }
 
     @Test
