@@ -7,6 +7,7 @@ import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 import seedu.manager.exception.DuplicateDataException;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,7 +20,7 @@ class ParserIntegrationTest {
     private DateTimeFormatter formatter;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         events = new EventList();
         parser = new Parser();
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -29,7 +30,7 @@ class ParserIntegrationTest {
     }
 
     @Test
-    void parseCommand_addCommandAddEvent_success() {
+    void parseCommand_addCommandAddEvent_success() throws IOException {
         String commandString = "add -e Event 2 -t 2024-10-21 16:00 -v Venue 1 -u HIGH";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
@@ -39,17 +40,18 @@ class ParserIntegrationTest {
     }
 
     @Test
-    void parseCommand_addCommandDuplicateEvent_throwsException() {
+    void parseCommand_addCommandDuplicateEvent_throwsException() throws IOException {
         String commandString = "add -e Event 1 -t 2024-10-21 16:00 -v Venue 1 -u HIGH";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
 
         assertThrows(DuplicateDataException.class, () -> {
-            command.execute();});
+            command.execute();
+        });
     }
 
     @Test
-    void parseCommand_addCommandAddParticipant_success() {
+    void parseCommand_addCommandAddParticipant_success() throws IOException {
         String commandString = "add -p John Doe -n 92138961 -email johndoe@gmail.com -e Event 1";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
@@ -59,7 +61,7 @@ class ParserIntegrationTest {
     }
 
     @Test
-    void parseCommand_removeCommandRemoveEvent_success() {
+    void parseCommand_removeCommandRemoveEvent_success() throws IOException {
         String commandString = "remove -e Event 1";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
@@ -69,7 +71,7 @@ class ParserIntegrationTest {
     }
 
     @Test
-    void parseCommand_markCommandMarkEvent_success() {
+    void parseCommand_markCommandMarkEvent_success() throws IOException {
         String commandString = "mark -e Event 1 -s done";
         Command command = parser.parseCommand(commandString);
         command.setData(events);

@@ -21,22 +21,21 @@ import seedu.manager.command.FindCommand;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.exception.InvalidCommandException;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static java.util.logging.Level.WARNING;
 
 /**
  * Represents the command parser for EventManagerCLI
  */
 public class Parser {
-    private static final Logger logger = Logger.getLogger(Parser.class.getName());
     private static final String INVALID_COMMAND_MESSAGE = "Invalid command!";
     private static final String INVALID_ADD_MESSAGE = """
             Invalid command!
@@ -183,13 +182,24 @@ public class Parser {
     private static final String REMOVE_EVENT_REGEX = "remove\\s+-e\\s+(.*)";
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$");
 
+    private final Logger logger;
+
+    /**
+     * Constructs a new Parser.
+     */
+    public Parser() {
+        logger = Logger.getLogger(Parser.class.getName());
+        logger.setUseParentHandlers(false);
+    }
+
     /**
      * Returns a command based on the given user command string.
      *
      * @param command The given command string from the user.
      * @throws InvalidCommandException if the given command string cannot be parsed to a valid command.
+     * @throws IOException if the log file cannot be written to.
      */
-    public Command parseCommand(String command) throws InvalidCommandException {
+    public Command parseCommand(String command) throws InvalidCommandException, IOException {
         String[] commandParts = command.trim().split(SPACE);
         String commandWord = commandParts[0].toLowerCase();
         try {
@@ -222,15 +232,17 @@ public class Parser {
                 throw new InvalidCommandException(INVALID_COMMAND_MESSAGE);
             }
         } catch (IndexOutOfBoundsException exception) {
-            logger.log(WARNING, "Invalid command format");
+            logWarning("Invalid command format");
             String errorMessage = getErrorMessage(commandWord);
             throw new InvalidCommandException(errorMessage);
         } catch (DateTimeParseException exception) {
-            logger.log(WARNING, "Invalid date-time format");
+            logWarning("Invalid date-time format");
             throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
         } catch (IllegalArgumentException exception) {
-            logger.log(WARNING, "Invalid priority level status");
+            logWarning("Invalid priority level status");
             throw new InvalidCommandException(INVALID_PRIORITY_MESSAGE);
+        } catch (IOException exception) {
+            throw new IOException("Log file cannot be written to");
         }
     }
 
@@ -255,9 +267,10 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all parameters are present.
      * @throws DateTimeParseException    if the time parameter is not entered in the correct format.
      * @throws IllegalArgumentException  if the priority parameter is not valid.
+     * @throws IOException if the log file cannot be written to.
      */
     public Command parseAddCommand(String input, String[] commandParts) throws InvalidCommandException,
-            IndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
+            IndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException, IOException {
         assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
         String commandFlag = commandParts[1];
 
@@ -269,7 +282,7 @@ public class Parser {
         case ITEM_FLAG:
             return getAddItemCommand(input);
         default:
-            logger.log(WARNING, "Invalid command format");
+            logWarning("Invalid command format");
             throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         }
     }
@@ -282,9 +295,10 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      * @throws DateTimeParseException    if the time parameter is not entered in the correct format.
      * @throws IllegalArgumentException  if the priority parameter is not valid.
+     * @throws IOException if the log file cannot be written to.
      */
     private Command getAddEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
-            IllegalArgumentException {
+            IllegalArgumentException, IOException {
         checkForDuplicateFlags(input, EVENT_FLAG_REGEX);
 
         Pattern pattern = Pattern.compile(ADD_EVENT_REGEX);
@@ -300,7 +314,7 @@ public class Parser {
                     || matcher.group(3).isBlank() || matcher.group(4).isBlank()) {
                 throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
             }
-            logger.info("Creating AddCommand for event with details: " +
+            logInfo("Creating AddCommand for event with details: " +
                     matcher.group(1).trim() + ", " + matcher.group(2).trim() + ", " + matcher.group(3).trim());
             eventName = matcher.group(1).trim();
             eventTime = LocalDateTime.parse(matcher.group(2).trim(),
@@ -321,8 +335,10 @@ public class Parser {
      * @return an {@link AddCommand} that adds a participant with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
      * @throws InvalidCommandException   if the input phone number and email are not in the correct format.
+     * @throws IOException if the log file cannot be written to.
      */
-    private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
+    private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException,
+            IOException {
         checkForDuplicateFlags(input, PARTICIPANT_FLAG_REGEX);
 
         Pattern pattern = Pattern.compile(ADD_PARTICIPANT_REGEX);
@@ -338,14 +354,14 @@ public class Parser {
                 throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
             }
 
-            logger.info("Creating AddCommand for participant with details: " +
+            logInfo("Creating AddCommand for participant with details: " +
                     matcher.group(1).trim() + ", " + matcher.group(2).trim());
             participantName = matcher.group(1).trim();
             participantEmail = matcher.group(2).trim();
             eventName = matcher.group(3).trim();
 
             if (!isValidEmail(participantEmail)) {
-                logger.log(WARNING, "Invalid email format");
+                logWarning("Invalid email format");
                 throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
             }
         } else {
@@ -362,28 +378,26 @@ public class Parser {
      * @param input the given user input.
      * @return an {@link AddCommand} that adds an item with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
+     * @throws IOException if the log file cannot be written to.
      */
-    private Command getAddItemCommand(String input) throws IndexOutOfBoundsException {
+    private Command getAddItemCommand(String input) throws IndexOutOfBoundsException, IOException {
         checkForDuplicateFlags(input, ITEM_FLAG_REGEX);
 
         Pattern pattern = Pattern.compile(ADD_ITEM_REGEX);
         Matcher matcher = pattern.matcher(input);
 
-        String itemName;
-        String eventName;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            itemName = matcher.group(1).trim();
-            eventName = matcher.group(2).trim();
-            logger.info(String.format("Creating AddCommand for item with details: %s, %s", itemName,
-                    eventName));
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String itemName = matcher.group(1).trim();
+        String eventName = matcher.group(2).trim();
+        logInfo(String.format("Creating AddCommand for item with details: %s, %s", itemName,
+                eventName));
 
         return new AddCommand(itemName, eventName);
     }
@@ -406,9 +420,10 @@ public class Parser {
      * @return a {@link Command} object representing the parsed command.
      * @throws InvalidCommandException   if the flags are not matched in the command parts.
      * @throws IndexOutOfBoundsException if not all fields are present.
+     * @throws IOException if the log file cannot be written to.
      */
     private Command parseRemoveCommand(String input, String[] commandParts) throws InvalidCommandException,
-            IndexOutOfBoundsException {
+            IndexOutOfBoundsException, IOException {
         assert commandParts[0].equalsIgnoreCase(RemoveCommand.COMMAND_WORD);
         String commandFlag = commandParts[1];
 
@@ -420,13 +435,12 @@ public class Parser {
         case ITEM_FLAG:
             return getRemoveItemCommand(input);
         default:
-            logger.log(WARNING, "Invalid command format");
+            logWarning("Invalid command format");
             throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
         }
     }
 
     //@@author KuanHsienn
-
     /**
      * Returns a {@link RemoveCommand} that removes an event, with a given user input.
      *
@@ -512,7 +526,8 @@ public class Parser {
      * @throws DateTimeParseException    if the time parameter is not entered in the correct format.
      * @throws IllegalArgumentException  if the priority parameter is not valid.
      */
-    private Command parseEditCommand(String input, String[] commandParts) throws InvalidCommandException {
+    private Command parseEditCommand(String input, String[] commandParts) throws InvalidCommandException,
+            IOException {
         assert commandParts[0].equalsIgnoreCase(EditParticipantCommand.COMMAND_WORD);
         String commandFlag = commandParts[1];
 
@@ -524,7 +539,7 @@ public class Parser {
         case ITEM_FLAG:
             return getEditItemCommand(input);
         default:
-            logger.log(WARNING, "Invalid command format");
+            logWarning("Invalid command format");
             throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
         }
     }
@@ -536,8 +551,10 @@ public class Parser {
      * @param input the given user input.
      * @return an {@link EditParticipantCommand} that edits a participant with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
+     * @throws IOException if the log file cannot be written to.
      */
-    private Command getEditParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
+    private Command getEditParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException,
+            IOException {
         checkForDuplicateFlags(input, PARTICIPANT_FLAG_REGEX);
 
         Pattern pattern = Pattern.compile(EDIT_PARTICIPANT_REGEX);
@@ -558,7 +575,7 @@ public class Parser {
             eventName = matcher.group(3).trim();
 
             if (!isValidEmail(newEmail)) {
-                logger.log(WARNING, "Invalid email format");
+                logWarning("Invalid email format");
                 throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
             }
         } else {
@@ -672,7 +689,7 @@ public class Parser {
      * @throws IndexOutOfBoundsException if not all fields are present.
      */
     private Command parseViewCommand(String input, String[] commandParts) throws InvalidCommandException,
-            IndexOutOfBoundsException {
+            IndexOutOfBoundsException, IOException {
         assert commandParts[0].equalsIgnoreCase(ViewCommand.COMMAND_WORD);
         String commandFlag = commandParts[1];
 
@@ -680,7 +697,7 @@ public class Parser {
             return getViewCommand(input);
         }
 
-        logger.log(WARNING, "Invalid command format");
+        logWarning("Invalid command format");
         throw new InvalidCommandException(INVALID_VIEW_MESSAGE);
     }
 
@@ -699,23 +716,23 @@ public class Parser {
         Pattern pattern = Pattern.compile(VIEW_REGEX);
         Matcher matcher = pattern.matcher(input);
 
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            String eventName = matcher.group(1).trim();
-            String viewType = matcher.group(2).trim();
-
-            if (viewType.equalsIgnoreCase("participant")) {
-                return new ViewCommand(eventName, true);
-            } else if (viewType.equalsIgnoreCase("item")) {
-                return new ViewCommand(eventName, false);
-            } else {
-                throw new InvalidCommandException(INVALID_TYPE_MESSAGE);
-            }
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_VIEW_MESSAGE);
+        }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String eventName = matcher.group(1).trim();
+        String viewType = matcher.group(2).trim();
+
+        if (viewType.equalsIgnoreCase("participant")) {
+            return new ViewCommand(eventName, true);
+        } else if (viewType.equalsIgnoreCase("item")) {
+            return new ViewCommand(eventName, false);
+        } else {
+            throw new InvalidCommandException(INVALID_TYPE_MESSAGE);
         }
     }
 
@@ -729,9 +746,10 @@ public class Parser {
      * @return a {@link MarkCommand} with fields parsed from input.
      * @throws InvalidCommandException   if the flag is not matched, or if the mark status is invalid.
      * @throws IndexOutOfBoundsException if not all fields are present.
+     * @throws IOException if the log file cannot be written to.
      */
     private Command parseMarkCommand(String input, String[] commandParts) throws InvalidCommandException,
-            IndexOutOfBoundsException {
+            IndexOutOfBoundsException, IOException {
         assert commandParts[0].equalsIgnoreCase(MarkCommand.COMMAND_WORD);
         String commandFlag = commandParts[1];
 
@@ -743,7 +761,7 @@ public class Parser {
         case ITEM_FLAG:
             return getMarkItemCommand(input);
         default:
-            logger.log(WARNING, "Invalid command format");
+            logWarning("Invalid command format");
             throw new InvalidCommandException(INVALID_MARK_MESSAGE);
         }
     }
@@ -755,26 +773,25 @@ public class Parser {
      * @return a {@link MarkEventCommand} with fields from input.
      * @throws InvalidCommandException   if the status parameter is invalid.
      * @throws IndexOutOfBoundsException if not all fields are present.
+     * @throws IOException if the log file cannot be written to.
      */
-    private Command getMarkEventCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
+    private Command getMarkEventCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException,
+            IOException {
         checkForDuplicateFlags(input, MARK_EVENT_FLAG_REGEX);
 
         Pattern pattern = Pattern.compile(MARK_EVENT_REGEX);
         Matcher matcher = pattern.matcher(input);
 
-        String eventName;
-        boolean isToMark;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            eventName = matcher.group(1).trim();
-            isToMark = toMarkEvent(matcher.group(2).trim());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_MARK_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String eventName = matcher.group(1).trim();
+        boolean isToMark = toMarkEvent(matcher.group(2).trim());
 
         return new MarkEventCommand(eventName, isToMark);
     }
@@ -785,14 +802,15 @@ public class Parser {
      * @param status the status parameter.
      * @return true if status is to mark, returns false if status is to unmark.
      * @throws InvalidCommandException if status is invalid.
+     * @throws IOException if the log file cannot be written to.
      */
-    private boolean toMarkEvent(String status) throws InvalidCommandException {
+    private boolean toMarkEvent(String status) throws InvalidCommandException, IOException {
         if (status.equalsIgnoreCase(MarkEventCommand.EVENT_MARK_STATUS)) {
             return true;
         } else if (status.equalsIgnoreCase(MarkEventCommand.EVENT_UNMARK_STATUS)) {
             return false;
         } else {
-            logger.log(WARNING, "Invalid status keyword");
+            logWarning("Invalid status keyword");
             throw new InvalidCommandException(INVALID_EVENT_STATUS_MESSAGE);
         }
     }
@@ -804,28 +822,26 @@ public class Parser {
      * @return a {@link MarkParticipantCommand} with fields from input.
      * @throws InvalidCommandException   if the status parameter is invalid.
      * @throws IndexOutOfBoundsException if not all fields are present.
+     * @throws IOException if the log file cannot be written to.
      */
-    private Command getMarkParticipantCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
+    private Command getMarkParticipantCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException,
+            IOException {
         checkForDuplicateFlags(input, MARK_PARTICIPANT_FLAG_REGEX);
 
         Pattern pattern = Pattern.compile(MARK_PARTICIPANT_REGEX);
         Matcher matcher = pattern.matcher(input);
 
-        String participantName;
-        String eventName;
-        boolean isToMark;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank() || matcher.group(3).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            participantName = matcher.group(1).trim();
-            eventName = matcher.group(2).trim();
-            isToMark = toMarkParticipant(matcher.group(3).trim());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_MARK_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank() || matcher.group(3).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String participantName = matcher.group(1).trim();
+        String eventName = matcher.group(2).trim();
+        boolean isToMark = toMarkParticipant(matcher.group(3).trim());
 
         return new MarkParticipantCommand(participantName, eventName, isToMark);
     }
@@ -836,14 +852,15 @@ public class Parser {
      * @param status the status parameter.
      * @return true if status is to mark, returns false if status is to unmark.
      * @throws InvalidCommandException if status is invalid.
+     * @throws IOException if the log file cannot be written to.
      */
-    private boolean toMarkParticipant(String status) throws InvalidCommandException {
+    private boolean toMarkParticipant(String status) throws InvalidCommandException, IOException {
         if (status.equalsIgnoreCase(MarkParticipantCommand.PARTICIPANT_MARK_STATUS)) {
             return true;
         } else if (status.equalsIgnoreCase(MarkParticipantCommand.PARTICIPANT_UNMARK_STATUS)) {
             return false;
         } else {
-            logger.log(WARNING, "Invalid status keyword");
+            logWarning("Invalid status keyword");
             throw new InvalidCommandException(INVALID_PARTICIPANT_STATUS_MESSAGE);
         }
     }
@@ -855,28 +872,26 @@ public class Parser {
      * @return a {@link MarkItemCommand} with fields from input.
      * @throws InvalidCommandException   if the status parameter is invalid.
      * @throws IndexOutOfBoundsException if not all fields are present.
+     * @throws IOException if the log file cannot be written to.
      */
-    private Command getMarkItemCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException {
+    private Command getMarkItemCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException,
+            IOException {
         checkForDuplicateFlags(input, MARK_ITEM_FLAG_REGEX);
 
         Pattern pattern = Pattern.compile(MARK_ITEM_REGEX);
         Matcher matcher = pattern.matcher(input);
 
-        String itemName;
-        String eventName;
-        boolean isToMark;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank() || matcher.group(3).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            itemName = matcher.group(1).trim();
-            eventName = matcher.group(2).trim();
-            isToMark = toMarkItem(matcher.group(3).trim());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_MARK_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank() || matcher.group(3).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String itemName = matcher.group(1).trim();
+        String eventName = matcher.group(2).trim();
+        boolean isToMark = toMarkItem(matcher.group(3).trim());
 
         return new MarkItemCommand(itemName, eventName, isToMark);
     }
@@ -887,14 +902,15 @@ public class Parser {
      * @param status the status parameter.
      * @return true if status is "accounted", returns false if status is "unaccounted".
      * @throws InvalidCommandException if status is invalid.
+     * @throws IOException if the log file cannot be written to.
      */
-    private boolean toMarkItem(String status) throws InvalidCommandException {
+    private boolean toMarkItem(String status) throws InvalidCommandException, IOException {
         if (status.equalsIgnoreCase(MarkItemCommand.ITEM_MARK_STATUS)) {
             return true;
         } else if (status.equalsIgnoreCase(MarkItemCommand.ITEM_UNMARK_STATUS)) {
             return false;
         } else {
-            logger.log(WARNING, "Invalid status keyword");
+            logWarning("Invalid status keyword");
             throw new InvalidCommandException(INVALID_ITEM_STATUS_MESSAGE);
         }
     }
@@ -1058,6 +1074,32 @@ public class Parser {
         }
     }
 
+    /**
+     * Logs an info message to a file.
+     *
+     * @param message the message to be logged.
+     * @throws IOException if the log file cannot be written to.
+     */
+    private void logInfo(String message) throws IOException {
+        FileHandler handler = new FileHandler("logs.txt", true);
+        logger.addHandler(handler);
+        logger.info(message);
+        handler.close();
+    }
+
+    /**
+     * Logs a warning message to a file.
+     *
+     * @param message the message to be logged.
+     * @throws IOException if the log file cannot be written to.
+     */
+    private void logWarning(String message) throws IOException {
+        FileHandler handler = new FileHandler("logs.txt", true);
+        logger.addHandler(handler);
+        logger.warning(message);
+        handler.close();
+    }
+
     //@@author LTK-1606
     /**
      * Checks for duplicate flags in the specified input string based on the provided flag regex.
@@ -1085,5 +1127,4 @@ public class Parser {
             }
         }
     }
-
 }
