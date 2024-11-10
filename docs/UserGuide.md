@@ -98,6 +98,33 @@ __________________________________________________
 __________________________________________________
 ```
 
+**Example Erroneous Input 1:**
+`add Software Engineer Intern Google`
+
+**Example Erroneous Output 1:**
+```
+__________________________________________________
+__________________________________________________
+Role not specified.
+Company not specified.
+__________________________________________________
+__________________________________________________
+```
+
+**Example Erroneous Input 1:**
+`add -role Software Engineer Intern -company Google -from 35/10`
+
+**Example Erroneous Output 1:**
+```
+__________________________________________________
+__________________________________________________
+35/10 is not a valid date
+Please enter a date in the MM/yy format
+__________________________________________________
+__________________________________________________
+
+```
+
 ## Update Command: `update`
 
 Updates any field of an Internship entry.
