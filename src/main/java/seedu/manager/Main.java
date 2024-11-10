@@ -2,7 +2,6 @@ package seedu.manager;
 
 import seedu.manager.command.Command;
 import seedu.manager.event.EventList;
-import seedu.manager.exception.DuplicateDataException;
 import seedu.manager.exception.InvalidCommandException;
 import seedu.manager.parser.Parser;
 import seedu.manager.ui.Ui;
@@ -44,7 +43,7 @@ public class Main {
                 ui.showOutputToUser(command);
                 saveData();
                 isGettingCommands = !command.getCanExit();
-            } catch (InvalidCommandException | DuplicateDataException exception) {
+            } catch (InvalidCommandException exception) {
                 ui.showErrorMessageToUser(exception);
             }
         }

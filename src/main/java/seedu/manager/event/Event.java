@@ -1,7 +1,6 @@
 package seedu.manager.event;
 
 import seedu.manager.enumeration.Priority;
-import seedu.manager.exception.DuplicateDataException;
 import seedu.manager.item.Item;
 import seedu.manager.item.Participant;
 
@@ -16,9 +15,6 @@ import java.util.Optional;
  * It provides methods to access and modify the time and venue of the event.
  */
 public class Event {
-    private static final String DUPLICATE_PARTICIPANT_MESSAGE = "Duplicate participant!";
-    private static final String DUPLICATE_ITEM_MESSAGE = "Duplicate item!";
-
     protected ArrayList<Participant> participantList;
     private ArrayList<Item> itemList;
     private String eventName;
@@ -203,10 +199,9 @@ public class Event {
      *
      * @param participantName the name of the participant to be added to the list.
      * @param isPresent {@code true} if the participant is to be present, {@code false} otherwise.
-     * @throws DuplicateDataException if a participant with the same name exists in the list.
      */
     public void addParticipant(String participantName, String participantNumber, String participantEmail,
-            boolean isPresent) throws DuplicateDataException {
+            boolean isPresent) {
         String name = getDuplicateParticipantName(participantName);
         Participant participant = new Participant(name, participantNumber, participantEmail, isPresent);
         this.participantList.add(participant);
@@ -217,9 +212,8 @@ public class Event {
      * Adds an item with a given name to the event's item list.
      *
      * @param itemName the name of the item to be added.
-     * @throws DuplicateDataException if an item with the same name is already in the list.
      */
-    public void addItem(String itemName, boolean isPresent) throws DuplicateDataException {
+    public void addItem(String itemName, boolean isPresent) {
         String name = getDuplicateItemName(itemName);
         Item item = new Item(name, isPresent);
         itemList.add(item);
