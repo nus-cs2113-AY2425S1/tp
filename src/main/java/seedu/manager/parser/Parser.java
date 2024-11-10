@@ -484,15 +484,15 @@ public class Parser {
 
         Matcher matcher = getMatcher(input, REMOVE_PARTICIPANT_REGEX);
 
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            return new RemoveCommand(matcher.group(1).trim(), matcher.group(2).trim(), true);
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        return new RemoveCommand(matcher.group(1).trim(), matcher.group(2).trim(), true);
     }
 
     //@@author jemehgoh
@@ -564,33 +564,26 @@ public class Parser {
 
         Matcher matcher = getMatcher(input, EDIT_EVENT_ATTRIBUTE_REGEX);
 
-        String eventName;
-        String eventNewName;
-        LocalDateTime eventTime;
-        Priority eventPriority;
-        String eventVenue;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
-                    || matcher.group(3).isBlank() || matcher.group(4).isBlank() || matcher.group(5).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            eventName = matcher.group(1).trim();
-            eventNewName = matcher.group(2).trim();
-            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            dateTimeFormat.setLenient(false);
-            Date parsedDateTime = dateTimeFormat.parse(matcher.group(3).trim());
-            eventTime = LocalDateTime.ofInstant(parsedDateTime.toInstant(), ZoneId.systemDefault());
-            eventVenue = matcher.group(4).trim();
-            eventPriority = Priority.valueOf(matcher.group(5).trim().toUpperCase());
-
-            if (eventTime.isBefore(LocalDateTime.now())) {
-                throw new InvalidCommandException(PAST_DATE_MESSAGE);
-            }
-
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
+        }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
+                || matcher.group(3).isBlank() || matcher.group(4).isBlank() || matcher.group(5).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String eventName = matcher.group(1).trim();
+        String eventNewName = matcher.group(2).trim();
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        dateTimeFormat.setLenient(false);
+        Date parsedDateTime = dateTimeFormat.parse(matcher.group(3).trim());
+        LocalDateTime eventTime = LocalDateTime.ofInstant(parsedDateTime.toInstant(), ZoneId.systemDefault());
+        String eventVenue = matcher.group(4).trim();
+        Priority eventPriority = Priority.valueOf(matcher.group(5).trim().toUpperCase());
+
+        if (eventTime.isBefore(LocalDateTime.now())) {
+            throw new InvalidCommandException(PAST_DATE_MESSAGE);
         }
 
         return new EditEventCommand(eventName, eventNewName, eventTime, eventVenue, eventPriority);
@@ -611,28 +604,23 @@ public class Parser {
 
         Matcher matcher = getMatcher(input, EDIT_PARTICIPANT_REGEX);
 
-        String participantName;
-        String newParticipantName;
-        String newEmail;
-        String eventName;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
-                    || matcher.group(3).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            participantName = matcher.group(1).trim();
-            newParticipantName = matcher.group(2).trim();
-            newEmail = matcher.group(3).trim();
-            eventName = matcher.group(4).trim();
-
-            if (!isValidEmail(newEmail)) {
-                logWarning("Invalid email format");
-                throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
-            }
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
+        }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
+                || matcher.group(3).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String participantName = matcher.group(1).trim();
+        String newParticipantName = matcher.group(2).trim();
+        String newEmail = matcher.group(3).trim();
+        String eventName = matcher.group(4).trim();
+
+        if (!isValidEmail(newEmail)) {
+            logWarning("Invalid email format");
+            throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
         }
 
         return new EditParticipantCommand(participantName, newParticipantName, newEmail, eventName);
@@ -651,21 +639,18 @@ public class Parser {
 
         Matcher matcher = getMatcher(input, EDIT_ITEM_REGEX);
 
-        String itemName;
-        String itemNewName;
-        String eventName;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            itemName = matcher.group(1).split(ARROW)[0].trim();
-            itemNewName = matcher.group(1).split(ARROW)[1].trim();
-            eventName = matcher.group(2).trim();
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        String itemName = matcher.group(1).split(ARROW)[0].trim();
+        String itemNewName = matcher.group(1).split(ARROW)[1].trim();
+        String eventName = matcher.group(2).trim();
+
         return new EditItemCommand(itemName, itemNewName, eventName);
     }
 
@@ -942,16 +927,15 @@ public class Parser {
 
         Matcher matcher = getMatcher(input, COPY_REGEX);
 
-        if (matcher.matches()) {
-
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            return new CopyCommand(matcher.group(1).trim(), matcher.group(2).trim());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_COPY_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        return new CopyCommand(matcher.group(1).trim(), matcher.group(2).trim());
     }
 
     //@@author MatchaRRR
@@ -978,21 +962,20 @@ public class Parser {
 
         Matcher matcher = getMatcher(input, SORT_REGEX);
 
-        if (matcher.matches()) {
-
-            if (matcher.group(1).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            if (!matcher.group(1).equals("time") && !matcher.group(1).equals("name") &&
-                    !matcher.group(1).equals("priority")) {
-                throw new InvalidCommandException(INVALID_SORT_KEYWORD_MESSAGE);
-            }
-
-            return new SortCommand(matcher.group(1).trim());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_SORT_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        if (!matcher.group(1).equals("time") && !matcher.group(1).equals("name") &&
+                !matcher.group(1).equals("priority")) {
+            throw new InvalidCommandException(INVALID_SORT_KEYWORD_MESSAGE);
+        }
+
+        return new SortCommand(matcher.group(1).trim());
     }
 
     //@@author LTK-1606
@@ -1019,20 +1002,19 @@ public class Parser {
 
         Matcher matcher = getMatcher(input, FILTER_REGEX);
 
-        if (matcher.matches()) {
-
-            if (matcher.group(1).isBlank()) {
-                throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
-            }
-
-            if (matcher.group(2).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            return new FilterCommand(matcher.group(1).trim(), matcher.group(2).trim());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank()) {
+            throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
+        }
+
+        if (matcher.group(2).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        return new FilterCommand(matcher.group(1).trim(), matcher.group(2).trim());
     }
 
     /**
@@ -1058,20 +1040,19 @@ public class Parser {
         Pattern pattern = Pattern.compile(FIND_REGEX);
         Matcher matcher = pattern.matcher(input);
 
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            if (matcher.groupCount() < 2 || matcher.group(1).isBlank()) {
-                throw new InvalidCommandException(INVALID_FIND_MESSAGE);
-            }
-
-            return new FindCommand(matcher.group(1).trim(), matcher.group(2).trim());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_FIND_MESSAGE);
         }
 
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        if (matcher.groupCount() < 2 || matcher.group(1).isBlank()) {
+            throw new InvalidCommandException(INVALID_FIND_MESSAGE);
+        }
+
+        return new FindCommand(matcher.group(1).trim(), matcher.group(2).trim());
     }
 
     //@@author jemehgoh
