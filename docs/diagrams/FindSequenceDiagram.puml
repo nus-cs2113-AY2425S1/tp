@@ -50,7 +50,5 @@ else State is TASK_STATE
     end
 end
 
-alt Invalid command
-end
 
 @enduml
