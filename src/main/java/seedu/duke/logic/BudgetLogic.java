@@ -50,6 +50,13 @@ public class BudgetLogic {
         return budget;
     }
 
+    /**
+     * Prompts the user to set a budget if it is not already set, or it was set in a previous month.
+     * Recalculates the budget balance based on current month data.
+     *
+     * @param financialList the list of financial entries to consider.
+     * @throws FinanceBuddyException if an error occurs during the budget setting process.
+     */
     public void promptUserToSetBudget(FinancialList financialList) throws FinanceBuddyException {
         if (!budget.isBudgetSet()) {
             handleSetBudget(financialList);

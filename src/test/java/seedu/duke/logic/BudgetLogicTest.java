@@ -119,6 +119,10 @@ class BudgetLogicTest {
         assertEquals(expectedOutput, outContent.toString());
     }
 
+    /**
+     * Tests prompting the user to set a budget when no budget has been set.
+     * Verifies prompt displayed.
+     */
     @Test
     void promptUserToSetBudget_budgetNotSet_setBudget() throws FinanceBuddyException {
         ui.setInputs("yes", "1000");
@@ -135,6 +139,10 @@ class BudgetLogicTest {
         assertEquals(expectedOutput, outContent.toString());
     }
 
+    /**
+     * Tests the prompt for setting a budget when the budget was set in a previous month.
+     * Verifies prompt displayed.
+     */
     @Test
     void promptUserToSetBudget_budgetNotSetInCurrentMonth_printPrompt() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
@@ -155,6 +163,10 @@ class BudgetLogicTest {
         assertEquals(expectedOutput, outContent.toString());
     }
 
+    /**
+     * Tests prompting the user to set a budget when the budget is set in the current month.
+     * The test expects no additional prompting or output, as the budget is up to date.
+     */
     @Test
     void promptUserToSetBudget_budgetSetInCurrentMonth_expectNothing() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
