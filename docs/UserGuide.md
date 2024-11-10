@@ -154,7 +154,7 @@ The `Add Transaction` command allows you to add either an income or expense entr
 - `AMOUNT`: The transaction amount. This should be a positive value.
   - Note: Input amounts are rounded off to the nearest 2 decimal places.
   - Note: The app does not allow transactions to have an amount greater than $9999999.00 after rounding of to the nearest 2 d.p.
-- `DATE` (optional): Date of the transaction in `dd/MM/yy` format. If omitted, today’s date is used.
+- `DATE` (optional): Date of the transaction in `dd/MM/yyyy` format. If omitted, today’s date is used.
   - Note: The app does not allow transactions to be entered with a date later than the system date.
 - `CATEGORY` (optional): Specifies a category for the transaction, aiding in detailed financial tracking. If omitted, it defaults to `UNCATEGORIZED`.
 
@@ -215,7 +215,7 @@ financial list when [`list`](#list-transactions) is called. `INDEX` must be a po
 
 **Parameter Details:** (Refer to [here](#param_details) for what each parameter represents)
  - `DESCRIPTION` shouldn't be blank. And DO NOT USE `¦¦` in `DESCRIPTION` cause it serve as the seperator token in storage file.
- - `DATE` should follow `DD/MM/YY` format and cannot be after the system date.
+ - `DATE` should follow `DD/MM/YYYY` format and cannot be after the system date.
  - `AMOUNT` must be a positive number with a maximum value of $9999999.00. If it's a floating-point number, it will be rounded to two decimal places.
  - `CATEGORY` should be one of the categories allowed in Expenses/Incomes.
 
@@ -352,6 +352,14 @@ Displays total cashflow (income - expenditure), and shows categories with the hi
 
 <br>
 
+
+![list](screenshots/UG_list2.png)<br>
+Lists out all expenses. Displays total expenditure, and shows category with the highest total expenditure.
+
+<br><br>
+
+![list](screenshots/UG_list3.png)<br>
+Lists out all incomes. Displays total income, and shows category with the highest total income.
 ```
 list expense
 --------------------------------------------
@@ -367,7 +375,6 @@ Highest Expense Category: ENTERTAINMENT ($20.00)
 No budget has been set.
 --------------------------------------------
 ```
-Lists out all expenses. Displays total expenditure, and shows category with highest total expenditure.
 
 `list income` functions similarly, but displays:
 - all incomes
@@ -382,9 +389,27 @@ User can command app to only list out transactions starting from a certain date 
 and/or up to a certain date using the `/to` flag.
 
 Total cashflow/expenditure/income displayed will be restricted to the range of dates entered by the user.
-Category with highest expenditure/income displayed will also be based on the entered date range.
+Category with the highest expenditure/income displayed will also be based on the entered date range.
 
 **Example Usage:**
+
+
+![list](screenshots/UG_list4.png)<br>
+Lists out all expenses and incomes with date equal to or after 03/10/2024.
+Displays total cashflow (income - expenditure) during that period, and shows
+categories with the highest total expenditure and income during that period respectively.
+
+<br><br>
+
+![list](screenshots/UG_list5.png)<br>
+Lists out all expenses with dates before or equal to 03/10/2024.
+Displays total expenditure + category with the highest total expenditure during that period.
+
+<br><br>
+
+![list](screenshots/UG_list6.png)<br>
+Lists out all incomes with dates between 03/10/2024 and 10/10/2024 inclusive.
+Displays total income + category with the highest total income during that period.
 
 ```
 list /from 03/10/24 /to 10/10/24
@@ -402,12 +427,10 @@ Highest Income Category: SALARY ($3000.00)
 No budget has been set.
 --------------------------------------------
 ```
-Lists out all expenses and incomes with date equal to or after 03/10/24.
-Displays total cashflow (income - expenditure) during that period, and shows
-categories with the highest total expenditure and income during that period respectively.
 
 The `expense` and `income` keywords can also be used in conjunction with the
 `/from` and `/to` flags to filter by both transaction type and date.
+
 
 <br>
 
