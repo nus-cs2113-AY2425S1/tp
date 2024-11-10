@@ -238,7 +238,7 @@ switch (commandFlag) {
 ```
 
 * Otherwise, the `Parser` parses the user command input based on the values of the `FLAG`s in the input.
-* If any of the `FLAG`s in the user command input are not present or invalid, the `Parser` throws an `InvalidCommandException`.
+* If any of the `FLAG`s in the user command input are not present, invalid or in the wrong order, the `Parser` throws an `InvalidCommandException`.
 <div style="page-break-after: always;"></div>
 
 The interactions between classes for the parsing of a command with parameters is shown in the following **Sequence Diagram**:
