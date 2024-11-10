@@ -316,8 +316,11 @@ The interactions between components during the operation selection in `AddComman
 The `EventList#addParticipantToEvent()` operation works as follows:
 
 1. `EventList` gets the `Event` with the event name `eventName` from the list of `Event`s stored within it.
-2. In the selected `Event`, `Event` checks if there is a `Participant` with the name in `participantName` in the list of `Participant`s. If there is one, it throws a `DuplicateDataException`.
+2. In the selected `Event`, `Event` checks if there is a `Participant` with the name in `participantName` in the list of `Participant`s. If there is one, it adds an indexed suffix to `participantName`.
 3. Otherwise, `Event` creates a new `Participant` object with the parameters passed to it, and adds it to the `Participant` list.
+
+The indexed suffix added for duplicate `Participant` names takes the form `NAME (INDEX)`. For each duplicate added, the index is increased.
+For example, three participants with the name `John Tan` will be stored as `John Tan`, `John Tan (1)` and `John Tan (2)`.
 
 If an `Event` with a name matching `eventName` is not found, the operation returns `false` to indicate that the operation was unsuccessful. Otherwise, the operation returns `true`.
 <div style="page-break-after: always;"></div>
@@ -331,7 +334,7 @@ The operation logic for `EventList#addItemToEvent()` is similar to that for `Eve
 
 The interactions between components during the execution of the `EventList#addEvent()` operation are show in the **Sequence Diagram** below:
 
-1. `EventList` checks if there is a `Event` with the name in `eventName` in its list of `Events`s. If there is one, it throws a `DuplicateDataException`.
+1. `EventList` checks if there is a `Event` with the name in `eventName` in its list of `Events`s. If there is one, it adds an indexed suffix to `eventName`.
 2. Otherwise, `EventList` creates a new `Event` object with the parameters passed to it, and adds it to the `Event` list.
 
 <img src = "images/AddEventSequenceDiagram.png">
@@ -450,7 +453,10 @@ Given below is an example usage scenario and the behaviour of the `edit` feature
    It looks for the event and the specified participant, and then modifies the contact information and returns true if the participant is found. Otherwise, it returns false.
 4. If the flag is `-m`, `EditItemCommand` calls `EditItemCommand#execute()`, which calls `EventList#editItem()` to edit the item.
    It looks for the event and the specified item, modifies the item and returns true if the item is found. Otherwise, it returns false.
-5. After Editing, a message `outputMessage` will be printed.
+5. After editing, a message `outputMessage` will be printed.
+
+If the new name of the `Event`, `Participant`, or `Item` is a duplicate of that of an existing `Event`, `Participant`, or `Item`, an indexed suffix will be added to the name.
+This is done in the same way as described in [Add feature](#add-feature);
 
 The interactions between components of `EditEventCommand#execute()` are shown in the **Sequence Diagram** below:
 
@@ -609,7 +615,8 @@ and is invoked when the latter operation is called.
 The `FilterCommand` class is constructed with a specified filter flag and keywords. It then performs filter operations based on both the flag and keywords.
 Given below is an example usage scenario and the behaviour of the `filter` feature at each step:
 1. The user enters the command filter followed by a flag (`-e: name, -d : date, -t: time, -x date-time,  or -u: priority`) and their search keyword e.g. `filter -e work` to specify the filtering criterion
-2. `FilterCommand` calls `FilterCommand#execute`, which based on the flag invokes one of the following 3 methods
+2. `FilterCommand` calls `FilterCommand#execute`, which based on the flag invokes one of the following 3 methods:
+
    * `filterEventsByName()` - Finds events containing given name (keyword)
    * `filterEventsByDate()` - Finds events occurring during given date (keyword)
    * `filterEventsByTime()` - Finds events occurring during given time (keyword)
@@ -808,7 +815,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       List all `Event`s with `list` after each test case.
    
    2. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u HIGH`  
-      Expected: No `Event` is added. A duplicate entry error message is shown.
+      Expected: A `Event` with name `Event 1 (1)` is added. A success message is shown.
 
 ### Adding a participant
 
@@ -819,7 +826,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       List all `Participant`s with `view -e Event 1 -y participant` after each test case.
    
    2. Test case: `add -p Participant 1 -email part@gmail.com -e Event 1`.   
-      Expected: No `Participant` is added. A duplicate entry error message is shown.
+      Expected: A `Participant` with name `Participant 1 (1)` is added. A success message is shown.
 
 ### Adding an item
 
@@ -830,7 +837,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       List all `Item`s with `view -e Event 1 -y item` after each test case.
 
    2. Test case: `add -p Item -e Event 1`.  
-      Expected: No `Item` is added. A duplicate entry error message is shown.
+      Expected: A `Item` with name `Item (1)` is added. A success message is shown.
 
 ### Removing an event
 

@@ -12,28 +12,24 @@ group sd Add event
     command -> eventList : addEvent(eventName, eventTime, eventVenue, eventPriority)
     activate eventList  
 
-    eventList -> eventList : getEventByName(eventName)
+    eventList -> eventList : getDuplicateEventName(eventName)
     activate eventList  
 
-    return :Event
+    return name:String
 
-    alt event already present
-        eventList --> command : throws DuplicateDataException
-    else else
 
-        create event
-        eventList -> event : Event(eventName, eventTime, eventVenue, eventPriority)
-        activate event  
+    create event
+    eventList -> event : Event(name, eventTime, eventVenue, eventPriority)
+    activate event
 
-        return
+    return
 
-        eventList -> list : add(newEvent)
-        activate list  
+    eventList -> list : add(newEvent)
+    activate list
 
-        return
+    return
 
-        return
-    end
+    return
 
 end
 

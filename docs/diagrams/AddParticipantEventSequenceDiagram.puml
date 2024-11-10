@@ -13,21 +13,18 @@ group sd Add participant to event
     eventList -> event : addParticipant(participantName, participantEmail)
     activate event  
 
-    event -> event : getParticipantByName(participantName, participantEmail)
+    event -> event : getDuplicateParticipantName(participantName)
     activate event  
-    return :Event
+    return name:String
 
-    alt participant already present
-        event --> eventList:throws DuplicateDataException
-    else else
-        event -> participant : Participant(participantName, participantEmail)
-        activate participant  
-        return participant:Participant
+    create participant
+    event -> participant : Participant(name, participantEmail)
+    activate participant
+    return participant:Participant
 
-        event -> participantList : add(participant)
-        activate participantList  
-        return
-    end
+    event -> participantList : add(participant)
+    activate participantList
+    return
 
     return
 end
