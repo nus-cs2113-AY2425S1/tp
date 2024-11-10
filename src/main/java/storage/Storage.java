@@ -10,6 +10,8 @@ import history.DailyRecord;
 import history.History;
 import programme.ProgrammeList;
 
+import javax.sound.midi.Soundbank;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
@@ -43,7 +45,7 @@ public class Storage {
      *
      * @return the ProgrammeList object containing programme data, or an empty ProgrammeList if not found
      */
-    public ProgrammeList loadProgrammeList() {
+    public ProgrammeList loadProgrammeList() throws IOException {
         try {
             JsonObject programmeListJson = fileManager.loadProgrammeList();
             if (programmeListJson == null) {
@@ -52,7 +54,7 @@ public class Storage {
             logger.info("Loading programmeList");
             return programmeListFromJson(programmeListJson);
         } catch (Exception e ) {
-            logger.info("No programme list found, empty list initialised");
+            logger.info("Programme list corrupted, empty list initialised");
             return new ProgrammeList();
         }
     }
@@ -65,7 +67,7 @@ public class Storage {
      *
      * @return the history object containing programme data, or an empty history if not found
      */
-    public History loadHistory() {
+    public History loadHistory() throws IOException{
         try {
             JsonObject historyJson = fileManager.loadHistory();
             if (historyJson == null) {
@@ -74,7 +76,7 @@ public class Storage {
             logger.info("Loading history");
             return historyFromJson(historyJson);
         } catch (Exception e) {
-            logger.info("No history found, empty history initialised");
+            logger.info("history corrupted, empty history initialised");
             return new History();
         }
     }

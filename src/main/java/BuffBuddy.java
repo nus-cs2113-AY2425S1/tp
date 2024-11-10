@@ -2,18 +2,21 @@
 import command.Command;
 import command.CommandResult;
 import command.ExitCommand;
+import exceptions.StorageExceptions;
 import storage.Storage;
 import history.History;
 import parser.Parser;
 import ui.Ui;
 import programme.ProgrammeList;
 
+import java.io.IOException;
+
 public class BuffBuddy {
     private static final String DEFAULT_FILE_PATH = "./data/data.json";
 
     private final Ui ui;
-    private final History history;
-    private final ProgrammeList programmes;
+    private History history;
+    private ProgrammeList programmes;
     private final Storage storage;
     private final Parser parser;
 
@@ -21,8 +24,14 @@ public class BuffBuddy {
         ui = new Ui();
         parser = new Parser();
         storage = new Storage(filePath);
-        programmes = storage.loadProgrammeList();
-        history = storage.loadHistory();
+        try {
+            programmes = storage.loadProgrammeList();
+            history = storage.loadHistory();
+        } catch (IOException e) {
+            ui.showMessage("unable to load, initialising empty data");
+            programmes = new ProgrammeList();
+            history = new History();
+        }
     }
 
     public static void main(String[] args) {

@@ -47,6 +47,7 @@ public class FileManager {
             JsonObject jsonObject = load();
             if (jsonObject == null || !jsonObject.has("programmeList")) {
                 logger.log(Level.INFO, "No programme list found.");
+                System.out.println("First Time here, Welcome to BuffBuddy!");
                 return new JsonObject();
             }
             logger.log(Level.INFO, "Programme list Loaded");
@@ -96,6 +97,7 @@ public class FileManager {
             JsonElement element = JsonParser.parseReader(reader);
             if(element == null || element.isJsonNull()) {
                 logger.info("No data found");
+                System.out.println("First Time here, empty data initialised.");
                 return new JsonObject();
             }
             logger.info("Data successfully loaded from file");
