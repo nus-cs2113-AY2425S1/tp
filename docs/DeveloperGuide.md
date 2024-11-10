@@ -1,20 +1,20 @@
 # Developer Guide
 
 ## Table of Contents
-1. [Acknowledgements](#acknowledgements)
-2. [Design & Implementation](#design--implementation)
-    - [Category](#category)
-    - [TransactionList](#transactionlist)
-    - [Command](#command)
-    - [AddIncomeCommand](#addincomecommand)
-    - [Command Parser](#command-parser)
-3. [Product Scope](#product-scope)
-    - [Target User Profile](#target-user-profile)
-    - [Value Proposition](#value-proposition)
-4. [User Stories](#user-stories)
-5. [Non-Functional Requirements](#non-functional-requirements)
-6. [Glossary](#glossary)
-7. [Instructions for Manual Testing](#instructions-for-manual-testing)
+1. [Acknowledgements](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#acknowledgements)
+2. [Design & Implementation](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#design--implementation)
+    - [Category](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#category)
+    - [TransactionList](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#transactionlist)
+    - [Command](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#command)
+    - [AddIncomeCommand](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#addincomecommand)
+    - [Command Parser](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#command-parser)
+3. [Product Scope](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#product-scope)
+    - [Target User Profile](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#target-user-profile)
+    - [Value Proposition](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#value-proposition)
+4. [User Stories](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#user-stories)
+5. [Non-Functional Requirements](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#non-functional-requirements)
+6. [Glossary](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#glossary)
+7. [Instructions for Manual Testing](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#instructions-for-manual-testing)
 
 ## Acknowledgements
 - The `Parser` is adapted from [Dan Linh's iP](https://github.com/DanLinhHuynh-Niwashi/ip/tree/master/src/main/java/niwa/parser) code, with changes to get on well with the current project 
@@ -240,7 +240,9 @@ The `Parser` class is responsible for interpreting user commands and extracting 
        - Pass the remaining `argumentString` after the keyword to the next recursive call
      - If not found (mean that the last keyword reached):
        - Attach the remaining part with the previously found keyword and put in to `arguments`.
-           
+
+     ![getArguments](./diagrams/parser/parse-arguments-activity.png)
+   
 ## Product scope
 ### Target user profile
 #### Demographics:

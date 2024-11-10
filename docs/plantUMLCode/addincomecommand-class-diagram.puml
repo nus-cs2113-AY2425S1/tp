@@ -1,10 +1,15 @@
 @startuml
+skinparam classAttributeIconSize 0
 abstract class Command {
     + execute(): List<String>
 }
 
 abstract class AddTransactionCommand {
+
     + execute(): List<String>
+    # parseDescription(arguments: Map<String, String>): String
+    # parseAmount(amountStr: String): Double
+    # parseDate(dateStr: String): String
     # createTransaction(amount: double, description: String, date: String): Transaction
 }
 
@@ -13,12 +18,23 @@ class AddIncomeCommand {
 }
 
 class TransactionList {
-    + addTransaction(transaction: Transaction): void
-    + getTransactions(): List<Transaction>
+    - transactions : ArrayList<Transaction>
+    - invertedIndex : Map<String, List<Transaction>>
+
+    + TransactionList()
+    + addTransaction(transaction : Transaction) : void
+    + deleteTransaction(index : int) : Transaction
+    + getTransactions() : ArrayList<Transaction>
+    + getTransactionsBetween(startTime : LocalDateTime, endTime : LocalDateTime) : List<Transaction>
+    + getExpensesByCategory(category : Category) : List<Transaction>
+    + searchTransactionsByKeywords(keywords : List<String>) : List<Transaction>
+    + getTodaySpending() : double
+    + updateCategory(index : int, newCategory : Category) : boolean
 }
 
 class Income {
     + Income(amount: double, description: String, date: String)
+    + getTransactionType() : String
 }
 
 AddTransactionCommand <|-- AddIncomeCommand

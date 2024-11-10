@@ -3,6 +3,8 @@
 	No existing budget file found. Starting fresh.
 	Hello, uNivUSaver is willing to help!
 	Remember to record your spending today so you can track your spending accurately.
+	Expenses for NOVEMBER: $0.0
+	Incomes for NOVEMBER: $0.0
 	Today's total spending: $0.0
 	-------------------------------------
 	Category added: Groceries
@@ -198,8 +200,12 @@
 	Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
 	-------------------------------------
 	-------------------------------------
+	Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	-------------------------------------
+	-------------------------------------
 	Lack mandatory arguments.
-	search k/ [keyword_1] [keyword_2] ... [keyword_n]
+	search k/ [keyword_1] [keyword_2] ... [keyword_n]: Search transaction by keywords
 	-------------------------------------
 	-------------------------------------
 	Transaction updated: Expense [amount=15.0, description=, date=2024-11-01 2359, category=Food]
