@@ -270,7 +270,7 @@ Format: `exit`
 
 ### Saving of program data
 
-The program saves its stored data into `data.csv` files in the same directory as the application `.JAR`.
+The program saves its stored data into `data.txt` file in the same directory as the application `.JAR`.
 
 This file consolidates information on `Events`, `Participants` and `Items` as follows:
 
@@ -282,7 +282,7 @@ The data is saved after the execution of every command and upon program terminat
 
 ### Loading of program data
 
-Upon startup, the program loads data from the `data.csv` file.
+Upon startup, the program loads data from the `data.txt` file.
 
 If the file does not exist in the directory, it will be automatically created when data is saved.
 <div style="page-break-after: always;"></div>
@@ -291,7 +291,7 @@ If the file does not exist in the directory, it will be automatically created wh
 
 Amendment of data is strictly restricted to the program.
 
-Direct amendment from `data.csv` files is not recommended to prevent data from being lost due to incorrect detail inputs.
+Direct amendment from the `data.txt` file is not recommended to prevent data from being lost due to incorrect detail inputs.
 
 The program data is stored in the following format:
 
@@ -312,7 +312,7 @@ For Participants:
 ```
 
 * `EMAIL` must follow a similar format such as example@gmail.com
-* An entry for the `Event` corresponding to `EVENT` must be present in `data.csv`.
+* An entry for the `Event` corresponding to `EVENT` must be present in `data.txt`.
 * `STATUS` must be either `Y` or `N`
 
 For Items:
@@ -321,12 +321,12 @@ For Items:
 "ITEM",ITEM_NAME,EVENT,STATUS
 ```
 
-* An entry for the `Event` corresponding to `EVENT` must be present in `data.csv`.
+* An entry for the `Event` corresponding to `EVENT` must be present in `data.txt`.
 * `STATUS` must be either `Y` or `N`
 
 The first field of each entry (`"EVENT"`, `"PARTICIPANT"`, `"ITEM"`) corresponds to the object type being stored, and can only take the values specified in the above format line. 
 
-All fields added to `data.csv` must also be enclosed within double quotation marks (`" "`) to be properly parsed.
+All fields added to `data.txt` must also be enclosed within double quotation marks (`" "`) to be properly parsed.
 
 If the above format or parameter constraints are not followed, the `Event`, `Participant` or `Item` corresponding to the file line will be ignored upon program startup.
 <div style="page-break-after: always;"></div>
