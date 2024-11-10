@@ -23,6 +23,7 @@ public class FilterCommand extends Command {
     private static final String FILTER_BY_DATE_TIME_MESSAGE = "Events successfully filtered by date-time!";
     private static final String FILTER_BY_PRIORITY_MESSAGE = "Events successfully filtered by priority!";
     private static final String FILTER_NOT_FOUND = "Filter flag matched no events!";
+    private static final String FILTER_RESULT_EMPTY_MESSAGE = "No events found!";
 
     private static final String INVALID_DATE_FORMAT_MESSAGE = """
             Invalid date format!
@@ -106,6 +107,9 @@ public class FilterCommand extends Command {
     private String filterEventsByName() {
         String lowerCaseKeyword = filterWord.toLowerCase();
         filteredEvents = eventList.filterByName(lowerCaseKeyword);
+        if (filteredEvents.getListSize() == 0) {
+            return FILTER_RESULT_EMPTY_MESSAGE;
+        }
         return FILTER_BY_NAME_MESSAGE + "\n";
     }
 
@@ -119,6 +123,9 @@ public class FilterCommand extends Command {
             LocalDate eventDate = LocalDate.parse(filterWord,
                     DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             filteredEvents = eventList.filterByDate(eventDate);
+            if (filteredEvents.getListSize() == 0) {
+                return FILTER_RESULT_EMPTY_MESSAGE;
+            }
             return FILTER_BY_DATE_MESSAGE + "\n";
         } catch (DateTimeException exception) {
             isValidFields = false;
@@ -136,6 +143,9 @@ public class FilterCommand extends Command {
             LocalTime eventTime = LocalTime.parse(filterWord,
                     DateTimeFormatter.ofPattern("HH:mm"));
             filteredEvents = eventList.filterByTime(eventTime);
+            if (filteredEvents.getListSize() == 0) {
+                return FILTER_RESULT_EMPTY_MESSAGE;
+            }
             return FILTER_BY_TIME_MESSAGE + "\n";
         } catch (DateTimeException exception) {
             isValidFields = false;
@@ -153,6 +163,9 @@ public class FilterCommand extends Command {
             LocalDateTime eventDateTime = LocalDateTime.parse(filterWord,
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             filteredEvents = eventList.filterByDateTime(eventDateTime);
+            if (filteredEvents.getListSize() == 0) {
+                return FILTER_RESULT_EMPTY_MESSAGE;
+            }
             return FILTER_BY_DATE_TIME_MESSAGE + "\n";
         } catch (DateTimeException exception) {
             isValidFields = false;
@@ -169,6 +182,9 @@ public class FilterCommand extends Command {
         try {
             Priority priority = Priority.valueOf(filterWord.trim().toUpperCase());
             filteredEvents = eventList.filterByPriority(priority);
+            if (filteredEvents.getListSize() == 0) {
+                return FILTER_RESULT_EMPTY_MESSAGE;
+            }
             return FILTER_BY_PRIORITY_MESSAGE + "\n";
         } catch(IllegalArgumentException exception) {
             isValidFields = false;
