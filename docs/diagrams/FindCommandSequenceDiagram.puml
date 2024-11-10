@@ -1,11 +1,11 @@
 @startuml
 hide footbox
-participant ":Main" as Main
+
 participant ":FindCommand" as FC
 participant ":EventList" as EL
 participant "event :Event" as E
 
-Main -> FC: execute()
+[-> FC: execute()
 activate FC
 FC -> EL: getEventByName(eventName)
 activate EL
@@ -20,7 +20,6 @@ opt Event found
 
 end opt
 
-FC --> Main: Display participantList and search result message
-deactivate FC
+return Display participantList and search result message
 
 @enduml

@@ -1,12 +1,11 @@
 @startuml
 hide footbox
 
-participant ":Main" as main
 participant ":EditEventCommand" as editCommand
 participant ":EventList" as eventList
 participant ":Event" as event
 
-main -> editCommand : execute()
+[-> editCommand : execute()
 activate editCommand
 
 editCommand -> eventList : editEvent(eventName, eventNewName, eventTime, eventVenue, eventPriority)
@@ -28,7 +27,8 @@ loop for each event in eventList
 
 end
 
-editCommand --> main : message
-deactivate eventList
-deactivate editCommand
+return :boolean
+
+return
+
 @enduml

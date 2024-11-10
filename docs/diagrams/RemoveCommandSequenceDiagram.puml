@@ -2,10 +2,9 @@
 !include style.puml
 hide footbox
 
-participant ":Main" as main
 participant ":RemoveCommand" as command  
 
-main -> command : execute()
+[-> command : execute()
 activate command  
 
 alt participant name is not null

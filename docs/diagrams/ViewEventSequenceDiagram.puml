@@ -2,11 +2,10 @@
 !include style.puml
 hide footbox
 
-participant ":Main" as main
 participant ":ViewCommand" as command  
 participant ":EventList" as eventList  
 
-main -> command : execute()
+[-> command : execute()
 activate command  
 
 command -> eventList : getEventByName(eventName)

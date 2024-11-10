@@ -2,16 +2,10 @@
 !include style.puml
 hide footbox
 
-participant ":Main" as main
 participant ":Parser"  as parser  
-participant ":XYZCommand" as xyzCommand  
+participant ":XYZCommand" as xyzCommand
 
-create parser
-main -> parser : Parser()
-activate parser  
-return
-
-main -> parser : parseCommand(command)
+[-> parser : parseCommand(command)
 activate parser  
 
 parser -> parser : parseXYZCommand(input, commandParts)
@@ -23,7 +17,6 @@ activate xyzCommand
 return :XYZCommand
 return
 
-parser --> main : command:Command
-deactivate parser
+return command:Command
 
 @enduml

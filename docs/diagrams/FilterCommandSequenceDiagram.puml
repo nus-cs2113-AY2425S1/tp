@@ -1,9 +1,9 @@
 @startuml
 hide footbox
-participant ":Main" as Main
+
 participant ":FilterCommand" as FC
 
-Main -> FC: execute()
+[-> FC: execute()
 
 create participant "FilteredEventList :EventList" as FEL
 activate FC
@@ -59,8 +59,8 @@ else filter by priority
     deactivate FC
 end alt
 
-FC --> Main: Display FilteredEventList and filter result message
-deactivate FC
+return Display FilteredEventList and filter result message
+
 destroy FEL
 
 @enduml
