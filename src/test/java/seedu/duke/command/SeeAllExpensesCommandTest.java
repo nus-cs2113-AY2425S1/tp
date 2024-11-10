@@ -8,6 +8,7 @@ import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.util.Commons;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -61,12 +62,12 @@ public class SeeAllExpensesCommandTest {
         financialList.addEntry(income2);
         seeAllExpensesCommand = new SeeAllExpensesCommand(null, null);
         seeAllExpensesCommand.execute(financialList);
-        assertEquals("--------------------------------------------" + System.lineSeparator() +
+        assertEquals(Commons.LINE_SEPARATOR + System.lineSeparator() +
                 "No expenses found." + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator(), outContent.toString());
+                Commons.LINE_SEPARATOR + System.lineSeparator(), outContent.toString());
     }
 
-    private void fillMixedList(FinancialList financialList, ArrayList<FinancialEntry> entries) throws FinanceBuddyException {
+    private void fillMixedList(FinancialList financialList, ArrayList<FinancialEntry> entries) {
         for (FinancialEntry entry : entries) {
             financialList.addEntry(entry);
         }
@@ -114,7 +115,7 @@ public class SeeAllExpensesCommandTest {
         seeAllExpensesCommand = new SeeAllExpensesCommand(null, null);
         seeAllExpensesCommand.execute(financialList);
 
-        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+        String expectedOutput = Commons.LINE_SEPARATOR + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + entries.get(1) + System.lineSeparator() +
                 "3. " + entries.get(2) + System.lineSeparator() +
@@ -125,7 +126,7 @@ public class SeeAllExpensesCommandTest {
                 "Total expense: $ 25.00" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Highest Expense Category: FOOD ($10.00)" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator();
+                Commons.LINE_SEPARATOR + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -140,7 +141,7 @@ public class SeeAllExpensesCommandTest {
         seeAllExpensesCommand = new SeeAllExpensesCommand(null, LocalDate.of(2024, 10, 20));
         seeAllExpensesCommand.execute(financialList);
 
-        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+        String expectedOutput = Commons.LINE_SEPARATOR + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "1. " + entries.get(1) + System.lineSeparator() +
                 "3. " + entries.get(2) + System.lineSeparator() +
@@ -150,7 +151,7 @@ public class SeeAllExpensesCommandTest {
                 "Total expense: $ 15.00" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Highest Expense Category: OTHER ($10.00)" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator();
+                Commons.LINE_SEPARATOR + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -165,7 +166,7 @@ public class SeeAllExpensesCommandTest {
         seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(2024, 10, 20), null);
         seeAllExpensesCommand.execute(financialList);
 
-        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+        String expectedOutput = Commons.LINE_SEPARATOR + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "3. " + entries.get(2) + System.lineSeparator() +
                 "4. " + entries.get(0) + System.lineSeparator() +
@@ -175,7 +176,7 @@ public class SeeAllExpensesCommandTest {
                 "Total expense: $ 20.00" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Highest Expense Category: FOOD ($10.00)" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator();
+                Commons.LINE_SEPARATOR + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -198,7 +199,7 @@ public class SeeAllExpensesCommandTest {
         seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(2024, 10, 15), LocalDate.of(2024, 10, 21));
         seeAllExpensesCommand.execute(financialList);
 
-        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+        String expectedOutput = Commons.LINE_SEPARATOR + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "3. " + expense5 + System.lineSeparator() +
                 "4. " + entries.get(2) + System.lineSeparator() +
@@ -209,7 +210,7 @@ public class SeeAllExpensesCommandTest {
                 "Total expense: $ 32.50" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Highest Expense Category: FOOD ($15.50)" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator();
+                Commons.LINE_SEPARATOR + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
 }
