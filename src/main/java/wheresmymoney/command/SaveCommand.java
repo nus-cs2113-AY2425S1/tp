@@ -1,16 +1,15 @@
 package wheresmymoney.command;
 
-import wheresmymoney.Parser;
+import wheresmymoney.utils.ArgumentsMap;
+import wheresmymoney.utils.Parser;
 import wheresmymoney.Storage;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.util.HashMap;
-
 public class SaveCommand extends Command {
-    public SaveCommand(HashMap<String, String> argumentsMap) {
+    public SaveCommand(ArgumentsMap argumentsMap) {
         super(argumentsMap);
     }
 

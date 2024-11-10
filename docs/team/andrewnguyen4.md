@@ -14,10 +14,11 @@ My contributions to this project are listed below.
 * **Enhancements Implemented:**
     * *Support for adding expenses:* Expense constructor & adding to ExpenseList.
     * *ExpenseFilter class:* Enables dynamic filtering based on various optional parameters.
+    * *Visualizer:* Visualizes expenses over a time period with flexible specifications.
     * *Defensive Programming:* Reasonable use of logging, assertions, exception handling and test code in the project. 
 
 * **Upcoming Features:**
-    * *Expense Visualization:* Provides comprehensive graphs & charts on users' expenses. Integrated with sorting by date and category.
+    * *Visualizer Extension:* Provides more comprehensive graphs & charts on users' expenses. Integrated with sorting by date and category.
 
 * **Documentation Contributions:**
     * *Diagrams:* 

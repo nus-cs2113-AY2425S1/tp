@@ -28,7 +28,7 @@ public class Visualizer {
     private LocalDate endDate;
     private int dateRange;
     private List<String> timeSeries = new ArrayList<>();
-    private List<Float> totalExpenses = new ArrayList<>();
+    private List<Float> valueSeries = new ArrayList<>();
 
 
     public Visualizer(ArrayList<Expense> expenses) {
@@ -68,7 +68,7 @@ public class Visualizer {
         return timeSeries;
     }
 
-    private List<String> createMonthList () { // Fix implementation!!
+    private List<String> createMonthList () {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-yyyy");
 
         LocalDate current = beginDate.withDayOfMonth(1);
@@ -136,7 +136,7 @@ public class Visualizer {
         }
 
         // Sort by date for clear plotting
-        totalExpenses = timeSeries.stream().map(dateToExpenseMap::get).collect(Collectors.toList());
+        valueSeries = timeSeries.stream().map(dateToExpenseMap::get).collect(Collectors.toList());
     }
 
     public void drawChart() {
@@ -156,7 +156,7 @@ public class Visualizer {
         chart.getStyler().setXAxisTickMarkSpacingHint(150);
 
         // Add data to chart
-        chart.addSeries("Spending", timeSeries, totalExpenses);
+        chart.addSeries("Spending", timeSeries, valueSeries);
 
         // Display chart
         SwingWrapper<CategoryChart> swingWrapper = new SwingWrapper<>(chart);
