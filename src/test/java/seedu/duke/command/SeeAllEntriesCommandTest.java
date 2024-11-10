@@ -13,6 +13,7 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class for the SeeAllEntriesCommand.
@@ -228,5 +229,17 @@ class SeeAllEntriesCommandTest {
                 expectedOutput.trim().replaceAll("\\s+", " "),
                 output.trim().replaceAll("\\s+", " ")
         );
+    }
+
+    @Test
+    void execute_nullFinancialList_expectNull() throws FinanceBuddyException {
+        FinancialList nullList = null;
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(null, null);
+            seeAllEntriesCommand.execute(nullList);
+        });
+
+        // Verify the error message
+        assertEquals("Financial list cannot be null", exception.getMessage());
     }
 }
