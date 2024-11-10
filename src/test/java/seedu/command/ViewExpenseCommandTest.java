@@ -109,7 +109,7 @@ class ViewExpenseCommandTest {
         viewExpenseCommand.setTransactionList(inputTransactionList);
 
         Map<String, String> arguments = new HashMap<>();
-        arguments.put("c/", "Other");
+        arguments.put("c/", "other");
 
         viewExpenseCommand.setArguments(arguments);
         // Expected messages

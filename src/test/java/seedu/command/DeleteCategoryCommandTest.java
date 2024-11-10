@@ -60,7 +60,7 @@ class DeleteCategoryCommandTest {
         // Arrange
         categoryList.addCategory(new Category("Default"));
         categoryList.addCategory(new Category("NewCategory"));
-        deleteCategoryCommand.setArguments(Map.of("", "Default"));
+        deleteCategoryCommand.setArguments(Map.of("", "default"));
 
         deleteCategoryCommand.setUI(new TestUI("NewCategory"));
         // Act

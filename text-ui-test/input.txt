@@ -38,7 +38,7 @@ no
 delete-category NewCategory
 skip
 
-delete-category Luxury
+delete-category luxury
 LessLuxury
 yes
 
@@ -79,7 +79,7 @@ search k/ Dinner
 search k/ din
 search k/
 
-categorize i/ 5 c/ Food
+categorize i/ 5 c/ food
 categorize i/ 5 c/ NonExistingCategory
 categorize i/ 999 c/ Groceries
 categorize i/ abc c/ Groceries
