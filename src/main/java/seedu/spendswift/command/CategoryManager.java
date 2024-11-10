@@ -83,8 +83,10 @@ public class CategoryManager {
         }
 
         if (hasTaggedExpenses) {
-            System.out.println("Category \"" + categoryName + "\" cannot be deleted because some expenses are tagged to it.");
-            System.out.println("Please delete those expenses or re-tag them to another category before deleting this category.");
+            System.out.println("Category \"" + categoryName +
+                    "\" cannot be deleted because some expenses are tagged to it.");
+            System.out.println("Please delete those expenses or re-tag them " +
+                    "to another category before deleting this category.");
         } else {
             categories.remove(categoryToDelete);
             trackerData.setCategories(categories);
