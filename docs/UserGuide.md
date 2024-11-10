@@ -203,6 +203,7 @@ Recurring expenses share some of the same commands as normal expenses. Such as:
 - `edit`
 - `delete`
 - `list`
+
 To use these command for recurring expenses, a `/recur` flag must be added.
 
 ### Add a recurring expense: `add`
