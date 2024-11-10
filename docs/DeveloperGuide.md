@@ -489,7 +489,19 @@ The application can provide summaries and statistical insights to spending habit
 
 ## Manual Testing
 
-View the [User Guide](UserGuide.md) for the full list of UI commands and their related use case and expected outcomes.
+View the [User Guide](UserGuide.md) for the full list of commands and their related use case and expected outcomes.
+
+### Recurring Expenses
+
+Recurring expenses can be tested by setting its date. Below is an example.
+
+```
+add /recur /price 1.00 /category A /description A /date 01-01-2024 /frequency daily
+add /recur /price 10.00 /category B /description B /date 01-01-2024 /frequency weekly
+add /recur /price 100.00 /category C /description C /date 31-01-2024 /frequency monthly
+save
+load
+```
 
 ## JUnit Testing
 
