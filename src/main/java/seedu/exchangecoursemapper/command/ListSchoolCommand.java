@@ -21,6 +21,7 @@ public class ListSchoolCommand extends CheckInformationCommand {
      * Class Constructor
      */
     public ListSchoolCommand() {
+        logger.setLevel(Level.WARNING);
         ui = new UI();
     }
 

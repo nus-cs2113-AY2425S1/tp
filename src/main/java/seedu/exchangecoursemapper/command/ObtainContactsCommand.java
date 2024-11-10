@@ -24,6 +24,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
      * Class Constructor
      */
     public ObtainContactsCommand() {
+        logger.setLevel(Level.WARNING);
         ui = new UI();
     }
 
