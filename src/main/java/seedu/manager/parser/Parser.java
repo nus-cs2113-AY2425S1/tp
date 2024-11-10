@@ -163,8 +163,10 @@ public class Parser {
     private static final String MARK_EVENT_FLAG_REGEX = "-e|-s";
     private static final String MARK_PARTICIPANT_FLAG_REGEX = "-p|-e|-s";
     private static final String MARK_ITEM_FLAG_REGEX = "-m|-e|-s";
-    private static final String FILTER_FLAG_REGEX = "\\s*(-[e|d|t|x|u])\\s*";
-    private static final String FIND_FLAG_REGEX = "\\s*(-e|-p)\\s*";
+    private static final String COPY_FLAG_REGEX = ">";
+    private static final String SORT_FLAG_REGEX = "-by";
+    private static final String FILTER_FLAG_REGEX = "(-e|-d|-t|-x|-u)";
+    private static final String FIND_FLAG_REGEX = "(-e|-p)";
 
     private static final String ADD_EVENT_REGEX = "add\\s+-e\\s+(.*?)\\s+-t\\s+(.*?)\\s+-v\\s+(.*?)\\s+-u\\s+(.*)";
     private static final String ADD_PARTICIPANT_REGEX = "add\\s+-p\\s+(.*?)\\s+" +
@@ -955,7 +957,9 @@ public class Parser {
      * @throws InvalidCommandException if the command is missing required parts or has an invalid format
      */
     private Command parseCopyCommand(String input, String[] commandParts) throws InvalidCommandException {
-        assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
+        assert commandParts[0].equalsIgnoreCase(CopyCommand.COMMAND_WORD);
+
+        checkForDuplicateFlags(input, COPY_FLAG_REGEX);
 
         Pattern pattern = Pattern.compile(COPY_REGEX);
         Matcher matcher = pattern.matcher(input);
@@ -991,6 +995,8 @@ public class Parser {
      */
     private Command parseSortCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(SortCommand.COMMAND_WORD);
+
+        checkForDuplicateFlags(input, SORT_FLAG_REGEX);
 
         Pattern pattern = Pattern.compile(SORT_REGEX);
         Matcher matcher = pattern.matcher(input);

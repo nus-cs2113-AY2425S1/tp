@@ -29,7 +29,7 @@ class ParserIntegrationTest {
 
     @Test
     void parseCommand_addCommandAddEvent_success() throws IOException {
-        String commandString = "add -e Event 2 -t 2024-10-21 16:00 -v Venue 1 -u HIGH";
+        String commandString = "add -e Event 2 -t 2025-10-21 16:00 -v Venue 1 -u HIGH";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
         command.execute();
@@ -39,7 +39,7 @@ class ParserIntegrationTest {
 
     @Test
     void parseCommand_addCommandDuplicateEvent_success() throws IOException {
-        String commandString = "add -e Event 1 -t 2024-10-21 16:00 -v Venue 1 -u HIGH";
+        String commandString = "add -e Event 1 -t 2025-10-21 16:00 -v Venue 1 -u HIGH";
         Command command = parser.parseCommand(commandString);
         command.setData(events);
         command.execute();

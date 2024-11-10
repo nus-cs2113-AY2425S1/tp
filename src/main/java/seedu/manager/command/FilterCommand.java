@@ -44,7 +44,7 @@ public class FilterCommand extends Command {
     protected String flag;
     protected String filterWord;
     private EventList filteredEvents;
-    protected boolean isValidFields = true;
+    private boolean isValidFields = true;
 
     /**
      * Constructs a {@code FilterCommand} with the specified flag and filter word.
