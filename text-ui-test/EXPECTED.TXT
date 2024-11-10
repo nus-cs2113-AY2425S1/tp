@@ -65,9 +65,7 @@ view -e EVENT -y TYPE
 ------------------------
 Enter a command: Event/Participant not found!
 ------------------------
-Enter a command: There are 1 participants in dinner party! Here are your participants:
-1. Name: Mary / Email: Mary@gmail.com [ ]
-
+Enter a command: Event not found!
 ------------------------
 Enter a command: Event added successfully
 ------------------------
