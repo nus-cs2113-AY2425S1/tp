@@ -39,7 +39,7 @@ public class Exception extends Throwable {
     }
 
     public static String nonSocNusCourseGiven() {
-        return "We can only filter for CS/EE/BT/IS coded courses!";
+        return "We can only filter for CS/CG/EE/BT/IS coded courses!";
     }
 
     public static String invalidNusCourseCodeFormat() {

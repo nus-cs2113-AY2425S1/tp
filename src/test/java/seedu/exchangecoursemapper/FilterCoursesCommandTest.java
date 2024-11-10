@@ -63,6 +63,27 @@ public class FilterCoursesCommandTest {
     }
 
     @Test
+    public void getNusCourseCode_inputWithNonSocCourseCode_expectNusCourseCode() {
+        String userInput = "filter gess1000";
+        String[] descriptionSubstrings = filterCoursesCommand.parseFilterCommand(userInput);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            filterCoursesCommand.getNusCourseCode(descriptionSubstrings);
+        });
+        assertEquals("We can only filter for CS/CG/EE/BT/IS coded courses!", e.getMessage());
+    }
+
+    @Test
+    public void getNusCourseCode_inputWithInvalidNusCourseCode_expectNusCourseCode() {
+        String userInput = "filter eeeeeeeeeeee";
+        String[] descriptionSubstrings = filterCoursesCommand.parseFilterCommand(userInput);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            filterCoursesCommand.getNusCourseCode(descriptionSubstrings);
+        });
+        assertEquals("Please follow this format for the NUS SoC course code input (not case-sensitive):\n" +
+                "CS/EE/BT/IS followed by 4-digit sequence e.g CS3241", e.getMessage());
+    }
+
+    @Test
     public void displayMappableCourses_mappableNusCourse_expectMappableCoursesList() throws FileNotFoundException {
         JsonObject jsonObject = createDatabaseJsonObject();
 
@@ -94,25 +115,6 @@ public class FilterCoursesCommandTest {
 
     @Test
     public void displayMappableCourses_nonMappableNusCourse_expectNoMappableCourses() throws FileNotFoundException {
-        JsonObject jsonObject = createDatabaseJsonObject();
-
-        String nusCourseCode = "ee2026";
-        filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
-        String expectedOutput = """
-                -----------------------------------------------------
-                Filter results for ee2026:
-                -----------------------------------------------------
-                -----------------------------------------------------
-                No mappable courses found for the given course code.
-                -----------------------------------------------------
-                """;
-        String actualOutput = outputStreamCaptor.toString();
-        assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
-    }
-
-    @Test
-    public void displayMappableCourses_nonMappableNusCourseInUpperCase_expectNoMappableCourses()
-            throws FileNotFoundException {
         JsonObject jsonObject = createDatabaseJsonObject();
 
         String nusCourseCode = "ee2026";
