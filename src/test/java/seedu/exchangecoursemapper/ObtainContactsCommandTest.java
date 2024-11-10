@@ -47,6 +47,27 @@ public class ObtainContactsCommandTest {
     }
 
     @Test
+    public void execute_validEmail_shortenedSchoolName_success() throws IOException {
+        JsonObject jsonObject = getJsonObject();
+
+        String userInput = "obtain unimelb /email";
+        obtainContactsCommand.execute(userInput);
+
+        String actualOutput = outputStreamCaptor.toString().trim();
+        String[] outputLines = actualOutput.split("\n");
+        String expectedOutput = "Email for The University of Melbourne: unimelb-support@unimelb.edu.au\n";
+
+        boolean isFound = false;
+        for (String line : outputLines) {
+            if (line.trim().equals(expectedOutput.trim())) {
+                isFound = true;
+                break;
+            }
+        }
+        assertEquals(true, isFound);
+    }
+
+    @Test
     public void execute_validEmail_success() throws IOException {
         JsonObject jsonObject = getJsonObject();
 
@@ -92,13 +113,22 @@ public class ObtainContactsCommandTest {
     public void execute_invalidUniversity_displaysError() throws IOException {
         JsonObject jsonObject = getJsonObject();
 
-        String userInput = "NUS";
-        String name = obtainContactsCommand.getSchoolName(userInput);
-        obtainContactsCommand.findMatchingSchool(jsonObject, name);
 
-        String expectedOutput = "Unknown university - NUS";
+        String userInput = "NUS";
+        obtainContactsCommand.findMatchingSchool(jsonObject,userInput);
+
         String actualOutput = outputStreamCaptor.toString().trim();
-        assertTrue(actualOutput.contains(expectedOutput), "Expected output not found in actual output.");
+        String[] outputLines = actualOutput.split("\n");
+        String expectedOutput = "Unknown university - NUS";
+
+        boolean isFound = false;
+        for (String line : outputLines) {
+            if (line.trim().equals(expectedOutput.trim())) {
+                isFound = true;
+                break;
+            }
+        }
+        assertEquals(true, isFound);
     }
 
     @Test

@@ -112,7 +112,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
      * @param schoolName the name of the school to search for.
      * @return the matching school name or null if not found.
      */
-    public static String getMatchingSchoolName(JsonObject jsonObject, String schoolName) {
+    public String getMatchingSchoolName(JsonObject jsonObject, String schoolName) {
         for (String key : jsonObject.keySet()) {
             if (key.toLowerCase().equals(schoolName.toLowerCase())) {
                 return key;
@@ -169,7 +169,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
      * @param schoolName  the name of the school as a string.
      * @param contactType the contact type (either "email" or "number").
      */
-    public static void contactTypeIdentifier(JsonObject schoolInfo, String schoolName, String contactType) {
+    public void contactTypeIdentifier(JsonObject schoolInfo, String schoolName, String contactType) {
         switch (contactType) {
         case EMAIL_KEY:
             String email = schoolInfo.getString(EMAIL_KEY);
