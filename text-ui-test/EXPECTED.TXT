@@ -21,7 +21,7 @@ mark -e EVENT -s STATUS: Mark an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
 mark -m ITEM -e EVENT -s STATUS: Mark an item as accounted or unaccounted.
 copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
-sort -e EVENT -by KEYWORD: Sorts events by name/time/priority.
+sort -by KEYWORD: Sorts events by name/time/priority.
 filter -e/-d/-t/-x/-u FILTER_DESCRIPTION: Filters events by name/date/time/date-time/priority.
 find -e EVENT -p NAME: Finds all participants with specified name in an event.
 exit: Exit program.
@@ -36,25 +36,24 @@ add -p PARTICIPANT -email EMAIL -e EVENT
 add -m ITEM -e EVENT
 
 ------------------------
-Enter a command: Datetime is in the past! Stop living in the past!
-Please enter a new date in the same format.
+Enter a command: Event added successfully
+------------------------
+Enter a command: There are 1 events in your list! Here are your scheduled events:
+1. Event name: dinner party / Event time: 2026-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: N
 
 ------------------------
-Enter a command: There are 0 events in your list! Here are your scheduled events:
+Enter a command: Event marked as done
+------------------------
+Enter a command: There are 1 events in your list! Here are your scheduled events:
+1. Event name: dinner party / Event time: 2026-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
 
 ------------------------
 Enter a command: Event not found!
 ------------------------
-Enter a command: There are 0 events in your list! Here are your scheduled events:
-
+Enter a command: Event information successfully updated
 ------------------------
-Enter a command: Event not found!
-------------------------
-Enter a command: Datetime is in the past! Stop living in the past!
-Please enter a new date in the same format.
-
-------------------------
-Enter a command: There are 0 events in your list! Here are your scheduled events:
+Enter a command: There are 1 events in your list! Here are your scheduled events:
+1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Enter a command: Event not found!
@@ -68,14 +67,16 @@ Enter a command: Event/Participant not found!
 ------------------------
 Enter a command: Event not found!
 ------------------------
-Enter a command: Datetime is in the past! Stop living in the past!
-Please enter a new date in the same format.
-
+Enter a command: Event added successfully
 ------------------------
 Enter a command: Events successfully sorted by name!
+1. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+2. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Enter a command: Events successfully sorted by time!
+1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
 Enter a command: Event not found!
@@ -84,29 +85,43 @@ Enter a command: Event not found!
 ------------------------
 Enter a command: Event not found!
 ------------------------
-Enter a command: There are 0 events in your list! Here are your scheduled events:
+Enter a command: There are 2 events in your list! Here are your scheduled events:
+1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
+------------------------
+Enter a command: Events successfully filtered by name!
+1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Enter a command: Filter flag matched no events!
 ------------------------
-Enter a command: Filter flag matched no events!
-------------------------
-Enter a command: Filter flag matched no events!
-------------------------
-Enter a command: Filter flag matched no events!
-------------------------
-Enter a command: Filter flag matched no events!
-------------------------
-Enter a command: There are 0 events in your list! Here are your scheduled events:
+Enter a command: Events successfully filtered by time!
+1. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
-Enter a command: Event not found!
+Enter a command: Filter flag matched no events!
 ------------------------
-Enter a command: Event not found!
+Enter a command: Events successfully filtered by priority!
+1. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
 ------------------------
-Enter a command: Event/Item not found!
+Enter a command: There are 2 events in your list! Here are your scheduled events:
+1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
 ------------------------
-Enter a command: Event not found!
+Enter a command: Item added successfully
+------------------------
+Enter a command: There are 1 items in anniversary celebration! Here are your items:
+1. balloon [ ]
+
+------------------------
+Enter a command: Item successfully updated
+------------------------
+Enter a command: There are 1 items in anniversary celebration! Here are your items:
+1. cake [ ]
+
 ------------------------
 Enter a command: Thank you for using EventManagerCLI. Goodbye!
 ------------------------
