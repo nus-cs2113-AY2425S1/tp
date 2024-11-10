@@ -193,12 +193,12 @@ ________________________________________________________________________________
 ### 10. Add a Reminder: `remind`
 **Purpose**: Adds a Reminder with the specified description and due date.
 
-**Format**: `remind [description] [deadline]`
+**Format**: `remind [description] // [deadline]`
 - `description` and `deadline` fields must be non-empty.
-- `deadline` field must be formatted `dd-MM-yyyy` or `dd-MM-yyyy HH:mm`. 
-- If `deadline` field is given as `dd-MM-yyyy`, `HH:mm` information will default to `00:00` on that date. 
+- `deadline` field must be formatted `dd/MM/yyyy` or `dd/MM/yyyy HH:mm`. 
+- If `deadline` field is given as `dd/MM/yyyy`, `HH:mm` information will default to `00:00` on that date. 
 
-**Example**: `remind NAPFA 31/12/2024`
+**Example**: `remind NAPFA // 31/12/2024`
 
 **Expected output**:
 ```
@@ -534,7 +534,7 @@ ________________________________________________________________________________
 | **edit**            | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45`                     |
 | **delete**          | `delete SESSION_INDEX `                                        | `delete 1 `                        |
 | **exit**            | `exit`                                                         | `exit`                             |
-| **remind**          | `remind REMINDER_NAME DEADLINE`                                | `remind run 12/12/2024`            |
+| **remind**          | `remind REMINDER_NAME // DEADLINE`                             | `remind run // 12/12/2024`         |
 | **list-remind**     | `list-goal`                                                    | `list-remind`                      |
 | **upcoming-remind** | `upcoming-remind`                                              | `upcoming-remind`                  |
 | **delete-remind**   | `delete-remind REMINDER_INDEX`                                 | `delete-remind 1`                  |

@@ -49,8 +49,8 @@ public class Messages {
             + System.lineSeparator() + "edit-mood (session index) (mood description)                     "
             + "edit-mood 1 Sad"
             + System.lineSeparator() + "delete (session index)                                           delete 1"
-            + System.lineSeparator() + "remind (Event / Task) (deadline)                                 remind " +
-            "NAPFA DD/MM/YYYY"
+            + System.lineSeparator() + "remind (Event / Task) // (deadline)                              remind " +
+            "NAPFA // DD/MM/YYYY"
             + System.lineSeparator() + "list-remind                                                      list-remind "
             + System.lineSeparator() + "delete-remind (reminder index)                                   delete-remind"
             + "1"

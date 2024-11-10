@@ -225,22 +225,20 @@ public class Parser {
 
         case ADD_REMINDER_COMMAND:
             try {
-                String[] remindInfo = description.split(" ", 2);
+                String[] remindInfo = description.split("//", 2);
 
                 // Check if sentence contains both description and deadline
                 if (remindInfo.length < 2) {
-                    throw new IllegalArgumentException("Input must contain both a description and a deadline.");
+                    throw new IllegalArgumentException("Input must contain a non-blank description and a deadline," +
+                            " with '//' between them");
                 }
 
-                String inputDeadline = remindInfo[1];
-                String inputDescription = remindInfo[0];
+                String inputDeadline = remindInfo[1].trim();
+                String inputDescription = remindInfo[0].trim();
 
-                // Validate description and deadline
-                if (inputDescription.isEmpty()) {
-                    throw new IllegalArgumentException("Reminder description must not be empty");
-                }
-                if (inputDeadline.isEmpty()) {
-                    throw new IllegalArgumentException("Reminder deadline must not be empty");
+                if (inputDeadline.isEmpty() || inputDescription.isEmpty()) {
+                    throw new IllegalArgumentException("Input must contain a non-blank description and a deadline, with " +
+                            "'//' between them");
                 }
 
                 // Parse the deadline, handle any parsing errors
