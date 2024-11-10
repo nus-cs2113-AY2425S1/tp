@@ -134,39 +134,12 @@ public class Event {
     }
 
     /**
-     * Sets a new time for the event.
-     *
-     * @param eventTime the new event time
-     */
-    public void setEventTime(LocalDateTime eventTime) {
-        this.eventTime = eventTime;
-    }
-
-    /**
-     * Sets a new venue for the event.
-     *
-     * @param eventVenue the new event venue
-     */
-    public void setEventVenue(String eventVenue) {
-        this.eventVenue = eventVenue;
-    }
-
-    /**
      * Sets a participant for the event.
      *
      * @param participantList the new participant list
      */
     public void setParticipantList(ArrayList<Participant> participantList) {
         this.participantList = participantList;
-    }
-
-    /**
-     * Sets a new priority level for the event.
-     *
-     * @param eventPriority the new event priority level
-     */
-    public void setEventPriority(Priority eventPriority) {
-        this.eventPriority = eventPriority;
     }
 
     //@@author jemehgoh
@@ -276,9 +249,11 @@ public class Event {
      * @return {@code true} if the participant was successfully updated;
      *         {@code false} if the participant was not found.
      */
-    public boolean updateParticipant(String participantName, String newEmail) {
+    public boolean updateParticipant(String participantName, String newName, String newEmail) {
         for (Participant participant : this.participantList) {
             if (participant.getName().equalsIgnoreCase(participantName)) {
+                String nameToSet = getUpdatedParticipantName(newName, participantName);
+                participant.setName(nameToSet);
                 participant.setEmail(newEmail);
                 return true;
             }
@@ -296,7 +271,7 @@ public class Event {
     public boolean updateItem(String itemName, String itemNewName) {
         for (Item item : this.itemList) {
             if (item.getName().equalsIgnoreCase(itemName)) {
-                item.setName(getDuplicateItemName(itemNewName));
+                item.setName(getUpdatedItemName(itemNewName, itemName));
                 item.setPresent(false);
                 return true;
             }
@@ -372,7 +347,7 @@ public class Event {
      * Returns the {@code Item} with the given name in the item list.
      *
      * @param itemName the given item name
-     * @return the {@code Item} with name itemName, or null if the item is not founc
+     * @return the {@code Item} with name itemName, or null if the item is not found.
      */
     private Optional<Item> getItemByName(String itemName) {
         for (Item item : itemList) {
@@ -446,6 +421,14 @@ public class Event {
                 eventName, eventTimeString, eventVenue, eventPriority, markIfDone());
     }
 
+    //@@author jemehgoh
+    /**
+     * Returns a participant's name with an indexed suffix.
+     * The suffix value varies based on the number of participants with the same name.
+     *
+     * @param name the given participant name.
+     * @return name with an indexed suffix.
+     */
     private String getDuplicateParticipantName(String name) {
         int index = 1;
         String duplicateName = name;
@@ -458,6 +441,13 @@ public class Event {
         return duplicateName;
     }
 
+    /**
+     * Returns an item's name with an indexed suffix.
+     * The suffix value varies based on the number of items with the same name.
+     *
+     * @param name the given item name.
+     * @return name with an indexed suffix.
+     */
     private String getDuplicateItemName(String name) {
         int index = 1;
         String duplicateName = name;
@@ -468,5 +458,33 @@ public class Event {
         }
 
         return duplicateName;
+    }
+
+    /**
+     * Returns an updated participant name for editing participant details.
+     *
+     * @param name the given new participant name.
+     * @return the updated version of name.
+     */
+    private String getUpdatedParticipantName(String name, String participantName) {
+        if (name.equalsIgnoreCase(participantName)) {
+            return name;
+        } else {
+            return getDuplicateParticipantName(name);
+        }
+    }
+
+    /**
+     * Returns an updated item name for editing item details.
+     *
+     * @param name the given new item name.
+     * @return the updated version of name.
+     */
+    private String getUpdatedItemName(String name, String itemName) {
+        if (name.equalsIgnoreCase(itemName)) {
+            return name;
+        } else {
+            return getDuplicateItemName(name);
+        }
     }
 }

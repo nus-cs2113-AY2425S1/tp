@@ -13,9 +13,9 @@ add -m ITEM -e EVENT: Adds an item to an event.
 remove -e EVENT: Removes an event from the event list.
 remove -p PARTICIPANT -e EVENT: Removes a participant from an event.
 remove -m ITEM -e EVENT: Removes an item from an event.
-edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edits an event's info.
-edit -p PARTICIPANT -email EMAIL -e EVENT: Edits a participant's contact info.
-edit -m ITEM > NEW_ITEM -e EVENT: Edits an item's info.
+edit -e OLD_EVENT -name NEW_EVENT -t TIME -v VENUE -u PRIORITY: Edits an event's info.
+edit -p OLD_PARTICIPANT -name NEW_PARTICIPANT -email EMAIL -e EVENT: Edits a participant's info.
+edit -m OLD_ITEM > NEW_ITEM -e EVENT: Edits an item's info.
 view -e EVENT -y TYPE: Displays the list of participants or items of an event.
 mark -e EVENT -s STATUS: Marks an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Marks a participant as present or absent.
@@ -53,45 +53,54 @@ Enter a command: Event not found!
 Enter a command: Event information successfully updated
 ------------------------
 Enter a command: There is 1 event in your list! Here is your scheduled event:
-1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
-Enter a command: Event not found!
+Enter a command: Participant added successfully
 ------------------------
 Enter a command: Invalid command!
 Please enter your commands in the following format:
 view -e EVENT -y TYPE
 
 ------------------------
-Enter a command: Event/Participant not found!
+Enter a command: Invalid command!
+Please enter your commands in the following format:
+edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY
+edit -m ITEM > NEW_ITEM -e EVENT
+edit -p OLD_PARTICIPANT -name NEW_PARTICIPANT -email EMAIL -e EVENT
+
 ------------------------
-Enter a command: Event not found!
+Enter a command: There is 1 participant in dinner party! Here is your participant:
+1. Name: Mary / Email: example@gmail.com [ ]
+
 ------------------------
 Enter a command: Event added successfully
 ------------------------
 Enter a command: Events successfully sorted by name!
 1. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
-2. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Enter a command: Events successfully sorted by time!
-1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
-Enter a command: Event not found!
+Enter a command: Item added successfully
 ------------------------
-Enter a command: Event not found!
+Enter a command: Item accounted for.
 ------------------------
-Enter a command: Event not found!
+Enter a command: There is 1 item in dinner party! Here is your item:
+1. curry chicken [X]
+
 ------------------------
 Enter a command: There are 2 events in your list! Here are your scheduled events:
-1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
 Enter a command: Events successfully filtered by name!
-1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Enter a command: Filter flag matched no events!
@@ -107,7 +116,7 @@ Enter a command: Events successfully filtered by priority!
 
 ------------------------
 Enter a command: There are 2 events in your list! Here are your scheduled events:
-1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
