@@ -4,12 +4,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
+import seedu.manager.exception.InvalidCommandException;
+import seedu.manager.parser.Parser;
 
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AddCommandTest {
     private EventList eventList;
@@ -92,6 +94,16 @@ public class AddCommandTest {
         addCommand.execute();
 
         assertTrue(eventList.getEventByName("Event 1(1)").isPresent());
+    }
+
+    @Test
+    public void add_invalidDate_throwsException() {
+        Parser parser = new Parser();
+        String command = "add -e Event 1 -t 2026-02-30 10:00 -v room -u low";
+
+        assertThrows(seedu.manager.exception.InvalidCommandException.class, () -> {
+            parser.parseCommand(command);
+        });
     }
 
     @Test

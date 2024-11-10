@@ -98,10 +98,12 @@ public class Parser {
             Please enter the event time in the following format:
             YYYY-MM-DD HH:mm
             
-            Ensure the following:
+            Ensure the following general guidelines:
             - The year (YYYY) is from 0001 onwards.
             - The date (MM-DD) is between 01-01 and 12-31.
             - The time (HH:mm) is between 00:00 and 23:59.
+            
+            Please also take into account leap years!
             """;
     private static final String INVALID_PRIORITY_MESSAGE = """
             Invalid priority level status!
@@ -243,9 +245,6 @@ public class Parser {
             logWarning("Invalid command format");
             String errorMessage = getErrorMessage(commandWord);
             throw new InvalidCommandException(errorMessage);
-        } catch (DateTimeParseException exception) {
-            logWarning("Invalid date-time format");
-            throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
         } catch (ParseException exception) {
             logWarning("Invalid date-time format");
             throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
