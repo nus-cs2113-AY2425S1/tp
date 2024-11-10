@@ -2,8 +2,8 @@
 
 package programme;
 
+import exceptions.BuffBuddyException;
 import exceptions.IndexOutOfBoundsBuffBuddyException;
-
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,6 +49,11 @@ public class ProgrammeList {
     public Programme insertProgramme(String programmeName, ArrayList<Day> days) {
         Programme programmeToAdd = new Programme(programmeName, days);
         programmeList.add(programmeToAdd);
+
+        if (programmeList.size() == 1) {
+            currentActiveProgramme = 0;
+        }
+
         return programmeToAdd;
     }
 
@@ -60,10 +65,6 @@ public class ProgrammeList {
      * @throws IndexOutOfBoundsException if the index is out of bounds for the Programme list
      */
     public Programme deleteProgram(int index){
-        if (index == NULL_INTEGER){
-            index = currentActiveProgramme;
-        }
-
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for deleteProgram()", index);
             throw new IndexOutOfBoundsBuffBuddyException(index, "programme list");
@@ -71,6 +72,14 @@ public class ProgrammeList {
 
         Programme programmeToDelete = programmeList.get(index);
         programmeList.remove(index);
+
+        if (programmeList.isEmpty()) {
+            currentActiveProgramme = NULL_INTEGER;
+        } else if (index == currentActiveProgramme) {
+            // Reset `currentActiveProgramme` to 0 if the deleted programme was the active one
+            currentActiveProgramme = 0;
+        }
+
         logger.log(Level.INFO, "Deleted programme at index {0}: {1}", new Object[]{index, programmeToDelete});
         return programmeToDelete;
     }
@@ -97,6 +106,16 @@ public class ProgrammeList {
     }
 
     /**
+     * Retrieves the current active Programme index.
+     *
+     * @return the current active Programme index, or {@code NULL_INTEGER} if no Programme is active.
+     */
+    public int getCurrentActiveProgramme(){
+        logger.log(Level.INFO, "Retrieving index of current program: {1}", new Object[]{currentActiveProgramme});
+        return currentActiveProgramme;
+    }
+
+    /**
      * Sets a Programme at the specified index as the current active Programme.
      *
      * @param startIndex the index of the Programme to start
@@ -104,9 +123,19 @@ public class ProgrammeList {
      * @throws IndexOutOfBoundsException if the startIndex is out of bounds for the Programme list
      */
     public Programme startProgramme(int startIndex) {
+        if (programmeList.isEmpty()){
+            currentActiveProgramme = NULL_INTEGER;
+            logger.log(Level.WARNING, "Attempted to start a programme but the list is empty");
+            throw new BuffBuddyException("Programme list is empty");
+        }
+
         if (startIndex < 0 || startIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for startProgramme()", startIndex);
             throw new IndexOutOfBoundsBuffBuddyException(startIndex, "programme list");
+        }
+
+        if (currentActiveProgramme == startIndex) {
+            throw new BuffBuddyException("Program " + (startIndex + 1) + " has already been started");
         }
 
         currentActiveProgramme = startIndex;
