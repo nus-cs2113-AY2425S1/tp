@@ -14,45 +14,39 @@ participant ":Hospital" as Hospital DATA_COLOR
 User -> MediTask : "delete <index>"
 activate MediTask
 
-MediTask -> Parser : parseCommand(input, state)
+MediTask -> Parser : parse command
 activate Parser
 
-Parser -> DeleteParser : execute(input, state)
+Parser -> DeleteParser : execute command
 activate DeleteParser
 create DeletePatientCommand
-DeleteParser -> DeletePatientCommand : new DeletePatientCommand(index)
+DeleteParser -> DeletePatientCommand : DeletePatientCommand(index)
 activate DeletePatientCommand
 
 DeletePatientCommand -> Hospital : getPatient(index)
 activate Hospital
 
 alt Index valid
-    Hospital --> DeletePatientCommand : Patient
+    Hospital --> DeletePatientCommand : return name
+    deactivate Hospital
     DeletePatientCommand -> Hospital : deletePatient(index)
-    DeletePatientCommand --> DeleteParser : "Deleted patient: <patient name>"
-    deactivate DeletePatientCommand
+    activate Hospital
+    Hospital --> DeletePatientCommand
+    DeletePatientCommand --> DeleteParser : "Deleted patient: <name>"
 
     DeleteParser --> Parser : "Result message"
-    deactivate DeleteParser
-
     Parser --> MediTask : "Result message"
-    deactivate Parser
-
     MediTask --> User : Display result message
-    deactivate MediTask
 else Index invalid
     Hospital --> DeletePatientCommand : throw Exception
-    activate DeletePatientCommand
     deactivate Hospital
+
     DeletePatientCommand --> DeleteParser : "Patient not found in the list!"
     deactivate DeletePatientCommand
-    activate DeleteParser
     DeleteParser --> Parser : "Error message"
     deactivate DeleteParser
-    activate Parser
     Parser --> MediTask : "Error message"
     deactivate Parser
-    activate MediTask
     MediTask --> User : Display error message
     deactivate MediTask
 end
