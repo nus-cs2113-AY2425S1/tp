@@ -25,7 +25,7 @@ public class MenuCommand extends Command {
             mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
             mark -m ITEM -e EVENT -s STATUS: Mark an item as accounted or unaccounted.
             copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
-            sort -by KEYWORD: Sorts events by name/time/priority.
+            sort -e EVENT -by KEYWORD: Sorts events by name/time/priority.
             filter -e/-d/-t/-x/-u FILTER_DESCRIPTION: Filters events by name/date/time/date-time/priority.
             find -e EVENT -p NAME: Finds all participants with specified name in an event.
             exit: Exit program.""";

@@ -78,7 +78,7 @@ public class Parser {
     private static final String INVALID_SORT_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            sort -e EVENT -by name/time/priority
+            sort -by name/time/priority
             """;
     private static final String INVALID_FILTER_MESSAGE = """
             Invalid command!
@@ -126,14 +126,6 @@ public class Parser {
             Invalid sort keyword!
             Please set the sort keyword as either "name"/"time"/"priority"
             """;
-    private static final String INVALID_FILTER_FLAG_MESSAGE = """
-            Invalid filter flag!
-            Please set the filter flag as either "-e/-t/-u"
-            """;
-    private static final String INVALID_FIND_FLAG_MESSAGE = """
-            Invalid find flag!
-            Please set the find flag using "-e" and "-p""
-            """;
     private static final String DUPLICATE_FLAG_MESSAGE = """
             Duplicate flags found!
             Please only use each flag once!
@@ -152,34 +144,38 @@ public class Parser {
     private static final String ARROW = ">";
 
     private static final String EVENT_FLAG_REGEX = "(-e|-t|-v|-u)";
-    private static final String EDIT_EVENT_ATTRIBUTE_FLAG_REGEX = "(-e|-name|-t|-v|-u)";
     private static final String PARTICIPANT_FLAG_REGEX = "(-p|-email|-e)";
-    private static final String REMOVE_PARTICIPANT_FLAG_REGEX = "(-p|-e)";
     private static final String ITEM_FLAG_REGEX = "(-m|-e)";
+    private static final String REMOVE_EVENT_FLAG_REGEX = "-e";
+    private static final String REMOVE_PARTICIPANT_FLAG_REGEX = "(-p|-e)";
+    private static final String EDIT_EVENT_ATTRIBUTE_FLAG_REGEX = "(-e|-name|-t|-v|-u)";
+    private static final String VIEW_FLAG_REGEX = "(-e|-y)";
     private static final String MARK_EVENT_FLAG_REGEX = "-e|-s";
     private static final String MARK_PARTICIPANT_FLAG_REGEX = "-p|-e|-s";
-    private static final String FIND_FLAG_REGEX = "\\s*(-e|-p)\\s*";
-    private static final String VIEW_FLAG_REGEX = "(-e|-y)";
     private static final String MARK_ITEM_FLAG_REGEX = "-m|-e|-s";
-    private static final String REMOVE_EVENT_FLAG_REGEX = "-e";
+    private static final String FILTER_FLAG_REGEX = "\\s*(-[e|d|t|x|u])\\s*";
+    private static final String FIND_FLAG_REGEX = "\\s*(-e|-p)\\s*";
 
     private static final String ADD_EVENT_REGEX = "add\\s+-e\\s+(.*?)\\s+-t\\s+(.*?)\\s+-v\\s+(.*?)\\s+-u\\s+(.*)";
-    private static final String EDIT_EVENT_ATTRIBUTE_REGEX = "edit\\s+-e\\s+(.*?)\\s+" +
-            "-name\\s+(.*?)\\s+-t\\s+(.*?)\\s+-v\\s+(.*?)\\s+-u\\s+(.*)";
     private static final String ADD_PARTICIPANT_REGEX = "add\\s+-p\\s+(.*?)\\s+" +
             "-email\\s+(.*?)\\s+-e\\s+(.*)";
+    private static final String ADD_ITEM_REGEX = "add\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
+    private static final String REMOVE_EVENT_REGEX = "remove\\s+-e\\s+(.*)";
+    private static final String REMOVE_PARTICIPANT_REGEX = "remove\\s+-p\\s+(.*?)\\s+-e\\s+(.*)";
+    private static final String REMOVE_ITEM_REGEX = "remove\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
+    private static final String EDIT_EVENT_ATTRIBUTE_REGEX = "edit\\s+-e\\s+(.*?)\\s+" +
+            "-name\\s+(.*?)\\s+-t\\s+(.*?)\\s+-v\\s+(.*?)\\s+-u\\s+(.*)";
     private static final String EDIT_PARTICIPANT_REGEX = "edit\\s+-p\\s+(.*?)\\s+" +
             "-email\\s+(.*?)\\s+-e\\s+(.*)";
-    private static final String ADD_ITEM_REGEX = "add\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
-    private static final String REMOVE_ITEM_REGEX = "remove\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
     private static final String EDIT_ITEM_REGEX = "edit\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
-    private static final String REMOVE_PARTICIPANT_REGEX = "remove\\s+-p\\s+(.*?)\\s+-e\\s+(.*)";
+    private static final String VIEW_REGEX = "view\\s+-e\\s+(.*?)\\s+-y\\s+(.*)";
     private static final String MARK_EVENT_REGEX = "mark\\s+-e\\s+(.*?)\\s+-s\\s+(.*)";
     private static final String MARK_PARTICIPANT_REGEX = "mark\\s+-p\\s+(.*?)\\s+-e\\s+(.*?)\\s+-s\\s+(.*)";
-    private static final String FIND_REGEX = "find\\s+-e\\s+(.*?)\\s+-p\\s+(.*)";
-    private static final String VIEW_REGEX = "view\\s+-e\\s+(.*?)\\s+-y\\s+(.*)";
     private static final String MARK_ITEM_REGEX = "mark\\s+-m\\s+(.*?)\\s+-e\\s+(.*?)\\s+-s\\s+(.*)";
-    private static final String REMOVE_EVENT_REGEX = "remove\\s+-e\\s+(.*)";
+    private static final String COPY_REGEX = "copy\\s+(.*?)\\s\\>\\s+(.*)";
+    private static final String SORT_REGEX = "sort\\s+-by\\s+(.*)";
+    private static final String FILTER_REGEX = "filter\\s+(-[e|d|t|x|u])\\s(.*)";
+    private static final String FIND_REGEX = "find\\s+-e\\s+(.*?)\\s+-p\\s+(.*)";
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$");
 
     private final Logger logger;
@@ -544,47 +540,6 @@ public class Parser {
         }
     }
 
-    //@@author KuanHsienn
-    /**
-     * Returns an {@link EditParticipantCommand} that edits a participant with fields parsed from a given user input.
-     *
-     * @param input the given user input.
-     * @return an {@link EditParticipantCommand} that edits a participant with fields parsed from input.
-     * @throws IndexOutOfBoundsException if not all fields are present.
-     * @throws IOException if the log file cannot be written to.
-     */
-    private Command getEditParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException,
-            IOException {
-        checkForDuplicateFlags(input, PARTICIPANT_FLAG_REGEX);
-
-        Pattern pattern = Pattern.compile(EDIT_PARTICIPANT_REGEX);
-        Matcher matcher = pattern.matcher(input);
-
-        String participantName;
-        String newEmail;
-        String eventName;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
-                    || matcher.group(3).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            participantName = matcher.group(1).trim();
-            newEmail = matcher.group(2).trim();
-            eventName = matcher.group(3).trim();
-
-            if (!isValidEmail(newEmail)) {
-                logWarning("Invalid email format");
-                throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
-            }
-        } else {
-            throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
-        }
-
-        return new EditParticipantCommand(participantName, newEmail, eventName);
-    }
-
     //@@author MatchaRRR
     /**
      * Returns an {@link EditEventCommand} that edits an event with fields parsed from a given user input.
@@ -625,6 +580,47 @@ public class Parser {
         }
 
         return new EditEventCommand(eventName, eventNewName, eventTime, eventVenue, eventPriority);
+    }
+
+    //@@author KuanHsienn
+    /**
+     * Returns an {@link EditParticipantCommand} that edits a participant with fields parsed from a given user input.
+     *
+     * @param input the given user input.
+     * @return an {@link EditParticipantCommand} that edits a participant with fields parsed from input.
+     * @throws IndexOutOfBoundsException if not all fields are present.
+     * @throws IOException if the log file cannot be written to.
+     */
+    private Command getEditParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException,
+            IOException {
+        checkForDuplicateFlags(input, PARTICIPANT_FLAG_REGEX);
+
+        Pattern pattern = Pattern.compile(EDIT_PARTICIPANT_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        String participantName;
+        String newEmail;
+        String eventName;
+
+        if (matcher.matches()) {
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
+                    || matcher.group(3).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
+            participantName = matcher.group(1).trim();
+            newEmail = matcher.group(2).trim();
+            eventName = matcher.group(3).trim();
+
+            if (!isValidEmail(newEmail)) {
+                logWarning("Invalid email format");
+                throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
+            }
+        } else {
+            throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
+        }
+
+        return new EditParticipantCommand(participantName, newEmail, eventName);
     }
 
     //@@author MatchaRRR
@@ -930,15 +926,21 @@ public class Parser {
      * @throws InvalidCommandException if the command is missing required parts or has an invalid format
      */
     private Command parseCopyCommand(String input, String[] commandParts) throws InvalidCommandException {
-        assert commandParts[0].equalsIgnoreCase(CopyCommand.COMMAND_WORD);
-        String commandInput = input.replaceFirst("^" + commandParts[0] + "\\s*", "");
-        String[] inputParts = commandInput.split(ARROW);
+        assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
 
-        if (inputParts.length != 2) {
+        Pattern pattern = Pattern.compile(COPY_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.matches()) {
+
+            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
+            return new CopyCommand(matcher.group(1).trim(), matcher.group(2).trim());
+        } else {
             throw new InvalidCommandException(INVALID_COPY_MESSAGE);
         }
-
-        return new CopyCommand(inputParts[0].trim(), inputParts[1].trim());
     }
 
     //@@author MatchaRRR
@@ -960,17 +962,20 @@ public class Parser {
      */
     private Command parseSortCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(SortCommand.COMMAND_WORD);
-        String[] inputParts = input.split("-by", 2);
-        if (inputParts.length < 2) {
+
+        Pattern pattern = Pattern.compile(SORT_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.matches()) {
+
+            if (matcher.group(1).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
+            return new SortCommand(matcher.group(1).trim());
+        } else {
             throw new InvalidCommandException(INVALID_SORT_MESSAGE);
         }
-
-        String keyword = inputParts[1].trim();
-        Set<String> validKeywords = Set.of("name", "time", "priority");
-        if (validKeywords.contains(keyword.toLowerCase())) {
-            return new SortCommand(keyword);
-        }
-        throw new InvalidCommandException(INVALID_SORT_KEYWORD_MESSAGE);
     }
 
     //@@author LTK-1606
@@ -992,20 +997,26 @@ public class Parser {
      */
     private Command parseFilterCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
-        String[] inputParts = input.split("(-e|-d|-t|-x|-u)");
-        if (inputParts.length < 2) {
+
+        checkForDuplicateFlags(input, FILTER_FLAG_REGEX);
+
+        Pattern pattern = Pattern.compile(FILTER_REGEX);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.matches()) {
+
+            if (matcher.group(1).isBlank()) {
+                throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
+            }
+
+            if (matcher.group(2).isBlank()) {
+                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+            }
+
+            return new FilterCommand(matcher.group(1).trim(), matcher.group(2).trim());
+        } else {
             throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
         }
-
-        if (inputParts[1].isBlank()) {
-            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-        }
-
-        Set<String> validFlags = Set.of(EVENT_FLAG, "-d", "-t", "-x", "-u");
-        if (validFlags.contains(commandParts[1].trim().toLowerCase())) {
-            return new FilterCommand(commandParts[1].trim().toLowerCase(), inputParts[1].trim());
-        }
-        throw new InvalidCommandException(INVALID_FILTER_FLAG_MESSAGE);
     }
 
     /**
@@ -1025,9 +1036,6 @@ public class Parser {
      */
     private Command parseFindCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(FindCommand.COMMAND_WORD);
-        if (!input.contains(EVENT_FLAG) || !input.contains(PARTICIPANT_FLAG)) {
-            throw new InvalidCommandException(INVALID_FIND_FLAG_MESSAGE);
-        }
 
         checkForDuplicateFlags(input, FIND_FLAG_REGEX);
 

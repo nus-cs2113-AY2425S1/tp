@@ -22,18 +22,19 @@ public class FilterCommand extends Command {
     private static final String FILTER_BY_TIME_MESSAGE = "Events successfully filtered by time!";
     private static final String FILTER_BY_DATE_TIME_MESSAGE = "Events successfully filtered by date-time!";
     private static final String FILTER_BY_PRIORITY_MESSAGE = "Events successfully filtered by priority!";
+    private static final String FILTER_NOT_FOUND = "Filter flag matched no events!";
 
     private static final String INVALID_DATE_FORMAT_MESSAGE = """
             Invalid date format!
-            Please use the following format for date: YYYY-MM-DD
+            Please use a valid date in the following format: YYYY-MM-DD
             """;
     private static final String INVALID_TIME_FORMAT_MESSAGE = """
             Invalid time format!
-            Please use the following format for time: HH:mm
+            Please use a valid time in the following format: HH:mm
             """;
     private static final String INVALID_DATE_TIME_FORMAT_MESSAGE = """
             Invalid date-time format!
-            Please use the following format for date-time: YYYY-MM-DD HH:mm
+            Please use a valid date-time in the following format: YYYY-MM-DD HH:mm
             """;
     private static final String INVALID_PRIORITY_FORMAT_MESSAGE = """
             Invalid priority format!
@@ -43,6 +44,7 @@ public class FilterCommand extends Command {
     protected String flag;
     protected String filterWord;
     private EventList filteredEvents;
+    protected boolean isValidFields = true;
 
     /**
      * Constructs a {@code FilterCommand} with the specified flag and filter word.
@@ -85,8 +87,13 @@ public class FilterCommand extends Command {
             break;
         }
 
-        for (int i = 0; i < filteredEvents.getListSize(); i++) {
-            outputMessage.append(String.format("%d. %s\n", i + 1, filteredEvents.getEvent(i).toString()));
+        if (isValidFields && filteredEvents.getListSize() == 0) {
+            outputMessage.setLength(0);
+            outputMessage.append(FILTER_NOT_FOUND);
+        } else {
+            for (int i = 0; i < filteredEvents.getListSize(); i++) {
+                outputMessage.append(String.format("%d. %s\n", i + 1, filteredEvents.getEvent(i).toString()));
+            }
         }
         this.message = outputMessage.toString();
     }
@@ -114,6 +121,7 @@ public class FilterCommand extends Command {
             filteredEvents = eventList.filterByDate(eventDate);
             return FILTER_BY_DATE_MESSAGE + "\n";
         } catch (DateTimeException exception) {
+            isValidFields = false;
             return INVALID_DATE_FORMAT_MESSAGE;
         }
     }
@@ -130,6 +138,7 @@ public class FilterCommand extends Command {
             filteredEvents = eventList.filterByTime(eventTime);
             return FILTER_BY_TIME_MESSAGE + "\n";
         } catch (DateTimeException exception) {
+            isValidFields = false;
             return INVALID_TIME_FORMAT_MESSAGE;
         }
     }
@@ -146,6 +155,7 @@ public class FilterCommand extends Command {
             filteredEvents = eventList.filterByDateTime(eventDateTime);
             return FILTER_BY_DATE_TIME_MESSAGE + "\n";
         } catch (DateTimeException exception) {
+            isValidFields = false;
             return INVALID_DATE_TIME_FORMAT_MESSAGE;
         }
     }
@@ -161,6 +171,7 @@ public class FilterCommand extends Command {
             filteredEvents = eventList.filterByPriority(priority);
             return FILTER_BY_PRIORITY_MESSAGE + "\n";
         } catch(IllegalArgumentException exception) {
+            isValidFields = false;
             return INVALID_PRIORITY_FORMAT_MESSAGE;
         }
     }
