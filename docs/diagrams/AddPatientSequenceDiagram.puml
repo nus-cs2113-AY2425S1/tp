@@ -14,37 +14,34 @@ participant ":Hospital" as hospital DATA_COLOR
 
 User -> MediTask : "add NAME [tag]"
 activate MediTask
-MediTask -> Parser : parse()
+MediTask -> Parser : parse command
 activate Parser
-Parser -> AddParser : execute()
+Parser -> AddParser : execute command
 
 activate AddParser
 create AddPatientCommand
 AddParser -> AddPatientCommand : AddPatientCommand(name, tag)
+activate AddPatientCommand
 
 alt Name is invalid
-    activate AddPatientCommand
+
     AddPatientCommand --> AddParser : return error
-    deactivate AddPatientCommand
     AddParser --> Parser : return error
     Parser --> MediTask : return error
     MediTask --> User : "Error: Patient name cannot be empty"
 else Patient already exists
 
     AddPatientCommand -> hospital : checkDuplicate(name)
-    activate AddPatientCommand
     activate hospital
     hospital --> AddPatientCommand : duplicate = true
     deactivate hospital
     AddPatientCommand --> AddParser : return duplicate
-    deactivate AddPatientCommand
     AddParser --> Parser : return duplicate
     Parser --> MediTask : return duplicate
     MediTask --> User : "This patient already exists in the hospital"
 else New patient
 
     AddPatientCommand -> hospital : addPatient(name, tag)
-    activate AddPatientCommand
     activate hospital
     hospital --> AddPatientCommand : return success
     deactivate hospital
