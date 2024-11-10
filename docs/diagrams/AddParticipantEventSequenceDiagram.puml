@@ -10,17 +10,17 @@ participant "participantList:ArrayList<Participant>" as participantList
 group sd Add participant to event
     activate eventList  
 
-    eventList -> event : addParticipant(String, String, String)
+    eventList -> event : addParticipant(participantName, participantEmail)
     activate event  
 
-    event -> event : getParticipantByName(participantName)
+    event -> event : getParticipantByName(participantName, participantEmail)
     activate event  
     return :Event
 
     alt participant already present
         event --> eventList:throws DuplicateDataException
     else else
-        event -> participant : Participant(String, String, String)
+        event -> participant : Participant(participantName, participantEmail)
         activate participant  
         return participant:Participant
 

@@ -818,7 +818,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       A `Participant` with the name `Participant 1` is present in `Event 1`'s `Participant` list.
       List all `Participant`s with `view -e Event 1 -y participant` after each test case.
    
-   2. Test case: `add -p Participant 1 -n 9212 8765 -email part@gmail.com -e Event 1`.   
+   2. Test case: `add -p Participant 1 -email part@gmail.com -e Event 1`.   
       Expected: No `Participant` is added. A duplicate entry error message is shown.
 
 ### Adding an item
@@ -908,11 +908,11 @@ The user is able to organise and manage his events more quickly and efficiently 
 1. Editing a `Participant` in an `Event`
 
    1. Prerequisite: An event with the name `Event 1` is present in the list.
-      A `Participant` with the name `Jonathan` and number `97835365` is present in `Event 1`'s `Participant` list.
+      A `Participant` with the name `Jonathan` and email `than@gmail.com` is present in `Event 1`'s `Participant` list.
       List all `Participant`s with `view -e Event 1 -y participant` after each test case.
    
    2. Test case: `edit -p Jonathan -n 91823213 -email jona@gmail.com -e Event 1`  
-      Expected: The number for `Jonathan` is changed to `91823213`. A success message is shown.
+      Expected: The email for `Jonathan` is changed to `jona@gmail.com`. A success message is shown.
 
 ### Editing an item
 

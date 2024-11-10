@@ -7,7 +7,7 @@ participant ":EventList" as eventList
 
 group sd Add participant
     activate command  
-    command -> eventList : addParticipantToEvent(participantName, participantNumber,\n participantEmail, eventName)
+    command -> eventList : addParticipantToEvent(participantName,\n participantEmail, eventName)
     activate eventList  
 
     eventList -> eventList : getEventByName(eventName)
