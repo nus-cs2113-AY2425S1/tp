@@ -67,6 +67,12 @@ public class SeeAllExpensesCommandTest {
                 Commons.LINE_SEPARATOR + System.lineSeparator(), outContent.toString());
     }
 
+    /**
+     * Helper function to help create a mixed list from an empty financial list.
+     *
+     * @param financialList Empty financial list to be filled.
+     * @throws FinanceBuddyException when invalid parameters are passed into the financial list.
+     */
     private void fillMixedList(FinancialList financialList, ArrayList<FinancialEntry> entries) {
         for (FinancialEntry entry : entries) {
             financialList.addEntry(entry);
