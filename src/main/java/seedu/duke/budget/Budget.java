@@ -43,6 +43,10 @@ public class Budget {
         this.budgetSetDate = LocalDate.now();
     }
 
+    public String getBudgetAmountString() {
+        return String.format("$ %.2f", budgetAmount);
+    }
+
     /**
      * Checks if the budget has been set.
      *
@@ -68,6 +72,10 @@ public class Budget {
      */
     public void updateBalance(double newBalance) {
         this.balance = Math.round(newBalance * 100.0) / 100.0;
+    }
+
+    public String getBalanceString() {
+        return String.format("$ %.2f", balance);
     }
 
     /**

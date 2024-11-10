@@ -68,6 +68,7 @@ public class Logic {
             AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date, category);
             addExpenseCommand.execute(financialList);
             budgetLogic.changeBalanceFromExpenseString(-amount, date);
+            budgetLogic.printBalanceAmount();
         } catch (FinanceBuddyException e) {
             Commons.printSingleLineWithBars(e.getMessage());  // Display error message when invalid date is provided
         }
@@ -198,6 +199,7 @@ public class Logic {
         try {
             budgetLogic.changeBalanceFromExpense(oldAmount, oldDate);
             budgetLogic.changeBalanceFromExpenseString(-newAmount, newDate);
+            budgetLogic.printBalanceAmount();
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());
         }
@@ -242,6 +244,7 @@ public class Logic {
             String date = entry.getDate().format(pattern);
             try {
                 budgetLogic.changeBalanceFromExpenseString(amount, date);
+                budgetLogic.printBalanceAmount();
             } catch (FinanceBuddyException e) {
                 System.out.println(e.getMessage());
             }
