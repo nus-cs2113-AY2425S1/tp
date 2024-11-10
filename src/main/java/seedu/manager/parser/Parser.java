@@ -310,7 +310,6 @@ public class Parser {
     private Command getAddEventCommand(String input) throws IndexOutOfBoundsException, ParseException,
             IllegalArgumentException, IOException {
         checkForDuplicateFlags(input, EVENT_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, ADD_EVENT_REGEX);
 
         if (!matcher.matches()) {
@@ -353,7 +352,6 @@ public class Parser {
     private Command getAddParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException,
             IOException {
         checkForDuplicateFlags(input, PARTICIPANT_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, ADD_PARTICIPANT_REGEX);
 
         if (!matcher.matches()) {
@@ -390,7 +388,6 @@ public class Parser {
      */
     private Command getAddItemCommand(String input) throws IndexOutOfBoundsException, IOException {
         checkForDuplicateFlags(input, ITEM_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, ADD_ITEM_REGEX);
 
         if (!matcher.matches()) {
@@ -457,7 +454,6 @@ public class Parser {
      */
     private RemoveCommand getRemoveEventCommand(String input) throws IndexOutOfBoundsException {
         checkForDuplicateFlags(input, REMOVE_EVENT_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, REMOVE_EVENT_REGEX);
 
         if (!matcher.matches()) {
@@ -481,7 +477,6 @@ public class Parser {
      */
     private RemoveCommand getRemoveParticipantCommand(String input) throws IndexOutOfBoundsException {
         checkForDuplicateFlags(input, REMOVE_PARTICIPANT_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, REMOVE_PARTICIPANT_REGEX);
 
         if (!matcher.matches()) {
@@ -505,7 +500,6 @@ public class Parser {
      */
     private RemoveCommand getRemoveItemCommand(String input) throws IndexOutOfBoundsException {
         checkForDuplicateFlags(input, ITEM_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, REMOVE_ITEM_REGEX);
 
         if (matcher.matches()) {
@@ -561,7 +555,6 @@ public class Parser {
     private Command getEditEventCommand(String input) throws IndexOutOfBoundsException, ParseException,
             IllegalArgumentException {
         checkForDuplicateFlags(input, EDIT_EVENT_ATTRIBUTE_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, EDIT_EVENT_ATTRIBUTE_REGEX);
 
         if (!matcher.matches()) {
@@ -601,7 +594,6 @@ public class Parser {
     private Command getEditParticipantCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException,
             IOException {
         checkForDuplicateFlags(input, PARTICIPANT_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, EDIT_PARTICIPANT_REGEX);
 
         if (!matcher.matches()) {
@@ -636,7 +628,6 @@ public class Parser {
      */
     private Command getEditItemCommand(String input) {
         checkForDuplicateFlags(input, ITEM_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, EDIT_ITEM_REGEX);
 
         if (!matcher.matches()) {
@@ -707,7 +698,6 @@ public class Parser {
      */
     private ViewCommand getViewCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
         checkForDuplicateFlags(input, VIEW_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, VIEW_REGEX);
 
         if (!matcher.matches()) {
@@ -772,7 +762,6 @@ public class Parser {
     private Command getMarkEventCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException,
             IOException {
         checkForDuplicateFlags(input, MARK_EVENT_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, MARK_EVENT_REGEX);
 
         if (!matcher.matches()) {
@@ -820,7 +809,6 @@ public class Parser {
     private Command getMarkParticipantCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException,
             IOException {
         checkForDuplicateFlags(input, MARK_PARTICIPANT_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, MARK_PARTICIPANT_REGEX);
 
         if (!matcher.matches()) {
@@ -869,7 +857,6 @@ public class Parser {
     private Command getMarkItemCommand(String input) throws InvalidCommandException, IndexOutOfBoundsException,
             IOException {
         checkForDuplicateFlags(input, MARK_ITEM_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, MARK_ITEM_REGEX);
 
         if (!matcher.matches()) {
@@ -922,9 +909,7 @@ public class Parser {
      */
     private Command parseCopyCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(CopyCommand.COMMAND_WORD);
-
         checkForDuplicateFlags(input, COPY_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, COPY_REGEX);
 
         if (!matcher.matches()) {
@@ -957,9 +942,7 @@ public class Parser {
      */
     private Command parseSortCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(SortCommand.COMMAND_WORD);
-
         checkForDuplicateFlags(input, SORT_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, SORT_REGEX);
 
         if (!matcher.matches()) {
@@ -997,9 +980,7 @@ public class Parser {
      */
     private Command parseFilterCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
-
         checkForDuplicateFlags(input, FILTER_FLAG_REGEX);
-
         Matcher matcher = getMatcher(input, FILTER_REGEX);
 
         if (!matcher.matches()) {
@@ -1034,11 +1015,8 @@ public class Parser {
      */
     private Command parseFindCommand(String input, String[] commandParts) throws InvalidCommandException {
         assert commandParts[0].equalsIgnoreCase(FindCommand.COMMAND_WORD);
-
         checkForDuplicateFlags(input, FIND_FLAG_REGEX);
-
-        Pattern pattern = Pattern.compile(FIND_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, FIND_REGEX);
 
         if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_FIND_MESSAGE);
@@ -1118,7 +1096,6 @@ public class Parser {
      * @throws InvalidCommandException if a duplicate flag is found in the input string.
      */
     private void checkForDuplicateFlags(String input, String flagRegex) throws InvalidCommandException {
-
         Pattern flagPattern = Pattern.compile(flagRegex);
         Matcher flagMatcher = flagPattern.matcher(input);
 
