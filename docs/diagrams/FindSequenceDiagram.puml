@@ -14,7 +14,6 @@ participant Hospital PARSER_COLOR
 participant CommandResult PARSER_COLOR
 participant FindTaskCommand PARSER_COLOR
 participant TaskList PARSER_COLOR
-participant Logger LOGGER_COLOR
 scale 1.5
 skinparam defaultFontSize 20
 
@@ -28,9 +27,15 @@ alt State is MAIN_STATE
     FindPatientCommand -> FindPatientCommand : execute()
     FindPatientCommand -> Hospital : findPatients(keyword)
     alt No matching patients found
-        FindPatientCommand -> CommandResult : new CommandResult(MESSAGE_NO_MATCH)
+        FindPatientCommand -> CommandResult : new CommandResult()
+        activate CommandResult
+        deactivate CommandResult
+        CommandResult --> FindPatientCommand
     else Patients found
-        FindPatientCommand -> CommandResult : new CommandResult(MESSAGE_SUCCESS)
+        FindPatientCommand -> CommandResult : new CommandResult()
+        activate CommandResult
+        deactivate CommandResult
+        CommandResult --> FindPatientCommand
     end
 else State is TASK_STATE
     FindParser -> Find : extract(line)
@@ -39,14 +44,13 @@ else State is TASK_STATE
     FindTaskCommand -> FindTaskCommand : execute()
     FindTaskCommand -> TaskList : findTasks(keyword)
     alt No matching tasks found
-        FindTaskCommand -> CommandResult : new CommandResult(MESSAGE_NO_MATCH)
+        FindTaskCommand -> CommandResult : new CommandResult()
     else Tasks found
-        FindTaskCommand -> CommandResult : new CommandResult(MESSAGE_SUCCESS)
+        FindTaskCommand -> CommandResult : new CommandResult()
     end
 end
 
 alt Invalid command
-    Parser -> Logger : log WARNING "Invalid command"
 end
 
 @enduml
