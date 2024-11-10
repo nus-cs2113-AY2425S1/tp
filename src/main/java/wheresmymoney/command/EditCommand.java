@@ -11,9 +11,9 @@ import wheresmymoney.exception.WheresMyMoneyException;
 public class EditCommand extends Command {
     private int index;
     private String oldCategory;
-    private float oldPrice;
+    private Float oldPrice;
     private String newCategory;
-    private float newPrice;
+    private Float newPrice;
     private String frequency;
     private String description;
     private String dateAdded;
