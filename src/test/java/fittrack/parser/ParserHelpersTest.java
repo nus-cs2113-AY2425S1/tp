@@ -8,13 +8,15 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static fittrack.messages.Messages.DATE_OUT_OF_RANGE;
-import static fittrack.messages.Messages.INVALID_DATETIME_MESSAGE;
-import static fittrack.parser.Parser.parseDeadline;
+import static fittrack.parser.ParserHelpers.parseDeadline;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ParseDeadlineTest {
+import static fittrack.messages.Messages.DATE_OUT_OF_RANGE;
+import static fittrack.messages.Messages.INVALID_DATETIME_MESSAGE;
+
+public class ParserHelpersTest {
 
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
