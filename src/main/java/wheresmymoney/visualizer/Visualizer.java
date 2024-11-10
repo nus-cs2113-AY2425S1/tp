@@ -68,7 +68,7 @@ public class Visualizer {
         return timeSeries;
     }
 
-    private List<String> createMonthList () { // Fix implementation!!
+    private List<String> createMonthList () {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-yyyy");
 
         LocalDate current = beginDate.withDayOfMonth(1);
