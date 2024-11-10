@@ -99,10 +99,14 @@ Format:
 * `add -m ITEM -e EVENT` for adding an item to an event.
 
 Remarks:
+
 * `TIME` must be entered in the format `yyyy-mm-dd HH:mm`.
 * `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
   * The values entered for `PRIORITY` are case-insensitive.
-
+* If the event list has an `Event` with the name `EVENT`, or the specified event has a `Participant` or `Item` with the name of the `Participant`/`Item` to be added, an indexed suffix is added to differentiate the different entries.
+  * e.g. adding two `Event`s with the same name `Wood workshop` would result in the second `Event` being named `Wood workshop (1)`.
+* The index value increases as more `Event`s, `Item`s or `Participant`s are added.
+  
 Examples:
 
 * `add -e Origami workshop -t 2024-10-12 18:00 -v Building A -u HIGH` adds an event with name `Origami workshop`, time `2024-10-12 18:00`, venue `Building A` and priority `HIGH` to the events list.
@@ -148,9 +152,14 @@ Edits the information of an event/participant/item.
 
 Format:
 
-* `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
+* `edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
 * `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for editing a participant's contact information in an event.
-* `edit -m ITEM > NEW_ITEM -e EVENT` for editing an item's information in an event.
+* `edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT` for editing an item's information in an event.
+
+Remarks:
+
+* If there is already an `Event` with the name `NEW_EVENT_NAME` in the event list, or an `Item` with the name `NEW_ITEM_NAME` in the specified event, an indexed suffix is added to differentiate the events.
+  * e.g. given that an `Event` named `Wood workshop` is already present in the list, editing another `Event` to have the name `Wood workshop` would result in it being named `Wood workshop (1)`.
 
 Examples:
 
