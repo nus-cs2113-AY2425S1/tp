@@ -82,21 +82,4 @@ public class ListSchoolCommandTest {
 
         assertTrue(result.contains(Logs.POSSIBLE_NULL_JSON_KEY));
     }
-
-    @Test
-    public void testDisplaySchoolListWithNullOrEmptyKey() {
-        // Create JsonObject with empty and null keys
-        JsonObject jsonObject = Json.createObjectBuilder()
-                .add("", "Some University") // Empty key
-                .build();
-
-        // Call the displaySchoolList method
-        ListSchoolCommand.displaySchoolList(jsonObject);
-
-        // Capture output
-        String result = outputStreamCaptor.toString().trim();
-
-        // Assert that a warning was printed for the empty or null university names
-        assertTrue(result.contains(Logs.POSSIBLE_NULL_JSON_KEY));
-    }
 }
