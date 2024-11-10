@@ -313,35 +313,30 @@ public class Parser {
 
         Matcher matcher = getMatcher(input, ADD_EVENT_REGEX);
 
-        String eventName;
-        LocalDateTime eventTime;
-        String venue;
-        Priority eventPriority;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
-                    || matcher.group(3).isBlank() || matcher.group(4).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            logInfo("Creating AddCommand for event with details: " +
-                    matcher.group(1).trim() + ", " + matcher.group(2).trim() + ", " + matcher.group(3).trim());
-
-            eventName = matcher.group(1).trim();
-            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            dateTimeFormat.setLenient(false);
-            Date parsedDateTime = dateTimeFormat.parse(matcher.group(2).trim());
-            eventTime = LocalDateTime.ofInstant(parsedDateTime.toInstant(), ZoneId.systemDefault());
-            venue = matcher.group(3).trim();
-            eventPriority = Priority.valueOf(matcher.group(4).trim().toUpperCase());
-
-            if (eventTime.isBefore(LocalDateTime.now())) {
-                throw new InvalidCommandException(PAST_DATE_MESSAGE);
-            }
-
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
+                || matcher.group(3).isBlank() || matcher.group(4).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        logInfo("Creating AddCommand for event with details: " +
+                matcher.group(1).trim() + ", " + matcher.group(2).trim() + ", " + matcher.group(3).trim());
+
+        String eventName = matcher.group(1).trim();
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        dateTimeFormat.setLenient(false);
+        Date parsedDateTime = dateTimeFormat.parse(matcher.group(2).trim());
+        LocalDateTime eventTime = LocalDateTime.ofInstant(parsedDateTime.toInstant(), ZoneId.systemDefault());
+        String venue = matcher.group(3).trim();
+        Priority eventPriority = Priority.valueOf(matcher.group(4).trim().toUpperCase());
+
+        if (eventTime.isBefore(LocalDateTime.now())) {
+            throw new InvalidCommandException(PAST_DATE_MESSAGE);
+        }
+
         return new AddCommand(eventName, eventTime, venue, eventPriority);
     }
 
@@ -361,28 +356,24 @@ public class Parser {
 
         Matcher matcher = getMatcher(input, ADD_PARTICIPANT_REGEX);
 
-        String participantName;
-        String participantEmail;
-        String eventName;
-
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
-                    || matcher.group(3).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            logInfo("Creating AddCommand for participant with details: " +
-                    matcher.group(1).trim() + ", " + matcher.group(2).trim());
-            participantName = matcher.group(1).trim();
-            participantEmail = matcher.group(2).trim();
-            eventName = matcher.group(3).trim();
-
-            if (!isValidEmail(participantEmail)) {
-                logWarning("Invalid email format");
-                throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
-            }
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_ADD_MESSAGE);
+        }
+
+        if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
+                || matcher.group(3).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        logInfo("Creating AddCommand for participant with details: " +
+                matcher.group(1).trim() + ", " + matcher.group(2).trim());
+        String participantName = matcher.group(1).trim();
+        String participantEmail = matcher.group(2).trim();
+        String eventName = matcher.group(3).trim();
+
+        if (!isValidEmail(participantEmail)) {
+            logWarning("Invalid email format");
+            throw new InvalidCommandException(INVALID_EMAIL_MESSAGE);
         }
 
         return new AddCommand(participantName, participantEmail, eventName);
@@ -469,15 +460,15 @@ public class Parser {
 
         Matcher matcher = getMatcher(input, REMOVE_EVENT_REGEX);
 
-        if (matcher.matches()) {
-            if (matcher.group(1).isBlank()) {
-                throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
-            }
-
-            return new RemoveCommand(matcher.group(1).trim());
-        } else {
+        if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_REMOVE_MESSAGE);
         }
+
+        if (matcher.group(1).isBlank()) {
+            throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
+        }
+
+        return new RemoveCommand(matcher.group(1).trim());
     }
 
     //@@author LTK-1606
