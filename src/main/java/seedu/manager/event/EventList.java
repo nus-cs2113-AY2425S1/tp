@@ -110,13 +110,12 @@ public class EventList  {
      * returns false otherwise.
      *
      * @param name the name of the participant to be added.
-     * @param number the contact number of the participant
      * @param email the email address of the participant
      * @param eventName the name of the event to which the participant will be added.
      * @return {@code true} if the participant can be added to the event, {@code false} otherwise.
      */
-    public boolean addParticipantToEvent(String name, String number, String email, String eventName) {
-        return addParticipantToEvent(name, number, email, false, eventName);
+    public boolean addParticipantToEvent(String name, String email, String eventName) {
+        return addParticipantToEvent(name, email, false, eventName);
     }
 
     /**
@@ -124,17 +123,16 @@ public class EventList  {
      * returns false otherwise.
      *
      * @param name the name of the participant to be added.
-     * @param number the contact number of the participant.
      * @param email the email address of the participant.
      * @param isPresent {@code true} if the participant is to be marked present, {@code false} otherwise.
      * @param eventName the name of the event to which the participant will be added.
      * @return {@code true} if the participant can be added to the event, {@code false} otherwise.
      */
-    public boolean addParticipantToEvent(String name, String number, String email, boolean isPresent,
+    public boolean addParticipantToEvent(String name, String email, boolean isPresent,
                                          String eventName) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
-                event.addParticipant(name, number, email, isPresent);
+                event.addParticipant(name, email, isPresent);
                 return true;
             }
         }
@@ -282,23 +280,22 @@ public class EventList  {
      *
      * <p>
      * This method searches for the event with the given name in the event list and
-     * attempts to update the specified participant's phone number and email. If the event
+     * attempts to update the specified participant's email. If the event
      * is found and the participant is successfully updated, it returns {@code true}.
      * If the event does not exist or the participant is not found, it returns
      * {@code false}.
      * </p>
      *
      * @param participantName the name of the participant to be edited.
-     * @param number         the new contact number of the participant.
      * @param email          the new email address of the participant.
      * @param eventName      the name of the event associated with the participant.
      * @return {@code true} if the participant was successfully edited;
      *         {@code false} if the event does not exist or the participant was not found.
      */
-    public boolean editParticipant(String participantName, String number, String email, String eventName) {
+    public boolean editParticipant(String participantName, String email, String eventName) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
-                return event.updateParticipant(participantName, number, email);
+                return event.updateParticipant(participantName, email);
             }
         }
         return false;

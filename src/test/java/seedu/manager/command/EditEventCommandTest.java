@@ -30,7 +30,6 @@ public class EditEventCommandTest {
         );
         eventList.addParticipantToEvent(
                 "Tom",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );
@@ -63,7 +62,6 @@ public class EditEventCommandTest {
         );
         eventList.addParticipantToEvent(
                 "Tom",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );
