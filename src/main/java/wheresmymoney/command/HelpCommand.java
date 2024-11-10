@@ -181,6 +181,8 @@ public class HelpCommand extends Command {
                 "inputted will be reflected after the edit.");
         Ui.displayMessage("Examples: edit 1 /recur /price 5.50 /description chicken rice " + 
                 "/category food /frequency weekly");
+        Ui.displayMessage("    - Editing a recurring expense will not edit the normal expenses that are " + 
+                "asscociated with the recurring expense. You will need to edit the normal expenses yourself.");
         Ui.displayMessage("");
     }
 

@@ -241,6 +241,7 @@ Notes:
 - `DATE` takes a text format of `DD-MM-YYYY`. If no `DATE` is specified, it will be defaulted to the current date.
 - `FREQUENCY` takes only 1 of 3 possible inputs: `daily`, `weekly`, or `monthly`. Any other input will throw an error.
 - All parameters except `INDEX` and `/recur` are optional. You can specify which attribute of the expense you want to edit.
+- Editing a recurring expense will not edit the normal expenses that are asscociated with the recurring expense. You will need to edit the normal expenses yourself.
  
 Examples: 
 - `edit 1 /recur /price 5.50 /description chicken rice /category food`
