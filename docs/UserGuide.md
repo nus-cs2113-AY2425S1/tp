@@ -172,11 +172,17 @@ Example: `filter cs3241`
 Expected Output:
 
 ```
+-----------------------------------------------------
+Filter results for cs3241:
+-----------------------------------------------------
 Partner University: The University of Melbourne
 Partner University Course Code: COMP30019
 -----------------------------------------------------
 Partner University: The Australian National University
 Partner University Course Code: COMP4610
+-----------------------------------------------------
+-----------------------------------------------------
+End of filter results
 -----------------------------------------------------
 ```
 
@@ -185,7 +191,12 @@ Example: `filter ee2026`
 Output:
 
 ```
-No courses found for the given course code.
+-----------------------------------------------------
+Filter results for ee2026:
+-----------------------------------------------------
+-----------------------------------------------------
+No mappable courses found for the given course code.
+-----------------------------------------------------
 ```
 
 ### Adding a course mapping: `add`
