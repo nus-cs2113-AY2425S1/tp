@@ -1,5 +1,7 @@
 package seedu.duke.ui;
 
+import seedu.duke.util.Commons;
+
 import java.util.Scanner;
 
 /**
@@ -37,11 +39,11 @@ public class AppUi {
                 "|_|     |_||_| |_| \\__,_||_| |_| \\___| \\___||____/  \\__,_| \\__,_| \\__,_| \\__, |\n" +
                 "                                                                          __/ |\n" +
                 "                                                                         |___/ \n";
-        final String welcomeMessage = "--------------------------------------------\n" +
+        final String welcomeMessage = Commons.LINE_SEPARATOR + "\n" +
                 "Welcome to FinanceBuddy!\n" +
                 "Your one stop solution for financial peace of mind\n" +
                 "How can I help you today? :)\n" +
-                "--------------------------------------------\n";
+                Commons.LINE_SEPARATOR + "\n";
 
         System.out.println(logo);
         System.out.println(welcomeMessage);
@@ -52,9 +54,9 @@ public class AppUi {
      * Asks if user would like to set a budget
      */
     public void displaySetBudgetMessage() {
-        System.out.println("--------------------------------------------");
+        System.out.println(Commons.LINE_SEPARATOR);
         System.out.println("Would you like to set a budget? (yes/no)");
-        System.out.println("--------------------------------------------");
+        System.out.println(Commons.LINE_SEPARATOR);
     }
 
     /**
@@ -62,10 +64,10 @@ public class AppUi {
      * Asks if user would like to modify their existing budget
      */
     public void displayModifyBudgetMessage(double amount) {
-        System.out.println("--------------------------------------------");
+        System.out.println(Commons.LINE_SEPARATOR);
         System.out.println("Your current budget is: " + String.format("$ %.2f", amount));
         System.out.println("Would you like to modify your budget? (yes/no)");
-        System.out.println("--------------------------------------------");
+        System.out.println(Commons.LINE_SEPARATOR);
     }
 
     /**
@@ -73,7 +75,7 @@ public class AppUi {
      */
     public void displayBudgetBalanceMessage(double amount) {
         System.out.println("Your current monthly balance is: " + String.format("$ %.2f", amount));
-        System.out.println("--------------------------------------------");
+        System.out.println(Commons.LINE_SEPARATOR);
     }
 
     /**
@@ -88,19 +90,10 @@ public class AppUi {
      * Suggests using the "help" command to list valid commands.
      */
     public void showUnknownCommandMessage() {
-        final String unrecognizedCommand = "--------------------------------------------\n" +
+        final String unrecognizedCommand = Commons.LINE_SEPARATOR + "\n" +
                 "Unrecognized command!\n" +
                 "Use the command \"help\" for a list of valid commands\n" +
-                "--------------------------------------------\n";
+                Commons.LINE_SEPARATOR + "\n";
         System.out.println(unrecognizedCommand);
-    }
-
-    /**
-     * Displays an error message to the user.
-     *
-     * @param message The error message to be displayed.
-     */
-    public void showErrorMessage(String message) {
-        System.out.println("Error: " + message);
     }
 }

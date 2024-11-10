@@ -1,69 +1,124 @@
 package seedu.duke.parser;
+
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.util.Commons;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
- * The InputParser class is responsible for parsing user input into commands and arguments.
- * It takes a raw input string and splits it into meaningful components such as the command and its arguments.
+ * Responsible for parsing user input into commands and arguments.
  */
 public class InputParser {
+
     public static final String COMMAND = "command";
     public static final String ARGUMENT = "argument";
 
+    // Predefined valid arguments
+    private static final Set<String> VALID_ARGUMENTS = Set.of("/des", "/a", "/d", "/c", "/from", "/to");
+
     /**
      * Parses the user's input into a command and associated arguments.
-     * The first word in the input is considered the command, and the rest is treated as arguments.
-     * Arguments that start with "/" are treated as named arguments.
      *
      * @param input The raw input string from the user.
      * @return A HashMap containing the parsed command and its arguments.
+     * @throws FinanceBuddyException if the input contains invalid arguments or missing values.
      */
     public static HashMap<String, String> parseCommands(String input) throws FinanceBuddyException {
         HashMap<String, String> commandArguments = new HashMap<>();
-        String[] splitInput = input.split(" ");
+        String[] tokens = input.trim().split("\\s+");
 
-        // check if input is empty
-        if (splitInput.length == 0) {
-            commandArguments.put(InputParser.COMMAND, "");
+        if (tokens.length == 0) {
+            commandArguments.put(COMMAND, "");
             return commandArguments;
         }
 
-        // set first element as command
-        commandArguments.put(InputParser.COMMAND, splitInput[0]);
-
-        String argumentDescription = InputParser.ARGUMENT;
-        StringBuilder argument = new StringBuilder();
-
-        // parse remaining input
-        for (int i = 1; i < splitInput.length; i++) {
-            String arg = splitInput[i];
-
-            if (arg.startsWith("/")) {
-                if (!argumentDescription.isEmpty()) {
-                    try {
-                        commandArguments.put(argumentDescription, argument.toString().strip());
-                    } catch (NullPointerException e) {
-                        throw new FinanceBuddyException("'/' command cannot be empty");
-                    }
-                }
-
-                argumentDescription = arg;
-                argument.setLength(0);
-            } else {
-                argument.append(" ").append(arg);
-            }
-        }
-
-        // add last argument
-        if (!argument.isEmpty()) {
-            try {
-                commandArguments.put(argumentDescription, argument.toString().strip());
-            } catch (NullPointerException e) {
-                throw new FinanceBuddyException("argument cannot be empty or blank");
-            }
-        }
-
+        commandArguments.put(COMMAND, tokens[0]); // First word is the command
+        processArguments(tokens, commandArguments);
         return commandArguments;
+    }
+
+    /**
+     * Processes arguments from the input tokens and populates the commandArguments map.
+     *
+     * @param tokens           The input split into tokens.
+     * @param commandArguments The map to store parsed arguments.
+     * @throws FinanceBuddyException if invalid or missing arguments are detected.
+     */
+    private static void processArguments(String[] tokens, HashMap<String, String> commandArguments)
+            throws FinanceBuddyException {
+
+        String currentKey = ARGUMENT;
+        StringBuilder currentValue = new StringBuilder();
+
+        for (int i = 1; i < tokens.length; i++) {
+            String token = tokens[i];
+
+            if (isArgument(token)) {
+                handleNewArgument(commandArguments, currentKey, currentValue);
+                currentKey = validateArgument(token);
+            } else {
+                appendValue(currentValue, token);
+            }
+        }
+
+        // Add the last argument
+        handleNewArgument(commandArguments, currentKey, currentValue);
+    }
+
+    /**
+     * Validates and processes a new argument.
+     *
+     * @param token The token to validate.
+     * @return The validated argument token.
+     * @throws FinanceBuddyException if the argument is invalid.
+     */
+    private static String validateArgument(String token) throws FinanceBuddyException {
+        if (!VALID_ARGUMENTS.contains(token)) {
+            throw new FinanceBuddyException(token + " : " + Commons.ERROR_MESSAGE_INVALID_ARGUMENT);
+        }
+        return token;
+    }
+
+    /**
+     * Handles the end of an argument-value pair and adds it to the map.
+     *
+     * @param commandArguments The map to store parsed arguments.
+     * @param key              The current argument key.
+     * @param value            The current argument value.
+     * @throws FinanceBuddyException if the value is empty for a named argument.
+     */
+    private static void handleNewArgument(HashMap<String, String> commandArguments, String key,
+                                          StringBuilder value) throws FinanceBuddyException {
+        if (value.length() == 0 && !key.equals(ARGUMENT)) {
+            throw new FinanceBuddyException(key + " : " + Commons.ERROR_MESSAGE_ARGUMENT_NULL);
+        }
+        if (value.length() > 0) {
+            commandArguments.put(key, value.toString().strip());
+            value.setLength(0);
+        }
+    }
+
+    /**
+     * Appends a token to the current value being built.
+     *
+     * @param value The current argument value.
+     * @param token The token to append.
+     */
+    private static void appendValue(StringBuilder value, String token) {
+        if (value.length() > 0) {
+            value.append(" ");
+        }
+        value.append(token);
+    }
+
+    /**
+     * Checks if a token is an argument key (starts with "/").
+     *
+     * @param token The token to check.
+     * @return True if the token is an argument key, false otherwise.
+     */
+    private static boolean isArgument(String token) {
+        return token.startsWith("/");
     }
 }

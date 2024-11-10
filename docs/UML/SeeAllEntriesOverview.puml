@@ -16,7 +16,7 @@ return command arguments
 
 ' Check for blank dates
 opt invalid entries for start/end date
-    user <- app : throw FinanceBuddyException
+    user <-- app : throw FinanceBuddyException
 end
 
 ' Parse dates
@@ -39,7 +39,7 @@ alt end date != null
         activate app
         return
 end
-ref over app : execute command
+ref over app : executeListCommand
 
 return
 @enduml
@@ -50,6 +50,7 @@ participant ":SeeAllExpensesCommand" as expense
 participant ":SeeAllIncomesCommand" as income
 participant ":SeeAllEntriesCommand" as all
 participant "financialList:FinancialList" as list
+participant "budgetLogic:BudgetLogic" as bl
 ' Command execution based on type
 
     alt type equals "expense"
@@ -63,6 +64,9 @@ participant "financialList:FinancialList" as list
         interact with list
         end
         return
+        app -> bl : getBudgetAndBalance()
+        activate bl
+        return
     else type equals "income"
         create income
         app -> income ** : SeeAllIncomeCommand(startDate, endDate)
@@ -74,7 +78,10 @@ participant "financialList:FinancialList" as list
         interact with list
         end
         return
-    else type equals null
+        app -> bl : getBudgetAndBalance()
+        activate bl
+        return
+    else type is null or empty
         create all
         app -> all ** : SeeAllCommand(startDate, endDate)
         activate all
@@ -84,6 +91,9 @@ participant "financialList:FinancialList" as list
         ref over all, list
         interact with list
         end
+        return
+        app -> bl : getBudgetAndBalance()
+        activate bl
         return
     else else
         app -> app : print "Unknown argument"

@@ -1,6 +1,7 @@
 package seedu.duke.financial;
 
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,9 +14,11 @@ import java.util.Map;
  */
 public class FinancialList {
     private static final Double AMOUNTZERO = 0.0;
+    private static final int DEFAULT_LAST_AMENDED_INDEX = -1;
     private ArrayList<FinancialEntry> entries;
     private Map<Expense.Category, Double> totalExpenseByCategory = new HashMap<>();
     private Map<Income.Category, Double> totalIncomeByCategory = new HashMap<>();
+    private int lastAmendedIndex;
 
     /**
      * Constructs a FinancialList object with an empty list.
@@ -24,8 +27,16 @@ public class FinancialList {
         entries = new ArrayList<>();
         totalExpenseByCategory = new HashMap<>();
         totalIncomeByCategory = new HashMap<>();
+        lastAmendedIndex = DEFAULT_LAST_AMENDED_INDEX;
     }
 
+    /**
+     * Determines if the entry should decrement index based on the date ordering.
+     *
+     * @param entry The financial entry to be checked.
+     * @param insertIndex The index where the entry is considered to be inserted.
+     * @return true if the previous entry date is after the current entry date.
+     */
     private boolean shouldDecrementIndex(FinancialEntry entry, int insertIndex) {
         assert insertIndex >= 0 : "Negative Index entered.";
         if (insertIndex == 0){
@@ -49,6 +60,7 @@ public class FinancialList {
         }
         assert insertIndex >= 0 && insertIndex <= entries.size(): "Invalid insertion index";
         entries.add(insertIndex, entry);
+        lastAmendedIndex = insertIndex;
         updateCategoryTotal(entry);
     }
 
@@ -95,11 +107,25 @@ public class FinancialList {
         try {
             return entries.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new FinanceBuddyException("Invalid entry. Please provide an index with a valid entry.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX);
         }
     }
 
+    /**
+     * Getter to return the index of the last added/edited entry in the financial list.
+     *
+     * @return index of last added/edited entry.
+     */
+    public int getLastAmendedIndex() {
+        return lastAmendedIndex;
+    }
 
+    /**
+     * Method to reset last amended index to -1 after deleting an entry.
+     */
+    public void resetLastAmendedIndex() {
+        lastAmendedIndex = DEFAULT_LAST_AMENDED_INDEX;
+    }
     /**
      * Edits an existing financial entry in the list.
      *
@@ -110,7 +136,11 @@ public class FinancialList {
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= entries.size()).
      */
     public void editEntry(int index, double amount, String description, LocalDate date,
-                          Enum<?> category) throws FinanceBuddyException{
+                          Enum<?> category) {
+        assert amount >= 0.01 : "Amount < 0.01 entered.";
+        assert amount <= 9999999.0 : "Amount > 9999999.0 entered.";
+        assert !description.isBlank() : "Description is blank.";
+        assert !date.isAfter(LocalDate.now()): "Date is after system date";
 
         FinancialEntry entry = entries.get(index);
         entry.setAmount(amount);
@@ -173,6 +203,9 @@ public class FinancialList {
                 .orElse(Map.entry(Income.Category.UNCATEGORIZED, AMOUNTZERO));  // Default if no entries
     }
 
+    /**
+     * Clears all category totals for both expenses and income.
+     */
     public void clearCategoryTotals() {
         totalExpenseByCategory.clear();
         totalIncomeByCategory.clear();

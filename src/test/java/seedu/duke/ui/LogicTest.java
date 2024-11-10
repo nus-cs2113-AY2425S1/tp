@@ -69,7 +69,7 @@ public class LogicTest {
      */
     @Test
     void testMatchCommand_seeAllExpensesCommand() throws FinanceBuddyException {
-        LocalDate date1 = LocalDate.of(2024, 12, 29);
+        LocalDate date1 = LocalDate.of(2024, 10, 29);
         LocalDate date2 = LocalDate.of(2024, 10, 14);
 
         // add an expense to the financial list
@@ -143,7 +143,7 @@ public class LogicTest {
      */
     @Test
     void testMatchCommand_editCommand() throws FinanceBuddyException {
-        LocalDate date1 = LocalDate.of(2024, 12, 17);
+        LocalDate date1 = LocalDate.of(2024, 10, 17);
 
         // Add an entry first to edit it later
         logic.financialList.addEntry(new Expense(100, "Initial Entry", date1, Expense.Category.UNCATEGORIZED));
