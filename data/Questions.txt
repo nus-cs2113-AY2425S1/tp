@@ -94,21 +94,21 @@ OOP | Mcq | What is used to achieve abstraction in Java? | d | a) Constructors |
 OOP | Mcq | Which of the following defines encapsulation best? | a | a) Hiding internal details and showing only functionality | b) Using a loop to iterate | c) Extending classes | d) Overloading constructors
 OOP | Mcq | What is it called when a method in a subclass has the same name and parameters as in the parent class? | b | a) Overloading | b) Overriding | c) Inheriting | d) Extending
 
-Java Inheritance | FillInTheBlank | `____` is the keyword used to inherit a class in Java. | extends
-Java Inheritance | FillInTheBlank | Inheritance in Java follows a `____` relationship. | is-a
-Java Inheritance | FillInTheBlank | A `____` is a class that is inherited from another class. | subclass
-Java Inheritance | FillInTheBlank | The `____` method can be used to call a superclass constructor. | super
-Java Inheritance | FillInTheBlank | A `____` relationship between classes indicates inheritance. | hierarchical
-Java Inheritance | TrueFalse | Java supports multiple inheritance through classes. | false
-Java Inheritance | TrueFalse | The `super` keyword is used to access methods from the subclass. | false
-Java Inheritance | TrueFalse | All Java classes inherit from the `Object` class. | true
-Java Inheritance | TrueFalse | A subclass can inherit only one superclass. | true
-Java Inheritance | TrueFalse | An inherited method can be overridden in the subclass. | true
-Java Inheritance | Mcq | Which of the following is true about Java inheritance? | d | a) Java supports multiple class inheritance | b) Interfaces cannot be inherited | c) Inheritance violates OOP principles | d) Java supports single inheritance with classes
-Java Inheritance | Mcq | What is the purpose of the `super` keyword? | c | a) To create an object | b) To declare a method as final | c) To call the parent class constructor | d) To access private methods
-Java Inheritance | Mcq | If a method in a subclass has the same signature as a method in its superclass, it is called: | b | a) Overloading | b) Overriding | c) Shadowing | d) Hiding
-Java Inheritance | Mcq | Which of these keywords restricts a class from being inherited? | a | a) final | b) static | c) private | d) protected
-Java Inheritance | Mcq | The default access modifier allows class members to be accessed: | c | a) From any class | b) Only from the same class | c) Within the same package | d) From subclasses only
+Inheritance | FillInTheBlank | `____` is the keyword used to inherit a class in Java. | extends
+Inheritance | FillInTheBlank | Inheritance in Java follows a `____` relationship. | is-a
+Inheritance | FillInTheBlank | A `____` is a class that is inherited from another class. | subclass
+Inheritance | FillInTheBlank | The `____` method can be used to call a superclass constructor. | super
+Inheritance | FillInTheBlank | A `____` relationship between classes indicates inheritance. | hierarchical
+Inheritance | TrueFalse | Java supports multiple inheritance through classes. | false
+Inheritance | TrueFalse | The `super` keyword is used to access methods from the subclass. | false
+Inheritance | TrueFalse | All Java classes inherit from the `Object` class. | true
+Inheritance | TrueFalse | A subclass can inherit only one superclass. | true
+Inheritance | TrueFalse | An inherited method can be overridden in the subclass. | true
+Inheritance | Mcq | Which of the following is true about Java inheritance? | d | a) Java supports multiple class inheritance | b) Interfaces cannot be inherited | c) Inheritance violates OOP principles | d) Java supports single inheritance with classes
+Inheritance | Mcq | What is the purpose of the `super` keyword? | c | a) To create an object | b) To declare a method as final | c) To call the parent class constructor | d) To access private methods
+Inheritance | Mcq | If a method in a subclass has the same signature as a method in its superclass, it is called: | b | a) Overloading | b) Overriding | c) Shadowing | d) Hiding
+Inheritance | Mcq | Which of these keywords restricts a class from being inherited? | a | a) final | b) static | c) private | d) protected
+Inheritance | Mcq | The default access modifier allows class members to be accessed: | c | a) From any class | b) Only from the same class | c) Within the same package | d) From subclasses only
 
 Threads | FillInTheBlank | The `____` interface must be implemented to create a thread. | Runnable
 Threads | FillInTheBlank | The `____` method is called to start a thread. | start
@@ -174,51 +174,51 @@ Streams | Mcq | Which method in a stream is used to count elements? | c | a) col
 Streams | Mcq | Which stream method is used to sort elements? | d | a) filter | b) map | c) forEach | d) sorted
 Streams | Mcq | Which operation is not terminal in a stream? | a | a) map | b) forEach | c) reduce | d) collect
 
-Java Arrays | FillInTheBlank | The `____` method is used to copy elements from one array to another. | System.arraycopy
-Java Arrays | FillInTheBlank | The `____` method returns the length of an array. | length
-Java Arrays | FillInTheBlank | An array's index starts at `____`. | 0
-Java Arrays | FillInTheBlank | The `____` method can be used to sort an array. | Arrays.sort
-Java Arrays | FillInTheBlank | Multidimensional arrays are also called `____` arrays. | nested
-Java Arrays | TrueFalse | Java supports arrays with more than one dimension. | true
-Java Arrays | TrueFalse | Arrays in Java are dynamic in size. | false
-Java Arrays | TrueFalse | Array indices can be negative. | false
-Java Arrays | TrueFalse | Arrays in Java can hold multiple data types. | false
-Java Arrays | TrueFalse | The `length` property is a method. | false
-Java Arrays | Mcq | What is the correct way to declare an array in Java? | b | a) int[] arr() | b) int[] arr | c) array int arr | d) int arr[]
-Java Arrays | Mcq | How do you access the last element of an array? | c | a) arr[0] | b) arr[length] | c) arr[arr.length - 1] | d) arr[-1]
-Java Arrays | Mcq | Which method is used to fill an array with a specific value? | a | a) Arrays.fill | b) Arrays.populate | c) Arrays.insert | d) Arrays.assign
-Java Arrays | Mcq | What happens if you try to access an index outside the array's bounds? | b | a) Array is resized | b) ArrayIndexOutOfBoundsException | c) Returns null | d) Compiles but throws no error
-Java Arrays | Mcq | What keyword is used to create an array? | c | a) newarray | b) create | c) new | d) array
+Arrays | FillInTheBlank | The `____` method is used to copy elements from one array to another. | System.arraycopy
+Arrays | FillInTheBlank | The `____` method returns the length of an array. | length
+Arrays | FillInTheBlank | An array's index starts at `____`. | 0
+Arrays | FillInTheBlank | The `____` method can be used to sort an array. | Arrays.sort
+Arrays | FillInTheBlank | Multidimensional arrays are also called `____` arrays. | nested
+Arrays | TrueFalse | Java supports arrays with more than one dimension. | true
+Arrays | TrueFalse | Arrays in Java are dynamic in size. | false
+Arrays | TrueFalse | Array indices can be negative. | false
+Arrays | TrueFalse | Arrays in Java can hold multiple data types. | false
+Arrays | TrueFalse | The `length` property is a method. | false
+Arrays | Mcq | What is the correct way to declare an array in Java? | b | a) int[] arr() | b) int[] arr | c) array int arr | d) int arr[]
+Arrays | Mcq | How do you access the last element of an array? | c | a) arr[0] | b) arr[length] | c) arr[arr.length - 1] | d) arr[-1]
+Arrays | Mcq | Which method is used to fill an array with a specific value? | a | a) Arrays.fill | b) Arrays.populate | c) Arrays.insert | d) Arrays.assign
+Arrays | Mcq | What happens if you try to access an index outside the array's bounds? | b | a) Array is resized | b) ArrayIndexOutOfBoundsException | c) Returns null | d) Compiles but throws no error
+Arrays | Mcq | What keyword is used to create an array? | c | a) newarray | b) create | c) new | d) array
 
-Java Methods | FillInTheBlank | A method with no return type uses the `____` keyword. | void
-Java Methods | FillInTheBlank | The `____` keyword indicates a method is accessible without an object. | static
-Java Methods | FillInTheBlank | Methods with the same name but different parameters demonstrate `____`. | overloading
-Java Methods | FillInTheBlank | The method signature includes the method name and `____`. | parameters
-Java Methods | FillInTheBlank | The `____` keyword can be used to refer to the current object within a method. | this
-Java Methods | TrueFalse | A method can return multiple values in Java. | false
-Java Methods | TrueFalse | Method overloading is determined by the return type. | false
-Java Methods | TrueFalse | Static methods can be overridden. | false
-Java Methods | TrueFalse | The `return` statement can be used in a `void` method. | true
-Java Methods | TrueFalse | Constructors are methods in Java. | false
-Java Methods | Mcq | What is a method in Java that does not return a value called? | d | a) null method | b) main method | c) constructor | d) void method
-Java Methods | Mcq | Which of the following is the correct way to define a method in Java? | a | a) public void myMethod() | b) method myMethod() | c) public myMethod() | d) void method()
-Java Methods | Mcq | What is the keyword to call the current class's method? | b | a) super | b) this | c) self | d) method
-Java Methods | Mcq | Which statement is used to exit a method? | d | a) end | b) stop | c) halt | d) return
-Java Methods | Mcq | Which of the following is used to indicate that a method has no parameters? | a | a) () | b) {} | c) <> | d) []
+Methods | FillInTheBlank | A method with no return type uses the `____` keyword. | void
+Methods | FillInTheBlank | The `____` keyword indicates a method is accessible without an object. | static
+Methods | FillInTheBlank | Methods with the same name but different parameters demonstrate `____`. | overloading
+Methods | FillInTheBlank | The method signature includes the method name and `____`. | parameters
+Methods | FillInTheBlank | The `____` keyword can be used to refer to the current object within a method. | this
+Methods | TrueFalse | A method can return multiple values in Java. | false
+Methods | TrueFalse | Method overloading is determined by the return type. | false
+Methods | TrueFalse | Static methods can be overridden. | false
+Methods | TrueFalse | The `return` statement can be used in a `void` method. | true
+Methods | TrueFalse | Constructors are methods in Java. | false
+Methods | Mcq | What is a method in Java that does not return a value called? | d | a) null method | b) main method | c) constructor | d) void method
+Methods | Mcq | Which of the following is the correct way to define a method in Java? | a | a) public void myMethod() | b) method myMethod() | c) public myMethod() | d) void method()
+Methods | Mcq | What is the keyword to call the current class's method? | b | a) super | b) this | c) self | d) method
+Methods | Mcq | Which statement is used to exit a method? | d | a) end | b) stop | c) halt | d) return
+Methods | Mcq | Which of the following is used to indicate that a method has no parameters? | a | a) () | b) {} | c) <> | d) []
 
-Java Classes/Objects | FillInTheBlank | A `____` is an instance of a class. | object
-Java Classes/Objects | FillInTheBlank | The `____` keyword is used to create an object. | new
-Java Classes/Objects | FillInTheBlank | Class attributes are often referred to as `____`. | fields
-Java Classes/Objects | FillInTheBlank | A constructor does not have a `____` type. | return
-Java Classes/Objects | FillInTheBlank | `____` are used to access attributes of a class. | methods
-Java Classes/Objects | TrueFalse | A Java class can extend multiple classes. | false
-Java Classes/Objects | TrueFalse | Each object has its own copy of class methods. | false
-Java Classes/Objects | TrueFalse | Constructors can be overloaded. | true
-Java Classes/Objects | TrueFalse | The keyword `this` is used to reference the current object. | true
-Java Classes/Objects | TrueFalse | A class can implement multiple interfaces. | true
-Java Classes/Objects | Mcq | Which keyword is used to create a new instance of a class? | b | a) instance | b) new | c) create | d) object
-Java Classes/Objects | Mcq | Which of these is not a type of class member? | d | a) Field | b) Method | c) Constructor | d) Interface
-Java Classes/Objects | Mcq | What does a constructor return? | d | a) Object | b) Null | c) Void | d) Nothing
-Java Classes/Objects | Mcq | What is a blueprint for creating objects called? | c | a) Method | b) Interface | c) Class | d) Object
-Java Classes/Objects | Mcq | Which keyword is used to inherit a class? | a | a) extends | b) implements | c) inherits | d) uses
+Classes | FillInTheBlank | A `____` is an instance of a class. | object
+Classes | FillInTheBlank | The `____` keyword is used to create an object. | new
+Classes | FillInTheBlank | Class attributes are often referred to as `____`. | fields
+Classes | FillInTheBlank | A constructor does not have a `____` type. | return
+Classes | FillInTheBlank | `____` are used to access attributes of a class. | methods
+Classes | TrueFalse | A Java class can extend multiple classes. | false
+Classes | TrueFalse | Each object has its own copy of class methods. | false
+Classes | TrueFalse | Constructors can be overloaded. | true
+Classes | TrueFalse | The keyword `this` is used to reference the current object. | true
+Classes | TrueFalse | A class can implement multiple interfaces. | true
+Classes | Mcq | Which keyword is used to create a new instance of a class? | b | a) instance | b) new | c) create | d) object
+Classes | Mcq | Which of these is not a type of class member? | d | a) Field | b) Method | c) Constructor | d) Interface
+Classes | Mcq | What does a constructor return? | d | a) Object | b) Null | c) Void | d) Nothing
+Classes | Mcq | What is a blueprint for creating objects called? | c | a) Method | b) Interface | c) Class | d) Object
+Classes | Mcq | Which keyword is used to inherit a class? | a | a) extends | b) implements | c) inherits | d) uses
 

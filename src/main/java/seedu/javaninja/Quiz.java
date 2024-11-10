@@ -62,6 +62,7 @@ public class Quiz {
             assert currentQuestion != null : "Current question must not be null";
 
             cli.printEnclosure();
+            cli.printMessage("Questions remaining: " + (questionLimit - currentQuestionIndex)); // Display remaining questions
             cli.printMessage(currentQuestion.getText());
 
             if (currentQuestion instanceof Mcq) {

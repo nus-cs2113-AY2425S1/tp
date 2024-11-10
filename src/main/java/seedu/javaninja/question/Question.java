@@ -1,6 +1,6 @@
 package seedu.javaninja.question;
 
-/**
+/*
  * Abstract class representing a question in a quiz. The question can be of different types such as
  * multiple-choice, true/false, or fill-in-the-blank.
  */
