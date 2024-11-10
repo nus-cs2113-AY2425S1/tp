@@ -102,7 +102,7 @@ Remarks:
 
 * `TIME` must be entered in the format `yyyy-mm-dd HH:mm`. 
   * There is no year 0000, no month 0 and no day 0 in the AD Calendar. Using such inputs will throw an error.
-  * Throws an error if the date-time inputted is from the past.
+  * Using date-time inputs from the past (before the current date-time) will throw an error.
 * `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
   * The values entered for `PRIORITY` are case-insensitive.
 * If the event list has an `Event` with the name `EVENT`, or the specified event has a `Participant` or `Item` with the name of the `Participant`/`Item` to be added, an indexed suffix is added to differentiate the different entries.
