@@ -130,12 +130,13 @@ public class ExpenseManager {
      */
     public void viewExpensesByCategory(TrackerData trackerData) {
         List<Expense> expenses = trackerData.getExpenses();
+        List<Category> categories = trackerData.getCategories();
 
-        if (expenses.isEmpty()) {
+        if (expenses.isEmpty() && categories.isEmpty()) {
             SuccessMessage.printNoExpense();
             return;
         }
-        SuccessMessage.printExpensesByCategory(expenses);
+        SuccessMessage.printExpensesByCategory(expenses, categories);
     }
 
     //@@author glenda-1506

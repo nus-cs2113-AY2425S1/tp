@@ -34,12 +34,14 @@ public class SuccessMessage {
         System.out.println(UI.SEPARATOR);
     }
 
-    public static void printExpensesByCategory(List<Expense> expenses) {
+    public static void printExpensesByCategory(List<Expense> expenses, List<Category> categories) {
         System.out.println(UI.SEPARATOR);
         System.out.println("Expenses grouped by categories:");
 
+        // Map to store expenses by category
         Map<Category, List<Integer>> expenseIndexesByCategory = new HashMap<>();
 
+        // Group expenses by category
         for (int i = 0; i < expenses.size(); i++) {
             Expense expense = expenses.get(i);
             Category category = expense.getCategory();
@@ -48,16 +50,20 @@ public class SuccessMessage {
             expenseIndexesByCategory.get(category).add(i);
         }
 
-        for (Category category : expenseIndexesByCategory.keySet()) {
+        // Display expenses for each category
+        for (Category category : categories) {
             System.out.println("Category: " + category);
             List<Integer> expenseIndexes = expenseIndexesByCategory.get(category);
 
-            for (Integer index : expenseIndexes) {
-                Expense expense = expenses.get(index);
-                System.out.println(" " + expense + " [" + (index + 1) + "] ");
+            if (expenseIndexes == null || expenseIndexes.isEmpty()) {
+                System.out.println(" No expense");
+            } else {
+                for (Integer index : expenseIndexes) {
+                    Expense expense = expenses.get(index);
+                    System.out.println(" " + expense + " [" + (index + 1) + "] ");
+                }
             }
         }
-        System.out.println(UI.SEPARATOR);
     }
 
     public static void printTaggedExpense(Expense expense) {
