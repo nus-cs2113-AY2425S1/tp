@@ -1,0 +1,17 @@
+{
+    "patients" : [ {
+      "name" : "John",
+      "taskList" : {
+        "tasks" : [ ],
+        "completionRate" : 1.0
+      },
+      "tag" : "No tag"
+    }, {
+      "name" : "John",
+      "taskList" : {
+        "tasks" : [ ],
+        "completionRate" : 1.0
+      },
+      "tag" : "No tag"
+    } ]
+  }

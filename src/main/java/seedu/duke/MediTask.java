@@ -6,12 +6,12 @@ import seedu.duke.commands.ExitCommand;
 import seedu.duke.commands.HospitalCommand;
 import seedu.duke.data.exception.UnknownStateFound;
 import seedu.duke.data.hospital.Hospital;
+import seedu.duke.data.logger.LoggerConfig;
 import seedu.duke.data.state.State;
 import seedu.duke.data.state.StateManager;
 import seedu.duke.parser.Parser;
 import seedu.duke.storage.StorageFile;
 import seedu.duke.ui.Ui;
-import seedu.duke.data.logger.LoggerConfig;
 
 /**
  * Entry point of the MediTask program is a task management application for
@@ -23,7 +23,7 @@ public class MediTask {
     /** Version info of the program. */
     public static final String VERSION = "MediTask - Version 2.0";
     private Ui ui;
-    private StorageFile storage;
+    private StorageFile<Hospital> storage;
     private Hospital hospital; // Load data from file
     private StateManager stageManager; // Manages the different states of the program
 
@@ -51,7 +51,7 @@ public class MediTask {
      */
     private void start() {
         ui = new Ui();
-        storage = new StorageFile();
+        storage = new StorageFile<>();
         stageManager = new StateManager(); // Initialize the stage manager
         ui.showWelcome();
         hospital = storage.load(); // Load data from file

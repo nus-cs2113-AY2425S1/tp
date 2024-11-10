@@ -42,7 +42,7 @@ public class StateManagerTest {
     @Test
     public void runMainStatePatientSelect_success() throws UnknownStateFound, InvalidCommandException {
         String filePath = "src/test/java/seedu/duke/data/hospital_data_load.json";
-        StorageFile storage = new StorageFile(filePath);
+        StorageFile<Hospital> storage = new StorageFile<>(filePath);
         StateManager stateManager = new StateManager();
         Command command;
         String commandInput = "select 1";
@@ -73,7 +73,7 @@ public class StateManagerTest {
     @Test
     public void runTaskStateNoPatient_success() throws UnknownStateFound, InvalidCommandException {
         String filePath = "src/test/java/seedu/duke/data/hospital_data_load.json";
-        StorageFile storage = new StorageFile(filePath);
+        StorageFile<Hospital> storage = new StorageFile<>(filePath);
         StateManager stateManager = new StateManager();
         stateManager.changeState(StateType.TASK_STATE);
         Command command;
@@ -94,7 +94,7 @@ public class StateManagerTest {
     public void runTaskStateWithPatient_success()
             throws UnknownStateFound, InvalidCommandException, PatientNotFoundException {
         String filePath = "src/test/java/seedu/duke/data/hospital_data_load.json";
-        StorageFile storage = new StorageFile(filePath);
+        StorageFile<Hospital> storage = new StorageFile<>(filePath);
         StateManager stateManager = new StateManager();
         stateManager.changeState(StateType.TASK_STATE);
         Command command;

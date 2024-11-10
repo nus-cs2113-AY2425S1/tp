@@ -49,7 +49,8 @@ The bulk of the CLI's work id done by the following components:
 - [**`StateManager`**](#state-manger): Manages the state logic of the application and keeps track of the current state of the application.
 - [**`Storage`**](#storage): Handles reading and writing data from and to the hard disk.
 - [**`Data`**](#data): Holds the data of the App in memory.
-- [**`Common`**](#common): Contains common classes used by other components.
+- [**`Common`**](#common-classes): Contains common classes used by other components.
+- [**`Logger`**](#logger-class): Handles logging of messages used by other components.
 
 ### UI
 
@@ -149,11 +150,16 @@ The following class diagram shows the structure of the `Storage` component:
 - **Error Handling**: `StorageFile` provide error handling for file I/O operations to prevent data loss and maintain data integrity in JSON format.
 - **Data Serialization**: The `Storage` component uses JSON serialization to save and load hospital data, ensuring data consistency and compatibility.
 - **Data Backup**: The `Storage` component includes a backup mechanism to safeguard critical data and provide a safety net for accidental deletions or corruption.
+- **Deserialization Checker**: The `Storage` component checks for duplicate patient names during deserialization to prevent unwanted behavior.
 
 
 ### Common Classes
 
 Classes that are used by multiple components are placed in the `Common` package.
+
+### Logger Class
+
+The `Logger` class is a utility class that provides logging functionality for the application. It is used to log messages at different levels of severity, such as `INFO`, `WARNING`, and `SEVERE`.
 
 ---
 
