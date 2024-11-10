@@ -90,6 +90,6 @@ public class CopyCommand extends Command {
         String name = participant.getName();
         String email = participant.getEmail();
 
-        return new Participant(name, email, isPresent);
+        return new Participant(name, email, false);
     }
 }
