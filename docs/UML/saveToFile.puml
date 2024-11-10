@@ -13,13 +13,13 @@ activate ":EasInternship" #green
 activate ":Storage" #orange
 ":Storage" -> ":InternshipList" : getAllInternships()
 activate ":InternshipList" #aquamarine
-":InternshipList" -> ":Storage" : List<":Internship">
+":InternshipList" --> ":Storage" : List<":Internship">
 deactivate ":InternshipList"
 
 loop for each ":Internship"
 ":Storage"-> ":Internship" : get each attribute
 activate ":Internship" #blue
-":Internship" -> ":Storage" : List<Deadline>
+":Internship" --> ":Storage" : List<Deadline>
 deactivate ":Internship"
     loop for each Deadline
         ":Storage" -> Deadline : get each attribute

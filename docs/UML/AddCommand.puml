@@ -1,5 +1,5 @@
 @startuml
-title ":AddCommand" Sequence Diagram
+title AddCommand Sequence Diagram
 hide footbox
 
 participant ":User"
@@ -37,7 +37,7 @@ alt invalid flags found
   activate ":uiCommand" #green
   deactivate ":uiCommand"
 else all required flags present
-  ":AddCommand" -> ":Internship": new ":Internship"(role, company, startDate, endDate)
+  ":AddCommand" -> ":Internship" **: new Internship(role, company, startDate, endDate)
   activate ":Internship" #blue
   ":AddCommand"-> ":InternshipList": addInternship(newInternship)
   activate ":InternshipList" #aquamarine
