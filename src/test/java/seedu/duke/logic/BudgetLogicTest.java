@@ -332,6 +332,9 @@ class BudgetLogicTest {
         budgetLogic.changeBalanceFromExpense(-900, LocalDate.now());
 
         assertEquals(-110, budget.getBalance());
+
+        String expectedOutput = "You have exceeded your monthly budget of: $ 1000.00!" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     /**

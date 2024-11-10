@@ -168,6 +168,9 @@ public class BudgetLogic {
         printBalanceAmount();
     }
 
+    /**
+     * Prints the current balance amount to the user interface.
+     */
     public void printBalanceAmount() {
         ui.displayBudgetBalanceMessage(budget.getBalance());
     }
