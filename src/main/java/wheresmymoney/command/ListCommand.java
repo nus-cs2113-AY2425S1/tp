@@ -74,7 +74,6 @@ public class ListCommand extends Command {
      * @param expensesToDisplay List of recurring expenses to be displayed
      * @param recurringExpenseList Main recurring expense list to retrieve expense indices
      * @throws WheresMyMoneyException
-
      */
     private void displayRecurringExpenses(ArrayList<RecurringExpense> expensesToDisplay,
             RecurringExpenseList recurringExpenseList) {

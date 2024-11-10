@@ -9,9 +9,6 @@ import wheresmymoney.Ui;
 import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-
-import java.util.HashMap;
-
 /**
  * @author shyaamald
  */
@@ -29,7 +26,7 @@ public class HelpCommand extends Command {
         Ui.displayMessage("Take note that any word in SCREAMING_SNAKE_CASE is a parameter.");
         Ui.displayMessage("Square brackets [...] indicate optional parameters. Refer to the " +
                 "specifications for each command.");
-        Ui.displayMessage("Type help [/method METHOD] for deatils on specific commands");
+        Ui.displayMessage("Type help [/method METHOD] for details on specific commands");
         Ui.displayMessage("");
     }
 
