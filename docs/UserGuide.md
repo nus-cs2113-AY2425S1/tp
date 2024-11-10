@@ -36,13 +36,29 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 ## Features 
 
-> NOTE: Your stored course mapping is located in the `myList.json` file, found in the `data` folder at the same file path where you executed the JAR file.
+> **NOTE:** Your stored course mapping is located in the `myList.json` file, found in the `data` folder at the 
+> same file path where you executed the JAR file. `myList.json` would only be created after the 
+> first execution of the JAR file.
+>
+> **NOTE:** Ensure that all the commands given are placed in **one line**. 
+> Do not separate the command into multiple lines in the terminal.
 > 
-> NOTE:  Do not corrupt the `myList.json` file when executing the program! If you corrupted the file, please revert back to its original state before continuing with the program. 
+> **NOTE:** For all command flags, ensure that your input is placed a single space after the flag.
 > 
-> NOTE: Ensure that all the commands given are placed in one line. Do not separate the command into multiple lines in the terminal.
-
- 
+> **NOTE:** If the file is **corrupted**, please restore it to its **original state** before proceeding with the program.
+> 
+>You may try one of the following:
+>- Remove the corrupted line (delete one course mapping),
+>- Remove any empty lines in the file.
+>
+> **This list is non-exhaustive.**
+> 
+> **TIP:** You may use the partner universities' **official abbreviation** instead of typing the full name into the CLI, 
+> as shown in the chart below:
+> - The University of Melbourne - unimelb
+> - The Australian National University - anu
+> - Victoria University of Wellington - wgtn
+> - The University of Western Australia - uwa
 
 ### List all commands: `commands`
 Displays a list of all available commands, along with a brief description of each.
@@ -230,72 +246,6 @@ Expected output:
 
 ![Add Courses Lowercase Output](images/AddCoursesCommandNormalCaseScreenshot.png)
 
-Example of usage (invalid university):
-
-`add CS3244 /pu Australian National University /coursepu COMP3670`
-
-Expected output:
-
-```
------------------------------------------------------
-The relevant universities are (non-case sensitive):
-1. The University of Melbourne
-2.The Australian National University
-3. Victoria University of Wellington
-4.The University of Western Australia
-
-NOTE: Please indicate the partner universities FULL NAME!
-EXAMPLE: Instead of "VUW" please indicate "Victoria University of Wellington".
------------------------------------------------------
-Invalid university input!
-```
-
-Example of usage (invalid course mapping):
-
-`add cs2100 /pu the university of melbourne /coursepu info20003`
-
-Expected output: 
-```
-Invalid course mapping!
-The available mappings for the university of melbourne are:
------------------------------------------------------
-cs3241 computer graphics | comp30019 graphics and interaction
-
-cs3240 interaction design | info10003 fundamentals of interaction design
-
-cs4246 ai planning and decision making | comp90054 ai planning for autonomy
-
-cs2107 introduction to information security | comp30006 information security and privacy
-
-cs3244 machine learning | comp30027 machine learning
-
-cs3243 introduction to artificial intelligence | comp30024 artificial intelligence
-
-cs3235 computer security | comp90043 cryptography and security
-
-cs2102 database systems | info20003 database systems
-
-cs2105 introduction to computer networks | comp90007 internet technologies
-
-cs3230 design and analysis of algorithms | comp90038 algorithms and complexity
-
-cs4269 fundamentals of logic in computer science | comp90038 algorithms and complexity
-
-cs3223 database systems implementation | comp90050 advanced database systems
-
-cs3223 database systems implementation | comp90050 advanced database systems
-
-cs5224 cloud computing | comp90024 cluster and cloud computing
-
-cs5224 cloud computing | comp90024 cluster and cloud computing
-
-cs4211 formal methods for software engineering | swen90016 software processes and management
-
-cs4243 computer vision and pattern recognition | comp90086 computer vision
-
------------------------------------------------------
-Please add a new course mapping!
-```
 
 ### Delete course mapping plans from Personal Tracker: `delete`
 Delete a course mapping plan that was initially saved into the Personal Tracker.
