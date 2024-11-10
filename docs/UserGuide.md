@@ -8,9 +8,9 @@
   - [Update Command: `update`](#update-command-update)
   - [Remove Command: `remove`](#remove-command-remove)
   - [List Command: `list`](#list-command-list)
-  - [Sort Command: `sort`](#sort-command-sort)
-  - [Filter Command: `filter`](#filter-command-filter)
   - [Favourite Command: `favourite`](#favourite-command-favourite)
+  - [Filter Command: `filter`](#filter-command-filter)
+  - [Sort Command: `sort`](#sort-command-sort)
   - [Delete Command: `delete`](#delete-command-delete)
   - [Calendar Command: `calendar`](#calendar-command-calendar)
   - [Help Command: `help`](#help-command-help)
@@ -267,10 +267,282 @@ __________________________________________________
 __________________________________________________
 ```
 
+## Favourite Command: `favourite`
+
+This feature allows the user to mark certain internships as a Favourite. The user can input any number of ID's in a single command to mark them all as favourites.
+
+The functionality to remove a command's favourite status will be implemented in v2.1.
+
+**Format:** `favourite {Internship ID}`
+
+**Example:**
+
+`list`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: Data Scientist
+Company: Meta
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 04/24 to 07/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`favourite 1`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+
+
+__________________________________________________
+__________________________________________________
+The list of favourite internships have been displayed above
+__________________________________________________
+__________________________________________________
+```
+
+`favourite 2, 3`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: Data Scientist
+Company: Meta
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 04/24 to 07/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+
+
+__________________________________________________
+__________________________________________________
+The list of favourite internships have been displayed above
+__________________________________________________
+__________________________________________________
+
+```
+
+## Filter command: `filter`
+
+This feature allows the user to specify certain values for any of the role name, company name, internship duration parameters and/or favourite status based on which only the relevant internships are shown. 
+
+This feature allows users to filter by multiple flags simultaneously.
+
+The role and company name parameters are case-insensitive. 
+
+For the duration parameter, this feature displays all relevant internships whose start dates and end dates are within the duration timeline specified by the user. If the start and/or end dates with which to filter, are not explicitly specified by the user, they take on the default values of 01/01 and 12/99 respectively.
+
+For the favourite parameter, the user has to enter a boolean `true` or `false` (case-insensitive) to specify if they only want internships which have been marked as a favourite or if they only want internships which have not been marked as a favourite. In the default scenario where no `-favourite` flag is given, all internships are considered regardless of their favourite status.
+
+Users will be able to filter the internships by application statuses and deadlines as well in v2.1.
+
+**Format:** `filter -{field} {value}`
+
+Valid fields:
+- `role`: Provide the role name
+- `company`: Provide the company name
+- `from`: Provide the start date of the internship
+- `to`: Provide the end date of the internship
+- `favourite`: Provide the favourite status of the internship
+
+**Examples:**
+
+`list`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: Data Scientist
+Company: Meta
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 04/24 to 07/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+`filter -role software engineer`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`filter -company Meta`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: Data Scientist
+Company: Meta
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`filter -from 10/23 -to 07/24`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 04/24 to 07/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`filter -role Data Scientist -to 06/24`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`filter -favourite true`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 04/24 to 07/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`filter -favourite false`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: Data Scientist
+Company: Meta
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
 
 ## Sort Command: `sort`
 
-Lists out all the Internships sorted by a specified field. The default list in increasing order of their IDs.
+Lists out all the Internships / Internships in favourite, sorted by a specified field. The default list in increasing order of their IDs and it can only sort by exactly one field in each time.
 
 Valid Fields:
 - `role`
@@ -278,6 +550,11 @@ Valid Fields:
 - `skills`
 - `status`
 - `deadline`
+- `role in favourite`
+- `duration in favourite`
+- `skills in favourite`
+- `status in favourite`
+- `deadline in favourite`
 
 The fields are not case-sensitive.
 
@@ -531,278 +808,6 @@ __________________________________________________
 __________________________________________________
 ```
 
-## Filter command: `filter`
-
-This feature allows the user to specify certain values for any of the role name, company name, internship duration parameters and/or favourite status based on which only the relevant internships are shown. 
-
-This feature allows users to filter by multiple flags simultaneously.
-
-The role and company name parameters are case-insensitive. 
-
-For the duration parameter, this feature displays all relevant internships whose start dates and end dates are within the duration timeline specified by the user. If the start and/or end dates with which to filter, are not explicitly specified by the user, they take on the default values of 01/01 and 12/99 respectively.
-
-For the favourite parameter, the user has to enter a boolean `true` or `false` (case-insensitive) to specify if they only want internships which have been marked as a favourite or if they only want internships which have not been marked as a favourite. In the default scenario where no `-favourite` flag is given, all internships are considered regardless of their favourite status.
-
-Users will be able to filter the internships by application statuses and deadlines as well in v2.1.
-
-**Format:** `filter -{field} {value}`
-
-Valid fields:
-- `role`: Provide the role name
-- `company`: Provide the company name
-- `from`: Provide the start date of the internship
-- `to`: Provide the end date of the internship
-- `favourite`: Provide the favourite status of the internship
-
-**Examples:**
-
-`list`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 1	Status: Application Pending
-Role: Software Engineer
-Company: Meta
-Duration: 01/24 to 09/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-ID: 2	Status: Application Pending
-Role: Data Scientist
-Company: Meta
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-ID: 3	Status: Application Pending
-Role: Data Scientist
-Company: Google
-Duration: 04/24 to 07/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
-`filter -role software engineer`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 1	Status: Application Pending
-Role: Software Engineer
-Company: Meta
-Duration: 01/24 to 09/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
-
-`filter -company Meta`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 1	Status: Application Pending
-Role: Software Engineer
-Company: Meta
-Duration: 01/24 to 09/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-ID: 2	Status: Application Pending
-Role: Data Scientist
-Company: Meta
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
-
-`filter -from 10/23 -to 07/24`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 3	Status: Application Pending
-Role: Data Scientist
-Company: Google
-Duration: 04/24 to 07/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
-
-`filter -role Data Scientist -to 06/24`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 3	Status: Application Pending
-Role: Data Scientist
-Company: Google
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
-
-`filter -favourite true`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 1	Status: Application Pending
-Role: Software Engineer
-Company: Meta
-Duration: 01/24 to 09/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-ID: 3	Status: Application Pending
-Role: Data Scientist
-Company: Google
-Duration: 04/24 to 07/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
-
-`filter -favourite false`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 2	Status: Application Pending
-Role: Data Scientist
-Company: Meta
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
-
-## Favourite Command: `favourite`
-
-This feature allows the user to mark certain internships as a Favourite. The user can input any number of ID's in a single command to mark them all as favourites. 
-
-The functionality to remove a command's favourite status will be implemented in v2.1.
-
-**Format:** `favourite {Internship ID}`
-
-**Example:**
-
-`list`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 1	Status: Application Pending
-Role: Software Engineer
-Company: Meta
-Duration: 01/24 to 09/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-ID: 2	Status: Application Pending
-Role: Data Scientist
-Company: Meta
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-ID: 3	Status: Application Pending
-Role: Data Scientist
-Company: Google
-Duration: 04/24 to 07/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
-
-`favourite 1`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 1	Status: Application Pending
-Role: Software Engineer
-Company: Meta
-Duration: 01/24 to 09/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-
-
-__________________________________________________
-__________________________________________________
-The list of favourite internships have been displayed above
-__________________________________________________
-__________________________________________________
-```
-
-`favourite 2, 3`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 1	Status: Application Pending
-Role: Software Engineer
-Company: Meta
-Duration: 01/24 to 09/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-ID: 2	Status: Application Pending
-Role: Data Scientist
-Company: Meta
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-ID: 3	Status: Application Pending
-Role: Data Scientist
-Company: Google
-Duration: 04/24 to 07/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-
-
-__________________________________________________
-__________________________________________________
-The list of favourite internships have been displayed above
-__________________________________________________
-__________________________________________________
-
-```
 ## Delete Command: `delete`
 
 This feature removes an entire listing from the tracker.
