@@ -6,7 +6,6 @@ participant ":EasInternship"
 participant ":Storage"
 participant ":InternshipList"
 participant ":Internship"
-participant ":FileReader"
 
 ":User"->":EasInternship": start program
 activate ":EasInternship" #green
@@ -14,9 +13,6 @@ activate ":EasInternship" #green
 activate ":InternshipList" #aquamarine
 ":EasInternship"->":Storage": loadFromFile(internshipList)
 activate ":Storage" #orange
-":Storage"->":FileReader" :read(file)
-activate ":FileReader" #red
-":FileReader"-> ":Storage": data lines
 
 loop for each line in file
     ":Storage"-> ":Internship" : new ":Internship"(role, company, startDate, endDate)
@@ -36,7 +32,6 @@ loop for each line in file
 
         ":Internship" -> ":Deadline" : addDeadline(deadline)
 end
-deactivate ":FileReader"
 deactivate ":Storage"
 @enduml
 

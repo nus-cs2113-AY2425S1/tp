@@ -6,7 +6,6 @@ participant ":EasInternship"
 participant ":Storage"
 participant ":InternshipList"
 participant ":Internship"
-participant ":FileWriter"
 
 ":User" -> ":EasInternship": exit program
 activate ":EasInternship" #green
@@ -29,8 +28,5 @@ deactivate ":Internship"
     end
 end
 
-":Storage" -> ":FileWriter" : write(internship data)
-activate ":FileWriter" #red
-deactivate ":FileWriter"
 deactivate ":Storage"
 @enduml
