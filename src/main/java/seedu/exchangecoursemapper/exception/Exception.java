@@ -45,7 +45,7 @@ public class Exception extends Throwable {
     public static String invalidNusCourseCodeFormat() {
         return "Please follow this format for the NUS SoC course code input (not case-sensitive):\n" +
                 "CS/EE/BT/IS followed by a 4-digit sequence e.g CS3241" +
-                "Some courses may end with a character too e.g. EE3131C";
+                "Some courses may end with a character too e.g. CS1010J";
     }
 
     public static String invalidCommand() {
