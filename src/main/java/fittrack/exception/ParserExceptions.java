@@ -43,7 +43,7 @@ public class ParserExceptions extends RuntimeException {
         if (!(gender.equals(MALE_GENDER) || gender.equals(FEMALE_GENDER))) {
             throw new IllegalArgumentException(INVALID_USER_INFO_MESSAGE);
         }
-        if (Integer.parseInt(age) < 12 || Integer.parseInt(age) > 24) {
+        if (stringToValidInteger(age) < 12 || stringToValidInteger(age) > 24) {
             throw new IllegalArgumentException(INVALID_USER_INFO_MESSAGE);
         }
         return new User(gender, age);
@@ -86,7 +86,7 @@ public class ParserExceptions extends RuntimeException {
         }
 
         int sessionIndex = stringToValidInteger(editDetails[0]) - 1;
-        String exerciseAcronym = editDetails[1].trim();
+        String exerciseAcronym = editDetails[1].trim().toUpperCase();
         String exerciseData = editDetails[2].trim();
 
         if (sessionIndex < 0 || sessionIndex >= sessionListSize) {

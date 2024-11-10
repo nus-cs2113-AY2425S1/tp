@@ -50,12 +50,12 @@ import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.messages.Messages.SET_USER_COMMAND;
 import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
 import static fittrack.storage.Storage.updateSaveFile;
-import static fittrack.ui.Ui.beginSegment;
 import static fittrack.ui.Ui.printAddedReminder;
 import static fittrack.ui.Ui.printAddedSession;
 import static fittrack.ui.Ui.printDeletedReminder;
 import static fittrack.ui.Ui.printDeletedSession;
 import static fittrack.ui.Ui.printHelp;
+import static fittrack.ui.Ui.printInvalidListCommandMessage;
 import static fittrack.ui.Ui.printPerformanceGraph;
 import static fittrack.ui.Ui.printPointGraph;
 import static fittrack.ui.Ui.printReminderList;
@@ -148,7 +148,6 @@ public class Parser {
             try {
                 sessionList.add(validSession(description, user));
                 int sessionIndex = sessionList.size() - 1;
-                String sessionDescription = sessionList.get(sessionIndex).getSessionDescription();
                 printAddedSession(sessionList, sessionIndex);
                 updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             } catch (Exception e) {
@@ -159,9 +158,8 @@ public class Parser {
             try {
                 String[] userInput = validEditDetails(description,sessionList.size());
                 int sessionIndex = Integer.parseInt(userInput[0]) - 1;
-                String exerciseAcronym = userInput[1];
-                String exerciseData = userInput[2];
-
+                String exerciseAcronym = userInput[1].trim().toUpperCase();
+                String exerciseData = userInput[2].trim();
                 sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);
                 printSessionView(sessionList, sessionIndex);
                 updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
@@ -170,7 +168,11 @@ public class Parser {
             }
             break;
         case LIST_SESSIONS_COMMAND:
-            printSessionList(sessionList); // Print the list of sessions
+            if(description.isEmpty()) {
+                printSessionList(sessionList); // Print the list of sessions
+                break;
+            }
+            printInvalidListCommandMessage();
             break;
         case VIEW_SESSION_COMMAND:
             try {
@@ -240,7 +242,6 @@ public class Parser {
             printReminderList(reminderList);
             break;
         case LIST_UPCOMING_REMINDER_COMMAND:
-            beginSegment();
             printUpcomingReminders(reminderList);
             break;
 

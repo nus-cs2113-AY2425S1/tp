@@ -111,6 +111,8 @@ public class Messages {
     public static final String INVALID_STANDING_BROAD_JUMP_DISTANCE_MESSAGE = "Invalid Standing Broad Jump distance: ";
     public static final String INVALID_WALK_AND_RUN_TIMING_MESSAGE = "Invalid Walk and Run timing: ";
     public static final String INVALID_DATE_FORMAT_MESSAGE = "Invalid date format.";
+    public static final String INVALID_LIST_COMMAND_MESSAGE = "Invalid List Command: Please input '"
+            + LIST_SESSIONS_COMMAND + "' only.";
 
     public static final String EXAMPLE_PULL_UP_REPETITIONS_FORMAT = "Example format: 1 PU 30";
     public static final String EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT = "Example format: 1 SR 10.0";
