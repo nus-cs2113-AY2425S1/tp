@@ -22,7 +22,8 @@ import static seedu.exchangecoursemapper.constants.Assertions.EMPTY_JSON_OBJECT_
 public class CourseValidator {
 
     private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
-    private UI ui = new UI();
+
+    private UI ui = new UI();;
 
     /**
      * Returns true if the user's course mapping is valid; otherwise, returns false.
@@ -50,6 +51,7 @@ public class CourseValidator {
             JsonObject course = courses.getJsonObject(i);
             String puCourseCode = course.getString(PU_COURSE_CODE_KEY).toLowerCase();
             String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY).toLowerCase();
+            //System.out.println(puCourseCode + " " + nusCourseCode);
 
             if (puCourseCode.equals(puCourseInput.toLowerCase())
                     && nusCourseCode.equals(nusCourseInput.toLowerCase())) {

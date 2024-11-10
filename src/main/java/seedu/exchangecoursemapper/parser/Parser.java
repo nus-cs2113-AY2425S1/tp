@@ -52,6 +52,10 @@ public class Parser {
 
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
+    static {
+        logger.setLevel(Level.SEVERE);
+    }
+
     private final Scanner scanner = new Scanner(System.in);
 
     private final UI mapperUI = new UI();
