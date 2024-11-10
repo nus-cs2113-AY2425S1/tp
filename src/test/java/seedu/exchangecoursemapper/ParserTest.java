@@ -53,7 +53,6 @@ class ParserTest {
         System.setIn(System.in);
     }
 
-
     @Test
     void testProcessUserInput_listSchoolCommand() {
         assertDoesNotThrow(() -> parser.processUserInput(LISTING_SCHOOLS, tempStorage));
@@ -129,5 +128,58 @@ class ParserTest {
     @Test
     void testProcessUserInput_emptyStringInput() {
         assertDoesNotThrow(() -> parser.processUserInput("", tempStorage));
+    }
+
+
+    @Test
+    void testParsePUAbbreviations_validAbbreviation() {
+        String abbreviation = "uwa";
+        String expected = "The University of Western Australia";
+        String result = parser.parsePUAbbreviations(abbreviation);
+        assertEquals(expected, result);
+
+        abbreviation = "unimelb";
+        expected = "The University of Melbourne";
+        result = parser.parsePUAbbreviations(abbreviation);
+        assertEquals(expected, result);
+
+        abbreviation = "anu";
+        expected = "The Australian National University";
+        result = parser.parsePUAbbreviations(abbreviation);
+        assertEquals(expected, result);
+
+        abbreviation = "wgtn";
+        expected = "Victoria University of Wellington";
+        result = parser.parsePUAbbreviations(abbreviation);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void testParsePUAbbreviations_invalidAbbreviation() {
+        String abbreviation = "xyz";
+        String expected = "xyz";
+        String result = parser.parsePUAbbreviations(abbreviation);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void testParsePUAbbreviations_caseInsensitive() {
+        String abbreviation = "UWA";
+        String expected = "The University of Western Australia";
+        String result = parser.parsePUAbbreviations(abbreviation);
+        assertEquals(expected, result);
+
+        abbreviation = "Unimelb";
+        expected = "The University of Melbourne";
+        result = parser.parsePUAbbreviations(abbreviation);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void testParsePUAbbreviations_blankInput() {
+        String abbreviation = "";
+        String expected = "";
+        String result = parser.parsePUAbbreviations(abbreviation);
+        assertEquals(expected, result);
     }
 }

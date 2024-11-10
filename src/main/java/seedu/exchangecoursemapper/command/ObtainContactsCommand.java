@@ -26,7 +26,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
      * Class Constructor
      */
     public ObtainContactsCommand() {
-        logger.setLevel(Level.WARNING);
+        logger.setLevel(Level.OFF);
         ui = new UI();
         schoolContactValidator = new SchoolContactValidator();
     }
@@ -116,7 +116,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         }
     }
 
-    private static void contactTypeIdentifier(JsonObject schoolInfo, String schoolName, String contactType) {
+    public static void contactTypeIdentifier(JsonObject schoolInfo, String schoolName, String contactType) {
         switch (contactType) {
         case EMAIL_KEY:
             String email = schoolInfo.getString(EMAIL_KEY);
@@ -158,7 +158,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         return schoolName;
     }
 
-    private static String getSchoolName(JsonObject jsonObject, String schoolName) {
+    public static String getSchoolName(JsonObject jsonObject, String schoolName) {
         for (String key : jsonObject.keySet()) {
             if (key.toLowerCase().equals(schoolName.toLowerCase())) {
                 return key;
