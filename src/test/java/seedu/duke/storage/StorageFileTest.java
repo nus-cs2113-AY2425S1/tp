@@ -54,13 +54,13 @@ public class StorageFileTest {
 
     @Test
     public void checkDefaultFilePath_success() {
-        StorageFile storage = new StorageFile();
+        StorageFile<Hospital> storage = new StorageFile<>();
         assertEquals("data/hospital_data.json", storage.getFilePath());
     }
 
     @Test
     public void checkDefaultFilePathString_success() {
-        StorageFile storage = new StorageFile();
+        StorageFile<Hospital> storage = new StorageFile<>();
         assertEquals("File Path: " + "data/hospital_data.json", storage.toString());
     }
 
@@ -70,7 +70,7 @@ public class StorageFileTest {
         File file = new File(filePathNotFound);
         assertTrue(!file.exists());
 
-        StorageFile storage = new StorageFile(filePathNotFound);
+        StorageFile<Hospital> storage = new StorageFile<>(filePathNotFound);
 
         assertTrue(file.exists());
         file.delete();
@@ -78,14 +78,14 @@ public class StorageFileTest {
 
     @Test
     public void checkFileFound_success() {
-        StorageFile storage = new StorageFile(filePath);
+        StorageFile<Hospital> storage = new StorageFile<>(filePath);
         File file = new File(filePath);
         assertTrue(file.exists());
     }
 
     @Test
     public void loadFromFile_success() throws TaskNotFoundException, PatientNotFoundException {
-        StorageFile storage = new StorageFile(filePath);
+        StorageFile<Hospital> storage = new StorageFile<>(filePath);
         Hospital loadHospital = storage.load();
 
         assertEquals("Alice", loadHospital.getPatient(0).getName());
@@ -100,7 +100,7 @@ public class StorageFileTest {
     @Test
     public void saveToFile_success() throws StorageOperationException {
         String pathToSave = "src/test/java/seedu/duke/data/hospital_data_save.json";
-        StorageFile storage = new StorageFile(pathToSave);
+        StorageFile<Hospital> storage = new StorageFile<>(pathToSave);
 
         File file = new File(pathToSave);
         // check if file exists
@@ -131,6 +131,15 @@ public class StorageFileTest {
         if (file.exists()) {
             file.delete();
         }
+    }
+
+    @Test
+    public void duplicatePatient_success() {
+        String filePath = "src/test/java/seedu/duke/data/hospital_data_duplicates.json";
+        StorageFile<Hospital> storage = new StorageFile<>(filePath);
+        Hospital loadHospital = storage.load();
+
+        assertEquals(1, loadHospital.getPatients().size());
     }
 
 }
