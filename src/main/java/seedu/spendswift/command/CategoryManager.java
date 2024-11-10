@@ -9,25 +9,38 @@ import seedu.spendswift.parser.InputParser;
 import java.util.List;
 
 public class CategoryManager {
-    public static void addCategory(TrackerData trackerData, String categoryName) {
+    public static void addCategoryHelper(TrackerData trackerData, String categoryName) {
         List<Category> categories = trackerData.getCategories();
-        String trimmedCategoryName = categoryName.substring("add category".length()).trim();
-        if (trimmedCategoryName.isEmpty()) {
+
+        if (categoryName.isEmpty()) {
             ErrorMessage.printMissingCategory();
             return;
         }
 
-        String formattedCategoryName = Format.formatInput(trimmedCategoryName.trim());
+        String formattedCategoryName = Format.formatInput(categoryName);
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
                 SuccessMessage.printExistingCategory(formattedCategoryName);
                 return;
             }
         }
+
         Category newCategory = new Category(formattedCategoryName);
         categories.add(newCategory);
         trackerData.setCategories(categories);
         SuccessMessage.printAddCategory(newCategory);
+    }
+
+    public static void addCategory(String input, TrackerData trackerData) {
+        InputParser parser = new InputParser();
+        String categoryName = parser.parseCategory(input);
+
+        if (categoryName == null || categoryName.isEmpty()) {
+            ErrorMessage.printExpensesManagerEmptyCategory();
+            return;
+        }
+
+        addCategoryHelper(trackerData, categoryName);
     }
 
     public static void viewAllCategories(TrackerData trackerData) {
@@ -44,7 +57,7 @@ public class CategoryManager {
         }
     }
 
-    private void deleteCategoryHelper(TrackerData trackerData, String categoryName) {
+    private static void deleteCategoryHelper(TrackerData trackerData, String categoryName) {
         List<Category> categories = trackerData.getCategories();
         List<Expense> expenses = trackerData.getExpenses();
         boolean hasTaggedExpenses = false;
@@ -80,7 +93,7 @@ public class CategoryManager {
     }
 
 
-    public static void deleteCategory(String input, TrackerData trackerData, CategoryManager categoryManager) {
+    public static void deleteCategory(String input, TrackerData trackerData) {
         InputParser parser = new InputParser();
         String categoryName = parser.parseCategory(input);
 
@@ -89,7 +102,7 @@ public class CategoryManager {
             return;
         }
 
-        categoryManager.deleteCategoryHelper(trackerData, categoryName);
+        deleteCategoryHelper(trackerData, categoryName);
     }
 }
 

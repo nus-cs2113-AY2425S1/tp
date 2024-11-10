@@ -41,12 +41,12 @@ public class Parser {
         } else if (input.startsWith("view-budget")) {
             budgetManager.viewBudget(trackerData);
         } else if (input.startsWith("add-category")) {
-            CategoryManager.addCategory(trackerData, input);
+            CategoryManager.addCategory(input, trackerData);
             storage.savedData(trackerData, storage, ui);
         } else if (input.startsWith("view-category")) {
             CategoryManager.viewAllCategories(trackerData);
         } else if (input.startsWith("delete-category")) {
-            CategoryManager.deleteCategory(input, trackerData, categoryManager);
+            CategoryManager.deleteCategory(input, trackerData);
             storage.savedData(trackerData, storage, ui);
         } else if (input.startsWith("set-budget")) {
             budgetManager.setBudgetLimitRequest(input, budgetManager, trackerData);
