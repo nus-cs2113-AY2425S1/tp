@@ -89,7 +89,6 @@ public class CopyCommand extends Command {
     private Participant copyParticipant(Participant participant) {
         String name = participant.getName();
         String email = participant.getEmail();
-        boolean isPresent = participant.isPresent();
 
         return new Participant(name, email, isPresent);
     }

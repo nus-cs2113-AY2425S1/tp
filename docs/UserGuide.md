@@ -202,6 +202,7 @@ Copies the participant list from one event to another event.
 Format: `copy FROM_EVENT > TO_EVENT`
 
 * Both events must already exist.
+* The mark status of the `Participant`s in the copy participant list will be reset (i.e. set as absent).
 * If the event `TO_EVENT` already has an existing participant list, `TO_EVENT`'s participant list will be overwritten.
 
 Examples:
