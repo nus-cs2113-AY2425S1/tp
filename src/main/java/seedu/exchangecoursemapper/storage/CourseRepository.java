@@ -17,7 +17,7 @@ public class CourseRepository {
 
     public static final String MYLIST_FILE_PATH = "./data/myList.json";
     private static final Logger logger = Logger.getLogger(CourseRepository.class.getName());
-    
+
     static {
         logger.setLevel(Level.SEVERE);
     }

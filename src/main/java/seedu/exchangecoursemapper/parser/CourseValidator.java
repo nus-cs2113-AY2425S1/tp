@@ -23,6 +23,10 @@ public class CourseValidator {
 
     private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
 
+    static {
+        logger.setLevel(Level.SEVERE);
+    }
+
     private UI ui = new UI();;
 
     /**
