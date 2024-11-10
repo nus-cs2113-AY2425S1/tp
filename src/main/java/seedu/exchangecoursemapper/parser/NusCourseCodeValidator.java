@@ -1,6 +1,7 @@
 package seedu.exchangecoursemapper.parser;
 
 import static seedu.exchangecoursemapper.constants.Commands.NUS_COURSE_CODE_LENGTH;
+import static seedu.exchangecoursemapper.constants.Commands.NUS_SPECIAL_COURSE_CODE_LENGTH;
 import static seedu.exchangecoursemapper.constants.Commands.NUS_COURSE_CODE_NUMERALS_START_INDEX;
 
 /**
@@ -27,9 +28,11 @@ public class NusCourseCodeValidator {
      */
     public static boolean isValidNusCourseCodeFormat(String nusCourseCode) {
         try {
-            String substring = nusCourseCode.substring(NUS_COURSE_CODE_NUMERALS_START_INDEX, NUS_COURSE_CODE_LENGTH);
-            Integer.parseInt(substring);
-            return nusCourseCode.length() == NUS_COURSE_CODE_LENGTH;
+            String courseCodeDigits =
+                    nusCourseCode.substring(NUS_COURSE_CODE_NUMERALS_START_INDEX, NUS_COURSE_CODE_LENGTH);
+            Integer.parseInt(courseCodeDigits);
+            return nusCourseCode.length() == NUS_COURSE_CODE_LENGTH ||
+                    nusCourseCode.length() == NUS_SPECIAL_COURSE_CODE_LENGTH;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return false;
         }
