@@ -4,29 +4,43 @@ package seedu.spendswift.command;
 import seedu.spendswift.ErrorMessage;
 import seedu.spendswift.Format;
 import seedu.spendswift.SuccessMessage;
+import seedu.spendswift.parser.InputParser;
 
 import java.util.List;
 
 public class CategoryManager {
-    public static void addCategory(TrackerData trackerData, String categoryName) {
+    public static void addCategoryHelper(TrackerData trackerData, String categoryName) {
         List<Category> categories = trackerData.getCategories();
-        String trimmedCategoryName = categoryName.substring("add category".length()).trim();
-        if (trimmedCategoryName.isEmpty()) {
+
+        if (categoryName.isEmpty()) {
             ErrorMessage.printMissingCategory();
             return;
         }
 
-        String formattedCategoryName = Format.formatInput(trimmedCategoryName.trim());
+        String formattedCategoryName = Format.formatInput(categoryName);
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
                 SuccessMessage.printExistingCategory(formattedCategoryName);
                 return;
             }
         }
+
         Category newCategory = new Category(formattedCategoryName);
         categories.add(newCategory);
         trackerData.setCategories(categories);
         SuccessMessage.printAddCategory(newCategory);
+    }
+
+    public static void addCategory(String input, TrackerData trackerData) {
+        InputParser parser = new InputParser();
+        String categoryName = parser.parseCategory(input);
+
+        if (categoryName == null || categoryName.isEmpty()) {
+            ErrorMessage.printExpensesManagerEmptyCategory();
+            return;
+        }
+
+        addCategoryHelper(trackerData, categoryName);
     }
 
     public static void viewAllCategories(TrackerData trackerData) {
@@ -41,6 +55,56 @@ public class CategoryManager {
                 index++;
             }
         }
+    }
+
+    private static void deleteCategoryHelper(TrackerData trackerData, String categoryName) {
+        List<Category> categories = trackerData.getCategories();
+        List<Expense> expenses = trackerData.getExpenses();
+        boolean hasTaggedExpenses = false;
+
+        Category categoryToDelete = null;
+        for (Category category : categories) {
+            if (category.getName().equalsIgnoreCase(categoryName)) {
+                categoryToDelete = category;
+                break;
+            }
+        }
+
+        if (categoryToDelete == null) {
+            System.out.println("Category \"" + categoryName + "\" does not exist.");
+            return;
+        }
+
+        for (Expense expense : expenses) {
+            if (expense.getCategory() != null && expense.getCategory().equals(categoryToDelete)) {
+                hasTaggedExpenses = true;
+                break;
+            }
+        }
+
+        if (hasTaggedExpenses) {
+            System.out.println("Category \"" + categoryName +
+                    "\" cannot be deleted because some expenses are tagged to it.");
+            System.out.println("Please delete those expenses or re-tag them " +
+                    "to another category before deleting this category.");
+        } else {
+            categories.remove(categoryToDelete);
+            trackerData.setCategories(categories);
+            System.out.println("Category \"" + categoryName + "\" has been deleted successfully.");
+        }
+    }
+
+
+    public static void deleteCategory(String input, TrackerData trackerData) {
+        InputParser parser = new InputParser();
+        String categoryName = parser.parseCategory(input);
+
+        if (categoryName == null || categoryName.isEmpty()) {
+            ErrorMessage.printExpensesManagerEmptyCategory();
+            return;
+        }
+
+        deleteCategoryHelper(trackerData, categoryName);
     }
 }
 
