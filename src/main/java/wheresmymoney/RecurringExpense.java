@@ -2,6 +2,8 @@ package wheresmymoney;
 
 import wheresmymoney.exception.WheresMyMoneyException;
 
+//@@author
+
 public class RecurringExpense extends Expense {
     protected String frequency;
     private String lastDateAdded;

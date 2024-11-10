@@ -133,6 +133,7 @@ public class HelpCommand extends Command {
         Ui.displayMessage("");
     }
 
+    //@@author khsienkit
     private static void recurHelp() {
         Ui.displayMessage("Recurring expenses allow you to automate adding expenses that occur on a regular basis.");
         Ui.displayMessage("Recurring expenses are saved to a separate recurringExpenseList. They do not affect " +
@@ -195,6 +196,7 @@ public class HelpCommand extends Command {
         Ui.displayMessage("Example: list /recur /category food /from 02-11-2024 /to 04-11-2024");
         Ui.displayMessage("");
     }
+    //@@author khsienkit
 
     private static void allHelp() {
         introHelp();
@@ -248,6 +250,7 @@ public class HelpCommand extends Command {
         }
     }
 
+    //@@author khsienkit
     private static void recurCommandSwitch(String command) {
         if (command == null) {
             recurHelp();

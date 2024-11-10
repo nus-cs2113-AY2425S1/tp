@@ -37,6 +37,7 @@ public class AddCommand extends Command {
             if (description == null) {
                 throw new InvalidInputException("Missing description argument");
             }
+            
             String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
             if (category == null) {
                 throw new InvalidInputException("Missing category argument");
