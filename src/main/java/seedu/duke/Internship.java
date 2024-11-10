@@ -116,7 +116,11 @@ public class Internship {
 
     public void setStartDate(String start) throws DateTimeParseException {
         assert start != null;
-        this.startDate = YearMonth.parse(start, FORMATTER_MONTH_YEAR);
+        try {
+            this.startDate = YearMonth.parse(start, FORMATTER_MONTH_YEAR);
+        } catch (DateTimeParseException e) {
+            this.startDate = YearMonth.of(01,01);
+        }
     }
 
     public String getEndDate() {
@@ -125,7 +129,11 @@ public class Internship {
 
     public void setEndDate(String end) throws DateTimeParseException {
         assert end != null;
-        this.endDate = YearMonth.parse(end, FORMATTER_MONTH_YEAR);
+        try {
+            this.endDate = YearMonth.parse(end, FORMATTER_MONTH_YEAR);
+        } catch (DateTimeParseException e) {
+            this.endDate = YearMonth.of(01,01);
+        }
     }
 
     public String getFavourite() {

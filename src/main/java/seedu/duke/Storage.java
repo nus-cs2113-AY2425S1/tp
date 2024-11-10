@@ -5,6 +5,11 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -91,6 +96,9 @@ public class Storage {
             return;
         }
         List<Integer> favouriteIds = new ArrayList<>();
+        DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MM/yy");
+        DateTimeFormatter deadlineFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
 
@@ -169,14 +177,12 @@ public class Storage {
     private static List<Deadline> parseDeadlines(String deadlineString, int internshipId) {
         List<Deadline> deadlines = new ArrayList<>();
 
-        // Skip parsing if the default "No Deadlines Added" is present
         if (deadlineString.equals("No Deadlines set.")) {
             return deadlines;
         }
 
-        String[] parts = deadlineString.split(" - "); // Adjust as per your actual format
+        String[] parts = deadlineString.split(" - ");
         for (String part : parts) {
-            // Assume part is formatted like: "description -date MM/dd/yyyy"
             String[] deadlineParts = part.split(" -date ");
             if (deadlineParts.length == 2) {
                 String description = deadlineParts[0].trim();
