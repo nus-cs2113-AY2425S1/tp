@@ -85,8 +85,7 @@ public class AppUi {
         System.out.println(Commons.LINE_SEPARATOR);
         if (totalEntries > 1) {
             System.out.println("Okay! A total of " + totalEntries + " entries have been deleted.");
-        }
-        else {
+        } else {
             System.out.println("Okay! 1 entry has been deleted.");
         }
         System.out.println(Commons.LINE_SEPARATOR);
