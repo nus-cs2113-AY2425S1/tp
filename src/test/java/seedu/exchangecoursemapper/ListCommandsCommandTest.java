@@ -35,12 +35,12 @@ public class ListCommandsCommandTest {
         String expectedCommand6 = "- Add mapped courses between NUS and partner universities.";
         String expectedCommand7 = "obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.";
         String expectedCommand8 = "obtain <SCHOOL_NAME> /number - Obtain partner university contact number.";
-        String expectedCommand9 = "delete <TASK_NUMBER>         - Delete a partner university.";
+        String expectedCommand9 = "delete <LIST_INDEX>          - Delete a course mapping.";
         String expectedCommand10 = "list mapped                  - List all course mapping saved.";
         String expectedCommand11 = "compare pu/<uni1> pu/<uni2>  - Compare course mappings between 2 universities.";
         String expectedCommand12 = "find <NUS_COURSE_CODE>       - Find courses with subject code in your list.";
         String expectedCommand13 = "bye                          - End the program.";
-        String expectedCommand14 = "To get more specific information of the commands, please use help <COMMAND>";
+        String expectedCommand14 = "help <COMMAND>               - To get more specific information of the commands.";
 
         assertTrue(outputStreamCaptor.toString().contains(expectedCommand1));
         assertTrue(outputStreamCaptor.toString().contains(expectedCommand2));
@@ -55,6 +55,6 @@ public class ListCommandsCommandTest {
         assertTrue(outputStreamCaptor.toString().contains(expectedCommand11));
         assertTrue(outputStreamCaptor.toString().contains(expectedCommand12));
         assertTrue(outputStreamCaptor.toString().contains(expectedCommand13));
-
+        assertTrue(outputStreamCaptor.toString().contains(expectedCommand14));
     }
 }
