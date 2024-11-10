@@ -1,8 +1,6 @@
 package seedu.manager.command;
 
 import seedu.manager.enumeration.Priority;
-import seedu.manager.exception.DuplicateDataException;
-
 
 import java.time.LocalDateTime;
 
@@ -89,7 +87,7 @@ public class AddCommand extends Command {
      * </p>
      */
     @Override
-    public void execute() throws DuplicateDataException {
+    public void execute() {
         if (participantName != null) {
             boolean isAdded = eventList.addParticipantToEvent(
                     participantName,

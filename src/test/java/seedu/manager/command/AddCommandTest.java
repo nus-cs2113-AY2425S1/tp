@@ -4,13 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
-import seedu.manager.exception.DuplicateDataException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AddCommandTest {
     private EventList eventList;
@@ -81,7 +80,7 @@ public class AddCommandTest {
 
     //@@author jemehgoh
     @Test
-    public void add_duplicateEvent_throwsException() {
+    public void add_duplicateEvent_success() {
         EventList eventList = new EventList();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-10 10:00", formatter),
@@ -90,8 +89,9 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand("Event 1", LocalDateTime.parse("2024-10-10 10:00",
                 formatter), "Venue A", Priority.HIGH);
         addCommand.setData(eventList);
+        addCommand.execute();
 
-        assertThrows(DuplicateDataException.class, addCommand::execute);
+        assertTrue(eventList.getEventByName("Event 1(1)").isPresent());
     }
 
     @Test
@@ -102,11 +102,12 @@ public class AddCommandTest {
                 "Venue A", Priority.HIGH);
         eventList.addParticipantToEvent("John", "example1@gmail.com", "Event 1");
 
-        AddCommand addCommand = new AddCommand("Event 1", LocalDateTime.parse("2024-10-10 10:00",
-                formatter), "Venue A", Priority.HIGH);
+        AddCommand addCommand = new AddCommand("John", "example1@gmail.com",
+                "Event 1");
         addCommand.setData(eventList);
+        addCommand.execute();
 
-        assertThrows(DuplicateDataException.class, addCommand::execute);
+        assertEquals(2, eventList.getEventByName("Event 1").get().getParticipantCount());
     }
 
     @Test
@@ -133,18 +134,6 @@ public class AddCommandTest {
         addCommand.execute();
 
         assertEquals(expectedMessage, addCommand.getMessage());
-    }
-
-    @Test
-    public void add_duplicateItem_throwsException() {
-        eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-25 16:00", formatter),
-                "Venue 1", Priority.MEDIUM);
-        eventList.addItemToEvent("Crepe paper", "Event 1");
-
-        AddCommand addCommand = new AddCommand("Crepe paper", "Event 1");
-        addCommand.setData(eventList);
-
-        assertThrows(DuplicateDataException.class, addCommand::execute);
     }
 }
 
