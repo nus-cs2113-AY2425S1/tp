@@ -1,6 +1,5 @@
 package seedu.duke.logic;
 
-import seedu.duke.budget.Budget;
 import seedu.duke.command.AddExpenseCommand;
 import seedu.duke.command.AddIncomeCommand;
 import seedu.duke.command.DeleteCommand;
@@ -33,10 +32,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class Logic {
     public final FinancialList financialList;
+    private static final Log logger = Log.getInstance();
     private final Storage storage;
     private final AppUi ui;
     private final BudgetLogic budgetLogic;
-    private static final Log logger = Log.getInstance();
 
     /**
      * Constructor for the Logic class.

@@ -5,7 +5,7 @@ import seedu.duke.exception.FinanceBuddyException;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InputParserTest {
 
