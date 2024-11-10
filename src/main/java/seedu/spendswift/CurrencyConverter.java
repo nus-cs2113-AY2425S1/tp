@@ -2,6 +2,7 @@ package seedu.spendswift;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public class CurrencyConverter {
 
-    private static final String API_KEY = "04a6ee8bec44c7f011340564e098b97e"; // Replace with your actual API key
+    private static final String API_KEY = System.getenv("EXCHANGE_API_KEY");  // Load API key from environment
     private static final String BASE_URL = "https://api.exchangeratesapi.io/latest";
 
     private Map<String, Double> exchangeRates;
@@ -26,16 +27,21 @@ public class CurrencyConverter {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new IOException("HTTP error code: " + connection.getResponseCode());
+            }
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            JsonObject jsonObject = new Gson().fromJson(response.toString(), JsonObject.class);
+            exchangeRates = new Gson().fromJson(jsonObject.get("rates"),
+                                                new TypeToken<Map<String, Double>>(){}.getType());
+        } finally {
+            connection.disconnect();
         }
-        reader.close();
-
-        JsonObject jsonObject = new Gson().fromJson(response.toString(), JsonObject.class);
-        exchangeRates = new Gson().fromJson(jsonObject.get("rates"), Map.class);
     }
 
     public double convert(double amount, String fromCurrency, String toCurrency) {
