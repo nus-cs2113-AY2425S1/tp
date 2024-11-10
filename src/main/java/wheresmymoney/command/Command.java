@@ -1,22 +1,20 @@
 package wheresmymoney.command;
 
+import wheresmymoney.utils.ArgumentsMap;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
-import wheresmymoney.Parser;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-import java.util.HashMap;
-
 public abstract class Command {
-    protected HashMap<String, String> argumentsMap;
+    protected ArgumentsMap argumentsMap;
 
     /**
      * Constructs a Command object.
      *
      * @param argumentsMap Arguments passed into the command
      */
-    public Command(HashMap<String, String> argumentsMap) {
+    public Command(ArgumentsMap argumentsMap) {
         this.argumentsMap = argumentsMap;
     }
     
@@ -40,9 +38,6 @@ public abstract class Command {
     }
 
     public boolean isRecur() {
-        if (argumentsMap.containsKey(Parser.ARGUMENT_RECUR)) {
-            return true;
-        }
-        return false;
+        return argumentsMap.isRecur();
     }
 }

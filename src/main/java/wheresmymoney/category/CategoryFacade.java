@@ -32,7 +32,7 @@ public class CategoryFacade {
     }
     
     /**
-     * The interface for {@code AddCommand} when the user adds a new Expense.
+     * Updates {@code CategoryTracker}'s tracker when the user adds a new Expense.
      *
      * @param category the category of the newly added Expense
      * @param price the price of the newly added Expense
@@ -43,7 +43,7 @@ public class CategoryFacade {
         categoryTracker.checkLimitOf(category);
     }
     /**
-     * The interface for {@code DeleteCommand} when the user deletes an Expense.
+     * Updates {@code CategoryTracker}'s tracker when the user deletes an Expense.
      *
      * @param category the category of the Expense to be deleted
      * @param price the price of the Expense to be deleted
@@ -53,7 +53,7 @@ public class CategoryFacade {
         categoryTracker.deleteCategory(category, price);
     }
     /**
-     * The interface for {@code EditCommand} when the user edits an Expense.
+     * Updates {@code CategoryTracker}'s tracker when the user edits an Expense.
      *
      * @param oldCategory the current name of the category to be edited
      * @param newCategory the new name for the category
@@ -68,19 +68,23 @@ public class CategoryFacade {
     }
     
     /**
-     * The interface for {@code LoadCommand} to load category information from a CSV file.
+     * Calls {@code CategoryStorage} to load category information from a CSV file,
+     * then calls {@code CategoryFilter} to display the categories which are
+     * nearing or exceeding the limit.
      *
      * @param expenseList the list of expenses to track category information
      * @throws WheresMyMoneyException if there is an error while loading category info
      */
     public void loadCategoryInfo(ExpenseList expenseList, String filePath) throws WheresMyMoneyException {
-        categoryTracker = categoryStorage.loadFromCsv(
-                filePath, categoryStorage.trackCategoriesOf(expenseList.getExpenseList()));
+        categoryTracker.clear();
+        categoryTracker = categoryStorage.trackCategoriesOf(expenseList.getExpenseList());
+        categoryStorage.loadFromCsv(filePath, categoryTracker);
+        displayFilteredCategories();
     }
 
 
     /**
-     * The interface for {@code LoadCommand} to show filtered categories
+     * Calls {@code CategoryFilter} to show filtered categories.
      * based on spending limits.
      */
     public void displayFilteredCategories() {
@@ -89,7 +93,7 @@ public class CategoryFacade {
         categoryFilter.displayNearingCategories();
     }
     /**
-     * The interface for {@code SaveCommand} to save current category information to a CSV file.
+     * Calls {@code CategoryStorage} to save current category information to a CSV file.
      *
      * @throws StorageException if there is an error while saving category info
      */
@@ -97,7 +101,7 @@ public class CategoryFacade {
         categoryStorage.saveToCsv(filePath, categoryTracker.getTracker());
     }
     /**
-     * The interface for {@code SetCommand} to set a spending limit for a specified category.
+     * Calls {@code CategoryTracker} to set a spending limit for a specified category.
      *
      * @param category the name of the category for which to set the spending limit for
      * @param limit the spending limit to set for the category
@@ -105,5 +109,6 @@ public class CategoryFacade {
      */
     public void setCategorySpendingLimit(String category, float limit) throws WheresMyMoneyException {
         categoryTracker.setSpendingLimitFor(category, limit);
+        categoryTracker.checkLimitOf(category);
     }
 }

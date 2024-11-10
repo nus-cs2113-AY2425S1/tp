@@ -1,20 +1,20 @@
 package wheresmymoney.command;
 
+import wheresmymoney.utils.ArgumentsMap;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
-import wheresmymoney.Parser;
+import wheresmymoney.utils.Parser;
 import wheresmymoney.RecurringExpense;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.Ui;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ListCommand extends Command {
-
-    public ListCommand(HashMap<String, String> argumentsMap) {
+    private boolean isFiltered = true;
+    public ListCommand(ArgumentsMap argumentsMap) {
         super(argumentsMap);
     }
 
@@ -28,6 +28,9 @@ public class ListCommand extends Command {
         String listCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
         String from = argumentsMap.get(Parser.ARGUMENT_FROM);
         String to = argumentsMap.get(Parser.ARGUMENT_TO);
+        if (listCategory == null && from == null && to == null) {
+            isFiltered = false;
+        }
         return expenseList.listByFilter(listCategory, from, to);
     }
 
@@ -41,6 +44,9 @@ public class ListCommand extends Command {
         String listCategory = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
         String from = argumentsMap.get(Parser.ARGUMENT_FROM);
         String to = argumentsMap.get(Parser.ARGUMENT_TO);
+        if (listCategory == null && from == null && to == null) {
+            isFiltered = false;
+        }
         return recurringExpenseList.listRecurringByFilter(listCategory, from, to);
     }
 
@@ -54,7 +60,7 @@ public class ListCommand extends Command {
     private void displayExpenses(ArrayList<Expense> expensesToDisplay, ExpenseList expenseList)
             throws WheresMyMoneyException {
         if (expensesToDisplay.isEmpty()) {
-            Ui.displayMessage("No matching expenses were found!");
+            Ui.displayMessage(isFiltered ? "No matching expenses were found!" : "No expenses were found!");
             return;
         }
         for (Expense expense: expensesToDisplay) {
@@ -72,7 +78,8 @@ public class ListCommand extends Command {
     private void displayRecurringExpenses(ArrayList<RecurringExpense> expensesToDisplay,
             RecurringExpenseList recurringExpenseList) {
         if (expensesToDisplay.isEmpty()) {
-            Ui.displayMessage("No matching recurring expenses were found!");
+            Ui.displayMessage(isFiltered ? "No matching recurring expenses were found!" :
+                    "No recurring expenses were found!");
             return;
         }
         for (RecurringExpense recurringExpense: expensesToDisplay) {
