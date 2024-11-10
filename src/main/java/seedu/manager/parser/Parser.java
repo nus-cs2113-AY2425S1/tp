@@ -23,8 +23,11 @@ import seedu.manager.exception.InvalidCommandException;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.FileHandler;
@@ -92,15 +95,22 @@ public class Parser {
             """;
     private static final String INVALID_DATE_TIME_MESSAGE = """
             Invalid date-time format!
-            Please use the following format for event time:
+            Please enter the event time in the following format:
             YYYY-MM-DD HH:mm
             
-            MM-DD has to be between 01-01 and 12-31, and HH:mm has to be between 00:00 and 23:59.
+            Ensure the following:
+            - The year (YYYY) is from 0001 onwards.
+            - The date (MM-DD) is between 01-01 and 12-31.
+            - The time (HH:mm) is between 00:00 and 23:59.
             """;
     private static final String INVALID_PRIORITY_MESSAGE = """
             Invalid priority level status!
             Please use the following format for priority level:
             high/medium/low
+            """;
+    private static final String PAST_DATE_MESSAGE = """
+            Datetime is in the past! Stop living in the past!
+            Please enter a new date in the same format.
             """;
     private static final String INVALID_EMAIL_MESSAGE = """
             Invalid email format!
@@ -234,6 +244,9 @@ public class Parser {
         } catch (DateTimeParseException exception) {
             logWarning("Invalid date-time format");
             throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
+        } catch (ParseException exception) {
+            logWarning("Invalid date-time format");
+            throw new InvalidCommandException(INVALID_DATE_TIME_MESSAGE);
         } catch (IllegalArgumentException exception) {
             logWarning("Invalid priority level status");
             throw new InvalidCommandException(INVALID_PRIORITY_MESSAGE);
@@ -266,7 +279,7 @@ public class Parser {
      * @throws IOException if the log file cannot be written to.
      */
     public Command parseAddCommand(String input, String[] commandParts) throws InvalidCommandException,
-            IndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException, IOException {
+            IndexOutOfBoundsException, ParseException, IllegalArgumentException, IOException {
         assert commandParts[0].equalsIgnoreCase(AddCommand.COMMAND_WORD);
         String commandFlag = commandParts[1];
 
@@ -289,11 +302,11 @@ public class Parser {
      * @param input the given user input.
      * @return an {@link AddCommand} that adds an event with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
-     * @throws DateTimeParseException    if the time parameter is not entered in the correct format.
+     * @throws ParseException    if the time parameter is not entered in the correct format.
      * @throws IllegalArgumentException  if the priority parameter is not valid.
      * @throws IOException if the log file cannot be written to.
      */
-    private Command getAddEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
+    private Command getAddEventCommand(String input) throws IndexOutOfBoundsException, ParseException,
             IllegalArgumentException, IOException {
         checkForDuplicateFlags(input, EVENT_FLAG_REGEX);
 
@@ -310,13 +323,22 @@ public class Parser {
                     || matcher.group(3).isBlank() || matcher.group(4).isBlank()) {
                 throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
             }
+
             logInfo("Creating AddCommand for event with details: " +
                     matcher.group(1).trim() + ", " + matcher.group(2).trim() + ", " + matcher.group(3).trim());
+
             eventName = matcher.group(1).trim();
-            eventTime = LocalDateTime.parse(matcher.group(2).trim(),
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            dateTimeFormat.setLenient(false);
+            Date parsedDateTime = dateTimeFormat.parse(matcher.group(2).trim());
+            eventTime = LocalDateTime.ofInstant(parsedDateTime.toInstant(), ZoneId.systemDefault());
             venue = matcher.group(3).trim();
             eventPriority = Priority.valueOf(matcher.group(4).trim().toUpperCase());
+
+            if (eventTime.isBefore(LocalDateTime.now())) {
+                throw new InvalidCommandException(PAST_DATE_MESSAGE);
+            }
+
         } else {
             throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         }
@@ -519,11 +541,11 @@ public class Parser {
      *
      * @return a Command object representing the parsed command.
      * @throws InvalidCommandException if the flags are not matched in the command parts.
-     * @throws DateTimeParseException    if the time parameter is not entered in the correct format.
+     * @throws ParseException    if the time parameter is not entered in the correct format.
      * @throws IllegalArgumentException  if the priority parameter is not valid.
      */
     private Command parseEditCommand(String input, String[] commandParts) throws InvalidCommandException,
-            IOException {
+            IOException, ParseException {
         assert commandParts[0].equalsIgnoreCase(EditParticipantCommand.COMMAND_WORD);
         String commandFlag = commandParts[1];
 
@@ -547,10 +569,10 @@ public class Parser {
      * @param input the given user input.
      * @return an {@link EditEventCommand} that edits an event with fields parsed from input.
      * @throws IndexOutOfBoundsException if not all fields are present.
-     * @throws DateTimeParseException    if the time parameter is not entered in the correct format.
+     * @throws ParseException    if the time parameter is not entered in the correct format.
      * @throws IllegalArgumentException  if the priority parameter is not valid.
      */
-    private Command getEditEventCommand(String input) throws IndexOutOfBoundsException, DateTimeParseException,
+    private Command getEditEventCommand(String input) throws IndexOutOfBoundsException, ParseException,
             IllegalArgumentException {
         checkForDuplicateFlags(input, EDIT_EVENT_ATTRIBUTE_FLAG_REGEX);
 
@@ -571,10 +593,17 @@ public class Parser {
 
             eventName = matcher.group(1).trim();
             eventNewName = matcher.group(2).trim();
-            eventTime = LocalDateTime.parse(matcher.group(3).trim(),
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            dateTimeFormat.setLenient(false);
+            Date parsedDateTime = dateTimeFormat.parse(matcher.group(3).trim());
+            eventTime = LocalDateTime.ofInstant(parsedDateTime.toInstant(), ZoneId.systemDefault());
             eventVenue = matcher.group(4).trim();
             eventPriority = Priority.valueOf(matcher.group(5).trim().toUpperCase());
+
+            if (eventTime.isBefore(LocalDateTime.now())) {
+                throw new InvalidCommandException(PAST_DATE_MESSAGE);
+            }
+
         } else {
             throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
         }
