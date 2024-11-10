@@ -82,6 +82,7 @@ If the programme list was empty, the new programme added would be set to active 
 
 This feature sets the specified programme as the "active programme".  
 Once a programme is active, other commands will default to this programme if `PROG_INDEX` is not provided for those commands.
+**Note:** If the active programme is deleted, it will reset to the first programme (if exist).
 
 Command: `prog start PROG_INDEX`
 
