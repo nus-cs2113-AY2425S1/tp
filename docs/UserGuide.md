@@ -138,27 +138,12 @@ Expected Output:
 Email for The University of Western Australia: uwa-albany@uwa.edu.au
 ```
 
-Example: `obtain`
+Example: `obtain the australian national university /number`
 
 Expected Output:
 ```
-Invalid input format
+Phone number for The Australian National University: +61 2 6125 7257
 ```
-
-Example: `obtain NUS /email`
-
-Expected Output:
-```
-Unknown university - nus
-```
-
-Example: `obtain the university of melbourne /fax`
-
-Expected Output:
-```
-Invalid contact type.
-```
-
 
 ### Filtering possible mappings: `filter`
 Filters out all possible PU courses that can be mapped to a user specified NUS course.
