@@ -6,7 +6,6 @@ import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExpenseFilterTest {
