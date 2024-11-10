@@ -163,6 +163,13 @@ Expected Output:
 Phone number for The Australian National University: +61 2 6125 7257
 ```
 
+Example: `obtain unimelb /email`
+
+Expected Output:
+```
+Email for The University of Melbourne: unimelb-support@unimelb.edu.au
+```
+
 
 ### Filtering possible mappings: `filter`
 Filters out all possible PU courses that can be mapped to a user specified NUS course.
