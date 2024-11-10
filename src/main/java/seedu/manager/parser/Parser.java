@@ -42,7 +42,7 @@ public class Parser {
             Invalid command!
             Please enter your commands in the following format:
             add -e EVENT -t TIME -v VENUE -u PRIORITY
-            add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT
+            add -p PARTICIPANT -email EMAIL -e EVENT
             add -m ITEM -e EVENT
             """;
     private static final String INVALID_REMOVE_MESSAGE = """
@@ -57,7 +57,7 @@ public class Parser {
             Please enter your commands in the following format:
             edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
             edit -m ITEM > NEW_ITEM -e EVENT: Edit an item from an event.
-            edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
+            edit -p PARTICIPANT -email EMAIL -e EVENT: Edit participant contact info.
             """;
     private static final String INVALID_VIEW_MESSAGE = """
             Invalid command!
@@ -102,10 +102,6 @@ public class Parser {
             Invalid priority level status!
             Please use the following format for priority level:
             high/medium/low
-            """;
-    private static final String INVALID_PHONE_NUMBER_MESSAGE = """
-            Invalid phone number!
-            Please enter a valid phone number with digits only.
             """;
     private static final String INVALID_EMAIL_MESSAGE = """
             Invalid email format!
@@ -158,7 +154,7 @@ public class Parser {
 
     private static final String EVENT_FLAG_REGEX = "(-e|-t|-v|-u)";
     private static final String EDIT_EVENT_ATTRIBUTE_FLAG_REGEX = "(-e|-name|-t|-v|-u)";
-    private static final String PARTICIPANT_FLAG_REGEX = "(-p|-n|-email|-e)";
+    private static final String PARTICIPANT_FLAG_REGEX = "(-p|-email|-e)";
     private static final String REMOVE_PARTICIPANT_FLAG_REGEX = "(-p|-e)";
     private static final String ITEM_FLAG_REGEX = "(-m|-e)";
     private static final String MARK_EVENT_FLAG_REGEX = "-e|-s";
@@ -172,9 +168,9 @@ public class Parser {
     private static final String EDIT_EVENT_ATTRIBUTE_REGEX = "edit\\s+-e\\s+(.*?)\\s+" +
             "-name\\s+(.*?)\\s+-t\\s+(.*?)\\s+-v\\s+(.*?)\\s+-u\\s+(.*)";
     private static final String ADD_PARTICIPANT_REGEX = "add\\s+-p\\s+(.*?)\\s+" +
-            "-n\\s+(.*?)\\s+-email\\s+(.*?)\\s+-e\\s+(.*)";
+            "-email\\s+(.*?)\\s+-e\\s+(.*)";
     private static final String EDIT_PARTICIPANT_REGEX = "edit\\s+-p\\s+(.*?)\\s+" +
-            "-n\\s+(.*?)\\s+-email\\s+(.*?)\\s+-e\\s+(.*)";
+            "-email\\s+(.*?)\\s+-e\\s+(.*)";
     private static final String ADD_ITEM_REGEX = "add\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
     private static final String REMOVE_ITEM_REGEX = "remove\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
     private static final String EDIT_ITEM_REGEX = "edit\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
@@ -185,7 +181,6 @@ public class Parser {
     private static final String VIEW_REGEX = "view\\s+-e\\s+(.*?)\\s+-y\\s+(.*)";
     private static final String MARK_ITEM_REGEX = "mark\\s+-m\\s+(.*?)\\s+-e\\s+(.*?)\\s+-s\\s+(.*)";
     private static final String REMOVE_EVENT_REGEX = "remove\\s+-e\\s+(.*)";
-    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("\\d{8}");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$");
 
     /**
@@ -336,25 +331,18 @@ public class Parser {
         String participantName;
         String participantEmail;
         String eventName;
-        String participantNumber;
 
         if (matcher.matches()) {
             if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
-                    || matcher.group(3).isBlank() || matcher.group(4).isBlank()) {
+                    || matcher.group(3).isBlank()) {
                 throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
             }
 
             logger.info("Creating AddCommand for participant with details: " +
                     matcher.group(1).trim() + ", " + matcher.group(2).trim());
             participantName = matcher.group(1).trim();
-            participantNumber = matcher.group(2).trim();
-            participantEmail = matcher.group(3).trim();
-            eventName = matcher.group(4).trim();
-
-            if (!isValidPhoneNumber(participantNumber)) {
-                logger.log(WARNING, "Invalid phone number format");
-                throw new InvalidCommandException(INVALID_PHONE_NUMBER_MESSAGE);
-            }
+            participantEmail = matcher.group(2).trim();
+            eventName = matcher.group(3).trim();
 
             if (!isValidEmail(participantEmail)) {
                 logger.log(WARNING, "Invalid email format");
@@ -364,7 +352,7 @@ public class Parser {
             throw new InvalidCommandException(INVALID_ADD_MESSAGE);
         }
 
-        return new AddCommand(participantName, participantNumber, participantEmail, eventName);
+        return new AddCommand(participantName, participantEmail, eventName);
     }
 
     //@@author jemehgoh
@@ -556,25 +544,18 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         String participantName;
-        String newNumber;
         String newEmail;
         String eventName;
 
         if (matcher.matches()) {
             if (matcher.group(1).isBlank() || matcher.group(2).isBlank()
-                    || matcher.group(3).isBlank() || matcher.group(4).isBlank()) {
+                    || matcher.group(3).isBlank()) {
                 throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
             }
 
             participantName = matcher.group(1).trim();
-            newNumber = matcher.group(2).trim();
-            newEmail = matcher.group(3).trim();
-            eventName = matcher.group(4).trim();
-
-            if (!isValidPhoneNumber(newNumber)) {
-                logger.log(WARNING, "Invalid phone number format");
-                throw new InvalidCommandException(INVALID_PHONE_NUMBER_MESSAGE);
-            }
+            newEmail = matcher.group(2).trim();
+            eventName = matcher.group(3).trim();
 
             if (!isValidEmail(newEmail)) {
                 logger.log(WARNING, "Invalid email format");
@@ -584,7 +565,7 @@ public class Parser {
             throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
         }
 
-        return new EditParticipantCommand(participantName, newNumber, newEmail, eventName);
+        return new EditParticipantCommand(participantName, newEmail, eventName);
     }
 
     //@@author MatchaRRR
@@ -659,17 +640,6 @@ public class Parser {
             throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
         }
         return new EditItemCommand(itemName, itemNewName, eventName);
-    }
-
-    //@@author KuanHsienn
-    /**
-     * Checks if the phone number is valid.
-     *
-     * @param phoneNumber the phone number to validate.
-     * @return true if the phone number is valid, false otherwise.
-     */
-    private boolean isValidPhoneNumber(String phoneNumber) {
-        return PHONE_NUMBER_PATTERN.matcher(phoneNumber).matches();
     }
 
     //@@author KuanHsienn

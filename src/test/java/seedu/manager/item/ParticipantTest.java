@@ -8,7 +8,7 @@ class ParticipantTest {
 
     @Test
     public void setPresent_setTrue_present() {
-        Participant participant = new Participant("Participant", "89521252", "example@gmail.com",
+        Participant participant = new Participant("Participant","example@gmail.com",
                 false);
         participant.setPresent(true);
         assertEquals("X", participant.markIfPresent());
@@ -16,7 +16,7 @@ class ParticipantTest {
 
     @Test
     public void setPresent_setFalse_notPresent() {
-        Participant participant = new Participant("Participant", "89521252", "example@gmail.com",
+        Participant participant = new Participant("Participant",  "example@gmail.com",
                 false);
         participant.setPresent(false);
         assertEquals(" ", participant.markIfPresent());
@@ -24,10 +24,10 @@ class ParticipantTest {
 
     @Test
     public void toString_setTrue_present() {
-        Participant participant = new Participant("Participant", "89521252", "example@gmail.com",
+        Participant participant = new Participant("Participant", "example@gmail.com",
                 false);
         participant.setPresent(true);
-        assertEquals("Name: Participant / Number: 89521252 / Email: example@gmail.com [X]",
+        assertEquals("Name: Participant / Email: example@gmail.com [X]",
                 participant.toString());
     }
 }

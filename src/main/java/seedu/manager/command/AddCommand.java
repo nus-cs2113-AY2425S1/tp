@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 /**
  * Represents a command to add an event to the event list or a participant to an event.
  * The AddCommand class stores details of an event, including its name, time, venue,
- * and priority, or details of a participant, including their name, contact number, and email.
+ * and priority, or details of a participant, including their name and email.
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
@@ -22,7 +22,6 @@ public class AddCommand extends Command {
     protected String venue;
     protected Priority priority;
     protected String participantName;
-    protected String participantNumber;
     protected String participantEmail;
     protected String itemName;
 
@@ -44,17 +43,17 @@ public class AddCommand extends Command {
 
     //@@author LTK-1606
     /**
-     * Constructs an {@code AddCommand} with the specified participant name and event name.
+     * Constructs an {@code AddCommand} with the specified participant name, email and event name.
      *
-     * @param participantName the name of the participant to be added to the event.
-     *                        If null, a new event will be created instead.
-     * @param eventName      the name of the event to which the participant will be added
-     *                       or the event to be created if no participant name is provided.
+     * @param participantName   the name of the participant to be added to the event.
+     *                          If null, a new event will be created instead.
+     * @param participantEmail  contact email of participant
+     * @param eventName         the name of the event to which the participant will be added
+     *                          or the event to be created if no participant name is provided.
      */
-    public AddCommand(String participantName, String participantNumber, String participantEmail, String eventName) {
+    public AddCommand(String participantName, String participantEmail, String eventName) {
         super(false);
         this.participantName = participantName;
-        this.participantNumber = participantNumber;
         this.participantEmail = participantEmail;
         this.eventName = eventName;
     }
@@ -78,7 +77,7 @@ public class AddCommand extends Command {
      * If no participant name is provided, this method adds a new event to the
      * event list with the specified event name, time, and venue.
      * If a participant name is provided, it adds the participant with their
-     * email and contact number to the specified event in the event list.
+     * email to the specified event in the event list.
      * </p>
      *
      * <p>
@@ -92,7 +91,6 @@ public class AddCommand extends Command {
         if (participantName != null) {
             boolean isAdded = eventList.addParticipantToEvent(
                     participantName,
-                    participantNumber,
                     participantEmail,
                     eventName
             );

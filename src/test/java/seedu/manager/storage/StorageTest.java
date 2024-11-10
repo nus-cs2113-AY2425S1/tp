@@ -63,7 +63,7 @@ public class StorageTest {
         try {
             FileWriter writer = new FileWriter(TEST_FILE_PATH);
             writer.append("EVENT,Test Event,2024-11-04 12:00,Test Venue,LOW,N\n");
-            writer.append("PARTICIPANT,Alice,12345678,alice@example.com,Test Event,N\n");
+            writer.append("PARTICIPANT,Alice,alice@example.com,Test Event,N\n");
             writer.append("ITEM,Test Item,Test Event,N\n");
             writer.close();
         } catch (IOException exception) {
@@ -90,12 +90,12 @@ public class StorageTest {
     public void testSaveEvents() {
         eventList.addEvent("Meeting", LocalDateTime.parse("2024-10-25 10:00", formatter),
                 "Conference Room", Priority.HIGH);
-        eventList.addParticipantToEvent("Alice", "12345678", "alice@example.com", false, "Meeting");
+        eventList.addParticipantToEvent("Alice", "alice@example.com", false, "Meeting");
         eventList.addItemToEvent("Projector", false, "Meeting");
 
         eventList.addEvent("Workshop", LocalDateTime.parse("2024-10-26 14:00", formatter),
                 "Main Hall", Priority.MEDIUM);
-        eventList.addParticipantToEvent("Bob", "87654321", "bob@example.com", false, "Workshop");
+        eventList.addParticipantToEvent("Bob", "bob@example.com", false, "Workshop");
         eventList.addItemToEvent("Whiteboard", false, "Workshop");
 
         try {
@@ -110,10 +110,10 @@ public class StorageTest {
         try {
             String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
             String expectedContent = "\"EVENT\",\"Meeting\",\"2024-10-25 10:00\",\"Conference Room\",\"HIGH\",\"N\"\n"
-                    + "\"PARTICIPANT\",\"Alice\",\"12345678\",\"alice@example.com\",\"Meeting\",\"N\"\n"
+                    + "\"PARTICIPANT\",\"Alice\",\"alice@example.com\",\"Meeting\",\"N\"\n"
                     + "\"ITEM\",\"Projector\",\"Meeting\",\"N\"\n"
                     + "\"EVENT\",\"Workshop\",\"2024-10-26 14:00\",\"Main Hall\",\"MEDIUM\",\"N\"\n"
-                    + "\"PARTICIPANT\",\"Bob\",\"87654321\",\"bob@example.com\",\"Workshop\",\"N\"\n"
+                    + "\"PARTICIPANT\",\"Bob\",\"bob@example.com\",\"Workshop\",\"N\"\n"
                     + "\"ITEM\",\"Whiteboard\",\"Workshop\",\"N\"\n";
             assertEquals(expectedContent, content, "The file content does not match the expected output.");
         } catch (IOException exception) {
@@ -125,7 +125,7 @@ public class StorageTest {
     public void loadParticipants_validEntry_success() {
         try {
             FileWriter writer = new FileWriter(TEST_FILE_PATH);
-            writer.append("PARTICIPANT,John Doe,9451 3230,jdoe@gmail.com,Meeting,N\n");
+            writer.append("PARTICIPANT,John Doe,jdoe@gmail.com,Meeting,N\n");
             writer.close();
         } catch (IOException exception) {
             fail("Failed to set up the test data file: " + exception.getMessage());

@@ -7,7 +7,6 @@ import seedu.manager.event.Event;
  * Represents an event participant, in the participant list of an {@link Event}.
  */
 public class Participant extends Item {
-    private String number;
     private String email;
 
     /**
@@ -15,9 +14,8 @@ public class Participant extends Item {
      *
      * @param name the given name.
      */
-    public Participant(String name, String number, String email, boolean isPresent) {
+    public Participant(String name, String email, boolean isPresent) {
         super(name, isPresent);
-        this.number = number;
         this.email = email;
     }
 
@@ -33,32 +31,12 @@ public class Participant extends Item {
 
     //@@author KuanHsienn
     /**
-     * Returns the contact number of the participant.
-     *
-     * @return the contact number of the participant.
-     */
-    public String getNumber() {
-        return this.number;
-    }
-
-    //@@author KuanHsienn
-    /**
      * Returns the contact email of the participant.
      *
      * @return the contact email of the participant.
      */
     public String getEmail() {
         return this.email;
-    }
-
-    //@@author KuanHsienn
-    /**
-     * Sets the contact number of the participant.
-     *
-     * @param newNumber the new contact number of the participant.
-     */
-    public void setNumber(String newNumber) {
-        this.number = newNumber;
     }
 
     //@@author KuanHsienn
@@ -79,7 +57,7 @@ public class Participant extends Item {
      */
     @Override
     public String toString() {
-        return String.format("Name: %s / Number: %s / Email: %s [%s]",
-                this.name, this.number, this.email, this.markIfPresent());
+        return String.format("Name: %s / Email: %s [%s]",
+                this.name, this.email, this.markIfPresent());
     }
 }

@@ -107,9 +107,9 @@ public class Storage {
      * @return A String array representing the participant fields.
      */
     private String[] getParticipantFields(Participant participant, Event event) {
-        List<String> fieldsList = List.of("PARTICIPANT", participant.getName(), participant.getNumber(),
+        List<String> fieldsList = List.of("PARTICIPANT", participant.getName(),
                 participant.getEmail(), event.getEventName(), participant.markFileLineIfPresent());
-        return fieldsList.toArray(new String[6]);
+        return fieldsList.toArray(new String[5]);
     }
 
     /**

@@ -200,10 +200,10 @@ public class Event {
      * @param participantName the name of the participant to be added to the list.
      * @param isPresent {@code true} if the participant is to be present, {@code false} otherwise.
      */
-    public void addParticipant(String participantName, String participantNumber, String participantEmail,
+    public void addParticipant(String participantName, String participantEmail,
             boolean isPresent) {
         String name = getDuplicateParticipantName(participantName);
-        Participant participant = new Participant(name, participantNumber, participantEmail, isPresent);
+        Participant participant = new Participant(name, participantEmail, isPresent);
         this.participantList.add(participant);
     }
 
@@ -272,15 +272,13 @@ public class Event {
      * Updates the details of a participant in this event.
      *
      * @param participantName the name of the participant to be updated.
-     * @param newNumber      the new contact number of the participant.
      * @param newEmail       the new email address of the participant.
      * @return {@code true} if the participant was successfully updated;
      *         {@code false} if the participant was not found.
      */
-    public boolean updateParticipant(String participantName, String newNumber, String newEmail) {
+    public boolean updateParticipant(String participantName, String newEmail) {
         for (Participant participant : this.participantList) {
             if (participant.getName().equalsIgnoreCase(participantName)) {
-                participant.setNumber(newNumber);
                 participant.setEmail(newEmail);
                 return true;
             }
