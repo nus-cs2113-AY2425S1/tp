@@ -6,6 +6,7 @@ import command.InvalidCommand;
 import command.meals.AddMealCommand;
 import command.meals.DeleteMealCommand;
 import command.meals.ViewMealCommand;
+import exceptions.MealException;
 import meal.Meal;
 import parser.FlagParser;
 
@@ -60,6 +61,11 @@ public class MealCommandFactory {
 
         String mealName = flagParser.getStringByFlag("/n");
         int mealCalories = flagParser.getIntegerByFlag("/c");
+
+        if (mealCalories < 0){
+            throw MealException.caloriesOutOfBounds();
+        }
+
         LocalDate date = flagParser.getDateByFlag("/t");
 
         Meal mealToAdd = new Meal(mealName, mealCalories);

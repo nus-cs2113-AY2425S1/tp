@@ -7,6 +7,8 @@ import history.History;
 
 import java.util.logging.Level;
 
+import static common.Utils.NULL_INTEGER;
+
 /**
  * Represents a command to start a specific programme.
  */
@@ -33,6 +35,9 @@ public class StartProgrammeCommand extends ProgrammeCommand {
      */
     @Override
     public CommandResult execute(ProgrammeList programmes, History history){
+        if (programmeIndex == NULL_INTEGER){
+            programmeIndex = programmes.getCurrentActiveProgramme();
+        }
         assert programmes != null : "Programme list must not be null";
 
         Programme started = programmes.startProgramme(programmeIndex);

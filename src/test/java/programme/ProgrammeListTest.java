@@ -71,12 +71,14 @@ public class ProgrammeListTest {
 
     @Test
     void testDeleteActiveProgramme() {
-        programmeList.startProgramme(0);
+        if (programmeList.getCurrentActiveProgramme() != 0) {
+            programmeList.startProgramme(0);
+        }
         Programme deletedProgramme = programmeList.deleteProgram(-1);
-
         assertEquals(mockProgramme1, deletedProgramme);
         assertEquals(1, programmeList.getProgrammeListSize());
     }
+
 
     @Test
     void testDeleteProgrammeInvalidIndex() {
@@ -87,9 +89,10 @@ public class ProgrammeListTest {
 
     @Test
     void testGetActiveProgramme() {
-        programmeList.startProgramme(0);
+        if (programmeList.getCurrentActiveProgramme() != 0) {
+            programmeList.startProgramme(0);
+        }
         Programme activeProgramme = programmeList.getProgramme(-1);
-
         assertEquals(mockProgramme1, activeProgramme);
     }
 
@@ -98,6 +101,14 @@ public class ProgrammeListTest {
         Programme programme = programmeList.getProgramme(1);
 
         assertEquals(mockProgramme2, programme);
+    }
+
+    @Test
+    void testGetCurrentActiveProgrammeWithActiveProgramme() {
+        // Start a programme and check if the index is correctly returned
+        programmeList.startProgramme(1);
+        int currentActive = programmeList.getCurrentActiveProgramme();
+        assertEquals(1, currentActive, "Should return the index of the current active programme.");
     }
 
     @Test
@@ -119,8 +130,9 @@ public class ProgrammeListTest {
 
     @Test
     void testToString() {
-        programmeList.startProgramme(0);
-
+        if (programmeList.getCurrentActiveProgramme() != 0) {
+            programmeList.startProgramme(0);
+        }
         String programmeListString = programmeList.toString();
         String expectedString = "1. Mocked Programme 1 -- Active\n2. Mocked Programme 2\n";
 

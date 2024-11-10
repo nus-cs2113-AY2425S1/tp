@@ -27,6 +27,7 @@ public class ProgrammeList {
      */
     public ProgrammeList() {
         programmeList = new ArrayList<>();
+        currentActiveProgramme = NULL_INTEGER;
         logger.log(Level.INFO, "ProgrammeList created with an empty list.");
     }
 
@@ -40,6 +41,20 @@ public class ProgrammeList {
     }
 
     /**
+     * Deactivates the current active programme by setting the active programme index to NULL_INTEGER.
+     * If there are no programmes in the list, it logs a warning and ensures the index remains as NULL_INTEGER.
+     */
+    public void deactivateCurrentProgramme() {
+        if (programmeList.isEmpty()) {
+            logger.log(Level.WARNING, "Attempted to deactivate programme, but no programmes exist in the list.");
+            currentActiveProgramme = NULL_INTEGER; // Defensive: ensure it's set correctly even if empty
+        } else {
+            logger.log(Level.INFO, "Deactivating current active programme.");
+            currentActiveProgramme = NULL_INTEGER;
+        }
+    }
+
+    /**
      * Inserts a new Programme into the Programme list with the specified name and days.
      *
      * @param programmeName the name of the Programme
@@ -49,6 +64,11 @@ public class ProgrammeList {
     public Programme insertProgramme(String programmeName, ArrayList<Day> days) {
         Programme programmeToAdd = new Programme(programmeName, days);
         programmeList.add(programmeToAdd);
+
+        if (programmeList.size() == 1) {
+            currentActiveProgramme = 0;
+        }
+
         return programmeToAdd;
     }
 
@@ -71,11 +91,16 @@ public class ProgrammeList {
 
         Programme programmeToDelete = programmeList.get(index);
         programmeList.remove(index);
-        logger.log(Level.INFO, "Deleted programme at index {0}: {1}", new Object[]{index, programmeToDelete});
 
-        if (currentActiveProgramme == index){
-            currentActiveProgramme = NULL_INTEGER;
+        if (programmeList.isEmpty()) {
+            deactivateCurrentProgramme();
+            // currentActiveProgramme = NULL_INTEGER;
+        } else if (index == currentActiveProgramme) {
+            // Reset `currentActiveProgramme` to 0 if the deleted programme was the active one
+            currentActiveProgramme = 0;
         }
+
+        logger.log(Level.INFO, "Deleted programme at index {0}: {1}", new Object[]{index, programmeToDelete});
 
         return programmeToDelete;
     }
@@ -102,6 +127,16 @@ public class ProgrammeList {
     }
 
     /**
+     * Retrieves the current active Programme index.
+     *
+     * @return the current active Programme index, or {@code NULL_INTEGER} if no Programme is active.
+     */
+    public int getCurrentActiveProgramme(){
+        logger.log(Level.INFO, "Retrieving index of current program: {1}", new Object[]{currentActiveProgramme});
+        return currentActiveProgramme;
+    }
+
+    /**
      * Sets a Programme at the specified index as the current active Programme.
      *
      * @param startIndex the index of the Programme to start
@@ -109,9 +144,20 @@ public class ProgrammeList {
      * @throws IndexOutOfBoundsException if the startIndex is out of bounds for the Programme list
      */
     public Programme startProgramme(int startIndex) {
+        if (programmeList.isEmpty()){
+            deactivateCurrentProgramme();
+            //currentActiveProgramme = NULL_INTEGER;
+            logger.log(Level.WARNING, "Attempted to start a programme but the list is empty");
+            throw ProgrammeExceptions.programmeListEmpty();
+        }
+
         if (startIndex < 0 || startIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for startProgramme()", startIndex);
             throw ProgrammeExceptions.doesNotExist("programme");
+        }
+
+        if (currentActiveProgramme == startIndex) {
+            throw ProgrammeExceptions.programmeAlreadyActive(startIndex);
         }
 
         currentActiveProgramme = startIndex;
