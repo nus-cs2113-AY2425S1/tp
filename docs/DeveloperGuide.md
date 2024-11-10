@@ -210,7 +210,8 @@ allows for maintainability, testability, and scalability in managing persistent 
 ### General JSON file reading process
 ![Class diagram](images/CommandFileRead.png)
 
-For commands that read through `database.json`, the process will be done in the `Command` class via a `createJsonObject()` method,
+For commands that read through our data source file which contains university data, the process will be done in the 
+`Command` class via a `createJsonObject()` method, 
 where an `IOException` message will be displayed if reading fails. 
 
 ### 1. List Commands Command
@@ -273,7 +274,7 @@ This allows users to navigate this program easily and effectively.
 
 #### Overview:
 This command is responsible for displaying and retrieving the full list of universities
-from `database.json` file. It helps the users to identify the possible choices in Oceania.
+from our data source file which contains university data. It helps the users to identify the possible choices in Oceania.
 
 #### How the feature is implemented:
 * The `ListSchoolCommand` class extends the `CheckInformationCommand` class where it overrides the `execute` method for
@@ -351,7 +352,7 @@ exchange opportunities.
 
 #### Alternatives considered:
 * Split the contacts into 2 different class for obtaining email and number for better separation of concerns
-* Reading of the `database.json` was tricky and other libraries were considered.
+* Reading of the data source file which contains university data was tricky and other libraries were considered.
 * Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
   readability.
 
@@ -363,7 +364,7 @@ exchange opportunities.
 
 #### Overview:
 This command is responsible for displaying and retrieving the full list of mappable courses from the partner
-universities to a user specified NUS course from `database.json` file. It helps the users to identify whether
+universities to a user specified NUS course from our data source file which contains university data. It helps the users to identify whether
 that NUS course is suitable to be mapped overseas in Oceania.
 
 #### How the feature is implemented:
@@ -390,8 +391,8 @@ that NUS course is suitable to be mapped overseas in Oceania.
 
 #### Overview:
 This command is responsible for adding users' desired course mapping into the `myList.json` file.
-Additionally, each course mapping is checked against the current course mapping found in the
-`database.json` file, ensuring that the course mapping is accurate and is limited to Oceania
+Additionally, each course mapping is checked against the current course mapping found in
+our data source file which contains university data, ensuring that the course mapping is accurate and is limited to Oceania
 universities. This command hence helps the users to keep track of their course mapping process.
 
 #### How the feature is implemented:

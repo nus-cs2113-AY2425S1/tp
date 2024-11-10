@@ -58,6 +58,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
             return;
         } catch (IllegalArgumentException e) {
             logger.log(Level.WARNING, e.getMessage());
+            System.out.println(e);
         }
         logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
