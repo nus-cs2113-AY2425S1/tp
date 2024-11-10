@@ -229,6 +229,10 @@ public class Logic {
      *                         to be deleted.
      */
     public void deleteEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
+        if (commandArguments.get("argument").equals("all")) {
+            handleDeleteAll();
+            return;
+        }
         int index = processIndexToAmend(commandArguments);
         FinancialEntry entry = financialList.getEntry(index - 1);
 
@@ -246,6 +250,21 @@ public class Logic {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public void handleDeleteAll() throws FinanceBuddyException {
+        int totalEntries = financialList.getEntryCount();
+        if (totalEntries == 0) {
+            ui.displayEmptyListMessage();
+            return;
+        }
+        for (FinancialEntry entry : financialList.getEntries()) {
+            double amount = entry.getAmount();
+            budgetLogic.modifyBalance(amount);
+        }
+        financialList.clear();
+        ui.displayDeleteAllMessage(totalEntries);
+        financialList.resetLastAmendedIndex();
     }
 
     private int processIndexToAmend(HashMap<String, String> commandArguments) throws FinanceBuddyException {

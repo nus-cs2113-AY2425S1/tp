@@ -10,6 +10,7 @@ import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.financial.Income;
 import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
@@ -87,7 +88,7 @@ class EditEntryCommandTest {
      */
     @Test
     void testEditEntryCommand_editExpenseCategory() throws FinanceBuddyException {
-        financialList.addEntry(new Expense(100.0, "Initial Entry", LocalDate.now()));
+        financialList.addEntry(new Expense(100.0, "Initial Entry", LocalDate.now(),null));
         EditEntryCommand command = new EditEntryCommand(2, 50.0, "Salary", "01/10/2023",
                 Expense.Category.FOOD);
         command.execute(financialList);
