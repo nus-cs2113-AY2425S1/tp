@@ -4,34 +4,47 @@ hide footbox
 participant ":User"
 participant ":EasInternship"
 participant ":Storage"
-participant ":InternshipList"
 participant ":Internship"
+participant ":InternshipList"
 
 ":User"->":EasInternship": start program
 activate ":EasInternship" #green
-":EasInternship"->":InternshipList": new ":InternshipList"()
+":EasInternship"-->":InternshipList" **: create
 activate ":InternshipList" #aquamarine
+deactivate ":InternshipList"
 ":EasInternship"->":Storage": loadFromFile(internshipList)
 activate ":Storage" #orange
 
 loop for each line in file
-    ":Storage"-> ":Internship" : new ":Internship"(role, company, startDate, endDate)
+    ":Storage"-> ":Internship" **: create
     activate ":Internship" #blue
     ":Internship"->":InternshipList": addInternship
+    activate ":InternshipList" #aquamarine
+    deactivate ":InternshipList"
     ":Storage" -> ":Internship" :setSkills(skills)
+    activate ":Internship" #blue
+    deactivate ":Internship"
     ":Storage" -> ":Internship" : setStatus(status)
+    activate ":Internship" #blue
     deactivate ":Internship"
 
     ":Storage" -> ":Storage": parseDeadlines(deadlineString, internshipId)
         activate ":Storage" #orange
 
-        ":Storage" -> ":Deadline": new Deadline (description, date)
+        ":Storage" -> ":Deadline"**:create
         activate ":Deadline" #purple
         deactivate ":Deadline"
         deactivate ":Storage"
 
-        ":Internship" -> ":Deadline" : addDeadline(deadline)
+        ":Deadline" -> ":Internship" : addDeadline(deadline)
+        activate ":Internship" #blue
+        deactivate ":Internship"
+        deactivate ":Internship"
+        deactivate ":Deadline"
+        deactivate ":InternshipList"
 end
 deactivate ":Storage"
+
+
 @enduml
 
