@@ -1,5 +1,9 @@
 package seedu.exchangecoursemapper.parser;
 
+/**
+ * NusCourseCodeValidator class methods are used to check the user's input for the filter command,
+ * giving them guidance if they have used invalid course codes as filters.
+ */
 public class NusCourseCodeValidator {
     /**
      * Returns true if the NUS course code provided is a School of Computing (SoC) course, false otherwise.
