@@ -269,12 +269,57 @@ public class InternshipList {
     }
 
     /**
-     * Lists internships sorted by status alphabetically (case-insensitive).
+     * Lists internships sorted by status in the following order:
+     * 1. Application Pending
+     * 2. Application Completed
+     * 3. Accepted
+     * 4. Rejected
+     * If internships have the same status, they are sorted by role alphabetically.
      */
     public void listInternshipsSortedByStatus() {
-        ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
+        // Separate internships by status into four different lists
+        ArrayList<Internship> pendingList = new ArrayList<>();
+        ArrayList<Internship> completedList = new ArrayList<>();
+        ArrayList<Internship> acceptedList = new ArrayList<>();
+        ArrayList<Internship> rejectedList = new ArrayList<>();
 
-        Collections.sort(sortedInternships, Comparator.comparing(internship -> internship.getStatus().toLowerCase()));
+        for (Internship internship : internships) {
+            String status = internship.getStatus().toLowerCase();
+            switch (status) {
+                case "application pending":
+                    pendingList.add(internship);
+                    break;
+                case "application completed":
+                    completedList.add(internship);
+                    break;
+                case "accepted":
+                    acceptedList.add(internship);
+                    break;
+                case "rejected":
+                    rejectedList.add(internship);
+                    break;
+                default:
+                    // If there's an unknown status, you might want to handle it or ignore it
+                    logger.log(Level.WARNING, "Unknown status: " + status);
+                    break;
+            }
+        }
+
+        // Sort each list by role alphabetically (case-insensitive)
+        Comparator<Internship> roleComparator = Comparator.comparing(internship -> internship.getRole().toLowerCase());
+        pendingList.sort(roleComparator);
+        completedList.sort(roleComparator);
+        acceptedList.sort(roleComparator);
+        rejectedList.sort(roleComparator);
+
+        // Create a final sorted list by combining the lists in the required order
+        ArrayList<Internship> sortedInternships = new ArrayList<>();
+        sortedInternships.addAll(pendingList);
+        sortedInternships.addAll(completedList);
+        sortedInternships.addAll(acceptedList);
+        sortedInternships.addAll(rejectedList);
+
+        // Display the sorted internships
         ui.showInternships(sortedInternships, "status");
     }
 
@@ -326,13 +371,60 @@ public class InternshipList {
         ui.showInternships(sortedInternships, "skills in favourite");
     }
 
+
     /**
-     * Lists all favourite internships sorted by status alphabetically (case-insensitive).
+     * Lists internships sorted by status in the following order:
+     * 1. Application Pending
+     * 2. Application Completed
+     * 3. Accepted
+     * 4. Rejected
+     * If internships have the same status, they are sorted by role alphabetically.
      */
     public void listFavouriteInternshipsSortedByStatus() {
-        ArrayList<Internship> sortedList = new ArrayList<>(favouriteInternships);
-        Collections.sort(sortedList, Comparator.comparing(internship -> internship.getStatus().toLowerCase()));
-        ui.showInternships(sortedList, "status in favourite");
+        // Separate internships by status into four different lists
+        ArrayList<Internship> pendingList = new ArrayList<>();
+        ArrayList<Internship> completedList = new ArrayList<>();
+        ArrayList<Internship> acceptedList = new ArrayList<>();
+        ArrayList<Internship> rejectedList = new ArrayList<>();
+
+        for (Internship internship : favouriteInternships) {
+            String status = internship.getStatus().toLowerCase();
+            switch (status) {
+                case "application pending":
+                    pendingList.add(internship);
+                    break;
+                case "application completed":
+                    completedList.add(internship);
+                    break;
+                case "accepted":
+                    acceptedList.add(internship);
+                    break;
+                case "rejected":
+                    rejectedList.add(internship);
+                    break;
+                default:
+                    // If there's an unknown status, you might want to handle it or ignore it
+                    logger.log(Level.WARNING, "Unknown status: " + status);
+                    break;
+            }
+        }
+
+        // Sort each list by role alphabetically (case-insensitive)
+        Comparator<Internship> roleComparator = Comparator.comparing(internship -> internship.getRole().toLowerCase());
+        pendingList.sort(roleComparator);
+        completedList.sort(roleComparator);
+        acceptedList.sort(roleComparator);
+        rejectedList.sort(roleComparator);
+
+        // Create a final sorted list by combining the lists in the required order
+        ArrayList<Internship> sortedInternships = new ArrayList<>();
+        sortedInternships.addAll(pendingList);
+        sortedInternships.addAll(completedList);
+        sortedInternships.addAll(acceptedList);
+        sortedInternships.addAll(rejectedList);
+
+        // Display the sorted internships
+        ui.showInternships(sortedInternships, "status in favourite");
     }
 
     /**
