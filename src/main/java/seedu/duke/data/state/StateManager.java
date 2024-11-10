@@ -5,6 +5,8 @@ import seedu.duke.commands.CommandResult;
 import seedu.duke.data.exception.InvalidCommandException;
 import seedu.duke.data.exception.UnknownStateFound;
 import seedu.duke.data.hospital.Hospital;
+import seedu.duke.data.hospital.Hospital.PatientNotFoundException;
+import seedu.duke.ui.Ui;
 
 /**
  * Manages and runs the different states of the program.
@@ -94,7 +96,7 @@ public class StateManager {
     public CommandResult runMainState(String commandInput, Command command, Hospital hospital)
             throws InvalidCommandException {
         if (command == null) {
-            throw new InvalidCommandException("Invalid Patient Commands.");
+            throw new InvalidCommandException("");
         }
         // Handle patient selection
         if (command instanceof seedu.duke.commands.SelectPatientCommand) {
@@ -108,8 +110,10 @@ public class StateManager {
                 // get selected patient
                 hospital.setSelectedPatient(patientIndex);
 
-            } catch (Exception e) {
-                System.out.println("Invalid patient selection.");
+            } catch (NumberFormatException e) {
+                Ui.showToUserException("Invalid patient selection.");
+            } catch (PatientNotFoundException e) {
+                Ui.showToUserException("Invalid patient selection.");
             }
         }
         return command.execute();
@@ -128,7 +132,7 @@ public class StateManager {
     public CommandResult runTaskState(String commandInput, Command command, Hospital hospital)
             throws InvalidCommandException {
         if (command == null) {
-            throw new InvalidCommandException("Invalid Task Command");
+            throw new InvalidCommandException("");
         }
 
         if (hospital.getSelectedPatient() == null) {
