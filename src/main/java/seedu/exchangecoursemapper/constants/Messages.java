@@ -19,14 +19,15 @@ public class Messages {
     /* Messages for DeleteCoursesCommand */
     public static final String DELETE_COURSE_PLAN_HEADER = "You have deleted the course from your plan: ";
 
+
     public static final String LIST_RELEVANT_PU = "The relevant universities are (non-case sensitive):\n" +
-            "1. The University of Melbourne\n" +
-            "2.The Australian National University\n" +
-            "3. Victoria University of Wellington\n" +
-            "4.The University of Western Australia\n\n" +
-            "NOTE: Please indicate the partner universities FULL NAME!\n" +
-            "NOTE: Instead of \"Australian National University,\" " +
-            "please indicate \"The Australian National University.\"";
+            "1. The University of Melbourne - unimelb \n" +
+            "2.The Australian National University - anu\n" +
+            "3. Victoria University of Wellington - wgtn\n" +
+            "4.The University of Western Australia - uwa\n\n" +
+            "NOTE: Please indicate the partner universities FULL NAME or their respective " +
+            "official abbreviation.\n";
+
     public static final String COMMANDS_LIST =
             """
                     Here are the available commands:
