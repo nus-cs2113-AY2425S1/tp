@@ -37,12 +37,12 @@ public class Messages {
                     - Add mapped courses between NUS and partner universities.
                     obtain <SCHOOL_NAME> /email  - Obtain partner university contact email.
                     obtain <SCHOOL_NAME> /number - Obtain partner university contact number.
-                    delete <TASK_NUMBER>         - Delete a partner university.
+                    delete <LIST_INDEX>          - Delete a course mapping.
                     list mapped                  - List all course mapping saved.
                     compare pu/<uni1> pu/<uni2>  - Compare course mappings between 2 universities.
                     find <NUS_COURSE_CODE>       - Find courses with subject code in your list.
                     bye                          - End the program.
-                    To get more specific information of the commands, please use help <COMMAND>
+                    help <COMMAND>               - To get more specific information of the commands.
                     """;
     // ListPersonalTrackerCommand
     public static final String NO_MODULES_MESSAGE =
@@ -65,6 +65,17 @@ public class Messages {
     //Obtain contacts messages
     public static final String EMAIL_TAG = "Email for ";
     public static final String NUMBER_TAG = "Phone number for ";
-
     public static final String INDEX_OUT_OF_BOUNDS = "Course index out of bounds";
+
+    public static final String CORRUPT_HELP = "Please fix the course entry or remove the line completely before " +
+            "executing a new file command.";
+    public static final String ERROR_COURSE_ENTRY = "Error: Invalid course entry at line";
+    public static final String ERROR_ENTRY_FORMAT = "Error: Unable to parse course entry at line";
+    public static final String COURSE_NOT_FOUND = "Course not found in database: ";
+    public static final String INVALID_FORMAT = "Invalid format: ";
+    public static final String MYLIST_JSON = "in myList.json";
+    public static final String CHECK_SPELLING = "Please check the spelling or refer to the list of available " +
+            "universities using the 'list schools' command.";
+    public static final String UNKNOWN_UNI = "Error: The university \"";
+    public static final String NOT_RECOGNIZED = "\" is not recognized.";
 }
