@@ -99,7 +99,7 @@ interact with a given component through its interface rather than the concrete c
 
 #### Command Structure:
 
-![Class diagram for Commands](images/CommandClassInheritance.png)
+![Class diagram for Commands](images/CommandClassInheritance.jpg)
 
 The abstract command classes for our two main features, `CheckInformationCommand` and `PersonalTrackerCommand`.
 must inherit from the abstract `Command` class, which has the method to read the Json file containing course 

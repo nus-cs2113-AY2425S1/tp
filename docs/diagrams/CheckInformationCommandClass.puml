@@ -50,6 +50,11 @@ class CompareMappedCommand extends CheckInformationCommand {
     +execute(userInput: String): void
 }
 
+class NusCourseCodeValidator {
+    +isValidSocCourseCode(nusCourseCode: String): boolean {static}
+    +isValidNusCourseCodeFormat(nusCourseCode: String) : boolean {static}
+}
+
 class Storage {
     +loadAllCourses(): List<Course>
 }
@@ -59,19 +64,7 @@ class CourseRepository {
 }
 
 class UI {
-    +printMappableCourse(universityName: String, course: JsonObject): void
-    +printUniversityList(universityName: String): void
-    +displayPartnerUniversities(): void
-    +printListUniCoursesCommand(courseObject: JsonObject): void
-    +printCommandsList(): void
-    +printNoMappedModules(): void
-    +printMappedModules(mappedModules: List<Course>): void
-    +printInvalidInputFormat(): void
-    +printCommonMappings(university1: String, university2: String,commonCourseCodes: Set<String>,
-            uni1Modules: List<Course>, uni2Modules: List<Course>): void
-    +printUniqueMappings(university: String, modules: List<Course>, uniqueCourseCodes: Set<String>): void
-    +printInvalidCourseEntry(lineNumber: int, entry: String): void
-    +printInvalidEntryFormat(lineNumber: int, entry: String): void
+    +printMessage(message: String): void
 }
 
 ListPersonalTrackerCommand ---> "storage 1" Storage
@@ -82,6 +75,7 @@ CompareMappedCommand ---> "courseRepository 1" CourseRepository
 
 ListPersonalTrackerCommand ----> "ui 1" UI
 FilterCoursesCommand ----> "ui 1" UI
+FilterCoursesCommand ..> NusCourseCodeValidator
 ListSchoolCommand ----> "ui 1" UI
 ListCommandsCommand ----> "ui 1" UI
 HelpCommand ----> "ui 1" UI
@@ -91,5 +85,8 @@ CompareMappedCommand ----> "ui 1" UI
 
 note "execute() methods are overridden by concrete classes" as N1
 N1..FilterCoursesCommand
+
+note "UI contains more methods to display information\nto users based on command input" as N2
+
 
 @enduml
