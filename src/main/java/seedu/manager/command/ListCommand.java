@@ -22,11 +22,14 @@ public class ListCommand extends Command {
     public void execute() {
         StringBuilder outputMessage;
         if (eventList.getListSize() == 0) {
-            outputMessage = new StringBuilder(String.format(EMPTY_LIST_MESSAGE, eventList.getListSize()) + "\n");
+            outputMessage = new StringBuilder(
+                    String.format(EMPTY_LIST_MESSAGE, eventList.getListSize()) + "\n");
         } else if (eventList.getListSize() == 1) {
-            outputMessage = new StringBuilder(String.format(ONE_EVENT_LIST_MESSAGE, eventList.getListSize()) + "\n");
+            outputMessage = new StringBuilder(
+                    String.format(ONE_EVENT_LIST_MESSAGE, eventList.getListSize()) + "\n");
         } else {
-            outputMessage = new StringBuilder(String.format(LIST_MESSAGE, eventList.getListSize()) + "\n");
+            outputMessage = new StringBuilder(
+                    String.format(LIST_MESSAGE, eventList.getListSize()) + "\n");
         }
         for (int i = 0; i < eventList.getListSize(); i++) {
             assert eventList.getEvent(i) != null : "Event at index " + i + " should not be null.";
