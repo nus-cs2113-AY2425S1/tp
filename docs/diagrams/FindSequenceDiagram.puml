@@ -1,5 +1,8 @@
 @startuml
 'https://plantuml.com/sequence-diagram
+!include style.puml
+skinparam ArrowFormatStyle plain
+skinparam style strictuml
 
 <style>
 sequenceDiagram  {
@@ -10,10 +13,6 @@ sequenceDiagram  {
 }
 </STYLE>
 
-!include style.puml
-skinparam ArrowFormatStyle plain
-skinparam style strictuml
-
 actor User
 participant ":Parser" as Parser PARSER_COLOR
 participant ":FindParser" as FindParser PARSER_COLOR
@@ -23,8 +22,7 @@ participant ":Hospital" as Hospital DATA_COLOR
 participant ":CommandResult" as CommandResult COMMAND_COLOR
 participant ":FindTaskCommand" as FindTaskCommand COMMAND_COLOR
 participant ":TaskList" as TaskList DATA_COLOR
-scale 0.5
-skinparam defaultFontSize 20
+scale 1.5
 
 User -> Parser : parseCommand(line, state)
 activate Parser
@@ -36,11 +34,16 @@ alt State is MAIN_STATE
     activate Find
     Find --> FindParser : keyword
     deactivate Find
+    create FindPatientCommand
     FindParser -> FindPatientCommand : new FindPatientCommand(keyword)
     activate FindPatientCommand
     FindPatientCommand -> FindPatientCommand : execute()
     FindPatientCommand -> Hospital : findPatients(keyword)
+    activate Hospital
+    Hospital --> FindPatientCommand
+    deactivate Hospital
     alt <color: black>   [No matching patients found] </color>
+    create CommandResult
         FindPatientCommand -> CommandResult : new CommandResult()
         activate CommandResult
         deactivate CommandResult
@@ -57,6 +60,7 @@ else State is TASK_STATE
     activate Find
     Find --> FindParser : keyword
     deactivate Find
+    create FindTaskCommand
     FindParser -> FindTaskCommand : new FindTaskCommand(keyword)
     activate FindTaskCommand
     FindTaskCommand -> FindTaskCommand : execute()
