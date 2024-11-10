@@ -20,8 +20,15 @@ public class Reminder extends Saveable {
 
     }
 
+    public String getDescription() {
+        return reminderDescription;
+    }
 
-    public void printReminderDescription() {
+    public String getDeadlineString() {
+        return reminderDeadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+    }
+
+    public void printReminderInformation() {
         System.out.print(this.reminderDescription + " | " +
                 this.reminderDeadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + System.lineSeparator());
     }
