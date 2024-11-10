@@ -49,12 +49,16 @@ public class CategoryData {
     public void setCurrExpenditure(Float currExpenditure) throws WheresMyMoneyException {
         if (currExpenditure == null) {
             throw new WheresMyMoneyException("Current total expenditure should not be null.");
+        } else if (currExpenditure < 0) {
+            throw new WheresMyMoneyException("Current total expenditure should not be negative.");
         }
         this.currExpenditure = currExpenditure;
     }
     public void setMaxExpenditure(Float maxExpenditure) throws WheresMyMoneyException {
         if (maxExpenditure == null) {
             throw new WheresMyMoneyException("Expenditure's spending limit should not be null.");
+        } else if (maxExpenditure < 0) {
+            throw new WheresMyMoneyException("Expenditure's spending limit should not be negative.");
         }
         this.maxExpenditure = maxExpenditure;
     }
