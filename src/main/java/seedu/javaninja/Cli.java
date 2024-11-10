@@ -68,7 +68,7 @@ public class Cli {
         System.out.println("'view' to view topics");
         System.out.println("'select [topic]' to select a topic");
         System.out.println("'review' to review past results");
-        System.out.println("'help' for a list of commands");
+        System.out.println("'help' for this list of commands");
         System.out.println("'quit' to exit the program");
         System.out.println("'exit' to exit the quiz, activate only while doing the quiz");
         System.out.println("'add Flashcards /q <DESCRIPTION> " +
