@@ -138,15 +138,14 @@ class HistoryCommandTest {
         historyCommand.setTransactionList(inputTransactionList);
 
         Map<String, String> arguments = new HashMap<>();
-        arguments.put("t/", "2024-06-15");
+        arguments.put("t/", "2024-02-15");
         arguments.put("f/", "2024-02-15");
 
         historyCommand.setArguments(arguments);
         // Expected messages
         List<String> expectedMessages = new ArrayList<>();
         expectedMessages.add("1. "+item2.toString());
-        expectedMessages.add("2. "+item3.toString());
-        expectedMessages.add("3. "+item6.toString());
+
         // Execute the command
         List<String> messages = historyCommand.execute();
 
@@ -168,6 +167,28 @@ class HistoryCommandTest {
         List<String> expectedMessages = new ArrayList<>();
         expectedMessages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL +
                 ErrorMessages.MESSAGE_INVALID_DATE_FORMAT);
+
+        // Execute the command
+        List<String> messages = historyCommand.execute();
+
+        // Verify the result
+        assertEquals(expectedMessages, messages);
+    }
+
+    @Test
+    void execute_withFromAfterTo_showInvalidStartEndMessage() {
+        // Set transactions
+        historyCommand.setTransactionList(inputTransactionList);
+
+        Map<String, String> arguments = new HashMap<>();
+        arguments.put("t/", "2024-01-15");
+        arguments.put("f/", "2024-02-15");
+
+        historyCommand.setArguments(arguments);
+        // Expected messages
+        List<String> expectedMessages = new ArrayList<>();
+        expectedMessages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL +
+                ErrorMessages.MESSAGE_INVALID_START_END);
 
         // Execute the command
         List<String> messages = historyCommand.execute();

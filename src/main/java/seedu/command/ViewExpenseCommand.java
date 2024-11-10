@@ -2,6 +2,7 @@ package seedu.command;
 
 import seedu.category.Category;
 import seedu.exceptions.InvalidDateFormatException;
+import seedu.exceptions.InvalidDatePeriodException;
 import seedu.message.CommandResultMessages;
 import seedu.message.ErrorMessages;
 import seedu.transaction.Expense;
@@ -69,6 +70,8 @@ public class ViewExpenseCommand extends Command {
             temp = transactionList.getExpensesByCategory(tempCategory);
         }
         try {
+            LocalDateTime start;
+            LocalDateTime end;
             if (startDate != null) {
 
                 String[] datetimeParts = startDate.trim().split(" ", 2);
@@ -77,21 +80,32 @@ public class ViewExpenseCommand extends Command {
                 if (datetimeParts.length == 1) {
                     startDate += " 0000";
                 }
-                LocalDateTime start = DateTimeUtils.parseDateTime(startDate);
+                start = DateTimeUtils.parseDateTime(startDate);
                 temp = temp.stream()
                         .filter((t) -> t.getDate().isAfter(start) || t.getDate().isEqual(start))
                         .collect(Collectors.toList());
 
+            } else {
+                start = null;
             }
             if (endDate != null) {
 
-                LocalDateTime end = DateTimeUtils.parseDateTime(endDate);
+                end = DateTimeUtils.parseDateTime(endDate);
                 temp = temp.stream()
                         .filter((t) -> t.getDate().isBefore(end) || t.getDate().isEqual(end))
                         .collect(Collectors.toList());
 
+            } else {
+                end = null;
             }
-        } catch (InvalidDateFormatException e) {
+
+            if (start!=null && end!=null) {
+                if (start.isAfter(end)) {
+                    throw new InvalidDatePeriodException(ErrorMessages.MESSAGE_INVALID_START_END);
+                }
+            }
+
+        } catch (InvalidDateFormatException | InvalidDatePeriodException e) {
             messages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL + e.getMessage());
             return messages;
         } catch (Exception e) {

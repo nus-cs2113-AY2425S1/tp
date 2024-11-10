@@ -45,6 +45,28 @@ class ViewExpenseCommandTest {
     }
 
     @Test
+    void execute_withFromAfterTo_showInvalidStartEndMessage() {
+        // Set transactions
+        viewExpenseCommand.setTransactionList(inputTransactionList);
+
+        Map<String, String> arguments = new HashMap<>();
+        arguments.put("t/", "2024-01-15");
+        arguments.put("f/", "2024-02-15");
+
+        viewExpenseCommand.setArguments(arguments);
+        // Expected messages
+        List<String> expectedMessages = new ArrayList<>();
+        expectedMessages.add(CommandResultMessages.VIEW_TRANSACTION_FAIL +
+                ErrorMessages.MESSAGE_INVALID_START_END);
+
+        // Execute the command
+        List<String> messages = viewExpenseCommand.execute();
+
+        // Verify the result
+        assertEquals(expectedMessages, messages);
+    }
+
+    @Test
     void setTransactionList_newTransactionList_equalTransactionList()
             throws NoSuchFieldException, IllegalAccessException{
 

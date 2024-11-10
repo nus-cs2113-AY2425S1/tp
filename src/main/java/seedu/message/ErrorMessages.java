@@ -34,6 +34,8 @@ public class ErrorMessages {
     public static final String ERROR_SAVING_BUDGETS = "Error saving budgets: %s";
 
     // DateTime
+    public static final String MESSAGE_INVALID_START_END =
+            "Your start day must come before end day!";
     public static final String MESSAGE_INVALID_DATE_FORMAT =
             "Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm";
     public static final String MESSAGE_INVALID_YEAR_MONTH_FORMAT =
