@@ -1,7 +1,5 @@
-package seedu.spendswift.command;
+package seedu.spendswift;
 
-import seedu.spendswift.Format;
-import seedu.spendswift.parser.InputParser;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.BufferedReader;
