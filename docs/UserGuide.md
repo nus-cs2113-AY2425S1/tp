@@ -59,13 +59,13 @@ Here are the possible commands:
 menu: List commands   
 list: List events.
 add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
-add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Add a participant to an event.
+add -p PARTICIPANT -email EMAIL -e EVENT: Add a participant to an event.
 add -m ITEM -e EVENT: Add an item to an event.
 remove -e EVENT: Remove an event from the event list.
 remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
 remove -m ITEM -e EVENT: Remove an item from an event.
 edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
-edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
+edit -p PARTICIPANT -email EMAIL -e EVENT: Edit participant contact info.
 edit -m ITEM > NEW_ITEM -e EVENT: Edit an item in an event.
 view -e EVENT -y TYPE: View the list of participants or items of an event.
 mark -e EVENT -s STATUS: Mark an event as done or not done.
@@ -95,10 +95,11 @@ Adds an event to the event list, a participant to an event, or an item to an eve
 Format:  
 
 * `add -e EVENT -t TIME -v VENUE -u PRIORITY` for adding an event to the events list.
-* `add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for adding a participant to an event.
+* `add -p PARTICIPANT -email EMAIL -e EVENT` for adding a participant to an event.
 * `add -m ITEM -e EVENT` for adding an item to an event.
 
 Remarks:
+
 * `TIME` must be entered in the format `yyyy-mm-dd HH:mm`.
 * `PRIORITY` must be either `HIGH`, `MEDIUM`, or `LOW`.
   * The values entered for `PRIORITY` are case-insensitive.
@@ -106,7 +107,7 @@ Remarks:
 Examples:
 
 * `add -e Origami workshop -t 2024-10-12 18:00 -v Building A -u HIGH` adds an event with name `Origami workshop`, time `2024-10-12 18:00`, venue `Building A` and priority `HIGH` to the events list.
-* `add -p John Tan -n 91583215 -email john@gmail.com -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
+* `add -p John Tan -email john@gmail.com -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
 * `add -m Origami paper -e Origami workshop` adds an item `Origami paper` to the event `Origami workshop`.
 
 ### Removing an event, participant or item: `remove` 
@@ -149,13 +150,13 @@ Edits the information of an event/participant/item.
 Format:
 
 * `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
-* `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT` for editing a participant's contact information in an event.
+* `edit -p PARTICIPANT -email EMAIL -e EVENT` for editing a participant's contact information in an event.
 * `edit -m ITEM > NEW_ITEM -e EVENT` for editing an item's information in an event.
 
 Examples:
 
 * `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH` edits the information of the event `CS2113`.
-* `edit -p Mary -n 9182 3213 -email mary@gmail.com -e CS2113` edits the contact information of the participant `Mary` in the event `CS2113`.
+* `edit -p Mary -email mary@gmail.com -e CS2113` edits the contact information of the participant `Mary` in the event `CS2113`.
 * `edit -m balloon > cake -e anniversary` edits the item `balloon` in the event `anniversary` to `cake`.
 <div style="page-break-after: always;"></div>
 
@@ -202,6 +203,7 @@ Copies the participant list from one event to another event.
 Format: `copy FROM_EVENT > TO_EVENT`
 
 * Both events must already exist.
+* The mark status of the `Participant`s in the copy participant list will be reset (i.e. set as absent).
 * If the event `TO_EVENT` already has an existing participant list, `TO_EVENT`'s participant list will be overwritten.
 
 Examples:
@@ -295,10 +297,9 @@ For Events
 For Participants:
 
 ```
-"PARTICIPANT",PARTICIPANT_NAME,NUMBER,EMAIL,EVENT,STATUS
+"PARTICIPANT",PARTICIPANT_NAME,EMAIL,EVENT,STATUS
 ```
 
-* `NUMBER` must be an 8-digit number
 * `EMAIL` must follow a similar format such as example@gmail.com
 * An entry for the `Event` corresponding to `EVENT` must be present in `data.csv`.
 * `STATUS` must be either `Y` or `N`
@@ -324,13 +325,13 @@ If the above format or parameter constraints are not followed, the `Event`, `Par
 * List possible commands: `menu`
 * List all events: `list`
 * Add event: `add -e EVENT -t TIME -v VENUE -u PRIORITY`
-* Add participant to an event: `add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
+* Add participant to an event: `add -p PARTICIPANT -email EMAIL -e EVENT`
 * Add item to an event: `add -m ITEM -e EVENT`
 * Remove event: `remove -e EVENT`
 * Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
 * Remove item from an event: `remove -m ITEM -e EVENT`
 * Edit event: `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY`
-* Edit participant of an event: `edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT`
+* Edit participant of an event: `edit -p PARTICIPANT -email EMAIL -e EVENT`
 * Edit item of an event: `edit -m ITEM > NEW_ITEM -e EVENT`
 * View all participants or items for an event: `view -e EVENT -y TYPE`
 * Mark an event as done: `mark -e EVENT -s STATUS`

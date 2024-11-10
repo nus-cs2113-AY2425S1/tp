@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+//@@author LTK-1606
 public class CopyCommandTest {
     EventList eventList = new EventList();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -22,9 +23,9 @@ public class CopyCommandTest {
         eventList.addEvent("Event 2", LocalDateTime.parse("2023-10-23 21:00", formatter),
                 "Venue A", Priority.HIGH);
         assertEquals(2, eventList.getListSize());
-        eventList.addParticipantToEvent("John Doe", "9123 8321", "example1@gmail.com", "Event 1");
-        eventList.addParticipantToEvent("Jane Doe", "8123 9321", "example2@gmail.com","Event 1");
-        eventList.addParticipantToEvent("Peter Parker", "9321 8123", "example3@gmail.com","Event 1");
+        eventList.addParticipantToEvent("John Doe", "example1@gmail.com", "Event 1");
+        eventList.addParticipantToEvent("Jane Doe", "example2@gmail.com","Event 1");
+        eventList.addParticipantToEvent("Peter Parker", "example3@gmail.com","Event 1");
     }
 
     @Test
@@ -65,5 +66,4 @@ public class CopyCommandTest {
         assertEquals(expectedMessage, copyCommand.getMessage());
         assertFalse(copyCommand.getCanExit());
     }
-
 }

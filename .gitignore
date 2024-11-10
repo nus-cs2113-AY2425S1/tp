@@ -19,3 +19,5 @@ src/main/java/META-INF/MANIFEST.MF
 /events.csv
 items.csv
 participants.csv
+data.txt
+logs.txt

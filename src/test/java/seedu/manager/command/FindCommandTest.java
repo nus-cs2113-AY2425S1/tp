@@ -19,9 +19,9 @@ public class FindCommandTest {
         eventList = new EventList();
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-10 16:00", formatter),
                 "Venue 1", Priority.HIGH);
-        eventList.addParticipantToEvent("John Doe", "9123 8321", "example1@gmail.com", "Event 1");
-        eventList.addParticipantToEvent("Jane Doe", "8123 9321", "example2@gmail.com","Event 1");
-        eventList.addParticipantToEvent("Kuan Hsien", "9321 8123", "example3@gmail.com","Event 1");
+        eventList.addParticipantToEvent("John Doe", "example1@gmail.com", "Event 1");
+        eventList.addParticipantToEvent("Jane Doe", "example2@gmail.com","Event 1");
+        eventList.addParticipantToEvent("Kuan Hsien", "example3@gmail.com","Event 1");
     }
 
     @Test
@@ -32,8 +32,8 @@ public class FindCommandTest {
         findCommand.execute();
 
         String expectedMessage = "Person(s) found!\n" +
-                "1. Name: John Doe / Number: 9123 8321 / Email: example1@gmail.com [ ]\n" +
-                "2. Name: Jane Doe / Number: 8123 9321 / Email: example2@gmail.com [ ]\n";
+                "1. Name: John Doe / Email: example1@gmail.com [ ]\n" +
+                "2. Name: Jane Doe / Email: example2@gmail.com [ ]\n";
         assertEquals(expectedMessage, findCommand.getMessage());
     }
 

@@ -12,13 +12,13 @@ public class MenuCommand extends Command {
             menu: List commands.
             list: List events.
             add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
-            add -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Add a participant to an event.
+            add -p PARTICIPANT -email EMAIL -e EVENT: Add a participant to an event.
             add -m ITEM -e EVENT: Add an item to an event.
             remove -e EVENT: Remove an event from the event list.
             remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
             remove -m ITEM -e EVENT: Remove an item from an event.
             edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
-            edit -p PARTICIPANT -n NUMBER -email EMAIL -e EVENT: Edit participant contact info.
+            edit -p PARTICIPANT -email EMAIL -e EVENT: Edit participant contact info.
             edit -m ITEM > NEW_ITEM -e EVENT: Edit an item in an event.
             view -e EVENT -y TYPE: View the list of participants or items of an event.
             mark -e EVENT -s STATUS: Mark an event as done or not done.

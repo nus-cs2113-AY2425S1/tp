@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 //@@author KuanHsienn
@@ -21,7 +22,15 @@ import java.util.logging.Logger;
  * and adds them to the provided EventList.
  */
 public class FileParser {
-    private static final Logger logger = Logger.getLogger(FileParser.class.getName());
+    private final Logger logger;
+
+    /**
+     * Constructs a new FileParser.
+     */
+    public FileParser(){
+        logger = Logger.getLogger(FileParser.class.getName());
+        logger.setUseParentHandlers(false);
+    }
 
     /**
      * Parses the specified CSV file and populates the given EventList with the loaded data.
@@ -32,7 +41,7 @@ public class FileParser {
      */
     public void parseFile(EventList events, String filePath) throws IOException {
         try {
-            logger.info("Loading data from file");
+            logInfo("Loading data from file");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             List<String[]> lines = getFileLines(filePath);
             for (String[] line : lines) {
@@ -66,7 +75,7 @@ public class FileParser {
      * @param fields   The fields of the line to parse.
      * @param formatter The DateTimeFormatter to use for parsing date and time.
      */
-    private void parseLine(EventList events, String[] fields, DateTimeFormatter formatter) {
+    private void parseLine(EventList events, String[] fields, DateTimeFormatter formatter) throws IOException {
         String type = fields[0];
         try {
             switch (type) {
@@ -80,10 +89,10 @@ public class FileParser {
                 parseItemFileLine(events, fields);
                 break;
             default:
-                logger.warning("Unknown entry type in file");
+                logWarning("Unknown entry type in file");
             }
         } catch (Exception exception) {
-            logger.warning("File line cannot be parsed, entry not loaded");
+            logWarning("File line cannot be parsed, entry not loaded");
         }
     }
 
@@ -93,7 +102,7 @@ public class FileParser {
      * @param events   The EventList to populate.
      * @param fields   The fields of the event to parse.
      * @param formatter The DateTimeFormatter to use for parsing date and time.
-     * @throws IOException If there is an error adding the event to the list.
+     * @throws IOException If there is an error adding the event to the list, or if the log file cannot be written to.
      */
     private void parseEventFileLine(EventList events, String[] fields, DateTimeFormatter formatter) throws IOException {
         try {
@@ -104,7 +113,7 @@ public class FileParser {
             boolean isDone = getIsMarked(fields[5].trim());
             events.addEvent(eventName, time, venue, priority, isDone);
         } catch (DateTimeParseException | IndexOutOfBoundsException | NullPointerException exception) {
-            logger.warning("File line cannot be parsed, event not loaded");
+            logWarning("File line cannot be parsed, event not loaded");
         }
     }
 
@@ -118,14 +127,13 @@ public class FileParser {
     private void parseParticipantFileLine(EventList events, String[] fields) throws IOException {
         try {
             String participantName = fields[1].trim();
-            String number = fields[2].trim();
-            String email = fields[3].trim();
-            String eventName = fields[4].trim();
-            boolean isPresent = getIsMarked(fields[5].trim());
-            boolean isLoaded = events.addParticipantToEvent(participantName, number, email, isPresent, eventName);
+            String email = fields[2].trim();
+            String eventName = fields[3].trim();
+            boolean isPresent = getIsMarked(fields[4].trim());
+            boolean isLoaded = events.addParticipantToEvent(participantName, email, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
-            logger.warning("File line cannot be parsed, participant not loaded");
+            logWarning("File line cannot be parsed, participant not loaded");
         }
     }
 
@@ -134,7 +142,8 @@ public class FileParser {
      *
      * @param events The EventList to populate.
      * @param fields The fields of the item to parse.
-     * @throws IOException If there is an error adding the item to the event.
+     * @throws IOException If there is an error adding the item to the event, or if
+     *         the log file cannot be written to.
      */
     private void parseItemFileLine(EventList events, String[] fields) throws IOException {
         try {
@@ -144,7 +153,7 @@ public class FileParser {
             boolean isLoaded = events.addItemToEvent(itemName, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
-            logger.warning("File line cannot be parsed, item not loaded");
+            logWarning("File line cannot be parsed, item not loaded");
         }
     }
 
@@ -153,14 +162,15 @@ public class FileParser {
      *
      * @param markStatus The mark status string, expected to be "Y" or "N".
      * @return true if mark status is "Y"; false if it is "N".
+     * @throws IOException if the log file cannot be written to.
      */
-    private boolean getIsMarked(String markStatus) {
+    private boolean getIsMarked(String markStatus) throws IOException {
         if (markStatus.equalsIgnoreCase("Y")) {
             return true;
         } else if (markStatus.equalsIgnoreCase("N")) {
             return false;
         } else {
-            logger.warning("Cannot parse mark status, setting to false");
+            logWarning("Cannot parse mark status, setting to false");
             return false;
         }
     }
@@ -169,10 +179,37 @@ public class FileParser {
      * Logs a warning if an event associated with a participant or item could not be loaded.
      *
      * @param isLoaded Indicates whether the loading was successful.
+     * @throws IOException if the log file cannot be written to.
      */
-    private void eventUnsuccessfulLoad(boolean isLoaded) {
+    private void eventUnsuccessfulLoad(boolean isLoaded) throws IOException {
         if (!isLoaded) {
-            logger.warning("Associated event not found, entry not loaded");
+            logWarning("Associated event not found, entry not loaded");
         }
+    }
+
+    /**
+     * Logs an info message to a log file.
+     *
+     * @param message the given warning message.
+     * @throws IOException if the log file cannot be written to.
+     */
+    private void logInfo(String message) throws IOException {
+        FileHandler handler = new FileHandler("logs.txt", true);
+        logger.addHandler(handler);
+        logger.info(message);
+        handler.close();
+    }
+
+    /**
+     * Logs a warning message to a log file.
+     *
+     * @param message the given warning message.
+     * @throws IOException if the log file cannot be written to.
+     */
+    private void logWarning(String message) throws IOException {
+        FileHandler handler = new FileHandler("logs.txt", true);
+        logger.addHandler(handler);
+        logger.warning(message);
+        handler.close();
     }
 }

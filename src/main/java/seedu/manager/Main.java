@@ -44,7 +44,7 @@ public class Main {
                 ui.showOutputToUser(command);
                 saveData();
                 isGettingCommands = !command.getCanExit();
-            } catch (InvalidCommandException | DuplicateDataException exception) {
+            } catch (InvalidCommandException | DuplicateDataException | IOException exception) {
                 ui.showErrorMessageToUser(exception);
             }
         }
