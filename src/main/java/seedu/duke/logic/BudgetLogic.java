@@ -108,12 +108,12 @@ public class BudgetLogic {
                     String amountInput = ui.getUserInput();
                     amount = Double.parseDouble(amountInput);
 
-                    if (amount >= 0.01) {
+                    if (amount >= 0.01 && amount <= 99999999) {
                         isAmountValid = true;
                     } else {
                         Commons.printSingleLineWithBars(
-                                "Budget amount must be >= $0.01. Please enter a valid amount.");
-                        logger.log(LogLevels.WARNING, "Amount less than $0.01 entered.");
+                                "Budget amount must be >= $0.01 and <= $9999999. Please enter a valid amount.");
+                        logger.log(LogLevels.WARNING, "Amount out of budget amount range entered.");
                     }
 
                 } catch (NumberFormatException e) {
