@@ -56,7 +56,7 @@ public class Exception extends Throwable {
     }
 
     public static String deleteCoursesLimitExceeded() {
-        return "Please provide a just one index of the course plan you would like to delete.";
+        return "Please provide just one index of the course plan you would like to delete.";
     }
 
     public static String invalidCourseListIndex() {
@@ -65,7 +65,7 @@ public class Exception extends Throwable {
     }
 
     public static String nonNumericListIndexInput() {
-        return "Please provide a numeric index of the course plan you would like to delete.";
+        return "Please provide a valid numeric index of the course plan you would like to delete.";
     }
 
     public static String invalidContactType() {
