@@ -163,6 +163,14 @@ Expected Output:
 Phone number for The Australian National University: +61 2 6125 7257
 ```
 
+Example: `obtain anu /number`
+
+Expected Output:
+```
+Phone number for The Australian National University: +61 2 6125 7257
+```
+
+
 ### Filtering possible mappings: `filter`
 Filters out all possible PU courses that can be mapped to a user specified NUS course.
 
