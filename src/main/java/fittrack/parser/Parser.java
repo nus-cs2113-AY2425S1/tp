@@ -1,4 +1,5 @@
 package fittrack.parser;
+import fittrack.FitTrack;
 import fittrack.fitnessgoal.Goal;
 import fittrack.healthprofile.FoodEntry;
 import fittrack.healthprofile.FoodWaterIntake;
@@ -288,9 +289,11 @@ public class Parser {
             } catch (Exception e) {
                 System.out.println("An unexpected error occurred: " + e.getMessage());
             }
+
         case LIST_REMINDER_COMMAND:
             printReminderList(reminderList);
             break;
+
         case LIST_UPCOMING_REMINDER_COMMAND:
             beginSegment();
             printUpcomingReminders(reminderList);
@@ -307,7 +310,7 @@ public class Parser {
                     try {
                         goalDeadline = parseGoalDeadline(goalDeadlineInput);
                     } catch (IllegalArgumentException e) {
-                        System.out.println("Invalid date format: " + e.getMessage());
+                        System.out.println(e.getMessage());
                         return;
                     }
                 }
