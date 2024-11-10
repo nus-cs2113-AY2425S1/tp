@@ -12,6 +12,7 @@ import seedu.duke.financial.Income;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -65,6 +66,39 @@ public class SeeAllExpensesCommandTest {
                 "--------------------------------------------" + System.lineSeparator(), outContent.toString());
     }
 
+    private void fillMixedList(FinancialList financialList, ArrayList<FinancialEntry> entries) throws FinanceBuddyException {
+        for (FinancialEntry entry : entries) {
+            financialList.addEntry(entry);
+        }
+    }
+
+    /**
+     * Method to help generate Array List of financial entries to populate financial list.
+     *
+     * @return Array List with both expenses and incomes.
+     * @throws FinanceBuddyException when invalid arguments are passed into Expense/Income constructors.
+     */
+    private ArrayList<FinancialEntry> getEntriesArrayList() throws FinanceBuddyException {
+        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(2024, 10, 22),
+                Expense.Category.FOOD);
+        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(2024, 10, 12),
+                Expense.Category.TRANSPORT);
+        FinancialEntry expense3 = new Expense(10.0, "table", LocalDate.of(2024,10,20),
+                Expense.Category.OTHER);
+        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(2024, 10, 22),
+                Income.Category.GIFT);
+        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(2024, 10, 12),
+                Income.Category.SALARY);
+
+        ArrayList<FinancialEntry> entries = new ArrayList<>();
+        entries.add(expense1);
+        entries.add(expense2);
+        entries.add(expense3);
+        entries.add(income1);
+        entries.add(income2);
+        return entries;
+    }
+
     /**
      * Tests the execute method of SeeAllExpensesCommand when there are expenses in the financial list.
      * This test case verifies that the execute method correctly prints all the expenses in the financial list.
@@ -74,30 +108,21 @@ public class SeeAllExpensesCommandTest {
      */
     @Test
     public void execute_withExpenses_printsAllExpenses() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(2024, 10, 22),
-                Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(2024, 10, 12),
-                Expense.Category.TRANSPORT);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(2024, 10, 22),
-                Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(2024, 10, 12),
-                Income.Category.SALARY);
-        financialList.addEntry(expense1);
-        financialList.addEntry(expense2);
-        financialList.addEntry(income1);
-        financialList.addEntry(income2);
+        ArrayList<FinancialEntry> entries = getEntriesArrayList();
+        fillMixedList(financialList, entries);
 
         seeAllExpensesCommand = new SeeAllExpensesCommand(null, null);
         seeAllExpensesCommand.execute(financialList);
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. " + expense2 + System.lineSeparator() +
-                "3. " + expense1 + System.lineSeparator() +
+                "1. " + entries.get(1) + System.lineSeparator() +
+                "3. " + entries.get(2) + System.lineSeparator() +
+                "4. " + entries.get(0) + System.lineSeparator() +
                 System.lineSeparator() +
-                "Total count: 2" + System.lineSeparator() +
+                "Total count: 3" + System.lineSeparator() +
                 System.lineSeparator() +
-                "Total expense: $ 15.00" + System.lineSeparator() +
+                "Total expense: $ 25.00" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Highest Expense Category: FOOD ($10.00)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
@@ -109,29 +134,16 @@ public class SeeAllExpensesCommandTest {
      */
     @Test
     public void execute_beforeDate_printSomeExpenses() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(2024, 10, 22),
-                Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(2024, 10, 12),
-                Expense.Category.TRANSPORT);
-        FinancialEntry expense3 = new Expense(10.0, "table", LocalDate.of(2024,10,20),
-                Expense.Category.OTHER);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(2024, 10, 22),
-                Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(2024, 10, 12),
-                Income.Category.SALARY);
-        financialList.addEntry(expense1);
-        financialList.addEntry(expense2);
-        financialList.addEntry(expense3);
-        financialList.addEntry(income1);
-        financialList.addEntry(income2);
+        ArrayList<FinancialEntry> entries = getEntriesArrayList();
+        fillMixedList(financialList, entries);
 
         seeAllExpensesCommand = new SeeAllExpensesCommand(null, LocalDate.of(2024, 10, 20));
         seeAllExpensesCommand.execute(financialList);
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. " + expense2 + System.lineSeparator() +
-                "3. " + expense3 + System.lineSeparator() +
+                "1. " + entries.get(1) + System.lineSeparator() +
+                "3. " + entries.get(2) + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total count: 2" + System.lineSeparator() +
                 System.lineSeparator() +
@@ -147,36 +159,22 @@ public class SeeAllExpensesCommandTest {
      */
     @Test
     public void execute_afterDate_printSomeExpenses() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(9.0, "food", LocalDate.of(2024, 10, 22),
-                Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(2024, 10, 12),
-                Expense.Category.TRANSPORT);
-        FinancialEntry expense3 = new Expense(10.0, "table", LocalDate.of(2024,10,20),
-                Expense.Category.OTHER);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(2024, 10, 22),
-                Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(2024, 10, 12),
-                Income.Category.SALARY);
-      
-        financialList.addEntry(expense1);
-        financialList.addEntry(expense2);
-        financialList.addEntry(expense3);
-        financialList.addEntry(income1);
-        financialList.addEntry(income2);
+        ArrayList<FinancialEntry> entries = getEntriesArrayList();
+        fillMixedList(financialList, entries);
 
         seeAllExpensesCommand = new SeeAllExpensesCommand(LocalDate.of(2024, 10, 20), null);
         seeAllExpensesCommand.execute(financialList);
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "3. " + expense3 + System.lineSeparator() +
-                "4. " + expense1 + System.lineSeparator() +
+                "3. " + entries.get(2) + System.lineSeparator() +
+                "4. " + entries.get(0) + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total count: 2" + System.lineSeparator() +
                 System.lineSeparator() +
-                "Total expense: $ 19.00" + System.lineSeparator() +
+                "Total expense: $ 20.00" + System.lineSeparator() +
                 System.lineSeparator() +
-                "Highest Expense Category: OTHER ($10.00)" + System.lineSeparator() +
+                "Highest Expense Category: FOOD ($10.00)" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -187,26 +185,13 @@ public class SeeAllExpensesCommandTest {
      */
     @Test
     public void execute_beforeAndAfterDate_printSomeExpenses() throws FinanceBuddyException {
-        FinancialEntry expense1 = new Expense(10.0, "food", LocalDate.of(2024, 10, 22),
+        ArrayList<FinancialEntry> entries = getEntriesArrayList();
+        fillMixedList(financialList, entries);
+
+        FinancialEntry expense4 = new Expense(15.5, "snacks", LocalDate.of(2024, 10, 20),
                 Expense.Category.FOOD);
-        FinancialEntry expense2 = new Expense(5.0, "transport", LocalDate.of(2024, 10, 12),
-                Expense.Category.TRANSPORT);
-        FinancialEntry expense3 = new Expense(15.5, "snacks", LocalDate.of(2024, 10, 20),
-                Expense.Category.FOOD);
-        FinancialEntry expense4 = new Expense(10.0, "table", LocalDate.of(2024, 10, 21),
-                Expense.Category.OTHER);
         FinancialEntry expense5 = new Expense(7.0, "shampoo", LocalDate.of(2024, 10, 15),
                 Expense.Category.UTILITIES);
-        FinancialEntry income1 = new Income(10.0, "bonus", LocalDate.of(2024, 10, 22),
-                Income.Category.GIFT);
-        FinancialEntry income2 = new Income(15.5, "salary", LocalDate.of(2024, 10, 12),
-                Income.Category.SALARY);
-
-        financialList.addEntry(expense1);
-        financialList.addEntry(expense2);
-        financialList.addEntry(expense3);
-        financialList.addEntry(income1);
-        financialList.addEntry(income2);
         financialList.addEntry(expense4);
         financialList.addEntry(expense5);
 
@@ -216,7 +201,7 @@ public class SeeAllExpensesCommandTest {
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
                 "3. " + expense5 + System.lineSeparator() +
-                "4. " + expense3 + System.lineSeparator() +
+                "4. " + entries.get(2) + System.lineSeparator() +
                 "5. " + expense4 + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total count: 3" + System.lineSeparator() +
