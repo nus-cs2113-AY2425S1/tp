@@ -10,11 +10,13 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.math.BigDecimal;
+
 
 //@@author kq2003
 public class BudgetManager {
     public int lastResetMonth;
-  
+
     public boolean isAutoResetEnabled = false;  // Default state
 
     public BudgetManager() {
@@ -25,7 +27,6 @@ public class BudgetManager {
     public boolean getAutoResetStatus() {
         return this.isAutoResetEnabled;
     }
-
     public void toggleAutoReset() {
         isAutoResetEnabled = !isAutoResetEnabled;
         System.out.println(UI.SEPARATOR);
@@ -82,6 +83,7 @@ public class BudgetManager {
         SuccessMessage.printBudgetReset();
     }
 
+
     //@@author MayFairMI6
     /**
      * Sets a budget limit for a specific category.
@@ -95,11 +97,25 @@ public class BudgetManager {
      * @param categoryName The name of the category to set the budget for
      * @param limit The budget limit to be set for the category (in dollars)
      */
+
+
     public void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
+        // Adjusted for potentially enormous values typical in some currencies
+        final BigDecimal maxLimit = new BigDecimal("1000000000000000"); // 1 quadrillion for example
+
+        BigDecimal preciseLimit = BigDecimal.valueOf(limit);
         List<Category> categories = trackerData.getCategories();
         Map<Category, Budget> budgets = trackerData.getBudgets();
         String formattedCategoryName = Format.formatInput(categoryName.trim());
+        if (preciseLimit.compareTo(BigDecimal.ZERO) < 0) {
+            System.out.println("Invalid input! Please provide a positive amount!");
+            return;
+        }
 
+        if (preciseLimit.compareTo(maxLimit) > 0) {
+            System.out.println("Budget limit exceeds the maximum allowed amount of " + maxLimit.toPlainString());
+            return;
+        }
         Category existingCategory = null;
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
@@ -114,11 +130,16 @@ public class BudgetManager {
         }
 
         if (budgets.containsKey(existingCategory)) {
+            budgets.get(existingCategory).setLimit(preciseLimit.doubleValue()); 
+            System.out.println("Updated budget for category '" + existingCategory.getName() + 
+                "' to " + preciseLimit.toPlainString());
             budgets.get(existingCategory).setLimit(limit);
             SuccessMessage.printExistingBudget(limit, existingCategory);
         } else {
-            Budget newBudget = new Budget(existingCategory, limit);
+            Budget newBudget = new Budget(existingCategory, preciseLimit.doubleValue());
             budgets.put(existingCategory, newBudget);
+            System.out.println("Set budget for category '" 
+                + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
             SuccessMessage.printNewBudget(limit, existingCategory);
         }
 
