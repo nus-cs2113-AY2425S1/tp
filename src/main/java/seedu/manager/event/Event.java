@@ -134,39 +134,12 @@ public class Event {
     }
 
     /**
-     * Sets a new time for the event.
-     *
-     * @param eventTime the new event time
-     */
-    public void setEventTime(LocalDateTime eventTime) {
-        this.eventTime = eventTime;
-    }
-
-    /**
-     * Sets a new venue for the event.
-     *
-     * @param eventVenue the new event venue
-     */
-    public void setEventVenue(String eventVenue) {
-        this.eventVenue = eventVenue;
-    }
-
-    /**
      * Sets a participant for the event.
      *
      * @param participantList the new participant list
      */
     public void setParticipantList(ArrayList<Participant> participantList) {
         this.participantList = participantList;
-    }
-
-    /**
-     * Sets a new priority level for the event.
-     *
-     * @param eventPriority the new event priority level
-     */
-    public void setEventPriority(Priority eventPriority) {
-        this.eventPriority = eventPriority;
     }
 
     //@@author jemehgoh
