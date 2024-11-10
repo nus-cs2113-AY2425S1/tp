@@ -6,24 +6,29 @@ skinparam ArrowFormatStyle plain
 skinparam style strictuml
 
 actor User
-participant Parser PARSER_COLOR
-participant FindParser PARSER_COLOR
-participant Find PARSER_COLOR
-participant FindPatientCommand PARSER_COLOR
-participant Hospital PARSER_COLOR
-participant CommandResult PARSER_COLOR
-participant FindTaskCommand PARSER_COLOR
-participant TaskList PARSER_COLOR
+participant ":Parser" as Parser PARSER_COLOR
+participant ":FindParser" as FindParser PARSER_COLOR
+participant ":Find" as Find COMMAND_COLOR
+participant ":FindPatientCommand" as FindPatientCommand COMMAND_COLOR
+participant ":Hospital" as Hospital DATA_COLOR
+participant ":CommandResult" as CommandResult COMMAND_COLOR
+participant ":FindTaskCommand" as FindTaskCommand COMMAND_COLOR
+participant ":TaskList" as TaskList DATA_COLOR
 scale 1.5
 skinparam defaultFontSize 20
 
 User -> Parser : parseCommand(line, state)
+activate Parser
 Parser -> FindParser : execute(line, state)
+activate FindParser
 
 alt State is MAIN_STATE
     FindParser -> Find : extract(line)
-    Find -> FindParser : keyword
+    activate Find
+    Find --> FindParser : keyword
+    deactivate Find
     FindParser -> FindPatientCommand : new FindPatientCommand(keyword)
+    activate FindPatientCommand
     FindPatientCommand -> FindPatientCommand : execute()
     FindPatientCommand -> Hospital : findPatients(keyword)
     alt No matching patients found
@@ -37,18 +42,30 @@ alt State is MAIN_STATE
         deactivate CommandResult
         CommandResult --> FindPatientCommand
     end
+    deactivate FindPatientCommand
 else State is TASK_STATE
     FindParser -> Find : extract(line)
-    Find -> FindParser : keyword
+    activate Find
+    Find --> FindParser : keyword
+    deactivate Find
     FindParser -> FindTaskCommand : new FindTaskCommand(keyword)
+    activate FindTaskCommand
     FindTaskCommand -> FindTaskCommand : execute()
     FindTaskCommand -> TaskList : findTasks(keyword)
-    alt No matching tasks found
-        FindTaskCommand -> CommandResult : new CommandResult()
+    activate TaskList
+    TaskList --> FindTaskCommand
+    deactivate TaskList
+    alt No tasks found
+        FindTaskCommand --> CommandResult : new CommandResult()
     else Tasks found
-        FindTaskCommand -> CommandResult : new CommandResult()
+        FindTaskCommand --> CommandResult : new CommandResult()
     end
-end
+    FindTaskCommand --> FindParser
+    deactivate FindTaskCommand
+    FindParser --> Parser
+    deactivate Parser
+    Parser --> User
 
+end
 
 @enduml
