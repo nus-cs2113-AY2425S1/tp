@@ -17,6 +17,7 @@ import static fittrack.messages.Messages.EXIT_MESSAGE;
 import static fittrack.messages.Messages.HELP_MESSAGE;
 import static fittrack.messages.Messages.INIT_SENTENCE;
 import static fittrack.messages.Messages.INVALID_INPUT_MESSAGE;
+import static fittrack.messages.Messages.INVALID_LIST_COMMAND_MESSAGE;
 import static fittrack.messages.Messages.LIST_REMINDER_EMPTY_MESSAGE;
 import static fittrack.messages.Messages.LIST_REMINDER_MESSAGE;
 import static fittrack.messages.Messages.LIST_SESSION_EMPTY_MESSAGE;
@@ -107,6 +108,12 @@ public class Ui {
         endSegment();
     }
 
+    public static void printInvalidListCommandMessage() {
+        beginSegment();
+        System.out.println(INVALID_LIST_COMMAND_MESSAGE);
+        endSegment();
+    }
+
     public static void printSessionView(ArrayList<TrainingSession> sessionList, int index) {
         assert sessionList != null : "Session list must not be null";
         assert index >= 0 && index < sessionList.size() : "Index is out of bounds";
@@ -167,6 +174,7 @@ public class Ui {
             return;
         }
 
+        beginSegment();
         ArrayList<Reminder> upcomingReminders = findUpcomingReminders(reminderList);
         System.out.println("There are " + upcomingReminders.size() + " reminders due in the next week:");
 

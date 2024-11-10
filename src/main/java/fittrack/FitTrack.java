@@ -37,7 +37,6 @@ public class FitTrack {
         Scanner scan = new Scanner(System.in);
         ArrayList<Saveable> saveableList = new ArrayList<>();
 
-
         // Initialize and load the save file
         initialiseSaveFile();
         loadSaveFile(saveableList);
@@ -77,7 +76,7 @@ public class FitTrack {
                     return;
                 }
                 String[] userInfo = parseUserInfo(userInput);
-                user = validUser(userInfo[0], userInfo[1]);
+                user = validUser(userInfo[0].trim(), userInfo[1].trim());
                 printUser(user.getAge(), user.getGender().toString().toLowerCase());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
