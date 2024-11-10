@@ -51,7 +51,7 @@ public class DeleteCoursesCommandTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             deleteCoursesCommand.parseDeleteCommand(userInput);
         });
-        assertEquals("Please provide a just one index of the course plan you would like to delete.",
+        assertEquals("Please provide just one index of the course plan you would like to delete.",
                 e.getMessage());
     }
 
