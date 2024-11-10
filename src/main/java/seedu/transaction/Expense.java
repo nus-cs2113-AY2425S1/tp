@@ -2,7 +2,6 @@ package seedu.transaction;
 
 import seedu.category.Category;
 
-import java.util.Objects;
 
 /**
  * Represents an expense transaction.

@@ -1,7 +1,5 @@
 package seedu.transaction;
 
-import java.util.Objects;
-
 /**
  * Represents an income transaction.
  * Extends the abstract Transaction class and provides specific implementations for income-related transactions.

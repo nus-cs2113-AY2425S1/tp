@@ -1,9 +1,7 @@
 package seedu.command;
 
 import org.junit.jupiter.api.Test;
-import seedu.category.Category;
 import seedu.message.ErrorMessages;
-import seedu.transaction.Expense;
 import seedu.transaction.Income;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
