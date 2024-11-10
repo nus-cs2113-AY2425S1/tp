@@ -44,7 +44,8 @@ public class Exception extends Throwable {
 
     public static String invalidNusCourseCodeFormat() {
         return "Please follow this format for the NUS SoC course code input (not case-sensitive):\n" +
-                "CS/EE/BT/IS followed by 4-digit sequence e.g CS3241";
+                "CS/EE/BT/IS followed by a 4-digit sequence e.g CS3241\n" +
+                "Some courses may end with a character too e.g. CS1010J";
     }
 
     public static String invalidCommand() {
@@ -56,7 +57,7 @@ public class Exception extends Throwable {
     }
 
     public static String deleteCoursesLimitExceeded() {
-        return "Please provide a just one index of the course plan you would like to delete.";
+        return "Please provide just one index of the course plan you would like to delete.";
     }
 
     public static String invalidCourseListIndex() {
@@ -65,7 +66,7 @@ public class Exception extends Throwable {
     }
 
     public static String nonNumericListIndexInput() {
-        return "Please provide a numeric index of the course plan you would like to delete.";
+        return "Please provide a valid numeric index of the course plan you would like to delete.";
     }
 
     public static String invalidContactType() {
