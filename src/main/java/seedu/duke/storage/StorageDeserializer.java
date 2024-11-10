@@ -15,7 +15,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import seedu.duke.data.hospital.Patient;
 
+/*
+ * Storage deserializer for the storage of patients.
+ */
 public class StorageDeserializer extends JsonDeserializer<List<Patient>> {
+
+    /**
+     * Deserializes the JSON node into a list of patients.
+     * The deserializer will check for duplicate names and only add patients with
+     * unique names and recalculate the completion rate.
+     *
+     * @param p    the JSON parser
+     * @param ctxt the deserialization context
+     * @return the list of patients
+     * @throws IOException             if there is an error reading the JSON node
+     * @throws JsonProcessingException if there is an error processing the JSON node
+     */
     @Override
     public List<Patient> deserialize(JsonParser p, DeserializationContext ctxt)
             throws IOException, JsonProcessingException {
@@ -33,6 +48,10 @@ public class StorageDeserializer extends JsonDeserializer<List<Patient>> {
             if (patientNames.add(patient.getName())) { // Add the patient if the name is unique
                 patients.add(patient);
             }
+
+            // Recalculate completion rate for each patient
+            double completionRate = patient.getTaskList().calCompletionRate();
+            patient.getTaskList().setCompletionRate(completionRate);
         }
 
         return patients;
