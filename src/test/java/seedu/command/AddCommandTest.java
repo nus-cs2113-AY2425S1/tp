@@ -17,6 +17,8 @@ import seedu.exceptions.InventraInvalidTypeException;
 import seedu.exceptions.InventraMissingFieldsException;
 import seedu.exceptions.InventraInvalidFlagException;
 import seedu.exceptions.InventraInvalidRecordCountException;
+import seedu.exceptions.InventraMissingArgsException;
+import seedu.exceptions.InventraNegativeValueException;
 
 import seedu.model.Inventory;
 import seedu.storage.Csv;
@@ -371,28 +373,31 @@ public class AddCommandTest {
 
     @Test
     public void testHFlagNoAdditionalDataError() {
-        // Test case where args is less than 3 for flag -h
-        String[] args = new String[]{"add", "-h"}; // Only two arguments
+        String[] args = {"add", "-h"};  // Missing additional field data
         AddCommand addCommand = new AddCommand(inventory, ui, csv);
-        AssertionError thrown = assertThrows(AssertionError.class, () -> {
+
+        InventraMissingArgsException thrown = assertThrows(InventraMissingArgsException.class, () -> {
             addCommand.execute(args);
         });
 
-        assertEquals("Expected additional field data for flag -h", thrown.getMessage());
+        assertEquals("Error: Missing the following arguments: field data for flag -h", thrown.getMessage());
     }
 
     @Test
     public void testHFlagInsufficientDataError() {
-        // Test case with insufficient data for flag -h
-        String[] args = new String[]{"add", "-h", "field1"}; // Only three arguments, modify as needed
         AddCommand addCommand = new AddCommand(inventory, ui, csv);
-        InventraInvalidTypeException thrown = assertThrows(InventraInvalidTypeException.class, () -> {
-            addCommand.execute(args);
+        String expectedMessage = "Error: Invalid type for field 'Field format'\n" +
+                "Expected value of type 'correct format (type/fieldName)', got: 'field1'";
+
+        InventraException thrown = assertThrows(InventraInvalidTypeException.class, () -> {
+            // Simulate invalid field input
+            addCommand.execute(new String[]{"add", "-h", "field1"});
         });
 
-        assertEquals("Error: Invalid type for field 'Field format'\n"
-                + "Expected value of type 'correct format (type/fieldName)'"
-                + ", got: 'field1'", thrown.getMessage());
+        String actualMessage = thrown.getMessage();
+
+        // Normalize both expected and actual strings
+        assertEquals(expectedMessage.trim().replaceAll("\\s+", " "), actualMessage.trim().replaceAll("\\s+", " "));
     }
 
     @Test
@@ -504,6 +509,26 @@ public class AddCommandTest {
         addCommand.execute(addRecordArgs);
 
         assertEquals("Apple@!", inventory.getRecords().get(0).get("name"));
+    }
+
+    @Test
+    public void validateValue_negativeInteger_throwsInventraNegativeValueException() {
+        AddCommand command = new AddCommand(new Inventory(),
+                new Ui(), new Csv("test.csv"));
+
+        assertThrows(InventraNegativeValueException.class, () -> {
+            command.validateValue("-1", "i", "quantity");
+        });
+    }
+
+    @Test
+    public void validateValue_negativeFloat_throwsInventraNegativeValueException() {
+        AddCommand command = new AddCommand(new Inventory(),
+                new Ui(), new Csv("test.csv"));
+
+        assertThrows(InventraNegativeValueException.class, () -> {
+            command.validateValue("-1.5", "f", "price");
+        });
     }
 
     @AfterEach

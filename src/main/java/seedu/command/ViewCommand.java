@@ -24,32 +24,46 @@ public class ViewCommand extends Command {
         }
 
         String flag = args[1].trim();
-        if (flag.equals("-f")) {
+        switch (flag) {
+        case "-f":
             handleViewByKeyword(args);
-        } else if (flag.equals("-a")) {
+            break;
+
+        case "-a":
             if (args.length > 2) {
                 throw new InventraExcessArgsException(2, args.length);
             }
             ui.showFieldsAndRecords(inventory); // View all items
-        } else {
-            try {
-                int id = Integer.parseInt(flag);
-                if (args.length > 2) {
-                    throw new InventraExcessArgsException(2, args.length);
-                }
-                handleViewById(id);
-            } catch (NumberFormatException e) {
-                throw new InventraInvalidNumberException(flag);
+            break;
+
+        default:
+            if (args.length > 2) {
+                throw new InventraExcessArgsException(2, args.length);
             }
+            handleViewById(flag);
+            break;
         }
     }
 
-    private void handleViewById(int id) throws InventraException {
-        List<Map<String, String>> records = inventory.getRecords();
-        if (id <= 0 || id > records.size()) {
-            throw new InventraOutOfBoundsException(id, 1, records.size());
+    private void handleViewById(String input) throws InventraException {
+        if (input.trim().isEmpty()) {
+            throw new InventraMissingArgsException("Item index");
         }
-        ui.printSingleRecord(records.get(id - 1), id); // Adjust for 0-based index
+
+        try {
+            int id = Integer.parseInt(input);
+
+            // Validate the provided ID
+            if (id <= 0 || id > inventory.getRecords().size()) {
+                throw new InventraOutOfBoundsException(id, 1, inventory.getRecords().size());
+            }
+
+            // Extract and display the specific record (adjust 1-based index to 0-based)
+            Map<String, String> record = inventory.getRecords().get(id - 1);
+            ui.showSingleRecordWithOriginalId(inventory.getFields(), record, id);
+        } catch (NumberFormatException e) {
+            throw new InventraInvalidNumberException(input);
+        }
     }
 
     private void handleViewByKeyword(String[] args) throws InventraException {
@@ -59,13 +73,13 @@ public class ViewCommand extends Command {
 
         String keyword = String.join(" ",
                 java.util.Arrays.copyOfRange(args, 2, args.length)).toLowerCase();
+
         List<Map<String, String>> records = inventory.getRecords();
         List<Map<String, String>> matchingRecords = new ArrayList<>();
 
         for (Map<String, String> record : records) {
             for (String field : record.keySet()) {
-                if (inventory.isStringField(field) &&
-                        record.get(field).toLowerCase().contains(keyword)) {
+                if (inventory.isStringField(field) && record.get(field).toLowerCase().contains(keyword)) {
                     matchingRecords.add(record);
                     break;
                 }

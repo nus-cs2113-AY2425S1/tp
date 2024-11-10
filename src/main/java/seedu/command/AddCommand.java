@@ -2,29 +2,55 @@ package seedu.command;
 
 import seedu.exceptions.InventraException;
 import seedu.exceptions.InventraInvalidFlagException;
-import seedu.exceptions.InventraInvalidTypeException;
-import seedu.exceptions.InventraMissingFieldsException;
 import seedu.exceptions.InventraInvalidRecordCountException;
+import seedu.exceptions.InventraInvalidTypeException;
+import seedu.exceptions.InventraMissingArgsException;
+import seedu.exceptions.InventraMissingFieldsException;
+import seedu.exceptions.InventraNegativeValueException;
 import seedu.model.Inventory;
 import seedu.storage.Csv;
 import seedu.ui.Ui;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class AddCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(AddCommand.class.getName());
+
+    static {
+        try {
+            // Set up FileHandler to log messages to "app.log"
+            FileHandler fileHandler = new FileHandler("app.log", true); // Appends to "app.log"
+            fileHandler.setFormatter(new SimpleFormatter()); // Simple text formatter
+
+            // Add FileHandler to the logger
+            LOGGER.addHandler(fileHandler);
+
+            // Disable logging to the console
+            LOGGER.setUseParentHandlers(false);
+        } catch (IOException e) {
+            e.printStackTrace(); // Print exception if file handler fails to set up
+        }
+    }
 
     public AddCommand(Inventory inventory, Ui ui, Csv csv) {
         super(inventory, ui, csv);
     }
 
     public void execute(String[] args) throws InventraException {
+        if (args.length < 2) {
+            throw new InventraMissingArgsException("flag");
+        }
         String flag = args[1];
         switch (flag) {
         case "-h":
-            assert args.length >= 3 : "Expected additional field data for flag -h";
+            if (args.length < 3) {
+                throw new InventraMissingArgsException("field data for flag -h");
+            }
             handleAddMultipleFields(args[2]);
             csv.updateCsvHeaders(inventory);
             break;
@@ -36,7 +62,7 @@ public class AddCommand extends Command {
             break;
 
         default:
-            throw new InventraInvalidFlagException("Use 'add -h <fields>' 'add -l', or 'add -d <values>'");
+            throw new InventraInvalidFlagException("Use 'add -h <fields>', or 'add -d <values>'");
         }
     }
 
@@ -46,7 +72,6 @@ public class AddCommand extends Command {
         }
 
         String[] newFields = fieldData.split(",\\s*");
-        boolean success = true;
 
         for (String field : newFields) {
             String[] parts = field.split("/");
@@ -57,8 +82,18 @@ public class AddCommand extends Command {
             String type = parts[0].trim();
             String fieldName = parts[1].trim();
 
+            // Check if the field name is empty or contains only spaces
+            if (fieldName.isEmpty()) {
+                throw new InventraInvalidTypeException(fieldName, "cannot " +
+                        "be empty or just spaces", "provide a valid field name");
+            }
+
+            if (fieldName.length() > 20) {
+                throw new InventraInvalidTypeException(fieldName, "length exceeds 20 characters", "shorter name");
+            }
+
             if (!isValidFieldType(type)) {
-                throw new InventraInvalidTypeException(fieldName, type, "valid field type (e.g., 's', 'i', 'f')");
+                throw new InventraInvalidTypeException(fieldName, type, "valid field type (e.g., 's', 'i', 'f', 'd')");
             }
 
             if (inventory.getFields().contains(fieldName)) {
@@ -71,6 +106,7 @@ public class AddCommand extends Command {
         ui.showSuccessFieldsAdded();
         ui.showFieldsAndRecords(inventory);
     }
+
 
     private void handleAddRecord(String recordData) throws InventraException {
         LOGGER.info("Handling add record: " + recordData);
@@ -94,6 +130,17 @@ public class AddCommand extends Command {
 
             String value = values[i].trim();
 
+            // Check if the value is empty or contains only spaces
+            if (value.isEmpty()) {
+                throw new InventraInvalidTypeException(field, "cannot " +
+                        "be empty or just spaces", "provide a valid value for the record");
+            }
+
+            if (value.length() > 20) {
+                throw new InventraInvalidTypeException(field, value, "length " +
+                        "exceeds 20 characters");
+            }
+
             String validationMessage = validateValue(value, type, field);
             if (validationMessage != null) {
                 ui.showValidationError(validationMessage);
@@ -107,6 +154,7 @@ public class AddCommand extends Command {
         ui.showSuccessRecordAdded();
     }
 
+
     public String validateValue(String value, String type, String field) throws InventraException {
         assert value != null && !value.isEmpty() : "Value should not be null or empty";
         assert type != null && !type.isEmpty() : "Field type should not be null or empty";
@@ -114,42 +162,69 @@ public class AddCommand extends Command {
 
         switch (type) {
         case "s": // String
+            if (value.matches("\\d+")) {
+                throw new InventraInvalidTypeException(field, value, "non-numeric string");
+            }
             return null; // Any string is valid
+
         case "i": // Integer
             try {
-                Integer.parseInt(value);
+                if (value.length() > 9) { // Restrict integer length to 9 digits
+                    throw new InventraInvalidTypeException(
+                            String.format("Error: Invalid type for field '%s'%n" +
+                                            "Expected value of type 'integer (up to 9 digits)', got: '%s'",
+                                    field, value)
+                    );
+                }
+                int intValue = Integer.parseInt(value); // Validates actual integer
+                if (intValue < 0) {
+                    throw new InventraNegativeValueException(field, value);
+                }
                 return null; // Valid integer
             } catch (NumberFormatException e) {
-                throw new InventraInvalidTypeException(field, value, type);
+                throw new InventraInvalidTypeException(field, value, "integer");
             }
+
         case "f": // Float
             try {
-                Float.parseFloat(value);
+                float floatValue = Float.parseFloat(value);
+                if (floatValue < 0) {
+                    throw new InventraNegativeValueException(field, value);
+                }
                 return null; // Valid float
             } catch (NumberFormatException e) {
-                throw new InventraInvalidTypeException(field, value, type);
+                throw new InventraInvalidTypeException(field, value, "float");
             }
+
         case "d": // Date
-            String[] parts = value.split("/");
-            if (parts.length != 3) {
-                throw new InventraInvalidTypeException(field, value, type);
+            if (!value.matches("\\d{2}/\\d{2}/\\d{4}") && !value.matches("\\d{2}/\\d{2}/\\d{2}")) {
+                throw new InventraInvalidTypeException(
+                        field, value, "date (expected format: DD/MM/YYYY or DD/MM/YY)"
+                );
             }
+            String[] parts = value.split("/");
             try {
                 int day = Integer.parseInt(parts[0]);
                 int month = Integer.parseInt(parts[1]);
                 int year = Integer.parseInt(parts[2]);
-                if (day <= 0 || month <= 0 || month > 12) {
-                    throw new InventraInvalidTypeException(field, value, type);
+                if (day <= 0 || day > 31 || month <= 0 || month > 12 || year < 0) {
+                    throw new InventraInvalidTypeException(
+                            field, value, "valid date in DD/MM/YYYY or DD/MM/YY format"
+                    );
                 }
                 return null; // Valid date
             } catch (NumberFormatException e) {
-                throw new InventraInvalidTypeException(field, value, type);
+                throw new InventraInvalidTypeException(
+                        field, value, "valid date (DD/MM/YYYY or DD/MM/YY)"
+                );
             }
+
         case "n": // Null
             if (!value.equalsIgnoreCase("null")) {
-                throw new InventraInvalidTypeException(field, value, type);
+                throw new InventraInvalidTypeException(field, value, "null");
             }
             return null; // Valid null
+
         default:
             return ui.getUnknownTypeMessage(field);
         }

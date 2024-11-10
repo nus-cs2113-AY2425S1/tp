@@ -2,6 +2,8 @@ package seedu.storage;
 
 import seedu.model.Inventory;
 
+import seedu.exceptions.InventraException;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -47,6 +49,18 @@ public class Csv {
         }
     }
 
+    private void validateHeadersOnLoad(Inventory inventory) throws InventraException {
+        for (String field : inventory.getFields()) {
+            if (field.length() > 20) {
+                throw new InventraException(
+                        "Invalid header: '" + field + "'. Header names must be 20 characters or less.\n" +
+                                "Use the following command to update the header:\n" +
+                                "    update -h " + field + ", <new_field_name>"
+                );
+            }
+        }
+    }
+
     public void updateCsvAfterDeletion(Inventory inventory) {
         List<String> fields = inventory.getFields();
         Map<String, String> fieldTypes = inventory.getFieldTypes();
@@ -80,7 +94,6 @@ public class Csv {
                 }
                 writer.append("\n");
             }
-            System.out.println("CSV file updated after deletion, including metadata.");
         } catch (IOException e) {
             System.err.println("Error updating CSV after deletion: " + e.getMessage());
         }
@@ -115,6 +128,7 @@ public class Csv {
                 writer.write(String.join(",", values));
                 writer.newLine();
             }
+            System.out.println("CSV file header updated.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -145,9 +159,9 @@ public class Csv {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
 
-            // Read field definitions from the metadata header (first line starting with #)
+            // Read metadata line (fields and types)
             if ((line = reader.readLine()) != null && line.startsWith("#")) {
-                String metadata = line.substring(1);  // Remove the # character
+                String metadata = line.substring(1);  // Remove '#'
                 String[] fieldsWithTypes = metadata.split(",\\s*");
                 List<String> fields = new ArrayList<>();
                 Map<String, String> fieldTypes = new HashMap<>();
@@ -160,24 +174,28 @@ public class Csv {
                         fields.add(fieldName);
                         fieldTypes.put(fieldName, type);
                     } else {
-                        System.out.println("Invalid field type definition: " + fieldType);
+                        System.out.println("Invalid metadata format: " + fieldType);
                         return;
                     }
                 }
 
                 inventory.setFields(fields);
                 inventory.setFieldTypes(fieldTypes);
-                System.out.println("Fields loaded from CSV: " + fields);
-                System.out.println("Field types loaded from CSV: " + fieldTypes);
             } else {
                 System.out.println("CSV file format error: Missing metadata header.");
                 return;
             }
 
+            try {
+                validateHeadersOnLoad(inventory);
+            } catch (InventraException e) {
+                // Handle the exception, e.g., display an error message
+                System.out.println(e.getMessage());
+            }
+
             // Read headers (second line)
             if ((line = reader.readLine()) != null) {
                 String[] headers = line.split(",");
-                System.out.println("Column headers: " + String.join(", ", headers));
             }
 
             // Read records (remaining lines)
@@ -195,7 +213,6 @@ public class Csv {
                 }
 
                 inventory.addRecord(record);
-                System.out.println("Record added: " + record);
             }
 
             System.out.println("Finished loading CSV file.");
@@ -243,4 +260,6 @@ public class Csv {
             System.err.println("Error updating CSV: " + e.getMessage());
         }
     }
+
+
 }
