@@ -91,7 +91,7 @@ For example, the `Command` component defines its API in the `Command.java` abstr
 interact with a given component through its interface rather than the concrete class 
 (reason: to prevent outside component’s being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-![Diagram](images/MiniCommandClass.png)
+![Diagram](images/SmallCommandClass.png)
 
 **The sections below give more details of the components and any additional components.**
 
