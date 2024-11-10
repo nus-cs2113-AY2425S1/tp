@@ -31,8 +31,8 @@ import java.time.format.DateTimeFormatter;
  * It uses command objects to execute operations on the financial list.
  */
 public class Logic {
-    public final FinancialList financialList;
     private static final Log logger = Log.getInstance();
+    public final FinancialList financialList;
     private final Storage storage;
     private final AppUi ui;
     private final BudgetLogic budgetLogic;
