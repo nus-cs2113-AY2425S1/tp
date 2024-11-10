@@ -30,7 +30,7 @@ public class LogicTest {
 
     private Logic logic;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    private final DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private final DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Sets up the test environment by initializing the {@link AppUi} instance and its financial list.
@@ -153,7 +153,7 @@ public class LogicTest {
         commandArguments.put("argument", "1");
         commandArguments.put("/a", "25.00");
         commandArguments.put("/des", "Edited Description");
-        commandArguments.put("/d", "11/11/11");
+        commandArguments.put("/d", "11/11/2011");
 
         // Execute the command
         boolean result = logic.matchCommand("edit", commandArguments);

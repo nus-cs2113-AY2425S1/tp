@@ -186,7 +186,7 @@ public class Logic {
      * Parses the date or returns the default date if null.
      */
     private String parseDateOrDefault(String dateStr, LocalDate defaultDate) {
-        return (dateStr != null) ? dateStr : defaultDate.format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+        return (dateStr != null) ? dateStr : defaultDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     /**
@@ -238,7 +238,7 @@ public class Logic {
 
         if (entry instanceof Expense) {
             double amount = entry.getAmount();
-            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String date = entry.getDate().format(pattern);
             try {
                 budgetLogic.changeBalanceFromExpenseString(amount, date);

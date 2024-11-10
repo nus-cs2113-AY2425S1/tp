@@ -104,7 +104,8 @@ public class EditEntryCommand extends Command {
         }
 
         list.deleteEntry(zeroBasedIndex);
-        list.addEntry(replacementEntry);
+        int correctIndex = getRightfulInsertIndex(list, replacementEntry, zeroBasedIndex);
+        list.addEntryAtSpecificIndex(replacementEntry, correctIndex);
 
         System.out.println(Commons.LINE_SEPARATOR);
         System.out.println("Got it. I've edited this expense:");
@@ -123,5 +124,20 @@ public class EditEntryCommand extends Command {
         if (this.date.isAfter(LocalDate.now())) {
             throw new FinanceBuddyException(Commons.ERROR_MESSAGE_DATE_TOO_LATE);
         }
+    }
+
+    private int getRightfulInsertIndex(FinancialList financialList, FinancialEntry entry, int initialIndex)
+            throws FinanceBuddyException {
+        int finalIndex = initialIndex;
+        while (finalIndex != 0 && financialList.getEntry(finalIndex - 1).getDate().isAfter(entry.getDate())) {
+            finalIndex--;
+            assert finalIndex >= 0 : "Index is not negative";
+        }
+        int listLength = financialList.getEntryCount();
+        while (finalIndex != listLength && financialList.getEntry(finalIndex).getDate().isBefore(entry.getDate())) {
+            finalIndex++;
+            assert finalIndex <= listLength : "Index is within financial list length";
+        }
+        return finalIndex;
     }
 }

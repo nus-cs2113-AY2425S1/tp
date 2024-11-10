@@ -55,7 +55,7 @@ class AddExpenseCommandTest {
      */
     @Test
     void execute_addExpense_expectAddedToFinancialList() throws FinanceBuddyException {
-        String specificDate = "14/10/24";
+        String specificDate = "14/10/2024";
         Expense.Category category = Expense.Category.FOOD;
         addExpenseCommand = new AddExpenseCommand(50.00, "groceries", specificDate, category);
         addExpenseCommand.execute(financialList);
@@ -63,7 +63,7 @@ class AddExpenseCommandTest {
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this expense:" + System.lineSeparator() +
-                "[Expense] - groceries $ 50.00 (on 14/10/24) [FOOD]" + System.lineSeparator() +
+                "[Expense] - groceries $ 50.00 (on 14/10/2024) [FOOD]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(1, financialList.getEntryCount());
@@ -83,7 +83,7 @@ class AddExpenseCommandTest {
     @Test
     void execute_addExpenseWithoutDate_expectAddedToFinancialListWithCurrentDate() throws FinanceBuddyException {
         // Use current system date
-        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         addExpenseCommand = new AddExpenseCommand(30.00, "lunch", null, Expense.Category.UNCATEGORIZED);
         addExpenseCommand.execute(financialList);
 
@@ -109,9 +109,8 @@ class AddExpenseCommandTest {
      */
     @Test
     void execute_addMultipleExpenses_expectAllAddedToFinancialList() throws FinanceBuddyException {
-        //String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-        String earlierDate = "11/10/24";
-        String laterDate = "12/10/24";
+        String earlierDate = "11/10/2024";
+        String laterDate = "12/10/2024";
 
         // Add first expense without a specific date
         addExpenseCommand = new AddExpenseCommand(30.00, "lunch", earlierDate, Expense.Category.FOOD);
@@ -151,10 +150,9 @@ class AddExpenseCommandTest {
      */
     @Test
     void execute_addMultipleExpensesNotInDateOrder_expectSortedByDate() throws FinanceBuddyException {
-        //String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-        String dateOne = "15/10/24";
-        String dateTwo = "12/10/24";
-        String dateThree = "13/10/24";
+        String dateOne = "15/10/2024";
+        String dateTwo = "12/10/2024";
+        String dateThree = "13/10/2024";
 
         // Add first expense
         addExpenseCommand = new AddExpenseCommand(30.00, "lunch", dateOne, Expense.Category.FOOD);
@@ -212,7 +210,7 @@ class AddExpenseCommandTest {
         });
 
         // Verify the error message
-        assertEquals("Invalid date format. Please use 'dd/MM/yy'.", exception.getMessage());
+        assertEquals("Invalid date format. Please use 'dd/MM/yyyy'.", exception.getMessage());
     }
 
     /**
@@ -273,7 +271,7 @@ class AddExpenseCommandTest {
     @Test
     void execute_addExpenseWithDateAfterCurrentDate_expectErrorMessage() {
         LocalDate laterDate = LocalDate.now().plusDays(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String laterDateAsString = laterDate.format(formatter);
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
@@ -293,7 +291,7 @@ class AddExpenseCommandTest {
     @Test
     void execute_addExpenseWithEmptyDescription_expectErrorMessage() {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addExpenseCommand = new AddExpenseCommand(1, "", "01/11/24", Expense.Category.OTHER);
+            addExpenseCommand = new AddExpenseCommand(1, "", "01/11/2024", Expense.Category.OTHER);
             addExpenseCommand.execute(financialList);
         });
 
@@ -308,7 +306,7 @@ class AddExpenseCommandTest {
     @Test
     void execute_addExpenseWithBlankDescription_expectErrorMessage() {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addExpenseCommand = new AddExpenseCommand(1, " ", "01/11/24", Expense.Category.OTHER);
+            addExpenseCommand = new AddExpenseCommand(1, " ", "01/11/2024", Expense.Category.OTHER);
             addExpenseCommand.execute(financialList);
         });
 
