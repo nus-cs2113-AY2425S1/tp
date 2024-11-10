@@ -72,6 +72,6 @@ public class ParserExceptions extends BuffBuddyExceptions {
      *         out of bounds.
      */
     public static ParserExceptions indexOutOfBounds(String indexString) {
-        return new ParserExceptions("Index out of bounds: " + indexString + ". Please check the list again.");
+        return new ParserExceptions("Index is not a valid number, it should be more than 0");
     }
 }
