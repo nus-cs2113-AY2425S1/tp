@@ -36,7 +36,6 @@ public class Logic {
     private final Storage storage;
     private final AppUi ui;
     private final BudgetLogic budgetLogic;
-    private final Budget budget;
     private static final Log logger = Log.getInstance();
 
     /**
@@ -47,12 +46,11 @@ public class Logic {
      * @param storage       The storage used to load and save financial data.
      * @param ui            The UI component to interact with the user.
      */
-    public Logic(FinancialList financialList, Storage storage, AppUi ui, BudgetLogic budgetLogic, Budget budget) {
+    public Logic(FinancialList financialList, Storage storage, AppUi ui, BudgetLogic budgetLogic) {
         this.financialList = financialList;
         this.storage = storage;
         this.ui = ui;
         this.budgetLogic = budgetLogic;
-        this.budget = budget;
     }
 
     /**
