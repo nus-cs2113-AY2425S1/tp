@@ -207,11 +207,8 @@ public class Event {
      */
     public void addParticipant(String participantName, String participantNumber, String participantEmail,
             boolean isPresent) throws DuplicateDataException {
-        if (getParticipantByName(participantName).isPresent()) {
-            throw new DuplicateDataException(DUPLICATE_PARTICIPANT_MESSAGE);
-        }
-
-        Participant participant = new Participant(participantName, participantNumber, participantEmail, isPresent);
+        String name = getDuplicateParticipantName(participantName);
+        Participant participant = new Participant(name, participantNumber, participantEmail, isPresent);
         this.participantList.add(participant);
     }
 
@@ -223,11 +220,8 @@ public class Event {
      * @throws DuplicateDataException if an item with the same name is already in the list.
      */
     public void addItem(String itemName, boolean isPresent) throws DuplicateDataException {
-        if (getItemByName(itemName).isPresent()) {
-            throw new DuplicateDataException(DUPLICATE_ITEM_MESSAGE);
-        }
-
-        Item item = new Item(itemName, isPresent);
+        String name = getDuplicateItemName(itemName);
+        Item item = new Item(name, isPresent);
         itemList.add(item);
     }
 
@@ -310,7 +304,7 @@ public class Event {
     public boolean updateItem(String itemName, String itemNewName) {
         for (Item item : this.itemList) {
             if (item.getName().equalsIgnoreCase(itemName)) {
-                item.setName(itemNewName);
+                item.setName(getDuplicateItemName(itemNewName));
                 item.setPresent(false);
                 return true;
             }
@@ -460,7 +454,27 @@ public class Event {
                 eventName, eventTimeString, eventVenue, eventPriority, markIfDone());
     }
 
+    private String getDuplicateParticipantName(String name) {
+        int index = 1;
+        String duplicateName = name;
 
+        while (getParticipantByName(duplicateName).isPresent()) {
+            duplicateName = String.format("%s(%d)", name, index);
+            index++;
+        }
 
+        return duplicateName;
+    }
 
+    private String getDuplicateItemName(String name) {
+        int index = 1;
+        String duplicateName = name;
+
+        while (getItemByName(duplicateName).isPresent()) {
+            duplicateName = String.format("%s(%d)", name, index);
+            index++;
+        }
+
+        return duplicateName;
+    }
 }

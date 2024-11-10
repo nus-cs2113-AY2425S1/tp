@@ -93,14 +93,11 @@ public class EventList  {
      * @param venue the venue where the event will take place.
      * @param priority the priority level of the event.
      * @param isDone {@code true} if the event is marked done, {@code false otherwise}.
-     * @throws DuplicateDataException if an event with eventName is present in the event list.
      */
     public void addEvent(String eventName, LocalDateTime time, String venue,
-            Priority priority, boolean isDone) throws DuplicateDataException {
-        if (getEventByName(eventName).isPresent()) {
-            throw new DuplicateDataException(DUPLICATE_EVENT_MESSAGE);
-        }
-        Event newEvent = new Event(eventName, time, venue, priority, isDone);
+            Priority priority, boolean isDone) {
+        String name = getDuplicateEventName(eventName);
+        Event newEvent = new Event(name, time, venue, priority, isDone);
         eventList.add(newEvent);
     }
 
@@ -269,7 +266,8 @@ public class EventList  {
             Priority eventPriority) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
-                event.updateEvent(eventNewName, eventTime, eventVenue, eventPriority);
+                String name = getDuplicateEventName(eventNewName);
+                event.updateEvent(name, eventTime, eventVenue, eventPriority);
                 return true;
             }
         }
@@ -444,5 +442,15 @@ public class EventList  {
         return filteredList;
     }
 
+    private String getDuplicateEventName(String name) {
+        int index = 1;
+        String duplicateName = name;
 
+        while (getEventByName(duplicateName).isPresent()) {
+            duplicateName = String.format("%s(%d)", name, index);
+            index++;
+        }
+
+        return duplicateName;
+    }
 }
