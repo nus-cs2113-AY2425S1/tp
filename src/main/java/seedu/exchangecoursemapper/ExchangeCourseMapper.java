@@ -8,6 +8,7 @@ public class ExchangeCourseMapper {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
+
     private static Storage savedCourses;
 
     public static void main(String[] args) {

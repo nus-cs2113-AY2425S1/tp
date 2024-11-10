@@ -1,6 +1,7 @@
 package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.exception.Exception;
+import seedu.exchangecoursemapper.parser.NusCourseCodeValidator;
 import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonArray;
@@ -27,6 +28,7 @@ import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES_MAX_A
 import static seedu.exchangecoursemapper.constants.JsonKey.COURSES_ARRAY_LABEL;
 import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
 import static seedu.exchangecoursemapper.constants.Messages.NO_MAPPABLE_COURSES_MESSAGE;
+import static seedu.exchangecoursemapper.constants.Messages.END_OF_FILTER_RESULTS_NOTICE;
 import static seedu.exchangecoursemapper.constants.Regex.REPEATED_SPACES;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 
@@ -35,6 +37,7 @@ import static seedu.exchangecoursemapper.constants.Regex.SPACE;
  * to one NUS course, with the input as the NUS course code.
  */
 public class FilterCoursesCommand extends CheckInformationCommand {
+
     private static final Logger logger = Logger.getLogger(FilterCoursesCommand.class.getName());
     private UI ui;
 
@@ -42,6 +45,7 @@ public class FilterCoursesCommand extends CheckInformationCommand {
      * Class Constructor
      */
     public FilterCoursesCommand() {
+        logger.setLevel(Level.SEVERE);
         ui = new UI();
     }
 
@@ -101,21 +105,13 @@ public class FilterCoursesCommand extends CheckInformationCommand {
     public String getNusCourseCode(String[] descriptionSubstrings) throws IllegalArgumentException {
         assert descriptionSubstrings[1] != null : NO_NUS_COURSE_CODE_PARSED;
         String nusCourseCode = descriptionSubstrings[1].toLowerCase();
-        if (!isValidSocCourseCode(nusCourseCode)) {
+        if (!NusCourseCodeValidator.isValidSocCourseCode(nusCourseCode)) {
             throw new IllegalArgumentException(Exception.nonSocNusCourseGiven());
         }
+        if (!NusCourseCodeValidator.isValidNusCourseCodeFormat(nusCourseCode)) {
+            throw new IllegalArgumentException(Exception.invalidNusCourseCodeFormat());
+        }
         return nusCourseCode;
-    }
-
-    /**
-     * Returns true if the NUS course code provided is a School of Computing (SoC) course, false otherwise.
-     *
-     * @param nusCourseCode a String containing the extracted information: NUS course code.
-     * @return true if the NUS course code provided is an SoC offered course, false otherwise.
-     */
-    public boolean isValidSocCourseCode(String nusCourseCode) {
-        return nusCourseCode.startsWith("cs") | nusCourseCode.startsWith("ee") | nusCourseCode.startsWith("bt") |
-                nusCourseCode.startsWith("is") | nusCourseCode.startsWith("cg");
     }
 
     /**
@@ -127,6 +123,7 @@ public class FilterCoursesCommand extends CheckInformationCommand {
     public void displayMappableCourses(JsonObject jsonObject, String courseToFind) {
         Set<String> universityNames = jsonObject.keySet();
         boolean isCourseFound = false;
+        ui.printFilterResultsHeader(courseToFind);
         for (String universityName : universityNames) {
             assert universityName != null && !universityName.isEmpty();
             JsonArray courses = jsonObject.getJsonObject(universityName).getJsonArray(COURSES_ARRAY_LABEL);
@@ -137,6 +134,8 @@ public class FilterCoursesCommand extends CheckInformationCommand {
 
         if (!isCourseFound) {
             ui.printMessage(NO_MAPPABLE_COURSES_MESSAGE);
+        } else {
+            ui.printMessage(END_OF_FILTER_RESULTS_NOTICE);
         }
     }
 

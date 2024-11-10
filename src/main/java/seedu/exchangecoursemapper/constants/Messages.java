@@ -10,22 +10,24 @@ public class Messages {
             "\nType 'commands' to find out what we can help you with :)";
 
     /* Messages for FilterCoursesCommand */
-    public static final String NO_MAPPABLE_COURSES_MESSAGE = "No courses found for the given course code.\n" +
-            "It may not be mappable, or the given course code is not a course offered by NUS!";
+    public static final String NO_MAPPABLE_COURSES_MESSAGE = "No mappable courses found for the given course code.";
+    public static final String FILTER_RESULTS_HEADER = "Filter results for ";
+    public static final String END_OF_FILTER_RESULTS_NOTICE = "End of filter results";
     public static final String PARTNER_UNIVERSITY_HEADER = "Partner University: ";
     public static final String PARTNER_UNIVERSITY_COURSE_CODE_HEADER = "Partner University Course Code: ";
 
     /* Messages for DeleteCoursesCommand */
     public static final String DELETE_COURSE_PLAN_HEADER = "You have deleted the course from your plan: ";
 
+
     public static final String LIST_RELEVANT_PU = "The relevant universities are (non-case sensitive):\n" +
-            "1. The University of Melbourne\n" +
-            "2.The Australian National University\n" +
-            "3. Victoria University of Wellington\n" +
-            "4.The University of Western Australia\n\n" +
-            "NOTE: Please indicate the partner universities FULL NAME!\n" +
-            "EXAMPLE: Instead of \"VUW\" " +
-            "please indicate \"Victoria University of Wellington\".";
+            "1. The University of Melbourne - unimelb \n" +
+            "2.The Australian National University - anu\n" +
+            "3. Victoria University of Wellington - wgtn\n" +
+            "4.The University of Western Australia - uwa\n\n" +
+            "NOTE: Please indicate the partner universities FULL NAME or their respective " +
+            "official abbreviation.\n";
+
     public static final String COMMANDS_LIST =
             """
                     Here are the available commands:

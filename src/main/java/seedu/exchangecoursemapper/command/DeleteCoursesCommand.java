@@ -29,6 +29,7 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
      * Class Constructor.
      * */
     public DeleteCoursesCommand() {
+        logger.setLevel(Level.SEVERE);
         ui = new UI();
         courseRepository = new CourseRepository();
     }

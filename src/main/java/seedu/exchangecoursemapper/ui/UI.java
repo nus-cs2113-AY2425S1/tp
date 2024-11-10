@@ -17,24 +17,25 @@ import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_CODE_KEY;
 import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_CODE_KEY;
 import static seedu.exchangecoursemapper.constants.JsonKey.NUS_COURSE_NAME_KEY;
 import static seedu.exchangecoursemapper.constants.JsonKey.PU_COURSE_NAME_KEY;
-import static seedu.exchangecoursemapper.constants.Messages.MAPPED_MODULES_HEADER;
-import static seedu.exchangecoursemapper.constants.Messages.NO_MODULES_MESSAGE;
-import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
-import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
+
+
+import static seedu.exchangecoursemapper.constants.Commands.BYE;
 import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.PARTNER_UNIVERSITY_COURSE_CODE_HEADER;
+import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
+import static seedu.exchangecoursemapper.constants.Messages.FILTER_RESULTS_HEADER;
+import static seedu.exchangecoursemapper.constants.Messages.LIST_RELEVANT_PU;
 import static seedu.exchangecoursemapper.constants.Messages.DELETE_COURSE_PLAN_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.COMMANDS_LIST;
+import static seedu.exchangecoursemapper.constants.Messages.NO_MODULES_MESSAGE;
+import static seedu.exchangecoursemapper.constants.Messages.MAPPED_MODULES_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.INVALID_INPUT_FORMAT;
 import static seedu.exchangecoursemapper.constants.Messages.COMPARISON_RESULTS_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.COMMON_MAPPINGS_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.NO_COMMON_MAPPINGS;
-import static seedu.exchangecoursemapper.constants.Messages.UNIQUE_MAPPINGS_HEADER;
 import static seedu.exchangecoursemapper.constants.Messages.NO_UNIQUE_MAPPINGS;
-
-
-import static seedu.exchangecoursemapper.constants.Commands.BYE;
-
+import static seedu.exchangecoursemapper.constants.Messages.UNIQUE_MAPPINGS_HEADER;
+import static seedu.exchangecoursemapper.constants.Regex.COLON;
 
 public class UI {
     private static final Logger logger = Logger.getLogger(CourseValidator.class.getName());
@@ -69,6 +70,10 @@ public class UI {
         System.out.println(PARTNER_UNIVERSITY_HEADER + universityName);
         System.out.println(PARTNER_UNIVERSITY_COURSE_CODE_HEADER + puCourseCode);
         System.out.println(LINE_SEPARATOR);
+    }
+
+    public void printFilterResultsHeader(String nusCourseCode) {
+        printMessage(FILTER_RESULTS_HEADER + nusCourseCode + COLON);
     }
 
     /**
