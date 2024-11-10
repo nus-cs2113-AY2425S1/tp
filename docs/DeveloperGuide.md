@@ -374,7 +374,8 @@ that NUS course is suitable to be mapped overseas in Oceania.
 * The `parseFilterCommand` method then separates input, which parses the user input to extract the details in the input,
   still of `String` type.
 * The `getNusCourseCode` method then extract out the user specified NUS course code from the parsed input, checking
-  if the course code is a School of Computing course.
+  if the course code is a School of Computing course or follows the format of a NUS course code, using the methods
+  `isValidSocCourseCode` and `isValidNusCourseCodeFormat` methods in the `NusCourseValidator` class.
 * The NUS course code is then passed into the `displayMappableCourses()` method along with teh Json object. The method
   will iterate over the keys of the database which contains the University names, then obtain the array `courses`
   stored in the "courses" field. The `courses` array is then iterated over, for each course,
@@ -682,6 +683,12 @@ testers are expected to do more *exploratory* testing.
   * Prerequisites: None
   * Test Case: `filter gess1010`<br/>
   * Expected: Prints out error message stating that filter only works for CS/CG/BT/IS/EE courses.
+
+
+* 2.5.3 Filter using a wrongly formatted NUS course code
+  * Prerequisites: None
+  * Test Case: `filter eeeeeeeeeee`<br/>
+  * Expected: Prints out error message to guide users on the format of the NUS course code to input with the command.
 
 
 #### 2.6 Add course mapping plans into Personal Tracker
