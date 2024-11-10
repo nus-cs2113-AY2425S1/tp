@@ -1,8 +1,9 @@
 package wheresmymoney.command;
 
+import wheresmymoney.utils.ArgumentsMap;
 import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
-import wheresmymoney.Parser;
+import wheresmymoney.utils.Parser;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.Ui;
 import wheresmymoney.category.CategoryFacade;
@@ -10,11 +11,10 @@ import wheresmymoney.exception.WheresMyMoneyException;
 import wheresmymoney.visualizer.Visualizer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class VisualizeCommand extends Command {
 
-    public VisualizeCommand(HashMap<String, String> argumentsMap) {
+    public VisualizeCommand(ArgumentsMap argumentsMap) {
         super(argumentsMap);
     }
 

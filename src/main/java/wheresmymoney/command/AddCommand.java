@@ -1,17 +1,15 @@
 package wheresmymoney.command;
 
+import wheresmymoney.utils.ArgumentsMap;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
-import wheresmymoney.Parser;
+import wheresmymoney.utils.Parser;
 import wheresmymoney.RecurringExpenseList;
-import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
-
-import java.util.HashMap;
 
 public class AddCommand extends Command {
 
-    public AddCommand(HashMap<String, String> argumentsMap) {
+    public AddCommand(ArgumentsMap argumentsMap) {
         super(argumentsMap);
     }
 
@@ -24,48 +22,25 @@ public class AddCommand extends Command {
     @Override
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
             RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
-        try {
-            if (argumentsMap.get(Parser.ARGUMENT_PRICE) == null) {
-                throw new InvalidInputException("Missing price argument");
-            }
-            float price = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_PRICE));
-            if (price <= 0) {
-                throw new InvalidInputException("Price cannot take on a value that is less than or equal to 0");
-            }
+        float price = argumentsMap.getRequiredPrice();
+        String description = argumentsMap.getRequired(Parser.ARGUMENT_DESCRIPTION);
+        String category = argumentsMap.getRequired(Parser.ARGUMENT_CATEGORY);
 
-            String description = argumentsMap.get(Parser.ARGUMENT_DESCRIPTION);
-            if (description == null) {
-                throw new InvalidInputException("Missing description argument");
-            }
-            String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
-            if (category == null) {
-                throw new InvalidInputException("Missing category argument");
-            }
-
-            boolean isContainDateKey = argumentsMap.containsKey(Parser.ARGUMENT_DATE);
-            if (!this.isRecur() && isContainDateKey) {
-                String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE);
-                expenseList.addExpense(price, description, category, dateAdded);
-                categoryFacade.addCategory(category, price);
-            } else if (!this.isRecur() && !isContainDateKey) {
-                expenseList.addExpense(price, description, category);
-                categoryFacade.addCategory(category, price);
-            } else if (this.isRecur() && isContainDateKey) {
-                String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE);
-                String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
-                if (frequency == null) {
-                    throw new InvalidInputException("Missing frequency argument");
-                }
-                recurringExpenseList.addRecurringExpense(price, description, category, lastAddedDate, frequency);
-            } else {
-                String frequency = argumentsMap.get(Parser.ARGUMENT_FREQUENCY);
-                if (frequency == null) {
-                    throw new InvalidInputException("Missing frequency argument");
-                }
-                recurringExpenseList.addRecurringExpense(price, description, category, frequency);
-            }
-        } catch (NullPointerException | NumberFormatException e) {
-            throw new InvalidInputException("Invalid argument values provided");
+        boolean isContainDateKey = argumentsMap.containsKey(Parser.ARGUMENT_DATE);
+        if (!this.isRecur() && isContainDateKey) {
+            String dateAdded = argumentsMap.get(Parser.ARGUMENT_DATE);
+            expenseList.addExpense(price, description, category, dateAdded);
+            categoryFacade.addCategory(category, price);
+        } else if (!this.isRecur() && !isContainDateKey) {
+            expenseList.addExpense(price, description, category);
+            categoryFacade.addCategory(category, price);
+        } else if (this.isRecur() && isContainDateKey) {
+            String lastAddedDate = argumentsMap.get(Parser.ARGUMENT_DATE);
+            String frequency = argumentsMap.getRequired(Parser.ARGUMENT_FREQUENCY);
+            recurringExpenseList.addRecurringExpense(price, description, category, lastAddedDate, frequency);
+        } else {
+            String frequency = argumentsMap.getRequired(Parser.ARGUMENT_FREQUENCY);
+            recurringExpenseList.addRecurringExpense(price, description, category, frequency);
         }
     }
     
