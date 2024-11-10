@@ -14,15 +14,12 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static fittrack.messages.Messages.HELP_MESSAGE;
-import static fittrack.messages.Messages.INVALID_DATETIME_MESSAGE;
 import static fittrack.messages.Messages.INVALID_INPUT_MESSAGE;
 import static fittrack.messages.Messages.INVALID_USER_INFO_MESSAGE;
-import static fittrack.messages.Messages.MALE_GENDER;
 import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.parser.Parser.parse;
-import static fittrack.ui.Ui.beginSegment;
-import static fittrack.ui.Ui.endSegment;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class ParserTest {
 
@@ -57,7 +54,7 @@ class ParserTest {
     }
 
     @Test
-    void testSetUserCommand_ValidInput() throws IOException {
+    void testSetUserCommandValidInput() throws IOException {
         String input = "set male 24";
         parse(user, input, sessionList, reminderList, goalList, foodWaterList);
         assertEquals(24, user.getAge());
@@ -65,7 +62,7 @@ class ParserTest {
     }
 
     @Test
-    void testSetUserCommand_InvalidInput() throws IOException {
+    void testSetUserCommandInvalidInput() throws IOException {
         String input = "set";
         String expectedOutput = INVALID_USER_INFO_MESSAGE;
 
@@ -82,37 +79,37 @@ class ParserTest {
     }
 
     @Test
-    void testAddSessionCommand_ValidInput() throws IOException {
+    void testAddSessionCommandValidInput() {
 
     }
 
     @Test
-    void testDeleteSessionCommand_ValidIndex() throws IOException {
+    void testDeleteSessionCommandValidIndex() {
 
     }
 
     @Test
-    void testDeleteSessionCommand_InvalidIndex() {
+    void testDeleteSessionCommandInvalidIndex() {
 
     }
 
     @Test
-    void testGraphPerformanceCommand_ValidInput() throws IOException {
+    void testGraphPerformanceCommandValidInput() {
 
     }
 
     @Test
-    void testListGoalCommand_EmptyGoalList() throws IOException {
+    void testListGoalCommandEmptyGoalList() {
 
     }
 
     @Test
-    void testAddWaterCommand_ValidInput() throws IOException {
+    void testAddWaterCommand_ValidInput() {
 
     }
 
     @Test
-    void testAddFoodCommand_ValidInput() throws IOException {
+    void testAddFoodCommandValidInput() {
 
     }
 

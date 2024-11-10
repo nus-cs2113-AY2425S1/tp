@@ -1,5 +1,5 @@
 package fittrack.parser;
-import fittrack.FitTrack;
+
 import fittrack.fitnessgoal.Goal;
 import fittrack.healthprofile.FoodEntry;
 import fittrack.healthprofile.FoodWaterIntake;

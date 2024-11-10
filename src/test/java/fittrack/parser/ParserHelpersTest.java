@@ -45,11 +45,11 @@ public class ParserHelpersTest {
     @Test
     void testInvalidDateFormat() {
         String[] invalidInputs = {
-                "2023-12-25",     // YYYY-MM-DD
-                "2023.12.25",     // YYYY.MM.DD
-                "2023/12/25",     // YYYY/MM/DD
-                "25-12-2023",     // DD-MM-YYYY
-                "25.12.2023"      // DD.MM.YYYY
+            "2023-12-25",     // YYYY-MM-DD
+            "2023.12.25",     // YYYY.MM.DD
+            "2023/12/25",     // YYYY/MM/DD
+            "25-12-2023",     // DD-MM-YYYY
+            "25.12.2023"      // DD.MM.YYYY
         };
 
         for (String input : invalidInputs) {
@@ -62,14 +62,14 @@ public class ParserHelpersTest {
     @Test
     void testInvalidDate() {
         String[] invalidInputs = {
-                "32/12/2023",      // Day entry is invalid (too large)
-                "00/12/2023",      // Day entry is invalid (Zero)
-                "-30/12/2023",     // Day entry is invalid (negative)
-                "30/13/2023",      // Month entry is invalid (too large)
-                "30/00/2023",      // Month entry is invalid (Zero)
-                "30/-12/2023",     // Month entry is invalid (negative)
-                "30/12/0000",      // Year entry is invalid (Zero)
-                "30/12/-2023"      // Year entry is invalid (negative)
+            "32/12/2023",      // Day entry is invalid (too large)
+            "00/12/2023",      // Day entry is invalid (Zero)
+            "-30/12/2023",     // Day entry is invalid (negative)
+            "30/13/2023",      // Month entry is invalid (too large)
+            "30/00/2023",      // Month entry is invalid (Zero)
+            "30/-12/2023",     // Month entry is invalid (negative)
+            "30/12/0000",      // Year entry is invalid (Zero)
+            "30/12/-2023"      // Year entry is invalid (negative)
         };
 
         for (String input : invalidInputs) {
@@ -81,10 +81,10 @@ public class ParserHelpersTest {
     @Test
     void testInvalidDateTime() {
         String[] invalidInputs = {
-                "30/12/2023 99:30",       // Hour entry is invalid (too large)
-                "-30/12/2023 -12:30",     // Hour entry is invalid (negative)
-                "30/13/2023 12:99",       // Minute entry is invalid (too large)
-                "30/00/2023 12:-30",      // Minute entry is invalid (negative)
+            "30/12/2023 99:30",       // Hour entry is invalid (too large)
+            "-30/12/2023 -12:30",     // Hour entry is invalid (negative)
+            "30/13/2023 12:99",       // Minute entry is invalid (too large)
+            "30/00/2023 12:-30",      // Minute entry is invalid (negative)
         };
 
         for (String input : invalidInputs) {

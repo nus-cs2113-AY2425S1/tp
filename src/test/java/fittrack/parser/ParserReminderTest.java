@@ -18,8 +18,6 @@ import static fittrack.messages.Messages.INVALID_DATETIME_MESSAGE;
 import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.parser.Parser.parse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserReminderTest {
 
