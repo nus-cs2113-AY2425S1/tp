@@ -832,7 +832,7 @@ __________________________________________________
 ```
 ## Delete Command: `delete`
 
-This feature removes an entire listing from the tracker.
+This feature removes an entire listing from the tracker and updates all remaining IDs.
 
 **Format:** `delete {ID}`
 
@@ -871,7 +871,21 @@ Internship deleted: 1
 __________________________________________________
 __________________________________________________
 ```
+`list`
 
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: accountant
+Company: XYZ
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
 ## Calendar Command: `calendar`
 
 Lists out all deadlines along with the current date (according to local machine date)
