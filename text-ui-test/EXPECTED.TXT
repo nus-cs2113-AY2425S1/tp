@@ -123,7 +123,7 @@ Enter a command: There is 1 item in anniversary celebration! Here is your item:
 ------------------------
 Enter a command: Item successfully updated
 ------------------------
-Enter a command: There is 1 item in anniversary celebration! Here are your item:
+Enter a command: There is 1 item in anniversary celebration! Here is your item:
 1. cake [ ]
 
 ------------------------
