@@ -315,7 +315,7 @@ partner university.
 * Assertions and logging are used for error handling.
 
 #### Why it is implemented this why:
-- **Separation of Concerns:** Each responsibility is seperated into smaller, well-defined methods
+- **Separation of Concerns:** Each responsibility is separated into smaller, well-defined methods
   For example, `getPuName()` focuses on extracting the university name from user input and `findUniversityName()`
   focuses on searching the university in the data set.
 
@@ -416,7 +416,7 @@ universities. This command hence helps the users to keep track of their course m
 * Line Separator is used to ensure readability and ease of use for users.
 
 #### Why is it implemented this way
-- The code is seperated into distinct methods that addresses a separate concern, achieving Separation of concerns principle (SoC). This help achieve better modularity and readability. 
+- The code is separated into distinct methods that addresses a separate concern, achieving Separation of concerns principle (SoC). This help achieve better modularity and readability. 
 - Each method includes numerous exception handlers to cover as many potential errors and edge cases as possible. 
 
 #### Alternatives Considered
