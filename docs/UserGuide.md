@@ -61,6 +61,7 @@ Day 2: Name: TWO
 1. Bicep Curl: 3 sets of 12 reps at 10 kg | Burnt 100 calories
 ========================================
 ```
+If the programme list was empty, the new programme added would be set to active by default. 
 
 ---
 
@@ -128,6 +129,8 @@ Day 2: TWO
 1. Bicep Curl: 3 sets of 12 at 10 | Burnt 0 cals
 ==================================================
 ```
+
+If the programme deleted was the active programme, the 1st programme will be set to active. 
 
 ---
 
