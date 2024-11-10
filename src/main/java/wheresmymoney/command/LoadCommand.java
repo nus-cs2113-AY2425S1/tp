@@ -19,8 +19,9 @@ public class LoadCommand extends Command {
     /**
      * Loads expenses and recurring expenses from csv
      * 
-     * @param expenseList
-     * @param recurringExpenseList
+     * @param expenseList List of normal expenses
+     * @param categoryFacade Category facade to perform operations using categories
+     * @param recurringExpenseList List of recurring expenses
      * @throws WheresMyMoneyException
      */
     @Override

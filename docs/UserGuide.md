@@ -6,7 +6,6 @@
 - [Quick Start](#quick-start)
 - [Features](#features-)
 - [FAQ](#faq)
-- [Others](#others)
 - [Command Summary](#command-summary)
 
 ---
@@ -20,7 +19,7 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 ## Quick Start
 
 1. Ensure you have Java 17 or above installed in your computer.
-2. Download the latest .jar file from the Github Repository, under releases.
+2. Download the latest .jar file from the GitHub Repository, under releases.
 3. Copy the file to the folder you want to use as the home folder for your expenses.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar tp.jar` command to run the application.
 
@@ -87,6 +86,7 @@ Format:  `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 Notes:
 - `CATEGORY` is text.
 - `FROM_DATE` and `TO_DATE` are dates in DD-MM-YYYY format.
+- `FROM_DATE` and `TO_DATE` are both inclusive of given date.
 - Lists all expenses the user has if filters are not specified.
 - Lists all expenses that pass through the filters if specified.
 
@@ -101,6 +101,7 @@ Format:  `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 Notes:
 - `CATEGORY` is text.
 - `FROM_DATE` and `TO_DATE` are dates in DD-MM-YYYY format.
+- `FROM_DATE` and `TO_DATE` are both inclusive of given date.
 - Lists statistics of all expenses the user has if filters are not specified.
 - Lists statistics of all expenses that pass through the filters if specified.
 
@@ -221,6 +222,7 @@ Notes:
 - `/recur` is a command flag that indicates that the add command is meant to add recurring expenses and not normal expenses
 - `CATEGORY` is text.
 - `FROM_DATE` and `TO_DATE` are dates in DD-MM-YYYY format.
+- `FROM_DATE` and `TO_DATE` are both inclusive of given date.
 - Lists all expenses the user has if filters are not specified.
 - Lists all expenses that pass through the filters if specified.
 

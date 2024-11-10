@@ -58,6 +58,7 @@ public class Ui {
     /**
      * Display index, category, description, price, and date added of the expense passed to it
      *
+     * @author shyaamald
      * @param expenseList Main expense list to retrieve expense indices
      * @param expense Expense to be displayed
      */

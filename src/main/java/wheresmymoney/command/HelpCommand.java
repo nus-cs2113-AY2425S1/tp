@@ -10,18 +10,27 @@ import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.HashMap;
 
+/**
+ * @author shyaamald
+ */
 public class HelpCommand extends Command {
 
     public HelpCommand(HashMap<String, String> argumentsMap) {
         super(argumentsMap);
     }
 
+    /**
+     * Display beginning to complete list of all valid commands
+     */
     private static void introHelp() {
         Ui.displayMessage("Below is the complete list of all valid commands.");
         Ui.displayMessage("Take note that any word in SCREAMING_SNAKE_CASE is a parameter.");
         Ui.displayMessage("");
     }
 
+    /**
+     * Display specific help command for add method
+     */
     private static void addHelp() {
         Ui.displayMessage("Use the add command to add an expense.");
         Ui.displayMessage("Format:  add [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]");
@@ -32,6 +41,9 @@ public class HelpCommand extends Command {
         Ui.displayMessage("");
     }
 
+    /**
+     * Display specific help command for edit method
+     */
     private static void editHelp() {
         Ui.displayMessage("Use the edit command to edit an expense.");
         Ui.displayMessage("Format: edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGORY]");
@@ -44,6 +56,9 @@ public class HelpCommand extends Command {
         Ui.displayMessage("");
     }
 
+    /**
+     * Display specific help command for delete method
+     */
     private static void deleteHelp() {
         Ui.displayMessage("Use the delete command to delete an expense.");
         Ui.displayMessage("Format:  delete [INDEX]");
@@ -51,6 +66,9 @@ public class HelpCommand extends Command {
         Ui.displayMessage("");
     }
 
+    /**
+     * Display specific help command for set method
+     */
     private static void setHelp() {
         Ui.displayMessage("Use the set command to set a spending limit for a category");
         Ui.displayMessage("Format: set [/category CATEGORY] [/limit LIMIT]");
@@ -58,6 +76,9 @@ public class HelpCommand extends Command {
         Ui.displayMessage("");
     }
 
+    /**
+     * Display specific help command for list method
+     */
     private static void listHelp() {
         Ui.displayMessage("Use the list command to display all expenses by category.");
         Ui.displayMessage("Format:  list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]");
@@ -70,6 +91,9 @@ public class HelpCommand extends Command {
         Ui.displayMessage("");
     }
 
+    /**
+     * Display specific help command for stats method
+     */
     private static void statsHelp() {
         Ui.displayMessage("Use the stats command to display statistics for expenses according to specified filters.");
         Ui.displayMessage("Format:  stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]");
@@ -82,18 +106,22 @@ public class HelpCommand extends Command {
         Ui.displayMessage("");
     }
 
+    /**
+     * Display specific help command for help method
+     */
     private static void helpHelp() {
         Ui.displayMessage("Use the help command to list the command formats that the app recognises.");
         Ui.displayMessage("Format:  help [/method METHOD]");
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - METHOD is text");
         Ui.displayMessage("    - METHOD exists in our app.");
-        Ui.displayMessage("    - Lists statistics of all expenses the user has if filters are not specified.");
-        Ui.displayMessage("    - Lists statistics of all expenses that pass through the filters if specified.");
         Ui.displayMessage("Example: help /method add");
         Ui.displayMessage("");
     }
 
+    /**
+     * Display specific help command for save method
+     */
     private static void saveHelp() {
         Ui.displayMessage("Use the save command to save data to files.");
         Ui.displayMessage("Format:  save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH]" +
@@ -109,6 +137,9 @@ public class HelpCommand extends Command {
         Ui.displayMessage("");
     }
 
+    /**
+     * Display specific help command for load method
+     */
     private static void loadHelp() {
         Ui.displayMessage("Use the load command to load data from files.");
         Ui.displayMessage("Format:  load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH]" +
@@ -126,6 +157,9 @@ public class HelpCommand extends Command {
         Ui.displayMessage("");
     }
 
+    /**
+     * Display all help commands
+     */
     private static void allHelp() {
         introHelp();
         addHelp();
@@ -139,8 +173,13 @@ public class HelpCommand extends Command {
         loadHelp();
     }
 
-    private static void commandSwitch(String command) {
-        switch(command) {
+    /**
+     * Display specific help method as specified by user
+     *
+     * @param method Specific method for which help command is to be displayed
+     */
+    private static void methodSwitch(String method) {
+        switch(method) {
         case "add":
             addHelp();
             break;
@@ -169,21 +208,25 @@ public class HelpCommand extends Command {
             loadHelp();
             break;
         default:
-            throw new InvalidInputException("No valid command given!");
+            throw new InvalidInputException("No valid method given!");
         }
     }
 
     /**
-     * Displays list expenses as requested by user
+     * Display all help commands if not specified, and pass specific command to commandSwitch if specified
+     *
+     * @param expenseList List of normal expenses
+     * @param categoryFacade Category facade to perform operations using categories
+     * @param recurringExpenseList List of recurring expenses
      */
     @Override
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade,
                         RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
-        String command = argumentsMap.get(Parser.ARGUMENT_METHOD);
-        if (command == null) {
+        String method = argumentsMap.get(Parser.ARGUMENT_METHOD);
+        if (method == null) {
             allHelp();
         } else {
-            commandSwitch(command);
+            methodSwitch(method);
         }
     }
 }

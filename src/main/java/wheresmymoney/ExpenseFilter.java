@@ -46,6 +46,17 @@ public class ExpenseFilter {
         return true;
     }
 
+    /**
+     * Filter a list of expenses using the given criteria
+     *
+     * @author shyaamald
+     * @param expenses List of expenses to be filtered
+     * @param category The filter's category
+     * @param from The filter's start date
+     * @param to The filter's start date
+     *
+     * @return List of filtered expenses
+     */
     public static ArrayList<Expense> filterExpenses(ArrayList<Expense> expenses, String category,
                                                     String from, String to) throws WheresMyMoneyException {
         ArrayList<Expense> expenseByFilter = new ArrayList<>();
