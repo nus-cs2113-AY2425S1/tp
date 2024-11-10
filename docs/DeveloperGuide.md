@@ -450,7 +450,7 @@ Given below is an example usage scenario and the behaviour of the `edit` feature
 2. If the flag is `-e`, `EditEventCommand` calls `EditEventCommand#execute()`, which calls `EventList#editEvent()` to edit the event. 
    It looks for the event, modifies the information and returns true if the event exits. Otherwise, it returns false.
 3. If the flag is `-p`, `EditParticipantCommand` calls `EditParticipantCommand#execute()`, which calls `EventList#editParticipant()` to edit the participant.
-   It looks for the event and the specified participant, and then modifies the contact information and returns true if the participant is found. Otherwise, it returns false.
+   It looks for the event and the specified participant, and then modifies the information and returns true if the participant is found. Otherwise, it returns false.
 4. If the flag is `-m`, `EditItemCommand` calls `EditItemCommand#execute()`, which calls `EventList#editItem()` to edit the item.
    It looks for the event and the specified item, modifies the item and returns true if the item is found. Otherwise, it returns false.
 5. After editing, a message `outputMessage` will be printed.
@@ -815,7 +815,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       List all `Event`s with `list` after each test case.
    
    2. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u HIGH`  
-      Expected: A `Event` with name `Event 1 (1)` is added. A success message is shown.
+      Expected: A `Event` with name `Event 1(1)` is added. A success message is shown.
 
 ### Adding a participant
 
@@ -826,7 +826,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       List all `Participant`s with `view -e Event 1 -y participant` after each test case.
    
    2. Test case: `add -p Participant 1 -email part@gmail.com -e Event 1`.   
-      Expected: A `Participant` with name `Participant 1 (1)` is added. A success message is shown.
+      Expected: A `Participant` with name `Participant 1(1)` is added. A success message is shown.
 
 ### Adding an item
 
@@ -837,7 +837,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       List all `Item`s with `view -e Event 1 -y item` after each test case.
 
    2. Test case: `add -p Item -e Event 1`.  
-      Expected: A `Item` with name `Item (1)` is added. A success message is shown.
+      Expected: A `Item` with name `Item(1)` is added. A success message is shown.
 
 ### Removing an event
 
@@ -918,7 +918,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       A `Participant` with the name `Jonathan` and email `than@gmail.com` is present in `Event 1`'s `Participant` list.
       List all `Participant`s with `view -e Event 1 -y participant` after each test case.
    
-   2. Test case: `edit -p Jonathan -n 91823213 -email jona@gmail.com -e Event 1`  
+   2. Test case: `edit -p Jonathan -name Jonathan -n 91823213 -email jona@gmail.com -e Event 1`  
       Expected: The email for `Jonathan` is changed to `jona@gmail.com`. A success message is shown.
 
 ### Editing an item

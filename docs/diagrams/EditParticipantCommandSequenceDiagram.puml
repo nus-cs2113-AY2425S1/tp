@@ -8,7 +8,7 @@
  [-> editCommand : execute()
  activate editCommand
 
- editCommand -> eventList : editParticipant(participantName, participantEmail, eventName)
+ editCommand -> eventList : editParticipant(participantName, newParticipantName,\n participantEmail, eventName)
  activate eventList
 
  loop for each event in eventList
@@ -18,7 +18,7 @@
      deactivate event
 
      opt eventName matches
-         eventList -> event : updateParticipant(participantName, participantEmail)
+         eventList -> event : updateParticipant(participantName,\n newParticipantName, participantEmail)
          activate event
          event --> eventList : updated
          deactivate event
