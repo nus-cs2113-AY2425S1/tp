@@ -10,6 +10,8 @@ import ui.Ui;
 import programme.ProgrammeList;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BuffBuddy {
     private static final String DEFAULT_FILE_PATH = "./data/data.json";
@@ -35,6 +37,8 @@ public class BuffBuddy {
     }
 
     public static void main(String[] args) {
+        Logger rootLogger = Logger.getLogger("");
+        rootLogger.setLevel(Level.OFF);
         new BuffBuddy(DEFAULT_FILE_PATH).run();
     }
 
