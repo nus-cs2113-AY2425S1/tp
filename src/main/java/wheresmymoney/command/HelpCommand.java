@@ -327,7 +327,7 @@ public class HelpCommand extends Command {
         if (!this.isRecur() && command == null) {
             allHelp();
         } else if (!this.isRecur()) {
-            commandSwitch(command);
+            methodSwitch(command);
         } else {
             recurCommandSwitch(command);
         }
