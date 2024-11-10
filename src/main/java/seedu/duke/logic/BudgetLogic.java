@@ -55,10 +55,13 @@ public class BudgetLogic {
         if (!isCurrentMonth(budgetSetDate)) {
             System.out.println("Your budget was set in a previous month.");
             setBudget(financialList);
+            return;
         }
         if (!budget.isBudgetSet()) {
             setBudget(financialList);
+            return;
         }
+        recalculateBalance(financialList);
     }
 
     /**
@@ -120,7 +123,7 @@ public class BudgetLogic {
             }
 
             budget.setBudgetAmount(amount);
-
+            recalculateBalance(financialList);
             System.out.println(Commons.LINE_SEPARATOR);
             System.out.println("Your budget has successfully been set to: " +
                     String.format("$ %.2f", budget.getBudgetAmount()));
@@ -129,10 +132,10 @@ public class BudgetLogic {
             System.out.println(Commons.LINE_SEPARATOR);
             logger.log(LogLevels.INFO, "Budget set to " + String.format("$ %.2f", budget.getBudgetAmount()) + ".");
         } else {
+            recalculateBalance(financialList);
             Commons.printSingleLineWithBars("Budget setting skipped.");
             logger.log(LogLevels.INFO, "Budget setting skipped.");
         }
-        recalculateBalance(financialList);
     }
 
     /**
