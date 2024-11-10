@@ -5,11 +5,7 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.Year;
-import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -114,9 +110,7 @@ public class Storage {
                             favouriteIds.add(favInternshipIndex);
                         }
                     }
-                }
-
-                else if (isValidFormat(line)) {
+                } else if (isValidFormat(line)) {
                     String[] data = line.split(" \\| ");
                     String role = data[1];
                     String company = data[2];
@@ -134,9 +128,7 @@ public class Storage {
                     for (Deadline deadline : loadedDeadlines) {
                         internship.addDeadline(deadline.getDescription(), deadline.getDate());
                     }
-                }
-
-                else {
+                } else {
                     System.out.println("Skipping invalid line in file: " + line);
                 }
 
@@ -170,8 +162,6 @@ public class Storage {
                         + "\\| ([^|]*) \\| [^|]+ \\| .*"
         );
     }
-
-
 
 
     private static List<Deadline> parseDeadlines(String deadlineString, int internshipId) {
