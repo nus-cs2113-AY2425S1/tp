@@ -58,7 +58,7 @@ Each internship is assigned a unique ID, serving as the reference for functions 
 **Format:** `add -role {Role name} -company {Company name} -from {date} -to {date}`
 
 - `role` and `company` are compulsory flags.
-- `from` and `to` are optional and will be replaced with `01/01` when left empty.
+- `from` and `to` are optional and will be replaced with `01/01` when left empty. The format for date is MM/yy.
 
 **Example Input 1:**
 `add -role Software Engineer Intern -company Google`
