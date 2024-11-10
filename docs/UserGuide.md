@@ -932,6 +932,10 @@ __________________________________________________
 
 ## FAQ
 
+**Q**: Can I use "-" in my fields?
+
+**A**: No. Unknown flag will be thrown.
+
 **Q**: How do I transfer my data to another computer? 
 
 **A**: Locate the `/data/` directory, in the same directory as your `.jar` file. Copy this `/data/` directory to the second computer and store it in the same directory as the `.jar` file.
