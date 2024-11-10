@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 
 //@@author jadenlimjc
 public class InternshipList {
-    private static final UiInternshipList ui = new UiInternshipList();
-    private static final Logger logger = Logger.getLogger("EasInternship");
+    private final UiInternshipList ui = new UiInternshipList();
+    private final Logger logger = Logger.getLogger("EasInternship");
     public ArrayList<Internship> internships;
     public ArrayList<Internship> favouriteInternships;
 

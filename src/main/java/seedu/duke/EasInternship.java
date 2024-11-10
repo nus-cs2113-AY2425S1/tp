@@ -75,7 +75,7 @@ public class EasInternship {
     }
 
     //@@author Ridiculouswifi
-    protected static void setUpLogger() {
+    private static void setUpLogger() {
         Logger logger = Logger.getLogger("EasInternship");
         logger.setUseParentHandlers(false);
 

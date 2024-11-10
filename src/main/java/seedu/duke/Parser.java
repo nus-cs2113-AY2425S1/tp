@@ -23,8 +23,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Parser {
-    private static final Ui ui = new Ui();
-    private static final Logger logger = Logger.getLogger("EasInternship");
+    private final Ui ui = new Ui();
+    private final Logger logger = Logger.getLogger("EasInternship");
 
     private final Map<String, Supplier<Command>> commands = new HashMap<>();
 
