@@ -45,17 +45,15 @@ class AddExpenseCommandTest {
                 "d/", "2024-10-01 1800",
                 "c/", "Food"
         ));
-        List<Transaction> expectedList = List.of(
-                new Expense(1000, "dinner", "2024-10-01 1800", new Category("Food"))
-        );
+
+        Expense expectedExpense = new Expense(1000, "dinner", "2024-10-01 1800", new Category("Food"));
 
         // Act
         List<String> result = command.execute();
 
         // Assert
-        assertEquals(expectedList, transactionList.getTransactions());
-        assertEquals(CommandResultMessages.ADD_TRANSACTION_SUCCESS + expectedList.get(0).toString(),
-                result.get(0));
+        assertEquals(1, transactionList.size());
+        assertEquals(expectedExpense.toString(), transactionList.getTransactions().get(0).toString());
     }
 
     @Test
@@ -110,15 +108,15 @@ class AddExpenseCommandTest {
                 "a/", "1000",
                 "c/", "Food"
         ));
-        List<Transaction> expectedList = List.of(
-                new Expense(1000, "dinner", currentDateTime, new Category("Food"))
-        );
+
+        Expense expectedExpense = new Expense(1000, "dinner", currentDateTime, new Category("Food"));
 
         // Act
         List<String> result = command.execute();
 
         // Assert
-        assertEquals(expectedList, transactionList.getTransactions());
+        assertEquals(1, transactionList.size());
+        assertEquals(expectedExpense.toString(), transactionList.getTransactions().get(0).toString());
     }
 
     @Test

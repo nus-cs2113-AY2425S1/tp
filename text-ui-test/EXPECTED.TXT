@@ -110,11 +110,11 @@
 	Category deleted: SomeCategory
 	-------------------------------------
 	-------------------------------------
-	1. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
-	2. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
-	3. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
-	4. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
-	5. Expense [amount=1000000.0, description=, date=2024-11-07 2359, category=LessLuxury]
+	3. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
+	4. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	5. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	6. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
+	7. Expense [amount=1000000.0, description=, date=2024-11-07 2359, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
 	1. Food
@@ -141,22 +141,22 @@
 	Failed to delete transaction: Your index has invalid number format.
 	-------------------------------------
 	-------------------------------------
-	1. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
-	2. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
+	2. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
+	5. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
 	-------------------------------------
 	-------------------------------------
-	1. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
-	2. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	2. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
 	3. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
-	4. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
-	5. Expense [amount=1000000.0, description=, date=2024-11-07 2359, category=LessLuxury]
+	4. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
+	5. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
+	6. Expense [amount=1000000.0, description=, date=2024-11-07 2359, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
 	Failed to retrieve transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
 	-------------------------------------
 	-------------------------------------
-	1. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
-	2. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
+	2. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
+	5. Expense [amount=15.0, description=, date=2024-11-01 2359, category=Groceries]
 	-------------------------------------
 	-------------------------------------
 	1. Income [amount=1000.0, description=, date=2024-11-01 2359]

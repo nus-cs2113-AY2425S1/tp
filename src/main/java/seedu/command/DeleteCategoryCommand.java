@@ -102,7 +102,7 @@ public class DeleteCategoryCommand extends Command {
             }
 
             Storage.saveCategory(categoryList.getCategories());
-            return List.of(CommandResultMessages.DELETE_CATEGORY_SUCCESS + categoryName);
+            return List.of(CommandResultMessages.DELETE_CATEGORY_SUCCESS + temp.getName());
         } catch (CategoryNotFoundException e) {
             return List.of(CommandResultMessages.DELETE_CATEGORY_FAIL + e.getMessage());
         }
