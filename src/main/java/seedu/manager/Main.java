@@ -43,7 +43,7 @@ public class Main {
                 ui.showOutputToUser(command);
                 saveData();
                 isGettingCommands = !command.getCanExit();
-            } catch (InvalidCommandException exception) {
+            } catch (InvalidCommandException | IOException exception) {
                 ui.showErrorMessageToUser(exception);
             }
         }
