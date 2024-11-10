@@ -51,14 +51,14 @@ public class BudgetLogic {
     }
 
     public void promptUserToSetBudget(FinancialList financialList) throws FinanceBuddyException {
+        if (!budget.isBudgetSet()) {
+            handleSetBudget(financialList);
+            return;
+        }
         LocalDate budgetSetDate = budget.getBudgetSetDate();
         if (!isCurrentMonth(budgetSetDate)) {
             System.out.println("Your budget was set in a previous month.");
-            setBudget(financialList);
-            return;
-        }
-        if (!budget.isBudgetSet()) {
-            setBudget(financialList);
+            handleSetBudget(financialList);
             return;
         }
         recalculateBalance(financialList);
@@ -154,7 +154,7 @@ public class BudgetLogic {
      * Displays the current budget and balance, if the budget is set.
      * Otherwise, notifies the user that the budget is not set.
      */
-    public void getBudgetAndBalance() {
+    public void printBudgetAndBalance() {
         if (!budget.isBudgetSet()) {
             System.out.println("No budget has been set.");
             System.out.println("--------------------------------------------");

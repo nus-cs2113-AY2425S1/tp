@@ -287,15 +287,15 @@ public class Logic {
         if (type == null || type.isEmpty()) {
             SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(startDate, endDate);
             seeAllEntriesCommand.execute(financialList);
-            budgetLogic.getBudgetAndBalance();
+            budgetLogic.printBudgetAndBalance();
         } else if (type.equals("expense")) {
             SeeAllExpensesCommand seeAllExpensesCommand = new SeeAllExpensesCommand(startDate, endDate);
             seeAllExpensesCommand.execute(financialList);
-            budgetLogic.getBudgetAndBalance();
+            budgetLogic.printBudgetAndBalance();
         } else if (type.equals("income")) {
             SeeAllIncomesCommand seeAllIncomesCommand = new SeeAllIncomesCommand(startDate, endDate);
             seeAllIncomesCommand.execute(financialList);
-            budgetLogic.getBudgetAndBalance();
+            budgetLogic.printBudgetAndBalance();
         } else {
             Commons.printSingleLineWithBars("Unknown argument: " + type);
         }
