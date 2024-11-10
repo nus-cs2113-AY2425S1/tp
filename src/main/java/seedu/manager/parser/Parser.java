@@ -311,8 +311,7 @@ public class Parser {
             IllegalArgumentException, IOException {
         checkForDuplicateFlags(input, EVENT_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(ADD_EVENT_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, ADD_EVENT_REGEX);
 
         String eventName;
         LocalDateTime eventTime;
@@ -360,8 +359,7 @@ public class Parser {
             IOException {
         checkForDuplicateFlags(input, PARTICIPANT_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(ADD_PARTICIPANT_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, ADD_PARTICIPANT_REGEX);
 
         String participantName;
         String participantEmail;
@@ -402,8 +400,7 @@ public class Parser {
     private Command getAddItemCommand(String input) throws IndexOutOfBoundsException, IOException {
         checkForDuplicateFlags(input, ITEM_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(ADD_ITEM_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, ADD_ITEM_REGEX);
 
         if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_ADD_MESSAGE);
@@ -470,8 +467,7 @@ public class Parser {
     private RemoveCommand getRemoveEventCommand(String input) throws IndexOutOfBoundsException {
         checkForDuplicateFlags(input, REMOVE_EVENT_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(REMOVE_EVENT_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, REMOVE_EVENT_REGEX);
 
         if (matcher.matches()) {
             if (matcher.group(1).isBlank()) {
@@ -495,8 +491,7 @@ public class Parser {
     private RemoveCommand getRemoveParticipantCommand(String input) throws IndexOutOfBoundsException {
         checkForDuplicateFlags(input, REMOVE_PARTICIPANT_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(REMOVE_PARTICIPANT_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, REMOVE_PARTICIPANT_REGEX);
 
         if (matcher.matches()) {
             if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
@@ -520,8 +515,7 @@ public class Parser {
     private RemoveCommand getRemoveItemCommand(String input) throws IndexOutOfBoundsException {
         checkForDuplicateFlags(input, ITEM_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(REMOVE_ITEM_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, REMOVE_ITEM_REGEX);
 
         if (matcher.matches()) {
             if (matcher.group(1).isBlank() || matcher.group(2).isBlank()) {
@@ -577,8 +571,7 @@ public class Parser {
             IllegalArgumentException {
         checkForDuplicateFlags(input, EDIT_EVENT_ATTRIBUTE_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(EDIT_EVENT_ATTRIBUTE_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, EDIT_EVENT_ATTRIBUTE_REGEX);
 
         String eventName;
         String eventNewName;
@@ -625,8 +618,7 @@ public class Parser {
             IOException {
         checkForDuplicateFlags(input, PARTICIPANT_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(EDIT_PARTICIPANT_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, EDIT_PARTICIPANT_REGEX);
 
         String participantName;
         String newParticipantName;
@@ -666,8 +658,7 @@ public class Parser {
     private Command getEditItemCommand(String input) {
         checkForDuplicateFlags(input, ITEM_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(EDIT_ITEM_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, EDIT_ITEM_REGEX);
 
         String itemName;
         String itemNewName;
@@ -741,8 +732,7 @@ public class Parser {
     private ViewCommand getViewCommand(String input) throws IndexOutOfBoundsException, InvalidCommandException {
         checkForDuplicateFlags(input, VIEW_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(VIEW_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, VIEW_REGEX);
 
         if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_VIEW_MESSAGE);
@@ -807,8 +797,7 @@ public class Parser {
             IOException {
         checkForDuplicateFlags(input, MARK_EVENT_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(MARK_EVENT_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, MARK_EVENT_REGEX);
 
         if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_MARK_MESSAGE);
@@ -856,8 +845,7 @@ public class Parser {
             IOException {
         checkForDuplicateFlags(input, MARK_PARTICIPANT_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(MARK_PARTICIPANT_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, MARK_PARTICIPANT_REGEX);
 
         if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_MARK_MESSAGE);
@@ -906,8 +894,7 @@ public class Parser {
             IOException {
         checkForDuplicateFlags(input, MARK_ITEM_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(MARK_ITEM_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, MARK_ITEM_REGEX);
 
         if (!matcher.matches()) {
             throw new InvalidCommandException(INVALID_MARK_MESSAGE);
@@ -962,8 +949,7 @@ public class Parser {
 
         checkForDuplicateFlags(input, COPY_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(COPY_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, COPY_REGEX);
 
         if (matcher.matches()) {
 
@@ -999,8 +985,7 @@ public class Parser {
 
         checkForDuplicateFlags(input, SORT_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(SORT_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, SORT_REGEX);
 
         if (matcher.matches()) {
 
@@ -1041,8 +1026,7 @@ public class Parser {
 
         checkForDuplicateFlags(input, FILTER_FLAG_REGEX);
 
-        Pattern pattern = Pattern.compile(FILTER_REGEX);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = getMatcher(input, FILTER_REGEX);
 
         if (matcher.matches()) {
 
@@ -1161,7 +1145,7 @@ public class Parser {
      * @param flagRegex The regular expression pattern used to identify flags in the input string.
      * @throws InvalidCommandException if a duplicate flag is found in the input string.
      */
-    private static void checkForDuplicateFlags(String input, String flagRegex) throws InvalidCommandException {
+    private void checkForDuplicateFlags(String input, String flagRegex) throws InvalidCommandException {
 
         Pattern flagPattern = Pattern.compile(flagRegex);
         Matcher flagMatcher = flagPattern.matcher(input);
@@ -1175,5 +1159,17 @@ public class Parser {
                 throw new InvalidCommandException(DUPLICATE_FLAG_MESSAGE);
             }
         }
+    }
+
+    /**
+     * Gets a {@link Matcher} from a given input string and regex.
+     *
+     * @param input the given input string.
+     * @param regex the given regex.
+     * @return a {@link Matcher} for input and regex.
+     */
+    private Matcher getMatcher(String input, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(input);
     }
 }
