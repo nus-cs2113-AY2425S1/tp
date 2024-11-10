@@ -67,6 +67,7 @@ class SeeAllIncomesCommandTest {
         financialList.addEntry(new Income(15.00, "ang pow money", LocalDate.of(2024, 9, 12),
                 Income.Category.GIFT));
     }
+
     /**
      * Test the execute method with a mixed list of incomes and expenses.
      * Expects only income entries to be printed with index relative to
