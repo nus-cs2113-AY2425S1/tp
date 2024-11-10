@@ -27,6 +27,7 @@ public class ProgrammeList {
      */
     public ProgrammeList() {
         programmeList = new ArrayList<>();
+        currentActiveProgramme = NULL_INTEGER;
         logger.log(Level.INFO, "ProgrammeList created with an empty list.");
     }
 
@@ -37,6 +38,20 @@ public class ProgrammeList {
     public int getProgrammeListSize(){
         logger.log(Level.INFO, "Getting programme list size: {0}", programmeList.size());
         return programmeList.size();
+    }
+
+    /**
+     * Deactivates the current active programme by setting the active programme index to NULL_INTEGER.
+     * If there are no programmes in the list, it logs a warning and ensures the index remains as NULL_INTEGER.
+     */
+    public void deactivateCurrentProgramme() {
+        if (programmeList.isEmpty()) {
+            logger.log(Level.WARNING, "Attempted to deactivate programme, but no programmes exist in the list.");
+            currentActiveProgramme = NULL_INTEGER; // Defensive: ensure it's set correctly even if empty
+        } else {
+            logger.log(Level.INFO, "Deactivating current active programme.");
+            currentActiveProgramme = NULL_INTEGER;
+        }
     }
 
     /**
@@ -78,7 +93,8 @@ public class ProgrammeList {
         programmeList.remove(index);
 
         if (programmeList.isEmpty()) {
-            currentActiveProgramme = NULL_INTEGER;
+            deactivateCurrentProgramme();
+            // currentActiveProgramme = NULL_INTEGER;
         } else if (index == currentActiveProgramme) {
             // Reset `currentActiveProgramme` to 0 if the deleted programme was the active one
             currentActiveProgramme = 0;
@@ -129,7 +145,8 @@ public class ProgrammeList {
      */
     public Programme startProgramme(int startIndex) {
         if (programmeList.isEmpty()){
-            currentActiveProgramme = NULL_INTEGER;
+            deactivateCurrentProgramme();
+            //currentActiveProgramme = NULL_INTEGER;
             logger.log(Level.WARNING, "Attempted to start a programme but the list is empty");
             throw ProgrammeExceptions.programmeListEmpty();
         }

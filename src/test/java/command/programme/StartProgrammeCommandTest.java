@@ -35,6 +35,8 @@ public class StartProgrammeCommandTest {
         ArrayList<Day> days2 = new ArrayList<>();
         days2.add(new Day("Day 2", new ArrayList<>()));
         programmeList.insertProgramme("Programme 2", days2);
+
+        programmeList.deactivateCurrentProgramme();
     }
 
     @Test
@@ -46,6 +48,7 @@ public class StartProgrammeCommandTest {
         String expectedMessage = String.format(StartProgrammeCommand.SUCCESS_MESSAGE_FORMAT, startedProgramme);
         assertEquals(expectedMessage, result.getMessage());
     }
+
 
     @Test
     void execute_invalidProgrammeIndex_throwsException() {
