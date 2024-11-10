@@ -151,16 +151,18 @@ The `Add Transaction` command allows you to add either an income or expense entr
 <a id="param_details"></a>
 **Parameter Details**:
 - `DESCRIPTION`: A brief label describing the transaction (e.g., "Lunch" or "Freelance Work").
+  - Note: `DESCRIPTION` field must not be left blank or contain the characters `¦¦` and `/`. These symbols are used as separator tokens in the storage file and as prefixes for command arguments.
 - `AMOUNT`: The transaction amount. This should be a positive value.
   - Note: Input amounts are rounded off to the nearest 2 decimal places.
   - Note: The app does not allow transactions to have an amount greater than $9999999.00 after rounding of to the nearest 2 d.p.
 - `DATE` (optional): Date of the transaction in `dd/MM/yyyy` format. If omitted, today’s date is used.
   - Note: The app does not allow transactions to be entered with a date later than the system date.
 - `CATEGORY` (optional): Specifies a category for the transaction, aiding in detailed financial tracking. If omitted, it defaults to `UNCATEGORIZED`.
+  - Note: Category are not case-sensitive.
 
 **Category Options**:
-- **Expense**: Categories include `FOOD`, `TRANSPORT`, `ENTERTAINMENT`, `UTILITIES`, `OTHERS`, and `UNCATEGORIZED`.
-- **Income**: Categories include `SALARY`, `INVESTMENT`, `GIFT`, `OTHERS`, and `UNCATEGORIZED`.
+- **Expense**: Categories include `FOOD`, `TRANSPORT`, `ENTERTAINMENT`, `UTILITIES`, `OTHER`, and `UNCATEGORIZED`.
+- **Income**: Categories include `SALARY`, `INVESTMENT`, `GIFT`, `OTHER`, and `UNCATEGORIZED`.
 
 **Examples Usage**:
 
