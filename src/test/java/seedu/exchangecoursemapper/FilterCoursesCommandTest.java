@@ -15,8 +15,6 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class FilterCoursesCommandTest {
 
@@ -57,39 +55,32 @@ public class FilterCoursesCommandTest {
     }
 
     @Test
-    public void isValidSocCourseCode_inputWithCsCourseCode_expectTrue() {
-        String userInput = "cs3244";
-        boolean isValidSocCourseCode = filterCoursesCommand.isValidSocCourseCode(userInput);
-        assertTrue(isValidSocCourseCode);
-    }
-
-    @Test
-    public void isValidSocCourseCode_inputWithEeCourseCode_expectTrue() {
-        String userInput = "ee2026";
-        boolean isValidSocCourseCode = filterCoursesCommand.isValidSocCourseCode(userInput);
-        assertTrue(isValidSocCourseCode);
-    }
-
-    @Test
-    public void isValidSocCourseCode_inputWithBtCourseCode_expectTrue() {
-        String userInput = "bt4014";
-        boolean isValidSocCourseCode = filterCoursesCommand.isValidSocCourseCode(userInput);
-        assertTrue(isValidSocCourseCode);
-    }
-
-    @Test
-    public void isValidSocCourseCode_inputWithIsCourseCode_expectTrue() {
-        String userInput = "gess1000";
-        boolean isValidSocCourseCode = filterCoursesCommand.isValidSocCourseCode(userInput);
-        assertFalse(isValidSocCourseCode);
-    }
-
-    @Test
     public void getNusCourseCode_inputWithCourseCode_expectNusCourseCode() {
         String userInput = "filter cs3244";
         String[] descriptionSubstrings = filterCoursesCommand.parseFilterCommand(userInput);
         String nusCourseCode = filterCoursesCommand.getNusCourseCode(descriptionSubstrings);
         assertEquals("cs3244", nusCourseCode);
+    }
+
+    @Test
+    public void getNusCourseCode_inputWithNonSocCourseCode_expectNusCourseCode() {
+        String userInput = "filter gess1000";
+        String[] descriptionSubstrings = filterCoursesCommand.parseFilterCommand(userInput);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            filterCoursesCommand.getNusCourseCode(descriptionSubstrings);
+        });
+        assertEquals("We can only filter for CS/CG/EE/BT/IS coded courses!", e.getMessage());
+    }
+
+    @Test
+    public void getNusCourseCode_inputWithInvalidNusCourseCode_expectNusCourseCode() {
+        String userInput = "filter eeeeeeeeeeee";
+        String[] descriptionSubstrings = filterCoursesCommand.parseFilterCommand(userInput);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            filterCoursesCommand.getNusCourseCode(descriptionSubstrings);
+        });
+        assertEquals("Please follow this format for the NUS SoC course code input (not case-sensitive):\n" +
+                "CS/EE/BT/IS followed by 4-digit sequence e.g CS3241", e.getMessage());
     }
 
     @Test
@@ -99,6 +90,9 @@ public class FilterCoursesCommandTest {
         String nusCourseCode = "cs3244";
         filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
         String expectedOutput = """
+                -----------------------------------------------------
+                Filter results for cs3244:
+                -----------------------------------------------------
                 Partner University: The University of Melbourne
                 Partner University Course Code: COMP30027
                 -----------------------------------------------------
@@ -111,30 +105,8 @@ public class FilterCoursesCommandTest {
                 Partner University: The Australian National University
                 Partner University Course Code: COMP4620
                 -----------------------------------------------------
-                """;
-        String actualOutput = outputStreamCaptor.toString();
-        assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
-    }
-
-    @Test
-    public void displayMappableCourses_mappableNusCourseInUpperCase_expectMappableCoursesList()
-            throws FileNotFoundException {
-        JsonObject jsonObject = createDatabaseJsonObject();
-
-        String nusCourseCode = "CS3244";
-        filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
-        String expectedOutput = """
-                Partner University: The University of Melbourne
-                Partner University Course Code: COMP30027
                 -----------------------------------------------------
-                Partner University: The Australian National University
-                Partner University Course Code: COMP3670
-                -----------------------------------------------------
-                Partner University: The Australian National University
-                Partner University Course Code: COMP4620
-                -----------------------------------------------------
-                Partner University: The Australian National University
-                Partner University Course Code: COMP4620
+                End of filter results
                 -----------------------------------------------------
                 """;
         String actualOutput = outputStreamCaptor.toString();
@@ -149,25 +121,10 @@ public class FilterCoursesCommandTest {
         filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
         String expectedOutput = """
                 -----------------------------------------------------
-                No courses found for the given course code.
-                It may not be mappable, or the given course code is not a course offered by NUS!
+                Filter results for ee2026:
                 -----------------------------------------------------
-                """;
-        String actualOutput = outputStreamCaptor.toString();
-        assertEquals(normalizeLineEndings(expectedOutput), normalizeLineEndings(actualOutput));
-    }
-
-    @Test
-    public void displayMappableCourses_nonMappableNusCourseInUpperCase_expectNoMappableCourses()
-            throws FileNotFoundException {
-        JsonObject jsonObject = createDatabaseJsonObject();
-
-        String nusCourseCode = "EE2026";
-        filterCoursesCommand.displayMappableCourses(jsonObject, nusCourseCode);
-        String expectedOutput = """
                 -----------------------------------------------------
-                No courses found for the given course code.
-                It may not be mappable, or the given course code is not a course offered by NUS!
+                No mappable courses found for the given course code.
                 -----------------------------------------------------
                 """;
         String actualOutput = outputStreamCaptor.toString();
@@ -179,11 +136,17 @@ public class FilterCoursesCommandTest {
         String input = "filter CS3241";
         filterCoursesCommand.execute(input);
         String expectedOutput = """
+                -----------------------------------------------------
+                Filter results for cs3241:
+                -----------------------------------------------------
                 Partner University: The University of Melbourne
                 Partner University Course Code: COMP30019
                 -----------------------------------------------------
                 Partner University: The Australian National University
                 Partner University Course Code: COMP4610
+                -----------------------------------------------------
+                -----------------------------------------------------
+                End of filter results
                 -----------------------------------------------------
                 """;
         String actualOutput = outputStreamCaptor.toString();
