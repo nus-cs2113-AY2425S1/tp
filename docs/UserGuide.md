@@ -4,7 +4,7 @@
 ## Table of Contents
 - [Introduction](#introduction)
 - [Quick Start](#quick-start)
-- [Features](#features-)
+- [Features](#features)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -196,7 +196,6 @@ Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2
 Recurring expenses allow you to automate adding expenses that occur on a regular basis.
 
 Recurring expenses are saved to a separate `recurringExpenseList`. They do not affect calculations and visualizations.
-Only when you run the `load` command will "normal expenses" added to the `expenseList`.
 
 Recurring expenses share some of the same commands as normal expenses. Such as:
 - `add`
@@ -205,6 +204,8 @@ Recurring expenses share some of the same commands as normal expenses. Such as:
 - `list`
 
 To use these command for recurring expenses, a `/recur` flag must be added.
+
+Only when you run the `load` command will "normal expenses" added to the expense list.
 
 ### Add a recurring expense: `add`
 
@@ -218,6 +219,9 @@ Notes:
 - `DESCRIPTION` and `CATEGORY` are text.
 - `DATE` takes a text format of `DD-MM-YYYY`. If no `DATE` is specified, it will be defaulted to the current date.
 - `FREQUENCY` takes only 1 of 3 possible inputs: `daily`, `weekly`, or `monthly`. Any other input will throw an error.
+- Adding a recurring expense will only add a singular normal expense for that specified date (or current date if a date was not specified). All other valid expenses will by added after a `save` and a `load` command is used.
+  - The `save` command is needed to register the recurring expense into the system.
+  - The `load` command is used to trigger the mechanism to add all other valid expenses according to the date specified. More details can be found in the Developer Guide.
 
 Examples: 
 - `add /recur /price 4.50 /description chicken rice /category food /frequency daily`

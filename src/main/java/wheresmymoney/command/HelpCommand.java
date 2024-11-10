@@ -157,6 +157,12 @@ public class HelpCommand extends Command {
         Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
         Ui.displayMessage("    - If no date is specified, it will be defaulted to the current date.");
         Ui.displayMessage("    - FREQUENCY can only be \"daily\", \"weekly\" or \"monthly\".");
+        Ui.displayMessage("    - Adding a recurring expense will only add a singular normal expense for that " + 
+                "specified date (or current date if a date was not specified). All other valid expenses will by " + 
+                "added after a save and a load command is used.");
+        Ui.displayMessage("    - The save command is needed to register the recurring expense into the system.");
+        Ui.displayMessage("    - The `load` command is used to trigger the mechanism to add all other valid " + 
+                "expenses according to the date specified. More details can be found in the Developer Guide.");
         Ui.displayMessage("Examples: add /recur /price 4.50 /description chicken rice /category food " +
                 "/date 01-01-2024 /frequency daily");
         Ui.displayMessage("");
