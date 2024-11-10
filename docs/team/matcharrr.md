@@ -1,7 +1,7 @@
 # FU Yixuan - Project Portfolio Page
 
 ## Overview
-EventManagerCLI is a desktop CLI application meant for managing small-scale events organised by one person. It is written in Java, and has around 7kLoC.
+EventManagerCLI is a desktop CLI application designed for managing small-scale events organised by a single user. It is written in Java, and has around 7kLoC.
 The app is optimised for quick, command-based interactions, ideal for users who prefer or need a text-based interface for efficient event management.
 
 ### Summary of Contributions
@@ -33,14 +33,14 @@ The app is optimised for quick, command-based interactions, ideal for users who 
 
 * **Enhancements to existing features**:
   * Implement an EventList class to organize the events. [#35](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/35)
-  * Built the `main` function to initialize and run the application, setting up the primary command loop structure. [#45](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/45)
+  * Developed the `main` function to initialize and run the application, setting up the primary command loop structure. [#45](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/45)
 
 * **Documentation**
     * User Guide
-        * Added documentation for list features (Pull request [#155](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/155)
-        * Added documentation for edit features (Pull request [#155](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/155)
+        * Added documentation for list features. [#155](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/155)
+        * Added documentation for edit features. [#155](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/155)
     * Developer Guide
-        * Added implementation details for `list`, and `edit` features [#154](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/154)
+        * Added implementation details for `list`, and `edit` features. [#154](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/154)
         * Created sequence diagrams for `list`, `edit` features. [#154](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/154)
 
 * **Community**
