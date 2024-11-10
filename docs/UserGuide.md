@@ -38,6 +38,10 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 > **NOTE:** Your stored course mapping is located in the `myList.json` file, found in the `data` folder at the 
 > same file path where you executed the JAR file.
+> 
+> **NOTE:** The `myList.json` file will only be created after you have executed the JAR file at least once.
+> A new file will be created after every execution if no `myList.json` file is found in the `data` folder at the
+> same file path where you executed the JAR file.
 >
 > **NOTE:** Ensure that all the commands given are placed in **one line**. 
 > Do not separate the command into multiple lines in the terminal.
@@ -49,6 +53,7 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 >You may try one of the following:
 >- Remove the corrupted line (delete one course mapping),
 >- Remove any empty lines in the file.
+>- Ensure the file has an empty line at the end of the list of courses for a new course to be added.
 >
 > **This list is non-exhaustive.**
 > 
@@ -269,43 +274,88 @@ Example of usage:
 list mapped
 ```
 
-Expected output:
+Expected output for empty list or file not in the correct directory:
+```
+No modules mapped yet or you may have changed the file/directory name.
+Please start adding courses and check that the file/directory has not been changed.
+```
+Expected output with course mappings:
 ```
 Mapped Modules:
 -----------------------------------------------------
-1. cs2102 | The University of Melbourne | INFO20003
-2. cs3244 | The Australian National University | COMP3670
+1. cs2102 | the university of melbourne | info20003
+2. cs3244 | the australian national university | comp3670
 -----------------------------------------------------
+```
+**Inputs for the above test case**:
+The `myList.json` file should have entries such as:
+```
+cs2102 | the university of melbourne | info20003
+cs3244 | the australian national university | comp3670
 ```
 
 ### Compare mapped courses between two universities: `compare`
-Compares the mapped courses between two partner universities, listing common and unique mappings.
+Compares the mapped courses between two partner universities saved in `myList.json` file.
+It lists common and unique mappings between the two universities.
 
 **Format**: `compare pu/UNIVERSITY_1 pu/UNIVERSITY_2`
 
+**Inputs**:
+- `UNIVERSITY_1` and `UNIVERSITY_2` must be the full names of universities listed in `myList.json`.
+- Ensure that both universities have course mappings saved; otherwise, the output will indicate an empty list.
+
+
 **Example of usage**:
-```plaintext
-compare pu/the university of melbourne pu/the australian national university
+
+```
+compare pu/the university of melbourne pu/victoria university of wellington
 ```
 
-**Expected output**:
-```plaintext
-Comparison Results for The University of Melbourne and The Australian National University:
+**Expected output when there are no mapped courses or empty list**:
+```
+Comparison Results for the university of melbourne and victoria university of wellington:
 Common Mappings:
 -----------------------------------------------------
-CS3244 | The University of Melbourne | COMP30027
-CS3244 | The Australian National University | COMP3670
+No common mappings found.
 -----------------------------------------------------
 
-Unique Mappings - The University of Melbourne:
+Unique Mappings - the university of melbourne:
 -----------------------------------------------------
-CS2102 | The University of Melbourne | INFO20003
+No unique mappings for the university of melbourne.
 -----------------------------------------------------
 
-Unique Mappings - The Australian National University:
+Unique Mappings - victoria university of wellington:
 -----------------------------------------------------
-No unique mappings for The Australian National University.
+No unique mappings for victoria university of wellington.
 -----------------------------------------------------
+```
+
+**Expected output when universities have course mappings**:
+```
+Comparison Results for the university of melbourne and the australian national university:
+Common Mappings:
+-----------------------------------------------------
+cs3244 | the university of melbourne | comp30027
+cs3244 | the australian national university | comp3670
+-----------------------------------------------------
+
+Unique Mappings - the university of melbourne:
+-----------------------------------------------------
+cs2102 | the university of melbourne | INFO20003
+-----------------------------------------------------
+
+Unique Mappings - the australian national university:
+-----------------------------------------------------
+No unique mappings for the australian national university.
+-----------------------------------------------------
+```
+
+**Inputs for the above test case**:
+The `myList.json` file should have entries such as:
+```
+cs3244 | the university of melbourne | comp30027
+cs3244 | the australian national university | comp3670
+cs2102 | the university of melbourne | info20003
 ```
 
 ### Find courses in personalised tracker `find`
