@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static fittrack.enums.Exercise.fromUserInput;
 
@@ -27,6 +26,7 @@ import static fittrack.messages.Messages.ADD_GOAL_COMMAND;
 import static fittrack.messages.Messages.ADD_REMINDER_COMMAND;
 import static fittrack.messages.Messages.ADD_SESSION_COMMAND;
 import static fittrack.messages.Messages.ADD_WATER_COMMAND;
+import static fittrack.messages.Messages.DATE_OUT_OF_RANGE;
 import static fittrack.messages.Messages.DELETE_FOOD_COMMAND;
 import static fittrack.messages.Messages.DELETE_GOAL_COMMAND;
 import static fittrack.messages.Messages.DELETE_REMINDER_COMMAND;
@@ -37,7 +37,9 @@ import static fittrack.messages.Messages.EDIT_MOOD_COMMAND;
 import static fittrack.messages.Messages.GRAPH_PERFORMANCE_COMMAND;
 import static fittrack.messages.Messages.GRAPH_POINTS_COMMAND;
 import static fittrack.messages.Messages.HELP_COMMAND;
-import static fittrack.messages.Messages.INVALID_DATE_FORMAT_MESSAGE;
+import static fittrack.messages.Messages.INDEX_OUT_OF_BOUNDS_MESSAGE;
+import static fittrack.messages.Messages.INVALID_DATETIME_MESSAGE;
+import static fittrack.messages.Messages.INVALID_INDEX_NON_NUMERIC_MESSAGE;
 import static fittrack.messages.Messages.INVALID_SESSION_INDEX_MESSAGE;
 import static fittrack.messages.Messages.LIST_FOOD_COMMAND;
 import static fittrack.messages.Messages.LIST_GOAL_COMMAND;
@@ -215,27 +217,72 @@ public class Parser {
             break;
 
         case ADD_REMINDER_COMMAND:
-            sentence = description.split(" ", 2);
+            try {
+                String[] remindInfo = description.split(" ", 2);
 
-            String inputDeadline = sentence[1];
-            description = sentence[0];
+                // Check if sentence contains both description and deadline
+                if (remindInfo.length < 2) {
+                    throw new IllegalArgumentException("Input must contain both a description and a deadline.");
+                }
 
-            assert !description.isEmpty() : "Reminder description must not be empty";
-            assert !Objects.equals(inputDeadline, "") : "Reminder deadline must not be empty";
-            LocalDateTime deadline = parseDeadline(inputDeadline);
-            reminderList.add(new Reminder(description, deadline, user));
-            printAddedReminder(reminderList);
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+                String inputDeadline = remindInfo[1];
+                String inputDescription = remindInfo[0];
+
+                // Validate description and deadline
+                if (inputDescription.isEmpty()) {
+                    throw new IllegalArgumentException("Reminder description must not be empty");
+                }
+                if (inputDeadline.isEmpty()) {
+                    throw new IllegalArgumentException("Reminder deadline must not be empty");
+                }
+
+                // Parse the deadline, handle any parsing errors
+                LocalDateTime deadline;
+                try {
+                    deadline = parseDeadline(inputDeadline);
+                } catch (DateTimeParseException e) {
+                    throw new IllegalArgumentException(INVALID_DATETIME_MESSAGE, e);
+                }
+
+                // Proceed with adding the reminder if no exceptions were thrown
+                reminderList.add(new Reminder(inputDescription, deadline, user));
+                printAddedReminder(reminderList);
+                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.err.println("An unexpected error occurred: " + e.getMessage());
+            }
             break;
+
         case DELETE_REMINDER_COMMAND:
-            int reminderIndexToDelete = Integer.parseInt(description) - 1;
-            assert reminderIndexToDelete >= 0 && reminderIndexToDelete < reminderList.size() : "Delete reminder index "
-                    + "out of bounds";
-            Reminder reminderToDelete = reminderList.get(reminderIndexToDelete);
-            reminderList.remove(reminderIndexToDelete);
-            printDeletedReminder(reminderList, reminderToDelete);
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
-            break;
+            try {
+                int reminderIndexToDelete;
+
+                // Try parsing the index; handle invalid number formats
+                try {
+                    reminderIndexToDelete = Integer.parseInt(description) - 1;
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException(INVALID_INDEX_NON_NUMERIC_MESSAGE);
+                }
+
+                // Check if the index is within bounds
+                if (reminderIndexToDelete < 0 || reminderIndexToDelete >= reminderList.size()) {
+                    throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS_MESSAGE);
+                }
+
+                // Retrieve and delete the reminder if the index is valid
+                Reminder reminderToDelete = reminderList.get(reminderIndexToDelete);
+                reminderList.remove(reminderIndexToDelete);
+                printDeletedReminder(reminderList, reminderToDelete);
+                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+
+            } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println("An unexpected error occurred: " + e.getMessage());
+            }
         case LIST_REMINDER_COMMAND:
             printReminderList(reminderList);
             break;
@@ -426,32 +473,45 @@ public class Parser {
      * Parses user input indicating the deadline of an object.
      * Throws an exception if user-input String is inappropriate or ill-formatted.
      *
-     * @param inputDeadline A string input by the user. Intended format is DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.
+     * @param inputDeadline A string input by the user. Intended format is DD/MM/YYYY or DD/MM/YYYY HH:mm.
      * @return A {@code LocalDateTime} object indicating reminder deadline
      * @throws IllegalArgumentException Thrown if an incorrectly formatted deadline is provided.
      */
     static LocalDateTime parseDeadline(String inputDeadline) throws IllegalArgumentException {
-        try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
-            // Try to parse with time (dd/MM/yyyy HH:mm:ss)
-            try {
-                return LocalDateTime.parse(inputDeadline, dateTimeFormatter);
-            } catch (DateTimeParseException e) {
-                // If failed, try to parse without time (HH:mm:ss)
-                LocalDate date = LocalDate.parse(inputDeadline, dateFormatter);
-                return date.atStartOfDay();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        // Define acceptable date range (e.g., between years 1900 and 2100)
+        LocalDate minDate = LocalDate.of(1900, 1, 1);
+        LocalDate maxDate = LocalDate.of(2100, 12, 31);
+
+        // Try to parse with date and time (dd/MM/yyyy HH:mm)
+        try {
+            LocalDateTime parsedDateTime = LocalDateTime.parse(inputDeadline, dateTimeFormatter);
+
+            // Check if the parsed date-time is within bounds
+            if (parsedDateTime.toLocalDate().isBefore(minDate) || parsedDateTime.toLocalDate().isAfter(maxDate)) {
+                throw new IllegalArgumentException(DATE_OUT_OF_RANGE);
             }
+            return parsedDateTime;
+
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException(INVALID_DATE_FORMAT_MESSAGE
-                    + "Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
+            // If parsing with date and time fails, attempt date-only parsing (dd/mm/yyyy)
+            try {
+                LocalDate parsedDate = LocalDate.parse(inputDeadline, dateFormatter);
+
+                // Check if the parsed date is within bounds
+                if (parsedDate.isBefore(minDate) || parsedDate.isAfter(maxDate)) {
+                    throw new IllegalArgumentException(DATE_OUT_OF_RANGE);
+                }
+                return parsedDate.atStartOfDay();
+
+            } catch (DateTimeParseException ex) {
+                // Throw a descriptive exception if both formats fail
+                throw new IllegalArgumentException(INVALID_DATETIME_MESSAGE);
+            }
         }
     }
 
-    private static LocalDateTime parseMoodTimestamp(String date, String time) {
-        String dateTimeString = date + " " + time;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        return LocalDateTime.parse(dateTimeString, formatter);
-    }
 }
