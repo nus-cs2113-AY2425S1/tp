@@ -201,6 +201,7 @@ public class Parser {
      */
     public Command parseCommand(String command) throws InvalidCommandException, IOException {
         String[] commandParts = command.trim().split(SPACE);
+        command = command.trim();
         String commandWord = commandParts[0].toLowerCase();
         try {
             switch (commandWord) {
