@@ -18,10 +18,20 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 - **Day**: A ‘workout day’ is a collection of exercises to be done together.
 - **Programme**: A programme is a collection of workout days.
 - **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
-
+- 
 ---
 
 ## Features
+
+## To Note:
+- Words in `UPPER_CASE` are the parameters to be supplied by the user. 
+eg. in `prog create PROG_NAME`, `PROG_NAME` is a parameter which can be used as `prog create Start`.
+- Items in square brackets are optional.
+eg. `prog edit [/p PROG_INDEX] /ad DAY_NAME` can be used as `prog edit /p2 /ad Day One` or as `prog edit /ad Day One`.
+- Parameters can be in any order. 
+eg. if the command specifies `/w weight /s sets /r reps`, `/s sets /r reps /w weight` is also acceptable. 
+- Extraneous parameters for commands that do not take in parameters (such as `bye`) will be ignored
+- **/** is reserved character, entering "chest/back" will only be interpreted as "chest."
 
 ### 1. Add New Programme
 
