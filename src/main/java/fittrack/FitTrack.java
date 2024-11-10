@@ -37,7 +37,6 @@ public class FitTrack {
         Scanner scan = new Scanner(System.in);
         ArrayList<Saveable> saveableList = new ArrayList<>();
 
-
         // Initialize and load the save file
         initialiseSaveFile();
         loadSaveFile(saveableList);
@@ -69,7 +68,6 @@ public class FitTrack {
 
         // Set user gender and age
         User user = null;
-
         while(user == null) {
             try {
                 String userInput = scan.nextLine();
