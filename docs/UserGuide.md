@@ -179,7 +179,7 @@ Examples:
 ```
 > help /method add
 Use the add command to add an expense.
-Format:  add /price PRICE /description DESCRIPTION /category CATEGORY /date DATE
+Format:  add /price PRICE /description DESCRIPTION /category CATEGORY [/date DATE]
 Notes:
     - PRICE is a decimal number.
     - DESCRIPTION and CATEGORY are text.

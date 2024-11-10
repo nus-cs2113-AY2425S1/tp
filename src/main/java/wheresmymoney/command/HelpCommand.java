@@ -27,7 +27,7 @@ public class HelpCommand extends Command {
 
     private static void addHelp() {
         Ui.displayMessage("Use the add command to add an expense.");
-        Ui.displayMessage("Format:  add /price PRICE /description DESCRIPTION /category CATEGORY /date DATE");
+        Ui.displayMessage("Format:  add /price PRICE /description DESCRIPTION /category CATEGORY [/date DATE]");
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - PRICE is a decimal number.");
         Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
@@ -148,8 +148,8 @@ public class HelpCommand extends Command {
 
     private static void addRecurHelp() {
         Ui.displayMessage("Use the add command to add an recurring expense.");
-        Ui.displayMessage("Format:  add /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] " + 
-                "[/date DATE] [/frequency FREQUENCY]");
+        Ui.displayMessage("Format:  add /recur /price PRICE /description DESCRIPTION /category CATEGORY " + 
+                "[/date DATE] /frequency FREQUENCY");
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - PRICE is a decimal number.");
         Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
