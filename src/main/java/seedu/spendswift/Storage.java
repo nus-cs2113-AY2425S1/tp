@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Map;
 
 public class Storage {
     private final String filePath;
@@ -31,21 +30,59 @@ public class Storage {
 
     public void saveData(TrackerData trackerData) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("Budgets\n");
-            for (Map.Entry<Category, Budget> entry : trackerData.getBudgets().entrySet()) {
-                String categoryName = entry.getKey().getName();
-                double budgetLimit = entry.getValue().getLimit();
-                writer.write(categoryName + ", " + budgetLimit + "\n");
+            writer.write("Categories, Budgets, and Expenses\n");
+
+            for (Category category : trackerData.getCategories()) {
+                writer.write("c/" + category.getName() + "\n");
+
+                Budget budget = trackerData.getBudgets().get(category);
+                if (budget != null) {
+                    writer.write("l/" + budget.getLimit() + "\n");
+                }
+
+                for (Expense expense : trackerData.getExpenses()) {
+                    if (expense.getCategory().equals(category)) {
+                        writer.write("e/" + expense.getName() + " | " + expense.getAmount() + "\n");
+                    }
+                }
+                writer.write("-----\n");
             }
 
-            writer.write("Expenses\n");
-            for (Expense expense : trackerData.getExpenses()) {
-                String expenseName = expense.getName();
-                double amount = expense.getAmount();
-                String categoryName = expense.getCategory().getName();
-                writer.write(expenseName + ", " + amount + ", " + categoryName + "\n");
+            writer.write("r/" + trackerData.getResetStatus() + "\n");
+        }
+    }
+
+
+    public void loadData(TrackerData trackerData) throws IOException {
+        UI ui = new UI();
+        File file = new File(filePath);
+        if (!file.exists()) {
+            ui.printFileNotFound();
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            Category currentCategory = null;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("c/")) {
+                    currentCategory = parseCategory(line, trackerData);
+                } else if (line.startsWith("l/") && currentCategory != null) {
+                    parseBudget(line, currentCategory, trackerData);
+                } else if (line.startsWith("e/") && currentCategory != null) {
+                    parseExpense(line, currentCategory, trackerData);
+                } else if (line.startsWith("r/")) {
+                    parseResetStatus(line, trackerData);
+                }
             }
         }
+        ui.printDataLoaded();
+    }
+
+    private Category parseCategory(String line, TrackerData trackerData) {
+        String categoryName = line.substring(2).trim();
+        return loadCategory(trackerData, categoryName);
     }
 
     private Category loadCategory(TrackerData trackerData, String categoryName) {
@@ -59,62 +96,41 @@ public class Storage {
                 return category;
             }
         }
-
         Category newCategory = new Category(categoryName);
         trackerData.getCategories().add(newCategory);
         return newCategory;
     }
 
-    public void loadData(TrackerData trackerData) throws IOException {
-        UI ui = new UI();
-        File file = new File(filePath);
-        if (!file.exists()) {
-            ui.printFileNotFound();
+
+    private void parseBudget(String line, Category currentCategory, TrackerData trackerData) {
+        try {
+            double budgetLimit = Double.parseDouble(line.substring(2).trim());
+            Budget budget = new Budget(currentCategory, budgetLimit);
+            trackerData.getBudgets().put(currentCategory, budget);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid budget format: " + line);
+        }
+    }
+
+    private void parseExpense(String line, Category currentCategory, TrackerData trackerData) {
+        String[] expenseParts = line.substring(2).split(" \\| ");
+        if (expenseParts.length < 2) {
+            System.out.println("Invalid expense data format. Skipping line: " + line);
             return;
         }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            boolean isBudgetSection = true;
-
-            while ((line = reader.readLine()) != null) {
-                if (line.equals("Budgets")) {
-                    isBudgetSection = true;
-                    continue;
-                } else if (line.equals("Expenses")) {
-                    isBudgetSection = false;
-                    continue;
-                }
-
-                String[] parts = line.split(", ");
-                try {
-                    if (isBudgetSection) {
-                        if (parts.length < 2) {
-                            System.out.println("Invalid budget data format. Skipping line: " + line);
-                            continue;
-                        }
-                        String categoryName = parts[0];
-                        double limit = Double.parseDouble(parts[1]);
-                        Category category = new Category(categoryName);
-                        Budget budget = new Budget(category, limit);
-                        trackerData.getBudgets().put(category, budget);
-                    } else {
-                        if (parts.length < 3) {
-                            System.out.println("Invalid expense data format. Skipping line: " + line);
-                            continue;
-                        }
-                        String expenseName = parts[0];
-                        double amount = Double.parseDouble(parts[1]);
-                        String categoryName = parts[2];
-                        Category category = loadCategory(trackerData, categoryName);
-                        Expense expense = new Expense(expenseName, amount, category);
-                        trackerData.getExpenses().add(expense);
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid format in line: " + line);
-                }
-            }
+        try {
+            String expenseName = expenseParts[0].trim();
+            double amount = Double.parseDouble(expenseParts[1].trim());
+            Expense expense = new Expense(expenseName, amount, currentCategory);
+            trackerData.getExpenses().add(expense);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid expense amount format: " + line);
         }
-        ui.printDataLoaded();
     }
+
+    private void parseResetStatus(String line, TrackerData trackerData) {
+        boolean resetStatus = Boolean.parseBoolean(line.substring(2).trim());
+        trackerData.setResetStatus(resetStatus);
+    }
+
 }
