@@ -7,6 +7,7 @@ import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.util.Commons;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -77,7 +78,7 @@ class SeeAllEntriesCommandTest {
         testCommand.execute(financialList);
 
         String output = outputStream.toString();
-        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+        String expectedOutput = Commons.LINE_SEPARATOR + System.lineSeparator() +
                 "Here's a list of all recorded entries:" + System.lineSeparator() +
                 "1. [Expense] - dinner $ 4.50 (on 01/09/2024) [FOOD]" + System.lineSeparator() +
                 "2. [Expense] - movie $ 20.00 (on 01/10/2024) [ENTERTAINMENT]" + System.lineSeparator() +
@@ -91,7 +92,7 @@ class SeeAllEntriesCommandTest {
                 System.lineSeparator() +
                 "Highest Expense Category: ENTERTAINMENT ($20.00)" + System.lineSeparator() +
                 "Highest Income Category: SALARY ($3000.00)" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator();
+                Commons.LINE_SEPARATOR + System.lineSeparator();
 
         assertEquals(
                 expectedOutput.trim().replaceAll("\\s+", " "),
@@ -109,9 +110,9 @@ class SeeAllEntriesCommandTest {
         testCommand.execute(financialList);
 
         String output = outputStream.toString();
-        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+        String expectedOutput = Commons.LINE_SEPARATOR + System.lineSeparator() +
                 "No entries found." + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator();
+                Commons.LINE_SEPARATOR + System.lineSeparator();
 
         assertEquals(
                 expectedOutput.trim().replaceAll("\\s+", " "),
@@ -129,7 +130,7 @@ class SeeAllEntriesCommandTest {
         testCommand.execute(financialList);
 
         String output = outputStream.toString();
-        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+        String expectedOutput = Commons.LINE_SEPARATOR + System.lineSeparator() +
                 "Here's a list of all recorded entries:" + System.lineSeparator() +
                 "1. [Expense] - dinner $ 4.50 (on 01/09/2024) [FOOD]" + System.lineSeparator() +
                 "2. [Expense] - movie $ 20.00 (on 01/10/2024) [ENTERTAINMENT]" + System.lineSeparator() +
@@ -141,7 +142,7 @@ class SeeAllEntriesCommandTest {
                 System.lineSeparator() +
                 "Highest Expense Category: ENTERTAINMENT ($20.00)" + System.lineSeparator() +
                 "Highest Income Category: GIFT ($100.00)" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator();
+                Commons.LINE_SEPARATOR + System.lineSeparator();
         assertEquals(
                 expectedOutput.trim().replaceAll("\\s+", " "),
                 output.trim().replaceAll("\\s+", " ")
@@ -158,7 +159,7 @@ class SeeAllEntriesCommandTest {
         testCommand.execute(financialList);
 
         String output = outputStream.toString();
-        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+        String expectedOutput = Commons.LINE_SEPARATOR + System.lineSeparator() +
                 "Here's a list of all recorded entries:" + System.lineSeparator() +
                 "3. [Income] - allowance $ 100.00 (on 10/10/2024) [GIFT]" + System.lineSeparator() +
                 "4. [Expense] - lunch $ 3.50 (on 23/10/2024) [FOOD]" + System.lineSeparator() +
@@ -170,7 +171,7 @@ class SeeAllEntriesCommandTest {
                 System.lineSeparator() +
                 "Highest Expense Category: FOOD ($3.50)" + System.lineSeparator() +
                 "Highest Income Category: SALARY ($3000.00)" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator() ;
+                Commons.LINE_SEPARATOR + System.lineSeparator() ;
         assertEquals(
                 expectedOutput.trim().replaceAll("\\s+", " "),
                 output.trim().replaceAll("\\s+", " ")
@@ -188,7 +189,7 @@ class SeeAllEntriesCommandTest {
         testCommand.execute(financialList);
 
         String output = outputStream.toString();
-        String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
+        String expectedOutput = Commons.LINE_SEPARATOR + System.lineSeparator() +
                 "Here's a list of all recorded entries:" + System.lineSeparator() +
                 "2. [Expense] - movie $ 20.00 (on 01/10/2024) [ENTERTAINMENT]" + System.lineSeparator() +
                 "3. [Income] - allowance $ 100.00 (on 10/10/2024) [GIFT]" + System.lineSeparator() +
@@ -200,7 +201,7 @@ class SeeAllEntriesCommandTest {
                 System.lineSeparator() +
                 "Highest Expense Category: ENTERTAINMENT ($20.00)" + System.lineSeparator() +
                 "Highest Income Category: GIFT ($100.00)" + System.lineSeparator()+
-                "--------------------------------------------" + System.lineSeparator();
+                Commons.LINE_SEPARATOR + System.lineSeparator();
         assertEquals(
                 expectedOutput.trim().replaceAll("\\s+", " "),
                 output.trim().replaceAll("\\s+", " ")
