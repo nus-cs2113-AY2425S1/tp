@@ -104,11 +104,11 @@ public class Parser {
 
     /**
      * Parses an abbreviated partner university name and returns the full name.
+     * It will return the original string if no match with the formatted abbreviation is found.
      *
      * @param PU User's partner university input.
      *
      * @return the full name of the partner university if it matches a known abbreviation.
-     * It will return the original string if no match with the formatted abbreviation is found.
      */
     public String parsePUAbbreviations(String PU) {
         String formattedPU = PU.toLowerCase().trim();
