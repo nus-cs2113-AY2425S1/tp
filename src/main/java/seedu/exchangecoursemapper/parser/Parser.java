@@ -49,7 +49,7 @@ public class Parser {
     public String getUserInput() {
         return scanner.nextLine();
     }
-
+    
     public void processUserInput(String userInput, Storage storage) {
         assert userInput != null : NULL_INPUT;
 
@@ -90,5 +90,27 @@ public class Parser {
             logger.log(Level.WARNING, INVALID_INPUT, command);
             System.out.println(INVALID_COMMAND_MESSAGE);
         }
+    }
+
+
+    /**
+     * Parses an abbreviated partner university name and returns the full name.
+     *
+     * @param Pu User's partner university input.
+     * @return the full name of the partner university if it matches a known abbreviation.
+     * It will return the original string if no match with the formatted abbreviation is found.
+     */
+    public String parsePUAbbreviations(String Pu) {
+        String formattedPU = Pu.toLowerCase().trim();
+        if (formattedPU.equals("uwa")) {
+            formattedPU = "The University of Western Australia";
+        } else if (formattedPU.equals("unimelb")) {
+            formattedPU = "The University of Melbourne";
+        } else if (formattedPU.equals("anu")) {
+            formattedPU = "The Australian National University";
+        } else if (formattedPU.equals("wgtn")) {
+            formattedPU = "Victoria University of Wellington";
+        }
+        return formattedPU;
     }
 }

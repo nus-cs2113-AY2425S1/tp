@@ -8,6 +8,7 @@ import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.storage.CourseRepository;
 import seedu.exchangecoursemapper.parser.CourseValidator;
 import seedu.exchangecoursemapper.ui.UI;
+import seedu.exchangecoursemapper.parser.Parser;
 
 import javax.json.JsonObject;
 import java.io.IOException;
@@ -21,12 +22,14 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
     private CourseValidator courseValidator;
     private CourseRepository courseRepository;
     private UI ui;
+    private Parser parser;
 
     /** constructor */
     public AddCoursesCommand() {
         courseValidator = new CourseValidator();
         ui = new UI();
         courseRepository = new CourseRepository();
+        parser = new Parser();
     }
 
     /**
@@ -60,6 +63,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
             logger.log(Level.INFO, Logs.EXTRACT_COURSES);
             String nusCourse = descriptionSubstrings[0].trim().toLowerCase();
             String pu = descriptionSubstrings[1].trim().toLowerCase();
+            pu = parser.parsePUAbbreviations(pu);
             String puCourse = descriptionSubstrings[2].trim().toLowerCase();
 
             logger.log(Level.INFO, Logs.FORMAT);
