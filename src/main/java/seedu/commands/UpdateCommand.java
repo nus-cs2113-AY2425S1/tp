@@ -83,7 +83,10 @@ public class UpdateCommand extends Command {
         } catch (DateTimeParseException e) {
             uiCommand.addInvalidField(field, "Invalid date format");
         } catch (InvalidDeadline e) {
-            uiCommand.addInvalidField(field, "Either description or date is missing.");
+            String message = """
+                    Either description or date is missing.
+                    \tIf you have provided a date, please check it is valid and is in dd/MM/yy format""";
+            uiCommand.addInvalidField(field, message);
         } catch (InvalidStatus e) {
             String message = """
                     Status provided is not recognised

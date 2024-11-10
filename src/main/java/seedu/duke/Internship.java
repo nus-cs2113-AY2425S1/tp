@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -24,6 +26,8 @@ public class Internship {
 
     private static final List<String> STATUSES = Arrays.asList(
             "Application Pending", "Application Completed", "Accepted", "Rejected");
+
+    private static final Logger LOGGER = Logger.getLogger("EasInternship");
 
     private int id = -1;
     private String role;
@@ -196,6 +200,7 @@ public class Internship {
         }
 
         if (description.trim().isEmpty() || date.trim().isEmpty()) {
+            LOGGER.log(Level.WARNING, "Deadline is invalid");
             throw new InvalidDeadline();
         }
 
@@ -214,6 +219,7 @@ public class Internship {
             LocalDate.parse(date, FORMATTER_DATE);
             return true;
         } catch (DateTimeParseException e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
             return false;
         }
     }
