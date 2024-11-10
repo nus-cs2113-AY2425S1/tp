@@ -64,7 +64,7 @@ class CliTest {
         String printedOutput = outputStream.toString();
         assertTrue(printedOutput.contains("List of available commands:"),
                 "Output should contain the list of commands.");
-        assertTrue(printedOutput.contains("'help' - Show this help message"),
+        assertTrue(printedOutput.contains("'help' for this list of commands"),
                 "Output should contain 'help' command instructions.");
     }
 
