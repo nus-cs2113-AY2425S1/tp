@@ -39,7 +39,7 @@ class ListPersonalTrackerCommandTest {
     void execute_noModulesInPersonalTracker_displaysNoModulesMessage() {
         command.execute("");
         assertEquals("No modules mapped yet or you may have " +
-                "changed the file/directory name." +
+                "changed the file/directory name.\n" +
                 "Please start adding courses and check that the " +
                 "file/directory has not been changed.", outContent.toString().trim());
     }
