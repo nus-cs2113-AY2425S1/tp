@@ -31,6 +31,7 @@ alt Index valid
     deactivate Hospital
     DeletePatientCommand -> Hospital : deletePatient(index)
     activate Hospital
+    Hospital --> DeletePatientCommand
     DeletePatientCommand --> DeleteParser : "Deleted patient: <name>"
 
     DeleteParser --> Parser : "Result message"
