@@ -80,7 +80,8 @@ public class FilterCoursesCommandTest {
             filterCoursesCommand.getNusCourseCode(descriptionSubstrings);
         });
         assertEquals("Please follow this format for the NUS SoC course code input (not case-sensitive):\n" +
-                "CS/EE/BT/IS followed by 4-digit sequence e.g CS3241", e.getMessage());
+                "CS/EE/BT/IS followed by a 4-digit sequence e.g CS3241\n" +
+                "Some courses may end with a character too e.g. CS1010J", e.getMessage());
     }
 
     @Test
