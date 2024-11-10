@@ -19,4 +19,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 .vscode/
 
 data/
+data/FinancialList.txt
+data/Budget.txt
 META-INF/MANIFEST.MF

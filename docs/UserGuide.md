@@ -11,9 +11,11 @@
     - [Add Transaction](#add-transaction)
     - [Edit Transaction](#edit-transaction)
     - [Delete Transaction](#delete-transaction)
-    - [List Entries](#list-entries)
+      - [Example Usage](#example-usage)
+    - [List Transactions](#list-transactions)
       - [List by Type](#list-by-type)
       - [List by Date](#list-by-date)
+      - [Viewing budget](#viewing-budget)
     - [Saving Data](#saving-data)
   - [Command Summary](#command-summary)
 
@@ -212,14 +214,20 @@ Edits an existing transaction in your financial list.
 
 **Format**: `edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`
 
- - Edits the transaction at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed 
-financial list when [`list`](#list-transactions) is called. `INDEX` must be a positive integer.
+ - Edits the transaction at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed financial list when [`list`](#list-transactions) is called. 
+ - `INDEX` must be a positive integer.
 
 **Parameter Details:** (Refer to [here](#param_details) for what each parameter represents)
- - `DESCRIPTION` shouldn't be blank. And DO NOT USE `¦¦` in `DESCRIPTION` cause it serve as the seperator token in storage file.
- - `DATE` should follow `DD/MM/YYYY` format and cannot be after the system date.
- - `AMOUNT` must be a positive number with a maximum value of $9999999.00. If it's a floating-point number, it will be rounded to two decimal places.
- - `CATEGORY` should be one of the categories allowed in Expenses/Incomes.
+
+ - `DESCRIPTION` (optional): 
+   - shouldn't be blank if provided.
+   - DO NOT USE `¦¦` in `DESCRIPTION` cause it serve as the seperator token in storage file.
+ - `AMOUNT` (optional):
+   - Must be a positive number with a maximum value of $9999999.00. If it's a floating-point number, it will be rounded to two decimal places.
+ - `DATE` (optional):
+   - Should follow `DD/MM/YY` format and cannot be after the system date.
+ - `CATEGORY` (optional):
+   - Should be one of the categories allowed in Expenses/Incomes.
 
 **Example Usages**:
 

@@ -12,29 +12,39 @@ img
 
 ## Table of Contents
 
-- [Acknowledgements](#acknowledgements)
-- [Design and Implementation](#design--implementation)
-  - [Ui and Parser](#ui-and-parser)
-  - [Logic](#logic)
-  - [FinancialList and FinancialEntry](#financiallist-and-financialentry)
-  - [Commands](#commands)
+- [Developer Guide](#developer-guide)
+  - [Table of Contents](#table-of-contents)
+  - [Acknowledgements](#acknowledgements)
+  - [Design and Implementation](#design-and-implementation)
+    - [Ui and Parser](#ui-and-parser)
+      - [Ui Component](#ui-component)
+      - [Parser Component](#parser-component)
+    - [Logic](#logic)
+    - [FinancialList and FinancialEntry](#financiallist-and-financialentry)
+      - [FinancialList Component](#financiallist-component)
+      - [FinancialEntry Component](#financialentry-component)
+    - [Commands](#commands)
     - [Adding Entries](#adding-entries)
     - [Deleting Entries](#deleting-entries)
     - [Editing Entries](#editing-entries)
     - [Listing Entries](#listing-entries)
-  - [Exceptions and Logging](#exceptions-and-logging)
-  - [Storage](#storage)
-  - [Budget and BudgetLogic](#budget-and-budgetlogic)
-- [Product Scope](#product-scope)
-  - [Target User Profile](#target-user-profile)
-  - [Value Proposition](#value-proposition)
-- [User Stories](#user-stories)
-- [Use Cases](#use-cases)
-- [Non-Functional Requirements](#non-functional-requirements)
-- [Glossary](#glossary)
-- [Instructions for Manual Testing](#instructions-for-manual-testing)
-  - [Manual Testing](#manual-testing)
-  - [JUnit Testing](#junit-testing)
+    - [Exceptions and Logging](#exceptions-and-logging)
+    - [Storage](#storage)
+    - [Budget and BudgetLogic](#budget-and-budgetlogic)
+  - [Product scope](#product-scope)
+    - [Target user profile:](#target-user-profile)
+    - [Value proposition](#value-proposition)
+  - [User Stories](#user-stories)
+  - [Use Cases](#use-cases)
+      - [Use Case: Add an Expense](#use-case-add-an-expense)
+      - [Use Case: Edit an Expense](#use-case-edit-an-expense)
+      - [Use Case: Delete an Expense](#use-case-delete-an-expense)
+      - [Use Case: Add Income](#use-case-add-income)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Glossary](#glossary)
+  - [Instructions for manual testing](#instructions-for-manual-testing)
+    - [Manual Testing](#manual-testing)
+    - [JUnit Testing](#junit-testing)
 
 ## Acknowledgements
 
@@ -690,9 +700,10 @@ The `Storage` class contains functions for retrieving, updating, and loading dat
   - `toString()` method returns: `[Expense] - Transport $5.00 (on 25/10/2024) [TRANSPORT]`
   - `toStorageString()` method returns: `E ¦¦ 5.00 ¦¦ Transport ¦¦ 25/10/2024 ¦¦ TRANSPORT`
 
-The figure below show how the program load data from the files:
-
-<img src="UML/StorageLoad.png" alt="Storage Load Diagram" width="auto" height="500">
+The figure below show how the program load FinantialList from the files:
+<img src="UML/loadTransactionFromStorage.png" alt="Storage Load FinantialList" width="auto" height="500">
+The figure below show how the program load Budget from the files:
+<img src="UML/loadBudgetFromStorage.png" alt="Storage Load Budget" width="auto" height="500">
 
 <ins>Methods</ins>
 
