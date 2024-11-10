@@ -314,13 +314,13 @@ public class StorageTest {
         storage.printLoadingResult();
         String output = outputStream.toString();
         String expection = "Deleting invalid line from file: " + System.lineSeparator() +
-                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ TAIWANGOOD" + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ TAIWANGOOD" + System.lineSeparator() +
                                 "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2323 ¦¦ FOOD" + System.lineSeparator() +
-                                "\tE ¦¦ -100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD" + System.lineSeparator() +
-                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23" + System.lineSeparator() +
+                                "\tE ¦¦ -100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD" + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023" + System.lineSeparator() +
                                 "\tE ¦¦ 100 ¦¦ Lunch ¦¦ FOOD" + System.lineSeparator() +
-                                "\tE ¦¦ 100 ¦¦ 01/01/23 ¦¦ FOOD" + System.lineSeparator() +
-                                "\tE ¦¦ 1 ¦¦ 0 ¦¦ 0 ¦¦ L ¦¦ u ¦¦ n ¦¦ c ¦¦ h ¦¦ 01/01/23 ¦¦ FOOD ¦¦ FOOD" + 
+                                "\tE ¦¦ 100 ¦¦ 01/01/2023 ¦¦ FOOD" + System.lineSeparator() +
+                                "\tE ¦¦ 1 ¦¦ 0 ¦¦ 0 ¦¦ L ¦¦ u ¦¦ n ¦¦ c ¦¦ h ¦¦ 01/01/2023 ¦¦ FOOD ¦¦ FOOD" +
                                         System.lineSeparator() + System.lineSeparator() +
                             "I have loaded 1 expenses and 1 incomes from file." + System.lineSeparator() +
                             "Budget loaded from file." + System.lineSeparator();
