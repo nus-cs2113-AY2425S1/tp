@@ -3,7 +3,8 @@
 package programme;
 
 import exceptions.BuffBuddyException;
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.ProgrammeExceptions;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,9 +66,13 @@ public class ProgrammeList {
      * @throws IndexOutOfBoundsException if the index is out of bounds for the Programme list
      */
     public Programme deleteProgram(int index){
+        if (index == NULL_INTEGER){
+            index = currentActiveProgramme;
+        }
+
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for deleteProgram()", index);
-            throw new IndexOutOfBoundsBuffBuddyException(index, "programme list");
+            throw ProgrammeExceptions.doesNotExist("programme");
         }
 
         Programme programmeToDelete = programmeList.get(index);
@@ -81,6 +86,7 @@ public class ProgrammeList {
         }
 
         logger.log(Level.INFO, "Deleted programme at index {0}: {1}", new Object[]{index, programmeToDelete});
+
         return programmeToDelete;
     }
 
@@ -98,7 +104,7 @@ public class ProgrammeList {
 
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for getProgramme()", index);
-            throw new IndexOutOfBoundsBuffBuddyException(index, "programme list");
+            throw ProgrammeExceptions.doesNotExist("programme");
         }
 
         logger.log(Level.INFO, "Retrieving programme at index {0}: {1}", new Object[]{index, programmeList.get(index)});
@@ -131,7 +137,7 @@ public class ProgrammeList {
 
         if (startIndex < 0 || startIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for startProgramme()", startIndex);
-            throw new IndexOutOfBoundsBuffBuddyException(startIndex, "programme list");
+            throw ProgrammeExceptions.doesNotExist("programme");
         }
 
         if (currentActiveProgramme == startIndex) {

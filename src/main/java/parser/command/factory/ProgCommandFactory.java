@@ -10,7 +10,6 @@ import command.programme.ViewProgrammeCommand;
 import command.programme.ListProgrammeCommand;
 import command.programme.StartProgrammeCommand;
 import command.programme.LogProgrammeCommand;
-import command.programme.DeleteLogProgrammeCommand;
 import command.programme.edit.EditProgrammeCommand;
 import command.programme.edit.EditExerciseProgrammeCommand;
 import command.programme.edit.CreateExerciseProgrammeCommand;
@@ -18,8 +17,8 @@ import command.programme.edit.DeleteExerciseProgrammeCommand;
 import command.programme.edit.CreateDayProgrammeCommand;
 import command.programme.edit.DeleteDayProgrammeCommand;
 
-import exceptions.EmptyInputBuffBuddyException;
-import exceptions.MissingFlagBuffBuddyException;
+import exceptions.FlagExceptions;
+import exceptions.ProgrammeExceptions;
 import parser.FlagParser;
 import programme.Day;
 import programme.Exercise;
@@ -47,7 +46,6 @@ import static parser.FlagDefinitions.REMOVE_EXERCISE_FLAG;
 
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.splitArguments;
-import static parser.ParserUtils.parseDate;
 
 /**
  * The {@code ProgCommandFactory} class is a factory responsible for creating all program-related commands.
@@ -99,7 +97,6 @@ public class ProgCommandFactory {
         case StartProgrammeCommand.COMMAND_WORD -> prepareStartCommand(arguments);
         case DeleteProgrammeCommand.COMMAND_WORD ->  prepareDeleteCommand(arguments);
         case LogProgrammeCommand.COMMAND_WORD -> prepareLogCommand(arguments);
-        case DeleteLogProgrammeCommand.COMMAND_WORD -> prepareDeleteLogCommand(arguments);
         default -> new InvalidCommand();
         };
     }
@@ -109,6 +106,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString The argument string containing program details, including days and exercises.
      * @return A {@link CreateProgrammeCommand} object that represents the request to create a new program.
+     * @throws ProgrammeExceptions when programme is missing name.
      */
     private Command prepareCreateCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -121,7 +119,7 @@ public class ProgCommandFactory {
         String progName = progParts[0].trim();
         if (progName.isEmpty()) {
             logger.log(Level.WARNING, "Programme name is empty");
-            throw new EmptyInputBuffBuddyException("Programme name");
+            throw ProgrammeExceptions.programmeMissingName();
         }
 
         for (int i = 1; i < progParts.length; i++) {
@@ -144,7 +142,6 @@ public class ProgCommandFactory {
         if (argumentString.isEmpty()) {
             argumentString = null;
         }
-
 
         int progIndex = parseIndex(argumentString);
 
@@ -189,7 +186,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString The string containing flags for the date, program index, and day index.
      * @return A {@link LogProgrammeCommand} initialized with the specified date and indices.
-     * @throws IllegalArgumentException If required flags are missing.
+     * @throws FlagExceptions If required flags are missing.
      */
     public Command prepareLogCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
@@ -207,30 +204,13 @@ public class ProgCommandFactory {
     }
 
     // @@author TVageesan
-
-    /**
-     * Prepares a command to delete a log entry based on the specified date.
-     * <p>
-     * This method parses the given argument string to obtain a date, which is then used
-     * to create a {@code DeleteLogProgrammeCommand} with the specified date.
-     * </p>
-     *
-     * @param argumentString the string representing the date to be parsed and deleted
-     * @return a {@code DeleteLogProgrammeCommand} configured with the parsed date
-     * @throws IllegalArgumentException if the date format in {@code argumentString} is invalid
-     */
-    private Command prepareDeleteLogCommand(String argumentString){
-        LocalDate date = parseDate(argumentString);
-        return new DeleteLogProgrammeCommand(date);
-    }
-
     /**
      * Prepares and returns an appropriate {@link EditProgrammeCommand} based on the flags parsed
      * from the provided argument string.
      *
      * @param argumentString A {@link String} containing arguments to parse.
      * @return The specific {@link EditProgrammeCommand} object that corresponds to the flag detected.
-     * @throws IllegalArgumentException If no recognized edit command flag is present in the argument string.
+     * @throws ProgrammeExceptions If no recognized edit command flag is present in the argument string.
      */
     private EditProgrammeCommand prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -264,7 +244,7 @@ public class ProgCommandFactory {
             return prepareDeleteDayCommand(flagParser);
         }
 
-        throw new MissingFlagBuffBuddyException("Edit command");
+        throw ProgrammeExceptions.programmeEditMissingFlags();
     }
 
     /**
@@ -384,7 +364,7 @@ public class ProgCommandFactory {
      *
      * @param dayString the input string representing a day and its exercises, not null.
      * @return a Day object representing the parsed day and its exercises.
-     * @throws IllegalArgumentException if there are missing arguments to create a day.
+     * @throws ProgrammeExceptions if there are missing arguments to create a day.
      */
     private Day parseDay(String dayString) {
         assert dayString != null : "Day string must not be null";
@@ -392,7 +372,7 @@ public class ProgCommandFactory {
         String[] dayParts  = dayString.split(EXERCISE_FLAG);
         String dayName = dayParts[0].trim();
         if (dayName.isEmpty()) {
-            throw new EmptyInputBuffBuddyException("Day");
+            throw ProgrammeExceptions.missingDayName();
         }
 
         Day day = new Day(dayName);
@@ -414,7 +394,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString The string containing exercise details and flags.
      * @return An {@link Exercise} object initialized with the specified attributes.
-     * @throws IllegalArgumentException If required flags are missing.
+     * @throws FlagExceptions If required flags are missing.
      * */
     private Exercise parseExercise(String argumentString) {
         assert argumentString != null : "Argument string must not be null";

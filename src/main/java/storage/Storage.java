@@ -51,7 +51,7 @@ public class Storage {
             }
             logger.info("Loading programmeList");
             return programmeListFromJson(programmeListJson);
-        } catch (Exception e) {
+        } catch (Exception e ) {
             logger.info("No programme list found, empty list initialised");
             return new ProgrammeList();
         }
@@ -94,9 +94,8 @@ public class Storage {
 
         try{
             fileManager.save(jsonObject);
-        } catch (Exception ignored) {
-            // For now, leave this as a quiet failure for simplicity
-            // User will be notified of corrupted data when next loading app
+        } catch (Exception e) {
+            logger.info("Failed to save data");
         }
     }
 

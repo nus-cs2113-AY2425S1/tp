@@ -2,7 +2,7 @@
 
 package meal;
 
-import exceptions.IndexOutOfBoundsBuffBuddyException;
+import exceptions.MealException;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -54,7 +54,7 @@ public class MealList {
     public Meal deleteMeal(int index) {
         if (index < 0 || index >= meals.size()) {
             logger.log(Level.WARNING, "Invalid index for deletion: {0}", index);
-            throw new IndexOutOfBoundsBuffBuddyException(index, "meal list");
+            throw MealException.doesNotExist();
         }
 
         Meal mealToBeDeleted = meals.get(index);

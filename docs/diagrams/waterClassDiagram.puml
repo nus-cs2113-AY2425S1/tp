@@ -1,5 +1,4 @@
 @startuml
-title Meal and MealList Class Diagram
 
 class Water {
     - waterList : ArrayList<Float>

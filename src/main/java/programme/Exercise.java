@@ -146,7 +146,16 @@ public class Exercise {
      */
     @Override
     public String toString() {
-        return String.format("%s: %d sets of %d at %d | Burnt %d cals", name, sets, reps, weight, calories);
+        return String.format("%s: %d sets of %d at %dkg | Burnt %d cals", name, sets, reps, weight, calories);
+    }
+
+    /**
+     * Returns a string representation of the exercise, sets, reps, weight.
+     *
+     * @return a string representation of the exercise for printing personal best
+     */
+    public String toStringPb() {
+        return String.format("%d sets of %d at %dkg", sets, reps, weight);
     }
 
     @Override

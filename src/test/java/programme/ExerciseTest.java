@@ -104,7 +104,7 @@ class ExerciseTest {
 
     @Test
     void testToString() {
-        String expectedString = "Bench_Press: 1 sets of 2 at 3 | Burnt 400 cals";
+        String expectedString = "Bench_Press: 1 sets of 2 at 3kg | Burnt 400 cals";
         assertEquals(expectedString, exercise.toString());
     }
 

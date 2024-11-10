@@ -1,0 +1,71 @@
+@startuml
+
+class History {
+    - logger : Logger
+    - history : LinkedHashMap<LocalDate, DailyRecord>
+    + History()
+    + getRecordByDate(date: LocalDate) : DailyRecord
+    + getHistory() : LinkedHashMap<LocalDate, DailyRecord>
+    + getWeeklyWorkoutSummary() : String
+    + logRecord(date: LocalDate, record: DailyRecord) : void
+    + deleteRecord(date: LocalDate) : DailyRecord
+    + hasRecord(date: LocalDate) : boolean
+    + getHistorySize() : int
+    + getFormattedPersonalBests() : String
+    + getPersonalBestForExercise(exerciseName: String) : String
+}
+
+class DailyRecord {
+    - logger : Logger
+    + getDayFromRecord() : Day
+    + getMealList() : MealList
+    + getWater() : Water
+    + logDay(day: Day) : void
+    + addMealToRecord(meal: Meal) : void
+    + deleteMealFromRecord(index: int) : Meal
+    + addWaterToRecord(water: Water) : void
+    + removeWaterFromRecord(index: int) : Water
+    + toString() : String
+}
+
+class Day {
+    + insertExercise(exercise: Exercise) : void
+    + getExercisesCount() : int
+    + getExercise(index: int) : Exercise
+}
+
+class Exercise {
+    + getName() : String
+    + getWeight() : int
+    + toStringPb() : String
+}
+
+class MealList {
+    + addMeal(meal: Meal) : void
+    + deleteMeal(index: int) : Meal
+    + getMeals() : List<Meal>
+    + isEmpty() : boolean
+    + getMealCount() : int
+    + toString() : String
+}
+
+class Meal {
+    + getCalories() : int
+    + getName() : String
+    + toString() : String
+}
+
+class Water {
+    + getIntakeAmount() : float
+    + toString() : String
+}
+
+History "1" *-- "0.*" DailyRecord : contains
+DailyRecord "1" *-- "1" Day : day
+DailyRecord "1" *-- "1" MealList : mealList
+DailyRecord "1" *-- "1" Water : water
+Day "1" *-- "0.*" Exercise : exercises
+MealList "1" *-- "0.*" Meal : meals
+
+@enduml
+

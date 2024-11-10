@@ -1,0 +1,52 @@
+@startuml
+
+actor Client
+
+Client -> Storage : saveData(programmeList, history)
+activate Storage
+
+Storage -> Storage : createJSON (programmeList, history)
+activate Storage
+Storage -> JsonObject : new JsonObject()
+activate JsonObject
+
+deactivate JsonObject
+
+Storage -> Storage : programmeListToJson(programmeList)
+activate Storage
+Storage --> Storage : JsonObject containing ProgrammeList
+deactivate Storage
+
+Storage -> Storage : historyToJson(history)
+activate Storage
+Storage --> Storage : JsonObject containing History
+deactivate Storage
+
+Storage -> JsonObject : add(programmeList)
+activate JsonObject
+deactivate JsonObject
+Storage -> JsonObject : add(history)
+activate JsonObject
+deactivate JsonObject
+
+Storage --> Storage : JsonObject containing all data
+deactivate Storage
+
+
+Storage -> FileManager : save(JsonObject)
+activate FileManager
+
+FileManager -> FileManager : createDirIfNotExists()
+activate FileManager
+deactivate FileManager
+FileManager -> FileManager : createFileIfNotExists()
+activate FileManager
+deactivate FileManager
+
+FileManager --> Storage : Data written to file
+deactivate FileManager
+
+Storage --> Client : Data is saved
+deactivate Storage
+
+@enduml
