@@ -162,31 +162,7 @@ Day 2: Wednesday
 
 ---
 
-### 6. Log Workout
-
-This feature records the successful completion of a workout for the specified day within the chosen programme.
-
-Command: `prog log /p PROG_INDEX /d DAY_INDEX /t DATE`
-
-If `PROG_INDEX` is not specified, the command defaults to deleting the currently active programme.
-If `DATE` is not specified, the command defaults to the current date at the time of logging.
-_Note_: `DATE`: Specifies the date (in `dd-MM-yyyy` format) when the workout was completed.
-
-
-Example: `prog log /p 2 /d 1 /t 07-11-2024`
-
-```
-==================================================
-Congrats! You've successfully completed:
-Monday
-1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 cals
-2. Squat: 3 sets of 15 at 50kg | Burnt 200 cals
-==================================================
-```
-
----
-
-### 7. Add a New Day to an Existing Programme
+### 6. Add a New Day to an Existing Programme
 
 Add a new Day to an existing programme.
 
@@ -214,7 +190,7 @@ prog edit /p 1 /ad Pull Day /e /n "Push-Up /w 30 /r 15 /s 3 /c 100 /e ...
 
 ---
 
-### 8. Delete a Day from an Existing Programme
+### 7. Delete a Day from an Existing Programme
 
 Delete a day from an existing programme.
 
@@ -237,7 +213,7 @@ Cardio Day
 
 ---
 
-### 9. Add a New Exercise in a Programme
+### 8. Add a New Exercise in a Programme
 
 Add an exercise to an existing day in an existing programme.
 **NOTE:** The exercise is added to an **EXISTING** day.
@@ -272,7 +248,7 @@ Push-Up: 3 sets of 15 at 30 | Burnt 100 cals
 
 ---
 
-### 10. Delete Exercise in a Programme
+### 9. Delete Exercise in a Programme
 
 Delete an exercise from an existing day in an existing programme.
 **NOTE:** The exercise is deleted from an **EXISTING** day.
@@ -297,7 +273,7 @@ Push-Up: 3 sets of 15 at 30 | Burnt 100 cals
 
 ---
 
-### 11. Update Existing Exercise in Programme
+### 10. Update Existing Exercise in Programme
 
 Update an exercise in an existing day of an existing programme.
 **NOTE:** The exercise to be updated exist in an **EXISTING** day.
@@ -330,6 +306,30 @@ Update Exercise 1 on Day 1 of Programme 1 by setting the weight to 30 and reps t
 
 ```plaintext
 Updated exercise: Push-Up: 3 sets of 15 at 30 | Burnt 100 cals
+```
+
+---
+
+### 11. Log Workout
+
+This feature records the successful completion of a workout for the specified day within the chosen programme.
+
+Command: `prog log /p PROG_INDEX /d DAY_INDEX /t DATE`
+
+If `PROG_INDEX` is not specified, the command defaults to deleting the currently active programme.
+If `DATE` is not specified, the command defaults to the current date at the time of logging.
+_Note_: `DATE`: Specifies the date (in `dd-MM-yyyy` format) when the workout was completed.
+
+
+Example: `prog log /p 2 /d 1 /t 07-11-2024`
+
+```
+==================================================
+Congrats! You've successfully completed:
+Monday
+1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 cals
+2. Squat: 3 sets of 15 at 50kg | Burnt 200 cals
+==================================================
 ```
 
 ---
