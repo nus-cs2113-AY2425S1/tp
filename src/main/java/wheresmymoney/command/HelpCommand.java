@@ -28,7 +28,7 @@ public class HelpCommand extends Command {
         Ui.displayMessage("Use the add command to add an expense.");
         Ui.displayMessage("Format:  add /price PRICE /description DESCRIPTION /category CATEGORY [/date DATE]");
         Ui.displayMessage("Notes:");
-        Ui.displayMessage("    - PRICE is a decimal number.");
+        Ui.displayMessage("    - PRICE is a positive decimal number.");
         Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
         Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
         Ui.displayMessage("    - If no date is specified, it will be defaulted to the current date.");
@@ -41,7 +41,7 @@ public class HelpCommand extends Command {
         Ui.displayMessage("Format: edit INDEX [/price PRICE] [/description DESCRIPTION] " + 
                 "[/category CATEGORY] [/date DATE]");
         Ui.displayMessage("Notes:");
-        Ui.displayMessage("    - PRICE is a decimal number.");
+        Ui.displayMessage("    - PRICE is a positive decimal number.");
         Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
         Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
         Ui.displayMessage("    - All parameters are optional and only the parameters that are " +
@@ -151,7 +151,7 @@ public class HelpCommand extends Command {
         Ui.displayMessage("Format:  add /recur /price PRICE /description DESCRIPTION /category CATEGORY " + 
                 "[/date DATE] /frequency FREQUENCY");
         Ui.displayMessage("Notes:");
-        Ui.displayMessage("    - PRICE is a decimal number.");
+        Ui.displayMessage("    - PRICE is a positive decimal number.");
         Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
         Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
         Ui.displayMessage("    - If no date is specified, it will be defaulted to the current date.");
@@ -172,7 +172,7 @@ public class HelpCommand extends Command {
         Ui.displayMessage("Format: edit INDEX /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] " + 
                 "[/date DATE] [/frequency FREQUENCY]");
         Ui.displayMessage("Notes:");
-        Ui.displayMessage("    - PRICE is a decimal number.");
+        Ui.displayMessage("    - PRICE is a positive decimal number.");
         Ui.displayMessage("    - DESCRIPTION and CATEGORY are text.");
         Ui.displayMessage("    - DATE is a string in DD-MM-YYYY format.");
         Ui.displayMessage("    - FREQUENCY can only be \"daily\", \"weekly\" or \"monthly\".");

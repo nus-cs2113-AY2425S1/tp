@@ -67,7 +67,7 @@ Format: `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGOR
 
 Notes:
 - `INDEX` is an integer. You can use the `list` command to find the corresponding index.
-- `PRICE` is a decimal number.
+- `PRICE` is a positive decimal number.
 - `DESCRIPTION` and `CATEGORY` are text.
 - `DATE` takes a text format of `DD-MM-YYYY`.
 - All parameters except `INDEX` are optional. You can specify only edited attributes.
