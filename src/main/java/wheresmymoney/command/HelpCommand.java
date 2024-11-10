@@ -207,8 +207,8 @@ public class HelpCommand extends Command {
         Ui.displayMessage("Example: list /recur /category food /from 02-11-2024 /to 04-11-2024");
         Ui.displayMessage("");
     }
+    
     //@@author khsienkit
-
     private static void allHelp() {
         introHelp();
         helpHelp();
