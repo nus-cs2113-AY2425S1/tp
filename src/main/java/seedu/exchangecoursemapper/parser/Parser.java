@@ -61,10 +61,12 @@ public class Parser {
     private final UI mapperUI = new UI();
 
     public String getUserInput() {
+        logger.setLevel(Level.WARNING);
         return scanner.nextLine();
     }
 
     public void processUserInput(String userInput, Storage storage) {
+        logger.setLevel(Level.WARNING);
         assert userInput != null : NULL_INPUT;
 
         String input = userInput.trim().toLowerCase();

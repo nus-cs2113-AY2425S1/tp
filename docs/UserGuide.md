@@ -156,25 +156,18 @@ Expected Output:
 Email for The University of Western Australia: uwa-albany@uwa.edu.au
 ```
 
-Example: `obtain`
+Example: `obtain anu /number`
 
 Expected Output:
 ```
-Invalid input format
+Phone number for The Australian National University: +61 2 6125 7257
 ```
 
-Example: `obtain NUS /email`
-
-Expected Output:
-```
-Unknown university - nus
-```
-
-Example: `obtain the university of melbourne /fax`
+Example: `obtain unimelb /email`
 
 Expected Output:
 ```
-Invalid contact type.
+Email for The University of Melbourne: unimelb-support@unimelb.edu.au
 ```
 
 
