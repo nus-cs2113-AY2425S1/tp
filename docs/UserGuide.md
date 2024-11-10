@@ -18,7 +18,13 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 - **Day**: A ‘workout day’ is a collection of exercises to be done together.
 - **Programme**: A programme is a collection of workout days.
 - **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
-- 
+
+## Data Storage Information:
+- The application uses a JSON file to store user data, ensuring persistence across sessions.
+- All records, including logged days, meals, and water intake, are saved in a structured format within a designated file (./data/data.json).
+- The JSON format is human-readable, allowing users to view their stored data easily if needed.
+- The system automatically creates the file if it does not exist.
+
 ---
 
 ## Features
@@ -647,12 +653,12 @@ ___
 | **List Programmes**                         | Lists all workout Programmes with their index and name                                    | `prog list`                                                                                      | `prog list`                                                          |
 | **View Programme**                          | Displays the detailed workout routine of a specific Programme                             | `prog view PROG_INDEX`                                                                           | `prog view 1`                                                        |
 | **Delete Programme**                        | Deletes a Programme by its index                                                          | `prog delete PROG_INDEX`                                                                         | `prog delete 1`                                                      |
-| **Log Workout**                             | Logs a workout for a specific day                                                         | `prog log /p PROG_INDEX /d DAY_INDEX /t DATE`                                                    | `log /p 1 /d 1 /t 12-10-2024`                                        |
 | **Add a New Day to an Existing Programme**  | Add a new Day to an existing programme                                                    | `prog edit [/p PROG_INDEX] /ad DAY_NAME`                                                         | `prog edit /p 1 /ad "Cardio Day"`                                    |
 | **Delete a Day from an Existing Programme** | Delete a day from an existing programme.                                                  | `prog edit [/p PORG_INDEX] /xd DAY_INDEX`                                                        | `prog edit /p 1 /xd 1"`                                              |
 | **Add a New Exercise in a Programme**       | Add an exercise to an existing day in an existing programme                               | `prog edit [/p PORG_INDEX] /d DAY_INDEX /a /n EXERCISE_NAME /w WEIGHT /r REPS /s SETS /c CALORIES` | `prog edit /p 1 /d 1 /a /n Push-Up /w 30 /r 15 /s 3 /c 100`          |
 | **Delete Exercise in a Programme**          | Delete an exercise from an existing day in an existing programme                          | `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX`                                       | `prog edit /p 1 /d 1 /x 1`                                           |
 | **Update Existing Exercise in Programme**   | Update an exercise in an existing day of an existing programme                            | `prog edit [/p PORG_INDEX] /d DAY_INDEX /x EXERCISE_INDEX [args]`                                | `prog edit /p 1 /d 1 /u 1 /w 30 /r 12`                               |
+| **Log Workout**                             | Logs a workout for a specific day                                                         | `prog log /p PROG_INDEX /d DAY_INDEX /t DATE`                                                    | `log /p 1 /d 1 /t 12-10-2024`                                        |
 | **Add Meal**                                | Adds a meal to a daily record                                                             | `meal add /n MEAL_NAME /c CALORIES /t DATE`                                                      | `meal add /n Chicken_Breast /c 250 /t 30-10-2024`                    |
 | **View Meals**                              | Displays all meals for a specific date                                                    | `meal view /t DATE`                                                                              | `meal view 30-10-2024`                                               |
 | **Delete Meal**                             | Deletes a meal from a daily record                                                        | `meal delete /m MEAL_INDEX /t DATE`                                                              | `meal delete /m 1 /t 30-10-2024`                                     |
