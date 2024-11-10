@@ -38,6 +38,16 @@ import static seedu.exchangecoursemapper.constants.Logs.INVALID_INPUT;
 import static seedu.exchangecoursemapper.constants.Messages.INVALID_COMMAND_MESSAGE;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 
+import static seedu.exchangecoursemapper.constants.Logs.THE_AUSTRALIAN_NATIONAL_UNIVERSITY;
+import static seedu.exchangecoursemapper.constants.Logs.THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION;
+import static seedu.exchangecoursemapper.constants.Logs.THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION ;
+import static seedu.exchangecoursemapper.constants.Logs.THE_UNIVERSITY_OF_WESTERN_AUSTRALIA;
+import static seedu.exchangecoursemapper.constants.Logs.THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION;
+import static seedu.exchangecoursemapper.constants.Logs.THE_UNIVERSITY_OF_MELBOURNE;
+import static seedu.exchangecoursemapper.constants.Logs.VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION;
+import static seedu.exchangecoursemapper.constants.Logs.VICTORIA_UNIVERSITY_OF_WELLINGTON;
+
+
 public class Parser {
 
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
@@ -92,5 +102,27 @@ public class Parser {
             logger.log(Level.WARNING, INVALID_INPUT, command);
             System.out.println(INVALID_COMMAND_MESSAGE);
         }
+    }
+
+    /**
+     * Parses an abbreviated partner university name and returns the full name.
+     * It will return the original string if no match with the formatted abbreviation is found.
+     *
+     * @param PU User's partner university input.
+     *
+     * @return the full name of the partner university if it matches a known abbreviation.
+     */
+    public String parsePUAbbreviations(String PU) {
+        String formattedPU = PU.toLowerCase().trim();
+        if (formattedPU.equals(THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION)) {
+            formattedPU = THE_UNIVERSITY_OF_WESTERN_AUSTRALIA;
+        } else if (formattedPU.equals(THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION)) {
+            formattedPU = THE_UNIVERSITY_OF_MELBOURNE;
+        } else if (formattedPU.equals(THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION)) {
+            formattedPU = THE_AUSTRALIAN_NATIONAL_UNIVERSITY;
+        } else if (formattedPU.equals(VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION)) {
+            formattedPU = VICTORIA_UNIVERSITY_OF_WELLINGTON;
+        }
+        return formattedPU;
     }
 }

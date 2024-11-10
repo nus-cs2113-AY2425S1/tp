@@ -105,4 +105,12 @@ public class Logs {
     public static final String APPEND_LINE = "Appended line to file: {0}";
     public static final String APPEND_LINE_FAIL = "Failed to append line to file";
 
+    public static final String THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION = "uwa";
+    public static final String THE_UNIVERSITY_OF_WESTERN_AUSTRALIA = "The University of Western Australia";
+    public static final String THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION = "unimelb";
+    public static final String THE_UNIVERSITY_OF_MELBOURNE = "The University of Melbourne";
+    public static final String THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION = "anu";
+    public static final String THE_AUSTRALIAN_NATIONAL_UNIVERSITY = "The Australian National University";
+    public static final String VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION = "wgtn";
+    public static final String VICTORIA_UNIVERSITY_OF_WELLINGTON = "Victoria University of Wellington";
 }
