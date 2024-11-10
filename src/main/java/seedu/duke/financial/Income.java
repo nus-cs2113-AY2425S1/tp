@@ -65,7 +65,7 @@ public class Income extends FinancialEntry {
      */
     @Override
     public String toString() {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return String.format("[Income] - %s $ %.2f (on %s) [%s]", description, amount, date.format(pattern), category);
     }
 
@@ -76,10 +76,10 @@ public class Income extends FinancialEntry {
      *
      * @return A formatted string representing the income entry for storage.
      *         The format is: "I ¦¦ amount ¦¦ description ¦¦ date ¦¦ category"
-     *         where the date is formatted as "dd/MM/yy".
+     *         where the date is formatted as "dd/MM/yyyy".
      */
     public String toStorageString() {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return String.format("I ¦¦ %.2f ¦¦ %s ¦¦ %s ¦¦ %s", amount, description, date.format(pattern), category);
     }
 }

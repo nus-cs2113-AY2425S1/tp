@@ -23,7 +23,7 @@ class DateParserTest {
      */
     @Test
     void parse_validDate_expectParsedCorrectly() throws FinanceBuddyException {
-        String dateStr = "14/10/24";
+        String dateStr = "14/10/2024";
         LocalDate parsedDate = DateParser.parse(dateStr);
 
         LocalDate expectedDate = LocalDate.of(2024, 10, 14);
@@ -41,7 +41,7 @@ class DateParserTest {
             DateParser.parse(emptyDate);
         });
 
-        assertEquals("Invalid date format. Please use 'dd/MM/yy'.", exception.getMessage());
+        assertEquals("Invalid date format. Please use 'dd/MM/yyyy'.", exception.getMessage());
     }
 
     /**
@@ -67,7 +67,7 @@ class DateParserTest {
             DateParser.parse(invalidDate);
         });
 
-        assertEquals("Invalid date format. Please use 'dd/MM/yy'.", exception.getMessage());
+        assertEquals("Invalid date format. Please use 'dd/MM/yyyy'.", exception.getMessage());
     }
 
     /**
@@ -76,11 +76,11 @@ class DateParserTest {
      */
     @Test
     void parse_invalidDateString_expectException() {
-        String invalidDate = "invalid/date/24";
+        String invalidDate = "invalid/date/2024";
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
             DateParser.parse(invalidDate);
         });
 
-        assertEquals("Invalid date format. Please use 'dd/MM/yy'.", exception.getMessage());
+        assertEquals("Invalid date format. Please use 'dd/MM/yyyy'.", exception.getMessage());
     }
 }

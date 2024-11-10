@@ -55,7 +55,7 @@ class AddIncomeCommandTest {
      */
     @Test
     void execute_addIncome_expectAddedToFinancialList() throws FinanceBuddyException {
-        String specificDate = "14/10/24";
+        String specificDate = "14/10/2024";
         addIncomeCommand = new AddIncomeCommand(500.0, "allowance", specificDate, Income.Category.SALARY);
         addIncomeCommand.execute(financialList);
 
@@ -84,8 +84,8 @@ class AddIncomeCommandTest {
      */
     @Test
     void execute_addMultipleIncome_expectAllAddedToFinancialList() throws FinanceBuddyException {
-        String earlierDate = "21/10/24";
-        String laterDate = "23/10/24";
+        String earlierDate = "21/10/2024";
+        String laterDate = "23/10/2024";
         addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", earlierDate,
                 Income.Category.GIFT);
         addIncomeCommand.execute(financialList);
@@ -128,9 +128,9 @@ class AddIncomeCommandTest {
      */
     @Test
     void execute_addMultipleIncomeNotInDateOrder_expectSortedByDate() throws FinanceBuddyException {
-        String dateOne = "21/10/24";
-        String dateTwo = "23/10/24";
-        String dateThree = "11/09/24";
+        String dateOne = "21/10/2024";
+        String dateTwo = "23/10/2024";
+        String dateThree = "11/09/2024";
 
         addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", dateOne,
                 Income.Category.GIFT);
@@ -240,7 +240,7 @@ class AddIncomeCommandTest {
     @Test
     void execute_addIncomeWithDateAfterCurrentDate_expectErrorMessage() {
         LocalDate laterDate = LocalDate.now().plusDays(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String laterDateAsString = laterDate.format(formatter);
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
@@ -260,7 +260,7 @@ class AddIncomeCommandTest {
     @Test
     void execute_addIncomeWithEmptyDescription_expectErrorMessage() {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addIncomeCommand = new AddIncomeCommand(1, "", "01/11/24", Income.Category.OTHER);
+            addIncomeCommand = new AddIncomeCommand(1, "", "01/11/2024", Income.Category.OTHER);
             addIncomeCommand.execute(financialList);
         });
 
@@ -275,7 +275,7 @@ class AddIncomeCommandTest {
     @Test
     void execute_addIncomeWithBlankDescription_expectErrorMessage() {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addIncomeCommand = new AddIncomeCommand(1, " ", "01/11/24", Income.Category.OTHER);
+            addIncomeCommand = new AddIncomeCommand(1, " ", "01/11/2024", Income.Category.OTHER);
             addIncomeCommand.execute(financialList);
         });
 

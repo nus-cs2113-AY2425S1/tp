@@ -1,0 +1,26 @@
+@startuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+participant "Storage" as storage
+participant "Budget" as budget
+participant "FinancialList" as financialList
+participant ":Logger" as logger
+
+storage -> storage : loadFinancialList(filename)
+activate storage
+
+' Attempt to read file
+alt file found
+    storage -> financialList : load data into FinancialList
+    activate financialList
+    return financialList with entries
+
+else file not found
+    storage -> logger : log warning "File not found"
+    logger -> storage : return warning message
+    storage -> financialList : create new FinancialList()
+    return new empty FinancialList
+end
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+participant "Storage" as storage
+participant "Budget" as budget
+participant "FinancialList" as financialList
+participant ":Logger" as logger
+
+storage -> storage : loadBudget(filename)
+activate storage
+
+' Check if budget file exists
+alt budget file found
+    storage -> budget : load budget data
+    activate budget
+    return Budget (with amount and balance)
+
+else budget file not found
+    storage -> logger : log warning "Budget file not found"
+    logger -> storage : return warning message
+    storage -> budget : create new Budget with default values
+    return Budget (new with default values)
+end
+
+@enduml

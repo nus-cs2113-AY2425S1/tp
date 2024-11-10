@@ -1,7 +1,23 @@
 package seedu.duke.storage;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.duke.budget.Budget;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
@@ -9,19 +25,6 @@ import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
 import seedu.duke.logic.BudgetLogic;
 import seedu.duke.ui.AppUi;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 
@@ -46,6 +49,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
  */
 public class StorageTest {
 
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
     private Storage storage;
     private FinancialList financialList;
     private BudgetLogic budgetLogic;
@@ -61,6 +66,7 @@ public class StorageTest {
         storage = new Storage();
         financialList = new FinancialList();
         budgetLogic = new BudgetLogic(budget,ui);
+        System.setOut(new PrintStream(outputStream));
     }
 
     /**
@@ -71,6 +77,11 @@ public class StorageTest {
     public void testGetStorageFile() {
         File file = Storage.getStorageFile();
         assertTrue(file.exists());
+
+        storage.printLoadingResult();
+        String output = outputStream.toString();
+        String expection =  System.lineSeparator();
+        assertEquals(expection, output);
     }
 
     /**
@@ -81,6 +92,11 @@ public class StorageTest {
     public void testGetBudgetFile() {
         File file = Storage.getBudgetFile();
         assertTrue(file.exists());
+
+        storage.printLoadingResult();
+        String output = outputStream.toString();
+        String expection =  System.lineSeparator();
+        assertEquals(expection, output);
     }
 
     /**
@@ -110,12 +126,12 @@ public class StorageTest {
         File file = Storage.getStorageFile();
         Scanner scanner = new Scanner(file);
         assertTrue(scanner.hasNextLine());
-        assertEquals("E ¦¦ 300.00 ¦¦ Dinner ¦¦ 01/01/23 ¦¦ FOOD", scanner.nextLine());
+        assertEquals("E ¦¦ 300.00 ¦¦ Dinner ¦¦ 01/01/2023 ¦¦ FOOD", scanner.nextLine());
         assertTrue(scanner.hasNextLine());
-        assertEquals("E ¦¦ 100.00 ¦¦ Lunch ¦¦ " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy")) 
+        assertEquals("E ¦¦ 100.00 ¦¦ Lunch ¦¦ " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
                     + " ¦¦ FOOD", scanner.nextLine());
         assertTrue(scanner.hasNextLine());
-        assertEquals("I ¦¦ 200.00 ¦¦ Salary ¦¦ " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy")) 
+        assertEquals("I ¦¦ 200.00 ¦¦ Salary ¦¦ " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
                     + " ¦¦ SALARY", scanner.nextLine());
         assertFalse(scanner.hasNextLine());
         scanner.close();
@@ -130,12 +146,12 @@ public class StorageTest {
     }
 
     /**
-     * Creates a DateTimeFormatter with the pattern "dd/MM/yy".
+     * Creates a DateTimeFormatter with the pattern "dd/MM/yyyy".
      * This formatter can be used to format or parse dates in the specified pattern.
      */
     @Test
     public void testCheckParameters() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate date = LocalDate.now();
 
         assertDoesNotThrow(() -> storage.checkParameters(100, "Description", formatter, date));
@@ -157,7 +173,7 @@ public class StorageTest {
      */
     @Test
     public void testParseExpense() {
-        String[] tokens = {"E", "100", "Lunch", "01/01/23", "FOOD"};
+        String[] tokens = {"E", "100", "Lunch", "01/01/2023", "FOOD"};
         Expense expense = assertDoesNotThrow(() -> storage.parseExpense(tokens));
         assertEquals(100, expense.getAmount());
         assertEquals("Lunch", expense.getDescription());
@@ -177,7 +193,7 @@ public class StorageTest {
      */
     @Test
     public void testParseIncome() {
-        String[] tokens = {"I", "200", "Salary", "01/01/23", "SALARY"};
+        String[] tokens = {"I", "200", "Salary", "01/01/2023", "SALARY"};
         Income income = assertDoesNotThrow(() -> storage.parseIncome(tokens));
         assertEquals(200, income.getAmount());
         assertEquals("Salary", income.getDescription());
@@ -198,7 +214,7 @@ public class StorageTest {
     public void testLoadFromFile() throws IOException {
         File file = Storage.getStorageFile();
         FileWriter writer = new FileWriter(file);
-        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD\n");
         writer.close();
 
         File budgetFile = Storage.getBudgetFile();
@@ -209,8 +225,15 @@ public class StorageTest {
         FinancialList loadedList = storage.loadFromFile(budgetLogic);
         assertEquals(1, loadedList.getEntryCount());
         assertEquals(500, budgetLogic.getBudget().getBudgetAmount());
-        assertEquals("01/11/24", 
-            budgetLogic.getBudget().getBudgetSetDate().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
+        assertEquals("01/11/2024",
+            budgetLogic.getBudget().getBudgetSetDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+
+        storage.printLoadingResult();
+        String output = outputStream.toString();
+        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
+                            "Budget loaded from file." + System.lineSeparator();
+        assertEquals(expection, output);
     }
 
     /**
@@ -234,6 +257,12 @@ public class StorageTest {
         FinancialList loadedList = storage.loadFromFile(budgetLogic);
         assertEquals(0, loadedList.getEntryCount());
         assertEquals(null, budgetLogic.getBudget());
+
+        storage.printLoadingResult();
+        String output = outputStream.toString();
+        String expection = "No transactions loaded from file." + System.lineSeparator() +
+                            "Budget format in file is invalid, the budget won't be set." + System.lineSeparator();
+        assertEquals(expection, output);
     }
 
     /**
@@ -257,22 +286,22 @@ public class StorageTest {
         File file = Storage.getStorageFile();
         FileWriter writer = new FileWriter(file);
         // the CATEGORY is invalid
-        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ TAIWANGOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ TAIWANGOOD\n");
         // the DATE is invalid
         writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2323 ¦¦ FOOD\n");
         // the AMOUNT is invalid
-        writer.write("E ¦¦ -100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("E ¦¦ -100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD\n");
         // the type is invalid
-        writer.write("F ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("F ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD\n");
         // missing fields
-        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023\n");
         writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ FOOD\n");
-        writer.write("E ¦¦ 100 ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ 01/01/2023 ¦¦ FOOD\n");
         // duplicate fields
-        writer.write("E ¦¦ 1 ¦¦ 0 ¦¦ 0 ¦¦ L ¦¦ u ¦¦ n ¦¦ c ¦¦ h ¦¦ 01/01/23 ¦¦ FOOD ¦¦ FOOD\n");
+        writer.write("E ¦¦ 1 ¦¦ 0 ¦¦ 0 ¦¦ L ¦¦ u ¦¦ n ¦¦ c ¦¦ h ¦¦ 01/01/2023 ¦¦ FOOD ¦¦ FOOD\n");
         // all valid
-        writer.write("E ¦¦ 100 ¦¦ TAIWANGOOD ¦¦ 01/01/23 ¦¦ FOOD\n");
-        writer.write("I ¦¦ 100 ¦¦ TAIWANGOOD ¦¦ 01/01/23 ¦¦ SALARY\n");
+        writer.write("E ¦¦ 100 ¦¦ TAIWANGOOD ¦¦ 01/01/2023 ¦¦ FOOD\n");
+        writer.write("I ¦¦ 100 ¦¦ TAIWANGOOD ¦¦ 01/01/2023 ¦¦ SALARY\n");
         writer.close();
 
         File budgetFile = Storage.getBudgetFile();
@@ -282,6 +311,20 @@ public class StorageTest {
 
         FinancialList financialList = storage.loadFromFile(budgetLogic);
         assertEquals(2, financialList.getEntryCount());
+        storage.printLoadingResult();
+        String output = outputStream.toString();
+        String expection = "Deleting invalid line from file: " + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ TAIWANGOOD" + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2323 ¦¦ FOOD" + System.lineSeparator() +
+                                "\tE ¦¦ -100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD" + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023" + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ Lunch ¦¦ FOOD" + System.lineSeparator() +
+                                "\tE ¦¦ 100 ¦¦ 01/01/2023 ¦¦ FOOD" + System.lineSeparator() +
+                                "\tE ¦¦ 1 ¦¦ 0 ¦¦ 0 ¦¦ L ¦¦ u ¦¦ n ¦¦ c ¦¦ h ¦¦ 01/01/2023 ¦¦ FOOD ¦¦ FOOD" +
+                                        System.lineSeparator() + System.lineSeparator() +
+                            "I have loaded 1 expenses and 1 incomes from file." + System.lineSeparator() +
+                            "Budget loaded from file." + System.lineSeparator();
+        assertEquals(expection, output);
     }
 
     /**
@@ -295,7 +338,7 @@ public class StorageTest {
     public void testBudgetInvaildAmount() throws IOException {
         File file = Storage.getStorageFile();
         FileWriter writer = new FileWriter(file);
-        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD\n");
         writer.close();
 
         File budgetFile = Storage.getBudgetFile();
@@ -307,6 +350,12 @@ public class StorageTest {
         FinancialList financialList = storage.loadFromFile(budgetLogic);
         assertEquals(1, financialList.getEntryCount());
         assertEquals(null, budgetLogic.getBudget());
+
+        storage.printLoadingResult();
+        String output = outputStream.toString();
+        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
+                            "Budget format in file is invalid, the budget won't be set." + System.lineSeparator();
+        assertEquals(expection, output);
     }
 
     /**
@@ -320,7 +369,7 @@ public class StorageTest {
     public void testBudgetInvalidDate() throws IOException {
         File file = Storage.getStorageFile();
         FileWriter writer = new FileWriter(file);
-        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD\n");
         writer.close();
 
         File budgetFile = Storage.getBudgetFile();
@@ -333,6 +382,12 @@ public class StorageTest {
         assertEquals(1, financialList.getEntryCount());
         assertEquals(LocalDate.now().toString()
             , budgetLogic.getBudget().getBudgetSetDate().toString());
+        
+        storage.printLoadingResult();
+        String output = outputStream.toString();
+        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
+                            "Date in budget file is invalid, setting to current date." + System.lineSeparator();
+        assertEquals(expection, output);
     }
 
     /**
@@ -347,7 +402,7 @@ public class StorageTest {
     public void testBudgetFutureDate() throws IOException {
         File file = Storage.getStorageFile();
         FileWriter writer = new FileWriter(file);
-        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD\n");
         writer.close();
 
         File budgetFile = Storage.getBudgetFile();
@@ -360,6 +415,12 @@ public class StorageTest {
         assertEquals(1, financialList.getEntryCount());
         assertEquals(LocalDate.now().toString()
             , budgetLogic.getBudget().getBudgetSetDate().toString());
+        
+        storage.printLoadingResult();
+        String output = outputStream.toString();
+        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
+                            "Date in budget file is invalid, setting to current date." + System.lineSeparator();
+        assertEquals(expection, output);
     }
 
     /**
@@ -376,9 +437,9 @@ public class StorageTest {
     public void testBudgetMissingDate() throws IOException {
         File file = Storage.getStorageFile();
         FileWriter writer = new FileWriter(file);
-        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
-        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
-        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/23 ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD\n");
+        writer.write("E ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD\n");
         writer.close();
 
         File budgetFile = Storage.getBudgetFile();
@@ -391,5 +452,11 @@ public class StorageTest {
         assertEquals(3, financialList.getEntryCount());
         assertEquals(LocalDate.now().toString()
             , budgetLogic.getBudget().getBudgetSetDate().toString());
+
+        storage.printLoadingResult();
+        String output = outputStream.toString();
+        String expection = "I have loaded 3 expenses and 0 incomes from file." + System.lineSeparator() +
+                            "Date in budget file is invalid, setting to current date." + System.lineSeparator();
+        assertEquals(expection, output);
     }
 }

@@ -128,9 +128,37 @@ class BudgetLogicTest {
     @Test
     void testChangeBalanceFromExpenseInPastMonth() {
         budget.setBudgetAmount(1000);
-        budgetLogic.changeBalanceFromExpense(-50, LocalDate.now().minusMonths(1));
+
+        budgetLogic.changeBalanceFromExpenseString(19, "27/11/2023");
 
         assertEquals(1000, budget.getBalance());
+
+        String expectedOutput = "";
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    /**
+     * Tests decreases in the budget balance from multiple expenses recorded in the current month.
+     */
+    @Test
+    void changeBalanceFromExpenses_multipleExpensesExceedBudget_printDecrease() throws FinanceBuddyException {
+        budget.setBudgetAmount(1000);
+        budgetLogic.changeBalanceFromExpense(-230, LocalDate.now());
+        budgetLogic.changeBalanceFromExpenseString(-50, "27/10/2024");
+        budgetLogic.changeBalanceFromExpenseString(-90, "27/11/2023");
+        budgetLogic.changeBalanceFromExpense(20, LocalDate.now());
+        budgetLogic.changeBalanceFromExpense(-900, LocalDate.now());
+
+        assertEquals(-110, budget.getBalance());
+
+        String expectedOutput = "Your current monthly balance is: $ 770.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "Your current monthly balance is: $ 790.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "You have exceeded your monthly budget of: $ 1000.00!" + System.lineSeparator() +
+                "Your current monthly balance is: $ -110.00" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     @Test

@@ -141,7 +141,7 @@ public class Logic {
      *                         optional new values for the amount ("/a") and description ("/des").
      */
     public void editEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
-        int index = parseIndex(commandArguments.get("argument"));
+        int index = processIndexToAmend(commandArguments);
         FinancialEntry entry = financialList.getEntry(index - 1);
 
         double amount = parseAmountOrDefault(commandArguments.get("/a"), entry.getAmount());
@@ -156,6 +156,10 @@ public class Logic {
         if (entry instanceof Expense) {
             updateExpenseBalance((Expense) entry, amount, date);
         }
+    }
+
+    private boolean isEmptyArgument(HashMap<String, String> commandArguments) {
+        return commandArguments.get("argument") == null || commandArguments.get("argument").isBlank();
     }
 
     /**
@@ -188,7 +192,7 @@ public class Logic {
      * Parses the date or returns the default date if null.
      */
     private String parseDateOrDefault(String dateStr, LocalDate defaultDate) {
-        return (dateStr != null) ? dateStr : defaultDate.format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+        return (dateStr != null) ? dateStr : defaultDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     /**
@@ -231,22 +235,16 @@ public class Logic {
      *                         to be deleted.
      */
     public void deleteEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
-        int index = 0;
-        try {
-            index = Integer.parseInt(commandArguments.get("argument"));
-        } catch (NumberFormatException e) {
-            throw new FinanceBuddyException(
-                    Commons.ERROR_MESSAGE_INVALID_INDEX);
-        }
-
+        int index = processIndexToAmend(commandArguments);
         FinancialEntry entry = financialList.getEntry(index - 1);
 
         DeleteCommand deleteCommand = new DeleteCommand(index);
         deleteCommand.execute(financialList);
+        financialList.resetLastAmendedIndex();
 
         if (entry instanceof Expense) {
             double amount = entry.getAmount();
-            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String date = entry.getDate().format(pattern);
             try {
                 budgetLogic.changeBalanceFromExpenseString(amount, date);
@@ -254,6 +252,16 @@ public class Logic {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private int processIndexToAmend(HashMap<String, String> commandArguments) throws FinanceBuddyException {
+        if (isEmptyArgument(commandArguments)) {
+            if (financialList.getLastAmendedIndex() == -1) {
+                throw new FinanceBuddyException("No record of last amended entry. Please enter a valid index.");
+            }
+            return financialList.getLastAmendedIndex() + 1; //+1 to offset zero-based indexing
+        }
+        return parseIndex(commandArguments.get("argument"));
     }
 
     /**
