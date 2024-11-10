@@ -35,22 +35,17 @@ alt Index valid
 
     DeleteParser --> Parser : "Result message"
     Parser --> MediTask : "Result message"
-    deactivate Parser
     MediTask --> User : Display result message
-    deactivate MediTask
 else Index invalid
     Hospital --> DeletePatientCommand : throw Exception
     deactivate Hospital
 
     DeletePatientCommand --> DeleteParser : "Patient not found in the list!"
     deactivate DeletePatientCommand
-
     DeleteParser --> Parser : "Error message"
     deactivate DeleteParser
-    activate Parser
     Parser --> MediTask : "Error message"
     deactivate Parser
-    activate MediTask
     MediTask --> User : Display error message
     deactivate MediTask
 end
