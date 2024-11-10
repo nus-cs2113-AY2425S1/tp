@@ -126,10 +126,11 @@ class BudgetLogicTest {
     }
 
     @Test
-    void testChangeBalanceFromExpenseInPastMonth() {
+    void testChangeBalanceFromExpenseInPastMonth() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
 
-        budgetLogic.changeBalanceFromExpenseString(19, "27/11/2023");
+        String pastDate = "27/11/2023";
+        budgetLogic.changeBalanceFromExpenseString(19, pastDate);
 
         assertEquals(1000, budget.getBalance());
 
