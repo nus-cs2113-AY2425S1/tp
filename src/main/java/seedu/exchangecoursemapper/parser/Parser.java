@@ -52,15 +52,21 @@ public class Parser {
 
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
+    static {
+        logger.setLevel(Level.SEVERE);
+    }
+
     private final Scanner scanner = new Scanner(System.in);
 
     private final UI mapperUI = new UI();
 
     public String getUserInput() {
+        logger.setLevel(Level.WARNING);
         return scanner.nextLine();
     }
 
     public void processUserInput(String userInput, Storage storage) {
+        logger.setLevel(Level.WARNING);
         assert userInput != null : NULL_INPUT;
 
         String input = userInput.trim().toLowerCase();
@@ -106,12 +112,12 @@ public class Parser {
      * Parses an abbreviated partner university name and returns the full name.
      * It will return the original string if no match with the formatted abbreviation is found.
      *
-     * @param PU User's partner university input.
+     * @param partnerUniversity User's partner university input.
      *
      * @return the full name of the partner university if it matches a known abbreviation.
      */
-    public String parsePUAbbreviations(String PU) {
-        String formattedPU = PU.toLowerCase().trim();
+    public String parsePUAbbreviations(String partnerUniversity) {
+        String formattedPU = partnerUniversity.toLowerCase().trim();
         if (formattedPU.equals(THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION)) {
             formattedPU = THE_UNIVERSITY_OF_WESTERN_AUSTRALIA;
         } else if (formattedPU.equals(THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION)) {

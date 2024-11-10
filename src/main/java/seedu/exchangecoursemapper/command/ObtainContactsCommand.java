@@ -4,6 +4,8 @@ import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.constants.Messages;
 import seedu.exchangecoursemapper.exception.Exception;
+import seedu.exchangecoursemapper.parser.Parser;
+import seedu.exchangecoursemapper.parser.SchoolContactValidator;
 import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonObject;
@@ -19,12 +21,17 @@ import static seedu.exchangecoursemapper.constants.JsonKey.NUMBER_KEY;
 public class ObtainContactsCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ObtainContactsCommand.class.getName());
     private static UI ui;
+    private static SchoolContactValidator schoolContactValidator;
+    private static Parser parser;
 
     /**
      * Class Constructor
      */
     public ObtainContactsCommand() {
+        logger.setLevel(Level.OFF);
         ui = new UI();
+        schoolContactValidator = new SchoolContactValidator();
+        parser = new Parser();
     }
 
     /**
@@ -51,13 +58,14 @@ public class ObtainContactsCommand extends CheckInformationCommand {
             if (schoolInfo == null) {
                 return;
             }
-            handleContactType(schoolInfo, matchingSchool, contactType);
+            checkValidContact(schoolInfo, matchingSchool, contactType);
         } catch (IOException e) {
             logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
             System.err.println(Exception.fileReadError());
             return;
         } catch (IllegalArgumentException e) {
-            logger.log(Level.WARNING, e.getMessage());
+            logger.log(Level.OFF, e.getMessage());
+            return;
         }
         logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
     }
@@ -73,6 +81,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         String inputWithoutCommand = userInput.substring(userInput.indexOf(SPACE) + 1).trim();
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
         assert inputParts.length > 0 : Assertions.EMPTY_SCHOOL_NAME;
+        inputParts[0] = parser.parsePUAbbreviations(inputParts[0]);
         return inputParts[0].trim();
     }
 
@@ -95,14 +104,72 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         return inputParts[1].trim();
     }
 
+
     /**
-     * Executes the output of different contact types and outputs a string of the details.
+     * Returns the school name that matches the provided school name.
+     *
+     * @param jsonObject the JSON object containing school information.
+     * @param schoolName the name of the school to search for.
+     * @return the matching school name or null if not found.
+     */
+    public String getMatchingSchoolName(JsonObject jsonObject, String schoolName) {
+        for (String key : jsonObject.keySet()) {
+            if (key.toLowerCase().equals(schoolName.toLowerCase())) {
+                return key;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the matching school in the provided JSON object.
+     *
+     * @param jsonObject the JSON object containing all school information.
+     * @param schoolName the school name to search for.
+     * @return the matching school name if found, or the input school name if not found.
+     * @throws AssertionError if jsonObject or schoolName is null.
+     */
+    public String findMatchingSchool(JsonObject jsonObject, String schoolName) {
+        assert jsonObject != null : Assertions.NULL_JSON_OBJECT;
+        assert schoolName != null : Assertions.NULL_SCHOOL_NAME;
+
+        if (schoolContactValidator.isSchoolValid(jsonObject, schoolName)) {
+            String key = getMatchingSchoolName(jsonObject, schoolName);
+            if (key != null) {
+                return key;
+            }
+        } else {
+            logger.log(Level.WARNING, "Unknown university - {0}", schoolName);
+            System.out.println("Unknown university - " + schoolName);
+        }
+
+        return schoolName;
+    }
+
+    /**
+     * Executes the checking of contact type and retrieves the corresponding contact information
      *
      * @param schoolInfo  the JSON object containing the school's information.
      * @param schoolName  the name of the school as a string
      * @param contactType the type of contact information to retrieve as a string.
      */
-    public void handleContactType(JsonObject schoolInfo, String schoolName, String contactType) {
+    public void checkValidContact(JsonObject schoolInfo, String schoolName, String contactType) {
+        if (schoolContactValidator.isValidContactType(contactType)) {
+            contactTypeIdentifier(schoolInfo, schoolName, contactType);
+        } else {
+            logger.log(Level.WARNING, "Invalid contact type requested: " + contactType);
+            System.out.println(Exception.invalidContactType());
+        }
+    }
+
+    /**
+     * Returns the contact type and displays the appropriate contact information.
+     *
+     * @param schoolInfo  the JSON object containing the school's information.
+     * @param schoolName  the name of the school as a string.
+     * @param contactType the contact type (either "email" or "number").
+     */
+    public void contactTypeIdentifier(JsonObject schoolInfo, String schoolName, String contactType) {
         switch (contactType) {
         case EMAIL_KEY:
             String email = schoolInfo.getString(EMAIL_KEY);
@@ -115,29 +182,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
             ui.printContactInformation(Messages.NUMBER_TAG, schoolName, number);
             break;
         default:
-            logger.warning("Invalid contact type requested: " + contactType);
-            System.out.println(Exception.invalidContactType());
+            break;
         }
-    }
-
-    /**
-     * Returns the name of the matching school name from the database.
-     *
-     * @param jsonObject the JSON object containing all school information.
-     * @param schoolName the school name to search for.
-     * @return the matching school name if found, or the input school name if not found.
-     * @throws AssertionError if jsonObject or schoolName is null.
-     */
-    public String findMatchingSchool(JsonObject jsonObject, String schoolName) {
-        assert jsonObject != null : Assertions.NULL_JSON_OBJECT;
-        assert schoolName != null : Assertions.NULL_SCHOOL_NAME;
-        for (String key : jsonObject.keySet()) {
-            if (key.toLowerCase().equals(schoolName)) {
-                return key;
-            }
-        }
-        logger.log(Level.WARNING, "Unknown university - {0}", schoolName);
-        System.out.println("Unknown university - " + schoolName);
-        return schoolName;
     }
 }

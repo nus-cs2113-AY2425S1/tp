@@ -30,6 +30,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         ui = new UI();
         courseRepository = new CourseRepository();
         parser = new Parser();
+        logger.setLevel(Level.SEVERE);
     }
 
     /**
@@ -44,6 +45,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
      */
     @Override
     public void execute(String userInput, Storage storage) {
+
         try {
             if(!courseRepository.isFileValid()){
                 return;
