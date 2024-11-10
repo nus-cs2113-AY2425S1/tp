@@ -53,7 +53,7 @@ public class CsvUtils {
      * @param writeAction Consumer that runs on the CSV writer to write the data
      * @throws WheresMyMoneyException If there are any writing errors
      */
-    public static void writeCsv(String filePath, String[] header, Consumer<? super CSVWriter> write_action)
+    public static void writeCsv(String filePath, String[] header, Consumer<? super CSVWriter> writeAction)
             throws WheresMyMoneyException{
         File file = new File(filePath);
 
