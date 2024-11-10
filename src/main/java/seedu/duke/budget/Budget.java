@@ -37,7 +37,7 @@ public class Budget {
      * @param newBudgetAmount the new budget amount to be set.
      */
     public void setBudgetAmount(double newBudgetAmount) {
-        this.budgetAmount = newBudgetAmount;
+        this.budgetAmount = Math.round(newBudgetAmount * 100.0) / 100.0;
         this.balance = newBudgetAmount;
         this.isBudgetSet = true;
         this.budgetSetDate = LocalDate.now();
@@ -67,7 +67,7 @@ public class Budget {
      * @param newBalance the new balance to be updated.
      */
     public void updateBalance(double newBalance) {
-        this.balance = newBalance;
+        this.balance = Math.round(newBalance * 100.0) / 100.0;
     }
 
     /**
