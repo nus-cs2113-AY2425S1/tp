@@ -34,13 +34,11 @@ public class RemoveCommandTest {
 
         eventList.addParticipantToEvent(
                 "Tom",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );
         eventList.addParticipantToEvent(
                 "Harry",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );
@@ -59,13 +57,11 @@ public class RemoveCommandTest {
                            "Venue A", Priority.HIGH);
         eventList.addParticipantToEvent(
                 "Tom",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );
         eventList.addParticipantToEvent(
                 "Harry",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );

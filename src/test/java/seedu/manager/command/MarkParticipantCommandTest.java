@@ -21,7 +21,6 @@ class MarkParticipantCommandTest {
                            "Venue 1", Priority.HIGH);
         eventList.addParticipantToEvent(
                 "John Doe",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );

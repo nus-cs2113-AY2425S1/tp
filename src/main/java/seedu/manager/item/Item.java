@@ -37,14 +37,6 @@ public class Item {
         this.name = itemNewName;
     }
 
-    //@@author LTK-1606
-    /**
-     * @return {@code true} if isPresent is true, {@code false} otherwise.
-     */
-    public boolean isPresent() {
-        return isPresent;
-    }
-
     //@@author jemehgoh
     /**
      * Sets the item as present or not present.

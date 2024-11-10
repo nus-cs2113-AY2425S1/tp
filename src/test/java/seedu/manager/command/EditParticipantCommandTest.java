@@ -30,21 +30,18 @@ public class EditParticipantCommandTest {
         );
         eventList.addParticipantToEvent(
                 "Tom",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );
 
         EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
                 "Tom",
-                "9123 4567",
                 "new_email@example.com",
                 "Event 1"
         );
         editParticipantCommand.setData(eventList);
         editParticipantCommand.execute();
 
-        assertEquals("9123 4567", eventList.getEvent(0).getParticipantList().get(0).getNumber());
         assertEquals("new_email@example.com", eventList.getEvent(0).getParticipantList().get(0).getEmail());
     }
 
@@ -58,14 +55,12 @@ public class EditParticipantCommandTest {
         );
         eventList.addParticipantToEvent(
                 "Tom",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );
         String expectedMessage = "Event/Participant not found!";
         EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
                 "Tom",
-                "9123 4567",
                 "new_email@example.com",
                 "Non-Existent Event"
         );
@@ -84,14 +79,12 @@ public class EditParticipantCommandTest {
         );
         eventList.addParticipantToEvent(
                 "Tom",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );
         String expectedMessage = "Event/Participant not found!";
         EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
                 "Invalid Participant",
-                "9123 4567",
                 "new_email@example.com",
                 "Event 1"
         );

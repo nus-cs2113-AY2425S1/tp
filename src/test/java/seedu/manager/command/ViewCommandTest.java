@@ -25,7 +25,7 @@ public class ViewCommandTest {
         command.setData(eventList);
         command.execute();
 
-        command = new Parser().parseCommand("add -p Tom -n 95015025 -email example@gmail.com -e Event 1");
+        command = new Parser().parseCommand("add -p Tom -email example@gmail.com -e Event 1");
         command.setData(eventList);
         command.execute();
 
@@ -37,7 +37,7 @@ public class ViewCommandTest {
     @Test
     public void execute_twoEvents_success() throws IOException {
         String expectedMessage = "There are 1 participants in Event 1! Here are your participants:\n"
-                + "1. Name: Tom / Number: 95015025 / Email: example@gmail.com [ ]\n";
+                + "1. Name: Tom / Email: example@gmail.com [ ]\n";
 
         viewCommand = new Parser().parseCommand("view -e Event 1 -y participant");
         viewCommand.setData(eventList);

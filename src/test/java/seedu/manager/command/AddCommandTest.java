@@ -37,13 +37,11 @@ public class AddCommandTest {
                 "Venue A", Priority.HIGH);
         eventList.addParticipantToEvent(
                 "Tom",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );
         eventList.addParticipantToEvent(
                 "Harry",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );
@@ -58,13 +56,11 @@ public class AddCommandTest {
                 "Venue A", Priority.HIGH);
         eventList.addParticipantToEvent(
                 "Tom",
-                "89521252",
                 "example@gmail.com",
                 "Event 1"
         );
         eventList.addParticipantToEvent(
                 "Harry",
-                "89521252",
                 "example@gmail.com",
                 "Event 2"
         );
@@ -76,7 +72,7 @@ public class AddCommandTest {
     public void add_oneParticipantInvalidEvent_failure() {
         String expectedMessage = "Event not found!";
 
-        AddCommand addCommand = new AddCommand("Tom","89521252", "example@gmail.com", "Event 1");
+        AddCommand addCommand = new AddCommand("Tom", "example@gmail.com", "Event 1");
         addCommand.setData(eventList);
         addCommand.execute();
 
@@ -104,7 +100,7 @@ public class AddCommandTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-10 10:00", formatter),
                 "Venue A", Priority.HIGH);
-        eventList.addParticipantToEvent("John", "9123 8321", "example1@gmail.com", "Event 1");
+        eventList.addParticipantToEvent("John", "example1@gmail.com", "Event 1");
 
         AddCommand addCommand = new AddCommand("Event 1", LocalDateTime.parse("2024-10-10 10:00",
                 formatter), "Venue A", Priority.HIGH);
