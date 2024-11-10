@@ -4,6 +4,7 @@ import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.constants.Messages;
 import seedu.exchangecoursemapper.exception.Exception;
+import seedu.exchangecoursemapper.parser.SchoolContactValidator;
 import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonObject;
@@ -19,6 +20,7 @@ import static seedu.exchangecoursemapper.constants.JsonKey.NUMBER_KEY;
 public class ObtainContactsCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ObtainContactsCommand.class.getName());
     private static UI ui;
+    private static SchoolContactValidator schoolContactValidator;
 
     /**
      * Class Constructor
@@ -26,6 +28,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
     public ObtainContactsCommand() {
         logger.setLevel(Level.WARNING);
         ui = new UI();
+        schoolContactValidator = new SchoolContactValidator();
     }
 
     /**
@@ -52,7 +55,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
             if (schoolInfo == null) {
                 return;
             }
-            handleContactType(schoolInfo, matchingSchool, contactType);
+            checkValidContact(schoolInfo, matchingSchool, contactType);
         } catch (IOException e) {
             logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
             System.err.println(Exception.fileReadError());
@@ -104,7 +107,16 @@ public class ObtainContactsCommand extends CheckInformationCommand {
      * @param schoolName  the name of the school as a string
      * @param contactType the type of contact information to retrieve as a string.
      */
-    public void handleContactType(JsonObject schoolInfo, String schoolName, String contactType) {
+    public void checkValidContact(JsonObject schoolInfo, String schoolName, String contactType) {
+        if (schoolContactValidator.isValidContactType(contactType)) {
+            contactTypeIdentifier(schoolInfo, schoolName, contactType);
+        } else {
+            logger.log(Level.WARNING, "Invalid contact type requested: " + contactType);
+            System.out.println(Exception.invalidContactType());
+        }
+    }
+
+    private static void contactTypeIdentifier(JsonObject schoolInfo, String schoolName, String contactType) {
         switch (contactType) {
         case EMAIL_KEY:
             String email = schoolInfo.getString(EMAIL_KEY);
@@ -117,8 +129,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
             ui.printContactInformation(Messages.NUMBER_TAG, schoolName, number);
             break;
         default:
-            logger.log(Level.WARNING, "Invalid contact type requested: " + contactType);
-            System.out.println(Exception.invalidContactType());
+            break;
         }
     }
 
@@ -133,13 +144,27 @@ public class ObtainContactsCommand extends CheckInformationCommand {
     public String findMatchingSchool(JsonObject jsonObject, String schoolName) {
         assert jsonObject != null : Assertions.NULL_JSON_OBJECT;
         assert schoolName != null : Assertions.NULL_SCHOOL_NAME;
+
+        if (schoolContactValidator.isSchoolValid(jsonObject, schoolName)) {
+            String key = getSchoolName(jsonObject, schoolName);
+            if (key != null) {
+                return key;
+            }
+        } else {
+            logger.log(Level.WARNING, "Unknown university - {0}", schoolName);
+            System.out.println("Unknown university - " + schoolName);
+        }
+
+        return schoolName;
+    }
+
+    private static String getSchoolName(JsonObject jsonObject, String schoolName) {
         for (String key : jsonObject.keySet()) {
-            if (key.toLowerCase().equals(schoolName)) {
+            if (key.toLowerCase().equals(schoolName.toLowerCase())) {
                 return key;
             }
         }
-        logger.log(Level.WARNING, "Unknown university - {0}", schoolName);
-        System.out.println("Unknown university - " + schoolName);
-        return schoolName;
+        return null;
     }
+
 }
