@@ -86,12 +86,12 @@ public class UpdateCommand extends Command {
             uiCommand.addInvalidField(field, "Either description or date is missing.");
         } catch (InvalidStatus e) {
             String message = """
-                    Status provided is not recognised:
-                    Please provide one of the following:i
-                    - Application Pending
-                    - Application Completed
-                    - Accepted
-                    - Rejected""";
+                    Status provided is not recognised
+                    \tPlease provide one of the following:
+                    \t- Application Pending
+                    \t- Application Completed
+                    \t- Accepted
+                    \t- Rejected""";
             uiCommand.addInvalidField(field, message);
         }
     }
