@@ -48,6 +48,10 @@ package Storage as StoragePackage {
         {static} -fileBackupPath: String
     }
 
+    class StorageDeserializer {
+        +deserialize(p: JsonParser, ctxt: DeserializationContext): List<Patient>
+    }
+
     ' class StorageOperationException {
     ' }
 
@@ -76,6 +80,7 @@ StorageFile .up.|> Storage
 ' StorageFile *-- "1" Hospital
 StorageFile --> "1" JsonUtil
 StorageFile --> "1" StorageBackup
+JsonUtil ..> StorageDeserializer
 ' JsonUtil ..> StorageOperationException
 ' StorageOperationException .down.|> Exception : extends
 ' JsonUtil --> StorageOperationException : Throws

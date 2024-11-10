@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.duke.data.task.TaskList;
 
 @JsonPropertyOrder({"patients"})
@@ -19,6 +20,7 @@ public class Hospital {
     @JsonIgnore
     private static Patient selectedPatient;
     private static final Logger logger = Logger.getLogger(Hospital.class.getName());
+
     private List<Patient> patients;
 
     static {
