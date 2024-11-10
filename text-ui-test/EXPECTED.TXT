@@ -39,13 +39,13 @@ add -m ITEM -e EVENT
 Enter a command: Event added successfully
 ------------------------
 Enter a command: There is 1 event in your list! Here is your scheduled event:
-1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: N
+1. Event name: dinner party / Event time: 2026-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: N
 
 ------------------------
 Enter a command: Event marked as done
 ------------------------
 Enter a command: There is 1 event in your list! Here is your scheduled event:
-1. Event name: dinner party / Event time: 2024-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
+1. Event name: dinner party / Event time: 2026-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
 
 ------------------------
 Enter a command: Event not found!
@@ -53,7 +53,7 @@ Enter a command: Event not found!
 Enter a command: Event information successfully updated
 ------------------------
 Enter a command: There is 1 event in your list! Here is your scheduled event:
-1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Enter a command: Event not found!
@@ -70,13 +70,13 @@ Enter a command: Event not found!
 Enter a command: Event added successfully
 ------------------------
 Enter a command: Events successfully sorted by name!
-1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
-2. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+2. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
 Enter a command: Events successfully sorted by time!
-1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
-2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
 Enter a command: Event not found!
@@ -86,33 +86,29 @@ Enter a command: Event not found!
 Enter a command: Event not found!
 ------------------------
 Enter a command: There are 2 events in your list! Here are your scheduled events:
-1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
-2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
 Enter a command: Events successfully filtered by name!
-1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
 
 ------------------------
-Enter a command: Events successfully filtered by date!
-1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
-
+Enter a command: Filter flag matched no events!
 ------------------------
 Enter a command: Events successfully filtered by time!
-1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+1. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
-Enter a command: Events successfully filtered by date-time!
-1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
-
+Enter a command: Filter flag matched no events!
 ------------------------
 Enter a command: Events successfully filtered by priority!
-1. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+1. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
 Enter a command: There are 2 events in your list! Here are your scheduled events:
-1. Event name: dinner party(1) / Event time: 2024-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
-2. Event name: anniversary celebration / Event time: 2024-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+1. Event name: dinner party(1) / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
 
 ------------------------
 Enter a command: Item added successfully

@@ -2,18 +2,18 @@ hello world
 menu
 list
 add
-add -e dinner party -t 2024-10-10 12:34 -v Alice's House -u high
+add -e dinner party -t 2026-10-10 12:34 -v Alice's House -u high
 list
 mark -e dinner party -s done
 list
 mark -e Saturday brunch -s done
-edit -e dinner party -name dinner party -t 2024-10-10 15:00 -v Bob's House -u LOW
+edit -e dinner party -name dinner party -t 2026-10-10 15:00 -v Bob's House -u LOW
 list
 add -p Mary -email example@gmail.com -e dinner party
 view -e dinner party
 edit -p Mary -email Mary@gmail.com -e dinner party
 view -e dinner party -y participant
-add -e anniversary celebration -t 2024-10-23 12:34 -v hotel -u medium
+add -e anniversary celebration -t 2026-10-23 12:34 -v hotel -u medium
 sort -by name
 sort -by time
 add -m curry chicken -e dinner party

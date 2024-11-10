@@ -61,7 +61,7 @@ class ParserTest {
     @Test
     public void addCommand_addEvent_add() throws IOException {
         Parser parser = new Parser();
-        Command command = parser.parseCommand("add -e event -t 2024-09-10 12:34 -v Venue A -u high");
+        Command command = parser.parseCommand("add -e event -t 2025-09-10 12:34 -v Venue A -u high");
 
         assertInstanceOf(AddCommand.class, command);
     }
