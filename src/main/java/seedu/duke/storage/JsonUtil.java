@@ -2,6 +2,7 @@ package seedu.duke.storage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import seedu.duke.data.hospital.Hospital;
 import seedu.duke.storage.exception.StorageOperationException;
@@ -31,7 +33,8 @@ public class JsonUtil {
     private static final ObjectMapper objectMapper = new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT) // Readable format
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false) // Ignore unknown properties
-            .findAndRegisterModules(); // Automatically register additional modules (future use);
+            .findAndRegisterModules() // Automatically register additional modules (future use);
+            .registerModule(new SimpleModule().addDeserializer(List.class, new StorageDeserializer())); // Custom deserializer
 
     /**
      * Saves the empty hospital object to a file.
