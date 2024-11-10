@@ -54,28 +54,28 @@ Enter a command:
 Shows a list of all valid user commands in the program.
 
 ```
-Here are the possible commands:
-        
-menu: List commands   
-list: List events.
-add -e EVENT -t TIME -v VENUE -u PRIORITY: Add an event to the event list.
-add -p PARTICIPANT -email EMAIL -e EVENT: Add a participant to an event.
-add -m ITEM -e EVENT: Add an item to an event.
-remove -e EVENT: Remove an event from the event list.
-remove -p PARTICIPANT -e EVENT: Remove a participant from an event.
-remove -m ITEM -e EVENT: Remove an item from an event.
-edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
-edit -p PARTICIPANT -email EMAIL -e EVENT: Edit participant contact info.
-edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT: Edit an item in an event.
-view -e EVENT -y TYPE: View the list of participants or items of an event.
-mark -e EVENT -s STATUS: Mark an event as done or not done.
-mark -p PARTICIPANT -e EVENT -s STATUS: Mark a participant as present or absent.
-mark -m ITEM -e EVENT -s STATUS: Mark an item as accounted or unaccounted.
-copy FROM_EVENT > TO_EVENT: Copies participant list from one event to another.
+Here are all the possible commands:
+           
+menu: Displays a list of all commands.
+list: Displays a list of all events.
+add -e EVENT -t TIME -v VENUE -u PRIORITY: Adds an event to the event list.
+add -p PARTICIPANT -email EMAIL -e EVENT: Adds a participant to an event.
+add -m ITEM -e EVENT: Adds an item to an event.
+remove -e EVENT: Removes an event from the event list.
+remove -p PARTICIPANT -e EVENT: Removes a participant from an event.
+remove -m ITEM -e EVENT: Removes an item from an event.
+edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edits an event's info.
+edit -p OLD_PARTICIPANT -name NEW_PARTICIPANT -email EMAIL -e EVENT: Edits a participant's info.
+edit -m ITEM > NEW_ITEM -e EVENT: Edits an item's info.
+view -e EVENT -y TYPE: Displays the list of participants or items of an event.
+mark -e EVENT -s STATUS: Marks an event as done or not done.
+mark -p PARTICIPANT -e EVENT -s STATUS: Marks a participant as present or absent.
+mark -m ITEM -e EVENT -s STATUS: Marks an item as accounted or unaccounted for.
+copy FROM_EVENT > TO_EVENT: Copies the participant list from one event to another.
 sort -by KEYWORD: Sorts events by name/time/priority.
 filter -e/-d/-t/-x/-u FILTER_DESCRIPTION: Filters events by name/date/time/date-time/priority.
-find -e EVENT -p NAME: Finds all participants with specified name in an event.
-exit: Exit program.
+find -e EVENT -p NAME: Finds all participants with a specified name in an event.
+exit: Exits program.
 
 ```
 
@@ -155,7 +155,7 @@ Edits the information of an event/participant/item.
 Format:
 
 * `edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
-* `edit -p PARTICIPANT -email EMAIL -e EVENT` for editing a participant's contact information in an event.
+* `edit -p OLD_PARTICIPANT -name NEW_PARTICIPANT -email EMAIL -e EVENT` for editing a participant's contact information in an event.
 * `edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT` for editing an item's information in an event.
 
 Remarks:
@@ -167,7 +167,7 @@ Remarks:
 Examples:
 
 * `edit -e CS2113 -name CS2113T -t 2024-10-25 16:00 -v LT16 -u HIGH` edits the information of the event `CS2113`.
-* `edit -p Mary -email mary@gmail.com -e CS2113` edits the contact information of the participant `Mary` in the event `CS2113`.
+* `edit -p Mary -name Mary -email mary@gmail.com -e CS2113` edits the information of the participant `Mary` in the event `CS2113`.
 * `edit -m balloon > cake -e anniversary` edits the item `balloon` in the event `anniversary` to `cake`.
 <div style="page-break-after: always;"></div>
 
@@ -342,7 +342,7 @@ If the above format or parameter constraints are not followed, the `Event`, `Par
 * Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
 * Remove item from an event: `remove -m ITEM -e EVENT`
 * Edit event: `edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY`
-* Edit participant of an event: `edit -p PARTICIPANT -email EMAIL -e EVENT`
+* Edit participant of an event: `edit -p OLD_PARTICIPANT -name NEW_PARTICIPANT -email EMAIL -e EVENT`
 * Edit item of an event: `edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT`
 * View all participants or items for an event: `view -e EVENT -y TYPE`
 * Mark an event as done: `mark -e EVENT -s STATUS`
