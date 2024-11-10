@@ -10,6 +10,7 @@ public class EditParticipantCommand extends Command{
     private static final String EDIT_FAILURE_MESSAGE = "Event/Participant not found!";
     protected String eventName;
     protected String participantName;
+    protected String newParticipantName;
     protected String participantEmail;
 
 
@@ -19,13 +20,15 @@ public class EditParticipantCommand extends Command{
      * participant email, and event name.
      *
      * @param participantName The name of the participant.
+     * @param newParticipantName The new name of the participant.
      * @param participantEmail The new email address of the participant.
      * @param eventName The name of the event associated with the participant.
      */
-    public EditParticipantCommand(String participantName, String participantEmail,
+    public EditParticipantCommand(String participantName, String newParticipantName, String participantEmail,
                                   String eventName) {
         super(false);
         this.participantName = participantName;
+        this.newParticipantName = newParticipantName;
         this.participantEmail = participantEmail;
         this.eventName = eventName;
     }
@@ -39,11 +42,8 @@ public class EditParticipantCommand extends Command{
     @Override
     public void execute() {
         if (participantName != null) {
-            boolean isEdited = this.eventList.editParticipant(
-                    this.participantName,
-                    this.participantEmail,
-                    this.eventName
-            );
+            boolean isEdited = eventList.editParticipant(participantName, newParticipantName, participantEmail,
+                    this.eventName);
             this.message = (isEdited) ? EDIT_PARTICIPANT_MESSAGE : EDIT_FAILURE_MESSAGE;
         }
     }

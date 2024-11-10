@@ -36,6 +36,7 @@ public class EditParticipantCommandTest {
 
         EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
                 "Tom",
+                "Tom",
                 "new_email@example.com",
                 "Event 1"
         );
@@ -61,6 +62,7 @@ public class EditParticipantCommandTest {
         String expectedMessage = "Event/Participant not found!";
         EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
                 "Tom",
+                "Tom",
                 "new_email@example.com",
                 "Non-Existent Event"
         );
@@ -84,6 +86,7 @@ public class EditParticipantCommandTest {
         );
         String expectedMessage = "Event/Participant not found!";
         EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
+                "Invalid Participant",
                 "Invalid Participant",
                 "new_email@example.com",
                 "Event 1"

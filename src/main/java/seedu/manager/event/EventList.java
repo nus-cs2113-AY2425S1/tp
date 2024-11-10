@@ -280,16 +280,17 @@ public class EventList  {
      * {@code false}.
      * </p>
      *
-     * @param participantName the name of the participant to be edited.
+     * @param currentName the name of the participant to be edited.
+     * @param newName        the new name of the participant.
      * @param email          the new email address of the participant.
      * @param eventName      the name of the event associated with the participant.
      * @return {@code true} if the participant was successfully edited;
      *         {@code false} if the event does not exist or the participant was not found.
      */
-    public boolean editParticipant(String participantName, String email, String eventName) {
+    public boolean editParticipant(String currentName, String newName, String email, String eventName) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
-                return event.updateParticipant(participantName, email);
+                return event.updateParticipant(currentName, newName, email);
             }
         }
         return false;

@@ -276,9 +276,11 @@ public class Event {
      * @return {@code true} if the participant was successfully updated;
      *         {@code false} if the participant was not found.
      */
-    public boolean updateParticipant(String participantName, String newEmail) {
+    public boolean updateParticipant(String participantName, String newName, String newEmail) {
         for (Participant participant : this.participantList) {
             if (participant.getName().equalsIgnoreCase(participantName)) {
+                String nameToSet = getDuplicateParticipantName(newName);
+                participant.setName(nameToSet);
                 participant.setEmail(newEmail);
                 return true;
             }
@@ -446,6 +448,13 @@ public class Event {
                 eventName, eventTimeString, eventVenue, eventPriority, markIfDone());
     }
 
+    /**
+     * Returns a participant's name with an indexed suffix.
+     * The suffix value varies based on the number of participants with the same name.
+     *
+     * @param name the given participant name.
+     * @return name with an indexed suffix.
+     */
     private String getDuplicateParticipantName(String name) {
         int index = 1;
         String duplicateName = name;
@@ -458,6 +467,13 @@ public class Event {
         return duplicateName;
     }
 
+    /**
+     * Returns an item's name with an indexed suffix.
+     * The suffix value varies based on the number of items with the same name.
+     *
+     * @param name the given item name.
+     * @return name with an indexed suffix.
+     */
     private String getDuplicateItemName(String name) {
         int index = 1;
         String duplicateName = name;

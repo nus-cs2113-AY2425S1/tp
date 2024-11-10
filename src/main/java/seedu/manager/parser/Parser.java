@@ -56,7 +56,7 @@ public class Parser {
             Please enter your commands in the following format:
             edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edit event info.
             edit -m ITEM > NEW_ITEM -e EVENT: Edit an item from an event.
-            edit -p PARTICIPANT -email EMAIL -e EVENT: Edit participant contact info.
+            edit -p OLD_PARTICIPANT -name NEW_PARTICIPANT -email EMAIL -e EVENT: Edit participant info.
             """;
     private static final String INVALID_VIEW_MESSAGE = """
             Invalid command!
@@ -168,7 +168,7 @@ public class Parser {
             "-name\\s+(.*?)\\s+-t\\s+(.*?)\\s+-v\\s+(.*?)\\s+-u\\s+(.*)";
     private static final String ADD_PARTICIPANT_REGEX = "add\\s+-p\\s+(.*?)\\s+" +
             "-email\\s+(.*?)\\s+-e\\s+(.*)";
-    private static final String EDIT_PARTICIPANT_REGEX = "edit\\s+-p\\s+(.*?)\\s+" +
+    private static final String EDIT_PARTICIPANT_REGEX = "edit\\s+-p\\s+(.*?)\\s+-name\\s+(.*?)" +
             "-email\\s+(.*?)\\s+-e\\s+(.*)";
     private static final String ADD_ITEM_REGEX = "add\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
     private static final String REMOVE_ITEM_REGEX = "remove\\s+-m\\s+(.*?)\\s+-e\\s+(.*)";
@@ -561,6 +561,7 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         String participantName;
+        String newParticipantName;
         String newEmail;
         String eventName;
 
@@ -571,6 +572,7 @@ public class Parser {
             }
 
             participantName = matcher.group(1).trim();
+            newParticipantName = matcher.group(2).trim();
             newEmail = matcher.group(2).trim();
             eventName = matcher.group(3).trim();
 
@@ -582,7 +584,7 @@ public class Parser {
             throw new InvalidCommandException(INVALID_EDIT_MESSAGE);
         }
 
-        return new EditParticipantCommand(participantName, newEmail, eventName);
+        return new EditParticipantCommand(participantName, newParticipantName, newEmail, eventName);
     }
 
     //@@author MatchaRRR
