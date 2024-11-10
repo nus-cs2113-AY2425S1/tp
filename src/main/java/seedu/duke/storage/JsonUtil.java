@@ -34,7 +34,8 @@ public class JsonUtil {
             .enable(SerializationFeature.INDENT_OUTPUT) // Readable format
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false) // Ignore unknown properties
             .findAndRegisterModules() // Automatically register additional modules (future use);
-            .registerModule(new SimpleModule().addDeserializer(List.class, new StorageDeserializer())); // Custom deserializer
+            // Custom deserializer
+            .registerModule(new SimpleModule().addDeserializer(List.class, new StorageDeserializer()));
 
     /**
      * Saves the empty hospital object to a file.
@@ -124,7 +125,8 @@ public class JsonUtil {
      *
      * @param hospital The hospital object to convert.
      * @return The JSON string of the hospital object.
-     * @throws StorageOperationException If there is an error converting the object to JSON.
+     * @throws StorageOperationException If there is an error converting the object
+     *                                   to JSON.
      */
     public String toJson(Hospital hospital) throws StorageOperationException {
         logger.log(Level.INFO, "Converting object to JSON");
@@ -145,11 +147,13 @@ public class JsonUtil {
 
     /**
      * Converts the JSON string to a hospital object.
-     * If there is an error converting the JSON to object, an empty hospital object is returned.
+     * If there is an error converting the JSON to object, an empty hospital object
+     * is returned.
      *
      * @param json The JSON string to convert.
      * @return The hospital object converted from the JSON string.
-     * @throws StorageOperationException If there is an error converting the JSON to object.
+     * @throws StorageOperationException If there is an error converting the JSON to
+     *                                   object.
      */
     public Hospital fromJson(String json) throws StorageOperationException {
         logger.log(Level.INFO, "Converting JSON to object");
