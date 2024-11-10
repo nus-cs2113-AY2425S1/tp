@@ -2,7 +2,7 @@ package seedu.spendswift.command;
 
 import seedu.spendswift.Format;
 import java.io.IOException;
-
+import seedu.spendswift.CurrencyConverter;
 
 //@@author MayFairMI6
 public class Budget {
