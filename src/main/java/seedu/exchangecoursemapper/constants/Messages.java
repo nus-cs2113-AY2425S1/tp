@@ -25,8 +25,7 @@ public class Messages {
             "2.The Australian National University - anu\n" +
             "3. Victoria University of Wellington - wgtn\n" +
             "4.The University of Western Australia - uwa\n\n" +
-            "NOTE: Please indicate the partner universities FULL NAME or their respective " +
-            "official abbreviation.\n";
+            "NOTE: Please indicate the full name or the official abbreviation of the partner universities.\n";
 
     public static final String COMMANDS_LIST =
             """
