@@ -60,7 +60,7 @@ public class Parser {
     public String getUserInput() {
         return scanner.nextLine();
     }
-    
+
     public void processUserInput(String userInput, Storage storage) {
         assert userInput != null : NULL_INPUT;
 
