@@ -122,7 +122,7 @@ public class EventList  {
      * @return {@code true} if the participant can be added to the event, {@code false} otherwise.
      */
     public boolean addParticipantToEvent(String name, String email, boolean isPresent,
-                                         String eventName) {
+            String eventName) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
                 event.addParticipant(name, email, isPresent);
