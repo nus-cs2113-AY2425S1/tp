@@ -119,7 +119,7 @@ public class Internship {
         try {
             this.startDate = YearMonth.parse(start, FORMATTER_MONTH_YEAR);
         } catch (DateTimeParseException e) {
-            this.startDate = YearMonth.of(01,01);
+            this.startDate = YearMonth.of(1,1);
         }
     }
 
@@ -132,7 +132,7 @@ public class Internship {
         try {
             this.endDate = YearMonth.parse(end, FORMATTER_MONTH_YEAR);
         } catch (DateTimeParseException e) {
-            this.endDate = YearMonth.of(01,01);
+            this.endDate = YearMonth.of(1,1);
         }
     }
 
