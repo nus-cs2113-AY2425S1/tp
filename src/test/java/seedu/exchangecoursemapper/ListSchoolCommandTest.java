@@ -3,10 +3,12 @@ package seedu.exchangecoursemapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.exchangecoursemapper.command.ListSchoolCommand;
+import seedu.exchangecoursemapper.constants.Logs;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonValue;
 import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
@@ -66,5 +68,35 @@ public class ListSchoolCommandTest {
         String result = outputStreamCaptor.toString().trim();
 
         assertFalse(result.contains("Chulalongkorn University"));
+    }
+
+    @Test
+    public void testDisplaySchoolListWithEmptyKey() {
+        JsonObject jsonObject = Json.createObjectBuilder()
+                .add("", "Some University") // Empty key
+                .build();
+
+        ListSchoolCommand.displaySchoolList(jsonObject);
+
+        String result = outputStreamCaptor.toString().trim();
+
+        assertTrue(result.contains(Logs.POSSIBLE_NULL_JSON_KEY));
+    }
+
+    @Test
+    public void testDisplaySchoolListWithNullOrEmptyKey() {
+        // Create JsonObject with empty and null keys
+        JsonObject jsonObject = Json.createObjectBuilder()
+                .add("", "Some University") // Empty key
+                .build();
+
+        // Call the displaySchoolList method
+        ListSchoolCommand.displaySchoolList(jsonObject);
+
+        // Capture output
+        String result = outputStreamCaptor.toString().trim();
+
+        // Assert that a warning was printed for the empty or null university names
+        assertTrue(result.contains(Logs.POSSIBLE_NULL_JSON_KEY));
     }
 }
