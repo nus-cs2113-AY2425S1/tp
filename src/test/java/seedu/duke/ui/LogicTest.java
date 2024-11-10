@@ -42,7 +42,7 @@ public class LogicTest {
         Budget budget = new Budget();
         FinancialList financialList = new FinancialList();
         BudgetLogic budgetLogic = new BudgetLogic(budget, appUi);
-        logic = new Logic(financialList, storage, appUi, budgetLogic);
+        logic = new Logic(financialList, storage, appUi, budgetLogic, budget);
         System.setOut(new PrintStream(outputStream));
     }
 

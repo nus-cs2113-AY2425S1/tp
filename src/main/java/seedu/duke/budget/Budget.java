@@ -44,6 +44,16 @@ public class Budget {
     }
 
     /**
+     * Resets budget to 0 when amount is 0
+     */
+    public void resetBudgetAmount() {
+        this.budgetAmount = 0;
+        this.balance = 0;
+        this.isBudgetSet = false;
+        this.budgetSetDate = null;
+    }
+
+    /**
      * Checks if the budget has been set.
      *
      * @return true if the budget is set, false otherwise.

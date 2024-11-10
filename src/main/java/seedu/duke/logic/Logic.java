@@ -1,5 +1,6 @@
 package seedu.duke.logic;
 
+import seedu.duke.budget.Budget;
 import seedu.duke.command.AddExpenseCommand;
 import seedu.duke.command.AddIncomeCommand;
 import seedu.duke.command.DeleteCommand;
@@ -14,6 +15,8 @@ import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.log.Log;
+import seedu.duke.log.LogLevels;
 import seedu.duke.parser.DateParser;
 import seedu.duke.storage.Storage;
 import seedu.duke.ui.AppUi;
@@ -33,6 +36,8 @@ public class Logic {
     private final Storage storage;
     private final AppUi ui;
     private final BudgetLogic budgetLogic;
+    private final Budget budget;
+    private static final Log logger = Log.getInstance();
 
     /**
      * Constructor for the Logic class.
@@ -42,11 +47,12 @@ public class Logic {
      * @param storage       The storage used to load and save financial data.
      * @param ui            The UI component to interact with the user.
      */
-    public Logic(FinancialList financialList, Storage storage, AppUi ui, BudgetLogic budgetLogic) {
+    public Logic(FinancialList financialList, Storage storage, AppUi ui, BudgetLogic budgetLogic, Budget budget) {
         this.financialList = financialList;
         this.storage = storage;
         this.ui = ui;
         this.budgetLogic = budgetLogic;
+        this.budget = budget;
     }
 
     /**
@@ -294,6 +300,43 @@ public class Logic {
     }
 
     /**
+     * Sets the budget amount based on the provided input.
+     *
+     * <p>This method processes a budget amount passed in the {@code commandArguments} map,
+     * validates the input, and updates the budget. If the amount is 0, the budget is reset.
+     * If the amount is invalid or cannot be parsed, an exception is thrown. After setting
+     * a valid budget, the balance is recalculated.</p>
+     *
+     * @param commandArguments a {@code HashMap} containing the budget amount under the key "argument".
+     * @throws FinanceBuddyException if the budget amount is null, empty, not a valid number,
+     *                                or fails validation rules.
+     */
+    public void setBudget(HashMap<String, String> commandArguments) throws FinanceBuddyException {
+        String amountInput = commandArguments.get("argument");
+
+        if (amountInput == null || amountInput.trim().isEmpty()) {
+            logger.log(LogLevels.WARNING, "Null or empty input for budget amount.");
+            throw new FinanceBuddyException("Budget amount cannot be null or empty. Please provide a valid number.");
+        }
+
+        double amount;
+        try {
+            amount = Double.parseDouble(amountInput);
+        } catch (NumberFormatException e) {
+            logger.log(LogLevels.WARNING, "Invalid number entered.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
+        }
+
+        if (amount == 0) {
+            budgetLogic.resetBudget();
+        } else if (!budgetLogic.isValidBudgetAmount(amount)) {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
+        } else {
+            budgetLogic.handleSetBudget(financialList, amount);
+        }
+    }
+
+    /**
      * Prints help menu when user inputs 'help' command.
      */
     public void printHelpMenu() {
@@ -332,7 +375,7 @@ public class Logic {
             storage.update(financialList, budgetLogic);
             break;
         case "budget":
-            budgetLogic.setBudget(financialList);
+            setBudget(commandArguments);
             storage.update(financialList, budgetLogic);
             break;
         case "help":
