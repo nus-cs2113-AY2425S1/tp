@@ -22,6 +22,9 @@ public class Internship {
     private static final DateTimeFormatter FORMATTER_MONTH_YEAR = DateTimeFormatter.ofPattern("MM/yy");
     private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy");
 
+    private static final List<String> STATUSES = Arrays.asList(
+            "Application Pending", "Application Completed", "Accepted", "Rejected");
+
     private int id = -1;
     private String role;
     private String company;
@@ -66,8 +69,7 @@ public class Internship {
     public void updateStatus(String userStatus) throws InvalidStatus {
         assert !userStatus.isEmpty() : "Status cannot be empty";
 
-        List<String> statuses = Arrays.asList("Application Pending", "Application Completed", "Accepted", "Rejected");
-        for (String status : statuses) {
+        for (String status : STATUSES) {
             if (status.equalsIgnoreCase(userStatus)) {
                 this.status = status;
                 return;
