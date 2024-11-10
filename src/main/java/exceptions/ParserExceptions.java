@@ -23,7 +23,7 @@ public class ParserExceptions extends BuffBuddyExceptions {
      * @return A {@code ParserExceptions} with a message indicating that the provided float is invalid.
      */
     public static ParserExceptions invalidFloat(String no) {
-        return new ParserExceptions("Invalid Float: " + no);
+        return new ParserExceptions("Float is not a valid, it should be more than 0");
     }
 
     /**
@@ -33,7 +33,7 @@ public class ParserExceptions extends BuffBuddyExceptions {
      * @return A {@code ParserExceptions} with a message indicating that the provided integer is invalid.
      */
     public static ParserExceptions invalidInt(String no) {
-        return new ParserExceptions("Invalid Integer: " + no);
+        return new ParserExceptions("Index is not a valid, it should be more than 0");
     }
 
     /**
@@ -72,6 +72,6 @@ public class ParserExceptions extends BuffBuddyExceptions {
      *         out of bounds.
      */
     public static ParserExceptions indexOutOfBounds(String indexString) {
-        return new ParserExceptions("Index is not a valid number, it should be more than 0");
+        return new ParserExceptions("Index is not a valid, it should be more than 0");
     }
 }
