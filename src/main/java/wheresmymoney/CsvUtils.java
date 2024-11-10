@@ -34,7 +34,7 @@ public class CsvUtils {
             csvReader.close();
         } catch (CsvException | IOException | WheresMyMoneyException e) {
             throw new StorageException("File is corrupted! Some data might have been salvaged." +
-                    "\nRelated Error (if any): "+e.getMessage());
+                    "\nRelated Error (if any): "+ e.getMessage());
         }
     }
 
