@@ -185,9 +185,8 @@ public class Internship {
      * If no deadline has the same description, a new deadline entry is created.
      *
      * @param value             <code>String</code> with description and deadline.
+     * @return                  Updated deadline as reflected in <code>Internship</code> entry.
      * @throws InvalidDeadline  Either description is empty or there is no parsable date.
-     *
-     * @return Updated deadline as reflected in <code>Internship</code> entry.
      */
     public String updateDeadline(String value) throws InvalidDeadline {
         String[] words = value.split(" ");

@@ -12,7 +12,7 @@ public class ListCommand extends Command {
     public void execute(ArrayList<String> args) {
         internships.listAllInternships();
 
-        logger.log(Level.INFO, "ListCommand Executed");
+        LOGGER.log(Level.INFO, "ListCommand Executed");
     }
 
     @Override

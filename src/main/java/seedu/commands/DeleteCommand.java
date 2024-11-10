@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
             int index = id - 1;
             internships.removeInternship(index);
 
-            logger.log(Level.INFO, "DeleteCommand Executed");
+            LOGGER.log(Level.INFO, "DeleteCommand Executed");
         } catch (NumberFormatException e) {
             uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
         } catch (InvalidIndex ie) {

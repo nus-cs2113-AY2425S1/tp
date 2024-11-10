@@ -84,7 +84,7 @@ public class SortCommand extends Command {
             internships.listInternshipsInvalidFlag(sortOption);
         }
 
-        logger.log(Level.INFO, "SortCommand Executed");
+        LOGGER.log(Level.INFO, "SortCommand Executed");
     }
 
     @Override

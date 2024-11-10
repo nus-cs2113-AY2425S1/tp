@@ -23,7 +23,7 @@ public class HelpCommand extends Command {
 
         uiCommand.showCommands(commands);
 
-        logger.log(Level.INFO, "HelpCommand Executed");
+        LOGGER.log(Level.INFO, "HelpCommand Executed");
     }
 
     @Override
