@@ -36,7 +36,7 @@ public class ViewCommandTest {
 
     @Test
     public void execute_twoEvents_success() throws IOException {
-        String expectedMessage = "There are 1 participants in Event 1! Here are your participants:\n"
+        String expectedMessage = "There is 1 participant in Event 1! Here is your participant:\n"
                 + "1. Name: Tom / Email: example@gmail.com [ ]\n";
 
         viewCommand = new Parser().parseCommand("view -e Event 1 -y participant");
@@ -61,7 +61,7 @@ public class ViewCommandTest {
 
     @Test
     public void execute_viewItems_success() throws IOException {
-        String expectedMessage = "There are 1 items in Event 1! Here are your items:\n"
+        String expectedMessage = "There is 1 item in Event 1! Here is your item:\n"
                 + "1. Plastic chair [ ]\n";
 
         viewCommand = new Parser().parseCommand("view -e Event 1 -y item");

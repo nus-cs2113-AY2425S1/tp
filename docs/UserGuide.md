@@ -149,9 +149,9 @@ Edits the information of an event/participant/item.
 
 Format:
 
-* `edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
+* `edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY` for editing an event's basic information.
 * `edit -p PARTICIPANT -email EMAIL -e EVENT` for editing a participant's contact information in an event.
-* `edit -m ITEM > NEW_ITEM -e EVENT` for editing an item's information in an event.
+* `edit -m OLD_ITEM > NEW_ITEM -e EVENT` for editing an item's information in an event.
 
 Examples:
 
