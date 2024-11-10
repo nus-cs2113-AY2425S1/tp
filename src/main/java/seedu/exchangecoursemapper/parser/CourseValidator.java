@@ -27,7 +27,7 @@ public class CourseValidator {
         logger.setLevel(Level.SEVERE);
     }
 
-    private UI ui = new UI();;
+    private UI ui = new UI();
 
     /**
      * Returns true if the user's course mapping is valid; otherwise, returns false.
