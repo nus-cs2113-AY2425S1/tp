@@ -10,8 +10,9 @@ public class Messages {
             "\nType 'commands' to find out what we can help you with :)";
 
     /* Messages for FilterCoursesCommand */
-    public static final String NO_MAPPABLE_COURSES_MESSAGE = "No courses found for the given course code.\n" +
-            "It may not be mappable, or the given course code is not a course offered by NUS!";
+    public static final String NO_MAPPABLE_COURSES_MESSAGE = "No mappable courses found for the given course code.";
+    public static final String FILTER_RESULTS_HEADER = "Filter results for ";
+    public static final String END_OF_FILTER_RESULTS_NOTICE = "End of filter results";
     public static final String PARTNER_UNIVERSITY_HEADER = "Partner University: ";
     public static final String PARTNER_UNIVERSITY_COURSE_CODE_HEADER = "Partner University Course Code: ";
 
