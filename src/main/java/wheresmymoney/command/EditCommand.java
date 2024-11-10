@@ -44,17 +44,19 @@ public class EditCommand extends Command {
                 recurringExpenseList.editRecurringExpense(
                         index, newPrice, newDesc, newCategory, newDateAdded, frequency);
             } else {
+                Float oldPrice = expenseList.getExpenseAtIndex(index).getPrice();
+                String oldCategory = expenseList.getExpenseAtIndex(index).getCategory();
+                
                 expenseList.editExpense(
                         index, newPrice, newDesc, newCategory, newDateAdded);
-
-                Float oldPrice = expenseList.getExpenseAtIndex(index).getPrice();
+                
                 if (newPrice == null) {
                     newPrice = oldPrice;
                 }
-                String oldCategory = expenseList.getExpenseAtIndex(index).getCategory();
                 if (newCategory == null) {
                     newCategory = oldCategory;
                 }
+
                 categoryFacade.editCategory(
                         oldCategory, newCategory, oldPrice, newPrice);
             }
