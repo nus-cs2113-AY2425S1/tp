@@ -98,7 +98,7 @@ public class BudgetManager {
      */
 
 
-    public void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
+    private static void setBudgetLimit(TrackerData trackerData, String categoryName, double limit) {
         // Adjusted for potentially enormous values typical in some currencies
         final BigDecimal maxLimit = new BigDecimal("1000000000000000"); // 1 quadrillion for example
 
@@ -164,7 +164,7 @@ public class BudgetManager {
                 return;
             }
 
-            budgetManager.setBudgetLimit(trackerData, category, limit);
+            setBudgetLimit(trackerData, category, limit);
         } catch (Exception e) {
             ErrorMessage.printParsingError();
         }

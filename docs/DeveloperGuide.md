@@ -1,7 +1,5 @@
 # Developer Guide for SpendSwift
 
-<!-- ## Acknoledgements -->
-
 ## Design & Implementation
 ### Architecture
 A high-level overview of the system is shown in the Architecture Diagram below.
@@ -19,136 +17,95 @@ and initialising the components that does the main execution of the program.
 ### Overall Sequence Diagram
 The sequence diagram below describes how the components interacts with one another when the user issues a command.
 
+In this sequence diagram, all the components would be grouped together and simplified for easier understanding. 
+- All the commands, which are all the classes in the commands package, would be classified under `:Command` here.
+- All storage classes would be classified under `:Storage`
+
 ![Overal Sequence Diagram](developerguidepictures/Overall%20Sequence%20Diagram.drawio.png)
 
-The sections below give more details of the components and any additional components.
+**The sections below give more details of the components and any additional components.**
 
 ---
 
 ## Class Diagrams
+### Storage
 
-### Core Classes Overview
-![CoreManagement](diagrams/CoreManagement.png)
-#### TrackerData
+![Storage Class Diagram](developerguidepictures/Storage.drawio.png)
 
-TrackerData centralizes and manages the lists of categories, expenses, and budgets, 
-providing a unified data source for other classes.
+`Storage` is designed to handle the saving and loading of data for categories and expenses within the program.
+- `Storage`: Coordinates the loading and saving of data for both categories and expenses. 
+It creates and manages instances of `ExpenseStorage` and `CategoryStorage`.
+- `ExpenseStorage`: Responsible for loading and saving expense data to a file. 
+Each expense record contains the expense name, amount, and category.
+- `CategoryStorage`: Manages category data, including category names and optional budget limits. 
+It loads and saves categories to a file, ensuring the integrity of category data and budget associations.
 
-##### Usage
-TrackerData is utilized by the manager classes to store and retrieve categorized data. 
-Each manager accesses TrackerData to perform operations.
 
-#### CategoryManager
-Handles all category-related operations, including adding and formatting categories.
+The `Storage` class employs composition to manage instances of `ExpenseStorage` and `CategoryStorage`. 
+This design centralizes all data storage-related operations within Storage, providing a single interface for other 
+parts of the system to interact with. By encapsulating these operations, any changes to data-saving or loading 
+processes can be isolated within the individual storage classes, minimizing the impact on the rest of the application.
 
-##### Operations
+This structure separates expenses and categories into distinct storage classes — `ExpenseStorage` and `CategoryStorage` 
+— which clarifies their respective responsibilities. This separation promotes modularity and enhances maintainability 
+by ensuring each storage class focuses exclusively on managing one type of data.
 
-- `addCategory(String)`: Adds a new category.
-- `formatCategoryInput(String)`: Formats category input, ensuring consistency.
+### Parser
 
-##### Relationship
-- Dependency: Accesses TrackerData to add and retrieve categories.
+![Parser Class Diagram](developerguidepictures/Parser.drawio.png)
 
-#### BudgetManager
-Handles budget-related functionalities like setting and viewing budget limits for categories.
+`Parser` serves as the main component, acting as a command interpreter that directs input to the relevant classes 
+(`UI`, `Storage`, `ExpenseManager`, `CategoryManager`, and `BudgetManager`).
+- `UI`: Displays messages for various actions.
+- `Storage`: Enhances maintainability and allows updates to data handling without distrupting the logic.
+- `ExpenseManager`: Provide methods when an expense-related command is issued
+- `CategoryManager`: Provide methods when an category-related command is issued
+- `BudgetManager`: Provide methods when an budget-related command is issued
 
-##### Operations
-- `addBudgetLimit(String, double)`: Adds a budget limit for a specific category.
-- `viewBudget()`: Views current budget limits and spending against them.
-- `resetMonthlyBudget()`: Resets budgets at the start of each month.
+By centralising control, `Parser` simplifies input handling, efficiently routing and processing commands through the 
+appropriate subsystems. This design fosters modularity and separation of concerns, with each class surrounding `Parser` 
+dedicated to a specific role within the system. This enhances control flow and minimise direct dependencies among 
+components.
 
-##### Relationship
-- Dependency: Accesses TrackerData to manage budget data associated with categories.
+Each class serves a distinct purpose and this clear division of responsibilities promotes modularity, 
+making the system more adaptable and maintainable.
 
-#### ExpenseManager
-Manages expenses, including adding, deleting, and viewing expenses categorized by spending areas.
+### TrackerData
 
-##### Operations
-- `addExpense(String, double, String)`: Adds a new expense.
-- `deleteExpense(int)`: Deletes an expense by index.
-- `viewExpensesByCategory()`: Displays expenses grouped by category.
+![TrackerData Class Diagram](developerguidepictures/TrackerData.drawio.png)
 
-##### Relationship
-- Dependency: Accesses TrackerData to add, delete, and view expenses categorized by spending areas.
+`TrackerData` serves as the main data structure, consolidating and managing `Category`, `Expense`, and `Budget` data 
+for efficient tracking and processing within the program.
+The manager classes (`ExpenseManager`, `CategoryManager`, and `BudgetManager`) are designed to interact directly with 
+`TrackerData` to handle commands related to their respective domains.
+- `Category`: Defines and organises each category by name, 
+providing a streamlined structure for grouping expenses and budgets.
+- `Expense`: Represents individual expenses, with attributes for the name, amount, and category, 
+allowing categorisation of expenses and easy budget monitoring.
+- `Budget`: Tracks spending limits for specific categories.
+- `ExpenseManager`: Handles operations related to expenses. 
+It provides methods for adding, deleting, and managing expenses within the system.
+- `CategoryManager`: Manages categories, including the addition and deletion of categories. 
+It works closely with `TrackerData` to ensure the appropriate category associations for expenses and budgets.
+- `BudgetManager`: Handles the management of budgets, including setting and updating budget limits, 
+and calculating remaining budget based on associated expenses. It operates in conjunction with `TrackerData` to 
+track expenses per category.
 
-### Command Parsing and Input Handling
-![ParserManagement](diagrams/ParserManagement.png)
-#### Parser
-The Parser class interprets user input commands, delegating them to appropriate manager classes for processing.
+Centralising data management in `TrackerData` and delegating specific command handling to the respective manager classes
+promotes a clean separation of concerns. `TrackerData` acts as the central hub for data access and manipulation, 
+ensuring a unified approach to data handling across the system. This structure simplifies data access and updates, 
+while each manager class focuses on a specific domain, enhancing modularity.
 
-##### Operations
-- `parseCommand(String)`: Parses the command and creates a Command object based on the input.
-
-##### Relationship
-- Composition: Uses InputParser for handling command-specific parsing.
-- Dependency: Delegates tasks to CategoryManager, BudgetManager, and ExpenseManager.
-
-#### InputParser
-InputParser processes specific components within commands (such as names, amounts, categories) 
-and breaks down inputs for more manageable handling.
-
-##### Operations
-- `parseComponent(String)`: Breaks down input components into a map for easy retrieval.
-
-### Expense, Category, and Budget Entities
-![Entities](diagrams/Entities.png)
-
-#### Expense
-##### Purpose
-Represents an expense with its name, amount, and associated category.
-
-##### Operations
-- `getName()`, `getAmount()`: Retrieve the expense's name and amount.
-- `getCategory()`, `setCategory(Category)`: Manage the expense's category association.
-- `formatAmount()`: Formats the expense amount for display.
-
-#### Category
-##### Purpose
-Represents a category, allowing expenses and budgets to be organized under specific areas.
-
-##### Operations
-- `getName()`: Returns the category name.
-- `toString()`: Provides the string representation of the category.
-
-Attributes:
-- String name: The name of the category.
-
-#### Budget
-##### Purpose
-Represents a budget limit associated with a category, enabling users to track and manage spending.
-
-##### Operations
-- `setLimit(double)`: Ensures limits are non-negative.
-- `formatLimit(double)`: Formats the budget limit for display.
-
-- Each Expense is linked to exactly one Category, while each Budget is also associated with one Category.
+This modular design allows for easy extensions and maintenance. 
+Each manager is responsible for a distinct aspect of the application — expenses, categories, or budgets — encapsulating 
+functionality within modules. As a result, adjustments to categories, expenses, or budgets can be made independently 
+without disrupting other parts of the system, supporting a scalable and well-organized financial tracking solution.
 
 ---
 
-### Sequence Diagrams
-#### add-expense
-![Add Expense Sequence Diagram](diagrams/AddExpense.png)
+## Sequence Diagrams
 
-#### add-category
-![Add Category Sequence Diagram](diagrams/AddCategory.png)
-
-#### delete-expense
-![Delete Expense Sequence Diagram](diagrams/DeleteExpense.png)
-
-#### tag-expense
-![Tag Expense Sequence Diagram](diagrams/TagExpense.png)
-
-#### set-budget
-![Set Budget Sequence Diagram](diagrams/SetBudget.png)
-
-#### view-budget
-![View Budget Sequence Diagram](diagrams/ViewBudget.png)
-
-#### view-expenses
-![View Expenses Sequence Diagram](diagrams/ViewExpenses.png)
-
-#### toggle-reset
-![Toggle Auto Reset Sequence Diagram](diagrams/ToggleAutoReset.png)
+---
 
 ## Product Scope
 <!-- @@author glenda-1506 -->
@@ -157,6 +114,8 @@ SpendSwift is designed for budget-conscious individuals who prefer a simple, eff
 
 ### Value Proposition
 SpendSwift provides a fast, text-based solution for managing finances, eliminating the complexity of traditional budgeting tools.
+
+---
 
 ## User Stories
 <!-- @@author glenda-1506 -->  
@@ -174,6 +133,7 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 | v2.1    | Frequent user         | Delete a category entry                      | remove what is not in use                                |
 | v2.1    | Frequent user         | View all categories                          | see what categories I have been spending on              |
 
+---
 
 ## Non-Functional Requirements
 <!-- @@author mayfairmi6 -->  
@@ -187,9 +147,7 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 | 5   | Automated Tasks     | Support automated budget resets at the start of each month.                                | Minimizes user effort in maintaining accurate monthly tracking.                             |
 | 6   | Accessibility       | The chat interface should be simple and intuitive.                                         | Ensures that all users can effectively interact with the system without extensive training. |
 
-<!-- ## Glossary
-- **glossary item**: Definition
--->
+---
 
 ## Instructions for Manual Testing
 ### 1. Start SpendSwift

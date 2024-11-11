@@ -1,45 +1,55 @@
 @startuml
 actor User
-participant Duke
-participant ExpenseTracker
+participant SpendSwift
+participant Parser
+participant ExpenseManager
+participant TrackerData
 participant Category
 participant Expense
 
-User -> Duke : input ("add-expense n/<name> a/<amount> c/<category>")
-activate Duke
+User -> SpendSwift : input("add-expense n/<name> a/<amount> c/<category>")
+SpendSwift -> Parser : parseCommand(input, trackerData)
 
-Duke -> Duke : addExpenseRequest(input, expenseTracker)
-Duke -> Duke : Parse name, amount, category from input
-Duke -> ExpenseTracker : addExpense(name, amount, category)
-activate ExpenseTracker
+activate Parser
+Parser -> ExpenseManager : addExpenseRequest(input, expenseManager, trackerData)
 
-ExpenseTracker -> ExpenseTracker : formatInput(categoryName)
-ExpenseTracker -> ExpenseTracker : Check if category exists in categories
+activate ExpenseManager
+ExpenseManager -> ExpenseManager : Parse name, amount, category from input
 
-alt Category exists
-    ExpenseTracker -> Category : Retrieve existing category
-    activate Category
-    Category --> ExpenseTracker : return category
-    deactivate Category
-else Category does not exist
-    ExpenseTracker -> Category : Create new Category
-    activate Category
-    ExpenseTracker -> ExpenseTracker : Add new category to categories
-    Category --> ExpenseTracker : return new category
-    deactivate Category
+alt Invalid Input
+    ExpenseManager -> Parser : Print error message (e.g., "Invalid input!")
+else Valid Input
+    ExpenseManager -> ExpenseManager : Call addExpense(trackerData, name, amount, category)
+    activate ExpenseManager
+
+    ExpenseManager -> TrackerData : getCategories()
+    TrackerData --> ExpenseManager : Return list of categories
+
+    ExpenseManager -> ExpenseManager : Format category name (trim and standardize input)
+    ExpenseManager -> ExpenseManager : Check if category exists in categories
+
+    alt Category exists
+        ExpenseManager -> Category : Retrieve existing category
+        activate Category
+        Category --> ExpenseManager : Return category
+        deactivate Category
+    else Category does not exist
+        ExpenseManager -> Category : Create new Category
+        activate Category
+        Category --> ExpenseManager : Return new category
+        deactivate Category
+        ExpenseManager -> TrackerData : Add new category to categories
+    end
+
+    ExpenseManager -> Expense : Create Expense(name, amount, existingCategory)
+    activate Expense
+    Expense --> ExpenseManager : Return expense
+    deactivate Expense
+
+    ExpenseManager -> TrackerData : Add Expense to expenses
+    ExpenseManager -> Parser : Print confirmation of added expense
+    deactivate ExpenseManager
 end
-
-ExpenseTracker -> Expense : Create Expense(name, amount, existingCategory)
-activate Expense
-Expense --> ExpenseTracker : return expense
-deactivate Expense
-
-ExpenseTracker -> ExpenseTracker : Add Expense to expenses
-
-ExpenseTracker -> Duke : Print confirmation of added expense
-deactivate ExpenseTracker
-
-Duke -> User : Display success message
-deactivate Duke
+deactivate Parser
 
 @enduml
