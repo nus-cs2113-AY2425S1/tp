@@ -41,7 +41,7 @@ class BudgetLogicTest {
     @Test
     void testSetBudgetValidAmount() throws FinanceBuddyException {
         ui.setInputs("yes", "1000");
-        budgetLogic.setBudget(financialList);
+        budgetLogic.promptUserToSetBudget(financialList);
 
         assertTrue(budget.isBudgetSet());
         assertEquals(1000, budget.getBudgetAmount());
@@ -52,7 +52,7 @@ class BudgetLogicTest {
     @Test
     void testSetBudgetInvalidAmountCorrected() throws FinanceBuddyException {
         ui.setInputs("yes", "invalid", "1000");
-        budgetLogic.setBudget(financialList);
+        budgetLogic.promptUserToSetBudget(financialList);
 
         assertTrue(budget.isBudgetSet());
         assertEquals(1000, budget.getBudgetAmount());
@@ -62,7 +62,7 @@ class BudgetLogicTest {
     @Test
     void handleSetBudget_amountOutOfRange_printWarningMessage() throws FinanceBuddyException {
         ui.setInputs("yes", "0", "1000000000", "1000");
-        budgetLogic.setBudget(financialList);
+        budgetLogic.promptUserToSetBudget(financialList);
 
         assertTrue(budget.isBudgetSet());
         assertEquals(1000, budget.getBudgetAmount());
@@ -100,7 +100,7 @@ class BudgetLogicTest {
      */
     @Test
     void promptUserToSetBudget_budgetNotSet_setBudget() throws FinanceBuddyException {
-        ui.setInputs("1000");
+        ui.setInputs("yes", "1000");
         budgetLogic.promptUserToSetBudget(financialList);
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
@@ -156,7 +156,7 @@ class BudgetLogicTest {
     @Test
     void testSetBudgetSkippedByUser() throws FinanceBuddyException {
         ui.setInputs("no");
-        budgetLogic.setBudget(financialList);
+        budgetLogic.promptUserToSetBudget(financialList);
 
         assertFalse(budget.isBudgetSet());
         assertEquals(0, budget.getBudgetAmount());

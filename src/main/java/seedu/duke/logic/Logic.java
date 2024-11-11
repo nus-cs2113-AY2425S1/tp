@@ -420,10 +420,12 @@ public class Logic {
 
         if (amount == 0) {
             budgetLogic.resetBudget();
+            storage.deleteBudgetFromFile();
         } else if (!budgetLogic.isValidBudgetAmount(amount)) {
             throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
         } else {
             budgetLogic.handleSetBudget(financialList, amount);
+            storage.update(financialList, budgetLogic);
         }
     }
 
@@ -467,7 +469,6 @@ public class Logic {
             break;
         case "budget":
             setBudget(commandArguments);
-            storage.update(financialList, budgetLogic);
             break;
         case "help":
             printHelpMenu();
