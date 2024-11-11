@@ -119,7 +119,7 @@ public class ObtainContactsCommandTest {
 
         String actualOutput = outputStreamCaptor.toString().trim();
         String[] outputLines = actualOutput.split("\n");
-        String expectedOutput = "Unknown university - NUS";
+        String expectedOutput = "Invalid tag or/and Unknown university - NUS";
 
         boolean isFound = false;
         for (String line : outputLines) {

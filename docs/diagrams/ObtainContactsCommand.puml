@@ -45,12 +45,14 @@ alt school is valid
     activate ObtainContactsCommand
     loop for  each school found in the set of schools
         opt checks if the school name matches
-            return matchingSchool: String
+            return key: String
         end
     end
 else else
         ObtainContactsCommand --> CEG_Student: Display "Unknown university - " + schoolName
 end
+ObtainContactsCommand --> ObtainContactsCommand: matchingSchool: String
+
 deactivate ObtainContactsCommand
 
 ObtainContactsCommand -> ObtainContactsCommand: checkValidContact(schoolInfo: JsonObject, matchingSchool: String, contactType: String)

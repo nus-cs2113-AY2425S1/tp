@@ -15,6 +15,10 @@ import static seedu.exchangecoursemapper.constants.Logs.DELETE_INDEX;
 import static seedu.exchangecoursemapper.constants.Logs.SAVE_LINE_SIZE;
 import static seedu.exchangecoursemapper.constants.Messages.INDEX_OUT_OF_BOUNDS;
 
+/**
+ * The CourseRepository class contains all the methods that
+ * handles the course mappings found in the `myList.json` file.
+ */
 public class CourseRepository {
 
 
@@ -29,16 +33,29 @@ public class CourseRepository {
     private final FileHandler fileHandler;
     private final DataIntegrityChecker dataIntegrityChecker;
 
+    /** CourseRepository constructor.*/
     public CourseRepository() {
         this.fileHandler = new FileHandler(MYLIST_FILE_PATH);
         this.dataIntegrityChecker = new DataIntegrityChecker();
     }
 
+    /**
+     * CourseRepository constructor with file path.
+     *
+     * @param filePath of where the `myList.json` file is located.
+     */
     public CourseRepository(String filePath) {
         this.fileHandler = new FileHandler(filePath);
         this.dataIntegrityChecker = new DataIntegrityChecker();
     }
 
+    /**
+     * Returns true if the `myList.json` file is valid, otherwise false.
+     * The file is valid if all the course mappings found in the `myList.json` file are correct according to
+     * the approved course mapping database and the file is not corrupted.
+     *
+     * @return true if the file is valid, otherwise false.
+     */
     public boolean isFileValid() {
         List<String> lines = fileHandler.readAllLines();
         return dataIntegrityChecker.validateFileIntegrity(lines);
@@ -48,6 +65,11 @@ public class CourseRepository {
         dataIntegrityChecker.removeDuplicateCourses(loadAllCourses(), new Storage());
     }
 
+    /**
+     * Returns a list of all the user's stored course mappings.
+     *
+     * @return a list with all the user's course mappings.
+     */
     public List<Course> loadAllCourses() {
         List<Course> courses = new ArrayList<>();
         List<String> lines = fileHandler.readAllLines();
@@ -59,6 +81,11 @@ public class CourseRepository {
         return courses;
     }
 
+    /**
+     * Adds a new course to `myList.json` for storage.
+     *
+     * @param course to be added for storage, represented by a Course object.
+     */
     public void addCourse(Course course) {
         // Load all existing courses
         List<Course> existingCourses = loadAllCourses();
@@ -78,6 +105,11 @@ public class CourseRepository {
         logger.log(Level.INFO, COURSE_ENTRY, courseEntry);
     }
 
+    /**
+     * Deletes a course mapping from `myList.json` file by indicating its index.
+     *
+     * @param index of the course mapping to be deleted.
+     */
     public void deleteCourse(int index) {
         List<String> allCourses = fileHandler.readAllLines();
         if (index < 0 || index >= allCourses.size()) {
@@ -89,6 +121,11 @@ public class CourseRepository {
         logger.log(Level.INFO, DELETE_INDEX, index);
     }
 
+    /**
+     * Updates and save all courses in a Course List, and subsequently in the `myList.json` file.
+     *
+     * @param courses a List containing all the course mappings, as represented in a Course object.
+     */
     public void saveCourses(List<Course> courses) {
         List<String> courseLines = new ArrayList<>();
         for (Course course : courses) {
@@ -98,6 +135,12 @@ public class CourseRepository {
         logger.log(Level.INFO, SAVE_LINE_SIZE, courses.size());
     }
 
+    /**
+     * Returns a course from the storage by indicating its index.
+     *
+     * @param index of course that the user refers to.
+     * @return the course specified by the index as a Course object.
+     */
     public Course getCourse(int index) {
         List<String> allCourses = fileHandler.readAllLines();
         if (index < 0 || index >= allCourses.size()) {
