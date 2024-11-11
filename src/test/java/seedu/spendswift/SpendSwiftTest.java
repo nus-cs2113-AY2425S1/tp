@@ -575,6 +575,36 @@ private String generateRandomWord(Random random, int wordLength) {
             "The budget limit is set below  the maximum allowed");
 
 }
+    @Test
+      void testSetInvalidBudgetLimitAboveMaximum() {
+    
+         BudgetManager budgetManager = new BudgetManager();
+         TrackerData trackerData = new TrackerData();
+         double validLimit = 1000000000000000.00; // Maximum allowed budget limit
+         double invalidLimit = validLimit + 0.01; // Budget limit 0.01 above the maximum allowed
+
+    // Find the "Education" category
+          Category category = findCategory(trackerData, "Education");
+
+    // Manually initialize the Budget for "Education" to avoid NullPointerException
+          Budget budget = new Budget(category, validLimit);
+          trackerData.getBudgets().put(category, budget); // Add Budget to the map
+
+    // Attempt to set the budget limit above the maximum allowed
+           Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+           budgetManager.setBudgetLimit(trackerData, "Education", invalidLimit);
+    });
+
+    // Check that the exception message is appropriate
+    assertEquals("Budget limit exceeds the maximum allowed", exception.getMessage(),
+        "An exception should be thrown if the budget limit is set above the maximum allowed");
+
+    // Verify that the budget limit remains unchanged
+    BigDecimal currentLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
+    assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(currentLimit),
+        "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
+}
+
 
     }
 
