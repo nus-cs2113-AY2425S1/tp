@@ -3,9 +3,9 @@
 By: Joe Tien You (@louisjoety)
 
 ## 1. Overview:
-ExchangeCourseMapper is a tool to allow users to plan their exchange course mapping.
+ExchangeCourseMapper is a tool to plan their exchange course mapping.
 It includes features to list partner universities, their courses and filtering of courses. 
-There is also a tracker that allows users to add and delete mappings, display the saved courses and 
+There is also a tracker allowing users to add and delete mappings, display mappings and 
 compare between two schools.
 
 ## 2. Code contributed:
@@ -15,17 +15,17 @@ support usability and team collaboration. Check out my contributions on the [TP 
 
 ## 3. Enhancements implemented:
 
-### a. Command Class | Check Information Command Class | Personal Tracker Command Class
+### a. Command | Check Information Command | Personal Tracker Command
 * Abstract parent classes to allow child classes to be implemented through over-riding methods
 * This is essential for ease of debugging and task allocation
 
-### b. Obtain Contacts Command Class | School Contact Validator Class
+### b. Obtain Contacts Command | School Contact Validator 
 * Updated Database with new contact number and email information
 * Managed controls to allow users to retrieve either email or number
 * J-unit test, assertions and logging were done to gracefully handle errors
 * JavaDocs for non-trivial methods were also written
 
-### c. List Schools Command Class
+### c. List Schools Command 
 * Updated Database with school names and courses available
 * Managed controls to allow users to obtain a list of schools available in the database
 * J-unit test, assertions and logging were done to gracefully handle errors
