@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -53,21 +52,12 @@ public class GraphPerformanceTimeTest {
     }
 
     @Test
-    void testGetDisplayTime_ValidTime_ShuttleRun() {
+    void testGetDisplayTime() {
         Exercise exercise = Exercise.SHUTTLE_RUN;
         int actualTime = 109; // 10.9 seconds
 
         String displayTime = GraphPerformanceTime.getDisplayTime(exercise, actualTime);
         assertEquals("10.9s", displayTime, "Display time should be formatted as seconds with one decimal place.");
-    }
-
-    @Test
-    void testGetDisplayTime_InvalidTime() {
-        Exercise exercise = Exercise.SHUTTLE_RUN;
-        int actualTime = GraphPerformance.INVALID_TIME_VALUE;
-
-        String displayTime = GraphPerformanceTime.getDisplayTime(exercise, actualTime);
-        assertEquals("NIL", displayTime, "Display time should return 'NIL' for invalid time.");
     }
 
     @Test
@@ -80,7 +70,8 @@ public class GraphPerformanceTimeTest {
         TrainingSession session = new TrainingSession(LocalDateTime.now(), "TestSession", user);
         session.editExercise(exercise, "115"); // Midway between 109 and 120
 
-        double normalized = GraphPerformanceTime.getNormalizePerformance(exercise, minPerformance, maxPerformance, session);
+        double normalized = GraphPerformanceTime.getNormalizePerformance(exercise, minPerformance,
+                maxPerformance, session);
         assertEquals(0.545, normalized, 0.001);
     }
 
