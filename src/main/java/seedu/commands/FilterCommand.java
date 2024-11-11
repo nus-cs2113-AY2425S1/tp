@@ -18,12 +18,10 @@ import java.util.logging.Level;
  * It supports filtering by role, company, favourite status, and date range.
  */
 public class FilterCommand extends Command {
-    // The below variable is used for unit testing purposes
+    // Boolean variable is used for unit testing purposes
     public boolean functionComplete = false;
-
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
     private final Map<String, InternshipFieldGetter> fieldGetters = new HashMap<>();
-    
     private ArrayList<Internship> internships;
     private ArrayList<Internship> favouriteInternships;
     private InternshipList filteredInternshipsList;
@@ -76,9 +74,10 @@ public class FilterCommand extends Command {
      * Extracts the flag, its corresponding getter method and the search term
      * from the parsed arguments
      * and then filters by the respective flag
+     *
      * @param words The parsed arguments; must have a length of exactly 2
      * @throws IllegalArgumentException If the arguments have an unknown flag, repeated flags or an empty field
-     * and in the case of an invalid favourite status or date field input by the user
+     *                                  and in the case of an invalid favourite status or date field input by the user
      */
     private void executeFilterByOneFlag(String[] words) throws IllegalArgumentException {
         String flag = words[INDEX_FIELD];
@@ -110,12 +109,14 @@ public class FilterCommand extends Command {
     /**
      * Parses the flag argument to then filter by the appropriate method for the
      * given flag
-     * @param flag The field type to filter by
-     * @param getter The lambda method for fetching the respective field based on the flag
+     *
+     * @param flag       The field type to filter by
+     * @param getter     The lambda method for fetching the respective field based on the flag
      * @param searchTerm The field value input by the user
      * @throws IllegalArgumentException If an invalid favourite status or date field is input by the user
      */
-    private void filterByRespectiveFlag(String flag, InternshipFieldGetter getter, String searchTerm) throws IllegalArgumentException {
+    private void filterByRespectiveFlag(String flag, InternshipFieldGetter getter, String searchTerm)
+            throws IllegalArgumentException {
         switch (flag) {
         case "role":
         case "company":
@@ -142,7 +143,8 @@ public class FilterCommand extends Command {
     /**
      * Retains any internships whose role/company field is equal to the field entered
      * by the user (case-insensitive) and discards the rest.
-     * @param getter The lambda method for fetching the role/company field
+     *
+     * @param getter     The lambda method for fetching the role/company field
      * @param inputValue The field value input by the user
      */
     private void filterByRoleAndCompany(InternshipFieldGetter getter, String inputValue) {
@@ -162,10 +164,11 @@ public class FilterCommand extends Command {
     /**
      * Retains any internships whose favourite status is equal to the status entered
      * by the user (case-insensitive) and discards the rest.
+     *
      * @param inputFavouriteStatus The favourite status value input by the user
      * @throws IllegalArgumentException If the {@code inputFavouriteStatus} is invalid; neither true nor false
      */
-    private void filterByFavouriteInternships(String inputFavouriteStatus) throws IllegalArgumentException{
+    private void filterByFavouriteInternships(String inputFavouriteStatus) throws IllegalArgumentException {
         // Iterate over the internships and retrieve favourites
         if (inputFavouriteStatus.equalsIgnoreCase("true")) {
             filteredInternshipsList.internships.retainAll(favouriteInternships);
@@ -181,8 +184,9 @@ public class FilterCommand extends Command {
      * Removes any internships whose date is before the {@code -from} date entered by the user
      * and if the date is after the {@code -to} date entered by the user. It retains the rest of the
      * internships.
-     * @param getter The lambda method for fetching the date field
-     * @param inputDate The date value input by the user
+     *
+     * @param getter         The lambda method for fetching the date field
+     * @param inputDate      The date value input by the user
      * @param dateComparator The lambda method for comparing the dates
      * @throws IllegalArgumentException If the {@code inputDate} is an invalid date
      */
@@ -199,7 +203,7 @@ public class FilterCommand extends Command {
         }
     }
 
-    private YearMonth parseDate (String stringDate) throws IllegalArgumentException {
+    private YearMonth parseDate(String stringDate) throws IllegalArgumentException {
         try {
             return YearMonth.parse(stringDate, formatter);
         } catch (DateTimeParseException e) {

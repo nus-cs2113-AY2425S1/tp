@@ -26,10 +26,10 @@ public class Internship {
     private final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy")
             .withResolverStyle(ResolverStyle.LENIENT);
 
-    private static final List<String> STATUSES = Arrays.asList(
+    private final List<String> STATUSES = Arrays.asList(
             "Application Pending", "Application Completed", "Accepted", "Rejected");
 
-    private static final Logger LOGGER = Logger.getLogger("EasInternship");
+    private final Logger LOGGER = Logger.getLogger("EasInternship");
 
     private int id = -1;
     private String role;

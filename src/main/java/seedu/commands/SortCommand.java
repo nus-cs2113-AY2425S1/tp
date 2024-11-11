@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 //@@author Toby-Yu
+
 /**
  * Command to sort internships by different fields: alphabetically by role, by duration, by earliest deadline,
  * by the first skill in the skills list, or by status alphabetically.
- *
+ * <p>
  * Usage:
  * - `sort -alphabet`: Sort internships alphabetically by role (case-insensitive).
  * - `sort -duration`: Sort internships by start date (year first), then end date.
  * - `sort -deadline`: Sort internships by earliest deadline.
  * - `sort -skills`: Sort internships by the first skill in the skills list alphabetically.
  * - `sort -status`: Sort internships by status alphabetically.
- *
+ * <p>
  * Invalid sort options will display an error message along with the correct usage.
  */
 public class SortCommand extends Command {
@@ -37,13 +38,13 @@ public class SortCommand extends Command {
         // Handle valid sorting options
         switch (sortOption) {
         case "role":
-            assert internshipsList.getAllInternships().size() > 0
-                    : "Internships list should not be empty when sorting by role";
+            assert internshipsList.getAllInternships().size() > 0 :
+                    "Internships list should not be empty when sorting by role";
             internshipsList.listInternshipsSortedByRole();  // Sort by role alphabetically (case-insensitive)
             break;
         case "duration":
-            assert internshipsList.getAllInternships().stream().allMatch(internship -> internship.getStartDate() != null &&
-                    internship.getEndDate() != null) :
+            assert internshipsList.getAllInternships().stream()
+                    .allMatch(internship -> internship.getStartDate() != null && internship.getEndDate() != null) :
                     "Internships must have valid start and end dates to sort by duration";
             internshipsList.listInternshipsSortedByDuration();  // Sort by start date, then end date (year first)
             break;
@@ -51,7 +52,8 @@ public class SortCommand extends Command {
             internshipsList.listInternshipsSortedByDeadline();
             break;
         case "skills":
-            assert internshipsList.getAllInternships().stream().anyMatch(internship -> !internship.getSkills().isEmpty()) :
+            assert internshipsList.getAllInternships().stream()
+                    .anyMatch(internship -> !internship.getSkills().isEmpty()) :
                     "At least one internship must have skills to sort by skills";
             internshipsList.listInternshipsSortedByFirstSkill();  // Sort by first skill alphabetically
             break;
