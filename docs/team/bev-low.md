@@ -44,15 +44,14 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 
 ### Contributions to Team-Based Tasks
 - Participated in team meetings.
+- Setting up Gson and Mockito in Gradle.
+- Maintaining issue tracker and milestones.
 - Helped refactor and adapt meal-related functionality to align with the revised `History` and `DailyRecord` structure. Ensured that meal data was correctly managed and persisted within the updated framework.
 - Assisted with integrating custom exceptions into the main and test code in V2.0.
 - Participated in a collaborative debugging session to identify and resolve issues before the V2.0 release.
 
 ### Review/Mentoring Contributions
 - **Pull Request Reviews**:
-    - [PR #229 - Adjust history commands](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/229)
-    - [PR #228 - Update Programme Features in UG](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/228)
-    - [PR #212 - Add Water features JUnit tests](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/212)
     - [PR #208 - Polish v1 features](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/208)
     - [PR #179 - Update Developer Guide](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/179)
     - [PR #178 - Add documentation and testing for edit programme](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/178)
@@ -60,11 +59,11 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
     - [PR #164 - Add calorie information to Exercise objects](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/164)
     - [PR #162 - Refactor EditCommand](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/162)
     - [PR #159 - Fix History and Logging Issue](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/159)
-    - [PR #151 - Added WaterCommandFactory and ViewWaterCommand classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/151)
+    - [PR #151 - Added WaterCommandFactory and ViewWaterCommand classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/151) 
     - [PR #90 - Add assertions and logging details for files in parser package](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/90)
-    - [PR #81 - Add assertions & logging to Command classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/81)
-    - [PR #79 - Unit Test for Core Command Classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/79)
-    - and more..
+    - [PR #81 - Add assertions & logging to Command classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/81) 
+    - [PR #45 - Add delete & create day functionality to edit command](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/45)
+    - [PR #31 - Add create & edit command](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/31)
 - Mentored team members by providing code feedback and debugging assistance.
 
 ### Contributions Beyond the Project Team
