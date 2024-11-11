@@ -283,7 +283,7 @@ from our data source file which contains university data. It helps the users to 
   superclass.
 * The `displaySchoolList()` method will iterate over the keys of the database which contains the University
   names, upon acquiring the keys, they will be printed over the CLI.
-* There are also assertions and logging in place for error handling.
+* There are also exceptions, assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
 #### Sequence Diagram:
@@ -344,10 +344,12 @@ exchange opportunities.
   handler `isValidContactType()` in `SchoolContactValidator` class.
 * The `contactTypeIdentifier()` method then checks retrieves the contact type and displays the contact information via the 
   `printContactInformation()` in the `UI` class.
-* There are also assertions and logging in place for error handling.
+* There are also exceptions, assertions and logging in place for error handling.
 
 #### Why it is implemented that way:
 * The `execute` method is essential and unique to every command class so inheritance was used.
+* Validating the contact and school name is crucial and a separate class (`SchoolContactValidator`) is used to handle
+  the validity of each input category.
 * Every method in the class remains maintainable and has one responsibility this allows easy debugging and
   refactoring.
 * By using inheritance, new command classes can easily extend the functionality of existing ones
