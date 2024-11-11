@@ -29,7 +29,8 @@ public class ListCommandsCommandTest {
         // Check if the output contains the expected list of commands
         String expectedCommand1 = "Here are the available commands:";
         String expectedCommand2 = "filter <subject code> - Filter courses by subject code.";
-        String expectedCommand3 = "list courses <SCHOOL_NAME>   - To list out the mappable courses provided by a specific PU.";
+        String expectedCommand3 = "list courses <SCHOOL_NAME>   - To list out the mappable courses provided by a " +
+                "specific PU.";
         String expectedCommand4 = "list schools          - List all available partner universities.";
         String expectedCommand5 = "add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE>";
         String expectedCommand6 = "- Add mapped courses between NUS and partner universities.";
