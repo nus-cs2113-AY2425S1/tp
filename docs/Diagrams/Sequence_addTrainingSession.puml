@@ -1,74 +1,74 @@
 @startuml
 
 actor User
-participant FitTrack
-participant Parser
-participant TrainingSession
-participant Ui
-participant PullUpStation
-participant ShuttleRunStation
-participant SitAndReachStation
-participant SitUpStation
-participant StandingBroadJumpStation
-participant WalkAndRunStation
+participant ":FitTrack"
+participant ":Parser"
+participant ":TrainingSession"
+participant ":Ui"
+participant ":PullUpStation"
+participant ":ShuttleRunStation"
+participant ":SitAndReachStation"
+participant ":SitUpStation"
+participant ":StandingBroadJumpStation"
+participant ":WalkAndRunStation"
 
-User -> FitTrack: add session name
-activate FitTrack
+User -> ":FitTrack": add session name
+activate ":FitTrack"
 
-FitTrack -> Parser: parse(...)
-activate Parser
+":FitTrack" -> ":Parser": parse(...)
+activate ":Parser"
 
-Parser -> TrainingSession: new TrainingSession(currentTime, description, user)
-activate TrainingSession
+":Parser" -> ":TrainingSession": new ":TrainingSession"(currentTime, description, user)
+activate ":TrainingSession"
 
 ' Initialize exercise stations
-TrainingSession -> TrainingSession: initialiseExerciseStations()
-activate TrainingSession
+":TrainingSession" -> ":TrainingSession": initialiseExerciseStations()
+activate ":TrainingSession"
 
-TrainingSession -> PullUpStation: new PullUpStation()
-activate PullUpStation
+":TrainingSession" -> ":PullUpStation": new ":PullUpStation"()
+activate ":PullUpStation"
 return
-deactivate PullUpStation
+deactivate ":PullUpStation"
 
-TrainingSession -> ShuttleRunStation: new ShuttleRunStation()
-activate ShuttleRunStation
+":TrainingSession" -> ":ShuttleRunStation": new ":ShuttleRunStation"()
+activate ":ShuttleRunStation"
 return
-deactivate ShuttleRunStation
+deactivate ":ShuttleRunStation"
 
-TrainingSession -> SitAndReachStation: new SitAndReachStation()
-activate SitAndReachStation
+":TrainingSession" -> ":SitAndReachStation": new ":SitAndReachStation"()
+activate ":SitAndReachStation"
 return
-deactivate SitAndReachStation
+deactivate ":SitAndReachStation"
 
-TrainingSession -> SitUpStation: new SitUpStation()
-activate SitUpStation
+":TrainingSession" -> ":SitUpStation": new ":SitUpStation"()
+activate ":SitUpStation"
 return
-deactivate SitUpStation
+deactivate ":SitUpStation"
 
-TrainingSession -> StandingBroadJumpStation: new StandingBroadJumpStation()
-activate StandingBroadJumpStation
+":TrainingSession" -> ":StandingBroadJumpStation": new ":StandingBroadJumpStation"()
+activate ":StandingBroadJumpStation"
 return
-deactivate StandingBroadJumpStation
+deactivate ":StandingBroadJumpStation"
 
-TrainingSession -> WalkAndRunStation: new WalkAndRunStation()
-activate WalkAndRunStation
+":TrainingSession" -> ":WalkAndRunStation": new ":WalkAndRunStation"()
+activate ":WalkAndRunStation"
 return
-deactivate WalkAndRunStation
+deactivate ":WalkAndRunStation"
 
-TrainingSession --> Parser
-deactivate TrainingSession
+":TrainingSession" --> ":Parser"
+deactivate ":TrainingSession"
 
-Parser -> FitTrack: sessionList.add(TrainingSession)
+":Parser" -> ":FitTrack": sessionList.add(TrainingSession)
 
-activate FitTrack
+activate ":FitTrack"
 return
 
-Parser -> Ui: printAddedSession(sessionList)
-activate Ui
-Ui --> Parser
-deactivate Ui
+":Parser" -> ":Ui": printAddedSession(sessionList)
+activate ":Ui"
+":Ui" --> ":Parser"
+deactivate ":Ui"
 
-Parser --> FitTrack
+":Parser" --> ":FitTrack"
 
-deactivate Parser
+deactivate ":Parser"
 @enduml

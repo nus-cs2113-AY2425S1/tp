@@ -37,7 +37,7 @@ The Architecture Diagram shown above depicts the high-level design of the FitTra
 | FitTrackLogger    | Manages logging for the application, ensuring errors and important events are properly recorded                 |
 | TrainingSession   | Represents a single training session, including exercises and metadata (e.g. date and description)              |
 | Exercise          | Represents different types of exercises available in the application, like pull-ups or shuttle runs             |
-| Calculator        | look up points achieved by user based on age, gender and performance result of each exercise station            |
+| Calculator        | Look up points achieved by user based on age, gender and performance result of each exercise station            |
 | GraphPoints       | Illustrates the cumulative points earned across sessions, showcasing overall fitness progress and achievements. |
 | GraphPerformance  | Visualises performance metrics for a specific exercise, adapting for time-based or rep-based tracking.          |
 | Reminder          | Allows users to set reminders to be track deadlines and upcoming events.                                        |
@@ -154,12 +154,12 @@ Below is a class diagram showing the EnumMap after an instance of `TrainingSessi
 
 ![Class_TrainingSessionInitialState.png](Images/Class_TrainingSessionInitialState.png)
 
-#### 2. Sequence of Event 
+#### 2. Sequence of Events
 
-![Sequence_addTrainingSessionCommand.png](Images/Sequence_addTrainingSessionCommand.png)
+![Sequence_addTrainingSession.png](Images/Sequence_addTrainingSession.png)
 
-1) **User Inputs Add command**:The User initiates the "add <name of the training session>" command by 
-   calling Parser with the input.
+1) **User inputs the add command**: The User initiates the "add <name of the training session>" command by 
+   calling Parser with the appropriate input.
 2) **Instantiation of TrainingSession**: The Parser creates a new TrainingSession object with the 
    current time, description, and user.
 3) **Instantiation of Exercise Stations**: Within TrainingSession class, all 6 subclasses of exercise
@@ -170,7 +170,7 @@ Below is a class diagram showing the EnumMap after an instance of `TrainingSessi
    (iii) Prints the description of the last added session
    (iv) Calls printSessionCount to show the total count
    (v) Ends the segment.
-4) Refer to Section on Edit Exercise and Point Calculation for specific implementation of 
+5) Refer to Section on Edit Exercise and Point Calculation for specific implementation of 
    performance metric and point conversion.
 
 ### Modify the DateTime of a Training Session
@@ -217,10 +217,10 @@ These details are then printed to the CLI.
 ### Edit Exercise
 
 The **Edit Exercise** feature is managed by the `TrainingSession` class, and is primarily carried out by its 
-`editExercise()` function. This feature utilizes the `setPerformance()`and `getReps()` methods from the 
-`ExerciseStation` classes to edit the repetitions and timings for the user’s selected 
-exercises. Additionally, it calculates the points the user will earn for each exercise based on the updated "rep" or
-"timing" values.
+`editExercise()` function. This feature utilizes the `setPerformance()`and `getPoints()` methods from the 
+`ExerciseStation` classes to edit the performance for the user’s selected 
+exercises. Additionally, it calculates the points the user will earn for each exercise based on the updated performance
+values.
 
 When the user wishes to edit a training session, they specify an `Exercise` Enum, and the reps/timing to be inputted.
 These variables are then passed to the`editExercise` function. This function calls the relevant methods to update the 
@@ -341,7 +341,7 @@ method. The main responsibility of this method is to invoke the `calculatePoints
 respective **calculator** class (e.g., `PullUpCalculator`, `SitUpCalculator`), which holds the points calculation logic.
 
 #### 2.  Sequence of Events:
-![getPointsSequenceDiagram.png](Images/getPointsSequenceDiagram.png)
+![Sequence_getPoints.png](Images/Sequence_getPoints.png)
 
 1. **User Inputs Performance**: The user’s performance (e.g., number of pull-ups) is passed to the
    `setPerformance()` method in the exercise station.
@@ -397,7 +397,7 @@ A sequence diagram is shown below to illustrate the workflow:
 
 ![Sequence_graphSessions.png](Images/Sequence_graphSessions.png)
 
-> Note: The primary difference between `graphSessions` and `graphExercisePoints` lies in the initial header string and 
+> Note: The primary difference between `graphSessions` and `graphExercisePoints` lies in the 
 > the calculation method called. (`getTotalPoints` for sessions, `getExercisePoints` for specific exercises).
    
 #### 2. `GraphPerformance` Class
@@ -585,16 +585,16 @@ Any mainstream OS with Java 17 installed
 
 2. Test case 1: `modify 0`<br>
    Expected: <br>
-   `Please provide a valid session index and DateTime (e.g. 2007-12-03 10:15:30).` <br>
+   `Please provide a valid session index and DateTime (e.g. 12/03/2007 10:15).` <br>
 
    Test case 2: `modify 1 blah`<br>
    Expected: <br>
-   `Please provide a valid session index and DateTime (e.g. 2007-12-03 10:15:30).` <br>
+   `Please provide a valid session index and DateTime (e.g. 12/03/2007 10:15).` <br>
 
-   Test case 3: `modify 1 1986-04-08 12:30`<br>
+   Test case 3: `modify 1 10/11/2024 12:30`<br>
    Expected: <br>
    `Session 1 has been modified:` <br>
-   `New Date/Time: 10/11/2024 12:56` <br>
+   `New Date/Time: 10/11/2024 12:30` <br>
 
 **List all Training Sessions**
 1. Prerequisites: None. <br> <br>
@@ -672,3 +672,4 @@ Any mainstream OS with Java 17 installed
    Test case 2: `exit` (User's exit input only contains the exit command.) <br>
    Expected:
    `Bye! Hope to see you again soon!` <br>
+

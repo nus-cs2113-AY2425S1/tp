@@ -1,9 +1,9 @@
 @startuml
-participant Ui
-participant "GraphPerformanceTime" as GraphTime
-participant "TrainingSession" as Session
+participant ":Ui"
+participant ":GraphPerformanceTime" as GraphTime
+participant ":TrainingSession" as Session
 
-Ui -> GraphTime : graphExerciseTime(...)
+":Ui" -> GraphTime : graphExerciseTime(...)
 activate GraphTime
 
 GraphTime -> GraphTime : generateMainGraphPerformance(...)
@@ -45,5 +45,5 @@ GraphTime --> GraphTime : main graph with time data
 
 deactivate GraphTime
 
-Ui <-- GraphTime : graph output
+":Ui" <-- GraphTime : graph output
 @enduml

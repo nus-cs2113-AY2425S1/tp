@@ -1,50 +1,50 @@
 @startuml
-participant Ui as User
-participant GraphPoints
-participant TrainingSession
+participant ":Ui" as User
+participant ":GraphPoints"
+participant ":TrainingSession"
 
-User -> GraphPoints : graphSessions(sessionList)
-activate GraphPoints
+User -> ":GraphPoints" : graphSessions(sessionList)
+activate ":GraphPoints"
 
-note over GraphPoints
+note over ":GraphPoints"
     Print header text
 end note
 
-GraphPoints -> GraphPoints : generatePointGraphs(sessionList, null)
-activate GraphPoints
-GraphPoints -> GraphPoints : generateGraphHeaderPoints(descriptionLength)
-activate GraphPoints
-GraphPoints --> GraphPoints : Point graph header
-deactivate GraphPoints
+":GraphPoints" -> ":GraphPoints" : generatePointGraphs(...)
+activate ":GraphPoints"
+":GraphPoints" -> ":GraphPoints" : generateGraphHeaderPoints(descriptionLength)
+activate ":GraphPoints"
+":GraphPoints" --> ":GraphPoints" : Graph header
+deactivate ":GraphPoints"
 
 loop For each session in sessionList
-    GraphPoints -> GraphPoints : generateGraphRowsPoints(session, null, descriptionLength)
-    activate GraphPoints
+    ":GraphPoints" -> ":GraphPoints" : generateGraphRowsPoints(...)
+    activate ":GraphPoints"
 
-    GraphPoints -> TrainingSession : getSessionDescription()
-    activate TrainingSession
-    TrainingSession --> GraphPoints : description
-    deactivate TrainingSession
+    ":GraphPoints" -> ":TrainingSession" : getSessionDescription()
+    activate ":TrainingSession"
+    ":TrainingSession" --> ":GraphPoints" : description
+    deactivate ":TrainingSession"
 
-    GraphPoints -> TrainingSession : getSessionDatetime()
-    activate TrainingSession
-    TrainingSession --> GraphPoints : datetime
-    deactivate TrainingSession
+    ":GraphPoints" -> ":TrainingSession" : getSessionDatetime()
+    activate ":TrainingSession"
+    ":TrainingSession" --> ":GraphPoints" : datetime
+    deactivate ":TrainingSession"
 
-    GraphPoints -> TrainingSession : getTotalPoints()
-    activate TrainingSession
-    TrainingSession --> GraphPoints : points
-    deactivate TrainingSession
-    GraphPoints --> GraphPoints : Row for Point graph
-    deactivate GraphPoints
+    ":GraphPoints" -> ":TrainingSession" : getTotalPoints()
+    activate ":TrainingSession"
+    ":TrainingSession" --> ":GraphPoints" : points
+    deactivate ":TrainingSession"
+    ":GraphPoints" --> ":GraphPoints" : Row for Point graph
+    deactivate ":GraphPoints"
 end loop
 
-GraphPoints --> GraphPoints : Overall Point graph
-note over GraphPoints
+":GraphPoints" --> ":GraphPoints" : Overall Point graph
+note over ":GraphPoints"
     Print overall point graph
 end note
-deactivate GraphPoints
+deactivate ":GraphPoints"
 
-User <-- GraphPoints :
-deactivate GraphPoints
+User <-- ":GraphPoints" :
+deactivate ":GraphPoints"
 @enduml

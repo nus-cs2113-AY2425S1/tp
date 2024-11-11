@@ -1,16 +1,16 @@
 @startuml
-participant Ui
-participant "GraphPerformanceRepsDistance" as Graph
-participant "TrainingSession" as Session
+participant ":Ui"
+participant ":GraphPerformanceRepsDistance" as Graph
+participant ":TrainingSession" as Session
 
-Ui -> Graph : graphExerciseRepsDistance()
+":Ui" -> Graph : graphExerciseRepsDistance(...)
 activate Graph
 
-Graph -> Graph : generateMainGraphPerformance()
+Graph -> Graph : generateMainGraphPerformance(...)
 activate Graph
 
 loop For each performance level
-    Graph -> Graph : generatePerformanceRow()
+    Graph -> Graph : generatePerformanceRow(...)
     activate Graph
 
     loop For each session
@@ -19,14 +19,13 @@ loop For each performance level
         Session --> Graph : exercise performance
         deactivate Session
 
-        Graph -> Graph : formatSessionPerformance(session, currentPerf, exercise, maxXHeaderLength)
+        Graph -> Graph : formatSessionPerformance(...)
         activate Graph
         Graph --> Graph : formatted row
         deactivate Graph
     end
 
-    Graph -> Graph : append formatted row to main graph
-    Graph -> Graph : adjust row for Y-axis offset
+    Graph --> Graph : adjust row for Y-axis offset and append to main graph
     deactivate Graph
 
 end
@@ -34,5 +33,5 @@ end
 Graph --> Graph : main graph
 deactivate Graph
 
-Ui <-- Graph : graph output
+":Ui" <-- Graph : graph output
 @enduml
