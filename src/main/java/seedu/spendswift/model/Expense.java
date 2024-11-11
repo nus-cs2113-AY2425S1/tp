@@ -1,6 +1,6 @@
-package seedu.spendswift.command;
+package seedu.spendswift.model;
 
-import seedu.spendswift.Format;
+import seedu.spendswift.format.Format;
 
 //@@author kq2003
 /**

@@ -1,5 +1,5 @@
 //@@author glenda-1506
-package seedu.spendswift;
+package seedu.spendswift.ui;
 
 public class UI {
     public static final String SEPARATOR = "_".repeat(50);

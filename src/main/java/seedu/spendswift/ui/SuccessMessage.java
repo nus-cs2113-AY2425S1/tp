@@ -1,7 +1,8 @@
-package seedu.spendswift;
+package seedu.spendswift.ui;
 
-import seedu.spendswift.command.Category;
-import seedu.spendswift.command.Expense;
+import seedu.spendswift.format.Format;
+import seedu.spendswift.model.Category;
+import seedu.spendswift.model.Expense;
 
 import java.util.ArrayList;
 import java.util.HashMap;

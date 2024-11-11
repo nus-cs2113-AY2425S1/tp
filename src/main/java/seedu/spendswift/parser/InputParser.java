@@ -1,7 +1,7 @@
 //@@author glenda-1506
 package seedu.spendswift.parser;
 
-import seedu.spendswift.ErrorMessage;
+import seedu.spendswift.ui.ErrorMessage;
 
 public class InputParser {
     private String parseComponent(String input, String prefix) {

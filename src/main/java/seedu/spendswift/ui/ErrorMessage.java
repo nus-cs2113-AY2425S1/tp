@@ -1,4 +1,4 @@
-package seedu.spendswift;
+package seedu.spendswift.ui;
 
 public class ErrorMessage {
     private static final String UNEXPECTED_ERROR = "Unexpected error: ";

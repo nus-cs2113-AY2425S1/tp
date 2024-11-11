@@ -3,8 +3,10 @@ package seedu.spendswift;
 import seedu.spendswift.command.BudgetManager;
 import seedu.spendswift.command.CategoryManager;
 import seedu.spendswift.command.ExpenseManager;
-import seedu.spendswift.command.TrackerData;
+import seedu.spendswift.model.TrackerData;
 import seedu.spendswift.parser.Parser;
+import seedu.spendswift.storage.Storage;
+import seedu.spendswift.ui.UI;
 
 import java.io.File;
 import java.io.IOException;
