@@ -14,7 +14,7 @@ public class Parser {
     private final CategoryManager categoryManager;
     private final BudgetManager budgetManager;
     private final UI ui;
-    private final Storage storage; // Make storage final to ensure we use the provided instance
+    private final Storage storage;
 
     public Parser(ExpenseManager expenseManager, CategoryManager categoryManager, BudgetManager budgetManager, UI ui,
                   Storage storage) {
@@ -22,17 +22,17 @@ public class Parser {
         this.categoryManager = categoryManager;
         this.budgetManager = budgetManager;
         this.ui = ui;
-        this.storage = storage; // Use the Storage instance passed in from SpendSwift
+        this.storage = storage;
     }
 
     public boolean parseCommand(String input, TrackerData trackerData) throws IOException {
         input = input.trim().toLowerCase();
 
         if (input.startsWith("add-expense")) {
-            expenseManager.addExpenseRequest(input, expenseManager, trackerData);
+            expenseManager.addExpenseRequest(input, trackerData);
             storage.saveData(trackerData);
         } else if (input.startsWith("delete-expense")) {
-            expenseManager.deleteExpenseRequest(input, expenseManager, trackerData);
+            expenseManager.deleteExpenseRequest(input, trackerData);
             storage.saveData(trackerData);
         } else if (input.startsWith("tag-expense")) {
             expenseManager.tagExpense(trackerData, input);
@@ -40,12 +40,12 @@ public class Parser {
         } else if (input.startsWith("view-budget")) {
             budgetManager.viewBudget(trackerData);
         } else if (input.startsWith("add-category")) {
-            CategoryManager.addCategory(input, trackerData);
+            categoryManager.addCategory(input, trackerData);
             storage.saveData(trackerData);
         } else if (input.startsWith("view-category")) {
-            CategoryManager.viewAllCategories(trackerData);
+            categoryManager.viewAllCategories(trackerData);
         } else if (input.startsWith("delete-category")) {
-            CategoryManager.deleteCategory(input, trackerData);
+            categoryManager.deleteCategory(input, trackerData);
             storage.saveData(trackerData);
         } else if (input.startsWith("set-budget")) {
             budgetManager.setBudgetLimitRequest(input, budgetManager, trackerData);

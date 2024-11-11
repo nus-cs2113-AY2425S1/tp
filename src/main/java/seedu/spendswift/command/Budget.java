@@ -2,7 +2,6 @@ package seedu.spendswift.command;
 
 //@@author MayFairMI6
 public class Budget {
-    private String homeCurrency;
     private Category category; // Private to prevent unauthorized access or changes
     private double limit; // Private to control modifications to the budget
     private TrackerData trackerData;
@@ -22,14 +21,6 @@ public class Budget {
 
     public void setLimit(double limit) {
         this.limit = limit;
-    }
-
-    public double getRemainingLimit() {
-        double totalExpenses = trackerData.getExpenses().stream()
-            .filter(e -> e.getCategory().equals(category))
-            .mapToDouble(Expense::getAmount)
-            .sum();
-        return limit - totalExpenses;
     }
 
     @Override

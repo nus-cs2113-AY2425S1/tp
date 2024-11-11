@@ -8,7 +8,7 @@ import seedu.spendswift.parser.InputParser;
 import java.util.List;
 
 public class CategoryManager {
-    public static void addCategoryHelper(TrackerData trackerData, String categoryName) {
+    private static void addCategoryHelper(TrackerData trackerData, String categoryName) {
         List<Category> categories = trackerData.getCategories();
 
         if (categoryName.isEmpty()) {
@@ -30,7 +30,7 @@ public class CategoryManager {
         SuccessMessage.printAddCategory(newCategory);
     }
 
-    public static void addCategory(String input, TrackerData trackerData) {
+    public void addCategory(String input, TrackerData trackerData) {
         InputParser parser = new InputParser();
         String categoryName = parser.parseCategory(input);
 
@@ -42,7 +42,7 @@ public class CategoryManager {
         addCategoryHelper(trackerData, categoryName);
     }
 
-    public static void viewAllCategories(TrackerData trackerData) {
+    public void viewAllCategories(TrackerData trackerData) {
         List<Category> categories = trackerData.getCategories();
         if (categories.isEmpty()) {
             SuccessMessage.printNoCategory();
@@ -85,7 +85,7 @@ public class CategoryManager {
         }
     }
 
-    public static void deleteCategory(String input, TrackerData trackerData) {
+    public void deleteCategory(String input, TrackerData trackerData) {
         InputParser parser = new InputParser();
         String categoryName = parser.parseCategory(input);
 

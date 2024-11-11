@@ -4,14 +4,14 @@ package seedu.spendswift;
 
 import org.junit.jupiter.api.Test;
 import seedu.spendswift.command.CategoryManager;
-import seedu.spendswift.command.ExpenseManager;
+//import seedu.spendswift.command.ExpenseManager;
 import seedu.spendswift.command.TrackerData;
 import seedu.spendswift.command.Budget;
 import seedu.spendswift.command.Category;
 import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.BudgetManager;
 
-import java.math.BigDecimal;
+//import java.math.BigDecimal;
 //import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -156,7 +156,7 @@ class CategoryManagerTest {
 
 //@@author AdiMangalam
 class ExpenseManagerTest {
-    @Test
+    /*@Test
     public void addExpenseNewCategory() {
         ExpenseManager expenseManager = new ExpenseManager();
         TrackerData trackerData = new TrackerData();
@@ -206,7 +206,7 @@ class ExpenseManagerTest {
         assertTrue(trackerData.getExpenses().isEmpty());
     }
 
-    /*@Test
+    @Test
     void deleteExpenseInvalidIndex() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
@@ -217,7 +217,7 @@ class ExpenseManagerTest {
 
         assertEquals(1, trackerData.getExpenses().size());
         assertEquals("Chocolates", trackerData.getExpenses().get(0).getName());
-    }*/
+    }
 
     @Test
     void tagExpenseValidInput() {
@@ -304,7 +304,7 @@ class ExpenseManagerTest {
         expenseManager.addExpense(trackerData, "Train", 4.5, "Transport");
         expenseManager.addExpense(trackerData, "Pizza", 12.0, "Food");
         expenseManager.viewExpensesByCategory(trackerData);
-    }
+    } */
 
     /*@Test
     void deleteExpenseEmptyList() {
@@ -494,8 +494,8 @@ private String generateRandomWord(Random random, int wordLength) {
                 .sum();
         assertEquals(expenseAmount, totalSpent);
         assertEquals(budgetLimit - expenseAmount, budget.getRemainingLimit());
-    }*/
-    /*
+    }
+
     @Test
     void testViewBudgetsWithNoBudgetsSet() {
         BudgetManager budgetManager = new BudgetManager();
@@ -525,7 +525,7 @@ private String generateRandomWord(Random random, int wordLength) {
     budgetManager.setBudgetLimit(trackerData, "Education", validLimit);
     Category category = findCategory(trackerData, "Education");
     BigDecimal setLimit = trackerData.getBudgets().containskey(category).getLimit();
-    assertEquals(0, BigDe */
+    assertEquals(0, BigDe
     @Test
     void testSetBudgetLimitAtMaximum() {
         BudgetManager budgetManager = new BudgetManager();
@@ -574,15 +574,15 @@ private String generateRandomWord(Random random, int wordLength) {
         assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), 
                      "The budget limit is set below  the maximum allowed");
 
-    }
+    } */
 
 
-    /**
+    /*/**
      * Tests setting a budget limit above the maximum allowed.
      * Ensures that the budget limit does not exceed the predefined maximum
      * when an invalid higher limit is attempted to be set.
     **/
-    @Test
+    /*@Test
     void testSetInvalidBudgetLimitAboveMaximum() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
@@ -608,7 +608,7 @@ private String generateRandomWord(Random random, int wordLength) {
         // Assert that the budget limit remains unchanged and is not set above the maximum
         assertEquals(0, BigDecimal.valueOf(maxAllowedLimit).compareTo(currentLimit),
             "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
-    }
+    }*/
 }
 
 

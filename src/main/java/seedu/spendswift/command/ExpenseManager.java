@@ -10,7 +10,7 @@ import java.util.List;
 public class ExpenseManager {
 
     //@@author kq2003
-    public void addExpenseRequest(String input, ExpenseManager expenseManager, TrackerData trackerData) {
+    public void addExpenseRequest(String input, TrackerData trackerData) {
         try {
             InputParser parser = new InputParser();
             String name = parser.parseName(input);
@@ -54,7 +54,7 @@ public class ExpenseManager {
      * @param amount       The amount of the expense.
      * @param categoryName The name of the category to which the expense belongs.
      */
-    public static void addExpense(TrackerData trackerData, String name, double amount, String categoryName) {
+    private static void addExpense(TrackerData trackerData, String name, double amount, String categoryName) {
         List<Expense> expenses = trackerData.getExpenses();
         List<Category> categories = trackerData.getCategories();
 
@@ -81,7 +81,7 @@ public class ExpenseManager {
     }
 
     //@@glenda-1506
-    public void deleteExpenseRequest(String input, ExpenseManager expenseManager, TrackerData trackerData) {
+    public void deleteExpenseRequest(String input, TrackerData trackerData) {
         try {
             InputParser parser = new InputParser();
             int expenseIndex = parser.parseIndex(input);
@@ -89,7 +89,7 @@ public class ExpenseManager {
                 ErrorMessage.printInvalidIndex();
                 return;
             }
-            expenseManager.deleteExpense(trackerData, expenseIndex);
+            deleteExpense(trackerData, expenseIndex);
         } catch (IndexOutOfBoundsException e) {
             ErrorMessage.printOutOfBoundsIndex();
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class ExpenseManager {
      *
      * @param expenseIndex the 0-based index of the expense to delete
      */
-    public void deleteExpense(TrackerData trackerData, int expenseIndex) {
+    private static void deleteExpense(TrackerData trackerData, int expenseIndex) {
         List<Expense> expenses = trackerData.getExpenses();
 
         Expense removedExpense = expenses.remove(expenseIndex);
@@ -163,7 +163,7 @@ public class ExpenseManager {
         }
     }
 
-    private void tagExpenseHelper(TrackerData trackerData, int expenseIndex, String categoryName) {
+    private static void tagExpenseHelper(TrackerData trackerData, int expenseIndex, String categoryName) {
         List<Expense> expenses = trackerData.getExpenses();
         List<Category> categories = trackerData.getCategories();
 
