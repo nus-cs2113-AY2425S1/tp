@@ -1,0 +1,72 @@
+@startuml
+
+participant Logic
+participant BudgetLogic
+participant Budget
+participant AppUi
+
+Logic -> BudgetLogic: setBudget(financialList)
+activate BudgetLogic
+BudgetLogic -> Budget: isBudgetSet()
+activate Budget
+Budget --> BudgetLogic: return isBudgetSet
+deactivate Budget
+
+alt budget not set
+    BudgetLogic -> AppUi: displaySetBudgetMessage()
+
+else budget set
+    BudgetLogic -> AppUi: displayModifyBudgetMessage(budgetAmount)
+end
+
+BudgetLogic -> BudgetLogic: handleSetBudget(financialList)
+activate BudgetLogic
+loop until valid input
+    BudgetLogic -> AppUi: getUserInput()
+    activate AppUi
+    AppUi --> BudgetLogic: return input
+    deactivate AppUi
+
+    opt input not valid
+        BudgetLogic -> AppUi: display invalid input warning
+    end
+end
+
+alt user wants to set budget
+    loop until valid amount
+        BudgetLogic -> AppUi: getUserInput()
+        activate AppUi
+        AppUi --> BudgetLogic: return input
+        deactivate AppUi
+
+        opt amount less than 0.01
+            BudgetLogic -> AppUi: display invalid amount warning
+        end
+        opt amount is not a number
+            BudgetLogic -> AppUi: display invalid input warning
+        end
+    end
+    BudgetLogic -> Budget: setBudgetAmount(amount)
+    activate Budget
+    Budget --> BudgetLogic
+    deactivate Budget
+    BudgetLogic -> BudgetLogic: recalculateBalance(financialList)
+    activate BudgetLogic
+    ref over BudgetLogic
+        recalculateBalance
+    end
+    BudgetLogic --> BudgetLogic
+    deactivate BudgetLogic
+    BudgetLogic -> AppUi: display successful setting of budget amount
+    BudgetLogic -> AppUi: display remaining balance
+
+else user does not want to set budget
+    BudgetLogic -> AppUi: display skip budget setting
+end
+
+BudgetLogic --> BudgetLogic
+deactivate BudgetLogic
+BudgetLogic --> Logic
+deactivate BudgetLogic
+deactivate Logic
+@enduml

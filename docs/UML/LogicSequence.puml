@@ -1,0 +1,40 @@
+@startuml
+actor User
+User -> Logic : editEntry(commandArguments)
+activate Logic
+
+Logic -> Logic : parseIndex(commandArguments.get("argument"))
+Logic -> FinancialList : getEntry(index - 1)
+activate FinancialList
+FinancialList --> Logic : FinancialEntry (entry)
+deactivate FinancialList
+
+Logic -> Logic : parseAmountOrDefault(commandArguments.get("/a"), entry.getAmount())
+Logic -> Logic : parseDateOrDefault(commandArguments.get("/d"), entry.getDate())
+
+alt entry is Expense
+    Logic -> Logic : updateExpenseBalance(entry, amount, date)
+    Logic -> BudgetLogic : changeBalanceFromExpense(entry.getAmount(), entry.getDate())
+    activate BudgetLogic
+    BudgetLogic --> Logic : balance updated
+    deactivate BudgetLogic
+    Logic -> BudgetLogic : changeBalanceFromExpenseString(-amount, date)
+    activate BudgetLogic
+    BudgetLogic --> Logic : balance updated
+    deactivate BudgetLogic
+end
+
+Logic -> Logic : getCategoryFromInput(commandArguments, entry)
+alt category specified
+    Logic -> Logic : parseCategory(categoryStr, entry)
+end
+
+Logic -> EditEntryCommand : new EditEntryCommand(index, amount, description, date, category)
+activate EditEntryCommand
+ref over EditEntryCommand : Run command
+EditEntryCommand --> Logic : Command successfully executed
+deactivate EditEntryCommand
+
+Logic --> User : Entry edited successfully
+deactivate Logic
+@enduml

@@ -5,18 +5,19 @@ import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.log.Log;
+import seedu.duke.log.LogLevels;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Map.Entry;
 
 /**
  * Command to print all entries recorded in the financial list.
  */
 public class SeeAllEntriesCommand extends Command {
-    protected static final String LINE_SEPARATOR = "--------------------------------------------";
-    protected static Logger logger = Logger.getLogger(SeeAllExpensesCommand.class.getName());
+    protected static final int ZERO_TO_ONE_BASED_INDEX_OFFSET = 1;
+    protected static Log logger = Log.getInstance();
     protected final String entriesListedMessage = "Here's a list of all recorded entries:";
     protected final String noEntriesMessage = "No entries found.";
     protected final String cashflowHeader = "Net cashflow: $ ";
@@ -123,19 +124,18 @@ public class SeeAllEntriesCommand extends Command {
      * Executes the command to display all recorded entries in the financial list.
      * Iterates through the financial list and collects all entries that are within the date range.
      * If no entries are found, it prints a message indicating no recorded entries.
-     * Otherwise, it prints a list of all recorded entries, and the net cashflow.
+     * Otherwise, it prints a list of all recorded entries (with their index in the financial list),
+     * and the net cashflow.
      *
      * @param list The financial list on which the command will operate.
      */
     @Override
     public void execute(FinancialList list) throws FinanceBuddyException {
         if (list == null) {
-            logger.log(Level.SEVERE, "Financial list is null");
-            assert list != null : "Financial list cannot be null";
+            logger.log(LogLevels.SEVERE, "Financial list is null");
             throw new FinanceBuddyException("Financial list cannot be null");
         }
 
-        System.out.println(LINE_SEPARATOR);
         String entryList = "";
         int entryCount = 0;
         double cashflow = 0;
@@ -143,33 +143,49 @@ public class SeeAllEntriesCommand extends Command {
 
         for (int i = 0; i < list.getEntryCount(); i++) {
             FinancialEntry entry = list.getEntry(i);
-            if (this.shouldBeIncluded(entry)) {
-                entryList += (++entryCount) + ". " + entry + System.lineSeparator();
-                if (entry instanceof Income) {
-                    cashflow += entry.getAmount();
-                    Income income = (Income) entry;
-                    list.getTotalIncomeByCategory().merge(income.getCategory(), income.getAmount(), Double::sum);
-                } else if (entry instanceof Expense) {
-                    cashflow -= entry.getAmount();
-                    Expense expense = (Expense) entry;
-                    list.getTotalExpenseByCategory().merge(expense.getCategory(), expense.getAmount(), Double::sum);
-                }
+            if (!this.shouldBeIncluded(entry)) {
+                continue;
+            }
+            entryCount++;
+            entryList += (i + ZERO_TO_ONE_BASED_INDEX_OFFSET) + ". " + entry + System.lineSeparator();
+            if (entry instanceof Income income) {
+                cashflow += entry.getAmount();
+                list.getTotalIncomeByCategory().merge(income.getCategory(), income.getAmount(), Double::sum);
+            } else if (entry instanceof Expense expense) {
+                cashflow -= entry.getAmount();
+                list.getTotalExpenseByCategory().merge(expense.getCategory(), expense.getAmount(), Double::sum);
             }
         }
 
+        printOutput(list, entryCount, entryList, cashflow);
+        logger.log(LogLevels.INFO, "Listed " + list.getEntryCount() + " valid entries.");
+    }
+
+    /**
+     * Helper method to print output after processing entries in Financial list
+     *
+     * @param list Financial List of app.
+     * @param entryCount Number of entries to be listed.
+     * @param entryList List of entries to be listed as a String.
+     * @param cashflow Net cashflow of entries to be printed.
+     */
+    private void printOutput(FinancialList list, int entryCount, String entryList, double cashflow) {
+        System.out.println(Commons.LINE_SEPARATOR);
+
         if (entryCount == 0) {
             System.out.println(this.getNoEntriesMessage());
-            System.out.println(LINE_SEPARATOR);
+            System.out.println(Commons.LINE_SEPARATOR);
             return;
         }
 
         System.out.println(this.getEntriesListedMessage());
-        System.out.print(entryList);
+        System.out.println(entryList);
+        System.out.println("Total count: " + entryCount);
         System.out.println();
         String cashflowString = this.getCashflowString(cashflow);
         System.out.println(this.getCashflowHeader() + cashflowString);
         System.out.println();
         System.out.println(getHighestCategoryInfo(list));
-        System.out.println(LINE_SEPARATOR);
+        System.out.println(Commons.LINE_SEPARATOR);
     }
 }

@@ -10,10 +10,10 @@ import seedu.duke.exception.FinanceBuddyException;
  */
 public class DateParser {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
-     * Parses a string into a LocalDateTime object using the format "dd/MM/yy HH:mm".
+     * Parses a string into a LocalDateTime object using the format "dd/MM/yyyy HH:mm".
      *
      * @param dateStr The date and time string to parse.
      * @return The parsed LocalDateTime object.
@@ -24,9 +24,17 @@ public class DateParser {
             return LocalDate.now();  // Use current date if no date is provided
         }
         try {
-            return LocalDate.parse(dateStr, formatter);
+            LocalDate parsedDate = LocalDate.parse(dateStr, FORMATTER);
+            String reformattedDate = parsedDate.format(FORMATTER);
+            if (!reformattedDate.equals(dateStr)) {
+                throw new FinanceBuddyException(
+                        "Invalid date: " + dateStr + ". The date does not exist."
+                );
+            }
+
+            return parsedDate;
         } catch (DateTimeParseException e) {
-            throw new FinanceBuddyException("Invalid date format. Please use 'dd/MM/yy'.");
+            throw new FinanceBuddyException("Invalid date format. Please use 'dd/MM/yyyy'.");
         }
     }
 }

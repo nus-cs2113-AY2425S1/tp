@@ -76,7 +76,7 @@ public class Expense extends FinancialEntry {
      */
     @Override
     public String toString() {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return String.format("[Expense] - %s $ %.2f (on %s) [%s]", description, amount, date.format(pattern),category);
     }
 
@@ -86,11 +86,11 @@ public class Expense extends FinancialEntry {
      * all formatted in a specific structure.
      *
      * @return A formatted string representing the expense entry for storage.
-     *         The format is: "E | amount | description | date | category"
-     *         where the date is formatted as "dd/MM/yy".
+     *         The format is: "E ¦¦ amount ¦¦ description ¦¦ date ¦¦ category"
+     *         where the date is formatted as "dd/MM/yyyy".
      */
     public String toStorageString() {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
-        return String.format("E | %.2f | %s | %s | %s", amount, description, date.format(pattern),category);
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return String.format("E ¦¦ %.2f ¦¦ %s ¦¦ %s ¦¦ %s", amount, description, date.format(pattern),category);
     }
 }

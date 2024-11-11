@@ -2,53 +2,110 @@
 skinparam sequenceMessageAlign center
 skinparam responseMessageBelowArrow true
 
-participant "Logic" as app
+participant ":FinanceBuddy" as fb
+participant "logic:Logic" as app
 participant "commandArguments:HashMap" as map
-participant "DateParser" as parser
-participant "SeeAllExpensesCommand" as expense
-participant "SeeAllIncomesCommand" as income
-participant "SeeAllEntriesCommand" as all
-participant "FinancialList" as list
+participant ":DateParser" as parser
 
+fb -> app: matchCommand("list", commandArguments:HashMap)
+activate app
+app -> app: listHelper
+activate app
 ' Get values from HashMap
 app -> map : get command arguments
+activate map
+return command arguments
 
 ' Check for blank dates
 opt invalid entries for start/end date
-    <- app : throw FinanceBuddyException
+     fb <-- app : throw FinanceBuddyException
 end
 
 ' Parse dates
 alt start date != null
-    app -> parser : parse start date
-    parser --> app : startDate
-    else
+    app -> parser : parse start date string
+    activate parser
+    return startDate
+    else else
         app -> app : startDate = null
+        activate app
+        return
 end
 
 alt end date != null
-    app -> parser : parse end date
-    parser --> app : endDate
+    app -> parser : parse end date string
+    activate parser
+    return endDate
     else
         app -> app : endDate = null
+        activate app
+        return
 end
+ref over app : executeListCommand
+return
+return
+@enduml
 
+@startuml
+participant "logic:Logic" as app
+participant ":SeeAllExpensesCommand" as expense
+participant ":SeeAllIncomesCommand" as income
+participant ":SeeAllEntriesCommand" as all
+participant "financialList:FinancialList" as list
+participant "budgetLogic:BudgetLogic" as bl
 ' Command execution based on type
-alt type != null
+
     alt type equals "expense"
+        create expense
         app -> expense ** : SeeAllExpensesCommand(startDate, endDate)
+        activate expense
+        return
         app -> expense : execute(financialList)
-        expense -> list : interact
+        activate expense
+        ref over expense, list
+        interact with list
+        end
+        return
+        app -> bl : getBudgetAndBalance()
+        activate bl
+        return
     else type equals "income"
-        app -> income ** : SeeAllIncomesCommand(startDate, endDate)
+        create income
+        app -> income ** : SeeAllIncomeCommand(startDate, endDate)
+        activate income
+        return
         app -> income : execute(financialList)
-        income -> list : interact
-    else unknown type
+        activate income
+        ref over income, list
+        interact with list
+        end
+        return
+        app -> bl : getBudgetAndBalance()
+        activate bl
+        return
+    else type is null or empty
+        create all
+        app -> all ** : SeeAllCommand(startDate, endDate)
+        activate all
+        return
+        app -> all : execute(financialList)
+        activate all
+        ref over all, list
+        interact with list
+        end
+        return
+        app -> bl : getBudgetAndBalance()
+        activate bl
+        return
+    else else
         app -> app : print "Unknown argument"
+        activate app
+        return
     end
-else type == null
+
+
+
+@enduml
     app -> all ** : SeeAllEntriesCommand(startDate, endDate)
     app -> all : execute(financialList)
     all -> list : interact
-end
-@enduml

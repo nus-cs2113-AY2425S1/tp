@@ -1,0 +1,42 @@
+@startuml
+actor User
+User -> FinanceBuddy : start application
+activate FinanceBuddy
+FinanceBuddy -> AppUi : displayWelcomeMessage()
+activate AppUi
+AppUi --> FinanceBuddy : welcome message
+deactivate AppUi
+FinanceBuddy --> User : show welcome message
+
+loop Command Processing Loop
+    User -> FinanceBuddy : enter command "expense lunch /a 50 /d 01/01/24 /c food"
+    FinanceBuddy -> AppUi : getUserInput()
+    activate AppUi
+    AppUi -> InputParser : parseCommands("expense lunch /a 50 /d 01/01/24 /c food")
+    activate InputParser
+    InputParser --> AppUi : HashMap<String, String> commandArguments
+    deactivate InputParser
+    AppUi --> FinanceBuddy : commandArguments
+    deactivate AppUi
+
+    FinanceBuddy -> Logic : matchCommand("expense", commandArguments)
+    activate Logic
+
+    Logic -> DateParser : parse(commandArguments.get("/d"))
+    activate DateParser
+    DateParser --> Logic : LocalDate
+    deactivate DateParser
+
+    ref over Logic : process command
+    Logic --> FinanceBuddy : command processed
+
+    deactivate Logic
+
+    FinanceBuddy -> AppUi : display success message
+    activate AppUi
+    AppUi --> FinanceBuddy : success message
+    deactivate AppUi
+    FinanceBuddy --> User : show success message
+    deactivate FinanceBuddy
+end
+@enduml

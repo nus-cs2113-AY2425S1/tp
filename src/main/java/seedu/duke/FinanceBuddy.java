@@ -1,11 +1,14 @@
 package seedu.duke;
 
+import seedu.duke.budget.Budget;
+import seedu.duke.logic.BudgetLogic;
 import seedu.duke.storage.Storage;
 import seedu.duke.ui.AppUi;
 import seedu.duke.logic.Logic;
 import seedu.duke.parser.InputParser;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.util.Commons;
 
 import java.util.HashMap;
 
@@ -25,11 +28,24 @@ public class FinanceBuddy {
     public static void main(String[] args) {
         AppUi ui = new AppUi();
         Storage storage = new Storage();
+        Budget budget = new Budget();
 
-        FinancialList financialList = storage.loadFromFile();
-        Logic logic = new Logic(financialList, storage, ui);
+        BudgetLogic budgetLogic = new BudgetLogic(budget, ui);
+        FinancialList financialList = storage.loadFromFile(budgetLogic);
+        Logic logic = new Logic(financialList, storage, ui, budgetLogic);
+      
+        financialList.resetLastAmendedIndex();
 
         ui.displayWelcomeMessage();
+
+        storage.printLoadingResult();
+
+        try {
+            budgetLogic.promptUserToSetBudget(financialList);
+            storage.update(financialList, budgetLogic);
+        } catch (FinanceBuddyException e) {
+            System.out.println(e.getMessage());
+        }
 
         boolean isRunning = true;
         while (isRunning) {
@@ -43,7 +59,7 @@ public class FinanceBuddy {
 
                 isRunning = logic.matchCommand(command, commandArguments);
             } catch (FinanceBuddyException e) {
-                ui.showErrorMessage(e.getMessage());
+                Commons.printSingleLineWithBars(e.getMessage());
             }
         }
     }

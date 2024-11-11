@@ -2,43 +2,68 @@
 skinparam sequenceMessageAlign center
 skinparam responseMessageBelowArrow true
 
-actor user
-participant "SeeAllEntriesCommand" as cmd
-participant "FinancialList" as list
-participant "FinancialEntry" as entry
+participant ":SeeAllEntriesCommand" as cmd
+participant "financialList:FinancialList" as list
+participant ":FinancialEntry" as entry
 
 
-user -> cmd : execute()
+
+
 cmd -> list : clear Category totals
+activate list
+return
+
 cmd -> list : getEntryCount()
+activate list
 return financialListEntryCount
 
 loop i < financialListEntryCount
     cmd -> list : getEntry(i)
+    activate list
     return entry
 
     cmd -> cmd : shouldBeIncluded(entry)
+    activate cmd
+    return decision to include entry
 
     opt entry should be included
-        cmd -> cmd : increment entryCount
+        cmd -> cmd : increment this.entryCount
+        activate cmd
+        return
+
         cmd -> entry : toString()
+        activate entry
         return entryString
         cmd -> cmd : append to entryList
+        activate cmd
+        return
+
         cmd -> cmd : add/substract amount from net cashflow
+        activate cmd
+        return
         cmd -> list : update total expense/income in category
+        activate list
+        return
     end
 end
 
-alt entryCount == 0
-    user <-- cmd : print no entry message
-else entryCount > 0
-    user <-- cmd: print entryList with net cashflow
+alt this.entryCount == 0
+    cmd -> cmd : print no entry message
+        activate cmd
+        return
+else else
+    cmd -> cmd: print entryList with net cashflow
+        activate cmd
+        return
     cmd -> list : getHighestExpenseCategory()
-    list --> cmd: highestExpenseCategory
+    activate list
+    return highestExpenseCategory
     cmd -> list : getHighestIncomeCategory()
-    list --> cmd: highestIncomeCategory
-    user <-- cmd: print Highest Expense/Income category and amount spent/earned
+    activate list
+    return highestIncomeCategory
+    cmd --> cmd: print Highest Expense/Income category and amount spent/earned
+    activate cmd
+    return
 end
 
-deactivate cmd
 @enduml
