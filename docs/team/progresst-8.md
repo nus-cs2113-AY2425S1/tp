@@ -26,4 +26,9 @@ Given below are my contributions to the project.
     - Created category package section
       - Includes details about classes `CategoryTracker`, `CategoryData`, `CategoryFilter`, `CategoryFacade` and `CategoryStorage`
     - Created `DateUtils` section
+    - Drew UML Diagrams:
+      - 2 Class UMLs for:
+        - `Expense` and `ExpenseList`
+        - Classes in the category package
+      - 6 Sequence UMLs for key methods in `CategoryFacade` 
 - **Review & Mentoring Contributions:** Provide suggestions for designing various components of the software.

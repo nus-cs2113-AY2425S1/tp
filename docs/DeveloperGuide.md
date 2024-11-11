@@ -378,6 +378,7 @@ The `CategoryFacade` class has key methods for the 6 commands of:
 
 Since this class' methods just call other methods from the other category classes, the (simplified) sequence diagrams are given instead of the method table.
 
+
 The `CategoryTracker` class has the following key methods: 
 
 |        Method         |                                                           Description                                                            |
@@ -388,6 +389,7 @@ The `CategoryTracker` class has the following key methods:
 |    `editCategory`     |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed                   |
 | `setSpendingLimitFor` |                                         Sets a spending limit for a particular category                                          |
 
+
 The `CategoryData` class has these key methods: 
 
 |           Method            |                   Description                   |
@@ -396,6 +398,7 @@ The `CategoryData` class has these key methods:
 | `decreaseCurrExpenditureBy` |    Decrements current total by a given price    |
 |      `isNearingLimit`       | Checks if current total is 80% of limit or more |
 |     `hasExceededLimit`      |   Checks if current total is more than limit    |
+
 
 The `CategoryFilter` class has key methods for:
 
