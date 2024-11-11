@@ -18,6 +18,7 @@
 
 ## Acknowledgements
 - The `Parser` is adapted from [Dan Linh's iP](https://github.com/DanLinhHuynh-Niwashi/ip/tree/master/src/main/java/niwa/parser) code, with changes to get on well with the current project 
+- The `Storage` uses external library Gson by Google from [Gson](https://github.com/google/gson.git), with changes to get on well with the current project
 
 ## Design & implementation
 ### Category
