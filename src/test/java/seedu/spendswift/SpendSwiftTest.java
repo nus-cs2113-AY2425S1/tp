@@ -511,7 +511,8 @@ private String generateRandomWord(Random random, int wordLength) {
     TrackerData trackerData = new TrackerData();
     double maxLimit = 1000000000000000.00; // This should be the same value as used in your BudgetManager
     budgetManager.setBudgetLimit(trackerData, "Education", maxLimit);
-    BigDecimal setLimit = trackerData.getBudgetForCategory("Education").getLimit();
+    Category category = findCategory(trackerData, "Education");
+    
     assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit), "The budget limit should be exactly set to the maximum allowed");
 }
     @Test
