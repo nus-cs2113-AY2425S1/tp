@@ -6,7 +6,7 @@ package seedu.manager.command;
  */
 public class EditParticipantCommand extends Command{
     public static final String COMMAND_WORD = "edit";
-    private static final String EDIT_PARTICIPANT_MESSAGE = "The following participant's details has been updated to:\n";
+    private static final String EDIT_PARTICIPANT_MESSAGE = "The participant has been updated to:\n";
     private static final String EDIT_FAILURE_MESSAGE = "Event/Participant not found!";
     protected String eventName;
     protected String participantName;
