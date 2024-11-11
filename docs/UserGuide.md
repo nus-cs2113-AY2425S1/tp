@@ -308,8 +308,6 @@ __________________________________________________
 
 This feature allows the user to mark certain internships as a Favourite. The user can input any number of ID's in a single command to mark them all as favourites.
 
-The functionality to remove a command's favourite status will be implemented in v2.1.
-
 **Format:** `favourite {Internship ID}`
 
 **Example:**
@@ -420,8 +418,6 @@ The role and company name parameters are case-insensitive.
 For the duration parameter, this feature displays all relevant internships whose start dates and end dates are within the duration timeline specified by the user. If the start and/or end dates with which to filter, are not explicitly specified by the user, they take on the default values of 01/01 and 12/99 respectively.
 
 For the favourite parameter, the user has to enter a boolean `true` or `false` (case-insensitive) to specify if they only want internships which have been marked as a favourite or if they only want internships which have not been marked as a favourite. In the default scenario where no `-favourite` flag is given, all internships are considered regardless of their favourite status.
-
-Users will be able to filter the internships by application statuses and deadlines as well in v2.1.
 
 **Format:** `filter -{field} {value}`
 
