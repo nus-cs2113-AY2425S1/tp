@@ -1,7 +1,7 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import seedu.exceptions.InvalidDeadline;
-import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidID;
 import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
 import seedu.ui.UiInternshipList;
@@ -14,11 +14,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //@@author jadenlimjc
+/**
+ * The InternshipList class is responsible for managing a list of internships.
+ * It supports operations such as adding, removing, sorting, and managing a favourites list of internships.
+ * The class also allows for sorting internships by various attributes like role, company, status, etc.
+ * Additionally, it maintains a history of actions taken with the internships using a Logger.
+ */
 public class InternshipList {
-    private static final UiInternshipList ui = new UiInternshipList();
-    private static final Logger LOGGER = Logger.getLogger("EasInternship");
     public ArrayList<Internship> internships;
     public ArrayList<Internship> favouriteInternships;
+    private final UiInternshipList ui = new UiInternshipList();
+    private final Logger LOGGER = Logger.getLogger("EasInternship");
 
     // Constructor
     public InternshipList() {
@@ -31,6 +37,12 @@ public class InternshipList {
         favouriteInternships = new ArrayList<>();
     }
 
+    /**
+    * Adds an internship to the list of internships.
+    * Ensures there are no duplicates before adding.
+    *
+    * @param internship The internship to be added.
+    */
     public void addInternship(Internship internship) {
 
         assert internship != null : "Internship object cannot be null";
@@ -56,12 +68,17 @@ public class InternshipList {
         return true;
     }
 
-    // Method to remove an internship by index (0-based)
 
     //@@author jadenlimjc
-    public void removeInternship(int index) throws InvalidIndex {
+    /**
+    * Removes an internship from the list of internships by its index.
+    *
+    * @param index The index of the internship to be removed.
+    * @throws IndexOutOfBoundsException If the index is out of bounds.
+    */
+    public void removeInternship(int index) throws InvalidID {
         if (!isWithinBounds(index)) {
-            throw new InvalidIndex(index);
+            throw new InvalidID(index);
         }
         Internship internship = internships.remove(index);
         assert internship != null : "Removed internship should not be null";
@@ -85,15 +102,10 @@ public class InternshipList {
 
     // Method to get an internship by index
     public Internship getInternship(int index) {
-        try {
-            if (!isWithinBounds(index)) {
-                throw new InvalidIndex(index);
-            }
-            return internships.get(index);
-        } catch (InvalidIndex ie) {
-            ui.showOutput(ie.getMessage());
+        if (!isWithinBounds(index)) {
             return null;
         }
+        return internships.get(index);
     }
 
     //@@author Ridiculouswifi
@@ -133,6 +145,7 @@ public class InternshipList {
             break;
         }
         LOGGER.log(Level.INFO, "Internship " + (index + 1) + " updated: " + field);
+
         return updatedValue;
     }
 
@@ -152,7 +165,10 @@ public class InternshipList {
     }
 
     //@@author jadenlimjc
-    // Method to list all internships
+    /**
+    * Displays all internships in the list.
+    * The internships will be displayed in the current sorted order.
+    */
     public void listAllInternships() {
         ui.showInternships(internships, "list");
     }
@@ -252,6 +268,7 @@ public class InternshipList {
         });
     }
 
+    //@@author Toby-Yu
     /**
      * Lists internships sorted by the first skill alphabetically (case-insensitive).
      */

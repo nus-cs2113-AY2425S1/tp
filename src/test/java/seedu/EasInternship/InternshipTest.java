@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import org.junit.jupiter.api.Test;
 import seedu.exceptions.InvalidDeadline;
