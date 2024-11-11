@@ -253,7 +253,7 @@ Internally, the `list` operation does not modify any data but simply retrieves a
 
 The `ListCommand` class performs the following key operations:
 
-* ListCommand#execute() — Generates a formatted message displaying all events in the list.
+* `ListCommand#execute()` — Generates a formatted message displaying all events in the list.
 
 These operations are accessible through the `Command` and can be invoked when the list command is entered by the user.
 
@@ -261,13 +261,13 @@ These operations are accessible through the `Command` and can be invoked when th
 
 Given below is an example usage scenario and the behavior of the list feature at each step:
 
-1. User Command Input:
+1. User command input:
 The user enters the command `list` to view all scheduled events.
 
-2. Command Recognition:
+2. Command recognition:
 The `COMMAND_WORD` is set to "list", enabling the system to recognize the command input and invoke `ListCommand`.
 
-3. Execution of ListCommand#execute():
+3. Execution of `ListCommand#execute()`:
 The `execute()` method retrieves each event from `eventList` and appends it to a formatted output message.
 It uses the `String.format` method with `LIST_MESSAGE` to include the total number of events in the message header.
 Events are appended to `outputMessage` with numbered formatting for readability.
