@@ -17,6 +17,7 @@ without the complexity of traditional tools.
    spendswift with 2 text files in it, expense.txt and category.txt.
    - If this file doesn't exist, it will be created automatically when expenses, categories and budgets are saved
      after exiting the program properly.
+6. Type commands below the outputs and press Enter to execute them.
 
 Your command terminal should look similar to the one below.
 
@@ -25,8 +26,6 @@ Your command terminal should look similar to the one below.
 If the line separator have overlaps, please extend your terminal screen or reduce your font size. For example:
 
 ![separator](userguidepictures/separator.png)
-
-6. Type commands below the outputs and press Enter to execute them.
 
 For details on all available commands, refer to the Features section below.
 
