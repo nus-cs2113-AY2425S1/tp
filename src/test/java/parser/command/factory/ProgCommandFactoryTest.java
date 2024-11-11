@@ -140,7 +140,7 @@ class ProgCommandFactoryTest {
     @Test void testPrepareCreateCommandNegativeExerciseParameter() {
         String argumentString = "MyProgram /d Day1 /e /name PushUps /set -3 /rep 15 /w 5 /c 50";
 
-        assertThrows(ParserExceptions.class,
+        assertThrows(ParserException.class,
                 () -> progCommandFactory.parse("create " + argumentString));
     }
 
