@@ -33,7 +33,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testModifySessionDateTime_NoReorder() throws IOException {
+    public void testModifySessionDateTimeNoReorder() throws IOException {
         // Modify the datetime of a session to a value that doesn't change its order
         String input = "modify 2 11/11/2024 11:10"; // Modify session at index 2 (original datetime 2024-11-12 11:00)
 
@@ -50,7 +50,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testModifySessionDateTime_Reorder() throws IOException {
+    public void testModifySessionDateTimeReorder() throws IOException {
         // Modify the datetime of a session to make it fall earlier (to trigger reordering)
         String input = "modify 3 10/11/2024 10:00";
 
