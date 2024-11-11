@@ -552,3 +552,17 @@ ________________________________________________________________________________
 | **delete-food**     | `delete-food`                                                  | `delete-food 1`                    |
 | **list-food**       | `list-food`                                                    | `list-food`                        |
 | **list-intake**     | `list-intake`                                                  | `list-intake`                      |
+
+
+## FAQ
+
+**Q**:
+I was an 18-year-old male up until yesterday and have been using FitTrackCLI to track my results over the past 
+few months. Now that I’ve just turned 19, if I re-enter the program with my updated age and attempt to edit 
+past sessions created when I was 18, will my points still be calculated correctly?
+
+- Each session you create is linked to your age and gender at the time of creation. If you edit past session data 
+  that was created when you were 18 years old and male, the points will be calculated based on that age and gender. 
+  Therefore, editing past session data from when you were younger will reflect calculations based on your age 
+  at that time. 
+- Now that you are 19, any new session will have points calculated based on your current age of 19 and male.
