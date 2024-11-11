@@ -82,7 +82,7 @@ public class BudgetLogic {
             logger.log(LogLevels.INFO, "Budget has not been set.");
             ui.displaySetBudgetMessage();
 
-            if (!getConfirmationFromUser()) {
+            if (!shouldSetBudget()) {
                 Commons.printSingleLineWithBars("Budget setting skipped.");
                 logger.log(LogLevels.INFO, "Budget setting skipped.");
                 recalculateBalance(financialList);
@@ -113,7 +113,7 @@ public class BudgetLogic {
      *
      * @return true if the user confirms to set the budget, false otherwise.
      */
-    private boolean getConfirmationFromUser() {
+    private boolean shouldSetBudget() {
         while (true) {
             String input = ui.getUserInput();
             if (input.equalsIgnoreCase("yes")) {
