@@ -3,6 +3,19 @@
 <!-- ## Acknoledgements -->
 
 ## Design & Implementation
+### Architecture
+A high-level overview of the system is shown in the Architecture Diagram below.
+
+![Architecture Diagram](developerguidepictures/Architecture%20DIagram.drawio.png)
+
+### Main Components  
+SpendSwift class is in charge of launching the program, 
+and initialising the components that does the main execution of the program.
+- UI: Prints messages
+- Parser: Determines the command to execute and checks the logic 
+- Command: Determines the feature the user wants to use
+- Storage: Writes data to, and reads data from hard disk
+
 ### SpendSwift
 #### Purpose
 Interface for command-line interactions.
