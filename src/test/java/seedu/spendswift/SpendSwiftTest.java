@@ -346,7 +346,7 @@ class BudgetManagerTest {
     }
 
 
-    /* @Test
+    /** @Test
     void testSetBudgetValidCategory() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
@@ -396,9 +396,9 @@ private String generateRandomWord(Random random, int wordLength) {
                  .limit(wordLength)
                  .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                  .toString();
-} */
+} 
 
-    /*@Test
+   @Test
     void testSetBudgetWithInvalidLimit() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
@@ -409,9 +409,9 @@ private String generateRandomWord(Random random, int wordLength) {
         Category category = findCategory(trackerData, categoryName);
         assertNotNull(category);
         assertEquals(invalidLimit, trackerData.getBudgets().get(category).getLimit());
-    } */
+    } 
 
-    /*@Test
+    @Test
     void testAddExpenseWithinBudget() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
@@ -501,7 +501,7 @@ private String generateRandomWord(Random random, int wordLength) {
         assertEquals(budgetLimit - expenseAmount, budget.getRemainingLimit());
     }
     
-**/ /** @Test
+  @Test
    void testViewBudgetsWithNoBudgetsSet() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
