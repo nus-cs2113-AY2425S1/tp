@@ -20,14 +20,17 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.logging.Level;
+
 
 /**
  * Handles the loading and saving of transactions, categories, and budgets to and from JSON files.
  * Provides methods to load and save transactions, categories, and budgets using Gson serialization.
  */
 public class Storage {
-
+    private static final Logger logger = Logger.getLogger("Storage");
     private static String TRANSACTIONS_PATH = "transactions.json";
     private static String CATEGORIES_PATH = "categories.json";
     private static String BUDGETS_PATH = "budgets.json";
@@ -64,8 +67,14 @@ public class Storage {
 
         try (FileReader reader = new FileReader(TRANSACTIONS_PATH)) {
             Type listType = new TypeToken<ArrayList<Transaction>>() {}.getType();
-            ArrayList<Transaction> transactions = gson.fromJson(reader, listType);
-            return (transactions != null) ? transactions : new ArrayList<>();
+            ArrayList<Transaction> temp =  new ArrayList<>(gson.fromJson(reader, listType));
+            ArrayList<Transaction> transactions = new ArrayList<>();
+            for (Transaction t : temp) {
+                if (isValidTransaction(t)) {
+                    transactions.add(t);
+                }
+            }
+            return transactions;
         } catch (IOException e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_LOADING_TRANSACTIONS, e.getMessage()));
         } catch (com.google.gson.JsonSyntaxException | com.google.gson.JsonIOException e) {
@@ -74,10 +83,39 @@ public class Storage {
             return new ArrayList<>();
         } catch (Exception e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_DESERIALIZING_TRANSACTIONS, e.getMessage()));
-            e.printStackTrace();
+            // e.printStackTrace();
         }
 
         return new ArrayList<>();
+    }
+
+    /**
+     * Validates a transaction to ensure that it contains valid data.
+     *
+     * @param t The transaction to validate.
+     * @return True if the transaction is valid, false otherwise.
+     */
+    private static boolean isValidTransaction(Transaction t) {
+        if (t == null) {
+            return false;
+        }
+
+        if (t.getAmount() < 0) {
+            logger.log(Level.WARNING, "Transaction has negative amount: " + t);
+            return false;
+        }
+
+        if (t.getDescription() == null || t.getDescription().isEmpty()) {
+            logger.log(Level.WARNING, "Transaction has null or empty description: " + t);
+            return false;
+        }
+
+        if (t.getDate() == null) {
+            logger.log(Level.WARNING, "Transaction has an invalid date format: " + t);
+            return false;
+        }
+
+        return true;
     }
 
     /**
