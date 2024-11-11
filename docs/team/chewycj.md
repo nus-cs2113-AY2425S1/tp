@@ -5,34 +5,26 @@ By: Chiew Chun Jia (@chewycj)
 ## 1. Overview
 ExchangeCourseMapper is a convenient CLI tool that aids users in their Student Exchange Programme (SEP) planning.
 It has two main features: One for users to check information on the partner universities and their courses, 
-the second to manage a personal tracker that saves potential course mappings the user would like to consider. These 
-features go hand in hand to help users manage with the amount of information required in SEP planning.
-
+the second to manage a personal tracker that saves potential course mappings the user would like to consider.
 
 ## 2. Summary of Contributions
 ### Code contributed:
-I developed my team's `PersonalTrackerCommand` class, an abstract class that will be extended by the Personal Tracker commands,
-as well as an Information Checker feature, the `FilterCoursesCommand`, and a Personal Tracker feature,
-the `DeleteCoursesCommand`, as well as factored out constants into the `constants` package.
-
 Check out my contributions to ExchangeCourseMapper on the [TP Dashboard](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=chewycj&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false)!
 
-#### JSON file
-* Add course details for The University of Melbourne.
-
+### Enhancements Implemented
 #### PersonalTrackerCommand
-* Abstract parent class to allow child classes for the Personal Tracker features to be implemented through over-riding methods
+* Abstract parent class to allow child classes for the Personal Tracker features to be implemented through
+  over-riding methods
 
 #### Filter Courses Command Class
 * Implemented the `FilterCoursesCommand` class to allow users to filter out Partner University Courses that can be
   mapped to a specific NUS course they plan to take during exchange.
-* The user input format is `filter NUS_COURSE_CODE`, and the program, depending on whether there are available mappings,
-  will print to the command line interface the name of the Partner University and the course it is offering that can be 
-  mapped to `NUS_COURSE_CODE`.
+* Running this command will display the courses offered by PUs in Oceania that can be mapped back to the user specified
+  NUS SoC course.
 
 #### Nus Course Code Validator Class
 * Implemented the `NusCourseCodeValidator` class to check if the NUS course code input for the `FilterCoursesCommand`
-  follows a valid NUS SoC course code format
+  follows a valid NUS SoC course code format.
 
 #### Delete Courses Command Class
 * Implemented the `DeleteCoursesCommand` class to allow users to delete a course mapping plan from
@@ -64,15 +56,15 @@ Check out my contributions to ExchangeCourseMapper on the [TP Dashboard](https:/
 * Delete Courses Sequence Diagram
 
 ### Instructions for manual testing
-* Documented test cases for testers to follow for the `CheckInformationCommands`
+* Documented test cases for testers to follow for the commands inheriting from `CheckInformationCommands`
 * Included notes for testers that could guide them through the testing
 
 ## 5. Contributions to team-based tasks
-* Set up the GitHub team organisation, tP repository, and issue tracker, while discussing with the team through a call.
+* Set up the GitHub team organisation, tP repository, and issue tracker.
 * Provided the idea of a CLI application to help with Student Exchange Programme planning
 * Added the database as a resource to Java in order to package it with the JAR.
 * Creation of the `constants` package, for the use of named constants in our team code.
-* Maintained the issue tracker alongside the team.
+* Maintained the issue tracker alongside the team, and testing of our product.
 
 ## 6. Review/mentoring contributions
 * GitHub code reviews and comments for multiple PRs, learning together with the team:
