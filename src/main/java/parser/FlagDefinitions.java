@@ -15,9 +15,10 @@ public class FlagDefinitions {
     public static final String WEIGHT_FLAG = "/w";
     public static final String CALORIES_FLAG = "/c";
   
-    public static final String REMOVE_EXERCISE_FLAG = "/x";
-    public static final String ADD_EXERCISE_FLAG = "/a";
-    public static final String UPDATE_EXERCISE_FLAG = "/u";
+    public static final String REMOVE_EXERCISE_FLAG = "/xe";
+    public static final String ADD_EXERCISE_FLAG = "/ae";
+    public static final String UPDATE_EXERCISE_FLAG = "/ue";
+
     public static final String ADD_DAY_FLAG = "/ad";
     public static final String REMOVE_DAY_FLAG = "/xd";
 

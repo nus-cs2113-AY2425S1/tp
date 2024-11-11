@@ -70,14 +70,16 @@ public class History {
     }
 
     /**
-     * Retrieves a summary of workout activities from the past week.
-     * <p>
-     * This method iterates over the daily records from the last seven days
-     * and generates a formatted summary of completed exercises.
-     * </p>
+     * Generates a summary of the workout history for the past week.
      *
-     * @return a string containing the summary of the past week's workout history,
-     *     or a message if no history is available
+     * <p>This method retrieves workout data from the {@code history} map, which
+     * contains records of daily activities. It filters out any {@code DailyRecord}
+     * entries that do not contain a workout {@code Day}, so only records with
+     * workout data are included in the weekly summary.</p>
+     *
+     * @return A formatted string summarizing the workout history for the past
+     *         week, or a message indicating no workout history is available if
+     *         no relevant records are found.
      */
     public String getWeeklyWorkoutSummary() {
         if (history.isEmpty()) {
@@ -94,7 +96,8 @@ public class History {
             LocalDate date = entry.getKey();
             DailyRecord dailyRecord = entry.getValue();
 
-            if (!date.isBefore(oneWeekAgo) && !date.isAfter(today)) {
+            // Only include records that have a workout (Day)
+            if (!date.isBefore(oneWeekAgo) && !date.isAfter(today) && dailyRecord.getDayFromRecord() != null) {
                 weeklySummary.append(dailyRecord.getDayFromRecord().toString());
                 weeklySummary.append(String.format("Completed On: %s%n%n", date.format(formatter)));
                 totalExercises += dailyRecord.getDayFromRecord().getExercisesCount();
@@ -183,14 +186,21 @@ public class History {
     /**
      * Builds a map of the personal best exercise for each type based on weight.
      *
+     * <p>Filters out any {@code DailyRecord} entries without a valid workout {@code Day} to avoid null
+     * pointer exceptions.</p>
+     *
      * @return a map of exercise names and their corresponding best {@link Exercise} entries
      */
     private Map<String, Exercise> getPersonalBestsMap() {
         Map<String, Exercise> personalBests = new LinkedHashMap<>();
 
         for (DailyRecord dailyRecord : history.values()) {
-            int exercisesCount = dailyRecord.getDayFromRecord().getExercisesCount();
+            // Skip this record if it does not have a Day (workout data)
+            if (dailyRecord.getDayFromRecord() == null) {
+                continue;
+            }
 
+            int exercisesCount = dailyRecord.getDayFromRecord().getExercisesCount();
             for (int i = 0; i < exercisesCount; i++) {
                 Exercise exercise = dailyRecord.getDayFromRecord().getExercise(i);
                 String exerciseName = exercise.getName();
@@ -217,6 +227,9 @@ public class History {
     /**
      * Retrieves a formatted personal best entry for a specific exercise.
      *
+     * <p>Filters out any {@code DailyRecord} entries without a valid workout {@code Day} to avoid
+     * null pointer exceptions.</p>
+     *
      * @param exerciseName the name of the exercise to look up
      * @return a formatted string showing the personal best for the specified exercise, or a message if not found
      */
@@ -224,8 +237,12 @@ public class History {
         Exercise personalBest = null;
 
         for (DailyRecord dailyRecord : history.values()) {
-            int exercisesCount = dailyRecord.getDayFromRecord().getExercisesCount();
+            // Skip this record if it does not have a Day (workout data)
+            if (dailyRecord.getDayFromRecord() == null) {
+                continue;
+            }
 
+            int exercisesCount = dailyRecord.getDayFromRecord().getExercisesCount();
             for (int i = 0; i < exercisesCount; i++) {
                 Exercise exercise = dailyRecord.getDayFromRecord().getExercise(i);
 
@@ -237,9 +254,11 @@ public class History {
             }
         }
 
-        return personalBest != null
-                ? "Personal best for " + exerciseName + ": " + personalBest.toStringPb()
-                : "No personal best found for " + exerciseName;
+        if (personalBest != null) {
+            return String.format("Personal best for %s: %s", exerciseName, personalBest.toStringPb());
+        } else {
+            return String.format("No personal best found for %s", exerciseName);
+        }
     }
 
     //@@author Bev-Low

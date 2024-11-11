@@ -1,5 +1,7 @@
 @startuml
 
+skinparam classAttributeIconSize 0
+
 class Water {
     - waterList : ArrayList<Float>
     + Water(): void
