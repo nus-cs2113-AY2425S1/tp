@@ -20,20 +20,17 @@ import java.util.logging.SimpleFormatter;
 
 public class AddCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(AddCommand.class.getName());
+    // Updated regex to include additional characters
+    private static final String VALID_NAME_REGEX = "^[a-zA-Z0-9_\\- .;:'\"&()<>{}%@*$#=~]+$";
 
     static {
         try {
-            // Set up FileHandler to log messages to "app.log"
-            FileHandler fileHandler = new FileHandler("app.log", true); // Appends to "app.log"
-            fileHandler.setFormatter(new SimpleFormatter()); // Simple text formatter
-
-            // Add FileHandler to the logger
+            FileHandler fileHandler = new FileHandler("app.log", true);
+            fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
-
-            // Disable logging to the console
             LOGGER.setUseParentHandlers(false);
         } catch (IOException e) {
-            e.printStackTrace(); // Print exception if file handler fails to set up
+            e.printStackTrace();
         }
     }
 
@@ -82,14 +79,13 @@ public class AddCommand extends Command {
             String type = parts[0].trim();
             String fieldName = parts[1].trim();
 
-            // Check if the field name is empty or contains only spaces
-            if (fieldName.isEmpty()) {
-                throw new InventraInvalidTypeException(fieldName, "cannot " +
-                        "be empty or just spaces", "provide a valid field name");
+            // Validate field name for special characters
+            if (!fieldName.matches(VALID_NAME_REGEX)) {
+                throw new InventraInvalidTypeException(fieldName, "contains invalid characters", "alphanumeric or .;:'\"&()<>{}%@*$#=~$");
             }
 
-            if (fieldName.length() > 20) {
-                throw new InventraInvalidTypeException(fieldName, "length exceeds 20 characters", "shorter name");
+            if (fieldName.isEmpty() || fieldName.length() > 20) {
+                throw new InventraInvalidTypeException(fieldName, "invalid length or format", "1-20 characters without special symbols");
             }
 
             if (!isValidFieldType(type)) {
@@ -106,7 +102,6 @@ public class AddCommand extends Command {
         ui.showSuccessFieldsAdded();
         ui.showFieldsAndRecords(inventory);
     }
-
 
     private void handleAddRecord(String recordData) throws InventraException {
         LOGGER.info("Handling add record: " + recordData);
@@ -154,7 +149,6 @@ public class AddCommand extends Command {
         ui.showSuccessRecordAdded();
     }
 
-
     public String validateValue(String value, String type, String field) throws InventraException {
         assert value != null && !value.isEmpty() : "Value should not be null or empty";
         assert type != null && !type.isEmpty() : "Field type should not be null or empty";
@@ -162,10 +156,13 @@ public class AddCommand extends Command {
 
         switch (type) {
         case "s": // String
+            if (!value.matches(VALID_NAME_REGEX)) {
+                throw new InventraInvalidTypeException(field, value, "alphanumeric or limited symbols _ - .;:'\"&()<>{}%@*$#=~$");
+            }
             if (value.matches("\\d+")) {
                 throw new InventraInvalidTypeException(field, value, "non-numeric string");
             }
-            return null; // Any string is valid
+            return null;
 
         case "i": // Integer
             try {
@@ -180,7 +177,7 @@ public class AddCommand extends Command {
                 if (intValue < 0) {
                     throw new InventraNegativeValueException(field, value);
                 }
-                return null; // Valid integer
+                return null;
             } catch (NumberFormatException e) {
                 throw new InventraInvalidTypeException(field, value, "integer");
             }
@@ -191,7 +188,7 @@ public class AddCommand extends Command {
                 if (floatValue < 0) {
                     throw new InventraNegativeValueException(field, value);
                 }
-                return null; // Valid float
+                return null;
             } catch (NumberFormatException e) {
                 throw new InventraInvalidTypeException(field, value, "float");
             }
@@ -212,7 +209,7 @@ public class AddCommand extends Command {
                             field, value, "valid date in DD/MM/YYYY or DD/MM/YY format"
                     );
                 }
-                return null; // Valid date
+                return null;
             } catch (NumberFormatException e) {
                 throw new InventraInvalidTypeException(
                         field, value, "valid date (DD/MM/YYYY or DD/MM/YY)"
@@ -223,7 +220,7 @@ public class AddCommand extends Command {
             if (!value.equalsIgnoreCase("null")) {
                 throw new InventraInvalidTypeException(field, value, "null");
             }
-            return null; // Valid null
+            return null;
 
         default:
             return ui.getUnknownTypeMessage(field);
