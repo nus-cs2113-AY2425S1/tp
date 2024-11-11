@@ -19,6 +19,10 @@ and initialising the components that does the main execution of the program.
 ### Overall Sequence Diagram
 The sequence diagram below describes how the components interacts with one another when the user issues a command.
 
+In this sequence diagram, all the components would be grouped together and simplified for easier understanding. 
+- All the commands, which are all the classes in the commands package, would be classified under `:Command` here.
+- All storage classes would be classified under `:Storage`
+
 ![Overal Sequence Diagram](developerguidepictures/Overall%20Sequence%20Diagram.drawio.png)
 
 The sections below give more details of the components and any additional components.
