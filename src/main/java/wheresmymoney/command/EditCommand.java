@@ -76,7 +76,8 @@ public class EditCommand extends Command {
     /**
      * Edits an expense or recurring expense
      * 
-     * @param expenseList List of expenses
+     * @param expenseList List of normal expenses
+     * @param categoryFacade Category facade to perform operations using categories
      * @param recurringExpenseList List of recurring expenses
      */
     @Override

@@ -1,3 +1,4 @@
+//@@author shyaamald
 package wheresmymoney.command;
 
 import wheresmymoney.utils.ArgumentsMap;
@@ -56,15 +57,21 @@ public class StatsCommand extends Command {
             }
         }
         float mean = sum/filteredExpenses.size();
-        Ui.displayMessage("HIGHEST EXPENSE:");
+        double truncatedMean = (Math.floor(mean * 100) / 100);
+        Ui.displayMessage("HIGHEST EXPENSE:" + highest.getPrice());
         Ui.displayExpense(expenseList, highest);
-        Ui.displayMessage("LOWEST EXPENSE:");
+        Ui.displayMessage("LOWEST EXPENSE:" + lowest.getPrice());
         Ui.displayExpense(expenseList, lowest);
-        Ui.displayMessage("MEAN PRICE: " + mean);
+        Ui.displayMessage("TOTAL EXPENSES: " + sum);
+        Ui.displayMessage("AVERAGE PRICE: " + truncatedMean);
     }
 
     /**
-     * Display list expenses as requested by user
+     * Display stats of expenses as requested by user
+     *
+     * @param expenseList Main list of expenses
+     * @param categoryFacade Main category facade to perform operations using categories
+     * @param recurringExpenseList Main recurring expense list
      */
     @Override
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade,
