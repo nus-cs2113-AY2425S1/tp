@@ -38,7 +38,8 @@ class AddExpenseCommandTest {
     }
 
     @Test
-    void execute_addExpenseAllValidFields_success() throws InvalidCategoryNameException, InvalidDescriptionFormatException {
+    void execute_addExpenseAllValidFields_success()
+            throws InvalidCategoryNameException, InvalidDescriptionFormatException {
         // Arrange
         categoryList.addCategory(new Category("Food"));
         command.setArguments(Map.of(
@@ -150,7 +151,8 @@ class AddExpenseCommandTest {
 
         // Assert
         assertEquals(0, transactionList.getTransactions().size());
-        assertEquals(CommandResultMessages.ADD_TRANSACTION_FAIL + ErrorMessages.NEGATIVE_AMOUNT +": -1000", result.get(0));
+        assertEquals(CommandResultMessages.ADD_TRANSACTION_FAIL
+                + ErrorMessages.NEGATIVE_AMOUNT +": -1000", result.get(0));
     }
 
     @Test
