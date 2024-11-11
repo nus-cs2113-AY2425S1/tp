@@ -92,7 +92,7 @@ public class FoodWaterIntake {
 
         // Print each food entry if it was added on the current date
         for (FoodEntry entry : foodList) {
-            if (entry.getLocalDate().equals(currentDate)) {
+            if (entry.getTruncatedDateTime().equals(currentDate)) {
                 System.out.print(listIndex + ". ");
                 System.out.println(entry.getFoodName() + " - " + entry.getCalories()
                         + " calories, added on " + entry.getFormattedDateTime());

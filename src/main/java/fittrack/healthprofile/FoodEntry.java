@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 public class FoodEntry extends Saveable {
     private String foodName;        // Name of the food item
@@ -45,14 +46,13 @@ public class FoodEntry extends Saveable {
     }
 
     /**
-     * Returns the date part of the timestamp, excluding the time.
+     * Returns the date-time part of the timestamp, truncated to milliseconds.
      *
-     * @return LocalDate representing the date of the food entry.
+     * @return LocalDateTime representing the date and time of the food entry, truncated to milliseconds.
      */
-    public LocalDate getLocalDate() {
-        return dateTime.toLocalDate();
+    public LocalDateTime getTruncatedDateTime() {
+        return dateTime.truncatedTo(ChronoUnit.MILLIS);
     }
-
 
     /**
      * Provides a string representation of the food entry, including its name, calories,
