@@ -454,6 +454,32 @@ public class Storage {
         }
         clearInvalidLines();
     }
+
+    /**
+     * Deletes the budget file from the file system.
+     * If an error occurs during deletion, it logs a warning message.
+     */
+    public void deleteBudgetFromFile() {
+        try {
+            File budgetFile = getBudgetFile();
+            budgetFile.delete();
+        } catch (Exception e) {
+            logger.log(LogLevels.WARNING, "Error deleting budget file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Deletes the financial list file from the storage.
+     * If an error occurs during the deletion process, it logs a warning message.
+     */
+    public void deleteFinancialListFromFile() {
+        try {
+            File financialListFile = getStorageFile();
+            financialListFile.delete();
+        } catch (Exception e) {
+            logger.log(LogLevels.WARNING, "Error deleting financial list file: " + e.getMessage());
+        }
+    }
 }
 
 
