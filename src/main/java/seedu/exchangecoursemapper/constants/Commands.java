@@ -15,8 +15,10 @@ public class Commands {
     public static final String FIND = "find";
     public static final String COMPARE_PU = "compare";
     public static final int COMMAND_WORD_INDEX = 0;
-    public static final int PLAN_INDEX_TO_DELETE = 1;
+    public static final int DELETE_COURSES_MAX_ARGS = 2;
+    public static final int DELETE_COMMAND_PARAMETER_INDEX = 1;
     public static final int FILTER_COURSES_MAX_ARGS = 2;
+    public static final int FILTER_COMMAND_PARAMETER_INDEX = 1;
     public static final int ZERO_INDEX_OFFSET = 1;
     public static final int NUS_COURSE_CODE_LENGTH = 6;
     public static final int NUS_SPECIAL_COURSE_CODE_LENGTH = 7;

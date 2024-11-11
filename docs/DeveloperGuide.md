@@ -385,6 +385,13 @@ that NUS course is suitable to be mapped overseas in Oceania.
 * There are also assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
+
+#### Why it is implemented that way:
+- **Single Responsibility Principle:** The methods to check in the user's input for the NUS course code is extracted
+  into the `NusCourseCodeValidator` class, separate from the methods used in the `FilterCoursesCommand` clas, which
+  are mainly for the logic behind the filtering of courses.
+
+
 #### Sequence Diagram:
 ![Filter Courses Sequence Diagram](images/FilterCoursesCommand.png)
 

@@ -11,7 +11,8 @@ import seedu.exchangecoursemapper.ui.UI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static seedu.exchangecoursemapper.constants.Commands.PLAN_INDEX_TO_DELETE;
+import static seedu.exchangecoursemapper.constants.Commands.DELETE_COMMAND_PARAMETER_INDEX;
+import static seedu.exchangecoursemapper.constants.Commands.DELETE_COURSES_MAX_ARGS;
 import static seedu.exchangecoursemapper.constants.Commands.ZERO_INDEX_OFFSET;
 import static seedu.exchangecoursemapper.constants.Regex.REPEATED_SPACES;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
@@ -50,9 +51,9 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
                 return;
             }
             logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);
-            String[] descriptionSubstrings = parseDeleteCommand(userInput);
-            assert descriptionSubstrings.length == 2 : Assertions.MISSING_FIELDS;
-            int listIndex = getListIndex(descriptionSubstrings);
+            String[] inputDetails = parseDeleteCommand(userInput);
+            assert inputDetails.length == DELETE_COURSES_MAX_ARGS : Assertions.MISSING_FIELDS;
+            int listIndex = getListIndex(inputDetails);
             deleteCourse(listIndex, storage);
         } catch (IllegalArgumentException e) {
             logger.log(Level.WARNING, e.getMessage());
@@ -69,30 +70,31 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
     public String[] parseDeleteCommand(String userInput) {
         String input = userInput.trim().replaceAll(REPEATED_SPACES, SPACE);
         assert !input.isEmpty() : Assertions.NULL_INPUT;
-        String[] descriptionSubstrings = input.split(SPACE);
-        if (descriptionSubstrings.length < 2 || descriptionSubstrings[1].trim().isEmpty()) {
+        String[] inputDetails = input.split(SPACE);
+        if (inputDetails.length < DELETE_COURSES_MAX_ARGS ||
+                inputDetails[DELETE_COMMAND_PARAMETER_INDEX].trim().isEmpty()) {
             throw new IllegalArgumentException(Exception.noInputAfterDelete());
         }
-        if (descriptionSubstrings.length > 2) {
+        if (inputDetails.length > DELETE_COURSES_MAX_ARGS) {
             throw new IllegalArgumentException(Exception.deleteCoursesLimitExceeded());
         }
         logger.log(Level.INFO, Logs.RETURN_PARSED_DELETE_COMMAND);
-        return descriptionSubstrings;
+        return inputDetails;
     }
 
     /**
      * Returns the index of the course to be deleted.
      *
-     * @param descriptionSubstrings a String[] containing the extracted information: list index of the course
+     * @param inputDetails a String[] containing the extracted information: list index of the course
      *                              mapping to be deleted.
      * @return an integer that represents the list index of the course to be deleted.
      */
-    public int getListIndex(String[] descriptionSubstrings) {
+    public int getListIndex(String[] inputDetails) {
         try {
-            assert descriptionSubstrings.length == 2 |  descriptionSubstrings[1].trim().isEmpty() :
-                    Assertions.MISSING_FIELDS;
+            assert inputDetails.length == DELETE_COURSES_MAX_ARGS |
+                    inputDetails[DELETE_COMMAND_PARAMETER_INDEX].trim().isEmpty() : Assertions.MISSING_FIELDS;
             logger.log(Level.INFO, Logs.GET_INDEX_OF_COURSE_TO_DELETE);
-            return Integer.parseInt(descriptionSubstrings[PLAN_INDEX_TO_DELETE]);
+            return Integer.parseInt(inputDetails[DELETE_COMMAND_PARAMETER_INDEX]);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(Exception.nonNumericListIndexInput());
         }

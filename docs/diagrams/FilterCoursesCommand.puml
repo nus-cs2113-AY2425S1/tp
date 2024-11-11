@@ -5,7 +5,7 @@ hide footbox
 actor CEG_Student
 participant ":FilterCoursesCommand" as FilterCoursesCommand
 participant ":Command" as Command
-participant ":Ui" as UI
+participant "<<class>>\n:NusCourseCodeValidator" as NusCourseCodeValidator
 
 CEG_Student -> FilterCoursesCommand: execute (userInput:String)
 activate FilterCoursesCommand
@@ -20,9 +20,15 @@ FilterCoursesCommand -> FilterCoursesCommand: parseFilterInput(userInput: String
 activate FilterCoursesCommand
 return inputDetails : String[]
 
-FilterCoursesCommand -> FilterCoursesCommand: getNusCourseCode(inputDetails: String)
+FilterCoursesCommand -> FilterCoursesCommand: getNusCourseCode(inputDetails: String[])
 activate FilterCoursesCommand
 
+FilterCoursesCommand -> NusCourseCodeValidator: isValidSocCourseCode(nusCourseCode: String)
+activate NusCourseCodeValidator
+return isValidSocCourseCode: boolean
+FilterCoursesCommand -> NusCourseCodeValidator: isValidNusCourseCodeFormat(nusCourseCode: String)
+activate NusCourseCodeValidator
+return isValidNusCourseCodeFormat: boolean
 return courseToFind : String
 
 FilterCoursesCommand -> FilterCoursesCommand: displayMappableCourses(jsonObject : JsonObject, courseToFind : String)

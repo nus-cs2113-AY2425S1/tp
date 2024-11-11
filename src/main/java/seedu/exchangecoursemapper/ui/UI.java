@@ -35,6 +35,15 @@ import static seedu.exchangecoursemapper.constants.Messages.COMMON_MAPPINGS_HEAD
 import static seedu.exchangecoursemapper.constants.Messages.NO_COMMON_MAPPINGS;
 import static seedu.exchangecoursemapper.constants.Messages.NO_UNIQUE_MAPPINGS;
 import static seedu.exchangecoursemapper.constants.Messages.UNIQUE_MAPPINGS_HEADER;
+import static seedu.exchangecoursemapper.constants.Messages.CORRUPT_HELP;
+import static seedu.exchangecoursemapper.constants.Messages.ERROR_COURSE_ENTRY;
+import static seedu.exchangecoursemapper.constants.Messages.ERROR_ENTRY_FORMAT;
+import static seedu.exchangecoursemapper.constants.Messages.COURSE_NOT_FOUND;
+import static seedu.exchangecoursemapper.constants.Messages.INVALID_FORMAT;
+import static seedu.exchangecoursemapper.constants.Messages.MYLIST_JSON;
+import static seedu.exchangecoursemapper.constants.Messages.CHECK_SPELLING;
+import static seedu.exchangecoursemapper.constants.Messages.UNKNOWN_UNI;
+import static seedu.exchangecoursemapper.constants.Messages.NOT_RECOGNIZED;
 import static seedu.exchangecoursemapper.constants.Regex.COLON;
 
 public class UI {
@@ -226,13 +235,15 @@ public class UI {
     }
 
     public void printInvalidCourseEntry(int lineNumber, String entry) {
-        System.out.println("Error: Invalid course entry at line " + lineNumber + " in myList.json");
-        System.out.println("Course not found in database: " + entry);
+        System.out.println(ERROR_COURSE_ENTRY + lineNumber + MYLIST_JSON);
+        System.out.println(COURSE_NOT_FOUND + entry);
+        System.out.println(CORRUPT_HELP);
     }
 
     public void printInvalidEntryFormat(int lineNumber, String entry) {
-        System.out.println("Error: Unable to parse course entry at line " + lineNumber + " in myList.json");
-        System.out.println("Invalid format: " + entry);
+        System.out.println(ERROR_ENTRY_FORMAT + lineNumber + MYLIST_JSON);
+        System.out.println(INVALID_FORMAT + entry);
+        System.out.println(CORRUPT_HELP);
     }
 
     /**
@@ -266,9 +277,8 @@ public class UI {
 
     public void printUnknownUniversity(String university) {
         System.out.println(LINE_SEPARATOR);
-        System.out.println("Error: The university \"" + university + "\" is not recognized.");
-        System.out.println("Please check the spelling or refer to the list of available universities using the " +
-                "'list schools' command.");
+        System.out.println(UNKNOWN_UNI + university + NOT_RECOGNIZED);
+        System.out.println(CHECK_SPELLING);
         System.out.println(LINE_SEPARATOR);    }
 
 
