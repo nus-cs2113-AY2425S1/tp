@@ -85,7 +85,7 @@ public class Parser {
 
     // Method to print all goals in the goal list or notify if empty
     private static void printGoalList(ArrayList<String> goalList) {
-        if (goalList.isEmpty()){
+        if (goalList.isEmpty()) {
             System.out.println("Your goals list is currently empty.");
         } else {
             System.out.println("Your goals:");
@@ -204,8 +204,7 @@ public class Parser {
                 }
                 sessionList.add(insertIndex, modifiedSession);
                 printModifiedSession(sessionList,sessionIndex + 1);
-            }
-        catch (Exception e) {
+            } catch (Exception e) {
                 // Handle any exceptions and print error message.
                 System.out.println(e.getMessage());
             }
