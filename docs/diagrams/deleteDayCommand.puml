@@ -1,0 +1,25 @@
+@startuml
+participant ":DeleteDayProgrammeCommand" as Command
+participant ":ProgrammeList" as ProgrammeList
+participant ":Programme" as Programme
+
+-> Command : execute()
+activate Command
+
+Command -> ProgrammeList : getProgramme(programmeIndex)
+activate ProgrammeList
+
+opt Programme exists
+    ProgrammeList --> Command : selected Programme
+    deactivate ProgrammeList
+
+    Command -> Programme : deleteDay(dayIndex)
+    activate Programme
+
+    Programme --> Command : deleted Day
+    deactivate Programme
+end
+
+<-- Command : deleted Day
+deactivate Command
+@enduml

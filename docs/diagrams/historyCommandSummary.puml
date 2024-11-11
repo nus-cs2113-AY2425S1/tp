@@ -5,41 +5,34 @@ abstract class HistoryCommand {
     - date : LocalDate
     + HistoryCommand()
     + HistoryCommand(date : LocalDate)
-    + execute(programmes : ProgrammeList, history : History) : CommandResult
     + execute(history : History) : CommandResult
 }
 
 class DeleteHistoryCommand {
-    + COMMAND_WORD : String = "delete"
     + DeleteHistoryCommand(date : LocalDate)
     + execute(history : History) : CommandResult
 }
 
 class ListHistoryCommand {
-    + COMMAND_WORD : String = "list"
     + execute(history : History) : CommandResult
 }
 
 class ListPersonalBestsCommand {
-    + COMMAND_WORD : String = "pb"
     + execute(history : History) : CommandResult
 }
 
 class ViewHistoryCommand {
-    + COMMAND_WORD : String = "view"
     + ViewHistoryCommand(date : LocalDate)
     + execute(history : History) : CommandResult
 }
 
 class ViewPersonalBestCommand {
-    + COMMAND_WORD : String = "pb"
     - exerciseName : String
     + ViewPersonalBestCommand(exerciseName : String)
     + execute(history : History) : CommandResult
 }
 
 class WeeklySummaryCommand {
-    + COMMAND_WORD : String = "wk"
     + execute(history : History) : CommandResult
 }
 
