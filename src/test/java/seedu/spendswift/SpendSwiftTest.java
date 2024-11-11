@@ -504,7 +504,7 @@ private String generateRandomWord(Random random, int wordLength) {
     }
     
 **/@Test
-    void testViewBudgetsWithNoBudgetsSet() {
+   void testViewBudgetsWithNoBudgetsSet() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
         String categoryName = "Category_NoBudget";
