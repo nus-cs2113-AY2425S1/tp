@@ -46,5 +46,6 @@ deactivate Income
 destroy Income
 deactivate AddIncomeCommand
 destroy AddIncomeCommand
-deactivate Logic
+return
+
 @enduml
