@@ -21,7 +21,7 @@ import java.util.logging.SimpleFormatter;
 public class AddCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(AddCommand.class.getName());
     // Updated regex to include additional characters
-    private static final String VALID_NAME_REGEX = "^[a-zA-Z0-9_\\- .;:'\"&()<>{}%@*$#=~]+$";
+    private static final String VALID_NAME_REGEX = "^[a-zA-Z0-9_\\- .;:'\"&()<!>{}%@*$#=~]+$";
 
     static {
         try {
@@ -81,11 +81,13 @@ public class AddCommand extends Command {
 
             // Validate field name for special characters
             if (!fieldName.matches(VALID_NAME_REGEX)) {
-                throw new InventraInvalidTypeException(fieldName, "contains invalid characters", "alphanumeric or .;:'\"&()<>{}%@*$#=~$");
+                throw new InventraInvalidTypeException(fieldName, "contains invalid characters",
+                        "alphanumeric or .;:'\"&()<>{}%@*$#=~$");
             }
 
             if (fieldName.isEmpty() || fieldName.length() > 20) {
-                throw new InventraInvalidTypeException(fieldName, "invalid length or format", "1-20 characters without special symbols");
+                throw new InventraInvalidTypeException(fieldName, "invalid length or format",
+                        "1-20 characters without special symbols");
             }
 
             if (!isValidFieldType(type)) {
@@ -157,7 +159,8 @@ public class AddCommand extends Command {
         switch (type) {
         case "s": // String
             if (!value.matches(VALID_NAME_REGEX)) {
-                throw new InventraInvalidTypeException(field, value, "alphanumeric or limited symbols _ - .;:'\"&()<>{}%@*$#=~$");
+                throw new InventraInvalidTypeException(field, value, "alphanumeric " +
+                        "or limited symbols _ - .;:'\"&()<!>{}%@*$#=~$");
             }
             if (value.matches("\\d+")) {
                 throw new InventraInvalidTypeException(field, value, "non-numeric string");

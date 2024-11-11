@@ -1,6 +1,12 @@
 package seedu.command;
 
-import seedu.exceptions.*;
+import seedu.exceptions.InventraException;
+import seedu.exceptions.InventraExcessArgsException;
+import seedu.exceptions.InventraMissingArgsException;
+import seedu.exceptions.InventraOutOfBoundsException;
+import seedu.exceptions.InventraInvalidNumberException;
+import seedu.exceptions.InventraExcessInputException;
+
 import seedu.model.Inventory;
 import seedu.ui.Ui;
 
