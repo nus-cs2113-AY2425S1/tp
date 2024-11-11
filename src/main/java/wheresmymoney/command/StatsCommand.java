@@ -1,3 +1,4 @@
+//@@author shyaamald
 package wheresmymoney.command;
 
 import wheresmymoney.utils.ArgumentsMap;
@@ -11,9 +12,6 @@ import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.ArrayList;
 
-/**
- * @author shyaamald
- */
 public class StatsCommand extends Command {
 
     public StatsCommand(ArgumentsMap argumentsMap) {

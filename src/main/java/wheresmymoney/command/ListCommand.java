@@ -1,3 +1,4 @@
+//@@author shyaamald
 package wheresmymoney.command;
 
 import wheresmymoney.utils.ArgumentsMap;
@@ -12,9 +13,6 @@ import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.ArrayList;
 
-/**
- * @author shyaamald
- */
 public class ListCommand extends Command {
     private boolean isFiltered = true;
     public ListCommand(ArgumentsMap argumentsMap) {

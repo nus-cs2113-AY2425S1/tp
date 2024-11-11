@@ -192,8 +192,9 @@ class ExpenseListTest {
                 () -> expenseList.deleteExpense(1));
     }
 
+    //@@author shyaamald
     /**
-     * @author shyaamald
+     * Test the listing of expenses
      */
     @Test
     public void listByCategory_validListByCategory_success() {
@@ -211,7 +212,7 @@ class ExpenseListTest {
     }
 
     /**
-     * @author shyaamald
+     * Tests the listing of expenses from an empty expense list.
      */
     @Test
     public void listByCategory_emptyListByCategory_success() {
@@ -221,7 +222,7 @@ class ExpenseListTest {
     }
 
     /**
-     * @author shyaamald
+     * Tests the listing of expenses from an expense list where no match for specified category is found.
      */
     @Test
     public void listByCategory_noMatchForCategory_success() {

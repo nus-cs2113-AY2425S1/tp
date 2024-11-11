@@ -1,3 +1,4 @@
+//@@author shyaamald
 package wheresmymoney.command;
 
 import wheresmymoney.utils.ArgumentsMap;
@@ -9,9 +10,6 @@ import wheresmymoney.Ui;
 import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
-/**
- * @author shyaamald
- */
 public class HelpCommand extends Command {
 
     public HelpCommand(ArgumentsMap argumentsMap) {
