@@ -98,6 +98,7 @@ General format: add [FLAG] [VALID INPUT]
 * Command: `add -d VALUE1, VALUE2, ...`
     * Note:
         - The order of values should match fields defined using `add -h`.
+        - No need to provide value for ID field when create records.
         - **Supported date formats:** `DD/MM/YYYY` or `DD/MM/YY`.
     * Example:
     ``` 
@@ -123,7 +124,7 @@ General Format: `view [FLAG] [INPUT]`
 
 #### View Records related to Keyword
 * Command: `view -f KEYWORD`
-    * Display records that contains the keyword
+    * Display records that contains the keyword inputted by the user.
     * Example: ``` view -f apple ```
       
 ### Updating Fields and Records: `update`
@@ -167,7 +168,6 @@ General Format: `delete [FLAG] [INPUT]`
 * Command: `delete -h FIELD`
     * Example: delete -h quantity
     * Deletes the entire column from the inventory based on mentioned field
-    * 
 #### Delete Specific Record
 * Command: `delete RECORD_ID`
 * Delete a single record based on specific ID (1-based indexing).
@@ -184,6 +184,7 @@ Terminates the program.
         * Exit Inventra.  
         * Example:
         ``` exit ```
+* Note: Input extra arguments after `exit` command will count as invalid command.
 
 ## FAQ
 
@@ -202,32 +203,35 @@ Ensure that the file remains in the same directory as `inventra.jar` file when r
 
 ## Command Summary
 
-| Action                   | Format & Example                                        |
-|--------------------------|---------------------------------------------------------|
-| **Get Help**             | `help` / `help [COMMAND]`                               |
-|                          | Example: `help` / `help delete`                         |
-| **Add Field**            | `add -h TYPE/FIELD1, TYPE/FIELD2,...`                   |
-|                          | Example: `add -h s/name, i/quantity, f/price, d/expiry` |
-| **Add Record**           | `add -d VALUE1, VALUE2,...`                             |
-|                          | Example: `add -d Apple, 100, 1.50, 01/10/2024`          |
-| **View All Records**     | `view -a`                                               |
-|                          | Example: `view -a`                                      |
-| **View Specific Record** | `view RECORD_ID`                                        |
-|                          | Example: `view 1`                                       |
-| **Update Field**         | `update -h OLDFIELD, NEWFIELD`                          |
-|                          | Example: `update -h name, product_name`                 |
-| **Update Record**        | `update -d RECORD_ID, FIELD, NEWVALUE`                  |
-|                          | Example: `update -d 1, price, 1.50`                     |
-| **Delete All Fields**    | `delete -e`                                             |
-|                          | Example: `delete -e`                                    |
-| **Delete All Records**   | `delete -a`                                             |
-|                          | Example: `delete -a`                                    |
-| **Delete Field**         | `delete -h FIELD_NAME`                                  |
-|                          | Example: `delete -h quantity`                           |
-| **Delete Specific Record**| `delete RECORD_ID`                                      |
-|                          | Example: `delete 1`                                     |
-| **Delete Range of Records**| `delete -r STARTID-ENDID`                               |
-|                          | Example: `delete -r 1-5`                                |
-| **Exit Program**         | `exit`                                                  |
-|                          | Example: `exit`                                         |
+| Action                   | Format & Example                               |
+|--------------------------|------------------------------------------------|
+| **Get Help**             | `help` / `help [COMMAND]`                      |
+|                          | Example: `help` / `help delete`                |
+| **Add Field**            | `add -h TYPE/FIELD1, TYPE/FIELD2,...`          |
+|                          | Example: `add -h s/name, i/quantity, d/expiry` |
+| **Add Record**           | `add -d VALUE1, VALUE2,...`                    |
+|                          | Example: `add -d Apple, 100, 1.50, 01/10/2024` |
+| **View All Records**     | `view -a`                                      |
+|                          | Example: `view -a`                             |
+| **View Specific Record** | `view RECORD_ID`                               |
+|                          | Example: `view 1`                              |
+| **Search for Records**   | `view -f KEYWORD`                              |
+|                          | Example: `view -f Apple`                       | 
+| **Update Field**         | `update -h OLDFIELD, NEWFIELD`                 |
+|                          | Example: `update -h name, product_name`        |
+| **Update Record**        | `update -d RECORD_ID, FIELD, NEWVALUE`         |
+|                          | Example: `update -d 1, price, 1.50`            |
+| **Delete All Fields**    | `delete -e`                                    |
+|                          | Example: `delete -e`                           |
+| **Delete All Records**   | `delete -a`                                    |
+|                          | Example: `delete -a`                           |
+| **Delete Field**         | `delete -h FIELD_NAME`                         |
+|                          | Example: `delete -h quantity`                  |
+| **Delete Specific Record**| `delete RECORD_ID`                             |
+|                          | Example: `delete 1`                            |
+| **Delete Range of Records**| `delete -r STARTID-ENDID`                      |
+|                          | Example: `delete -r 1-5`                       |
+| **Exit Program**         | `exit`                                         |
+|                          | Example: `exit`                                |
+
 

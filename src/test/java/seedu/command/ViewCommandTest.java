@@ -3,10 +3,7 @@ package seedu.command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.exceptions.InventraExcessArgsException;
-import seedu.exceptions.InventraInvalidNumberException;
-import seedu.exceptions.InventraMissingArgsException;
-import seedu.exceptions.InventraOutOfBoundsException;
+import seedu.exceptions.*;
 import seedu.model.Inventory;
 import seedu.storage.Csv;
 import seedu.ui.Ui;
@@ -15,6 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -54,12 +52,29 @@ public class ViewCommandTest {
                 () -> new ViewCommand(inventory, ui).execute(args));
     }
 
+
+    // Test for view by non-numeric ID:
     @Test
     public void execute_invalidNumber_throwsException() {
         String[] args = {"view", "invalidNumber"};
         assertThrows(InventraInvalidNumberException.class,
                 () -> new ViewCommand(inventory, ui).execute(args));
     }
+
+    @Test
+    public void execute_floatNumber_throwsException() {
+        String[] args = {"view", "1.5"};
+        assertThrows(InventraInvalidNumberException.class,
+                () -> new ViewCommand(inventory, ui).execute(args));
+    }
+
+    @Test
+    public void execute_negativeNumber_throwsException() {
+        String[] args = {"view", "-1"};
+        assertThrows(InventraOutOfBoundsException.class,
+                () -> new ViewCommand(inventory, ui).execute(args));
+    }
+
 
     @Test
     public void execute_excessArgsViewAll_throwsException() {
@@ -99,13 +114,23 @@ public class ViewCommandTest {
         }
     }
 
-    // Test for view by non-numeric ID:
     @Test
-    public void execute_viewByNonNumericID_throwsException() {
-        String[] args = {"view", "nonNumericID"};
-        assertThrows(InventraInvalidNumberException.class, ()
-                -> new ViewCommand(inventory, ui).execute(args));
+    public void execute_viewByNumericID_success() {
+        // Assuming the valid numeric ID is "123" and
+        // the expected behavior is that the command executes without throwing any exceptions.
+        String[] args_1 = {"view", "1"};
+        String[] args_2 = {"view", "2"};
+        String[] args_3 = {"view", "3"};
+
+        // You can mock or setup any necessary dependencies, e.g., 'inventory' and 'ui', if needed.
+
+        assertDoesNotThrow(() -> new ViewCommand(inventory, ui).execute(args_1));
+        assertDoesNotThrow(() -> new ViewCommand(inventory, ui).execute(args_2));
+        assertDoesNotThrow(() -> new ViewCommand(inventory, ui).execute(args_3));
     }
+
+
+
 
     // Test for view with empty keyword:
     @Test
@@ -122,6 +147,28 @@ public class ViewCommandTest {
         assertThrows(InventraMissingArgsException.class, ()
                 -> viewCommand.execute(argsWithWhitespaceKeyword));
     }
+
+    //Test for valid string
+    @Test
+    public void execute_viewWithKeyword_throwExcessInputException() {
+        String[] argsWithLongKeyword = {"view", "-f", "AAAAAAAAAAAAAAAAAAAAAAA"};
+        ViewCommand viewCommand = new ViewCommand(inventory, ui);
+
+        // Test valid keyword (successful execution)
+        assertThrows(InventraExcessInputException.class, ()
+                -> viewCommand.execute(argsWithLongKeyword));
+    }
+
+    //Test for valid string
+    @Test
+    public void execute_viewWithKeyword_successfulExecution() {
+        String[] argsWithValidKeyword = {"view", "-f", "A"};
+        ViewCommand viewCommand = new ViewCommand(inventory, ui);
+
+        // Test valid keyword (successful execution)
+        assertDoesNotThrow(() -> viewCommand.execute(argsWithValidKeyword));
+    }
+
 
     @AfterEach
     public void tearDown() {
