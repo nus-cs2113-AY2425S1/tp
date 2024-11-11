@@ -193,20 +193,6 @@ Example output:
 
 ![view-budget](userguidepictures/view-budget.png)
 
-### Set Regular Monthly Reset of Budget: toggle-reset
-Automatically resets the budget for each category at the start of a new month when turned on.
-
-Format:
-`toggle-reset`
-
-- No parameters are required.
-- It would automatically switch to the other setting.
-  - If automatic budget reset is off, `toggle-reset` would turn it on, vice versa.
-
-Example output:
-
-![toggle-reset](userguidepictures/toggle-reset.png)
-
 ### Help
 Provides a summary of available commands and their functionalities.
 It serves as a quick reference for users to understand how to use different features and commands in the system.
@@ -247,11 +233,6 @@ To make changes, delete the existing expense using `delete-expense` and add a ne
 **A**: SpendSwift automatically rounds amounts to two decimal places.
 For example, if you enter an amount of 5.678, it will be saved as 5.68.
 
-**Q**: How do I check if my budgets reset automatically each month?  
-**A**: Use the `toggle-reset` command to switch the automatic monthly budget reset on or off.
-If the feature is currently off, typing the command will turn it on, and vice versa.
-
-
 ## Command Summary
 - Add expense `add-expense n/NAME a/AMOUNT [c/CATEGORY]`
 - Delete expense `delete-expense e/INDEX`
@@ -260,5 +241,4 @@ If the feature is currently off, typing the command will turn it on, and vice ve
 - View expenses `view-expenses`
 - Set budget `set-budget c/CATEGORY l/LIMIT`
 - View budget `view-budget`
-- On/Off automatic budget reset `toggle-reset`
 - Exit `bye`
