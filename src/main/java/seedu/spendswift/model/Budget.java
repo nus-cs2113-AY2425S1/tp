@@ -1,13 +1,10 @@
 package seedu.spendswift.model;
 
 import seedu.spendswift.format.Format;
-import java.io.IOException;
-import seedu.spendswift.CurrencyConverter;
 
 //@@author MayFairMI6
 public class Budget {
     private String homeCurrency;
-    private CurrencyConverter currencyConverter;
     private Category category; // Private to prevent unauthorized access or changes
     private double limit; // Private to control modifications to the budget
     private TrackerData trackerData;
@@ -15,12 +12,6 @@ public class Budget {
         this.category = category;
         this.limit = limit;
         this.trackerData= trackerData;
-        this.homeCurrency= homeCurrency;
-        try {
-            this.currencyConverter = new CurrencyConverter(homeCurrency);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public Category getCategory() {
@@ -32,9 +23,6 @@ public class Budget {
     }
 
     public void setLimit(double limit) {
-        if (limit < 0) {
-            throw new IllegalArgumentException("Budget limit cannot be negative.");
-        }
         this.limit = limit;
     }
 
