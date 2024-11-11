@@ -65,7 +65,8 @@ In the above diagram, Command and FinancialEntry are representative of the subcl
 the `Command` and `FinancialEntry` classes, which are elaborated on in their respective sections.
 
 The `Commons` class contains various String constants and methods commonly used by the other classes,
-while the `Log` class contains a logger to facilitate logging in methods of other classes.
+while the `Log` class contains a logger to facilitate logging in methods of other classes. Their relationship
+with the other classes has been omitted from the diagram for better understandability.
 
 The high-level overview of the program is shown in the diagram below as well.
 
