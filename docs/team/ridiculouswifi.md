@@ -65,18 +65,18 @@ Given below are my contributions to the project.
 - **Enhancement to Existing Features:**
   - Updated `update` and `remove` function ([#74](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/74) for skills, [#86](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/86) for deadlines).
   - Added logging to code [#132](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/132).
-  - Improved output of `calendar` function [#223](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/223)
+  - Improved output of `calendar` function [#223](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/223).
 <br><br>
 
 - **Documentation:**
   - Developer Guide:
-    - Added implementation details for `update`, `remove` and `calendar` feature
+    - Added implementation details for `update`, `remove` and `calendar` feature.
     - Added Ui Component section and Ui class diagram.
   - User Guide:
     - Reformatted document to reduce excess information.
-    - Added usage instructions for `update`, `remove` and `calendar` functions
-    - Added command summary table
+    - Added usage instructions for `update`, `remove` and `calendar` functions.
+    - Added command summary table.
 <br><br>
 
 - **Community:**
-  - PRs reviewed (with non-trivial review comments): [#28](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/28), [#33](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/33), [#49](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/49), [#69](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/69), [#125](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/125), [#127](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/127)
+  - PRs reviewed (with non-trivial review comments): [#28](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/28), [#33](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/33), [#49](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/49), [#69](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/69), [#125](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/125), [#127](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/127).
