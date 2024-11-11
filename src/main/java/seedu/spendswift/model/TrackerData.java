@@ -10,7 +10,6 @@ public class TrackerData {
     private List<Category> categories;
     private List<Expense> expenses;
     private Map<Category, Budget> budgets;
-    private boolean resetStatus;
 
     public TrackerData() {
         this.categories = new ArrayList<>();
@@ -31,10 +30,6 @@ public class TrackerData {
         return budgets;
     }
 
-    public boolean getResetStatus() {
-        return resetStatus;
-    }
-
     // Setters
     public void setCategories(List<Category> categories) {
         this.categories = categories;
@@ -46,9 +41,5 @@ public class TrackerData {
 
     public void setBudgets(Map<Category, Budget> budgets) {
         this.budgets = budgets;
-    }
-
-    public void setResetStatus(boolean resetStatus) {
-        this.resetStatus = resetStatus;
     }
 }
