@@ -1,6 +1,7 @@
 //@@author glenda-1506
 package seedu.spendswift;
 //import java.util.Calendar;
+
 import org.junit.jupiter.api.Test;
 import seedu.spendswift.command.CategoryManager;
 import seedu.spendswift.command.ExpenseManager;
@@ -9,6 +10,7 @@ import seedu.spendswift.command.Budget;
 import seedu.spendswift.command.Category;
 import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.BudgetManager;
+
 import java.math.BigDecimal;
 //import java.util.Random;
 
@@ -325,10 +327,10 @@ class ExpenseManagerTest {
 
 class BudgetManagerTest {
 
-    
+
     BudgetManager budgetManager = new BudgetManager();
     TrackerData trackerData = new TrackerData();
-  
+
 
     private Category findCategory(TrackerData trackerData, String categoryName) {
         for (Category category : trackerData.getCategories()) {
@@ -525,45 +527,50 @@ private String generateRandomWord(Random random, int wordLength) {
     Category category = findCategory(trackerData, "Education");
     BigDecimal setLimit = trackerData.getBudgets().containskey(category).getLimit();
     assertEquals(0, BigDe */
-@Test
-void testSetBudgetLimitAtMaximum() {
-    BudgetManager budgetManager = new BudgetManager();
-    TrackerData trackerData = new TrackerData();
-    double maxLimit = 1000000000000000.00; // The maximum budget limit as per requirements
-    
-    // Invoke setBudgetLimit, which should create the Budget entry if it doesn't exist
-    budgetManager.setBudgetLimit(trackerData, "Education", maxLimit);
+    @Test
+    void testSetBudgetLimitAtMaximum() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
+        double maxLimit = 1000000000000000.00; // The maximum budget limit as per requirements
 
-    Category category = findCategory(trackerData, "Education");
+        // Invoke setBudgetLimit, which should create the Budget entry if it doesn't exist
+        budgetManager.setBudgetLimit(trackerData, "Education", maxLimit);
 
-    // Check that the budget was created as expected
-    assertNotNull(trackerData.getBudgets().get(category), "Budget for category 'Education' should not be null");
-    
-    BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
-    assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit), 
-        "The budget limit should be exactly set to the maximum allowed");
+        Category category = findCategory(trackerData, "Education");
+
+        // Check that the budget was created as expected
+        assertNotNull(trackerData.getBudgets().get(category), "Budget for category 'Education' should not be null");
+
+        BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
+        assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit),
+                "The budget limit should be exactly set to the maximum allowed");
+    }
+
+    @Test
+    void testSetValidBudgetLimit() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
+        double validLimit = 9999999999999999.99; // within typical range
+
+        // Invoke setBudgetLimit, which should create the Budget entry if it doesn't exist
+        budgetManager.setBudgetLimit(trackerData, "Education", validLimit);
+
+        Category category = findCategory(trackerData, "Education");
+
+        // Check that the budget was created as expected
+        assertNotNull(trackerData.getBudgets().get(category), "Budget for category 'Education' should not be null");
+
+        BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
+        assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit),
+                "The set limit should match the input limit");
+    }
+
 }
 
-@Test
-void testSetValidBudgetLimit() {
-    BudgetManager budgetManager = new BudgetManager();
-    TrackerData trackerData = new TrackerData();
-    double validLimit = 9999999999999999.99; // within typical range
-    
-    // Invoke setBudgetLimit, which should create the Budget entry if it doesn't exist
-    budgetManager.setBudgetLimit(trackerData, "Education", validLimit);
 
-    Category category = findCategory(trackerData, "Education");
 
-    // Check that the budget was created as expected
-    assertNotNull(trackerData.getBudgets().get(category), "Budget for category 'Education' should not be null");
-    
-    BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
-    assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), 
-         "The set limit should match the input limit");
-}
 
-}
+
 
 
 
