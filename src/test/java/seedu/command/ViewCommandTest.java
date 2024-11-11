@@ -65,14 +65,14 @@ public class ViewCommandTest {
     }
 
     @Test
-    public void execute_FloatNumber_throwsException() {
+    public void execute_floatNumber_throwsException() {
         String[] args = {"view", "1.5"};
         assertThrows(InventraInvalidNumberException.class,
                 () -> new ViewCommand(inventory, ui).execute(args));
     }
 
     @Test
-    public void execute_NegativeNumber_throwsException() {
+    public void execute_negativeNumber_throwsException() {
         String[] args = {"view", "-1"};
         assertThrows(InventraOutOfBoundsException.class,
                 () -> new ViewCommand(inventory, ui).execute(args));
@@ -119,7 +119,8 @@ public class ViewCommandTest {
 
     @Test
     public void execute_viewByNumericID_success() {
-        // Assuming the valid numeric ID is "123" and the expected behavior is that the command executes without throwing any exceptions.
+        // Assuming the valid numeric ID is "123" and
+        // the expected behavior is that the command executes without throwing any exceptions.
         String[] args = {"view", "2"};
 
         // You can mock or setup any necessary dependencies, e.g., 'inventory' and 'ui', if needed.

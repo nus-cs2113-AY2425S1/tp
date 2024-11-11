@@ -46,7 +46,7 @@ precise inventory management, real-time tracking and automation of tasks.
 *  Copy [.jar] file to the folder you would like to store your program to. 
 *  Open command terminal, [cd] into directory [.jar] is stored
 4. Run the application:
-   ``` java -jar inventra.jar ```
+   ``` java -jar Inventra.jar ```
 5. Getting Started:
 *  Once launched the program, type `help` for user manual will be displayed. 
 Refer to the Features below for details of each command.
@@ -65,6 +65,8 @@ Notes about commands' convention:
 5. Any extra parameters defined after the following commands: view -a, delete -a, delete -e, exit will be
    ignored.
 6. All inputs to inventory is limited to 20 characters, this is to save space and preserve table Ui
+7. Please note that you do not need to consider index(ID) number when adding fields/records. 
+It is assigned and maintained automatically by the system.
 
 ### Getting Help `help`
 Get help from manual page for inventra
