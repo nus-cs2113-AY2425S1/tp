@@ -148,8 +148,8 @@ class AddExpenseCommandTest {
 
         // Assert
         assertEquals(0, transactionList.getTransactions().size());
-        assertEquals(CommandResultMessages.ADD_TRANSACTION_FAIL + "Invalid amount format: -1000"
-                        + ErrorMessages.INVALID_AMOUNT_GUIDE, result.get(0));
+        assertEquals(CommandResultMessages.ADD_TRANSACTION_FAIL
+                        + ErrorMessages.NEGATIVE_AMOUNT + ": " + "-1000", result.get(0));
     }
 
     @Test

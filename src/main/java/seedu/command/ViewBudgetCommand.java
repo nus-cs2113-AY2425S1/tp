@@ -10,8 +10,8 @@ import static seedu.utils.DateTimeUtils.parseYearMonth;
 
 public class ViewBudgetCommand extends Command {
     public static final String COMMAND_WORD = "view-budget";
-    public static final String COMMAND_GUIDE = "view-budget [m/ MONTH]: view all budgets, or view budget for a specific month " +
-            "Track your progress towards your budget for a certain month";
+    public static final String COMMAND_GUIDE = "view-budget [m/ MONTH]: " +
+            "view all budgets, or view your progress on your budget for a specific month";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"m/"};
 
@@ -34,7 +34,8 @@ public class ViewBudgetCommand extends Command {
             try {
                 month = parseYearMonth(monthStr);
             } catch (InvalidDateFormatException e) {
-                return List.of(CommandResultMessages.TRACK_PROGRESS_FAIL + ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT);
+                return List.of(CommandResultMessages.TRACK_PROGRESS_FAIL
+                        + ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT);
             } catch (Exception e) {
                 return List.of(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
             }

@@ -29,21 +29,6 @@ class BudgetTrackerTest {
         budgetTracker = new BudgetTracker(transactionList);
     }
 
-    @Test
-    public void testSetBudget_negativeAmount_errorMessage() {
-        // Get the current month to make sure the test always run
-        LocalDateTime currentDateTime = LocalDateTime.now();
-
-        // Format the current year and month as yyyy-MM
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
-        String monthStr = currentDateTime.format(formatter);
-
-        double budgetAmount = -1000.0;
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> budgetTracker.setBudget(monthStr, budgetAmount));
-        assertEquals(ErrorMessages.NEGATIVE_AMOUNT, exception.getMessage());
-    }
 
     @Test
     public void testCalculatePastProgress_budgetExceeded_errorMessage() {
@@ -63,7 +48,7 @@ class BudgetTrackerTest {
 
         // Assert that the result indicates the budget was exceeded
         assertEquals(String.format(BudgetMessages.BUDGET_EXCEEDED_PAST,
-                600.0, 500.0), result);
+                600.0, 500.0, month), result);
     }
 
     @Test

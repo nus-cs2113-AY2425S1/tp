@@ -22,8 +22,8 @@ public class AmountUtils {
         try {
             amount = Double.parseDouble(amountString);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_AMOUNT_FORMAT + ": " + amountString
-                    + ". " + ErrorMessages.INVALID_AMOUNT_GUIDE);
+            throw new IllegalArgumentException(ErrorMessages.INVALID_AMOUNT_FORMAT + amountString
+                    + ErrorMessages.INVALID_AMOUNT_GUIDE);
         }
 
         if (amount < 0) {
@@ -35,7 +35,7 @@ public class AmountUtils {
         }
 
         if (amount > MAX_AMOUNT) {
-            throw new IllegalArgumentException("Amount exceeds maximum limit of " + MAX_AMOUNT + ".");
+            throw new IllegalArgumentException("Amount exceeds maximum limit of " + MAX_AMOUNT);
         }
 
         return amount;

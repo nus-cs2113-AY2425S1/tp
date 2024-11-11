@@ -35,7 +35,8 @@ class DeleteBudgetCommandTest {
 
         List<String> result = command.execute();
 
-        assertEquals(CommandResultMessages.DELETE_BUDGET_SUCCESS + "Budget for " + currentMonth + " has been deleted.", result.get(0));
+        assertEquals(CommandResultMessages.DELETE_BUDGET_SUCCESS
+                + "Budget for " + currentMonth + " has been deleted.", result.get(0));
     }
 
     @Test
@@ -61,6 +62,7 @@ class DeleteBudgetCommandTest {
 
         List<String> result = command.execute();
 
-        assertEquals(CommandResultMessages.DELETE_BUDGET_FAIL + ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT, result.get(0));
+        assertEquals(CommandResultMessages.DELETE_BUDGET_FAIL
+                + ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT, result.get(0));
     }
 }
