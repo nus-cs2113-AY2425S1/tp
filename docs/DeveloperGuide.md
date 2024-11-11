@@ -55,7 +55,7 @@ The `Category` class encapsulates the name of a category and provides functional
    - **Returns**: The hash code based on the name.
    - **Process**: Calculates the hash code for storing `Category` objects in hash-based collections.
 
-5. **public int toString()**
+5. **public String toString()**
    - **Returns**: The formatted description of the category
    - **Process**: Generates a string representation of the `Category` object, useful for logging and debugging.
 
