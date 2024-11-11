@@ -300,6 +300,9 @@ The `UpdateCommand` class is responsible for updating the fields of an internshi
 
 #### Sequence Diagram
 The following sequence diagram shows how the `UpdateCommand` is executed:
+
+>Some functions that have a `void` return value have their return lines omitted.
+
 ![](UML/UpdateCommand_Sequence_Diagram.png)
 
 
