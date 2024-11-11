@@ -10,6 +10,7 @@ public class Commons {
     public static final String ERROR_MESSAGE_ARGUMENT_NULL = "Argument cannot be empty or blank.";
     public static final String ERROR_MESSAGE_AMOUNT_TOO_SMALL = "Invalid amount. Amount must be $0.01 or greater.";
     public static final String ERROR_MESSAGE_AMOUNT_TOO_LARGE = "Invalid amount. Amount must be $9999999.00 or less.";
+    public static final String ERROR_MESSAGE_AMOUNT_RANGE = "Budget amount must be >= $0.01 and <= $9999999.00. Please enter a valid amount.";
     public static final String ERROR_MESSAGE_DATE_TOO_LATE = "Entered date cannot be after current date.";
     public static final String ERROR_MESSAGE_BLANK_DESCRIPTION = "Description cannot be blank.";
     public static final String ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX = "There is no entry at that index :(";

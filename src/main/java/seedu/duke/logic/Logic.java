@@ -339,7 +339,7 @@ public class Logic {
             budgetLogic.resetBudget();
             storage.deleteBudgetFromFile();
         } else if (!budgetLogic.isValidBudgetAmount(amount)) {
-            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_AMOUNT_RANGE);
         } else {
             budgetLogic.handleSetBudget(financialList, amount);
             storage.update(financialList, budgetLogic);
