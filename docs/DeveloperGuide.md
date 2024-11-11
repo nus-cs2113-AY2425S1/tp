@@ -176,10 +176,10 @@ The `AddIncomeCommand` class inherits Command class, handles the logic for addin
     - **Returns**: A new `Income` instance.
 
 ### Command Parser
-The `Parser` class is responsible for interpreting user commands and extracting the associated arguments. It facilitates interaction between the user and the underlying command execution logic.
+The `Parser` class is responsible for interpreting user commands and extracting the associated arguments. It facilitates interaction between the user and the underlying command execution logic. There is only one Command Parser living through a session.
 
 #### Class responsibilities
-1. **Command registration**: Maintain a mapping of command words to their corresponding `Command` objects.
+1. **Command registration**: Maintain a mapping of command words to their corresponding `Command` objects. This command object will maintain throughout the session and every execution will be called through it.
 2. **Command parsing**: Convert a command string entered by the user into a `Command` object.
 3. **Argument extraction**: Extract and organize the arguments associated with a given command.
    
@@ -194,6 +194,7 @@ The `Parser` class is responsible for interpreting user commands and extracting 
    - **Process**:
      - Retrieves the `COMMAND_WORD` field from the `Command` object
      - Adds the word and the command to the `commands` map.
+   - **Diagram note**: In the following registration diagram, `helpCommand` stays alive and referenced throughout the session.
     
     ![register_command](./diagrams/parser/register-command-sequence.png)
     
