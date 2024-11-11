@@ -53,7 +53,7 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 >You may try one of the following:
 >- Remove the corrupted line (delete one course mapping).
 >- Remove any empty lines in the file.
->- Ensure the file has an empty line at the end of the list of courses for a new course to be added.
+>- Ensure the file has one empty line at the end of the list of courses for a new course to be added.
 >
 > **This list is non-exhaustive.**
 > 
