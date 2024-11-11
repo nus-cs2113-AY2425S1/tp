@@ -96,7 +96,7 @@ deactivate CategoryManager
 CategoryManager --> Parser : return
 deactivate CategoryManager
 
-Parser --> SpendSwift : return
+Parser --> SpendSwift : return false
 deactivate Parser
 
 SpendSwift --> User : return
