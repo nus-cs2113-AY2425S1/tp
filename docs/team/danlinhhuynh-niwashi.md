@@ -12,8 +12,6 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
 #### MILESTONE 1.0
 * **New component**: Added an abstract Command class to provide a template for commands and test [PR#26](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/26).
 * **New component**: Added the command parser and test to parse the input command [PR#28](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/28).
-  * Highlights: This feature improves the code quality and scalability so that the developer can easily add a new command without the need to add a new argument extraction method.
-
 * **New component**: Added the main class [PR#29](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/29).
 * **New feature**: Added `help` command and test [PR#30](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/30).
 * **New feature**: Added `view-category` command and test [PR#36](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/36).
@@ -25,26 +23,31 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
 * **Testing**:  Added system test [PR#53](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/53).
 
 #### MILESTONE 2.0  
-* **Code quality**: Refactoring code (split nested commands into different functions) as per the SRP [PR#81](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/81).
-* **Code quality**: Split UI from Main to another class to enhance abstraction [PR#82](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/82).
+* **Code quality**: Refactoring code (split nested commands into different functions and classes [PR#81](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/81), [PR#82](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/82).
 * **New component**: Added messages utilities to provide standard, static messages to respond to different events [PR#113](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/113).
-* **Enhancement for existing features**: Added follow-up question for delete category [PR#126](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/126).
 * **Code quality**: Added custom exception classes for better debugging and exception handling [PR#130](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/130).
+* **Enhancement for existing features**: Added follow-up question for delete category [PR#126](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/126).
 * **Enhancement for existing features**: Update search command for partial match [PR#154](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/154).
 * **Testing**:  Updated system test [PR#139](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/139).
 
 #### MILESTONE 2.1
 * **Debug**: Fixed indexing bugs of TransactionList to reduce confusion [PR#203](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/203).
-* **Debug**: Added ignore case comparing between categories [PR#203](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/203).
 * **Enhancement for existing features**: Handle invalid start date - end date period of viewing history [PR#203](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/203).  
   
 #### Documentation
 * **User Guide**:
-  * Added documentation for the features in v1.0
+  * Added brief documentation for all the features in v1.0 [PR#71](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/71).
+  * Added menu for User Guide and formatting [PR#95](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/95), [PR#151](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/151).
+ 
 * **Developer Guide**:
-  * Added implementation details of the `Parser` and `Command` class.
+  * Added implementation details of the `Parser` and `Command` class [PR#82](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/82), [PR#135](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/135).
+  * Updated formatting for PDF Print [PR]
 
 #### Contributions to Team-based Tasks
+* Set up GitHub team organization and repository.
+* Maintained the issue tracker.
+* Managed releases [v1.0](https://github.com/AY2425S1-CS2113-W10-4/tp/releases/tag/v1.0), [v2.0](https://github.com/AY2425S1-CS2113-W10-4/tp/releases/tag/v2.0).
+* Documented Target user, Glossary, NFR and Manual test guide for DG [PR#114](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/114), [PR#137](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/137).
 
 #### Community
 * **Review/Mentoring Contributions**:
