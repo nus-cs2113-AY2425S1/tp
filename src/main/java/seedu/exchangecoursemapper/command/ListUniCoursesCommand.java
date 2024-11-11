@@ -186,6 +186,7 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
             assert courseObject != null : Assertions.NO_COURSE_OBJECT;
             ui.printListUniCoursesCommand(courseObject);
         }
+        ui.printTheEnd();
     }
 
 }

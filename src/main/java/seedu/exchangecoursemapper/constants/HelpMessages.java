@@ -6,15 +6,17 @@ public class HelpMessages {
             "The format to use this function is shown below:\n" +
             "set [PU_NAME]\n" +
             "For example, set the university of western australia";
-    public static final String COMMAND_FILTER = "The filter function allows users to input a NUS course that they\n" +
-            "want to map and get a list of the mappable courses from PUs.\n" +
+    public static final String COMMAND_FILTER = "The filter function allows users to input a NUS course that they " +
+            "want to map\nand get a list of the mappable courses that includes NUS courses in the format of:\n" +
+            "Partner University: [PU_NAME]\n" +
+            "Partner University Course Code: [PU_COURSE_CODE]\n" +
             "The format to use this feature is shown below:\n" +
             "filter [NUS_COURSE_CODE]\n" +
             "For example, filter cs2040";
     public static final String COMMAND_LIST_SCHOOLS = "The list school function allows users to get a list of the\n" +
             "possible partner universities that they can go.\n" +
             "To use this feature, please key in: list schools";
-    public static final String COMMAND_COMMANDS = "The commands function shows a list of commands that could be" +
+    public static final String COMMAND_COMMANDS = "The commands function shows a list of commands that could be " +
             "used throughout the application.\n" +
             "To use this feature, please key in: commands";
     public static final String COMMAND_ADD = "The add function allows users to add a course mapping plan into\n" +

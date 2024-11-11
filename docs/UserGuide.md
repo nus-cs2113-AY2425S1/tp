@@ -86,13 +86,17 @@ Format:
 
 Example of usage:
 * help filter
-* help set
 
 Expected outcome:
 ```
-Detail explanation
-Format to use the feature
-Example
+The filter function allows users to input a NUS course that they want to map
+and get a list of the mappable courses that includes NUS courses in the format of:
+Partner University: [PU_NAME]
+Partner University Course Code: [PU_COURSE_CODE]
+The format to use this feature is shown below:
+filter [NUS_COURSE_CODE]
+For example, filter cs2040
+-----------------------------------------------------
 ```
 
 ### List out all the possible schools from the options: `list schools`
@@ -136,7 +140,7 @@ Expected output:
 PU_COURSE_CODE: PU_COURSE_NAME
 NUS_COURSE_CODE: NUS_COURSE_NAME
 ```
-* Note that the output would be a list of mappable course of the format above
+* Note that the output would be a list of mappable courses of the format above.
 
 
 ### Obtain contacts from the list of universities `obtain`

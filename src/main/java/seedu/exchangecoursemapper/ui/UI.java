@@ -289,4 +289,8 @@ public class UI {
     public void printEmptyList() {
         System.out.println("The list is empty.\nPlease make sure there is mapped courses in your tracker.");
     }
+
+    public void printTheEnd() {
+        System.out.println("This is the end of the list.");
+    }
 }
