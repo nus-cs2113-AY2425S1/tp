@@ -1,8 +1,8 @@
 package seedu.ui;
 
 import seedu.commands.Command;
-import seedu.duke.Deadline;
-import seedu.duke.Internship;
+import seedu.easinternship.Deadline;
+import seedu.easinternship.Internship;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public class UiCommand extends Ui {
     private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private static final String POINTER_TO_NOW = "--> Today";
 
     private String invalidFlags;
     private String updatedFields;
@@ -75,6 +76,13 @@ public class UiCommand extends Ui {
         setInvalidFields("");
     }
 
+    /**
+     * Adds appropriate message to <code>updatedFields</code> for a specified field.
+     *
+     * @param updatedField  Field to update.
+     * @param updatedValue  Value to update the field with.
+     * @param type          Whether the value was updated or removed.
+     */
     public void addUpdatedField(String updatedField, String updatedValue, String type) {
         String newUpdatedFields = getUpdatedFields();
         newUpdatedFields += updatedField;
@@ -91,12 +99,6 @@ public class UiCommand extends Ui {
         }
         newUpdatedFields += updatedValue + "\n";
         setUpdatedFields(newUpdatedFields);
-    }
-
-    public void addCreatedField(String createdField, String createdValue) {
-        String newCreatedFields = getUpdatedFields();
-        newCreatedFields += createdField + " created: " + createdValue + "\n";
-        setUpdatedFields(newCreatedFields);
     }
 
     /**
@@ -173,11 +175,11 @@ public class UiCommand extends Ui {
     /**
      * Prints out the deadlines in order of date.
      * @param deadlines     Sorted list of deadlines.
+     * @param companies     List of companies that correspond to the deadlines
      */
-    public void showCalendar(ArrayList<Deadline> deadlines) {
+    public void showCalendar(ArrayList<Deadline> deadlines, ArrayList<String> companies) {
         printHeadDivider();
         LocalDate present = LocalDate.now();
-        String pointerToNow = "--> Today";
         boolean isPresentPrinted = false;
 
         LocalDate currentDate = LocalDate.parse("01/01/00", FORMATTER_DATE);
@@ -189,26 +191,35 @@ public class UiCommand extends Ui {
 
         System.out.println("Deadlines:");
 
-        for (Deadline deadline : deadlines) {
-            LocalDate date = deadline.getUnformattedDate();
+        for (int i = 0; i < deadlines.size(); i++) {
+            LocalDate date = deadlines.get(i).getUnformattedDate();
             if (!isPresentPrinted && date.isAfter(present)) {
                 isPresentPrinted = true;
-                System.out.println();
-                System.out.println(present.format(FORMATTER_DATE) + " " + pointerToNow);
+                printDate(present, POINTER_TO_NOW);
             }
             String pointer = "";
             if (!isPresentPrinted && date.isEqual(present)) {
                 isPresentPrinted = true;
-                pointer = pointerToNow;
+                pointer = POINTER_TO_NOW;
             }
             if (!date.isEqual(currentDate)) {
                 currentDate = date;
-                System.out.println();
-                System.out.println(date.format(FORMATTER_DATE) + " " + pointer);
+                printDate(date, pointer);
             }
-            System.out.println("\t" + deadline.getInternshipId() + ": " + deadline.getDescription());
+            System.out.println("\t" + deadlines.get(i).getInternshipId()
+                    + " (" + companies.get(i) + "): " + deadlines.get(i).getDescription());
         }
+
+        if (!isPresentPrinted) {
+            printDate(present, POINTER_TO_NOW);
+        }
+
         printTailDivider();
+    }
+
+    private void printDate(LocalDate date, String pointer) {
+        System.out.println();
+        System.out.println(date.format(FORMATTER_DATE) + " " + pointer);
     }
 
     public String getInvalidFlags() {
