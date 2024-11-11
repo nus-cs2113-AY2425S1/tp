@@ -8,7 +8,6 @@ import parser.Parser;
 import ui.Ui;
 import programme.ProgrammeList;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,14 +24,9 @@ public class BuffBuddy {
         ui = new Ui();
         parser = new Parser();
         storage = new Storage(filePath);
-        try {
-            programmes = storage.loadProgrammeList();
-            history = storage.loadHistory();
-        } catch (IOException e) {
-            ui.showMessage("unable to load, initialising empty data");
-            programmes = new ProgrammeList();
-            history = new History();
-        }
+        programmes = storage.loadProgrammeList();
+        history = storage.loadHistory();
+        ui.showMessage(storage.getMessage());
     }
 
     public static void main(String[] args) {

@@ -91,12 +91,9 @@ public class ParserUtils {
             throw ParserException.invalidInt(result);
         }
 
-        if (validate(result))
-        {
-            return result;
-        }
+        validate(result);
 
-        throw ParserException.invalidInt(result);
+        return result;
     }
 
     /**
@@ -123,11 +120,9 @@ public class ParserUtils {
             throw ParserException.invalidFloat(result);
         }
 
-        if (validate(result)) {
-            return result;
-        }
+        validate(result);
 
-        throw ParserException.invalidFloat(result);
+        return result;
     }
 
     /**
@@ -144,12 +139,11 @@ public class ParserUtils {
         }
 
         int index = parseInteger(indexString) - 1;
-        if(validate(index)) {
-            logger.log(Level.INFO, "Successfully parsed index: {0}", index);
-            return index;
-        }
+        validate(index);
 
-        throw ParserException.invalidInt(index);
+        logger.log(Level.INFO, "Successfully parsed index: {0}", index);
+        return index;
+
     }
 
     /**

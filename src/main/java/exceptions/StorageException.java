@@ -47,4 +47,8 @@ public class StorageException extends IOException {
     public static StorageException unableToCreateFile() {
         return new StorageException("Could not create file");
     }
+
+    public static StorageException corruptedFile(String type) {
+        return new StorageException("Corrupted file, initialising new " + type);
+    }
 }

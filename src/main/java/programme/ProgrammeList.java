@@ -41,6 +41,15 @@ public class ProgrammeList {
     }
 
     /**
+     * Checks if the ProgrammeList is empty.
+     *
+     * @return true if it is empty
+     */
+    public boolean isEmpty() {
+        return programmeList.isEmpty();
+    }
+
+    /**
      * Deactivates the current active programme by setting the active programme index to NULL_INTEGER.
      * If there are no programmes in the list, it logs a warning and ensures the index remains as NULL_INTEGER.
      */

@@ -47,6 +47,15 @@ public class ParserException extends BuffBuddyException {
     }
 
     /**
+     * Returns a ParserExceptions indicating that an invalid date was previously recorded.
+     *
+     * @return A {@code ParserExceptions} with a message indicating that the provided date is invalid.
+     */
+    public static ParserException invalidDate() {
+        return new ParserException("Invalid Date recorded");
+    }
+
+    /**
      * Returns a ParserExceptions indicating that a command is missing.
      *
      * @return A {@code ParserExceptions} with a message indicating that a command is missing.
@@ -70,5 +79,9 @@ public class ParserException extends BuffBuddyException {
 
     public static ParserException infinityInt(String trimmedIntString) {
         return new ParserException("Integer is too large, please key in a smaller number.");
+    }
+
+    public static ParserException invalidString(String string) {
+        return new ParserException("String: " + string + " is invalid");
     }
 }

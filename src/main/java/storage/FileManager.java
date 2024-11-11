@@ -47,7 +47,6 @@ public class FileManager {
             JsonObject jsonObject = load();
             if (jsonObject == null || !jsonObject.has("programmeList")) {
                 logger.log(Level.INFO, "No programme list found.");
-                System.out.println("First Time here, Welcome to BuffBuddy!");
                 return new JsonObject();
             }
             logger.log(Level.INFO, "Programme list Loaded");

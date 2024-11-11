@@ -49,6 +49,15 @@ public class History {
         }
         return record;
     }
+
+    /**
+     * checks if history is empty.
+     *
+     * @return true if it is empty
+     */
+    public boolean isEmpty() {
+        return history.isEmpty();
+    }
     // @@author
 
     /**
