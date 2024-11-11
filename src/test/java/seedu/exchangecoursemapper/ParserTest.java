@@ -132,7 +132,7 @@ class ParserTest {
 
 
     @Test
-    void testParsePu_Abbreviation_UWA() {
+    void testParseUwaAbbreviations_validAbbreviation() {
         String abbreviation = "uwa";
         String expected = "the university of western australia";
         String result = parser.parsePUAbbreviations(abbreviation);
@@ -140,7 +140,7 @@ class ParserTest {
     }
 
     @Test
-    void testParse_PuAbbreviation_Unimelb() {
+    void testParseUinimelbAbbreviations_validAbbreviation() {
         String abbreviation = "unimelb";
         String expected = "the university of melbourne";
         String result = parser.parsePUAbbreviations(abbreviation);
@@ -148,7 +148,7 @@ class ParserTest {
     }
 
     @Test
-    void testParse_PuAbbreviation_ANU() {
+    void testParseAnuAbbreviations_validAbbreviation() {
         String abbreviation = "anu";
         String expected = "the australian national university";
         String result = parser.parsePUAbbreviations(abbreviation);
@@ -156,7 +156,7 @@ class ParserTest {
     }
 
     @Test
-    void testParse_PuAbbreviation_WGTN() {
+    void testParseWgtnAbbreviations_validAbbreviation() {
         String abbreviation = "wgtn";
         String expected = "victoria university of wellington";
         String result = parser.parsePUAbbreviations(abbreviation);
@@ -173,7 +173,7 @@ class ParserTest {
     }
 
     @Test
-    void testParsePuAbbreviation_UWAcapitalised() {
+    void testParsePUAbbreviations_caseInsensitive() {
         String abbreviation = "UWA";
         String expected = "the university of western australia";
         String result = parser.parsePUAbbreviations(abbreviation);

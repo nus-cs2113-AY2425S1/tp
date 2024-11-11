@@ -29,11 +29,12 @@ import static seedu.exchangecoursemapper.constants.Regex.CLOSE_BRACKET;
 
 public class ListSchoolCommand extends CheckInformationCommand {
     private static final String[] SHORT_HAND_SCHOOL_NAME = new String[] {
-            THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION,
-            THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION,
-            VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION,
-            THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION
+        THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION,
+        THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION,
+        VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION,
+        THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION
     };
+
 
     private static final Logger logger = Logger.getLogger(ListSchoolCommand.class.getName());
     private static UI ui;
