@@ -100,7 +100,9 @@ For example, filter cs2040
 ```
 
 ### List out all the possible schools from the options: `list schools`
-List out the name of each school users could possibly go for their SEP.
+List out the name of each school CEG students could possibly go for their SEP in Oceania.
+
+Their abbreviated names will also be displayed. 
 
 Format: `list schools`
 
@@ -183,8 +185,8 @@ This is the end of the list.
 * Note that the output would be a list of mappable courses of the format above.
 
 
-### Obtain contacts from the list of universities `obtain`
-Obtain the contact details of the university of interest from the list of schools available.
+### Obtain contacts from the list of universities: `obtain`
+Obtain the contact details (email or number) of the university of interest from the list of schools available.
 
 Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
 
@@ -197,7 +199,7 @@ The available partner universities are:
 * The Australian National University (anu)
 * Victoria University of Wellington (wgtn)
 
-Abbreviation of the universities name can be used.
+Abbreviation of the universities name may be used.
 
 Example: `obtain victoria university of wellington /number`
 
